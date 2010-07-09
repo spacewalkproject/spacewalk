@@ -21,9 +21,9 @@ import org.apache.commons.lang.BooleanUtils;
  * @version $Rev$
  */
 public class BooleanWrapper {
-   
+
     private Boolean bool;
-    
+
     /**
      * Sets the boolean value to the given value.
      * @param aBool the value to be used
@@ -31,7 +31,7 @@ public class BooleanWrapper {
     public void setBool(Boolean aBool) {
         bool = aBool;
     }
-    
+
     /**
      * Sets the boolean value to true if the aBool is 1, false if aBool is 0.
      * @param aBool the value to be used
@@ -39,7 +39,7 @@ public class BooleanWrapper {
     public void setBool(Integer aBool) {
         bool = BooleanUtils.toBooleanObject(aBool);
     }
-    
+
     /**
      * Returns the Boolean value.
      * @return the Boolean value.
@@ -56,7 +56,7 @@ public class BooleanWrapper {
         if (bool != null) {
             return bool.booleanValue();
         }
-        
+
         return false;
     }
 }

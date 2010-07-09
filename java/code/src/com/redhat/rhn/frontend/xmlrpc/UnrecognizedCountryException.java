@@ -35,7 +35,7 @@ public class UnrecognizedCountryException extends FaultException  {
      * @param message the message
      */
     public UnrecognizedCountryException(String message) {
-        super(2280 , "unrecognizedCountryException" ,  "The specified country code '" + 
+        super(2280 , "unrecognizedCountryException" ,  "The specified country code '" +
                 message + "' is not recognized.  Countries are specified using their " +
                    "two letter abbreviations.");
 
@@ -45,8 +45,8 @@ public class UnrecognizedCountryException extends FaultException  {
      * Constructor
      * @param message the message
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public UnrecognizedCountryException(String message ,   Throwable cause) {

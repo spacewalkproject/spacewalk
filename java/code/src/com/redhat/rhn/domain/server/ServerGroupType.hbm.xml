@@ -3,32 +3,32 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.server.ServerGroupType" 
+    <class name="com.redhat.rhn.domain.server.ServerGroupType"
         table="rhnServerGroupType" mutable="false">
         <cache usage="read-only"/>
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="native" />
         </id>
-  
+
         <property name="label" type="string" column="label"/>
         <property name="name" type="string" column="name"/>
-        
+
         <property name="permanent" type="character" column="permanent"
                   insert="false"   update="false"/>
         <property name="isBaseChar" type="character" column="is_base"
                   insert="false" update="false"/>
-        
-        <property name="created" column="created" type="timestamp" 
+
+        <property name="created" column="created" type="timestamp"
                   insert="false" update="false"/>
-        <property name="modified" column="modified" type="timestamp" 
+        <property name="modified" column="modified" type="timestamp"
                   insert="false" update="false"/>
 		
 		<set name="features" inverse="true" table="rhnServerGroupTypeFeature">
             <key column="server_group_type_id"/>
             <many-to-many column="feature_id" class="com.redhat.rhn.domain.server.Feature"/>
         </set>
-		        
+
     </class>
 
     <query name="ServerGroupType.findByLabel">

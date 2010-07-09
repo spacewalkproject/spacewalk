@@ -30,35 +30,35 @@ import redstone.xmlrpc.XmlRpcSerializer;
 
 public class PackageMetadataSerializerTest extends TestCase {
     private XmlRpcSerializer builtin;
-    
+
     public void setUp() {
         builtin = new XmlRpcSerializer();
         builtin.addCustomSerializer(new BigDecimalSerializer());
     }
     public void testSerialize() throws XmlRpcException, IOException {
-        
+
         PackageMetadataSerializer os = new PackageMetadataSerializer();
-        
+
         // Configure the list item for this system:
         PackageListItem systemListItem = new PackageListItem();
         systemListItem.setEvr("2.2.23-5.3.el4");
         systemListItem.setName("fakepkg");
         systemListItem.setNameId(new Long(10));
-        
+
         // Configure the list item for the other system:
         PackageListItem otherListItem = new PackageListItem();
         otherListItem.setEvr("2.2.25-5");
-        
+
         // Configure package metadata:
         PackageMetadata pkgData = new PackageMetadata(systemListItem, otherListItem);
         pkgData.setComparison(4);
-        
+
         Writer output = new StringWriter();
         os.serialize(pkgData, output, builtin);
         String result = output.toString();
 
         assertEquals(os.getSupportedClass(), PackageMetadata.class);
-        
+
         assertTrue(result.contains("<name>package_name_id</name>"));
         assertTrue(result.contains("<name>package_name</name>"));
         assertTrue(result.contains("<name>this_system</name>"));

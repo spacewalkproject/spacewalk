@@ -64,13 +64,13 @@
       </c:choose>
       <c:if test="${system.virtualGuest}">
         <c:if test="${not empty system.virtualInstance.hostSystem.id}">
-          <span class="asterisk">*&nbsp;</span><bean:message key="sdc.channels.edit.virtsubwarning" arg0="${system.virtualInstance.hostSystem.id}" 
+          <span class="asterisk">*&nbsp;</span><bean:message key="sdc.channels.edit.virtsubwarning" arg0="${system.virtualInstance.hostSystem.id}"
             arg1="${system.virtualInstance.hostSystem.name}"/>
         </c:if>
         <c:if test="${empty system.virtualInstance.hostSystem.id}">
           <span class="asterisk">*&nbsp;</span><bean:message key="sdc.channels.edit.virtsubwarning_nohost"/>
         </c:if>
-      </c:if>  
+      </c:if>
       <hr/>
       <div align="right">
         <html:submit property="dispatch">
@@ -144,7 +144,7 @@
           </span>
         </div>
       </rhn:require>
-    </table>  
+    </table>
   </html:form>
 </body>
 </html:html>

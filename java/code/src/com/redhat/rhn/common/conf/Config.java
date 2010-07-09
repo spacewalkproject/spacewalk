@@ -45,7 +45,7 @@ public class Config {
 
     private static Logger logger = Logger.getLogger(Config.class);
 
-    
+
 
     //
     // Location of config files
@@ -216,7 +216,7 @@ public class Config {
         if (logger.isDebugEnabled()) {
             logger.debug("getString() -     getString() -> returning: " + result);
         }
-        
+
         if (result == null || result.equals("")) {
             return null;
         }
@@ -231,12 +231,12 @@ public class Config {
         }
 
         int breakpos = string.indexOf('#');
-        
+
         // check for comment in value
         if (breakpos < 0) {
             return StringUtils.trim(string);
         }
-        
+
         while (breakpos > -1) {
             if (breakpos == 0) {
                 string = "";
@@ -254,7 +254,7 @@ public class Config {
         if (string.length() == 0) {
             return string;
         }
-        
+
         return StringUtils.trim(string.replaceAll("\\\\#", "#"));
     }
 
@@ -267,7 +267,7 @@ public class Config {
     public int getInt(String s) {
         return getInt(s, 0);
     }
-    
+
     /**
      * get the config entry for string s, if no value is found
      * return the defaultValue specified.
@@ -283,7 +283,7 @@ public class Config {
         }
         return val.intValue();
     }
-    
+
     /**
      * get the config entry for string s
      *
@@ -297,7 +297,7 @@ public class Config {
         }
         return new Integer(val);
     }
-    
+
     /**
      * Parses a comma-delimited list of values as a java.util.List
      * @param name config entry name
@@ -330,7 +330,7 @@ public class Config {
 
         return value.split(",");
     }
-    
+
     /**
      * get the config entry for string name
      *
@@ -356,12 +356,12 @@ public class Config {
         if (value == null) {
             return false;
         }
-        
+
         //need to check the possible true values
         // tried to use BooleanUtils, but that didn't
         // get the job done for an integer as a String.
 
-        
+
         for (int i = 0; i < TRUE_VALUES.length; i++) {
             if (TRUE_VALUES[i].equalsIgnoreCase(value)) {
                 if (logger.isDebugEnabled()) {
@@ -386,7 +386,7 @@ public class Config {
         for (int i = 0; i < TRUE_VALUES.length; i++) {
             if (TRUE_VALUES[i].equalsIgnoreCase(b)) {
                 configValues.setProperty(s, "1");
-                
+
                 // get out we're done here
                 return;
             }
@@ -459,7 +459,7 @@ public class Config {
                     newKey = ns + "." + key;
                 }
                 logger.debug("Adding: " + newKey + ": " + props.getProperty(key));
-                newProps.put(newKey, props.getProperty(key));    
+                newProps.put(newKey, props.getProperty(key));
             }
             configValues.putAll(newProps);
         }

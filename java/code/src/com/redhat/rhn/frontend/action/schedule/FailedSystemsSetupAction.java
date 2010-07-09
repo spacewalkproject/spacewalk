@@ -26,7 +26,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  * @version $Rev$
  */
 public class FailedSystemsSetupAction extends ActionSystemsSetupAction {
-    
+
     /**
      * {@inheritDoc}
      */

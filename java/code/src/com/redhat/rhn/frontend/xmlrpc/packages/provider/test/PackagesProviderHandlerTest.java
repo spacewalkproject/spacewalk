@@ -28,55 +28,55 @@ import java.util.List;
 public class PackagesProviderHandlerTest extends BaseHandlerTestCase {
 
     private PackagesProviderHandler handler = new PackagesProviderHandler();
-    
-    
+
+
     public void testListKeys() throws Exception {
         String name = RandomStringUtils.randomAlphabetic(5);
         admin.addRole(RoleFactory.SAT_ADMIN);
         PackageProvider prov = new PackageProvider();
         prov.setName(name);
-        
+
         PackageFactory.save(prov);
-        
+
         assertTrue(handler.listKeys(adminKey, name).isEmpty());
-        
-        
+
+
         String keyStr = RandomStringUtils.randomAlphabetic(5);
         PackageKey key = new PackageKey();
         key.setKey(keyStr);
         key.setType(PackageFactory.PACKAGE_KEY_TYPE_GPG);
         prov.addKey(key);
-        
+
         assertFalse(handler.listKeys(adminKey, name).isEmpty());
-        
+
     }
-    
+
     public void testList() throws Exception {
         admin.addRole(RoleFactory.SAT_ADMIN);
         String name = RandomStringUtils.randomAlphabetic(5);
         PackageProvider prov = new PackageProvider();
         prov.setName(name);
-        
+
         PackageFactory.save(prov);
-        
+
         List list = handler.list(adminKey);
         assertContains(list, prov);
-          
+
     }
-    
-    
+
+
     public void testAddKey() throws Exception {
         admin.addRole(RoleFactory.SAT_ADMIN);
-        
+
         String provStr = RandomStringUtils.randomAlphabetic(5);
         String keyStr = RandomStringUtils.randomAlphabetic(5);
-        
+
         handler.associateKey(adminKey, provStr, keyStr, "gpg");
         assertFalse(handler.listKeys(adminKey, provStr).isEmpty());
-        
-    }
-    
 
-    
-    
+    }
+
+
+
+
 }

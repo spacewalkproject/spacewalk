@@ -35,7 +35,7 @@ import java.util.Map;
 public class ModeFactory implements ManifestFactoryBuilder {
 
 
-    private static final String DEFAULT_PARSER_NAME = 
+    private static final String DEFAULT_PARSER_NAME =
                                        "org.apache.xerces.parsers.SAXParser";
 
     private static ManifestFactory factory = new ManifestFactory(new ModeFactory());
@@ -62,7 +62,7 @@ public class ModeFactory implements ManifestFactoryBuilder {
             }
 
             URL u = this.getClass().getResource(filename);
-            DataSourceParserHelper handler = 
+            DataSourceParserHelper handler =
                           (DataSourceParserHelper)parser.getContentHandler();
             handler.resetModes();
             parser.parse(new InputSource(u.openStream()));
@@ -106,7 +106,7 @@ public class ModeFactory implements ManifestFactoryBuilder {
 
     /**
      * Retreive a specific mode from the map of modes already parsed.
-     * @param name The name of the file to search, this is the name as it is passed 
+     * @param name The name of the file to search, this is the name as it is passed
      *             to parseURL.
      * @param mode The mode to retreive
      * @param clazz The class you would like the returned objects to be.
@@ -117,7 +117,7 @@ public class ModeFactory implements ManifestFactoryBuilder {
         ret.setClassString(clazz.getName());
         return ret;
     }
-    
+
     /**
      * Retreive a specific mode from the map of modes already parsed
      * @param name The name of the file to search, this is the name as it is
@@ -144,7 +144,7 @@ public class ModeFactory implements ManifestFactoryBuilder {
      * Retreive the keys
      * @return the fileMap filled out from parsing the files.
      * This function really shouldn't be here, but I need it for the
-     * unit tests. 
+     * unit tests.
      */
     public static Collection getKeys() {
         return factory.getKeys();
@@ -155,7 +155,7 @@ public class ModeFactory implements ManifestFactoryBuilder {
      * @param name of the filemap to retrieve.
      * @return the fileMap filled out from parsing the files.
      * This function really shouldn't be here, but I need it for the
-     * unit tests. 
+     * unit tests.
      */
     public static Map getFileKeys(String name) {
         return (Map)factory.getObject(name);

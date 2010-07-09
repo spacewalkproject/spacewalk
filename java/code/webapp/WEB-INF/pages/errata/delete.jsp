@@ -14,7 +14,7 @@
     <bean:message key="errata.edit.toolbar"/> <c:out value="${errata.advisory}" />
   </rhn:toolbar>
 
-  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml" 
+  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml"
                   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
   <h2><bean:message key="delete.jsp.header"/></h2>
@@ -36,7 +36,7 @@
       <td>${errata.description}</td>
     </tr>
   </table>
-  
+
   <hr />
   <div align="right">
     <form action="/rhn/errata/manage/Delete.do?eid=${param.eid}">
@@ -46,6 +46,6 @@
       </html:submit>
     </form>
   </div>
-     
+
 </body>
 </html>

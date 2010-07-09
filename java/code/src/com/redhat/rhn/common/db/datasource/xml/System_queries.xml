@@ -22,13 +22,13 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   <query params="user_id">
   SELECT  DISTINCT S.id,
                    S.name
-    FROM  rhnServer S, 
+    FROM  rhnServer S,
     rhnUserServerPerms USP,
     rhnVirtualInstance VI
    WHERE  USP.user_id = :user_id
      AND  S.id = USP.server_id
      AND VI.host_system_id = S.id
-     AND USP.server_id  = S.id 
+     AND USP.server_id  = S.id
      AND USP.user_id = :user_id
 ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   </query>
@@ -97,7 +97,7 @@ SELECT CDK.id,
 
 
 <query name="ssm_package_upgrades_systems" params="user_id, set_label, package_set_label">
-SELECT  DISTINCT 
+SELECT  DISTINCT
         S.id,
         S.name AS SERVER_NAME
   FROM  rhnChannelPackage CP,
@@ -170,16 +170,16 @@ ORDER BY UPPER(S.name), UPPER(PN.name || '-' || PE.evr.as_vre_simple() || '-' ||
 
 <mode name="systems_with_package_nvr" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="org_id, user_id, name, version, release">
-SELECT  S.id as id, 
+SELECT  S.id as id,
        S.name as name
-  FROM rhnServer S inner join 
+  FROM rhnServer S inner join
   		rhnServerPackage SP on S.id = SP.server_id  inner join
   		rhnPackageName PN on PN.id = SP.name_id  inner join
   		rhnPackageEvr  EVR	 on EVR.id = SP.evr_id
  WHERE S.org_id = :org_id  and
 			PN.name = :name  and
 			EVR.version = :version and
-			EVR.release = :release 
+			EVR.release = :release
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
 ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
@@ -188,7 +188,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 
 <mode name="count_systems_subscribed_to_channel">
   <query params="org_id, cid, user_id">
-SELECT COUNT(S.id) AS count 
+SELECT COUNT(S.id) AS count
   FROM rhnServerChannel SC,
        rhnServer S
  WHERE S.org_id = :org_id
@@ -200,7 +200,7 @@ SELECT COUNT(S.id) AS count
 
 <mode name="count_systems_subscribed_to_channel_not_in_org">
   <query params="org_id, cid">
-SELECT COUNT(S.id) AS count 
+SELECT COUNT(S.id) AS count
   FROM rhnServerChannel SC,
        rhnServer S
  WHERE S.org_id != :org_id
@@ -211,8 +211,8 @@ SELECT COUNT(S.id) AS count
 
 <mode name="systems_subscribed_to_channel">
   <query params="org_id, cid, user_id">
-SELECT 
-       S.id as id, 
+SELECT
+       S.id as id,
        S.name as name,
           (SELECT 1
           FROM rhnServerFeaturesView SFV
@@ -232,7 +232,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 
 <mode name="systems_subscribed_by_orgtrust">
   <query params="orgA, orgB">
-        SELECT s.id, 
+        SELECT s.id,
                      s.org_id,
                      s.name,
                      c.id as cid
@@ -274,7 +274,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 
 <mode name="systems_subscribed_to_channel_size">
   <query params="org_id, cid, user_id">
-SELECT 
+SELECT
        count(S.id) as count
   FROM rhnServerChannel SC,
        rhnServer S
@@ -491,9 +491,9 @@ where a.user_id = :formvar_uid
 
 <mode name="affected_by_errata_no_selectable" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="eid, user_id">
-  SELECT  DISTINCT S.id as system_id, 
+  SELECT  DISTINCT S.id as system_id,
   					S.name as system_name,
-  					S.id as id, 
+					S.id as id,
   					S.name as name
     FROM  rhnServerNeededErrataCache SNEC,
           rhnEntitledServers S,
@@ -520,12 +520,12 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
 ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   </query>
   <elaborator params="eid" multiple="t">
-SELECT SA.server_id as id, 
-       (SELECT name 
+SELECT SA.server_id as id,
+       (SELECT name
         FROM rhnActionStatus where id = SA.status) as status,
      SA.action_id,
-     (SELECT SA2.modified 
-        FROM rhnServerAction SA2 
+     (SELECT SA2.modified
+        FROM rhnServerAction SA2
      WHERE SA2.server_id = SA.server_id
        AND SA2.action_id = SA.action_id) AS modified
   FROM rhnServerAction SA
@@ -539,7 +539,7 @@ SELECT SA.server_id as id,
   <elaborator name="entitlements" />
 </mode>
 
-<mode name="in_set_and_affected_by_errata" 
+<mode name="in_set_and_affected_by_errata"
       class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="eid, user_id, set_label">
   SELECT S.ID, S.name
@@ -589,10 +589,10 @@ SELECT  DISTINCT SP.server_id id,
         SP.name_id || '|' || SP.evr_id || '|' || SP.package_arch_id AS ID_COMBO
   FROM  rhnServerPackage SP
  WHERE  SP.server_id IN (%s)
-    AND  exists (select 1 from rhnSet 
-          where user_id = :user_id and label = :package_set_label 
-            and element = SP.name_id 
-            and element_two = SP.evr_id 
+    AND  exists (select 1 from rhnSet
+          where user_id = :user_id and label = :package_set_label
+            and element = SP.name_id
+            and element_two = SP.evr_id
             and (element_three = SP.package_arch_id or (element_three is null and SP.package_arch_id is null)))
     </elaborator>
 </mode>
@@ -729,10 +729,10 @@ SELECT S.id, S.NAME, S.info, S.created,
          WHERE SFV.server_id = S.id
            AND SFV.label = 'ftr_system_grouping') AS selectable,
 		(select C.name
-        		from rhnChannel C 
-             		inner join rhnServerChannel SC on SC.channel_id = C.id 
+			from rhnChannel C
+			inner join rhnServerChannel SC on SC.channel_id = C.id
       			where SC.server_id = S.id
-         		and C.parent_channel IS NULL) AS CHANNEL_LABELS           
+			and C.parent_channel IS NULL) AS CHANNEL_LABELS
   FROM rhnServer S
  WHERE S.org_id = :org_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
@@ -753,10 +753,10 @@ SELECT S.id, S.NAME, S.info, S.created,
          WHERE SFV.server_id = S.id
            AND SFV.label = 'ftr_system_grouping') AS selectable,
 		(select C.name
-        		from rhnChannel C 
-             		inner join rhnServerChannel SC on SC.channel_id = C.id 
+			from rhnChannel C
+			inner join rhnServerChannel SC on SC.channel_id = C.id
       			where SC.server_id = S.id
-         		and C.parent_channel IS NULL) AS CHANNEL_LABELS           
+			and C.parent_channel IS NULL) AS CHANNEL_LABELS
   FROM rhnServer S
  WHERE S.org_id = :org_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
@@ -827,12 +827,12 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
             WHERE (   SFV.server_id = VI.virtual_system_id
                   OR (VI.uuid IS NULL AND SFV.server_id = VI.host_system_id))
               AND SFV.label = 'ftr_system_grouping') AS selectable,
-     ( select S.name from rhnServer S 
+     ( select S.name from rhnServer S
             where
                  (VI.uuid IS NULL
                    AND S.id = VI.host_system_id)
                OR S.id = VI.virtual_system_id
-       ) as SERVER_NAME, 
+       ) as SERVER_NAME,
        ( select TYPE.label
        		from rhnServerGroupMembers SGM,
        				rhnServerGroup GRP,
@@ -841,9 +841,9 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
 						and grp.id = sgm.server_group_id
 						and grp.group_type = type.id
 						and VI.virtual_system_id is null
-						and  ( type.label = 'virtualization_host' or type.label = 'virtualization_host_platform')       
+						and  ( type.label = 'virtualization_host' or type.label = 'virtualization_host_platform')
        ) as virt_entitlement
-           
+
      FROM rhnVirtualInstance VI,
  	 rhnVirtualInstanceInfo VII,
 	 rhnVirtualInstanceState VIS
@@ -871,7 +871,7 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
      AND VI.uuid IS NULL
      AND VI2.host_system_id = VI.host_system_id
      AND VI2.uuid IS NOT NULL
-GROUP BY VI.id     
+GROUP BY VI.id
 </query>
 
 <query name="active_virtual_instances" params="">
@@ -888,7 +888,7 @@ GROUP BY VI.id
      AND VII.instance_id = VI2.id
      AND VIS.id = VII.state
      AND VIS.label NOT IN ('stopped', 'crashed')
-GROUP BY VI.id     
+GROUP BY VI.id
 </query>
 
 <mode name="org_proxy_servers" class="com.redhat.rhn.frontend.dto.OrgProxyServer">
@@ -929,16 +929,16 @@ ORDER BY SP.position
           S.name as SERVER_NAME,
     A.earliest_action AS DISPLAY_DATE
     FROM  rhnAction A,
-          rhnServer S, 
+          rhnServer S,
           rhnServerAction SA
-   WHERE  S.org_id = :org_id 
-     AND  S.ID = SA.server_id 
+   WHERE  S.org_id = :org_id
+     AND  S.ID = SA.server_id
      AND  SA.action_id = :aid
      AND  SA.status IN (0,1)
      AND  EXISTS (
-          SELECT  1 
-            FROM  rhnUserServerPerms USP 
-           WHERE  USP.user_id = :user_id 
+          SELECT  1
+            FROM  rhnUserServerPerms USP
+           WHERE  USP.user_id = :user_id
              AND  USP.server_id = S.id
           )
      AND  SA.action_id = A.id
@@ -952,14 +952,14 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.ID
   SELECT  S.id AS ID, S.name AS SERVER_NAME, SA.result_msg AS MESSAGE,
           SA.COMPLETION_TIME AS DISPLAY_DATE
     FROM  rhnServer S, rhnServerAction SA
-   WHERE  S.org_id = :org_id 
-     AND  S.ID = SA.server_id 
+   WHERE  S.org_id = :org_id
+     AND  S.ID = SA.server_id
      AND  SA.action_id = :aid
      AND  SA.status = 3
      AND  EXISTS (
-          SELECT  1 
-            FROM  rhnUserServerPerms USP 
-           WHERE  USP.user_id = :user_id 
+          SELECT  1
+            FROM  rhnUserServerPerms USP
+           WHERE  USP.user_id = :user_id
              AND  USP.server_id = S.id
           )
 ORDER BY  UPPER(NVL(S.name, '(none)')), S.ID
@@ -972,14 +972,14 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.ID
   SELECT  S.id, S.name,
           SA.COMPLETION_TIME AS DISPLAY_DATE
     FROM  rhnServer S, rhnServerAction SA
-   WHERE  S.org_id = :org_id 
-     AND  S.ID = SA.server_id 
+   WHERE  S.org_id = :org_id
+     AND  S.ID = SA.server_id
      AND  SA.action_id = :aid
      AND  SA.status = 2
      AND  EXISTS (
-          SELECT  1 
-            FROM  rhnUserServerPerms USP 
-           WHERE  USP.user_id = :user_id 
+          SELECT  1
+            FROM  rhnUserServerPerms USP
+           WHERE  USP.user_id = :user_id
              AND  USP.server_id = S.id
           )
 ORDER BY  UPPER(NVL(S.name, '(none)')), S.ID
@@ -1111,13 +1111,13 @@ SELECT vi.virtual_system_id as ID, 1 as virtual_guest FROM rhnVirtualInstance vi
 </query>
 
 <query name="is_virtual_host" params="">
-select distinct sgm.server_id as ID, 1 as virtual_host 
-    from rhnServerGroup sg 
-        INNER JOIN rhnServerGroupMembers sgm ON sg.id = sgm.server_group_id 
-	    INNER JOIN rhnServerGroupType sgt ON sgt.id = sg.group_type 
-	    where 
-	        sgm.server_id in (%s) and 
-		    (sgt.label='virtualization_host_platform' or       
+select distinct sgm.server_id as ID, 1 as virtual_host
+    from rhnServerGroup sg
+        INNER JOIN rhnServerGroupMembers sgm ON sg.id = sgm.server_group_id
+	    INNER JOIN rhnServerGroupType sgt ON sgt.id = sg.group_type
+	    where
+	        sgm.server_id in (%s) and
+		    (sgt.label='virtualization_host_platform' or
 		                sgt.label='virtualization_host')
 </query>
 
@@ -1169,13 +1169,13 @@ ORDER BY  SERVER_ID
          sgt.is_base AS entitlement_is_base
     FROM rhnServerGroupType sgt,
    rhnServerGroup sg,
-   rhnServerGroupMembers sgm,         
+   rhnServerGroupMembers sgm,
          rhnVirtualInstance VI
    WHERE VI.id IN (%s)
      AND sgm.server_id = NVL(VI.virtual_system_id, VI.host_system_id)
      AND sg.id = sgm.server_group_id
      and sg.group_type = sgt.id
-ORDER BY DECODE(sgt.is_base,'Y',1,'N',2), sgt.label    
+ORDER BY DECODE(sgt.is_base,'Y',1,'N',2), sgt.label
 </query>
 
 
@@ -1218,11 +1218,11 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
 	<query name="monitoring_status" params="sid">
 		SELECT  DECODE(
 	                   MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
-	                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') 
+	                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL')
 	           FROM  rhn_check_probe CP, rhn_probe_state PS
 	          WHERE  PS.probe_id = CP.probe_id
 		            AND CP.host_id = :sid
-	          
+
 	</query>
 </mode>
 
@@ -1242,9 +1242,9 @@ ORDER BY UPPER(S.name)
 
 <mode name="system_installed_packages">
   <query params="sid">
-SELECT PN.name, 
-       PE.version, 
-       PE.release, 
+SELECT PN.name,
+       PE.version,
+       PE.release,
        NVL(PE.epoch, ' ') as epoch,
        PA.name as arch,
        SP.installtime
@@ -1262,7 +1262,7 @@ ORDER BY PN.name, PE.evr
  mode name="config_managed_systems">
   <query name="available_to_user" />
   <elaborator>
-SELECT S.id, 
+SELECT S.id,
        NVL((SELECT SCC.config_channel_id
               FROM rhnConfigChannelType CCT, rhnConfigChannel CC, rhnServerConfigChannel SCC
              WHERE SCC.server_id = S.id
@@ -1315,7 +1315,7 @@ END;
   <query params="action_id, server_id">
       {call rhn_server.remove_action(:server_id, :action_id)}
   </query>
- 
+
 </callable-mode>
 
 <callable-mode name="insert_into_servergroup_maybe">
@@ -1358,7 +1358,7 @@ SELECT count(A.id) as COUNT
   <query params="org_id, sid">
 SELECT KSS.id, KSS.created, KSS.modified, KSSS.label AS state
   FROM rhnKickstartSession KSS, rhnKickstartSessionState KSSS
- WHERE KSS.org_id = :org_id 
+ WHERE KSS.org_id = :org_id
    AND (KSS.old_server_id = :sid OR KSS.new_server_id = :sid)
    AND KSSS.id = KSS.state_id
   </query>
@@ -1374,8 +1374,8 @@ SELECT id, name
    AND cc.capability_name_id = ccn.id
   </query>
 </mode>
-    
-    
+
+
 <mode name="compatible_with_server">
   <query params="sid, user_id, org_id">
    SELECT S.id, S.name
@@ -1400,7 +1400,7 @@ SELECT id, name
 ORDER BY UPPER(S.name)
    </query>
 </mode>
-        
+
 <query name="entitlements" params="" multiple="t">
   SELECT SEV.server_id AS ID,
          SEV.label AS ENTITLEMENT,
@@ -1519,13 +1519,13 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 
 <mode name="systems_in_set_with_channel">
   <query params="user_id, channel_id">
-      SELECT S.name, S.id 
-        FROM rhnServer S, rhnServerChannel SC, rhnSet ST 
-        WHERE 
-            ST.label = 'system_list' 
-            AND ST.user_id = :user_id 
-            AND ST.element = SC.server_id 
-            AND SC.channel_id = :channel_id 
+      SELECT S.name, S.id
+        FROM rhnServer S, rhnServerChannel SC, rhnSet ST
+        WHERE
+            ST.label = 'system_list'
+            AND ST.user_id = :user_id
+            AND ST.element = SC.server_id
+            AND SC.channel_id = :channel_id
             AND SC.server_id = S.id
   </query>
 </mode>
@@ -1542,7 +1542,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
             RD.prop3 as sub_vendor_id,
             RD.prop4 as sub_device_id
           FROM rhnDevice RD
-         WHERE 
+         WHERE
             RD.id = :hw_id
     </query>
 </mode>
@@ -1588,13 +1588,13 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
         SELECT distinct S.id as id, S.name as name, NI.ip_addr as key, si.checkin as last_checkin,
 		 (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; :inactive_date) as inactive
         from rhnServer S inner join
-          	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
-          	 rhnServerNetInterface NI on NI.server_id = S.id inner join 
+		 rhnUserServerPerms USP on S.id = USP.server_id inner join
+		 rhnServerNetInterface NI on NI.server_id = S.id inner join
           	 rhnServerInfo si on si.server_id = S.id inner join
-          	 ( Select NI2.ip_addr, count(NI2.server_id) as syscount 
-          	 	from rhnServerNetInterface NI2 inner join 
+		 ( Select NI2.ip_addr, count(NI2.server_id) as syscount
+			from rhnServerNetInterface NI2 inner join
           	 		rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
-          	 	where USP2.user_id = :uid and 
+			where USP2.user_id = :uid and
 				NI2.ip_addr not in(%s) and NI2.name not like 'vnet%' and NI2.name not like 'virbr%'
           	 	group by NI2.ip_addr) SUMM on SUMM.ip_addr = NI.ip_addr
         where USP.user_id = :uid and
@@ -1605,12 +1605,12 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 <mode name="duplicate_system_ids_ip_key" class="com.redhat.rhn.frontend.dto.SystemOverview">
     <query params="uid, key">
         SELECT distinct S.id as id, S.name as name, si.checkin as last_checkin, 1 AS selectable
-        from rhnServer S 
-        	 	inner join rhnUserServerPerms USP on S.id = USP.server_id 
+        from rhnServer S
+			inner join rhnUserServerPerms USP on S.id = USP.server_id
         	 	inner join rhnServerNetInterface NI on NI.server_id = S.id
         	 	inner join rhnServerInfo si on si.server_id = S.id
         where
-        	 USP.user_id = :uid 
+		 USP.user_id = :uid
         	 and NI.ip_addr = :key
     </query>
 </mode>
@@ -1621,13 +1621,13 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
         SELECT distinct S.id as id, S.name as name, NI.hw_addr as key, si.checkin as last_checkin,
 		 (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; :inactive_date) as inactive
         from rhnServer S inner join
-          	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
-          	 rhnServerNetInterface NI on NI.server_id = S.id inner join 
+		 rhnUserServerPerms USP on S.id = USP.server_id inner join
+		 rhnServerNetInterface NI on NI.server_id = S.id inner join
           	 rhnServerInfo si on si.server_id = S.id inner join
-          	 ( Select NI2.hw_addr, count(NI2.server_id) as syscount 
-          	 	from rhnServerNetInterface NI2 inner join 
+		 ( Select NI2.hw_addr, count(NI2.server_id) as syscount
+			from rhnServerNetInterface NI2 inner join
           	 		rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
-          	 	where USP2.user_id = :uid and 
+			where USP2.user_id = :uid and
           	 		NI2.hw_addr not in (%s)
           	 	group by NI2.hw_addr) SUMM on SUMM.hw_addr = NI.hw_addr
         where USP.user_id = :uid and
@@ -1639,12 +1639,12 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 <mode name="duplicate_system_ids_mac_key" class="com.redhat.rhn.frontend.dto.SystemOverview">
     <query params="uid, key">
         SELECT distinct S.id as id, S.name as name, si.checkin as last_checkin, 1 AS selectable
-        from rhnServer S 
-        	 	inner join rhnUserServerPerms USP on S.id = USP.server_id 
+        from rhnServer S
+			inner join rhnUserServerPerms USP on S.id = USP.server_id
         	 	inner join rhnServerNetInterface NI on NI.server_id = S.id
         	 	inner join rhnServerInfo si on si.server_id = S.id
         where
-        	 USP.user_id = :uid 
+		 USP.user_id = :uid
         	 and NI.hw_addr = :key
     </query>
 </mode>
@@ -1656,13 +1656,13 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
         SELECT distinct S.id as id, S.name as name, NI.hostname as key, si.checkin as last_checkin,
 			 (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; :inactive_date) as inactive
         from rhnServer S inner join
-          	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
-          	 rhnServerNetwork NI on NI.server_id = S.id inner join 
+		 rhnUserServerPerms USP on S.id = USP.server_id inner join
+		 rhnServerNetwork NI on NI.server_id = S.id inner join
           	 rhnServerInfo si on si.server_id = S.id inner join
-          	 ( Select NI2.hostname, count(NI2.server_id) as syscount 
-          	 	from rhnServerNetwork NI2 inner join 
+		 ( Select NI2.hostname, count(NI2.server_id) as syscount
+			from rhnServerNetwork NI2 inner join
           	 		rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
-          	 	where USP2.user_id = :uid 
+			where USP2.user_id = :uid
           	 	group by NI2.hostname) SUMM on SUMM.hostname = NI.hostname
         where USP.user_id = :uid and
         	  SUMM.syscount > 1
@@ -1673,12 +1673,12 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 <mode name="duplicate_system_ids_hostname_key" class="com.redhat.rhn.frontend.dto.SystemOverview">
     <query params="uid, key">
         SELECT distinct S.id as id, S.name as name, si.checkin as last_checkin, 1 AS selectable
-        from rhnServer S 
-        	 	inner join rhnUserServerPerms USP on S.id = USP.server_id 
-        	 	inner join rhnServerNetwork NI on NI.server_id = S.id 
+        from rhnServer S
+			inner join rhnUserServerPerms USP on S.id = USP.server_id
+			inner join rhnServerNetwork NI on NI.server_id = S.id
         	 	inner join rhnServerInfo si on si.server_id = S.id
         where
-        	 USP.user_id = :uid 
+		 USP.user_id = :uid
         	 and NI.hostname = :key
     </query>
 </mode>
@@ -1687,14 +1687,14 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 <mode name="flex_guests">
   <query params="user_id, checkin_threshold ">
     select
-    cf.name cf_name, 
+    cf.name cf_name,
     cf.id as cf_id,
     s.id as system_id,
     s.name as system_name,
     (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; sysdate - :checkin_threshold) as inactive,
     TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered,
     pcf.FVE_CURRENT_MEMBERS as current_members,
-    pcf.FVE_MAX_MEMBERS as max_members 
+    pcf.FVE_MAX_MEMBERS as max_members
   from
       RhnVirtualInstance vi
       inner join rhnServer s on vi.virtual_system_id = s.id
@@ -1704,7 +1704,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
       inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
       inner join rhnPrivateChannelFamily pcf on pcf.channel_family_id  = cf.id and pcf.org_id = s.org_id
   where sc.is_fve = 'Y'
-  		AND USP.user_id = :user_id 
+		AND USP.user_id = :user_id
   </query>
 </mode>
 
@@ -1712,14 +1712,14 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 <mode name="eligible_flex_guests">
   <query params="user_id, checkin_threshold ">
     select
-    cf.name cf_name, 
+    cf.name cf_name,
     cf.id as cf_id,
     s.id as system_id,
     s.name as system_name,
     (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; sysdate - :checkin_threshold) as inactive,
     TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered,
     pcf.FVE_CURRENT_MEMBERS as current_members,
-    pcf.FVE_MAX_MEMBERS as max_members 
+    pcf.FVE_MAX_MEMBERS as max_members
   from
       RhnVirtualInstance vi
       inner join rhnServer s on vi.virtual_system_id = s.id
@@ -1732,11 +1732,11 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
   		AND USP.user_id = :user_id
   		AND (vi.host_system_id is null OR
             exists (
-  		    select sg.id from rhnServerGroupMembers sgm 
+		    select sg.id from rhnServerGroupMembers sgm
   		            inner join rhnServerGroup sg on sgm.server_group_id = sg.id
                     inner join rhnServerGroupType sgt on sgt.id = sg.group_type
   		            inner join rhnServer s2 on s2.id = sgm.server_id
-                where 
+                where
                 s2.org_id = s.org_id
                 and s2.id = vi.host_system_id
                 and sgt.label not in ('virtualization_host' ,'virtualization_host_platform') )

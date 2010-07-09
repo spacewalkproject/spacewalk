@@ -11,7 +11,7 @@
  miscAcl="user_role(org_admin)"
  miscText="${text}"
  miscImg="${img}"
- miscAlt="${text}" 
+ miscAlt="${text}"
 imgAlt="users.jsp.imgAlt">
 <bean:message key="sys_entitlements.header"/>
 </rhn:toolbar>
@@ -24,7 +24,7 @@ imgAlt="users.jsp.imgAlt">
              width="100%"
              name="pageList"
              styleclass="list"
-             emptykey="sys_entitlements.noentitlements">    
+             emptykey="sys_entitlements.noentitlements">
 
         <rl:column bound="false"
             sortable="false"
@@ -42,14 +42,14 @@ imgAlt="users.jsp.imgAlt">
             headerkey="sys_entitlements.available">
             ${current.available}
         </rl:column>
-        <c:if test="${orgCount > 1}"> 
+        <c:if test="${orgCount > 1}">
         <rl:column bound="false"
             sortable="false"
             headerkey="sys_entitlements.usage">
-            <bean:message key="sys_entitlements.usagedata" arg0="${current.used}" arg1="${current.allocated}" arg2="${current.ratio}"/>            
+            <bean:message key="sys_entitlements.usagedata" arg0="${current.used}" arg1="${current.allocated}" arg2="${current.ratio}"/>
         </rl:column>
-        </c:if>             
-                
+        </c:if>
+
     </rl:list>
 </rl:listset>
 <p/>

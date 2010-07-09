@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Handles display and update of Kickstart -> System Details -> Locale
- * 
+ *
  * @version $Rev$
  */
 public class KickstartLocaleEditAction extends BaseKickstartEditAction {
@@ -41,10 +41,10 @@ public class KickstartLocaleEditAction extends BaseKickstartEditAction {
         = "kickstart.locale.jsp.updatekickstart";
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    protected void setupFormValues(RequestContext ctx, DynaActionForm form, 
+    protected void setupFormValues(RequestContext ctx, DynaActionForm form,
             BaseKickstartCommand cmdIn) {
         KickstartLocaleCommand cmd = (KickstartLocaleCommand) cmdIn;
 
@@ -56,11 +56,11 @@ public class KickstartLocaleEditAction extends BaseKickstartEditAction {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    protected ValidatorError processFormValues(HttpServletRequest request, 
-            DynaActionForm form, 
+    protected ValidatorError processFormValues(HttpServletRequest request,
+            DynaActionForm form,
             BaseKickstartCommand cmd) {
 
         ValidatorError retval = null;
@@ -96,7 +96,7 @@ public class KickstartLocaleEditAction extends BaseKickstartEditAction {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected String getSuccessKey() {
@@ -104,7 +104,7 @@ public class KickstartLocaleEditAction extends BaseKickstartEditAction {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected BaseKickstartCommand getCommand(RequestContext ctx) {
@@ -114,7 +114,7 @@ public class KickstartLocaleEditAction extends BaseKickstartEditAction {
 
     /**
      * Is the timezone valid (ie, in the list of valid timezones)
-     * 
+     *
      * return Boolean valid, or not
      */
     protected Boolean isTimezoneValid(ArrayList validTimezones, String timezone) {

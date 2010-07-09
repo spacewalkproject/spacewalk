@@ -18,7 +18,7 @@
     <bean:message key="pendingactions.jsp.summary"/>
     </p>
   </div>
-  
+
 <br/>
 
 	<rl:listset name="pendingList">

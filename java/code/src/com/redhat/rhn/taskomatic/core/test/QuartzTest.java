@@ -41,7 +41,7 @@ public class QuartzTest extends RhnBaseTestCase {
        // Scheduler
        Scheduler sched = fact.getScheduler();
 
-       // starts the scheduler, we can do this at the 
+       // starts the scheduler, we can do this at the
        // beginning of the taskomatic
        sched.start();
 
@@ -64,7 +64,7 @@ public class QuartzTest extends RhnBaseTestCase {
      * To implement a task you simply implement the Job interface.
      */
     public static class QuartzReport implements Job {
-        public void execute(JobExecutionContext ctx) 
+        public void execute(JobExecutionContext ctx)
             throws JobExecutionException {
 
             System.out.println("Generating report" +

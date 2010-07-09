@@ -34,7 +34,7 @@ public class ProfileTypeTest extends RhnBaseTestCase {
         ProfileType ptype1 = lookupByLabel("normal");
         ProfileType ptype2 = lookupByLabel("normal");
         ProfileType ptype3 = lookupByLabel("sync_profile");
-        
+
         assertNotNull(ptype1);
         assertNotNull(ptype2);
         assertNotNull(ptype3);
@@ -43,12 +43,12 @@ public class ProfileTypeTest extends RhnBaseTestCase {
         ptype2 = null;
         assertFalse(ptype1.equals(ptype2));
     }
- 
+
     /**
      * Test findByLabel query
-     * This method can be used to test the 
+     * This method can be used to test the
      * second level cache in hibernate. Turn on sql output
-     * in the hibernate.properties file and make sure that 
+     * in the hibernate.properties file and make sure that
      * we're not going to the db twice
      * @throws Exception
      */
@@ -58,7 +58,7 @@ public class ProfileTypeTest extends RhnBaseTestCase {
         assertEquals(r2.getName(), r1.getName());
         assertEquals(r2.getLabel(), r1.getLabel());
     }
-    
+
     /**
      * Helper method to get a ProfileType by label
      * @param label

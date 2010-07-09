@@ -34,7 +34,7 @@ import java.util.List;
  * @version $Rev: 54534 $
  */
 public class MonitoredServerTest extends BaseTestCaseWithUser {
-    
+
     public void testMonitoredServer() throws Exception {
         ProbeSuite suite = ProbeSuiteTest.createTestProbeSuite(user);
         ProbeSuiteTest.addTestServersToSuite(suite, user);
@@ -47,24 +47,24 @@ public class MonitoredServerTest extends BaseTestCaseWithUser {
             flushAndEvict(i.next());
         }
         flushAndEvict(suite);
-        
+
         suite = MonitoringFactory.lookupProbeSuiteByIdAndOrg(psId, user.getOrg());
         Server s = (Server) suite.getServersInSuite().iterator().next();
         assertTrue(s instanceof MonitoredServer);
     }
-    
+
     public void testProbeStateSummary() throws Exception {
         MonitoredServer ms = new MonitoredServer();
         assertTrue(ms.getProbeStateSummary().
                 equals(MonitoringConstants.PROBE_STATE_PENDING));
-        
-        ProbeState critical = 
+
+        ProbeState critical =
             new ProbeState(new SatCluster(), MonitoringConstants.PROBE_STATE_CRITICAL);
-        ProbeState ok = 
+        ProbeState ok =
             new ProbeState(new SatCluster(), MonitoringConstants.PROBE_STATE_OK);
-        ProbeState unknown = 
+        ProbeState unknown =
             new ProbeState(new SatCluster(), MonitoringConstants.PROBE_STATE_UNKNOWN);
-        ProbeState warn = 
+        ProbeState warn =
             new ProbeState(new SatCluster(), MonitoringConstants.PROBE_STATE_WARN);
 
         ServerProbe okprobe = ServerProbe.newInstance();
@@ -93,9 +93,9 @@ public class MonitoredServerTest extends BaseTestCaseWithUser {
         assertTrue(ms.getProbeStateSummary().equals(
                 MonitoringConstants.PROBE_STATE_CRITICAL));
         assertTrue(probes.size() == 4);
-    
+
     }
-    
-    
+
+
 
 }

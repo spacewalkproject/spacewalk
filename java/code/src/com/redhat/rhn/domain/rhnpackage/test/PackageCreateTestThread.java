@@ -20,15 +20,15 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import java.util.List;
 
 /**
- * Simple class to create many packages in parallel 
+ * Simple class to create many packages in parallel
  * PackageCreateTestThread
  * @version $Rev$
  */
 class PackageCreateTestThread implements Runnable {
-    
+
     private String pkgName;
     private List accum;
-    
+
     public PackageCreateTestThread(String packageName, List accumulator) {
         pkgName = packageName;
         accum = accumulator;

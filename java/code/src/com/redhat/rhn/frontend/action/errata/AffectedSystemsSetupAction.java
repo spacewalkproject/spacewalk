@@ -43,25 +43,25 @@ import javax.servlet.http.HttpServletResponse;
 public class AffectedSystemsSetupAction extends RhnListAction {
     public static final String DISPATCH = "dispatch";
     public static final String LIST_NAME = "systemAffectedList";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-            
+
         User user = requestContext.getLoggedInUser();
 
-        
+
         Errata errata = requestContext.lookupErratum();
         DataResult dr = ErrataManager.systemsAffected(user, errata.getId(), null);
 
         RhnSet set = RhnSetDecl.SYSTEMS_AFFECTED.get(user);
         RhnListSetHelper helper = new RhnListSetHelper(request);
-        
+
         //if its not submitted
         // ==> this is the first visit to this page
         // clear the 'dirty set'
@@ -69,37 +69,37 @@ public class AffectedSystemsSetupAction extends RhnListAction {
             set.clear();
             RhnSetManager.store(set);
         }
-        
-        if (request.getParameter(DISPATCH) != null) {        
+
+        if (request.getParameter(DISPATCH) != null) {
             helper.updateSet(set, LIST_NAME);
             if (!set.isEmpty()) {
-                // Send to AffectedSystemsAction to handle submit 
+                // Send to AffectedSystemsAction to handle submit
                 return strutsDelegate.forwardParams(mapping.findForward("confirm"),
                         request.getParameterMap());
             }
             else {
                 RhnHelper.handleEmptySelection(request);
             }
-        }   
-        
+        }
+
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
             helper.execute(set, LIST_NAME, dr);
-        } 
-        
-        // if I have a previous set selections populate data using it       
+        }
+
+        // if I have a previous set selections populate data using it
         if (!set.isEmpty()) {
             helper.syncSelections(set, dr);
-            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);            
+            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
         }
-        
+
         TagHelper.bindElaboratorTo("systemAffectedList", dr.getElaborator(), request);
 
         request.setAttribute("pageList", dr);
         request.setAttribute("set", set);
         request.setAttribute("errata", errata);
-        request.setAttribute("parentUrl", request.getRequestURI() + "?" + 
+        request.setAttribute("parentUrl", request.getRequestURI() + "?" +
                 RequestContext.ERRATA_ID + "=" + errata.getId());
-        
+
         return strutsDelegate.forwardParams(mapping.findForward("default"),
                                        request.getParameterMap());
     }

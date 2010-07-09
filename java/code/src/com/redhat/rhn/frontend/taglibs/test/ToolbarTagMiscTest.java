@@ -21,11 +21,11 @@ import javax.servlet.jsp.JspException;
  * @version $Rev$
  */
 public class ToolbarTagMiscTest extends BaseTestToolbarTag {
-    
+
     public ToolbarTagMiscTest() {
         super();
     }
-    
+
     private void setupMiscTag(String base, String url, String acl, String alt,
                               String text, String img) {
         tt.setBase(base);
@@ -36,44 +36,44 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
         tt.setMiscImg(img);
         tt.setAclMixins(BooleanAclHandler.class.getName());
     }
-    
+
     public void testMiscNoAcl() {
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\"><div class=\"" + 
+            String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"><span class=\"toolbar\"><a href=\"misc-url\">" +
                 "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
                 "ignore me</a></span></div></div>";
-            
-            setupMiscTag("h1", "misc-url", "", "jsp.testMessage", 
+
+            setupMiscTag("h1", "misc-url", "", "jsp.testMessage",
                          "jsp.testMessage", "foo.gif");
-            
+
             verifyTag(output);
         }
         catch (JspException e) {
             fail(e.toString());
-        } 
+        }
     }
-    
+
     public void testMiscWithMissingText() {
         try {
             // setup mock objects
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"></div></div>";
 
-            setupMiscTag("h1", "misc-url", "true_test()", 
+            setupMiscTag("h1", "misc-url", "true_test()",
                 "alt", "", "foo.gif");
-            
+
             verifyTag(output);
         }
         catch (JspException e) {
             fail(e.toString());
-        } 
+        }
     }
-    
+
     public void testCreateAclMultipleMixinsMultipleAcls() {
         try {
-            String output = "<div class=\"toolbar-h1\"><div class=\"" + 
+            String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"><span class=\"toolbar\"><a href=\"misc-url\">" +
                 "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
                 "ignore me</a></span></div></div>";
@@ -81,7 +81,7 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
             setupMiscTag("h1", "misc-url",
                     "first_true_acl(); second_true_acl(); is_foo(foo)",
                     "jsp.testMessage", "jsp.testMessage", "foo.gif");
-            
+
             tt.setAclMixins(MockOneAclHandler.class.getName() + "," +
                     MockTwoAclHandler.class.getName());
 
@@ -97,11 +97,11 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
 
     public void testCreateAclMultipleAclsSingleMixin() {
         try {
-            String output = "<div class=\"toolbar-h1\"><div class=\"" + 
+            String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"><span class=\"toolbar\"><a href=\"misc-url\">" +
                 "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
                 "ignore me</a></span></div></div>";
-            
+
             setupMiscTag("h1", "misc-url",
                     "first_true_acl(); second_true_acl()", "jsp.testMessage",
                     "jsp.testMessage", "foo.gif");
@@ -126,7 +126,7 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
 
             setupMiscTag("h1", "misc-url",
                     "true_test()", "alt", "text", "foo.gif");
-            
+
             tt.setAclMixins("throws.class.not.found.exception");
 
             verifyTag(output);
@@ -139,17 +139,17 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
             fail(e.toString());
         }
     }
-    
+
     public void testMiscAcl() {
 
         try {
             // setup mock objects
-            String output = "<div class=\"toolbar-h1\"><div class=\"" + 
+            String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"><span class=\"toolbar\"><a href=\"misc-url\">" +
                 "<img src=\"/img/foo.gif\" alt=\"ignore me\" title=\"ignore me\" />" +
                 "ignore me</a></span></div></div>";
-            
-            setupMiscTag("h1", "misc-url", "true_test()", "jsp.testMessage", 
+
+            setupMiscTag("h1", "misc-url", "true_test()", "jsp.testMessage",
                          "jsp.testMessage", "foo.gif");
 
             verifyTag(output);
@@ -158,21 +158,21 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
             fail(e.toString());
         }
     }
-    
+
     public void testMiscWithMissingUrl() {
         try {
             // setup mock objects
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"></div></div>";
-            
-            setupMiscTag("h1", null, "true_test()", "alt", "text", 
+
+            setupMiscTag("h1", null, "true_test()", "alt", "text",
                 "foo.gif");
-            
+
             verifyTag(output);
         }
         catch (JspException e) {
             fail(e.toString());
-        } 
+        }
     }
 
     public void testMiscWithMissingImg() {
@@ -180,14 +180,14 @@ public class ToolbarTagMiscTest extends BaseTestToolbarTag {
             // setup mock objects
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"></div></div>";
-            
-            setupMiscTag("h1", "misc-url", "true_test()", "alt", "text", 
-                null); 
-            
+
+            setupMiscTag("h1", "misc-url", "true_test()", "alt", "text",
+                null);
+
             verifyTag(output);
         }
         catch (JspException e) {
             fail(e.toString());
-        } 
+        }
     }
 }

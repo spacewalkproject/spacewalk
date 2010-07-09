@@ -33,23 +33,23 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev: 1 $
  */
 public class KickstartFileDownloadAction extends BaseKickstartEditAction {
-        
+
     public static final String FILEDATA = "filedata";
     public static final String KSURL = "ksurl";
     private static final String INVALID_CHANNEL = "invalid_channel";
 
     /**
      * {@inheritDoc}
-     * no form to process. return null. 
+     * no form to process. return null.
      */
-    protected ValidatorError processFormValues(HttpServletRequest request, 
-            DynaActionForm form, 
-            BaseKickstartCommand cmdIn) {                  
-        return null;                
+    protected ValidatorError processFormValues(HttpServletRequest request,
+            DynaActionForm form,
+            BaseKickstartCommand cmdIn) {
+        return null;
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      * no success msg to process...return empty string.
      */
@@ -60,14 +60,14 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
     /**
      * {@inheritDoc}
      */
-    protected void setupFormValues(RequestContext ctx, 
+    protected void setupFormValues(RequestContext ctx,
             DynaActionForm form, BaseKickstartCommand cmdIn) {
         HttpServletRequest request = ctx.getRequest();
         KickstartFileDownloadCommand cmd = (KickstartFileDownloadCommand) cmdIn;
         KickstartData data = cmd.getKickstartData();
         KickstartHelper helper = new KickstartHelper(request);
 
-        
+
         /*
          * To generate the file data, our kickstart channel must have at least
          * a minimum list of packages. Verify that those are there before even

@@ -23,16 +23,16 @@ import java.util.Map;
  * @version $Rev$
  */
 public class ChildChannelPreservationDto {
-    
+
     private Long oldChannelId;
     private String oldChannelName;
-    
+
     private Long otherChannelId;
     private String otherChannelName;
-    
+
     private Long systemsAffectedCount;
     private List<Map> systemsAffected;
-    
+
     /**
      * @param oldChannelIdIn The oldChannelId to set.
      * @param oldChannelNameIn The oldChannelName to set.
@@ -41,15 +41,15 @@ public class ChildChannelPreservationDto {
      * @param systemsAffectedIn The systemsAffected to set.
      */
     public ChildChannelPreservationDto(Long oldChannelIdIn, String oldChannelNameIn,
-            Long otherChannelIdIn, String otherChannelNameIn, 
+            Long otherChannelIdIn, String otherChannelNameIn,
             List<Map> systemsAffectedIn) {
-        
+
         this.oldChannelId = oldChannelIdIn;
         this.oldChannelName = oldChannelNameIn;
-        
+
         this.otherChannelId = otherChannelIdIn;
         this.otherChannelName = otherChannelNameIn;
-        
+
         this.systemsAffected = systemsAffectedIn;
         this.systemsAffectedCount = new Long(systemsAffected.size());
     }
@@ -60,21 +60,21 @@ public class ChildChannelPreservationDto {
     public String getOldChannelName() {
         return oldChannelName;
     }
-    
+
     /**
      * @param oldChannelNameIn The oldChannelName to set.
      */
     public void setOldChannelName(String oldChannelNameIn) {
         this.oldChannelName = oldChannelNameIn;
     }
-    
+
     /**
      * @return Returns the otherChannelName.
      */
     public String getOtherChannelName() {
         return otherChannelName;
     }
-    
+
     /**
      * Set the other channel name. (used for both parent and new channel names, thus the
      * name other)
@@ -83,14 +83,14 @@ public class ChildChannelPreservationDto {
     public void setOtherChannelName(String otherChannelNameIn) {
         this.otherChannelName = otherChannelNameIn;
     }
-    
+
     /**
      * @return Returns the systemsAffectedCount.
      */
     public Long getSystemsAffectedCount() {
         return systemsAffectedCount;
     }
-    
+
     /**
      * @param systemsAffectedCountIn The systemsAffectedCount to set.
      */
@@ -98,14 +98,14 @@ public class ChildChannelPreservationDto {
         this.systemsAffectedCount = systemsAffectedCountIn;
     }
 
-    
+
     /**
      * @param systemsAffectedIn The systemsAffected to set.
      */
     public void setSystemsAffected(List<Map> systemsAffectedIn) {
         this.systemsAffected = systemsAffectedIn;
     }
-    
+
     /**
      * @return Returns the systemsAffected.
      */
@@ -113,7 +113,7 @@ public class ChildChannelPreservationDto {
         return this.systemsAffected;
     }
 
-    
+
     /**
      * @return Returns the oldChannelId.
      */
@@ -121,7 +121,7 @@ public class ChildChannelPreservationDto {
         return oldChannelId;
     }
 
-    
+
     /**
      * @param oldChannelIdIn The oldChannelId to set.
      */
@@ -129,7 +129,7 @@ public class ChildChannelPreservationDto {
         this.oldChannelId = oldChannelIdIn;
     }
 
-    
+
     /**
      * @return Returns the otherChannelId.
      */
@@ -137,12 +137,12 @@ public class ChildChannelPreservationDto {
         return otherChannelId;
     }
 
-    
+
     /**
      * @param otherChannelIdIn The otherChannelId to set.
      */
     public void setOtherChannelId(Long otherChannelIdIn) {
         this.otherChannelId = otherChannelIdIn;
     }
-    
+
 }

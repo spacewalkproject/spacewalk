@@ -25,10 +25,10 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * DeviceSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
  *  #struct("device")
  *      #prop_desc("string", "device", "optional")
@@ -43,12 +43,12 @@ import redstone.xmlrpc.XmlRpcSerializer;
 public class DeviceSerializer implements XmlRpcCustomSerializer {
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
     throws XmlRpcException, IOException {
-        
+
         Device dev = (Device) value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("device", dev.getDevice());
@@ -61,9 +61,9 @@ public class DeviceSerializer implements XmlRpcCustomSerializer {
         helper.add("prop2", dev.getProp2());
         helper.add("prop3", dev.getProp3());
         helper.add("prop4", dev.getProp4());
-        helper.writeTo(output);        
+        helper.writeTo(output);
     }
-    
+
     /**
      * {@inheritDoc}
      */

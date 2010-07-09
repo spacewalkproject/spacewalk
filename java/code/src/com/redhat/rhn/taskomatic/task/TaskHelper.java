@@ -46,7 +46,7 @@ public class TaskHelper {
      */
     private TaskHelper() {
     }
-    
+
     /**
      * Logs the daemon state
      * @param label The label of the daeomon we're logging.
@@ -54,17 +54,17 @@ public class TaskHelper {
     public static void logDaemonState(String label) {
         Map params = new HashMap();
         params.put("label", label);
-        
+
         //Remove any entries from rhnDaemonState if they exist
-        WriteMode m = ModeFactory.getWriteMode("General_queries", 
+        WriteMode m = ModeFactory.getWriteMode("General_queries",
                                                "remove_daemon_state");
         m.executeUpdate(params);
-        
+
         //Add new entry
         m = ModeFactory.getWriteMode("General_queries", "add_daemon_state");
         m.executeUpdate(params);
     }
-    
+
     /**
      * Send an error email to the Satellite admin
      * @param logger to log any errors to
@@ -75,7 +75,7 @@ public class TaskHelper {
         LocalizationService ls = LocalizationService.getInstance();
         String[] recipients = null;
         if (c.getString("web.traceback_mail").equals("")) {
-            
+
             recipients = new String[1];
             recipients[0] = "root@localhost";
         }
@@ -99,10 +99,10 @@ public class TaskHelper {
         }
         catch (Throwable t) {
             logger.error(t);
-        }        
+        }
 
     }
-    
+
     /**
      * Sends stacktrace via email
      * @param logger caller's logger
@@ -127,7 +127,7 @@ public class TaskHelper {
         }
         mail.send();
     }
-    
+
     /**
      * @param org The org in question
      * @return Returns a list of email addresses for the org_admins in the given org.
@@ -141,7 +141,7 @@ public class TaskHelper {
             User admin = (User) itr.next();
             emails[i] = admin.getEmail();
         }
-        
+
         return emails;
     }
 }

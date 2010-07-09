@@ -25,14 +25,14 @@ import java.util.List;
  * @version $Rev$
  */
 public class ValidatorResult {
-    private List<ValidatorError> validationErrors = 
+    private List<ValidatorError> validationErrors =
                                 new LinkedList<ValidatorError>();
-    private List<ValidatorWarning> validationWarnings = 
+    private List<ValidatorWarning> validationWarnings =
                                     new LinkedList<ValidatorWarning>();
 
     /**
      * Add a ValidatorError to the list of errors.
-     * 
+     *
      * @param error ValidatorError to be added.
      */
     public void addError(ValidatorError error) {
@@ -41,15 +41,15 @@ public class ValidatorResult {
 
     /**
      * Add a ValidatorError to the list of errors.
-     * 
-     * @param key the message key of the error 
+     *
+     * @param key the message key of the error
      * @param args the args that go with the error message.
      *
      */
     public void addError(String key, Object... args) {
         addError(new ValidatorError(key, args));
-    }    
-    
+    }
+
     /**
      * Add a ValidatorWarning to the list of warnings.
      *
@@ -58,16 +58,16 @@ public class ValidatorResult {
     public void addWarning(ValidatorWarning warning) {
         validationWarnings.add(warning);
     }
-    
+
     /**
      * Add a ValidatorWarning to the list of warnings.
-     * @param key the message key of the warning 
+     * @param key the message key of the warning
      * @param args the args that go with the warning.
      */
     public void addWarning(String key, Object... args) {
         addWarning(new ValidatorWarning(key, args));
     }
-    
+
 
     /**
      * Retrieve the list of ValidatorErrors.
@@ -86,9 +86,9 @@ public class ValidatorResult {
     public List<ValidatorWarning> getWarnings() {
         return validationWarnings;
     }
-    
+
     /**
-     * Appends the results of the passed in ValidatorResult 
+     * Appends the results of the passed in ValidatorResult
      * to this result
      * @param result the results to append.
      */
@@ -98,20 +98,20 @@ public class ValidatorResult {
     }
 
     /**
-     * 
+     *
      * @return TODO
      */
     public String getMessage() {
         StringBuilder str = new StringBuilder();
         if (!validationErrors.isEmpty()) {
-            str.append("ERRORS:\n"); 
+            str.append("ERRORS:\n");
             for (ValidatorError error : validationErrors) {
                 str.append(error.getMessage()).append("\n");
             }
-            
+
         }
         if (!validationWarnings.isEmpty()) {
-            str.append("WARNINGS:\n"); 
+            str.append("WARNINGS:\n");
             for (ValidatorWarning warning : validationWarnings) {
                 str.append(warning.getMessage()).append("\n");
             }
@@ -120,7 +120,7 @@ public class ValidatorResult {
     }
 
     /**
-     * 
+     *
      * @return true if there are no errors or warnings..
      */
     public boolean isEmpty() {

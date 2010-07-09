@@ -27,8 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class provides entry point to  
- * retrieve Panes through hibernate.. 
+ * This class provides entry point to
+ * retrieve Panes through hibernate..
  * PaneFactory
  * @version $Rev$
  */
@@ -43,7 +43,7 @@ public class PaneFactory {
     /**
      * This returns a a list of all the panes in the RHNINFOPANE table.
      * @return Map of Pane objects, with the label as the key
-     *            Also preserves the ordering returned by the Pane query. 
+     *            Also preserves the ordering returned by the Pane query.
      */
     public static Map getAllPanes() {
         Session session = null;

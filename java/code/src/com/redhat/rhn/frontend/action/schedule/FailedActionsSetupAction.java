@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class FailedActionsSetupAction extends BaseScheduledListAction {
-    
+
 
     /**
      * {@inheritDoc}

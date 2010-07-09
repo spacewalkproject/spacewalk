@@ -32,7 +32,7 @@ import java.util.Iterator;
 public class KickstartPreservationListSetupAction extends BaseKickstartListSetupAction {
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {

@@ -25,7 +25,7 @@ import java.security.NoSuchAlgorithmException;
  * @version $Rev$
  */
 public class MD5Sum {
-    
+
     // 2,147,483,647 bytes OR 2.1GB
     public static final int SCOUR_MD5_BYTE_LIMIT = Integer.MAX_VALUE;
     private static MessageDigest md = null;
@@ -51,7 +51,7 @@ public class MD5Sum {
 
     /**
      * MD5Sum the byte array
-     * 
+     *
      * @param input to sum
      * @return String md5sum
      */
@@ -63,7 +63,7 @@ public class MD5Sum {
      * mdsum the byte array with a limit
      * @param input to sum
      * @param limit to stop at
-     * @return String md5sum 
+     * @return String md5sum
      */
     public static String md5Sum(byte[] input, int limit) {
         try {

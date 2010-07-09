@@ -30,17 +30,17 @@ import java.util.StringTokenizer;
  * MonitoringConfigFactory - the singleton class used to fetch and store
  * com.redhat.rhn.domain.monitoring.config.* objects from the
  * database.
- * @version $Rev: 51602 $ 
+ * @version $Rev: 51602 $
  */
 public class MonitoringConfigFactory extends HibernateFactory {
 
     private static MonitoringConfigFactory singleton = new MonitoringConfigFactory();
     private static Logger log = Logger.getLogger(MonitoringConfigFactory.class);
-    
+
     private MonitoringConfigFactory() {
         super();
     }
-    
+
     /**
      * Get the Logger for the derived class so log messages
      * show up on the correct class
@@ -48,10 +48,10 @@ public class MonitoringConfigFactory extends HibernateFactory {
     protected Logger getLogger() {
         return log;
     }
-    
+
     /**
-     * Get the list of com.redhat.rhn.domain.monitoring.config.ConfigMacro 
-     * objects from the DB.  The editable param indicates if you want the 
+     * Get the list of com.redhat.rhn.domain.monitoring.config.ConfigMacro
+     * objects from the DB.  The editable param indicates if you want the
      * editable or non editable items.
      * @param editable if you want editable ConfigMacro items or not
      * @return List of ConfigMacro objects
@@ -62,12 +62,12 @@ public class MonitoringConfigFactory extends HibernateFactory {
             params.put("editable", "1");
         }
         else {
-            params.put("editable", "0");    
+            params.put("editable", "0");
         }
         return singleton.listObjectsByNamedQuery(
                 "ConfigMacro.loadAllByEditable", params);
     }
-    
+
     /**
      * Lookup a ConfigMacro by its name
      * @param name of ConfigMacro to lookup
@@ -79,9 +79,9 @@ public class MonitoringConfigFactory extends HibernateFactory {
         return (ConfigMacro) singleton.lookupObjectByNamedQuery(
                 "ConfigMacro.lookupByName", params);
     }
-    
-    
-    /** 
+
+
+    /**
      * Commit a ConfigMacro to the DB
      * @param cIn ConfigMacro to be saved
      */
@@ -90,13 +90,13 @@ public class MonitoringConfigFactory extends HibernateFactory {
     }
 
     /**
-     * 
+     *
      * @return The Panic Destination for this Sat
      */
     public static ContactGroup lookupPanicDestination() {
         return null;
     }
-    
+
     /**
      * Get the database name being used by Hibernate.
      * @return String db name
@@ -109,18 +109,18 @@ public class MonitoringConfigFactory extends HibernateFactory {
         StringTokenizer st = new StringTokenizer(url, ":");
         String dbName = null;
         // We want the last token so we just loop
-        // through and its left with the last when 
+        // through and its left with the last when
         // its done.
         while (st.hasMoreTokens()) {
             dbName = st.nextToken();
         }
-        // This must be hard coded to english since the 
+        // This must be hard coded to english since the
         // monitoring backend isn't localized
-        
+
         return dbName.toUpperCase(Locale.ENGLISH);
-        
+
     }
-    
+
 
     /**
      * Get the database username being used by Hibernate.
@@ -129,8 +129,8 @@ public class MonitoringConfigFactory extends HibernateFactory {
     public static String getDatabaseUsername() {
         return Config.get().getString("hibernate.connection.username");
     }
-    
-    
+
+
     /**
      * Get the database password being used by Hibernate.
      * @return String password
@@ -138,6 +138,6 @@ public class MonitoringConfigFactory extends HibernateFactory {
     public static String getDatabasePassword() {
         return Config.get().getString("hibernate.connection.password");
     }
-    
+
 }
 

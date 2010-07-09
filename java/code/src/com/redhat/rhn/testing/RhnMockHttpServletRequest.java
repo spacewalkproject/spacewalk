@@ -45,7 +45,7 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     private String encoding;
     private String method;
     private Enumeration headerNames;
-    
+
     /**
      * default constructor
      */
@@ -62,7 +62,7 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
         setSession(new RhnMockHttpSession());
         setMethod("POST");
     }
-    
+
     /**
      * Overrides the MockHttpServletRequest to actually return a value.
      * The Mock version returns null
@@ -71,7 +71,7 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     public java.lang.StringBuffer getRequestURL() {
         return new StringBuffer(requestURL);
     }
-    
+
     /**
      * Added the ability to specify a context path for testing.
      * @param pathIn Request url path.
@@ -79,7 +79,7 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     public void setRequestURL(String pathIn) {
         this.requestURL = pathIn;
     }
-    
+
     /**
      * Returns the attribute bound to the given name.
      * @param name Name of attribute whose value is sought.
@@ -88,7 +88,7 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     public Object getAttribute(String name) {
         return attributes.get(name);
     }
-    
+
     /**
      * Adds a new attribute the Request.
      * @param name attribute name
@@ -106,18 +106,18 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     public void setAttribute(String name, Object value) {
         attributes.put(name, value);
     }
-    
+
 
     /** {@inheritDoc} */
     public String getHeader(String name) {
         return (String)headers.get(name);
     }
-    
+
     /** {@inheritDoc} */
     public Enumeration getHeaderNames() {
         return this.headerNames;
     }
-    
+
     /**
      * Header Names
      * @param headerNamesIn attribute headerNames
@@ -130,7 +130,7 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     public Map getParameterMap() {
         return parameterMap;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -142,28 +142,28 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     public Locale getLocale() {
         return (Locale) this.locales.get(0);
     }
-    
+
     /**
      * Set the primary locale of this Request.
      * @param lcl The primary Local of this Request.
-     */ 
-    public void setLocale(Locale lcl) { 
+     */
+    public void setLocale(Locale lcl) {
         this.locales.add(0, lcl);
     }
-    
-    /** 
+
+    /**
      * Set the list of Locales.
      * @param lcls List of Locales.
      */
     public void setLocales(List lcls) {
         this.locales = lcls;
     }
-    
+
     /** {@inheritDoc} */
     public Enumeration getLocales() {
         return java.util.Collections.enumeration(this.locales);
     }
-    
+
     /**
      * Allows you to add a Cookie to the request to simulate receiving
      * a cookie from the browser.
@@ -182,7 +182,7 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     public int getServerPort() {
         return port;
     }
-    
+
     /**
      * Sets the server port for this request.
      * @param p Port
@@ -199,7 +199,7 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     public void setupGetHeader(String headerName, String value) {
         headers.put(headerName, value);
     }
-    
+
     /**
      * Configures whether this request is secure.
      * @param s Flag indicating whether request is secure.
@@ -220,7 +220,7 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
 
     /** {@inheritDoc} */
     public void setCharacterEncoding(String encodingIn) {
-        this.encoding = encodingIn; 
+        this.encoding = encodingIn;
     }
 
 

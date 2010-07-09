@@ -50,7 +50,7 @@ public class ChannelListUnsubscribeSubmitAction extends
      */
     protected DataResult getDataResult(User user, ActionForm formIn,
             HttpServletRequest request) {
-        RequestContext rctx = new RequestContext(request); 
+        RequestContext rctx = new RequestContext(request);
         Server server = rctx.lookupServer();
         return ConfigurationManager.getInstance().
                             listChannelsForSystem(user, server, null);
@@ -79,9 +79,9 @@ public class ChannelListUnsubscribeSubmitAction extends
         // TODO Auto-generated method stub
 
     }
-    
+
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -94,16 +94,16 @@ public class ChannelListUnsubscribeSubmitAction extends
         RequestContext context = new RequestContext(request);
         context.lookupAndBindServer();
         context.copyParamToAttributes(RequestContext.SID);
-        
+
         return operateOnSelectedSet(mapping, formIn, request, response,
                 "unsubscribe");
-    }    
-    
-    
+    }
+
+
     /**
      * This method is called when the &quot;Unsubscribe&quot;
      * button is clicked in the Channels List page.
-     * Basically unsubscribes the selected channel. 
+     * Basically unsubscribes the selected channel.
      * @param form Action form object.
      * @param req The servlet request object
      * @param elementIn The checked element in the set
@@ -115,7 +115,7 @@ public class ChannelListUnsubscribeSubmitAction extends
             RhnSetElement elementIn, User userIn) {
 
         Server server = (Server)req.getAttribute(RequestContext.SYSTEM);
-        
+
         ConfigurationManager cm = ConfigurationManager.getInstance();
         ConfigChannel cc = cm.lookupConfigChannel(userIn, elementIn.getElement());
 
@@ -123,10 +123,10 @@ public class ChannelListUnsubscribeSubmitAction extends
         server.unsubscribe(cc);
 
         // bz 444517 - Create a snapshot to capture this change
-        String message = 
+        String message =
             LocalizationService.getInstance().getMessage("snapshots.configchannel");
         SystemManager.snapshotServer(server, message);
-        
+
         return Boolean.valueOf(numOfChannels > server.getConfigChannels().size());
     }
 }

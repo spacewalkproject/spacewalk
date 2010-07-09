@@ -129,7 +129,7 @@ public class UserInfo extends AbstractUserChild {
     public void setTimeZone(RhnTimeZone timeZoneIn) {
         this.timeZone = timeZoneIn;
     }
-    
+
     /**
      * Returns user's preferred locale
      * @return locale
@@ -137,7 +137,7 @@ public class UserInfo extends AbstractUserChild {
     public String getPreferredLocale() {
         return this.preferredLocale;
     }
-    
+
     /**
      * Sets user's preferred locale
      * @param locale user's preferred locale
@@ -145,17 +145,17 @@ public class UserInfo extends AbstractUserChild {
     public void setPreferredLocale(String locale) {
         this.preferredLocale = locale;
     }
-    
-    /** 
-     * Getter for emailNotify 
+
+    /**
+     * Getter for emailNotify
      * @return emailNotify
      */
     public int getEmailNotify() {
         return this.emailNotify;
     }
- 
-    /** 
-     * Setter for emailNotify 
+
+    /**
+     * Setter for emailNotify
      * @param emailNotifyIn New value for emailNotify
      */
     public void setEmailNotify(int emailNotifyIn) {

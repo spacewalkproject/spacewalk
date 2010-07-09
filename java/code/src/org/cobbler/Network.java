@@ -97,7 +97,7 @@ public class Network {
     public String getSubnet() {
         return subnet;
     }
-    
+
     /**
      * @param subnetIn The subnet to set.
      */

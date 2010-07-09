@@ -36,35 +36,35 @@ public class ConfigContent extends BaseDomainHelper {
      * Use the ConfigurationFactory to get new ConfigContents
      */
     protected ConfigContent() {
-        
+
     }
 
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for contents 
+    /**
+     * Getter for contents
      * @return byte array to get
     */
     public byte[] getContents() {
         return HibernateFactory.blobToByteArray(getContentsBlob());
     }
 
-    /** 
-     * Setter for contents 
+    /**
+     * Setter for contents
      * @param contentsIn to set
     */
     public void setContents(byte[] contentsIn) {
@@ -96,23 +96,23 @@ public class ConfigContent extends BaseDomainHelper {
     }
 
 
-    /** 
-     * Getter for fileSize 
+    /**
+     * Getter for fileSize
      * @return Long to get
     */
     public Long getFileSize() {
         return this.fileSize;
     }
 
-    /** 
-     * Setter for fileSize 
+    /**
+     * Setter for fileSize
      * @param fileSizeIn to set
     */
     public void setFileSize(Long fileSizeIn) {
         this.fileSize = fileSizeIn;
     }
 
-    /** 
+    /**
      * Getter for checksum
      * @return String to get
     */
@@ -120,7 +120,7 @@ public class ConfigContent extends BaseDomainHelper {
         return this.checksum;
     }
 
-    /** 
+    /**
      * Setter for checksum
      * @param checksumIn to set
     */
@@ -128,16 +128,16 @@ public class ConfigContent extends BaseDomainHelper {
         this.checksum = checksumIn;
     }
 
-    /** 
-     * Getter for isBinary 
+    /**
+     * Getter for isBinary
      * @return String to get
     */
     public boolean isBinary() {
         return this.isBinary;
     }
 
-    /** 
-     * Setter for isBinary 
+    /**
+     * Setter for isBinary
      * @param isBinaryIn to set
     */
     public void setBinary(boolean isBinaryIn) {

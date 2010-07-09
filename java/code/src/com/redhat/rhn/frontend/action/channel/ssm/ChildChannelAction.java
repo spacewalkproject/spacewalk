@@ -48,27 +48,27 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ChildChannelAction extends RhnAction {
-    
+
     private final Log log = LogFactory.getLog(this.getClass());
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public ActionForward execute(ActionMapping mapping, 
-            ActionForm form, 
-            HttpServletRequest request, 
+    public ActionForward execute(ActionMapping mapping,
+            ActionForm form,
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        
+
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
         DynaActionForm daForm = (DynaActionForm)form;
-        
+
         request.setAttribute("parentUrl", request.getRequestURI());
-        
+
         // Provide the list of all child-channels for all systems in the SSM
         setupList(user, request);
-        
+
         // If submitted, save the user's choices for the confirm page
         if (isSubmitted(daForm) && request.getParameter("dispatch") != null) {
             processList(user, request);
@@ -83,14 +83,14 @@ public class ChildChannelAction extends RhnAction {
     // Get the list of child-channels available to the System Set
     // and create a data-structure mapping them to their respective base-channels
     protected void setupList(User user, HttpServletRequest request) {
-        
+
         DataResult dr = ChannelManager.childrenAvailableToSet(user);
         List<ChildChannelDto> children = new ArrayList<ChildChannelDto>(dr);
-        
+
         dr = ChannelManager.baseChannelsInSet(user);
         List<SystemsPerChannelDto> bases = new ArrayList<SystemsPerChannelDto>(dr);
         request.setAttribute("bases", bases);
-        
+
         int debugFound = 0;
         Set<ChildChannelDto> nullParented = new HashSet<ChildChannelDto>();
 
@@ -98,10 +98,10 @@ public class ChildChannelAction extends RhnAction {
         // (the combinatorics of this algorithm aren't very good, there is
         // room for a little optimisation here
         for (SystemsPerChannelDto systemsPerChannelDto : bases) {
-            
+
             List<ChildChannelDto> availableChildren = new ArrayList<ChildChannelDto>();
             systemsPerChannelDto.setAvailableChildren(availableChildren);
-            
+
             // Find all the children for "this" parent
             for (ChildChannelDto childChannelDto : children) {
                 if (childChannelDto.getParentId() == null) {
@@ -113,7 +113,7 @@ public class ChildChannelAction extends RhnAction {
                 else if (childChannelDto.getParentId().equals(
                     systemsPerChannelDto.getId())) {
                     DataResult sis = SystemManager.systemsSubscribedToChannelInSet(
-                            childChannelDto.getId().longValue(), user, 
+                            childChannelDto.getId().longValue(), user,
                         RhnSetDecl.SYSTEMS.getLabel());
                     childChannelDto.setSystemCount(0L + sis.size());
                     availableChildren.add(childChannelDto);
@@ -132,15 +132,15 @@ public class ChildChannelAction extends RhnAction {
      * Processes the submitted parameters to determine which channels are being
      * subscribed, unsubscribed, or ignored. The first two sets will be stored as
      * RhnSets for later usage.
-     * 
+     *
      * @param user    user making the request
      * @param request http request to grab the user submitted data from
      */
     protected void processList(User user, HttpServletRequest request) {
-        
+
         List<String> subList = new ArrayList<String>();
         List<String> unsubList = new ArrayList<String>();
-        
+
         Enumeration names = request.getParameterNames();
         while (names.hasMoreElements()) {
             String aName = (String)names.nextElement();
@@ -158,8 +158,8 @@ public class ChildChannelAction extends RhnAction {
 
     /**
      * Stores the user-selected lists of channels to (un)subscribe to in RhnSets
-     * to be used later. 
-     * 
+     * to be used later.
+     *
      * @param user   user making the request
      * @param subs   subscriptions to be created
      * @param unsubs subscriptions to be removed
@@ -167,7 +167,7 @@ public class ChildChannelAction extends RhnAction {
     protected void storeChannelChanges(User user, List<String> subs, List<String> unsubs) {
         RhnSet cset = RhnSetDecl.SSM_CHANNEL_LIST.create(user);
         cset.clear();
-        
+
         for (String idStr : subs) {
             try {
                 Long id = Long.parseLong(idStr);
@@ -178,7 +178,7 @@ public class ChildChannelAction extends RhnAction {
                 log.error("Attempting to parse a channel id from: " + idStr, nfe);
             }
         }
-        
+
         for (String idStr : unsubs) {
             try {
                 Long id = Long.parseLong(idStr);
@@ -189,7 +189,7 @@ public class ChildChannelAction extends RhnAction {
                 log.error("Attempting to parse a channel id from: " + idStr, nfe);
             }
         }
-        
+
         RhnSetManager.store(cset);
     }
 }

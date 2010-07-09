@@ -57,7 +57,7 @@ public class PackageKeyType extends BaseDomainHelper implements Comparable<Packa
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -65,7 +65,7 @@ public class PackageKeyType extends BaseDomainHelper implements Comparable<Packa
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object keyType) {

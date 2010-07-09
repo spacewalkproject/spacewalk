@@ -36,7 +36,7 @@
              alt="<bean:message key='system.common.systemAlt' />" />
         ${current.name}
       </rhn:column>
-      
+
       <rhn:column header="unsubscribeconfirm.jsp.channels"
                   url="/rhn/systems/ssm/config/SystemChannels.do?sid=${current.id}">
         <c:choose>
@@ -48,7 +48,7 @@
           </c:otherwise>
         </c:choose>
       </rhn:column>
-      
+
     </rhn:listdisplay>
   </rhn:list>
 </form>

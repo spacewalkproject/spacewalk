@@ -32,37 +32,37 @@ public class KickstartIpCommand extends BaseKickstartCommand {
     private static final long MAX_OCTET = 255;
     private static final long MIN_OCTET = 0;
     /**
-     * 
-     * @param ksidIn Kickstart Id 
+     *
+     * @param ksidIn Kickstart Id
      * @param userIn User
      */
     public KickstartIpCommand(Long ksidIn, User userIn) {
         super(ksidIn, userIn);
     }
-    
+
     /**
-     * 
+     *
      * @return List representing ip ranges by this Kickstart, ksdata
      */
     public List getDisplayRanges() {
         List l = new LinkedList();
-        
+
         Long id = this.ksdata.getId();
-        
+
         Set s = this.ksdata.getIps();
-        
+
         for (Iterator i = s.iterator(); i.hasNext();) {
             KickstartIpRange ipr = (KickstartIpRange) i.next();
             IpAddress min = new IpAddress(ipr.getMin());
-            IpAddress max = new IpAddress(ipr.getMax());            
+            IpAddress max = new IpAddress(ipr.getMax());
             IpAddressRange iar = new IpAddressRange(min, max, id);
-            l.add(iar);            
-        }                
+            l.add(iar);
+        }
         return l;
     }
-    
+
     /**
-     * 
+     *
      * @param octet1In min IpRange as octet of longs
      * @param octet2In max IpRange as octet of longs
      * @return success or failure
@@ -71,33 +71,33 @@ public class KickstartIpCommand extends BaseKickstartCommand {
         IpAddress ip1 = new IpAddress(octet1In);
         IpAddress ip2 = new IpAddress(octet2In);
         IpAddressRange range = new IpAddressRange(ip1, ip2, this.ksdata.getId());
-        
+
         // make sure org does not have same ip range
-        if (!isDuplicate(range)) {            
+        if (!isDuplicate(range)) {
             KickstartIpRange ipr = new KickstartIpRange();
             ipr.setMin(ip1.getNumber());
             ipr.setMax(ip2.getNumber());
             ipr.setKsdata(this.ksdata);
-            ipr.setOrg(this.user.getOrg());            
+            ipr.setOrg(this.user.getOrg());
             this.ksdata.addIpRange(ipr);
             store();
             return true;
         }
-        else {            
-            return false; 
-        }                
+        else {
+            return false;
+        }
     }
-    
+
     /**
-     * 
+     *
      * @param octet1In Long array min octet
      * @param octet2In Long array max octet
      * @return true if no duplicates found and successful add
      */
-    public boolean addIpRange(Long [] octet1In, Long [] octet2In) {                
+    public boolean addIpRange(Long [] octet1In, Long [] octet2In) {
         return addIpRange(convertLongArr(octet1In), convertLongArr(octet2In));
     }
-    
+
     /**
      * Validate the IP address are within the valid range.
      * @param oct1In min ip octets
@@ -117,45 +117,45 @@ public class KickstartIpCommand extends BaseKickstartCommand {
     public boolean validateIpRange(Long [] oct1In, Long[] oct2In) {
         return (validateIp(convertLongArr(oct1In)) && validateIp(convertLongArr(oct2In)));
     }
-    
+
     /**
-     * 
+     *
      * @param ksidIn Kickstart Id
      * @param min Min IpRange
      * @param max Max IpRange
      * @return sucess or failure
      */
     public boolean deleteRange(Long ksidIn, String min, String max) {
-        Set s = this.ksdata.getIps();        
+        Set s = this.ksdata.getIps();
         for (Iterator i = s.iterator(); i.hasNext();) {
-            KickstartIpRange ipr = (KickstartIpRange) i.next();        
-            if (ipr.getKsdata().getId().equals(ksidIn) && 
+            KickstartIpRange ipr = (KickstartIpRange) i.next();
+            if (ipr.getKsdata().getId().equals(ksidIn) &&
                     ipr.getMax().toString().equals(max) &&
-                    ipr.getMin().toString().equals(min)) {                
+                    ipr.getMin().toString().equals(min)) {
                 s.remove(ipr);
                 store();
                 return true;
             }
-            
+
         }
         return false;
     }
-    
+
     /**
      * helper utility to validate octets (0-255)
-     * @param ipIn 
+     * @param ipIn
      * @return true if valid
      */
     private boolean validateIp(long [] ipIn) {
-        boolean retval = true;         
+        boolean retval = true;
         for (int i = 0; (i < ipIn.length) && retval; i++) {
-            retval = (ipIn[i] >= MIN_OCTET) && (ipIn[i] <= MAX_OCTET);            
-        }        
+            retval = (ipIn[i] >= MIN_OCTET) && (ipIn[i] <= MAX_OCTET);
+        }
         return retval;
     }
-    
+
     /**
-     * 
+     *
      * @param arrIn Long array coming in
      * @return coverted long array
      */
@@ -166,24 +166,24 @@ public class KickstartIpCommand extends BaseKickstartCommand {
                 arrIn[3].longValue()};
         return retval;
     }
-    
+
     /**
-     * 
-     * @param iprIn IpAddressRange to check for duplicates 
+     *
+     * @param iprIn IpAddressRange to check for duplicates
      * @return if duplicates found matched against org
      */
     private boolean isDuplicate(IpAddressRange iprIn) {
-        
-        boolean found = false;        
+
+        boolean found = false;
         long max = iprIn.getMax().getNumber();
-        long min = iprIn.getMin().getNumber();        
-        List l = KickstartFactory.lookupRangeByOrg(this.ksdata.getOrg());        
+        long min = iprIn.getMin().getNumber();
+        List l = KickstartFactory.lookupRangeByOrg(this.ksdata.getOrg());
         for (Iterator itr = l.iterator(); (itr.hasNext() && !found);) {
             KickstartIpRange ksr = (KickstartIpRange) itr.next();
-            found = ((ksr.getMax() <= max) && (ksr.getMax() >= min)) || 
-                ((ksr.getMin() <= max) && (ksr.getMin() >= min));            
-        }                
-        
+            found = ((ksr.getMax() <= max) && (ksr.getMax() >= min)) ||
+                ((ksr.getMin() <= max) && (ksr.getMin() >= min));
+        }
+
         return found;
     }
 }

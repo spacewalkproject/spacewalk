@@ -25,10 +25,10 @@ import org.jmock.MockObjectTestCase;
  * RhnHttpServletRequestTest
  * @version $Rev$
  */
-public class RhnHttpServletRequestTest extends MockObjectTestCase {  
+public class RhnHttpServletRequestTest extends MockObjectTestCase {
     private RhnMockHttpServletRequest mockRequest;
     private RhnHttpServletRequest request;
-    
+
     protected void setUp() throws Exception {
         super.setUp();
         mockRequest = new RhnMockHttpServletRequest();
@@ -37,7 +37,7 @@ public class RhnHttpServletRequestTest extends MockObjectTestCase {
     }
 
     /**
-     * 
+     *
      * @throws Exception
      */
     public void testNoHeaders() throws Exception {
@@ -48,7 +48,7 @@ public class RhnHttpServletRequestTest extends MockObjectTestCase {
     }
 
     /**
-     * 
+     *
      * @throws Exception
      */
     public void testOverrideServerName() throws Exception {
@@ -58,9 +58,9 @@ public class RhnHttpServletRequestTest extends MockObjectTestCase {
         assertEquals("testServer.redhat.com", request.getServerName());
         assertEquals(8080, request.getServerPort());
     }
-    
+
     /**
-     * 
+     *
      * @throws Exception
      */
     public void testNoOverrideSecure() throws Exception {
@@ -69,11 +69,11 @@ public class RhnHttpServletRequestTest extends MockObjectTestCase {
     }
 
     /**
-     * 
+     *
      * @throws Exception
      */
     public void testOverrideSecureHosted() throws Exception {
-        
+
         mockRequest.setupIsSecure(false);
         mockRequest.setupGetHeader("X-ENV-HTTPS", "on");
 
@@ -82,7 +82,7 @@ public class RhnHttpServletRequestTest extends MockObjectTestCase {
     }
 
     /**
-     * 
+     *
      * @throws Exception
      */
     public void testOverrideSecureSat() throws Exception {

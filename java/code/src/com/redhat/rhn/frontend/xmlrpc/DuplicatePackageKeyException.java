@@ -44,5 +44,5 @@ public class DuplicatePackageKeyException extends FaultException  {
                 getMessage("api.package.provider.duplicateKey", new Object [] {label}),
                 cause);
     }
-    
+
 }

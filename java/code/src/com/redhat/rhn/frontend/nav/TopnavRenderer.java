@@ -70,7 +70,7 @@ public class TopnavRenderer extends Renderable {
                 liTag.setAttribute("id", "mainFirst-active");
                 classStr = "mainFirstLink";
                 foundFirstNode = true;
-                
+
             }
             else if (node.isLast()) {
                 liTag.setAttribute("id", "mainLast-active");
@@ -93,7 +93,7 @@ public class TopnavRenderer extends Renderable {
                                 NavTreeIndex treeIndex,
                                 Map parameters,
                                 int depth) {
-        
+
         if (canRender(node, depth)) {
             HtmlTag liTag = new HtmlTag("li");
             String classStr = "";
@@ -108,7 +108,7 @@ public class TopnavRenderer extends Renderable {
             }
             liTag.addBody(getLink(node.getPrimaryURL(),
                                 node.getName(), classStr, node.getTarget()));
-            sb.append(liTag.render());                                
+            sb.append(liTag.render());
             sb.append("\n");
         }
     }

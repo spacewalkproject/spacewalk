@@ -46,38 +46,38 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class CreateProfileAction extends RhnAction {
-    
+
     private static Logger log = Logger.getLogger(CreateProfileAction.class);
-    
+
     /**
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         ActionForward forward = null;
         DynaActionForm f = (DynaActionForm)form;
         User user = requestContext.getLoggedInUser();
-        
+
         Server server = requestContext.lookupAndBindServer();
         request.setAttribute("system", server);
-        
+
         if (!isSubmitted(f)) {
             setup(request, f);
             forward =  strutsDelegate.forwardParams(mapping.findForward("default"),
                     request.getParameterMap());
         }
         else {
-            
+
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, f);
             if (errors.isEmpty()) {
                 ActionMessages msgs = processForm(request, user, server, f);
                 if (!msgs.isEmpty()) {
                     strutsDelegate.saveMessages(request, msgs);
-        
+
                     Map params = new HashMap();
                     params.put("sid", request.getParameter("sid"));
                     forward = strutsDelegate.forwardParams(mapping.findForward("created"),
@@ -97,33 +97,33 @@ public class CreateProfileAction extends RhnAction {
                 forward = mapping.findForward("error");
             }
         }
-        
+
         return forward;
     }
-    
+
     private ActionMessages processForm(HttpServletRequest request, User user,
             Server server, DynaActionForm f) {
-        
+
         if (log.isDebugEnabled()) {
             log.debug("Processing form.");
         }
 
         ActionMessages msgs = new ActionMessages();
-        
+
         Boolean submitted = (Boolean) f.get("submitted");
         String name = (String) f.get("name");
         String description = (String) f.get("description");
-        
+
         if (log.isDebugEnabled()) {
             log.debug("submitted [" + submitted + "]");
             log.debug("name [" + name + "]");
             log.debug("description [" + description + "]");
         }
-        
+
         try {
             Profile p = ProfileManager.createProfile(user, server, name, description);
             ProfileManager.copyFrom(server, p);
-            
+
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("create.jsp.successmessage",
                             name,
@@ -141,28 +141,28 @@ public class CreateProfileAction extends RhnAction {
                     new ActionMessage("error.profileneedsbasechannel"));
             addErrors(request, errors);
         }
-        
+
         return msgs;
     }
-   
-    private void setup(HttpServletRequest request, 
+
+    private void setup(HttpServletRequest request,
                             DynaActionForm form) {
         if (log.isDebugEnabled()) {
             log.debug("Setting up form with default values.");
         }
-        
+
         Server server = (Server) request.getAttribute("system");
         if (form.get("name") == null) {
-            form.set("name", getMessage("compare.jsp.profileof", 
-                                                    server.getName()));            
+            form.set("name", getMessage("compare.jsp.profileof",
+                                                    server.getName()));
         }
         if (form.get("description") == null) {
             form.set("description", getMessage("compare.jsp.profilemadefrom",
-                    server.getName()));            
+                    server.getName()));
         }
 
     }
-    
+
     private String getMessage(String key, String param) {
         return LocalizationService.getInstance().getMessage(key, param);
     }

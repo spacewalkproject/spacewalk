@@ -57,9 +57,9 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
      */
     public void testGetInstance() {
         assertNotNull("LocalizationService is null", ls);
-        
+
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -73,7 +73,7 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
      * test a standard non-parameterized message call
      */
     public void testGetMessageNoParams() {
-        String received = ls.getMessage("testMessage"); 
+        String received = ls.getMessage("testMessage");
         assertTrue("Message not valid", isMessageValid(received));
         String expected = "this is a test of the emergency broadcast";
         assertEquals(expected, received);
@@ -85,7 +85,7 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
     public void testGetMessageOneParams() {
         String expected = "this is a test of the LocalizationService";
         String received = ls.getMessage("testMessage.oneparam", "LocalizationService");
-        assertEquals(expected, received);    
+        assertEquals(expected, received);
     }
 
     /**
@@ -124,20 +124,20 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
             assertTrue(isMessageValid(l10ned[i]));
         }
     }
-    
+
     public void testHasMessage() {
         assertFalse(ls.hasMessage("somefakemessage" + TestUtils.randomString()));
     }
-    
-    
-    /** 
+
+
+    /**
     * Test getting debug message
     */
     public void testGetDebugMessage() {
         assertTrue("Message not valid", isMessageValid(
                       ls.getDebugMessage("testMessage")));
     }
-    
+
     /**
      * test a standard non-parameterized message with
      * spaces in the key.  Currently this doesn't work.
@@ -156,21 +156,21 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
         // web.l10n_missingmessage_exceptions
         boolean orig = Config.get().getBoolean("web.l10n_missingmessage_exceptions");
         Config.get().setBoolean("web.l10n_missingmessage_exceptions", "true");
-        
+
         boolean caught = false;
         try {
             ls.getMessage("no message with this key");
-        } 
+        }
         catch (IllegalArgumentException iae) {
             caught = true;
         }
         assertTrue(caught);
-        Config.get().setBoolean("web.l10n_missingmessage_exceptions", 
+        Config.get().setBoolean("web.l10n_missingmessage_exceptions",
                 Boolean.toString(orig));
-        
+
     }
-    
-    
+
+
     /**
     * Test formatDate
     */
@@ -183,36 +183,36 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
         assertTrue(date.indexOf('.') > 0);
         // check getBasicDate
         assertNotNull(ls.getBasicDate());
-        
-        // Here we test converting a Pacific Standard Time date from the RHN 
+
+        // Here we test converting a Pacific Standard Time date from the RHN
         // Database format to the standard Java format + timezone in GMT.
-        Date dt = new SimpleDateFormat(LocalizationService.RHN_DB_DATEFORMAT + 
+        Date dt = new SimpleDateFormat(LocalizationService.RHN_DB_DATEFORMAT +
                 " z").parse("2004-12-10 13:20:00 PST");
 
         DateFormat df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
         df.setTimeZone(TimeZone.getTimeZone("GMT"));
-        
+
         Context ctx = Context.getCurrentContext();
         ctx.setTimezone(TimeZone.getTimeZone("GMT"));
         String gmtDate = ls.formatDate(dt, Locale.ENGLISH);
-        String expected = "12/10/04 9:20:00 PM GMT"; 
+        String expected = "12/10/04 9:20:00 PM GMT";
         assertEquals(expected, gmtDate);
-        
+
         String shortGmtDate = ls.formatShortDate(dt, Locale.ENGLISH);
         expected = "12/10/04";
         assertEquals(expected, shortGmtDate);
-                
+
         // Now test formatting it to German format in a DE TimeZone.
         ctx.setTimezone(TimeZone.getTimeZone("Europe/Paris"));
         String deDate = ls.formatDate(dt, Locale.GERMAN);
         expected = "10.12.04 22:20:00 MEZ";
         assertEquals(expected, deDate);
-        
+
         String shortDeDate = ls.formatShortDate(dt, Locale.GERMAN);
         expected = "10.12.04";
         assertEquals(expected, shortDeDate);
     }
-    
+
 
     /**
     * Test formatNumber
@@ -224,22 +224,22 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
         // German numbers have commas (EN_US ones dont):
 
         assertTrue(number.indexOf('.') > 0);
-        
+
         number = ls.formatNumber(new Integer(10), Locale.ENGLISH, 2);
         assertNotNull(number);
         assertEquals(3, number.length() - number.indexOf("."));
     }
 
-    
-    /** 
+
+    /**
     * Test the alphabet and digit functions
     */
     public void testGetAlphabet() {
         assertTrue(ls.getAlphabet().contains("A"));
         assertTrue(ls.getAlphabet().contains("Z"));
     }
-    
-    /** 
+
+    /**
     * Test the alphabet and digit functions
     */
     public void testGetDigits() {
@@ -248,14 +248,14 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
         assertTrue(ls.getDigits().contains("0"));
     }
 
-    /** 
+    /**
     * Test the prefix and country functions
     */
     public void testGetCountriesPrefixes() {
         assertNotNull(ls.availableCountries().get("Peru"));
         assertTrue(ls.availablePrefixes().size() > 0);
     }
-    
+
     /** Test to make sure debug mode works
      */
     public void testDebugMessage() {
@@ -264,23 +264,23 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
         String marker = Config.get().getString("web.l10n_debug_marker", "$$$");
         assertTrue(received.startsWith(marker));
         assertTrue(received.endsWith(marker));
-        // Reset it back 
+        // Reset it back
         TestUtils.disableLocalizationDebugMode();
     }
-    
+
     public void testSupportedLocales() {
         List locales = ls.getSupportedLocales();
         assertTrue(locales.size() > 0);
         assertTrue(ls.isLocaleSupported(Locale.US));
         assertTrue(ls.isLocaleSupported(Locale.TAIWAN));
     }
-    
+
     public void testNullMessage() {
         String nullmsg = ls.getMessage(null);
         assertNotNull(nullmsg);
     }
 
-    
+
     /**
     * check to see if the fetched message is valid or not
     */
@@ -295,7 +295,7 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
         }
         return retval;
     }
-    
+
     public void testPlainText() {
         String expected = "You donot have enough entitlements for" +
                                     " 5 systems (http://www.redhat.com).";

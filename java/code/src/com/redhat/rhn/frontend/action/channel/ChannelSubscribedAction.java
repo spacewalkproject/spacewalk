@@ -68,7 +68,7 @@ public class ChannelSubscribedAction extends RhnAction {
         String alphaBarPressed = request.getParameter(
                 AlphaBarHelper.makeAlphaKey(TagHelper.generateUniqueName(LIST_NAME)));
 
-        
+
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
             helper.execute(set, LIST_NAME, result);
         }

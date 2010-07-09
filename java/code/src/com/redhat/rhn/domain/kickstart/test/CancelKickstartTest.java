@@ -38,11 +38,11 @@ public class CancelKickstartTest extends BaseTestCaseWithUser {
         Server s = ServerFactoryTest.createTestServer(user, true);
         KickstartData k = KickstartDataTest.
             createKickstartWithOptions(user.getOrg());
-        
+
         Channel c = KickstartDownloadActionTest.setupKickstartDownloadTest(k, user);
         s.addChannel(c);
-        
-        KickstartSession cancelsession = 
+
+        KickstartSession cancelsession =
             KickstartScheduleCommandTest.scheduleAKickstart(s, k).getKickstartSession();
         assertNotNull(cancelsession.getAction());
         Long aid1 = cancelsession.getAction().getId();

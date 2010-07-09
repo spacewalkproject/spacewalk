@@ -21,7 +21,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @version $Rev$
  */
 public class PackageComparison extends BaseDto {
-    
+
     protected Long id;
     protected String name;
     protected String currentNvrea;

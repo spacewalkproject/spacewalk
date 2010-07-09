@@ -41,17 +41,17 @@ public class PublishedDeleteConfirmSetupActionTest extends RhnMockStrutsTestCase
         user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
-    
+
     public void testExecute() throws Exception {
-        
-        RhnSet errataToDelete = RhnSetFactory.createRhnSet(user.getId(), 
-                "errata_to_delete", 
+
+        RhnSet errataToDelete = RhnSetFactory.createRhnSet(user.getId(),
+                "errata_to_delete",
                 SetCleanup.NOOP);
-        
-        /* Here we add both published and unpublished errata to the set 
+
+        /* Here we add both published and unpublished errata to the set
          * so that when we get the result back, we verify that we are only
          * published errata are appearing in the set. We add two
-         * published for every unpublished so that we will not have an 
+         * published for every unpublished so that we will not have an
          * equal number in the set
          */
         for (int j = 0; j < 5; ++j) {
@@ -65,20 +65,20 @@ public class PublishedDeleteConfirmSetupActionTest extends RhnMockStrutsTestCase
             .createTestPublishedErrata(user.getOrg().getId());
             errataToDelete.addElement(e.getId());
         }
-        
+
         RhnSetManager.store(errataToDelete);
-        
+
         RhnSet set = RhnSetDecl.ERRATA_TO_DELETE.get(user);
         assertEquals(15, set.size());
-        
+
         actionPerform();
-        
+
         DataResult dr = (DataResult) request.getAttribute("pageList");
         assertNotNull(dr);
         assertEquals(10, dr.size());
-        
+
         Iterator i = dr.iterator();
-        
+
         /* Verify that we only got published results back */
         while (i.hasNext()) {
             OwnedErrata e = (OwnedErrata) i.next();

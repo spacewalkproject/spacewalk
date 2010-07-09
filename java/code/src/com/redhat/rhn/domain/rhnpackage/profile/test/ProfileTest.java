@@ -39,9 +39,9 @@ import java.util.List;
  * @version $Rev$
  */
 public class ProfileTest extends RhnBaseTestCase {
-    
+
     private static Logger log = Logger.getLogger(ProfileTest.class);
-    
+
     /**
      * Test the Equals method of Profile
      * @throws Exception
@@ -49,20 +49,20 @@ public class ProfileTest extends RhnBaseTestCase {
     public void testProfileEquals() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Channel channel = ChannelFactoryTest.createTestChannel(user);
-        Profile p1 = createTestProfile(user, channel);      
+        Profile p1 = createTestProfile(user, channel);
         Profile p2 = new Profile();
         assertFalse(p1.equals(p2));
-        
+
         /*
          * Get coverage on the "!(other instanceof Profile)" block
-         * of Profile.equals() 
+         * of Profile.equals()
          */
         assertFalse(p1.equals(channel));
-        
+
         p2 = lookupByIdAndOrg(p1.getId(), user.getOrg());
         assertTrue(p1.equals(p2));
     }
-    
+
     /**
      * Helper method to get a Profile by id
      * @param id The profile id
@@ -77,15 +77,15 @@ public class ProfileTest extends RhnBaseTestCase {
                                     .setLong("org_id", org.getId().longValue())
                                     .uniqueResult();
     }
-    
+
     /**
      * Helper method to create a Profile for testing purposes
      * @return Returns a fresh Profile
      * @throws Exception
-     */   
+     */
     public static Profile createTestProfile(User user, Channel channel)
         throws Exception {
-        
+
         Profile p = new Profile();
         p.setInfo("Test information for a test Profile.");
         p.setName("RHN-JAVA" + TestUtils.randomString());
@@ -93,14 +93,14 @@ public class ProfileTest extends RhnBaseTestCase {
         p.setBaseChannel(channel);
         p.setOrg(user.getOrg());
         p.setProfileType(ProfileFactory.TYPE_NORMAL);
-        
+
         assertNull(p.getId());
         TestUtils.saveAndFlush(p);
         assertNotNull(p.getId());
-        
+
         return p;
     }
-    
+
     public static void testCompatibleServer() throws Exception {
         // create a profile
         // create a channel
@@ -113,10 +113,10 @@ public class ProfileTest extends RhnBaseTestCase {
         log.debug("Created test channel");
         createTestProfile(user, channel);
         Session session = HibernateFactory.getSession();
-        
+
         // gotta make sure the Channel gets saved.
         session.flush();
-        
+
         Query qry = session.getNamedQuery("Profile.compatibleWithServer");
         qry.setLong("sid", server.getId().longValue());
         qry.setLong("org_id", user.getOrg().getId().longValue());

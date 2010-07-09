@@ -23,7 +23,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class NoSuchOrgException extends FaultException  {
-    
+
     /**
      * Constructor
      * @param orgId Org ID.

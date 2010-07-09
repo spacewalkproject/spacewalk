@@ -11,7 +11,7 @@
  miscAcl="user_role(org_admin)"
  miscText="${text}"
  miscImg="${img}"
- miscAlt="${text}" 
+ miscAlt="${text}"
  imgAlt="users.jsp.imgAlt">
  <bean:message key="org.allusers.title" />
 </rhn:toolbar>
@@ -28,19 +28,19 @@
 <!-- Start of org list -->
 <rl:list dataset="pageList"
          width="100%"
-         name="userList"         
-         styleclass="list"      
-         filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"   
+         name="userList"
+         styleclass="list"
+         filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"
          emptykey="org.jsp.noUsers">
-        
+
 	<!-- Username column -->		
-	<rl:column bound="false" 
-	           sortable="true" 
+	<rl:column bound="false"
+	           sortable="true"
 	           styleclass="first-column"
 	           headerkey="username.nopunc.displayname"
 	           sortattr="login">
 	    <c:choose>
-	      <c:when test="${(userOrgId == current.orgId) and (canModify == 1)}">	         	           	          
+	      <c:when test="${(userOrgId == current.orgId) and (canModify == 1)}">
 		    <c:out value="<a href=\"/rhn/users/UserDetails.do?uid=${current.id}\">${current.login}</a>" escapeXml="false" />
 		  </c:when>
 	      <c:otherwise>
@@ -48,24 +48,24 @@
 	      </c:otherwise>
 		</c:choose>	
 	</rl:column>
-	<rl:column bound="false" 
-	           sortable="false" 
-	           headerkey="realname.displayname" 	           
+	<rl:column bound="false"
+	           sortable="false"
+	           headerkey="realname.displayname"
 	           attr="userLastName">
 		<c:out value="<a href=\"mailto:${current.address}\">${current.userLastName}, ${current.userFirstName}</a>" escapeXml="false"/>
 	</rl:column>
-	<rl:column bound="false" 
-	           sortable="false" 
-	           headerkey="org.displayname" 	           
+	<rl:column bound="false"
+	           sortable="false"
+	           headerkey="org.displayname"
 	           attr="orgName">
 		<c:out value="${current.orgName}" />
 	</rl:column>
-	<rl:column bound="false" 
-	           sortable="false" 
-	           headerkey="orgadmin.displayname" 	           
+	<rl:column bound="false"
+	           sortable="false"
+	           headerkey="orgadmin.displayname"
 	           attr="orgAdmin">
 	    <c:choose>
-	      <c:when test="${current.orgAdmin == 1}">	      
+	      <c:when test="${current.orgAdmin == 1}">
 	        <img src="/img/rhn-listicon-checked_immutable.gif">
 	      </c:when>
 	      <c:otherwise>
@@ -73,13 +73,13 @@
 	      </c:otherwise>
 		</c:choose>
 	</rl:column>
-		<rl:column bound="false" 
-	           sortable="false" 
-	           headerkey="satadmin.displayname" 
+		<rl:column bound="false"
+	           sortable="false"
+	           headerkey="satadmin.displayname"
 	           styleclass="last-column"
 	           attr="orgAdmin">
-	    <c:choose>	      
-	      <c:when test="${current.satAdmin == 1}">	      
+	    <c:choose>
+	      <c:when test="${current.satAdmin == 1}">
 	        <a href="/rhn/admin/multiorg/ToggleSatAdmin.do?uid=${current.id}">
 	        <img src="/img/rhn-listicon-ok.gif">
 	        </a>
@@ -88,7 +88,7 @@
 	        <a href="/rhn/admin/multiorg/ToggleSatAdmin.do?uid=${current.id}">
 	        <img src="/img/rhn-listicon-unchecked.gif">
 	        </a>
-	      </c:otherwise>	      
+	      </c:otherwise>
 		</c:choose>
 	</rl:column>
 	

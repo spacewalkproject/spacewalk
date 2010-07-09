@@ -33,7 +33,7 @@ public class InputTag extends HtmlTag {
 
     /**
      * set the name of the input
-     * @param name name of the input 
+     * @param name name of the input
      */
     public void setName(String name) {
         setAttribute("name", name);
@@ -41,7 +41,7 @@ public class InputTag extends HtmlTag {
 
     /**
      * set the size of the input
-     * @param size of the input 
+     * @param size of the input
      */
     public void setSize(int size) {
         setAttribute("size",  Integer.toString(size));
@@ -49,7 +49,7 @@ public class InputTag extends HtmlTag {
 
     /**
      * set the value of the input
-     * @param value of the input 
+     * @param value of the input
      */
     public void setValue(String value) {
         setAttribute("value", value);

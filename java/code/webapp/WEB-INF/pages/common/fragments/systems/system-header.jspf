@@ -45,14 +45,14 @@
 			<img src="/img/rhn-icon-system.gif" alt="system" />
 		</c:otherwise>
     </c:choose>
- 
+
 	<c:if test="${empty system}">
 		<decorator:getProperty property="meta.name" />
 	</c:if>
 	<c:if test="${not empty system}">
 		${fn:escapeXml(system.name)}
 	</c:if>
-	 
+
 	<a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-details" target="_new" class="help-title">
 		<img src="/img/rhn-icon-help.gif" alt="<bean:message key="toolbar.jsp.helpicon.alt"/>" />
 	</a>

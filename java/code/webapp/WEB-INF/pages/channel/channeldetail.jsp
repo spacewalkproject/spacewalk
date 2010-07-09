@@ -144,14 +144,14 @@
 		            </c:when>
 		            <c:otherwise>
 		                <td><html:radio property="global" value="selected" disabled="true"/></td>
-		            </c:otherwise>  
+		            </c:otherwise>
 	            </c:choose>
             <td><bean:message key="channel.edit.jsp.selectedusers"/></td>
             </tr>
             </table>
          </td>
       </tr>
-      
+
       <tr>
         <th><bean:message key="channel.jsp.systemssubsribed"/>:</th>
         <td><a href="/rhn/channels/ChannelSubscribers.do?cid=${channel.id}">${systems_subscribed}</a></td>
@@ -240,7 +240,7 @@
          </td>
       </tr>
    </table>
-    
+
       <c:if test="${has_access}">
 	    <p align="right">
             <html:submit property="Update">
@@ -248,12 +248,12 @@
             </html:submit>
 	    </p>
       </c:if>
- <rhn:submitted/> 
+ <rhn:submitted/>
  <html:hidden property="cid" value="${channel.id}" />
 </html:form>
-    	   
+
     		
-    
+
 </div>
 
 </body>

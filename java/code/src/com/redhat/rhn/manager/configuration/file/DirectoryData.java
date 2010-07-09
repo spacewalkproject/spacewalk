@@ -36,7 +36,7 @@ public class DirectoryData extends ConfigFileData {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
@@ -66,9 +66,9 @@ public class DirectoryData extends ConfigFileData {
     protected void validateContents(ValidatorResult result, boolean onCreate) {
         //NO OP
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override

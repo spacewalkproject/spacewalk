@@ -38,96 +38,96 @@ public class ConfigChannel extends BaseDomainHelper implements Identifiable {
     private String description;
 
     private ConfigChannelType configChannelType;
-    
+
     private SortedSet configFiles;
-    
+
     /**
      * Protected constructor
      * Use ConfigurationFactory to create a new channel.
      */
     protected ConfigChannel() {
-        
+
     }
-    
-    /** 
-     * Getter for id 
+
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for orgId 
+    /**
+     * Getter for orgId
      * @return Long to get
     */
     public Long getOrgId() {
         return this.org.getId();
     }
 
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * @return String to get
     */
     public String getName() {
         return this.name;
     }
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn to set
     */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
 
-    /** 
-     * Getter for label 
+    /**
+     * Getter for label
      * @return String to get
     */
     public String getLabel() {
         return this.label;
     }
 
-    /** 
-     * Setter for label 
+    /**
+     * Setter for label
      * @param labelIn to set
     */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
-    
+
     /**
      * @return Returns the configChannelType.
      */
     public ConfigChannelType getConfigChannelType() {
         return configChannelType;
     }
-    
+
     /**
      * @param configChannelTypeIn The configChannelType to set.
      */
@@ -135,7 +135,7 @@ public class ConfigChannel extends BaseDomainHelper implements Identifiable {
         this.configChannelType = configChannelTypeIn;
     }
 
-    
+
     /**
      * @return Returns the org.
      */
@@ -143,16 +143,16 @@ public class ConfigChannel extends BaseDomainHelper implements Identifiable {
         return org;
     }
 
-    
+
     /**
      * @param orgIn The org to set.
      */
     public void setOrg(Org orgIn) {
         org = orgIn;
     }
-    
+
     // Utility routines for common use cases
-    
+
     /**
      * Is this a local (i.e. system) channel?
      * @return true if local
@@ -161,7 +161,7 @@ public class ConfigChannel extends BaseDomainHelper implements Identifiable {
         return ConfigChannelType.local().equals(
                 getConfigChannelType());
     }
-    
+
     /**
      * Is this a global channel?
      * @return true if global
@@ -170,7 +170,7 @@ public class ConfigChannel extends BaseDomainHelper implements Identifiable {
         return ConfigChannelType.global().equals(
                 getConfigChannelType());
     }
-    
+
     /**
      * Is this a sandbox channel?
      * @return true if sandbox
@@ -183,34 +183,34 @@ public class ConfigChannel extends BaseDomainHelper implements Identifiable {
     /**
      * @return Returns the set of config files associated to this channel.
      */
-    
+
     public SortedSet<ConfigFile> getConfigFiles() {
         return configFiles;
     }
 
-    /** 
-     * Setter for list of config files associated to this channel 
+    /**
+     * Setter for list of config files associated to this channel
      * @param cfg to set
     */
     protected void setConfigFiles(SortedSet cfg) {
         this.configFiles = cfg;
     }
 
-    
+
     /**
-     * Provide a wrapper that returns a useful, I18N'd, name for a channel - 
+     * Provide a wrapper that returns a useful, I18N'd, name for a channel -
      * relies on the utility function in ConfigurationFactory.
-     * 
+     *
      * @return displayable, I18N'd channel name, even for local and sandbox channels
      */
     public String getDisplayName() {
         String typeStr = getConfigChannelType().getLabel();
         return ConfigurationFactory.getChannelNameDisplay(typeStr, getName());
     }
-    
+
     /**
      * Creates a configuration file and saves it to the database
-     * with the given information. 
+     * with the given information.
      * Note: users of the same org do not automatically have access to this file.
      * See rhn_config_channel.get_user_file_access
      * @param state The state of the file (dead or alive)
@@ -227,7 +227,7 @@ public class ConfigChannel extends BaseDomainHelper implements Identifiable {
          ConfigurationFactory.commit(file);
          return file;
     }
-     
+
      /**
       * See createConfigFile(ConfigFileState, ConfigFileName).
       * @param state The state of the file (dead or alive)
@@ -238,9 +238,9 @@ public class ConfigChannel extends BaseDomainHelper implements Identifiable {
          ConfigFileName cfn = ConfigurationFactory.lookupOrInsertConfigFileName(path);
          return createConfigFile(state, cfn);
      }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object obj) {
@@ -252,9 +252,9 @@ public class ConfigChannel extends BaseDomainHelper implements Identifiable {
                 append(this.getConfigChannelType(), that.getConfigChannelType()).
                 isEquals();
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -267,10 +267,10 @@ public class ConfigChannel extends BaseDomainHelper implements Identifiable {
        builder.append(this.getName());
        builder.append(this.getLabel());
        builder.append(this.getConfigChannelType());
-   
+
        return builder.toHashCode();
     }
-    
+
     /**
      * {@inheritDoc}
      */

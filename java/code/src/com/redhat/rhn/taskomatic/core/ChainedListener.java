@@ -23,15 +23,15 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Propagates Quartz trigger events to an internal chain 
+ * Propagates Quartz trigger events to an internal chain
  * of TriggerListeners
- * 
+ *
  * @version $Rev$
  */
 public class ChainedListener implements TriggerListener {
-    
+
     public static final String LISTENER_NAME = "ChainedListener";
-    
+
     private List listenerChain = new ArrayList();
 
     /**
@@ -44,7 +44,7 @@ public class ChainedListener implements TriggerListener {
     /**
      * {@inheritDoc}
      */
-    public void triggerComplete(Trigger trigger, JobExecutionContext ctx, 
+    public void triggerComplete(Trigger trigger, JobExecutionContext ctx,
             int triggerInstructionCode) {
         for (Iterator iter = this.listenerChain.iterator(); iter.hasNext();) {
             TriggerListener listener = (TriggerListener) iter.next();
@@ -84,9 +84,9 @@ public class ChainedListener implements TriggerListener {
                 retval = true;
             }
         }
-        return retval; 
+        return retval;
     }
-    
+
     /**
      * Adds a new listener to the listener chain
      * @param listener listener to be added

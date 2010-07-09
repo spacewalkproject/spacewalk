@@ -57,7 +57,7 @@ public class RhnListActionTest extends RhnBaseTestCase {
         public final ActionForward execute(ActionMapping mapping,
                 ActionForm formIn, HttpServletRequest request,
                 HttpServletResponse response) {
-            
+
             RequestContext requestContext = new RequestContext(request);
 
             User user = requestContext.getLoggedInUser();

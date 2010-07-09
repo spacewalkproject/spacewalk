@@ -46,7 +46,7 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
             RequestContext requestContext = new RequestContext(request);
 
             User user = requestContext.getLoggedInUser();
@@ -65,14 +65,14 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
             addAttributes(requestContext);
             return mapping.findForward("default");
         }
-    
+
     protected abstract DataResult getDataResult(RequestContext requestContext,
             ListControl lc);
-    
+
     /* override in subclasses if needed */
     protected void addAttributes(RequestContext requestContext) {
     }
-    
+
     /**
      * Handle the orphan'd child channels by adding a "fake" node
      *   This is done because a child can be viewable when the parent is not
@@ -80,20 +80,20 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
      */
     protected DataResult<ChannelTreeNode> handleOrphans(
             DataResult<ChannelTreeNode> result) {
-        
-        DataResult<ChannelTreeNode> toReturn = 
+
+        DataResult<ChannelTreeNode> toReturn =
                 new DataResult<ChannelTreeNode>(new ArrayList());
         toReturn.setFilter(true);
         toReturn.setFilterData(result.getFilterData());
-        
+
         //We want the orphans to be at the end of the list, so lets add them here
         //   and then add them to the whole list later
         List<ChannelTreeNode> orphans = new ArrayList<ChannelTreeNode>();
-        
-        
+
+
         ChannelTreeNode lastParent = null;
         ChannelTreeNode lastOrphan = null;
-        
+
         for (ChannelTreeNode node : result) {
             //if the node is a parent, mark it as last and move on
             if (node.isParent()) {
@@ -102,12 +102,12 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
             } //if the node is a child of previous parent, move on
             else if (lastParent != null && node.getParentId().equals(lastParent.getId())) {
                 toReturn.add(node);
-            } //else we couldn't find the previous parent (so it's probably not here :{) 
+            } //else we couldn't find the previous parent (so it's probably not here :{)
             else {
-                //If this is the first orphan or the parent of the last orphan doesn't 
-                //  match this orphan's parent, then we need to add a node for the 
+                //If this is the first orphan or the parent of the last orphan doesn't
+                //  match this orphan's parent, then we need to add a node for the
                 //  restriciton
-               if (lastOrphan == null || 
+               if (lastOrphan == null ||
                        !lastOrphan.getParentId().equals(node.getParentId())) {
                    orphans.add(newRestrictedParent(node));
                    orphans.add(node);
@@ -121,7 +121,7 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
         toReturn.addAll(orphans);
         return toReturn;
     }
-    
+
     private ChannelTreeNode newRestrictedParent(ChannelTreeNode child) {
         ChannelTreeNode parent;
         parent = new ChannelTreeNode();
@@ -132,5 +132,5 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
         parent.setParentId(null);
         return parent;
     }
-    
+
 }

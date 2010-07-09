@@ -32,7 +32,7 @@ import org.apache.struts.action.Action;
  */
 public class SolarisPatchSetListSetupTest extends RhnBaseTestCase {
     private Action action = null;
-    
+
     public void setUp() {
         action = new SolarisPatchSetListSetupAction();
     }
@@ -49,12 +49,12 @@ public class SolarisPatchSetListSetupTest extends RhnBaseTestCase {
         User user = sah.getUser();
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true);
-        
+
         sah.getRequest().setupAddParameter("sid", server.getId().toString());
         sah.executeAction();
-        
+
         RhnMockHttpServletRequest request = sah.getRequest();
-        
+
         DataResult dr = (DataResult) request.getAttribute("pageList");
         assertNotNull(dr);
         assertTrue(dr.size() == 0);

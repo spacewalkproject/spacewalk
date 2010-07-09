@@ -20,7 +20,7 @@ function setOrgClicked(target) {
  miscAcl="user_role(org_admin)"
  miscText="${text}"
  miscImg="${img}"
- miscAlt="${text}" 
+ miscAlt="${text}"
 imgAlt="users.jsp.imgAlt">
 <c:out value="${entname}"/>
 </rhn:toolbar>
@@ -33,14 +33,14 @@ imgAlt="users.jsp.imgAlt">
 
 <rl:listset name="entitlementSet">
     <!-- Reuse the form opened by the list tag -->
-    <html:hidden property="submitted" value="true"/>    
+    <html:hidden property="submitted" value="true"/>
     <html:hidden property="orgClicked" value="0"/>
 
     <rl:list dataset="pageList"
              width="100%"
              name="pageList"
              filter="com.redhat.rhn.frontend.action.multiorg.SystemEntitlementOrgsFilter"
-             styleclass="list"             
+             styleclass="list"
              emptykey="sys_entitlements.noentorgs">
         <rl:column bound="false"
             sortable="false"

@@ -34,10 +34,10 @@ import java.util.Map;
  *
  * This should extend PreparedStatement, but it isn't possible to get
  * OracleConnection to return a subclass of OraclePreparedStatement.
- * Oracle 10g introduces this feature natively.  When we migrate to 10g, 
+ * Oracle 10g introduces this feature natively.  When we migrate to 10g,
  * we should move to Oracle's version.
  *
- * @version $Rev$ 
+ * @version $Rev$
  */
 public final class NamedPreparedStatement {
 
@@ -65,18 +65,18 @@ public final class NamedPreparedStatement {
         return -1;
     }
 
-    /** 
+    /**
      * Given a SQL query with named bind parameters convert it to a format
      * that can be used with JDBC.
      * @param rawSQL the SQL statement to create.
      * @param parameterMap a result map representing named parameters and
      *        their positions in the SQL statement.
-     * @return a SQL statement that can be used with JDBC 
+     * @return a SQL statement that can be used with JDBC
      */
-    public static String replaceBindParams(String rawSQL, 
+    public static String replaceBindParams(String rawSQL,
                                            Map parameterMap) {
         StringBuffer sql = new StringBuffer(rawSQL);
-        
+
         int idx = findColon(0, sql);
         int variableNumber = 1;
         while (idx != -1) {
@@ -131,8 +131,8 @@ public final class NamedPreparedStatement {
      *         false if PreparedStatement received an update count
      * @throws RuntimeException in case of SQLException
      */
-    public static boolean execute(PreparedStatement ps, 
-                                    Map parameterMap, 
+    public static boolean execute(PreparedStatement ps,
+                                    Map parameterMap,
                                     Map parameters) {
         try {
             setVars(ps, parameterMap, parameters);
@@ -162,7 +162,7 @@ public final class NamedPreparedStatement {
      * @param parameterMap Map of parameters.
      * @return The iterator for the list of data returned.
      * @throws BindVariableNotFoundException couldn't find bind variable
-     */ 
+     */
     public static Iterator getPositions(String name, Map parameterMap)
         throws BindVariableNotFoundException {
 
@@ -174,7 +174,7 @@ public final class NamedPreparedStatement {
         return lst.iterator();
     }
 
-    private static void setVars(PreparedStatement ps, Map parameterMap, 
+    private static void setVars(PreparedStatement ps, Map parameterMap,
                                 Map map) {
         Iterator i = map.keySet().iterator();
 
@@ -196,12 +196,12 @@ public final class NamedPreparedStatement {
                 }
                 catch (SQLException e) {
                     throw SqlExceptionTranslator.sqlException(e);
-                }                
+                }
             }
         }
     }
 
-    private static void setOutputVars(CallableStatement cs, Map parameterMap, 
+    private static void setOutputVars(CallableStatement cs, Map parameterMap,
                                       Map map) {
         Iterator i = map.keySet().iterator();
 
@@ -215,12 +215,12 @@ public final class NamedPreparedStatement {
                     // to represent SQL types.  So, we treat the values as
                     // Integers, and the caller is responsible for inserting
                     // the Integer object.
-                    Integer type = (Integer)map.get(name); 
+                    Integer type = (Integer)map.get(name);
                     cs.registerOutParameter(pos.intValue(), type.intValue());
                 }
                 catch (SQLException e) {
                     throw SqlExceptionTranslator.sqlException(e);
-                }                
+                }
             }
         }
     }

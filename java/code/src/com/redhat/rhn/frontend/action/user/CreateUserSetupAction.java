@@ -36,33 +36,33 @@ public class CreateUserSetupAction extends RhnAction {
     /** placeholder string, package protected; so we don't transmit
      * the actual pw but the form doesn't look empty */
     static final String PLACEHOLDER_PASSWORD = "******";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm)formIn;
-        
-        // We have to set these on the Session because struts throws them away 
+
+        // We have to set these on the Session because struts throws them away
         // if we set them on the request itself and validation fails.
-        request.setAttribute("availablePrefixes", 
+        request.setAttribute("availablePrefixes",
                                   UserActionHelper.getPrefixes());
-        request.setAttribute("countries", 
+        request.setAttribute("countries",
                                   UserActionHelper.getCountries());
-        
-        if (!RhnValidationHelper.getFailedValidation(request)) { 
+
+        if (!RhnValidationHelper.getFailedValidation(request)) {
             form.set("country", "US");
             form.set("contact_email", new Boolean(true));
             form.set("contact_partner", new Boolean(true));
-            form.set("prefix", 
+            form.set("prefix",
                 LocalizationService.getInstance().getMessage("user prefix Mr."));
         }
 
         //make sure we don't put the user's password on the form in cleartext
         form.set("desiredpassword", "");
         form.set("desiredpasswordConfirm", "");
-        
+
         /*
          * If we are a sat, then we for sure want to display the PAM section
          */
@@ -75,7 +75,7 @@ public class CreateUserSetupAction extends RhnAction {
         if (pamAuthService != null && pamAuthService.trim().length() > 0) {
             request.setAttribute("displaypamcheckbox", "true");
         }
-        
+
         return mapping.findForward("default");
     }
 }

@@ -25,20 +25,20 @@ import java.util.Date;
  * @version $Rev$
  */
 public class ConfigRevision extends BaseDomainHelper {
-    
+
     private Long id;
     private Long revision;
     private String delimStart;
     private String delimEnd;
-    
+
     private ConfigFile configFile;
     private ConfigContent configContent;
     private ConfigInfo configInfo;
     private ConfigFileType configFileType;
-    
+
     private Long changedById;
-    
-    /** 
+
+    /**
      * Protected constructor
      * Use ConfigurationFactory to create a new revision.
      */
@@ -46,65 +46,65 @@ public class ConfigRevision extends BaseDomainHelper {
         // Default to "file"
         configFileType = ConfigFileType.file();
     }
-    
-    /** 
-     * Getter for id 
+
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for revision 
+    /**
+     * Getter for revision
      * @return Long to get
     */
     public Long getRevision() {
         return this.revision;
     }
 
-    /** 
-     * Setter for revision 
+    /**
+     * Setter for revision
      * @param revisionIn to set
     */
     public void setRevision(Long revisionIn) {
         this.revision = revisionIn;
     }
 
-    /** 
-     * Getter for delimStart 
+    /**
+     * Getter for delimStart
      * @return String to get
     */
     public String getDelimStart() {
         return this.delimStart;
     }
 
-    /** 
-     * Setter for delimStart 
+    /**
+     * Setter for delimStart
      * @param delimStartIn to set
     */
     public void setDelimStart(String delimStartIn) {
         this.delimStart = delimStartIn;
     }
 
-    /** 
-     * Getter for delimEnd 
+    /**
+     * Getter for delimEnd
      * @return String to get
     */
     public String getDelimEnd() {
         return this.delimEnd;
     }
 
-    /** 
-     * Setter for delimEnd 
+    /**
+     * Setter for delimEnd
      * @param delimEndIn to set
     */
     public void setDelimEnd(String delimEndIn) {
@@ -147,7 +147,7 @@ public class ConfigRevision extends BaseDomainHelper {
     public void setConfigInfo(ConfigInfo configInfoIn) {
         this.configInfo = configInfoIn;
     }
-    
+
     /**
      * User-id that caused this revision to be made
      * @return usr-id of logged-in-user at change time, or "null" if unknown
@@ -155,7 +155,7 @@ public class ConfigRevision extends BaseDomainHelper {
     public Long getChangedById() {
         return changedById;
     }
- 
+
     /**
      * Set the user-id that casued this change
      * @param usrId changing (currently-logged-in) user
@@ -163,7 +163,7 @@ public class ConfigRevision extends BaseDomainHelper {
     public void setChangedById(Long usrId) {
         changedById = usrId;
     }
-    
+
     /**
      * User that caused this revision to be made
      * @return User of logged-in-user at change time, or "null" if unknown
@@ -176,7 +176,7 @@ public class ConfigRevision extends BaseDomainHelper {
             return null;
         }
     }
- 
+
     /**
      * Copies the contents of this object into a new ConfigRevision object.
      * The created and modified dates of the new object are set to now.

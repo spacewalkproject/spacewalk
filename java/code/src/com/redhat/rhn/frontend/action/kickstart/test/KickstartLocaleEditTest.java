@@ -24,7 +24,7 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class KickstartLocaleEditTest extends BaseKickstartEditTestCase {
-    
+
     public void testSetupExecute() throws Exception {
         setRequestPathInfo("/kickstart/LocaleEdit");
         actionPerform();
@@ -47,7 +47,7 @@ public class KickstartLocaleEditTest extends BaseKickstartEditTestCase {
 
         assertEquals("America/New_York", this.ksdata.getTimezone());
         assertFalse(this.ksdata.isUsingUtc().booleanValue());
-    }   
+    }
 
     public void testSubmitAgain() throws Exception {
         addDispatchCall(KickstartLocaleEditAction.UPDATE_METHOD);
@@ -65,7 +65,7 @@ public class KickstartLocaleEditTest extends BaseKickstartEditTestCase {
 
         assertEquals("Asia/Qatar", this.ksdata.getTimezone());
         assertTrue(this.ksdata.isUsingUtc().booleanValue());
-    }   
+    }
 
 }
 

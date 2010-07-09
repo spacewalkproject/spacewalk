@@ -22,7 +22,7 @@ import com.redhat.rhn.frontend.xmlrpc.HandlerFactory;
  * @version $Rev$
  */
 public class MockHandlerFactory extends HandlerFactory {
-    
+
     public MockHandlerFactory() {
         super(new ClassBuilder("com.redhat.rhn.frontend.xmlrpc.test",
                 "test-handler-manifest.xml"));

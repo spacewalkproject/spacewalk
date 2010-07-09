@@ -25,42 +25,42 @@ public class AwolServer {
     private Long id;
     private String name;
     private Date checkin;
-    
+
     /**
      * @return Returns the checkin.
      */
     public Date getCheckin() {
         return checkin;
     }
-    
+
     /**
      * @param checkinIn The checkin to set.
      */
     public void setCheckin(Date checkinIn) {
         checkin = checkinIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */

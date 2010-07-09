@@ -33,7 +33,7 @@ import java.util.List;
 public class TreeDeleteWithProfilesOperation extends TreeDeleteOperation {
 
     private static Logger log = Logger.getLogger(TreeDeleteWithProfilesOperation.class);
-    
+
     /**
      * Default constructor: DONT USE
      * @param userIn to set
@@ -50,7 +50,7 @@ public class TreeDeleteWithProfilesOperation extends TreeDeleteOperation {
     public TreeDeleteWithProfilesOperation(Long treeId, User userIn) {
         super(treeId, userIn);
     }
-    
+
     /**
      * Constructor for use when deleting an existing KickstartableTree
      * @param treeLabel to lookup
@@ -59,10 +59,10 @@ public class TreeDeleteWithProfilesOperation extends TreeDeleteOperation {
     public TreeDeleteWithProfilesOperation(String treeLabel, User userIn) {
         super(treeLabel, userIn);
     }
-    
+
     /**
      * {@inheritDoc}
-     * store() here actually does a remove operation. 
+     * store() here actually does a remove operation.
      * It is done to reuse code from BaseTreeEditOperation and BaseTreeAction
      */
     public ValidatorError store() {
@@ -70,7 +70,7 @@ public class TreeDeleteWithProfilesOperation extends TreeDeleteOperation {
         for (int i = 0; i < profiles.size(); i++) {
             KickstartData ksd = (KickstartData) profiles.get(i);
             log.debug("deleting: " + ksd.getLabel());
-            KickstartDeleteCommand delcmd = new 
+            KickstartDeleteCommand delcmd = new
                 KickstartDeleteCommand(ksd.getId(), this.user);
             ValidatorError ve = delcmd.store();
             if (ve != null) {

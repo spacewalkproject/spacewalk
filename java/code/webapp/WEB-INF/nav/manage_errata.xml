@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
-<rhn-navi-tree label="manage_errata" invisible="1" formvar="eid" 
+<rhn-navi-tree label="manage_errata" invisible="1" formvar="eid"
     title-depth="1" acl_mixins="com.redhat.rhn.common.security.acl.ErrataAclHandler">
-    
+
     <rhn-tab name="Details">
         <rhn-tab-url>/rhn/errata/manage/Edit.do</rhn-tab-url>
     </rhn-tab>
-    
+
     <rhn-tab name="Channels" acl="errata_is_published()">
         <rhn-tab-url>/rhn/errata/manage/Channels.do</rhn-tab-url>
     </rhn-tab>
-    
+
     <rhn-tab name="Packages">
         <rhn-tab-url>/rhn/errata/manage/Packages.do</rhn-tab-url>
         <rhn-tab name="List / Remove">
-            <rhn-tab-url> 
+            <rhn-tab-url>
                 /rhn/errata/manage/ListPackages.do
             </rhn-tab-url>
-            <rhn-tab-url> 
+            <rhn-tab-url>
                 /rhn/errata/manage/RemovePackages.do
             </rhn-tab-url>
             <rhn-tab-url>
@@ -24,7 +24,7 @@
             </rhn-tab-url>
         </rhn-tab>
         <rhn-tab name="Add" node-id="add_errata_packages">
-            <rhn-tab-url> 
+            <rhn-tab-url>
                 /rhn/errata/manage/AddPackages.do
             </rhn-tab-url>
             <rhn-tab-url>
@@ -32,5 +32,5 @@
 			</rhn-tab-url>
         </rhn-tab>
     </rhn-tab>
-    
+
 </rhn-navi-tree>

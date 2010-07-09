@@ -38,38 +38,38 @@ public class TaskTest extends RhnBaseTestCase {
         String testname = "task_object_unit_test_" + TestUtils.randomString();
         Long testdata = new Long(42);
         Task t = TaskFactory.createTask(org, testname, testdata);
-        
+
         flushAndEvict(t);
-        
+
         //look the sucker back up
         Session session = HibernateFactory.getSession();
-        Task t2 = TaskFactory.lookup(org, testname, testdata); 
+        Task t2 = TaskFactory.lookup(org, testname, testdata);
         // need to flush and evict t2 here otherwise
         // the TaskFactory.lookup() down below will return the
         // SAME reference and cause the equals to fail.
         flushAndEvict(t2);
-        
+
         assertNotNull(t2);
         assertEquals(testname, t2.getName());
         assertEquals(testdata, t2.getData());
         assertEquals(0, t.getPriority());
-       
+
         Task t3 = null;
         assertFalse(t2.equals(t3));
         assertFalse(t2.equals(session));
-        t3 = TaskFactory.lookup(org, testname, testdata); 
-        
+        t3 = TaskFactory.lookup(org, testname, testdata);
+
         assertEquals(t2, t3);
         t3.setName("foo");
         assertFalse("t2 should not be equal to t3", t2.equals(t3));
     }
-    
+
     public void testLookupNameLike() throws Exception {
         Org org = UserTestUtils.findNewOrg("testOrg");
         String testname = "task_object_unit_test_" + TestUtils.randomString();
         Long testdata = new Long(42);
         Task t = TaskFactory.createTask(org, testname, testdata);
-        
+
         List lookedup = TaskFactory.getTaskListByNameLike("task_object_unit_test_");
         assertNotNull(lookedup);
         assertTrue(lookedup.size() > 0);

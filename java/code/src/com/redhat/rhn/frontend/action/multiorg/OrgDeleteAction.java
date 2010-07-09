@@ -37,20 +37,20 @@ import javax.servlet.http.HttpServletResponse;
  * OrgDetailsAction extends RhnAction - Class representation of the table web_customer
  * @version $Rev: 1 $
  */
-public class OrgDeleteAction extends RhnAction {    
+public class OrgDeleteAction extends RhnAction {
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);        
+        Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
 
         ActionForward retval = mapping.findForward("default");
         DynaActionForm dynaForm = (DynaActionForm) formIn;
-        
+
         if (!AclManager.hasAcl("user_role(satellite_admin)", request, null)) {
             LocalizationService ls = LocalizationService.getInstance();
             PermissionException pex =
@@ -58,63 +58,63 @@ public class OrgDeleteAction extends RhnAction {
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orgdetail"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
-        }                        
-        
+        }
+
         if (isSubmitted(dynaForm)) {
             Org bOrg = OrgFactory.getSatelliteOrg();
             if (oid.longValue() == bOrg.getId().longValue()) {
                 createErrorMessage(request, "org.base.delete.error", bOrg.getName());
-                retval = mapping.findForward("error");                
-            } 
+                retval = mapping.findForward("error");
+            }
             else {
-                deleteOrg(oid, request);                 
-                retval = mapping.findForward("success");                
+                deleteOrg(oid, request);
+                retval = mapping.findForward("success");
             }
             retval = getStrutsDelegate().forwardParam(retval, "oid", oid.toString());
         }
         else {
-            setupFormValues(request, dynaForm);            
+            setupFormValues(request, dynaForm);
         }
         return retval;
     }
-                                 
+
     /**
-     * 
+     *
      * @param request Request coming in
-     * @param daForm to populate 
+     * @param daForm to populate
      */
-    private void setupFormValues(HttpServletRequest request, 
+    private void setupFormValues(HttpServletRequest request,
                                      DynaActionForm daForm) {
         daForm.set("submitted", Boolean.TRUE);
-       
-        RequestContext requestContext = new RequestContext(request);         
-        Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);        
+
+        RequestContext requestContext = new RequestContext(request);
+        Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         Org org = OrgFactory.lookupById(oid);
-        
+
         request.setAttribute("orgName", org.getName());
         request.setAttribute("users", OrgFactory.getActiveUsers(org));
         request.setAttribute("systems", OrgFactory.getActiveSystems(org));
         request.setAttribute("actkeys", OrgFactory.getActivationKeys(org));
         request.setAttribute("ksprofiles", OrgFactory.getKickstarts(org));
         request.setAttribute("groups", OrgFactory.getServerGroups(org));
-        request.setAttribute("cfgchannels", OrgFactory.getConfigChannels(org));   
+        request.setAttribute("cfgchannels", OrgFactory.getConfigChannels(org));
         request.setAttribute(RequestContext.ORG_ID, oid);
     }
- 
+
     /**
-     * 
+     *
      * @param oidIn Organization Id to delete
      * @return Success or Failure in form of Boolean
      */
     private void deleteOrg(Long oidIn, HttpServletRequest request) {
         Org org = OrgFactory.lookupById(oidIn);
         String name = org.getName();
-     
+
         OrgFactory.deleteOrg(oidIn);
-        ActionMessages msg = new ActionMessages();        
-        msg.add(ActionMessages.GLOBAL_MESSAGE, 
+        ActionMessages msg = new ActionMessages();
+        msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("message.org_deleted", name));
-        getStrutsDelegate().saveMessages(request, msg);            
+        getStrutsDelegate().saveMessages(request, msg);
     }
 
 }

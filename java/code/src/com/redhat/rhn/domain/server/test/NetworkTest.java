@@ -31,7 +31,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class NetworkTest extends RhnBaseTestCase {
-    
+
     public static final String HOSTNAME = "foo.bar.com";
     public static final String IP_ADDRESS = "192.168.0.101";
 
@@ -45,7 +45,7 @@ public class NetworkTest extends RhnBaseTestCase {
         net.setIpaddr(IP_ADDRESS);
         return net;
     }
-    
+
     /**
      * Simple test to exercise the code paths in the Network class
      * @throws Exception
@@ -53,17 +53,17 @@ public class NetworkTest extends RhnBaseTestCase {
     public void testNetwork() throws Exception {
         Network net1 = createTestNetwork();
         Network net2 = new Network();
-        
+
         assertFalse(net1.equals(net2));
         assertFalse(net1.equals(new Date()));
-        
+
         Session session = HibernateFactory.getSession();
         net2 = (Network) session.getNamedQuery("Network.findById")
                                       .setLong("id", net1.getId().longValue())
                                       .uniqueResult();
         assertEquals(net1, net2);
     }
-    
+
     /**
      * Helper method to create a test Network object
      * @return Returns a test Network object
@@ -75,11 +75,11 @@ public class NetworkTest extends RhnBaseTestCase {
                                              UserTestUtils.createOrg("testorg"));
         Server s = ServerFactoryTest.createTestServer(user);
         net.setServer(s);
-        
+
         assertNull(net.getId());
         TestUtils.saveAndFlush(net);
         assertNotNull(net.getId());
-        
+
         return net;
     }
 }

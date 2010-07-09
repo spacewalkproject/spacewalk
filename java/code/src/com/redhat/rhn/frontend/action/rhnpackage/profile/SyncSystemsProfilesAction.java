@@ -42,9 +42,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class SyncSystemsProfilesAction extends BaseProfilesAction {
-    
+
     private static Logger log = Logger.getLogger(SyncSystemsProfilesAction.class);
-    private static final CompareSystemSetupAction DECL_ACTION = 
+    private static final CompareSystemSetupAction DECL_ACTION =
         new CompareSystemSetupAction();
 
     /**
@@ -59,45 +59,45 @@ public class SyncSystemsProfilesAction extends BaseProfilesAction {
                                    ActionForm formIn,
                                    HttpServletRequest request,
                                    HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
         Long sid1 = requestContext.getRequiredParam("sid_1");
         Date time = new Date(requestContext.getRequiredParam("time"));
-        
+
         if (log.isDebugEnabled()) {
             log.debug("Calling syncToSystem");
         }
-        
+
         try {
-            Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, 
+            Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request,
                     getDecl(sid));
 
-            PackageAction pa = ProfileManager.syncToSystem(user, sid, sid1, 
+            PackageAction pa = ProfileManager.syncToSystem(user, sid, sid1,
                     pkgIdCombos, null, time);
-            
+
             if (pa != null) {
 
                 addHardwareMessage(pa, requestContext);
-            
+
                 // sid, actionid, servername, profilename
                 List args = new ArrayList();
                 args.add(sid.toString());
                 args.add(pa.getId().toString());
                 args.add(requestContext.lookupAndBindServer().getName());
                 args.add(SystemManager.lookupByIdAndUser(sid1, user).getName());
-            
+
                 createMessage(request, "message.syncpackages", args);
             }
             else {
                 createMessage(request, "message.nopackagestosync");
             }
-            
+
             if (log.isDebugEnabled()) {
                 log.debug("Returned from syncToProfile");
             }
-            
+
             Map params = new HashMap();
             params.put(RequestContext.SID, sid);
             params.put(RequestContext.SID1, sid1);
@@ -123,8 +123,8 @@ public class SyncSystemsProfilesAction extends BaseProfilesAction {
         Map map = new HashMap();
         map.put("schedulesync.jsp.schedulesync", "scheduleSync");
         return map;
-    }  
-    
+    }
+
     /**
      * {@inheritDoc}
      */

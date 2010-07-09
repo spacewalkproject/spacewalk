@@ -57,14 +57,14 @@ public class Token implements Identifiable {
     private Set<Channel> channels = new HashSet<Channel>();
     private Set<ServerGroup> serverGroups = new HashSet<ServerGroup>();
     private Set<TokenPackage> packages = new HashSet<TokenPackage>();
-    
+
     /**
      * @return Returns the entitlements.
      */
     public Set<ServerGroupType> getEntitlements() {
         return this.entitlements;
     }
-    
+
     /**
      * @param entitlementsIn The entitlements to set.
      */
@@ -79,7 +79,7 @@ public class Token implements Identifiable {
     public void addEntitlement(ServerGroupType sgtIn) {
         getEntitlements().add(sgtIn);
     }
-    
+
     /**
      * Remove a server group type from the set of entitlements
      * @param sgtIn The server group type to remove.
@@ -87,29 +87,29 @@ public class Token implements Identifiable {
     public void removeEntitlement(ServerGroupType sgtIn) {
         getEntitlements().remove(sgtIn);
     }
-    
+
     /**
-     * Removes all system entitlements associtated to this activation key. 
+     * Removes all system entitlements associtated to this activation key.
      */
     public void clearEntitlements() {
         getEntitlements().clear();
     }
-    
-    
+
+
     /**
      * @return Returns the deployConfigs.
      */
     public boolean getDeployConfigs() {
         return deployConfigs;
     }
-    
+
     /**
      * @param d The deployConfigs to set.
      */
     public void setDeployConfigs(boolean d) {
         this.deployConfigs = d;
     }
-    
+
     /**
      * Convenience method to make this field more sensible
      * @return Returns true if disabled == 1
@@ -117,7 +117,7 @@ public class Token implements Identifiable {
     public boolean isTokenDisabled() {
         return getDisabled().equals(new Long(1));
     }
-    
+
     /**
      * Convenience method to make this field more sensible
      * Sets the disabled attribute to 1
@@ -125,92 +125,92 @@ public class Token implements Identifiable {
     public void disable() {
         setDisabled(new Long(1));
     }
-    
+
     /**
-     * Convenience method to set the disabled 
-     * attribute to 0 
+     * Convenience method to set the disabled
+     * attribute to 0
      */
     public void enable() {
         setDisabled(new Long(0));
     }
-    
+
     /**
      * @return Returns the disabled.
      */
     public Long getDisabled() {
         return disabled;
     }
-    
+
     /**
      * @param d The disabled to set.
      */
     public void setDisabled(Long d) {
         this.disabled = d;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the note.
      */
     public String getNote() {
         return note;
     }
-    
+
     /**
      * @param n The note to set.
      */
     public void setNote(String n) {
         this.note = n;
     }
-    
+
     /**
      * @return Returns the org.
      */
     public Org getOrg() {
         return org;
     }
-    
+
     /**
      * @param o The org to set.
      */
     public void setOrg(Org o) {
         this.org = o;
     }
-    
+
     /**
      * @return Returns the server.
      */
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * @param s The server to set.
      */
     public void setServer(Server s) {
         this.server = s;
     }
-    
+
     /**
      * @return Returns the usageLimit.
      */
     public Long getUsageLimit() {
         return usageLimit;
     }
-    
+
     /**
      * @param u The usageLimit to set.
      */
@@ -220,21 +220,21 @@ public class Token implements Identifiable {
         }
         this.usageLimit = u;
     }
-    
+
     /**
      * @return Returns the user.
      */
     public User getCreator() {
         return creator;
     }
-    
+
     /**
      * @param u The user to set.
      */
     public void setCreator(User u) {
         this.creator = u;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -245,7 +245,7 @@ public class Token implements Identifiable {
         Token castOther = (Token) other;
         return new EqualsBuilder().append(getId(), castOther.getId())
                                   .append(getDisabled(), castOther.getDisabled())
-                                  .append(getDeployConfigs(), 
+                                  .append(getDeployConfigs(),
                                                       castOther.getDeployConfigs())
                                   .append(getNote(), castOther.getNote())
                                   .append(getOrg(), castOther.getOrg())
@@ -254,7 +254,7 @@ public class Token implements Identifiable {
                                   .append(getUsageLimit(), castOther.getUsageLimit())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -290,7 +290,7 @@ public class Token implements Identifiable {
     public void clearChannels() {
         this.channels = new HashSet();
     }
-    
+
     /**
      * Add a channel to this Token
      * @param channelIn to add
@@ -302,13 +302,13 @@ public class Token implements Identifiable {
         // Three: throw our own exception.
         //I chose number 3 because I don't know what the consequences of
         // ignoring it is, and 3 is definitely better than 1. (bug #201561)
-        
+
         if (channelIn == null) {
             throw new NullPointerException("A token cannot have a null channel.");
         }
         this.getChannels().add(channelIn);
     }
-    
+
     /**
      * Remove a channel from this Token
      * @param channelIn to remove
@@ -341,7 +341,7 @@ public class Token implements Identifiable {
         }
         this.getServerGroups().add(serverGroupIn);
     }
-    
+
     /**
      * Remove a ServerGroup from this Token
      * @param serverGroupIn Server group to remove
@@ -403,7 +403,7 @@ public class Token implements Identifiable {
             }
         }
     }
-    
+
     /**
      * Add a package to this Token
      * @param packageIn package to add
@@ -414,7 +414,7 @@ public class Token implements Identifiable {
         }
         this.getPackages().add(packageIn);
     }
-    
+
     /**
      * Remove a package from this Token
      * @param packageIn package to remove
@@ -456,15 +456,15 @@ public class Token implements Identifiable {
      */
     protected void setActivatedServers(Set<Server> servers) {
         this.activatedSystems = servers;
-    }    
-    
+    }
+
     /**
      * @return the configChannels
      */
     protected List getConfigChannels() {
         return configChannels;
     }
-    
+
     /**
      * This method should only be called by hibernate..!
      * @param cfgChannels the configChannels to set
@@ -475,28 +475,28 @@ public class Token implements Identifiable {
 
     /**
      * Returns the config channels associated to this activation key
-     * It requires User info for credential checking.. 
+     * It requires User info for credential checking..
      * This method raises a Lookup Exception if the passed in user
-     * does NOT have access to the config channels. 
+     * does NOT have access to the config channels.
      * @param user the User object needed for access credentials
      * @return the list of config channels assign to this user
      */
     public List <ConfigChannel> getConfigChannelsFor(User user) {
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
         proc.validateUserAccess(user, getConfigChannels());
-        return getConfigChannels();    
+        return getConfigChannels();
     }
-    
+
     private void checkProvisioning() {
         if (!getEntitlements().contains(ServerConstants.
                 getServerGroupTypeProvisioningEntitled())) {
             String msg = String.format("The activation key '%s' needs" +
                         "  provisioning capabilities to be able to facilitate " +
                         " the config channel functionality", this);
-                throw new PermissionException(msg); 
-        }        
-    }    
-    
+                throw new PermissionException(msg);
+        }
+    }
+
     /**
      * Removes all the config channels associated to this activation key.
      */
@@ -504,9 +504,9 @@ public class Token implements Identifiable {
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
         proc.clear(getConfigChannels());
     }
-    
+
     /**
-     * Returns the base channel associated to this token  
+     * Returns the base channel associated to this token
      * @return the base channel of this token or null if none exists
      */
     public Channel getBaseChannel() {
@@ -517,13 +517,13 @@ public class Token implements Identifiable {
         }
         return null;
     }
-    
+
     /**
      * Updates the base channel associated to this token.
-     * Note this method clears existing child channels if base channel 
+     * Note this method clears existing child channels if base channel
      * passed in is different from what it already has.
      * It also accepts null for base channel == redhat default
-     * @param channel sets the base channel of this token. 
+     * @param channel sets the base channel of this token.
      */
     public void setBaseChannel(Channel channel) {
         if (channel != null && !channel.isBaseChannel()) {
@@ -532,7 +532,7 @@ public class Token implements Identifiable {
         }
         Channel existing = getBaseChannel();
         if (existing != channel) {
-            if (existing != null && channel != null && 
+            if (existing != null && channel != null &&
                     !existing.getId().equals(channel.getId())) {
                 clearChannels();
                 getChannels().add(channel);
@@ -562,10 +562,10 @@ public class Token implements Identifiable {
      */
     public void setOrgDefault(boolean orgDefault) {
         if (orgDefault && !this.isOrgDefault()) {
-            getOrg().setToken(this);    
+            getOrg().setToken(this);
         }
         else if (!orgDefault && isOrgDefault())  {
             getOrg().setToken(null);
         }
-    }    
+    }
 }

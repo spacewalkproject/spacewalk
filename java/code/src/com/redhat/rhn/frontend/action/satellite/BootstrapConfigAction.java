@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class BootstrapConfigAction extends BaseConfigAction {
 
-    public static final String DEFAULT_CERT_PATH = 
+    public static final String DEFAULT_CERT_PATH =
         "/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT";
 
     public static final String HOSTNAME = "hostname";
@@ -50,28 +50,28 @@ public class BootstrapConfigAction extends BaseConfigAction {
     public static final String HTTP_PROXY = "http-proxy";
     public static final String HTTP_PROXY_USERNAME = "http-proxy-username";
     public static final String HTTP_PROXY_PASSWORD = "http-proxy-password";
-    
+
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-    
+
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext requestContext = new RequestContext(request);
-        
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         if (isSubmitted(form)) {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
                               this, form);
             if (!errors.isEmpty()) {
                 strutsDelegate.saveMessages(request, errors);
-            } 
+            }
             else {
-                
-                ConfigureBootstrapCommand cmd = (ConfigureBootstrapCommand) 
+
+                ConfigureBootstrapCommand cmd = (ConfigureBootstrapCommand)
                 getCommand(requestContext.getCurrentUser());
                 cmd.setHostname(form.getString(HOSTNAME));
                 cmd.setSslPath(form.getString(SSL_CERT));
@@ -83,14 +83,14 @@ public class BootstrapConfigAction extends BaseConfigAction {
                 cmd.setHttpProxyUsername(form.getString(HTTP_PROXY_USERNAME));
                 cmd.setHttpProxyPassword(form.getString(HTTP_PROXY_PASSWORD));
                 ValidatorError[] verrors = cmd.storeConfiguration();
-                
+
                 if (verrors != null) {
                     errors = RhnValidationHelper.validatorErrorToActionErrors(verrors);
                     strutsDelegate.saveMessages(request, errors);
-                } 
+                }
                 else {
                     createSuccessMessage(request, "bootstrap.config.success",
-                                         addProtocolToHostname(cmd.getHostname(), 
+                                         addProtocolToHostname(cmd.getHostname(),
                                                (Boolean) form.get(ENABLE_SSL)));
                 }
             }
@@ -117,16 +117,16 @@ public class BootstrapConfigAction extends BaseConfigAction {
                 name = "http://"  + name;     // could also be https://
             }
         }
-        
+
         return name;
     }
-        
+
     /**
      * {@inheritDoc}
      */
     protected String getCommandClassName() {
         return Config.get().getString("web.com.redhat.rhn.frontend." +
-           "action.satellite.BootstrapConfigAction.command", 
+           "action.satellite.BootstrapConfigAction.command",
            "com.redhat.rhn.manager.satellite.ConfigureBootstrapCommand");
     }
 }

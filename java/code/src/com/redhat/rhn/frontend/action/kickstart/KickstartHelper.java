@@ -53,9 +53,9 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class KickstartHelper {
-    
+
     private static Logger log = Logger.getLogger(KickstartHelper.class);
-    
+
     private HttpServletRequest request;
     private static final String VIEW_LABEL = "view_label";
     private static final String LABEL = "label";
@@ -67,28 +67,28 @@ public class KickstartHelper {
     private static final String HOST = "host";
     private static final String ORG_ID = "org_id";
     private static final String XFORWARD = "X-Forwarded-For";
-    private static final String XFORWARD_REGEX = 
+    private static final String XFORWARD_REGEX =
         "(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}.\\d{1,3})";
     private static final String KSDATA = "ksdata";
-    
+
     public static final String XRHNPROXYAUTH = "X-RHN-Proxy-Auth";
-    
+
     /**
-     * Constructor 
+     * Constructor
      * @param reqIn associated with this helper.
      */
     public KickstartHelper(HttpServletRequest reqIn) {
         this.request = reqIn;
     }
-    
+
     /**
      * Parse a ks url and return a Map of options
-     * Example: 
+     * Example:
      *     "ks/org/3756992x3d9f6e2d5717e264c89b5ac18eb0c59e/label/kslabelfoo";
-     *     
-     * NOTE: This method also updates the KickstartSession.state field 
+     *
+     * NOTE: This method also updates the KickstartSession.state field
      * to "configuration_accessed"
-     * 
+     *
      * @param url to parse
      * @return Map of options.  Usually containing host, ksdata, label and org_id
      */
@@ -106,12 +106,12 @@ public class KickstartHelper {
                 String value = (String) iter.next();
                 options.put(name, value);
             }
-        }        
-        
+        }
+
         log.debug("Options: " + options);
-        
+
         String remoteAddr = getClientIp();
-        
+
         // Process the org
         if (options.containsKey(ORG)) {
             String id = (String) options.get(ORG);
@@ -140,11 +140,11 @@ public class KickstartHelper {
         }
 
         log.debug("org_id: " + retval.get(ORG_ID));
-        
+
         //TODO: reconsider/cleanup this logic flow
-        if (retval.get(ORG_ID) != null) {       
-            
-            // Process label            
+        if (retval.get(ORG_ID) != null) {
+
+            // Process label
             if (options.containsKey(LABEL)) {
                 retval.put(LABEL, options.get(LABEL));
                 mode = LABEL;
@@ -154,20 +154,20 @@ public class KickstartHelper {
                 retval.put(LABEL, options.get(VIEW_LABEL));
                 mode = LABEL;
             }
-            else if (options.containsValue(IP_RANGE)) {                
+            else if (options.containsValue(IP_RANGE)) {
                 mode = IP_RANGE;
             }
-            
-            
+
+
             Org org = OrgFactory.lookupById(new Long((String) retval.get(ORG_ID)));
-            if (mode.equals(LABEL)) {                
+            if (mode.equals(LABEL)) {
                 String label = (String) retval.get(LABEL);
                 ksdata = KickstartFactory.
-                    lookupKickstartDataByLabelAndOrgId(label, org.getId()); 
+                    lookupKickstartDataByLabelAndOrgId(label, org.getId());
             }
             else if (mode.equals(IP_RANGE)) {
                 log.debug("Ip_range mode");
-                IpAddress clientIp = new IpAddress(remoteAddr);       
+                IpAddress clientIp = new IpAddress(remoteAddr);
                 ksdata = KickstartManager.getInstance().findProfileForIpAddress(
                         clientIp, org);
             }
@@ -176,12 +176,12 @@ public class KickstartHelper {
                 log.debug("Org_default mode.");
                 ksdata = getOrgDefaultProfile(org);
             }
-            
-            
+
+
             if (log.isDebugEnabled()) {
-                log.debug("session                        : " +  
+                log.debug("session                        : " +
                         retval.get(SESSION));
-                log.debug("options.containsKey(VIEW_LABEL): " + 
+                log.debug("options.containsKey(VIEW_LABEL): " +
                         options.containsKey(VIEW_LABEL));
                 log.debug("ksdata                         : " +
                         ksdata);
@@ -189,13 +189,13 @@ public class KickstartHelper {
             // Create and add a KickstartSession if there isn't one already
             if (retval.get(SESSION) == null && !options.containsKey(VIEW_LABEL) &&
                     ksdata != null) {
-                
-                
+
+
                 log.debug("Creating KickstartSession since there isnt one already.");
-                KickstartSessionCreateCommand cmd = 
+                KickstartSessionCreateCommand cmd =
                     new KickstartSessionCreateCommand(org, ksdata, remoteAddr);
                 cmd.store();
-                
+
                 retval.put(SESSION, cmd.getKickstartSession());
             }
         }
@@ -203,8 +203,8 @@ public class KickstartHelper {
         retval.put(HOST, getKickstartHost());
         // Add ksdata
         retval.put(KSDATA, ksdata);
-        
-        
+
+
         if (retval.size() == 0) {
             retval = null;
         }
@@ -218,46 +218,46 @@ public class KickstartHelper {
     public boolean isProxyRequest() {
         return request.getHeader(XFORWARD) != null;
     }
-    
+
     private String getClientIp() {
         String remoteAddr = request.getRemoteAddr();
-        String proxyHeader = request.getHeader(XFORWARD);                
-        
+        String proxyHeader = request.getHeader(XFORWARD);
+
         // check if we are going through a proxy, grab real IP if so
         if (proxyHeader != null) {
             log.debug("proxy header in: " + proxyHeader);
-            Matcher matcher = 
+            Matcher matcher =
                 Pattern.compile(XFORWARD_REGEX)
                 .matcher(proxyHeader);
             if (matcher.lookingAt()) {
-                remoteAddr = matcher.group(1);           
+                remoteAddr = matcher.group(1);
                 log.debug("origination ip from pchain: " + remoteAddr);
-            }        
-        }              
-        
+            }
+        }
+
         return remoteAddr;
     }
-    
-    
+
+
     /**
-     * 
+     *
      * @param orgIdIn Org Id
      * @return Default Kickstart Data for Org
      */
     private KickstartData getOrgDefaultProfile(Org orgIn) {
-        return KickstartFactory.lookupOrgDefault(orgIn);        
+        return KickstartFactory.lookupOrgDefault(orgIn);
     }
-    
+
     /**
-     * Get the kickstart host to use. Will use the host of the proxy if the header is 
+     * Get the kickstart host to use. Will use the host of the proxy if the header is
      * present. If not the code then resorts to getting the cobbler hostname from our
      * rhn.conf Config.
-     * 
+     *
      * @return String representing the Kickstart Host
      */
     public String getKickstartHost() {
         log.debug("KickstartHelper.getKickstartHost()");
-        
+
         // Example proxy header:
         // X-RHN-Proxy-Auth : 1006681409::1151513167.96:21600.0:VV/xF
         // NEmCYOuHxEBAs7BEw==:fjs-0-08.rhndev.redhat.com,1006681408
@@ -267,7 +267,7 @@ public class KickstartHelper {
 
         String proxyHeader = request.getHeader(XRHNPROXYAUTH);
         log.debug("X-RHN-Proxy-Auth : " + proxyHeader);
-        
+
         if (!StringUtils.isEmpty(proxyHeader)) {
             String[] proxies = StringUtils.split(proxyHeader, ",");
             String firstProxy = proxies[0];
@@ -302,22 +302,22 @@ public class KickstartHelper {
 
         return protocol;
     }
-    
+
     /**
      * Get the protocol plus the host:
-     * 
+     *
      * http://host1.rhndev.redhat.com
-     * 
+     *
      * @return proto plus host url
      */
     public String getKickstartProtocolAndHost() {
         String retval = getKickstartProtocol();
-        
-        
+
+
         retval = retval + "://" + getKickstartHost();
         return retval;
     }
-    
+
 
     /**
      * @param org The Org to generate the token for.
@@ -332,7 +332,7 @@ public class KickstartHelper {
      * Generates a URL suitable for downloading things related to a specific
      * kickstart session.
      * @param org The Org to generate the ks url for.
-     * @param function The function that will be appended to the returned 
+     * @param function The function that will be appended to the returned
      *        kickstart url.
      * @return A string suitable for downloading kickstart-related things.
      */
@@ -354,7 +354,7 @@ public class KickstartHelper {
 
         return url;
     }
-    
+
     /**
      * Verify that the kickstart channel is valid.
      * Valid kickstart channels must have a set list of packages described
@@ -368,12 +368,12 @@ public class KickstartHelper {
     public boolean verifyKickstartChannel(KickstartData ksdata, User user) {
         return verifyKickstartChannel(ksdata, user, true);
     }
-    
+
     /**
      * Verify that the kickstart channel is valid.
      * Valid kickstart channels must have a set list of packages described
      * by KickstartFormatter.UPDATE_PKG_NAMES and KickstartFormatter.FRESH_PKG_NAMES_RHEL34
-     * 
+     *
      * Non bare metal kickstarts also must have auto kickstart packages.
      * @param ksdata kickstart data containing the kickstart channel.
      * @param user The logged in user.
@@ -400,16 +400,16 @@ public class KickstartHelper {
         }
         return false;
     }
-    
+
     private boolean hasUpdates(KickstartData ksdata) {
         if (ksdata.isRhel4() || ksdata.isRhel3() || ksdata.isRhel2()) {
             return hasPackages(ksdata.getChannel(), KickstartFormatter.UPDATE_PKG_NAMES);
         }
         else {
-            return true;   
+            return true;
         }
     }
-    
+
     private boolean hasFresh(KickstartData ksdata) {
         //There are different 'fresh packages' for different RHEL releases.
         //TODO: right now we do this a pretty ugly way -> we have a static
@@ -429,7 +429,7 @@ public class KickstartHelper {
             return true;
         }
     }
-    
+
     private boolean hasPackages(Channel c, String[] packageNames) {
         log.debug("HasPackages: " + c.getId());
         //Go through every package name.
@@ -445,7 +445,7 @@ public class KickstartHelper {
         //We have a pid from every package.
         return true;
     }
-    
+
     private boolean hasKickstartPackage(KickstartData ksdata, User user) {
         //We expect this to be in the RHN Tools channel.
         //Check in the channel and all of its children channels
@@ -454,14 +454,14 @@ public class KickstartHelper {
         List channelsToCheck = ChannelManager.userAccessibleChildChannels(
                 user.getOrg().getId(), channel.getId());
         channelsToCheck.add(channel);
-        
+
         Iterator i = channelsToCheck.iterator();
         while (i.hasNext()) {
             Channel current = (Channel) i.next();
             log.debug("Current.channel : " + current.getId());
             //Look for the auto-kickstart package.
             List kspackages = ChannelManager.listLatestPackagesLike(
-                    current.getId(), 
+                    current.getId(),
                     ksdata.getKickstartPackageName());
             //found it, this channel is good.
             if (kspackages.size() > 0) {
@@ -472,7 +472,7 @@ public class KickstartHelper {
         //We have checked every channel without luck.
         return false;
     }
-    
+
     /**
      * Create a message to the user about having a kickstart channel that is missing
      * required packages.
@@ -491,7 +491,7 @@ public class KickstartHelper {
         }
         return msg;
     }
-    
+
     private String createPackageNameList(KickstartData ksdata) {
         //First create a list of all the packages needed
         List packages = new ArrayList();
@@ -505,7 +505,7 @@ public class KickstartHelper {
         }
         //add a '*' at the end because the auto kickstart is a prefix
         packages.add(ksdata.getKickstartPackageName() + "*");
-        
+
         //Now convert the list to a delimited string.
         String delimiter = LocalizationService.getInstance().getMessage("list delimiter");
         return StringUtils.join(packages.toArray(), delimiter);

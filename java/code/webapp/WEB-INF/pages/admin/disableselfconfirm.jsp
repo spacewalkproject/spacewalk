@@ -13,7 +13,7 @@
           <bean:message key="disableselfconfirm.jsp.warning" />
         </p>
     </div>
-   
+
     <hr />
     <form method="POST" name="rhn_list" action="/rhn/account/AccountDeactivationConfirm.do">
     <div align="right">

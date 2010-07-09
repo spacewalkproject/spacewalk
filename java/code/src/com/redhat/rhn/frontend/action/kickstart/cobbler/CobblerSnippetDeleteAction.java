@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * CobblerSnippetDeleteAction 
+ * CobblerSnippetDeleteAction
  * @version $Rev: 1 $
  */
 public class CobblerSnippetDeleteAction extends RhnAction {
@@ -46,7 +46,7 @@ public class CobblerSnippetDeleteAction extends RhnAction {
         if (context.isSubmitted()) {
             try {
                 snip.delete();
-                createSuccessMessage(request, 
+                createSuccessMessage(request,
                             "cobblersnippet.delete.success", snip.getName());
                 return mapping.findForward("success");
             }
@@ -60,7 +60,7 @@ public class CobblerSnippetDeleteAction extends RhnAction {
                                                         snip.getContents());
             CobblerSnippetDetailsAction.bindSnippet(request, snip);
         }
-        
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

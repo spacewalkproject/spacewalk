@@ -5,7 +5,7 @@
     <class
         name="com.redhat.rhn.domain.monitoring.notification.ContactGroupMember"
         table="rhn_contact_group_members">
-        
+
         <composite-id>
 
             <key-many-to-one name="contactGroup"
@@ -15,11 +15,11 @@
     	        type="long"/>
 
         </composite-id>
- 
+
         <many-to-one name="contactMethod" cascade="none"
                 class="com.redhat.rhn.domain.monitoring.notification.Method"
                 column="MEMBER_CONTACT_METHOD_ID"/>
-		        
+
         <!-- NOT USED -->
         <property name="memberContactGroupId" column="MEMBER_CONTACT_GROUP_ID"
             type="long"/>

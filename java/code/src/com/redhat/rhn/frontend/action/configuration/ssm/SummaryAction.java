@@ -36,5 +36,5 @@ public class SummaryAction extends BaseListAction {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.getEnableSummary(user, pcIn, RhnSetDecl.CONFIG_ENABLE_SYSTEMS.getLabel());
     }
-    
+
 }

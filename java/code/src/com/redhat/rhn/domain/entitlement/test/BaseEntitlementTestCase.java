@@ -32,7 +32,7 @@ public abstract class BaseEntitlementTestCase extends RhnBaseTestCase {
     public void testLabel() {
         assertEquals(getLabel(), ent.getLabel());
     }
-    
+
     protected abstract void createEntitlement();
     protected abstract String getLabel();
 }

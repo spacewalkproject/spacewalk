@@ -35,23 +35,23 @@ import javax.servlet.jsp.tagext.TagSupport;
  * The ColumnTag represents a column of data in a ListView.  It must be used
  * within a
  * {@link com.redhat.rhn.frontend.taglibs.ListDisplayTag ListDisplayTag}.
- * It will setup the title of the column using the header attribute, and 
- * display the body after it has setup the header.  
+ * It will setup the title of the column using the header attribute, and
+ * display the body after it has setup the header.
  * The column has six main attributes:
  * <code>header</code>, <code>style</code>, <code>cssClass</code>,
  * <code>url</code>, <code>width</code> and <code>renderUrl</code>.
  * <p>
  * The <code>header</code> is a <strong>REQUIRED</strong> attribute.
- * All other attributes are optional. 
+ * All other attributes are optional.
  * <p>
  * You can specify html formatting with the <code>style</code>,
  * <code>cssClass</code>, <code>nowrap</code> and <code>width</code> attributes.
  * <p>
  * Example usage of the ColumnTag:
  * <pre>
- * &lt;rhn:column header="l10n.jsp.message" 
+ * &lt;rhn:column header="l10n.jsp.message"
  *                "text-align: center;
- *                nowrap="true" 
+ *                nowrap="true"
  *                url="someurl?id=${current.id}"&gt;
  *     ${current.name}
  * &lt;/rhn:column&gt;
@@ -62,7 +62,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Below is an example usage of this boolean and the sample output.
  * Assuming ${current.id} is equal to zero (0) the url will render.
  * <pre>
- * &lt;rhn:column header="l10n.jsp.message" 
+ * &lt;rhn:column header="l10n.jsp.message"
  *                url="http://www.somesite.com"
  *                renderUrl="${current.id == 0}" &gt;
  *     sometext
@@ -81,7 +81,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @see com.redhat.rhn.frontend.taglibs.SetTag
  */
 public class ColumnTag extends TagSupport {
-    
+
     public static final String DYNAMIC_HEADER = "dynamic";
 
     /** Localization key for header name */
@@ -106,14 +106,14 @@ public class ColumnTag extends TagSupport {
     private String style = "text-align: left;";
     /** header colspan attribute **/
     private String headerStyle;
-    /** 
+    /**
      *  TODO: Eliminate this attribute. This is a dirty dirty
      *  hack to allow the ColumnTag to know whether to use
      *  UnpagedListDisplayTag as its parent or ListDisplayTag
      *  as its parent. When ListDisplayTag is refactored
      *  this attribute will no longer be needed**/
     private boolean usesRefactoredList = false;
-    
+
     /**
      * Optional boolean which determines whether the URL should be rendered.
      * I know this seems odd, but sometimes we want the URL to be suppressed.
@@ -153,10 +153,10 @@ public class ColumnTag extends TagSupport {
     public int doStartTag() throws JspException {
         td = new HtmlTag("td");
         href = new HtmlTag("a");
-        
+
         try {
             JspWriter out = pageContext.getOut();
-            
+
             if (usesRefactoredList) {
                UnpagedListDisplayTag parent = findUnpagedListDisplay();
                if (showHeader()) {
@@ -175,7 +175,7 @@ public class ColumnTag extends TagSupport {
                 }
                 renderData(out, parent);
             }
-        
+
             return EVAL_BODY_INCLUDE;
         }
         catch (IOException ioe) {
@@ -198,7 +198,7 @@ public class ColumnTag extends TagSupport {
             tag.removeAttribute(name);
         }
     }
-    
+
     /**
      * Displays the opening of the TD tag and prepares it for
      * displaying the body contents.
@@ -209,11 +209,11 @@ public class ColumnTag extends TagSupport {
     protected void renderData(JspWriter out, ListDisplayTag parent)
         throws IOException {
         setupAttribute(td, "width", getWidth());
-        
+
         if (getNowrap() != null && getNowrap().equals("true")) {
             setupAttribute(td, "nowrap", "nowrap");
         }
-        
+
         setupAttribute(td, "style", getStyle());
         setupAttribute(td, "colspan", getColspan());
 
@@ -248,7 +248,7 @@ public class ColumnTag extends TagSupport {
             out.print(href.renderOpenTag());
         }
     }
-    
+
     /**
      * Displays the opening of the TD tag and prepares it for
      * displaying the body contents.
@@ -259,18 +259,18 @@ public class ColumnTag extends TagSupport {
     protected void renderData(JspWriter out, UnpagedListDisplayTag parent)
         throws IOException {
         String nodeIdString = parent.getNodeIdString();
-        
+
         // Deal with structural markup before we get to this <td>
         if (parent.getColumnCount() == 0 && parent.getCurrRow() == 0) {
             out.println("</thead><tbody>");
-            
+
         }
         setupAttribute(td, "width", getWidth());
         setupAttribute(td, "colspan", getColspan());
         if (getNowrap() != null && getNowrap().equals("true")) {
             setupAttribute(td, "nowrap", "nowrap");
         }
-                
+
         // Only one column
         if (parent.getNumberOfColumns() == 1) {
             setupAttribute(td, "class", "first-column last-column");
@@ -296,21 +296,21 @@ public class ColumnTag extends TagSupport {
         else {
             setupAttribute(td, "style", getStyle());
         }
-        
+
         out.print(td.renderOpenTag());
-        
-        if (parent.getType().equals("treeview") && 
+
+        if (parent.getType().equals("treeview") &&
                 parent.isParent(nodeIdString) &&
                 parent.getColumnCount() == 1) {
-            out.print("<a onclick=\"toggleRowVisibility('" +  
-                      parent.createIdString(nodeIdString) + 
+            out.print("<a onclick=\"toggleRowVisibility('" +
+                      parent.createIdString(nodeIdString) +
                       "');\" " + "style=\"cursor: pointer;\">" +
-                      "<img name=\"" + 
-                      parent.createIdString(nodeIdString) + 
+                      "<img name=\"" +
+                      parent.createIdString(nodeIdString) +
                       "-image\" src=\"/img/list-expand.gif\" alt=\"" +
                       LocalizationService.getInstance().
                       getMessage("channels.parentchannel.alt") +
-                      "\"/></a>"); 
+                      "\"/></a>");
             parent.setCurrRow(parent.getCurrRow() + 1);
         }
 
@@ -329,12 +329,12 @@ public class ColumnTag extends TagSupport {
      */
     private void renderHeader(JspWriter out, String hdr, String arg) throws IOException {
         HtmlTag th = new HtmlTag("th");
-        
+
         if (usesRefactoredList) {
             if (!StringUtils.isEmpty(findUnpagedListDisplay().getTitle())) {
                 setupAttribute(th, "class", "row-2");
             }
-            
+
             if (headerStyle != null) {
                 setupAttribute(th, "style", headerStyle);
             }
@@ -345,7 +345,7 @@ public class ColumnTag extends TagSupport {
         else {
             if (!StringUtils.isEmpty(findListDisplay().getTitle())) {
                 setupAttribute(th, "class", "row-2");
-                
+
                 if (headerStyle != null) {
                     setupAttribute(th, "style", headerStyle);
                 }
@@ -358,27 +358,27 @@ public class ColumnTag extends TagSupport {
         th.addBody(renderHeaderData(hdr, arg));
         out.print(th.render());
     }
-    
+
     protected String renderHeaderData(String hdr, String arg) {
         if (DYNAMIC_HEADER.equals(hdr)) {
             return arg;
         }
-        
-        String contents = null; 
+
+        String contents = null;
         if (arg != null) {
             contents = LocalizationService.getInstance().getMessage(hdr, arg);
-        } 
+        }
         else {
             contents = LocalizationService.getInstance().getMessage(hdr);
         }
-        
+
         String retval = null;
         if (this.sortProperty != null) {
             HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
             String pageUrl;
             Map params = new TreeMap(request.getParameterMap());
             String sortOrder = request.getParameter(RequestContext.SORT_ORDER);
-            
+
             if (RequestContext.SORT_ASC.equals(sortOrder)) {
                 params.put(RequestContext.SORT_ORDER, RequestContext.SORT_DESC);
             }
@@ -386,21 +386,21 @@ public class ColumnTag extends TagSupport {
                 params.put(RequestContext.SORT_ORDER, RequestContext.SORT_ASC);
             }
             params.put(RequestContext.LIST_SORT, sortProperty);
-            pageUrl = ServletUtils.pathWithParams("", 
+            pageUrl = ServletUtils.pathWithParams("",
                     params);
-            
+
             String title = LocalizationService.getInstance().
                 getMessage("listdisplay.sortyby");
             retval = "<a title=\"" + title + "\" href=\"" + pageUrl + "\">" +
                 contents + "</a>";
-        } 
+        }
         else {
             retval = contents;
         }
 
-        return retval; 
+        return retval;
     }
-    
+
     /**
      * Returns true if the header needs to be displayed.
      * @return true if the header needs to be displayed.
@@ -408,14 +408,14 @@ public class ColumnTag extends TagSupport {
     private boolean showHeader() {
         return (pageContext.getAttribute("current") == null);
     }
-    
+
     /**
      * @return Returns the style
      */
     public String getStyle() {
         return style;
     }
-    
+
     /**
      * Sets the style
      * @param styleIn Style to set
@@ -448,13 +448,13 @@ public class ColumnTag extends TagSupport {
     public String getUrl() {
         return url;
     }
-    
+
     /**
      * The URL to render around the body. The following example,
      * <pre>
      *   <rhn:column header="foo" url="http://www.hostname.com">
      *      Data to show.
-     *   </rhn:column>     
+     *   </rhn:column>
      * </pre>
      * would result in the following HTML being generated:
      * <pre>
@@ -467,21 +467,21 @@ public class ColumnTag extends TagSupport {
     public void setUrl(String urlIn) {
         this.url = urlIn;
     }
-    
+
     /**
      * @return Returns the nowrap.
      */
     public String getNowrap() {
         return nowrap;
     }
-    
+
     /**
      * @param noWrapIn The nowrap to set.
      */
     public void setNowrap(String noWrapIn) {
         this.nowrap = noWrapIn;
     }
-    
+
     /**
      * Sets the CSS class attribute.
      * @param css CSS class attribute.
@@ -489,7 +489,7 @@ public class ColumnTag extends TagSupport {
     public void setCssClass(String css) {
         cssClass = css;
     }
-    
+
     /**
      * Returns the CSS class attribute.
      * @return the CSS class attribute.
@@ -497,7 +497,7 @@ public class ColumnTag extends TagSupport {
     public String getCssClass() {
         return cssClass;
     }
-    
+
     /**
      * Returns the column width.
      * @return the column width.
@@ -505,7 +505,7 @@ public class ColumnTag extends TagSupport {
     public String getWidth() {
         return width;
     }
-    
+
     /**
      * Sets the column width in terms of pixels or percentage.
      * @param w The column width.
@@ -513,7 +513,7 @@ public class ColumnTag extends TagSupport {
     public void setWidth(String w) {
         this.width = w;
     }
-    
+
     /**
      * Returns flag indicating whether the URL should be rendered.
      * @return flag indicating whether the URL should be rendered.
@@ -528,7 +528,7 @@ public class ColumnTag extends TagSupport {
     public void setRenderUrl(boolean render) {
         this.renderUrl = render;
     }
-    
+
     /**
      * @return Returns the arg0.
      */
@@ -555,7 +555,7 @@ public class ColumnTag extends TagSupport {
     public void setSortProperty(String sortPropertyIn) {
         this.sortProperty = sortPropertyIn;
     }
-    
+
     /**
      * @return Returns the usesRefactoredList.
      */
@@ -569,7 +569,7 @@ public class ColumnTag extends TagSupport {
     public void setUsesRefactoredList(boolean usesRefactoredListIn) {
         this.usesRefactoredList = usesRefactoredListIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -584,18 +584,18 @@ public class ColumnTag extends TagSupport {
                 }
                 out.print(td.renderCloseTag());
             }
-        
+
             return Tag.EVAL_BODY_INCLUDE;
         }
         catch (IOException ioe) {
             throw new JspException("IO error writing to JSP file:", ioe);
         }
     }
-    
+
     private boolean showUrl() {
         return ((getUrl() != null) && isRenderUrl());
     }
-    
+
     /**
      * Returns the ListDisplayTag that serves as the parent tag.
      * Returns null if no ListDisplayTag is found.
@@ -608,7 +608,7 @@ public class ColumnTag extends TagSupport {
         }
         return (UnpagedListDisplayTag) tagParent;
     }
-    
+
     /**
      * Returns the ListDisplayTag that serves as the parent tag.
      * Returns null if no ListDisplayTag is found.
@@ -654,7 +654,7 @@ public class ColumnTag extends TagSupport {
         else if (c.getHeader() != null) {
             return false;
         }
-        
+
         if (width != null) {
             if (!width.equals(c.getWidth())) {
                 return false;
@@ -663,7 +663,7 @@ public class ColumnTag extends TagSupport {
         else if (c.getWidth() != null) {
             return false;
         }
-        
+
         if (style != null) {
             if (!style.equals(c.getStyle())) {
                 return false;
@@ -672,17 +672,17 @@ public class ColumnTag extends TagSupport {
         else if (c.getStyle() != null) {
             return false;
         }
-        
-        
+
+
         if (nowrap != null) {
             if (!nowrap.equals(c.getNowrap())) {
                 return false;
             }
-        } 
+        }
         else if (c.getNowrap() != null) {
             return false;
         }
-        
+
         if (cssClass != null) {
             if (!cssClass.equals(c.getCssClass())) {
                 return false;
@@ -691,7 +691,7 @@ public class ColumnTag extends TagSupport {
         else if (c.getCssClass() != null) {
             return false;
         }
-        
+
         if (arg0 != null) {
             if (!arg0.equals(c.getArg0())) {
                 return false;
@@ -700,14 +700,14 @@ public class ColumnTag extends TagSupport {
         else if (c.getArg0() != null) {
             return false;
         }
-        
+
         if (renderUrl != c.isRenderUrl()) {
             return false;
         }
 
         return true;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -768,5 +768,5 @@ public class ColumnTag extends TagSupport {
     public void setColspan(String colspanIn) {
         this.colspan = colspanIn;
     }
-    
+
 }

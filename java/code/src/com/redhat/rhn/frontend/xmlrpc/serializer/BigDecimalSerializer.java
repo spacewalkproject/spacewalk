@@ -26,7 +26,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
 /**
  * BigDecimalSerializer
  * @version $Rev$
- * 
+ *
 
  * @xmlrpc.doc
  *      #param ("int")

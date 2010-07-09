@@ -20,7 +20,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                      outer-join="true"
                      not-null="true" />
         <property name="label" column="label" not-null="true" type="string" length="64" />
-        <property name="kickstartType" column="ks_type" type="string" length="8" 
+        <property name="kickstartType" column="ks_type" type="string" length="8"
                     insert="false" update="false" />
         <property name="comments" column="comments"  type="string" length="4000" />
         <property name="active" column="active" not-null="true" type="yes_no" />
@@ -48,51 +48,51 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <key column="kickstart_id"/>
             <many-to-many column="regtoken_id" class="com.redhat.rhn.domain.token.Token" />
         </set>
-        
+
         <set name="preserveFileLists" table="rhnKickstartPreserveFileList" lazy="true">
             <key column="kickstart_id"/>
             <many-to-many column="file_list_id" class="com.redhat.rhn.domain.common.FileList" />
         </set>
-        
-        <set name="ips" outer-join="false" cascade="all-delete-orphan" 
+
+        <set name="ips" outer-join="false" cascade="all-delete-orphan"
             inverse="true" >
             <key column="kickstart_id"/>
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartIpRange" />
         </set>
-        
+
         <bag  name="commands" inverse="true" table="rhnKickstartCommand"
              cascade="all-delete-orphan" outer-join="false" >
             <key column="kickstart_id"/>
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
             <loader query-ref="commandSort"/>
         </bag>
-        
-        <set name="scripts" outer-join="false" cascade="all-delete-orphan" 
+
+        <set name="scripts" outer-join="false" cascade="all-delete-orphan"
             inverse="true" >
             <key column="kickstart_id"/>
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartScript" />
         </set>
-        
+
         <set name="childChannels" table="rhnKickstartChildChannel">
             <key column="ksdata_id"/>
-            <many-to-many column="channel_id" 
+            <many-to-many column="channel_id"
                 class="com.redhat.rhn.domain.channel.Channel" />
-        </set>                                 
-                                                       
+        </set>
+
         <one-to-one name="kickstartDefaults"
             class="com.redhat.rhn.domain.kickstart.KickstartDefaults"
-            cascade="save-update"/>     
-            
+            cascade="save-update"/>
+
         <subclass name="com.redhat.rhn.domain.kickstart.KickstartRawData"
             discriminator-value="raw">
-        </subclass>               
+        </subclass>
     </class>
-       
+
 
     <query name="KickstartData.findByCobblerIdAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.cobblerId = :id and t.org = :org_id]]>
     </query>
-    
+
     <query name="KickstartData.findByIdAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.id = :id and t.org = :org_id]]>
     </query>
@@ -108,19 +108,19 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     <query name="KickstartData.cobblerIds">
         <![CDATA[select t.cobblerId from com.redhat.rhn.domain.kickstart.KickstartData as t]]>
-    </query>    
-    
+    </query>
+
     <sql-query name="commandSort">
             <load-collection alias="sortcol" role="com.redhat.rhn.domain.kickstart.KickstartData.commands"/>
                 SELECT {sortcol.*}
-                FROM rhnKickstartCommand sortcol, rhnKickstartCommandName cname 
+                FROM rhnKickstartCommand sortcol, rhnKickstartCommandName cname
                 WHERE KICKSTART_ID = :id
                 AND sortcol.ks_command_name_id = cname.id
                 ORDER BY cname.sort_order
     </sql-query>
-    
+
     <!--
-        select {k.*} 
+        select {k.*}
         FROM rhnksdata k,
              rhnKickstartDefaults ksd
 	    WHERE k.id = ksd.kickstart_id
@@ -134,6 +134,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                     AND ksd.kstree_id = :kstree_id]]>
 		<return alias="k" class="com.redhat.rhn.domain.kickstart.KickstartData" />
     </sql-query>
-    
+
 
 </hibernate-mapping>

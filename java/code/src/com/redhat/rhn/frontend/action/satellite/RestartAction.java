@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public class RestartAction extends RhnAction {
-    
+
     public static final String RESTART = "restart";
     public static final String RESTARTED = "restarted";
     public static final String RESTART_DELAY_LABEL = "restartDelay";
@@ -43,20 +43,20 @@ public class RestartAction extends RhnAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-  
+
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext ctx = new RequestContext(request);
-        
+
         if (isSubmitted(form)) {
             Boolean restart = ((Boolean) form.get(RESTART));
             if (BooleanUtils.toBooleanDefaultIfNull(restart, false)) {
-                RestartSatelliteEvent event = new 
+                RestartSatelliteEvent event = new
                     RestartSatelliteEvent(ctx.getCurrentUser());
                 MessageQueue.publish(event);
-                createSuccessMessage(request, "restart.config.success", 
+                createSuccessMessage(request, "restart.config.success",
                                     String.valueOf(RESTART_DELAY_IN_MINUTES));
                 request.setAttribute(RESTART, Boolean.TRUE);
-                request.setAttribute(RESTART_DELAY_LABEL, 
+                request.setAttribute(RESTART_DELAY_LABEL,
                                     String.valueOf(RESTART_DELAY_IN_MINUTES * 60));
             }
             else {
@@ -69,7 +69,7 @@ public class RestartAction extends RhnAction {
                 request.getParameter(RESTARTED).equals("true")) {
                 addMessage(request, "restart.config.restarted");
             }
-            
+
             form.set(RESTART, Boolean.FALSE);
             request.setAttribute(RESTART, Boolean.FALSE);
         }

@@ -20,18 +20,18 @@
         <attribute>
 			<name>name</name>
             <required>true</required>
-            <rtexprvalue>true</rtexprvalue>            
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
 			<name>type</name>
             <required>true</required>
-            <rtexprvalue>true</rtexprvalue>            
-        </attribute>          
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
         <attribute>
 			<name>nolink</name>
             <required>false</required>
-            <rtexprvalue>true</rtexprvalue>            
-        </attribute>        
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
      <tag>
         <name>file</name>
@@ -40,29 +40,29 @@
         <attribute>
 			<name>id</name>
             <required>false</required>
-            <rtexprvalue>true</rtexprvalue>            
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
 			<name>path</name>
             <required>true</required>
-            <rtexprvalue>true</rtexprvalue>            
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
 			<name>type</name>
             <required>true</required>
-            <rtexprvalue>true</rtexprvalue>            
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
 			<name>revisionId</name>
             <required>false</required>
-            <rtexprvalue>true</rtexprvalue>            
-        </attribute>                  
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
         <attribute>
 			<name>nolink</name>
             <required>false</required>
-            <rtexprvalue>true</rtexprvalue>            
-        </attribute>        
-    </tag>  
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
     <tag>
         <name>system</name>
         <tag-class>com.redhat.rhn.frontend.configuration.tags.ConfigSystemTag</tag-class>
@@ -75,20 +75,20 @@
         <attribute>
 			<name>name</name>
             <required>true</required>
-            <rtexprvalue>true</rtexprvalue>            
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
 			<name>nolink</name>
             <required>false</required>
-            <rtexprvalue>true</rtexprvalue>            
-        </attribute>        
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
-  
+
 	<function>
 		  <name>channelUrl</name>
 		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigChannelTag</function-class>
 		  <function-signature>java.lang.String makeConfigChannelUrl(java.lang.String)</function-signature>
-	</function>     
+	</function>
 	<function>
 		  <name>fileUrl</name>
 		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigFileTag</function-class>

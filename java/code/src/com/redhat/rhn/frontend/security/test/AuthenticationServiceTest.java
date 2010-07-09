@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * AuthenticationServiceTest is a base test class for testing AuthenticationService
  * implementations.
- * 
+ *
  * @version $Rev$
  */
 public abstract class AuthenticationServiceTest extends MockObjectTestCase {
@@ -50,8 +50,8 @@ public abstract class AuthenticationServiceTest extends MockObjectTestCase {
     public AuthenticationServiceTest(String name) {
         super(name);
     }
-    
-    
+
+
     public AuthenticationServiceTest() {
     }
 
@@ -60,22 +60,22 @@ public abstract class AuthenticationServiceTest extends MockObjectTestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         mockRequest = mock(HttpServletRequest.class);
         mockResponse = mock(HttpServletResponse.class);
         mockPxtDelegate = mock(PxtSessionDelegate.class);
-        
+
         requestResponseArgs = new Constraint[] {
                 isA(HttpServletRequest.class),
                 isA(HttpServletResponse.class)
         };
-        
+
         requestParamNames = new String[] {"question", "answer"};
         requestParamValues = new String[] {
                 "param 1 = 'Who is the one?'",
                 "param 2 = 'Neo is the one!'"
         };
-        
+
         requestUrl = "https://rhn.redhat.com/rhn/YourRhn.do";
     }
 
@@ -98,10 +98,10 @@ public abstract class AuthenticationServiceTest extends MockObjectTestCase {
         Vector vector = new Vector();
         vector.add(requestParamNames[0]);
         vector.add(requestParamNames[1]);
-        
+
         return vector.elements();
     }
-    
+
     protected String getRequestURL() {
         return requestUrl;
     }
@@ -114,16 +114,16 @@ public abstract class AuthenticationServiceTest extends MockObjectTestCase {
                         return getParameterNames();
                     }
                 });
-        
+
         mockRequest.stubs().method("getParameter").with(eq(requestParamNames[0])).will(
                 returnValue(requestParamValues[0]));
-        
+
         mockRequest.stubs().method("getParameter").with(eq(requestParamNames[1])).will(
                 returnValue(requestParamValues[1]));
-        
+
         mockRequest.stubs().method("getRequestURL").will(returnValue(
                 new StringBuffer(getRequestURL())));
-        
+
         mockRequest.stubs().method("getQueryString").will(returnValue(null));
     }
 

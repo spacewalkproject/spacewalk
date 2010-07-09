@@ -1,4 +1,4 @@
-<rl:listset name="groupSet" legend="errata"> 
+<rl:listset name="groupSet" legend="errata">
 
     <rl:list>
 
@@ -48,11 +48,11 @@
 	               		styleclass="last-column text-align: center;">
 			            ${current.updateDate}
 			        </rl:column>	               		
-                </c:if>  
-          
+                </c:if>
 
-        
-        
+
+
+
         <c:if test="${displayCves}">
 
             <rl:column headerkey="details.jsp.cves" styleclass="last-column">

@@ -31,13 +31,13 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class TraceBackEvent extends BaseEvent implements EventMessage {
-    
+
     private Throwable throwable;
     private static final String HASHES = "########";
-    
+
     /**
      * format this message as a string
-     *   TODO mmccune - fill out the email properly with the entire 
+     *   TODO mmccune - fill out the email properly with the entire
      *                  request values
      * @return Text of email.
      */
@@ -71,7 +71,7 @@ public class TraceBackEvent extends BaseEvent implements EventMessage {
             out.print(ls.getMessage("request", getUserLocale()));
             out.println(":");
             out.println(request.toString());
-            
+
             if (request.getMethod().equals("POST")) {
                 out.print(ls.getMessage("form variables", getUserLocale()));
                 out.println(":");
@@ -103,7 +103,7 @@ public class TraceBackEvent extends BaseEvent implements EventMessage {
         }
 
         out.println();
-        
+
         out.print(ls.getMessage("user info"));
         out.println(":");
         if (user != null) {
@@ -124,15 +124,15 @@ public class TraceBackEvent extends BaseEvent implements EventMessage {
         out.close();
         return sw.toString();
     }
-    
+
     /**
-     * 
+     *
      * @return hashmark string
      */
     public String getHashMarks() {
-      return TraceBackEvent.HASHES;    
+      return TraceBackEvent.HASHES;
     }
-    
+
     /**
      * Set the throwable for this event
      * @param tIn Exception to be captured in Event.

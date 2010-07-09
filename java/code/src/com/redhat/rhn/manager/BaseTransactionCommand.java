@@ -21,13 +21,13 @@ import org.hibernate.HibernateException;
 
 /**
  * BaseTransactionCommand - simple baseclass to hold logic for handling tx
- * 
+ *
  * @version $Rev$
  */
 public class BaseTransactionCommand {
-    
+
     private Logger log;
-    
+
     /**
      * Constructor
      * @param logIn to use.
@@ -64,7 +64,7 @@ public class BaseTransactionCommand {
                         log.warn(msg, e);
                     }
                 }
-            } 
+            }
             finally {
                 // cleanup the session
                 HibernateFactory.closeSession();

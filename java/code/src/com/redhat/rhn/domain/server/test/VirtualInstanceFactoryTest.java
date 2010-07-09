@@ -124,9 +124,9 @@ public class VirtualInstanceFactoryTest extends RhnBaseTestCase {
 
         assertGuestDeleted(guest);
     }
-    
+
     public void testGetGuestsAndNotHost() throws Exception {
-        
+
         VirtualInstance vi = builder.createUnregisteredGuest()
             .withVirtHost().build();
         virtualInstanceDAO.saveVirtualInstance(vi);
@@ -136,12 +136,12 @@ public class VirtualInstanceFactoryTest extends RhnBaseTestCase {
         //step 2 - fetch the guest from the database so that it is attached to the session
         VirtualInstance retrievedGuest = virtualInstanceDAO.lookupById(vi
                 .getId());
-        
+
         assertNotNull(retrievedGuest.getHostSystem());
-        
+
         Server s = ServerFactory.lookupById(sid);
         assertEquals(1, s.getGuests().size());
-        
+
     }
 
     public void testDeleteRegisteredGuestWithVirtHost() throws Exception {
@@ -224,7 +224,7 @@ public class VirtualInstanceFactoryTest extends RhnBaseTestCase {
                 .isEqualCollection(expectedViews, actualViews));
     }*/
 
-    
+
     public void testFindGuestsWithoutAHostByOrg() throws Exception {
         Set expectedViews = new HashSet();
 
@@ -232,7 +232,7 @@ public class VirtualInstanceFactoryTest extends RhnBaseTestCase {
                 .asGuestAndNonVirtHostView());
         expectedViews.add(builder.createGuest().withPersistence().build()
                 .asGuestAndNonVirtHostView());
-        
+
         builder.createGuest().withNonVirtHostInAnotherOrg().withPersistence().build();
         builder.createGuest().withNonVirtHost().withPersistence().build();
         builder.createGuest().withVirtHost().withPersistence().build();
@@ -244,14 +244,14 @@ public class VirtualInstanceFactoryTest extends RhnBaseTestCase {
         assertTrue(CollectionUtils
                 .isEqualCollection(expectedViews, actualViews));
     }
-    
+
     public void testGetParaVirt() {
         assertEquals("Para-Virtualized", VirtualInstanceFactory.getInstance().
                 getParaVirtType().getName());
         assertEquals("para_virtualized", VirtualInstanceFactory.getInstance().
                 getParaVirtType().getLabel());
     }
-    
+
     public void testFullyVirt() {
         assertEquals("Fully Virtualized", VirtualInstanceFactory.getInstance().
                 getFullyVirtType().getName());

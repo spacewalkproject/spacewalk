@@ -25,7 +25,7 @@ import org.hibernate.Session;
  * @version $Rev$
  */
 public class ActionTypeTest extends RhnBaseTestCase {
-    
+
     /**
      * Test Equals
      * @throws Exception
@@ -41,12 +41,12 @@ public class ActionTypeTest extends RhnBaseTestCase {
         assertFalse(r1.equals(r3));
         assertTrue(r1.equals(r1));
     }
-    
+
     /**
      * Test findByLabel query
-     * This method can be used to test the 
+     * This method can be used to test the
      * second level cache in hibernate. Turn on sql output
-     * in the hibernate.properties file and make sure that 
+     * in the hibernate.properties file and make sure that
      * we're not going to the db twice
      * @throws Exception
      */
@@ -56,7 +56,7 @@ public class ActionTypeTest extends RhnBaseTestCase {
         assertEquals(r2.getName(), r1.getName());
         assertEquals(r2.getLabel(), r1.getLabel());
     }
-    
+
     /**
      * Helper method to get a ActionType by label
      * @param label

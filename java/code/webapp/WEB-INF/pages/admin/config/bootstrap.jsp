@@ -95,7 +95,7 @@
             <html:text size="32" property="http-proxy-password" styleId="http-proxy-password" />
         </td>
     </tr>
-    
+
     </table>
     <hr/>
     <div align="right"><html:submit><bean:message key="config.update"/></html:submit></div>

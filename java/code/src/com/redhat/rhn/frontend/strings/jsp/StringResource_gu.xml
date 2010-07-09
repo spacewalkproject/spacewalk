@@ -6492,12 +6492,12 @@ the following tabs in the left navigation menu:</source>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
 				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>તમારા @@PRODUCT_NAME@@ પરની ઉમેદવારીઓની વ્યવસ્થા કરો. દરેક ઉમેદવારી દ્વારા કયા પ્રકારનો વપરાશ
-પૂરો પાડવામાં આવે છે તે પણ જોઈ શકશો. ઉમેદવારી-પ્રતિના આધાર પર, 
-તમે તમારા @@PRODUCT_NAME@@ પર અંહિ બધી સંસ્થાઓમાં કોઈ વ્યક્તિગત ઉમેદવારી માટેની 
+પૂરો પાડવામાં આવે છે તે પણ જોઈ શકશો. ઉમેદવારી-પ્રતિના આધાર પર,
+તમે તમારા @@PRODUCT_NAME@@ પર અંહિ બધી સંસ્થાઓમાં કોઈ વ્યક્તિગત ઉમેદવારી માટેની
 ઉમેદવારીઓ ફાળવી શકો છો.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link2">
@@ -6811,9 +6811,9 @@ Please note that some manual configuration of these scripts may still be require
 				<target>ચલોને સુધારો</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
-				<target>કિકસ્ટાર્ટ ચલો એ કિકસ્ટાર્ટ રૂપરેખાઓમાં કિંમતોને અલગ કરવા માટે વાપરી શકાય છે.  નીચે બોક્સમાં સરળ રીતે 'name=value' ને ઉમેરવા ચલને વ્યાખ્યાયિત કરવા માટે.  
+				<target>કિકસ્ટાર્ટ ચલો એ કિકસ્ટાર્ટ રૂપરેખાઓમાં કિંમતોને અલગ કરવા માટે વાપરી શકાય છે.  નીચે બોક્સમાં સરળ રીતે 'name=value' ને ઉમેરવા ચલને વ્યાખ્યાયિત કરવા માટે.
         			 તમે પછી કિંમતમાં અલગ કરવા માટે રૂપરેખામાં $name ને વાપરી શકો છો.</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
@@ -7154,12 +7154,12 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;નોંધ:&lt;/strong&gt; વર્ચ્યુઅલાઇઝેશન ને બદલવાનું કિકસ્ટાર્ટ રૂપરેખાનાં બુટલોડર અને
-            પાર્ટીશન વિકલ્પોને બદલવાની જરૂર પડી શકે છે, વપરાશકર્તા વિશિષ્ટ રૂપથી નિર્માણ કરવા માટે ઉપર લખી રહ્યા છે. 
-            મહેરબાની કરીને ચકાસવા માટે &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;પાર્ટીશનીંગ&lt;/a&gt; 
+            પાર્ટીશન વિકલ્પોને બદલવાની જરૂર પડી શકે છે, વપરાશકર્તા વિશિષ્ટ રૂપથી નિર્માણ કરવા માટે ઉપર લખી રહ્યા છે.
+            મહેરબાની કરીને ચકાસવા માટે &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;પાર્ટીશનીંગ&lt;/a&gt;
             ટેબની મુલાકાત લો.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -12364,7 +12364,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 
 વિતરણ લેબલ ક્ષેત્ર માત્ર અક્ષરો, નંબરો, હાયફનો, ટપકાંઓ, અને નીચે લીટીઓ સમાવતું હોવું જોઈએ. તે ઓછામાં ઓછા ૪ અક્ષરો લાંબુ હોવું જ જોઈએ.&lt;br/&gt;&lt;br/&gt;
 
-ટ્રી પાથ, કિકસ્ટાર્ટ RPM, આધાર ચેનલ, અને સ્થાપન બનાવટ હંમેશા બંધબેસતું હોવું જોઈએ. આનો સામાન્ય રીતે અર્થ એ થાય કે દરેક ક્ષેત્રની આવૃત્તિ Red Hat Enterprise Linux ની એ જ આવૃત્તિમાંથી હોવી જોઈએ.&lt;br/&gt; 
+ટ્રી પાથ, કિકસ્ટાર્ટ RPM, આધાર ચેનલ, અને સ્થાપન બનાવટ હંમેશા બંધબેસતું હોવું જોઈએ. આનો સામાન્ય રીતે અર્થ એ થાય કે દરેક ક્ષેત્રની આવૃત્તિ Red Hat Enterprise Linux ની એ જ આવૃત્તિમાંથી હોવી જોઈએ.&lt;br/&gt;
 &lt;p&gt;ટ્રી પાથ એ તમારી @@PRODUCT_NAME@@ સર્વર પર વિતરણ એ કર્નલ, nitrd, અને repo જાણકારીને સમાવે છે તે માટે સમાવતી આખી કિકસ્ટાર્ટ ટ્રીને સ્થાનિક ડિસ્ક પાથ હોવો જોઇએ, પરંતુ કોઇપણ rpms ને બહાર નીકાળી રહ્યુ છે. આ શબ્દકોષ એ અપાચી અને ટોમકેટ વપરાશકર્તાઓ દ્દારા વાંચી શકાય તેવુ હોવુ જોઇએ.  સ્પષ્ટ થયેલ ટ્રી પાથ માંથી, કર્નલ એ "./images/pxeboot/vmlinuz" પર ઉપલ્બધ હોવી જોઇએ અને initrd ઇમેજ એ"./images/pxeboot/initrd.img" પર ઉપલ્બધ હોવી જોઇએ. નમૂના માટે, જો તમારી પાસે @@PRODUCT_NAME@@ સર્વર પર સ્થાપિત થયેલ મીડિયા હોય તો આની પર: &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt; તો તમે તમારી ટ્રી પાથ કિંમત તરીકે પાથને સ્પષ્ટ કરી શકો છો કે જે અહિંયા કર્નલ અને initrd માટે ચકાસી શકાય છે: &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="treecreate.jsp.header2">
@@ -12414,9 +12414,9 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 અથવા નવું કિકસ્ટાર્ટ વિતરણ બનાવતા પહેલાં.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
-				<source> 
+				<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;</source>
-				<target> 
+				<target>
  &lt;strong&gt;કોઈ લાગુ પડી શકાય તેવી સ્થાપક બનાવટો પસંદિત આધાર ચેનલ માટે મળી નહિં.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.toolbar">
@@ -13131,10 +13131,10 @@ enterprise develop business practices that allow this period of downtime for you
 Red Hat will always attempt to inform at least one week in advance through the email outage
 list (see below) about this scheduled downtime whenever possible.</source>
 				<target>Red Hat એ @@PRODUCT_NAME@@ ની બધી આયોજીત જાળવણીઓ
-ગુરુવાર 9pm-3am, પૂર્વીય U.S. સમયે (1am-7am UTC) સુનિશ્ચિ કરે છે.  જ્યારે Red Hat 
-આ વિન્ડોમાંની દરેકને જાળવણી કરવા માટે જરૂરીયાતપણે વાપરશે નહિં, અમે તમારા 
-એન્ટરપ્રાઈઝ વિકાસ વ્યવસાય પ્રયાસોનો આગ્રહ રાખીએ છીએ કે જે આ ગાળને તમારા @@PRODUCT_NAME@@ ઉકેલ માટે પરવાનગી આપે.  
-Red Hat જ્યારેપણ શક્ય હોય ત્યારે સુનિશ્ચિત નીચા સમય વિશે હંમેશા એક અઠવાડિયા 
+ગુરુવાર 9pm-3am, પૂર્વીય U.S. સમયે (1am-7am UTC) સુનિશ્ચિ કરે છે.  જ્યારે Red Hat
+આ વિન્ડોમાંની દરેકને જાળવણી કરવા માટે જરૂરીયાતપણે વાપરશે નહિં, અમે તમારા
+એન્ટરપ્રાઈઝ વિકાસ વ્યવસાય પ્રયાસોનો આગ્રહ રાખીએ છીએ કે જે આ ગાળને તમારા @@PRODUCT_NAME@@ ઉકેલ માટે પરવાનગી આપે.
+Red Hat જ્યારેપણ શક્ય હોય ત્યારે સુનિશ્ચિત નીચા સમય વિશે હંમેશા એક અઠવાડિયા
 પહેલાં આઉટેજ યાદી (નીચે જુઓ) ને જાણ કરવાનું રાખશે.</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.unscheduled-header">
@@ -13319,11 +13319,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.description">
 				<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)</source>
 				<target>
-	નીચે {0} ના &lt;strong&gt;તાજેતરનું પ્રકાશન&lt;/strong&gt; માટે ISO ઈમેજોનો સંપૂર્ણ સમૂહ મહેરબાની કરીને શોધો.  
+	નીચે {0} ના &lt;strong&gt;તાજેતરનું પ્રકાશન&lt;/strong&gt; માટે ISO ઈમેજોનો સંપૂર્ણ સમૂહ મહેરબાની કરીને શોધો.
 	{0} ના ચલ પર આધાર રાખીને તમે સ્થાપન કરવા માંગશો, તમારે આ ડિસ્કના માત્ર ઉપગણની જ જરૂર રહેશે.
     (&lt;a href="{1}"&gt;વધુ જાણકારી&lt;/a&gt;)</target>
 			</trans-unit>
@@ -13349,11 +13349,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.note">
 				<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
-&lt;strong&gt;નોંધ:&lt;/strong&gt; {0} સ્થાપિત કરવા માટે તમારે સ્થાપન નંબર જરૂરી રહેશે.  
+&lt;strong&gt;નોંધ:&lt;/strong&gt; {0} સ્થાપિત કરવા માટે તમારે સ્થાપન નંબર જરૂરી રહેશે.
 &lt;a href="{1}"&gt;સ્થાપન નંબર શું છે તે માટે ચોક્કસ નથી?&lt;/a&gt;
 &lt;a href="{2}"&gt;શું તમારા સ્થાપન નંબરો માટે જોવાની જરૂર છે?&lt;/a&gt;</target>
 			</trans-unit>
@@ -13363,10 +13363,10 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.rest.description">
 				<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.</source>
 				<target>
-નીચે {0} ના &lt;strong&gt;જૂના પ્રકાશનો&lt;/strong&gt; માટે મહેરબાની કરીને ISO ઈમેજોનો સંપૂર્ણ સમૂહ શોધો.  
+નીચે {0} ના &lt;strong&gt;જૂના પ્રકાશનો&lt;/strong&gt; માટે મહેરબાની કરીને ISO ઈમેજોનો સંપૂર્ણ સમૂહ શોધો.
 નોંધ કરો કે ISO ઈમેજોનો માત્ર એક સમૂહ {0} નું કોઈ એક વ્યક્તિગત પ્રકાશન સ્થાપિત કરવા માટે જરૂરી છે.</target>
 			</trans-unit>
 			<trans-unit id="isodownload.viewprevious">
@@ -13893,7 +13893,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
@@ -14898,28 +14898,28 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.</source>
 				<target>આ પાનાં માંથી સોફ્ટવેર ચેનલોને બનાવો અથવા ફેરફાર કરો.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         જો પિતૃ ચેનલ એ 'કંઇ નહિં' તરીકે સુયોજિત હોય તો, ચેનલ એ આધાર ચેનલ છે.
         નહિં તો, ચેનલ એ સ્પષ્ટ થયેલ ચેનલનો બાળ છે.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         ચેનલ નામ અને લેબલની જરૂરિયાત છે. તેઓ દરેક ઓછામાં ઓછા 6 હોવા જ જોઇએ
         લંબાઇમાં અક્ષરો. લેબલો એ અક્ષરો સાથે શરૂ થવા જ જોઇએ, ફક્ત
         નાનાં અક્ષરો, હાઇફનો ('-'), પૂર્ણવિરામ ('.'), અન્ડરસ્કોરો ('_'), અને
         આંકડાઓને સમાવે છે. ચેનલ નામ એ જગ્યાઓ અને ફોરવર્ડ સ્લેશોને પણ સમાવી શકે છે
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         ચેનલ સારાંશની પણ જરૂરિયાત છે.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">

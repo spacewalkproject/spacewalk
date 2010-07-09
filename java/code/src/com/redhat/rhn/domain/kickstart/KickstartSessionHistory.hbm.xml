@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.kickstart.KickstartSessionHistory" 
+    <class name="com.redhat.rhn.domain.kickstart.KickstartSessionHistory"
         table="rhnkickstartsessionhistory" >
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -36,7 +36,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="KickstartSessionHistory.findById">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartSessionHistory as t where t.id = :id]]>
     </query>
-    
+
     <query name="KickstartSessionHistory.findByKickstartSessionAndState">
         <![CDATA[from KickstartSessionHistory as history where history.session = :kickstartSession and history.state = :state order by time desc]]>
     </query>

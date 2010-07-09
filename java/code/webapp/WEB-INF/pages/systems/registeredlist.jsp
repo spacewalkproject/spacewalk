@@ -30,13 +30,13 @@
 			</c:choose>		
 		</c:forEach>  		
   </select>
-  
+
   <html:submit>
     <bean:message key="cloneerrata.jsp.view"/>
   </html:submit>
 <rhn:submitted/>
 <div class="full-width-wrapper" style="clear: both;">
-	<rl:list 
+	<rl:list
 		dataset="pageList"
 		name="systemList"
 		decorator="SelectableDecorator"
@@ -54,39 +54,39 @@
 	 						disabled="${not current.selectable}"
 	 						styleclass="first-column"/>
 		<!--Updates Column -->
-		<rl:column sortable="false" 
+		<rl:column sortable="false"
 				   bound="false"
-		           headerkey="systemlist.jsp.status" 
+		           headerkey="systemlist.jsp.status"
 		           styleclass="center"
 		           headerclass="thin-column">
                       <c:out value="${current.statusDisplay}" escapeXml="false"/>
-		</rl:column>			 							 
+		</rl:column>
 		<!-- Name  Column -->
-		<rl:column sortable="true" 
+		<rl:column sortable="true"
 				   bound="false"
-		           headerkey="systemlist.jsp.system" 
+		           headerkey="systemlist.jsp.system"
 		           sortattr="name" >
-			<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>		           
+			<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
 		</rl:column>
 		<!-- Base Channel Column -->
-		<rl:column sortable="true" 
+		<rl:column sortable="true"
 				   bound="false"
-		           headerkey="systemlist.jsp.channel" 
+		           headerkey="systemlist.jsp.channel"
 		           sortattr="channelLabels" >
-			<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>		           
+			<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
 		</rl:column>
 		
-		<rl:column sortable="true" 
+		<rl:column sortable="true"
 				   bound="false"
-		           headerkey="registeredlist.jsp.date" 
+		           headerkey="registeredlist.jsp.date"
 		           sortattr="created"
 		           defaultsort="desc">
-			  <fmt:formatDate value="${current.created}" type="both" dateStyle="short" timeStyle="long"/>         
+			  <fmt:formatDate value="${current.created}" type="both" dateStyle="short" timeStyle="long"/>
 		</rl:column>
 			
-		<rl:column sortable="true" 
+		<rl:column sortable="true"
 				   bound="false"
-		           headerkey="registeredlist.jsp.user" 
+		           headerkey="registeredlist.jsp.user"
 		           sortattr="nameOfUserWhoRegisteredSystem" >
 	      <c:if test="${current.nameOfUserWhoRegisteredSystem != null}">
 	        <img src="/img/rhn-listicon-user.gif" alt="<bean:message key="yourrhn.jsp.user.alt" />"  />
@@ -95,9 +95,9 @@
 		</rl:column>
 		           		
 		<!-- Entitlement Column -->
-		<rl:column sortable="false" 
+		<rl:column sortable="false"
 				   bound="false"
-		           headerkey="systemlist.jsp.entitlement" 
+		           headerkey="systemlist.jsp.entitlement"
 		           styleclass="last-column">
                       <c:out value="${current.entitlementLevel}" escapeXml="false"/>
 		</rl:column>							 						

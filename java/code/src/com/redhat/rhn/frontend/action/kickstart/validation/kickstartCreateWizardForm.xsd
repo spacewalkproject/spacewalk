@@ -1,37 +1,37 @@
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 
-<schema targetNamespace="http://rhn.redhat.com" 
-        xmlns="http://www.w3.org/1999/XMLSchema" 
-        xmlns:rhn="http://rhn.redhat.com"> 
+<schema targetNamespace="http://rhn.redhat.com"
+        xmlns="http://www.w3.org/1999/XMLSchema"
+        xmlns:rhn="http://rhn.redhat.com">
 
-  <attribute name="kickstartLabel"> 
-    <simpleType baseType="string"> 
-      <minLength value="6" /> 
-      <maxLength value="64" /> 
-    </simpleType> 
+  <attribute name="kickstartLabel">
+    <simpleType baseType="string">
+      <minLength value="6" />
+      <maxLength value="64" />
+    </simpleType>
   </attribute>
-  <attribute name="kstreeId"> 
-    <simpleType baseType="long"> 
-      <minInclusive value="1" /> 
-    </simpleType> 
-  </attribute>    
-  <attribute name="defaultDownload"> 
-    <simpleType baseType="string"> 
-      <minLength value="4" /> 
-    </simpleType> 
-  </attribute>        
-  <attribute name="userDefinedDownload"> 
-    <simpleType baseType="string"> 
-      <minLength value="6" /> 
-      <maxLength value="1024" /> 
-    </simpleType> 
+  <attribute name="kstreeId">
+    <simpleType baseType="long">
+      <minInclusive value="1" />
+    </simpleType>
+  </attribute>
+  <attribute name="defaultDownload">
+    <simpleType baseType="string">
+      <minLength value="4" />
+    </simpleType>
+  </attribute>
+  <attribute name="userDefinedDownload">
+    <simpleType baseType="string">
+      <minLength value="6" />
+      <maxLength value="1024" />
+    </simpleType>
   </attribute>
   <attribute name="rootPassword">
       <simpleType baseType="string">
       	<minLength value="1" />
         <maxLength value="32" />
       </simpleType>
-  </attribute>    
+  </attribute>
   <attribute name="rootPasswordConfirm">
       <simpleType baseType="string">
       	<minLength value="1" />

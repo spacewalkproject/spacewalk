@@ -20,7 +20,7 @@ import org.quartz.TriggerListener;
 
 /**
  * Taskomatic's Quartz scheduled job listener
- * This listener counts down from a maximum number 
+ * This listener counts down from a maximum number
  * of jobs scheduled and then shuts down the SchedulerKernel.
  * @version $Rev$
  */
@@ -29,7 +29,7 @@ public class SingleShotListener implements TriggerListener {
     private SchedulerKernel owner;
     private int jobCount;
     private boolean shutdownStarted = false;
-    
+
     /**
      * @param count Maximum job count
      * @param myOwner Owning SchedulerKernel instance
@@ -38,14 +38,14 @@ public class SingleShotListener implements TriggerListener {
         this.jobCount = count;
         this.owner = myOwner;
     }
-    
+
    /**
     * {@inheritDoc}
     */
     public String getName() {
         return "SingleShotListener";
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -62,7 +62,7 @@ public class SingleShotListener implements TriggerListener {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public boolean vetoJobExecution(Trigger trigger, JobExecutionContext ctx) {
         synchronized (this) {
             if (this.jobCount == 0 && !this.shutdownStarted) {
@@ -72,7 +72,7 @@ public class SingleShotListener implements TriggerListener {
         }
         return false;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -83,13 +83,13 @@ public class SingleShotListener implements TriggerListener {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public void triggerComplete(Trigger trigger, JobExecutionContext ctx, int duration) {
         synchronized (this) {
             if (this.jobCount == 0 && !this.shutdownStarted) {
                 this.shutdownStarted = true;
                 this.owner.startShutdown();
             }
-        }        
+        }
     }
 }

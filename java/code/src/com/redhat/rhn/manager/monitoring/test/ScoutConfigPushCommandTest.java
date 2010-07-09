@@ -24,7 +24,7 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
  */
 public class ScoutConfigPushCommandTest extends BaseTestCaseWithUser {
 
-    
+
     public void testPushConfig() throws Exception {
         if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;

@@ -16,8 +16,8 @@
   </rhn:toolbar>
 
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/probesuite_detail_create.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/probesuite_detail_create.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 
@@ -26,7 +26,7 @@
 
 
 <html:form action="/monitoring/config/ProbeSuiteCreate" method="POST">
-    <%@ include file="suite-form.jspf" %>    
+    <%@ include file="suite-form.jspf" %>
     <tr>
       <td></td>
       <td align="right"><html:submit><bean:message key="probesuitecreate.jsp.createsuite"/></html:submit></td>
@@ -34,6 +34,6 @@
     <html:hidden property="suite_id" value="${probeSuite.id}"/>
     <html:hidden property="submitted" value="true"/>
 </html:form>
-           
+
 </body>
 </html>

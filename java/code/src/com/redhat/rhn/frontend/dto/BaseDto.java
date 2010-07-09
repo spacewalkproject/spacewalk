@@ -26,12 +26,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * select all.
  * @version $Rev: 60953 $
  */
-public abstract class BaseDto extends SelectableAdapter implements Identifiable { 
-    
-    
+public abstract class BaseDto extends SelectableAdapter implements Identifiable {
+
+
     protected static final Integer ONE = new Integer(1);
     protected static final Integer ZERO = new Integer(0);
-    
+
     /**
      * Returns id to be stored in RhnSet.
      * @return id to be stored in RhnSet.
@@ -46,15 +46,15 @@ public abstract class BaseDto extends SelectableAdapter implements Identifiable 
     public void addToSet(RhnSet set) {
         set.addElement(new Long(getId().longValue()));
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public String getSelectionKey() {
         return String.valueOf(getId());
     }
-    
+
 
     /**
      * {@inheritDoc}

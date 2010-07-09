@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 /**
  * Edit a probe attached to one system
- * 
+ *
  * @version $Rev: 53910 $
  */
 public class ProbeEditAction extends BaseProbeEditAction {
@@ -33,8 +33,8 @@ public class ProbeEditAction extends BaseProbeEditAction {
         rctx.lookupAndBindServer();
     }
 
-    
-    protected void addSuccessParams(RequestContext rctx, 
+
+    protected void addSuccessParams(RequestContext rctx,
             HashMap params, Probe probe) {
         params.put(SID, rctx.lookupAndBindServer().getId());
         params.put(PROBEID, rctx.lookupProbe().getId());

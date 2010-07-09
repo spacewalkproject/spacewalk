@@ -39,7 +39,7 @@ public class RequiredFieldTag extends TagSupport {
 
     public static final String REQUIRED_FIELD_CSS =  "required-form-field";
     private String key;
-    
+
     /**
      * Sets the key
      * @param k the i18n key to set
@@ -47,7 +47,7 @@ public class RequiredFieldTag extends TagSupport {
     public void setKey(String k) {
         key = k;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -64,16 +64,16 @@ public class RequiredFieldTag extends TagSupport {
                     msg = msg.substring(0, msg.length() - 1);
                 }
                 writer.write(msg);
-            }            
+            }
             return EVAL_BODY_INCLUDE;
         }
         catch (IOException e) {
             throw new JspException(e);
-        }        
-        
+        }
+
     }
-  
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -92,11 +92,11 @@ public class RequiredFieldTag extends TagSupport {
                     writer.write(":");
                 }
             }
-            
+
         }
         catch (IOException e) {
             throw new JspException(e);
-        }        
+        }
         return SKIP_BODY;
     }
 
@@ -105,7 +105,7 @@ public class RequiredFieldTag extends TagSupport {
      */
     @Override
     public void release() {
-        key = null;                
+        key = null;
         super.release();
-    }    
+    }
 }

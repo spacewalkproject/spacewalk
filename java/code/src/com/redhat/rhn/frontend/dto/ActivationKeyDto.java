@@ -58,7 +58,7 @@ public class ActivationKeyDto extends BaseDto {
     public boolean isDisabled() {
         return disabled;
     }
-    
+
     /**
      * Disable (or enable) the key
      * @param value 1 if the key is disabled
@@ -154,15 +154,15 @@ public class ActivationKeyDto extends BaseDto {
     public String getFormattedOrgDefault() {
         LocalizationService ls = LocalizationService.getInstance();
         if (isOrgDefault()) {
-            return ls.getMessage("yes"); 
+            return ls.getMessage("yes");
         }
         else {
             return ls.getMessage("no");
         }
     }
-    
+
     /**
-     * 
+     *
      * @return true if this is the org default
      */
     public boolean isOrgDefault() {

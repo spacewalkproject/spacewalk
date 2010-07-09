@@ -34,20 +34,20 @@ public class RhnTimeZoneTest extends RhnBaseTestCase {
        TimeZone nameTZ = TimeZone.getTimeZone(name);
        TimeZone defaultTZ = TimeZone.getTimeZone("yum");
        int id = 7010;
-       
+
        tz.setOlsonName(name);
        assertEquals(name, tz.getOlsonName());
        assertEquals(nameTZ, tz.getTimeZone());
-       
+
        tz.setOlsonName(foo);
        assertEquals(foo, tz.getOlsonName());
-       assertTrue(tz.getTimeZone().equals(defaultTZ)); 
+       assertTrue(tz.getTimeZone().equals(defaultTZ));
                //default is GMT specified by java.util.TimeZone
-       
+
        tz2.setOlsonName(null);
        assertNull(tz2.getOlsonName());
        assertNull(tz2.getTimeZone());
-       
+
        tz.setTimeZoneId(id);
        assertEquals(id, tz.getTimeZoneId());
    }

@@ -20,11 +20,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="archived" column="archived" type="long" />
         <property name="created" column="created" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp" insert="false" update="false"/>
-        
+
         <many-to-one name="prerequisite"
             class="com.redhat.rhn.domain.action.Action"
             column="prerequisite" update="true" insert="true" cascade="all" />
-        
+
         <many-to-one name="schedulerUser"
             class="com.redhat.rhn.domain.user.legacy.UserImpl"
             column="scheduler" update="true" insert="true" cascade="all" />
@@ -301,7 +301,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <property name="uuid"/>
           </join>
         </subclass>
-        
+
         <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationDestroyAction"
                 discriminator-value="41" lazy="true">
           <join table="rhnActionVirtDestroy">
@@ -309,12 +309,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <property name="uuid"/>
           </join>
         </subclass>
-        
+
         <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction"
                 discriminator-value="42" lazy="true">
           <join table="rhnActionVirtSetMemory">
             <key column="action_id"/>
-            <property name="uuid"/> 
+            <property name="uuid"/>
             <property name="memory" type="java.lang.Integer"/>
           </join>
         </subclass>
@@ -323,7 +323,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 discriminator-value="48" lazy="true">
           <join table="rhnActionVirtVcpu">
             <key column="action_id"/>
-            <property name="uuid"/> 
+            <property name="uuid"/>
             <property name="vcpu" type="java.lang.Integer"/>
           </join>
         </subclass>
@@ -396,26 +396,26 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Action.findByIdandOrgId">
         <![CDATA[from com.redhat.rhn.domain.action.Action as a where a.id = :aid and org_id = :orgId]]>
     </query>
-    
+
     <query name="Action.getServerActionCount">
         <![CDATA[
 			select a.serverActions.size
         	from com.redhat.rhn.domain.action.Action as a where a.id = :aid and org_id = :orgId]]>
-    </query>    
-    
+    </query>
+
     <sql-query name="Action.getServerActionCountByStatus">
         <return-scalar type="int" column="count"/>
         <![CDATA[select count(sa.server_id) as count from rhnServerAction sa where sa.action_id = :aid and
         			sa.status = :stid]]>
     </sql-query>
-    
-    
-    
+
+
+
     <query name="Action.findDependentActions"><![CDATA[
 		from Action a where a.prerequisite.id in (:action_ids)
     ]]></query>
-    
-   <sql-query name="Action.findLastActionByServerIdAndActionTypeIdAndUserId">                 
+
+   <sql-query name="Action.findLastActionByServerIdAndActionTypeIdAndUserId">
         <![CDATA[
 select {ra.*}
     from rhnAction {ra},
@@ -427,13 +427,13 @@ select {ra.*}
     (select NULL as uuid from dual) ra_6_,
     (select NULL as uuid, NULL as memory from dual) ra_7_,
     (select NULL as uuid, NULL as vcpu from dual) ra_8_
-   where 
+   where
     ra.id = (SELECT max(rA.id)
     		   FROM rhnAction rA
-			      inner join rhnServerAction rsa on rsa.action_id = rA.id 
+			      inner join rhnServerAction rsa on rsa.action_id = rA.id
 			      inner join rhnActionStatus ras on ras.id = rsa.status
-			      inner join rhnUserServerPerms usp on usp.server_id = rsa.server_id							      
-         	   WHERE 
+			      inner join rhnUserServerPerms usp on usp.server_id = rsa.server_id
+		   WHERE
           	      usp.user_id = :userId
           	      AND rsa.server_id = :serverId
          	      AND ras.name IN ('Completed', 'Failed')
@@ -442,38 +442,38 @@ select {ra.*}
         ]]>
 
         <return alias="ra" class="com.redhat.rhn.domain.action.Action" />
-    </sql-query>    
-    
+    </sql-query>
+
     <query name="Action.findByServerAndOrgId">
         <![CDATA[from com.redhat.rhn.domain.action.Action as a
             left join fetch a.serverActions as sa
             where org_id = :orgId and
             sa.server = :server]]>
     </query>
-    
-    
+
+
      <query name="Action.rescheduleFailedActions">
-       <![CDATA[ update  com.redhat.rhn.domain.action.server.ServerAction sa 
+       <![CDATA[ update  com.redhat.rhn.domain.action.server.ServerAction sa
        					set sa.status = :queued, sa.remainingTries = :tries
        					where sa.status = :failed and
        							sa.parentAction = :action ]]>
     </query>
-    
+
      <query name="Action.rescheduleAllActions">
-       <![CDATA[ update  com.redhat.rhn.domain.action.server.ServerAction sa 
+       <![CDATA[ update  com.redhat.rhn.domain.action.server.ServerAction sa
        					set sa.status = :queued, sa.remainingTries = :tries
        					where sa.parentAction = :action ]]>
-    </query>    
-    
-    
-   <sql-query name="Action.findServerIds">                 
+    </query>
+
+
+   <sql-query name="Action.findServerIds">
         <![CDATA[
 select sa.server_id
 	from rhnServerAction sa
-	where sa.action_id = :action_id   
+	where sa.action_id = :action_id
         ]]>
-    </sql-query>        
-    
-    
-    
+    </sql-query>
+
+
+
 </hibernate-mapping>

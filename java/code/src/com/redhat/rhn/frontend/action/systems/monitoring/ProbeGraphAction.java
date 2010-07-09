@@ -47,31 +47,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Action for the probe details page. Note that there is no correpsonding 
+ * Action for the probe details page. Note that there is no correpsonding
  * SetupAction since there isn't really a good separation between setup
  * and performing the action.
- * 
+ *
  * @version $Rev: 54016 $
  */
-public class ProbeGraphAction extends BaseProbeAction {    
-    
+public class ProbeGraphAction extends BaseProbeAction {
+
     public static final int DEFAULT_CHART_HEIGHT = 240;
     public static final int DEFAULT_CHART_WIDTH = 800;
     public static final String MIME_TYPE = "image/png";
-    
+
     private Logger log = Logger.getLogger(ProbeGraphAction.class);
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        
+
         RequestContext rctx = new RequestContext(req);
         Probe probe = rctx.lookupProbe();
         String[] metrics = req.getParameterValues(METRICS);
-        
+
         Long start = rctx.getParamAsLong(STARTTS);
         Long end = rctx.getParamAsLong(ENDTS);
-        
+
         if (start == null || end == null) {
             log.debug("No start or end date passed into execute()");
             return null;
@@ -79,21 +79,21 @@ public class ProbeGraphAction extends BaseProbeAction {
 
         Timestamp startts = new Timestamp(start.longValue());
         Timestamp endts = new Timestamp(end.longValue());
-        
-        List tsdList =  MonitoringManager.getInstance().getProbeDataList(probe, metrics, 
+
+        List tsdList =  MonitoringManager.getInstance().getProbeDataList(probe, metrics,
                 startts, endts);
-        
+
         if (rctx.isRequestedExport()) {
             writeExport(tsdList, resp, metrics);
-        } 
+        }
         else {
             writeGraph(tsdList, resp, req, metrics, startts, endts);
         }
         return null;
     }
-    
-    private void writeGraph(List tsdList, HttpServletResponse resp, 
-            HttpServletRequest req, String[] metrics, Timestamp startts, Timestamp endts) 
+
+    private void writeGraph(List tsdList, HttpServletResponse resp,
+            HttpServletRequest req, String[] metrics, Timestamp startts, Timestamp endts)
                 throws IOException {
         Context ctx = Context.getCurrentContext();
         String timeZoneLabel = ctx.getTimezone().getDisplayName(ctx.getLocale());
@@ -102,32 +102,32 @@ public class ProbeGraphAction extends BaseProbeAction {
         String xAxisLabel;
         if (tsdList.size() > 0) {
             xAxisLabel = timeZoneLabel;
-        } 
+        }
         else {
             xAxisLabel = LocalizationService.getInstance().
             getMessage("probedetails.graph.noprobedata");
         }
         Map labelMap = getMetricLabels(req, metrics);
-        // Add blank start and finish values so we show the full range of the 
+        // Add blank start and finish values so we show the full range of the
         // graph.  This modifies the data when the user selected a date range
         // larger than the data stored with this probe.
         tsdList = addStartandEndData(tsdList, startts, endts, metrics);
-        
+
         JFreeChart chart = GraphGenerator.getInstance().
-            generateJFReeChart(DEFAULT_CHART_WIDTH, 
+            generateJFReeChart(DEFAULT_CHART_WIDTH,
                     DEFAULT_CHART_HEIGHT, xAxisLabel, yAxisLabel, tsdList, labelMap);
-        
-        if (log.isDebugEnabled()) { 
+
+        if (log.isDebugEnabled()) {
             // We can turn debug on for this class and stick the graph
             // files in /tmp/chart892380980923409.png
             log.debug("Dumping graph file to /tmp");
             GraphGenerator.getInstance().generateGraphFile(
-                 chart, DEFAULT_CHART_WIDTH, DEFAULT_CHART_HEIGHT);        
+                 chart, DEFAULT_CHART_WIDTH, DEFAULT_CHART_HEIGHT);
         }
         writeChartToResponse(chart, resp);
     }
 
-    private void writeExport(List tsdList, HttpServletResponse resp, 
+    private void writeExport(List tsdList, HttpServletResponse resp,
             String[] metrics) throws IOException {
         Iterator i = tsdList.iterator();
         while (i.hasNext()) {
@@ -158,9 +158,9 @@ public class ProbeGraphAction extends BaseProbeAction {
     }
 
     // Add blank values to the start and end of the graph if we need to.
-    private List addStartandEndData(List timeSeriesList, Timestamp startTime, 
+    private List addStartandEndData(List timeSeriesList, Timestamp startTime,
             Timestamp endTime, String[] metrics) {
-        
+
         List retval = new LinkedList();
         if (metrics != null) {
             for (int i = 0; i < metrics.length; i++) {
@@ -172,28 +172,28 @@ public class ProbeGraphAction extends BaseProbeAction {
         }
         return retval;
     }
-    
+
     // Do the grunt work of adding the 2 entries to the array.  This might do some
     // System.arrayCopy()s so if we find performance with large graphsets is causing
     // problems we should look here.
-    private TimeSeriesData[] padProbeData(TimeSeriesData[] tsd, Timestamp startTime, 
+    private TimeSeriesData[] padProbeData(TimeSeriesData[] tsd, Timestamp startTime,
             Timestamp endTime, String metricId) {
         List retval = new LinkedList(Arrays.asList(tsd));
-        
+
         // Here we determine if we need to add a blank bit of data
-        // at the beginning and end of the data 
+        // at the beginning and end of the data
         if (tsd.length >= 2) {
             TimeSeriesData first = tsd[0];
             TimeSeriesData last = tsd[tsd.length - 1];
             // We want to pad the start and end dates by 5 minutes so
-            // we don't add space at the start and beginning 
+            // we don't add space at the start and beginning
             Calendar pcal = Calendar.getInstance();
             pcal.setTime(startTime);
             pcal.roll(Calendar.MINUTE, 5);
-            
+
             if (first.getTime().after(pcal.getTime())) {
                 log.debug("Adding start padding  : " + startTime);
-                TimeSeriesData firstPad = 
+                TimeSeriesData firstPad =
                     new TimeSeriesData(null, null, startTime, metricId);
                 retval.add(0, firstPad);
             }
@@ -201,16 +201,16 @@ public class ProbeGraphAction extends BaseProbeAction {
             pcal.roll(Calendar.MINUTE, -5);
             if (last.getTime().before(pcal.getTime())) {
                 log.debug("Adding end padding : " + endTime);
-                TimeSeriesData lastPad = 
+                TimeSeriesData lastPad =
                     new TimeSeriesData(null, null, endTime, metricId);
                 retval.add(retval.size() - 1, lastPad);
             }
         }
         return (TimeSeriesData[]) retval.toArray(new TimeSeriesData[0]);
     }
-    
+
     // Write the Chart to the Response
-    private void writeChartToResponse(JFreeChart chartIn, HttpServletResponse resp) 
+    private void writeChartToResponse(JFreeChart chartIn, HttpServletResponse resp)
         throws IOException {
         resp.setContentType(MIME_TYPE);
         try {

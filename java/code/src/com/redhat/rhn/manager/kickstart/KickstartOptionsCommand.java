@@ -33,46 +33,46 @@ import java.util.Set;
  * @version $Rev$
  */
 public class KickstartOptionsCommand  extends BaseKickstartCommand {
-       
-    
+
+
     private static Logger log = Logger.getLogger(KickstartOptionsCommand.class);
-    
-    private List<KickstartCommandName> availableOptions;           
+
+    private List<KickstartCommandName> availableOptions;
     private List requiredOptions;
-    
+
     /**
-     * 
-     * @param ksid Kickstart Id 
+     *
+     * @param ksid Kickstart Id
      * @param userIn Logged in User
      */
     public KickstartOptionsCommand(Long ksid, User userIn) {
         super(ksid, userIn);
         this.availableOptions = KickstartFactory.lookupKickstartCommandNames(this.ksdata);
-        this.requiredOptions = KickstartFactory.lookupKickstartRequiredOptions();       
+        this.requiredOptions = KickstartFactory.lookupKickstartRequiredOptions();
     }
 
     /**
-     * 
+     *
      * @return List of advanced command options
      */
     public List getAvailableOptions() {
         return this.availableOptions;
-    }       
-    
+    }
+
     /**
-     * 
+     *
      * @return l List of advanced option commands to display to user
      */
     public List<KickstartOptionValue> getDisplayOptions() {
         log.debug("getDisplayOptions()");
-        
+
         List<KickstartOptionValue> l = new LinkedList<KickstartOptionValue>();
-        Set<KickstartCommand> options = this.ksdata.getOptions();        
-        
+        Set<KickstartCommand> options = this.ksdata.getOptions();
+
         for (KickstartCommandName cn : availableOptions) {
-            
+
             log.debug("avail commandname: " + cn.getName());
-            
+
             String name = cn.getName();
             boolean added = false;
             for (KickstartCommand c : options) {
@@ -82,17 +82,17 @@ public class KickstartOptionsCommand  extends BaseKickstartCommand {
                     v.setName(name);
                     v.setHasArgs(cn.getArgs());
                     v.setRequired(cn.getRequired());
-                    
+
                     String args = c.getArguments();
                     log.debug("   args = " + args);
-                    
+
                     // Default URL's are stored as a path, not a full URL. Because we store
                     // the value directly back in the db we still must render just /path
                     // here, so display a note informing the user of the situation.
                     if (name.equals("url")) {
                         v.setAdditionalNotesKey("kickstart.options.url.note");
                     }
-                    
+
                     v.setArg(args);
                     v.setEnabled(Boolean.TRUE);
                     l.add(v);
@@ -106,19 +106,19 @@ public class KickstartOptionsCommand  extends BaseKickstartCommand {
                 v.setRequired(cn.getRequired());
                 l.add(v);
             }
-            
-        }                        
+
+        }
         return l;
     }
-    
+
     /**
-     * 
-     * @param mapIn the request param map 
+     *
+     * @param mapIn the request param map
      * @return new display list of values for ui
      */
     public List refreshOptions(Map mapIn) {
         List l = new LinkedList();
-        
+
         for (Iterator itr = availableOptions.iterator(); itr.hasNext();) {
             KickstartCommandName cn = (KickstartCommandName) itr.next();
             String name = cn.getName();
@@ -127,20 +127,20 @@ public class KickstartOptionsCommand  extends BaseKickstartCommand {
             v.setName(name);
             v.setRequired(cn.getRequired());
             v.setEnabled(Boolean.valueOf(mapIn.containsKey(name)));
-            
-            String [] s = (String[])mapIn.get(name + "_txt");            
+
+            String [] s = (String[])mapIn.get(name + "_txt");
             if ((s != null) && (v.getEnabled().booleanValue())) {
                 v.setArg(s[0]);
             }
-           
+
             l.add(v);
-        }        
+        }
         return l;
-    }            
+    }
 
     /**
-     * 
-     * @return List of required options 
+     *
+     * @return List of required options
      */
     public List getRequiredOptions() {
         return requiredOptions;

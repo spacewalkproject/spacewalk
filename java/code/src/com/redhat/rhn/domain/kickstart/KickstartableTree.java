@@ -47,14 +47,14 @@ public class KickstartableTree extends BaseDomainHelper {
 
     private Org org;
     private KickstartTreeType treeType;
-    
+
     /**
      * @return Returns the basePath.
      */
     public String getBasePath() {
         return basePath;
     }
-    
+
     /**
      * @param b The basePath to set.
      */
@@ -68,70 +68,70 @@ public class KickstartableTree extends BaseDomainHelper {
     public Channel getChannel() {
         return channel;
     }
-    
+
     /**
      * @param c The channel to set.
      */
     public void setChannel(Channel c) {
         this.channel = c;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the installType.
      */
     public KickstartInstallType getInstallType() {
         return installType;
     }
-    
+
     /**
      * @param i The installType to set.
      */
     public void setInstallType(KickstartInstallType i) {
         this.installType = i;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param l The label to set.
      */
     public void setLabel(String l) {
         this.label = l;
     }
-    
+
     /**
      * @return Returns the lastModified.
      */
     public Date getLastModified() {
         return lastModified;
     }
-    
+
     /**
      * @param l The lastModified to set.
      */
     public void setLastModified(Date l) {
         this.lastModified = l;
     }
-    
+
     /**
      * @return Returns the orgId.
      */
@@ -144,48 +144,48 @@ public class KickstartableTree extends BaseDomainHelper {
 
     /**
      * @return Returns the org.
-     */    
+     */
     public Org getOrg() {
         return org;
     }
-    
+
     /**
      * @param o The org to set.
      */
     public void setOrg(Org o) {
         this.org = o;
     }
-    
+
     /**
      * @return Returns the treeType.
      */
     public KickstartTreeType getTreeType() {
         return treeType;
     }
-    
+
     /**
      * @param t The treeType to set.
      */
     public void setTreeType(KickstartTreeType t) {
         this.treeType = t;
     }
-    
+
     /**
      * Check to see if this tree is 'owned' by RHN.
      * @return boolean if this tree is owned or not by RHN
      */
     public boolean isRhnTree() {
-        return this.org == null;  
+        return this.org == null;
     }
-    
+
     /**
      * Get the default download location for this KickstartableTree.
-     * 
+     *
      * eg: /rhn/kickstart/ks-rhel-i386-as-4
      *
      * NOTE: the default path does not include a host.
      *  We append the host if it starts with a '/'
-     * 
+     *
      * @param host used to Kickstart from
      * @return String url
      */
@@ -209,7 +209,7 @@ public class KickstartableTree extends BaseDomainHelper {
                     buf.append("/");
                 }
                 buf.append(defaultLocation);
-                return buf.toString();                                    
+                return buf.toString();
             }
         }
         else {
@@ -217,18 +217,18 @@ public class KickstartableTree extends BaseDomainHelper {
         }
 
     }
-    
+
     /**
      * Check if the tree's base path is a fully qualified URL or just a relative path.
-     * 
+     *
      * @return True if base path is a URL.
      */
     public boolean basePathIsUrl() {
         String defaultLocation = this.getBasePath().toLowerCase();
-        return (defaultLocation.startsWith("http://") || 
+        return (defaultLocation.startsWith("http://") ||
                 defaultLocation.startsWith("ftp://"));
     }
-    
+
 
     /**
      * @return the cobblerDistroName
@@ -236,36 +236,36 @@ public class KickstartableTree extends BaseDomainHelper {
     public String getCobblerDistroName() {
         return CobblerCommand.makeCobblerName(getLabel(), getOrg());
     }
-    
+
     /**
      * @return the cobblerDistroName
      */
     public String getCobblerXenDistroName() {
         String sep = ConfigDefaults.get().getCobblerNameSeparator();
         return CobblerCommand.makeCobblerName(getLabel() + sep + "xen", getOrg());
-    }    
+    }
 
 
     /**
      * Basically returns the actual basepath
      * we need this method because the
      * database stores rhn/.... as basepath for redhat channels
-     * and actual path for non redhat channels... 
+     * and actual path for non redhat channels...
      * @return the actual basepath.
      */
     public  String getAbsolutePath() {
         if (isRhnTree()) {
-            //redhat channel append the mount point to 
+            //redhat channel append the mount point to
             //base path...
             return ConfigDefaults.get().getKickstartMountPoint() + getBasePath();
         }
-        //its a base channel return the 
+        //its a base channel return the
         return getBasePath();
     }
-    
+
     /**
-     * Returns the kernel path 
-     * includes the mount point 
+     * Returns the kernel path
+     * includes the mount point
      * its an absolute path.
      * @return the kernel path
      */
@@ -283,8 +283,8 @@ public class KickstartableTree extends BaseDomainHelper {
     }
 
     /**
-     * Returns the Initrd path 
-     * includes the mount point 
+     * Returns the Initrd path
+     * includes the mount point
      * its an absolute path.
      * @return the Initrd path
      */
@@ -302,25 +302,25 @@ public class KickstartableTree extends BaseDomainHelper {
     }
 
     /**
-     * Returns the kernel path for the xen kernel 
-     * includes the mount point 
+     * Returns the kernel path for the xen kernel
+     * includes the mount point
      * its an absolute path.
      * @return the kernel path
      */
     public String getKernelXenPath() {
         return StringUtil.addPath(getAbsolutePath(), "/images/xen/vmlinuz");
     }
-    
+
     /**
      * Returns the Initrd path for the xen kernel
-     * includes the mount point 
+     * includes the mount point
      * its an absolute path.
      * @return the Initrd path
      */
     public String getInitrdXenPath() {
         return StringUtil.addPath(getAbsolutePath(), "/images/xen/initrd.img");
-    }    
-    
+    }
+
     /**
      * @return Returns the cobblerId.
      */
@@ -328,7 +328,7 @@ public class KickstartableTree extends BaseDomainHelper {
         return cobblerId;
     }
 
-    
+
     /**
      * @param cobblerIdIn The cobblerId to set.
      */
@@ -336,25 +336,25 @@ public class KickstartableTree extends BaseDomainHelper {
         this.cobblerId = cobblerIdIn;
     }
 
-    
+
     /**
-     * Gets the cobblerXenId, which is the cobbler id corresponding to the 
+     * Gets the cobblerXenId, which is the cobbler id corresponding to the
      *      cobbler distro that is pointing to Xen PV boot images instead of regular
-     *      boot images (yes this sucks) 
+     *      boot images (yes this sucks)
      * @return Returns the cobblerXenId.
      */
     public String getCobblerXenId() {
         return cobblerXenId;
     }
 
-    
+
     /**
      * @param cobblerXenIdIn The cobblerXenId to set.
      */
     public void setCobblerXenId(String cobblerXenIdIn) {
         this.cobblerXenId = cobblerXenIdIn;
     }
-    
+
     /**
      * Check to see if the selected tree support xen paravirt
      * @return true if it can, false otherwise
@@ -363,12 +363,12 @@ public class KickstartableTree extends BaseDomainHelper {
         File kernel = new File(this.getKernelXenPath());
         return kernel.exists();
     }
-    
+
     /**
-     * Returns the cobbler object associated to 
+     * Returns the cobbler object associated to
      * to this tree.
      * @param user the user object needed for connection,
-     *              enter null if you want to use the 
+     *              enter null if you want to use the
      *              automated connection as provided by
      *              taskomatic.
      * @return the Distro associated to this tree
@@ -386,18 +386,18 @@ public class KickstartableTree extends BaseDomainHelper {
         }
         return Distro.lookupById(con, getCobblerId());
     }
-    
+
     private boolean pathExists(String path) {
         return new File(path).exists();
     }
-    
+
     /**
      * Returns true if both the kernel path and initrd paths exist
      * and cobbler id is not null for this distribution.
      * @return true if this is a valid distro.
      */
     public boolean isValid() {
-        return !StringUtils.isBlank(getCobblerId()) && 
-                    pathExists(getInitrdPath()) && pathExists(getKernelPath()); 
+        return !StringUtils.isBlank(getCobblerId()) &&
+                    pathExists(getInitrdPath()) && pathExists(getKernelPath());
     }
 }

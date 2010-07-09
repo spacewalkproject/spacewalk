@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Renders YourRhn fragment for critical probes
- * 
+ *
  * @version $Rev$
  */
 public class CriticalProbesRenderer extends BaseFragmentRenderer {
@@ -38,7 +38,7 @@ public class CriticalProbesRenderer extends BaseFragmentRenderer {
     private static final String MONITORING_CRITICAL_EMPTY = "monitoringCriticalEmpty";
     private static final String MONITORING_CRITICAL_LIST = "monitoringCriticalList";
     private static final String MONITORING_CRITICAL_CLASS = "monitoringCriticalClass";
-    
+
     /**
      * {@inheritDoc}
      */
@@ -53,9 +53,9 @@ public class CriticalProbesRenderer extends BaseFragmentRenderer {
             ProbeCategoryDto probeCategory = (ProbeCategoryDto) i.next();
             criticalCount += probeCategory.getServerCount().longValue();
         }
-        
+
         if (mcdr.isEmpty()) {
-            criticalProbesCSSTable = RendererHelper.makeEmptyTable(true, 
+            criticalProbesCSSTable = RendererHelper.makeEmptyTable(true,
                     "yourrhn.jsp.criticalprobes",
                     "yourrhn.jsp.nocriticalprobes");
         }
@@ -68,11 +68,11 @@ public class CriticalProbesRenderer extends BaseFragmentRenderer {
 
         RendererHelper.setTableStyle(request, MONITORING_CRITICAL_CLASS);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     protected String getPageUrl() {
-        return "/WEB-INF/pages/common/fragments/yourrhn/monitoringCritical.jsp";        
+        return "/WEB-INF/pages/common/fragments/yourrhn/monitoringCritical.jsp";
     }
 }

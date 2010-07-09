@@ -25,17 +25,17 @@
 
 <rl:listset name="userConfirmListSet">
 	<rl:list dataset="pageList"
-         width="100%"        
+         width="100%"
          name="userConfirmList"
          styleclass="list"
  		 alphabarcolumn="userLogin">
- 		<rl:decorator name="PageSizeDecorator"/> 
- 		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %> 
-	    
+		<rl:decorator name="PageSizeDecorator"/>
+		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
+
  	</rl:list>
  	
  	<rl:csv dataset="pageList"
-		name="userConfirmList" 
+		name="userConfirmList"
 		exportColumns="userLogin,userLastName,userFirstName,roleNames,lastLoggedIn"/>
 		
 	<div align="right">

@@ -38,16 +38,16 @@ public class ISOTreeAction extends RhnUnpagedListAction {
     /**
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, 
-            ActionForm form, 
-            HttpServletRequest request, 
+    public ActionForward execute(ActionMapping mapping,
+            ActionForm form,
+            HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
         DataResult dr = null;
         String fwd = "default";
-        
+
         ListControl lc = new ListControl();
 
         filterList(lc, request, user);
@@ -66,13 +66,13 @@ public class ISOTreeAction extends RhnUnpagedListAction {
             request.setAttribute("supported", Boolean.TRUE);
             request.setAttribute("all", Boolean.FALSE);
             request.setAttribute("retired", Boolean.FALSE);
-        }        
+        }
         else if (request.getRequestURI().indexOf("RetiredISOs") >= 0) {
             dr = ChannelManager.retiredDownloadsTree(user, lc);
             request.setAttribute("retired", Boolean.TRUE);
             request.setAttribute("all", Boolean.FALSE);
             request.setAttribute("supported", Boolean.FALSE);
-        }        
+        }
         request.setAttribute("pageList", dr);
         return mapping.findForward(fwd);
     }

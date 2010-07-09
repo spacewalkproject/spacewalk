@@ -60,10 +60,10 @@ public class CommandTest extends RhnBaseTestCase {
                 assertNotNull(((ThresholdParameter) cp).getMetric());
             }
         }
-        
+
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Probe probe = MonitoringFactoryTest.createTestProbe(user);
-        
+
         assertNotNull(probe.getCommand().getMetrics());
         Iterator i = probe.getCommand().getMetrics().iterator();
         assertTrue(i.hasNext());
@@ -77,7 +77,7 @@ public class CommandTest extends RhnBaseTestCase {
         assertNotNull(c.getCommandGroup());
         assertContains(g.getCommands(), c);
     }
-    
+
     public void testThresholdParametersByMetric() {
         List l = MonitoringFactory.loadAllCommands();
         for (Iterator i = l.iterator(); i.hasNext();) {
@@ -96,7 +96,7 @@ public class CommandTest extends RhnBaseTestCase {
             }
         }
     }
-    
+
     public void testCheckAscending() {
         Command c = MonitoringConstants.getCommandCheckTCP();
         Metric latency = null;
@@ -111,7 +111,7 @@ public class CommandTest extends RhnBaseTestCase {
         toValue.map.put(ThresholdType.WARN_MAX, "2");
         toValue.map.put(ThresholdType.CRIT_MAX, "3");
         assertEquals(0, c.checkAscendingValues(latency, toValue).size());
-        
+
         toValue.map.put(ThresholdType.WARN_MAX, null);
         toValue.map.put(ThresholdType.CRIT_MAX, "3");
         assertEquals(0, c.checkAscendingValues(latency, toValue).size());
@@ -119,11 +119,11 @@ public class CommandTest extends RhnBaseTestCase {
         toValue.map.put(ThresholdType.WARN_MAX, "2");
         toValue.map.put(ThresholdType.CRIT_MAX, null);
         assertEquals(0, c.checkAscendingValues(latency, toValue).size());
-        
+
         toValue.map.put(ThresholdType.WARN_MAX, "");
         toValue.map.put(ThresholdType.CRIT_MAX, "");
         assertEquals(0, c.checkAscendingValues(latency, toValue).size());
-        
+
         toValue.map.put(ThresholdType.WARN_MAX, "3");
         toValue.map.put(ThresholdType.CRIT_MAX, "3");
         assertEquals(4, c.checkAscendingValues(latency, toValue).size());
@@ -132,7 +132,7 @@ public class CommandTest extends RhnBaseTestCase {
         toValue.map.put(ThresholdType.CRIT_MAX, "2");
         assertEquals(4, c.checkAscendingValues(latency, toValue).size());
     }
-    
+
     private static class MapTransformer implements Transformer {
         private HashMap map = new HashMap();
 
@@ -140,13 +140,13 @@ public class CommandTest extends RhnBaseTestCase {
             return map.get(((ThresholdParameter) input).getThresholdType());
         }
     }
-    
+
     public void testCommandParameters() throws HibernateException {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Probe probe = MonitoringFactoryTest.createTestProbe(user);
         assertNotNull(probe.getCommand().getCommandParameters());
         assertTrue(probe.getCommand().getCommandParameters().size() > 0);
-        
+
         // Add some param values to the ServerProbe
         Iterator i = probe.getCommand().getCommandParameters().iterator();
         while (i.hasNext()) {
@@ -159,26 +159,26 @@ public class CommandTest extends RhnBaseTestCase {
         Object[] params = probe.getCommand().getCommandParameters().toArray();
         CommandParameter cp = (CommandParameter) params[0];
         ProbeParameterValue ppv = probe.getProbeParameterValue(cp);
-        
+
         //  Now check that we can set a value
         assertNotNull(ppv);
         // Check for this down below
         probe.setParameterValue(ppv, ppv.getValue() + "_changed");
-        
+
         // Now check that they store correctly
         Long probeId = probe.getId();
         Org org = user.getOrg();
         MonitoringFactory.save(probe, user);
-        
+
         probe = (ServerProbe) reload(probe);
         // Test ProbeCommandParameters
         probe = MonitoringFactory.lookupProbeByIdAndOrg(probeId, org);
         assertNotNull(probe.getProbeParameterValues());
         assertTrue(probe.getProbeParameterValues().size() > 0);
-        ProbeParameterValue pv = (ProbeParameterValue) 
+        ProbeParameterValue pv = (ProbeParameterValue)
             probe.getProbeParameterValues().toArray()[0];
         assertNotNull(pv.getLastUpdateDate());
-        
+
         /*Iterator j = probe.getProbeParameterValues().iterator();
         boolean changedValue = false;
         while (j.hasNext()) {
@@ -188,8 +188,8 @@ public class CommandTest extends RhnBaseTestCase {
             }
         }
         assertTrue(changedValue);*/
-        
-        
+
+
     }
 }
 

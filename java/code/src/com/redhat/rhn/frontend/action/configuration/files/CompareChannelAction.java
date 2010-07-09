@@ -31,13 +31,13 @@ public class CompareChannelAction extends BaseListAction {
     protected void processRequestAttributes(RequestContext rctxIn) {
         ConfigActionHelper.processRequestAttributes(rctxIn);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
         User user = rctxIn.getLoggedInUser();
-        
+
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listChannelsForFileCompare(user, pcIn);
     }

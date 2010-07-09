@@ -38,13 +38,13 @@ import javax.servlet.http.HttpServletResponse;
  * BaseSetOperateOnSelectedItemsAction - extension of RhnSetAction
  * that provides a framework for performing a specified business
  * operation on the currently selected items in the list.
- *  
+ *
  * @version $Rev: 51639 $
  */
 public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
-    
+
     private static final String DEFAULT_CALLBACK = "operateOnElement";
-    
+
     /**
      * Execute some operation on the set of selected items.  Forwards
      * to the "default"
@@ -52,7 +52,7 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
      * getSetName() + ".success" for providing a parameterized
      * getSetName() + ".failure" for providing a parameterized
      * message to the UI that would say "2 ServerProbe Suite(s) deleted."
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -66,7 +66,7 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
                                        HttpServletResponse response,
                                        String callbackMethodName) {
         RhnSet set = updateSet(request);
-        
+
         //if they chose no probe suites, return to the same page with a message
         if (set.isEmpty()) {
             return handleEmptySelection(mapping, formIn, request);
@@ -75,7 +75,7 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
         Map params = makeParamMap(formIn, request);
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
-        
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         int successCount = 0;
@@ -83,7 +83,7 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
         for (Iterator i = set.getElements().iterator(); i.hasNext();) {
             RhnSetElement element = (RhnSetElement) i.next();
             boolean success = callMethod(callbackMethodName,
-                                         new Object[] {formIn, 
+                                         new Object[] {formIn,
                                                        request,
                                                        element,
                                                        user});
@@ -93,17 +93,17 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
             else {
                 failureCount++;
             }
-            
+
             i.remove();
-            
-        }            
+
+        }
 
         RhnSetManager.store(set);
 
         ActionMessages msg = new ActionMessages();
         processMessage(msg, callbackMethodName, successCount, failureCount);
         strutsDelegate.saveMessages(request, msg);
-        
+
         String forward = getForwardName(request);
         return strutsDelegate.forwardParams(mapping.findForward(forward), params);
     }
@@ -123,29 +123,29 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
     protected ActionForward handleEmptySelection(ActionMapping mapping,
                                                  ActionForm formIn,
                                                  HttpServletRequest request) {
-        
-        StrutsDelegate strutsDelegate = getStrutsDelegate();        
-        
+
+        StrutsDelegate strutsDelegate = getStrutsDelegate();
+
         Map params = makeParamMap(formIn, request);
         ActionMessages msg = new ActionMessages();
         msg.add(ActionMessages.GLOBAL_MESSAGE, getEmptySelectionMessage());
         strutsDelegate.saveMessages(request, msg);
-        
+
         String forward = getForwardName(request);
         return strutsDelegate.forwardParams(mapping.findForward(forward), params);
     }
-    
+
     /**
-     * 
-     * @return default empty selection message 
+     *
+     * @return default empty selection message
      */
     protected ActionMessage getEmptySelectionMessage() {
         return new ActionMessage("emptyselectionerror");
     }
 
     /**
-     * 
-     * Raises an error message saying javascript is required 
+     *
+     * Raises an error message saying javascript is required
      * to process this page
      * @param mapping struts ActionMapping
      * @param formIn struts ActionForm
@@ -157,19 +157,19 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
                             ActionForm formIn,
                             HttpServletRequest request,
                             HttpServletResponse response) {
-        StrutsDelegate strutsDelegate = getStrutsDelegate();        
+        StrutsDelegate strutsDelegate = getStrutsDelegate();
         ActionMessages msg = new ActionMessages();
         msg.add(ActionMessages.GLOBAL_MESSAGE, getNoScriptMessage());
-        strutsDelegate.saveMessages(request, msg);        
-        
+        strutsDelegate.saveMessages(request, msg);
+
         Map params = makeParamMap(formIn, request);
         String forward = getForwardName(request);
         return strutsDelegate.forwardParams(mapping.findForward(forward), params);
-    }    
+    }
 
     /**
-     * 
-     * @return default no java script message  
+     *
+     * @return default no java script message
      */
     protected ActionMessage getNoScriptMessage() {
         return new ActionMessage("nocripterror");
@@ -179,8 +179,8 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
         Boolean success = (Boolean) MethodUtil.callMethod(this, methodName, args);
         return success.booleanValue();
     }
-    
-    
+
+
     /**
      * This basically adds all the action messages
      * that will be used for validation errors
@@ -194,37 +194,37 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
                                   String methodName,
                                   long successCount,
                                   long failureCount) {
-        
+
         addToMessage(msgs, methodName, true, successCount);
         addToMessage(msgs, methodName, false, failureCount);
 
     }
 
 
-    protected void addToMessage(ActionMessages msg, 
-                                String methodName, 
+    protected void addToMessage(ActionMessages msg,
+                                String methodName,
                                 boolean b,
                                 long count) {
         if (count > 0) {
             Object[] args = new Object[]{String.valueOf(count)};
             addToMessage(msg, methodName, b, args);
         }
-       
+
     }
 
 
 
 
-    protected void addToMessage(ActionMessages msg, 
-                                String methodName, 
+    protected void addToMessage(ActionMessages msg,
+                                String methodName,
                                 boolean success,
                                 Object[] args) {
-        
-        String key = getSetDecl().getLabel(); 
+
+        String key = getSetDecl().getLabel();
         if (!DEFAULT_CALLBACK.equals(methodName)) {
             key = getSetDecl().getLabel() + "." + methodName;
-        }    
-        
+        }
+
         if (success) {
             key += ".success";
         }
@@ -233,19 +233,19 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
         }
         ActionMessage temp =  new ActionMessage(key, args);
         msg.add(ActionMessages.GLOBAL_MESSAGE, temp);
-        
-    }    
-    
-    
-    
-    
+
+    }
+
+
+
+
     /**
      * Execute some operation on the set of selected items.  Forwards
      * to the "default"
      * NOTE:  Must define StringResource for failure and success messages:
      * getSetName() + ".success" for providing a parameterized
      * message to the UI that would say "2 ServerProbe Suite(s) deleted."
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -256,25 +256,25 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
                                        ActionForm formIn,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
-        
+
         return operateOnSelectedSet(mapping,
                                         formIn,
                                         request,
                                         response,
                                         DEFAULT_CALLBACK);
     }
-    
-    /** 
+
+    /**
      * Here we go to the subclass to actually operate on the element
      * @param elementIn we want to fetch the ID from
      * @param userIn who is performing the operation
      */
-    protected Boolean operateOnElement(ActionForm form, 
-                                        HttpServletRequest request, 
-                                        RhnSetElement elementIn, 
+    protected Boolean operateOnElement(ActionForm form,
+                                        HttpServletRequest request,
+                                        RhnSetElement elementIn,
                                         User userIn) {
         //NO-OP: this method is to be overridden by the sub-class
-        // if 
+        // if
         /*
          * operateOnSelectedSet(ActionMapping mapping,
                                        ActionForm formIn,
@@ -284,5 +284,5 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
          */
         return Boolean.TRUE;
     }
-    
+
 }

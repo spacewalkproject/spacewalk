@@ -30,8 +30,8 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ConfigActionFormatter extends ActionFormatter {
-    
-    
+
+
     /**
      * Create a new config action formatter
      * @param actionIn The action.
@@ -39,17 +39,17 @@ public class ConfigActionFormatter extends ActionFormatter {
     public ConfigActionFormatter(ConfigAction actionIn) {
         super(actionIn);
     }
-    
+
     /**
      * Creates an html display for the config action notes.
      * Shows a single revision per line.
-     * @return The html notes string 
+     * @return The html notes string
      */
     protected String getNotesBody() {
         StringBuffer buffy = new StringBuffer();
         ConfigAction action = (ConfigAction)getAction();
         Iterator configs = action.getConfigRevisionActions().iterator();
-        
+
         //There could (and most likely will be) multiple config revision actions per
         // revision (one per system).  Therefore, we will keep track of ones we have
         // already displayed.
@@ -62,10 +62,10 @@ public class ConfigActionFormatter extends ActionFormatter {
                 dealtWith.add(revision.getId());
             }
         }
-        
+
         return buffy.toString();
     }
-    
+
     private String displayRevision(ConfigRevision revision) {
         ConfigFile file = revision.getConfigFile();
         StringBuffer buffy = new StringBuffer();
@@ -79,7 +79,7 @@ public class ConfigActionFormatter extends ActionFormatter {
         args[4] = file.getConfigChannel().getName();
         buffy.append(LocalizationService.getInstance()
                 .getMessage("config.actionnote", args));
-        
+
         buffy.append("<br />");
         return buffy.toString();
     }

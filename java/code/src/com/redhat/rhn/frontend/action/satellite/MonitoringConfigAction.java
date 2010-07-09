@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * MonitoringConfigAction - adds the list of configuration 
+ * MonitoringConfigAction - adds the list of configuration
  * parameters to the request
  * @version $Rev: 53528 $
  */
@@ -51,25 +51,25 @@ public class MonitoringConfigAction extends BaseConfigAction {
      * Logger for this class
      */
     private static Logger logger = Logger.getLogger(MonitoringConfigAction.class);
-    
-    public static final String IS_MONITORING_SCOUT = "is_monitoring_scout"; 
+
+    public static final String IS_MONITORING_SCOUT = "is_monitoring_scout";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest req, HttpServletResponse resp) {
         if (logger.isDebugEnabled()) {
-            logger.debug("execute(ActionMapping mapping=" + mapping + 
-                    ", ActionForm formIn=" + formIn + 
-                    ", HttpServletRequest req=" + req + 
+            logger.debug("execute(ActionMapping mapping=" + mapping +
+                    ", ActionForm formIn=" + formIn +
+                    ", HttpServletRequest req=" + req +
                     ", HttpServletResponse resp=" + resp + ") - start");
-        }        
+        }
         RequestContext requestContext = new RequestContext(req);
 
         DynaActionForm form = (DynaActionForm) formIn;
         User user = requestContext.getLoggedInUser();
-        
+
         List configList = getManager().
-            getEditableConfigMacros(user);        
+            getEditableConfigMacros(user);
         // Simple flag to flip if we actually changed anything on the form
         boolean valuesChanged = false;
         List nameDescVals = new LinkedList();
@@ -78,36 +78,36 @@ public class MonitoringConfigAction extends BaseConfigAction {
         while (i.hasNext()) {
             ConfigMacro ci = (ConfigMacro) i.next();
             // If the user submitted the form and there exists a value
-            Object param = req.getParameter(ci.getName());  
+            Object param = req.getParameter(ci.getName());
             if (param != null) {
                 if (!param.equals(ci.getDefinition())) {
                     ci.setDefinition((String) param);
                     getManager().storeConfigMacro(ci);
                     valuesChanged = true;
-                } 
+                }
             }
             if (logger.isDebugEnabled()) {
-                logger.debug("execute() - Name: " + ci.getName() + 
+                logger.debug("execute() - Name: " + ci.getName() +
                         " value: " + ci.getDefinition());
             }
             nameDescVals.add(new NameDescriptionValue(ci.getName(),
                     LocalizationService.getInstance().getMessage(ci.getName()),
                     ci.getDefinition()));
-            
+
         }
-        
-        if (isSubmitted(form)) {            
+
+        if (isSubmitted(form)) {
             ConfigureSatelliteCommand csc = (ConfigureSatelliteCommand) getCommand(user);
-            csc.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT, 
+            csc.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT,
                     (Boolean) form.get(IS_MONITORING_SCOUT));
             if (csc.getKeysToBeUpdated().size() > 0) {
                 valuesChanged = true;
                 ValidatorError[] verrors = csc.storeConfiguration();
                 if (verrors != null) {
-                    ActionErrors errors = 
+                    ActionErrors errors =
                         RhnValidationHelper.validatorErrorToActionErrors(verrors);
                     getStrutsDelegate().saveMessages(req, errors);
-                } 
+                }
             }
             if (valuesChanged) {
                 // Restart the Monitoring services
@@ -119,13 +119,13 @@ public class MonitoringConfigAction extends BaseConfigAction {
             else {
                 createSuccessMessage(req, "monitoring.services.novalueschanged", "");
             }
-        } 
+        }
         else {
-            form.set(IS_MONITORING_SCOUT, 
+            form.set(IS_MONITORING_SCOUT,
                     new Boolean(Config.get().getBoolean(
                             ConfigDefaults.WEB_IS_MONITORING_SCOUT)));
         }
-        
+
         req.setAttribute("configList", nameDescVals);
         ActionForward returnActionForward = mapping.findForward("default");
         if (logger.isDebugEnabled()) {
@@ -135,7 +135,7 @@ public class MonitoringConfigAction extends BaseConfigAction {
         }
         return returnActionForward;
     }
-    
+
     /**
      * Method that can be overriden to provide a different MonitoringManager
      * @return MonitoringManager instance
@@ -144,7 +144,7 @@ public class MonitoringConfigAction extends BaseConfigAction {
         if (logger.isDebugEnabled()) {
             logger.debug("getManager() - start");
         }
- 
+
 
         MonitoringManager returnMonitoringManager = MonitoringManager
                 .getInstance();
@@ -164,11 +164,11 @@ public class MonitoringConfigAction extends BaseConfigAction {
         }
 
         String returnString = Config.get().getString(
-                "web.com.redhat.rhn.frontend." + 
+                "web.com.redhat.rhn.frontend." +
                 "action.satellite.MonitoringConfigAction.command",
                 "com.redhat.rhn.manager.satellite.ConfigureSatelliteCommand");
         if (logger.isDebugEnabled()) {
-            logger.debug("getCommandClassName() - end - return value=" + 
+            logger.debug("getCommandClassName() - end - return value=" +
                     returnString);
         }
         return returnString;

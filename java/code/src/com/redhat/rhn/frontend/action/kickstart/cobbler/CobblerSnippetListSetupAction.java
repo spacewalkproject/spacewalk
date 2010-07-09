@@ -40,21 +40,21 @@ public class CobblerSnippetListSetupAction extends RhnAction {
     private static final String DEFAULT = "default";
     private static final String CUSTOM = "custom";
     private static final String ALL = "all";
-    
-    private static final DynamicComparator NAME_COMPARATOR = 
-                new DynamicComparator("name", true); 
+
+    private static final DynamicComparator NAME_COMPARATOR =
+                new DynamicComparator("name", true);
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
         List<CobblerSnippet> result;
         if (ALL.equals(mapping.getParameter())) {
-            result = CobblerSnippetLister.getInstance().list(user); 
+            result = CobblerSnippetLister.getInstance().list(user);
         }
         else if (DEFAULT.equals(mapping.getParameter())) {
             result = CobblerSnippetLister.getInstance().listDefault(user);

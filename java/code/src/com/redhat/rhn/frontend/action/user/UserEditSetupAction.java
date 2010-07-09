@@ -47,16 +47,16 @@ import javax.servlet.http.HttpServletResponse;
 public class UserEditSetupAction extends RhnAction {
 
     private static Logger log = Logger.getLogger(UserEditSetupAction.class);
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm)formIn;
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         //UserDetails under /rhn/users needs parameter, but /rhn/account does not
         Long uid = requestContext.getParamAsLong("uid");
         if (request.getRequestURL().toString().indexOf("/rhn/users/") != -1 &&
@@ -80,7 +80,7 @@ public class UserEditSetupAction extends RhnAction {
                 UserActionHelper.PLACEHOLDER_PASSWORD);
         form.set(UserActionHelper.DESIRED_PASS_CONFIRM,
                 UserActionHelper.PLACEHOLDER_PASSWORD);
-        request.setAttribute("user", targetUser);        
+        request.setAttribute("user", targetUser);
         request.setAttribute("mailableAddress", targetUser.getEmail());
 
 
@@ -99,7 +99,7 @@ public class UserEditSetupAction extends RhnAction {
         request.setAttribute("lastLoggedIn", lastLoggedIn);
 
         setupRoles(request, targetUser);
-        
+
         // SETUP Prefix list
         request.setAttribute("availablePrefixes", UserActionHelper.getPrefixes());
         request.setAttribute("self", new Boolean(loggedInUser.equals(targetUser)));
@@ -111,7 +111,7 @@ public class UserEditSetupAction extends RhnAction {
             request.setAttribute("displaypam", "true");
             form.set("usepam", new Boolean(targetUser.getUsePamAuthentication()));
         }
-        
+
         // Keep the new list tag happy:
         request.setAttribute("parentUrl", request.getRequestURI());
 
@@ -120,37 +120,37 @@ public class UserEditSetupAction extends RhnAction {
 
     private void setupRoles(HttpServletRequest request, User targetUser) {
         log.debug("setupRoles()");
-        
+
         Set<Role> orgRoles = targetUser.getOrg().getRoles();
 
         List<UserRoleStatusBean> adminRoles = new LinkedList<UserRoleStatusBean>();
         List<UserRoleStatusBean> regularRoles = new LinkedList<UserRoleStatusBean>();
-        
+
         // Bit of a hack here. We're trying to represent three states to the processing
-        // code with a checkbox that can only submit two. (i.e., there's no way to 
+        // code with a checkbox that can only submit two. (i.e., there's no way to
         // differentiate between a checkbox that was de-selected and one that was
         // disabled when submitting the form.
         //
-        // We ran this many different ways but nothing was as intuitive to the user as 
+        // We ran this many different ways but nothing was as intuitive to the user as
         // the simple checkbox interface. Thus we hack around the problem by storing a list
         // of the disabled roles, bar separated. This allows us to add the extra info we
         // need when processing the form.
         StringBuffer disabledRoles = new StringBuffer();
-        
+
         for (Role currRole : orgRoles) {
-            if (currRole.equals(RoleFactory.ORG_APPLICANT) || 
+            if (currRole.equals(RoleFactory.ORG_APPLICANT) ||
                     currRole.equals(RoleFactory.CERT_ADMIN)) {
                 continue;
             }
             log.debug("currRole = " + currRole.getLabel());
-            
+
             boolean selected = false; // does user have this role?
             boolean disabled = false; // is the role modifiable?
-            
+
             String uilabel =
                 LocalizationService.getInstance().getMessage(currRole.getLabel());
             String uivalue = currRole.getLabel();
-            
+
             if (targetUser.hasRole(currRole)) {
                 selected = true;
                 log.debug("1");
@@ -167,7 +167,7 @@ public class UserEditSetupAction extends RhnAction {
                 sb.append(LocalizationService.getInstance().getMessage("Admin Access"));
                 sb.append(" ]");
                 uilabel = sb.toString();
-                
+
                 disabled = true;
                 log.debug("2");
             }
@@ -177,7 +177,7 @@ public class UserEditSetupAction extends RhnAction {
                 log.debug("3");
             }
 
-            //sat admin can not be modified outside sat tools 
+            //sat admin can not be modified outside sat tools
             if (currRole.equals(RoleFactory.SAT_ADMIN)) {
                 disabled = true;
                 log.debug("4");
@@ -185,16 +185,16 @@ public class UserEditSetupAction extends RhnAction {
 
             log.debug("   selected = " + selected);
             log.debug("   disabled = " + disabled);
-            if (currRole.equals(RoleFactory.SAT_ADMIN) || 
+            if (currRole.equals(RoleFactory.SAT_ADMIN) ||
                     currRole.equals(RoleFactory.ORG_ADMIN)) {
-                adminRoles.add(new UserRoleStatusBean(uilabel, uivalue, selected, 
+                adminRoles.add(new UserRoleStatusBean(uilabel, uivalue, selected,
                         disabled));
             }
             else {
-                regularRoles.add(new UserRoleStatusBean(uilabel, uivalue, selected, 
+                regularRoles.add(new UserRoleStatusBean(uilabel, uivalue, selected,
                         disabled));
             }
-            
+
             if (disabled) {
                 if (disabledRoles.length() > 0) {
                     disabledRoles.append("|");
@@ -202,16 +202,16 @@ public class UserEditSetupAction extends RhnAction {
                 disabledRoles.append(currRole.getLabel());
             }
         }
-        
+
         boolean hasOrgAdmin = false;
         if (targetUser.hasRole(RoleFactory.ORG_ADMIN)) {
             hasOrgAdmin = true;
         }
-        
+
         request.setAttribute("adminRoles", adminRoles);
         request.setAttribute("regularRoles", regularRoles);
         request.setAttribute("disabledRoles", disabledRoles);
-        
+
         request.setAttribute("orgAdmin", hasOrgAdmin);
     }
 }

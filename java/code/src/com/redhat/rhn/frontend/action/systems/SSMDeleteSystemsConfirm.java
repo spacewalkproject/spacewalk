@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SSMDeleteSystemsConfirm extends RhnAction implements Listable {
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping,
@@ -53,7 +53,7 @@ public class SSMDeleteSystemsConfirm extends RhnAction implements Listable {
         if (context.wasDispatched("ssm.delete.systems.confirmbutton")) {
             return handleConfirm(context, mapping);
         }
-        
+
         ListHelper helper = new ListHelper(this, request);
         helper.setListName("systemList");
         helper.setDataSetName("pageList");
@@ -61,12 +61,12 @@ public class SSMDeleteSystemsConfirm extends RhnAction implements Listable {
 
         return mapping.findForward("default");
     }
-    
+
     private ActionForward handleConfirm(RequestContext context,
             ActionMapping mapping) {
-        
+
         RhnSet set = RhnSetDecl.SYSTEMS.get(context.getLoggedInUser());
-        
+
         // Fire the request off asynchronously
         SsmDeleteServersEvent event =
             new SsmDeleteServersEvent(context.getLoggedInUser(),
@@ -74,8 +74,8 @@ public class SSMDeleteSystemsConfirm extends RhnAction implements Listable {
         MessageQueue.publish(event);
         set.clear();
         RhnSetManager.store(set);
-        
-        
+
+
         getStrutsDelegate().saveMessage("ssm.delete.systems.confirmmessage",
                                                     context.getRequest());
         return mapping.findForward("confirm");

@@ -38,52 +38,52 @@ import java.util.List;
  * @version $Rev$
  */
 public class CloneConfirmActionTest extends RhnMockStrutsTestCase {
-    
+
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/errata/manage/CloneConfirmSubmit");
         user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
-    
+
     public void testExecute() throws Exception {
-        
+
         List list = new ArrayList();
-        
-        RhnSet errataToClone = RhnSetFactory.createRhnSet(user.getId(), 
-                                                          "clone_errata_list", 
+
+        RhnSet errataToClone = RhnSetFactory.createRhnSet(user.getId(),
+                                                          "clone_errata_list",
                                                           SetCleanup.NOOP);
-        
+
         Channel original = ChannelFactoryTest.createTestChannel(user);
-        
+
         for (int j = 0; j < 5; ++j) {
             Errata e = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
             original.addErrata(e);
             errataToClone.addElement(e.getId());
             list.add(e);
         }
-        
+
         RhnSetManager.store(errataToClone);
-        
+
         RhnSet set = RhnSetDecl.ERRATA_CLONE.get(user);
         assertEquals(5, set.size());
-        
+
         request.addParameter("dispatch", "Confirm");
-        
+
         actionPerform();
         verifyForward("default");
         set = RhnSetDecl.ERRATA_CLONE.get(user);
         assertEquals(0, set.size());
-        
+
         Iterator i = list.iterator();
-        
+
         while (i.hasNext()) {
             Errata e = (Errata) i.next();
             List clones = ErrataManager.lookupByOriginal(user, e);
-            
+
             assertEquals(1, clones.size());
             ClonedErrata clone = (ClonedErrata) clones.get(0);
             assertTrue(clone.getOriginal().equals(e));
-        } 
+        }
     }
 }

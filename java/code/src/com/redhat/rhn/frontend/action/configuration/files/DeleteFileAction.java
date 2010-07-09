@@ -42,22 +42,22 @@ public class DeleteFileAction extends RhnAction {
     /**
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping map, 
-                                 ActionForm form, 
-                                 HttpServletRequest req, 
+    public ActionForward execute(ActionMapping map,
+                                 ActionForm form,
+                                 HttpServletRequest req,
                                  HttpServletResponse resp) throws Exception {
         RequestContext ctx = new RequestContext(req);
         User usr = ctx.getLoggedInUser();
         Map params =  makeParamMap(req);
         ConfigFileForm cff = (ConfigFileForm)form;
-        
+
         ConfigFile cf = ConfigActionHelper.getFile(req);
         String filename = cf.getConfigFileName().getPath();
         ConfigChannel cc = cf.getConfigChannel();
-        
+
         // If we have a file and are submitted, delete it.
         // If we're not submitted, show the "do you really want to do this?" page
-        // If we have no file, tell the user "no can do" and go back to 
+        // If we have no file, tell the user "no can do" and go back to
         //   channel details
         try {
             if (cf != null) {
@@ -73,11 +73,11 @@ public class DeleteFileAction extends RhnAction {
                         getFileStorage(usr, cf);
                     ConfigActionHelper.processParamMap(req, params);
                     params.put("storage", new Integer(storage));
-                    ConfigActionHelper.setupRequestAttributes(ctx, cf, 
+                    ConfigActionHelper.setupRequestAttributes(ctx, cf,
                                 cf.getLatestConfigRevision());
                     req.setAttribute("storage", StringUtil.displayFileSize(storage));
                     req.setAttribute("deleting", Boolean.TRUE);
-                    
+
                     return getStrutsDelegate().forwardParams(
                             map.findForward("default"), params);
                 }

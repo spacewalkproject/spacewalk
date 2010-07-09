@@ -25,7 +25,7 @@ import org.cobbler.CobblerObject;
 import org.cobbler.Profile;
 
 /**
- * 
+ *
  * KickstartProfileVariableAction
  * @version $Rev$
  */
@@ -52,12 +52,12 @@ public class KickstartProfileVariableAction extends KickstartVariableAction {
     protected String getObjectString() {
         return RequestContext.KICKSTART_ID;
     }
-    
+
     @Override
     /**
      * {@inheritDoc}
      */
-    protected void setupFormValues(RequestContext ctx, 
+    protected void setupFormValues(RequestContext ctx,
             DynaActionForm form, String cId) {
         super.setupFormValues(ctx, form, cId);
         Long ksid = ctx.getRequiredParam(RequestContext.KICKSTART_ID);

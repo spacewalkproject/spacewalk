@@ -20,15 +20,15 @@ import redstone.xmlrpc.XmlRpcFault;
 
 /**
  * Interface to implement to indicate a class can invoke XMLRPC calls.
- * 
+ *
  * Useful if you want to dynamically determine the implementation class
  * that calls either a real or mock xmlrpc server.  Can make xmlrpc testing
  * easier.
- * 
+ *
  * @version $Rev$
  */
 public interface XMLRPCInvoker {
-   
+
     /**
      * Invoke an XMLRPC method
      * @param procedureName to invoke

@@ -13,13 +13,13 @@
 	           helpUrl="/rhn/help/channel-mgmt/en-US/channel-mgmt-Custom_Errata_Management-Managed_Errata_Details.jsp">
     <bean:message key="errata.edit.toolbar"/> <c:out value="${advisory}" />
   </rhn:toolbar>
-  
-  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml" 
+
+  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml"
                   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-  
+
   <h2><img src="/img/rhn-icon-packages.gif">
       <bean:message key="errata.edit.packages.confirm.confirmpackageremoval"/></h2>
-  
+
   <p><bean:message key="errata.edit.packages.confirm.remove.instructions"/></p>
 
 <form method="POST" name="rhn_list" action="/rhn/errata/manage/RemovePackagesSubmit.do">
@@ -28,6 +28,6 @@
 
 <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
 </form>
-  
+
 </body>
 </html>

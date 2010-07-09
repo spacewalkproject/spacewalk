@@ -22,7 +22,7 @@ package com.redhat.rhn.domain.server.test;
 public class GuestBuilderException extends Exception {
 
     /**
-     * 
+     *
      */
     public GuestBuilderException() {
     }

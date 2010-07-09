@@ -72,7 +72,7 @@ function refresh() {
                       <b><bean:message key="kickstart.edit.software.notrees.jsp" /></b>
                     </c:otherwise>
                   </c:choose>
-            
+
             </td>
         </tr>
         <tr>
@@ -88,10 +88,10 @@ function refresh() {
             <td colspan="2" align="right">
                 <input type="button" value="<bean:message key="wizard.jsp.next.step" />" onclick="moveNext();" />
             </td>
-        </tr>        
+        </tr>
     </table>
 
-  </html:form> 
+  </html:form>
 </div>
 </body>
 </html:html>

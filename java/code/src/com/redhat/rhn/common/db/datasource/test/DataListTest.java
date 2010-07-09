@@ -28,7 +28,7 @@ public class DataListTest extends RhnBaseTestCase {
     private HookedSelectMode hsm;
     private Map params;
     private Map elabParams;
-    
+
     public void setUp() {
         hsm = new HookedSelectMode(
                 ModeFactory.getMode("test_queries", "user_tables"));
@@ -36,24 +36,24 @@ public class DataListTest extends RhnBaseTestCase {
         elabParams = new HashMap();
         elabParams.put("user_name", "RHN");
     }
-    
+
     public void tearDown() {
         hsm = null;
         params = null;
         elabParams = null;
     }
-    
+
     public void testElaborate() {
         DataList list = getList();
         list.iterator();
         assertTrue(hsm.isElaborated());
     }
-    
+
     public void testSubList() {
         //work it like a list
         DataList list = getList();
         DataList sub = getSubList(list);
-        
+
         //subList does not force elaboration
         assertFalse(hsm.isElaborated());
         //No elaboration until data is actually accessed.
@@ -64,19 +64,19 @@ public class DataListTest extends RhnBaseTestCase {
         sub.get(1);
         assertTrue(hsm.isElaborated());
     }
-    
+
     public void testElaborateOnce() {
         //at first, nothing is elaborated
         List list = getList();
         assertEquals(0, hsm.getElaborated());
-        
+
         //iterator causes elaboration
         list.iterator();
         assertEquals(1, hsm.getElaborated());
         //don't elaborate again
         list.get(1);
         assertEquals(1, hsm.getElaborated());
-        
+
         DataList sub = getSubList((DataList)list);
         assertEquals(1, hsm.getElaborated());
         //sublist should also know that it is already elaborated
@@ -84,7 +84,7 @@ public class DataListTest extends RhnBaseTestCase {
         assertEquals(1, hsm.getElaborated());
         assertEquals(sub.getMode(), hsm);
     }
-    
+
     private DataList getList() {
         //test the get method
         DataList list = DataList.getDataList(hsm, params, elabParams);
@@ -92,7 +92,7 @@ public class DataListTest extends RhnBaseTestCase {
         assertFalse(hsm.isElaborated());
         return list;
     }
-    
+
     private DataList getSubList(DataList list) {
         int end = list.size() < 11 ? list.size() - 1 : 10;
         List sub = list.subList(0, end);
@@ -101,25 +101,25 @@ public class DataListTest extends RhnBaseTestCase {
         DataList subby = (DataList) sub;
         return subby;
     }
-    
-    
+
+
     public class HookedSelectMode extends SelectMode {
         private int elaborated;
-        
+
         public HookedSelectMode(SelectMode m) {
             super(m);
             elaborated = 0;
         }
-        
+
         public void elaborate(List resultList, Map param) {
             elaborated++;
             super.elaborate(resultList, param);
         }
-        
+
         public boolean isElaborated() {
             return (elaborated > 0);
         }
-        
+
         public int getElaborated() {
             return elaborated;
         }

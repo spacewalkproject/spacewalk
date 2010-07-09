@@ -31,16 +31,16 @@ import java.util.List;
 
 /**
  * PreservationListDeleteSubmitActionTest
- * @version 
+ * @version
  */
 public class PreservationListDeleteSubmitActionTest extends RhnBaseTestCase {
     private Action action = null;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         action = new PreservationListDeleteSubmitAction();
     }
-    
+
     /**
      * Test that we forward to confirm
      * @throws Exception if test fails
@@ -52,14 +52,14 @@ public class PreservationListDeleteSubmitActionTest extends RhnBaseTestCase {
         ah.getRequest().setupAddParameter("newset", (String)null);
         ah.getRequest().setupAddParameter("items_on_page", (String)null);
         List ids = new LinkedList();
-        
+
         // give list some FileLists
         for (int i = 0; i < 5; i++) {
             FileList fl = FileListTest.createTestFileList(
                                                    ah.getUser().getOrg());
             CommonFactory.saveFileList(fl);
             ids.add(fl.getId().toString());
-            
+
             // clean up
             CommonFactory.removeFileList(fl);
         }
@@ -71,7 +71,7 @@ public class PreservationListDeleteSubmitActionTest extends RhnBaseTestCase {
         assertEquals("path?lower=10", testforward.getPath());
         assertEquals("delete", testforward.getName());
     }
-    
+
     /**
      * Test that we forward to confirm
      * @throws Exception if test fails

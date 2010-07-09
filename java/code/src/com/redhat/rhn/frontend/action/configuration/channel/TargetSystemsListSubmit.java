@@ -47,8 +47,8 @@ public class TargetSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest requestIn) {
         RequestContext ctx = new RequestContext(requestIn);
         ConfigChannel cc = ConfigActionHelper.getChannel(requestIn);
@@ -74,8 +74,8 @@ public class TargetSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest requestIn, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest requestIn,
                                    Map paramsIn) {
         ConfigChannel cc = ConfigActionHelper.getChannel(requestIn);
         ConfigActionHelper.processParamMap(cc, paramsIn);
@@ -98,10 +98,10 @@ public class TargetSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction
         //now some of the sets may be invalid, so delete them.
         RequestContext requestContext = new RequestContext(request);
         ConfigActionHelper.clearRhnSets(requestContext.getLoggedInUser());
-        
+
         return getStrutsDelegate().forwardParams(mapping.findForward("success"), params);
     }
-    
+
     /**
      * Attempts to subscribe the selected system to the current config-channel
      * Uses the userIn to check for permission errors.
@@ -109,23 +109,23 @@ public class TargetSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction
      * @param requestIn unused
      * @param elementIn The RhnSetElement that contains the system's id
      * @param userIn The user requesting to delete config revisions.
-     * @return Whether or not the subscription completed successfully. 
+     * @return Whether or not the subscription completed successfully.
      */
-    public Boolean subscribeSystems(ActionForm formIn, 
+    public Boolean subscribeSystems(ActionForm formIn,
             HttpServletRequest requestIn,
-            RhnSetElement elementIn, 
+            RhnSetElement elementIn,
             User userIn) {
-        
+
         ConfigChannel cc = ConfigActionHelper.getChannel(requestIn);
         Server s = ServerFactory.lookupById(elementIn.getElement());
         s.subscribe(cc);
         ServerFactory.save(s);
-        
+
         // bz 444517 - Create a snapshot to capture this change
         String message =
             LocalizationService.getInstance().getMessage("snapshots.configchannel");
         SystemManager.snapshotServer(s, message);
-        
+
         return Boolean.TRUE;
     }
 }

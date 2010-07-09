@@ -35,14 +35,14 @@ public class TestFactory extends HibernateFactory {
     }
 
     /**
-     * Return the Implementation class used by the derived 
+     * Return the Implementation class used by the derived
      * class's Factory
      */
     protected Class getImplementationClass() {
         return TestImpl.class;
-    
+
     }
-    
+
     /** Get the Logger for the derived class so log messages
     *   show up on the correct class
     */
@@ -52,7 +52,7 @@ public class TestFactory extends HibernateFactory {
 
     public static TestInterface createTest() {
         TestInterface retval = new TestImpl();
-        return retval; 
+        return retval;
     }
 
     public static TestInterface lookupByFoobar(String f) {
@@ -61,13 +61,13 @@ public class TestFactory extends HibernateFactory {
         m.put("fooBar", f);
         return (TestInterface) singleton.lookupObjectByNamedQuery("Test.findByFoobar", m);
     }
-    
+
     public static List lookupAll() {
         return singleton.listObjectsByNamedQuery("Test.findAll", null);
     }
-    
+
     public static void save(TestInterface t) {
         singleton.saveObject(t);
     }
-    
+
 }

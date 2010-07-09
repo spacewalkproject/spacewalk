@@ -41,7 +41,7 @@
             </rhn:list>
           </c:when>
           <c:otherwise>
-            <bean:message key="distro-delete.jsp.summary1"/>        
+            <bean:message key="distro-delete.jsp.summary1"/>
             <div style="text-align: right;">
                     <html:submit>
                         <bean:message key="distro-delete.jsp.confirmdelete"/>
@@ -49,10 +49,10 @@
             </div>
           </c:otherwise>
         </c:choose>
-       </p>       
+       </p>
        <html:hidden property="kstid" value="${kstree.id}"/>
        <html:hidden property="submitted" value="true"/>
-          
+
     </html:form>
   </p>
 </div>

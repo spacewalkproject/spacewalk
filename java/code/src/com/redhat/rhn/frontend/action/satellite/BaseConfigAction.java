@@ -35,15 +35,15 @@ public abstract class BaseConfigAction extends RhnAction {
     private static Logger logger = Logger.getLogger(BaseConfigAction.class);
 
     /**
-     * Get the command this Action will use.  This method uses the 
-     * config value: 
-     * 
+     * Get the command this Action will use.  This method uses the
+     * config value:
+     *
      * web.com.redhat.rhn.frontend.action.satellite.GeneralConfigAction.command
-     * 
+     *
      * to determine a dynamic classname to use to instantiate the
-     * ConfigureSatelliteCommand. This can be useful if you want to 
+     * ConfigureSatelliteCommand. This can be useful if you want to
      * specify a different class to use for the Command at runtime.
-     * 
+     *
      * @param currentUser who is requesting this config.
      * @return ConfigureSatelliteCommand instance
      */
@@ -52,16 +52,16 @@ public abstract class BaseConfigAction extends RhnAction {
             logger.debug("getCommand(User currentUser=" + currentUser + ") - start");
         }
 
-        String className = getCommandClassName(); 
-            
+        String className = getCommandClassName();
+
         try {
             Class c = Class.forName(className);
             Class[] paramTypes = new Class[1];
             paramTypes[0] = User.class;
             Object[] args = new Object[1];
             args[0] = currentUser;
-                                       
-            SatelliteConfigurator sc = (SatelliteConfigurator) 
+
+            SatelliteConfigurator sc = (SatelliteConfigurator)
                 ReflectUtils.newInstance(c, paramTypes, args);
 
             if (logger.isDebugEnabled()) {
@@ -75,14 +75,14 @@ public abstract class BaseConfigAction extends RhnAction {
             throw new RuntimeException(e);
         }
     }
-    
+
     /**
-     * Subclasses implement this to indicate the name of the class to 
-     * use when fetching the Command instance 
-     * 
+     * Subclasses implement this to indicate the name of the class to
+     * use when fetching the Command instance
+     *
      * @return String classname
      */
     protected abstract String getCommandClassName();
 
-    
+
 }

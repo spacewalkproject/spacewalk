@@ -35,12 +35,12 @@ public class TaskScheduler {
 
     private Org org;
     private Errata errata;
-    
+
     //Name for tasks that were scheduled by channel. Goes in the TASK_NAME column
     //in the rhnTaskQueue table in the db.
     private static final String CHANNELNAME = "update_errata_cache_by_channel";
     private static final int DELAY = 1000 * 60 * 10; //10 minute delay in milliseconds
-    
+
     /**
      * Create a scheduler that only has the org set. This is useful for org-wide operations
      * such as setting all tasks to run now.
@@ -49,10 +49,10 @@ public class TaskScheduler {
     public TaskScheduler(Org orgIn) {
         org = orgIn;
     }
-    
+
     /**
      * Create a scheduler that has both an errata and an org. This constructor is for when
-     * you need to operate on tasks for an errata, such as updating the tasks for the 
+     * you need to operate on tasks for an errata, such as updating the tasks for the
      * channels in a given errata.
      * @param errataIn The errata containing the channels you wish to operate on.
      * @param orgIn The org for the user
@@ -61,21 +61,21 @@ public class TaskScheduler {
         errata = errataIn;
         org = orgIn;
     }
-    
+
     /**
      * This method inserts/updates tasks by the channels in an errata. This method
-     * corresponds to ChannelEditor.pm -> schedule_errata_cache_update method in the 
+     * corresponds to ChannelEditor.pm -> schedule_errata_cache_update method in the
      * perl codebase.
      */
     public void updateByChannels() {
         //Get the channels for this errata
         Set channels = errata.getChannels();
-        
+
         //Loop through the channels and either insert or update a task
         Iterator itr = IteratorUtils.getIterator(channels);
         while (itr.hasNext()) {
             Channel channel = (Channel) itr.next();
-            
+
             //Look to see if task already exists...
             Task task = TaskFactory.lookup(org, CHANNELNAME, channel.getId());
             if (task == null) { //if not, create a new task
@@ -88,9 +88,9 @@ public class TaskScheduler {
             TaskFactory.save(task);
         }
     }
-    
+
     /**
-     * Gets all of the tasks which have been set by channel name, and updates their 
+     * Gets all of the tasks which have been set by channel name, and updates their
      * earliest attribute to now.
      */
     public void runTasksByChannelNow() {
@@ -99,7 +99,7 @@ public class TaskScheduler {
         Date now = new Date();
         /*
          * TODO: Hopefully when we get to hib3, we can make one update statement to hit
-         * all of the Task objects. As of now, this isn't a big deal since we will 
+         * all of the Task objects. As of now, this isn't a big deal since we will
          * realistically only have a few channels per org.
          */
         for (Iterator itr = tasks.iterator(); itr.hasNext();) {
@@ -107,7 +107,7 @@ public class TaskScheduler {
             task.setEarliest(now); //set to run asap
             TaskFactory.save(task); //save
         }
-        
+
     }
-    
+
 }

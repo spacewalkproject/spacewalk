@@ -36,13 +36,13 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class ConfigUploadMtimeActionTest extends RhnBaseTestCase {
-    
+
     /**
      * Test fetching a ConfigUploadAction
      * @throws Exception
      */
     public void testLookupConfigUploadAction() throws Exception {
-        Action newA = ActionFactoryTest.createAction(UserTestUtils.createUser("testUser", 
+        Action newA = ActionFactoryTest.createAction(UserTestUtils.createUser("testUser",
                 UserTestUtils.createOrg("testOrg")), ActionFactory
                 .TYPE_CONFIGFILES_MTIME_UPLOAD);
         Long id = newA.getId();
@@ -52,7 +52,7 @@ public class ConfigUploadMtimeActionTest extends RhnBaseTestCase {
         assertTrue(a instanceof ConfigUploadMtimeAction);
         ConfigUploadMtimeAction cfa = (ConfigUploadMtimeAction) a;
         assertNotNull(cfa.getConfigDateFileActions());
-        ConfigDateFileAction cfda = (ConfigDateFileAction) 
+        ConfigDateFileAction cfda = (ConfigDateFileAction)
             cfa.getConfigDateFileActions().toArray()[0];
         assertNotNull(cfda.getParentAction());
         // Check the ConfigChannel
@@ -63,36 +63,36 @@ public class ConfigUploadMtimeActionTest extends RhnBaseTestCase {
         assertNotNull(cfa.getServers());
         Server serv = cfa.getServers()[0];
         assertNotNull(serv.getId());
-        assertNotNull(((ConfigChannelAssociation) 
+        assertNotNull(((ConfigChannelAssociation)
                 cfa.getRhnActionConfigChannel().toArray()[0]).getParentAction().getId());
-        assertNotNull(((ConfigChannelAssociation) 
+        assertNotNull(((ConfigChannelAssociation)
                 cfa.getRhnActionConfigChannel().toArray()[0]).getServer().getId());
-        assertNotNull(((ConfigChannelAssociation) 
+        assertNotNull(((ConfigChannelAssociation)
                 cfa.getRhnActionConfigChannel().toArray()[0]).getConfigChannel().getId());
         // Check the ConfigDateDetails
         assertNotNull(cfa.getConfigDateDetails().getActionId());
     }
-    
+
     public void testCreate() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser", "testOrg");
-        
+
         ConfigUploadMtimeAction testAction = (ConfigUploadMtimeAction)ActionFactoryTest
                 .createAction(usr, ActionFactory.TYPE_CONFIGFILES_MTIME_UPLOAD);
-        
+
         ConfigDateFileAction cfda = new ConfigDateFileAction();
         cfda.setFileName("/tmp/rhn-java-" + TestUtils.randomString());
         cfda.setFileType("W");
         testAction.addConfigDateFileAction(cfda);
-        
+
         Server newS = ServerFactoryTest.createTestServer(usr);
         ConfigTestUtils.giveOrgQuota(usr.getOrg());
         ConfigRevision cr = ConfigTestUtils.createConfigRevision(usr.getOrg());
-        
+
         testAction.addConfigChannelAndServer(cr.getConfigFile()
                 .getConfigChannel(), newS);
         // rhnActionConfigChannel requires a ServerAction to exist
         testAction.addServerAction(ServerActionTest.createServerAction(newS, testAction));
-        
+
         ActionFactory.save(testAction);
         flushAndEvict(testAction);
         /**
@@ -102,7 +102,7 @@ public class ConfigUploadMtimeActionTest extends RhnBaseTestCase {
 
         assertTrue(same instanceof ConfigUploadMtimeAction);
         ConfigUploadMtimeAction sameAction = (ConfigUploadMtimeAction) same;
-        
+
         assertNotNull(sameAction.getConfigDateFileActions());
         assertEquals(2, sameAction.getConfigDateFileActions().size());
         assertNotNull(sameAction.getConfigDateFileActions().toArray()[0]);
@@ -112,7 +112,7 @@ public class ConfigUploadMtimeActionTest extends RhnBaseTestCase {
         assertEquals(2, sameAction.getRhnActionConfigChannel().size());
         assertNotNull(sameAction.getRhnActionConfigChannel().toArray()[0]);
         assertNotNull(sameAction.getRhnActionConfigChannel().toArray()[1]);
-        
+
         assertNotNull(sameAction.getConfigDateDetails());
         assertEquals(sameAction.getName(), testAction.getName());
         assertEquals(sameAction.getId(), testAction.getId());

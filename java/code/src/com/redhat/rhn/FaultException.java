@@ -57,8 +57,8 @@ public class FaultException extends RuntimeException  {
      * @param lbl error label
      * @param message the message
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public FaultException(int error, String lbl, String message, Throwable cause) {

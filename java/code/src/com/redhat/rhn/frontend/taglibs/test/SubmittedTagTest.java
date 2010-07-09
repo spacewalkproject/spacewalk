@@ -36,16 +36,16 @@ public class SubmittedTagTest extends RhnBaseTestCase {
 
     public void testRender() throws Exception {
         SubmittedTag tag = new SubmittedTag();
-        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest(); 
-        TagTestHelper tth = TagTestUtils.setupTagTest(tag, 
+        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
+        TagTestHelper tth = TagTestUtils.setupTagTest(tag,
                                         new URL("http://localhost"),
                                         request);
         tag.setPageContext(tth.getPageContext());
-        
+
         // ok let's test the tag
         tth.assertDoStartTag(Tag.SKIP_BODY);
         tth.assertDoEndTag(Tag.SKIP_BODY);
-        
+
         RhnMockJspWriter rout = (RhnMockJspWriter) tth.getPageContext().getOut();
 
         assertTrue(rout.toString().indexOf(RhnAction.SUBMITTED) > -1);

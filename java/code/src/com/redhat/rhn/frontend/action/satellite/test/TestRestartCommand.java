@@ -34,7 +34,7 @@ public class TestRestartCommand extends RestartCommand {
     public ValidatorError[] storeConfiguration() {
         return null;
     }
-    
-    
+
+
 
 }

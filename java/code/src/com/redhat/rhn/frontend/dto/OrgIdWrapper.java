@@ -20,7 +20,7 @@ package com.redhat.rhn.frontend.dto;
  * @version $Rev$
  */
 public class OrgIdWrapper {
-    
+
     private Long orgId;
 
     /**
@@ -31,15 +31,15 @@ public class OrgIdWrapper {
     public void setOrgId(Long bd) {
         orgId = bd;
     }
-    
+
     /**
-     * 
+     *
      * @param bd ID to set
      */
     public void setId(Long bd) {
         orgId = bd;
     }
-    
+
     /**
      * Returns long, this is a stupid method but used by
      * datasource for backwards compatibility.
@@ -48,7 +48,7 @@ public class OrgIdWrapper {
     public Long toLong() {
         return orgId;
     }
-    
+
     /** {@inheritDoc} */
     public String toString() {
         return (orgId == null) ? null : orgId.toString();

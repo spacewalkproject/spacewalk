@@ -3,20 +3,20 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.rhnpackage.PackageArch" 
+    <class name="com.redhat.rhn.domain.rhnpackage.PackageArch"
         table="rhnPackageArch" mutable="false">
         <cache usage="read-only"/>
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="native" />
         </id>
-  
+
         <property name="label" type="string" column="label"/>
         <property name="name" type="string" column="name"/>
-        
+
         <property name="created" type="date" column="created"/>
         <property name="modified" type="date" column="modified"/>
-        
+
         <many-to-one
             name="archType"
             class="com.redhat.rhn.domain.common.ArchType"
@@ -24,14 +24,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
     <query name="PackageArch.findById">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageArch as p 
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageArch as p
         		where p.id = :id]]>
     </query>
 
     <query name="PackageArch.findByLabel">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageArch as p 
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageArch as p
         		where p.label = :label]]>
     </query>
-    
- 
+
+
 </hibernate-mapping>

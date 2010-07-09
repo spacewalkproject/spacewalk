@@ -20,7 +20,7 @@ import java.util.Date;
 
 /**
  * ConfigDateDetails - Class representation of the table rhnActionConfigDate.
- * 
+ *
  * @version $Rev$
  */
 public class ConfigDateDetails extends ActionChild {
@@ -42,48 +42,48 @@ public class ConfigDateDetails extends ActionChild {
     public void setActionId(Long actionIdIn) {
         this.actionId = actionIdIn;
     }
-    /** 
-     * Getter for startDate 
+    /**
+     * Getter for startDate
      * @return Date to get
     */
     public Date getStartDate() {
         return this.startDate;
     }
 
-    /** 
-     * Setter for startDate 
+    /**
+     * Setter for startDate
      * @param startDateIn to set
     */
     public void setStartDate(Date startDateIn) {
         this.startDate = startDateIn;
     }
 
-    /** 
-     * Getter for endDate 
+    /**
+     * Getter for endDate
      * @return Date to get
     */
     public Date getEndDate() {
         return this.endDate;
     }
 
-    /** 
-     * Setter for endDate 
+    /**
+     * Setter for endDate
      * @param endDateIn to set
     */
     public void setEndDate(Date endDateIn) {
         this.endDate = endDateIn;
     }
 
-    /** 
-     * Getter for importContents 
+    /**
+     * Getter for importContents
      * @return String to get
     */
     public String getImportContents() {
         return this.importContents;
     }
 
-    /** 
-     * Setter for importContents 
+    /**
+     * Setter for importContents
      * @param importContentsIn to set
     */
     public void setImportContents(String importContentsIn) {

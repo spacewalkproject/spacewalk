@@ -18,26 +18,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * Handler
  * @version $Rev$
  */
 public class Handler implements Comparable<Handler> {
 
-    
-    
+
+
     private String name;
     private String desc;
     private String className;
     private List<ApiCall> calls;
-    
+
     /**
      * Constructor
      */
     public Handler() {
         calls = new ArrayList<ApiCall>();
     }
-    
+
     /**
      * gets the handler's class name
      * @return name
@@ -45,7 +45,7 @@ public class Handler implements Comparable<Handler> {
     public String getClassName() {
         return className;
     }
-    
+
     /**
      * Gets a list of the handler's api calls
      * @return the calls
@@ -55,7 +55,7 @@ public class Handler implements Comparable<Handler> {
     }
 
     /**
-     * Sets the list of the handlers apicalls 
+     * Sets the list of the handlers apicalls
      * @param callsIn the calls
      */
     public void setCalls(List<ApiCall> callsIn) {
@@ -69,7 +69,7 @@ public class Handler implements Comparable<Handler> {
     public void setClassName(String classNameIn) {
         this.className = classNameIn;
     }
-    
+
     /**
      * gets the (non-class) name of the handler
      * @return the name
@@ -77,7 +77,7 @@ public class Handler implements Comparable<Handler> {
     public String getName() {
         return name;
     }
-    
+
     /**
      * sets the name of the handler
      * @param nameIn the name
@@ -85,7 +85,7 @@ public class Handler implements Comparable<Handler> {
     public void setName(String nameIn) {
         this.name = nameIn;
     }
-    
+
     /**
      * adds an apicall to the list
      * @param callIn the call to add
@@ -111,14 +111,14 @@ public class Handler implements Comparable<Handler> {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int compareTo(Handler o) {
         return this.getName().compareTo(o.getName());
     }
-    
-    
-    
-    
+
+
+
+
 }

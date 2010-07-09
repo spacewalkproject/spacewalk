@@ -39,23 +39,23 @@ public class UserListSetupAction extends RhnAction {
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
-        User user = requestContext.getLoggedInUser();        
-        
-        Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);        
+
+        User user = requestContext.getLoggedInUser();
+
+        Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         Org org = OrgFactory.lookupById(oid);
         String name = org.getName();
-                
-        Long canModify =  (user.getOrg().getId().longValue() == 
-                           oid.longValue()) && 
-                          (user.hasRole(RoleFactory.ORG_ADMIN)) ? 
+
+        Long canModify =  (user.getOrg().getId().longValue() ==
+                           oid.longValue()) &&
+                          (user.hasRole(RoleFactory.ORG_ADMIN)) ?
                                   new Long(1) : new Long(0);
         DataList result = OrgManager.activeUsers(oid);
-        
+
         request.setAttribute("canModify", canModify);
         request.setAttribute("orgName", name);
         request.setAttribute("pageList", result);

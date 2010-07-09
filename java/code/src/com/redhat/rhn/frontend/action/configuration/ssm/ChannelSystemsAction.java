@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class ChannelSystemsAction extends BaseListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -37,12 +37,12 @@ public class ChannelSystemsAction extends BaseListAction {
         User user = rctxIn.getLoggedInUser();
         Long ccid = rctxIn.getRequiredParam("ccid");
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        
+
         cm.lookupConfigChannel(user, ccid);
         DataResult dr = cm.listSystemsForConfigChannel(user, ccid, pc);
         return dr;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -50,12 +50,12 @@ public class ChannelSystemsAction extends BaseListAction {
         HttpServletRequest request = rctxIn.getRequest();
         User user = rctxIn.getLoggedInUser();
         Long ccid = rctxIn.getRequiredParam("ccid");
-        
+
         ConfigChannel channel =
             ConfigurationManager.getInstance().lookupConfigChannel(user, ccid);
         request.setAttribute("channel", channel);
     }
-    
+
     protected void processPageControl(PageControl pcIn) {
         pcIn.setFilter(true);
         pcIn.setFilterColumn("name");

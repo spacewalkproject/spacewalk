@@ -44,8 +44,8 @@ public class NavDigester {
 
         digester.addObjectCreate("rhn-navi-tree", NavTree.class);
         digester.addSetProperties("rhn-navi-tree");
-        digester.addSetProperties("rhn-navi-tree", 
-                                  "acl_mixins", 
+        digester.addSetProperties("rhn-navi-tree",
+                                  "acl_mixins",
                                   "aclMixins");
 
         digester.addObjectCreate("*/rhn-tab", NavNode.class);

@@ -3,29 +3,29 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.server.NetworkInterface" 
+    <class name="com.redhat.rhn.domain.server.NetworkInterface"
         table="rhnServerNetInterface">
         <composite-id unsaved-value="any">
-            <key-many-to-one name="server" 
-                class="com.redhat.rhn.domain.server.Server" 
+            <key-many-to-one name="server"
+                class="com.redhat.rhn.domain.server.Server"
                 column="server_id" />
             <key-property name="name" type="string" column="name" length="32"/>
         </composite-id>
         <property name="ipaddr" column="ip_addr" type="string" length="64" />
         <property name="netmask" column="netmask" type="string" length="64" />
-        <property name="broadcast" column="broadcast" type="string" 
+        <property name="broadcast" column="broadcast" type="string"
             length="64" />
         <property name="hwaddr" column="hw_addr" type="string" length="18" />
         <property name="module" column="module" type="string" length="128" />
-        <property name="created" column="created" type="timestamp" 
+        <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
-        <property name="modified" column="modified" type="timestamp" 
+        <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
     </class>
-    
+
     <query name="NetworkInterface.lookup">
-        <![CDATA[from com.redhat.rhn.domain.server.NetworkInterface as n 
-                 where n.server = :server 
+        <![CDATA[from com.redhat.rhn.domain.server.NetworkInterface as n
+                 where n.server = :server
                    and n.name = :name]]>
     </query>
 </hibernate-mapping>

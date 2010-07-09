@@ -41,18 +41,18 @@ import redstone.xmlrpc.XmlRpcFault;
  * @version $Rev$
  */
 public class CobblerSyncTask extends SingleThreadedTestableTask {
-    
+
     private static final AtomicLong LAST_UPDATED = new AtomicLong();
     private long errorCount;
     private long distroWarnCount;
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "sync_from_cobbler";
 
     private static Logger log = Logger.getLogger(CobblerSyncTask.class);
-    
+
     /**
      * Default constructor
      */
@@ -60,35 +60,35 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         errorCount = 0;
         distroWarnCount = 0;
     }
- 
+
     /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext ctxIn, boolean testContextIn)
         throws JobExecutionException {
-        
+
         try {
-            XMLRPCInvoker invoker = (XMLRPCInvoker)  
+            XMLRPCInvoker invoker = (XMLRPCInvoker)
             MethodUtil.getClassFromConfig(CobblerXMLRPCHelper.class.getName());
-        
+
             Double mtime = null;
             try {
-                mtime = (Double) invoker.invokeMethod("last_modified_time", 
+                mtime = (Double) invoker.invokeMethod("last_modified_time",
                         new ArrayList());
             }
             catch (XmlRpcFault e) {
                 log.error("Error calling cobbler.", e);
             }
-            
+
             CobblerDistroSyncCommand distSync = new CobblerDistroSyncCommand();
             ValidatorError ve = distSync.syncNullDistros();
             if (ve != null && distroWarnCount < 1) {
                 TaskHelper.sendErrorEmail(log, ve.getMessage());
                 distroWarnCount++;
             }
-            
-            
-            log.debug("mtime: " + mtime.longValue() + ", last modified: " + 
+
+
+            log.debug("mtime: " + mtime.longValue() + ", last modified: " +
                 LAST_UPDATED.get());
             //If we got an mtime from cobbler and that mtime is before our last update
             // Then don't update anything
@@ -98,25 +98,25 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
             }
             else {
                 log.debug("Syncing distros and profiles.");
-                
+
                 ve = distSync.store();
                 if (ve != null) {
                     TaskHelper.sendErrorEmail(log, ve.getMessage());
                 }
-                
+
                 CobblerProfileSyncCommand profSync = new CobblerProfileSyncCommand();
                 profSync.store();
-                
+
                 CobblerSystemSyncCommand systemSync = new CobblerSystemSyncCommand();
                 systemSync.store();
             }
-            
+
             LAST_UPDATED.set((new Date()).getTime() / 1000 + 1);
         }
         catch (RuntimeException re) {
-            log.error("RuntimeExceptioneError trying to sync to cobbler: " + 
+            log.error("RuntimeExceptioneError trying to sync to cobbler: " +
                     re.getMessage(), re);
-            // Only throw up one error.  Otherwise if say cobblerd is shutoff you can 
+            // Only throw up one error.  Otherwise if say cobblerd is shutoff you can
             // possibly generate 1 stacktrace email per minute which is quite spammy.
             if (errorCount < 1) {
                 errorCount++;
@@ -128,7 +128,7 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
             }
         }
     }
-    
-    
+
+
 
 }

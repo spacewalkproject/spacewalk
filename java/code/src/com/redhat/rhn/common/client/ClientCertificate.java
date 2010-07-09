@@ -40,7 +40,7 @@ public class ClientCertificate {
     private Map byName;
     private Map checksumFields;
 
-    
+
     /**
      * Default Constructor
      */
@@ -57,7 +57,7 @@ public class ClientCertificate {
         checksumFields.put("system_id", "");
         checksumFields.put("type", "");
     }
-    
+
     /**
      * Add a member to the certificate by name and values.
      * @param name Member name
@@ -71,7 +71,7 @@ public class ClientCertificate {
         }
         addMember(m);
     }
-    
+
     /**
      * Add a member to the certificate by name and value.
      * @param name Member name
@@ -82,7 +82,7 @@ public class ClientCertificate {
         values[0] = value;
         addMember(name, values);
     }
-    
+
     /**
      * Add a member to the certificate.
      * @param member Member to be added.
@@ -91,7 +91,7 @@ public class ClientCertificate {
         members.add(member);
         byName.put(member.getName(), member.getValues());
     }
-    
+
     /**
      * Returns the first value for the given field named <code>name</code>.
      * @param name field name
@@ -102,10 +102,10 @@ public class ClientCertificate {
         if (strs != null && strs.length > 0) {
             return strs[0];
         }
-        
+
         return null;
     }
-    
+
     /**
      * Returns all the values for the given field named <code>name</code>.
      * @param name field name
@@ -114,7 +114,7 @@ public class ClientCertificate {
     public String[] getValuesByName(String name) {
         return (String[]) byName.get(name);
     }
-    
+
     /**
      * Validates the client certificate given the unique server key.
      * @param secret unique server secret key.
@@ -124,14 +124,14 @@ public class ClientCertificate {
     public void validate(String secret) throws InvalidCertificateException {
         String signature = genSignature(secret);
         String checksum = getValueByName("checksum");
-        
+
         if (!signature.equals(checksum)) {
             throw new InvalidCertificateException(
                     "Signature mismatch: computed sig(" + signature +
                     ") != given cert(" + checksum + ")");
         }
     }
-    
+
     /**
      * Returns signature of certificate.
      * @param secret Server Secret for this certificate
@@ -142,44 +142,44 @@ public class ClientCertificate {
     public String genSignature(String secret) throws InvalidCertificateException {
 
         String signature = null;
-        
+
         String[] strs = getValuesByName(FIELDS);
-        
+
         for (int i = 0; i < strs.length; i++) {
             if (checksumFields.get(strs[i]) == null) {
                 throw new InvalidCertificateException("Invalid field " + strs[i] +
                         " provided while validating certificate");
             }
         }
-        
+
         try {
-            
+
             MessageDigest md = MessageDigest.getInstance("MD5");
-            
+
             // I'm not one to loop through things more than once
             // but this seems to be the algorithm found in Server.pm
-            
+
             // add secret
             byte[] secretBytes = secret.getBytes("UTF-8");
             md.update(secretBytes);
-            
+
             // add the values for the fields
             for (int i = 0; i < strs.length; i++) {
                 String value = getValueByName(strs[i]);
                 byte[] valueBytes = value.getBytes("UTF-8");
                 md.update(valueBytes);
             }
-            
-            
+
+
             // add field names
             for (int i = 0; i < strs.length; i++) {
                 byte[] fieldBytes = strs[i].getBytes("UTF-8");
                 md.update(fieldBytes);
             }
-            
+
             // generate the digest
             byte[] digest = md.digest();
-            
+
             // hexify this puppy
             signature = new String(Hex.encodeHex(digest));
         }
@@ -191,10 +191,10 @@ public class ClientCertificate {
             throw new InvalidCertificateException(
                 "Problem getting MD5 message digest.", e);
         }
-        
+
         return signature;
     }
-    
+
     /**
      * Renders the certificate as an Xml document.
      * @return Xml document
@@ -208,7 +208,7 @@ public class ClientCertificate {
         params.addBody(param);
         param.addBody(value);
         value.addBody(struct);
-        
+
         for (Iterator itr = members.iterator(); itr.hasNext();) {
             Member m = (Member)itr.next();
             if (!m.getName().equals(FIELDS)) {
@@ -222,14 +222,14 @@ public class ClientCertificate {
         }
         return buf.append(params.render()).toString();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String toString() {
         return asXml();
     }
-    
+
     /**
      * Utility method for building up XML string
      * @param name name of member
@@ -248,7 +248,7 @@ public class ClientCertificate {
         member.addBody(vTag);
         return member;
     }
-    
+
     private XmlTag createFieldMember(String name, String[] value) {
         XmlTag member = new XmlTag("member");
         XmlTag nTag = new XmlTag("name");
@@ -260,16 +260,16 @@ public class ClientCertificate {
         nTag.addBody(name);
         vTag.addBody(tTag);
         tTag.addBody(dTag);
-        
+
         for (int i = 0; i < value.length; i++) {
             XmlTag v2 = new XmlTag("value");
             XmlTag sTag = new XmlTag("string");
-            
+
             sTag.addBody(value[i]);
             v2.addBody(sTag);
             dTag.addBody(v2);
         }
-        
+
         return member;
     }
 

@@ -23,21 +23,21 @@ import java.util.Locale;
  * @version $Rev $
  */
 public interface ListFilter {
-    
+
     /**
      * Called before any other methods are called
      * @param userLocale locale of the requesting user
      */
     void prepare(Locale userLocale);
-    
+
     /**
      * Returns the list of data bean field names the filter can filter on
-     * It is the responsibility of the class implementing this interface to 
+     * It is the responsibility of the class implementing this interface to
      * provide any localization
      * @return List of field names
      */
     List getFieldNames();
-    
+
     /**
      * Invoked on each object in the <b>complete</b> list of data beans
      * @param object Individual data beans

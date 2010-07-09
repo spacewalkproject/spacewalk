@@ -51,16 +51,16 @@ import java.util.Set;
 public class SystemDetailsHandler extends BaseHandler {
 
     /**
-      * Check the configuration management status for a kickstart profile 
+      * Check the configuration management status for a kickstart profile
       * so that a system created using this profile will be configuration capable.
       * @param sessionKey the session key
-      * @param ksLabel the ks profile label 
+      * @param ksLabel the ks profile label
       * @return returns true if configuration management is enabled; otherwise, false
-      * 
+      *
       * @xmlrpc.doc Check the configuration management status for a kickstart profile.
-      * @xmlrpc.param #session_key() 
+      * @xmlrpc.param #session_key()
       * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
-      * @xmlrpc.returntype #prop_desc("boolean", "enabled", "true if configuration 
+      * @xmlrpc.returntype #prop_desc("boolean", "enabled", "true if configuration
       * management is enabled; otherwise, false")
       */
     public boolean checkConfigManagement(String sessionKey, String ksLabel) {
@@ -72,16 +72,16 @@ public class SystemDetailsHandler extends BaseHandler {
     }
 
     /**
-     * Enables the configuration management flag in a kickstart profile 
+     * Enables the configuration management flag in a kickstart profile
      * so that a system created using this profile will be configuration capable.
      * @param sessionKey the session key
-     * @param ksLabel the ks profile label 
+     * @param ksLabel the ks profile label
      * @return 1 on success
-     * 
-     * 
-     * @xmlrpc.doc Enables the configuration management flag in a kickstart profile 
+     *
+     *
+     * @xmlrpc.doc Enables the configuration management flag in a kickstart profile
      * so that a system created using this profile will be configuration capable.
-     * @xmlrpc.param #session_key() 
+     * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
      * @xmlrpc.returntype #return_int_success()
      */
@@ -90,15 +90,15 @@ public class SystemDetailsHandler extends BaseHandler {
     }
 
     /**
-     * Disables the configuration management flag in a kickstart profile 
+     * Disables the configuration management flag in a kickstart profile
      * so that a system created using this profile will be NOT be configuration capable.
      * @param sessionKey the session key
      * @param ksLabel the ks profile label
      * @return 1 on success
-     * 
-     * @xmlrpc.doc Disables the configuration management flag in a kickstart profile 
-     * so that a system created using this profile will be NOT be configuration capable.   
-     * @xmlrpc.param #session_key() 
+     *
+     * @xmlrpc.doc Disables the configuration management flag in a kickstart profile
+     * so that a system created using this profile will be NOT be configuration capable.
+     * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
      * @xmlrpc.returntype #return_int_success()
 
@@ -106,7 +106,7 @@ public class SystemDetailsHandler extends BaseHandler {
     public int disableConfigManagement(String sessionKey, String ksLabel) {
         return setConfigFlag(sessionKey, ksLabel, false);
     }
-    
+
     private int setConfigFlag(String sessionKey, String ksLabel, boolean flag) {
         User user = getLoggedInUser(sessionKey);
         ensureConfigAdmin(user);
@@ -115,19 +115,19 @@ public class SystemDetailsHandler extends BaseHandler {
         command.store();
         return 1;
     }
-    
+
     /**
-    * Check the remote commands status flag for a kickstart profile 
-    * so that a system created using this profile 
+    * Check the remote commands status flag for a kickstart profile
+    * so that a system created using this profile
     * will be capable of running remote commands
     * @param sessionKey the session key
     * @param ksLabel the ks profile label
     * @return returns true if remote command support is enabled; otherwise, false
-    * 
+    *
     * @xmlrpc.doc Check the remote commands status flag for a kickstart profile.
-    * @xmlrpc.param #session_key() 
+    * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
-    * @xmlrpc.returntype #prop_desc("boolean", "enabled", "true if remote 
+    * @xmlrpc.returntype #prop_desc("boolean", "enabled", "true if remote
     * commands support is enabled; otherwise, false")
     */
     public boolean checkRemoteCommands(String sessionKey, String ksLabel) {
@@ -137,19 +137,19 @@ public class SystemDetailsHandler extends BaseHandler {
         return command.getKickstartData().getKickstartDefaults().getRemoteCommandFlag().
             booleanValue();
     }
-    
+
     /**
-     * Enables the remote command flag in a kickstart profile 
-     * so that a system created using this profile 
+     * Enables the remote command flag in a kickstart profile
+     * so that a system created using this profile
      * will be capable of running remote commands
      * @param sessionKey the session key
      * @param ksLabel the ks profile label
      * @return 1 on success
-     * 
-     * @xmlrpc.doc Enables the remote command flag in a kickstart profile 
+     *
+     * @xmlrpc.doc Enables the remote command flag in a kickstart profile
      * so that a system created using this profile
      *  will be capable of running remote commands
-     * @xmlrpc.param #session_key() 
+     * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
      * @xmlrpc.returntype #return_int_success()
      */
@@ -158,17 +158,17 @@ public class SystemDetailsHandler extends BaseHandler {
     }
 
     /**
-     * Disables the remote command flag in a kickstart profile 
+     * Disables the remote command flag in a kickstart profile
      * so that a system created using this profile
      * will be capable of running remote commands
      * @param sessionKey the session key
      * @param ksLabel the ks profile label
      * @return 1 on success
-     * 
-     * @xmlrpc.doc Disables the remote command flag in a kickstart profile 
+     *
+     * @xmlrpc.doc Disables the remote command flag in a kickstart profile
      * so that a system created using this profile
      * will be capable of running remote commands
-     * @xmlrpc.param #session_key() 
+     * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
      * @xmlrpc.returntype #return_int_success()
 
@@ -176,7 +176,7 @@ public class SystemDetailsHandler extends BaseHandler {
     public int disableRemoteCommands(String sessionKey, String ksLabel) {
         return setRemoteCommandsFlag(sessionKey, ksLabel, false);
     }
-    
+
     private int setRemoteCommandsFlag(String sessionKey, String ksLabel, boolean flag) {
         User user = getLoggedInUser(sessionKey);
         ensureConfigAdmin(user);
@@ -192,12 +192,12 @@ public class SystemDetailsHandler extends BaseHandler {
      * @param sessionKey the session key
      * @param ksLabel the ks profile label
      * @return the enforcing mode
-     * 
+     *
      * @xmlrpc.doc Retrieves the SELinux enforcing mode property of a kickstart
      * profile.
-     * @xmlrpc.param #session_key() 
+     * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      * #param("string", "enforcingMode")
      *      #options()
      *          #item ("enforcing")
@@ -211,20 +211,20 @@ public class SystemDetailsHandler extends BaseHandler {
         SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
         return command.getKickstartData().getSELinuxMode().getValue();
     }
-    
+
     /**
-     * Sets the SELinux enforcing mode property of a kickstart profile 
-     * so that a system created using this profile will be have 
+     * Sets the SELinux enforcing mode property of a kickstart profile
+     * so that a system created using this profile will be have
      * the appropriate SELinux enforcing mode.
      * @param sessionKey the session key
      * @param ksLabel the ks profile label
-     * @param enforcingMode the SELinux enforcing mode. 
+     * @param enforcingMode the SELinux enforcing mode.
      * @return 1 on success
-     * 
-     * @xmlrpc.doc Sets the SELinux enforcing mode property of a kickstart profile 
-     * so that a system created using this profile will be have 
+     *
+     * @xmlrpc.doc Sets the SELinux enforcing mode property of a kickstart profile
+     * so that a system created using this profile will be have
      * the appropriate SELinux enforcing mode.
-     * @xmlrpc.param #session_key() 
+     * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
      * @xmlrpc.param #param_desc("string", "enforcingMode","the selinux enforcing mode")
      *      #options()
@@ -241,7 +241,7 @@ public class SystemDetailsHandler extends BaseHandler {
         command.setMode(SELinuxMode.lookup(enforcingMode));
         return setRemoteCommandsFlag(sessionKey, ksLabel, true);
     }
- 
+
     /**
      * Retrieves the locale for a kickstart profile.
      * @param sessionKey The current user's session key
@@ -253,7 +253,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.doc Retrieves the locale for a kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("string", "ksLabel", "the kickstart profile label")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *          #struct("locale info")
      *              #prop("string", "locale")
      *              #prop("boolean", "useUtc")
@@ -267,13 +267,13 @@ public class SystemDetailsHandler extends BaseHandler {
 
         User user = getLoggedInUser(sessionKey);
         ensureConfigAdmin(user);
-        
+
         KickstartLocaleCommand command  = getLocaleCommand(ksLabel, user);
-        
+
         Map locale = new HashMap();
         locale.put("locale", command.getTimezone());
         locale.put("useUtc", command.isUsingUtc());
-        
+
         return locale;
     }
 
@@ -294,25 +294,25 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "locale", "the locale")
      * @xmlrpc.param #param("boolean", "useUtc")
      *      #options()
-     *          #item_desc ("true", 
+     *          #item_desc ("true",
      *          "the hardware clock uses UTC")
-     *          #item_desc ("false", 
+     *          #item_desc ("false",
      *          "the hardware clock does not use UTC")
      *      #options_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setLocale(String sessionKey, String ksLabel, String locale, 
+    public int setLocale(String sessionKey, String ksLabel, String locale,
             boolean useUtc) throws FaultException {
 
         User user = getLoggedInUser(sessionKey);
         ensureConfigAdmin(user);
-        
+
         KickstartLocaleCommand command  = getLocaleCommand(ksLabel, user);
-        
+
         if (command.isValidTimezone(locale) == Boolean.FALSE) {
             throw new InvalidLocaleCodeException(locale);
         }
-        
+
         command.setTimezone(locale);
         if (useUtc) {
             command.useUtc();
@@ -323,7 +323,7 @@ public class SystemDetailsHandler extends BaseHandler {
         command.store();
         return 1;
     }
-    
+
     /**
      * Set the partitioning scheme for a kickstart profile.
      * @param sessionKey An active session key.
@@ -397,17 +397,17 @@ public class SystemDetailsHandler extends BaseHandler {
         return list;
     }
 
-    
+
     private KickstartData lookupKsData(String label, Org org) {
         return XmlRpcKickstartHelper.getInstance().lookupKsData(label, org);
     }
-    
-    
+
+
     private KickstartLocaleCommand getLocaleCommand(String label, User user) {
         XmlRpcKickstartHelper helper = XmlRpcKickstartHelper.getInstance();
         return new KickstartLocaleCommand(helper.lookupKsData(label, user), user);
     }
-    
+
     private SystemDetailsCommand getSystemDetailsCommand(String label, User user) {
         XmlRpcKickstartHelper helper = XmlRpcKickstartHelper.getInstance();
         return new SystemDetailsCommand(helper.lookupKsData(label, user), user);
@@ -415,11 +415,11 @@ public class SystemDetailsHandler extends BaseHandler {
 
     /**
      * Returns the set of all keys associated with the indicated kickstart profile.
-     * 
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
-     * @param kickstartLabel identifies the profile; cannot be <code>null</code> 
+     *
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
      * @return set of all keys associated with the given profile
-     * 
+     *
      * @xmlrpc.doc Returns the set of all keys associated with the given kickstart
      *             profile.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -434,9 +434,9 @@ public class SystemDetailsHandler extends BaseHandler {
      *      #array_end()
      */
     public Set listKeys(String sessionKey, String kickstartLabel) {
-        
+
         // TODO: Determine if null or empty set is returned when no keys associated
-        
+
         if (sessionKey == null) {
             throw new IllegalArgumentException("sessionKey cannot be null");
         }
@@ -444,27 +444,27 @@ public class SystemDetailsHandler extends BaseHandler {
         if (kickstartLabel == null) {
             throw new IllegalArgumentException("kickstartLabel cannot be null");
         }
-        
+
         User user = getLoggedInUser(sessionKey);
         Org org = user.getOrg();
-        
+
         KickstartData data =
-            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
                 org.getId());
-        
+
         // Set will contain crypto key
         Set keys = data.getCryptoKeys();
         return keys;
     }
-    
+
     /**
      * Adds the given list of keys to the specified kickstart profile.
-     * 
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     *
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
      * @param kickstartLabel identifies the profile; cannot be <code>null</code>
-     * @param descriptions   list identifiying the keys to add 
+     * @param descriptions   list identifiying the keys to add
      * @return 1 if the associations were performed correctly
-     * 
+     *
      * @xmlrpc.doc Adds the given list of keys to the specified kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "kickstartLabel")
@@ -484,33 +484,33 @@ public class SystemDetailsHandler extends BaseHandler {
         if (descriptions == null) {
             throw new IllegalArgumentException("descriptions cannot be null");
         }
-        
+
         // Load the kickstart profile
         User user = getLoggedInUser(sessionKey);
         Org org = user.getOrg();
-        
+
         KickstartData data =
-            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
                 org.getId());
-        
+
         // Associate the keys
         KickstartCryptoKeyCommand command =
             new KickstartCryptoKeyCommand(data.getId(), user);
 
         command.addKeysByDescriptionAndOrg(descriptions, org);
         command.store();
-        
+
         return 1;
     }
-    
+
     /**
      * Removes the given list of keys from the specified kickstart profile.
-     * 
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     *
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
      * @param kickstartLabel identifies the profile; cannot be <code>null</code>
-     * @param descriptions   list identifiying the keys to remove 
+     * @param descriptions   list identifiying the keys to remove
      * @return 1 if the associations were performed correctly
-     * 
+     *
      * @xmlrpc.doc Removes the given list of keys from the specified kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "kickstartLabel")
@@ -530,36 +530,36 @@ public class SystemDetailsHandler extends BaseHandler {
         if (descriptions == null) {
             throw new IllegalArgumentException("descriptions cannot be null");
         }
-        
+
         // Load the kickstart profile
         User user = getLoggedInUser(sessionKey);
         Org org = user.getOrg();
-        
+
         KickstartData data =
-            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
                 org.getId());
-        
+
         KickstartCryptoKeyCommand command =
             new KickstartCryptoKeyCommand(data.getId(), user);
-        
+
         command.removeKeysByDescriptionAndOrg(descriptions, org);
         command.store();
-        
+
         return 1;
     }
-    
+
     /**
-     * Returns the set of all file preservations associated with the given kickstart 
+     * Returns the set of all file preservations associated with the given kickstart
      * profile.
-     * 
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
-     * @param kickstartLabel identifies the profile; cannot be <code>null</code> 
+     *
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
      *   - The kickstartLabel is invalid
      * @return set of all file preservations associated with the given profile
-     * 
-     * @xmlrpc.doc Returns the set of all file preservations associated with the given 
+     *
+     * @xmlrpc.doc Returns the set of all file preservations associated with the given
      * kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "kickstartLabel")
@@ -568,9 +568,9 @@ public class SystemDetailsHandler extends BaseHandler {
      *         $FileListSerializer
      *     #array_end()
      */
-    public Set listFilePreservations(String sessionKey, String kickstartLabel) 
+    public Set listFilePreservations(String sessionKey, String kickstartLabel)
         throws FaultException {
-        
+
         if (sessionKey == null) {
             throw new IllegalArgumentException("sessionKey cannot be null");
         }
@@ -578,29 +578,29 @@ public class SystemDetailsHandler extends BaseHandler {
         if (kickstartLabel == null) {
             throw new IllegalArgumentException("kickstartLabel cannot be null");
         }
-        
+
         User user = getLoggedInUser(sessionKey);
         Org org = user.getOrg();
-        
+
         KickstartData data =
-            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
                 org.getId());
-        
+
         return data.getPreserveFileLists();
     }
-    
+
     /**
      * Adds the given list of file preservations to the specified kickstart profile.
-     * 
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     *
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
      * @param kickstartLabel identifies the profile; cannot be <code>null</code>
-     * @param filePreservations   list identifying the file preservations to add 
+     * @param filePreservations   list identifying the file preservations to add
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
      *   - The kickstartLabel is invalid
      *   - One of the filePreservations is invalid
      * @return 1 if the associations were performed correctly
-     * 
+     *
      * @xmlrpc.doc Adds the given list of file preservations to the specified kickstart
      * profile.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -621,15 +621,15 @@ public class SystemDetailsHandler extends BaseHandler {
         if (filePreservations == null) {
             throw new IllegalArgumentException("filePreservations cannot be null");
         }
-        
+
         // Load the kickstart profile
         User user = getLoggedInUser(sessionKey);
         Org org = user.getOrg();
-        
+
         KickstartData data =
-            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
                 org.getId());
-        
+
         // Add the file preservations
         KickstartEditCommand command =
             new KickstartEditCommand(data.getId(), user);
@@ -646,7 +646,7 @@ public class SystemDetailsHandler extends BaseHandler {
         }
         // Cycle through the list of file list objects retrieved and add
         // them to the profile.  We do this on a second pass because, we
-        // don't want to remove anything if there was an error that would have 
+        // don't want to remove anything if there was an error that would have
         // resulted in an exception being thrown.
         for (FileList fileList : fileLists) {
             command.getKickstartData().addPreserveFileList(fileList);
@@ -654,20 +654,20 @@ public class SystemDetailsHandler extends BaseHandler {
         command.store();
         return 1;
     }
-    
+
     /**
      * Removes the given list of file preservations from the specified kickstart profile.
-     * 
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     *
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
      * @param kickstartLabel identifies the profile; cannot be <code>null</code>
-     * @param filePreservations   list identifying the file preservations to remove 
+     * @param filePreservations   list identifying the file preservations to remove
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
      *   - The kickstartLabel is invalid
      *   - One of the filePreservations is invalid
      * @return 1 if the associations were performed correctly
-     * 
-     * @xmlrpc.doc Removes the given list of file preservations from the specified 
+     *
+     * @xmlrpc.doc Removes the given list of file preservations from the specified
      * kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "kickstartLabel")
@@ -687,15 +687,15 @@ public class SystemDetailsHandler extends BaseHandler {
         if (filePreservations == null) {
             throw new IllegalArgumentException("filePreservations cannot be null");
         }
-        
+
         // Load the kickstart profile
         User user = getLoggedInUser(sessionKey);
         Org org = user.getOrg();
-        
+
         KickstartData data =
-            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
                 org.getId());
-        
+
         // Associate the file preservations
         KickstartEditCommand command =
             new KickstartEditCommand(data.getId(), user);
@@ -712,7 +712,7 @@ public class SystemDetailsHandler extends BaseHandler {
         }
         // Cycle through the list of file list objects retrieved and remove
         // them from the profile.  We do this on a second pass because, we
-        // don't want to remove anything if there was an error that would have 
+        // don't want to remove anything if there was an error that would have
         // resulted in an exception being thrown.
         for (FileList fileList : fileLists) {
             command.getKickstartData().removePreserveFileList(fileList);
@@ -720,38 +720,38 @@ public class SystemDetailsHandler extends BaseHandler {
         command.store();
         return 1;
     }
-    
-    
+
+
     /**
      * Sets the registration type of a given kickstart profile.
-     * 
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     *
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
      * @param kickstartLabel identifies the profile; cannot be <code>null</code>
-     * @param registrationType   registration type 
+     * @param registrationType   registration type
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
      *   - The kickstartLabel is invalid
      *   - registration type is not reactivation/deletion/none
      * @return 1 if the associations were performed correctly
-     * 
+     *
      * @xmlrpc.doc Sets the registration type of a given kickstart profile.
      * Registration Type can be one of reactivation/deletion/none
      * These types determine the behaviour of the re registration when using
-     * this profile. 
+     * this profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "kickstartLabel")
      * @xmlrpc.param #param("string","registrationType")
      *      #options()
-     *         #item_desc ("reactivation", "to try and generate a reactivation key 
+     *         #item_desc ("reactivation", "to try and generate a reactivation key
      *              and use that to register the system when reprovisioning a system.")
-     *         #item_desc ("deletion", "to try and delete the existing system profile  
+     *         #item_desc ("deletion", "to try and delete the existing system profile
      *              and reregister the system being reprovisioned as new")
      *         #item_desc ("none", "to preserve the status quo and leave the current system
      *              as a duplicate on a reprovision.")
      *      #options_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setRegistrationType(String sessionKey, String kickstartLabel, 
+    public int setRegistrationType(String sessionKey, String kickstartLabel,
                                                         String registrationType) {
         User user = getLoggedInUser(sessionKey);
         ensureConfigAdmin(user);
@@ -760,38 +760,38 @@ public class SystemDetailsHandler extends BaseHandler {
         command.store();
         return 1;
     }
-    
-    
+
+
     /**
      * Returns the registration type of a given kickstart profile.
-     * 
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     *
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
      * @param kickstartLabel identifies the profile; cannot be <code>null</code>
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
      *   - The kickstartLabel is invalid
      * @return the registration type -> one of reactivation/deletion/none
-     * 
+     *
      * @xmlrpc.doc returns the registration type of a given kickstart profile.
      * Registration Type can be one of reactivation/deletion/none
      * These types determine the behaviour of the registration when using
-     * this profile for reprovisioning. 
+     * this profile for reprovisioning.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "kickstartLabel")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      * #param("string", "registrationType")
      *      #options()
      *         #item ("reactivation")
      *         #item ("deletion")
      *         #item ("none")
      *      #options_end()
-     */    
+     */
     public String  getRegistrationType(String sessionKey, String kickstartLabel) {
         User user = getLoggedInUser(sessionKey);
         ensureConfigAdmin(user);
         KickstartData data =
-            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel,
                     user.getOrg().getId());
         return data.getRegistrationType(user).getType();
-    }    
+    }
 }

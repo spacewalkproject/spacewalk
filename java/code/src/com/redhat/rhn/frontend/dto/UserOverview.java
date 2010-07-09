@@ -22,7 +22,7 @@ import java.util.Date;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
- * 
+ *
  * @version $Rev$
  */
 public class UserOverview extends BaseDto {
@@ -51,14 +51,14 @@ public class UserOverview extends BaseDto {
         }
         return LocalizationService.getInstance().formatDate(changeDate);
     }
-    
+
     /**
      * @return Returns the changeDate.
      */
     public Date getChangeDate() {
         return changeDate;
-    }    
-    
+    }
+
     /**
      * @return Returns the changedByFirstName.
      */
@@ -110,7 +110,7 @@ public class UserOverview extends BaseDto {
     public String getUserLogin() {
         return StringEscapeUtils.escapeHtml(userLogin);
     }
-    
+
     /**
      * get the login
      * @return the login
@@ -118,7 +118,7 @@ public class UserOverview extends BaseDto {
     public String getLogin() {
         return login;
     }
-    
+
     /**
      * get the login Uppercased
      * @return the login Uppercased
@@ -126,27 +126,27 @@ public class UserOverview extends BaseDto {
     public String getLoginUc() {
         return loginUc;
     }
-    
+
     /**
      * get the user's first name
-     * Don't escape this using StringEscapeUtils.escapeHtml, because it should be 
+     * Don't escape this using StringEscapeUtils.escapeHtml, because it should be
      *   escaped at display time .
      * @return the user's first name
      */
     public String getUserFirstName() {
         return userFirstName;
     }
-    
+
     /**
      * get the user's last name
-     * Don't escape this using StringEscapeUtils.escapeHtml, because it should be 
+     * Don't escape this using StringEscapeUtils.escapeHtml, because it should be
      *   escaped at display time .
      * @return the user's last name
      */
     public String getUserLastName() {
         return userLastName;
     }
-    
+
     /**
      * get the Role names
      * @return the role names
@@ -154,7 +154,7 @@ public class UserOverview extends BaseDto {
     public String getRoleNames() {
         return roleNames;
     }
-    
+
     /**
      * get the number of servers
      * @return the number of servers
@@ -162,7 +162,7 @@ public class UserOverview extends BaseDto {
     public Integer getServerCount() {
         return serverCount;
     }
-    
+
     /**
      * get the number of server groups
      * @return the number of server groups
@@ -170,7 +170,7 @@ public class UserOverview extends BaseDto {
     public Integer getServerGroupCount() {
         return serverGroupCount;
     }
-    
+
     /**
      * get the last logged in time
      * @return the last logged in time
@@ -190,7 +190,7 @@ public class UserOverview extends BaseDto {
     public Date getLastLoggedInDate() {
         return lastLoggedIn;
     }
-    
+
     /**
      * Set the id
      * @param i the id to set.
@@ -206,7 +206,7 @@ public class UserOverview extends BaseDto {
     public void setLogin(String l) {
         login = l;
     }
-    
+
     /**
      * Set the upper case login
      * @param l the login to set.
@@ -214,7 +214,7 @@ public class UserOverview extends BaseDto {
     public void setLoginUc(String l) {
         loginUc = l;
     }
-    
+
     /**
      * Set the user login
      * @param l the id to set.
@@ -222,7 +222,7 @@ public class UserOverview extends BaseDto {
     public void setUserLogin(String l) {
         userLogin = l;
     }
-    
+
     /**
      * Set the first name
      * @param fname the first nameto set.
@@ -230,7 +230,7 @@ public class UserOverview extends BaseDto {
     public void setUserFirstName(String fname) {
         userFirstName = fname;
     }
-    
+
     /**
      * Set the last name
      * @param lname the last name to set.
@@ -238,7 +238,7 @@ public class UserOverview extends BaseDto {
     public void setUserLastName(String lname) {
         userLastName = lname;
     }
-    
+
     /**
      * Set the role names
      * @param rnames the role names to set.
@@ -246,7 +246,7 @@ public class UserOverview extends BaseDto {
     public void setRoleNames(String rnames) {
         roleNames = rnames;
     }
-    
+
     /**
      * Set the server count
      * @param scount the server count to set.
@@ -254,7 +254,7 @@ public class UserOverview extends BaseDto {
     public void setServerCount(Integer scount) {
         serverCount = scount;
     }
-    
+
     /**
      * Set the server group count
      * @param sgcount the server group count to set.
@@ -262,13 +262,13 @@ public class UserOverview extends BaseDto {
     public void setServerGroupCount(Integer sgcount) {
         serverGroupCount = sgcount;
     }
-    
+
     /**
      * Set the last logged in time
      * @param lastLogin the last logged in time to set.
      */
     public void setLastLoggedIn(Date lastLogin) {
-        
+
         if (lastLogin == null) {
             return;
         }
@@ -283,7 +283,7 @@ public class UserOverview extends BaseDto {
         }
         changeDate = changeDateIn;
     }
-    
+
     /**
      * gets the org ID
      * @return the org id
@@ -291,12 +291,12 @@ public class UserOverview extends BaseDto {
     public Long getOrgId() {
         return orgId;
     }
-    
-    
+
+
     /**
      * Sets the org id
      * @param orgIdIn the orgid
-     */    
+     */
     public void setOrgId(Long orgIdIn) {
         this.orgId = orgIdIn;
     }

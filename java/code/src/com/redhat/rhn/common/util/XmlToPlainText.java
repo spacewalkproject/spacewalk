@@ -36,7 +36,7 @@ class XmlToPlainText {
     private static final String IGNORABLES = ".,;'\"?";
     private StringBuilder plainText;
     private String href;
-    
+
     /**
      * Converts an xml/html snippet to a plain text string..
      * @param snippet the xml snippet to convert..
@@ -53,14 +53,14 @@ class XmlToPlainText {
             return plainText.toString();
         }
         catch (JDOMException e) {
-            log.warn("Couldn't parse the snippet -> [" + snippet + "]", e); 
+            log.warn("Couldn't parse the snippet -> [" + snippet + "]", e);
         }
         catch (IOException e) {
             log.warn("Couldn't parse the snippet -> [" + snippet + "]", e);
         }
         return snippet;
     }
-    
+
     private void toPlainText(Object current) {
         if (current instanceof Text) {
             process((Text)current);
@@ -79,14 +79,14 @@ class XmlToPlainText {
                 toPlainText(o);
             }
         }
-        
+
     }
 
     private void process(Text current) {
         String text = current.getTextTrim();
         if (!StringUtils.isBlank(text)) {
             if (plainText.length() > 0 && IGNORABLES.indexOf(text) < 0) {
-                plainText.append(" ");    
+                plainText.append(" ");
             }
             plainText.append(text);
             if (!StringUtils.isBlank(href)) {

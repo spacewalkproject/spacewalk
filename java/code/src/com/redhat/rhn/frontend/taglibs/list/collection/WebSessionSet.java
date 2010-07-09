@@ -40,7 +40,7 @@ public abstract class WebSessionSet extends SelectableWebList {
     public WebSessionSet(HttpServletRequest request) {
         super(request);
     }
-    
+
     @Override
     protected void setup() {
         HttpServletRequest request = getContext().getRequest();
@@ -70,7 +70,7 @@ public abstract class WebSessionSet extends SelectableWebList {
     protected void syncSelections(List dataSet) {
         helper.syncSelections(set, dataSet);
     }
-    
+
     protected Map getSelections() {
         Map selections = new HashMap<Long, Long>();
         for (Object id : set) {
@@ -85,8 +85,8 @@ public abstract class WebSessionSet extends SelectableWebList {
     }
 
     /**
-     * @return returns the set 
-     * assoctiated to this class  
+     * @return returns the set
+     * assoctiated to this class
      */
     public Set getSet() {
         return set;

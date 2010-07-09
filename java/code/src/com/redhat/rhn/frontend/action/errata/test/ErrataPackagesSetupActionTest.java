@@ -31,7 +31,7 @@ public class ErrataPackagesSetupActionTest extends RhnBaseTestCase {
         ErrataPackagesSetupAction action = new ErrataPackagesSetupAction();
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action);
-        
+
         Errata e = ErrataFactoryTest.createTestErrata(
                 sah.getUser().getOrg().getId());
 
@@ -41,7 +41,7 @@ public class ErrataPackagesSetupActionTest extends RhnBaseTestCase {
 
         assertNotNull(sah.getRequest().getAttribute("errata"));
         assertNotNull(sah.getRequest().getAttribute("channels"));
-        
+
     }
 }
 

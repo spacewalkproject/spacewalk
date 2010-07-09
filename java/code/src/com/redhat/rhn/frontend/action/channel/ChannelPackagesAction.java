@@ -35,9 +35,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ChannelPackagesAction extends RhnAction {
-   
 
-    
+
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
@@ -46,12 +46,12 @@ public class ChannelPackagesAction extends RhnAction {
 
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
-        
-        
+
+
         long cid = requestContext.getRequiredParam("cid");
-        
+
         Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
-        
+
         if (chan == null) {
              throw new BadParameterException("Invalid cid parameter:" + cid);
         }
@@ -60,13 +60,13 @@ public class ChannelPackagesAction extends RhnAction {
         request.setAttribute("cid", chan.getId());
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("pageList", PackageManager.listPackagesInChannelForList(cid));
-        
+
         return mapping.findForward("default");
 
     }
-    
-    
 
-    
-    
+
+
+
+
 }

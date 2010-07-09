@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * ActionAclHandler contains ACL methods related to com.redhat.rhn.domain.action.Action
  * objects.
- * 
+ *
  * @version $Rev$
  */
 public class ActionAclHandler implements AclHandler {
@@ -52,7 +52,7 @@ public class ActionAclHandler implements AclHandler {
 
         return ActionFactory.checkActionArchType(action, params[0]);
     }
-    
+
     /**
      * Returns true if there is an action with the given id that
      * is one of four action types associated with solaris patches

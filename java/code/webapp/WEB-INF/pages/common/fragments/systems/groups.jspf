@@ -25,19 +25,19 @@
     </p>
 
  <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
-	<c:set var="nameStyle" value="last-column"/> 
+	<c:set var="nameStyle" value="last-column"/>
 </rhn:require>
 
 <rhn:require acl="not user_role(org_admin);not user_role(system_group_admin)">
-	<c:set var="nameStyle" value="first-column last-column"/> 
+	<c:set var="nameStyle" value="first-column last-column"/>
 </rhn:require>
 
 <c:set var="pageList" value="${requestScope.all}" />
 <rl:listset name="groupListSet">
 <c:choose>
-<c:when test="${not empty pageList}">  
+<c:when test="${not empty pageList}">
 	<rl:list dataset="pageList"
-         width="100%"        
+         width="100%"
          name="list"
          emptykey="assignedgroups.jsp.nogroups"
          alphabarcolumn="name">
@@ -49,9 +49,9 @@
 	 			styleclass="first-column"/>
 		</rhn:require>
   	   <!--Name Column -->
-		<rl:column sortable="true" 
+		<rl:column sortable="true"
 				   bound="false"
-		           headerkey="grouplist.jsp.name" 
+		           headerkey="grouplist.jsp.name"
 		           sortattr="name" filterattr="name" styleclass="${nameStyle}">
 		    		<a href="/network/systems/groups/details.pxt?sgid=${current.id}">${current.name}</a>
 		</rl:column>		 			
@@ -62,7 +62,7 @@
 <div align="right">
    <rhn:submitted/>
    <hr/>
-    <input type="submit" 
+    <input type="submit"
     	name ="dispatch"
 	    value='<bean:message key="${param.action_key}"/>'/>
 </div>

@@ -270,7 +270,7 @@ public class ErrataCacheManager extends HibernateFactory {
 
     /**
      * Asynchronusly updates the errata caches for the channels passed in.
-     * 
+     *
      * @param channelIdsToUpdate - channel IDs (Long) that need their errata
      * caches updated
      * @param errata the errata to update the cache for
@@ -297,11 +297,11 @@ public class ErrataCacheManager extends HibernateFactory {
             ErrataCacheManager.insertCacheForChannelPackages(cid, errata.getId(), pids);
         }
     }
-    
+
 
     /**
      * Asynchronusly updates the errata caches for the channels passed in.
-     * 
+     *
      * @param channelIdsToUpdate - channel IDs (Long) that need their errata
      * caches updated
      * @param packageIds list of package ids to insert cache entries for
@@ -345,7 +345,7 @@ public class ErrataCacheManager extends HibernateFactory {
             count = m.executeUpdate(params, pids);
         }
         if (log.isDebugEnabled()) {
-            log.debug("updateCacheForChannelErrata : " + "cache entries inserted: " + 
+            log.debug("updateCacheForChannelErrata : " + "cache entries inserted: " +
                     count);
         }
 
@@ -373,7 +373,7 @@ public class ErrataCacheManager extends HibernateFactory {
             log.debug("updateCacheForChannelErrata : " + "cache entries deleted: " + count);
         }
     }
-    
+
     /**
      * Delete errata cache entries for systems belonging to a certain channel
      * @param eid the errata to remove
@@ -394,13 +394,13 @@ public class ErrataCacheManager extends HibernateFactory {
             log.debug("updateCacheForChannelErrata : " + "cache entries deleted: " + count);
         }
     }
-    
+
 
     /**
      * Clear out and re-generate the entries in rhnServerNeededPackageCache and
      * rhnServerNeededErrataCache tables by channel. Usefull if the set of
      * errata or packages gets changed with a Channel
-     * 
+     *
      * @param cid - channel to update caches for.
      */
     public static void updateErrataAndPackageCacheForChannel(Long cid) {
@@ -412,7 +412,7 @@ public class ErrataCacheManager extends HibernateFactory {
         params.put("channel_id", cid);
         int count = m.executeUpdate(params);
         if (log.isDebugEnabled()) {
-            log.debug("updateErrataAndPackageCacheForChannel : " + 
+            log.debug("updateErrataAndPackageCacheForChannel : " +
                     "package_cache deleted: " + count);
         }
 
@@ -423,7 +423,7 @@ public class ErrataCacheManager extends HibernateFactory {
         params.put("channel_id", cid);
         count = m.executeUpdate(params);
         if (log.isDebugEnabled()) {
-            log.debug("updateErrataAndPackageCacheForChannel : " + 
+            log.debug("updateErrataAndPackageCacheForChannel : " +
                     "package_cache inserted: " + count);
         }
 
@@ -443,10 +443,10 @@ public class ErrataCacheManager extends HibernateFactory {
         params.put("channel_id", cid);
         int count = m.executeUpdate(params, pids);
         if (log.isDebugEnabled()) {
-            log.debug("delete_needed_cache_for_channel_packages : " + 
+            log.debug("delete_needed_cache_for_channel_packages : " +
                 "package_cache deleted: " + count);
         }
 
     }
-    
+
 }

@@ -25,11 +25,11 @@ import junit.framework.TestCase;
 public class SerializerFactoryTest extends TestCase {
 
     private SerializerFactory factory = null;
-    
+
     public void setUp() {
         factory = new SerializerFactory();
     }
-    
+
     public void testFactory() {
         List serializers = factory.getSerializers();
         assertNotNull(serializers);

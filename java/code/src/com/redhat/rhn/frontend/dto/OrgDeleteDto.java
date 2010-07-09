@@ -16,43 +16,43 @@ package com.redhat.rhn.frontend.dto;
 
 
 /**
- * 
+ *
  * OrgDto class represents Org lists
  * @version $Rev$
  */
 public class OrgDeleteDto extends BaseDto {
     private Long id;
     private String name;
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
-     * 
-     * @param idIn OrgIn Id 
+     *
+     * @param idIn OrgIn Id
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
-     * 
+     *
      * @return Name of Org
      */
     public String getName() {
         return name;
     }
-    
+
     /**
-     * 
+     *
      * @param nameIn of Org to set
      */
     public void setName(String nameIn) {
         this.name = nameIn;
-    }    
+    }
 }

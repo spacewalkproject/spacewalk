@@ -2,7 +2,7 @@
              imgAlt="action.common.scheduleAlt"
              helpUrl="/rhn/help/reference/en-US/s1-sm-actions.jsp">
   ${requestScope.actionname}
-</rhn:toolbar> 
-    
+</rhn:toolbar>
+
 <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/action_detail.xml"
                 renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

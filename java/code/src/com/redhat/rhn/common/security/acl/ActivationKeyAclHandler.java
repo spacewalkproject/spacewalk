@@ -30,7 +30,7 @@ import java.util.Map;
  */
 public class ActivationKeyAclHandler extends BaseHandler implements AclHandler {
     /**
-     * Returns true if the Token whose id matches the given tid, 
+     * Returns true if the Token whose id matches the given tid,
      * has the requested entitlement given by entitlement label in param 0
      * @param ctx Context Map to pass in
      * @param params Parameters to use to fetch from Context

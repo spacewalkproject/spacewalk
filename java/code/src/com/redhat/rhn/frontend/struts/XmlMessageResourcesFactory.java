@@ -19,8 +19,8 @@ import org.apache.struts.util.MessageResources;
 import org.apache.struts.util.MessageResourcesFactory;
 
 /**
- * XmlMessageResourcesFactory - factory class used by Struts to 
- * get to the XML based 
+ * XmlMessageResourcesFactory - factory class used by Struts to
+ * get to the XML based
  * @version $Rev$
  */
 
@@ -36,7 +36,7 @@ public class XmlMessageResourcesFactory extends MessageResourcesFactory {
     public MessageResources createResources(String config) {
         return new XmlMessageResources(this, config, this.returnNull);
     }
-    
+
     /**
      * Create and return a <code>MessageResourcesFactory</code> instance of the
      * appropriate class, which can be used to create customized
@@ -52,7 +52,7 @@ public class XmlMessageResourcesFactory extends MessageResourcesFactory {
             setFactoryClass("com.redhat.rhn.frontend.struts.XmlMessageResourcesFactory");
         // Since its a static method we can't override it, we have to encapsulate it
         return MessageResourcesFactory.createFactory();
-    }    
+    }
 
 
 }

@@ -48,7 +48,7 @@ public class InstallPatchSetAction extends LookupDispatchAction {
     private StrutsDelegate getStrutsDelegate() {
         return StrutsDelegate.getInstance();
     }
-    
+
     /**
      * Action to execute if confirm button is clicked
      * @param mapping ActionMapping
@@ -64,7 +64,7 @@ public class InstallPatchSetAction extends LookupDispatchAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) throws WrongPackageTypeException {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
@@ -99,11 +99,11 @@ public class InstallPatchSetAction extends LookupDispatchAction {
                                    ));
 
         strutsDelegate.saveMessages(request, msgs);
-        
+
         Map params = makeParamMap(request);
         return strutsDelegate.forwardParams(mapping.findForward("default"), params);
     }
-    
+
     /**
      * Default action to execute if dispatch parameter is missing
      * or isn't in map
@@ -120,31 +120,31 @@ public class InstallPatchSetAction extends LookupDispatchAction {
         Map params = makeParamMap(request);
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
     }
-    
+
     /**
      * Makes a parameter map containing request params that need to
      * be forwarded on to the success mapping.
      * @param request HttpServletRequest containing request vars
      * @return Returns Map of parameters
      */
-    
+
     protected Map makeParamMap(HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
-        
+
         Map params = new HashMap();
         Long sid = requestContext.getParamAsLong("sid");
         Long pid = requestContext.getParamAsLong("pid");
-        
+
         if (sid != null) {
             params.put("sid", sid);
         }
         if (pid != null) {
             params.put("pid", pid);
         }
-        
+
         return params;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -152,6 +152,6 @@ public class InstallPatchSetAction extends LookupDispatchAction {
         Map map = new HashMap();
         map.put("install_patchset.jsp.installbutton", "installPatchSet");
         return map;
-    }    
-    
+    }
+
 }

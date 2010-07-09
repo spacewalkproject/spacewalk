@@ -29,31 +29,31 @@ import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 public class ChannelAccessHandlerTest extends BaseHandlerTestCase {
 
     private ChannelAccessHandler handler = new ChannelAccessHandler();
-    
+
     public void testEnableUserRestrictions() throws Exception {
-        
+
         // setup
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
         admin.getOrg().addOwnedChannel(channel);
         OrgFactory.save(admin.getOrg());
         ChannelFactory.save(channel);
         flushAndEvict(channel);
-        
+
         // restrictions are disabled by default
         assertTrue(channel.isGloballySubscribable(admin.getOrg()));
-        
-        // execute 
+
+        // execute
         int result = handler.enableUserRestrictions(adminKey, channel.getLabel());
-        
+
         // verify
         assertEquals(1, result);
-        
+
         channel = ChannelFactory.lookupByLabelAndUser(channel.getLabel(), admin);
         assertFalse(channel.isGloballySubscribable(admin.getOrg()));
     }
-    
+
     public void testDisableUserRestrictions() throws Exception {
-        
+
         // setup
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
         admin.getOrg().addOwnedChannel(channel);
@@ -61,21 +61,21 @@ public class ChannelAccessHandlerTest extends BaseHandlerTestCase {
         channel.setGloballySubscribable(false, channel.getOrg());
         ChannelFactory.save(channel);
         flushAndEvict(channel);
-        
+
         assertFalse(channel.isGloballySubscribable(admin.getOrg()));
-        
+
         // execute
         int result = handler.disableUserRestrictions(adminKey, channel.getLabel());
-        
+
         // verify
         assertEquals(1, result);
-        
+
         channel = ChannelFactory.lookupByLabelAndUser(channel.getLabel(), admin);
         assertTrue(channel.isGloballySubscribable(admin.getOrg()));
     }
 
     public void testGetOrgSharing() throws Exception {
-        
+
         // setup
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
         admin.getOrg().addOwnedChannel(channel);
@@ -83,46 +83,46 @@ public class ChannelAccessHandlerTest extends BaseHandlerTestCase {
         channel.setAccess(Channel.PUBLIC);
         ChannelFactory.save(channel);
         flushAndEvict(channel);
-        
+
         assertEquals(Channel.PUBLIC, channel.getAccess());
-        
+
         // execute
         String result = handler.getOrgSharing(adminKey, channel.getLabel());
-        
+
         // verify
         assertEquals(Channel.PUBLIC, result);
     }
-    
+
     public void testSetOrgSharing() throws Exception {
-        
+
         // setup
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
         admin.getOrg().addOwnedChannel(channel);
         OrgFactory.save(admin.getOrg());
         ChannelFactory.save(channel);
         flushAndEvict(channel);
-        
+
         assertEquals(Channel.PRIVATE, channel.getAccess());
-        
+
         // execute
         int result = handler.setOrgSharing(adminKey, channel.getLabel(), Channel.PROTECTED);
-        
+
         // verify
         assertEquals(1, result);
 
         channel = ChannelFactory.lookupByLabelAndUser(channel.getLabel(), admin);
         assertEquals(Channel.PROTECTED, channel.getAccess());
     }
-    
+
     public void testSetOrgSharingInvalidAccess() throws Exception {
-        
+
         // setup
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
         admin.getOrg().addOwnedChannel(channel);
         OrgFactory.save(admin.getOrg());
         ChannelFactory.save(channel);
         flushAndEvict(channel);
-        
+
         try {
             handler.setOrgSharing(adminKey, channel.getLabel(), "invalid");
             fail("should have gottent an invalid access value exception.");

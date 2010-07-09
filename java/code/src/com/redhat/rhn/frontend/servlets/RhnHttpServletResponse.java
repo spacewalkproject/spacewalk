@@ -102,7 +102,7 @@ public class RhnHttpServletResponse extends HttpServletResponseWrapper {
         String rc = super.encodeRedirectURL(arg0);
         return rc;
     }
-    
+
     /**
      * {@inheritDoc}
      */

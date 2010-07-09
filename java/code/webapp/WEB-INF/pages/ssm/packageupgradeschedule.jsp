@@ -13,7 +13,7 @@
     <bean:message key="upgrade.jsp.header"/>
 </h2>
 
-<div class="page-summary">                                      
+<div class="page-summary">
     <c:if test="${requestScope.numSystems != '1'}">
         <p><bean:message key="ssm.package.install.schedule.summary.plural" arg0="${requestScope.numSystems}"/></p>
     </c:if>
@@ -30,7 +30,7 @@
              styleclass="list">
 
         <rl:decorator name="ElaborationDecorator"/>
-        
+
         <rl:column headerkey="actions.jsp.system" bound="false"
                    sortattr="name" sortable="true" styleclass="first-column">
             ${current.server_name}
@@ -44,10 +44,10 @@
 
             <c:if test="${fn:length(current.elaborator0) > 19}">
                 <i><bean:message key="ssm.package.upgrade.schedule.toomanypackages"/></i>
-            </c:if>                
-            
+            </c:if>
+
         </rl:column>
-        
+
     </rl:list>
 
     <div align="right">
@@ -88,7 +88,7 @@
 
     <input type="hidden" name="packagesDecl" value="${requestScope.packagesDecl}" />
     <input type="hidden" name="cid" value="${param.cid}" />
-    
+
 </rl:listset>
 
 </body>

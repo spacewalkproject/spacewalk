@@ -33,45 +33,45 @@ public class CryptoKey implements Identifiable {
     private Long id;
     private String description;
     private byte[] key;
-    
+
     private CryptoKeyType cryptoKeyType;
     private Org org;
-    
-    
-    /** 
-     * Getter for id 
+
+
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
 
-    /** 
-     * Getter for key 
+    /**
+     * Getter for key
      * @return Blob to get
     */
     private Blob getKeyBlob() {
@@ -83,15 +83,15 @@ public class CryptoKey implements Identifiable {
         }
     }
 
-    /** 
-     * Setter for key 
+    /**
+     * Setter for key
      * @param keyIn to set
     */
     private void setKeyBlob(Blob keyIn) {
         this.key = HibernateFactory.blobToByteArray(keyIn);
     }
 
-    
+
     /**
      * @return Returns the cryptoKeyType.
      */
@@ -99,30 +99,30 @@ public class CryptoKey implements Identifiable {
         return cryptoKeyType;
     }
 
-    
+
     /**
      * @param cryptoKeyTypeIn The cryptoKeyType to set.
      */
     public void setCryptoKeyType(CryptoKeyType cryptoKeyTypeIn) {
         this.cryptoKeyType = cryptoKeyTypeIn;
     }
-    
+
     /**
-     * 
+     *
      * @return true if this is a SSL key
      */
     public boolean isSSL() {
         return this.getCryptoKeyType().getLabel().equals("SSL");
     }
-    
+
     /**
-     * 
-     * @return if this is a GPG key 
+     *
+     * @return if this is a GPG key
      */
     public boolean isGPG() {
         return this.getCryptoKeyType().getLabel().equals("GPG");
     }
-    
+
     /**
      * @return Returns the org.
      */
@@ -130,7 +130,7 @@ public class CryptoKey implements Identifiable {
         return org;
     }
 
-    
+
     /**
      * @param orgIn The org to set.
      */
@@ -138,7 +138,7 @@ public class CryptoKey implements Identifiable {
         this.org = orgIn;
     }
 
-    
+
     /**
      * @return Returns the key.
      */
@@ -146,17 +146,17 @@ public class CryptoKey implements Identifiable {
         return key;
     }
 
-    
+
     /**
      * @param keyIn The key to set.
      */
     public void setKey(byte[] keyIn) {
         this.key = keyIn;
     }
-    
+
     /**
      * Get a string version of this key.  Convenience method.
-     * 
+     *
      * @return String version of the key.
      */
     public String getKeyString() {

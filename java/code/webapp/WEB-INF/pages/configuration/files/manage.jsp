@@ -13,20 +13,20 @@
 	action="/rhn/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}">
 	<rhn:list pageList="${requestScope.pageList}"
 	          noDataText="manage.jsp.noRevisions">
-	          
+
       <rhn:listdisplay set="${requestScope.set}"
                        button="manage.jsp.delete"
                        buttonAcl="config_channel_editable(${channel.id})"
                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
         <rhn:require acl="config_channel_editable(${channel.id})"
-                     mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler"> 
+                     mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
 	 	  <rhn:set value="${current.id}"/>
 	 	</rhn:require>
 	 	
 		<rhn:column header="manage.jsp.name">
 			<a href="/rhn/configuration/file/FileDetails.do?crid=${current.id}&amp;cfid=${file.id}">
 			  <cfg:file nolink="true" id="${file.id}" revisionId="${current.id}"  path="${file.configFileName.path}" type="${file.latestConfigRevision.configFileType.label}" />
-			  <bean:message key="manage.jsp.revision" 
+			  <bean:message key="manage.jsp.revision"
 			                arg0="${current.revisionNumber}"/>
 			</a>
       	</rhn:column>
@@ -59,9 +59,9 @@
     <tr>
       <th><bean:message key="manage.jsp.uploadtab"/></th>
       <td><html:file property="cffUpload" /></td>
-    </tr>  
+    </tr>
   </table>
-  
+
   <div align="right">
     <hr />
     <html:submit property="dispatch">

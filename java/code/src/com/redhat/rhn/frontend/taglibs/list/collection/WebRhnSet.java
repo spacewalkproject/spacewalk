@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 public abstract class WebRhnSet extends SelectableWebList {
     private RhnSet set;
     private RhnListSetHelper helper;
-    
+
     /**
      * Constructor
      * @param request Servlet request
@@ -53,8 +53,8 @@ public abstract class WebRhnSet extends SelectableWebList {
         User user =  getContext().getLoggedInUser();
         set = decl.get(user);
         super.setup();
-    }    
-    
+    }
+
     protected void clear() {
         set.clear();
         RhnSetManager.store(set);
@@ -76,7 +76,7 @@ public abstract class WebRhnSet extends SelectableWebList {
     protected void syncSelections(List dataSet) {
         helper.syncSelections(set, dataSet);
     }
-    
+
     protected Map getSelections() {
         Map <Long, Long> selections = new HashMap<Long, Long>();
         for (Long id : set.getElementValues()) {
@@ -90,7 +90,7 @@ public abstract class WebRhnSet extends SelectableWebList {
     }
 
     /**
-     * @return returns the rhnset associated 
+     * @return returns the rhnset associated
      *          to set
      */
     public RhnSet getSet() {

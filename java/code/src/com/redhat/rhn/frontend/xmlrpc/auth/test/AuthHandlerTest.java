@@ -38,23 +38,23 @@ public class AuthHandlerTest extends RhnBaseTestCase {
             // success
         }
     }
-    
+
     public void testLoginLogout() throws Exception {
         AuthHandler handler = new AuthHandler();
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         long dbLifetime = new Long(Config.get().getString("session_database_lifetime"))
                                   .longValue();
         long currentTime = System.currentTimeMillis() / 1000;
-        
+
         Integer invalidDuration = new Integer(String.valueOf(dbLifetime + 100));
-        
+
         //Test the login(String username, String password) method
         // - make sure we create a valid session
         // - make sure the expires got set correctly
         String key1 = handler.login(user.getLogin(), "password");
         WebSession s = SessionManager.loadSession(key1);
         //make sure the getExpires is sometime in the future
-        assertTrue(s.getExpires() > currentTime); 
+        assertTrue(s.getExpires() > currentTime);
 
         //Test bad login
         try {
@@ -71,14 +71,14 @@ public class AuthHandlerTest extends RhnBaseTestCase {
         catch (Exception e) {
             //success
         }
-        
+
         /*
-         * Since we're here and we have a sessionkey and a logged in user, 
+         * Since we're here and we have a sessionkey and a logged in user,
          * let's test BaseHandler.getLoggedInUser.
          */
         User user2 = handler.getLoggedInUser(key1);
         assertEquals(user, user2);
-        
+
         try {
             user2 = handler.getLoggedInUser("foo");
             fail("BaseHandler.getLoggedInUser() took in an invalid session key");
@@ -86,7 +86,7 @@ public class AuthHandlerTest extends RhnBaseTestCase {
         catch (InvalidSessionIdException e) {
             //success
         }
-        
+
         //Make sure logout works
         try {
             handler.logout("foo");
@@ -96,7 +96,7 @@ public class AuthHandlerTest extends RhnBaseTestCase {
             //success
         }
         handler.logout(key1);
-        
+
         //make sure key1 was removed
         try {
             SessionManager.lookupByKey(key1);
@@ -106,10 +106,10 @@ public class AuthHandlerTest extends RhnBaseTestCase {
             //success
         }
     }
-    
+
     public void testCheckAuthToken() {
         AuthHandler handler = new AuthHandler();
-        assertTrue(handler.checkAuthToken(TestUtils.randomString(), 
+        assertTrue(handler.checkAuthToken(TestUtils.randomString(),
                 TestUtils.randomString()) == 0);
     }
 }

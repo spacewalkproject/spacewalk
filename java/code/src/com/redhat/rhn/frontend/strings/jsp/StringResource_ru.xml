@@ -6486,8 +6486,8 @@ the following tabs in the left navigation menu:</source>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
 				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>Подписками можно управлять на @@PRODUCT_NAME@@. Также можно проверить
 предоставляемый отдельными полномочиями доступ.
@@ -6804,7 +6804,7 @@ Please note that some manual configuration of these scripts may still be require
 				<target>Обновить переменные</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
 				<target>Переменные кикстарта могут использоваться для замены значений в профилях кикстарта. Определить переменную можно с помощью выражения «имя=значение».
         			После этого для замены значения в профиле можно просто указать $name.</target>
@@ -7147,8 +7147,8 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;Замечание:&lt;/strong&gt; Изменение типа виртуализации может потребовать изменений
             загрузчика профиля кикстарта и параметров разделов, что может перезаписать пользовательские настройки.
@@ -7651,7 +7651,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 За подробной информацией о сценариях pre обратитесь к &lt;strong&gt;Руководству системного администратора Red Hat Enterprise Linux.&lt;/strong&gt;
 &lt;br/&gt;&lt;br/&gt;
 У вас также есть возможность редактирования сценария post. Сначала будут выполняться команды @@PRODUCT_NAME@@ (например, регистрация системы в @@PRODUCT_NAME@@).
-Затем будет запущен сценарий post (не chroot), и наконец, сценарий post. За подробной информацией о сценариях post обратитесь к 
+Затем будет запущен сценарий post (не chroot), и наконец, сценарий post. За подробной информацией о сценариях post обратитесь к
 &lt;strong&gt;Руководству системного администратора Red Hat Enterprise Linux.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.langheader">
@@ -10252,7 +10252,7 @@ You can, however, download this file, edit it locally on your computer, and uplo
 This file is too large to display here. (files must be less than &lt;strong&gt;{0}&lt;/strong&gt; to be displayed).
 You can, however, download this file.</source>
 				<target>
-Файл слишком большой для отображения. 
+Файл слишком большой для отображения.
 Максимальный размер файла для просмотра: &lt;strong&gt;{0}&lt;/strong&gt;
 Для просмотра загрузите файл.</target>
 			</trans-unit>
@@ -12410,9 +12410,9 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 до начала выполнения кикстарта или создания дистрибутива кикстарта.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
-				<source> 
+				<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;</source>
-				<target> 
+				<target>
 &lt;strong&gt;Нет применимых установок для выбранного базового канала. &lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.toolbar">
@@ -13310,11 +13310,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.description">
 				<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)</source>
 				<target>
-	Ниже приведен полный список ISO-образов для &lt;strong&gt;последнего выпуска&lt;/strong&gt; {0}.  
+	Ниже приведен полный список ISO-образов для &lt;strong&gt;последнего выпуска&lt;/strong&gt; {0}.
 	В зависимости от устанавливаемого варианта {0} вам могут понадобиться только некоторые диски.
     (&lt;a href="{1}"&gt;подробнее...&lt;/a&gt;)</target>
 			</trans-unit>
@@ -13340,7 +13340,7 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.note">
 				<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
@@ -13354,10 +13354,10 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.rest.description">
 				<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.</source>
 				<target>
-Ниже приведен полный список ISO-образов для &lt;strong&gt;предыдущих выпусков&lt;/strong&gt; {0}.  
+Ниже приведен полный список ISO-образов для &lt;strong&gt;предыдущих выпусков&lt;/strong&gt; {0}.
 Только один набор ISO-образов необходим для установки любого выпуска {0}.</target>
 			</trans-unit>
 			<trans-unit id="isodownload.viewprevious">
@@ -13861,7 +13861,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           possible to share content and migrate systems between these two organizations. You may add a trust by checking
           the box next to an organization (or remove a trust by unchecking it) and clicking the 'Modify Trusts' button.</source>
 				<target>
-          Отмеченные ниже организации являются доверенными по отношению к {0}. 
+          Отмеченные ниже организации являются доверенными по отношению к {0}.
           Это означает, что можно обеспечить совместный доступ к содержимому или осуществлять
           миграцию систем между двумя организациями.
           Установите флажок напротив организации, чтобы определить ее как доверенную и
@@ -13876,24 +13876,24 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
             &lt;p/&gt;
             Please review the changes you are about to make before confirming the trust removal(s).</source>
 				<target>
-            Вы действительно хотите удалить перечисленные ниже доверенные организации? 
+            Вы действительно хотите удалить перечисленные ниже доверенные организации?
             Организация {0} включает в свой состав системы, которые подписаны к содержимому,
             предоставляемому организацией, связь с которой вы удаляете.
-            Так, например, системы больше не смогут получать обновления безопасности, 
+            Так, например, системы больше не смогут получать обновления безопасности,
             предоставляемые этим доверенным ресурсом.
             &lt;p/&gt;
             Еще раз проверьте вносимые изменения, прежде чем их применить.</target>
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
 				<target>
             Удаление связи доверия между организациями &lt;b&gt;{0}&lt;/b&gt; и &lt;b&gt;{1}&lt;/b&gt;
             окажет влияние на перечисленные ниже системы.
-            Так, например, системы больше не смогут получать обновления безопасности, 
+            Так, например, системы больше не смогут получать обновления безопасности,
             предоставляемые этим доверенным ресурсом.</target>
 			</trans-unit>
 			<trans-unit id="org.trust.trusts">
@@ -14892,26 +14892,26 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.</source>
 				<target>На этой странице можно создать или изменить программные каналы.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Если родительский канал не задан, то канал будет являться базовым.
         В противном случае канал будет являться дочерним по отношению к заданному.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Потребуется указать имя и метку канала, которые должны содержать не меньше 6 символов.
         Метки должны начинаться с буквы и могут содержать буквы в нижнем регистре, цифры,
         и символы «-», «.», «_». Имя канала также может содержать пробелы и «/».
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Кроме того, требуется ввести краткое описание канала.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
@@ -14956,9 +14956,9 @@ given channel.</source>
         systems may no longer receive critical security updates to content
         provided by this channel.</source>
 				<target>Вы действительно хотите определить этот канал как &lt;strong&gt;частный&lt;/strong&gt;?
-       Он будет доступен только системам в составе вашей организации. 
+       Он будет доступен только системам в составе вашей организации.
        Некоторые системы в других организациях подписаны к содержимому,
-       предоставляемому этим каналом. 
+       предоставляемому этим каналом.
        Так, например, эти системы не смогут получать критические обновления безопасности.</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.confirmmsg.deux">
@@ -14975,7 +14975,7 @@ given channel.</source>
         content provided by this channel.</source>
 				<target>Вы действительно хотите определить этот канал как &lt;strong&gt;защищенный&lt;/strong&gt;?
        Некоторые системы в организациях подписаны к содержимому,
-       предоставляемому этим каналом. 
+       предоставляемому этим каналом.
        Так, например, эти системы не смогут получать критические обновления безопасности.</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg.deux">

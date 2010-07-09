@@ -36,11 +36,11 @@ import org.apache.struts.action.Action;
  */
 public class ProbeSuitesRemoveSetupActionTest extends RhnBaseTestCase {
     private Action action = null;
-    
+
     public void setUp() {
         action = new ProbeSuitesRemoveSetupAction();
     }
-    
+
     public void testExecute() throws Exception {
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action);
@@ -59,14 +59,14 @@ public class ProbeSuitesRemoveSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("returnvisit", (String) null);
         sah.getRequest().setupAddParameter("submitted", "false");
         sah.executeAction();
-        
+
         RhnMockHttpServletRequest request = sah.getRequest();
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         user = requestContext.getLoggedInUser();
         set = (RhnSet) request.getAttribute("set");
-        
+
         DataResult dr = (DataResult) request.getAttribute("pageList");
         assertNotNull(dr);
         assertTrue(dr.size() > 0);

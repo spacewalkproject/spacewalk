@@ -22,7 +22,7 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class KickstartCloneCommandTest extends BaseKickstartCommandTestCase {
-    
+
     public void testClone() throws Exception {
         KickstartCloneCommand cmd = new KickstartCloneCommand(ksdata.getId(), user,
                 "someNewLabel [" + TestUtils.randomString() + "]");

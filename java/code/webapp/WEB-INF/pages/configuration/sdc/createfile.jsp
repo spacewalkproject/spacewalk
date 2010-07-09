@@ -18,7 +18,7 @@
     <bean:message key="sdccreatefile.jsp.summary"/>
     </p>
   </div>
-  
+
   <div class="createfragment">
     <html:form action="/systems/details/configuration/addfiles/CreateFile.do?sid=${system.id}">
       <%@ include file="/WEB-INF/pages/common/fragments/configuration/channel/create.jspf" %>

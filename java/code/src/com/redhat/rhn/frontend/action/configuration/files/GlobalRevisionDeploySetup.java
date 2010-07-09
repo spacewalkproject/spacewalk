@@ -30,7 +30,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  * @version $Rev$
  */
 public class GlobalRevisionDeploySetup extends BaseSetListAction {
-    
+
     protected DataResult getDataResult(RequestContext ctx, PageControl pc) {
         User usr = ctx.getLoggedInUser();
         ConfigFile cf = ConfigActionHelper.getFile(ctx.getRequest());
@@ -44,7 +44,7 @@ public class GlobalRevisionDeploySetup extends BaseSetListAction {
         ConfigActionHelper.processRequestAttributes(rctxIn);
         super.processRequestAttributes(rctxIn);
     }
-    
+
     protected void processPageControl(PageControl pc) {
         pc.setFilterColumn("name");
         pc.setFilter(true);

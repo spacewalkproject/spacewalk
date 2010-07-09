@@ -55,14 +55,14 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
 
     /**
      * constructor
-     * Construct a command with a KSdata provided. 
+     * Construct a command with a KSdata provided.
      * @param data the kickstart data
      * @param userIn Logged in User
      */
     public KickstartLocaleCommand(KickstartData data, User userIn) {
         super(data, userIn);
     }
-    
+
     /**
      * Get the timezone from the KickstartData object
      *
@@ -120,7 +120,7 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
      * Get a list of valid timezones
      *
      * @return ArrayList of valid timeszones (HashMaps with display/value)
-     */ 
+     */
     public ArrayList getValidTimezones() {
         DataResult dr = KickstartLister.getInstance()
             .getValidTimezones(getKickstartData().getId().toString());
@@ -145,9 +145,9 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
      *
      * @param timezone The timezone to check
      * @return boolean true if timezone is valid; otherwise, false
-     */ 
+     */
     public Boolean isValidTimezone(String timezone) {
-        
+
         DataResult dr = KickstartLister.getInstance()
         .getValidTimezones(getKickstartData().getId().toString());
 
@@ -160,7 +160,7 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
         }
         return Boolean.FALSE;
     }
-    
+
     /*
      * Make a 'timezone' command if one does not already exist
      * @param timezoneCommand The KickstartCommand object for timezone
@@ -187,7 +187,7 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
     public Boolean isUsingUtc() {
         return getKickstartData().isUsingUtc();
     }
-    
+
     /**
      * Add the --utc flag if it does not already exist in the kickstart's 'timezone' command
      *
@@ -207,7 +207,7 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
 
         String args = timezoneCommand.getArguments();
         LinkedList tokens = new LinkedList();
-        
+
         if (args != null) {
             tokens = (LinkedList) StringUtil.stringToList(args);
         }
@@ -236,7 +236,7 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
 
         String args = timezoneCommand.getArguments();
         LinkedList tokens = new LinkedList();
-        
+
         if (args != null) {
             tokens = (LinkedList) StringUtil.stringToList(args);
         }
@@ -245,7 +245,7 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
 
         while (iter.hasNext()) {
             String current = (String) iter.next();
-                
+
             if (current.equals("--utc")) {
                 iter.remove();
             }

@@ -26,9 +26,9 @@ import com.redhat.rhn.testing.RhnMockDynaActionForm;
  * @version $Rev$
  */
 public class UserPrefSetupActionTest extends RhnBaseTestCase {
-    
+
     /**
-     * 
+     *
      * @throws Exception on server init failure
      */
     public void testPerformExecute() throws Exception {
@@ -44,7 +44,7 @@ public class UserPrefSetupActionTest extends RhnBaseTestCase {
     }
 
     /**
-     * 
+     *
      * @throws Exception on server init failure
      */
     public void testNoParamExecute() throws Exception {

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.org.usergroup.UserGroupImpl" 
+    <class name="com.redhat.rhn.domain.org.usergroup.UserGroupImpl"
         table="RHNUSERGROUP">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -12,16 +12,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             </generator>
         </id>
         <property name="name" column="name" type="string" length="64" />
-        <property name="description" column="description" type="string" 
+        <property name="description" column="description" type="string"
             length="1024" />
-        <property name="currentMembers" column="current_members" type="long" 
+        <property name="currentMembers" column="current_members" type="long"
             insert="false" update="true" />
         <property name="orgId" column="org_id" type="long" />
-        <property name="created" column="created" type="timestamp" 
+        <property name="created" column="created" type="timestamp"
             insert="false" update="false" />
-        <property name="modified" column="modified" type="timestamp" 
+        <property name="modified" column="modified" type="timestamp"
             insert="false" update="false" />
-        <many-to-one name="role" column="group_type" 
+        <many-to-one name="role" column="group_type"
             class="com.redhat.rhn.domain.role.RoleImpl" not-null="true" />
     </class>
     <query name="UserGroup.findById">
@@ -29,10 +29,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     <query name="UserGroup.findByRole">
     	<![CDATA[ select ug
-    		from com.redhat.rhn.domain.org.usergroup.UserGroupImpl as ug 
+		from com.redhat.rhn.domain.org.usergroup.UserGroupImpl as ug
     		where ug.role = :role ]]>
     </query>
-    
-    
+
+
 </hibernate-mapping>
 

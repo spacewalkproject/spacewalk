@@ -34,7 +34,7 @@ public class SelectMode extends BaseMode {
     // We could (and probably should) cache the ResultSet metadata here as
     // well.  There is no reason that the first call to each statement
     // couldn't do the work to determine what is returned.
-    
+
     /** Constructs a new SelectMode */
     public SelectMode() {
         elaborators = new ArrayList();
@@ -52,7 +52,7 @@ public class SelectMode extends BaseMode {
             setQuery(new CachedStatement(modeIn.getQuery()));
         }
     }
-    
+
     /**
      * Set the class for this mode.
      * @param c the class to set
@@ -104,7 +104,7 @@ public class SelectMode extends BaseMode {
     public DataResult execute(Map parameters) {
         return getQuery().execute(parameters, this);
     }
-    
+
     /**
      * Executes the query with an IN clause.
      * @param parameters Query parameters.
@@ -113,7 +113,7 @@ public class SelectMode extends BaseMode {
     public DataResult execute(List parameters) {
         return getQuery().execute(parameters, this);
     }
-    
+
     /**
      * Executes the query with no parameters.
      * @return DataResult containing results from query.
@@ -121,7 +121,7 @@ public class SelectMode extends BaseMode {
     public DataResult execute() {
         return getQuery().execute((Map) null, this);
     }
-    
+
     /**
      * Executes the query with the given parameters an an IN clause.
      * @param parameters named parameters for the Query.
@@ -156,10 +156,10 @@ public class SelectMode extends BaseMode {
     /** {@inheritDoc} */
     public String toString() {
         String str = super.toString();
-        return str + 
+        return str +
                "  # of elaborators: " + elaborators.size() + " ]";
     }
-    
+
     /**
      * The maximum number of rows to be returned by the query. Zero (0)
      * means unlimited.
@@ -171,7 +171,7 @@ public class SelectMode extends BaseMode {
         }
         maxRows = max;
     }
-    
+
     /**
      * Returns maximum number of rows to be returned by this query.
      * @return maximum number of rows to be returned by this query.

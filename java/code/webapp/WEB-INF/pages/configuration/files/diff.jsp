@@ -46,7 +46,7 @@
       <c:if test="${view != 'full'}">
         </a>
       </c:if>
-  
+
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <c:if test="${view != 'changed'}">
         <a href="/rhn/configuration/file/Diff.do?cfid=${file.id}&amp;crid=${revision.id}&amp;ocrid=${orevision.id}&amp;view=changed">

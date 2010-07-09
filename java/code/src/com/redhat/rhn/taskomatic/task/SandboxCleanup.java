@@ -33,14 +33,14 @@ import java.util.Map;
  * @version $Rev$
  */
 public class SandboxCleanup extends SingleThreadedTask {
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
-     */    
+     */
     public static final String DISPLAY_NAME = "sandbox_cleanup";
 
     private static Logger log = Logger.getLogger(SandboxCleanup.class);
-    
+
     /**
      * {@inheritDoc}
      */
@@ -54,11 +54,11 @@ public class SandboxCleanup extends SingleThreadedTask {
         remove("find_sandbox_file_candidates", params, "remove_sandbox_file");
         remove("find_sandbox_channel_candidates", params, "remove_sandbox_channel");
     }
-    
+
     private void remove(String candidateQuery, Map candidateParams, String removeQuery) {
-        SelectMode candidateMode = 
+        SelectMode candidateMode =
             ModeFactory.getMode("Task_queries", candidateQuery);
-        CallableMode removeMode = 
+        CallableMode removeMode =
             ModeFactory.getCallableMode("Task_queries", removeQuery);
         List candidates = candidateMode.execute(candidateParams);
         if (candidates != null && candidates.size() > 0) {
@@ -71,5 +71,5 @@ public class SandboxCleanup extends SingleThreadedTask {
             }
         }
     }
-    
+
 }

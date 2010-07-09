@@ -27,22 +27,22 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class CompareCopyActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         //Make the user a config admin
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //Create the revision to compare
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
         Long cfid = revision.getConfigFile().getId();
         Long crid = revision.getId();
-        
+
         //Create another revision, file, and channel to appear in the list
         String path = revision.getConfigFile().getConfigFileName().getPath();
         ConfigFile file = ConfigTestUtils.createConfigFile(user.getOrg(), path);
         ConfigTestUtils.createConfigRevision(file);
-        
+
         setRequestPathInfo("/configuration/file/CompareCopy");
         addRequestParameter("cfid", cfid.toString());
         addRequestParameter("crid", crid.toString());

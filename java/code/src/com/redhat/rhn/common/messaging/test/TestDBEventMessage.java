@@ -20,33 +20,33 @@ import com.redhat.rhn.common.messaging.EventDatabaseMessage;
 import org.hibernate.Transaction;
 
 public class TestDBEventMessage implements EventDatabaseMessage {
-    
+
     private boolean msgReceived = false;
     private String testString;
     private Transaction txn;
-    
+
     public TestDBEventMessage(Transaction txnIn, String testStringIn) {
         txn = txnIn;
         testString = testStringIn;
     }
-    
+
     /**
      * Perform the action on the EventMessage
      */
     public String toText() {
         return "This is a DB test";
     }
-    
-    /* Check to see if this message was acted upon by 
+
+    /* Check to see if this message was acted upon by
      * the Action class.
      */
     public boolean getMessageReceived() {
         return msgReceived;
     }
-    
+
     /* The Action should call this message.
-     * This is a BAD BAD BAD design pattern to have 
-     * the Action modify the event but is good for 
+     * This is a BAD BAD BAD design pattern to have
+     * the Action modify the event but is good for
      * testing because we can determine if the MessageQueue
      * processed this event.
      */
@@ -61,7 +61,7 @@ public class TestDBEventMessage implements EventDatabaseMessage {
     public Object getTestString() {
         return this.testString;
     }
-    
+
 
 }
 

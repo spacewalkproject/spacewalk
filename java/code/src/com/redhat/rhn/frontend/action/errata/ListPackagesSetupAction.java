@@ -44,34 +44,34 @@ public class ListPackagesSetupAction extends BaseErrataSetupAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         //Get the errata from the eid in the request
         Errata errata = requestContext.lookupErratum();
         //Get the logged in user
         User user = requestContext.getLoggedInUser();
-        
- 
-        
+
+
+
         //Setup the page control for this user
         PageControl pc = new PageControl();
         pc.setIndexData(true);
         pc.setFilterColumn("package_nvre");
         pc.setFilter(true);
         clampListBounds(pc, request, user);
-        
+
         DataResult dr = PackageManager.packagesInErrata(errata, pc);
-        
+
         RhnSet set = RhnSetDecl.PACKAGES_TO_REMOVE.get(user);
         request.setAttribute("pageList", dr);
         request.setAttribute("set", set);
-        
+
        if (!requestContext.isSubmitted()) {
             set.clear();
             RhnSetFactory.save(set);
         }
-        
+
         return super.execute(mapping, formIn, request, response);
     }
 }

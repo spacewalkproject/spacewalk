@@ -51,10 +51,10 @@ public class CompareSystemSetupAction extends RhnAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         processRequestAttributes(requestContext);
-        
+
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
         Long sid1 = requestContext.getRequiredParam(RequestContext.SID1);
         Set sessionSet = SessionSetHelper.lookupAndBind(request, getDecl(sid));
@@ -64,12 +64,12 @@ public class CompareSystemSetupAction extends RhnAction {
         // clear the 'dirty set'
         if (!requestContext.isSubmitted()) {
             sessionSet.clear();
-        }        
+        }
 
         SessionSetHelper helper = new SessionSetHelper(request);
-        
+
         if (request.getParameter("dispatch") != null) {
-            // if its one of the Dispatch actions handle it..            
+            // if its one of the Dispatch actions handle it..
             helper.updateSet(sessionSet, LIST_NAME);
             if (!sessionSet.isEmpty()) {
                 return handleDispatchAction(mapping, requestContext);
@@ -82,27 +82,27 @@ public class CompareSystemSetupAction extends RhnAction {
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward("error"), params);
             }
-        }   
+        }
         DataResult dataSet = getDataResult(requestContext);
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
             helper.execute(sessionSet, LIST_NAME, dataSet);
-        }        
+        }
 
-        // if I have a previous set selections populate data using it       
+        // if I have a previous set selections populate data using it
         if (!sessionSet.isEmpty()) {
             helper.syncSelections(sessionSet, dataSet);
             ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(), request);
         }
-        
-        request.setAttribute(ListTagHelper.PARENT_URL, 
-                request.getRequestURI() + "?sid=" + sid + "&sid_1=" + sid1);  
-        
+
+        request.setAttribute(ListTagHelper.PARENT_URL,
+                request.getRequestURI() + "?sid=" + sid + "&sid_1=" + sid1);
+
         request.setAttribute(DATA_SET, dataSet);
-        
+
         ListTagHelper.bindSetDeclTo(LIST_NAME, getDecl(sid), request);
         TagHelper.bindElaboratorTo(LIST_NAME, dataSet.getElaborator(), request);
-        
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
@@ -132,13 +132,13 @@ public class CompareSystemSetupAction extends RhnAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext requestContext) {
-        
+
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
         Long sid1 = requestContext.getRequiredParam(RequestContext.SID1);
-        
+
         DataResult dr = ProfileManager.compareServerToServer(sid,
                 sid1, requestContext.getCurrentUser().getOrg().getId(), null);
-        
+
         return dr;
     }
 
@@ -146,14 +146,14 @@ public class CompareSystemSetupAction extends RhnAction {
      * {@inheritDoc}
      */
     protected void processRequestAttributes(RequestContext requestContext) {
-        
+
         Long sid1 = requestContext.getRequiredParam(RequestContext.SID1);
-        
+
         requestContext.lookupAndBindServer();
-        
+
         Server server1 = SystemManager.lookupByIdAndUser(sid1,
                 requestContext.getCurrentUser());
-        
+
         requestContext.getRequest().setAttribute("systemname", server1.getName());
     }
 }

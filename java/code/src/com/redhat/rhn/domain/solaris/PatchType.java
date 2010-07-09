@@ -23,48 +23,48 @@ public class PatchType {
     private Long id;
     private String name;
     private String label;
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * @return String to get
     */
     public String getName() {
         return this.name;
     }
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn to set
     */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
 
-    /** 
-     * Getter for label 
+    /**
+     * Getter for label
      * @return String to get
     */
     public String getLabel() {
         return this.label;
     }
 
-    /** 
-     * Setter for label 
+    /**
+     * Setter for label
      * @param labelIn to set
     */
     public void setLabel(String labelIn) {

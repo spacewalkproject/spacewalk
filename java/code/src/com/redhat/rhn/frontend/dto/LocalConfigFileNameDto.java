@@ -22,10 +22,10 @@ package com.redhat.rhn.frontend.dto;
  */
 public class LocalConfigFileNameDto extends ConfigFileNameDto {
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public String getSelectionKey() {
         return String.valueOf(getLocalConfigFileId());
-    }   
+    }
 }

@@ -18,7 +18,7 @@
     <bean:message key="sdcuploadfile.jsp.summary"/>
     </p>
   </div>
-  
+
   <div class="uploadfragment">
     <!-- Upload file to channel  -->
     <html:form

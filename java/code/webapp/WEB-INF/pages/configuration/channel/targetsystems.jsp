@@ -20,13 +20,13 @@
     arg0="${beanarg}" />
 
 <div>
-<html:form 
+<html:form
 	action="/configuration/channel/TargetSystemsSubmit.do?ccid=${ccid}">
 	<html:hidden property="submitted" value="true" />
 	<rhn:list
 	  pageList="${requestScope.pageList}"
 	  noDataText="targetsystems.jsp.noSystemsFound">
-	  
+
 	<rhn:listdisplay filterBy="system.common.systemName"
 	 set="${requestScope.set}"
 	 button="targetsystems.jsp.subscribe">

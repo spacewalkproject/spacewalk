@@ -25,21 +25,21 @@ import java.util.Map;
 
 /**
  * @author paji
- * @version $Rev$ 
+ * @version $Rev$
  */
 public enum SELinuxMode {
-    ENFORCING ("enforcing"), 
-    PERMISSIVE("permissive"), 
+    ENFORCING ("enforcing"),
+    PERMISSIVE("permissive"),
     DISABLED ("disabled");
-    private static final Map<String, SELinuxMode> MODE_MAP = 
+    private static final Map<String, SELinuxMode> MODE_MAP =
                                     new HashMap<String, SELinuxMode>();
-    
+
     static {
         for (SELinuxMode m : EnumSet.allOf(SELinuxMode.class)) {
             MODE_MAP.put(m.getValue(), m);
         }
     }
-    
+
     private String mode;
     /**
      * Selinux mode constructor
@@ -48,23 +48,23 @@ public enum SELinuxMode {
     SELinuxMode(String str) {
         mode = str;
     }
-    
+
     /**
      * @return the SE Linux Mode..
      */
     public String getValue() {
         return mode;
     }
-    
+
     /**
-     * Given a key such as enforcing, permissive, or disabled, 
-     * the code returns the appropriate mode.. 
+     * Given a key such as enforcing, permissive, or disabled,
+     * the code returns the appropriate mode..
      * @param key enforcing, permissive, or disabled
-     * @return the appropirate SE Linux Mode object 
+     * @return the appropirate SE Linux Mode object
      */
     public static SELinuxMode lookup(String key) {
         if (!MODE_MAP.containsKey(key)) {
-            ValidatorException.raiseException("selinux.java.invalid_mode", 
+            ValidatorException.raiseException("selinux.java.invalid_mode",
                                                 key, MODE_MAP.keySet().toString());
         }
         return MODE_MAP.get(key);
@@ -76,7 +76,7 @@ public enum SELinuxMode {
     public static Collection keys() {
         return MODE_MAP.keySet();
     }
-    
+
     /**
      * @return appropriate to string.
      */

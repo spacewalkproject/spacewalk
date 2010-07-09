@@ -24,7 +24,7 @@ import com.redhat.rhn.domain.user.User;
  * @version $Rev$
  */
 public abstract class BaseDeleteErrataActionTest extends RhnMockStrutsTestCase {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -45,37 +45,37 @@ public abstract class BaseDeleteErrataActionTest extends RhnMockStrutsTestCase {
          * we will not run the test there.
          */
         return;
-        
+
 //        if (!Config.get().isSatellite()) {
 //            return;
 //        }
-        
-//     RhnSet errataToDelete = RhnSetFactory.createRhnSet(user.getId(), 
-//                             "errata_to_delete", 
+
+//     RhnSet errataToDelete = RhnSetFactory.createRhnSet(user.getId(),
+//                             "errata_to_delete",
 //                             SetCleanup.NOOP);
-//     
+//
 //     List list = new ArrayList();
-//     
+//
 //     for (int j = 0; j < 5; ++j) {
 //         Errata e = createAnErrata(user);
 //         list.add(e);
 //         errataToDelete.addElement(e.getId());
 //     }
-//     
+//
 //     RhnSetManager.store(errataToDelete);
-//     
+//
 //     RhnSet set = RhnSetDecl.ERRATA_TO_DELETE.get(user);
 //     assertEquals(5, set.size());
-//     
+//
 //     actionPerform();
 //     verifyForward("default");
-//     
+//
 //     set = RhnSetDecl.ERRATA_TO_DELETE.get(user);
-//    
+//
 //     assertEquals(0, set.size());
-//     
+//
 //     Iterator i = list.iterator();
-//     
+//
 //     /* verify that the errata have indeed been deleted */
 //     while (i.hasNext()) {
 //         Errata e = (Errata) i.next();
@@ -84,17 +84,17 @@ public abstract class BaseDeleteErrataActionTest extends RhnMockStrutsTestCase {
 //         assertNull(e);
 //     }
     }
-    
+
     /**
      * Creates a published or unpublished errata depending on which
      * type is being tested
      * @param user user who is creating the errata
      * @return the errata
      * @throws Exception if error
-     * 
+     *
      */
     public abstract Errata createAnErrata(User user) throws Exception;
-    
+
     /**
      * @return the request path
      */

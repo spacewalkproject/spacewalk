@@ -5,7 +5,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
 	<c:choose>
 	<c:when test="${empty requestScope.invalid}">
-  <html:form styleId="wizard-form" method="post" 
+  <html:form styleId="wizard-form" method="post"
   action="${param.url}"
   enctype="multipart/form-data">
 <div class="page-summary">
@@ -29,13 +29,13 @@
                       <b><bean:message key="kickstart.edit.software.notrees.jsp" /></b>
                     </c:otherwise>
                   </c:choose>
-            
+
             </td>
         </tr>
        	 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
- 
-        
-        
+
+
+
         <c:if test="${empty requestScope.create}">
           <tr>
             <th><bean:message key="kickstartdetails.jsp.active"/></th>
@@ -52,17 +52,17 @@
                 </table>
             </td>
           </tr>
-        
+
           <tr>
             <th><bean:message key="kickstartdetails.jsp.kernel_options"/></th>
             <td><html:text property="kernel_options" maxlength="64" size="32" /></td>
-          </tr>                 
-          
+          </tr>
+
          <tr>
             <th><bean:message key="kickstartdetails.jsp.post_kernel_options"/></th>
             <td><html:text property="post_kernel_options" maxlength="64" size="32" /></td>
           </tr>
-                  
+
           <tr>
             <th><bean:message key="kickstartdetails.jsp.org_default" /></th>
             <td><table><tr><td><html:checkbox property="org_default" /></td><td><bean:message key="kickstartdetails.jsp.summary2" arg0="${param.ksurl}" /></td></tr></table></td>
@@ -86,14 +86,14 @@
         		<bean:message key="${param.action_key}"/>
     		</html:submit>
   		</div>
-    
+
   		<table class="details">
     		<tr>
       			<th><bean:message key="kickstart.advanced.jsp.uploadtab"/></th>
       			<td>
       			  <html:file property="fileUpload" size="30"/><br />
       			</td>
-    		</tr>  
+		</tr>
   		</table>
   		<div align="right">
     		<hr />
@@ -133,7 +133,7 @@
                   </c:choose>
             </td>
         </tr>
-	</table>        
+	</table>
         <c:if test="${empty notrees}">
     <div align="right">
     	<hr />
@@ -149,4 +149,3 @@
   </html:form>
   </c:when>
   </c:choose>
-    

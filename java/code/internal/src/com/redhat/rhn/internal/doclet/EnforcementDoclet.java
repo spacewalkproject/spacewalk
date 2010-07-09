@@ -27,53 +27,53 @@ import java.util.List;
 
 
 /**
- * 
+ *
  * EnforcementDoclet
- * 
- * This doclet checks to make sure that we do not have any non static or final member 
+ *
+ * This doclet checks to make sure that we do not have any non static or final member
  * variables in our Actions
- * 
+ *
  * Exceptions can be added in initializeExceptions()
- * 
+ *
  * @version $Rev$
  */
 public class EnforcementDoclet {
-    
 
-    protected EnforcementDoclet() {        
+
+    protected EnforcementDoclet() {
     }
-    
-    
-    private static HashMap<String, List<String>> exceptions = 
+
+
+    private static HashMap<String, List<String>> exceptions =
         new HashMap<String, List<String>>();
-    
-    
-    
-        
+
+
+
+
     /**
      * start the doclet
      * @param root the document root
-     * @return boolean 
-     * @throws Exception e 
+     * @return boolean
+     * @throws Exception e
      */
     public static boolean start(RootDoc root) throws Exception {
         ClassDoc[] classes = root.classes();
         initializeExceptions();
         boolean found = false;
-        
+
         for (ClassDoc clas : classes) {
-            
+
             ClassDoc parent = clas.findClass("org.apache.struts.action.Action");
             if (parent == null) {
                 System.out.println("Skipping " + clas.name());
                 continue;
             }
-                        
-            if (clas.subclassOf(parent)) {               
+
+            if (clas.subclassOf(parent)) {
                 for (FieldDoc field : clas.fields()) {
                     if (!field.isFinal() && !hasException(clas.name(), field.name())) {
                         found = true;
-                        System.out.println("WARNING: Action Class " + clas.name() + 
+                        System.out.println("WARNING: Action Class " + clas.name() +
                                 " has member: " + field.name());
                     }
                 }
@@ -86,16 +86,16 @@ public class EnforcementDoclet {
         }
         return true;
     }
-              
-    
+
+
     private static void initializeExceptions() {
         setException("LoginAction", "pxtDelegate");
         setException("CreateUserAction", "pxtDelegate");
     }
-    
-    
-    
-    
+
+
+
+
     private static boolean hasException(String clazz, String field) {
         if (field.equals("log") || field.equals("logger")) {
             return true;
@@ -106,14 +106,14 @@ public class EnforcementDoclet {
         else {
             return exceptions.get(clazz).contains(field);
         }
-        
+
     }
     private static void setException(String clazz, String field) {
         if (exceptions.get(clazz) == null) {
             exceptions.put(clazz, new ArrayList<String>());
         }
-        exceptions.get(clazz).add(field);        
+        exceptions.get(clazz).add(field);
     }
-    
-    
+
+
 }

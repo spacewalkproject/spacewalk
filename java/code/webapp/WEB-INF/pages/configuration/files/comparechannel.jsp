@@ -12,7 +12,7 @@
 
 <div class="page-summary">
   <p>
-    <bean:message key="comparechannel.jsp.summary" 
+    <bean:message key="comparechannel.jsp.summary"
                   arg0="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${revision.id}"
                   arg1="${revision.revision}"/>
   </p>
@@ -27,22 +27,22 @@
     	  <img alt='<bean:message key="config.common.globalAlt" />' src="/img/rhn-listicon-channel.gif" />
           ${current.name}
         </c:if>
-        
+
         <c:if test="${current.type == 'local_override'}">
           <img alt='<bean:message key="config.common.localAlt" />' src="/img/rhn-listicon-system.gif" />
           ${current.name}
         </c:if>
-        
+
         <c:if test="${current.type == 'server_import'}">
           <img alt='<bean:message key="config.common.sandboxAlt" />' src="/img/rhn-listicon-sandbox.png" />
           ${current.name}
         </c:if>
     </rhn:column>
-    
+
     <rhn:column header="comparechannel.jsp.type">
         ${current.typeDisplay}
     </rhn:column>
-    
+
     <rhn:column header="comparechannel.jsp.files"
                 url="/rhn/configuration/ChannelFiles.do?ccid=${current.id}">
         <c:if test="${current.fileCount == 1}">
@@ -52,7 +52,7 @@
           <bean:message key="comparechannel.jsp.numfiles" arg0="${current.fileCount}" />
         </c:if>
     </rhn:column>
-    
+
     <rhn:column header="comparechannel.jsp.continue">
         <a class="link-button" href="/rhn/configuration/file/CompareFile.do?cfid=${file.id}&amp;crid=${revision.id}&amp;ccid=${current.id}">
             <bean:message key="comparechannel.jsp.select" />

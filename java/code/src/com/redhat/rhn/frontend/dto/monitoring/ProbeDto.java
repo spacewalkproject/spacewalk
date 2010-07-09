@@ -19,17 +19,17 @@ import com.redhat.rhn.domain.monitoring.Probe;
 import com.redhat.rhn.domain.monitoring.ServerProbe;
 
 /**
- * ProbeDto - Simple DTO around a Probe that adds a convenience method to determine 
+ * ProbeDto - Simple DTO around a Probe that adds a convenience method to determine
  * if the Probe is a suite probe or not.
- * 
+ *
  * @version $Rev$
  */
 public class ProbeDto implements Comparable {
-    
+
     private Probe probe;
-    
+
     /**
-     * Constructor with probe 
+     * Constructor with probe
      * @param probeIn probe to use with this dto.
      */
     public ProbeDto(Probe probeIn) {
@@ -42,7 +42,7 @@ public class ProbeDto implements Comparable {
     public Probe getProbe() {
         return probe;
     }
-    
+
     /**
      * Determine if this Probe is a member of a ProbeSuite
      * @return Returns the suiteProbe.
@@ -51,9 +51,9 @@ public class ProbeDto implements Comparable {
         ServerProbe sprobe = (ServerProbe) probe;
         return (sprobe.getTemplateProbe() != null);
     }
-    
+
     /**
-     * Convenience method to get the ID of the ProbeSuite this Probe 
+     * Convenience method to get the ID of the ProbeSuite this Probe
      * is a member of.  Throws an IllegalArgumentException if the contained
      * probe isn't a member of a Suite.
      * @return id of this Probe's Probe Suite.
@@ -66,7 +66,7 @@ public class ProbeDto implements Comparable {
     }
 
     /**
-     * Convenience method to get the ID of the TemplateProbe for this Probe 
+     * Convenience method to get the ID of the TemplateProbe for this Probe
      * is a member of.  Throws an IllegalArgumentException if the contained
      * probe isn't a member of a Suite.
      * @return id of this Probe's template probe
@@ -78,7 +78,7 @@ public class ProbeDto implements Comparable {
         return ((ServerProbe) probe).getTemplateProbe().getId();
     }
 
-    /** 
+    /**
      * Get a HTML friendly status string.  Replaces \n and \r\n with <br>
      * @return HTML friendly string
      */
@@ -90,7 +90,7 @@ public class ProbeDto implements Comparable {
             return null;
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -99,5 +99,5 @@ public class ProbeDto implements Comparable {
         Probe p2 = ((ProbeDto) o).getProbe();
         return p1.compareTo(p2);
     }
-    
+
 }

@@ -25,7 +25,7 @@ import java.util.List;
  * @version $Rev$
  */
 public class PackageOverview extends BaseDto {
-    
+
     private Long id;
     private String packageName;
     private String summary;
@@ -46,42 +46,42 @@ public class PackageOverview extends BaseDto {
     public List getPackageChannels() {
         return packageChannels;
     }
-    
+
     /**
      * @param packageChannelsIn The packageChannels to set.
      */
     public void setPackageChannels(List packageChannelsIn) {
         this.packageChannels = packageChannelsIn;
     }
-    
+
     /**
      * @return Returns the nvrea.
      */
     public String getNvrea() {
         return nvrea;
     }
-    
+
     /**
      * @param nvreaIn The nvrea to set.
      */
     public void setNvrea(String nvreaIn) {
         this.nvrea = nvreaIn;
     }
-    
+
     /**
      * @return Returns the packageNvre.
      */
     public String getPackageNvre() {
         return packageNvre;
     }
-    
+
     /**
      * @param p The packageNvre to set.
      */
     public void setPackageNvre(String p) {
         this.packageNvre = p;
     }
-    
+
     /**
      * @return Returns the id.
      */
@@ -124,7 +124,7 @@ public class PackageOverview extends BaseDto {
     public String getPackageName() {
         return packageName;
     }
-    
+
     /**
      * Return the UrlEncoded package name
      * @return urleencoded package name
@@ -136,13 +136,13 @@ public class PackageOverview extends BaseDto {
             }
             catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
-            } 
+            }
         }
         else {
             return null;
         }
     }
-    
+
     /**
      * @param packageNameIn The packageName to set.
      */
@@ -150,7 +150,7 @@ public class PackageOverview extends BaseDto {
         this.packageName = packageNameIn;
     }
 
-    
+
     /**
      * @return Returns the packageArch.
      */
@@ -158,7 +158,7 @@ public class PackageOverview extends BaseDto {
         return packageArch;
     }
 
-    
+
     /**
      * @param packageArchIn The packageArch to set.
      */
@@ -166,7 +166,7 @@ public class PackageOverview extends BaseDto {
         this.packageArch = packageArchIn;
     }
 
-    
+
     /**
      * @return Returns the provider.
      */
@@ -174,7 +174,7 @@ public class PackageOverview extends BaseDto {
         return provider == null ? "Unknown" : provider;
     }
 
-    
+
     /**
      * @param providerIn The provider to set.
      */

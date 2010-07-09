@@ -22,35 +22,35 @@
 			 filter="com.redhat.rhn.frontend.action.configuration.sdc.ViewModifyPathsFilter"
              emptykey = "channelfiles.jsp.noFiles"
 	         >
-	    <rl:selectablecolumn value="${current.selectionKey}" 
-	    					selected="${current.selected}" 
+	    <rl:selectablecolumn value="${current.selectionKey}"
+						selected="${current.selected}"
 	    					styleclass="first-column"/>
-	        
+
 		<!-- File name column -->
 		<rl:column bound = "false"
-				   sortable="true" 
-		           headerkey="sdc.config.file_list.name" 
+				   sortable="true"
+		           headerkey="sdc.config.file_list.name"
 		           sortattr="path"
 		           >
-		     <cfg:file path="${current.path}" 
-		     		type ="${current.localConfigFileType}" nolink = "true"/>      
+		     <cfg:file path="${current.path}"
+				type ="${current.localConfigFileType}" nolink = "true"/>
 		</rl:column>
 		
 		<!-- Actions -->
-		<rl:column bound="false" 
+		<rl:column bound="false"
 		           headerkey="sdc.config.file_list.actions">
 			<bean:message key="sdc.config.file_list.edit_or_compare"
          					arg0 ="${cfg:fileUrl(current.localConfigFileId)}"
          				    arg1="${cfg:fileCompareUrl(current.localConfigFileId)}"/>
-		</rl:column>		           
+		</rl:column>
 
        	<!-- Overrides-->
-       	<rl:column bound="false" 
-       	           headerkey="sdc.config.file_list.overrides" 
+	<rl:column bound="false"
+	           headerkey="sdc.config.file_list.overrides"
        				>
        		<c:choose>       		
    	       		<c:when test="${current.configRevision != null}">
-					<c:set var="channelDisplay"><cfg:channel id = "${current.configChannelId}" 
+					<c:set var="channelDisplay"><cfg:channel id = "${current.configChannelId}"
 							name ="${current.configChannelName}"
 							type = "central"/>
    					</c:set>
@@ -68,15 +68,15 @@
            </c:choose>
        	</rl:column>
 		<!-- Current Revision -->
-		<rl:column bound="false" 
-		           headerkey="sdc.config.file_list.current_revision" 
+		<rl:column bound="false"
+		           headerkey="sdc.config.file_list.current_revision"
 				   styleclass="last-column"
 					>
 		       		<c:set var = "revisionLook">
 				       		<bean:message key="sdcconfigfiles.jsp.filerev"
 				       					arg0="${current.localRevision}"/>		
 		       		</c:set>
-					<cfg:file path ="${revisionLook}" 
+					<cfg:file path ="${revisionLook}"
 							type ="${current.localConfigFileType}"
 							id = "${current.localConfigFileId}"
 							revisionId = "${current.localRevisionId}"

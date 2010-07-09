@@ -32,22 +32,22 @@ import redstone.xmlrpc.XmlRpcSerializer;
 public class RhnTimeZoneSerializerTest extends TestCase {
 
     private RhnTimeZoneSerializer serializer;
-    
+
     public void setUp() {
         serializer = new RhnTimeZoneSerializer();
     }
-    
+
     public void testGetSupportedClass() {
         assertEquals(RhnTimeZone.class, serializer.getSupportedClass());
     }
-    
+
     public void testSerialize() throws XmlRpcException, IOException {
         RhnTimeZone tz = new RhnTimeZone();
         tz.setOlsonName("(GMT-0500) United States (Indiana)");
         tz.setTimeZoneId(7010);
         Writer output = new StringWriter();
         serializer.serialize(tz, output, new XmlRpcSerializer());
-        
+
         assertEquals("<struct><member><name>time_zone_id</name>" +
                 "<value><i4>7010</i4></value></member>\n" +
                 "<member><name>olson_name</name><value>" +

@@ -112,7 +112,7 @@ public class TestUtils {
             throw new RuntimeException(e);
         }
     }
-    
+
 
     /**
      * Read whole stream into a string.
@@ -162,26 +162,26 @@ public class TestUtils {
         User u = null;
         try {
             u = UserTestUtils.createUserInOrgOne();
-        } 
+        }
         catch (Exception e) {
             e.printStackTrace();
         }
         u.removeRole(RoleFactory.ORG_ADMIN);
         Long userid = u.getId();
-        
+
         RequestContext requestContext = new RequestContext(req);
         PxtSessionDelegateFactory pxtDelegateFactory =
             PxtSessionDelegateFactory.getInstance();
-        
+
         PxtSessionDelegate pxtDelegate = pxtDelegateFactory.newPxtSessionDelegate();
-        
+
         WebSession s = requestContext.getWebSession();
-        
+
         PxtCookieManager pxtCookieManager = new PxtCookieManager();
         req.addCookie(pxtCookieManager.createPxtCookie(s.getId(), req, 10));
-        
+
         pxtDelegate.updateWebUserId(req, resp, userid);
-        
+
         req.addCookie(resp.getCookie("mymachine-pxt-session-cookie"));
         req.setupAddParameter("uid", userid.toString());
 
@@ -213,8 +213,8 @@ public class TestUtils {
         Query q = session.createQuery(query);
         return q.list();
     }
-    
-    
+
+
     /**
      * Helper method to get a single object from the 2nd level cache by id
      * @param id Id of the object you want
@@ -315,7 +315,7 @@ public class TestUtils {
     public static Object reload(Object obj) throws HibernateException {
         return HibernateFactory.reload(obj);
     }
-    
+
     /**
      * Helper method to save objects to the database and flush
      * the session.
@@ -376,7 +376,7 @@ public class TestUtils {
         Logger log = Logger.getLogger(LocalizationService.class);
         log.setLevel(Level.OFF);
     }
-    
+
     /**
      * Enable the *** ERROR: Message with id: [asciiString] not found.***
      * errors.   Some tests pass in non-translated strings which is OK.
@@ -386,7 +386,7 @@ public class TestUtils {
         log.setLevel(Level.WARN);
     }
 
-    
+
     /**
      * Check the string to see if it passed through the LocalizationService.
      * @param checkMe String to check if it was l10ned
@@ -440,17 +440,17 @@ public class TestUtils {
      * @return DataResult List
      */
     public static DataResult runTestQuery(String mode, Map params) {
-        SelectMode m = 
+        SelectMode m =
             ModeFactory.
             getMode("test_queries", mode);
         return m.execute(params);
     }
-    
+
     /**
      * Dumb util method to print * from time_series table (can stuff debug in there)
      */
     public static void printDBDebugLog() {
-        SelectMode m = 
+        SelectMode m =
             ModeFactory.
             getMode("test_queries", "get_debug_log");
         DataResult rows = m.execute(new HashMap());
@@ -459,9 +459,9 @@ public class TestUtils {
             Map row = (Map) i.next();
             System.out.println("Message: " + row.get("o_id") + ": " + row.get("data"));
         }
-        
+
     }
-    
+
     /**
      * Search an array by calling the passsed in method name with the key as the checker
      * @param search array
@@ -469,7 +469,7 @@ public class TestUtils {
      * @param key to compare to
      * @return boolean if found or not
      */
-    public static boolean arraySearch(Object[] search, String methodName, Object key) { 
+    public static boolean arraySearch(Object[] search, String methodName, Object key) {
         boolean found = false;
         for (int i = 0; i < search.length; i++) {
             Object value = MethodUtil.callMethod(search[i], methodName, new Object[0]);
@@ -491,11 +491,11 @@ public class TestUtils {
     }
 
     /**
-     * Get a private field from a class. Good for testing 
+     * Get a private field from a class. Good for testing
      * the inner state of a class's member variables.
-     * 
+     *
      * Copied from: http://snippets.dzone.com/posts/show/2242
-     * 
+     *
      * @param o to check
      * @param fieldName to find
      * @return Object if found

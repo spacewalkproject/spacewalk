@@ -76,7 +76,7 @@ function movePrevious() {
         </tr>
         <tr>
             <td colspan="2" align="right">
-                <input type="button" value="<bean:message key="wizard.jsp.previous.step" />" onclick="movePrevious();" />            
+                <input type="button" value="<bean:message key="wizard.jsp.previous.step" />" onclick="movePrevious();" />
                 &nbsp;&nbsp;
                 <input type="button" value="<bean:message key="wizard.jsp.next.step" />" onclick="moveNext();" />
             </td>

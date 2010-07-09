@@ -28,10 +28,10 @@ import java.util.Iterator;
  * @version $Rev$
  */
 public class ActivationKeysSetupAction extends BaseKickstartListSetupAction {
-    
-    
+
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
@@ -42,7 +42,7 @@ public class ActivationKeysSetupAction extends BaseKickstartListSetupAction {
 
 
     /**
-     * 
+     *
      * @return the kickstart profile security label
      */
     public RhnSetDecl getSetDecl() {

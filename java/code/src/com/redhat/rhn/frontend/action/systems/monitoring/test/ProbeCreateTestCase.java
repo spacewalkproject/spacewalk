@@ -40,7 +40,7 @@ import java.util.Set;
 
 public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
 
-    protected static final String BASE_REQ_ATTRS = 
+    protected static final String BASE_REQ_ATTRS =
         "intervals,contactGroups,commandGroups,command,commands,satClusters," +
         "paramValueList";
     protected User user;
@@ -67,22 +67,22 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
 
     public final void testMissingParams() throws Exception {
         modifyActionHelper("default");
-        
+
         Probe orig = MonitoringFactoryTest.createTestProbe(user);
 
         ah.getForm().set(RhnAction.SUBMITTED, Boolean.TRUE);
         setupCommand(ah, orig);
         setupProbeFields(ah, orig);
-        
+
         HashMap params = MonitoringTestUtils.makeParamDefaults(orig.getCommand(), true);
         // Remove required param
         params.put("r_port_0", "");
         MonitoringTestUtils.setupParamValues(ah, params, 3);
-        
+
         ForwardWrapper af = ah.executeAction();
         assertEquals("default", af.getName());
     }
-    
+
     public final void testExecute() throws Exception {
 
         modifyActionHelper("default");
@@ -94,20 +94,20 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
         assertNotNull(command);
         assertEquals(command.getName(), ModifyProbeCommand.COMMAND_DEFAULT);
         // bugzilla 137078
-        String expectedDesc = command.getCommandGroup().getDescription() + 
+        String expectedDesc = command.getCommandGroup().getDescription() +
                 LocalizationService.getInstance().
-                    getMessage("punctuation.colonwithspace") + 
-                        command.getDescription(); 
+                    getMessage("punctuation.colonwithspace") +
+                        command.getDescription();
         String gotDesc = (String) ah.getForm().get("description");
         assertEquals(expectedDesc, gotDesc);
-        
+
         assertHasRequestAttributes(ah, requestAttributes());
         List pvalues = (List) ah.getRequest().getAttribute("paramValueList");
         assertTrue(pvalues.size() > 0);
         // bugzilla 159421
-        assertEquals(ModifyProbeCommand.CHECK_INTERVAL_DEFAULT, 
+        assertEquals(ModifyProbeCommand.CHECK_INTERVAL_DEFAULT,
                     ah.getForm().get("check_interval_min"));
-        assertEquals(ModifyProbeCommand.NOTIF_INTERVAL_DEFAULT, 
+        assertEquals(ModifyProbeCommand.NOTIF_INTERVAL_DEFAULT,
                 ah.getForm().get("notification_interval_min"));
 
     }
@@ -119,7 +119,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
                 BaseProbeCreateAction.SELECTED_COMMAND_GROUP_SESSION, "tools");
         session.setAttribute(
                 BaseProbeCreateAction.SELECTED_COMMAND_SESSION, "check_nothing");
-        
+
         setupCommand(ah, null);
         ForwardWrapper af = ah.executeAction();
 
@@ -129,34 +129,34 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
         assertEquals("tools", command.getCommandGroup().getGroupName());
         assertEquals("check_nothing", command.getName());
     }
-    
+
     public final void testThresholdParamsAscending() throws Exception {
         // bugzilla 161387
-        
+
         Probe orig = MonitoringFactoryTest.createTestProbe(user);
 
         modifyActionHelper("default");
         ah.getForm().set(RhnAction.SUBMITTED, Boolean.TRUE);
         setupCommand(ah, orig);
         setupProbeFields(ah, orig);
-        
+
         HashMap params = MonitoringTestUtils.makeParamDefaults(orig.getCommand(), true);
         // Make sure that the values are not in ascending order
         params.put("warning", "7");
         params.put("critical", "7");
         MonitoringTestUtils.setupParamValues(ah, params, 3);
-        
+
         ForwardWrapper af = ah.executeAction();
         assertEquals("default", af.getName());
     }
-    
+
     protected abstract BaseProbeAction createProbeAction();
-    
+
     protected abstract String requestAttributes();
-    
+
     protected abstract void modifyActionHelper(String forwardName) throws Exception;
-    
-    protected void assertHasRequestAttributes(ActionHelper actionHelper, 
+
+    protected void assertHasRequestAttributes(ActionHelper actionHelper,
             String reqAttrStr) {
         String[] reqAttrs = StringUtils.split(reqAttrStr, ",");
         assertTrue(reqAttrs.length > 0);
@@ -166,7 +166,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
         }
     }
 
-    protected void assertNoRequestAttributes(ActionHelper actionHelper, 
+    protected void assertNoRequestAttributes(ActionHelper actionHelper,
             String reqAttrStr) {
         String[] reqAttrs = StringUtils.split(reqAttrStr, ",");
         assertTrue(reqAttrs.length > 0);
@@ -193,7 +193,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
         actionHelper.getForm().set("old_description", probe.getDescription());
         actionHelper.getForm().set("notification", Boolean.TRUE);
         actionHelper.getForm().set("check_interval_min", probe.getCheckIntervalMinutes());
-        actionHelper.getForm().set("notification_interval_min", 
+        actionHelper.getForm().set("notification_interval_min",
                 probe.getNotificationIntervalMinutes());
     }
 

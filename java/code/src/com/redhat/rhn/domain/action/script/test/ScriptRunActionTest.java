@@ -36,7 +36,7 @@ import java.util.GregorianCalendar;
  * @version $Rev$
  */
 public class ScriptRunActionTest extends RhnBaseTestCase {
-    
+
     public void testScriptAction() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser", "testOrg");
         Action newA = ActionFactoryTest.createAction(usr,
@@ -44,7 +44,7 @@ public class ScriptRunActionTest extends RhnBaseTestCase {
         Long id = newA.getId();
         assertTrue(newA instanceof ScriptRunAction);
         ScriptRunAction action = (ScriptRunAction) newA;
-        
+
         ScriptResult result1 = new ScriptResult();
         Server s1 = ServerFactoryTest.createTestServer(usr);
         result1.setServerId(s1.getId());
@@ -53,14 +53,14 @@ public class ScriptRunActionTest extends RhnBaseTestCase {
         Calendar futureCal = GregorianCalendar.getInstance();
         futureCal.set(2050, 12, 14);
         result1.setStopDate(futureCal.getTime());
-        
+
         Server s2 = ServerFactoryTest.createTestServer(usr);
         ScriptResult result2 = new ScriptResult();
         result2.setServerId(s2.getId());
         result2.setReturnCode(new Long(1));
         result2.setStartDate(new Date());
         result2.setStopDate(futureCal.getTime());
-        
+
         ScriptActionDetails sad = action.getScriptActionDetails();
         result1.setActionScriptId(sad.getId());
         result2.setActionScriptId(sad.getId());
@@ -76,7 +76,7 @@ public class ScriptRunActionTest extends RhnBaseTestCase {
         //sad.setScript(expectedScript.getBytes("UTF-8"));
         sad.setScript(expectedScript.getBytes("UTF-8"));
         action.setScriptActionDetails(sad);
-        
+
         ActionFactory.save(action);
         flushAndEvict(action);
         /**
@@ -92,13 +92,13 @@ public class ScriptRunActionTest extends RhnBaseTestCase {
         assertNotNull(scriptaction.getScriptActionDetails().getResults());
         assertEquals(2, scriptaction.getScriptActionDetails().getResults().size());
 
-        assertEquals(expectedScript, 
+        assertEquals(expectedScript,
                      scriptaction.getScriptActionDetails().getScriptContents());
         assertTrue(scriptaction.getScriptActionDetails().getParentAction()
                 .equals(scriptaction));
-        
+
     }
-    
+
     public void testScriptActionDetails() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser", "testOrg");
         Action newA = ActionFactoryTest.createAction(usr,
@@ -106,19 +106,19 @@ public class ScriptRunActionTest extends RhnBaseTestCase {
         Long id = newA.getId();
         assertTrue(newA instanceof ScriptRunAction);
         ScriptRunAction action = (ScriptRunAction) newA;
-        
+
         Date startDate = new Date();
         Calendar futureCal = GregorianCalendar.getInstance();
         futureCal.set(2050, 12, 14);
         Date stopDate = futureCal.getTime();
-        
+
         ScriptResult result1 = new ScriptResult();
         Server s1 = ServerFactoryTest.createTestServer(usr);
         result1.setServerId(s1.getId());
         result1.setReturnCode(new Long(1));
         result1.setStartDate(startDate);
         result1.setStopDate(stopDate);
-        
+
         ScriptActionDetails sad = action.getScriptActionDetails();
         result1.setActionScriptId(sad.getId());
         sad.setParentAction(action);
@@ -128,20 +128,20 @@ public class ScriptRunActionTest extends RhnBaseTestCase {
         result1.setParentScriptActionDetails(sad);
         sad.addResult(result1);
         action.setScriptActionDetails(sad);
-        
+
         ActionFactory.save(action);
         flushAndEvict(action);
-        
+
         Action a = ActionFactory.lookupById(id);
         ScriptRunAction scriptaction = (ScriptRunAction) a;
         assertEquals(1, scriptaction.getScriptActionDetails().getResults().size());
 
         ScriptResult lookupResult = (ScriptResult)scriptaction.getScriptActionDetails().
             getResults().iterator().next();
-        assertEquals(startDate.getTime() / 1000, 
+        assertEquals(startDate.getTime() / 1000,
                 lookupResult.getStartDate().getTime() / 1000);
-        assertEquals(stopDate.getTime() / 1000, 
+        assertEquals(stopDate.getTime() / 1000,
                 lookupResult.getStopDate().getTime() / 1000);
     }
-    
+
 }

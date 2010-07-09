@@ -17,21 +17,21 @@
 	<h2><img src="/img/rhn-icon-system.gif" alt="${rhn:localize('system.common.systemAlt')}" />
 	<bean:message key="Systems"/>
 	</h2>
-    <p> 
+    <p>
     <bean:message key="activation-key.systems.para1"/>
     </p>
 
 <c:set var="pageList" value="${requestScope.all}" />
 <rl:listset name="systemsListSet">
 	<rl:list dataset="pageList"
-         width="100%"        
+         width="100%"
          name="list"
          emptykey="nosystems.message"
          alphabarcolumn="name">
  			<rl:decorator name="PageSizeDecorator"/>
 
   	   <!--Name Column -->
-		<rl:column sortable="true" 
+		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="systemlist.jsp.system"
 		           sortattr="name" filterattr="name" styleclass="first-column">
@@ -44,7 +44,7 @@
 		    	</c:otherwise>
 		    </c:choose>
 		</rl:column>
-		<rl:column headerkey="lastCheckin" 
+		<rl:column headerkey="lastCheckin"
 		           styleclass="last-column">
 		      ${requestScope.dateMap[current.id]}
 		</rl:column>

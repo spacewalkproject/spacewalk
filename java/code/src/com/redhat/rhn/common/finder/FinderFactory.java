@@ -43,7 +43,7 @@ public class FinderFactory {
 
         URL packageUrl = FinderFactory.class.getResource(name);
 
-        // This only happens if the .jar file isn't well-formed, so we 
+        // This only happens if the .jar file isn't well-formed, so we
         // shouldn't have this problem, ever.
         if (packageUrl == null) {
             throw new IllegalArgumentException("Not a well formed jar file");

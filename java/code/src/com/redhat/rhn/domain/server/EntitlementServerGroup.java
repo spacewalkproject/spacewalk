@@ -25,7 +25,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class EntitlementServerGroup extends ServerGroup {
     private Long maxMembers;
-    
+
     /**
      * returns true if this group is user managed, false
      * otherwise.
@@ -35,24 +35,24 @@ public class EntitlementServerGroup extends ServerGroup {
     public boolean isUserManaged() {
         return false;
     }
-    
-    /** 
-     * Getter for maxMembers 
+
+    /**
+     * Getter for maxMembers
      * @return Long to get
     */
     public Long getMaxMembers() {
         return this.maxMembers;
     }
 
-    /** 
-     * Setter for maxMembers 
+    /**
+     * Setter for maxMembers
      * @param maxMembersIn to set
     */
     public void setMaxMembers(Long maxMembersIn) {
         this.maxMembers = maxMembersIn;
     }
 
-    
+
     /**
      * Report the number of systems that can currently be added to this group.
      * @return ServerGroup.UNLIMITED if infinite.
@@ -65,8 +65,8 @@ public class EntitlementServerGroup extends ServerGroup {
         //Now do the actual math.
         return getMaxMembers().longValue() - getCurrentMembers().longValue();
     }
-    
-    /** 
+
+    /**
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -75,7 +75,7 @@ public class EntitlementServerGroup extends ServerGroup {
                                     .toHashCode();
     }
 
-    /** 
+    /**
      * {@inheritDoc}
      */
     public boolean equals(Object other) {
@@ -87,7 +87,7 @@ public class EntitlementServerGroup extends ServerGroup {
             return false;
         }
         return new EqualsBuilder().append(getMaxMembers(), castOther.getMaxMembers())
-                                  .append(getCurrentMembers(), 
+                                  .append(getCurrentMembers(),
                                               castOther.getCurrentMembers())
                                   .isEquals();
     }
@@ -99,5 +99,5 @@ public class EntitlementServerGroup extends ServerGroup {
         return new ToStringBuilder(this).append(super.toString()).
                     append("maxMembers", getMaxMembers()).append("currentMembers",
                                     getCurrentMembers()).toString();
-    }    
+    }
 }

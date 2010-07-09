@@ -25,7 +25,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public abstract class Entitlement implements Comparable {
     private String label;
-    
+
     /**
      * Constructs an Entitlement labeled <code>lbl</code>.
      * @param lbl Entitlement label.
@@ -33,7 +33,7 @@ public abstract class Entitlement implements Comparable {
     protected Entitlement(String lbl) {
         label = lbl;
     }
-    
+
     /**
      * Returns the Entitlement label
      * @return the Entitlement label
@@ -41,20 +41,20 @@ public abstract class Entitlement implements Comparable {
     public String getLabel() {
         return label;
     }
-    
-    /** 
+
+    /**
      * Returns whether or not an Entitlement is permanent.
      * @return true if entitlement is permanent, false otherwise
      */
     public abstract boolean isPermanent();
-    
+
     /**
      * Returns human readable version of the entitlement's label
      * @return human readable version of the entitlement's label
      */
     public String getHumanReadableLabel() {
         LocalizationService ls = LocalizationService.getInstance();
-        
+
         return ls.getMessage(getLabel());
     }
 
@@ -73,9 +73,9 @@ public abstract class Entitlement implements Comparable {
         return new CompareToBuilder().append(label, castOther.label)
                 .toComparison();
     }
-    
+
     /**
-     * @return true if this is a base entitlement.. 
+     * @return true if this is a base entitlement..
      */
     public abstract boolean isBase();
 

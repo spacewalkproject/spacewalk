@@ -19,12 +19,12 @@ import com.redhat.rhn.common.localization.LocalizationService;
 /**
  * ActionFormatter - Class that is responsible for properly formatting the fields
  * on an Action object.  This is so we can localize the output from certain fields
- * as well as produce an HTML version for output on certain fields. 
- * 
+ * as well as produce an HTML version for output on certain fields.
+ *
  * @version $Rev$
  */
 public class ActionFormatter {
-    
+
     private Action action;
 
     /**
@@ -37,7 +37,7 @@ public class ActionFormatter {
         }
         this.action = actionIn;
     }
-    
+
     /**
      * Get the Action for this Formatter
      * @return Action associated with this formatter.
@@ -45,29 +45,29 @@ public class ActionFormatter {
     protected Action getAction() {
         return this.action;
     }
-    
+
     /**
      * Get the first section of the Notes field
      * @return String of the first section
      */
     protected String getNotesHeader() {
-        
+
         StringBuffer retval = new StringBuffer();
-        
+
         if (action.getFailedCount().longValue() > 0) {
-            retval.append(getActionLink("action.failedlink", 
+            retval.append(getActionLink("action.failedlink",
                     action.getFailedCount().longValue()));
         }
 
         if (action.getSuccessfulCount().longValue() > 0) {
-            retval.append(getActionLink("action.completelink", 
+            retval.append(getActionLink("action.completelink",
                     action.getSuccessfulCount().longValue()));
-            
+
         }
         return retval.toString();
 
     }
-    
+
     private String getActionLink(String key, long count) {
         LocalizationService ls = LocalizationService.getInstance();
         //  We may have to append .plural to the key
@@ -79,10 +79,10 @@ public class ActionFormatter {
         args[1] = new Long(count);
         if (count > 1) {
             keybuff.append(".plural");
-        } 
+        }
         return ls.getMessage(keybuff.toString(), args);
     }
-    
+
     /**
      * No body for the default formatter
      * @return returns an empty string.
@@ -90,7 +90,7 @@ public class ActionFormatter {
     protected String getNotesBody() {
         return "";
     }
-    
+
     /**
      * Get an HTML version of the notes field
      * @return the HTML String representation of the Notes
@@ -102,14 +102,14 @@ public class ActionFormatter {
         // The default StringBuffer with nothing in it
         // has the value of "null" so we also want to check
         // for that.
-        if (retval.toString().length() == 0 || 
+        if (retval.toString().length() == 0 ||
                 retval.toString().equals("null")) {
             return LocalizationService.getInstance().getMessage("no notes");
-        } 
+        }
         return retval.toString();
-        
+
     }
-    
+
     /**
      * Get the Name of the Action
      * @return String name
@@ -118,9 +118,9 @@ public class ActionFormatter {
         if (action.getName() == null) {
             return action.getActionType().getName();
         }
-        return action.getName(); 
+        return action.getName();
     }
-    
+
     /**
      * Get the Action Type
      * @return String of the ActionType
@@ -129,16 +129,16 @@ public class ActionFormatter {
         return LocalizationService.getInstance().
             getMessage(action.getActionType().getLabel());
     }
-    
+
     /**
-     * Get the earliest date 
+     * Get the earliest date
      * @return String version of the earliest date
      */
     public String getEarliestDate() {
         return LocalizationService.getInstance().
             formatDate(action.getEarliestAction());
     }
-    
+
     /**
      * get the login of the scheduler User
      * @return String login of the User
@@ -149,5 +149,5 @@ public class ActionFormatter {
         }
         return null;
     }
-    
+
 }

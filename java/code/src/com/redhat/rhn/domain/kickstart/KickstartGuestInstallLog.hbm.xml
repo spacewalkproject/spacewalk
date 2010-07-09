@@ -10,7 +10,7 @@
                 <param name="sequence">RHN_VIIL_ID_SEQ</param>
             </generator>
         </id>
-        
+
         <property name="logMessage" column="log_message" type="string"
             length="1024"/>
 

@@ -26,14 +26,14 @@ import redstone.xmlrpc.XmlRpcFault;
 
 
 /**
- * 
+ *
  * Login to Cobbler's XMLRPC API and get a token
  * @version $Rev$
  */
 public class CobblerLoginCommand {
 
     private static Logger log = Logger.getLogger(CobblerLoginCommand.class);
-    
+
     /**
      * Call the login method and return the token if valid
      * @param usernameIn of user wanting to login to cobbler
@@ -41,7 +41,7 @@ public class CobblerLoginCommand {
      * @return String token
      */
     public String login(String usernameIn, String passwordIn) {
-        XMLRPCInvoker helper = 
+        XMLRPCInvoker helper =
             (XMLRPCInvoker) MethodUtil.getClassFromConfig(
                     CobblerXMLRPCHelper.class.getName());
         List args = new ArrayList();
@@ -60,17 +60,17 @@ public class CobblerLoginCommand {
         log.debug("token received from cobbler: " + retval);
         return retval;
     }
-    
+
     /**
-     * Check to see if the passed in token is still valid from 
+     * Check to see if the passed in token is still valid from
      * cobbler's perspective.  If it is, return true, else return
      * false.
-     * 
+     *
      * @param token to check
      * @return boolean indicating validity
      */
     public boolean checkToken(String token) {
-        XMLRPCInvoker helper = 
+        XMLRPCInvoker helper =
             (XMLRPCInvoker) MethodUtil.getClassFromConfig(
                     CobblerXMLRPCHelper.class.getName());
         List args = new ArrayList();
@@ -92,7 +92,7 @@ public class CobblerLoginCommand {
                     "We errored out trying to check the token.", e);
         }
         log.debug("token received from cobbler: " + retval);
-        
+
         return retval.booleanValue();
     }
 

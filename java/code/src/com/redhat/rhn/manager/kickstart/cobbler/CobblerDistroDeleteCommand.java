@@ -25,7 +25,7 @@ import org.cobbler.Distro;
 
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
- * @version $Rev$ 
+ * @version $Rev$
  */
 public class CobblerDistroDeleteCommand extends CobblerDistroCommand {
 
@@ -55,10 +55,10 @@ public class CobblerDistroDeleteCommand extends CobblerDistroCommand {
         if (StringUtils.isBlank(tree.getCobblerId())) {
             return null;
         }
-        
+
         CobblerConnection con = CobblerXMLRPCHelper.getConnection(user);
         Distro dis = Distro.lookupById(con, tree.getCobblerId());
-        
+
         if (dis == null) {
             log.warn("No cobbler distro associated with this Tree.");
             return null;
@@ -66,7 +66,7 @@ public class CobblerDistroDeleteCommand extends CobblerDistroCommand {
         if (!dis.remove()) {
             return new ValidatorError("cobbler.distro.remove_failed");
         }
-        
+
         if (tree.getCobblerXenId() != null) {
             dis = Distro.lookupById(con, tree.getCobblerXenId());
             if (dis == null) {
@@ -80,7 +80,7 @@ public class CobblerDistroDeleteCommand extends CobblerDistroCommand {
 
         invokeCobblerUpdate();
         return null;
-        
+
     }
 
 

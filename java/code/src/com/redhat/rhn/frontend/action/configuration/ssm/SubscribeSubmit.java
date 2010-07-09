@@ -71,7 +71,7 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
             HttpServletRequest request, Map params) {
         //no-op
     }
-    
+
     /**
      * Continue to the confirm page.
      * @param mapping ActionMapping
@@ -86,20 +86,20 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
                                     HttpServletResponse response) {
         //if they chose no probe suites, return to the same page with a message
         RhnSet set = updateSet(request);
-        
+
         RequestContext context = new RequestContext(request);
         if (!context.isJavaScriptEnabled()) {
             return handleNoScript(mapping, formIn, request, response);
         }
-        
+
         if (set.isEmpty()) {
             return handleEmptySelection(mapping, formIn, request);
         }
-        
+
         /* BZ 221637 - Any channels that is already subscribed to by all servers will be
            omitted from the user selectable list. This RhnSet is used in the ranking
            process on the next page, so need to add in those omitted channels explicitly
-           so they take place in the ranking.        
+           so they take place in the ranking.
          */
         User user = context.getLoggedInUser();
         ConfigurationManager manager = ConfigurationManager.getInstance();
@@ -111,17 +111,17 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
         }
 
         RhnSetManager.store(set);
-        
+
         return mapping.findForward("confirm");
     }
-    
+
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected ActionMessage getNoScriptMessage() {
        return new ActionMessage(
-               "common.config.subscription.jsp.error.nojavascript"); 
-    }    
+               "common.config.subscription.jsp.error.nojavascript");
+    }
 }

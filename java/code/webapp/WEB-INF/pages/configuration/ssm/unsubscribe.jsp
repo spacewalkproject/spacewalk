@@ -25,13 +25,13 @@
                      set="${requestScope.set}"
                      button="unsubscribe.jsp.unsubscribe">
       <rhn:set value="${current.id}"/>
-    
+
       <rhn:column header="config.common.configChannel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
         <img alt='<bean:message key="config.common.globalAlt" />' src="/img/rhn-listicon-channel.gif">
         ${current.name}
       </rhn:column>
-      
+
       <rhn:column header="unsubscribe.jsp.systems"
                   url="/rhn/systems/ssm/config/ChannelSystems.do?ccid=${current.id}">
         <c:choose>
@@ -43,7 +43,7 @@
           </c:otherwise>
         </c:choose>
       </rhn:column>
-      
+
     </rhn:listdisplay>
   </rhn:list>
 </form>

@@ -35,20 +35,20 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class PermissionExceptionHandler extends ExceptionHandler {
-    
+
     /**
      * Custom Handler for HibernateLookupExceptions
      * {@inheritDoc}
      */
     public ActionForward execute(Exception ex, ExceptionConfig exConfig,
                                  ActionMapping mapping, ActionForm form,
-                                 HttpServletRequest request, HttpServletResponse response) 
+                                 HttpServletRequest request, HttpServletResponse response)
                                  throws ServletException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         request.setAttribute("error", ex);
         Logger log = Logger.getLogger(PermissionExceptionHandler.class);
         log.error("Permission Error", ex);
-        
+
         TraceBackEvent evt = new TraceBackEvent();
         RequestContext requestContext = new RequestContext(request);
         User usr = requestContext.getLoggedInUser();
@@ -56,7 +56,7 @@ public class PermissionExceptionHandler extends ExceptionHandler {
         evt.setRequest(request);
         evt.setException(ex);
         MessageQueue.publish(evt);
-        
+
         return super.execute(ex, exConfig, mapping, form, request, response);
     }
 

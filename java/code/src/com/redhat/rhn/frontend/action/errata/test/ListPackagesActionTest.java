@@ -40,34 +40,34 @@ public class ListPackagesActionTest extends RhnBaseTestCase {
 
     public void testConfirm() throws Exception {
         ListPackagesAction action = new ListPackagesAction();
-        
+
         ActionMapping mapping = new ActionMapping();
         ActionForward confirm = new ActionForward("confirm", "path", true);
         mapping.addForwardConfig(confirm);
-        
+
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Errata errata = ErrataFactoryTest.createTestPublishedErrata(
                                               UserTestUtils.createOrg("testorg"));
-        
+
         Package pkg = PackageTest.createTestPackage();
         String[] selected = {pkg.getId().toString()};
-        
+
         RhnSet pre = RhnSetDecl.PACKAGES_TO_REMOVE.get(requestContext.getLoggedInUser());
         //make sure the set is empty
         assertTrue(pre.isEmpty());
-        
+
         request.setupAddParameter("eid", errata.getId().toString());
         request.setupAddParameter("items_on_page", "");
         request.setupAddParameter("items_selected", selected);
         request.setupAddParameter("lower", "2");
-        
+
         ActionForward result = action.confirm(mapping, form, request, response);
-        
+
         RhnSet post = RhnSetDecl.PACKAGES_TO_REMOVE.get(requestContext.getLoggedInUser());
         //make sure something is in the set
         assertFalse(post.isEmpty());

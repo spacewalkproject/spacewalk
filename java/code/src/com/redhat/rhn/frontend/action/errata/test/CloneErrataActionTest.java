@@ -39,42 +39,42 @@ public class CloneErrataActionTest extends RhnMockStrutsTestCase {
         user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
-    
+
     public void testEmptySet() throws Exception {
-        RhnSet errataToClone = RhnSetFactory.createRhnSet(user.getId(), 
-                                                          "clone_errata_list", 
+        RhnSet errataToClone = RhnSetFactory.createRhnSet(user.getId(),
+                                                          "clone_errata_list",
                                                           SetCleanup.NOOP);
         RhnSetManager.store(errataToClone);
         RhnSet set = RhnSetDecl.ERRATA_CLONE.get(user);
         assertEquals(0, set.size());
-        
+
         request.addParameter("dispatch", "Clone Errata");
         actionPerform();
         verifyForwardPath("/WEB-INF/pages/errata/cloneerrata.jsp");
         verifyActionMessage("emptyselectionerror");
     }
-    
+
     public void testNonEmptySet() throws Exception {
-        
-        RhnSet errataToClone = RhnSetFactory.createRhnSet(user.getId(), 
-                                                          "clone_errata_list", 
+
+        RhnSet errataToClone = RhnSetFactory.createRhnSet(user.getId(),
+                                                          "clone_errata_list",
                                                           SetCleanup.NOOP);
-        
+
         Channel original = ChannelFactoryTest.createTestChannel(user);
-        
+
         for (int j = 0; j < 5; ++j) {
             Errata e = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
             original.addErrata(e);
             errataToClone.addElement(e.getId());
         }
-        
+
         RhnSetManager.store(errataToClone);
-        
+
         RhnSet set = RhnSetDecl.ERRATA_CLONE.get(user);
         assertEquals(5, set.size());
-        
+
         request.addParameter("dispatch", "Clone Errata");
-        
+
         actionPerform();
         verifyForward("default");
     }

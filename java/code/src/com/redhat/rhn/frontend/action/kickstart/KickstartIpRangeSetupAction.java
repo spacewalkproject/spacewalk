@@ -50,34 +50,34 @@ public class KickstartIpRangeSetupAction extends RhnAction {
 
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
-        
+
         String urlStr;
-        try {                        
+        try {
             URL url = new URL(
-                    requestContext.getRequest().getRequestURL().toString());            
-            urlStr = "ks=" + 
+                    requestContext.getRequest().getRequestURL().toString());
+            urlStr = "ks=" +
             KickstartUrlHelper.getKickstartFileUrlIpRange(user.getOrg(),
-                    url.getHost(), url.getProtocol());                        
+                    url.getHost(), url.getProtocol());
         }
         catch (MalformedURLException e) {
             throw new IllegalArgumentException("Bad argument when creating URL for " +
                     "Kickstart IP Ranges");
         }
-        String urlRange = 
+        String urlRange =
             LocalizationService.getInstance().getMessage("kickstart.iprange.url", urlStr);
         request.setAttribute("urlrange", urlRange);
-        
+
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        
+
         request.setAttribute("pageList", getDataResult(requestContext, null));
-        
+
         return mapping.findForward("default");
 
     }
-    
-    
+
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
@@ -86,7 +86,7 @@ public class KickstartIpRangeSetupAction extends RhnAction {
     }
 
     /**
-     * 
+     *
      * @return the kickstart profile security label
      */
     public RhnSetDecl getSetDecl() {

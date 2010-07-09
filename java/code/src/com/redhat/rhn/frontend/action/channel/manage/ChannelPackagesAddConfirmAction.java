@@ -79,7 +79,7 @@ public class ChannelPackagesAddConfirmAction extends RhnAction {
         RhnSet set = RhnSetDecl.PACKAGES_TO_ADD.get(user);
         DataResult result = PackageManager.packageIdsInSet(user, set.getLabel(), null);
 
-        
+
         TagHelper.bindElaboratorTo(LIST_NAME, result.getElaborator(), request);
         request.setAttribute("cid", chan.getId());
         request.setAttribute("channel_name", chan.getName());
@@ -106,7 +106,7 @@ public class ChannelPackagesAddConfirmAction extends RhnAction {
             // that may be added.
             set.clear();
             RhnSetManager.store(set);
-            
+
             Map params = new HashMap();
             params.put("cid", cid);
             return getStrutsDelegate().forwardParams(mapping.findForward("complete"),

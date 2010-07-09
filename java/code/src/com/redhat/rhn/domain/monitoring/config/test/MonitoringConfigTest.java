@@ -35,7 +35,7 @@ public class MonitoringConfigTest extends RhnBaseTestCase {
         assertTrue(macros.size() > 0);
         assertTrue(macros.get(0) instanceof ConfigMacro);
     }
-    
+
     public void testUpdateConfig() throws Exception {
         List macros = MonitoringConfigFactory.lookupConfigMacros(true);
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
@@ -49,14 +49,14 @@ public class MonitoringConfigTest extends RhnBaseTestCase {
                 "from com.redhat.rhn.domain.monitoring.config.ConfigMacro c where " +
                 "c.name = '" + name + "'");
         assertTrue(cr.getLastUpdateUser().equals(user.getLogin()));
-        
+
     }
-    
+
     public void testLookupConfigMacro() throws Exception {
 
         ConfigMacro cm = MonitoringConfigFactory.lookupConfigMacroByName("MAIL_MX");
         assertNotNull(cm);
     }
-    
+
 }
 

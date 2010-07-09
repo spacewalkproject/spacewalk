@@ -21,10 +21,10 @@ import com.redhat.rhn.taskomatic.task.TaskConstants;
  * @version $Rev$
  */
 public class TaskomaticConstants {
-    
+
     // Quartz task group name
      public static final String TASK_GROUP = "Taskomatic Group";
-    
+
      // Various "command-line" parameters Taskomatic understands
      public static final String CLI_DEBUG  = "debug";
      public static final String CLI_DAEMON = "daemon";
@@ -35,16 +35,16 @@ public class TaskomaticConstants {
      public static final String CLI_DBURL = "dburl";
      public static final String CLI_DBUSER  = "dbuser";
      public static final String CLI_DBPASSWORD = "dbpassword";
-     
+
      public static final String DISPLAY_NAME_CONST = "DISPLAY_NAME";
-     
+
      public static final String MODE_NAME = TaskConstants.MODE_NAME;
      public static final String DAEMON_QUERY_FIND_STATS = "find_task_stats";
      public static final String DAEMON_QUERY_CREATE_STATS = "create_task_stats";
      public static final String DAEMON_QUERY_UPDATE_STATS = "update_task_stats";
-     
-     
+
+
      private TaskomaticConstants() {
-         
+
      }
 }

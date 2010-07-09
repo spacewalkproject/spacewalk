@@ -22,13 +22,13 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class MD5CryptTest extends RhnBaseTestCase {
-    
+
     /** Test the crypt function
      */
     public void testCrypt() {
         String key = "%43AazZ09!@#$%^&*()-+=/.~`?;:<>,";
         String salt = "testsalttest";
-        
+
         /**
          * Ensure crypt(key) generates a random
          * 8 character salt.
@@ -36,7 +36,7 @@ public class MD5CryptTest extends RhnBaseTestCase {
         String c1 = MD5Crypt.crypt(key);
         assertNotNull(c1);
         assertEquals(c1.charAt(11), '$');
-        
+
         /**
          * Make sure the crypt(key, salt) works
          */

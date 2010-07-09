@@ -28,13 +28,13 @@ import java.util.Date;
  * @version $Rev$
  */
 public class PatchSetTest extends PackageTest {
-    
+
     public void testPatchSet() throws Exception {
         PatchSet patchSet = createTestPatchSet();
         assertNotNull(patchSet);
         //make sure we got written to the db
         assertNotNull(patchSet.getId());
-        assertEquals("sparc-solaris-patch-cluster", 
+        assertEquals("sparc-solaris-patch-cluster",
             patchSet.getPackageArch().getLabel());
     }
 
@@ -42,7 +42,7 @@ public class PatchSetTest extends PackageTest {
         PatchSet patchSet = new PatchSet();
         Org org = OrgFactory.lookupById(UserTestUtils.createOrg("testOrg"));
         populateTestPackage(patchSet, org);
-        
+
         String query = "PackageArch.findByLabel";
         PackageArch parch =
             (PackageArch) TestUtils.

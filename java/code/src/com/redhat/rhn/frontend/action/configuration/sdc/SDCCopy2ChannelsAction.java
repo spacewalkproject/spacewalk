@@ -38,30 +38,30 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SDCCopy2ChannelsAction extends Copy2ChannelsAction {
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected RhnSetDecl getFileSetDecl() {
         return RhnSetDecl.CONFIG_FILE_NAMES;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected void setupRequest(HttpServletRequest req) {
         RequestContext ctx = new RequestContext(req);
         Server s = ctx.lookupAndBindServer();
-        String url = req.getRequestURI() + "?" + 
+        String url = req.getRequestURI() + "?" +
                             RequestContext.SID + "=" + s.getId();
-        req.setAttribute("parentUrl", url);        
+        req.setAttribute("parentUrl", url);
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    protected ActionForward doCopy(ActionMapping mapping, 
+    protected ActionForward doCopy(ActionMapping mapping,
             HttpServletRequest req, User user) {
         ActionForward forward = super.doCopy(mapping, req, user);
         RequestContext ctx = new RequestContext(req);
@@ -81,8 +81,8 @@ public class SDCCopy2ChannelsAction extends Copy2ChannelsAction {
 
         DataResult rs =  cm.listGlobalChannels(user, null);
         Map elabParams = new HashMap();
-        elabParams.put("user_id", user.getId());        
+        elabParams.put("user_id", user.getId());
         rs.elaborate(elabParams);
         return rs;
-    }    
+    }
 }

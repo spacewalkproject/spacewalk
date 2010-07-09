@@ -1,6 +1,6 @@
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 
-<schema targetNamespace="http://rhn.redhat.com" 
+<schema targetNamespace="http://rhn.redhat.com"
 	xmlns="http://www.w3.org/1999/XMLSchema" xmlns:rhn="http://rhn.redhat.com">
 	<attribute name="synopsis">
 		<simpleType baseType="string">
@@ -16,8 +16,8 @@
     </attribute>
     <attribute name="advisoryRelease">
         <simpleType baseType="long">
-            <minInclusive value="0" /> 
-            <maxInclusive value="9999" /> 
+            <minInclusive value="0" />
+            <maxInclusive value="9999" />
         </simpleType>
     </attribute>
     <attribute name="advisoryType">

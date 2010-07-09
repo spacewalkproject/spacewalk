@@ -37,13 +37,13 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public abstract class BaseSystemListSetupAction extends RhnListAction {
-    public static final String SHOW_NO_SYSTEMS = "showNoSystems"; 
+    public static final String SHOW_NO_SYSTEMS = "showNoSystems";
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
         PageControl pc = new PageControl();
@@ -57,14 +57,14 @@ public abstract class BaseSystemListSetupAction extends RhnListAction {
         if (!(dr.size() > 0)) {
             request.setAttribute(SHOW_NO_SYSTEMS, Boolean.TRUE);
         }
-        
+
         setStatusDisplay(dr, user);
 
         request.setAttribute("set", set);
         request.setAttribute("pageList", dr);
         return mapping.findForward("default");
     }
-    /** 
+    /**
      * Retrives the set declation item
      * where the contents of the page control
      * are to be set.
@@ -73,25 +73,25 @@ public abstract class BaseSystemListSetupAction extends RhnListAction {
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.SYSTEMS;
     }
-    
+
     /**
      * Sets the status and entitlementLevel variables of each System Overview
      * @param dr The list of System Overviews
      * @param user The user viewing the System List
      */
     public void setStatusDisplay(DataResult dr, User user) {
-        
+
         Iterator i = dr.iterator();
-        
+
         while (i.hasNext()) {
             SystemOverview next = (SystemOverview) i.next();
             SystemListHelper.setSystemStatusDisplay(user, next);
         }
-        
+
     }
-    
-    protected abstract DataResult getDataResult(User user, 
-                                                PageControl pc, 
+
+    protected abstract DataResult getDataResult(User user,
+                                                PageControl pc,
                                                 ActionForm formIn);
 }
 

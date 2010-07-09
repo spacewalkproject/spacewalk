@@ -23,7 +23,7 @@ public class XmlTagTest extends RhnBaseTestCase {
         XmlTag xml = new XmlTag("foo", true);
         assertEquals("<foo />", xml.render());
     }
-    
+
     public void testXmltag() {
         XmlTag xml = new XmlTag("foo");
         assertEquals("<foo/>", xml.render());

@@ -3,25 +3,25 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.action.rhnpackage.PackageActionResult" 
+	<class name="com.redhat.rhn.domain.action.rhnpackage.PackageActionResult"
            table="rhnServerActionPackageResult" >
 
 		<composite-id unsaved-value="any">
-            <key-many-to-one 
+            <key-many-to-one
                 name="server"
                 class="com.redhat.rhn.domain.server.Server"
             	column="server_id"/>
-                
+
             <key-many-to-one
 	           	name="details"
 	            class="com.redhat.rhn.domain.action.rhnpackage.PackageActionDetails"
 	            column="action_package_id"/>
-        </composite-id> 
+        </composite-id>
 		
 		<property name="resultCode" type="long" column="result_code"/>
         <property name="created" type="date" column="created"/>
-        <property name="modified" type="date" column="modified"/>        
-            
+        <property name="modified" type="date" column="modified"/>
+
 	</class>
     <query name="PackageActionResult.findByKey">
         <![CDATA[from com.redhat.rhn.domain.action.rhnpackage.PackageActionResult

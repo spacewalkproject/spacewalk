@@ -90,7 +90,7 @@ public class SsmRemovePackagesAction extends AbstractDatabaseAction {
         // total of all packages selected
         Set<PackageListItem> allPackages = new HashSet<PackageListItem>();
 
-        
+
         Set<Long> allServerIds = new HashSet<Long>();
 
         // Iterate the data, which is essentially each unique package/server combination
@@ -119,15 +119,15 @@ public class SsmRemovePackagesAction extends AbstractDatabaseAction {
 
 
         log.debug("Converting data to maps.");
-        List<PackageListItem> allPackagesList = 
+        List<PackageListItem> allPackagesList =
                 new ArrayList<PackageListItem>(allPackages);
         List<Map<String, Long>> packageListData =
             PackageListItem.toKeyMaps(allPackagesList);
 
         log.debug("Scheduling package removals.");
-        ActionManager.schedulePackageRemoval(user, allServerIds, 
-                                            packageListData, earliest); 
-        
+        ActionManager.schedulePackageRemoval(user, allServerIds,
+                                            packageListData, earliest);
+
         log.debug("Done.");
     }
 

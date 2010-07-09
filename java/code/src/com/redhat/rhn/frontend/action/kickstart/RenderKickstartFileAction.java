@@ -34,23 +34,23 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Render a kickstart file to Anaconda
- * 
+ *
  * @version $Rev $
  */
 public class RenderKickstartFileAction extends Action {
-    
-    private static Logger log = Logger.getLogger(RenderKickstartFileAction.class);    
-    
+
+    private static Logger log = Logger.getLogger(RenderKickstartFileAction.class);
+
     /**
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String url = request.getParameter("ksurl");   
+        String url = request.getParameter("ksurl");
         if (url == null) {
             url = (String) request.getAttribute("ksurl");
         }
-        
+
         if (log.isDebugEnabled()) {
             log.debug("ksurl = " + url + " param: " + request.getAttribute("ksurl"));
         }
@@ -69,11 +69,11 @@ public class RenderKickstartFileAction extends Action {
                     try {
                         if (helper.isProxyRequest()) {
                             fileContents = KickstartManager.
-                                getInstance().renderKickstart(host, ksdata);    
+                                getInstance().renderKickstart(host, ksdata);
                         }
                         else {
                             fileContents = KickstartManager.
-                                getInstance().renderKickstart(ksdata);    
+                                getInstance().renderKickstart(ksdata);
                         }
                     }
                     catch (DownloadException de) {
@@ -81,7 +81,7 @@ public class RenderKickstartFileAction extends Action {
                     }
                 }
                 else {
-                    log.error("No kickstart filecontents found for: " + url + 
+                    log.error("No kickstart filecontents found for: " + url +
                             " params: " + params + " ksdata: " + ksdata);
                     // send 404 to the user since we don't have a kickstart profile match
                     //response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -90,14 +90,14 @@ public class RenderKickstartFileAction extends Action {
                 if (log.isDebugEnabled()) {
                     log.debug("fileContents: " + fileContents);
                 }
-                
+
             }
         }
         renderOutput(response, fileContents);
         return null;
     }
-    
-    private void renderOutput(HttpServletResponse response, String file) 
+
+    private void renderOutput(HttpServletResponse response, String file)
             throws IOException {
         response.setContentType("text/plain");
         int contentLength = file == null ? 0 : file.getBytes().length;

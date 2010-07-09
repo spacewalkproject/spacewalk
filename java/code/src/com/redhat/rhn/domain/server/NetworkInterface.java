@@ -27,7 +27,7 @@ import java.io.Serializable;
  * NetworkInterface
  * @version $Rev$
  */
-public class NetworkInterface extends BaseDomainHelper implements 
+public class NetworkInterface extends BaseDomainHelper implements
     Serializable {
 
     private Server server;
@@ -37,106 +37,106 @@ public class NetworkInterface extends BaseDomainHelper implements
     private String broadcast;
     private String hwaddr;
     private String module;
-    
-    
+
+
     /**
      * @return Returns the broadcast.
      */
     public String getBroadcast() {
         return broadcast;
     }
-    
+
     /**
      * @param b The broadcast to set.
      */
     public void setBroadcast(String b) {
         this.broadcast = b;
     }
-    
+
     /**
      * @return Returns the hwaddr.
      */
     public String getHwaddr() {
         return hwaddr;
     }
-    
+
     /**
      * @param h The hwaddr to set.
      */
     public void setHwaddr(String h) {
         this.hwaddr = h;
     }
-    
+
     /**
      * @return Returns the ipddr.
      */
     public String getIpaddr() {
         return ipaddr;
     }
-    
+
     /**
      * @param i The ipddr to set.
      */
     public void setIpaddr(String i) {
         this.ipaddr = i;
     }
-    
+
     /**
      * @return Returns the module.
      */
     public String getModule() {
         return module;
     }
-    
+
     /**
      * @param m The module to set.
      */
     public void setModule(String m) {
         this.module = m;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
     public void setName(String n) {
         this.name = n;
     }
-    
+
     /**
      * @return Returns the netmask.
      */
     public String getNetmask() {
         return netmask;
     }
-    
+
     /**
      * @param n The netmask to set.
      */
     public void setNetmask(String n) {
         this.netmask = n;
     }
-    
+
     /**
      * @return Returns the server.
      */
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * @param s The server to set.
      */
     public void setServer(Server s) {
         this.server = s;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -154,7 +154,7 @@ public class NetworkInterface extends BaseDomainHelper implements
                                   .append(this.getModule(), castOther.getModule())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -175,17 +175,17 @@ public class NetworkInterface extends BaseDomainHelper implements
     public String toString() {
         return "NetworkInterface - name: " + this.getName() + " ip: " + this.getIpaddr();
     }
-    
+
     /**
      * returns true if the NetworkInterface is disabled
      * @return if it's empty or not
      */
     public boolean isDisabled() {
-        return this.getIpaddr() == null || this.getIpaddr().equals("0") ||  
+        return this.getIpaddr() == null || this.getIpaddr().equals("0") ||
                 this.getIpaddr().equals("");
     }
-    
-    
+
+
     private boolean isIpValid() {
         try {
             IpAddress ip = new IpAddress(this.getIpaddr());

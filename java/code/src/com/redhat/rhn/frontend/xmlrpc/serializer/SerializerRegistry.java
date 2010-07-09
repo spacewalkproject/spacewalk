@@ -20,18 +20,18 @@ import java.util.List;
 
 /**
  * SerializerRegistry
- * 
+ *
  * Stores a list of serializer classes for registration the first time a SerializerFactory
  * is used. Previously we were doing this by searching a package in the jar and extracting
  * classes that implement the correct interface, but problems were encountered with
  * existing satellite's and likely Tomcat caching. We're unsure of how stable this will be
  * in the future so resorting to an explicit method of declaring serializer classes once
  * again.
- * 
+ *
  * @version $Rev$
  */
 public class SerializerRegistry {
-    
+
     private SerializerRegistry() {
         // Hide the default constructor.
     }
@@ -58,11 +58,11 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(PackageMetadataSerializer.class);
         SERIALIZER_CLASSES.add(PackageSerializer.class);
         SERIALIZER_CLASSES.add(RhnTimeZoneSerializer.class);
-        SERIALIZER_CLASSES.add(ScriptResultSerializer.class);    
+        SERIALIZER_CLASSES.add(ScriptResultSerializer.class);
         SERIALIZER_CLASSES.add(ServerSerializer.class);
         SERIALIZER_CLASSES.add(ServerPathSerializer.class);
         SERIALIZER_CLASSES.add(SystemSearchResultSerializer.class);
-        SERIALIZER_CLASSES.add(SystemOverviewSerializer.class);    
+        SERIALIZER_CLASSES.add(SystemOverviewSerializer.class);
         SERIALIZER_CLASSES.add(UserSerializer.class);
         SERIALIZER_CLASSES.add(KickstartTreeSerializer.class);
         SERIALIZER_CLASSES.add(KickstartTreeDetailSerializer.class);
@@ -85,7 +85,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(NetworkInterfaceSerializer.class);
         SERIALIZER_CLASSES.add(ScheduleActionSerializer.class);
         SERIALIZER_CLASSES.add(ScheduleSystemSerializer.class);
-        SERIALIZER_CLASSES.add(KickstartDtoSerializer.class);        
+        SERIALIZER_CLASSES.add(KickstartDtoSerializer.class);
         SERIALIZER_CLASSES.add(KickstartScriptSerializer.class);
         SERIALIZER_CLASSES.add(ServerSnapshotSerializer.class);
         SERIALIZER_CLASSES.add(PackageNevraSerializer.class);
@@ -114,7 +114,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(NetworkDtoSerializer.class);
         SERIALIZER_CLASSES.add(DistChannelMapSerializer.class);
     }
-    
+
     /**
      * Returns the list of all available custom XMLRPC serializers.
      * @return List of serializer classes.

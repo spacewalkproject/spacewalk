@@ -34,22 +34,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
- /** 
+ /**
   * A small wrapper around hibernate files to remove some of the complexities
   * of writing to hibernate.
   * @version $Rev$
  */
  public class OrgFactory extends HibernateFactory {
 
-    
+
     private static OrgFactory singleton = new OrgFactory();
     private static Logger log = Logger.getLogger(OrgFactory.class);
-    
+
     private OrgFactory() {
         super();
     }
-    
-    /** 
+
+    /**
     * Get the Logger for the derived class so log messages
     * show up on the correct class
     * @return Logger to use
@@ -66,13 +66,13 @@ import java.util.Map;
         Org retval = new OrgImpl();
         retval.setCustomerType("B");
         return retval;
-        
+
     }
-    
+
     /**
      * Delete the org. This should only be used when
      * the org passed in has just been created (via CreateNewUser).
-     * 
+     *
      * @param org the org to delete
      */
     public static void removeOrg(Org org) {
@@ -80,23 +80,23 @@ import java.util.Map;
             singleton.removeObject(org);
         }
     }
-    
+
     /**
-     * 
+     *
      * @param oid Org Id to delete
      * the org id is passed to pl/sql to wipe out
      */
     public static void deleteOrg(Long oid) {
         // put in a sanity check here to make sure org exists
         //Org org = OrgFactory.lookupById(oid);
-        
+
         Map in = new HashMap();
         in.put("org_id", oid);
         CallableMode m = ModeFactory.getCallableMode(
                 "Org_queries", "delete_organization");
         m.execute(in, new HashMap());
     }
-    
+
     /**
      * Find the org with the name, name.
      * @param name the org name
@@ -108,7 +108,7 @@ import java.util.Map;
                                     .setString("name", name)
                                     .uniqueResult();
     }
- 
+
     /**
      * Retrieves a specific group from the server groups for this org
      * @param id The id of the group we're looking for
@@ -123,7 +123,7 @@ import java.util.Map;
                                  .setEntity("org", org)
                                  .uniqueResult();
     }
-    
+
     /**
      * Get the CustomDataKey represented by the passed in label and org
      * @param label The label of the key you want
@@ -132,7 +132,7 @@ import java.util.Map;
      */
     public static CustomDataKey lookupKeyByLabelAndOrg(String label, Org org) {
         Session session = HibernateFactory.getSession();
-        
+
         return (CustomDataKey) session.getNamedQuery("CustomDataKey.findByLabelAndOrg")
                                        .setString("label", label)
                                        .setEntity("org", org)
@@ -140,7 +140,7 @@ import java.util.Map;
                                        .setCacheable(true)
                                        .uniqueResult();
     }
-    
+
     /**
     * Get the OrgEntitlementType represented by the passed in label
     * @param label label to lookup Entitlement by
@@ -150,7 +150,7 @@ import java.util.Map;
         if (label.equals("sw_mgr_personal")) {
             return getEntitlementSwMgrPersonal();
         }
-        
+
         //hack around this for now...
         Session session = HibernateFactory.getSession();
         return (OrgEntitlementType) session.
@@ -160,7 +160,7 @@ import java.util.Map;
                 .setCacheable(true)
                 .uniqueResult();
     }
-    
+
     /**
      * Is the specified label a valid entitlement.
      */
@@ -185,15 +185,15 @@ import java.util.Map;
         Map outParams = new HashMap();
 
         inParams.put("name", org.getName());
-        // password is currently required as an input to the create_new_org 
+        // password is currently required as an input to the create_new_org
         // stored proc; however, it is not used by the proc.
         inParams.put("password", org.getName());
         outParams.put("org_id", new Integer(Types.NUMERIC));
 
         Map row = m.execute(inParams, outParams);
-        // Get the out params         
+        // Get the out params
         Org retval = lookupById((Long) row.get("org_id"));
-        
+
         retval.addRole(RoleFactory.ACTIVATION_KEY_ADMIN);
         retval.addRole(RoleFactory.CERT_ADMIN);
         retval.addRole(RoleFactory.CHANNEL_ADMIN);
@@ -201,39 +201,39 @@ import java.util.Map;
         retval.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         retval.addRole(RoleFactory.MONITORING_ADMIN);
         retval.addRole(RoleFactory.SAT_ADMIN);
-        
+
         OrgQuota quota = new OrgQuota();
         quota.setTotal(new Long(1024L * 1024L * 1024L * 16L));
         quota.setOrg(retval);
         ((OrgImpl) retval).setOrgQuota(quota);
         singleton.saveObject(quota);
         // Save the object since we may have in memory items to write\
-        singleton.saveInternal(retval);        
-        retval = (Org) singleton.reload(retval);        
+        singleton.saveInternal(retval);
+        retval = (Org) singleton.reload(retval);
         return retval;
     }
 
     /**
      * Commit the Org
      * @param org Org object we want to commit.
-     * @return the saved Org. 
+     * @return the saved Org.
      */
-    public static Org save(Org org) {        
+    public static Org save(Org org) {
         return singleton.saveInternal(org);
     }
-    
+
     /**
      * Commit the Org
      */
     private Org saveInternal(Org org) {
         if (org.getId() == null) {
-            // New org, gotta use the stored procedure.            
+            // New org, gotta use the stored procedure.
             return saveNewOrg(org);
-        }        
+        }
         saveObject(org);
         return org;
     }
-    
+
     /**
      * Lookup an Org by id.
      * @param id id to lookup Org by
@@ -244,9 +244,9 @@ import java.util.Map;
         Org u = (Org)session.get(OrgImpl.class, id);
         return u;
     }
-    
+
     /**
-     * 
+     *
      * @param orgIn Org to calculate users
      * @return number of active Users
      */
@@ -255,11 +255,11 @@ import java.util.Map;
         return  (Long) session.getNamedQuery("Org.numOfActiveUsers")
                                     .setLong("org_id", orgIn.getId().longValue())
                                     .uniqueResult();
-                                    
+
     }
-    
+
     /**
-     * 
+     *
      * @param orgIn to calculate systems
      * @return number of active systems
      */
@@ -267,23 +267,23 @@ import java.util.Map;
         Session session = HibernateFactory.getSession();
         return  (Long) session.getNamedQuery("Org.numOfSystems")
                                     .setLong("org_id", orgIn.getId().longValue())
-                                    .uniqueResult();                                    
+                                    .uniqueResult();
     }
-    
+
     /**
-     * 
-     * @param orgIn Org to calculate number of server groups for 
+     *
+     * @param orgIn Org to calculate number of server groups for
      * @return number of Server Groups for Org
      */
     public static Long getServerGroups(Org orgIn) {
         Session session = HibernateFactory.getSession();
         return  (Long) session.getNamedQuery("Org.numOfServerGroups")
                                     .setLong("org_id", orgIn.getId().longValue())
-                                    .uniqueResult();                                    
-    }    
-    
+                                    .uniqueResult();
+    }
+
     /**
-     * 
+     *
      * @param orgIn to calculate number of Config Channels
      * @return number of config channels for Org
      */
@@ -291,26 +291,26 @@ import java.util.Map;
         Session session = HibernateFactory.getSession();
         return  (Long) session.getNamedQuery("Org.numOfConfigChannels")
                                     .setLong("org_id", orgIn.getId().longValue())
-                                    .uniqueResult();                                    
-    }        
-    
+                                    .uniqueResult();
+    }
+
     /**
-     * 
+     *
      * @param orgIn to calculate activations keys
      * @return number of activations keys for Org
      */
     public static Long getActivationKeys(Org orgIn) {
-        
+
         SelectMode m = ModeFactory.getMode("General_queries",
         "activation_keys_for_org");
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
         DataList keys = DataList.getDataList(m, params, Collections.EMPTY_MAP);
-        return new Long(keys.size());               
-    }    
-    
+        return new Long(keys.size());
+    }
+
     /**
-     * 
+     *
      * @param orgIn to calculate number of kickstarts
      * @return number of kicktarts for Org
      */
@@ -320,7 +320,7 @@ import java.util.Map;
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
         DataList kickstarts = DataList.getDataList(m, params, Collections.EMPTY_MAP);
-        return new Long(kickstarts.size());               
+        return new Long(kickstarts.size());
     }
      /**
       * Lookup a Template String by label
@@ -335,16 +335,16 @@ import java.util.Map;
                                         .setCacheable(true)
                                         .uniqueResult();
      }
-     
+
      public static final TemplateString EMAIL_FOOTER =
          lookupTemplateByLabel("email_footer");
      public static final TemplateString EMAIL_ACCOUNT_INFO =
          lookupTemplateByLabel("email_account_info");
 
      /**
-      * Get the default organization.  
+      * Get the default organization.
       *
-      * Currently looks up the org with ID 1.  
+      * Currently looks up the org with ID 1.
       *
       * @return Default organization
       */
@@ -357,7 +357,7 @@ import java.util.Map;
       * @return OrgEntitlementType
       */
      public static OrgEntitlementType getEntitlementProvisioning() {
-         return lookupEntitlementByLabel("rhn_provisioning"); 
+         return lookupEntitlementByLabel("rhn_provisioning");
      }
 
      /**
@@ -365,7 +365,7 @@ import java.util.Map;
       * @return OrgEntitlementType
       */
      public static OrgEntitlementType getEntitlementEnterprise() {
-         return lookupEntitlementByLabel("sw_mgr_enterprise"); 
+         return lookupEntitlementByLabel("sw_mgr_enterprise");
      }
 
      /**
@@ -373,7 +373,7 @@ import java.util.Map;
       * @return OrgEntitlementType
       */
      public static OrgEntitlementType getEntitlementMonitoring() {
-         return lookupEntitlementByLabel("rhn_monitor"); 
+         return lookupEntitlementByLabel("rhn_monitor");
      }
 
      /**
@@ -401,9 +401,9 @@ import java.util.Map;
    public static OrgEntitlementType getEntitlementVirtualizationPlatform() {
        return lookupEntitlementByLabel("rhn_virtualization_platform");
    }
-   
+
    /**
-    * Lookup orgs with servers with access to any channel that's a part of the given 
+    * Lookup orgs with servers with access to any channel that's a part of the given
     * family.
     * @param channelFamily Channel family to search for.
     * @return List of orgs.
@@ -415,22 +415,22 @@ import java.util.Map;
        return (List<Org>)singleton.listObjectsByNamedQuery(
                "Org.findOrgsWithSystemsInChannelFamily", params);
    }
-   
+
    /**
-    * 
+    *
     * @return Total number of orgs.
     */
    public static Long getTotalOrgCount() {
        Map<String, Object> params = new HashMap<String, Object>();
-       
+
        return (Long)singleton.lookupObjectByNamedQuery(
                "Org.numOfOrgs", params);
    }
-   
+
    /**
     *  @param org Our org
     *  @param trustedOrg the org we trust
-    *  @return Formated created String for Trusted Org 
+    *  @return Formated created String for Trusted Org
     */
    public static String getTrustedSince(Long org, Long trustedOrg) {
        Map<String, Object> params = new HashMap<String, Object>();
@@ -440,7 +440,7 @@ import java.util.Map;
            "Org.getTrustedSince", params);
        return LocalizationService.getInstance().formatDate(date);
    }
-   
+
    /**
     * @param orgTo Org to caclulate system migrations to
     * @param orgFrom Org to caclulate system migrations from
@@ -454,9 +454,9 @@ import java.util.Map;
            "Org.getMigratedSystems", params);
        return systems;
        }
-   
+
    /**
-    * @param orgId Org to caclulate systems 
+    * @param orgId Org to caclulate systems
     * @param trustId Org to calculate channel sharing to
     * @return number of systems migrated to orgIn
     */
@@ -468,7 +468,7 @@ import java.util.Map;
            "Org.getSharedChannels", params);
        return systems;
        }
-   
+
    /**
     * @param orgId Org sharing
     * @param trustId subscribing systems to orgId channels
@@ -482,7 +482,7 @@ import java.util.Map;
            "Org.getSharedSubscribedSys", params);
        return systems;
        }
-   
+
    /**
     * @param orgIn Org to caclulate system migrations to
     * @return number of systems migrated to orgIn
@@ -494,7 +494,7 @@ import java.util.Map;
             "Org.getSysMigrationTo", params);
        return systems;
    }
-   
+
 
    /**
     * Lookup all orgs on the satellite.

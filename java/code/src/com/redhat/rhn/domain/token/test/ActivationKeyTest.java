@@ -53,36 +53,36 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
         user.addRole(RoleFactory.ORG_ADMIN);
     }
     public void testKeyGeneration() throws Exception {
-        
+
         ActivationKey k = createTestActivationKey(user);
-        String note = k.getNote();        
+        String note = k.getNote();
         String key = k.getKey();
 
         TestUtils.saveAndFlush(k);
-        
+
         ActivationKey k2 = ActivationKeyFactory.lookupByKey(key);
         assertEquals(key, k2.getKey());
         assertEquals(note, k2.getNote());
 
         ActivationKey k3 = ActivationKeyFactory.lookupByKey(TestUtils.randomString());
         assertNull(k3);
-        
+
         // Make sure we got the entitlements correct
         Server server = k2.getServer();
         assertEquals(1, server.getEntitlements().size());
         assertEquals(1, k2.getEntitlements().size());
-        
+
         Entitlement e = (Entitlement) server.getEntitlements().iterator().next();
         ServerGroupType t2 = (ServerGroupType) k2.getEntitlements().iterator().next();
         assertEquals(e.getLabel(), t2.getLabel());
-        
+
         // test out ActivationKeyManager.findByServer while we're here...
         ActivationKey k4 = (ActivationKey) ActivationKeyManager.
             getInstance().findByServer(server, user).iterator().next();
         assertNotNull(k4);
         assertEquals(key, k4.getKey());
 
-        
+
         try {
             k3 = (ActivationKey) ActivationKeyManager.getInstance().
                 findByServer(null, user).iterator().next();
@@ -90,7 +90,7 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
                             " Activation key should not have existed" +
                             " for a server of 'null' id. An exception " +
                              "should have been raised for this.";
-            fail(msg);            
+            fail(msg);
         }
         catch (Exception ie) {
          // great!.. Exception for passing in invalid keys always welcome
@@ -121,13 +121,13 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
             //success . Name had invalid chars
         }
     }
-    
+
     public void testKeyTrimming()  throws Exception  {
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         String keyName = " Test Space  ";
         ActivationKey k = manager.createNewActivationKey
             (user, keyName, "Cool Duplicate", null, null, false);
-        assertEquals(ActivationKey.makePrefix(user.getOrg()) + 
+        assertEquals(ActivationKey.makePrefix(user.getOrg()) +
                 keyName.trim().replace(" ", ""), k.getKey());
         String newKey = keyName + " FOO  ";
         manager.changeKey(newKey , k, user);
@@ -147,25 +147,25 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
         k.setKickstartSession(sess);
         ActivationKeyFactory.save(k);
         k = (ActivationKey) reload(k);
-        
+
         ActivationKey lookedUp = ActivationKeyFactory.lookupByKickstartSession(sess);
         assertNotNull(lookedUp);
     }
-    
+
     public void testNullServer() throws Exception {
-        ActivationKey key = ActivationKeyFactory.createNewKey(user, 
+        ActivationKey key = ActivationKeyFactory.createNewKey(user,
                 TestUtils.randomString());
         assertNotNull(key.getEntitlements());
         assertTrue(key.getEntitlements().size() == 1);
     }
-    
+
     // See BZ: 191007
     public void testCreateWithCustomGroups() throws Exception {
-        Server s = ServerFactoryTest.createTestServer(user, true, 
+        Server s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         ServerGroup testGroup = ServerGroupTestUtils.createManaged(user);
         s.getManagedGroups().add((ManagedServerGroup)testGroup);
-        
+
         //Three, one for the server entitlement, one for the user permission to the
         //server, one as the testGroup.
         assertEquals(1, s.getManagedGroups().size());
@@ -174,11 +174,11 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
         key = (ActivationKey) reload(key);
         assertNotNull(key.getId());
     }
-    
+
     public void testAddGetKeys() throws Exception {
 
         ActivationKey k = createTestActivationKey(user);
-        
+
         for (int i = 0; i < 5; i++) {
             Channel c = ChannelFactoryTest.
                 createTestChannel(user);
@@ -186,7 +186,7 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
         }
         assertTrue(k.getChannels().size() == 5);
     }
-    
+
     public void testLookupByServer() throws Exception {
         ActivationKey k = createTestActivationKey(user);
         Server s = k.getServer();
@@ -205,19 +205,19 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
             System.out.println("tk: " + tk.getKey());
         }
     }
-    
+
     public static ActivationKey createTestActivationKey(User user) throws Exception {
-        Server server = ServerFactoryTest.createTestServer(user, true, 
+        Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        
+
         return createTestActivationKey(user, server);
     }
 
     public static ActivationKey createTestActivationKey(User u, Server s) {
-        
-        String note = "" + TestUtils.randomString() + 
+
+        String note = "" + TestUtils.randomString() +
                       " -- Java unit test activation key.";
-        
+
         ActivationKey key = ActivationKeyManager.getInstance().
                                             createNewReActivationKey(u, s, note);
         ActivationKeyFactory.save(key);

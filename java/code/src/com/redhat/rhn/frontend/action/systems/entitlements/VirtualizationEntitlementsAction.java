@@ -34,19 +34,19 @@ import javax.servlet.http.HttpServletResponse;
 public class VirtualizationEntitlementsAction extends MappingDispatchAction {
 
     public static final String PAGELIST = "pageList";
-       
+
     /**
      * Initializes the action
      */
     public VirtualizationEntitlementsAction() {
-        
+
     }
 
 
     /**
      * Creates a list of host systems with the <i>Virtualization</i> (guest-limited)
      * entitlement and the number of guests for each host.
-     * 
+     *
      * @param mapping The action mapping
      * @param form The action form
      * @param request The servlet request
@@ -59,16 +59,16 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
         request.setAttribute("parentUrl", request.getRequestURI());
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
-        request.setAttribute(PAGELIST, 
+        request.setAttribute(PAGELIST,
                 VirtualizationEntitlementsManager.getInstance().
                                     findGuestLimitedHostsByOrg(user.getOrg()));
         return mapping.findForward("success");
     }
 
     /**
-     * Creates a list of host systems with the <i>Virtualization Platform</i> 
+     * Creates a list of host systems with the <i>Virtualization Platform</i>
      * (guest-unlimited) entitlement and the number of guests for each host.
-     * 
+     *
      * @param mapping The action mapping
      * @param form The action form
      * @param request The servlet request
@@ -80,18 +80,18 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
 
         request.setAttribute("parentUrl", request.getRequestURI());
         RequestContext context = new RequestContext(request);
-        User user = context.getLoggedInUser();        
-        request.setAttribute(PAGELIST, 
+        User user = context.getLoggedInUser();
+        request.setAttribute(PAGELIST,
                 VirtualizationEntitlementsManager.getInstance().
                                     findGuestUnlimitedHostsByOrg(user.getOrg()));
-        
+
         return mapping.findForward("success");
     }
-    
+
     /**
      * Creates a list of host systems with the <i>Virtualization</i> entitlement and
      * the number of guests for each host.
-     * 
+     *
      * @param mapping The action mapping
      * @param form The action form
      * @param request The servlet request
@@ -104,7 +104,7 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
         request.setAttribute("parentUrl", request.getRequestURI());
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
-        request.setAttribute(PAGELIST, 
+        request.setAttribute(PAGELIST,
                 VirtualizationEntitlementsManager.getInstance().
                                     findGuestsWithoutHostsByOrg(user.getOrg()));
         return mapping.findForward("success");

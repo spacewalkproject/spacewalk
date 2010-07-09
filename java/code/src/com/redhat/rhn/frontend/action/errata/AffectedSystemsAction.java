@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class AffectedSystemsAction extends RhnSetAction {
-    
+
     /**
      * Applies the selected errata
      * @param mapping ActionMapping
@@ -55,19 +55,19 @@ public class AffectedSystemsAction extends RhnSetAction {
                                       HttpServletResponse response) {
         RhnSet set = updateSet(request);
         Map params = new HashMap();
-        
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         //if they chose no systems, return to the same page with a message
         if (set.isEmpty()) {
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("affectedsystems.applynone"));
             params = makeParamMap(formIn, request);
             strutsDelegate.saveMessages(request, msg);
             return strutsDelegate.forwardParams(mapping.findForward("default"), params);
         }
-        
+
         //if they chose systems, send them to the confirmation page
         Long eid = new RequestContext(request).getParamAsLong("eid");
         if (eid != null) {
@@ -75,12 +75,12 @@ public class AffectedSystemsAction extends RhnSetAction {
         }
         return strutsDelegate.forwardParams(mapping.findForward("confirm"), params);
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         Long eid = new RequestContext(request).getParamAsLong("eid");
         return  ErrataManager.systemsAffected(user, eid, null);
@@ -97,11 +97,11 @@ public class AffectedSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         Long eid = new RequestContext(request).getParamAsLong("eid");
-        
+
         if (eid != null) {
             params.put("eid", eid);
         }

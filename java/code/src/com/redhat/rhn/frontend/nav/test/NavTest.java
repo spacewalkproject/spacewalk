@@ -61,7 +61,7 @@ public class NavTest extends RhnBaseTestCase {
         assertTrue(nt.getTitleDepth() == 0);
         assertTrue(nt.getLabel().equals("sitenav_unauth"));
         assertNotNull(nt.getAclMixins());
-                        
+
         NavTreeIndex nti = new NavTreeIndex(nt);
 
         String testPath = "/help/release-notes/rhn-release-notes-2.5.0.html";
@@ -124,7 +124,7 @@ public class NavTest extends RhnBaseTestCase {
             assertEquals(result, expected[i]);
         }
     }
-    
+
     public void testLastMappedPath() throws Exception {
 
         NavTree nt =
@@ -143,7 +143,7 @@ public class NavTest extends RhnBaseTestCase {
         assertEquals(bestNode.getPrimaryURL(), lastPath);
         assertEquals(bestNode.getPrimaryURL(), activePath);
     }
-    
+
     public void testMatchByUrl() throws Exception {
         NavTree nt =
             NavDigester.buildTree(TestUtils.findTestData("sitenav.xml"));
@@ -155,7 +155,7 @@ public class NavTest extends RhnBaseTestCase {
         NavNode bestNode = nti.getBestNode();
         assertEquals("/rhn/monitoring/config/ProbeSuites.do", bestNode.getPrimaryURL());
     }
-    
+
     public void testMatchByDir() throws Exception {
         NavTree nt =
             NavDigester.buildTree(TestUtils.findTestData("sitenav.xml"));

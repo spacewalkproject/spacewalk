@@ -34,9 +34,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ChannelErrataAction extends RhnAction {
-   
 
-    
+
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
@@ -45,23 +45,23 @@ public class ChannelErrataAction extends RhnAction {
 
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
-        
-        
+
+
         long cid = requestContext.getRequiredParam("cid");
-        
+
         Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
-        
+
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute("cid", chan.getId());
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("pageList", ErrataManager.errataInChannel(cid));
-        
+
         return mapping.findForward("default");
 
     }
-    
-    
 
-    
-    
+
+
+
+
 }

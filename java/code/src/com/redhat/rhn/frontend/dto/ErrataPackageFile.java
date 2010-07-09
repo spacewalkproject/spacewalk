@@ -25,8 +25,8 @@ public class ErrataPackageFile {
     private String checksumType;
     private String filename;
     private String channelName;
-    
-    
+
+
     /**
      * @return Returns the channelName.
      */

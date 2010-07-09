@@ -26,19 +26,19 @@ import java.util.HashMap;
 
 /**
  * Calls the synch probe state proc on a regular basis from Taskomatic
- * 
+ *
  * @version $Rev $
  */
 
 public class SynchProbeState extends SingleThreadedTask {
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
-     */    
+     */
     public static final String DISPLAY_NAME = "synch_probe_state";
-    
+
     private static Logger logger = Logger.getLogger(SynchProbeState.class);
-    
+
     /**
      * {@inheritDoc}
      */
@@ -47,7 +47,7 @@ public class SynchProbeState extends SingleThreadedTask {
             if (logger.isDebugEnabled()) {
                 logger.debug("Starting probe state sync");
             }
-            CallableMode proc = ModeFactory.getCallableMode(TaskConstants.MODE_NAME, 
+            CallableMode proc = ModeFactory.getCallableMode(TaskConstants.MODE_NAME,
                     TaskConstants.TASK_QUERY_SYNCHPROBESTATE_PROC);
             proc.execute(Collections.EMPTY_MAP, new HashMap());
             if (logger.isDebugEnabled()) {

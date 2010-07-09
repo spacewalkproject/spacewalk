@@ -39,7 +39,7 @@ public class DailySummaryTest extends RhnBaseTestCase {
         assertNotNull(oid);
         int rows = ds.dequeueOrg(oid);
         assertEquals(0, rows);
-        
+
         WriteMode m = ModeFactory.getWriteMode("test_queries",
                 "insert_into_daily_summary_queue");
         Map params = new HashMap();
@@ -49,31 +49,31 @@ public class DailySummaryTest extends RhnBaseTestCase {
         rows = ds.dequeueOrg(oid);
         assertEquals(1, rows);
     }
-    
+
     public void testGetAwolServers() {
         return;
     }
-    
+
     public void testGetActionInfo() {
         return;
     }
-    
+
     public void aTestRenderAwolServersMessage() {
         return;
     }
-    
+
     public void aTestPrepareEmail() {
         return;
     }
-    
+
     public void aTestRenderActionMessage() {
         return;
     }
-    
+
     public void testQueueOrgEmails() {
         return;
     }
-    
+
     public void aTestExcecute() {
         // using jesusr_redhat orgid for this test.  Run only on hosted.
         // TODO: how do we create good test data for something like this?

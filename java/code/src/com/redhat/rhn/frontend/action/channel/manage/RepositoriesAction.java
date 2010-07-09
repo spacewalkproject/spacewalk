@@ -43,7 +43,7 @@ import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
  * @version $Rev$
  */
 public class RepositoriesAction extends RhnAction implements Listable {
-    
+
     /**
      *
      * {@inheritDoc}
@@ -103,7 +103,7 @@ public class RepositoriesAction extends RhnAction implements Listable {
 
         return mapping.findForward("default");
     }
-        
+
         /**
          *
          * {@inheritDoc}

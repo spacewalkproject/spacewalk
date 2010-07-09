@@ -29,7 +29,7 @@ import java.util.Map;
  * @version $Rev$
  */
 public class VerifyConfirmSetupAction extends BaseSystemPackagesConfirmAction {
-    private static final VerifyPackageSetupAction DECL_ACTION = 
+    private static final VerifyPackageSetupAction DECL_ACTION =
                                                 new VerifyPackageSetupAction();
 
     @Override
@@ -62,5 +62,5 @@ public class VerifyConfirmSetupAction extends BaseSystemPackagesConfirmAction {
     @Override
     protected String getHeaderKey() {
         return "verifyconfirm.jsp.header";
-    }    
+    }
 }

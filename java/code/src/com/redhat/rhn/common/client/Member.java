@@ -25,7 +25,7 @@ public class Member {
 
     private String name;
     private List values;
-    
+
     /**
      * Public ctor
      */
@@ -33,7 +33,7 @@ public class Member {
         name = "";
         values = new ArrayList();
     }
-    
+
     /**
      * Returns the name
      * @return the name.
@@ -41,7 +41,7 @@ public class Member {
     public String getName() {
         return name;
     }
-    
+
     /**
      * Sets the name
      * @param nameIn The name to set.
@@ -49,7 +49,7 @@ public class Member {
     public void setName(String nameIn) {
         name = nameIn;
     }
-    
+
     /**
      * Returns the values.
      * @return the values.
@@ -57,7 +57,7 @@ public class Member {
     public String[] getValues() {
         return (String[])values.toArray(new String[values.size()]);
     }
-    
+
     /**
      * Adds a value for this Member
      * @param value to be added

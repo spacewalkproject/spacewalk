@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class MissingPackageSetupAction extends RhnAction implements Listable {
-    
+
     private static final CompareProfileSetupAction DECL_PROFILE_ACTION =
         new CompareProfileSetupAction();
     private static final CompareSystemSetupAction DECL_SYSTEM_ACTION =
@@ -50,7 +50,7 @@ public class MissingPackageSetupAction extends RhnAction implements Listable {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
@@ -90,24 +90,24 @@ public class MissingPackageSetupAction extends RhnAction implements Listable {
         if ("system".equals(type)) {
             Long sid1 = context.getRequiredParam(RequestContext.SID1);
 
-            Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(context.getRequest(), 
+            Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(context.getRequest(),
                     DECL_SYSTEM_ACTION.getDecl(sid));
-            
+
             return ProfileManager.getMissingSystemPackages(
                     context.getCurrentUser(), sid, sid1, pkgIdCombos, null);
         }
         else if ("profile".equals(type)) {
             Long prid = context.getRequiredParam(RequestContext.PRID);
-            
-            Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(context.getRequest(), 
+
+            Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(context.getRequest(),
                     DECL_PROFILE_ACTION.getDecl(sid));
-            
+
             return ProfileManager.getMissingProfilePackages(
                     context.getCurrentUser(), sid, prid, pkgIdCombos, null);
         }
-        
+
         // if we get here we're screwed.
         throw new BadParameterException(
-            "Missing one or more of the required paramters [sync,sid,sid_1,prid]"); 
+            "Missing one or more of the required paramters [sync,sid,sid_1,prid]");
     }
 }

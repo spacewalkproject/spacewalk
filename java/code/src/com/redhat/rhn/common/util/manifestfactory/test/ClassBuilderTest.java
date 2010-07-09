@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 public class ClassBuilderTest extends TestCase {
 
     private ClassBuilder builder;
-    
+
     public void setUp() {
         builder = new ClassBuilder(null, "testclass-manifest.xml");
     }
@@ -37,7 +37,7 @@ public class ClassBuilderTest extends TestCase {
         assertNotNull(s);
         assertEquals(String.class, s.getClass());
     }
-    
+
     public void testNullClassname() {
         Map params = new HashMap();
         params.put("classname", null);
@@ -49,7 +49,7 @@ public class ClassBuilderTest extends TestCase {
             // expected exception
         }
     }
-    
+
     public void testCreationException() {
         Map params = new HashMap();
         params.put("classname", "bet.you.cant.find.Me");
@@ -61,7 +61,7 @@ public class ClassBuilderTest extends TestCase {
             // expected exception
         }
     }
-    
+
     public void testManifestFilename() {
         assertEquals("/testclass-manifest.xml", builder.getManifestFilename());
     }

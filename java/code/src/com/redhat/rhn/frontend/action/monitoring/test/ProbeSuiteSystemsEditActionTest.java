@@ -53,7 +53,7 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
     private ActionHelper sah;
     private ProbeSuite suite;
     private User user;
-    
+
     private void setUpAction(Action actionIn, String forwardName) throws Exception {
         super.setUp();
         action = actionIn;
@@ -70,30 +70,30 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
                 suite.getId().toString());
         sah.getRequest().setupAddParameter(RequestContext.SUITE_ID,
                 suite.getId().toString());
-        
+
         sah.setupClampListBounds();
         sah.getRequest().setRequestURL("foo");
         // Setup the user and a System so we get one back
         user.addRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(user);
-        // Create a 2nd server that isn't in the suite 
-        Server serverNotInSuite = ServerFactoryTest.createTestServer(user, true, 
+        // Create a 2nd server that isn't in the suite
+        Server serverNotInSuite = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeMonitoringEntitled());
-        SatCluster c = (SatCluster) 
-            user.getOrg().getMonitoringScouts().iterator().next();        
+        SatCluster c = (SatCluster)
+            user.getOrg().getMonitoringScouts().iterator().next();
         sah.getRequest().
-            setupAddParameter("satCluster", 
+            setupAddParameter("satCluster",
                     c.getId().toString());
-                
+
         sah.getRequest().setupAddParameter("items_selected",
             new String[] {serverNotInSuite.getId().toString()});
-        
+
         sah.getRequest().setupAddParameter("newset", (String)null);
         sah.getRequest().setupAddParameter("returnvisit", (String)null);
         sah.getRequest().setupAddParameter("submitted", "false");
         sah.getRequest().setupAddParameter("items_on_page", (String)null);
     }
-    
+
     public void testSetupExecute() throws Exception {
         Action a = new ProbeSuiteSystemsEditSetupAction() {
             protected void setupPageControl(PageControl pc) {
@@ -109,10 +109,10 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
         // Create a test Server that we will add to the suite.
         // We want to make sure that the server we add to the suite
         // isnt included in the list returned back in getDataResult();
-        Server serverInSuite = ServerFactoryTest.createTestServer(user, true, 
+        Server serverInSuite = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeMonitoringEntitled());
-        
-        SatCluster c = (SatCluster) 
+
+        SatCluster c = (SatCluster)
             user.getOrg().getMonitoringScouts().iterator().next();
         suite.addServerToSuite(c, serverInSuite, user);
         suite = (ProbeSuite) reload(suite);
@@ -120,7 +120,7 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
         reload(suite);
         reload(user);
         reload(serverInSuite);
-        
+
         sah.executeAction();
         assertNotNull(sah.getRequest().getAttribute("probeSuite"));
         assertNotNull(sah.getRequest().getAttribute("pageList"));
@@ -136,8 +136,8 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
             }
         }
     }
-    
-    
+
+
     /**
      * Make sure when the add systems button we do the right thing
      * @throws Exception if test fails
@@ -163,12 +163,12 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
         ActionForward testforward = sah.executeAction("addSystems");
         assertTrue(suite.getServersInSuite().size() > 0);
         assertEquals(testforward.getName(), "added");
-        assertEquals("path?lower=10&" + RequestContext.SUITE_ID + "=" + suite.getId() 
+        assertEquals("path?lower=10&" + RequestContext.SUITE_ID + "=" + suite.getId()
                 , testforward.getPath());
         RhnSet pset = RhnSetDecl.PROBE_SUITE_SYSTEMS_EDIT.get(user);
         assertTrue(pset.getElements().isEmpty());
     }
-    
+
     public void testSelectAll() throws Exception {
         setUpAction(new ProbeSuiteSystemsEditAction(), "default");
         TemplateProbe tprobe = (TemplateProbe) MonitoringFactoryTest.
@@ -176,12 +176,12 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
         suite.addProbe(tprobe, user);
         RhnSetDecl decl = RhnSetDecl.PROBE_SUITE_SYSTEMS_EDIT;
         decl.clear(user);
-        
+
         for (int i = 0; i < 5; i++) {
-            ServerFactoryTest.createTestServer(user, true, 
+            ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeMonitoringEntitled());
         }
-        int systems = 
+        int systems =
             MonitoringManager.getInstance().systemsNotInSuite(user, suite, null).size();
         assertTrue(systems >= 5);
         sah.executeAction("selectall");

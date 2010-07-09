@@ -46,12 +46,12 @@ public class XmlRpcServlet extends HttpServlet {
     private RhnXmlRpcServer server;
     private HandlerFactory handlers;
     private SerializerFactory serializers;
-    
+
     /**
      * Constructor which takes in HandlerFactory and SerializerFactory. The
      * HandlerFactory determines what methods are exposed and which handlers
      * "handle" those calls.  The SerializerFactory adds custom serializers
-     * to the mix, extending the capabilities of the XMLRPC library.  
+     * to the mix, extending the capabilities of the XMLRPC library.
      * @param hf HandlerFactory to use.
      * @param sf SerializerFactory to use.
      */
@@ -78,16 +78,16 @@ public class XmlRpcServlet extends HttpServlet {
      */
     public void init() {
         server = new RhnXmlRpcServer();
-        
+
         registerInvocationHandlers(server);
         registerCustomSerializers(server);
-        
+
         // enhancement: if we ever need more than one InvocationProcessor
         // we should use the ManifestFactory like we did above for the
         // handlers.
         server.addInvocationInterceptor(new LoggingInvocationProcessor());
     }
-    
+
     private void registerCustomSerializers(RhnXmlRpcServer srvr) {
         if (serializers == null) {
             serializers = new SerializerFactory();
@@ -96,7 +96,7 @@ public class XmlRpcServlet extends HttpServlet {
         for (Iterator i = serializers.getSerializers().iterator(); i.hasNext();) {
             srvr.getSerializer().addCustomSerializer(
                     (XmlRpcCustomSerializer) i.next());
-        }       
+        }
     }
 
     private void registerInvocationHandlers(RhnXmlRpcServer srvr) {
@@ -108,7 +108,7 @@ public class XmlRpcServlet extends HttpServlet {
         Iterator i = handlers.getKeys().iterator();
         while (i.hasNext()) {
             String namespace = (String)i.next();
-            
+
             if (log.isDebugEnabled()) {
                 log.debug("registerInvocationHandler: namespace [" + namespace +
                           "] handler [" + handlers.getHandler(namespace) + "]");
@@ -116,7 +116,7 @@ public class XmlRpcServlet extends HttpServlet {
             srvr.addInvocationHandler(namespace, handlers.getHandler(namespace));
         }
     }
-    
+
     /**
      * executed when a get request happens
      *
@@ -147,28 +147,28 @@ public class XmlRpcServlet extends HttpServlet {
         if (log.isDebugEnabled()) {
             log.debug("Entered doPost");
         }
-        
+
         if (request.getHeader("SOAPAction") != null) {
             passControl(request, response);
             return;
         }
-        
+
         response.setContentType("text/xml");
         try {
             if (log.isDebugEnabled()) {
                 log.debug("Passing control to XmlRpcServer.execute");
             }
-            
+
             server.execute(request.getInputStream(),
                            response.getWriter(),
-                           request.getRemoteAddr(), 
+                           request.getRemoteAddr(),
                            request.getLocalName(),
                            request.getProtocol());
-            
+
             /*
              * jesusr - 2007.09.14
              * this is still the case
-             * 
+             *
              * mbowman - 2005.10.06
              * Like we were raised in a barn, we are going to leave here without
              * flushing ;)

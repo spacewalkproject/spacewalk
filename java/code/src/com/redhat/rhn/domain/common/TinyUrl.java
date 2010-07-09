@@ -31,90 +31,90 @@ public class TinyUrl {
     private boolean enabled;
     private Date created;
     private Date expires;
-    /** 
-     * Getter for token 
+    /**
+     * Getter for token
      * @return String to get
     */
     public String getToken() {
         return this.token;
     }
 
-    /** 
-     * Setter for token 
+    /**
+     * Setter for token
      * @param tokenIn to set
     */
     public void setToken(String tokenIn) {
         this.token = tokenIn;
     }
 
-    /** 
-     * Getter for url 
+    /**
+     * Getter for url
      * @return String to get
     */
     public String getUrl() {
         return this.url;
     }
 
-    /** 
-     * Setter for url 
+    /**
+     * Setter for url
      * @param urlIn to set
     */
     public void setUrl(String urlIn) {
         this.url = urlIn;
     }
 
-    /** 
-     * Getter for enabled 
+    /**
+     * Getter for enabled
      * @return String to get
     */
     public boolean getEnabled() {
         return this.enabled;
     }
 
-    /** 
-     * Setter for enabled 
+    /**
+     * Setter for enabled
      * @param enabledIn to set
     */
     public void setEnabled(boolean enabledIn) {
         this.enabled = enabledIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for expires 
+    /**
+     * Getter for expires
      * @return Date to get
     */
     public Date getExpires() {
         return this.expires;
     }
 
-    /** 
-     * Setter for expires 
+    /**
+     * Setter for expires
      * @param expiresIn to set
     */
     public void setExpires(Date expiresIn) {
         this.expires = expiresIn;
     }
-    
+
     /**
      * Translate this TinyUrl's url into a usable URL String
      * @param hostIn to generate the URL to.
-     * @return String path:  
+     * @return String path:
      */
     public String computeTinyUrl(String hostIn) {
         URL retval;
@@ -126,16 +126,16 @@ public class TinyUrl {
         }
         return retval.toString();
     }
-    
+
     /**
      * Translate this TinyUrl's path into a just the path portion
      * without the http://hostname: /ty/token
-     * 
-     * @return String path /ty/token   
+     *
+     * @return String path /ty/token
      */
     public String computeTinyPath() {
         return "/ty/" + this.token;
     }
-    
-    
+
+
 }

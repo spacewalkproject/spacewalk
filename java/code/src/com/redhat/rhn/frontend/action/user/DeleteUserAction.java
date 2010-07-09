@@ -42,16 +42,16 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class DeleteUserAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         requestContext.requirePost();
-        
+
         if (!AclManager.hasAcl("user_role(org_admin)",
                 request, null)) {
             //Throw an exception with a nice error message so the user
@@ -66,26 +66,26 @@ public class DeleteUserAction extends RhnAction {
         User loggedInUser = requestContext.getLoggedInUser();
         ActionErrors errors = new ActionErrors();
         if (loggedInUser.getId().equals(uid)) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE, 
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("user.deleteself"));
             Map params = new HashMap();
             params.put("uid", uid);
             addErrors(request, errors);
-            return getStrutsDelegate().forwardParams(mapping.findForward("failure"), 
+            return getStrutsDelegate().forwardParams(mapping.findForward("failure"),
                     params);
         }
         User user = UserManager.lookupUser(loggedInUser, uid);
-        
+
         if (user.getRoles().contains(RoleFactory.lookupByLabel("org_admin"))) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE, 
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("user.deleteadmin"));
             Map params = new HashMap();
             params.put("uid", uid);
             addErrors(request, errors);
-            return getStrutsDelegate().forwardParams(mapping.findForward("failure"), 
+            return getStrutsDelegate().forwardParams(mapping.findForward("failure"),
                     params);
         }
-        
+
         try {
             UserManager.deleteUser(loggedInUser, uid);
         }
@@ -100,7 +100,7 @@ public class DeleteUserAction extends RhnAction {
         }
 
         ActionMessages msg = new ActionMessages();
-        msg.add(ActionMessages.GLOBAL_MESSAGE, 
+        msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("user.delete", user.getLogin()));
         getStrutsDelegate().saveMessages(request, msg);
         return mapping.findForward("success");

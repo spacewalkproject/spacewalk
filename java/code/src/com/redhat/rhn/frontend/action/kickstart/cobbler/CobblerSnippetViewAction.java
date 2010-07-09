@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class CobblerSnippetViewAction extends RhnAction {
-    private static final Logger LOG = 
+    private static final Logger LOG =
             Logger.getLogger(CobblerSnippetViewAction.class);
     public static final String PATH = "path";
     public static final String DATA = "data";

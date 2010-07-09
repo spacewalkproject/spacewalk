@@ -36,14 +36,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * TargetSystemsAction
  * @version $Rev$
  */
 public class TargetSystemsAction extends RhnAction implements Listable {
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping,
@@ -53,29 +53,29 @@ public class TargetSystemsAction extends RhnAction implements Listable {
 
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
-        
+
         Long cid = requestContext.getRequiredParam(RequestContext.CID);
         Channel chan = ChannelManager.lookupByIdAndUser(cid, user);
-        
+
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request, getSetDecl(chan));
         helper.execute();
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute("cid", chan.getId());
-        
-        
+
+
         if (helper.isDispatched()) {
             Map params = new HashMap();
             params.put(RequestContext.CID, cid);
             return getStrutsDelegate().forwardParams(mapping.findForward("confirm"),
                     params);
-        } 
-        
+        }
+
         return mapping.findForward("default");
     }
-    
-    
+
+
     /**
-     *     
+     *
      * {@inheritDoc}
      */
     public List getResult(RequestContext context) {
@@ -84,7 +84,7 @@ public class TargetSystemsAction extends RhnAction implements Listable {
         Channel chan = ChannelManager.lookupByIdAndUser(cid, user);
         return SystemManager.listTargetSystemForChannel(user, chan);
     }
-    
+
     /**
      * get the set decl
      * @param c the channel

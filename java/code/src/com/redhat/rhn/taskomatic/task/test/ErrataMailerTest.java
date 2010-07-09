@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ErrataMailerTest extends BaseTestCaseWithUser {
-    
+
     public void testErrataMailer() throws Exception {
         final Errata e = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
         final Channel c = ChannelFactoryTest.createBaseChannel(user);
@@ -57,13 +57,13 @@ public class ErrataMailerTest extends BaseTestCaseWithUser {
         };
         em.execute(null, true);
     }
-    
+
     public void testErrataQueries() throws Exception {
-        
+
         TestErrataMailer em = new TestErrataMailer();
         assertNotNull(em.testFindUsers());
     }
-    
+
     public class TestErrataMailer extends ErrataMailer {
 
         public List testFindUsers() throws Exception {

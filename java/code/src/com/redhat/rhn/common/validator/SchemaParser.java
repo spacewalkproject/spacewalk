@@ -33,12 +33,12 @@ import java.util.Map;
  *  The <code>SchemaParser</code> class parses an XML Schema and creates
  *    <code>{@link Constraint}</code> objects from it.
  * </p>
- * @version $Rev$ 
+ * @version $Rev$
  */
 public class SchemaParser {
-    
+
     private static Logger log = Logger.getLogger(SchemaParser.class);
-    
+
     /** The URL of the schema to parse */
     private URL schemaURL;
 
@@ -64,7 +64,7 @@ public class SchemaParser {
     public SchemaParser(URL schemaURLIn) throws IOException {
         this.schemaURL = schemaURLIn;
         constraints = new HashMap();
-        schemaNamespace = 
+        schemaNamespace =
             Namespace.getNamespace(SCHEMA_NAMESPACE_URI);
 
         // Parse the schema and prepare constraints
@@ -97,7 +97,7 @@ public class SchemaParser {
         Object o = constraints.get(constraintName);
         if (o != null) {
             return (Constraint)o;
-        } 
+        }
         else {
             return null;
         }
@@ -114,7 +114,7 @@ public class SchemaParser {
         /**
          * Create builder to generate JDOM representation of XML Schema,
          *   without validation and using Apache Xerces.
-         */ 
+         */
         // XXX: Allow validation, and allow alternate parsers
         SAXBuilder builder = new SAXBuilder();
 
@@ -123,7 +123,7 @@ public class SchemaParser {
 
             // Handle attributes
             List attributes = schemaDoc.getRootElement()
-                                         .getChildren("attribute", 
+                                         .getChildren("attribute",
                                                       schemaNamespace);
             for (Iterator i = attributes.iterator(); i.hasNext();) {
                 // Iterate and handle
@@ -132,7 +132,7 @@ public class SchemaParser {
             }
             // Handle attributes nested within complex types
 
-        } 
+        }
         catch (JDOMException e) {
             throw new IOException(e.getMessage());
         }
@@ -146,7 +146,7 @@ public class SchemaParser {
      *
      * @throws IOException - when parsing errors occur.
      */
-    private void handleAttribute(Element attribute) 
+    private void handleAttribute(Element attribute)
         throws IOException {
 
         // Get the attribute name and create a Constraint
@@ -154,30 +154,30 @@ public class SchemaParser {
         if (name == null) {
             throw new IOException("All schema attributes must have names.");
         }
-        
-        
+
+
 
         // Get the simpleType - if none, we are done with this attribute
         Element simpleType = attribute.getChild("simpleType", schemaNamespace);
         if (simpleType == null) {
             return;
         }
-        
+
         // Handle the data type
         String schemaType = simpleType.getAttributeValue("baseType");
         if (schemaType == null) {
             throw new IOException("No data type specified for constraint " + name);
         }
-        
+
         Constraint constraint; // = new Constraint(name);
-        
+
         Element child;
-        
-        if (schemaType.equals("long")) { 
+
+        if (schemaType.equals("long")) {
             NumericConstraint nc = new NumericConstraint(name);
-            
+
             processRequiredIfConstraint(simpleType, nc);
-            
+
             // Handle ranges
             child = simpleType.getChild("minInclusive", schemaNamespace);
             if (child != null) {
@@ -191,25 +191,25 @@ public class SchemaParser {
             }
             constraint = nc;
         }
-        else if (schemaType.equals("string")) { 
-            StringConstraint lc = new StringConstraint(name); 
-            
+        else if (schemaType.equals("string")) {
+            StringConstraint lc = new StringConstraint(name);
+
             processRequiredIfConstraint(simpleType, lc);
             child = simpleType.getChild("ascii", schemaNamespace);
             if (child != null) {
-                lc.setASCII(true); 
+                lc.setASCII(true);
             }
 
             child = simpleType.getChild("username", schemaNamespace);
             if (child != null) {
-                lc.setUserName(true); 
+                lc.setUserName(true);
             }
-            
+
             child = simpleType.getChild("posix", schemaNamespace);
             if (child != null) {
-                lc.setPosix(true); 
+                lc.setPosix(true);
             }
-            
+
             child = simpleType.getChild("maxLength", schemaNamespace);
             if (child != null) {
                 Double value = new Double(child.getAttributeValue("value"));
@@ -220,22 +220,22 @@ public class SchemaParser {
                 Double value = new Double(child.getAttributeValue("value"));
                 lc.setMinLength(value);
             }
-            
+
             child = simpleType.getChild("matchesExpression", schemaNamespace);
             if (child != null) {
                 String value = new String(child.getAttributeValue("value"));
                 lc.setRegEx(value);
             }
-            constraint = lc;            
+            constraint = lc;
         }
         else {
             constraint = new RequiredConstraint(name);
         }
-        
+
         constraint.setDataType(DataConverter.getInstance().getJavaType(schemaType));
-        
+
         // Store this constraint
-        log.debug("Adding: constraint name: " + name + 
+        log.debug("Adding: constraint name: " + name +
                 " datatype: " + constraint.getDataType());
         constraints.put(name, constraint);
     }
@@ -252,6 +252,6 @@ public class SchemaParser {
             }
         }
     }
-    
-    
+
+
 }

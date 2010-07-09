@@ -13,7 +13,7 @@
 	           helpUrl="/rhn/help/channel-mgmt/en-US/channel-mgmt-Custom_Errata_Management.jsp">
     <bean:message key="errata.publish.toolbar"/> <c:out value="${advisory}" />
   </rhn:toolbar>
-  
+
   <p><bean:message key="errata.publish.packagepush.description" arg0="${requestScope.channel_name}"/></p>
 <c:set var="pageList" value="${requestScope.pageList}" />
 <html:form action="/errata/manage/AddPackagePackagePushSubmit">

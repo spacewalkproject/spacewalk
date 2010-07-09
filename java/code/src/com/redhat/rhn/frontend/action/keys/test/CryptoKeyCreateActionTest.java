@@ -27,7 +27,7 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev: 1 $
  */
 public class CryptoKeyCreateActionTest extends RhnMockStrutsTestCase {
-    
+
     public void setUp() throws Exception {
         TestUtils.disableLocalizationLogging();
         super.setUp();
@@ -45,7 +45,7 @@ public class CryptoKeyCreateActionTest extends RhnMockStrutsTestCase {
         setRequestPathInfo("/keys/CryptoKeyCreate");
         addRequestParameter(CryptoKeyCreateAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(CryptoKeyCreateAction.DESCRIPTION, "somedesc");
-        addRequestParameter(CryptoKeyCreateAction.TYPE, 
+        addRequestParameter(CryptoKeyCreateAction.TYPE,
                 KickstartFactory.KEY_TYPE_GPG.getLabel());
         actionPerform();
         assertNotNull(request.getAttribute(CryptoKeyCreateAction.KEY));
@@ -58,12 +58,12 @@ public class CryptoKeyCreateActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(CryptoKeyCreateAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(CryptoKeyCreateAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(CryptoKeyCreateAction.DESCRIPTION, "somedesc");
-        addRequestParameter(CryptoKeyCreateAction.TYPE, 
+        addRequestParameter(CryptoKeyCreateAction.TYPE,
                 KickstartFactory.KEY_TYPE_GPG.getLabel());
         CryptoKey key = CryptoTest.createTestKey(user.getOrg());
         KickstartFactory.saveCryptoKey(key);
         TestUtils.flushAndEvict(key);
-        addRequestParameter(RequestContext.KEY_ID, 
+        addRequestParameter(RequestContext.KEY_ID,
                 key.getId().toString());
         actionPerform();
         String[] keys = {"crypto.key.nokey"};

@@ -27,7 +27,7 @@ public class ErrataCacheDto {
     private Long serverId;
     private Long errataId;
     private Long packageId;
-    
+
     /**
      * Default constructor
      */
@@ -42,54 +42,54 @@ public class ErrataCacheDto {
     public Long getErrataId() {
         return errataId;
     }
-    
+
     /**
      * @param errataIdIn The errataId to set.
      */
     public void setErrataId(Long errataIdIn) {
         errataId = errataIdIn;
     }
-        
+
     /**
      * @return Returns the packageId.
      */
     public Long getPackageId() {
         return packageId;
     }
-    
+
     /**
      * @param packageIdIn The packageId to set.
      */
     public void setPackageId(Long packageIdIn) {
         packageId = packageIdIn;
     }
-    
+
     /**
      * @return Returns the serverId.
      */
     public Long getServerId() {
         return serverId;
     }
-    
+
     /**
      * @param serverIdIn The serverId to set.
      */
     public void setServerId(Long serverIdIn) {
         serverId = serverIdIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean equals(Object obj) {
         ErrataCacheDto ecd = (ErrataCacheDto) obj;
-        
+
         return new EqualsBuilder().append(getErrataId(), ecd.getErrataId())
                                   .append(getPackageId(), ecd.getPackageId())
                                   .append(getServerId(), ecd.getServerId())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -99,7 +99,7 @@ public class ErrataCacheDto {
                                     .append(getServerId())
                                     .toHashCode();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -109,5 +109,5 @@ public class ErrataCacheDto {
                                         .append("server_id", getServerId())
                                         .toString();
     }
-    
+
 }

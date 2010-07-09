@@ -32,7 +32,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * ConfigFileDtoSerializer
  * @version $Rev$
  * @xmlrpc.doc
- * #struct("Configuration File information") 
+ * #struct("Configuration File information")
  *   #prop("string", "type")
  *              #options()
  *                  #item("file")
@@ -43,7 +43,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      "the label of the  central configuration channel
  *      that has this file. Note this entry only shows up
  *      if the file has not been overridden by a central channel.")
- *   #prop("struct", "channel_type") 
+ *   #prop("struct", "channel_type")
  *   $ConfigChannelTypeSerializer
  *   #prop_desc($date, "last_modified","Last Modified Date")
  * #struct_end()
@@ -67,7 +67,7 @@ public class ConfigFileNameDtoSerializer implements XmlRpcCustomSerializer {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("type", dto.getConfigFileType());
         helper.add("path", dto.getPath());
-        ConfigChannelType type = 
+        ConfigChannelType type =
             ConfigChannelType.lookup(dto.getConfigChannelType());
         helper.add("channel_type", type);
         if (type.equals(ConfigChannelType.global())) {
@@ -79,11 +79,11 @@ public class ConfigFileNameDtoSerializer implements XmlRpcCustomSerializer {
 
     /**
      * Basically creates ConfigFileNameDto and populates the
-     *  appropriate fields from the ConfigFileDto.. This 
+     *  appropriate fields from the ConfigFileDto.. This
      *  is here and NOT in ConfigFileDto because
      *  the fields we will be populating here
      *  must match with what we want when we serialize.
-     * in ConfigFileName 
+     * in ConfigFileName
      * @param dto configle file dto
      * @param configChannelType the config channel type
      * @param configChannelLabel the config chanel label

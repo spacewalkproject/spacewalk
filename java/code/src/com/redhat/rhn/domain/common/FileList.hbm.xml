@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.common.FileList" 
+    <class name="com.redhat.rhn.domain.common.FileList"
         table="rhnFileList">
 
         <id name="id" type="long" column="id">
@@ -12,27 +12,27 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_FILELIST_ID_SEQ</param>
             </generator>
         </id>
-        
-        <property name="label" type="string" column="label"/> 
-         
-        <property name="created" column="created" 
+
+        <property name="label" type="string" column="label"/>
+
+        <property name="created" column="created"
         	not-null="true" type="timestamp" insert="false" update="false"/>
-        <property name="modified" column="modified" 
+        <property name="modified" column="modified"
         	not-null="true" type="timestamp" insert="false" update="false"/>
         	
-        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl" 
+        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
             column="org_id"/>
-            
-        <bag name="fileNames" table="rhnFileListMembers" cascade="save-update" 
+
+        <bag name="fileNames" table="rhnFileListMembers" cascade="save-update"
              order-by="created">
           <key column="file_list_id"/>
-          <many-to-many column="config_file_name_id" 
+          <many-to-many column="config_file_name_id"
           	class="com.redhat.rhn.domain.config.ConfigFileName" />
         </bag>
-            
-            
+
+
     </class>
-    
+
     <query name="FileList.findById">
         <![CDATA[from com.redhat.rhn.domain.common.FileList as f where f.id = :id]]>
     </query>
@@ -44,5 +44,5 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.common.FileList as f where f.label = :label
                  and f.org = :org_id]]>
     </query>
-    
+
 </hibernate-mapping>

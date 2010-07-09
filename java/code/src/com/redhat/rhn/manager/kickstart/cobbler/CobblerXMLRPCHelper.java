@@ -31,16 +31,16 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
 
 /**
- * 
+ *
  * XMLRPCHelper - class that contains wraps calls to Redstone's XMLRPC client.
  * Intentionally implements the XMLRPCInvoker interface so we can also provide
  * a mock implementation to our unit tests so they don't require an actual cobbler
  * server.
- * 
+ *
  * @version $Rev$
  */
 public class CobblerXMLRPCHelper implements XMLRPCInvoker {
-    
+
     private XmlRpcClient client;
     private static Logger log = Logger.getLogger(CobblerXMLRPCHelper.class);
     /**
@@ -67,15 +67,15 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
         Object retval;
         try {
             retval = client.invoke(procedureName, args);
-        } 
+        }
         catch (XmlRpcException e) {
             throw new RuntimeException("XmlRpcException calling cobbler.", e);
-        } 
+        }
         return retval;
     }
-    
+
     /**
-     * Returns the a new cobbler connection object 
+     * Returns the a new cobbler connection object
      * @param user the logged in user to ge the auth token
      * @return the authenticated cobbler connection.
      */
@@ -89,20 +89,20 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
      * @return the autehnticated cobbler connection
      */
     public static CobblerConnection getConnection(String userName) {
-        String token = 
+        String token =
             IntegrationService.get().getAuthToken(userName);
         return (CobblerConnection)MethodUtil.getClassFromConfig(
                                 CobblerConnection.class.getName(),
                                 ConfigDefaults.get().getCobblerServerUrl(), token);
     }
-    
+
     private static String getCobblerUrl() {
         CobblerConnection conn = (CobblerConnection)MethodUtil.getClassFromConfig(
                 CobblerConnection.class.getName(),
                 ConfigDefaults.get().getCobblerServerUrl());
-        return conn.getUrl();    
+        return conn.getUrl();
     }
-    
+
     /**
      * Returns the cobbler anonymous/automated using the connection
      * cobbler automated user config entry..

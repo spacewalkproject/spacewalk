@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.action.script.ScriptResult" 
+	<class name="com.redhat.rhn.domain.action.script.ScriptResult"
 		table="rhnServerActionScriptResult" >
 		<composite-id unsaved-value="any">
 			<key-property name="serverId" type="long" column="server_id"/>
-			<key-property name="actionScriptId" type="long" 
+			<key-property name="actionScriptId" type="long"
 				column="action_script_id"/>
 		</composite-id>
 		<property name="startDate" type="timestamp" column="start_date"/>
 		<property name="stopDate" type="timestamp" column="stop_date"/>
 		<property name="returnCode" type="long" column="return_code"/>
 		<property name="outputBlob" type="blob" column="output" lazy="true"/>
-		<many-to-one name="parentScriptActionDetails" column="action_script_id" 
-			class="com.redhat.rhn.domain.action.script.ScriptActionDetails" 
+		<many-to-one name="parentScriptActionDetails" column="action_script_id"
+			class="com.redhat.rhn.domain.action.script.ScriptActionDetails"
 			outer-join="true" not-null="true" insert="false" update="false" />
 	</class>
 </hibernate-mapping>

@@ -29,7 +29,7 @@ import org.apache.struts.action.ActionForward;
  * @version $Rev$
  */
 public abstract class BaseErrataActionTestCase extends RhnBaseTestCase {
-    
+
     /**
      * Make sure when the delete button is hit we go to the proper
      * place.  No DB action occurs.
@@ -44,30 +44,30 @@ public abstract class BaseErrataActionTestCase extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("items_on_page", (String)null);
         sah.setupClampListBounds();
         ActionForward testforward = sah.executeAction("deleteErrata");
-        
+
         assertEquals("path?lower=10", testforward.getPath());
     }
-    
+
     public void testSelectAll() throws Exception {
         ActionHelper ah = new ActionHelper();
         ah.setUpAction(getAction());
         ah.setupProcessPagination();
-        
+
         User user = ah.getUser();
         for (int i = 0; i < 4; i++) {
             createErrata(user);
         }
-        
+
         ah.getRequest().setupAddParameter("items_on_page", (String[])null);
         ah.getRequest().setupAddParameter("items_selected", (String[])null);
         ah.executeAction("selectall");
-        
+
         //satellite could already have a few unpublished errata
         RhnSet set = RhnSetDecl.ERRATA_TO_DELETE.get(user);
         assertTrue(set.size() >= 4);
     }
-    
+
     protected abstract RhnSetAction getAction();
-    
+
     protected abstract Errata createErrata(User user) throws Exception;
 }

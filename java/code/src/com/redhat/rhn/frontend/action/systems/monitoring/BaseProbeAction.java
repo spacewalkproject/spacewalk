@@ -49,14 +49,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Action for the probe details page. Note that there is no correpsonding 
+ * Action for the probe details page. Note that there is no correpsonding
  * SetupAction since there isn't really a good separation between setup
  * and performing the action.
- * 
+ *
  * @version $Rev: 53910 $
  */
 public class BaseProbeAction extends RhnAction {
-    
+
     private static Logger logger = Logger.getLogger(BaseProbeAction.class);
 
     protected static final String NOTIFICATION = "notification";
@@ -70,7 +70,7 @@ public class BaseProbeAction extends RhnAction {
     protected static final String CONTACT_GROUP_ID = "contact_group_id";
     protected static final String NOTIFICATION_INTERVAL_MIN = "notification_interval_min";
     private static final String PASSWORD_PLACEHOLDER = "*pwd_placeholder*";
-    
+
     /**
      * Create a list of localized intervals for notifications like '5 minutes'
      * or '2 hours'
@@ -103,7 +103,7 @@ public class BaseProbeAction extends RhnAction {
         Iterator i = orgIn.getContactGroups().iterator();
         while (i.hasNext()) {
             ContactGroup cg = (ContactGroup) i.next();
-            rv.add(new LabelValueBean(cg.getContactGroupName(), 
+            rv.add(new LabelValueBean(cg.getContactGroupName(),
                                       cg.getId().toString()));
         }
         // Sort the list
@@ -134,7 +134,7 @@ public class BaseProbeAction extends RhnAction {
                 String value = null;
                 if (submitted) {
                     value = paramValue(cp, req);
-                } 
+                }
                 else if (probe == null) {
                     value = cp.getDefaultValue();
                 }
@@ -142,7 +142,7 @@ public class BaseProbeAction extends RhnAction {
                     value = probe.getProbeParameterValue(cp).getValue();
                 }
                 boolean isThreshold = cp instanceof ThresholdParameter;
-                Map map = getCommandParameterMap(cp, paramName(cp), value, 
+                Map map = getCommandParameterMap(cp, paramName(cp), value,
                         isThreshold, lastLabel);
                 if (isThreshold) {
                     thresholdParams.add(map);
@@ -152,7 +152,7 @@ public class BaseProbeAction extends RhnAction {
                 }
                 if (isPassword) {
                     // Add extra password confirm field
-                    Map confirmmap = getCommandParameterMap(cp, paramName(cp) + "_confirm", 
+                    Map confirmmap = getCommandParameterMap(cp, paramName(cp) + "_confirm",
                             null, false, lastLabel);
                     String confirmLabel = (String) confirmmap.get("label");
                     confirmLabel = confirmLabel + "_confirm";
@@ -180,7 +180,7 @@ public class BaseProbeAction extends RhnAction {
         req.setAttribute("paramValueList", result);
     }
 
-    private static Map getCommandParameterMap(CommandParameter cp, String paramName, 
+    private static Map getCommandParameterMap(CommandParameter cp, String paramName,
             String value, boolean isThreshold, String lastLabel) {
         HashMap map = new HashMap();
         map.put("value", value);
@@ -202,11 +202,11 @@ public class BaseProbeAction extends RhnAction {
         map.put("size", cp.getFieldVisibleLength());
         return map;
     }
-    
+
     private static boolean isPassword(CommandParameter cp) {
         return cp.getFieldWidgetName().equals("password");
     }
-    
+
     /**
      * Edit the probe according to the values submitted in <code>form</code>
      * and command parameters in the request parameters named <tt>param_*</tt>
@@ -225,7 +225,7 @@ public class BaseProbeAction extends RhnAction {
             addErrors(req, errors);
             return false;
         }
-        
+
         // Loop through the params and set the object value
         Iterator i = cmd.commandParametersIter();
         while (i.hasNext()) {
@@ -235,7 +235,7 @@ public class BaseProbeAction extends RhnAction {
             // parameters.
             if (cp.isFieldVisible()) {
                 String value = paramValue(cp, req);
-                if (isPassword(cp) && value != null && 
+                if (isPassword(cp) && value != null &&
                         value.equals(PASSWORD_PLACEHOLDER)) {
                     logger.debug("Password is existing and is the placeholder.");
                 }
@@ -255,7 +255,7 @@ public class BaseProbeAction extends RhnAction {
 
         return true;
     }
-    
+
     // Check to make sure they didn't set the notif interval to be
     // less than the check interval.
     private void validateInterval(ActionErrors errors, DynaActionForm form) {
@@ -283,16 +283,16 @@ public class BaseProbeAction extends RhnAction {
                 }
                 else if (cp.getFieldWidgetName().equals("password")) {
                     String confirmParamName = paramName(cp);
-                    String valueConfirm = req.getParameter(confirmParamName + 
+                    String valueConfirm = req.getParameter(confirmParamName +
                             "_confirm");
                     valueConfirm = cp.getValidator().normalize(valueConfirm);
                     // If the passwords dont match, warn the user
                     if (logger.isDebugEnabled()) {
                         logger.debug("v        : " + value);
                         logger.debug("vc       : " + valueConfirm);
-                        logger.debug("1st cond : " + 
+                        logger.debug("1st cond : " +
                                 StringUtils.equals(value, valueConfirm));
-                        logger.debug("2nd cond : " + 
+                        logger.debug("2nd cond : " +
                                 StringUtils.equals(value, PASSWORD_PLACEHOLDER));
                     }
                     if (!StringUtils.equals(value, valueConfirm) &&
@@ -341,7 +341,7 @@ public class BaseProbeAction extends RhnAction {
                 String mlabel = ls.getMessage(m.getDescription());
                 String plabel1 = ls.getMessage(p1.getThresholdType().getName());
                 String plabel2 = ls.getMessage(p2.getThresholdType().getName());
-                ActionMessage am = new ActionMessage("probeparam.threshold.inverted", 
+                ActionMessage am = new ActionMessage("probeparam.threshold.inverted",
                         new Object[] {mlabel,
                             plabel1, v1,
                             plabel2, v2});
@@ -370,18 +370,18 @@ public class BaseProbeAction extends RhnAction {
             CommandParameter p2 = (CommandParameter) o2;
             return p1.getFieldOrder().compareTo(p2.getFieldOrder());
         }
-        
+
     }
-    
+
     private static final class ToParamValue implements Transformer {
         private HttpServletRequest req;
         public ToParamValue(HttpServletRequest req0) {
             req = req0;
         }
-        
+
         public Object transform(Object input) {
             return paramValue((CommandParameter) input, req);
         }
-        
+
     }
 }

@@ -27,13 +27,13 @@ import com.redhat.rhn.manager.kickstart.KickstartScriptEditCommand;
  */
 public class KickstartScriptCommandTest extends BaseKickstartCommandTestCase {
 
-    
+
     /**
      * {@inheritDoc}
      */
     public void setUp() throws Exception {
         super.setUp();
-        
+
     }
 
     public void testPreCreate() throws Exception {
@@ -42,15 +42,15 @@ public class KickstartScriptCommandTest extends BaseKickstartCommandTestCase {
         KickstartFactory.saveKickstartData(ksdata);
         ksdata = (KickstartData) reload(ksdata);
         assertEquals(0, ksdata.getScripts().size());
-        
+
         // Now make sure we add a new one.
         String language = "/usr/bin/perl";
         String contents = "print \"some string\";\n";
         String chroot = "N";
-        KickstartScriptCreateCommand cmd = new 
+        KickstartScriptCreateCommand cmd = new
             KickstartScriptCreateCommand(ksdata.getId(), user);
         assertNotNull(cmd.getKickstartData().getScripts());
-        KickstartScript kss = cmd.getScript(); 
+        KickstartScript kss = cmd.getScript();
         assertNotNull(kss.getScriptType());
         cmd.setScript(language, contents, KickstartScript.TYPE_PRE, chroot, false);
         cmd.store();
@@ -65,7 +65,7 @@ public class KickstartScriptCommandTest extends BaseKickstartCommandTestCase {
         String language = "/usr/bin/perl";
         String contents = "print \"some string\";\n";
         String chroot = "Y";
-        KickstartScriptEditCommand cmd = 
+        KickstartScriptEditCommand cmd =
             new KickstartScriptEditCommand(ksdata.getId(), kss.getId(), user);
         cmd.setScript(language, contents, KickstartScript.TYPE_PRE, chroot, true);
         cmd.store();
@@ -74,16 +74,16 @@ public class KickstartScriptCommandTest extends BaseKickstartCommandTestCase {
         assertEquals(language, cmd.getLanguage());
         assertTrue(ksdata.getScripts().size() > 0);
     }
-    
+
     public void testScriptDelete() throws Exception {
-        
+
         KickstartScript kss = (KickstartScript) ksdata.getScripts().iterator().next();
         assertEquals(5, ksdata.getScripts().size());
-        KickstartScriptDeleteCommand cmd = new KickstartScriptDeleteCommand(ksdata.getId(), 
+        KickstartScriptDeleteCommand cmd = new KickstartScriptDeleteCommand(ksdata.getId(),
                 kss.getId(), user);
         cmd.store();
         ksdata = (KickstartData) reload(ksdata);
         assertEquals(4, ksdata.getScripts().size());
     }
-    
+
 }

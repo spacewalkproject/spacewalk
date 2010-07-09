@@ -30,28 +30,28 @@ import java.util.List;
  */
 public class SsmDeleteServersAction extends AbstractDatabaseAction {
     public static final String OPERATION_NAME = "Server Delete";
-    
+
     /** {@inheritDoc} */
     protected void doExecute(EventMessage msg) {
         SsmDeleteServersEvent event = (SsmDeleteServersEvent) msg;
         User user = UserFactory.lookupById(event.getUser());
         List<Long> sids = event.getSids();
-       
+
         long operationId = SsmOperationManager.createOperation(user,
                         OPERATION_NAME, null);
-        
-        SsmOperationManager.associateServersWithOperation(operationId, 
+
+        SsmOperationManager.associateServersWithOperation(operationId,
                                                         user.getId(), sids);
-        
+
         try {
             for (Long sid : sids) {
-                SystemManager.deleteServer(user, sid);    
+                SystemManager.deleteServer(user, sid);
             }
         }
         finally {
             // Complete the action
             SsmOperationManager.completeOperation(user, operationId);
         }
-        
+
     }
 }

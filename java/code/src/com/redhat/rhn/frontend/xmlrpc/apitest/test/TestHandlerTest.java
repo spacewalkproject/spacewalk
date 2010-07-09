@@ -30,36 +30,36 @@ public class TestHandlerTest extends BaseHandlerTestCase {
         TestHandler th = new TestHandler();
         int[] numbers = {1, 2, 3, 4, 5, 6};
         assertEquals(21, th.addition(numbers));
-        
+
         assertEquals(0, th.multiplication(null));
-        
+
         numbers = new int[0];
         assertEquals(0, th.addition(numbers));
     }
-    
+
     public void testEnvIsSatellite() {
         TestHandler th = new TestHandler();
         assertEquals(1, th.envIsSatellite());
     }
-    
+
     public void testHashChecking() {
         TestHandler th = new TestHandler();
         Map map = th.hashChecking(new HashMap());
         assertNotNull(map);
         assertEquals("baz", map.get("foobar"));
     }
-    
+
     public void testMultiplication() {
         TestHandler th = new TestHandler();
         int[] numbers = {1, 2, 3, 4, 5, 6};
         assertEquals(720, th.multiplication(numbers));
-        
+
         assertEquals(0, th.multiplication(null));
-        
+
         numbers = new int[0];
         assertEquals(0, th.multiplication(numbers));
     }
-    
+
     public void testSingleIdentityFunction() {
         TestHandler th = new TestHandler();
         String foo = "foobar";

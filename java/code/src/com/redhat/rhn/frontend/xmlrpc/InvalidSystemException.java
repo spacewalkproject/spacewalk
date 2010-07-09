@@ -41,5 +41,5 @@ public class InvalidSystemException extends FaultException  {
         super(1204, "invalidSystem" , LocalizationService.getInstance().
                 getMessage("system.invalidsystem"), cause);
     }
-    
+
 }

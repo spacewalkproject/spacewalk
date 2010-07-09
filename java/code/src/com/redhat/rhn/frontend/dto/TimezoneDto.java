@@ -23,11 +23,11 @@ import java.util.List;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
- * 
+ *
  * @version $Rev$
  */
 public class TimezoneDto extends BaseDto implements RowCallback {
-    
+
     private Long id;
     private String name;
     private String label;
@@ -87,7 +87,7 @@ public class TimezoneDto extends BaseDto implements RowCallback {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public List<String> getCallBackColumns() {

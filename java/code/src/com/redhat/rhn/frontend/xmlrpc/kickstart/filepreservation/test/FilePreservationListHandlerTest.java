@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Test cases for the {@link FilePreservationListHandler}.
- * 
+ *
  * @version $Revision$
  */
 public class FilePreservationListHandlerTest extends BaseHandlerTestCase {
@@ -39,14 +39,14 @@ public class FilePreservationListHandlerTest extends BaseHandlerTestCase {
         KickstartLister lister = KickstartLister.getInstance();
         int initialSize = lister.preservationListsInOrg(admin.getOrg(), null).size();
         FileList fileList = createFileList();
-        
+
         // Test
         List<FilePreservationDto> list = handler.listAllFilePreservations(adminKey);
-        
+
         // Verify
         assertNotNull(list);
         assertEquals(initialSize + 1, list.size());
-        
+
         DataResult<FilePreservationDto> dataResult = lister.preservationListsInOrg(
                 admin.getOrg(), null);
         boolean found = false;
@@ -68,17 +68,17 @@ public class FilePreservationListHandlerTest extends BaseHandlerTestCase {
         // Setup
         KickstartLister lister = KickstartLister.getInstance();
         int initialSize = lister.preservationListsInOrg(admin.getOrg(), null).size();
-        
+
         // Test
         List<String> files = new ArrayList<String>();
         files.add("file1");
         files.add("file2");
         int result = handler.create(adminKey, "list1", files);
-        
+
         // Verify
         assertEquals(1, result);
         assertEquals(initialSize + 1, handler.listAllFilePreservations(adminKey).size());
-        
+
         FileList entryCreated = CommonFactory.lookupFileList("list1", admin.getOrg());
         assertNotNull(entryCreated);
         assertEquals("list1", entryCreated.getLabel());
@@ -90,17 +90,17 @@ public class FilePreservationListHandlerTest extends BaseHandlerTestCase {
         KickstartLister lister = KickstartLister.getInstance();
         int initialSize = lister.preservationListsInOrg(admin.getOrg(), null).size();
         FileList fileList = createFileList();
-        
+
         assertEquals(initialSize + 1, handler.listAllFilePreservations(adminKey).size());
 
         // Test
         int result = handler.delete(adminKey, fileList.getLabel());
-        
+
         // Verify
         assertEquals(1, result);
         assertEquals(initialSize, handler.listAllFilePreservations(adminKey).size());
-        
-        FileList entryDeleted = CommonFactory.lookupFileList(fileList.getLabel(), 
+
+        FileList entryDeleted = CommonFactory.lookupFileList(fileList.getLabel(),
                 admin.getOrg());
         assertNull(entryDeleted);
     }
@@ -108,16 +108,16 @@ public class FilePreservationListHandlerTest extends BaseHandlerTestCase {
     public void testGetDetails() throws Exception {
         // Setup
         FileList fileList = createFileList();
-        
+
         // Test
         FileList details = handler.getDetails(adminKey, fileList.getLabel());
-        
+
         // Verify
         assertNotNull(details);
         assertEquals(fileList.getLabel(), details.getLabel());
         assertEquals(fileList.getFileNames(), details.getFileNames());
     }
-    
+
     private FileList createFileList() {
         List<String> files = new ArrayList<String>();
         files.add("file1");

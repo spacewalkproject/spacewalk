@@ -42,7 +42,7 @@ public class CleanCurrentAlertsTest extends RhnBaseTestCase {
         params.put("user_id", user.getId());
         int success = m.executeUpdate(params);
         assertEquals(1, success);
-        
+
         //remove from rhnDaemonState
         //This ensures there are no entries for clean_current_alerts there and should be
         //exactly one after our execute method runs
@@ -50,11 +50,11 @@ public class CleanCurrentAlertsTest extends RhnBaseTestCase {
         params = new HashMap();
         params.put("label", "clean_current_alerts");
         m.executeUpdate(params);
-        
+
         //Run CleanCurrentAlerts.execute()
         CleanCurrentAlerts cca = new CleanCurrentAlerts();
         cca.execute(null);
-        
+
         //Make sure the table got updated correctly
         SelectMode s = ModeFactory.getMode("test_queries", "get_alert");
         params = new HashMap();
@@ -62,9 +62,9 @@ public class CleanCurrentAlertsTest extends RhnBaseTestCase {
         DataResult dr = s.execute(params);
         assertTrue(dr.size() > 0);
         Map alert = (Map) dr.iterator().next();
-        
+
         //in_progress should now = 0 and date_completed should not be null
         assertEquals(new Integer(0), new Integer((String) alert.get("in_progress")));
-        assertNotNull(alert.get("date_completed"));        
+        assertNotNull(alert.get("date_completed"));
     }
 }

@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class CloneConfirmAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -49,18 +49,18 @@ public class CloneConfirmAction extends RhnAction {
 
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
-        
+
         DataResult dr = ErrataManager.selectedForCloning(user, null);
-        
+
         cloneDataResult(user, dr);
-        
+
         RhnSet set = RhnSetDecl.ERRATA_CLONE.get(user);
         set.clear();
         RhnSetManager.store(set);
-        
+
         return mapping.findForward("default");
     }
-    
+
     /**
      * clones the dataresult
      * @param user user the errata is being cloned for
@@ -68,13 +68,13 @@ public class CloneConfirmAction extends RhnAction {
      */
     protected void cloneDataResult(User user, DataResult dr) {
         Iterator i = dr.iterator();
-        
+
         while (i.hasNext()) {
             ErrataOverview eo = (ErrataOverview) i.next();
-            
+
             Errata e = ErrataFactory.lookupById(new Long(eo.getId().longValue()));
             ErrataManager.createClone(user, e);
-            
+
         }
     }
 }

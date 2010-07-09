@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * RhnValidationHelper contains helpful to be used by Struts actions to interact
  * with the ValidationService
- * 
+ *
  * @version $Rev$
  */
 public class RhnValidationHelper {
@@ -51,7 +51,7 @@ public class RhnValidationHelper {
 
     /**
      * Converts an array of Strings into a set of ActionError messages
-     * 
+     *
      * @param errors Array of ValidatorErrors you want to convert
      * @return ActionErrors object with set of messages
      */
@@ -88,12 +88,12 @@ public class RhnValidationHelper {
      * ActionErrors This method expects there to be an XSD file to use to
      * validate the Form with located in the same package as the Action under a
      * subdir named: validation/
-     * 
+     *
      * For example, com.redhat.rhn.frontend.action.LoginAction has an associated
      * loginForm in Struts, so you would need a:
-     * 
+     *
      * com/redhat/rhn/frontend/action/validation/loginForm.xsd
-     * 
+     *
      * @param action The action associated with the form
      * @param form The form to validate
      * @return ActionErrors if there were validation errors, otherwise its null
@@ -108,12 +108,12 @@ public class RhnValidationHelper {
      * ActionErrors This method expects there to be an XSD file to use to
      * validate the Form with located in the same package as the Action under a
      * subdir named: validation/
-     * 
+     *
      * For example, com.redhat.rhn.frontend.action.LoginAction has an associated
      * loginForm in Struts, so you would need a:
-     * 
+     *
      * com/redhat/rhn.frontend/action/validation/loginForm.xsd
-     * 
+     *
      * @param action The action associated with the form
      * @param form The form to validate
      * @param fieldNames List of form field names to validate
@@ -129,12 +129,12 @@ public class RhnValidationHelper {
      * ActionErrors This method expects there to be an XSD file to use to
      * validate the Form with located in the same package as the class under a
      * subdir named: validation/
-     * 
+     *
      * For example, com.redhat.rhn.frontend.action.LoginAction has an associated
      * loginForm in Struts, so you would need a:
-     * 
+     *
      * com/redhat/rhn/frontend/action/validation/loginForm.xsd
-     * 
+     *
      * @param base the base from which to lookup the validator
      * @param form The form to validate
      * @return ActionErrors if there were validation errors, otherwise its null
@@ -149,18 +149,18 @@ public class RhnValidationHelper {
      * ActionErrors This method expects there to be an XSD file to use to
      * validate the Form with located in the same package as the class under a
      * subdir named: validation/
-     * 
+     *
      * For example, com.redhat.rhn.frontend.action.LoginAction has an associated
      * loginForm in Struts, so you would need a:
-     * 
+     *
      * com/redhat/rhn/frontend/action/validation/loginForm.xsd
-     * 
+     *
      * Sometimes, you want to use a given form and validation for a variety of
      * actions, which may not all belong in the same package hierarchy. This
      * code checks for a "validatorPath" attribute, and if it finds it, looks
      * for the validator .xsd at that path, rather than using the 'dead
      * reckoning"approach described above.
-     * 
+     *
      * @param base the base from which to lookup the validator
      * @param form The form to validate
      * @param fieldNames List of field names to validate
@@ -176,18 +176,18 @@ public class RhnValidationHelper {
      * ActionErrors This method expects there to be an XSD file to use to
      * validate the Form with located in the same package as the class under a
      * subdir named: validation/
-     * 
+     *
      * For example, com.redhat.rhn.frontend.action.LoginAction has an associated
      * loginForm in Struts, so you would need a:
-     * 
+     *
      * com/redhat/rhn/frontend/action/validation/loginForm.xsd
-     * 
+     *
      * Sometimes, you want to use a given form and validation for a variety of
      * actions, which may not all belong in the same package hierarchy. This
      * code will use the XSD pointed at by the slash-delimited xsdName, if one
      * is provided (eg, "") rather than using the 'dead reckoning"approach
      * described above.
-     * 
+     *
      * @param base the base from which to lookup the validator
      * @param form The form to validate
      * @param fieldNames List of field names to validate
@@ -219,18 +219,18 @@ public class RhnValidationHelper {
      * ActionErrors This method expects there to be an XSD file to use to
      * validate the Form with located in the same package as the class under a
      * subdir named: validation/
-     * 
+     *
      * For example, com.redhat.rhn.frontend.action.LoginAction has an associated
      * loginForm in Struts, so you would need a:
-     * 
+     *
      * com/redhat/rhn/frontend/action/validation/loginForm.xsd
-     * 
+     *
      * Sometimes, you want to use a given form and validation for a variety of
      * actions, which may not all belong in the same package hierarchy. This
      * code will use the XSD pointed at by the slash-delimited xsdName, if one
      * is provided (eg, "") rather than using the 'dead reckoning"approach
      * described above.
-     * 
+     *
      * @param base the base from which to lookup the validator
      * @param toValidate The form to validate
      * @param fieldNames List of field names to validate
@@ -266,18 +266,18 @@ public class RhnValidationHelper {
      * ActionErrors This method expects there to be an XSD file to use to
      * validate the Form with located in the same package as the class under a
      * subdir named: validation/
-     * 
+     *
      * For example, com.redhat.rhn.frontend.action.LoginAction has an associated
      * loginForm in Struts, so you would need a:
-     * 
+     *
      * com/redhat/rhn/frontend/action/validation/loginForm.xsd
-     * 
+     *
      * Sometimes, you want to use a given form and validation for a variety of
      * actions, which may not all belong in the same package hierarchy. This
      * code will use the XSD pointed at by the slash-delimited xsdName, if one
      * is provided (eg, "") rather than using the 'dead reckoning"approach
      * described above.
-     * 
+     *
      * @param toValidate The form to validate
      * @param xsdPath the fully-qualified pathname to the XSD that we want to
      * validate against.
@@ -329,7 +329,7 @@ public class RhnValidationHelper {
     /**
      * Converts an single instance of a ValidatorError to an ActionErrors class
      * for use in Struts.
-     * 
+     *
      * @param ve Single instance of a ValidatorError
      * @return ActionErrors object with set of messages
      *

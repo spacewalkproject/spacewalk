@@ -25,7 +25,7 @@
 
 <input type="hidden" name="cid" value="${cid}" />
 
-	<rl:list 
+	<rl:list
 			decorator="SelectableDecorator"
 			emptykey="systemlist.jsp.nosystems"
 			alphabarcolumn="name"
@@ -51,23 +51,23 @@
                         	<c:out value="${current.name}" />
                         </a>
                 </rl:column>
-                
+
 			<!-- Base Channel Column -->
-			<rl:column sortable="false" 
+			<rl:column sortable="false"
 					   bound="false"
 			           headerkey="systemlist.jsp.channel"  >
 	           <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
 			</rl:column>
 			
 			<!-- Entitlement Column -->
-			<rl:column sortable="false" 
+			<rl:column sortable="false"
 					   bound="false"
-			           headerkey="systemlist.jsp.entitlement" 
+			           headerkey="systemlist.jsp.entitlement"
 			           styleclass="last-column center"
-			           headerclass="thin-column">       		           
+			           headerclass="thin-column">
 	                      <c:out value="${current.entitlementLevel}" escapeXml="false"/>
-			</rl:column>	                
-	                
+			</rl:column>
+
 	
 		</rl:list>
 		<rhn:submitted/>

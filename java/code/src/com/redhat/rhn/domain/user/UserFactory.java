@@ -70,7 +70,7 @@ public  class UserFactory extends HibernateFactory {
     public static final State ENABLED = loadState("enabled");
     public static final State DISABLED = loadState("disabled");
 
-    
+
     protected UserFactory() {
         super();
     }
@@ -114,10 +114,10 @@ public  class UserFactory extends HibernateFactory {
         }
         return null;
     }
-    
+
     /**
      * Returns user (first org admin) of the org.
-     * @param orgIn Org id 
+     * @param orgIn Org id
      * @return the user (first org admin) of the org.
      */
     public static User findRandomOrgAdmin(Org orgIn) {
@@ -252,15 +252,15 @@ public  class UserFactory extends HibernateFactory {
         params.put(LOGIN_UC, login.toUpperCase());
         User user = (User)getInstance()
                             .lookupObjectByNamedQuery("User.findByLogin", params);
-        
+
         if (user == null) {
-            LocalizationService ls = LocalizationService.getInstance();            
+            LocalizationService ls = LocalizationService.getInstance();
             LookupException e = new LookupException("Could not find user " + login);
             e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.user"));
             e.setLocalizedReason1(ls.getMessage("lookup.jsp.reason1.user"));
             e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.user"));
             throw e;
-        }        
+        }
         return user;
     }
 
@@ -276,21 +276,21 @@ public  class UserFactory extends HibernateFactory {
         params.put("orgId", user.getOrg().getId());
         User returnedUser  = (User)getInstance().lookupObjectByNamedQuery(
                                             "User.findByLoginAndOrgId", params);
-        
+
         if (returnedUser == null) {
-            LocalizationService ls = LocalizationService.getInstance();            
+            LocalizationService ls = LocalizationService.getInstance();
             LookupException e = new LookupException("Could not find user " + login);
             e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.user"));
             e.setLocalizedReason1(ls.getMessage("lookup.jsp.reason1.user"));
             e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.user"));
             throw e;
-        }        
+        }
         return returnedUser;
     }
-    
-    
+
+
     /**
-     * Lookup an user id by their login - This is added as 
+     * Lookup an user id by their login - This is added as
      * the UserService API doesn't return an user id upon user creation
      * @param login the login to search by
      * @return the user id found
@@ -300,7 +300,7 @@ public  class UserFactory extends HibernateFactory {
         Map params = new HashMap();
         params.put(LOGIN_UC, login.toUpperCase());
         DataResult dr = m.execute(params);
-        
+
         if (dr != null && dr.size() != 0) {
             return getLongValue(dr, USER_ID);
         }
@@ -319,7 +319,7 @@ public  class UserFactory extends HibernateFactory {
         Long id = (Long)((Map)dr.get(0)).get(key);
         return id.longValue();
     }
-    
+
     /**
      * Insert a new user.  Invalid to call this when updating a user
      * TODO: mmccune fill out the other fields in the user object.
@@ -328,12 +328,12 @@ public  class UserFactory extends HibernateFactory {
      * @param orgId Org this new user is a member of
      * @return User The freshly commited user.
      */
-    
+
     public static User saveNewUser(User usr, Address addr, Long orgId) {
         return getInstance().addNewUser(usr, addr, orgId);
     }
 
-    
+
     /**
      * Convenience method to determine whether a user is disabled
      * or not
@@ -345,11 +345,11 @@ public  class UserFactory extends HibernateFactory {
         params.put("user", user);
         List <StateChange>  changes =  getInstance().
                         listObjectsByNamedQuery("StateChanges.lookupByUserId", params);
-        return changes != null && !changes.isEmpty() && 
+        return changes != null && !changes.isEmpty() &&
                                 DISABLED.equals(changes.get(0).getState());
     }
 
-    
+
     /**
      * Insert a new user.  Invalid to call this when updating a user
      * TODO: mmccune fill out the other fields in the user object.
@@ -427,7 +427,7 @@ public  class UserFactory extends HibernateFactory {
         saveObject(retval);
         return retval;
     }
-    
+
     /**
      * Insert or Update a user
      * @param user The object we are committing.
@@ -435,7 +435,7 @@ public  class UserFactory extends HibernateFactory {
     public static void save(User user) {
         getInstance().saveUser(user);
     }
-    
+
     /**
      * Insert or Update a user
      * @param user The object we are committing.
@@ -485,8 +485,8 @@ public  class UserFactory extends HibernateFactory {
         m.execute(inParams, new HashMap());
     }
 
-    
-    
+
+
     /**
      * Get the timezone by ID
      * @param id ID number for timezone
@@ -607,7 +607,7 @@ public  class UserFactory extends HibernateFactory {
         victim.addChange(change);
         save(victim);
     }
-     
+
     /**
      * Method to determine whether a satellite has any users. Returns
      * true if satellite has one or more users, false otherwise.  Also
@@ -623,13 +623,13 @@ public  class UserFactory extends HibernateFactory {
     }
 
     /**
-     * 
+     *
      * @return an instance of user Factory
      */
     public static UserFactory getInstance() {
         return SINGLETON;
     }
-    
+
     /**
      * Looks up the UserServerPreference corresponding to the given
      * user, server, and preference label
@@ -645,7 +645,7 @@ public  class UserFactory extends HibernateFactory {
         Session session = HibernateFactory.getSession();
         return (UserServerPreference) session.get(UserServerPreference.class, id);
     }
-    
+
     /**
      * Sets a UserServerPreference to true or false
      * @param user User whose preference will be set
@@ -687,7 +687,7 @@ public  class UserFactory extends HibernateFactory {
 
     /**
      * Return a list of all User's who are in the given org.
-     * 
+     *
      * @param inOrg Org to find users for.
      * @return list of users.
      */
@@ -697,10 +697,10 @@ public  class UserFactory extends HibernateFactory {
         params.put("org_id", inOrg.getId());
         return (List<User>)listObjectsByNamedQuery("User.findAllUsersByOrg", params);
     }
-    
+
     /**
      * Return a list of all User's who are org admins in the given org.
-     * 
+     *
      * @param inOrg Org to find administrators for.
      * @return list of users.
      */

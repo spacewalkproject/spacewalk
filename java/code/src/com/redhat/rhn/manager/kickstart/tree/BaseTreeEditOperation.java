@@ -56,7 +56,7 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     public static final String KICKSTART_CAPABILITY = "rhn.kickstart.boot_image";
     private String postKernelOptions = "";
     private String kernelOptions = "";
-    
+
     /**
      * Constructor
      * @param userIn to associate with cmd.
@@ -64,7 +64,7 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     public BaseTreeEditOperation(User userIn) {
         this.user = userIn;
     }
-    
+
     /**
      * Constructor for use when looking up by label
      * @param treeLabel to lookup
@@ -75,7 +75,7 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         this.tree = KickstartFactory.
             lookupKickstartTreeByLabel(treeLabel, userIn.getOrg());
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -84,14 +84,14 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
             HibernateFactory.getSession().evict(this.tree);
             return new ValidatorError("kickstart.tree.invalidlabel");
         }
-        
+
         try {
-            validateBasePath();            
+            validateBasePath();
         }
         catch (ValidatorException ve) {
             return ve.getResult().getErrors().get(0);
         }
-        
+
         KickstartFactory.saveKickstartableTree(this.tree);
         // Sync to cobbler
         try {
@@ -109,11 +109,11 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         catch (XmlRpcException xe) {
             HibernateFactory.rollbackTransaction();
             if (xe.getCause().getMessage().contains("kernel not found")) {
-                return new ValidatorError(INVALID_KERNEL, 
+                return new ValidatorError(INVALID_KERNEL,
                         this.tree.getKernelPath());
             }
             else if (xe.getCause().getMessage().contains("initrd not found")) {
-                return new ValidatorError(INVALID_INITRD, 
+                return new ValidatorError(INVALID_INITRD,
                         this.tree.getInitrdPath());
             }
             else {
@@ -123,27 +123,27 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         catch (Exception e) {
             HibernateFactory.rollbackTransaction();
             if (e.getMessage().contains("kernel not found")) {
-                return new ValidatorError(INVALID_KERNEL, 
+                return new ValidatorError(INVALID_KERNEL,
                         this.tree.getKernelPath());
             }
             else if (e.getMessage().contains("initrd not found")) {
-                return new ValidatorError(INVALID_INITRD, 
+                return new ValidatorError(INVALID_INITRD,
                         this.tree.getInitrdPath());
             }
             else {
                 throw new RuntimeException(e);
             }
-            
+
         }
         return null;
     }
 
     /**
      * Validate the label to make sure:
-     * 
+     *
      * "The Distribution Label field should contain only letters, numbers, hyphens,
      * periods, and underscores. It must also be at least 4 characters long."
-     * 
+     *
      * @return boolean if its valid or not
      */
     public boolean validateLabel() {
@@ -157,7 +157,7 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         if (!(new File(path).exists())) {
             ValidatorException.raiseException(key, path);
         }
-    }    
+    }
     /**
      * Ensures that the base path is correctly setup..
      * As in the initrd and kernel structures are setup correctly.
@@ -166,8 +166,8 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     public void validateBasePath() throws ValidatorException {
         validatePathExists(getTree().getInitrdPath(), INVALID_INITRD);
         validatePathExists(getTree().getKernelPath(), INVALID_KERNEL);
-    }    
-    
+    }
+
     /**
      * @return Returns the tree.
      */
@@ -182,7 +182,7 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     public void setInstallType(KickstartInstallType typeIn) {
         this.tree.setInstallType(typeIn);
     }
-    
+
     /**
      * Set the label on the tree
      * @param labelIn to set
@@ -211,13 +211,13 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
      * Get the list of autokickstart package names.
      * @return List of String package names
      */
-    public List getAutoKickstartPackageNames() {       
+    public List getAutoKickstartPackageNames() {
        List retval = PackageManager.
            packageNamesByCapability(user.getOrg(), KICKSTART_CAPABILITY);
        replaceLegacyPackageNames(retval);
-       return retval; 
+       return retval;
     }
-    
+
     /**
      * Replace legacy package names with empty string for each PackageListItem
      * in the provided list.
@@ -225,29 +225,29 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
      */
     private void replaceLegacyPackageNames(List packageListItems) {
         // munge the list of auto kickstarts
-        for (Iterator itr = packageListItems.iterator(); itr.hasNext();) {           
+        for (Iterator itr = packageListItems.iterator(); itr.hasNext();) {
           PackageListItem pli = (PackageListItem)itr.next();
           pli.setName(pli.getName().replaceFirst(
-                  KickstartData.LEGACY_KICKSTART_PACKAGE_NAME, EMPTY_STRING));   
+                  KickstartData.LEGACY_KICKSTART_PACKAGE_NAME, EMPTY_STRING));
         }
     }
-    
+
     /**
-     * Get the list of packages that provide the kickstart capability in the 
-     * given base channel. 
+     * Get the list of packages that provide the kickstart capability in the
+     * given base channel.
      * @param baseChannel Base channel to search for kickstart packages.
      * @return List of kickstart packages for the given channel.
      */
     public List getKickstartPackageNamesForChannel(Channel baseChannel) {
-        
-        // Kickstart packages are found in the tools channel associated with a base 
+
+        // Kickstart packages are found in the tools channel associated with a base
         // channel, not the base channel itself:
         Channel toolsChannel = ChannelManager.getToolsChannel(baseChannel, user);
         if (toolsChannel == null) {
             return new LinkedList();
         }
-        
-        List ksPackages = PackageManager.packageNamesByCapabilityAndChannel(user.getOrg(), 
+
+        List ksPackages = PackageManager.packageNamesByCapabilityAndChannel(user.getOrg(),
                 KICKSTART_CAPABILITY, toolsChannel);
         replaceLegacyPackageNames(ksPackages);
         return ksPackages;
@@ -261,7 +261,7 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     public List getKickstartInstallTypesForChannel(Channel channel) {
         List installTypes = KickstartFactory.lookupKickstartInstallTypes();
         List returnInstallTypes = new LinkedList();
-        
+
         Set channelVersions = ChannelManager.getChannelVersions(channel);
 
         // Filter the list of all install types and return only those applicable to this
@@ -274,10 +274,10 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
                 returnInstallTypes.add(ksType);
             }
         }
-        
+
         return returnInstallTypes;
     }
-    
+
     /**
      * Get List of KickstartInstallType objects.
      * @return List of KickstartInstallType objets
@@ -288,9 +288,9 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     }
 
     /**
-     * Get the CobblerCommand class associated with this operation.  
+     * Get the CobblerCommand class associated with this operation.
      * Determines which Command we should execute when calling store()
-     * 
+     *
      * @return CobblerCommand instance.
      */
     protected abstract CobblerCommand getCobblerCommand();

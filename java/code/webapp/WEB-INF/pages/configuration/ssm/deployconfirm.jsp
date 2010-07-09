@@ -24,10 +24,10 @@
     </c:choose>
     </p>
   </div>
-  
+
 <html:form method="post" action="/systems/ssm/config/DeployConfirmSubmit.do">
   <%@ include file="/WEB-INF/pages/common/fragments/configuration/ssm/configconfirmlist.jspf"%>
-  
+
   <c:if test="${not empty requestScope.pageList}">
     <p><bean:message key="deployconfirm.jsp.widgetsummary" /></p>
       <table class="schedule-action-interface" align="center">
@@ -50,7 +50,7 @@
           </td>
         </tr>
       </table>
-      
+
     <div align="right">
       <hr />
       <html:submit property="dispatch">

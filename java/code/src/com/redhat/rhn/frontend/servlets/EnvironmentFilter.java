@@ -40,42 +40,42 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class EnvironmentFilter implements Filter {
-    
+
     private static Logger log = Logger.getLogger(EnvironmentFilter.class);
-    
+
     private static String[] nosslurls = {"/rhn/kickstart/DownloadFile",
                                          "/rhn/common/DownloadFile",
                                          "/rhn/rpc/api",
                                          "/rhn/ty/TinyUrl"};
-    
+
     // It is ok to maintain an instance because PxtSessionDelegate does not maintain client
     // state.
     private PxtSessionDelegate pxtDelegate;
-    
+
     /**
      * {@inheritDoc}
      */
     public void init(FilterConfig arg0) throws ServletException {
         PxtSessionDelegateFactory pxtDelegateFactory =
             PxtSessionDelegateFactory.getInstance();
-        
+
         pxtDelegate = pxtDelegateFactory.newPxtSessionDelegate();
     }
 
     /**
      * {@inheritDoc}
      */
-    public void doFilter(ServletRequest request, 
+    public void doFilter(ServletRequest request,
                          ServletResponse response,
-                         FilterChain chain) 
+                         FilterChain chain)
         throws IOException, ServletException {
-        
-        HttpServletRequest hreq = new 
+
+        HttpServletRequest hreq = new
                              RhnHttpServletRequest((HttpServletRequest)request);
         HttpServletResponse hres = new RhnHttpServletResponse(
                                                 (HttpServletResponse)response,
                                                 hreq);
-        
+
         boolean sslAvail = ConfigDefaults.get().isSSLAvailable();
 
         // There are a list of pages that don't require SSL, that list should
@@ -84,7 +84,7 @@ public class EnvironmentFilter implements Filter {
         // Have to make this decision here, because once we pass the request
         // off to the next filter, that filter can do work that sends data to
         // the client, meaning that we can't redirect.
-        if (RhnHelper.pathNeedsSecurity(nosslurls, path) && 
+        if (RhnHelper.pathNeedsSecurity(nosslurls, path) &&
                 !hreq.isSecure() && sslAvail) {
             if (log.isDebugEnabled()) {
                 log.debug("redirecting to secure: " + path);
@@ -96,14 +96,14 @@ public class EnvironmentFilter implements Filter {
         // Set request attributes we may need later
         HttpServletRequest req = (HttpServletRequest) request;
         request.setAttribute(RequestContext.REQUESTED_URI, req.getRequestURI());
-        
+
         if (log.isDebugEnabled()) {
             log.debug("set REQUESTED_URI: " + req.getRequestURI());
         }
 
         // add messages that were put on the request path.
         addParameterizedMessages(req);
-        
+
         // Done, go up chain
         chain.doFilter(hreq, hres);
     }
@@ -115,12 +115,12 @@ public class EnvironmentFilter implements Filter {
             String param1 = req.getParameter("messagep1");
             String param2 = req.getParameter("messagep2");
             String param3 = req.getParameter("messagep3");
-            
+
             Object[] args = new Object[3];
             args[0] = StringEscapeUtils.escapeHtml(param1);
             args[1] = StringEscapeUtils.escapeHtml(param2);
             args[2] = StringEscapeUtils.escapeHtml(param3);
-            
+
             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(messageKey, args));
             StrutsDelegate.getInstance().saveMessages(req, msg);
         }
@@ -132,12 +132,12 @@ public class EnvironmentFilter implements Filter {
     public void destroy() {
       // Nothing to do here
     }
-    
-    private void redirectToSecure(HttpServletRequest request, 
+
+    private void redirectToSecure(HttpServletRequest request,
             HttpServletResponse response) throws IOException {
         String originalUrl = request.getRequestURL().toString();
         String secureUrl = "https://" + originalUrl.substring(7);
         response.sendRedirect(secureUrl);
-        return;        
+        return;
     }
 }

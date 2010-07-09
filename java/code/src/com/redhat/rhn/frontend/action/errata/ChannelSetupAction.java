@@ -46,7 +46,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ChannelSetupAction extends RhnListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -54,9 +54,9 @@ public class ChannelSetupAction extends RhnListAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         //get the user and page control
         User user = requestContext.getLoggedInUser();
         PageControl pc = new PageControl();
@@ -68,22 +68,22 @@ public class ChannelSetupAction extends RhnListAction {
 
         //get the data result containing the channels in this org
         DataResult channels = ChannelManager.channelsOwnedByOrg(user.getOrg().getId(), pc);
-        
+
         //loop through the ones that will be displayed on the page, and get
         //the number of relevant packages.
         Iterator itr = channels.iterator();
         while (itr.hasNext()) {
             ChannelOverview channel = (ChannelOverview) itr.next();
-            
+
             List pkgs;
             //so if the channel is not a clone or the errata is not cloned, we simply allow
-            //the package name match to be used 
+            //the package name match to be used
             if (channel.getOriginalId() == null || !e.isCloned()) {
                 pkgs = ChannelManager.relevantPackages(new Long(channel.getId()
                                                        .longValue()),
                                                        e);
             }
-            //Else we check and see if the original channel was listed in 
+            //Else we check and see if the original channel was listed in
             //      the original errata
             else if (e.isCloned() && errataInChannel(((ClonedErrata)e).getOriginal(),
                     channel.getOriginalId())) {
@@ -94,7 +94,7 @@ public class ChannelSetupAction extends RhnListAction {
             else {
                 pkgs = new ArrayList();
             }
-            
+
             if (pkgs.isEmpty()) { //There must be 0 relevant packages
                 channel.setRelevantPackages(new Long(0));
             }
@@ -106,7 +106,7 @@ public class ChannelSetupAction extends RhnListAction {
         //get the set to start with
         RhnSet set = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user);
         /*
-         * If returnvisit is null, this is our first visit to a channels page. We 
+         * If returnvisit is null, this is our first visit to a channels page. We
          * need to intialize the set in the db to contain the ids of the channels
          * that are in the channels set for this errata.
          */
@@ -126,7 +126,7 @@ public class ChannelSetupAction extends RhnListAction {
                     set.addElement(cid); //add to set
                 }
             }
-            //Store the set here. It should either be empty or contain the channels 
+            //Store the set here. It should either be empty or contain the channels
             //for this errata.
             RhnSetManager.store(set);
         }
@@ -144,16 +144,16 @@ public class ChannelSetupAction extends RhnListAction {
                 ids.add(id); //add to the list
             }
         }
-        
+
         request.setAttribute("pageList", channels);
         request.setAttribute("set", set);
         //set advisory for toolbar
         request.setAttribute("advisory", e.getAdvisory());
-        
+
         // forward to page
         return mapping.findForward("default");
     }
-    
+
     private boolean errataInChannel(Errata e, Long id) {
         for (Channel chan : (Set<Channel>) e.getChannels()) {
             if (chan.getId().equals(id)) {
@@ -162,6 +162,6 @@ public class ChannelSetupAction extends RhnListAction {
         }
         return false;
     }
-    
-    
+
+
 }

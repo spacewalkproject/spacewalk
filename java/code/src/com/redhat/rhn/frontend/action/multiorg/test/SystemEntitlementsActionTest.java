@@ -26,13 +26,13 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class SystemEntitlementsActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
         TestUtils.saveAndFlush(user);
         ServerFactoryTest.createTestServer(user);
-        
+
         setRequestPathInfo("/admin/multiorg/SystemEntitlements");
         actionPerform();
         DataList dr = (DataList)request.getAttribute(RequestContext.PAGE_LIST);

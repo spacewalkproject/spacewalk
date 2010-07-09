@@ -18,8 +18,8 @@ function showFiltered() {
 
 <body onLoad="onLoadStuff(4); showFiltered();">
 <rhn:toolbar
-   base="h1" 
-   img="/img/rhn-icon-channels.gif" 
+   base="h1"
+   img="/img/rhn-icon-channels.gif"
    imgAlt="channels.overview.toolbar.imgAlt">
   <bean:message key="channel.nav.shared"/>
 </rhn:toolbar>

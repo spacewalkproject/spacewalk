@@ -51,9 +51,9 @@ public class PreservationListDeleteSubmitAction extends RhnSetAction {
                                        HttpServletResponse response) {
         RhnSet set = updateSet(request);
         String forwardName = "delete";
-        
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         if (set.size() == 0) {
             strutsDelegate.saveMessage("filelists.jsp.selectafilelist", request);
             forwardName = "default";
@@ -62,12 +62,12 @@ public class PreservationListDeleteSubmitAction extends RhnSetAction {
         RhnSetManager.store(set);
         return strutsDelegate.forwardParams(mapping.findForward(forwardName), params);
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         return KickstartLister.getInstance().preservationListsInOrg(
                                                          user.getOrg(), null);
@@ -77,14 +77,14 @@ public class PreservationListDeleteSubmitAction extends RhnSetAction {
      * {@inheritDoc}
      */
     protected void processMethodKeys(Map map) {
-        map.put("preservation_list.jsp.deletelist", "forwardToConfirm");        
+        map.put("preservation_list.jsp.deletelist", "forwardToConfirm");
     }
 
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         // no-op
     }

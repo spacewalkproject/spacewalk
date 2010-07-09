@@ -11,7 +11,7 @@
   <template name="system.custominfo" classname="com.redhat.rhn.frontend.xmlrpc.system.custominfo.CustomInfoHandler"/>
   <template name="system.provisioning.snapshot" classname="com.redhat.rhn.frontend.xmlrpc.system.provisioning.snapshot.SnapshotHandler"/>
   <template name="system.search" classname="com.redhat.rhn.frontend.xmlrpc.system.search.SystemSearchHandler"/>
-  <template name="systemgroup" classname="com.redhat.rhn.frontend.xmlrpc.systemgroup.ServerGroupHandler" />  
+  <template name="systemgroup" classname="com.redhat.rhn.frontend.xmlrpc.systemgroup.ServerGroupHandler" />
   <template name="proxy" classname="com.redhat.rhn.frontend.xmlrpc.proxy.ProxyHandler"/>
   <template name="satellite" classname="com.redhat.rhn.frontend.xmlrpc.satellite.SatelliteHandler"/>
   <template name="channel" classname="com.redhat.rhn.frontend.xmlrpc.channel.ChannelHandler"/>

@@ -84,7 +84,7 @@ public class PackageProvider extends BaseDomainHelper implements
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -92,7 +92,7 @@ public class PackageProvider extends BaseDomainHelper implements
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object archIn) {

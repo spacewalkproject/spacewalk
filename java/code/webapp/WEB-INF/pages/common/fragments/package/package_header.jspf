@@ -1,9 +1,9 @@
 
 
-<rhn:toolbar base="h1" img="/img/rhn-icon-packages.gif" imgAlt="package.jsp.alt"> 
+<rhn:toolbar base="h1" img="/img/rhn-icon-packages.gif" imgAlt="package.jsp.alt">
 	<c:out value="${package_name}" escapeXml="true"/><a href="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp" target="_new" class="help-title"><img src="/img/rhn-icon-help.gif" alt="Help Icon" /></a>
 </rhn:toolbar>
 
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
 		definition="/WEB-INF/nav/package_detail.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

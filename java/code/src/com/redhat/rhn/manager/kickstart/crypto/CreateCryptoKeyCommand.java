@@ -22,7 +22,7 @@ import com.redhat.rhn.domain.org.Org;
  * @version $Rev$
  */
 public class CreateCryptoKeyCommand extends BaseCryptoKeyCommand {
-    
+
     /**
      * Create new Command and Key
      * @param org Organization for the new crypto key.
@@ -32,5 +32,5 @@ public class CreateCryptoKeyCommand extends BaseCryptoKeyCommand {
         this.key = new CryptoKey();
         this.key.setOrg(org);
     }
-  
+
 }

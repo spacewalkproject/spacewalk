@@ -55,7 +55,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public class KickstartDetailsEditAction extends BaseKickstartEditAction {
-    
+
     public static final String LABEL = "label";
     public static final String ACTIVE = "active";
     public static final String COMMENTS = "comments";
@@ -66,17 +66,17 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static final String  KERNEL_OPTIONS = "kernel_options";
     public static final String  POST_KERNEL_OPTIONS = "post_kernel_options";
 
-    
+
     public static final String VIRTUALIZATION_TYPES = "virtualizationTypes";
     public static final String VIRTUALIZATION_TYPE_LABEL = "virtualizationTypeLabel";
-    
+
     public static final String IS_VIRT = "is_virt";
     public static final String VIRT_CPU = "virt_cpus";
     public static final String VIRT_DISK_SIZE = "virt_disk_size";
     public static final String VIRT_MEMORY = "virt_mem_mb";
     public static final String VIRT_BRIDGE = "virt_bridge";
     public static final String VIRT_PATH = "virt_disk_path";
-    
+
     public static final String INVALID = "invalid";
 
     /** {@inheritDoc} */
@@ -86,20 +86,20 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                                   HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         KickstartData data = context.lookupAndBindKickstartData();
-                
+
         if (data.isRawData()) {
             return getStrutsDelegate().forwardParam(
-                    mapping.findForward("raw_mode"), RequestContext.KICKSTART_ID, 
+                    mapping.findForward("raw_mode"), RequestContext.KICKSTART_ID,
                                                             data.getId().toString());
-            
+
         }
         return super.execute(mapping, formIn, request, response);
-        
+
     }
     /**
      * {@inheritDoc}
      */
-    protected void setupFormValues(RequestContext ctx, 
+    protected void setupFormValues(RequestContext ctx,
             DynaActionForm form, BaseKickstartCommand cmdIn) {
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
         form.set(LABEL, cmd.getLabel());
@@ -107,7 +107,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             ctx.getRequest().setAttribute(INVALID, Boolean.TRUE);
             return;
         }
-        
+
         form.set(COMMENTS, cmd.getComments());
         form.set(ACTIVE, cmd.getActive());
         form.set(ORG_DEFAULT, cmd.getKickstartData().isOrgDefault());
@@ -117,23 +117,23 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
 
 
         setupCobblerFormValues(ctx, form, cmd.getKickstartData());
-        
-        KickstartWizardHelper wizardHelper = new 
-                            KickstartWizardHelper(ctx.getLoggedInUser()); 
+
+        KickstartWizardHelper wizardHelper = new
+                            KickstartWizardHelper(ctx.getLoggedInUser());
         // Lookup the kickstart virtualization types and pre-select the current one:
         List types = wizardHelper.getVirtualizationTypes();
         form.set(VIRTUALIZATION_TYPES, types);
         form.set(VIRTUALIZATION_TYPE_LABEL, cmd.getVirtualizationType().getLabel());
-        
+
         KickstartFileDownloadCommand dcmd = new KickstartFileDownloadCommand(
-                cmd.getKickstartData().getId(), 
-                cmd.getUser(), 
-                ctx.getRequest());  
-        ctx.getRequest().setAttribute(KickstartFileDownloadAction.KSURL, 
+                cmd.getKickstartData().getId(),
+                cmd.getUser(),
+                ctx.getRequest());
+        ctx.getRequest().setAttribute(KickstartFileDownloadAction.KSURL,
                 dcmd.getOrgDefaultUrl());
         checkKickstartFile(ctx, getStrutsDelegate());
     }
-    
+
 
     /**
      * Setup cobbler form values These include, kernel options and virt options
@@ -144,7 +144,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static void setupCobblerFormValues(RequestContext ctx,
             DynaActionForm form, KickstartData data) {
         CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
-        Profile prof = Profile.lookupById(helper.getConnection(ctx.getLoggedInUser()), 
+        Profile prof = Profile.lookupById(helper.getConnection(ctx.getLoggedInUser()),
                 data.getCobblerId());
         if (prof != null) {
             form.set(KERNEL_OPTIONS, prof.getKernelOptionsString());
@@ -162,21 +162,21 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                form.set(VIRT_MEMORY, ConfigDefaults.get().getDefaultVirtMemorySize());
            }
            else {
-               setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), 
+               setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(),
                        data.getDefaultVirtBridge());
                setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(),
                        ConfigDefaults.get().getDefaultVirtCpus());
                setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(),
                        ConfigDefaults.get().getDefaultVirtDiskSize());
                setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(),
-                       ConfigDefaults.get().getDefaultVirtMemorySize());  
+                       ConfigDefaults.get().getDefaultVirtMemorySize());
            }
-           ctx.getRequest().setAttribute(IS_VIRT, Boolean.TRUE);    
+           ctx.getRequest().setAttribute(IS_VIRT, Boolean.TRUE);
         }
     }
-    
-    
-    private static void setFormValueOrDefault(DynaActionForm form, String key, 
+
+
+    private static void setFormValueOrDefault(DynaActionForm form, String key,
                                             Object value, Object defaultValue) {
         if (value == null || StringUtils.isBlank(value.toString()) || value.equals(0)) {
             form.set(key, defaultValue);
@@ -185,44 +185,44 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             form.set(key, value);
         }
     }
-    
-        
+
+
 
     /**
      * {@inheritDoc}
      */
-    protected ValidatorError processFormValues(HttpServletRequest request, 
-            DynaActionForm form, 
+    protected ValidatorError processFormValues(HttpServletRequest request,
+            DynaActionForm form,
             BaseKickstartCommand cmdIn) {
-        
+
         ValidatorError error = null;
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
         RequestContext ctx = new RequestContext(request);
         KickstartBuilder builder = new KickstartBuilder(ctx.getLoggedInUser());
         cmd.setComments(form.getString(COMMENTS));
         try {
-            
 
-            KickstartVirtualizationType vType = 
+
+            KickstartVirtualizationType vType =
                 KickstartFactory.lookupKickstartVirtualizationTypeByLabel(
                     form.getString(VIRTUALIZATION_TYPE_LABEL));
-            
+
             Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(
                     cmdIn.getKickstartData().getTree(), vType, ctx.getLoggedInUser());
             if (distro == null) {
-                ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt"); 
+                ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt");
             }
-            
-            
+
+
             if (!cmdIn.getKickstartData().getLabel().equals(form.getString(LABEL))) {
                 builder.validateNewLabel(form.getString(LABEL));
             }
-            
-            
+
+
             cmd.setLabel(form.getString(LABEL));
-            cmd.setActive(new 
+            cmd.setActive(new
                     Boolean(BooleanUtils.toBoolean((Boolean) form.get(ACTIVE))));
-            cmd.setIsOrgDefault(new 
+            cmd.setIsOrgDefault(new
                     Boolean(BooleanUtils.toBoolean((Boolean) form.get(ORG_DEFAULT))));
             cmd.getKickstartData().setPostLog(
                     BooleanUtils.toBoolean((Boolean) form.get(POST_LOG)));
@@ -230,9 +230,9 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                     BooleanUtils.toBoolean((Boolean) form.get(PRE_LOG)));
             cmd.getKickstartData().setKsCfg(
                     BooleanUtils.toBoolean((Boolean) form.get(KS_CFG)));
-            
+
             processCobblerFormValues(cmd.getKickstartData(), form, ctx.getLoggedInUser());
-            
+
             String virtTypeLabel = form.getString(VIRTUALIZATION_TYPE_LABEL);
             KickstartVirtualizationType ksVirtType = KickstartFactory.
                 lookupKickstartVirtualizationTypeByLabel(virtTypeLabel);
@@ -240,9 +240,9 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                 throw new InvalidVirtualizationTypeException(virtTypeLabel);
             }
             cmd.setVirtualizationType(ksVirtType);
-            
 
-            
+
+
             return null;
         }
         catch (ValidatorException ve) {
@@ -260,9 +260,9 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     protected BaseKickstartCommand getCommand(RequestContext ctx) {
         return new KickstartEditCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                 ctx.getCurrentUser());
-    }    
-    
-   
+    }
+
+
     /**
      * Should i save virt options?
      * @param data the kickstart data
@@ -279,16 +279,16 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         return virtType != null && !virtType.equals(
                 KickstartFactory.VIRT_TYPE_PV_HOST.getLabel());
     }
-    
-    
+
+
     /**
-     * Proccess Cobbler form values, pulling in the form 
+     * Proccess Cobbler form values, pulling in the form
      *      and pushing the values to cobbler
      * @param ksdata the kickstart data
      * @param form the form
      * @param user the user
      */
-    public static void processCobblerFormValues(KickstartData ksdata, 
+    public static void processCobblerFormValues(KickstartData ksdata,
                                             DynaActionForm form, User user) {
         CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
 
@@ -298,12 +298,12 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         cmd.store();
 
         CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
-        Profile prof = Profile.lookupById(helper.getConnection(user), 
+        Profile prof = Profile.lookupById(helper.getConnection(user),
                 ksdata.getCobblerId());
         if (prof == null) {
             return;
         }
-        
+
         if (KickstartDetailsEditAction.canSaveVirtOptions(ksdata, form)) {
             prof.setVirtRam((Integer) form.get(VIRT_MEMORY));
             prof.setVirtCpus((Integer) form.get(VIRT_CPU));
@@ -327,7 +327,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         }
         catch (ValidatorException ve) {
             RhnValidationHelper.setFailedValidation(context.getRequest());
-            strutsDelegate.saveMessages(context.getRequest(), ve.getResult());          
+            strutsDelegate.saveMessages(context.getRequest(), ve.getResult());
         }
     }
 }

@@ -16,7 +16,7 @@
                alt="<bean:message key='monitoring.status.pending'/>"/>
         </c:if>
         <c:if test="${current.stateString == 'CRITICAL'}">
-          <img src="/img/rhn-mon-down.gif" title="<bean:message key='monitoring.status.critical'/>" 
+          <img src="/img/rhn-mon-down.gif" title="<bean:message key='monitoring.status.critical'/>"
                alt="<bean:message key='monitoring.status.critical'/>"/>
         </c:if>
     </rhn:column>

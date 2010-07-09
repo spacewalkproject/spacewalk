@@ -25,11 +25,11 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class ReleaseChannelMapTest extends BaseTestCaseWithUser {
-    
+
     private final String PRODUCT = "RHEL";
     private final String VERSION = "5Server";
     private final String RELEASE = "5.0.0";
-    
+
     public void testCreate() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         ReleaseChannelMap rcm = new ReleaseChannelMap();

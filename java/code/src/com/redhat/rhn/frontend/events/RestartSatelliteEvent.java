@@ -18,9 +18,9 @@ import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.user.User;
 
 /**
- * RestartSatelliteEvent - event containing necessary info to restart 
+ * RestartSatelliteEvent - event containing necessary info to restart
  * the satellite.
- * 
+ *
  * @version $Rev: 74533 $
  */
 public class RestartSatelliteEvent extends BaseEvent implements EventMessage {
@@ -34,13 +34,13 @@ public class RestartSatelliteEvent extends BaseEvent implements EventMessage {
     public RestartSatelliteEvent(User currentUser) {
         this.setUser(currentUser);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String toText() {
         // really a noop
         return "";
-    }    
+    }
 
 }

@@ -35,14 +35,14 @@ public class ISOImage extends BaseDto {
     private Long ordering;
     private String category;
     private String url;
-    
+
     /**
      * {@inheritDoc}
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * Set new id
      * @param newId id to set
@@ -53,12 +53,12 @@ public class ISOImage extends BaseDto {
 
     /**
      * getter for ISO category
-     * @return category 
+     * @return category
      */
     public String getCategory() {
         return category;
     }
-    
+
     /**
      * Set category
      * @param cat category to set
@@ -66,7 +66,7 @@ public class ISOImage extends BaseDto {
     public void setCategory(String cat) {
         category = cat;
     }
-    
+
     /**
      * getter for ISO checksum
      * @return cksum
@@ -106,7 +106,7 @@ public class ISOImage extends BaseDto {
     public String getDownloadPath() {
         return downloadPath;
     }
-    
+
     /**
      * Set path
      * @param dlPath new path
@@ -122,15 +122,15 @@ public class ISOImage extends BaseDto {
     public String getSize() {
         return StringUtil.displayFileSize(downloadSize.longValue(), true);
     }
-    
+
     /**
      * getter for ISO size in bytes
-     * @return size 
+     * @return size
      */
     public Long getDownloadSize() {
         return downloadSize;
     }
-    
+
     /**
      * Set size (bytes)
      * @param dlSz size to set
@@ -163,7 +163,7 @@ public class ISOImage extends BaseDto {
     public void createDownloadUrl(User u) {
         setUrl(DownloadManager.getISODownloadPath(this, u));
     }
-    
+
     /**
      * Set the fully-qualified download-URL for this ISO image
      * @param newUrl complete URL for this image's download
@@ -171,7 +171,7 @@ public class ISOImage extends BaseDto {
     public void setUrl(String newUrl) {
         url = newUrl;
     }
-    
+
     /**
      * Get the fully-qualified download-URL for this ISO image
      * @return url
@@ -179,7 +179,7 @@ public class ISOImage extends BaseDto {
     public String getUrl() {
         return url;
     }
-    
+
     /**
      * Returns true if this image is accessible from this machine
      * @return true if we can find web.mount_point/download/<path>, false else
@@ -189,20 +189,20 @@ public class ISOImage extends BaseDto {
         File f = new File(mtpt + "/download/" + getDownloadPath());
         return f.exists();
     }
-    
+
     protected long getExpires() {
         int lifetime = Config.get().getInt("web.download_url_lifetime");
         // SECONDS! *NOT* milliseconds
         return (System.currentTimeMillis() / 1000 + lifetime);
     }
-    
-    //return RHN::SessionSwap->rhn_hmac_data($self->{expires}, $self->{user_id}, 
+
+    //return RHN::SessionSwap->rhn_hmac_data($self->{expires}, $self->{user_id},
     //  $self->{file_id} || 0, $self->{path_trail});
     protected String getToken(User u, long expires) {
-        return DownloadManager.getFileSHA1Token(this.getId(), this.getDownloadName(), 
+        return DownloadManager.getFileSHA1Token(this.getId(), this.getDownloadName(),
                 u, expires, DownloadManager.DOWNLOAD_TYPE_ISO);
     }
-    
+
     /**
      * Extracts the base filename of an ISO from its download path
      * @return base name (e.g., "RHEL5-Server-20060830.1-i386-disc4-ftp.iso")

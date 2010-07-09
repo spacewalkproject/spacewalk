@@ -36,28 +36,28 @@ public class ConfigFileTag extends TagSupport {
      */
     private static final long serialVersionUID = 1582063245840138731L;
 
-    private static final Logger LOG = Logger.getLogger(ConfigFileTag.class);    
-    
+    private static final Logger LOG = Logger.getLogger(ConfigFileTag.class);
+
     public static final String DIR_ALT_KEY = "config.common.dirAlt";
     public static final String FILE_ALT_KEY = "config.common.fileAlt";
     public static final String SYMLINK_ALT_KEY = "config.common.symlinkAlt";
 
-    
+
     public static final String DIR_LIST_ICON = "/img/rhn-listicon-cfg_folder.gif";
     public static final String FILE_LIST_ICON = "/img/rhn-listicon-cfg_file.gif";
     public static final String SYMLINK_LIST_ICON = "/img/rhn-listicon-cfg_symlink.gif";
 
-    
+
     public static final String DIR_HEADER_ICON = "/img/folder-config.png";
     public static final String FILE_HEADER_ICON = "/img/file-config.png";
 
-    
+
     public static final String FILE_URL = "/rhn/configuration/file/FileDetails.do";
     public static final String FILE_COMPARE_URL =
                                     "/rhn/configuration/file/CompareRevision.do";
-    
+
     /**
-     * <cfg:file id=""  value="" type="file|dir" revision="" nolink="">  
+     * <cfg:file id=""  value="" type="file|dir" revision="" nolink="">
      */
      private String id;
      private String path;
@@ -81,15 +81,15 @@ public class ConfigFileTag extends TagSupport {
              else {
                  url = makeConfigFileUrl(id);
              }
-             
+
              ConfigTagHelper.write("<a href=\"" + url + "\">", pageContext);
              writeIcon();
              ConfigTagHelper.write(StringEscapeUtils.escapeXml(path) + "</a>", pageContext);
          }
          return BodyTagSupport.SKIP_BODY;
      }
-     
-     /** 
+
+     /**
       * {@inheritDoc}
       */
      public void release() {
@@ -101,7 +101,7 @@ public class ConfigFileTag extends TagSupport {
          super.release();
      }
 
-     
+
      /**
       * @param val the id to set
       */
@@ -109,7 +109,7 @@ public class ConfigFileTag extends TagSupport {
          this.id = val;
      }
 
-     
+
      /**
       * @param isNoLink the nolink to set
       */
@@ -117,7 +117,7 @@ public class ConfigFileTag extends TagSupport {
          this.nolink = Boolean.TRUE.toString().equalsIgnoreCase(isNoLink);
      }
 
-     
+
      /**
       * @param tp the type to set
       */
@@ -125,24 +125,24 @@ public class ConfigFileTag extends TagSupport {
          this.type = tp;
      }
 
-     
+
      /**
       * @param value the value to set
       */
      public void setPath(String value) {
          this.path = value;
      }
-     
+
      /**
       * @param rev the revision to set
       */
      public void setRevisionId(String rev) {
          this.revisionId = rev;
      }
-     
+
      private void writeIcon() throws JspException {
          if (checkType()) {
-             if ("dir".equalsIgnoreCase(type) || 
+             if ("dir".equalsIgnoreCase(type) ||
                      "directory".equalsIgnoreCase(type) ||
                      "folder".equalsIgnoreCase(type)) {
                  ConfigTagHelper.writeIcon(DIR_LIST_ICON, DIR_ALT_KEY, pageContext);
@@ -151,8 +151,8 @@ public class ConfigFileTag extends TagSupport {
                  ConfigTagHelper.writeIcon(SYMLINK_LIST_ICON, SYMLINK_ALT_KEY, pageContext);
              }
              else {
-                 ConfigTagHelper.writeIcon(FILE_LIST_ICON, 
-                                             FILE_ALT_KEY, pageContext);             
+                 ConfigTagHelper.writeIcon(FILE_LIST_ICON,
+                                             FILE_ALT_KEY, pageContext);
              }
          }
          else {
@@ -164,7 +164,7 @@ public class ConfigFileTag extends TagSupport {
       * Checks to see if no invalid values are specified
       */
      private boolean checkType() {
-         if ((StringUtils.isBlank(id) && StringUtils.isBlank(path)) || 
+         if ((StringUtils.isBlank(id) && StringUtils.isBlank(path)) ||
              (StringUtils.isBlank(type))) {
              return false;
          }
@@ -178,15 +178,15 @@ public class ConfigFileTag extends TagSupport {
              LOG.warn(message + "\n" + ie.toString(), ie);
              return false;
          }
-     }     
-     
+     }
+
      /**
-     * Returns the URL to view/edit a config file. 
+     * Returns the URL to view/edit a config file.
      * This method may also be used with the el expression
      * ${config:fileUrl('id')}
      * This method is public static because
-     * EL functions defined in a TLD file, 
-     * need to be public static methods.. 
+     * EL functions defined in a TLD file,
+     * need to be public static methods..
      * @param fileId the id of the given Config file
      * @return the URL to view/edit a config file
      */
@@ -195,28 +195,28 @@ public class ConfigFileTag extends TagSupport {
     }
 
     /**
-     * Returns the URL to view/edit a config revision. 
+     * Returns the URL to view/edit a config revision.
      * This method may also be used with the el expression
      * ${config:revisionUrl('fileId','revisionId')}
      * This method is public static because
-     * EL functions defined in a TLD file, 
-     * need to be public static methods.. 
+     * EL functions defined in a TLD file,
+     * need to be public static methods..
      * @param fileId the id of the given Config file
      * @param revisionId the id of the given Config revision
      * @return the URL to view/edit a config revision
      */
-    public static String makeConfigFileRevisionUrl(String fileId, 
+    public static String makeConfigFileRevisionUrl(String fileId,
                                                         String revisionId) {
         return FILE_URL + "?cfid=" +  fileId + "&amp;crid=" + revisionId;
     }
 
     /**
-     * Returns the URL to compare different revisions of a config file. 
+     * Returns the URL to compare different revisions of a config file.
      * This method may also be used with the el expression
      * ${config:compareUrl('id')}
      * This method is public static because
-     * EL functions defined in a TLD file, 
-     * need to be public static methods.. 
+     * EL functions defined in a TLD file,
+     * need to be public static methods..
      * @param fileId the id of the given Config file
      * @return the URL to view/edit a config file
      */
@@ -227,34 +227,34 @@ public class ConfigFileTag extends TagSupport {
     /**
       * Returns the Header icon image path for given config file type (file|dir)
       * This method is public static because
-      * EL functions defined in a TLD file, 
-      * need to be public static methods.. 
-      * 
+      * EL functions defined in a TLD file,
+      * need to be public static methods..
+      *
       * @param type (file|dir)
       * @return the image path
       */
      public static final String getHeaderIconFor(String type) {
-         
-         if ("dir".equalsIgnoreCase(type) || 
+
+         if ("dir".equalsIgnoreCase(type) ||
                  "directory".equalsIgnoreCase(type) ||
                  "folder".equalsIgnoreCase(type)) {
              return DIR_HEADER_ICON;
          }
          return FILE_HEADER_ICON;
      }
-     
+
      /**
       * Returns the Header icon image path for given config file type (file|dir|symlink)
       * This method is public static because
-      * EL functions defined in a TLD file, 
-      * need to be public static methods.. 
-      * 
+      * EL functions defined in a TLD file,
+      * need to be public static methods..
+      *
       * @param type (file|dir)
       * @return the image path
       */
      public static final String getListIconFor(String type) {
-         
-         if ("dir".equalsIgnoreCase(type) || 
+
+         if ("dir".equalsIgnoreCase(type) ||
                  "directory".equalsIgnoreCase(type) ||
                  "folder".equalsIgnoreCase(type)) {
              return DIR_LIST_ICON;
@@ -264,18 +264,18 @@ public class ConfigFileTag extends TagSupport {
          }
          return FILE_LIST_ICON;
      }
-     
-     
+
+
      /**
       * Returns the Header alt key  for a given config file type (file|dir|symlink)
       * This method is public static because
-      * EL functions defined in a TLD file, 
-      * need to be public static methods..  
+      * EL functions defined in a TLD file,
+      * need to be public static methods..
       * @param type (file|dir)
-      * @return the alt key 
+      * @return the alt key
       */
      public static final String getAltKeyFor(String type) {
-         if ("dir".equalsIgnoreCase(type) || 
+         if ("dir".equalsIgnoreCase(type) ||
                  "directory".equalsIgnoreCase(type) ||
                  "folder".equalsIgnoreCase(type)) {
              return DIR_ALT_KEY;
@@ -283,6 +283,6 @@ public class ConfigFileTag extends TagSupport {
          else if ("symlink".equalsIgnoreCase(type)) {
              return SYMLINK_ALT_KEY;
          }
-         return FILE_ALT_KEY;     
+         return FILE_ALT_KEY;
      }
 }

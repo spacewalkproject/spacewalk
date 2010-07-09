@@ -31,7 +31,7 @@ public class ConfigGlobalDeployDto extends BaseDto {
     private Long outrankedCount;
     private Long overrideCount;
     private boolean deployable;
-    
+
     /**
      * @return true if deployable, as in config capable + featured
      */
@@ -39,10 +39,10 @@ public class ConfigGlobalDeployDto extends BaseDto {
         return deployable;
     }
 
-    
+
     /**
      * set true if ht efile is deployable.
-     * @param deployableIn true if deployable 
+     * @param deployableIn true if deployable
      */
     public void setDeployable(Integer deployableIn) {
         this.deployable = Integer.valueOf(1).equals(deployableIn);
@@ -54,14 +54,14 @@ public class ConfigGlobalDeployDto extends BaseDto {
     public Long getId() {
         return this.id;
     }
-    
+
     /**
      * @param inId sets the system-id
      */
     public void setId(Long inId) {
         this.id = inId;
     }
-    
+
     /**
      * @return system name
      */
@@ -78,7 +78,7 @@ public class ConfigGlobalDeployDto extends BaseDto {
     }
 
     /**
-     * @return number of channels w/files w/same name as getRevId() that this system has 
+     * @return number of channels w/files w/same name as getRevId() that this system has
      * set to a higher priority than getRevId().getFile().getChannel()
      */
     public Long getOutrankedCount() {
@@ -99,7 +99,7 @@ public class ConfigGlobalDeployDto extends BaseDto {
     public Long getOverrideCount() {
         return this.overrideCount;
     }
-    
+
     /**
      * Set override count
      * @param overridden # local channels overriding this file (0 or 1)
@@ -107,9 +107,9 @@ public class ConfigGlobalDeployDto extends BaseDto {
     public void setOverrideCount(Long overridden) {
         this.overrideCount = overridden;
     }
-    
+
     /**
-     * @return get the revision-id of a specific file whose deploy status we're 
+     * @return get the revision-id of a specific file whose deploy status we're
      * storing in this Dto
      */
     public Long getRevId() {
@@ -137,7 +137,7 @@ public class ConfigGlobalDeployDto extends BaseDto {
         }
         return cr;
     }
-    
+
     /**
      * Given that id is set, return the associated Server object
      * @return serv whose id is getId()
@@ -150,16 +150,16 @@ public class ConfigGlobalDeployDto extends BaseDto {
         }
         return s;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean isSelectable() {
-        return getOutrankedCount().intValue() == 0 && 
+        return getOutrankedCount().intValue() == 0 &&
                     getOverrideCount().intValue() == 0 && isDeployable();
     }
-    
-    
-    
-    
+
+
+
+
 }

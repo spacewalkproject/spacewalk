@@ -99,9 +99,9 @@ import java.util.regex.Pattern;
  * @version $Rev$
  */
 public class SystemManager extends BaseManager {
-    
+
     private static Logger log = Logger.getLogger(SystemManager.class);
-    
+
     public static final String CAP_PACKAGES_RUNTXN = "packages.runTransaction";
     public static final String CAP_PACKAGES_ROLLBACK = "packages.rollBack";
     public static final String CAP_REBOOT = "reboot.reboot";
@@ -120,7 +120,7 @@ public class SystemManager extends BaseManager {
         "configfiles.base64_enc";
     public static final String CAP_OSAD_RHNCHECK = "osad.rhn_check";
     public static final String CAP_OSAD_PING = "osad.ping";
-    
+
     public static final String[] INFO_PATTERNS = {
         "Registered by username = '(\\w+)' using rhn_register client",
         "rhn_register by username = '(\\w+)'",
@@ -130,7 +130,7 @@ public class SystemManager extends BaseManager {
 
     private SystemManager() {
     }
-    
+
     /**
      * Takes a snapshot for a server by calling the snapshot_server stored proc.
      * @param server The server to snapshot
@@ -146,16 +146,16 @@ public class SystemManager extends BaseManager {
         if (server == null || !serverHasFeature(server.getId(), "ftr_snapshotting")) {
             return;
         }
-        
+
         CallableMode m = ModeFactory.getCallableMode("System_queries", "snapshot_server");
         Map in = new HashMap();
         in.put("server_id", server.getId());
         in.put("reason", reason);
         m.execute(in, new HashMap());
     }
-    
+
     /**
-     * Gets the list of channels that this server could subscribe to given it's base 
+     * Gets the list of channels that this server could subscribe to given it's base
      * channel.
      * @param sid The id of the server in question
      * @param uid The id of the user asking
@@ -163,16 +163,16 @@ public class SystemManager extends BaseManager {
      * @return Returns a list of subscribable (child) channels for this server.
      */
     public static DataResult subscribableChannels(Long sid, Long uid, Long cid) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
+        SelectMode m = ModeFactory.getMode("Channel_queries",
                                            "subscribable_channels", Map.class);
         Map params = new HashMap();
         params.put("server_id", sid);
         params.put("user_id", uid);
         params.put("base_channel_id", cid);
-        
+
         return m.execute(params);
     }
-    
+
     /**
      * Gets the list of channel ids that this server could subscribe to
      * according to it's base channel.
@@ -205,7 +205,7 @@ public class SystemManager extends BaseManager {
         params.put("sid", sid);
         return m.execute(params);
     }
-    
+
     /**
      * Gets the latest installable packages for a system
      * @param sid The id for the system we want packages for
@@ -219,20 +219,20 @@ public class SystemManager extends BaseManager {
         params.put("sid", sid);
         return m.execute(params);
     }
-    
+
     /**
      * Gets the installed packages on a system
      * @param sid The system in question
      * @return Returns a list of packages for a system
      */
     public static DataResult installedPackages(Long sid) {
-        SelectMode m = ModeFactory.getMode("System_queries", "system_installed_packages", 
+        SelectMode m = ModeFactory.getMode("System_queries", "system_installed_packages",
                                            Map.class);
         Map params = new HashMap();
         params.put("sid", sid);
         return m.execute(params);
     }
-    
+
     /**
      * Deletes a server
      * @param user The user doing the deleting.
@@ -241,7 +241,7 @@ public class SystemManager extends BaseManager {
     public static void deleteServer(User user, Long sid) {
         /*
          * Looking up the server here rather than being passed in a Server object, allows
-         * us to call lookupByIdAndUser which will ensure the user has access to this 
+         * us to call lookupByIdAndUser which will ensure the user has access to this
          * server.
          */
         Server server = lookupByIdAndUser(sid, user);
@@ -260,7 +260,7 @@ public class SystemManager extends BaseManager {
             ServerFactory.delete(server);
         }
     }
-    
+
     /**
      * Adds a server to a server group
      * @param server The server to add
@@ -270,7 +270,7 @@ public class SystemManager extends BaseManager {
         ServerFactory.addServerToGroup(server, serverGroup);
         snapshotServer(server, "Group membership alteration");
     }
-    
+
     /**
      * Removes a server from a group
      * @param server The server to remove
@@ -280,15 +280,15 @@ public class SystemManager extends BaseManager {
         ServerFactory.removeServerFromGroup(server, serverGroup);
         snapshotServer(server, "Group membership alteration");
     }
-    
+
     /**
      * Returns a list of available server groups for a given server
-     * @param server The server in question 
+     * @param server The server in question
      * @param user The user requesting the information
      * @return Returns a list of system groups available for this server/user
      */
     public static DataResult availableSystemGroups(Server server, User user) {
-        SelectMode m = ModeFactory.getMode("SystemGroup_queries", "visible_to_system", 
+        SelectMode m = ModeFactory.getMode("SystemGroup_queries", "visible_to_system",
                                            Map.class);
         Map params = new HashMap();
         params.put("sid", server.getId());
@@ -296,7 +296,7 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         return m.execute(params);
     }
-    
+
     /**
      * Returns list of all systems visible to user.
      * @param user Currently logged in user.
@@ -310,7 +310,7 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns list of all systems visible to user.
      *    This is meant to be fast and only gets the id, name, and last checkin
@@ -319,20 +319,20 @@ public class SystemManager extends BaseManager {
      * @return list of SystemOverviews.
      */
     public static DataResult systemListShort(User user, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("System_queries", "xmlrpc_visible_to_user", 
+        SelectMode m = ModeFactory.getMode("System_queries", "xmlrpc_visible_to_user",
                 SystemOverview.class);
         Map params = new HashMap();
         params.put("user_id", user.getId());
         Map elabParams = new HashMap();
-        
+
         return makeDataResult(params, elabParams, pc, m);
     }
 
     /**
-     * Returns list of all systems that are  visible to user 
+     * Returns list of all systems that are  visible to user
      * but not in the given server group.
      * @param user Currently logged in user.
-     * @param sg a ServerGroup 
+     * @param sg a ServerGroup
      * @param pc PageControl
      * @return list of SystemOverviews.
      */
@@ -344,8 +344,8 @@ public class SystemManager extends BaseManager {
         params.put("sgid", sg.getId());
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
-    }    
-    
+    }
+
     /**
      * Returns a list of all systems visible to user with pending errata.
      * @param user Current logged in user.
@@ -375,7 +375,7 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns list of out of date systems visible to user.
      * @param user Currently logged in user.
@@ -390,7 +390,7 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns list of unentitled systems visible to user.
      * @param user Currently logged in user.
@@ -405,7 +405,7 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns list of ungrouped systems visible to user.
      * @param user Currently logged in user.
@@ -420,7 +420,7 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns list of inactive systems visible to user, sorted by name.
      * @param user Currently logged in user.
@@ -437,7 +437,7 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns list of inactive systems visible to user, sorted by name.
      * @param user Currently logged in user.
@@ -454,8 +454,8 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
-    
+
+
     /**
      * Returns a list of systems recently registered by the user
      * @param user Currently logged in user.
@@ -464,47 +464,47 @@ public class SystemManager extends BaseManager {
      * was registered for it to appear in the list
      * @return list of SystemOverviews
      */
-    public static DataResult registeredList(User user, 
-                                            PageControl pc, 
+    public static DataResult registeredList(User user,
+                                            PageControl pc,
                                             int threshold) {
         SelectMode m;
         Map params = new HashMap();
-        
+
         if (threshold == 0) {
-            m = ModeFactory.getMode("System_queries", 
+            m = ModeFactory.getMode("System_queries",
             "all_systems_by_registration");
         }
         else {
-            m = ModeFactory.getMode("System_queries", 
+            m = ModeFactory.getMode("System_queries",
             "recently_registered");
             params.put("threshold", new Integer(threshold));
         }
-        
+
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
         Map elabParams = new HashMap();
         DataResult dr = makeDataResult(params, elabParams, pc, m);
-        
+
         Iterator i = dr.iterator();
-        
+
         while (i.hasNext()) {
             SystemOverview so = (SystemOverview) i.next();
-            
+
             if (so.getInfo() != null) {
                 for (int j = 0; j < INFO_PATTERNS.length; ++j) {
                     Pattern pattern = Pattern.compile(INFO_PATTERNS[j]);
                     Matcher matcher = pattern.matcher(so.getInfo());
-                    
+
                     if (matcher.matches()) {
                         so.setNameOfUserWhoRegisteredSystem(matcher.group(1));
                     }
                 }
             }
         }
-        
+
         return dr;
     }
-    
+
     /**
      * Returns list of inactive systems visible to user, sorted by the systems' last
      * checkin time instead of by name.
@@ -513,7 +513,7 @@ public class SystemManager extends BaseManager {
      * @return list of SystemOverviews.
      */
     public static DataResult inactiveListSortbyCheckinTime(User user, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
                                             "inactive_order_by_checkin_time");
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
@@ -523,7 +523,7 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns list of proxy systems visible to user.
      * @param user Currently logged in user.
@@ -537,7 +537,7 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns list of virtual host systems visible to user.
      * @param user Currently logged in user.
@@ -567,7 +567,7 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns list of virtual systems in the given set
      * @param user Currently logged in user.
@@ -586,7 +586,7 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns list of system groups visible to user.
      * @param user Currently logged in user.
@@ -602,7 +602,7 @@ public class SystemManager extends BaseManager {
         elabParams.put("user_id", user.getId());
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns list of systems in the specified group.
      * @param sgid System Group Id
@@ -617,7 +617,7 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns the number of actions associated with a system
      * @param sid The system's id
@@ -630,7 +630,7 @@ public class SystemManager extends BaseManager {
         DataResult dr = makeDataResult(params, params, null, m);
         return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
     }
-    
+
     /**
      * Returns the number of package actions associated with a system
      * @param sid The system's id
@@ -643,7 +643,7 @@ public class SystemManager extends BaseManager {
         DataResult dr = makeDataResult(params, params, null, m);
         return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
     }
-    
+
     /**
      * Returns a list of unscheduled relevent errata for a system
      * @param user The user
@@ -651,18 +651,18 @@ public class SystemManager extends BaseManager {
      * @param pc PageControl
      * @return a list of ErrataOverviews
      */
-    public static DataResult<Errata> unscheduledErrata(User user, Long sid, 
+    public static DataResult<Errata> unscheduledErrata(User user, Long sid,
             PageControl pc) {
-        SelectMode m = ModeFactory.getMode("Errata_queries", 
+        SelectMode m = ModeFactory.getMode("Errata_queries",
                                            "unscheduled_relevant_to_system");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("sid", sid);
-        
+
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns whether a system has unscheduled relevant errata
      * @param user The user
@@ -670,7 +670,7 @@ public class SystemManager extends BaseManager {
      * @return boolean of if system has unscheduled errata
      */
     public static boolean hasUnscheduledErrata(User user, Long sid) {
-        SelectMode m = ModeFactory.getMode("Errata_queries", 
+        SelectMode m = ModeFactory.getMode("Errata_queries",
                                            "unscheduled_relevant_to_system");
         Map params = new HashMap();
         params.put("user_id", user.getId());
@@ -678,7 +678,7 @@ public class SystemManager extends BaseManager {
         DataResult dr = m.execute(params);
         return !dr.isEmpty();
     }
-    
+
     /**
      * Returns Kickstart sessions associated with a server
      * @param user The logged in user
@@ -687,14 +687,14 @@ public class SystemManager extends BaseManager {
      */
     public static DataResult lookupKickstartSession(User user, Long sid) {
         SelectMode m = ModeFactory.getMode("System_queries", "lookup_kickstart");
-        
+
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("sid", sid);
-        
+
         return makeDataResult(params, params, null, m);
     }
-    
+
     /**
      * Returns whether or not a server is kickstarting
      * @param user The logged in user
@@ -712,7 +712,7 @@ public class SystemManager extends BaseManager {
         }
         return false;
     }
-    
+
     /**
      * Returns whether or not this org has unused entitlements.
      * @param org The organization
@@ -720,14 +720,14 @@ public class SystemManager extends BaseManager {
      */
     public static boolean unusedEntitlements(Org org) {
         SelectMode m = ModeFactory.getMode("SystemGroup_queries", "unused_entitlements");
-        
+
         Map params = new HashMap();
         params.put("org_id", org.getId());
-        
+
         DataResult dr = makeDataResult(params, params, null, m);
         return ((Long)((HashMap)dr.get(0)).get("available")).intValue() > 0;
     }
-    
+
     /**
      * Returns a list of errata relevant to a system
      * @param user The user
@@ -736,18 +736,18 @@ public class SystemManager extends BaseManager {
      */
     public static DataResult<ErrataOverview> relevantErrata(User user, Long sid) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "relevant_to_system");
-        
+
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("sid", sid);
-        
+
         Map elabParams = new HashMap();
         elabParams.put("sid", sid);
         elabParams.put("user_id", user.getId());
-        
+
         return makeDataResultNoPagination(params, elabParams, m);
     }
-    
+
     /**
      * Returns a list of errata relevant to a system
      * @param user The user
@@ -783,16 +783,16 @@ public class SystemManager extends BaseManager {
     public static DataResult<ErrataOverview> relevantErrataByType(User user, Long sid,
             String type) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "relevant_to_system_by_type");
-        
+
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("sid", sid);
         params.put("type", type);
-        
+
         Map elabParams = new HashMap();
         elabParams.put("sid", sid);
         elabParams.put("user_id", user.getId());
-        
+
         return makeDataResultNoPagination(params, elabParams, m);
     }
 
@@ -804,26 +804,26 @@ public class SystemManager extends BaseManager {
      * @param pc PageControl
      * @return a list of ErrataOverviews
      */
-    public static DataResult relevantErrataSortedByPriority(User user, 
-                                                            Long sid, 
+    public static DataResult relevantErrataSortedByPriority(User user,
+                                                            Long sid,
                                                             PageControl pc) {
-        SelectMode m = ModeFactory.getMode("Errata_queries", 
+        SelectMode m = ModeFactory.getMode("Errata_queries",
                                            "relevant_to_system_sorted_by_priority");
-        
+
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("sid", sid);
-        
+
         Map elabParams = new HashMap();
         elabParams.put("sid", sid);
         elabParams.put("user_id", user.getId());
-        
+
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns a count of the number of critical errata that are present on the system.
-     * 
+     *
      * @param user user making the request
      * @param sid  identifies the server
      * @return number of critical errata on the system
@@ -831,18 +831,18 @@ public class SystemManager extends BaseManager {
     public static int countCriticalErrataForSystem(User user, Long sid) {
         SelectMode m = ModeFactory.getMode("Errata_queries",
             "count_critical_errata_for_system");
-        
+
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("sid", sid);
-        
+
         DataResult dr = makeDataResult(params, null, null, m);
         return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
     }
 
     /**
      * Returns a count of the number of non-critical errata that are present on the system.
-     * 
+     *
      * @param user user making the request
      * @param sid  identifies the server
      * @return number of non-critical errata on the system
@@ -850,15 +850,15 @@ public class SystemManager extends BaseManager {
     public static int countNoncriticalErrataForSystem(User user, Long sid) {
         SelectMode m = ModeFactory.getMode("Errata_queries",
             "count_noncritical_errata_for_system");
-        
+
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("sid", sid);
-        
+
         DataResult dr = makeDataResult(params, null, null, m);
         return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
     }
-    
+
     /**
      * Returns a list of errata in a specified set
      * @param user The user
@@ -866,22 +866,22 @@ public class SystemManager extends BaseManager {
      * @param pc PageControl
      * @return a list of ErrataOverviews
      */
-    public static DataResult errataInSet(User user, String label, 
+    public static DataResult errataInSet(User user, String label,
                                                  PageControl pc) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "in_set");
-        
+
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("set_label", label);
-        
+
         Map elabParams = new HashMap();
         elabParams.put("user_id", user.getId());
-        
+
         DataResult dr =  m.execute(params);
         dr.setElaborationParams(elabParams);
         return dr;
     }
-    
+
     /**
      * Looks up a server by its Id
      * @param sid The server's id
@@ -889,15 +889,15 @@ public class SystemManager extends BaseManager {
      * @return a server object associated with the given Id
      */
     public static Server lookupByIdAndUser(Long sid, User userIn) {
-        Server server = ServerFactory.lookupByIdAndOrg(sid, 
+        Server server = ServerFactory.lookupByIdAndOrg(sid,
                 userIn.getOrg());
         ensureAvailableToUser(userIn, sid);
         return server;
     }
-    
-    
+
+
     /**
-     * Returns a List of hydrated server objects from server ids. 
+     * Returns a List of hydrated server objects from server ids.
      * @param serverIds the list of server ids to hyrdrate
      * @param userIn the user who wants to lookup the server
      * @return a List of hydrated server objects.
@@ -910,7 +910,7 @@ public class SystemManager extends BaseManager {
         }
         return servers;
     }
-    
+
     /**
      * Looks up a server by its Id
      * @param sid The server's id
@@ -921,7 +921,7 @@ public class SystemManager extends BaseManager {
         Server server = ServerFactory.lookupByIdAndOrg(sid, org);
         return server;
     }
-   
+
     /**
      * Looks up a Server by it's client certificate.
      * @param cert ClientCertificate of the server.
@@ -930,10 +930,10 @@ public class SystemManager extends BaseManager {
      */
     public static Server lookupByCert(ClientCertificate cert)
         throws InvalidCertificateException {
-        
+
         return ServerFactory.lookupByCert(cert);
     }
-    
+
     /**
      * Returns the list of activation keys used when the system was
      * registered.
@@ -958,12 +958,12 @@ public class SystemManager extends BaseManager {
     public static DataResult getSystemEntitlements(User user, PageControl pc) {
         SelectMode m = ModeFactory.getMode("System_queries", "system_entitlement_list");
         Map params = new HashMap();
-        params.put("user_id", user.getId());        
+        params.put("user_id", user.getId());
         return makeDataResult(params, Collections.EMPTY_MAP, pc, m);
-    }    
-    
-    
-    
+    }
+
+
+
     /**
      * Returns the entitlements for the given server id.
      * @param sid Server id
@@ -971,18 +971,18 @@ public class SystemManager extends BaseManager {
      */
     public static List getServerEntitlements(Long sid) {
         ArrayList entitlements = new ArrayList();
-        
+
         SelectMode m = ModeFactory.getMode("General_queries", "system_entitlements");
-        
+
         Map params = new HashMap();
         params.put("sid", sid);
-        
+
         DataResult dr = makeDataResult(params, null, null, m);
-        
+
         if (dr.isEmpty()) {
             return null;
         }
-        
+
         Iterator iter = dr.iterator();
         while (iter.hasNext()) {
             Map map = (Map) iter.next();
@@ -1002,7 +1002,7 @@ public class SystemManager extends BaseManager {
      */
     public static boolean hasEntitlement(Long sid, Entitlement ent) {
         List entitlements = getServerEntitlements(sid);
-        
+
         return entitlements != null && entitlements.contains(ent);
     }
 
@@ -1013,14 +1013,14 @@ public class SystemManager extends BaseManager {
      */
     public static ArrayList getServerFeatures(Long sid) {
         ArrayList features = new ArrayList();
-        
+
         SelectMode m = ModeFactory.getMode("General_queries", "system_features");
-        
+
         Map params = new HashMap();
         params.put("sid", sid);
-        
+
         DataResult dr = makeDataResult(params, null, null, m);
-        
+
         Iterator iter = dr.iterator();
         while (iter.hasNext()) {
             Map map = (Map) iter.next();
@@ -1040,17 +1040,17 @@ public class SystemManager extends BaseManager {
      */
     public static boolean serverHasFeature(Long sid, String feat) {
         SelectMode m = ModeFactory.getMode("General_queries", "system_has_feature");
-        
+
         Map params = new HashMap();
         params.put("sid", sid);
         params.put("feature", feat);
-        
+
         DataResult dr = makeDataResult(params, null, null, m);
         return !dr.isEmpty();
     }
-    
+
     /**
-     * Return <code>true</code> the given server has virtualization entitlements, 
+     * Return <code>true</code> the given server has virtualization entitlements,
      * <code>false</code> otherwise.
 
      * @param sid Server ID to lookup.
@@ -1062,7 +1062,7 @@ public class SystemManager extends BaseManager {
         Server s = SystemManager.lookupByIdAndOrg(sid, org);
         return s.hasVirtualizationEntitlement();
     }
-    
+
     /**
      * Returns true if server has capability.
      * @param sid Server id
@@ -1071,15 +1071,15 @@ public class SystemManager extends BaseManager {
      */
     public static boolean clientCapable(Long sid, String capability) {
         SelectMode m = ModeFactory.getMode("System_queries", "lookup_capability");
-        
+
         Map params = new HashMap();
         params.put("sid", sid);
         params.put("name", capability);
-        
+
         DataResult dr = makeDataResult(params, params, null, m);
         return !dr.isEmpty();
     }
-    
+
     /**
      * Returns a list of Servers which are compatible with the given server.
      * @param user User owner
@@ -1090,40 +1090,40 @@ public class SystemManager extends BaseManager {
         return ServerFactory.compatibleWithServer(user, server);
     }
 
-    /**      
-     * Subscribes the given server to the given channel.     
-     * @param user Current user      
-     * @param server Server to be subscribed     
-     * @param channel Channel to subscribe to.
-     * @return the modified server if there were
-     *           any changes modifications made 
-     *           to the Server during the call.
-     *           Make sure the caller uses the 
-     *           returned server.   
-     */      
-    public static Server subscribeServerToChannel(User user, 
-                                            Server server, Channel channel) {     
-        return subscribeServerToChannel(user, server, channel, false);      
-    }    
-    
     /**
      * Subscribes the given server to the given channel.
      * @param user Current user
      * @param server Server to be subscribed
      * @param channel Channel to subscribe to.
-     * @param flush flushes the hibernate session. 
      * @return the modified server if there were
-     *           any changes modifications made 
+     *           any changes modifications made
      *           to the Server during the call.
-     *           Make sure the caller uses the 
-     *           returned server. 
+     *           Make sure the caller uses the
+     *           returned server.
      */
     public static Server subscribeServerToChannel(User user,
-                                                    Server server, 
+                                            Server server, Channel channel) {
+        return subscribeServerToChannel(user, server, channel, false);
+    }
+
+    /**
+     * Subscribes the given server to the given channel.
+     * @param user Current user
+     * @param server Server to be subscribed
+     * @param channel Channel to subscribe to.
+     * @param flush flushes the hibernate session.
+     * @return the modified server if there were
+     *           any changes modifications made
+     *           to the Server during the call.
+     *           Make sure the caller uses the
+     *           returned server.
+     */
+    public static Server subscribeServerToChannel(User user,
+                                                    Server server,
                                                     Channel channel,
                                                     boolean flush) {
-        
-        // do not allow non-satellite or non-proxy servers to 
+
+        // do not allow non-satellite or non-proxy servers to
         // be subscribed to satellite or proxy channels respectively.
         if (channel.isSatellite()) {
             if (!server.isSatellite()) {
@@ -1135,7 +1135,7 @@ public class SystemManager extends BaseManager {
                 return server;
             }
         }
-        
+
         if (user != null && !ChannelManager.verifyChannelSubscribe(user, channel.getId())) {
             //Throw an exception with a nice error message so the user
             //knows what went wrong.
@@ -1147,16 +1147,16 @@ public class SystemManager extends BaseManager {
                     ls.getMessage("permission.jsp.summary.subscribechannel"));
             throw pex;
         }
-        
+
         if (!verifyArchCompatibility(server, channel)) {
             throw new IncompatibleArchException(
                     server.getServerArch(), channel.getChannelArch());
         }
-        
+
         log.debug("calling subscribe_server_to_channel");
         CallableMode m = ModeFactory.getCallableMode("Channel_queries",
                 "subscribe_server_to_channel");
-        
+
         Map in = new HashMap();
         in.put("server_id", server.getId());
         if (user != null) {
@@ -1166,25 +1166,25 @@ public class SystemManager extends BaseManager {
             in.put("user_id", null);
         }
         in.put("channel_id", channel.getId());
-        
+
         m.execute(in, new HashMap());
-        
+
         /*
-         * This is f-ing hokey, but we need to be sure to refresh the 
-         * server object since    
-         * we modified it outside of hibernate :-/      
+         * This is f-ing hokey, but we need to be sure to refresh the
+         * server object since
+         * we modified it outside of hibernate :-/
          * This will update the server.channels set.
-         */        
+         */
         log.debug("returning with a flush? " + flush);
         if (flush) {
-            return (Server) HibernateFactory.reload(server);    
+            return (Server) HibernateFactory.reload(server);
         }
         else {
             HibernateFactory.getSession().refresh(server);
             return server;
         }
     }
-    
+
     /**
      * Returns true if the given server has a compatible architecture with the
      * given channel architecture. False if the server or channel is null or
@@ -1199,25 +1199,25 @@ public class SystemManager extends BaseManager {
         }
         return channel.getChannelArch().isCompatible(server.getServerArch());
     }
-    
+
     /**
      * Unsubscribe given server from the given channel.
      * @param user The user performing the operation
      * @param server The server to be unsubscribed
      * @param channel The channel to unsubscribe from
      */
-    public static void unsubscribeServerFromChannel(User user, Server server, 
+    public static void unsubscribeServerFromChannel(User user, Server server,
                                                     Channel channel) {
         unsubscribeServerFromChannel(user, server, channel, false);
     }
-    
+
     /**
      * Unsubscribe given server from the given channel.
      * @param user The user performing the operation
      * @param sid The id of the server to be unsubscribed
      * @param cid The id of the channel from which the server will be unsubscribed
      */
-    public static void unsubscribeServerFromChannel(User user, Long sid, 
+    public static void unsubscribeServerFromChannel(User user, Long sid,
             Long cid) {
         if (ChannelManager.verifyChannelSubscribe(user, cid)) {
             CallableMode m = ModeFactory.getCallableMode("Channel_queries",
@@ -1225,7 +1225,7 @@ public class SystemManager extends BaseManager {
             Map in = new HashMap();
             in.put("server_id", sid);
             in.put("channel_id", cid);
-            
+
             m.execute(in, new HashMap());
         }
     }
@@ -1235,11 +1235,11 @@ public class SystemManager extends BaseManager {
      * @param user The user performing the operation
      * @param server The server to be unsubscribed
      * @param channel The channel to unsubscribe from
-     * @param flush flushes the hibernate session. Make sure you 
+     * @param flush flushes the hibernate session. Make sure you
      *              reload the server & channel after  method call
      *              if you set this to true..
      */
-    public static void unsubscribeServerFromChannel(User user, Server server, 
+    public static void unsubscribeServerFromChannel(User user, Server server,
                                                     Channel channel, boolean flush) {
         if (!isAvailableToUser(user, server.getId())) {
             //Throw an exception with a nice error message so the user
@@ -1252,59 +1252,59 @@ public class SystemManager extends BaseManager {
                     ls.getMessage("permission.jsp.summary.subscribechannel"));
             throw pex;
         }
-        
+
         unsubscribeServerFromChannel(server, channel, flush);
     }
-    
+
     /**
-     * Unsubscribe given server from the given channel. If you use this method, 
+     * Unsubscribe given server from the given channel. If you use this method,
      * YOU BETTER KNOW WHAT YOU'RE DOING!!! (Use the version that takes a user as well if
      * you're unsure. better safe than sorry).
      * @param server server to be unsubscribed
      * @param channel the channel to unsubscribe from
      * @return the modified server if there were
-     *           any changes modifications made 
+     *           any changes modifications made
      *           to the Server during the call.
-     *           Make sure the caller uses the 
-     *           returned server.   
-     */ 
-    public static Server unsubscribeServerFromChannel(Server server, 
+     *           Make sure the caller uses the
+     *           returned server.
+     */
+    public static Server unsubscribeServerFromChannel(Server server,
                                                     Channel channel) {
         return unsubscribeServerFromChannel(server, channel, false);
     }
 
     /**
-     * Unsubscribe given server from the given channel. If you use this method, 
+     * Unsubscribe given server from the given channel. If you use this method,
      * YOU BETTER KNOW WHAT YOU'RE DOING!!! (Use the version that takes a user as well if
      * you're unsure. better safe than sorry).
      * @param server server to be unsubscribed
      * @param channel the channel to unsubscribe from
-     * @param flush flushes the hibernate session. Make sure you 
+     * @param flush flushes the hibernate session. Make sure you
      *              reload the server & channel after  method call
-     *              if you set this to true.. 
+     *              if you set this to true..
      * @return the modified server if there were
-     *           any changes modifications made 
+     *           any changes modifications made
      *           to the Server during the call.
-     *           Make sure the caller uses the 
-     *           returned server.   
+     *           Make sure the caller uses the
+     *           returned server.
      */
-    public static Server unsubscribeServerFromChannel(Server server, 
-                                                    Channel channel, 
+    public static Server unsubscribeServerFromChannel(Server server,
+                                                    Channel channel,
                                                         boolean flush) {
         if (channel == null) {
             //nothing to do ;)
             return server;
         }
-        
+
         CallableMode m = ModeFactory.getCallableMode("Channel_queries",
                 "unsubscribe_server_from_channel");
         Map in = new HashMap();
         in.put("server_id", server.getId());
-        in.put("channel_id", channel.getId());        
+        in.put("channel_id", channel.getId());
         m.execute(in, new HashMap());
 
             /*
-             * This is f-ing hokey, but we need to be sure to refresh the 
+             * This is f-ing hokey, but we need to be sure to refresh the
              * server object since we modified it outside of hibernate :-/
              * This will update the server.channels set.
              */
@@ -1317,7 +1317,7 @@ public class SystemManager extends BaseManager {
             }
 
     }
-    
+
     /**
      * Deactivates the given proxy.
      * Make sure you either reload  the server after this call,,
@@ -1339,10 +1339,10 @@ public class SystemManager extends BaseManager {
                 "delete_probes_from_server", params);
         executeWriteMode("Monitoring_queries",
                 "delete_sat_cluster_for_server", params);
-        
+
         // At this point we have the deletes happening
         // in write mode. So our server which is a hibernate
-        // object is NOT in sync and so we have to refresh 
+        // object is NOT in sync and so we have to refresh
         // for it to work....
         HibernateFactory.getSession().refresh(server);
         ServerFactory.deproxify(server);
@@ -1358,12 +1358,12 @@ public class SystemManager extends BaseManager {
 
         return server;
     }
-    
+
     private static int executeWriteMode(String catalog, String mode, Map params) {
         WriteMode m = ModeFactory.getWriteMode(catalog, mode);
         return m.executeUpdate(params);
     }
-    
+
     /**
      * Creates the client certificate (systemid) file for the given Server.
      * @param server Server whose client certificate is sought.
@@ -1373,7 +1373,7 @@ public class SystemManager extends BaseManager {
      */
     public static ClientCertificate createClientCertificate(Server server)
         throws InstantiationException {
-        
+
         ClientCertificate cert = new ClientCertificate();
         // add members to this cert
         User user = UserManager.findResponsibleUser(server.getOrg(), RoleFactory.ORG_ADMIN);
@@ -1386,7 +1386,7 @@ public class SystemManager extends BaseManager {
         String[] fields = {"system_id", "os_release", "operating_system",
                 "architecture", "username", "type"};
         cert.addMember("fields", fields);
-        
+
         try {
             //Could throw InvalidCertificateException in any fields are invalid
             cert.addMember("checksum", cert.genSignature(server.getSecret()));
@@ -1394,7 +1394,7 @@ public class SystemManager extends BaseManager {
         catch (InvalidCertificateException e) {
             throw new InstantiationException("Couldn't generate signature");
         }
-        
+
         return cert;
     }
 
@@ -1405,7 +1405,7 @@ public class SystemManager extends BaseManager {
     public static void storeServer(Server serverIn) {
         ServerFactory.save(serverIn);
     }
-    
+
     /**
      * Activates the given proxy for the given version.
      * @param server proxy server to activate.
@@ -1428,7 +1428,7 @@ public class SystemManager extends BaseManager {
             Channel proxyChannel = ChannelManager.getProxyChannelByVersion(
                     version, server);
             if (proxyChannel != null) {
-                subscribeServerToChannel(null, server, proxyChannel);    
+                subscribeServerToChannel(null, server, proxyChannel);
             }
         }
     }
@@ -1439,12 +1439,12 @@ public class SystemManager extends BaseManager {
      * @throws NotActivatedSatelliteException <code>server</code> is not a satellite
      * @throws NoSuchSystemException thrown if the server is null.
      */
-    public static void deactivateSatellite(Server server) 
+    public static void deactivateSatellite(Server server)
         throws NotActivatedSatelliteException, NoSuchSystemException {
         if (server == null) {
             throw new NoSuchSystemException();
         }
-        
+
         if (!server.isSatellite()) {
             throw new NotActivatedSatelliteException();
         }
@@ -1453,7 +1453,7 @@ public class SystemManager extends BaseManager {
         params.put("sid", server.getId());
         executeWriteMode("System_queries", "delete_satellite_info", params);
         executeWriteMode("System_queries", "delete_satellite_channel_family", params);
-        
+
         Set channels = server.getChannels();
         for (Iterator itr = channels.iterator(); itr.hasNext();) {
             Channel c = (Channel)itr.next();
@@ -1463,7 +1463,7 @@ public class SystemManager extends BaseManager {
             }
         }
     }
-    
+
     /**
      * Entitles the given server to the given Entitlement.
      * @param server Server to be entitled.
@@ -1472,13 +1472,13 @@ public class SystemManager extends BaseManager {
      */
     public static ValidatorResult entitleServer(Server server, Entitlement ent) {
         log.debug("Entitling: " + ent.getLabel());
-        
+
         return entitleServer(server.getOrg(), server.getId(), ent);
     }
-    
+
     /**
      * Entitles the given server to the given Entitlement.
-     * @param orgIn Org who wants to entitle the server. 
+     * @param orgIn Org who wants to entitle the server.
      * @param sid server id to be entitled.
      * @param ent Level of Entitlement.
      * @return ValidatorResult of errors and warnings.
@@ -1487,7 +1487,7 @@ public class SystemManager extends BaseManager {
                                                 Entitlement ent) {
         Server server = ServerFactory.lookupByIdAndOrg(sid, orgIn);
         ValidatorResult result = new ValidatorResult();
-        
+
         if (hasEntitlement(sid, ent)) {
             log.debug("server already entitled.");
             result.addError(new ValidatorError("system.entitle.alreadyentitled",
@@ -1499,22 +1499,22 @@ public class SystemManager extends BaseManager {
                 result.addError(new ValidatorError("system.entitle.guestcantvirt"));
                 return result;
             }
-            //we now check if we need to swap the server's entitlement 
+            //we now check if we need to swap the server's entitlement
             // with the entitlement you are passing in.
             // if server has virt and we want convert it to virt_platform
             // or server has virt_platform and we want convert it to virt
             // are the 2 instances where we want to swap the old virt
-            // with the new... 
+            // with the new...
             if ((EntitlementManager.VIRTUALIZATION.equals(ent) &&
                    hasEntitlement(sid, EntitlementManager.VIRTUALIZATION_PLATFORM))) {
                 log.debug("removing VIRT_PLATFORM");
-                removeServerEntitlement(sid, EntitlementManager.VIRTUALIZATION_PLATFORM, 
+                removeServerEntitlement(sid, EntitlementManager.VIRTUALIZATION_PLATFORM,
                         false);
             }
             else if ((EntitlementManager.VIRTUALIZATION_PLATFORM.equals(ent) &&
                         hasEntitlement(sid, EntitlementManager.VIRTUALIZATION))) {
                 log.debug("removing VIRT");
-                removeServerEntitlement(sid, EntitlementManager.VIRTUALIZATION, 
+                removeServerEntitlement(sid, EntitlementManager.VIRTUALIZATION,
                         false);
             }
             else {
@@ -1531,10 +1531,10 @@ public class SystemManager extends BaseManager {
 
         boolean checkCounts = true;
         if (server.isVirtualGuest()) {
-            Server host = server.getVirtualInstance().getHostSystem(); 
+            Server host = server.getVirtualInstance().getHostSystem();
             if (host != null) {
                 log.debug("host isnt null, checking entitlements.");
-                if ((host.hasEntitlement(EntitlementManager.VIRTUALIZATION) || 
+                if ((host.hasEntitlement(EntitlementManager.VIRTUALIZATION) ||
                         host.hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM)) &&
                         host.hasEntitlement(ent)) {
                     log.debug("host has virt and the ent passed in. FREE entitlement");
@@ -1546,20 +1546,20 @@ public class SystemManager extends BaseManager {
                     }
                 }
             }
-        } 
+        }
         if (checkCounts) {
             Long availableEntitlements =
-                EntitlementManager.getAvailableEntitlements(ent, orgIn); 
+                EntitlementManager.getAvailableEntitlements(ent, orgIn);
             log.debug("avail: " + availableEntitlements);
-            if (availableEntitlements != null && 
+            if (availableEntitlements != null &&
                     availableEntitlements.longValue() < 1) {
                 log.debug("Not enough slots.  returning error");
                 result.addError(new ValidatorError(NO_SLOT_KEY,
                             ent.getHumanReadableLabel()));
                 return result;
-            }        
+            }
         }
-        
+
         Map in = new HashMap();
         in.put("sid", sid);
         in.put("entitlement", ent.getLabel());
@@ -1571,7 +1571,7 @@ public class SystemManager extends BaseManager {
         log.debug("done.  returning null");
         return result;
     }
-    
+
     // Need to do some extra logic here
     // 1) Subscribe system to rhel-i386-server-vt-5 channel
     // 2) Subscribe system to rhn-tools-rhel-i386-server-5
@@ -1706,9 +1706,9 @@ public class SystemManager extends BaseManager {
             }
         }
     }
-    
+
     /**
-     * Removes all the entitlements related to a server.. 
+     * Removes all the entitlements related to a server..
      * @param sid server id to be unentitled.
      */
     public static void removeAllServerEntitlements(Long sid) {
@@ -1717,7 +1717,7 @@ public class SystemManager extends BaseManager {
         CallableMode m = ModeFactory.getCallableMode(
                 "System_queries", "unentitle_server");
         m.execute(in, new HashMap());
-    }    
+    }
 
 
     /**
@@ -1725,22 +1725,22 @@ public class SystemManager extends BaseManager {
      * @param sid server id to be unentitled.
      * @param ent Level of Entitlement.
      */
-    public static void removeServerEntitlement(Long sid, 
+    public static void removeServerEntitlement(Long sid,
                                         Entitlement ent) {
         removeServerEntitlement(sid, ent, true);
     }
-    
+
     /**
      * Removes a specific level of entitlement from the given Server.
      * @param sid server id to be unentitled.
      * @param ent Level of Entitlement.
      * @param repoll used mainly to repoll virtual entitlements post removal
-     *               irrelevant if virtual entitlements are not found..   
+     *               irrelevant if virtual entitlements are not found..
      */
-    public static void removeServerEntitlement(Long sid, 
-                                        Entitlement ent, 
+    public static void removeServerEntitlement(Long sid,
+                                        Entitlement ent,
                                         boolean repoll) {
-        
+
         if (!hasEntitlement(sid, ent)) {
             if (log.isDebugEnabled()) {
                 log.debug("server doesnt have entitlement: " + ent);
@@ -1761,13 +1761,13 @@ public class SystemManager extends BaseManager {
                 "System_queries", "remove_server_entitlement");
         m.execute(in, new HashMap());
     }
-    
-    
+
+
     /**
      * Tests whether or not a given server can be entitled with a specific entitlement
      * @param server The server in question
      * @param ent The entitlement to test
-     * @return Returns true or false depending on whether or not the server can be 
+     * @return Returns true or false depending on whether or not the server can be
      * entitled to the passed in entitlement.
      */
     public static boolean canEntitleServer(Server server, Entitlement ent) {
@@ -1778,30 +1778,30 @@ public class SystemManager extends BaseManager {
      * Tests whether or not a given server can be entitled with a specific entitlement
      * @param serverId The Id of the server in question
      * @param ent The entitlement to test
-     * @return Returns true or false depending on whether or not the server can be 
+     * @return Returns true or false depending on whether or not the server can be
      * entitled to the passed in entitlement.
      */
     public static boolean canEntitleServer(Long serverId, Entitlement ent) {
         if (log.isDebugEnabled()) {
-            log.debug("canEntitleServer.serverId: " + serverId + " ent: " + 
+            log.debug("canEntitleServer.serverId: " + serverId + " ent: " +
                     ent.getHumanReadableLabel());
         }
         Map in = new HashMap();
         in.put("sid", serverId);
         in.put("entitlement", ent.getLabel());
-        
+
         Map out = new HashMap();
         out.put("retval", new Integer(Types.NUMERIC));
-        
-        CallableMode m = ModeFactory.getCallableMode("System_queries", 
+
+        CallableMode m = ModeFactory.getCallableMode("System_queries",
                                                      "can_entitle_server");
         Map result = m.execute(in, out);
         boolean retval = BooleanUtils.
-            toBoolean(((Long) result.get("retval")).intValue()); 
+            toBoolean(((Long) result.get("retval")).intValue());
         log.debug("canEntitleServer.returning: " + retval);
         return retval;
-    }    
-    
+    }
+
     /**
      * Returns a DataResult containing the systems subscribed to a particular channel.
      *      but returns a DataResult of SystemOverview objects instead of maps
@@ -1822,7 +1822,7 @@ public class SystemManager extends BaseManager {
 
     /**
      * Returns the number of systems subscribed to the given channel.
-     * 
+     *
      * @param channelId identifies the channel
      * @param user      user making the request
      * @return number of systems subscribed to the channel
@@ -1832,21 +1832,21 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("cid", channelId);
-        
+
         SelectMode m = ModeFactory.getMode("System_queries",
             "count_systems_subscribed_to_channel");
         DataResult dr = makeDataResult(params, params, null, m);
-        
+
         Map result = (Map) dr.get(0);
         Long count = (Long) result.get("count");
         return count.intValue();
     }
-    
+
     /**
      * Returns a DataResult containing the systems subscribed to a particular channel.
      * @param channel The channel in question
      * @param user The user making the call
-     * @return Returns a DataResult of maps containing the ids and names of systems 
+     * @return Returns a DataResult of maps containing the ids and names of systems
      * subscribed to a channel.
      */
     public static DataResult systemsSubscribedToChannel(Channel channel, User user) {
@@ -1854,7 +1854,7 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("cid", channel.getId());
         params.put("org_id", user.getOrg().getId());
-        
+
         SelectMode m = ModeFactory.getMode("System_queries",
                            "systems_subscribed_to_channel", Map.class);
         return m.execute(params);
@@ -1876,12 +1876,12 @@ public class SystemManager extends BaseManager {
         params.put("cid", cid);
         params.put("org_id", user.getOrg().getId());
         params.put("set_label", setLabel);
-        
+
         SelectMode m = ModeFactory.getMode(
                 "System_queries", "systems_subscribed_to_channel_in_set");
         return m.execute(params);
     }
-    
+
     /**
      * Returns a DataResult containing maps representing the channels a particular system
      * is subscribed to.
@@ -1895,23 +1895,23 @@ public class SystemManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Channel_queries", "system_channels", Map.class);
         return m.execute(params);
     }
-    
+
     /**
-     * Returns a DataResult of SystemSearchResults which are based on the user's search 
+     * Returns a DataResult of SystemSearchResults which are based on the user's search
      * criteria
      * @param user user performing the search
      * @param searchString string to search on
      * @param viewMode what field to search
      * @param invertResults whether the results should be inverted
-     * @param whereToSearch whether to search through all user visible systems or the 
+     * @param whereToSearch whether to search through all user visible systems or the
      *        systems selected in the SSM
      * @param pc PageControl
      * @return DataResult of SystemSearchResults based on user's search criteria
      */
-    public static DataResult systemSearch(User user, 
-                                          String searchString, 
-                                          String viewMode, 
-                                          Boolean invertResults, 
+    public static DataResult systemSearch(User user,
+                                          String searchString,
+                                          String viewMode,
+                                          Boolean invertResults,
                                           String whereToSearch,
                                           PageControl pc) {
         Map queryParams = new HashMap();
@@ -1919,23 +1919,23 @@ public class SystemManager extends BaseManager {
         queryParams.put("search_string", StringUtils.trimToEmpty(searchString));
         SelectMode mode = ModeFactory.getMode("system_search", viewMode);
         CachedStatement query = mode.getQuery();
-        
-        /* The reason we change the queries in the Java code is to save us from having 
-         * a mode for every single combination of inversion, base search query, and 
+
+        /* The reason we change the queries in the Java code is to save us from having
+         * a mode for every single combination of inversion, base search query, and
          * set of systems to search.
          */
-        
+
         if (invertResults != null && invertResults.booleanValue()) {
             query.setQuery("SELECT  USP.server_id AS ID FROM  rhnUserServerPerms USP " +
                            "WHERE USP.user_id = :user_id MINUS(" +
                            query.getOrigQuery() + ")");
         }
-        
+
         if (whereToSearch.equals("system_list")) {
             query.setQuery(query.getOrigQuery() + " INTERSECT SELECT element FROM rhnSet " +
                            "WHERE label = 'system_list' AND user_id = :user_id");
         }
-        
+
         /* We use the ListControl makeDataResult as this allows us to use elaborated queries
          * without all the overhead of paging. We need elaboration for the selectable field
          * to be retrieved from all the queries correctly
@@ -1951,10 +1951,10 @@ public class SystemManager extends BaseManager {
             // elaborators have access to the original params.
             dr.elaborate(queryParams);
         }
-        
+
         return dr;
     }
-    
+
     /**
      * Unlocks a server if the user has permissions on the server
      * @param user User who is attempting to unlock the server
@@ -1976,7 +1976,7 @@ public class SystemManager extends BaseManager {
             server.setLock(null);
         }
     }
-    
+
     /**
      * Locks a server if the user has permissions on the server
      * @param locker User who is attempting to lock the server
@@ -1996,42 +1996,42 @@ public class SystemManager extends BaseManager {
         }
         else {
             ServerLock sl = new ServerLock(locker,
-                                           server, 
+                                           server,
                                            reason);
 
             server.setLock(sl);
         }
     }
-    
+
     /**
      * Check to see if an attempt to subscribe the passed in server to the
      * passed in channel will succeed.  Checks available slots, if the channel is
      * 'free' and the Server is virtual.
-     * 
+     *
      * @param orgIn of caller
      * @param serverIn to check
      * @param channelIn to check
      * @return boolean if it will succeed.
      */
-    public static boolean canServerSubscribeToChannel(Org orgIn, Server serverIn, 
+    public static boolean canServerSubscribeToChannel(Org orgIn, Server serverIn,
             Channel channelIn) {
-        
+
         if (serverIn.isSubscribed(channelIn)) {
             log.debug("already subscribed.  return true");
             return true;
         }
-        
+
         // If channel is free for this guest, dont check avail subs
         if (ChannelManager.isChannelFreeForSubscription(serverIn, channelIn)) {
             log.debug("its a free channel for this server, returning true");
             return true;
         }
-        
+
         // Otherwise check available subs
-        Long availableSubscriptions = 
+        Long availableSubscriptions =
             ChannelManager.getAvailableEntitlements(orgIn, channelIn);
-        
-        if (availableSubscriptions != null && 
+
+        if (availableSubscriptions != null &&
                 (availableSubscriptions.longValue() < 1)) {
             log.debug("avail subscriptions is to small : " + availableSubscriptions);
             return false;
@@ -2039,7 +2039,7 @@ public class SystemManager extends BaseManager {
         log.debug("canServerSubscribeToChannel true!");
         return true;
     }
-    
+
     /**
      * Checks if the user has permissions to see the Server
      * @param user User being checked
@@ -2070,7 +2070,7 @@ public class SystemManager extends BaseManager {
             throw e;
         }
     }
-    
+
     /**
      * Return systems in the current set without a base channel.
      * @param user User requesting the query.
@@ -2093,7 +2093,7 @@ public class SystemManager extends BaseManager {
      * @param proposedVcpuSetting Requested number of virtual CPUs for the guest.
      * @return ValidatorResult containing both error and warning messages.
      */
-    public static ValidatorResult validateVcpuSetting(Long guestId, 
+    public static ValidatorResult validateVcpuSetting(Long guestId,
             int proposedVcpuSetting) {
         ValidatorResult result = new ValidatorResult();
 
@@ -2106,7 +2106,7 @@ public class SystemManager extends BaseManager {
         // need to change down the road.
         if (proposedVcpuSetting > 32) {
             result.addError(new ValidatorError(
-                "systems.details.virt.vcpu.limit.msg", 
+                "systems.details.virt.vcpu.limit.msg",
                 new Object [] {"32", guest.getName()}));
         }
 
@@ -2126,17 +2126,17 @@ public class SystemManager extends BaseManager {
         // reboot will be required for the setting to take effect.
         VirtualInstanceState running = VirtualInstanceFactory.getInstance().
             getRunningState();
-        if (guest.getState() != null && 
+        if (guest.getState() != null &&
                 guest.getState().getId().equals(running.getId())) {
             Integer currentGuestCpus = guest.getNumberOfCPUs();
-            if (currentGuestCpus != null && proposedVcpuSetting > 
+            if (currentGuestCpus != null && proposedVcpuSetting >
                     currentGuestCpus.intValue()) {
                 result.addWarning(new ValidatorWarning(
                     "systems.details.virt.vcpu.increase.warning",
                     new Object [] {new Integer(proposedVcpuSetting), guest.getName()}));
             }
         }
-        
+
         return result;
     }
 
@@ -2148,19 +2148,19 @@ public class SystemManager extends BaseManager {
      * @param proposedMemory Requested amount of memory for each guest. (in Mb)
      * @return ValidatorResult containing both error and warning messages.
      */
-    public static ValidatorResult validateGuestMemorySetting(List guestIds, 
+    public static ValidatorResult validateGuestMemorySetting(List guestIds,
             int proposedMemory) {
         ValidatorResult result = new ValidatorResult();
         VirtualInstanceFactory viFactory = VirtualInstanceFactory.getInstance();
-        
+
         if (guestIds.isEmpty()) {
             return result;
         }
 
-        // Grab the host from the first guest in the list:  
+        // Grab the host from the first guest in the list:
         Long firstGuestId = (Long)guestIds.get(0);
         Server host = ((VirtualInstance)viFactory.lookupById(firstGuestId)).
-                                                                getHostSystem(); 
+                                                                getHostSystem();
 
         int proposedMemoryKb = proposedMemory * 1024;
         long netMemoryDifferenceKb = 0;
@@ -2172,22 +2172,22 @@ public class SystemManager extends BaseManager {
         List warnings = new LinkedList();
         for (Iterator it = host.getGuests().iterator(); it.hasNext();) {
             VirtualInstance guest = (VirtualInstance)it.next();
-            
+
             // if the guest we're examining isn't running, don't count it's memory
             // when determining if the host has enough free:
-            if (guest.getState() != null && 
+            if (guest.getState() != null &&
                     guest.getState().getId().equals(running.getId())) {
-                
+
                 if (guest.getTotalMemory() != null) {
                     guestMemoryUsageKb += guest.getTotalMemory().longValue();
-                    log.debug("   " + guest.getName() + " = " + 
+                    log.debug("   " + guest.getName() + " = " +
                             (guest.getTotalMemory().longValue() / 1024) + "MB");
-    
+
                     if (guestIds.contains(guest.getId())) {
-                        long guestMemoryDelta = proposedMemoryKb - 
+                        long guestMemoryDelta = proposedMemoryKb -
                                             guest.getTotalMemory().longValue();
                         netMemoryDifferenceKb += guestMemoryDelta;
-                        
+
                         // Warn the user that a change to max memory will require a reboot
                         // for the settings to take effect:
                         warnings.add(new ValidatorWarning(
@@ -2202,14 +2202,14 @@ public class SystemManager extends BaseManager {
                 }
             }
         }
-        
+
         // Warn the user to verify the system has enough free memory:
         // NOTE: Once upon a time we tried to do this automagically but the
         // code was removed due to uncertainty in terms of rebooting guests
         // if increasing past the allocation they were booted with, missing
         // hardware refreshes for the host, etc.
         warnings.add(new ValidatorWarning("systems.details.virt.memory.check.host"));
-        
+
         if (!warnings.isEmpty()) {
             for (Iterator itr = warnings.iterator(); itr.hasNext();) {
                 result.addWarning((ValidatorWarning)itr.next());
@@ -2218,7 +2218,7 @@ public class SystemManager extends BaseManager {
 
         return result;
     }
-    
+
     /**
      * gets the monitoring status for a particular system
      * @param user the user to check for
@@ -2232,24 +2232,24 @@ public class SystemManager extends BaseManager {
         params.put("sid", sid);
         return m.execute(params);
     }
-    
+
     /**
      * Return the system names and IDs that are selected in the SSM for the given user,
      * which also have been subscribed to the given channel.
-     * 
+     *
      * @param user User.
      * @param channelId Channel ID.
      * @return List of maps containing the system name and ID.
      */
     public static List<Map> getSsmSystemsSubscribedToChannel(User user, Long channelId) {
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
                 "systems_in_set_with_channel");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("channel_id", channelId);
         return m.execute(params);
     }
-    
+
     /**
      * lists  systems with the given installed NVR
      * @param user the user doing the search
@@ -2258,9 +2258,9 @@ public class SystemManager extends BaseManager {
      * @param release package release
      * @return  list of systemOverview objects
      */
-    public static List<SystemOverview> listSystemsWithPackage(User user, 
+    public static List<SystemOverview> listSystemsWithPackage(User user,
             String name, String version, String release) {
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
         "systems_with_package_nvr");
         Map params = new HashMap();
         params.put("user_id", user.getId());
@@ -2272,7 +2272,7 @@ public class SystemManager extends BaseManager {
         toReturn.elaborate();
         return toReturn;
     }
-    
+
     /**
      * lists  systems with the given installed package id
      * @param user the user doing the search
@@ -2280,7 +2280,7 @@ public class SystemManager extends BaseManager {
      * @return  list of systemOverview objects
      */
     public static List<SystemOverview> listSystemsWithPackage(User user, Long id) {
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
         "systems_with_package");
         Map params = new HashMap();
         params.put("user_id", user.getId());
@@ -2298,7 +2298,7 @@ public class SystemManager extends BaseManager {
      * @return  list of systemOverview objects
      */
     public static List<SystemOverview> listSystemsWithNeededPackage(User user, Long id) {
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
         "systems_with_needed_package");
         Map params = new HashMap();
         params.put("user_id", user.getId());
@@ -2308,14 +2308,14 @@ public class SystemManager extends BaseManager {
         //toReturn.elaborate();
         return toReturn;
     }
-    
+
     /**
      * List all virtual hosts for a user
-     * @param user the user in question 
+     * @param user the user in question
      * @return list of SystemOverview objects
      */
     public static List<SystemOverview> listVirtualHosts(User user) {
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
         "virtual_hosts_for_user");
         Map params = new HashMap();
         params.put("user_id", user.getId());
@@ -2323,7 +2323,7 @@ public class SystemManager extends BaseManager {
         toReturn.elaborate();
         return toReturn;
     }
-    
+
     /**
      * List systems subscribed to a particular channel
      * @param user the user checking
@@ -2331,13 +2331,13 @@ public class SystemManager extends BaseManager {
      * @return list of systems
      */
     public static List<SystemOverview> subscribedToChannel(User user, Long cid) {
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
         "systems_subscribed_to_channel");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("cid", cid);
-        DataResult toReturn = m.execute(params);        
+        DataResult toReturn = m.execute(params);
         toReturn.elaborate();
         return toReturn;
     }
@@ -2345,25 +2345,25 @@ public class SystemManager extends BaseManager {
     /**
      * Returns the number of systems subscribed to the channel that are <strong>not</strong>
      * in the given org.
-     * 
+     *
      * @param orgId identifies the filter org
      * @param cid   identifies the channel
      * @return count of systems
      */
     public static int countSubscribedToChannelWithoutOrg(Long orgId, Long cid) {
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
         "count_systems_subscribed_to_channel_not_in_org");
         Map params = new HashMap();
         params.put("org_id", orgId);
         params.put("cid", cid);
-        
+
         DataResult dr = m.execute(params);
         Map result = (Map) dr.get(0);
         Long count = (Long) result.get("count");
-        
+
         return count.intValue();
     }
-    
+
     /**
      * List of servers subscribed to shared channels via org trust.
      * @param orgA The first org in the trust.
@@ -2379,7 +2379,7 @@ public class SystemManager extends BaseManager {
         params.put("orgB", orgB);
         return m.execute(params);
     }
-    
+
     /**
      * List of distinct servers subscribed to shared channels via org trust.
      * @param orgA The first org in the trust.
@@ -2403,7 +2403,7 @@ public class SystemManager extends BaseManager {
      * @return list of systems
      */
     public static Long subscribedToChannelSize(User user, Long cid) {
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
         "systems_subscribed_to_channel_size");
         Map params = new HashMap();
         params.put("user_id", user.getId());
@@ -2411,9 +2411,9 @@ public class SystemManager extends BaseManager {
         params.put("cid", cid);
         DataResult toReturn = m.execute(params);
         return (Long) ((HashMap)toReturn.get(0)).get("count");
-        
-    }    
-    
+
+    }
+
     /**
      * List all virtual hosts for a user
      * @param user the user in question
@@ -2431,7 +2431,7 @@ public class SystemManager extends BaseManager {
     /**
      * Looks up a hardware device by the hardware device id
      * @param hwId the hardware device id
-     * @return the HardwareDeviceDto 
+     * @return the HardwareDeviceDto
      */
     public static HardwareDeviceDto getHardwareDeviceById(Long hwId) {
         HardwareDeviceDto hwDto = null;
@@ -2453,22 +2453,22 @@ public class SystemManager extends BaseManager {
      * @param packageSetLabel identifies the RhnSet used to store the packages selected
      *                        by the user (this is needed for the query). This must be
      *                        established by the caller prior to calling this method
-     * @param shortened       whether or not to include the full elaborator, or a shortened 
+     * @param shortened       whether or not to include the full elaborator, or a shortened
      *                        one that is much much faster, but doesn't provide a displayed
      *                        string for the package (only the id combo)
      * @return description of server information as well as a list of relevant packages
      */
     public static DataResult ssmSystemPackagesToRemove(User user,
-                                                       String packageSetLabel, 
-                                                       boolean shortened) {       
-        SelectMode m; 
+                                                       String packageSetLabel,
+                                                       boolean shortened) {
+        SelectMode m;
         if (shortened) {
             m = ModeFactory.getMode("System_queries",
                 "system_set_remove_or_verify_packages_conf_short");
         }
         else {
             m = ModeFactory.getMode("System_queries",
-            "system_set_remove_or_verify_packages_conf");           
+            "system_set_remove_or_verify_packages_conf");
         }
 
         Map<String, Object> params = new HashMap<String, Object>(3);
@@ -2493,15 +2493,15 @@ public class SystemManager extends BaseManager {
     public static DataResult ssmSystemPackagesToVerify(User user,
                                                        String packageSetLabel) {
         // The query for this operation is the same as remove, so simply chain to
-        // that method; this method is to make the verify code not look like it 
+        // that method; this method is to make the verify code not look like it
         // erronuously calls a remove query.
         return ssmSystemPackagesToRemove(user, packageSetLabel, false);
-    }    
-    
+    }
+
     /**
      * Returns a mapping of servers in the SSM to user-selected packages to upgrade
      * that actually exist on those servers
-     * 
+     *
      * @param user            identifies the user making the request
      * @param packageSetLabel identifies the RhnSet used to store the packages selected
      *                        by the user (this is needed for the query). This must be
@@ -2510,15 +2510,15 @@ public class SystemManager extends BaseManager {
      */
     public static DataResult ssmSystemPackagesToUpgrade(User user,
                                                         String packageSetLabel) {
-        
+
         SelectMode m =
             ModeFactory.getMode("System_queries", "ssm_package_upgrades_conf");
-        
+
         Map<String, Object> params = new HashMap<String, Object>(3);
         params.put("user_id", user.getId());
         params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
         params.put("package_set_label", packageSetLabel);
-        
+
         DataResult result = makeDataResult(params, params, null, m);
         return result;
     }
@@ -2526,17 +2526,17 @@ public class SystemManager extends BaseManager {
     /**
      * Deletes the indicates note, assuming the user has the proper permissions to the
      * server.
-     * 
+     *
      * @param user     user making the request
      * @param serverId identifies server the note resides on
-     * @param noteId   identifies the note being deleted   
+     * @param noteId   identifies the note being deleted
      */
     public static void deleteNote(User user, Long serverId, Long noteId) {
         Server server = lookupByIdAndUser(serverId, user);
-        
+
         Session session = HibernateFactory.getSession();
         Note doomed = (Note) session.get(Note.class, noteId);
-        
+
         boolean deletedOnServer = server.getNotes().remove(doomed);
         if (deletedOnServer) {
             session.delete(doomed);
@@ -2545,14 +2545,14 @@ public class SystemManager extends BaseManager {
 
     /**
      * Deletes all notes on the given server, assuming the user has the proper permissions
-     * to the server. 
-     * 
+     * to the server.
+     *
      * @param user     user making the request
      * @param serverId identifies the server on which to delete its notes
      */
     public static void deleteNotes(User user, Long serverId) {
         Server server = lookupByIdAndUser(serverId, user);
-        
+
         Session session = HibernateFactory.getSession();
         for (Object doomed : server.getNotes()) {
             session.delete(doomed);
@@ -2670,7 +2670,7 @@ public class SystemManager extends BaseManager {
         retval.setElaborationParams(Collections.EMPTY_MAP);
         return retval;
     }
-    
+
     private static DataResult<SystemOverview> listDuplicates(User user,
                                             String query, String key) {
         SelectMode mode = ModeFactory.getMode("System_queries", query);
@@ -2679,8 +2679,8 @@ public class SystemManager extends BaseManager {
         params.put("key", key);
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, null, mode);
-    }    
-    
+    }
+
     private static List listDuplicates(User user, String query,
                                 List ignored, Long inactiveHours) {
 
@@ -2691,7 +2691,7 @@ public class SystemManager extends BaseManager {
                 query);
 
         Date d = new Date(cal.getTimeInMillis());
-    
+
         Map params = new HashMap();
         params.put("uid", user.getId());
         params.put("inactive_date", d);
@@ -2702,8 +2702,8 @@ public class SystemManager extends BaseManager {
         else {
             nets = ipMode.execute(params, ignored);
         }
-         
-        
+
+
         List<DuplicateSystemGrouping> nodes = new ArrayList<DuplicateSystemGrouping>();
         for (NetworkDto net : nets) {
             boolean found = false;
@@ -2719,7 +2719,7 @@ public class SystemManager extends BaseManager {
         }
         return nodes;
     }
-    
+
     /**
      * List duplicate systems by ip address
      * @param user the user doing the search
@@ -2734,7 +2734,7 @@ public class SystemManager extends BaseManager {
         ignoreIps.add("0");
         return listDuplicates(user, "duplicate_system_ids_ip", ignoreIps, inactiveHours);
     }
-    
+
     /**
      * List duplicate systems by ip address
      * @param user the user doing the search
@@ -2743,8 +2743,8 @@ public class SystemManager extends BaseManager {
      */
     public static  List<SystemOverview> listDuplicatesByIP(User user, String ip) {
         return listDuplicates(user, "duplicate_system_ids_ip_key", ip);
-    }    
-    
+    }
+
     /**
      * List duplicate systems by mac address
      * @param user the user doing the search
@@ -2758,7 +2758,7 @@ public class SystemManager extends BaseManager {
         ignoreMacs.add("fe:ff:ff:ff:ff:ff");
         return listDuplicates(user, "duplicate_system_ids_mac", ignoreMacs, inactiveHours);
     }
-    
+
     /**
      * List duplicate systems by mac address
      * @param user the user doing the search
@@ -2768,7 +2768,7 @@ public class SystemManager extends BaseManager {
     public static List<SystemOverview> listDuplicatesByMac(User user, String mac) {
         return listDuplicates(user, "duplicate_system_ids_mac_key", mac);
     }
-    
+
     /**
      * List duplicate systems by hostname
      * @param user the user doing the search
@@ -2777,20 +2777,20 @@ public class SystemManager extends BaseManager {
      * @return List of DuplicateSystemBucket objects
      */
     public static List listDuplicatesByHostname(User user, Long inactiveHours) {
-        return listDuplicates(user, "duplicate_system_ids_hostname", 
+        return listDuplicates(user, "duplicate_system_ids_hostname",
                 Collections.EMPTY_LIST, inactiveHours);
     }
-    
+
     /**
      * List duplicate systems by hostName
      * @param user the user doing the search
      * @param hostName host name of the system
      * @return List of DuplicateSystemGrouping objects
-     */    
-    public static List<SystemOverview> listDuplicatesByHostname(User user, 
+     */
+    public static List<SystemOverview> listDuplicatesByHostname(User user,
                                                             String hostName) {
-        return listDuplicates(user, "duplicate_system_ids_hostname_key", 
+        return listDuplicates(user, "duplicate_system_ids_hostname_key",
                 hostName);
-    }    
-    
+    }
+
 }

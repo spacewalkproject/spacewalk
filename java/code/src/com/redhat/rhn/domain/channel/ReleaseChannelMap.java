@@ -30,7 +30,7 @@ import java.util.List;
  * ReleaseChannelMap
  * @version $Rev$
  */
-public class ReleaseChannelMap implements Serializable, 
+public class ReleaseChannelMap implements Serializable,
                                Comparable<ReleaseChannelMap> {
 
     private String product;
@@ -38,77 +38,77 @@ public class ReleaseChannelMap implements Serializable,
     private String release;
     private ChannelArch channelArch;
     private Channel channel;
-    
+
     /**
      * @return Returns the product.
      */
     public String getProduct() {
         return product;
     }
-    
+
     /**
      * @param productIn The product to set.
      */
     public void setProduct(String productIn) {
         this.product = productIn;
     }
-    
+
     /**
      * @return Returns the version.
      */
     public String getVersion() {
         return version;
     }
-    
+
     /**
      * @param versionIn The version to set.
      */
     public void setVersion(String versionIn) {
         this.version = versionIn;
     }
-    
+
     /**
      * @return Returns the release.
      */
     public String getRelease() {
         return release;
     }
-    
+
     /**
      * @param releaseIn The release to set.
      */
     public void setRelease(String releaseIn) {
         this.release = releaseIn;
     }
-    
+
     /**
      * @return Returns the channelArch.
      */
     public ChannelArch getChannelArch() {
         return channelArch;
     }
-    
+
     /**
      * @param channelArchIn The channelArch to set.
      */
     public void setChannelArch(ChannelArch channelArchIn) {
         this.channelArch = channelArchIn;
     }
-    
+
     /**
      * @return Returns the channel.
      */
     public Channel getChannel() {
         return channel;
     }
-    
+
     /**
      * @param channelIn The channel to set.
      */
     public void setChannel(Channel channelIn) {
         this.channel = channelIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -139,16 +139,16 @@ public class ReleaseChannelMap implements Serializable,
      */
     public int compareTo(ReleaseChannelMap o) {
         List<Comparator> compar = new ArrayList<Comparator>();
-        
+
         compar.add(new DynamicComparator("channel", true));
         compar.add(new DynamicComparator("channelArch", true));
         compar.add(new DynamicComparator("product", true));
         compar.add(new DynamicComparator("version", true));
         compar.add(new DynamicComparator("release", true));
-        
+
         Comparator com = ComparatorUtils.chainedComparator(
                                 (Comparator[]) compar.toArray());
         return com.compare(this, o);
     }
-    
+
 }

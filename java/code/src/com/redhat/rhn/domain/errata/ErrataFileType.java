@@ -17,15 +17,15 @@ package com.redhat.rhn.domain.errata;
 
 /**
  * ErrataFileType
- * 
+ *
  * @version $Rev: $
  */
 public class ErrataFileType {
-    
+
     private Long id;
-    
+
     private String label;
-    
+
     /**
      * Id
      * @param idIn id
@@ -33,7 +33,7 @@ public class ErrataFileType {
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * Id
      * @return id
@@ -41,7 +41,7 @@ public class ErrataFileType {
     public Long getId() {
         return id;
     }
-    
+
     /**
      * Label
      * @param labelIn label
@@ -49,7 +49,7 @@ public class ErrataFileType {
     public void setLabel(String labelIn) {
         label = labelIn;
     }
-    
+
     /**
      * Label
      * @return label

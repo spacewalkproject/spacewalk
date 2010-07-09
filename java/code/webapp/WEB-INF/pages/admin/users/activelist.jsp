@@ -12,7 +12,7 @@
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp#s2-sm-user-active"
- creationUrl="/rhn/users/CreateUser.do?account_type=into_org" 
+ creationUrl="/rhn/users/CreateUser.do?account_type=into_org"
  creationType="user">
   <bean:message key="activelist.jsp.title"/>
 </rhn:toolbar>
@@ -23,16 +23,16 @@
 	
 <!-- Start of active users list -->
 <rl:list dataset="pageList"
-         width="100%"        
+         width="100%"
          name="userList"
          styleclass="list"
          emptykey="activelist.jsp.noUsers"
  		 alphabarcolumn="userLogin">
-        
+
 	<!-- User name column -->
-	<rl:column bound="false" 
-	           sortable="true" 
-	           headerkey="username.nopunc.displayname" 
+	<rl:column bound="false"
+	           sortable="true"
+	           headerkey="username.nopunc.displayname"
 	           styleclass="first-column"
 	           attr="userLogin"
 	           filterattr="login">
@@ -40,31 +40,31 @@
 	</rl:column>
 	
 	<!-- Real name column -->
-	<rl:column bound="false" 
-	           sortable="true" 
-	           headerkey="realname.displayname" 
+	<rl:column bound="false"
+	           sortable="true"
+	           headerkey="realname.displayname"
 	           sortattr="userLastName">
 		<c:out value="${current.userLastName}, ${current.userFirstName}" />
 	</rl:column>
 	
 	<!--  Roles column -->
-	<rl:column attr="roleNames" 
-	           bound="true" 
-	           sortable="true" 
-	           headerkey="userdetails.jsp.roles" 
+	<rl:column attr="roleNames"
+	           bound="true"
+	           sortable="true"
+	           headerkey="userdetails.jsp.roles"
 	            />
-	           
+
 	<!-- Last logged in column -->
-	<rl:column attr="lastLoggedIn" 
+	<rl:column attr="lastLoggedIn"
 			   sortattr="lastLoggedInDate"
-	           bound="true" 
-	           sortable="true" 
-	           headerkey="userdetails.jsp.lastsign" 
+	           bound="true"
+	           sortable="true"
+	           headerkey="userdetails.jsp.lastsign"
 	           styleclass="last-column" />
-	           
+
 </rl:list>
 <rl:csv dataset="pageList"
-	name="userList" 
+	name="userList"
 	exportColumns="userLogin,userLastName,userFirstName,roleNames,lastLoggedIn"/>
 </rl:listset>
 </body>

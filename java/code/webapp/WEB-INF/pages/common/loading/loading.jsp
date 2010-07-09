@@ -5,7 +5,7 @@
 <html:xhtml/>
 <html>
 <head>
-    
+
     <meta name="page-decorator" content="none" />
 </head>
 <body>
@@ -13,7 +13,7 @@
 <tr>
 <td>
 <table align="left" border="0" cellpadding="0" cellspacing="0" width="408">
-<tr>	   
+<tr>
 <td><img name="left" src="/img/left.jpg" width="144" height="169" border="0" alt="" /></td>
 <td><table align="left" border="0" cellpadding="0" cellspacing="0" width="264">
 <tr>
@@ -32,8 +32,8 @@
 
 <!-- Message for the objects you're loading... -->
 
-Loading 
-<strong><c:out value="${param.pagesize}" /></strong> 
+Loading
+<strong><c:out value="${param.pagesize}" /></strong>
 <bean:message key="${param.what}" />....
 
 </td>

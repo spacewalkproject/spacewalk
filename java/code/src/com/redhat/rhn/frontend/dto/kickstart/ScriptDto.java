@@ -34,41 +34,41 @@ public class ScriptDto extends BaseDto {
     private static final String PRE = "Pre";
     private static final String POST = "Post";
     private static final String CHROOTPOST = "Nochroot Post";
-    
+
     /**
-     * 
+     *
      * @return chroot
      */
     public String getChroot() {
         return chroot;
     }
-    
+
     /**
-     * 
+     *
      * @param chrootIn to set
      */
     public void setChroot(String chrootIn) {
         this.chroot = chrootIn;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
-     * 
+     *
      * @param idIn to set
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
-     * 
+     *
      * @return interpreter for this script
      */
     public String getInterpreter() {
@@ -77,17 +77,17 @@ public class ScriptDto extends BaseDto {
         }
         return interpreter;
     }
-    
+
     /**
-     * 
+     *
      * @param interpreterIn to set
      */
     public void setInterpreter(String interpreterIn) {
         this.interpreter = interpreterIn;
     }
-    
+
     /**
-     * 
+     *
      * @return script type for this script
      */
     public String getScriptType() {
@@ -101,11 +101,11 @@ public class ScriptDto extends BaseDto {
         }
         else {
             return PRE;
-        }        
+        }
     }
-    
+
     /**
-     * 
+     *
      * @param scriptTypeIn to set
      */
     public void setScriptType(String scriptTypeIn) {
@@ -113,7 +113,7 @@ public class ScriptDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return position in listview
      */
     public String getPosition() {
@@ -121,7 +121,7 @@ public class ScriptDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param positionIn to set
      */
     public void setPosition(int positionIn) {

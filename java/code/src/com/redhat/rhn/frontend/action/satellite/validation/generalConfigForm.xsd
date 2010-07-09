@@ -1,6 +1,6 @@
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 
-<schema targetNamespace="http://rhn.redhat.com" 
+<schema targetNamespace="http://rhn.redhat.com"
 	xmlns="http://www.w3.org/1999/XMLSchema" xmlns:rhn="http://rhn.redhat.com">
 	<attribute name="traceback_mail">
 		<simpleType baseType="string">
@@ -11,8 +11,8 @@
 	</attribute>
 	<attribute name="server|jabber_server">
 		<simpleType baseType="string">
-      		<minLength value="1" /> 
-      		<maxLength value="100" /> 
+		<minLength value="1" />
+		<maxLength value="100" />
 			<matchesExpression value="(.+)(\..+)*" />
 		</simpleType>
 	</attribute>

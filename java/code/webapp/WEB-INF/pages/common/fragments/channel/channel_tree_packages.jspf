@@ -1,6 +1,6 @@
 <rhn:column
-   header="channels.overview.packages" 
-   url="/rhn/channels/ChannelPackages.do?cid=${current.id}" 
+   header="channels.overview.packages"
+   url="/rhn/channels/ChannelPackages.do?cid=${current.id}"
    style="text-align: right;"
    usesRefactoredList="true">
       ${current.packageCount}

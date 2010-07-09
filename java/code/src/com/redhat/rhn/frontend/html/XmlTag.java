@@ -31,7 +31,7 @@ public class XmlTag extends BaseTag {
      * </code>
      */
     public static final String XML_HDR_UTF8 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-    
+
     /**
      * Standard xml header with no encoding.
      * Example usage:<br />
@@ -42,7 +42,7 @@ public class XmlTag extends BaseTag {
      * </code>
      */
     public static final String XML_HDR = "<?xml version=\"1.0\"?>";
-    
+
     /**
      * Constructs an XmlTag.
      * @param tagIn the name of the tag
@@ -50,7 +50,7 @@ public class XmlTag extends BaseTag {
     public XmlTag(String tagIn) {
         this(tagIn, false);
     }
-    
+
     /**
      * Constructs an XmlTag.  The <code>spaceBefore</code> attribute controls
      * whether a space is inserted before the closing tag of a single line

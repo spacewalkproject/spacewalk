@@ -30,7 +30,7 @@ import java.util.Set;
  */
 public class UserPaneTest extends BaseTestCaseWithUser {
 
-    
+
     /**
      * Tests a new user
      *
@@ -46,10 +46,10 @@ public class UserPaneTest extends BaseTestCaseWithUser {
         Long id = user.getId();
         user = null;
         user = UserFactory.lookupById(id);
-        
+
         Set userPanes = new HashSet();
-        
-        
+
+
         userPanes.add(panes.get(0));
         userPanes.add(panes.get(1));
         user.setHiddenPanes(userPanes);
@@ -72,7 +72,7 @@ public class UserPaneTest extends BaseTestCaseWithUser {
         assertTrue(user.getHiddenPanes().contains(hiddenPanes.get(0)));
 
         Long id = user.getId();
-        
+
         Set userPanes = new HashSet(user.getHiddenPanes());
         userPanes.remove(hiddenPanes.get(0));
         user.setHiddenPanes(userPanes);

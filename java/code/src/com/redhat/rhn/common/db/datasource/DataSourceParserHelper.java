@@ -36,7 +36,7 @@ class DataSourceParserHelper implements ContentHandler {
     private static final int QUERY_THROUGH_MODE = 3;
     private static final int MODE_AFTER_QUERY = 4;
     private static final int IN_ELABORATOR = 5;
-    
+
     private HashMap internal_queries;
     private HashMap modes;
     private Mode m;
@@ -56,14 +56,14 @@ class DataSourceParserHelper implements ContentHandler {
     /**
      * Get the modes Map
      * @return the modes map.
-     */ 
+     */
     public HashMap getModes() {
         return modes;
     }
 
     /**
      * Reset the mode to an empty map.
-     */ 
+     */
     public void resetModes() {
         modes = new HashMap();
     }
@@ -75,12 +75,12 @@ class DataSourceParserHelper implements ContentHandler {
         if (state == IN_QUERY || state == QUERY_THROUGH_MODE) {
             query.append(new String(text, start, length));
         }
-    }  
+    }
 
     /** {@inheritDoc} */
     public void startElement(String namespaceURI, String localName,
             String qualifiedName, Attributes atts) {
-        
+
         query = new StringBuffer();
         if (localName.equals("mode")) {
             state = IN_MODE;
@@ -118,7 +118,7 @@ class DataSourceParserHelper implements ContentHandler {
                     m.setQuery(q);
                 }
                 else {
-                    // This must be a select-mode, so if this isn't a 
+                    // This must be a select-mode, so if this isn't a
                     // select-mode, then we want the ClassCastException
                     ((SelectMode)m).addElaborator(q);
                 }
@@ -218,7 +218,7 @@ class DataSourceParserHelper implements ContentHandler {
     }
 
     /** {@inheritDoc} */
-    public void ignorableWhitespace(char[] text, int start, 
+    public void ignorableWhitespace(char[] text, int start,
             int length) throws SAXException {
     }
 

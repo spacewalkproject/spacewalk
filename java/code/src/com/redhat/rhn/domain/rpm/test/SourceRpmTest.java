@@ -35,7 +35,7 @@ public class SourceRpmTest extends RhnBaseTestCase {
         //make sure we got commited to the db.
         assertNotNull(srpm.getId());
     }
-    
+
     /**
      * Create a test SourceRpm.
      * @return Returns a commited SourceRpm object.

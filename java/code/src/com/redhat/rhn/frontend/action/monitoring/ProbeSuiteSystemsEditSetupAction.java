@@ -25,12 +25,12 @@ import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 /**
- * ProbeSuiteSystemsEditSetupAction - lists systems that we *can* add to a 
+ * ProbeSuiteSystemsEditSetupAction - lists systems that we *can* add to a
  * ServerProbe Suite. Only monitoring entitled systems included in this list.
  * @version $Rev: 55183 $
  */
 public class ProbeSuiteSystemsEditSetupAction extends BaseSetListAction {
-    
+
     /**
      * Check to make sure this Suite has probes assigned, of not, bounce back
      * {@inheritDoc}
@@ -40,7 +40,7 @@ public class ProbeSuiteSystemsEditSetupAction extends BaseSetListAction {
         if (suite.getProbes().size() == 0) {
             rctx.getRequest().setAttribute("probeSuite", suite);
             return "probesuitesystemsedit.jsp.addprobesfirst";
-        } 
+        }
         else {
             return null;
         }
@@ -50,17 +50,17 @@ public class ProbeSuiteSystemsEditSetupAction extends BaseSetListAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
-        
-        rctx.getRequest().setAttribute("satClusters", 
+
+        rctx.getRequest().setAttribute("satClusters",
                 SatClusterFactory.findSatClusters());
-        
+
         User u = rctx.getCurrentUser();
         setupPageControl(pc);
         DataResult retval = MonitoringManager.getInstance().
             systemsNotInSuite(u, rctx.lookupProbeSuite(), pc);
         return retval;
     }
-    
+
     /**
      * Set the values for the PageControl:
      * size: 10

@@ -30,10 +30,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * ActivationKeyDeleteConfirm
- * @version $Rev$sh 
+ * @version $Rev$sh
  */
 public class ActivationKeyDeleteConfirmAction extends RhnAction {
-    private static final String DELETE_KEY = "activation-key.jsp.delete-key"; 
+    private static final String DELETE_KEY = "activation-key.jsp.delete-key";
     private static final String DELETED_MESSAGE_KEY = "activation-key.java.deleted";
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,

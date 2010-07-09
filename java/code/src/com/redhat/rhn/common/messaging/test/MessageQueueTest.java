@@ -32,10 +32,10 @@ import java.util.Map;
 public class MessageQueueTest extends RhnBaseTestCase {
 
     private static Logger logger = Logger.getLogger(MessageQueueTest.class);
-    
+
     protected void setUp() {
         logger.debug("setUp - start");
-        Config.get().setString("web.mailer_class", 
+        Config.get().setString("web.mailer_class",
                 MockMail.class.getName());
         TestAction.registerAction();
         TestDBAction.registerAction();
@@ -49,7 +49,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
         TestDBAction.deRegisterAction();
         MessageQueue.stopMessaging();
         logger.debug("tearDown - end");
-        
+
     }
 
     public void testPublish() throws Exception {
@@ -57,12 +57,12 @@ public class MessageQueueTest extends RhnBaseTestCase {
         TestEventMessage me = new TestEventMessage();
         MessageQueue.publish(me);
         // Just need to relinquish control to let the notify happen.
-        Thread.sleep(1000);        
+        Thread.sleep(1000);
         assertTrue(me.getMessageReceived());
         logger.debug("testPublish - end");
     }
-   
-   
+
+
     public void testMultiThreadedPublish() throws Exception {
         logger.debug("testMultiThreadedPublish - start");
         // Crank up 10 Threads to add test messages to the queue
@@ -78,15 +78,15 @@ public class MessageQueueTest extends RhnBaseTestCase {
         // make sure we get here
         assertTrue(true);
         logger.debug("testMultiThreadedPublish - end");
-        
+
     }
 
     /**
      * Test to make sure that Events process after the publisher's DB transaction
      * is complete.  Need to make sure this is the case because caller's may be
-     * writing things to the DB that need to complete before the MessageQueue 
+     * writing things to the DB that need to complete before the MessageQueue
      * thread can process them.
-     * 
+     *
      * @throws Exception
      */
     public void testDatabaseTransactionHandling() throws Exception {
@@ -95,7 +95,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
         Transaction t = HibernateFactory.getSession().getTransaction();
         String testString = TestUtils.randomString();
         TestDBEventMessage me = new TestDBEventMessage(t, testString);
-        
+
         MessageQueue.publish(me);
         assertFalse(me.getMessageReceived());
 
@@ -104,7 +104,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
         Map params = new HashMap();
         params.put("entry_time", new Long(1));
         params.put("data", testString);
-        m.executeUpdate(params);        
+        m.executeUpdate(params);
         commitAndCloseSession();
         // === END TXN ===
         boolean finished = false;
@@ -118,8 +118,8 @@ public class MessageQueueTest extends RhnBaseTestCase {
         assertTrue(finished);
         logger.debug("testDatabaseTransactionHandling - end");
     }
-    
-    
+
+
     /**
      * tests to see if we can allow multiple registers, unregisters
      * and publishers.
@@ -134,7 +134,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
         Thread[] pubs = new Thread[size];
         Thread[] regs = new Thread[size];
         Thread[] deregs = new Thread[size];
-        
+
         for (int i = 0; i < size; i++) {
             pubs[i] = new MessagePublisher();
             regs[i] = new MessageRegister();
@@ -142,12 +142,12 @@ public class MessageQueueTest extends RhnBaseTestCase {
             pubs[i].start();
             regs[i].start();
             deregs[i].start();
-        }    
+        }
 
         while (MessageQueue.getMessageCount() > 0) {
             Thread.sleep(1000);
         }
-        
+
         for (int i = 0; i < size; i++) {
             while (pubs[i].isAlive()) {
                 Thread.sleep(10);
@@ -159,7 +159,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
                 Thread.sleep(10);
             }
         }
-        
+
         assertTrue(true);
         logger.debug("testMultiThreadedPublishRegister - end");
     }
@@ -171,7 +171,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
         Thread.sleep(5000);
         // Just need to relinquish control to let the notify happen.
         TestEventMessage me = new TestEventMessage();
-        // TODO: figure out why this breaks on galaga but not on my 
+        // TODO: figure out why this breaks on galaga but not on my
         // workstation
         verifyMessageEvent(me, false);
         logger.debug("testStop - end");
@@ -198,7 +198,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
         logger.debug("testDeRegisterMultiple - end");
     }
 
-    public void testQueueSetup() { 
+    public void testQueueSetup() {
         logger.debug("testQueueSetup - start");
         assertTrue(MessageQueue.isMessaging());
         assertTrue(MessageQueue.getRegisteredEventNames().length > 0);
@@ -212,15 +212,15 @@ public class MessageQueueTest extends RhnBaseTestCase {
         TestEventMessage me = new TestEventMessage();
         MessageQueue.publish(me);
         // Just need to relinquish control to let the notify happen.
-        Thread.sleep(2000);     
+        Thread.sleep(2000);
         assertTrue(me.getMessageReceived());
         TestExceptionAction.deRegisterAction();
         logger.debug("testThreadKiller - end");
     }
-    
-    private void verifyMessageEvent(TestEventMessage me, boolean matchingValue) 
+
+    private void verifyMessageEvent(TestEventMessage me, boolean matchingValue)
             throws InterruptedException {
-        MessageQueue.publish(me);        
+        MessageQueue.publish(me);
         boolean wasReceived = true;
         int count = 0;
         while (true) {
@@ -240,15 +240,15 @@ public class MessageQueueTest extends RhnBaseTestCase {
         else {
             assertFalse(wasReceived);
         }
-        
+
     }
-    
+
     /**
     * Util thread to simulate multiple Threads publishing
     * events.
     */
     public class MessagePublisher extends Thread {
-        
+
         /**
           * Run the thread.
           * This is the method that loops waiting for a message so that it can
@@ -257,8 +257,8 @@ public class MessageQueueTest extends RhnBaseTestCase {
         public void run() {
             // simulate doing some work
             try {
-                Thread.sleep(1);    
-            } 
+                Thread.sleep(1);
+            }
             catch (InterruptedException iee) {
                 logger.debug("Caught iee" + iee);
             }
@@ -267,13 +267,13 @@ public class MessageQueueTest extends RhnBaseTestCase {
             }
         }
     }
-    
+
     /**
      * Util thread to simulate multiple Threads publishing
      * events.
      */
     public class MessageRegister extends Thread {
-        
+
         /**
           * Run the thread.
           * This is the method that loops waiting for a message so that it can
@@ -286,12 +286,12 @@ public class MessageQueueTest extends RhnBaseTestCase {
                 for (int i = 0; i < 10; i++) {
                     TestAction.registerAction();
                 }
-            } 
+            }
             catch (InterruptedException iee) {
                 logger.debug("Caught iee" + iee);
             }
         }
-        
+
     }
 
     /**
@@ -311,7 +311,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
                 for (int i = 0; i < 10; i++) {
                     TestAction.deRegisterAction();
                 }
-            } 
+            }
             catch (InterruptedException iee) {
                 logger.debug("Caught iee" + iee);
             }

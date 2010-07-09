@@ -27,25 +27,25 @@ import javax.servlet.jsp.JspException;
 public class LocalizedSubmitTag extends SubmitTag {
 
     private String valueKey;
-    
-    /** 
-     * Set the valueKey for the tag.  Used to 
+
+    /**
+     * Set the valueKey for the tag.  Used to
      * lookup the localized message for this tag
      * @param key Value key used to lookup the localized message.
-     */  
-    public void setValueKey(String key) { 
+     */
+    public void setValueKey(String key) {
         this.valueKey = key;
     }
 
-    /** 
+    /**
      * Get the valueKey for this tag
      * @return the value key for this tag.
      */
-    public String getValueKey() { 
+    public String getValueKey() {
         return this.valueKey;
     }
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @throws JspException
      */
     public int doStartTag() throws JspException {

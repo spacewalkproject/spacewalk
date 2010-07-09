@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public abstract class BaseDeleteErrataAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -43,7 +43,7 @@ public abstract class BaseDeleteErrataAction extends RhnAction {
                                  HttpServletResponse response) {
 
         RequestContext rctx = new RequestContext(request);
-        User user = rctx.getLoggedInUser();         
+        User user = rctx.getLoggedInUser();
 
         deleteErrata(user);
         RhnSet set = RhnSetDecl.ERRATA_TO_DELETE.get(user);
@@ -60,7 +60,7 @@ public abstract class BaseDeleteErrataAction extends RhnAction {
 
         return mapping.findForward("default");
     }
-    
+
     /**
      * @param user user performing the deletion
      */

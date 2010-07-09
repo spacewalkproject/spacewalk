@@ -39,15 +39,15 @@ public class KickstartDto extends BaseDto {
     private int virtSpace;
     private int virtCpus;
     private String virtBridge;
-    
-    
+
+
     /**
      * @return if this is a raw KS
      */
     public boolean isAdvancedMode() {
         return KickstartData.TYPE_RAW.equals(kickstartType);
     }
-    
+
     /**
      * @param typeIn to set
      */
@@ -96,7 +96,7 @@ public class KickstartDto extends BaseDto {
      public void setKstreeId(Long kstreeIdIn) {
          this.kstreeId = kstreeIdIn;
      }
-    
+
     /**
      * @return Returns the label.
      */
@@ -125,7 +125,7 @@ public class KickstartDto extends BaseDto {
         this.active = activeIn;
     }
 
-    
+
     /**
      * @return Returns the isOrgDefault.
      */
@@ -134,7 +134,7 @@ public class KickstartDto extends BaseDto {
                 BooleanUtils.toBoolean(isOrgDefault, "Y", "N");
     }
 
-    
+
     /**
      * @param isOrgDefaultIn The isOrgDefault to set.
      */
@@ -150,43 +150,43 @@ public class KickstartDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param treeLabelIn the treeLabel to set
      */
     public void setTreeLabel(String treeLabelIn) {
         this.treeLabel = treeLabelIn;
     }
-    
+
     /**
-     * @return true if this dto represents a 
+     * @return true if this dto represents a
      *  Cobbler Only Profile.
      */
     public boolean isCobbler() {
         return false;
     }
-    
+
     /**
      * @return the cobblerId
      */
     public String getCobblerId() {
         return cobblerId;
     }
-    
+
     /**
      * @param cobblerIdIn the cobblerId to set
      */
     public void setCobblerId(String cobblerIdIn) {
         cobblerId = cobblerIdIn;
     }
-    
+
     /**
      * @return the cobblerUrl
      */
     public String getCobblerUrl() {
         return cobblerUrl;
     }
-    
+
     /**
      * @param cobblerUrlIn the cobblerUrl to set
      */
@@ -194,7 +194,7 @@ public class KickstartDto extends BaseDto {
         cobblerUrl = cobblerUrlIn;
     }
 
-    
+
     /**
      * @return Returns the virtMemory.
      */
@@ -202,7 +202,7 @@ public class KickstartDto extends BaseDto {
         return virtMemory;
     }
 
-    
+
     /**
      * @param virtMemoryIn The virtMemory to set.
      */
@@ -210,7 +210,7 @@ public class KickstartDto extends BaseDto {
         this.virtMemory = virtMemoryIn;
     }
 
-    
+
     /**
      * @return Returns the virtSpace.
      */
@@ -218,7 +218,7 @@ public class KickstartDto extends BaseDto {
         return virtSpace;
     }
 
-    
+
     /**
      * @param virtSpaceIn The virtSpace to set.
      */
@@ -226,7 +226,7 @@ public class KickstartDto extends BaseDto {
         this.virtSpace = virtSpaceIn;
     }
 
-    
+
     /**
      * @return Returns the virtCpus.
      */
@@ -234,7 +234,7 @@ public class KickstartDto extends BaseDto {
         return virtCpus;
     }
 
-    
+
     /**
      * @param virtCpusIn The virtCpus to set.
      */
@@ -242,7 +242,7 @@ public class KickstartDto extends BaseDto {
         this.virtCpus = virtCpusIn;
     }
 
-    
+
     /**
      * @return Returns the virtBridge.
      */
@@ -250,7 +250,7 @@ public class KickstartDto extends BaseDto {
         return virtBridge;
     }
 
-    
+
     /**
      * @param virtBridgeIn The virtBridge to set.
      */

@@ -5,14 +5,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.rhnpackage.Package"
            table="rhnPackage">
-  
+
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="sequence">
                 <param name="sequence">RHN_PACKAGE_ID_SEQ</param>
             </generator>
         </id>
-      
+
         <property name="rpmVersion"      type="string" column="rpm_version"/>
         <property name="description"     type="string" column="description"/>
         <property name="summary"         type="string" column="summary"/>
@@ -35,15 +35,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <key column="package_id" />
             <one-to-many class="com.redhat.rhn.domain.rhnpackage.ChangeLogEntry" />
         </set>
-        
+
        <set name="packageKeys" lazy="true" table="rhnPackageKeyAssociation"
             cascade="save-update" >
             <key column="package_id"/>
-            <many-to-many 
-                class="com.redhat.rhn.domain.rhnpackage.PackageKey" 
+            <many-to-many
+                class="com.redhat.rhn.domain.rhnpackage.PackageKey"
                 column="key_id"/>
-        </set>        
-        
+        </set>
+
 
        <set name="channels" lazy="true" table="rhnChannelPackage"
             cascade="save-update">
@@ -108,7 +108,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </set>
 
 
-        
+
         <many-to-one name="checksum" class="com.redhat.rhn.domain.common.Checksum"
                      column="checksum_id" />
         <many-to-one name="org"
@@ -135,7 +135,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                      class="com.redhat.rhn.domain.rhnpackage.PackageArch"
                      column="package_arch_id"
             		 cascade="none"/>
-            		         		 
+
 
 
         <joined-subclass name="com.redhat.rhn.domain.rhnpackage.Patch" table="rhnSolarisPatch">
@@ -143,39 +143,39 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   <property name="solarisRelease"      type="string" column="solaris_release"/>
                   <property name="sunosRelease"      type="string" column="sunos_release"/>
                   <property name="patchInfo"      type="string" column="patchinfo"/>
-                  <property name="readme" column="readme" type="blob" lazy="true" />      
+                  <property name="readme" column="readme" type="blob" lazy="true" />
 		        <many-to-one name="patchType"
 		                     class="com.redhat.rhn.domain.solaris.PatchType"
 		                     column="patch_type"
 		            		 cascade="none"/>
-		            		 
+
 	       <set name="patchSets" lazy="true" table="rhnSolarisPatchSetMembers"
 	            cascade="save-update">
 	            <key column="patch_id"/>
 	            <many-to-many
 	                class="com.redhat.rhn.domain.rhnpackage.PatchSet"
 	                column="patch_set_id"/>
-	        </set>		            		 
-  
-        </joined-subclass>   
+	        </set>
+
+        </joined-subclass>
 
         <joined-subclass name="com.redhat.rhn.domain.rhnpackage.PatchSet" table="rhnSolarisPatchSet">
 		  <key column="package_id"/>
                   <property name="setDate"     type="date" column="set_date"/>
-                  <property name="readme" column="readme" type="blob" lazy="true" />      
+                  <property name="readme" column="readme" type="blob" lazy="true" />
 			        <set name="members" lazy="true" table="rhnSolarisPatchMembers" cascade="all">
 			            <key column="patch_set_id"/>
-			            <many-to-many class="com.redhat.rhn.domain.rhnpackage.Patch" 
-			                column="patch_id"/>     
-			          </set>             
+			            <many-to-many class="com.redhat.rhn.domain.rhnpackage.Patch"
+			                column="patch_id"/>
+			          </set>
         </joined-subclass>
-        
-     
-       
+
+
+
     </class>
-    
+
    <query name="Package.findOtherArches">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.Package as p 
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.Package as p
         	where p.packageName = :name and
         	  p.packageEvr = :evr and p.packageArch != :arch]]>
     </query>
@@ -189,7 +189,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Package.findByPackageName">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.Package as p where p.packageName = :packageName]]>
     </query>
-    
+
     <query name="Package.searchByIdAndArches">
             <![CDATA[select distinct p.packageName.id, p.packageName.name, p.summary,
                         p.packageArch.label, p.description, p.packageEvr.epoch,
@@ -201,7 +201,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                         and p in elements(c.packages)
                       ]]>
     </query>
-    
+
     <query name="Package.searchById">
             <![CDATA[select distinct p.id, p.packageName.name, p.summary,
                         p.packageArch.label, p.description, p.packageEvr.epoch,
@@ -223,17 +223,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                         and p IN elements (c.packages)
                       ]]>
     </query>
-    
+
     <query name="Package.listOrphans">
     	<![CDATA[ select p
     		from com.redhat.rhn.domain.rhnpackage.Package as p
-    		where p.org = :org and not exists ( 
-				select  p 
+		where p.org = :org and not exists (
+				select  p
 				from com.redhat.rhn.domain.channel.Channel c
 				where p in elements(c.packages)  )
     	]]>
     </query>
-    
+
     <query name="Package.lookupByNevra">
     	<![CDATA[ select p
     		from com.redhat.rhn.domain.rhnpackage.Package as p
@@ -244,18 +244,18 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			(p.org is null or p.org = :org)
     	]]>
     </query>
-    
+
     <sql-query name="Package.lookupFromSet">
         <![CDATA[SELECT {p.*}
 			from rhnPackage p
 			     left join rhnSolarisPatchSet P_2_ on p.id = P_2_.package_id
                  left join rhnSolarisPatch P_1_ on p.id = P_1_.package_id
                  inner join rhnSet S on p.id = s.element
-           where S.label = 'packages_to_add'        
+           where S.label = 'packages_to_add'
              and S.user_id = :uid					
          ]]>
         <return alias="p" class="com.redhat.rhn.domain.rhnpackage.Package" />
     </sql-query>
-    
+
 
 </hibernate-mapping>

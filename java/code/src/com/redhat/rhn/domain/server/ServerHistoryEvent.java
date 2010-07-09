@@ -36,10 +36,10 @@ public class ServerHistoryEvent extends BaseDomainHelper {
      * Constructor for ServerHistoryEvent
      */
     public ServerHistoryEvent() {
-        
-    }    
-    
-    
+
+    }
+
+
     /**
      * Getter for details
      * @return the details of the event
@@ -47,7 +47,7 @@ public class ServerHistoryEvent extends BaseDomainHelper {
     public String getDetails() {
         return details;
     }
-    
+
     /**
      * Set the details of an event
      * @param detailsIn the details to set
@@ -55,7 +55,7 @@ public class ServerHistoryEvent extends BaseDomainHelper {
     public void setDetails(String detailsIn) {
         this.details = detailsIn;
     }
-    
+
     /**
      * Getter for id
      * @return the id of the event
@@ -63,8 +63,8 @@ public class ServerHistoryEvent extends BaseDomainHelper {
     public Long getId() {
         return id;
     }
-    
-    
+
+
     /**
      * Set the id of an event
      * @param idIn the id to set
@@ -72,7 +72,7 @@ public class ServerHistoryEvent extends BaseDomainHelper {
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * Getter for server
      * @return the server associated with the event
@@ -80,7 +80,7 @@ public class ServerHistoryEvent extends BaseDomainHelper {
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * associate a server with the event
      * @param serverIn the Server to associate
@@ -88,7 +88,7 @@ public class ServerHistoryEvent extends BaseDomainHelper {
     public void setServer(Server serverIn) {
         this.server = serverIn;
     }
-    
+
     /**
      * Getter for summary
      * @return the summary of the event
@@ -96,7 +96,7 @@ public class ServerHistoryEvent extends BaseDomainHelper {
     public String getSummary() {
         return summary;
     }
-    
+
     /**
      * sets the summary of the event
      * @param summaryIn the summary to set
@@ -104,9 +104,9 @@ public class ServerHistoryEvent extends BaseDomainHelper {
     public void setSummary(String summaryIn) {
         this.summary = summaryIn;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object obj) {
@@ -116,9 +116,9 @@ public class ServerHistoryEvent extends BaseDomainHelper {
                 append(this.getServer(), that.getServer()).
                 isEquals();
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {

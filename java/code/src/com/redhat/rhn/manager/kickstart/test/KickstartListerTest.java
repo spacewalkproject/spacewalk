@@ -46,13 +46,13 @@ public class KickstartListerTest extends BaseTestCaseWithUser {
         assertTrue(dr.size() > 0);
         KickstartDto row = (KickstartDto) dr.get(0);
         assertNotNull(row.getId());
-        assertEquals(k.getOrg().getId().longValue(), row.getOrgId().longValue()); 
+        assertEquals(k.getOrg().getId().longValue(), row.getOrgId().longValue());
         assertNotNull(row.getOrgId());
         assertNotNull(row.getLabel());
         assertNotNull(row.getTreeLabel());
         assertFalse(row.isOrgDefault());
    }
-   
+
    public void testListKeys() throws Exception {
        Org o = UserTestUtils.findNewOrg(TestStatics.TESTORG);
        CryptoKey key = CryptoTest.createTestKey(o);
@@ -63,13 +63,13 @@ public class KickstartListerTest extends BaseTestCaseWithUser {
        assertTrue(dr.size() > 0);
        assertTrue(dr.get(0) instanceof CryptoKeyDto);
    }
-   
+
    public void testListFiles() throws Exception {
        Org o = UserTestUtils.findNewOrg(TestStatics.TESTORG);
        FileList f = FileListTest.createTestFileList(o);
        CommonFactory.saveFileList(f);
        flushAndEvict(f);
-       
+
        DataResult dr = KickstartLister.getInstance().preservationListsInOrg(o, null);
        assertTrue(dr.get(0) instanceof FilePreservationDto);
        assertTrue(dr.size() > 0);

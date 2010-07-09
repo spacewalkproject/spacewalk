@@ -22,7 +22,7 @@
 		        <br>
                 <span class="small-text"><strong><bean:message key="tip" /></strong>
                   <bean:message key="org.name.length.tip" /></span>
-		    </td>    
+		    </td>
 		  </tr>
 		  </table>
         <h2><bean:message key="orgcreate.jsp.adminheader"/></h2>
@@ -38,7 +38,7 @@
 		        <span class="small-text"><strong><bean:message key="tip" /></strong>
 		          <bean:message key="org.login.tip" arg0="${rhn:getConfig('web.min_user_len')}" /><br>"
 		          <bean:message key="org.login.examples" /></span>
-		          
+
 		      </td>
 		    </tr>
 		    <tr>
@@ -71,7 +71,7 @@
             </c:otherwise>
           </c:choose>
         </td>
-      </tr>		    
+      </tr>
 		    <tr>
               <th><label for="email"><rhn:required-field key="email"/>:</label></th>
               <td>
@@ -80,7 +80,7 @@
             </tr>
 		    <tr>
               <th><label for="firstNames"><rhn:required-field key="firstNames"/>:</label></th>
-               
+
               <td>
               <html:select property="prefix">
                <html:options collection="availablePrefixes"
@@ -101,16 +101,16 @@
             </tr>
           </table>
  <div align="right">
-   
+
    <html:submit>
    <bean:message key="orgcreate.jsp.submit"/>
    </html:submit>
  </div>
 
-          
+
     </html:form>
 </div>
-<%-- This makes sure that the asterisks toggle correctly. Before, they could get off 
+<%-- This makes sure that the asterisks toggle correctly. Before, they could get off
      if the user checked the usepam checkbox, submitted the form, and had errors. Then
      the form would start with the box checked but the asterisks visible.
 --%>

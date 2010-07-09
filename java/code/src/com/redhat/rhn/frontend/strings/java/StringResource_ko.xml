@@ -1919,8 +1919,8 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
-				<target>&lt;strong&gt;또 다른&lt;/strong&gt; 조직 관리자를 비활성화하실 수 없습니다. 
-사용자 계정을 비활성화하기 전에 해당 사용자의 '조직 관리자' 역할을 먼저 
+				<target>&lt;strong&gt;또 다른&lt;/strong&gt; 조직 관리자를 비활성화하실 수 없습니다.
+사용자 계정을 비활성화하기 전에 해당 사용자의 '조직 관리자' 역할을 먼저
 삭제하셔야 합니다. </target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.userdisabled">
@@ -5237,24 +5237,24 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to 
-syncronize kickstart distributions from Spacewalk to Cobbler.  These 
-errors must be corrected for the distributions to be available for 
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
 kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-Spacewalk가 Spacewalk에서 Cobbler로 킥스타트 배포판을 동기화하려고 
-하면 다음과 같은 오류 목록이 나타났습니다. 시스템을 킥스타트하기 위해 
+Spacewalk가 Spacewalk에서 Cobbler로 킥스타트 배포판을 동기화하려고
+하면 다음과 같은 오류 목록이 나타났습니다. 시스템을 킥스타트하기 위해
 배포판을 사용 가능하게 하려면 이러한 오류를 수정해야 합니다:
 
 {0}

@@ -23,9 +23,9 @@ import java.util.List;
 
 /**
  * <p>
- *  The <code>ValidatorService</code> class provides ability 
- *  to take an object and the Validator associated with it and 
- *  validate all the fields in the object and return the list 
+ *  The <code>ValidatorService</code> class provides ability
+ *  to take an object and the Validator associated with it and
+ *  validate all the fields in the object and return the list
  *  of errors in the Object's state
  * </p>
  * @version $Rev$
@@ -41,11 +41,11 @@ public class ValidatorService {
     /**
      * <p>
      *  This (intentionally left) private constructor handles initialization.
-     * </p> 
+     * </p>
      */
     private ValidatorService() {
         log.info("Initalizing " + this.getClass().getName());
-    } 
+    }
 
     /**
      * <p>
@@ -56,7 +56,7 @@ public class ValidatorService {
      * @return <code>ValidatorService</code> - the singleton instance to use.
      */
     public static ValidatorService getInstance() {
-        
+
         if (instance == null) {
             synchronized (ValidatorService.class) {
                 instance = new ValidatorService();
@@ -64,19 +64,19 @@ public class ValidatorService {
         }
         return instance;
     }
-    
+
     /**
      * Take an validatable object and check if its fields are in a valid
      * state or not
-     * If in the future we want to remove the dependancy on Struts we 
+     * If in the future we want to remove the dependancy on Struts we
      * need to write a class that duplicates ValidatorError.  I felt it wasn't
-     * worth it at the time to copy the class directly to do exactly what 
+     * worth it at the time to copy the class directly to do exactly what
      * it did.
      *
      * @param validateIn A validatable object to be checked
      * @param validatorIn The Validator instance to use with this object.
      * @return ValidatorError the error array
-     */    
+     */
     public ValidatorResult validateObject(Object validateIn, Validator validatorIn) {
         return validateObject(validateIn, validatorIn, null);
     }
@@ -85,9 +85,9 @@ public class ValidatorService {
     /**
      * Take an validatable object and check if its fields are in a valid
      * state or not
-     * If in the future we want to remove the dependancy on Struts we 
+     * If in the future we want to remove the dependancy on Struts we
      * need to write a class that duplicates ValidatorError.  I felt it wasn't
-     * worth it at the time to copy the class directly to do exactly what 
+     * worth it at the time to copy the class directly to do exactly what
      * it did.
      *
      * @param validateIn A validatable object to be checked
@@ -97,7 +97,7 @@ public class ValidatorService {
      */
     public ValidatorResult validateObject(Object validateIn, Validator validatorIn,
             List constraintNames) {
-        
+
         ValidatorResult result = new ValidatorResult();
         Iterator i = validatorIn.getConstraints().iterator();
         while (i.hasNext()) {
@@ -117,16 +117,16 @@ public class ValidatorService {
 
     /**
      * Take an validatable object and check if its fields are in a valid
-     * state or not.  This method expects the XSD associated with the 
+     * state or not.  This method expects the XSD associated with the
      * validateable object to be in the same directory as the object itself.
-     * 
+     *
      * @param validateIn A validatable object to be checked
      * @return ValidatorError the error result.
      */
     public ValidatorResult validateObject(Object validateIn) {
-        log.debug("ValidatorService.validateObject called on object: " + 
+        log.debug("ValidatorService.validateObject called on object: " +
                     validateIn.toString());
-        
+
         Validator validator;
         try {
             StringBuffer xsdName = new StringBuffer();
@@ -134,16 +134,15 @@ public class ValidatorService {
             xsdName.append(".xsd");
             validator = Validator.getInstance(validateIn.getClass().
                         getResource(xsdName.toString()));
-            
-        } 
-        catch (java.io.IOException ioe) { 
+
+        }
+        catch (java.io.IOException ioe) {
             throw new ValidatorException("Failed to instantiate Validator.  " +
                     "Check to make sure " +
                     "the XSD file is in the same directory as the Validateable Object");
         }
         return validateObject(validateIn, validator, null);
     }
-    
-    
-}
 
+
+}

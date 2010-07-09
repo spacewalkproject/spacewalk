@@ -38,19 +38,19 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
 /**
- * Provides a bunch of helper methods to make working with lists easier from a 
+ * Provides a bunch of helper methods to make working with lists easier from a
  * custom tag POV.
- * 
+ *
  * @version $Rev $
  */
 public class DataSetManipulator {
     private static final String[] LINK_PREFIXES = {"_first", "_prev", "_next", "_last"};
-    
+
     private int pageSize;
     private List dataset;
     private ListFilter filter;
     private String filterBy;
-    private String filterValue;    
+    private String filterValue;
     private int totalDataSetSize;
     private HttpServletRequest request;
     private String uniqueName;
@@ -60,45 +60,45 @@ public class DataSetManipulator {
     private boolean ascending = true;
     private int unfilteredDataSize;
     private boolean parentIsAnElement;
-    
+
     private boolean searchParent;
     private boolean searchChild;
-    
+
     private String defaultSortAttribute;
     private static final String IMG_FIRST = "/img/list-allbackward.gif";
-    private static final String IMG_FIRST_UNFOCUSED = 
+    private static final String IMG_FIRST_UNFOCUSED =
                                         "/img/list-allbackward-unfocused.gif";
-    
+
     private static final String IMG_PREV = "/img/list-backward.gif";
-    private static final String IMG_PREV_UNFOCUSED = 
+    private static final String IMG_PREV_UNFOCUSED =
                                            "/img/list-backward-unfocused.gif";
-    
+
     private static final String IMG_NEXT = "/img/list-forward.gif";
-    private static final String IMG_NEXT_UNFOCUSED = 
+    private static final String IMG_NEXT_UNFOCUSED =
                                            "/img/list-forward-unfocused.gif";
-    
+
 
     private static final String IMG_LAST = "/img/list-allforward.gif";
-    private static final String IMG_LAST_UNFOCUSED = 
-                                    "/img/list-allforward-unfocused.gif";    
-    
-    
+    private static final String IMG_LAST_UNFOCUSED =
+                                    "/img/list-allforward-unfocused.gif";
+
+
     /**
      * Constructor
      * @param pageSizeIn page size of the list
      * @param datasetIn dataset to be displayed
      * @param requestIn HttpServletRequest of the caller
      * @param listNameIn name of the list
-     * @param parentIsElement true of the parent value 
+     * @param parentIsElement true of the parent value
      *          in the list should be considered as an element
      *          this is useful for tree like data
      * @param doSearchParent true if we want to search the parent value
-     *          in the list when filtering. 
+     *          in the list when filtering.
      * @param doSearchChild true if we want to search the child value
      *          in the list when filtering.
      */
-    public DataSetManipulator(int pageSizeIn, List datasetIn, 
-            HttpServletRequest requestIn, String listNameIn, 
+    public DataSetManipulator(int pageSizeIn, List datasetIn,
+            HttpServletRequest requestIn, String listNameIn,
             boolean parentIsElement, boolean doSearchParent,
             boolean doSearchChild) {
         pageSize = pageSizeIn;
@@ -111,9 +111,9 @@ public class DataSetManipulator {
         searchParent = doSearchParent;
         searchChild = doSearchChild;
     }
-    
+
     private List expand(List data) {
-        return ListFilterHelper.filterChildren(data, 
+        return ListFilterHelper.filterChildren(data,
                 filter, filterBy, filterValue, searchParent, searchChild);
     }
     /**
@@ -123,7 +123,7 @@ public class DataSetManipulator {
     public int getTotalDataSetSize() {
         return totalDataSetSize;
     }
-    
+
     /**
      * Find a page-worth of data
      * @return list representing one page of data
@@ -145,7 +145,7 @@ public class DataSetManipulator {
             retval = dataset.subList(startOffset, endOffset);
         }
         else {
-            retval.addAll(dataset);   
+            retval.addAll(dataset);
         }
         return expand(retval);
     }
@@ -159,7 +159,7 @@ public class DataSetManipulator {
         retval.addAll(dataset);
         return expand(retval);
     }
-    
+
     /**
      * Returns the starting element index for a page (1 based)
      * @return int
@@ -169,7 +169,7 @@ public class DataSetManipulator {
         if (getTotalDataSetSize() == 0) {
             return 0;
         }
-        
+
         int startOffset = getCurrentPageNumber() * pageSize;
 
         if (startOffset < 0) {
@@ -178,13 +178,13 @@ public class DataSetManipulator {
         List parentList = dataset.subList(0, startOffset);
         List data = expand(parentList);
         int ret = data.size() + 1;
-        
+
         if (!parentIsAnElement) {
             ret = ret - parentList.size();
         }
         return ret;
     }
-    
+
     /**
      * Returns the ending element index for a page (1 based)
      * @return int
@@ -194,54 +194,54 @@ public class DataSetManipulator {
         if (startOffset < 0) {
             startOffset = 0;
         }
-        
+
         int endOffset = startOffset + pageSize;
         if (endOffset > dataset.size()) {
             endOffset = dataset.size();
         }
         List parentList = dataset.subList(0, endOffset);
         List data = expand(parentList);
-        
+
         if (!parentIsAnElement) {
             return data.size() - parentList.size();
         }
-        
+
         return data.size();
     }
-    
+
     private int getExpandedDataSize() {
         if (!parentIsAnElement) {
             return expand(dataset).size() - dataset.size();
         }
         return expand(dataset).size();
     }
-    
+
     /**
-     * Returns the pagination message (1 - 2 of 3 for example) 
+     * Returns the pagination message (1 - 2 of 3 for example)
      * @return the pagination message
      */
     public String getPaginationMessage() {
         LocalizationService ls = LocalizationService.getInstance();
-        return ls.getMessage("message.range", getPageStartIndex(), 
+        return ls.getMessage("message.range", getPageStartIndex(),
                     getPageEndIndex(), getExpandedDataSize());
 
     }
-    
-    
+
+
     /**
      * Determines the current page number based on URL params
      * @return current page number
      */
     private  int getCurrentPageNumber() {
-        
+
         if (AlphaBarHelper.getInstance().isSelected(uniqueName, request)) {
             int pos = findAlphaPosition();
             pageNumber = pos / pageSize;
             return pageNumber;
         }
-        
-        
-        
+
+
+
         if (pageNumber == -1) {
             String param = null;
             param = getPaginationParam(request, uniqueName);
@@ -270,7 +270,7 @@ public class DataSetManipulator {
                 pageNumber = 0;
             }
         }
-       
+
         return pageNumber;
     }
 
@@ -290,9 +290,9 @@ public class DataSetManipulator {
      static  String getPaginationParam(ServletRequest request, String uniqueName) {
 
         for (int x = 0; x < LINK_PREFIXES.length; x++) {
-            String imgLink = "list_" + uniqueName + "_page" + 
+            String imgLink = "list_" + uniqueName + "_page" +
             LINK_PREFIXES[x] + ".x";
-            
+
             if (request.getParameter(imgLink) != null) {
                 return  "list_" + uniqueName + "_page" + LINK_PREFIXES[x];
 
@@ -300,7 +300,7 @@ public class DataSetManipulator {
         }
         return null;
     }
-        
+
     /**
      * Returns the next page number
      * @return next page number or -1 if none
@@ -319,7 +319,7 @@ public class DataSetManipulator {
         }
         return retval;
     }
-    
+
     /**
      * Returns the previous page number
      * @return previous page number of -1 if none
@@ -333,7 +333,7 @@ public class DataSetManipulator {
         }
         return retval;
     }
-    
+
     /**
      * Is the current page the first page?
      * @return answer to that burning question
@@ -341,7 +341,7 @@ public class DataSetManipulator {
     public boolean isFirstPage() {
         return getCurrentPageNumber() == 0;
     }
-    
+
     /**
      * Is the current page the last page?
      * @return answer to that burning question
@@ -354,23 +354,23 @@ public class DataSetManipulator {
             maxPage++;
         }
         return getCurrentPageNumber() == maxPage;
-    }    
-    
+    }
+
     /**
      * Sorts the dataset in place
      */
     public void sort() {
-        
+
         String sortKey = ListTagUtil.makeSortByLabel(uniqueName);
         String sortDirectionKey = ListTagUtil.makeSortDirLabel(uniqueName);
         String sortAttribute = request.getParameter(sortKey);
         String sortDir = request.getParameter(sortDirectionKey);
         if (AlphaBarHelper.getInstance().isSelected(uniqueName, request)) {
-            Collections.sort(dataset, new DynamicComparator(alphaCol, 
+            Collections.sort(dataset, new DynamicComparator(alphaCol,
                     RequestContext.SORT_ASC));
         }
         else if (!StringUtils.isBlank(sortAttribute)) {
-            Collections.sort(dataset, new DynamicComparator(sortAttribute, 
+            Collections.sort(dataset, new DynamicComparator(sortAttribute,
                     sortDir));
         }
         else if (!StringUtils.isBlank(defaultSortAttribute)) {
@@ -386,14 +386,14 @@ public class DataSetManipulator {
      * @throws JspException if failure to write to pageContext
      */
     public void filter(ListFilter f, PageContext context) throws JspException {
-        
-        
+
+
         String filterByKey = ListTagUtil.makeFilterByLabel(uniqueName);
         filterBy = request.getParameter(filterByKey);
         filterValue = ListTagHelper.getFilterValue(request, uniqueName);
-        
-        
-        if (f == null || filterBy == null || filterBy.length() == 0 || 
+
+
+        if (f == null || filterBy == null || filterBy.length() == 0 ||
                 filterValue == null || filterValue.length() == 0) {
             return;
         }
@@ -404,13 +404,13 @@ public class DataSetManipulator {
             filterClass.setAttribute("name", ListTagUtil.makeFilterClassLabel(uniqueName));
             filterClass.setAttribute("value", f.getClass().getCanonicalName());
             ListTagUtil.write(context, filterClass.render());
-                        
+
             dataset = ListFilterHelper.filter(dataset, f, filterBy, filterValue,
                                                         searchParent, searchChild);
             totalDataSetSize = dataset.size();
         }
     }
-    
+
     /**
      * Builds a map of bog-standard pagination links complete with images
      * @return map (String, String[])
@@ -425,7 +425,7 @@ public class DataSetManipulator {
                 data[1] = pageLinkName + "_first";
                 data[2] = "first";
                 data[3] = "First Page";
-                
+
             }
             else {
                 data[0] = IMG_FIRST_UNFOCUSED;
@@ -472,10 +472,10 @@ public class DataSetManipulator {
             else {
                 data[0] = IMG_LAST_UNFOCUSED;
             }
-            links.put("allForward", data);            
+            links.put("allForward", data);
         }
         return links;
-        
+
     }
 
     /**
@@ -485,7 +485,7 @@ public class DataSetManipulator {
     public boolean isListEmpty() {
         return dataset == null || dataset.size() == 0;
     }
-    
+
     /**
      *  Gets the set of characters that will be active on the alpha bar
      * @return the set of characters that are active
@@ -494,7 +494,7 @@ public class DataSetManipulator {
         Set<Character> chars = new HashSet<Character>();
         int i = 0;
         for (Object inputRow : dataset) {
-            String value = (String)MethodUtil.callMethod(inputRow, 
+            String value = (String)MethodUtil.callMethod(inputRow,
                                                 StringUtil.beanify("get " + alphaCol),
                                                 new Object[0]);
             if (!StringUtils.isBlank(value)) {
@@ -519,9 +519,9 @@ public class DataSetManipulator {
     public void setAlphaColumn(String col) {
         alphaCol = col;
     }
-    
+
     /**
-     * Finds the first instance of an entry in DataSet that starts with the letter 
+     * Finds the first instance of an entry in DataSet that starts with the letter
      *          "alphaPosition"
      * @return int the position within the DataSet of that entry
      */
@@ -530,14 +530,14 @@ public class DataSetManipulator {
         if (helper.isSelected(uniqueName, request)) {
             if (alphaPosition > -1) {
                 return alphaPosition;
-            }            
+            }
             char alpha = Character.toUpperCase(helper.
                                 getAlphaValue(uniqueName, request).charAt(0));
 
-            
+
             int i = 0;
             for (Object inputRow : dataset) {
-                String value = (String)MethodUtil.callMethod(inputRow, 
+                String value = (String)MethodUtil.callMethod(inputRow,
                                                     StringUtil.beanify("get " + alphaCol),
                                                     new Object[0]);
                 if (!StringUtils.isBlank(value)) {
@@ -554,31 +554,31 @@ public class DataSetManipulator {
         return -1;
     }
 
-    
+
     /**
-     * 
+     *
      * @return the defualt sort attribute
      */
     public String getDefaultSortAttribute() {
         return defaultSortAttribute;
     }
     /**
-     * 
+     *
      * @param sortAttr the default sort attribute
      */
     public void setDefaultSortAttribute(String sortAttr) {
-        defaultSortAttribute = sortAttr;   
+        defaultSortAttribute = sortAttr;
     }
-    
+
     /**
-     * 
+     *
      * @param asc the sort order
      */
     public void setDefaultAscending(boolean asc) {
         ascending = asc;
     }
 
-    
+
     /**
      * @return Returns the unfilteredDataSize.
      */

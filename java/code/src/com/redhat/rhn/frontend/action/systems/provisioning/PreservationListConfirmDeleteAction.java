@@ -36,26 +36,26 @@ import java.util.Map;
  * @version $Rev: 55183 $
  */
 public class PreservationListConfirmDeleteAction extends BaseSetListAction {
-    
+
     /**
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
-        
+
         RhnSet set = getSetDecl().get(rctx.getCurrentUser());
         User user = rctx.getLoggedInUser();
         List selectedFileList = new LinkedList();
         Iterator i = set.getElements().iterator();
         while (i.hasNext()) {
             RhnSetElement elem = (RhnSetElement) i.next();
-            FileList fl = CommonFactory.lookupFileList(elem.getElement(), 
+            FileList fl = CommonFactory.lookupFileList(elem.getElement(),
                                                             user.getOrg());
             Map flRow = new HashMap();
             flRow.put("label", fl.getLabel());
             flRow.put("id", fl.getId());
             selectedFileList.add(flRow);
         }
-        
+
         DataResult retval = new DataResult(selectedFileList);
         return retval;
     }

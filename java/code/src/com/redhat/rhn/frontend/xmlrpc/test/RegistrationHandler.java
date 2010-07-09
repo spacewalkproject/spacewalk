@@ -23,7 +23,7 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
  * @version $Rev$
  */
 public class RegistrationHandler extends BaseHandler {
-    
+
     /**
      * Returns the RHN privacy statement
      *

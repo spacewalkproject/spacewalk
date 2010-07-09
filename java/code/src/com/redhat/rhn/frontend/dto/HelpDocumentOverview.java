@@ -22,7 +22,7 @@ public class HelpDocumentOverview {
     private String url;
     private String title;
     private String summary;
-    
+
     /**
      * Getter for document url
      * @return document url
@@ -38,7 +38,7 @@ public class HelpDocumentOverview {
     public void setUrl(String urlIn) {
         this.url = urlIn;
     }
-    
+
     /**
      * Getter for document title
      * @return document title
@@ -49,13 +49,13 @@ public class HelpDocumentOverview {
 
     /**
      * Setter for document url
-     * @param titleIn the title of the document 
+     * @param titleIn the title of the document
      */
     public void setTitle(String titleIn) {
         this.title = titleIn;
 
     }
-    
+
     /**
      * Getter for document summary
      * @return document summary
@@ -71,7 +71,7 @@ public class HelpDocumentOverview {
     public void setSummary(String summaryIn) {
         this.summary = summaryIn;
     }
-    
+
     /**
      * @return string representation
      */
@@ -79,5 +79,5 @@ public class HelpDocumentOverview {
         return "Title = " + getTitle() + ", Url = " + getUrl() + ", Summary = " +
             getSummary();
     }
-    
+
 }

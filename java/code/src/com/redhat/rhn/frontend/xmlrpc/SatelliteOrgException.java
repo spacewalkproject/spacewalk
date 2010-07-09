@@ -23,7 +23,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class SatelliteOrgException extends FaultException  {
-    
+
     /**
      * Constructor
      */

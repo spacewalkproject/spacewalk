@@ -6490,8 +6490,8 @@ the following tabs in the left navigation menu:</source>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
 				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>Administre las suscripciones en su @@PRODUCT_NAME@@. Puede buscar también el acceso
 que proporciona cada derecho. Por cada derecho, puede asignar derechos por
@@ -6808,9 +6808,9 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 				<target>Variables de actualizaciones </target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
-				<target>Las variables de Kickstart sirven para sustituir valores en perfiles kickstart. Para definir una variable simplemente agregue 'nombre=valor' a la casilla siguiente.  
+				<target>Las variables de Kickstart sirven para sustituir valores en perfiles kickstart. Para definir una variable simplemente agregue 'nombre=valor' a la casilla siguiente.
         			Luego usaría $nombre dentro del perfil para sustituir el valor.</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
@@ -7151,12 +7151,12 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
-				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; El cambio del tipo de virtualización puede requerir cambios en las 
-            opciones de gestor de arranque de kickstart y de partición, potencialmente sobrescribiendo los ajustes de usuario. 
-            Por favor vaya a la pestaña &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Particionamiento&lt;/a&gt; 
+				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; El cambio del tipo de virtualización puede requerir cambios en las
+            opciones de gestor de arranque de kickstart y de partición, potencialmente sobrescribiendo los ajustes de usuario.
+            Por favor vaya a la pestaña &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Particionamiento&lt;/a&gt;
             para verificar la nueva configuración.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -7654,7 +7654,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>A continuación podrá editar los scripts pre y post para este Kickstart de abajo. Los pre-scripts de un archivo Kickstart han sido analizados en un sistema.
 Usted puede acceder a la red en esta sección, pero debe utilizar direcciones IP (el servicio de nombre no ha sido configurado en este momento). Para mayor información sobre los pre-scripts, consulte el &lt;strong&gt;Manual de administración de sistemas Red Hat Enterprise Linux&lt;/strong&gt;
 &lt;br/&gt;&lt;br/&gt;
-También puede editar el post script para este Kickstart de abajo. Primero, los comandos relacionados con @@PRODUCT_NAME@@ serán automáticamente ejecutados (Por ejemplo, registro de esystem a @@PRODUCT_NAME@@). 
+También puede editar el post script para este Kickstart de abajo. Primero, los comandos relacionados con @@PRODUCT_NAME@@ serán automáticamente ejecutados (Por ejemplo, registro de esystem a @@PRODUCT_NAME@@).
 Luego, el post script de non-chroot será ejecutado y por último, el post script será ejecutado. Para obtener mayor información sobre los post scripts de Kickstart, por favor consulte
 el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.&lt;/strong&gt;</target>
 			</trans-unit>
@@ -11922,7 +11922,7 @@ Make sure you subscribe systems to the appropriate software channels during kick
 so they have access to the packages in the package profile you sync them to.  Visit
 the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Keys&lt;/a&gt;
  tab to subscribe systems to software channels during kickstart.&lt;/span&gt;</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Consejo:&lt;/strong&gt; 
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Consejo:&lt;/strong&gt;
 Asegúrese de suscribir los sistemas con el canal de software apropiado durante el inicio de instalación a través de
 Kickstart para que puedan acceder a los paquetes en el perfil de paquetes que servirá para la sincronización.
 Visite la pestaña &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Llaves de activación&lt;/a&gt;
@@ -12410,9 +12410,9 @@ de @@PRODUCT_NAME@@ antes de ejecutar un Kickstart o de crear una nueva
 distribución Kickstart.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
-				<source> 
+				<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;</source>
-				<target> 
+				<target>
  &lt;strong&gt;No se encontró ninguna generación del programa de instalación para el canal base seleccionado.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.toolbar">
@@ -13130,7 +13130,7 @@ list (see below) about this scheduled downtime whenever possible.</source>
 que sean llevadas a cabo todos los martes de 9pm-3am, E.U. (1am-7am UTC). Aunque
  Red Hat no utiliza cada uno de estos periodos de mantenimiento, es aconsejable que
 su empresa desarrolle una práctica empresarial que permita este periodo de
- racionamiento para su solución de @@PRODUCT_NAME@@. Red Hat siempre intentará informarle al 
+ racionamiento para su solución de @@PRODUCT_NAME@@. Red Hat siempre intentará informarle al
 menos con una semana de anticipación los periodos de corte a través de la lista de correo-e de interrupciones (ver abajo).</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.unscheduled-header">
@@ -13142,7 +13142,7 @@ menos con una semana de anticipación los periodos de corte a través de la list
 Network will attempt notification, again through the email outage list
 (see below), at least 12 hours or as soon as possible in advance of
 unscheduled maintenance.</source>
-				<target>Las ventanas de mantenimiento no programadas son posibles, aunque muy raras.Red Hat 
+				<target>Las ventanas de mantenimiento no programadas son posibles, aunque muy raras.Red Hat
 Network intentará notificar otra vez a través de la lista de correo-e de interrupciones
  (ver abajo), al menos con 12 horas de anticipación
  o tan pronto como sea posible en caso de mantenimiento no programado.</target>
@@ -13316,7 +13316,7 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.description">
 				<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)</source>
 				<target>
@@ -13346,11 +13346,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.note">
 				<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
-&lt;strong&gt;NOTA:&lt;/strong&gt; Necesitará un número de instalación para instalar {0}.  
+&lt;strong&gt;NOTA:&lt;/strong&gt; Necesitará un número de instalación para instalar {0}.
 &lt;a href="{1}"&gt;¿No está seguro de qué es un número de instalación?&lt;/a&gt;
 &lt;a href="{2}"&gt;¿Necesita buscar su número de instalación?&lt;/a&gt;</target>
 			</trans-unit>
@@ -13360,7 +13360,7 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.rest.description">
 				<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.</source>
 				<target>
 A continuación se encuentra un conjunto completo de imágenes ISO para los &lt;strong&gt;lanzamientos anteriores&lt;/strong&gt; de {0}.
@@ -13870,8 +13870,8 @@ en este  @@PRODUCT_NAME@@. No es igual al total disponible en el certificado del
           possible to share content and migrate systems between these two organizations. You may add a trust by checking
           the box next to an organization (or remove a trust by unchecking it) and clicking the 'Modify Trusts' button.</source>
 				<target>
-          Las organizaciones revisadas abajo son organizaciones de confianza de the {0} organización. Esto significa que es 
-          posible compartir el contenido y migrar sistemas entre estas dos organizaciones.  Usted puede agregar una confianza al seleccionar la 
+          Las organizaciones revisadas abajo son organizaciones de confianza de the {0} organización. Esto significa que es
+          posible compartir el contenido y migrar sistemas entre estas dos organizaciones.  Usted puede agregar una confianza al seleccionar la
           siguiente casilla cerca de una organización (o remover una confianza desactivándola) y haciendo clic en el botón de 'Modificar confianzas' .</target>
 			</trans-unit>
 			<trans-unit id="org.trust.confirm.summary">
@@ -13892,12 +13892,12 @@ en este  @@PRODUCT_NAME@@. No es igual al total disponible en el certificado del
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
 				<target>
-            Los sistemas listados se afectarán al remover la relación de confianza entre 
+            Los sistemas listados se afectarán al remover la relación de confianza entre
             la organización &lt;b&gt;{0}&lt;/b&gt; y la organización &lt;b&gt;{1}&lt;/b&gt;.
             Remover esta confianza puede causar efectos adversos a estos sistemas. Por ejemplo, estos sistemas ya no
             podrán recibir actualizaciones de seguridad para contenido proporcionado a través de esta confianza.</target>
@@ -14896,28 +14896,28 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.</source>
 				<target>Crear o editar canales de software desde está página.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Si el canal principal está establecido a 'ninguno', el canal es un canal base.
         De lo contrario, el canal es un hijo del canal especificado.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         El nombre de canal y etiqueta son requeridos. Deben ser al menos de 6
         caracteres. Las etiquetas deben comenzar por una letra, contener sólo
         minúsculas, guiones ('-'), puntos('.'), guiones de subrayado ('_'), y
         numerales. El nombre de canal puede también contener espacios y barra oblicua
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         El resumen de canal es requerido.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
@@ -14962,8 +14962,8 @@ given channel.</source>
         this channel may adversely affect those systems. For example, those
         systems may no longer receive critical security updates to content
         provided by this channel.</source>
-				<target>¿Está seguro de querer establecer este canal a 
-        &lt;strong&gt;privado&lt;/strong&gt;, de acceso únicamente a sistemas en su 
+				<target>¿Está seguro de querer establecer este canal a
+        &lt;strong&gt;privado&lt;/strong&gt;, de acceso únicamente a sistemas en su
         organización? Hay sistema(s) en otra(s) organización(es) listados abajo
         que se suscriben al contenido proporcionado por este canal. Quitar el acceso
         a este canal puede afectar adversamente esos sistemas. Por ejemplo, esos
@@ -14994,7 +14994,7 @@ given channel.</source>
 				<source>You may choose to grant the organizations below access to this
         channel, or you may deny them access. You can modify access to this
         channel at any time using the 'Organizations' tab above.</source>
-				<target>Puede optar por otorgar acceso a las organizaciones de abajo para este 
+				<target>Puede optar por otorgar acceso a las organizaciones de abajo para este
         canal, o puede negarles el acceso. Puede modificar el acceso a este
         canal en cualquier momento utilizando la pestaña de arriba'Organizaciones'.</target>
 			</trans-unit>

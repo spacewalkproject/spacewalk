@@ -61,7 +61,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ActivationKeyDetailsAction extends RhnAction {
     private static final String DESCRIPTION = "description";
-    
+
     private static final String KEY = "key";
     private static final String USAGE_LIMIT = "usageLimit";
     private static final String POSSIBLE_CHANNELS = "possibleChannels";
@@ -70,7 +70,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
     private static final String SELECTED_ENTS = "selectedEntitlements";
     private static final String ORG_DEFAULT = "universal";
     private static final String AUTO_DEPLOY = "autoDeploy";
-    private static final Long DEFAULT_CHANNEL_ID = -1L; 
+    private static final Long DEFAULT_CHANNEL_ID = -1L;
     private static final String EDIT_MODE = "edit";
     private static final String CREATE_MODE = "create";
     private static final String PREFIX = "prefix";
@@ -86,17 +86,17 @@ public class ActivationKeyDetailsAction extends RhnAction {
         RequestContext context = new RequestContext(request);
         DynaActionForm form = (DynaActionForm) formIn;
         if (CREATE_MODE.equals(mapping.getParameter())) {
-            request.setAttribute(CREATE_MODE, Boolean.TRUE);    
+            request.setAttribute(CREATE_MODE, Boolean.TRUE);
         }
-        
-        request.setAttribute(PREFIX, 
+
+        request.setAttribute(PREFIX,
                 ActivationKey.makePrefix(context.getLoggedInUser().getOrg()));
-        request.setAttribute(BLANK_DESCRIPTION, 
+        request.setAttribute(BLANK_DESCRIPTION,
                                 ActivationKeyFactory.DEFAULT_DESCRIPTION);
-        
+
         if (context.isSubmitted()) {
             try {
-                ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, 
+                ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this,
                                             form);
 
                 if (!errors.isEmpty()) {
@@ -104,13 +104,13 @@ public class ActivationKeyDetailsAction extends RhnAction {
                         return handleFailure(mapping, context);
                 }
                 Map params = new HashMap();
-                
+
                 if (CREATE_MODE.equals(mapping.getParameter())) {
                     ActivationKey key = create(form, context);
                     params.put(RequestContext.TOKEN_ID, key.getId().toString());
                 }
                 else {
-                    
+
                     ActivationKey key =  update(form, context);
                     params.put(RequestContext.TOKEN_ID, key.getId().toString());
                 }
@@ -127,12 +127,12 @@ public class ActivationKeyDetailsAction extends RhnAction {
             setupEntitlements(context);
             if (EDIT_MODE.equals(mapping.getParameter())) {
                 ActivationKey key = context.lookupAndBindActivationKey();
-                
+
                 populateForm(form, key, context);
             }
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
-        
+
     }
 
 
@@ -146,15 +146,15 @@ public class ActivationKeyDetailsAction extends RhnAction {
         RhnValidationHelper.setFailedValidation(context.getRequest());
         setupPossibleChannels(context);
         setupEntitlements(context);
-        
+
         if (EDIT_MODE.equals(mapping.getParameter())) {
             Map params = new HashMap();
-            params.put(RequestContext.TOKEN_ID, 
+            params.put(RequestContext.TOKEN_ID,
                         context.getParam(RequestContext.TOKEN_ID, true));
             return getStrutsDelegate().forwardParams(
                     mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
-        
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
@@ -171,12 +171,12 @@ public class ActivationKeyDetailsAction extends RhnAction {
         }
         return removeThese;
     }
-    
+
     private ActivationKey update(DynaActionForm form, RequestContext context) {
         User user = context.getLoggedInUser();
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey key = context.lookupAndBindActivationKey();
-       
+
         String[] selected = (String[])form.get(SELECTED_ENTS);
         List<String> selectedList = Arrays.asList(selected);
         if (selected != null) {
@@ -184,50 +184,50 @@ public class ActivationKeyDetailsAction extends RhnAction {
                 selectedList));
             manager.addEntitlements(key, selectedList);
         }
-        
-        
+
+
         if (StringUtils.isBlank(form.getString(DESCRIPTION))) {
             key.setNote(ActivationKeyFactory.DEFAULT_DESCRIPTION);
         }
         else {
             key.setNote(form.getString(DESCRIPTION));
         }
-        
+
         key.setBaseChannel(lookupChannel(form, user));
         key.setNote(form.getString(DESCRIPTION));
-        
+
         key.getToken().setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
 
         Long usageLimit = null;
         if (!StringUtils.isBlank(form.getString(USAGE_LIMIT))) {
             usageLimit = Long.valueOf(form.getString(USAGE_LIMIT));
         }
-        
+
         if (key.getEntitlements().contains(ServerConstants.
                 getServerGroupTypeProvisioningEntitled())) {
-            key.setDeployConfigs(Boolean.TRUE.equals(form.get(AUTO_DEPLOY)));    
+            key.setDeployConfigs(Boolean.TRUE.equals(form.get(AUTO_DEPLOY)));
         }
-        
-        
+
+
         key.setUsageLimit(usageLimit);
         ActivationKeyFactory.save(key);
         ActionMessages msg = new ActionMessages();
         addToMessage(msg, "activation-key.java.modified", key.getNote());
-  
+
         String newKey = form.getString(KEY);
         if (StringUtils.isBlank(newKey)) {
-            newKey = ActivationKeyFactory.generateKey(); 
+            newKey = ActivationKeyFactory.generateKey();
         }
         newKey = ActivationKey.makePrefix(key.getOrg()) + newKey;
         String enteredKey = form.getString(KEY);
         if (!enteredKey.equals(key.getKey()) && !newKey.equals(key.getKey())) {
             manager.changeKey(newKey, key, user);
-            if (!StringUtils.isBlank(enteredKey) && 
+            if (!StringUtils.isBlank(enteredKey) &&
                         !enteredKey.equals(key.getKey())) {
-                addToMessage(msg, "activation-key.java.org_prefixed", 
-                                                        enteredKey, newKey);    
+                addToMessage(msg, "activation-key.java.org_prefixed",
+                                                        enteredKey, newKey);
             }
-            
+
         }
         getStrutsDelegate().saveMessages(context.getRequest(), msg);
         return key;
@@ -238,15 +238,15 @@ public class ActivationKeyDetailsAction extends RhnAction {
         context.getRequest().setAttribute(DESCRIPTION, key.getNote());
         form.set(DESCRIPTION, key.getNote());
         setupKey(form, key, context);
-        
+
         if (key.getUsageLimit() != null) {
-            form.set(USAGE_LIMIT, String.valueOf(key.getUsageLimit()));    
+            form.set(USAGE_LIMIT, String.valueOf(key.getUsageLimit()));
         }
-        
+
         form.set(ORG_DEFAULT, key.isUniversalDefault());
         Channel chan = key.getBaseChannel();
         if (chan == null) {
-            form.set(SELECTED_CHANNEL, DEFAULT_CHANNEL_ID);    
+            form.set(SELECTED_CHANNEL, DEFAULT_CHANNEL_ID);
         }
         else {
             form.set(SELECTED_CHANNEL, chan.getId());
@@ -256,13 +256,13 @@ public class ActivationKeyDetailsAction extends RhnAction {
             entitlements.add(type.getLabel());
         }
         form.set(SELECTED_ENTS, (String[]) entitlements.toArray(new String[0]));
-        
+
         if (key.getEntitlements().contains(ServerConstants.
                         getServerGroupTypeProvisioningEntitled())) {
-            form.set(AUTO_DEPLOY, key.getDeployConfigs());    
+            form.set(AUTO_DEPLOY, key.getDeployConfigs());
         }
-    }    
-    
+    }
+
     private void setupKey(DynaActionForm form, ActivationKey key,
                                                 RequestContext context) {
         String orgPrefix = ActivationKey.makePrefix(key.getOrg());
@@ -288,37 +288,37 @@ public class ActivationKeyDetailsAction extends RhnAction {
         List<Channel> customChannels = ChannelFactory.listCustomBaseChannels(user);
         for (Channel channel : customChannels) {
             channelWidgets.add(lv(channel.getName(), String.valueOf(channel.getId())));
-        }        
+        }
         context.getRequest().setAttribute(POSSIBLE_CHANNELS, channelWidgets.toArray());
-        
+
     }
-    
+
     private void setupEntitlements(RequestContext context) {
         Org org = context.getLoggedInUser().getOrg();
-        Set<LabelValueEnabledBean> entWidgets = new 
-                                            TreeSet<LabelValueEnabledBean>();      
+        Set<LabelValueEnabledBean> entWidgets = new
+                                            TreeSet<LabelValueEnabledBean>();
         context.getRequest().setAttribute(POSSIBLE_ENTS, entWidgets);
         for (Entitlement ent : org.getValidAddOnEntitlementsForOrg()) {
             entWidgets.add(lve(ent.getHumanReadableLabel(), ent.getLabel(), false));
         }
     }
-    
-    
+
+
     private ActivationKey create(DynaActionForm daForm, RequestContext context) {
         User user = context.getLoggedInUser();
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         /**
-         * createNewActivationKey(User user, 
-            String key, String note, Long usageLimit, Channel baseChannel, 
+         * createNewActivationKey(User user,
+            String key, String note, Long usageLimit, Channel baseChannel,
             boolean universalDefault
          */
-        
+
         Long usageLimit = null;
         if (!StringUtils.isBlank(daForm.getString(USAGE_LIMIT))) {
             usageLimit = Long.valueOf(daForm.getString(USAGE_LIMIT));
         }
-        
-        ActivationKey key = manager.createNewActivationKey(user, 
+
+        ActivationKey key = manager.createNewActivationKey(user,
                                 daForm.getString(KEY),
                                 daForm.getString(DESCRIPTION),
                                 usageLimit,
@@ -326,15 +326,15 @@ public class ActivationKeyDetailsAction extends RhnAction {
                                 Boolean.TRUE.equals(daForm.get(ORG_DEFAULT)));
         String[] selected = (String[])daForm.get(SELECTED_ENTS);
         if (selected != null) {
-            manager.addEntitlements(key, Arrays.asList(selected));    
+            manager.addEntitlements(key, Arrays.asList(selected));
         }
         ActionMessages msg = new ActionMessages();
         addToMessage(msg, "activation-key.java.created", key.getNote());
         getStrutsDelegate().saveMessages(context.getRequest(), msg);
         return key;
-    }    
+    }
 
-    
+
     private Channel lookupChannel(DynaActionForm daForm, User user) {
         Long selectedChannel = (Long)daForm.get(SELECTED_CHANNEL);
 
@@ -344,9 +344,9 @@ public class ActivationKeyDetailsAction extends RhnAction {
         }
         return null;
     }
-    
+
     private void addToMessage(ActionMessages msgs, String key, Object... args) {
         ActionMessage temp =  new ActionMessage(key, args);
         msgs.add(ActionMessages.GLOBAL_MESSAGE, temp);
-    }    
+    }
 }

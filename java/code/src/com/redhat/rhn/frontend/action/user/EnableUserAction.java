@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class EnableUserAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
@@ -60,17 +60,17 @@ public class EnableUserAction extends RhnAction {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.enableuser"));
             throw pex;
         }
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long uid = requestContext.getRequiredParam("uid");
         User loggedInUser = requestContext.getLoggedInUser();
         User user = UserManager.lookupUser(loggedInUser, uid);
-        
+
         try {
             UserManager.enableUser(loggedInUser, user);
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("user.enable",
                         StringEscapeUtils.escapeHtml(user.getLogin())));
             getStrutsDelegate().saveMessages(request, msg);
@@ -83,7 +83,7 @@ public class EnableUserAction extends RhnAction {
             Map params = new HashMap();
             params.put("uid", uid);
             addErrors(request, errors);
-            return getStrutsDelegate().forwardParams(mapping.findForward("failure"), 
+            return getStrutsDelegate().forwardParams(mapping.findForward("failure"),
                     params);
         }
     }

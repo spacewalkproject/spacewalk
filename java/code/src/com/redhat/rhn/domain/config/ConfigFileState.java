@@ -25,75 +25,75 @@ public class ConfigFileState extends BaseDomainHelper {
     private Long id;
     private String label;
     private String name;
-    
+
     public static final String NORMAL =  "alive";
     public static final String DEAD =  "dead";
-    
+
     /**
-     * 
+     *
      * @return the alive ConfigFileState
      */
     public static ConfigFileState normal() {
         return ConfigurationFactory.lookupConfigFileStateByLabel(NORMAL);
     }
-    
+
     /**
-     * 
+     *
      * @return the dead ConfigFileState
      */
     public static ConfigFileState dead() {
         return ConfigurationFactory.lookupConfigFileStateByLabel(DEAD);
-    }    
+    }
     /**
      * protected constructor.
      * Use ConfigurationFactory to get ConfigFileStates.
      */
     protected ConfigFileState() {
-        
+
     }
 
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for label 
+    /**
+     * Getter for label
      * @return String to get
     */
     public String getLabel() {
         return this.label;
     }
 
-    /** 
-     * Setter for label 
+    /**
+     * Setter for label
      * @param labelIn to set
     */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
 
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * @return String to get
     */
     public String getName() {
         return this.name;
     }
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn to set
     */
     public void setName(String nameIn) {

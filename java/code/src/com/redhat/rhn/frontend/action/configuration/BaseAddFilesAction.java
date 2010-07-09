@@ -51,7 +51,7 @@ public abstract class BaseAddFilesAction extends RhnAction {
         ConfigFileForm cff = (ConfigFileForm) form;
 
         processRequest(request);
-        request.setAttribute(MAX_SIZE, 
+        request.setAttribute(MAX_SIZE,
                  StringUtil.displayFileSize(ConfigFile.getMaxFileSize()));
 
         if (isSubmitted(cff)) {
@@ -70,14 +70,14 @@ public abstract class BaseAddFilesAction extends RhnAction {
 
     /**
      * Check for new-file-creation validity. The order of importance is:
-     * 
+     *
      * <ol>
      * <li>IF upload - a file-to-be uploaded was provided</li>
      * <li>Filename and path are valid</li>
      * <li>Filename is unique in this channel</li>
      * <li>Everything Else</li>
      * </ol>
-     * 
+     *
      * @param req incoming request
      * @param cff associated ConfigFileForm
      * @param mapping incoming action-mapping
@@ -111,12 +111,12 @@ public abstract class BaseAddFilesAction extends RhnAction {
 
         // Yay! We actually might be able to create this file!
         try {
-            RequestContext ctx = new RequestContext(req);            
+            RequestContext ctx = new RequestContext(req);
             ConfigRevision cr = ConfigFileBuilder.getInstance().create(
                                             cff.toData(),
                                             ctx.getLoggedInUser(), channel);
             if (cr != null) {
-                
+
                 ConfigActionHelper.setupRequestAttributes(ctx, cr
                         .getConfigFile(), cr);
                 params.put("cfid", cr.getConfigFile().getId().toString());

@@ -33,49 +33,49 @@ public class PackageActionResult extends BaseDomainHelper implements Serializabl
     private Long resultCode;
     //private <blob> stderr;
     //private <blob> stdout;
-    
+
     /**
      * @return Returns the packageActionDetails.
      */
     public PackageActionDetails getDetails() {
         return details;
     }
-    
+
     /**
      * @param p The packageActionDetails to set.
      */
     public void setDetails(PackageActionDetails p) {
         this.details = p;
     }
-    
+
     /**
      * @return Returns the resultCode.
      */
     public Long getResultCode() {
         return resultCode;
     }
-    
+
     /**
      * @param r The resultCode to set.
      */
     public void setResultCode(Long r) {
         this.resultCode = r;
     }
-    
+
     /**
      * @return Returns the server.
      */
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * @param s The server to set.
      */
     public void setServer(Server s) {
         this.server = s;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -83,15 +83,15 @@ public class PackageActionResult extends BaseDomainHelper implements Serializabl
         if (obj == null || !(obj instanceof PackageActionResult)) {
             return false;
         }
-        
+
         PackageActionResult p = (PackageActionResult) obj;
-        
+
         return new EqualsBuilder().append(this.getDetails(), p.getDetails())
                                   .append(this.getServer(), p.getServer())
                                   .append(this.getResultCode(), p.getResultCode())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */

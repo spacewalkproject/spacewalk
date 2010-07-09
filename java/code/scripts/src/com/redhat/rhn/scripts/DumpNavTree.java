@@ -37,12 +37,12 @@ import java.util.Map;
 public class DumpNavTree {
     private NavTreeIndex treeIndex;
     private StringBuffer result;
-    
+
     private DumpNavTree(NavTreeIndex ti) {
         treeIndex = ti;
         result = new StringBuffer();
     }
-    
+
     /**
      * Dumps the nav tree to stdout using the TextRenderer.
      * @see TextRenderer
@@ -52,11 +52,11 @@ public class DumpNavTree {
         r.setRenderGuard(new DepthGuard(0, Integer.MAX_VALUE));
         System.out.println(render(r));
     }
-    
+
     private static void usage() {
         System.out.println("Usage: DumpNavTree <navfilename>");
     }
-    
+
 
     /**
      * Main method, expects a sitenav xml file name
@@ -67,9 +67,9 @@ public class DumpNavTree {
             usage();
             System.exit(-1);
         }
-        
+
         String filename = args[0];
-        
+
         try {
             File file = new File(filename);
             URL url = file.toURL();
@@ -92,7 +92,7 @@ public class DumpNavTree {
             e.printStackTrace();
         }
     }
-    
+
     private String render(Renderable renderer) {
         result = new StringBuffer();
         List todo = treeIndex.getTree().getNodes();
@@ -100,11 +100,11 @@ public class DumpNavTree {
         renderer.preNav(result);
         this.renderLevel(renderer, todo, null, 0);
         renderer.postNav(result);
-        
+
         return result.toString();
     }
 
-    private void renderLevel(Renderable renderer, List todo, 
+    private void renderLevel(Renderable renderer, List todo,
                              Map parameters, int depth) {
         if (todo == null || todo.size() == 0) {
             return;
@@ -115,7 +115,7 @@ public class DumpNavTree {
         int size = todo.size();
         for (int i = 0; i < size; i++) {
             NavNode node = (NavNode) todo.get(i);
-            
+
             // mark the nodes as first or last based on index.
             if (i == 0) {
                 node.setFirst(true);
@@ -123,7 +123,7 @@ public class DumpNavTree {
             else if (i == (size - 1)) {
                 node.setLast(true);
             }
-            
+
             renderer.preNavNode(this.result, depth);
 
             renderer.navNodeActive(result, node, treeIndex, parameters, depth);

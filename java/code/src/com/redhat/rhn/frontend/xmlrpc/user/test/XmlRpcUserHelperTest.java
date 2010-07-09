@@ -26,7 +26,7 @@ public class XmlRpcUserHelperTest extends BaseHandlerTestCase {
         assertNotNull(o);
         assertEquals(XmlRpcUserHelper.class, o.getClass());
     }
-    
+
     public void testLookupTargetUser() {
         User u = XmlRpcUserHelper.getInstance().lookupTargetUser(admin, admin.getLogin());
         assertEquals(admin, u);

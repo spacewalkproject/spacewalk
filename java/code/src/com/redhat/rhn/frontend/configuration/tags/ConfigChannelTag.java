@@ -33,7 +33,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 public class ConfigChannelTag extends TagSupport {
 
     /**
-    * <cfg:channel id="" value="" type="" size="large|small" nolink="">  
+    * <cfg:channel id="" value="" type="" size="large|small" nolink="">
     */
     private String id;
     private String name;
@@ -45,20 +45,20 @@ public class ConfigChannelTag extends TagSupport {
     public static final String CENTRAL_ALT_KEY = "config.common.globalAlt";
     public static final String LOCAL_ALT_KEY = "config.common.localAlt";
     public static final String SANDBOX_ALT_KEY = "config.common.sandboxAlt";
-    
+
     public static final String CENTRAL_LIST_ICON = "/img/rhn-listicon-channel.gif";
     public static final String LOCAL_LIST_ICON = "/img/rhn-listicon-system.gif";
     public static final String SANDBOX_LIST_ICON = "/img/rhn-listicon-sandbox.gif";
-    
+
     public static final String CENTRAL_HEADER_ICON = "/img/rhn-config_central.gif";
     public static final String LOCAL_HEADER_ICON = "/img/rhn-config_system.gif";
     public static final String SANDBOX_HEADER_ICON = "/img/rhn-config_sandbox.gif";
-    
-    public static final String CHANNEL_URL = 
+
+    public static final String CHANNEL_URL =
                                         "/rhn/configuration/ChannelOverview.do";
-    
+
     /**
-     * 
+     *
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = -8093937572650589326L;
@@ -72,15 +72,15 @@ public class ConfigChannelTag extends TagSupport {
             ConfigTagHelper.write("&nbsp;" + name, pageContext);
         }
         else {
-            ConfigTagHelper.write("<a href=\"" + 
-                        ConfigChannelTag.makeConfigChannelUrl(id) + 
+            ConfigTagHelper.write("<a href=\"" +
+                        ConfigChannelTag.makeConfigChannelUrl(id) +
                         "\">", pageContext);
             writeIcon();
             ConfigTagHelper.write("&nbsp;" + name + "</a>", pageContext);
         }
         return BodyTagSupport.SKIP_BODY;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -92,7 +92,7 @@ public class ConfigChannelTag extends TagSupport {
         super.release();
     }
 
-    
+
     /**
      * @param val the id to set
      */
@@ -100,7 +100,7 @@ public class ConfigChannelTag extends TagSupport {
         this.id = val;
     }
 
-    
+
     /**
      * @param isNoLink the nolink to set
      */
@@ -108,13 +108,13 @@ public class ConfigChannelTag extends TagSupport {
         this.nolink = Boolean.TRUE.toString().equalsIgnoreCase(isNoLink);
     }
 
-    
+
     /**
      * @param tp the type to set
      */
     public void setType(String tp) {
         this.type = tp;
-        
+
     }
 
     /**
@@ -129,74 +129,74 @@ public class ConfigChannelTag extends TagSupport {
             LOG.warn(ie.getMessage());
             return false;
         }
-        
-        
+
+
     }
 
-    
+
     /**
      * @param value the value to set
      */
     public void setName(String value) {
         this.name = value;
     }
-    
+
     private void writeIcon() throws JspException {
         if (checkType()) {
             Map iconMap = getIconMap();
-            
+
             String imgPath = (String)iconMap.get("LIST_" + type.toUpperCase());
             String altKey = (String)iconMap.get("KEY_" + type.toUpperCase());
-            ConfigTagHelper.writeIcon(imgPath, altKey, pageContext);            
+            ConfigTagHelper.writeIcon(imgPath, altKey, pageContext);
         }
         else {
             ConfigTagHelper.writeErrorIcon(pageContext);
         }
 
     }
-    
+
     private static Map getIconMap() {
         if (ICON_PATH_RETRIEVER.isEmpty()) {
             ICON_PATH_RETRIEVER.put("LIST_LOCAL_OVERRIDE", LOCAL_LIST_ICON);
             ICON_PATH_RETRIEVER.put("HEADER_LOCAL_OVERRIDE", LOCAL_HEADER_ICON);
-            ICON_PATH_RETRIEVER.put("KEY_LOCAL_OVERRIDE", LOCAL_ALT_KEY);            
-            
+            ICON_PATH_RETRIEVER.put("KEY_LOCAL_OVERRIDE", LOCAL_ALT_KEY);
+
             ICON_PATH_RETRIEVER.put("LIST_LOCAL", LOCAL_LIST_ICON);
             ICON_PATH_RETRIEVER.put("HEADER_LOCAL", LOCAL_HEADER_ICON);
-            ICON_PATH_RETRIEVER.put("KEY_LOCAL", LOCAL_ALT_KEY);            
-            
-            
+            ICON_PATH_RETRIEVER.put("KEY_LOCAL", LOCAL_ALT_KEY);
+
+
             ICON_PATH_RETRIEVER.put("LIST_NORMAL", CENTRAL_LIST_ICON);
             ICON_PATH_RETRIEVER.put("HEADER_NORMAL", CENTRAL_HEADER_ICON);
             ICON_PATH_RETRIEVER.put("KEY_NORMAL", CENTRAL_ALT_KEY);
-            
+
             ICON_PATH_RETRIEVER.put("LIST_CENTRAL", CENTRAL_LIST_ICON);
             ICON_PATH_RETRIEVER.put("HEADER_CENTRAL", CENTRAL_HEADER_ICON);
             ICON_PATH_RETRIEVER.put("KEY_CENTRAL", CENTRAL_ALT_KEY);
-            
+
             ICON_PATH_RETRIEVER.put("LIST_GLOBAL", CENTRAL_LIST_ICON);
             ICON_PATH_RETRIEVER.put("HEADER_GLOBAL", CENTRAL_HEADER_ICON);
-            ICON_PATH_RETRIEVER.put("KEY_GLOBAL", CENTRAL_ALT_KEY);            
-            
-            ICON_PATH_RETRIEVER.put("LIST_SERVER_IMPORT", SANDBOX_LIST_ICON);            
+            ICON_PATH_RETRIEVER.put("KEY_GLOBAL", CENTRAL_ALT_KEY);
+
+            ICON_PATH_RETRIEVER.put("LIST_SERVER_IMPORT", SANDBOX_LIST_ICON);
             ICON_PATH_RETRIEVER.put("HEADER_SERVER_IMPORT", SANDBOX_HEADER_ICON);
             ICON_PATH_RETRIEVER.put("KEY_SERVER_IMPORT", SANDBOX_ALT_KEY);
-            
-            ICON_PATH_RETRIEVER.put("LIST_SANDBOX", SANDBOX_LIST_ICON);            
+
+            ICON_PATH_RETRIEVER.put("LIST_SANDBOX", SANDBOX_LIST_ICON);
             ICON_PATH_RETRIEVER.put("HEADER_SANDBOX", SANDBOX_HEADER_ICON);
-            ICON_PATH_RETRIEVER.put("KEY_SANDBOX", SANDBOX_ALT_KEY);            
+            ICON_PATH_RETRIEVER.put("KEY_SANDBOX", SANDBOX_ALT_KEY);
         }
-        
+
         return ICON_PATH_RETRIEVER;
     }
 
-    
+
     /**
-     * Returns the URL to view a config channel 
+     * Returns the URL to view a config channel
      * This method may also be used with the el expression
      * ${cfg:channelUrl(ccid)}
      * This method is public static because
-     * EL functions defined in a TLD file, 
+     * EL functions defined in a TLD file,
      * need to be public static methods..
      * @param ccId the id of the given Config Channel
      * @return the URL to view a config channel
@@ -208,8 +208,8 @@ public class ConfigChannelTag extends TagSupport {
     /**
      * Returns the Header icon image path  for a given channel type
      * This method is public static because
-     * EL functions defined in a TLD file, 
-     * need to be public static methods..     
+     * EL functions defined in a TLD file,
+     * need to be public static methods..
      * @param type the config channel type
      * @return the image path
      */
@@ -221,26 +221,26 @@ public class ConfigChannelTag extends TagSupport {
     /**
      * Returns the list icon image path  for a given channel type
      * This method is public static because
-     * EL functions defined in a TLD file, 
-     * need to be public static methods..     
+     * EL functions defined in a TLD file,
+     * need to be public static methods..
      * @param type the config channel type
      * @return the image path
      */
     public static final String getListIconFor(String type) {
         Map map = getIconMap();
         return (String) map.get("LIST_" + type.toUpperCase());
-    }    
-    
+    }
+
     /**
      * Returns the Header alt key  for a given channel type
      * This method is public static because
-     * EL functions defined in a TLD file, 
-     * need to be public static methods.. 
+     * EL functions defined in a TLD file,
+     * need to be public static methods..
      * @param type the config channel type
-     * @return the alt key 
+     * @return the alt key
      */
     public static final String getAltKeyFor(String type) {
         Map map = getIconMap();
         return (String) map.get("KEY_" + type.toUpperCase());
-    }    
+    }
 }

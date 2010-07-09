@@ -24,18 +24,18 @@ import com.redhat.rhn.common.localization.LocalizationService;
 public abstract class ValidationMessage {
     private String key;
     private Object[] values;
-    
+
     /**
      * Construct a ValidationMessage with the proper
-     * key and values 
+     * key and values
      * @param keyIn the key to use to lookup the localized string
      * @param valuesIn the values to substitute in the message
      */
      public ValidationMessage(String keyIn, Object... valuesIn) {
          this.key = keyIn;
          this.values = valuesIn;
-     }    
-     
+     }
+
      /**
       * Construct a new ValidationMessage with the specified
       * l10n key
@@ -43,8 +43,8 @@ public abstract class ValidationMessage {
       */
      public ValidationMessage(String keyIn) {
          this(keyIn, (Object[])null);
-     } 
-     
+     }
+
      /**
       * Get the key value
       * @return String key to use to lookup the localized string
@@ -52,7 +52,7 @@ public abstract class ValidationMessage {
       public String getKey() {
           return this.key;
       }
-      
+
       /**
       * Get the values array
       * @return Object[] array of values to substitute
@@ -60,7 +60,7 @@ public abstract class ValidationMessage {
       public Object[] getValues() {
           return values;
       }
-      
+
       /** {@inheritDoc} */
       public String toString() {
           return "ValidatorMessage [Key: " + key + "]";
@@ -77,9 +77,9 @@ public abstract class ValidationMessage {
           }
           return ls.getPlainText(key, values);
       }
-     
+
       /**
-       * Returns the internationalized 
+       * Returns the internationalized
        * message associated to this error
        * @return the i18ned message
        */
@@ -88,6 +88,6 @@ public abstract class ValidationMessage {
           if (values == null || values.length == 0) {
               return ls.getMessage(key);
           }
-          return ls.getMessage(key, values);         
+          return ls.getMessage(key, values);
       }
 }

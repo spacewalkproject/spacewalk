@@ -23,12 +23,12 @@
 	         decorator="SelectableDecorator"
 	         width="100%"
 	         >
-	    <rl:selectablecolumn value="${current.id}" 
-	    	selected="${current.selected}" 
+	    <rl:selectablecolumn value="${current.id}"
+		selected="${current.selected}"
 	    	styleclass="first-column"/>
 	    <!--  System Name -->
-		<rl:column bound="false" 
-			headerkey="system.common.systemName" 
+		<rl:column bound="false"
+			headerkey="system.common.systemName"
 			sortable="true"
 			sortattr="name">
 			<a href="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
@@ -49,4 +49,3 @@
 </rl:listset>
 </body>
 </html>
-	  

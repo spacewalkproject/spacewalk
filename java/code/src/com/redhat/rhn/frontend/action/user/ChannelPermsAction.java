@@ -45,26 +45,26 @@ public class ChannelPermsAction extends RhnListAction {
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest request, HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         Long uid = requestContext.getParamAsLong("uid");
         DynaActionForm form = (DynaActionForm) formIn;
         String role = (String)form.get("role");
         if (uid == null || role.equals("")) {
             throw new BadParameterException("uid is null or role is empty string");
         }
-        
+
         User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, user);
-        
+
         String[] channels = (String[]) form.get("cid");
         String[] selected = (String[]) form.get("selectedChannels");
 
         List channelList = Arrays.asList(channels);
         List selectedList = Arrays.asList(selected);
-        
+
         for (Iterator i = channelList.iterator(); i.hasNext();) {
             String currentChannel = (String) i.next();
             boolean isSet = selectedList.contains(currentChannel);
@@ -82,9 +82,9 @@ public class ChannelPermsAction extends RhnListAction {
         Map params = makeParamMap(request);
 
         params.put("uid", uid);
-        params.put(RequestContext.FILTER_STRING, 
+        params.put(RequestContext.FILTER_STRING,
                 request.getParameter(RequestContext.FILTER_STRING));
-        
+
         return strutsDelegate.forwardParams(mapping.findForward(role), params);
     }
 }

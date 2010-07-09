@@ -21,5 +21,5 @@ import com.redhat.rhn.domain.AbstractLabelNameHelper;
  * @version $Rev$
  */
 public class CPUArch extends AbstractLabelNameHelper {
-    
+
 }

@@ -24,7 +24,7 @@ import java.util.Map;
  *    methods to convert XML Schema data types to Java
  *    types and Java data types to XML Schema types.
  * </p>
- * 
+ *
  * @version $Rev$
  */
 public class DataConverter {
@@ -43,17 +43,17 @@ public class DataConverter {
      *  This (intentionally left) private constructor handles initialization
      *    of the data mappings. It can only be created internally, and forces
      *    the singleton pattern to be used.
-     * </p> 
+     * </p>
      */
     private DataConverter() {
         schemaMappings = getSchemaMappings();
         javaMappings = new HashMap();
         Iterator i = schemaMappings.keySet().iterator();
-        while (i.hasNext()) { 
+        while (i.hasNext()) {
             Object key = i.next();
             javaMappings.put(schemaMappings.get(key), key);
         }
-    } 
+    }
 
     /**
      * <p>

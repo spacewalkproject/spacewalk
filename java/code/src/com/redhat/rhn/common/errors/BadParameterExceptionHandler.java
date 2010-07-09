@@ -32,9 +32,9 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class BadParameterExceptionHandler extends ExceptionHandler {
-    
+
     private BadParameterException exception;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -43,8 +43,8 @@ public class BadParameterExceptionHandler extends ExceptionHandler {
         log.error("Missing Parameter Error", ex);
         exception = (BadParameterException) ex;
     }
-    
-    protected void storeException(HttpServletRequest request, String property, 
+
+    protected void storeException(HttpServletRequest request, String property,
             ActionMessage msg, ActionForward forward, String scope) {
         TraceBackEvent evt = new TraceBackEvent();
         User usr = new RequestContext(request).getLoggedInUser();
@@ -55,5 +55,5 @@ public class BadParameterExceptionHandler extends ExceptionHandler {
 
         request.setAttribute("error", exception);
     }
-    
+
 }

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.action.config.ConfigRevisionAction" 
+	<class name="com.redhat.rhn.domain.action.config.ConfigRevisionAction"
 		table="rhnActionConfigRevision" >
 		<id name="id" type="long" column="id">
 			<meta attribute="scope-set">protected</meta>
@@ -11,7 +11,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				<param name="sequence">rhn_actioncr_id_seq</param>
 			</generator>
 		</id>
-        
+
 	    <!-- Bidirectional, required as BillingDetails is ACTION_ID NOT NULL. This is also
 	         a read-only property that will never be updated. -->
 	    <many-to-one name="parentAction"
@@ -21,17 +21,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                      update="false"
 				     outer-join="false"
 				     foreign-key="rhn_actioncr_aid_fk"/>
-        
+
 		<property name="failureId" column="failure_id" type="long" />
 		<property name="created" column="created" type="timestamp" />
 		<property name="modified" column="modified" type="timestamp" />
-		<many-to-one name="server" class="com.redhat.rhn.domain.server.Server" 
+		<many-to-one name="server" class="com.redhat.rhn.domain.server.Server"
 			column="server_id" cascade="none" />
-		<many-to-one name="configRevision" 
-			class="com.redhat.rhn.domain.config.ConfigRevision" 
+		<many-to-one name="configRevision"
+			class="com.redhat.rhn.domain.config.ConfigRevision"
 			column="config_revision_id" cascade="none" />
-		<one-to-one name="configRevisionActionResult" 
-			class="com.redhat.rhn.domain.action.config.ConfigRevisionActionResult" 
+		<one-to-one name="configRevisionActionResult"
+			class="com.redhat.rhn.domain.action.config.ConfigRevisionActionResult"
 			outer-join="false" cascade="all" constrained="false" />
 	</class>
 </hibernate-mapping>

@@ -56,7 +56,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
             .asList("2.1AS", "2.1ES", "2.1WS", "3AS", "3ES", "3WS", "3Desktop", "4AS",
                     "4ES", "4WS", "4Desktop"));
     private static List<String> archesToSkipRepodata = new ArrayList<String>(Arrays
-            .asList("channel-sparc-sun-solaris", "channel-i386-sun-solaris", 
+            .asList("channel-sparc-sun-solaris", "channel-i386-sun-solaris",
                     "channel-sparc"));
     private String baseDir;
     private ChannelArch channelArch;
@@ -89,7 +89,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private String maintainerEmail;
     private String maintainerPhone;
     private String supportPolicy;
-    
+
     /**
      * @param orgIn what org you want to know if it is globally subscribable in
      * @return Returns whether or not this channel is globally subscribable.
@@ -160,7 +160,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setChannelArch(ChannelArch c) {
         this.channelArch = c;
     }
-    
+
     /**
      * @return Returns the channelChecksum.
      */
@@ -413,14 +413,14 @@ public class Channel extends BaseDomainHelper implements Comparable {
         // So we are better off using a hibernate query for the count...
         return ChannelFactory.getPackageCount(this);
     }
-    
+
     /**
      * @return Returns the size of the package set for this channel.
      */
     public int getErrataCount() {
         return ChannelFactory.getErrataCount(this);
     }
-    
+
 
     /**
      * Sets the packages set for this channel
@@ -512,7 +512,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     }
 
     /**
-     * 
+     *
      * @param trustedOrgsIn set of trusted orgs for this channel
      */
     public void setTrustedOrgs(Set<Org> trustedOrgsIn) {
@@ -520,7 +520,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     }
 
     /**
-     * 
+     *
      * @return set of trusted orgs for this channel
      */
     public Set<Org> getTrustedOrgs() {
@@ -638,10 +638,10 @@ public class Channel extends BaseDomainHelper implements Comparable {
 
     /**
      * Check if this channel is subscribable by the Org passed in. Checks:
-     * 
+     *
      * 1) If channel is a Proxy or Spacewalk channel == false 2) If channel has
      * 0 (or less) available subscriptions == false.
-     * 
+     *
      * @param orgIn to check available subs
      * @param server to check if subscribable
      * @return boolean if subscribable or not
@@ -709,7 +709,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     }
 
     /**
-     * 
+     *
      * @return wheter channel is protected
      */
     public boolean isProtected() {
@@ -829,9 +829,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
         DistChannelMap channelDist = ChannelFactory.lookupDistChannelMap(toConsider);
         if (channelDist != null) {
             release = channelDist.getRelease();
-        } 
+        }
         else { // and now again for zstreams
-            ReleaseChannelMap channelRelease = 
+            ReleaseChannelMap channelRelease =
                 ChannelFactory.lookupDefaultReleaseChannelMapForChannel(toConsider);
             if (channelRelease != null) {
                 release = channelRelease.getRelease();
@@ -880,7 +880,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * @return checksumType
      */
     public String getChecksumTypeLabel() {
-        
+
         if ((checksumType == null) || (checksumType.getLabel() == null)) {
             // each channel shall have set checksumType
             return null;

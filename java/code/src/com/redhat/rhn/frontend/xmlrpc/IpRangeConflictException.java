@@ -31,7 +31,7 @@ public class IpRangeConflictException extends FaultException  {
      */
     public IpRangeConflictException(String range) {
         super(2785, "ipRange" , LocalizationService.getInstance().
-                getMessage("api.kickstart.iprange.duplicate", 
+                getMessage("api.kickstart.iprange.duplicate",
                         new Object [] {range}));
     }
 
@@ -42,8 +42,8 @@ public class IpRangeConflictException extends FaultException  {
      */
     public IpRangeConflictException(String range, Throwable cause) {
         super(2785, "ipRange" , LocalizationService.getInstance().
-                getMessage("api.kickstart.iprange.duplicate", 
+                getMessage("api.kickstart.iprange.duplicate",
                         new Object [] {range}), cause);
     }
-    
+
 }

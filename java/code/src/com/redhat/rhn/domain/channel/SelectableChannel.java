@@ -25,9 +25,9 @@ public class SelectableChannel  implements Selectable, Comparable {
 
     private Channel channel;
     private boolean selected = false;
-    
-    
-    
+
+
+
     /**
      * Constuctor
      * @param chan the chan to wrap
@@ -35,8 +35,8 @@ public class SelectableChannel  implements Selectable, Comparable {
     public SelectableChannel(Channel chan) {
         channel = chan;
     }
-    
-    
+
+
     /**
      * checks to see if this is a base channel
      * @return true if it is a base channel, false otherwise
@@ -44,9 +44,9 @@ public class SelectableChannel  implements Selectable, Comparable {
     public boolean isBaseChannel() {
         return channel.isBaseChannel();
     }
-    
-    
-    
+
+
+
     /**
      * @return Returns the channel.
      */
@@ -54,7 +54,7 @@ public class SelectableChannel  implements Selectable, Comparable {
         return channel;
     }
 
-    
+
     /**
      * @param channelIn The channel to set.
      */
@@ -62,7 +62,7 @@ public class SelectableChannel  implements Selectable, Comparable {
         this.channel = channelIn;
     }
 
-    
+
     /**
      * @return Returns the id.
      */
@@ -70,7 +70,7 @@ public class SelectableChannel  implements Selectable, Comparable {
         return channel.getId();
     }
 
-    
+
     /**
      * @param id The id to set.
      */
@@ -78,7 +78,7 @@ public class SelectableChannel  implements Selectable, Comparable {
         channel.setId(id);
     }
 
-    
+
     /**
      * @return Returns the name.
      */
@@ -86,7 +86,7 @@ public class SelectableChannel  implements Selectable, Comparable {
         return channel.getName();
     }
 
-    
+
     /**
      * @param name The name to set.
      */
@@ -115,11 +115,11 @@ public class SelectableChannel  implements Selectable, Comparable {
         return selected;
     }
 
-    /** 
+    /**
      * {@inheritDoc}
      */
     public void setSelected(boolean selectedIn) {
-        selected = selectedIn;        
+        selected = selectedIn;
     }
 
     /**
@@ -129,7 +129,7 @@ public class SelectableChannel  implements Selectable, Comparable {
        return this.getChannel().getName().compareTo(((SelectableChannel)o).
                getChannel().getName());
     }
-    
-    
+
+
 
 }

@@ -23,73 +23,73 @@ import java.util.Date;
  * @version $Rev: 50942 $
  */
 public class FilterDto extends BaseDto {
-    
+
     private Long recid;
     private String redirectType;
     private String description;
     private Date expiration;
-    
+
     /**
      * {@inheritDoc}
      */
     public Long getId() {
         return recid;
     }
-    
+
     /**
      * @return Returns the description.
      */
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * @param descriptionIn The description to set.
      */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
-    
+
     /**
      * @return Returns the expiration.
      */
     public Date getExpiration() {
         return expiration;
     }
-    
+
     /**
      * @param expirationIn The expiration to set.
      */
     public void setExpiration(Date expirationIn) {
         this.expiration = expirationIn;
     }
-    
+
     /**
      * @return Returns the recid.
      */
     public Long getRecid() {
         return recid;
     }
-    
+
     /**
      * @param recidIn The recid to set.
      */
     public void setRecid(Long recidIn) {
         this.recid = recidIn;
     }
-    
+
     /**
      * @return Returns the redirectType.
      */
     public String getRedirectType() {
         return redirectType;
     }
-    
+
     /**
      * @param redirectTypeIn The redirectType to set.
      */
     public void setRedirectType(String redirectTypeIn) {
         this.redirectType = redirectTypeIn;
-    }   
-       
+    }
+
 }

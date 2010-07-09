@@ -37,7 +37,7 @@ public class GeneralConfigActionTest extends RhnMockStrutsTestCase {
         assertTrue(GeneralConfigAction.ALLOWED_CONFIGS.
                 contains(TEST_CONFIG_BOOLEAN));
     }
-    
+
     public void testNonSubmit() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
@@ -56,58 +56,58 @@ public class GeneralConfigActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         DynaActionForm af = (DynaActionForm) getActionForm();
         while (i.hasNext()) {
-            String config = 
+            String config =
                 GeneralConfigAction.translateFormPropertyName((String) i.next());
             String configValue = Config.get().getString(config);
             Object formValue = af.get(config);
             if (configValue != null) {
                 assertNotNull(formValue);
-                Config.get().setString(config, 
+                Config.get().setString(config,
                         (String) originalConfigValues.get(config));
             }
         }
     }
-    
+
     public void testSubmit() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
         setRequestPathInfo("/admin/config/GeneralConfig");
         Config.get().setString("web.com.redhat.rhn.frontend." +
-                "action.satellite.GeneralConfigAction.command", 
+                "action.satellite.GeneralConfigAction.command",
                 TestConfigureSatelliteCommand.class.getName());
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        
+
         boolean origValue = new Boolean(Config.get().
             getString(TEST_CONFIG_BOOLEAN)).booleanValue();
-        
+
         boolean changedValue = !origValue;
         addRequestParameter(
                 GeneralConfigAction.translateFormPropertyName(
-                        TEST_CONFIG_BOOLEAN), 
+                        TEST_CONFIG_BOOLEAN),
                             new Boolean(changedValue).toString());
         actionPerform();
         assertEquals(changedValue, Config.get().
                 getBoolean(TEST_CONFIG_BOOLEAN));
         Config.get().setBoolean(TEST_CONFIG_BOOLEAN, new Boolean(origValue).toString());
         verifyForward("failure");
-        
+
         addRequestParameter(
-                GeneralConfigAction.translateFormPropertyName("traceback_mail"), 
+                GeneralConfigAction.translateFormPropertyName("traceback_mail"),
                 "testuser@redhat.com");
         addRequestParameter(
-                GeneralConfigAction.translateFormPropertyName("server.jabber_server"), 
+                GeneralConfigAction.translateFormPropertyName("server.jabber_server"),
                 "testbox");
-        
+
         actionPerform();
-        
+
         assertEquals("testuser@redhat.com", Config.get().getString("traceback_mail"));
         assertEquals("testbox", Config.get().getString("server.jabber_server"));
-        
+
         verifyActionMessages(new String[] {"config.restartrequired"});
-        
+
 
         Config.get().setBoolean(TEST_CONFIG_BOOLEAN, new Boolean(origValue).toString());
     }
- 
+
 }
 

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.ProbeState" 
+    <class name="com.redhat.rhn.domain.monitoring.ProbeState"
         table="rhn_probe_state" >
         <id name="probeId" type="long" column="probe_id">
             <meta attribute="scope-set">protected</meta>
@@ -11,13 +11,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="property">probe</param>
             </generator>
         </id>
-        <property name="scoutId" column="scout_id" not-null="true" type="long" 
+        <property name="scoutId" column="scout_id" not-null="true" type="long"
             />
         <property name="state" column="state" type="string" length="20" />
         <property name="output" column="output" type="string" length="4000" />
-        <property name="lastCheck" column="last_check" type="timestamp" 
+        <property name="lastCheck" column="last_check" type="timestamp"
             update="false"/>
-        <many-to-one name="probe" column="probe_id" 
+        <many-to-one name="probe" column="probe_id"
             class="com.redhat.rhn.domain.monitoring.ServerProbe"
             not-null="true" insert="false" update="false" />
     </class>

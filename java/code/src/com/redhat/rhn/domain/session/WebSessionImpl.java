@@ -21,7 +21,7 @@ import com.redhat.rhn.manager.session.SessionManager;
 import org.apache.log4j.Logger;
 
 /**
- * A web session 
+ * A web session
  * @version $Rev$
  */
 public class WebSessionImpl implements WebSession {
@@ -31,7 +31,7 @@ public class WebSessionImpl implements WebSession {
     private long expires;
     private Long webUserId;
     private String value;
-    
+
     /**
      * Protected Constructor
      */
@@ -39,7 +39,7 @@ public class WebSessionImpl implements WebSession {
         // keep Hibernate & perl from blowing chunks
         value = " ";
     }
-    
+
     /** {@inheritDoc} */
     public Long getId() {
         return id;
@@ -99,7 +99,7 @@ public class WebSessionImpl implements WebSession {
     public String getValue() {
         return value;
     }
-    
+
     private void setValue(String val) {
         value = val;
     }
@@ -112,8 +112,8 @@ public class WebSessionImpl implements WebSession {
             throw new InvalidSessionIdException("Attempted to get key for session with " +
                                                 "an invalid id");
         }
-        
+
         return id.toString() + "x" + SessionManager.generateSessionKey(id.toString());
     }
-    
+
 }

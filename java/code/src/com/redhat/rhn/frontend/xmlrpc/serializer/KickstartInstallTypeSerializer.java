@@ -30,7 +30,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  *
  * @xmlrpc.doc
- * 
+ *
  * #struct("kickstart install type")
  *   #prop("int", "id")
  *   #prop("string", "label")
@@ -48,15 +48,15 @@ public class KickstartInstallTypeSerializer implements XmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
-     * @throws IOException 
+     * @throws IOException
      */
     public void serialize(Object value, Writer output,
                           XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
+
         KickstartInstallType type = (KickstartInstallType) value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
-        
+
         helper.add("id", type.getId());
         helper.add("label", type.getLabel());
         helper.add("name", type.getName());

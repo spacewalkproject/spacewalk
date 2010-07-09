@@ -31,11 +31,11 @@ import org.apache.struts.action.Action;
 
 /**
  * PatchListSetupTest
- * @version 
+ * @version
  */
 public class PatchListSetupTest extends RhnBaseTestCase {
     private Action action = null;
-    
+
     public void setUp() {
         action = new PatchListSetupAction();
     }
@@ -43,7 +43,7 @@ public class PatchListSetupTest extends RhnBaseTestCase {
     public void testFoo() {
         System.out.println("We need to figure out how to fix these patch tests");
     }
-    
+
     public void atestExecute() throws Exception {
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action);
@@ -53,24 +53,24 @@ public class PatchListSetupTest extends RhnBaseTestCase {
         Server server = ServerFactory.lookupById(new Long(1000010004));
         sah.getRequest().setupAddParameter("uid", server.getCreator().getId().toString());
         sah.executeAction();
-        
-        
+
+
         RhnMockHttpServletRequest request = sah.getRequest();
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         RhnSet set = (RhnSet) request.getAttribute("set");
-        
+
         DataResult dr = (DataResult) request.getAttribute("pageList");
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
         assertNotNull(set);
         assertEquals("removable_patch_list", set.getLabel());
-        
+
         //now test the PatchListAction
-        
-        sah.setUpAction(new PatchListAction());    
+
+        sah.setUpAction(new PatchListAction());
         sah.setupClampListBounds();
         sah.getRequest().setupAddParameter("uid", server.getCreator().getId().toString());
         String [] selected = { "407|326", "438|351" };
@@ -78,8 +78,8 @@ public class PatchListSetupTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("items_on_page", (String)null);
         sah.getRequest().setupAddParameter("items_selected", selected);
         sah.executeAction();
-                
+
         assertFalse(RhnSetDecl.PATCH_REMOVE.get(user).isEmpty());
-        
+
     }
 }

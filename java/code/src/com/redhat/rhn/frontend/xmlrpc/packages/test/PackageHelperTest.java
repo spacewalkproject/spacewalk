@@ -31,11 +31,11 @@ public class PackageHelperTest extends RhnBaseTestCase {
         assertTrue(map.containsKey(key));
         assertEquals(value, map.get(key));
     }
-    
+
     public void testPackageToMap() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         Package pkg = PackageTest.createTestPackage(user.getOrg());
-        
+
         Map map = PackageHelper.packageToMap(pkg, user);
 
         assertKey(map, "name", pkg.getPackageName().getName());
@@ -57,19 +57,19 @@ public class PackageHelperTest extends RhnBaseTestCase {
         assertKey(map, "last_modified_date", pkg.getLastModified().toString());
         assertKey(map, "size", pkg.getPackageSize().toString());
         assertKey(map, "payload_size", pkg.getPayloadSize().toString());
-        
+
         assertKey(map, "providing_channels", Collections.EMPTY_LIST);
     }
-    
+
     public void testPackage2MapWithNulls() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         Package pkg = PackageTest.createTestPackage(user.getOrg());
-        
+
         // DO NOT delete this, otherwise Hibernate tries to freakin
         // store the object with nulls and blows up. We don't care
         // about the DB at this point, just need an object to read.
         TestUtils.flushAndEvict(pkg);
-        
+
         // modify the input for negative testing
         pkg.setBuildTime(null);
         pkg.setLastModified(null);
@@ -78,7 +78,7 @@ public class PackageHelperTest extends RhnBaseTestCase {
         pkg.setPackageName(null);
         pkg.setPackageEvr(null);
         pkg.setPackageArch(null);
-        
+
         Map map = PackageHelper.packageToMap(pkg, user);
         assertKey(map, "build_date", "");
         assertKey(map, "last_modified_date", "");
@@ -90,5 +90,5 @@ public class PackageHelperTest extends RhnBaseTestCase {
         assertKey(map, "release", "");
         assertKey(map, "arch_label", "");
     }
-    
+
 }

@@ -32,7 +32,7 @@ public class ConfigChannelSetComparator implements Comparator {
     public int compare(Object o1, Object o2) {
         Long first = ((RhnSetElement)o1).getElementTwo();
         Long second = ((RhnSetElement)o2).getElementTwo();
-        
+
         //Nulls always come last.
         if (first == null) {
             return 1;
@@ -40,7 +40,7 @@ public class ConfigChannelSetComparator implements Comparator {
         else if (second == null) {
             return -1;
         }
-            
+
         //The least comes first.
         if (first.equals(second)) {
             return 0;
@@ -52,5 +52,5 @@ public class ConfigChannelSetComparator implements Comparator {
             return 1;
         }
     }
-    
+
 }

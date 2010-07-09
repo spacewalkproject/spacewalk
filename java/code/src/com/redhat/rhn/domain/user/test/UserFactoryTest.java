@@ -50,7 +50,7 @@ import java.util.List;
 
 public class UserFactoryTest extends RhnBaseTestCase {
     private UserFactory factory;
-    
+
     public void setUp() {
         factory = UserFactory.getInstance();
     }
@@ -282,62 +282,62 @@ public class UserFactoryTest extends RhnBaseTestCase {
         assertTrue(dbAddr.getId().intValue() > 0);
         assertEquals("444 Castro", dbAddr.getAddress1());
     }
-    
+
     public void testUserServerPreferenceLookup() throws Exception {
-        User user = UserTestUtils.findNewUser(TestStatics.TESTUSER, 
+        User user = UserTestUtils.findNewUser(TestStatics.TESTUSER,
                                               TestStatics.TESTORG);
-        
+
         Server s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        
-        UserServerPreferenceId id = new UserServerPreferenceId(user, 
-                                                               s, 
+
+        UserServerPreferenceId id = new UserServerPreferenceId(user,
+                                                               s,
                                                                UserServerPreferenceId
                                                                .RECEIVE_NOTIFICATIONS);
-        
+
         UserServerPreference usp = new UserServerPreference();
         usp.setId(id);
         usp.setValue("0");
         TestUtils.saveAndFlush(usp);
-        
+
         usp = null;
-        usp = factory.lookupServerPreferenceByUserServerAndName(user, s, 
+        usp = factory.lookupServerPreferenceByUserServerAndName(user, s,
                                       UserServerPreferenceId.RECEIVE_NOTIFICATIONS);
-        
+
         assertNotNull(usp);
         assertEquals(usp.getValue(), "0");
-        
+
     }
-    
+
     public void testSetUserServerPreferenceTrue() throws Exception {
         User user = UserTestUtils.findNewUser(TestStatics.TESTUSER,
                                               TestStatics.TESTORG);
-        
+
         Server s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        
-        UserFactory.getInstance().setUserServerPreferenceValue(user, 
-                                                 s, 
+
+        UserFactory.getInstance().setUserServerPreferenceValue(user,
+                                                 s,
                                                  UserServerPreferenceId
                                                  .RECEIVE_NOTIFICATIONS,
                                                  false);
-      
-        assertFalse(UserManager.lookupUserServerPreferenceValue(user, 
-                                                                s, 
+
+        assertFalse(UserManager.lookupUserServerPreferenceValue(user,
+                                                                s,
                                                                 UserServerPreferenceId
                                                                 .RECEIVE_NOTIFICATIONS));
-        
-        factory.setUserServerPreferenceValue(user, 
-                                                 s, 
+
+        factory.setUserServerPreferenceValue(user,
+                                                 s,
                                                  UserServerPreferenceId
                                                  .RECEIVE_NOTIFICATIONS,
                                                  true);
-        
-        assertTrue(UserManager.lookupUserServerPreferenceValue(user, 
-                                                               s, 
+
+        assertTrue(UserManager.lookupUserServerPreferenceValue(user,
+                                                               s,
                                                                UserServerPreferenceId
                                                                .RECEIVE_NOTIFICATIONS));
-        
+
     }
 
     public void testSatelliteHasUsers() {

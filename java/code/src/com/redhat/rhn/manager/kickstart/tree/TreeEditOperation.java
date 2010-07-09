@@ -46,8 +46,8 @@ public class TreeEditOperation extends BaseTreeEditOperation {
         this.tree = KickstartFactory.
             lookupKickstartTreeByIdAndOrg(treeId, userIn.getOrg());
     }
-    
-    
+
+
     /**
      * Constructor for use when deleting an existing KickstartableTree
      * @param treeLabel to lookup
@@ -67,6 +67,6 @@ public class TreeEditOperation extends BaseTreeEditOperation {
         }
         return new CobblerDistroEditCommand(this.tree, this.user);
     }
-    
+
 
 }

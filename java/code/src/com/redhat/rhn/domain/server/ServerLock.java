@@ -29,12 +29,12 @@ public class ServerLock {
     private User locker;
     private String reason;
     private Date created;
-    
+
     /** Default constructor */
     public ServerLock() {
-        
+
     }
-    
+
     /**
      * @param lockerIn User locking the server
      * @param s Server being locked
@@ -45,7 +45,7 @@ public class ServerLock {
         this.server = s;
         this.reason = reasonIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
@@ -59,7 +59,7 @@ public class ServerLock {
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * @return Returns the server.
      */
@@ -74,15 +74,15 @@ public class ServerLock {
         this.server = serverIn;
     }
 
-    /** 
-     * Getter for locker 
+    /**
+     * Getter for locker
      * @return User to get
     */
     public User getLocker() {
         return this.locker;
     }
 
-    /** 
+    /**
      * Setter for locker
      * @param lockerIn to set
     */
@@ -90,32 +90,32 @@ public class ServerLock {
         this.locker = lockerIn;
     }
 
-    /** 
-     * Getter for reason 
+    /**
+     * Getter for reason
      * @return String to get
     */
     public String getReason() {
         return this.reason;
     }
 
-    /** 
-     * Setter for reason 
+    /**
+     * Setter for reason
      * @param reasonIn to set
     */
     public void setReason(String reasonIn) {
         this.reason = reasonIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {

@@ -32,16 +32,16 @@ import java.util.Map;
  * @version $Rev: 1 $
  */
 public class ProbeList extends BaseListAction {
-    
+
     public static final String PROBE_STATE = "state";
-    
+
     public static final String PROBE_COUNT_CRITICAL = "criticalCount";
     public static final String PROBE_COUNT_WARNING = "warningCount";
     public static final String PROBE_COUNT_PENDING = "pendingCount";
     public static final String PROBE_COUNT_UNKNOWN = "unknownCount";
     public static final String PROBE_COUNT_OK = "okCount";
     public static final String PROBE_COUNT_ALL = "allCount";
-    
+
     /**
      * {@inheritDoc}
      */
@@ -52,10 +52,10 @@ public class ProbeList extends BaseListAction {
             stateparam = "all";
         }
         stateparam = stateparam.toLowerCase();
-        // Add all/warning/ok/Class css classname 
+        // Add all/warning/ok/Class css classname
         rctx.getRequest().setAttribute(stateparam + "Class", "content-nav-selected");
         rctx.getRequest().setAttribute(stateparam + "Link", "content-nav-selected-link");
-        
+
         // Setup the probe state summary
         Map counts = new HashMap();
         counts.put(PROBE_COUNT_CRITICAL, "0");
@@ -64,7 +64,7 @@ public class ProbeList extends BaseListAction {
         counts.put(PROBE_COUNT_UNKNOWN, "0");
         counts.put(PROBE_COUNT_OK, "0");
         counts.put(PROBE_COUNT_ALL, "0");
-        
+
         List stateCount = MonitoringManager.getInstance().
             listProbeStateSummary(rctx.getCurrentUser());
         Iterator i = stateCount.iterator();
@@ -77,7 +77,7 @@ public class ProbeList extends BaseListAction {
             counts.put(state + "Count", cnt.toString());
         }
         counts.put(PROBE_COUNT_ALL, Long.toString(stateSum));
-        
+
         i = counts.keySet().iterator();
         while (i.hasNext()) {
             String key = (String) i.next();

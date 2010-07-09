@@ -5,11 +5,11 @@
 <c:choose>
   <c:when test="${requestScope.showErrata == 'true'}">
 <form method="post" name="rhn_list" action="/YourRhn.do">
-    <rhn:list pageList="${requestScope.errataSecurityfixList}" 
+    <rhn:list pageList="${requestScope.errataSecurityfixList}"
     		  noDataText="${requestScope.errataEmpty}"
     		  formatMessage="false">
-  <rhn:listdisplay 	set="${requestScope.set}" 
-  					paging="false" 
+  <rhn:listdisplay 	set="${requestScope.set}"
+					paging="false"
   					type="list"
   					description="yourrhn.jsp.relevanterrata.description">
 
@@ -17,7 +17,7 @@
         <img src="/img/wrh-security.gif" alt="<bean:message key="errata-legend.jsp.security"/>"/>
             <a href="/rhn/errata/details/Details.do?eid=${current.id}">${current.advisoryName}</a>
     </rhn:column>
-    
+
     <rhn:column header="emptyspace.jsp">
       ${current.advisorySynopsis}
     </rhn:column>

@@ -35,7 +35,7 @@ public class InvalidLocaleCodeException extends FaultException {
     public InvalidLocaleCodeException(String locale) {
         super(2500, "invalidLocaleId", locale + " is an invalid locale id");
     }
-    
+
     /**
      * constructor
      * @param locale invalid locale

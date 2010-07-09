@@ -35,39 +35,39 @@ import com.redhat.rhn.testing.ForwardWrapper;
 public class ProbeSuiteProbeCreateActionTest extends ProbeCreateTestCase {
 
     private static final String REQ_ATTRS = "probeSuite," + BASE_REQ_ATTRS;
-    
+
     private ProbeSuite probeSuite;
-    
+
     protected void setUp() throws Exception {
         super.setUp();
         probeSuite = ProbeSuiteTest.createTestProbeSuite(user);
         assertEquals(0, probeSuite.getProbes().size());
     }
-    
+
     protected void tearDown() throws Exception {
         probeSuite = null;
         super.tearDown();
     }
-    
+
     public void testSubmitExecute() throws Exception {
-        
+
         ServerProbe orig = (ServerProbe) MonitoringFactoryTest.createTestProbe(user);
 
         modifyActionHelper("success");
         ah.getForm().set(RhnAction.SUBMITTED, Boolean.TRUE);
         setupCommand(ah, orig);
         setupProbeFields(ah, orig);
-        
+
         MonitoringTestUtils.setupParamValues(ah, orig.getCommand(), 3);
-        
+
         ForwardWrapper af = ah.executeAction();
         assertEquals("success", af.getName());
         assertEquals(1, probeSuite.getProbes().size());
         assertNoRequestAttributes(ah, REQ_ATTRS);
         Long probeID = firstProbeID(probeSuite);
-        
+
         probeSuite = (ProbeSuite) reload(probeSuite);
-        TemplateProbe created = 
+        TemplateProbe created =
             (TemplateProbe) verifyProbe(orig, TemplateProbe.class, probeID);
         assertEquals(1, probeSuite.getProbes().size());
         assertEquals(probeID, firstProbeID(probeSuite));

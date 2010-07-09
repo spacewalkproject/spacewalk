@@ -8,13 +8,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	<composite-id >
         <key-many-to-one name="server"
                      class="com.redhat.rhn.domain.server.Server"
-                     column="server_id" />    
+                     column="server_id" />
         <key-many-to-one name="snapshot"
                      class="com.redhat.rhn.domain.server.ServerSnapshot"
-                     column="snapshot_id"  />    
+                     column="snapshot_id"  />
         <key-many-to-one name="tag"
                      class="com.redhat.rhn.domain.server.SnapshotTag"
-                     column="tag_id"  />                                              
+                     column="tag_id"  />
 	</composite-id>
     </class>
 </hibernate-mapping>

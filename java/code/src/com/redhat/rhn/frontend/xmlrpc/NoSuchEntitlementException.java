@@ -23,7 +23,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class NoSuchEntitlementException extends FaultException {
-    
+
     /**
      * Comment for <code>serialVersionUID</code>
      */
@@ -48,7 +48,7 @@ public class NoSuchEntitlementException extends FaultException {
     public NoSuchEntitlementException(String sysLabel, Throwable cause) {
         super(2852, "noSuchEntitlement", LocalizationService.getInstance().
                 getMessage("api.org.nosuchorg",  LocalizationService.getInstance().
-                        getMessage("api.org.noentitlement", 
+                        getMessage("api.org.noentitlement",
                                 new Object[] {sysLabel})), cause);
     }
 }

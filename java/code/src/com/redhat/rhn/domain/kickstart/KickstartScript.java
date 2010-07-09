@@ -27,7 +27,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
 
     public static final String TYPE_PRE = "pre";
     public static final String TYPE_POST = "post";
-    
+
     private Long id;
     private Long position;
     private String scriptType;
@@ -38,9 +38,9 @@ public class KickstartScript implements Comparable<KickstartScript> {
     private Date created;
     private Date modified;
     private Boolean raw = true;
-    
+
     private KickstartData ksdata;
-    
+
     /** Setup the default value for
      * chroot and other fields.
      */
@@ -48,84 +48,84 @@ public class KickstartScript implements Comparable<KickstartScript> {
         this.chroot = "Y";
         this.scriptType = TYPE_PRE;
     }
-    
-    /** 
-     * Getter for id 
+
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for position 
+    /**
+     * Getter for position
      * @return Long to get
     */
     public Long getPosition() {
         return this.position;
     }
 
-    /** 
-     * Setter for position 
+    /**
+     * Setter for position
      * @param positionIn to set
     */
     public void setPosition(Long positionIn) {
         this.position = positionIn;
     }
 
-    /** 
-     * Getter for scriptType 
+    /**
+     * Getter for scriptType
      * @return String to get
     */
     public String getScriptType() {
         return this.scriptType;
     }
 
-    /** 
-     * Setter for scriptType 
+    /**
+     * Setter for scriptType
      * @param scriptTypeIn to set
     */
     public void setScriptType(String scriptTypeIn) {
         if (!(scriptTypeIn.equals(TYPE_PRE) || scriptTypeIn.equals(TYPE_POST))) {
             throw new IllegalArgumentException("Invalid script type");
-        }                            
+        }
         this.scriptType = scriptTypeIn;
     }
 
-    /** 
-     * Getter for chroot 
+    /**
+     * Getter for chroot
      * @return String to get
     */
     public String getChroot() {
         return this.chroot;
     }
 
-    /** 
-     * Setter for chroot 
+    /**
+     * Setter for chroot
      * @param chrootIn to set
     */
     public void setChroot(String chrootIn) {
         this.chroot = chrootIn;
     }
 
-    /** 
-     * Getter for interpreter 
+    /**
+     * Getter for interpreter
      * @return String to get
     */
     public String getInterpreter() {
         return this.interpreter;
     }
 
-    /** 
-     * Setter for interpreter 
+    /**
+     * Setter for interpreter
      * @param interpreterIn to set
     */
     public void setInterpreter(String interpreterIn) {
@@ -156,39 +156,39 @@ public class KickstartScript implements Comparable<KickstartScript> {
         return HibernateFactory.getByteArrayContents(this.data);
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {
         this.modified = modifiedIn;
     }
 
-    
+
     /**
      * @return the ksdata
      */
@@ -196,7 +196,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
         return ksdata;
     }
 
-    
+
     /**
      * @param ksdataIn The ksdata to set.
      */
@@ -204,7 +204,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
         this.ksdata = ksdataIn;
     }
 
-    
+
     /**
      * @return the data
      */
@@ -212,7 +212,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
         return data;
     }
 
-    
+
     /**
      * @param dataIn The data to set.
      */
@@ -222,7 +222,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
 
     /**
      * Clone/copy this KickstartScript into a new instance.
-     * 
+     *
      * @param ksDataIn that will own this new KickstartScript
      * @return KickstartScript object that is a copy
      */
@@ -237,22 +237,22 @@ public class KickstartScript implements Comparable<KickstartScript> {
         cloned.setRaw(this.getRaw());
         return cloned;
     }
-    
+
     /**
-     * 
+     *
      * @param scriptIn KickstartScript to compare order to
      * @return the position order of this script
      */
     public int compareTo(KickstartScript scriptIn) {
         final int before = -1;
-        final int after = 1;                 
-        
+        final int after = 1;
+
         if (scriptIn.getPosition() < this.getPosition()) {
-            return after;            
+            return after;
         }
         else {
             return before;
-        }                
+        }
     }
 
 

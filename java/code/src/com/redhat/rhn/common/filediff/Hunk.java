@@ -21,11 +21,11 @@ package com.redhat.rhn.common.filediff;
  * @version $Rev$
  */
 public abstract class Hunk {
-    
+
     private FileLines oldLines;
     private FileLines newLines;
-    
-    
+
+
     /**
      * @return Returns the newLines.
      */
@@ -35,7 +35,7 @@ public abstract class Hunk {
 
 
 
-    
+
     /**
      * @param newLinesIn The newLines to set.
      */
@@ -45,7 +45,7 @@ public abstract class Hunk {
 
 
 
-    
+
     /**
      * @return Returns the oldLines.
      */
@@ -55,7 +55,7 @@ public abstract class Hunk {
 
 
 
-    
+
     /**
      * @param oldLinesIn The oldLines to set.
      */

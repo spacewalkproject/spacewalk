@@ -19,7 +19,7 @@ import com.redhat.rhn.taskomatic.core.BaseDaemon;
 import org.apache.commons.cli.CommandLine;
 
 public class TestDaemon extends BaseDaemon {
-    
+
     protected int onShutdown(boolean breakFromUser) {
         return BaseDaemon.SUCCESS;
     }
@@ -28,12 +28,12 @@ public class TestDaemon extends BaseDaemon {
         new Thread(new DaemonLogic()).start();
         return BaseDaemon.SUCCESS;
     }
-    
+
     public static void main(String[] argv) {
         TestDaemon td = new TestDaemon();
         td.registerImplementation(argv);
     }
-    
+
     class DaemonLogic implements Runnable {
         public void run() {
             System.out.println("Hello, world!");

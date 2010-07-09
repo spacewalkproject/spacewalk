@@ -39,27 +39,27 @@ import redstone.xmlrpc.XmlRpcFault;
 public abstract class CobblerCommand {
 
     private static Logger log = Logger.getLogger(CobblerCommand.class);
-    
+
     protected String xmlRpcToken;
     protected User user;
     private XMLRPCInvoker invoker;
 
-       
+
     /**
      * Construct a CobblerCommand
      * @param userIn - xmlrpc token for cobbler
      */
     public CobblerCommand(User userIn) {
-        xmlRpcToken = 
+        xmlRpcToken =
             IntegrationService.get().getAuthToken(userIn.getLogin());
         log.debug("xmlrpc token for cobbler: " + xmlRpcToken);
         // We abstract this fetch of the class so a test class
-        // can override the invoker with a mock xmlrpc invoker. 
-        invoker = (XMLRPCInvoker)  
+        // can override the invoker with a mock xmlrpc invoker.
+        invoker = (XMLRPCInvoker)
             MethodUtil.getClassFromConfig(CobblerXMLRPCHelper.class.getName());
         user = userIn;
     }
-    
+
     /**
      * Construct a CobblerCommand without using authentication
      *  This should only be used for taskomatic!
@@ -69,20 +69,20 @@ public abstract class CobblerCommand {
                 ConfigDefaults.get().getCobblerAutomatedUser());
         log.debug("Unauthenticated Cobbler call");
         // We abstract this fetch of the class so a test class
-        // can override the invoker with a mock xmlrpc invoker. 
-        invoker = (XMLRPCInvoker)  
+        // can override the invoker with a mock xmlrpc invoker.
+        invoker = (XMLRPCInvoker)
             MethodUtil.getClassFromConfig(CobblerXMLRPCHelper.class.getName());
         user = null;
     }
-    
+
     /**
      * Sync the KickstartData to the Cobbler object
      *
-     * @return ValidatorError if there is any errors 
+     * @return ValidatorError if there is any errors
      */
-    public abstract ValidatorError store(); 
-    
-    
+    public abstract ValidatorError store();
+
+
     /**
      * Invoke an XMLRPC method.
      * @param procedureName to invoke
@@ -113,10 +113,10 @@ public abstract class CobblerCommand {
      */
     protected Object invokeXMLRPC(String procedureName, Object ... args) {
         return invokeXMLRPC(procedureName, Arrays.asList(args));
-    }    
-    
+    }
+
     /**
-     * Makes a simple profile or distro object 
+     * Makes a simple profile or distro object
      * name that 'd fit our cobbler naming convention
      * @param label the distro or profile label
      * @param org the org to appropriately add the org info
@@ -135,14 +135,14 @@ public abstract class CobblerCommand {
         return String.format(format, label, org.getId(), orgName);
 
     }
-    
+
     /**
      * Makes a local file path out of the cobbler name.
-     * 
+     *
      * Currently ends up in :
-     * 
+     *
      * /var/lib/rhn/kickstarts/label--orgid--orgname.cfg
-     * 
+     *
      * @param label the distro or profile label
      * @param org the org to appropriately add the org info
      * @return the cobbler file name in /var/lib/rhn/kickstarts/label--orgid--orgname.cfg
@@ -153,20 +153,20 @@ public abstract class CobblerCommand {
         }
         String format = "%s--%s";
         String kickstartConfigDir = ConfigDefaults.get().getKickstartConfigDir();
-        String fileName = String.format(format, label.replace(' ', '_'), org.getId()); 
+        String fileName = String.format(format, label.replace(' ', '_'), org.getId());
         String retval = kickstartConfigDir + fileName + ".cfg";
-        return retval;         
+        return retval;
     }
 
     /**
-     * Make a cobbler name for a kickstartable tree 
+     * Make a cobbler name for a kickstartable tree
      * @param tree the tree
      * @return the name
      */
     public static String makeCobblerName(KickstartableTree tree) {
         return makeCobblerName(tree.getLabel(), tree.getOrg());
     }
-    
+
     /**
      * Make a cobbler name for a kickstart profile
      * @param data the profile
@@ -175,15 +175,15 @@ public abstract class CobblerCommand {
     public static String makeCobblerName(KickstartData data) {
         return makeCobblerName(data.getLabel(), data.getOrg());
     }
-   
+
     protected void invokeCobblerUpdate() {
         invokeXMLRPC("update", xmlRpcToken);
     }
-    
+
     protected CobblerConnection getCobblerConnection() {
         return getCobblerConnection(user);
     }
-    
+
     protected static CobblerConnection getCobblerConnection(User user) {
         if (user == null) {
             return CobblerXMLRPCHelper.getAutomatedConnection();

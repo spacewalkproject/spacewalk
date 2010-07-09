@@ -43,18 +43,18 @@ public class RhnListAction extends RhnAction {
      * @param request The current request
      * @param viewer The logged in user
      */
-    public void clampListBounds(PageControl pc, HttpServletRequest request, 
+    public void clampListBounds(PageControl pc, HttpServletRequest request,
                                    User viewer) {
         RequestContext rctx = new RequestContext(request);
-        /* 
+        /*
          * Make sure we have a user. If not, something bad happened and we should
          * just bail out with an exception. Since this is probably the result of
-         * a bad uid param, throw a BadParameterException. 
+         * a bad uid param, throw a BadParameterException.
          */
         if (viewer == null) {
             throw new BadParameterException("Null viewer");
         }
-               
+
         // if the lower/upper params don't exist, set to 1/user defined
         // respectively
         String lowBound = rctx.processPagination();
@@ -63,7 +63,7 @@ public class RhnListAction extends RhnAction {
         if (lower <= 1) {
             lower = 1;
         }
-        
+
         pc.setStart(lower);
         pc.setPageSize(viewer.getPageSize());
         pc.setFilterData(request.getParameter(RequestContext.FILTER_STRING));
@@ -74,7 +74,7 @@ public class RhnListAction extends RhnAction {
         List newlist = new ArrayList();
         String hiddenvars = request.getParameter("newset");
         String returnvisit = request.getParameter("returnvisit");
-        
+
         if (returnvisit != null || hiddenvars != null) {
             /**
              * We have been keeping track of newset and should
@@ -100,9 +100,9 @@ public class RhnListAction extends RhnAction {
                 //check for id combo values
                 if (r.getElementTwo() == null) {
                     newlist.add(r.getElement().toString());
-                } 
+                }
                 else {
-                    newlist.add(r.getElement().toString() + "|" + 
+                    newlist.add(r.getElement().toString() + "|" +
                             r.getElementTwo().toString());
                 }
             }

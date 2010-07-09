@@ -39,8 +39,8 @@ public class SystemMigration implements Serializable {
      * Constructor for SystemMigration
      */
     public SystemMigration() {
-    }    
-    
+    }
+
     /**
      * Getter for server
      * @return the server that was migrated
@@ -48,7 +48,7 @@ public class SystemMigration implements Serializable {
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * set the server that was migrated
      * @param serverIn the server that was migrated
@@ -56,7 +56,7 @@ public class SystemMigration implements Serializable {
     public void setServer(Server serverIn) {
         this.server = serverIn;
     }
-        
+
     /**
      * Getter for org that the server was migrated to
      * @return the org
@@ -64,7 +64,7 @@ public class SystemMigration implements Serializable {
     public Org getToOrg() {
         return toOrg;
     }
-    
+
     /**
      * Set the org that the server was migrated to
      * @param toOrgIn the org the server was migrated to
@@ -72,7 +72,7 @@ public class SystemMigration implements Serializable {
     public void setToOrg(Org toOrgIn) {
         this.toOrg = toOrgIn;
     }
-    
+
     /**
      * Getter for org that the server was migrated from
      * @return the org
@@ -80,7 +80,7 @@ public class SystemMigration implements Serializable {
     public Org getFromOrg() {
         return fromOrg;
     }
-    
+
     /**
      * Set the org that the server was migrated from
      * @param fromOrgIn the org the server was migrated from
@@ -88,7 +88,7 @@ public class SystemMigration implements Serializable {
     public void setFromOrg(Org fromOrgIn) {
         this.fromOrg = fromOrgIn;
     }
-    
+
     /**
      * Gets the migrated date
      * @return Date the current value
@@ -96,7 +96,7 @@ public class SystemMigration implements Serializable {
     public Date getMigrated() {
         return this.migrated;
     }
-    
+
     /**
      * Sets the migrated date
      * @param migratedIn Date the migration was performed
@@ -116,38 +116,38 @@ public class SystemMigration implements Serializable {
                .append("migrated", this.getMigrated());
         return builder.toString();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean equals(Object obj) {
-        
+
         if (!(obj instanceof SystemMigration)) {
             return false;
         }
-        
+
         SystemMigration other = (SystemMigration) obj;
-        
+
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(this.getToOrg(), other.getToOrg())
                .append(this.getFromOrg(), other.getFromOrg())
                .append(this.getServer(), other.getServer())
                .append(this.getMigrated(), other.getMigrated());
-               
+
         return builder.isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public int hashCode() {
-        
+
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(this.getToOrg())
                .append(this.getFromOrg())
                .append(this.getServer())
                .append(this.getMigrated());
-        
+
         return builder.toHashCode();
     }
 }

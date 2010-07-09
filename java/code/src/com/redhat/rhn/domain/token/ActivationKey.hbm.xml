@@ -6,30 +6,30 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <class name="com.redhat.rhn.domain.token.ActivationKey"
         table="rhnActivationKey">
         <id name="key" type="string" column="token"/>
-        
+
         <property name="created" column="created" type="timestamp" insert="false"
             update="false"/>
         <property name="modified" column="modified" type="timestamp" insert="false"
             update="false"/>
-        
+
         <many-to-one name="token" class="com.redhat.rhn.domain.token.Token"
             column="reg_token_id" cascade="all"/>
-        
+
         <many-to-one name="kickstartSession"
             class="com.redhat.rhn.domain.kickstart.KickstartSession"
             column="ks_session_id"/>
-        
+
     </class>
-    
+
     <query name="ActivationKey.findByKey">
         <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak where ak.key = :key]]>
     </query>
-    
+
     <query name="ActivationKey.findByToken">
-        <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak where ak.token = :token and 
+        <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak where ak.token = :token and
         	kickstartSession = null]]>
     </query>
-    
+
     <query name="ActivationKey.findByServer">
         <![CDATA[select actKey
                    from com.redhat.rhn.domain.token.ActivationKey actKey,
@@ -37,16 +37,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   where actKey.token = token
                     and token.server = :server]]>
     </query>
-    
+
     <query name="ActivationKey.findBySession">
         <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak where ak.kickstartSession = :session]]>
     </query>
-    
+
     <query name="ActivationKey.findByOrg">
         <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak where ak.token.org = :org]]>
     </query>
-    
-    
+
+
      <query name="ActivationKey.listAssociatedKickstarts">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as k where :token member of k.defaultRegTokens]]>
     </query>

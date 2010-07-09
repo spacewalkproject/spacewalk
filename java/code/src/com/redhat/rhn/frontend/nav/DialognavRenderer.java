@@ -41,7 +41,7 @@ public class DialognavRenderer extends Renderable {
         div.setAttribute("class", "content-nav");
         sb.append(div.renderOpenTag());
     }
-    
+
     /** {@inheritDoc} */
     public void preNavLevel(StringBuffer sb, int depth) {
         if (!canRender(null, depth)) {
@@ -51,7 +51,7 @@ public class DialognavRenderer extends Renderable {
         if (depth == 1) {
             HtmlTag div = new HtmlTag("div");
             div.setAttribute("class", "contentnav-row2");
-            sb.append(div.renderOpenTag());            
+            sb.append(div.renderOpenTag());
 
             div = new HtmlTag("div");
             div.setAttribute("class", "top");
@@ -65,7 +65,7 @@ public class DialognavRenderer extends Renderable {
             div.setAttribute("class", "bottom");
             sb.append(div.renderOpenTag());
         }
-        
+
         HtmlTag ul = new HtmlTag("ul");
         ul.setAttribute("class", getRowClass(depth));
         sb.append(ul.renderOpenTag());
@@ -80,14 +80,14 @@ public class DialognavRenderer extends Renderable {
                               NavNode node,
                               NavTreeIndex treeIndex,
                               Map parameters,
-                              int depth) { 
+                              int depth) {
         if (!canRender(node, depth)) {
             return;
         }
 
         titleBuf.append(" - " + node.getName());
 
-        renderNode(sb, node, treeIndex, parameters, 
+        renderNode(sb, node, treeIndex, parameters,
                    "content-nav-selected", "content-nav-selected-link");
     }
 
@@ -103,8 +103,8 @@ public class DialognavRenderer extends Renderable {
 
         renderNode(sb, node, treeIndex, parameters, "", "");
     }
- 
-    private void renderNode(StringBuffer sb, NavNode node, 
+
+    private void renderNode(StringBuffer sb, NavNode node,
                             NavTreeIndex treeIndex, Map parameters,
                             String cssClass, String cssLinkClass) {
         HtmlTag li = new HtmlTag("li");
@@ -162,11 +162,11 @@ public class DialognavRenderer extends Renderable {
 
         if (depth == 1) {
             HtmlTag div = new HtmlTag("div");
-            sb.append(div.renderCloseTag());            
-            sb.append(div.renderCloseTag());            
+            sb.append(div.renderCloseTag());
+            sb.append(div.renderCloseTag());
         }
     }
-    
+
     /** {@inheritDoc} */
     public void postNav(StringBuffer sb) {
         HtmlTag div = new HtmlTag("div");

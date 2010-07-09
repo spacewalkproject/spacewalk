@@ -66,7 +66,7 @@ public class ImportFileConfirmSubmitAction extends RhnListDispatchAction {
         getStrutsDelegate().rememberDatePicker(params, (DynaActionForm)formIn,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
     }
-    
+
     /**
      * Actually schedules the config upload action.
      * @param mapping struts ActionMapping
@@ -80,10 +80,10 @@ public class ImportFileConfirmSubmitAction extends RhnListDispatchAction {
         RequestContext ctxt = new RequestContext(request);
         User user = ctxt.getLoggedInUser();
         Server server = ctxt.lookupServer();
-        
+
         //The set of config file names to add to the action.
         RhnSet set = RhnSetDecl.CONFIG_IMPORT_FILE_NAMES.get(user);
-        
+
         //We currently have a set of RhnSetElements, but we need a set
         //of Longs, this does that conversion.
         Set cfnids = new HashSet();
@@ -91,7 +91,7 @@ public class ImportFileConfirmSubmitAction extends RhnListDispatchAction {
         while (i.hasNext()) {
             cfnids.add(((RhnSetElement)i.next()).getElement());
         }
-        
+
         //The channel to which files will be uploaded
         ConfigChannel sandbox = server.getSandboxOverride();
         //The earliest time to perform the action.
@@ -99,10 +99,10 @@ public class ImportFileConfirmSubmitAction extends RhnListDispatchAction {
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
         ConfigUploadAction upload = (ConfigUploadAction)ActionManager
                 .createConfigUploadAction(user, cfnids, server, sandbox, earliest);
-        
+
         //clear the set, we are done with it.
         RhnSetManager.remove(set);
-        
+
         //Create a success message
         if (upload != null) {
             ActionMessages msgs = new ActionMessages();
@@ -113,7 +113,7 @@ public class ImportFileConfirmSubmitAction extends RhnListDispatchAction {
                     new ActionMessage("config.import.success", params));
             getStrutsDelegate().saveMessages(request, msgs);
         }
-        
+
         return getStrutsDelegate().forwardParams(
                 mapping.findForward("success"), makeParamMap(formIn, request));
     }

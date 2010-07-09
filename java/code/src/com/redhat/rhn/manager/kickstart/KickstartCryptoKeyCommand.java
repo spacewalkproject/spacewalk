@@ -32,7 +32,7 @@ import java.util.Set;
 public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
 
     /**
-     * Construct a new Command. 
+     * Construct a new Command.
      * @param ksidIn of the Kicstart you want to edit
      * @param userIn who wants to edit the profile
      */
@@ -42,7 +42,7 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
 
     /**
      * Add a List of cryptoKey objects to the KickstartData
-     * based on the Long IDs passed in on the list. 
+     * based on the Long IDs passed in on the list.
      * @param ids to add
      */
     public void addKeysByIds(List ids) {
@@ -57,7 +57,7 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
     /**
      * Adds a list of crypto keys to the kickstart profile
      * where the list is a series of key descriptions.
-     * 
+     *
      * @param descriptions identifies all of the keys to associate
      * @param org          org in which the keys are located
      */
@@ -72,7 +72,7 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
     /**
      * Removes a list of crypto keys from the kickstart profile
      * where the list is a series of key descriptions.
-     * 
+     *
      * @param descriptions identifies all of the keys to associate
      * @param org          org in which the keys are located
      */
@@ -83,7 +83,7 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
             ksdata.removeCryptoKey(key);
         }
     }
-    
+
     /**
      * Remove the CryptoKeys from this Kickstart.  Takes
      * in a List of Long ids.
@@ -111,5 +111,5 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
             return Collections.EMPTY_SET;
         }
     }
-    
+
 }

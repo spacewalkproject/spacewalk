@@ -83,19 +83,19 @@ import java.util.Map;
  */
 public class ActionManagerTest extends RhnBaseTestCase {
     private static Logger log = Logger.getLogger(ActionManagerTest.class);
-    
+
     public void testGetSystemGroups() throws Exception {
         User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
         ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
         ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
-        
-        
+
+
         user1.addRole(RoleFactory.ORG_ADMIN);
         // Here we have to commit the User because we added a Server
         // and need to update their rhnUserServerPerms table.  This should be
         // mapped to hibernate so we don't have to do these two manual commits!
         UserFactory.save(user1);
-    
+
         PageControl pc = new PageControl();
         pc.setIndexData(false);
         pc.setFilterColumn("earliest");
@@ -104,60 +104,60 @@ public class ActionManagerTest extends RhnBaseTestCase {
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
     }
-    
+
     public void testLookupAction() throws Exception {
         User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
         user1.addRole(RoleFactory.ORG_ADMIN);
         Action a1 = ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
         Long actionId = a1.getId();
-        
+
         //Users must have access to a server for the action to lookup the action
         Server s = ServerFactoryTest.createTestServer(user1, true);
         a1.addServerAction(ServerActionTest.createServerAction(s, a1));
         ActionManager.storeAction(a1);
-        
+
         Action a2 = ActionManager.lookupAction(user1, actionId);
         assertNotNull(a2);
     }
-    
+
     public void testFailedActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
                 .createTestServer(user), parent);
-        
+
         child.setStatus(ActionFactory.STATUS_FAILED);
-        
+
         parent.addServerAction(child);
         ActionFactory.save(parent);
         UserFactory.save(user);
-        
+
         DataResult dr = ActionManager.failedActions(user, null);
         assertNotEmpty(dr);
     }
-    
+
     public void testPendingActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
                 .createTestServer(user), parent);
-        
+
         child.setStatus(ActionFactory.STATUS_QUEUED);
-        
+
         parent.addServerAction(child);
         ActionFactory.save(parent);
         UserFactory.save(user);
-        
+
         DataResult dr = ActionManager.pendingActions(user, null);
-        
-        Long actionid = new Long(parent.getId().longValue()); 
+
+        Long actionid = new Long(parent.getId().longValue());
         TestUtils.arraySearch(dr.toArray(), "getId", actionid);
         assertNotEmpty(dr);
     }
-    
-    private Action createActionWithServerActions(User user, int numServerActions) 
+
+    private Action createActionWithServerActions(User user, int numServerActions)
         throws Exception {
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         Channel baseChannel = ChannelFactoryTest.createTestChannel(user);
@@ -166,47 +166,47 @@ public class ActionManagerTest extends RhnBaseTestCase {
             Server server = ServerFactoryTest.createTestServer(user, true);
             server.addChannel(baseChannel);
             TestUtils.saveAndFlush(server);
-            
+
             ServerAction child = ServerActionTest.createServerAction(server, parent);
             child.setStatus(ActionFactory.STATUS_QUEUED);
             TestUtils.saveAndFlush(child);
-            
+
             parent.addServerAction(child);
         }
         ActionFactory.save(parent);
         return parent;
     }
-    
+
     private List createActionList(User user, Action [] actions) {
         List returnList = new LinkedList();
-        
+
         for (int i = 0; i < actions.length; i++) {
             returnList.add(actions[i]);
         }
-        
+
         return returnList;
     }
-    
+
     public void assertServerActionCount(Action parentAction, int expected) {
         Session session = HibernateFactory.getSession();
-        Query query = session.createQuery("from ServerAction sa where " + 
+        Query query = session.createQuery("from ServerAction sa where " +
             "sa.parentAction = :parent_action");
         query.setEntity("parent_action", parentAction);
         List results = query.list();
         int initialSize = results.size();
         assertEquals(expected, initialSize);
     }
-    
+
     public void assertServerActionCount(User user, int expected) {
         Session session = HibernateFactory.getSession();
-        Query query = session.createQuery("from ServerAction sa where " + 
+        Query query = session.createQuery("from ServerAction sa where " +
             "sa.parentAction.schedulerUser = :user");
         query.setEntity("user", user);
         List results = query.list();
         int initialSize = results.size();
         assertEquals(expected, initialSize);
     }
-    
+
     public void assertActionsForUser(User user, int expected) throws Exception {
         Session session = HibernateFactory.getSession();
         Query query = session.createQuery("from Action a where a.schedulerUser = :user");
@@ -215,7 +215,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         int initialSize = results.size();
         assertEquals(expected, initialSize);
     }
-    
+
     public void testSimpleCancelActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -223,31 +223,31 @@ public class ActionManagerTest extends RhnBaseTestCase {
 
         Action parent = createActionWithServerActions(user, 1);
         List actionList = createActionList(user, new Action [] {parent});
-        
+
         assertServerActionCount(parent, 1);
         assertActionsForUser(user, 1);
         ActionManager.cancelActions(user, actionList);
         assertServerActionCount(parent, 0);
         assertActionsForUser(user, 1); // shouldn't have been deleted
     }
-    
+
     public void testCancelActionWithChildren() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
-        
+
         Action parent = createActionWithServerActions(user, 1);
         Action child = createActionWithServerActions(user, 1);
         child.setPrerequisite(parent);
         List actionList = createActionList(user, new Action [] {parent});
-        
+
         assertServerActionCount(parent, 1);
         assertActionsForUser(user, 2);
         ActionManager.cancelActions(user, actionList);
         assertServerActionCount(parent, 0);
         assertActionsForUser(user, 2); // shouldn't have been deleted
     }
-    
+
     public void testCancelActionWithMultipleServerActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -255,24 +255,24 @@ public class ActionManagerTest extends RhnBaseTestCase {
 
         Action parent = createActionWithServerActions(user, 2);
         List actionList = createActionList(user, new Action [] {parent});
-        
+
         assertServerActionCount(parent, 2);
         assertActionsForUser(user, 1);
         ActionManager.cancelActions(user, actionList);
         assertServerActionCount(parent, 0);
         assertActionsForUser(user, 1); // shouldn't have been deleted
     }
-    
+
     public void testCancelActionWithParentFails() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
-        
+
         Action parent = createActionWithServerActions(user, 1);
         Action child = createActionWithServerActions(user, 1);
         child.setPrerequisite(parent);
         List actionList = createActionList(user, new Action [] {child});
-        
+
         try {
             ActionManager.cancelActions(user, actionList);
             fail("Exception not thrown when deleting action with a prerequisite.");
@@ -281,12 +281,12 @@ public class ActionManagerTest extends RhnBaseTestCase {
             // expected
         }
     }
-    
+
     public void testComplexHierarchy() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
-        
+
         Action parent1 = createActionWithServerActions(user, 3);
         for (int i = 0; i < 9; i++) {
             Action child = createActionWithServerActions(user, 2);
@@ -298,17 +298,17 @@ public class ActionManagerTest extends RhnBaseTestCase {
             child.setPrerequisite(parent2);
         }
         assertServerActionCount(user, 42);
-        
+
         List actionList = createActionList(user, new Action [] {parent1, parent2});
-        
+
         assertServerActionCount(parent1, 3);
         assertActionsForUser(user, 20);
-        
+
         ActionManager.cancelActions(user, actionList);
         assertServerActionCount(parent1, 0);
         assertActionsForUser(user, 20); // shouldn't have been deleted
         assertServerActionCount(user, 0);
-        
+
     }
 
     public void testCancelKickstartAction() throws Exception {
@@ -316,71 +316,71 @@ public class ActionManagerTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
-        
+
         Action parentAction = createActionWithServerActions(user, 1);
         Server server = ((ServerAction)parentAction.getServerActions().iterator().next())
             .getServer();
         ActionFactory.save(parentAction);
-        
+
         KickstartData ksData = KickstartDataTest.createKickstartWithOptions(user.getOrg());
-        KickstartSession ksSession = KickstartSessionTest.createKickstartSession(server, 
+        KickstartSession ksSession = KickstartSessionTest.createKickstartSession(server,
                 ksData, user, parentAction);
         TestUtils.saveAndFlush(ksSession);
         ksSession = (KickstartSession)reload(ksSession);
-        
+
         List actionList = createActionList(user, new Action [] {parentAction});
-        
+
         Query kickstartSessions = session.createQuery(
                 "from KickstartSession ks where ks.action = :action");
         kickstartSessions.setEntity("action", parentAction);
         List results = kickstartSessions.list();
         assertEquals(1, results.size());
-        
+
         assertEquals(1, ksSession.getHistory().size());
-        KickstartSessionHistory history = 
+        KickstartSessionHistory history =
             (KickstartSessionHistory)ksSession.getHistory().iterator().next();
         assertEquals("created", history.getState().getLabel());
 
         ActionManager.cancelActions(user, actionList);
-        
+
         // New history entry should have been created:
         assertEquals(2, ksSession.getHistory().size());
-        
+
         // Test that the kickstart wasn't deleted but rather marked as failed:
         assertEquals("failed", ksSession.getState().getLabel());
     }
-    
+
     public void testCompletedActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
                 .createTestServer(user), parent);
-        
+
         child.setStatus(ActionFactory.STATUS_COMPLETED);
-        
+
         parent.addServerAction(child);
         ActionFactory.save(parent);
         UserFactory.save(user);
-        
+
         DataResult dr = ActionManager.completedActions(user, null);
         assertNotEmpty(dr);
     }
-    
+
     public void testRecentlyScheduledActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = ServerActionTest.createServerAction(ServerFactoryTest
                 .createTestServer(user), parent);
-        
+
         child.setStatus(ActionFactory.STATUS_COMPLETED);
         child.setCreated(new Date(System.currentTimeMillis()));
-        
+
         parent.addServerAction(child);
         ActionFactory.save(parent);
         UserFactory.save(user);
-        
+
         DataResult dr = ActionManager.recentlyScheduledActions(user, null, 30);
         assertNotEmpty(dr);
     }
@@ -390,7 +390,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         try {
             ActionManager.lookupAction(user1, new Long(-1));
             fail("Expected to fail");
-        } 
+        }
         catch (LookupException le) {
             assertTrue(true);
         }
@@ -400,27 +400,27 @@ public class ActionManagerTest extends RhnBaseTestCase {
         User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
         Action a1 = ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
         ServerAction sa = (ServerAction) a1.getServerActions().toArray()[0];
-        
+
         sa.setStatus(ActionFactory.STATUS_FAILED);
         sa.setRemainingTries(new Long(0));
         ActionFactory.save(a1);
-        
+
         ActionManager.rescheduleAction(a1);
         sa = (ServerAction) ActionFactory.reload(sa);
         assertTrue(sa.getStatus().equals(ActionFactory.STATUS_QUEUED));
         assertTrue(sa.getRemainingTries().longValue() > 0);
     }
-    
+
     public void testInProgressSystems() throws Exception {
         User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
-        
-        
+
+
         Action a1 = ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
         ServerAction sa = (ServerAction) a1.getServerActions().toArray()[0];
-        
+
         sa.setStatus(ActionFactory.STATUS_QUEUED);
         ActionFactory.save(a1);
-        // Gotta be ORG_ADMIN to view failed systems 
+        // Gotta be ORG_ADMIN to view failed systems
         user1.addRole(RoleFactory.ORG_ADMIN);
         // Here we have to commit the User because we added a Server
         // and need to update their rhnUserServerPerms table.  This should be
@@ -433,28 +433,28 @@ public class ActionManagerTest extends RhnBaseTestCase {
         as.setSecurityErrata(new Long(1));
         assertNotNull(as.getSecurityErrata());
     }
-    
+
     public void testFailedSystems() throws Exception {
         User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
-        
-        
+
+
         Action a1 = ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
         ServerAction sa = (ServerAction) a1.getServerActions().toArray()[0];
-        
+
         sa.setStatus(ActionFactory.STATUS_FAILED);
         ActionFactory.save(a1);
-        // Gotta be ORG_ADMIN to view failed systems 
+        // Gotta be ORG_ADMIN to view failed systems
         user1.addRole(RoleFactory.ORG_ADMIN);
         // Here we have to commit the User because we added a Server
         // and need to update their rhnUserServerPerms table.  This should be
         // mapped to hibernate so we don't have to do these two manual commits!
         UserFactory.save(user1);
-        
+
         assertTrue(ActionManager.failedSystems(user1, a1, null).size() > 0);
     }
-    
+
     public void testCreateErrataAction() throws Exception {
-        User user = UserTestUtils.createUser("testUser", 
+        User user = UserTestUtils.createUser("testUser",
                 UserTestUtils.createOrg("testOrg"));
         Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         Action a = ActionManager.createErrataAction(user.getOrg(), errata);
@@ -465,14 +465,14 @@ public class ActionManagerTest extends RhnBaseTestCase {
         assertNotNull(a.getOrg());
         assertTrue(a.getActionType().equals(ActionFactory.TYPE_ERRATA));
     }
-    
+
     public void testAddServerToAction() throws Exception {
-        User usr = UserTestUtils.createUser("testUser", 
+        User usr = UserTestUtils.createUser("testUser",
                 UserTestUtils.createOrg("testOrg"));
         Server s = ServerFactoryTest.createTestServer(usr);
         Action a = ActionFactoryTest.createAction(usr, ActionFactory.TYPE_ERRATA);
         ActionManager.addServerToAction(s.getId(), a);
-        
+
         assertNotNull(a.getServerActions());
         assertEquals(a.getServerActions().size(), 1);
         Object[] array = a.getServerActions().toArray();
@@ -480,14 +480,14 @@ public class ActionManagerTest extends RhnBaseTestCase {
         assertTrue(sa.getStatus().equals(ActionFactory.STATUS_QUEUED));
         assertTrue(sa.getServer().equals(s));
     }
-    
+
     public void testSchedulePackageRemoval() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
-        RhnSet set = RhnSetManager.createSet(user.getId(), "removable_package_list", 
+        RhnSet set = RhnSetManager.createSet(user.getId(), "removable_package_list",
                 SetCleanup.NOOP);
         assertNotNull(srvr);
         assertNotNull(set);
@@ -498,7 +498,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
                 pkg.getPackageArch().getId());
         RhnSetManager.store(set);
 
-        PackageAction pa = ActionManager.schedulePackageRemoval(user, srvr, 
+        PackageAction pa = ActionManager.schedulePackageRemoval(user, srvr,
             set, new Date());
         assertNotNull(pa);
         assertNotNull(pa.getId());
@@ -506,24 +506,24 @@ public class ActionManagerTest extends RhnBaseTestCase {
         assertNotNull(pa1);
         assertEquals(pa, pa1);
     }
-    
+
     public void testSchedulePackageVerify() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
-        RhnSet set = RhnSetManager.createSet(user.getId(), "verify_package_list", 
+        RhnSet set = RhnSetManager.createSet(user.getId(), "verify_package_list",
                 SetCleanup.NOOP);
         assertNotNull(srvr);
         assertNotNull(set);
-        
+
         Package pkg = PackageTest.createTestPackage(user.getOrg());
 
         set.addElement(pkg.getPackageName().getId(), pkg.getPackageEvr().getId(),
                 pkg.getPackageArch().getId());
         RhnSetManager.store(set);
-        
+
         PackageAction pa = ActionManager.schedulePackageVerify(user, srvr, set, new Date());
         assertNotNull(pa);
         assertNotNull(pa.getId());
@@ -531,7 +531,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         assertNotNull(pa1);
         assertEquals(pa, pa1);
     }
-    
+
     public void testScheduleSriptRun() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -562,12 +562,12 @@ public class ActionManagerTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
- 
+
         Server srvr = ServerFactoryTest.createTestServer(user, true);
         assertNotNull(srvr);
         KickstartData testKickstartData
             = KickstartDataTest.createKickstartWithChannel(user.getOrg());
-                                                        
+
         KickstartAction ka
             = ActionManager.scheduleKickstartAction(testKickstartData,
                                                     user,
@@ -592,26 +592,26 @@ public class ActionManagerTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         assertNotNull(user);
- 
+
         Server srvr = ServerFactoryTest.createTestServer(user, true);
         assertNotNull(srvr);
         KickstartData testKickstartData
             = KickstartDataTest.createKickstartWithChannel(user.getOrg());
 
-        KickstartSession ksSession = 
-            KickstartSessionTest.createKickstartSession(srvr, 
-                                                        testKickstartData, 
+        KickstartSession ksSession =
+            KickstartSessionTest.createKickstartSession(srvr,
+                                                        testKickstartData,
                                                         user);
         TestUtils.saveAndFlush(ksSession);
-        
+
         String kickstartHost = "localhost.localdomain";
-        ProvisionVirtualInstanceCommand command = 
+        ProvisionVirtualInstanceCommand command =
             new ProvisionVirtualInstanceCommand(srvr.getId(),
                                                 testKickstartData.getId(),
                                                 user,
                                                 new Date(System.currentTimeMillis()),
                                                 kickstartHost);
-        
+
         command.setGuestName("testGuest1");
         command.setMemoryAllocation(256L);
         command.setLocalStorageSize(2L);
@@ -619,9 +619,9 @@ public class ActionManagerTest extends RhnBaseTestCase {
         command.setKickstartSession(ksSession);
         KickstartGuestAction ka =
             ActionManager.scheduleKickstartGuestAction(command, ksSession.getId());
-        assertEquals(kickstartHost, 
+        assertEquals(kickstartHost,
                 ka.getKickstartGuestActionDetails().getKickstartHost());
-        
+
         assertNotNull(ka);
         TestUtils.saveAndFlush(ka);
         assertNotNull(ka.getId());
@@ -642,13 +642,13 @@ public class ActionManagerTest extends RhnBaseTestCase {
         assertEquals("testGuest1", kad.getGuestName());
         assertEquals("2", kad.getDiskGb().toString());
     }
-                                                                   
+
     public void testSchedulePackageDelta() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
-        
+
         List profileList = new ArrayList();
         profileList.add(ProfileManagerTest.
                 createPackageListItem("kernel-2.4.23-EL-mmccune", 500341));
@@ -658,35 +658,35 @@ public class ActionManagerTest extends RhnBaseTestCase {
                 createPackageListItem("kernel-2.4.25-EL-mmccune", 500341));
         //profileList.add(ProfileManagerTest.
         //        createPackageListItem("other-2.1.0-EL-mmccune", 500400));
-        
+
         List systemList = new ArrayList();
         systemList.add(ProfileManagerTest.
                 createPackageListItem("kernel-2.4.23-EL-mmccune", 500341));
-        
-        
+
+
         RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC.get(user);
-        
-       
+
+
         List pkgs = ProfileManager.comparePackageLists(new DataResult(profileList),
                 new DataResult(systemList), "foo");
-        
+
         Action action = ActionManager.schedulePackageRunTransaction(user, srvr, pkgs,
                 new Date());
         assertTrue(action instanceof PackageAction);
         PackageAction pa = (PackageAction) action;
-        
+
         Map params = new HashMap();
         params.put("action_id", pa.getId());
         DataResult dr = TestUtils.runTestQuery("package_install_list", params);
         assertEquals(2, dr.size());
-    }   
-    
-    
+    }
+
+
     public void aTestSchedulePackageDelta() throws Exception {
         User user = UserFactory.lookupById(new Long(3567268));
         Server srvr = ServerFactory.lookupById(new Long(1005385254));
         RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC.get(user);
-        
+
         List a = new ArrayList();
         PackageListItem pli = new PackageListItem();
         pli.setIdCombo("3427|195967");
@@ -698,7 +698,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         pli.setVersion("0.9.5");
         pli.setEpoch(null);
         a.add(pli);
-        
+
         pli = new PackageListItem();
         pli.setIdCombo("23223|196372");
         pli.setEvrId(new Long(196372));
@@ -720,7 +720,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         pli.setVersion("0.33.7.1");
         pli.setEpoch("2");
         a.add(pli);
-        
+
         List b = new ArrayList();
         pli = new PackageListItem();
         pli.setIdCombo("26980|182097");
@@ -732,7 +732,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         pli.setVersion("1.4.1");
         pli.setEpoch("0");
         b.add(pli);
-        
+
         pli = new PackageListItem();
         pli.setIdCombo("500000103|271970");
         pli.setEvrId(new Long(271970));
@@ -743,7 +743,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         pli.setVersion("0.33.7.1");
         pli.setEpoch("2");
         b.add(pli);
-        
+
         pli = new PackageListItem();
         pli.setIdCombo("23223|700004953");
         pli.setEvrId(new Long(700004953));
@@ -754,10 +754,10 @@ public class ActionManagerTest extends RhnBaseTestCase {
         pli.setVersion("5.0");
         pli.setEpoch(null);
         b.add(pli);
-        
+
         List pkgs = ProfileManager.comparePackageLists(new DataResult(a),
                 new DataResult(b), "foo");
-        
+
         for (Iterator itr = pkgs.iterator(); itr.hasNext();) {
             PackageMetadata pm = (PackageMetadata) itr.next();
             log.warn("pm [" + pm.toString() + "] compare [" +
@@ -771,7 +771,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
 //        assertEquals(PackageMetadata.KEY_OTHER_NEWER, pm.getComparisonAsInt());
 //        assertEquals("kernel-2.4.22-27.EL-bretm", pm.getProfileEvr());
 //        assertEquals("kernel-2.4.21-27.EL", pm.getSystemEvr());
-        
+
         Action action = ActionManager.schedulePackageRunTransaction(user, srvr, pkgs,
                 new Date());
         System.out.println("Action is an [" + action.getClass().getName() + "]");
@@ -785,6 +785,6 @@ VALUES
 
          */
     }
-    
+
     //schedulePackageDelta
 }

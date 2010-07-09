@@ -20,7 +20,7 @@ import com.redhat.rhn.domain.Identifiable;
 import java.util.Date;
 
 /**
- * 
+ *
  * NetworkDto
  * @version $Rev$
  */
@@ -62,7 +62,7 @@ public class NetworkDto implements Identifiable {
     public String getLastCheckinString() {
         return LocalizationService.getInstance().formatDate(getLastCheckin());
     }
-    
+
     /**
      * @param lastCheckinIn The lastCheckin to set.
      */
@@ -78,7 +78,7 @@ public class NetworkDto implements Identifiable {
         return key;
     }
 
-    
+
     /**
      * @param keyIn The key to set.
      */
@@ -92,7 +92,7 @@ public class NetworkDto implements Identifiable {
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param systemIdIn The systemId to set.
      */
@@ -107,7 +107,7 @@ public class NetworkDto implements Identifiable {
         return name;
     }
 
-    
+
     /**
      * @param nameIn The name to set.
      */

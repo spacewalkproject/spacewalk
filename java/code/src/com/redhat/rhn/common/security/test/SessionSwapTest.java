@@ -65,7 +65,7 @@ public class SessionSwapTest extends RhnBaseTestCase {
             // pass
         }
     }
-    
+
     public void testRhnHmacData() throws Exception {
         List<String> testvalues = new ArrayList<String>();
         testvalues.add("");

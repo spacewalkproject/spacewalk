@@ -45,7 +45,7 @@ public class SetTag extends ColumnTag {
     public SetTag() {
         super();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -55,14 +55,14 @@ public class SetTag extends ColumnTag {
         }
         return super.doStartTag();
     }
-    
+
     /**
      * Turns the button bar on or of
      * @param flag indicates whether or not to render the button bar, defaults to on
      */
     public void setButtons(String flag) {
        if (flag != null) {
-           if (flag.equalsIgnoreCase("no") || flag.equalsIgnoreCase("false") || 
+           if (flag.equalsIgnoreCase("no") || flag.equalsIgnoreCase("false") ||
                    flag.equalsIgnoreCase("n") || flag.equalsIgnoreCase("off")) {
                showButtons = false;
            }
@@ -82,7 +82,7 @@ public class SetTag extends ColumnTag {
         title = s.getTitle();
         alt = s.getAlt();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -93,7 +93,7 @@ public class SetTag extends ColumnTag {
             if (getSet() == null) {
                 throw new IllegalArgumentException("Your RhnSet is null.  Most " +
                         "likely your class didn't call BaseSetListAction.proces" +
-                        "sRequestAttributes to set the 'set' on the request"); 
+                        "sRequestAttributes to set the 'set' on the request");
             }
             cbox.setAttribute("type", "checkbox");
             cbox.setAttribute("name", "checkall");
@@ -113,7 +113,7 @@ public class SetTag extends ColumnTag {
         }
         return null;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -147,7 +147,7 @@ public class SetTag extends ColumnTag {
             else {
                 cbox.setAttribute("type", "radio");
             }
-            cbox.setAttribute("name", "items_selected");            
+            cbox.setAttribute("name", "items_selected");
             cbox.setAttribute("value", getValue());
 
             //Should checkbox be checked?
@@ -170,12 +170,12 @@ public class SetTag extends ColumnTag {
                 cbox.setAttribute("alt", LocalizationService.getInstance()
                                   .getMessage(this.getAlt()));
             }
-        
+
             HtmlTag hideme = new HtmlTag("input");
             hideme.setAttribute("type", "hidden");
             hideme.setAttribute("name", "items_on_page");
             hideme.setAttribute("value", getValue());
-        
+
             out.print(cbox.render() + "\n" + hideme.render());
         }
     }
@@ -190,7 +190,7 @@ public class SetTag extends ColumnTag {
         if (set != null && set.contains(element, elementTwo)) {
             return true;
         }
-    
+
         return false;
     }
 
@@ -206,18 +206,18 @@ public class SetTag extends ColumnTag {
         }
         return element.toString() + "|" + elementTwo.toString();
     }
-    
+
     /**
      * @param v The value to set.
      */
     public void setValue(String v) {
         setElement(v);
     }
-    
+
     private void setRadioElement(String elem) {
         radioElement = elem;
     }
-    
+
     /**
      * @return Returns the element.
      */
@@ -227,11 +227,11 @@ public class SetTag extends ColumnTag {
         }
         return element.toString();
     }
-    
+
     private boolean isRadio() {
         return "radio".equals(getType());
     }
-    
+
     /**
      * @param elementIn The element to set.
      */
@@ -241,7 +241,7 @@ public class SetTag extends ColumnTag {
                 radioElement = elementIn;
             }
             else {
-                element = new Long(elementIn);                
+                element = new Long(elementIn);
             }
         }
     }
@@ -290,7 +290,7 @@ public class SetTag extends ColumnTag {
      * @param showImgIn The showImg to set.
      */
     public void setShowImg(boolean showImgIn) {
-       this.showImg = showImgIn;     
+       this.showImg = showImgIn;
     }
     /**
      * @return Returns the title.
@@ -329,7 +329,7 @@ public class SetTag extends ColumnTag {
         this.disabled = disabledIn;
     }
 
-    
+
     /**
      * Get the type of selectors for the set:  "radio" or "checkbox"
      * @return the type
@@ -338,9 +338,9 @@ public class SetTag extends ColumnTag {
         return type;
     }
 
-    
+
     /**
-     * Set the type of selectors for the set:  "radio" or "checkbox".  
+     * Set the type of selectors for the set:  "radio" or "checkbox".
      * @param typeIn The type to set.
      */
     public void setType(String typeIn) {

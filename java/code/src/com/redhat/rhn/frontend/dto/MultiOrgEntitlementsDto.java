@@ -34,15 +34,15 @@ public class MultiOrgEntitlementsDto extends BaseDto {
     @Override
     public Long getId() {
         return id;
-    } 
-    
+    }
+
     /**
      * @param val the id to set
      */
     public void setId(Long val) {
         this.id = val;
     }
-    
+
     /**
      * @return the total
      */
@@ -50,7 +50,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         return total;
     }
 
-    
+
     /**
      * @param totalIn the total to set
      */
@@ -58,7 +58,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         this.total = totalIn;
     }
 
-    
+
     /**
      * @return the current
      */
@@ -66,7 +66,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         return used;
     }
 
-    
+
     /**
      * @param currentMem the current to set
      */
@@ -74,7 +74,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         this.used = currentMem;
     }
 
-    
+
     /**
      * @return the available
      */
@@ -82,7 +82,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         return available;
     }
 
-    
+
     /**
      * @param availableIn the available to set
      */
@@ -90,21 +90,21 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         this.available = availableIn;
     }
 
-    
+
 
     /**
-     * @return the ratio of current: allocated 
+     * @return the ratio of current: allocated
      */
     public BigDecimal getRatio() {
         BigDecimal allocated = BigDecimal.valueOf(getAllocated());
         if (!allocated.equals(BigDecimal.ZERO)) {
             BigDecimal hundred = BigDecimal.TEN.multiply(BigDecimal.TEN);
             BigDecimal dividend = BigDecimal.valueOf(getUsed()).multiply(hundred);
-            return dividend.divide(allocated, BigDecimal.ROUND_UP);                
+            return dividend.divide(allocated, BigDecimal.ROUND_UP);
         }
         return BigDecimal.ZERO;
     }
-    
+
     /**
      * @return the number of used slots.
      */
@@ -116,7 +116,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return the label
      */
@@ -125,23 +125,23 @@ public class MultiOrgEntitlementsDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param labelIn the label to set
      */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
-    
 
-    
+
+
     /**
      * @return the name
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn the name to set
      */
@@ -149,7 +149,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         this.name = nameIn;
     }
 
-    
+
     /**
      * @return Returns the totalFlex.
      */
@@ -157,7 +157,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         return totalFlex;
     }
 
-    
+
     /**
      * @param totalFlexIn The totalFlex to set.
      */
@@ -165,7 +165,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         totalFlex = totalFlexIn;
     }
 
-    
+
     /**
      * @return Returns the usedFlex.
      */
@@ -173,7 +173,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         return usedFlex;
     }
 
-    
+
     /**
      * @param usedFlexIn The usedFlex to set.
      */
@@ -181,7 +181,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         usedFlex = usedFlexIn;
     }
 
-    
+
     /**
      * @return Returns the availableFlex.
      */
@@ -189,7 +189,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         return availableFlex;
     }
 
-    
+
     /**
      * @param availableFlexIn The availableFlex to set.
      */
@@ -208,15 +208,15 @@ public class MultiOrgEntitlementsDto extends BaseDto {
     }
 
     /**
-     * @return the ratio of current: allocated 
+     * @return the ratio of current: allocated
      */
     public BigDecimal getFlexRatio() {
         BigDecimal allocated = BigDecimal.valueOf(getAllocatedFlex());
         if (!allocated.equals(BigDecimal.ZERO)) {
             BigDecimal hundred = BigDecimal.TEN.multiply(BigDecimal.TEN);
             BigDecimal dividend = BigDecimal.valueOf(getUsedFlex()).multiply(hundred);
-            return dividend.divide(allocated, BigDecimal.ROUND_UP);                
+            return dividend.divide(allocated, BigDecimal.ROUND_UP);
         }
         return BigDecimal.ZERO;
-    }    
+    }
 }

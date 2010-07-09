@@ -34,7 +34,7 @@ import java.util.List;
 public class SystemMigrationFactoryTest extends RhnBaseTestCase {
 
     public void testSystemMigrationFactory() throws Exception {
-        
+
         // Setup
         // Create org1 with 3 servers
         User orgAdmin1 = UserTestUtils.findNewUser("testUser", "org1", true);
@@ -44,17 +44,17 @@ public class SystemMigrationFactoryTest extends RhnBaseTestCase {
             assertNotNull(server);
             servers.add(server);
         }
-        
+
         // Create org2 & 3 w/0 servers
         User orgAdmin2 = UserTestUtils.findNewUser("orgAdmin2", "org2", true);
         User orgAdmin3 = UserTestUtils.findNewUser("orgAdmin3", "org3", true);
-        
+
         assertEquals(3, SystemManager.systemList(orgAdmin1, null).size());
         assertEquals(0, SystemManager.systemList(orgAdmin2, null).size());
         assertEquals(0, SystemManager.systemList(orgAdmin3, null).size());
 
         // Test createSystemMigration
-        
+
         // Migrate the first server from org1 to org2
         SystemMigration migration1 = SystemMigrationFactory.createSystemMigration();
         assertNotNull(migration1);
@@ -63,7 +63,7 @@ public class SystemMigrationFactoryTest extends RhnBaseTestCase {
         migration1.setServer(servers.get(0));
         migration1.setMigrated(new Date());
         SystemMigrationFactory.save(migration1);
-        
+
         // Migrate the second server from org1 to org3
         SystemMigration migration2 = SystemMigrationFactory.createSystemMigration();
         assertNotNull(migration2);
@@ -72,7 +72,7 @@ public class SystemMigrationFactoryTest extends RhnBaseTestCase {
         migration2.setServer(servers.get(1));
         migration2.setMigrated(new Date());
         SystemMigrationFactory.save(migration2);
-        
+
         // Migrate the third server from org1 to org2
         SystemMigration migration3 = SystemMigrationFactory.createSystemMigration();
         assertNotNull(migration3);
@@ -86,8 +86,8 @@ public class SystemMigrationFactoryTest extends RhnBaseTestCase {
         List<SystemMigration> migToOrg1 = SystemMigrationFactory.lookupByToOrg(
                 orgAdmin1.getOrg());
         assertNotNull(migToOrg1);
-        assertEquals(0, migToOrg1.size());       
-        
+        assertEquals(0, migToOrg1.size());
+
         List<SystemMigration> migToOrg2 = SystemMigrationFactory.lookupByToOrg(
                 orgAdmin2.getOrg());
         assertNotNull(migToOrg2);
@@ -97,13 +97,13 @@ public class SystemMigrationFactoryTest extends RhnBaseTestCase {
                 orgAdmin3.getOrg());
         assertNotNull(migToOrg3);
         assertEquals(1, migToOrg3.size());
-        
+
         // Test lookupByFromOrg
         List<SystemMigration> migFromOrg1 = SystemMigrationFactory.lookupByFromOrg(
                 orgAdmin1.getOrg());
         assertNotNull(migFromOrg1);
-        assertEquals(3, migFromOrg1.size());       
-        
+        assertEquals(3, migFromOrg1.size());
+
         List<SystemMigration> migFromOrg2 = SystemMigrationFactory.lookupByFromOrg(
                 orgAdmin2.getOrg());
         assertNotNull(migFromOrg2);

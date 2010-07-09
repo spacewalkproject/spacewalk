@@ -8,8 +8,8 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <div>
@@ -20,7 +20,7 @@
           <bean:message key="kickstartdownload.jsp.summary"/>
 
     </td></tr>
-    
+
     <c:choose>
       <c:when test="${invalid_channel}">
         <tr><td>

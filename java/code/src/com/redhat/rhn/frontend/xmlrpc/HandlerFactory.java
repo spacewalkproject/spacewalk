@@ -30,12 +30,12 @@ import java.util.Collection;
 public class HandlerFactory {
     private ManifestFactory factory;
     private static final String PKG_NAME = "com.redhat.rhn.frontend.xmlrpc";
-    
+
     /** private constructor */
     public HandlerFactory() {
         this(new ClassBuilder(PKG_NAME, "handler-manifest.xml"));
     }
-    
+
     protected HandlerFactory(ClassBuilder builder) {
         factory = new ManifestFactory(builder);
     }
@@ -50,7 +50,7 @@ public class HandlerFactory {
         return (BaseHandler)factory.getObject(handlerName);
     }
 
-    /** 
+    /**
      * Get all keys from the Factory.
      * @return All keys from the Factory.
      */

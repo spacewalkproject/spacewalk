@@ -49,7 +49,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ProbeSuiteSystemsEditAction extends RhnSetAction {
 
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -60,32 +60,32 @@ public class ProbeSuiteSystemsEditAction extends RhnSetAction {
                                        ActionForm formIn,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         User user = requestContext.getLoggedInUser();
         Set selectedSystems = updateSet(request).getElements();
         ProbeSuite suite = requestContext.lookupProbeSuite();
         Iterator i = selectedSystems.iterator();
         while (i.hasNext()) {
             RhnSetElement element = (RhnSetElement) i.next();
-            Server serverToAdd = 
+            Server serverToAdd =
                 SystemManager.lookupByIdAndUser(element.getElement(), user);
-            SatCluster sCluster = 
+            SatCluster sCluster =
                 lookupSatCluster(request, user);
             MonitoringManager.getInstance().
                 addSystemToProbeSuite(suite, serverToAdd, sCluster, user);
         }
         MonitoringManager.getInstance().storeProbeSuite(suite, user);
         ActionMessages msg = new ActionMessages();
-        msg.add(ActionMessages.GLOBAL_MESSAGE, 
+        msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("probesuitesystemsedit.jsp.systemsadded"));
 
-        // Gotta make sure we clear the set now that 
+        // Gotta make sure we clear the set now that
         // we added all the systems to the Suite
         getSetDecl().clear(user);
-        
+
         Map params = makeParamMap(formIn, request);
         strutsDelegate.saveMessages(request, msg);
         return strutsDelegate.forwardParams(mapping.findForward("added"), params);
@@ -103,12 +103,12 @@ public class ProbeSuiteSystemsEditAction extends RhnSetAction {
                 "something is wrong");
     }
 
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext rctx = new RequestContext(request);
         return ProbeSuiteHelper.getServersNotInSuite(rctx, null);
@@ -120,14 +120,14 @@ public class ProbeSuiteSystemsEditAction extends RhnSetAction {
     protected void processMethodKeys(Map map) {
         map.put("probesuitesystemsedit.jsp.addsystem", "addSystems");
         map.put("probesuitesystemsedit.jsp.search", "search");
-          
+
     }
 
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         ProbeSuiteHelper.processParamMap(request, params);
     }

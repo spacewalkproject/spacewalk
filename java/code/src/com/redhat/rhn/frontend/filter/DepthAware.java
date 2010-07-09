@@ -16,7 +16,7 @@ package com.redhat.rhn.frontend.filter;
 
 /**
  * Basically an interface user by the TreeFilter
- *  to ascertain the Depth of a DTO..   
+ *  to ascertain the Depth of a DTO..
  * DepthAware
  * @version $Rev$
  */

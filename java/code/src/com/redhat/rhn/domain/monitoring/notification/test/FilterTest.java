@@ -38,7 +38,7 @@ public class FilterTest extends BaseTestCaseWithUser {
 
         String desc = "someDesc" + TestUtils.randomString();
         Filter testFilter = createTestFilter(user, desc);
-        // Specifically want to test the 
+        // Specifically want to test the
         // NotificationFactory's lookup method.
         Long id = testFilter.getId();
         flushAndEvict(testFilter);
@@ -49,8 +49,8 @@ public class FilterTest extends BaseTestCaseWithUser {
         assertNotNull(testFilter.getLastUpdateDate());
         assertEquals(desc, testFilter.getDescription());
     }
-    
-    public void testRecurring() throws Exception { 
+
+    public void testRecurring() throws Exception {
         String desc = "recur333" + TestUtils.randomString();
         Filter testFilter = createTestFilter(user, desc);
         testFilter.setRecurring(Boolean.TRUE);
@@ -59,26 +59,26 @@ public class FilterTest extends BaseTestCaseWithUser {
         testFilter.setRecurringFrequency(new Long(Calendar.WEEK_OF_YEAR));
         NotificationFactory.saveFilter(testFilter, user);
         testFilter = (Filter) reload(testFilter);
-        assertEquals(new Long(Calendar.WEEK_OF_YEAR), 
+        assertEquals(new Long(Calendar.WEEK_OF_YEAR),
                 testFilter.getRecurringFrequency());
-        assertEquals(new Long(Calendar.YEAR), 
+        assertEquals(new Long(Calendar.YEAR),
                 testFilter.getRecurringDurationType());
-    } 
-    
+    }
+
     public void testCriteria() throws HibernateException {
         String desc = "someDesc" + TestUtils.randomString();
         Filter testFilter = createTestFilter(user, desc);
-        
+
         Criteria probe = testFilter.addCriteria(MatchType.PROBE, "42");
         Criteria scout = testFilter.addCriteria(MatchType.SCOUT, "43");
-        
+
         NotificationFactory.saveFilter(testFilter, user);
         testFilter = (Filter) reload(testFilter);
         assertEquals(desc, testFilter.getDescription());
         assertEquals(2, testFilter.getCriteria().size());
         checkCriteria(testFilter, probe);
         checkCriteria(testFilter, scout);
-        
+
         // Now remove the criteria
         testFilter.getCriteria().clear();
         NotificationFactory.saveFilter(testFilter, user);
@@ -98,7 +98,7 @@ public class FilterTest extends BaseTestCaseWithUser {
         assertEquals(2, filter.getEmailAddresses().size());
         assertContains(filter.getEmailAddresses(), addr1);
         assertContains(filter.getEmailAddresses(), addr2);
-        
+
         filter.getEmailAddresses().remove(addr1);
         NotificationFactory.saveFilter(filter, user);
         System.out.println(filter);
@@ -106,7 +106,7 @@ public class FilterTest extends BaseTestCaseWithUser {
         assertEquals(1, filter.getEmailAddresses().size());
         assertContains(filter.getEmailAddresses(), addr2);
     }
-    
+
     private void checkCriteria(Filter filter, Criteria crit) {
         Criteria actual = null;
         for (Iterator i = filter.getCriteria().iterator(); i.hasNext();) {
@@ -115,15 +115,15 @@ public class FilterTest extends BaseTestCaseWithUser {
                 break;
             }
         }
-        
+
         assertNotNull(actual);
         assertNotSame(crit, actual);
         assertEquals(crit.getValue(), actual.getValue());
     }
 
-    /** 
+    /**
      * Create a test Filter
-     * @param userIn 
+     * @param userIn
      * @param desc
      * @return Filter that was created
      */

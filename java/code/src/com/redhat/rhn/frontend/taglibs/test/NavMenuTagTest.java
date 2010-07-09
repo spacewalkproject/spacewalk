@@ -34,7 +34,7 @@ import javax.servlet.jsp.tagext.Tag;
  * @version $Rev$
  */
 public class NavMenuTagTest extends RhnBaseTestCase {
-    
+
     private final String NAV_XML = "sitenav-test.xml";
     private URL url;
     private final String TOP_NAV = "com.redhat.rhn.frontend.nav.TopnavRenderer";
@@ -68,7 +68,7 @@ public class NavMenuTagTest extends RhnBaseTestCase {
             assertFalse(exceptionNotThrown);
         }
     }
-    
+
     public void testIOExceptionHandling() {
         NavMenuTag nmt = new NavMenuTag();
         TagTestHelper tth = TagTestUtils.setupTagTest(nmt, url);
@@ -79,27 +79,27 @@ public class NavMenuTagTest extends RhnBaseTestCase {
             // need to override the JspWriter
             RhnMockExceptionJspWriter out = new RhnMockExceptionJspWriter();
             tth.getPageContext().setJspWriter(out);
-            
+
             // ok let's test the tag
             setupTag(nmt, 10, 4, NAV_XML, TOP_NAV);
             tth.assertDoStartTag(Tag.SKIP_BODY);
-            
+
             exceptionNotThrown = true;
         }
         catch (JspException e) {
             assertFalse(exceptionNotThrown);
         }
     }
-   
+
     public void testTagOutput() {
         NavMenuTag nmt = new NavMenuTag();
         TagTestHelper tth = TagTestUtils.setupTagTest(nmt, url);
-        
+
         try {
             // setup mock objects
             MockJspWriter out = (MockJspWriter) tth.getPageContext().getOut();
             out.setExpectedData(getReturnValue());
-            
+
             // ok let's test the tag
             setupTag(nmt, 0, 4, NAV_XML, TOP_NAV);
             tth.assertDoStartTag(Tag.SKIP_BODY);
@@ -112,11 +112,11 @@ public class NavMenuTagTest extends RhnBaseTestCase {
             fail(e.toString());
         }
     }
-    
+
     public void testDoStartTagReturnValue() {
         NavMenuTag nmt = new NavMenuTag();
         TagTestHelper tth = TagTestUtils.setupTagTest(nmt, url);
-        
+
         try {
 
             // ok let's test the tag
@@ -127,7 +127,7 @@ public class NavMenuTagTest extends RhnBaseTestCase {
             fail(e.toString());
         }
     }
-    
+
     private void setupTag(NavMenuTag nmt, int mindepth, int maxdepth,
                           String def, String renderer) {
         nmt.setMindepth(mindepth);
@@ -135,38 +135,38 @@ public class NavMenuTagTest extends RhnBaseTestCase {
         nmt.setDefinition(def);
         nmt.setRenderer(renderer);
     }
-    
+
     private String getReturnValue() {
         return "<ul id=\"mainNav\"><li id=\"mainFirst-active\"><a href=\"/index.pxt\" " +
-               "class=\"mainFirstLink\">Sign In</a>" + 
+               "class=\"mainFirstLink\">Sign In</a>" +
                "</li>\n<li id=\"mainLast\"><a href=\"/help/about.pxt\" " +
                "class=\"mainLastLink\">About</a></li>\n</ul>";
     }
-    
+
     public void testSetMaxdepth() {
         NavMenuTag nmt = new NavMenuTag();
         nmt.setMaxdepth(10);
         assertEquals(10, nmt.getMaxdepth());
     }
-    
+
     public void testsetMindepth() {
         NavMenuTag nmt = new NavMenuTag();
         nmt.setMindepth(10);
         assertEquals(10, nmt.getMindepth());
     }
-    
+
     public void testSetDefinition() {
         NavMenuTag nmt = new NavMenuTag();
         nmt.setDefinition("foo");
         assertEquals("foo", nmt.getDefinition());
     }
-    
+
     public void testSetRenderer() {
         NavMenuTag nmt = new NavMenuTag();
         nmt.setRenderer("foo");
         assertEquals("foo", nmt.getRenderer());
     }
-    
+
     public void testDefaultMaxDepth() {
         NavMenuTag nmt = new NavMenuTag();
         assertEquals(Integer.MAX_VALUE, nmt.getMaxdepth());

@@ -47,7 +47,7 @@ public class SerializerHelper {
     public void add(String name, Object value) throws XmlRpcException {
         genMember(name, value);
     }
-    
+
     /**
      * Writes the xml rpc snippet  to the out param
      * @param out the writer to whom the output will be written
@@ -59,9 +59,9 @@ public class SerializerHelper {
         out.write("</struct>");
         out.write("\n");
     }
-    
+
     /**
-     * resets the saved xmlrpc data so one can 
+     * resets the saved xmlrpc data so one can
      * start over with a new snippet
      */
     public void clear() {
@@ -81,7 +81,7 @@ public class SerializerHelper {
         if (value == null) {
             return;
         }
-        
+
         try {
             output.write("<member><name>");
             output.write(name);
@@ -92,5 +92,5 @@ public class SerializerHelper {
         catch (IOException e) {
             throw new XmlRpcException(e.getMessage(), e);
         }
-    }    
+    }
 }

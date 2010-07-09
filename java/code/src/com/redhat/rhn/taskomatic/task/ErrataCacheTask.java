@@ -28,14 +28,14 @@ import org.quartz.JobExecutionException;
  * @version $Rev$
  */
 public class ErrataCacheTask extends SingleThreadedTestableTask {
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
-     */    
+     */
     public static final String DISPLAY_NAME = "errata_cache";
-    
+
     private static final Logger LOG = Logger.getLogger(ErrataCacheTask.class);
-    
+
     /**
      * {@inheritDoc}
      */

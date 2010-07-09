@@ -30,19 +30,19 @@ import java.util.TimeZone;
  * @version $Rev$
  */
 public class TargetSystemsTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //Need to set the locale and timezone for the datepicker.
         Context ctxt = Context.getCurrentContext();
         ctxt.setLocale(Locale.ENGLISH);
         ctxt.setTimezone(TimeZone.getDefault());
-                
+
         //Make a not currently managed system
         ServerFactoryTest.createTestServer(user, true);
-        
+
         setRequestPathInfo("/configuration/system/TargetSystems");
         actionPerform();
         assertNotNull(request.getAttribute("set"));

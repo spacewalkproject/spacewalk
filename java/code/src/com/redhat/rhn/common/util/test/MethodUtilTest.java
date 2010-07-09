@@ -24,12 +24,12 @@ import com.redhat.rhn.testing.TestUtils;
 public class MethodUtilTest extends RhnBaseTestCase {
 
     private static final String TEST_STRING = "Test ";
-    
+
     // Must be public so that invokeStaticMethod can access it.
     public static String staticMethod(Integer number) {
         return TEST_STRING + number;
     }
-    
+
     // Must be public so that invokeStaticMethod can access it.
     // Non-static so that invokeStaticMethod should fail when calling it.
     public String nonStaticMethod(Integer number) {
@@ -74,7 +74,7 @@ public class MethodUtilTest extends RhnBaseTestCase {
                                                 new Object[] {new Integer(1)});
         assertEquals(TEST_STRING + 1, teststr);
     }
-    
+
     public void testCallMethod2Params() throws Exception {
         String teststr = (String)MethodUtil.callMethod(this, "nonStaticMethod",
                                  new Object[] {new Integer(1), new Integer(2)});
@@ -92,7 +92,7 @@ public class MethodUtilTest extends RhnBaseTestCase {
                     "in class: com.redhat.rhn.common.util.test.MethodUtilTest " +
                     "with params: [type: java.lang.Integer, value: 1, type: " +
                     "java.lang.Integer, value: 2, type: java.lang.Integer, value: 3]";
-            
+
             assertEquals(expected, e.getMessage());
         }
     }
@@ -102,21 +102,21 @@ public class MethodUtilTest extends RhnBaseTestCase {
                 new Object[] {"Y"});
         assertEquals(TEST_STRING + true, teststr);
     }
-    
+
     public void testCallNewMethod() {
         assertNotNull(MethodUtil.getClassFromConfig("java.lang.Object"));
         assertNotNull(MethodUtil.getClassFromConfig(
                 "com.redhat.rhn.domain.channel.Channel"));
         assertNotNull(MethodUtil.getClassFromConfig(
                 TestChannel.class.getName()));
-        
+
         try {
             assertNotNull(MethodUtil.getClassFromConfig(TestUtils.randomString()));
             fail("Should not get here");
-        } 
+        }
         catch (Exception e) {
             // do nothing ...
         }
     }
-    
+
 }

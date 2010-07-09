@@ -64,19 +64,19 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     private Long otherServerId;
     private Long profileId;
     private String profileType;
-    
+
     /**
      * {@inheritDoc}
      */
     public void setUp() throws Exception {
         super.setUp();
-        
+
         user.addRole(RoleFactory.ORG_ADMIN);
-        server = ServerFactoryTest.createTestServer(user, true, 
+        server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         Channel c = ChannelFactoryTest.createTestChannel(server.getCreator());
         server.addChannel(c);
-        
+
         KickstartDataTest.addKickstartPackagesToChannel(c, false);
         ksdata.setKernelParams("someparam=asdf");
         ksdata.getTree().setChannel(server.getBaseChannel());
@@ -96,9 +96,9 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         }
         assertNotNull(cmd.getKickstartSession());
     }
-    
+
     public void testCommandActKey() throws Exception {
-        Server otherServer = ServerFactoryTest.createTestServer(user, true, 
+        Server otherServer = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         otherServer.addChannel(ChannelFactoryTest.createTestChannel(user));
         otherServerId = otherServer.getId();
@@ -107,11 +107,11 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
                 server, ksdata, profileType, otherServerId, profileId);
         assertNotNull(cmd.getCreatedProfile());
     }
-    
 
-    
+
+
     /**
-     * Big test to make sure we include x86_64 ks profiles if the 
+     * Big test to make sure we include x86_64 ks profiles if the
      * box has an i386 basechannel but seems to be 64bit hardware.
      * @throws Exception
      */
@@ -121,8 +121,8 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         x86ks.getChannel().setChannelArch(ChannelFactory.lookupArchByName("x86_64"));
         TestUtils.saveAndFlush(x86ks.getChannel());
         TestUtils.saveAndFlush(x86ks);
-        
-        
+
+
         server.setServerArch(ServerConstants.getArchI686());
         Channel bc = server.getBaseChannel();
         bc.setChannelArch(ChannelFactory.lookupArchByName("IA-32"));
@@ -136,7 +136,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
             Object dto = i.next();
             if (dto instanceof KickstartChannelDto) {
                 KickstartChannelDto kdto = (KickstartChannelDto) dto;
-                Channel lookedUp = ChannelFactory.lookupByLabel(user.getOrg(), 
+                Channel lookedUp = ChannelFactory.lookupByLabel(user.getOrg(),
                         kdto.getChannelLabel());
                 assertNotNull(lookedUp);
                 if (lookedUp.getChannelArch().getName().equals("x86_64")) {
@@ -145,17 +145,17 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
             }
         }
         assertTrue(found);
-        
+
     }
-    
+
     public void testCommandExisting() throws Exception {
         profileType = KickstartScheduleCommand.TARGET_PROFILE_TYPE_EXISTING;
         KickstartScheduleCommand cmd = testCommandExecution(
-                                server, ksdata, profileType, 
+                                server, ksdata, profileType,
                 otherServerId, profileId);
         assertNotNull(cmd.getCreatedProfile());
     }
-    
+
     public void testCommandNoProfileSynch() throws Exception {
         testCommandExecution(server, ksdata, profileType, otherServerId, profileId);
     }
@@ -163,7 +163,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     public void testCommandProxyKs() throws Exception {
         KickstartScheduleCommand cmd = testCommandExecution(server,
                 ksdata, profileType, otherServerId, profileId);
-        Server proxy = ServerFactoryTest.createTestServer(user, true, 
+        Server proxy = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         cmd.setProxy(proxy);
         assertNull(cmd.store());
@@ -187,7 +187,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         assertNotNull(cmd.getCreatedProfile());
         assertNotNull(cmd.getKickstartSession().getServerProfile());
         assertEquals(profileId, cmd.getKickstartSession().getServerProfile().getId());
-        
+
         // Test condition found in BZ 193279
         cmd.setProfileId(null);
         try {
@@ -200,15 +200,15 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     }
 
     public void testScheduleKs() throws Exception {
-        
+
         FileList list1 = KickstartDataTest.createFileList1(user.getOrg());
         CommonFactory.saveFileList(list1);
         list1 = (FileList) reload(list1);
         ksdata.addPreserveFileList(list1);
         KickstartFactory.saveKickstartData(ksdata);
-        
+
         KickstartAction kickstartAction = (KickstartAction) ActionManager.
-            scheduleKickstartAction(this.ksdata, this.user, 
+            scheduleKickstartAction(this.ksdata, this.user,
             server, new Date(), "extraoptions", "localhost");
         ActionFactory.save(kickstartAction);
         flushAndEvict(kickstartAction);
@@ -218,34 +218,34 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         assertTrue(kickstartAction.getKickstartActionDetails().
                 getFileLists().size() == 1);
     }
-    
+
     public void testKickstartProfiles() throws Exception {
-        KickstartScheduleCommand cmd = new 
+        KickstartScheduleCommand cmd = new
             KickstartScheduleCommand(this.server.getId(), this.user);
         assertNotNull(cmd.getKickstartProfiles());
     }
-    
+
     public void testKickstartPackageName() {
         ksdata.getKickstartDefaults().getKstree().setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_4));
-        
-        assertEquals("spacewalk-koan", 
+
+        assertEquals("spacewalk-koan",
                 ksdata.getKickstartPackageName());
         ksdata.getKickstartDefaults().getKstree().setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
-        
-        assertEquals("spacewalk-koan", 
+
+        assertEquals("spacewalk-koan",
                 ksdata.getKickstartPackageName());
 
     }
-    
+
     public void testSameChannels() throws Exception {
         for (int i = 0; i < 5; i++) {
             Channel c = ChannelFactoryTest.createTestChannel(server.getCreator());
             c.setParentChannel(server.getBaseChannel());
             server.addChannel(c);
         }
-        
+
         profileType = KickstartScheduleCommand.TARGET_PROFILE_TYPE_EXISTING;
         KickstartScheduleCommand cmd = testCommandExecution(
                 server, ksdata, profileType, otherServerId, profileId);
@@ -253,7 +253,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
             lookupByKickstartSession(cmd.getKickstartSession());
         assertEquals(1, 1);
     }
-    
+
     public void xDifferentBaseChannel() throws Exception {
         Channel oldBaseChannel = ChannelFactoryTest.createBaseChannel(server.getCreator());
         oldBaseChannel.setLabel("oldBaseChannel" + TestUtils.randomString());
@@ -270,15 +270,15 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         TestUtils.saveAndFlush(ksdata.getTree());
         TestUtils.saveAndFlush(ksdata);
         // ksdata = (KickstartData) reload(ksdata);
-        
+
         setupChannelForKickstarting(newBaseChannel, user);
-        
+
         for (int i = 0; i < 5; i++) {
             Channel c = ChannelFactoryTest.createTestChannel(server.getCreator());
             c.setParentChannel(server.getBaseChannel());
             server.addChannel(c);
         }
-        
+
         profileType = KickstartScheduleCommand.TARGET_PROFILE_TYPE_EXISTING;
 
         KickstartScheduleCommand cmd = testCommandExecution(
@@ -295,10 +295,10 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
             }
         }
         assertTrue(found);
-        
+
     }
-    
-    /** 
+
+    /**
      * Util method to schedule a Kickstart.
      * @param activationType KickstartScheduleCommand.ACTIVATION_TYPE_KEY/EXISTING
      * @param user who schedules
@@ -308,14 +308,14 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
      * @return KickstartScheduleCommand used
      * @throws Exception
      */
-    public static KickstartScheduleCommand scheduleAKickstart(Server server, 
+    public static KickstartScheduleCommand scheduleAKickstart(Server server,
             KickstartData ksdata) throws Exception {
         ksdata.getTree().setChannel(server.getBaseChannel());
         return testCommandExecution(server, ksdata, null, null, null);
     }
 
     public static void setupChannelForKickstarting(Channel c, User user) throws Exception {
-        
+
         PackageManagerTest.addPackageToChannel("auto-kickstart-TestBootImage", c);
         Package p = PackageManagerTest.
         addPackageToChannel("up2date", c);
@@ -327,19 +327,19 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         TestUtils.saveAndFlush(pevr);
 
     }
-    
+
     // Like the number of params on this one?  Nice eh?  At least its private and
     // in test code :-)
     private static KickstartScheduleCommand testCommandExecution(
-            Server server, KickstartData ksdata, String profileType, 
-            Long otherServerId, Long profileId) 
+            Server server, KickstartData ksdata, String profileType,
+            Long otherServerId, Long profileId)
         throws Exception {
         User user = server.getCreator();
         user.addRole(RoleFactory.ORG_ADMIN);
         Channel c = server.getBaseChannel();
 
-        KickstartScheduleCommand cmd = new 
-            KickstartScheduleCommand(server.getId(), ksdata.getId(), 
+        KickstartScheduleCommand cmd = new
+            KickstartScheduleCommand(server.getId(), ksdata.getId(),
                 user, new Date(), "rhn.webdev.redhat.com");
 
         PackageManagerTest.addPackageToSystemAndChannel(
@@ -351,7 +351,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         ValidatorError ve = cmd.store();
         assertEquals(ve.getKey(), "kickstart.schedule.noup2date");
         PackageManagerTest.
-            addUp2dateToSystemAndChannel(user, server, 
+            addUp2dateToSystemAndChannel(user, server,
                     KickstartScheduleCommand.UP2DATE_VERSION, c);
         assertCmdSuccess(cmd);
         assertCmdSuccess(cmd);
@@ -363,11 +363,11 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         Set<ServerGroupType> entitlements = key.getEntitlements();
         assertTrue(entitlements.contains(
                 ServerConstants.getServerGroupTypeProvisioningEntitled()));
-        
+
         TestUtils.flushAndEvict(ksdata);
         assertNotNull(KickstartFactory.
                 lookupKickstartSessionByServer(server.getId()));
         return cmd;
     }
-    
+
 }

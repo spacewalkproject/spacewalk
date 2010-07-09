@@ -29,57 +29,57 @@ public class SessionSetHelper extends BaseSetHelper {
 
     /**
      * Constructor
-     * 
+     *
      * @param requestIn to associate
      */
     public  SessionSetHelper(HttpServletRequest requestIn) {
         this.request = requestIn;
     }
-    
-        
-            
+
+
+
     /**
      * Returns the label name associated with this declaration
      * @param decl the set declaration
      * @return the label name associated with this declaration
      */
-    private static String makeLabel(String label) { 
+    private static String makeLabel(String label) {
         return "__session_set_" + label;
     }
-    
+
     /**
-     * returns true if a set associated with the declaration exists in the set 
+     * returns true if a set associated with the declaration exists in the set
      * @param request the servlet request
-     * @param label the declaration 
+     * @param label the declaration
      * @return true if a set associated with the declaration exists in the set
      */
     public static boolean exists(HttpServletRequest request, String label) {
         return  request.getSession().getAttribute(makeLabel(label)) != null;
     }
-    
+
     /**
      * returns the set if there exists a associated to a set declaration
      * in the session.. If no such set exists, the method
      * creates a new session set and associates it to the session
-     * @param request the servlet request 
+     * @param request the servlet request
      * @param label set declaration
      * @return the set
      */
     public static Set <String> lookupAndBind(HttpServletRequest request, String label) {
         String lbl = makeLabel(label);
-        
-        Set<String> set = (Set<String>) request.getSession().getAttribute(lbl); 
+
+        Set<String> set = (Set<String>) request.getSession().getAttribute(lbl);
         if (set == null) {
             set = new HashSet<String>();
             request.getSession().setAttribute(lbl, set);
         }
-        
+
         return set;
     }
-    
+
     /**
      * removes the set with the given label
-     * @param request the servlet request 
+     * @param request the servlet request
      * @param label set declaration
      */
     public static void obliterate(HttpServletRequest request, String label) {

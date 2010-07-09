@@ -28,12 +28,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 
+ *
  * ServerSnapshot
  * @version $Rev$
  */
-public class ServerSnapshot extends BaseDomainHelper {    
-    
+public class ServerSnapshot extends BaseDomainHelper {
+
     private Org org;
     private Server server;
     private Long id;
@@ -44,50 +44,50 @@ public class ServerSnapshot extends BaseDomainHelper {
     private Set<ServerGroup> groups = new HashSet();
     private Set<PackageNevra> packages = new HashSet();
     private InvalidSnapshotReason invalidReason;
-    
+
     /**
      * @return Returns the channels.
      */
     public Set<Channel> getChannels() {
         return channels;
     }
-    
+
     /**
      * @param channelsIn The channels to set.
      */
     public void setChannels(Set<Channel> channelsIn) {
         this.channels = channelsIn;
     }
-    
+
     /**
      * @return Returns the configChannels.
      */
     public Set<ConfigChannel> getConfigChannels() {
         return configChannels;
     }
-    
+
     /**
      * @param configChannelsIn The configChannels to set.
      */
     public void setConfigChannels(Set<ConfigChannel> configChannelsIn) {
         this.configChannels = configChannelsIn;
     }
-    
+
     /**
      * @return Returns the configRevisions.
      */
     public Set<ConfigRevision> getConfigRevisions() {
         return configRevisions;
     }
-    
+
     /**
      * @param configRevisionsIn The configRevisions to set.
      */
     public void setConfigRevisions(Set<ConfigRevision> configRevisionsIn) {
         this.configRevisions = configRevisionsIn;
     }
-    
-    
+
+
     /**
      * @return Returns the groups.
      */
@@ -102,49 +102,49 @@ public class ServerSnapshot extends BaseDomainHelper {
     public void addGroup(ServerGroup grp) {
             groups.add(grp);
     }
-    
+
     /**
      * @param groupsIn The groups to set.
      */
     public void setGroups(Set<ServerGroup> groupsIn) {
         this.groups = groupsIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * @return Returns the org.
      */
     public Org getOrg() {
         return org;
     }
-    
+
     /**
      * @param orgIn The org to set.
      */
     public void setOrg(Org orgIn) {
         this.org = orgIn;
     }
-    
+
     /**
      * @return Returns the reason.
      */
     public String getReason() {
         return reason;
     }
-    
+
     /**
      * @param reasonIn The reason to set.
      */
@@ -152,7 +152,7 @@ public class ServerSnapshot extends BaseDomainHelper {
         this.reason = reasonIn;
     }
 
-    
+
     /**
      * @return Returns the server.
      */
@@ -160,7 +160,7 @@ public class ServerSnapshot extends BaseDomainHelper {
         return server;
     }
 
-    
+
     /**
      * @param serverIn The server to set.
      */
@@ -168,7 +168,7 @@ public class ServerSnapshot extends BaseDomainHelper {
         this.server = serverIn;
     }
 
-    
+
     /**
      * @return Returns the packages.
      */
@@ -176,7 +176,7 @@ public class ServerSnapshot extends BaseDomainHelper {
         return packages;
     }
 
-    
+
     /**
      * @param packagesIn The packages to set.
      */
@@ -184,7 +184,7 @@ public class ServerSnapshot extends BaseDomainHelper {
         this.packages = packagesIn;
     }
 
-    
+
     /**
      * @return Returns the invalidReason.
      */
@@ -192,7 +192,7 @@ public class ServerSnapshot extends BaseDomainHelper {
         return invalidReason;
     }
 
-    
+
     /**
      * @param invalidReasonIn The invalidReason to set.
      */
@@ -200,16 +200,16 @@ public class ServerSnapshot extends BaseDomainHelper {
         this.invalidReason = invalidReasonIn;
     }
 
-    
+
     /**
      * @return Returns the tags.
      */
     public List<SnapshotTag> getTags() {
         return ServerFactory.getSnapshotTags(this);
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {

@@ -31,43 +31,43 @@ import java.util.List;
  * @version $Rev$
  */
 public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
-    
+
     public static final long ENTITLEMENT_ALLOCATION = 10000;
     public static final long FLEX_ALLOCATION = ENTITLEMENT_ALLOCATION;
-    
+
     public void testChannelFamilyFactory() throws Exception {
         ChannelFamily cfam = createTestChannelFamily();
         ChannelFamily cfam2 = ChannelFamilyFactory.lookupById(cfam.getId());
-        
+
         assertEquals(cfam.getLabel(), cfam2.getLabel());
-        
+
         ChannelFamily cfam3 = createTestChannelFamily();
         Long id = cfam3.getId();
         assertNotNull(cfam3.getName());
         ChannelFamilyFactory.remove(cfam3);
-        
+
         TestUtils.flushAndEvict(cfam3);
 
         assertNull(ChannelFamilyFactory.lookupById(id));
     }
-    
+
     public void testLookupByLabel() throws Exception {
         ChannelFamily cfam = createTestChannelFamily();
-        ChannelFamily cfam2 = ChannelFamilyFactory.lookupByLabel(cfam.getLabel(), 
+        ChannelFamily cfam2 = ChannelFamilyFactory.lookupByLabel(cfam.getLabel(),
                                                                  cfam.getOrg());
-        
+
         assertEquals(cfam.getId(), cfam2.getId());
     }
 
     public void testLookupByLabelLike() throws Exception {
         ChannelFamily cfam = createTestChannelFamily();
-        List cfams = ChannelFamilyFactory.lookupByLabelLike(cfam.getLabel(), 
+        List cfams = ChannelFamilyFactory.lookupByLabelLike(cfam.getLabel(),
                                                                  cfam.getOrg());
         ChannelFamily cfam2 = (ChannelFamily) cfams.get(0);
         assertEquals(cfam.getId(), cfam2.getId());
     }
 
-    
+
     public void testVerifyOrgFamily() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Org org = user.getOrg();
@@ -91,41 +91,41 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         assertEquals(orgfam.getLabel(), orgfam2.getLabel());
         assertEquals(orgfam.getName(), orgfam2.getName());
     }
-    
+
     public void testPrivateChannelFamily() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         ChannelFamily cfam = createTestChannelFamily(user);
         assertNotNull(cfam.getMaxMembers(user.getOrg()));
         assertNotNull(cfam.getCurrentMembers(user.getOrg()));
-        
+
     }
-    
+
     public static ChannelFamily createTestChannelFamily() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
 
         return createTestChannelFamily(user);
     }
-    
+
     public static ChannelFamily createTestChannelFamily(User user) throws Exception {
         return createTestChannelFamily(user, ENTITLEMENT_ALLOCATION, FLEX_ALLOCATION);
     }
-    
-    public static ChannelFamily createTestChannelFamily(User user, 
+
+    public static ChannelFamily createTestChannelFamily(User user,
                                         Long ents, Long flexEnts) throws Exception {
         Org org = user.getOrg();
         String label = "ChannelFamilyLabel" + TestUtils.randomString();
         String name = "ChannelFamilyName" + TestUtils.randomString();
         String productUrl = "http://www.example.com";
-        
+
         ChannelFamily cfam = new ChannelFamily();
         cfam.setOrg(org);
         cfam.setLabel(label);
         cfam.setName(name);
         cfam.setProductUrl(productUrl);
-        
+
         ChannelFamilyFactory.save(cfam);
         cfam = (ChannelFamily) TestUtils.reload(cfam);
-        
+
         PrivateChannelFamily pcf = new PrivateChannelFamily();
         pcf.setOrg(user.getOrg());
         pcf.setChannelFamily(cfam);
@@ -134,8 +134,8 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         pcf.setCurrentFlex(0L);
         pcf.setMaxFlex(flexEnts);
         HibernateFactory.getSession().save(pcf);
-        
-        
+
+
         cfam.addPrivateChannelFamily(pcf);
         cfam = (ChannelFamily) TestUtils.reload(cfam);
         return cfam;

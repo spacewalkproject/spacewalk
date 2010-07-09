@@ -28,7 +28,7 @@ public class SoftwareEntitlementDto {
     private Long allocated;
     private Long notAllocated;
     private Long notInUse;
-    
+
     /**
      * Constructor
      * @param nameIn Entitlement name.
@@ -37,7 +37,7 @@ public class SoftwareEntitlementDto {
      * @param notAllocatedIn Not allocated to set.
      * @param notInUseIn Not in use to set.
      */
-    public SoftwareEntitlementDto(String nameIn, Long idIn, Long allocatedIn, 
+    public SoftwareEntitlementDto(String nameIn, Long idIn, Long allocatedIn,
             Long notAllocatedIn, Long notInUseIn) {
         this.name = nameIn;
         this.id = idIn;
@@ -58,21 +58,21 @@ public class SoftwareEntitlementDto {
         this.notAllocated = new Long(0);
         this.notInUse = new Long(0);
     }
-    
+
     /**
      * @return Entitement name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @return Entitlement id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * Get the number of entitlements allocated to all organizations. (except the default
      * satellite org) Null indicates this entitlement has unlimited allocations.
@@ -81,16 +81,16 @@ public class SoftwareEntitlementDto {
     public Long getAllocated() {
         return allocated;
     }
-    
+
     /**
      * @param allocatedIn Allocated to set.
      */
     public void setAllocated(Long allocatedIn) {
         this.allocated = allocatedIn;
     }
-    
+
     /**
-     * 
+     *
      * @return Display version of the allocated total. Takes into account that null
      * means unlimited.
      */
@@ -103,7 +103,7 @@ public class SoftwareEntitlementDto {
             return allocated.toString();
         }
     }
-    
+
     /**
      * @return Number of entitlements not yet allocated to an organization. (i.e. still
      * allocated to the default satellite organization, but unused by any system)
@@ -111,7 +111,7 @@ public class SoftwareEntitlementDto {
     public Long getNotAllocated() {
         return notAllocated;
     }
-    
+
     /**
      * @param notAllocatedIn Not allocated to set.
      */
@@ -126,16 +126,16 @@ public class SoftwareEntitlementDto {
     public Long getNotInUse() {
         return notInUse;
     }
-    
+
     /**
      * @param notInUseIn Not in use to set.
      */
     public void setNotInUse(Long notInUseIn) {
         this.notInUse = notInUseIn;
     }
-    
+
     /**
-     * 
+     *
      * @return Display version of the not in use total. Takes into account that null
      * means unlimited.
      */
@@ -148,5 +148,5 @@ public class SoftwareEntitlementDto {
             return notInUse.toString();
         }
     }
-    
+
 }

@@ -48,7 +48,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Handles the (un)enabling of organizations trusted to a channel. 
+ * Handles the (un)enabling of organizations trusted to a channel.
  */
 public class OrgChannelListAction extends RhnAction implements Listable {
 

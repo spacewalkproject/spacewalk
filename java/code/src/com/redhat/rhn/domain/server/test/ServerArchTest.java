@@ -23,7 +23,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class ServerArchTest extends RhnBaseTestCase {
-    
+
     /**
      * Simple test to make sure we can lookup ServerArchs from
      * the db. Turn on hibernate.show_sql to make sure hibernate
@@ -31,9 +31,9 @@ public class ServerArchTest extends RhnBaseTestCase {
      * @throws Exception HibernateException
      */
     public void testServerArch() throws Exception {
-        
+
         String testname = "alpha-redhat-linux";
-        
+
         ServerArch s1 = ServerFactory.lookupServerArchByLabel(testname);
         ServerArch s2 = ServerFactory.lookupServerArchByLabel(s1.getLabel());
 

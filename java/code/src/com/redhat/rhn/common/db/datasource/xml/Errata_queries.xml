@@ -7,7 +7,7 @@ SELECT DISTINCT E.advisory_name AS advisory,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
                 E.synopsis AS synopsis,
                 E.advisory_type AS type,
-                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified_date                
+                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified_date
   FROM rhnErrata E,
        rhnAvailableChannels AC,
        rhnChannelErrata EC,
@@ -72,7 +72,7 @@ ORDER BY  E.update_date DESC, E.id
 <mode name="all_errata" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="org_id">
 SELECT DISTINCT E.id, E.update_date, E.synopsis AS ADVISORY_SYNOPSIS
-  FROM  rhnErrata E, rhnChannelErrata CE, rhnChannel C, 
+  FROM  rhnErrata E, rhnChannelErrata CE, rhnChannel C,
         rhnChannelFamilyMembers CFM,
         rhnOrgChannelFamilyPermissions OCF
  WHERE  CE.errata_id = E.id
@@ -135,11 +135,11 @@ SELECT  DISTINCT E.id, E.update_date, E.synopsis AS ADVISORY_SYNOPSIS
 
 <mode name="relevant_to_system" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="user_id, sid">
-SELECT DISTINCT E.id, E.update_date,  
+SELECT DISTINCT E.id, E.update_date,
 			E.synopsis AS ADVISORY_SYNOPSIS,
             E.advisory_name AS ADVISORY_NAME,
             E.advisory_type AS ADVISORY_TYPE,
-			:sid as ASSOCIATED_SYSTEM 
+			:sid as ASSOCIATED_SYSTEM
   FROM rhnErrata E,
        rhnServerNeededErrataCache SNEC
  WHERE EXISTS (SELECT server_id FROM rhnUserServerPerms USP
@@ -197,11 +197,11 @@ ORDER BY E.update_date DESC, E.id
 
 <mode name="relevant_to_system_by_type" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="user_id, sid, type">
-SELECT DISTINCT E.id, E.update_date,  
+SELECT DISTINCT E.id, E.update_date,
 			E.synopsis AS ADVISORY_SYNOPSIS,
             E.advisory_name AS ADVISORY_NAME,
             E.advisory_type AS ADVISORY_TYPE,
-			:sid as ASSOCIATED_SYSTEM 
+			:sid as ASSOCIATED_SYSTEM
   FROM rhnErrata E,
        rhnServerNeededErrataCache SNEC
  WHERE EXISTS (SELECT server_id FROM rhnUserServerPerms USP
@@ -258,7 +258,7 @@ SELECT COUNT(DISTINCT E.ID) AS COUNT
    AND   E.advisory_type != 'Security Advisory'
   </query>
 </mode>
-   
+
 <mode name="unscheduled_relevant_to_system" class="com.redhat.rhn.domain.errata.impl.PublishedErrata">
   <query params="user_id, sid">
 SELECT DISTINCT E.id, E.update_date
@@ -267,7 +267,7 @@ SELECT DISTINCT E.id, E.update_date
  WHERE EXISTS (SELECT server_id FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = :sid)
    AND SNPC.server_id = :sid
    AND SNPC.errata_id = E.id
-   AND NOT EXISTS (SELECT SA.server_id 
+   AND NOT EXISTS (SELECT SA.server_id
                      FROM rhnActionErrataUpdate AEU,
                           rhnServerAction SA,
                           rhnActionStatus AST
@@ -282,7 +282,7 @@ ORDER BY E.update_date, E.id
     SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.update_date, E.synopsis
     FROM  rhnErrata E
     WHERE  E.id IN (%s)
-    ORDER BY  E.update_date DESC  
+    ORDER BY  E.update_date DESC
   </elaborator>
 </mode>
 
@@ -365,13 +365,13 @@ ORDER BY last_modified_date DESC
 
 <mode name="relevant_to_channel_after_deprecated">
   <query params="cid, start_date_str">
-SELECT DISTINCT 
+SELECT DISTINCT
 				E.advisory_name AS advisory,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
                 TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS update_date,
                 E.synopsis as synopsis,
                 E.advisory_type as advisory_type,
-                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified_date  
+                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified_date
   FROM rhnErrata E,
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
@@ -387,7 +387,7 @@ SELECT DISTINCT E.id as id,
 				E.advisory_name AS advisory_name,
 				E.advisory_name AS advisory,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
-                TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS "date",                
+                TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS "date",
                 TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS update_date,
                 E.synopsis as synopsis,
                 E.synopsis as advisory_synopsis,
@@ -435,7 +435,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
     )  temp on E.id  = temp.clonedId,
        rhnSet S
  WHERE CE.channel_id  = S.element
- AND S.label =  'channels_for_errata' 
+ AND S.label =  'channels_for_errata'
          and temp.clonedId is null		
          and S.user_id = :user_id
   </query>
@@ -472,7 +472,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
     rhnPackage P on p.id = EP.package_id inner join
     rhnPackage P2 on P.name_id = P2.name_id inner join
     rhnChannelPackage CP on P2.id = CP.package_id
-    where   
+    where
        CP.channel_id = :custom_cid
        and S.user_id = :user_id
        and  S.label = 'channels_for_errata')  Errata1 left join
@@ -480,13 +480,13 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
    ( SELECT CE2.errata_id as Id, CE2.channel_id
     from rhnChannelErrata CE2
     where CE2.channel_id = :custom_cid )  Errata2 on Errata1.id = Errata2.id left join
-     
-    ( select Cloned.original_id as clonedId 
+
+    ( select Cloned.original_id as clonedId
     	from rhnChannelErrata CE2 inner join
             rhnErrataCloned Cloned on CE2.errata_id = cloned.id
         where CE2.channel_id = :custom_cid
-    )  temp on temp.clonedId = Errata1.id  
-   where  channel_id is null 
+    )  temp on temp.clonedId = Errata1.id
+   where  channel_id is null
    	and temp.clonedId is null 		
   </query>
 </mode>
@@ -499,13 +499,13 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
                 E.synopsis as ADVISORY_SYNOPSIS,
                 E.advisory_type as ADVISORY_TYPE,
 				E.advisory_name AS advisory
-  FROM rhnErrata E inner join 
+  FROM rhnErrata E inner join
        rhnChannelErrata CE on E.id = CE.errata_id left join
     ( select Cloned.original_id as clonedId from rhnChannelErrata CE2 inner join
             rhnErrataCloned Cloned on CE2.errata_id = cloned.id
         where CE2.channel_id = :custom_cid
     )  temp on temp.clonedId = E.id
- WHERE  
+ WHERE
    CE.channel_id != :custom_cid
    and E.org_id is null
    and temp.clonedId is null
@@ -542,7 +542,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
     )  temp on temp.clonedId = Errata1.id
    where
        channel_id is null
-       and temp.ClonedId is null 
+       and temp.ClonedId is null
        and Errata1.org_id is null
   </query>
 </mode>
@@ -577,7 +577,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
                 Errata1.advisory_type as ADVISORY_TYPE
   from
   (  SELECT distinct E.id, E.synopsis, E.update_date, E.advisory_type, E.advisory_name, EC.original_id
-      FROM rhnErrata E inner join   
+      FROM rhnErrata E inner join
     rhnErrataPackage EP on EP.errata_id = E.id inner join
     rhnPackage P on p.id = EP.package_id inner join
     rhnPackage P2 on P.name_id = P2.name_id inner join
@@ -821,7 +821,7 @@ ORDER BY update_date DESC, E.id
                         rhnChannel C
                   WHERE C.org_id = :org_id
                     AND CC.id = C.id
-                    AND CC.original_id = CE.channel_id 
+                    AND CC.original_id = CE.channel_id
                     AND                            NVL(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
                                WHERE E2.org_id = :org_id
@@ -914,7 +914,7 @@ ORDER BY update_date DESC, E.id
      AND CC.original_id = CE.channel_id
 ORDER BY CE.errata_id, C.name
 </query>
-     
+
 <query name="errata_overview" params="user_id">
 SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.update_date, E.synopsis as advisory_synopsis,
     (SELECT  COUNT(DISTINCT S.id)
@@ -1072,7 +1072,7 @@ delete from rhnServerNeededCache
 
 <!-- Errata Search Queries -->
 <elaborator name="default_errata_elaborator" params="">
-SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.synopsis AS ADVISORY_SYNOPSIS, 
+SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.synopsis AS ADVISORY_SYNOPSIS,
         TO_CHAR(E.update_date, 'YYYY-MM-DD') AS ADVISORY_LAST_UPDATED
   FROM  rhnErrata E
    WHERE  E.id IN (%s)
@@ -1091,7 +1091,7 @@ SELECT DISTINCT E.id, E.update_date
    AND (INSTR (UPPER(E.advisory), UPPER(:search_string)) > 0)
    ORDER BY E.update_date DESC
   </query>
-  <elaborator name="default_errata_elaborator" />  
+  <elaborator name="default_errata_elaborator" />
 </mode>
 
 <mode name="errata_search_by_package_name" class="com.redhat.rhn.frontend.dto.ErrataOverview">
@@ -1204,17 +1204,17 @@ SELECT  1
 				E.advisory_name AS advisory,
                 E.update_date AS update_date,
                 E.synopsis as advisory_synopsis,
-                E.advisory_type as advisory_type           
+                E.advisory_type as advisory_type
   FROM rhnErrata E,
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
-   AND CE.errata_id = E.id 
+   AND CE.errata_id = E.id
   </query>
 </mode>
 
 <write-mode name="insert_errata_notification">
   <query params="eid, cid, datetime">
-  insert into rhnErrataQueue (channel_id, errata_id, next_action) values (:cid, :eid, :datetime) 
+  insert into rhnErrataQueue (channel_id, errata_id, next_action) values (:cid, :eid, :datetime)
   </query>
 </write-mode>
 

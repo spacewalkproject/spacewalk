@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.config.ConfigChannel" 
+	<class name="com.redhat.rhn.domain.config.ConfigChannel"
 		table="rhnConfigChannel" >
 		<id name="id" type="long" column="id">
 			<meta attribute="scope-set">protected</meta>
@@ -12,22 +12,22 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		
 		<property name="name" column="name" type="string" length="128" />
 		<property name="label" column="label" type="string" length="64" />
-		<property name="description" column="description" type="string" 
+		<property name="description" column="description" type="string"
 			length="1024" />
 		<property name="created" column="created" type="timestamp" />
 		<property name="modified" column="modified" type="timestamp" />
 		
-		<many-to-one 
+		<many-to-one
             name="org"
             class="com.redhat.rhn.domain.org.OrgImpl"
             column="org_id"/>
-		<many-to-one name="configChannelType" 
-			class="com.redhat.rhn.domain.config.ConfigChannelType" 
+		<many-to-one name="configChannelType"
+			class="com.redhat.rhn.domain.config.ConfigChannelType"
 			column="confchan_type_id"/>
 
-		<set name="configFiles" 
-				table="rhnConfigFile" 
-				lazy="true" 
+		<set name="configFiles"
+				table="rhnConfigFile"
+				lazy="true"
 				inverse="true"
 				sort="com.redhat.rhn.domain.config.ConfigFileTypeComparator">
 			<key column="CONFIG_CHANNEL_ID"/>

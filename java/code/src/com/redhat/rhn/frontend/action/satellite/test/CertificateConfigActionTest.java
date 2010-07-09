@@ -28,13 +28,13 @@ import org.apache.struts.action.DynaActionForm;
  * @version $Rev: 1 $
  */
 public class CertificateConfigActionTest extends RhnMockStrutsTestCase {
-    
+
     public void setUp() throws Exception {
         super.setUp();
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
         Config.get().setString("web.com.redhat.rhn.frontend." +
-                "action.satellite.CertificateConfigAction.command", 
+                "action.satellite.CertificateConfigAction.command",
                 TestConfigureCertificateCommand.class.getName());
         setRequestPathInfo("/admin/config/CertificateConfig");
     }
@@ -43,19 +43,19 @@ public class CertificateConfigActionTest extends RhnMockStrutsTestCase {
 
         actionPerform();
     }
-    
+
     public void testExecuteTextSubmit() throws Exception {
 
         String certString = "some cert text" + TestUtils.randomString();
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(CertificateConfigForm.CERT_TEXT, certString);
         actionPerform();
-        
-        DynaActionForm form = (DynaActionForm) getActionForm(); 
+
+        DynaActionForm form = (DynaActionForm) getActionForm();
         assertEquals(form.get(CertificateConfigForm.CERT_TEXT), certString);
         verifyActionMessages(new String[]{"certificate.config.success"});
     }
-    
+
     public void testExecuteTextSubmitWithMismatch() throws Exception {
 
         String certString = "some cert text" + TestUtils.randomString();
@@ -63,17 +63,17 @@ public class CertificateConfigActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(CertificateConfigForm.CERT_TEXT, certString);
         addRequestParameter("ignoreMismatch", "true");
         actionPerform();
-        
-        DynaActionForm form = (DynaActionForm) getActionForm(); 
+
+        DynaActionForm form = (DynaActionForm) getActionForm();
         assertEquals(form.get(CertificateConfigForm.CERT_TEXT), certString);
         verifyActionMessages(new String[]{"certificate.config.success"});
     }
-    
+
     public void testExecuteSubmitNoCert() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         actionPerform();
         verifyActionMessages(new String[]{"certificate.config.error.nocert"});
     }
- 
+
 }
 

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.rhnpackage.PackageEvr" 
+    <class name="com.redhat.rhn.domain.rhnpackage.PackageEvr"
         table="rhnPackageEvr">
 
         <id name="id" type="long" column="id">
@@ -12,15 +12,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_PKG_EVR_SEQ</param>
             </generator>
         </id>
-  
+
         <property name="epoch" type="string" column="epoch"/>
         <property name="version" type="string" column="version"/>
         <property name="release" type="string" column="release"/>
-        
+
     </class>
 
     <query name="PackageEvr.findById">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageEvr as p 
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageEvr as p
         		where p.id = :id]]>
     </query>
 </hibernate-mapping>

@@ -25,7 +25,7 @@
 
 <input type="hidden" name="cid" value="${cid}" />
 
-	<rl:list 
+	<rl:list
 			emptykey="systemlist.jsp.nosystems"
 			alphabarcolumn="name"
 			filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter" >
@@ -42,8 +42,8 @@
                         	<c:out value="${current.name}" />
                         </a>
                 </rl:column>
-                                
-	                
+
+
 	
 		</rl:list>
 		<rhn:submitted/>

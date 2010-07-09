@@ -37,7 +37,7 @@
     </c:if>
     </td>
   </tr>
-  
+
 </table>
 </div>
 <div class="page-summary">
@@ -81,7 +81,7 @@
   </tr>
   <tr>
     <th><bean:message key="kickstart.session_status.jsp.description" /></th>
-    <td style="white-space: normal;">${statedescription} 
+    <td style="white-space: normal;">${statedescription}
         <c:if test="${ksession.mostRecentHistory != null}">
             (${ksession.mostRecentHistory})
         </c:if>
@@ -115,7 +115,7 @@
       <a href="/rhn/systems/details/kickstart/SessionCancel.do?sid=${system.id}"><bean:message key="kickstart.session_cancel.jsp.cancel"/></a>
     </td>
   </tr>
-  </c:if>  
+  </c:if>
 </table>
 
     </td>
@@ -135,7 +135,7 @@
   </td>
   <td style="text-align: left;" class="last-column">
     <bean:message key="kickstart.session_status.jsp.status_initiate" />
-  </tr>  
+  </tr>
 </tr>
 <tr class="list-row-even">
   <td class="first-column">
@@ -145,7 +145,7 @@
   </td>
   <td style="text-align: left;" class="last-column">
     <bean:message key="kickstart.session_status.jsp.status_reboot" />
-  </tr>  
+  </tr>
 </tr>
 <tr class="list-row-odd">
   <td class="first-column">
@@ -155,7 +155,7 @@
   </td>
   <td style="text-align: left;" class="last-column">
     <bean:message key="kickstart.session_status.jsp.status_register" />
-  </tr>  
+  </tr>
 </tr>
 <c:if test="${ksession.serverProfile != null}">
   <tr class="list-row-even">
@@ -166,9 +166,9 @@
     </td>
     <td style="text-align: left;" class="last-column">
       <bean:message key="kickstart.session_status.jsp.status_profile" arg0="${ksession.serverProfile.id}" />
-    </tr>  
+    </tr>
   </tr>
-</c:if>  
+</c:if>
 <c:choose>
   <c:when test="${ksession.serverProfile == null}">
     <c:set var="nextstyle1" value="list-row-even"/>
@@ -187,7 +187,7 @@
   </td>
   <td style="text-align: left;" class="last-column">
     <bean:message key="kickstart.session_status.jsp.status_config" />
-  </tr>  
+  </tr>
 </tr>
 <c:if test="${not failed}">
   <tr class="${nextstyle2}">
@@ -198,7 +198,7 @@
     </td>
     <td style="text-align: left;" class="last-column">
       <bean:message key="kickstart.session_status.jsp.status_complete" />
-    </tr>  
+    </tr>
   </tr>
 </c:if>
 <c:if test="${failed}">
@@ -209,7 +209,7 @@
     </td>
     <td style="text-align: left;" class="last-column">
       <bean:message key="kickstart.session_status.jsp.status_failed" />
-    </tr>  
+    </tr>
   </tr>
 </c:if>
 </table>

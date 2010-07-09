@@ -42,7 +42,7 @@ public class VirtualSystemsListSetupAction extends BaseSystemListSetupAction {
         Iterator i = dr.iterator();
 
         while (i.hasNext()) {
-            
+
             VirtualSystemOverview next = (VirtualSystemOverview) i.next();
 
             // If the system is not registered with RHN, we cannot show a status
@@ -54,7 +54,7 @@ public class VirtualSystemsListSetupAction extends BaseSystemListSetupAction {
             }
         }
     }
-    
+
     protected DataResult getDataResult(User user, PageControl pc, ActionForm formIn) {
         DataResult dr = SystemManager.virtualSystemsList(user, pc);
 
@@ -84,11 +84,11 @@ public class VirtualSystemsListSetupAction extends BaseSystemListSetupAction {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    public void clampListBounds(PageControl pc, 
-                                HttpServletRequest request, 
+    public void clampListBounds(PageControl pc,
+                                HttpServletRequest request,
                                     User viewer) {
        TreeFilter filter = new TreeFilter();
        filter.setMatcher(new VirtualSystemsFilterMatcher());

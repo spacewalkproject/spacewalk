@@ -27,7 +27,7 @@ import junit.framework.TestCase;
  * @version $Rev$
  */
 public class StrutsDelegateTest extends TestCase {
-    
+
     private class StrutsDelegateStub extends StrutsDelegate {
     }
 
@@ -37,30 +37,30 @@ public class StrutsDelegateTest extends TestCase {
     public StrutsDelegateTest(String name) {
         super(name);
     }
-    
+
     /**
-     * 
+     *
      */
     public final void testForwardParams() {
         ActionForward success = new ActionForward("default", "path", false);
-        
+
         StrutsDelegate strutsDelegate = new StrutsDelegateStub();
-        
+
         ActionForward fwdWithParams = strutsDelegate.forwardParam(success, "foo", "bar");
         assertEquals(success.getName(), fwdWithParams.getName());
         assertEquals(fwdWithParams.getPath(), "path?foo=bar");
     }
-    
+
     /**
-     * 
+     *
      */
     public void testGetTextAreaValue() {
         String value = "asdf\r\nasdfwerwer\rasdf\n\radsfhjhhasdf";
         DynaActionForm form = new RhnMockDynaActionForm();
         form.set("somevalue", value);
-        
+
         StrutsDelegate strutsDelegate = new StrutsDelegateStub();
-        
+
         String stripped = strutsDelegate.getTextAreaValue(form, "somevalue");
         assertNotNull(stripped);
         assertTrue(stripped.indexOf('\r') == -1);

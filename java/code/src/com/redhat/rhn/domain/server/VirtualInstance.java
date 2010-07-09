@@ -25,15 +25,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * VirtualInstance represents a virtual guest system. When the guest is
  * registered, there is an associated {@link Server} that contains additional
  * information about the guest.
- * 
+ *
  * This class maps to the RHN.RhnVirtualInstance table. The schema for the
  * RhnVirtualInstance supports guests of guests; however guests of guests is not
  * being implemented in the RHN 500 release.
- * 
+ *
  * @version $Rev$
  */
 public class VirtualInstance extends BaseDomainHelper {
-    
+
     private static final VirtualInstanceInfo NULL_INFO = new VirtualInstanceInfo();
 
     private Long id;
@@ -42,17 +42,17 @@ public class VirtualInstance extends BaseDomainHelper {
     private String uuid;
     private boolean confirmed;
     private VirtualInstanceInfo info;
-    
+
     /**
      * Default constructor
      */
     public VirtualInstance() {
     }
-    
+
     /**
      * This constructor is for testing only.
-     * 
-     * @param instanceId The unique id to assign to the guest 
+     *
+     * @param instanceId The unique id to assign to the guest
      */
     protected VirtualInstance(Long instanceId) {
         id = instanceId;
@@ -79,7 +79,7 @@ public class VirtualInstance extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * @param newUuid The new UUID
      */
     public void setUuid(String newUuid) {
@@ -87,7 +87,7 @@ public class VirtualInstance extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * @return true or false
      */
     public boolean isConfirmed() {
@@ -95,7 +95,7 @@ public class VirtualInstance extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * @param isConfirmed true or false
      */
     public void setConfirmed(boolean isConfirmed) {
@@ -105,7 +105,7 @@ public class VirtualInstance extends BaseDomainHelper {
     /**
      * When the virtual instance is registered, this method returns a Server
      * corresponding to the guest that this virtual instance represents.
-     * 
+     *
      * @return A Server object corresponding to the guest that this virtual
      * instance represents when the guest is registered; otherwise,
      * <code>null</code> is returned
@@ -138,8 +138,8 @@ public class VirtualInstance extends BaseDomainHelper {
             boolean isOutdated = VirtualInstanceFactory.getInstance().isOutdated(this);
 
             ServerFactory.delete(guest);
-            
-            // Tricky situation here, the stored procedure the above delete call ends up 
+
+            // Tricky situation here, the stored procedure the above delete call ends up
             // using will delete from rhnVirtualInstance if it needs to. If that's the
             // case, we need to make sure to evict ourselves from the session, otherwise
             // Hibernate gets confused.
@@ -154,13 +154,13 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Returns a guest's parent or host system.
-     * 
+     *
      * <strong>Note:</strong> For the RHN 500 release, the Server returned from
      * this method will always be a non-virtual system. The underlying database
      * schema is designed to support guests of guests, but we are not
      * implementing guests of guests for the 500 release. With guests of guests,
      * this method could return a virtual guest as well.
-     * 
+     *
      * @return A Server object that represents the actual host
      */
     public Server getHostSystem() {
@@ -169,7 +169,7 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Sets the parent/host for this guest.
-     * 
+     *
      * @param system The host system
      */
     public void setHostSystem(Server system) {
@@ -179,7 +179,7 @@ public class VirtualInstance extends BaseDomainHelper {
     /**
      * Returns <code>true</code> if this virtual instance represents a
      * registered guest.
-     * 
+     *
      * @return <code>true</code> if this virtual instance represents a
      * registered guest, <code>false</code> otherwise.
      */
@@ -221,8 +221,8 @@ public class VirtualInstance extends BaseDomainHelper {
 
     private VirtualInstanceInfo initInfo() {
         if (info == null) {
-            VirtualInstanceType pv = 
-                VirtualInstanceFactory.getInstance().getParaVirtType(); 
+            VirtualInstanceType pv =
+                VirtualInstanceFactory.getInstance().getParaVirtType();
             info = new VirtualInstanceInfo();
             info.setParent(this);
             info.setType(pv);
@@ -233,7 +233,7 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Returns the name of the virtual instance.
-     * 
+     *
      * @return The name of the virtual instance
      */
     public String getName() {
@@ -242,7 +242,7 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Set the name of the virtual instance.
-     * 
+     *
      * @param name The new name
      */
     public void setName(String name) {
@@ -251,7 +251,7 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Returns the total memory in KB allocated to the virtual instance.
-     * 
+     *
      * @return The total memory in KB allocated to the virtual instance.
      */
     public Long getTotalMemory() {
@@ -260,7 +260,7 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Sets the total memory in KB allocated to the virtual instance.
-     * 
+     *
      * @param memory The total memory in KB
      */
     public void setTotalMemory(Long memory) {
@@ -269,7 +269,7 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Returns the number of CPUs allocated to the virtual instance.
-     * 
+     *
      * @return The number of CPUs allocated to the virtual instance
      */
     public Integer getNumberOfCPUs() {
@@ -278,7 +278,7 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Sets the number of CPUs allocated to the virtual instance.
-     * 
+     *
      * @param number The number of CPUs
      */
     public void setNumberOfCPUs(Integer number) {
@@ -287,7 +287,7 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Returns the virtualization type for this instance.
-     * 
+     *
      * @return The virtualization type for this instance.
      */
     public VirtualInstanceType getType() {
@@ -296,7 +296,7 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Sets the virtualization type for this instance.
-     * 
+     *
      * @param type The new virtualization type
      */
     public void setType(VirtualInstanceType type) {
@@ -305,7 +305,7 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Returns the state of the virtual instance.
-     * 
+     *
      * @return The state of the virtual instance.
      */
     public VirtualInstanceState getState() {
@@ -314,7 +314,7 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * Sets the state of the virtual instance.
-     * 
+     *
      * @param state The new state
      */
     public void setState(VirtualInstanceState state) {
@@ -324,9 +324,9 @@ public class VirtualInstance extends BaseDomainHelper {
     /**
      * Two virtual instancess are considered equal when they share the same
      * UUID.
-     * 
+     *
      * @param object The object to test against
-     * 
+     *
      * @return <code>true</code> if <code>object</code> is a VirtualInstance
      * and has the same uuid as this VirtualInstance, <code>false</code>
      * otherwise.
@@ -337,13 +337,13 @@ public class VirtualInstance extends BaseDomainHelper {
         }
 
         VirtualInstance that = (VirtualInstance) object;
-        
+
         return new EqualsBuilder().append(this.getId(), that.getId()).
             append(this.getUuid(), that.getUuid()).isEquals();
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -360,16 +360,16 @@ public class VirtualInstance extends BaseDomainHelper {
 
     /**
      * An adapter method that transforms the virtual instance into a view.
-     * 
+     *
      * @return A GuestAndNonVirtHostView
      */
     public GuestAndNonVirtHostView asGuestAndNonVirtHostView() {
         if (host == null) {
-            return new GuestAndNonVirtHostView(guest.getId(), guest.getOrg().getId(), 
+            return new GuestAndNonVirtHostView(guest.getId(), guest.getOrg().getId(),
                     guest.getName());
         }
         else {
-            return new GuestAndNonVirtHostView(guest.getId(), guest.getOrg().getId(), 
+            return new GuestAndNonVirtHostView(guest.getId(), guest.getOrg().getId(),
                     guest.getName(), host.getOrg().getId(), host.getId(), host.getName());
         }
     }

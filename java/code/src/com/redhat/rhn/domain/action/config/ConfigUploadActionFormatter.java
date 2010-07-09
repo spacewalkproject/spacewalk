@@ -32,7 +32,7 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ConfigUploadActionFormatter extends ActionFormatter {
-    
+
     /**
      * Create a new config upload action formatter
      * @param actionIn The action.
@@ -40,16 +40,16 @@ public class ConfigUploadActionFormatter extends ActionFormatter {
     public ConfigUploadActionFormatter(ConfigUploadAction actionIn) {
         super(actionIn);
     }
-    
+
     /**
      * Creates an html display for the config upload action notes.
      * Shows the destination channels followed by the filenames.
-     * @return The html notes string 
+     * @return The html notes string
      */
     protected String getNotesBody() {
         StringBuffer buffy = new StringBuffer();
         ConfigUploadAction action = (ConfigUploadAction)getAction();
-        
+
         /* display the list of destination config channels and then
          * the list of config file names. These aren't exactly mutually
          * exclusive lists; some filenames could go to certain channels
@@ -61,7 +61,7 @@ public class ConfigUploadActionFormatter extends ActionFormatter {
         displayFileNames(buffy, action.getRhnActionConfigFileName());
         return buffy.toString();
     }
-    
+
     private String renderChannel(ConfigChannel channel) {
         HtmlTag a = new HtmlTag("a");
         a.setAttribute("href", "/rhn/configuration/ChannelOverview.do?ccid=" +
@@ -69,21 +69,21 @@ public class ConfigUploadActionFormatter extends ActionFormatter {
         a.addBody(StringEscapeUtils.escapeHtml(channel.getDisplayName()));
         return a.render();
     }
-    
+
     private String renderHeading(String transKey) {
         HtmlTag strong = new HtmlTag("strong");
         strong.addBody(LocalizationService.getInstance()
                 .getMessage(transKey));
         return (strong.render() + "<br />");
     }
-    
+
     private String renderFileName(ConfigFileName name) {
         //paths can have pretty much any character including newlines,
         //spaces, and control characters. Escaping html here is only
         //going to work happily for file names that make some kind of sense.
         return (StringEscapeUtils.escapeHtml(name.getPath()) + "<br />");
     }
-    
+
     private void displayChannels(StringBuffer buffy, Set channelSet) {
         /* most of the time, there is only going to be one channel because it
          * will usually be one server's sandbox channel.
@@ -94,19 +94,19 @@ public class ConfigUploadActionFormatter extends ActionFormatter {
         if (channelSet.size() == 1) {
             ConfigChannel channel = ((ConfigChannelAssociation)
                     channelSet.toArray()[0]).getConfigChannel();
-            
+
             //Display will be:
             //Destination Configuration Channel: blah
             //where blah is the channel display name with link
-            
+
             buffy.append(LocalizationService.getInstance()
                     .getMessage("config.upload.onechannel", renderChannel(channel)));
             buffy.append("<br />");
         }
         else if (channelSet.size() > 1) {
-            
+
             buffy.append(renderHeading("config.upload.channels"));
-            
+
             Iterator channels = channelSet.iterator();
             //since you can only upload files into local channels (only sandbox right now),
             //there shouldn't be multiple entries of the same channel.
@@ -119,10 +119,10 @@ public class ConfigUploadActionFormatter extends ActionFormatter {
         }
         //else don't display desination info (invalid config upload action!)
     }
-    
+
     private void displayFileNames(StringBuffer buffy, Set fileNameSet) {
         buffy.append(renderHeading("config.upload.filenames"));
-        
+
         //There could be multiple config file name actions per file name
         //(one per system).  Therefore, we will keep track of ones we have
         // already displayed.
@@ -137,5 +137,5 @@ public class ConfigUploadActionFormatter extends ActionFormatter {
             }
         }
     }
-    
+
 }

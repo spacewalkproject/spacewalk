@@ -52,7 +52,7 @@
     <th><bean:message key="created.displayname"/></th>
     <td>${created}</td>
   </tr>
- 
+
   <tr>
     <th><bean:message key="last_sign_in.displayname"/></th>
     <td>${lastLoggedIn}</td>

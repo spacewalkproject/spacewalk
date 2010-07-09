@@ -18,7 +18,7 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 
 /**
- * 
+ *
  * RowRenderer
  * @version $Rev$
  */
@@ -35,9 +35,9 @@ public class RowRenderer {
         rowClasses[0] = "list-row-even";
         rowClasses[1] = "list-row-odd";
         rowNum = -1;
-        
+
     }
-    
+
     /**
      * get the row class for the current object
      * @param currentObject the current object that is being rendered
@@ -47,7 +47,7 @@ public class RowRenderer {
         rowNum++;
         return rowClasses[rowNum % rowClasses.length];
     }
-    
+
     /**
      * Set the list of row styles
      * @param stylesIn the styles

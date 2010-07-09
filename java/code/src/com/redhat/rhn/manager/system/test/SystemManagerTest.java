@@ -111,11 +111,11 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public static final Long NUM_CPUS = new Long(5);
     public static final int HOST_RAM_MB = 2048;
     public static final int HOST_SWAP_MB = 1024;
-    
+
     public void testSnapshotServer() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
-        Server server = ServerFactoryTest.createTestServer(user, true, 
+        Server server = ServerFactoryTest.createTestServer(user, true,
                             ServerConstants.getServerGroupTypeProvisioningEntitled());
         Long id = server.getId();
 
@@ -126,32 +126,32 @@ public class SystemManagerTest extends RhnBaseTestCase {
         SystemManager.snapshotServer(server, "Testing snapshots");
         assertEquals(new Integer(1), numberOfSnapshots(id));
     }
-    
+
     /*
-     * I know this is ugly, but since we haven't got the sever snapshotting feature fully 
+     * I know this is ugly, but since we haven't got the sever snapshotting feature fully
      * worked out in java yet, just do a sql query to make sure the stored proc worked.
      */
     private Integer numberOfSnapshots(Long sid) {
         Session session = HibernateFactory.getSession();
-        Integer count = (Integer) session.createSQLQuery("Select count(*) as cnt " + 
+        Integer count = (Integer) session.createSQLQuery("Select count(*) as cnt " +
                                                          "  from rhnSnapshot " +
                                                          " where server_id = " + sid)
                                          .addScalar("cnt", Hibernate.INTEGER)
                                          .uniqueResult();
         return count;
     }
-    
+
     public void testDeleteServer() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Server s = ServerFactoryTest.createTestServer(user, true);
         Long id = s.getId();
-        
+
         Server test = SystemManager.lookupByIdAndUser(id, user);
         assertNotNull(test);
-        
+
         SystemManager.deleteServer(user, id);
-        
+
         try {
             test = SystemManager.lookupByIdAndUser(id, user);
             fail("Found deleted server");
@@ -160,7 +160,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
             //success
         }
     }
-    
+
     public void testDeleteVirtualServer() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -168,12 +168,12 @@ public class SystemManagerTest extends RhnBaseTestCase {
         Server guest = ((VirtualInstance) host.getGuests().iterator().next()).
             getGuestSystem();
         Long sid = guest.getId();
-        
+
         Server test = SystemManager.lookupByIdAndUser(sid, user);
         assertNotNull(test);
-        
+
         SystemManager.deleteServer(user, sid);
-        
+
         try {
             test = SystemManager.lookupByIdAndUser(sid, user);
             fail("Found deleted server");
@@ -183,7 +183,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         }
 
     }
-    
+
     public void testDeleteVirtualServerHostDeleted() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -191,17 +191,17 @@ public class SystemManagerTest extends RhnBaseTestCase {
         Server guest = ((VirtualInstance) host.getGuests().iterator().next()).
             getGuestSystem();
         Long sid = guest.getId();
-        
+
         Server test = SystemManager.lookupByIdAndUser(sid, user);
         assertNotNull(test);
-        
+
         // Delete the host first:
         SystemManager.deleteServer(user, host.getId());
         TestUtils.flushAndEvict(host);
-        
+
         SystemManager.deleteServer(user, sid);
         TestUtils.flushAndEvict(guest);
-        
+
         try {
             test = SystemManager.lookupByIdAndUser(sid, user);
             fail("Found deleted server");
@@ -215,23 +215,23 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testSystemsNotInSg() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
-        
+
         // Create a test server so we have one in the list.
         Server s = ServerFactoryTest.createTestServer(user, true);
         ManagedServerGroup sg = ServerGroupTestUtils.createManaged(user);
-        
+
         DataResult<SystemOverview> systems = SystemManager.
                                           systemsNotInGroup(user, sg, null);
         assertNotNull(systems);
         assertFalse(systems.isEmpty());
         assertTrue(serverInList(s, systems));
-        
-        
+
+
         SystemManager.addServerToServerGroup(s, sg);
         systems = SystemManager.systemsNotInGroup(user, sg, null);
         assertFalse(serverInList(s, systems));
-    }    
-    
+    }
+
     private boolean serverInList(Server s, List<SystemOverview> servers) {
         for (SystemOverview dto : servers) {
             if (dto.getId().equals(s.getId())) {
@@ -240,20 +240,20 @@ public class SystemManagerTest extends RhnBaseTestCase {
         }
         return false;
     }
-    
+
     public void testSystemList() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
-        
+
         // Create a test server so we have one in the list.
         ServerFactoryTest.createTestServer(user, true);
-        
+
         DataResult systems = SystemManager.systemList(user, null);
         assertNotNull(systems);
         assertFalse(systems.isEmpty());
         assertTrue(systems.size() > 0);
     }
-    
+
     public void testSystemWithFeature() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         PageControl pc = new PageControl();
@@ -261,14 +261,14 @@ public class SystemManagerTest extends RhnBaseTestCase {
         pc.setPageSize(20);
         DataResult systems = SystemManager.systemsWithFeature(user, "ftr_probes", pc);
         int origCount = systems.size();
-        
+
         user.addRole(RoleFactory.ORG_ADMIN);
         // Create a test server so we have one in the list.
-        Server s = ServerFactoryTest.createTestServer(user, true, 
+        Server s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeMonitoringEntitled());
         ServerFactory.save(s);
-        
-        systems = SystemManager.systemsWithFeature(user, 
+
+        systems = SystemManager.systemsWithFeature(user,
                 ServerConstants.FEATURE_PROBES, pc);
         int newCount = systems.size();
         assertNotNull(systems);
@@ -279,20 +279,20 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertTrue(systems.size() <= 20);
     }
 
-    
+
     public void testSystemsInGroup() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
-        
+
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         ServerGroup group = ServerGroupTestUtils.createManaged(user);
         int origCount = SystemManager.systemsInGroup(group.getId(), null).size();
-        
+
         group.setOrg(server.getOrg());
         ServerFactory.save(server);
         ServerFactory.addServerToGroup(server, group);
-        
+
         DataResult systems = SystemManager.systemsInGroup(group.getId(), null);
         assertNotNull(systems);
         assertFalse(systems.isEmpty());
@@ -301,58 +301,58 @@ public class SystemManagerTest extends RhnBaseTestCase {
         Iterator i = systems.iterator();
         while (i.hasNext()) {
             SystemOverview so = (SystemOverview) i.next();
-            if (so.getId().longValue() == 
+            if (so.getId().longValue() ==
                 server.getId().longValue()) {
                 found = true;
             }
         }
-        assertTrue(found); 
+        assertTrue(found);
     }
-    
-    
+
+
     public void testCountActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Server server = ServerFactoryTest.createTestServer(user);
-        
+
         assertEquals(0, SystemManager.countActions(server.getId()));
-        
-        Action action = ActionFactoryTest.createAction(user, 
+
+        Action action = ActionFactoryTest.createAction(user,
                 ActionFactory.TYPE_CONFIGFILES_UPLOAD);
         ServerActionTest.createServerAction(server, action);
         ActionFactory.save(action);
-        
+
         assertEquals(1, SystemManager.countActions(server.getId()));
-        
-        Action action2 = ActionFactoryTest.createAction(user, 
+
+        Action action2 = ActionFactoryTest.createAction(user,
                 ActionFactory.TYPE_CONFIGFILES_UPLOAD);
         ServerActionTest.createServerAction(server, action2);
         ActionFactory.save(action);
-        
+
         assertEquals(2, SystemManager.countActions(server.getId()));
     }
-    
+
     public void testCountPackageActions() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Server server = ServerFactoryTest.createTestServer(user);
-        
+
         assertEquals(0, SystemManager.countActions(server.getId()));
-        
-        Action action = ActionFactoryTest.createAction(user, 
+
+        Action action = ActionFactoryTest.createAction(user,
                 ActionFactory.TYPE_PACKAGES_DELTA);
         ServerActionTest.createServerAction(server, action);
         ActionFactory.save(action);
-        
+
         assertEquals(1, SystemManager.countActions(server.getId()));
-        
-        Action action2 = ActionFactoryTest.createAction(user, 
+
+        Action action2 = ActionFactoryTest.createAction(user,
                 ActionFactory.TYPE_PACKAGES_AUTOUPDATE);
         ServerActionTest.createServerAction(server, action2);
         ActionFactory.save(action);
-        
+
         assertEquals(2, SystemManager.countActions(server.getId()));
-        
+
     }
-    
+
     public void testUnscheduledErrata() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -360,49 +360,49 @@ public class SystemManagerTest extends RhnBaseTestCase {
         PageControl pc = new PageControl();
         pc.setStart(1);
         pc.setPageSize(20);
-        
+
         DataResult errata = SystemManager.unscheduledErrata(user, server.getId(), pc);
         assertNotNull(errata);
         assertTrue(errata.isEmpty());
         assertTrue(errata.size() == 0);
         assertFalse(SystemManager.hasUnscheduledErrata(user, server.getId()));
-        
+
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         for (Iterator itr = e.getPackages().iterator(); itr.hasNext();) {
             Package pkg = (Package) itr.next();
             ErrataCacheManager.insertNeededPackageCache(server.getId(),
                     e.getId(), pkg.getId());
         }
-        
+
         errata = SystemManager.unscheduledErrata(user, server.getId(), pc);
         assertNotNull(errata);
         assertFalse(errata.isEmpty());
         assertTrue(errata.size() == 1);
         assertTrue(SystemManager.hasUnscheduledErrata(user, server.getId()));
     }
-    
-    
+
+
     public void testEntitleServer() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerTestUtils.createTestSystem(user);
-        ChannelTestUtils.setupBaseChannelForVirtualization(user, 
+        ChannelTestUtils.setupBaseChannelForVirtualization(user,
                 server.getBaseChannel());
         UserTestUtils.addProvisioning(user.getOrg());
         UserTestUtils.addMonitoring(user.getOrg());
         UserTestUtils.addVirtualization(user.getOrg());
         UserTestUtils.addVirtualizationPlatform(user.getOrg());
         TestUtils.saveAndFlush(user.getOrg());
-        
-        assertTrue(SystemManager.canEntitleServer(server, 
+
+        assertTrue(SystemManager.canEntitleServer(server,
                 EntitlementManager.MONITORING));
-        assertTrue(SystemManager.canEntitleServer(server, 
+        assertTrue(SystemManager.canEntitleServer(server,
                 EntitlementManager.PROVISIONING));
-        assertTrue(SystemManager.canEntitleServer(server, 
+        assertTrue(SystemManager.canEntitleServer(server,
                 EntitlementManager.VIRTUALIZATION));
-        assertTrue(SystemManager.canEntitleServer(server, 
+        assertTrue(SystemManager.canEntitleServer(server,
                 EntitlementManager.VIRTUALIZATION_PLATFORM));
-        
+
         assertFalse(SystemManager.entitleServer(server,
                 EntitlementManager.VIRTUALIZATION).hasErrors());
         assertFalse(SystemManager.entitleServer(server,
@@ -412,16 +412,16 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertFalse(SystemManager.entitleServer(server,
                 EntitlementManager.PROVISIONING).hasErrors());
         server = (Server) reload(server);
-        
+
         assertTrue(server.hasEntitlement(EntitlementManager.PROVISIONING));
         // By adding virt_platform above we swapped out virt
         assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
-        
+
         SystemManager.entitleServer(server, EntitlementManager.MONITORING);
         SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
         SystemManager.entitleServer(server, EntitlementManager.VIRTUALIZATION);
         SystemManager.entitleServer(server, EntitlementManager.VIRTUALIZATION_PLATFORM);
-        
+
         // One assert for kicks
         assertTrue(server.hasEntitlement(EntitlementManager.PROVISIONING));
 
@@ -434,62 +434,62 @@ public class SystemManagerTest extends RhnBaseTestCase {
                 EntitlementManager.MONITORING);
         SystemManager.removeServerEntitlement(server.getId(),
                 EntitlementManager.PROVISIONING);
-        
+
         server = (Server) reload(server);
-        
+
         assertFalse(server.hasEntitlement(EntitlementManager.PROVISIONING));
         assertFalse(server.hasEntitlement(EntitlementManager.MONITORING));
         assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
         assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM));
 
     }
-    
+
     public void testEntitleVirtForGuest() throws Exception {
         Server host = ServerTestUtils.createVirtHostWithGuest();
         User user = host.getCreator();
         UserTestUtils.addVirtualization(user.getOrg());
-        
-        Server guest = 
+
+        Server guest =
             ((VirtualInstance) host.getGuests().iterator().next()).getGuestSystem();
         guest.addChannel(ChannelTestUtils.createBaseChannel(user));
         ServerTestUtils.addVirtualization(user, guest);
-        
+
         assertTrue(SystemManager.entitleServer(guest,
                 EntitlementManager.VIRTUALIZATION).hasErrors());
         assertFalse(guest.hasEntitlement(EntitlementManager.VIRTUALIZATION));
     }
-    
+
     public void testEntitleMaxMembers() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerTestUtils.createTestSystem(user);
-        
+
         UserTestUtils.addProvisioning(user.getOrg());
         EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
-                                                EntitlementManager.PROVISIONING, 
+                                                EntitlementManager.PROVISIONING,
                                                 user.getOrg());
         group.setMaxMembers(new Long(0));
         TestUtils.saveAndFlush(group);
         TestUtils.flushAndEvict(group);
-        
+
         ValidatorResult vr =
             SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
         assertTrue("we shoulda gotten an error", vr.hasErrors());
         ValidatorError ve = vr.getErrors().get(0);
         assertEquals("system.entitle.noslots", ve.getKey());
-        
+
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest = ((VirtualInstance) 
+        Server guest = ((VirtualInstance)
                 host.getGuests().iterator().next()).getGuestSystem();
-        
+
         EntitlementServerGroup pgroup = ServerGroupFactory.lookupEntitled(
-                                                EntitlementManager.PROVISIONING, 
+                                                EntitlementManager.PROVISIONING,
                                                 user.getOrg());
         pgroup.setMaxMembers(new Long(pgroup.getCurrentMembers().longValue() + 1));
 
         TestUtils.saveAndFlush(pgroup);
         TestUtils.flushAndEvict(pgroup);
-        
+
         assertFalse(SystemManager.entitleServer(host, EntitlementManager.PROVISIONING)
                 .hasErrors());
         assertTrue(host.hasEntitlement(EntitlementManager.PROVISIONING));
@@ -499,81 +499,81 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertFalse(SystemManager.entitleServer(guest, EntitlementManager.PROVISIONING)
                 .hasErrors());
     }
-    
+
     public void testVirtualEntitleServer() throws Exception {
         // User and server
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerTestUtils.createTestSystem(user);
-        Channel[] children = ChannelTestUtils.setupBaseChannelForVirtualization(user, 
+        Channel[] children = ChannelTestUtils.setupBaseChannelForVirtualization(user,
                 server.getBaseChannel());
-        
+
         Channel rhnTools = children[0];
         Channel rhelVirt = children[1];
-        
+
         // Entitlements
         UserTestUtils.addVirtualization(user.getOrg());
         TestUtils.saveAndFlush(user.getOrg());
 
-        assertTrue(SystemManager.canEntitleServer(server, 
+        assertTrue(SystemManager.canEntitleServer(server,
                 EntitlementManager.VIRTUALIZATION));
-        
+
         ValidatorResult retval = SystemManager.entitleServer(server,
                 EntitlementManager.VIRTUALIZATION);
-        
+
         server = (Server) reload(server);
-        
+
         String key = null;
         if (retval.getErrors().size() > 0) {
             key = retval.getErrors().get(0).getKey();
         }
         assertFalse("Got back: " + key, retval.hasErrors());
-        
+
         // Test stuff!
         assertTrue(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
         assertTrue(server.getChannels().contains(rhnTools));
         if (!ConfigDefaults.get().isSpacewalk()) {
             assertTrue(server.getChannels().contains(rhelVirt));
         }
-        
-        
+
+
         // Test removal
-        SystemManager.removeServerEntitlement(server.getId(), 
+        SystemManager.removeServerEntitlement(server.getId(),
                 EntitlementManager.VIRTUALIZATION);
-        
+
         server = (Server) reload(server);
         assertFalse(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
-        
+
     }
-    
+
     public void testSwapVirts() throws Exception {
         Server host = ServerTestUtils.createVirtHostWithGuest();
         User user = host.getCreator();
         UserTestUtils.addVirtualization(user.getOrg());
         UserTestUtils.addVirtualizationPlatform(user.getOrg());
-        assertTrue(SystemManager.hasEntitlement(host.getId(), 
+        assertTrue(SystemManager.hasEntitlement(host.getId(),
                 EntitlementManager.VIRTUALIZATION));
-        assertFalse(SystemManager.hasEntitlement(host.getId(), 
-                        EntitlementManager.VIRTUALIZATION_PLATFORM));        
+        assertFalse(SystemManager.hasEntitlement(host.getId(),
+                        EntitlementManager.VIRTUALIZATION_PLATFORM));
         ValidatorResult result = SystemManager.entitleServer(host,
                                         EntitlementManager.VIRTUALIZATION_PLATFORM);
         assertFalse(result.hasErrors());
-        assertTrue(SystemManager.hasEntitlement(host.getId(), 
+        assertTrue(SystemManager.hasEntitlement(host.getId(),
                                 EntitlementManager.VIRTUALIZATION_PLATFORM));
-        assertFalse(SystemManager.hasEntitlement(host.getId(), 
+        assertFalse(SystemManager.hasEntitlement(host.getId(),
                                         EntitlementManager.VIRTUALIZATION));
         host = (Server) reload(host);
         result = SystemManager.entitleServer(host,
                                         EntitlementManager.VIRTUALIZATION);
          assertFalse(result.hasErrors());
-         assertTrue(SystemManager.hasEntitlement(host.getId(), 
+         assertTrue(SystemManager.hasEntitlement(host.getId(),
                                  EntitlementManager.VIRTUALIZATION));
-         assertFalse(SystemManager.hasEntitlement(host.getId(), 
+         assertFalse(SystemManager.hasEntitlement(host.getId(),
                              EntitlementManager.VIRTUALIZATION_PLATFORM));
-        
-    }    
-    
-    
+
+    }
+
+
     public void testGetServerEntitlement() throws Exception {
         // create a new server
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
@@ -582,7 +582,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertFalse(entitlements.isEmpty());
         assertTrue(entitlements.contains(EntitlementManager.MANAGEMENT));
     }
-    
+
     public void testClientCapability() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Server server = ServerFactoryTest.createTestServer(user);
@@ -591,8 +591,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertTrue(SystemManager.clientCapable(server.getId(),
                 SystemManager.CAP_PACKAGES_VERIFY));
     }
-    
-    
+
+
     /**
      * This utility method associates a particular system with a given
      * capability.  This is backend code that has not yet been implemented
@@ -605,18 +605,18 @@ public class SystemManagerTest extends RhnBaseTestCase {
      */
     public static void giveCapability(Long sid, String capability, Long version)
         throws SQLException {
-        
+
         WriteMode m = ModeFactory.getWriteMode("test_queries",
                                                     "add_to_client_capabilities");
         Map params = new HashMap();
         params.put("sid", sid);
         params.put("capability", capability);
         params.put("version", version);
-        m.executeUpdate(params);        
+        m.executeUpdate(params);
     }
-    
+
     public void testCompatibleWithServer() throws Exception {
-        
+
         /*
          * here we create a user as an org admin.
          * then we create two (minimum) Servers owned by the user and
@@ -628,7 +628,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         user.addRole(RoleFactory.ORG_ADMIN);
         Server srvr = ServerFactoryTest.createTestServer(user, true,
                 ServerFactory.lookupServerGroupTypeByLabel("enterprise_entitled"));
-        
+
         Server srvr1 = ServerFactoryTest.createTestServer(user, true,
                 ServerFactory.lookupServerGroupTypeByLabel("enterprise_entitled"));
         Channel channel = ChannelFactoryTest.createTestChannel(user);
@@ -638,7 +638,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(srvr1);
         UserManager.storeUser(user);
 
-        
+
         // Ok let's finally test what we came here for.
         List list = SystemManager.compatibleWithServer(user, srvr);
         assertNotNull("List is null", list);
@@ -646,7 +646,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         boolean found = false;
         for (Iterator itr = list.iterator(); itr.hasNext();) {
             Object o = itr.next();
-            
+
             assertEquals("List contains something other than Profiles",
                     HashMap.class, o.getClass());
             Map s = (Map) o;
@@ -657,81 +657,81 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertTrue("Didn't get back the expected values", found);
 
     }
-    
+
     public void testSubscribeServerToChannel() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
-        
+
         Server server = ServerFactoryTest.createTestServer(user, true);
         Channel channel = ChannelFactoryTest.createTestChannel(user);
 
         int before = server.getChannels().size();
         SystemManager.subscribeServerToChannel(user, server, channel);
-        
+
         server = (Server) reload(server);
-        
+
         int after = server.getChannels().size();
         assertTrue(after > before);
     }
     public void testSystemSearch() throws Exception {
-        
+
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
 
         Server s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        
+
         /* setup needed for needed package query */
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         e.setAdvisoryType(ErrataFactory.ERRATA_TYPE_SECURITY);
-        
+
         Package p = PackageManagerTest.addPackageToSystemAndChannel(
-                "test-package-name" + TestUtils.randomString(), s, 
+                "test-package-name" + TestUtils.randomString(), s,
                 ChannelFactoryTest.createTestChannel(user));
-        
-        
+
+
         /*ServerGroup group = ServerGroupTestUtils.createEntitled(org);
         SystemManager.addServerToServerGroup(s, group);
         UserFactory.save(user);
         OrgFactory.save(org);*/
         int rows = ErrataCacheManager.insertNeededPackageCache(
                 s.getId(), e.getId(), p.getId());
-        assertEquals(1, rows); 
-        
+        assertEquals(1, rows);
+
         /* CPU query setup */
         CPU cpu = CPUTest.createTestCpu();
         cpu.setServer(s);
         s.setCpu(CPUTest.createTestCpu());
-        
+
         /* Network setup */
         Network network = NetworkTest.createTestNetwork();
         network.setServer(s);
         s.addNetwork(network);
-        
+
         /* Dmi setup */
         Dmi dmi = DmiTest.createTestDmi();
         dmi.setServer(s);
         s.setDmi(dmi);
-        
+
         /* fake device setup */
         Device device = DeviceTest.createTestDevice();
         device.setServer(s);
         s.addDevice(device);
-        
+
         /* Location setup */
         Location loc = LocationTest.createTestLocation();
         loc.setServer(s);
         s.setLocation(loc);
-        
+
         /* custom data value */
-        CustomDataValue value = CustomDataValueTest.createTestCustomDataValue(user, 
-                                CustomDataKeyTest.createTestCustomDataKey(user), 
+        CustomDataValue value = CustomDataValueTest.createTestCustomDataValue(user,
+                                CustomDataKeyTest.createTestCustomDataKey(user),
                                 s);
         s.addCustomDataValue(value);
-        
+
         TestUtils.saveAndFlush(s);
         s = (Server) reload(s);
-        
+
         /* Here we create a hashmap with the name of each query as the key
          * and the value being a search string that WILL return a result, namely
          * our test system we created above
@@ -739,7 +739,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         Map map = new HashMap();
         map.put("systemsearch_name_and_description", s.getName());
         map.put("systemsearch_id", s.getId().toString());
-        // map.put("systemsearch_checkin", "-1"); 
+        // map.put("systemsearch_checkin", "-1");
         // map.put("systemsearch_registered", "0");
         map.put("systemsearch_cpu_model", cpu.getModel());
         map.put("systemsearch_cpu_mhz_lt", new Long(CPUTest.MHZ_NUMERIC + 50).toString());
@@ -762,11 +762,11 @@ public class SystemManagerTest extends RhnBaseTestCase {
         map.put("systemsearch_location_building", loc.getBuilding());
         map.put("systemsearch_location_room", loc.getRoom());
         map.put("systemsearch_location_rack", loc.getRack());
-        
+
         Iterator i = map.keySet().iterator();
-        
+
         clearSession();
-        
+
         /* Loop through the set of keys which is our queries
          * For each query we check that if we search on it,
          * we find our system. Then we check the other possible
@@ -775,60 +775,60 @@ public class SystemManagerTest extends RhnBaseTestCase {
         while (i.hasNext()) {
             String viewMode = (String) i.next();
             String searchValue = (String) map.get(viewMode);
-            
-            DataResult dr = SystemManager.systemSearch(user, 
-                                                       searchValue, 
-                                                       viewMode,  
-                                                       Boolean.FALSE, 
-                                                       "all", 
+
+            DataResult dr = SystemManager.systemSearch(user,
+                                                       searchValue,
+                                                       viewMode,
+                                                       Boolean.FALSE,
+                                                       "all",
                                                        null);
 
-            assertFalse(viewMode + " is empty with value: " + searchValue, 
+            assertFalse(viewMode + " is empty with value: " + searchValue,
                     dr.isEmpty());
-            
-            dr = SystemManager.systemSearch(user, 
-                                            searchValue, 
-                                            viewMode,  
-                                            Boolean.FALSE, 
-                                            "system_list", 
+
+            dr = SystemManager.systemSearch(user,
+                                            searchValue,
+                                            viewMode,
+                                            Boolean.FALSE,
+                                            "system_list",
                                             null);
-            
+
             assertTrue(viewMode + " has items with value: " + searchValue,
                     dr.isEmpty());
 
-            dr = SystemManager.systemSearch(user, 
-                                            searchValue, 
-                                            viewMode,  
-                                            Boolean.TRUE, 
-                                            "system_list", 
+            dr = SystemManager.systemSearch(user,
+                                            searchValue,
+                                            viewMode,
+                                            Boolean.TRUE,
+                                            "system_list",
                                             null);
 
             assertTrue(viewMode + " has items with value: " + searchValue,
                     dr.isEmpty());
         }
-        
+
     }
-    
+
     public void testGetSsmSystemsSubscribedToChannel() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
-        
+
         Server s = ServerTestUtils.createTestSystem(user);
-        
+
         RhnSetDecl.SYSTEMS.clear(user);
         RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         set.addElement(s.getId());
         RhnSetManager.store(set);
-        
-        List<Map> systems = SystemManager.getSsmSystemsSubscribedToChannel(user, 
+
+        List<Map> systems = SystemManager.getSsmSystemsSubscribedToChannel(user,
                 s.getBaseChannel().getId());
         assertEquals(1, systems.size());
         Map result1 = systems.get(0);
         assertEquals(s.getName(), result1.get("name"));
         assertEquals(s.getId(), result1.get("id"));
     }
-    
+
     public void testNoBaseChannelInSet() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -837,13 +837,13 @@ public class SystemManagerTest extends RhnBaseTestCase {
         // Get ourselves a system
         Server s = ServerTestUtils.createTestSystem(user);
         SystemManager.unsubscribeServerFromChannel(user, s, s.getBaseChannel());
-        
+
         // insert sys into system-set
         RhnSetDecl.SYSTEMS.clear(user);
         RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         set.addElement(s.getId());
         RhnSetManager.store(set);
-        
+
         // ask for the base channels of all systems in the system-set for the test user
         DataResult dr = SystemManager.systemsWithoutBaseChannelsInSet(user);
         assertNotNull(dr);
@@ -851,16 +851,16 @@ public class SystemManagerTest extends RhnBaseTestCase {
         EssentialServerDto m = (EssentialServerDto)dr.get(0);
         Long id = m.getId().longValue();
         assertTrue(s.getId().equals(id));
-        
+
         // Create a new no-base-channel-server
         Server s2 = ServerTestUtils.createTestSystem(user);
         SystemManager.unsubscribeServerFromChannel(user, s2, s2.getBaseChannel());
-        
+
         // We should NOT see it yet
         dr = SystemManager.systemsWithoutBaseChannelsInSet(user);
         assertNotNull(dr);
         assertEquals(dr.size(), 1);
-        
+
         // Add it to the SSM set and look again
         set.addElement(s2.getId());
         RhnSetManager.store(set);
@@ -868,7 +868,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertNotNull(dr);
         assertEquals(dr.size(), 2);
     }
-    
+
     public void testRegisteredList() throws Exception {
         User user = UserTestUtils.findNewUser(TestStatics.TESTUSER, TestStatics.TESTORG);
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -878,11 +878,11 @@ public class SystemManagerTest extends RhnBaseTestCase {
                 .createTestServerGroup(user.getOrg(), null);
         SystemManager.addServerToServerGroup(server, group);
         ServerFactory.save(server);
-        
+
         DataResult dr = SystemManager.registeredList(user, null, 0);
         assertNotEmpty(dr);
     }
-    
+
     public void testDeactivateSatellite() throws Exception {
         // Server s = ServerFactory.lookupById(new Long(1007294616));
         Server s = ServerTestUtils.createTestSystem();
@@ -897,7 +897,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
            // do nothing
         }
     }
-    
+
     public void testDeactivateProxy() throws Exception {
         User user = UserTestUtils.findNewUser(TestStatics.TESTUSER, TestStatics.TESTORG);
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -908,15 +908,15 @@ public class SystemManagerTest extends RhnBaseTestCase {
         server = (Server) reload(server);
         assertFalse(server.isProxy());
     }
-    
+
     public void testCanServerSubscribeToChannel() throws Exception {
         Server server = ServerTestUtils.createTestSystem();
-        Channel childChannel = ChannelTestUtils.createChildChannel(server.getCreator(), 
+        Channel childChannel = ChannelTestUtils.createChildChannel(server.getCreator(),
                 server.getBaseChannel());
-        assertTrue(SystemManager.canServerSubscribeToChannel(server.getCreator().getOrg(), 
+        assertTrue(SystemManager.canServerSubscribeToChannel(server.getCreator().getOrg(),
                 server, childChannel));
     }
-    
+
     private void addCpuToServer(Server s) {
         CPU cpu = new CPU();
         cpu.setArch(ServerFactory.lookupCPUArchByName(CPUTest.ARCH_NAME));
@@ -932,20 +932,20 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testVcpuSettingExceeds32() throws Exception {
         Server host = setupHostWithGuests(1);
         VirtualInstance vi = (VirtualInstance)host.getGuests().iterator().next();
-        
+
         // Currently 32 is the maximum supported number of vcpus on both 32 and 64-bit
         // systems:
         ValidatorResult result = SystemManager.validateVcpuSetting(vi.getId(), 33);
         List errors = result.getErrors();
         assertEquals(1, errors.size());
-        assertEquals("systems.details.virt.vcpu.limit.msg", 
+        assertEquals("systems.details.virt.vcpu.limit.msg",
                 ((ValidatorError)errors.get(0)).getKey());
     }
 
     public void testVcpuSettingExceedsPhysicalCpus() throws Exception {
         Server host = setupHostWithGuests(1);
         VirtualInstance vi = (VirtualInstance)host.getGuests().iterator().next();
-        
+
         // Warning should result from attempting to set vcpus greater than the
         // physical hosts cpus:
         ValidatorResult result = SystemManager.validateVcpuSetting(vi.getId(), 6);
@@ -962,7 +962,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     public void testVcpuIncreaseWarning() throws Exception {
         Server host = setupHostWithGuests(1);
         VirtualInstance vi = (VirtualInstance)host.getGuests().iterator().next();
-        
+
         ValidatorResult result = SystemManager.validateVcpuSetting(vi.getId(), 3);
         assertEquals(0, result.getErrors().size());
 
@@ -974,12 +974,12 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     public void testMemoryChangeWarnings() throws Exception {
         Server host = setupHostWithGuests(1);
-        
+
         List guestIds = new LinkedList();
         VirtualInstance vi = (VirtualInstance)host.getGuests().iterator().next();
         guestIds.add(vi.getId());
 
-        ValidatorResult result = SystemManager.validateGuestMemorySetting(guestIds, 
+        ValidatorResult result = SystemManager.validateGuestMemorySetting(guestIds,
             512);
         List errors = result.getErrors();
         assertEquals(0, errors.size());
@@ -1025,15 +1025,15 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     /**
      * Note: This test tests multiple calls in SystemManager.
-     * 
+     *
      * @throws Exception
      */
     public void testErrataCountsForSystem() throws Exception {
-        
+
         // Setup
         User admin = UserTestUtils.findNewUser("errataUser1", "errataOrg1");
         Org org = admin.getOrg();
-        
+
         Server server = ServerTestUtils.createTestSystem(admin);
         ServerFactory.save(server);
         TestUtils.flushAndEvict(server);
@@ -1044,14 +1044,14 @@ public class SystemManagerTest extends RhnBaseTestCase {
             PackageEvrFactory.createPackageEvr("1", "1.0.0", "2");
         upgradedPackageEvr =
             (PackageEvr)TestUtils.saveAndReload(upgradedPackageEvr);
-        
+
         ServerTestUtils.populateServerErrataPackages(org, server,
             upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_SECURITY);
         ServerTestUtils.populateServerErrataPackages(org, server,
             upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_BUG);
 
         // Test
-        int criticalCount = 
+        int criticalCount =
             SystemManager.countCriticalErrataForSystem(admin, server.getId());
         int nonCriticalCount =
             SystemManager.countNoncriticalErrataForSystem(admin, server.getId());
@@ -1064,8 +1064,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
     /**
      * Creates two packages and errata agains the specified server. An installed package
      * with the default EVR is created and installed to the server. The newer package
-     * is created with the given EVR and is the package associated with the errata. 
-     * 
+     * is created with the given EVR and is the package associated with the errata.
+     *
      * @param org
      * @param server
      * @param upgradedPackageEvr
@@ -1076,22 +1076,22 @@ public class SystemManagerTest extends RhnBaseTestCase {
                                               PackageEvr upgradedPackageEvr,
                                               String errataType)
         throws Exception {
-        
+
         Errata errata = ErrataFactoryTest.createTestErrata(org.getId());
-        errata.setAdvisoryType(errataType);        
+        errata.setAdvisoryType(errataType);
         TestUtils.saveAndFlush(errata);
-        
+
         Package installedPackage = PackageTest.createTestPackage(org);
         TestUtils.saveAndFlush(installedPackage);
-        
+
         Session session = HibernateFactory.getSession();
         session.flush();
-        
+
         Package upgradedPackage = PackageTest.createTestPackage(org);
         upgradedPackage.setPackageName(installedPackage.getPackageName());
         upgradedPackage.setPackageEvr(upgradedPackageEvr);
         TestUtils.saveAndFlush(upgradedPackage);
-        
+
         ErrataCacheManager.insertNeededPackageCache(
                 server.getId(), errata.getId(), installedPackage.getId());
     }
@@ -1139,12 +1139,12 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
         ServerTestUtils.addServerPackageMapping(server1.getId(), installedPackage1);
         ServerTestUtils.addServerPackageMapping(server1.getId(), installedPackage2);
-        
+
         ServerTestUtils.addServerPackageMapping(server2.getId(), installedPackage1);
-        
+
         //    Add the servers to the SSM set
         ServerTestUtils.addServersToSsm(admin, server1.getId(), server2.getId());
-        
+
         //    Simulate the user selecting every package in the list
         RhnSet packagesSet =
             RhnSetManager.createSet(admin.getId(),
@@ -1165,12 +1165,12 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assert packagesSet != null;
 
         assertNotNull(packagesSet);
-        
+
         // Test
         DataResult result =
             SystemManager.ssmSystemPackagesToRemove(admin, packagesSet.getLabel(), false);
         assertNotNull(result);
-        
+
         //   Need explicit elaborate call here; list tag will do this in the UI
         result.elaborate();
 
@@ -1179,20 +1179,20 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
         for (Object r : result) {
             Map map = (Map)r;
-            
+
             if (map.get("id").equals(server1.getId())) {
                 assertEquals(server1.getName(), map.get("system_name"));
-        
+
                 assertTrue(map.get("elaborator0") instanceof List);
                 List result1Packages = (List)map.get("elaborator0");
                 assertEquals(2, result1Packages.size());
             }
             else if (map.get("id").equals(server2.getId())) {
                 assertEquals(server2.getName(), (map.get("system_name")));
-        
+
                 assertTrue(map.get("elaborator0") instanceof List);
                 List result2Packages = (List)map.get("elaborator0");
-                assertEquals(1, result2Packages.size());                
+                assertEquals(1, result2Packages.size());
             }
             else {
                 fail("Found ID that wasn't expected: " + map.get("id"));
@@ -1223,7 +1223,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         int sizeAfterDelete = server.getNotes().size();
         assertEquals(sizeBefore, sizeAfterDelete);
     }
-    
+
     public void testDeleteNotes() throws Exception {
         // Setup
         User admin = UserTestUtils.findNewUser("testUser", "testOrg");
@@ -1247,7 +1247,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         server = ServerFactory.lookupById(server.getId());
         int sizeAfterDelete = server.getNotes().size();
         assertEquals(0, sizeAfterDelete);
-        
+
     }
 
 

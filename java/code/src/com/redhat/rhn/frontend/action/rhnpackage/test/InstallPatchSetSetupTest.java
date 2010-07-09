@@ -46,7 +46,7 @@ public class InstallPatchSetSetupTest extends RhnBaseTestCase {
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
-            
+
         user.addRole(RoleFactory.ORG_ADMIN);
         Server system = ServerFactoryTest.createTestServer(user);
 
@@ -58,7 +58,7 @@ public class InstallPatchSetSetupTest extends RhnBaseTestCase {
 
         request.setupAddParameter("pid", patchset.getId().toString());
         request.setupAddParameter("sid", system.getId().toString());
-        
+
         //execute the action
         ActionForward result = action.execute(mapping, form, request, response);
         assertEquals(result.getName(), "default");

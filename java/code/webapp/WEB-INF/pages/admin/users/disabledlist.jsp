@@ -12,7 +12,7 @@
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp#s2-sm-users-deactivated"
- creationUrl="/rhn/users/CreateUser.do?account_type=into_org" 
+ creationUrl="/rhn/users/CreateUser.do?account_type=into_org"
  creationType="user">
   <bean:message key="disabledlist.jsp.title"/>
 </rhn:toolbar>
@@ -21,32 +21,32 @@
 
 <rl:listset name="disabledUserListSet">
 	<rl:list dataset="pageList"
-         width="100%"        
+         width="100%"
          name="disabledUserList"
          decorator="SelectableDecorator"
          filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"
          styleclass="list"
          emptykey="disabledlist.jsp.noUsers"
  		 alphabarcolumn="userLogin">
- 		 
+
  		<rl:selectablecolumn value="${current.id}"
 	 		selected="${current.selected}"
 	 		disabled="${not current.selectable}"
 	 		styleclass="first-column"/>
  		
-		<rl:column bound="false" 
-			sortable="true" 
-			headerkey="username.nopunc.displayname" 
+		<rl:column bound="false"
+			sortable="true"
+			headerkey="username.nopunc.displayname"
 			sortattr="userLogin">
 			<c:out value="<a href=\"UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
 		</rl:column> 		
  		
  		
- 		<rl:decorator name="PageSizeDecorator"/> 
+		<rl:decorator name="PageSizeDecorator"/>
  		
  		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
 
-		<rl:column  
+		<rl:column
 	    	headerkey="disabledlist.jsp.disabledBy">	     	
 	     	<c:out value="${current.changedByFirstName} ${current.changedByLastName}" escapeXml="false"/>
 	    </rl:column>
@@ -56,10 +56,10 @@
 	    	attr="changeDateString"
 	    	sortattr="changeDate"
 	    	styleclass="last-column"/>
-	            
+
  	</rl:list>
  	<rl:csv dataset="pageList"
-		name="disabledUserList" 
+		name="disabledUserList"
 		exportColumns="userLogin,userLastName,userFirstName,roleNames,lastLoggedIn,changedByFirstName,changedByLastName,changeDate"/>
 	
 	<div align="right">

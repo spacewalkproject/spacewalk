@@ -1,7 +1,7 @@
 <%--
   The body of the probe create form. Use with a compile-time include
 
-  withSatCluster - boolean variable to indicate whether to let the user 
+  withSatCluster - boolean variable to indicate whether to let the user
                    choose a satCluster/scout
 --%>
 
@@ -98,7 +98,7 @@ function refreshNotifFields() {
         </html:select>
       </td>
     </tr>
-    
+
     <%@ include file="/WEB-INF/pages/common/fragments/probes/render-param-value-list.jspf" %>
     <tr>
       <td></td>

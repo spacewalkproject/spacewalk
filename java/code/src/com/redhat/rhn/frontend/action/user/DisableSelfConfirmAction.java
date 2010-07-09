@@ -43,13 +43,13 @@ public class DisableSelfConfirmAction extends RhnAction {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
         throws Exception {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         ActionForward forward = null;
         DynaActionForm f = (DynaActionForm)form;
         User user = requestContext.getLoggedInUser();
-        
+
         if (!isSubmitted(f)) {
             forward =  getStrutsDelegate().forwardParams(mapping.findForward("default"),
                     request.getParameterMap());
@@ -60,19 +60,19 @@ public class DisableSelfConfirmAction extends RhnAction {
             }
             catch (StateChangeException e) {
                 ActionErrors errors = new ActionErrors();
-                errors.add(ActionMessages.GLOBAL_MESSAGE, 
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage(e.getMessage()));
                 addErrors(request, errors);
                 return mapping.findForward("failure");
             }
-            
+
             ActionMessages msg = new ActionMessages();
             msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("account.disabled"));
             getStrutsDelegate().saveMessages(request, msg);
             forward = mapping.findForward("logout");
         }
-        
+
         return forward;
     }
 

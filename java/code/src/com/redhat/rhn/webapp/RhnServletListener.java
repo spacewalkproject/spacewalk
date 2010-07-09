@@ -26,7 +26,7 @@ import javax.servlet.ServletContextListener;
 
 /* Long term, if we end up with a lot of code in here, we will want to
  * move this code out of a single listener and into multiple classes
- * that each do one and only one thing, but for two startup/shutdown 
+ * that each do one and only one thing, but for two startup/shutdown
  * actions, a single class is ok.
  */
 
@@ -39,10 +39,10 @@ import javax.servlet.ServletContextListener;
 public class RhnServletListener implements ServletContextListener {
 
     private static Logger log = Logger.getLogger(RhnServletListener.class);
-    
+
     private boolean hibernateStarted = false;
     private boolean loggingStarted = false;
-    
+
 
     private void startMessaging() {
         // Start the MessageQueue thread listening for
@@ -50,9 +50,9 @@ public class RhnServletListener implements ServletContextListener {
         MessageQueue.startMessaging();
         MessageQueue.configureDefaultActions();
     }
-    
+
     private void stopMessaging() {
-        MessageQueue.stopMessaging();        
+        MessageQueue.stopMessaging();
     }
 
     /**
@@ -69,14 +69,14 @@ public class RhnServletListener implements ServletContextListener {
         }
         loggingStarted = true;
     }
-    
+
     private void logStop(String system) {
         if (log.isDebugEnabled()) {
             log.debug(system + "Starting ");
         }
         loggingStarted = false;
     }
-        
+
     /**
      * Check to see if we have started logging
      * @return boolean if or not logging is running
@@ -84,7 +84,7 @@ public class RhnServletListener implements ServletContextListener {
     public boolean loggingStarted() {
         return loggingStarted;
     }
-    
+
     private void startHibernate() {
         HibernateFactory.createSessionFactory();
         hibernateStarted = true;
@@ -94,12 +94,12 @@ public class RhnServletListener implements ServletContextListener {
         HibernateFactory.closeSessionFactory();
         hibernateStarted = false;
     }
-    
+
     /**
      * Have we started Hibernate
      * @return boolean value if we started hibernate
      */
-    public boolean hibernateStarted() { 
+    public boolean hibernateStarted() {
         return hibernateStarted;
     }
 
@@ -107,10 +107,10 @@ public class RhnServletListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         startMessaging();
         logStart("Messaging");
-        
+
         startHibernate();
         logStart("Hibernate");
-        
+
         log.debug("Starting upgrade check");
         executeUpgradeStep();
     }
@@ -120,7 +120,7 @@ public class RhnServletListener implements ServletContextListener {
         UpgradeCommand cmd = new UpgradeCommand();
         cmd.store();
         log.debug("UpgradeCommand done.");
-        
+
     }
 
     /** {@inheritDoc} */
@@ -130,7 +130,7 @@ public class RhnServletListener implements ServletContextListener {
 
         stopHibernate();
         logStop("Hibernate");
-        
+
         // shutdown the logger to avoid ThreadDeath exception during
         // webapp reload.
         LogManager.shutdown();

@@ -17,7 +17,7 @@ package com.redhat.rhn.domain.kickstart;
 import java.util.Date;
 
 /**
- * KickstartGuestInstallLog - Class representation of the table 
+ * KickstartGuestInstallLog - Class representation of the table
  * rhnVirtualInstanceInstallLog.
  * @version $Rev: 1 $
  */

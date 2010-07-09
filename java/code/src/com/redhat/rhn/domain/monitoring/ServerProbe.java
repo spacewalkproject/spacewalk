@@ -22,18 +22,18 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * ServerProbe - class that represents a ServerProbe that is assigned to a Server.  
- * This class may have a parent, TemplateProbe if this ServerProbe is a 
+ * ServerProbe - class that represents a ServerProbe that is assigned to a Server.
+ * This class may have a parent, TemplateProbe if this ServerProbe is a
  * member of a ProbeSuite.
  * @version $Rev: 1 $
  */
 public class ServerProbe extends Probe {
-    
+
     // private Set serverProbeClusterAssociations;
     private Set templateProbes;
     private Server server;
     private SatCluster satCluster;
-    
+
     /**
      * Creates new ServerProbe instance with appropriate defaults
      * @return ServerProbe
@@ -43,20 +43,20 @@ public class ServerProbe extends Probe {
         retval.getType();
         return retval;
     }
-    
+
     /**
      * Create a new server probe
      */
     public ServerProbe() {
         super();
     }
-    
+
     /**
      * Get the Server used by this ServerProbe
      * @return Server used by this ServerProbe, NULL if not defined
      */
     public Server getServer() {
-        /*ServerProbeClusterAssociation spca = 
+        /*ServerProbeClusterAssociation spca =
             getServerProbeClusterAssociation();
         return (spca == null) ? null : spca.getServer();*/
         return server;
@@ -69,7 +69,7 @@ public class ServerProbe extends Probe {
         this.satCluster = satClusterIn;
     }
 
-    
+
     /**
      * @param serverIn The server to set.
      */
@@ -83,12 +83,12 @@ public class ServerProbe extends Probe {
      * not associated with a SatCluster
      */
     public SatCluster getSatCluster() {
-        /*ServerProbeClusterAssociation spca = 
+        /*ServerProbeClusterAssociation spca =
             getServerProbeClusterAssociation();
         return (spca == null) ? null : spca.getSatCluster();*/
         return satCluster;
     }
-    
+
     /**
      * @return Returns the type.
      */
@@ -99,8 +99,8 @@ public class ServerProbe extends Probe {
             }
         }
         return this.type;
-    }   
-    
+    }
+
     /*private ServerProbeClusterAssociation getServerProbeClusterAssociation() {
         // Since, in reality, the primary key for ServerProbeClusterAssociation
         // is ProbeId, we know that there will be only one SatCluster / ServerProbe.
@@ -117,8 +117,8 @@ public class ServerProbe extends Probe {
         }
         return spca;
     }*/
-    
-    /** 
+
+    /**
      * Associate this probe with a SatCluster
      * @param satIn SatCluster to associate with this probe
      * @param serverIn Server that this ServerProbe should be tied to.
@@ -132,27 +132,27 @@ public class ServerProbe extends Probe {
         newA.setSatCluster(satIn);
         newA.setServer(serverIn);
         this.addServerProbeClusterAssociation(newA);*/
-    } 
+    }
 
     /*private void addServerProbeClusterAssociation(ServerProbeClusterAssociation sIn) {
         if (this.serverProbeClusterAssociations == null) {
             this.serverProbeClusterAssociations = new HashSet();
         }
-        this.serverProbeClusterAssociations.add(sIn);        
+        this.serverProbeClusterAssociations.add(sIn);
     }*/
-    
+
     /**
      * Used by this package to maintain the associations between Servers/SatClusters/Probes
      * @return Returns the serverProbeClusterAssociations.
-     
+
     protected Set getServerProbeClusterAssociations() {
         return serverProbeClusterAssociations;
     }*/
-        
+
     /**
      * Used by this package to maintain the associations between Servers/SatClusters/Probes
      * @param serverProbeClusterAssociationsIn The serverProbeClusterAssociations to set.
-     
+
     protected void setServerProbeClusterAssociations(
             Set serverProbeClusterAssociationsIn) {
         this.serverProbeClusterAssociations = serverProbeClusterAssociationsIn;
@@ -165,7 +165,7 @@ public class ServerProbe extends Probe {
         return templateProbes;
     }
 
-    
+
     /**
      * @param templateProbesIn The templateProbes to set.
      */
@@ -179,16 +179,16 @@ public class ServerProbe extends Probe {
      * @return TemplateProbe instance if there is one.
      */
     public TemplateProbe getTemplateProbe() {
-        if (getTemplateProbes() == null || 
+        if (getTemplateProbes() == null ||
                 getTemplateProbes().size() == 0) {
             return null;
-        } 
+        }
         else {
-            return (TemplateProbe) 
+            return (TemplateProbe)
                 getTemplateProbes().iterator().next();
         }
     }
-    
+
     /**
      *  Sets this probe to have a pending state.  Useful for new
      *  probes that you want to have a state of PENDING.

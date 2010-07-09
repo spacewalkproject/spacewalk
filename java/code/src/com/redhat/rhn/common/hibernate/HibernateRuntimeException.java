@@ -21,7 +21,7 @@ package com.redhat.rhn.common.hibernate;
 import com.redhat.rhn.common.RhnRuntimeException;
 
 /**
- * A RuntimeException version of HibernateException.  Hibernate3 switches to 
+ * A RuntimeException version of HibernateException.  Hibernate3 switches to
  * RuntimeException
  * <p>
 
@@ -47,8 +47,8 @@ public class HibernateRuntimeException extends RhnRuntimeException  {
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public HibernateRuntimeException(String message ,   Throwable cause) {

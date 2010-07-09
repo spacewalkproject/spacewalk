@@ -55,12 +55,12 @@ public class PackageListItem extends IdComboDto {
     private String summary;
     private String nvrea;
     private Date installTime;
-    
+
     private Long idOne;
     private Long idTwo;
     private Long idThree;
 
-    
+
     /**
      * @return Returns the arch.
      */
@@ -122,20 +122,20 @@ public class PackageListItem extends IdComboDto {
         epoch = epochIn;
     }
     /**
-     * 
+     *
      * @return Returns the packageId
      */
     public Long getPackageId() {
         return packageId;
     }
     /**
-     * 
+     *
      * @param packageIdIn The packageId to set
      */
     public void setPackageId(Long packageIdIn) {
         packageId = packageIdIn;
     }
-    
+
     /**
      * @return Returns the Id.
      */
@@ -183,7 +183,7 @@ public class PackageListItem extends IdComboDto {
      */
     public Long getIdOne() {
         return idOne;
-        
+
     }
     /**
      * {@inheritDoc}
@@ -301,7 +301,7 @@ public class PackageListItem extends IdComboDto {
     }
     /**
      * Returns the channel name and id instance variables as
-     * a list of HashMaps all in a single convenient Object 
+     * a list of HashMaps all in a single convenient Object
      * @return list of HashMaps with name and id keys
      */
     public List getChannels() {
@@ -333,9 +333,9 @@ public class PackageListItem extends IdComboDto {
         if (timestamp == null) {
             timestamp = LocalizationService
                         .getInstance()
-                        .getMessage("patches.installed.notavailable");            
+                        .getMessage("patches.installed.notavailable");
         }
-        
+
         return timestamp;
     }
     /**
@@ -359,7 +359,7 @@ public class PackageListItem extends IdComboDto {
     public void setActionStatus(String actionStatusIn) {
         actionStatus = actionStatusIn;
     }
-    
+
     /**
      * @return Returns the evr.
      */
@@ -430,9 +430,9 @@ public class PackageListItem extends IdComboDto {
 
     /**
      * Get a string representation of NEVR:
-     * 
+     *
      * virt-manager-0.2.6-7.0.2.el5
-     * 
+     *
      * @return String representation of package's NEVR
      */
     public String getNevr() {
@@ -441,10 +441,10 @@ public class PackageListItem extends IdComboDto {
         String r = (this.getRelease() != null) ? this.getRelease() : "0";
         return this.getName() + "-" + e + "-" + v + "-" + r;
     }
-    
+
     /**
      * Get a string representation of NEVRA:
-     * 
+     *
      * @return String representation of package's NEVRA
      */
     public String getNevra() {
@@ -467,9 +467,9 @@ public class PackageListItem extends IdComboDto {
             return getIdCombo() + "~*~" + getNvre();
         }
     }
-    
+
     /**
-     * Returns a map of the keys used in this Package List . 
+     * Returns a map of the keys used in this Package List .
      * @return a map.
      */
     public Map <String, Long> getKeyMap() {
@@ -487,10 +487,10 @@ public class PackageListItem extends IdComboDto {
     public String getMapHash() {
         return "" + getNameId() + "|" + getArchId();
     }
-    
+
     /**
-     * Returns a list of Key map representation for a given list of package  items 
-     * @param items the list of package items to be converted. 
+     * Returns a list of Key map representation for a given list of package  items
+     * @param items the list of package items to be converted.
      * @return the list of key maps associated with the given items
      */
     public static  List<Map<String, Long>> toKeyMaps(List <PackageListItem> items) {
@@ -499,8 +499,8 @@ public class PackageListItem extends IdComboDto {
             ret.add(item.getKeyMap());
         }
         return ret;
-    }    
-    
+    }
+
     /**
      * Basically constructs a PackageListItem from a selection key.
      * @param key the select key string containing other metadata
@@ -511,7 +511,7 @@ public class PackageListItem extends IdComboDto {
         PackageListItem item  = new PackageListItem();
         item.setIdCombo(row[0]);
         if (row.length > 1) {
-            item.setNvre(row[1]);    
+            item.setNvre(row[1]);
         }
         return item;
     }

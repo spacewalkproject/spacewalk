@@ -55,21 +55,21 @@ public abstract class AbstractDatabaseAction implements MessageAction {
         }
     }
 
-    
+
     /**
-     * Commits the current thread transaction, as well as close the Hibernate session. 
+     * Commits the current thread transaction, as well as close the Hibernate session.
      * <p/>
      * Note that this call <em>MUST</em> take place for any database operations done in
-     * a message queue action for the transaction to be committed. 
+     * a message queue action for the transaction to be committed.
      */
     protected void handleTransactions(boolean commit) {
         boolean committed = false;
 
         try {
-            if (commit) {    
+            if (commit) {
                 HibernateFactory.commitTransaction();
                 committed = true;
-    
+
                 if (log.isDebugEnabled()) {
                     log.debug("Transaction committed");
                 }
@@ -99,5 +99,5 @@ public abstract class AbstractDatabaseAction implements MessageAction {
             }
         }
     }
-    
+
 }

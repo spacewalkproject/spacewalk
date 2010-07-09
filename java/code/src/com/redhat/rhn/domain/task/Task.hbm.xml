@@ -3,11 +3,11 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.task.Task" 
+    <class name="com.redhat.rhn.domain.task.Task"
         table="rhnTaskQueue">
         <composite-id unsaved-value="any">
-            <key-many-to-one name="org" 
-                class="com.redhat.rhn.domain.org.OrgImpl" 
+            <key-many-to-one name="org"
+                class="com.redhat.rhn.domain.org.OrgImpl"
                 column="org_id" />
             <key-property name="name" type="string" column="task_name" length="64"/>
 			<key-property name="data" column="task_data" type="long"/>
@@ -16,9 +16,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
 		<property name="priority" column="priority" type="int"/>
     </class>
-    
+
     <query name="Task.lookup">
-        <![CDATA[from com.redhat.rhn.domain.task.Task as t 
+        <![CDATA[from com.redhat.rhn.domain.task.Task as t
                 where t.org = :org and t.name = :name and t.data = :data]]>
     </query>
 	
@@ -34,7 +34,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	</query>
 	
     <query name="Task.listTasksByName">
-        <![CDATA[from com.redhat.rhn.domain.task.Task as t 
+        <![CDATA[from com.redhat.rhn.domain.task.Task as t
                 where t.name = :name]]>
     </query>	
 	
@@ -44,7 +44,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <sql-query name="Task.lookupByNameLike">
       <![CDATA[SELECT {t.*}
           FROM rhnTaskQueue {t}
-             WHERE t.task_name like :namelike                
+             WHERE t.task_name like :namelike
         ]]>
     <return alias="t" class="com.redhat.rhn.domain.task.Task" />
     </sql-query>

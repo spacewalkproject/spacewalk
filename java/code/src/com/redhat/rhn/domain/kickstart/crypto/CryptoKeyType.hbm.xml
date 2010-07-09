@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType" 
+    <class name="com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType"
         table="rhnCryptoKeyType" >
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -16,10 +16,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="created" column="created" not-null="true" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
     </class>
-    
+
     <query name="CryptoKeyType.findByLabel">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType as c 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType as c
                 where c.label = :label]]>
     </query>
-    
+
 </hibernate-mapping>

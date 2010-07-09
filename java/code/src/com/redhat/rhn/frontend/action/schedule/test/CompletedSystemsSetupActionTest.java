@@ -30,26 +30,26 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 public class CompletedSystemsSetupActionTest extends RhnBaseTestCase {
     private CompletedSystemsSetupAction action;
     private ActionHelper sah;
-    
+
     public void setUp() throws Exception {
         action = new CompletedSystemsSetupAction();
         sah = new ActionHelper();
         sah.setUpAction(action);
         sah.setupClampListBounds();
     }
-    
+
     public void testPerformExecute() throws Exception {
         Action a1 = ActionFactoryTest.createAction(sah.getUser(),
                 ActionFactory.TYPE_REBOOT);
         Long actionId = a1.getId();
 
-        
+
         sah.getRequest().setupAddParameter("aid", actionId.toString());
         sah.executeAction();
-        
+
         String name = (String) sah.getRequest().getAttribute("actionname");
         Action a2 = (Action)sah.getRequest().getAttribute("action");
-        
+
         assertNotNull(sah.getRequest().getAttribute("pageList"));
         assertNotNull(sah.getRequest().getAttribute("user"));
         assertNotNull(name);
@@ -57,7 +57,7 @@ public class CompletedSystemsSetupActionTest extends RhnBaseTestCase {
         assertNotNull(a2);
         assertEquals(actionId, a2.getId());
     }
-    
+
     public void testBadParameterException() throws Exception {
         sah.getRequest().setupAddParameter("aid", (String)null);
         try {
@@ -68,10 +68,10 @@ public class CompletedSystemsSetupActionTest extends RhnBaseTestCase {
             assertTrue(true);
         }
     }
-    
+
     public void testLookupException() throws Exception {
         sah.getRequest().setupAddParameter("aid", "-99");
-        
+
         try {
             sah.executeAction();
             fail("Should've thrown a LookupException");

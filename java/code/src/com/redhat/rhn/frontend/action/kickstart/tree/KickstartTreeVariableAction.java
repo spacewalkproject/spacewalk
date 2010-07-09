@@ -25,7 +25,7 @@ import org.cobbler.CobblerObject;
 import org.cobbler.Distro;
 
 /**
- * 
+ *
  * KickstartProfileVariableAction
  * @version $Rev$
  */

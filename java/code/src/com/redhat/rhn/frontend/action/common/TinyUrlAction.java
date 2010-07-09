@@ -33,9 +33,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class TinyUrlAction extends RhnAction {
-    
+
     private static Logger log = Logger.getLogger(TinyUrlAction.class);
-    
+
     public static final String TY_TOKEN = "tytoken";
 
     /**
@@ -50,11 +50,11 @@ public class TinyUrlAction extends RhnAction {
             Enumeration e = request.getParameterNames();
             while (e.hasMoreElements()) {
                 String name = (String) e.nextElement();
-                log.debug("param.name: " + name + " val: " + 
+                log.debug("param.name: " + name + " val: " +
                         request.getParameter(name));
             }
         }
-        
+
         TinyUrl turl = CommonFactory.lookupTinyUrl(token);
         if (turl != null) {
             if (log.isDebugEnabled()) {

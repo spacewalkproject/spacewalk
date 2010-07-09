@@ -70,9 +70,9 @@ public class NavNodeTest extends RhnBaseTestCase {
             }
         }
         assertEquals(randName, privateValue);
-        
+
     }
-    
+
     public void testEscapedName() {
         NavNode theNode = new NavNode();
         String random = TestUtils.randomString();
@@ -80,12 +80,12 @@ public class NavNodeTest extends RhnBaseTestCase {
         String escapedName = random + "&amp;you";
         //it localizes the name too
         String expected = "**" + escapedName + "**";
-        
+
         theNode.setName(name);
         assertEquals(expected, theNode.getName());
     }
-    
-    
+
+
     public void testAddUrls() {
         for (int i = 0; i < 10; i++) {
             node.addURL(Integer.toString(i));

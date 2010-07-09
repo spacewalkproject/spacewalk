@@ -7,13 +7,13 @@
                      set="${requestScope.set}"
                      button="${buttonname}">
       <rhn:set value="${current.id}"/>
-    
+
       <rhn:column header="ssmdiff.jsp.filename">
         <img src="/img/rhn-listicon-cfg_file.gif"
              alt="<bean:message key='config.common.fileAlt' />" />
         ${current.path}
       </rhn:column>
-      
+
       <rhn:column header="ssmdiff.jsp.systems"
                   url="/rhn/systems/ssm/config/DiffSystems.do?cfnid=${current.id}">
         <c:choose>
@@ -25,7 +25,7 @@
           </c:otherwise>
         </c:choose>
       </rhn:column>
-      
+
     </rhn:listdisplay>
 </rhn:list>
 <rhn:submitted/>

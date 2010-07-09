@@ -36,31 +36,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Manages displaying/updating package names 
+ * Manages displaying/updating package names
  * associated with Kickstarts
- * 
+ *
  * @version $Rev $
  */
 public class EditPackagesAction extends RhnAction {
-    
+
     private static final String PACKAGE_LIST = "packageList";
-    
+
     /**
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, 
-            ActionForm form, 
-            HttpServletRequest request, 
+    public ActionForward execute(ActionMapping mapping,
+            ActionForm form,
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         DynaActionForm dynaForm = (DynaActionForm) form;
         RequestContext ctx = new RequestContext(request);
         KickstartEditCommand cmd = new KickstartEditCommand(
                 ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                 ctx.getCurrentUser());
-        KickstartData ksdata = cmd.getKickstartData();  
+        KickstartData ksdata = cmd.getKickstartData();
         request.setAttribute(RequestContext.KICKSTART, ksdata);
         if (isSubmitted(dynaForm)) {
-            ActionForward returnForward = save(mapping, dynaForm, request, response, 
+            ActionForward returnForward = save(mapping, dynaForm, request, response,
                     ctx, ksdata);
             addMessage(request, "kickstart.edit.pkgs.updated");
             return returnForward;
@@ -69,7 +69,7 @@ public class EditPackagesAction extends RhnAction {
             return display(mapping, dynaForm, request, response, ctx, ksdata);
         }
     }
-    
+
     /**
      * Handles form submission and database update
      * @param mapping from Struts
@@ -77,13 +77,13 @@ public class EditPackagesAction extends RhnAction {
      * @param request from Struts
      * @param response from Struts
      * @param ctx RequestContext corresponding to the request
-     * @param ksdata KickstartData 
+     * @param ksdata KickstartData
      * @return pointer to jsp page
      * @throws Exception signalling error
      */
-    public ActionForward save(ActionMapping mapping, 
-            DynaActionForm form, 
-            HttpServletRequest request, 
+    public ActionForward save(ActionMapping mapping,
+            DynaActionForm form,
+            HttpServletRequest request,
             HttpServletResponse response,
             RequestContext ctx,
             KickstartData ksdata) throws Exception {
@@ -103,20 +103,20 @@ public class EditPackagesAction extends RhnAction {
      * @param request from Struts
      * @param response from Struts
      * @param ctx RequestContext corresponding to the request
-     * @param ksdata KickstartData 
+     * @param ksdata KickstartData
      * @return pointer to jsp page
      * @throws Exception signalling error
      */
-    public ActionForward display(ActionMapping mapping, 
-            DynaActionForm form, 
-            HttpServletRequest request, 
+    public ActionForward display(ActionMapping mapping,
+            DynaActionForm form,
+            HttpServletRequest request,
             HttpServletResponse response,
             RequestContext ctx,
             KickstartData ksdata) throws Exception {
         prepareForm(ksdata, form);
         return mapping.findForward("display");
     }
-    
+
     private void prepareForm(KickstartData ksdata, DynaActionForm form) {
         Set ksPackages = ksdata.getKsPackages();
         if (ksPackages != null && ksPackages.size() > 0) {
@@ -130,14 +130,14 @@ public class EditPackagesAction extends RhnAction {
         }
         form.set("submitted", Boolean.TRUE);
     }
-    
-    private void transferEdits(KickstartData ksdata, DynaActionForm form, 
+
+    private void transferEdits(KickstartData ksdata, DynaActionForm form,
             RequestContext ctx) {
-        
+
         // first clear the kickstart packages set
         ksdata.clearKsPackages();
         Set ksPackages = ksdata.getKsPackages();
-        
+
         String newPackages = form.getString(PACKAGE_LIST);
         if (newPackages != null && newPackages.length() > 0) {
             for (StringTokenizer strtok = new StringTokenizer(newPackages, "\n");

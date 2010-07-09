@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.monitoring.suite.ProbeSuite" 
+	<class name="com.redhat.rhn.domain.monitoring.suite.ProbeSuite"
 		table="rhn_check_suites" >
 		<id name="id" type="long" column="recid">
 			<meta attribute="scope-set">protected</meta>
@@ -11,15 +11,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				<param name="sequence">RHN_CHECK_SUITES_RECID_SEQ</param>
 			</generator>
 		</id>
-		<property name="suiteName" column="suite_name" not-null="true" 
+		<property name="suiteName" column="suite_name" not-null="true"
 			type="string" length="40" />
-		<property name="description" column="description" type="string" 
+		<property name="description" column="description" type="string"
 			length="255" />
-		<property name="lastUpdateUser" column="last_update_user" 
+		<property name="lastUpdateUser" column="last_update_user"
 			not-null="true" type="string" length="40" />
-		<property name="lastUpdateDate" column="last_update_date" 
+		<property name="lastUpdateDate" column="last_update_date"
 			not-null="true" type="timestamp" />
-		<many-to-one name="org" column="customer_id" 
+		<many-to-one name="org" column="customer_id"
 			class="com.redhat.rhn.domain.org.OrgImpl"
 			not-null="true" />
 		<set name="probes" table="rhn_check_suite_probe" cascade="all" lazy="true">
@@ -28,7 +28,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				class="com.redhat.rhn.domain.monitoring.TemplateProbe"/>
 		</set>
 	</class>
-	<query name="ProbeSuite.findByIdandOrgId"> 
+	<query name="ProbeSuite.findByIdandOrgId">
 		<![CDATA[from com.redhat.rhn.domain.monitoring.suite.ProbeSuite as ps where ps.id = :psid and CUSTOMER_ID = :orgId]]>
     </query>
 </hibernate-mapping>

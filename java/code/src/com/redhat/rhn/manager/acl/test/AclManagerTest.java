@@ -26,9 +26,9 @@ import com.mockobjects.servlet.MockHttpServletRequest;
  * @version $Rev$
  */
 public class AclManagerTest extends RhnBaseTestCase {
-    
+
     public void testHasAcl() {
-        
+
         MockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         String singleTrue = "true_test()";
         String multipleTrue = "first_true_acl(); second_true_acl()";
@@ -44,8 +44,8 @@ public class AclManagerTest extends RhnBaseTestCase {
         String mixinFoo = MockFooAclHandler.class.getName();
         String mixinMultiple = MockMultipleAclHandler.class.getName();
         String mixinBoolean = BooleanAclHandler.class.getName();
-        
-        
+
+
         assertTrue(AclManager.hasAcl(singleTrue, request, mixinBoolean));
         assertTrue(AclManager.hasAcl(multipleTrue, request, mixinMultiple));
         assertFalse(AclManager.hasAcl(singleFalse, request, mixinBoolean));
@@ -56,7 +56,7 @@ public class AclManagerTest extends RhnBaseTestCase {
         assertTrue(AclManager.hasAcl(doubleFoo, request, mixinFoo));
         assertTrue(AclManager.hasAcl(fooPlus, request, mixinFoo + "," + mixinBoolean));
         assertFalse(AclManager.hasAcl(notFoo, request, mixinFoo));
-        
+
         try {
             AclManager.hasAcl(invalid, request, mixinBoolean);
             fail(); //should never get here
@@ -64,7 +64,7 @@ public class AclManagerTest extends RhnBaseTestCase {
         catch (Exception e) {
             //no op
         }
-        
+
         try {
             AclManager.hasAcl(oneFalse, request, invalid);
             fail(); //should never get here
@@ -107,7 +107,7 @@ public class AclManagerTest extends RhnBaseTestCase {
             return true;
         }
     }
-    
+
     public static class BooleanAclHandler implements AclHandler {
         /**
          * Always returns true.
@@ -118,7 +118,7 @@ public class AclManagerTest extends RhnBaseTestCase {
         public boolean aclTrueTest(Object ctx, String[] params) {
             return true;
         }
-        
+
         /**
          * Always returns false.
          * @param ctx ignored

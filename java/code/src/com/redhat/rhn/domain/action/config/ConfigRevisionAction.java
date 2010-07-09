@@ -22,7 +22,7 @@ import java.util.Date;
 
 /**
  * ConfigRevisionAction - Class representation of the table rhnActionConfigRevision.
- * 
+ *
  * @version $Rev$
  */
 public class ConfigRevisionAction extends ActionChild {
@@ -31,11 +31,11 @@ public class ConfigRevisionAction extends ActionChild {
     private Long failureId;
     private Date created;
     private Date modified;
-    
+
     private Server server;
     private ConfigRevision configRevision;
     private ConfigRevisionActionResult configRevisionActionResult;
-    
+
     /**
      * Get the id
      * @return Returns the id.
@@ -43,7 +43,7 @@ public class ConfigRevisionAction extends ActionChild {
     public Long getId() {
         return id;
     }
-    
+
     /**
      * Set the id
      * @param idIn The id to set.
@@ -51,48 +51,48 @@ public class ConfigRevisionAction extends ActionChild {
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    /** 
-     * Getter for failureId 
+    /**
+     * Getter for failureId
      * @return Long to get
     */
     public Long getFailureId() {
         return this.failureId;
     }
 
-    /** 
-     * Setter for failureId 
+    /**
+     * Setter for failureId
      * @param failureIdIn to set
     */
     public void setFailureId(Long failureIdIn) {
         this.failureId = failureIdIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {
@@ -107,7 +107,7 @@ public class ConfigRevisionAction extends ActionChild {
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * Set the server object
      * @param serverIn The server to set.
@@ -115,7 +115,7 @@ public class ConfigRevisionAction extends ActionChild {
     public void setServer(Server serverIn) {
         this.server = serverIn;
     }
-    
+
     /**
      * Get the configRevision object
      * @return ConfigRevision the configRevision.
@@ -123,7 +123,7 @@ public class ConfigRevisionAction extends ActionChild {
     public ConfigRevision getConfigRevision() {
         return configRevision;
     }
-    
+
     /**
      * Set the configRevision object
      * @param configRevisionIn The configRevision to set.
@@ -147,5 +147,5 @@ public class ConfigRevisionAction extends ActionChild {
             ConfigRevisionActionResult configRevisionActionResultIn) {
         this.configRevisionActionResult = configRevisionActionResultIn;
     }
-        
+
 }

@@ -32,17 +32,17 @@ import java.util.Map;
  * @version $Rev$
  */
 public class PackageIndexActionTest extends RhnBaseTestCase {
-    
+
     public void testUpdate() throws Exception {
         PackageIndexAction pia = new PackageIndexAction();
         ActionHelper ah = new ActionHelper();
         ah.setUpAction(pia);
         ah.getUser().addRole(RoleFactory.ORG_ADMIN);
-        
+
         Server svr = ServerFactoryTest.createTestServer(ah.getUser(), true);
         ah.getRequest().setupAddParameter("sid", svr.getId().toString());
         ah.executeAction("update");
-        
+
         SelectMode m = ModeFactory.getMode("test_queries", "scheduled_actions");
         Map params = new HashMap();
         params.put("user_id", ah.getUser().getId());

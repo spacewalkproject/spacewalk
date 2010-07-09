@@ -26,27 +26,27 @@ public abstract class BaseVirtualizationAction extends Action {
 
     private String uuid;
 
-    /** 
+    /**
      * Getter for uuid
      * @return String to get
      */
     public String getUuid() {
         return this.uuid;
     }
-    
-    /** 
+
+    /**
      * Setter for uuid
-     * @param stringIn String to set uuid to 
+     * @param stringIn String to set uuid to
      */
     public void setUuid(String stringIn) {
         this.uuid = stringIn;
     }
 
     /**
-     * Extract any required parameters from the provided context and call the 
+     * Extract any required parameters from the provided context and call the
      * appropriate setters.
      *
-     * @param context Map of strings 
+     * @param context Map of strings
      */
     public void extractParameters(Map context) {
         // Most virtualization actions require no parameters, default implementation

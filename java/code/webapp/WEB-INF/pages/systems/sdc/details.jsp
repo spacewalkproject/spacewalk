@@ -7,7 +7,7 @@
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
     <h2><bean:message key="sdc.details.edit.header"/></h2>
-    
+
     <html:form method="post" action="/systems/details/Edit.do?sid=${system.id}">
       <html:hidden property="submitted" value="true"/>
     <table class="details">
@@ -29,7 +29,7 @@
                 <c:out value="${base_entitlement}"/>
               </rhn:require>
             </c:when>
-            <c:otherwise>   
+            <c:otherwise>
               <c:out value="${base_entitlement}"/>
             </c:otherwise>
           </c:choose>
@@ -121,7 +121,7 @@
         <td><html:text property="rack" maxlength="64" size="10" styleId="rack"/></td>
       </tr>
     </table>
-    
+
       <hr/>
         <div align="right">
           <html:submit>

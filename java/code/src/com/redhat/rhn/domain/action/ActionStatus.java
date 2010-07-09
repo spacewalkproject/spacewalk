@@ -22,38 +22,38 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @version $Rev$
  */
 public class ActionStatus {
-    
+
     private Long id;
     private String name;
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
     public void setName(String n) {
         this.name = n;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -68,7 +68,7 @@ public class ActionStatus {
         return new EqualsBuilder().append(this.getName(), other.getName())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -77,7 +77,7 @@ public class ActionStatus {
         result.append(name);
         return result.toString();
     }
-    
+
     /**
      * {@inheritDoc}
      */

@@ -9,7 +9,7 @@
     </rhn-tab>	
 	<rhn-tab name="kickstart.variable.nav"  acl="user_role(config_admin);profile_is_valid()">
 		<rhn-tab-url>/rhn/kickstart/EditVariables.do</rhn-tab-url>
-	</rhn-tab>  
+	</rhn-tab>
 	<rhn-tab name="Kickstart File"  acl="user_role(config_admin);profile_is_valid()">
 		<rhn-tab-url>/rhn/kickstart/KickstartFileDownloadAdvanced.do</rhn-tab-url>
 	</rhn-tab>

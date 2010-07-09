@@ -39,7 +39,7 @@ public abstract class BaseErrataListSetupAction extends RhnListAction {
                                  HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         PageControl pc = new PageControl();
 
@@ -50,6 +50,6 @@ public abstract class BaseErrataListSetupAction extends RhnListAction {
         request.setAttribute("pageList", dr);
         return mapping.findForward("default");
     }
-    
+
     protected abstract DataResult getDataResult(User user, PageControl pc);
 }

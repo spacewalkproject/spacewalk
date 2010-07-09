@@ -53,21 +53,21 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     public static final String VIRTUAL_FILE_PATH = "diskPath";
     public static final String LOCAL_STORAGE_MB = "localStorageMegabytes";
     public static final String PROFILE = "cobbler_profile";
-    
+
     public static final String GUEST_NAME = "guestName";
     public static final int MIN_NAME_SIZE = 4;
     public static final int MAX_CPU = 32;
-            
+
     /**
      * {@inheritDoc}
      */
-    public ActionForward runFirst(ActionMapping mapping, DynaActionForm form, 
-            RequestContext ctx, HttpServletResponse response, 
+    public ActionForward runFirst(ActionMapping mapping, DynaActionForm form,
+            RequestContext ctx, HttpServletResponse response,
             WizardStep step) throws Exception {
-          
-        
+
+
         if (StringUtils.isEmpty(form.getString(MEMORY_ALLOCATION))) {
-            form.set(MEMORY_ALLOCATION, "");                            
+            form.set(MEMORY_ALLOCATION, "");
         }
 
         if (StringUtils.isEmpty(form.getString(VIRTUAL_CPUS))) {
@@ -85,10 +85,10 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
      * {@inheritDoc}
      */
     @Override
-    public ActionForward runSecond(ActionMapping mapping, DynaActionForm form, 
-            RequestContext ctx, HttpServletResponse response, 
-            WizardStep step) throws Exception {        
-        if (!validateFirstSelections(form, ctx)) {            
+    public ActionForward runSecond(ActionMapping mapping, DynaActionForm form,
+            RequestContext ctx, HttpServletResponse response,
+            WizardStep step) throws Exception {
+        if (!validateFirstSelections(form, ctx)) {
             return runFirst(mapping, form, ctx, response, step);
         }
         ActionErrors errors = validateInput(form);
@@ -98,7 +98,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             return runFirst(mapping, form, ctx, response, step);
         }
         ActionForward forward = super.runSecond(mapping, form, ctx, response, step);
-        
+
         Profile pf = getCobblerProfile(ctx);
         KickstartData ksdata = ctx.lookupAndBindKickstartData();
         if (StringUtils.isEmpty(form.getString(VIRTUAL_FILE_PATH))) {
@@ -109,43 +109,43 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         if (StringUtils.isEmpty(form.getString(MEMORY_ALLOCATION))) {
             form.set(MEMORY_ALLOCATION, String.valueOf(pf.getVirtRam()));
         }
-        
+
         if (StringUtils.isEmpty(form.getString(VIRTUAL_CPUS))) {
             form.set(VIRTUAL_CPUS, String.valueOf(pf.getVirtCpus()));
         }
-        
+
         if (StringUtils.isEmpty(form.getString(LOCAL_STORAGE_MB))) {
             form.set(LOCAL_STORAGE_MB, String.valueOf(pf.getVirtFileSize()));
         }
-        
+
         if (StringUtils.isEmpty(form.getString(VIRTUAL_BRIDGE))) {
             form.set(VIRTUAL_BRIDGE, String.valueOf(pf.getVirtBridge()));
         }
-        
+
         if (StringUtils.isEmpty(form.getString(TARGET_PROFILE_TYPE))) {
-            form.set(TARGET_PROFILE_TYPE, 
+            form.set(TARGET_PROFILE_TYPE,
                         KickstartScheduleCommand.TARGET_PROFILE_TYPE_NONE);
-        }        
+        }
         return forward;
     }
 
     /**
      * {@inheritDoc}
      */
-    public ActionForward runThird(ActionMapping mapping, DynaActionForm form, 
-            RequestContext ctx, HttpServletResponse response, 
-            WizardStep step) throws Exception {        
-        if (!validateFirstSelections(form, ctx)) {            
+    public ActionForward runThird(ActionMapping mapping, DynaActionForm form,
+            RequestContext ctx, HttpServletResponse response,
+            WizardStep step) throws Exception {
+        if (!validateFirstSelections(form, ctx)) {
             return runFirst(mapping, form, ctx, response, step);
         }
-            
+
         ActionErrors errors = validateInput(form);
         if (!errors.isEmpty()) {
             addErrors(ctx.getRequest(), errors);
             //saveMessages(ctx.getRequest(), errors);
             return runFirst(mapping, form, ctx, response, step);
         }
-        
+
         String scheduleAsap = form.getString("scheduleAsap");
         Date scheduleTime = null;
         if (scheduleAsap != null && scheduleAsap.equals("false")) {
@@ -155,20 +155,20 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             scheduleTime = new Date();
         }
         KickstartHelper helper = new KickstartHelper(ctx.getRequest());
-        
+
         ProvisionVirtualInstanceCommand cmd = getScheduleCommand(form,
                                 ctx, scheduleTime, helper.getKickstartHost());
-        
+
         cmd.setKernelOptions(form.getString(KERNEL_PARAMS));
-                                    
+
         cmd.setProfileType(form.getString("targetProfileType"));
         cmd.setServerProfileId((Long) form.get("targetProfile"));
         cmd.setProfileId((Long) form.get("targetProfile"));
-        
+
         cmd.setGuestName(form.getString(GUEST_NAME));
-        
-        
-        //If the virt options are overridden use them, otherwise use 
+
+
+        //If the virt options are overridden use them, otherwise use
         // The profile's values
         if (!StringUtils.isEmpty(form.getString(MEMORY_ALLOCATION))) {
             cmd.setMemoryAllocation(new Long(form.getString(MEMORY_ALLOCATION)));
@@ -176,22 +176,22 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         else {
             cmd.setMemoryAllocation(new Long(this.getCobblerProfile(ctx).getVirtRam()));
         }
-        
+
         if (!StringUtils.isEmpty(form.getString(VIRTUAL_CPUS))) {
             cmd.setVirtualCpus(new Long(form.getString(VIRTUAL_CPUS)));
-        }        
+        }
         else {
             cmd.setVirtualCpus(new Long(this.getCobblerProfile(ctx).getVirtCpus()));
         }
-        
+
         if (!StringUtils.isEmpty(form.getString(LOCAL_STORAGE_MB))) {
             cmd.setLocalStorageSize(new Long(form.getString(LOCAL_STORAGE_MB)));
-        } 
+        }
         else {
             cmd.setLocalStorageSize(new Long(
                     this.getCobblerProfile(ctx).getVirtFileSize()));
         }
-        
+
         if (!StringUtils.isEmpty(form.getString(VIRTUAL_BRIDGE))) {
             cmd.setVirtBridge(form.getString(VIRTUAL_BRIDGE));
         }
@@ -210,11 +210,11 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             }
         }
 
-        createSuccessMessage(ctx.getRequest(), "kickstart.schedule.success", 
+        createSuccessMessage(ctx.getRequest(), "kickstart.schedule.success",
                 LocalizationService.getInstance().formatDate(scheduleTime));
         Map params = new HashMap();
         params.put(RequestContext.SID, form.get(RequestContext.SID));
-        
+
         return getStrutsDelegate().forwardParams(mapping.findForward("success"), params);
     }
     @Override
@@ -223,15 +223,15 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         return (KickstartScheduleCommand)
             new ProvisionVirtualInstanceCommand(sid, currentUser);
     }
-    
-    
+
+
     private ActionErrors  validateInput(DynaActionForm form) {
         ActionErrors errors = new ActionErrors();
         String name = form.getString(GUEST_NAME);
-        
+
         if (name.length() < MIN_NAME_SIZE) {
             errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
-                    "frontend.actions.systems.virt.invalidguestnamelength", 
+                    "frontend.actions.systems.virt.invalidguestnamelength",
                     (MIN_NAME_SIZE)));
         }
 
@@ -241,34 +241,34 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
                 if (memory <= 0) {
                     throw new NumberFormatException();
                 }
-            } 
+            }
             catch (NumberFormatException e) {
                 errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
                         "frontend.actions.systems.virt.invalidmemvalue"));
             }
         }
-        
+
         if (!StringUtils.isEmpty(form.getString(VIRTUAL_CPUS))) {
             try {
                 Long cpus = Long.parseLong(form.getString(VIRTUAL_CPUS));
                 if (cpus <= 0 || cpus > MAX_CPU) {
                     throw new NumberFormatException();
                 }
-            } 
+            }
             catch (NumberFormatException e) {
                 errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
-                        "frontend.actions.systems.virt.invalidcpuvalue", 
+                        "frontend.actions.systems.virt.invalidcpuvalue",
                                 (MAX_CPU + 1)));
             }
         }
-        
-        if (!StringUtils.isEmpty(form.getString(LOCAL_STORAGE_MB))) {        
+
+        if (!StringUtils.isEmpty(form.getString(LOCAL_STORAGE_MB))) {
             try {
                 Long storage = Long.parseLong(form.getString(LOCAL_STORAGE_MB));
                 if (storage <= 0) {
                     throw new NumberFormatException();
                 }
-            } 
+            }
             catch (NumberFormatException e) {
                 errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
                         "frontend.actions.systems.virt.invalidstoragevalue"));
@@ -277,7 +277,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
 
         return errors;
     }
-    
+
     /**
      * Get the cobbler profile
      * @param context the request context
@@ -294,7 +294,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         }
         return (Profile) context.getRequest().getAttribute(PROFILE);
     }
-    
+
     @Override
     protected ProvisionVirtualInstanceCommand getScheduleCommand(DynaActionForm form,
             RequestContext ctx, Date scheduleTime, String host) {
@@ -303,19 +303,19 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         ProvisionVirtualInstanceCommand cmd;
         KickstartData data = KickstartFactory.
                 lookupKickstartDataByCobblerIdAndOrg(user.getOrg(), cobblerProfile.getId());
-        
+
         if (data != null) {
-            cmd = 
+            cmd =
                 new ProvisionVirtualInstanceCommand(
                         (Long) form.get(RequestContext.SID),
                         data,
                         ctx.getCurrentUser(),
                         scheduleTime,
-                        host);            
+                        host);
         }
         else {
             cmd = ProvisionVirtualInstanceCommand.createCobblerScheduleCommand((Long)
-                     form.get(RequestContext.SID), cobblerProfile.getName(), 
+                     form.get(RequestContext.SID), cobblerProfile.getName(),
                      user, scheduleTime,  host);
         }
         return cmd;

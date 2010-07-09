@@ -59,31 +59,31 @@ public class ProbeParameterValue implements Serializable {
     public void setProbe(Probe probeIn) {
         this.probe = probeIn;
     }
-    /** 
-     * Getter for paramName 
+    /**
+     * Getter for paramName
      * @return String to get
     */
     public String getParamName() {
         return this.paramName;
     }
 
-    /** 
-     * Setter for paramName 
+    /**
+     * Setter for paramName
      * @param paramNameIn to set
     */
     public void setParamName(String paramNameIn) {
         this.paramName = paramNameIn;
     }
 
-    /** 
-     * Getter for value 
+    /**
+     * Getter for value
      * @return String to get
     */
     public String getValue() {
         return this.value;
     }
 
-    /** 
+    /**
      * Set the value for this probe parameter. This method should
      * not be called directly; instead, use {@link ServerProbe#setParameterValue}
      * @param valueIn the new parameter value
@@ -92,32 +92,32 @@ public class ProbeParameterValue implements Serializable {
         this.value = valueIn;
     }
 
-    /** 
-     * Getter for lastUpdateUser 
+    /**
+     * Getter for lastUpdateUser
      * @return String to get
     */
     public String getLastUpdateUser() {
         return this.lastUpdateUser;
     }
 
-    /** 
-     * Setter for lastUpdateUser 
+    /**
+     * Setter for lastUpdateUser
      * @param lastUpdateUserIn to set
     */
     public void setLastUpdateUser(String lastUpdateUserIn) {
         this.lastUpdateUser = lastUpdateUserIn;
     }
 
-    /** 
-     * Getter for lastUpdateDate 
+    /**
+     * Getter for lastUpdateDate
      * @return Date to get
     */
     public Date getLastUpdateDate() {
         return this.lastUpdateDate;
     }
 
-    /** 
-     * Setter for lastUpdateDate 
+    /**
+     * Setter for lastUpdateDate
      * @param lastUpdateDateIn to set
     */
     public void setLastUpdateDate(Date lastUpdateDateIn) {
@@ -144,7 +144,7 @@ public class ProbeParameterValue implements Serializable {
         return new HashCodeBuilder().append(probe).append(command).append(
                 paramName).toHashCode();
     }
-    
+
     /**
      * {@inheritDoc}
      */

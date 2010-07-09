@@ -41,24 +41,24 @@ public class SoftwareEntitlementsAction extends RhnAction implements Listable {
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
-        RequestContext requestContext = new RequestContext(request);   
-        User u = requestContext.getLoggedInUser();        
+
+        RequestContext requestContext = new RequestContext(request);
+        User u = requestContext.getLoggedInUser();
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
         Long orgCount = OrgManager.getTotalOrgCount(u);
         request.setAttribute("orgCount", orgCount);
-        
+
         return mapping.findForward("default");
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public List getResult(RequestContext contextIn) {
         return ChannelManager.entitlementsForAllMOrgs();
     }
-    
+
 }

@@ -9,19 +9,19 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
    </query>
 
     <query name="KickstartSession.findByServer">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartSession as t where 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartSession as t where
             t.newServer = :server or t.oldServer = :server or t.hostServer = :server order by created desc ]]>
     </query>
 
     <query name="KickstartSession.findDefaultKickstartSessionForKickstartData">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartSession as t where 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartSession as t where
             t.ksdata = :ksdata and t.kickstartMode = :mode order by created desc ]]>
     </query>
-    
-    
+
+
     <query name="KickstartSession.findPendingForActions"><![CDATA[
    		from KickstartSession s
-			where 
+			where
                 (s.oldServer in (:servers) or
                 s.newServer in (:servers))
             and s.action in (:actions_to_delete)
@@ -29,5 +29,5 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             (select 1 from KickstartSessionState ss
                 where ss.id = s.state and ss.label in ('failed', 'complete'))
     ]]></query>
-    
+
 </hibernate-mapping>

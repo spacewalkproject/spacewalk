@@ -12,13 +12,13 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <p>
 <rhn:toolbar base="h2" img="/img/rhn-kickstart_profile.gif"
-    deletionUrl="/rhn/kickstart/KickstartScriptDelete.do?kssid=${kssid}&ksid=${ksdata.id}" 
+    deletionUrl="/rhn/kickstart/KickstartScriptDelete.do?kssid=${kssid}&ksid=${ksdata.id}"
     deletionType="kickstartscript" >
 <bean:message key="kickstart.script.header1"/>
 </rhn:toolbar>
@@ -29,7 +29,7 @@
     <p>
 
     <html:form method="POST" action="/kickstart/KickstartScriptEdit.do">
-      <%@ include file="script-form.jspf" %>      
+      <%@ include file="script-form.jspf" %>
       <html:hidden property="kssid" value="${kssid}"/>
       <html:hidden property="ksid" value="${ksdata.id}"/>
       <html:hidden property="submitted" value="true"/>

@@ -20,11 +20,11 @@ import java.util.Comparator;
  * Implement the rpmvercmp function provided by librpm
  * in Java. The comparator operates on two strings that
  * represent an RPM version or release.
- * 
- * <p> This comparator is not perfectly antysymmetric for unequal versions, 
- * but close enough to warrant being a comparator. For examples of asymmetry, 
+ *
+ * <p> This comparator is not perfectly antysymmetric for unequal versions,
+ * but close enough to warrant being a comparator. For examples of asymmetry,
  * check the test.
- * 
+ *
  * @version $Rev$
  */
 public class RpmVersionComparator implements Comparator {
@@ -33,18 +33,18 @@ public class RpmVersionComparator implements Comparator {
      * {@inheritDoc}
      */
     public int compare(Object o1, Object o2) {
-        // This method tries to mimick rpmvercmp.c as 
+        // This method tries to mimick rpmvercmp.c as
         // closely as possible; it is deliberately doing things
         // in a more C-like manner
-        if (o1 != null && o1.equals(o2)) { 
+        if (o1 != null && o1.equals(o2)) {
             return 0;
         }
-        
+
         String str1 = (String) o1;
         String str2 = (String) o2;
         int b1 = 0;
         int b2 = 0;
-        
+
         /* loop through each version segment of str1 and str2 and compare them */
         while (b1 < str1.length() && b2 < str2.length()) {
             b1 = skipNonAlnum(str1, b1);
@@ -59,7 +59,7 @@ public class RpmVersionComparator implements Comparator {
                 e1 = skipDigits(str1, b1);
                 e2 = skipDigits(str2, b2);
                 isnum = true;
-            } 
+            }
             else {
                 e1 = skipAlpha(str1, b1);
                 e2 = skipAlpha(str2, b2);
@@ -73,11 +73,11 @@ public class RpmVersionComparator implements Comparator {
             if (b2 == e2) {
                 return (isnum ? 1 : -1);
             }
-            
+
             if (isnum) {
                 b1 = skipZeros(str1, b1, e1);
                 b2 = skipZeros(str2, b2, e2);
-                
+
                 /* whichever number has more digits wins */
                 if (e1 - b1 > e2 - b2) {
                     return 1;
@@ -86,7 +86,7 @@ public class RpmVersionComparator implements Comparator {
                     return -1;
                 }
             }
-            
+
             /* compareTo will return which one is greater - even if the two */
             /* segments are alpha or if they are numeric.  don't return  */
             /* if they are equal because there might be more segments to */
@@ -110,8 +110,8 @@ public class RpmVersionComparator implements Comparator {
 
         /* whichever version still has characters left over wins */
         if (b1 == str1.length()) {
-            return -1; 
-        } 
+            return -1;
+        }
         else {
             return 1;
         }
@@ -149,15 +149,15 @@ public class RpmVersionComparator implements Comparator {
     private boolean xisalnum(char c) {
         return xisdigit(c) || xisalpha(c);
     }
-    
+
     private boolean xisdigit(char c) {
         return Character.isDigit(c);
     }
-    
+
     private boolean xisalpha(char c) {
         return Character.isLetter(c);
     }
-    
+
     private char xchar(String s, int i) {
         return (i < s.length() ? s.charAt(i) : '\0');
     }

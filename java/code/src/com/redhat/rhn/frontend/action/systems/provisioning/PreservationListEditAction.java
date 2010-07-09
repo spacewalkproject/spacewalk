@@ -19,15 +19,15 @@ import com.redhat.rhn.manager.PersistOperation;
 import com.redhat.rhn.manager.common.EditFileListCommand;
 
 /**
- * 
- * PreservationListEditAction - 
+ *
+ * PreservationListEditAction -
  * @version $Rev$
  */
 public class PreservationListEditAction extends
         BasePreservationListEditAction {
 
     protected PersistOperation getCommand(RequestContext ctx) {
-        return new EditFileListCommand(ctx.getCurrentUser(), 
+        return new EditFileListCommand(ctx.getCurrentUser(),
                 ctx.getRequiredParam(RequestContext.FILE_LIST_ID));
     }
 

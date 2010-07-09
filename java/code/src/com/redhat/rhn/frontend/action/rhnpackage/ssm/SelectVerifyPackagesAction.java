@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Handles the listing of packages on systems in the SSM that can be verified.
- * 
+ *
  * @version $Revision$
  */
 public class SelectVerifyPackagesAction extends RhnAction implements Listable {

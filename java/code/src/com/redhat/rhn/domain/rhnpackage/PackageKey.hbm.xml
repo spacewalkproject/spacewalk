@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.rhnpackage.PackageKey" 
+    <class name="com.redhat.rhn.domain.rhnpackage.PackageKey"
         table="rhnPackageKey">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -11,19 +11,19 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">rhn_pkey_id_seq</param>
             </generator>
         </id>
-  
+
         <property name="key" type="string" column="key_id"/>
-        
+
       <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
-        
+
         <many-to-one
             name="type"
             class="com.redhat.rhn.domain.rhnpackage.PackageKeyType"
             column="key_type_id"/>
-                    
+
         <many-to-one
             name="provider"
             class="com.redhat.rhn.domain.rhnpackage.PackageProvider"
@@ -31,18 +31,18 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
     <query name="PackageKey.findById">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey as p 
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey as p
         		where p.id = :id]]>
     </query>
 
     <query name="PackageKey.findByKey">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey as p 
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey as p
         		where p.key = :key]]>
     </query>
-    
+
     <query name="PackageKey.listKeys">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey]]>    	
     </query>
-    
- 
+
+
 </hibernate-mapping>

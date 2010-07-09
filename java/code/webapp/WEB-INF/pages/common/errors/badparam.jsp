@@ -13,7 +13,7 @@
       <li><bean:message key="badparam.jsp.reason1"/></li>
       <li><bean:message key="badparam.jsp.reason2"/></li>
       <li><bean:message key="badparam.jsp.reason3"/></li>
-      <li><bean:message key="badparam.jsp.reason4"/></li> 
+      <li><bean:message key="badparam.jsp.reason4"/></li>
     </ol>
 
 </rhn:require>

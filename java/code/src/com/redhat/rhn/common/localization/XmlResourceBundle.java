@@ -75,15 +75,15 @@ public final class XmlResourceBundle extends java.util.ResourceBundle {
             // resolve to real documents that get downloaded on the
             // web.
             // Turn on validation
-            String validationFeature 
+            String validationFeature
                 = "http://xml.org/sax/features/validation";
             // Turn on schema validation
-            String schemaFeature 
+            String schemaFeature
                 = "http://apache.org/xml/features/validation/schema";
             // We have to store the xsd locally because we may not have
             // access to it over the web when starting up the service.
-            String xsdLocation = 
-                this.getClass().getResource("/xliff-core-1.1.xsd").toString(); 
+            String xsdLocation =
+                this.getClass().getResource("/xliff-core-1.1.xsd").toString();
             XMLReader parser = XMLReaderFactory.
                 createXMLReader("org.apache.xerces.parsers.SAXParser");
             parser.setFeature(validationFeature, false);
@@ -105,7 +105,7 @@ public final class XmlResourceBundle extends java.util.ResourceBundle {
         // TODO: put the xml strings in the Map
 
     }
-    
+
     /**
      * Overrides the java.util.ResourceBundle.handleGetObject.
      * @param key the key to lookup out of the bundle

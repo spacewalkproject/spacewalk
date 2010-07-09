@@ -25,12 +25,12 @@
     </p>
   </div>
 
-<html:form method="post" 
+<html:form method="post"
 		action="/systems/details/configuration/addfiles/ImportFileSubmit.do?sid=${system.id}">
 
   <h2><bean:message key="sdcimportfile.jsp.new"/></h2>
   <p><bean:message key="sdcimportfile.jsp.newsummary"/></p>
-  
+
   <table class="details">
     <tr>
       <th><bean:message key="sdcimportfile.jsp.paths"/></th>
@@ -43,10 +43,10 @@
 <h2><bean:message key="sdcimportfile.jsp.existing"/></h2>
   <p><bean:message key="sdcimportfile.jsp.oldsummary"
                    arg0="${system.name}"/></p>
-  
+
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="sdcimportfile.jsp.noFiles">
-              
+
       <rhn:listdisplay set="${requestScope.set}"
                        filterBy="sdcimportfile.jsp.filename">
         <rhn:set value="${current.id}"/>
@@ -68,9 +68,9 @@
       <html:submit property="dispatch">
           <bean:message key="sdcimportfile.jsp.button"/>
       </html:submit>
-  </div>  
+  </div>
   <rhn:submitted/>
 </html:form>
-  
+
 </body>
 </html>

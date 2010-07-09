@@ -71,10 +71,10 @@ public class AccessTest extends RhnBaseTestCase {
         c.setBoolean("test.YES", "Y");
         c.setBoolean("test.on", "on");
         c.setBoolean("test.ON", "ON");
-        
+
         Access access = new Access();
         String[] foo = new String[1];
-        
+
         foo[0] = "test.true";
         assertTrue("test.true is false", access.aclIs(null, foo));
         foo[0] = "test.TrUe";
@@ -117,7 +117,7 @@ public class AccessTest extends RhnBaseTestCase {
         assertTrue("test.on is false", acl.evalAcl(context, "is(test.on)"));
         assertTrue("test.ON is false", acl.evalAcl(context, "is(test.ON)"));
     }
-    
+
     public void testForFalse() {
         Config c = Config.get();
         c.setBoolean("test.false", "false");
@@ -147,7 +147,7 @@ public class AccessTest extends RhnBaseTestCase {
         boolean rc = acl.evalAcl(context, "user_role(org_admin)");
         assertTrue(rc);
     }
-    
+
     public void testUserCanManageChannelAcl() {
         Map context = new HashMap();
         User user =  UserTestUtils.findNewUser("testUser", "testOrg");
@@ -227,24 +227,24 @@ public class AccessTest extends RhnBaseTestCase {
 
     public void testAclSystemHasManagementEntitlement() throws Exception {
         Map context = new HashMap();
-        
+
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        
-        Server s = ServerFactoryTest.createTestServer(user, true,  
+
+        Server s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         context.put("sid", new String[] {s.getId().toString()});
         context.put("user", user);
          assertTrue(acl.evalAcl(context, "system_has_management_entitlement()"));
-         
-         s = ServerFactoryTest.createUnentitledTestServer(user, true, 
+
+         s = ServerFactoryTest.createUnentitledTestServer(user, true,
                          ServerFactoryTest.TYPE_SERVER_NORMAL, new Date());
          context.put("sid", new String[] {s.getId().toString()});
          assertFalse(acl.evalAcl(context, "system_has_management_entitlement()"));
-        
-        
+
+
     }
-    
-    
+
+
 
     public void testOrgProxyEvrAtLeast() throws Exception {
         Map context = new HashMap();
@@ -277,7 +277,7 @@ public class AccessTest extends RhnBaseTestCase {
             evalAclAssertFalse(acl, methods[i]);
         }
     }
-    
+
     public void testGlobalConfigIsGone() {
         Map context = new HashMap();
         try {
@@ -295,7 +295,7 @@ public class AccessTest extends RhnBaseTestCase {
             User user =  UserTestUtils.findNewUser("testUser", "testOrg");
             context.put("user", user);
             user.addRole(RoleFactory.CHANNEL_ADMIN);
-            
+
             Channel chan = ChannelFactoryTest.createBaseChannel(user);
             assertTrue(acl.evalAcl(context, "can_access_channel(" + chan.getId() + ")"));
         }
@@ -346,6 +346,6 @@ public class AccessTest extends RhnBaseTestCase {
             return mockRoles.contains(label);
         }
     }
-    
-    
+
+
 }

@@ -35,12 +35,12 @@ import java.util.Map;
  * @version $Rev: 55183 $
  */
 public class ProbeSuitesRemoveSetupAction extends BaseSetListAction {
-    
+
     /**
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
-        
+
         RhnSet set = getSetDecl().get(rctx.getCurrentUser());
         List selectedSuites = new LinkedList();
         Iterator i = set.getElements().iterator();

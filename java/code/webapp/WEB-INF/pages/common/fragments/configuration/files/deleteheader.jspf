@@ -6,7 +6,7 @@
 <div>
 <c:choose>
   <c:when test="file.directory}">
-    <rhn:toolbar base="h1" 
+    <rhn:toolbar base="h1"
       img="/img/folder-config.gif"
 	  imgAlt="config.common.dirAlt"
 	  helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp">
@@ -14,7 +14,7 @@
     </rhn:toolbar>
   </c:when>
   <c:otherwise>
-    <rhn:toolbar base="h1" 
+    <rhn:toolbar base="h1"
       img="/img/file-config.gif"
 	  imgAlt="config.common.fileAlt"
 	  helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp">

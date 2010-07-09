@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html:xhtml />
-<%-- 
+<%--
      There are many cases here, so to avoid repeating information and therefore
      greater possibility of typos, set a whole bunch of strings up that will be
      common among different structured toolbars

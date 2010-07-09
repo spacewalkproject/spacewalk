@@ -23,7 +23,7 @@
     <rl:list width="100%"
         name="compareList"
         styleclass="list">
-        
+
         <rl:column headerkey="missingpkgs.jsp.package" bound="false">
             ${current.actionTargetNevra}
         </rl:column>
@@ -41,7 +41,7 @@
             </c:choose>
         </rl:column>
     </rl:list>
-        
+
     <rhn:submitted/>
     <div align="right">
         <hr />

@@ -33,11 +33,11 @@ public class ServerSerializerTest extends BaseHandlerTestCase {
         Server server = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         Writer output = new StringWriter();
-        
+
         ServerSerializer serializer = new ServerSerializer();
         serializer.serialize(server, output, new XmlRpcSerializer());
         String finalOutput = output.toString();
-        
+
         assertTrue(finalOutput.indexOf(server.getName()) >= 0);
         assertTrue(finalOutput.indexOf(EntitlementManager.ENTERPRISE_ENTITLED) >= 0);
         assertTrue(finalOutput.indexOf("addon_entitlements") >= 0);
@@ -54,5 +54,5 @@ public class ServerSerializerTest extends BaseHandlerTestCase {
         assertTrue(finalOutput.indexOf("rack") >= 0);
         assertTrue(finalOutput.indexOf("lock_status") >= 0);
     }
-    
+
 }

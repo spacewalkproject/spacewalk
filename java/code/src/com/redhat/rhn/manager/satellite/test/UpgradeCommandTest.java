@@ -30,28 +30,28 @@ public class UpgradeCommandTest extends BaseTestCaseWithUser {
 
     public void testUpgradeProfiles() throws Exception {
         KickstartData ksd = KickstartTestHelper.createTestKickStart(user);
-        
-        KickstartSession ksession = 
+
+        KickstartSession ksession =
             KickstartFactory.lookupDefaultKickstartSessionForKickstartData(ksd);
         assertNull(ksession);
-        TaskFactory.createTask(user.getOrg(), 
+        TaskFactory.createTask(user.getOrg(),
                 UpgradeCommand.UPGRADE_KS_PROFILES, new Long(0));
-        
+
         List l = TaskFactory.getTaskListByNameLike(
                 UpgradeCommand.UPGRADE_KS_PROFILES);
         assertTrue(l.get(0) instanceof Task);
 
         // UpgradeCommand its its own transaction so we gotta commit.
         commitAndCloseSession();
-        
+
         UpgradeCommand cmd = new UpgradeCommand();
         cmd.store();
-        
+
         // Check to see if the upgrade command created the default profile.
-        ksession = 
+        ksession =
             KickstartFactory.lookupDefaultKickstartSessionForKickstartData(ksd);
         assertNotNull(ksession);
-        
+
         l = TaskFactory.getTaskListByNameLike(
                 UpgradeCommand.UPGRADE_KS_PROFILES);
         assertTrue((l == null || l.isEmpty()));

@@ -36,11 +36,11 @@ import java.util.Set;
  * UpdateErrataCacheAction
  * @version $Rev$
  */
-public class CloneErrataAction 
+public class CloneErrataAction
         extends AbstractDatabaseAction implements MessageAction {
-    
+
     private static Logger log = Logger.getLogger(CloneErrataAction.class);
-    
+
     /**
      * {@inheritDoc}
      */
@@ -52,7 +52,7 @@ public class CloneErrataAction
         Collection<Long> list = msg.getErrata();
         List<Long> cids = new ArrayList<Long>();
         cids.add(currChan.getId());
-        
+
         for (Long eid : list) {
 
             Errata errata = ErrataFactory.lookupById(eid);
@@ -62,7 +62,7 @@ public class CloneErrataAction
             else {
                 Set<Channel> channelSet = new HashSet<Channel>();
                 channelSet.add(currChan);
-                
+
                 List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
                                                                 msg.getUser(), errata);
                 if (clones.size() == 0) {
@@ -76,7 +76,7 @@ public class CloneErrataAction
                     ErrataManager.publish(clones.get(0), cids, msg.getUser());
                 }
 
-                
+
             }
             ErrataCacheManager.insertCacheForChannelErrata(cids, errata);
         }

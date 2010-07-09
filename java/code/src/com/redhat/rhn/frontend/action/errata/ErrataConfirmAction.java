@@ -44,7 +44,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ErrataConfirmAction extends RhnListDispatchAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -59,11 +59,11 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
             Map params) {
         RequestContext requestContext = new RequestContext(request);
         Long eid = requestContext.getParamAsLong("eid");
-        
+
         if (eid != null) {
             params.put("eid", eid);
         }
-        
+
         //remember the values of the date picker.
         getStrutsDelegate().rememberDatePicker(params, (DynaActionForm)form, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
@@ -81,29 +81,29 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         User user = requestContext.getLoggedInUser();
         DynaActionForm form = (DynaActionForm) formIn;
-        
+
         Errata currentErrata = requestContext.lookupErratum();
-        DataResult systems = ErrataManager.relevantSystemsInSet(user, 
+        DataResult systems = ErrataManager.relevantSystemsInSet(user,
                 SetLabels.AFFECTED_SYSTEMS_LIST, currentErrata.getId(), null);
-        
+
         if (currentErrata != null && !systems.isEmpty()) {
              Action update = ActionManager.createErrataAction(user, currentErrata);
              for (int i = 0; i < systems.size(); i++) {
                  ActionManager.addServerToAction(new Long(((SystemOverview)systems.get(i))
                          .getId().longValue()), update);
              }
-             
+
              update.setEarliestAction(getStrutsDelegate().readDatePicker(form, "date",
                      DatePicker.YEAR_RANGE_POSITIVE));
-             
+
              ActionManager.storeAction(update);
-             
+
              ActionMessages msg = new ActionMessages();
              Object[] args = new Object[3];
              args[0] = currentErrata.getAdvisoryName();
@@ -113,20 +113,20 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
              if (systems.size() != 1) {
                  messageKey = messageKey.append(".plural");
              }
-             
-             msg.add(ActionMessages.GLOBAL_MESSAGE, 
+
+             msg.add(ActionMessages.GLOBAL_MESSAGE,
                      new ActionMessage(messageKey.toString(), args));
              strutsDelegate.saveMessages(request, msg);
              return mapping.findForward("confirmed");
         }
-        
+
         // Something went wrong! Notify user:
-        ActionMessages msg = new ActionMessages(); 
+        ActionMessages msg = new ActionMessages();
         msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("errataconfirm.nosystems"));
         strutsDelegate.saveMessages(request, msg);
         Map params = makeParamMap(formIn, request);
         return strutsDelegate.forwardParams(mapping.findForward("default"), params);
     }
-    
+
 }

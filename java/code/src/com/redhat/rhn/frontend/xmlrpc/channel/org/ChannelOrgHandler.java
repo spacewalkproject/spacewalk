@@ -61,7 +61,7 @@ public class ChannelOrgHandler extends BaseHandler {
      * that may be trusted.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *   #array("organizations")
      *      #struct("org")
      *          #prop("int", "org_id")
@@ -70,31 +70,31 @@ public class ChannelOrgHandler extends BaseHandler {
      *     #struct_end()
      *  #array_end()
      */
-    public List list(String sessionKey, String channelLabel) 
+    public List list(String sessionKey, String channelLabel)
         throws FaultException {
-        
+
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, channelLabel);
         verifyChannelAdmin(user, channel);
-        
+
         if (!user.getOrg().equals(channel.getOrg())) {
-            // users are not allowed to access properties for a channel that is in a 
+            // users are not allowed to access properties for a channel that is in a
             // different org
-            throw new NotPermittedByOrgException(user.getOrg().getId().toString(), 
+            throw new NotPermittedByOrgException(user.getOrg().getId().toString(),
                     channel.getLabel(), channel.getOrg().getId().toString());
         }
-        
+
         // retrieve the orgs available to be "trusted" for this channel
-        List<OrgChannelDto> orgs = OrgManager.orgChannelTrusts(channel.getId(), 
+        List<OrgChannelDto> orgs = OrgManager.orgChannelTrusts(channel.getId(),
                 user.getOrg());
         // retrieve the orgs that are trusted for this channel
         Set<Org> trustedOrgs = channel.getTrustedOrgs();
-        
+
         // populate a result that includes all orgs that could be trusted with a boolean
         // that indicates if the orgs is indeed trusted.
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         for (OrgChannelDto orgDto : orgs) {
-            Org org = OrgFactory.lookupById(orgDto.getId());                    
+            Org org = OrgFactory.lookupById(orgDto.getId());
 
             if (org != null) {
                 Map<String, Object> entry = new HashMap<String, Object>();
@@ -131,12 +131,12 @@ public class ChannelOrgHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "orgId", "id of org being granted access")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int enableAccess(String sessionKey, String channelLabel, Integer orgId) 
+    public int enableAccess(String sessionKey, String channelLabel, Integer orgId)
         throws FaultException {
-        
+
         return enableAccess(sessionKey, channelLabel, orgId, true);
     }
-    
+
     /**
      * Disable access to the channel for the given organization.
      * @param sessionKey The sessionKey containing the logged in user
@@ -155,9 +155,9 @@ public class ChannelOrgHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "orgId", "id of org being removed access")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int disableAccess(String sessionKey, String channelLabel, Integer orgId) 
+    public int disableAccess(String sessionKey, String channelLabel, Integer orgId)
         throws FaultException {
-        
+
         return enableAccess(sessionKey, channelLabel, orgId, false);
     }
 
@@ -168,35 +168,35 @@ public class ChannelOrgHandler extends BaseHandler {
         verifyChannelAdmin(user, channel);
 
         if (!user.getOrg().equals(channel.getOrg())) {
-            // users are not allowed to alter properties for a channel that is in a 
+            // users are not allowed to alter properties for a channel that is in a
             // different org
-            throw new NotPermittedByOrgException(user.getOrg().getId().toString(), 
+            throw new NotPermittedByOrgException(user.getOrg().getId().toString(),
                     channel.getLabel(), channel.getOrg().getId().toString());
         }
-        
+
         // protected mode only for modifying individual orgs
-        if (!channel.getAccess().equals(Channel.PROTECTED)) {           
+        if (!channel.getAccess().equals(Channel.PROTECTED)) {
             throw new InvalidChannelAccessException(channel.getAccess());
         }
-        
-        Org org = OrgFactory.lookupById(orgId.longValue());      
+
+        Org org = OrgFactory.lookupById(orgId.longValue());
         if (org == null) {
             throw new NoSuchOrgException(orgId.toString());
         }
 
         // need to validate that the org provided is in the list of orgs that may
         // be granted access
-        List<OrgChannelDto> orgs = OrgManager.orgChannelTrusts(channel.getId(), 
+        List<OrgChannelDto> orgs = OrgManager.orgChannelTrusts(channel.getId(),
                 user.getOrg());
         boolean orgInTrust = false;
-        
+
         for (OrgChannelDto orgDto : orgs) {
             if (orgDto.getId().equals(new Long(orgId))) {
                 orgInTrust = true;
                 break;
             }
         }
-        
+
         if (orgInTrust) {
             if (enable) {
                 channel.getTrustedOrgs().add(org);
@@ -212,7 +212,7 @@ public class ChannelOrgHandler extends BaseHandler {
 
         return 1;
     }
-    
+
     private Channel lookupChannelByLabel(User user, String label)
         throws NoSuchChannelException {
 
@@ -223,7 +223,7 @@ public class ChannelOrgHandler extends BaseHandler {
 
         return channel;
     }
-    
+
     private boolean verifyChannelAdmin(User user, Channel channel) {
         try {
             if (!ChannelManager.verifyChannelAdmin(user, channel.getId())) {

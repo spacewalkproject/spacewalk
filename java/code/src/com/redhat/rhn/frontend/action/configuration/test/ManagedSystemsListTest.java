@@ -27,11 +27,11 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
 public class ManagedSystemsListTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //Make a channel so it will appear in the list.
         ConfigChannel channel = ConfigTestUtils.createConfigChannel(user.getOrg(),
                 ConfigChannelType.local());
@@ -40,12 +40,12 @@ public class ManagedSystemsListTest extends RhnMockStrutsTestCase {
         //  it is more of a managed systems list, rather than a local channel list.
         ConfigFile file = ConfigTestUtils.createConfigFile(channel);
         ConfigurationFactory.commit(file);
-        
+
         setRequestPathInfo("/configuration/system/ManagedSystems");
         actionPerform();
 
         DataResult dr = (DataResult) request.getAttribute("pageList");
-        
+
         assertTrue("Your list: pageList is NOT Empty", dr.isEmpty());
 
         ConfigTestUtils.giveConfigCapabilities(serv);

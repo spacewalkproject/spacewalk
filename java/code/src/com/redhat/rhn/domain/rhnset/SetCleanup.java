@@ -68,15 +68,15 @@ public class SetCleanup {
         new SetCleanup("remove_unowned_filters");
     public static final SetCleanup UNOWNED_SUITES =
         new SetCleanup("remove_unowned_suites");
-    public static final SetCleanup UNOWNED_METHODS = 
+    public static final SetCleanup UNOWNED_METHODS =
         new SetCleanup("remove_unowned_methods");
-    public static final SetCleanup UNOWNED_ACTIVATION_KEYS = 
+    public static final SetCleanup UNOWNED_ACTIVATION_KEYS =
         new SetCleanup("remove_unowned_activation_keys");
-    public static final SetCleanup UNOWNED_GPGSSL_KEYS = 
+    public static final SetCleanup UNOWNED_GPGSSL_KEYS =
         new SetCleanup("remove_unowned_gpgssl_keys");
-    public static final SetCleanup UNOWNED_FILE_LIST = 
+    public static final SetCleanup UNOWNED_FILE_LIST =
         new SetCleanup("remove_unowned_file_list");
-    public static final SetCleanup UNOWNED_PACKAGE_PROFILES = 
+    public static final SetCleanup UNOWNED_PACKAGE_PROFILES =
         new SetCleanup("remove_unowned_package_profiles");
     public static final SetCleanup INACCESSIBLE_CONFIG_REVISIONS =
         new SetCleanup("remove_inaccessible_config_revs");
@@ -111,7 +111,7 @@ public class SetCleanup {
     public SetCleanup(String modeName0) {
         this("Set_queries", modeName0);
     }
-    
+
     protected String getMode() {
         return modeName;
     }
@@ -138,14 +138,14 @@ public class SetCleanup {
             return 0;
         }
     }
-    
+
     /**
      * This is somewhat ugly.  The reason this is here is because accessible
      * errata depends upon org rather than user.  The attempts at making
      * queries decently quick given only user_id and label have failed.
      * Looking up a user object getting the org_id and then running the
      * cleaner query is surprisingly faster.
-     * 
+     *
      * I've left this a little open in case similar cases are found, though
      * I expect this may be the only one.
      * @version $Rev$
@@ -154,7 +154,7 @@ public class SetCleanup {
         public SetCleanupWithOrg(String mode) {
             super(mode);
         }
-        
+
         protected int cleanup(RhnSet set) {
             WriteMode m = ModeFactory.getWriteMode("Set_queries", getMode());
             HashMap p = new HashMap();

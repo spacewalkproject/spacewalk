@@ -19,7 +19,7 @@ import org.hibernate.Transaction;
 
 /**
  * Holds metadata around a thread's Hibernate session usage
- * 
+ *
  * @version $Rev$
  */
 class SessionInfo {
@@ -30,15 +30,15 @@ class SessionInfo {
     public SessionInfo(Session sessionIn) {
         session = sessionIn;
     }
-    
+
     public void setTransaction(Transaction trans) {
         txn = trans;
     }
-    
+
     public Transaction getTransaction() {
         return txn;
     }
-    
+
     public Session getSession() {
         return session;
     }

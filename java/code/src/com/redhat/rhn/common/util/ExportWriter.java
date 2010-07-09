@@ -27,25 +27,25 @@ public interface ExportWriter {
     /**
      * Set the list of Columns to include in the export.  Must be a List of
      * java.lang.Strings
-     * @param columnsIn List of columns you want defined in the output of the export. 
+     * @param columnsIn List of columns you want defined in the output of the export.
      */
     void setColumns(List<String> columnsIn);
-    
+
     /**
      * Write the List of values to the contents of this Writer.
-     * 
+     *
      * @param listIn that you want writen to the contents
      */
     void write(List listIn);
-    
+
     /**
      * Get the String version of the values written so far.
      * @return String version of the values
      */
     String getContents();
-    
-    
-    /** 
+
+
+    /**
      * Get the mime type of the output
      * @return String mime type
      */
@@ -56,6 +56,6 @@ public interface ExportWriter {
      * @return String extension.
      */
     String getFileExtension();
-    
-    
+
+
 }

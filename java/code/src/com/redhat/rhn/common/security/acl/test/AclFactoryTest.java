@@ -23,7 +23,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class AclFactoryTest extends RhnBaseTestCase {
-    
+
     public void testGetAcl() {
         Acl test = AclFactory.getInstance().
             getAcl("  com.redhat.rhn.common.security.acl.test.MixinTestHandler  ");

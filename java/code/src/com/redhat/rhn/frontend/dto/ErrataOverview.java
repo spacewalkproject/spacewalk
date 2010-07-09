@@ -42,9 +42,9 @@ public class ErrataOverview extends BaseDto {
     private List status;
     private Long associatedSystemId;
     private Date lastModified;
-   
+
     /**
-     * This method is only used for csv export.. 
+     * This method is only used for csv export..
      * @return the internationalized errata advisory type string.
      */
     public String getErrataAdvisoryType() {
@@ -61,7 +61,7 @@ public class ErrataOverview extends BaseDto {
         return "";
     }
     /**
-     * This method is only used for CSV export 
+     * This method is only used for CSV export
      * @return the i18ned errata status string.
      */
     public String getErrataStatus() {
@@ -75,16 +75,16 @@ public class ErrataOverview extends BaseDto {
         if (getStatus() == null || getStatus().isEmpty()) {
             return ls.getMessage("affectedsystems.jsp.none");
         }
-        return ""; 
+        return "";
     }
-    
+
     /**
      * @return the associatedSystem
      */
     public Long getAssociatedSystem() {
         return associatedSystemId;
     }
-    
+
     /**
      * @param systemId the associatedSystem to set
      */
@@ -155,21 +155,21 @@ public class ErrataOverview extends BaseDto {
     public void setCves(List p) {
         this.cves = p;
     }
-    
+
     /**
      * @return Returns the advisoryLastUpdated.
      */
     public String getAdvisoryLastUpdated() {
         return advisoryLastUpdated;
     }
-    
+
     /**
      * @param a The advisoryLastUpdated to set.
      */
     public void setAdvisoryLastUpdated(String a) {
         this.advisoryLastUpdated = a;
     }
-    
+
     /**
      * @return Returns the advisory.
      */
@@ -193,7 +193,7 @@ public class ErrataOverview extends BaseDto {
      */
     public Date getUpdateDateObj() {
         return updateDate;
-    }    
+    }
     /**
      * @param advisoryLastUpdatedIn The advisoryLastUpdated to set.
      */
@@ -289,7 +289,7 @@ public class ErrataOverview extends BaseDto {
     public void setId(Long idIn) {
         id = idIn;
     }
-   
+
     /**
      * Returns id as a long
      * @return id as a long
@@ -297,7 +297,7 @@ public class ErrataOverview extends BaseDto {
     public long getIdAsLong() {
         return id.longValue();
     }
-    
+
     /**
      * Returns true if the advisory is a Product Enhancement.
      * @return true if the advisory is a Product Enhancement.
@@ -305,7 +305,7 @@ public class ErrataOverview extends BaseDto {
     public boolean isProductEnhancement() {
         return "Product Enhancement Advisory".equals(getAdvisoryType());
     }
-    
+
     /**
      * Returns true if the advisory is a Security Advisory.
      * @return true if the advisory is a Security Advisory.
@@ -313,7 +313,7 @@ public class ErrataOverview extends BaseDto {
     public boolean isSecurityAdvisory() {
         return "Security Advisory".equals(getAdvisoryType());
     }
-    
+
     /**
      * Returns true if the advisory is a Bug Fix.
      * @return true if the advisory is a Bug Fix.

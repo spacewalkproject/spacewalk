@@ -21,7 +21,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class ServerInfo {
-    
+
     private Long id;
     private Server server;
     private Date checkin;

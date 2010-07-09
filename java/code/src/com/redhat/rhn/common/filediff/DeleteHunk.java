@@ -21,7 +21,7 @@ package com.redhat.rhn.common.filediff;
  * @version $Rev$
  */
 public class DeleteHunk extends Hunk {
-    
+
     /**
      * {@inheritDoc}
      */

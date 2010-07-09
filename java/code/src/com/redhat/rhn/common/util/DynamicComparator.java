@@ -25,14 +25,14 @@ import java.util.Comparator;
 /**
  * DynamicComparator - simple class that can be
  * used with Collections.sort(list, comparator).
- * Create an instance of this class with the 
+ * Create an instance of this class with the
  * passed in fieldname and it will create a Comparator
- * that will compare two objects based on the field 
- * passed into the Constructor.  
- * 
+ * that will compare two objects based on the field
+ * passed into the Constructor.
+ *
  * Usefull if you have a Collection of Beans that you
  * want to sort based on a specific property.
- * 
+ *
  * @version $Rev$
  */
 public class DynamicComparator implements Comparator  {
@@ -41,25 +41,25 @@ public class DynamicComparator implements Comparator  {
     private int order;
     private Collator collator;
     /**
-     * Create a new DynamicComparator that 
+     * Create a new DynamicComparator that
      * can be used to compare indivdual beans..
-     * @param fieldNameIn Name of field you want to use in 
+     * @param fieldNameIn Name of field you want to use in
      * the bean to compare to
-     * 
+     *
      * @param sortOrder Should be either <code>RequestContext.LIST_SORT_ASC</code> or
-     * <code>RequestContext.LIST_SORT_DESC</code> 
+     * <code>RequestContext.LIST_SORT_DESC</code>
      */
     public DynamicComparator(String fieldNameIn, String sortOrder) {
         this (fieldNameIn, RequestContext.SORT_ASC.equals(sortOrder));
     }
-    
+
     /**
-     * Create a new DynamicComparator that 
+     * Create a new DynamicComparator that
      * can be used to compare indivdual beans..
-     * @param fieldNameIn Name of field you want to use in 
+     * @param fieldNameIn Name of field you want to use in
      * the bean to compare to
-     * 
-     * @param ascending true for ascending order 
+     *
+     * @param ascending true for ascending order
      */
     public DynamicComparator(String fieldNameIn, boolean ascending) {
         this.fieldName = fieldNameIn;
@@ -69,8 +69,8 @@ public class DynamicComparator implements Comparator  {
         else {
             order = -1;
         }
-    }    
-    
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -84,7 +84,7 @@ public class DynamicComparator implements Comparator  {
                 return order * getCollator().compare(val1, val2);
             }
             // a < b = -1, a > b = 1 , a== b =0
-            
+
             if (val1 == null && val2 != null) {
                 return order * -1;
             }
@@ -94,15 +94,15 @@ public class DynamicComparator implements Comparator  {
             else if (val1 == val2) {
                 return 0;
             }
-            return order * val1.compareTo(val2);            
+            return order * val1.compareTo(val2);
         }
         catch (Exception e) {
             throw new IllegalArgumentException("Exception trying to compare " +
-                    "two objects: o1: " + o1 + " o2: " + o2 + " with field: " + 
+                    "two objects: o1: " + o1 + " o2: " + o2 + " with field: " +
                     this.fieldName + " generated this exception: " + e);
         }
     }
-    
+
     /**
      * @return Returns the fieldName.
      */

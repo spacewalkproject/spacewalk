@@ -33,7 +33,7 @@ import javax.mail.internet.InternetAddress;
  * @version $Rev$
  */
 public class UpdateUserCommand {
-    
+
     private User user;
     private String unencryptedPassword;
     private String email;
@@ -47,7 +47,7 @@ public class UpdateUserCommand {
     private boolean firstNamesChanged = false;
     private boolean lastNameChanged = false;
     private boolean needsUpdate = false;
-    
+
     /**
      * Constructor
      * @param userToUpdate User that will get updated.
@@ -66,7 +66,7 @@ public class UpdateUserCommand {
 
         buildValidPrefixes();
     }
-    
+
     private void buildValidPrefixes() {
         Iterator i = LocalizationService.getInstance().availablePrefixes().iterator();
         validPrefixes = new LinkedList();
@@ -74,7 +74,7 @@ public class UpdateUserCommand {
             validPrefixes.add(i.next());
         }
     }
-    
+
     /**
      * Updates the user's password, email, prefix, first and last names.
      * @return The user updated.
@@ -85,35 +85,35 @@ public class UpdateUserCommand {
             validatePassword();
             validatePrefix();
             safePopulateUser();
-            
+
             // ok update it
             UserManager.storeUser(user);
         }
         return user;
     }
-    
+
     private void safePopulateUser() {
         if (firstNamesChanged) {
             user.setFirstNames(firstNames);
         }
-        
+
         if (lastNameChanged) {
             user.setLastName(lastName);
         }
-        
+
         if (emailChanged) {
             user.setEmail(email);
         }
-        
+
         if (prefixChanged) {
             user.setPrefix(prefix);
         }
-        
+
         if (unencryptedPasswordChanged) {
             user.setPassword(unencryptedPassword);
         }
     }
-    
+
     /**
      * Private helper method to validate the password. This happens when the setPassword
      * method of this class is called. Puts errors into the passwordErrors list.
@@ -124,7 +124,7 @@ public class UpdateUserCommand {
         }
 
         String password = getUnencryptedPassword();
-        if (password == null || password.length() < 
+        if (password == null || password.length() <
                                     UserDefaults.get().getMinPasswordLength()) {
             throw new IllegalArgumentException(LocalizationService.getInstance().
                     getMessage("error.minpassword",
@@ -134,7 +134,7 @@ public class UpdateUserCommand {
             throw new IllegalArgumentException(LocalizationService.getInstance().
                     getMessage("error.maxpassword"));
         }
-        
+
         // Newlines and tab characters can slip through the API much easier than the UI:
         if (Pattern.compile("[\\t\\n]").matcher(password).find()) {
             throw new IllegalArgumentException(
@@ -142,7 +142,7 @@ public class UpdateUserCommand {
         }
 
     }
-    
+
     private void validatePrefix() {
         if (prefixChanged && !validPrefixes.contains(prefix)) {
             throw new IllegalArgumentException(
@@ -150,7 +150,7 @@ public class UpdateUserCommand {
                     validPrefixes.toString());
         }
     }
-    
+
     /**
      * Private helper method to validate the user's email address. Puts errors into the
      * errors list.
@@ -163,13 +163,13 @@ public class UpdateUserCommand {
         if (email == null) {
             throw new IllegalArgumentException("Email address is null");
         }
-        
+
         // Make email is not over the max length
         if (user.getEmail().length() > UserDefaults.get().getMaxEmailLength()) {
             throw new IllegalArgumentException(String.format(
                     "Email address specified [%s] is too long", user.getEmail()));
         }
-        
+
         // Make sure set email is valid
         try {
             new InternetAddress(email).validate();
@@ -179,7 +179,7 @@ public class UpdateUserCommand {
                     "Email address invalid. Cause: " + e.toString());
         }
     }
-    
+
     /**
      * @param passwordIn The password to set
      */
@@ -190,11 +190,11 @@ public class UpdateUserCommand {
             unencryptedPassword = passwordIn;
         }
     }
-    
+
     private String getUnencryptedPassword() {
         return unencryptedPassword;
     }
-    
+
     /**
      * @param emailIn The email to set
      */
@@ -205,7 +205,7 @@ public class UpdateUserCommand {
             email = emailIn;
         }
     }
-    
+
     /**
      * @param prefixIn The prefix to set
      */
@@ -216,7 +216,7 @@ public class UpdateUserCommand {
             prefix = prefixIn;
         }
     }
-    
+
     /**
      * @param firstNamesIn The first names to set
      */
@@ -227,7 +227,7 @@ public class UpdateUserCommand {
             firstNames = firstNamesIn;
         }
     }
-    
+
     /**
      * @param lastNameIn The last name to set
      */

@@ -1,15 +1,15 @@
 <c:choose>
    <c:when test="${current.accessible}">
-      <rhn:column 
+      <rhn:column
          header="channels.overview.name"
-         url="/rhn/channels/ChannelDetail.do?cid=${current.id}" 
+         url="/rhn/channels/ChannelDetail.do?cid=${current.id}"
          usesRefactoredList="true">
          <c:choose>
             <c:when test="${current.depth > 1}">
                <img
-                  style="margin-left: 4px;" 
+                  style="margin-left: 4px;"
                   src="/img/channel_child_node.gif"
-                  alt="<bean:message 
+                  alt="<bean:message
                   key='channels.childchannel.alt' />" />
                      ${current.name}
             </c:when>
@@ -19,7 +19,7 @@
    </c:when>
    <c:otherwise>
       <rhn:column
-         header="channels.overview.name" 
+         header="channels.overview.name"
          usesRefactoredList="true">
             ${current.name}
       </rhn:column>

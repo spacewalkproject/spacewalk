@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * RhnHelper contains helpful methods usable by our presentation layers.
- * 
+ *
  * @version $Rev$
  */
 public class RhnHelper {
@@ -41,17 +41,17 @@ public class RhnHelper {
 
     /** The key used on RHN Requests to store the Shipping Address */
     public static final String TARGET_ADDRESS_SHIPPING = "addressShipping";
-    
+
     /** The key for the default struts forward */
     public static final String DEFAULT_FORWARD = "default";
-    
+
     /** The key for the default empty selection error */
     public static final String DEFAULT_EMPTY_SELECTION_KEY = "emptyselectionerror";
-    
+
     /** utility class */
     private RhnHelper() {
     }
-    
+
     /**
      * If the path doesn't require authentication, return false. Otherwise
      * return true. Checks that the passed in path doesn't startwith the params
@@ -71,23 +71,23 @@ public class RhnHelper {
         }
         return true;
     }
-    
+
     /**
      * Method to add the default empty selection error message
      * to  the request
      * @param request the servlet request
      */
     public static void handleEmptySelection(HttpServletRequest request) {
-        handleEmptySelection(request, 
+        handleEmptySelection(request,
                             DEFAULT_EMPTY_SELECTION_KEY);
     }
-    
+
     /**
-     * Use this for every textarea that we use in our UI.  Otherwise you will get ^M 
+     * Use this for every textarea that we use in our UI.  Otherwise you will get ^M
      * in your file showing up.
      * @param form to fetch from
      * @param name of value in form
-     * @return String without CR in them.  
+     * @return String without CR in them.
      */
     public static String getTextAreaValue(DynaActionForm form, String name) {
         String value = form.getString(name);
@@ -99,29 +99,29 @@ public class RhnHelper {
      * Method to add the empty selection error message
      * to  the request
      * @param request the servlet request
-     * @param messageKey the key associated to 
-     *                      the empty selection error                     
+     * @param messageKey the key associated to
+     *                      the empty selection error
      */
     public static void handleEmptySelection(HttpServletRequest request,
                           String messageKey) {
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                             new ActionMessage(messageKey));
 
             StrutsDelegate delegate = StrutsDelegate.getInstance();
             delegate.saveMessages(request, msg);
     }
-    
-    /** 
-     * If you need to a request parameter that may contain +++ 
+
+    /**
+     * If you need to a request parameter that may contain +++
      * or other special characters that fails to fetch properly using
      * request.getParameter() you can use this method.
-     * 
+     *
      * @param request to fetch from
      * @param name of parameter to fetch
      * @return String value from request, null if not found.
      */
-    public static String getParameterWithSpecialCharacters(HttpServletRequest request, 
+    public static String getParameterWithSpecialCharacters(HttpServletRequest request,
             String name) {
         String queryString = request.getQueryString();
         if (StringUtils.isEmpty(queryString)) {
@@ -136,7 +136,7 @@ public class RhnHelper {
                 return value;
             }
         }
-        
+
         return null;
     }
 }

@@ -7,7 +7,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" 
+<rhn:toolbar base="h1"
     img="/img/rhn-icon-system_group.gif"
 	imgAlt="ssm.jsp.imgAlt"
 	helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-ssm">

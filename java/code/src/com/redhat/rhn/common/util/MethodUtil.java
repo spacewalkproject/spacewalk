@@ -28,15 +28,15 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 /**
- * A simple class that assists with method invocation.  We should just use 
- * the jakarta-commons MethodUtils class, but that class can't deal with 
+ * A simple class that assists with method invocation.  We should just use
+ * the jakarta-commons MethodUtils class, but that class can't deal with
  * static methods, so it is useless to us.
  * @version $Rev$
  */
 public class MethodUtil {
 
     private static Logger log = Logger.getLogger(MethodUtil.class);
-        
+
     /**
      * Private constructore
      */
@@ -60,9 +60,9 @@ public class MethodUtil {
         }
         return true;
     }
-    
-    
-    /** 
+
+
+    /**
      * Invoke a static method from a class.
      * @param clazz The Class to search for the specified method
      * @param method The method to execute.
@@ -72,8 +72,8 @@ public class MethodUtil {
      * @throws IllegalAccessException if the method cannot be accessed
      * @throws InvocationTargetException if the method throws an exception
      */
-    public static Object invokeStaticMethod(Class clazz, String method, 
-                                            Object[] args) 
+    public static Object invokeStaticMethod(Class clazz, String method,
+                                            Object[] args)
         throws NoSuchMethodException, IllegalAccessException,
                InvocationTargetException {
         Method[] meths = clazz.getMethods();
@@ -100,9 +100,9 @@ public class MethodUtil {
      * @param params a Collection of the parameters to methodCalled
      * @return the results of the method of the subclass
      */
-    public static Object callMethod(Object o, String methodCalled, 
+    public static Object callMethod(Object o, String methodCalled,
                                     Object... params) {
-        /* This whole method is currently an ugly mess that needs to be 
+        /* This whole method is currently an ugly mess that needs to be
          * refactored.   rbb
          */
         if (log.isDebugEnabled()) {
@@ -125,33 +125,33 @@ public class MethodUtil {
         for (int i = 0; i < methods.length; i++) {
             if (methods[i].getName().equals(methodCalled)) {
                 foundMethod = methods[i];
-                
+
                 Class[] types = foundMethod.getParameterTypes();
                 if (types.length != params.length) {
                     continue;
                 }
-        
-                // We have a method that might work, now we need to loop 
-                // through the params and make sure that the types match 
-                // with what was provided in the Collection.  If they don't 
+
+                // We have a method that might work, now we need to loop
+                // through the params and make sure that the types match
+                // with what was provided in the Collection.  If they don't
                 // match, try to do a translation, if that fails try the next
                 boolean found = true;
                 for (int j = 0; j < types.length; j++) {
                     Object curr = params[j];
                     if (log.isDebugEnabled()) {
-                        log.debug("Trying to translate from: " + 
+                        log.debug("Trying to translate from: " +
                                  ((curr == null) ? null : curr.getClass()) +
-                                 " to: " + types[j] + 
+                                 " to: " + types[j] +
                                  " isInstance: " + types[j].isInstance(curr));
                     }
-                    if (curr != null && curr.getClass().isPrimitive() && 
+                    if (curr != null && curr.getClass().isPrimitive() &&
                         types[j].isPrimitive()) {
                         if (log.isDebugEnabled()) {
                             log.debug("2 primitives");
                         }
                         converted[j] = curr;
                     }
-                    if ((curr == null && !types[j].isPrimitive()) || 
+                    if ((curr == null && !types[j].isPrimitive()) ||
                         types[j].isInstance(curr)) {
                         if (log.isDebugEnabled()) {
                             log.debug("same type");
@@ -166,10 +166,10 @@ public class MethodUtil {
                         converted[j] = Translator.convert(curr, types[j]);
                     }
                     catch (TranslationException e) {
-                        log.debug("Couldn't translate between " + curr + 
+                        log.debug("Couldn't translate between " + curr +
                                   " and " + types[j]);
                         // move on to the next method.
-                        found = false; 
+                        found = false;
                         break;
                     }
                 }
@@ -181,11 +181,11 @@ public class MethodUtil {
         }
 
         if (!rightMethod) {
-            String message = "Could not find method called: " + methodCalled + 
-                           " in class: " + o.getClass().getName() + " with params: ["; 
+            String message = "Could not find method called: " + methodCalled +
+                           " in class: " + o.getClass().getName() + " with params: [";
             for (int i = 0; i < params.length; i++) {
                 if (params[i] != null) {
-                    message = message + ("type: " + params[i].getClass().getName() + 
+                    message = message + ("type: " + params[i].getClass().getName() +
                               ", value: " + params[i]);
                     if (i < params.length - 1) {
                         message = message + ", ";
@@ -207,59 +207,59 @@ public class MethodUtil {
                                                 "calling " + methodCalled, e);
         }
     }
-    
-    
 
-    
+
+
+
     /**
      * Get an instance of a class that can have its classname overridden in our config
      * system.  If you want a class to not return an instance of the passed in parameter
      * you need to define a config with that same name.  For example:
-     * 
+     *
      * List someList = getClassFromConfig("java.lang.LinkedList");
-     * 
+     *
      * would return a new LinkedList() object.
-     * 
+     *
      * But if you define a config var with:
-     * 
+     *
      * java.lang.LinkedList = com.redhat.rhn.utilRhnSuperLinkedList
-     * 
+     *
      * you will get an instance of that class. Beware this can cause some weird issues
      * if done improperly.
-     * 
+     *
      * @param className to fetch
      * @param args arguments to the constructor.
-     * @return Object created.  will throw exception explosion if you 
+     * @return Object created.  will throw exception explosion if you
      * define this incorrectly
      */
     public static Object getClassFromConfig(String className, Object... args) {
-        return callNewMethod(getClassNameFromConfig(className), args); 
+        return callNewMethod(getClassNameFromConfig(className), args);
     }
 
     /**
      * Return the classname from the config.  Useful if you want to configure a different
      * class to be returned in specific instances.
-     * @param className to check for overridden value. 
+     * @param className to check for overridden value.
      * @return className from config or the className from parameter if not found
      */
     private static String getClassNameFromConfig(String className) {
         return Config.get().getString(className, className);
     }
-    
+
     /**
      * Create a new instance of the classname passed in.
-     * 
+     *
      * @param className
      * @return instance of class passed in.
      */
     private static Object callNewMethod(String className, Object... args) {
         Object retval = null;
-        
+
         try {
             Class clazz = Thread.currentThread().
                             getContextClassLoader().loadClass(className);
             if (args == null || args.length == 0) {
-                retval = clazz.newInstance();                
+                retval = clazz.newInstance();
             }
             else {
                 try {
@@ -288,7 +288,7 @@ public class MethodUtil {
         catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        
+
         return retval;
     }
 }

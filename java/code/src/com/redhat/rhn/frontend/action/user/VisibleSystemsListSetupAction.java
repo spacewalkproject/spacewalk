@@ -43,24 +43,24 @@ public class VisibleSystemsListSetupAction extends RhnListAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         Long uid = requestContext.getRequiredParam("uid");
-        
+
         User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, user);
         PageControl pc = new PageControl();
-         
+
         clampListBounds(pc, request, requestContext.getLoggedInUser());
         DataResult dr = UserManager.visibleSystems(user, pc);
         //we want set to change for logged in user rather than the target user
         RhnSet set = RhnSetDecl.SYSTEMS.get(requestContext.getLoggedInUser());
-        
+
         request.setAttribute("pageList", dr);
         request.setAttribute("user", user);
         request.setAttribute("set", set);
-        
+
         return mapping.findForward("default");
     }
 }

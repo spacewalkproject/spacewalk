@@ -3,22 +3,22 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.server.ServerArch" 
+    <class name="com.redhat.rhn.domain.server.ServerArch"
         table="rhnServerArch" mutable="false">
         <cache usage="read-only"/>
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="native" />
         </id>
-  
+
         <property name="label" type="string" column="label"/>
         <property name="name" type="string" column="name"/>
-        
-        <property name="created" column="created" type="timestamp" 
+
+        <property name="created" column="created" type="timestamp"
                   insert="false" update="false"/>
-        <property name="modified" column="modified" type="timestamp" 
+        <property name="modified" column="modified" type="timestamp"
                   insert="false" update="false"/>
-        
+
         <many-to-one
             name="archType"
             class="com.redhat.rhn.domain.common.ArchType"

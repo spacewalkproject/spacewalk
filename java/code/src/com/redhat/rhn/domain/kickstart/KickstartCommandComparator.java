@@ -17,8 +17,8 @@ package com.redhat.rhn.domain.kickstart;
 import java.util.Comparator;
 
 /**
- * KickstartCommandComparator this compares custom kickstart commands.  
- * It works essentially as this.  We prefer an id, so we compare ids if we can.  
+ * KickstartCommandComparator this compares custom kickstart commands.
+ * It works essentially as this.  We prefer an id, so we compare ids if we can.
  * If we can't then the one with an id is first, if neither objects have an id, we compare
  * customPositions
  * @version $Rev$
@@ -26,13 +26,13 @@ import java.util.Comparator;
 public class KickstartCommandComparator implements Comparator {
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int compare(Object o1, Object o2) {
         KickstartCommand kc1 = (KickstartCommand) o1;
         KickstartCommand kc2 = (KickstartCommand) o2;
-        
+
         if (kc1.getId() != null && kc2.getId() != null) {
             return kc1.getId().compareTo(kc2.getId());
         }

@@ -107,7 +107,7 @@
             <c:if test="${requestScope.systemGroupsWidget == 'y'}">
                 <div id="systems-groups-pane" class="full-width-wrapper">
                     <script type="text/javascript">
-                        SystemGroupsRenderer.renderAsync(makeAjaxCallback("systems-groups-pane", false));  
+                        SystemGroupsRenderer.renderAsync(makeAjaxCallback("systems-groups-pane", false));
                     </script>
                 </div>
             </c:if>
@@ -120,7 +120,7 @@
             </c:if>
         </div>
     </c:when>
-  
+
     <c:otherwise>
   	    <bean:message key="yourrhn.jsp.nolists" />
     </c:otherwise>

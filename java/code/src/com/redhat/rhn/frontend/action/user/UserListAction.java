@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class UserListAction extends LookupDispatchAction {
-    
+
     private StrutsDelegate getStrutsDelegate() {
         return StrutsDelegate.getInstance();
     }
@@ -86,20 +86,20 @@ public class UserListAction extends LookupDispatchAction {
     private Map makeParamMap(HttpServletRequest request) {
 
         Map params = new RequestContext(request).makeParamMapWithPagination();
-        
+
         return params;
     }
 
     /**
      * {@inheritDoc}
      */
-    protected String getMethodName(ActionMapping mapping, 
-                                        ActionForm form, 
-                                        HttpServletRequest request, 
-                                        HttpServletResponse response, 
+    protected String getMethodName(ActionMapping mapping,
+                                        ActionForm form,
+                                        HttpServletRequest request,
+                                        HttpServletResponse response,
                                         String parameter) throws Exception {
         String retval =  super.getMethodName(mapping, form, request, response, parameter);
-        // If dispatch wasn't found, let's try filter.dispatch 
+        // If dispatch wasn't found, let's try filter.dispatch
         if (retval == null && parameter.equals(RequestContext.DISPATCH)) {
             parameter = ListDisplayTag.FILTER_DISPATCH;
             retval = super.getMethodName(mapping, form, request, response, parameter);

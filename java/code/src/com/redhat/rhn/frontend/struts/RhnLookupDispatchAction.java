@@ -36,12 +36,12 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public abstract class RhnLookupDispatchAction extends LookupDispatchAction {
-    
+
     public static final String SUBMITTED = "submitted";
-    
+
     /**
      * Returns a StrutsDelegate object.
-     * 
+     *
      * @return A StrutsDelegate object.
      * @see StrutsDelegate
      * @see StrutsDelegateFactory
@@ -49,7 +49,7 @@ public abstract class RhnLookupDispatchAction extends LookupDispatchAction {
     protected StrutsDelegate getStrutsDelegate() {
         return StrutsDelegate.getInstance();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -60,11 +60,11 @@ public abstract class RhnLookupDispatchAction extends LookupDispatchAction {
                                    String parameter) throws Exception {
         /*
          * Reasoning behind this:
-         * For form elements of the form <input type="image" name="foo" value="bar" />, 
+         * For form elements of the form <input type="image" name="foo" value="bar" />,
          * Internet Explorer submits foo.x and foo.y with the respective x and y coords of
-         * the image, but no foo=bar. This is stupid since who the hell cares about the 
-         * x and y coordinates of an image, but it is according to spec. 
-         * Since we rely on the dispatch parameter to be set, we need to fudge this a bit 
+         * the image, but no foo=bar. This is stupid since who the hell cares about the
+         * x and y coordinates of an image, but it is according to spec.
+         * Since we rely on the dispatch parameter to be set, we need to fudge this a bit
          * here and translate methodname.dispatch.x to just methodname.
          */
 
@@ -76,12 +76,12 @@ public abstract class RhnLookupDispatchAction extends LookupDispatchAction {
 
         if (StringUtils.isEmpty(keyName)) {
 
-            // Set alternateParameter to something like "dispatch.x" 
+            // Set alternateParameter to something like "dispatch.x"
             String alternateParameter = parameter + ".x";
             Set keyset = request.getParameterMap().keySet();
             /*
              * We need to loop throug the request parameters and look for a key in the form
-             * of <method-to-execute>.alternateParameter 
+             * of <method-to-execute>.alternateParameter
              * ex: selectall.dispatch.x
              */
             for (Iterator itr = keyset.iterator(); itr.hasNext();) {
@@ -95,13 +95,13 @@ public abstract class RhnLookupDispatchAction extends LookupDispatchAction {
 
             return methodName;
         }
-        
+
         // user was not using internet explorer and the parameter was found.
         methodName = getLookupMapName(request, keyName, mapping);
         return methodName;
     }
 
-    /** 
+    /**
      * Simple util to check if the Form was submitted
      * @param form to check
      * @return if or not it was submitted.

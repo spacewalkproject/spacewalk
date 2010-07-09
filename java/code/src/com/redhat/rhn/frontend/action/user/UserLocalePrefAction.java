@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * User locale override stuff
- * 
+ *
  * @version $Rev $
  */
 public class UserLocalePrefAction extends RhnAction {
@@ -49,7 +49,7 @@ public class UserLocalePrefAction extends RhnAction {
     /**
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (request.getRequestURL().toString().indexOf("/rhn/users/") != -1 &&
                 request.getParameter("uid") == null) {
@@ -58,7 +58,7 @@ public class UserLocalePrefAction extends RhnAction {
         }
         DynaActionForm dynaForm = (DynaActionForm) form;
         RequestContext ctx = new RequestContext(request);
-        User currentUser = lookupUser(ctx, dynaForm);        
+        User currentUser = lookupUser(ctx, dynaForm);
         ActionForward retval = null;
         if (isSubmitted(dynaForm)) {
             retval =  save(mapping, ctx, currentUser, dynaForm);
@@ -69,7 +69,7 @@ public class UserLocalePrefAction extends RhnAction {
         return retval;
     }
 
-    private ActionForward save(ActionMapping mapping, RequestContext ctx, 
+    private ActionForward save(ActionMapping mapping, RequestContext ctx,
                 User currentUser, DynaActionForm form) {
         String preferredLocale = form.getString("preferredLocale");
         if (preferredLocale != null && preferredLocale.equals("none")) {
@@ -94,16 +94,16 @@ public class UserLocalePrefAction extends RhnAction {
             return mapping.findForward("display");
         }
     }
-    
-    private ActionForward display(ActionMapping mapping, RequestContext ctx, 
-            User currentUser, DynaActionForm form) {  
+
+    private ActionForward display(ActionMapping mapping, RequestContext ctx,
+            User currentUser, DynaActionForm form) {
         ctx.getRequest().setAttribute("targetuser", currentUser);
         ctx.getRequest().setAttribute("supportedLocales", buildImageMap());
         ctx.getRequest().setAttribute("noLocale", buildNoneLocale());
         setCurrentLocale(ctx, currentUser);
         ctx.getRequest().setAttribute("timezones", getTimeZones());
         if (currentUser.getTimeZone() != null) {
-            form.set("timezone", 
+            form.set("timezone",
                     new Integer(currentUser.getTimeZone().getTimeZoneId()));
         }
         else {
@@ -111,12 +111,12 @@ public class UserLocalePrefAction extends RhnAction {
                     .getTimeZoneId()));
         }
         form.set("uid", currentUser.getId());
-        
+
         return mapping.findForward("default");
     }
-    
+
     private LangDisplayBean buildNoneLocale() {
-        LocalizationService ls = 
+        LocalizationService ls =
             LocalizationService.getInstance();
         LangDisplayBean ldb = new LangDisplayBean();
         ldb.setImageUri("");
@@ -124,10 +124,10 @@ public class UserLocalePrefAction extends RhnAction {
         ldb.setLocalizedName(ls.getMessage("preferences.jsp.lang.none"));
         return ldb;
     }
-    
+
     private void setCurrentLocale(RequestContext ctx, User user) {
         String userLocale = user.getPreferredLocale();
-        
+
         // If user has locale set, then just use that
         if (userLocale != null) {
             ctx.getRequest().setAttribute("currentLocale", userLocale);
@@ -136,10 +136,10 @@ public class UserLocalePrefAction extends RhnAction {
             ctx.getRequest().setAttribute("currentLocale", "none");
         }
     }
-    
+
     private Map buildImageMap() {
         Map retval = new LinkedHashMap();
-        LocalizationService ls = LocalizationService.getInstance(); 
+        LocalizationService ls = LocalizationService.getInstance();
         List locales = ls.getConfiguredLocales();
         for (Iterator iter = locales.iterator(); iter.hasNext();) {
             String locale = (String) iter.next();
@@ -154,7 +154,7 @@ public class UserLocalePrefAction extends RhnAction {
         }
         return retval;
     }
-    
+
     private List getTimeZones() {
         List dataList = UserManager.lookupAllTimeZones();
         List displayList = new ArrayList();
@@ -173,7 +173,7 @@ public class UserLocalePrefAction extends RhnAction {
         selection.put("value", value);
         return selection;
     }
-    
+
     private User lookupUser(RequestContext ctx, DynaActionForm form) {
         User retval = null;
         if (form.get("uid") != null) {

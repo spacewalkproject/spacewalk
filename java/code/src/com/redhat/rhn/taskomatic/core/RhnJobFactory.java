@@ -25,11 +25,11 @@ import java.util.Map;
 /**
  * A custom Quartz JobFactory implementation which insures that
  * only one instance of a job class is every instantiated.
- * 
+ *
  * @version $Rev: 75283 $
  */
 public class RhnJobFactory implements JobFactory {
-    
+
     private Map jobImplCache = new HashMap();
 
     /**

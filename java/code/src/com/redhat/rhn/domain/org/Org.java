@@ -45,12 +45,12 @@ public interface Org {
     // OrgEntitlementType ENTITLEMENT_ENTERPRISE2 = OrgFactory.
     // lookupEntitlementByLabel("sw_mgr_enterprise");
     //
-    //    
+    //
     // /** Static entitlement, mainly used to check on Monitoring entitlements.
     // */
     // OrgEntitlementType ENTITLEMENT_MONTIORING2 = OrgFactory.
     // lookupEntitlementByLabel("rhn_monitor");
-    //    
+    //
     // /** Static entitlement, mainly used to check on provisioning
     // entitlements. */
     // OrgEntitlementType ENTITLEMENT_PROVISIONING2 = OrgFactory.
@@ -219,14 +219,14 @@ public interface Org {
 
     /**
      * Get the set of EntitlementServerGroups that this Org is a member of.
-     * 
+     *
      * @return List of ServerGroup classes
      */
     List<EntitlementServerGroup> getEntitledServerGroups();
 
     /**
      * Get the set of ManagedServerGroups that this Org is a member of.
-     * 
+     *
      * @return List of ServerGroup classes
      */
     List<ManagedServerGroup> getManagedServerGroups();

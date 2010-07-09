@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.command.CommandRequirement" 
+    <class name="com.redhat.rhn.domain.monitoring.command.CommandRequirement"
         table="rhn_command_requirements" >
         <id name="name" type="string" column="name">
             <meta attribute="scope-set">protected</meta>
             <generator class="assigned" />
         </id>
-        <property name="description" column="description" not-null="true" 
+        <property name="description" column="description" not-null="true"
             type="string" length="4000" />
     </class>
 </hibernate-mapping>

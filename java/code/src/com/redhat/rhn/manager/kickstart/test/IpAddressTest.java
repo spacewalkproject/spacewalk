@@ -22,20 +22,20 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class IpAddressTest extends RhnBaseTestCase {
-    
+
     public void testIp() throws Exception {
-       
+
         long [] ip = { 192 , 168 , 1 , 1 };
         IpAddress addr = new IpAddress(ip);
-        
+
         long ipNum = addr.getNumber();
         IpAddress addr2 = new IpAddress(ipNum);
-        
+
         assertTrue(addr.equals(addr2));
-        
+
         long packNum = Long.parseLong("3232235777");
         assertEquals(addr.getNumber(), packNum); //compare to what perl's pack returns
         assertEquals(addr2.getNumber(), packNum);
-    }          
-        
+    }
+
 }

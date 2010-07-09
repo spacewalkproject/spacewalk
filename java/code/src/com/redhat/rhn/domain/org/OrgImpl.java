@@ -541,7 +541,7 @@ public class OrgImpl extends BaseDomainHelper implements Org {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean isDemoEntitled() {

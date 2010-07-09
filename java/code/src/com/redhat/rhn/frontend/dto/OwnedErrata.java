@@ -36,7 +36,7 @@ public class OwnedErrata extends BaseDto {
     private Long fromErrataId;
     private String relationship;
     private Long affectedSystemCount;
-    
+
     /**
      * @param locallyModifiedIn The locallyModified to set.
      */
@@ -173,7 +173,7 @@ public class OwnedErrata extends BaseDto {
     public void setUpdateDate(Date updateDateIn) {
         updateDate = updateDateIn;
     }
-    
+
     /**
      * Returns true if the advisory is a Product Enhancement.
      * @return true if the advisory is a Product Enhancement.
@@ -181,7 +181,7 @@ public class OwnedErrata extends BaseDto {
     public boolean isProductEnhancement() {
         return "Product Enhancement Advisory".equals(getAdvisoryType());
     }
-    
+
     /**
      * Returns true if the advisory is a Security Advisory.
      * @return true if the advisory is a Security Advisory.
@@ -189,7 +189,7 @@ public class OwnedErrata extends BaseDto {
     public boolean isSecurityAdvisory() {
         return "Security Advisory".equals(getAdvisoryType());
     }
-    
+
     /**
      * Returns true if the advisory is a Bug Fix.
      * @return true if the advisory is a Bug Fix.
@@ -197,7 +197,7 @@ public class OwnedErrata extends BaseDto {
     public boolean isBugFix() {
         return "Bug Fix Advisory".equals(getAdvisoryType());
     }
-    
+
     /**
      * @return Returns the advisoryType.
      */
@@ -210,14 +210,14 @@ public class OwnedErrata extends BaseDto {
     public void setAdvisoryType(String advisoryTypeIn) {
         advisoryType = advisoryTypeIn;
     }
-       
+
     /**
      * @return Return the affected system count
      */
     public Long getAffectedSystemCount() {
         return this.affectedSystemCount;
     }
-    
+
     /**
      * Sets the system count
      * @param systemCountIn system count to be set

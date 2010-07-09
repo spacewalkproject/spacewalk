@@ -19,5 +19,5 @@ package com.redhat.rhn.domain.action.config;
  * @version $Rev$
  */
 public class ConfigDeployAction extends ConfigAction {
-    
+
 }

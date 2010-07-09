@@ -41,10 +41,10 @@ import java.util.Map;
  */
 public class ActivationKeyFactory extends HibernateFactory {
 
-    public static final String DEFAULT_DESCRIPTION = "None"; 
+    public static final String DEFAULT_DESCRIPTION = "None";
     private static ActivationKeyFactory singleton = new ActivationKeyFactory();
     private static Logger log = Logger.getLogger(ActivationKeyFactory.class);
-    
+
     /**
      * Lookup an ActivationKey by it's key string.
      * @param key The key for the ActivationKey
@@ -54,19 +54,19 @@ public class ActivationKeyFactory extends HibernateFactory {
         if (key == null) {
             return null;
         }
-       
+
         return (ActivationKey) HibernateFactory.getSession()
             .getNamedQuery("ActivationKey.findByKey")
                                       .setString("key", key)
                                       .uniqueResult();
     }
-    
+
     /**
-     * Lookup the root ActivationKey based on the token.  Looks up by the 
-     * token and where the KickstartSession is null. 
+     * Lookup the root ActivationKey based on the token.  Looks up by the
+     * token and where the KickstartSession is null.
      * @param tokenIn token coming in
      * @return activation key for this token
-     */    
+     */
     public static ActivationKey lookupByToken(Token tokenIn) {
         if (tokenIn == null) {
             return null;
@@ -77,10 +77,10 @@ public class ActivationKeyFactory extends HibernateFactory {
                                       .uniqueResult();
     }
 
-    
+
     /**
-     * Creates and fills out a new Activation Key (Including generating a key/token). 
-     * Sets deployConfigs to false, disabled to 0, and usage limit to null. 
+     * Creates and fills out a new Activation Key (Including generating a key/token).
+     * Sets deployConfigs to false, disabled to 0, and usage limit to null.
      * @param user The user for the key
      * @param note The note to attach to the key
      * @return Returns the newly created ActivationKey.
@@ -90,8 +90,8 @@ public class ActivationKeyFactory extends HibernateFactory {
     }
 
     /**
-     * Creates and fills out a new Activation Key (Including generating a key/token). 
-     * Sets deployConfigs to false, disabled to 0, and usage limit to null. 
+     * Creates and fills out a new Activation Key (Including generating a key/token).
+     * Sets deployConfigs to false, disabled to 0, and usage limit to null.
      * Sets the 'server' to the server param, and the groups to the
      * system groups the server is subscribed to.
      * @param user The user for the key
@@ -100,15 +100,15 @@ public class ActivationKeyFactory extends HibernateFactory {
      * @param note The note to attach to the key
      * @param usageLimit Usage limit for the activation key
      * @param baseChannel Base channel for the activation key
-     * @param universalDefault Whether or not this key should be set as the universal 
+     * @param universalDefault Whether or not this key should be set as the universal
      *        default.
      * @return Returns the newly created ActivationKey.
      */
-    public static ActivationKey createNewKey(User user, Server server, String key,  
+    public static ActivationKey createNewKey(User user, Server server, String key,
             String note, Long usageLimit, Channel baseChannel, boolean universalDefault) {
-        
+
         ActivationKey newKey = new ActivationKey();
-        
+
         String keyToUse = key;
         if (keyToUse == null || keyToUse.equals("")) {
             keyToUse = generateKey();
@@ -119,7 +119,7 @@ public class ActivationKeyFactory extends HibernateFactory {
 
         keyToUse = ActivationKey.makePrefix(user.getOrg()) +
                                             keyToUse.trim().replace(" ", "");
-        
+
         if (server != null) {
             keyToUse = "re-" + keyToUse;
         }
@@ -136,11 +136,11 @@ public class ActivationKeyFactory extends HibernateFactory {
         newKey.getToken().setDeployConfigs(false); // Don't deploy configs by default
         newKey.setDisabled(new Long(0)); // Enable by default
         newKey.setUsageLimit(usageLimit);
-        
+
         if (baseChannel != null) {
             newKey.getToken().addChannel(baseChannel);
         }
-        
+
         // Set the entitlements equal to what the server has by default
         if (server != null) {
             List serverEntitlements = server.getEntitledGroups();
@@ -153,7 +153,7 @@ public class ActivationKeyFactory extends HibernateFactory {
             newKey.addEntitlement(
                     ServerConstants.getServerGroupTypeEnterpriseEntitled());
         }
-        
+
         save(newKey);
 
         if (universalDefault) {
@@ -161,16 +161,16 @@ public class ActivationKeyFactory extends HibernateFactory {
             user.getOrg().setToken(token);
             OrgFactory.save(user.getOrg());
         }
-        
+
         return newKey;
     }
-    
+
     /**
      * Basically validates the name of key, makes sure it doesnot have invalid chars etc...
-     * Also asserts that the key passed in has not been 
-     * previously accounted for. This is mainly useful for validating 
+     * Also asserts that the key passed in has not been
+     * previously accounted for. This is mainly useful for validating
      * activation key creation. Basically raises an assertion exception
-     * on validation errors. 
+     * on validation errors.
      * @param key the name of the key.
      */
     public static void validateKeyName(String key) {
@@ -183,15 +183,15 @@ public class ActivationKeyFactory extends HibernateFactory {
             }
         }
         if (!nameOk) {
-            ValidatorException.raiseException("activation-key.java.invalid_chars", key, 
+            ValidatorException.raiseException("activation-key.java.invalid_chars", key,
                                         "[" + StringUtils.join(badChars, " ") + "]");
         }
         if (lookupByKey(key) != null) {
             ValidatorException.raiseException("activation-key.java.exists", key);
         }
     }
-    
-    
+
+
     /**
      * Generate a random activation key string.
      * @return random string
@@ -200,7 +200,7 @@ public class ActivationKeyFactory extends HibernateFactory {
         String random = RandomStringUtils.random(128);
         return MD5Crypt.md5Hex(random);
     }
-    
+
     /**
      * Saves an ActivationKey to the database
      * @param keyIn The ActivationKey to save.
@@ -208,7 +208,7 @@ public class ActivationKeyFactory extends HibernateFactory {
     public static void save(ActivationKey keyIn) {
         singleton.saveObject(keyIn);
     }
- 
+
 
     /**
      * {@inheritDoc}
@@ -219,7 +219,7 @@ public class ActivationKeyFactory extends HibernateFactory {
 
     /**
      * Lookup an ActivationKey by its associated KickstartSession.
-     * 
+     *
      * @param sess that is associated with ActivationKey
      * @return ActivationKey associated with session
      */
@@ -234,7 +234,7 @@ public class ActivationKeyFactory extends HibernateFactory {
 
     /**
      * Lookup an ActivationKey by its associated Server.
-     * 
+     *
      * @param server that is associated with ActivationKey
      * @return ActivationKey assocaited with session
      */
@@ -252,9 +252,9 @@ public class ActivationKeyFactory extends HibernateFactory {
      */
     public static void removeKey(ActivationKey key) {
         if (key != null) {
-            singleton.removeObject(key);    
+            singleton.removeObject(key);
         }
-        
+
     }
 
     /**

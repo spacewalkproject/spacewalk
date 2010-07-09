@@ -26,23 +26,23 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ErrataAction extends Action {
-    
+
     private Set errata;
-    
+
     /**
      * @return Returns the errata.
      */
     public Set getErrata() {
         return errata;
     }
-    
+
     /**
      * @param errataIn The errata to set.
      */
     public void setErrata(Set errataIn) {
         this.errata = errataIn;
     }
-    
+
     /**
      * Add an Errata to this action.
      * @param e Errata to add
@@ -53,11 +53,11 @@ public class ErrataAction extends Action {
         }
         errata.add(e);
     }
-    
+
     /**
      * Get the Formatter for this class but in this case we use
      * ErrataActionFormatter.
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionFormatter getFormatter() {

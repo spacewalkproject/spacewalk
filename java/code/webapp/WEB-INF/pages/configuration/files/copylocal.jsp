@@ -25,13 +25,13 @@
                      set="${requestScope.set}"
                      button="copycentral.jsp.copy">
       <rhn:set value="${current.id}"/>
-      
+
       <rhn:column header="configsystemfilter.name"
                   url="/rhn/systems/details/configuration/ViewModifyLocalPaths.do?sid=${current.id}">
         <img alt='<bean:message key="config.common.localAlt" />' src="/img/rhn-listicon-system.gif" />
         ${fn:escapeXml(current.name)}
       </rhn:column>
-      
+
       <rhn:column header="copycentral.jsp.current">
         <c:choose>
           <c:when test="${current.configRevision == null}">

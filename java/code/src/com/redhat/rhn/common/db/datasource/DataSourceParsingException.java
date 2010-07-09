@@ -35,7 +35,7 @@ public class DataSourceParsingException extends RhnRuntimeException  {
     /////////////////////////
         /**
      * Constructor
-     * @param message exception message 
+     * @param message exception message
      */
     public DataSourceParsingException(String message) {
         super(message);
@@ -46,8 +46,8 @@ public class DataSourceParsingException extends RhnRuntimeException  {
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public DataSourceParsingException(String message, Throwable cause) {

@@ -3,15 +3,15 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.user.State" 
+    <class name="com.redhat.rhn.domain.user.State"
         table="rhnWebContactChangeState" mutable="false">
         <cache usage="read-only"/>
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="native" />
         </id>
-  
-        <property name="label" type="string" column="label"/>       
+
+        <property name="label" type="string" column="label"/>
     </class>
 
     <query name="UserState.lookupByLabel">

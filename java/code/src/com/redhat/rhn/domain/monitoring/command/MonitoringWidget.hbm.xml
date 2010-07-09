@@ -3,17 +3,17 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.command.MonitoringWidget" 
+    <class name="com.redhat.rhn.domain.monitoring.command.MonitoringWidget"
         table="rhn_widget" >
         <id name="name" type="long" column="name">
             <meta attribute="scope-set">protected</meta>
             <generator class="assigned"/>
         </id>
-        <property name="description" column="description" not-null="true" 
+        <property name="description" column="description" not-null="true"
             type="string" length="80" />
-        <property name="lastUpdateUser" column="last_update_user" type="string" 
+        <property name="lastUpdateUser" column="last_update_user" type="string"
             length="40" />
-        <property name="lastUpdateDate" column="last_update_date" 
+        <property name="lastUpdateDate" column="last_update_date"
             type="timestamp" insert="false" update="false"/>
     </class>
 </hibernate-mapping>

@@ -19,7 +19,7 @@ package com.redhat.rhn.taskomatic.task.threaded;
  * @version $Rev$
  */
 public interface QueueWorker extends Runnable {
-    
+
     /**
      * Stores a reference to the worker's owning queue
      * @param queue owning queue

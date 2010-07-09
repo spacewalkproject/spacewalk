@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class RemovePackagesSetupAction extends BaseErrataSetupAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -40,18 +40,18 @@ public class RemovePackagesSetupAction extends BaseErrataSetupAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         //Get the logged in user
         User user = requestContext.getLoggedInUser();
-        
+
         //Setup the page control for this user
         PageControl pc = new PageControl();
         clampListBounds(pc, request, user);
-        
+
         DataResult dr = PackageManager.packageIdsInSet(user, "packages_to_remove", pc);
-        
+
         request.setAttribute("pageList", dr);
         return super.execute(mapping, formIn, request, response);
     }

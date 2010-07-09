@@ -26,64 +26,64 @@ public class MonitoringWidget {
     private String description;
     private String lastUpdateUser;
     private Date lastUpdateDate;
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * @return String to get
     */
     public String getName() {
         return this.name;
     }
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn to set
     */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
 
-    /** 
-     * Getter for lastUpdateUser 
+    /**
+     * Getter for lastUpdateUser
      * @return String to get
     */
     public String getLastUpdateUser() {
         return this.lastUpdateUser;
     }
 
-    /** 
-     * Setter for lastUpdateUser 
+    /**
+     * Setter for lastUpdateUser
      * @param lastUpdateUserIn to set
     */
     public void setLastUpdateUser(String lastUpdateUserIn) {
         this.lastUpdateUser = lastUpdateUserIn;
     }
 
-    /** 
-     * Getter for lastUpdateDate 
+    /**
+     * Getter for lastUpdateDate
      * @return Date to get
     */
     public Date getLastUpdateDate() {
         return this.lastUpdateDate;
     }
 
-    /** 
-     * Setter for lastUpdateDate 
+    /**
+     * Setter for lastUpdateDate
      * @param lastUpdateDateIn to set
     */
     public void setLastUpdateDate(Date lastUpdateDateIn) {

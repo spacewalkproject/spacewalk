@@ -21,32 +21,32 @@ import java.sql.Blob;
 
 /**
  * ConfigRevisionAction - Class representation of the table rhnActionConfigRevision.
- * 
+ *
  * @version $Rev$
  */
 public class ConfigRevisionActionResult extends BaseDomainHelper {
-    
+
     private Long actionConfigRevisionId;
     private ConfigRevisionAction configRevisionAction;
     private Blob resultBlob;
-    /** 
-     * Getter for actionConfigRevisionId 
+    /**
+     * Getter for actionConfigRevisionId
      * @return Long to get
     */
     public Long getActionConfigRevisionId() {
         return this.actionConfigRevisionId;
     }
 
-    /** 
-     * Setter for actionConfigRevisionId 
+    /**
+     * Setter for actionConfigRevisionId
      * @param actionConfigRevisionIdIn to set
     */
     public void setActionConfigRevisionId(Long actionConfigRevisionIdIn) {
         this.actionConfigRevisionId = actionConfigRevisionIdIn;
     }
 
-    /** 
-     * Getter for result 
+    /**
+     * Getter for result
      * @return Blob to get
     */
     public byte[] getResult() {

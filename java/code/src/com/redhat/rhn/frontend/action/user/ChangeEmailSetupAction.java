@@ -43,9 +43,9 @@ public class ChangeEmailSetupAction extends RhnAction {
                                  HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm)formIn;
         LocalizationService ls = LocalizationService.getInstance();
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         //set logged in user and target user
         User loggedInUser = requestContext.getLoggedInUser();
         User targetUser;

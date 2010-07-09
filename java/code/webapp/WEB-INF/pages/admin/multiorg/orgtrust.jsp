@@ -35,7 +35,7 @@
       emptykey="org.trust.empty">
       <rl:selectablecolumn
          value="${current.selectionKey}"
-         selected="${current.selected}" 
+         selected="${current.selected}"
          styleclass="first-column"/>
       <rl:column
          bound="false"

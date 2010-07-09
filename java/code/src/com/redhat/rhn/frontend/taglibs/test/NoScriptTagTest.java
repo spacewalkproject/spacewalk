@@ -37,16 +37,16 @@ public class NoScriptTagTest  extends RhnBaseTestCase {
 
     public void testRender() throws Exception {
         NoScriptTag tag = new NoScriptTag();
-        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest(); 
-        TagTestHelper tth = TagTestUtils.setupTagTest(tag, 
+        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
+        TagTestHelper tth = TagTestUtils.setupTagTest(tag,
                                         new URL("http://localhost"),
                                         request);
         tag.setPageContext(tth.getPageContext());
-        
+
         // ok let's test the tag
         tth.assertDoStartTag(Tag.SKIP_BODY);
         tth.assertDoEndTag(Tag.SKIP_BODY);
-        
+
         RhnMockJspWriter rout = (RhnMockJspWriter) tth.getPageContext().getOut();
         assertTrue(rout.toString().indexOf("<noscript>") > -1);
         assertTrue(rout.toString().indexOf("</noscript>") > -1);

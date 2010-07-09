@@ -22,11 +22,11 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileDeleteCommand;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * BaseKickstartDeleteCommand 
+ * BaseKickstartDeleteCommand
  * @version $Rev$
  */
 public class KickstartDeleteCommand extends KickstartEditCommand {
-     
+
     /**
      * @param ksidIn kickstartdata id
      * @param userIn kickstartdata user
@@ -46,7 +46,7 @@ public class KickstartDeleteCommand extends KickstartEditCommand {
             return new ValidatorError("kickstart.delete.error");
         }
         else if (!StringUtils.isBlank(getKickstartData().getCobblerId())) {
-            CobblerProfileDeleteCommand cmd = 
+            CobblerProfileDeleteCommand cmd =
                 new CobblerProfileDeleteCommand(getKickstartData(), this.getUser());
             cmd.store();
         }

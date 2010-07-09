@@ -32,20 +32,20 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class DiffFilesAction extends BaseListAction {
-    
+
     /**
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pc) {
         User user = rctxIn.getLoggedInUser();
         Server server = rctxIn.lookupServer();
-        
+
         DataResult dr = ConfigurationManager.getInstance()
                 .listFileNamesInSetForSystem(user, server, pc);
         rctxIn.getRequest().setAttribute("datasize", new Integer(dr.getTotalSize()));
         return dr;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -53,12 +53,12 @@ public class DiffFilesAction extends BaseListAction {
         HttpServletRequest request = rctxIn.getRequest();
         User user = rctxIn.getLoggedInUser();
         Server server = rctxIn.lookupAndBindServer();
-        
+
         RhnSet set = RhnSetDecl.CONFIG_FILE_NAMES.get(user);
         request.setAttribute("setsize", new Integer(set.size()));
         SdcHelper.ssmCheck(request, server.getId(), user);
     }
-    
+
     protected void processPageControl(PageControl pcIn) {
         pcIn.setFilter(true);
         pcIn.setFilterColumn("path");

@@ -18,7 +18,7 @@ package com.redhat.rhn.frontend.servlets;
 
 /**
  * PxtSessionDelegateFactory is a factory class for creating PxtSessionDelegate objects.
- * 
+ *
  * @see PxtSessionDelegate
  * @version $Rev$
  */
@@ -26,13 +26,13 @@ public class PxtSessionDelegateFactory {
 
     /**
      * Returns a factory object that can create PxtSessionDelegate objects.
-     * 
+     *
      * @return A factory object that can create PxtSessionDelegate objects.
      */
     public static PxtSessionDelegateFactory getInstance() {
         return new PxtSessionDelegateFactory();
     }
-    
+
     /**
      * This constructor should <strong>not</strong> be called by clients. Clients should
      * use {@link #getInstance()} to obtain a factory. The constructor has protected
@@ -40,10 +40,10 @@ public class PxtSessionDelegateFactory {
      */
     protected PxtSessionDelegateFactory() {
     }
-    
+
     /**
      * Returns an instance of PxtSessionDelegate.
-     * 
+     *
      * @return An instance of PxtSessionDelegate
      */
     public PxtSessionDelegate newPxtSessionDelegate() {

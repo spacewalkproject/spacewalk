@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class EnableListAction extends RhnListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -48,39 +48,39 @@ public class EnableListAction extends RhnListAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         PageControl pc = new PageControl();
         pc.setFilter(true);
         pc.setFilterColumn("name");
         clampListBounds(pc, request, user);
-        
+
         DataResult dr = getDataResult(user, pc);
         request.setAttribute(RequestContext.PAGE_LIST, dr);
-        
+
         //this is the set that contains status of systems that were
         //attempted for config manage enablement. There is not a
         //good place to clear this set, so we clear it here.
         RhnSetDecl.CONFIG_ENABLE_SYSTEMS.clear(user);
-        
+
         //Put the date picker into the form
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
-        
+
         request.setAttribute("date", picker);
-        
+
         Map params = request.getParameterMap();
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
-    
+
     protected DataResult getDataResult(User user, PageControl pcIn) {
         String setLabel = RhnSetDecl.SYSTEMS.getLabel();
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listNonManagedSystemsInSet(user, pcIn, setLabel);
     }
-    
+
 }

@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.command.CommandParameter" 
+    <class name="com.redhat.rhn.domain.monitoring.command.CommandParameter"
         table="rhn_command_parameter" mutable="false" lazy="true">
         <cache usage="read-only"/>
         <composite-id>
-            <key-many-to-one name="command" 
-                class="com.redhat.rhn.domain.monitoring.command.Command" 
+            <key-many-to-one name="command"
+                class="com.redhat.rhn.domain.monitoring.command.Command"
                 column="command_id" access="field"/>
-            <key-property name="paramName" column="param_name" type="string" 
+            <key-property name="paramName" column="param_name" type="string"
                 length="40" access="field"/>
         </composite-id>
-        <property name="paramType" column="param_type" not-null="true" 
+        <property name="paramType" column="param_type" not-null="true"
             type="string" length="10" />
-        <property name="dataTypeName" column="data_type_name" not-null="true" 
+        <property name="dataTypeName" column="data_type_name" not-null="true"
             type="string" length="10" />
-        <property name="description" column="description" not-null="true" 
+        <property name="description" column="description" not-null="true"
             type="string" length="80" />
-        <property name="mandatory" column="mandatory" not-null="true" 
+        <property name="mandatory" column="mandatory" not-null="true"
             type="boolean" />
-        <property name="defaultValue" column="default_value" type="string" 
+        <property name="defaultValue" column="default_value" type="string"
             length="1024" />
         <property name="minValue" column="min_value" type="int" />
         <property name="maxValue" column="max_value" type="int" />
-        <property name="fieldOrder" column="field_order" not-null="true" 
+        <property name="fieldOrder" column="field_order" not-null="true"
             type="long" />
-        <property name="fieldVisibleLength" column="field_visible_length" 
+        <property name="fieldVisibleLength" column="field_visible_length"
             type="long" />
-        <property name="fieldMaximumLength" column="field_maximum_length" 
+        <property name="fieldMaximumLength" column="field_maximum_length"
             type="long" />
-        <property name="fieldVisible" column="field_visible" not-null="true" 
+        <property name="fieldVisible" column="field_visible" not-null="true"
             type="boolean" />
-        <property name="defaultValueVisible" column="default_value_visible" 
+        <property name="defaultValueVisible" column="default_value_visible"
             not-null="true" type="boolean" />
-        <property name="lastUpdateUser" column="last_update_user" type="string" 
+        <property name="lastUpdateUser" column="last_update_user" type="string"
             length="40" />
-        <property name="lastUpdateDate" column="last_update_date" 
+        <property name="lastUpdateDate" column="last_update_date"
             type="timestamp" insert="false" update="false"/>
-        <property name="fieldWidgetName" column="field_widget_name" type="string" 
+        <property name="fieldWidgetName" column="field_widget_name" type="string"
             length="20" />
         <!--Get weird JDBC errors when trying to associate with this object.  Not sure
             why but we don't actually need it.
-            many-to-one name="fieldWidget" outer-join="false" 
-            class="com.redhat.rhn.domain.monitoring.command.MonitoringWidget" 
+            many-to-one name="fieldWidget" outer-join="false"
+            class="com.redhat.rhn.domain.monitoring.command.MonitoringWidget"
             not-null="true" >
             <column name="field_widget_name" />
         </many-to-one-->

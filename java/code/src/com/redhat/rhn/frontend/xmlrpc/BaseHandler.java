@@ -45,15 +45,15 @@ import redstone.xmlrpc.XmlRpcInvocationHandler;
 /**
  * A basic xmlrpc handler class.  Uses reflection + an arbitrary algorithm
  * to call the appropriate method on a subclass.  So, an xmlrpc call to
- * 'registration.privacy_message' might call 
+ * 'registration.privacy_message' might call
  * RegistrationHandler.privacyMessage
  *
  * @version $Rev$
  */
 public class BaseHandler implements XmlRpcInvocationHandler {
-    
+
     private static Logger log = Logger.getLogger(BaseHandler.class);
-    
+
     /**
      * called by BaseHandler.doPost, contains the code that determines what
      * method to call of a subclassed-object
@@ -78,19 +78,19 @@ public class BaseHandler implements XmlRpcInvocationHandler {
 
         String[] byNamespace = methodCalled.split("\\.");
         String beanifiedMethod = StringUtil.beanify(byNamespace[byNamespace.length - 1]);
-        
+
         //we've found all the methods that have the same number of parameters
         List<Method> matchedMethods = findMethods(methods, params, beanifiedMethod);
-        
+
         //Attempt to find a perfect match
         Method foundMethod = findPerfectMethod(params, matchedMethods);
 
         Object[] converted = params.toArray();
-        
+
         //If we were not able to find the exact method match, let's just use the first one
-        //      This isn't the best method, but if you can figure out a better way 
+        //      This isn't the best method, but if you can figure out a better way
         //      that is easy feel free to change.
-        //Since it is not an exact match, we have to translate the params. 
+        //Since it is not an exact match, we have to translate the params.
         if (foundMethod == null) {
             foundMethod = matchedMethods.get(0);
             Class[] types = foundMethod.getParameterTypes();
@@ -103,7 +103,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
                 }
             }
         }
-        
+
         try {
             return foundMethod.invoke(this, converted);
         }
@@ -111,12 +111,12 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             throw new XmlRpcFault(-1, "unhandled internal exception");
         }
         catch (InvocationTargetException e) {
-            
-            
+
+
             Throwable t = e.getCause();
             log.error("Error calling method: ", e);
             log.error("Caused by: ", t);
-            
+
             // This works because FaultException extends XmlRpcFault, so
             // we are telling the XMLRPC library to send a fault to the client.
             if (t instanceof FaultException) {
@@ -126,7 +126,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             // If it isn't a FaultException that caused this, we still need to
             // send something to the client.
             Throwable cause = e.getCause();
-            // If we can get the cause of the exception, then display the message 
+            // If we can get the cause of the exception, then display the message
             if (cause != null) {
                 throw new XmlRpcFault(-1, "unhandled internal exception: " +
                       cause.getLocalizedMessage());
@@ -140,10 +140,10 @@ public class BaseHandler implements XmlRpcInvocationHandler {
      * Finds the perfect match for a method based upon type
      * @param params The parameters to find the match for.
      * @param matchedMethods the list of methods to check for a perfect match
-     * @return null if no perfect match was found, otherwise the matched method. 
+     * @return null if no perfect match was found, otherwise the matched method.
      */
     private Method findPerfectMethod(List params, List<Method> matchedMethods) {
-        //now lets try to find one that matches parameters exactly 
+        //now lets try to find one that matches parameters exactly
         for (Method currMethod : matchedMethods) {
             Class[] types = currMethod.getParameterTypes();
             for (int i = 0; i < types.length; i++) {
@@ -151,7 +151,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
                 if (!types[i].equals(params.get(i).getClass())) {
                     break;
                 }
-                //if we have gone through all of the params, and are here it is a 
+                //if we have gone through all of the params, and are here it is a
                 //      perfect match.
                 if (i == types.length - 1) {
                     return currMethod;
@@ -160,7 +160,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
         }
         return null;
     }
-    
+
     /**
      * Private method to find the method in the java class that is being called
      * via xml-rpc
@@ -171,15 +171,15 @@ public class BaseHandler implements XmlRpcInvocationHandler {
      * @throws XmlRpcFault Thrown if we can't find the method asked for
      */
     /*
-     * TODO: Make this method even smarterer. 
+     * TODO: Make this method even smarterer.
      *      Currently this finds methods that match the number of parameters and returns
-     *          those.  
+     *          those.
      */
-    private List<Method> findMethods(Method[] methods, Collection params, 
+    private List<Method> findMethods(Method[] methods, Collection params,
             String beanifiedMethod) throws XmlRpcFault {
-        
+
         List<Method> toReturn = new ArrayList<Method>();
-        
+
         //Loop through the methods array and find the one we are trying to call.
         for (int i = 0; i < methods.length; i++) {
             if (methods[i].getName().equals(beanifiedMethod)) {
@@ -193,38 +193,38 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             }
         }
         if (toReturn.isEmpty()) {
-            //The caller didn't get the method name or number of parameters right    
-            throw new XmlRpcFault(-1, "Could not find method " + 
+            //The caller didn't get the method name or number of parameters right
+            throw new XmlRpcFault(-1, "Could not find method " +
                                           beanifiedMethod + " in class " + this.getClass());
         }
         return toReturn;
     }
-    
+
     /**
      * Gets the currently logged in user. This is all done through the sessionkey we send
      * the user in AuthHandler.login.
-     * @param sessionKey The key containing the session id that we can use to load the 
+     * @param sessionKey The key containing the session id that we can use to load the
      * session.
-     * @return Returns the user logged into the session corresponding to the given 
+     * @return Returns the user logged into the session corresponding to the given
      * sessionkey.
      */
     public static User getLoggedInUser(String sessionKey) {
         //Load the session
         WebSession session = SessionManager.loadSession(sessionKey);
         User user = session.getUser();
-        
+
         //Make sure there was a valid user in the session. If not, the session is invalid.
         if (user == null) {
             throw new LookupException("Could not find a valid user for session with key: " +
                                       sessionKey);
         }
-        
+
         //Return the logged in user
         return user;
     }
-   
+
     /**
-     * Private helper method to make sure a user has org admin role. If not, this will 
+     * Private helper method to make sure a user has org admin role. If not, this will
      * throw a generic Permission exception.
      * @param user The user to check
      * @throws PermissionCheckFailureException if user is not an org admin
@@ -232,19 +232,19 @@ public class BaseHandler implements XmlRpcInvocationHandler {
     public static void ensureOrgAdmin(User user) throws PermissionCheckFailureException {
         ensureUserRole(user, RoleFactory.ORG_ADMIN);
     }
-    
+
     /**
-     * Private helper method to make sure a user has sat admin role. If not, this will 
+     * Private helper method to make sure a user has sat admin role. If not, this will
      * throw a generic Permission exception.
      * @param user The user to check
      * @throws PermissionCheckFailureException if user is not an sat admin
      */
     public static void ensureSatAdmin(User user) throws PermissionCheckFailureException {
         ensureUserRole(user, RoleFactory.SAT_ADMIN);
-    }    
+    }
 
     /**
-     * Private helper method to make sure a user has system group admin role. 
+     * Private helper method to make sure a user has system group admin role.
      * If not, this will throw a generic Permission exception.
      * @param user The user to check
      * @throws PermissionCheckFailureException if user is not a system group admin
@@ -255,7 +255,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
     }
 
     /**
-     * Private helper method to make sure a user has config admin role. 
+     * Private helper method to make sure a user has config admin role.
      * If not, this will throw a generic Permission exception.
      * @param user The user to check
      * @throws PermissionCheckFailureException if user is not a config admin.
@@ -264,13 +264,13 @@ public class BaseHandler implements XmlRpcInvocationHandler {
         throws PermissionCheckFailureException {
         ensureUserRole(user, RoleFactory.CONFIG_ADMIN);
     }
-    
+
     /**
-     * Private helper method to make sure a user  the given role.. 
+     * Private helper method to make sure a user  the given role..
      * If not, this will throw a generic Permission exception.
      * @param user The user to check
      * @param role the role to check
-     * @throws PermissionCheckFailureException if user does not 
+     * @throws PermissionCheckFailureException if user does not
      *                      have the given role
      */
     public static void ensureUserRole(User user, Role role)
@@ -278,14 +278,14 @@ public class BaseHandler implements XmlRpcInvocationHandler {
         if (!user.hasRole(role)) {
             throw new PermissionCheckFailureException(role);
         }
-    }    
+    }
     /**
      * Private helper method to make sure a user's org has a
-     * provisioning role 
+     * provisioning role
      * If not, this will throw a generic Permission exception.
      * @param user The user to check
      * @throws PermissionCheckFailureException if user's org does not
-     *                                      have provisioning 
+     *                                      have provisioning
      */
     public static void ensureProvisioning(User user)
         throws PermissionCheckFailureException {
@@ -294,16 +294,16 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             throw new PermissionCheckFailureException(OrgFactory.
                                 getEntitlementProvisioning());
         }
-    }    
-    
+    }
+
     /**
      * Validate the requested entitlements. At this juncture only the add-on entitlements
      * are to be set via the API.
-     * 
+     *
      * @param entitlements List of string entitlement labels to be validated.
      */
     protected void validateEntitlements(List<String> entitlements) {
-        
+
         if (entitlements.contains(EntitlementManager.VIRTUALIZATION_ENTITLED) &&
                 entitlements.contains(EntitlementManager.
                         VIRTUALIZATION_PLATFORM_ENTITLED)) {

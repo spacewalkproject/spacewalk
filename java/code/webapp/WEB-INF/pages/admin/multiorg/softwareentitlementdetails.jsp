@@ -30,37 +30,37 @@
              name="pageList"
              styleclass="list"
              emptykey="softwareEntitlementDetails.noChannelsFound">
-            
-        <rl:column bound="false" 
-            sortable="false" 
-            headerkey="softwareEntitlementDetails.header.channelName" 
+
+        <rl:column bound="false"
+            sortable="false"
+            headerkey="softwareEntitlementDetails.header.channelName"
             styleclass="first-column">
-            
+
             <rhn:require	acl="can_access_channel(${current.id});" >
 	               <a href="/rhn/channels/ChannelDetail.do?cid=${current.id}">
 	                	${current.name}
-	            	</a>                
+			</a>
             </rhn:require>
-            
+
             <rhn:require	acl="not can_access_channel(${current.id});" >
-	                	${current.name} 
-            </rhn:require>            
-            
+				${current.name}
+            </rhn:require>
+
         </rl:column>
 
-        <rl:column bound="false" 
-            sortable="false" 
+        <rl:column bound="false"
+            sortable="false"
             attr="packageCount"
             headerkey="softwareEntitlementDetails.header.packages">
             <rhn:require	acl="can_access_channel(${current.id});" >
 	               <a href="/rhn/channels/ChannelPackages.do?cid=${current.id}">
 	                	${current.packageCount}
-	            	</a>                
+			</a>
             </rhn:require>
-            
+
             <rhn:require	acl="not can_access_channel(${current.id});" >
-	                	${current.packageCount} 
-            </rhn:require>        
+				${current.packageCount}
+            </rhn:require>
         </rl:column>
 
 

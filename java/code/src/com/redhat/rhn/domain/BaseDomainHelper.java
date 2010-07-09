@@ -35,7 +35,7 @@ public abstract class BaseDomainHelper {
      */
     public BaseDomainHelper() {
     }
-    
+
 
     /**
      * Gets the current value of created

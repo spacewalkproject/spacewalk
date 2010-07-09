@@ -32,49 +32,49 @@ public class OperationDetailsDto {
     private Date started;
     private Date modified;
     private long serverCount;
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * @return Returns the description.
      */
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * @param descriptionIn The description to set.
      */
     public void setDescription(String descriptionIn) {
         description = descriptionIn;
     }
-    
+
     /**
      * @return Returns the status.
      */
     public String getStatus() {
         return status;
     }
-    
+
     /**
      * @param statusIn The status to set.
      */
     public void setStatus(String statusIn) {
         status = statusIn;
     }
-    
+
     /**
      * @return Returns the started.
      */
@@ -83,61 +83,61 @@ public class OperationDetailsDto {
     }
 
     /**
-     * 
+     *
      * @return the i18n formatted string for started date
      */
     public String getStartedDateString() {
         return LocalizationService.getInstance().formatDate(getStarted());
-    }    
-    
+    }
+
     /**
      * @param startedIn The started to set.
      */
     public void setStarted(Date startedIn) {
         started = startedIn;
     }
-    
+
     /**
      * @return Returns the modified.
      */
     public Date getModified() {
         return modified;
     }
-    
+
     /**
-     * 
+     *
      * @return the i18n formatted string for modified date
      */
     public String getModifiedDateString() {
         return LocalizationService.getInstance().formatDate(getModified());
     }
-    
+
     /**
      * @param modifiedIn The modified to set.
      */
     public void setModified(Date modifiedIn) {
         modified = modifiedIn;
     }
-    
+
     /**
      * @return Returns the serverCount.
      */
     public long getServerCount() {
         return serverCount;
     }
-    
+
     /**
      * @param serverCountIn The serverCount to set.
      */
     public void setServerCount(long serverCountIn) {
         serverCount = serverCountIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
-    }    
+    }
 }

@@ -25,11 +25,11 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * ChannelTreeNodeSerializer: Converts a ChannelTreeNode object for 
+ * ChannelTreeNodeSerializer: Converts a ChannelTreeNode object for
  * representation as an XMLRPC struct.
  * @version $Rev$
- * 
- * @xmlrpc.doc 
+ *
+ * @xmlrpc.doc
  *   #struct("channel info")
  *     #prop("int", "id")
  *     #prop("string", "label")
@@ -54,21 +54,21 @@ public class ChannelTreeNodeSerializer implements XmlRpcCustomSerializer {
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
+
         ChannelTreeNode ctn = (ChannelTreeNode)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
         helper.add("id", ctn.getId());
         helper.add("label", ctn.getChannelLabel());
         helper.add("name", ctn.getName());
-        
+
         if (ctn.getOrgId() != null) {
             helper.add("provider_name", ctn.getOrgName());
         }
         else {
             helper.add("provider_name", "Red Hat, Inc.");
         }
-        
+
         helper.add("packages", ctn.getPackageCount());
 
         if (ctn.getSystemCount() == null) {

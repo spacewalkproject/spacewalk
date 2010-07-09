@@ -28,7 +28,7 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev: 1 $
  */
 public class PreservationListActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
@@ -40,7 +40,7 @@ public class PreservationListActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         DataResult dr = (DataResult) request.getAttribute("pageList");
         assertNotNull(dr);
-        assertTrue(dr.size() > 0);             
+        assertTrue(dr.size() > 0);
     }
 }
 

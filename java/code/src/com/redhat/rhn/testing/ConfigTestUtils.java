@@ -41,7 +41,7 @@ import junit.framework.Assert;
  * @version $Rev 95653 $
  */
 public class ConfigTestUtils extends Assert {
-    
+
     /**
      * Creates a test configuration channel and saves it to the database
      * with the given information.  Note: does not flush hibernate.
@@ -67,9 +67,9 @@ public class ConfigTestUtils extends Assert {
         assertTrue(cc.getId().longValue() > 0L);
         return cc;
     }
-    
+
     /**
-     * See createConfigChannel(Org,String,String,ConfigChannelType) 
+     * See createConfigChannel(Org,String,String,ConfigChannelType)
      * @param org The org
      * @param name The channel name
      * @param label The channel label
@@ -79,32 +79,32 @@ public class ConfigTestUtils extends Assert {
         return createConfigChannel(org, name, label,
                 ConfigChannelType.global());
     }
-    
+
     /**
      * See createConfigChannel(Org,String,String,ConfigChannelType)
      * @param org The org
-     * @return The newly created ConfigChannel 
+     * @return The newly created ConfigChannel
      */
     public static ConfigChannel createConfigChannel(Org org) {
-        return createConfigChannel(org, 
+        return createConfigChannel(org,
                 "test-config-channel-name-" + TestUtils.randomString(),
                 "test-config-channel-label-" + TestUtils.randomString(),
                 ConfigChannelType.global());
     }
-    
+
     /**
      * See createConfigChannel(Org,String,String,ConfigChannelType)
      * @param org The org
      * @param type The channel type (from ConfigurationFactory constant types)
-     * @return The newly created ConfigChannel 
+     * @return The newly created ConfigChannel
      */
     public static ConfigChannel createConfigChannel(Org org, ConfigChannelType type) {
-        return createConfigChannel(org, 
+        return createConfigChannel(org,
                 "test-config-channel-name-" + TestUtils.randomString(),
                 "test-config-channel-label-" + TestUtils.randomString(),
                 type);
     }
-    
+
     /**
      * See createConfigFile(ConfigChannel, ConfigFileState, ConfigFileName).
      * Will create a ConfigChannel for this file to live in.
@@ -117,7 +117,7 @@ public class ConfigTestUtils extends Assert {
         String name = "test-name" + TestUtils.randomString();
         return cc.createConfigFile(state, name);
     }
-    
+
     /**
      * See createConfigFile(ConfigChannel, ConfigFileState, ConfigFileName).
      * @param channel The channel that this file belongs to.
@@ -128,7 +128,7 @@ public class ConfigTestUtils extends Assert {
         String name = "test-name" + TestUtils.randomString();
         return channel.createConfigFile(state, name);
     }
-    
+
     /**
      * See createConfigFile(ConfigChannel, ConfigFileState, ConfigFileName).
      * Will create a ConfigChannel for this file to live in.
@@ -141,7 +141,7 @@ public class ConfigTestUtils extends Assert {
         ConfigFileState state = ConfigFileState.normal();
         return cc.createConfigFile(state, path);
     }
-    
+
     /**
      * See createConfigFile(ConfigChannel, ConfigFileState, ConfigFileName).
      * Will create a ConfigChannel for this file to live in.
@@ -154,7 +154,7 @@ public class ConfigTestUtils extends Assert {
         String name = "test-name" + TestUtils.randomString();
         return cc.createConfigFile(state, name);
     }
-    
+
     /**
      * See createConfigFile(ConfigChannel, ConfigFileState, ConfigFileName).
      * @param channel The channel for this file to live in
@@ -166,39 +166,39 @@ public class ConfigTestUtils extends Assert {
         String name = "test-name" + TestUtils.randomString();
         return channel.createConfigFile(state, name);
     }
-    
+
     /**
      * Creates a test configuration revision and saves it to the database
      * with the given information.  Note: does not flush hibernate.
      * Note2: users of the same org do not automatically have access to this revision.
      * See rhn_config_channel.get_user_revision_access
      * @param file The file for this revision to belong to.
-     * @param content The content of this revision. 
+     * @param content The content of this revision.
      * @param info Permissions and file information.
      * @param revision The revision number.
      * @return The newly created ConfigRevision
      */
     public static ConfigRevision createConfigRevision(ConfigFile file,
             ConfigContent content, ConfigInfo info, Long revision) {
-        return createConfigRevision(file, content, info, revision, 
+        return createConfigRevision(file, content, info, revision,
                                     ConfigFileType.file());
     }
-    
+
     /**
      * Creates a test configuration revision and saves it to the database
      * with the given information.  Note: does not flush hibernate.
      * Note2: users of the same org do not automatically have access to this revision.
      * See rhn_config_channel.get_user_revision_access
      * @param file The file for this revision to belong to.
-     * @param content The content of this revision. 
+     * @param content The content of this revision.
      * @param info Permissions and file information.
      * @param revision The revision number.
-     * @param type the desired fileType for this revision  
+     * @param type the desired fileType for this revision
      * @return The newly created ConfigRevision
-     * 
+     *
      */
     public static ConfigRevision createConfigRevision(ConfigFile file,
-            ConfigContent content, ConfigInfo info, Long revision, 
+            ConfigContent content, ConfigInfo info, Long revision,
             ConfigFileType type) {
         ConfigRevision cr = ConfigurationFactory.newConfigRevision();
         cr.setRevision(revision);
@@ -209,11 +209,11 @@ public class ConfigTestUtils extends Assert {
         cr.setDelimEnd("@}");
         cr.setConfigFile(file);
         cr.setConfigInfo(info);
-        cr.setConfigFileType(type);            
+        cr.setConfigFileType(type);
         ConfigurationFactory.commit(cr);
         return cr;
-    }    
-    
+    }
+
     /**
      * See createConfigRevision(ConfigFile, ConfigContent, ConfigInfo, Long).
      * @param file The file for this revision to belong to.
@@ -225,14 +225,14 @@ public class ConfigTestUtils extends Assert {
         ConfigInfo info = createConfigInfo();
         return createConfigRevision(file, content, info, revision);
     }
-    
+
     /**
      * See createConfigRevision(ConfigFile, ConfigContent, ConfigInfo, Long).
      * @param file The file for this revision to belong to.
      * @param type the desired fileType for this revision
      * @return The newly created ConfigRevision.
      */
-    public static ConfigRevision createConfigRevision(ConfigFile file, 
+    public static ConfigRevision createConfigRevision(ConfigFile file,
                                                         ConfigFileType type) {
         ConfigInfo info = createConfigInfo();
         Long revision = new Long(1);
@@ -242,19 +242,19 @@ public class ConfigTestUtils extends Assert {
             content.setBinary(false);
             content.setFileSize(new Long(0));
         }
-        return createConfigRevision(file, content, info, revision, type);    
-    } 
-     
+        return createConfigRevision(file, content, info, revision, type);
+    }
+
     /**
      * See createConfigRevision(ConfigFile, ConfigContent, ConfigInfo, Long).
      * @param file The file for this revision to belong to.
      * @return The newly created ConfigRevision.
      */
     public static ConfigRevision createConfigRevision(ConfigFile file) {
-        return createConfigRevision(file, 
+        return createConfigRevision(file,
                     ConfigFileType.file());
     }
-    
+
     /**
      * See createConfigRevision(ConfigFile, ConfigContent, ConfigInfo, Long).
      * Will create a ConfigFile and ConfigChannel for this ConfigRevision to belong to.
@@ -268,7 +268,7 @@ public class ConfigTestUtils extends Assert {
         Long revision = new Long(1);
         return createConfigRevision(file, content, info, revision);
     }
-    
+
     /**
      * Creates a test ConfigContent with the given information.
      * The ConfigContent is not saved and can not be saved until associated with a
@@ -288,7 +288,7 @@ public class ConfigTestUtils extends Assert {
         cc.setModified(new Date());
         return cc;
     }
-    
+
     /**
      * See createConfigContent(Long, boolean)
      * @return The newly created ConfigContent.
@@ -297,7 +297,7 @@ public class ConfigTestUtils extends Assert {
         Long size = new Long(0);
         return createConfigContent(size, false);
     }
-    
+
     /**
      * Creates a test ConfigInfo with the given information.
      * The ConfigInfo is not saved and can not be saved until associated with a
@@ -310,7 +310,7 @@ public class ConfigTestUtils extends Assert {
     public static ConfigInfo createConfigInfo(String user, String group, Long fileMode) {
         return ConfigurationFactory.lookupOrInsertConfigInfo(user, group, fileMode, "");
     }
-    
+
     /**
      * See createConfigInfo(String, String, Long)
      * @param fileMode The three-digit permissions for the file.
@@ -320,7 +320,7 @@ public class ConfigTestUtils extends Assert {
         String user = "rhnjava";
         return createConfigInfo(user, user, fileMode);
     }
-    
+
     /**
      * See createConfigInfo(String, String, Long)
      * @return The newly created ConfigInfo.
@@ -330,7 +330,7 @@ public class ConfigTestUtils extends Assert {
         Long fileMode = new Long(655);
         return createConfigInfo(user, user, fileMode);
     }
-    
+
     /**
      * This method will give a user access to a channel (as dictated by the database
      * function rhn_config_channel.get_user_chan_access).  This method will create a
@@ -338,7 +338,7 @@ public class ConfigTestUtils extends Assert {
      * as long as both the channel and the user belong to the same org.  Alternatively,
      * if you don't wish to create a server for the user, giving the user config_admin
      * or org_admin status will also give them acces to the config channel.
-     * 
+     *
      * Note: Giving access to config files and config revisions is done the same way.
      * Just give the user access the channel and they will have access to all files and
      * revisions in that channel. (satisfying rhn_config_channel.get_user_*_access)
@@ -347,7 +347,7 @@ public class ConfigTestUtils extends Assert {
      * @return The server created and subscribed to the config channel.
      * @throws Exception yep.
      */
-    public static Server giveUserChanAccess(User user, ConfigChannel channel) 
+    public static Server giveUserChanAccess(User user, ConfigChannel channel)
                 throws Exception {
         if (!user.getOrg().getId().equals(channel.getOrgId())) {
             throw new IllegalArgumentException("User and channel " +
@@ -356,7 +356,7 @@ public class ConfigTestUtils extends Assert {
         Server srv = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         if (channel.isGlobalChannel()) {
-            srv.subscribe(channel);    
+            srv.subscribe(channel);
         }
         else if (channel.isLocalChannel()) {
             srv.setLocalOverride(channel);
@@ -364,10 +364,10 @@ public class ConfigTestUtils extends Assert {
         else if (channel.isSandboxChannel()) {
             srv.setSandboxOverride(channel);
         }
-        
+
         return srv;
     }
-    
+
     /**
      * Creating revisions requires org quota because they take up quota.
      * This must be called before creating a revision, but it need only
@@ -377,25 +377,25 @@ public class ConfigTestUtils extends Assert {
     public static void giveOrgQuota(Org org) {
         //there is no quota in satellite...  is unlimited.
     }
-    
+
     /**
      * Gives  all the config capabilites to a server
      * @param server the server that you want to be config enabled
      * @throws Exception In the case of DB errors or sql exceptions.
      */
     public static void giveConfigCapabilities(Server server) throws Exception {
-        SystemManagerTest.giveCapability(server.getId(), 
+        SystemManagerTest.giveCapability(server.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, 1L);
-        SystemManagerTest.giveCapability(server.getId(), 
+        SystemManagerTest.giveCapability(server.getId(),
                  SystemManager.CAP_CONFIGFILES_DIFF, 1L);
-        
-        SystemManagerTest.giveCapability(server.getId(), 
+
+        SystemManagerTest.giveCapability(server.getId(),
                 SystemManager.CAP_CONFIGFILES_BASE64_ENC, 1L);
-        
-        SystemManagerTest.giveCapability(server.getId(), 
+
+        SystemManagerTest.giveCapability(server.getId(),
                 SystemManager.CAP_CONFIGFILES_UPLOAD, 1L);
-        SystemManagerTest.giveCapability(server.getId(), 
+        SystemManagerTest.giveCapability(server.getId(),
                 SystemManager.CAP_CONFIGFILES_MTIME_UPLOAD, 1L);
-        
+
     }
 }

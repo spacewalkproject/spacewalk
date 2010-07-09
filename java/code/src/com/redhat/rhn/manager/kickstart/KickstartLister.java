@@ -77,7 +77,7 @@ public class KickstartLister extends BaseManager {
      * Returns the list of Maps with x fields: , , .
      *
      * @param orgIn Org we want to fetch the kickstart profiles for
-     * @param pc PageControl 
+     * @param pc PageControl
      * @return the kickstart profiles for <code>orgIn</code>
      */
     public DataResult<KickstartDto> kickstartsInOrg(Org orgIn, PageControl pc) {
@@ -120,20 +120,20 @@ public class KickstartLister extends BaseManager {
         }
         return retval;
     }
-    
+
     /**
      * List the kickstart scripts for a particular kickstart.
      * Returns the list of Maps with x fields: , , .
      *
-     * @param orgIn Org coming in. 
+     * @param orgIn Org coming in.
      * @param ksIn Kickstart Id we want to fetch scripts for
      * @param pc PageControl
      * @return the kickstart profiles for <code>orgIn</code>
      */
     public DataResult scriptsInKickstart(Org orgIn, Long ksIn, PageControl pc) {
-        
+
         SelectMode m = ModeFactory.getMode("General_queries", "scripts_for_kickstart");
-        Map params = new HashMap();        
+        Map params = new HashMap();
         params.put("kickstart_id", ksIn);
         params.put("org_id", orgIn.getId());
         Map elabParams = new HashMap();
@@ -145,11 +145,11 @@ public class KickstartLister extends BaseManager {
         int i = 1;
         for (Iterator itr = returnDataResult.iterator(); itr.hasNext();) {
             ScriptDto script = (ScriptDto)itr.next();
-            script.setPosition(i++);           
+            script.setPosition(i++);
         }
         return returnDataResult;
     }
-    
+
     /**
      * List the kickstart ip ranges in the Org.
      * Returns the list of Maps with x fields: , , .
@@ -176,7 +176,7 @@ public class KickstartLister extends BaseManager {
         return returnDataResult;
     }
 
-    
+
     /**
      * Get the list of GPG keys definied for this org.  Returns
      * DataResult of CryptoKeyDto.
@@ -186,7 +186,7 @@ public class KickstartLister extends BaseManager {
      */
     public DataResult cryptoKeysInOrg(Org orgIn, PageControl pc) {
         if (logger.isDebugEnabled()) {
-            logger.debug("gpgKeysInOrg(Org orgIn=" + 
+            logger.debug("gpgKeysInOrg(Org orgIn=" +
                     orgIn + ") - start");
         }
         SelectMode m = ModeFactory.getMode("General_queries", "crypto_keys_for_org");
@@ -202,7 +202,7 @@ public class KickstartLister extends BaseManager {
     /**
      * Get the list of File Preservation lists.
      * @param orgIn to lookup
-     * @param pc to filter 
+     * @param pc to filter
      * @return DataResult list.
      */
     public DataResult preservationListsInOrg(Org orgIn, PageControl pc) {
@@ -226,10 +226,10 @@ public class KickstartLister extends BaseManager {
     /**
      * Get the list of Activation Keys
      * @param orgIn Org
-     * @param pc to filter 
+     * @param pc to filter
      * @return DataResult list.
      */
-    public DataResult <ActivationKeyDto> getActivationKeysInOrg(Org orgIn, 
+    public DataResult <ActivationKeyDto> getActivationKeysInOrg(Org orgIn,
                                                               PageControl pc) {
         if (logger.isDebugEnabled()) {
             logger.debug("activationKeysForKickstartProfile(Org orgIn=" + orgIn +
@@ -240,7 +240,7 @@ public class KickstartLister extends BaseManager {
                                            "activation_keys_for_org");
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
-        DataResult <ActivationKeyDto>  returnDataResult = makeDataResult(params, 
+        DataResult <ActivationKeyDto>  returnDataResult = makeDataResult(params,
                                                     Collections.EMPTY_MAP, pc, m);
 
         if (logger.isDebugEnabled()) {
@@ -249,11 +249,11 @@ public class KickstartLister extends BaseManager {
         }
         return returnDataResult;
     }
-    
+
     /**
      * Get the list of active (non-disabled) Activation Keys
      * @param orgIn Org
-     * @param pc to filter 
+     * @param pc to filter
      * @return DataResult list.
      */
     public DataResult getActiveActivationKeysInOrg(Org orgIn, PageControl pc) {
@@ -273,12 +273,12 @@ public class KickstartLister extends BaseManager {
                          "end - return value=" + returnDataResult);
         }
         return returnDataResult;
-    }    
-    
+    }
+
     /**
      * Get the list of systems that are currently kickstarting
      * @param orgIn to lookup
-     * @param pc to filter 
+     * @param pc to filter
      * @return DataResult list of systems.
      */
     public DataResult getSystemsCurrentlyKickstarting(Org orgIn, PageControl pc) {
@@ -287,7 +287,7 @@ public class KickstartLister extends BaseManager {
                     ", PageControl pc=" + pc + ") - start");
         }
 
-        SelectMode m = ModeFactory.getMode("General_queries", 
+        SelectMode m = ModeFactory.getMode("General_queries",
                                            "systems_currently_kickstarted_for_org");
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
@@ -298,11 +298,11 @@ public class KickstartLister extends BaseManager {
         }
         return returnDataResult;
     }
-    
+
     /**
      * Get the list of systems that are scheduled to be kickstarted
      * @param orgIn to lookup
-     * @param pc to filter 
+     * @param pc to filter
      * @return DataResult list of systems.
      */
     public DataResult getSystemsScheduledToBeKickstarted(Org orgIn, PageControl pc) {
@@ -311,7 +311,7 @@ public class KickstartLister extends BaseManager {
                     ", PageControl pc=" + pc + ") - start");
         }
 
-        SelectMode m = ModeFactory.getMode("General_queries", 
+        SelectMode m = ModeFactory.getMode("General_queries",
                                      "systems_scheduled_tobe_kickstarted_for_org");
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
@@ -322,12 +322,12 @@ public class KickstartLister extends BaseManager {
         }
         return returnDataResult;
     }
-    
+
     /**
-     * Get the list of possible kickstart profiles 
-     * and the number of their base channels 
+     * Get the list of possible kickstart profiles
+     * and the number of their base channels
      * @param orgIn to lookup
-     * @param pc to filter 
+     * @param pc to filter
      * @return DataResult list of systems.
      */
     public DataResult getKickstartSummary(Org orgIn, PageControl pc) {
@@ -336,11 +336,11 @@ public class KickstartLister extends BaseManager {
                     ", PageControl pc=" + pc + ") - start");
         }
 
-        SelectMode m = ModeFactory.getMode("General_queries", 
+        SelectMode m = ModeFactory.getMode("General_queries",
                                      "kickstart_summary_for_org");
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
-        DataResult returnDataResult = makeDataResultNoPagination(params, 
+        DataResult returnDataResult = makeDataResultNoPagination(params,
                                                                  new HashMap(), m);
         if (logger.isDebugEnabled()) {
             logger.debug("getKickstartSummary(Org, PageControl)" +
@@ -360,11 +360,11 @@ public class KickstartLister extends BaseManager {
                          ") - start");
         }
 
-        SelectMode m = ModeFactory.getMode("General_queries", 
+        SelectMode m = ModeFactory.getMode("General_queries",
                                      "valid_timezones_for_kickstart_profile");
         Map params = new HashMap();
         params.put("ksid", ksId);
-        DataResult returnDataResult = makeDataResultNoPagination(params, 
+        DataResult returnDataResult = makeDataResultNoPagination(params,
                                                                  new HashMap(), m);
         if (logger.isDebugEnabled()) {
             logger.debug("getValidTimezones(ksId)" +
@@ -373,11 +373,11 @@ public class KickstartLister extends BaseManager {
 
         return returnDataResult;
     }
-    
+
     /**
-     * Returns a list of Cobbler only profiles. 
+     * Returns a list of Cobbler only profiles.
      * i.e profiles that are not part of spacewalk
-     * but are part of cobbler. 
+     * but are part of cobbler.
      * @param user the user object needed for cobbler conneciton
      * @return list of cobbler profile dtos.
      */
@@ -385,9 +385,9 @@ public class KickstartLister extends BaseManager {
         logger.debug("Adding cobblerProfiles to the list");
         Set<String> excludes = new HashSet<String>(
                     KickstartFactory.listKickstartDataCobblerIds());
-        
+
         List <CobblerProfileDto> profiles = new LinkedList<CobblerProfileDto>();
-        
+
         List<Profile> cProfiles = Profile.list(CobblerXMLRPCHelper.getConnection(user),
                                                                 excludes);
         for (Profile profile : cProfiles) {
@@ -395,13 +395,13 @@ public class KickstartLister extends BaseManager {
             Object orgId = distro.getKsMeta().get("org");
             if (orgId == null || user.getOrg().getId().toString().
                                         equals(String.valueOf(orgId))) {
-                profiles.add(CobblerProfileDto.create(profile));    
+                profiles.add(CobblerProfileDto.create(profile));
             }
         }
         logger.debug("Returning cobbler profiles: " + profiles);
         return profiles;
     }
-    
+
     /**
      * Sets the kickstart url for the passed in cobbler profiles.
      * @param dtos the kickstart dto
@@ -433,7 +433,7 @@ public class KickstartLister extends BaseManager {
         setKickstartUrls(ret, user);
         return ret;
     }
-    
+
     /**
      * Given a list of Kickstart DTOs
      * the code below removes all the profiles
@@ -452,7 +452,7 @@ public class KickstartLister extends BaseManager {
         }
         for (Iterator<KickstartDto> itr = profiles.iterator(); itr.hasNext();) {
             KickstartDto dto = itr.next();
-            if (StringUtils.isBlank(dto.getCobblerId()) || 
+            if (StringUtils.isBlank(dto.getCobblerId()) ||
                             !ids.contains(dto.getKstreeId())) {
                 itr.remove();
             }

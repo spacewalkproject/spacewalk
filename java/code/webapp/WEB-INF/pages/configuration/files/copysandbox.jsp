@@ -24,13 +24,13 @@
                      set="${requestScope.set}"
                      button="copycentral.jsp.copy">
       <rhn:set value="${current.id}"/>
-      
+
       <rhn:column header="copysandbox.jsp.channel"
                   url="/rhn/systems/details/configuration/ViewModifySandboxPaths.do?sid=${current.id}">
         <img alt='<bean:message key="config.common.sandboxAlt" />' src="/img/rhn-listicon-sandbox.png" />
         ${fn:escapeXml(current.name)}
       </rhn:column>
-      
+
       <rhn:column header="copycentral.jsp.current">
         <c:choose>
           <c:when test="${current.configRevision == null}">

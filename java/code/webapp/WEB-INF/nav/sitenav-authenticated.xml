@@ -22,7 +22,7 @@
         		<rhn-tab-url>/rhn/systems/entitlements/EligibleFlexGuests.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="Software Channel Entitlements" url="/rhn/channels/software/Entitlements.do" acl="user_role(org_admin)" />
-    </rhn-tab>  
+    </rhn-tab>
     <rhn-tab name="Organization Trusts" url="/rhn/multiorg/Organizations.do" acl="user_role(org_admin)">
         <rhn-tab-url>/rhn/multiorg/OrgTrustDetails.do</rhn-tab-url>
         <rhn-tab-url>/rhn/multiorg/channels/Consumed.do</rhn-tab-url>
@@ -46,13 +46,13 @@
           <rhn-tab-url>/rhn/systems/DuplicateIPList.do</rhn-tab-url>
           <rhn-tab-url>/rhn/systems/DuplicateHostName.do</rhn-tab-url>
           <rhn-tab-url>/rhn/systems/DuplicateMacAddress.do</rhn-tab-url>
-          <rhn-tab-url>/rhn/systems/DuplicateSystemsCompare.do</rhn-tab-url>          
+          <rhn-tab-url>/rhn/systems/DuplicateSystemsCompare.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
     <rhn-tab name="System Groups" acl="org_entitlement(sw_mgr_enterprise)">
-     <rhn-tab-directory>/rhn/groups</rhn-tab-directory>       
+     <rhn-tab-directory>/rhn/groups</rhn-tab-directory>
       <rhn-tab-directory>/rhn/systems/groups</rhn-tab-directory>
-      <rhn-tab-directory>/network/systems/groups</rhn-tab-directory>      
+      <rhn-tab-directory>/network/systems/groups</rhn-tab-directory>
       <rhn-tab-url>/rhn/systems/SystemGroupList.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="System Set Manager" url="/network/systems/ssm/index.pxt" acl="org_entitlement(sw_mgr_enterprise)">
@@ -89,7 +89,7 @@
       <rhn-tab name="GPG and SSL Keys" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/keys/CryptoKeysList.do">
         <rhn-tab-directory>/rhn/keys</rhn-tab-directory>
       </rhn-tab>
-      <rhn-tab name="Distributions" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/ViewTrees.do">        
+      <rhn-tab name="Distributions" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/ViewTrees.do">
         <rhn-tab-url>/rhn/kickstart/TreeEdit.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/TreeCreate.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/TreeDelete.do</rhn-tab-url>
@@ -132,7 +132,7 @@
     </rhn-tab>
     <rhn-tab name="Clone Errata" url="/rhn/errata/manage/CloneErrata.do" acl="user_role(channel_admin)">
       <rhn-tab-directory>/rhn/errata/manage/clone</rhn-tab-directory>
-    </rhn-tab> 
+    </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Channels" url="/rhn/software/channels/All.do" active-image="tab-channels-selected.gif" inactive-image="tab-channels.gif">
     <rhn-tab name="Software Channels" url="/rhn/software/channels/All.do">
@@ -149,7 +149,7 @@
     </rhn-tab>
     <rhn-tab name="Manage Software Channels" acl="user_can_manage_channels()">
       <rhn-tab-directory>/network/software/channels/manage</rhn-tab-directory>
-      <rhn-tab-directory>/rhn/channels/manage</rhn-tab-directory>      
+      <rhn-tab-directory>/rhn/channels/manage</rhn-tab-directory>
       <rhn-tab-url>/rhn/channels/manage/Manage.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/errata/Add.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/errata/AddRedHatErrata.do</rhn-tab-url>
@@ -240,9 +240,9 @@
         <rhn-tab-url>/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/OrgCreate.do</rhn-tab-url>
     </rhn-tab>
-    
+
     <rhn-tab name="Subscriptions" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/SoftwareEntitlements.do">
-   
+
       <rhn-tab name="Software Channel Entitlements" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlements.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlementDetails.do</rhn-tab-url>
@@ -252,7 +252,7 @@
         <rhn-tab-url>/rhn/admin/multiorg/SystemEntitlements.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/EntitlementOrgs.do</rhn-tab-url>
       </rhn-tab>
-  
+
     </rhn-tab>
 
     <rhn-tab name="Users" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/Users.do">
@@ -283,12 +283,12 @@
       </rhn-tab>
 	  <rhn-tab name="Cobbler" acl="user_role(satellite_admin)">
 	    <rhn-tab-url>/rhn/admin/config/Cobbler.do</rhn-tab-url>
-	  </rhn-tab>        
+	  </rhn-tab>
     </rhn-tab>
 
     <rhn-tab name="Task Engine Status" acl="user_role(satellite_admin)" url="/rhn/admin/TaskStatus.do">
     </rhn-tab>
-    
+
   </rhn-tab>
   <rhn-tab name="Help" url="/rhn/help/index.do" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
     <rhn-tab-directory>/rhn/help</rhn-tab-directory>
@@ -313,7 +313,7 @@
     <rhn-tab name="Unix Release Notes" url="/help/release-notes/unix/index.pxt" acl="org_entitlement(rhn_nonlinux)">
       <rhn-tab name="3.2.0" url="/help/release-notes/unix/unix-release-notes-3.2.0.html"/>
     </rhn-tab>
-    <rhn-tab name="API" url="/rhn/apidoc/index.jsp"> 
+    <rhn-tab name="API" url="/rhn/apidoc/index.jsp">
 		<rhn-tab name="Overview" url="/rhn/apidoc/index.jsp">
 			<rhn-tab-directory>/rhn/apidoc</rhn-tab-directory>
 		</rhn-tab>

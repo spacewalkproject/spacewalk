@@ -27,14 +27,14 @@ import com.redhat.rhn.webapp.RhnServletListener;
 import java.util.List;
 
 /**
- * CreateUserActionTest - Test the CreateUserAction 
+ * CreateUserActionTest - Test the CreateUserAction
  *
  * @version $Rev: 1427 $
  */
 public class CreateUserActionTest extends RhnMockStrutsTestCase {
 
     private static RhnServletListener rl;
-    
+
     public void testMessageQueueRegistration() {
         rl = new RhnServletListener();
         rl.contextInitialized(null);
@@ -51,7 +51,7 @@ public class CreateUserActionTest extends RhnMockStrutsTestCase {
         //rl.contextDestroyed(null);
         MessageQueue.stopMessaging();
     }
-    
+
     public void testNewUserIntoOrgSatellite() throws Exception {
 
 
@@ -64,9 +64,9 @@ public class CreateUserActionTest extends RhnMockStrutsTestCase {
         assertNotNull(forwardPath);
         assertTrue(forwardPath.startsWith("/users/ActiveList.do?uid="));
     }
-    
+
     public void testCreateFirstSatUser() {
-        
+
 
         setRequestPathInfo("/newlogin/CreateFirstUserSubmit");
         RhnMockDynaActionForm form =
@@ -75,7 +75,7 @@ public class CreateUserActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         this.verifyForward(CreateUserAction.SUCCESS_SAT);
     }
-    
+
     /**
      * @return Properly filled out user creation form.
      */
@@ -104,20 +104,20 @@ public class CreateUserActionTest extends RhnMockStrutsTestCase {
         f.set("zip", "45241");
         return f;
     }
-    
+
     private TestCreateUserCommand cmd = new TestCreateUserCommand();
 
     public class TestCreateUserCommand extends CreateUserCommand {
-        
+
         private int publishCount = 0;
 
         /**
          * {@inheritDoc}
          */
-        public void publishNewUserEvent(User accountCreator, List admins, 
+        public void publishNewUserEvent(User accountCreator, List admins,
                 String domain, String password) {
             publishCount++;
         }
-        
+
     }
 }

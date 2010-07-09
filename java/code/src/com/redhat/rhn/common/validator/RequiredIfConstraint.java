@@ -24,13 +24,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 
+ *
  * RequiredIf constraint checks the value of an associated field in the object
  * to check to see if it is a specific value.  If it is, then the field associated
  * with this constraint is required.
- * 
- * This constraint extends LengthConstraint so it can include min/max lengths. 
- * 
+ *
+ * This constraint extends LengthConstraint so it can include min/max lengths.
+ *
  * @version $Rev$
  */
 public class RequiredIfConstraint extends RequiredConstraint {
@@ -38,38 +38,38 @@ public class RequiredIfConstraint extends RequiredConstraint {
     private static Logger log = Logger.getLogger(RequiredIfConstraint.class);
 
     private List fieldValueList;
-    
+
     /**
      * <p>
      *  This will create a new <code>Constraints</code> with the specified
      *    identifier as the "name".
      * </p>
-     * 
+     *
      * @param identifierIn <code>String</code> identifier for <code>Constraint</code>.
      */
     public RequiredIfConstraint(String identifierIn) {
         super(identifierIn);
         fieldValueList = new LinkedList();
-       
+
     }
-    
-    /** 
-    * Check the constraint against the value passed in as well as check the 
-    * objectToCheck's referenced field that is 'requiredIf'.  
-    * @param value the value we want to check to see if its valid or not only 
-    *        if the objectToCheck's referenced requiredIf field is set to the 
+
+    /**
+    * Check the constraint against the value passed in as well as check the
+    * objectToCheck's referenced field that is 'requiredIf'.
+    * @param value the value we want to check to see if its valid or not only
+    *        if the objectToCheck's referenced requiredIf field is set to the
     *        proper value.
     * @param objectToCheck the Object we will query to find the associated field
     * @return if the field is required or not.
     */
     public boolean isRequired(Object value, Object objectToCheck) {
-        
+
         String strValue = (String) value;
         Iterator i = fieldValueList.iterator();
-        // Default to true, the 
+        // Default to true, the
         boolean required = true;
         while (i.hasNext()) {
-            // We have requiredIf fields defined, so now 
+            // We have requiredIf fields defined, so now
             // we need to switch required to false unless
             // the below code changes that fact
             required = false;
@@ -105,9 +105,9 @@ public class RequiredIfConstraint extends RequiredConstraint {
                 if (required) {
                     return required;
                 }
-            } 
+            }
             catch (Exception e) {
-                String errorMessage = "Exception trying to get bean property: " + 
+                String errorMessage = "Exception trying to get bean property: " +
                                         e.toString();
                 log.error(errorMessage, e);
                 throw new ValidatorException(errorMessage, e);
@@ -115,8 +115,8 @@ public class RequiredIfConstraint extends RequiredConstraint {
         }
        return required;
     }
-    
-    /** 
+
+    /**
     * Set the name of the field to check against to see if *this* field
     * is required.  So if the constraint is a "requiredIf field FOO == 'BAR'" then we
     * want to call addField("FOO", "BAR");
@@ -129,6 +129,6 @@ public class RequiredIfConstraint extends RequiredConstraint {
         fieldAndValue.put(fieldNameIn, fieldValueIn);
         fieldValueList.add(fieldAndValue);
     }
-    
-    
+
+
 }

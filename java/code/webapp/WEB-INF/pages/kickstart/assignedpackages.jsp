@@ -10,8 +10,8 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 <div>
   <h2><bean:message key="kickstart.edit.pkgs.jsp.header1"/></h2>

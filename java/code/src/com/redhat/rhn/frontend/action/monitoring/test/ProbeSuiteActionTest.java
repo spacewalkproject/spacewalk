@@ -36,7 +36,7 @@ import org.apache.struts.action.ActionMessages;
  * @version $Rev: 53047 $
  */
 public class ProbeSuiteActionTest extends RhnBaseTestCase {
-    
+
     private User user;
     private ProbeSuite suite;
     private Action action;
@@ -51,7 +51,7 @@ public class ProbeSuiteActionTest extends RhnBaseTestCase {
         UserTestUtils.addMonitoring(user.getOrg());
         suite = ProbeSuiteTest.createTestProbeSuite(user);
         suite.setDescription("testDesc");
-        
+
         action = actionIn;
         ah = new ActionHelper();
         ah.setUpAction(action, forwardName);
@@ -59,7 +59,7 @@ public class ProbeSuiteActionTest extends RhnBaseTestCase {
         ah.getRequest().setupAddParameter(RequestContext.SUITE_ID,
                 suite.getId().toString());
     }
-    
+
     protected void tearDown() throws Exception {
         user = null;
         suite = null;
@@ -71,39 +71,39 @@ public class ProbeSuiteActionTest extends RhnBaseTestCase {
     public void testCreateExecute() throws Exception {
         executeNonSubmit(new ProbeSuiteCreateAction());
     }
-    
+
     public void testCreateSubmitExecute() throws Exception {
         executeSubmit(new ProbeSuiteCreateAction());
     }
-    
+
     public void testEditExecute() throws Exception {
         executeNonSubmit(new ProbeSuiteEditAction());
     }
-    
+
     public void testEditSubmitExecute() throws Exception {
         executeSubmit(new ProbeSuiteEditAction());
     }
-    
+
     public void testSubmitFailValidation() throws Exception {
-        
+
         setUpAction(new ProbeSuiteCreateAction(), "default");
         ah.getForm().set(RhnAction.SUBMITTED, new Boolean(true));
         ah.getForm().set("suite_name", "");
         ActionForward af = ah.executeAction();
         assertEquals("default", af.getName());
-        ActionMessages messages = (ActionMessages) 
+        ActionMessages messages = (ActionMessages)
             ah.getRequest().getSession().getAttribute(Globals.ERROR_KEY);
         assertEquals(1, messages.size());
-        
+
     }
-    
+
     private void executeNonSubmit(Action actionIn) throws Exception {
         setUpAction(actionIn, "default");
         ActionForward af = ah.executeAction();
         assertEquals("default", af.getName());
         assertNotNull(ah.getRequest().getAttribute("probeSuite"));
     }
-    
+
     private void executeSubmit(Action actionIn) throws Exception {
         setUpAction(actionIn, "saved");
         ah.getForm().set(RhnAction.SUBMITTED, new Boolean(true));
@@ -111,7 +111,7 @@ public class ProbeSuiteActionTest extends RhnBaseTestCase {
         String newName = "testNewName" + TestUtils.randomString();
         ah.getForm().set("description", newDesc);
         ah.getForm().set("suite_name", newName);
-        
+
         ActionForward af = ah.executeAction();
         assertEquals("saved", af.getName());
         assertNotNull(ah.getRequest().getAttribute("probeSuite"));
@@ -120,7 +120,7 @@ public class ProbeSuiteActionTest extends RhnBaseTestCase {
         assertEquals(newDesc, suite.getDescription());
         assertEquals(newDesc, ah.getForm().get("description"));
         assertEquals(newName, ah.getForm().get("suite_name"));
-        
+
     }
 
 }

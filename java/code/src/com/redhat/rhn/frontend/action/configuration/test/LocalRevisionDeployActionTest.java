@@ -29,11 +29,11 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev: 1 $
  */
 public class LocalRevisionDeployActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
         cc.setConfigChannelType(ConfigChannelType.local());
         Server srv = ConfigTestUtils.giveUserChanAccess(user, cc);

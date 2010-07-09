@@ -22,9 +22,9 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class BaseHandlerTest extends RhnBaseTestCase {
-    
+
     private TestHandler th;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         th = new TestHandler();
@@ -43,18 +43,18 @@ public class BaseHandlerTest extends RhnBaseTestCase {
         assertNotNull(rc);
         assertEquals(new Long(20), rc);
     }
-    
+
     public void testString() {
         Long rc = th.getAsLong("20");
         assertNotNull(rc);
         assertEquals(new Long(20), rc);
     }
-    
+
     public void testNull() {
         Long rc = th.getAsLong(null);
         assertNull(rc);
     }
-    
+
     public void testUnparsable() {
         try {
             th.getAsLong("foobar");
@@ -63,7 +63,7 @@ public class BaseHandlerTest extends RhnBaseTestCase {
         catch (NumberFormatException nfe) {
             assertTrue(true);
         }
-        
+
         try {
             String[] s = { "foobar", "10" };
             th.getAsLong(s);
@@ -73,13 +73,13 @@ public class BaseHandlerTest extends RhnBaseTestCase {
             assertTrue(true);
         }
     }
-    
+
     public void testLongParam() {
         Long param = new Long(10);
         Long rc = th.getAsLong(param);
         assertEquals(param, rc);
     }
-    
+
     public static class TestHandler extends BaseHandler {
     }
 }

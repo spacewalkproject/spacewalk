@@ -26,9 +26,9 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * KickstartAdvancedOptionsSerializer: Converts a KickstartCommand object for 
+ * KickstartAdvancedOptionsSerializer: Converts a KickstartCommand object for
  * representation as an XMLRPC struct.
- * 
+ *
  * @version $Rev$
  *
  * @xmlrpc.doc

@@ -9,7 +9,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" 
+<rhn:toolbar base="h1" img="/img/rhn-icon-system.gif"
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-list-virtual">
   <bean:message key="virtuallist.jsp.toolbar"/>
 </rhn:toolbar>
@@ -20,10 +20,10 @@
 
   <rhn:virtuallistdisplay set="${requestScope.set}" hiddenvars="${requestScope.newset}"
                    filterBy="virtuallist.jsp.system" domainClass="systems">
-    
+
     <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
       <c:choose>
-        <c:when test="${current.selectable}"> 
+        <c:when test="${current.selectable}">
           <rhn:set value="${current.systemId}"/>
         </c:when>
         <c:otherwise>
@@ -70,16 +70,16 @@
             </c:otherwise>
           </c:choose>
         </rhn:column>
-    
-        <rhn:column header="virtuallist.jsp.updates" 
+
+        <rhn:column header="virtuallist.jsp.updates"
                     style="text-align: center;">
             ${current.statusDisplay}
         </rhn:column>
-        
+
         <rhn:column header="virtuallist.jsp.state">
             ${current.stateName}
         </rhn:column>
-        
+
         <rhn:column header="virtuallist.jsp.channel">
     		<c:choose>
         		<c:when test="${current.channelId == null}">
@@ -93,9 +93,9 @@
             </c:choose>
         </rhn:column>
 
-      </c:otherwise>    
+      </c:otherwise>
     </c:choose>
-    
+
   </rhn:virtuallistdisplay>
 
   </rhn:list>

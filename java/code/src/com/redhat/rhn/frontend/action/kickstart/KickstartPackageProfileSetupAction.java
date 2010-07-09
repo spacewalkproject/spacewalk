@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * KickstartPackageProfilesEditAction - setup for listing the profiles available 
+ * KickstartPackageProfilesEditAction - setup for listing the profiles available
  * for selection.
  * @version $Rev: 1 $
  */

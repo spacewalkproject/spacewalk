@@ -21,7 +21,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class SystemGroupOverview extends BaseDto {
-    
+
     private Long id;
     private String name;
     private Long securityErrata;
@@ -59,7 +59,7 @@ public class SystemGroupOverview extends BaseDto {
     public void setSelected(Long selectedIn) {
            setSelected(selectedIn.intValue() != 0);
     }
-    
+
     /**
      * @return Returns the bugErrata.
      */
@@ -180,19 +180,19 @@ public class SystemGroupOverview extends BaseDto {
     public void setServerCount(Long serverCountIn) {
         this.serverCount = serverCountIn;
     }
-    
+
     /**
      * @return Returns the monitoringStatus.
      */
     public String getMonitoringStatus() {
         return monitoringStatus;
     }
-    
+
     /**
      * @param monitoringStatusIn The monitoringStatus to set.
      */
     public void setMonitoringStatus(String monitoringStatusIn) {
         this.monitoringStatus = monitoringStatusIn;
     }
- 
+
 }

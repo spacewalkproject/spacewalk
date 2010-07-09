@@ -26,21 +26,21 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class CompareRevisionActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         //Make the user a config admin
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
-        
+
+
         //Create the revision to copy
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
         Long cfid = revision.getConfigFile().getId();
         Long crid = revision.getId();
-        
+
         //Create another revision for this file to appear in the list
         ConfigTestUtils.createConfigRevision(revision.getConfigFile(), new Long(2));
-        
+
         setRequestPathInfo("/configuration/file/CompareRevision");
         addRequestParameter("cfid", cfid.toString());
         addRequestParameter("crid", crid.toString());

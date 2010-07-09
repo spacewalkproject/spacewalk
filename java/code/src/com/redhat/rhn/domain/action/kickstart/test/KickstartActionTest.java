@@ -36,11 +36,11 @@ import java.util.Date;
 public class KickstartActionTest extends RhnBaseTestCase {
 
     /**
-     * Test fetching a KickstartAction 
+     * Test fetching a KickstartAction
      * @throws Exception
      */
     public void testLookupKickstartAction() throws Exception {
-        Action newA = ActionFactoryTest.createAction(UserTestUtils.createUser("testUser", 
+        Action newA = ActionFactoryTest.createAction(UserTestUtils.createUser("testUser",
             UserTestUtils.createOrg("testOrg")), ActionFactory.TYPE_KICKSTART_INITIATE);
         Long id = newA.getId();
         Action a = ActionFactory.lookupById(id);
@@ -51,72 +51,72 @@ public class KickstartActionTest extends RhnBaseTestCase {
         assertNotNull(k.getKickstartActionDetails().getStaticDevice());
         assertNotNull(k.getEarliestAction());
     }
-    
+
     public void testKickstartInitiateAction() throws Exception {
 
         Action newA = ActionFactoryTest
-                          .createAction(UserTestUtils.createUser("testUser", 
+                          .createAction(UserTestUtils.createUser("testUser",
                                         UserTestUtils.createOrg("testOrg")),
                                         ActionFactory.TYPE_KICKSTART_INITIATE);
         Long id = newA.getId();
         String appendTestString = "Append Test String";
-        
-        KickstartInitiateAction k = (KickstartInitiateAction) 
+
+        KickstartInitiateAction k = (KickstartInitiateAction)
                                     ActionFactory.lookupById(id);
         KickstartActionDetails ksad = k.getKickstartActionDetails();
         ksad.setAppendString(appendTestString);
         ActionFactory.save(k);
-        
-        KickstartInitiateAction k2 = (KickstartInitiateAction) 
+
+        KickstartInitiateAction k2 = (KickstartInitiateAction)
                                      ActionFactory.lookupById(id);
         KickstartActionDetails ksad2 = k2.getKickstartActionDetails();
         assertEquals(ksad2.getAppendString(), appendTestString);
-        
+
         FileList f = new FileList();
         f.setLabel("TestingKSAction" + TestUtils.randomString());
         f.setOrg(k.getOrg());
         f.setCreated(new Date());
         f.setModified(new Date());
         TestUtils.saveAndFlush(f);
-        
+
         ksad.addFileList(f);
         TestUtils.saveAndFlush(ksad);
         assertNotNull(ksad.getFileLists());
-        assertEquals(ksad.getFileLists().size(), 1);        
+        assertEquals(ksad.getFileLists().size(), 1);
         assertNotNull(k.getEarliestAction());
-        
+
     }
-    
+
     public void testKickstartScheduleSyncAction() throws Exception {
 
         Action newA = ActionFactoryTest
-                        .createAction(UserTestUtils.createUser("testUser", 
+                        .createAction(UserTestUtils.createUser("testUser",
                                       UserTestUtils.createOrg("testOrg")),
                                       ActionFactory.TYPE_KICKSTART_SCHEDULE_SYNC);
         Long id = newA.getId();
         String appendTestString = "Append Test String";
-        
-        KickstartScheduleSyncAction k = (KickstartScheduleSyncAction) 
+
+        KickstartScheduleSyncAction k = (KickstartScheduleSyncAction)
                                         ActionFactory.lookupById(id);
         KickstartActionDetails ksad = k.getKickstartActionDetails();
         ksad.setAppendString(appendTestString);
         ActionFactory.save(k);
-        
-        KickstartScheduleSyncAction k2 = (KickstartScheduleSyncAction) 
+
+        KickstartScheduleSyncAction k2 = (KickstartScheduleSyncAction)
                                          ActionFactory.lookupById(id);
         KickstartActionDetails ksad2 = k2.getKickstartActionDetails();
         assertEquals(ksad2.getAppendString(), appendTestString);
-        
+
         FileList f = new FileList();
         f.setLabel("TestingKSAction" + TestUtils.randomString());
         f.setOrg(k.getOrg());
         f.setCreated(new Date());
         f.setModified(new Date());
         TestUtils.saveAndFlush(f);
-        
+
         ksad.addFileList(f);
         assertNotNull(ksad.getFileLists());
-        assertEquals(ksad.getFileLists().size(), 1);        
-      
+        assertEquals(ksad.getFileLists().size(), 1);
+
     }
 }

@@ -21,20 +21,20 @@ import java.util.Set;
  * @version $Rev: 1 $
  */
 public class CommandClass {
-    
+
     private String className;
     private Set metrics;
-    
-    /** 
-     * Getter for className 
+
+    /**
+     * Getter for className
      * @return String to get
     */
     public String getClassName() {
         return this.className;
     }
 
-    /** 
-     * Setter for className 
+    /**
+     * Setter for className
      * @param classNameIn to set
     */
     public void setClassName(String classNameIn) {

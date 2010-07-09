@@ -23,14 +23,14 @@ import com.redhat.rhn.domain.common.ChecksumType;
 public class ClonedChannel extends Channel {
 
     private Channel original;
-    
+
     /**
      * @return the original Channel the channel was cloned from
      */
     public Channel getOriginal() {
         return original;
     }
-    
+
     /**
      * Set the original version of the clone
      * @param originalIn original Channel this clone was created from
@@ -38,14 +38,14 @@ public class ClonedChannel extends Channel {
     public void setOriginal(Channel originalIn) {
         this.original = originalIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean isCloned() {
         return true;
     }
-    
+
     /**
      * {@inheritDoc}
      */

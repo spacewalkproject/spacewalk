@@ -28,5 +28,5 @@
       ${current.errorDisplay}
     </rhn:column>
   </rhn:listdisplay>
-      
+
 </rhn:list>

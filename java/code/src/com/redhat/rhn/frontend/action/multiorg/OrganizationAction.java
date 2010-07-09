@@ -41,14 +41,14 @@ public class OrganizationAction extends RhnAction {
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-        
-        RequestContext requestContext = new RequestContext(request);        
+
+        RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
         DataList result = OrgManager.activeOrgs(user);
-                                              
-        request.setAttribute(ListTagHelper.PAGE_LIST, result);       
+
+        request.setAttribute(ListTagHelper.PAGE_LIST, result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-                
+
         return mapping.findForward("default");
     }
 

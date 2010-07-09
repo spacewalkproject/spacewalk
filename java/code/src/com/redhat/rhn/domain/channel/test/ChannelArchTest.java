@@ -31,7 +31,7 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ChannelArchTest extends RhnBaseTestCase {
-    
+
     public void testChannelArch() throws Exception {
         Long testid = new Long(500);
         String query = "ChannelArch.findById";
@@ -40,12 +40,12 @@ public class ChannelArchTest extends RhnBaseTestCase {
         assertNotNull(ca.getArchType());
         assertEquals(ca.getLabel(), ca2.getLabel());
     }
-    
+
     public void testChannelArchByLabel() throws Exception {
         ChannelArch x86Arch = ChannelFactory.lookupArchByName("IA-32");
         assertNotNull(x86Arch);
     }
-    
+
     public void testCompatibleServerArches() {
         ChannelArch ca = ChannelFactory.lookupArchByName("IA-32");
         Set arches = ca.getCompatibleServerArches();
@@ -56,21 +56,21 @@ public class ChannelArchTest extends RhnBaseTestCase {
             assertEquals(ServerArch.class, o.getClass());
         }
     }
-    
+
     public void testIsCompatible() {
         ChannelArch ca = ChannelFactory.lookupArchByName("x86_64");
         ServerArch amd64 = ServerFactory.lookupServerArchByLabel("amd64-redhat-linux");
         assertTrue(ca.isCompatible(amd64));
-        
+
         ServerArch s390 = ServerFactory.lookupServerArchByLabel("s390-redhat-linux");
         assertFalse(ca.isCompatible(s390));
     }
-    
+
     public void testIsCompatibleForPackages() {
         ChannelArch ca = ChannelFactory.lookupArchByName("IA-32");
         PackageArch i386 = PackageFactory.lookupPackageArchByLabel("i386");
         assertTrue(ca.isCompatible(i386));
-        
+
         PackageArch s390 = PackageFactory.lookupPackageArchByLabel("s390");
         assertFalse(ca.isCompatible(s390));
     }

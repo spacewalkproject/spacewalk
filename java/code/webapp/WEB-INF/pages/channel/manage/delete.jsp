@@ -19,7 +19,7 @@
         <!--
             Channel Details
         -->
-    
+
         <h2><bean:message key="channel.delete.jsp.channelheader"/></h2>
 
         <div class="page-summary">
@@ -36,7 +36,7 @@
                     <strong><c:out value="${channel.name}"/></strong> (<c:out value="${channel.label}"/>)
                 </td>
             </tr>
-            
+
             <!-- Parent Channel -->
             <tr>
                 <th nowrap="nowrap">
@@ -73,7 +73,7 @@
                     <c:out value="${channel.packageCount}"/>
                 </td>
             </tr>
-            
+
             <!-- Subscribed Systems -->
             <tr>
                 <th nowrap="nowrap">
@@ -83,7 +83,7 @@
                     <c:out value="${subscribedSystemsCount}"/>
                 </td>
             </tr>
-            
+
             <!-- Summary -->
             <tr>
                 <th nowrap="nowrap">
@@ -93,7 +93,7 @@
                     <c:out value="${channel.summary}"/>
                 </td>
             </tr>
-            
+
             <!-- Description -->
             <tr>
                 <th nowrap="nowrap">
@@ -110,13 +110,13 @@
                     </c:choose>
                 </td>
             </tr>
-            
+
         </table>
 
         <!--
             Trusted Organizations
         -->
-        
+
         <h2><bean:message key="channel.delete.jsp.orgsheader"/></h2>
 
         <div class="page-summary">
@@ -124,7 +124,7 @@
         </div>
 
         <table class="details">
-            
+
             <!-- Organizations Affected -->
             <tr>
                 <th nowrap="nowrap">
@@ -144,13 +144,13 @@
                     <c:out value="${trustedSystemsCount}"/>
                 </td>
             </tr>
-            
+
         </table>
 
         <!--
             Unsubscribe Option
         -->
-        
+
         <h2><bean:message key="channel.delete.jsp.unsubheader"/></h2>
 
         <div class="page-summary">
@@ -158,7 +158,7 @@
         </div>
 
         <table class="details">
-            
+
             <!-- Unsubscribe option -->
             <tr>
                 <th nowrap="nowrap">
@@ -168,9 +168,9 @@
                     <input type="checkbox" name="unsubscribeSystems"/>
                 </td>
             </tr>
-            
+
         </table>
-        
+
         <div align="right">
             <hr/>
 	<c:choose>
@@ -184,7 +184,7 @@
                 <bean:message key="channel.delete.jsp.channelheader"/>
             </html:submit>	
 	</c:otherwise>
-	</c:choose>            
+	</c:choose>
 
         </div>
         <html:hidden property="submitted" value="true"/>

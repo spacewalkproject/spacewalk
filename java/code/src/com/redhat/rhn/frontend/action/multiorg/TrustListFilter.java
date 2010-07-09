@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * UserListFilter
- * 
+ *
  * @version $Rev $
  */
 public class TrustListFilter extends BaseListFilter {

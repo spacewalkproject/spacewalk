@@ -26,7 +26,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  * @version $Rev: 55183 $
  */
 public class ProbeSuiteSystemsSetupAction extends BaseSetListAction {
-    
+
     /**
      * {@inheritDoc}
      */

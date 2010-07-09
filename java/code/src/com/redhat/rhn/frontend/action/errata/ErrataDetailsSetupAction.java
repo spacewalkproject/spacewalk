@@ -44,9 +44,9 @@ public class ErrataDetailsSetupAction extends RhnAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long eid = requestContext.getRequiredParam("eid");
 
         User user = requestContext.getLoggedInUser();
@@ -56,7 +56,7 @@ public class ErrataDetailsSetupAction extends RhnAction {
         DataResult fixed = ErrataManager.bugsFixed(eid);
         DataResult cve = ErrataManager.errataCVEs(eid);
         DataResult keywords = ErrataManager.keywords(eid);
-        
+
         //create the display for keywords
         //example: "/var/tmp, current, directory, expect"
         String keywordsDisplay = null;
@@ -82,14 +82,14 @@ public class ErrataDetailsSetupAction extends RhnAction {
         request.setAttribute("cve", cve);
         request.setAttribute("keywords", keywordsDisplay);
         request.setAttribute("ovalFile", ovalFile);
-        
+
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                                        request.getParameterMap());
     }
-    
+
     private String findOvalFile(Long errataId) {
         String retval = null;
-        List files = 
+        List files =
             ErrataFactory.lookupErrataFilesByErrataAndFileType(errataId, "oval");
         if (files == null || files.size() == 0) {
             return null;

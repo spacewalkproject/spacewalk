@@ -24,7 +24,7 @@ import com.redhat.rhn.common.RhnRuntimeException;
 public class KickstartParsingException extends RhnRuntimeException {
 
     /**
-     * 
+     *
      */
     public KickstartParsingException() {
         super();

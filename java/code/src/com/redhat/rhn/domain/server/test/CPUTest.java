@@ -27,32 +27,32 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class CPUTest extends RhnBaseTestCase {
-    
+
     public static final String ARCH_NAME = "athlon";
     public static final String FAMILY = "Laconia";
     public static final String MODEL = "Inevitable";
     public static final String MHZ = "500";
     public static final long MHZ_NUMERIC = 500;
-    
+
     public void testCreateLookup() throws Exception {
         CPU unit = createTestCpu();
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Server server = ServerFactoryTest.createTestServer(user);
-        
+
         unit.setServer(server);
         server.setCpu(unit);
-        
+
         ServerFactory.save(server);
         flushAndEvict(server);
-        
+
         assertNotNull(unit.getId());
-        Server server2 = ServerFactory.lookupByIdAndOrg(server.getId(), 
+        Server server2 = ServerFactory.lookupByIdAndOrg(server.getId(),
                 user.getOrg());
         assertNotNull(server2.getCpu());
         assertEquals(unit.getFamily(), server2.getCpu().getFamily());
         assertEquals(unit.getArch(), server2.getCpu().getArch());
     }
-    
+
     /**
      * Helper method to create a test CPU object
      * @return Returns test CPU object
@@ -68,11 +68,11 @@ public class CPUTest extends RhnBaseTestCase {
         cpu.setFamily(FAMILY);
         cpu.setMHz(MHZ);
         cpu.setModel(MODEL);
-        
+
         assertNull(cpu.getId());
         TestUtils.saveAndFlush(cpu);
         assertNotNull(cpu.getId());
-        
+
         return cpu;
     }
 

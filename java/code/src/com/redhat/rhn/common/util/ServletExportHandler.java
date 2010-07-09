@@ -21,14 +21,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * ServletExportHandler - util for taking an ExportWriter and writing it 
+ * ServletExportHandler - util for taking an ExportWriter and writing it
  * out to a HttpServletResponse.
  * @version $Rev$
  */
 public class ServletExportHandler {
-    
+
     private ExportWriter writer;
-    
+
     /**
      * Constructor with passed in ExportWriter
      * @param writerIn ExportWriter to use
@@ -36,14 +36,14 @@ public class ServletExportHandler {
     public ServletExportHandler(ExportWriter writerIn) {
         this.writer = writerIn;
     }
-    
+
     /**
-     * Write the contents of the ExportWriter to the HttpServletResponse 
+     * Write the contents of the ExportWriter to the HttpServletResponse
      * @param response to write the contents of the ExportWriter to
      * @param pageList List of data to be exported to the Response
      * @throws IOException if there is an error trying to write to the Response
      */
-    public void writeExporterToOutput(HttpServletResponse response, 
+    public void writeExporterToOutput(HttpServletResponse response,
                                       List pageList) throws IOException {
         String charSet = response.getCharacterEncoding();
         response.setContentType(writer.getMimeType() + ";charset=" + charSet);

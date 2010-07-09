@@ -31,7 +31,7 @@ public class ChannelSubscriptionException extends FaultException  {
      */
     public ChannelSubscriptionException(String reason) {
         super(1230, "channelSubscriptoin" , LocalizationService.getInstance().
-                getMessage("api.channel.software.channelsubscription", 
+                getMessage("api.channel.software.channelsubscription",
                         new Object [] {reason}));
     }
 
@@ -42,8 +42,8 @@ public class ChannelSubscriptionException extends FaultException  {
      */
     public ChannelSubscriptionException(String reason, Throwable cause) {
         super(1230, "channelSubscriptoin" , LocalizationService.getInstance().
-                getMessage("api.channel.software.channelsubscription", 
+                getMessage("api.channel.software.channelsubscription",
                         new Object [] {reason}), cause);
     }
-    
+
 }

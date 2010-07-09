@@ -34,10 +34,10 @@ import java.util.Set;
  */
 public class RhnSetFactory extends HibernateFactory {
     private static final String CATALOG = "Set_queries";
-    
+
     private static RhnSetFactory singleton = new RhnSetFactory();
     private static Logger log = Logger.getLogger(RhnSetFactory.class);
-    
+
     /**
      * Constructs the RhnSetFactory, marked private
      * since all methods are static.
@@ -51,7 +51,7 @@ public class RhnSetFactory extends HibernateFactory {
     protected Logger getLogger() {
         return log;
     }
-   
+
     /**
      * Finds the RhnSet which matches the given uid and label.
      * Returns null if no matches found.
@@ -72,7 +72,7 @@ public class RhnSetFactory extends HibernateFactory {
         }
         return result;
     }
-    
+
     /**
      * Creates an RhnSet from a List of RhnSetElements.
      * Returns null if elements are null or contain no items.
@@ -85,7 +85,7 @@ public class RhnSetFactory extends HibernateFactory {
         if (elements == null || elements.isEmpty()) {
             return null;
         }
-        
+
         RhnSetElement element = (RhnSetElement)elements.get(0);
         RhnSetImpl set =
             new RhnSetImpl(element.getUserId(), element.getLabel(), cleanup);
@@ -94,10 +94,10 @@ public class RhnSetFactory extends HibernateFactory {
             element = (RhnSetElement) itr.next();
             set.addElement(element);
         }
-        
+
         return set;
     }
-    
+
     /**
      * Returns a new RhnSet.
      * @param userid userid associated with this set.
@@ -129,7 +129,7 @@ public class RhnSetFactory extends HibernateFactory {
         else {
             removeByLabel(simpl.getUserId(), simpl.getLabel());
         }
-        
+
         Set added;
         if (!simpl.isSynced()) {
             added = simpl.getElements();
@@ -154,7 +154,7 @@ public class RhnSetFactory extends HibernateFactory {
         return ModeFactory.getWriteMode(CATALOG, modeName);
     }
 
-    private static void executeMode(RhnSetElement elem, 
+    private static void executeMode(RhnSetElement elem,
             WriteMode el3, WriteMode el2, WriteMode el1) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", elem.getUserId());
@@ -190,7 +190,7 @@ public class RhnSetFactory extends HibernateFactory {
         params.put("label", label);
         m.executeUpdate(params);
     }
-    
+
     /**
      * Remove a set
      * @param set the set to remove

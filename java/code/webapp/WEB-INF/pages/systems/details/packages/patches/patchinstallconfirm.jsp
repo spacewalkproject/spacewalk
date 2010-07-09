@@ -23,14 +23,14 @@
 
 <form method="POST" name="rhn_list" action="/rhn/systems/details/packages/patches/PatchInstallConfirmSubmit.do">
 <rhn:list pageList="${requestScope.pageList}" noDataText="packagelist.jsp.nopatches" >
-  <rhn:listdisplay filterBy="packagelist.jsp.packagename" >    
-    <rhn:column header="packagelist.jsp.patchname" 
+  <rhn:listdisplay filterBy="packagelist.jsp.packagename" >
+    <rhn:column header="packagelist.jsp.patchname"
                 url="/rhn/software/packages/Details.do?sid=${param.sid}&id_combo=${current.idCombo}">
       ${current.nvre}
     </rhn:column>
     <rhn:column header="packagelist.jsp.patchtype">
       ${current.patchType}
-    </rhn:column>    
+    </rhn:column>
   </rhn:listdisplay>
   <div align="right">
       <hr />

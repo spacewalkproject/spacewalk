@@ -23,19 +23,19 @@
 	           helpUrl="/rhn/help/channel-mgmt/en-US/channel-mgmt-Custom_Errata_Management-Managed_Errata_Details.jsp">
     <bean:message key="errata.edit.toolbar"/> <c:out value="${advisory}" />
   </rhn:toolbar>
-  
-  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml" 
+
+  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml"
                   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-  
+
   <h2><bean:message key="errata.edit.packages.addpackages"/></h2>
-  
+
   <p><bean:message key="errata.edit.packages.add.instructions"/></p>
 
     <rl:listset name="groupSet">
 
 
 
-    
+
   <p>
       <bean:message key="errata.edit.packages.add.viewlabel"/>
       <select name="view_channel">
@@ -50,32 +50,32 @@
           <bean:message key="errata.edit.packages.add.viewsubmit"/>
       </html:submit>
   </p>
-  
+
 
 
         <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
-    
+
         <rl:list dataset="pageList"
                  width="100%"
                  styleclass="list"
                  emptykey="packagelist.jsp.nopackages">
-    
+
             <rl:decorator name="PageSizeDecorator"/>
             <rl:decorator name="SelectableDecorator"/>
             <rl:decorator name="ElaborationDecorator"/>
-    
+
             <rl:selectablecolumn value="${current.selectionKey}"
                                  selected="${current.selected}"
                                  disabled="${not current.selectable}"
                                  styleclass="first-column"/>
-    
+
             <rl:column headerkey="errata.edit.packages.add.package" bound="false"
                        sortattr="packageNvre" sortable="true" filterattr="packageNvre">
                 <a href="/rhn/software/packages/Details.do?pid=${current.id}">
                     <c:out value="${current.packageNvre}" escapeXml="false"/>
                 </a>
             </rl:column>
-    
+
             <rl:column headerkey="errata.edit.packages.add.channels" bound="false"
                        styleclass="last-column">
                 <c:choose>
@@ -90,7 +90,7 @@
                 </c:choose>
             </rl:column>
         </rl:list>
-    
+
         <div align="right">
             <rhn:submitted/>
             <hr/>
@@ -98,8 +98,8 @@
                    name="dispatch"
                    value='<bean:message key="errata.edit.packages.add.addpackages"/>'/>
         </div>
-    
+
     </rl:listset>
-    
+
 </body>
 </html>

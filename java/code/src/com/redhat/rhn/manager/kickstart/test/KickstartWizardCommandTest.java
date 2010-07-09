@@ -36,9 +36,9 @@ import java.util.List;
  * @version $Rev$
  */
 public class KickstartWizardCommandTest extends BaseTestCaseWithUser {
-    
+
     public void testWizTrees() throws Exception {
-        
+
         Channel c = ChannelFactoryTest.createBaseChannel(user);
         assertNull(c.getParentChannel());
         assertNull(c.getOrg());
@@ -46,7 +46,7 @@ public class KickstartWizardCommandTest extends BaseTestCaseWithUser {
         tree.setChannel(c);
         TestUtils.saveAndFlush(tree);
         TestUtils.saveAndFlush(c);
-        
+
         KickstartWizardHelper cmd = new KickstartWizardHelper(user);
         List trees = cmd.getKickstartableTrees();
         assertNotNull(trees);
@@ -60,30 +60,30 @@ public class KickstartWizardCommandTest extends BaseTestCaseWithUser {
             }
         }
         assertTrue("Didnt find any trees that are from a basechannel.", foundBaseTree);
-        
-        
+
+
         assertNotNull(cmd.getKickstartableTree(tree.getId()));
     }
-    
-    
+
+
     // This tests a critical bit of functionality
     // to ensure that when we create a KickstartData we also
     // create a default KickstartSession that is used for
     // bare metal/PXE installs and that there is a default key
     // associated with it.
     public void testStore() throws Exception {
-        
+
         KickstartData ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         KickstartWizardHelper cmd = new KickstartWizardHelper(user);
         cmd.store(ksdata);
-        KickstartSession ksession = 
-            KickstartFactory.lookupDefaultKickstartSessionForKickstartData(ksdata); 
+        KickstartSession ksession =
+            KickstartFactory.lookupDefaultKickstartSessionForKickstartData(ksdata);
         assertNotNull(ksession);
         ActivationKey key = ActivationKeyFactory.lookupByKickstartSession(ksession);
         assertNotNull(key);
         // Make sure its unlimited
         assertNull(key.getUsageLimit());
     }
-    
+
 
 }

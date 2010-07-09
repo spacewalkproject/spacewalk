@@ -16,24 +16,24 @@
   <c:when test="${file.configChannel.globalChannel}">  				<!--  GLOBAL CHANNEL  -->
 <%@  include file="/WEB-INF/pages/common/fragments/configuration/files/deployglobal.jspf" %>
   </c:when>
-  
+
   <c:when test="${file.configChannel.localChannel}">				<!--  LOCAL CHANNEL  -->
 <%@  include file="/WEB-INF/pages/common/fragments/configuration/files/deploylocal.jspf" %>
   </c:when>
-  
+
   <c:otherwise> 															<!--  SANDBOX -->
-  	<bean:message key="deploy.jsp.sandbox-note1" 
-  		arg1="/rhn/systems/details/Overview.do?sid=${sid}" 
+	<bean:message key="deploy.jsp.sandbox-note1"
+		arg1="/rhn/systems/details/Overview.do?sid=${sid}"
   		arg0="${system}"/>
   	<p />
   	<c:set var="copyname" scope="request">
   		<bean:message key="copycentral.jsp.copy" />
   	</c:set>
-  	<bean:message key="deploy.jsp.sandbox-note2" 
-  		arg0="/rhn/configuration/file/CopyFileLocal.do?cfid=${cfid}" 
-  		arg1="/rhn/configuration/file/CopyFileCentral.do?cfid=${cfid}" 
-  		arg2="/rhn/configuration/file/CopyFileCentral.do?cfid=${cfid}" 
-  		arg3="/rhn/configuration/file/CopyFileCentral.do?cfid=${cfid}" 
+	<bean:message key="deploy.jsp.sandbox-note2"
+		arg0="/rhn/configuration/file/CopyFileLocal.do?cfid=${cfid}"
+		arg1="/rhn/configuration/file/CopyFileCentral.do?cfid=${cfid}"
+		arg2="/rhn/configuration/file/CopyFileCentral.do?cfid=${cfid}"
+		arg3="/rhn/configuration/file/CopyFileCentral.do?cfid=${cfid}"
   		arg4="${requestScope.copyname}"/>
   </c:otherwise>
 </c:choose>

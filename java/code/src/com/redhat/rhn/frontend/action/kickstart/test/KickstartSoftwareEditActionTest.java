@@ -32,8 +32,8 @@ import java.util.Collection;
  * @version $Rev: 1 $
  */
 public class KickstartSoftwareEditActionTest extends BaseKickstartEditTestCase {
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -48,13 +48,13 @@ public class KickstartSoftwareEditActionTest extends BaseKickstartEditTestCase {
 
         actionPerform();
         KickstartableTree tree = ksdata.getKickstartDefaults().getKstree();
-        
+
         KickstartHelper helper = new KickstartHelper(getRequest());
-        verifyFormValue(KickstartSoftwareEditAction.URL, 
+        verifyFormValue(KickstartSoftwareEditAction.URL,
                 tree.getDefaultDownloadLocation(helper.getKickstartHost()));
         verifyFormValue(KickstartSoftwareEditAction.CHANNEL, tree.getChannel().getId());
-        
-        Collection c = (Collection) 
+
+        Collection c = (Collection)
             getRequest().getAttribute(KickstartSoftwareEditAction.CHANNELS);
         assertNotNull(c);
         assertTrue(c.iterator().next() instanceof LabelValueBean);
@@ -65,36 +65,36 @@ public class KickstartSoftwareEditActionTest extends BaseKickstartEditTestCase {
         assertNotNull(getRequest().
                 getAttribute(KickstartSoftwareEditAction.CHANNELS));
     }
-    
+
     public void testSubmitExecute() throws Exception {
         KickstartWizardHelper wcmd = new KickstartWizardHelper(user);
-        wcmd.createCommand("url", 
+        wcmd.createCommand("url",
                 "--url /rhn/kickstart/ks-f9-x86_64", ksdata);
 
-        addRequestParameter(KickstartSoftwareEditAction.SUBMITTED, 
+        addRequestParameter(KickstartSoftwareEditAction.SUBMITTED,
                 Boolean.TRUE.toString());
-        addRequestParameter(KickstartSoftwareEditAction.URL, 
+        addRequestParameter(KickstartSoftwareEditAction.URL,
                 ksdata.getTree().getBasePath());
         String cid = ksdata.getTree().getChannel().getId().toString();
         assertNotNull(cid);
         addRequestParameter(KickstartSoftwareEditAction.CHANNEL, cid);
-        addRequestParameter(KickstartSoftwareEditAction.TREE, 
+        addRequestParameter(KickstartSoftwareEditAction.TREE,
                 ksdata.getTree().getId().toString());
 
         Channel child = ChannelTestUtils.createChildChannel(user,
                 ksdata.getTree().getChannel());
 
-        addRequestParameter(KickstartSoftwareEditAction.CHILD_CHANNELS, 
+        addRequestParameter(KickstartSoftwareEditAction.CHILD_CHANNELS,
                 child.getId().toString());
-        
-        assertTrue(ksdata.getChildChannels() == null || 
+
+        assertTrue(ksdata.getChildChannels() == null ||
                 ksdata.getChildChannels().size() == 0);
         actionPerform();
         String[] keys = {"kickstart.software.success"};
         verifyActionMessages(keys);
         ksdata = (KickstartData) TestUtils.reload(ksdata);
         assertTrue(ksdata.getChildChannels().size() > 0);
-        
+
     }
 
 }

@@ -48,7 +48,7 @@ public class ChannelEntitlementSetupAction extends RhnAction implements Listable
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
         return mapping.findForward("default");
@@ -65,8 +65,8 @@ public class ChannelEntitlementSetupAction extends RhnAction implements Listable
                 context.getCurrentUser().getOrg().getId(), null);
         /* hate doing this, as we should really change the view and queries to support this
          * This is for bz 435894   Opened bz 445260 to fix this properly.  Simply need to
-         * change the rhnChannelFamilyOverview view to also return the channel family's 
-         * orgid and then change the ChannelManagemer.entitlements() query to provide 
+         * change the rhnChannelFamilyOverview view to also return the channel family's
+         * orgid and then change the ChannelManagemer.entitlements() query to provide
          * the org_id in the ChannelOverview dto.  If we do these two things, the code
          * below can be removed and simply return the list
          */

@@ -26,20 +26,20 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class CompareChannelActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         //Make the user a config admin
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //Create the revision to copy
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
         Long cfid = revision.getConfigFile().getId();
         Long crid = revision.getId();
-        
+
         //Create another revision, file, and channel for the list
         ConfigTestUtils.createConfigRevision(user.getOrg());
-        
+
         setRequestPathInfo("/configuration/file/CompareChannel");
         addRequestParameter("cfid", cfid.toString());
         addRequestParameter("crid", crid.toString());

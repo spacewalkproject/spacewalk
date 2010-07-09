@@ -25,11 +25,11 @@ import java.util.List;
 public class Trace {
     private Trace next;
     private Edit edit;
-    
+
     private int currentLineOld;
     private int currentLineNew;
     private int matches;
-    
+
     /**
      * @param oldSize The size of the old file.
      * @param newSize The size of the new file.
@@ -42,7 +42,7 @@ public class Trace {
         edit = null;
         next = null;
     }
-    
+
     /**
      * Private constructor used when forking a trace.
      * @param currentLineOldIn The current line for the old file.
@@ -60,28 +60,28 @@ public class Trace {
         next = nextIn;
         this.makeDelete();
     }
-    
+
     /**
      * @return The next trace in the linked list.
      */
     public Trace next() {
         return next;
     }
-    
+
     /**
      * @param nextIn The next trace in the linked list.
      */
     public void setNext(Trace nextIn) {
         next = nextIn;
     }
-    
+
     /**
      * @return The number of matched lines in this trace.
      */
     public int getMatches() {
         return matches;
     }
-    
+
     /**
      * @return whether this trace has terminated.
      */
@@ -91,7 +91,7 @@ public class Trace {
         }
         return false;
     }
-    
+
     /**
      * @return The best possible number of matched lines for this trace.
      */
@@ -99,7 +99,7 @@ public class Trace {
         int shortest = currentLineOld > currentLineNew ? currentLineNew : currentLineOld;
         return (matches + shortest + 1); //currentLine* is an index, so we must add one.
     }
-    
+
     private void fork() {
         Edit copy = edit;
         if (edit != null && edit.getType() == Edit.ADD) {
@@ -109,7 +109,7 @@ public class Trace {
         next = newTrace;
         makeAdd();
     }
-    
+
     /**
      * Step once in this trace. The power of this algorithm is the fact that
      * different traces are explored in parallel. This method is recursive while
@@ -132,7 +132,7 @@ public class Trace {
         if (isDone()) {
             return false;
         }
-        
+
         //We've reached the end of at least one file, the only possible trace is
         //exploring the other file.
         //We could just trace the rest of the remaining file here since we know what
@@ -146,10 +146,10 @@ public class Trace {
             makeDelete();
             return false;
         }
-        
+
         String oldLine = oldFile[currentLineOld];
         String newLine = newFile[currentLineNew];
-        
+
         if (oldLine.equals(newLine)) {
             makeMatch();
             //recurse when we have a match, because this is more
@@ -172,24 +172,24 @@ public class Trace {
             }
         }
     }
-    
+
     private void makeAdd() {
         makeEdit(Edit.ADD);
         currentLineNew--;
     }
-    
+
     private void makeDelete() {
         makeEdit(Edit.DELETE);
         currentLineOld--;
     }
-    
+
     private void makeMatch() {
         makeEdit(Edit.MATCH);
         matches++;
         currentLineNew--;
         currentLineOld--;
     }
-    
+
     private void makeEdit(char c) {
         if (edit != null && edit.getType() == c) {
             edit.increment();
@@ -198,7 +198,7 @@ public class Trace {
             edit = new Edit(c, edit);
         }
     }
-    
+
     /**
      * Since the diff was performed backwards, "popping" the resulting edits from
      * the backwards tree gives them in forward order.
@@ -213,7 +213,7 @@ public class Trace {
         int linesOld = 0;
         int linesNew = 0;
         List retval = new ArrayList();
-        
+
         Edit current = edit;
         while (current != null) {
             Hunk hunk;
@@ -235,7 +235,7 @@ public class Trace {
                  * A change hunk is an add hunk and a delete hunk side by side. Here
                  * is where we do that logic.
                  */
-                if (current.getParent() != null && 
+                if (current.getParent() != null &&
                         current.getParent().getType() == Edit.ADD) {
                     hunk = new ChangeHunk();
                     linesOld = current.getNumber();
@@ -250,7 +250,7 @@ public class Trace {
                     linesNew = 0;
                 }
             }
-            
+
             //now that we have a hunk put in the lines from the file.
             fillInHunk(hunk, oldFile, newFile, linesOld, linesNew);
             retval.add(hunk); //add hunk to return list
@@ -258,17 +258,17 @@ public class Trace {
         } //while
         return retval;
     }
-    
+
     private void fillInHunk(Hunk hunk, String[] oldFile, String[] newFile,
             int oldNum, int newNum) {
         hunk.setNewLines(createFileLines(newFile, currentLineNew, newNum));
         hunk.setOldLines(createFileLines(oldFile, currentLineOld, oldNum));
-        
+
         //increment the current indexes, so that we don't visit the same lines.
         currentLineOld = currentLineOld + oldNum;
         currentLineNew = currentLineNew + newNum;
     }
-    
+
     private FileLines createFileLines(String[] file, int fromLine, int numLines) {
         FileLines retval = new FileLines();
         retval.setFromLine(fromLine + 1); //fromLine is an index, so it is one too small
@@ -276,7 +276,7 @@ public class Trace {
         for (int i = fromLine; i < fromLine + numLines; i++) {
             retval.addLine(file[i]);
         }
-        
+
         return retval;
     }
 }

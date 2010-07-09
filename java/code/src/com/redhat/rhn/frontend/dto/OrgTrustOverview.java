@@ -17,7 +17,7 @@ package com.redhat.rhn.frontend.dto;
 
 
 /**
- * 
+ *
  * OrgDto class represents Trusted Org lists
  * @version $Rev$
  */
@@ -27,31 +27,31 @@ public class OrgTrustOverview extends BaseDto {
     private Boolean trusted;
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
-     * 
-     * @param idIn OrgIn Id 
+     *
+     * @param idIn OrgIn Id
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
-     * 
+     *
      * @return Name of Org
      */
     public String getName() {
         return name;
     }
-    
+
     /**
-     * 
+     *
      * @param nameIn of Org to set
      */
     public void setName(String nameIn) {
@@ -59,7 +59,7 @@ public class OrgTrustOverview extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return whether the org is trusted.
      */
     public Boolean getTrusted() {
@@ -67,15 +67,15 @@ public class OrgTrustOverview extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param trustedIn whether the org is trusted.
      */
     public void setTrusted(Boolean trustedIn) {
         trusted = trustedIn;
     }
-    
+
     /**
-     * 
+     *
      * @param trustedIn whether the org is trusted.
      */
     public void setTrusted(Integer trustedIn) {

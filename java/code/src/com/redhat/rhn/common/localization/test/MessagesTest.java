@@ -41,7 +41,7 @@ public class MessagesTest extends RhnBaseTestCase {
     public MessagesTest(final String name) {
         super(name);
     }
-    
+
     /**
      * sets up the test
      */
@@ -54,7 +54,7 @@ public class MessagesTest extends RhnBaseTestCase {
         quoteMsg = "You've got mail!";
         html = "<html><body>this is the body</body></html>";
         clazz = DummyClassForMessages.class;
-        // Lame instantiation in order to 
+        // Lame instantiation in order to
         // get JCoverage to shut up
         locale = new Locale("en", "US");
     }
@@ -95,7 +95,7 @@ public class MessagesTest extends RhnBaseTestCase {
     public void testXmlGetKeys() {
         assertNotNull(XmlMessages.getInstance().getKeys(clazz, locale));
     }
-    
+
     /**
      * test that it gets the right unformatted string
      */
@@ -127,7 +127,7 @@ public class MessagesTest extends RhnBaseTestCase {
         assertEquals(threeArg, XmlMessages.getInstance().format(
             clazz, locale, "threeArg", "fooboo", "bubba", "booboo"));
     }
-    
+
     /**
      * Test that it escapes single quotes correctly.
      */
@@ -146,7 +146,7 @@ public class MessagesTest extends RhnBaseTestCase {
             "htmltest");
         assertEquals(html, recieved);
     }
-    
+
     /**
      * Make sure we fail if there's no resource bundle
      *

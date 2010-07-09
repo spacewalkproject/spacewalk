@@ -17,7 +17,7 @@ package com.redhat.rhn.manager.satellite;
 import com.redhat.rhn.common.validator.ValidatorError;
 
 /**
- * SatelliteConfigurator - interface to describe the storage of configuration to 
+ * SatelliteConfigurator - interface to describe the storage of configuration to
  * the local machine.
  * @version $Rev$
  */

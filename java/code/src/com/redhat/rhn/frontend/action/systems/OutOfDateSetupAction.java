@@ -26,7 +26,7 @@ import org.apache.struts.action.ActionForm;
  * @version $Rev$
  */
 public class OutOfDateSetupAction extends BaseSystemsAction {
-    
+
     protected DataResult getDataResult(User user, PageControl pc, ActionForm formIn) {
         return SystemManager.outOfDateList(user, null);
     }

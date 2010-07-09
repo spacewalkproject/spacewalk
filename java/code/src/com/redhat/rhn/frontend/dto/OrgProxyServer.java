@@ -22,47 +22,47 @@ package com.redhat.rhn.frontend.dto;
 public class OrgProxyServer {
 
     private Long id;
-    private String name; 
+    private String name;
     private String checkin;
-        
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */
     public void setName(String nameIn) {
         name = nameIn;
     }
-    
+
     /**
-     * 
+     *
      * @return last checkin of proxy
      */
     public String getCheckin() {
         return checkin;
     }
-    
+
     /**
-     * 
+     *
      * @param checkIn to set for proxy
      */
     public void setCheckin(String checkIn) {

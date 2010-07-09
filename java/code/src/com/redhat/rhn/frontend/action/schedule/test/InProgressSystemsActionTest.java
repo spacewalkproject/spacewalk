@@ -32,30 +32,30 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class InProgressSystemsActionTest extends RhnBaseTestCase {
-    
+
     public void testSelectAll() throws Exception {
         InProgressSystemsAction action = new InProgressSystemsAction();
         ActionHelper ah = new ActionHelper();
         ah.setUpAction(action);
         ah.setupProcessPagination();
-        
+
         User user = ah.getUser();
         user.addRole(RoleFactory.ORG_ADMIN);
-        
+
         Action a = ActionFactoryTest.createAction(user,
                 ActionFactory.TYPE_HARDWARE_REFRESH_LIST);
-        
+
         for (int i = 0; i < 4;  i++) {
             Server server = ServerFactoryTest.createTestServer(user, true);
             ServerActionTest.createServerAction(server, a);
         }
-        
+
         ah.getRequest().setupAddParameter("aid", a.getId().toString());
         ah.getRequest().setupAddParameter("aid", a.getId().toString()); //stupid mock
         ah.getRequest().setupAddParameter("items_on_page", (String[])null);
         ah.getRequest().setupAddParameter("items_selected", (String[])null);
         ah.executeAction("selectall");
-        
+
         RhnSetActionTest.verifyRhnSetData(user.getId(), "unscheduleaction", 4);
     }
 

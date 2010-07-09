@@ -33,49 +33,49 @@ public class TestBean {
     public String getFieldA() {
         return fieldA;
     }
-    
+
     /**
      * @param fieldA the fieldA to set
      */
     public void setFieldA(String val) {
         this.fieldA = val;
     }
-    
+
     /**
      * @return the fieldB
      */
     public String getFieldB() {
         return fieldB;
     }
-    
+
     /**
      * @param fieldB the fieldB to set
      */
     public void setFieldB(String val) {
         this.fieldB = val;
     }
-    
+
     /**
      * @return the fieldC
      */
     public String getFieldC() {
         return fieldC;
     }
-    
+
     /**
      * @param fieldC the fieldC to set
      */
     public void setFieldC(String val) {
         this.fieldC = val;
     }
-    
+
     /**
      * @return the fieldD
      */
     public String getFieldD() {
         return fieldD;
     }
-    
+
     /**
      * @param fieldD the fieldD to set
      */
@@ -83,7 +83,7 @@ public class TestBean {
         this.fieldD = val;
     }
 
-    
+
     /**
      * @return the fieldWierdo
      */
@@ -91,7 +91,7 @@ public class TestBean {
         return fieldWierdo;
     }
 
-    
+
     /**
      * @param fieldWierdo the fieldWierdo to set
      */
@@ -99,7 +99,7 @@ public class TestBean {
         this.fieldWierdo = val;
     }
 
-    
+
     /**
      * @return the fieldNull
      */

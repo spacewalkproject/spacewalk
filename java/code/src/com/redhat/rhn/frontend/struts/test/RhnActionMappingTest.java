@@ -27,9 +27,9 @@ public class RhnActionMappingTest extends RhnBaseTestCase {
         //represents what some fool may put into struts-config
         String aclstring = ",,foo ,, , bar   ,baz";
         String mixins = "test";
-        
+
         RhnActionMapping mapping = new RhnActionMapping();
-        
+
         mapping.setAcls(aclstring);
         mapping.setMixins(mixins);
         assertEquals(aclstring, mapping.getAcls());

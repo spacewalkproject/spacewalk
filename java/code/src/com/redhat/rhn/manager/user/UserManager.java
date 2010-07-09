@@ -67,7 +67,7 @@ import javax.security.auth.login.LoginException;
  * @version $Rev: 903 $
  */
 public class UserManager extends BaseManager {
-    
+
     private static Logger log = Logger.getLogger(UserManager.class);
     private static final String ORG_ADMIN_LABEL = "org_admin";
 
@@ -122,18 +122,18 @@ public class UserManager extends BaseManager {
     public static boolean verifyChannelAdmin(User user, Channel channel) {
        return verifyChannelRole(user, channel, "manage");
     }
-    
+
     /**
      * Verifies that the passed in user has subscribe access to passed in channel.
      * @param user The user to check.
      * @param channel The channel to check.
-     * @return Returns true if the user has subscribe access to this channel, 
+     * @return Returns true if the user has subscribe access to this channel,
      *     false otherwise.
      */
     public static boolean verifyChannelSubscribable(User user, Channel channel) {
         return verifyChannelRole(user, channel, "subscribe");
-    }       
-    
+    }
+
     private static boolean verifyChannelRole(User user, Channel channel, String role) {
         CallableMode m = ModeFactory.getCallableMode(
                 "Channel_queries", "verify_channel_role");
@@ -153,11 +153,11 @@ public class UserManager extends BaseManager {
 
         return accessible;
     }
-    
 
- 
-    
-    
+
+
+
+
     /**
      * Enables a user.
      * @param enabledBy The user doing the enabling
@@ -275,16 +275,16 @@ public class UserManager extends BaseManager {
 
     /**
     * Add and remove the specified roles from the user.
-    * 
+    *
     * @param usr The User who's Roles you want to update
     * @param rolesToAdd List of role labels to add.
     * @param rolesToRemove List of role labels to remove.
     */
     public static void addRemoveUserRoles(User usr, List<String> rolesToAdd,
             List<String> rolesToRemove) {
-        
+
         log.debug("UserManager.updateUserRolesFromRoleLabels()");
-        
+
         // Make sure last org admin isn't trying to remove his own org admin role:
         if (rolesToRemove.contains(ORG_ADMIN_LABEL)) {
             if (usr.getOrg().numActiveOrgAdmins() <= 1) {
@@ -302,7 +302,7 @@ public class UserManager extends BaseManager {
             log.debug("Removing role: " + removeMe.getName());
             usr.removeRole(removeMe);
         }
-        
+
         for (String addLabel : rolesToAdd) {
             Role r = RoleFactory.lookupByLabel(addLabel);
             log.debug("Adding role: " + r.getName());
@@ -435,7 +435,7 @@ public class UserManager extends BaseManager {
         UserFactory.save(user);
     }
 
-    
+
     /**
      * Deletes a User
      * @param loggedInUser The user doing the deleting
@@ -488,7 +488,7 @@ public class UserManager extends BaseManager {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
             //Throw an exception with a nice error message so the user
             //knows what went wrong.
-            
+
             PermissionException pex =
                 new PermissionException("Lookup user requires Org Admin");
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.lookupuser"));
@@ -516,7 +516,7 @@ public class UserManager extends BaseManager {
         if (user.getLogin().equals(login)) {
             return user;
         }
-        
+
         LocalizationService ls = LocalizationService.getInstance();
 
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
@@ -563,7 +563,7 @@ public class UserManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("User_queries", "users_in_org");
         return getUsersInOrg(user, pc, m);
     }
-    
+
     /**
      * Retrieve the list of all users in the specified user's org. Returns DataResult
      * containing Map objects.
@@ -572,7 +572,7 @@ public class UserManager extends BaseManager {
      * @param clazz The class you want the returned DataResult to contain.
      * @return A DataResult containing the specified number of users.
      */
-    public static DataResult usersInOrg(User user, 
+    public static DataResult usersInOrg(User user,
                                             PageControl pc, Class clazz) {
         SelectMode m = ModeFactory.getMode("User_queries", "users_in_org", clazz);
         return getUsersInOrg(user, pc, m);
@@ -585,7 +585,7 @@ public class UserManager extends BaseManager {
      * @param m The select mode.
      * @return A list containing the specified number of users.
      */
-    private static DataResult getUsersInOrg(User user, 
+    private static DataResult getUsersInOrg(User user,
                                                 PageControl pc, SelectMode m) {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
             //Throw an exception with a nice error message so the user
@@ -742,7 +742,7 @@ public class UserManager extends BaseManager {
         list.elaborate();
         return list;
     }
-    
+
     /**
      * Returns visible Systems as a SystemSearchResult Object
      * @param user the user we want
@@ -755,7 +755,7 @@ public class UserManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("System_queries",
             "visible_to_user_from_sysid_list");
         DataResult<SystemSearchResult> dr = null;
-        
+
         int batchSize = 500;
         for (int batch = 0; batch < ids.size(); batch = batch + batchSize) {
             int toIndex = batch + batchSize;
@@ -794,7 +794,7 @@ public class UserManager extends BaseManager {
         system.elaborate();
         return system;
     }
-    
+
     /**
      * Gets a list of systems visible to a user as maps
      * @param user The user in question
@@ -838,7 +838,7 @@ public class UserManager extends BaseManager {
         params.put("org_id", user.getOrg().getId());
         DataResult dr = m.execute(params);
         dr.setTotalSize(dr.size());
-        if (pc != null && dr.size() > 0) {            
+        if (pc != null && dr.size() > 0) {
                 dr = (DataResult)dr.subList(pc.getStart() - 1, pc.getEnd());
                 dr.elaborate(new HashMap());
         }
@@ -932,7 +932,7 @@ public class UserManager extends BaseManager {
     public static User findResponsibleUser(Org org, Role r) {
         return UserFactory.findResponsibleUser(org.getId(), r);
     }
-    
+
     /**
      * Looks up the value of a user's server preference.
      * @param user user to lookup the preference
@@ -945,12 +945,12 @@ public class UserManager extends BaseManager {
     public static boolean lookupUserServerPreferenceValue(User user,
                                                           Server server,
                                                           String preferenceName) {
-        UserFactory factory = UserFactory.getInstance(); 
-        UserServerPreference pref = factory. 
-                                        lookupServerPreferenceByUserServerAndName(user, 
-                                                                     server, 
+        UserFactory factory = UserFactory.getInstance();
+        UserServerPreference pref = factory.
+                                        lookupServerPreferenceByUserServerAndName(user,
+                                                                     server,
                                                                      preferenceName);
-        
+
         if (pref == null) {
             return true;
         }
@@ -958,7 +958,7 @@ public class UserManager extends BaseManager {
             return !pref.getValue().equals("0");
         }
     }
-    
+
     /**
      * Sets a UserServerPreference to true or false
      * @param user User whose preference will be set

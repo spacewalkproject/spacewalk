@@ -29,20 +29,20 @@ import junit.framework.TestCase;
  */
 public class DistroTest extends TestCase {
    private CobblerConnection client;
-   
+
    public void setUpXX() throws Exception {
-       client = new CobblerConnection("http://localhost/cobbler_api_rw", 
-                       "admin", "foo");   
+       client = new CobblerConnection("http://localhost/cobbler_api_rw",
+                       "admin", "foo");
    }
-   
+
    public void testFoo() {
      //no op to keep junit happy
    }
    public void xxxtestDistroCreate() throws Exception {
         String name = "Partha-Test";
-        String kernel = 
+        String kernel =
             "/var/satellite/rhn/kickstart/ks-rhel-i386-as-4-u2//images/pxeboot/vmlinuz";
-        String initrd = 
+        String initrd =
             "/var/satellite/rhn/kickstart/ks-rhel-i386-as-4-u2//images/pxeboot/initrd.img";
         Distro newDistro = Distro.create(client, name, kernel, initrd, new HashMap());
         assertEquals(name, newDistro.getName());

@@ -16,7 +16,7 @@
 		}
 		document.onkeypress = key;
 		if (document.layers) document.captureEvents(Event.KEYPRESS);
-    </script>    
+    </script>
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
@@ -49,7 +49,7 @@
 					</c:forEach>  	
 					</optgroup>	
 			  </select>
-			  
+
 			  </td>
 			   		  <td>
 							  <input type="submit" name="view"  value="<bean:message key="channel.jsp.package.viewpackages"/>">
@@ -57,14 +57,14 @@
 		  	     </tr>
 
 
-  
+
   </table>
- 
 
 
-  
-		  <rl:list dataset="pageList" name="packageList"   
-		  decorator="SelectableDecorator" 
+
+
+		  <rl:list dataset="pageList" name="packageList"
+		  decorator="SelectableDecorator"
 		  			emptykey="channel.jsp.package.addemptylist"
 		  			alphabarcolumn="nvrea"
 		  			 filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter"
@@ -73,49 +73,49 @@
 		  		<rl:decorator name="ElaborationDecorator"/>
 		  		<rl:decorator name="PageSizeDecorator"/>
 		  		
-		  		<rl:selectablecolumn value="${current.selectionKey}" 
-	    		        	selected="${current.selected}" 
+				<rl:selectablecolumn value="${current.selectionKey}"
+					selected="${current.selected}"
 	    				styleclass="first-column"/>
 		  		
 		  		
-                 <rl:column sortable="true" 
+                 <rl:column sortable="true"
                                    bound="false"
-                           headerkey="download.jsp.package" 
+                           headerkey="download.jsp.package"
                            sortattr="nvrea"
-                			defaultsort="asc"                           
+					defaultsort="asc"
                            >
-                           
+
                         <a href="/rhn/software/packages/Details.do?pid=${current.id}">${current.nvrea}</a>
-                </rl:column>                  
-                
-                
-                 <rl:column sortable="false" 
+                </rl:column>
+
+
+                 <rl:column sortable="false"
                                    bound="false"
-                           headerkey="packagesearch.jsp.summary" 
+                           headerkey="packagesearch.jsp.summary"
                           >
                         ${current.summary}
-                </rl:column>     
-                
-                 <rl:column sortable="false" 
+                </rl:column>
+
+                 <rl:column sortable="false"
                                    bound="false"
-                           headerkey="package.jsp.provider" 
+                           headerkey="package.jsp.provider"
                            styleclass="last-column"
                           >
                         ${current.provider}
-                </rl:column>                       
-                
+                </rl:column>
+
 						
 				
-			  </rl:list> 
+			  </rl:list>
 
-  
+
   			<p align="right">
 			<input type="submit" name="confirm"  value="<bean:message key="channel.jsp.package.addconfirmbutton"/>"
             <c:choose>
                 <c:when test="${empty pageList}">disabled</c:when>
             </c:choose>
             >
-			</p> 
+			</p>
      <rhn:submitted/>
 </rl:listset>
 </body>

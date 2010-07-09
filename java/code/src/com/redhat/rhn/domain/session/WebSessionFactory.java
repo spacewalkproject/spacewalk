@@ -25,13 +25,13 @@ import org.hibernate.Session;
  * SessionFactory - the singleton class used to fetch and store
  * com.redhat.rhn.domain.session.Session objects from the
  * database.
- * @version $Rev$ 
+ * @version $Rev$
  */
 public class WebSessionFactory extends HibernateFactory {
 
     private static WebSessionFactory singleton = new WebSessionFactory();
     private static Logger log = Logger.getLogger(WebSessionFactory.class);
-    
+
 
     private WebSessionFactory() {
         super();
@@ -79,11 +79,11 @@ public class WebSessionFactory extends HibernateFactory {
     public static int remove(WebSession webSession) {
         return singleton.removeObject(webSession);
     }
-    
+
     /**
      * Removes all the sessions of a user. This action is useful
      * especially when we disable/deactivate a user. We donot want
-     * a deactivated user's sessions to be alive..  
+     * a deactivated user's sessions to be alive..
      * @param user the user whose sessions are to be purged.
      */
     public static void purgeUserSessions(User user) {

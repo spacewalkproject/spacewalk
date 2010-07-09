@@ -31,24 +31,24 @@ public class KickstartOptionsCommandTest extends BaseTestCaseWithUser {
 
     private RhnHttpServletRequest request;
     private RhnMockHttpServletRequest mockRequest;
-    
+
     public void testKickstartOptionsCommand() throws Exception {
-        KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());      
-        
+        KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
+
         User ksUser = UserTestUtils.createUser("testuser", k.getOrg().getId());
-        
+
         mockRequest = new RhnMockHttpServletRequest();
         mockRequest.setupGetRemoteAddr("127.0.0.1");
         request = new RhnHttpServletRequest(mockRequest);
-        
+
         KickstartOptionsCommand command = new KickstartOptionsCommand(k.getId(), ksUser);
-        
+
         assertNotNull(command);
         assertTrue(command.getDisplayOptions().size() > 0);
-        assertTrue(command.getDisplayOptions().size() >= 
+        assertTrue(command.getDisplayOptions().size() >=
             command.getKickstartData().getOptions().size());
-                        
+
     }
-    
-    
+
+
 }

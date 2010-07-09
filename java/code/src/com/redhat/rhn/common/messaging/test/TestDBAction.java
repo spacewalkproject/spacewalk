@@ -25,19 +25,19 @@ import java.util.HashMap;
 
 public class TestDBAction implements MessageAction {
 
-    
+
     private static MessageAction registered;
 
     public static void registerAction() {
         registered = new TestDBAction();
         MessageQueue.registerAction(registered, TestDBEventMessage.class);
     }
-    
+
     public static void deRegisterAction() {
         MessageQueue.deRegisterAction(registered, TestDBEventMessage.class);
         registered = null;
     }
-    
+
     /**
      * Perform the action on the EventMessage
      */
@@ -46,7 +46,7 @@ public class TestDBAction implements MessageAction {
         System.out.println("Execute ..");
         HashMap params = new HashMap();
         params.put("data", tm.getTestString());
-        DataResult dr = 
+        DataResult dr =
             TestUtils.runTestQuery("select_test_time_series", params);
 
         if (dr.size() > 0) {
@@ -56,8 +56,8 @@ public class TestDBAction implements MessageAction {
         else {
             System.out.println("not found!");
         }
-        
-        
+
+
     }
 
 }

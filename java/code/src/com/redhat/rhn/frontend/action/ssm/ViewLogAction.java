@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Configures the {@link BaseViewLogAction} and its pages to display in progress operation
  * log entries for the current user.
- * 
+ *
  * @author Jason Dobies
  * @version $Revision$
  */

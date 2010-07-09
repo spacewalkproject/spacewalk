@@ -31,21 +31,21 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** 
- * Action responsible for displaying the list of user created software channels. 
+/**
+ * Action responsible for displaying the list of user created software channels.
  */
 public class ManageChannelsAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping actionMapping, 
-                                 ActionForm actionForm, 
-                                 HttpServletRequest request, 
+    public ActionForward execute(ActionMapping actionMapping,
+                                 ActionForm actionForm,
+                                 HttpServletRequest request,
                                  HttpServletResponse response)
         throws Exception {
-        
+
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
-        
+
         return actionMapping.findForward("default");
     }
 

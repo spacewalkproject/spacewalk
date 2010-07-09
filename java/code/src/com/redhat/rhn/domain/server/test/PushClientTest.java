@@ -28,23 +28,23 @@ import java.util.Date;
  * @version $Rev$
  */
 public class PushClientTest extends RhnBaseTestCase {
-    
+
     public static final String JABBER_ID = "Test Jabber Id";
     public static final String CLIENT_NAME = "Test Client Name";
     public static final String SHARED_KEY = "Test shared key";
 
-    /** 
+    /**
      * Simple test to exercise codepaths in PushClient class
      * @throws Exception
      */
     public void testPushClient() throws Exception {
         PushClient pc1 = createTestPushClient();
         PushClient pc2 = new PushClient();
-        
+
         assertFalse(pc1.equals(pc2));
         assertFalse(pc1.equals(new Date()));
     }
-    
+
     /**
      * Helper method to create a test PushClient object
      * @throws Exception
@@ -57,16 +57,16 @@ public class PushClientTest extends RhnBaseTestCase {
         pc.setNextActionTime(new Date());
         pc.setLastMessageTime(new Date());
         pc.setLastPingTime(new Date());
-        
+
         User user = UserTestUtils.createUser("testuser",
                 UserTestUtils.createOrg("testorg"));
-        Server s = ServerFactoryTest.createTestServer(user, 
-                                                    true, 
+        Server s = ServerFactoryTest.createTestServer(user,
+                                                    true,
                                                     ServerConstants.
                                                     getServerGroupTypeEnterpriseEntitled(),
                                                     ServerFactoryTest.
                                                     TYPE_SERVER_SATELLITE);
-        
+
         pc.setServer(s);
         return pc;
     }

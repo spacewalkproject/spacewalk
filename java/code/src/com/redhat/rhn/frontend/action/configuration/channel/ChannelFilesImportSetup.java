@@ -29,7 +29,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  * @version $Rev$
  */
 public class ChannelFilesImportSetup extends BaseSetListAction {
-    
+
     protected DataResult getDataResult(RequestContext ctx, PageControl pc) {
         User user = ctx.getLoggedInUser();
         ConfigChannel cc = ConfigActionHelper.getChannel(ctx.getRequest());
@@ -43,7 +43,7 @@ public class ChannelFilesImportSetup extends BaseSetListAction {
         ConfigChannel cc = ConfigActionHelper.getChannel(rctx.getRequest());
         ConfigActionHelper.setupRequestAttributes(rctx, cc);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -51,7 +51,7 @@ public class ChannelFilesImportSetup extends BaseSetListAction {
         pc.setFilterColumn("path");
         pc.setFilter(true);
     }
-    
+
     /**
      * We affect the selected-files set
      * @return FILE_LISTS identifier
@@ -59,6 +59,6 @@ public class ChannelFilesImportSetup extends BaseSetListAction {
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_FILES;
     }
-    
-    
+
+
 }

@@ -32,22 +32,22 @@ import java.util.Map;
  * @version $Rev$
  */
 public class ListControlTest extends RhnBaseTestCase {
-    
+
     /**
      * Test the basic functionality of PageControl
      */
     public void testPageControl() {
-        ListControl lc = new PageControl();     
+        ListControl lc = new PageControl();
         lc.setFilterColumn("TestFilterColumn");
         lc.setFilterData("TestFilterData");
         lc.setIndexData(true);
-        
+
         assertEquals(lc.getFilterColumn(), "TestFilterColumn");
         assertEquals(lc.getFilterData(), "TestFilterData");
         assertEquals(lc.hasIndex(), true);
     }
-    
-    /** 
+
+    /**
      * Test the createIndex method of PageControl
      */
     public void testCreateIndex() {
@@ -59,7 +59,7 @@ public class ListControlTest extends RhnBaseTestCase {
         UserTestUtils.createUser("adent", user.getOrg().getId());
         UserTestUtils.createUser("fprefect", user.getOrg().getId());
         UserTestUtils.createUser("ffffffff", user.getOrg().getId());
-    
+
         SelectMode m = ModeFactory.getMode("User_queries", "users_in_org");
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
@@ -76,7 +76,7 @@ public class ListControlTest extends RhnBaseTestCase {
         //cs2.put('A', 1);
         //cs2.put('F', 2);
         //cs2.put('Z', 4);
-    
+
         //Ensure that cs1 and cs2 are equal
         //assertTrue(cs1.equals(cs2));
         assertNotNull(cs1);

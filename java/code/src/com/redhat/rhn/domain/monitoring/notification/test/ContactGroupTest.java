@@ -27,7 +27,7 @@ import com.redhat.rhn.testing.TestUtils;
 public class ContactGroupTest extends BaseTestCaseWithUser {
 
     private ContactGroup cg;
-    
+
     @Override
     public void setUp() throws Exception {
         // TODO Auto-generated method stub
@@ -46,8 +46,8 @@ public class ContactGroupTest extends BaseTestCaseWithUser {
         cg = (ContactGroup) testOrg.getContactGroups().toArray()[0];
         assertNotNull(cg.getContactGroupName());
     }
-    
-    
+
+
     public void testCreate() throws Exception {
         assertNotNull(cg.getId());
         assertNotNull(cg.getAckWait());

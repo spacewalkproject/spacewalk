@@ -3,13 +3,13 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.ProbeType" 
+    <class name="com.redhat.rhn.domain.monitoring.ProbeType"
         table="rhn_probe_types" mutable="false" lazy="true">
         <cache usage="read-only"/>
         <id name="probeType" type="java.lang.String" column="probe_type" >
             <generator class="assigned" />
         </id>
-        <property name="typeDescription" column="type_description" 
+        <property name="typeDescription" column="type_description"
             not-null="true" type="string" length="200" />
     </class>
     <query name="ProbeType.findByType">

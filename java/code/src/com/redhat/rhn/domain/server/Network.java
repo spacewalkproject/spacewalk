@@ -29,64 +29,64 @@ public class Network extends BaseDomainHelper {
     private String hostname;
     private String ipaddr;
     private Server server;
-    
-    
+
+
     /**
      * @return Returns the hostname.
      */
     public String getHostname() {
         return hostname;
     }
-    
+
     /**
      * @param h The hostname to set.
      */
     public void setHostname(String h) {
         this.hostname = h;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the ipaddr.
      */
     public String getIpaddr() {
         return ipaddr;
     }
-    
+
     /**
      * @param i The ipaddr to set.
      */
     public void setIpaddr(String i) {
         this.ipaddr = i;
     }
-    
+
     /**
      * @return Returns the server.
      */
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * @param s The server to set.
      */
     public void setServer(Server s) {
         this.server = s;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -100,7 +100,7 @@ public class Network extends BaseDomainHelper {
                                   .append(ipaddr, castOther.ipaddr)
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */

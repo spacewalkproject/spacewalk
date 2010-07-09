@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * FileDetailsAction
  * @version $Rev$
  */
@@ -44,27 +44,27 @@ public class DeleteRevisionAction extends RhnAction {
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        
+
         Map params = makeParamMap(request);
         ConfigFileForm cff = (ConfigFileForm)form;
-        
+
         ConfigRevision cr = ConfigActionHelper.findRevision(request);
         ConfigFile cf = ConfigActionHelper.getFile(request);
-        
+
         ActionMessages msgs = new ActionMessages();
-        
+
         RequestContext ctx = new RequestContext(request);
-        
+
         try {
             if (cr != null) {
                 if (isSubmitted(cff)) {
                     User u = ctx.getLoggedInUser();
-                    boolean deletedFile = 
+                    boolean deletedFile =
                         ConfigurationManager.getInstance().deleteConfigRevision(u, cr);
                     //now that the config revision is gone, some of the sets may no
                     //longer be valid, so clear them.
                     ConfigActionHelper.clearRhnSets(u);
-                    
+
                     if (!deletedFile) {
                         String path = cr.getConfigFile().getConfigFileName().getPath();
                         String revision = cr.getRevision().toString();

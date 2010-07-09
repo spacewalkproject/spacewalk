@@ -24,11 +24,11 @@ public class SummaryPopulationTest extends RhnBaseTestCase {
 
     public void testExecute() {
         assertTrue(true);
-        
+
         // this test takes way too long to be a unit test
         // probably need a nice flag in our system to enable
         // this test.
-        
+
         /*
         // query takes more than 4 minutes, can't have that
         // in a unit test

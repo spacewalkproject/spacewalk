@@ -27,7 +27,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev: 1635 $
  */
 public class ActionDetailsSetupActionTest extends RhnBaseTestCase {
-    
+
     public void testPerformExecute() throws Exception {
         ActionDetailsSetupAction action = new ActionDetailsSetupAction();
         ActionHelper sah = new ActionHelper();
@@ -38,14 +38,14 @@ public class ActionDetailsSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("aid", a1.getId().toString());
 
 
-        sah.executeAction(); 
+        sah.executeAction();
         // verify the dyna form got the right values we expected.
         assertNotNull(sah.getRequest().getAttribute("actionname"));
         assertNotNull(sah.getRequest().getAttribute("actiontype"));
         assertNotNull(sah.getRequest().getAttribute("scheduler"));
         assertNotNull(sah.getRequest().getAttribute("earliestaction"));
         assertNotNull(sah.getRequest().getAttribute("actionnotes"));
-        
+
     }
-    
+
 }

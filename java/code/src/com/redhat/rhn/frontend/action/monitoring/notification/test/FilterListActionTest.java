@@ -38,7 +38,7 @@ public class FilterListActionTest extends RhnBaseTestCase {
     private ActionHelper sah;
     private Date oldDate;
     private Filter f;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         action = new FilterListAction();
@@ -48,14 +48,14 @@ public class FilterListActionTest extends RhnBaseTestCase {
         sah.getRequest().setRequestURL("foo");
         sah.getRequest().setupAddParameter("newset", (String)null);
         sah.getRequest().setupAddParameter("items_on_page", (String)null);
-        f = FilterTest.createTestFilter(sah.getUser(), "listTest" + 
+        f = FilterTest.createTestFilter(sah.getUser(), "listTest" +
                 TestUtils.randomString());
         oldDate = f.getExpiration();
-        sah.getRequest().setupAddParameter("items_selected", 
+        sah.getRequest().setupAddParameter("items_selected",
                 new String[] {f.getId().toString()});
-        
+
     }
-    
+
     public void testExpire() throws Exception {
 
         ActionForward testforward = sah.executeAction("operateOnSelectedSet");
@@ -71,5 +71,5 @@ public class FilterListActionTest extends RhnBaseTestCase {
         RhnSet set = RhnSetDecl.FILTER_EXPIRE.get(sah.getUser());
         assertTrue(set.getElements().size() > 0);
     }
-    
+
 }

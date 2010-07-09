@@ -51,17 +51,17 @@ public class TraceBackAction extends BaseMailAction implements MessageAction {
             throw new MessageExecuteException(message);
         }
         subject.append(" (");
-        subject.append(LocalizationService.getInstance().formatDate(new Date(), 
+        subject.append(LocalizationService.getInstance().formatDate(new Date(),
                 evtIn.getUserLocale()));
         subject.append(")");
         return subject.toString();
     }
-    
+
     protected String[] getRecipients(User userIn) {
         Config c = Config.get();
         String[] retval = null;
         if (c.getString("web.traceback_mail").equals("")) {
-            
+
             retval = new String[1];
             retval[0] = "root@localhost";
         }

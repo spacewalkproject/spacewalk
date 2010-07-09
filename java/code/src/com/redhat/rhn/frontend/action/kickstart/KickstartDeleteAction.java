@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev:$
  */
 public class KickstartDeleteAction extends BaseKickstartEditAction {
-    
+
    /**
     * {@inheritDoc}
     */
@@ -42,7 +42,7 @@ public class KickstartDeleteAction extends BaseKickstartEditAction {
    protected String getSuccessForward() {
        return "success";
    }
-   
+
    /**
     * {@inheritDoc}
     */
@@ -50,12 +50,12 @@ public class KickstartDeleteAction extends BaseKickstartEditAction {
        return new KickstartDeleteCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                ctx.getCurrentUser());
    }
-   
+
    /**
     * {@inheritDoc}
     */
-   protected ValidatorError processFormValues(HttpServletRequest request, 
-           DynaActionForm form, 
+   protected ValidatorError processFormValues(HttpServletRequest request,
+           DynaActionForm form,
            BaseKickstartCommand cmd) {
        return null;
    }
@@ -63,7 +63,7 @@ public class KickstartDeleteAction extends BaseKickstartEditAction {
    /**
     * {@inheritDoc}
     */
-   protected void setupFormValues(RequestContext ctx, DynaActionForm form, 
+   protected void setupFormValues(RequestContext ctx, DynaActionForm form,
                                                     BaseKickstartCommand cmd) {
        // no-op
    }

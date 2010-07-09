@@ -24,8 +24,8 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
  * @version $Rev$
  */
 public class UpdateOrgSystemEntitlementsTest extends BaseTestCaseWithUser {
-    
-    public void testUpdateEntitlements() throws Exception {        
+
+    public void testUpdateEntitlements() throws Exception {
         UpdateOrgSystemEntitlementsCommand cmd = new UpdateOrgSystemEntitlementsCommand(
                 EntitlementManager.MANAGEMENT, user.getOrg(), new Long(1));
         assertNull(cmd.store());

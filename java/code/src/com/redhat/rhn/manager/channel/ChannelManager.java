@@ -99,10 +99,10 @@ import com.redhat.rhn.taskomatic.task.TaskConstants;
 public class ChannelManager extends BaseManager {
 
     private static Logger log = Logger.getLogger(ChannelManager.class);
-    
+
     public static final String QRY_ROLE_MANAGE = "manage";
     public static final String QRY_ROLE_SUBSCRIBE = "subscribe";
-    
+
     // Valid RHEL 4 EUS Channel Versions (from rhnReleaseChannelMap):
     public static final Set<String> RHEL4_EUS_VERSIONS;
     static {
@@ -118,37 +118,37 @@ public class ChannelManager extends BaseManager {
     // If this starts to shift we may need to stop relying on constants and find some
     // way to look these up...
     public static final String RHEL_PRODUCT_NAME = "rhel";
-    
+
     /**
      * Key used to identify the rhn-tools channel.  Used in searches to find the channel
      */
-    public static final String TOOLS_CHANNEL_PACKAGE_NAME = 
+    public static final String TOOLS_CHANNEL_PACKAGE_NAME =
         Config.get().getString("tools_channel.package_name", "rhncfg");
 
-    
+
     /**
-     * Key used to identify the rhel-arch-server-vt-5 channel.  
+     * Key used to identify the rhel-arch-server-vt-5 channel.
      * Used in searches to find the channel
      */
-    public static final String VIRT_CHANNEL_PACKAGE_NAME = 
+    public static final String VIRT_CHANNEL_PACKAGE_NAME =
         Config.get().getString("virt_channel.package_name", "libvirt");
-    
+
     /**
      * Package name of rhn-virtualization-host
      */
-    public static final String RHN_VIRT_HOST_PACKAGE_NAME = 
-        Config.get().getString("tools_channel.virt_package_name", 
+    public static final String RHN_VIRT_HOST_PACKAGE_NAME =
+        Config.get().getString("tools_channel.virt_package_name",
                 "rhn-virtualization-host");
 
     /**
      * OS name for the virt child channel.  rhnDistChannelMap.OS field.
      */
-    public static final String VT_OS_PRODUCT = 
+    public static final String VT_OS_PRODUCT =
         Config.get().getString("web.virt_product_os_name", "VT");
 
 
     private ChannelManager() {
-        
+
     }
 
     /**
@@ -167,7 +167,7 @@ public class ChannelManager extends BaseManager {
      * Refreshes the channel with the "newest" packages.  Newest isn't just
      * the latest versions, an errata could have obsoleted a package in which
      * case this would have removed said package from the channel.
-     * 
+     *
      * @param channelId identifies the channel to be refreshed
      * @param label     the label
      */
@@ -178,16 +178,16 @@ public class ChannelManager extends BaseManager {
              ChannelManager.queueChannelChange(chan.getLabel(), label, label);
          }
     }
-    
+
     /**
      * Retrieves a list of base channels the given user can subscribe the given server to.
      * @param user The user in question
      * @param server The server in question
      * @return Returns a list of base channels the user can subscribe the server to.
      */
-    public static DataResult userSubscribableBaseChannelsForSystem(User user, 
+    public static DataResult userSubscribableBaseChannelsForSystem(User user,
                                  Server server) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
+        SelectMode m = ModeFactory.getMode("Channel_queries",
                            "subscribable_base_channels_for_system", Map.class);
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
@@ -207,11 +207,11 @@ public class ChannelManager extends BaseManager {
                 toRemove.add(map);
             }
         }
-        
+
         dr.removeAll(toRemove);
         return dr;
     }
-    
+
     /**
      * Returns a list channel entitlements
      * @param orgId The users org ID
@@ -220,12 +220,12 @@ public class ChannelManager extends BaseManager {
      */
     public static DataResult<ChannelOverview> entitlements(Long orgId, PageControl pc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_entitlements");
-        
+
         Map params = new HashMap();
         params.put("org_id", orgId);
         return makeDataResult(params, params, pc, m);
     }
-    
+
     /**
      * Given an org it returns all the channel family subscription information
      * pertaining to that org.
@@ -234,21 +234,21 @@ public class ChannelManager extends BaseManager {
      */
     public static List <OrgChannelFamily> listChannelFamilySubscriptionsFor(Org org) {
         List <OrgChannelFamily> ret = new LinkedList<OrgChannelFamily>();
-        List<ChannelOverview> orgEntitlements = ChannelManager.entitlements(org.getId(), 
+        List<ChannelOverview> orgEntitlements = ChannelManager.entitlements(org.getId(),
                 null);
 
         List <ChannelOverview> satEntitlements = ChannelManager.entitlements(
-                OrgFactory.getSatelliteOrg().getId(), null);        
-        
+                OrgFactory.getSatelliteOrg().getId(), null);
+
         // Reformat it into a map for easy lookup
         Map <Long, ChannelOverview> orgMap = new HashMap();
         for (ChannelOverview orgEnt : orgEntitlements) {
-            orgMap.put(orgEnt.getId(), orgEnt);            
+            orgMap.put(orgEnt.getId(), orgEnt);
         }
-        
+
         for (ChannelOverview sato : satEntitlements) {
             OrgChannelFamily ocf = new OrgChannelFamily();
-            
+
             ocf.setSatelliteCurrentMembers(sato.getCurrentMembers());
             ocf.setSatelliteMaxMembers(sato.getMaxMembers());
             ocf.setSatelliteCurrentFlex(sato.getCurrentFlex());
@@ -256,7 +256,7 @@ public class ChannelManager extends BaseManager {
             ocf.setId(sato.getId());
             ocf.setName(sato.getName());
             ocf.setLabel(sato.getLabel());
-            
+
             ChannelOverview orgo =  orgMap.get(sato.getId());
             if (orgo == null) {
                 ocf.setCurrentMembers(new Long(0));
@@ -273,21 +273,21 @@ public class ChannelManager extends BaseManager {
             if (ocf.getSatelliteMaxMembers() != null) {
               ret.add(ocf);
             }
-        }        
+        }
         return ret;
     }
-    
+
     /**
      * Returns a list channel entitlements for all orgs.
      * @return channel entitlements for multiorgs
      */
     public static DataList<MultiOrgEntitlementsDto> entitlementsForAllMOrgs() {
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
-                "channel_entitlements_for_all_m_orgs");        
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                "channel_entitlements_for_all_m_orgs");
         return DataList.getDataList(m, Collections.EMPTY_MAP,
                 Collections.EMPTY_MAP);
     }
-    
+
     /**
      * Return a ChannelOverview for all orgs using the given channel family.
      * @param entitlementId Channel family ID.
@@ -295,40 +295,40 @@ public class ChannelManager extends BaseManager {
      */
     public static List<ChannelOverview> getEntitlementForAllOrgs(
             Long entitlementId) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
+        SelectMode m = ModeFactory.getMode("Channel_queries",
                 "channel_entitlement_for_all_orgs");
-        
+
         Map params = new HashMap();
         params.put("entitlement_id", entitlementId);
         return makeDataResult(params, params, null, m);
     }
-    
+
     /**
      * Given a channel family, this method returns entitlement information on a per org
      * basis. If a particular org does not have any entitlements in the family, it
      * will <strong>not</strong> be listed.
-     * 
+     *
      * @param cf   the channel family
      * @param user the user needed for access privilege
      * @return the lists the entitlement information for the given channel family
      *         for all orgs that have <strong>at least one entitlement on the
-     *         family.</strong> 
+     *         family.</strong>
      */
-    public static List<OrgSoftwareEntitlementDto> 
+    public static List<OrgSoftwareEntitlementDto>
                     listEntitlementsForAllOrgs(ChannelFamily cf, User user) {
-        List <OrgSoftwareEntitlementDto> ret = 
+        List <OrgSoftwareEntitlementDto> ret =
                             new LinkedList<OrgSoftwareEntitlementDto>();
-        
+
         List<ChannelOverview> entitlementUsage = ChannelManager.getEntitlementForAllOrgs(
                 cf.getId());
-        
+
         // Create a mapping of org ID's to the channel overview returned, we'll need this
         // when iterating the list of all orgs shortly:
-        Map<Long, ChannelOverview> orgEntitlementUsage =  new 
+        Map<Long, ChannelOverview> orgEntitlementUsage =  new
                                         HashMap<Long, ChannelOverview>();
         for (ChannelOverview o : entitlementUsage) {
             orgEntitlementUsage.put(o.getOrgId(), o);
-        }        
+        }
         Org satelliteOrg = OrgFactory.getSatelliteOrg();
         ChannelOverview satelliteOrgOverview = ChannelManager.getEntitlement(
                                             satelliteOrg.getId(),
@@ -338,72 +338,72 @@ public class ChannelManager extends BaseManager {
                                 "appear to have been allocated entitlement:" +
                                 cf.getId());
         }
-        
+
         List<Org> allOrgs = OrgManager.allOrgs(user);
         for (Org org : allOrgs) {
             if (orgEntitlementUsage.containsKey(org.getId())) {
                 ChannelOverview co = orgEntitlementUsage.get(org.getId());
-                if (co.getMaxMembers() == 0 && co.getMaxFlex() == 0) {                    
+                if (co.getMaxMembers() == 0 && co.getMaxFlex() == 0) {
                     continue;
                 }
                 ret.add(makeOrgSoftwareEntitlement(co, org, satelliteOrgOverview));
             }
         }
-        
+
         return ret;
     }
-    
-    
+
+
     private static OrgSoftwareEntitlementDto makeOrgSoftwareEntitlement(
                             ChannelOverview co,
-                            Org org, 
+                            Org org,
                             ChannelOverview satelliteOrgOverview) {
         OrgSoftwareEntitlementDto seDto = new OrgSoftwareEntitlementDto();
         seDto.setOrg(org);
         seDto.setCurrentMembers(co.getCurrentMembers());
         seDto.setMaxMembers(co.getMaxMembers());
-        if (co.getMaxMembers() != null && 
+        if (co.getMaxMembers() != null &&
                 satelliteOrgOverview.getFreeMembers() != null) {
-            seDto.setMaxPossibleAllocation(co.getMaxMembers() + 
+            seDto.setMaxPossibleAllocation(co.getMaxMembers() +
                                     satelliteOrgOverview.getFreeMembers());
         }
-        
+
         seDto.setCurrentFlex(co.getCurrentFlex());
         seDto.setMaxFlex(co.getMaxFlex());
 
-        if (co.getMaxFlex() != null && 
+        if (co.getMaxFlex() != null &&
                 satelliteOrgOverview.getFreeFlex() != null) {
-            seDto.setMaxPossibleFlexAllocation(co.getMaxFlex() + 
+            seDto.setMaxPossibleFlexAllocation(co.getMaxFlex() +
                                     satelliteOrgOverview.getFreeFlex());
         }
         return seDto;
     }
-    
+
     /**
      * Given a channel family, this method returns entitlement information on a per org
      * basis. This call will return all organizations, even if it does not have any
      * entitlements on the family.
-     * 
+     *
      * @param cf   the channel family
      * @param user the user needed for access privilege
      * @return lists the entitlement information for the given channel family for
      *         all orgs.
      */
-    public static List<OrgSoftwareEntitlementDto> 
+    public static List<OrgSoftwareEntitlementDto>
                     listEntitlementsForAllOrgsWithEmptyOrgs(ChannelFamily cf, User user) {
-        List <OrgSoftwareEntitlementDto> ret = 
+        List <OrgSoftwareEntitlementDto> ret =
                             new LinkedList<OrgSoftwareEntitlementDto>();
-        
+
         List<ChannelOverview> entitlementUsage = ChannelManager.getEntitlementForAllOrgs(
                 cf.getId());
-        
+
         // Create a mapping of org ID's to the channel overview returned, we'll need this
         // when iterating the list of all orgs shortly:
-        Map<Long, ChannelOverview> orgEntitlementUsage = 
+        Map<Long, ChannelOverview> orgEntitlementUsage =
             new HashMap<Long, ChannelOverview>();
         for (ChannelOverview o : entitlementUsage) {
             orgEntitlementUsage.put(o.getOrgId(), o);
-        }        
+        }
         Org satelliteOrg = OrgFactory.getSatelliteOrg();
         ChannelOverview satelliteOrgOverview = ChannelManager.getEntitlement(
                                             satelliteOrg.getId(),
@@ -413,7 +413,7 @@ public class ChannelManager extends BaseManager {
                                 "appear to have been allocated entitlement:" +
                                 cf.getId());
         }
-        
+
         List<Org> allOrgs = OrgManager.allOrgs(user);
         for (Org org : allOrgs) {
             if (orgEntitlementUsage.containsKey(org.getId())) {
@@ -435,7 +435,7 @@ public class ChannelManager extends BaseManager {
         }
         return ret;
     }
-    
+
     /**
      * Returns a specifically requested entitlement
      * @param orgId The user's org ID
@@ -444,12 +444,12 @@ public class ChannelManager extends BaseManager {
      */
     public static ChannelOverview getEntitlement(Long orgId, Long entitlementId) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_entitlement");
-        
+
         Map params = new HashMap();
         params.put("org_id", orgId);
         params.put("entitlement_id", entitlementId);
         DataResult dr = m.execute(params);
-        
+
         if (dr != null && !dr.isEmpty()) {
             return (ChannelOverview) dr.get(0);
         }
@@ -457,34 +457,34 @@ public class ChannelManager extends BaseManager {
             return null;
         }
     }
-        
+
     /**
-     * Returns a list of ChannelTreeNodes that have orgId null 
+     * Returns a list of ChannelTreeNodes that have orgId null
      *      or has a prarent with org_id null
      * @param user who we are requesting Red Hat channels for
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult redHatChannelTree(User user, 
+    public static DataResult redHatChannelTree(User user,
                                                  ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "redhat_channel_tree");
-        
-        
+
+
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
-        
+
         DataResult dr = makeDataResult(params, params, lc, m);
         Collections.sort(dr);
         return dr;
-    }    
-    
-    
+    }
+
+
     /**
-     * Returns a list of ChannelTreeNodes that have orgId null 
+     * Returns a list of ChannelTreeNodes that have orgId null
      *      or has a prarent with org_id null
      * @param user who we are requesting Red Hat channels for
-     * @param serverCount the number of systems registered to that channel for it to 
+     * @param serverCount the number of systems registered to that channel for it to
      *      be popular
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
@@ -492,83 +492,83 @@ public class ChannelManager extends BaseManager {
     public static DataResult popularChannelTree(User user, Long serverCount,
                                                  ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "popular_channel_tree");
-        
+
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
         params.put("server_count", serverCount);
-        
+
         DataResult dr = makeDataResult(params, params, lc, m);
         Collections.sort(dr);
         return dr;
-    }        
-    
-    
+    }
+
+
     /**
-     * Returns a list of ChannelTreeNodes that have orgId null 
+     * Returns a list of ChannelTreeNodes that have orgId null
      *      or has a prarent with org_id null
      * @param user who we are requesting Red Hat channels for
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult myChannelTree(User user, 
+    public static DataResult myChannelTree(User user,
                                                  ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "my_channel_tree");
-        
-        
+
+
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
-        
+
         DataResult dr = makeDataResult(params, params, lc, m);
         Collections.sort(dr);
         return dr;
-    }        
-    
+    }
+
     /**
      * Returns a list of ChannelTreeNodes containing all channels
      * the trusted org is consuming from a specific org
      * @param org Org that is sharing the channels
      * @param trustOrg org that is consuming the shared channels
-     * @param user User of the sharing Org 
+     * @param user User of the sharing Org
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult trustChannelConsume(Org org, Org trustOrg, User user, 
+    public static DataResult trustChannelConsume(Org org, Org trustOrg, User user,
                                             ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consume");
-        
-        Map params = new HashMap();        
+
+        Map params = new HashMap();
         params.put("org_id", trustOrg.getId());
         params.put("user_id", user.getId());
         params.put("org_id2", org.getId());
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
-    
+
     /**
      * Returns a list of ChannelTreeNodes containing all channels
      * the trusted org is consuming from a specific org
      * @param org Org that is consuming from the trusted org shared channels
      * @param trustOrg org that is sharing the channels
-     * @param user User of trust org that is sharing the channels 
+     * @param user User of trust org that is sharing the channels
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult trustChannelProvide(Org org, Org trustOrg, User user, 
+    public static DataResult trustChannelProvide(Org org, Org trustOrg, User user,
                                             ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consume");
-        
-        Map params = new HashMap();        
+
+        Map params = new HashMap();
         params.put("org_id", trustOrg.getId());
         params.put("user_id", user.getId());
         params.put("org_id2", org.getId());
-        
+
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
-    
-    
+
+
     /**
      * Returns a list of ChannelTreeNodes containing all channels
      * the user can see
@@ -576,14 +576,14 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult allChannelTree(User user, 
+    public static DataResult allChannelTree(User user,
                                             ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "all_channel_tree");
-        
+
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
-        
+
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
@@ -603,7 +603,7 @@ public class ChannelManager extends BaseManager {
         DataResult dr = makeDataResult(params, params, null, m);
         return dr;
     }
-    
+
     /**
      * Returns a list of ChannelTreeNodes containing shared channels
      * the user can see
@@ -611,18 +611,18 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult sharedChannelTree(User user, 
+    public static DataResult sharedChannelTree(User user,
                                             ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "shared_channel_tree");
-        
+
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
-        
+
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
-    
+
     /**
      * Returns a list of ChannelTreeNodes containing end-of-life
      * retired channels the user can see
@@ -630,18 +630,18 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult retiredChannelTree(User user, 
+    public static DataResult retiredChannelTree(User user,
                                                 ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "retired_channel_tree");
-        
+
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
-        
+
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
-    
+
     /**
      * Returns a list of channels and their parents who are in a particular
      * channel family/entitlement
@@ -650,16 +650,16 @@ public class ChannelManager extends BaseManager {
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's representing the channel family
      */
-    public static DataResult channelFamilyTree(User user, 
-                                               Long familyId, 
+    public static DataResult channelFamilyTree(User user,
+                                               Long familyId,
                                                ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_family_tree");
-        
+
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("family_id", familyId);
         params.put("org_id", user.getOrg().getId());
-        
+
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
@@ -674,7 +674,7 @@ public class ChannelManager extends BaseManager {
             boolean relevantFlag) {
         return PackageFactory.packageSearch(pids, archLabels, relevantFlag);
     }
-    
+
     /**
      * Returns a list of packages whose ids match those from the given list.
      * @param pids The ids of the package list.
@@ -684,7 +684,7 @@ public class ChannelManager extends BaseManager {
     public static List<PackageOverview> packageSearch(List pids, List archLabels) {
         return PackageFactory.packageSearch(pids, archLabels);
     }
-    
+
     /**
      * Returns a dataresult containing the channels in an org.
      * @param orgId The org in question
@@ -692,13 +692,13 @@ public class ChannelManager extends BaseManager {
      * @return Returns a data result containing ChannelOverview dtos
      */
     public static DataResult channelsOwnedByOrg(Long orgId, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
+        SelectMode m = ModeFactory.getMode("Channel_queries",
                                            "channels_owned_by_org");
         Map params = new HashMap();
         params.put("org_id", orgId);
         return makeDataResult(params, null, pc, m);
     }
-    
+
     /**
      * Returns the package ids for packages relevant to a channel for a published errata
      * @param channelId The id for the channel in question
@@ -707,13 +707,13 @@ public class ChannelManager extends BaseManager {
      */
     public static DataResult relevantPackages(Long channelId, Errata e) {
         SelectMode m;
-        
+
         if (e.isPublished()) {
-            m = ModeFactory.getMode("Channel_queries", 
-                                    "relevant_packages_for_channel_published"); 
+            m = ModeFactory.getMode("Channel_queries",
+                                    "relevant_packages_for_channel_published");
         }
         else {
-            m = ModeFactory.getMode("Channel_queries", 
+            m = ModeFactory.getMode("Channel_queries",
                                     "relevant_packages_for_channel_unpublished");
         }
 
@@ -722,7 +722,7 @@ public class ChannelManager extends BaseManager {
         params.put("eid", e.getId());
         return makeDataResult(params, null, null, m);
     }
-    
+
     /**
      * Returns a Channel object with the given id and user
      * @param cid The id for the channel you want
@@ -743,7 +743,7 @@ public class ChannelManager extends BaseManager {
         }
         return channel;
     }
-    
+
     /**
      * Returns a Channel object with the given label and user
      * @param label The label for the channel you want
@@ -764,8 +764,8 @@ public class ChannelManager extends BaseManager {
         }
         return channel;
     }
-    
-    
+
+
     /**
      * channelsForUser returns a list containing the names of the channels
      * that this user has permissions to. If the user doesn't have permissions
@@ -784,7 +784,7 @@ public class ChannelManager extends BaseManager {
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
-        
+
         //Execute the query
         DataResult subscribable = m.execute(params);
 
@@ -805,7 +805,7 @@ public class ChannelManager extends BaseManager {
 
         return subscribableChannels;
     }
-    
+
     /**
      * Returns the list of Channel ids which the given orgid has access to.
      * @param orgid Org id
@@ -815,7 +815,7 @@ public class ChannelManager extends BaseManager {
     public static List<Channel> userAccessibleChildChannels(Long orgid, Long cid) {
         return ChannelFactory.getUserAcessibleChannels(orgid, cid);
     }
-    
+
     /**
      * Get the list of Channels with clonable Errata
      * @param org org we want to search against
@@ -824,7 +824,7 @@ public class ChannelManager extends BaseManager {
     public static List getChannelsWithClonableErrata(Org org) {
         return ChannelFactory.getChannelsWithClonableErrata(org);
     }
-    
+
     /**
      * Get the list of Channels accessible by an org
      * @param orgid The id of the org
@@ -833,10 +833,10 @@ public class ChannelManager extends BaseManager {
     public static List getChannelsAccessibleByOrg(Long orgid) {
         return ChannelFactory.getAccessibleChannelsByOrg(orgid);
     }
-    
+
     /**
      * Returns list of proxy channel names for a given version
-     * @param version proxy version 
+     * @param version proxy version
      * @param server Server
      * @return list of proxy channel names for a given version
      */
@@ -846,8 +846,8 @@ public class ChannelManager extends BaseManager {
                                     .lookupByLabel(ChannelFamilyFactory
                                                    .PROXY_CHANNEL_FAMILY_LABEL,
                                                    null);
-        
-        if (proxyFamily == null || 
+
+        if (proxyFamily == null ||
                     proxyFamily.getChannels() == null ||
                         proxyFamily.getChannels().isEmpty()) {
             if (!ConfigDefaults.get().isSpacewalk()) {
@@ -855,7 +855,7 @@ public class ChannelManager extends BaseManager {
             }
             return null;
         }
-        
+
         /* We search for a proxy channel whose version equals the version of
          * proxy trying to activate and whose parent channel is our server's basechannel.
          * This will be the channel we attempt to subscribe the server to.
@@ -870,26 +870,26 @@ public class ChannelManager extends BaseManager {
         if (!ConfigDefaults.get().isSpacewalk()) {
             throw new ProxyChannelNotFoundException();
         }
-        
+
         return null;
     }
-    
- 
+
+
     /**
      * Returns the list of all channels the user can see.
      * @param user User whose channels are sought.
      * @return the list of all channels the user can see as a DataResult
-     * 
+     *
      */
     public static List<DataResult> allChannelsTree(User user) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                                            "all_channels_tree");
         Map params = new HashMap();
         params.put("user_id", user.getId());
-        
+
         return m.execute(params);
     }
-    
+
     /**
      * Returns list of ChannelArches
      * @return list of ChannelArches
@@ -898,7 +898,7 @@ public class ChannelManager extends BaseManager {
     public static List<ChannelArch> getChannelArchitectures() {
         return ChannelFactory.getChannelArchitectures();
     }
-    
+
     /**
      * Deletes a software channel
      * @param user User with access to delete the channel.
@@ -910,9 +910,9 @@ public class ChannelManager extends BaseManager {
      */
     public static void deleteChannel(User user, String label)
         throws InvalidChannelRoleException, NoSuchChannelException {
-        
+
         Channel toRemove = ChannelFactory.lookupByLabel(user.getOrg(), label);
-        
+
         if (toRemove == null) {
             throw new NoSuchChannelException();
         }
@@ -925,37 +925,37 @@ public class ChannelManager extends BaseManager {
             if (!ChannelFactory.listAllChildrenForChannel(toRemove).isEmpty()) {
                 throw new PermissionException(
                         LocalizationService.getInstance().getMessage(
-                                "api.channel.delete.haschild"));              
+                                "api.channel.delete.haschild"));
             }
             if (toRemove.containsDistributions()) {
                 ValidatorException.raiseException(
                         "message.channel.cannot-be-deleted.has-distros");
-                
+
             }
-            ChannelManager.queueChannelChange(label, 
+            ChannelManager.queueChannelChange(label,
                     user.getLogin(), "java::deleteChannel");
-            ChannelFactory.remove(toRemove);            
+            ChannelFactory.remove(toRemove);
         }
     }
-    
+
     /**
      * Verify that a user is a channel admin
      * @param user the user to verify
-     * @param cid the channel id to verify 
+     * @param cid the channel id to verify
      * @return true if the user is an admin of this channel
      * @throws InvalidChannelRoleException if the user does not have perms
      */
     public static boolean verifyChannelAdmin(User user, Long cid)
         throws InvalidChannelRoleException {
-        
-        if (user.hasRole(RoleFactory.RHN_SUPERUSER) || 
+
+        if (user.hasRole(RoleFactory.RHN_SUPERUSER) ||
                 user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             return true;
         }
-        
+
         return verifyChannelRole(user, cid, QRY_ROLE_MANAGE);
     }
-    
+
     /**
      * Adds the subscribe role for the passed in user for the passed in channel.
      * @param user The user in question.
@@ -966,7 +966,7 @@ public class ChannelManager extends BaseManager {
             return; //user already has subscribe perms to this channel
         }
         //Insert row into rhnChannelPermission
-        WriteMode m = ModeFactory.getWriteMode("Channel_queries", 
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries",
                                                "grant_channel_permission");
         Map params = new HashMap();
         params.put("user_id", user.getId());
@@ -974,7 +974,7 @@ public class ChannelManager extends BaseManager {
         params.put("role_label", QRY_ROLE_SUBSCRIBE);
         m.executeUpdate(params);
     }
-    
+
     /**
      * Removes the subscribe role from the passed in user for the passed in channel.
      * @param user The user in question.
@@ -985,7 +985,7 @@ public class ChannelManager extends BaseManager {
             return; //user doesn't have subscribe perms to begin with
         }
         //Delete row from rhnChannelPermission
-        WriteMode m = ModeFactory.getWriteMode("Channel_queries", 
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries",
                                                "revoke_channel_permission");
         Map params = new HashMap();
         params.put("user_id", user.getId());
@@ -993,9 +993,9 @@ public class ChannelManager extends BaseManager {
         params.put("role_label", QRY_ROLE_SUBSCRIBE);
         m.executeUpdate(params);
     }
-    
+
     /**
-     * Makes sure the passed in user has subscribe permissions to the channel with the 
+     * Makes sure the passed in user has subscribe permissions to the channel with the
      * given id.
      * @param user The user in question
      * @param cid The id for the channel in question
@@ -1006,13 +1006,13 @@ public class ChannelManager extends BaseManager {
         if (user.hasRole(RoleFactory.RHN_SUPERUSER)) {
             return true;
         }
-        
+
         try {
             return verifyChannelRole(user, cid, QRY_ROLE_SUBSCRIBE);
         }
         catch (InvalidChannelRoleException e) {
             /*
-             * We don't really care what the reason is for why this user doesn't have 
+             * We don't really care what the reason is for why this user doesn't have
              * access to this channel, so catch the exception, log it, and simply
              * return false.
              */
@@ -1025,27 +1025,27 @@ public class ChannelManager extends BaseManager {
             return false;
         }
     }
-    
+
     /**
      * Check to see if the channel passed in is subscribable by the Server passed in for
      * *free* without costing an entitlement.  Criteria:
-     * 
+     *
      *  1) if server is a virtual guest
-     *  2) the host of the guest has the Virtualization or VirtualizationPlatform 
+     *  2) the host of the guest has the Virtualization or VirtualizationPlatform
      *     entitlement
-     *  3) the host's system entitlement has to match the type of the Channel's 
+     *  3) the host's system entitlement has to match the type of the Channel's
      *     ChannelFamily's VirtSubLevel type.
-     *  
+     *
      * @param serverIn to check against the channelIn
      * @param channelIn channelIn to check against the server
      * @return boolean if its free or not
      */
     public static boolean isChannelFreeForSubscription(Server serverIn, Channel channelIn) {
-        
+
         if (log.isDebugEnabled()) {
             log.debug("isChannelFreeForSubscription.start: " + channelIn.getLabel());
         }
-        
+
         if (!serverIn.isVirtualGuest()) {
             log.debug("server is not a guest, returning false");
             return false;
@@ -1090,27 +1090,27 @@ public class ChannelManager extends BaseManager {
                 }
             }
         }
-        
+
         log.debug("No criteria match.  returning false");
         return false;
     }
-    
+
     private static boolean verifyChannelRole(User user, Long cid, String role)
         throws InvalidChannelRoleException {
-        
+
         CallableMode m = ModeFactory.getCallableMode(
                 "Channel_queries", "verify_channel_role");
-        
+
         Map inParams = new HashMap();
         inParams.put("cid", cid);
         inParams.put("user_id", user.getId());
         inParams.put("role", role);
-        
+
         Map outParams = new HashMap();
         outParams.put("result", new Integer(Types.NUMERIC));
         outParams.put("reason", new Integer(Types.VARCHAR));
         Map result = m.execute(inParams, outParams);
-        
+
         boolean accessible = BooleanUtils.toBoolean(
                 ((Long) result.get("result")).intValue());
         if (!accessible) {
@@ -1119,7 +1119,7 @@ public class ChannelManager extends BaseManager {
         }
         return accessible;
     }
-    
+
     /**
      * Returns true if the given channel is globally subscribable for the
      * given org.
@@ -1131,7 +1131,7 @@ public class ChannelManager extends BaseManager {
         Channel c = lookupByLabelAndUser(chanLabel, user);
         return ChannelFactory.isGloballySubscribable(user.getOrg(), c);
     }
-    
+
     /**
      * Returns the Channel whose label matches the given label.
      * @param org The org of the user looking up the channel
@@ -1141,7 +1141,7 @@ public class ChannelManager extends BaseManager {
     public static Channel lookupByLabel(Org org, String label) {
         return ChannelFactory.lookupByLabel(org, label);
     }
-    
+
     /**
      * Returns available entitlements for the org and the given channel.
      * @param org Org
@@ -1149,13 +1149,13 @@ public class ChannelManager extends BaseManager {
      * @return available entitlements for the org and the given channel.
      */
     public static Long getAvailableEntitlements(Org org, Channel c) {
-        ChannelEntitlementCounter counter = 
+        ChannelEntitlementCounter counter =
             (ChannelEntitlementCounter) MethodUtil.getClassFromConfig(
                     ChannelEntitlementCounter.class.getName());
-         
+
         Long retval = counter.getAvailableEntitlements(org, c);
-        log.debug("getAvailableEntitlements: " + c.getLabel() + " got: " + retval);        
-        
+        log.debug("getAvailableEntitlements: " + c.getLabel() + " got: " + retval);
+
         return retval;
     }
 
@@ -1176,7 +1176,7 @@ public class ChannelManager extends BaseManager {
 
         return m.execute(params);
     }
-    
+
     /**
      * Returns list of latest packages in channel
      * @param channel channel whose packages are sought
@@ -1185,14 +1185,14 @@ public class ChannelManager extends BaseManager {
     public static List latestPackagesInChannel(Channel channel) {
         SelectMode m = ModeFactory.getMode(
                 "Package_queries", "latest_packages_in_channel_api");
-        
+
         Map params = new HashMap();
         params.put("cid", channel.getId());
-        
+
         return m.execute(params);
     }
-    
-    
+
+
     /**
      * List the errata applicable to a channel between start and end date
      * @param channel channel whose errata are sought
@@ -1226,7 +1226,7 @@ public class ChannelManager extends BaseManager {
         dr.setElaborationParams(elabParams);
         return dr;
     }
-    
+
 
     /**
      * List the errata applicable to a channel between start and end date
@@ -1240,12 +1240,12 @@ public class ChannelManager extends BaseManager {
         String mode = "relevant_to_channel_deprecated";
         Map params = new HashMap();
         params.put("cid", channel.getId());
-        
+
         if (!StringUtils.isEmpty(start)) {
             params.put("start_date_str", start);
             mode = "relevant_to_channel_after_deprecated";
         }
-        
+
         if (!StringUtils.isEmpty(end)) {
             params.put("end_date_str", end);
             mode = "relevant_to_channel_between_deprecated";
@@ -1254,7 +1254,7 @@ public class ChannelManager extends BaseManager {
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", mode);
 
-        return m.execute(params); 
+        return m.execute(params);
     }
 
     /**
@@ -1284,7 +1284,7 @@ public class ChannelManager extends BaseManager {
     public static List listAllPackages(Channel channel, String startDate) {
         return listAllPackages(channel, startDate, null);
     }
-    
+
     /**
      * Returns list of packages in channel
      * @param channel channel whose packages are sought
@@ -1297,22 +1297,22 @@ public class ChannelManager extends BaseManager {
         String mode = "all_packages_in_channel";
         Map params = new HashMap();
         params.put("cid", channel.getId());
-        
+
         if (!StringUtils.isEmpty(startDate)) {
             params.put("start_date_str", startDate);
             mode = "all_packages_in_channel_after";
         }
-        
+
         if (!StringUtils.isEmpty(endDate)) {
-            params.put("end_date_str", endDate);    
+            params.put("end_date_str", endDate);
             mode = "all_packages_in_channel_between";
         }
-        
+
         SelectMode m = ModeFactory.getMode("Package_queries", mode);
 
-        return m.execute(params); 
+        return m.execute(params);
     }
-    
+
     /**
      * Returns list of packages in channel
      * @param channel channel whose packages are sought
@@ -1322,12 +1322,12 @@ public class ChannelManager extends BaseManager {
         String mode = "all_packages_in_channel";
         Map params = new HashMap();
         params.put("cid", channel.getId());
-        
+
         SelectMode m = ModeFactory.getMode("Package_queries", mode);
 
-        return m.execute(params); 
+        return m.execute(params);
     }
-    
+
     /**
      * Returns list of packages in channel
      * @param channel channel whose packages are sought
@@ -1341,20 +1341,20 @@ public class ChannelManager extends BaseManager {
         // convert the start and end dates to a string representation
         // that can be used in the db query...
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        
+
         String startDateStr = null;
         String endDateStr = null;
-        
+
         if (startDate != null) {
             startDateStr = sdf.format(startDate);
         }
         if (endDate != null) {
             endDateStr = sdf.format(endDate);
         }
-        
+
         return listAllPackages(channel, startDateStr, endDateStr);
     }
-    
+
     /**
      * Returns list of packages in channel
      * @param channel channel whose packages are sought
@@ -1368,12 +1368,12 @@ public class ChannelManager extends BaseManager {
         String mode = "all_packages_in_channel_by_date";
         Map params = new HashMap();
         params.put("cid", channel.getId());
-        
+
         if (!StringUtils.isEmpty(startDate)) {
             params.put("start_date_str", startDate);
             mode = "all_packages_in_channel_after_by_date";
         }
-        
+
         if (!StringUtils.isEmpty(endDate)) {
             params.put("end_date_str", endDate);
             mode = "all_packages_in_channel_between_by_date";
@@ -1381,20 +1381,20 @@ public class ChannelManager extends BaseManager {
 
         SelectMode m = ModeFactory.getMode(
                 "Package_queries", mode);
-        
+
         return m.execute(params);
     }
-    
+
     /**
      * Get the id of latest packages equal in the passed in Channel and name
-     * 
+     *
      * @param channelId to lookup package against
      * @param packageName to check
      * @return List containing Maps of "CP.package_id, CP.name_id, CP.evr_id"
-     */    
+     */
     public static Long getLatestPackageEqual(Long channelId, String packageName) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
-            "latest_package_equal");       
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+            "latest_package_equal");
         Map params = new HashMap();
         params.put("cid", channelId);
         params.put("name", packageName);
@@ -1405,7 +1405,7 @@ public class ChannelManager extends BaseManager {
         }
         return null;
     }
-    
+
     /**
      * Get the id of latest packages located in the channel tree where channelId
      * is a parent
@@ -1431,38 +1431,38 @@ public class ChannelManager extends BaseManager {
 
     /**
      * List the latest packages equal in the passed in Channel and name
-     * 
+     *
      * @param channelId to lookup package against
      * @param packageName to check
      * @return List containing Maps of "CP.package_id, CP.name_id, CP.evr_id"
      */
     public static List listLatestPackagesEqual(Long channelId, String packageName) {
         if (log.isDebugEnabled()) {
-            log.debug("listLatestPackagesEqual: " + 
+            log.debug("listLatestPackagesEqual: " +
                     channelId + " pn: " + packageName);
         }
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
-            "latest_package_equal");       
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+            "latest_package_equal");
         Map params = new HashMap();
         params.put("cid", channelId);
         params.put("name", packageName);
         return m.execute(params);
-        
+
     }
 
     /**
      * List the latest packages in a channel *like* the given package name.
-     * 
+     *
      * @param channelId to lookup package against
      * @param packageName to check
      * @return List containing Maps of "CP.package_id, CP.name_id, CP.evr_id"
      */
     public static List listLatestPackagesLike(Long channelId, String packageName) {
         if (log.isDebugEnabled()) {
-            log.debug("listLatestPackagesLike() cid: " + 
+            log.debug("listLatestPackagesLike() cid: " +
                     channelId + " packageName : " + packageName);
         }
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
+        SelectMode m = ModeFactory.getMode("Channel_queries",
             "latest_package_like");
         StringBuffer pname = new StringBuffer();
         pname.append("%");
@@ -1472,9 +1472,9 @@ public class ChannelManager extends BaseManager {
         params.put("cid", channelId);
         params.put("name", pname.toString());
         return m.execute(params);
-        
+
     }
-    
+
     /**
      * Finds the id of a child channel with the given parent channel id that contains
      * a package with the given name.  Will only find one child channel even if there are
@@ -1482,7 +1482,7 @@ public class ChannelManager extends BaseManager {
      * @param org Organization of the current user.
      * @param parent The id of the parent channel
      * @param packageName The exact name of the package sought for.
-     * @return The id of a single child channel found or null if nothing found. 
+     * @return The id of a single child channel found or null if nothing found.
      */
     public static Long findChildChannelWithPackage(Org org, Long parent, String
             packageName) {
@@ -1492,7 +1492,7 @@ public class ChannelManager extends BaseManager {
         params.put("parent", parent);
         params.put("package", packageName);
         params.put("org_id", org.getId());
-        
+
         DataResult dr = m.execute(params);
         if (dr.size() == 0) {
             return null;
@@ -1512,13 +1512,13 @@ public class ChannelManager extends BaseManager {
         return (Long) dm.get("id");
     }
 
-    
+
     /**
      * Finds the ids of all child channels that contain
      * a package with the given name.  Will only all the child channels.
      * @param packageName The exact name of the package sought for.
      * @param org the org this is in
-     * @return The list of ids 
+     * @return The list of ids
      */
     public static List<Long> findChildChannelsWithPackage(String packageName, Org org) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
@@ -1526,7 +1526,7 @@ public class ChannelManager extends BaseManager {
         Map params = new HashMap();
         params.put("package", packageName);
         params.put("org_id", org.getId());
-        
+
         //whittle down until we have the piece we want.
         DataResult<Map<String, Long>> dr  = m.execute(params);
         List <Long> cids = new LinkedList<Long>();
@@ -1538,16 +1538,16 @@ public class ChannelManager extends BaseManager {
     /**
      * Subscribe a Server to the first child channel of its base channel that contains
      * the packagename passed in.  Returns false if it can't be subscribed.
-     * 
+     *
      * @param user requesting the subscription
      * @param current System to be subbed
-     * @param packageName to use to lookup the channel with.  
+     * @param packageName to use to lookup the channel with.
      * @return Channel we subscribed to, null if not.
      */
     public static Channel subscribeToChildChannelWithPackageName(User user, Server current,
                 String packageName) {
-        
-        log.debug("subscribeToChildChannelWithPackageName: " + current.getId() + 
+
+        log.debug("subscribeToChildChannelWithPackageName: " + current.getId() +
                 " name: " + packageName);
         /*
          * First make sure that we have a base channel.
@@ -1558,7 +1558,7 @@ public class ChannelManager extends BaseManager {
             log.debug("base channel for server is null. returning null");
             return null;
         }
-        
+
         // We know its the channel we want if it has the package in it:
         Long bcid = current.getBaseChannel().getId();
         log.debug("found basechannel: " + bcid);
@@ -1593,16 +1593,16 @@ public class ChannelManager extends BaseManager {
 
         Channel channel = ChannelManager.lookupByIdAndUser(cid, user);
         boolean canSubscribe = false;
-        
+
         // check to make sure we *can* sub to this channel
         if (channel != null) {
-            canSubscribe = SystemManager.canServerSubscribeToChannel(user.getOrg(), 
+            canSubscribe = SystemManager.canServerSubscribeToChannel(user.getOrg(),
                     current, channel);
         }
         if (!canSubscribe) {
             return null;
         }
-        
+
         if (!current.isSubscribed(channel)) {
             if (log.isDebugEnabled()) {
                 log.debug("Subscribing server to channel: " + channel);
@@ -1611,21 +1611,21 @@ public class ChannelManager extends BaseManager {
         }
         return channel;
     }
-    
+
     /**
-     * Subscribe a Server to the first child channel of its base channel supplies OS level 
+     * Subscribe a Server to the first child channel of its base channel supplies OS level
      * functionality based on the "osProductName" passed in.  In DB terms it is looking
      * for a child channel that has an entry in rhnDistChannel map with an OS field
      * matching the osProductName.
-     * 
+     *
      * @param user requesting the subscription
      * @param current System to be subbed
-     * @param osProductName to use to lookup the channel with.  
+     * @param osProductName to use to lookup the channel with.
      * @return Channel we subscribed to, null if not.
      */
     public static Channel subscribeToChildChannelByOSProduct(User user, Server current,
                 String osProductName) {
-        
+
         /*
          * First make sure that we have a base channel.
          * Second, make sure that the base channel has an RHN Tools child channel.
@@ -1638,7 +1638,7 @@ public class ChannelManager extends BaseManager {
 
         Channel baseChannel = current.getBaseChannel();
         Channel foundChannel = null;
-        
+
         Iterator i = ChannelManager.userAccessibleChildChannels(
                 user.getOrg().getId(), baseChannel.getId()).iterator();
         while (i.hasNext()) {
@@ -1653,7 +1653,7 @@ public class ChannelManager extends BaseManager {
                     if (dcm.getOs().equals(osProductName)) {
                         log.debug("found a possible channel: " + dcm.getChannel());
                         foundChannel = dcm.getChannel();
-                        if (SystemManager.canServerSubscribeToChannel(user.getOrg(), 
+                        if (SystemManager.canServerSubscribeToChannel(user.getOrg(),
                                 current, dcm.getChannel())) {
                             log.debug("we can subscribe.  lets set foundChannel");
                             foundChannel = dcm.getChannel();
@@ -1666,7 +1666,7 @@ public class ChannelManager extends BaseManager {
                 }
             }
         }
-        
+
         if (foundChannel != null) {
            log.debug("we found a channel, now lets see if we should sub");
            if (!current.isSubscribed(foundChannel)) {
@@ -1675,15 +1675,15 @@ public class ChannelManager extends BaseManager {
                             "Subscribing server to channel: " + foundChannel);
                 }
                 SystemManager.subscribeServerToChannel(user, current, foundChannel);
-           } 
+           }
         }
         log.debug("subscribeToChildChannelByOSProduct returning: " + foundChannel);
         return foundChannel;
-    
+
     }
-    
+
     /**
-     * For the specified server, make a best-guess effort at what its base-channel 
+     * For the specified server, make a best-guess effort at what its base-channel
      * SHOULD be
      * @param usr User asking the question
      * @param s Server of interest
@@ -1698,16 +1698,16 @@ public class ChannelManager extends BaseManager {
         Map outParams = new HashMap();
         outParams.put("result", new Integer(Types.NUMERIC));
         Map result = sbm.execute(inParams, outParams);
-        
+
         Long guessedId = (Long) result.get(("result"));
-        
+
         Channel c = null;
         if (guessedId != null) {
             c = ChannelFactory.lookupByIdAndUser(guessedId, usr);
         }
         return c;
     }
-    
+
     /**
      * Convert redhat-release release values to those that are stored in the
      * rhnReleaseChannelMap table.
@@ -1742,7 +1742,7 @@ public class ChannelManager extends BaseManager {
         if (tokens.length <= 3) {
             return originalRelease;
         }
-        
+
         StringBuffer buf = new StringBuffer();
         buf.append(tokens[0]);
         buf.append(".");
@@ -1751,19 +1751,19 @@ public class ChannelManager extends BaseManager {
         buf.append(tokens[2]);
         return buf.toString();
     }
-    
+
     /**
-     * Return the list of ALL ISO channels 
+     * Return the list of ALL ISO channels
      * @param u Currently-logged-in user
      * @param lc ListControl (if there is one)
      * @return DataResult of ChannelTreeNodes
      */
     public static DataResult allDownloadsTree(User u, ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
+        SelectMode m = ModeFactory.getMode("Channel_queries",
                 "channels_with_downloads_tree_full");
         Map params = new HashMap();
         params.put("user_id", u.getId());
-        
+
         DataResult dr = makeDataResult(params, params, lc, m);
         if (dr.size() == 0) {
             return null;
@@ -1779,11 +1779,11 @@ public class ChannelManager extends BaseManager {
      * @return DataResult of ChannelTreeNodes
      */
     public static DataResult supportedDownloadsTree(User u, ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
+        SelectMode m = ModeFactory.getMode("Channel_queries",
                 "channels_with_downloads_tree_supported");
         Map params = new HashMap();
         params.put("user_id", u.getId());
-        
+
         DataResult dr = makeDataResult(params, params, lc, m);
         if (dr.size() == 0) {
             return null;
@@ -1799,11 +1799,11 @@ public class ChannelManager extends BaseManager {
      * @return DataResult of ChannelTreeNodes
      */
     public static DataResult retiredDownloadsTree(User u, ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
+        SelectMode m = ModeFactory.getMode("Channel_queries",
                 "channels_with_downloads_tree_retired");
         Map params = new HashMap();
         params.put("user_id", u.getId());
-        
+
         DataResult dr = makeDataResult(params, params, lc, m);
         if (dr.size() == 0) {
             return null;
@@ -1823,20 +1823,20 @@ public class ChannelManager extends BaseManager {
      * @return DataResult<ISOCategory>
      */
     public static DataResult listDownloadCategories(
-            User u, 
+            User u,
             String channelLabel, String downloadType, ListControl lc,
             boolean forSatellite) {
         SelectMode m = null;
-        
+
         if (forSatellite) {
-            m = ModeFactory.getMode("Channel_queries", 
+            m = ModeFactory.getMode("Channel_queries",
                     "satellite_channel_download_categories_by_type");
         }
         else {
-            m = ModeFactory.getMode("Channel_queries", 
+            m = ModeFactory.getMode("Channel_queries",
             "channel_download_categories_by_type");
         }
-            
+
         Map params = new HashMap();
         params.put("org_id", u.getOrg().getId());
         params.put("channel_label", channelLabel);
@@ -1849,7 +1849,7 @@ public class ChannelManager extends BaseManager {
             return dr;
         }
     }
-    
+
     /**
      * Return a list of all downlaods available for download from the specified channel
      * @param u User making the request
@@ -1864,16 +1864,16 @@ public class ChannelManager extends BaseManager {
             String channelLabel, String downloadType, ListControl lc,
             boolean forSatellite) {
         SelectMode m = null;
-        
+
         if (forSatellite) {
-            m = ModeFactory.getMode("Channel_queries", 
+            m = ModeFactory.getMode("Channel_queries",
                     "satellite_channel_downloads_by_type");
         }
         else {
-            m = ModeFactory.getMode("Channel_queries", 
+            m = ModeFactory.getMode("Channel_queries",
             "channel_downloads_by_type");
         }
-            
+
         Map params = new HashMap();
         params.put("org_id", u.getOrg().getId());
         params.put("channel_label", channelLabel);
@@ -1886,7 +1886,7 @@ public class ChannelManager extends BaseManager {
             return dr;
         }
     }
-    
+
     /**
      * Search for the tools channel beneath the specified base channel.
      * Queries for package names that look like kickstart packages, and
@@ -1900,10 +1900,10 @@ public class ChannelManager extends BaseManager {
         if (log.isDebugEnabled()) {
             log.debug("getToolsChannel, baseChannel: " + baseChannel.getLabel());
         }
-        
+
         Iterator i = ChannelManager.userAccessibleChildChannels(
                 user.getOrg().getId(), baseChannel.getId()).iterator();
-        
+
         if (log.isDebugEnabled()) {
             log.debug("getToolsChannel, userAccessibleChildChannels: " + i.hasNext());
         }
@@ -1914,14 +1914,14 @@ public class ChannelManager extends BaseManager {
             }
             // First search for legacy kickstart package names:
             List kspackages = ChannelManager.
-                listLatestPackagesLike(child.getId(), 
+                listLatestPackagesLike(child.getId(),
                         KickstartData.LEGACY_KICKSTART_PACKAGE_NAME);
             if (kspackages.size() > 0) {
                 return child;
             }
-            
+
             // Search for rhn-kickstart package name:
-            kspackages = ChannelManager.listLatestPackagesEqual(child.getId(), 
+            kspackages = ChannelManager.listLatestPackagesEqual(child.getId(),
                     ConfigDefaults.get().getKickstartPackageName());
             if (kspackages.size() > 0) {
                 return child;
@@ -1929,7 +1929,7 @@ public class ChannelManager extends BaseManager {
         }
         return null;
     }
-    
+
     /**
      * Examines each DistChannelMap associated with the given channel to build the
      * master set of all supported channel version constants.
@@ -1941,7 +1941,7 @@ public class ChannelManager extends BaseManager {
         Iterator iter = channel.getDistChannelMaps().iterator();
         while (iter.hasNext()) {
             DistChannelMap dcm = (DistChannelMap)iter.next();
-            
+
             returnSet.add(ChannelVersion.getChannelVersionForDistChannelMap(dcm));
         }
         return returnSet;
@@ -1979,7 +1979,7 @@ public class ChannelManager extends BaseManager {
 
         return m.execute(params);
     }
-    
+
     /**
      * Returns the list of all base-channels represented in the System Set.
      * @param user User whose System Set is being considered
@@ -1992,13 +1992,13 @@ public class ChannelManager extends BaseManager {
 
         return m.execute(params);
     }
-    
+
     private static boolean isDefaultBaseChannel(Channel baseChan, String version) {
         if (baseChan == null) {
             return false;
         }
-        
-        Channel defaultBaseChan = getDefaultBaseChannel(version, 
+
+        Channel defaultBaseChan = getDefaultBaseChannel(version,
             baseChan.getChannelArch());
         if (defaultBaseChan == null) {
             return false;
@@ -2016,7 +2016,7 @@ public class ChannelManager extends BaseManager {
         return dcm.getChannel();
     }
 
-    
+
     /**
      * Given a system, find all the base channels available to the specified user
      * that the system may be re-subscribed to.
@@ -2031,31 +2031,31 @@ public class ChannelManager extends BaseManager {
      *
      * Custom base channels for this organization will always be returned,
      * regardless of the RHEL version.
-     * 
+     *
      * @param usr requesting list
      * @param s Server to check against
      * @return List of Channel objects that match
      */
-    public static List<EssentialChannelDto> listBaseChannelsForSystem(User usr, 
-            Server s) {        
+    public static List<EssentialChannelDto> listBaseChannelsForSystem(User usr,
+            Server s) {
         log.debug("listBaseChannelsForSystem()");
-        
+
         List<EssentialChannelDto> channelDtos = new LinkedList<EssentialChannelDto>();
-        
+
         if (s.getReleasePackage() != null && s.getReleasePackage().getEvr() != null) {
             String rhelVersion = s.getReleasePackage().getEvr().getVersion();
             String rhelRelease = s.getReleasePackage().getEvr().getRelease();
             String serverArch = s.getServerArch().getLabel();
-            
+
             // If the system has the default base channel, that channel will not have
             // compatability entries in rhnReleaseChannelMap. Assume that this is a base
             // RHEL channel and that only the most recent (i.e. default) EUS channel
             // in rhnReleaseChannelMap is a suitable replacement.
             List<EssentialChannelDto> baseEusChans = new LinkedList<EssentialChannelDto>();
             if (isDefaultBaseChannel(s.getBaseChannel(), rhelVersion)) {
-                log.debug("System has default base channel, including most recent EUS " + 
+                log.debug("System has default base channel, including most recent EUS " +
                         "channel.");
-                EssentialChannelDto baseEus = lookupLatestEusChannelForRhelVersion(usr, 
+                EssentialChannelDto baseEus = lookupLatestEusChannelForRhelVersion(usr,
                         rhelVersion, s.getBaseChannel().getChannelArch().getId());
                 if (baseEus != null) {
                     baseEusChans.add(baseEus);
@@ -2064,7 +2064,7 @@ public class ChannelManager extends BaseManager {
             else {
                 log.debug("System does not have default base channel.");
                 log.debug("Looking up all available EUS channels.");
-                baseEusChans = listBaseEusChannelsByVersionReleaseAndServerArch(usr, 
+                baseEusChans = listBaseEusChannelsByVersionReleaseAndServerArch(usr,
                     rhelVersion, rhelRelease, serverArch);
             }
             channelDtos.addAll(baseEusChans);
@@ -2074,14 +2074,14 @@ public class ChannelManager extends BaseManager {
                 log.debug("      " + dto.getLabel());
             }
         }
-        
+
         // Get all the possible base-channels owned by this Org (IE, custom)
         // and add the server's current base-channel to it:
         channelDtos.addAll(listBaseChannelsForOrg(usr.getOrg()));
         Channel guessedBase = ChannelManager.guessServerBase(usr, s);
         if (guessedBase != null) {
             if (log.isDebugEnabled()) {
-                log.debug("guessedBase = " + guessedBase.getLabel());    
+                log.debug("guessedBase = " + guessedBase.getLabel());
             }
 
             EssentialChannelDto guessed = new EssentialChannelDto();
@@ -2090,42 +2090,42 @@ public class ChannelManager extends BaseManager {
             guessed.setName(guessedBase.getName());
             channelDtos.add(0, guessed);
         }
-        
+
         // For each channel, ensure user-access and arch-compat with this server:
         List<EssentialChannelDto> retval = new LinkedList<EssentialChannelDto>();
         for (EssentialChannelDto ecd : channelDtos) {
             Channel channel = null;
             try {
                 channel = lookupByIdAndUser(new Long(ecd.getId().longValue()), usr);
-            } 
+            }
             catch (LookupException le) {
                 log.info("User doesnt have access to channel: " + ecd.getId());
             }
-            if (channel != null && 
+            if (channel != null &&
                     channel.getChannelArch().isCompatible(s.getServerArch())) {
                 if (!retval.contains(channel)) {
                     retval.add(ecd);
                 }
             }
         }
-        
+
         if (log.isDebugEnabled()) {
             log.debug("retval.size() = " + retval.size());
         }
         return retval;
     }
-    
+
     /**
      * Given a base-channel, find all the base channels available to the specified user
      * that a system with the specified channel may be re-subscribed to.
-     * 
+     *
      * @param u User of interest
      * @param inChan Base-channel of interest
      * @return List of channels that a system subscribed to "c" could be re-subscribed to
      */
-    public static List<EssentialChannelDto> listCompatibleBaseChannelsForChannel(User u, 
+    public static List<EssentialChannelDto> listCompatibleBaseChannelsForChannel(User u,
             Channel inChan) {
-        
+
         log.debug("ChannelManager.listCompatibleBaseChannelsForChannel");
         log.debug("channel = " + inChan.getLabel());
         List<EssentialChannelDto> retval = new ArrayList();
@@ -2133,37 +2133,37 @@ public class ChannelManager extends BaseManager {
         // Get all the custom-channels owned by this org and add them
         DataResult dr = listBaseChannelsForOrg(u.getOrg());
         List<EssentialChannelDto> channels = new DataList(dr);
-        
+
         // Find all of the obvious matches
         for (EssentialChannelDto ecd : channels) {
             Channel c = ChannelFactory.lookupByIdAndUser(ecd.getId().longValue(), u);
             if (log.isDebugEnabled()) {
-                log.debug(c == null ? "<null>" : c.getName());    
+                log.debug(c == null ? "<null>" : c.getName());
             }
-            
-            if (c != null && 
-                (c.getOrg() != null || 
+
+            if (c != null &&
+                (c.getOrg() != null ||
                 inChan.getChannelArch().equals(c.getChannelArch())) &&
                 !retval.contains(ecd)) {
                 retval.add(ecd);
             }
         }
-        
+
         List<EssentialChannelDto> eusBaseChans = new LinkedList<EssentialChannelDto>();
-        
+
         DistChannelMap dcm = ChannelFactory.lookupDistChannelMap(inChan);
         ReleaseChannelMap rcm = lookupDefaultReleaseChannelMapForChannel(inChan);
         if (dcm != null) {
             log.debug("Found dist channel map");
             String version = dcm.getRelease(); // bad naming in rhnDistChannelMap
-            
+
             // If the inChan is the default base channel, that channel will not have
             // compatibility entries in rhnReleaseChannelMap, and we are to assume
             // that ALL entries in that table for the product/version/channel arch
             // are valid replacement base channels:
             if (isDefaultBaseChannel(inChan, version)) {
                 log.debug("inChan is default base channel");
-                EssentialChannelDto latestEus = lookupLatestEusChannelForRhelVersion(u, 
+                EssentialChannelDto latestEus = lookupLatestEusChannelForRhelVersion(u,
                         version, inChan.getChannelArch().getId());
                 if (latestEus != null) {
                     log.debug("Including latest EUS channel: " +
@@ -2174,7 +2174,7 @@ public class ChannelManager extends BaseManager {
                     log.warn("Unable to lookup the latest EUS channel!");
                 }
             }
-            
+
         }
         else if (rcm != null) {
             log.debug("Found release channel map");
@@ -2182,11 +2182,11 @@ public class ChannelManager extends BaseManager {
             String version = rcm.getVersion();
             String release = rcm.getRelease();
             ChannelArch channelArch = inChan.getChannelArch();
-            
+
             // TODO: is this null check needed or just to get through tests?
             if (version != null) {
                 // First make sure to add the default base channel, EUS systems should
-                // always be able to upgrade to the mainline RHEL release for their 
+                // always be able to upgrade to the mainline RHEL release for their
                 // version:
                 log.debug("Looking up default base channel for:");
                 log.debug("  version = " + version);
@@ -2202,7 +2202,7 @@ public class ChannelManager extends BaseManager {
         else {
             log.debug("Unable to find dist or release channel map.");
         }
-        
+
         log.debug("found " + eusBaseChans.size() + " EUS channels");
         retval.addAll(eusBaseChans);
 
@@ -2215,14 +2215,14 @@ public class ChannelManager extends BaseManager {
             if (dto.getId().longValue() == inChan.getId().longValue()) {
                 log.debug("Removing current channel: " + dto.getLabel());
                 retval.remove(dto); // normally not a good idea, but we do break
-                break; 
+                break;
             }
         }
 
        return retval;
     }
 
-    private static EssentialChannelDto channelToEssentialChannelDto(Channel channel, 
+    private static EssentialChannelDto channelToEssentialChannelDto(Channel channel,
             boolean isCustom) {
         EssentialChannelDto dto = new EssentialChannelDto();
         dto.setId(channel.getId());
@@ -2231,11 +2231,11 @@ public class ChannelManager extends BaseManager {
         dto.setIsCustom(isCustom);
         return dto;
     }
-    
+
     /**
-     * Lookup the default release channel map for the given channel. Returns null if no 
+     * Lookup the default release channel map for the given channel. Returns null if no
      * default is found.
-     * 
+     *
      * @param channel Channel to lookup mapping for
      * @return Default ReleaseChannelMap
      */
@@ -2243,11 +2243,11 @@ public class ChannelManager extends BaseManager {
             Channel channel) {
         return ChannelFactory.lookupDefaultReleaseChannelMapForChannel(channel);
     }
-    
+
     /**
-     * Lookup the dist channel map for the given os, release, and channel arch. 
+     * Lookup the dist channel map for the given os, release, and channel arch.
      * Returns null if none is found.
-     * 
+     *
      * @param productName Product name.
      * @param release Version.
      * @param channelArch Channel arch.
@@ -2258,11 +2258,11 @@ public class ChannelManager extends BaseManager {
         return ChannelFactory.lookupDistChannelMapByPnReleaseArch(productName, release,
                 channelArch);
     }
-    
+
     /**
-     * Lookup the EUS base channels suitable for the given version, release, and 
+     * Lookup the EUS base channels suitable for the given version, release, and
      * server arch.
-     * 
+     *
      * NOTE: Release not actually used in the database query, must filter manually
      * in application code due to some very specific requirements on how it must
      * be compared. See normalizeRhelReleaseForMapping for more info.
@@ -2273,15 +2273,15 @@ public class ChannelManager extends BaseManager {
      * @param serverArch RHEL server arch.
      * @return List of EssentialChannelDto's.
      */
-    public static List<EssentialChannelDto> 
-        listBaseEusChannelsByVersionReleaseAndServerArch(User user, 
+    public static List<EssentialChannelDto>
+        listBaseEusChannelsByVersionReleaseAndServerArch(User user,
             String version, String release, String serverArch) {
 
         log.debug("listBaseEusChannelsByVersionReleaseAndServerArch()");
         log.debug("   version = " + version);
         log.debug("   release = " + release);
         log.debug("   serverArch = " + serverArch);
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
+        SelectMode m = ModeFactory.getMode("Channel_queries",
                     "base_eus_channels_by_version_release_server_arch");
         Map params = new HashMap();
         params.put("user_id", user.getId());
@@ -2303,11 +2303,11 @@ public class ChannelManager extends BaseManager {
 
         return result;
     }
-    
+
     /**
-     * Lookup the EUS base channels suitable for the given version, release, and 
+     * Lookup the EUS base channels suitable for the given version, release, and
      * channel arch.
-     * 
+     *
      * NOTE: Release not actually used in the database query, must filter manually
      * in application code due to some very specific requirements on how it must
      * be compared. See normalizeRhelReleaseForMapping for more info.
@@ -2318,12 +2318,12 @@ public class ChannelManager extends BaseManager {
      * @param channelArchId Channel arch.
      * @return List of EssentialChannelDto's.
      */
-    public static List<EssentialChannelDto> 
-        listBaseEusChannelsByVersionReleaseAndChannelArch(User user, 
+    public static List<EssentialChannelDto>
+        listBaseEusChannelsByVersionReleaseAndChannelArch(User user,
             String version, String release, Long channelArchId) {
-        
+
         log.debug("listBaseEusChannelsByVersionReleaseAndChannelArch()");
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
+        SelectMode m = ModeFactory.getMode("Channel_queries",
                     "base_eus_channels_by_version_channel_arch");
         Map params = new HashMap();
         params.put("user_id", user.getId());
@@ -2347,12 +2347,12 @@ public class ChannelManager extends BaseManager {
 
         return result;
     }
-    
+
     /**
      * Lookup the latest EUS base channel for the given version and server arch.
      *
      * Sorts based on the release column. null will be returned if none found.
-     * 
+     *
      * @param user User performing the query.
      * @param rhelVersion RHEL version.
      * @param channelArchId Channel arch id.
@@ -2360,11 +2360,11 @@ public class ChannelManager extends BaseManager {
      */
     public static EssentialChannelDto lookupLatestEusChannelForRhelVersion(
             User user, String rhelVersion, Long channelArchId) {
-        
+
         log.debug("listBaseEusChannelsByVersionAndChannelArch");
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
+        SelectMode m = ModeFactory.getMode("Channel_queries",
                     "base_eus_channels_by_version_channel_arch");
-        
+
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -2381,21 +2381,21 @@ public class ChannelManager extends BaseManager {
         Collections.sort(dr, new EusReleaseComparator(rhelVersion));
         return (EssentialChannelDto) dr.get(dr.size() - 1);
     }
-    
+
     /**
      * List base channels for the given org.
      * @param o Org to list channels for.
      * @return List of channels.
      */
     public static DataResult listBaseChannelsForOrg(Org o) {
-        SelectMode m = 
+        SelectMode m =
             ModeFactory.getMode("Channel_queries", "base_channels_for_org");
         Map params = new HashMap();
         params.put("org_id", o.getId());
         DataResult dr  = makeDataResult(params, new HashMap(), null, m);
         return dr;
     }
-    
+
     /**
      * List base channels (including Red Hat channels) for a given org.
      * @param u User to list base channels for.
@@ -2407,9 +2407,9 @@ public class ChannelManager extends BaseManager {
 
     /**
      * Given an old and a new base channel, return a map of old child channels to new
-     * child channels with the same product name. If no match can be found the old 
+     * child channels with the same product name. If no match can be found the old
      * child channel is omitted from the map.
-     * 
+     *
      * @param oldBaseChannel the base channel to which we need to find the equivalent
      *      child channels
      * @param newBaseChannel the base channel which holds the a child channel with
@@ -2417,17 +2417,17 @@ public class ChannelManager extends BaseManager {
      * @param user user needed for authentication purposes
      * @return a map [childChannel1:childChannel2]
      */
-    public static Map<Channel, Channel> findCompatibleChildren(Channel oldBaseChannel, 
+    public static Map<Channel, Channel> findCompatibleChildren(Channel oldBaseChannel,
             Channel newBaseChannel, User user) {
-        
+
         Map<Channel, Channel> compatibleChannels = new HashMap<Channel, Channel>();
         if (oldBaseChannel == null) {
             return compatibleChannels;
         }
-        
-        Map <ProductName, Channel> prodChannels = 
+
+        Map <ProductName, Channel> prodChannels =
             new HashMap<ProductName, Channel>();
-        
+
         for (Channel channel : newBaseChannel.getAccessibleChildrenFor(user)) {
             if (channel.getProductName() != null) {
                 prodChannels.put(channel.getProductName(), channel);
@@ -2440,15 +2440,15 @@ public class ChannelManager extends BaseManager {
                 compatibleChannels.put(childOne, prodChannels.get(name));
             }
         }
-            
+
         return compatibleChannels;
     }
-    
+
     /**
-     * Finds non-custom errata for a target channel 
+     * Finds non-custom errata for a target channel
      * @param targetChannel the channel to search for
      * @param packageAssoc  whether to filter packages on what packages are already
-     *                      in the channel 
+     *                      in the channel
      * @return List of errata
      */
     public static DataResult<ErrataOverview> findErrataForTarget(
@@ -2467,22 +2467,22 @@ public class ChannelManager extends BaseManager {
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", mode);
 
-        return m.execute(params);         
+        return m.execute(params);
     }
-    
-   
+
+
     /**
-     * Finds errata associated with channels in the "channels_for_errata" rhnSet that  
+     * Finds errata associated with channels in the "channels_for_errata" rhnSet that
      *              apply to a custom channel
      * @param targetChannel the channel to search for
      * @param user the user doing the query
      * @param packageAssoc whether to filter packages on what packages are already
-     *                      in the channel 
+     *                      in the channel
      * @return List of Errata
      */
     public static DataResult<ErrataOverview> findErrataFromRhnSetForTarget(
             Channel targetChannel, boolean packageAssoc, User user) {
-        
+
         String mode;
         if (packageAssoc) {
              mode =  "in_sources_for_target_package_assoc";
@@ -2498,17 +2498,17 @@ public class ChannelManager extends BaseManager {
 
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", mode);
-        
-        return m.execute(params); 
+
+        return m.execute(params);
     }
 
     /**
-     * find available errata from custom base channels and their child channels for a 
+     * find available errata from custom base channels and their child channels for a
      *          particular channel
      * @param targetChannel the channel to target
      * @param packageAssoc whether to filter packages on what packages are already
-     *                      in the channel 
-     *          
+     *                      in the channel
+     *
      * @return List of errata
      */
     public static DataResult<ErrataOverview> findCustomErrataForTarget(
@@ -2527,16 +2527,16 @@ public class ChannelManager extends BaseManager {
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", mode);
 
-        return m.execute(params);         
+        return m.execute(params);
     }
-    
+
     /**
      * Returns a list of compatible packages arches for the given ChannelArch
      * labels. It will NOT tell you which package arch goes with which channel
      * arch, for that you need to load the ChannelArch individually. This
      * methods purpose is for searching packages where we don't actually
      * care what package arch goes with what channel arch we only care what
-     * package arch we should look for. 
+     * package arch we should look for.
      * @param channelArchLabels List of ChannelArch labels.
      * @return list of compatible package arches.
      */
@@ -2558,29 +2558,29 @@ public class ChannelManager extends BaseManager {
 
     /**
      * Returns a distinct list of ChannelArch labels for all synch'd and custom
-     * channels in the satellite. 
+     * channels in the satellite.
      * @return a distinct list of ChannelArch labels for all synch'd and custom
-     * channels in the satellite. 
+     * channels in the satellite.
      */
     public static List<String> getSyncdChannelArches() {
         return ChannelFactory.findChannelArchLabelsSyncdChannels();
     }
     /**
-     * 
+     *
      * @param channelLabel channel label
      * @param client client info
      * @param reason reason for queue
      */
-    public static void queueChannelChange(String channelLabel, String client, 
+    public static void queueChannelChange(String channelLabel, String client,
             String reason) {
         if (client == null) {
             client = "";
         }
-        
+
         if (reason == null) {
             reason = "";
         }
-        
+
         WriteMode m = ModeFactory.getWriteMode("Channel_queries", "request_repo_regen");
         Map params = new HashMap();
         params.put("label", channelLabel);
@@ -2799,7 +2799,7 @@ public class ChannelManager extends BaseManager {
     public static String getRepoLastBuild(Channel channel) {
         String  pathPrefix = Config.get().getString(ConfigDefaults.REPOMD_PATH_PREFIX,
         "rhn/repodata");
-        String mountPoint = Config.get().getString(ConfigDefaults.REPOMD_CACHE_MOUNT_POINT, 
+        String mountPoint = Config.get().getString(ConfigDefaults.REPOMD_CACHE_MOUNT_POINT,
                 "/pub");
         File theFile = new File(mountPoint + File.separator + pathPrefix +
                 File.separator + channel.getLabel() + File.separator +
@@ -2839,10 +2839,10 @@ public class ChannelManager extends BaseManager {
         Collections.sort(possibleList);
         return logPath + possibleList.get(possibleList.size() - 1);
     }
-    
 
-        
-    
+
+
+
     /**
      * Takes a list of child channels and a set label and returns a Map
      *    with system ids as the key and a set ChannelActionDAO's
@@ -2856,7 +2856,7 @@ public class ChannelManager extends BaseManager {
     public static Map<Long, ChannelActionDAO> filterChildSubscriptions(
             String setLabel, List<Channel> subChans, List<Channel> unsubChans, User user) {
         Map<Long, ChannelActionDAO> toRet = new  HashMap<Long, ChannelActionDAO>();
-        
+
         List subCids = new ArrayList();
         for (Channel c : subChans) {
             subCids.add(c.getId());
@@ -2865,11 +2865,11 @@ public class ChannelManager extends BaseManager {
         for (Channel c : unsubChans) {
             unsubCids.add(c.getId());
         }
-        
+
         Map params = new HashMap();
         params.put("uid", user.getId());
         params.put("set_label", setLabel);
-        
+
         SelectMode m = null;
         List<Map> subDr = Collections.EMPTY_LIST;
         List<Map> unsubDr = Collections.EMPTY_LIST;
@@ -2883,8 +2883,8 @@ public class ChannelManager extends BaseManager {
                         "ssm_systems_for_child_unsubscription");
            unsubDr =  m.execute(params, unsubCids);
         }
-        
-        
+
+
         for (Map row : subDr) {
             Long id = (Long) row.get("id");
             ChannelActionDAO sys = toRet.get(id);
@@ -2909,8 +2909,8 @@ public class ChannelManager extends BaseManager {
             }
             sys.addUnsubscribeChannelId((Long) row.get("channel_id"));
             sys.addUnsubcribeName((String) row.get("channel_name"));
-        }        
-        
+        }
+
         return toRet;
     }
 

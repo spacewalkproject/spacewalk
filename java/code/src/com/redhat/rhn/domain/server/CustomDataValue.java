@@ -29,7 +29,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class CustomDataValue implements Serializable {
-    
+
     private Server server;
     private CustomDataKey key;
     private String value;
@@ -122,7 +122,7 @@ public class CustomDataValue implements Serializable {
     public void setValue(String valueIn) {
         this.value = valueIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -134,7 +134,7 @@ public class CustomDataValue implements Serializable {
         return new EqualsBuilder().append(key, castOther.getKey())
                                   .append(server, castOther.getServer()).isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */

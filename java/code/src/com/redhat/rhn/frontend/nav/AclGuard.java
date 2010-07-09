@@ -26,12 +26,12 @@ import java.util.Map;
 public class AclGuard implements RenderGuard {
     private Map context;
     private String mixins;
-    
-    
+
+
     /**
      * Constructor
      * @param ctx Acl Context
-     * @param mixinsIn The string of classnames used to add extra Acl Handlers 
+     * @param mixinsIn The string of classnames used to add extra Acl Handlers
      */
     public AclGuard(Map ctx, String mixinsIn) {
         super();
@@ -46,7 +46,7 @@ public class AclGuard implements RenderGuard {
     public AclGuard(Map ctx) {
         this(ctx, null);
     }
-    
+
     /**
      * Returns true if the acl of the NavNode evaluates to true.
      * Returns false otherwise.
@@ -59,12 +59,12 @@ public class AclGuard implements RenderGuard {
         if (node == null) {
             return true;
         }
-        
+
         String aclStr = node.getAcl();
         if (aclStr == null || "".equals(aclStr)) {
             return true;
         }
-        
+
         Acl acl = AclFactory.getInstance().getAcl(mixins);
         boolean rc = acl.evalAcl(context, aclStr);
         return rc;

@@ -30,7 +30,7 @@ public class SolarisPatchSet {
     private Date setDate;
     private List timestamp;
     private List actionStatus;
-    
+
     /**
      * @return Returns the id.
      */
@@ -73,7 +73,7 @@ public class SolarisPatchSet {
      */
     public List getActionStatus() {
         if (actionStatus == null) {
-            actionStatus = new ArrayList(); 
+            actionStatus = new ArrayList();
         }
         return actionStatus;
     }
@@ -95,7 +95,7 @@ public class SolarisPatchSet {
     public void setTimestamp(List timestampIn) {
         this.timestamp = timestampIn;
     }
-    
+
     /**
      * Get the latest action timestamp for display - i.e., when was
      * the last time an action was attempted for this patch cluster.
@@ -111,10 +111,10 @@ public class SolarisPatchSet {
         if (timestamp.isEmpty()) {
             return "(none)";
         }
-        
+
         return LocalizationService.getInstance().formatDate((Date) timestamp.get(0));
     }
-    
+
     /**
      * Get the latest action status for display - i.e., what is the
      * status of the last action attempted for this patch cluster.
@@ -125,11 +125,11 @@ public class SolarisPatchSet {
         if (actionStatus == null) {
             actionStatus = new ArrayList();
         }
-        
+
         if (actionStatus.isEmpty()) {
             return "(none)";
         }
-        
+
         return actionStatus.get(0).toString();
     }
 }

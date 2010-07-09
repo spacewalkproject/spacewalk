@@ -21,9 +21,9 @@ import com.redhat.rhn.domain.action.Action;
  * @version $Rev$
  */
 public class DaemonConfigAction extends Action {
-    
+
     private DaemonConfigDetails daemonConfigDetails;
-    
+
     /**
      * @return Returns the daemonConfigDetails.
      */
@@ -36,5 +36,5 @@ public class DaemonConfigAction extends Action {
     public void setDaemonConfigDetails(DaemonConfigDetails daemonConfigDetailsIn) {
         this.daemonConfigDetails = daemonConfigDetailsIn;
     }
-    
+
 }

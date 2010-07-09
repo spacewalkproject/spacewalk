@@ -41,53 +41,53 @@ import com.redhat.rhn.testing.UserTestUtils;
  */
 public class CobblerCommandTest extends BaseTestCaseWithUser {
     protected KickstartData ksdata;
-    
+
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        
+
         user = UserTestUtils.createUserInOrgOne();
         user.addRole(RoleFactory.ORG_ADMIN);
         this.ksdata = KickstartDataTest.createKickstartWithDefaultKey(this.user.getOrg());
         this.ksdata.getTree().setBasePath("/opt/repo/f9-x86_64/");
-        
+
         // Uncomment this if you want the tests to actually talk to cobbler
         //Config.get().setString(CobblerXMLRPCHelper.class.getName(),
         //        CobblerXMLRPCHelper.class.getName());
         //Config.get().setString(CobblerConnection.class.getName(),
         //        CobblerConnection.class.getName());
         //commitAndCloseSession();
-        
-        CobblerDistroCreateCommand dcreate = new 
+
+        CobblerDistroCreateCommand dcreate = new
             CobblerDistroCreateCommand(ksdata.getTree(), user);
         dcreate.store();
     }
 
     /*public void testDupSystems() throws Exception {
         Server s = ServerFactory.lookupById(new Long(1000010339));
-        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(user, s, ksdata, 
+        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(user, s, ksdata,
                 "http://localhost/test/path", TestUtils.randomString());
         cmd.store();
     }*/
-    
+
     public void testSystemCreate() throws Exception {
 
         Server s = ServerTestUtils.createTestSystem(user);
         NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(s);
         s.addNetworkInterface(device);
-        
-        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(user, s, ksdata, 
+
+        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(user, s, ksdata,
                     "http://localhost/test/path", TestUtils.randomString());
         cmd.store();
         assertNotNull(s.getCobblerId());
-        
+
         // Ensure we can call it twice.
-        cmd = new CobblerSystemCreateCommand(user, s, ksdata, 
+        cmd = new CobblerSystemCreateCommand(user, s, ksdata,
                 "http://localhost/test/path", TestUtils.randomString());
         cmd.store();
         assertNotNull(s.getCobblerId());
     }
-    
+
     public void testProfileCreate() throws Exception {
         CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(
                 ksdata, user);
@@ -103,7 +103,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         assertNull(cmd.store());
 
         // Now test edit
-        CobblerProfileEditCommand pec = new 
+        CobblerProfileEditCommand pec = new
             CobblerProfileEditCommand(ksdata, user);
         String newName = "some-new-name-" + System.currentTimeMillis();
         ksdata.setLabel(newName);
@@ -122,7 +122,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testDistroCreate() throws Exception {
-        CobblerDistroCreateCommand cmd = new 
+        CobblerDistroCreateCommand cmd = new
             CobblerDistroCreateCommand(ksdata.getTree(), user);
         assertNull(cmd.store());
         assertNotNull(ksdata.getTree().getCobblerObject(user));
@@ -130,15 +130,15 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
                 getKsMeta().get(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE));
     }
 
-    
+
     public void testDistroDelete() throws Exception {
-        CobblerDistroDeleteCommand cmd = new 
+        CobblerDistroDeleteCommand cmd = new
             CobblerDistroDeleteCommand(ksdata.getTree(), user);
         assertNull(cmd.store());
     }
-    
+
     public void testDistroEdit() throws Exception {
-        CobblerDistroEditCommand cmd = new 
+        CobblerDistroEditCommand cmd = new
             CobblerDistroEditCommand(ksdata.getTree(), user);
         String newName = TestUtils.randomString();
         ksdata.getKickstartDefaults().getKstree().setLabel(newName);
@@ -146,7 +146,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         assertNotNull(ksdata.getTree().getCobblerObject(user));
         assertNotNull(ksdata.getTree().getCobblerObject(user).getName());
     }
-    
+
     public void testLogin() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
@@ -156,5 +156,5 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         assertNotNull(cobblertoken);
         assertTrue(cmd.checkToken(cobblertoken));
     }
-    
+
 }

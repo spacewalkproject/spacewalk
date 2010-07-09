@@ -29,17 +29,17 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Renders YourRhn fragment for pending actions
- * 
+ *
  * @version $Rev$
  */
 public class PendingActionsRenderer extends BaseFragmentRenderer {
-    
+
     private static final String SCHEDULED_ACTION_EMPTY = "scheduledActionEmpty";
     private static final String SCHEDULED_ACTION_LIST = "scheduledActionList";
     private static final String SCHEDULED_SHOW_LIST = "showPendingActions";
     /**
      * {@inheritDoc}
-     */    
+     */
     protected void render(User user, PageControl pc, HttpServletRequest request) {
         LocalizationService ls = LocalizationService.getInstance();
         String pendingActionsCSSTable = null;
@@ -49,7 +49,7 @@ public class PendingActionsRenderer extends BaseFragmentRenderer {
             ScheduledAction sa = (ScheduledAction) i.next();
 
             Action action = ActionManager.lookupAction(user, sa.getId());
-            
+
             User schedulerUser = action.getSchedulerUser();
             if (schedulerUser == null) {
                 sa.setUserName("");
@@ -71,25 +71,25 @@ public class PendingActionsRenderer extends BaseFragmentRenderer {
                 buffer.append(' ');
                 buffer.append(ls.getMessage("filter-form.jspf.hours"));
             }
-            sa.setAgeString(buffer.toString()); 
+            sa.setAgeString(buffer.toString());
 
         }
-        
+
         if (padr.isEmpty()) {
-            pendingActionsCSSTable = RendererHelper.makeEmptyTable(false, 
+            pendingActionsCSSTable = RendererHelper.makeEmptyTable(false,
                         "yourrhn.jsp.scheduledactions",
                         "yourrhn.jsp.noactions");
 
         }
-        
+
         request.setAttribute(SCHEDULED_ACTION_EMPTY, pendingActionsCSSTable);
         request.setAttribute(SCHEDULED_ACTION_LIST, padr);
         request.setAttribute(SCHEDULED_SHOW_LIST, Boolean.TRUE);
     }
-    
+
     /**
      * {@inheritDoc}
-     */    
+     */
     protected String getPageUrl() {
         return "/WEB-INF/pages/common/fragments/yourrhn/scheduledActions.jsp";
     }

@@ -21,13 +21,13 @@ import javax.servlet.ServletException;
 
 /**
  * Interface for rendering fragments asynchronously
- * 
+ *
  * @version $Rev$
  */
 public interface FragmentRenderer {
-    
+
     String NEXT_TABLE_STYLE = "next-table-style";
-    
+
     /**
      * Render content, please
      * @return generated content

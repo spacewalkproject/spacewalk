@@ -17,23 +17,23 @@
   <h2><img src="/img/rhn-icon-errata.gif"> <bean:message key="header.jsp.errata"/></h2>
     <bean:message key="channel.jsp.errata.listtitle"/>
 
-    
-    
+
+
     <rl:listset name="errataSet">
-    
+
     <input type="hidden" name="cid" value="${cid}" />
 
     	<rl:list dataset="pageList"
     	         name="errataList"
                 emptykey="channel.jsp.errata.emptylist"
                 filter="com.redhat.rhn.frontend.action.channel.manage.ErrataFilter">
-                
-   
-                 <rl:column sortable="false" 
+
+
+                 <rl:column sortable="false"
                                    bound="false"
-                           headerkey="erratalist.jsp.type"                         
+                           headerkey="erratalist.jsp.type"
                            styleclass="first-column">
-                          
+
 							<c:if test="${current.securityAdvisory}">
 					            <img src="/img/wrh-security.gif"
 					                 alt="<bean:message key='erratalist.jsp.securityadvisory' />"
@@ -48,50 +48,50 @@
 					            <img src="/img/wrh-product.gif"
 					                 alt="<bean:message key='erratalist.jsp.productenhancementadvisory' />"
 					                 title="<bean:message key='erratalist.jsp.productenhancementadvisory' />" />
-					        </c:if>                                         
-                     
-                </rl:column>                  
-                
-                 <rl:column sortable="true" 
+					        </c:if>
+
+                </rl:column>
+
+                 <rl:column sortable="true"
                                    bound="false"
                                    sortattr="advisory"
-                           headerkey="erratalist.jsp.advisory" 
+                           headerkey="erratalist.jsp.advisory"
                           >
-                        <a href="/rhn/errata/details/Details.do?eid=${current.id}">   
+                        <a href="/rhn/errata/details/Details.do?eid=${current.id}">
                         	<c:out value="${current.advisory}" />
                         </a>
-                </rl:column>                     
-                
-                
-                 <rl:column sortable="false" 
+                </rl:column>
+
+
+                 <rl:column sortable="false"
                                    bound="false"
-                           headerkey="erratalist.jsp.synopsis" 
+                           headerkey="erratalist.jsp.synopsis"
                           >
                           <c:out value="${current.advisorySynopsis}" />
-                </rl:column>     
-                                 
-                
-                 <rl:column sortable="true" 
+                </rl:column>
+
+
+                 <rl:column sortable="true"
                                    bound="false"
-                           headerkey="erratalist.jsp.updated" 
+                           headerkey="erratalist.jsp.updated"
                            styleclass="last-column"
                            sortattr="updateDateObj"
-                           defaultsort="desc" 
+                           defaultsort="desc"
                           >
                         ${current.updateDate}
-                </rl:column>                       
-                
-                
+                </rl:column>
+
+
         </rl:list>
-         
+
 	<rl:csv dataset="pageList"
-		        name="packageList" 
-		        exportColumns="id, advisory, advisoryType, advisorySynopsis, updateDate" />         
-        
+		        name="packageList"
+		        exportColumns="id, advisory, advisoryType, advisorySynopsis, updateDate" />
+
     </rl:listset>
     	
     		
-    
+
 </div>
 
 </body>

@@ -29,7 +29,7 @@ public class CobblerProfileDeleteCommand extends CobblerProfileCommand {
 
 
     private static Logger log = Logger.getLogger(CobblerProfileDeleteCommand.class);
-    
+
     /**
      * Constructor
      * @param ksDataIn to sync
@@ -57,7 +57,7 @@ public class CobblerProfileDeleteCommand extends CobblerProfileCommand {
         }
         invokeCobblerUpdate();
         return null;
-        
+
     }
 
 }

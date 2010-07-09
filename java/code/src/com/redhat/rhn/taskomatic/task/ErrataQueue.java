@@ -25,18 +25,18 @@ import org.quartz.JobExecutionException;
 
 /**
  * Manages the pending errata queue
- * 
+ *
  * @version $Rev $
  */
 public class ErrataQueue extends SingleThreadedTestableTask {
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
-     */    
+     */
     public static final String DISPLAY_NAME = "errata_queue";
-    
+
     private static final Logger LOG = Logger.getLogger(ErrataQueue.class);
-    
+
     /**
      * {@inheritDoc}
      */
@@ -56,7 +56,7 @@ public class ErrataQueue extends SingleThreadedTestableTask {
         int maxWorkItems = Config.get().getInt("taskomatic.errata_queue_max_work_items", 2);
         if (queue.getQueueSize() < maxWorkItems) {
             queue.run();
-        }        
+        }
     }
-    
+
 }

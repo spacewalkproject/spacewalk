@@ -492,7 +492,7 @@ public class Package extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object other) {
@@ -509,7 +509,7 @@ public class Package extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {

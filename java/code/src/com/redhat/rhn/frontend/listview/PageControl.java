@@ -29,7 +29,7 @@ public class PageControl extends ListControl {
 
     /** static value for default results per page. */
     public static final int DEFAULT_PER_PAGE = 25;
-    
+
     /**
      * Get the number of entries desired in this list
      * @return Returns the end.
@@ -51,7 +51,7 @@ public class PageControl extends ListControl {
     public void setPageSize(int ps) {
         pageSize = ps;
     }
-    
+
     /**
      * Get the first element in the list
      * @return Returns the start.
@@ -59,7 +59,7 @@ public class PageControl extends ListControl {
     public int getStart() {
         return start;
     }
-    
+
     /**
      * Set the first element in the list must be greater than 0.
      * @param s The start to set greater than 0.

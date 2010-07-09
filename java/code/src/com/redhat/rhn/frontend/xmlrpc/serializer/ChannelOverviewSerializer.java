@@ -25,12 +25,12 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * ChannelOverviewSerializer
  * @version $Rev$
  *
  * @xmlrpc.doc
- * #struct("channel entitlement") 
+ * #struct("channel entitlement")
  *   #prop("string", "label")
  *   #prop("string", "name")
  *   #prop("int", "used_slots")
@@ -41,32 +41,32 @@ import redstone.xmlrpc.XmlRpcSerializer;
 public class ChannelOverviewSerializer implements XmlRpcCustomSerializer {
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Class getSupportedClass() {
         return ChannelOverview.class;
     }
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
-        
+
         ChannelOverview group = (ChannelOverview) value;
-        
+
         helper.add("name", group.getName());
         helper.add("label", group.getLabel());
-        
+
         helper.add("used_slots", group.getCurrentMembers());
-        
+
 
         Long max = group.getMaxMembers();
         if (max == null) {
             helper.add("total_slots", new Integer(0));
-            helper.add("free_slots",  new Integer(0)); 
+            helper.add("free_slots",  new Integer(0));
         }
         else {
             helper.add("total_slots", max);

@@ -22,21 +22,21 @@ import com.redhat.rhn.domain.common.ArchType;
  * @version $Rev$
  */
 public class ServerArch extends AbstractLabelNameHelper {
-    
+
     private ArchType archType;
-    
+
     /**
      * @return Returns the archType.
      */
     public ArchType getArchType() {
         return archType;
     }
-    
+
     /**
      * @param a The archType to set.
      */
     public void setArchType(ArchType a) {
         this.archType = a;
     }
-    
+
 }

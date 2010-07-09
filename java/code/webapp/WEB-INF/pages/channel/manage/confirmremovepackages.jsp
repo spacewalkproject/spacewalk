@@ -33,7 +33,7 @@
 			filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter" >
 
 
-			 <rl:decorator name="ElaborationDecorator"/> 
+			 <rl:decorator name="ElaborationDecorator"/>
 
 			<rl:decorator name="PageSizeDecorator"/>
 
@@ -68,7 +68,7 @@
 	</rl:list>
 	<rl:csv dataset="pageList"
 		        name="packageList"
-		        exportColumns="id, nvrea, summary, provider" /> 
+		        exportColumns="id, nvrea, summary, provider" />
 	<div align="right">
 	  <hr />
 		<input type="submit" name="confirm" value="<bean:message key="channel.jsp.package.confirmbutton"/>" />

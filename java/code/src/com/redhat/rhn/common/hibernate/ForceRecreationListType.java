@@ -29,11 +29,11 @@ import java.util.Map;
 
 /**
  * This is special user collection type that should be used when
- * one wants to force the recreation of a list  
+ * one wants to force the recreation of a list
  * on a Many-Many mapping table. The example case where
- * we are using this 
+ * we are using this
  *
- * Domain Model ->  Many  Servers (s) - Many Config Channels(cc) 
+ * Domain Model ->  Many  Servers (s) - Many Config Channels(cc)
  * rhnServer (s) 1 <-* rhnServerConfigChannel (scc)* -> 1 rhnConfigChannel(cc)
  * s -> (id),  scc ->(server_id, config_channel_id, position ), cc->(id)
  * here we are representing  Server as holding a list of config channels
@@ -42,7 +42,7 @@ import java.util.Map;
  * When saving server, with hibernates default mechanism,
  * the links between the Server & ConfigChannels are not  deleted
  * and remapped from scratch. Instead an "optimization" is done
- * using updates. 
+ * using updates.
  * For eg, if SCC read -> (sid, ccid, position) ->{(2,1,0),(2,2,1),(2,3,2)}
  * And we remove the link for CCID = 1 to end up with  ->{(2,2,1),(2,3,2)}
  * Hibernate achieves this in the following order
@@ -53,15 +53,15 @@ import java.util.Map;
  * This list type will help us achieve that.
  *
  * When you use a list in hbm.xml , to use this collection
- * you must specify <list name="...." 
+ * you must specify <list name="...."
  * collection-type="com.redhat.rhn.common.hibernate.ForceRecreationListType">
  *
  * Note in the above example if (sid, ccid, position) combination as
  * a whole was unique we wouldn't have had to deal with this......
- * but positions can be null twice for the same server, so we 
+ * but positions can be null twice for the same server, so we
  * cannot enforce that constraint..
- * 
- * 
+ *
+ *
  * ForceRecreationListType
  * @version $Rev$
  */
@@ -81,11 +81,11 @@ public class ForceRecreationListType implements UserCollectionType {
     public PersistentCollection wrap(SessionImplementor session,
             Object collection) {
         return new ForceRecreationList(session, (List) collection);
-        
+
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Iterator getElementsIterator(Object collection) {
@@ -93,7 +93,7 @@ public class ForceRecreationListType implements UserCollectionType {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean contains(Object collection, Object entity) {
@@ -101,7 +101,7 @@ public class ForceRecreationListType implements UserCollectionType {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Object indexOf(Object collection, Object entity) {
@@ -115,7 +115,7 @@ public class ForceRecreationListType implements UserCollectionType {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Object replaceElements(Object original, Object target,
@@ -126,7 +126,7 @@ public class ForceRecreationListType implements UserCollectionType {
         result.addAll((Collection) original);
         return result;
     }
-    
+
     /**
      * Instantiates an empty list.  This method will be useful
      * when hibernate 3.2 is added.
@@ -139,7 +139,7 @@ public class ForceRecreationListType implements UserCollectionType {
         }
         return new ArrayList();
     }
-    
+
     /**
      * Returns an ArrayList. Not sure what the heck this is here for.
      * TODO: WHAT IS THIS FOR? 2007-11-8 jesusr
@@ -148,9 +148,9 @@ public class ForceRecreationListType implements UserCollectionType {
     public Object instantiate() {
         return new ArrayList();
     }
-    
+
     /**
-     * 
+     *
      * ForceRecreationList
      * @version $Rev$
      */
@@ -162,7 +162,7 @@ public class ForceRecreationListType implements UserCollectionType {
         private static final long serialVersionUID = -5203696410584457675L;
 
         /**
-         * 
+         *
          * @param session session implementation
          */
         public ForceRecreationList(SessionImplementor session) {
@@ -178,7 +178,7 @@ public class ForceRecreationListType implements UserCollectionType {
         }
 
         /**
-         * 
+         *
          * {@inheritDoc}
          */
         public boolean needsRecreate(CollectionPersister persister) {

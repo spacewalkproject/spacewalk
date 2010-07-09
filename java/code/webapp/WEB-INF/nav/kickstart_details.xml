@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <rhn-navi-tree label="kickstart_detail" invisible="1" formvar="ksid" title-depth="1"
       acl_mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
-  <rhn-tab name="Kickstart Details" acl="user_role(config_admin)" >    
+  <rhn-tab name="Kickstart Details" acl="user_role(config_admin)" >
     <rhn-tab-url>/rhn/kickstart/KickstartDetailsEdit.do</rhn-tab-url>
     <rhn-tab name="Details" >
       <rhn-tab-url>/rhn/kickstart/KickstartDetailsEdit.do</rhn-tab-url>
@@ -12,13 +12,13 @@
     </rhn-tab>
     <rhn-tab name="kickstart.variable.nav" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/EditVariables.do</rhn-tab-url>
-    </rhn-tab>        
+    </rhn-tab>
     <rhn-tab name="Advanced Options" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/KickstartOptionsEdit.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Bare Metal Kickstart" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/KickstartIpRangeEdit.do</rhn-tab-url>
-    </rhn-tab>    
+    </rhn-tab>
   </rhn-tab>
   <rhn-tab name="System Details" acl="user_role(config_admin);profile_is_valid()">
     <rhn-tab-url>/rhn/kickstart/SystemDetailsEdit.do</rhn-tab-url>
@@ -39,16 +39,16 @@
     </rhn-tab>
     <rhn-tab name="Troubleshooting" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/Troubleshooting.do</rhn-tab-url>
-    </rhn-tab>    
+    </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Software" acl="user_role(config_admin);profile_is_valid()" >
     <rhn-tab-url>/rhn/kickstart/KickstartPackagesEdit.do</rhn-tab-url>
     <rhn-tab name="Package Groups">
       <rhn-tab-url>/rhn/kickstart/KickstartPackagesEdit.do</rhn-tab-url>
-    </rhn-tab>  
+    </rhn-tab>
     <rhn-tab name="Package Profiles" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/KickstartPackageProfileEdit.do</rhn-tab-url>
-    </rhn-tab>  
+    </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Activation Keys"  acl="user_role(config_admin);profile_is_valid()">
     <rhn-tab-url>/rhn/kickstart/ActivationKeysList.do</rhn-tab-url>

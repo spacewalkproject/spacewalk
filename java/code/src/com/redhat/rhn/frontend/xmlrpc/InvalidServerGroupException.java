@@ -38,5 +38,5 @@ public class InvalidServerGroupException extends FaultException  {
     public InvalidServerGroupException(Throwable cause) {
         super(2200 , "invalidserverGroup" , "Invalid server group" , cause);
     }
-    
+
 }

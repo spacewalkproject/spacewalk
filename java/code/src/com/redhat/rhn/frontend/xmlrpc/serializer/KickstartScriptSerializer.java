@@ -25,20 +25,20 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * ErrataOverviewSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
  *      #struct("kickstart script")
  *          #prop("int", "id")
  *          #prop("string", "contents")
  *          #prop_desc("string", "script_type", "Which type of script ('pre' or 'post').")
- *          #prop_desc("string", "interpreter", "The scripting language interpreter to use 
- *                      for this script.  An empty string indicates the default kickstart 
+ *          #prop_desc("string", "interpreter", "The scripting language interpreter to use
+ *                      for this script.  An empty string indicates the default kickstart
  *                      shell.")
- *          #prop_desc("boolean", "chroot", "True if the script will be executed within the 
- *                  chroot environment.")                      
+ *          #prop_desc("boolean", "chroot", "True if the script will be executed within the
+ *                  chroot environment.")
  *     #struct_end()
  */
 public class KickstartScriptSerializer implements XmlRpcCustomSerializer {
@@ -46,7 +46,7 @@ public class KickstartScriptSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public Class getSupportedClass() {        
+    public Class getSupportedClass() {
         return KickstartScript.class;
     }
 
@@ -55,28 +55,28 @@ public class KickstartScriptSerializer implements XmlRpcCustomSerializer {
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
-        KickstartScript script = (KickstartScript) value;        
+
+        KickstartScript script = (KickstartScript) value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
         helper.add("id", script.getId());
         helper.add("contents", script.getDataContents());
         helper.add("script_type", script.getScriptType());
-        
+
         if (script.getInterpreter() == null) {
             helper.add("interpreter", "");
         }
         else {
             helper.add("interpreter", script.getInterpreter());
         }
-        
+
         if (script.getChroot().equals("Y")) {
             helper.add("chroot", true);
         }
         else {
             helper.add("chroot", false);
         }
-        
+
         helper.writeTo(output);
     }
 }

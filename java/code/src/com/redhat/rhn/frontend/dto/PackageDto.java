@@ -186,7 +186,7 @@ public class PackageDto extends BaseDto {
 
 
     /**
-     * 
+     *
      * @return Returns the checksum
      */
     public String getChecksum() {
@@ -194,7 +194,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param checksumIn The checksum to set
      */
     public void setChecksum(String checksumIn) {
@@ -218,7 +218,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the summary.
      */
     public String getSummary() {
@@ -226,7 +226,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param summaryIn The summary to set.
      */
     public void setSummary(String summaryIn) {
@@ -234,7 +234,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the description
      */
     public String getDescription() {
@@ -242,7 +242,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param descriptionIn The description to set.
      */
     public void setDescription(String descriptionIn) {
@@ -250,7 +250,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the buildtime.
      */
     public Date getBuildTime() {
@@ -258,7 +258,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param buildTimeIn The buildTime to set.
      */
     public void setBuildTime(Date buildTimeIn) {
@@ -266,7 +266,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the package size
      */
     public Long getPackageSize() {
@@ -274,7 +274,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param packageSizeIn The packagesize to set.
      */
     public void setPackageSize(Long packageSizeIn) {
@@ -282,7 +282,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the payload size
      */
     public Long getPayloadSize() {
@@ -290,7 +290,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param payloadSizeIn The payload size to set.
      */
     public void setPayloadSize(Long payloadSizeIn) {
@@ -298,7 +298,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the path
      */
     public String getPath() {
@@ -306,7 +306,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param pathIn The path to set.
      */
     public void setPath(String pathIn) {
@@ -314,7 +314,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the copyright
      */
     public String getCopyright() {
@@ -322,7 +322,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param copyrightIn The copyright info to set
      */
     public void setCopyright(String copyrightIn) {
@@ -330,7 +330,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the vendor
      */
     public String getVendor() {
@@ -338,7 +338,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param vendorIn The vendor to set.
      */
     public void setVendor(String vendorIn) {
@@ -346,7 +346,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the packageGroupName
      */
     public String getPackageGroupName() {
@@ -354,7 +354,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param packageGroupNameIn The packageGroupName to set
      */
     public void setPackageGroupName(String packageGroupNameIn) {
@@ -362,7 +362,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the build host
      */
     public String getBuildHost() {
@@ -370,7 +370,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param buildHostIn The buildHost to set
      */
     public void setBuildHost(String buildHostIn) {
@@ -378,7 +378,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the sourceRPM
      */
     public String getSourceRpm() {
@@ -386,7 +386,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param sourceRpmIn The sourceRpm to set.
      */
     public void setSourceRpm(String sourceRpmIn) {
@@ -394,7 +394,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the package HeaderStart
      */
     public Long getHeaderStart() {
@@ -402,7 +402,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param headerStartIn The package HeaderStart to set.
      */
     public void setHeaderStart(Long headerStartIn) {
@@ -410,7 +410,7 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Returns the package HeaderEnd
      */
     public Long getHeaderEnd() {
@@ -418,14 +418,14 @@ public class PackageDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param headerEndIn The package HeaderEnd to set.
      */
     public void setHeaderEnd(Long headerEndIn) {
         this.headerEnd = headerEndIn;
     }
 
-    
+
     /**
      * @return Returns the primaryXml.
      */
@@ -440,7 +440,7 @@ public class PackageDto extends BaseDto {
     public String getPrimaryXml() {
         return transformXml(primaryXml);
     }
-    
+
     /**
      * @param blobIn The primaryXml to set.
      */
@@ -448,14 +448,14 @@ public class PackageDto extends BaseDto {
         this.primaryXml =  blobIn;
     }
 
-    
+
     /**
      * @return Returns the otherXml.
      */
     public Blob getOtherBlob() {
         return otherXml;
     }
-    
+
     /**
      * Get the other repodata uncompressed
      * @return the other xml
@@ -464,15 +464,15 @@ public class PackageDto extends BaseDto {
         return transformXml(otherXml);
     }
 
-    
+
     /**
      * @param blobIn The otherXml to set.
      */
     public void setOtherXml(Blob blobIn) {
-        this.otherXml = blobIn; 
+        this.otherXml = blobIn;
     }
 
-    
+
     /**
      * @return Returns the filelistXml.
      */
@@ -487,7 +487,7 @@ public class PackageDto extends BaseDto {
     public String getFilelistXml() {
         return transformXml(filelistXml);
     }
-    
+
     /**
      * @param blobIn The filelistXml to set.
      */

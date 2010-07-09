@@ -16,7 +16,7 @@ package com.redhat.rhn.domain.channel;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
 /**
- * 
+ *
  * @version $Rev $
  *
  */
@@ -27,7 +27,7 @@ public class Comps extends BaseDomainHelper {
     private Channel channel;
 
     /**
-     * 
+     *
      * @return Returns Id
      */
     public Long getId() {
@@ -35,7 +35,7 @@ public class Comps extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * @param idIn The Id to set.
      */
     public void setId(Long idIn) {
@@ -43,7 +43,7 @@ public class Comps extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * @return Returns Relative filename
      */
     public String getRelativeFilename() {
@@ -51,7 +51,7 @@ public class Comps extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * @param relativeFilenameIn The filename to set.
      */
     public void setRelativeFilename(String relativeFilenameIn) {
@@ -59,7 +59,7 @@ public class Comps extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * @param channelIn The channel to set.
      */
     public void setChannel(Channel channelIn) {
@@ -67,7 +67,7 @@ public class Comps extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * @return Returns channel object
      */
     public Channel getChannel() {

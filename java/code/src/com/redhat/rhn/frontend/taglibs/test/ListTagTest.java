@@ -37,7 +37,7 @@ import javax.servlet.jsp.tagext.Tag;
  * @version $Rev$
  */
 public class ListTagTest extends RhnBaseTestCase {
-    
+
     public void testConstructor() {
         ListTag lt = new ListTag();
         assertNotNull(lt);
@@ -46,28 +46,28 @@ public class ListTagTest extends RhnBaseTestCase {
 
     public void testLegends() throws Exception {
         ListTag lt = new ListTag();
-        
+
         TagTestHelper tth = TagTestUtils.setupTagTest(lt, new URL("http://localhost/"));
         MockPageContext pc = tth.getPageContext();
         RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
-       
+
         pc.setRequest(request);
         lt.setPageContext(pc);
-        
+
         //test null
         lt.setLegend(null);
         lt.setNoDataText("none.message");
         pc.getRequest().setAttribute("legends", null);
         lt.doStartTag();
         assertNull(pc.getRequest().getAttribute("legends"));
-        
+
         //test 1
         lt.setLegend("yankee");
         lt.setNoDataText("none.message");
         pc.getRequest().setAttribute("legends", "");
         lt.doStartTag();
         assertEquals("yankee", pc.getRequest().getAttribute("legends"));
-        
+
         //test > 1
         lt.setLegend("foxtrot");
         lt.setNoDataText("none.message");
@@ -75,23 +75,23 @@ public class ListTagTest extends RhnBaseTestCase {
         lt.doStartTag();
         assertEquals("yankee,hotel,foxtrot", pc.getRequest().getAttribute("legends"));
     }
-    
+
     public void testTagNoOutput() throws Exception {
         ListTag lt = new ListTag();
         // This is a hack, but I just need an empty list, and this works.
         SelectMode m = ModeFactory.getMode("test_queries", "user_tables");
         DataResult dr = m.execute(new HashMap());
         dr = (DataResult)dr.subList(0, 0);
-        
+
         lt.setPageList(dr);
         lt.setNoDataText("cant have spaces");
         TagTestHelper tth = TagTestUtils.setupTagTest(lt, new URL("http://localhost/"));
-        
+
         try {
             // setup mock objects
             MockJspWriter out = (MockJspWriter) tth.getPageContext().getOut();
             out.setExpectedData("<div class=\"list-empty-message\">do spaces work?</div>");
-            
+
             // ok let's test the tag
             tth.assertDoStartTag(Tag.SKIP_BODY);
             out.verify();
@@ -107,16 +107,16 @@ public class ListTagTest extends RhnBaseTestCase {
         SelectMode m = ModeFactory.getMode("test_queries", "user_tables");
         DataResult dr = m.execute(new HashMap());
         dr = (DataResult)dr.subList(0, 1);
-        
+
         lt.setPageList(dr);
         lt.setNoDataText("No Data.");
         TagTestHelper tth = TagTestUtils.setupTagTest(lt, new URL("http://localhost/"));
-        
+
         try {
             // setup mock objects
             MockJspWriter out = (MockJspWriter) tth.getPageContext().getOut();
             out.setExpectedData("");
-            
+
             // ok let's test the tag
             tth.assertDoStartTag(Tag.EVAL_BODY_INCLUDE);
             out.verify();
@@ -125,19 +125,19 @@ public class ListTagTest extends RhnBaseTestCase {
             fail(e.toString());
         }
     }
-    
+
     public void testNullPageList() throws Exception {
         ListTag lt = new ListTag();
-      
+
         lt.setPageList(null);
         lt.setNoDataText("No Data.");
         TagTestHelper tth = TagTestUtils.setupTagTest(lt, new URL("http://localhost/"));
-        
+
         try {
             // setup mock objects
             MockJspWriter out = (MockJspWriter) tth.getPageContext().getOut();
             out.setExpectedData("<div class=\"list-empty-message\">**No Data.**</div>");
-            
+
             // ok let's test the tag
             tth.assertDoStartTag(Tag.SKIP_BODY);
             out.verify();

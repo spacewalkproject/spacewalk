@@ -24,12 +24,12 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * 
+ *
  * ConfigChannelListProcessor
  * @version $Rev$
  */
 public class ConfigChannelListProcessor {
-    
+
     private void check(ConfigChannel cc) {
         if (cc == null) {
             String msg = "Trying to add an invalid value to the channels list";
@@ -38,18 +38,18 @@ public class ConfigChannelListProcessor {
         else if (!cc.isGlobalChannel()) {
             String msg = "Trying to add/subscribe a NON-CENTRALLY" +
                           "-MANAGED Channel to a central channels list.";
-            throw new IllegalArgumentException(msg);            
+            throw new IllegalArgumentException(msg);
         }
     }
-    
+
     private void checkRank(int rank) {
         if (rank < 0) {
             String msg = "Invalid value for a position, position must be >= 0.";
             throw new IllegalArgumentException(msg);
         }
-        
+
     }
-    
+
 
     /**
      * Adds a configuration channel to an activation key, giving it the
@@ -60,51 +60,51 @@ public class ConfigChannelListProcessor {
      */
     public void add(List cfgChannels, ConfigChannel cc) {
         add(cfgChannels, cc, cfgChannels.size());
-    }    
-    
+    }
+
     /**
      * Adds a channel to an activation key at the given position
      * @param cfgChannels the base channel list to which
-     *                          the new channel will be inserted at the given rank 
+     *                          the new channel will be inserted at the given rank
      * @param cc the channel to subscribe
      * @param rank the positon/ranking of the channel in the system list,
-     *                  must be > 0               
+     *                  must be > 0
      */
-    
+
     public void add(List cfgChannels, ConfigChannel cc, int rank) {
         check(cc);
         checkRank(rank);
         cfgChannels.remove(cc);
-        
+
         if (rank < cfgChannels.size()) {
-            cfgChannels.add(rank, cc);    
+            cfgChannels.add(rank, cc);
         }
         else {
-            cfgChannels.add(cc);   
+            cfgChannels.add(cc);
         }
     }
-    
+
     /**
-     * Assumption here is that the security aspect 
+     * Assumption here is that the security aspect
      *  of this the list removal is already taken care of
      *  i.e make sure that the user has the authority to remove
-     *  these channels before embarking on it..   
-     * @param cfgChannels the config channels list from whom the 
-     *                    given channel will be removed..                   
+     *  these channels before embarking on it..
+     * @param cfgChannels the config channels list from whom the
+     *                    given channel will be removed..
      * @param cc the ConfigChannel to remove
      * @return returns true if the remove operation succeded
      */
     public boolean remove(List cfgChannels, ConfigChannel cc) {
         return cfgChannels.remove(cc);
     }
-    
+
     /**
-     * Assumption here is that the security aspect 
+     * Assumption here is that the security aspect
      *  of this the list removal is already taken care of
      *  i.e make sure that the user has the authority to remove
-     *  these channels before embarking on it..   
-     * @param cfgChannels the config channels list from whom the 
-     *                    given channel will be removed..                   
+     *  these channels before embarking on it..
+     * @param cfgChannels the config channels list from whom the
+     *                    given channel will be removed..
      * @param channelsToRemove the list of ConfigChannels to remove
      * @return returns true if the remove operation succeded
      */
@@ -115,33 +115,33 @@ public class ConfigChannelListProcessor {
         }
         return success;
     }
-    
-    
+
+
     /**
      * Removes all the  config channels associated
      * to this server.
-     * Assumption here is that the security aspect 
+     * Assumption here is that the security aspect
      *  of this the list removal is already taken care of
      *  i.e make sure that the user has the authority to clear
-     *  these channels before embarking on it..  
+     *  these channels before embarking on it..
      * @param cfgChannels the config channels list that'll be cleared.
      */
     public void clear(List cfgChannels) {
-            cfgChannels.clear();    
+            cfgChannels.clear();
     }
-    
+
     /**
-     * Replaces the list of the config channels 
+     * Replaces the list of the config channels
      * with the a new set of listings
      * this is done so that if a customer
      * provides , n channels and says these should be
      * by rankings, it should work...
-     * Assumption here is that the security aspect 
+     * Assumption here is that the security aspect
      *  of this the list removal is already taken care of
      *  i.e make sure that the user has the authority to replace
      *  these channels before embarking on it..
      *  @param oldChannels existing channels that'd be replace
-     *  @param newChannels the contents of the new channels  
+     *  @param newChannels the contents of the new channels
      */
     public void replace(List<ConfigChannel> oldChannels, List<ConfigChannel> newChannels) {
         clear(oldChannels);
@@ -149,11 +149,11 @@ public class ConfigChannelListProcessor {
             add(oldChannels, chan);
         }
     }
-    
+
     /**
-     * Checks whether a user has the permission to 
-     * work with a list of ConfigChannels and raises an 
-     * LookupException  if the given user does NOT have access 
+     * Checks whether a user has the permission to
+     * work with a list of ConfigChannels and raises an
+     * LookupException  if the given user does NOT have access
      * to all the channels
      * @param user the user object to check for checking access
      * @param cfgChannels the list of channels to search on.
@@ -169,9 +169,9 @@ public class ConfigChannelListProcessor {
                 e.setLocalizedTitle(ls.getMessage("lookup.configchan.title"));
                 e.setLocalizedReason1(ls.getMessage("lookup.configchan.reason1"));
                 e.setLocalizedReason2(ls.getMessage("lookup.configchan.reason2"));
-                throw e;                
+                throw e;
             }
         }
     }
-    
+
 }

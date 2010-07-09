@@ -29,7 +29,7 @@ public class UserData {
     public void setTableCount(Long ci) {
         tableCount = ci;
     }
-    
+
     public void setUsername(String tn) {
         username = tn;
     }
@@ -37,25 +37,25 @@ public class UserData {
     public void setCreated(Date tn) {
         created = tn;
     }
-    
+
     public Long getTableCount() {
         return tableCount;
     }
-    
+
     public Long getUserId() {
         return userId;
     }
-    
+
     public String getUsername() {
         return username;
     }
-    
+
     public Date getCreated() {
         return created;
     }
 
     public String toString() {
-        return " username: " + username + " userId: " + userId + 
+        return " username: " + username + " userId: " + userId +
                " tableCount: " + tableCount + " created: " + created;
     }
 }

@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * SessionStatusAction 
+ * SessionStatusAction
  * @version $Rev: 1 $
  */
 public class SessionStatusAction extends RhnAction {
@@ -53,35 +53,35 @@ public class SessionStatusAction extends RhnAction {
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         RequestContext ctx = new RequestContext(request);
-        
-     
-        
+
+
+
         User currentUser = ctx.getCurrentUser();
         Server s = ServerFactory.lookupByIdAndOrg(ctx.getRequiredParam(RequestContext.SID),
                 currentUser.getOrg());
         request.setAttribute(RequestContext.SYSTEM, s);
         KickstartSession kss = KickstartFactory.lookupKickstartSessionByServer(s.getId());
-        
+
         // Add the history items as "TRUE" values
-        // to the request so the display can render or not 
+        // to the request so the display can render or not
         // if this status has occurred.
         Iterator i = kss.getHistory().iterator();
         while (i.hasNext()) {
             KickstartSessionHistory hist = (KickstartSessionHistory) i.next();
             request.setAttribute(hist.getState().getLabel(), Boolean.TRUE);
         }
-        
+
         request.setAttribute(RequestContext.KICKSTART_SESSION, kss);
         request.setAttribute(RequestContext.KICKSTART, kss.getKsdata());
 
-        // When kickstarting guests, we will display some special information 
+        // When kickstarting guests, we will display some special information
         // for debugging if things are taking too long:
         String stateDesc = null;
         if (kss.getVirtualizationType().getLabel().equals(
                 KickstartVirtualizationType.XEN_PARAVIRT)) {
 
             String ksStateLabel = kss.getState().getLabel();
-            
+
             // Only display the time-out message if the kickstart is in the
             // STARTED or IN_PROGRESS phase.
             if (ksStateLabel.equals(KickstartSessionState.STARTED) ||
@@ -94,7 +94,7 @@ public class SessionStatusAction extends RhnAction {
                 long timeoutMillis = GUEST_TIME_OUT_MINUTES * // minutes
                                      60                     * // seconds
                                      1000;                    // millis
-                
+
                 // check timout and file requested time is current
                 long sinceLastFileRequestMillis = nowMillis - lastFileRequestMillis;
 
@@ -102,7 +102,7 @@ public class SessionStatusAction extends RhnAction {
                     long sinceMinutes = sinceLastFileRequestMillis / // millis
                                         1000        / // seconds
                                         60;           // minutes
-                    stateDesc = 
+                    stateDesc =
                         LocalizationService.getInstance().getMessage(
                             "kickstart.state.guesttimedout",
                                                 sinceMinutes);

@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class VisibleSystemsListAction extends RhnSetAction {
 
-    /** 
+    /**
      * Normally the select all should clear the set and replace it with
      * the current dataresult.  However, we are touching the SSM here, and
      * therefore it would be nice to simply add to the set everything in the
@@ -57,15 +57,15 @@ public class VisibleSystemsListAction extends RhnSetAction {
                                    ActionForm formIn,
                                    HttpServletRequest request,
                                    HttpServletResponse response) {
-        
-        User user = new RequestContext(request).getLoggedInUser(); 
-        
+
+        User user = new RequestContext(request).getLoggedInUser();
+
         //Get a DataResult containing all of the user's systems
-        DataResult dr = getDataResult(user, formIn, request); 
-        
+        DataResult dr = getDataResult(user, formIn, request);
+
         //Get the old set
         RhnSet rs = getSetDecl().get(user);
-        
+
         /*
          * Loop through all items in the DataResult and
          * add each item to the set.
@@ -77,17 +77,17 @@ public class VisibleSystemsListAction extends RhnSetAction {
                 dto.addToSet(rs);
             }
         }
-        
+
         RhnSetManager.store(rs);
         Map params = makeParamMap(formIn, request);
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         //user is logged in user, but we care about target user
         Long uid = new RequestContext(request).getRequiredParam("uid");
@@ -106,8 +106,8 @@ public class VisibleSystemsListAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         params.put("uid", new RequestContext(request).getParamAsLong("uid"));
     }

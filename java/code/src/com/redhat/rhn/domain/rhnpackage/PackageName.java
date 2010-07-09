@@ -64,7 +64,7 @@ public class PackageName implements Comparable<PackageName> {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object other) {
@@ -79,7 +79,7 @@ public class PackageName implements Comparable<PackageName> {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {

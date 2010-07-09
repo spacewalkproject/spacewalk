@@ -63,13 +63,13 @@ import redstone.xmlrpc.XmlRpcFault;
  * @version $Rev$
  */
 public class ErrataSearchAction extends RhnAction {
-    
+
     private static Logger log = Logger.getLogger(ErrataSearchAction.class);
     private static final String OPT_ADVISORY = "errata_search_by_advisory";
     private static final String OPT_PKG_NAME = "errata_search_by_package_name";
     private static final String OPT_CVE = "errata_search_by_cve";
     private static final String OPT_ALL_FIELDS = "errata_search_by_all_fields";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -81,7 +81,7 @@ public class ErrataSearchAction extends RhnAction {
         Map forwardParams = makeParamMap(request);
         String searchString = request.getParameter("search_string");
         String viewMode = form.getString("view_mode");
-           
+
         try {
             // handle setup, the submission setups the searchstring below
             // and redirects to this page which then performs the search.
@@ -139,40 +139,40 @@ public class ErrataSearchAction extends RhnAction {
                 forwardParams.put(name, request.getParameter(name));
             }
         }
-        
+
         forwardParams.put("search_string", searchString);
         forwardParams.put("view_mode", viewMode);
-        
+
         if (!errors.isEmpty()) {
             addErrors(request, errors);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"), 
+                    mapping.findForward("default"),
                     forwardParams);
         }
-        
+
         return getStrutsDelegate().forwardParams(
-                mapping.findForward("success"), 
+                mapping.findForward("success"),
                 forwardParams);
     }
-    
+
     private void setupForm(HttpServletRequest request, DynaActionForm form)
         throws MalformedURLException, XmlRpcFault {
         RequestContext ctx = new RequestContext(request);
-        
+
         String search = request.getParameter("search_string");
         String viewmode = request.getParameter("view_mode");
-        
+
         List searchOptions = new ArrayList();
         // setup the option list for select box (view_mode).
         addOption(searchOptions, "errata_search_by_all_fields", OPT_ALL_FIELDS);
         addOption(searchOptions, "errata_search_by_advisory", OPT_ADVISORY);
         addOption(searchOptions, "errata_search_by_package_name", OPT_PKG_NAME);
         addOption(searchOptions, "errata_search_by_cve", OPT_CVE);
-        
+
         request.setAttribute("search_string", search);
         request.setAttribute("view_mode", viewmode);
         request.setAttribute("searchOptions", searchOptions);
-        
+
         // Process the dates, default the start date to yesterday
         // and end date to today.
         Calendar today = Calendar.getInstance();
@@ -193,16 +193,16 @@ public class ErrataSearchAction extends RhnAction {
         /*
          * If search/viewmode aren't null, we need to search and set
          * pageList to the resulting DataResult.
-         * 
-         * NOTE:  There is a special case when called from rhn/Search.do 
+         *
+         * NOTE:  There is a special case when called from rhn/Search.do
          * (header search bar)
-         * that we will be coming into this action and running the 
-         * performSearch on the first run through this action, i.e. 
-         * we'll never have been called with search being blank, 
+         * that we will be coming into this action and running the
+         * performSearch on the first run through this action, i.e.
+         * we'll never have been called with search being blank,
          * therefore normal setup of the form vars will not have happened.
          */
         if (!StringUtils.isBlank(search) || dateSearch) {
-            // If doing a dateSearch use the DatePicker values from the 
+            // If doing a dateSearch use the DatePicker values from the
             // request params otherwise use the defaults.
             dates = picker.processDatePickers(dateSearch);
             if (log.isDebugEnabled()) {
@@ -212,7 +212,7 @@ public class ErrataSearchAction extends RhnAction {
             }
             List results = performSearch(request, ctx.getWebSession().getId(),
                     search, viewmode, form);
-            
+
             log.warn("GET search: " + results);
             request.setAttribute("pageList",
                     results != null ? results : Collections.EMPTY_LIST);
@@ -243,7 +243,7 @@ public class ErrataSearchAction extends RhnAction {
         ActionMessages dateErrors = dates.getErrors();
         addErrors(request, dateErrors);
     }
-    
+
     /**
      * Utility function to create options for the dropdown.
      * @param options list containing all options.
@@ -257,7 +257,7 @@ public class ErrataSearchAction extends RhnAction {
         selection.put("value", value);
         options.add(selection);
     }
-    
+
     private List performSearch(HttpServletRequest request, Long sessionId,
             String searchString, String mode, DynaActionForm formIn)
         throws XmlRpcFault, MalformedURLException {
@@ -337,7 +337,7 @@ public class ErrataSearchAction extends RhnAction {
         // need to make the search server results usable by database
         // so we can get the actual results we are to display to the user.
         // also save the items into a Map for lookup later.
-        
+
         List<Long> ids = new ArrayList<Long>();
         Map<Long, Integer> lookupmap = new HashMap<Long, Integer>();
         // do it in reverse because the search server can return more than one
@@ -352,7 +352,7 @@ public class ErrataSearchAction extends RhnAction {
             Long id = new Long((String)item.get("id"));
             ids.add(id);
         }
-        
+
         // The database does not maintain the order of the where clause.
         // In order to maintain the ranking from the search server, we
         // need to reorder the database results to match. This will lead
@@ -407,7 +407,7 @@ public class ErrataSearchAction extends RhnAction {
         if (OPT_PKG_NAME.equals(mode)) {
             return filtered;
         }
-        
+
         // Using a lookup map created from the results returned by search server.
         // The issue is that the search server returns us a list in a order which is
         // relevant to score the object received from the search.
@@ -437,14 +437,14 @@ public class ErrataSearchAction extends RhnAction {
                     break;
                 }
             }
-            
+
             if (!added) {
                 ordered.add(eo);
             }
         }
         return ordered;
     }
-    
+
     private List<ErrataOverview> filterByIssueDate(List<ErrataOverview> unfiltered,
             Date startDate, Date endDate) {
         if (log.isDebugEnabled()) {

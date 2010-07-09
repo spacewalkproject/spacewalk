@@ -34,165 +34,165 @@ public class SatCluster {
     private String deployed;
     private String pemPublicKey;
     private String pemPublicKeyHash;
-    
+
     private PhysicalLocation physicalLocation;
     private Org org;
     private CommandTarget commandTarget;
-    
-    /** 
-     * Getter for id 
+
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for targetType 
+    /**
+     * Getter for targetType
      * @return String to get
     */
     public String getTargetType() {
         return this.targetType;
     }
 
-    /** 
-     * Setter for targetType 
+    /**
+     * Setter for targetType
      * @param targetTypeIn to set
     */
     public void setTargetType(String targetTypeIn) {
         this.targetType = targetTypeIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
 
-    /** 
-     * Getter for lastUpdateUser 
+    /**
+     * Getter for lastUpdateUser
      * @return String to get
     */
     public String getLastUpdateUser() {
         return this.lastUpdateUser;
     }
 
-    /** 
-     * Setter for lastUpdateUser 
+    /**
+     * Setter for lastUpdateUser
      * @param lastUpdateUserIn to set
     */
     public void setLastUpdateUser(String lastUpdateUserIn) {
         this.lastUpdateUser = lastUpdateUserIn;
     }
 
-    /** 
-     * Getter for lastUpdateDate 
+    /**
+     * Getter for lastUpdateDate
      * @return Date to get
     */
     public Date getLastUpdateDate() {
         return this.lastUpdateDate;
     }
 
-    /** 
-     * Setter for lastUpdateDate 
+    /**
+     * Setter for lastUpdateDate
      * @param lastUpdateDateIn to set
     */
     public void setLastUpdateDate(Date lastUpdateDateIn) {
         this.lastUpdateDate = lastUpdateDateIn;
     }
 
-    /** 
-     * Getter for publicKey 
+    /**
+     * Getter for publicKey
      * @return String to get
     */
     public String getPublicKey() {
         return this.publicKey;
     }
 
-    /** 
-     * Setter for publicKey 
+    /**
+     * Setter for publicKey
      * @param publicKeyIn to set
     */
     public void setPublicKey(String publicKeyIn) {
         this.publicKey = publicKeyIn;
     }
 
-    /** 
-     * Getter for vip 
+    /**
+     * Getter for vip
      * @return String to get
     */
     public String getVip() {
         return this.vip;
     }
 
-    /** 
-     * Setter for vip 
+    /**
+     * Setter for vip
      * @param vipIn to set
     */
     public void setVip(String vipIn) {
         this.vip = vipIn;
     }
 
-    /** 
-     * Getter for deployed 
+    /**
+     * Getter for deployed
      * @return String to get
     */
     public String getDeployed() {
         return this.deployed;
     }
 
-    /** 
-     * Setter for deployed 
+    /**
+     * Setter for deployed
      * @param deployedIn to set
     */
     public void setDeployed(String deployedIn) {
         this.deployed = deployedIn;
     }
 
-    /** 
-     * Getter for pemPublicKey 
+    /**
+     * Getter for pemPublicKey
      * @return String to get
     */
     public String getPemPublicKey() {
         return this.pemPublicKey;
     }
 
-    /** 
-     * Setter for pemPublicKey 
+    /**
+     * Setter for pemPublicKey
      * @param pemPublicKeyIn to set
     */
     public void setPemPublicKey(String pemPublicKeyIn) {
         this.pemPublicKey = pemPublicKeyIn;
     }
 
-    /** 
-     * Getter for pemPublicKeyHash 
+    /**
+     * Getter for pemPublicKeyHash
      * @return String to get
     */
     public String getPemPublicKeyHash() {
         return this.pemPublicKeyHash;
     }
 
-    /** 
-     * Setter for pemPublicKeyHash 
+    /**
+     * Setter for pemPublicKeyHash
      * @param pemPublicKeyHashIn to set
     */
     public void setPemPublicKeyHash(String pemPublicKeyHashIn) {

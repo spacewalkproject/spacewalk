@@ -9,12 +9,12 @@
 <html>
     <head>
         <script language="javascript">
-        Event.observe(window, 'load', 
+        Event.observe(window, 'load',
             function() {
                 issueDateSearchOptions();
             });
 
-        function issueDateSearchOptions() {     
+        function issueDateSearchOptions() {
             if ($("issueDateOptionsCheckBox").checked) {
                 Element.show("issueDateOptions");
             } else {
@@ -29,14 +29,14 @@
                helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp#s2-sm-errata-search"
                imgAlt="search.alt.img">
     <bean:message key="erratasearch.jsp.toolbar"/>
-  </rhn:toolbar> 
+  </rhn:toolbar>
 
   <p><bean:message key="erratasearch.jsp.summary"/></p>
-  
+
   <p><bean:message key="erratasearch.jsp.instructions"/></p>
-  
+
   <html:form action="/errata/Search.do">
-  
+
   <!-- Search Box -->
    <div class="search-choices">
 
@@ -139,18 +139,18 @@
 
       <rl:decorator name="PageSizeDecorator"/>
 
-      <rl:column bound="false" sortable="true" sortattr="securityAdvisory" 
+      <rl:column bound="false" sortable="true" sortattr="securityAdvisory"
         headerkey="erratalist.jsp.type" styleclass="first-column">
 		<c:if test="${current.securityAdvisory}">
-		  <img src="/img/wrh-security.gif" 
+		  <img src="/img/wrh-security.gif"
 		       title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
 		</c:if>
 		<c:if test="${current.bugFix}">
-		  <img src="/img/wrh-bug.gif" 
+		  <img src="/img/wrh-bug.gif"
 		       title="<bean:message key="erratalist.jsp.bugadvisory"/>" />
 		</c:if>
 		<c:if test="${current.productEnhancement}">
-		  <img src="/img/wrh-product.gif" 
+		  <img src="/img/wrh-product.gif"
 		       title="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
 		</c:if>
       </rl:column>
@@ -162,7 +162,7 @@
       <c:choose>
         <c:when test="${view_mode == 'errata_search_by_all_fields'}">
           <%-- If this is a simple_errata_search, we display the synopsis column --%>
-          <rl:column bound="false" sortable="true" 
+          <rl:column bound="false" sortable="true"
             sortattr="advisorySynopsis" headerkey="erratalist.jsp.synopsis">
             <rhn:highlight tag="strong" text="${search_string}">
               ${current.advisorySynopsis}
@@ -174,7 +174,7 @@
               If this is a errata_search_by_advisory, we display the synopsis
 	          column, but call it Errata Advisory
 	      --%>
-	      <rl:column bound="false" sortable="true" sortattr="advisorySynopsis" 
+	      <rl:column bound="false" sortable="true" sortattr="advisorySynopsis"
 	           headerkey="erratasearch.jsp.errata_advisory">
             <rhn:highlight tag="strong" text="${search_string}">
               ${current.advisorySynopsis}
@@ -224,7 +224,7 @@
           </rl:column>
         </c:when>
       </c:choose>
-      <rl:column bound="false" sortable="true" headerkey="erratalist.jsp.issueDate" 
+      <rl:column bound="false" sortable="true" headerkey="erratalist.jsp.issueDate"
         sortattr="issueDateObj" styleclass="last-column">
             ${current.issueDate}
       </rl:column>

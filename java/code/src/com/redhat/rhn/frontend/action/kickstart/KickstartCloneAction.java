@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public class KickstartCloneAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public final ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
@@ -53,22 +53,22 @@ public class KickstartCloneAction extends RhnAction {
                                   HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext ctx = new RequestContext(request);
-        
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
-        KickstartCloneCommand cmd = 
-            new KickstartCloneCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID), 
-                ctx.getCurrentUser(), form.getString(FormActionContstants.LABEL)); 
-               
+
+        KickstartCloneCommand cmd =
+            new KickstartCloneCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
+                ctx.getCurrentUser(), form.getString(FormActionContstants.LABEL));
+
         request.setAttribute(RequestContext.KICKSTART, cmd.getKickstartData());
 
         if (isSubmitted(form)) {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
-                    this, form);            
-           
+                    this, form);
+
             if (!errors.isEmpty()) {
                 strutsDelegate.saveMessages(request, errors);
-            } 
+            }
             else {
                 String label = form.getString("label");
                 KickstartBuilder builder = new KickstartBuilder(ctx.getLoggedInUser());
@@ -81,15 +81,15 @@ public class KickstartCloneAction extends RhnAction {
                         ValidatorError[] verr = {ve};
                         strutsDelegate.saveMessages(request,
                                 RhnValidationHelper.validatorErrorToActionErrors(verr));
-                    } 
+                    }
                     else {
                         createSuccessMessage(request, "kickstart.clone.success", null);
-                        request.setAttribute(RequestContext.KICKSTART, 
+                        request.setAttribute(RequestContext.KICKSTART,
                                 cmd.getClonedKickstart());
                         Map params = new HashMap();
-                        params.put(RequestContext.KICKSTART_ID, 
+                        params.put(RequestContext.KICKSTART_ID,
                                 cmd.getClonedKickstart().getId());
-                        return strutsDelegate.forwardParams(mapping.findForward("success"), 
+                        return strutsDelegate.forwardParams(mapping.findForward("success"),
                                 params);
                     }
                 }
@@ -106,7 +106,7 @@ public class KickstartCloneAction extends RhnAction {
 
     private boolean alreadyExists(String label, User user) {
         long oid = user.getOrg().getId();
-        KickstartData d = 
+        KickstartData d =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(label, oid);
         return (d != null);
     }

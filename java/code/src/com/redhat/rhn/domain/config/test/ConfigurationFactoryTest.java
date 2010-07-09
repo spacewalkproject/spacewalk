@@ -37,93 +37,93 @@ import org.hibernate.Session;
 import java.util.Date;
 
 public class ConfigurationFactoryTest extends RhnBaseTestCase {
-    
+
     private User user;
-    
+
     protected void setUp() throws Exception {
         super.setUp();
         user = UserTestUtils.findNewUser("testyman", "testyorg");
     }
-    
+
     protected void tearDown() throws Exception {
         user = null;
         super.tearDown();
     }
-    
+
     public void testLookupConfigChannelType() throws Exception {
         assertNotNull(ConfigChannelType.global());
         assertNotNull(ConfigChannelType.sandbox());
         assertNotNull(ConfigChannelType.local());
     }
-    
+
     public void testLookupConfigFileType() throws Exception {
         assertNotNull(ConfigFileType.dir());
-        assertEquals(ConfigFileType.DIR, 
+        assertEquals(ConfigFileType.DIR,
                 ConfigFileType.dir().getLabel());
         assertNotNull(ConfigFileType.file());
-        assertEquals(ConfigFileType.FILE, 
+        assertEquals(ConfigFileType.FILE,
                 ConfigFileType.file().getLabel());
     }
-    
+
     public void testLookupConfigFileState() throws Exception {
         assertNotNull(ConfigFileState.normal());
         assertNotNull(ConfigFileState.dead());
     }
-    
+
     public void testSaveNewConfigChannel() {
         String label = "testlabel";
         ConfigChannel channel = ConfigurationFactory.saveNewConfigChannel(user.getOrg(),
                 ConfigChannelType.global(), "testname",
                 label, "testdescription");
         assertNotNull(channel.getId());
-        
+
         //evict it so we can look it back up
         flushAndEvict(channel);
-        
-        ConfigChannel channel2 = 
+
+        ConfigChannel channel2 =
             ConfigurationFactory.lookupConfigChannelById(channel.getId());
         assertNotNull(channel2);
         assertEquals(channel.getName(), channel2.getName());
-        
+
         //now change something and hopefully avoid a database problem.
         channel2.setName("newName");
         ConfigurationFactory.commit(channel2);
         //now look up the new way
-        ConfigChannel channel3 = 
+        ConfigChannel channel3 =
             ConfigurationFactory.lookupConfigChannelByLabel(label, user.getOrg(),
                                     ConfigChannelType.global()
                                     );
         assertEquals(channel2, channel3);
-        
+
     }
-    
+
     public void testSaveNewConfigFile() {
         //Create a channel to put the file in
         ConfigChannel channel = ConfigTestUtils.createConfigChannel(user.getOrg());
-        
+
         //Create a config file
         ConfigFile file = channel.createConfigFile(
                 ConfigFileState.dead(), "testname");
         assertNotNull(file.getId());
-        
+
         //evict it so we can look it back up
         flushAndEvict(file);
-        
+
         ConfigFile file2 = ConfigurationFactory.lookupConfigFileById(file.getId());
         assertNotNull(file2);
         assertEquals(file.getConfigFileName().getPath(),
                 file2.getConfigFileName().getPath());
-        
+
         //now change something and hopefully avoid database problem
         file2.setModified(new Date());
         ConfigurationFactory.commit(file2);
     }
-    
+
     public void testSaveNewConfigRevision() {
-        
+
         //Create a file to put this revision in
         ConfigFile file = ConfigTestUtils.createConfigFile(user.getOrg());
-        
+
         //Create a content and info to put into this revision
         ConfigContent content = ConfigTestUtils.createConfigContent(new Long(234L), true);
         ConfigInfo info = ConfigTestUtils.createConfigInfo("root", "root", new Long(777));
@@ -132,22 +132,22 @@ public class ConfigurationFactoryTest extends RhnBaseTestCase {
         ConfigRevision revision =
             ConfigTestUtils.createConfigRevision(file, content, info, new Long(23));
         assertNotNull(revision.getId());
-        
+
         //evict it so we can look it back up
         flushAndEvict(revision);
-        
-        ConfigRevision revision2 = 
+
+        ConfigRevision revision2 =
             ConfigurationFactory.lookupConfigRevisionById(revision.getId());
         assertNotNull(revision2);
         assertEquals(revision.getRevision(), revision2.getRevision());
-        
+
         //now change something and hopefully avoid database problem
         revision2.setDelimEnd("\n");
         ConfigurationFactory.commit(revision2);
     }
-    
+
     public void testLookupOrInsertConfigInfo() {
-        
+
         //one problem is that looking up the same thing must be done in such a way that
         //hibernate doesn't yell about it.
         ConfigInfo info1 = ConfigurationFactory.lookupOrInsertConfigInfo("testman",
@@ -157,23 +157,23 @@ public class ConfigurationFactoryTest extends RhnBaseTestCase {
         assertNotNull(info1.getId());
         assertNotNull(info2.getId());
         assertEquals(info1.getId(), info2.getId());
-        
+
         //now let's add them to two different ConfigRevisions and make sure that we don't
         //have any trouble saving them.
         ConfigFile file = ConfigTestUtils.createConfigFile(user.getOrg());
         ConfigContent content = ConfigTestUtils.createConfigContent();
-        
-        ConfigRevision rev1 = 
+
+        ConfigRevision rev1 =
             ConfigTestUtils.createConfigRevision(file, content, info1, new Long(1));
-        ConfigRevision rev2 = 
+        ConfigRevision rev2 =
             ConfigTestUtils.createConfigRevision(file, content, info2, new Long(2));
-        
+
         //The revisions have now been inserted,  now let's see if hibernate can handle
         //an update for them.
         ConfigurationFactory.commit(rev1);
         ConfigurationFactory.commit(rev2);
     }
-    
+
     public void testLookupOrInsertConfigFileName() {
         //one problem is that looking up the same thing must be done in such a way that
         //hibernate doesn't yell about it.
@@ -183,36 +183,36 @@ public class ConfigurationFactoryTest extends RhnBaseTestCase {
         assertNotNull(name1.getId());
         assertNotNull(name2.getId());
         assertEquals(name1.getId(), name2.getId());
-        
+
         //now let's add them to two different ConfigFiles and make sure that we don't
         //have any trouble saving them.
         ConfigChannel channel = ConfigTestUtils.createConfigChannel(user.getOrg());
         ConfigChannel channel2 = ConfigTestUtils.createConfigChannel(user.getOrg());
-        
+
         ConfigFile file1 = channel.createConfigFile(
                 ConfigFileState.normal(), name1);
         ConfigFile file2 = channel2.createConfigFile(
                 ConfigFileState.normal(), name1);
-        
-        
+
+
         //The files have now been inserted,  now let's see if hibernate can handle
         //an update for them.
         ConfigurationFactory.commit(file1);
         ConfigurationFactory.commit(file2);
     }
-    
+
     public void testRemoveConfigChannel() {
-        
+
         //Let's create a channel/file/revision
         ConfigRevision cr = ConfigTestUtils.createConfigRevision(user.getOrg());
         ConfigChannel channel = cr.getConfigFile().getConfigChannel();
         assertNotNull(cr.getId());
-        
+
         //now let's create another file in this channel without a revision,
         //just to test things out.
         ConfigFile file = ConfigTestUtils.createConfigFile(channel);
         assertNotNull(file.getId());
-        
+
         //We have to evict everything from the session so that hibernate
         //doesn't complain that we removed things out from under its feet.
         Session session = HibernateFactory.getSession();
@@ -221,10 +221,10 @@ public class ConfigurationFactoryTest extends RhnBaseTestCase {
         //session.evict(file); //TODO: figure out why we don't have to evict this one.
         session.evict(cr.getConfigFile());
         session.evict(cr);
-        
+
         //run the method we are testing
         ConfigurationFactory.removeConfigChannel(channel);
-        
+
         //confirm that the channel is gone.
         assertNull(ConfigurationFactory.lookupConfigChannelById(channel.getId()));
         //and everything that was in the channel.

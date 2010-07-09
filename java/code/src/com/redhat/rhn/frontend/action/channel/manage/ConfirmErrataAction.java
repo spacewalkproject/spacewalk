@@ -42,27 +42,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * ConfirmErrataAction
  * @version $Rev$
  */
 public class ConfirmErrataAction extends RhnListAction {
 
-    
+
     private static final String CID = "cid";
 
     private static final String CHECKED = "assoc_checked";
-    
+
     private static final String MULTI_ARCH = "multi_arch";
-    
+
     private static final String SELECTED_CHANNEL = "selected_channel";
     private static final String ARCH_COUNT = "arch_count";
     private static final String BUG_COUNT = "bug_count";
     private static final String ENHANCE_COUNT = "enhance_count";
     private static final String SECURE_COUNT = "secure_count";
-    
+
     private static final String[] MULTI_ARCHES = { "x86_64", "ia64", "ppc", "s390x"};
-    
+
     /**
      * {@inheritDoc}
      */
@@ -70,25 +70,25 @@ public class ConfirmErrataAction extends RhnListAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
         Long cid = Long.parseLong(request.getParameter(CID));
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid, user);
         boolean packageAssoc = request.getParameter(CHECKED) != null;
-        
+
         PublishErrataHelper.checkPermissions(user);
-        
+
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("channel_name", currentChan.getName());
-        
+
         request.setAttribute(CID, cid);
         if (requestContext.wasDispatched("Clone Errata")) {
             Map params = new HashMap();
             params.put("cid", cid);
             return getStrutsDelegate().forwardParams(mapping.findForward("clone"), params);
         }
-        
+
         Long sourceCid = null;
         Channel srcChan = null;
         String selChannel = request.getParameter(SELECTED_CHANNEL);
@@ -103,10 +103,10 @@ public class ConfirmErrataAction extends RhnListAction {
                 request.setAttribute(MULTI_ARCH, "True");
             }
         }
-        
-        
-        
-        
+
+
+
+
         //Get Errata Summary Counts
         DataResult<ErrataOverview> errataResult = ErrataManager.
                     lookupErrataListFromSet(user, getSetDecl(currentChan).getLabel());
@@ -129,21 +129,21 @@ public class ConfirmErrataAction extends RhnListAction {
         request.setAttribute(ENHANCE_COUNT, enhanceCount);
         request.setAttribute(SECURE_COUNT, securityCount);
         request.setAttribute("errataList", errataResult);
-        
 
 
-        
+
+
         //Get Package Info and counts
-        DataResult<PackageOverview> packageResult = 
+        DataResult<PackageOverview> packageResult =
             ErrataManager.lookupPacksFromErrataSet(srcChan, currentChan, user,
                     getSetDecl(currentChan).getLabel());
-        
-        
+
+
         List<PackageOverview> validList = packageResult;
 
-        
+
         storePackagesInSet(user, validList, currentChan);
-        
+
         Map<String, HashMap> archMap = new HashMap();
         for (PackageOverview pack : validList) {
             if (archMap.get(pack.getPackageArch()) == null) {
@@ -154,41 +154,41 @@ public class ConfirmErrataAction extends RhnListAction {
             Map arch =   archMap.get(pack.getPackageArch());
             arch.put("size",  ((Integer) arch.get("size")).intValue() + 1);
         }
-        
+
         request.setAttribute("packageList", validList);
         request.setAttribute(ARCH_COUNT, new ArrayList(archMap.values()));
         request.setAttribute("totalSize", validList.size());
-        
-        
+
+
         ListTagHelper.bindSetDeclTo("errata", getSetDecl(currentChan), request);
-        
-        
-        
+
+
+
         return mapping.findForward("default");
     }
-    
-    
+
+
     protected RhnSetDecl getSetDecl(Channel chan) {
         return RhnSetDecl.setForChannelErrata(chan);
     }
-    
-       
-  
-    
-    
-    private void storePackagesInSet(User user,  List<PackageOverview> packList, 
+
+
+
+
+
+    private void storePackagesInSet(User user,  List<PackageOverview> packList,
             Channel chan) {
-        
-        RhnSet set =  RhnSetDecl.setForChannelPackages(chan).get(user); 
-        set.clear();         
-        
+
+        RhnSet set =  RhnSetDecl.setForChannelPackages(chan).get(user);
+        set.clear();
+
         for (PackageOverview pack : packList) {
             set.addElement(pack.getId());
         }
         RhnSetManager.store(set);
 
-        
+
     }
 
-    
+
 }

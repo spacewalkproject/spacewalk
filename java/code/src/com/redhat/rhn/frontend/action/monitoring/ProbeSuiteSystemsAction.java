@@ -41,9 +41,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 51639 $
  */
 public class ProbeSuiteSystemsAction extends RhnSetAction {
-    
+
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -54,13 +54,13 @@ public class ProbeSuiteSystemsAction extends RhnSetAction {
                                        ActionForm formIn,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
-        return operateOnSystems(mapping, formIn, request, 
+        return operateOnSystems(mapping, formIn, request,
                 "probesuitesystemsedit.jsp.systemsdeleted", true);
-        
+
     }
-    
+
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -72,7 +72,7 @@ public class ProbeSuiteSystemsAction extends RhnSetAction {
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
 
-        return operateOnSystems(mapping, formIn, request, 
+        return operateOnSystems(mapping, formIn, request,
                 "probesuitesystemsedit.jsp.systemsdetached", false);
     }
 
@@ -80,25 +80,25 @@ public class ProbeSuiteSystemsAction extends RhnSetAction {
     private ActionForward operateOnSystems(ActionMapping mapping,
                                        ActionForm formIn,
                                        HttpServletRequest request,
-                                       String successKey, 
+                                       String successKey,
                                        boolean deleteServer) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         Set selectedSystems = updateSet(request).getElements();
-        
+
         ProbeSuite suite = new RequestContext(request).lookupProbeSuite();
         Iterator i = selectedSystems.iterator();
         int updatedCount = 0;
         while (i.hasNext()) {
             RhnSetElement element = (RhnSetElement) i.next();
-            Server serverToOperateOn = 
+            Server serverToOperateOn =
                 SystemManager.lookupByIdAndUser(element.getElement(), user);
             if (deleteServer) {
                 MonitoringManager.getInstance().
                     removeServerFromSuite(suite, serverToOperateOn, user);
-            } 
+            }
             else {
                 MonitoringManager.getInstance().
                     detatchServerFromSuite(suite, serverToOperateOn, user);
@@ -106,10 +106,10 @@ public class ProbeSuiteSystemsAction extends RhnSetAction {
             updatedCount++;
         }
         MonitoringManager.getInstance().storeProbeSuite(suite, user);
-        
+
         Map params = makeParamMap(formIn, request);
 
-        createSuccessMessage(request, successKey, 
+        createSuccessMessage(request, successKey,
                 new Integer(updatedCount).toString());
         // Clear the selected set
         getSetDecl().clear(user);
@@ -119,8 +119,8 @@ public class ProbeSuiteSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         return ProbeSuiteHelper.getServersInSuite(request, null);
     }
@@ -131,14 +131,14 @@ public class ProbeSuiteSystemsAction extends RhnSetAction {
     protected void processMethodKeys(Map map) {
         map.put("probesuitesystems.jsp.removesystem", "deleteFromSuite");
         map.put("probesuitesystems.jsp.detachsystem", "detachFromSuite");
-          
+
     }
 
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         ProbeSuiteHelper.processParamMap(request, params);
     }

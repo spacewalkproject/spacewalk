@@ -44,25 +44,25 @@ import javax.mail.internet.MimeMessage;
  * @version $Rev: 694 $
  */
 public class SmtpMail implements Mail {
-    
+
     private String smtpHost;
     private MimeMessage message;
     private static Logger log = Logger.getLogger(SmtpMail.class);
 
-    private static String[] disallowedDomains; 
-    private static String[] restrictedDomains; 
-    
+    private static String[] disallowedDomains;
+    private static String[] restrictedDomains;
+
     /**
-     * Create a mailer.  
+     * Create a mailer.
      */
     public SmtpMail() {
         log.debug("Constructed new SmtpMail.");
-        
-        disallowedDomains = 
+
+        disallowedDomains =
             Config.get().getStringArray("web.disallowed_mail_domains");
-        restrictedDomains = 
+        restrictedDomains =
             Config.get().getStringArray("web.restrict_mail_domains");
-        
+
         Config c = Config.get();
         smtpHost = c.getString(ConfigDefaults.WEB_SMTP_SERVER, "localhost");
         String from = c.getString(ConfigDefaults.WEB_DEFAULT_MAIL_FROM);
@@ -80,7 +80,7 @@ public class SmtpMail implements Mail {
             message.setFrom(new InternetAddress(from));
         }
         catch (AddressException me) {
-            String msg = "Malformed address in traceback configuration: " + 
+            String msg = "Malformed address in traceback configuration: " +
                                 from;
             log.warn(msg);
             throw new JavaMailException(msg, me);
@@ -90,7 +90,7 @@ public class SmtpMail implements Mail {
                                  me.toString();
             log.warn(msg);
             throw new JavaMailException(msg, me);
-        } 
+        }
     }
 
     /** {@inheritDoc} */
@@ -105,14 +105,14 @@ public class SmtpMail implements Mail {
             throw new JavaMailException(msg, me);
         }
     }
-    
+
     /** {@inheritDoc} */
     public void setFrom(String from) {
         try {
             message.setFrom(new InternetAddress(from));
         }
         catch (AddressException me) {
-            String msg = "Malformed address in traceback configuration: " + 
+            String msg = "Malformed address in traceback configuration: " +
                                 from;
             log.warn(msg);
             throw new JavaMailException(msg, me);
@@ -122,45 +122,45 @@ public class SmtpMail implements Mail {
                                  me.toString();
             log.warn(msg);
             throw new JavaMailException(msg, me);
-        } 
+        }
     }
-    
-    
+
+
     /** {@inheritDoc} */
     public void send() {
-        
+
         try {
             Address[] addrs = message.getRecipients(RecipientType.TO);
             if (addrs == null || addrs.length == 0) {
-                log.warn("Aborting mail message " + message.getSubject() + 
+                log.warn("Aborting mail message " + message.getSubject() +
                         ": No recipients");
                 return;
             }
-            Transport.send(message);        
+            Transport.send(message);
         }
         catch (MessagingException me) {
             String msg = "MessagingException while trying to send email: " +
                                  me.toString();
             log.warn(msg);
             throw new JavaMailException(msg, me);
-        } 
+        }
     }
 
     /** {@inheritDoc} */
     public void setRecipient(String recipIn) {
         setRecipients(new String[]{recipIn});
     }
-    
+
     /** {@inheritDoc} */
     public void setRecipients(String[] emailAddrs) {
         setRecipients(Message.RecipientType.TO, emailAddrs);
     }
-    
+
     /** {@inheritDoc} */
     public void setCCRecipients(String[] emailAddrs) {
         setRecipients(Message.RecipientType.CC, emailAddrs);
     }
-    
+
     /** {@inheritDoc} */
     public void setBCCRecipients(String[] emailAddrs) {
         setRecipients(Message.RecipientType.BCC, emailAddrs);
@@ -194,9 +194,9 @@ public class SmtpMail implements Mail {
                                 me.toString();
             log.warn(msg);
             throw new JavaMailException(msg, me);
-        } 
+        }
     }
-    
+
     /** {@inheritDoc} */
     public void setSubject(String subIn) {
         try {
@@ -207,9 +207,9 @@ public class SmtpMail implements Mail {
                                 me.toString();
             log.warn(msg);
             throw new JavaMailException(msg, me);
-        } 
+        }
     }
-    
+
     /** {@inheritDoc} */
     public void setBody(String textIn) {
         try {
@@ -220,9 +220,9 @@ public class SmtpMail implements Mail {
                                 me.toString();
             log.warn(msg);
             throw new JavaMailException(msg, me);
-        } 
+        }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -237,7 +237,7 @@ public class SmtpMail implements Mail {
             buf.append("\nSubject: ");
             buf.append(this.message.getSubject()).append("\n");
             appendHeaders(buf, this.message.getAllHeaderLines());
-            buf.append(this.message.getContent());            
+            buf.append(this.message.getContent());
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -247,7 +247,7 @@ public class SmtpMail implements Mail {
         }
         return buf.toString();
     }
-    
+
     private void appendHeaders(StringBuffer buf, Enumeration headers) {
         while (headers.hasMoreElements()) {
             buf.append(headers.nextElement());
@@ -255,7 +255,7 @@ public class SmtpMail implements Mail {
         }
         buf.append("\n");
     }
-    
+
     private void appendAddresses(StringBuffer buf, Address[] addrs) {
         if (addrs != null) {
             for (int x = 0; x < addrs.length; x++) {
@@ -263,10 +263,10 @@ public class SmtpMail implements Mail {
                 if (addrs.length > 1 && x < (addrs.length - 1)) {
                     buf.append(",");
                 }
-            }        
+            }
         }
     }
-    
+
     private boolean verifyAddress(InternetAddress addr) {
         log.debug("verifyAddress called ...");
         boolean retval = true;
@@ -277,19 +277,19 @@ public class SmtpMail implements Mail {
 
         }
         if (log.isDebugEnabled()) {
-            log.debug("Restricted domains: " + 
+            log.debug("Restricted domains: " +
                     StringUtils.join(restrictedDomains, " | "));
-            log.debug("disallowedDomains domains: " + 
+            log.debug("disallowedDomains domains: " +
                     StringUtils.join(disallowedDomains, " | "));
         }
         if (restrictedDomains != null && restrictedDomains.length > 0) {
             if (ArrayUtils.lastIndexOf(restrictedDomains, domain) == -1) {
-                log.warn("Address " + addr.getAddress() + 
+                log.warn("Address " + addr.getAddress() +
                         " not in restricted domains list");
                 retval = false;
             }
         }
-        
+
         if (retval &&  disallowedDomains != null && disallowedDomains.length > 0) {
             if (ArrayUtils.lastIndexOf(disallowedDomains, domain) > -1) {
                 log.warn("Address " + addr.getAddress() + " in disallowed domains list");

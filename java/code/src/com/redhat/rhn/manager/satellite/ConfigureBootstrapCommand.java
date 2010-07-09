@@ -25,8 +25,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 
- * ConfigureBootstrapCommand - contains logic for setting up and reconfiguring the 
+ *
+ * ConfigureBootstrapCommand - contains logic for setting up and reconfiguring the
  * bootstrap command on the satellite.
  * @version $Rev$
  */
@@ -42,8 +42,8 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
     private String httpProxy;
     private String httpProxyUsername;
     private String httpProxyPassword;
-    
-    
+
+
     /**
      * Construct new ConfigureBootstrapCommand
      * @param userIn who wants to reconfig the bootstrap script
@@ -59,7 +59,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         Executor e = getExecutor();
         ValidatorError[] errors = new ValidatorError[1];
         String errorKey = "bootstrap.config.error.";
-        
+
         List args = new LinkedList();
         args.add("/usr/bin/sudo");
         args.add("/usr/bin/rhn-bootstrap");
@@ -91,14 +91,14 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         if (!StringUtils.isEmpty(this.httpProxyPassword)) {
             args.add("--http-proxy-password=" + this.httpProxyPassword);
         }
-        
+
         int exitcode = e.execute((String[]) args.toArray(new String[0]));
         if (exitcode != 0) {
             errorKey = errorKey + exitcode;
             if (!LocalizationService.getInstance().hasMessage(errorKey)) {
                 errorKey = "bootstrap.config.error.127";
             }
-            errors[0] = new ValidatorError(errorKey); 
+            errors[0] = new ValidatorError(errorKey);
             return errors;
         }
         else {
@@ -107,7 +107,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
 
     }
 
-    
+
     /**
      * @return Returns the allowConfigActions.
      */
@@ -115,7 +115,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         return allowConfigActions;
     }
 
-    
+
     /**
      * @param allowConfigActionsIn The allowConfigActions to set.
      */
@@ -123,7 +123,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         this.allowConfigActions = allowConfigActionsIn;
     }
 
-    
+
     /**
      * @return Returns the allowRemoteCommands.
      */
@@ -131,7 +131,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         return allowRemoteCommands;
     }
 
-    
+
     /**
      * @param allowRemoteCommandsIn The allowRemoteCommands to set.
      */
@@ -139,7 +139,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         this.allowRemoteCommands = allowRemoteCommandsIn;
     }
 
-    
+
     /**
      * @return Returns the enableGpg.
      */
@@ -147,7 +147,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         return enableGpg;
     }
 
-    
+
     /**
      * @param enableGpgIn The enableGpg to set.
      */
@@ -155,7 +155,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         this.enableGpg = enableGpgIn;
     }
 
-    
+
     /**
      * @return Returns the enableSsl.
      */
@@ -163,7 +163,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         return enableSsl;
     }
 
-    
+
     /**
      * @param enableSslIn The enableSsl to set.
      */
@@ -171,7 +171,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         this.enableSsl = enableSslIn;
     }
 
-    
+
     /**
      * @return Returns the hostname.
      */
@@ -179,7 +179,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         return hostname;
     }
 
-    
+
     /**
      * @param hostnameIn The hostname to set.
      */
@@ -187,7 +187,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         this.hostname = hostnameIn;
     }
 
-    
+
     /**
      * @return Returns the httpProxy.
      */
@@ -195,7 +195,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         return httpProxy;
     }
 
-    
+
     /**
      * @param httpProxyIn The httpProxy to set.
      */
@@ -203,7 +203,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         this.httpProxy = httpProxyIn;
     }
 
-    
+
     /**
      * @return Returns the httpProxyPassword.
      */
@@ -211,7 +211,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         return httpProxyPassword;
     }
 
-    
+
     /**
      * @param httpProxyPasswordIn The httpProxyPassword to set.
      */
@@ -219,7 +219,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         this.httpProxyPassword = httpProxyPasswordIn;
     }
 
-    
+
     /**
      * @return Returns the httpProxyUsername.
      */
@@ -227,7 +227,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         return httpProxyUsername;
     }
 
-    
+
     /**
      * @param httpProxyUsernameIn The httpProxyUsername to set.
      */
@@ -235,7 +235,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         this.httpProxyUsername = httpProxyUsernameIn;
     }
 
-    
+
     /**
      * @return Returns the sslPath.
      */
@@ -243,7 +243,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
         return sslPath;
     }
 
-    
+
     /**
      * @param sslPathIn The sslPath to set.
      */

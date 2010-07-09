@@ -19,15 +19,15 @@ import com.redhat.rhn.frontend.struts.XmlMessageResourcesFactory;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
 /**
- * XmlMessageResourcesTest - test the Struts compliant wrapper around our 
+ * XmlMessageResourcesTest - test the Struts compliant wrapper around our
  * LocalizationService so we can utilize XML based MessageResources.
- * 
+ *
  * @version $Rev$
  */
 public class XmlMessageResourcesTest extends RhnBaseTestCase {
-    
+
     public void testGetFactory() {
-        XmlMessageResources msg = (XmlMessageResources) 
+        XmlMessageResources msg = (XmlMessageResources)
             XmlMessageResourcesFactory.createFactory().createResources(null);
         assertNotNull(msg);
         assertNotNull(msg.getMessage(java.util.Locale.US, "errors.suffix"));

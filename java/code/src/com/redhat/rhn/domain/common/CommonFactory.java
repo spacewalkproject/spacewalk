@@ -37,12 +37,12 @@ import javax.crypto.spec.SecretKeySpec;
  * @version $Rev$
  */
 public class CommonFactory extends HibernateFactory {
-    
-    
+
+
     private static CommonFactory singleton = new CommonFactory();
     private static Logger log = Logger.getLogger(CommonFactory.class);
-    
-    
+
+
     private CommonFactory() {
         super();
     }
@@ -57,7 +57,7 @@ public class CommonFactory extends HibernateFactory {
 
     /**
      * Save a FileList to the DB.
-     * 
+     *
      * @param fIn FileList to save
      */
     public static void saveFileList(FileList fIn) {
@@ -66,23 +66,23 @@ public class CommonFactory extends HibernateFactory {
 
     /**
      * Create a new FileList
-     * 
+     *
      * @return a new FileList instance
      */
     public static FileList createFileList() {
         return new FileList();
     }
-    
+
     /**
      * Remove a FileList from the DB.
-     * 
-     * @param fIn FileLIst to remove 
+     *
+     * @param fIn FileLIst to remove
      * @return number of FileList affected by delete
      */
     public static int removeFileList(FileList fIn) {
         return singleton.removeObject(fIn);
     }
-        
+
     /**
      * Lookup a FileList from the DB.
      * @param idIn to lookup
@@ -98,7 +98,7 @@ public class CommonFactory extends HibernateFactory {
                                       .setLong("org_id", org.getId().longValue())
                                       .uniqueResult();
     }
-    
+
     /**
      * Lookup a FileList from the DB.
      * @param labelIn to lookup
@@ -130,7 +130,7 @@ public class CommonFactory extends HibernateFactory {
             token = RandomStringUtils.randomAlphanumeric(8);
             existing = lookupTinyUrl(token);
         }
-        
+
         TinyUrl url = new TinyUrl();
         Config c = new Config();
         url.setUrl(urlIn);
@@ -172,9 +172,9 @@ public class CommonFactory extends HibernateFactory {
         Session session = getSession();
         Criteria criteria = session.createCriteria(VirtSubscriptionLevel.class);
         criteria.add(Restrictions.eq("label", label));
-        return (VirtSubscriptionLevel) criteria.uniqueResult();       
+        return (VirtSubscriptionLevel) criteria.uniqueResult();
     }
-    
+
     /**
      * generates a hmac sha1 digest using the provided keys and data
      * @param keys the keys to generate the digest
@@ -182,14 +182,14 @@ public class CommonFactory extends HibernateFactory {
      * @return the digest in hex format
      */
     public static String generateHmacSha1(String keys, String data) {
-        final String hmacSha1 = "HmacSHA1"; 
+        final String hmacSha1 = "HmacSHA1";
         Mac digest;
         try {
             digest = Mac.getInstance(hmacSha1);
             Key key = new SecretKeySpec(keys.getBytes(), hmacSha1);
             digest.init(key);
             digest.update(data.getBytes(), 0, data.length());
-            
+
             byte[] hexBytes = new Hex().encode(digest.doFinal());
 
             return String.valueOf(new String(hexBytes, "ISO-8859-1"));
@@ -197,8 +197,8 @@ public class CommonFactory extends HibernateFactory {
         catch (Exception e) {
             e.printStackTrace();
         }
-        return "";        
+        return "";
     }
-    
-    
+
+
 }

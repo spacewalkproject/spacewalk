@@ -32,7 +32,7 @@
                   <rhn:required-field key="kickstart.script.type"/>
               </th>
               <td>
-                <html:select property="type"> 
+                <html:select property="type">
                   <html:options collection="types"
                             property="value"
                             labelProperty="label" />
@@ -60,7 +60,7 @@
                   <br/>
               </td>
           </tr>
-          <tr>          
+          <tr>
             <td align="right" colspan="2"><html:submit><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
           </tr>
       </table>

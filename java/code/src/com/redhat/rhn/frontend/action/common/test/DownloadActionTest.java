@@ -33,7 +33,7 @@ import java.util.Map;
  * @version $Rev$
  */
 public class DownloadActionTest extends RhnMockStrutsTestCase {
-    
+
     private KickstartData ksdata;
     private KickstartableTree tree;
 
@@ -66,17 +66,17 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         String filename = (String) params.get("filename");
         assertNotNull(filename);
     }
-    
+
     public void testKSPackageDownload() throws Exception {
         //  /ks/dist/rhel5-i386-u2/Server/iproute-2.6.18-7.el5.i386.rpm
-        Package p = PackageManagerTest.addPackageToChannel("some-package", 
+        Package p = PackageManagerTest.addPackageToChannel("some-package",
                 tree.getChannel());
         String fileName = "some-package-2.13.1-6.fc9.x86_64.rpm";
         p.setPath("redhat/1/c7d/some-package/2.13.1-6.fc9/" +
                 "x86_64/c7dd5e9b6975bc7f80f2f4657260af53/" +
                 fileName);
         TestUtils.saveAndFlush(p);
-        
+
         addRequestParameter("url", "/ks/dist/" + tree.getLabel() + "/Server/" + fileName);
         request.setQueryString("url=/ks/dist/" + tree.getLabel() + "/Server/" + fileName);
         actionPerform();
@@ -85,16 +85,16 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         // https://dhcp77-150.rhndev.redhat.com/
         // download/package/4ad2199e64aa756a21b9a33fe6f4faf355586b70/
         // 1236742778254/1/3709/alsa-utils-1.0.6-6.i386.rpm
-        
+
     }
     public void testKsSessionDownload() throws Exception {
         // /ks/dist/f9-x86_64-distro/images/boot.iso
-        KickstartSession ksession = 
+        KickstartSession ksession =
             KickstartSessionTest.createKickstartSession(ksdata, user);
-        
+
         ksession.setKstree(tree);
         ksession.setKsdata(ksdata);
-        
+
         TestUtils.saveAndFlush(ksession);
         String encodedSession = SessionSwap.encodeData(ksession.getId().toString());
 
@@ -111,17 +111,17 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         String filename = (String) params.get("filename");
         assertNotNull(filename);
     }
-    
+
     public void testKSSessionAndPackageCount() throws Exception {
-        Package p = PackageManagerTest.addPackageToChannel("some-package", 
+        Package p = PackageManagerTest.addPackageToChannel("some-package",
                 tree.getChannel());
         String fileName = "some-package-2.13.1-6.fc9.x86_64.rpm";
         p.setPath("redhat/1/c7d/some-package/2.13.1-6.fc9/" +
                 "x86_64/c7dd5e9b6975bc7f80f2f4657260af53/" +
                 fileName);
         TestUtils.saveAndFlush(p);
-        
-        KickstartSession ksession = 
+
+        KickstartSession ksession =
             KickstartSessionTest.createKickstartSession(ksdata, user);
         ksession.setKstree(tree);
         ksession.setKsdata(ksdata);
@@ -136,16 +136,16 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         assertNotNull(request.getAttribute("params"));
         assertEquals(1, ksession.getPackageFetchCount().longValue());
-        
+
         request.setHeader("Range", "333");
         actionPerform();
         assertEquals(1, ksession.getPackageFetchCount().longValue());
-        
+
     }
 
     public void testDirHit() throws Exception {
         // /ks/dist/f9-x86_64-distro/images/boot.iso
-        KickstartSession ksession = 
+        KickstartSession ksession =
             KickstartSessionTest.createKickstartSession(ksdata, user);
         TestUtils.saveAndFlush(ksession);
         addRequestParameter("url", "/ks/dist/" + tree.getLabel() + "/images/");

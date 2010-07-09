@@ -30,20 +30,20 @@ import java.util.Map;
  * The <code>Validator</code> class allows an application component or client
  * to provide data, and determine if the data is valid for the requested type.
  * </p>
- * 
+ *
  * This code was copied from:
- * 
+ *
  * http://www.javaworld.com/javaworld/jw-09-2000/jw-0908-validation.html
- * 
- * There were no appearent license restrictions on this code, the Author 
+ *
+ * There were no appearent license restrictions on this code, the Author
  * indicated it was free and available to be used by readers of the article.
- * 
- * @version $Rev$ 
+ *
+ * @version $Rev$
  */
 public class Validator {
 
     private static Logger log = Logger.getLogger(Validator.class);
-    
+
     /** The instances of this class for use (singleton design pattern) */
     private static Map instances = null;
 
@@ -58,7 +58,7 @@ public class Validator {
      * This constructor is private so that the class cannot be instantiated
      * directly, but instead only through <code>{@link #getInstance()}</code>.
      * </p>
-     * 
+     *
      * @param schemaURLIn <code>URL</code> to parse the schema at.
      * @throws IOException - when errors in parsing occur.
      */
@@ -76,7 +76,7 @@ public class Validator {
      * schema exists, it is returned (as parsing will already be done);
      * otherwise, a new instance is created, and then returned.
      * </p>
-     * 
+     *
      * @param schemaURL <code>URL</code> of schema to validate against.
      * @return <code>Validator</code>- the instance, ready to use.
      * @throws IOException when errors in parsing occur.
@@ -96,14 +96,14 @@ public class Validator {
         instances.put(schemaURL.toString(), validator);
         return validator;
     }
-    
+
     /**
      * <p>
      * This will validate a data value (in <code>String</code> format) against
      * a specific constraint, and return <code>true</code> if that value is
      * valid for the constraint.
      * </p>
-     * 
+     *
      * @param constraintName the identifier in the constraints to validate this
      * data against.
      * @param objToValidate <code>String</code> data to validate.
@@ -113,24 +113,24 @@ public class Validator {
     public ValidatorError isValid(String constraintName, Object objToValidate) {
         // Validate against the correct constraint
         Object o = constraints.get(constraintName);
-        
+
         log.debug("Validating: " + constraintName);
-        
+
         // If no constraint, then everything is valid
         if (o == null) {
             log.debug("No constraint found for " + constraintName);
             return null;
         }
-        
+
         Constraint constraint = (Constraint) o;
         // Get the field we want to check
         Object value = null;
         try {
-            value = PropertyUtils.getProperty(objToValidate, 
+            value = PropertyUtils.getProperty(objToValidate,
                                     constraint.getIdentifier());
-        } 
+        }
         catch (Exception e) {
-            String errorMessage = "Exception trying to get bean property: " + 
+            String errorMessage = "Exception trying to get bean property: " +
                                     e.toString();
             log.error(errorMessage, e);
             throw new ValidatorException(errorMessage, e);
@@ -139,10 +139,10 @@ public class Validator {
         String data = (value == null) ? null : value.toString();
 
         ValidatorError validationMessage = null;
-        
+
         log.debug("Data: " + data);
         log.debug("Constraint: " + constraint);
-        
+
         // Validate data type
         if (value != null && !value.equals("")) {
             validationMessage = correctDataType(data, constraint);
@@ -151,11 +151,11 @@ public class Validator {
                 return validationMessage;
             }
         }
-        
+
         // Execute the actual Constraint logic
         boolean required = true;
         // First we have to check to see if this is a RequiredIfConstraint
-        // since it has a different method signature.  Not so pretty but its 
+        // since it has a different method signature.  Not so pretty but its
         // got a completely different way of checking constraints (references
         // multiple fields) so it has to be separate.
         if (constraint instanceof RequiredIfConstraint) {
@@ -163,11 +163,11 @@ public class Validator {
                 isRequired(data, objToValidate);
         }
         log.debug("RequiredIf indicates:" + required);
-        
+
         if (required) {
-            validationMessage = constraint.checkConstraint(data);    
+            validationMessage = constraint.checkConstraint(data);
         }
-        
+
         if (validationMessage != null) {
             log.debug("Failed: " + validationMessage);
             return validationMessage;
@@ -176,7 +176,7 @@ public class Validator {
         return null;
     }
 
-    /** 
+    /**
      * Get the list of Contraints associated with this Validator
      *
      * @return List of Constraint objects
@@ -184,24 +184,24 @@ public class Validator {
     public List getConstraints() {
         return new LinkedList(constraints.values());
     }
-    
+
     /**
      * <p>
      * This will test the supplied data to see if it can be converted to the
      * Java data type given in <code>Constraint.dataType</code>.
      * </p>
-     * 
+     *
      * @param data <code>String</code> to test data type of.
      * @param constraint <code>Constraint</code> Constraint to be checked.
      * @return <code>ValidatorError</code>- or null, if there are no errors.
      */
     private ValidatorError correctDataType(String data, Constraint constraint) {
-        
+
         ValidatorError validationMessage = null;
         String dataType = constraint.getDataType();
-        String identifier = 
+        String identifier =
             LocalizationService.getInstance().getMessage(constraint.getIdentifier());
-        
+
         if ((dataType.equals("String")) || (dataType.equals("java.lang.String"))) {
             validationMessage = null;
         }

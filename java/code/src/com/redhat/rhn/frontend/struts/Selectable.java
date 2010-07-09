@@ -22,28 +22,28 @@ package com.redhat.rhn.frontend.struts;
  */
 public interface Selectable {
     /**
-     * 
+     *
      * @return true if the object is selectable
      */
-    boolean isSelectable(); 
-    
+    boolean isSelectable();
+
     /**
-     * 
+     *
      * @return true if selected
      */
     boolean isSelected();
-    
+
     /**
      * sets the selection parameter
      * @param selected true if the system is selected
      */
     void setSelected(boolean selected);
-    
+
     /**
-     * 
-     * @return the value of the selection key 
+     *
+     * @return the value of the selection key
      *           used in the "selectable" column
-     *           of an rhn list tag. 
+     *           of an rhn list tag.
      */
     String getSelectionKey();
 }

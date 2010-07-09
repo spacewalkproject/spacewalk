@@ -36,7 +36,7 @@ public class PrivateChannelFamily implements Serializable {
     private Date modified;
     private Long maxFlex;
     private Long currentFlex;
-    
+
 
     /**
      * Get the max flex count
@@ -98,64 +98,64 @@ public class PrivateChannelFamily implements Serializable {
         this.org = orgIn;
     }
 
-    /** 
-     * Getter for maxMembers 
+    /**
+     * Getter for maxMembers
      * @return Long to get
     */
     public Long getMaxMembers() {
         return this.maxMembers;
     }
 
-    /** 
-     * Setter for maxMembers 
+    /**
+     * Setter for maxMembers
      * @param maxMembersIn to set
     */
     public void setMaxMembers(Long maxMembersIn) {
         this.maxMembers = maxMembersIn;
     }
 
-    /** 
-     * Getter for currentMembers 
+    /**
+     * Getter for currentMembers
      * @return Long to get
     */
     public Long getCurrentMembers() {
         return this.currentMembers;
     }
 
-    /** 
-     * Setter for currentMembers 
+    /**
+     * Setter for currentMembers
      * @param currentMembersIn to set
     */
     public void setCurrentMembers(Long currentMembersIn) {
         this.currentMembers = currentMembersIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {
@@ -172,7 +172,7 @@ public class PrivateChannelFamily implements Serializable {
         }
         PrivateChannelFamily castOther = (PrivateChannelFamily) other;
         return new EqualsBuilder().append(this.getChannelFamily(),
-                castOther.getChannelFamily()).append(this.getOrg(), 
+                castOther.getChannelFamily()).append(this.getOrg(),
                         castOther.getOrg()).isEquals();
     }
 

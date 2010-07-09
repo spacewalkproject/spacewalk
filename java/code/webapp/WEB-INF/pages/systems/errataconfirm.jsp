@@ -18,15 +18,15 @@
 <rhn:systemtimemessage server="${system}" />
 
 
-<rl:listset name="erratConfirmListSet"> 
+<rl:listset name="erratConfirmListSet">
 	<rl:list
-  			width="100%"        
+			width="100%"
          	styleclass="list"
          	emptykey="erratalist.jsp.noerrata">
          	
     <rl:decorator name="PageSizeDecorator"/>
     <rl:decorator name="ElaborationDecorator"/>
-    
+
     <rl:column headerkey="erratalist.jsp.type" styleclass="first-column text-align: center;">
       <c:if test="${current.securityAdvisory}">
         <img src="/img/wrh-security.gif"
@@ -72,7 +72,7 @@
     		<td>
       			 <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
         			<jsp:param name="widget" value="date"/>
-      			</jsp:include> 
+			</jsp:include>
     		</td>
   		</tr>
 	</table>
@@ -84,7 +84,7 @@
     </html:submit>
   </div>
   <html:hidden property="sid" value="${param.sid}"/>
-  
+
 </rl:listset>
 </body>
 </html>

@@ -24,7 +24,7 @@ import java.util.Map;
  */
 
 public interface ManifestFactoryBuilder {
-    /** ask the builder to create an object based upon the Map parameters 
+    /** ask the builder to create an object based upon the Map parameters
     * @param param Map of parameters to produce this Factory by
     * @return Object Object created by Factory
     */
@@ -33,7 +33,7 @@ public interface ManifestFactoryBuilder {
     /** get the filename associated with this builder
      *   TODO: probably should be a URL instead
      *   TODO: probably going to need to generalize this a bit more, so that
-     *         we can have different webapps with different manifest files 
+     *         we can have different webapps with different manifest files
      * @return String filename used by manifest
     */
     String getManifestFilename();

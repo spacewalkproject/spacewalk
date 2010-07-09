@@ -26,14 +26,14 @@ import java.io.Serializable;
  * @version $Rev$
  */
 public class UserServerPreferenceId implements Serializable {
-    
+
     public static final String RECEIVE_NOTIFICATIONS = "receive_notifications";
     public static final String INCLUDE_IN_DAILY_SUMMARY = "include_in_daily_summary";
-    
+
     private User user;
     private Server server;
     private String name;
-    
+
     /**
      * Create a new UserServerPreferenceId
      * @param userIn user corresponding to the preference
@@ -81,8 +81,8 @@ public class UserServerPreferenceId implements Serializable {
     public void setUser(User userIn) {
         this.user = userIn;
     }
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -97,7 +97,7 @@ public class UserServerPreferenceId implements Serializable {
                                   .append(name, castOther.getName())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -108,5 +108,5 @@ public class UserServerPreferenceId implements Serializable {
                                     .hashCode();
     }
 
-    
+
 }

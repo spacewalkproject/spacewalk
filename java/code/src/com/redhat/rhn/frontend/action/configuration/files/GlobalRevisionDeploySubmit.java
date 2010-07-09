@@ -63,7 +63,7 @@ public class GlobalRevisionDeploySubmit extends BaseSetOperateOnSelectedItemsAct
     protected void processMethodKeys(Map map) {
         map.put("deploy.jsp.deploybutton", "navToConfirm");
     }
-    
+
     /**
      * The only thing we do for this page, is to navigate forward to the confirm page
      * @param mapping Struts mapping
@@ -74,7 +74,7 @@ public class GlobalRevisionDeploySubmit extends BaseSetOperateOnSelectedItemsAct
      */
     public ActionForward navToConfirm(
             ActionMapping mapping,
-            ActionForm formIn, 
+            ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
         updateSet(request);

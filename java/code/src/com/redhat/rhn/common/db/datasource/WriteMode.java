@@ -32,11 +32,11 @@ public class WriteMode extends BaseMode {
     public int executeUpdate(Map parameters) {
         return getQuery().executeUpdate(parameters);
     }
-    
-    
+
+
     /**
      * execute an update with an inClause (%s).
-     *  This handles more than 1000 items in teh in clause 
+     *  This handles more than 1000 items in teh in clause
      * @param parameters the query parameters
      * @param inClause the in clause
      * @return the number of rows updated/inserted/deleted
@@ -45,14 +45,14 @@ public class WriteMode extends BaseMode {
         int subStart = 0;
         int toReturn = 0;
         while (subStart < inClause.size()) {
-            int subLength = subStart + CachedStatement.BATCH_SIZE >= inClause.size() ? 
+            int subLength = subStart + CachedStatement.BATCH_SIZE >= inClause.size() ?
                     inClause.size() - subStart  : CachedStatement.BATCH_SIZE;
             List subClause = inClause.subList(subStart, subStart + subLength);
             toReturn += getQuery().executeUpdate(parameters, subClause);
             subStart += subLength;
-        }       
+        }
         return toReturn;
     }
-    
+
 }
 

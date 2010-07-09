@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class CallableMode extends BaseMode {
 
-    /** 
+    /**
      * Execute a stored procedure. In/Out parameters should be in BOTH
      * inParams and OutParams.
      * @param inParams A map of parameter names to values

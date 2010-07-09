@@ -25,11 +25,11 @@ import java.util.List;
  * @version $Rev$
  */
 public class Diff {
-    
+
     private String[] firstfile;
     private String[] secondfile;
     private int maxLength;
-    
+
     /**
      * @param firstfileIn The old(from) file as a String array.
      * @param secondfileIn The new(to) file as a String array.
@@ -37,10 +37,10 @@ public class Diff {
     public Diff(String[] firstfileIn, String[] secondfileIn) {
         firstfile = firstfileIn;
         secondfile = secondfileIn;
-        maxLength = firstfile.length > secondfile.length ? 
+        maxLength = firstfile.length > secondfile.length ?
                 firstfile.length : secondfile.length;
     }
-    
+
     /**
      * @param onlyChanged whether the results should only changed lines.
      * @return An html string for the difference between the two files.
@@ -52,14 +52,14 @@ public class Diff {
         if (hunks == null) {
             return null;
         }
-        
+
         //create the view of the diff.
         RhnHtmlDiffWriter writer = new RhnHtmlDiffWriter(maxLength);
         writer.setOnlyChanged(onlyChanged);
         writeHunks(hunks, writer);
         return writer.getResult();
     }
-    
+
     /**
      * @param pathOne The path of the from(old, first) file
      * @param pathTwo The path of the to(new, second) file
@@ -75,13 +75,13 @@ public class Diff {
         if (hunks == null) {
             return null;
         }
-        
-        RhnPatchDiffWriter writer = 
+
+        RhnPatchDiffWriter writer =
             new RhnPatchDiffWriter(pathOne, pathTwo, fromDate, toDate);
         writeHunks(hunks, writer);
         return writer.getResult();
     }
-    
+
     /**
      * Performs the file diff.
      * @return A list of Hunks.
@@ -91,12 +91,12 @@ public class Diff {
         Differ differ = new Differ(firstfile.length, secondfile.length);
         return differ.diff(firstfile, secondfile);
     }
-    
+
     private void writeHunks(List hunks, DiffWriter writer) {
         Iterator i = hunks.iterator();
         while (i.hasNext()) {
             writer.writeHunk((Hunk)i.next());
         }
     }
-    
+
 }

@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.domain.errata;
 /**
- * 
+ *
  * @version $Rev $
  *
  */
@@ -28,7 +28,7 @@ public class Cve {
     public Long getId() {
         return id;
     }
-   
+
     /**
      * @param i The id to set.
      */
@@ -36,14 +36,14 @@ public class Cve {
         this.id = i;
     }
     /**
-     * 
+     *
      * @param nameIn The name to set
      */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
     /**
-     * 
+     *
      * @return Returns name
      */
     public String getName() {

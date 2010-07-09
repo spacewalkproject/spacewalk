@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletResponse;
  * PatchListAction
  * @version $Rev: 53116 $
  */
-public class PatchInstallAction extends RhnSetAction {    
+public class PatchInstallAction extends RhnSetAction {
 
     /**
      * Applies the selected patches
@@ -56,27 +56,27 @@ public class PatchInstallAction extends RhnSetAction {
         RhnSet set = updateSet(request);
         Map params = new HashMap();
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         if (set.isEmpty()) {
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("patch.applynone"));
             params = makeParamMap(formIn, request);
             strutsDelegate.saveMessages(request, msg);
             return strutsDelegate.forwardParams(mapping.findForward("default"), params);
         }
-        
+
         processParamMap(formIn, request, params);
 
         return strutsDelegate.forwardParams(mapping.findForward("install"), params);
     }
-    
+
     protected void processMethodKeys(Map map) {
         map.put("packagelist.jsp.installpatch", "applyPatch");
     }
 
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         Long sid = new RequestContext(request).getParamAsLong("sid");
         if (sid != null) {
@@ -84,8 +84,8 @@ public class PatchInstallAction extends RhnSetAction {
         }
     }
 
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         Long sid = new RequestContext(request).getParamAsLong("sid");
         return SolarisManager.systemAvailablePatchList(sid, null);
@@ -97,5 +97,5 @@ public class PatchInstallAction extends RhnSetAction {
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.PATCH_INSTALL;
     }
- 
+
 }

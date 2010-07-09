@@ -63,17 +63,17 @@ public class KickstartData {
     private String label;
     private String comments;
     private Boolean active;
-    private Boolean postLog; 
+    private Boolean postLog;
     private Boolean preLog;
     private Boolean ksCfg;
     private Date created;
     private Date modified;
     private boolean isOrgDefault;
-    private String kernelParams;    
+    private String kernelParams;
     private Boolean nonChrootPost;
     private Boolean verboseUp2date;
     private String cobblerId;
-    
+
     private Set cryptoKeys;
     private Set childChannels;
     private Set defaultRegTokens;
@@ -83,24 +83,24 @@ public class KickstartData {
     private Set ips;          // rhnKickstartIpRange
     private Set<KickstartScript> scripts;      // rhnKickstartScript
     private KickstartDefaults kickstartDefaults;
-    
+
     private static final Pattern URL_REGEX =
         Pattern.compile("--url\\s*(\\S+)", Pattern.CASE_INSENSITIVE);
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
-    
+
     public static final String WIZARD_DIR = "wizard";
     public static final String RAW_DIR = "upload";
 
     public static final String SELINUX_MODE_COMMAND = "selinux";
-    
+
     public static final String TYPE_WIZARD = "wizard";
     public static final String TYPE_RAW = "raw";
-    private static String[] advancedOptions = 
-        {"partitions", "raids", "logvols", "volgroups", "include", 
+    private static String[] advancedOptions =
+        {"partitions", "raids", "logvols", "volgroups", "include",
             "repo", "custom", "custom_partition"};
-    
-    private static final List ADANCED_OPTIONS = Arrays.asList(advancedOptions); 
-    
+
+    private static final List ADANCED_OPTIONS = Arrays.asList(advancedOptions);
+
     /**
      * Initializes properties.
      */
@@ -120,23 +120,23 @@ public class KickstartData {
         childChannels = new HashSet();
         kickstartType = TYPE_WIZARD;
     }
-    
+
     /**
      * Logger for this class
      */
     private static Logger logger = Logger
             .getLogger(KickstartData.class);
 
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
@@ -151,48 +151,48 @@ public class KickstartData {
         org = orgIn;
     }
 
-    /** 
-     * Getter for org 
+    /**
+     * Getter for org
      * @return org to get
     */
     public Org getOrg() {
         return org;
     }
 
-    /** 
-     * Getter for label 
+    /**
+     * Getter for label
      * @return String to get
     */
     public String getLabel() {
         return this.label;
     }
 
-    /** 
-     * Setter for label 
+    /**
+     * Setter for label
      * @param labelIn to set
     */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
 
-    /** 
-     * Getter for comments 
+    /**
+     * Getter for comments
      * @return String to get
     */
     public String getComments() {
         return this.comments;
     }
 
-    /** 
-     * Setter for comments 
+    /**
+     * Setter for comments
      * @param commentsIn to set
     */
     public void setComments(String commentsIn) {
         this.comments = commentsIn;
     }
 
-    /** 
-     * Getter for active 
+    /**
+     * Getter for active
      * @return String to get
     */
     public Boolean isActive() {
@@ -200,78 +200,78 @@ public class KickstartData {
     }
 
 
-    /** 
-     * Getter for active 
+    /**
+     * Getter for active
      * @return String to get
     */
     public boolean getActive() {
         return isActive();
-    }    
-    /** 
-     * Setter for active 
+    }
+    /**
+     * Setter for active
      * @param activeIn to set
     */
     public void setActive(Boolean activeIn) {
         this.active = activeIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {
         this.modified = modifiedIn;
     }
 
-    /** 
-     * Getter for isOrgDefault 
+    /**
+     * Getter for isOrgDefault
      * @return String to get
     */
     public Boolean isOrgDefault() {
         return getIsOrgDefault();
     }
 
-    /** 
-     * Getter for isOrgDefault 
+    /**
+     * Getter for isOrgDefault
      * @return String to get
     */
     protected boolean getIsOrgDefault() {
         return this.isOrgDefault;
-    }    
-    /** 
-     * Setter for isOrgDefault 
+    }
+    /**
+     * Setter for isOrgDefault
      * @param isDefault to set
     */
     protected void setIsOrgDefault(boolean isDefault) {
         this.isOrgDefault = isDefault;
     }
-    
-    /** 
-     * Setter for isOrgDefault 
+
+    /**
+     * Setter for isOrgDefault
      * @param isDefault to set
     */
     public void setOrgDefault(boolean isDefault) {
@@ -288,22 +288,22 @@ public class KickstartData {
         setIsOrgDefault(isDefault);
     }
 
-    /** 
-     * Getter for kernelParams 
+    /**
+     * Getter for kernelParams
      * @return String to get
     */
     public String getKernelParams() {
         return this.kernelParams;
     }
 
-    /** 
-     * Setter for kernelParams 
+    /**
+     * Setter for kernelParams
      * @param kernelParamsIn to set
     */
     public void setKernelParams(String kernelParamsIn) {
         this.kernelParams = kernelParamsIn;
     }
-    
+
     /**
      * @return the cryptoKeys
      */
@@ -311,7 +311,7 @@ public class KickstartData {
         return cryptoKeys;
     }
 
-    
+
     /**
      * @param cryptoKeysIn The cryptoKeys to set.
      */
@@ -326,7 +326,7 @@ public class KickstartData {
     public void addCryptoKey(CryptoKey key) {
         this.cryptoKeys.add(key);
     }
-    
+
     /**
      * Remove a crypto key from the set.
      * @param key to remove.
@@ -427,7 +427,7 @@ public class KickstartData {
     public void removePreserveFileList(FileList fileList) {
         this.preserveFileLists.remove(fileList);
     }
-    
+
     /**
      * Adds a KickstartPackage object to ksPackages.
      * @param kp KickstartPackage to add
@@ -464,7 +464,7 @@ public class KickstartData {
     public void setKsPackages(Set<KickstartPackage> p) {
         this.ksPackages = p;
     }
- 
+
     /**
      * Clear all ksPackages
      */
@@ -476,18 +476,18 @@ public class KickstartData {
             iter.remove();
         }
     }
-    
+
     /**
-     * 
+     *
      * @param pName Package name to check if Kickstart Data contains
      * @return if package name is in this kickstart data
      */
     public boolean hasKsPackage(PackageName pName) {
-        for (KickstartPackage pack : ksPackages) {                
+        for (KickstartPackage pack : ksPackages) {
             if (pName.equals(pack.getPackageName())) {
                 return true;
             }
-        }       
+        }
         return false;
     }
 
@@ -496,20 +496,20 @@ public class KickstartData {
      * @return KickstartScript used by the Pre section.  Null if not used
      */
     public KickstartScript getPreKickstartScript() {
-        return lookupScriptByType(KickstartScript.TYPE_PRE); 
+        return lookupScriptByType(KickstartScript.TYPE_PRE);
     }
-    
+
     /**
-     * Get the KickstartScript of type "post" 
+     * Get the KickstartScript of type "post"
      * @return KickstartScript used by the post section.  Null if not used
      */
     public KickstartScript getPostKickstartScript() {
-        return lookupScriptByType(KickstartScript.TYPE_POST); 
+        return lookupScriptByType(KickstartScript.TYPE_POST);
     }
-    
-    
+
+
     private KickstartScript lookupScriptByType(String typeIn) {
-        if (this.getScripts() != null && 
+        if (this.getScripts() != null &&
             this.getScripts().size() > 0) {
             Iterator i = this.getScripts().iterator();
             while (i.hasNext()) {
@@ -518,13 +518,13 @@ public class KickstartData {
                     return kss;
                 }
             }
-        } 
+        }
         return null;
     }
-    
+
     /**
      * Getter for commands
-     * @return Returns commands 
+     * @return Returns commands
      */
     public Collection<KickstartCommand> getCommands() {
         return this.commands;
@@ -548,7 +548,7 @@ public class KickstartData {
         }
         return retval;
     }
-    
+
     /**
      * Convenience method to remove commands by name
      * @param commandName Command name
@@ -567,7 +567,7 @@ public class KickstartData {
             }
         }
     }
-    
+
     /**
      * Convenience method to find a command by name stopping at the first match
      * @param commandName Command name
@@ -594,13 +594,13 @@ public class KickstartData {
     public void setCommands(Collection<KickstartCommand> c) {
         this.commands = c;
     }
-    
+
     private Set <KickstartCommand> getCommandSubset(String name) {
         Set retval = new HashSet();
         if (this.commands != null && this.commands.size() > 0) {
             for (Iterator iter = this.commands.iterator(); iter.hasNext();) {
                 KickstartCommand cmd = (KickstartCommand) iter.next();
-                logger.debug("getCommandSubset : working with: " + 
+                logger.debug("getCommandSubset : working with: " +
                         cmd.getCommandName().getName());
                 if (cmd.getCommandName().getName().equals(name)) {
                     logger.debug("getCommandSubset : name equals, returning");
@@ -611,12 +611,12 @@ public class KickstartData {
         logger.debug("getCommandSubset : returning: " + retval);
         return Collections.unmodifiableSet(retval);
     }
-    
-    
-    
+
+
+
     /**
      * Getter for commandPartion
-     * @return Returns commandPartions 
+     * @return Returns commandPartions
      */
     public Set getPartitions() {
         return getCommandSubset("partitions");
@@ -629,18 +629,18 @@ public class KickstartData {
     public void addPartition(KickstartCommand p) {
         this.commands.add(p);
     }
-    
+
     /**
      * Getter for commandIncludes
-     * @return Returns commandIncludes 
+     * @return Returns commandIncludes
      */
     public Set getIncludes() {
         return getCommandSubset("include");
     }
-    
+
     /**
      * Getter for commandVolGroups
-     * @return Returns commandVolGroups 
+     * @return Returns commandVolGroups
      */
     public Set getVolgroups() {
         return getCommandSubset("volgroups");
@@ -653,15 +653,15 @@ public class KickstartData {
     public void addVolGroup(KickstartCommand v) {
         this.commands.add(v);
     }
-     
+
     /**
      * Getter for commandLogVols
-     * @return Returns commandLogVols 
+     * @return Returns commandLogVols
      */
     public Set getLogvols() {
         return getCommandSubset("logvols");
     }
-    
+
     /**
      * Adds a logvol KickstartCommand object to logvols.
      * @param l logvol to add
@@ -669,15 +669,15 @@ public class KickstartData {
     public void addLogVol(KickstartCommand l) {
         this.commands.add(l);
     }
-    
+
     /**
      * Getter for command raids
-     * @return Returns Kickstartcommand raids 
+     * @return Returns Kickstartcommand raids
      */
     public Set getRaids() {
         return getCommandSubset("raids");
     }
- 
+
     /**
      * Adds a raid KickstartCommand object to raids.
      * @param r raid to add
@@ -685,22 +685,22 @@ public class KickstartData {
     public void addRaid(KickstartCommand r) {
         this.commands.add(r);
     }
-    
+
     /**
      * @return Returns the repos.
-     */    
+     */
     public Set <KickstartCommand> getRepos() {
         return getCommandSubset("repo");
     }
 
     /**
-     * Updates the repos commands associated to this ks data.  
+     * Updates the repos commands associated to this ks data.
      * @param repoCommands the repos to update
      */
     public void setRepos(Collection<KickstartCommand> repoCommands) {
         replaceSet(getRepos(), repoCommands);
     }
-    
+
     /**
      * @return Returns the repos.
      */
@@ -714,10 +714,10 @@ public class KickstartData {
     }
 
     /**
-     * Updates the repos commands associated to this ks data.  
+     * Updates the repos commands associated to this ks data.
      * @param repos the repos to update
      **/
-    public void setRepoInfos(Collection<RepoInfo> repos) { 
+    public void setRepoInfos(Collection<RepoInfo> repos) {
         Set <KickstartCommand> repoCommands = new HashSet<KickstartCommand>();
         for (RepoInfo repo : repos) {
             KickstartCommand cmd = KickstartFactory.createKickstartCommand(this, "repo");
@@ -726,15 +726,15 @@ public class KickstartData {
         }
         setRepos(repoCommands);
     }
-    
-    
+
+
     /**
      * @return Returns the customOptions.
      */
     public SortedSet getCustomOptions() {
         return new TreeSet(getCommandSubset("custom"));
     }
-    
+
     /**
      * @return Returns the customOptions.
      */
@@ -750,7 +750,7 @@ public class KickstartData {
     public void setCustomOptions(Collection<KickstartCommand> customIn) {
         replaceSet(this.getCustomOptions(), customIn);
     }
-    
+
     /**
      * remove old custom partition options and replace with new
      * @param customIn to replace old with.
@@ -767,7 +767,7 @@ public class KickstartData {
         replaceSet(this.getPartitions(), partitionsIn);
     }
 
-    
+
     /**
      * remove old options and replace with new
      * @param optionsIn to replace old with.
@@ -816,10 +816,10 @@ public class KickstartData {
         this.commands.addAll(newSet);
         logger.debug("replaceSet co.done: " + this.getCustomOptions());
     }
-    
+
     /**
      * Getter for command options
-     * @return Returns Kickstartcommand options 
+     * @return Returns Kickstartcommand options
      */
     public Set<KickstartCommand> getOptions() {
         // 'partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom'
@@ -838,7 +838,7 @@ public class KickstartData {
         logger.debug("returning: " + retval);
         return Collections.unmodifiableSet(retval);
     }
-    
+
     /**
      * @return the download url suffix
      */
@@ -853,31 +853,31 @@ public class KickstartData {
         }
         return "";
     }
-     
+
     /**
-     * 
+     *
      * @param kd KickstartDefaults to set
      */
     public void setKickstartDefaults(KickstartDefaults kd) {
         this.kickstartDefaults = kd;
     }
-    
+
     /**
-     * 
+     *
      * @return the Kickstart Defaults assoc w/this Kickstart
      */
     public KickstartDefaults getKickstartDefaults() {
         return this.kickstartDefaults;
     }
-        
+
     /**
-     * Conv method 
+     * Conv method
      * @return Install Type for Kickstart
      */
     public KickstartInstallType getInstallType() {
         if (this.getTree() != null) {
-            return getTree().getInstallType(); 
-        }   
+            return getTree().getInstallType();
+        }
         return null;
     }
 
@@ -890,7 +890,7 @@ public class KickstartData {
         }
         return false;
     }
-    
+
     /**
      * @return if this kickstart profile is rhel 5 installer type
      */
@@ -908,7 +908,7 @@ public class KickstartData {
      */
     public boolean isRhel5OrGreater() {
         if (getInstallType() != null) {
-            return (getInstallType().isRhel5OrGreater() || 
+            return (getInstallType().isRhel5OrGreater() ||
                     getInstallType().isFedora());
         }
         else {
@@ -942,7 +942,7 @@ public class KickstartData {
             return false;
         }
     }
-        
+
     /**
      * @return if this kickstart profile is rhel 4 installer type
      */
@@ -966,9 +966,9 @@ public class KickstartData {
             return false;
         }
     }
-    
+
     /**
-     * 
+     *
      * @return if this kickstart profile is rhel 2 installer type
      */
     public boolean isRhel2() {
@@ -981,7 +981,7 @@ public class KickstartData {
     }
 
     /**
-     * 
+     *
      * @return Set of IpRanges for Kickstart
      */
     public Set<KickstartIpRange> getIps() {
@@ -989,15 +989,15 @@ public class KickstartData {
     }
 
     /**
-     * 
+     *
      * @param ipsIn Set of IPRanges to set
      */
-    public void setIps(Set ipsIn) {        
+    public void setIps(Set ipsIn) {
         this.ips = ipsIn;
-    }    
-    
+    }
+
     /**
-     * 
+     *
      * @param ipIn KickstartIpRange to add
      */
     public void addIpRange(KickstartIpRange ipIn) {
@@ -1022,7 +1022,7 @@ public class KickstartData {
     public void setTree(KickstartableTree kstreeIn) {
         this.getKickstartDefaults().setKstree(kstreeIn);
     }
-     
+
     /**
      * @return the scripts
      */
@@ -1030,7 +1030,7 @@ public class KickstartData {
         return scripts;
     }
 
-    
+
     /**
      * @param scriptsIn The scripts to set.
      */
@@ -1054,10 +1054,10 @@ public class KickstartData {
         }
         ksIn.setPosition(new Long(maxPosition + 1));
         ksIn.setKsdata(this);
-        
+
         scripts.add(ksIn);
     }
-    
+
     /**
      * Remove a KickstartScript from this Profile.
      * @param ksIn to remove.
@@ -1101,7 +1101,7 @@ public class KickstartData {
             return "grub";
         }
     }
-    
+
     /**
      * Changes the bootloader
      * @param type either "grub" or "lilo"
@@ -1114,16 +1114,16 @@ public class KickstartData {
             retval =  true;
             bootloaderCommand.setArguments(
                     bootloaderCommand.getArguments().replaceAll(
-                            "--useLilo", "").trim());            
+                            "--useLilo", "").trim());
             if (type.equalsIgnoreCase("lilo")) {
-                bootloaderCommand.setArguments(bootloaderCommand.getArguments() + 
+                bootloaderCommand.setArguments(bootloaderCommand.getArguments() +
                         " --useLilo");
             }
         }
-        
+
         return retval;
     }
-    
+
     /**
      * Convenience method to get the Channel associated with this profile
      * KickstartData -> KickstartDefault -> KickstartTree -> Channel
@@ -1200,11 +1200,11 @@ public class KickstartData {
     /**
      * Copy this KickstartData into a new one.  NOTE:  We don't clone
      * the following sub-objects:
-     * 
+     *
      * KickstartIpRange
-     * 
+     *
      * NOTE: We also don't clone isOrgDefault.
-     * 
+     *
      * @param user who is doing the cloning
      * @param newLabel to set on the cloned object
      * @return KickstartData that is cloned.
@@ -1214,8 +1214,8 @@ public class KickstartData {
         updateCloneDetails(cloned, user, newLabel);
         return cloned;
     }
-    
-    protected void updateCloneDetails(KickstartData cloned, User user, 
+
+    protected void updateCloneDetails(KickstartData cloned, User user,
                                     String newLabel) {
         cloned.setLabel(newLabel);
         cloned.setActive(this.isActive());
@@ -1227,7 +1227,7 @@ public class KickstartData {
         cloned.setVerboseUp2date(this.getVerboseUp2date());
         cloned.setOrg(this.getOrg());
         cloned.setChildChannels(new HashSet(this.getChildChannels()));
-        
+
         if (this.getCommands() != null) {
             Iterator i = this.getCommands().iterator();
             while (i.hasNext()) {
@@ -1236,7 +1236,7 @@ public class KickstartData {
                 cloned.addCommand(clonedCmd);
             }
         }
-        
+
         // Gotta remember to create a new HashSet with
         // the other objects.  Otherwise hibernate will
         // complain that you are using the same collection
@@ -1244,7 +1244,7 @@ public class KickstartData {
         if (this.getCryptoKeys() != null) {
             cloned.setCryptoKeys(new HashSet(this.getCryptoKeys()));
         }
-        
+
 
 
         // NOTE: Make sure we *DONT* clone isOrgDefault
@@ -1259,20 +1259,20 @@ public class KickstartData {
                 cloned.getKsPackages().add(kp.deepCopy(cloned));
             }
         }
-        
+
         if (this.getPreserveFileLists() != null) {
             cloned.setPreserveFileLists(new HashSet(this.getPreserveFileLists()));
         }
-        
+
         if (this.getScripts() != null) {
             Iterator i = this.getScripts().iterator();
             while (i.hasNext()) {
                 KickstartScript kss = (KickstartScript) i.next();
                 KickstartScript ksscloned = kss.deepCopy(cloned);
-                cloned.addScript(ksscloned);   
+                cloned.addScript(ksscloned);
             }
         }
-        
+
         //copy all of the non-session related kickstarts
         Set<Token> newTokens = new HashSet<Token>();
         if (this.getDefaultRegTokens() != null) {
@@ -1284,14 +1284,14 @@ public class KickstartData {
             }
         }
         cloned.setDefaultRegTokens(newTokens);
-        
+
         //create a new session one
         KickstartSessionCreateCommand cmd = new KickstartSessionCreateCommand(
                 user.getOrg(), cloned);
         cmd.store();
-        
+
     }
-    
+
     // Helper method to copy KickstartCommands
     private static void copyKickstartCommands(Set commands, KickstartData cloned) {
         if (commands != null) {
@@ -1303,7 +1303,7 @@ public class KickstartData {
             }
         }
     }
-    
+
     /**
      * Add a kickstartCommand object
      * @param clonedCmd The kickstartCommand to add
@@ -1311,7 +1311,7 @@ public class KickstartData {
     public void addCommand(KickstartCommand clonedCmd) {
         commands.add(clonedCmd);
     }
-    
+
     /**
      * Util method to determine if we are RHEL3/2.1
      * @return boolean if this KickstartData is using RHEL2.1 or RHEL3
@@ -1326,7 +1326,7 @@ public class KickstartData {
             return false;
         }
     }
-        
+
     /**
      * Bean wrapper so we can call isLegacyKickstart() from JSTL
      * @return boolean if this KickstartData is using RHEL2.1 or RHEL3
@@ -1343,7 +1343,7 @@ public class KickstartData {
         return ConfigDefaults.get().getKickstartPackageName();
 
     }
-    
+
     /**
      * @return Returns if the post scripts should be logged.
      */
@@ -1364,7 +1364,7 @@ public class KickstartData {
     public Boolean getKsCfg() {
         return ksCfg;
     }
-    
+
     /**
      * @param postLogIn The postLog to set.
      */
@@ -1385,7 +1385,7 @@ public class KickstartData {
     public void setKsCfg(Boolean ksCfgIn) {
         this.ksCfg = ksCfgIn;
     }
-    
+
     /**
      * Returns the SE Linux mode associated to this kickstart profile
      * @return the se linux mode or the default SE Liunx mode (i.e. enforcing)..
@@ -1408,25 +1408,25 @@ public class KickstartData {
         }
         return SELinuxMode.ENFORCING;
     }
-    
+
     /**
      * True if config management is enabled in this profile..
      * @return True if config management is enabled in this profile..
      */
     public boolean isConfigManageable() {
-        return getKickstartDefaults() != null && 
+        return getKickstartDefaults() != null &&
             getKickstartDefaults().getCfgManagementFlag();
     }
-    
+
     /**
      * True if remote command flag is  enabled in this profile..
      * @return True if remote command flag is  enabled in this profile..
      */
     public boolean isRemoteCommandable() {
-        return getKickstartDefaults() != null && 
+        return getKickstartDefaults() != null &&
             getKickstartDefaults().getRemoteCommandFlag();
     }
-    
+
     /**
      * @return the cobblerName
      */
@@ -1434,7 +1434,7 @@ public class KickstartData {
         if (getCobblerId() != null) {
             Profile prof = Profile.lookupById(
                    CobblerXMLRPCHelper.getConnection(
-                   Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER)), 
+                   Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER)),
                        getCobblerId());
             if (prof != null && !StringUtils.isBlank(prof.getKickstart())) {
                 return prof.getKickstart();
@@ -1451,7 +1451,7 @@ public class KickstartData {
                     getOrg());
         }
     }
-    
+
 
     /**
      * @return Returns if up2date/yum should be verbose
@@ -1481,31 +1481,31 @@ public class KickstartData {
     public void setNonChrootPost(Boolean nonchrootpostIn) {
         this.nonChrootPost = nonchrootpostIn;
     }
-    
+
     /**
-     * Returns true if this is a 
+     * Returns true if this is a
      * raw mode data .
      * @return true or false.
      */
     public boolean isRawData() {
         return false;
     }
-    
+
     /**
-     * Return the string containing the kickstart file 
+     * Return the string containing the kickstart file
      * @param host the kickstart host
      * @param session the kickstart session,
-     *               can be null if the data 
-     *               is not part of a session 
+     *               can be null if the data
+     *               is not part of a session
      * @return String containing kickstart file
      */
-    public String getFileData(String host, 
+    public String getFileData(String host,
                     KickstartSession session) {
         KickstartFormatter formatter = new KickstartFormatter(host, this, session);
         return formatter.getFileData();
     }
 
-    
+
     /**
      * @return Returns the cobblerId.
      */
@@ -1513,7 +1513,7 @@ public class KickstartData {
         return cobblerId;
     }
 
-    
+
     /**
      * @param cobblerIdIn The cobblerId to set.
      */
@@ -1521,7 +1521,7 @@ public class KickstartData {
         this.cobblerId = cobblerIdIn;
     }
 
-    
+
     /**
      * @return the kickstartType
      */
@@ -1529,34 +1529,34 @@ public class KickstartData {
         return kickstartType;
     }
 
-    
+
     /**
      * @param kickstartTypeIn the kickstartType to set
      */
     protected void setKickstartType(String kickstartTypeIn) {
         this.kickstartType = kickstartTypeIn;
     }
-    
+
     /**
      * Get the default virt bridge for this KickstartData object.
-     * 
+     *
      * @return String virt bridge (xenbr0, virbr0)
      */
     public String getDefaultVirtBridge() {
         if (this.getKickstartDefaults().getVirtualizationType().getLabel()
                 .equals(KickstartVirtualizationType.KVM_FULLYVIRT)) {
             return ConfigDefaults.get().getDefaultKVMVirtBridge();
-        } 
+        }
         else {
             return ConfigDefaults.get().getDefaultXenVirtBridge();
         }
     }
 
     /**
-     * Returns the cobbler object associated to 
+     * Returns the cobbler object associated to
      * to this profile.
      * @param user the user object needed for connection,
-     *              enter null if you want to use the 
+     *              enter null if you want to use the
      *              automated connection as provided by
      *              taskomatic.
      * @return the Profile associated to this ks data
@@ -1574,9 +1574,9 @@ public class KickstartData {
         }
         return Profile.lookupById(con, getCobblerId());
     }
-    
+
     /**
-     * Gets the Registration Type (i.e. the code that determines if 
+     * Gets the Registration Type (i.e. the code that determines if
      * the ks script needs to generate a reactivation key or not)
      * @param user the user object needed to load the profile from cobbler
      * @return the registration type
@@ -1586,13 +1586,13 @@ public class KickstartData {
         if (prof == null) {
             return RegistrationType.getDefault();
         }
-        
+
         return RegistrationType.find((String)prof.getKsMeta().get(
                             RegistrationType.COBBLER_VAR));
     }
-    
+
     /**
-     * Sets the registration type 
+     * Sets the registration type
      * @param type the refgistration type
      * @param user the user needed to load the profile form cobbler
      */
@@ -1602,7 +1602,7 @@ public class KickstartData {
         meta.put(RegistrationType.COBBLER_VAR, type.getType());
         prof.setKsMeta(meta);
         prof.save();
-    }    
+    }
 
     /**
      * Method to determine if the profile
@@ -1611,6 +1611,6 @@ public class KickstartData {
      * and the distro it hosts is valid.
      */
     public boolean isValid() {
-        return !StringUtils.isBlank(getCobblerId()) && getTree().isValid(); 
+        return !StringUtils.isBlank(getCobblerId()) && getTree().isValid();
     }
 }

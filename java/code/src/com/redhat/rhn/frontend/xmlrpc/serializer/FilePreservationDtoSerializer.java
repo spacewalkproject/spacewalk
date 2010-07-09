@@ -28,7 +28,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * FilePreservationDtoSerializer
  * @version $Rev$
  *
- * @xmlrpc.doc 
+ * @xmlrpc.doc
  *   #struct("file preservation")
  *      #prop("int", "id")
  *      #prop("string", "name")
@@ -55,7 +55,7 @@ public class FilePreservationDtoSerializer implements XmlRpcCustomSerializer {
         helper.add("id", fs.getId());
         helper.add("created", fs.getCreated());
         helper.add("last_modified", fs.getModified());
-        
+
         helper.writeTo(output);
     }
 }

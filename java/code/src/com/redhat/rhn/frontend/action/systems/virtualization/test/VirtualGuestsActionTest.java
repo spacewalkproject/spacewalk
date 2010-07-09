@@ -46,30 +46,30 @@ import java.util.Map;
  */
 public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
 
-    private RhnSet submitVirtualGuestsForm(String dispatch, Map requestParams) 
+    private RhnSet submitVirtualGuestsForm(String dispatch, Map requestParams)
         throws Exception {
         Server guest = ServerFactoryTest.createTestServer(
-                user, 
-                true, 
+                user,
+                true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled(),
                 ServerFactoryTest.TYPE_SERVER_NORMAL
         );
-        
+
         Server host = ServerFactoryTest.createTestServer(
-                user, 
-                true, 
+                user,
+                true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled(),
                 ServerFactoryTest.TYPE_SERVER_NORMAL
         );
-        
+
         VirtualInstance virtualInstance = new VirtualInstance();
         virtualInstance.setUuid("1234");
         virtualInstance.setGuestSystem(guest);
         virtualInstance.setHostSystem(host);
         virtualInstance.setState(VirtualInstanceFactory.getInstance().getRunningState());
-        
+
         addRequestParameter(RequestContext.SID, host.getId().toString());
-    
+
         for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
             String key = (String)iter.next();
             String value = (String)requestParams.get(key);
@@ -86,11 +86,11 @@ public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         return set;
     }
-    
+
     public void testDeleteGuest() throws Exception {
         Map requestParams = new HashMap();
         requestParams.put("guestAction", "Delete Systems");
-        RhnSet set = submitVirtualGuestsForm("virtualguestslist.jsp.applyaction", 
+        RhnSet set = submitVirtualGuestsForm("virtualguestslist.jsp.applyaction",
                 requestParams);
 
         verifyNoActionMessages();
@@ -105,19 +105,19 @@ public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
         assertEquals(0, set.size());
         assertTrue(getActualForward().indexOf("sid=") > 0);
     }
-    
+
     public void testDeleteGuestConfirm() throws Exception {
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest = 
+        Server guest =
             ((VirtualInstance) host.getGuests().iterator().next()).getGuestSystem();
-        
+
         VirtualInstance virtualInstance = new VirtualInstance();
         virtualInstance.setUuid("1234");
         virtualInstance.setGuestSystem(guest);
-        
+
         ServerFactory.save(guest);
         new VirtualInstanceFactory().saveVirtualInstance(virtualInstance);
-        
+
         addRequestParameter(RequestContext.SID, host.getId().toString());
         addDispatchCall("virtualguests_confirm.jsp.confirm");
         RhnSet set = RhnSetDecl.VIRTUAL_SYSTEMS.get(user);
@@ -126,7 +126,7 @@ public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
         TestUtils.flushAndEvict(virtualInstance);
         TestUtils.flushAndEvict(host);
         TestUtils.flushAndEvict(guest);
-                
+
         addRequestParameter("actionName", "delete");
         setRequestPathInfo("/systems/details/virtualization/VirtualGuestsConfirmSubmit");
         actionPerform();
@@ -139,19 +139,19 @@ public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
         DataResult dr = TestUtils.runTestQuery("select_virtual_instance_by_id", params);
         assertTrue(dr.size() == 0);
     }
-    
+
     public void testSetGuestMemory() throws Exception {
         Map requestParams = new HashMap();
         requestParams.put("guestSettingToModify", "Memory");
         requestParams.put("guestSettingValue", "1000");
-        submitVirtualGuestsForm("virtualguestslist.jsp.applychanges", 
+        submitVirtualGuestsForm("virtualguestslist.jsp.applychanges",
                 requestParams);
 
         verifyActionMessage("systems.details.virt.memory.check.host");
         assertTrue(getActualForward().indexOf("actionName=setMemory") >= 0);
         assertTrue(getActualForward().indexOf("guestSettingValue") >= 0);
     }
-    
+
     public void testSetGuestMemoryConfirm() throws Exception {
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
         addRequestParameter(RequestContext.SID, host.getId().toString());
@@ -185,7 +185,7 @@ public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
         Map requestParams = new HashMap();
         requestParams.put("guestSettingToModify", "Virtual CPU");
         requestParams.put("guestSettingValue", "3");
-        submitVirtualGuestsForm("virtualguestslist.jsp.applychanges", 
+        submitVirtualGuestsForm("virtualguestslist.jsp.applychanges",
                 requestParams);
 
         verifyNoActionMessages();

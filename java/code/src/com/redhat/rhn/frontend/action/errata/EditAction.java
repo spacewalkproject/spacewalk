@@ -54,7 +54,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class EditAction extends LookupDispatchAction {
-    
+
     private StrutsDelegate getStrutsDelegate() {
         return StrutsDelegate.getInstance();
     }
@@ -66,18 +66,18 @@ public class EditAction extends LookupDispatchAction {
      * @param formIn ActionForm
      * @param request HttpServletRequest
      * @param response HttpServletResponse
-     * @return ActionForward, the forward for the jsp 
+     * @return ActionForward, the forward for the jsp
      */
     public ActionForward unspecified(ActionMapping mapping,
                                      ActionForm formIn,
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         Errata errata = requestContext.lookupErratum();
-        
+
         DynaActionForm form = (DynaActionForm) formIn;
-        
+
         String keywordDisplay = StringUtil.join(
                 LocalizationService.getInstance().getMessage("list delimiter"),
                 IteratorUtils.getIterator(errata.getKeywords()));
@@ -95,10 +95,10 @@ public class EditAction extends LookupDispatchAction {
         form.set("refersTo", errata.getRefersTo());
         form.set("notes", errata.getNotes());
         form.set("keywords", keywordDisplay);
-        
+
         return setupPage(request, mapping, errata);
     }
-    
+
     /**
      * This method sets up the page for view
      * @param request HttpServletRequest
@@ -108,14 +108,14 @@ public class EditAction extends LookupDispatchAction {
      */
     public ActionForward setupPage(HttpServletRequest request, ActionMapping mapping,
                                    Errata errata) {
-        
+
         //What type of errata is this? we need to set isPublished
         if (errata.isPublished()) {
         request.setAttribute("isPublished", "true");
         }
         else {
         request.setAttribute("isPublished", "false");
-        } 
+        }
         //set the list of bugs
         request.setAttribute("bugs", errata.getBugs());
         //set advisory for toolbar
@@ -138,12 +138,12 @@ public class EditAction extends LookupDispatchAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        //forward to the channels page so user can associate channels 
+        //forward to the channels page so user can associate channels
         //with this errata.
-        return getStrutsDelegate().forwardParam(mapping.findForward("published"), 
+        return getStrutsDelegate().forwardParam(mapping.findForward("published"),
                 "eid", request.getParameter("eid"));
     }
-    
+
     /**
      * Sends a notification
      * @param mapping Action mapping
@@ -157,11 +157,11 @@ public class EditAction extends LookupDispatchAction {
                                 HttpServletRequest request,
                                 HttpServletResponse response) {
         //forward to notify page with eid
-        return getStrutsDelegate().forwardParam(mapping.findForward("notified"), 
-                                      "eid", 
+        return getStrutsDelegate().forwardParam(mapping.findForward("notified"),
+                                      "eid",
                                       request.getParameter("eid"));
-    } 
-    
+    }
+
     /**
      * Updates the errata according to info on the page.
      * @param mapping Action mapping
@@ -181,7 +181,7 @@ public class EditAction extends LookupDispatchAction {
         //Validate the form to make sure everything was filled out correctly
         List bugs = new ArrayList();
         ActionErrors errors = validateForm(form, request, e, bugs);
-        
+
         if (!errors.isEmpty()) { //Something is wrong. Forward to failure mapping.
             addErrors(request, errors);
             //return to the same page with the errors
@@ -205,7 +205,7 @@ public class EditAction extends LookupDispatchAction {
         e.setSolution(form.getString("solution"));
         e.setRefersTo(form.getString("refersTo"));
         e.setNotes(form.getString("notes"));
-        
+
         //Clear all the keywords and bugs we have, and then add the ones on page
         if (e.getKeywords() != null) {
             e.getKeywords().clear();
@@ -218,14 +218,14 @@ public class EditAction extends LookupDispatchAction {
             //get deleted from the database.  This is BS, Hibernate should in all
             //reasonable application be able to manage sets correctly so that we
             //don't have to do this.  Consulting www.hibernate.org brings this 'fix'
-            //of flushing the session and states, "This kind of problem occurs 
+            //of flushing the session and states, "This kind of problem occurs
             //rarely in practice."  #yell, curse, complain#
             HibernateFactory.getSession().flush();
         }
         catch (HibernateException ex) {
             throw new HibernateRuntimeException("Error flushing session", ex);
         }
-        
+
         //add bugs from the form
         Iterator i = bugs.iterator();
         while (i.hasNext()) {
@@ -240,7 +240,7 @@ public class EditAction extends LookupDispatchAction {
                 e.addBug(ErrataManager.createNewUnpublishedBug(bugid, summary));
             }
         }
-        
+
         //add keywords... split on commas and add separately to list
         String keywordsField = form.getString("keywords");
         if (keywordsField != null && keywordsField.length() > 0) {
@@ -254,18 +254,18 @@ public class EditAction extends LookupDispatchAction {
                 }
             }
         }
-        
+
         //Save errata back to db
         ErrataManager.storeErrata(e);
-        
+
         ActionMessages messages = new ActionMessages();
-        messages.add(ActionMessages.GLOBAL_MESSAGE, 
+        messages.add(ActionMessages.GLOBAL_MESSAGE,
                      new ActionMessage("errata.edit.updated"));
         getStrutsDelegate().saveMessages(request, messages);
         //return to the same page with the message
         return setupPage(request, mapping, e);
     }
-    
+
     /**
      * Validate the form and add bugs to the list
      * @param form The form we are validating
@@ -276,18 +276,18 @@ public class EditAction extends LookupDispatchAction {
      */
     public ActionErrors validateForm(DynaActionForm form, HttpServletRequest request,
                                      Errata errata, List bugs) {
-        
+
         ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, form);
-        
+
         /*
          * Errata error check
          * Make sure advisory name is unique and does not begin with 'RH'
          */
         String advisoryNameFromForm = form.getString("advisoryName");
-        
+
         //Get all the parameters (so we can detect changes to existing bugs)
         Iterator params = request.getParameterMap().keySet().iterator();
-        
+
         /*
          * Now we add each bug id to a list
          * The reason we have to do this is so that users can edit existing bugs
@@ -301,7 +301,7 @@ public class EditAction extends LookupDispatchAction {
                 bugIds.add(next);
             }
         }
-        
+
         // Make sure advisoryName is unique
         if (!ErrataManager.advisoryNameIsUnique(errata.getId(), advisoryNameFromForm)) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
@@ -312,7 +312,7 @@ public class EditAction extends LookupDispatchAction {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                        new ActionMessage("errata.edit.error.rhAdvisoryName"));
         }
-        
+
         Iterator i = bugIds.iterator();
         Set ids = new HashSet(); //This is for verifying that each id is unique
         while (i.hasNext()) {
@@ -324,7 +324,7 @@ public class EditAction extends LookupDispatchAction {
             String suffix = next.substring("buglistId".length());
             //the one possible new bug has the 'New' suffix
             boolean newbug = suffix.equals("New");
-            
+
             try {
                 id = request.getParameter(next).trim();
                 summary = request.getParameter("buglistSummary" + suffix);
@@ -337,7 +337,7 @@ public class EditAction extends LookupDispatchAction {
                 //is screwing with the request.  @see WEB-INF/pages/errata/edit.jsp
                 throw new BadParameterException("Invalid bugListId", iae);
             }
-            
+
             //Test that all existing bugs have the id field filled in
             if (!newbug && id.length() == 0) {
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
@@ -377,7 +377,7 @@ public class EditAction extends LookupDispatchAction {
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("errata.edit.error.idUnique"));
             }
-            
+
             //Add this bug to the collection so that we can update the errata easily
             ids.add(id);
             if (!newbug || id.length() > 0) {
@@ -387,10 +387,10 @@ public class EditAction extends LookupDispatchAction {
                 bugs.add(bug);
             }
         }
-        
+
         return errors;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -402,6 +402,6 @@ public class EditAction extends LookupDispatchAction {
         map.put("errata.edit.delete", "deleteBug");
         map.put("errata.edit.updateerrata", "update");
         return map;
-    }    
-    
+    }
+
 }

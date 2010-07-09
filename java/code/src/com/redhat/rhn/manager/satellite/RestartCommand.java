@@ -25,11 +25,11 @@ import java.util.List;
  * be ORG_ADMIN to use this Command.
  * @version $Rev$
  */
-public class RestartCommand extends BaseConfigureCommand 
+public class RestartCommand extends BaseConfigureCommand
     implements SatelliteConfigurator {
 
     /**
-     * Construct the Command 
+     * Construct the Command
      * @param userIn who wants to restart
      */
     public RestartCommand(User userIn) {
@@ -45,12 +45,12 @@ public class RestartCommand extends BaseConfigureCommand
         List args = new LinkedList();
         args.add("/usr/bin/sudo");
         args.add("/usr/sbin/rhn-sat-restart-silent");
-        
+
         int exitcode = e.execute((String[]) args.toArray(new String[0]));
         if (exitcode != 0) {
             errors[0] = new ValidatorError("restart.config.error");
             return errors;
-        } 
+        }
         else {
             return null;
         }

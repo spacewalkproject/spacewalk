@@ -27,18 +27,18 @@ import java.util.Set;
  * KickstartFilePreservationListsCommand
  * @version $Rev$
  */
-public class FilePreservationListsCommand extends BaseKickstartCommand {        
-    
+public class FilePreservationListsCommand extends BaseKickstartCommand {
+
     /**
-     * 
-     * @param ksid Kickstart Id 
+     *
+     * @param ksid Kickstart Id
      * @param userIn Logged in User
      */
     public FilePreservationListsCommand(Long ksid, User userIn) {
-        super(ksid, userIn);        
+        super(ksid, userIn);
     }
-    
-    /** 
+
+    /**
      * Removes file lists from the kickstart profile.
      * @param ids The ids of the file lists to remove.
     */
@@ -61,7 +61,7 @@ public class FilePreservationListsCommand extends BaseKickstartCommand {
         }
     }
 
-    /** 
+    /**
      * Adds file lists to the kickstart profile.
      * @param ids The ids of the regtokens to add.
     */
@@ -70,7 +70,7 @@ public class FilePreservationListsCommand extends BaseKickstartCommand {
 
         while (toAddIter.hasNext()) {
             Long id = (Long) toAddIter.next();
-            
+
             this.getKickstartData()
                 .addPreserveFileList(CommonFactory.lookupFileList(id, this.user.getOrg()));
         }
@@ -87,6 +87,6 @@ public class FilePreservationListsCommand extends BaseKickstartCommand {
         else {
             return Collections.EMPTY_SET;
         }
-    }    
+    }
 
 }

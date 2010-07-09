@@ -38,7 +38,7 @@ public abstract class BaseTestToolbarTag extends RhnBaseTestCase {
     protected TagTestHelper tth;
     protected ToolbarTag tt;
     protected MockJspWriter out;
-    
+
     public void setUp() {
         tt = new ToolbarTag();
         tth = TagTestUtils.setupTagTest(tt, null);
@@ -46,20 +46,20 @@ public abstract class BaseTestToolbarTag extends RhnBaseTestCase {
         MockHttpServletRequest req = tth.getRequest();
         req.setupGetAttribute(new HashMap());
     }
-    
+
     public void tearDown() {
         tt = null;
         tth = null;
         out = null;
     }
-    
+
     public void verifyTag(String output) throws JspException {
         out.setExpectedData(output);
         tth.assertDoStartTag(Tag.EVAL_BODY_INCLUDE);
         tth.assertDoEndTag(Tag.EVAL_PAGE);
         out.verify();
     }
-    
+
     public static class MockTwoAclHandler implements AclHandler {
 
         public MockTwoAclHandler() {
@@ -93,7 +93,7 @@ public abstract class BaseTestToolbarTag extends RhnBaseTestCase {
             return true;
         }
     }
-    
+
     public static class BooleanAclHandler implements AclHandler {
         /**
          * Always returns true.
@@ -104,7 +104,7 @@ public abstract class BaseTestToolbarTag extends RhnBaseTestCase {
         public boolean aclTrueTest(Object ctx, String[] params) {
             return true;
         }
-        
+
         /**
          * Always returns false.
          * @param ctx ignored

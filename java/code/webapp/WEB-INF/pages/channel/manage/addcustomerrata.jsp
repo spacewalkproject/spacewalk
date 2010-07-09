@@ -16,8 +16,8 @@
 		}
 		document.onkeypress = key;
 		if (document.layers) document.captureEvents(Event.KEYPRESS);
-    </script>    
-        
+    </script>
+
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
@@ -37,12 +37,12 @@
 			   <input type="checkbox" name="assoc_checked"   <c:if test="${assoc_checked}">checked </c:if>  >
 			   <bean:message key="channel.manage.errata.packageassocmsg" />
 		 </td>
-   </tr> 
+   </tr>
 	
-   		<c:if test="${selected_channel != null}">			 
+		<c:if test="${selected_channel != null}">
 	   		<input type="hidden" name="selected_channel_old"  value="${selected_channel}">
 		</c:if>
-   		<c:if test="${channel_list != null}">			 
+		<c:if test="${channel_list != null}">
 
 			  <tr> <th width="10%">Channel:</th><td width="40%">
 			  <select name="selected_channel">
@@ -63,7 +63,7 @@
 					</c:forEach>  	
 					</optgroup>	
 			  </select>
-			  
+
 			  </td>
 			   		  <td>
 							  <input type="submit" name="dispatch"  value="<bean:message key="frontend.actions.channels.manager.add.viewErrata"/>">
@@ -71,65 +71,65 @@
 		  	     </tr>
 		  </c:if>
 
-  
+
   </table>
   <br><br>
 
    <c:choose>
    		<c:when test="${pageList != null}">
-  
-		  <rl:list dataset="pageList" name="errata"   decorator="SelectableDecorator" 
+
+		  <rl:list dataset="pageList" name="errata"   decorator="SelectableDecorator"
 		  			emptykey = "channel.manage.errata.noerrata"
 		  			filter="com.redhat.rhn.frontend.action.channel.manage.ErrataFilter">
 		  		<rl:decorator name="ElaborationDecorator"/>
 		  		<rl:decorator name="PageSizeDecorator"/>
 		  		
-		  		<rl:selectablecolumn value="${current.selectionKey}"  
-	    		        	selected="${current.selected}" 
+				<rl:selectablecolumn value="${current.selectionKey}"
+					selected="${current.selected}"
 	    				styleclass="first-column"/>
 		  		
-		  		<rl:column sortable="true" 
-			           headerkey="exportcolumn.errataAdvisoryType" 
+				<rl:column sortable="true"
+			           headerkey="exportcolumn.errataAdvisoryType"
 			           sortattr="advisoryType"
 			           styleclass="center"
 		           	   headerclass="thin-column">
 							        <c:if test="${current.securityAdvisory}">
-							            <img src="/img/wrh-security.gif" 
+							            <img src="/img/wrh-security.gif"
 							                 alt="<bean:message key="erratalist.jsp.securityadvisory"/>" />
 							        </c:if>
 							        <c:if test="${current.bugFix}">
-							            <img src="/img/wrh-bug.gif" 
+							            <img src="/img/wrh-bug.gif"
 							                 alt="<bean:message key="erratalist.jsp.bugadvisory"/>" />
 							        </c:if>
 							        <c:if test="${current.productEnhancement}">
-							            <img src="/img/wrh-product.gif" 
+							            <img src="/img/wrh-product.gif"
 							                 alt="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
 							        </c:if>
 				</rl:column>	  		
 		  		
 		  		
 		  		
-		  		<rl:column sortable="true" 
-				           headerkey="erratalist.jsp.advisory" 
+				<rl:column sortable="true"
+				           headerkey="erratalist.jsp.advisory"
 				           sortattr="advisory">
 		                      <a href="/rhn/errata/details/Details.do?eid=${current.id}">
 		                      <c:out value="${current.advisory}"/>
 		                      </a>
 				</rl:column>
 				
-		  		<rl:column sortable="true" 
-				           headerkey="erratalist.jsp.synopsis" 
+				<rl:column sortable="true"
+				           headerkey="erratalist.jsp.synopsis"
 				           sortattr="advisorySynopsis">
 		                      <c:out value="${current.advisorySynopsis}"/>
 				</rl:column>				
-		  		<rl:column sortable="true" 
-				           headerkey="channel.manage.errata.updatedate" 
+				<rl:column sortable="true"
+				           headerkey="channel.manage.errata.updatedate"
 				           sortattr="updateDateObj" >
 		                      <c:out value="${current.updateDate}"/>
 				</rl:column>						
 				
-			  </rl:list> 
-  
+			  </rl:list>
+
   </c:when>
 </c:choose>
   		<p align="right">

@@ -40,17 +40,17 @@ import java.util.Vector;
  * @version $Rev$
  */
 public class PermissionExceptionHandlerTest extends MockObjectTestCase {
-    
+
     private TraceBackAction tba;
-    
+
     public void setUp() {
         tba = new TraceBackAction();
         MessageQueue.registerAction(tba, TraceBackEvent.class);
         MessageQueue.startMessaging();
     }
-    
+
     public void testExecute() throws Exception {
-        
+
         /*
          * Turn off logging and tracebacks Logging complains and sends warnings
          * (expected) Tracebacks will get sent to root@localhost
@@ -95,7 +95,7 @@ public class PermissionExceptionHandlerTest extends MockObjectTestCase {
             log.setLevel(orig);
         }
     }
-    
+
     protected void tearDown() {
         MessageQueue.stopMessaging();
         MessageQueue.deRegisterAction(tba, TraceBackEvent.class);

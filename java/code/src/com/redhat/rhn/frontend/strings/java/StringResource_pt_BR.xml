@@ -1237,7 +1237,7 @@ Assegure-se que seus pacotes do rhn-kickstart* correspondam à este kickstart
 disponível no canal 'rhn-tools' do canal base do kickstart. Caso não esteja, você precisará ativá-lo neste perfil do kickstart para que funcione adequadamente
 &lt;/li&gt;
 &lt;li&gt;
-Os pacotes listados acima estão ativados no canal base do kickstart? Caso não estejam, você precisará ativá-los 
+Os pacotes listados acima estão ativados no canal base do kickstart? Caso não estejam, você precisará ativá-los
 neste perfil do kickstart para que funcione adequadamente.
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -5046,8 +5046,8 @@ Follow this url to see the full list of inactive systems:
 				<source>One or more of the packages you have selected for removal below are not contained in
 			a software channel that this system is subscribed to.  If you choose to continue with the removal
 			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
-				<target>Um ou mais pacotes que você selecionou para a remoção abaixo não estão contidos no 
-			 canal do software, no qual este sistema está suscrito. Caso escolha continuar com a remoção 
+				<target>Um ou mais pacotes que você selecionou para a remoção abaixo não estão contidos no
+			 canal do software, no qual este sistema está suscrito. Caso escolha continuar com a remoção
 			 você não poderá retornar este sistema à este snapshot ou à qualquer outro.</target>
 			</trans-unit>
 			<trans-unit id="list.filter.iprange">
@@ -5235,35 +5235,35 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to 
-syncronize kickstart distributions from Spacewalk to Cobbler.  These 
-errors must be corrected for the distributions to be available for 
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
 kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-Segue uma lista de erros obtida enquanto o Spacewalk tenta 
-sincronizar as distribuições do kickstart a partir do Spacewalk para o Cobbler. Estes 
+Segue uma lista de erros obtida enquanto o Spacewalk tenta
+sincronizar as distribuições do kickstart a partir do Spacewalk para o Cobbler. Estes
 erros devem ser corrigidos para que as distribuições sejam disponibilizadas para os sistemas kickstart:
 
 {0}
 
 Por favor verifique:
 
-/var/log/rhn/rhn_taskomatic_daemon.log e 
+/var/log/rhn/rhn_taskomatic_daemon.log e
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
-para mais detalhes sobre erros. Caso você não resolva estes erros a àrvore do kickstart 
+para mais detalhes sobre erros. Caso você não resolva estes erros a àrvore do kickstart
 não poderá ser utilizada para realizar o kickstart. </target>
 			</trans-unit>
 			<trans-unit id="errata.delete.msg">

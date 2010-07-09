@@ -31,15 +31,15 @@ import java.util.Iterator;
  * @version $Rev$
  */
 public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
-    
+
     private ChannelFamily fam;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         fam = ChannelFamilyFactoryTest.createTestChannelFamily(
                 UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg()));
     }
-    
+
     private void reloadFamilies() {
         fam = (ChannelFamily) reload(fam);
         Iterator i = fam.getPrivateChannelFamilies().iterator();
@@ -49,26 +49,26 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
     }
 
     public void testUpdateEntitlements() throws Exception {
-        
+
         Long origValue = fam.getMaxMembers(OrgFactory.getSatelliteOrg());
-        
+
         UpdateOrgSoftwareEntitlementsCommand cmd = new UpdateOrgSoftwareEntitlementsCommand(
                 fam.getLabel(), user.getOrg(), 1L, 0L);
         assertNull(cmd.store());
         reloadFamilies();
-        
+
         assertEquals(1, fam.getMaxMembers(user.getOrg()).longValue());
-        assertEquals(origValue.longValue() - 1, 
+        assertEquals(origValue.longValue() - 1,
                 fam.getMaxMembers(OrgFactory.getSatelliteOrg()).longValue());
-        
+
     }
-    
+
     public void testUpdateTooMany() throws Exception {
         UpdateOrgSoftwareEntitlementsCommand cmd = new UpdateOrgSoftwareEntitlementsCommand(
                 fam.getLabel(), user.getOrg(), new Long(Integer.MAX_VALUE), 0L);
         assertNotNull(cmd.store());
     }
-    
+
     public void testReUpdateToConsumeAll() throws Exception {
         Long firstAllocation = ChannelFamilyFactoryTest.ENTITLEMENT_ALLOCATION / 2;
         UpdateOrgSoftwareEntitlementsCommand cmd = new UpdateOrgSoftwareEntitlementsCommand(
@@ -80,16 +80,16 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
                 TestUtils.reload(privFam);
             }
         }
-        
+
         // Now give the remaining:
-        cmd = new UpdateOrgSoftwareEntitlementsCommand(fam.getLabel(), user.getOrg(), 
+        cmd = new UpdateOrgSoftwareEntitlementsCommand(fam.getLabel(), user.getOrg(),
                 ChannelFamilyFactoryTest.ENTITLEMENT_ALLOCATION, 0L);
         assertNull(cmd.store());
     }
-    
+
     public void testLowerEntitlements() throws Exception {
         Long orig = fam.getMaxMembers(OrgFactory.getSatelliteOrg());
-        
+
         UpdateOrgSoftwareEntitlementsCommand cmd = new UpdateOrgSoftwareEntitlementsCommand(
                 fam.getLabel(), user.getOrg(), new Long(1), 0L);
         assertNull(cmd.store());
@@ -108,11 +108,11 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
         now = fam.getMaxMembers(OrgFactory.getSatelliteOrg()).longValue();
         assertEquals(orig.longValue(), now.longValue());
     }
-    
+
     public void testUpdateEntitlementsByOne() throws Exception {
-        
+
         Long origValue = fam.getMaxMembers(OrgFactory.getSatelliteOrg());
-        
+
         UpdateOrgSoftwareEntitlementsCommand cmd = new UpdateOrgSoftwareEntitlementsCommand(
                 fam.getLabel(), user.getOrg(), new Long(1), 0L);
         assertNull(cmd.store());
@@ -122,7 +122,7 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
         assertNull(cmd.store());
         reloadFamilies();
         assertEquals(2, fam.getMaxMembers(user.getOrg()).longValue());
-        assertEquals(origValue.longValue() - 2, 
+        assertEquals(origValue.longValue() - 2,
                 fam.getMaxMembers(OrgFactory.getSatelliteOrg()).longValue());
     }
 
@@ -137,8 +137,8 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
         UpdateOrgSoftwareEntitlementsCommand cmd = new UpdateOrgSoftwareEntitlementsCommand(
                 fam.getLabel(), user.getOrg(), new Long(1), 0L);
         assertNull(cmd.store());
-        
+
     }
-    
+
 }
 

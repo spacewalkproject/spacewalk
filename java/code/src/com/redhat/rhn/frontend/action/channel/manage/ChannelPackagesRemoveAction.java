@@ -78,7 +78,7 @@ public class ChannelPackagesRemoveAction extends RhnAction {
         RhnSet set =  RhnSetDecl.PACKAGES_TO_REMOVE.get(user);
         DataResult result = PackageManager.packageIdsInSet(user, set.getLabel(), null);
 
-        
+
         TagHelper.bindElaboratorTo(LIST_ACTION, result.getElaborator(), request);
         request.setAttribute("cid", chan.getId());
         request.setAttribute("channel_name", chan.getName());

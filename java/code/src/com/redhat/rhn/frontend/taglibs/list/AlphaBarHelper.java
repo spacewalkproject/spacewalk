@@ -29,7 +29,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
 /**
- * 
+ *
  * AlphaBarHelper
  * @version $Rev$
  */
@@ -41,18 +41,18 @@ public class AlphaBarHelper {
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = -4344327713489384983L;
-    
+
     /**
-     * provides the alpha bar key 
+     * provides the alpha bar key
      * @param listName the list name
      * @return the url key for the alpha bar
      */
     public static String makeAlphaKey(String listName) {
         return "list_" + listName + "_alpha_key";
     }
-    
+
     /**
-     * Returns true if the alpha bar item was selected from the  request 
+     * Returns true if the alpha bar item was selected from the  request
      * @param listName the name of this list, ncessary for unique identification
      * @param req the servlet request.
      * @return true if the alpha bar item was selected from the  request
@@ -60,7 +60,7 @@ public class AlphaBarHelper {
     public boolean isSelected(String listName, ServletRequest req) {
         return !StringUtils.isBlank(req.getParameter(makeAlphaKey(listName)));
     }
-    
+
     /**
      * Returns the alpha value..
      * @param listName the name of this list, ncessary for unique identification
@@ -70,7 +70,7 @@ public class AlphaBarHelper {
     public String getAlphaValue(String listName, ServletRequest req) {
         return req.getParameter(makeAlphaKey(listName));
     }
-    
+
     /**
      * get the singleton instance
      * @return the instance
@@ -90,7 +90,7 @@ public class AlphaBarHelper {
             Set<Character> activeChars, String listName) throws JspException {
 
         ListTagUtil.write(pageContext, "<br />");
-        ListTagUtil.write(pageContext, 
+        ListTagUtil.write(pageContext,
                          "<table width=\"100%\" cellspacing=\"0\"" +
                                 " cellpadding=\"1\">");
         ListTagUtil.write(pageContext, "<tr valign=\"top\">");
@@ -114,7 +114,7 @@ public class AlphaBarHelper {
         for (String letterString : alphabet) {
             char letter = letterString.charAt(0);
             if (activeChars.contains(letter)) {
-                ListTagUtil.write(pageContext, renderEnabledAlpha(letter, 
+                ListTagUtil.write(pageContext, renderEnabledAlpha(letter,
                                             listName, pageContext.getRequest()));
             }
             else {
@@ -134,9 +134,9 @@ public class AlphaBarHelper {
                                         ServletRequest request) {
         Map <String, String> params = new HashMap<String, String>();
         params.put(makeAlphaKey(listName), String.valueOf(alpha));
-        
+
         StringBuilder enabled = new StringBuilder("<a href=\"");
-        enabled.append(ListTagUtil.makeParamsLink(request, listName, params, 
+        enabled.append(ListTagUtil.makeParamsLink(request, listName, params,
                 Collections.EMPTY_LIST));
         enabled.append("\"");
         enabled.append(" class=\"list-alphabar-enabled\">" + alpha + "</a>");

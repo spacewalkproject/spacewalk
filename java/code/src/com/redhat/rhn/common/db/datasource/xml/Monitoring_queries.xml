@@ -2,7 +2,7 @@
 
 <mode name="time_series_for_probe">
   <query params="oid, start_time, end_time"><![CDATA[
-SELECT  O_ID, ENTRY_TIME, DATA 
+SELECT  O_ID, ENTRY_TIME, DATA
     FROM time_series TS
     WHERE TS.o_id = :oid
     AND TS.entry_time >= :start_time
@@ -14,7 +14,7 @@ SELECT  O_ID, ENTRY_TIME, DATA
 
 <mode name="state_change_for_probe" class="com.redhat.rhn.frontend.dto.monitoring.StateChangeData">
   <query params="oid, start_time, end_time"><![CDATA[
-SELECT  O_ID, ENTRY_TIME, DATA 
+SELECT  O_ID, ENTRY_TIME, DATA
     FROM state_change SC
     WHERE SC.o_id = :oid
     AND SC.entry_time >= :start_time
@@ -28,13 +28,13 @@ SELECT  O_ID, ENTRY_TIME, DATA
   <query params="org_id, user_id"><![CDATA[
 SELECT csouter.recid suite_id, csouter.suite_name suite_name, csouter.description description,
  (SELECT count(DISTINCT cp.host_id) system_count
-    FROM RHN_CHECK_SUITE_PROBE csp, 
+    FROM RHN_CHECK_SUITE_PROBE csp,
          RHN_SERVICE_PROBE_ORIGINS spo, RHN_CHECK_PROBE cp
     WHERE csouter.recid = csp.check_suite_id AND
           csp.probe_id = spo.origin_probe_id AND
           spo.service_probe_id = cp.probe_id) system_count,
  (SELECT count(DISTINCT cp.host_id)
-    FROM RHN_CHECK_SUITE_PROBE csp, 
+    FROM RHN_CHECK_SUITE_PROBE csp,
          RHN_SERVICE_PROBE_ORIGINS spo, RHN_CHECK_PROBE cp,
          rhnUserServerPerms usp
     WHERE csouter.recid = csp.check_suite_id AND
@@ -51,7 +51,7 @@ FROM rhn_check_suites csouter
 <mode name="probe_suite_accessible">
   <query params="user_id, suite_id"><![CDATA[
 SELECT count(*) noaccess
-FROM RHN_CHECK_SUITE_PROBE csp, 
+FROM RHN_CHECK_SUITE_PROBE csp,
      RHN_SERVICE_PROBE_ORIGINS spo, RHN_CHECK_PROBE cp
 WHERE :suite_id = csp.check_suite_id
   AND csp.probe_id = spo.origin_probe_id
@@ -79,25 +79,25 @@ ORDER BY p.description
 
 <mode name="active_filters_in_org" class="com.redhat.rhn.frontend.dto.monitoring.FilterDto">
   <query params="org_id"><![CDATA[
-SELECT recid, redirect_type, description, expiration 
+SELECT recid, redirect_type, description, expiration
 FROM rhn_redirects
 WHERE customer_id = :org_id
 AND expiration >= sysdate
 ]]>
   </query>
 </mode>
-    
+
 <mode name="expired_filters_in_org" class="com.redhat.rhn.frontend.dto.monitoring.FilterDto">
   <query params="org_id"><![CDATA[
-SELECT recid, redirect_type, description, expiration 
+SELECT recid, redirect_type, description, expiration
 FROM rhn_redirects
 WHERE customer_id = :org_id
 AND expiration <= sysdate
 ]]>
   </query>
 </mode>
-    
-    
+
+
 <mode name="probes_in_org" class="com.redhat.rhn.frontend.dto.monitoring.CheckProbeDto">
   <query params="org_id"><![CDATA[
 SELECT p.recid id, p.description,
@@ -110,17 +110,17 @@ ORDER BY p.description, s.name
 ]]>
   </query>
 </mode>
-    
+
 <mode name="contact_groups_in_org">
   <query params="org_id">
     <![CDATA[
 SELECT recid, contact_group_name as groupName
 FROM rhn_contact_groups
-WHERE customer_id = :org_id    
+WHERE customer_id = :org_id
     ]]>
   </query>
 </mode>
-    
+
 <mode name="methods_in_org" class="com.redhat.rhn.frontend.dto.monitoring.MethodDto">
   <query params="org_id">
     <![CDATA[
@@ -128,12 +128,12 @@ SELECT WC.id user_id,
        WC.login login,
        CM.recid recid,
        CM.method_name method_name,
-       DECODE( MT.method_type_name, 
-         'Email', CM.email_address, 
+       DECODE( MT.method_type_name,
+         'Email', CM.email_address,
          'Pager', CM.pager_email,
-         'SNMP', CM.snmp_host) method_target, 
+         'SNMP', CM.snmp_host) method_target,
        MT.method_type_name method_type
-  FROM rhn_contact_methods CM, 
+  FROM rhn_contact_methods CM,
        web_contact WC,
        rhn_method_types MT
  WHERE WC.org_id = :org_id
@@ -143,10 +143,10 @@ ORDER BY WC.login, CM.method_name
     ]]>
   </query>
 </mode>
-        
+
 <mode name="servers_in_suite" class="com.redhat.rhn.frontend.dto.monitoring.MonitoredServerDto">
   <query params="suite_id"><![CDATA[
-SELECT distinct s.id, s.name, 
+SELECT distinct s.id, s.name,
 ( SELECT  DECODE(
                    MAX(DECODE(statps.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
                          1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
@@ -154,7 +154,7 @@ SELECT distinct s.id, s.name,
           WHERE  statcp.probe_id = statps.probe_id
             AND  s.id = statcp.host_id(+)
          GROUP BY s.id ) status
-FROM rhn_check_suites cs, 
+FROM rhn_check_suites cs,
      rhn_check_suite_probe csp,
      rhn_service_probe_origins spo,
      rhn_check_probe cp,
@@ -163,7 +163,7 @@ FROM rhn_check_suites cs,
 WHERE cs.recid = :suite_id
   and csp.check_suite_id = cs.recid
   and spo.origin_probe_id = csp.probe_id
-  and cp.probe_id = spo.service_probe_id  
+  and cp.probe_id = spo.service_probe_id
   and ps.probe_id = cp.probe_id
   and s.id = cp.host_id
   ]]>
@@ -173,12 +173,12 @@ WHERE cs.recid = :suite_id
 <!-- remove probe states: used by Proxy Deactivation -->
 <write-mode name="delete_probe_states_from_server">
   <query params="server_id">
-DELETE 
+DELETE
   FROM rhn_probe_state PS
- WHERE PS.probe_id in 
-(SELECT CP.probe_id 
+ WHERE PS.probe_id in
+(SELECT CP.probe_id
    FROM rhn_check_probe CP
-  WHERE CP.sat_cluster_id = 
+  WHERE CP.sat_cluster_id =
 (SELECT SN.sat_cluster_id
    FROM rhn_sat_node SN
   WHERE SN.server_id = :server_id))
@@ -188,27 +188,27 @@ DELETE
 <!-- remove the deployed probes -->
 <write-mode name="delete_deployed_probes_from_server">
   <query params="server_id">
-DELETE 
+DELETE
   FROM rhn_deployed_probe DP
- WHERE DP.recid in 
-(SELECT CP.probe_id 
+ WHERE DP.recid in
+(SELECT CP.probe_id
    FROM rhn_check_probe CP
-  WHERE CP.sat_cluster_id = 
+  WHERE CP.sat_cluster_id =
 (SELECT SN.sat_cluster_id
    FROM rhn_sat_node SN
   WHERE SN.server_id = :server_id))
    </query>
 </write-mode>
-  
+
 <!-- delete the probe now -->
 <write-mode name="delete_probes_from_server">
   <query params="server_id">
-DELETE 
+DELETE
   FROM rhn_probe P
- WHERE P.recid in 
-(SELECT CP.probe_id 
+ WHERE P.recid in
+(SELECT CP.probe_id
    FROM rhn_check_probe CP
-  WHERE CP.sat_cluster_id = 
+  WHERE CP.sat_cluster_id =
 (SELECT SN.sat_cluster_id
    FROM rhn_sat_node SN
   WHERE SN.server_id = :server_id))
@@ -221,15 +221,15 @@ DELETE
 DELETE
   FROM rhn_sat_cluster SC
  WHERE SC.recid in
-(SELECT SN.sat_cluster_id 
-   FROM rhn_sat_node SN 
+(SELECT SN.sat_cluster_id
+   FROM rhn_sat_node SN
   WHERE SN.server_id = :server_id)
    </query>
 </write-mode>
 
 <mode name="probe_counts_by_state" class="com.redhat.rhn.frontend.dto.monitoring.ProbeCategoryDto">
   <query params="org_id, user_id, state">
-SELECT C.description, 
+SELECT C.description,
        count(p.recid) probe_count,
        count(S.id) server_count
   FROM rhn_probe P, rhn_command C, rhn_command_groups CG, rhnServer S,
@@ -246,15 +246,15 @@ SELECT C.description,
 ORDER BY CG.description
   </query>
 </mode>
-    
+
 <mode name="probes" class="com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto">
   <query params="org_id, user_id">
-SELECT  S.id server_id, 
-        S.name server_name, 
-        P.recid id, 
-        P.description, 
-        PS.state, 
-        PS.output output, 
+SELECT  S.id server_id,
+        S.name server_name,
+        P.recid id,
+        P.description,
+        PS.state,
+        PS.output output,
         PS.last_check
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
@@ -269,12 +269,12 @@ ORDER BY server_name, description
 
 <mode name="probes_by_state" class="com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto">
   <query params="org_id, user_id, state">
-SELECT  S.id server_id, 
-        S.name server_name, 
-        P.recid id, 
-        P.description, 
-        PS.state, 
-        PS.output output, 
+SELECT  S.id server_id,
+        S.name server_name,
+        P.recid id,
+        P.description,
+        PS.state,
+        PS.output output,
         PS.last_check
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
@@ -286,8 +286,8 @@ SELECT  S.id server_id,
    AND  USP.server_id = S.id
 ORDER BY server_name, description
   </query>
-</mode>        
-    
+</mode>
+
 <mode name="probes_in_server" class="com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto">
   <query params="sid"><![CDATA[
 SELECT p.recid id, p.description,
@@ -295,7 +295,7 @@ SELECT p.recid id, p.description,
        ps.state, ps.output, csp.check_suite_id as probe_suite_id,
        spo.origin_probe_id as template_probe_id
 FROM rhn_probe p, rhn_check_probe cp, rhnServer s, rhn_probe_state ps,
-     rhn_service_probe_origins spo, rhn_check_suite_probe csp 
+     rhn_service_probe_origins spo, rhn_check_suite_probe csp
 WHERE s.id = :sid
   and cp.probe_id = p.recid
   and s.id = cp.host_id
@@ -313,7 +313,7 @@ SELECT p.recid id, p.description,
        ps.state, ps.output, csp.check_suite_id as probe_suite_id,
        spo.origin_probe_id as template_probe_id
 FROM rhn_probe p, rhn_check_probe cp, rhnServer s, rhn_probe_state ps,
-     rhn_service_probe_origins spo, rhn_check_suite_probe csp 
+     rhn_service_probe_origins spo, rhn_check_suite_probe csp
 WHERE s.id = :sid
   and cp.probe_id = p.recid
   and s.id = cp.host_id
@@ -327,8 +327,8 @@ ORDER BY p.description]]>
 
 <mode name="probe_state_count_by_user">
   <query params="user_id">
-SELECT count(ps.state) AS state_count, PS.state 
-  FROM rhn_probe_state PS, 
+SELECT count(ps.state) AS state_count, PS.state
+  FROM rhn_probe_state PS,
        rhn_check_probe CP,
        rhnUserServerPerms USP
   WHERE PS.probe_id = CP.probe_id AND
@@ -337,7 +337,7 @@ SELECT count(ps.state) AS state_count, PS.state
   GROUP BY PS.state
   </query>
 </mode>
-    
+
 <callable-mode name="push_scout_config">
   <query params="org_id, scout_id, user_id">
 {call rhn_install_org_satellites(:org_id, :scout_id, :user_id)}
@@ -352,5 +352,5 @@ SELECT count(ps.state) AS state_count, PS.state
         (instr(o_id, '-', instr(o_id, '-') + 1) - instr(o_id, '-'))    - 1) = :probe_id
    </query>
 </write-mode>
-    
+
 </datasource_modes>

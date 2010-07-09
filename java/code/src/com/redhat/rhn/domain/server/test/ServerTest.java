@@ -46,7 +46,7 @@ import java.util.List;
  * @version $Rev$
  */
 public class ServerTest extends BaseTestCaseWithUser {
-    
+
     public void testIsInactive() throws Exception {
         Server s = ServerFactory.createServer();
         s.setServerInfo(new ServerInfo());
@@ -56,7 +56,7 @@ public class ServerTest extends BaseTestCaseWithUser {
         s.getServerInfo().setCheckin(pcal.getTime());
         assertFalse(s.isInactive());
     }
-    
+
     public void testSetBaseEntitlement() throws Exception {
         Server s = ServerTestUtils.createTestSystem(user);
         SystemManager.removeAllServerEntitlements(s.getId());
@@ -68,34 +68,34 @@ public class ServerTest extends BaseTestCaseWithUser {
         s = (Server) reload(s);
         assertTrue(s.getBaseEntitlement().equals(EntitlementManager.MANAGEMENT));
     }
-    
+
     public void testIsEntitlementAllowed() throws Exception {
         UserTestUtils.addMonitoring(user.getOrg());
         UserTestUtils.addProvisioning(user.getOrg());
         UserTestUtils.addVirtualizationPlatform(user.getOrg());
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest = 
+        Server guest =
             ((VirtualInstance) host.getGuests().iterator().next()).getGuestSystem();
         guest.setBaseEntitlement(EntitlementManager.MANAGEMENT);
-        
+
         assertFalse(guest.isEntitlementAllowed(EntitlementManager.VIRTUALIZATION));
         assertFalse(guest.isEntitlementAllowed(EntitlementManager.VIRTUALIZATION_PLATFORM));
         assertTrue(guest.isEntitlementAllowed(EntitlementManager.PROVISIONING));
-        
+
         assertTrue(host.isEntitlementAllowed(EntitlementManager.PROVISIONING));
         assertTrue(host.isEntitlementAllowed(EntitlementManager.VIRTUALIZATION_PLATFORM));
-        
+
         assertNotNull(host.getValidAddonEntitlementsForServer());
         assertEquals(4, host.getValidAddonEntitlementsForServer().size());
-        
+
     }
-    
-    
+
+
     public void testCapabilities() throws Exception {
         UserTestUtils.addProvisioning(user.getOrg());
         Server s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
-        SystemManagerTest.giveCapability(s.getId(), 
+        SystemManagerTest.giveCapability(s.getId(),
                 SystemManager.CAP_CONFIGFILES_DEPLOY, 1L);
         assertFalse(s.getCapabilities().isEmpty());
         boolean containsDeploy = false;
@@ -107,8 +107,8 @@ public class ServerTest extends BaseTestCaseWithUser {
         }
         assertTrue(containsDeploy);
     }
-    
-    
+
+
     public void testNetworkInterfaces() throws Exception {
         Server s = ServerTestUtils.createTestSystem(user);
         NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(s);
@@ -119,67 +119,67 @@ public class ServerTest extends BaseTestCaseWithUser {
         TestUtils.saveAndReload(s2);
         assertTrue("we didnt make it to the end", true);
     }
-    
+
     public void testGetIpAddress() throws Exception {
         Server s = ServerTestUtils.createTestSystem(user);
         s.setNetworkInterfaces(new HashSet());
         assertNull(s.getIpAddress());
-            
-        
+
+
         String hwAddr = "AA:AA:BB:BB:CC:CC";
         String ipAddr = "172.31.1.102";
 
-        NetworkInterface aaa = NetworkInterfaceTest.createTestNetworkInterface(s, "aaa", 
+        NetworkInterface aaa = NetworkInterfaceTest.createTestNetworkInterface(s, "aaa",
                 ipAddr, hwAddr);
 
-        NetworkInterface bbb = NetworkInterfaceTest.createTestNetworkInterface(s, "bbb", 
+        NetworkInterface bbb = NetworkInterfaceTest.createTestNetworkInterface(s, "bbb",
                 ipAddr, hwAddr);
 
-        NetworkInterface zzz = NetworkInterfaceTest.createTestNetworkInterface(s, "zzz", 
+        NetworkInterface zzz = NetworkInterfaceTest.createTestNetworkInterface(s, "zzz",
                 ipAddr, hwAddr);
-        
-        NetworkInterface eth0 = NetworkInterfaceTest.createTestNetworkInterface(s, "eth0", 
+
+        NetworkInterface eth0 = NetworkInterfaceTest.createTestNetworkInterface(s, "eth0",
                 ipAddr, hwAddr);
-        
-        NetworkInterface eth1 = NetworkInterfaceTest.createTestNetworkInterface(s, "eth1", 
+
+        NetworkInterface eth1 = NetworkInterfaceTest.createTestNetworkInterface(s, "eth1",
                 ipAddr, hwAddr);
-        
+
         s = (Server) TestUtils.saveAndReload(s);
-        
+
         assertNotNull(s.getIpAddress());
 
-        NetworkInterface lo = NetworkInterfaceTest.createTestNetworkInterface(s, "lo", 
+        NetworkInterface lo = NetworkInterfaceTest.createTestNetworkInterface(s, "lo",
                 "127.0.0.1", null);
         s.addNetworkInterface(lo);
-        
+
         NetworkInterface virbr0 = NetworkInterfaceTest.
-            createTestNetworkInterface(s, "virbr0", 
+            createTestNetworkInterface(s, "virbr0",
                 "172.31.2.1", "AA:FF:CC:DD:DD");
         s.addNetworkInterface(virbr0);
-        
+
         NetworkInterface ni = s.findPrimaryNetworkInterface();
         assertEquals(ipAddr, ni.getIpaddr());
-        
+
         assertEquals(ipAddr, s.getIpAddress());
         assertEquals(hwAddr, s.getHardwareAddress());
-        
+
     }
-    
-    
+
+
     public void xxxtestServerWithVirtEntitlementIsVirtualHost() {
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = new VirtEntitledServer(user);
         server = (Server) TestUtils.saveAndReload(server);
         assertTrue(server.isVirtualHost());
     }
-    
+
     public void xxtestServerWithGuestsIsVirtualHost() {
         Server server = new ServerWithGuests();
         server.setOrg(user.getOrg());
-        
+
         assertTrue(server.isVirtualHost());
     }
-    
+
     private class VirtEntitledServer extends Server {
         public VirtEntitledServer(User user) {
             setOrg(user.getOrg());
@@ -191,7 +191,7 @@ public class ServerTest extends BaseTestCaseWithUser {
             manager.addServers(group, servers, user);
         }
     }
-    
+
     private class ServerWithGuests extends Server {
         public ServerWithGuests() {
             VirtualInstance vi = new VirtualInstance();

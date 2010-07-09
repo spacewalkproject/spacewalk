@@ -28,7 +28,7 @@ public class TimeUtilsTest extends TestCase {
         assertTrue(timeEquals((System.currentTimeMillis() / 1000),
                      TimeUtils.currentTimeSeconds()));
     }
-    
+
     /**
      * Compare two longs representing time and make sure they
      * are about equal.  This is so unit tests don't randomly

@@ -27,46 +27,46 @@ import org.quartz.JobExecutionException;
  * @version $Rev$
  */
 public class SatelliteCertificateCheckTest extends RhnBaseTestCase {
-    
+
     private MockMail mailer = new MockMail();
 
     public void testExecuteForExpire() throws Exception {
-        
+
         CertificateManagerTest.expireSatelliteCertificate();
-        
+
         SatelliteCertificateCheck check = new SatelliteCertificateCheck() {
             protected Mail getMailer() {
                 return mailer;
             }
         };
-        
+
         try {
             check.execute(null);
         }
         catch (JobExecutionException e) {
             e.printStackTrace();
         }
-        
+
         assertNotNull(mailer.getBody());
     }
-    
+
     public void testExecuteForGracePeriod() throws Exception {
-        
+
         CertificateManagerTest.activateGracePeriod();
-        
+
         SatelliteCertificateCheck check = new SatelliteCertificateCheck() {
             protected Mail getMailer() {
                 return mailer;
             }
         };
-        
+
         try {
             check.execute(null);
         }
         catch (JobExecutionException e) {
             e.printStackTrace();
         }
-        
+
         assertNotNull(mailer.getBody());
     }
 }

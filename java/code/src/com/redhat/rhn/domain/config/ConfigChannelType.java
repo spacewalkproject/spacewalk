@@ -36,11 +36,11 @@ public class ConfigChannelType extends BaseDomainHelper {
     public static final String NORMAL = "normal";
     public static final String LOCAL = "local_override";
     public static final String SANDBOX = "server_import";
-    
+
     private static final Map POSSIBLE_TYPES = new TreeMap(String.
                                                     CASE_INSENSITIVE_ORDER);
     /**
-     * 
+     *
      * @return the sandbox channel type object
      */
     public static ConfigChannelType sandbox() {
@@ -48,23 +48,23 @@ public class ConfigChannelType extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * @return the local channel type object
      */
     public static ConfigChannelType local() {
         return lookup(LOCAL);
     }
-    
+
     /**
-     * 
+     *
      * @return the global channel type object
      */
     public static ConfigChannelType global() {
         return lookup(NORMAL);
-    }    
-    
+    }
+
     /**
-     * Given a channel type label it returns the associated 
+     * Given a channel type label it returns the associated
      * channel type
      * @param type the channel type label
      * @return the channel type associated to the type label.
@@ -80,11 +80,11 @@ public class ConfigChannelType extends BaseDomainHelper {
             POSSIBLE_TYPES.put(NORMAL, global);
             POSSIBLE_TYPES.put("central", global);
             POSSIBLE_TYPES.put("global", global);
-            
-            
-            POSSIBLE_TYPES.put("local", local);            
+
+
+            POSSIBLE_TYPES.put("local", local);
             POSSIBLE_TYPES.put(LOCAL, local);
-    
+
             POSSIBLE_TYPES.put(SANDBOX, sandbox);
             POSSIBLE_TYPES.put("sandbox", sandbox);
         }
@@ -95,83 +95,83 @@ public class ConfigChannelType extends BaseDomainHelper {
                 "in your expression " + POSSIBLE_TYPES.keySet();
             throw new IllegalArgumentException(msg);
         }
-        return (ConfigChannelType) POSSIBLE_TYPES.get(type);        
+        return (ConfigChannelType) POSSIBLE_TYPES.get(type);
     }
-    
+
     /**
      * protected constructor.
      * Use the ConfigurationFactory to get ConfigChannelTypes.
      */
     protected ConfigChannelType() {
-        
+
     }
 
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for label 
+    /**
+     * Getter for label
      * @return String to get
     */
     public String getLabel() {
         return this.label;
     }
 
-    /** 
-     * Setter for label 
+    /**
+     * Setter for label
      * @param labelIn to set
     */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
 
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * @return String to get
     */
     public String getName() {
         return this.name;
     }
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn to set
     */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
 
-    /** 
-     * Getter for priority 
+    /**
+     * Getter for priority
      * @return Long to get
     */
     public Long getPriority() {
         return this.priority;
     }
 
-    /** 
-     * Setter for priority 
+    /**
+     * Setter for priority
      * @param priorityIn to set
     */
     public void setPriority(Long priorityIn) {
         this.priority = priorityIn;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object arg) {
@@ -181,9 +181,9 @@ public class ConfigChannelType extends BaseDomainHelper {
                 append(this.getPriority(), that.getPriority()).
                 isEquals();
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {

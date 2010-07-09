@@ -42,62 +42,62 @@ public class ActivationKey extends BaseDomainHelper {
     private String key;
     private Token token = new Token();
     private KickstartSession kickstartSession;
-    
+
     /**
      * @return Returns the key.
      */
     public String getKey() {
         return this.key;
     }
-    
+
     /**
      * @param keyIn The key to set.
      */
     public void setKey(String keyIn) {
         this.key = keyIn;
     }
-    
+
     /**
      * @return Returns the kickstartSession.
      */
     public KickstartSession getKickstartSession() {
         return this.kickstartSession;
     }
-    
+
     /**
      * @param kickstartSessionIn The kickstartSession to set.
      */
     public void setKickstartSession(KickstartSession kickstartSessionIn) {
         this.kickstartSession = kickstartSessionIn;
     }
-    
+
     /**
      * @return Returns the token.
      */
     public Token getToken() {
         return this.token;
     }
-    
+
     /**
      * @param tokenIn The token to set.
      */
     protected void setToken(Token tokenIn) {
         this.token = tokenIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String toString() {
         return this.key;
     }
-    
+
     /*
      * Token Convenience methods
      * This kind of sucks... the diff between an ActivationKey and RegToken is fuzzy
      * at best. Apparently the reason they are separated out into separate tables has
-     * something to do with Kickstart sessions. But from what I gather, we never want 
-     * to deal with an ActivationKey without a token. So we'll hide the token from the 
+     * something to do with Kickstart sessions. But from what I gather, we never want
+     * to deal with an ActivationKey without a token. So we'll hide the token from the
      * consumers of this class here.
      */
 
@@ -114,7 +114,7 @@ public class ActivationKey extends BaseDomainHelper {
     public Long getId() {
         return this.getToken().getId();
     }
-    
+
     /**
      * @param user The user to set
      */
@@ -128,49 +128,49 @@ public class ActivationKey extends BaseDomainHelper {
     public User getCreator() {
         return this.getToken().getCreator();
     }
-    
+
     /**
      * @param org The org to set
      */
     public void setOrg(Org org) {
         this.getToken().setOrg(org);
     }
-    
+
     /**
      * @return Returns the org
      */
     public Org getOrg() {
         return this.getToken().getOrg();
     }
-    
+
     /**
      * @param server The server to set
      */
     public void setServer(Server server) {
         this.getToken().setServer(server);
     }
-    
+
     /**
      * @return Returns the server
      */
     public Server getServer() {
         return this.getToken().getServer();
     }
-    
+
     /**
      * @param note The note to set
      */
     public void setNote(String note) {
         this.getToken().setNote(note);
     }
-    
+
     /**
      * @return Returns the tokens note
      */
     public String getNote() {
         return this.getToken().getNote();
     }
-    
+
     /**
      * @param b Deploy configs
      */
@@ -181,58 +181,58 @@ public class ActivationKey extends BaseDomainHelper {
                     setupAutoConfigDeployment(this);
         }
         this.getToken().setDeployConfigs(b);
-        
+
     }
-    
+
     /**
      * @return Returns deploy configs
      */
     public boolean getDeployConfigs() {
         return this.getToken().getDeployConfigs();
     }
-    
+
     /**
      * @param disabled The disabled to set
      */
     public void setDisabled(Long disabled) {
         this.getToken().setDisabled(disabled);
     }
-    
+
     /**
      * @return Is this token disabled?
      */
     public boolean isDisabled() {
         return this.getToken().isTokenDisabled();
     }
-    
+
     /**
      * @param limit The usage limit to set
      */
     public void setUsageLimit(Long limit) {
         this.getToken().setUsageLimit(limit);
     }
-    
+
     /**
      * @return The usage limit for this token
      */
     public Long getUsageLimit() {
         return this.getToken().getUsageLimit();
     }
-    
+
     /**
      * @param entitlementsIn The entitlements to set
      */
     public void setEntitlements(Set entitlementsIn) {
         this.getToken().setEntitlements(entitlementsIn);
     }
-    
+
     /**
      * @return Returns the set of entitlements for this activation key
      */
     public Set<ServerGroupType> getEntitlements() {
         return this.getToken().getEntitlements();
     }
-    
+
     /**
      * @param entitlementIn The entitlement to add to the tokens entitlements set.
      */
@@ -254,28 +254,28 @@ public class ActivationKey extends BaseDomainHelper {
     }
 
     /**
-     * Add a Channel to this ActivationKey 
+     * Add a Channel to this ActivationKey
      * @param channelIn to add
      */
     public void addChannel(Channel channelIn) {
        this.getToken().addChannel(channelIn);
     }
-    
+
     /**
-     * Remove a Channel from this ActivationKey 
+     * Remove a Channel from this ActivationKey
      * @param channelIn to remove
      */
     public void removeChannel(Channel channelIn) {
        this.getToken().removeChannel(channelIn);
     }
-    
+
     /**
      * Clear all channels associated with this token.
      */
     public void clearChannels() {
         this.getToken().clearChannels();
     }
-    
+
     /**
      * Get the Set of Channels associated with this ActivationKey
      * @return Set of Channel objects.
@@ -283,23 +283,23 @@ public class ActivationKey extends BaseDomainHelper {
     public Set<Channel> getChannels() {
         return this.getToken().getChannels();
     }
-    
+
     /**
-     * Add a ServerGroup to this ActivationKey 
+     * Add a ServerGroup to this ActivationKey
      * @param serverGroupIn to add
      */
     public void addServerGroup(ManagedServerGroup serverGroupIn) {
        this.getToken().addServerGroup(serverGroupIn);
     }
-    
+
     /**
-     * Remove a ServerGroup from this ActivationKey 
+     * Remove a ServerGroup from this ActivationKey
      * @param serverGroupIn to remove
      */
     public void removeServerGroup(ServerGroup serverGroupIn) {
        this.getToken().removeServerGroup(serverGroupIn);
     }
-    
+
     /**
      * Get the Set of ServerGroup objects associated with this ActivationKey
      * @return Set of ServerGroup objects.
@@ -307,7 +307,7 @@ public class ActivationKey extends BaseDomainHelper {
     public Set<ServerGroup> getServerGroups() {
         return this.getToken().getServerGroups();
     }
-    
+
     /**
      * Add a package to this ActivationKey using PackageName only
      * @param packageNameIn PackageName of package to add
@@ -316,7 +316,7 @@ public class ActivationKey extends BaseDomainHelper {
     public void addPackage(PackageName packageNameIn, PackageArch packageArchIn) {
        this.getToken().addPackage(packageNameIn, packageArchIn);
     }
-    
+
     /**
      * Remove packages from the ActivationKey that match the PackageName
      * and PackageArch given.
@@ -326,7 +326,7 @@ public class ActivationKey extends BaseDomainHelper {
     public void removePackage(PackageName packageNameIn, PackageArch packageArchIn) {
        this.getToken().removePackage(packageNameIn, packageArchIn);
     }
-    
+
     /**
      * Add a package to this ActivationKey
      * @param packageNameIn TokenPackage to add
@@ -363,29 +363,29 @@ public class ActivationKey extends BaseDomainHelper {
      */
     public void clearConfigChannels() {
         this.getToken().clearConfigChannels();
-    }    
+    }
     /**
      * Returns the config channels associated to this activation key
      * Throws a LookupException if the user does NOT have permissson to
      * access/deal with these channels.
-     * @param user the user needed to ensure credentials 
-     * @return the config channels associated to this activation key 
+     * @param user the user needed to ensure credentials
+     * @return the config channels associated to this activation key
      */
     public List <ConfigChannel> getConfigChannelsFor(User user) {
         checkProvisioning();
         return getToken().getConfigChannelsFor(user);
     }
-    
+
     private void checkProvisioning() {
         if (!getEntitlements().contains(ServerConstants.
                 getServerGroupTypeProvisioningEntitled())) {
             String msg = String.format("The activation key '%s' needs" +
                         "  provisioning capabilities to be able to facilitate " +
                         " the config channel functionality", this);
-                throw new PermissionException(msg); 
-        }        
+                throw new PermissionException(msg);
+        }
     }
-    
+
     /**
      * sets the base channel.. clears child channels if it has to
      * @param chan the base channel associated to this activation key.
@@ -393,7 +393,7 @@ public class ActivationKey extends BaseDomainHelper {
     public void setBaseChannel(Channel chan) {
         getToken().setBaseChannel(chan);
     }
-    
+
     /**
      * Return the base channel or null if none exists
      * @return the base channel.
@@ -401,7 +401,7 @@ public class ActivationKey extends BaseDomainHelper {
     public Channel getBaseChannel() {
         return getToken().getBaseChannel();
     }
-    
+
     /**
      * Sets the universal default.
      * @param def the universal default
@@ -409,7 +409,7 @@ public class ActivationKey extends BaseDomainHelper {
     public void setUniversalDefault(boolean def) {
         this.getToken().setOrgDefault(def);
     }
-    
+
     /**
      * Returns true if this token is the org default.
      * @return tru if its the org defaul false otherwise
@@ -420,7 +420,7 @@ public class ActivationKey extends BaseDomainHelper {
 
     /**
      * Makes the Activation key prefix that will get
-     *  added to the base key 
+     *  added to the base key
      * @param org the org of the activation key
      * @return the key prefix.
      */

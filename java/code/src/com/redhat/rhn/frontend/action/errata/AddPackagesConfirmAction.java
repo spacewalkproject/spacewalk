@@ -142,7 +142,7 @@ public class AddPackagesConfirmAction extends RhnAction implements Listable {
                 packagesAdded++;
             }
         }
-        
+
         // Save the errata
         ErrataManager.storeErrata(errata);
 

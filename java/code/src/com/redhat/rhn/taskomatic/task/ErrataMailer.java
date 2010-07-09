@@ -45,31 +45,31 @@ import java.util.Map;
 
 /**
  * This is a port of the ErrataEngine taskomatic task
- * 
+ *
  * @version $Rev.$
  */
 
 public class ErrataMailer extends SingleThreadedTestableTask {
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
-     */    
+     */
     public static final String DISPLAY_NAME = "errata_engine";
-    
+
     private static Logger logger = Logger.getLogger(ErrataMailer.class);
-    
+
     /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext context, boolean testContext)
         throws JobExecutionException {
-        
+
         try {
             List results = getErrataToProcess();
             if (results == null || results.size() == 0) {
                 if (logger.isDebugEnabled()) {
                     logger.debug("No errata found...exiting");
-                }                
+                }
             }
             else {
                 if (logger.isDebugEnabled()) {
@@ -77,7 +77,7 @@ public class ErrataMailer extends SingleThreadedTestableTask {
                 }
                 Map erratas = new HashMap();
                 WriteMode cleanUp = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
-                        TaskConstants.TASK_QUERY_ERRATAMAILER_CLEAN_QUEUE);                
+                        TaskConstants.TASK_QUERY_ERRATAMAILER_CLEAN_QUEUE);
                 for (Iterator iter = results.iterator(); iter.hasNext();) {
                     Map row = (Map) iter.next();
                     Long errataId = (Long) row.get("errata_id");
@@ -86,13 +86,13 @@ public class ErrataMailer extends SingleThreadedTestableTask {
                     markErrataDone(errataId, orgId, channelId);
                     if (!hasProcessedErrata(orgId, errataId, erratas)) {
                         if (logger.isDebugEnabled()) {
-                            logger.debug("Processing errata " + errataId + 
+                            logger.debug("Processing errata " + errataId +
                                     " for org " + orgId);
                         }
                         try {
                             sendEmails(errataId, orgId, channelId);
                             if (logger.isDebugEnabled()) {
-                                logger.debug("Finished errata " + errataId + 
+                                logger.debug("Finished errata " + errataId +
                                         " for org " + orgId);
                             }
                         }
@@ -104,7 +104,7 @@ public class ErrataMailer extends SingleThreadedTestableTask {
                         }
                         catch (Exception e) {
                             logger.error("Error cleaning up ErrataMailer queue", e);
-                        }                        
+                        }
                     }
                 }
             }
@@ -123,9 +123,9 @@ public class ErrataMailer extends SingleThreadedTestableTask {
                 logger.error("Error cleaning up ErrataMailer queue", e);
             }
         }
-        
+
     }
-    
+
     protected List getErrataToProcess() {
         SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_FIND_ERRATA);
@@ -134,8 +134,8 @@ public class ErrataMailer extends SingleThreadedTestableTask {
         List results = select.execute(params);
         return results;
     }
-    
-    private boolean hasProcessedErrata(Long orgId, Long errataId, 
+
+    private boolean hasProcessedErrata(Long orgId, Long errataId,
             Map erratas) {
         boolean retval = false;
         List errataIds = (List) erratas.get(orgId);
@@ -152,7 +152,7 @@ public class ErrataMailer extends SingleThreadedTestableTask {
         }
         return retval;
     }
-    
+
     private void markErrataDone(Long errataId, Long orgId, Long channelId)
                                                             throws Exception {
         WriteMode marker = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
@@ -166,16 +166,16 @@ public class ErrataMailer extends SingleThreadedTestableTask {
             logger.debug("Marked " + rowsUpdated + " rows complete");
         }
     }
-    
+
     private void sendEmails(Long errataId, Long orgId, Long channelId) throws Exception {
         Session session = HibernateFactory.getSession();
-        Errata errata = (Errata) session.load(PublishedErrata.class, 
+        Errata errata = (Errata) session.load(PublishedErrata.class,
                 new Long(errataId.longValue()));
         populateWorkQueue(errataId, orgId, channelId);
         List users = findTargetUsers();
         if (users == null || users.size() == 0) {
             if (logger.isDebugEnabled()) {
-                logger.debug("No target users found for errata " + errata.getId() + 
+                logger.debug("No target users found for errata " + errata.getId() +
                         "...skipping");
             }
             return;
@@ -185,7 +185,7 @@ public class ErrataMailer extends SingleThreadedTestableTask {
                 logger.debug("Found " + String.valueOf(users.size()) + " target users");
             }
         }
-        
+
         for (Iterator iter = users.iterator(); iter.hasNext();) {
             Map row = (Map) iter.next();
             String email = (String) row.get("email");
@@ -198,7 +198,7 @@ public class ErrataMailer extends SingleThreadedTestableTask {
             mail.setHeader("X-RHN-Info",
                     "Autogenerated mail for " + login);
             mail.setHeader("Precedence", "first-class");
-            mail.setHeader("Errors-To", "rhn-bounce" + 
+            mail.setHeader("Errors-To", "rhn-bounce" +
                     login + "-" + orgId.toString() + "@rhn.redhat.com");
             mail.setBody(emailBody);
             StringBuffer subject = new StringBuffer();
@@ -209,7 +209,7 @@ public class ErrataMailer extends SingleThreadedTestableTask {
             TaskHelper.sendMail(mail, logger);
         }
     }
-    
+
     private List findTargetServers(Long userPK) throws Exception {
         SelectMode mode = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_FIND_TARGET_SERVERS);
@@ -217,13 +217,13 @@ public class ErrataMailer extends SingleThreadedTestableTask {
         params.put("user_id", userPK);
         return mode.execute(params);
     }
-    
+
     protected List findTargetUsers() throws Exception {
         SelectMode mode = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_FIND_TARGET_USERS);
         return mode.execute(Collections.EMPTY_MAP);
     }
-    
+
     private void populateWorkQueue(Long errataId, Long orgId, Long channelId)
             throws Exception {
         WriteMode queueWriter = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
@@ -237,13 +237,13 @@ public class ErrataMailer extends SingleThreadedTestableTask {
             logger.debug("Queuing " + workItemsFound +  " rows of work");
         }
     }
-    
-    private String formatEmail(String login, 
-            String email, 
-            Errata errata, 
+
+    private String formatEmail(String login,
+            String email,
+            Errata errata,
             List servers) {
         StringBuffer body = new StringBuffer();
-        
+
         //Build the hostname with protocol. Used to create urls for the email.
         String host;
         //The protocol from configuration.
@@ -255,27 +255,27 @@ public class ErrataMailer extends SingleThreadedTestableTask {
         }
         //Add the hostname
         host = host + ConfigDefaults.get().getHostname();
-        
+
         //Build the email body
         body.append(getEmailBodySummary(errata, host));
         body.append("\n").append("\n");
         body.append(getEmailBodyAffectedSystems(host, servers));
         body.append("\n").append("\n");
         body.append(getEmailBodyPreferences(host, login, email));
-        
+
         return body.toString();
     }
-    
+
     private String getEmailBodySummary(Errata errata, String host) {
         LocalizationService ls = LocalizationService.getInstance();
         Object[] args = new Object[8];
-        
+
         //Build the errata details url.
         StringBuffer buffy = new StringBuffer();
         buffy.append(host).append("/rhn/errata/details/Details.do?eid=");
         buffy.append(errata.getId().toString());
         args[0] = buffy.toString();
-        
+
         //Add in the errata information.
         args[1] = errata.getAdvisoryType() == null ? "" : errata.getAdvisoryType();
         args[2] = errata.getAdvisory() == null ? "" : errata.getAdvisory();
@@ -286,15 +286,15 @@ public class ErrataMailer extends SingleThreadedTestableTask {
         args[7] = errata.getRefersTo() == null ? "" : errata.getRefersTo();
         return ls.getMessage("email.errata.notification.body.summary", args);
     }
-    
+
     private String getEmailBodyAffectedSystems(String host, List servers) {
         LocalizationService ls = LocalizationService.getInstance();
-        
+
         //Render the header of the affected systems section along with helpful text.
         StringBuffer buffy = new StringBuffer();
         buffy.append(ls.getMessage("email.errata.notification.body.affectedheader"));
         buffy.append("\n").append("\n");
-        
+
         //There is one sentence off on its own that deals with whether there are
         //multiple systems or just one, so this is a separate trans-unit.
         if (servers.size() == 1) {
@@ -305,10 +305,10 @@ public class ErrataMailer extends SingleThreadedTestableTask {
                     new Object[] {String.valueOf(servers.size())}));
         }
         buffy.append("\n").append("\n");
-        
+
         //Now show the table of affected systems and the footer text
         Object[] args = new Object[2];
-        
+
         //Create the data to show in the table
         //TODO: I'm just copying over code that was here before, but it
         //      seems to me that we should be printing another column to
@@ -336,29 +336,29 @@ public class ErrataMailer extends SingleThreadedTestableTask {
         buffy.append(ls.getMessage("email.errata.notification.body.affected", args));
         return buffy.toString();
     }
-    
+
     private String getEmailBodyPreferences(String host, String login, String email) {
         LocalizationService ls = LocalizationService.getInstance();
         Object[] args = new Object[3];
-        
+
         //URL for user preferences
         args[0] = host + "/rhn/account/UserPreferences.do";
         //custom email footer
         args[1] = OrgFactory.EMAIL_FOOTER.getValue();
-        
+
         //custom account info
         args[2] = OrgFactory.EMAIL_ACCOUNT_INFO.getValue();
-        
+
         //This is so ugly! For some reason we support these 'macros' for
         //account info only. But we made them look like XML tags as if spaces
         //didn't matter. However, spaces do matter. <sigh />
-        args[2] = StringUtils.replace(args[2].toString(), 
-                "<login />", 
+        args[2] = StringUtils.replace(args[2].toString(),
+                "<login />",
                 login);
-        args[2] = StringUtils.replace(args[2].toString(), 
-                "<email-address />", 
+        args[2] = StringUtils.replace(args[2].toString(),
+                "<email-address />",
                 email);
-        
+
         return ls.getMessage("email.errata.notification.body.preferences", args);
     }
 }

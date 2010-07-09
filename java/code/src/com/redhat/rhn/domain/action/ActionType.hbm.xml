@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.action.ActionType" 
+    <class name="com.redhat.rhn.domain.action.ActionType"
         table="rhnActionType" mutable="false">
         <cache usage="read-only"/>
         <id name="id" type="java.lang.Integer" column="id">
@@ -11,11 +11,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <generator class="assigned" />
         </id>
         <property name="name" type="string" column="name" />
-        <property name="label" type="string" column="label" />  
+        <property name="label" type="string" column="label" />
         <property name="triggersnapshot" type="char" column="trigger_snapshot" />
         <property name="unlockedonly" type="char" column="unlocked_only" />
     </class>
-    
+
     <query name="ActionType.loadAll">
         <![CDATA[from com.redhat.rhn.domain.action.ActionType]]>
     </query>

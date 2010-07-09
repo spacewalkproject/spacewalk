@@ -14,13 +14,13 @@
                helpUrl="">
     <bean:message key="docsearch.jsp.toolbar"/>
   </rhn:toolbar>
- 
+
   <p><bean:message key="docsearch.jsp.pagesummary"/></p>
-  
+
   <p><bean:message key="docsearch.jsp.instructions"/></p>
-  
+
   <html:form action="/help/Search.do">
-  
+
   <!-- Search Box -->
     <div class="search-choices">
 
@@ -50,7 +50,7 @@
 
     </div>
     <input type="hidden" name="submitted" value="true" />
-  </html:form> 
+  </html:form>
 
   <c:if test="${search_string != null && search_string != ''}">
 

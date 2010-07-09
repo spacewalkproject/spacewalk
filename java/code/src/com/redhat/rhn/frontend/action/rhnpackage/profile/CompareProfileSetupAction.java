@@ -50,12 +50,12 @@ public class CompareProfileSetupAction extends RhnAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long sid = requestContext.getRequiredParam("sid");
         Long prid = requestContext.getRequiredParam("prid");
-        
+
         Profile profile = ProfileManager.lookupByIdAndOrg(prid,
                 requestContext.getCurrentUser().getOrg());
 
@@ -68,12 +68,12 @@ public class CompareProfileSetupAction extends RhnAction {
         // clear the 'dirty set'
         if (!requestContext.isSubmitted()) {
             sessionSet.clear();
-        }        
+        }
 
         SessionSetHelper helper = new SessionSetHelper(request);
-        
+
         if (request.getParameter("dispatch") != null) {
-            // if its one of the Dispatch actions handle it..            
+            // if its one of the Dispatch actions handle it..
             helper.updateSet(sessionSet, LIST_NAME);
             if (!sessionSet.isEmpty()) {
                 return handleDispatchAction(mapping, requestContext);
@@ -86,29 +86,29 @@ public class CompareProfileSetupAction extends RhnAction {
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward("error"), params);
             }
-        }   
+        }
         DataResult dataSet = getDataResult(requestContext);
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
             helper.execute(sessionSet, LIST_NAME, dataSet);
-        }        
+        }
 
-        // if I have a previous set selections populate data using it       
+        // if I have a previous set selections populate data using it
         if (!sessionSet.isEmpty()) {
             helper.syncSelections(sessionSet, dataSet);
             ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(), request);
         }
-        
+
         request.setAttribute("profilename", profile.getName());
 
-        request.setAttribute(ListTagHelper.PARENT_URL, 
-                request.getRequestURI() + "?sid=" + sid + "&prid=" + prid);  
-        
+        request.setAttribute(ListTagHelper.PARENT_URL,
+                request.getRequestURI() + "?sid=" + sid + "&prid=" + prid);
+
         request.setAttribute(DATA_SET, dataSet);
-        
+
         ListTagHelper.bindSetDeclTo(LIST_NAME, getDecl(sid), request);
         TagHelper.bindElaboratorTo(LIST_NAME, dataSet.getElaborator(), request);
-        
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
@@ -133,18 +133,18 @@ public class CompareProfileSetupAction extends RhnAction {
     public String getDecl(Long sid) {
         return getClass().getName() + sid.toString();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext requestContext) {
-        
+
         Long sid = requestContext.getRequiredParam("sid");
         Long prid = requestContext.getRequiredParam("prid");
-        
+
         DataResult dr = ProfileManager.compareServerToProfile(sid,
                 prid, requestContext.getCurrentUser().getOrg().getId(), null);
-        
+
         return dr;
     }
 }

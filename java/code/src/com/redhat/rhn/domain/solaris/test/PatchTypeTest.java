@@ -25,7 +25,7 @@ import org.hibernate.Session;
  * @version $Rev$
  */
 public class PatchTypeTest extends RhnBaseTestCase {
-    
+
     /**
      * Simple test to make sure we can lookup PatchTypes from
      * the db. Turn on hibernate.show_sql to make sure hibernate
@@ -33,7 +33,7 @@ public class PatchTypeTest extends RhnBaseTestCase {
      * @throws Exception HibernateException
      */
     public void testPatchType() throws Exception {
-        
+
 
         PatchType p1 = lookupByLabel("temporary");
         PatchType p2 = lookupByLabel("temporary");

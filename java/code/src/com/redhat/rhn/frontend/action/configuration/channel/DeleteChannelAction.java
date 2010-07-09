@@ -43,21 +43,21 @@ public class DeleteChannelAction extends RhnAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
         DynaActionForm daForm = (DynaActionForm)formIn;
         Map params = makeParamMap(request);
-        
+
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
-        
+
         if (cc != null) {
             if (isSubmitted(daForm)) {
                 deleteChannel(request, cc);
                 //Now that the config channel is gone, some of these sets may no longer
                 //be valid, so clear them.
                 ConfigActionHelper.clearRhnSets(user);
-                return getStrutsDelegate().forwardParams(mapping.findForward("submit"), 
+                return getStrutsDelegate().forwardParams(mapping.findForward("submit"),
                         params);
             }
             else {
@@ -65,13 +65,13 @@ public class DeleteChannelAction extends RhnAction {
             }
             ConfigActionHelper.setupRequestAttributes(rctx, cc);
         }
-        
+
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
     }
 
     private void deleteChannel(HttpServletRequest request, ConfigChannel cc) {
         RequestContext requestContext = new RequestContext(request);
-        
+
         User u = requestContext.getLoggedInUser();
         ConfigurationManager.getInstance().deleteConfigChannel(u, cc);
     }

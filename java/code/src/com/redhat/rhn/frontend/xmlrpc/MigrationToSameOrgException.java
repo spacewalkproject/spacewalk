@@ -32,7 +32,7 @@ public class MigrationToSameOrgException extends FaultException  {
      */
     public MigrationToSameOrgException(Server server) {
         super(2853, "MigrationToSameOrg" , LocalizationService.getInstance().
-                getMessage("api.org.migrationtosameorg", 
+                getMessage("api.org.migrationtosameorg",
                         server.getOrg().getId().toString(),
                         server.getId().toString()));
     }
@@ -44,7 +44,7 @@ public class MigrationToSameOrgException extends FaultException  {
      */
     public MigrationToSameOrgException(Server server, Throwable cause) {
         super(2853, "MigrationToSameOrg" , LocalizationService.getInstance().
-                getMessage("api.org.migrationtosameorg", 
+                getMessage("api.org.migrationtosameorg",
                         server.getOrg().getId().toString(),
                         server.getId().toString()), cause);
     }

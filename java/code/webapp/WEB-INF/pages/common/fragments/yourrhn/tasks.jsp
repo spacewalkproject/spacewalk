@@ -24,7 +24,7 @@
 <rhn:require acl="user_role(org_admin)">
 <tr class="list-row-odd">
 <td style="text-align: left;" class="first-column last-column"><img style="margin-left: 4px;" src="/img/parent_node.gif"
-									alt="<bean:message key="yourrhn.jsp.bullet.alttag"/>" /> <bean:message key="yourrhn.jsp.task.manage_subscriptions" /> 
+									alt="<bean:message key="yourrhn.jsp.bullet.alttag"/>" /> <bean:message key="yourrhn.jsp.task.manage_subscriptions" />
     <br> &ensp; &ensp;<a href="/rhn/systems/SystemEntitlements.do">
     	<bean:message key="header.jsp.my_organization" /></a> <strong>|</strong> <a href="/rhn/admin/multiorg/SoftwareEntitlements.do"><bean:message key="header.jsp.satellite_wide" />
     </a></td></tr>
@@ -70,7 +70,7 @@
     	<bean:message key="yourrhn.jsp.tasks.configuration" />
     </a></td></tr>
 
-<rhn:require	acl="show_monitoring();" 
+<rhn:require	acl="show_monitoring();"
 				mixins="com.redhat.rhn.common.security.acl.MonitoringAclHandler">
 <tr class="list-row-odd">
 <td style="text-align: left;" class="first-column last-column"><img style="margin-left: 4px;" src="/img/parent_node.gif"
@@ -94,7 +94,7 @@
 <td style="text-align: left;" class="first-column last-column"><img style="margin-left: 4px;" src="/img/parent_node.gif"
 									alt="<bean:message key="yourrhn.jsp.bullet.alttag"/>" /> <a href="/rhn/admin/config/GeneralConfig.do">
     	<bean:message key="yourrhn.jsp.tasks.config_sat" />
-    </a></td></tr>    
+    </a></td></tr>
 </rhn:require>
 
 </table>

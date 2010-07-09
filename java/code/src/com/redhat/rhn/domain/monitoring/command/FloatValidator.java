@@ -43,7 +43,7 @@ class FloatValidator extends ParameterValidator {
         try {
             Float.valueOf(value);
             return true;
-        } 
+        }
         catch (NumberFormatException e) {
             return false;
         }

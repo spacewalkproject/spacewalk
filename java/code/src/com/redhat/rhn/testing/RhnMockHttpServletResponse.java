@@ -32,29 +32,29 @@ public class RhnMockHttpServletResponse extends MockHttpServletResponse {
     private Map header = new HashMap();
     private String redirect;
     private String encoding;
-    
+
     /** {@inheritDoc} */
     public void addCookie(Cookie cookie) {
         cookies.put(cookie.getName(), cookie);
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void addHeader(String key, String value) {
         header.put(key, value);
     }
-    
+
     /**
-     * Returns the String value matching the given key 
+     * Returns the String value matching the given key
      * @param key the header name
      * @return header value or null...
      */
     public String getHeader(String key) {
         return (String) header.get(key);
     }
-    
+
     /**
      * Returns a Cookie matching the given name, null otherwise.
      * @param name cookie name
@@ -63,16 +63,16 @@ public class RhnMockHttpServletResponse extends MockHttpServletResponse {
     public Cookie getCookie(String name) {
         return (Cookie) cookies.get(name);
     }
-    
+
     /**
      * Saves the url sent through a redirect so we can test it.
      * @param aURL The URL for this redirect
-     * @throws java.io.IOException will never throw 
+     * @throws java.io.IOException will never throw
      */
     public void sendRedirect(String aURL) throws java.io.IOException {
         redirect = aURL;
     }
-    
+
     /**
      * Gets the redirect instance variable
      * @return the redirect instance variable
@@ -80,21 +80,21 @@ public class RhnMockHttpServletResponse extends MockHttpServletResponse {
     public String getRedirect() {
         return redirect;
     }
-    
+
     /**
      * Sets the redirect to null.
      */
     public void clearRedirect() {
         redirect = null;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void setCharacterEncoding(String encodingIn) {
         this.encoding = encodingIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */

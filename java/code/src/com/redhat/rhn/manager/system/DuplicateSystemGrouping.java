@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * DuplicateSystemBucket
  * @version $Rev$
  */
@@ -30,18 +30,18 @@ public class DuplicateSystemGrouping implements Expandable, Identifiable {
 
     private String key;
     private List<NetworkDto> systems;
-    
+
     /**
      * Constructor
-     * @param net networkDto Object 
+     * @param net networkDto Object
      */
     public DuplicateSystemGrouping(NetworkDto net) {
         key = net.getKey();
         systems = new ArrayList<NetworkDto>();
         systems.add(net);
     }
-    
-    
+
+
     /**
      * @return Returns the key.
      */
@@ -51,7 +51,7 @@ public class DuplicateSystemGrouping implements Expandable, Identifiable {
 
     /**
      * Add a object to the bucket if there is a match
-     *  
+     *
      * @param net the object to add
      * @return true if added, false otherwise
      */
@@ -63,7 +63,7 @@ public class DuplicateSystemGrouping implements Expandable, Identifiable {
         return false;
     }
 
-    
+
     /**
      * @return Returns the systems.
      */
@@ -79,7 +79,7 @@ public class DuplicateSystemGrouping implements Expandable, Identifiable {
        return   getSystems();
     }
 
-    
+
     /**
      * {@inheritDoc}
      */
@@ -94,5 +94,5 @@ public class DuplicateSystemGrouping implements Expandable, Identifiable {
     public Long getId() {
         return Long.valueOf(key.hashCode());
     }
-    
+
 }

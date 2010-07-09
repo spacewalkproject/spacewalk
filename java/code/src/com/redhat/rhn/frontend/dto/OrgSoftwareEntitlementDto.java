@@ -30,8 +30,8 @@ public class OrgSoftwareEntitlementDto {
     private Long maxPossibleAllocation;
     private Long currentFlex;
     private Long maxFlex;
-    private Long maxPossibleFlexAllocation;    
-    
+    private Long maxPossibleFlexAllocation;
+
     /**
      * @param orgIn The org to set.
      */
@@ -39,7 +39,7 @@ public class OrgSoftwareEntitlementDto {
         org = orgIn;
     }
 
-    
+
     /**
      * @param currentMembersIn The currentMembers to set.
      */
@@ -47,7 +47,7 @@ public class OrgSoftwareEntitlementDto {
         currentMembers = currentMembersIn;
     }
 
-    
+
     /**
      * @param maxMembersIn The maxMembers to set.
      */
@@ -55,7 +55,7 @@ public class OrgSoftwareEntitlementDto {
         maxMembers = maxMembersIn;
     }
 
-    
+
     /**
      * @param maxPossibleAllocationIn The maxPossibleAllocation to set.
      */
@@ -69,7 +69,7 @@ public class OrgSoftwareEntitlementDto {
     public Org getOrg() {
         return org;
     }
-    
+
     /**
      * @return Current membership for this entitlement
      */
@@ -83,9 +83,9 @@ public class OrgSoftwareEntitlementDto {
     public Long getMaxMembers() {
         return maxMembers;
     }
-    
+
     /**
-     * 
+     *
      * @return Display version of max members total. Takes into account that null
      * means unlimited.
      */
@@ -99,14 +99,14 @@ public class OrgSoftwareEntitlementDto {
         }
     }
 
-    
+
     /**
      * @return Organization name.
      */
     public String getOrgName() {
         return org.getName();
     }
-    
+
     /**
      * Return the maximum possible entitlement allocation this organization can be given.
      * @return Max possible allocation.
@@ -118,7 +118,7 @@ public class OrgSoftwareEntitlementDto {
         return maxPossibleAllocation;
     }
 
-    
+
     /**
      * @return Returns the currentFlex.
      */
@@ -126,7 +126,7 @@ public class OrgSoftwareEntitlementDto {
         return currentFlex;
     }
 
-    
+
     /**
      * @param currentFlexIn The currentFlex to set.
      */
@@ -134,7 +134,7 @@ public class OrgSoftwareEntitlementDto {
         currentFlex = currentFlexIn;
     }
 
-    
+
     /**
      * @return Returns the maxFlex.
      */
@@ -142,7 +142,7 @@ public class OrgSoftwareEntitlementDto {
         return maxFlex;
     }
 
-    
+
     /**
      * @param maxFlexIn The maxFlex to set.
      */
@@ -150,7 +150,7 @@ public class OrgSoftwareEntitlementDto {
         maxFlex = maxFlexIn;
     }
 
-    
+
     /**
      * @return Returns the maxPossibleFlexAllocation.
      */
@@ -161,22 +161,22 @@ public class OrgSoftwareEntitlementDto {
         return maxPossibleFlexAllocation;
     }
 
-    
+
     /**
      * @param maxPossibleFlexAllocationIn The maxPossibleFlexAllocation to set.
      */
     public void setMaxPossibleFlexAllocation(Long maxPossibleFlexAllocationIn) {
         maxPossibleFlexAllocation = maxPossibleFlexAllocationIn;
     }
-    
-    
+
+
     /**
      * @return the key
      */
     public String getKey() {
         return makeKey(getOrg().getId());
     }
-    
+
     /**
      * @return the key
      */
@@ -184,7 +184,7 @@ public class OrgSoftwareEntitlementDto {
         return makeFlexKey(getOrg().getId());
     }
 
-    
+
     /**
      * @param id the id of the channel family
      * @return the key
@@ -193,12 +193,12 @@ public class OrgSoftwareEntitlementDto {
         return String.valueOf(id);
     }
 
-    
+
     /**
      * @param id the id of the channel family
      * @return the key
      */
     public static String makeFlexKey(Long id) {
         return id + "-flex";
-    }  
+    }
 }

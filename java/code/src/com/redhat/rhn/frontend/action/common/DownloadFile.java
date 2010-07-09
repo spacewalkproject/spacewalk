@@ -72,7 +72,7 @@ import com.redhat.rhn.manager.kickstart.KickstartManager;
  * @version $Rev$
  */
 public class DownloadFile extends DownloadAction {
-   
+
 
     private static Logger log = Logger.getLogger(DownloadFile.class);
 
@@ -89,20 +89,20 @@ public class DownloadFile extends DownloadAction {
     private static final String SESSION = "session";
     private static final String URL = "url";
     private static final String CHANNEL = "cid";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        
+
         String url = RhnHelper.getParameterWithSpecialCharacters(request, "url");
         if (log.isDebugEnabled()) {
             log.debug("url : [" + url + "]");
         }
         if (url.startsWith("/ks/dist")) {
             log.debug("URL is ks dist..");
-            ActionForward error = handleKickstartDownload(request, response, 
+            ActionForward error = handleKickstartDownload(request, response,
                     url, mapping);
             log.debug("Done handling ks download");
             if (error != null) {
@@ -115,11 +115,11 @@ public class DownloadFile extends DownloadAction {
             params.put(TYPE,  DownloadManager.DOWNLOAD_TYPE_COBBLER);
             params.put(URL, url);
             request.setAttribute(PARAMS, params);
-            return super.execute(mapping, formIn, request, response);            
+            return super.execute(mapping, formIn, request, response);
         }
         else {
             ActionForward error = handleUserDownload(request, url, mapping);
-            if (error != null) { 
+            if (error != null) {
                 return error;
             }
         }
@@ -132,10 +132,10 @@ public class DownloadFile extends DownloadAction {
             log.error("Package retrieval error on file download url: " + url);
             return mapping.findForward("error");
         }
-        
+
         return null;
     }
-    
+
     /**
      * Parse a /ks/dist url
      *  The following URLS are accepted:
@@ -185,8 +185,8 @@ public class DownloadFile extends DownloadAction {
         return ret;
     }
 
-    private ActionForward handleKickstartDownload(HttpServletRequest request, 
-            HttpServletResponse response, String url, 
+    private ActionForward handleKickstartDownload(HttpServletRequest request,
+            HttpServletResponse response, String url,
             ActionMapping mapping) throws IOException {
 
         if (log.isDebugEnabled()) {
@@ -268,21 +268,21 @@ public class DownloadFile extends DownloadAction {
         request.setAttribute(PARAMS, params);
         return null;
     }
-    
-    
-    private ActionForward handleUserDownload(HttpServletRequest request, String url, 
+
+
+    private ActionForward handleUserDownload(HttpServletRequest request, String url,
             ActionMapping mapping) {
         List<String> split = Arrays.asList(url.split("/"));
         Iterator<String> it = split.iterator();
         Map params = new HashMap();
-        
+
         String type = getNextValue(it);
         String hash = getNextValue(it);
         Long expire = new Long(getNextValue(it));
         Long userId = new Long(getNextValue(it));
         Long fileId = new Long(getNextValue(it));
         String filename = getNextValue(it);
-        
+
         params.put(TYPE, type);
         params.put(HASH, hash);
         params.put(EXPIRE, expire);
@@ -290,29 +290,29 @@ public class DownloadFile extends DownloadAction {
         params.put(FILEID, fileId);
         params.put(FILENAME, filename);
         request.setAttribute(PARAMS, params);
-        
+
         //If expire is at 0, then expiration is disabled for the download
         //    we'll validate the SHA1 token to make sure someone didn't hack
         //      it in the next step.
         if (expire != 0 && Calendar.getInstance().getTimeInMillis() > expire) {
-            log.error("File download url has expired: " + url); 
+            log.error("File download url has expired: " + url);
             return mapping.findForward("error");
         }
-        
+
         User user = UserFactory.lookupById(userId);
-        if (!hash.equals(DownloadManager.getFileSHA1Token(fileId, 
+        if (!hash.equals(DownloadManager.getFileSHA1Token(fileId,
                 filename, user, expire, type))) {
             log.error("Invalid hash on file download url: " + url);
             return mapping.findForward("error");
         }
-        
+
         return null;
     }
 
     @Override
     protected StreamInfo getStreamInfo(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         String path = "";
         Map params = (Map) request.getAttribute(PARAMS);
         String type = (String) params.get(TYPE);
@@ -320,7 +320,7 @@ public class DownloadFile extends DownloadAction {
             return getStreamInfoKickstart(mapping, form, request, response, path);
         }
         else if (type.equals(DownloadManager.DOWNLOAD_TYPE_COBBLER)) {
-            String url = ConfigDefaults.get().getCobblerServerUrl() + 
+            String url = ConfigDefaults.get().getCobblerServerUrl() +
                         (String) params.get(URL);
             KickstartHelper helper = new KickstartHelper(request);
             String data = "";
@@ -330,11 +330,11 @@ public class DownloadFile extends DownloadAction {
             }
             else {
                 data = KickstartManager.getInstance().renderKickstart(url);
-            } 
+            }
             //Must set content length or it doesn't quite work right
             response.addHeader("Content-Length", data.length() + "");
             return getStreamForText(data.getBytes());
-        }        
+        }
         else {
             Long fileId = (Long) params.get(FILEID);
             Long userid = (Long) params.get(USERID);
@@ -342,7 +342,7 @@ public class DownloadFile extends DownloadAction {
             if (type.equals(DownloadManager.DOWNLOAD_TYPE_PACKAGE)) {
                 Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
                 response.addHeader("Content-Length", pack.getPackageSize() + "");
-                path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + 
+                path = Config.get().getString(ConfigDefaults.MOUNT_POINT) +
                     "/" + pack.getPath();
                 return getStreamForBinary(path);
             }
@@ -357,18 +357,18 @@ public class DownloadFile extends DownloadAction {
                 }
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_README)) {
-                Patch patch = (Patch) PackageFactory.lookupByIdAndOrg(fileId, 
+                Patch patch = (Patch) PackageFactory.lookupByIdAndOrg(fileId,
                         user.getOrg());
                 response.addHeader("Content-Length", patch.getPackageSize() + "");
-                return getStreamForText(patch.getReadme().getBytes(1L, 
+                return getStreamForText(patch.getReadme().getBytes(1L,
                         (int) patch.getReadme().length()));
-                
-            }     
+
+            }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_SET_README)) {
-                PatchSet patch = (PatchSet) PackageFactory.lookupByIdAndOrg(fileId, 
+                PatchSet patch = (PatchSet) PackageFactory.lookupByIdAndOrg(fileId,
                         user.getOrg());
                 response.addHeader("Content-Length", patch.getPackageSize() + "");
-                return getStreamForText(patch.getReadme().getBytes(1L, 
+                return getStreamForText(patch.getReadme().getBytes(1L,
                         (int) patch.getReadme().length()));
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
@@ -388,17 +388,17 @@ public class DownloadFile extends DownloadAction {
                 return getStreamForText(output.toString().getBytes());
             }
         }
-        
-        throw new UnknownDownloadTypeException("The specified download type " + type + 
+
+        throw new UnknownDownloadTypeException("The specified download type " + type +
                 " is not currently supported");
 
     }
-    
+
 
     private StreamInfo getStreamInfoKickstart(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response, 
+            HttpServletRequest request, HttpServletResponse response,
                 String path) throws Exception {
-        
+
         Map params = (Map) request.getAttribute(PARAMS);
         path = (String) params.get(FILENAME);
         if (log.isDebugEnabled()) {
@@ -418,7 +418,7 @@ public class DownloadFile extends DownloadAction {
                 " explicitly rooted to the mount point");
             kickstartMount = "";
         }
-        // If the tree is rooted somewhere other than 
+        // If the tree is rooted somewhere other than
         // /var/satellite then no need to prepend it.
         if (tree.getBasePath().startsWith("/")) {
             log.debug("Tree isnt rooted at /var/satellite, lets just use basepath");
@@ -436,9 +436,9 @@ public class DownloadFile extends DownloadAction {
                 channel = child;
             }
 
-            rpmPackage = ChannelFactory.lookupPackageByFilename(channel, fileName); 
+            rpmPackage = ChannelFactory.lookupPackageByFilename(channel, fileName);
             if (rpmPackage != null) {
-                diskPath = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" + 
+                diskPath = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" +
                     rpmPackage.getPath();
                 if (log.isDebugEnabled()) {
                     log.debug("found package :: diskPath path: " + diskPath);
@@ -484,14 +484,14 @@ public class DownloadFile extends DownloadAction {
                 log.debug("Looks like it is an actual file and it exists.");
                 newState = KickstartFactory.
                     lookupSessionStateByLabel(KickstartSessionState.STARTED);
-                
+
             }
             else {
                 log.error(diskPath + " Not Found .. 404!");
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return getStreamForText("".getBytes());
             }
-            
+
         }
         if (log.isDebugEnabled()) {
             log.debug("Final path before returning getStreamForBinary(): " + diskPath);
@@ -500,7 +500,7 @@ public class DownloadFile extends DownloadAction {
             Enumeration e = request.getHeaderNames();
             while (e.hasMoreElements()) {
                 String name = (String) e.nextElement();
-                log.debug("header: [" + name + "]: " + request.getHeader(name)); 
+                log.debug("header: [" + name + "]: " + request.getHeader(name));
             }
         }
         if (request.getMethod().equals("HEAD")) {
@@ -540,18 +540,18 @@ public class DownloadFile extends DownloadAction {
         log.debug("added last-modified and content-length values");
         return getStreamForBinary(diskPath);
     }
-    
+
     private StreamInfo getStreamForText(byte[] text) {
         ByteArrayStreamInfo stream = new ByteArrayStreamInfo("text/plain", text);
         return stream;
     }
-    
+
     private StreamInfo getStreamForBinary(String path) {
         File file = new File(path);
         FileStreamInfo stream = new FileStreamInfo("application/octet-stream", file);
         return stream;
     }
-    
+
 
     private String getNextValue(Iterator<String> it) {
         while (it.hasNext()) {
@@ -562,14 +562,14 @@ public class DownloadFile extends DownloadAction {
         }
         return null;
     }
-    
+
     // Ported from perl - needed for proxy support
-    private StreamInfo manualServeChecksum(HttpServletResponse response, 
+    private StreamInfo manualServeChecksum(HttpServletResponse response,
             Package rpmPackage, String diskPath) throws IOException {
 
         response.setContentType("application/octet-stream");
         String checksum;
-        // Obtain the checksum for the file in question and stick it in the 
+        // Obtain the checksum for the file in question and stick it in the
         // outgoing HTTP headers under "X-RHN-Checksum".
         if (rpmPackage != null && rpmPackage.getChecksum() != null &&
                     rpmPackage.getChecksum().getChecksum() != null) {
@@ -590,9 +590,9 @@ public class DownloadFile extends DownloadAction {
         response.setStatus(HttpServletResponse.SC_OK);
         return getStreamForText("".getBytes());
     }
-    
+
     // Ported from perl - needed for yum's requests for byte ranges
-    private StreamInfo manualServeByteRange(HttpServletRequest request, 
+    private StreamInfo manualServeByteRange(HttpServletRequest request,
             HttpServletResponse response,
             String diskPath, String range) {
 
@@ -608,11 +608,11 @@ public class DownloadFile extends DownloadAction {
         long size = end - start + 1;
         File actualFile = new File(diskPath);
         long totalSize = actualFile.length();
-        
+
         if (log.isDebugEnabled()) {
             log.debug("manualServeByteRange totalsize: " + totalSize);
         }
-    
+
         if (size <= 0) {
             return getStreamForBinary(diskPath);
         }
@@ -626,13 +626,13 @@ public class DownloadFile extends DownloadAction {
         String fdate = formatter.format(mtime);
         response.addHeader("last-modified", fdate);
         response.addHeader("Content-Length", String.valueOf(size));
-        response.addHeader("Content-Range", "bytes " + start + "-" + end + 
+        response.addHeader("Content-Range", "bytes " + start + "-" + end +
                 "/" + totalSize);
         response.addHeader("Accept-Ranges", "bytes");
         if (log.isDebugEnabled()) {
             log.debug("Added header last-modified: " + fdate);
             log.debug("Added header Content-Length: " + String.valueOf(size));
-            log.debug("Added header Content-Range: " + "bytes " + start + 
+            log.debug("Added header Content-Range: " + "bytes " + start +
                     "-" + end + "/" + totalSize);
             log.debug("Added header Accept-Ranges: bytes");
         }
@@ -642,9 +642,9 @@ public class DownloadFile extends DownloadAction {
             log.debug("chunk size: " + chunk.length);
             log.debug("read chunk into byte array.  returning ByteArrayStreamInfo");
         }
-        ByteArrayStreamInfo stream = new 
+        ByteArrayStreamInfo stream = new
             ByteArrayStreamInfo("application/octet-stream", chunk);
         return stream;
     }
-    
+
 }

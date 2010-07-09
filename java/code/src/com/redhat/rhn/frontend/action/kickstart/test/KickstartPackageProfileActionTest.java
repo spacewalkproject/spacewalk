@@ -32,7 +32,7 @@ import com.redhat.rhn.testing.TestUtils;
 public class KickstartPackageProfileActionTest extends RhnMockStrutsTestCase {
 
     private KickstartData ksdata;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -53,7 +53,7 @@ public class KickstartPackageProfileActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         assertNotNull(request.getParameter(RequestContext.KICKSTART_ID));
     }
-    
+
     public void testSubmit() throws Exception {
         assertNull(ksdata.getKickstartDefaults().getProfile());
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -67,7 +67,7 @@ public class KickstartPackageProfileActionTest extends RhnMockStrutsTestCase {
         ksdata = (KickstartData) TestUtils.reload(ksdata);
         assertNull(ksdata.getKickstartDefaults().getProfile());
         setRequestPathInfo("/kickstart/KickstartPackageProfileEdit");
-        // Need to test that the SetupAction works after we 
+        // Need to test that the SetupAction works after we
         // add the profile to the Kickstart
         actionPerform();
     }

@@ -43,16 +43,16 @@ public class RhnSetHelper {
     private String forward;
     private RequestContext requestContext;
     private StrutsDelegate strutsDelegate;
-    
-    
+
+
     /**
      * Constructor
-     * 
+     *
      * @param mappingIn associated with the helper
      * @param setIn we are operating on
      * @param requestIn to associate
      */
-    public RhnSetHelper(ActionMapping mappingIn, RhnSetDecl setIn, 
+    public RhnSetHelper(ActionMapping mappingIn, RhnSetDecl setIn,
             HttpServletRequest requestIn) {
         this.setDecl = setIn;
         this.request = requestIn;
@@ -61,26 +61,26 @@ public class RhnSetHelper {
         requestContext = new RequestContext(requestIn);
         strutsDelegate = StrutsDelegate.getInstance();
     }
-    
+
     /**
      * Constructor for just a request
      * @param setIn RhnSetDecl to associate with the helper
      * @param requestIn to associate with helper
-     * 
+     *
      */
     public RhnSetHelper(RhnSetDecl setIn, HttpServletRequest requestIn) {
         this(null, setIn, requestIn);
     }
 
     /**
-     * Use this constructor if u just 
-     * need to deal with the set. 
+     * Use this constructor if u just
+     * need to deal with the set.
      * @param setIn the set we are operating on
      */
     public RhnSetHelper(RhnSetDecl setIn) {
         this.setDecl = setIn;
-    }    
-    
+    }
+
     /**
      * Updates RhnSet with checked set elements
      * @param paramsIn Map of request parameters you want to forward
@@ -139,7 +139,7 @@ public class RhnSetHelper {
     /**
      * Puts all selectable data in a given data result into an rhn set.
      * @param result DataResult to use to select everything with.
-     * @param user the user needed to access the set. 
+     * @param user the user needed to access the set.
      */
     public void selectAllData(List result, User user) {
         // Get an "unelaborated" DataResult containing all of the
@@ -198,12 +198,12 @@ public class RhnSetHelper {
         return requestContext.getLoggedInUser();
     }
 
-    
+
     /**
      * @param forwardIn The forward to set.
      */
     public void setForward(String forwardIn) {
         forward = forwardIn;
     }
-    
+
 }

@@ -31,21 +31,21 @@ public class UserActionHelper {
 
     private UserActionHelper() {
     }
-    
+
     /** placeholder string, package protected; so we don't transmit
      * the actual pw but the form doesn't look empty */
     static final String PLACEHOLDER_PASSWORD = "******";
     public static final String DESIRED_PASS = "desiredpassword";
     public static final String DESIRED_PASS_CONFIRM = "desiredpasswordConfirm";
-    
+
     /**
      * @return List of possible user prefixes
-     * get the list of prefixes to populate the prefixes drop-down box. 
+     * get the list of prefixes to populate the prefixes drop-down box.
      * package protected, because nothing outside of actions should need this.*/
     public static List getPrefixes() {
         // SETUP Prefix list
         List preselct = new LinkedList();
-        
+
         Iterator i = LocalizationService.getInstance().
                             availablePrefixes().iterator();
         while (i.hasNext()) {
@@ -60,7 +60,7 @@ public class UserActionHelper {
     }
 
     /**
-     * get the list of countries to populate the countries drop-down box. 
+     * get the list of countries to populate the countries drop-down box.
      * package protected, because nothing outside of actions should need this.*/
     static List getCountries() {
         Map cmap = LocalizationService.getInstance().availableCountries();

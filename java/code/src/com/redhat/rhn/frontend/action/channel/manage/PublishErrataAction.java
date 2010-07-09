@@ -41,80 +41,80 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * 
+ *
  * PublishErrataAction
  * @version $Rev$
  */
 public class PublishErrataAction extends RhnListAction {
 
-    
+
     private static final String CID = "cid";
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
         Long cid = Long.parseLong(request.getParameter(CID));
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid, user);
-   
+
         PublishErrataHelper.checkPermissions(user);
-        
+
         RhnSet  packageSet = RhnSetDecl.setForChannelPackages(currentChan).get(user);
         Set<Long> packageIds = packageSet.getElementValues();
-        
+
         Logger log = Logger.getLogger(this.getClass());
         if (log.isDebugEnabled()) {
             log.debug("Set in Publish: "  +  packageSet.size());
         }
-        
+
         Set<Long> errataIds = RhnSetDecl.setForChannelErrata(currentChan).get(
                 user).getElementValues();
-        
+
         ErrataManager.publishErrataToChannelAsync(currentChan, errataIds, user);
-        
+
         //ErrataManager.publishErrataToChannel(currentChan, errataIds, user);
-        
- 
+
+
         List<Long> pidList = new ArrayList<Long>();
         pidList.addAll(packageIds);
-        
+
         List channelPacks = ChannelFactory.getPackageIds(currentChan.getId());
-        
+
         for (Long pid : pidList) {
             if (!channelPacks.contains(pid)) {
                 ChannelFactory.addChannelPackage(currentChan.getId(), pid);
             }
         }
-        
-        
+
+
         //update the errata info
         List chanList = new ArrayList();
         chanList.add(currentChan.getId());
         ErrataCacheManager.insertCacheForChannelPackagesAsync(chanList, pidList);
         ChannelManager.refreshWithNewestPackages(currentChan, "web.errata_push");
         request.setAttribute("cid", cid);
-        
+
         ActionMessages msg = new ActionMessages();
-        String[] params = {errataIds.size() + "", packageIds.size() + "", 
+        String[] params = {errataIds.size() + "", packageIds.size() + "",
                 currentChan.getName()};
-        msg.add(ActionMessages.GLOBAL_MESSAGE, 
-                new ActionMessage("frontend.actions.channels.manager.add.success", 
+        msg.add(ActionMessages.GLOBAL_MESSAGE,
+                new ActionMessage("frontend.actions.channels.manager.add.success",
                         params));
-        
+
         getStrutsDelegate().saveMessages(requestContext.getRequest(), msg);
-        
+
         return mapping.findForward("default");
     }
 
-    
-    
 
-    
+
+
+
 }

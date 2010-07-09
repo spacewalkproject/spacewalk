@@ -33,24 +33,24 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * RhnSetAction
- * 
+ *
  * <br/><br/>
- * 
+ *
  * <strong>NOTE:</strong> RhnSetAction and RhnAction contain two duplicate methods -
  * <code>getStrutsDelegate()</code> and <code>createSuccessMessage()</code>. If another
  * method is added to these classes that is common to both we need to refactor the common
  * methods into a new class maybe called <code>RhnActionDelegate</code>.
- * 
+ *
  * <br/><br/>
- * 
+ *
  * We cannot introduce a common base class because RhnSetAction and RhnAction fall into
- * different inheritance hierarchies. 
- *  
+ * different inheritance hierarchies.
+ *
  * @version $Rev$
  * @see com.redhat.rhn.frontend.struts.RhnAction
  */
 public abstract class RhnSetAction extends RhnListDispatchAction {
-    
+
     /**
      * Updates RhnSet with checked set elements
      * @param mapping ActionMapping

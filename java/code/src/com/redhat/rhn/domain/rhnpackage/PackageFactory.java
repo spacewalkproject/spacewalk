@@ -207,7 +207,7 @@ public class PackageFactory extends HibernateFactory {
     /**
      * lookup a PackageName object based on it's name, returns null if it does
      * not exist
-     * 
+     *
      * @param pn the package name
      * @return a PackageName object that has a matching name or null if that
      * doesn't exist
@@ -416,7 +416,7 @@ public class PackageFactory extends HibernateFactory {
      * Provides a mapping of arch type labels to sets of capabilities (ported from the if
      * statement mess in package_type_capable of Package.pm). This should really
      * be in the DB, but it's not :{ and it needs to be ported from perl.
-     * 
+     *
      * @return the map of arch label -> set of capabilities
      */
     public static Map<String, Set<String>> getPackageCapabilityMap() {

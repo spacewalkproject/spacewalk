@@ -27,8 +27,8 @@ import org.apache.struts.action.Action;
  */
 public class ProbeSuiteListSetupActionTest extends RhnMockStrutsTestCase {
     private Action action = null;
-    
-    
+
+
     public void testExecute() throws Exception {
         ProbeSuite suite = ProbeSuiteTest.createTestProbeSuite(user);
         String[] suites = new String[1];

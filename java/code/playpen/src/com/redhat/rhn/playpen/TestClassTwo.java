@@ -19,7 +19,7 @@ public class TestClassTwo {
 
     public Integer someNum;
 
-    
+
     /**
      * @return the someNum
      */
@@ -27,7 +27,7 @@ public class TestClassTwo {
         return someNum;
     }
 
-    
+
     /**
      * @param someNumIn The someNum to set.
      */

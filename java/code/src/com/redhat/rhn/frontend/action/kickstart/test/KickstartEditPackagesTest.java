@@ -18,37 +18,37 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 public class KickstartEditPackagesTest extends RhnMockStrutsTestCase {
-    
+
     public void testDisplay() throws Exception {
         KickstartData k = KickstartTestHelper.createTestKickStart(user);
         setupForDisplay(k);
-        actionPerform();        
+        actionPerform();
     }
-    
+
     public void testEditWithAdd() throws Exception {
-        KickstartData k = KickstartTestHelper.createTestKickStart(user);        
+        KickstartData k = KickstartTestHelper.createTestKickStart(user);
         setupForEdit(k);
         addRequestParameter("packageList", "@ Base\ntomcat-testing\n");
         actionPerform();
     }
-    
+
     public void testEditWithDelete() throws Exception {
-        KickstartData k = KickstartTestHelper.createTestKickStart(user);        
+        KickstartData k = KickstartTestHelper.createTestKickStart(user);
         setupForEdit(k);
         addRequestParameter("packageList", "");
         actionPerform();
     }
-    
+
     private void setupForDisplay(KickstartData k) throws Exception {
         clearRequestParameters();
         setRequestPathInfo("/kickstart/KickstartPackagesEdit");
-        addRequestParameter("ksid", k.getId().toString());        
+        addRequestParameter("ksid", k.getId().toString());
     }
-    
+
     private void setupForEdit(KickstartData k) throws Exception {
         setupForDisplay(k);
         addRequestParameter("submitted", "true");
-    }    
-    
-    
+    }
+
+
 }

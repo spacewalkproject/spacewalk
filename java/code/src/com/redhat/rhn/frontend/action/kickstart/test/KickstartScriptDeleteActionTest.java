@@ -24,25 +24,25 @@ import com.redhat.rhn.frontend.struts.RequestContext;
  * @version $Rev: 1 $
  */
 public class KickstartScriptDeleteActionTest extends BaseKickstartEditTestCase {
-    
+
     public void testExecute() throws Exception {
         KickstartScript kss = (KickstartScript) ksdata.getScripts().iterator().next();
         assertEquals(5, ksdata.getScripts().size());
         addRequestParameter(RequestContext.KICKSTART_SCRIPT_ID, kss.getId().toString());
-        addRequestParameter(KickstartScriptDeleteAction.SUBMITTED, 
+        addRequestParameter(KickstartScriptDeleteAction.SUBMITTED,
                 Boolean.FALSE.toString());
         setRequestPathInfo("/kickstart/KickstartScriptDelete");
         actionPerform();
         assertEquals(5, ksdata.getScripts().size());
         assertNotNull(request.getAttribute(KickstartScriptDeleteAction.KICKSTART_SCRIPT));
     }
-    
-    
+
+
     public void testExecuteSubmit() throws Exception {
         KickstartScript kss = (KickstartScript) ksdata.getScripts().iterator().next();
         assertEquals(5, ksdata.getScripts().size());
         addRequestParameter(RequestContext.KICKSTART_SCRIPT_ID, kss.getId().toString());
-        addRequestParameter(KickstartScriptCreateAction.SUBMITTED, 
+        addRequestParameter(KickstartScriptCreateAction.SUBMITTED,
                 Boolean.TRUE.toString());
         setRequestPathInfo("/kickstart/KickstartScriptDelete");
         actionPerform();

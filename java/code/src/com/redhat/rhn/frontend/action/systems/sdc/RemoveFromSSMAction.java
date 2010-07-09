@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class RemoveFromSSMAction extends RhnAction {
-    
+
     public static final String[] SERVER_PREFERENCES = {UserServerPreferenceId
                                                        .INCLUDE_IN_DAILY_SUMMARY,
                                                        UserServerPreferenceId
@@ -55,26 +55,26 @@ public class RemoveFromSSMAction extends RhnAction {
         Long sid = rctx.getRequiredParam("sid");
         User user = rctx.getLoggedInUser();
         Server s  = SystemManager.lookupByIdAndUser(sid, user);
-        
+
         if (s.hasEntitlement(EntitlementManager.MANAGEMENT)) {
             RhnSet set = RhnSetDecl.SYSTEMS.get(user);
-            
+
             if (set.getElementValues().contains(s.getId())) {
                 set.removeElement(s.getId());
                 RhnSetManager.store(set);
-                
+
                 ActionMessages msg = new ActionMessages();
-                msg.add(ActionMessages.GLOBAL_MESSAGE, 
+                msg.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("system.sdc.removefromssm"));
                 getStrutsDelegate().saveMessages(request, msg);
-                
+
             }
-            
+
         }
         Map params = new HashMap();
         params.put("sid", sid);
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
     }
-    
-   
+
+
 }

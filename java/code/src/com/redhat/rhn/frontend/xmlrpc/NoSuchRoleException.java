@@ -26,7 +26,7 @@ public class NoSuchRoleException extends FaultException {
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = -8901765110781851493L;
-    
+
     /**
      * Constructor
      * @param msg error message

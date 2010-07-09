@@ -36,32 +36,32 @@ import com.redhat.rhn.domain.task.TaskFactory;
  * Repo Sync
  *  Used for syncing repos (like yum repos) to a channel
  *  This really just calls a python script
- *  
+ *
  * @version $Rev$
  */
 public class RepoSyncTask implements Job {
-        
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "repo_sync";
 
     private static Logger log = Logger.getLogger(RepoSyncTask.class);
-    
+
     /**
      * Default constructor
      */
     public RepoSyncTask() {
     }
- 
+
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
-        
+
         for (Task task : TaskFactory.listTasks(DISPLAY_NAME)) {
             //workaround in case task is null (which can happen)
 
@@ -79,7 +79,7 @@ public class RepoSyncTask implements Job {
                 continue;
             }
             TaskFactory.removeTask(task);
-            
+
             try {
                 Process p = Runtime.getRuntime().exec(
                         getSyncCommand(c).toArray(new String[0]));
@@ -87,9 +87,9 @@ public class RepoSyncTask implements Job {
                 int chr = p.getInputStream().read();
                 while (chr != -1) {
                     chr = p.getInputStream().read();
-                    
+
                 }
-                
+
             }
             catch (IOException e) {
                 log.fatal(e.getMessage());
@@ -97,7 +97,7 @@ public class RepoSyncTask implements Job {
             }
         }
     }
-    
+
     private static List<String> getSyncCommand(Channel c) {
         List<String> cmd = new ArrayList<String>();
         cmd.add(Config.get().getString(ConfigDefaults.SPACEWALK_REPOSYNC_PATH,

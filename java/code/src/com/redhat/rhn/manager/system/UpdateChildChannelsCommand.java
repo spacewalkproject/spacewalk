@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * UpdateChildChannelsCommand - this will *NOT* remove Proxy or Satellite child channel
- * subscriptions.  
+ * subscriptions.
  * @version $Rev$
  */
 public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
@@ -47,7 +47,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
 
     private List<Long> cids;
     private Server server;
-    
+
     /**
      * Constructor
      * @param userIn making the call
@@ -59,7 +59,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
         this.user = userIn;
         this.server = s;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -67,7 +67,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
         List<Long> remove = new ArrayList<Long>();
         /*
          * Loop through the server channels and take any channels the server is already
-         * subscribed to out of the cids list. Also, keep track of any we will have to 
+         * subscribed to out of the cids list. Also, keep track of any we will have to
          * unsubscribe from in the remove list.
          */
         for (Channel c : server.getChannels()) {
@@ -81,7 +81,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
                 remove.add(c.getId());
             }
         }
-        
+
         // Check whether channelsIds are childs of the current base if the system has a base
         if (server.getBaseChannel() != null) {
             Set subscribableChannelIds = SystemManager.subscribableChannelIds(
@@ -102,13 +102,13 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
         //Subscribe to new channels
         log.debug("subscribing to new channels");
         boolean failedChannels = subscribeToNewChannels(user, cids, server);
-        
+
         //Unsubscribe from any channels in remove
         log.debug("unsubscribing from other channels");
         unsubscribeFromOldChannels(user, remove, server);
-        
+
         super.store();
-        
+
         if (failedChannels) {
             return new ValidatorError("sdc.channels.edit.failed_channels");
         }
@@ -116,13 +116,13 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
             return null;
         }
     }
-    
-    private static boolean subscribeToNewChannels(User loggedInUser, 
+
+    private static boolean subscribeToNewChannels(User loggedInUser,
             List<Long> channelIds, Server serverIn)
         throws FaultException {
-        
+
         boolean failedChannels = false;
-        
+
         /*
          * Loop through the list of new channel ids for the server. Make sure each one is
          * a valid child channel (parentChannel == null) and subscribe the server to the
@@ -152,14 +152,14 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
                 failedChannels = true;
             }
             else {
-                // do quick unsubscribe + quick subscribe... I don't know why we do the 
+                // do quick unsubscribe + quick subscribe... I don't know why we do the
                 // unsubscribe first... It is what the perl code does though.
                 try {
                     log.debug("unsub from channel to be sure");
-                    SystemManager.unsubscribeServerFromChannel(loggedInUser, 
+                    SystemManager.unsubscribeServerFromChannel(loggedInUser,
                             serverIn, channel);
                     log.debug("Sub to channel.");
-                    SystemManager.subscribeServerToChannel(loggedInUser, serverIn, channel, 
+                    SystemManager.subscribeServerToChannel(loggedInUser, serverIn, channel,
                             false);
                 }
                 catch (IncompatibleArchException iae) {
@@ -171,15 +171,15 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
                 }
             }
         }
-        
+
         return failedChannels;
     }
 
-    private static void unsubscribeFromOldChannels(User loggedInUser, 
+    private static void unsubscribeFromOldChannels(User loggedInUser,
             List<Long> remove, Server serverIn)
             throws FaultException {
         /*
-         * Loop through the list of cids to remove and unsubscribe the server from the 
+         * Loop through the list of cids to remove and unsubscribe the server from the
          * channel. Make sure we don't do anything to the base channel.
          */
         for (Long cid : remove) {
@@ -194,7 +194,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
 
             // unsubscribe from channel
             try {
-                SystemManager.unsubscribeServerFromChannel(loggedInUser, 
+                SystemManager.unsubscribeServerFromChannel(loggedInUser,
                         serverIn, channel);
             }
             catch (PermissionException e) {

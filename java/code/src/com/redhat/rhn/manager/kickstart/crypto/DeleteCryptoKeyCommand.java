@@ -24,7 +24,7 @@ import com.redhat.rhn.domain.user.User;
  * @version $Rev$
  */
 public class DeleteCryptoKeyCommand extends BaseCryptoKeyCommand {
-    
+
     /**
      * Create new Command and Key
      * @param currentUser who wants to create the key
@@ -53,7 +53,7 @@ public class DeleteCryptoKeyCommand extends BaseCryptoKeyCommand {
         if (description == null) {
             throw new IllegalArgumentException("description cannot be null");
         }
-        
+
         this.key = KickstartFactory.lookupCryptoKey(description, currentUser.getOrg());
     }
 
@@ -63,25 +63,25 @@ public class DeleteCryptoKeyCommand extends BaseCryptoKeyCommand {
     public void setDescription(String descIn) {
        // no op
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void setType(String typeIn) {
         // no op
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void setContents(String contentsIn) {
         // no op
     }
-    
+
     /**
      * remove the key from the DB.
      * store() is counter-intuitive but it is done
-     * this way so CryptoKeyDeleteAction can reuse 
+     * this way so CryptoKeyDeleteAction can reuse
      * BaseCryptoKeyEditAction
      * @return ValidatorError[] array of errors.
      */
@@ -95,7 +95,7 @@ public class DeleteCryptoKeyCommand extends BaseCryptoKeyCommand {
                 return retval;
             }
         }
-        
+
         KickstartFactory.removeCryptoKey(this.key);
         return null;
     }

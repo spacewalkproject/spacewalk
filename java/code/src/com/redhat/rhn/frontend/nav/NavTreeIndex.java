@@ -33,7 +33,7 @@ import java.util.Set;
 
 public class NavTreeIndex {
     private static Logger log = Logger.getLogger(NavTreeIndex.class);
-    
+
     private Map nodesByLabel;
     private Map childToParentMap;
     private Map depthMap;
@@ -44,7 +44,7 @@ public class NavTreeIndex {
     private Set activeNodes; //The best node and its parents (all highlighted in UI)
     private NavNode bestNode; //The node best corresponding with the url
     private NavTree tree;
-    
+
     /**
      * Public constructor
      * @param treeIn the tree to index
@@ -109,7 +109,7 @@ public class NavTreeIndex {
         if (parent.getLabel() != null) {
             nodesByLabel.put(parent.getLabel(), parent);
         }
-        
+
         Iterator i = nodesAtCurrentDepth.iterator();
         while (i.hasNext()) {
             NavNode child = (NavNode)i.next();
@@ -191,16 +191,16 @@ public class NavTreeIndex {
      * Given a URL, compute the active nodes for the URL, altering the
      * state of the class.  Pass in the most recently Active  URL to be
      * used as a fallback if necessary.
-     * 
+     *
      * @param url string of form /foo/bar/baz
      * @param lastActive the last computed ActiveNode URL
      * @return String the URL computed
      */
     public String computeActiveNodes(String url, String lastActive) {
         String[] prefixes = splitUrlPrefixes(url);
-        
-        // If we have a lastActive URL we 
-        // will add it to the end of the list of URLs to 
+
+        // If we have a lastActive URL we
+        // will add it to the end of the list of URLs to
         // use it as a last resort.
         if (lastActive != null) {
             String[] urls = new String[prefixes.length + 1];
@@ -212,14 +212,14 @@ public class NavTreeIndex {
             urls[prefixes.length] = lastActive;
             prefixes = urls;
         }
-        
+
         return computeActiveNodes(prefixes);
     }
 
     /**
      * does the real work for computeActiveNodes
      * @param urls list of URLs, in order of preference, to match
-     * @return String the URL computed     
+     * @return String the URL computed
      */
     private String computeActiveNodes(String[] urls) {
         bestNode = findBestNode(urls);
@@ -236,7 +236,7 @@ public class NavTreeIndex {
             activeNodes.add(walker);
             walker = (NavNode)childToParentMap.get(walker);
         }
-        
+
         if (log.isDebugEnabled()) {
             log.debug("returning [" + bestNode.getPrimaryURL() +
                       "] as the url of the active node");
@@ -245,9 +245,9 @@ public class NavTreeIndex {
     }
 
     private NavNode findBestNode(String[] urls) {
-        
+
         for (int i = 0; i < urls.length; i++) {
-        
+
             if (log.isDebugEnabled()) {
                 log.debug("Url being searched [" + urls[i] + "]");
             }
@@ -258,21 +258,21 @@ public class NavTreeIndex {
                     log.debug("Primary node for [" + urls[i] + "] is [" +
                             primaryURLMap.get(urls[i]) + "]");
                 }
-                
+
                 // we found a match, now let's make sure it is accessible
                 // we need to do this because sometimes there are multiple
-                // nodes with the same url.  At that point they are 
+                // nodes with the same url.  At that point they are
                 // distinguishable only by acls.
-                
+
                 if (canViewUrl((NavNode)primaryURLMap.get(urls[i]), 0)) {
                     return (NavNode)primaryURLMap.get(urls[i]);
                 }
             }
-            
+
             // either we couldn't find a primary url match OR it isn't
             // accessible.  Let's go through the other url mappings (if any)
             // looking for an accessible url.
-            
+
             List nodesByUrl = (List) nodeURLMap.get(urls[i]);
             if (nodesByUrl != null) {
                 Iterator nodeItr = nodesByUrl.iterator();
@@ -287,7 +287,7 @@ public class NavTreeIndex {
                     }
                 }
             }
-            
+
             // finally, we couldn't find a match by primary url, nor by
             // any of the other mappings.  At this point we will attempt
             // to match by directory if there was an rhn-tab-directory
@@ -308,7 +308,7 @@ public class NavTreeIndex {
 
         return null;
     }
-    
+
     private boolean canViewUrl(NavNode node, int depth) {
         AclGuard guard = tree.getGuard();
         // purposefully an or, not an and
@@ -323,7 +323,7 @@ public class NavTreeIndex {
     public boolean isNodeActive(NavNode node) {
         return activeNodes.contains(node);
     }
-    
+
 }
 
 

@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
  * @version $Rev$
  */
 public class RhnHttpServletRequest extends HttpServletRequestWrapper {
-    
+
     private static final String ACTIVE_LANG_ATTR = "rhnActiveLang";
 
     private Vector locales = new Vector();
@@ -157,7 +157,7 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
 
         return retval.toString();
     }
-    
+
     /**
      * Returns the actual locale sent by the browser
      * @return browser's configured locale
@@ -165,7 +165,7 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
     public Locale getBrowserLocale() {
         return super.getLocale();
     }
-    
+
     /**
      * Returns the list of locales sent by the browser
      * @return browser's list of configured locales
@@ -189,13 +189,13 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Cookie[] getCookies() {
         return super.getCookies();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -240,7 +240,7 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
             super.setAttribute(name, value);
         }
     }
-    
+
     void configureLocale() {
         Context ctx = Context.getCurrentContext();
         Locale userLocale = ctx.getLocale();
@@ -252,6 +252,6 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
         if (!locales.contains(userLocale)) {
             locales.add(0, userLocale);
         }
-        
+
     }
 }

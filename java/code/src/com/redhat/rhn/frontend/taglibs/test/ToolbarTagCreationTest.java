@@ -21,11 +21,11 @@ import javax.servlet.jsp.JspException;
  * @version $Rev$
  */
 public class ToolbarTagCreationTest extends BaseTestToolbarTag {
-    
+
     public ToolbarTagCreationTest() {
         super();
     }
-    
+
     private void setupCreationTag(String base, String url, String acl, String type) {
         tt.setBase(base);
         tt.setCreationUrl(url);
@@ -33,7 +33,7 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
         tt.setCreationType(type);
         tt.setAclMixins(BooleanAclHandler.class.getName());
     }
-    
+
     public void testCreationNoAcl() throws Exception {
         // setup mock objects
         String output = "<div class=\"toolbar-h1\"><div class=\"" +
@@ -42,22 +42,22 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
             " title=\"create new user\" />create new user</a></span>" +
             "</div></div>";
 
-            
+
         setupCreationTag("h1", "creation-url", "", "user");
-            
+
         verifyTag(output);
     }
-    
+
     public void testCreationWithMissingType() throws Exception {
         // setup mock objects
         String output = "<div class=\"toolbar-h1\"><div class=\"" +
             "toolbar\"></div></div>";
 
         setupCreationTag("h1", "creation-url", "true_test()", "");
-            
+
         verifyTag(output);
     }
-    
+
     public void testCreateAclMultipleMixinsMultipleAcls() throws Exception {
         String output = "<div class=\"toolbar-h1\"><div class=\"" +
             "toolbar\"><span class=\"toolbar\"><a href=\"creation-url\">" +
@@ -68,7 +68,7 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
         setupCreationTag("h1", "creation-url",
                          "first_true_acl(); second_true_acl(); is_foo(foo)",
                          "user");
-            
+
         tt.setAclMixins(MockOneAclHandler.class.getName() + "," +
                         MockTwoAclHandler.class.getName());
 
@@ -81,7 +81,7 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
             "<img src=\"/img/action-add.gif\" alt=\"create new user\"" +
             " title=\"create new user\" />create new user</a></span>" +
             "</div></div>";
-            
+
         setupCreationTag("h1", "creation-url",
                          "first_true_acl(); second_true_acl()", "user");
 
@@ -95,12 +95,12 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
         try {
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"></div></div>";
- 
+
             setupCreationTag("h1", "creation-url",
                              "true_test()", "user");
-             
+
             tt.setAclMixins("throws.class.not.found.exception");
- 
+
             verifyTag(output);
             flag = true;
         }
@@ -110,7 +110,7 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
             assertFalse(flag);
         }
     }
-    
+
     public void testCreationAcl() throws Exception {
         // setup mock objects
         String output = "<div class=\"toolbar-h1\"><div class=\"" +
@@ -118,19 +118,19 @@ public class ToolbarTagCreationTest extends BaseTestToolbarTag {
             "<img src=\"/img/action-add.gif\" alt=\"create new user\"" +
             " title=\"create new user\" />create new user</a></span>" +
             "</div></div>";
-            
+
         setupCreationTag("h1", "creation-url", "true_test()", "user");
 
         verifyTag(output);
     }
-    
+
     public void testCreationWithMissingUrl() throws Exception {
         // setup mock objects
         String output = "<div class=\"toolbar-h1\"><div class=\"" +
             "toolbar\"></div></div>";
-            
+
         setupCreationTag("h1", null, "true_test()", "user");
-            
+
         verifyTag(output);
     }
 }

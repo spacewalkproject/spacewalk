@@ -62,7 +62,7 @@ public class SidenavRenderer extends Renderable {
                               NavNode node,
                               NavTreeIndex treeIndex,
                               Map parameters,
-                              int depth) { 
+                              int depth) {
         if (!canRender(node, depth)) {
             return;
         }
@@ -79,7 +79,7 @@ public class SidenavRenderer extends Renderable {
     public void navNodeInactive(StringBuffer sb,
                                 NavNode node,
                                 NavTreeIndex treeIndex,
-                                Map parameters, 
+                                Map parameters,
                                 int depth) {
         if (!canRender(node, depth)) {
             return;
@@ -91,15 +91,15 @@ public class SidenavRenderer extends Renderable {
         else {
             renderNode(sb, node, "navparent");
         }
-        
+
     }
- 
+
     private void renderNode(StringBuffer sb, NavNode node, String cssClass) {
         HtmlTag li = new HtmlTag("li");
         if (cssClass != null) {
             li.setAttribute("class", cssClass);
         }
-        
+
         li.addBody(aHref(node.getPrimaryURL(), node.getName(), node.getTarget()));
         sb.append(li.render());
         sb.append("\n");

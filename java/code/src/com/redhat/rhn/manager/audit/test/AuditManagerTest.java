@@ -27,7 +27,7 @@ import junit.framework.TestCase;
 
 public class AuditManagerTest extends TestCase {
 
-    
+
     public void testGetMachines() throws Exception {
         String testdir =  "/tmp/sw-audit-test";
         String machinename = TestUtils.randomString();
@@ -38,13 +38,13 @@ public class AuditManagerTest extends TestCase {
         }
         File machinedir = new File(testdir + "/" + machinename);
         machinedir.mkdir();
-        
+
         DataResult dr = AuditManager.getMachines();
         assertNotNull(dr);
         assertTrue(dr.size() == 1);
         AuditMachineDto dto = (AuditMachineDto) dr.get(0);
         assertEquals(machinename, dto.getName());
-        
+
         machinedir.delete();
         newdir.delete();
     }

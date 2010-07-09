@@ -50,7 +50,7 @@ public class ChannelFileDeploySetup extends BaseSetListAction {
     protected void processRequestAttributes(RequestContext rctx) {
         if (!rctx.isSubmitted()) {
             getSetDecl().clear(rctx.getLoggedInUser());
-        }        
+        }
         super.processRequestAttributes(rctx);
         ConfigChannel cc = ConfigActionHelper.getChannel(rctx.getRequest());
         ConfigActionHelper.setupRequestAttributes(rctx, cc);
@@ -62,7 +62,7 @@ public class ChannelFileDeploySetup extends BaseSetListAction {
         ConfigActionHelper.processParamMap(cc, m);
         return m;
     }
-    
+
     protected void processPageControl(PageControl pc) {
         pc.setFilterColumn("path");
         pc.setFilter(true);

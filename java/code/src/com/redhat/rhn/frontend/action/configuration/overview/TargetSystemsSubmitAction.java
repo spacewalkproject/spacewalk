@@ -44,8 +44,8 @@ public class TargetSystemsSubmitAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest requestIn) {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listNonManagedSystems(userIn, null);
@@ -68,13 +68,13 @@ public class TargetSystemsSubmitAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm form, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm form,
+                                   HttpServletRequest request,
                                    Map params) {
         getStrutsDelegate().rememberDatePicker(params, (DynaActionForm)form, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
     }
-    
+
     /**
      * Go to the confirm page.
      * @param mapping struts ActionMapping
@@ -90,14 +90,14 @@ public class TargetSystemsSubmitAction extends RhnSetAction {
         updateSet(request);
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
-        
+
         //get the earliest date for package actions.
         DynaActionForm form = (DynaActionForm) formIn;
         Date earliest = getStrutsDelegate().readDatePicker(form, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
-        
+
         ConfigurationManager.getInstance().enableSystems(getSetDecl(), user, earliest);
         return mapping.findForward("summary");
     }
-    
+
 }

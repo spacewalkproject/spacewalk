@@ -34,7 +34,7 @@ import java.io.InputStream;
 public class TextFileData extends ConfigFileData {
     private String contents;
     /**
-     * 
+     *
      * @param data the contents to set
      */
     public TextFileData(String data) {
@@ -42,14 +42,14 @@ public class TextFileData extends ConfigFileData {
         setType(ConfigFileType.file());
         setContents(data);
     }
-    
+
     /**
-     * 
+     *
      */
     public TextFileData() {
         super();
     }
-    
+
     /**
      * @return the contents
      */
@@ -57,7 +57,7 @@ public class TextFileData extends ConfigFileData {
         return contents;
     }
 
-    
+
     /**
      * @param data the contents to set
      */
@@ -66,43 +66,43 @@ public class TextFileData extends ConfigFileData {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
     public long getContentSize() {
-        return StringUtils.isBlank(getContents()) ? 0 : 
+        return StringUtils.isBlank(getContents()) ? 0 :
                             getContents().getBytes().length;
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
     public InputStream getContentStream() {
         if (getContents() != null) {
             // Note we didn;t do getContents().getBytes("UTF-8")
-            // becasue linux config files are not utf8.. 
-            // So default platform encoding should be ok... 
+            // becasue linux config files are not utf8..
+            // So default platform encoding should be ok...
             return new ByteArrayInputStream(getContents().getBytes());
         }
         return new ByteArrayInputStream(new byte[0]);
     }
-    
-    
+
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
 
     public boolean isBinary() {
         return false;
     }
-    
+
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
@@ -112,7 +112,7 @@ public class TextFileData extends ConfigFileData {
         if (content != null && content.length() > MAX_FILE_SIZE) {
             result.addError(new ValidatorError("error.configtoolarge", MAX_FILE_SIZE));
         }
-       
+
         // Validate contents (only if everything else has passed)
         if (result.isEmpty()) { // No errors yet!
             result.append(ConfigurationValidation.validateContent(
@@ -121,14 +121,14 @@ public class TextFileData extends ConfigFileData {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
     protected void copyRevisedContentFrom(ConfigRevision rev) {
        setContents(rev.getConfigContent().getContentsString());
     }
- 
+
     /**
      * {@inheritDoc}
      */

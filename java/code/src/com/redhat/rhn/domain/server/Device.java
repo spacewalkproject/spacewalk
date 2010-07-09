@@ -22,25 +22,25 @@ import com.redhat.rhn.domain.BaseDomainHelper;
  */
 public class Device extends BaseDomainHelper {
     /** Constants for BUS types */
-    public static final String BUS_ADB = "ADB";      
-    public static final String BUS_DDC = "DDC";      
-    public static final String BUS_FIREWIRE = "FIREWIRE"; 
-    public static final String BUS_IDE = "IDE";      
-    public static final String BUS_ISAPNP = "ISAPNP";   
-    public static final String BUS_KEYBOARD = "KEYBOARD"; 
-    public static final String BUS_MACIO = "MACIO";    
-    public static final String BUS_MISC = "MISC";     
-    public static final String BUS_PARALLEL = "PARALLEL";       
-    public static final String BUS_PCMCIA = "PCMCIA";   
-    public static final String BUS_PSAUX = "PSAUX";    
-    public static final String BUS_S390 = "S390";     
-    public static final String BUS_SBUS = "SBUS";     
+    public static final String BUS_ADB = "ADB";
+    public static final String BUS_DDC = "DDC";
+    public static final String BUS_FIREWIRE = "FIREWIRE";
+    public static final String BUS_IDE = "IDE";
+    public static final String BUS_ISAPNP = "ISAPNP";
+    public static final String BUS_KEYBOARD = "KEYBOARD";
+    public static final String BUS_MACIO = "MACIO";
+    public static final String BUS_MISC = "MISC";
+    public static final String BUS_PARALLEL = "PARALLEL";
+    public static final String BUS_PCMCIA = "PCMCIA";
+    public static final String BUS_PSAUX = "PSAUX";
+    public static final String BUS_S390 = "S390";
+    public static final String BUS_SBUS = "SBUS";
     public static final String BUS_SCSI = "SCSI";
-    public static final String BUS_SERIAL = "SERIAL";   
-    public static final String BUS_USB = "USB";      
+    public static final String BUS_SERIAL = "SERIAL";
+    public static final String BUS_USB = "USB";
     public static final String BUS_VIO = "VIO";
     public static final String BUS_PCI = "PCI";
-    
+
     /** Constants for Device classes */
     public static final String CLASS_AUDIO = "AUDIO";
     public static final String CLASS_CAPTURE = "CAPTURE";
@@ -63,7 +63,7 @@ public class Device extends BaseDomainHelper {
     public static final String CLASS_UNSPEC = "UNSPEC";
     public static final String CLASS_USB = "USB";
     public static final String CLASS_VIDEO = "VIDEO";
-    
+
     private Long id;
     private Server server;
     private String deviceClass;

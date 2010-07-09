@@ -42,17 +42,17 @@ public class ErrataActionTest extends RhnMockStrutsTestCase {
         setRequestPathInfo(pathInfo);
         addSubmitted();
         addRequestParameter(RequestContext.DISPATCH, Boolean.toString(true));
-        Server server = ServerFactoryTest.createTestServer(user, true);      
+        Server server = ServerFactoryTest.createTestServer(user, true);
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         Package p = (Package) e.getPackages().iterator().next();
-        ErrataCacheManager.insertNeededErrataCache(server.getId(), 
+        ErrataCacheManager.insertNeededErrataCache(server.getId(),
                 e.getId(), p.getId());
         addRequestParameter(RequestContext.SID, server.getId().toString());
         actionPerform();
         assertTrue(getActualForward().indexOf("errata.jsp") > -1);
 
     }
-    
+
     public void testSelectAll() throws Exception {
         String pathInfo = "/systems/details/ErrataList";
         setRequestPathInfo(pathInfo);
@@ -63,12 +63,12 @@ public class ErrataActionTest extends RhnMockStrutsTestCase {
         // Create System
         Server server = ServerFactoryTest.createTestServer(user, true);
         RhnSet errata = RhnSetDecl.ERRATA.createCustom(
-                                        server.getId()).get(user);        
+                                        server.getId()).get(user);
         //Fully create channels so that errata can be added to them.
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         channel.setChannelFamily(user.getOrg().getPrivateChannelFamily());
         ChannelFactory.save(channel);
-        
+
         // Create a set of Errata IDs
         for (int i = 0; i < 5; i++) {
             Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
@@ -76,12 +76,12 @@ public class ErrataActionTest extends RhnMockStrutsTestCase {
             ErrataManager.storeErrata(e);
             errata.addElement(e.getId());
             ErrataFactoryTest.updateNeedsErrataCache(
-                    ((Package)e.getPackages().iterator().next()).getId(), 
+                    ((Package)e.getPackages().iterator().next()).getId(),
                     server.getId(), e.getId());
             UserFactory.save(user);
         }
         RhnSetManager.store(errata); //save the set
-        
+
         addRequestParameter(RequestContext.SID, server.getId().toString());
         actionPerform();
         assertTrue(getActualForward().indexOf("ErrataConfirm") > -1);

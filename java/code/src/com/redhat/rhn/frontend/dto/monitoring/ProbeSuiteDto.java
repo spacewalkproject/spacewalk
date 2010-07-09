@@ -19,11 +19,11 @@ import com.redhat.rhn.frontend.dto.BaseDto;
 /**
  * DTO for a com.redhat.rhn.domain.monitoring.suite.ProbeSuite.
  * Populated by this query:
- * 
- * SELECT csouter.recid suite_id, csouter.suite_name suite_name, 
+ *
+ * SELECT csouter.recid suite_id, csouter.suite_name suite_name,
  *   csouter.description description,
  *   (SELECT count(DISTINCT cp.host_id) system_count
- *   FROM RHN_CHECK_SUITES cs, RHN_CHECK_SUITE_PROBE csp, 
+ *   FROM RHN_CHECK_SUITES cs, RHN_CHECK_SUITE_PROBE csp,
  *        RHN_SERVICE_PROBE_ORIGINS spo, RHN_CHECK_PROBE cp
  *   WHERE cs.recid = csp.check_suite_id AND
  *         csp.probe_id = spo.origin_probe_id AND
@@ -34,20 +34,20 @@ import com.redhat.rhn.frontend.dto.BaseDto;
  * @version $Rev: 50942 $
  */
 public class ProbeSuiteDto extends BaseDto {
-    
+
     private Long suiteId;
     private String suiteName;
     private String description;
     private Long systemCount;
     private Long accessCount;
-    
+
     /**
      * {@inheritDoc}
      */
     public Long getId() {
         return suiteId;
     }
-    
+
     /**
      * @return Returns the description.
      */
@@ -55,7 +55,7 @@ public class ProbeSuiteDto extends BaseDto {
         return description;
     }
 
-    
+
     /**
      * @param descriptionIn The description to set.
      */
@@ -70,7 +70,7 @@ public class ProbeSuiteDto extends BaseDto {
         return suiteName;
     }
 
-    
+
     /**
      * @param suiteNameIn The suiteName to set.
      */
@@ -78,7 +78,7 @@ public class ProbeSuiteDto extends BaseDto {
         this.suiteName = suiteNameIn;
     }
 
-    
+
     /**
      * @return Returns the systemCount.
      */
@@ -86,7 +86,7 @@ public class ProbeSuiteDto extends BaseDto {
         return systemCount;
     }
 
-    
+
     /**
      * @param systemCountIn The systemCount to set.
      */
@@ -95,21 +95,21 @@ public class ProbeSuiteDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return Returns the suiteId.
      */
     public Long getSuiteId() {
         return suiteId;
     }
-    
+
     /**
      * @param suiteIdIn The suiteId to set.
      */
     public void setSuiteId(Long suiteIdIn) {
         this.suiteId = suiteIdIn;
-    }    
-    
+    }
+
     /**
      * @return Returns the accessCount.
      */
@@ -117,7 +117,7 @@ public class ProbeSuiteDto extends BaseDto {
         return accessCount;
     }
 
-    
+
     /**
      * @param accessCount0 The accessCount to set.
      */

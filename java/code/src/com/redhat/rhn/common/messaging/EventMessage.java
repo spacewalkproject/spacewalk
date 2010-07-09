@@ -22,7 +22,7 @@ package com.redhat.rhn.common.messaging;
  * @version $Rev$
  */
 public interface EventMessage {
-    
+
     /**
      * Convert the internal representation to a text string
      * @return String representation of EventMessage.

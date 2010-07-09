@@ -57,20 +57,20 @@ import redstone.xmlrpc.XmlRpcFault;
  * Action handling the advanced system search page.
  */
 public class SystemSearchSetupAction extends RhnAction implements Listable {
-    
+
     public static final String LIST_NAME = "pageList";
     public static final String DATA_SET = "searchResults";
-    
+
     public static final String[] OPT_GROUPS_TITLES = { "systemsearch.jsp.details",
-                                                     "systemsearch.jsp.activity", 
-                                                     "systemsearch.jsp.hardware", 
+                                                     "systemsearch.jsp.activity",
+                                                     "systemsearch.jsp.hardware",
                                                      "systemsearch.jsp.devices",
                                                      "systemsearch.jsp.dmiinfo",
                                                      "systemsearch.jsp.networkinfo",
                                                      "systemsearch.jsp.packages",
                                                      "systemsearch.jsp.location"};
-    
-    public static final String[][] OPT_GROUPS = 
+
+    public static final String[][] OPT_GROUPS =
                                     {
                                      /* details */
                                      {  SystemSearchHelper.NAME_AND_DESCRIPTION,
@@ -122,7 +122,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
                                         SystemSearchHelper.LOC_ROOM,
                                         SystemSearchHelper.LOC_RACK
                                      }};
-    
+
     public static final String SEARCH_STRING = "search_string";
     public static final String VIEW_MODE = "view_mode";
     public static final String WHERE_TO_SEARCH = "whereToSearch";
@@ -130,26 +130,26 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
 
     private static final String FORM = "FORM";
     private static final String MAPPING = "MAPPING";
-    
+
     private final Logger log = Logger.getLogger(SystemSearchSetupAction.class);
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
-                                 HttpServletResponse response) 
+                                 HttpServletResponse response)
                                  throws BadParameterException {
-        
-        
+
+
         DynaActionForm daForm = (DynaActionForm) formIn;
         request.setAttribute(FORM, daForm);
         request.setAttribute(MAPPING, mapping);
-        
+
         /*
-         * Either the form was submitted (and it's a list action) or 
+         * Either the form was submitted (and it's a list action) or
          *  we have GET arguments and so we can actually render the list
          */
-        if (ListTagHelper.getListAction(getListName(), request) != null || 
+        if (ListTagHelper.getListAction(getListName(), request) != null ||
                 (!isSubmitted(daForm) &&
                 request.getParameter(VIEW_MODE) != null)) {
 
@@ -159,7 +159,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             if (invertResults == null) {
                 invertResults = Boolean.FALSE;
             }
-            
+
             request.setAttribute(VIEW_MODE, request.getParameter(VIEW_MODE));
             request.setAttribute(SEARCH_STRING, request.getParameter(SEARCH_STRING));
             request.setAttribute(WHERE_TO_SEARCH, whereToSearch);
@@ -169,11 +169,11 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             }
             else {
                 request.setAttribute(INVERT_RESULTS, "off");
-            }            
-            
+            }
+
             setupForm(request, daForm, request.getParameter(VIEW_MODE));
-            
-            ListRhnSetHelper helper = new ListRhnSetHelper(this, 
+
+            ListRhnSetHelper helper = new ListRhnSetHelper(this,
                                             request, RhnSetDecl.SYSTEMS);
             helper.setWillClearSet(false);
             helper.setDataSetName(getDataSetName());
@@ -201,7 +201,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
                     request.getParameterMap());
         }
         /**
-         * Else the form was submitted, so we need to parse the form and turn it into 
+         * Else the form was submitted, so we need to parse the form and turn it into
          *   GET parameters
          */
         else if (isSubmitted(daForm)) {
@@ -213,23 +213,23 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             if (invertResults == null) {
                 invertResults = Boolean.FALSE;
             }
-            
+
             setupForm(request, daForm, viewMode);
             if (whereToSearch == null || viewMode == null) {
                 throw new BadParameterException("An expected form var was null");
             }
-            
+
             request.setAttribute(SEARCH_STRING, searchString);
             request.setAttribute(VIEW_MODE, viewMode);
             request.setAttribute(WHERE_TO_SEARCH, whereToSearch);
-            
+
             if (invertResults) {
                 request.setAttribute(INVERT_RESULTS, "on");
             }
             else {
                 request.setAttribute(INVERT_RESULTS, "off");
             }
-            
+
             ActionErrors errs = new ActionErrors();
             if (viewMode.equals("systemsearch_id") ||
                 viewMode.equals(SystemSearchHelper.CPU_MHZ_LT) ||
@@ -257,7 +257,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
                       daForm.set(SEARCH_STRING, null);
                       return mapping.findForward("error");
                   }
-                  
+
                   Map forwardParams = makeParamMap(request);
                   Enumeration paramNames = request.getParameterNames();
                   while (paramNames.hasMoreElements()) {
@@ -267,16 +267,16 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
                       }
 
                   }
-                  
-                  
+
+
                   return getStrutsDelegate().forwardParams(
-                          mapping.findForward("success"), 
-                          forwardParams);                  
-                  
+                          mapping.findForward("success"),
+                          forwardParams);
+
         }
         /**
          * Finally, if we're not actually going to display the list
-         *   and the form hasn't been submitted, then we're just displaying the 
+         *   and the form hasn't been submitted, then we're just displaying the
          *   initial search page before  a search has been initiated.
          */
         else {
@@ -287,40 +287,40 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
                     mapping.findForward("default"),
                     request.getParameterMap());
         }
-        
+
     }
-    
-    protected void setupForm(HttpServletRequest request, 
-                             DynaActionForm form, 
+
+    protected void setupForm(HttpServletRequest request,
+                             DynaActionForm form,
                              String viewMode) {
         HashMap optGroupsMap = new HashMap();
         boolean matchingViewModeFound = false;
-        
-        /* Here we set up a hashmap using the string resources key for the various options 
-         * group as a key into the hash, and the string resources/database mode keys as 
-         * the values of the options that are contained within each opt group. The jsp 
+
+        /* Here we set up a hashmap using the string resources key for the various options
+         * group as a key into the hash, and the string resources/database mode keys as
+         * the values of the options that are contained within each opt group. The jsp
          * uses this hashmap to setup a dropdown box
          */
         for (int j = 0; j < OPT_GROUPS_TITLES.length; ++j) {
             List options = new ArrayList();
-            
+
             for (int k = 0; k < OPT_GROUPS[j].length; ++k) {
                 options.add(createDisplayMap(LocalizationService.getInstance()
                             .getMessage(OPT_GROUPS[j][k]),
                             OPT_GROUPS[j][k]));
-                
+
                 if (OPT_GROUPS[j][k].equals(viewMode)) {
                     matchingViewModeFound = true;
                 }
             }
-            
+
             optGroupsMap.put(OPT_GROUPS_TITLES[j], options);
         }
-        
+
         if (viewMode != null && !matchingViewModeFound) {
             throw new BadParameterException("Bad viewMode passed in from form");
         }
-        
+
         request.setAttribute("optGroupsMap", optGroupsMap);
         request.setAttribute("optGroupsKeys", optGroupsMap.keySet());
     }
@@ -333,7 +333,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
         String whereToSearch = context.getParam(WHERE_TO_SEARCH, false);
         Boolean invertResults = StringUtils.defaultString(
                 context.getParam(INVERT_RESULTS, false)).equals("on");
-        
+
         if (invertResults == null) {
             invertResults = Boolean.FALSE;
         }

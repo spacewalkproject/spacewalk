@@ -21,42 +21,42 @@ import com.redhat.rhn.frontend.security.PxtAuthenticationService;
 import junit.framework.TestCase;
 
 /**
- * 
+ *
  * AuthenticationServiceFactoryTest
  * @version $Rev$
  */
 public class AuthenticationServiceFactoryTest extends TestCase {
-    
+
     private class AuthenticationServiceFactoryStub extends AuthenticationServiceFactory {
-        
+
         private boolean satellite = true;
-        
+
         public boolean isSatellite() {
             return satellite;
         }
-        
+
         public void setSatellite(boolean isSatellite) {
             satellite = isSatellite;
         }
-        
-        
+
+
     }
-    
+
     private AuthenticationServiceFactoryStub factory;
-    
+
     protected void setUp() throws Exception {
         factory = new AuthenticationServiceFactoryStub();
     }
-    
+
     public final void testGetInstance() {
         assertNotNull(AuthenticationServiceFactory.getInstance());
     }
 
     public final void testGetAuthenticationServiceWhenInSatelliteMode() {
         factory.setSatellite(true);
-        
+
         AuthenticationService service = factory.getAuthenticationService();
-        
+
         assertTrue(service instanceof PxtAuthenticationService);
     }
 

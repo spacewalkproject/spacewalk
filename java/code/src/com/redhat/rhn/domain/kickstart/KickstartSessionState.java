@@ -46,96 +46,96 @@ public class KickstartSessionState {
     private Date created;
     private Date modified;
 
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for label 
+    /**
+     * Getter for label
      * @return String to get
     */
     public String getLabel() {
         return this.label;
     }
 
-    /** 
-     * Setter for label 
+    /**
+     * Setter for label
      * @param labelIn to set
     */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
 
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * @return String to get
     */
     public String getName() {
         return this.name;
     }
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn to set
     */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {
@@ -150,7 +150,7 @@ public class KickstartSessionState {
             return false;
         }
         KickstartSessionState castOther = (KickstartSessionState) other;
-        return new EqualsBuilder().append(this.getId(), 
+        return new EqualsBuilder().append(this.getId(),
                 castOther.getId()).append(this.getLabel(),
                 castOther.getLabel()).isEquals();
     }

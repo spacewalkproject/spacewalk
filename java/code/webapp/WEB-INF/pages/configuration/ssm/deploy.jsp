@@ -17,7 +17,7 @@
     <bean:message key="ssmdeploy.jsp.summary"/>
     </p>
   </div>
-  
+
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/DeploySubmit.do">
   <c:set scope="request" var="buttonname" value="ssmdeploy.jsp.schedule" />
   <%@ include file="/WEB-INF/pages/common/fragments/configuration/ssm/configlist.jspf"%>

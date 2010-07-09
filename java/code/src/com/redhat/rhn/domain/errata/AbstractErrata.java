@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 
+ *
  * AbstractErrata abstract implmenetation of Errata
  * @version $Rev$
  */
@@ -544,7 +544,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
             ErrataManager.addErrataNotification(this, chan, dateIn);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -582,13 +582,13 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public abstract boolean isPublished();
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public abstract boolean isCloned();
@@ -615,7 +615,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public String getSelectionKey() {

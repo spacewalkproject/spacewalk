@@ -35,15 +35,15 @@ public interface RowCallback {
      * ResultSet.
      */
     void callback(ResultSet rs) throws SQLException;
-    
+
     /**
      * A list of column names that are used in the callback In lower case.
      * All other column names will be processed normally.
      * For use if you want to use callback to process some columns,
      * but still want other columns to be set (with  setBLAH)
-     * 
+     *
      * @return the list of columns to skip (that are used by callback)
      */
     List<String> getCallBackColumns();
-    
+
 }

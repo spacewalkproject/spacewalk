@@ -21,11 +21,11 @@ import javax.servlet.jsp.JspException;
  * @version $Rev: 60021 $
  */
 public class ToolbarTagCloneTest extends BaseTestToolbarTag {
-    
+
     public ToolbarTagCloneTest() {
         super();
     }
-    
+
     private void setupCloneTag(String base, String url, String acl, String type) {
         tt.setBase(base);
         tt.setCloneUrl(url);
@@ -33,7 +33,7 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
         tt.setCloneType(type);
         tt.setAclMixins(BooleanAclHandler.class.getName());
     }
-    
+
     public void testCloneNoAcl() throws Exception {
         // setup mock objects
         String output = "<div class=\"toolbar-h1\"><div class=\"" +
@@ -42,22 +42,22 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
             " title=\"clone kickstart\" />clone kickstart</a></span>" +
             "</div></div>";
 
-            
+
         setupCloneTag("h1", "Clone-url", "", "kickstart");
-            
+
         verifyTag(output);
     }
-    
+
     public void testCloneWithMissingType() throws Exception {
         // setup mock objects
         String output = "<div class=\"toolbar-h1\"><div class=\"" +
             "toolbar\"></div></div>";
 
         setupCloneTag("h1", "Clone-url", "true_test()", "");
-            
+
         verifyTag(output);
     }
-    
+
     public void testCreateAclMultipleMixinsMultipleAcls() throws Exception {
         String output = "<div class=\"toolbar-h1\"><div class=\"" +
             "toolbar\"><span class=\"toolbar\"><a href=\"Clone-url\">" +
@@ -68,7 +68,7 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
         setupCloneTag("h1", "Clone-url",
                          "first_true_acl(); second_true_acl(); is_foo(foo)",
                          "kickstart");
-            
+
         tt.setAclMixins(MockOneAclHandler.class.getName() + "," +
                         MockTwoAclHandler.class.getName());
 
@@ -81,7 +81,7 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
             "<img src=\"/img/action-clone.gif\" alt=\"clone kickstart\"" +
             " title=\"clone kickstart\" />clone kickstart</a></span>" +
             "</div></div>";
-            
+
         setupCloneTag("h1", "Clone-url",
                          "first_true_acl(); second_true_acl()", "kickstart");
 
@@ -95,12 +95,12 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
         try {
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"></div></div>";
- 
+
             setupCloneTag("h1", "Clone-url",
                              "true_test()", "kickstart");
-             
+
             tt.setAclMixins("throws.class.not.found.exception");
- 
+
             verifyTag(output);
             flag = true;
         }
@@ -110,7 +110,7 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
             assertFalse(flag);
         }
     }
-    
+
     public void testCloneAcl() throws Exception {
         // setup mock objects
         String output = "<div class=\"toolbar-h1\"><div class=\"" +
@@ -118,19 +118,19 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
             "<img src=\"/img/action-clone.gif\" alt=\"clone kickstart\"" +
             " title=\"clone kickstart\" />clone kickstart</a></span>" +
             "</div></div>";
-            
+
         setupCloneTag("h1", "Clone-url", "true_test()", "kickstart");
 
         verifyTag(output);
     }
-    
+
     public void testCloneWithMissingUrl() throws Exception {
         // setup mock objects
         String output = "<div class=\"toolbar-h1\"><div class=\"" +
             "toolbar\"></div></div>";
-            
+
         setupCloneTag("h1", null, "true_test()", "kickstart");
-            
+
         verifyTag(output);
     }
 }

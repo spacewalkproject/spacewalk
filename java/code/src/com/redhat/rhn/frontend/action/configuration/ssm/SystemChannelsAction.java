@@ -27,26 +27,26 @@ import com.redhat.rhn.manager.configuration.ConfigurationManager;
  * @version $Rev$
  */
 public class SystemChannelsAction extends BaseListAction {
-    
+
     /**
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pc) {
         User user = rctxIn.getLoggedInUser();
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        
+
         Server server = rctxIn.lookupServer();
         DataResult dr = cm.listConfigChannelsForSystem(user, server, pc);
         return dr;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     protected void processRequestAttributes(RequestContext rctxIn) {
         rctxIn.lookupAndBindServer();
     }
-    
+
     protected void processPageControl(PageControl pcIn) {
         pcIn.setFilter(true);
         pcIn.setFilterColumn("name");

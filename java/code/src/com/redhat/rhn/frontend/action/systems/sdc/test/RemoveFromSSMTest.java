@@ -27,19 +27,19 @@ import com.redhat.rhn.testing.ServerTestUtils;
  * @version $Rev: 1 $
  */
 public class RemoveFromSSMTest extends RhnMockStrutsTestCase {
-    
+
     private Server server;
-    
+
     /**
      * {@inheritDoc}
      */
     public void setUp() throws Exception {
         super.setUp();
         server = ServerTestUtils.createTestSystem(user);
-        
+
         addRequestParameter(RequestContext.SID, server.getId().toString());
         setRequestPathInfo("/systems/details/RemoveFromSSM");
-        
+
         RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         set.clear();
         set.addElement(server.getId());
@@ -49,12 +49,12 @@ public class RemoveFromSSMTest extends RhnMockStrutsTestCase {
 
 
     public void testExecute() throws Exception {
-        
-        actionPerform();               
+
+        actionPerform();
         assertEquals(request.getParameter("sid"), server.getId().toString());
         RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         assertFalse(set.contains(server.getId()));
-        
+
     }
-    
+
 }

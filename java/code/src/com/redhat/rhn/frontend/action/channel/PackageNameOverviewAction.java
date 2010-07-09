@@ -41,14 +41,14 @@ public class PackageNameOverviewAction extends RhnAction {
     private static Logger log = Logger.getLogger(PackageNameOverviewAction.class);
 
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         String pkgName = request.getParameter("package_name");
         String subscribedChannels = request.getParameter("search_subscribed_channels");
         String channelFilter = request.getParameter("channel_filter");
         String[] channelArches = request.getParameterValues("channel_arch");
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        
+
         RequestContext ctx = new RequestContext(request);
         User user = ctx.getLoggedInUser();
 
@@ -75,7 +75,7 @@ public class PackageNameOverviewAction extends RhnAction {
             dr = PackageManager.lookupPackageNameOverview(
                     user.getOrg(), pkgName, channelArches);
         }
-        
+
         request.setAttribute("pageList", dr);
 
         return mapping.findForward("default");

@@ -22,7 +22,7 @@ import java.util.List;
  * @version $Rev$
  */
 public interface Elaborator {
-    
+
     /**
      * Returns an elaborated list for the given List of objects
      * @param objectsToElaborate the list of objects to elaborate

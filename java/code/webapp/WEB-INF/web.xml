@@ -7,7 +7,7 @@
                     FILTERS
    =======================================
   -->
-  
+
   <filter>
     <filter-name>SetCharacterEncodingFilter</filter-name>
     <filter-class>com.redhat.rhn.frontend.servlets.SetCharacterEncodingFilter</filter-class>
@@ -17,7 +17,7 @@
     </init-param>
   </filter>
 
-  
+
   <!-- Environment Filter, to ensure servername, port, and isSecure calls are correct -->
   <filter>
     <filter-name>environment</filter-name>
@@ -25,12 +25,12 @@
         com.redhat.rhn.frontend.servlets.EnvironmentFilter
     </filter-class>
   </filter>
-  
+
   <!-- Hibernate Session Filter -->
   <filter>
     <filter-name>SessionFilter</filter-name>
     <filter-class>com.redhat.rhn.frontend.servlets.SessionFilter</filter-class>
-  </filter>  
+  </filter>
 
   <!-- Sitemesh -->
   <filter>
@@ -39,7 +39,7 @@
         com.opensymphony.module.sitemesh.filter.PageFilter
     </filter-class>
   </filter>
- 
+
   <!-- DumpFilter dumps the entire request to the log file as log debug. -->
   <!--
   <filter>
@@ -47,23 +47,23 @@
     <filter-class>com.redhat.rhn.frontend.servlets.DumpFilter</filter-class>
   </filter>
   -->
-  
+
   <!-- Authorization filter -->
   <filter>
     <filter-name>AuthFilterStruts</filter-name>
     <filter-class>com.redhat.rhn.frontend.servlets.AuthFilter</filter-class>
-  </filter>  
+  </filter>
 
   <filter>
     <filter-name>AuthFilterJsp</filter-name>
     <filter-class>com.redhat.rhn.frontend.servlets.AuthFilter</filter-class>
-  </filter>  
+  </filter>
 
   <filter>
     <filter-name>RedirectFilter</filter-name>
     <filter-class>com.redhat.rhn.frontend.servlets.AuthFilter</filter-class>
   </filter>
-  
+
   <filter>
     <filter-name>LocalizedEnvironmentFilter</filter-name>
     <filter-class>com.redhat.rhn.frontend.servlets.LocalizedEnvironmentFilter</filter-class>
@@ -71,7 +71,7 @@
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
     </init-param>
-  </filter>  
+  </filter>
 
   <!--
    =======================================
@@ -81,7 +81,7 @@
 
   <!-- THE SetCharacterEncodingFilter MUST GO FIRST
        OTHERWISE YOUR REQUEST PARAMETERS MAY GET CORRUPTED.
-       DO NOT MOVE THIS AFTER ANY OTHER FILTERS.  See BZ: 216678 
+       DO NOT MOVE THIS AFTER ANY OTHER FILTERS.  See BZ: 216678
        -->
   <filter-mapping>
     <filter-name>SetCharacterEncodingFilter</filter-name>
@@ -102,9 +102,9 @@
   <filter-mapping>
     <filter-name>LocalizedEnvironmentFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping>    
+  </filter-mapping>
 
-  <!-- 
+  <!--
       NOTE:
       sitemesh must go before AuthFilter in the list of filter-mappings
       or you will get BAD results when your sessions timeout
@@ -129,13 +129,13 @@
   <filter-mapping>
     <filter-name>AuthFilterStruts</filter-name>
     <url-pattern>*.do</url-pattern>
-  </filter-mapping>  
+  </filter-mapping>
 
   <filter-mapping>
     <filter-name>AuthFilterJsp</filter-name>
     <url-pattern>*.jsp</url-pattern>
-  </filter-mapping>  
-  
+  </filter-mapping>
+
   <filter-mapping>
     <filter-name>RedirectFilter</filter-name>
     <url-pattern>/Redirect/*</url-pattern>
@@ -155,8 +155,8 @@
               SERVLETS
    =======================================
   -->
-  <!-- 
-      Struts Action servlet which is the main controller 
+  <!--
+      Struts Action servlet which is the main controller
       for the application.
   -->
   <servlet>
@@ -178,22 +178,22 @@
     <load-on-startup>2</load-on-startup>
   </servlet>
 
-  <!-- 
+  <!--
       XMLRPC servlet target for XMLRPC web service requests
   -->
   <servlet>
     <servlet-name>XMLRPC</servlet-name>
     <servlet-class>com.redhat.rhn.frontend.xmlrpc.XmlRpcServlet</servlet-class>
   </servlet>
-  
-  <!-- 
+
+  <!--
       REST interface for Errata
    -->
    <servlet>
     <servlet-name>OvalServlet</servlet-name>
     <servlet-class>com.redhat.rhn.frontend.servlets.OvalServlet</servlet-class>
    </servlet>
-   
+
   <!--
       AJAX servlet
    -->
@@ -236,17 +236,17 @@
         <servlet-name>jsp</servlet-name>
         <url-pattern>*.jspf</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>action</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>dwr</servlet-name>
     <url-pattern>/dwr/*</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>OvalServlet</servlet-name>
     <url-pattern>/oval/*</url-pattern>
@@ -266,7 +266,7 @@
   	<servlet-name>RedirectServlet</servlet-name>
   	<url-pattern>/Redirect/*</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
 	<servlet-name>HelpDocServlet</servlet-name>
 	<url-pattern>/help/dispatcher/*</url-pattern>
@@ -297,7 +297,7 @@
     <session-timeout>30</session-timeout>
   </session-config>
   -->
-  
+
   <error-page>
       <error-code>404</error-code>
       <location>/WEB-INF/pages/common/errors/404.jsp</location>
@@ -306,5 +306,5 @@
       <error-code>500</error-code>
       <location>/WEB-INF/pages/common/errors/500.jsp</location>
   </error-page>
-  
+
 </web-app>

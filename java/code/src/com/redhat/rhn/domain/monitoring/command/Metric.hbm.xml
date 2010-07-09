@@ -3,21 +3,21 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.command.Metric" 
+    <class name="com.redhat.rhn.domain.monitoring.command.Metric"
         table="rhn_metrics" mutable="false">
         <cache usage="read-only"/>
         <composite-id>
-            <key-property name="commandClass" type="string" 
+            <key-property name="commandClass" type="string"
                 column="command_class"/>
             <key-property name="metricId" type="string" column="metric_id"/>
         </composite-id>
-        <property name="storageUnitId" column="storage_unit_id" not-null="true" 
+        <property name="storageUnitId" column="storage_unit_id" not-null="true"
             type="string" length="10" />
-        <property name="description" column="description" type="string" 
+        <property name="description" column="description" type="string"
             length="200" />
-        <property name="lastUpdateUser" column="last_update_user" type="string" 
+        <property name="lastUpdateUser" column="last_update_user" type="string"
             length="40" />
-        <property name="lastUpdateDate" column="last_update_date" 
+        <property name="lastUpdateDate" column="last_update_date"
             type="timestamp" insert="false" update="false"/>
         <property name="label" column="label" type="string" length="40" />
     </class>

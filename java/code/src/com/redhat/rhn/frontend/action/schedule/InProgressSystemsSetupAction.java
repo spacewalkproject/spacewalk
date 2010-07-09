@@ -41,5 +41,5 @@ public class InProgressSystemsSetupAction extends ActionSystemsSetupAction {
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.ACTIONS_UNSCHEDULE;
     }
-    
+
 }

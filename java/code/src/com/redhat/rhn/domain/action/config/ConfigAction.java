@@ -25,9 +25,9 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ConfigAction extends Action {
-    
+
     private Set <ConfigRevisionAction> configRevisionActions;
-    
+
     /**
      * @return Returns the configRevisionActions.
      */
@@ -41,7 +41,7 @@ public class ConfigAction extends Action {
                                             configRevisionActionsIn) {
         this.configRevisionActions = configRevisionActionsIn;
     }
-    
+
     /**
      * Add a ConfigRevisionAction to the collection.
      * @param crIn the ConfigRevisionAction to add
@@ -53,11 +53,11 @@ public class ConfigAction extends Action {
         crIn.setParentAction(this);
         configRevisionActions.add(crIn);
     }
-    
+
     /**
      * Get the Formatter for this class but in this case we use
      * ConfigActionFormatter.
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionFormatter getFormatter() {

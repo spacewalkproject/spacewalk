@@ -37,54 +37,54 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * Base action for scheduled action lists
  * @version $Rev$
  */
 public abstract class BaseScheduledListAction extends RhnAction implements Listable {
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext context = new RequestContext(request);
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request, getSetDecl());
         helper.execute();
         if (helper.isDispatched()) {
             return handleSubmit(mapping, formIn, request, response);
-        } 
-        
+        }
+
         return mapping.findForward("default");
     }
 
-    
+
     /**
      * Gets the set decl
      * @return the set decl
      */
     protected abstract RhnSetDecl getSetDecl();
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public abstract List getResult(RequestContext context);
 
     /**
-     * Handle the submit 
+     * Handle the submit
      * @return an action forward
      */
     protected abstract ActionForward handleSubmit(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response);
-    
-    
+
+
     /**
      * Archives the actions.
      * @param mapping ActionMapping
@@ -97,19 +97,19 @@ public abstract class BaseScheduledListAction extends RhnAction implements Lista
                                        ActionForm formIn,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         User user = requestContext.getLoggedInUser();
-        //Update the set first and get the size so we know 
+        //Update the set first and get the size so we know
         //how many actions we have archived.
         RhnSet set = getSetDecl().get(user);
 
         //Archive the actions
         ActionManager.archiveActions(user, getSetDecl().getLabel());
-        
-        
+
+
         ActionMessages msgs = new ActionMessages();
         /**
          * If there was only one action archived, display the "action" archived
@@ -117,19 +117,19 @@ public abstract class BaseScheduledListAction extends RhnAction implements Lista
          */
         if (set.size() == 1) {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage("message.actionArchived", 
+                     new ActionMessage("message.actionArchived",
                              LocalizationService.getInstance()
                                                 .formatNumber(new Integer(set.size()))));
         }
         else {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage("message.actionsArchived", 
+                     new ActionMessage("message.actionsArchived",
                              LocalizationService.getInstance()
                                                 .formatNumber(new Integer(set.size()))));
         }
         strutsDelegate.saveMessages(request, msgs);
-        
+
         return mapping.findForward("archive");
     }
-    
+
 }

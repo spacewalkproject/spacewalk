@@ -24,7 +24,7 @@ public class PageControlTest extends RhnBaseTestCase {
      * Test the basic functionality of PageControl
      */
     public void testPageControl() {
-        PageControl pc = new PageControl();      
+        PageControl pc = new PageControl();
         pc.setStart(5);
         pc.setFilterColumn("TestFilterColumn");
         pc.setFilterData("TestFilterData");
@@ -36,14 +36,14 @@ public class PageControlTest extends RhnBaseTestCase {
         assertEquals(pc.getFilterData(), "TestFilterData");
         assertEquals(pc.hasIndex(), true);
     }
-    
+
     /**
      * Test the exception case of setStart.
-     */        
+     */
     public void testIllegalArgument() {
         PageControl pc = new PageControl();
         boolean noexception = false;
-        
+
         try {
             pc.setStart(0);
             noexception = true;
@@ -51,7 +51,7 @@ public class PageControlTest extends RhnBaseTestCase {
         catch (IllegalArgumentException iae) {
             assertFalse(noexception);
         }
-        
+
         try {
             pc.setStart(-10);
             noexception = true;
@@ -59,7 +59,7 @@ public class PageControlTest extends RhnBaseTestCase {
         catch (IllegalArgumentException iae) {
             assertFalse(noexception);
         }
-        
+
         try {
             pc.setStart(10);
             noexception = true;

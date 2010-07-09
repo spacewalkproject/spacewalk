@@ -30,7 +30,7 @@ public class ArchivedActionsSetupTest extends RhnMockStrutsTestCase {
 
     public void testPerformExecute() throws Exception {
 
-        
+
         actionPerform();
         verifyForwardPath("/WEB-INF/pages/schedule/archivedactions.jsp");
         Object test = request.getAttribute("dataset");

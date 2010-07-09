@@ -23,22 +23,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
- /** 
+ /**
   * A small wrapper around hibernate files to remove some of the complexities
   * of writing to hibernate.
   * @version $Rev$
  */
  public class SystemMigrationFactory extends HibernateFactory {
 
-    
+
     private static SystemMigrationFactory singleton = new SystemMigrationFactory();
     private static Logger log = Logger.getLogger(SystemMigrationFactory.class);
-    
+
     private SystemMigrationFactory() {
         super();
     }
-    
-    /** 
+
+    /**
     * Get the Logger for the derived class so log messages
     * show up on the correct class
     * @return Logger to use
@@ -54,16 +54,16 @@ import java.util.Map;
     public static SystemMigration createSystemMigration() {
         return new SystemMigration();
     }
-    
+
     /**
      * Delete the system migration.
-     * 
+     *
      * @param migration the system migration to remove
      */
     public static void removeSystemMigration(SystemMigration migration) {
         singleton.removeObject(migration);
     }
-    
+
     /**
      * Find the system migrations that were initiated from the org provided.
      * @param fromOrg the org that the systems were migrated from
@@ -75,7 +75,7 @@ import java.util.Map;
         return (List<SystemMigration>)singleton.listObjectsByNamedQuery(
                 "SystemMigration.lookupByFromOrg", params);
     }
- 
+
     /**
      * Find the system migrations where the systems were migrated to the org
      * provided.
@@ -105,7 +105,7 @@ import java.util.Map;
      * Commit the SystemMigration
      * @param migration SystemMigration object we want to commit.
      */
-    public static void save(SystemMigration migration) {        
+    public static void save(SystemMigration migration) {
         singleton.saveObject(migration);
     }
 }

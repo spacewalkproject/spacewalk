@@ -57,11 +57,11 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertEquals(1, result.size());
     }
 
-    
+
     public void testCreateAndAllOperations2() throws Exception {
         long operationId = SsmOperationManager.createOperation(ssmUser,
                                             "Test testCreateAndAllOperations2 ", null);
-        SsmOperationManager.associateServersWithOperation(operationId, ssmUser.getId(), 
+        SsmOperationManager.associateServersWithOperation(operationId, ssmUser.getId(),
                                                 new ArrayList<Long>(serverSet.
                                                                     getElementValues()));
         DataResult result = SsmOperationManager.allOperations(ssmUser);
@@ -69,8 +69,8 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         // Verify
         assertNotNull(result);
         assertEquals(1, result.size());
-    }    
-    
+    }
+
     public void testCreateCompleteAndInProgressOperations() throws Exception {
         // Test
         long completeMeId =
@@ -104,13 +104,13 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         long operationId =
             SsmOperationManager.createOperation(ssmUser,
                 "Test operation 1", serverSetLabel);
-        
+
         OperationDetailsDto operation = SsmOperationManager.
                                     findOperationById(ssmUser, operationId);
-        
+
         // Verify
         assertNotNull(operation);
-        
+
         assertEquals("Test operation 1", operation.getDescription());
         assertEquals(SsmOperationStatus.IN_PROGRESS.getText(), operation.getStatus());
         assertNotNull(operation.getStarted());
@@ -130,43 +130,43 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         // Setup
         long operationId =
             SsmOperationManager.createOperation(ssmUser, "Test operation", serverSetLabel);
-        
+
         // Test
         DataResult result = SsmOperationManager.findServerDataForOperation(operationId);
 
         // Verify
         assertNotNull(result);
         assertEquals(2, result.size());
-        
+
         Map serverData = (Map) result.get(0);
         assertNotNull(serverData.get("id"));
         assertNotNull(serverData.get("name"));
     }
-    
+
     public void testAssociateServersWithOperation() throws Exception {
         // Setup
-        
+
         //   Pass null label so no servers are associated
         long operationId =
             SsmOperationManager.createOperation(ssmUser, "Test operation", null);
-        
+
         //   Sanity check
         DataResult result = SsmOperationManager.findServerDataForOperation(operationId);
         assertNotNull(result);
         assertEquals(0, result.size());
-        
+
         // Test
         SsmOperationManager.associateServersWithOperation(operationId, ssmUser.getId(),
             serverSetLabel);
-        
+
         // Verify
         result = SsmOperationManager.findServerDataForOperation(operationId);
         assertNotNull(result);
         assertEquals(2, result.size());
-        
+
         Map serverData = (Map) result.get(0);
         assertNotNull(serverData.get("id"));
-        assertNotNull(serverData.get("name"));        
+        assertNotNull(serverData.get("name"));
     }
 
     /**
@@ -267,7 +267,7 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
 
     /**
      * Populates an RhnSet with server IDs.
-     * 
+     *
      * @return label referencing the set that was populated
      * @throws Exception if there is an error creating a server
      */
@@ -275,14 +275,14 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         RhnSetDecl setDecl =
             RhnSetDecl.findOrCreate("SsmOperationManagerTestSet", SetCleanup.NOOP);
         serverSet = setDecl.create(ssmUser);
-        
+
         for (int ii = 0; ii < 2; ii++) {
             Server testServer = ServerFactoryTest.createTestServer(ssmUser, true);
             serverSet.addElement(testServer.getId());
         }
 
         RhnSetManager.store(serverSet);
-        
+
         return serverSet.getLabel();
     }
 }

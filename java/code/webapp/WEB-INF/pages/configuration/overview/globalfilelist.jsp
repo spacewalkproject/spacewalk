@@ -24,11 +24,11 @@
       <rhn:column header="globalfilelist.jsp.path">
         <cfg:file id="${current.id}" path="${current.path}" type="${current.type}" />
       </rhn:column>
-      
+
       <rhn:column header="config.common.configChannel">
         <cfg:channel id="${current.configChannelId}" name="${current.configChannelName}" type="global" />
       </rhn:column>
-      
+
       <rhn:column header="globalfilelist.jsp.subscribed"
                   url="/rhn/configuration/channel/ChannelSystems.do?ccid=${current.configChannelId}"
                   renderUrl="${current.systemCount > 0}">
@@ -42,7 +42,7 @@
           <bean:message key="system.common.numsystems" arg0="${current.systemCount}"/>
         </c:if>
       </rhn:column>
-      
+
       <rhn:column header="globalfilelist.jsp.overriding"
       			  url="/rhn/configuration/channel/ChannelSystems.do?ccid=${current.configChannelId}"
                   renderUrl="${current.overrideCount > 0}">
@@ -58,9 +58,9 @@
       </rhn:column>
     </rhn:listdisplay>
   </rhn:list>
-  
+
 </form>
-  
+
   <bean:message key="globalfilelist.jsp.note"/>
 
 </body>

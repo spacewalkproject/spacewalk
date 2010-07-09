@@ -29,18 +29,18 @@ import com.mockobjects.servlet.MockHttpSession;
  * @version $Rev: 59372 $
  */
 public abstract class BaseFilterTst extends RhnBaseTestCase {
-    
+
     protected RhnMockHttpServletRequest request;
     protected MockHttpSession session;
     protected RhnMockHttpServletResponse response;
     protected MockFilterChain chain;
-    
+
     public void setUp() {
         request = new RhnMockHttpServletRequest();
         session = new RhnMockHttpSession();
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         request.setupServerName("mymachine.rhndev.redhat.com");
         request.setSession(session);
         request.setupGetRequestURI("http://localhost:8080");
@@ -49,6 +49,6 @@ public abstract class BaseFilterTst extends RhnBaseTestCase {
         response = new RhnMockHttpServletResponse();
         chain = new MockFilterChain();
     }
-    
+
 }
 

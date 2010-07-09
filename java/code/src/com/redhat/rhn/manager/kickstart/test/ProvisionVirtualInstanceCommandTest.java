@@ -28,12 +28,12 @@ import java.util.Date;
  * @version $Rev$
  */
 public class ProvisionVirtualInstanceCommandTest extends BaseKickstartCommandTestCase {
-    
+
     public void testKickstartPackageName() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
-        Server server = ServerFactoryTest.createTestServer(user, true, 
+        Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        ProvisionVirtualInstanceCommand cmd = new 
+        ProvisionVirtualInstanceCommand cmd = new
             ProvisionVirtualInstanceCommand(server.getId(), this.ksdata.getId(), user,
                     new Date(), "localhost");
         assertEquals(cmd.getKickstartPackageName(), "spacewalk-koan");

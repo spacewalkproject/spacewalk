@@ -25,16 +25,16 @@
           <td>${updated}</td>
         </tr>
       </table>
-      
+
 <h2><bean:message key="details.jsp.topic"/></h2>
     <div class="page-summary">${topic}</div>
-    
+
 <h2><bean:message key="details.jsp.description"/></h2>
     <div class="page-summary">${description}</div>
-    
+
 <h2><bean:message key="details.jsp.solution"/></h2>
     <div class="page-summary">${solution}</div>
-    
+
 <h2><bean:message key="details.jsp.affectedchannels"/></h2>
     <c:forEach items="${channels}" var="current">
         <div class="page-summary">
@@ -63,7 +63,7 @@
         </div>
     </c:forEach>
     <c:if test="${empty fixed}">
-        <div class="page-summary">    
+        <div class="page-summary">
             <bean:message key="details.jsp.none"/>
         </div>
     </c:if>
@@ -78,7 +78,7 @@
 
 <h2><bean:message key="details.jsp.cves"/></h2>
     <c:forEach items="${cve}" var="current">
-        <div class="page-summary">        
+        <div class="page-summary">
             <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=${current.name}">
                 ${current.name}</a>
         </div>
@@ -88,7 +88,7 @@
             <bean:message key="details.jsp.none"/>
         </div>
     </c:if>
-        
+
 <h2><bean:message key="erratalist.jsp.oval"/></h2>
     <c:if test="${ovalFile != null}">
         <div class="page-summary">

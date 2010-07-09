@@ -35,19 +35,19 @@ import java.util.List;
  */
 public class ProbeSuiteSystemsSetupActionTest extends RhnBaseTestCase {
     private Action action;
-    
+
     protected void setUp() throws Exception {
         super.setUp();
         action = new ProbeSuiteSystemsSetupAction();
     }
-    
+
     protected void tearDown() throws Exception {
         action = null;
         super.tearDown();
     }
-    
+
     public void testExecute() throws Exception {
-        
+
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action);
 
@@ -63,15 +63,15 @@ public class ProbeSuiteSystemsSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("returnvisit", (String) null);
         sah.getRequest().setupAddParameter("submitted", "false");
         sah.executeAction();
-        
+
         RhnMockHttpServletRequest request = sah.getRequest();
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         assertNotNull(request.getAttribute("probeSuite"));
         user = requestContext.getLoggedInUser();
         RhnSet set = (RhnSet) request.getAttribute("set");
-        
+
         List dr = (List) request.getAttribute("pageList");
         assertNotNull(dr);
         assertTrue(dr.size() > 0);

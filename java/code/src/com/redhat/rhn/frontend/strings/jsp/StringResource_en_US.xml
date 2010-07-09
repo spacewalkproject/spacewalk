@@ -67,7 +67,7 @@
 
 		<trans-unit id="row.macaddress">
             <source>MAC Address</source>
-        </trans-unit>        
+        </trans-unit>
     </group>
 
     <!-- Generic buttons. The intent is that these can be reused across multiple pages.-->
@@ -342,15 +342,15 @@
         </trans-unit>
         <trans-unit id="missing_capabilities.jsp.header">
           <source>Missing Capabilities</source>
-        </trans-unit>        
+        </trans-unit>
         <trans-unit id="missing_capabilities.jsp.title">
           <source>An operation could not be completed on a system due to a missing capability.</source>
         </trans-unit>
-        
+
         <trans-unit id="missing_capabilities.jsp.summary">
           <source>The server &lt;strong&gt;&lt;a href=&quot;{0}&quot;&gt;{1}&lt;/a&gt;&lt;/strong&gt; does not have the &lt;strong&gt;{2}&lt;/strong&gt; client capability. Please enable the capability before proceeding with the operation.</source>
         </trans-unit>
-                
+
         <trans-unit id="lookup.jsp.summary">
           <source>This error may have occurred in one of three ways:</source>
         </trans-unit>
@@ -359,10 +359,10 @@
           <source>The user requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
       </trans-unit>
         <trans-unit id="lookup.activationkey.reason1">
-            <source>The activation key requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>      
+            <source>The activation key requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
       </trans-unit>
        <trans-unit id="lookup.servergroup.reason1">
-            <source>The system group requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>      
+            <source>The system group requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
       </trans-unit>
         <trans-unit id="lookup.jsp.reason1.profile">
           <source>The system profile requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
@@ -400,11 +400,11 @@
         </trans-unit>
     	<trans-unit id="lookup.activatonkey.reason2">
           <source>You do not have permission to view this activation key.</source>
-      </trans-unit>        
+      </trans-unit>
     	<trans-unit id="lookup.servergroup.reason2">
           <source>You do not have permission to view this system group.</source>
-        </trans-unit>        
-      
+        </trans-unit>
+
         <trans-unit id="lookup.jsp.reason2.profile">
           <source>You do not have permission to view this system profile.</source>
         </trans-unit>
@@ -772,7 +772,7 @@
           <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="confirm.displayname">
 <source>Confirm</source>
         <context-group name="ctx">
@@ -1410,7 +1410,7 @@
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="header.jsp.errata">
 <source>Errata</source>
         <context-group name="ctx">
@@ -3103,7 +3103,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
           <context context-type="sourcefile">/rhn/errata/manage/AddPackagesConfirm.do</context>
         </context-group>
-      </trans-unit>      
+      </trans-unit>
       <trans-unit id="packagelist.jsp.notspecified">
 <source>not specified</source>
         <context-group name="ctx">
@@ -3564,10 +3564,10 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="erratalist.jsp.severity">
 <source>Severity</source>
-      </trans-unit>      
+      </trans-unit>
       <trans-unit id="erratalist.jsp.channelinfo">
 <source>The following errata affect this channel, and may affect subscribed systems.</source>
-      </trans-unit>           
+      </trans-unit>
       <trans-unit id="erratalist.jsp.oval">
 <source>OVAL</source>
         <context-group name="ctx">
@@ -4476,7 +4476,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-      </trans-unit>      
+      </trans-unit>
       <trans-unit id="Regular Counts">
 <source>Regular Entitlement Counts</source>
         <context-group name="ctx">
@@ -4495,16 +4495,16 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-      </trans-unit>      
-      
+      </trans-unit>
+
       <trans-unit id="Flex Usage">
 <source>Flex Usage</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
         </context-group>
-      </trans-unit>      
-      
+      </trans-unit>
+
       <trans-unit id="softwareentitlements.usagedata">
 <source>{0} of {1} ({2}%)</source>
         <context-group name="ctx">
@@ -4517,14 +4517,14 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Used/Allotted.tip">
 <source>'Allotted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
-      </trans-unit>      
-      
+      </trans-unit>
+
       <trans-unit id="satusers.tip">
 <source>&lt;strong&gt;*Tip:&lt;/strong&gt; Organization administrator privileges can
 not be modified on this page. Instead, please visit the "Users" top-level
@@ -4618,17 +4618,17 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Entitlement Usage Type">
 <source>Used / Total</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
         </context-group>
       </trans-unit>
-      
-      
-      
-            
+
+
+
+
       <trans-unit id="softwareEntitlementDetails.noChannelsFound">
 <source>No channels found.</source>
         <context-group name="ctx">
@@ -4700,7 +4700,7 @@ deducted from the default organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
-      </trans-unit>      
+      </trans-unit>
       <trans-unit id="softwareEntitlementSubs.submit">
 <source>Update</source>
         <context-group name="ctx">
@@ -4719,7 +4719,7 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
-            
+
       <trans-unit id="softwareEntitlementSubs.Used/Allotted">
 <source>'Allotted' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
         <context-group name="ctx">
@@ -4739,14 +4739,14 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsage">
 <source>Organization Usage</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
-            
+
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsageData">
 <source>{0} of {1} ({2}%)</source>
         <context-group name="ctx">
@@ -5181,7 +5181,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/PackagePush.do</context>
         </context-group>
-      </trans-unit>    
+      </trans-unit>
 
 <!-- == Channels == -->
       <trans-unit id="channels.jsp.alt">
@@ -5365,8 +5365,8 @@ value for this entitlement, excluding the default organization's consumption.</s
         <source>The selected systems in the System Set Manager have been queued for deletion.</source>
       </trans-unit>
      </group>
-      
-      
+
+
 <!-- == Systems == -->
       <trans-unit id="overview.jsp.header">
 <source>System Overview</source>
@@ -5444,7 +5444,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
-      </trans-unit>      
+      </trans-unit>
 
       <trans-unit id="systemlist.jsp.system">
 <source>System</source>
@@ -5522,7 +5522,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/@@PRODUCT_NAME@@</context>
 	</context-group>
        </trans-unit>
- 
+
       <trans-unit id="systemlist.jsp.virtguest">
 <source>Virtual Guest</source>
         <context-group name="ctx">
@@ -5535,7 +5535,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/@@PRODUCT_NAME@@</context>
 	</context-group>
        </trans-unit>
-  
+
       <trans-unit id="systemlist.jsp.nonvirt">
 <source>Non-Virtual System</source>
         <context-group name="ctx">
@@ -5548,7 +5548,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/@@PRODUCT_NAME@@</context>
 	</context-group>
        </trans-unit>
- 
+
       <trans-unit id="systemlist.jsp.up2date">
 <source>System is up to date</source>
         <context-group name="ctx">
@@ -5843,7 +5843,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       </trans-unit>
 
-      
+
 <!--- System Duplicates pages -->
      <group>
        <context-group name="ctx">
@@ -5863,7 +5863,7 @@ value for this entitlement, excluding the default organization's consumption.</s
      </trans-unit>
 	 <trans-unit id="Compare Systems">
          <source>Compare Systems</source>
-     </trans-unit>          
+     </trans-unit>
      </group>
 
 <!--- System Duplicates Compare pages -->
@@ -5879,7 +5879,7 @@ value for this entitlement, excluding the default organization's consumption.</s
      </trans-unit>
      <trans-unit id="duplicate.compares.max_limit.message">
          <source>You have selected more than {0} system profiles for comparison. Please select a combination of &lt;strong&gt;{0} systems or less&lt;/strong&gt; to compare and select &lt;strong&gt;{1}&lt;/strong&gt;</source>
-     </trans-unit>     
+     </trans-unit>
      <trans-unit id="Delete System Profile">
          <source>Delete System Profile</source>
      </trans-unit>
@@ -5891,7 +5891,7 @@ value for this entitlement, excluding the default organization's consumption.</s
      </trans-unit>
       <trans-unit id="System Identity Properties">
          <source>System Identity Properties</source>
-     </trans-unit>     
+     </trans-unit>
       <trans-unit id="Check to Confirm Delete">
          <source>Select to Confirm Deletion</source>
      </trans-unit>
@@ -5923,7 +5923,7 @@ value for this entitlement, excluding the default organization's consumption.</s
          <source>Software Entitlements</source>
      </trans-unit>
      </group>
-      
+
 <!--- System groups pages -->
      <group>
        <context-group name="ctx">
@@ -5941,10 +5941,10 @@ value for this entitlement, excluding the default organization's consumption.</s
        <trans-unit id="systems.groups.add.jsp.noGroups">
          <source>No system groups are available to add. You have already added all the system groups available (&lt;a href=&quot;{0}&quot;&gt;View System Groups&lt;/a&gt;) to this system.</source>
      </trans-unit>
-     
+
      <trans-unit id="systems.groups.jsp.summary.nonadmin">
           <source>Below are all the system groups that have been added to this system.</source>
-     </trans-unit>     
+     </trans-unit>
      <trans-unit id="systems.groups.jsp.summary">
           <source>Below are all the system groups that have been added to this system. To remove a system group membership, check its checkbox and make sure you click the &quot;{0}&quot; button when you are finished with your changes.</source>
      </trans-unit>
@@ -5955,21 +5955,21 @@ value for this entitlement, excluding the default organization's consumption.</s
      <trans-unit id="systems.groups.jsp.title">
             <source>System Groups</source>
      </trans-unit>
-     
+
      <trans-unit id="systems.groups.add.jsp.title">
             <source>System Group Membership</source>
      </trans-unit>
 
      <trans-unit id="systems.groups.jsp.removed">
             <source>{0} system groups removed.</source>
-     </trans-unit>     
+     </trans-unit>
      <trans-unit id="systems.groups.jsp.added">
             <source>{0} system groups added.</source>
      </trans-unit>
-     
+
      <trans-unit id="systems.groups.jsp.remove">
             <source>Leave Selected Groups</source>
-     </trans-unit>     
+     </trans-unit>
      <trans-unit id="systems.groups.jsp.add">
             <source>Join Selected Groups</source>
      </trans-unit>
@@ -5987,7 +5987,7 @@ value for this entitlement, excluding the default organization's consumption.</s
      </trans-unit>
      <trans-unit id="systemgroup.systems.summary.nonadmin">
             <source>Below are all the systems that have been added to this system group.</source>
-     </trans-unit>    
+     </trans-unit>
     <trans-unit id="systemgroup.systems.removed">
             <source>{0} systems were removed from &lt;strong&gt;{1}&lt;/strong&gt; server group.</source>
      </trans-unit>
@@ -6237,15 +6237,15 @@ value for this entitlement, excluding the default organization's consumption.</s
         </trans-unit>
         <trans-unit id="system_entitlements.monitoring.noSolarisSupport">
                 <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Monitoring is not supported on Solaris systems.</source>
-        </trans-unit>        
+        </trans-unit>
         <trans-unit id="system_entitlements.virtualization.setup_error">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the @@PRODUCT_NAME@@ Tools and RHEL Virtualization channels which are required for virtualization.</source>
         </trans-unit>
-        
+
         <trans-unit id="system_entitlements.unknown.error">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add an entitlement.  This was caused by an unknown error.  Please contact support.</source>
         </trans-unit>
-        
+
     </group>
 
 
@@ -6276,17 +6276,17 @@ value for this entitlement, excluding the default organization's consumption.</s
 	     <trans-unit id="floating.guests">
 			<source>Flex Guest Entitlement Consumers</source>
 	     </trans-unit>
-	     
+
 	     <trans-unit id="eligible.floating.guests">
 			<source>Guests Consuming Regular Entitlements</source>
-	     </trans-unit>	     
+	     </trans-unit>
 	     <trans-unit id="eligible.flexguest.jsp.header">
 			<source>Guests Consuming Regular Entitlements</source>
 	     </trans-unit>
 	     <trans-unit id="eligible.flexguest.jsp.message">
 			<source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN or for whom there are no remaining &lt;a href=&quot;{0}&quot;&gt; Virtualization inherited guest entitlements&lt;/a&gt;. These systems are consuming the same software and system entitlements as a physical system.</source>
 	     </trans-unit>
-	     
+
  	     <trans-unit id="eligible.flexguest.jsp.no-systems">
 			<source>There are no eligible flex guest systems consuming regular entitlements.</source>
 	     </trans-unit>
@@ -6297,7 +6297,7 @@ value for this entitlement, excluding the default organization's consumption.</s
  	     <trans-unit id="Make Flex">
 			<source>Convert To Flex Guest Entitlement</source>
 	     </trans-unit>
-	     
+
  	     <trans-unit id="eligible.flexguest.systems.confirm.message">
 			<source>Converted &lt;strong&gt;{0}&lt;/strong&gt; system(s) to use Flex Guest Entitlement.</source>
 	     </trans-unit>
@@ -6589,14 +6589,14 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context context-type="sourcefile">/rhn/admin/multiorg/OrgDelete.do</context>
       </context-group>
     </trans-unit>
-    
+
     <trans-unit id="removeconfirm.jsp.widgetsummary">
 <source>You may schedule the package removals to take place as soon as possible, or no sooner than a specified time:</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
       </context-group>
    </trans-unit>
-    
+
     <trans-unit id="removeconfirm.jsp.confirm">
 <source>Confirm</source>
       <context-group name="ctx">
@@ -6702,8 +6702,8 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
       </context-group>
     </trans-unit>
-    
-    
+
+
     <!-- PROBE EDIT PAGE -->
 
     <trans-unit id="probeedit.jsp.editprobe">
@@ -7007,7 +7007,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
       </context-group>
     </trans-unit>
-    
+
     <trans-unit id="scheduleremote.jsp.schedulepackageremoval">
 <source>Confirm Remote Command and Schedule Package Removal</source>
       <context-group name="ctx">
@@ -7489,7 +7489,7 @@ value for this entitlement, excluding the default organization's consumption.</s
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
       </context-group>
-    </trans-unit>   
+    </trans-unit>
     <trans-unit id="installpkgs.jsp.installpackages">
 <source>Install Selected Packages</source>
         <context-group name="ctx">
@@ -7530,7 +7530,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context context-type="sourcefile">/rhn/systems/details/packages/InstallConfirm.do</context>
       </context-group>
     </trans-unit>
-    
+
     <trans-unit id="installconfirm.jsp.confirm">
 <source>Confirm</source>
       <context-group name="ctx">
@@ -7739,20 +7739,20 @@ organization management tools if you choose to remove this role from your login.
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="orgtrustdetails.jsp.header2">
           <source>Channel Details</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
-      </trans-unit>     
+      </trans-unit>
 
       <trans-unit id="channel.edit.jsp.orgaccess.header">
           <source>Trusted Organization Access to Channel Content</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/channels/OrgList</context>
         </context-group>
-      </trans-unit>     
+      </trans-unit>
 
       <trans-unit id="channel.edit.jsp.orgaccess.summary">
           <source>The organizations listed below are organizations with which
@@ -7762,35 +7762,35 @@ organization management tools if you choose to remove this role from your login.
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/channels/OrgList</context>
         </context-group>
-      </trans-unit>     
-             
+      </trans-unit>
+
        <trans-unit id="orgtrustdetails.jsp.header3">
           <source>System Details</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="orgtrustdetails.jsp.created">
           <source>Created</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
-      </trans-unit>  
+      </trans-unit>
             <trans-unit id="orgtrustdetails.jsp.trusted">
           <source>Trusted Since</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="orgtrustdetails.jsp.channelsprovided">
           <source>Channels Provided to your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
-      </trans-unit>     
-             
+      </trans-unit>
+
        <trans-unit id="orgtrustdetails.jsp.channelsconsumed">
           <source>Channels Consumed from your Organization</source>
           <context-group name="ctx">
@@ -7811,20 +7811,20 @@ organization management tools if you choose to remove this role from your login.
             <context context-type="sourcefile">/multiorg/channels/Provide</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="orgtrustdetails.jsp.sysmigratedto">
           <source>Systems Migrated to Your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="orgtrustdetails.jsp.sysmigratedfrom">
           <source>Systems Migrated from Your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
-      </trans-unit>                                                                                                              
+      </trans-unit>
 
       <trans-unit id="deleteconfirm.jsp.confirmprofiledeletion">
 <source>Confirm Profile Deletion</source>
@@ -9023,8 +9023,8 @@ the following tabs in the left navigation menu:</source>
       </trans-unit>
       <trans-unit id="general.jsp.org.tbl.description2">
 <source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
@@ -9347,7 +9347,7 @@ Please note that some manual configuration of these scripts may still be require
 
 
 <!-- Cobbler stuff -->
- 
+
       <group>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Cobbler.do</context>
@@ -9360,7 +9360,7 @@ Please note that some manual configuration of these scripts may still be require
         </trans-unit>
         <trans-unit id="cobbler.jsp.header2">
           <source>Run Cobbler Sync</source>
-        </trans-unit>        
+        </trans-unit>
         <trans-unit id="cobbler.jsp.sync">
           <source>Run Cobbler Sync</source>
         </trans-unit>
@@ -9660,107 +9660,107 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="kickstart.variable.jsp.header">
         <source>Kickstart Variables</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>    
-    
+    </trans-unit>
+
     <trans-unit id="kickstart.variable.jsp.update">
         <source>Update Variables</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>        
-    
-    
+    </trans-unit>
+
+
     <trans-unit id="kickstart.variable.jsp.summary">
-        <source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        <source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>       
-    
-    
+    </trans-unit>
+
+
     <trans-unit id="kickstarttree.variable.jsp.summary">
         <source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>           
-    
-    
+    </trans-unit>
+
+
     <trans-unit id="kickstartdetails.jsp.virt_disk_path">
         <source>Virtual Storage Path</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>        
+    </trans-unit>
 
     <trans-unit id="kickstartdetails.jsp.virt_disk_path.tip">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; You may specify a file path (/var/lib/xen/images/disk), a Volume Group (VolGroup00), or a partiion (/dev/sda5).  You can also specify multiple virtual disks by comma separating the filepaths, volume group, or partition (/dev/sdb1,/devsdc1).</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>        
-    
+    </trans-unit>
+
     <trans-unit id="kickstartdetails.jsp.virt_mem_mb">
         <source>Virtual Memory (in MB)</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>                    
-    
+    </trans-unit>
+
    <trans-unit id="kickstartdetails.jsp.virt_cpus">
         <source>Number of Virtual CPUs</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>           
-    
+    </trans-unit>
+
    <trans-unit id="kickstartdetails.jsp.virt_disk_size">
         <source>Virtual Disk Space (in GB)</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>          
-    
+    </trans-unit>
+
    <trans-unit id="kickstartdetails.jsp.virt_bridge">
         <source>Virtual Bridge</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>       
-    
+    </trans-unit>
+
     <trans-unit id="kickstart.variable.jsp.netboot-enabled">
         <source>Netboot Enabled</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/Variables.do</context>
         </context-group>
-    </trans-unit>    
-    
+    </trans-unit>
+
     <trans-unit id="kickstart.variable.jsp.variabledetails">
         <source>Variables</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>   
+    </trans-unit>
     <trans-unit id="kickstart.jsp.error.invalidvariable">
         <source>You have specified an invalid variable: '{0}'.  Variables should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a new line.  For example: 'ip=192.168.0.1'</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>    
-    
+    </trans-unit>
+
     <trans-unit id="kickstart.jsp.error.invalidoption">
         <source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
         <context-group name="ctx">
             <context context-type="sourcefile">Kickstart Details</context>
         </context-group>
-    </trans-unit>    
+    </trans-unit>
 
     <trans-unit id="kickstart.jsp.error.template_generation">
         <source>There are errors in your kickstart template. Please check the &lt;a href=&quot;{0}&quot;&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>
@@ -9774,14 +9774,14 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">Kickstart Details</context>
         </context-group>
-    </trans-unit>    
+    </trans-unit>
 
     <trans-unit id="kickstartdetails.jsp.post_kernel_options">
         <source>Post Kernel Options</source>
         <context-group name="ctx">
             <context context-type="sourcefile">Kickstart Details</context>
         </context-group>
-    </trans-unit>    
+    </trans-unit>
 
     <trans-unit id="kickstart.jsp.unregistered">
         <source>Unregistered System</source>
@@ -9971,13 +9971,13 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="kickstartdetails.jsp.postlog.msg">
         <source>If selected, all output of custom post scripts will be logged to /root/ks-post.log.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-    </trans-unit>    
+    </trans-unit>
 
     <trans-unit id="kickstartdetails.jsp.prelog">
         <source>Log custom pre scripts:</source>
@@ -10006,7 +10006,7 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="kickstartdetails.jsp.changeos">
         <source>Change</source>
         <context-group name="ctx">
@@ -10255,8 +10255,8 @@ Please note that some manual configuration of these scripts may still be require
 
     <trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
@@ -10304,7 +10304,7 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
     </trans-unit>
- 
+
     <trans-unit id="kickstartdetails.invalid.jsp.summary">
         <source>The distribution associated to this kickstart profile is invalid. </source>
         <context-group name="ctx">
@@ -10317,8 +10317,8 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-    </trans-unit>    
-    
+    </trans-unit>
+
 <trans-unit id="kickstartdetails.invalid.jsp.summary-option2">
         <source> Alternatively you may associate a different distribution to this kickstart profile by visiting the &lt;a href = &quot;{0}&quot;&gt;Kickstart Operating System Details&lt;/a&gt; page.</source>
         <context-group name="ctx">
@@ -10330,7 +10330,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-    </trans-unit>        
+    </trans-unit>
     <trans-unit id="kickstartoptions.jsp.updatekickstart">
         <source>Update Kickstart</source>
         <context-group name="ctx">
@@ -10356,7 +10356,7 @@ Please note that some manual configuration of these scripts may still be require
 	   </trans-unit>
       <trans-unit id="kickstart.advanced.filedetails.jsp.tip.copypaste">
         <source> If you wish to re-use an existing Kickstart Profile we recommend you copy-paste the template from /var/lib/rhn/kickstarts instead of from your browser.  This will ensure that the template variables will be preserved and the registration process will work properly after the kickstart.</source>
-       </trans-unit>      
+       </trans-unit>
 	</group>
     <trans-unit id="kickstartdatadelete.jsp.confirmdelete">
         <source>Delete Kickstart</source>
@@ -10384,7 +10384,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/activationkeys/List.do</context>
         </context-group>
-    </trans-unit>    
+    </trans-unit>
 
     <trans-unit id="kickstart.activationkeys.jsp.description">
         <source>Description</source>
@@ -10521,9 +10521,9 @@ Please note that some manual configuration of these scripts may still be require
 	  </trans-unit>
 	  <trans-unit id="kickstart.registration.type.none.jsp.unentitle">
     		<source>De-entitle the existing system profile.</source>
-	  </trans-unit>	  
+	  </trans-unit>
   </group>
-  
+
 
   <trans-unit id="kickstart.sysarch.jsp.label">
     <source>System &lt;br /&gt;Architecture</source>
@@ -11103,13 +11103,13 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="softwareedit.jsp.repos">
         <source>Repositories</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
-    </trans-unit>    
+    </trans-unit>
 
     <trans-unit id="softwareedit.jsp.repos-tooltip">
         <source>Selected Repositories will be available in the &lt;strong&gt;%packages &lt;/strong&gt; section of the kickstart file.</source>
@@ -11117,7 +11117,7 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="softwareedit.jsp.tip1">
         <source>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt; New file location must be the root of an install tree (for the operating system version above) on either an http or ftp server.&lt;/span&gt;</source>
         <context-group name="ctx">
@@ -11157,7 +11157,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
         </context-group>
-    </trans-unit>    
+    </trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.summary">
         <source>Below is a list of the GPG and SSL keys you have &lt;a href=&quot;/rhn/keys/CryptoKeysList.do&quot;&gt;created.&lt;/a&gt;  Selected keys will be imported during the %post section of all kickstarts scheduled using this profile.</source>
@@ -11391,7 +11391,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
             <context context-type="sourcefile">/rhn/kickstart/cobbler/CustomSnippetList.do</context>
             <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetList.do</context>
         </context-group>
-        
+
     <trans-unit id="cobbler.nav.default">
         <source>Default Snippets</source>
     </trans-unit>
@@ -11401,7 +11401,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     <trans-unit id="cobbler.nav.all">
         <source>All Snippets</source>
     </trans-unit>
-    
+
     <trans-unit id="snippets.jsp.toolbar">
         <source>Kickstart Snippets</source>
     </trans-unit>
@@ -11421,15 +11421,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     </trans-unit>
     <trans-unit id="cobbler.snippet.macro">
         <source>Snippet Macro</source>
-    </trans-unit>    
+    </trans-unit>
     <trans-unit id="cobbler.snippet.jsp.nosnippets">
         <source>No kickstart snippets found.</source>
     </trans-unit>
     <trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
         <source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
-    </trans-unit>    
-	</group>    
-    
+    </trans-unit>
+	</group>
+
     <!--Cobbler Create/Edit/View/Delete pages -->
     <group>
 		<context-group name="ctx">
@@ -11452,7 +11452,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     </trans-unit>
     <trans-unit id="cobbler.snippet.type">
         <source>Snippet Type</source>
-    </trans-unit>    
+    </trans-unit>
     <trans-unit id="cobbler.snippet.custom.tip">
         <source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
     </trans-unit>
@@ -11461,8 +11461,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     </trans-unit>
     <trans-unit id="cobbler.snippet.default.tip">
         <source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
-    </trans-unit>    
-    
+    </trans-unit>
+
     <trans-unit id="snippetedit.jsp.header2">
         <source>Edit Snippet</source>
     </trans-unit>
@@ -11502,7 +11502,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     <trans-unit id="snippetcreate.jsp.submit">
         <source>Create Snippet</source>
     </trans-unit>
-    
+
     <trans-unit id="snippetupdate.jsp.submit">
         <source>Update Snippet</source>
     </trans-unit>
@@ -11527,9 +11527,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
     <trans-unit id="snippetdelete.jsp.deletesnippet">
 <source>Delete Snippet</source>
-    </trans-unit>       
+    </trans-unit>
     </group>
- 
+
      <trans-unit id="yourrhn.jsp.bullet.alttag">
         <source>Bullet Item</source>
         <context-group name="ctx">
@@ -11921,7 +11921,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
       </trans-unit>
-      
+
      <trans-unit id="yourrhn.jsp.task.manage_subscriptions">
         <source>&lt;strong&gt;Manage Entitlements and Subscriptions&lt;/strong&gt;:</source>
         <context-group name="ctx">
@@ -12023,7 +12023,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/channels/All.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="channels.overview.packages">
         <source>Packages</source>
         <context-group name="ctx">
@@ -12102,38 +12102,38 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       <trans-unit id="channels.all.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
       </trans-unit>
-      
+
       <trans-unit id="channels.redhat.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
-      </trans-unit>  
-      
+      </trans-unit>
+
       <trans-unit id="channels.shared.jsp.header1">
         <source>The software channels listed below may be shared by your organization.</source>
-      </trans-unit>        
-      
+      </trans-unit>
+
       <trans-unit id="channels.custom.jsp.header1">
         <source>The software channels listed below belong to your organization.</source>
-      </trans-unit>            
-      
+      </trans-unit>
+
       <trans-unit id="channels.popular.jsp.header1">
         <source>The software channels listed below are considered popular (defined as having a certain number of systems subscribed).</source>
-      </trans-unit>      
-      
+      </trans-unit>
+
       <trans-unit id="channels.popular.jsp.button">
         <source>Update</source>
-      </trans-unit>       
+      </trans-unit>
 
       <trans-unit id="channels.popular.jsp.label0">
         <source>Popularity</source>
-      </trans-unit> 
+      </trans-unit>
 
       <trans-unit id="channels.popular.jsp.label1">
         <source>Display channels with at least</source>
-      </trans-unit>       
-      
+      </trans-unit>
+
       <trans-unit id="channels.popular.jsp.label2">
         <source> systems subscribed below.</source>
-      </trans-unit>                                         
+      </trans-unit>
 
       <trans-unit id="channels.retired.jsp.toolbar">
         <source>Retired Software Channel List</source>
@@ -12266,7 +12266,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
         </context-group>
-      </trans-unit>        
+      </trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.step.one">
        <source>Step 1: Create Kickstart Profile</source>
        <context-group name="ctx">
@@ -12372,7 +12372,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      </trans-unit>
-     
+
      <group>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
@@ -12391,11 +12391,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="kickstart.jsp.virt-type.xenpv">
           <source>Xen Para-Virtualized Guest</source>
-        </trans-unit>                        
+        </trans-unit>
      </group>
-     
-     
-     
+
+
+
     <!-- Activation Keys -->
      <group>
        <context-group name="ctx">
@@ -12410,7 +12410,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      </trans-unit>
        <trans-unit id="toolbar.delete.activationkeys">
          <source>delete key</source>
-     </trans-unit>     
+     </trans-unit>
        <trans-unit id="activation-keys.common.alt">
          <source>Activation Key icon</source>
        </trans-unit>
@@ -12428,10 +12428,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </trans-unit>
        <trans-unit id="activation-keys.jsp.description-tooltip">
          <source>Click on the description above to view the details for this key.</source>
-     </trans-unit>       
+     </trans-unit>
        <trans-unit id="activation-key.jsp.edit-description-tooltip">
            <source>Use this to describe what kind of settings this key will reflect on systems that use it. If left blank, this field will be filled in '&lt;strong&gt;{0}&lt;/strong&gt;'.</source>
-       </trans-unit> 
+       </trans-unit>
 
        <trans-unit id="activation-keys.status.message.1">
            <source>{0} key(s) were enabled and {1} key(s) were disabled.</source>
@@ -12459,7 +12459,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <trans-unit id="activation-keys.jsp.is-default-key-tip">
          <source>This key is your organization's universal default activation key.</source>
        </trans-unit>
-    
+
      <trans-unit id="activation-key.jsp.base-channels">
          <source>Base Channels</source>
        </trans-unit>
@@ -12468,35 +12468,35 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      </trans-unit>
        <trans-unit id="activation-key.jsp.universal-default">
          <source>Universal Default</source>
-     </trans-unit>     
+     </trans-unit>
        <trans-unit id="activation-key.jsp.header2">
          <source>Systems registered with this activation key will inherit the settings listed below.</source>
-     </trans-unit>          
+     </trans-unit>
        <trans-unit id="activation-key.jsp.create">
          <source>Create Activation Key</source>
      </trans-unit>
        <trans-unit id="activation-key.jsp.blank.auto-generator">
          <source>Leave blank for automatic generation.</source>
-     </trans-unit> 
+     </trans-unit>
        <trans-unit id="activation-key.jsp.blank.auto-generator.prefix-notice">
          <source>Leave blank for automatic key generation. Note that the prefix is an indication of the @@PRODUCT_NAME@@ organization the key is associated with.</source>
-     </trans-unit> 
+     </trans-unit>
    <trans-unit id="activation-key.jsp.edit-basechannel-tooltip">
        <source>Choose &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; to allow systems to register to the default Red Hat provided channel that corresponds to their installed version of Red Hat Enterprise Linux. You may also choose particular Red Hat provided channels or custom base channels here, but please note if a system using this key is not compatible with the selected channel, it will fall back to its Red Hat default channel.</source>
-   </trans-unit> 
+   </trans-unit>
    <trans-unit id="activation-key.jsp.edit.universal-default-tooltip">
        <source>Only one universal default activation key may be set for this organization. By setting this key as universal default, you will remove universal default status from the current universal default key if it exists. If this key is set as universal default, then newly-registered systems to your organization will inherit the properties of this key.</source>
-   </trans-unit> 
+   </trans-unit>
 
        <trans-unit id="activation-key.jsp.blank.unlimited-use">
          <source>Leave blank for unlimited use.</source>
-     </trans-unit> 
+     </trans-unit>
        <trans-unit id="activation-key.jsp.org_notice">
            <source>If you modify the key itself above, please note that the key will be prepended with a '&lt;strong&gt;{0}&lt;/strong&gt;'. This is to identify the organization with which the key is associated and is associated with the @@PRODUCT_NAME@@'s multiple organizations feature.</source>
-     </trans-unit> 
+     </trans-unit>
      <trans-unit id="activation-key.jsp.create-key">
          <source>Create Activation Key</source>
-     </trans-unit>     
+     </trans-unit>
      <trans-unit id="activation-key.jsp.rh-default">
          <source>@@PRODUCT_NAME@@ Default</source>
      </trans-unit>
@@ -12506,7 +12506,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <trans-unit id="activation-key.jsp.summary">
          <source>Systems registered with this activation key will inherit the settings listed below.</source>
      </trans-unit>
-     
+
      <trans-unit id="activation-key.details.jsp.title">
          <source>Activation Key Details</source>
      </trans-unit>
@@ -12519,7 +12519,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      </trans-unit>
      <trans-unit id="activation-key.jsp.delete.para">
          <source>Are you certain you want to delete this key? Activation Keys cannot be recovered once they have been deleted. (Note: A key can be disabled on the &lt;a href=&quot;{0}&quot;&gt;key list page&lt;/a&gt;, which prevents it from being used, but preserves it for later use.)</source>
-     </trans-unit>     
+     </trans-unit>
 
      <trans-unit id="activation-key.jsp.enable-config-auto-deploy">
          <source>Configuration File Deployment</source>
@@ -12585,7 +12585,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-keys.groups.add.jsp.noGroups">
          <source>No system groups are available to add. You have already added all the system groups available (&lt;a href=&quot;{0}&quot;&gt;View System Groups&lt;/a&gt;) to this activation key.</source>
      </trans-unit>
-     
+
      <trans-unit id="activation-key.groups.jsp.summary">
           <source>Below are all the system groups that have been added to this activation key. Any system registering with this activation key will be added to the selected system groups. To remove a system group membership, check its checkbox and make sure you click the &quot;{0}&quot; button when you are finished with your changes.</source>
      </trans-unit>
@@ -12596,25 +12596,25 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <trans-unit id="activation-key.groups.jsp.title">
             <source>System Groups</source>
      </trans-unit>
-     
+
      <trans-unit id="activation-key.groups.add.jsp.title">
             <source>System Group Membership</source>
      </trans-unit>
 
      <trans-unit id="activation-key.groups.jsp.removed">
             <source>{0} system groups removed.</source>
-     </trans-unit>     
+     </trans-unit>
      <trans-unit id="activation-key.groups.jsp.added">
             <source>{0} system groups added.</source>
      </trans-unit>
-     
+
      <trans-unit id="activation-key.groups.jsp.remove">
             <source>Leave Selected Groups</source>
-     </trans-unit>     
+     </trans-unit>
      <trans-unit id="activation-key.groups.jsp.add">
             <source>Join Selected Groups</source>
      </trans-unit>
-          
+
     </group>
 
      <group>
@@ -13101,25 +13101,25 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       <trans-unit id="channelOverview.jsp.bad-label">
 <source>Label contains invalid characters. In addition to alphanumeric characters, '-', '_', and '.' are allowed.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/configuration/ChannelOverview.do</context>          
+          <context context-type="sourcefile">/configuration/ChannelOverview.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.empty-label">
 <source>Label is required.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>          
+          <context context-type="sourcefile">Any page with required posix name fields</context>
         </context-group>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.empty-name">
 <source>Name is required.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>          
+          <context context-type="sourcefile">Any page with required posix name fields</context>
         </context-group>
       </trans-unit>
       <trans-unit id="channelOverview.jsp.empty-descr">
 <source>Description is required.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>          
+          <context context-type="sourcefile">Any page with required posix name fields</context>
         </context-group>
       </trans-unit>
      <trans-unit id="toolbar.delete.configchannel">
@@ -14066,15 +14066,15 @@ Tip: If you would like to deploy this file to a system not in this list, you'll 
 		  </context>
         </context-group>
      </trans-unit>
-     
+
      <trans-unit id="deployglobal.jspf.not_deployable">
 <source>These systems do not yet have configuration deployment capability. Configuration deployment requires that particular software is installed and enabled on your system. You may ensure that configuration deployment capability will be enabled on these systems by selecting them in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking &quot;{2}&quot;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
 	    </context-group>
      </trans-unit>
-     
-          
+
+
      <trans-unit id="deployglobal.jspf.tip.orgadmin">
 <source>You may grant provisioning entitlements &lt;a href="{0}"&gt;here&lt;/a&gt;.</source>
         <context-group name="ctx">
@@ -15850,7 +15850,7 @@ any of these revisions.  Are you sure you want to do this?</source>
          </trans-unit>
          <trans-unit id="ssm.config.rank.jsp.step">
            <source>Step 2: Rank Channels for Subscription.</source>
-         </trans-unit>         
+         </trans-unit>
          <trans-unit id="ssm.config.rank.jsp.up">
            <source>up</source>
          </trans-unit>
@@ -15882,7 +15882,7 @@ any of these revisions.  Are you sure you want to do this?</source>
          </trans-unit>
          <trans-unit id="ssm.config.subscribeconfirm.jsp.step">
            <source>Step 3: Confirm Channels for Subscription.</source>
-         </trans-unit>         
+         </trans-unit>
          <trans-unit id="ssm.config.subscribeconfirm.jsp.summary">
            <source>The systems listed below will be subscribed to the configuration channels listed below.</source>
          </trans-unit>
@@ -16224,7 +16224,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="sdc.configlist.jsp.rank">
           <source>Rank</source>
-        </trans-unit>        
+        </trans-unit>
         <trans-unit id="sdc.configlist.jsp.note">
           <source>&lt;strong&gt;* - Note:&lt;/strong&gt; Deployable Files are files in a configuration channel that are not outranked by files in greater priority configuration channels nor overridden by files in the systems local configuration channel.</source>
         </trans-unit>
@@ -16537,7 +16537,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Note: only child channel subscription changes and package install/remove/upgrade/verify tasks are listed.</source>
        </trans-unit>
     </group>
-       
+
     <!-- ssm/packages.jsp -->
        <group>
           <context-group name="ctx">
@@ -16658,7 +16658,7 @@ any of these revisions.  Are you sure you want to do this?</source>
            <source>Schedule Package Removals</source>
         </trans-unit>
     </group>
-       
+
     <!-- ssm/packageupgrade.jsp -->
     <group>
        <context-group name="ctx">
@@ -16685,7 +16685,7 @@ any of these revisions.  Are you sure you want to do this?</source>
            <source>Schedule Package Upgrades</source>
         </trans-unit>
    </group>
-    
+
     <!-- ssm/packageupgradeschedule.jsp -->
     <group>
        <context-group name="ctx">
@@ -16725,7 +16725,7 @@ any of these revisions.  Are you sure you want to do this?</source>
          <source>Systems</source>
        </trans-unit>
    </group>
-       
+
     <!-- ssm/packageverifyschedule.jsp -->
     <group>
        <context-group name="ctx">
@@ -16746,7 +16746,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Package verifications are being scheduled, it may take several minutes for this to complete.</source>
        </trans-unit>
    </group>
-       
+
      <!-- Kickstart stuff -->
      <trans-unit id="rootPassword">
          <source>Root password</source>
@@ -16948,48 +16948,48 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="kickstart.channel.virtCpu.jsp">
         <source>Cpus</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-    </trans-unit>    
-    
+    </trans-unit>
+
     <trans-unit id="kickstart.channel.virtMemory.jsp">
         <source>Memory</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-    </trans-unit>   
-    
+    </trans-unit>
+
     <trans-unit id="kickstart.channel.virtBridge.jsp">
         <source>Bridge</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-    </trans-unit>   
-    
+    </trans-unit>
+
     <trans-unit id="kickstart.channel.virtDisk.jsp">
         <source>Disk Size</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-    </trans-unit>               
-    
-    
+    </trans-unit>
+
+
     <trans-unit id="kickstart.distro.cobbler-only.tooltip">
         <source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not your system will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
-    </trans-unit> 
+    </trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
         <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    </trans-unit>    
+    </trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">
@@ -17007,7 +17007,7 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
         <source>Kickstart profiles may be associated to an invalid kickstart distribution. To make a kickstart profile valid please select the profile and modify its distribution appropriately.</source>
        <context-group name="ctx">
            <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
-       </context-group>	        
+       </context-group>
     </trans-unit>
     <!--KS schedule pages -->
 	<group>
@@ -17342,8 +17342,8 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
 	    <trans-unit id="kickstart.distro.is-valid.jsp">
 	        <source>Valid</source>
 	    </trans-unit>
-    </group>    
-    
+    </group>
+
     <trans-unit id="preferences.jsp.lang.bn_IN">
         <source>Bengali</source>
         <context-group name="ctx">
@@ -17578,7 +17578,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
       </trans-unit>
 
      <trans-unit id="tree-form.jspf.noinstalltypes">
-<source> 
+<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;
 </source>
           <context-group name="ctx">
@@ -17959,20 +17959,20 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
       </trans-unit>
-      
+
       <trans-unit id="virtualization.provision.first.jsp.header3">
         <source>Virtual System Hardware Overrides</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
       </trans-unit>
-      
+
       <trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
         <source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
-      </trans-unit>      
+      </trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.guest_name.header">
         <source>Guest Name:</source>
@@ -17980,13 +17980,13 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
       </trans-unit>
-      
+
       <trans-unit id="virtualization.provision.first.jsp.virt_bridge.example">
         <source>(ex. xenbr0)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
-      </trans-unit>      
+      </trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.guest_name.message1">
         <source>What name shall be used to identify the guest on this host?</source>
@@ -18043,14 +18043,14 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
       </trans-unit>
-      
+
      <trans-unit id="virtualization.provision.override.jsp.message">
         <source>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
-      </trans-unit>      
-            
+      </trans-unit>
+
       <trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
         <source>Use the virtual host system's disk space: </source>
         <context-group name="ctx">
@@ -18156,12 +18156,12 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 
         <trans-unit id="exportcolumn.message">
             <source>Message</source>
-        </trans-unit> 
+        </trans-unit>
         <trans-unit id="exportcolumn.issueDate">
             <source>Issue Date</source>
         </trans-unit>
      </group>
-    
+
     <trans-unit id="virtualization.provision.first.jsp.no.profiles">
         <source>No profiles currently available for kickstarting guests. Please &lt;a href=&quot;/rhn/kickstart/CreateProfileWizard.do&quot;&gt;create a new kickstart profile with a Virtualization Type other than none.&lt;/a&gt;</source>
         <context-group name="ctx">
@@ -18299,13 +18299,13 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
          </trans-unit>
    	     <trans-unit id="sdc.config.subscriptions.jsp.continue">
              <source>Continue</source>
-	     </trans-unit>         
+	     </trans-unit>
    	     <trans-unit id="sdc.config.subscriptions.jsp.noChannels">
              <source> No configuration channels are available for subscription. You have either already subscribed this system to all available channels (&lt;a href=&quot;{0}&quot;&gt;view subscribed channels&lt;/a&gt;) or you do not have permissions to access any of the available channels.</source>
 	     </trans-unit>
         <trans-unit id="common.config.subscription.jsp.error.nojavascript">
           <source>Please enable Javascript before selecting your channel subscriptions.</source>
-        </trans-unit>	              
+        </trans-unit>
     </group>
 
     <!-- configuration/sdc/rankchannels.jsp  -->
@@ -18327,16 +18327,16 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </trans-unit>
         <trans-unit id="sdc.config.rank.jsp.para1">
           <source>This system is subscribed to the configuration channels listed below in order from highest to lowest rank. Files from a particular channel will override files with the same filepath and name from channels below it.</source>
-        </trans-unit>        
+        </trans-unit>
         <trans-unit id="sdc.config.rank.jsp.para2">
           <source>To modify the respective rankings of the subscribed channels, you may select one channel at a time to move up or down using the arrow buttons below. After you have completed the ranking process, you will need to click on &quot;{0}&quot; below to confirm the channel subscriptions and ordering.</source>
-        </trans-unit>        
+        </trans-unit>
         <trans-unit id="sdc.config.rank.jsp.subscribed_channels">
           <source>Subscribed Channels</source>
-        </trans-unit>        
+        </trans-unit>
         <trans-unit id="common.config.rank.jsp.warning">
           <source>&lt;strong&gt;Warning:&lt;/strong&gt; You have just selected new configuration channel(s) to subscribe this system to. This system will &lt;strong&gt;not&lt;/strong&gt; be subscribed to these channels until you confirm the subscriptions by determining their ranks and clicking on &quot;{0}&quot; below. </source>
-        </trans-unit> 
+        </trans-unit>
         <trans-unit id="common.config.rank.jsp.warning.noscript">
           <source>&lt;strong&gt;Warning:&lt;/strong&gt; Javascript is required for the subscription and channel ranking operations to succeed. Please enable Javascript in order to continue on to these tasks.</source>
         </trans-unit>
@@ -18374,7 +18374,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 	     	<context context-type="sourcefile">/systems/details/Overview.do</context>
         	</context-group>
 	     </trans-unit>
-	     
+
 	     <trans-unit id="sdc.details.overview.uuid">
 	     	<source>UUID:</source>
 	     	<context-group name="ctx">
@@ -19047,7 +19047,7 @@ We have received reports of Internet Explorer having problems downloading ISOs. 
       </trans-unit>
       <trans-unit id="common.download.not-sure">
 <source>
-(&lt;a href="http://www.redhat.com/download/howto_download.html"&gt;&lt;strong&gt;Not sure what an ISO is?&lt;/strong&gt;&lt;/a&gt;) 
+(&lt;a href="http://www.redhat.com/download/howto_download.html"&gt;&lt;strong&gt;Not sure what an ISO is?&lt;/strong&gt;&lt;/a&gt;)
 </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
@@ -19064,7 +19064,7 @@ We have received reports of Internet Explorer having problems downloading ISOs. 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">
 <source>
-	The software channels listed below have ISO images available for all currently-supported products.  
+	The software channels listed below have ISO images available for all currently-supported products.
 </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/downloads/SupportedISOs.do</context>
@@ -19082,7 +19082,7 @@ The software channels listed below have ISO images available.
 		<!-- Retired ISOs -->
 <trans-unit id="download.isotree.jsp.retired-instructions">
 <source>
-The software channels listed below have ISO images available for products which are no longer supported.  
+The software channels listed below have ISO images available for products which are no longer supported.
 </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/downloads/RetiredISOs.do</context>
@@ -19178,14 +19178,14 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
       </trans-unit>
       <trans-unit id="isodownload.latest.description">
 <source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)
 </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
 		  <context context-type="paramnotes">
-	Below please find the complete set of ISO images for the latest release of Red Hat Enterprise Linux (v.5 for 32-bit x86).  
+	Below please find the complete set of ISO images for the latest release of Red Hat Enterprise Linux (v.5 for 32-bit x86).
 	Depending on the variant of Red Hat Linux 5 you'd like to install, you may only need a subset of these discs.
     (_more information_)
 		  </context>
@@ -19229,14 +19229,14 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
       </trans-unit>
       <trans-unit id="isodownload.latest.note">
 <source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;
 </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
 		  <context context-type="paramnotes">
-NOTE: You'll need an installation number to install Red Hat Enterprise Linux (v.5 for 32-bit x86).  
+NOTE: You'll need an installation number to install Red Hat Enterprise Linux (v.5 for 32-bit x86).
 _Not sure what an installation number is?_
 _Need to look up your installation numbers?_
 		  </context>
@@ -19250,13 +19250,13 @@ _Need to look up your installation numbers?_
       </trans-unit>
       <trans-unit id="isodownload.rest.description">
 <source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.
 </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
 		  <context context-type="paramnotes">
-Below please find complete sets of ISO images for the older releases of Red Hat Enterprise Linux (v.5 for 32-bit x86).  
+Below please find complete sets of ISO images for the older releases of Red Hat Enterprise Linux (v.5 for 32-bit x86).
 Note that only one set of ISO images is necessary to install any particular release of Red Hat Enterprise Linux (v.5 for 32-bit x86).
 		  </context>
         </context-group>
@@ -19427,7 +19427,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="sdc.channels.edit.fastrackBetaWarning">
           <source>&lt;strong&gt;Warning:&lt;/strong&gt; 'FasTrack' and Beta child software channels are not available with Extended Update Support.</source>
         <context-group name="ctx">
@@ -19512,28 +19512,28 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="guestlimited.jsp.para1">
         <source>The following is a list of host systems with the 'Virtualization' entitlement. You may wish to consider upgrading systems that have exceeded the 4-guest limit to an 'Unlimited Virtualization' entitlement to make the most of your subscriptions and stay in compliance with your service level agreements with Red Hat.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="guestlimited.jsp.hostsystem">
         <source>Host System</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="guestlimited.jsp.guest">
         <source>Guests</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
       </trans-unit>
-        
+
       <trans-unit id="guestslimited.jsp.guests">
 <source>guest(s)</source>
         <context-group name="ctx">
@@ -19547,7 +19547,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="guestslimited.jsp.nosystems">
 		<source>There are no systems with the Virtualization entitlement.</source>
         <context-group name="ctx">
@@ -19610,7 +19610,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
       </trans-unit>
-        
+
       <trans-unit id="physicalhosts.jsp.para2">
 <source>You may always delete the @@PRODUCT_NAME@@ system profie of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
         <context-group name="ctx">
@@ -19638,14 +19638,14 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
       </trans-unit>
-                                                                                
+
       <trans-unit id="physicalhosts.jsp.knownnote">
 <source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
       </trans-unit>
-        
+
       <trans-unit id="physicalhosts.jsp.unknownnote">
 <source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
         <context-group name="ctx">
@@ -19687,7 +19687,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="guestunlimited.jsp.nosystems">
 		<source>There are no systems with the Virtualization Platform entitlement.</source>
         <context-group name="ctx">
@@ -19701,14 +19701,14 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
       </trans-unit>
-              
+
       <trans-unit id="guestunlimited.jsp.para1">
         <source>The following is a list of host systems with the 'Unlimited Virtualization' entitlement. You may wish to consider downgrading systems that have not exceeded the limited 'Virtualization' entitlement to a 'Virtualization' entitlement to make the most of your subscriptions.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="guestunlimited.jsp.title">
         <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Platform Hosts</source>
         <context-group name="ctx">
@@ -19729,7 +19729,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="guestunlimited.jsp.guest">
         <source>Guests</source>
         <context-group name="ctx">
@@ -19750,7 +19750,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="system.osad.pinged">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
         <context-group name="ctx">
@@ -19799,7 +19799,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
             <context context-type="sourcefile">/rhn/multiorg/channels/OrgList.do</context>
         </context-group>
     </trans-unit>
-      
+
       <trans-unit id="org.trust.header">
         <source>Organizations Trusted By {0} ({1})</source>
         <context-group name="ctx">
@@ -19878,35 +19878,35 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="orgsystemsubs.jsp.man_tip">
         <source>Required for all systems registered to the @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="orgsystemsubs.jsp.mon_tip">
         <source>Enables the tracking of monitoring data for a system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="orgsystemsubs.jsp.provis_tip">
         <source>Allows various advanced functionality such as kickstart and configuration file provisioning.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="orgsystemsubs.jsp.virt_tip">
         <source>Applied to a host system, enables management for up to 4 guests.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="orgsystemsubs.jsp.virt_plat_tip">
         <source>Applied to a host system, enables management for unlimited guests.</source>
         <context-group name="ctx">
@@ -19920,14 +19920,14 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
       </trans-unit>
-     
+
       <trans-unit id="sys_entitlements.description">
         <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
         <context-group name="ctx">
          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements</context>
        </context-group>
       </trans-unit>
- 
+
       <trans-unit id="sys_entitlements.header">
         <source>System Entitlements Across @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
@@ -20032,8 +20032,8 @@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      </trans-unit> 
-     
+      </trans-unit>
+
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>
         <context-group name="ctx">
@@ -20047,20 +20047,20 @@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="kickstart.cryptokey.description">
 <source>Description</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CrytpoKeysList</context>
         </context-group>
-      </trans-unit>		      
+      </trans-unit>
       <trans-unit id="kickstart.cryptokey.type">
 <source>Type</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CrytpoKeysList</context>
         </context-group>
-      </trans-unit>		          
-  
+      </trans-unit>
+
       <trans-unit id="system_entitlement_details.usage">
         <source>Entitlement Usage</source>
         <context-group name="ctx">
@@ -20088,7 +20088,7 @@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
       </trans-unit>
- 
+
       <trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
         <source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
         <context-group name="ctx">
@@ -20102,7 +20102,7 @@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="system_entitlement_details.access_grant_desc.monitoring_entitled">
         <source>A single Monitoring (Add-On) entitlement enables the tracking of monitoring data for a system. </source>
         <context-group name="ctx">
@@ -20137,7 +20137,7 @@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
         </context-group>
       </trans-unit>
- 
+
       <trans-unit id="entitlement_details.tip">
 <source>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt; These numbers reflect what the current counts are for this entitlement right now across organizations.&lt;/span&gt;</source>
         <context-group name="ctx">
@@ -20261,7 +20261,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="orgsoftwaresubs.jsp.header2">
 <source>Software Channel Entitlement Counts</source>
         <context-group name="ctx">
@@ -20270,7 +20270,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       </trans-unit>
 
       <trans-unit id="orgsoftwaresubs.edit.ent">
-        <source>Entitlement modification must be numeric for {0}.</source>         
+        <source>Entitlement modification must be numeric for {0}.</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
           </context-group>
@@ -20281,21 +20281,21 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="org.entitlements.software.success">
 <source>Software Channel Entitlement Counts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
         </context-group>
-      </trans-unit>      
-      
+      </trans-unit>
+
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
         </context-group>
       </trans-unit>
-      
+
       <!-- multiorg trustedorg strings  -->
 
       <trans-unit id="org.trust.summary">
@@ -20323,7 +20323,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       </trans-unit>
       <trans-unit id="org.trust.affectedsystems.summary">
         <source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.
@@ -20783,120 +20783,120 @@ As a Channel Administrator, you may change the base channels your systems are su
       <trans-unit id="badcsvaction.jsp.reason1">
           <source>Your login session to the @@PRODUCT_NAME@@ expired. @@PRODUCT_NAME@@ sessions time out when your browser is left unattended for an extended period of time for security.</source>
       </trans-unit>
-      
+
       <trans-unit id="badcsvaction.jsp.reason2">
 			<source>You may have followed an incorrect or out-of-date link. Double-check the link you followed - did you type or copy it correctly? If so, you may wish to contact the person who provided you with this link to let them know that it should be updated.</source>
       </trans-unit>
-      
+
       <trans-unit id="badcsvaction.jsp.reason3">
 			<source>You may have used an out-of-date bookmark to get to this page. You may wish to delete or correct the bookmark you used.</source>
       </trans-unit>
-      
+
       <trans-unit id="badcsvaction.jsp.retry">
 			<source>To access the CSV you requested, please re-visit the page you wanted to export data from, and click the 'Export CSV' link again.</source>
       </trans-unit>
-      
+
       <trans-unit id="kickstartoptions.jsp.customoptions">
 			<source>Custom  options:</source>
-      </trans-unit>      
-      
+      </trans-unit>
+
       <trans-unit id="kickstartoptions.jsp.customoptionsnote">
 			<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Invalid custom options can cause kickstarts to fail.</source>
-      </trans-unit>      
-      
+      </trans-unit>
+
       <trans-unit id="kickstartoptions.jsp.customoptionstip">
 			<source>&lt;strong&gt;Tip:&lt;/strong&gt; The max size of each line is 2048 characters.</source>
-      </trans-unit>  
-      
+      </trans-unit>
+
       <trans-unit id="systemgroup.jsp.systemgroup">
 			<source>System Group</source>
-      </trans-unit>        
-      
+      </trans-unit>
+
       <trans-unit id="channel.manage.errata.updatedate">
 			<source>Update Date</source>
-      </trans-unit>         
+      </trans-unit>
 
       <trans-unit id="channel.manage.errata.addredhaterrata">
 			<source>Add Red Hat Errata</source>
-      </trans-unit>     
-      
+      </trans-unit>
+
       <trans-unit id="channel.manage.errata.addredhaterratamsg">
 			<source>Choose this option if you want to import errata that exist in Red Hat base channels, or child channels of Red Hat provided channels.</source>
-      </trans-unit>           
-      
+      </trans-unit>
+
         <trans-unit id="channel.manage.errata.noerrata">
  			<source>No errata found applicable to this channel.</source>
-      </trans-unit>          
+      </trans-unit>
       <trans-unit id="channel.manage.errata.addcustomerrata">
 			<source>Add Custom Errata</source>
-      </trans-unit>     
+      </trans-unit>
 
       <trans-unit id="channel.manage.errata.addcustomerratamsg">
 			<source>Choose this option if you want to import custom errata or errata from custom channels.</source>
-      </trans-unit>     
-            
+      </trans-unit>
+
        <trans-unit id="channel.manage.errata.createerrata">
 			<source>Create Custom Errata</source>
-      </trans-unit>          
-      
+      </trans-unit>
+
        <trans-unit id="channel.manage.errata.createerratamsg">
 			<source>Choose this option to create an errata from scratch.  You may import a new errata into this channel at publication time.</source>
-      </trans-unit>                
+      </trans-unit>
 
        <trans-unit id="channel.manage.errata.confirmmsg">
 			<source>Below is a summary of the errata you have selected to clone.  Contained in each CSV download is a list of errata and packages respectively that will be pushed to the channel.</source>
-      </trans-unit>               
-      
+      </trans-unit>
+
        <trans-unit id="channel.manage.errata.custommsg">
 			<source>Below is a list of errata that can pushed to the current channel.  Use the channel selection drop down filter to narrow down errata to choose from.</source>
-      </trans-unit>               
-      
+      </trans-unit>
+
        <trans-unit id="channel.manage.errata.redhatmsg">
 			<source>Below is a list of errata that can pushed to the current channel.  Use the drop down filters to narrow down which errata you may choose from.</source>
-      </trans-unit>         
-      
+      </trans-unit>
+
        <trans-unit id="channel.manage.errata.packageassocmsg">
 			<source>(Recommended) With this selected only errata that contain packages that apply to this channel are shown.  Also, package architecture will match what is currently in the channel.</source>
-      </trans-unit>                 
-      
+      </trans-unit>
+
       <trans-unit id="channel.manage.patchset.none">
           <source>No patch sets associated with this channel.</source>
-      </trans-unit>    
-      
+      </trans-unit>
+
       <trans-unit id="channel.manage.patchset.listremove">
           <source>List/Remove</source>
-      </trans-unit>              
+      </trans-unit>
       <trans-unit id="channel.manage.patchset">
           <source>Patchsets</source>
-      </trans-unit>     
-      
+      </trans-unit>
+
       <trans-unit id="channel.manage.patchset.clustername">
           <source>Name</source>
-      </trans-unit>                           
+      </trans-unit>
 
       <trans-unit id="channel.manage.patchset.releasedate">
           <source>Release Date</source>
-      </trans-unit>        
-      
+      </trans-unit>
+
       <trans-unit id="channel.manage.patchset.delete">
           <source>Delete</source>
-      </trans-unit>         
+      </trans-unit>
 
       <trans-unit id="channel.manage.patchset.desc">
           <source>The following patchsets are in this channel.  To add a patchset to this channel, click 'add' above.</source>
-      </trans-unit>         
+      </trans-unit>
 
       <trans-unit id="channel.manage.patchset.title">
           <source>List Channel Patchsets</source>
-      </trans-unit>             
-      
+      </trans-unit>
+
       <trans-unit id="toolbar.ssm.add">
           <source>add to ssm</source>
-      </trans-unit>    
-      
+      </trans-unit>
+
       <trans-unit id="toolbar.ssm.remove">
           <source>remove from ssm</source>
-      </trans-unit>                                                   
+      </trans-unit>
 
        <trans-unit id="Clone">
 			<source>Clone</source>
@@ -21004,98 +21004,98 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="help.jsp.refguide">
         <source>@@PRODUCT_NAME@@ Reference Guide</source>
-      </trans-unit> 
+      </trans-unit>
       <trans-unit id="help.jsp.helpdesk">
         <source>Welcome to the Help Desk</source>
-      </trans-unit> 
+      </trans-unit>
       <trans-unit id="help.jsp.translation">
         <source>(Translations available)</source>
-      </trans-unit> 
+      </trans-unit>
 	  <trans-unit id="help.jsp.detailed">
         <source>Detailed instructions for using RHN service.</source>
-      </trans-unit>     
+      </trans-unit>
 	  <trans-unit id="help.jsp.install">
         <source>Detailed information regarding @@PRODUCT_NAME@@ server and its installation. </source>
-      </trans-unit> 
+      </trans-unit>
 	  <trans-unit id="help.jsp.install.title">
         <source>@@PRODUCT_NAME@@ Installation Guide</source>
-      </trans-unit>        
+      </trans-unit>
 	  <trans-unit id="help.jsp.proxy">
         <source>Detailed information regarding RHN Proxy server.</source>
-      </trans-unit>  
+      </trans-unit>
 	  <trans-unit id="help.jsp.proxy.title">
         <source>Proxy Guide</source>
-      </trans-unit>        
+      </trans-unit>
 	  <trans-unit id="help.jsp.clients">
         <source>Documentation for setting up clients to connect to a @@PRODUCT_NAME@@ Proxy or @@PRODUCT_NAME@@ server.</source>
-      </trans-unit>          
+      </trans-unit>
 	  <trans-unit id="help.jsp.clients.title">
         <source>Client Configuration Guide</source>
-      </trans-unit>      
+      </trans-unit>
  	  <trans-unit id="help.jsp.channel">
         <source>Documentation for the creation and maintenance of custom channels using @@PRODUCT_NAME@@.</source>
-      </trans-unit>          
+      </trans-unit>
  	  <trans-unit id="help.jsp.channel.title">
         <source>Channel Management Guide</source>
-      </trans-unit>        
+      </trans-unit>
  	  <trans-unit id="help.jsp.release.title">
         <source>@@PRODUCT_NAME@@ Release Notes</source>
-      </trans-unit> 
+      </trans-unit>
  	  <trans-unit id="help.jsp.proxyrelease.title">
         <source>@@PRODUCT_NAME@@ Proxy Release Notes</source>
-      </trans-unit> 
-      
+      </trans-unit>
+
       <trans-unit id="iprange.emptylist">
         <source>No Ip Ranges Found</source>
-      </trans-unit>   
+      </trans-unit>
       <trans-unit id="package.jsp.emptylist">
         <source>This channel contains no packages.</source>
-      </trans-unit>     
+      </trans-unit>
       <trans-unit id="package.jsp.list">
         <source>This channel contains the following packages:</source>
-      </trans-unit>      
+      </trans-unit>
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
-      </trans-unit> 
+      </trans-unit>
       <trans-unit id="channel.jsp.globallysub">
         <source> If checked, all users in your organization may subscribe to this channel.</source>
-      </trans-unit>       
+      </trans-unit>
       <trans-unit id="channel.jsp.globallysubtitle">
         <source>Globally Subscribable</source>
-      </trans-unit>          
+      </trans-unit>
       <trans-unit id="channel.jsp.systemssubsribed">
         <source>Systems Subscribed</source>
-      </trans-unit>       
+      </trans-unit>
       <trans-unit id="channel.jsp.parentchannel">
         <source>Parent Channel</source>
-      </trans-unit>             
+      </trans-unit>
       <trans-unit id="channel.jsp.summary">
         <source>Summary</source>
-      </trans-unit>        
+      </trans-unit>
       <trans-unit id="channel.jsp.chanent">
         <source>Channel Entitlement Name</source>
-      </trans-unit>     
+      </trans-unit>
       <trans-unit id="channel.jsp.label">
         <source>Label</source>
-      </trans-unit>    
+      </trans-unit>
       <trans-unit id="channel.jsp.gpgtitle">
         <source>GPG Public Key</source>
-      </trans-unit>                
+      </trans-unit>
       <trans-unit id="channel.jsp.gpgheader">
         <source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
-      </trans-unit>            
+      </trans-unit>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
-      </trans-unit>  
+      </trans-unit>
       <trans-unit id="channel.jsp.gpgid">
         <source>Key Id</source>
       </trans-unit>
       <trans-unit id="channel.jsp.gpgfp">
         <source>Key Fingerprint</source>
-      </trans-unit>      
+      </trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
-      </trans-unit>               
+      </trans-unit>
       <trans-unit id="channel.jsp.gpgfooter">
         <source>Once you have downloaded the key file, you must import it to your RPM keyring using the command "rpm --import /path/to/gpg_key.txt".
 		</source>
@@ -21111,7 +21111,7 @@ given channel.</source>
       <trans-unit id="channel.jsp.details.title">
          <source>Details
 		</source>
-       </trans-unit>       
+       </trans-unit>
        <trans-unit id="channel.jsp.package.removesuccess">
          <source>{0} package(s) removed from channel {1}
 		</source>
@@ -21136,28 +21136,28 @@ given channel.</source>
        </trans-unit>
        <trans-unit id="provider">
          <source>Content Provider</source>
-       </trans-unit>    
+       </trans-unit>
        <trans-unit id="channel.jsp.package.viewpackages">
          <source>View Packages</source>
-       </trans-unit>   
+       </trans-unit>
        <trans-unit id="channel.jsp.package.addsuccess">
          <source>{0} package(s) added to channel {1}
 		</source>
-		</trans-unit>   
+		</trans-unit>
       <trans-unit id="channel.jsp.package.addbutton">
          <source>Add Package(s)</source>
        </trans-unit>	
       <trans-unit id="channel.jsp.package.addconfirmbutton">
          <source>Confirm Addition</source>
-       </trans-unit>		 
+       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
          <source>No packages found for this critera.</source>
-       </trans-unit>	 
+       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">
          <source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
 
 			Only packages of a compatible arch will be shown</source>
-       </trans-unit>       
+       </trans-unit>
        <trans-unit id="channel.jsp.package.add.confirm.title">
            <source>Confirm Package Addition</source>
        </trans-unit>
@@ -21167,16 +21167,16 @@ given channel.</source>
        </trans-unit>
       <trans-unit id="channel.jsp.package.addtitle">
          <source>Add Packages</source>
-       </trans-unit>	   
+       </trans-unit>
       <trans-unit id="channel.jsp.errata.listtitle">
          <source>This channel contains the following errata:</source>
-       </trans-unit>	      
+       </trans-unit>
       <trans-unit id="channel.jsp.errata.emptylist">
          <source>This channel contains no errata.</source>
-       </trans-unit>	       
+       </trans-unit>
       <trans-unit id="channel.jsp.package.list">
          <source>Channel Packages.</source>
-       </trans-unit>	               
+       </trans-unit>
       <trans-unit id="system.jsp.customkey.title">
          <source>Custom System Info Keys</source>
        </trans-unit>
@@ -21254,171 +21254,171 @@ given channel.</source>
       <trans-unit id="baddownload.jsp.reason1">
           <source>The url has expired.</source>
       </trans-unit>
-      
+
       <trans-unit id="baddownload.jsp.reason2">
 			<source>The url has been modified.</source>
       </trans-unit>
-      
+
       <trans-unit id="baddownload.jsp.reason3">
 			<source>The @@PRODUCT_NAME@@ server does not have read permissions on the specified file.</source>
-      </trans-unit>       
-      
+      </trans-unit>
+
       <trans-unit id="baddownload.jsp.retry">
 			<source>Please revisit the page you recieved this url from to recieve a new one.</source>
-      </trans-unit>         
-      
+      </trans-unit>
+
       <trans-unit id="package.jsp.alt">
 			<source>package</source>
-      </trans-unit>              
-      
+      </trans-unit>
+
       <trans-unit id="package.jsp.description">
 			<source>Description</source>
-      </trans-unit>          
-            
+      </trans-unit>
+
       <trans-unit id="package.jsp.arch">
 			<source>Package Architecture</source>
-      </trans-unit>          
-      
+      </trans-unit>
+
       <trans-unit id="package.jsp.availarch">
 			<source>Available Architectures</source>
-      </trans-unit>                
-       
+      </trans-unit>
+
       <trans-unit id="package.jsp.availfrom">
 			<source>Available From</source>
-      </trans-unit>    
-       
+      </trans-unit>
+
       <trans-unit id="package.jsp.vendor">
 			<source>Vendor</source>
-      </trans-unit>    
+      </trans-unit>
 
       <trans-unit id="package.jsp.packagesize">
 			<source>Package Size</source>
-      </trans-unit>    
- 
+      </trans-unit>
+
       <trans-unit id="package.jsp.payloadsize">
 			<source>Payload Size</source>
-      </trans-unit>    
-      
+      </trans-unit>
+
       <trans-unit id="package.jsp.patchtype">
 			<source>Patch Type</source>
-      </trans-unit>         
-      
+      </trans-unit>
+
      <trans-unit id="package.jsp.patchinfo">
 			<source>Patch Info</source>
-      </trans-unit>              
+      </trans-unit>
 
       <trans-unit id="package.jsp.buildhost">
 			<source>Build Host</source>
-      </trans-unit>    
+      </trans-unit>
 
       <trans-unit id="package.jsp.builddate">
 			<source>Build Date</source>
-      </trans-unit>    
+      </trans-unit>
 
       <trans-unit id="package.jsp.license">
 			<source>License</source>
-      </trans-unit>    
+      </trans-unit>
 
       <trans-unit id="package.jsp.group">
 			<source>Package Group</source>
-      </trans-unit>    
-      
+      </trans-unit>
+
       <trans-unit id="package.jsp.rpmversion">
 			<source>Rpm Version</source>
-      </trans-unit>    
+      </trans-unit>
 
       <trans-unit id="package.jsp.md5sum">
 			<source>MD5Sum</source>
-      </trans-unit>         
+      </trans-unit>
 
       <trans-unit id="package.jsp.path">
 			<source>File System Path</source>
-      </trans-unit>         
-                  
+      </trans-unit>
+
       <trans-unit id="package.jsp.download">
 			<source>Download</source>
-      </trans-unit>      
+      </trans-unit>
 
       <trans-unit id="package.jsp.source">
 			<source>Source Package</source>
-      </trans-unit>   
-      
+      </trans-unit>
+
       <trans-unit id="package.jsp.missingfile">
 			<source>Missing File</source>
-      </trans-unit>   
+      </trans-unit>
 
       <trans-unit id="package.jsp.unavailable">
 			<source>File Unavailable</source>
-      </trans-unit>                    
-      
+      </trans-unit>
+
       <trans-unit id="package.jsp.sunosrelease">
 			<source>SunOs Release</source>
-      </trans-unit>                   
-      
+      </trans-unit>
+
       <trans-unit id="package.jsp.solarisrelease">
 			<source>Solaris Release</source>
-      </trans-unit>          
+      </trans-unit>
 
       <trans-unit id="package.jsp.readme">
 			<source>Readme</source>
-      </trans-unit>           
-      
+      </trans-unit>
+
       <trans-unit id="package.jsp.readmedownload">
 			<source>Download</source>
-      </trans-unit>           
-            
+      </trans-unit>
+
       <trans-unit id="package.jsp.menu.details">
 			<source>Details</source>
-      </trans-unit>                           
-      
+      </trans-unit>
+
      <trans-unit id="package.jsp.menu.overview">
 			<source>Overview</source>
-      </trans-unit>           
-      
+      </trans-unit>
+
      <trans-unit id="package.jsp.menu.filelist">
 			<source>File List</source>
-      </trans-unit>      
-      
+      </trans-unit>
+
      <trans-unit id="package.jsp.menu.changelog">
 			<source>Change Log</source>
-      </trans-unit>   
-      
+      </trans-unit>
+
      <trans-unit id="package.jsp.menu.map">
 			<source>Package Map</source>
-      </trans-unit>                                                       
-             
+      </trans-unit>
+
      <trans-unit id="package.jsp.menu.deps">
 			<source>Dependencies</source>
-      </trans-unit>   
-      
+      </trans-unit>
+
      <trans-unit id="package.jsp.menu.newversions">
 			<source>New Versions</source>
-      </trans-unit>           
-      
+      </trans-unit>
+
      <trans-unit id="package.jsp.menu.packages">
 			<source>Packages</source>
-      </trans-unit>                                
-      
+      </trans-unit>
+
      <trans-unit id="package.jsp.menu.patches">
 			<source>Patches</source>
-      </trans-unit>                                
-      
+      </trans-unit>
+
       <trans-unit id="package.jsp.menu.patchclusters">
 			<source>Patch Clusters</source>
-      </trans-unit>            
-      
+      </trans-unit>
+
       <trans-unit id="package.jsp.menu.patchedsystems">
 			<source>Patched Systems</source>
-      </trans-unit>            
-       
+      </trans-unit>
+
       <trans-unit id="package.jsp.menu.targetsystems">
 			<source>Target Systems</source>
       </trans-unit>
-      
+
       <trans-unit id="package.jsp.menu.installedsystems">
 			<source>Installed Systems</source>
-      </trans-unit>                                          
-       
+      </trans-unit>
+
       <trans-unit id="layout.jsp.productname">
             <source>@@PRODUCT_NAME@@</source>
       </trans-unit>
@@ -21466,9 +21466,9 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.checksumtip">
-        <source>&lt;strong&gt; Tip:&lt;/strong&gt; 
-          sha1 offers the widest compatibility with clients. sha-256 offers higher security, 
-          but is compatible only with newer clients: Fedora 11 and newer, or Enterprise Linux 6 and newer. 
+        <source>&lt;strong&gt; Tip:&lt;/strong&gt;
+          sha1 offers the widest compatibility with clients. sha-256 offers higher security,
+          but is compatible only with newer clients: Fedora 11 and newer, or Enterprise Linux 6 and newer.
          </source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
@@ -21640,19 +21640,19 @@ given channel.</source>
        </trans-unit>
        <trans-unit id="channel.delete.jsp.orgsparagraph">
          <source>Channel deletion will affect any Trusted Organizations that have systems
-            subscribed to the {0} channel. 
+            subscribed to the {0} channel.
          </source>
          <context-group name="ctx">
            <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
          </context-group>
-       </trans-unit>       
+       </trans-unit>
        <trans-unit id="channel.delete.jsp.orgsaffected">
-         <source>Organizations Affected: 
+         <source>Organizations Affected:
          </source>
          <context-group name="ctx">
            <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
          </context-group>
-       </trans-unit>       
+       </trans-unit>
        <trans-unit id="channel.delete.jsp.unsubheader">
          <source>Unsubscribe Systems</source>
          <context-group name="ctx">
@@ -21661,12 +21661,12 @@ given channel.</source>
        </trans-unit>
        <trans-unit id="channel.delete.jsp.unsubparagraph">
          <source>Unsubscribe all trusted organization systems that are subscribed to the
-            {0} channel. Subscribed systems will lose access to packages specific to this channel. 
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.
          </source>
          <context-group name="ctx">
            <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
          </context-group>
-       </trans-unit>       
+       </trans-unit>
       <trans-unit id="generic.jsp.none">
         <source>None</source>
         <context-group name="ctx">
@@ -21675,16 +21675,16 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.introparagraph">
         <source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.
         </source>
         <context-group name="ctx">
@@ -21961,19 +21961,19 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.yumrepo">
 		<source>Associated Yum Repository</source>
-      </trans-unit>     
+      </trans-unit>
       <trans-unit id="channel.edit.jsp.repourl">
 		<source>Repository URL</source>
-      </trans-unit>   
+      </trans-unit>
       <trans-unit id="channel.edit.jsp.repolabel">
 		<source>Label</source>
-      </trans-unit>         
+      </trans-unit>
       <trans-unit id="edit.channel.invalidrepolabel.missing">
 		<source>A repo label is required if providing a yum repository url.</source>
-      </trans-unit>      
+      </trans-unit>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
-      </trans-unit>             
+      </trans-unit>
       <trans-unit id="channel.edit.jsp.sync">
 		<source>Sync Repo</source>
       </trans-unit>

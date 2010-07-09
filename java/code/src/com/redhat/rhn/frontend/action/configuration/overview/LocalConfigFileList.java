@@ -32,7 +32,7 @@ public class LocalConfigFileList extends BaseListAction {
         pc.setFilterColumn("path");
         pc.setFilter(true);
     }
-    
+
     protected DataResult getDataResult(RequestContext context, PageControl pc) {
         User user = context.getLoggedInUser();
         DataResult dr = ConfigurationManager.getInstance().listLocalConfigFiles(user, pc);

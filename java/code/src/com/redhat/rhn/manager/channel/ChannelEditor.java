@@ -35,21 +35,21 @@ import java.util.Map;
  * @version $Rev$
  */
 public class ChannelEditor {
-    
+
     // private instance
     private static ChannelEditor editor = new ChannelEditor();
-    
+
     // private constructor
     private ChannelEditor() {
     }
-    
+
     /**
      * @return Returns the running instance of ChannelEditor
      */
     public static ChannelEditor getInstance() {
         return editor;
     }
-    
+
     /**
      * Adds a list of packages to a channel.
      * @param user The user requesting the package additions
@@ -59,7 +59,7 @@ public class ChannelEditor {
     public void addPackages(User user, Channel channel, Collection packageIds) {
         changePackages(user, channel, packageIds, true);
     }
-    
+
     /**
      * Removes a list of packages from a channel
      * @param user The user requesting the package removals
@@ -69,7 +69,7 @@ public class ChannelEditor {
     public void removePackages(User user, Channel channel, Collection packageIds) {
         changePackages(user, channel, packageIds, false);
     }
-    
+
     /*
      * This is kind of hokey, but I didn't want to replicate all of this code twice.
      * @param add If true, we are adding the list of packages to the channel. Otherwise,
@@ -83,7 +83,7 @@ public class ChannelEditor {
             msg.append(user.getLogin());
             msg.append(" does not have channel admin access to channel: ");
             msg.append(channel.getLabel());
-            
+
             //Throw an exception with a nice error message so the user
             //knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();
@@ -92,7 +92,7 @@ public class ChannelEditor {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.channel"));
             throw pex;
         }
-        
+
         //Loop through packageIds and make sure user has access to the package
         for (Iterator itr = packageIds.iterator(); itr.hasNext();) {
             Long pid = convertObjectToLong(itr.next());
@@ -101,7 +101,7 @@ public class ChannelEditor {
                 msg.append(user.getLogin());
                 msg.append(" does not have access to package: ");
                 msg.append(pid);
-                
+
                 //Throw an exception with a nice error message so the user
                 //knows what went wrong.
                 LocalizationService ls = LocalizationService.getInstance();
@@ -111,7 +111,7 @@ public class ChannelEditor {
                 throw pex;
             }
         }
-        
+
         List<Long> existingPids = ChannelFactory.getPackageIds(channel.getId());
 
         List list = new ArrayList();
@@ -127,20 +127,20 @@ public class ChannelEditor {
         else {
             ChannelManager.removePackages(channel, list, user);
         }
-                
+
         // Mark the affected channel to have it smetadata evaluated, where necessary
         // (RHEL5+, mostly)
         ChannelManager.queueChannelChange(channel.getLabel(), "java::changePackages", null);
-        
+
         ChannelFactory.save(channel);
         //call update_channel stored proc
         updateChannel(channel);
     }
-    
+
     /**
      * Private Helper method to convert an object to a Long. We need this since the list of
      * package ids could either contain Longs (if we were called from java code) or Integers
-     * (if we were called from Xml-Rpc). 
+     * (if we were called from Xml-Rpc).
      * @param number An object to be converted (itr.next() from the list)
      * @return Returns a Long object or null if the object is neither a Long nor an Integer
      */
@@ -154,7 +154,7 @@ public class ChannelEditor {
         }
         return null;
     }
-    
+
     /**
      * Calls the rhn_channel.update_channel stored proc
      * @param channel The channel to update

@@ -30,15 +30,15 @@ public class ChannelFamilySystem extends SelectableAdapter {
     private boolean active;
     private Date registered;
     private ChannelFamilySystemGroup group;
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
-    
+
+
     /**
      * @return Returns the group.
      */
@@ -46,7 +46,7 @@ public class ChannelFamilySystem extends SelectableAdapter {
         return group;
     }
 
-    
+
     /**
      * @param groupIn The group to set.
      */
@@ -60,48 +60,48 @@ public class ChannelFamilySystem extends SelectableAdapter {
     public void setName(String nameIn) {
         name = nameIn;
     }
-    
+
     /**
      * @return Returns the active.
      */
     public boolean isActive() {
         return active;
     }
-    
+
     /**
      * @param activeIn The active to set.
      */
     public void setActive(boolean activeIn) {
         active = activeIn;
     }
-    
+
     /**
      * @return Returns the registered.
      */
     public Date getRegistered() {
         return registered;
     }
-    
+
     /**
      * @return Returns the registered.
      */
     public String  getRegisteredString() {
         return StringUtil.categorizeTime(registered.getTime(), StringUtil.YEARS_UNITS);
-    }        
+    }
     /**
      * @param registeredIn The registered to set.
      */
     public void setRegistered(Date registeredIn) {
         registered = registeredIn;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * @return returns server id
      */
@@ -114,7 +114,7 @@ public class ChannelFamilySystem extends SelectableAdapter {
     public String getSelectionKey() {
         return group.getId() + "|" + id;
     }
-    
+
     /**
      * Returns the channel family Id
      * @param selectionKey the selection key used for this
@@ -123,7 +123,7 @@ public class ChannelFamilySystem extends SelectableAdapter {
     public static Long parseChannelFamilyId(String selectionKey) {
         return Long.valueOf(selectionKey.split("\\|")[0]);
     }
-    
+
     /**
      * Returns the system Id
      * @param selectionKey the selection key used for this

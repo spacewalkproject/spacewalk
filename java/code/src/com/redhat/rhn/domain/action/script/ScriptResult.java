@@ -35,72 +35,72 @@ public class ScriptResult implements Serializable {
     private Date stopDate;
     private Long returnCode;
     private Blob outputBlob;
-    
+
     private ScriptActionDetails parentScriptActionDetails;
-    
+
     /**
      * @return Returns the serverId.
      */
     public Long getServerId() {
         return serverId;
     }
-    
+
     /**
      * @param s The serverId to set.
      */
     public void setServerId(Long s) {
         this.serverId = s;
     }
-    
+
     /**
      * @return Returns the actionScriptId.
      */
     public Long getActionScriptId() {
         return actionScriptId;
     }
-    
+
     /**
      * @param a The actionScriptId to set.
      */
     public void setActionScriptId(Long a) {
         this.actionScriptId = a;
     }
-    
+
     /**
      * @return Returns the startDate.
      */
     public Date getStartDate() {
         return startDate;
     }
-    
+
     /**
      * @param s The startDate to set.
      */
     public void setStartDate(Date s) {
         this.startDate = s;
     }
-    
+
     /**
      * @return Returns the stopDate.
      */
     public Date getStopDate() {
         return stopDate;
     }
-    
+
     /**
      * @param s The stopDate to set.
      */
     public void setStopDate(Date s) {
         this.stopDate = s;
     }
-    
+
     /**
      * @return Returns the returnCode.
      */
     public Long getReturnCode() {
         return returnCode;
     }
-    
+
     /**
      * @param r The returnCode to set.
      */
@@ -110,23 +110,23 @@ public class ScriptResult implements Serializable {
 
     /**
      * Get the parent of this object.
-     * 
+     *
      * @return Returns the parentScriptActionDetails.
      */
     public ScriptActionDetails getParentScriptActionDetails() {
         return parentScriptActionDetails;
     }
-    
+
     /**
      * Set the parent of this object.
-     * 
+     *
      * @param parentScriptActionDetailsIn The parentScriptActionDetails to set.
      */
     public void setParentScriptActionDetails(
             ScriptActionDetails parentScriptActionDetailsIn) {
         this.parentScriptActionDetails = parentScriptActionDetailsIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -134,9 +134,9 @@ public class ScriptResult implements Serializable {
         if (obj == null || !(obj instanceof ScriptResult)) {
             return false;
         }
-       
+
         ScriptResult r = (ScriptResult) obj;
-        
+
         return new EqualsBuilder().append(this.getActionScriptId(), r.getActionScriptId())
                                   .append(this.getServerId(), r.getServerId())
                                   .append(this.getStartDate(), r.getStartDate())
@@ -144,7 +144,7 @@ public class ScriptResult implements Serializable {
                                   .append(this.getReturnCode(), r.getReturnCode())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -156,10 +156,10 @@ public class ScriptResult implements Serializable {
                                     .append(getReturnCode())
                                     .toHashCode();
     }
-    
+
     /**
      * Get the output.
-     * 
+     *
      * @return Returns the output.
      */
     public byte[] getOutput() {
@@ -167,7 +167,7 @@ public class ScriptResult implements Serializable {
     }
 
     /**
-     * Let Hibernate get the output blob. (used only by Hibernate) 
+     * Let Hibernate get the output blob. (used only by Hibernate)
      * @return Returns the script.
      */
     private Blob getOutputBlob() {
@@ -175,7 +175,7 @@ public class ScriptResult implements Serializable {
     }
 
     /**
-     * Let Hibernate set the output blob contents. (used only by Hibernate) 
+     * Let Hibernate set the output blob contents. (used only by Hibernate)
      * @param outputBlob The script to set.
      */
     private void setOutputBlob(Blob outputBlobIn) {
@@ -189,5 +189,5 @@ public class ScriptResult implements Serializable {
     public String getOutputContents() {
         return HibernateFactory.getByteArrayContents(getOutput());
     }
-    
+
 }

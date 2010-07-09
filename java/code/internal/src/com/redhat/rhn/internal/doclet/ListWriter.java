@@ -27,33 +27,33 @@ import java.util.Map;
  * @version $Rev$
  */
 public class ListWriter extends DocWriter {
-    
-    
+
+
     private static final String LIST_OUT = "./build/reports/apidocs/apilist.txt";
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    public void write(List<Handler> handlers, 
+    public void write(List<Handler> handlers,
             Map<String, String> serializers) throws Exception {
-        
+
         FileWriter fstream = new FileWriter(LIST_OUT);
         BufferedWriter out = new BufferedWriter(fstream);
-        
+
         for (Handler handler : handlers) {
             for (ApiCall call : handler.getCalls()) {
-                out.write(handler.getName() + "." + call.getName() + " " + 
+                out.write(handler.getName() + "." + call.getName() + " " +
                         call.getMethod().parameters().length + " ");
-                
+
                 for (Parameter param : call.getMethod().parameters()) {
                     out.write(param.type().typeName() + " ");
                 }
                 out.write("\n");
-                
+
             }
         }
         out.close();
     }
-    
+
 }

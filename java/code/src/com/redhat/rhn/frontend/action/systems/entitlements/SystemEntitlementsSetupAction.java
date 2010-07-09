@@ -48,42 +48,42 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
-    
+
     private static Logger log = Logger.getLogger(SystemEntitlementsSetupAction.class);
-    
+
     public static final String SHOW_COMMANDS = "showCommands";
-    
+
     public static final String SHOW_MONITORING = "showMonitoring";
     public static final String SHOW_MANAGEMENT_ASPECTS = "showManagementAspects";
     public static final String SHOW_UPDATE_ASPECTS = "showUpdateAspects";
-    
+
     public static final String SHOW_UNENTITLED = "showUnentitled";
-    
+
     public static final String SHOW_ADDON_ASPECTS = "showAddOnAspects";
-    
+
     public static final String ADDON_ENTITLEMENTS = "addOnEntitlements";
     public static final String ADDON_ENTITLEMENT = "addOnEntitlement";
-    
+
     public static final String DEMO_COUNTS_MESSAGE = "demoCountsMessage";
     public static final String SHOW_DEMO_COUNTS_MESSAGE = "showDemoCountsMessage";
-    
+
     public static final String UPDATE_COUNTS_MESSAGE = "updateCountsMessage";
     public static final String MANAGEMENT_COUNTS_MESSAGE = "managementCountsMessage";
     public static final String PROVISION_COUNTS_MESSAGE = "provisioningCountsMessage";
-    public static final String VIRTUALIZATION_COUNTS_MESSAGE = 
+    public static final String VIRTUALIZATION_COUNTS_MESSAGE =
         "virtualizationCountsMessage";
-    public static final String VIRTUALIZATION_PLATFORM_COUNTS_MESSAGE = 
+    public static final String VIRTUALIZATION_PLATFORM_COUNTS_MESSAGE =
         "virtualizationPlatformCountsMessage";
-    
+
     public static final String MONITORING_COUNTS_MESSAGE = "monitoringCountsMessage";
-    
+
     /**
      * {@inheritDoc}
      */
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.SYSTEM_ENTITLEMENTS;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -94,30 +94,30 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
     /**
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, 
+    public ActionForward execute(ActionMapping mapping,
                                     ActionForm formIn,
-                                    HttpServletRequest request, 
+                                    HttpServletRequest request,
                                     HttpServletResponse response) {
 
         ActionForward forward = super.execute(mapping, formIn, request, response);
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
-        
+
         log.debug("show: " + (request.getAttribute(SHOW_NO_SYSTEMS) == null));
         if (request.getAttribute(SHOW_NO_SYSTEMS) == null) {
             log.debug("adding show commands ..");
             request.setAttribute(SHOW_COMMANDS, Boolean.TRUE);
         }
         if (user.getOrg().isDemoEntitled()) {
-            request.setAttribute(SHOW_DEMO_COUNTS_MESSAGE, Boolean.TRUE);    
+            request.setAttribute(SHOW_DEMO_COUNTS_MESSAGE, Boolean.TRUE);
         }
-        
+
         List addOnEntitlements = new ArrayList();
         if (log.isDebugEnabled()) {
             log.debug("user.getOrg().getEnts: " + user.getOrg().getEntitlements());
         }
-        
-        // Virt is an addon to update so just check to make sure we 
+
+        // Virt is an addon to update so just check to make sure we
         // have virt.  This is different from provisioning and monitoring
         if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementVirtualization())) {
             log.debug("Adding virt-entitled droplist entry");
@@ -133,13 +133,13 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
                     EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED));
             request.setAttribute(SHOW_ADDON_ASPECTS, Boolean.TRUE);
         }
-        
+
         if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementEnterprise())) {
-            setIfSlotsAvailable(SHOW_MANAGEMENT_ASPECTS, 
-                                    request, user, 
+            setIfSlotsAvailable(SHOW_MANAGEMENT_ASPECTS,
+                                    request, user,
                                     EntitlementManager.MANAGEMENT);
-            
-            
+
+
 
             if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementMonitoring()) &&
                     hasMonitoringAcl(user, request)) {
@@ -151,7 +151,7 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
 
             if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementProvisioning())) {
                 addOnEntitlements.add(lvl10n("provisioning_entitled",
-                        EntitlementManager.PROVISIONING_ENTITLED));    
+                        EntitlementManager.PROVISIONING_ENTITLED));
                 request.setAttribute(SHOW_ADDON_ASPECTS, Boolean.TRUE);
             }
         }
@@ -162,19 +162,19 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
             Collections.sort(addOnEntitlements);
             request.setAttribute(ADDON_ENTITLEMENTS, addOnEntitlements);
             DynaActionForm form = (DynaActionForm)formIn;
-            form.set(ADDON_ENTITLEMENT, 
+            form.set(ADDON_ENTITLEMENT,
                        ((LabelValueBean) addOnEntitlements.get(0)).getValue());
         }
         setupCounts(request, user);
 
-        setIfSlotsAvailable(SHOW_UPDATE_ASPECTS, 
-                                    request, user, 
+        setIfSlotsAvailable(SHOW_UPDATE_ASPECTS,
+                                    request, user,
                                     EntitlementManager.UPDATE);
 
-        
+
         setupCounts(request, user);
-        
-        
+
+
 
         return forward;
     }
@@ -187,11 +187,11 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
                                      HttpServletRequest request,
                                      User user,
                                      Entitlement ent) {
-        EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(ent, 
+        EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(ent,
                                                             user.getOrg());
         if (sg != null) {
             if (sg.getMaxMembers() == null) {
-                request.setAttribute(aspectName, Boolean.TRUE);    
+                request.setAttribute(aspectName, Boolean.TRUE);
             }
             else {
                  long available = sg.getMaxMembers().longValue() -
@@ -200,8 +200,8 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
                      request.setAttribute(aspectName, Boolean.TRUE);
                  }
             }
-            
-            
+
+
             if (sg.getMaxMembers() == null || sg.getMaxMembers().longValue() > 0) {
                 request.setAttribute(SHOW_UNENTITLED, Boolean.TRUE);
             }
@@ -214,37 +214,37 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
                        "com.redhat.rhn.common.security.acl.MonitoringAclHandler",
                         null));
     }
-    
-    
+
+
     private void setupCounts(HttpServletRequest request, User user) {
-        setupCountsMessage(request, user, 
+        setupCountsMessage(request, user,
                 EntitlementManager.MANAGEMENT,
                 MANAGEMENT_COUNTS_MESSAGE);
-        
-        setupCountsMessage(request, user, 
+
+        setupCountsMessage(request, user,
                     EntitlementManager.PROVISIONING,
                     PROVISION_COUNTS_MESSAGE);
-        
-        setupCountsMessage(request, user, EntitlementManager.VIRTUALIZATION, 
+
+        setupCountsMessage(request, user, EntitlementManager.VIRTUALIZATION,
                 VIRTUALIZATION_COUNTS_MESSAGE);
-            
-        setupCountsMessage(request, user, EntitlementManager.VIRTUALIZATION_PLATFORM, 
+
+        setupCountsMessage(request, user, EntitlementManager.VIRTUALIZATION_PLATFORM,
                 VIRTUALIZATION_PLATFORM_COUNTS_MESSAGE);
 
         if (hasMonitoringAcl(user, request)) {
-            setupCountsMessage(request, user, 
+            setupCountsMessage(request, user,
                     EntitlementManager.MONITORING,
-                    MONITORING_COUNTS_MESSAGE);        
-        }            
+                    MONITORING_COUNTS_MESSAGE);
+        }
 
-        setupCountsMessage(request, user, 
+        setupCountsMessage(request, user,
                             EntitlementManager.UPDATE,
                             UPDATE_COUNTS_MESSAGE);
         if (user.getOrg().isDemoEntitled()) {
-            setupDemoCountsMessage(request, user);        
+            setupDemoCountsMessage(request, user);
         }
     }
-    
+
     private void setupDemoCountsMessage(HttpServletRequest request,
                                         User user) {
         long total = 1, current = 0, available = 0;
@@ -255,32 +255,32 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
             if (sg.getCurrentMembers() != null &&
                     sg.getCurrentMembers().longValue() > 0) {
                 current = 1;
-            }            
+            }
         }
-        
+
         available = total - current;
         String message = getEntitlementsCountsMessage(total, current, available);
-        request.setAttribute(DEMO_COUNTS_MESSAGE, message);        
+        request.setAttribute(DEMO_COUNTS_MESSAGE, message);
     }
-    
-    private void setupCountsMessage(HttpServletRequest request, 
+
+    private void setupCountsMessage(HttpServletRequest request,
                                     User user,
                                     Entitlement ent,
                                     String requestId) {
-        
+
         long total = 0, current = 0, available = 0;
 
         EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(ent,
                                                                 user.getOrg());
         if (sg != null) {
-            
+
             if (sg.getMaxMembers() == null) {
                 current = sg.getCurrentMembers().longValue();
-                
+
                 LocalizationService service  = LocalizationService.getInstance();
-                String  unlimitedKey = 
+                String  unlimitedKey =
                     "systementitlements.jsp.entitlement_counts_message_unlimited";
-                
+
                 String message = service.getMessage(unlimitedKey,
                                                     new Object[] {
                                                     String.valueOf(current)});
@@ -317,11 +317,11 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         else {
             countsMessage += "4";
         }
-        LocalizationService service  = LocalizationService.getInstance(); 
+        LocalizationService service  = LocalizationService.getInstance();
         String message = service.getMessage(countsMessage,
                                             new Object[] {String.valueOf(current),
                                                         String.valueOf(available),
                                                         String.valueOf(total)});
         return message;
-    }   
+    }
 }

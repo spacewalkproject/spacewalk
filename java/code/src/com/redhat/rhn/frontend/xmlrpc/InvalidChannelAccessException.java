@@ -44,5 +44,5 @@ public class InvalidChannelAccessException extends FaultException  {
                 getMessage("api.channel.invalidchannelaccess", new Object [] {access}),
                 cause);
     }
-    
+
 }

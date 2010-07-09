@@ -28,7 +28,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * ToolTip
- * Renders <span class="small-text"><strong>Tip:</strong>Take Vacations.</span> 
+ * Renders <span class="small-text"><strong>Tip:</strong>Take Vacations.</span>
  * @version $Rev$
  */
 public class ToolTipTag extends TagSupport {
@@ -40,7 +40,7 @@ public class ToolTipTag extends TagSupport {
 
     private String key;
     private String typeKey = "Tip";
-    
+
     /**
      * Sets the key
      * @param k the i18n key to set
@@ -48,15 +48,15 @@ public class ToolTipTag extends TagSupport {
     public void setKey(String k) {
         key = k;
     }
-    
+
     /**
      * Sets the type to render, example "Tip", "Warning", "Note"...
      * @param typeKeyIn the String resources key of the type..
      */
     public void setTypeKey(String typeKeyIn) {
-       typeKey = typeKeyIn; 
+       typeKey = typeKeyIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -77,17 +77,17 @@ public class ToolTipTag extends TagSupport {
         }
         catch (IOException e) {
             throw new JspException(e);
-        }        
-        
+        }
+
     }
-    
+
     protected String geTypeKey() {
         if (StringUtils.isBlank(typeKey)) {
             return "Tip";
         }
-        return typeKey; 
+        return typeKey;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -98,7 +98,7 @@ public class ToolTipTag extends TagSupport {
         }
         catch (IOException e) {
             throw new JspException(e);
-        }        
+        }
         return SKIP_BODY;
     }
 
@@ -107,7 +107,7 @@ public class ToolTipTag extends TagSupport {
      */
     public void release() {
         typeKey = "Tip";
-        key = null;                
+        key = null;
         super.release();
     }
 }

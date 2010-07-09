@@ -29,8 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Responsible for populating the request to display a list of SSM operation log
  * entries. The simplest way to use this class is to subclass it and call the setters
- * to indicate what subset of operations to show. 
- * 
+ * to indicate what subset of operations to show.
+ *
  * @author Jason Dobies
  * @version $Revision$
  */

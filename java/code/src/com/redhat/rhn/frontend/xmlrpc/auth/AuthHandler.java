@@ -32,18 +32,18 @@ import javax.security.auth.login.LoginException;
  * Corresponds to Auth.pm in old perl code.
  * @version $Rev$
  * @xmlrpc.namespace auth
- * @xmlrpc.doc This namespace provides methods to authenticate with the system's 
+ * @xmlrpc.doc This namespace provides methods to authenticate with the system's
  * management server.
  */
 public class AuthHandler extends BaseHandler {
 
     private static Logger log = Logger.getLogger(AuthHandler.class);
-    
+
     /**
      * Logout user with sessionKey
      * @param sessionKey The sessionKey for the loggedInUser
      * @return Returns 1 on success, exception otherwise.
-     * 
+     *
      * @xmlrpc.doc Logout the user with the given session key.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype #return_int_success()
@@ -52,7 +52,7 @@ public class AuthHandler extends BaseHandler {
         SessionManager.killSession(sessionKey);
         return 1;
     }
-    
+
     /**
      * Login using a username and password only. Creates a session containing the userId
      * and returns the key for the session.
@@ -60,21 +60,21 @@ public class AuthHandler extends BaseHandler {
      * @param password The password to check
      * @return Returns the key for the session created
      * @throws LoginException Throws a LoginException if the user can't be logged in.
-     * 
+     *
      * @xmlrpc.doc Login using a username and password. Returns the session key
      * used by most other API methods.
      * @xmlrpc.param #param("string", "username")
      * @xmlrpc.param #param("string", "password")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #param("string", "sessionKey")
      */
-    public String login(String username, String password) 
+    public String login(String username, String password)
                       throws LoginException {
         //If we didn't get a duration value, use the one from the configs
         long duration = SessionManager.lifetimeValue();
         return login(username, password, new Integer((int)duration));
     }
-    
+
     /**
      * Login using a username and password only. Creates a session containing the userId
      * and returns the key for the session.
@@ -83,16 +83,16 @@ public class AuthHandler extends BaseHandler {
      * @param durationIn The session duration
      * @return Returns the key for the session
      * @throws LoginException Throws a LoginException if the user can't be logged in.
-     * 
+     *
      * @xmlrpc.doc Login using a username and password. Returns the session key
      * used by other methods.
      * @xmlrpc.param #param("string", "username")
      * @xmlrpc.param #param("string", "password")
      * @xmlrpc.param #param_desc("int", "duration", "Length of session.")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #param("string", "sessionKey")
      */
-    public String login(String username, String password, Integer durationIn) 
+    public String login(String username, String password, Integer durationIn)
                       throws LoginException {
         //Log in the user (handles authentication and active/disabled logic)
         User user = null;
@@ -103,34 +103,34 @@ public class AuthHandler extends BaseHandler {
             // Convert to fault exception
             throw new UserLoginException(e.getMessage());
         }
-        
+
         long duration = getDuration(durationIn);
         //Create a new session with the user
         WebSession session = SessionManager.makeSession(user.getId(), duration);
         return session.getKey();
     }
-    
+
     /**
      * This method is used to see if an external service is handing back an authorized
-     * token indicating that the server trusts the requester in some manner.  This is 
+     * token indicating that the server trusts the requester in some manner.  This is
      * currently used in the integration with Cobbler; however, it may be used for other
-     * services in the future.  
-     * 
+     * services in the future.
+     *
      * @param login login of the user to check against token
      * @param token token to validate
      * @return 1 if the token is valid with this username, 0 otherwise.
-     * 
+     *
      * @xmlrpc.ignore Since this API is for internal integration between services and
      * is not useful to external users of the API, the typical XMLRPC API documentation
      * is not being included.
      */
     public int checkAuthToken(String login, String token) {
         int retval = 0;
-        
+
         boolean valid = IntegrationService.get().
             checkRandomToken(login, token);
         if (valid) {
-            retval = 1; 
+            retval = 1;
         }
         else {
             retval = 0;
@@ -140,7 +140,7 @@ public class AuthHandler extends BaseHandler {
     }
 
     /**
-     * Takes in a String duration value from the user, checks it, and returns the 
+     * Takes in a String duration value from the user, checks it, and returns the
      * long value or throws a runtime exception.
      * @param durationIn The duration to check
      * @return Returns the long value of durationIn
@@ -151,14 +151,14 @@ public class AuthHandler extends BaseHandler {
         long expires = durationIn.longValue();
         //Get the default session lifetime from the configs
         long dbLifetime = SessionManager.lifetimeValue();
-        
+
         //Make sure the durationIn isn't greater than what the database allows
         if (expires > dbLifetime) {
             throw new InvalidSessionDurationException("The session duration cannot exceed" +
-                          " the maximum duration allowed by the database (currently " + 
+                          " the maximum duration allowed by the database (currently " +
                           dbLifetime + ")");
         }
-        
+
         //If we made it this far, expires is valid
         return expires;
     }

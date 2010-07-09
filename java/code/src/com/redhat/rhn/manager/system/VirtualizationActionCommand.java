@@ -31,7 +31,7 @@ import java.util.Map;
 
 /**
  * Command class for schedule virtualization-related actions
- * 
+ *
  * @version $Rev $
  */
 public class VirtualizationActionCommand {
@@ -45,7 +45,7 @@ public class VirtualizationActionCommand {
     private String uuid;
     private Map context;
     private Action action;
-    
+
 
     /**
      * Constructor
@@ -57,7 +57,7 @@ public class VirtualizationActionCommand {
      * @param contextIn Map of optional action arguments.
      */
     public VirtualizationActionCommand(User userIn, Date dateIn, ActionType actionTypeIn,
-                                       Server targetSystemIn, String uuidIn, 
+                                       Server targetSystemIn, String uuidIn,
                                        Map contextIn) {
         this.setUser(userIn);
         this.setScheduleDate(dateIn);
@@ -79,7 +79,7 @@ public class VirtualizationActionCommand {
         }
 
         log.debug("store() called.");
-        
+
         log.debug("creating virtAction");
         BaseVirtualizationAction virtAction =
             (BaseVirtualizationAction) ActionFactory.createAction(this.getActionType());
@@ -90,16 +90,16 @@ public class VirtualizationActionCommand {
         virtAction.setUuid(this.getUuid());
 
         if (log.isDebugEnabled()) {
-            log.debug("virtAction.name: " + virtAction.getName() + " uuid: " + 
+            log.debug("virtAction.name: " + virtAction.getName() + " uuid: " +
                     virtAction.getUuid());
         }
-        
+
         ServerAction serverAction = new ServerAction();
         serverAction.setStatus(ActionFactory.STATUS_QUEUED);
         serverAction.setRemainingTries(new Long(5));
         serverAction.setServer(this.getTargetSystem());
         virtAction.extractParameters(getContext());
-        
+
         virtAction.addServerAction(serverAction);
         serverAction.setParentAction(virtAction);
 

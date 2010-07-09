@@ -121,7 +121,7 @@ public class SystemsPerChannelDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Allowed custom channels.
      */
     public List<EssentialChannelDto> getAllowedCustomChannels() {
@@ -129,10 +129,10 @@ public class SystemsPerChannelDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param allowedCustomChannelsIn Allowed custom channels to set.
      */
-    public void setAllowedCustomChannels(List<EssentialChannelDto> 
+    public void setAllowedCustomChannels(List<EssentialChannelDto>
         allowedCustomChannelsIn) {
         this.allowedCustomChannels = allowedCustomChannelsIn;
     }

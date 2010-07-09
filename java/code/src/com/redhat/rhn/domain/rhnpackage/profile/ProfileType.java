@@ -28,49 +28,49 @@ public class ProfileType extends BaseDomainHelper {
     private Long id;
     private String label;
     private String name;
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param l The label to set.
      */
     public void setLabel(String l) {
         this.label = l;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
     public void setName(String n) {
         this.name = n;
     }
-    
+
     /**
      * {@inheritDoc}
      */

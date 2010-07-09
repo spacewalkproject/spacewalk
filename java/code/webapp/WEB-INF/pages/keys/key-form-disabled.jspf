@@ -20,7 +20,7 @@
 
         </td>
     </tr>
-    <tr>    
+    <tr>
         <th>
             <bean:message key="keycreate.jsp.filecontents"/>
         </th>
@@ -33,7 +33,7 @@
         <c:if test="${cryptoKey.keyString == null}">
             <bean:message key="keycreate.jsp.nokey"/>
         </c:if>
-        
+
         </td>
     </tr>
     <tr>
@@ -42,7 +42,7 @@
       <html:hidden property="key_id" value="${cryptoKey.id}"/>
       <html:hidden property="description" />
       <html:hidden property="type" />
-      
+
       <td align="right"><html:submit><bean:message key="keydelete.jsp.deletekey"/></html:submit></td>
     </tr>
     </table>

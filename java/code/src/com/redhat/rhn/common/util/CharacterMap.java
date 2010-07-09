@@ -21,24 +21,24 @@ import java.util.HashMap;
 
 /**
  * An wrapper around HashMap that ONLY acccepts
- * java.lang.Characters and java.lang.Integers.  
- * 
- * 5.0: This class should be removed once we 
+ * java.lang.Characters and java.lang.Integers.
+ *
+ * 5.0: This class should be removed once we
  * switch to Java 5.0 and we get Generics.
- * 
+ *
  * @version $Rev: 325 $
  */
 public class CharacterMap {
 
     private HashMap innerMap;
-    
+
     /**
     * public constructor
     */
     public CharacterMap() {
         innerMap = new HashMap();
     }
-    
+
     /**
     * Add charIn and intIn to the map.
     * @param charIn Character to add
@@ -120,7 +120,7 @@ public class CharacterMap {
     public int hashCode() {
         return innerMap.hashCode();
     }
-    
+
     /** {@inheritDoc} */
     public String toString() {
         return innerMap.toString();

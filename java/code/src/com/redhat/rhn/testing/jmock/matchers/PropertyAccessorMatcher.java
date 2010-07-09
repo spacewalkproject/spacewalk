@@ -33,10 +33,10 @@ import junit.framework.AssertionFailedError;
  *   JavaBeans specfication
  * </a>
  * <br/><br/>
- * The code in 
+ * The code in
  * <a href=http://www.jmock.org/custom-matchers.html">Writing Custom Invocation Matchers</a>
  * forms the basis for this class.
- * 
+ *
  * @version $Rev$
  */
 public class PropertyAccessorMatcher extends StatelessInvocationMatcher {
@@ -45,14 +45,14 @@ public class PropertyAccessorMatcher extends StatelessInvocationMatcher {
      * {@inheritDoc}
      */
     public boolean matches(Invocation invocation) {
-        return isPropertyAccessor(invocation.invokedMethod, 
+        return isPropertyAccessor(invocation.invokedMethod,
                 invocation.invokedMethod.getDeclaringClass());
     }
-    
+
     /**
      * Returns <code>true</code> if the invoked method is a property accessor of the bean
      * class.
-     * 
+     *
      * @param invokedMethod The invoked method.
      * @param beanClass The class on which the method was invoked.
      * @return <code>true</code> if the invoked method is a property accessor of the bean
@@ -62,7 +62,7 @@ public class PropertyAccessorMatcher extends StatelessInvocationMatcher {
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(beanClass);
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-            
+
             for (int i = 0; i < propertyDescriptors.length; ++i) {
                 if (invokedMethod.equals(propertyDescriptors[i].getReadMethod())) {
                     return true;

@@ -24,7 +24,7 @@ import com.redhat.rhn.domain.errata.Errata;
 public class PublishedClonedErrata extends PublishedErrata implements ClonedErrata {
 
     private Errata original;
-    
+
 
     /**
      * {@inheritDoc}
@@ -32,14 +32,14 @@ public class PublishedClonedErrata extends PublishedErrata implements ClonedErra
     public Errata getOriginal() {
         return original;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void setOriginal(Errata originalIn) {
         this.original = originalIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */

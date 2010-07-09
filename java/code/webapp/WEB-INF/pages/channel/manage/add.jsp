@@ -16,8 +16,8 @@
     </h2>
 
  <table class="details">
- 
- 
+
+
  	<tr>
 	 	<th>
 			<a href="/rhn/channels/manage/errata/AddRedHatErrata.do?cid=${cid}">
@@ -39,8 +39,7 @@
   	 	<td><bean:message key="channel.manage.errata.createerratamsg"/></td>
   	 </tr>
  </table>
- 
- 
+
+
 </body>
 </html>
- 

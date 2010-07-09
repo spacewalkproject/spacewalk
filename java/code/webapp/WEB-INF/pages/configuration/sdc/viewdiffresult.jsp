@@ -14,11 +14,11 @@
 <bean:message key="sdc.config.header.diff_result"/></h2>
 <p>
 
-<c:set var="path" 
+<c:set var="path"
 		value="${revisionBean.configRevision.configFile.configFileName.path}"/>
 
 <c:set var="revValue">
-(<strong><a href="${cfg:fileRevisionUrl(revisionBean.configRevision.configFile.id, revisionBean.configRevision.id)}"><bean:message key="sdc.config.diff_result.rev" 
+(<strong><a href="${cfg:fileRevisionUrl(revisionBean.configRevision.configFile.id, revisionBean.configRevision.id)}"><bean:message key="sdc.config.diff_result.rev"
 					arg0="${revisionBean.configRevision.revision}"/></strong></a>)
 </c:set>
 
@@ -27,13 +27,13 @@
 		 path = "${path}"
 		 id = "${revisionBean.configRevision.configFile.id}"
 		 type = "${revisionBean.configRevision.configFileType.label}"
-				/></strong></c:set> 
+				/></strong></c:set>
 <c:set var="compareFileValue"><strong><cfg:file
 		 path = "${path}"
 		 type = "${revisionBean.configRevision.configFileType.label}"
 		 nolink="true"
 				/></strong></c:set>				
-<c:set var="channel" 
+<c:set var="channel"
 		value="${revisionBean.configRevision.configFile.configChannel}"/>
 
 <c:set var="channelValue"><strong><cfg:channel
@@ -68,7 +68,7 @@
 	</tr>
 	<tr>
 		<th><bean:message key="sdc.config.diff_result.comparison_time"/>:</th>
-			<td> <fmt:formatDate value="${revisionBean.modified}" 
+			<td> <fmt:formatDate value="${revisionBean.modified}"
 					type="both" dateStyle="short" timeStyle="long"/></td>
 	</tr>
 	<tr>

@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class CompareFileAction extends BaseListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -46,10 +46,10 @@ public class CompareFileAction extends BaseListAction {
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
         HttpServletRequest request = rctxIn.getRequest();
         User user = rctxIn.getLoggedInUser();
-        
+
         ConfigChannel channel = ConfigActionHelper.getChannel(request);
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listFilesInChannel(user, channel, pcIn);
     }
-    
+
 }

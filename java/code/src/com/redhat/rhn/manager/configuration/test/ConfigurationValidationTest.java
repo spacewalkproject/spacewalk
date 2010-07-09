@@ -22,7 +22,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class ConfigurationValidationTest extends RhnBaseTestCase {
-    
+
     public void testValidatePath() {
         assertEquals(0, ConfigurationValidation.
                             validatePath("/etc/foo").getErrors().size());
@@ -37,21 +37,21 @@ public class ConfigurationValidationTest extends RhnBaseTestCase {
         assertEquals(3, ConfigurationValidation.
                             validatePath("etc/../foo/").getErrors().size());
     }
-    
+
     public void testValidateContent() {
         assertEquals(0, ConfigurationValidation.
                              validateContent("", "{@", "@}").getErrors().size());
         assertEquals(0, ConfigurationValidation.
                 validateContent("{@ @}", "{@", "@}").getErrors().size());
-        assertEquals(1, ConfigurationValidation.validateContent("{@ foo.bar.blech @}", 
+        assertEquals(1, ConfigurationValidation.validateContent("{@ foo.bar.blech @}",
                 "{@", "@}").getErrors().size());
-        assertEquals(1, ConfigurationValidation.validateContent("{@ ( bar ) = blech @}", 
+        assertEquals(1, ConfigurationValidation.validateContent("{@ ( bar ) = blech @}",
                 "{@", "@}").getErrors().size());
-        assertEquals(0, ConfigurationValidation.validateContent("{@ rhn.system.foo @}", 
+        assertEquals(0, ConfigurationValidation.validateContent("{@ rhn.system.foo @}",
                 "{@", "@}").getErrors().size());
-        assertEquals(0, ConfigurationValidation.validateContent("{@ rhn.system.foo() @}", 
+        assertEquals(0, ConfigurationValidation.validateContent("{@ rhn.system.foo() @}",
                 "{@", "@}").getErrors().size());
-        assertEquals(1, ConfigurationValidation.validateContent("{@ rhn.system.foo( @}", 
+        assertEquals(1, ConfigurationValidation.validateContent("{@ rhn.system.foo( @}",
                 "{@", "@}").getErrors().size());
         assertEquals(0, ConfigurationValidation.
                         validateContent("{@ rhn.system.foo( bar ) @}", "{@", "@}").
@@ -71,14 +71,14 @@ public class ConfigurationValidationTest extends RhnBaseTestCase {
                 "{@ rhn.system.foo(bar) @}\n{@ rhn.system.foo(bar) @}", "{@", "@}").
                             getErrors().size());
         assertEquals(0, ConfigurationValidation.validateContent(
-                "{@\nrhn.system.foo(\nbar\n) @}\n{@ rhn.system.foo\n(bar)\n @}", 
+                "{@\nrhn.system.foo(\nbar\n) @}\n{@ rhn.system.foo\n(bar)\n @}",
                 "{@", "@}").getErrors().size());
 
         assertEquals(2, ConfigurationValidation.validateContent(
                 "{@\nack.foo(\nbar\n) @}\n{@ kaff.foo\n(bar)\n @}", "{@", "@}").
                             getErrors().size());
     }
-    
+
     public void testValidUGID() {
         String id = "12345";
         assertTrue(ConfigurationValidation.validateUGID(id));
@@ -93,7 +93,7 @@ public class ConfigurationValidationTest extends RhnBaseTestCase {
         id = "0x0A";
         assertFalse(ConfigurationValidation.validateUGID(id));
     }
-    
+
     public void testValidateUserOrGroup() {
         String name = "root";
         assertTrue(ConfigurationValidation.validateUserOrGroup(name));

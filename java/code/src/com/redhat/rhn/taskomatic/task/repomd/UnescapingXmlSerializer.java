@@ -21,38 +21,38 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * 
+ *
  * UnescapingXmlSerializer
- * 
- * An XML Serializer that does no escaping.  Be very careful! 
- * 
+ *
+ * An XML Serializer that does no escaping.  Be very careful!
+ *
  * @version $Rev$
  */
 public class UnescapingXmlSerializer extends XMLSerializer {
-    
+
     /**
-     * Constructor 
-     * @param writer the writer 
+     * Constructor
+     * @param writer the writer
      * @param format the output format
      */
     public UnescapingXmlSerializer(Writer writer, OutputFormat format) {
         super(writer, format);
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected void printEscaped(String source) throws IOException {
         _printer.printText(source);
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected void printXMLChar(int ch) throws IOException {
         _printer.printText((char)ch);
     }
-    
+
 }

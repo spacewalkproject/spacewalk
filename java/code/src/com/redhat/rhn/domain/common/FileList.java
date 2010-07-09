@@ -33,28 +33,28 @@ public class FileList extends BaseDomainHelper implements Identifiable {
     private String label;
     private Org org;
     private Collection fileNames;
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param l The label to set.
      */
@@ -62,7 +62,7 @@ public class FileList extends BaseDomainHelper implements Identifiable {
         this.label = l;
     }
 
-    
+
     /**
      * @return Returns the org.
      */
@@ -70,7 +70,7 @@ public class FileList extends BaseDomainHelper implements Identifiable {
         return org;
     }
 
-    
+
     /**
      * @param orgIn The org to set.
      */
@@ -78,7 +78,7 @@ public class FileList extends BaseDomainHelper implements Identifiable {
         this.org = orgIn;
     }
 
-    
+
     /**
      * Add a filename to this list.
      * @param fileIn to add
@@ -92,7 +92,7 @@ public class FileList extends BaseDomainHelper implements Identifiable {
         this.fileNames.add(cfn);
     }
 
-    
+
     /**
      * Returns Set of ConfigFileName instances.
      * @return Returns the fileNames.
@@ -104,12 +104,12 @@ public class FileList extends BaseDomainHelper implements Identifiable {
         return fileNames;
     }
 
-    
+
     /**
      * @param fileNamesIn The fileNames to set.
      */
     public void setFileNames(Collection fileNamesIn) {
         this.fileNames = fileNamesIn;
     }
-    
+
 }

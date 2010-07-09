@@ -42,12 +42,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * RankChannelsAction
  * @version $Rev$
  */
 public class RankChannelsAction extends BaseRankChannels {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -55,11 +55,11 @@ public class RankChannelsAction extends BaseRankChannels {
         Map keys = new HashMap();
         keys.put("sdc.config.rank.jsp.update", "update");
         keys.put("ssm.config.rank.jsp.up", "handleNoScript");
-        keys.put("ssm.config.rank.jsp.down", "handleNoScript");        
+        keys.put("ssm.config.rank.jsp.down", "handleNoScript");
         return keys;
     }
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -73,7 +73,7 @@ public class RankChannelsAction extends BaseRankChannels {
         setup(context, (DynaActionForm)form, set);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-    
+
 
     /**
      * Updates the set and then applies changes to the server
@@ -91,7 +91,7 @@ public class RankChannelsAction extends BaseRankChannels {
         if (!context.isJavaScriptEnabled()) {
             return handleNoScript(mapping, formIn, request, response);
         }
-        
+
         User user = context.getLoggedInUser();
         DynaActionForm form = (DynaActionForm) formIn;
         Server server = context.lookupAndBindServer();
@@ -102,10 +102,10 @@ public class RankChannelsAction extends BaseRankChannels {
                 ConfigChannel channel = ConfigurationManager.getInstance()
                                  .lookupConfigChannel(user, (Long)itr.next());
                 server.subscribe(channel);
-            }            
+            }
         }
-        
-        RhnSet set = getRhnSet(user);        
+
+        RhnSet set = getRhnSet(user);
         set.clear();
         RhnSetManager.store(set);
 
@@ -113,14 +113,14 @@ public class RankChannelsAction extends BaseRankChannels {
         String message =
             LocalizationService.getInstance().getMessage("snapshots.configchannel");
         SystemManager.snapshotServer(server, message);
-        
+
         String[] params = {server.getName()};
-        getStrutsDelegate().saveMessage("sdc.config.rank.jsp.success", 
+        getStrutsDelegate().saveMessage("sdc.config.rank.jsp.success",
                                                     params, request);
         return getStrutsDelegate().forwardParam(mapping.findForward("success"),
                 RequestContext.SID, server.getId().toString());
     }
-    
+
     protected void setup(RequestContext context, DynaActionForm form,
                             RhnSet set) {
         //This happens if the rank channels page is used without the
@@ -134,20 +134,20 @@ public class RankChannelsAction extends BaseRankChannels {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    protected void populateWidgetLabels(LinkedHashSet labelValues, 
+    protected void populateWidgetLabels(LinkedHashSet labelValues,
                                             RequestContext context) {
         Server server = context.lookupAndBindServer();
-        for (Iterator itr = server.getConfigChannels().iterator(); 
+        for (Iterator itr = server.getConfigChannels().iterator();
                                                     itr.hasNext();) {
             ConfigChannel channel = (ConfigChannel) itr.next();
             labelValues.add(lv(channel.getName(),
                                         channel.getId().toString()));
         }
     }
-    
+
     protected void processParams(RequestContext context, Map map) {
         Server server = context.lookupAndBindServer();
         map.put(RequestContext.SID, server.getId().toString());
@@ -156,7 +156,7 @@ public class RankChannelsAction extends BaseRankChannels {
             map.put(SubscriptionsSubmitAction.WIZARD_MODE, Boolean.TRUE.toString());
         }
     }
-    
+
     /**
      * @param request
      * @return
@@ -164,6 +164,6 @@ public class RankChannelsAction extends BaseRankChannels {
     private boolean isWizardMode(RequestContext context) {
         return  Boolean.TRUE.toString().equals(context.getParam
                          (SubscriptionsSubmitAction.WIZARD_MODE, false));
-    }    
-    
+    }
+
 }

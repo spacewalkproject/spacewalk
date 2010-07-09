@@ -38,31 +38,31 @@ public class VirtualizationEntitlementsActionTest extends RhnMockStrutsTestCase 
             ServerTestUtils.addGuestToServer(user, server);
         }
         TestUtils.saveAndFlush(server);
-        
+
         setRequestPathInfo("/systems/entitlements/GuestLimitedHosts");
         actionPerform();
         List pageList = (List) getRequest().
-            getAttribute(VirtualizationEntitlementsAction.PAGELIST); 
+            getAttribute(VirtualizationEntitlementsAction.PAGELIST);
         assertNotNull(pageList);
         assertTrue(pageList.size() > 0);
     }
-    
+
     public void testListGuestUnlimited() throws Exception {
-        
+
         Server server = ServerTestUtils.createVirtPlatformHostWithGuest(user);
-        
+
         for (int i = 0; i < 3; ++i) {
             ServerTestUtils.addGuestToServer(user, server);
         }
-        
+
         TestUtils.saveAndFlush(server);
-        
+
         setRequestPathInfo("/systems/entitlements/GuestUnlimitedHosts");
         actionPerform();
-        
+
         List pageList = (List)getRequest().getAttribute(
                 VirtualizationEntitlementsAction.PAGELIST);
-        
+
         assertNotNull(pageList);
         assertTrue(pageList.size() > 0);
     }
@@ -70,15 +70,15 @@ public class VirtualizationEntitlementsActionTest extends RhnMockStrutsTestCase 
     public void testPhysicalExecute() throws Exception {
         // Create a host with 1 guest
         Server server = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        SystemManager.removeServerEntitlement(server.getId(), 
+        SystemManager.removeServerEntitlement(server.getId(),
                 EntitlementManager.VIRTUALIZATION);
         TestUtils.saveAndFlush(server);
-        
+
         setRequestPathInfo("/systems/entitlements/PhysicalHosts");
         actionPerform();
         List pageList = (List) getRequest().
-            getAttribute(VirtualizationEntitlementsAction.PAGELIST); 
+            getAttribute(VirtualizationEntitlementsAction.PAGELIST);
         assertNotNull(pageList);
-        assertTrue(pageList.size() > 0);        
+        assertTrue(pageList.size() > 0);
     }
 }

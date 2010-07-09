@@ -28,14 +28,14 @@ import junit.framework.TestCase;
  * @version $Rev$
  */
 public class ValidatorTest extends TestCase {
-    
+
     private Validator validator;
-    
+
     public void setUp() throws Exception {
         TestUtils.disableLocalizationLogging();
         validator = Validator.getInstance(TestUtils.findTestData("TestObject.xsd"));
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -54,21 +54,21 @@ public class ValidatorTest extends TestCase {
         assertNotNull(dc.getSchemaType("Date"));
         assertNotNull(dc.getSchemaType("String"));
         assertNotNull(dc.getSchemaType("Long"));
-        
-        
+
+
     }
-    
+
     public void testGetConstraints() {
         assertTrue(validator.getConstraints().size() > 0);
         Object constraint = validator.getConstraints().get(0);
         assertTrue(constraint instanceof Constraint);
     }
-    
+
     public void testNullValue() throws Exception {
         TestObject to = new TestObject();
         assertNotNull(validator.isValid("stringField", to));
     }
-    
+
     public void testStringLength() throws Exception {
         TestObject to = new TestObject();
         to.setStringField("short");
@@ -82,7 +82,7 @@ public class ValidatorTest extends TestCase {
         to.setTwoCharField("it");
         assertNull(validator.isValid("twoCharField", to));
     }
-    
+
     public void testASCIIString() throws Exception {
         TestObject to = new TestObject();
         to.setAsciiString("shughes_login");
@@ -113,13 +113,13 @@ public class ValidatorTest extends TestCase {
         assertNotNull(validator.isValid("usernameString", to));
         to.setUsernameString("joe\"user");
         assertNotNull(validator.isValid("usernameString", to));
-        to.setUsernameString("機能拡張を"); 
+        to.setUsernameString("機能拡張を");
         assertNotNull(validator.isValid("usernameString", to));
-        to.setUsernameString("shughes login"); 
+        to.setUsernameString("shughes login");
         assertNotNull(validator.isValid("usernameString", to));
-        to.setUsernameString("shughes%login"); 
+        to.setUsernameString("shughes%login");
         assertNotNull(validator.isValid("usernameString", to));
-        to.setUsernameString(" shughes"); 
+        to.setUsernameString(" shughes");
         assertNotNull(validator.isValid("usernameString", to));
 
         // good user names
@@ -141,7 +141,7 @@ public class ValidatorTest extends TestCase {
         assertNull(validator.isValid("usernameString", to));
 
     }
-    
+
     public void testPosixUsername() {
         TestObject to = new TestObject();
 
@@ -160,7 +160,7 @@ public class ValidatorTest extends TestCase {
         assertNull(validator.isValid("posixString", to));
         to.setPosixString("shughes_login");
         assertNull(validator.isValid("posixString", to));
-        
+
         // Should fail
         to.setPosixString("-ab");
         assertNotNull(validator.isValid("posixString", to));
@@ -198,22 +198,22 @@ public class ValidatorTest extends TestCase {
         assertNotNull(validator.isValid("posixString", to));
         to.setPosixString("joe\"user");
         assertNotNull(validator.isValid("posixString", to));
-        to.setPosixString("機能拡張を"); 
+        to.setPosixString("機能拡張を");
         assertNotNull(validator.isValid("posixString", to));
-        to.setPosixString("shughes login"); 
+        to.setPosixString("shughes login");
         assertNotNull(validator.isValid("posixString", to));
-        to.setPosixString("shughes%login"); 
+        to.setPosixString("shughes%login");
         assertNotNull(validator.isValid("posixString", to));
-        to.setPosixString(" shughes"); 
+        to.setPosixString(" shughes");
         assertNotNull(validator.isValid("posixString", to));
     }
-    
+
     public void testDateField() throws Exception {
         TestObject to = new TestObject();
         to.setDateField(new Date());
         assertNull(validator.isValid("dateField", to));
     }
-    
+
     public void testLongField() throws Exception {
 
         TestObject to = new TestObject();
@@ -221,7 +221,7 @@ public class ValidatorTest extends TestCase {
         assertNull(validator.isValid("longField", to));
         to.setLongField(new Long(100));
         assertNotNull(validator.isValid("longField", to));
-        
+
         assertNotNull(validator.isValid("numberString", to));
         to.setNumberString("0.5");
         assertNotNull(validator.isValid("numberString", to));
@@ -230,9 +230,9 @@ public class ValidatorTest extends TestCase {
         to.setNumberString("1");
         assertNull(validator.isValid("numberString", to));
     }
-    
+
     /** TODO: Implement the multi-value fields */
-    public void testMultiValueField() throws Exception { 
+    public void testMultiValueField() throws Exception {
         TestObject to = new TestObject();
         to.setStringField("ZZZ");
         to.setCompoundField("something");
@@ -249,13 +249,13 @@ public class ValidatorTest extends TestCase {
         to.setCompoundField("somethingmorethan20characterslong");
         assertNotNull(validator.isValid("compoundField", to));
     }
-    
+
     public void testRequiredIfConstraint() {
         TestObject to = new TestObject();
         //init both to empty strings
         to.setStringField("");
         to.setSecondStringField("");
-        
+
         // Make sure that when both are null/empty, everything is ok
         assertNull(validator.isValid("secondStringField", to));
 
@@ -266,15 +266,15 @@ public class ValidatorTest extends TestCase {
         // Set both to something and it should be valid
         to.setSecondStringField("bar");
         assertNull(validator.isValid("secondStringField", to));
-        
-        // Since stringField isn't ZZZ or XXX this should 
+
+        // Since stringField isn't ZZZ or XXX this should
         // be OK
         assertNull(validator.isValid("secondLongField", to));
-        
+
         to.setStringField("ZZZ");
         // Now it should fail
         assertNotNull(validator.isValid("secondLongField", to));
     }
-}    
+}
 
 

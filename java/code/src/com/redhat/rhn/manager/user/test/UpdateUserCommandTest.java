@@ -32,20 +32,20 @@ import org.apache.commons.lang.StringUtils;
 public class UpdateUserCommandTest extends RhnBaseTestCase {
 
     private UpdateUserCommand command;
-    
+
     public void setUp() {
         Long oid = UserTestUtils.createOrg("testOrg");
         User user = UserTestUtils.createUser("testUser", oid);
         command = new UpdateUserCommand(user);
     }
-    
+
     public void testLongNames() {
         int maxPassword = UserDefaults.get().getMaxPasswordLength();
         int emailLength = UserDefaults.get().getMaxEmailLength();
 
         Config.get().setString(UserDefaults.MAX_PASSWORD_LENGTH, String.valueOf(5));
         Config.get().setString(UserDefaults.MAX_EMAIL_LENGTH, String.valueOf(5));
-        
+
 
         String invalidPassword = "password";
         String invalidEmail   = "foobar@foobar.com";
@@ -56,12 +56,12 @@ public class UpdateUserCommandTest extends RhnBaseTestCase {
         command.setPassword(invalidPassword);
         assertCommandThrows(IllegalArgumentException.class, command);
 
-        Config.get().setString(UserDefaults.MAX_PASSWORD_LENGTH, 
+        Config.get().setString(UserDefaults.MAX_PASSWORD_LENGTH,
                                         String.valueOf(maxPassword));
         Config.get().setString(UserDefaults.MAX_EMAIL_LENGTH, String.valueOf(emailLength));
-        
-    }    
-    
+
+    }
+
     public void testPartialUpdate() {
         command.setEmail("50cent@pimpville.com");
         command.setFirstNames("beetle juice");
@@ -70,39 +70,39 @@ public class UpdateUserCommandTest extends RhnBaseTestCase {
         assertEquals("50cent@pimpville.com", user.getEmail());
         assertEquals("beetle juice", user.getFirstNames());
     }
-    
+
     public void testInvalidEmail() {
         command.setPassword("validP@a$$word");
-        
+
         command.setEmail("jesusrredhat.com");
         assertCommandThrows(IllegalArgumentException.class, command);
-        
+
         command.setEmail(null);
         assertCommandThrows(IllegalArgumentException.class, command);
-        
+
         command.setEmail("");
         assertCommandThrows(IllegalArgumentException.class, command);
     }
-    
+
     public void testInvalidPassword() {
         command.setEmail("jesusr@redhat.com");
 
         command.setPassword("");
         assertCommandThrows(IllegalArgumentException.class, command);
-        
+
         command.setPassword(null);
         assertCommandThrows(IllegalArgumentException.class, command);
-        
+
         // 65 > maxlen
         command.setPassword(
             "12345678901234567890123456789012345678901234567890123456789012345");
         assertCommandThrows(IllegalArgumentException.class, command);
-        
+
         // minlen - 1
         command.setPassword("1234");
         assertCommandThrows(IllegalArgumentException.class, command);
     }
-    
+
     public void testNullPassword() {
         try {
             command.setPassword(null);
@@ -111,24 +111,24 @@ public class UpdateUserCommandTest extends RhnBaseTestCase {
             // expected
         }
     }
-    
+
     public void testValidEmail() {
         command.setPassword("valid_password");
-        
+
         assertEmail("jesusr@redhat.com", command);
         assertEmail("foobar@rhn.redhat.com", command);
         assertEmail("jmrodri@transam", command);
     }
-    
+
     public void testValidPassword() {
         command.setEmail("jesusr@redhat.com");
         // = maxlen
         assertPassword(StringUtils.repeat("a", UserDefaults.get().
-                getMinPasswordLength()), command);        
+                getMinPasswordLength()), command);
         // = maxlen
         assertPassword(StringUtils.repeat("a", UserDefaults.get().
                 getMaxPasswordLength()), command);
-        
+
         // random string
         String randomPassword = TestUtils.randomString();
         if (randomPassword.length() > 64) {
@@ -138,28 +138,28 @@ public class UpdateUserCommandTest extends RhnBaseTestCase {
         assertPassword(randomPassword, command);
         assertPassword("Th1$_i5-V@Lid", command);
     }
-    
+
     public void testPrefix() {
         command.setPrefix("Miss");
         User user = command.updateUser();
         assertNotNull(user);
         assertEquals("Miss", user.getPrefix());
-        
+
         command.setPrefix("Miss.");
         assertCommandThrows(IllegalArgumentException.class, command);
-        
+
         command.setPrefix("Master of my Domain");
         assertCommandThrows(IllegalArgumentException.class, command);
-        
+
         command.setPrefix("King");
         assertCommandThrows(IllegalArgumentException.class, command);
     }
-    
+
     private void assertPassword(String password, UpdateUserCommand cmd) {
         cmd.setPassword(password);
         User user = cmd.updateUser();
         assertNotNull(user);
-        
+
         // can't do this if we've encrypted the passwords
         if (!Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS)) {
             String savedPassword = user.getPassword();
@@ -167,14 +167,14 @@ public class UpdateUserCommandTest extends RhnBaseTestCase {
             assertEquals(savedPassword, user.getPassword());
         }
     }
-    
+
     private void assertEmail(String email, UpdateUserCommand cmd) {
         cmd.setEmail(email);
         User user = cmd.updateUser();
         assertNotNull(user);
         assertEquals(email, user.getEmail());
     }
-    
+
     private void assertCommandThrows(Class expectedEx, UpdateUserCommand cmd) {
         try {
             cmd.updateUser();

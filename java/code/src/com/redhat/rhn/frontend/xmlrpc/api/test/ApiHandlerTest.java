@@ -23,14 +23,14 @@ public class ApiHandlerTest extends RhnBaseTestCase {
     public void testSystemVersion() {
         ApiHandler handler = new ApiHandler();
         /*
-         * No way to tell if we get the correct version or not, so just make sure we 
+         * No way to tell if we get the correct version or not, so just make sure we
          * get *something*.
          */
-        
+
         String version = Config.get().getString("web.version");
         assertEquals(version, handler.systemVersion());
     }
-    
+
     public void testGetVersion() {
         ApiHandler handler = new ApiHandler();
         String version = Config.get().getString("web.apiversion");

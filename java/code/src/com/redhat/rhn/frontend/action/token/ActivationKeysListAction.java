@@ -50,26 +50,26 @@ public class ActivationKeysListAction extends RhnAction {
     private static final String DEFAULT_KEY = "default";
 
     /**
-     * 
-     * @return the set declaration used to this action.. 
+     *
+     * @return the set declaration used to this action..
      */
     protected RhnSetDecl getDecl() {
         return RhnSetDecl.ACTIVATION_KEYS;
     }
-    
+
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
-        
+
         RhnSet set =  getDecl().get(user);
         List <ActivationKeyDto> dataSet = KickstartLister.getInstance().
                                         getActivationKeysInOrg(user.getOrg(), null);
-        
+
         //if its not submitted
         // ==> this is the first visit to this page
         // clear the 'dirty set'
@@ -87,24 +87,24 @@ public class ActivationKeysListAction extends RhnAction {
         }
 
         RhnListSetHelper helper = new RhnListSetHelper(request);
-        
+
         if (request.getParameter(RequestContext.DISPATCH) != null) {
-            // if its one of the Dispatch actions handle it..            
+            // if its one of the Dispatch actions handle it..
             helper.updateSet(set, LIST_NAME);
             return handleDispatchAction(mapping, context, set, dataSet);
         }
-         
+
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
-            helper.execute(set, 
+            helper.execute(set,
                             LIST_NAME,
                             dataSet);
-        }        
+        }
 
-        // if I have a previous set selections populate data using it       
+        // if I have a previous set selections populate data using it
         if (!set.isEmpty()) {
             helper.syncSelections(set, dataSet);
-            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);            
+            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
         }
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute(DATA_SET, dataSet);
@@ -113,27 +113,27 @@ public class ActivationKeysListAction extends RhnAction {
     }
 
     private ActionForward handleDispatchAction(ActionMapping mapping,
-            RequestContext context, RhnSet set, 
+            RequestContext context, RhnSet set,
             List <ActivationKeyDto> currentKeys) {
         User user = context.getLoggedInUser();
         int numEnabled = 0;
         int numDisabled = 0;
         for (ActivationKeyDto dto : currentKeys) {
-            Token token = TokenFactory.lookup(dto.getId().longValue(), 
+            Token token = TokenFactory.lookup(dto.getId().longValue(),
                                             user.getOrg());
             if (set.contains(dto.getId().longValue()) && token.isTokenDisabled()) {
                 token.enable();
                 TokenFactory.save(token);
                 numEnabled++;
             }
-            else if (!set.contains(dto.getId().longValue()) && 
+            else if (!set.contains(dto.getId().longValue()) &&
                                         !token.isTokenDisabled()) {
                 token.disable();
                 TokenFactory.save(token);
                 numDisabled++;
             }
         }
-        
+
         reportStatusMessage(context.getRequest(), numEnabled, numDisabled);
         return mapping.findForward("success");
     }
@@ -158,9 +158,9 @@ public class ActivationKeysListAction extends RhnAction {
         }
         else {
             String key = "activation-keys.status.message.4";
-            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(key));            
+            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(key));
         }
-        
-        saveMessages(req, msg);        
+
+        saveMessages(req, msg);
     }
 }

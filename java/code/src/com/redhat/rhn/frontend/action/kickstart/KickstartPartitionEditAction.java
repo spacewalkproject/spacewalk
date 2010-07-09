@@ -28,18 +28,18 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev: 1 $
  */
 public class KickstartPartitionEditAction extends BaseKickstartEditAction {
-        
+
     public static final String PARTITIONS = "partitions";
-    
+
 
     /**
      * {@inheritDoc}
      */
     protected ValidatorError processFormValues(HttpServletRequest request,
-            DynaActionForm form, 
+            DynaActionForm form,
             BaseKickstartCommand cmdIn) {
-        KickstartPartitionCommand cmd = (KickstartPartitionCommand) cmdIn;          
-        return cmd.parsePartitions(form.getString(PARTITIONS));                
+        KickstartPartitionCommand cmd = (KickstartPartitionCommand) cmdIn;
+        return cmd.parsePartitions(form.getString(PARTITIONS));
     }
 
     protected String getSuccessKey() {
@@ -49,10 +49,10 @@ public class KickstartPartitionEditAction extends BaseKickstartEditAction {
     /**
      * {@inheritDoc}
      */
-    protected void setupFormValues(RequestContext ctx, 
+    protected void setupFormValues(RequestContext ctx,
             DynaActionForm form, BaseKickstartCommand cmdIn) {
         KickstartPartitionCommand cmd = (KickstartPartitionCommand) cmdIn;
-        form.set(PARTITIONS, cmd.populatePartitions());                
+        form.set(PARTITIONS, cmd.populatePartitions());
     }
 
     /**
@@ -63,5 +63,5 @@ public class KickstartPartitionEditAction extends BaseKickstartEditAction {
                 ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                 ctx.getCurrentUser());
     }
-        
+
 }

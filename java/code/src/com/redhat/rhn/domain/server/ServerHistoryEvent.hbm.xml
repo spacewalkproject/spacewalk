@@ -12,12 +12,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </id>
         <many-to-one name="server"
                      class="com.redhat.rhn.domain.server.Server"
-                     column="server_id" insert="true" update="true" />    
+                     column="server_id" insert="true" update="true" />
         <property name="summary" column="summary" type="string" />
         <property name="details" column="details" type="string" />
         <property name="created" column="created" type="timestamp"
                   insert="false" update="false"/>
-        <property name="modified" column="modified" type="timestamp" 
+        <property name="modified" column="modified" type="timestamp"
                   insert="false" update="false"/>
 
     </class>

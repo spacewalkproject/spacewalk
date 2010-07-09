@@ -50,13 +50,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ErrataConfirmSetupAction extends RhnAction implements Listable {
 
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
 
@@ -69,7 +69,7 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
                 ErrataSetupAction.getSetDecl(sid));
         helper.setWillClearSet(false);
         helper.execute();
-        
+
         if (helper.isDispatched()) {
             if (!set.isEmpty()) {
                 return confirmErrata(mapping, formIn, request, response);
@@ -81,15 +81,15 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
         //Setup the datepicker widget
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request,
                 (DynaActionForm)formIn, "date", DatePicker.YEAR_RANGE_POSITIVE);
-        
+
         request.setAttribute("date", picker);
         request.setAttribute("system", server);
-        
+
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                                        request.getParameterMap());
     }
-    
-    
+
+
     /**
      * Action to execute if confirm button is clicked
      * @param mapping ActionMapping
@@ -102,21 +102,21 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         DynaActionForm form = (DynaActionForm) formIn;
-        
+
         User user = requestContext.getLoggedInUser();
         Long sid = requestContext.getRequiredParam("sid");
-            
+
         Map hparams = new HashMap();
-        
+
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         RhnSet set = ErrataSetupAction.getSetDecl(sid).get(user);
 
         List<Errata> errataList = ErrataFactory.listErrata(set.getElementValues());
-        
+
         if (server != null && !errataList.isEmpty()) {
              for (Errata e : errataList) {
                  Action update = ActionManager.createErrataAction(user, e);
@@ -125,35 +125,35 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
                          DatePicker.YEAR_RANGE_POSITIVE));
                  ActionManager.storeAction(update);
              }
-             
-             ActionMessages msg = new ActionMessages(); 
+
+             ActionMessages msg = new ActionMessages();
              Object[] args = new Object[3];
              args[0] = new Long(errataList.size());
              args[1] = server.getName();
              args[2] = server.getId().toString();
-             
+
              StringBuffer messageKey = new StringBuffer("errata.schedule");
              if (errataList.size() != 1) {
                  messageKey = messageKey.append(".plural");
              }
-             
-             msg.add(ActionMessages.GLOBAL_MESSAGE, 
+
+             msg.add(ActionMessages.GLOBAL_MESSAGE,
                      new ActionMessage(messageKey.toString(), args));
              strutsDelegate.saveMessages(request, msg);
              hparams.put("sid", sid);
-                        
+
              ErrataSetupAction.getSetDecl(sid).clear(user);
              return strutsDelegate.forwardParams(mapping.findForward("confirmed"), hparams);
         }
         /*
          * Everything is not ok.
          * TODO: Error page or some other shout-to-user-venue
-         * What happens if a few ServerActions fail to be scheduled? 
+         * What happens if a few ServerActions fail to be scheduled?
          */
         Map params = makeParamMap(request);
         return strutsDelegate.forwardParams(mapping.findForward("default"), params);
     }
-    
+
 
     /**
      * Makes a parameter map containing request params that need to
@@ -163,7 +163,7 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
      */
     protected Map makeParamMap(HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
-        
+
         Map params = requestContext.makeParamMapWithPagination();
         Long sid = requestContext.getRequiredParam("sid");
         if (sid != null) {
@@ -182,5 +182,5 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
         return SystemManager.errataInSet(context.getLoggedInUser(),
                     ErrataSetupAction.getSetDecl(sid).getLabel(), null);
     }
-    
+
 }

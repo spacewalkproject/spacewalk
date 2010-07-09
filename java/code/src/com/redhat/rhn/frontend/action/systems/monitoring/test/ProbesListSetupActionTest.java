@@ -35,13 +35,13 @@ import org.apache.struts.action.ActionForward;
  * @version $Rev: 59372 $
  */
 public class ProbesListSetupActionTest extends RhnBaseTestCase {
-    
+
     public void testExecute() throws Exception {
 
         ProbesListSetupAction action = new ProbesListSetupAction();
         ActionHelper ah = new ActionHelper();
         ah.setUpAction(action);
-        
+
         ProbeSuite suite = ProbeSuiteTest.createTestProbeSuite(ah.getUser());
         ProbeSuiteTest.addTestServersToSuite(suite, ah.getUser());
         MonitoringManager.getInstance().storeProbeSuite(suite, ah.getUser());
@@ -70,7 +70,7 @@ public class ProbesListSetupActionTest extends RhnBaseTestCase {
         assertNotNull(pdt.getStateString());
         pdt.setState(null);
         assertTrue(pdt.getStateString().
-                equals(MonitoringConstants.PROBE_STATE_PENDING));        
+                equals(MonitoringConstants.PROBE_STATE_PENDING));
     }
 
     // Test for BZ 161584
@@ -89,6 +89,6 @@ public class ProbesListSetupActionTest extends RhnBaseTestCase {
         DataResult dr = (DataResult) ah.getRequest().getAttribute(ListHelper.DATA_SET);
         assertTrue(dr.size() == 0);
     }
-    
-    
+
+
 }

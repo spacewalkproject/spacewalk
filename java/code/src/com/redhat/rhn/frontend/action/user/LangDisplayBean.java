@@ -17,24 +17,24 @@ package com.redhat.rhn.frontend.action.user;
 /**
  * Stores information about available languages
  * Used in the Locale Preferences page
- * 
+ *
  * @version $Rev $
  */
 public class LangDisplayBean {
-    
+
     private String languageCode;
     private String localizedName;
     private String imageUri;
-    
+
     /**
-     * Returns relative uri pointing to the 
+     * Returns relative uri pointing to the
      * language example image
      * @return string uri
      */
     public String getImageUri() {
         return imageUri;
     }
-    
+
     /**
      * Sets the langauge example image uri
      * @param uri relative uri
@@ -42,7 +42,7 @@ public class LangDisplayBean {
     public void setImageUri(String uri) {
         this.imageUri = uri;
     }
-    
+
     /**
      * Returns lang code
      * @return string lang code
@@ -50,7 +50,7 @@ public class LangDisplayBean {
     public String getLanguageCode() {
         return languageCode;
     }
-    
+
     /**
      * Sets lang code
      * @param langCode lang code
@@ -58,7 +58,7 @@ public class LangDisplayBean {
     public void setLanguageCode(String langCode) {
         this.languageCode = langCode;
     }
-    
+
     /**
      * Returns localized name of language
      * @return string
@@ -66,7 +66,7 @@ public class LangDisplayBean {
     public String getLocalizedName() {
         return localizedName;
     }
-    
+
     /**
      * Sets localized name of lang
      * @param name localized name
@@ -74,6 +74,6 @@ public class LangDisplayBean {
     public void setLocalizedName(String name) {
         this.localizedName = name;
     }
-    
-    
+
+
 }

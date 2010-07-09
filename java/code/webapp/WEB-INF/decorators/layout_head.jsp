@@ -11,11 +11,11 @@
     <title>
       <bean:message key="layout.jsp.productname"/>
       <rhn:require acl="user_authenticated()">
-        <rhn:menu definition="/WEB-INF/nav/sitenav-authenticated.xml" 
+        <rhn:menu definition="/WEB-INF/nav/sitenav-authenticated.xml"
                   renderer="com.redhat.rhn.frontend.nav.TitleRenderer" />
       </rhn:require>
       <rhn:require acl="not user_authenticated()">
-        <rhn:menu definition="/WEB-INF/nav/sitenav.xml" 
+        <rhn:menu definition="/WEB-INF/nav/sitenav.xml"
                   renderer="com.redhat.rhn.frontend.nav.TitleRenderer" />
       </rhn:require>
       ${requestScope.innernavtitle}
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="/css/rhn-base.css" type="text/css" />
     <script src="/javascript/prototype-1.6.0.js" type="text/javascript"> </script>
     <script src="/javascript/check_all.js" type="text/javascript"> </script>
-    
+
     <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="/css/rhn-iecompat.css" />
     <![endif]-->

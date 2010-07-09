@@ -25,61 +25,61 @@ public class AdvDataSourceDto {
     private Long pin;
     private String testColumn;
     private String foobar;
-    
+
     /**
      * @return the id
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn the id to set
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * @return the pin
      */
     public Long getPin() {
         return pin;
     }
-    
+
     /**
      * @param pinIn the pin to set
      */
     public void setPin(Long pinIn) {
         this.pin = pinIn;
     }
-    
+
     /**
      * @return the testColumn
      */
     public String getTestColumn() {
         return testColumn;
     }
-    
+
     /**
      * @param testColumnIn the testColumn to set
      */
     public void setTestColumn(String testColumnIn) {
         this.testColumn = testColumnIn;
     }
-    
+
     /**
      * @return the foobar
      */
     public String getFoobar() {
         return foobar;
     }
-    
+
     /**
      * @param foobarIn the foobar to set
      */
     public void setFoobar(String foobarIn) {
         this.foobar = foobarIn;
     }
-    
+
 }

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.rhnpackage.PackageKeyType" 
+    <class name="com.redhat.rhn.domain.rhnpackage.PackageKeyType"
         table="rhnPackageKeyType" mutable="false">
         <cache usage="read-only"/>
         <id name="id" type="long" column="id">
@@ -12,16 +12,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">rhn_package_key_type_id_seq</param>
             </generator>
         </id>
-  
+
         <property name="label" type="string" column="label"/>
-        
+
       <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
     </class>
      <query name="PackageKeyType.findByLabel">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKeyType as p 
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKeyType as p
         		where p.label = :label]]>
     </query>
 </hibernate-mapping>

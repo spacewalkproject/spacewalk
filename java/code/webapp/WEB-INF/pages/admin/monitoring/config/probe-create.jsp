@@ -22,6 +22,6 @@
     <%@ include file="/WEB-INF/pages/common/fragments/probes/create-form-body.jspf" %>
   <html:hidden property="suite_id" value="${param.suite_id}"/>
 </html:form>
-           
+
 </body>
 </html>

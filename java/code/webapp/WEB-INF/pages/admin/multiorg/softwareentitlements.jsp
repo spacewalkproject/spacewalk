@@ -37,21 +37,21 @@
 
 <rl:listset name="entitlementSet">
     <rl:list alphabarcolumn="name"
-             styleclass="list"             
+             styleclass="list"
              emptykey="softwareentitlements.noentitlements">
-            <rl:decorator name="PageSizeDecorator"/>                        
-        <rl:column 
+            <rl:decorator name="PageSizeDecorator"/>
+        <rl:column
             sortattr="name"
-            filterattr="name" 
-            headerkey="softwareentitlements.header.entitlement.name" 
+            filterattr="name"
+            headerkey="softwareentitlements.header.entitlement.name"
             styleclass="first-column"
-            >  
+            >
             <a href="/rhn/admin/multiorg/SoftwareEntitlementDetails.do?cfid=${current.id}">
                 ${current.name}
-            </a>                         
+            </a>
         </rl:column>
 
-        <rl:column 
+        <rl:column
             headertext="${rhn:localize('Regular Counts')} <br/> (${rhn:localize('Available/Total')})*">
             <c:choose>
             	<c:when test="${empty current.total or current.total == 0}">
@@ -60,10 +60,10 @@
             	<c:otherwise>
           				${current.available} / ${current.total}
             	</c:otherwise>
-            </c:choose>            
-        </rl:column>                    
-         
-        <c:if test="${orgCount > 1}"> 
+            </c:choose>
+        </rl:column>
+
+        <c:if test="${orgCount > 1}">
         <rl:column
         	headertext="${rhn:localize('Regular Usage')} <br/> (${rhn:localize('Used/Allotted')})**">
             <c:choose>
@@ -73,11 +73,11 @@
             	<c:otherwise>
             	<bean:message key="softwareentitlements.usagedata" arg0="${current.used}" arg1="${current.allocated}" arg2="${current.ratio}"/>
             	</c:otherwise>            	
-            </c:choose>                    
-        </rl:column>                 
+            </c:choose>
+        </rl:column>
         </c:if>
 
-        <rl:column 
+        <rl:column
         	styleclass="${countstyle}"
             headertext="${rhn:localize('Flex Counts')} <br/> (${rhn:localize('Available/Total')})*">
             <c:choose>
@@ -88,10 +88,10 @@
           				${current.availableFlex} / ${current.totalFlex}
             	</c:otherwise>
             </c:choose>
-        </rl:column>                    
-         
-        <c:if test="${orgCount > 1}"> 
-        <rl:column bound="false" 
+        </rl:column>
+
+        <c:if test="${orgCount > 1}">
+        <rl:column bound="false"
 			headertext="${rhn:localize('Flex Usage')} <br/> (${rhn:localize('Used/Allotted')})**"
             styleclass="${usagestyle}">
             <c:choose>

@@ -40,7 +40,7 @@
             <td><input type="text" size="30" name="${config.name}" value="${config.value}" maxlength="255" styleId="${config.name}" /></td>
           </tr>
         </c:forEach>
-        
+
       </table>
 
       <div align="right">

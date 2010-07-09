@@ -28,30 +28,30 @@ import java.util.Set;
  * @version $Rev$
  */
 public class RhnSetFactoryTest extends RhnBaseTestCase {
-    
+
     public void testConstructor() {
         Long id = new Long(10);
         RhnSet set = RhnSetFactory.createRhnSet(id, null, SetCleanup.NOOP);
         assertNotNull(set);
         assertEquals(id, set.getUserId());
-        
+
         Set elements = set.getElements();
         assertNotNull(elements);
         assertEquals(0, elements.size());
         assertNull(set.getLabel());
     }
-    
+
     public void testBeanProperties() {
         Long num = new Long(10);
         RhnSet set = RhnSetFactory.createRhnSet(num, null, SetCleanup.NOOP);
         assertNotNull(set);
         assertEquals(num, set.getUserId());
-        
+
         set.addElement(num, null);
         set.addElement(num, num);
         set.addElement(num, num, null);
         set.addElement(num, num, num);
-        
+
         Set elements = set.getElements();
         assertNotNull(elements);
         assertEquals(set.size(), elements.size());
@@ -84,7 +84,7 @@ public class RhnSetFactoryTest extends RhnBaseTestCase {
         }
 
         assertEquals(3, i);
-        
+
         set.setLabel("label");
         assertEquals("label", set.getLabel());
     }

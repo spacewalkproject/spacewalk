@@ -28,12 +28,12 @@ import java.util.Map;
 public class ErrataAclHandler extends BaseHandler implements AclHandler {
 
     /**
-     * Constructor 
+     * Constructor
      */
     public ErrataAclHandler() {
         super();
     }
-    
+
     /**
      * See if an errata is published
      * @param ctx The contect map

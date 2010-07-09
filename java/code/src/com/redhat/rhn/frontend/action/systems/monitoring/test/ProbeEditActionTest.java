@@ -36,26 +36,26 @@ import java.util.List;
  * @version $Rev: 53047 $
  */
 public class ProbeEditActionTest extends RhnBaseTestCase {
-    
+
     private User user;
     private Probe probe;
     private ProbeEditAction action;
     private ActionHelper ah;
-    
+
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         action = new ProbeEditAction();
-        
+
         ah = new ActionHelper();
         ah.setUpAction(action);
-        
+
         user = ah.getUser();
         user.addRole(RoleFactory.ORG_ADMIN);
         Server s = ServerFactoryTest.createTestServer(user, true);
-        
+
         probe = MonitoringFactoryTest.createTestProbe(user);
-        
+
         ah.getForm().setFormName("probeEditForm");
         String pid = probe.getId().toString();
         ah.getRequest().setupAddParameter(ProbeDetailsAction.PROBEID, pid);
@@ -71,9 +71,9 @@ public class ProbeEditActionTest extends RhnBaseTestCase {
         ah = null;
         super.tearDown();
     }
-    
+
     public void testExecute() throws Exception {
-        
+
 
         ActionForward af = ah.executeAction();
         assertEquals("default", af.getName());
@@ -84,22 +84,22 @@ public class ProbeEditActionTest extends RhnBaseTestCase {
         assertNotNull(ah.getRequest().getAttribute("paramValueList"));
         List pvalues = (List) ah.getRequest().getAttribute("paramValueList");
         assertTrue(pvalues.size() > 0);
-        
+
     }
-    
+
     public void testSubmitExecute() throws Exception {
         ah.setExpectedForward("success");
         ah.getForm().set(ProbeEditAction.SUBMITTED, new Boolean(true));
         ah.getForm().set("description", probe.getDescription());
         ah.getForm().set("notification", new Boolean(true));
         ah.getForm().set("check_interval_min", probe.getCheckIntervalMinutes());
-        ah.getForm().set("notification_interval_min", 
+        ah.getForm().set("notification_interval_min",
                 probe.getNotificationIntervalMinutes());
         MonitoringTestUtils.setupParamValues(ah, probe.getCommand(), 3);
-        
+
         ActionForward af = ah.executeAction();
         assertEquals("success", af.getName());
-        
+
         ServerProbe edited = (ServerProbe) reload(probe);
         assertPropertyEquals("checkIntervalMinutes", probe, edited);
         assertPropertyEquals("description", probe, edited);
@@ -112,14 +112,14 @@ public class ProbeEditActionTest extends RhnBaseTestCase {
         ah.getForm().set("description", probe.getDescription());
         ah.getForm().set("notification", new Boolean(true));
         ah.getForm().set("check_interval_min", new Long(10));
-        ah.getForm().set("notification_interval_min", 
+        ah.getForm().set("notification_interval_min",
                 new Long(5));
         MonitoringTestUtils.setupParamValues(ah, probe.getCommand(), 3);
-        
+
         ActionForward af = ah.executeAction();
         assertEquals("default", af.getName());
-        
+
     }
-    
+
 }
 

@@ -39,8 +39,8 @@ public class UnsubscribeSubmitAction extends BaseSetOperateOnSelectedItemsAction
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest requestIn) {
         return ConfigurationManager.getInstance().ssmChannelList(userIn, null);
     }
@@ -62,12 +62,12 @@ public class UnsubscribeSubmitAction extends BaseSetOperateOnSelectedItemsAction
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest requestIn, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest requestIn,
                                    Map paramsIn) {
         //no-op
     }
-    
+
     /**
      * Go to the confirm page.
      * @param mapping struts ActionMapping

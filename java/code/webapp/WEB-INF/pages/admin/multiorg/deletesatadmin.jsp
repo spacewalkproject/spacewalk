@@ -17,7 +17,7 @@
 <html:form action="/admin/multiorg/SatRoleConfirm.do">
       <div align="right">
         <hr />
-        <html:hidden property="uid" value="${param.uid}" />        
+        <html:hidden property="uid" value="${param.uid}" />
         <html:hidden property="submitted" value="true" />
         <html:submit>
 	        <bean:message key="confirm.displayname"/>

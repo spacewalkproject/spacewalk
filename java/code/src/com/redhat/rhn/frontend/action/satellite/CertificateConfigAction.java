@@ -32,8 +32,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * CertificateConfigAction - Struts action to process the uploaded Sat Cert. 
- *  
+ * CertificateConfigAction - Struts action to process the uploaded Sat Cert.
+ *
  * @version $Rev: 1 $
  */
 public class CertificateConfigAction extends BaseConfigAction {
@@ -43,18 +43,18 @@ public class CertificateConfigAction extends BaseConfigAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext requestContext = new RequestContext(request);
-        
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         if (isSubmitted(form)) {
-            ConfigureCertificateCommand cmd = (ConfigureCertificateCommand) 
+            ConfigureCertificateCommand cmd = (ConfigureCertificateCommand)
                 getCommand(requestContext.getCurrentUser());
-            String certString = strutsDelegate.getFormFileString(form, 
+            String certString = strutsDelegate.getFormFileString(form,
                                                 CertificateConfigForm.CERT_FILE);
-            // If we didn't get it from the File, we need to 
+            // If we didn't get it from the File, we need to
             // get it from the pasted in form val.
             if (StringUtils.isEmpty(certString)) {
                 certString = form.getString(CertificateConfigForm.CERT_TEXT);
@@ -62,7 +62,7 @@ public class CertificateConfigAction extends BaseConfigAction {
 
             if (StringUtils.isEmpty(certString)) {
                 addMessage(request, "certificate.config.error.nocert");
-            } 
+            }
             else {
                 cmd.setCertificateText(certString);
 
@@ -71,10 +71,10 @@ public class CertificateConfigAction extends BaseConfigAction {
 
                 ValidatorError[] verrors = cmd.storeConfiguration();
                 if (verrors != null) {
-                    ActionErrors errors = 
+                    ActionErrors errors =
                         RhnValidationHelper.validatorErrorToActionErrors(verrors);
                     strutsDelegate.saveMessages(request, errors);
-                } 
+                }
                 else {
                     addMessage(request, "certificate.config.success");
                 }
@@ -88,7 +88,7 @@ public class CertificateConfigAction extends BaseConfigAction {
      */
     protected String getCommandClassName() {
         return Config.get().getString("web.com.redhat.rhn.frontend." +
-           "action.satellite.CertificateConfigAction.command", 
+           "action.satellite.CertificateConfigAction.command",
            "com.redhat.rhn.manager.satellite.ConfigureCertificateCommand");
     }
 

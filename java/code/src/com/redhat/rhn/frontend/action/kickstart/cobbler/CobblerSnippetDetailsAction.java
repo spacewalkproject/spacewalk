@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class CobblerSnippetDetailsAction extends RhnAction {
-    private static final Logger LOG = 
+    private static final Logger LOG =
                 Logger.getLogger(CobblerSnippetDetailsAction.class);
     public static final String PREFIX = "prefix";
     public static final String NAME = "name";
@@ -53,7 +53,7 @@ public class CobblerSnippetDetailsAction extends RhnAction {
 
     private static final String VALIDATION_XSD =
                 "/com/redhat/rhn/frontend/action/kickstart/" +
-                        "cobbler/validation/cobblerSnippetsForm.xsd";    
+                        "cobbler/validation/cobblerSnippetsForm.xsd";
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
@@ -61,14 +61,14 @@ public class CobblerSnippetDetailsAction extends RhnAction {
                                   HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext ctx = new RequestContext(request);
-        
+
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
-        
+
         if (ctx.isSubmitted()) {
-            
-            
-            ValidatorResult result = RhnValidationHelper.validate(this.getClass(), 
-                            makeValidationMap(form), null, 
+
+
+            ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
+                            makeValidationMap(form), null,
                                 VALIDATION_XSD);
             if (!result.isEmpty()) {
                 getStrutsDelegate().saveMessages(request, result);
@@ -78,14 +78,14 @@ public class CobblerSnippetDetailsAction extends RhnAction {
                 try {
                     CobblerSnippet snip = submit(request, form);
                     if (isCreateMode(request)) {
-                        createSuccessMessage(request, 
+                        createSuccessMessage(request,
                                 "cobblersnippet.create.success", snip.getName());
                     }
                     else {
-                        createSuccessMessage(request, 
+                        createSuccessMessage(request,
                                 "cobblersnippet.update.success", snip.getName());
                     }
-                    
+
                     request.removeAttribute(CREATE_MODE);
                     setupSnippet(request, form, snip);
                     return getStrutsDelegate().forwardParam(mapping.findForward("success"),
@@ -94,10 +94,10 @@ public class CobblerSnippetDetailsAction extends RhnAction {
                 catch (ValidatorException ve) {
                     getStrutsDelegate().saveMessages(request, ve.getResult());
                     RhnValidationHelper.setFailedValidation(request);
-                }                
+                }
             }
         }
-        setup(request, form);    
+        setup(request, form);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
@@ -109,12 +109,12 @@ public class CobblerSnippetDetailsAction extends RhnAction {
         return map;
     }
 
-    
+
     private boolean isCreateMode(HttpServletRequest request) {
         return Boolean.TRUE.equals(request.getAttribute(CREATE_MODE));
     }
-    
-    
+
+
     private void setup(HttpServletRequest request, DynaActionForm form) {
         RequestContext context = new RequestContext(request);
         if (isCreateMode(request)) {
@@ -133,33 +133,33 @@ public class CobblerSnippetDetailsAction extends RhnAction {
     }
 
     /**
-     * Helper method to get a cobbler snippet.. This code is in this 
-     * action because we need it to throw a "BadParameterException" 
+     * Helper method to get a cobbler snippet.. This code is in this
+     * action because we need it to throw a "BadParameterException"
      * if the set up complains... Also it gets info from the request object
      * so this is the right place...
      * @param request  the request
-     * @param lookupParam the parameter to which the snippet name is bound.. 
+     * @param lookupParam the parameter to which the snippet name is bound..
      * @return the cobbler snippet parameter "name"
      */
-    private static CobblerSnippet loadEditableSnippet(HttpServletRequest request, 
+    private static CobblerSnippet loadEditableSnippet(HttpServletRequest request,
                                     String lookupParam) {
         RequestContext context = new RequestContext(request);
         try {
             String name = context.getParam(lookupParam, true);
-            return  CobblerSnippet.loadEditable(name, 
+            return  CobblerSnippet.loadEditable(name,
                         context.getLoggedInUser().getOrg());
         }
         catch (ValidatorException ve) {
             LOG.error(ve);
             throw new BadParameterException(
                     "The parameter " + NAME + " is required.");
-        }        
+        }
     }
 
-    
+
     /**
-     * Helper method to get a cobbler snippet.. This code is in this 
-     * action because we need it to throw a "BadParameterException" 
+     * Helper method to get a cobbler snippet.. This code is in this
+     * action because we need it to throw a "BadParameterException"
      * if the set up complains... Also it gets info from the request object
      * so this is the right place...
      * @param request  the request
@@ -168,7 +168,7 @@ public class CobblerSnippetDetailsAction extends RhnAction {
     static CobblerSnippet loadEditableSnippet(HttpServletRequest request) {
         return loadEditableSnippet(request, NAME);
     }
-    
+
     private void setupSnippet(HttpServletRequest request, DynaActionForm form,
             CobblerSnippet snip) {
         request.setAttribute(PREFIX, snip.getPrefix());
@@ -185,21 +185,21 @@ public class CobblerSnippetDetailsAction extends RhnAction {
      * @param snip the snippet to bind
      */
     public static void bindSnippet(HttpServletRequest request, CobblerSnippet snip) {
-        request.setAttribute(SNIPPET, snip);        
+        request.setAttribute(SNIPPET, snip);
     }
-    
+
     private CobblerSnippet submit(HttpServletRequest request, DynaActionForm form) {
         RequestContext context = new RequestContext(request);
-        String name = isCreateMode(request) ? 
+        String name = isCreateMode(request) ?
                     form.getString(NAME) : form.getString(OLD_NAME);
-        
-        
+
+
         CobblerSnippet snip = CobblerSnippet.createOrUpdate(
                 isCreateMode(request),
                 name,
-                form.getString(CONTENTS), 
+                form.getString(CONTENTS),
                 context.getLoggedInUser().getOrg());
-        if (!isCreateMode(request) &&  
+        if (!isCreateMode(request) &&
                 !form.getString(NAME).equals(form.getString(OLD_NAME))) {
             snip.rename(form.getString(NAME));
         }

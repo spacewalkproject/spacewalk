@@ -53,7 +53,7 @@ public class CreateChannelCommand {
     protected static final String GPG_URL_REGEX = "^(https?|file)://.*?$";
     protected static final String GPG_FP_REGEX = "^(\\s*[0-9A-F]{4}\\s*){10}$";
     protected static final String WEB_CHANNEL_CREATED = "web.channel_created";
-    
+
     protected User user;
     protected String label;
     protected String name;
@@ -66,7 +66,7 @@ public class CreateChannelCommand {
     protected String gpgKeyId;
     protected String gpgKeyFp;
     protected String checksum;
-    
+
 
     protected String maintainerName;
     protected String maintainerEmail;
@@ -76,9 +76,9 @@ public class CreateChannelCommand {
     protected String yumUrl;
     protected String repoLabel;
     protected boolean syncRepo = false;
-    
 
-    
+
+
 
 
     /**
@@ -136,8 +136,8 @@ public class CreateChannelCommand {
     public void setParentId(Long pid) {
         parentId = pid;
     }
-    
-    
+
+
     /**
      * @param fp gpgkey fingerprint
      */
@@ -145,7 +145,7 @@ public class CreateChannelCommand {
         gpgKeyFp = fp;
     }
 
-    
+
     /**
      * @param id gpgkey id
      */
@@ -153,7 +153,7 @@ public class CreateChannelCommand {
         gpgKeyId = id;
     }
 
-    
+
     /**
      * @param url gpgkey url
      */
@@ -161,7 +161,7 @@ public class CreateChannelCommand {
         gpgKeyUrl = url;
     }
 
-    
+
     /**
      * @param email maintainer's email address
      */
@@ -169,7 +169,7 @@ public class CreateChannelCommand {
         maintainerEmail = email;
     }
 
-    
+
     /**
      * @param mname maintainers name
      */
@@ -184,7 +184,7 @@ public class CreateChannelCommand {
         maintainerPhone = phone;
     }
 
-    
+
     /**
      * @param policy support policy
      */
@@ -242,27 +242,27 @@ public class CreateChannelCommand {
         verifyChannelName(name);
         verifyChannelLabel(label);
         verifyGpgInformation();
-        
+
         if (ChannelFactory.doesChannelNameExist(name)) {
             throw new InvalidChannelNameException(name,
                 InvalidChannelNameException.Reason.NAME_IN_USE,
                 "edit.channel.invalidchannelname.nameinuse", name);
         }
-        
+
         if (ChannelFactory.doesChannelLabelExist(label)) {
             throw new InvalidChannelLabelException(label,
                 InvalidChannelLabelException.Reason.LABEL_IN_USE,
                 "edit.channel.invalidchannellabel.labelinuse", label);
         }
-        
+
         ChannelArch ca = ChannelFactory.findArchByLabel(archLabel);
         if (ca == null) {
             throw new IllegalArgumentException("Invalid architecture label");
         }
-        
+
         ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
-        
-        
+
+
         Channel c = ChannelFactory.createChannel();
         c.setLabel(label);
         c.setName(name);
@@ -283,20 +283,20 @@ public class CreateChannelCommand {
 
         // handles either parent id or label
         setParentChannel(c, user, parentLabel, parentId);
-        
+
         c.addChannelFamily(user.getOrg().getPrivateChannelFamily());
-        
+
         // need to save before calling stored proc below
         ChannelFactory.save(c);
-        
+
         ChannelManager.queueChannelChange(c.getLabel(), "createchannel", "createchannel");
         ChannelFactory.refreshNewestPackageCache(c, WEB_CHANNEL_CREATED);
-        
+
         if (syncRepo && !c.getSources().isEmpty()) {
             TaskFactory.createTask(user.getOrg(), RepoSyncTask.DISPLAY_NAME,
                     c.getSources().iterator().next().getId());
         }
-        
+
         return c;
     }
 
@@ -335,7 +335,7 @@ public class CreateChannelCommand {
             throw new InvalidParentChannelException();
         }
 
-        // man that's a lot of conditionals :) finally we do what 
+        // man that's a lot of conditionals :) finally we do what
         // we came here to do.
         affected.setParentChannel(parent);
     }
@@ -350,20 +350,20 @@ public class CreateChannelCommand {
             throw new IllegalArgumentException(
                     "edit.channel.invalidchannelsummary");
         }
-        
+
         if (!StringUtils.isEmpty(yumUrl) && StringUtils.isEmpty(repoLabel)) {
             throw new IllegalArgumentException(
                 "edit.channel.invalidrepolabel.missing");
         }
-        
+
     }
-    
+
     protected void verifyChannelName(String cname) throws InvalidChannelNameException {
         if (user == null) {
             // can never be too careful
             throw new IllegalArgumentException("Required param [user] is null");
         }
-        
+
         if (cname == null || cname.trim().length() == 0) {
             throw new InvalidChannelNameException(cname,
                 InvalidChannelNameException.Reason.IS_MISSING,
@@ -383,7 +383,7 @@ public class CreateChannelCommand {
                 "edit.channel.invalidchannelname.minlength",
                 minLength.toString());
         }
-        
+
         if (cname.length() > CHANNEL_NAME_MAX_LENGTH) {
             Integer maxLength = new Integer(CreateChannelCommand.CHANNEL_NAME_MAX_LENGTH);
             throw new InvalidChannelNameException(cname,
@@ -402,14 +402,14 @@ public class CreateChannelCommand {
                 "edit.channel.invalidchannelname.redhat", "");
         }
     }
-    
+
     protected void verifyChannelLabel(String clabel) throws InvalidChannelLabelException {
-        
+
         if (user == null) {
             // can never be too careful
             throw new IllegalArgumentException("Required param is null");
         }
-        
+
         if (clabel == null || clabel.trim().length() == 0) {
             throw new InvalidChannelLabelException(clabel,
                 InvalidChannelLabelException.Reason.IS_MISSING,
@@ -429,7 +429,7 @@ public class CreateChannelCommand {
                 "edit.channel.invalidchannellabel.minlength",
                 minLength.toString());
         }
-        
+
         // the perl code used to ignore case with a /i at the end of
         // the regex, so we toLowerCase() the channel name to make it
         // work the same.
@@ -440,24 +440,24 @@ public class CreateChannelCommand {
                 "edit.channel.invalidchannellabel.redhat", "");
         }
     }
-    
+
     protected void verifyGpgInformation() {
         if (gpgKeyId != null && !gpgKeyId.equals("") &&
                 !Pattern.compile(GPG_KEY_REGEX).matcher(gpgKeyId).find()) {
             throw new InvalidGPGKeyException();
         }
-        
+
         if (gpgKeyFp != null && !gpgKeyFp.equals("") &&
                 !Pattern.compile(GPG_FP_REGEX).matcher(gpgKeyFp).find()) {
             throw new InvalidGPGFingerprintException();
         }
-        
+
         if (gpgKeyUrl != null && !gpgKeyUrl.equals("") &&
                 !Pattern.compile(GPG_URL_REGEX).matcher(gpgKeyUrl).find()) {
             throw new InvalidGPGUrlException();
         }
     }
-    
+
     /**
      * @param yumUrlIn The yumUrl to set.
      */
@@ -479,5 +479,5 @@ public class CreateChannelCommand {
     public void setSyncRepo(boolean syncRepoIn) {
         this.syncRepo = syncRepoIn;
     }
-    
+
 }

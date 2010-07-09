@@ -34,14 +34,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * RhnRequestProcessor a custom Struts RequestProcessor that
  * intercepts all of our code struts requests
- * 
+ *
  * @version $Rev$
  */
 
 public class RhnRequestProcessor extends RequestProcessor {
-        
+
     protected void processPopulate(HttpServletRequest request, HttpServletResponse response,
-            ActionForm form, ActionMapping mapping) throws ServletException {       
+            ActionForm form, ActionMapping mapping) throws ServletException {
         super.processPopulate(request, response, form, mapping);
         if (form instanceof ScrubbingDynaActionForm) {
             ((ScrubbingDynaActionForm) form).scrub();
@@ -59,7 +59,7 @@ public class RhnRequestProcessor extends RequestProcessor {
      */
     public void process(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException {
-        
+
         try {
             //Get the mapping so we can see if whether or not we need to process acls
             String path = processPath(request, response);
@@ -80,8 +80,8 @@ public class RhnRequestProcessor extends RequestProcessor {
             }
             //now that we're done with rhn stuff, call RequestProcessor.process()
             super.process(request, response);
-        } 
-        catch (IOException se) { 
+        }
+        catch (IOException se) {
             sendErrorEmail(request, se);
             throw se;
         }
@@ -90,7 +90,7 @@ public class RhnRequestProcessor extends RequestProcessor {
             sendErrorEmail(request, se);
             throw se;
         }
-        catch (RuntimeException re) { 
+        catch (RuntimeException re) {
             if (re.getCause() == null) {
                 sendErrorEmail(request, re);
             }
@@ -100,7 +100,7 @@ public class RhnRequestProcessor extends RequestProcessor {
             throw re;
         }
     }
-    
+
     private void fixCause(ServletException e) {
         // ServletException has a rootCause that is separate from
         // Throwable.cause. Try and set Throwable.cause to ServletException.rootCause
@@ -129,5 +129,5 @@ public class RhnRequestProcessor extends RequestProcessor {
         evt.setException(e);
         MessageQueue.publish(evt);
     }
-        
+
 }

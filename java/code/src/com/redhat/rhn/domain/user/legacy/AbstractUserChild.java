@@ -18,7 +18,7 @@ package com.redhat.rhn.domain.user.legacy;
 import com.redhat.rhn.domain.BaseDomainHelper;
 
 /**
- * Class that contains webUserId field to be used by children of the User object 
+ * Class that contains webUserId field to be used by children of the User object
  * (parent key)
  * @version $Rev: 76633 $
  */

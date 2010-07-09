@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * UpdateErrataCacheEvent - publish even to update the errata cache for an Org
  * or a set of Channels.
- * 
+ *
  * @version $Rev$
  */
 public class UpdateErrataCacheEvent implements EventDatabaseMessage {
@@ -37,9 +37,9 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
     public static final int TYPE_ORG = 1;
     public static final int TYPE_CHANNEL = 2;
     public static final int TYPE_CHANNEL_ERRATA = 3;
-    
+
     private Transaction txn;
-     
+
 
     /**
      * default constructor
@@ -50,7 +50,7 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
         type = typeIn;
         this.txn = HibernateFactory.getSession().getTransaction();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -58,7 +58,7 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
         // really a noop
         return "";
     }
-    
+
     /**
      * returns the orgId associated with this event.
      * @return the orgId associated with this event.
@@ -66,7 +66,7 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
     public Long getOrgId() {
         return orgId;
     }
-    
+
     /**
      * Sets the org to be updated.
      * @param orgIdIn OrgId to be updated.
@@ -74,16 +74,16 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
     public void setOrgId(Long orgIdIn) {
         orgId = orgIdIn;
     }
-    
+
     /**
-     * Get the update type of this event.  Either ORG or Channel. 
+     * Get the update type of this event.  Either ORG or Channel.
      * @return int TYPE.
      */
     public int getUpdateType() {
         return this.type;
     }
 
-    
+
     /**
      * @return Returns the channels.
      */
@@ -91,13 +91,13 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
         return this.channelIds;
     }
 
-    
+
     /**
      * Add a Channel to the set of Channels to recalculate the Errata cache
      * for.
      * @param channelIdsIn to add to the list to process.
      */
-    public void setChannels(List<Long> channelIdsIn) {             
+    public void setChannels(List<Long> channelIdsIn) {
         this.channelIds = channelIdsIn;
     }
 
@@ -108,7 +108,7 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
         return this.txn;
     }
 
-    
+
     /**
      * @return Returns the errata_id.
      */
@@ -116,7 +116,7 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
         return errataId;
     }
 
-    
+
     /**
      * @param errataIdIn The errata_id to set.
      */
@@ -124,7 +124,7 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
         this.errataId = errataIdIn;
     }
 
-    
+
     /**
      * @return Returns the packageIds.
      */
@@ -132,7 +132,7 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
         return packageIds;
     }
 
-    
+
     /**
      * @param packageIdsIn The packageIds to set.
      */

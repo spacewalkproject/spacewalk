@@ -32,12 +32,12 @@ public class UpgradeConfirmSetupAction extends BaseSystemPackagesConfirmAction {
     private static final UpgradableListSetupAction DECL_ACTION =
                                                     new UpgradableListSetupAction();
     private static final String PACKAGE_UPGRADE = "upgrade";
-    
+
     @Override
     protected String getRemoteMode() {
         return PACKAGE_UPGRADE;
     }
-    
+
     @Override
     protected String getDecl(Long sid) {
         return DECL_ACTION.getDecl(sid);
@@ -56,10 +56,10 @@ public class UpgradeConfirmSetupAction extends BaseSystemPackagesConfirmAction {
     @Override
     protected PackageAction schedulePackageAction(ActionForm formIn,
             RequestContext context, List<Map<String, Long>> pkgs, Date earliest) {
-        return ActionManager.schedulePackageUpgrade(context.getLoggedInUser(), 
+        return ActionManager.schedulePackageUpgrade(context.getLoggedInUser(),
                                                 context.lookupAndBindServer(),
                                                 pkgs, earliest);
-         
+
     }
 
     @Override

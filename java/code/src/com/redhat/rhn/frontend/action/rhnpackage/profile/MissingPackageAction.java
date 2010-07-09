@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class MissingPackageAction extends BaseProfilesAction {
-    
+
     private static final CompareProfileSetupAction DECL_PROFILE_ACTION =
         new CompareProfileSetupAction();
     private static final CompareSystemSetupAction DECL_SYSTEM_ACTION =
@@ -51,63 +51,63 @@ public class MissingPackageAction extends BaseProfilesAction {
         String s = rctx.getParam("sync", true);
         return "system".equals(s);
     }
-    
+
     private boolean isProfileSync(RequestContext rctx) {
         String s = rctx.getParam("sync", true);
         return "profile".equals(s);
     }
-    
+
     private PackageAction syncToVictim(RequestContext requestContext, Long sid,
             Set pkgIdCombos, String option) {
-        
+
         PackageAction pa = null;
         Date time = new Date(requestContext.getParamAsLong("time"));
-        
+
         if (isProfileSync(requestContext)) {
             Long prid = requestContext.getRequiredParam("prid");
-            
+
             pa = ProfileManager.syncToProfile(requestContext.getCurrentUser(), sid,
                     prid, pkgIdCombos, option, time);
-            
+
             if (pa == null) {
                 createMessage(requestContext.getRequest(), "message.nopackagestosync");
                 return null;
             }
-            
+
             List args = new ArrayList();
             args.add(sid.toString());
             args.add(pa.getId().toString());
             args.add(requestContext.lookupAndBindServer().getName());
             args.add(ProfileManager.lookupByIdAndOrg(prid,
                     requestContext.getCurrentUser().getOrg()).getName());
-            
+
             createMessage(requestContext.getRequest(), "message.syncpackages", args);
         }
         else if (isSystemSync(requestContext)) {
             Long sid1 = requestContext.getRequiredParam("sid_1");
             pa = ProfileManager.syncToSystem(requestContext.getCurrentUser(), sid,
                     sid1, pkgIdCombos, option, time);
-            
+
             if (pa == null) {
                 createMessage(requestContext.getRequest(), "message.nopackagestosync");
                 return null;
             }
-            
+
             List args = new ArrayList();
             args.add(sid.toString());
             args.add(pa.getId().toString());
             args.add(requestContext.lookupAndBindServer().getName());
             args.add(SystemManager.lookupByIdAndUser(sid1,
                     requestContext.getCurrentUser()).getName());
-            
+
             createMessage(requestContext.getRequest(), "message.syncpackages", args);
         }
-        
+
         addHardwareMessage(pa, requestContext);
-        
+
         return pa;
     }
-    
+
     /**
      * Callback for the Select New Package Profile button, basically
      * forwards to the main Package -> Profile page allowing the user
@@ -128,7 +128,7 @@ public class MissingPackageAction extends BaseProfilesAction {
         return getStrutsDelegate().forwardParams(mapping.findForward("showprofile"),
                 params);
     }
-    
+
     /**
      * Callback for the Remove packages button, it removes the missing packages
      * and proceeds with the package sync.
@@ -144,16 +144,16 @@ public class MissingPackageAction extends BaseProfilesAction {
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         Long sid = context.getRequiredParam("sid");
-        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, 
+        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request,
                 getDecl(context, sid));
         Map params = new HashMap();
         params.put("sid", sid);
 
         syncToVictim(context, sid, pkgIdCombos, ProfileManager.OPTION_REMOVE);
         return getStrutsDelegate().forwardParams(mapping.findForward("showprofile"),
-                    params);        
+                    params);
     }
-    
+
     /**
      * Callback for the Subscribe to channels button, it attempts to subscribe
      * to the channels containing the Packages.
@@ -173,7 +173,7 @@ public class MissingPackageAction extends BaseProfilesAction {
                 getDecl(requestContext, sid));
         Map params = new HashMap();
         params.put("sid", sid);
-        
+
         syncToVictim(requestContext, sid, pkgIdCombos,
                 ProfileManager.OPTION_SUBSCRIBE);
         return getStrutsDelegate().forwardParams(
@@ -183,14 +183,14 @@ public class MissingPackageAction extends BaseProfilesAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
         Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request,
                                                 getDecl(requestContext, sid));
-        
+
         if (isProfileSync(requestContext)) {
             Long prid = requestContext.getRequiredParam("prid");
 
@@ -199,11 +199,11 @@ public class MissingPackageAction extends BaseProfilesAction {
         }
         else if (isSystemSync(requestContext)) {
             Long sid1 = requestContext.getRequiredParam("sid_1");
-            
+
             return ProfileManager.getMissingSystemPackages(
                     requestContext.getCurrentUser(),  sid, sid1, pkgIdCombos, null);
         }
-        
+
         return null;
     }
 
@@ -216,8 +216,8 @@ public class MissingPackageAction extends BaseProfilesAction {
         map.put("missingpkgs.jsp.removelistedpackagesfromsync", "removePackagesFromSync");
         map.put("missingpkgs.jsp.subscribetochannels", "subscribeToChannels");
         return map;
-    }  
-    
+    }
+
     protected String getDecl(RequestContext context, Long sid) {
         if (isSystemSync(context)) {
             return DECL_SYSTEM_ACTION.getDecl(sid);

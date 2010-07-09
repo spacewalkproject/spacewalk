@@ -62,13 +62,13 @@ public class MigrationManager extends BaseManager {
      * @return the list of server ids successfully migrated.
      */
     public static List<Long> migrateServers(User user, Org toOrg, List<Server> servers) {
-        
+
         List<Long> serversMigrated = new ArrayList<Long>();
-        
+
         for (Server server : servers) {
-        
+
             Org fromOrg = server.getOrg();
-            
+
             // Update the server to ignore entitlement checking... This is needed to ensure
             // that things such as configuration files are moved with the system, even if
             // the system currently has provisioning entitlements removed.
@@ -81,15 +81,15 @@ public class MigrationManager extends BaseManager {
             OrgFactory.save(toOrg);
             OrgFactory.save(fromOrg);
             ServerFactory.save(server);
-            
+
             if (user.getOrg().equals(toOrg)) {
                 server.setCreator(user);
             }
             else {
                 server.setCreator(UserFactory.getInstance().findRandomOrgAdmin(toOrg));
             }
-            
-            
+
+
             // update server history to record the migration.
             ServerHistoryEvent event = new ServerHistoryEvent();
             event.setCreated(new Date());
@@ -115,12 +115,12 @@ public class MigrationManager extends BaseManager {
      *
      * Used to clean the servers associations in the database in preparation for migration
      * before the server profile is moved to the migration queue.
-     * 
+     *
      * @param user Org admin performing the migration.
      * @param server Server to be migrated.
      */
     public static void removeOrgRelationships(User user, Server server) {
-        
+
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
             throw new PermissionException(RoleFactory.ORG_ADMIN);
         }
@@ -143,12 +143,12 @@ public class MigrationManager extends BaseManager {
 
         // Remove existing channels
         server.getChannels().clear();
-        
+
         // Remove existing config channels
         if (server.getConfigChannelCount() > 0) {
             server.getConfigChannels().clear();
         }
-        
+
         // If the server has a reactivation key, remove it... It will not be valid once the
         // server is in the new org.
         Token token = TokenFactory.lookupByServer(server);
@@ -159,14 +159,14 @@ public class MigrationManager extends BaseManager {
         // Remove the errata and package cache
         ErrataCacheManager.deleteNeededErrataCache(server.getId());
         ErrataCacheManager.deleteNeededPackageCache(server.getId());
-        
+
         // Remove snapshots
         List<ServerSnapshot> snapshots = ServerFactory.listSnapshots(
                 server.getOrg(), server, null, null);
         for (ServerSnapshot snapshot : snapshots) {
             ServerFactory.deleteSnapshot(snapshot);
         }
-        
+
         // Remove monitoring probe suites:
         MonitoringManager monMgr = MonitoringManager.getInstance();
         for (ServerProbeDto dto : monMgr.probesForSystem(user, server, null)) {
@@ -177,14 +177,14 @@ public class MigrationManager extends BaseManager {
             }
             else {
                 Probe probe = MonitoringFactory.lookupProbeByIdAndOrg(
-                        dto.getId(), server.getOrg()); 
+                        dto.getId(), server.getOrg());
                 MonitoringFactory.deleteProbe(probe);
             }
         }
-        
+
         SystemManager.removeAllServerEntitlements(server.getId());
     }
-    
+
     /**
      * Update the org admin to server relationships in the originating and destination
      * orgs.
@@ -203,14 +203,14 @@ public class MigrationManager extends BaseManager {
             admin.removeServer(server);
             UserFactory.save(admin);
         }
-        
+
         // add the server to all org admins in the destination org
         for (User admin : toOrg.getActiveOrgAdmins()) {
             admin.addServer(server);
             UserFactory.save(admin);
         }
     }
-    
+
     /**
      * Move the server to the destination org.
      *
@@ -218,7 +218,7 @@ public class MigrationManager extends BaseManager {
      * @param server Server to be migrated.
      */
     public static void moveServerToOrg(Org toOrg, Server server) {
-        
+
         // if the server has any "Locally-Managed" config files associated with it, then
         // a config channel was created for them... that channel needs to be moved to
         // the new org...

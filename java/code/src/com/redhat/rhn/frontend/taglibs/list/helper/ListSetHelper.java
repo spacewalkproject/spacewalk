@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * This class could also be termed as 
+ * This class could also be termed as
  * the base class for a SelectableWebList
  * Basically this guy serves as abstract base class to
  * List Tags that use sets (sessionset or rhnset), i.e.
@@ -47,14 +47,14 @@ import javax.servlet.http.HttpServletRequest;
  *           <rl:selectablecolumn value="${current.selectionKey}"
  *               selected="${current.selected}"
  *               styleclass="first-column"/>
- *   .....            
+ *   .....
  *  </rl:list>
- * Action Side -> 
+ * Action Side ->
  *  Java Side ->
  *   public class  ..... extends RhnAction implements Listable {
  *      public ActionForward execute(.....) {
  *          Map params = new HashMap();
- *          params.put("foo_id", request.getParamater("foo_id")); 
+ *          params.put("foo_id", request.getParamater("foo_id"));
  *          ListSessionSetHelper helper = new ListSessionSetHelper
  *                                          (this, request, params);
  *          helper.execute();
@@ -69,18 +69,18 @@ import javax.servlet.http.HttpServletRequest;
  *              getStrutsDelegate().saveMessage(
  *                   "foo.added",
  *                       new String [] {String.valueOf(set.size())}, request);
- *              return getStrutsDelegate().forwardParam(mapping.findForward("success"), 
+ *              return getStrutsDelegate().forwardParam(mapping.findForward("success"),
  *                                      "foo_id",request.getParamater("foo_id") );
  *          }
- *          return mapping.findForward(RhnHelper.DEFAULT_FORWARD);         
+ *          return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
  *      }
- *      
+ *
  *      public List getResults(RequestContext context) {
  *          .......
  *          return  fooList;
  *      }
  *   }
- * </code>  
+ * </code>
  * @author paji
  * @version $Rev$
  */
@@ -90,7 +90,7 @@ abstract class ListSetHelper extends ListHelper {
     private boolean willClearSet = true;
     private boolean preSelectAll = false;
     private boolean parentIsElement = true;
-    private Set initSet = Collections.EMPTY_SET; 
+    private Set initSet = Collections.EMPTY_SET;
     private List dataList;
 
     /**
@@ -112,16 +112,16 @@ abstract class ListSetHelper extends ListHelper {
         this(inp, request, Collections.EMPTY_MAP);
     }
 
-    
+
     /**
      * Asks the helper to ignore reporting
      * errors if no checkbox was selected
-     * and the dispatch action was pressed.  
+     * and the dispatch action was pressed.
      */
     public void ignoreEmptySelection() {
         ignoreEmptySelection = true;
     }
-    
+
     /***
      * @return true if the dispatch action was called by execute.
      */
@@ -129,11 +129,11 @@ abstract class ListSetHelper extends ListHelper {
         return dispatched;
     }
 
-    
+
     protected boolean isParentAnElement() {
         return parentIsElement;
     }
-    
+
     /** {@inheritDoc} */
     public void execute() {
         RequestContext context = getContext();
@@ -150,7 +150,7 @@ abstract class ListSetHelper extends ListHelper {
         }
 
         if (request.getParameter(RequestContext.DISPATCH) != null) {
-            // if its one of the Dispatch actions handle it..            
+            // if its one of the Dispatch actions handle it..
             update();
 
             // We can consider the request dispatched (in other words valid) if the
@@ -162,14 +162,14 @@ abstract class ListSetHelper extends ListHelper {
             }
             else {
                 if (!ignoreEmptySelection) {
-                    RhnHelper.handleEmptySelection(request);    
+                    RhnHelper.handleEmptySelection(request);
                 }
-                
+
             }
         }
-        
+
         dataList = getDataSet();
-        
+
 
         if (!context.isSubmitted() && alphaBarPressed == null && preSelectAll) {
             Set selSet = new HashSet();
@@ -184,17 +184,17 @@ abstract class ListSetHelper extends ListHelper {
             execute(dataList);
         }
 
-        // if I have a previous set selections populate data using it       
+        // if I have a previous set selections populate data using it
         if (size() > 0) {
             syncSelections(dataList, request);
         }
         ListTagHelper.setSelectedAmount(getListName(),
                                                 size(), request);
 
-        ListTagHelper.bindSetDeclTo(getListName(), 
+        ListTagHelper.bindSetDeclTo(getListName(),
                                 getDecl(), request);
     }
-    
+
     private void syncSelections(List dataSet,
                     HttpServletRequest request) {
         if ((dataSet != null) && (!dataSet.isEmpty())) {
@@ -206,7 +206,7 @@ abstract class ListSetHelper extends ListHelper {
                     getSelections());
         }
     }
-    
+
     /**
      * resync the selected objects in case you have added anything to set after
      *  it was executed
@@ -221,14 +221,14 @@ abstract class ListSetHelper extends ListHelper {
 
     /**
      * Returns the name of the selections key.
-     * @param listName the name of the list 
+     * @param listName the name of the list
      * i.e. the value specifidied in <rl:list name=>
      * @return
      */
     public static String makeSelectionsName(String listName) {
         return listName + "Selections";
     }
-    
+
     /**
      * @return the initSet
      */
@@ -236,32 +236,32 @@ abstract class ListSetHelper extends ListHelper {
         return initSet;
     }
 
-    
+
     /**
      * @param set the initial set of items to prepopulate
      */
     public void preSelect(Set set) {
         this.initSet = set;
     }
-    
+
     /**
      * gets the declaration associated to this set
      * @return the appropriate declaration.
      */
     public abstract String getDecl();
-    
+
     /**
      * clear the set
      */
     protected abstract void clear();
 
     /**
-     * Update the set getting data 
+     * Update the set getting data
      * from List, basically perform
-     * the RhnListSetHelper.updateSet 
+     * the RhnListSetHelper.updateSet
      */
     protected abstract void update();
-    
+
     /**
      * Perform the execute step of the helpers
      * basicall handles the selectall updateset etc..
@@ -274,30 +274,30 @@ abstract class ListSetHelper extends ListHelper {
      * @param dataSet the result set.
      */
     protected abstract void syncSelections(List dataSet);
-    
+
     /**
      * return the size of the set
      * @return set size
      */
     protected abstract int size();
-    
+
     /**
      * returns the selections map.
      * @return selection map
      */
     protected abstract Map getSelections();
-    
+
     /**
      * Add elements to a set.
-     * @param set set to add. 
+     * @param set set to add.
      */
     protected abstract void add(Set set);
-    
+
     /**
      * Obliterates the set from Session or Database
      */
     protected abstract void destroy();
-    
+
     /**
      * Returns a list of items that were added
      *  to the initial set
@@ -319,7 +319,7 @@ abstract class ListSetHelper extends ListHelper {
         return willClearSet;
     }
 
-    /** 
+    /**
      * If set to true the associated set will be cleared when setting up the page
      * For something like SystemSetManager we don't want this, so set this to false.
      * @param willClearSet the willClearSet to set

@@ -5,7 +5,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
 <rl:listset name="rhnListSet">
-	<rl:list 
+	<rl:list
 		dataset="mostCriticalList"
 		name="criticalSystems"
 		emptykey="yourrhn.jsp.criticalsystems.none"
@@ -34,12 +34,12 @@
     			headerclass="row-2 text-align: center;">
    			<img src="/img/wrh-security.gif" alt="<bean:message key="errata-legend.jsp.security"/>" />${current.securityErrata}		
     	</rl:column>
-    
+
     	<rl:column headerkey="yourrhn.jsp.criticalsystems.bugfixerrata"
     			headerclass="row-2 text-align: center;">
    			<img src="/img/wrh-bug.gif" alt="<bean:message key="errata-legend.jsp.bugfix"/>" />${current.bugErrata}		
     	</rl:column>
-    
+
     	<rl:column headerkey="yourrhn.jsp.criticalsystems.enhancementerrata"
     			headerclass="row-2 text-align: center;"
     			styleclass="last-column">

@@ -59,8 +59,8 @@
               </a>
             </rhn:require>
     	  </c:set>
-    		<bean:message key="filedetails.details.jspf.modifiedBy" 
-    			arg0="${modified}" 
+		<bean:message key="filedetails.details.jspf.modifiedBy"
+			arg0="${modified}"
         		arg1='${beanarg}' />
     	</c:when>
     	<c:otherwise>

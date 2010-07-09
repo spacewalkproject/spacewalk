@@ -622,7 +622,7 @@ deactivated.
 Please note that this is a final notice.  If you do not click through
 this URL within the next 2 days, your Red Hat login will deactivated.
 
-To confirm your email address, please visit the following URL: 
+To confirm your email address, please visit the following URL:
 
 {0}
 
@@ -667,9 +667,9 @@ Thank you for using @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems 
+has expired on your local satellite {0}. After {1} day(s) the systems
 management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information 
+Please contact your regional Red Hat Customer  Service Representative for information
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -695,8 +695,8 @@ Thank you for using @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible 
-until your certificate is renewed. Please contact your regional Red Hat 
+has expired on your local satellite {0}. The system management services will be inaccessible
+until your certificate is renewed. Please contact your regional Red Hat
 Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 

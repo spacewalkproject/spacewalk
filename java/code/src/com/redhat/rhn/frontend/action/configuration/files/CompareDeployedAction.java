@@ -36,7 +36,7 @@ public class CompareDeployedAction extends BaseSetListAction {
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_SYSTEMS;
     }
-    
+
     protected void processRequestAttributes(RequestContext rctxIn) {
         ConfigActionHelper.processRequestAttributes(rctxIn);
         super.processRequestAttributes(rctxIn);
@@ -49,7 +49,7 @@ public class CompareDeployedAction extends BaseSetListAction {
         User user = rctxIn.getLoggedInUser();
         ConfigFile file = ConfigActionHelper.getFile(rctxIn.getRequest());
         Long cfnid =  file.getConfigFileName().getId();
-        
+
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listSystemsForFileCompare(user, cfnid, pcIn);
     }

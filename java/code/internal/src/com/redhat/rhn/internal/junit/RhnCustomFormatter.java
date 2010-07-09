@@ -33,7 +33,7 @@ import junit.framework.TestListener;
 /**
  * A more spartan custom ant results logger, shamelessly hacked out
  * from PlainJUnitResultsFormatter from ant.
- * 
+ *
  * It's hideous.
  *
  * @version $Rev$
@@ -44,7 +44,7 @@ public class RhnCustomFormatter implements JUnitResultFormatter, TestListener {
 
     /** formatter for timings. */
     private NumberFormat nf = NumberFormat.getInstance();
-    
+
     /** storage for test start times */
     private Hashtable testStarts;
 
@@ -53,7 +53,7 @@ public class RhnCustomFormatter implements JUnitResultFormatter, TestListener {
 
     /** the output stream where to write the log to. */
     private OutputStream out;
-    
+
     /**
      * Creates a new <code>RhnCustomFormatter</code> instance.
      */
@@ -73,13 +73,13 @@ public class RhnCustomFormatter implements JUnitResultFormatter, TestListener {
     /**
      * Saves what was written to stdout
      * @param outStr the String representing what was written to stdout
-     */  
+     */
     public void setSystemOutput(String outStr) { }
 
     /**
      * Saves what was written to stderr
      * @param errStr the String represnting what was written to stderr
-     */    
+     */
     public void setSystemError(String errStr) { }
 
     /**
@@ -194,7 +194,7 @@ public class RhnCustomFormatter implements JUnitResultFormatter, TestListener {
      * @param test the test
      */
     public void endTest(Test test) { }
-    
+
     /**
      * Interface TestListener for JUnit &lt;= 3.4.
      *
@@ -205,7 +205,7 @@ public class RhnCustomFormatter implements JUnitResultFormatter, TestListener {
     public void addFailure(Test test, Throwable t) {
         formatError("\tFAILED", test, t);
     }
-    
+
     /**
      * Interface TestListener for JUnit &gt; 3.4.
      *
@@ -216,7 +216,7 @@ public class RhnCustomFormatter implements JUnitResultFormatter, TestListener {
     public void addFailure(Test test, AssertionFailedError t) {
         addFailure(test, (Throwable) t);
     }
-    
+
     /**
      * Interface TestListener.
      *
@@ -227,8 +227,8 @@ public class RhnCustomFormatter implements JUnitResultFormatter, TestListener {
     public void addError(Test test, Throwable t) {
         formatError("\tCaused an ERROR", test, t);
     }
-    
-    
+
+
     private void formatError(String type, Test test, Throwable t) {
         synchronized (out) {
             if (test != null) {
@@ -242,7 +242,7 @@ public class RhnCustomFormatter implements JUnitResultFormatter, TestListener {
                 t.getMessage(),
                 JUnitTestRunner.getFilteredTrace(t),
             };
-            
+
             MessageFormat form = new MessageFormat("\n{0}:  {2}\n{3}\n");
             try {
                 out.write(form.format(args).getBytes());
@@ -253,5 +253,5 @@ public class RhnCustomFormatter implements JUnitResultFormatter, TestListener {
             }
             // DO NOT CLOSE the out stream!!!
         }
-    }    
+    }
 }

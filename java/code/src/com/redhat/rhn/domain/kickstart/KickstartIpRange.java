@@ -37,15 +37,15 @@ public class KickstartIpRange implements Serializable {
     private Date modified;
 
 
-    /** 
-     * Getter for kickstartId 
+    /**
+     * Getter for kickstartId
      * @return KickstartData to get
     */
     public KickstartData getKsdata() {
         return this.ksdata;
     }
 
-    /** 
+    /**
      * Setter for ksdata
      * @param ksdataIn to set
     */
@@ -53,80 +53,80 @@ public class KickstartIpRange implements Serializable {
         this.ksdata = ksdataIn;
     }
 
-    /** 
-     * Getter for org 
+    /**
+     * Getter for org
      * @return Org to get
     */
     public Org getOrg() {
         return this.org;
     }
 
-    /** 
-     * Setter for org 
+    /**
+     * Setter for org
      * @param orgIn to set
     */
     public void setOrg(Org orgIn) {
         this.org = orgIn;
     }
 
-    /** 
-     * Getter for min 
+    /**
+     * Getter for min
      * @return Long to get
     */
     public Long getMin() {
         return this.min;
     }
 
-    /** 
-     * Setter for min 
+    /**
+     * Setter for min
      * @param minIn to set
     */
     public void setMin(Long minIn) {
         this.min = minIn;
     }
 
-    /** 
-     * Getter for max 
+    /**
+     * Getter for max
      * @return Long to get
     */
     public Long getMax() {
         return this.max;
     }
 
-    /** 
-     * Setter for max 
+    /**
+     * Setter for max
      * @param maxIn to set
     */
     public void setMax(Long maxIn) {
         this.max = maxIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {
@@ -157,13 +157,13 @@ public class KickstartIpRange implements Serializable {
                                     .append(max)
                                     .toHashCode();
     }
-    
+
     /**
      * gets the string representation of the max ip (i.e. "192.168.0.1")
      * @return the ip as a string
      */
     public String getMaxString() {
-        IpAddress ip = new IpAddress(max);        
+        IpAddress ip = new IpAddress(max);
         return ip.toString();
     }
 
@@ -172,26 +172,26 @@ public class KickstartIpRange implements Serializable {
      * @return the ip as a string
      */
     public String getMinString() {
-        IpAddress ip = new IpAddress(min);        
+        IpAddress ip = new IpAddress(min);
         return ip.toString();
     }
 
     /**
-     * Sets the max ip 
+     * Sets the max ip
      * @param maxStr the max ip in string format ("192.168.0.1")
      */
     public void setMaxString(String maxStr) {
         IpAddress ip = new IpAddress(maxStr);
         max = ip.getNumber();
     }
-    
+
     /**
-     * Sets the min ip 
+     * Sets the min ip
      * @param minStr the min ip in string format ("192.168.0.1")
      */
     public void setMinString(String minStr) {
         IpAddress ip = new IpAddress(minStr);
         min = ip.getNumber();
     }
-    
+
 }

@@ -27,7 +27,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Exports a List of data to a comma separated value string
- * 
+ *
  * @version $Rev $
  */
 public class CSVTag extends BodyTagSupport {
@@ -38,11 +38,11 @@ public class CSVTag extends BodyTagSupport {
 
     private String name = ListHelper.LIST;
     private String dataSetName = ListHelper.DATA_SET;
-    
+
     private String uniqueName;
 
     private String exportColumns;
-    
+
     private String header = null;
 
     private List pageData;
@@ -50,7 +50,7 @@ public class CSVTag extends BodyTagSupport {
     /**
      * Stores the "name" of the list. This is the "salt" used to build the
      * uniqueName used by the ListTag and ColumnTag.
-     * 
+     *
      * @param nameIn
      *            list name
      */
@@ -61,7 +61,7 @@ public class CSVTag extends BodyTagSupport {
     /**
      * Build the list's unique name Algorithm for the unique name is: Take the
      * CRC value of the following string: request url + ";" + name
-     * 
+     *
      * @return unique name
      */
     public synchronized String getUniqueName() {
@@ -81,18 +81,18 @@ public class CSVTag extends BodyTagSupport {
     public void setHeader(String headerIn) {
         header = headerIn;
     }
-    
+
     /**
-     * @return optional header text for CSV file 
+     * @return optional header text for CSV file
      */
     public String getHeader() {
         return header;
     }
-    
+
     /**
      * Sets the name of the dataset to use Tries to locate the list in the
      * following order: page context, request attribute, session attribute
-     * 
+     *
      * @param nameIn
      *            name of dataset
      * @throws JspException
@@ -127,7 +127,7 @@ public class CSVTag extends BodyTagSupport {
             }
         }
     }
-    
+
     /**
      * @return Returns the exportColumns.
      */
@@ -150,7 +150,7 @@ public class CSVTag extends BodyTagSupport {
     public int doEndTag() throws JspException {
         setupPageData();
         if ((null != exportColumns) && (null != pageData)) {
-            renderExport(); 
+            renderExport();
         }
         release();
         return BodyTagSupport.EVAL_PAGE;
@@ -179,9 +179,9 @@ public class CSVTag extends BodyTagSupport {
 
     /**
      * Adds a link pointing to an Action to deliver the CSV contents.
-     * Depends on the need data being stored in the session context, 
+     * Depends on the need data being stored in the session context,
      * while the attribute names are passed as request parameters.
-     * 
+     *
      * @throws JspException
      */
     private void renderExport() throws JspException {
@@ -203,7 +203,7 @@ public class CSVTag extends BodyTagSupport {
     /**
      * Creates the request parameter string needed to pass info to the action
      * handling the CSV exporting.
-     * 
+     *
      * @return String with request parameters for CSVDownloadAction
      */
     public String makeCSVRequestParams() {
@@ -217,17 +217,17 @@ public class CSVTag extends BodyTagSupport {
         // so CSVDownloadAction is able to retreive them.
         session.setAttribute(paramExportColumns, exportColumns);
         session.setAttribute(paramPageList, pageData);
-        
-        String csvKey = 
+
+        String csvKey =
             CSVDownloadAction.EXPORT_COLUMNS + "=" + paramExportColumns +
-                "&" + CSVDownloadAction.PAGE_LIST_DATA + "=" + paramPageList + 
+                "&" + CSVDownloadAction.PAGE_LIST_DATA + "=" + paramPageList +
                 "&" + CSVDownloadAction.UNIQUE_NAME + "=" + getUniqueName();
-        
+
         if (header != null) {
             session.setAttribute(paramHeader, header);
             csvKey += "&" + CSVDownloadAction.HEADER_NAME + "=" + paramHeader;
         }
-        
+
         return csvKey;
     }
 

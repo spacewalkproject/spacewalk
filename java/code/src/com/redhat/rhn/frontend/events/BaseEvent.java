@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * BaseEvent - basic superclass that holds common event members.
- * 
+ *
  * @version $Rev$
  */
 public abstract class BaseEvent {
@@ -47,7 +47,7 @@ public abstract class BaseEvent {
         this.user = userIn;
     }
 
-    
+
     /**
      * @return Returns the request.
      */
@@ -55,17 +55,17 @@ public abstract class BaseEvent {
         return request;
     }
 
-    
+
     /**
      * @return Returns the user.
      */
     public User getUser() {
         return user;
     }
-    
+
     /**
-     * 
-     * @return return the Users locale or default if not set 
+     *
+     * @return return the Users locale or default if not set
      */
     public Locale getUserLocale() {
         //TODO: when we support translated emails, remove this stub

@@ -25,7 +25,7 @@ public class Differ {
     private Trace head;
     private Trace beforeCurrent;
     private int bestSoFar;
-    
+
     /**
      * @param oldLength The length of the old file
      * @param newLength The length of the new file
@@ -37,7 +37,7 @@ public class Differ {
         beforeCurrent = head;
         bestSoFar = 0;
     }
-    
+
     /**
      * @param oldFile The old(first, from) file
      * @param newFile The new(second, to) file
@@ -50,13 +50,13 @@ public class Differ {
         }
         return retval;
     }
-    
+
     /**
      * The crux of the optimization for this algorithm lies in the fact that
      * we will step through all of the traces in parallel rather than
      * recursively.  This allows us to delete traces that can't possibly
      * be the most optimal.
-     * 
+     *
      * This will call the step function on Trace for every current trace we
      * have.  It will delete traces that cannot be optimal.
      * @param oldFile The old(first, from) file
@@ -74,18 +74,18 @@ public class Differ {
             }
             else {
                 forked = beforeCurrent.next().step(oldFile, newFile);
-                
+
                 //With the step algorithm, the first one to reach the end of
                 //both files is the winner!
                 if (beforeCurrent.next().isDone()) {
                     return beforeCurrent.next().createHunks(oldFile, newFile);
                 }
-                
+
                 //update bestSoFar
                 if (beforeCurrent.next().getMatches() > bestSoFar) {
                     bestSoFar = beforeCurrent.next().getMatches();
                 }
-                
+
                 //if it forked, there is a new element in the linked list
                 //that has already been dealt with, so skip it.
                 if (forked) {
@@ -98,5 +98,5 @@ public class Differ {
         }
         return null; //null means we need to step again.
     }
-    
+
 }

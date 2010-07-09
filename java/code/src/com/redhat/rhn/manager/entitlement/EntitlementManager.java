@@ -50,7 +50,7 @@ public class EntitlementManager extends BaseManager {
      */
     private static Logger log = Logger
             .getLogger(EntitlementManager.class);
-    
+
     //  ENTITLEMENTS
     public static final Entitlement UPDATE = new UpdateEntitlement();
     public static final Entitlement MANAGEMENT = new ManagementEntitlement();
@@ -58,7 +58,7 @@ public class EntitlementManager extends BaseManager {
     public static final Entitlement MONITORING = new MonitoringEntitlement();
     public static final Entitlement NONLINUX = new NonLinuxEntitlement();
     public static final Entitlement VIRTUALIZATION = new VirtualizationEntitlement();
-    public static final Entitlement VIRTUALIZATION_PLATFORM = 
+    public static final Entitlement VIRTUALIZATION_PLATFORM =
         new VirtualizationPlatformEntitlement();
 
     public static final String UNENTITLED = "unentitled";
@@ -68,10 +68,10 @@ public class EntitlementManager extends BaseManager {
     public static final String NONLINUX_ENTITLED = "nonlinux_entitled";
     public static final String MONITORING_ENTITLED = "monitoring_entitled";
     public static final String VIRTUALIZATION_ENTITLED = "virtualization_host";
-    public static final String VIRTUALIZATION_PLATFORM_ENTITLED 
+    public static final String VIRTUALIZATION_PLATFORM_ENTITLED
         = "virtualization_host_platform";
-    
-    private static final Set <Entitlement> ADDON_ENTITLEMENTS; 
+
+    private static final Set <Entitlement> ADDON_ENTITLEMENTS;
     private static final Set <Entitlement> BASE_ENTITLEMENTS;
     static {
         ADDON_ENTITLEMENTS = new LinkedHashSet<Entitlement>();
@@ -79,11 +79,11 @@ public class EntitlementManager extends BaseManager {
         ADDON_ENTITLEMENTS.add(PROVISIONING);
         ADDON_ENTITLEMENTS.add(VIRTUALIZATION);
         ADDON_ENTITLEMENTS.add(VIRTUALIZATION_PLATFORM);
-        
+
         BASE_ENTITLEMENTS = new LinkedHashSet<Entitlement>();
         BASE_ENTITLEMENTS.add(MANAGEMENT);
     }
-    
+
 
     // SERVICES
     public static final String SVC_UPDATES = "updates";
@@ -91,7 +91,7 @@ public class EntitlementManager extends BaseManager {
     public static final String SVC_PROVISIONING = "provisioning";
     public static final String SVC_MONITORING = "monitoring";
     public static final String SVC_NONLINUX = "nonlinux";
-    
+
     /**
      * Returns the entitlement whose name matches the given <code>name</code>
      * @param name Name of Entitlement.
@@ -121,11 +121,11 @@ public class EntitlementManager extends BaseManager {
         }
         return null;
     }
- 
+
     /**
      * Get count of avail ents for the given entitlement and org.  NULL
      * if unlimited or not found.
-     * 
+     *
      * @param ent to lookup
      * @param orgIn to query
      * @return long count of avail ents
@@ -135,13 +135,13 @@ public class EntitlementManager extends BaseManager {
         if (log.isDebugEnabled()) {
             log.debug("getAvailableEntitlements.label: " + ent.getLabel());
         }
-        SelectMode m = 
+        SelectMode m =
             ModeFactory.getMode("General_queries", "server_group_membership");
 
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
         params.put("label", ent.getLabel());
-        
+
         DataResult dr = m.execute(params);
         if (dr.size() > 0) {
             Map row = (Map) dr.get(0);
@@ -151,10 +151,10 @@ public class EntitlementManager extends BaseManager {
         }
         else {
             log.debug("something weird, we didnt get a SG.");
-        }        
-        return available; 
+        }
+        return available;
     }
-    
+
     /**
      * Returns the static set of addon entitlements.
      * @return Unmodifiable set.
@@ -186,7 +186,7 @@ public class EntitlementManager extends BaseManager {
             return null;
         }
     }
-    
+
     /**
      * Check the count of max entitlements for the passed in ent and org.
      * @param ent to check

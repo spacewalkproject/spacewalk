@@ -23,23 +23,23 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class KickstartTreeTypeTest extends RhnBaseTestCase {
-    
+
     public void testKsTreeType() throws Exception {
         Long testid = new Long(1);
         String query = "KickstartTreeType.findById";
-        
+
         KickstartTreeType ktt1 = (KickstartTreeType)
                                  TestUtils.lookupFromCacheById(testid, query);
         assertNotNull(ktt1);
         assertEquals(ktt1.getId(), testid);
-        
+
         KickstartTreeType ktt2 = (KickstartTreeType)
                                  TestUtils.lookupFromCacheById(ktt1.getId(), query);
         assertEquals(ktt1.getLabel(), ktt2.getLabel());
-        
+
         KickstartTreeType ktt3 = (KickstartTreeType)
                                  TestUtils.lookupFromCacheById(ktt1.getId(), query);
         assertNotNull(ktt3);
     }
- 
+
 }

@@ -24,7 +24,7 @@ public class TestTranslations extends Translations {
 
     private TestTranslations() {
     }
-    
+
     public static Object convert(Object have, Class want) {
         return convert(TestTranslations.class, have, want);
     }
@@ -42,7 +42,7 @@ public class TestTranslations extends Translations {
     private static Long int2Long(Integer i) {
         return new Long(i.intValue());
     }
-    
+
     public static String list2String(List l) {
         return l.toString();
     }

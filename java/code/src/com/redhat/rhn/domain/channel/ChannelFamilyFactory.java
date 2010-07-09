@@ -37,16 +37,16 @@ import java.util.Map;
  * @version $Rev$
  */
 public class ChannelFamilyFactory extends HibernateFactory {
-    
+
     private static ChannelFamilyFactory singleton = new ChannelFamilyFactory();
     private static Logger log = Logger.getLogger(ChannelFamilyFactory.class);
     public static final String SATELLITE_CHANNEL_FAMILY_LABEL = "rhn-satellite";
     public static final String PROXY_CHANNEL_FAMILY_LABEL = "rhn-proxy";
-    
+
     private ChannelFamilyFactory() {
         super();
     }
-    
+
     /**
      * Get the Logger for the derived class so log messages
      * show up on the correct class
@@ -54,19 +54,19 @@ public class ChannelFamilyFactory extends HibernateFactory {
     protected Logger getLogger() {
         return log;
     }
-    
+
     /**
      * Lookup a ChannelFamily by its id
      * @param id the id to search for
      * @return the ChannelFamily found
      */
     public static ChannelFamily lookupById(Long id) {
-        ChannelFamily cfam = (ChannelFamily) 
+        ChannelFamily cfam = (ChannelFamily)
             HibernateFactory.getSession().get(ChannelFamily.class, id);
         return cfam;
     }
-    
-    /** 
+
+    /**
      * Lookup a ChannelFamily by its label
      * @param label the label to search for
      * @param org the Org the Family belongs to, use null if looking for
@@ -77,11 +77,11 @@ public class ChannelFamilyFactory extends HibernateFactory {
         Session session = getSession();
         Criteria c = session.createCriteria(ChannelFamily.class);
         c.add(Restrictions.eq("label", label));
-        c.add(Restrictions.or(Restrictions.eq("org", org), 
+        c.add(Restrictions.or(Restrictions.eq("org", org),
               Restrictions.isNull("org")));
         return (ChannelFamily) c.uniqueResult();
     }
-    
+
     /**
      * Lookup a ChannelFamily by org - this is the org's private
      * channel family, which has all of the org's custom channels in
@@ -128,16 +128,16 @@ public class ChannelFamilyFactory extends HibernateFactory {
             // the page in question.
 
             cfam.setProductUrl("org_channel_family.pxt");
-        
+
             ChannelFamilyFactory.save(cfam);
-            
-            //If we're creating a new channel fam, make sure the org has 
+
+            //If we're creating a new channel fam, make sure the org has
             updateFamilyPermissions(orgIn);
             //permission to use it.
         }
         return cfam;
     }
-    
+
     /**
      * Checks if the org has permission to its channel family.
      * If it does not, grants permissions.
@@ -154,20 +154,20 @@ public class ChannelFamilyFactory extends HibernateFactory {
         Map params = new HashMap();
         params.put("org_id", org.getId());
         Iterator i = m.execute(params).iterator();
-        
+
         //Insert permissions for this org
         List ids = new ArrayList();
         WriteMode m2 = ModeFactory.getWriteMode("Channel_queries", "insert_family_perms");
         while (i.hasNext()) {
             Long next = new Long(((ChannelOverview) i.next()).getId().longValue());
             ids.add(next);
-            
+
             params.clear();
             params.put("org_id", org.getId());
             params.put("id", next);
             m2.executeUpdate(params);
         }
-        
+
         //return the list of ids
         return ids;
     }
@@ -199,7 +199,7 @@ public class ChannelFamilyFactory extends HibernateFactory {
         Session session = getSession();
         Criteria c = session.createCriteria(ChannelFamily.class);
         c.add(Restrictions.like("label", label + "%"));
-        c.add(Restrictions.or(Restrictions.eq("org", orgIn), 
+        c.add(Restrictions.or(Restrictions.eq("org", orgIn),
               Restrictions.isNull("org")));
         return  c.list();
     }

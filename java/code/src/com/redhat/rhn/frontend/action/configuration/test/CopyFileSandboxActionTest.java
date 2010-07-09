@@ -24,27 +24,27 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
 public class CopyFileSandboxActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //Create the revision to copy
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
         Long cfid = revision.getConfigFile().getId();
         Long crid = revision.getId();
-        
+
         //Create a channel to appear in the list.
         ConfigChannel channel = ConfigTestUtils.createConfigChannel(user.getOrg(),
                 ConfigChannelType.sandbox());
         //This is a sandbox channel, which means that we need to give it a server
         //for it to be a valid channel,  the function below does that.
         ConfigTestUtils.giveUserChanAccess(user, channel);
-        
+
         setRequestPathInfo("/configuration/file/CopyFileSandbox");
         addRequestParameter("cfid", cfid.toString());
         addRequestParameter("crid", crid.toString());
-        
+
         actionPerform();
         verifyPageList(ConfigSystemDto.class);
     }

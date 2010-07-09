@@ -26,53 +26,53 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import org.apache.log4j.Logger;
 
 /**
- * BaseKickstartCommand - baseclass for editing a FileList class. 
+ * BaseKickstartCommand - baseclass for editing a FileList class.
  * @version $Rev$
  */
 public abstract class BaseKickstartCommand implements PersistOperation {
-    
+
     private static Logger logger = Logger
         .getLogger(BaseKickstartCommand.class);
-        
+
     protected KickstartData ksdata;
-    protected User user; 
+    protected User user;
     protected boolean rebuildPartitionCommands = false;
 
     /**
-     * Construct a command with a Kickstart ksid. 
+     * Construct a command with a Kickstart ksid.
      * @param ksidIn to use.
      * @param userIn Logged in User
-     * 
-     */    
+     *
+     */
     public BaseKickstartCommand(Long ksidIn, User userIn) {
         this(KickstartFactory
                 .lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksidIn), userIn);
 
     }
 
-    
+
     /**
-     * Construct a command with a KSdata provided. 
+     * Construct a command with a KSdata provided.
      * @param data the kickstart data
      * @param userIn Logged in User
-     * 
-     */    
+     *
+     */
     public BaseKickstartCommand(KickstartData data, User userIn) {
         super();
         this.ksdata = data;
         this.user = userIn;
     }
-    
+
     /**
-     * 
+     *
      * @return KickstartData
      */
     public KickstartData getKickstartData() {
         return this.ksdata;
     }
-    
+
     /**
-     * Save the Kickstart Data to DB     
+     * Save the Kickstart Data to DB
      * @return ValdiatorError if there was an error.  Currently always returns null
      */
     public ValidatorError store() {
@@ -82,30 +82,30 @@ public abstract class BaseKickstartCommand implements PersistOperation {
             ksData.removeCommand("partitions", false);
             ksData.removeCommand("volgroups", false);
             ksData.removeCommand("logvols", false);
-            
+
             KickstartWizardHelper helper = new KickstartWizardHelper(user);
             KickstartBuilder.setBootloader(helper, ksData);
             KickstartBuilder.setPartitionScheme(helper, ksData);
         }
-        
+
 
         KickstartFactory.saveKickstartData(ksData);
-        
+
         CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
         ValidatorError err = cmd.store();
         logger.debug("Did we get an error storing to cobbler: " + err);
         return err;
     }
 
-    
+
     /**
      * @return the user
      */
     public User getUser() {
         return user;
     }
-    
-    
+
+
     /**
      * Looks up a KickstartCommandName by name
      * @param commandName name of the KickstartCommandName

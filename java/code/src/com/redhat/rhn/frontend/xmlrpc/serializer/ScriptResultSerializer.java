@@ -28,7 +28,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
 /**
  * Converts a ScriptResult to an XMLRPC &lt;struct&gt;.
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
  *  #struct("script result")
  *      #prop_desc("dateTime.iso8601", "startDate", "Time script began execution.")
@@ -36,7 +36,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop_desc("int", "returnCode", "Script execution return code.")
  *      #prop_desc("string", "output", "Output of the script")
  *  #struct_end()
- * 
+ *
  */
 public class ScriptResultSerializer implements XmlRpcCustomSerializer {
 

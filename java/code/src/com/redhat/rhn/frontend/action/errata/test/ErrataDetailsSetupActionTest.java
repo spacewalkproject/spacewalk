@@ -30,15 +30,15 @@ public class ErrataDetailsSetupActionTest extends RhnBaseTestCase {
         ErrataDetailsSetupAction action = new ErrataDetailsSetupAction();
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action);
-        
+
         Errata e = ErrataFactoryTest.createTestErrata(
                 sah.getUser().getOrg().getId());
         e.addKeyword("test");
-        
+
         sah.getRequest().setupAddParameter("eid", e.getId().toString());
-        
+
         sah.executeAction();
-        
+
         assertNotNull(sah.getRequest().getAttribute("errata"));
         assertNotNull(sah.getRequest().getAttribute("issued"));
         assertNotNull(sah.getRequest().getAttribute("updated"));

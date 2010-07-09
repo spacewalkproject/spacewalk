@@ -42,8 +42,8 @@ public class ConfigListSubmitAction extends BaseSetOperateOnSelectedItemsAction 
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest requestIn) {
         return ConfigurationManager.getInstance().listFileNamesForSsm(userIn, null);
     }
@@ -66,12 +66,12 @@ public class ConfigListSubmitAction extends BaseSetOperateOnSelectedItemsAction 
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest requestIn, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest requestIn,
                                    Map paramsIn) {
         //no-op
     }
-    
+
     /**
      * @param mapping struts ActionMapping
      * @param formIn struts ActionForm
@@ -83,11 +83,11 @@ public class ConfigListSubmitAction extends BaseSetOperateOnSelectedItemsAction 
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        return schedule(mapping, formIn, request,  
+        return schedule(mapping, formIn, request,
                 ActionFactory.TYPE_CONFIGFILES_DEPLOY);
     }
 
-    
+
     /**
      * @param mapping struts ActionMapping
      * @param formIn struts ActionForm
@@ -99,10 +99,10 @@ public class ConfigListSubmitAction extends BaseSetOperateOnSelectedItemsAction 
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        return schedule(mapping, formIn, request,  
+        return schedule(mapping, formIn, request,
                 ActionFactory.TYPE_CONFIGFILES_DIFF);
     }
-    
+
     /**
      * @param mapping struts ActionMapping
      * @param formIn struts ActionForm
@@ -120,7 +120,7 @@ public class ConfigListSubmitAction extends BaseSetOperateOnSelectedItemsAction 
         }
         Map params = new HashMap();
         params.put("feature", feature.getLabel());
-        return getStrutsDelegate().forwardParams(mapping.findForward("confirm"), 
-                params);        
-    }    
+        return getStrutsDelegate().forwardParams(mapping.findForward("confirm"),
+                params);
+    }
 }

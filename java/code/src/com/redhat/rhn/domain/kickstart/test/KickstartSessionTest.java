@@ -41,13 +41,13 @@ public class KickstartSessionTest extends BaseTestCaseWithUser {
     private KickstartData k;
     private KickstartSession ksession;
     private Server s;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         user.addRole(RoleFactory.ORG_ADMIN);
         k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         assertNotNull(k);
-        Profile p  = ProfileTest.createTestProfile(user, 
+        Profile p  = ProfileTest.createTestProfile(user,
                 k.getKickstartDefaults().getKstree().getChannel());
         ksession = createKickstartSession(k, user);
         s = ksession.getOldServer();
@@ -61,8 +61,8 @@ public class KickstartSessionTest extends BaseTestCaseWithUser {
         assertNotNull(KickstartFactory.SESSION_STATE_FAILED.getId());
         assertNotNull(KickstartFactory.SESSION_STATE_STARTED.getId());
     }
-    
-    
+
+
     public void testKickstartDataTest() throws Exception {
 
         KickstartSession ks2 = KickstartFactory.
@@ -71,22 +71,22 @@ public class KickstartSessionTest extends BaseTestCaseWithUser {
         assertEquals(ksession.getKsdata(), k);
         assertNotNull(ks2.getServerProfile());
     }
-    
+
     public void testLookupByServer() throws Exception {
 
         KickstartSession lookedUp = KickstartFactory.
             lookupKickstartSessionByServer(s.getId());
         assertEquals(lookedUp.getId(), ksession.getId());
     }
-    
-    
+
+
     public void testLookupAllForServerAndFail() throws Exception {
 
         KickstartSession session2 = createKickstartSession(s, k, user);
         KickstartFactory.saveKickstartSession(session2);
         assertEquals(2, KickstartFactory.
                 lookupAllKickstartSessionsByServer(s.getId()).size());
-        
+
         session2.setState(KickstartFactory.SESSION_STATE_CREATED);
         session2.markFailed("some failed message");
         KickstartFactory.saveKickstartSession(session2);
@@ -94,8 +94,8 @@ public class KickstartSessionTest extends BaseTestCaseWithUser {
         assertEquals("Got wrong status: " + session2.getState().getLabel(),
                 KickstartFactory.SESSION_STATE_FAILED, session2.getState());
     }
-    
-    
+
+
     public void testHistory() throws Exception {
         ksession = addHistory(ksession);
         Thread.sleep(2000);
@@ -103,14 +103,14 @@ public class KickstartSessionTest extends BaseTestCaseWithUser {
         ksession = (KickstartSession) reload(ksession);
         assertNotNull(ksession.getHistory());
         assertEquals(2, ksession.getHistory().size());
-        
+
         ksession.addHistory(KickstartFactory.SESSION_STATE_FAILED, "FAILED");
-        
+
         KickstartFactory.saveKickstartSession(ksession);
         ksession = (KickstartSession) reload(ksession);
         assertTrue(ksession.getMostRecentHistory().startsWith("FAILED"));
     }
-    
+
     public void testGetUrl() {
         String url = ksession.getUrl("xmlrpc.rhn.webdev.redhat.com", new Date());
         assertNotNull(url);
@@ -119,22 +119,22 @@ public class KickstartSessionTest extends BaseTestCaseWithUser {
         assertTrue(url.indexOf("http://xmlrpc.rhn.webdev.redhat.com/ty/") == 0);
 
     }
-    
-    public static KickstartSession addHistory(KickstartSession session) 
+
+    public static KickstartSession addHistory(KickstartSession session)
         throws Exception {
-        session.addHistory(KickstartFactory.SESSION_STATE_STARTED, 
+        session.addHistory(KickstartFactory.SESSION_STATE_STARTED,
                 "some hist" + TestUtils.randomString());
         return session;
     }
-    
+
     public static KickstartSession createKickstartSession(Server s, KickstartData k,
             User userIn) throws Exception {
         return createKickstartSession(s, k, userIn, null);
-        
+
     }
     public static KickstartSession createKickstartSession(Server s, KickstartData k,
             User userIn, Action actionIn) throws Exception {
-        
+
         KickstartSessionState state = KickstartFactory.SESSION_STATE_CREATED;
         KickstartSession ksession = new KickstartSession();
         ksession.setKsdata(k);
@@ -151,15 +151,15 @@ public class KickstartSessionTest extends BaseTestCaseWithUser {
         ksession.setVirtualizationType(KickstartFactory.
                 lookupKickstartVirtualizationTypeByLabel(
                     KickstartVirtualizationType.XEN_PARAVIRT));
-        
+
         if (actionIn != null) {
             ksession.setAction(actionIn);
         }
-        
+
         return ksession;
-        
+
     }
-    
+
     public static KickstartSession createKickstartSession(KickstartData k,
             User userIn) throws Exception {
         Server s = ServerFactoryTest.createTestServer(userIn, true);

@@ -18,54 +18,54 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * AbstractLabelNameHelper - We have a set of tables in our schema 
+ * AbstractLabelNameHelper - We have a set of tables in our schema
  * that are basic name/label pairs.  This class can be used by these tables
  * to represent them.
- * 
+ *
  * @version $Rev$
  */
 public class AbstractLabelNameHelper extends BaseDomainHelper {
-    
+
     private Long id;
     private String label;
     private String name;
-    
-    
+
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param l The label to set.
      */
     public void setLabel(String l) {
         this.label = l;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
@@ -97,7 +97,7 @@ public class AbstractLabelNameHelper extends BaseDomainHelper {
                                   .isEquals();
     }
 
-    /** 
+    /**
      * {@inheritDoc}
      */
     public String toString() {

@@ -26,14 +26,14 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class ListPackagesSetupActionTest extends RhnBaseTestCase {
-    
+
     public void testExecute() throws Exception {
         ListPackagesSetupAction action = new ListPackagesSetupAction();
         ActionHelper sah = new ActionHelper();
-        
+
         sah.setUpAction(action);
         sah.setupClampListBounds();
-        
+
         //Create a new errata
         Errata e = ErrataFactoryTest.createTestPublishedErrata(
                 sah.getUser().getOrg().getId());
@@ -42,7 +42,7 @@ public class ListPackagesSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("view_channel", (String) null);
         sah.getRequest().setupAddParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         sah.executeAction();
-        
+
         //make sure we got something for page list
         assertNotNull(sah.getRequest().getAttribute("pageList"));
     }

@@ -34,12 +34,12 @@ import java.util.List;
  * pieces of hex data and a signature that is based on a shared
  * secret.  Someday this should become a true HMAC, but for now, it is
  * an older algorithm.
- * 
+ *
  * @version $Rev$
  */
 
 public class SessionSwap {
-    
+
     private static Logger log = Logger.getLogger(SessionSwap.class);
 
     public static final char[] HEX_CHARS = {'0', '1', '2', '3',
@@ -55,7 +55,7 @@ public class SessionSwap {
      * contains both the original data and the 'signature'.  so the
      * resulting string is encapsulated and can be passed around as
      * 'signed' data.
-     * 
+     *
      * @param in an array of strings, all of which must be valud hex
      * @return String of the signature, in the form "D1:D2:D3xHEX"
      *         where D1... are the input data and HEX is the hex signature.
@@ -75,8 +75,8 @@ public class SessionSwap {
         return StringUtils.join(components, "x");
     }
 
-    /** 
-     * simple wrapper around encodeData(String[]) for easier consumption 
+    /**
+     * simple wrapper around encodeData(String[]) for easier consumption
      * @see SessionSwap#encodeData(String[]) encodeData
      * @param in The data to encode
      * @return The reulting session swap string.
@@ -86,11 +86,11 @@ public class SessionSwap {
     }
 
     /** given a session swap string, this will crack it open and
-     * return the data.  
+     * return the data.
      * @param in The session swap to inspect.
      * @return The data extracted from the session swap
      * @throws SessionSwapTamperException if the data was
-     *         tampered with, making it easy to use and trust 
+     *         tampered with, making it easy to use and trust
      */
     public static String[] extractData(String in) {
         String[] splitResults = StringUtils.split(in, 'x');
@@ -105,14 +105,14 @@ public class SessionSwap {
     }
     /**
      * compute the md5sum of
-     * key1:key2:(data):key3:key4.  
+     * key1:key2:(data):key3:key4.
      * @param data to compute
      * @return computed data
      */
     public static String generateSwapKey(String data) {
         Config c = Config.get();
         StringBuffer swapKey = new StringBuffer(20);
-        
+
         swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_1));
         swapKey.append(":");
         swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_2));
@@ -124,10 +124,10 @@ public class SessionSwap {
         swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_4));
         return computeMD5Hash(swapKey.toString());
     }
-    
+
     /**
      * compute md5sum for any arbitrary text
-     * 
+     *
      * @param text text to hash
      * @return md5 computed hash value
      */
@@ -139,24 +139,24 @@ public class SessionSwap {
             digest = MessageDigest.getInstance("MD5");
         }
         catch (NoSuchAlgorithmException e) {
-            // this really shouldn't happen.  really.            
-            throw new IllegalArgumentException("Unable to instantiate MD5 " + 
+            // this really shouldn't happen.  really.
+            throw new IllegalArgumentException("Unable to instantiate MD5 " +
                     "MessageDigest algorithm");
         }
         digest.update(text.getBytes());
         return HMAC.byteArrayToHex(digest.digest());
     }
-    
+
     /**
      * Takes an array of strings and SHA1 hashes the 'joined' results.
-     * 
+     *
      * This is a port of the RHN::SessionSwap:rhn_hmac_data method.
-     * 
+     *
      * @param text array to SHA1 hash
      * @return String of hex chars
      */
     public static String rhnHmacData(List<String> text) {
-        
+
         Config c = Config.get();
         StringBuffer swapKey = new StringBuffer(20);
         if (log.isDebugEnabled()) {
@@ -168,10 +168,10 @@ public class SessionSwap {
         swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_3));
         swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_2));
         swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_1));
-        
+
         String joinedText = StringUtils.join(text.iterator(), "\0");
-        
-        
+
+
         if (log.isDebugEnabled()) {
             log.debug("Data     : [" + joinedText + "]");
             log.debug("Key      : [" + swapKey + "]");

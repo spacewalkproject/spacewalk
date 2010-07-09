@@ -71,24 +71,24 @@ public class SubscribeChannelsAction extends BaseListAction {
         return strutsDelegate.forwardParams
                         (mapping.findForward("rank"), params);
     }
-    
-    private ActionForward handleSingleAdd(ActionMapping mapping, 
+
+    private ActionForward handleSingleAdd(ActionMapping mapping,
                                             RequestContext context, String id) {
         ActivationKey key = context.lookupAndBindActivationKey();
         User user = context.getLoggedInUser();
         ConfigChannel ch = ConfigurationFactory.lookupConfigChannelById(Long.valueOf(id));
-     
+
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
-        
+
         proc.add(key.getConfigChannelsFor(user), ch);
         String[] params = {key.getNote()};
-        getStrutsDelegate().saveMessage("sdc.config.rank.jsp.success", 
+        getStrutsDelegate().saveMessage("sdc.config.rank.jsp.success",
                                                     params, context.getRequest());
-        
+
         return getStrutsDelegate().forwardParam(mapping.findForward("singleAdd"),
-                RequestContext.TOKEN_ID, key.getId().toString());        
+                RequestContext.TOKEN_ID, key.getId().toString());
     }
-    
+
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         ConfigurationManager cm = ConfigurationManager.getInstance();
@@ -96,7 +96,7 @@ public class SubscribeChannelsAction extends BaseListAction {
                         context.lookupAndBindActivationKey(),
                         context.getLoggedInUser());
     }
-    
+
     @Override
     protected void processPostSubmit(ListSessionSetHelper helper) {
         //No Op

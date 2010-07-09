@@ -37,7 +37,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
 * ActivationKeySerializer
 * @version $Rev$
 *
-* @xmlrpc.doc 
+* @xmlrpc.doc
 *   #struct("token serializer")
 *     #prop("string", "description")
 *     #prop("int", "usage_limit")
@@ -75,7 +75,7 @@ public class TokenSerializer implements XmlRpcCustomSerializer {
     * Populates token information in to serializer format.
     * Since 95% of activation key serializer also uses this format
     *  it seemed prudent to make this a default access static method..
-    * @param token the token to get the information to populate 
+    * @param token the token to get the information to populate
     * @param helper the serializer helper that will be populated.
     */
    static  void populateTokenInfo(Token token,  SerializerHelper helper) {
@@ -93,8 +93,8 @@ public class TokenSerializer implements XmlRpcCustomSerializer {
        if (baseChannelLabel == null) {
            baseChannelLabel = "none";
        }
-       
-       // Prepare a list of relevant entitlement labels, make sure to filter the 
+
+       // Prepare a list of relevant entitlement labels, make sure to filter the
        // non-addon entitlements:
        List<String> entitlementLabels = new LinkedList<String>();
        for (ServerGroupType sgt : token.getEntitlements()) {
@@ -102,12 +102,12 @@ public class TokenSerializer implements XmlRpcCustomSerializer {
                entitlementLabels.add(sgt.getLabel());
            }
        }
-       
+
        List<Integer> serverGroupIds = new LinkedList<Integer>();
        for (ServerGroup group : token.getServerGroups()) {
            serverGroupIds.add(new Integer(group.getId().intValue()));
        }
-       
+
        List<String> packageNames = new LinkedList<String>();
        List<Map<String, String>> packages = new LinkedList<Map<String, String>>();
        for (TokenPackage pkg : token.getPackages()) {
@@ -122,20 +122,20 @@ public class TokenSerializer implements XmlRpcCustomSerializer {
            packages.add(pkgMap);
        }
        helper.add("description", token.getNote());
-       
+
        Integer usageLimit = new Integer(0);
        if (token.getUsageLimit() != null) {
            usageLimit = new Integer(token.getUsageLimit().intValue());
        }
        helper.add("usage_limit", usageLimit);
-       
+
        helper.add("base_channel_label", baseChannelLabel);
        helper.add("child_channel_labels", childChannelLabels);
        helper.add("entitlements", entitlementLabels);
        helper.add("server_group_ids", serverGroupIds);
        helper.add("package_names", packageNames);
        helper.add("packages", packages);
-       
+
        Boolean universalDefault =  Boolean.valueOf(token.isOrgDefault());
        helper.add("universal_default", universalDefault);
    }

@@ -81,17 +81,17 @@ import redstone.xmlrpc.XmlRpcFault;
  * @version $Rev$
  */
 public class ErrataManager extends BaseManager {
-    
+
     private static Logger log = Logger.getLogger(ErrataManager.class);
     public static final String DATE_FORMAT_PARSE_STRING = "yyyy-MM-dd";
     public static final long MAX_ADVISORY_RELEASE = 9999;
 
     private ErrataManager() {
     }
-    
+
     /**
      * Converts a list of ErrataFile instances into java.io.File instances
-     * If a corresponding java.io.File instance is not found for a given 
+     * If a corresponding java.io.File instance is not found for a given
      * ErrataFile instance then it is skipped and not added to the returned list.
      * @param errataFiles list of files to resolve
      * @return list of corresponding java.io.File instances
@@ -122,9 +122,9 @@ public class ErrataManager extends BaseManager {
         }
         return retval;
     }
-    
+
     /**
-     * Tries to locate errata based on either the errataum's id or the 
+     * Tries to locate errata based on either the errataum's id or the
      * CVE/CAN identifier string.
      * @param identifier erratum id or CVE/CAN id string
      * @return list of erratas found
@@ -132,13 +132,13 @@ public class ErrataManager extends BaseManager {
     public static List lookupErrataByIdentifier(String identifier) {
         return ErrataFactory.lookupByIdentifier(identifier);
     }
-    
+
     /**
-     * Takes an unpublished errata and returns a published errata into the 
+     * Takes an unpublished errata and returns a published errata into the
      * channels we pass in. NOTE:  This method does NOT update the errata cache for
      * the channels.  That is done when packages are pushed as part of the errata
      * publication process (which is not done here)
-     * 
+     *
      * @param unpublished The errata to publish
      * @param channelIds The Long channelIds we want to publish this Errata to.
      * @param user who is publishing errata
@@ -148,7 +148,7 @@ public class ErrataManager extends BaseManager {
         //pass on to the factory
         Errata retval = ErrataFactory.publish(unpublished);
         log.debug("publish - errata published");
-        
+
         retval = addChannelsToErrata(retval, channelIds, user);
         log.debug("publish - updateErrataCacheForChannelsAsync called");
 
@@ -156,10 +156,10 @@ public class ErrataManager extends BaseManager {
         updateSearchIndex();
         return retval;
     }
-    
+
     /**
      * Takes an unpublished errata and returns a published errata
-     * 
+     *
      * @param unpublished The errata to publish
      * @return Returns a published errata.
      */
@@ -172,10 +172,10 @@ public class ErrataManager extends BaseManager {
         updateSearchIndex();
         return retval;
     }
-    
+
     /**
      * Add the channels in the channelIds set to the passed in errata.
-     * 
+     *
      * @param errata to add channels to
      * @param channelIds to add
      * @param user who is adding channels to errata
@@ -185,7 +185,7 @@ public class ErrataManager extends BaseManager {
                         Collection<Long> channelIds, User user) {
         log.debug("addChannelsToErrata");
         Iterator itr = channelIds.iterator();
-        
+
         while (itr.hasNext()) {
             Long channelId = (Long) itr.next();
             Channel channel = ChannelManager.lookupByIdAndUser(channelId, user);
@@ -193,7 +193,7 @@ public class ErrataManager extends BaseManager {
                 errata.addChannel(channel);
             }
         }
-        
+
         //if we're publishing the errata but not pushing packages
         //  We need to add cache entries for ones that are already in the channel
         //  and associated to the errata
@@ -205,12 +205,12 @@ public class ErrataManager extends BaseManager {
         //Save the errata
         log.debug("addChannelsToErrata - storing errata");
         storeErrata(errata);
-        
+
         errata = (Errata) HibernateFactory.reload(errata);
         log.debug("addChannelsToErrata - errata reloaded from DB");
         return errata;
     }
-    
+
     /**
      * Creates a new (Unpublished) Errata object.
      * @return Returns a fresh errata
@@ -218,7 +218,7 @@ public class ErrataManager extends BaseManager {
     public static Errata createNewErrata() {
         return ErrataFactory.createUnpublishedErrata();
     }
-    
+
     /**
      * Creates a new Unpublished Bug with the id and summary given.
      * @param id The id for the new bug.
@@ -228,7 +228,7 @@ public class ErrataManager extends BaseManager {
     public static Bug createNewUnpublishedBug(Long id, String summary) {
         return ErrataFactory.createUnpublishedBug(id, summary);
     }
-    
+
     /**
      * Creates a new PublishedBug with the id and summary given.
      * @param id The id for the new bug
@@ -238,7 +238,7 @@ public class ErrataManager extends BaseManager {
     public static Bug createNewPublishedBug(Long id, String summary) {
         return ErrataFactory.createPublishedBug(id, summary);
     }
-    
+
     /**
      * Creates a new Unpublished Errata file with given ErrataFileType, checksum, and name
      * @param ft ErrataFileType for the new ErrataFile
@@ -247,13 +247,13 @@ public class ErrataManager extends BaseManager {
      * @param packages Packages for the file.
      * @return new Unpublished Errata File
      */
-    public static ErrataFile createNewUnpublishedErrataFile(ErrataFileType ft, 
-                                                         String cs, 
+    public static ErrataFile createNewUnpublishedErrataFile(ErrataFileType ft,
+                                                         String cs,
                                                          String name,
                                                          Set packages) {
         return ErrataFactory.createUnpublishedErrataFile(ft, cs, name, packages);
     }
-    
+
     /**
      * Creates a new Published Errata file with given ErrataFileType, checksum, and name
      * @param ft ErrataFileType for the new ErrataFile
@@ -262,13 +262,13 @@ public class ErrataManager extends BaseManager {
      * @param packages Packages for the file.
      * @return new Published Errata File
      */
-    public static ErrataFile createNewPublishedErrataFile(ErrataFileType ft, 
-                                                       String cs, 
-                                                       String name, 
+    public static ErrataFile createNewPublishedErrataFile(ErrataFileType ft,
+                                                       String cs,
+                                                       String name,
                                                        Set packages) {
         return ErrataFactory.createPublishedErrataFile(ft, cs, name, packages);
     }
-    
+
     /**
      * Returns all of the errata.
      * @param user Currently logged in user.
@@ -330,8 +330,8 @@ public class ErrataManager extends BaseManager {
         DataResult dr = m.execute(params);
         return dr;
     }
-    
-    
+
+
     /**
      * Returns a list of ErrataOverview whose errata contains the packages
      * with the given pids.
@@ -342,7 +342,7 @@ public class ErrataManager extends BaseManager {
     public static List<ErrataOverview> searchByPackageIds(List pids) {
         return ErrataFactory.searchByPackageIds(pids);
     }
-    
+
     /**
      * Returns a list of ErrataOverview whose errata contains the packages
      * with the given pids.
@@ -364,7 +364,7 @@ public class ErrataManager extends BaseManager {
     public static List<ErrataOverview> search(List eids, Org org) {
         return ErrataFactory.search(eids, org);
     }
-    
+
     /**
      * Returns the relevant errata.
      * @param user Currently logged in user.
@@ -386,7 +386,7 @@ public class ErrataManager extends BaseManager {
      * @param typeIn String type of errata.  See ErrataFactory.ERRATA_TYPE_*
      * @return relevant errata.
      */
-    public static DataResult relevantErrataByType(User user, 
+    public static DataResult relevantErrataByType(User user,
             PageControl pc, String typeIn) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "relevant_errata_by_type");
         Map params = new HashMap();
@@ -444,7 +444,7 @@ public class ErrataManager extends BaseManager {
     public static DataResult unpublishedInSet(User user, PageControl pc, String label) {
         return errataInSet(user, pc, "unpublished_in_set", label);
     }
-    
+
     /**
      * Returns all of the published errata.
      * @param user Currently logged in user.
@@ -453,7 +453,7 @@ public class ErrataManager extends BaseManager {
     public static DataResult publishedOwnedErrata(User user) {
         return ownedErrata(user, "published_owned_errata");
     }
-    
+
     /**
      * Returns all of the published errata.
      * @param user Currently logged in user.
@@ -464,7 +464,7 @@ public class ErrataManager extends BaseManager {
     public static DataResult publishedInSet(User user, PageControl pc, String label) {
         return errataInSet(user, pc, "published_in_set", label);
     }
-    
+
     /**
      * Returns all errata selected for cloning.
      * @param user Currently logged in user.
@@ -474,7 +474,7 @@ public class ErrataManager extends BaseManager {
     public static DataResult selectedForCloning(User user, PageControl pc) {
         return errataInSet(user, pc, "in_set", "clone_errata_list");
     }
-    
+
     /**
      * Return a list of errata overview objects contained in a set
      * @param user the user doing the lookup
@@ -521,7 +521,7 @@ public class ErrataManager extends BaseManager {
         params.put("org_id", user.getOrg().getId());
         return makeDataResult(params, new HashMap(), null, m);
     }
-    
+
     /**
      * Helper method to get the unpublished/published errata in the set
      * @param user Currently logged in user
@@ -530,7 +530,7 @@ public class ErrataManager extends BaseManager {
      * @param label Set label
      * @return all of the errata
      */
-    private static DataResult errataInSet(User user, PageControl pc, String mode, 
+    private static DataResult errataInSet(User user, PageControl pc, String mode,
                                           String label) {
         SelectMode m = ModeFactory.getMode("Errata_queries", mode);
         Map params = new HashMap();
@@ -540,7 +540,7 @@ public class ErrataManager extends BaseManager {
         elabParams.put("user_id", user.getId());
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
 
     /**
      * Delete published errata in the set named as label
@@ -551,7 +551,7 @@ public class ErrataManager extends BaseManager {
         DataResult dr = publishedInSet(user, null, label);
         deleteErrata(user, dr);
     }
-    
+
     /**
      * Delete unpublished errata in the set named as label
      * @param user User performing the operation
@@ -561,21 +561,21 @@ public class ErrataManager extends BaseManager {
         DataResult dr = unpublishedInSet(user, null, label);
         deleteErrata(user, dr);
     }
-    
+
     /**
      * Delete multiple errata
      * @param user the user deleting
      * @param The list of errata ids
      */
     private static void deleteErrata(User user, List<OwnedErrata> erratas) {
-        
+
 
         RhnSet bulk = RhnSetDecl.ERRATA_TO_DELETE_BULK.get(user);
         bulk.clear();
 
         for (OwnedErrata oe : erratas) {
             bulk.add(oe.getId());
-        }   
+        }
         RhnSetManager.store(bulk);
 
         List eList = new ArrayList();
@@ -594,8 +594,8 @@ public class ErrataManager extends BaseManager {
         modes.add(ModeFactory.getWriteMode("Errata_queries",
                 "deleteServerErrataPackageCacheBulk"));
         modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataBulk"));
-        
-        
+
+
         Map errataParams = new HashMap();
         Map errataOrgParams = new HashMap();
         errataOrgParams.put("org_id", user.getOrg().getId());
@@ -616,14 +616,14 @@ public class ErrataManager extends BaseManager {
 
         bulk.clear();
         RhnSetManager.store(bulk);
-        
+
         for (ChannelOverview chan : cList) {
              ChannelManager.queueChannelChange(chan.getLabel(),
                                             "java::deleteErrata", "errata deletion");
         }
-        
+
     }
-    
+
     /**
      * Deletes a single erratum
      * @param user doing the deleting
@@ -650,7 +650,7 @@ public class ErrataManager extends BaseManager {
         map.put("uid", set.getUserId());
         return m.execute(map);
     }
-    
+
     /**
      * Returns the errata with given id
      * @param eid errata id
@@ -664,7 +664,7 @@ public class ErrataManager extends BaseManager {
         }
 
         returnedErrata = ErrataFactory.lookupById(eid);
-        
+
         SelectMode m = ModeFactory.getMode("Errata_queries", "available_to_org");
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
@@ -679,15 +679,15 @@ public class ErrataManager extends BaseManager {
             e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.errata"));
             throw e;
         }
-        
+
         // If the errata is available to the users org, return the errata
         if (!m.execute(params).isEmpty()) {
             return returnedErrata;
         }
-        
+
         // If this is a non-accessible RH errata or the errata belongs to another org,
         // throw a lookup exception
-        if (returnedErrata.getOrg() == null ||  
+        if (returnedErrata.getOrg() == null ||
             (returnedErrata.getOrg().getId() != user.getOrg().getId() &&
              !user.getOrg().getTrustedOrgs().contains(returnedErrata.getOrg()))) {
             LocalizationService ls = LocalizationService.getInstance();
@@ -697,11 +697,11 @@ public class ErrataManager extends BaseManager {
             e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.errata"));
             throw e;
         }
-        
+
         // The errata belongs to the users org
         return returnedErrata;
     }
-    
+
     /**
      * Returns the errata with the given advisory name
      * @param advisoryName The advisory name of the errata you're looking for
@@ -719,7 +719,7 @@ public class ErrataManager extends BaseManager {
     public static Errata lookupByAdvisoryId(String advisoryId) {
         return ErrataFactory.lookupByAdvisoryId(advisoryId);
     }
-    
+
     /**
      * Looks up errata by CVE string
      * @param cve errata's CVE string
@@ -728,7 +728,7 @@ public class ErrataManager extends BaseManager {
     public static List lookupByCVE(String cve) {
         return ErrataFactory.lookupByCVE(cve);
     }
-    
+
     /**
      * Lookup all Errata by Advisory Type
      * @param advisoryType the advisory type to use to query the set of Errata
@@ -744,9 +744,9 @@ public class ErrataManager extends BaseManager {
      * @return Errata if found, otherwise null
      */
     public static Errata lookupPublishedErrata(Long id) {
-        return ErrataFactory.lookupPublishedErrataById(id);        
+        return ErrataFactory.lookupPublishedErrataById(id);
     }
-    
+
     /**
      * Returns the systems affected by a given errata
      * @param user The current user
@@ -763,16 +763,16 @@ public class ErrataManager extends BaseManager {
         elabParams.put("eid", eid);
         return makeDataResult(params, elabParams, pc, m);
     }
-    
+
     /**
      * Returns the system id and system names of the systems affected by a given errata
      * @param user The logged in user
      * @param eid The id of the errata in question
-     * @return Returns the system id and system names of the systems affected by a 
+     * @return Returns the system id and system names of the systems affected by a
      * given errata
      */
     public static DataResult systemsAffectedXmlRpc(User user, Long eid) {
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
                                            "affected_by_errata_no_selectable",
                                            Map.class);
         Map params = new HashMap();
@@ -782,7 +782,7 @@ public class ErrataManager extends BaseManager {
         elabParams.put("eid", eid);
         return makeDataResult(params, elabParams, null, m);
     }
-    
+
     /**
      * Returns the systems in the current set that are affected by an errata
      * @param user The current user
@@ -791,9 +791,9 @@ public class ErrataManager extends BaseManager {
      * @param pc PageControl
      * @return DataResult of systems
      */
-    public static DataResult relevantSystemsInSet(User user, String label, 
+    public static DataResult relevantSystemsInSet(User user, String label,
                                                   Long eid, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("System_queries", 
+        SelectMode m = ModeFactory.getMode("System_queries",
                                            "in_set_and_affected_by_errata");
         Map params = new HashMap();
         params.put("eid", eid);
@@ -806,7 +806,7 @@ public class ErrataManager extends BaseManager {
         dr.setTotalSize(dr.size());
         return dr;
     }
-    
+
     /**
      * Returns a list of available channels affected by an errata
      * @param user The user (to determine available channels)
@@ -815,14 +815,14 @@ public class ErrataManager extends BaseManager {
      */
     public static DataResult affectedChannels(User user, Long eid) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "affected_by_errata");
-        
+
         Map params = new HashMap();
         params.put("eid", eid);
         params.put("org_id", user.getOrg().getId());
         DataResult dr = m.execute(params);
         return dr;
     }
-    
+
     /**
      * Returns a list of bugs fixed by an errata
      * @param eid The errata id
@@ -830,13 +830,13 @@ public class ErrataManager extends BaseManager {
      */
     public static DataResult bugsFixed(Long eid) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "bugs_fixed_by_errata");
-        
+
         Map params = new HashMap();
         params.put("eid", eid);
         DataResult dr = m.execute(params);
         return dr;
     }
-    
+
     /**
      * Returns a list of CVEs for an errata
      * @param eid The errata id
@@ -844,13 +844,13 @@ public class ErrataManager extends BaseManager {
      */
     public static DataResult errataCVEs(Long eid) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "cves_for_errata");
-        
+
         Map params = new HashMap();
         params.put("eid", eid);
         DataResult dr = m.execute(params);
         return dr;
     }
-    
+
     /**
      * Returns a list of keywords for an errata
      * @param eid The errata id
@@ -858,13 +858,13 @@ public class ErrataManager extends BaseManager {
      */
     public static DataResult keywords(Long eid) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "keywords");
-        
+
         Map params = new HashMap();
         params.put("eid", eid);
         DataResult dr = m.execute(params);
         return dr;
     }
-    
+
     /**
      * Returns a list of packages for an errata
      * @param eid The errata id
@@ -873,14 +873,14 @@ public class ErrataManager extends BaseManager {
      */
     public static DataResult packages(Long eid, User user) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "errata_packages");
-        
+
         Map params = new HashMap();
         params.put("eid", eid);
         params.put("org_id", user.getOrg().getId());
         DataResult dr = m.execute(params);
         return dr;
     }
-    
+
     /**
      * Returns a list of advisory types available for an errata
      * @return advisory types
@@ -896,7 +896,7 @@ public class ErrataManager extends BaseManager {
                      LocalizationService.DEFAULT_LOCALE));
         return advTypes;
     }
-    
+
     /**
      * Returns a list of l10n-ed advisory types available for an errata
      * @return l10n-ed advisory type labels
@@ -922,7 +922,7 @@ public class ErrataManager extends BaseManager {
      * Sees if there is an errata with the same advisory name as the errata with eid
      * @param eid The id of the errata you're checking
      * @param name The advisory name you're checking
-     * @return Returns true if no other errata exists with the same advisoryName, false 
+     * @return Returns true if no other errata exists with the same advisoryName, false
      * otherwise.
      */
     public static boolean advisoryNameIsUnique(Long eid, String name) {
@@ -938,7 +938,7 @@ public class ErrataManager extends BaseManager {
         }
         return false;
     }
-    
+
     /**
      * Get List of all cloneable errata for an org
      * @param orgid org we want to lookup against
@@ -1001,7 +1001,7 @@ public class ErrataManager extends BaseManager {
     public static DataResult applicableChannels(Long eid, Long orgid, PageControl pc) {
         return applicableChannels(eid, orgid, pc, null);
     }
-    
+
     /**
      * Get a list of channels applicable to the erratum
      * @param eid The id of the erratum
@@ -1010,7 +1010,7 @@ public class ErrataManager extends BaseManager {
      * @param clazz The class you would like the return values represented as
      * @return List of applicable channels for the erratum (that the org has access to)
      */
-    public static DataResult applicableChannels(Long eid, Long orgid, 
+    public static DataResult applicableChannels(Long eid, Long orgid,
                                                 PageControl pc, Class clazz) {
         SelectMode m;
         if (clazz == null) {
@@ -1019,13 +1019,13 @@ public class ErrataManager extends BaseManager {
         else {
             m = ModeFactory.getMode("Channel_queries", "org_errata_channels", clazz);
         }
-        
+
         Map params = new HashMap();
         params.put("org_id", orgid);
         params.put("eid", eid);
         return makeDataResult(params, params, pc, m);
     }
-    
+
     /**
      * Create a clone of the errata
      * @param user user performing the cloning
@@ -1035,7 +1035,7 @@ public class ErrataManager extends BaseManager {
     public static Errata createClone(User user, Errata e) {
         return ErrataFactory.createClone(user.getOrg(), e);
     }
-    
+
     /**
      * Lookup all the clones of a particular errata
      *      looks up unpublished first, and then if none of those
@@ -1047,7 +1047,7 @@ public class ErrataManager extends BaseManager {
     public static List lookupByOriginal(User user, Errata original) {
         return ErrataFactory.lookupByOriginal(user.getOrg(), original);
     }
-    
+
     /**
      * Lookup all the clones of a particular errata
      * @param user User that is performing the cloning operation
@@ -1087,11 +1087,11 @@ public class ErrataManager extends BaseManager {
         }
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", mode);
-        
-        return m.execute(params); 
+
+        return m.execute(params);
     }
-    
-    
+
+
     /**
      * lookup errata that are in the set "errata_list"
      * @param user the user to search the set for
@@ -1106,15 +1106,15 @@ public class ErrataManager extends BaseManager {
        SelectMode m = ModeFactory.getMode(
                "Errata_queries", "errata_list_in_set");
        return m.execute(params);
-       
+
    }
-    
+
    /**
     * Finds the packages contained in an errata that apply to a channel
     * @param customChan the channel to look in
     * @param errata the errata to look for packs with
-    * @param user the user doing the request. 
-    * @return collection of PackageOverview objects 
+    * @param user the user doing the request.
+    * @return collection of PackageOverview objects
     */
    public static DataResult<PackageOverview> lookupPacksFromErrataForChannel(
                Channel customChan, Errata errata, User user) {
@@ -1126,7 +1126,7 @@ public class ErrataManager extends BaseManager {
        SelectMode m = ModeFactory.getMode(
                "Errata_queries",  "find_packages_for_errata_and_channel");
        return m.execute(params);
-       
+
    }
 
 
@@ -1172,23 +1172,23 @@ public class ErrataManager extends BaseManager {
     * remove an erratum for a channel and updates the errata cache accordingly
     * @param errata the errata to remove
     * @param chan the channel to remove the erratum from
-    * @param user the user doing the removing 
+    * @param user the user doing the removing
     */
    public static void removeErratumFromChannel(Errata errata, Channel chan, User user) {
 
        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
        }
-       
+
        //Since we don't remove the packages, we need to insert those entries
        //       in case they aren't already there.
-       // So we are inserting   (systemID, packageId) entries, because we're 
+       // So we are inserting   (systemID, packageId) entries, because we're
        //      going to delete the (systemId, packageId, errataId) entries
        List<Long> pids = ErrataFactory.listErrataChannelPackages(
                chan.getId(), errata.getId());
        ErrataCacheManager.insertCacheForChannelPackages(chan.getId(), null, pids);
-       
-       
+
+
        //Remove the errata from the channel
        chan.getErratas().remove(errata);
        List<Long> eList = new ArrayList<Long>();
@@ -1196,7 +1196,7 @@ public class ErrataManager extends BaseManager {
        //First delete the cache entries
        ErrataCacheManager.deleteCacheEntriesForChannelErrata(chan.getId(), eList);
        //Then we need to see if the errata is in any other channels within the channel tree.
-       
+
        List<Channel> cList = new ArrayList<Channel>();
        if (chan.isBaseChannel()) {
            cList.addAll(ChannelFactory.listAllChildrenForChannel(chan));
@@ -1206,9 +1206,9 @@ public class ErrataManager extends BaseManager {
            Channel parent = chan.getParentChannel();
            cList.add(parent); //add parent
            //add sibbling and self
-           cList.addAll(ChannelFactory.listAllChildrenForChannel(parent)); 
+           cList.addAll(ChannelFactory.listAllChildrenForChannel(parent));
            cList.remove(chan); //remove self
-           
+
        }
        for (Channel tmpChan : cList) {
            if (tmpChan.getErratas().contains(errata)) {
@@ -1217,24 +1217,24 @@ public class ErrataManager extends BaseManager {
                ErrataCacheManager.insertCacheForChannelErrataAsync(tmpCidList, errata);
            }
        }
-       
+
    }
-   
-   
+
+
    /**
-    * Publish errata to a channel asynchronisly (cloning as necessary), 
+    * Publish errata to a channel asynchronisly (cloning as necessary),
     *   does not do any package push
     * @param chan the channel
     * @param errataIds list of errata ids
     * @param user the user doing the push
     */
-   public static void publishErrataToChannelAsync(Channel chan, 
+   public static void publishErrataToChannelAsync(Channel chan,
            Collection<Long> errataIds, User user) {
        Logger.getLogger(ErrataManager.class).debug("Publishing");
        CloneErrataEvent eve = new CloneErrataEvent(chan, errataIds, user);
        MessageQueue.publish(eve);
    }
-   
+
 
    /**
     * Publish errata to a channel asynchronisly (cloning as necessary),
@@ -1254,7 +1254,7 @@ public class ErrataManager extends BaseManager {
    /**
     * Send errata notifications for a particular errata and channel
     * @param e the errata to send notifications about
-    * @param chan the channel with which to decide which systems 
+    * @param chan the channel with which to decide which systems
     *       and users to send errata for
     * @param date  the date
     */
@@ -1268,7 +1268,7 @@ public class ErrataManager extends BaseManager {
                "Errata_queries",  "insert_errata_notification");
        m.executeUpdate(params);
    }
-   
+
    /**
     * Delete all errata notifications for an errata
     * @param e the errata to clear notifications for
@@ -1280,7 +1280,7 @@ public class ErrataManager extends BaseManager {
                "Errata_queries",  "clear_errata_notification");
        m.executeUpdate(params);
    }
-   
+
    /**
     * List queued errata notifications
     * @param e the errata
@@ -1290,7 +1290,7 @@ public class ErrataManager extends BaseManager {
        Map params = new HashMap();
        params.put("eid", e.getId());
        SelectMode m = ModeFactory.getMode("Errata_queries", "list_errata_notification");
-       return m.execute(params);       
+       return m.execute(params);
    }
 
    /**

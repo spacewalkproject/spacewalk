@@ -26,12 +26,12 @@ import redstone.xmlrpc.XmlRpcSerializer;
 
 
 /**
- * 
+ *
  * NoteSerializer: Converts a Note object for representation as an XMLRPC struct.
  * @version $Rev$
  *
  * @xmlrpc.doc
- * #struct("note details") 
+ * #struct("note details")
  *   #prop("int", "id")
  *   #prop_desc("string", "subject", "Subject of the note")
  *   #prop_desc("string", "note", "Contents of the note")
@@ -49,7 +49,7 @@ public class NoteSerializer implements XmlRpcCustomSerializer {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void serialize(Object value, Writer output,
@@ -57,8 +57,8 @@ public class NoteSerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
-        Note note = (Note) value; 
-        helper.add("id", note.getId()); 
+        Note note = (Note) value;
+        helper.add("id", note.getId());
         helper.add("subject", note.getSubject());
         add(helper, "note", note.getNote());
         add(helper, "system_id", note.getServer().getId());

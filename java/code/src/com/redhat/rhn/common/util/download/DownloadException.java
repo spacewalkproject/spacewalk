@@ -33,7 +33,7 @@ public class DownloadException extends RhnRuntimeException {
     private static final String ERROR_TEMPLATE = "Error occured while downloading " +
                                 "contents from [%s].\nHere are the contents of" +
                                  " the error\n [%s] \n \n error code = [%s]";
-    
+
     /**
      * @param msg the error message
      * @param t the throwable exception
@@ -44,44 +44,44 @@ public class DownloadException extends RhnRuntimeException {
 
     /**
      * Raised by the DownloadUtil class
-     * when an error occurs while downloading  contentst from an 
+     * when an error occurs while downloading  contentst from an
      * http url
      * @param urlIn the http url where the attempt was made
      * @param contentIn the contents of the error stream
      * @param errorCodeIn the response code
      */
     public DownloadException(String urlIn,
-                        String contentIn, 
+                        String contentIn,
                         int errorCodeIn) {
         super(String.format(ERROR_TEMPLATE, urlIn, contentIn, errorCodeIn));
         url = urlIn;
         content = contentIn;
         errorCode = errorCodeIn;
     }
-    
+
     /**
      * the error response code
-     * matches the codes from HttpURLConnection 
+     * matches the codes from HttpURLConnection
      * @return the error code.
      */
     public int getErrorCode() {
         return errorCode;
     }
-    
+
     /**
-     * The Download Url where the error came from ..  
+     * The Download Url where the error came from ..
      * @return the download URL
      */
     public String getUrl()  {
         return url;
     }
-    
+
     /**
-     * The contents of the error stream  
+     * The contents of the error stream
      * @return the contents of the error stream
      */
     public String getContent() {
         return content;
     }
-    
+
 }

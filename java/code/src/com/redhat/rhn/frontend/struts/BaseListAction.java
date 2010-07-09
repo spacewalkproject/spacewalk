@@ -31,13 +31,13 @@ import javax.servlet.http.HttpServletResponse;
  * BaseListAction - basic base class you can extend to provide functionality for
  * generating a list with support for precondition checking, and setup for building
  * the pageList attribute on the Request.  Meant for lists without RhnSet selections.
- * 
+ *
  * @version $Rev$
  */
 public abstract class BaseListAction extends RhnListAction {
-    
+
     // public static final String PAGE_LIST = "pageList";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -46,21 +46,21 @@ public abstract class BaseListAction extends RhnListAction {
 
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        String errorKey = checkPreConditions(requestContext); 
+        String errorKey = checkPreConditions(requestContext);
         if (errorKey != null) {
-            ActionMessages msg = new ActionMessages();            
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            ActionMessages msg = new ActionMessages();
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage(errorKey));
             strutsDelegate.saveMessages(request, msg);
             return strutsDelegate.forwardParams(mapping.findForward("preconditionfailed"),
                     request.getParameterMap());
-        } 
+        }
         else {
             User user = requestContext.getCurrentUser();
             PageControl pc = getNewPageControl(requestContext);
             processPageControl(pc);
 
-            if (pc != null) { 
+            if (pc != null) {
                 clampListBounds(pc, request, user);
             }
             DataResult dr = getDataResult(requestContext, pc);
@@ -72,23 +72,23 @@ public abstract class BaseListAction extends RhnListAction {
                     request.getParameterMap());
         }
     }
-    
+
     /**
-     * Method to get a new instance of a page control.  
+     * Method to get a new instance of a page control.
      * @param rctx RequestContext for this request
      * @return a PageControl if one is necessary
      */
     protected PageControl getNewPageControl(RequestContext rctx) {
         if (rctx.isRequestedExport()) {
             return null;
-        } 
+        }
         else {
             PageControl pc =  new PageControl();
             pc.setPageSize(rctx.getLoggedInUser().getPageSize());
             return pc;
         }
     }
- 
+
     /**
      * Extension point to allow controlling the pagination such as
      * turning on filtering, alphabar, etc. Does nothing by default.
@@ -100,7 +100,7 @@ public abstract class BaseListAction extends RhnListAction {
 
 
     /**
-     * Add attributes to the request. Does nothing by default 
+     * Add attributes to the request. Does nothing by default
      * @param rctx the context of the current request
      */
     protected void processRequestAttributes(RequestContext rctx) {
@@ -113,14 +113,14 @@ public abstract class BaseListAction extends RhnListAction {
      * be used as a Resource key for an error message will forward the request
      * to the "error" ActionForward.
      * @param rctx the context of the current request
-     * 
+     *
      * @return String key for an error message.
      */
     protected String checkPreConditions(RequestContext rctx) {
-        // By default we don't do anything.  
+        // By default we don't do anything.
         return null;
     }
-    
+
     /**
      * Returns the list data used by the list
      * @param rctx Currently active RequestContext.
@@ -128,7 +128,7 @@ public abstract class BaseListAction extends RhnListAction {
      * @return List of ProbeSuites bounded by the values of the PageControl.
      */
     protected abstract DataResult getDataResult(RequestContext rctx, PageControl pc);
-    
+
     /**
      * Process a form. Used for adding datepickers on confirm pages (for example).
      * By default, do nothing.
@@ -138,7 +138,7 @@ public abstract class BaseListAction extends RhnListAction {
     protected void processForm(RequestContext ctxt, ActionForm form) {
         return; //default: nothing
     }
-    
-    
+
+
 
 }

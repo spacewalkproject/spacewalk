@@ -71,7 +71,7 @@ public class EditAddressActionTest extends RhnBaseTestCase {
         form = new RhnMockDynaActionForm("editAddressForm");
         request = TestUtils.getRequestWithSessionAndUser();
         response = new MockHttpServletResponse();
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         // The logged in user needs to be the OrgAdmin of his Org in order

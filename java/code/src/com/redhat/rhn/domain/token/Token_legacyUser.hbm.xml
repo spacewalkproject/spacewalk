@@ -14,29 +14,29 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="disabled" column="disabled" type="long"/>
         <property name="deployConfigs" column="deploy_configs" type="yes_no"/>
         <property name="usageLimit" column="usage_limit" type="long"/>
-        
+
         <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
             column="org_id"/>
-        
+
         <many-to-one name="creator"
             class="com.redhat.rhn.domain.user.legacy.UserImpl"
             column="user_id"/>
-        
+
         <many-to-one name="server" class="com.redhat.rhn.domain.server.Server"
             column="server_id"/>
-        
+
         <set name="entitlements" table="rhnRegTokenEntitlement">
             <key column="reg_token_id"/>
             <many-to-many class="com.redhat.rhn.domain.server.ServerGroupType"
                 column="server_group_type_id"/>
         </set>
-        
+
 	    <set name="channels" table="rhnRegTokenChannels">
             <key column="token_id"/>
             <many-to-many class="com.redhat.rhn.domain.channel.Channel"
                 column="channel_id"/>
         </set>
-        
+
 	    <set name="serverGroups" table="rhnRegTokenGroups">
             <key column="token_id"/>
             <many-to-many class="com.redhat.rhn.domain.server.ServerGroup"
@@ -63,7 +63,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </list>
 
     </class>
-    
+
     <query name="Token.findById">
         <![CDATA[from com.redhat.rhn.domain.token.Token as t where t.id = :id]]>
     </query>
@@ -71,10 +71,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Token.findByIdAndOrg">
         <![CDATA[from com.redhat.rhn.domain.token.Token as t where t.id = :id and t.org = :org]]>
     </query>
-    
+
     <query name="Token.findByServerAndOrg">
         <![CDATA[from com.redhat.rhn.domain.token.Token as t where t.server = :server
              and t.org = :org]]>
     </query>
-    
+
 </hibernate-mapping>

@@ -25,7 +25,7 @@ import java.io.UnsupportedEncodingException;
  * @version $Rev$
  */
 public abstract class BaseCryptoKeyCommand {
-    
+
     protected CryptoKey key;
 
     /**
@@ -33,7 +33,7 @@ public abstract class BaseCryptoKeyCommand {
      */
     public BaseCryptoKeyCommand() {
     }
-    
+
     /**
      * Set the Description on the key
      * @param descIn to set
@@ -41,7 +41,7 @@ public abstract class BaseCryptoKeyCommand {
     public void setDescription(String descIn) {
         this.key.setDescription(descIn);
     }
-    
+
     /**
      * Get the CryptoKey used by this cmd
      * @return CryptoKey instance
@@ -57,17 +57,17 @@ public abstract class BaseCryptoKeyCommand {
     public void setType(String typeIn) {
         if (typeIn.equals(KickstartFactory.KEY_TYPE_GPG.getLabel())) {
             this.key.setCryptoKeyType(KickstartFactory.KEY_TYPE_GPG);
-        } 
+        }
         else if (typeIn.equals(KickstartFactory.KEY_TYPE_SSL.getLabel())) {
             this.key.setCryptoKeyType(KickstartFactory.KEY_TYPE_SSL);
         }
         else {
-            throw new IllegalArgumentException("Invalid key type: " + 
+            throw new IllegalArgumentException("Invalid key type: " +
                     typeIn + " we support GPG and SSL");
         }
-        
+
     }
-    
+
     /**
      * Get the String type of this Key
      *
@@ -81,10 +81,10 @@ public abstract class BaseCryptoKeyCommand {
             return null;
         }
     }
-    
+
     /**
      * Set the contents of the key itself.  Translates
-     * the string into a blob. 
+     * the string into a blob.
      * @param contentsIn to set
      */
     public void setContents(String contentsIn) {
@@ -115,6 +115,6 @@ public abstract class BaseCryptoKeyCommand {
         KickstartFactory.saveCryptoKey(this.key);
         return null;
     }
-    
-    
+
+
 }

@@ -26,26 +26,26 @@ import java.util.Map;
 
 /**
  * Makes it easier to work with the list view code
- * 
+ *
  * @version $Rev $
  */
 public class ListViewHelper {
-    
+
     private static final String DEFAULT_DISPLAY_NAME = "pageList";
-       
+
     private RequestContext ctx = null;
     private DataResult result = null;
     private String filterByField = null;
     private DataResult filteredResult = null;
     private boolean isFiltering = false;
     private int pageSize = -1;
-    
+
     /**
      * Initializes the helper. A new helper instance should be created for each
      * request. Caching helpers is strongly discouraged.
      * @param requestContext current request
      * @param filterField name of the DTO/Map field which will be filtered
-     * For example, if the DTO has a <code>getLabel</code> method, then the 
+     * For example, if the DTO has a <code>getLabel</code> method, then the
      * field name would be label.
      */
     public ListViewHelper(RequestContext requestContext, String filterField) {
@@ -54,7 +54,7 @@ public class ListViewHelper {
         // Default to the User's page size.  Can be overriden by calling setPageSize()
         this.pageSize = requestContext.getLoggedInUser().getPageSize();
     }
-    
+
     /**
      * Sets the DataResult reference
      * @param data data to drive the list view
@@ -62,7 +62,7 @@ public class ListViewHelper {
     public void setData(DataResult data) {
         this.result = data;
     }
-    
+
     /**
      * Indicate if the data result can be filtered
      * @param flag on/off toggle
@@ -70,7 +70,7 @@ public class ListViewHelper {
     public void isFiltering(boolean flag) {
         this.isFiltering = flag;
     }
-    
+
     /**
      * Gets the filter parameter specified by the user
      * @return the value of the request parameter filter_string
@@ -85,7 +85,7 @@ public class ListViewHelper {
         }
         return retval;
     }
-    
+
     /**
      * Gets the filter parameter specified by the user on the immediately prior request
      * @return the value of the request parameter filter_string
@@ -98,9 +98,9 @@ public class ListViewHelper {
         else if (retval != null) {
             retval = retval.trim();
         }
-        return retval;                
+        return retval;
     }
-    
+
     /**
      * Sets up the environment for list view processing
      * This should be called immediately before rendering the page containing
@@ -109,7 +109,7 @@ public class ListViewHelper {
     public void prepare() {
         prepare(DEFAULT_DISPLAY_NAME);
     }
-    
+
     /**
      * Sets up the environment for list view processing
      * This should be called immediately before rendering the page containing
@@ -140,16 +140,16 @@ public class ListViewHelper {
     public void setItemsPerPage(int size) {
         this.pageSize = size;
     }
-    
+
     /**
      * Number of items on page
      * @return items on page
      */
-            
+
     public int getItemsPerPage() {
         return this.pageSize;
     }
-    
+
     private void processPagination() {
         String rawStart = ctx.processPagination();
         if (hasFilterCriteriaReset()) {
@@ -174,7 +174,7 @@ public class ListViewHelper {
             this.result.setEnd((start + this.result.size()) - 1);
         }
     }
-    
+
     private void filterData() {
         if (result.size() == 0 || getFilterParam() == null) {
             return;
@@ -193,7 +193,7 @@ public class ListViewHelper {
         this.filteredResult.setFilter(true);
         this.filteredResult.setFilterData(getFilterParam());
     }
-    
+
     private void filterMaps(List accum) {
         String filterValue = getFilterParam();
         for (Iterator iter = this.result.iterator(); iter.hasNext();) {
@@ -204,7 +204,7 @@ public class ListViewHelper {
             }
         }
     }
-    
+
     private void filterDtos(List accum) {
         String filterValue = getFilterParam();
         Object dto = this.result.get(0);
@@ -234,7 +234,7 @@ public class ListViewHelper {
             }
         }
     }
-    
+
     private Method locateFilterMethod(Object dto) {
         Method retval = null;
         String methodName = this.filterByField;
@@ -249,17 +249,17 @@ public class ListViewHelper {
         }
         return retval;
     }
-    
+
     private boolean hasFilterCriteriaReset() {
         boolean retval = false;
         String prevFilter = getPreviousFilterParam();
         String currentFilter = getFilterParam();
-        if ((prevFilter != null && currentFilter != null) && 
+        if ((prevFilter != null && currentFilter != null) &&
                 !prevFilter.equals(currentFilter)) {
             retval = true;
-            
+
         }
-        else if ((prevFilter == null && currentFilter != null) || prevFilter != null && 
+        else if ((prevFilter == null && currentFilter != null) || prevFilter != null &&
                 currentFilter == null) {
             retval = true;
         }

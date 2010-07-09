@@ -63,16 +63,16 @@ public final class XmlMessages {
 
 
     // Store the bundles in memory so we don't load it off disk
-    // each time. 
+    // each time.
     private Map bundles;
-   
+
 
     /** Private constructor, since this is a singleton
      */
     private XmlMessages() {
         initBundleCache();
     }
-    
+
     private void initBundleCache() {
         bundles = new HashMap();
     }
@@ -85,13 +85,13 @@ public final class XmlMessages {
         return instance;
     }
 
-    /** 
+    /**
      * Reload the XML Messages off the disk.
      */
     public void resetBundleCache() {
         initBundleCache();
     }
-    
+
    /** Gets the resource bundle, first checking our internal cache
       * @param bundleName name of the resource bundle
       * @param locale locale used to retrieve the resource bundle
@@ -114,7 +114,7 @@ public final class XmlMessages {
         // Check the local in memory cache of the bundles
         // to see if it has been loaded already.
         ResourceBundle retval = (ResourceBundle) bundles.get(bundleKey);
-        
+
         if (retval != null) {
             // System.out.println("Got bundle from cache, returning : " + bundleKey);
             return retval;
@@ -131,14 +131,14 @@ public final class XmlMessages {
             urlName.append(locale.toString());
         }
         urlName.append(".xml");
-        
+
         try {
             synchronized (this) {
                 retval =
                     new XmlResourceBundle(urlName.toString());
                 bundles.put(bundleKey, retval);
             }
-            
+
         }
         catch (IOException ioe) {
             if (LOG.isDebugEnabled()) {
@@ -226,7 +226,7 @@ public final class XmlMessages {
      * bundle package name to be used.  Allows us to have
      * resource bundles in packages without classes.  Eliminates
      * the need for "Dummy" classes.
-     * 
+     *
      * @param clazz the class to which the string belongs
      * @param locale the locale used to find the resource bundle
      * @param key the key for the string to be obtained from the resource bundle
@@ -236,14 +236,14 @@ public final class XmlMessages {
      */
     public String format(final Class clazz,
                                 final Locale locale,
-                                final String key, 
+                                final String key,
                                 final Object... args) {
 
         // Fetch the bundle
         ResourceBundle bundle = getBundle(getBundleName(clazz), locale);
         String pattern = StringEscapeUtils.unescapeHtml(bundle.getString(key));
 
-        pattern = pattern.replaceAll(PRODUCT_NAME_MACRO, 
+        pattern = pattern.replaceAll(PRODUCT_NAME_MACRO,
                 Config.get().getString("web.product_name"));
 
         if (args == null || args.length == 0) {

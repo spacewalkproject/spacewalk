@@ -22,12 +22,12 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
-/** 
- * @author Hibernate CodeGenerator 
+/**
+ * @author Hibernate CodeGenerator
  * @version $Rev: 98107 $
  */
 public class ConfigFileType implements Serializable {
-    
+
     /**
      * Comment for <code>serialVersionUID</code>
      */
@@ -62,27 +62,27 @@ public class ConfigFileType implements Serializable {
     }
 
     /**
-     * 
+     *
      * @return dir config file type
      */
     public static ConfigFileType dir() {
-        return lookup(DIR); 
+        return lookup(DIR);
     }
-    
+
     /**
-     * 
+     *
      * @return file config file type
      */
     public static ConfigFileType file() {
-        return lookup(FILE); 
-    }    
-    
+        return lookup(FILE);
+    }
+
     /**
-     * Given a file type label it returns the associated 
+     * Given a file type label it returns the associated
      * file type object
      * @param type the file type label
      * @return the file type associated to the label.
-     */    
+     */
     public static ConfigFileType lookup(String type) {
         if (POSSIBLE_TYPES.isEmpty()) {
             ConfigFileType file = ConfigurationFactory.
@@ -99,7 +99,7 @@ public class ConfigFileType implements Serializable {
 
             POSSIBLE_TYPES.put(SYMLINK, symlink);
         }
-        
+
         if (!POSSIBLE_TYPES.containsKey(type)) {
             String msg = "Invalid type [" + type + "] specified. " +
                             "Make sure you specify one of the following types " +
@@ -108,7 +108,7 @@ public class ConfigFileType implements Serializable {
         }
         return (ConfigFileType)POSSIBLE_TYPES.get(type);
     }
-    
+
     /**
      * Ctor for Hibernate
      * @param inLabel label
@@ -125,7 +125,7 @@ public class ConfigFileType implements Serializable {
     }
 
     /**
-     * default ctor 
+     * default ctor
      */
     protected ConfigFileType() {
     }
@@ -148,7 +148,7 @@ public class ConfigFileType implements Serializable {
 
     /**
      * Get the label
-     * @return label 
+     * @return label
      */
     public java.lang.String getLabel() {
         return this.label;

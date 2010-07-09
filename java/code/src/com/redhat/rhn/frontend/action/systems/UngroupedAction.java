@@ -27,9 +27,9 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class UngroupedAction extends BaseSystemListAction {
-    
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         return SystemManager.ungroupedList(user, null);
     }

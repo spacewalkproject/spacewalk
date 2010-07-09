@@ -32,36 +32,36 @@ public class SessionCleanupTest extends RhnBaseTestCase {
  * @throws Exception
  */
     public void testExecute() throws Exception {
-  
+
         WebSession s = WebSessionFactory.createSession();
-        
-        /* we set the expire time of our test websession to an insanely large negative 
-        number this ensures that we do not accidentally delete real entries in the 
+
+        /* we set the expire time of our test websession to an insanely large negative
+        number this ensures that we do not accidentally delete real entries in the
         database */
         s.setExpires((System.currentTimeMillis() / 1000) * -2);
         WebSessionFactory.save(s);
         assertNotNull(s.getId());
         Config c = Config.get();
         TestUtils.saveAndFlush(s);
-        
+
         /* commit it to the database in order for the py/sql calls to work correctly
         due to py/sql and Hibernate's JUnit test behavior not playing well together */
         commitAndCloseSession();
-        
+
         /*set the delete batch size to 1 to make sure only one entry is deleted.
         We set session_database_lifetime to the current time such that when
         the deletion boundary is calculated by SessionCleanup, the result will be
-        a negative value, but one that ensures our test websession is selected 
+        a negative value, but one that ensures our test websession is selected
         and deleted. */
-        
-        c.setString("session_database_lifetime", 
+
+        c.setString("session_database_lifetime",
                      new Long(System.currentTimeMillis() / 1000).toString());
-        
+
         c.setString("session_delete_batch_size", "1");
         c.setString("session_delete_commit_interval", "1");
         SessionCleanup sc = new SessionCleanup();
-        sc.execute(null);   
-        
+        sc.execute(null);
+
        // assertNull(WebSessionFactory.lookupById(sessionId));
     }
 }

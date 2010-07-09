@@ -17,28 +17,28 @@
     <bean:message key="ssmchildsubconfirm.jsp.summary"/>
     </p>
   </div>
-  
+
   <rl:listset name="channelchanges">
-    <html:hidden property="submitted" value="true"/>  
+    <html:hidden property="submitted" value="true"/>
 	<!-- Start of active users list -->
-	<rl:list 
+	<rl:list
          width="100%"
-        
+
          styleclass="list"
          emptykey="ssmchildsubconfirm.jsp.noSystems">
-        
+
     <!-- system name -->
-	<rl:column bound="false" 
-	           sortable="true" 
-	           headerkey="ssmchildsubconfirm.jsp.systemName" 
+	<rl:column bound="false"
+	           sortable="true"
+	           headerkey="ssmchildsubconfirm.jsp.systemName"
 	           styleclass="first-column"
                attr="name">
 		<c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">${current.name}</a>" escapeXml="false" />
 	</rl:column>
 	
 	<!-- Channels we're allowed to subscribe to -->
-	<rl:column bound="false" 
-	           sortable="false" 
+	<rl:column bound="false"
+	           sortable="false"
 	           headerkey="ssmchildsubconfirm.jsp.canSub">
 	  <c:forEach items="${current.subscribeNames}" var="chan">
 	  	<c:out value="${chan}" /><br />
@@ -46,7 +46,7 @@
 	</rl:column>
 	
 	<!--  Channels we're allowed to unsubscribe from -->
-	<rl:column bound="false" 
+	<rl:column bound="false"
 			   sortable="false"
 	           headerkey="ssmchildsubconfirm.jsp.canUnsub"
 	           styleclass="last-column">
@@ -54,7 +54,7 @@
 	  	<c:out value="${chan}" /><br />
 	  </c:forEach>
 	</rl:column>
-	           
+
 	</rl:list>
 	<hr />
 	<div align="right"><html:submit property="dispatch"><bean:message key="ssmchildsubconfirm.jsp.submit"/></html:submit></div>

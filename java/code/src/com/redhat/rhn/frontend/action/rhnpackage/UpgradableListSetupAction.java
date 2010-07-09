@@ -31,7 +31,7 @@ public class UpgradableListSetupAction extends BaseSystemPackagesAction {
         }
         else {
             return SolarisManager.systemUpgradablePackageList(server.getId(), null);
-        }        
+        }
     }
 
 }

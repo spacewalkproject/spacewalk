@@ -33,7 +33,7 @@ public class CreateCommandTest extends RhnBaseTestCase {
     private CreateChannelCommand ccc = null;
     private int label_count = 0;
     private User user = null;
-    
+
     public void setUp() {
         ccc = new CreateChannelCommand();
         Long oid = UserTestUtils.createOrg("testOrg");
@@ -44,11 +44,11 @@ public class CreateCommandTest extends RhnBaseTestCase {
         // label and name get set in the test methods as appropriate.
     }
     public void testVerifyChannelName() {
-        
+
         // channel names at least 6 chars
         //  begin with a letter
         //  contain only letters, digits, spaces, '-', '/', '_', and '.'
-        
+
         // I N V A L I D
         invalidChannelName("0dd");
         invalidChannelName("Bite Me$");
@@ -65,7 +65,7 @@ public class CreateCommandTest extends RhnBaseTestCase {
         invalidChannelName("redhat linux");
         invalidChannelName("Red Hat Enterprise Spacewalk Sync");
 
-        
+
         // V A L I D
         validChannelName("dude where's my car"); // we allow ' just don't advertise it
         validChannelName("abc123)");
@@ -76,18 +76,18 @@ public class CreateCommandTest extends RhnBaseTestCase {
         validChannelName("abc 123-foo/bar_under.ALPHA");
         validChannelName("Jesusrs API Test Channel");
         validChannelName("0longerthansix");
-        
+
         // we allow the following characters but don't advertise them
-        // ' ( ) 
+        // ' ( )
         validChannelName("this's a (legal) Nam3");
         validChannelName("Custom Channel 123");
     }
-    
+
     private void invalidChannelName(String cname) {
         // Give it an invalid name
         ccc.setName(cname);
         ccc.setLabel("valid-label-name"); // valid label
-        
+
         try {
             assertNotNull(ccc.create());
             fail("invalid channel name should've thrown error");
@@ -102,13 +102,13 @@ public class CreateCommandTest extends RhnBaseTestCase {
             fail("valid parent channel caused error");
         }
     }
-    
+
     private void validChannelName(String cname) {
         // Give it an valid name
         ccc.setName(cname);
         // need to create unique label names.
         ccc.setLabel("valid-label-name-" + label_count++);
-        
+
         try {
             Channel c = ccc.create();
             assertNotNull(c);
@@ -124,13 +124,13 @@ public class CreateCommandTest extends RhnBaseTestCase {
             fail("valid parent channel caused error");
         }
     }
-    
+
     public void testVerifyChannelLabel() {
-        
+
         // channel names at least 6 chars
         //  begin with a letter
         //  contain only letters, digits, spaces, '-', '/', '_', and '.'
-        
+
         // I N V A L I D
         invalidChannelLabel("0dd");
         invalidChannelLabel("Bite Me$");
@@ -156,7 +156,7 @@ public class CreateCommandTest extends RhnBaseTestCase {
         invalidChannelLabel("rhn-channel-name");
         invalidChannelLabel("redhat linux");
         invalidChannelLabel("Red Hat Enterprise Spacewalk Sync");
-        
+
         // V A L I D
         validChannelLabel("dude-this-channel");
         validChannelLabel("this.is-valid_1212");
@@ -167,12 +167,12 @@ public class CreateCommandTest extends RhnBaseTestCase {
         validChannelLabel("nopuncmakesforavalidlabeltoo");
         validChannelLabel("0longerthansix");
     }
-    
+
     private void invalidChannelLabel(String clabel) {
         // Give it an invalid label
         ccc.setLabel(clabel);
         ccc.setName("Valid Name"); // valid name
-        
+
         try {
             assertNotNull(ccc.create());
             fail("invalid channel label should've thrown error");
@@ -187,18 +187,18 @@ public class CreateCommandTest extends RhnBaseTestCase {
             fail("valid parent channel caused error");
         }
     }
-    
+
     private void validChannelLabel(String clabel) {
         // Give it an valid label
         ccc.setLabel(clabel);
         // need to create unique label names.
         ccc.setName("Valid Name" + label_count++);
-        
+
         try {
             Channel c = ccc.create();
             assertNotNull(c);
             assertEquals(c.getLabel(), clabel);
-            
+
         }
         catch (InvalidChannelLabelException e) {
             fail("valid label caused error");

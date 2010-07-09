@@ -30,7 +30,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * ActivationKeySerializer
  * @version $Rev$
  *
- * @xmlrpc.doc 
+ * @xmlrpc.doc
  *      #struct("action")
  *          #prop_desc("int", "failed_count", "Number of times action failed.")
  *          #prop_desc("string", "modified", "Date modified. (Deprecated by modified_date)")
@@ -38,9 +38,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("string", "created", "Date created. (Deprecated by created_date)")
  *          #prop_desc($date, "created_date", "Date created.")
  *          #prop("string", "action_type")
- *          #prop_desc("int", "successful_count", 
+ *          #prop_desc("int", "successful_count",
  *                      "Number of times action was successful.")
- *          #prop_desc("string", "earliest_action", "Earliest date this action 
+ *          #prop_desc("string", "earliest_action", "Earliest date this action
  *                      will occur.")
  *          #prop_desc("int", "archived", "If this action is archived. (1 or 0)")
  *          #prop("string", "scheduler_user")
@@ -49,7 +49,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("int", "id", "Id of this action.")
  *          #prop_desc("string", "version", "Version of action.")
  *          #prop_desc("string", "completion_time", "The date/time the event was completed.
- *                                  Format ->YYYY-MM-dd hh:mm:ss.ms 
+ *                                  Format ->YYYY-MM-dd hh:mm:ss.ms
  *                                  Eg ->2007-06-04 13:58:13.0. (optional)
  *                                  (Deprecated by completed_date)")
  *          #prop_desc($date, "completed_date", "The date/time the event was completed.
@@ -62,7 +62,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *                                   (optional)")
  *          #prop_desc("string", "result_msg", "The result string after the action
  *                                       executes at the client machine. (optional)")
- *      #struct_end()     
+ *      #struct_end()
  */
 public class ServerActionSerializer implements XmlRpcCustomSerializer {
 
@@ -79,7 +79,7 @@ public class ServerActionSerializer implements XmlRpcCustomSerializer {
         ServerAction sAct = (ServerAction) value;
         Action act = sAct.getParentAction();
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
-        
+
         helper.add("failed_count", act.getFailedCount());
         helper.add("modified", act.getModified().toString());
         helper.add("created", act.getCreated().toString());
@@ -92,7 +92,7 @@ public class ServerActionSerializer implements XmlRpcCustomSerializer {
         helper.add("name", act.getName());
         helper.add("id", act.getId());
         helper.add("version", act.getVersion().toString());
-        
+
         if (sAct.getCompletionTime() != null) {
             helper.add("completion_time", sAct.getCompletionTime().toString());
         }

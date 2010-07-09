@@ -1,9 +1,9 @@
 <c:choose>
    <c:when test="${current.accessible}">
-      <rhn:column 
+      <rhn:column
          header="channels.overview.systems"
          url="/rhn/channels/ChannelSubscribers.do?cid=${current.id}"
-         style="text-align: right;" 
+         style="text-align: right;"
          usesRefactoredList="true">
          <c:choose>
             <c:when test="${current.systemCount == null}">0</c:when>
@@ -13,13 +13,13 @@
    </c:when>
    <c:otherwise>
       <rhn:column
-         header="channels.overview.systems" 
+         header="channels.overview.systems"
          usesRefactoredList="true"
          style="text-align: right;">
          <c:choose>
             <c:when test="${current.systemCount == null}">0</c:when>
             <c:otherwise>${current.systemCount}</c:otherwise>
-         </c:choose>         
+         </c:choose>
       </rhn:column>
    </c:otherwise>
 </c:choose>

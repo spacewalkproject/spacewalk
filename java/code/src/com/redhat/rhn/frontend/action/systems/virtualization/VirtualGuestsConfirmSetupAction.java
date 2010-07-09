@@ -91,9 +91,9 @@ public class VirtualGuestsConfirmSetupAction extends BaseSystemListSetupAction {
      */
     public void setStatusDisplay(DataResult dr, User user) {
         Iterator i = dr.iterator();
-        
+
         while (i.hasNext()) {
-            
+
             VirtualSystemOverview next = (VirtualSystemOverview) i.next();
 
             // If the system is not registered with RHN, we cannot show a status
@@ -112,23 +112,23 @@ public class VirtualGuestsConfirmSetupAction extends BaseSystemListSetupAction {
      * @param user User currently logged in
      * @param actionName String representation of the action name
      */
-    private void setActionDisplay(DataResult dr, User user, String actionName, 
+    private void setActionDisplay(DataResult dr, User user, String actionName,
         String guestSettingValue) {
 
         Iterator i = dr.iterator();
         LocalizationService ls = LocalizationService.getInstance();
-        
+
         while (i.hasNext()) {
             VirtualSystemOverview next = (VirtualSystemOverview) i.next();
 
             ActionType type
                 = VirtualizationActionCommand.lookupActionType(next.getStateLabel(),
                                                                actionName);
-            
+
             if (actionName.equals(VirtualGuestsConfirmAction.DELETE_ACTION)) {
                 next.setDoAction(true);
                 next.setActionName(ls.getMessage("systems.details.virt.guest.virt.delete"));
-                
+
             }
             else if (type == null) {
                 next.setDoAction(false);
@@ -157,7 +157,7 @@ public class VirtualGuestsConfirmSetupAction extends BaseSystemListSetupAction {
         return dr;
     }
 
-    /** 
+    /**
      * Retrives the set declation item
      * where the contents of the page control
      * are to be set.

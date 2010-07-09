@@ -38,15 +38,15 @@ import java.io.Writer;
 public class FileUtils {
 
     private static Logger log = Logger.getLogger(FileUtils.class);
-    
+
     private FileUtils() {
     }
-    
+
     /**
      * Save a String to a file on disk using specified path.
-     * 
+     *
      * WARNING:  This deletes the original file before it writes.
-     * 
+     *
      * @param contents to save to file on disk
      * @param path to save file to.
      */
@@ -64,25 +64,25 @@ public class FileUtils {
             finally {
               output.close();
             }
-        } 
+        }
         catch (Exception e) {
             log.error("Error trying to write file to disk: [" + path + "]", e);
             throw new RuntimeException(e);
         }
     }
-    
-    
+
+
     /**
      * Read a file off disk into a String and return it.
-     * 
+     *
      * Expect weird stuff if the file is not textual.
-     * 
+     *
      * @param path of file to read in
      * @return String containing file.
      */
     public static String readStringFromFile(String path) {
         log.debug("readStringFromFile: " + path);
-        
+
         File f = new File(path);
         BufferedReader input;
         try {
@@ -102,19 +102,19 @@ public class FileUtils {
             throw new RuntimeException(e);
         }
     }
-    
+
     /**
      * Read a file off disk into a byte array with specified range
-     * 
+     *
      * This can use lots of memory if you read a large file
-     * 
+     *
      * @param fileToRead File to read part of into byte array
      * @param start index of read
      * @param end index of read
      * @return byte[] array from file.
      */
     public static byte[] readByteArrayFromFile(File fileToRead, long start, long end) {
-        log.debug("readByteArrayFromFile: " + fileToRead.getAbsolutePath() + 
+        log.debug("readByteArrayFromFile: " + fileToRead.getAbsolutePath() +
                 " start: " + start + " end: " + end);
 
         int size = (int) (end - start);
@@ -127,12 +127,12 @@ public class FileUtils {
             // Read in the bytes
             int offset = 0;
             int numRead = 0;
-            // Skip ahead 
+            // Skip ahead
             is.skip(start);
             // start reading
-            while (offset < bytes.length && 
+            while (offset < bytes.length &&
                     (numRead) >= 0) {
-                numRead = is.read(bytes, offset, 
+                numRead = is.read(bytes, offset,
                         bytes.length - offset);
                 offset += numRead;
             }
@@ -144,7 +144,7 @@ public class FileUtils {
         catch (IOException e) {
             log.error("Could not read from: " + fileToRead.getAbsolutePath());
             throw new RuntimeException(e);
-            
+
         }
         finally {
             if (is != null) {

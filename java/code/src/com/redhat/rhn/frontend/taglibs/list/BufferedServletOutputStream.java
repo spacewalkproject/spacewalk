@@ -23,11 +23,11 @@ import javax.servlet.ServletOutputStream;
 
 /**
  * Buffers servlet output rather than streaming it to the client
- * 
+ *
  * @version $Rev $
  */
 class BufferedServletOutputStream extends ServletOutputStream {
-    
+
     private ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
     /**
@@ -36,14 +36,14 @@ class BufferedServletOutputStream extends ServletOutputStream {
     public void write(int b) throws IOException {
         buffer.write(b);
     }
-    
+
     /**
      * ${@inheritDoc}
      */
     public void flush() throws IOException {
         buffer.flush();
     }
-    
+
     /**
      * Gets buffered content as UTF-8 encoded string
      * @return String

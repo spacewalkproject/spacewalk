@@ -34,15 +34,15 @@ public class ElaborationDecorator extends BaseListDecorator {
     public void setCurrentList(ListTag current) {
         super.setCurrentList(current);
         if (current != null) {
-            elaborateContents();    
+            elaborateContents();
         }
-        
+
     }
-    
+
     private void elaborateContents() {
         List data = getCurrentList().getPageData();
         Elaborator elab = TagHelper.lookupElaboratorFor(getCurrentList().
-                                                                  getUniqueName(), 
+                                                                  getUniqueName(),
                                     getCurrentList().getContext().getRequest());
         if ((data == null) || (data.isEmpty())) {
             return;

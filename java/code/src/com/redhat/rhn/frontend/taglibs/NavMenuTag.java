@@ -64,7 +64,7 @@ public class NavMenuTag extends TagSupport {
     /** rendering classname which implements the Renderable interface */
     private String renderer;
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @throws JspException*/
     public int doStartTag() throws JspException {
 
@@ -73,27 +73,27 @@ public class NavMenuTag extends TagSupport {
             /*
              * There should probably be a Nav service to inquire to handle the
              * rendering.
-             * 
+             *
              */
-            
+
             /*
              * Find the NavTree by looking it up in the smart cache.
              * Then create a new NavTreeIndex passing in NavTree.
              */
 
             out = pageContext.getOut();
-            
+
             URL url = pageContext.getServletContext().getResource(definition);
-                        
+
             NavTree nt = NavCache.getTree(url);
             NavTreeIndex nti = new NavTreeIndex(nt);
-            
+
             HttpServletRequest req =
                 (HttpServletRequest) pageContext.getRequest();
             String requestPath = ServletUtils.getRequestPath(req);
-            
+
             RequestContext requestContext = new RequestContext(req);
-            
+
             Map aclContext = new HashMap();
             User user = requestContext.getLoggedInUser();
             aclContext.put("user", user);
@@ -108,7 +108,7 @@ public class NavMenuTag extends TagSupport {
             AclGuard guard = new AclGuard(aclContext, nt.getAclMixins());
             nt.setGuard(guard);
 
-            // Here we try and fetch the previously 
+            // Here we try and fetch the previously
             // successfull navigation match from the Session
             // This is used as a fallback if the current URL doesnt
             // have a matching navigation map
@@ -116,21 +116,21 @@ public class NavMenuTag extends TagSupport {
             locationKey.append(nt.getLabel());
             locationKey.append("navi_location");
 
-            String naviLocation = 
+            String naviLocation =
                 (String) req.getSession().getAttribute(locationKey.toString());
-                
+
             String lastActive = nti.computeActiveNodes(requestPath, naviLocation);
-            
+
             // Store the computed URL in the Session
             req.getSession().setAttribute(locationKey.toString(), lastActive);
-            
+
             Renderable r =
                 (Renderable) Class.forName(getRenderer()).newInstance();
             //r.setRenderGuard(new DepthGuard(getMindepth(), getMaxdepth()));
             RenderGuardComposite comp = new RenderGuardComposite();
             comp.addRenderGuard(new DepthGuard(getMindepth(), getMaxdepth()));
             comp.addRenderGuard(guard);
-            
+
             out.print(renderNav(nti, r, comp, req.getParameterMap()));
         }
         catch (IOException ioe) {
@@ -139,17 +139,17 @@ public class NavMenuTag extends TagSupport {
         catch (Exception e) {
             throw new JspException("Error writing to JSP file:", e);
         }
-        
+
         return (SKIP_BODY);
     }
-    
+
     protected String renderNav(NavTreeIndex nti, Renderable r,
                                RenderGuard guard, Map params) {
         r.setRenderGuard(guard);
         RenderEngine re = new RenderEngine(nti);
         return re.render(r, params);
     }
-    
+
     /**
      * Returns the maximum depth to render.
      * @return int
@@ -165,15 +165,15 @@ public class NavMenuTag extends TagSupport {
     public void setMaxdepth(int depth) {
         maxdepth = depth;
     }
-    
+
     /**
      * Sets menu xml definition filename.
      * @param def xml definition filename.
      */
     public void setDefinition(String def) {
-        definition = def; 
+        definition = def;
     }
-    
+
     /**
      * Returns the menu definition xml filename.
      * @return String
@@ -181,7 +181,7 @@ public class NavMenuTag extends TagSupport {
     public String getDefinition() {
         return definition;
     }
-    
+
     /**
      * Sets the rendering class.
      * @param r Renderer classname.
@@ -189,7 +189,7 @@ public class NavMenuTag extends TagSupport {
     public void setRenderer(String r) {
         renderer = r;
     }
-    
+
     /**
      * Return the class which renders the menu.
      * @return String
@@ -197,7 +197,7 @@ public class NavMenuTag extends TagSupport {
     public String getRenderer() {
         return renderer;
     }
-    
+
     /**
      * Sets the level to start rendering.  Defaults to level zero.
      * @param min Initial level to start.
@@ -205,7 +205,7 @@ public class NavMenuTag extends TagSupport {
     public void setMindepth(int min) {
         mindepth = min;
     }
-    
+
     /**
      * Return start level to render.
      * @return int
@@ -224,6 +224,6 @@ public class NavMenuTag extends TagSupport {
         renderer = null;
         super.release();
     }
-    
-    
+
+
 }

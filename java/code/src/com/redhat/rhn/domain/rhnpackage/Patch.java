@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * 
+ *
  * Patch
  * @version $Rev$
  */

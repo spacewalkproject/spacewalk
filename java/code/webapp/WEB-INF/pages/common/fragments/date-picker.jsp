@@ -43,12 +43,12 @@
 </select>:<select name='${picker.name}_minute' size="1">
 <c:forEach var="minLabel" begin="0" end="9">
   <option <c:if test="${minLabel eq picker.minute}">selected="selected"</c:if> value='${minLabel}'>
-    0${minLabel}    
+    0${minLabel}
   </option>
 </c:forEach>
 <c:forEach var="minLabel" begin="10" end="59">
   <option <c:if test="${minLabel eq picker.minute}">selected="selected"</c:if> value='${minLabel}'>
-    ${minLabel}    
+    ${minLabel}
   </option>
 </c:forEach>
 </select><c:if test="${picker.latin}"><select name='${picker.name}_am_pm' size="1">

@@ -31,7 +31,7 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>Estimado usuario de @@PRODUCT_NAME@@,
 
 Este correo-e es enviado con el fin de validar la dirección de correo-e
-que usted ha proporcionado para obtener un nombre de usuario en Red Hat. 
+que usted ha proporcionado para obtener un nombre de usuario en Red Hat.
 Su nombre de usuario de Red Hat, junto con una suscripción activa de Red Hat,
 le brinda acceso a las funciones de administración de sistemas
 a través de @@PRODUCT_NAME@@.
@@ -274,7 +274,7 @@ para esta cuenta y obtener acceso a sus suscripciones:
 
 {2}
 
-Si usted no es el administrador técnico que utilizará los servicios adquiridos con la 
+Si usted no es el administrador técnico que utilizará los servicios adquiridos con la
 suscripción de Red Hat, por favor envíe este correo-e al usuario apropiado dentro de
 su organización.  Si este usuario no tiene un nombre de usuario en Red Hat, puede crear un
 nuevo nombre de usuario haciendo clic en el enlace superior.
@@ -628,7 +628,7 @@ deactivated.
 Please note that this is a final notice.  If you do not click through
 this URL within the next 2 days, your Red Hat login will deactivated.
 
-To confirm your email address, please visit the following URL: 
+To confirm your email address, please visit the following URL:
 
 {0}
 
@@ -639,7 +639,7 @@ Thank you for using @@PRODUCT_NAME@@.
 Estimado usuario de @@PRODUCT_NAME@@,
 
 Este correo es enviado con el fin de validar la dirección de correo-e
-que usted ha proporcionado para obtener un nombre de usuario en Red Hat. 
+que usted ha proporcionado para obtener un nombre de usuario en Red Hat.
 Su nombre de usuario de Red Hat, junto con una suscripción activa de Red Hat,
 le brinda acceso a las funciones de administración de sistemas
 a través de @@PRODUCT_NAME@@.
@@ -674,9 +674,9 @@ Gracias por usar @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems 
+has expired on your local satellite {0}. After {1} day(s) the systems
 management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information 
+Please contact your regional Red Hat Customer  Service Representative for information
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -702,8 +702,8 @@ Gracias por utilizar @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible 
-until your certificate is renewed. Please contact your regional Red Hat 
+has expired on your local satellite {0}. The system management services will be inaccessible
+until your certificate is renewed. Please contact your regional Red Hat
 Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 

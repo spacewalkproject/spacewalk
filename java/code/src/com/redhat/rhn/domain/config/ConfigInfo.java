@@ -27,73 +27,73 @@ public class ConfigInfo extends BaseDomainHelper {
     private String groupname;
     private Long filemode;
     private String selinuxCtx;
-    
+
     /**
      * protected constructor
      * Use the ConfigurationFactory to get new ConfigInfos
      */
     protected ConfigInfo() {
-        
+
     }
 
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for username 
+    /**
+     * Getter for username
      * @return String to get
     */
     public String getUsername() {
         return this.username;
     }
 
-    /** 
-     * Setter for username 
+    /**
+     * Setter for username
      * @param usernameIn to set
     */
     public void setUsername(String usernameIn) {
         this.username = usernameIn;
     }
 
-    /** 
-     * Getter for groupname 
+    /**
+     * Getter for groupname
      * @return String to get
     */
     public String getGroupname() {
         return this.groupname;
     }
 
-    /** 
-     * Setter for groupname 
+    /**
+     * Setter for groupname
      * @param groupnameIn to set
     */
     public void setGroupname(String groupnameIn) {
         this.groupname = groupnameIn;
     }
 
-    /** 
-     * Getter for filemode 
+    /**
+     * Getter for filemode
      * @return Long to get
     */
     public Long getFilemode() {
         return this.filemode;
     }
 
-    /** 
-     * Setter for filemode 
+    /**
+     * Setter for filemode
      * @param filemodeIn to set
     */
     public void setFilemode(Long filemodeIn) {

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.rhnpackage.profile.Profile" 
+	<class name="com.redhat.rhn.domain.rhnpackage.profile.Profile"
 		table="rhnServerProfile">
 		<id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -20,23 +20,23 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<many-to-one name="org"
                      class="com.redhat.rhn.domain.org.OrgImpl"
                      column="org_id"/>
-                     
+
         <many-to-one name="baseChannel"
                      class="com.redhat.rhn.domain.channel.Channel"
                      column="base_channel"/>
-                     
+
         <many-to-one name="profileType"
                      class="com.redhat.rhn.domain.rhnpackage.profile.ProfileType"
                      column="profile_type_id"/>
-                     
+
         <set name="packageEntries" inverse="true" cascade="all">
             <key column="server_profile_id"/>
             <one-to-many class="com.redhat.rhn.domain.rhnpackage.profile.ProfileEntry"/>
         </set>
 	</class>
-    
+
     <query name="Profile.findByIdAndOrg">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.profile.Profile as p 
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.profile.Profile as p
                 where p.id = :id and org_id=:org_id]]>
     </query>
     <sql-query name="Profile.compatibleWithServer">

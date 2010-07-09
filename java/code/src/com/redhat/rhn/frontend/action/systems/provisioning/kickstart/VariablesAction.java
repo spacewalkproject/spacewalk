@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class VariablesAction extends KickstartVariableAction {
     private static final String NETBOOT_ENABLED = "netbootEnabled";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -46,11 +46,11 @@ public class VariablesAction extends KickstartVariableAction {
                                  HttpServletResponse response) {
         RequestContext ctx = new RequestContext(request);
         Server server = ctx.lookupAndBindServer();
-        User user = ctx.getLoggedInUser();        
+        User user = ctx.getLoggedInUser();
         SdcHelper.ssmCheck(ctx.getRequest(), server.getId(), user);
         DynaActionForm form = (DynaActionForm)formIn;
-        SystemRecord rec = (SystemRecord) 
-                        getCobblerObject(server.getCobblerId(), user);        
+        SystemRecord rec = (SystemRecord)
+                        getCobblerObject(server.getCobblerId(), user);
         if (isSubmitted(form)) {
             if (!Boolean.valueOf(rec.isNetbootEnabled()).
                                     equals(form.get(NETBOOT_ENABLED))) {
@@ -62,12 +62,12 @@ public class VariablesAction extends KickstartVariableAction {
         form.set(NETBOOT_ENABLED, rec.isNetbootEnabled());
         return super.execute(mapping, formIn, request, response);
     }
-    
+
     @Override
     protected void checkPermissions(HttpServletRequest request) {
         //TODO: check for null system record
     }
-    
+
     @Override
     protected String getCobblerId(RequestContext context) {
         Server server = context.lookupAndBindServer();

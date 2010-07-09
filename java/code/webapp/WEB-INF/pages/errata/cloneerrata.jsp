@@ -36,18 +36,18 @@
                 <bean:message key="cloneerrata.jsp.view"/>
             </html:submit>
             <br/>
-            
+
             <c:if test="${param.showalreadycloned == 1}">
                 <input type="checkbox" name="showalreadycloned" value="1" checked>
             </c:if>
             <c:if test="${param.showalreadycloned != 1}">
                 <input type="checkbox" name="showalreadycloned" value="1">
             </c:if>
-                
+
             <bean:message key="cloneerrata.jsp.showclonederrata"/>
-            
+
         </p>
-        
+
         <rl:list emptykey="cloneerrata.jsp.noerrata">
 
             <rl:decorator name="PageSizeDecorator"/>
@@ -97,7 +97,7 @@
                    name="dispatch"
                    value='<bean:message key="cloneerrata.jsp.cloneerrata"/>'/>
         </div>
-        
+
     </rl:listset>
 
     </body>

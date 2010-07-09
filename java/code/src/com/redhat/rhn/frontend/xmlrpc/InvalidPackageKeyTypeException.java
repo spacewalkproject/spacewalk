@@ -38,13 +38,13 @@ public class InvalidPackageKeyTypeException extends FaultException  {
      * Constructor
      * @param label the type label
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public InvalidPackageKeyTypeException(String label, Throwable cause) {
         super(2350, "invalidPackageKeyType" , LocalizationService.getInstance().
-                getMessage("api.package.provider.invalidKeyType", 
+                getMessage("api.package.provider.invalidKeyType",
                         new Object [] {label}) , cause);
     }
 

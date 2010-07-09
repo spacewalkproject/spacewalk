@@ -26,7 +26,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * The ListTag is the outer most tag of a ListView. The ListTag has two
- * attributes <code>pageList</code> and <code>noDataText</code>.  The 
+ * attributes <code>pageList</code> and <code>noDataText</code>.  The
  * <code>pageList</code> is a
  * {@link com.redhat.rhn.common.db.datasource.DataResult DataResult}
  * which contains the data to display. If the <code>pageList</code> is null
@@ -64,43 +64,43 @@ public class ListTag extends BodyTagSupport {
     private String legend;
     private boolean formatMessage = true;
 
-    
+
     /** Public constructor  */
     public ListTag() {
     }
 
-    
+
     /** {@inheritDoc} */
     public int doStartTag() throws JspException {
         JspWriter out = null;
-        
+
         //if legend was set, process legends
         if (legend != null) {
             setLegends(legend);
         }
-        
+
         try {
             out = pageContext.getOut();
-            
+
             if (pageList == null || pageList.isEmpty()) {
                 renderEmptyString(out);
                 return SKIP_BODY;
             }
-        
+
             return EVAL_BODY_INCLUDE;
         }
         catch (IOException ioe) {
             throw new JspException("IO error writing to JSP file:", ioe);
         }
     }
-    
+
     /**
      * @return Returns the legend.
      */
     public String getLegend() {
         return legend;
     }
-    
+
     /**
      * @param l The legend to set.
      */
@@ -121,9 +121,9 @@ public class ListTag extends BodyTagSupport {
     public DataResult getPageList() {
         return pageList;
     }
-    
+
     /**
-     * Set the string to print if there is no data in the 
+     * Set the string to print if there is no data in the
      * list
      * @param noDataTextIn The string to print if there is
      *        no data.
@@ -131,11 +131,11 @@ public class ListTag extends BodyTagSupport {
     public void setNoDataText(String noDataTextIn) {
         this.noDataText = noDataTextIn;
     }
-    
+
     private void renderEmptyString(JspWriter out) throws IOException {
-        
+
         if (formatMessage) {
-            out.println("<div class=\"list-empty-message\">" + 
+            out.println("<div class=\"list-empty-message\">" +
                     LocalizationService.getInstance().getMessage(noDataText) +
                     "</div>");
         }
@@ -144,7 +144,7 @@ public class ListTag extends BodyTagSupport {
         }
 
     }
-    
+
     /**
      * setLegends
      * Builds legends variable and sticks it back into the request.
@@ -159,7 +159,7 @@ public class ListTag extends BodyTagSupport {
         }
         else {
             /*
-             * legends must look like either "foo" or "foo,bar". in 
+             * legends must look like either "foo" or "foo,bar". in
              * either case, we just want to append a comma and a new
              * value.
              */

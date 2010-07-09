@@ -34,7 +34,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="lastBoot" column="last_boot" type="long"/>
         <property name="channelsChanged" column="channels_changed" type="date"/>
         <property name="cobblerId" column="cobbler_id"  type="string" length="64" />
-                
+
         <set name="notes" cascade="all-delete-orphan" lazy="true" inverse="true">
             <key column="server_id"/>
             <one-to-many class="com.redhat.rhn.domain.server.Note"/>
@@ -81,13 +81,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
              <many-to-many class="com.redhat.rhn.domain.config.ConfigChannel"
                 column="config_channel_id"/>
         </set>
-        
-        <set name="virtualGuests" inverse="true" lazy="true" outer-join="true" 
+
+        <set name="virtualGuests" inverse="true" lazy="true" outer-join="true"
             cascade="all-delete-orphan">
         	<key column="host_system_id"/>
         	<one-to-many class="com.redhat.rhn.domain.server.VirtualInstance"/>
         </set>
-        
+
 		<set name="groups" table="rhnServerGroupMembers" inverse="true" lazy="true">
 			<key column="server_id"/>
 			<many-to-many column="server_group_id" class="com.redhat.rhn.domain.server.ServerGroup"/>
@@ -97,7 +97,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			<key column="server_id"/>
 			<many-to-many column="CAPABILITY_NAME_ID" class="com.redhat.rhn.domain.server.Capability"/>
 		</set>
-		       
+
         <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
             column="org_id" lazy="proxy"/>
 
@@ -117,16 +117,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <one-to-one name="cpu" class="com.redhat.rhn.domain.server.CPU"
             property-ref="server" cascade="all" lazy="proxy"/>
-            
+
         <one-to-one name="lock" class="com.redhat.rhn.domain.server.ServerLock"
                     cascade="all" lazy="proxy"/>
 
         <one-to-one name="serverUuid" class="com.redhat.rhn.domain.server.ServerUuid"
                     cascade="all" lazy="proxy"/>
-                    
+
         <one-to-one name="proxyInfo" class="com.redhat.rhn.domain.server.ProxyInfo"
                     cascade="all" lazy="proxy"/>
-                                        
+
         <one-to-one name="pushClient" class="com.redhat.rhn.domain.server.PushClient"
 		    property-ref="server" lazy="proxy" />
 
@@ -142,17 +142,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             property-ref="server" cascade="all" lazy="proxy"/>
         <one-to-one name="location" class="com.redhat.rhn.domain.server.Location"
             property-ref="server" cascade="all" lazy="proxy" />
-        
+
         <one-to-one name="virtualInstance"
                     class="com.redhat.rhn.domain.server.VirtualInstance"
                     property-ref="guestSystem"
                     cascade="save-update" lazy="proxy"/>
-                     
+
         <set name="history" cascade="all" lazy="true" inverse="true">
             <key column="server_id"/>
             <one-to-many class="com.redhat.rhn.domain.server.ServerHistoryEvent" />
         </set>
-        
+
         <set name="packages" inverse="true" cascade="all">
             <key column="server_id"/>
             <one-to-many class="com.redhat.rhn.domain.server.InstalledPackage"/>
@@ -189,21 +189,21 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Server.findByIdsAndOrgId">
         <![CDATA[from com.redhat.rhn.domain.server.Server as s where ORG_ID = :orgId and s.id in (:serverIds)]]>
     </query>
-    
+
      <query name="Server.listRedHatSystems">
         <![CDATA[ select s.id
-        				from com.redhat.rhn.domain.server.Server as s 
+					from com.redhat.rhn.domain.server.Server as s
         				where s.id in (:sids) and s.serverArch.archType.label != 'sysv-solaris']]>
     </query>
-    
+
      <query name="Server.listSolarisSystems">
         <![CDATA[ select s.id
-        				from com.redhat.rhn.domain.server.Server as s 
+					from com.redhat.rhn.domain.server.Server as s
         				where s.id in (:sids) and s.serverArch.archType.label = 'sysv-solaris']]>
-    </query>    
+    </query>
 
      <query name="Server.listConfigEnabledSystems">
-        <![CDATA[ select s 
+        <![CDATA[ select s
         			 from com.redhat.rhn.domain.server.Server as s
         				 inner join s.groups as sg
         				 inner join sg.groupType.features as f
@@ -212,7 +212,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
      <query name="Server.listConfigDiffEnabledSystems">
-        <![CDATA[ select s 
+        <![CDATA[ select s
         			 from com.redhat.rhn.domain.server.Server as s
         				 inner join s.groups as sg
         				 inner join sg.groupType.features as f
@@ -221,8 +221,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
     <sql-query name="Server.findVirtPlatformHostsByOrg">
-        <![CDATA[select   s.id as id, s.name as name, count(vi.id) as count 
-    				from rhnServer S 
+        <![CDATA[select   s.id as id, s.name as name, count(vi.id) as count
+				from rhnServer S
 				        inner join rhnVirtualInstance vi on s.id = vi.host_system_id
 				        inner join rhnServerGroupMembers sgm on s.id = sgm.server_id
 				        inner join rhnServerGroup sg on sgm.server_group_id = sg.id
@@ -230,11 +230,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				        and s.org_id = :org_id
 				        and vi.virtual_system_id  is not null
 				    group by s.id, s.name]]>
-    </sql-query> 
-    
+    </sql-query>
+
     <sql-query name="Server.findVirtHostsExceedingGuestLimitByOrg">
-        <![CDATA[select  s.id as id, s.name as name, count(vi.id) as count 
-    				from rhnServer S 
+        <![CDATA[select  s.id as id, s.name as name, count(vi.id) as count
+				from rhnServer S
 				        inner join rhnVirtualInstance vi on s.id = vi.host_system_id
 				        inner join rhnServerGroupMembers sgm on s.id = sgm.server_id
 				        inner join rhnServerGroup sg on sgm.server_group_id = sg.id
@@ -242,21 +242,21 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				        and s.org_id = :org_id
 				        and vi.virtual_system_id  is not null
 				    group by s.id, s.name]]>
-    </sql-query> 
-    
-    
+    </sql-query>
+
+
     <sql-query name="Server.lookupAdministrators">
         <![CDATA[select {wc.*}
 						from WEB_CONTACT wc	
 						inner join rhnUserServerPerms usp on wc.id = usp.user_id
 						inner join rhnServer S on S.id = usp.server_id
-                  where 
+                  where
 	               		s.id = :sid
 	              		and s.org_id = :org_id
 	              		]]>
 	        <return alias="wc" class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
     </sql-query>
-    
+
     <sql-query name="Server.findUngrouped">
             <![CDATA[select {S.*}
 			           	from rhnServer {S}
@@ -264,13 +264,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		                     left outer join  rhn_check_probe S_1_ on S.id = S_1_.host_id
 		                     left outer join  rhnProxyInfo S_3_ on S.id = S_3_.server_id
 			           	
-           				where S.org_id = :orgId 
+					where S.org_id = :orgId
            				
-           				and exists (select 1 from rhnUserServerPerms 
-           								USP where USP.user_id = :userId 
+					and exists (select 1 from rhnUserServerPerms
+									USP where USP.user_id = :userId
            								AND USP.server_id = S.id)
-           				and not exists (select 1  
-           					from rhnServerGroupMembers M inner join 
+					and not exists (select 1
+						from rhnServerGroupMembers M inner join
 				           		rhnServerGroup G on M.server_group_id = G.id
 	        			   	where G.group_type is null
 	        			   	and M.server_id = S.id)  	
@@ -282,11 +282,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[select S.id
 			           	from rhnServer S
 			           	inner join rhnUserServerPerms USP on USP.server_id = S.id
-			           	inner join rhnProxyInfo rpi on rpi.server_id = S.id 
+					inner join rhnProxyInfo rpi on rpi.server_id = S.id
            				where S.org_id = :orgId
            				and USP.user_id = :userId
 	              		]]>
-    </sql-query>    
+    </sql-query>
 
      <sql-query name="Server.findInSet">
      <![CDATA[
@@ -304,8 +304,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                  ST.user_id = :userId
                  and ST.label = :label
                  and S.id not in (SELECT server_id FROM rhnProxyInfo)
-           ]]>  
+           ]]>
         <return alias="S" class="com.redhat.rhn.domain.server.Server" />
     </sql-query>
-    
+
 </hibernate-mapping>

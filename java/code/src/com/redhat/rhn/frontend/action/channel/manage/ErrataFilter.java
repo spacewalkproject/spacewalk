@@ -21,15 +21,15 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * 
+ *
  * ErrataFilter
  * @version $Rev$
  */
 public class ErrataFilter extends BaseListFilter {
 
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void processMap(Map map, Locale userLocale) {
@@ -37,7 +37,7 @@ public class ErrataFilter extends BaseListFilter {
         String label = ls.getMessage("synopsis",
                 userLocale);
         map.put(label, "advisorySynopsis");
-        
+
     }
 
 }

@@ -43,34 +43,34 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class DownloadDiffAction extends RhnAction {
-    
+
     /**
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         Long ocrid = requestContext.getRequiredParam("ocrid");
-        
+
         //Get the objects.
         ConfigFile file = ConfigActionHelper.getFile(request);
         ConfigRevision revision = ConfigActionHelper.getRevision(request, file);
         ConfigRevision other = ConfigurationManager.getInstance()
             .lookupConfigRevision(user, ocrid);
-        
+
         //Get the content that we will diff.
         String[] rev = revision.getConfigContent().getContentsString().split("\n");
         String[] orev = other.getConfigContent().getContentsString().split("\n");
-        
+
         Diff diff = new Diff(rev, orev);
         String charSet = response.getCharacterEncoding();
         String mimeType = "text/plain";
         response.setContentType(mimeType + ";charset=" + charSet);
         response.setHeader("Content-Disposition", "attachment; filename=rhnpatch");
-        
+
         try {
             OutputStream out = response.getOutputStream();
             OutputStreamWriter writer = new OutputStreamWriter(out);
@@ -84,14 +84,14 @@ public class DownloadDiffAction extends RhnAction {
         }
         catch (IOException ioe) {
             ActionMessages msgs = new ActionMessages();
-            ActionMessage am = 
-                new ActionMessage("filedetails.jsp.error.download", 
-                        ioe.getLocalizedMessage(), 
+            ActionMessage am =
+                new ActionMessage("filedetails.jsp.error.download",
+                        ioe.getLocalizedMessage(),
                         file.getConfigFileName().getPath());
             msgs.add(ActionMessages.GLOBAL_MESSAGE, am);
             saveMessages(request, msgs);
         }
-        
+
         return getStrutsDelegate().forwardParams(mapping.findForward(
                 RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
     }

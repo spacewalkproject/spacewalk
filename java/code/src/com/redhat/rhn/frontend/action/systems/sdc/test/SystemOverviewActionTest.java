@@ -39,9 +39,9 @@ import java.util.Date;
  * @version $Rev$
  */
 public class SystemOverviewActionTest extends RhnMockStrutsTestCase {
-    
+
     protected Server s;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -53,12 +53,12 @@ public class SystemOverviewActionTest extends RhnMockStrutsTestCase {
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         request.addParameter("sid", s.getId().toString());
     }
-    
+
     public void testSystemStatusNoErrata() throws Exception {
         actionPerform();
         assertEquals(Boolean.FALSE, request.getAttribute("hasUpdates"));
     }
-    
+
     public void testSystemStatusWithErrata() throws Exception {
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         e.setAdvisoryType(ErrataFactory.ERRATA_TYPE_SECURITY);
@@ -68,56 +68,56 @@ public class SystemOverviewActionTest extends RhnMockStrutsTestCase {
 
         UserFactory.save(user);
         OrgFactory.save(org);
-        
+
         int rows = ErrataCacheManager.insertNeededPackageCache(
                 s.getId(), e.getId(), p.getId());
-        assertEquals(1, rows);        
-        
+        assertEquals(1, rows);
+
         actionPerform();
         assertEquals(Boolean.TRUE, request.getAttribute("hasUpdates"));
     }
-    
+
     public void testSystemInactive() throws Exception {
         s.getServerInfo().setCheckin(new Date(1));
         TestUtils.saveAndFlush(s);
         actionPerform();
         assertEquals(request.getAttribute("systemInactive"), Boolean.TRUE);
     }
-    
+
     public void testSystemActive() throws Exception {
         Calendar pcal = Calendar.getInstance();
         pcal.setTime(new Timestamp(System.currentTimeMillis()));
         pcal.roll(Calendar.MINUTE, -5);
-        
+
         s.getServerInfo().setCheckin(pcal.getTime());
         TestUtils.saveAndFlush(s);
         actionPerform();
         assertEquals(request.getAttribute("systemInactive"), Boolean.FALSE);
     }
-    
+
     public void testSystemUnentitled() throws Exception {
        SystemManager.removeAllServerEntitlements(s.getId());
        actionPerform();
        assertEquals(request.getAttribute("unentitled"), Boolean.TRUE);
     }
-    
+
     public void testSystemEntitled() throws Exception {
         actionPerform();
         assertEquals(request.getAttribute("unentitled"), Boolean.FALSE);
     }
-    
+
     public void testNoProbes() throws Exception {
         actionPerform();
         assertEquals(request.getAttribute("probeListEmpty"), Boolean.TRUE);
     }
-    
+
     public void testLockSystem() throws Exception {
         request.addParameter("lock", "1");
         actionPerform();
         verifyActionMessage("sdc.details.overview.locked.alert");
         assertNotNull(s.getLock());
     }
-    
+
     public void testUnlockSystem() throws Exception {
         SystemManager.lockServer(user, s, "test reason");
         request.addParameter("lock", "0");
@@ -125,9 +125,9 @@ public class SystemOverviewActionTest extends RhnMockStrutsTestCase {
         verifyActionMessage("sdc.details.overview.unlocked.alert");
         assertNull(s.getLock());
     }
-    
+
     public void testActivateSatelliteApplet() throws Exception {
-        
+
         request.addParameter("applet", "1");
         actionPerform();
         verifyActionMessage("sdc.details.overview.applet.scheduled");

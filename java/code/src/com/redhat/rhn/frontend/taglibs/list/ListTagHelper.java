@@ -24,23 +24,23 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Static helper class for the "new-style" list tag
- * 
+ *
  * @version $Rev $
  */
 public class ListTagHelper {
-    
+
 
     public static final String PARENT_URL = "parentUrl";
     public static final String PAGE_LIST = "pageList";
     public static final String PAGE_ACTION = "PAGE_ACTION";
     private ListTagHelper() {
-        
+
     }
-    
-    
+
+
     /**
      * Stores the declaration information of an rhnSet
-     * so as to be used by the list tag while 
+     * so as to be used by the list tag while
      * rendering a set.
      * @param listName name of list
      * @param decl the set  declaration to bind
@@ -49,12 +49,12 @@ public class ListTagHelper {
     public static void bindSetDeclTo(String listName, RhnSetDecl decl,
                                 ServletRequest request) {
         bindSetDeclTo(listName, decl.getLabel(), request);
-    }    
+    }
 
-    
+
     /**
      * Stores the declaration information of an rhnSet
-     * so as to be used by the list tag while 
+     * so as to be used by the list tag while
      * rendering a set.
      * @param listName name of list
      * @param label the set  declaration to bind
@@ -65,15 +65,15 @@ public class ListTagHelper {
         String uniqueName = TagHelper.generateUniqueName(listName);
         String selectedName = makeSetDeclAttributeName(uniqueName);
         request.setAttribute(selectedName, label);
-    }    
-    
+    }
+
     /**
      * Returns a set declaration associated to this list
      * if it was previously bound.
      * @param listName the name of the list to who holds the set.
-     *                  Note: this must be a Unique Name .. 
+     *                  Note: this must be a Unique Name ..
      *                  See bindSetDeclTo method for more info.
-     * @param request the servlet request object 
+     * @param request the servlet request object
      * @return returns the set declaration label associated to the list.
      */
     public static String lookupSetDeclFor(String listName,
@@ -81,11 +81,11 @@ public class ListTagHelper {
         String selectedName = makeSetDeclAttributeName(listName);
         return (String) request.getAttribute(selectedName);
     }
-    
+
     private static String makeSetDeclAttributeName(String listName) {
         return "list_" + listName + "_rhn_set";
     }
-    
+
     /**
      * Stores how many objects are selected for use by the list tag
      * @param listName name of list
@@ -98,7 +98,7 @@ public class ListTagHelper {
         String selectedName = ListTagUtil.makeSelectedAmountName(uniqueName);
         request.setAttribute(selectedName, String.valueOf(amount));
     }
-    
+
     /**
      * Gets the current page number for the named list
      * This is zero based
@@ -117,7 +117,7 @@ public class ListTagHelper {
             return Integer.parseInt(page);
         }
     }
-    
+
     /**
      * Returns the value of the selected radio button
      * Applicable if you are using RadioColumnTag (rl:radiocolumn)
@@ -132,11 +132,11 @@ public class ListTagHelper {
 
     /**
      * Given a list and a value the following method preselects
-     * a value in the list. 
+     * a value in the list.
      * Applicable if you are using RadioColumnTag (rl:radiocolumn)
      * So for example if you have a list of items and you have a
      * selection key that uniquely identifies your item
-     * and you want that selected, you 'd call this method to 
+     * and you want that selected, you 'd call this method to
      * preselect it...
      * @param listName name of the list
      * @param selectionKey the selection key uniquely identifying
@@ -147,8 +147,8 @@ public class ListTagHelper {
                             HttpServletRequest request) {
         String uniqueName = TagHelper.generateUniqueName(listName);
         RadioColumnTag.bindDefaultValue(request, uniqueName, selectionKey);
-    }    
-    
+    }
+
     /**
      * Returns the values of all selected checkboxes
      * @param listName name of list
@@ -160,11 +160,11 @@ public class ListTagHelper {
         String fieldParam = ListTagUtil.makeSelectedItemsName(uniqueName);
         return request.getParameterValues(fieldParam);
     }
-    
+
     /**
      * Returns the values of all the row items in a given list
      * This is useful for example in diff'ing between the result set
-     * and the selected items on a page. 
+     * and the selected items on a page.
      * @param listName name of list
      * @param request active HttpServletRequest
      * @return string array if items found, else null
@@ -174,10 +174,10 @@ public class ListTagHelper {
         String fieldParam = ListTagUtil.makePageItemsName(uniqueName);
         return request.getParameterValues(fieldParam);
     }
-    
+
     /**
-     * Checks if any of the list actions were clicked like 
-     * selectAll, unselectAll update set, pagination buttons (in which 
+     * Checks if any of the list actions were clicked like
+     * selectAll, unselectAll update set, pagination buttons (in which
      * page_action will be returned).. etc
      * and returns the appropriate value
      * @param listName name of list
@@ -185,14 +185,14 @@ public class ListTagHelper {
      * @return List Action if any of the list actions were selected
      *         null if not.
      */
-    
+
     public static String getListAction(String listName, HttpServletRequest request) {
         String uniqueName = TagHelper.generateUniqueName(listName);
         if (DataSetManipulator.getPaginationParam(request, uniqueName) != null ||
                         PageSizeDecorator.pageWidgetSelected(request, listName)) {
             return PAGE_ACTION;
         }
-        
+
         String fieldParam = ListTagUtil.makeSelectActionName(uniqueName);
         return request.getParameter(fieldParam);
     }
@@ -205,18 +205,18 @@ public class ListTagHelper {
      * @return the filter value
      */
     public static String getFilterValue(ServletRequest request, String uniqueName) {
-        
+
         String newValue = request.getParameter(
                 ListTagUtil.makeFilterValueByLabel(uniqueName));
         String oldValue = request.getParameter(
                 ListTagUtil.makeOldFilterValueByLabel(uniqueName));
-        
-        String clicked = 
+
+        String clicked =
             request.getParameter(ListTagUtil.makeFilterNameByLabel(uniqueName));
-        
+
         if (clicked == null) {
             if (oldValue  != null && !oldValue.equals("null")) {
-                return oldValue;  
+                return oldValue;
             }
             else {
                 return "";
@@ -226,22 +226,22 @@ public class ListTagHelper {
             return newValue;
         }
     }
-    
+
     /**
      * returns true if the list that is being filtered upon
      * is allowed to search on the parent object
      *  (always true for normal list)
      * @param request the request to look in
      * @param uniqueName the unique (hashed) name for the list
-     * @return true if the parent is allowed to search 
+     * @return true if the parent is allowed to search
      */
     public static boolean canSearchByParent(ServletRequest request, String uniqueName) {
         return ListTagUtil.toBoolean(request.getParameter(
                 ListTagUtil.makeFilterSearchParentLabel(uniqueName)));
-    }    
-    
+    }
+
     /**
-     * returns true if the list that is being filtered upon is allowed to 
+     * returns true if the list that is being filtered upon is allowed to
      * search on the child object (always false for normal list)
      * @param request the request to look in
      * @param uniqueName the unique (hashed) name for the list
@@ -253,17 +253,17 @@ public class ListTagHelper {
     }
 
     /**
-     * returns true if the list that is being filtered upon is allowed to 
+     * returns true if the list that is being filtered upon is allowed to
      * to treat the parent as an element (always true for normal list)
      * @param request the request to look in
      * @param uniqueName the unique (hashed) name for the list
-     * @return true if the parent can be treated as an element. 
+     * @return true if the parent can be treated as an element.
      */
     public static boolean isParentAnElement(ServletRequest request, String uniqueName) {
         return ListTagUtil.toBoolean(request.getParameter(
                 ListTagUtil.makeParentIsAnElementLabel(uniqueName)));
     }
-    
+
     /**
      * Returns the object id given an object
      * deals with selectable/identifiable objects
@@ -284,9 +284,9 @@ public class ListTagHelper {
         }
         return id;
     }
-    
+
     /**
-     * Makes the tr row ids useful especially for expandable row renderers. 
+     * Makes the tr row ids useful especially for expandable row renderers.
      * @param listName the name of the list
      * @param current the object to be expanded on
      * @return the row id value
@@ -294,5 +294,5 @@ public class ListTagHelper {
     public static String makeRowId(String listName, Object current) {
         return "row_" + listName + "_" + ListTagHelper.getObjectId(current);
     }
-    
+
 }

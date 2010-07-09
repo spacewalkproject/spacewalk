@@ -13,7 +13,7 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.frontend.struts;
-    
+
 import com.redhat.rhn.common.util.Asserts;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.util.ServletUtils;
@@ -50,33 +50,33 @@ import javax.servlet.http.HttpSession;
  * StrutsDelegate defines a set of helper operations for working with the Struts API.
  * Implementations should conform to the same design as servlets an actions classes
  * in that they should be thread-safe and should not maintain client state.
- * 
+ *
  * @version $Rev$
  */
 public class StrutsDelegate {
-    
+
     private static final Logger  LOG = Logger.getLogger(StrutsDelegate.class);
     private static final StrutsDelegate INSTANCE = new StrutsDelegate();
-    
+
     /**
      * Retuns an instance of the struts delegate factory
      * @return an instance
      */
-    public static StrutsDelegate getInstance() { 
+    public static StrutsDelegate getInstance() {
         return INSTANCE;
     }
-    
+
     protected StrutsDelegate() {
     }
 
     /**
      * Take an action forward and toss on a form variable.
      * @param base Base ActionForward
-     * 
+     *
      * @param param Parameter to be added to the ActionForward url.
-     * 
+     *
      * @param value Value of parameter to be added.
-     * 
+     *
      * @return a new ActionForward with the path of the base appended with the
      * param and value.
      */
@@ -88,11 +88,11 @@ public class StrutsDelegate {
 
     /**
      * Take an action forward and toss on a set of form variables.
-     * 
+     *
      * @param base Base ActionForward
-     * 
+     *
      * @param params Parameters to be added to the ActionForward url.
-     * 
+     *
      * @return a new ActionForward with the path of the base appended with the
      * param and value.
      */
@@ -104,7 +104,7 @@ public class StrutsDelegate {
         af.setName(base.getName());
         return af;
     }
-    
+
     /**
      * Add a message to an existing set of ActionErrors. Useful to add stuff to
      * an already populated ActionErrors instance
@@ -115,7 +115,7 @@ public class StrutsDelegate {
     public void addError(String msgKey, ActionErrors errors) {
         addError(errors, msgKey, new Object[0]);
     }
-    
+
     /**
      * Add a message to an existing set of ActionErrors. Useful to add stuff to
      * an already populated ActionErrors instance
@@ -129,17 +129,17 @@ public class StrutsDelegate {
         msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(msgKey,
                 params));
         errors.add(msg);
-    }    
-    
+    }
+
     /**
      * Add a UI message to the Request.
      * @param msgKey of the string you want to display
      * @param req used to store the message in.
      */
     public void saveMessage(String msgKey, HttpServletRequest req) {
-        saveMessage(msgKey, null, req); 
+        saveMessage(msgKey, null, req);
     }
-    
+
     /**
      * Add a UI message to the Request.
      * @param msgKey of the string you want to display
@@ -156,7 +156,7 @@ public class StrutsDelegate {
                 new ActionMessage(msgKey, params));
         saveMessages(req, msg);
     }
-    
+
     /**
      * Add messages to the request
      * @param request Request where messages will be saved.
@@ -175,18 +175,18 @@ public class StrutsDelegate {
         if (messages instanceof ActionErrors) {
             key = Globals.ERROR_KEY;
         }
-        
+
         ActionMessages newMessages = new ActionMessages();
-        
+
         // Check for existing messages
-        ActionMessages sessionExisting = 
+        ActionMessages sessionExisting =
             (ActionMessages) session.getAttribute(key);
-        
+
         if (sessionExisting != null) {
             newMessages.add(sessionExisting);
         }
         newMessages.add(messages);
-        
+
         session.setAttribute(key, newMessages);
         request.setAttribute(key, newMessages);
     }
@@ -198,9 +198,9 @@ public class StrutsDelegate {
      * @param warnings List of ValidatorWarning objects.
      */
     public void saveMessages(HttpServletRequest request,
-            List<ValidatorError> errors, 
+            List<ValidatorError> errors,
             List<ValidatorWarning> warnings) {
-        
+
         bindMessage(request, Globals.ERROR_KEY, errors, new ActionErrors());
         bindMessage(request, Globals.MESSAGE_KEY, warnings, new ActionMessages());
     }
@@ -212,12 +212,12 @@ public class StrutsDelegate {
      */
     public void saveMessages(HttpServletRequest request, ValidatorResult result) {
         saveMessages(request, result.getErrors(), result.getWarnings());
-    }    
-    
+    }
+
     /**
      * Util to get the String version of a file upload form. Not useful if the
      * upload is binary.
-     * 
+     *
      * @param form to get the contents from
      * @param paramName of the FormFile
      * @return String version of the upload.
@@ -263,19 +263,19 @@ public class StrutsDelegate {
         }
         return retval;
     }
-    
+
     /**
-     * Use this for every textarea that we use in our UI.  Otherwise you will get ^M 
+     * Use this for every textarea that we use in our UI.  Otherwise you will get ^M
      * in your file showing up.
      * @param form to fetch from
      * @param name of value in form
-     * @return String without CR in them.  
+     * @return String without CR in them.
      */
     public String getTextAreaValue(DynaActionForm form, String name) {
         String value = form.getString(name);
         return StringUtils.replaceChars(value, "\r", "");
     }
-    
+
     /**
      * Reads the earliest date from a form populated by a datepicker.
      * Your dyna action picker must either be a struts datePickerForm, or
@@ -291,7 +291,7 @@ public class StrutsDelegate {
         //if it is not there, then that means we should always evaluate the
         //date picker.  Otherwise, we evaluate if it tells us to do so.
         if (!form.getMap().containsKey(DatePicker.USE_DATE) ||
-                form.get(DatePicker.USE_DATE) == null || 
+                form.get(DatePicker.USE_DATE) == null ||
                 ((Boolean)form.get(DatePicker.USE_DATE)).booleanValue()) {
             DatePicker p = getDatePicker(name, yearDirection);
             p.readForm(form);
@@ -301,7 +301,7 @@ public class StrutsDelegate {
             return new Date();
         }
     }
-    
+
     /**
      * Writes the values of a date picker form to the <code>requestParams</code>
      * for remembering form values across requests.
@@ -320,13 +320,13 @@ public class StrutsDelegate {
             requestParams.put(DatePicker.USE_DATE,
                     form.get(DatePicker.USE_DATE));
         }
-        
+
         //The datepicker itself can write the rest.
         DatePicker p = getDatePicker(name, yearDirection);
         p.readForm(form);
         p.writeToMap(requestParams);
     }
-    
+
     /**
      * Creates a date picker object with the given name and prepopulates the date
      * with values from the given request's parameters. Prepopulates the form with
@@ -344,10 +344,10 @@ public class StrutsDelegate {
             String name, int yearDirection) {
         //Create the date picker.
         DatePicker p = getDatePicker(name, yearDirection);
-        
+
         //prepopulate the date for this picker
         p.readMap(request.getParameterMap());
-        
+
         //prepopulate the form for this picker
         p.writeToForm(form);
         if (!StringUtils.isEmpty(request.getParameter(DatePicker.USE_DATE))) {
@@ -361,7 +361,7 @@ public class StrutsDelegate {
         //give back the date picker
         return p;
     }
-    
+
     private DatePicker getDatePicker(String name, int yearDirection) {
         Context ctx = Context.getCurrentContext();
         if (ctx == null) {
@@ -373,13 +373,13 @@ public class StrutsDelegate {
         }
     }
 
-    
-    private  void bindMessage(HttpServletRequest request, String key, 
-                        List<? extends ValidationMessage> messages, 
+
+    private  void bindMessage(HttpServletRequest request, String key,
+                        List<? extends ValidationMessage> messages,
                         ActionMessages actMsgs) {
         if (!messages.isEmpty()) {
             for (ValidationMessage msg : messages) {
-                actMsgs.add(ActionMessages.GLOBAL_MESSAGE, 
+                actMsgs.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage(msg.getKey(), msg.getValues()));
             }
 
@@ -393,9 +393,9 @@ public class StrutsDelegate {
                 request.removeAttribute(key);
             }
             else {
-                request.setAttribute(key, requestMsg);    
-            }        
+                request.setAttribute(key, requestMsg);
+            }
         }
-        
+
     }
 }

@@ -39,7 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  */
 public class OrgTrustOverviewSerializer implements XmlRpcCustomSerializer {
-    
+
     /** {@inheritDoc} */
     public Class<OrgTrustOverview> getSupportedClass() {
         return OrgTrustOverview.class;
@@ -53,7 +53,7 @@ public class OrgTrustOverviewSerializer implements XmlRpcCustomSerializer {
         helper.add("orgId", tr.getId());
         helper.add("orgName", tr.getName());
         helper.add("trustEnabled", tr.getTrusted());
-        helper.writeTo(output);       
-        
+        helper.writeTo(output);
+
     }
 }

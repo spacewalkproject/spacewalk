@@ -20,14 +20,14 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 public class YourRhnActionTest extends RhnMockStrutsTestCase {
 
-    
-    
+
+
     public void testExecute() {
-        
+
         setRequestPathInfo("/YourRhn");
         actionPerform();
          assertTrue((((Boolean)request.getAttribute("anyListsSelected")).booleanValue()));
-         
+
          assertNotNull(request.getAttribute("inactiveSystems"));
          assertNotNull(request.getAttribute("tasks"));
          assertNotNull(request.getAttribute("criticalSystems"));

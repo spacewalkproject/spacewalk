@@ -19,23 +19,23 @@
 <form method="POST" name="rhn_list" action="/rhn/schedule/FailedSystemsSubmit.do">
 
 <rhn:list pageList="${requestScope.pageList}"
-          noDataText="failedsystems.jsp.nosystems">       
+          noDataText="failedsystems.jsp.nosystems">
 	  <rhn:listdisplay button="failedsystems.jsp.rescheduleactions"
 	                   buttonsAttr="canEdit:true">
     <rhn:column header="actions.jsp.system"
                 url="/network/systems/details/history/event.pxt?sid=${current.id}&hid=${action.id}">
         ${current.serverName}
     </rhn:column>
-    
+
     <rhn:column header="failedsystems.jsp.failed">
         ${current.displayDate}
     </rhn:column>
-    
+
     <rhn:column header="failedsystems.jsp.message">
         ${current.message}
     </rhn:column>
   </rhn:listdisplay>
-  
+
   <input type="hidden" name="aid" value="${action.id}" />
   <input type="hidden" name="formvars" value="aid" />
 

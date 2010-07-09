@@ -36,16 +36,16 @@ public class TestHandler extends BaseHandler {
         if (numbers == null) {
             return 0;
         }
-        
+
         int result = 0;
-        
+
         for (int i = 0; i < numbers.length; i++) {
             result += numbers[i];
         }
-        
+
         return result;
     }
-    
+
     /**
      * Check whether the xmlrpc server env is hosted or not.
      *
@@ -54,7 +54,7 @@ public class TestHandler extends BaseHandler {
     public int envIsSatellite() {
         return BooleanUtils.toInteger(true);
     }
-    
+
     /**
      * tests hash api definition stuff
      * @param testMap test map to see if we get a map coming in.
@@ -64,7 +64,7 @@ public class TestHandler extends BaseHandler {
         result.put("foobar", "baz");
         return result;
     }
-    
+
     /**
      * multiply list of numbers
      * @param numbers list of integers to be multiplied.
@@ -74,14 +74,14 @@ public class TestHandler extends BaseHandler {
         if (numbers == null || numbers.length < 1) {
             return 0;
         }
-        
+
         int result = 1;
         for (int i = 0; i < numbers.length; i++) {
             result *= numbers[i];
         }
         return result;
     }
-    
+
     /**
      * Returns the string passed to it
      * @param input String expected to be returned.

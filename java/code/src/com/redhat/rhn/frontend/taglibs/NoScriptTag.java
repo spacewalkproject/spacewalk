@@ -34,7 +34,7 @@ public class NoScriptTag extends TagSupport {
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = -7881472783319381518L;
-    
+
     public static final String HIDDEN = "hidden";
     /**
      * {@inheritDoc}
@@ -44,17 +44,17 @@ public class NoScriptTag extends TagSupport {
         input.setAttribute("type", HIDDEN);
         input.setAttribute("name", RequestContext.NO_SCRIPT);
         input.setAttribute("value", Boolean.TRUE.toString());
-        
-        HtmlTag noScript = new HtmlTag("noscript");        
+
+        HtmlTag noScript = new HtmlTag("noscript");
         noScript.addBody(input.render());
-        
+
         JspWriter writer = pageContext.getOut();
         try {
             writer.write(noScript.render());
         }
         catch (IOException e) {
             throw new JspException(e);
-        }        
+        }
         return SKIP_BODY;
     }
 }

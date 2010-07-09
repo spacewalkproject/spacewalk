@@ -23,11 +23,11 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class LocalConfigFileListTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         setRequestPathInfo("/configuration/file/LocalConfigFileList");
         actionPerform();
         assertNotNull(request.getAttribute("pageList"));

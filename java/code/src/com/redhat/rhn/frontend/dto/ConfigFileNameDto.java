@@ -24,11 +24,11 @@ import java.util.Date;
  * @version $Rev$
  */
 public class ConfigFileNameDto extends BaseDto {
-    
+
     private Long id;
     private String path;
     private Integer systemCount;
-    
+
     //when dealing with a single revision for this file name.
     private Long configRevisionId;
     private Long configRevision;
@@ -43,9 +43,9 @@ public class ConfigFileNameDto extends BaseDto {
     private String configChannelLabel;
     private String configChannelType;
     private String configFileType;
-    
+
     private Date lastModifiedDate;
-    
+
     /**
      * @return Returns the configChannelType.
      */
@@ -53,7 +53,7 @@ public class ConfigFileNameDto extends BaseDto {
         return configChannelType;
     }
 
-    
+
     /**
      * @param configChannelTypeIn The configChannelType to set.
      */
@@ -61,7 +61,7 @@ public class ConfigFileNameDto extends BaseDto {
         configChannelType = configChannelTypeIn;
     }
 
-    
+
     /**
      * @return Returns the configFileType.
      */
@@ -69,7 +69,7 @@ public class ConfigFileNameDto extends BaseDto {
         return configFileType;
     }
 
-    
+
     /**
      * @param configFileTypeIn The configFileType to set.
      */
@@ -83,35 +83,35 @@ public class ConfigFileNameDto extends BaseDto {
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * @return Returns the path.
      */
     public String getPath() {
         return path;
     }
-    
+
     /**
      * @param pathIn The path to set.
      */
     public void setPath(String pathIn) {
         path = pathIn;
     }
-    
+
     /**
      * @return Returns the systemCount.
      */
     public Integer getSystemCount() {
         return systemCount;
     }
-    
+
     /**
      * @param systemCountIn The systemCount to set.
      */
@@ -119,7 +119,7 @@ public class ConfigFileNameDto extends BaseDto {
         systemCount = systemCountIn;
     }
 
-    
+
     /**
      * @return Returns the configChannelId.
      */
@@ -127,7 +127,7 @@ public class ConfigFileNameDto extends BaseDto {
         return configChannelId;
     }
 
-    
+
     /**
      * @param configChannelIdIn The configChannelId to set.
      */
@@ -135,7 +135,7 @@ public class ConfigFileNameDto extends BaseDto {
         configChannelId = configChannelIdIn;
     }
 
-    
+
     /**
      * @return Returns the configChannelName.
      */
@@ -143,7 +143,7 @@ public class ConfigFileNameDto extends BaseDto {
         return configChannelName;
     }
 
-    
+
     /**
      * @param configChannelNameIn The configChannelName to set.
      */
@@ -151,7 +151,7 @@ public class ConfigFileNameDto extends BaseDto {
         configChannelName = configChannelNameIn;
     }
 
-    
+
     /**
      * @return Returns the configFileId.
      */
@@ -159,7 +159,7 @@ public class ConfigFileNameDto extends BaseDto {
         return configFileId;
     }
 
-    
+
     /**
      * @param configFileIdIn The configFileId to set.
      */
@@ -167,7 +167,7 @@ public class ConfigFileNameDto extends BaseDto {
         configFileId = configFileIdIn;
     }
 
-    
+
     /**
      * @return Returns the configRevision.
      */
@@ -175,7 +175,7 @@ public class ConfigFileNameDto extends BaseDto {
         return configRevision;
     }
 
-    
+
     /**
      * @param configRevisionIn The configRevision to set.
      */
@@ -183,7 +183,7 @@ public class ConfigFileNameDto extends BaseDto {
         configRevision = configRevisionIn;
     }
 
-    
+
     /**
      * @return Returns the configRevisionId.
      */
@@ -191,14 +191,14 @@ public class ConfigFileNameDto extends BaseDto {
         return configRevisionId;
     }
 
-    
+
     /**
      * @param configRevisionIdIn The configRevisionId to set.
      */
     public void setConfigRevisionId(Long configRevisionIdIn) {
         configRevisionId = configRevisionIdIn;
     }
-    
+
     /**
      * @return A localized version of the channel name.
      */
@@ -208,7 +208,7 @@ public class ConfigFileNameDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return the localRevision
      */
@@ -217,7 +217,7 @@ public class ConfigFileNameDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param lr the localRevision to set
      */
@@ -226,7 +226,7 @@ public class ConfigFileNameDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return the lastModifiedDate
      */
@@ -235,7 +235,7 @@ public class ConfigFileNameDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param date the lastModifiedDate to set
      */
@@ -243,23 +243,23 @@ public class ConfigFileNameDto extends BaseDto {
         this.lastModifiedDate = date;
     }
     /**
-     * 
+     *
      * @return the formatted version of the last modifed date
      */
     public String getLastModifiedDateString() {
         return StringUtil.categorizeTime(getLastModifiedDate().getTime(),
                                          StringUtil.YEARS_UNITS);
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public String getSelectionKey() {
         return String.valueOf(getConfigFileId());
     }
-    
-    
+
+
     /**
      * @return the localConfigChannelId
      */
@@ -275,7 +275,7 @@ public class ConfigFileNameDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return the localRevisionId
      */
@@ -284,7 +284,7 @@ public class ConfigFileNameDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param val the localRevisionId to set
      */
@@ -293,7 +293,7 @@ public class ConfigFileNameDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return the localConfigFileType
      */
@@ -302,7 +302,7 @@ public class ConfigFileNameDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param cfgFileType the localConfigFileType to set
      */
@@ -311,7 +311,7 @@ public class ConfigFileNameDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return the localConfigFileId
      */
@@ -327,7 +327,7 @@ public class ConfigFileNameDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return the configChannelLabel
      */
@@ -336,7 +336,7 @@ public class ConfigFileNameDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param label the configChannelLabel to set
      */

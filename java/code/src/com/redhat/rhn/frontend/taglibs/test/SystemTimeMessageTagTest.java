@@ -43,7 +43,7 @@ public class SystemTimeMessageTagTest extends RhnBaseTestCase {
         tag.setPageContext(cpc);
         CustomWriter out = (CustomWriter) cpc.getOut();
         LocalizationService ls = LocalizationService.getInstance();
-        
+
         try { //no server
             tag.doEndTag();
             fail();
@@ -51,14 +51,14 @@ public class SystemTimeMessageTagTest extends RhnBaseTestCase {
         catch (JspException e) {
             //should go here
         }
-        
+
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Server server = ServerFactoryTest.createTestServer(user);
         server.setServerInfo(new ServerInfo());
         server.getServerInfo().setCheckin(new Date());
         tag.setServer(server);
         tag.doEndTag();
-        
+
         String result = out.getPrinted();
         assertTrue(result.startsWith("<table border=\"0\" cellspacing=\"0\" " +
                 "cellpadding=\"6\">\n  <tr><td>" + ls.getMessage("timetag.lastcheckin") +
@@ -66,38 +66,38 @@ public class SystemTimeMessageTagTest extends RhnBaseTestCase {
         assertTrue(result.indexOf(ls.getMessage("timetag.expected")) != -1);
         assertFalse(result.indexOf(ls.getMessage("timetag.awol")) != -1);
     }
-    
+
     private class CustomWriter extends MockJspWriter {
         private StringBuffer printed = new StringBuffer();
-        
+
         public CustomWriter() {
             super();
         }
-        
+
         public void print(String in) {
             printed.append(in);
         }
-        
+
         public String getPrinted() {
             return printed.toString();
         }
     }
-    
+
     private class CustomPageContext extends MockPageContext {
-        
+
         private CustomWriter writer;
-        
+
         public CustomPageContext() {
             writer = new CustomWriter();
         }
-        
+
         /**
          * @return A custom fake writer
          */
         public JspWriter getOut() {
             return writer;
         }
-        
+
     }
 
 }

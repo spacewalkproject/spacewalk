@@ -15,10 +15,10 @@
 <div>
     <bean:message key="methods.jsp.summary"/>
     <rhn:list pageList="${requestScope.pageList}" noDataText="methods.jsp.nomethods">
-      <rhn:listdisplay   set="${requestScope.set}" 
+      <rhn:listdisplay   set="${requestScope.set}"
         hiddenvars="${requestScope.newset}">
         <rhn:column header="methods.jsp.methodname" sortProperty="methodName">
-            <a title="<bean:message key='methods.jsp.nametitle'/>" 
+            <a title="<bean:message key='methods.jsp.nametitle'/>"
                 href="/network/users/details/contact_methods/edit.pxt?cmid=${current.recid}">
                 ${current.methodName}</a>
         </rhn:column>

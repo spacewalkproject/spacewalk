@@ -18,7 +18,7 @@ package com.redhat.rhn.common.messaging.test;
 import com.redhat.rhn.common.messaging.EventMessage;
 
 public class TestEventMessage implements EventMessage {
-    
+
     private boolean msgReceived = false;
 
     /**
@@ -27,24 +27,24 @@ public class TestEventMessage implements EventMessage {
     public String toText() {
         return "This is a test";
     }
-    
-    /* Check to see if this message was acted upon by 
+
+    /* Check to see if this message was acted upon by
      * the Action class.
      */
     public boolean getMessageReceived() {
         return msgReceived;
     }
-    
+
     /* The Action should call this message.
-     * This is a BAD BAD BAD design pattern to have 
-     * the Action modify the event but is good for 
+     * This is a BAD BAD BAD design pattern to have
+     * the Action modify the event but is good for
      * testing because we can determine if the MessageQueue
      * processed this event.
      */
     public void setMessageReceived(boolean msgIn) {
         msgReceived = msgIn;
     }
-    
+
 
 }
 

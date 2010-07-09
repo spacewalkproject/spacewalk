@@ -33,15 +33,15 @@ import redstone.xmlrpc.XmlRpcSerializer;
 public class ConfigChannelTypeSerializerTest  extends TestCase {
     public void testSerialize() throws XmlRpcException, IOException {
         ConfigChannelTypeSerializer ccts = new ConfigChannelTypeSerializer();
-        
+
         Writer output = new StringWriter();
-        
+
         ConfigChannelType normal = ConfigChannelType.global();
         ccts.serialize(normal, output, new XmlRpcSerializer());
         String expected = "<struct><member><name>id</name>" +
                           "<value><i4>" + normal.getId() + "</i4></value></member>\n" +
                         "<member><name>label</name><value><string>" + normal.getLabel() +
-                         "</string></value></member>\n<member><name>name" + 
+                         "</string></value></member>\n<member><name>name" +
                          "</name><value><string>" + normal.getName() +
                          "</string></value></member>\n<member><name>priority</name>" +
                          "<value><i4>" + normal.getPriority() + "</i4></value>" +

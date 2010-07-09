@@ -26,7 +26,7 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
  *
  */
 public class KickstartDefaultsTest extends BaseTestCaseWithUser {
-    
+
     public void testVirtFields() throws Exception {
         KickstartData ksdata = KickstartTestHelper.createTestKickStart(user);
         KickstartDefaults ksdefaults = ksdata.getKickstartDefaults();
@@ -35,7 +35,7 @@ public class KickstartDefaultsTest extends BaseTestCaseWithUser {
         KickstartFactory.saveKickstartData(ksdata);
         ksdata = (KickstartData) reload(ksdata);
         ksdefaults = ksdata.getKickstartDefaults();
-        
+
 
     }
 

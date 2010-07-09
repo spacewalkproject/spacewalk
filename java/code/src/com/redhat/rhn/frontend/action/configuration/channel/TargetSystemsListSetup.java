@@ -49,7 +49,7 @@ public class TargetSystemsListSetup extends BaseSetListAction {
     }
 
     protected DataResult getDataResult(RequestContext ctx, PageControl pc) {
-        
+
         ConfigChannel cc = ConfigActionHelper.getChannel(ctx.getRequest());
         DataResult dr = ConfigurationManager.getInstance().
             listSystemsNotInChannel(ctx.getLoggedInUser(), cc, pc);

@@ -27,12 +27,12 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Action setup to handle 2 date picker forms for a start and end date. 
- * 
+ * Action setup to handle 2 date picker forms for a start and end date.
+ *
  * @version $Rev: 56295 $
  */
 public class DateRangePicker {
-    
+
     private DynaActionForm form;
     private HttpServletRequest req;
     private Date defaultStartOffset;
@@ -42,20 +42,20 @@ public class DateRangePicker {
     private String endKey;
     /**
      * Construct a new DateRangePicker
-     * 
+     *
      * @param formIn to process
      * @param reqIn to process
      * @param defaultStartDateIn number of days to offset the start from today
      * @param defaultEndOffsetIn number of days to offset the end from today
      * @param yearRangeDirectionIn If you want the year range selector to show years
-     * in the future or in the past. See DatePicker.YEAR_RANGE_POSATIVE, and 
+     * in the future or in the past. See DatePicker.YEAR_RANGE_POSATIVE, and
      * DatePicker.YEAR_RANGE_NEGATIVE
      * @param startKeyIn the l10n key for the name of the start date
      * @param endKeyIn the l10n key for the name of the end date
      */
-    public DateRangePicker(DynaActionForm formIn, 
-            HttpServletRequest reqIn, 
-            Date defaultStartDateIn, 
+    public DateRangePicker(DynaActionForm formIn,
+            HttpServletRequest reqIn,
+            Date defaultStartDateIn,
             Date defaultEndOffsetIn,
             int yearRangeDirectionIn, String startKeyIn, String endKeyIn) {
         this.form = formIn;
@@ -66,11 +66,11 @@ public class DateRangePicker {
         this.startKey = startKeyIn;
         this.endKey = endKeyIn;
     }
-    
+
     /**
      * Process the date pickers.  This should be called at the top
-     * of your execute() method.  
-     * 
+     * of your execute() method.
+     *
      * @param isSubmitted if the form was submitted or not
      * @return DatePickerResults instance that contains the results of processing the form
      * against the DatePickers.
@@ -78,9 +78,9 @@ public class DateRangePicker {
     public DatePickerResults processDatePickers(boolean isSubmitted) {
         // Setup the date pickers
         Context ctx = Context.getCurrentContext();
-        DatePicker start = new DatePicker("start", ctx.getTimezone(), ctx.getLocale(), 
+        DatePicker start = new DatePicker("start", ctx.getTimezone(), ctx.getLocale(),
                 yearRangeDirection);
-        DatePicker end = new DatePicker("end", ctx.getTimezone(), ctx.getLocale(), 
+        DatePicker end = new DatePicker("end", ctx.getTimezone(), ctx.getLocale(),
                 yearRangeDirection);
         ActionMessages errors = new ActionMessages();
         DatePickerResults retval = new DatePickerResults();
@@ -93,7 +93,7 @@ public class DateRangePicker {
             validateDates(errors, start, end);
         }
         else {
-            // Initialize the dates in the picker and default 
+            // Initialize the dates in the picker and default
             // to one day before today.
             start.getCalendar().setTime(defaultStartOffset);
             start.writeToMap(form.getMap());
@@ -108,31 +108,31 @@ public class DateRangePicker {
         return retval;
     }
 
-    private void validateDates(ActionMessages errors, DatePicker start, 
+    private void validateDates(ActionMessages errors, DatePicker start,
             DatePicker end) {
         final LocalizationService ls = LocalizationService.getInstance();
         Date startDate = start.getDate();
-        Date endDate = end.getDate(); 
+        Date endDate = end.getDate();
         if (startDate == null) {
             String startMsg = ls.getMessage(startKey);
-            errors.add(ActionMessages.GLOBAL_MESSAGE, 
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("daterangepicker.error.invalid", startMsg));
-            // Reset the date to the default.  We message the user 
+            // Reset the date to the default.  We message the user
             // about this.
             start.getCalendar().setTime(defaultStartOffset);
         }
         if (endDate == null) {
             String endMsg = ls.getMessage(endKey);
-            errors.add(ActionMessages.GLOBAL_MESSAGE, 
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("daterangepicker.error.invalid", endMsg));
-            // Reset the date to the default.  We message the user 
+            // Reset the date to the default.  We message the user
             // about this.
             end.getCalendar().setTime(defaultEndOffset);
         }
         if (startDate != null && endDate != null && !endDate.after(startDate)) {
             String startMsg = ls.getMessage(startKey);
             String endMsg = ls.getMessage(endKey);
-            errors.add(ActionMessages.GLOBAL_MESSAGE, 
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("daterangepicker.error.start.before.end",
                             startMsg, endMsg));
         }
@@ -147,14 +147,14 @@ public class DateRangePicker {
         private DatePicker start;
         private DatePicker end;
         private ActionMessages errors;
-        
+
         /**
          * @return Returns the errors.
          */
         public ActionMessages getErrors() {
             return errors;
         }
-        
+
         /**
          * @param messagesIn The errors to set.
          */
@@ -162,7 +162,7 @@ public class DateRangePicker {
             this.errors = messagesIn;
         }
 
-        
+
         /**
          * @return Returns the end.
          */
@@ -170,7 +170,7 @@ public class DateRangePicker {
             return end;
         }
 
-        
+
         /**
          * @param endIn The end to set.
          */
@@ -178,7 +178,7 @@ public class DateRangePicker {
             this.end = endIn;
         }
 
-        
+
         /**
          * @return Returns the start.
          */
@@ -186,13 +186,13 @@ public class DateRangePicker {
             return start;
         }
 
-        
+
         /**
          * @param startIn The start to set.
          */
         public void setStart(DatePicker startIn) {
             this.start = startIn;
         }
-                
+
     }
 }

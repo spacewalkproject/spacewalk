@@ -39,19 +39,19 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class PackageListSetupAction extends RhnAction implements Listable {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         Long actionId = requestContext.getRequiredParam("aid");
-        User user = requestContext.getLoggedInUser();                
+        User user = requestContext.getLoggedInUser();
         Action action = ActionManager.lookupAction(user, actionId);
-        
-        
+
+
         ActionType type = action.getActionType();
         if (type.equals(ActionFactory.TYPE_PACKAGES_UPDATE) ||
                 type.equals(ActionFactory.TYPE_PACKAGES_REMOVE) ||
@@ -67,7 +67,7 @@ public class PackageListSetupAction extends RhnAction implements Listable {
                 type.equals(ActionFactory.TYPE_SOLARISPKGS_PATCHCLUSTERREMOVE)) {
             request.setAttribute("type", "patchsets");
         }
-        
+
 
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
@@ -77,7 +77,7 @@ public class PackageListSetupAction extends RhnAction implements Listable {
         request.setAttribute("actionname", af.getName());
         request.setAttribute("user", user);
         request.setAttribute("aid", actionId);
-        
+
         return mapping.findForward("default");
     }
 

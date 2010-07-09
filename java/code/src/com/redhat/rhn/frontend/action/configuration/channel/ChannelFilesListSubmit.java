@@ -44,17 +44,17 @@ public class ChannelFilesListSubmit extends BaseSetOperateOnSelectedItemsAction 
     public static final String KEY_REMOVE = "channelfiles.jsp.removeselected";
     public static final String KEY_COPY_TO_SYSTEMS = "channelfiles.jsp.copy2systems";
     public static final String KEY_COPY_TO_CHANNELS = "channelfiles.jsp.copy2channels";
-   
+
     protected void processMethodKeys(Map map) {
         map.put(KEY_REMOVE, "processRemove");
         map.put(KEY_COPY_TO_SYSTEMS, "processCopyToSystems");
         map.put(KEY_COPY_TO_CHANNELS, "processCopyToChannels");
     }
 
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
-        
+
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
         ConfigActionHelper.processParamMap(cc, params);
     }
@@ -78,12 +78,12 @@ public class ChannelFilesListSubmit extends BaseSetOperateOnSelectedItemsAction 
     /**
      * This method is called when the &quot;Remove from Channel&quot;
      * button is clicked in the Channel Files page.
-     * removes the specified files from the channel. 
+     * removes the specified files from the channel.
      * @param form Action form object.
      * @param req The servlet request object
      * @param elementIn The checked element in the set
      * @param userIn logged in user
-     * @return true 
+     * @return true
      */
     public Boolean setFilesToRemove(ActionForm form,
                                             HttpServletRequest req,
@@ -95,7 +95,7 @@ public class ChannelFilesListSubmit extends BaseSetOperateOnSelectedItemsAction 
         if (file == null) {
             return Boolean.FALSE;
         }
-        
+
         //try to delete the file
         try {
             ConfigurationManager.getInstance().deleteConfigFile(userIn, file);
@@ -110,7 +110,7 @@ public class ChannelFilesListSubmit extends BaseSetOperateOnSelectedItemsAction 
         return Boolean.TRUE;
     }
 
-    private ActionForward processCopy(String forward, ActionMapping mapping, 
+    private ActionForward processCopy(String forward, ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
         RhnSet set = updateSet(request);
@@ -118,7 +118,7 @@ public class ChannelFilesListSubmit extends BaseSetOperateOnSelectedItemsAction 
             RhnHelper.handleEmptySelection(request);
             return getStrutsDelegate().forwardParams(mapping.findForward(
                     RhnHelper.DEFAULT_FORWARD), makeParamMap(formIn, request));
-        } 
+        }
         else {
             return getStrutsDelegate().forwardParams(mapping.findForward(forward),
                     makeParamMap(formIn, request));
@@ -137,9 +137,9 @@ public class ChannelFilesListSubmit extends BaseSetOperateOnSelectedItemsAction 
             HttpServletResponse response) {
         return processCopy("copy2systems", mapping, formIn, request, response);
     }
-    
-    
-    
+
+
+
     /**
      * Copy files to channels - forward to a channel-selection-page
      * @param mapping ActionMapping
@@ -153,17 +153,17 @@ public class ChannelFilesListSubmit extends BaseSetOperateOnSelectedItemsAction 
             HttpServletResponse response) {
         return processCopy("copy2channels", mapping, formIn, request, response);
     }
-    
-    protected DataResult getDataResult(User u, 
-                                       ActionForm formIn, 
+
+    protected DataResult getDataResult(User u,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
         ConfigActionHelper.setupRequestAttributes(ctx, cc);
-        
+
         DataResult dr = ConfigurationManager.getInstance().
             listCurrentFiles(u, cc, null);
-        
+
         return dr;
     }
 

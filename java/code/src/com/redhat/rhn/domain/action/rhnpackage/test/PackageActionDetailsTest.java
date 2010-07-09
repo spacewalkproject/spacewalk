@@ -43,40 +43,40 @@ public class PackageActionDetailsTest extends RhnBaseTestCase {
         Long id = new Long(456);
         Date now = new Date();
         String foo = "foo";
-        
+
         Long testid = new Long(100);
         PackageArch arch = (PackageArch) TestUtils
             .lookupFromCacheById(testid, "PackageArch.findById");
-        
+
         PackageEvr evr = PackageEvrFactoryTest.createTestPackageEvr();
         PackageName pn = PackageNameTest.createTestPackageName();
         PackageAction action = new PackageAction();
-        
+
         pad.setCreated(now);
         assertEquals(now, pad.getCreated());
-        
+
         pad.setModified(now);
         assertEquals(now, pad.getModified());
-        
+
         pad.setPackageId(id);
         assertEquals(id, pad.getPackageId());
-        
+
         pad.setParameter(foo);
         assertEquals(foo, pad.getParameter());
-        
+
         pad.setArch(arch);
         assertTrue(arch.equals(pad.getArch()));
-        
+
         pad.setEvr(evr);
         assertTrue(evr.equals(pad.getEvr()));
-        
+
         pad.setPackageName(pn);
         assertTrue(pn.equals(pad.getPackageName()));
-        
+
         pad.setParentAction(action);
         assertTrue(action.equals(pad.getParentAction()));
     }
-    
+
     public void testResultSetting() {
         PackageActionDetails pad = new PackageActionDetails();
         pad.setParentAction(new Action());
@@ -85,63 +85,63 @@ public class PackageActionDetailsTest extends RhnBaseTestCase {
         PackageActionResult par2 = new PackageActionResult();
         par.setResultCode(new Long(20));
         par1.setResultCode(new Long(40)); //so that none are equal
-        
+
         assertNotNull(pad.getResults());
         pad.addResult(par);
         assertEquals(1, pad.getResults().size());
         assertNotNull(pad.getResults().toArray()[0]);
         assertEquals(par, pad.getResults().toArray()[0]);
-        
+
         pad.addResult(par1);
         assertEquals(2, pad.getResults().size());
         assertFalse(pad.getResults().contains(null));
         assertTrue(pad.getResults().contains(par1));
-        
+
         Set results = new HashSet();
         results.add(par);
         results.add(par1);
         results.add(par2);
-        
+
         pad.setResults(results);
         assertEquals(3, pad.getResults().size());
         assertEquals(results, pad.getResults());
     }
-    
+
     public void testEquals() {
         PackageActionDetails pad = new PackageActionDetails();
         PackageActionDetails pad1 = new PackageActionDetails();
-        
+
         Action parent = new Action();
         Action parent1 = new Action();
         parent.setId(new Long(3));
         parent1.setId(new Long(2));
-        
-        
+
+
         assertTrue(pad.equals(pad1));
-        
+
         pad.setParentAction(parent);
         assertFalse(pad.equals(pad1));
         assertFalse(pad1.equals(pad));
-        
+
         pad1.setParentAction(parent1);
         assertFalse(pad.equals(pad1));
-        
+
         parent1.setId(new Long(3));
         assertTrue(pad.equals(pad1));
-        
+
         pad1.setParentAction(parent);
         assertTrue(pad.equals(pad1));
-        
+
         pad.setPackageId(new Long(2));
         assertFalse(pad.equals(pad1));
         assertFalse(pad1.equals(pad));
-        
+
         pad1.setPackageId(new Long(3));
         assertFalse(pad.equals(pad1));
-        
+
         pad.setPackageId(new Long(3));
         assertTrue(pad.equals(pad1));
-        
+
     }
 
     // Some PackageActionDetails objects have package name only
@@ -155,22 +155,22 @@ public class PackageActionDetailsTest extends RhnBaseTestCase {
         pad.setArch((PackageArch) TestUtils
                 .lookupFromCacheById(testid, "PackageArch.findById"));
         pad.setPackageName(PackageNameTest.createTestPackageName());
-        
+
         ((PackageAction) parent).addDetail(pad);
         //add parent before result because parent needed for hashcode
-        
+
         PackageActionResult par = new PackageActionResult();
         par.setServer(ServerFactoryTest.createTestServer(user));
         par.setResultCode(new Long(3));
         par.setCreated(new Date());
         par.setModified(new Date());
         pad.addResult(par);
-        
+
         return pad;
     }
 
     // Some PackageActionDetails objects have package name and package evr
-    public static PackageActionDetails createTestDetailsWithNvre(User user, Action parent) 
+    public static PackageActionDetails createTestDetailsWithNvre(User user, Action parent)
                                                                     throws Exception {
 
         PackageActionDetails pad = new PackageActionDetails();
@@ -184,14 +184,14 @@ public class PackageActionDetailsTest extends RhnBaseTestCase {
 
         ((PackageAction) parent).addDetail(pad);
         //add parent before result because parent needed for hashcode
-        
+
         PackageActionResult par = new PackageActionResult();
         par.setServer(ServerFactoryTest.createTestServer(user));
         par.setResultCode(new Long(3));
         par.setCreated(new Date());
         par.setModified(new Date());
         pad.addResult(par);
-        
+
         return pad;
 
     }

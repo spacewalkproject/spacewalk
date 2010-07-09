@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 /**
- * KickstartCryptoKeysSetupAction - setup action to show the list of CryptoKeys 
+ * KickstartCryptoKeysSetupAction - setup action to show the list of CryptoKeys
  * associated with this KickstartData
  * @version $Rev$
  */
@@ -47,7 +47,7 @@ public class KickstartCryptoKeysSetupAction extends BaseKickstartListSetupAction
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected Iterator getCurrentItemsIterator(KickstartData ksdata) {

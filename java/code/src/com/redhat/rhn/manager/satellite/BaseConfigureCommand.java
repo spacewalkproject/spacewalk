@@ -18,27 +18,27 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 
 /**
- * BaseConfigureCommand - abstract class to contain some logic for 
+ * BaseConfigureCommand - abstract class to contain some logic for
  * configuring a Spacewalk.
  * @version $Rev$
  */
 public abstract class BaseConfigureCommand {
 
     private User user;
-    
+
     /**
-     * Create a new ConfigureSatelliteCommand class with the 
+     * Create a new ConfigureSatelliteCommand class with the
      * user requesting the config.
      * @param userIn who wants to config the sat.
      */
     public BaseConfigureCommand(User userIn) {
         this.user = userIn;
-        
+
         if (!this.user.hasRole(RoleFactory.SAT_ADMIN)) {
             throw new IllegalArgumentException("Must be SAT_ADMIN" +
                     "to use this Command");
         }
-        
+
     }
 
     /**
@@ -50,11 +50,11 @@ public abstract class BaseConfigureCommand {
 
     /**
      * Create an instance of the Executor class to actually
-     * call out to the system to update the Config.  
+     * call out to the system to update the Config.
      * @return Executor instance.
      */
     protected Executor getExecutor() {
         return new SystemCommandExecutor();
     }
- 
+
 }

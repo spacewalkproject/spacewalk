@@ -28,10 +28,10 @@ import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 /**
- * 
+ *
  * ChannelSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
  *  #struct("channel")
  *      #prop("int", "id")
@@ -54,10 +54,10 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *      #prop("string", "end_of_life")
  *      #prop("string", "parent_channel_label")
  *  #struct_end()
- *       
+ *
  */
 public class ChannelSerializer implements XmlRpcCustomSerializer {
-   
+
     /**
      * {@inheritDoc}
      */
@@ -72,8 +72,8 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         Channel c = (Channel) value;
-        
-        
+
+
         helper.add("id", c.getId());
         helper.add("label", c.getLabel());
         helper.add("name", c.getName());
@@ -87,7 +87,7 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
         helper.add("maintainer_email", c.getMaintainerEmail());
         helper.add("maintainer_phone", c.getMaintainerPhone());
         helper.add("support_policy", c.getSupportPolicy());
-        
+
         helper.add("gpg_key_url",
                 StringUtils.defaultString(c.getGPGKeyUrl()));
         helper.add("gpg_key_id",
@@ -118,7 +118,7 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
         else {
             helper.add("end_of_life", "");
         }
-        
+
         Channel parent = c.getParentChannel();
         if (parent != null) {
             helper.add("parent_channel_label", parent.getLabel());

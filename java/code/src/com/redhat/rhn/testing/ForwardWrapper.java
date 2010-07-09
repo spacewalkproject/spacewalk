@@ -31,7 +31,7 @@ public class ForwardWrapper extends ActionForward {
 
     private ForwardConfig fc;
     private HashMap       params;
-    
+
     /**
      * Create a new forward that decorates <code>fc0</code>
      * @param fc0 the forward to decorate
@@ -39,67 +39,67 @@ public class ForwardWrapper extends ActionForward {
     public ForwardWrapper(ForwardConfig fc0) {
         fc = fc0;
     }
-    
+
     //
     // Decorate ForwardConfig
     //
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean equals(Object obj) {
         return fc.equals(obj);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void freeze() {
         fc.freeze();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String getModule() {
         return fc.getModule();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String getName() {
         return fc.getName();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String getPath() {
         return fc.getPath();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean getRedirect() {
         return fc.getRedirect();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public int hashCode() {
         return fc.hashCode();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void setModule(String module0) {
         fc.setModule(module0);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -110,7 +110,7 @@ public class ForwardWrapper extends ActionForward {
             fc.setName(name0);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -122,7 +122,7 @@ public class ForwardWrapper extends ActionForward {
             params = null;
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -133,14 +133,14 @@ public class ForwardWrapper extends ActionForward {
             fc.setRedirect(redirect0);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String toString() {
         return fc.toString();
     }
-    
+
     /**
      * Return the parameter <code>pname</code> from the path of this forward
      * @param pname the name of the parameter to get
@@ -151,7 +151,7 @@ public class ForwardWrapper extends ActionForward {
         String v = getParam(pname);
         return (v == null) ? null : Long.valueOf(v);
     }
-    
+
     /**
      * Return the parameter <code>pname</code> from the path of this forward
      * @param pname the name of the parameter to get
@@ -180,5 +180,5 @@ public class ForwardWrapper extends ActionForward {
             params.put(param[0], param[1]);
         }
     }
-    
+
 }

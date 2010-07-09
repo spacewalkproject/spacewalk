@@ -19,7 +19,7 @@ package com.redhat.rhn.common.security.acl;
  * Interface for classes that have ACL handler methods.
  * Classes implementing this interface are registered with
  * {@link Acl#registerHandler(String)}. Any method of the subclass with
- * the prefix "acl" and the following signature 
+ * the prefix "acl" and the following signature
  * (static or non-static) are registered as
  * ACL handler methods:
  * <pre>

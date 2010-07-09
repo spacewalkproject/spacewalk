@@ -21,10 +21,10 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class KickstartIpCommandTest extends RhnBaseTestCase {
-    
+
     //place holder after refactoring
     public void testFoo() {
         assertTrue(true);
-    }    
-        
+    }
+
 }

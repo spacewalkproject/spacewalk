@@ -84,19 +84,19 @@ public class NamedPreparedStatementTest extends RhnBaseTestCase {
         session = null;
         super.tearDown();
     }
-    
+
     public void testColonInQuotes() throws Exception {
         String jdbcQuery;
         HashMap pMap = new HashMap();
 
         jdbcQuery = NamedPreparedStatement.replaceBindParams(COLON_IN_QUOTES,
                                                              pMap);
-                                                             
+
         assertEquals(COLON_IN_QUOTES, jdbcQuery);
 
         assertTrue(pMap.isEmpty());
     }
-    
+
     public void testCreateSQL() throws Exception {
         String jdbcQuery;
         HashMap pMap = new HashMap();

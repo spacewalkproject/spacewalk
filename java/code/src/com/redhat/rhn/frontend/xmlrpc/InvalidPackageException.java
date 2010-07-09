@@ -43,5 +43,5 @@ public class InvalidPackageException extends FaultException  {
         super(2300, "invalidPackage" , LocalizationService.getInstance().
                 getMessage("api.package.invalidpackage", new Object [] {pkg}), cause);
     }
-    
+
 }

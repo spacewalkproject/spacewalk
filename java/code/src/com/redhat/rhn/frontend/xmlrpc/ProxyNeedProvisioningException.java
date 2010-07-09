@@ -25,7 +25,7 @@ import com.redhat.rhn.FaultException;
  *
  * @author msuchy
  * @version $Rev$
- * 
+ *
  */
 public class ProxyNeedProvisioningException extends FaultException  {
 
@@ -37,7 +37,7 @@ public class ProxyNeedProvisioningException extends FaultException  {
      * Constructor
      */
     public ProxyNeedProvisioningException() {
-        super(1047 , "proxyNeedProvisioning" , 
+        super(1047 , "proxyNeedProvisioning" ,
                 "Proxy need provisioning entitlements.");
         // begin member variable initialization
     }
@@ -45,13 +45,13 @@ public class ProxyNeedProvisioningException extends FaultException  {
         /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public ProxyNeedProvisioningException(Throwable cause) {
-        super(1047 , "proxyNeedProvisioning" , 
-                "Proxy need provisioning entitlements.", 
+        super(1047 , "proxyNeedProvisioning" ,
+                "Proxy need provisioning entitlements.",
                 cause);
         // begin member variable initialization
     }

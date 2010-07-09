@@ -24,7 +24,7 @@ import javax.servlet.jsp.tagext.Tag;
 public class ToolbarTagBasicTest extends BaseTestToolbarTag {
 
     public void testHelpUrl() {
-        
+
         try {
             // setup mock objects
             String output = "<div class=\"toolbar-h1\">" +
@@ -35,7 +35,7 @@ public class ToolbarTagBasicTest extends BaseTestToolbarTag {
                "class=\"help-title\">" +
                "<img src=\"/img/rhn-icon-help.gif\" alt=\"Help Icon\" /></a></div>";
             out.setExpectedData(output);
-            
+
             tt.setBase("h1");
             tt.setImg("/img/rhn-icon-preferences.gif");
             tt.setImgAlt("yourrhn.jsp.toolbar.img.alt");
@@ -50,16 +50,16 @@ public class ToolbarTagBasicTest extends BaseTestToolbarTag {
             fail(e.toString());
         }
     }
-    
+
     public void testNoImgUrl() {
         try {
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
                             "toolbar\"></div></div>";
             out.setExpectedData(output);
-            
+
             tt.setBase("h1");
             tt.setImg("");
-            
+
             // ok let's test the tag
             tth.assertDoStartTag(Tag.EVAL_BODY_INCLUDE);
             tth.assertDoEndTag(Tag.EVAL_PAGE);
@@ -69,17 +69,17 @@ public class ToolbarTagBasicTest extends BaseTestToolbarTag {
             fail(e.toString());
         }
     }
-    
+
     public void testImgUrl() {
         try {
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
                             "toolbar\"></div><img src=\"" +
                             "/img/rhn-icon-preferences.gif\" /></div>";
             out.setExpectedData(output);
-            
+
             tt.setBase("h1");
             tt.setImg("/img/rhn-icon-preferences.gif");
-            
+
             // ok let's test the tag
             tth.assertDoStartTag(Tag.EVAL_BODY_INCLUDE);
             tth.assertDoEndTag(Tag.EVAL_PAGE);
@@ -89,11 +89,11 @@ public class ToolbarTagBasicTest extends BaseTestToolbarTag {
             fail(e.toString());
         }
     }
-    
+
     public void testNoBase() {
         try {
             tt.setImg("/img/rhn-icon-preferences.gif");
-            
+
             // ok let's test the tag
             tth.assertDoStartTag(Tag.EVAL_BODY_INCLUDE);
             tth.assertDoEndTag(Tag.EVAL_PAGE);
@@ -103,7 +103,7 @@ public class ToolbarTagBasicTest extends BaseTestToolbarTag {
             assertTrue(true);
         }
     }
-    
+
     public void testNoHelpUrl() {
         try {
             // make sure we don't generate a messed up help url if
@@ -113,7 +113,7 @@ public class ToolbarTagBasicTest extends BaseTestToolbarTag {
                             "/img/rhn-icon-preferences.gif\" /></div>";
 
             out.setExpectedData(output);
-            
+
             tt.setBase("h1");
             tt.setImg("/img/rhn-icon-preferences.gif");
 

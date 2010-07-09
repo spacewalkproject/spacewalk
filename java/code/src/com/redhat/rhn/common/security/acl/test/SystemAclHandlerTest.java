@@ -38,7 +38,7 @@ import java.util.Map;
  */
 public class SystemAclHandlerTest extends BaseTestCaseWithUser {
     private Server srvr;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         srvr = ServerFactoryTest.createTestServer(user);
@@ -56,11 +56,11 @@ public class SystemAclHandlerTest extends BaseTestCaseWithUser {
         String[] params = { SystemManager.CAP_CONFIGFILES_BASE64_ENC };
         boolean rc = sah.aclClientCapable(ctx, params);
         assertTrue(rc);
-        
+
         String[] params1 = { "" };
         rc = sah.aclClientCapable(ctx, params1);
         assertFalse(rc);
-        
+
         rc = sah.aclClientCapable(ctx, null);
         assertFalse(rc);
     }
@@ -71,7 +71,7 @@ public class SystemAclHandlerTest extends BaseTestCaseWithUser {
         Map ctx = new HashMap();
         ctx.put("sid", srvr.getId());
         assertFalse(sah.aclSystemKickstartSessionExists(ctx, null));
-        
+
         // Test positive
         KickstartData k = KickstartDataTest.createTestKickstartData(user.getOrg());
         KickstartSession sess = KickstartSessionTest.createKickstartSession(k, user);
@@ -81,17 +81,17 @@ public class SystemAclHandlerTest extends BaseTestCaseWithUser {
         flushAndEvict(sess);
         assertTrue(sah.aclSystemKickstartSessionExists(ctx, null));
     }
-    
+
     public void testIsVirtual() throws Exception {
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
         Server guest = ((VirtualInstance) host.getGuests().iterator().next()).
             getGuestSystem();
-        
+
         SystemAclHandler sah = new SystemAclHandler();
         Map ctx = new HashMap();
         ctx.put("sid", guest.getId());
         ctx.put("user", user);
         assertTrue(sah.aclSystemIsVirtual(ctx, null));
     }
-    
+
 }

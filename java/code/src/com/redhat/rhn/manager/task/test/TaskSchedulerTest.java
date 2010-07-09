@@ -43,31 +43,31 @@ public class TaskSchedulerTest extends RhnBaseTestCase {
     public void aTestUpdateByChannel() throws Exception {
         Org org = UserTestUtils.findNewOrg("testorg");
         Errata e = ErrataFactoryTest.createTestErrata(org.getId());
-        
+
         //add some channels
         Channel c1 = ChannelFactoryTest.createTestChannel();
         Channel c2 = ChannelFactoryTest.createTestChannel();
         e.addChannel(c1);
         e.addChannel(c2);
-        
+
         ErrataManager.storeErrata(e);
-        
+
         assertEquals(2, e.getChannels().size());
 
         List tasks = TaskFactory.getTaskListByChannel(org);
-        
+
         TaskScheduler scheduler = new TaskScheduler(e, org);
         scheduler.updateByChannels();
-        
-        
+
+
         //Ok, we should have stuff in our list now...
         tasks = TaskFactory.getTaskListByChannel(org);
         assertTrue(tasks.size() >= 2);
-        
+
         Task t = null;
         Date initialDate = null;
         Long data = null;
-        
+
         // Need to loop through and find the right
         // task.  There may be others for other channels
         // sitting in the DB.
@@ -80,18 +80,18 @@ public class TaskSchedulerTest extends RhnBaseTestCase {
                 data = t.getData();
             }
         }
-        
+
         //Now check the update part of the if clause in the updateByChannels method
         Thread.sleep(1000);
         scheduler.updateByChannels();
-       
-        
+
+
         tasks = TaskFactory.getTaskListByChannel(org);
-        
+
         assertTrue(tasks.size() >= 2);
-        
+
         t = (Task) tasks.toArray()[0];
-        
+
         boolean found = false;
         i = tasks.iterator();
         while (i.hasNext()) {
@@ -104,18 +104,18 @@ public class TaskSchedulerTest extends RhnBaseTestCase {
             }
         }
         assertTrue(found);
-            
+
         /*
          * Now we can test the runChannelTasksNow method by running it and making sure
          * that both of the tasks earliest attribute are equal.
          */
         scheduler.runTasksByChannelNow();
-        
+
         tasks = TaskFactory.getTaskListByChannel(org);
-        
-        Task t1 = (Task) tasks.toArray()[0]; 
+
+        Task t1 = (Task) tasks.toArray()[0];
         Task t2 = (Task) tasks.toArray()[1];
-        
+
         assertNotNull(t1);
         assertNotNull(t2);
         // fixing build.  This test needs a little work :)  It's a problem

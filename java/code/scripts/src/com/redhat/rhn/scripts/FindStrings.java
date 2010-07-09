@@ -23,7 +23,7 @@ import org.apache.bcel.classfile.JavaClass;
 /**
  * A program to find hard-coded strings in java class files
  *
- * @version $Rev$ 
+ * @version $Rev$
  */
 class FindStrings {
 
@@ -39,12 +39,12 @@ class FindStrings {
             JavaClass clazz = Repository.lookupClass(args[0]);
             ConstantPool cp = clazz.getConstantPool();
             Constant[] consts = cp.getConstantPool();
-            
+
 
             for (int i = 0; i < consts.length; i++) {
 
                 if (consts[i] instanceof ConstantString) {
-                    System.out.println("Found String: " + 
+                    System.out.println("Found String: " +
                             ((ConstantString)consts[i]).getBytes(cp));
                 }
             }

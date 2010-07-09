@@ -23,14 +23,14 @@ import java.util.Set;
 
 /**
  * Class that represents the rhnServerGroupType table.
- * 
+ *
  * @version $Rev$
  */
 public class ServerGroupType extends AbstractLabelNameHelper {
     private char permanent;
     private char isBaseChar;
     private Set<Feature> features = new HashSet<Feature>();
-    
+
     /**
      * @return Returns the isBase.
      */
@@ -43,7 +43,7 @@ public class ServerGroupType extends AbstractLabelNameHelper {
     public void setIsBaseChar(char isBaseCharIn) {
         this.isBaseChar = isBaseCharIn;
     }
-    
+
     /**
      * @return true if this server group type is a base type, false otherwise
      */
@@ -62,14 +62,14 @@ public class ServerGroupType extends AbstractLabelNameHelper {
     public void setPermanent(char permanentIn) {
         this.permanent = permanentIn;
     }
-    
+
     /**
      * @return Returns the features.
      */
     public Set<Feature> getFeatures() {
         return features;
     }
-    
+
     /**
      * @param featuresIn The features to set.
      */

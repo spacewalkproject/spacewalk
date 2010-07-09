@@ -1,36 +1,36 @@
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 
-<schema targetNamespace="http://rhn.redhat.com" 
+<schema targetNamespace="http://rhn.redhat.com"
 	xmlns="http://www.w3.org/1999/XMLSchema" xmlns:rhn="http://rhn.redhat.com">
 
-    <attribute name="enterprise_entitled"> 
-        <simpleType baseType="long"> 
-            <minInclusive value="0" /> 
-        </simpleType> 
-    </attribute>   
+    <attribute name="enterprise_entitled">
+        <simpleType baseType="long">
+            <minInclusive value="0" />
+        </simpleType>
+    </attribute>
 
-    <attribute name="provisioning_entitled"> 
-        <simpleType baseType="long"> 
-            <minInclusive value="0" /> 
-        </simpleType> 
-    </attribute>   
+    <attribute name="provisioning_entitled">
+        <simpleType baseType="long">
+            <minInclusive value="0" />
+        </simpleType>
+    </attribute>
 
-    <attribute name="monitoring_entitled"> 
-        <simpleType baseType="long"> 
-            <minInclusive value="0" /> 
-        </simpleType> 
-    </attribute>   
+    <attribute name="monitoring_entitled">
+        <simpleType baseType="long">
+            <minInclusive value="0" />
+        </simpleType>
+    </attribute>
 
-    <attribute name="virtualization_host"> 
-        <simpleType baseType="long"> 
-            <minInclusive value="0" /> 
-        </simpleType> 
-    </attribute>   
+    <attribute name="virtualization_host">
+        <simpleType baseType="long">
+            <minInclusive value="0" />
+        </simpleType>
+    </attribute>
 
-    <attribute name="virtualization_host_platform"> 
-        <simpleType baseType="long"> 
-            <minInclusive value="0" /> 
-        </simpleType> 
-    </attribute>   
+    <attribute name="virtualization_host_platform">
+        <simpleType baseType="long">
+            <minInclusive value="0" />
+        </simpleType>
+    </attribute>
 	
 </schema>

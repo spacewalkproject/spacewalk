@@ -19,7 +19,7 @@ import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 
 public class BaseKickstartCommandTestCase extends BaseTestCaseWithUser {
-    
+
     protected KickstartData ksdata;
 
     /**
@@ -29,9 +29,9 @@ public class BaseKickstartCommandTestCase extends BaseTestCaseWithUser {
         super.setUp();
         this.ksdata = KickstartDataTest.
             createKickstartWithChannel(user.getOrg());
-        
+
     }
-    
-    
-    
-} 
+
+
+
+}

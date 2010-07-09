@@ -147,19 +147,19 @@ SELECT DISTINCT
       DELETE FROM rhnErrataQueue WHERE errata_id = :errata_id
    </query>
 </write-mode>
-    
-    
+
+
 <mode name="errataqueue_find_autoupdate_servers">
   <query params="errata_id, channel_id">
 SELECT DISTINCT
        S.id AS server_id, S.org_id org_id
   FROM rhnServer S inner join rhnServerChannel SC on S.id = SC.server_id
- WHERE SC.channel_id = :channel_id and 
+ WHERE SC.channel_id = :channel_id and
 			S.id in (SELECT SNV.server_id FROM rhnServerNeededView SNV where NVL(SNV.errata_id, 0) = :errata_id)
- AND EXISTS 
-   (SELECT 1 FROM rhnServerFeaturesView SFV WHERE 
+ AND EXISTS
+   (SELECT 1 FROM rhnServerFeaturesView SFV WHERE
     SFV.server_id = S.id AND SFV.label = 'ftr_auto_errata_updates')
- AND s.auto_update IS NOT NULL AND UPPER(s.auto_update) = 'Y'                         
+ AND s.auto_update IS NOT NULL AND UPPER(s.auto_update) = 'Y'
 ORDER BY S.org_id
   </query>
 </mode>
@@ -167,14 +167,14 @@ ORDER BY S.org_id
 <mode name="repomd_driver_query">
   <query>
 SELECT distinct channel_label
-  FROM rhnRepoRegenQueue 
+  FROM rhnRepoRegenQueue
    WHERE next_action is not null
   </query>
 </mode>
 
 <mode name="repomd_details_query">
   <query params="channel_label">
-SELECT id, channel_label, client, reason, force, bypass_filters, next_action 
+SELECT id, channel_label, client, reason, force, bypass_filters, next_action
   FROM rhnRepoRegenQueue queue
    WHERE next_action is null
    and channel_label = :channel_label
@@ -259,7 +259,7 @@ SELECT WCN.id, WCN.org_id, WCN.contact_email_address, WC.name, WC.oracle_custome
 
 <write-mode name="remove_user_from_wcn">
   <query params="user_id">
-DELETE 
+DELETE
   FROM web_customer_notification
  WHERE id = :user_id
   </query>
@@ -291,7 +291,7 @@ DELETE
              AND (SELECT COUNT(1) FROM rhnServer S2 WHERE S2.org_id = S.org_id) >= 1
 	         AND NOT EXISTS (SELECT 1 FROM rhnServerChannel SC WHERE SC.server_id = S.id)
    </query>
-</mode> 
+</mode>
 
 <mode name="userdeletion_find_candidates">
    <query params="">
@@ -424,17 +424,17 @@ WHERE CF.config_channel_id IN
     (SELECT cc.Id
      FROM rhnConfigChannel CC
      WHERE CC.created &lt; sysdate - :window
-     AND CC.confchan_type_id = 
-     (SELECT id FROM rhnConfigChannelType WHERE label = 'server_import'))  
+     AND CC.confchan_type_id =
+     (SELECT id FROM rhnConfigChannelType WHERE label = 'server_import'))
   </query>
 </mode>
 
 <mode name="find_sandbox_channel_candidates">
   <query params="window">
-SELECT CC.id  
+SELECT CC.id
 FROM rhnConfigChannel CC
 WHERE CC.created &lt; sysdate - :window
-AND CC.confchan_type_id = 
+AND CC.confchan_type_id =
    (SELECT id FROM rhnConfigChannelType WHERE label = 'server_import')
 
   </query>
@@ -452,8 +452,8 @@ ORDER BY next_action DESC
 
 <write-mode name="erratamailer_mark_errata_done">
    <query params="errata_id,org_id, channel_id">
-      UPDATE rhnErrataNotificationQueue 
-      SET next_action = NULL 
+      UPDATE rhnErrataNotificationQueue
+      SET next_action = NULL
       WHERE errata_id = :errata_id AND org_id = :org_id and channel_id = :channel_id
    </query>
 </write-mode>
@@ -468,31 +468,31 @@ SELECT DISTINCT USP.user_id,
 FROM
     rhnPackage P
     inner join rhnPackageEVR P_EVR on P_EVR.id = P.evr_id
-    inner join rhnPackageEVR SP_EVR on SP_EVR.evr &lt; P_EVR.evr  
-    inner join rhnServerPackage SP on SP.name_id = P.name_id 
+    inner join rhnPackageEVR SP_EVR on SP_EVR.evr &lt; P_EVR.evr
+    inner join rhnServerPackage SP on SP.name_id = P.name_id
                and SP.evr_id = SP_EVR.id
                AND SP.evr_id != P.evr_id
     inner join rhnServer S on SP.server_id = S.id
-    inner join rhnServerPackageArchCompat SPAC on spac.server_arch_id = s.server_arch_id 
+    inner join rhnServerPackageArchCompat SPAC on spac.server_arch_id = s.server_arch_id
                AND p.package_arch_id = spac.package_arch_id
-    inner join rhnServerChannel SC on SC.server_id = S.id 
+    inner join rhnServerChannel SC on SC.server_id = S.id
     inner join rhnUserServerPerms USP on USP.server_id = S.id
     inner join web_user_personal_info WPI on WPI.web_user_id = USP.user_id
     inner join rhnUserInfo UI on UI.user_id = USP.user_id
-    inner join rhnChannelPackage CP on CP.package_id = P.id 
+    inner join rhnChannelPackage CP on CP.package_id = P.id
                and SC.channel_id = CP.channel_id
     inner join rhnErrataPackage EP on EP.package_id = P.id
-                   AND EXISTS 
+                   AND EXISTS
                    (SELECT 1 from rhnChannelErrata CE where ce.channel_id = SC.channel_id
-                    AND CE.errata_id = EP.errata_id) 
-    where SP_EVR.evr = (SELECT MAX(PE.evr) FROM rhnServerPackage SP2, rhnPackageEvr PE 
-                       WHERE PE.id = SP2.evr_id AND SP2.server_id = SP.server_id AND 
-                        SP2.name_id = SP.name_id)    
+                    AND CE.errata_id = EP.errata_id)
+    where SP_EVR.evr = (SELECT MAX(PE.evr) FROM rhnServerPackage SP2, rhnPackageEvr PE
+                       WHERE PE.id = SP2.evr_id AND SP2.server_id = SP.server_id AND
+                        SP2.name_id = SP.name_id)
     and not exists (
-      select   usprefs.server_id 
+      select   usprefs.server_id
                from  rhnUserServerPrefs usprefs
          where usprefs.user_id = USP.user_id
-               and sc.server_id = usprefs.server_id 
+               and sc.server_id = usprefs.server_id
                and usprefs.name = 'receive_notifications'
    )
    and ui.email_notify = 1
@@ -586,7 +586,7 @@ FROM
 <mode name="repomdgenerator_capability_files">
    <query params="channel_id">
   SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version
-    FROM rhnPackageFile pkgf, rhnPackageCapability pkgcap, 
+    FROM rhnPackageFile pkgf, rhnPackageCapability pkgcap,
          rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgf.package_id
@@ -600,7 +600,7 @@ FROM
 <mode name="repomdgenerator_capability_provides">
    <query params="channel_id">
   SELECT /*+first_rows*/  chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageProvides pkgp, rhnPackageCapability pkgcap, 
+    FROM rhnPackageProvides pkgp, rhnPackageCapability pkgcap,
     	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
@@ -614,7 +614,7 @@ FROM
 <mode name="repomdgenerator_capability_requires">
    <query params="channel_id">
   SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageRequires pkgp, rhnPackageCapability pkgcap, 
+    FROM rhnPackageRequires pkgp, rhnPackageCapability pkgcap,
     	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
@@ -628,7 +628,7 @@ FROM
 <mode name="repomdgenerator_capability_conflicts">
    <query params="channel_id">
   SELECT  /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageConflicts pkgp, rhnPackageCapability pkgcap, 
+    FROM rhnPackageConflicts pkgp, rhnPackageCapability pkgcap,
     	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
@@ -642,7 +642,7 @@ FROM
 <mode name="repomdgenerator_capability_obsoletes">
    <query params="channel_id">
   SELECT  /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageObsoletes pkgp, rhnPackageCapability pkgcap, 
+    FROM rhnPackageObsoletes pkgp, rhnPackageCapability pkgcap,
     	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
@@ -735,7 +735,7 @@ FROM
 
 <write-mode name="delete_task">
   <query params="org_id, name, task_data, priority">
-  DELETE rhnTaskQueue where org_id = :org_id and task_name = :name 
+  DELETE rhnTaskQueue where org_id = :org_id and task_name = :name
   and task_data = :task_data and priority = :priority
   </query>
 </write-mode>

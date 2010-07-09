@@ -35,7 +35,7 @@ import java.util.Set;
 
 /**
  * @author mmccune
- * 
+ *
  */
 public class SyncActionsTest extends RhnMockStrutsTestCase {
 
@@ -78,17 +78,17 @@ public class SyncActionsTest extends RhnMockStrutsTestCase {
         // and close the session.
         HibernateFactory.commitTransaction();
         HibernateFactory.closeSession();
-        
+
         SyncSystemsProfilesAction action = new SyncSystemsProfilesAction();
-        Set<String> sessionSet = SessionSetHelper.lookupAndBind(getRequest(), 
+        Set<String> sessionSet = SessionSetHelper.lookupAndBind(getRequest(),
                 action.getDecl(s1.getId()));
-        
+
         StringBuilder idCombo = new StringBuilder();
         idCombo.append(p3.getPackageName().getId()).append("|");
         idCombo.append(p3.getPackageEvr().getId()).append("|");
         idCombo.append(p3.getPackageArch().getId());
         sessionSet.add(idCombo.toString());
-        
+
         addRequestParameter(RequestContext.SID, s1.getId().toString());
         addRequestParameter(RequestContext.SID + "_1", s2.getId().toString());
         addRequestParameter("time", String.valueOf(System.currentTimeMillis()));
@@ -98,7 +98,7 @@ public class SyncActionsTest extends RhnMockStrutsTestCase {
         addDispatchCall("schedulesync.jsp.schedulesync");
 
         actionPerform();
-        
+
         // we compared s1 to s2; however, s2 has a package (p3) on a channel (testchannel2)
         // that s1 does not have access to; therefore, we expect to go to the
         // MissingPackages...

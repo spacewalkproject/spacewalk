@@ -29,12 +29,12 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * ServerSerializer: Converts a Server object for representation as an XMLRPC struct.
  * Includes full server details, which may be more data than some calls would like.
  * @version $Rev$
- * 
- * 
+ *
+ *
  * @xmlrpc.doc
- *  #struct("package nvera")     
+ *  #struct("package nvera")
  *      #prop("string", "name")
- *      #prop("string", "epoch")                       
+ *      #prop("string", "epoch")
  *      #prop("string", "version")
  *      #prop("string", "release")
  *      #prop("string", "arch")
@@ -54,7 +54,7 @@ public class PackageNevraSerializer implements XmlRpcCustomSerializer {
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
+
         PackageNevra pack = (PackageNevra)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("name", pack.getName().getName());
@@ -64,6 +64,6 @@ public class PackageNevraSerializer implements XmlRpcCustomSerializer {
         helper.add("arch", pack.getArch().getLabel());
         helper.writeTo(output);
     }
-    
-    
+
+
 }

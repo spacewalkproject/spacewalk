@@ -10,7 +10,7 @@
              alt="<bean:message key='system.common.systemAlt' />" />
         ${current.name}
       </rhn:column>
-      
+
       <rhn:column header="diffconfirm.jsp.files"
                   url="/rhn/systems/ssm/config/DiffFiles.do?sid=${current.id}">
         <c:choose>
@@ -22,6 +22,6 @@
           </c:otherwise>
         </c:choose>
       </rhn:column>
-      
+
     </rhn:listdisplay>
 </rhn:list>

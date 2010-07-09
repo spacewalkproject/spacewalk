@@ -30,7 +30,7 @@ public class PackageArchTest extends RhnBaseTestCase {
      * @throws Exception HibernateException
      */
     public void testPackageArch() throws Exception {
-        
+
         Long testid = new Long(100);
         String query = "PackageArch.findById";
         PackageArch p1 = (PackageArch) TestUtils.lookupFromCacheById(testid, query);

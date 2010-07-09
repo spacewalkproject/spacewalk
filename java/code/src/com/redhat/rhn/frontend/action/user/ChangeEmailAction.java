@@ -97,7 +97,7 @@ public class ChangeEmailAction extends RhnAction {
      * @see javax.mail.internet.InternetAddress
      * @exception AddressException thrown if email does not pass validation.
      */
-    private void validateAddress(String email, ActionErrors errors) 
+    private void validateAddress(String email, ActionErrors errors)
                              throws AddressException {
         try {
             new InternetAddress(email).validate();

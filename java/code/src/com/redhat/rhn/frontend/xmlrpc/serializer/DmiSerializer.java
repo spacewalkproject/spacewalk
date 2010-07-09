@@ -28,7 +28,7 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * DmiSerializer
  * @version $Rev$
  * @xmlrpc.doc
@@ -58,11 +58,11 @@ public class DmiSerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         SerializerHelper bean = new SerializerHelper(builtInSerializer);
         Dmi dmi = (Dmi) value;
-        
+
         if (dmi.getSystem() == null) {
             return;
         }
-        
+
         bean.add("vendor", StringUtils.defaultString(dmi.getVendor()));
         bean.add("system", StringUtils.defaultString(dmi.getSystem()));
         bean.add("product", StringUtils.defaultString(dmi.getProduct()));
@@ -71,7 +71,7 @@ public class DmiSerializer implements XmlRpcCustomSerializer {
         bean.add("bios_release", StringUtils.defaultString(dmi.getBios().getRelease()));
         bean.add("bios_vendor", StringUtils.defaultString(dmi.getBios().getVendor()));
         bean.add("bios_version", StringUtils.defaultString(dmi.getBios().getVersion()));
-        bean.writeTo(output);        
+        bean.writeTo(output);
     }
-    
+
 }

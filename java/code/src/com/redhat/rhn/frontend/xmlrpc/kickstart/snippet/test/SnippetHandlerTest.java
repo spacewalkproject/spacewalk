@@ -25,7 +25,7 @@ import java.util.List;
  * @version $Rev$
  */
 public class SnippetHandlerTest extends BaseHandlerTestCase {
-    
+
     private SnippetHandler handler = new SnippetHandler();
 
     public void testListAll() {
@@ -36,21 +36,21 @@ public class SnippetHandlerTest extends BaseHandlerTestCase {
         assertTrue(old.size() + 1 == newList.size());
 
     }
-    
+
     public void testListCustom() {
         deleteAllSnippets();
         assertTrue(handler.listCustom(adminKey).isEmpty());
         CobblerSnippet.createOrUpdate(true, "foo", "My foo snippet", admin.getOrg());
         assertFalse(handler.listCustom(adminKey).isEmpty());
     }
-    
-    
+
+
     public void testCreateOrUpdate() {
         deleteAllSnippets();
         handler.createOrUpdate(adminKey, "foobar", "My Little foobar");
         assertTrue(handler.listCustom(adminKey).get(0).getName().equals("foobar"));
     }
-    
+
     public void testDelete() {
         deleteAllSnippets();
         handler.createOrUpdate(adminKey, "foobar", "My Little foobar");
@@ -58,17 +58,17 @@ public class SnippetHandlerTest extends BaseHandlerTestCase {
         handler.delete(adminKey, "foobar");
         assertTrue(handler.listCustom(adminKey).isEmpty());
     }
-    
-    
+
+
     private void deleteAllSnippets() {
         List<CobblerSnippet> list = handler.listCustom(adminKey);
         for (CobblerSnippet snip : list) {
             snip.delete();
         }
     }
-    
-    
-    
-    
-    
+
+
+
+
+
 }

@@ -45,24 +45,24 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class SyncSystemsSetupAction extends RhnAction implements Listable {
-    
-    private static final CompareSystemSetupAction DECL_ACTION = 
+
+    private static final CompareSystemSetupAction DECL_ACTION =
         new CompareSystemSetupAction();
-    
+
     /** {@inheritDoc} */
     public final ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
         Long sid1 = requestContext.getRequiredParam(RequestContext.SID1);
         User user = requestContext.getLoggedInUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         Server server1 = SystemManager.lookupByIdAndUser(sid1, user);
-        
+
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
 
@@ -88,7 +88,7 @@ public class SyncSystemsSetupAction extends RhnAction implements Listable {
 
         return mapping.findForward("default");
     }
-    
+
     /**
      * Gets the List of differing packages between two servers
      * @param context RequestContext

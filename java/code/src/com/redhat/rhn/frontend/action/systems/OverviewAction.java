@@ -45,7 +45,7 @@ public class OverviewAction extends RhnListAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         User user = requestContext.getLoggedInUser();
@@ -69,7 +69,7 @@ public class OverviewAction extends RhnListAction {
             if (setLabel == null) {
                 setLabel = "system_list";
             }
-            
+
             //empty the specified set
             RhnSetDecl.findOrCreate(setLabel, SetCleanup.NOOP).clear(user);
 

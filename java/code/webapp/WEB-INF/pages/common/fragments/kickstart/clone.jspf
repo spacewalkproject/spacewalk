@@ -10,10 +10,10 @@
   <bean:message key="kickstart.clone.jsp.header1" arg0="${ksdata.label}"/>
 </rhn:toolbar>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="${param.nav}" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="${param.nav}"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-    
+
     <html:form method="POST" action="${param.post_url}">
 <div class="page-summary">
 	<h2><bean:message key="kickstart.clone.jsp.header2"/></h2>
@@ -23,14 +23,14 @@
             <th><rhn:required-field key="kickstartdetails.jsp.label"/>:</th>
             <td><html:text property="label" maxlength="64" size="32" /></td>
           </tr>
-          <tr>          
+          <tr>
             <td align="right" colspan="2"><html:submit><bean:message key="kickstart.clone.jsp.clone"/></html:submit></td>
           </tr>
 
       <html:hidden property="ksid" value="${ksdata.id}"/>
       <html:hidden property="submitted" value="true"/>
       </table>
-</div>      
+</div>
     </html:form>
 
 </body>

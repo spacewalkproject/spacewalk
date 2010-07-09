@@ -32,21 +32,21 @@ import java.util.Set;
  */
 public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile {
     protected Long id;
-    
+
     protected ErrataFileType fileType;
-    
+
     protected Checksum checksum;
-    
+
     protected String fileName;
-    
+
     protected Errata owningErrata;
-    
+
     protected Date created;
-    
+
     protected Date modified;
-    
+
     protected Set channels;
-    
+
     protected Set packages;
 
     /**
@@ -73,7 +73,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
         }
         this.channels.add(c);
     }
-    
+
     /**
      * Id
      * @param idIn id
@@ -81,7 +81,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * Id
      * @return id
@@ -89,7 +89,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public Long getId() {
         return id;
     }
-    
+
     /**
      * File type
      * @param ft file type
@@ -97,8 +97,8 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public void setFileType(ErrataFileType ft) {
         fileType = ft;
     }
-    
-    
+
+
     /**
      * File type
      * @return file type
@@ -106,7 +106,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public ErrataFileType getFileType() {
         return fileType;
     }
-    
+
     /**
      * MD5 checksum
      * @param cs checksums
@@ -114,7 +114,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public void setChecksum(Checksum cs) {
         checksum = cs;
     }
-    
+
     /**
      * MD5 checksum
      * @return checksum
@@ -122,7 +122,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public Checksum getChecksum() {
         return checksum;
     }
-    
+
     /**
      * File name
      * @param name file name
@@ -130,7 +130,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public void setFileName(String name) {
         fileName = name;
     }
-    
+
     /**
      * File name
      * @return file name
@@ -138,7 +138,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public String getFileName() {
         return fileName;
     }
-    
+
     /**
      * Owning errata
      * @param errata owning errata
@@ -146,7 +146,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public void setErrata(Errata errata) {
         owningErrata = errata;
     }
-    
+
     /**
      * Owning errata
      * @return owning errata
@@ -154,15 +154,15 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public Errata getErrata() {
         return owningErrata;
     }
-    
+
     /**
-     * Created 
+     * Created
      * @param createdIn created
      */
     public void setCreated(Date createdIn) {
         created = createdIn;
     }
-    
+
     /**
      * Created
      * @return created
@@ -170,7 +170,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public Date getCreated() {
         return created;
     }
-    
+
     /**
      * Modified
      * @param mod modified
@@ -178,7 +178,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     public void setModified(Date mod) {
         modified = mod;
     }
-    
+
     /**
      * Modified
      * @return modified
@@ -224,6 +224,6 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
         }
         this.packages.add(p);
     }
-    
-    
+
+
 }

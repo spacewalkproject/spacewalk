@@ -53,7 +53,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class SystemOverviewAction extends RhnAction {
-    
+
     public static final String[] SERVER_PREFERENCES = {UserServerPreferenceId
                                                        .INCLUDE_IN_DAILY_SUMMARY,
                                                        UserServerPreferenceId
@@ -66,44 +66,44 @@ public class SystemOverviewAction extends RhnAction {
         Long sid = rctx.getRequiredParam("sid");
         User user = rctx.getLoggedInUser();
         Server s  = SystemManager.lookupByIdAndUser(sid, user);
-        
-        /* Here we htmlify the description stored in the database such that end line's 
+
+        /* Here we htmlify the description stored in the database such that end line's
          * are represented correctly
          */
         String description = null;
-        
+
         if (s.getDescription() != null) {
             description = new String(s.getDescription()).replaceAll("\\n", "<br/>");
         }
 
         // Secondary Channels
-        List secondaryChannelList = secondaryChannelList(s.getChannels(), 
+        List secondaryChannelList = secondaryChannelList(s.getChannels(),
                                                          s.getBaseChannel());
-        Collections.sort(secondaryChannelList, 
+        Collections.sort(secondaryChannelList,
                 new DynamicComparator("name", RequestContext.SORT_ASC));
-        
+
         // Errata Counts
         int criticalErrataCount = SystemManager.countCriticalErrataForSystem(user, sid);
-        int nonCriticalErrataCount = 
+        int nonCriticalErrataCount =
             SystemManager.countNoncriticalErrataForSystem(user, sid);
-        
-        
+
+
         // Upgradable Packages
         int upgradablePackagesCount = PackageManager.countUpgradable(sid);
 
         boolean hasUpdates =
             criticalErrataCount + nonCriticalErrataCount + upgradablePackagesCount > 0;
-        
+
         // Monitoring
         processRequestForMonitoring(user, s, request);
-        
+
         if (!processLock(user, s, rctx)) {
             request.setAttribute("serverLock", s.getLock());
         }
-        
+
         processPing(user, s, rctx);
         proccessSatApplet(user, s, rctx);
-        
+
         SdcHelper.ssmCheck(request, sid, user);
 
         request.setAttribute("unentitled", new Boolean(s.getEntitlements().isEmpty()));
@@ -120,50 +120,50 @@ public class SystemOverviewAction extends RhnAction {
                 !(s.getLocation() == null || s.getLocation().isEmpty()));
         return mapping.findForward("default");
     }
-    
+
     protected List secondaryChannelList(Set channels, Channel baseChannel) {
         List list = new ArrayList();
-        
+
         Iterator i = channels.iterator();
-        
+
         while (i.hasNext()) {
             Channel c = (Channel) i.next();
-            
+
             if (!c.equals(baseChannel)) {
                 list.add(c);
             }
         }
-        
+
         return list;
     }
-    
+
     protected List findUserServerPreferences(User user, Server s) {
         List serverPreferenceList = new ArrayList();
-        
+
         if (user.getEmailNotify() == 0) {
             serverPreferenceList.add("sdc.details.overview.notifications.disabled");
-            
+
             return serverPreferenceList;
         }
-        
+
         for (int j = 0; j < SERVER_PREFERENCES.length; ++j) {
-            if (UserManager.lookupUserServerPreferenceValue(user, 
-                                                            s, 
+            if (UserManager.lookupUserServerPreferenceValue(user,
+                                                            s,
                                                             SERVER_PREFERENCES[j])) {
                 serverPreferenceList.add(SERVER_PREFERENCES[j]);
             }
         }
-        
+
         return serverPreferenceList;
     }
-    
-    protected void processRequestForMonitoring(User user, 
-                                               Server s, 
+
+    protected void processRequestForMonitoring(User user,
+                                               Server s,
                                                HttpServletRequest request) {
         if (s.hasEntitlement(EntitlementManager.MONITORING)) {
             DataResult dr = MonitoringManager.getInstance()
                             .probesForSystemWithAlerts(user, s, null);
-            
+
             if (!dr.isEmpty()) {
                 request.setAttribute("probeListEmpty", Boolean.FALSE);
                 dr = sortProbes(dr);
@@ -177,7 +177,7 @@ public class SystemOverviewAction extends RhnAction {
             request.setAttribute("probeListEmpty", Boolean.TRUE);
         }
     }
-    
+
     protected DataResult sortProbes(DataResult dr) {
         Object[] probes = dr.toArray();
         if (probes != null && probes.length > 0) {
@@ -188,64 +188,64 @@ public class SystemOverviewAction extends RhnAction {
             return dr;
         }
     }
-    
+
     /**
      * @return true if the server was unlocked, false otherwise
      */
     protected boolean processLock(User user, Server s, RequestContext rctx) {
         Long lockValue = rctx.getParamAsLong("lock");
         LocalizationService ls = LocalizationService.getInstance();
-        
+
         if (lockValue != null) {
-            
+
             if (lockValue.longValue() == 1) {
                 if (s.getLock() == null) {
-                    SystemManager.lockServer(user, 
-                                             s, 
+                    SystemManager.lockServer(user,
+                                             s,
                                              ls.getMessage
                                              ("sdc.details.overview.lock.reason"));
-                    
-                    createSuccessMessage(rctx.getRequest(), 
-                                         "sdc.details.overview.locked.alert", 
+
+                    createSuccessMessage(rctx.getRequest(),
+                                         "sdc.details.overview.locked.alert",
                                          s.getName());
                 }
             }
             else if (lockValue.longValue() == 0) {
                 if (s.getLock() != null) {
-                    
+
                     SystemManager.unlockServer(user, s);
-                    createSuccessMessage(rctx.getRequest(), 
-                            "sdc.details.overview.unlocked.alert", 
+                    createSuccessMessage(rctx.getRequest(),
+                            "sdc.details.overview.unlocked.alert",
                             s.getName());
-                    
+
                     return true;
                 }
             }
         }
-        
+
         return false;
     }
-    
+
     protected void processPing(User user, Server s, RequestContext rctx) {
         Long pingValue = rctx.getParamAsLong("ping");
-        
+
         if (pingValue != null && pingValue.longValue() == 1) {
             s.getPushClient().setLastPingTime(new Date(System.currentTimeMillis()));
             s.getPushClient().setNextActionTime(null);
             SystemManager.storeServer(s);
-            createSuccessMessage(rctx.getRequest(), 
-                    "sdc.details.overview.osa.status.pinged", 
+            createSuccessMessage(rctx.getRequest(),
+                    "sdc.details.overview.osa.status.pinged",
                     s.getName());
         }
- 
+
     }
-    
+
     protected void proccessSatApplet(User user, Server s, RequestContext rctx) {
         Long appValue = rctx.getParamAsLong("applet");
-        
+
         if (appValue != null && appValue.longValue() == 1) {
-            Action a = ActionManager.createBaseAction(user, 
-                                                      s, 
+            Action a = ActionManager.createBaseAction(user,
+                                                      s,
                                                       ActionFactory
                                                       .TYPE_RHN_APPLET_USE_SATELLITE);
             ActionManager.storeAction(a);

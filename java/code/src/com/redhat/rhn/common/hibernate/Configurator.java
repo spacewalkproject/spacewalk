@@ -17,9 +17,9 @@ package com.redhat.rhn.common.hibernate;
 import org.hibernate.cfg.Configuration;
 
 /**
- * Simple interface for classes that can modify Hibernate's configuration 
- * 
- * @version $Rev$ 
+ * Simple interface for classes that can modify Hibernate's configuration
+ *
+ * @version $Rev$
  */
 public interface Configurator {
 

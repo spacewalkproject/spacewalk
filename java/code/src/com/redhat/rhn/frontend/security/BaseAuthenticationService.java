@@ -34,7 +34,7 @@ public abstract class BaseAuthenticationService implements AuthenticationService
             }
         });
     }
-    
+
     protected abstract Set getUnprotectedURIs();
 
 }

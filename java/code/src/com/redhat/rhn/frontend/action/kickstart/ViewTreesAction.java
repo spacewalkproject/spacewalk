@@ -32,20 +32,20 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Handles listing of kickstart distributions
- * 
+ *
  * @version $Rev $
  */
 public class ViewTreesAction extends RhnAction implements Listable {
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-    
+
     /**
      * {@inheritDoc}
      */

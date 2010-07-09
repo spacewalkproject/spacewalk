@@ -22,22 +22,22 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
  * @version $Rev$
  */
 public abstract class IdComboDto extends BaseDto {
-    
+
     /**
      * Returns id to be stored in RhnSet.
      * @return id to be stored in RhnSet.
      */
     public abstract Long getIdOne();
-    
+
     /**
      * Returns idTwo to be stored in RhnSet.
      * @return idTwo to be stored in RhnSet.
      */
     public abstract Long getIdTwo();
-    
+
     /**
      * Overrides method in AbstractDto.
-     * Adds this object to the set using both applicable ids. 
+     * Adds this object to the set using both applicable ids.
      * @param set The set to which we are adding this object's ids
      */
     public void addToSet(RhnSet set) {

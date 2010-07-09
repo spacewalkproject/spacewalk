@@ -54,7 +54,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 101893 $
  */
 public class ManageRevisionSubmit extends RhnSetAction {
-    
+
     private static final int SUCCESS = 1;
     private static final int FAILURE = 0;
     private static final int FILE_DELETED = 2;
@@ -62,8 +62,8 @@ public class ManageRevisionSubmit extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest requestIn) {
         ConfigFile file = ConfigActionHelper.getFile(requestIn);
         return ConfigurationManager.getInstance().listRevisionsForFile(userIn, file, null);
@@ -87,15 +87,15 @@ public class ManageRevisionSubmit extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest requestIn, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest requestIn,
                                    Map paramsIn) {
         RequestContext requestContext = new RequestContext(requestIn);
-        
+
         Long fileId = requestContext.getRequiredParam(ConfigActionHelper.FILE_ID);
         paramsIn.put(ConfigActionHelper.FILE_ID, fileId);
     }
-    
+
     /**
      * A passthrough for deleting revisions so that affected config sets are also
      * cleared
@@ -109,29 +109,29 @@ public class ManageRevisionSubmit extends RhnSetAction {
             HttpServletRequest request, HttpServletResponse response) {
         RequestContext requestContext = new RequestContext(request);
         checkAcl(requestContext);
-        
+
         RhnSet set = updateSet(request);
-        
+
         //if they chose no config revisions, return to the same page with a message
         if (set.isEmpty()) {
             ActionMessages msg = new ActionMessages();
             msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("emptyselectionerror"));
             getStrutsDelegate().saveMessages(request, msg);
-            
+
             Map params = makeParamMap(form, request);
             return getStrutsDelegate().forwardParams(
                     mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
-        
+
         ActionForward forward = deleteRevisions(request, form, mapping, set);
-        
+
         //now some of the sets may be invalid, so delete them.
         ConfigActionHelper.clearRhnSets(requestContext.getLoggedInUser());
-        
+
         return forward;
     }
-    
+
     /**
      * Accepts an uploaded file as the new revision for the current config file.
      * @param mapping struts action mapping.
@@ -143,13 +143,13 @@ public class ManageRevisionSubmit extends RhnSetAction {
      */
     public ActionForward upload(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+
         RequestContext requestContext = new RequestContext(request);
         checkAcl(requestContext);
-        
+
         Long cfid = requestContext.getRequiredParam(ConfigActionHelper.FILE_ID);
         User user = requestContext.getLoggedInUser();
-        
+
         //get a connection to the file stream
         ConfigFileForm cff = (ConfigFileForm)form;
         ValidatorResult result = cff.validateUpload(request);
@@ -158,37 +158,37 @@ public class ManageRevisionSubmit extends RhnSetAction {
             return getStrutsDelegate().forwardParam(mapping.findForward("default"),
                     ConfigActionHelper.FILE_ID, cfid.toString());
         }
-        
+
         //The file is there and small enough, make a new revision!
         FormFile file = (FormFile)cff.get(ConfigFileForm.REV_UPLOAD);
         ConfigRevision rev = ConfigurationManager.getInstance()
                 .createNewRevision(user, file.getInputStream(),
                                    cfid, new Long(file.getFileSize()));
-        
+
         //create the success message
         createUploadSuccessMessage(rev, request, cfid);
         return getStrutsDelegate().forwardParam(mapping.findForward("default"),
                 ConfigActionHelper.FILE_ID, cfid.toString());
     }
-    
+
     private void createUploadSuccessMessage(ConfigRevision revision,
             HttpServletRequest request, Long cfid) {
         ActionMessages msg = new ActionMessages();
         Object[] args = new Object[2];
         StringBuffer buffy = new StringBuffer();
-        buffy.append("/rhn/configuration/file/FileDetails.do?" + 
+        buffy.append("/rhn/configuration/file/FileDetails.do?" +
                 ConfigActionHelper.FILE_ID + "=");
         buffy.append(cfid);
         buffy.append("&amp;" + ConfigActionHelper.REVISION_ID + "=");
         buffy.append(revision.getId());
         args[0] = StringEscapeUtils.escapeHtml(buffy.toString());
         args[1] = revision.getRevision().toString();
-        
+
         msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("manage.jsp.success", args));
         getStrutsDelegate().saveMessages(request, msg);
     }
-    
+
     private ActionForward deleteRevisions(HttpServletRequest request,
             ActionForm form, ActionMapping mapping, RhnSet set) {
         //We need to lookup the file before deleting revisions so that
@@ -199,7 +199,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
 
         Map params = makeParamMap(form, request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         int successCount = 0;
         int failureCount = 0;
         boolean fileDeleted = false;
@@ -222,7 +222,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
                 break;
             }
         }
-        
+
         //If the file was deleted, we can't go to the file details page
         if (fileDeleted) {
             getStrutsDelegate().saveMessage("deleterev.jsp.deletedfile",
@@ -242,7 +242,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
                     mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
     }
-    
+
     private void addIntMessage(int number, String key, ActionMessages msgs) {
         if (number > 0) {
             if (number == 1) {
@@ -252,14 +252,14 @@ public class ManageRevisionSubmit extends RhnSetAction {
             msgs.add(ActionMessages.GLOBAL_MESSAGE, message);
         }
     }
-    
+
     /**
      * Attempts to delete the config revision with an id equal to the first element of
      * the RhnSetElement.  Uses the userIn to check for permission errors.
      * @param elementIn The RhnSetElement that contains the soon to be deleted config
      *                  revision's id.
      * @param userIn The user requesting to delete config revisions.
-     * @return Whether or not the current revision was deleted successfully. 
+     * @return Whether or not the current revision was deleted successfully.
      */
     public int deleteRevision(RhnSetElement elementIn, User userIn) {
         ConfigRevision revision;
@@ -271,7 +271,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
         catch (LookupException e) {
             return FAILURE;
         }
-        
+
         //try to delete the revision
         try {
             boolean fileDeleted = ConfigurationManager.getInstance()
@@ -290,7 +290,7 @@ public class ManageRevisionSubmit extends RhnSetAction {
         //yay, it is deleted.
         return SUCCESS;
     }
-    
+
     private void checkAcl(RequestContext requestContext) {
         //Throws an exception if the user does not have permission to edit the channel.
         User user = requestContext.getLoggedInUser();

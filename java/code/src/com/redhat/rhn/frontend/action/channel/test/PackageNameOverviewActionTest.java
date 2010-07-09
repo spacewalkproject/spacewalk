@@ -22,7 +22,7 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
  * @version $Rev$
  */
 public class PackageNameOverviewActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testInChannels() {
         String[] arches = {"channel-ia32", "channel-ia64"};
         setRequestPathInfo("/software/packages/NameOverview");
@@ -34,9 +34,9 @@ public class PackageNameOverviewActionTest extends RhnMockStrutsTestCase {
         assertTrue(getActualForward().startsWith(
                 "/WEB-INF/pages/software/packages/packagenameoverview.jsp"));
     }
-    
+
     public void testSubscribedChannels() {
-        
+
     }
 
 }

@@ -24,8 +24,8 @@ function refreshNotifFields() {
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<rhn:toolbar base="h2" img="/img/rhn-icon-system.gif" 
-    deletionUrl="/rhn/systems/details/probes/ProbeDelete.do?probe_id=${probe.id}&amp;sid=${system.id}" 
+<rhn:toolbar base="h2" img="/img/rhn-icon-system.gif"
+    deletionUrl="/rhn/systems/details/probes/ProbeDelete.do?probe_id=${probe.id}&amp;sid=${system.id}"
     deletionType="probe">
  <bean:message key="probeedit.jsp.editprobe" />
 </rhn:toolbar>
@@ -62,7 +62,7 @@ function refreshNotifFields() {
       <tr>
         <th><bean:message key="probeedit.jsp.notifmin" /></th>
         <td colspan="3">
-            <html:select property="notification_interval_min" 
+            <html:select property="notification_interval_min"
                   disabled="${not probeEditForm.map.notification}">
               <html:options collection="intervals"
                 property="value"
@@ -90,7 +90,7 @@ function refreshNotifFields() {
         </html:select>
       </td>
     </tr>
-    
+
     <%@ include file="/WEB-INF/pages/common/fragments/probes/render-param-value-list.jspf" %>
     <tr>
       <td></td>
@@ -101,6 +101,6 @@ function refreshNotifFields() {
   <html:hidden property="probe_id" value="${probe.id}"/>
   <html:hidden property="submitted" value="true"/>
 </html:form>
-           
+
 </body>
 </html>

@@ -51,7 +51,7 @@
 					deletionType="deletefile"
 					deletionAcl="config_channel_editable(${channel.id})"
 					miscUrl="/rhn/configuration/file/FileDownload.do?crid=${file.latestConfigRevision.id}&amp;cfid=${file.id}"
-					miscImg="action-download.gif" 
+					miscImg="action-download.gif"
 					miscText="filedetails.header.jspf.download_latest"
 					miscAlt="filedetails.header.jspf.download_latest"
 					aclMixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">

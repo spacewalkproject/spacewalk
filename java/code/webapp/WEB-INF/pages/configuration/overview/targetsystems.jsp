@@ -15,7 +15,7 @@
 
 <div class="page-summary">
   <p>
-  <bean:message key="targetsystems.jsp.summary"     
+  <bean:message key="targetsystems.jsp.summary"
     arg0="${channel.displayName}"
 	arg1="/rhn/configuration/ChannelOverview.do?ccid=${ccid}"
 	arg2="/img/folder-config-sm.png" />
@@ -26,7 +26,7 @@
 <html:form method="POST" action="/configuration/system/TargetSystemsSubmit">
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="targetsystems.jsp.noSystems">
-	          
+
     <rhn:listdisplay filterBy="system.common.systemName"
                        set="${requestScope.set}">
       <rhn:set value="${current.id}" disabled="${!current.selectable}"/>

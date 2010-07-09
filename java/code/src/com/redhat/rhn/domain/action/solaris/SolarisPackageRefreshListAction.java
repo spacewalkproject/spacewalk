@@ -17,7 +17,7 @@ package com.redhat.rhn.domain.action.solaris;
 import com.redhat.rhn.domain.action.Action;
 
 /**
- * SolarisPackageRefreshListAction - 
+ * SolarisPackageRefreshListAction -
  * Class representing TYPE_SOLARISPKGS_REFRESH_LIST
  * @version $Rev$
  */

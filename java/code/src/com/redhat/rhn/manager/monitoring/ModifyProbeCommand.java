@@ -33,7 +33,7 @@ import java.util.Iterator;
  * @version $Rev$
  */
 public class ModifyProbeCommand {
-    
+
     public static final Long NOTIF_INTERVAL_DEFAULT = new Long(5);
     public static final Long CHECK_INTERVAL_DEFAULT = new Long(5);
     public static final String COMMAND_GROUP_DEFAULT = "linux";
@@ -42,11 +42,11 @@ public class ModifyProbeCommand {
     private Probe probe;
     private User  user;
     private Date  now;
-    
+
     /**
      * Create a command that modifies an existing probe. The probe with
      * the given <code>probeid</code> is loaded from the database.
-     * 
+     *
      * @param userIn the user editing the probe
      * @param probe0 the probe to modify
      */
@@ -55,11 +55,11 @@ public class ModifyProbeCommand {
         init(userIn);
         probe = probe0;
     }
-    
+
     /**
      * Create a command that modifies a new probe. The probe is created for
-     * <code>command</code>. 
-     * 
+     * <code>command</code>.
+     *
      * @param userIn the user creating the probe
      * @param command the command underlying the probe
      * @param probe0 the empty, freshly created probe
@@ -77,7 +77,7 @@ public class ModifyProbeCommand {
     public Probe getProbe() {
         return probe;
     }
-    
+
     /**
      * Set the description of the probe
      * @param descr the description for the probe
@@ -85,7 +85,7 @@ public class ModifyProbeCommand {
     public void setDescription(String descr) {
         probe.setDescription(descr);
     }
-    
+
     /**
      * Turn notification for the probe on or off.
      * @param notif whether notification should be turned on or off
@@ -134,15 +134,15 @@ public class ModifyProbeCommand {
     /**
      * Set the value for parameter <code>cp</code> to <code>value</code>
      * in the underlying probe.
-     * 
-     * @param cp the command parameter 
+     *
+     * @param cp the command parameter
      * @param value the new value for the parameter in the probe we are modifying
      */
     public void setParameterValue(CommandParameter cp, String value) {
         Asserts.assertNotNull(cp, "cp");
         Asserts.assertEquals(cp.getCommand().getName(), probe.getCommand().getName());
         if (!cp.getValidator().isValid(value)) {
-            throw new IllegalArgumentException("The value " + value + 
+            throw new IllegalArgumentException("The value " + value +
                     " is not valid for " + cp.getParamName());
         }
         ProbeParameterValue ppv = probe.getProbeParameterValue(cp);
@@ -152,14 +152,14 @@ public class ModifyProbeCommand {
     }
 
     /**
-     * Store the probe to the database 
+     * Store the probe to the database
      */
     public void storeProbe() {
         for (Iterator i = commandParametersIter(); i.hasNext();) {
             CommandParameter cp = (CommandParameter) i.next();
             String value = probe.getProbeParameterValue(cp).getValue();
             if (!cp.getValidator().isValid(value)) {
-                throw new IllegalStateException("The value " + value + 
+                throw new IllegalStateException("The value " + value +
                         " is not valid for " + cp.getParamName());
             }
         }
@@ -168,7 +168,7 @@ public class ModifyProbeCommand {
             Metric m = (Metric) i.next();
             ArrayList errors = c.checkAscendingValues(m, probe.toValue());
             if (!errors.isEmpty()) {
-                throw new IllegalStateException("The values for metric " + 
+                throw new IllegalStateException("The values for metric " +
                         m.getDescription() + " are not in increasing order");
             }
         }
@@ -183,7 +183,7 @@ public class ModifyProbeCommand {
     public Iterator commandParametersIter() {
         return probe.getCommand().getCommandParameters().iterator();
     }
-    
+
     /**
      * Return the command underlying the probe being constructed
      * @return the command underlying the probe being constructed
@@ -191,8 +191,8 @@ public class ModifyProbeCommand {
     public Command getCommand() {
         return probe.getCommand();
     }
-    
-    
+
+
     /**
      * @return Returns the user.
      */
@@ -210,12 +210,12 @@ public class ModifyProbeCommand {
         assert user != null;
         assert command != null;
         assert probe0 != null;
-        
+
         probe = probe0;
-        
+
         probe.setOrg(user.getOrg());
         probe.setCommand(command);
-        
+
         probe.setLastUpdateDate(now);
         probe.setLastUpdateUser(user.getLogin());
         probe.setRetryIntervalMinutes(CHECK_INTERVAL_DEFAULT);
@@ -226,5 +226,5 @@ public class ModifyProbeCommand {
             probe.addProbeParameterValue(cp.getDefaultValue(), cp, user);
         }
     }
-    
+
 }

@@ -29,7 +29,7 @@ import java.util.Collection;
 public class PrimitiveFactory {
     private static PrimitiveBuilder builder;
     private static ManifestFactory factory;
-    
+
     /** private constructor */
     private PrimitiveFactory() {
     }
@@ -40,14 +40,14 @@ public class PrimitiveFactory {
         }
         return factory.getObject(name);
     }
-    
+
     public static Collection getKeys() {
         if (factory == null || builder == null) {
             initFactory();
         }
         return factory.getKeys();
     }
-    
+
     /** So we can test re-parsing the manifest */
     public static void initFactory() {
         builder = new PrimitiveBuilder();

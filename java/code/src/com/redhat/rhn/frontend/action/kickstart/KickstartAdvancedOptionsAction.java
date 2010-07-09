@@ -58,37 +58,37 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
     public static final String OPTIONS = "options";
     public static final String CUSTOM_OPTIONS = "customOptions";
     private static final String NEWLINE = "\n";
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public final ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
-        RequestContext ctx = new RequestContext(request);        
+
+        RequestContext ctx = new RequestContext(request);
         KickstartHelper helper = new KickstartHelper(request);
-        KickstartOptionsCommand cmd = 
+        KickstartOptionsCommand cmd =
             new KickstartOptionsCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                                         ctx.getCurrentUser());
-         
+
         List displayList = new LinkedList();
-        
+
         //Display message if this kickstart profile's channel is inadequate.
         User user = new RequestContext(request).getLoggedInUser();
         if (!helper.verifyKickstartChannel(cmd.getKickstartData(), user)) {
             getStrutsDelegate().saveMessages(request,
                    helper.createInvalidChannelMsg(cmd.getKickstartData()));
         }
-        
+
         // store/refresh the submitted data
-        if (request.getParameter(SUBMITTED) != null) {    
-            
+        if (request.getParameter(SUBMITTED) != null) {
+
             ActionErrors messages = new ActionErrors();
-            
-            //lets first make sure all required params are set                        
+
+            //lets first make sure all required params are set
             for (Iterator it = cmd.getRequiredOptions().iterator(); it.hasNext();) {
                 KickstartCommandName cn = (KickstartCommandName) it.next();
                 if (request.getParameter(cn.getName()) == null) {
@@ -96,21 +96,21 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                             new ActionMessage("errors.required", cn.getName()));
                 }
             }
-            
+
             // store to the db
             if (messages.isEmpty()) {
                 Set s = new HashSet();
-                                
+
                 for (Iterator itr = cmd.getAvailableOptions().iterator(); itr.hasNext();) {
-                    
+
                     KickstartCommandName cn = (KickstartCommandName) itr.next();
-                    
+
                     if (request.getParameter(cn.getName()) != null) {
                         KickstartCommand kc = new KickstartCommand();
                         kc.setCommandName(cn);
                         kc.setKickstartData(cmd.getKickstartData());
                         kc.setCreated(new Date());
-                        kc.setModified(new Date());                        
+                        kc.setModified(new Date());
                         if (cn.getArgs().booleanValue()) {
                             String argsName = cn.getName() + "_txt";
                             // handle password encryption
@@ -120,7 +120,7 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                                 if (pwarg.startsWith("$1$")) {
                                     kc.setArguments(pwarg);
                                 }
-                                // password changed, encrypt it 
+                                // password changed, encrypt it
                                 else {
                                     kc.setArguments(MD5Crypt.crypt(pwarg));
                                 }
@@ -130,7 +130,7 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                             }
                         }
                         s.add(kc);
-                    }                
+                    }
                 }
                 log.debug("updating options");
                 cmd.getKickstartData().setOptions(s);
@@ -166,12 +166,12 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                 // refresh the list to display to user and show error msgs
                 displayList = cmd.refreshOptions(request.getParameterMap());
                 addErrors(request, messages);
-            }                                                                        
+            }
         }
         else {
             displayList = cmd.getDisplayOptions();
         }
-        
+
         Collections.sort(displayList);
         request.setAttribute(RequestContext.KICKSTART, cmd.getKickstartData());
         request.setAttribute(OPTIONS, displayList);
@@ -179,15 +179,15 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
 
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                 request.getParameterMap());
-       
-    }    
-    
+
+    }
+
     /**
-     * 
+     *
      * @return i18n key
      */
     private String getSuccessKey() {
-        return "kickstart.options.success";        
-    }   
-        
+        return "kickstart.options.success";
+    }
+
 }

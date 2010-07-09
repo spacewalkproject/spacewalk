@@ -27,19 +27,19 @@ import com.redhat.rhn.testing.ServerTestUtils;
  * @version $Rev: 1 $
  */
 public class AddToSSMTest extends RhnMockStrutsTestCase {
-    
+
     private Server server;
-    
+
     /**
      * {@inheritDoc}
      */
     public void setUp() throws Exception {
         super.setUp();
         server = ServerTestUtils.createTestSystem(user);
-        
+
         addRequestParameter(RequestContext.SID, server.getId().toString());
         setRequestPathInfo("/systems/details/AddToSSM");
-        
+
         RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         set.clear();
         RhnSetManager.store(set);
@@ -48,12 +48,12 @@ public class AddToSSMTest extends RhnMockStrutsTestCase {
 
 
     public void testExecute() throws Exception {
-        
-        actionPerform();               
+
+        actionPerform();
         assertEquals(request.getParameter("sid"), server.getId().toString());
         RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         assertTrue(set.contains(server.getId()));
-        
+
     }
-    
+
 }

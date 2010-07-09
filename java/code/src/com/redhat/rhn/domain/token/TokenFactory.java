@@ -32,14 +32,14 @@ public class TokenFactory extends HibernateFactory {
 
     private static TokenFactory singleton = new TokenFactory();
     private static Logger log = Logger.getLogger(TokenFactory.class);
-    
+
     /**
      * Lookup an token by id
      * You probably want ActivationKeyFactory.lookupById() instead.
      * The Token does not include the actual hex string used for
      * registration, or the relationship to the kickstart session(s).
      * WARNING - This method should be used very carefully, because
-     *  it doesn't filter out based on org 
+     *  it doesn't filter out based on org
      * @param id the id to search for
      * @return the ActivationKey found
      */
@@ -47,7 +47,7 @@ public class TokenFactory extends HibernateFactory {
         if (id == null) {
             return null;
         }
-        
+
         Session session = null;
         try {
             session = HibernateFactory.getSession();
@@ -63,8 +63,8 @@ public class TokenFactory extends HibernateFactory {
         }
     }
 
-    
-    
+
+
     /**
      * Lookup an token by id
      * You probably want ActivationKeyFactory.lookupById() instead.
@@ -76,7 +76,7 @@ public class TokenFactory extends HibernateFactory {
      */
     public static Token lookup(Long id, Org org) {
         if (id == null || org == null) {
-            LocalizationService ls = LocalizationService.getInstance();     
+            LocalizationService ls = LocalizationService.getInstance();
             String msg = "Null value provided id=[%s] , org = [%s]";
             LookupException e = new LookupException(String.format(msg, id, org));
             e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.token"));
@@ -99,7 +99,7 @@ public class TokenFactory extends HibernateFactory {
             throw e;
         }
         if (t == null) {
-            LocalizationService ls = LocalizationService.getInstance();            
+            LocalizationService ls = LocalizationService.getInstance();
             LookupException e = new LookupException("Could not find " +
                                                     "token with id =  " + id);
             e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.token"));
@@ -109,7 +109,7 @@ public class TokenFactory extends HibernateFactory {
         }
         return t;
 
-    }    
+    }
     /**
      * Lookup a Token for the given Server
      * @param server to lookup the Token for
@@ -119,7 +119,7 @@ public class TokenFactory extends HibernateFactory {
         if (server == null) {
             return null;
         }
-        
+
         Session session = null;
         try {
             session = HibernateFactory.getSession();
@@ -135,7 +135,7 @@ public class TokenFactory extends HibernateFactory {
             throw e;
         }
     }
-    
+
 
     /**
      * Saves a token to the database
@@ -144,7 +144,7 @@ public class TokenFactory extends HibernateFactory {
     public static void save(Token tokenIn) {
         singleton.saveObject(tokenIn);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -158,7 +158,7 @@ public class TokenFactory extends HibernateFactory {
      */
     public static void removeToken(Token token) {
         singleton.removeObject(token);
-        
+
     }
 
 }

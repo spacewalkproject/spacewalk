@@ -2,7 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html:xhtml/>
-<rhn:toolbar base="h1" 
+<rhn:toolbar base="h1"
     img="/img/rhn-icon-system_group.gif"
 	imgAlt="ssm.jsp.imgAlt"
 	helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-ssm">

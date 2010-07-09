@@ -41,12 +41,12 @@ public class CobblerAction extends RhnAction {
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         RequestContext ctx = new RequestContext(request);
-        
+
         if (ctx.isSubmitted()) {
             CobblerSyncCommand cmd = new CobblerSyncCommand(ctx.getLoggedInUser());
             ValidatorError ve = cmd.store();
             if (ve == null) {
-                addMessage(request, "cobbler.jsp.synced");    
+                addMessage(request, "cobbler.jsp.synced");
             }
             else {
                 ActionErrors errors = new ActionErrors();
@@ -54,7 +54,7 @@ public class CobblerAction extends RhnAction {
                 getStrutsDelegate().saveMessages(request, errors);
             }
         }
-        
+
         return mapping.findForward("default");
     }
 }

@@ -11,7 +11,7 @@
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"  imgAlt="common.download.channelAlt">
 <c:choose>
-  <c:when test="${empty channel}"> 
+  <c:when test="${empty channel}">
     <decorator:getProperty property="meta.name" />
   </c:when>
   <c:otherwise>
@@ -21,7 +21,7 @@
 </rhn:toolbar>
 
 <c:choose>
-  <c:when test="${empty channel}"> 
+  <c:when test="${empty channel}">
     <bean:message key="isodownload.no-access"/>
   </c:when>
   <c:otherwise>

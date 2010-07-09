@@ -29,7 +29,7 @@ import java.util.Iterator;
 public class CustomInfoHandlerTest extends BaseHandlerTestCase {
 
     private CustomInfoHandler handler = new CustomInfoHandler();
-    
+
     public void testCreateKey() throws Exception {
 
         // default setup already includes a custom key; therefore, let's
@@ -37,15 +37,15 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
         int initialSize = SystemManager.listDataKeys(admin).size();
 
         handler.createKey(adminKey, "testlabel", "test description");
-        
+
         DataResult result = SystemManager.listDataKeys(admin);
-        
+
         assertEquals(initialSize + 1, result.size());
-        
+
         boolean foundKey = false;
         for (Iterator itr = result.iterator(); itr.hasNext();) {
             CustomDataKeyOverview key = (CustomDataKeyOverview) itr.next();
-            if (key.getLabel().equals("testlabel") && 
+            if (key.getLabel().equals("testlabel") &&
                 key.getDescription().equals("test description")) {
                 foundKey = true;
                 break;
@@ -63,11 +63,11 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
         handler.createKey(adminKey, "testlabel", "test description");
         DataResult result = SystemManager.listDataKeys(admin);
         assertEquals(initialKeys.size() + 1, result.size());
-        
+
         boolean foundKey = false;
         for (Iterator itr = result.iterator(); itr.hasNext();) {
             CustomDataKeyOverview key = (CustomDataKeyOverview) itr.next();
-            if (key.getLabel().equals("testlabel") && 
+            if (key.getLabel().equals("testlabel") &&
                 key.getDescription().equals("test description")) {
                 foundKey = true;
                 break;
@@ -78,11 +78,11 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
         handler.deleteKey(adminKey, "testlabel");
         result = SystemManager.listDataKeys(admin);
         assertEquals(initialKeys.size(), result.size());
-        
+
         foundKey = false;
         for (Iterator itr = result.iterator(); itr.hasNext();) {
             CustomDataKeyOverview key = (CustomDataKeyOverview) itr.next();
-            if (key.getLabel().equals("testlabel") && 
+            if (key.getLabel().equals("testlabel") &&
                 key.getDescription().equals("test description")) {
                 foundKey = true;
                 break;
@@ -90,14 +90,14 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
         }
         assertFalse(foundKey);
     }
-    
+
     public void testListAllKeys() throws Exception {
-        
-        // default setup already includes a custom key; therefore, we don't 
+
+        // default setup already includes a custom key; therefore, we don't
         // need to add any as part of this test.
-        
+
         Object[] keys = handler.listAllKeys(adminKey);
-        
+
         assertEquals(SystemManager.listDataKeys(admin).size(),
                 keys.length);
     }

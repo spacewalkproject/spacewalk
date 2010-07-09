@@ -1,6 +1,6 @@
                 <rl:decorator name="PageSizeDecorator"/>
         		<rl:decorator name="SelectableDecorator"/>
-                <rl:decorator name="ElaborationDecorator"/>  
+                <rl:decorator name="ElaborationDecorator"/>
 
 
 		
@@ -11,30 +11,30 @@
 		                             headerclass="first-column"
 		                             styleclass="first-column"/>
 
-           
-                <rl:column sortable="true" 
+
+                <rl:column sortable="true"
                                    bound="false"
-                           headerkey="actions.jsp.action" 
+                           headerkey="actions.jsp.action"
                            sortattr="actionName"
                            filterattr="actionName"
                            styleclass="list-fat-column-50">
                         	<a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}">${current.actionName}</a>
-                </rl:column>            
+                </rl:column>
 
 
-                <rl:column sortable="true" 
+                <rl:column sortable="true"
                                    bound="false"
-                           headerkey="actions.jsp.earliest" 
+                           headerkey="actions.jsp.earliest"
                            sortattr="earliestDate"
-                            defaultsort="desc"  
+                            defaultsort="desc"
                            >
                         <c:out value="${current.earliest}" />
-                </rl:column>     
+                </rl:column>
 
 
-                <rl:column sortable="false" 
+                <rl:column sortable="false"
                                    bound="false"
-                           headerkey="actions.jsp.succeeded" 
+                           headerkey="actions.jsp.succeeded"
                            styleclass="thin-column"
                             >
                         <c:if test="${current.completed != 0}">
@@ -43,12 +43,12 @@
                         <c:if test="${current.completed == 0}">
                         	${current.completed}
                         </c:if>
-                </rl:column>   
+                </rl:column>
 
 
-                <rl:column sortable="false" 
+                <rl:column sortable="false"
                                    bound="false"
-                           headerkey="actions.jsp.failed" 
+                           headerkey="actions.jsp.failed"
                            styleclass="thin-column"
                            >
                         <c:if test="${current.failed != 0}">
@@ -57,13 +57,13 @@
                         <c:if test="${current.failed == 0}">
                         	${current.failed}
                         </c:if>
-                </rl:column>   
+                </rl:column>
 
 
 
-                <rl:column sortable="false" 
+                <rl:column sortable="false"
                                    bound="false"
-                           headerkey="actions.jsp.inprogress" 
+                           headerkey="actions.jsp.inprogress"
                            styleclass="thin-column"
                            >
                         <c:if test="${current.inProgress != 0}">
@@ -72,13 +72,13 @@
                         <c:if test="${current.inProgress == 0}">
                         	${current.inProgress}
                         </c:if>
-                </rl:column>   
+                </rl:column>
 
 
-                <rl:column sortable="false" 
+                <rl:column sortable="false"
                                    bound="false"
-                           headerkey="actions.jsp.total" 
+                           headerkey="actions.jsp.total"
                            styleclass="last-column thin-column">
                         	${current.tally}
-                </rl:column>   
+                </rl:column>
 

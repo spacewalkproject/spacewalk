@@ -38,9 +38,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public class KickstartsSetupAction  extends RhnAction {
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping,
@@ -58,9 +58,9 @@ public class KickstartsSetupAction  extends RhnAction {
                 break;
             }
         }
-        
+
         List<CobblerProfileDto> dtos = KickstartLister.getInstance().
-                                                listCobblerProfiles(user);  
+                                                listCobblerProfiles(user);
         result.addAll(dtos);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("pageList", result);

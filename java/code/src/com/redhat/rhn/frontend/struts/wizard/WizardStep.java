@@ -28,17 +28,17 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Represents a single step in a multi-step wizard
- * 
+ *
  * @version $Rev $
  */
 public class WizardStep {
-    
+
     private String previous;
-    
+
     private String next;
-    
+
     private Method wizardMethod;
-    
+
     /**
      * Name of the previous step
      * @param prev previous step name
@@ -46,19 +46,19 @@ public class WizardStep {
     public void setPrevious(String prev) {
         this.previous = prev;
     }
-    
+
     /**
      * Name of the previous step
      * @return previous step name if set, otherwise null
-     */    
+     */
     public String getPrevious() {
         return this.previous;
     }
-    
+
     /**
      * Name of the next step
      * @param nextStep next step name
-     */    
+     */
     public void setNext(String nextStep) {
         this.next = nextStep;
     }
@@ -66,11 +66,11 @@ public class WizardStep {
     /**
      * Name of the next step
      * @return next step name if set, otherwise null
-     */        
+     */
     public String getNext() {
         return this.next;
     }
-    
+
     /**
      * Method to invoke for this step
      * The method must have the following signature
@@ -85,7 +85,7 @@ public class WizardStep {
         method.setAccessible(true);
         this.wizardMethod = method;
     }
-    
+
     /**
      * Method to invoke for this step
      * @return the Java method if set, otherwise null
@@ -93,7 +93,7 @@ public class WizardStep {
     public Method getWizardMethod() {
         return this.wizardMethod;
     }
-    
+
     /**
      * Invoke the corresponding Java method for this step
      * @param mapping from current request
@@ -104,8 +104,8 @@ public class WizardStep {
      * @return Struts forward corresponding to this wizard step
      * @throws Exception something bad happened hopefully handled upstream
      */
-    public final ActionForward invoke(ActionMapping mapping, ActionForm form, 
-            RequestContext ctx, HttpServletResponse response, 
+    public final ActionForward invoke(ActionMapping mapping, ActionForm form,
+            RequestContext ctx, HttpServletResponse response,
             Action target) throws Exception {
         Object[] args = new Object[5];
         args[0] = mapping;

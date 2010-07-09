@@ -44,7 +44,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 
+ *
  * Login to Cobbler's XMLRPC API and get a token
  * @version $Rev$
  */
@@ -79,7 +79,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @param activationKeysIn to add to the system record.  Used when the system
      * re-registers to Spacewalk
      */
-    public CobblerSystemCreateCommand(User userIn, Server serverIn, 
+    public CobblerSystemCreateCommand(User userIn, Server serverIn,
             KickstartData ksDataIn, String mediaPathIn, String activationKeysIn) {
         super(userIn);
         this.server = serverIn;
@@ -92,12 +92,12 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         }
         this.activationKeys = activationKeysIn;
     }
-    
+
     /**
-     * Constructor to be used for a system outside tthe context 
-     * of actually kickstarting it to a specific profile.  
+     * Constructor to be used for a system outside tthe context
+     * of actually kickstarting it to a specific profile.
      * @param serverIn profile we want to create in cobbler
-     * @param cobblerProfileName the name of the cobbler profile 
+     * @param cobblerProfileName the name of the cobbler profile
      * to associate with system
      * @param ksData the kickstart data to associate the system with
      */
@@ -123,22 +123,22 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         }
         this.activationKeys = keys;
     }
-    
 
-    
+
+
     /**
      * Constructor
      * @param userIn who is requesting the sync
      * @param serverIn profile we want to create in cobbler
      * @param nameIn profile nameIn to associate with with server.
      */
-    public CobblerSystemCreateCommand(User userIn, Server serverIn, 
+    public CobblerSystemCreateCommand(User userIn, Server serverIn,
             String nameIn) {
         super(userIn);
         this.server = serverIn;
         profileName = nameIn;
-    }    
-  
+    }
+
     protected SystemRecord lookupExisting() {
         if (server.getCobblerId() != null) {
             SystemRecord rec;
@@ -163,7 +163,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         }
         return null;
     }
-    
+
     private Map getSystemMapByMac() {
         // Build up list of mac addrs
         List macs = new LinkedList();
@@ -175,7 +175,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             else {
                 macs.add(n.getHwaddr().toLowerCase());
             }
-            
+
         }
 
         List <String> args = new ArrayList();
@@ -193,10 +193,10 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 Map iface = (Map) ifaces.get(name);
                 log.debug("iface: " + iface);
                 String mac = (String) iface.get("mac_address");
-                log.debug("getSystemMapByMac.ROW: " + row + 
+                log.debug("getSystemMapByMac.ROW: " + row +
                         " looking for: " + macs);
-                
-                if (mac != null && 
+
+                if (mac != null &&
                         macs.contains(mac.toLowerCase())) {
                     log.debug("getSystemMapByMac.found match.");
                     return row;
@@ -220,7 +220,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             rec = SystemRecord.lookupByName(getCobblerConnection(user),
                                                 getCobblerSystemRecordName());
         }
-        
+
         // Else, lets make a new system
         if (rec == null) {
             rec = SystemRecord.create(getCobblerConnection(),
@@ -229,7 +229,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         }
         processNetworkInterfaces(rec, server);
         rec.setProfile(profile);
-        
+
         if (this.activationKeys == null || this.activationKeys.length() == 0) {
             log.error("This cobbler profile does not " +
                 "have a redhat_management_key set ");
@@ -252,7 +252,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
 
         if (!StringUtils.isBlank(mediaPath)) {
             ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
-                                                    this.mediaPath);            
+                                                    this.mediaPath);
         }
         if (!StringUtils.isBlank(getKickstartHost())) {
             ksmeta.put(SystemRecord.REDHAT_MGMT_SERVER,
@@ -268,7 +268,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     }
     /**
      * Get the cobbler system record name for this system.
-     * @return String name of cobbler system record. 
+     * @return String name of cobbler system record.
      */
     public String getCobblerSystemRecordName() {
         String sep = ConfigDefaults.get().getCobblerNameSeparator();
@@ -277,8 +277,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         return name + sep +
             this.server.getOrg().getId();
     }
-    
-    protected void processNetworkInterfaces(SystemRecord rec, 
+
+    protected void processNetworkInterfaces(SystemRecord rec,
                                                 Server serverIn) {
         List <Network> nics = new LinkedList<Network>();
         if (serverIn.getNetworkInterfaces() != null) {
@@ -328,7 +328,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     public void setKernelOptions(String kernelOptionsIn) {
         this.kernelOptions = kernelOptionsIn;
     }
-    
+
     /**
      * @param postKernelOptionsIn The postKernelOptions to set.
      */
@@ -343,7 +343,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     public void setScheduledAction(Action kickstartAction) {
         scheduledAction = kickstartAction;
     }
-    
+
     protected Action getScheduledAction() {
         return scheduledAction;
     }

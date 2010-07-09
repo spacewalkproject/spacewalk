@@ -56,11 +56,11 @@ public class KickstartScriptDeleteCommand extends KickstartScriptEditCommand {
         while (i.hasNext()) {
             KickstartScript ksstemp = (KickstartScript) i.next();
         }
-        
+
         if (!this.ksdata.getScripts().remove(this.script)) {
             throw new RuntimeException("Not removed!");
         }
         return super.store();
     }
-    
+
 }

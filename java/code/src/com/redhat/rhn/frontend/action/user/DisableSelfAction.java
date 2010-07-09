@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class DisableSelfAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,

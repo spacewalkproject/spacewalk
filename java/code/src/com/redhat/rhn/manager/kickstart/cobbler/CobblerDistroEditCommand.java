@@ -27,7 +27,7 @@ import org.cobbler.Distro;
  */
 public class CobblerDistroEditCommand extends CobblerDistroCommand {
 
-    
+
     /**
      * Constructor
      * @param ksTreeIn to sync
@@ -39,13 +39,13 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
     }
 
     private static Logger log = Logger.getLogger(CobblerDistroEditCommand.class);
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public ValidatorError store() {
-        
+
         Distro d = Distro.lookupById(
                 CobblerXMLRPCHelper.getConnection(user.getLogin()), tree.getCobblerId());
         String newName = makeCobblerName(tree);

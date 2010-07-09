@@ -29,27 +29,27 @@ import java.util.List;
  * @version $Rev$
  */
 public class KickstartCommandNameTest extends BaseTestCaseWithUser {
-    
+
     public void testCommandName() throws Exception {
-        
+
         String query = "KickstartCommandName.listAdvancedOptions";
-        
+
         Session session = HibernateFactory.getSession();
         List l1 = session.getNamedQuery(query)
                                        //Retrieve from cache if there
                                        .setCacheable(true).list();
-        
-        assertTrue(l1.size() > 0);                
-        
+
+        assertTrue(l1.size() > 0);
+
         KickstartCommandName c = (KickstartCommandName) l1.get(0);
         assertEquals(c.getOrder(), new Long(1));
-        
+
         KickstartData ks = KickstartDataTest.
                 createTestKickstartData(user.getOrg());
         List<KickstartCommandName> l2 = KickstartFactory.lookupKickstartCommandNames(ks);
-        
-        
-                
+
+
+
         // RHEL5 has two commands less - "lilocheck" and "langsupport"
         if (ks.isRhel5OrGreater()) {
             assertEquals(l1.size(), l2.size() + 2);
@@ -58,7 +58,7 @@ public class KickstartCommandNameTest extends BaseTestCaseWithUser {
             assertEquals(l1.size(), l2.size());
         }
 
-                
+
     }
- 
+
 }

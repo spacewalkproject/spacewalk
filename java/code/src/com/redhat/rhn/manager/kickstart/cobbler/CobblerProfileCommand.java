@@ -38,36 +38,36 @@ import java.util.Map;
  * @version $Rev$
  */
 public abstract class CobblerProfileCommand extends CobblerCommand {
-    
+
     private static Logger log = Logger.getLogger(CobblerProfileCommand.class);
 
     private String kernelOptions;
     private String postKernelOptions;
-    
-    
+
+
     protected KickstartData ksData;
-    
+
     /**
      * @param ksDataIn - KickstartData to sync
-     * @param userIn - user wanting to sync with cobbler 
+     * @param userIn - user wanting to sync with cobbler
      */
     public CobblerProfileCommand(KickstartData ksDataIn, User userIn) {
         super(userIn);
         this.ksData = ksDataIn;
     }
-    
+
     /**
      * Call this if you want to use the taskomatic_user.
-     * 
+     *
      * Useful for automated non-user initiated syncs
-     * 
+     *
      * @param ksDataIn - KickstartData to sync
      */
     public CobblerProfileCommand(KickstartData ksDataIn) {
         super();
         this.ksData = ksDataIn;
     }
-    
+
     protected void updateCobblerFields(Profile profile) {
         if (getDistroForKickstart() != null) {
             profile.setDistro(getDistroForKickstart());
@@ -79,18 +79,18 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
             profile.setKernelPostOptions(postKernelOptions);
         }
         // redhat_management_key
-        KickstartSession ksession = 
-            KickstartFactory.lookupDefaultKickstartSessionForKickstartData(this.ksData); 
+        KickstartSession ksession =
+            KickstartFactory.lookupDefaultKickstartSessionForKickstartData(this.ksData);
         if (ksession != null) {
             ActivationKey key = ActivationKeyFactory.lookupByKickstartSession(ksession);
-            
+
             StringBuffer keystring = new StringBuffer();
             keystring.append(key.getKey());
             if (this.ksData.getDefaultRegTokens() != null) {
                 log.debug("Adding associated activation keys.");
                 Iterator i = this.ksData.getDefaultRegTokens().iterator();
                 while (i.hasNext()) {
-                    ActivationKey akey = 
+                    ActivationKey akey =
                         ActivationKeyFactory.lookupByToken((Token) i.next());
                     keystring.append(",");
                     keystring.append(akey.getKey());
@@ -100,14 +100,14 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
             profile.setRedHatManagementKey(keystring.toString());
         }
         else {
-            log.warn("We could not find a default kickstart session for this ksdata: " + 
+            log.warn("We could not find a default kickstart session for this ksdata: " +
                     ksData.getLabel());
         }
-        
+
         Map meta = profile.getKsMeta();
         meta.put("org", this.ksData.getOrg().getId());
         profile.setKsMeta(meta);
-        
+
         // Check for para_host
         if (ksData.getKickstartDefaults().getVirtualizationType().
                 getLabel().equals(KickstartVirtualizationType.PARA_HOST)) {
@@ -125,7 +125,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
 
         profile.save();
     }
-    
+
     /**
      * Get the cobbler distro for a particular kickstart file
      *      selects the xen or non-xen cobbler distro depending
@@ -137,10 +137,10 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         if (def ==  null) {
             return null;
         }
-        return getCobblerDistroForVirtType(def.getKstree(), 
+        return getCobblerDistroForVirtType(def.getKstree(),
                 ksData.getKickstartDefaults().getVirtualizationType(), user);
     }
-    
+
     /**
      * @param kernelOptionsIn The kernelOptions to set.
      */
@@ -149,7 +149,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     }
 
 
-    
+
     /**
      * @param postKernelOptionsIn The postKernelOptions to set.
      */
@@ -166,7 +166,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
      * @param user the user doing the query
      * @return null if there is none, otherwise the cobbler distro
      */
-    public static Distro getCobblerDistroForVirtType(KickstartableTree tree, 
+    public static Distro getCobblerDistroForVirtType(KickstartableTree tree,
             KickstartVirtualizationType virtType, User user) {
         CobblerConnection con = getCobblerConnection(user);
         if (virtType.equals(KickstartFactory.VIRT_TYPE_XEN_PV)) {
@@ -181,5 +181,5 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
             return Distro.lookupById(con, tree.getCobblerId());
         }
     }
-    
+
 }

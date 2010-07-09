@@ -5,12 +5,12 @@
 
     <rhn:list pageList="${requestScope.pageList}"
             noDataText="sdcconfigfiles.jsp.noFiles">
-              
+
       <rhn:listdisplay filterBy="sdcconfigfiles.jsp.filename">
         <%@ include file="/WEB-INF/pages/common/fragments/configuration/sdc/configfile_rows.jspf" %>
       </rhn:listdisplay>
     </rhn:list>
-    
+
 <c:if test="${not empty requestScope.pageList}">
 <p><bean:message key="sdcconfigconfirm.jsp.widgetsummary" /></p>
 <table class="schedule-action-interface" align="center">
@@ -33,7 +33,7 @@
         </td>
     </tr>
 </table>
-      
+
 <div align="right">
     <hr />
     <html:submit property="dispatch">

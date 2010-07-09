@@ -1793,13 +1793,13 @@
 			<trans-unit id="disableself.jsp.message">
 				<source>You may deactivate your @@PRODUCT_NAME@@ account below. &lt;b&gt;This will remove your ability
 to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
-				<target>@@PRODUCT_NAME@@ 계정을 비활성화하실 수 있습니다.&lt;b&gt;계정을 비활성화하시면, 
+				<target>@@PRODUCT_NAME@@ 계정을 비활성화하실 수 있습니다.&lt;b&gt;계정을 비활성화하시면,
 @@PRODUCT_NAME@@에 로그인할 수 없게됩니다.&lt;/b&gt; </target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message2">
 				<source>Once your account is deactivated, you will need to contact your organization's
 @@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
-				<target>계정이 비활성화된 후, 이를 다시 활성화시키려면 
+				<target>계정이 비활성화된 후, 이를 다시 활성화시키려면
 조직의 @@PRODUCT_NAME@@ 조직 관리자에게 문의하시기 바랍니다.   </target>
 			</trans-unit>
 			<trans-unit id="disableselfconfirm.jsp.warning">
@@ -6488,12 +6488,12 @@ the following tabs in the left navigation menu:</source>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
 				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
-				<target>@@PRODUCT_NAME@@에 있는 서브스크립션을 관리합니다. 각각의 인타이틀먼트에서 제공하는 액세스가 무엇인지를 
-살펴보실 수 도 있습니다. 각각의 인타이틀먼트에 기반하여, 
-여기서 @@PRODUCT_NAME@@에 있는 모든 조직에 걸쳐 특정 인타이틀먼트에 대한 인타이틀먼트를 
+				<target>@@PRODUCT_NAME@@에 있는 서브스크립션을 관리합니다. 각각의 인타이틀먼트에서 제공하는 액세스가 무엇인지를
+살펴보실 수 도 있습니다. 각각의 인타이틀먼트에 기반하여,
+여기서 @@PRODUCT_NAME@@에 있는 모든 조직에 걸쳐 특정 인타이틀먼트에 대한 인타이틀먼트를
 할당하실 수 있습니다.      </target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link2">
@@ -6806,9 +6806,9 @@ Please note that some manual configuration of these scripts may still be require
 				<target>업데이트 변수 </target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
-				<target>킥스타트 변수를 사용하여 킥스타트 프로파일로 값을 대체할 수 있습니다. 변수를 정의하려면 'name=value'를 아래의 란에 추가합니다.  
+				<target>킥스타트 변수를 사용하여 킥스타트 프로파일로 값을 대체할 수 있습니다. 변수를 정의하려면 'name=value'를 아래의 란에 추가합니다.
         			그 후 프로파일에 $name을 사용하여 값을 대체할 수 있습니다.  </target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
@@ -7149,12 +7149,12 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;알림:&lt;/strong&gt; 가상화 유형을 변경하면 킥스타트 프로파일의
  부트로더 및 파티션 옵션을 변경해야 할 수 도 있으므로, 사용자 정의 내용을 덮어쓰기합니다.
-&lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;파티션&lt;/a&gt; 
+&lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;파티션&lt;/a&gt;
  탭을 선택하여 새 설정 사항을 확인하십시오.   </target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -7649,10 +7649,10 @@ kickstart pre scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linu
 You can also edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, esystem registration to @@PRODUCT_NAME@@).
 Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to
 the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
-				<target>이 킥스타트의 사전 설치 스크립트와 사후 설치 스크립트를 아래에서 수정하실 수 있습니다.킥스타트 사전 설치 스크립트는 시스템 상에서 킥스타트 파일이 읽혀진 이후 즉시 실행됩니다.  
+				<target>이 킥스타트의 사전 설치 스크립트와 사후 설치 스크립트를 아래에서 수정하실 수 있습니다.킥스타트 사전 설치 스크립트는 시스템 상에서 킥스타트 파일이 읽혀진 이후 즉시 실행됩니다.
 이 부분에서 네트워크 접속이 가능하지만, IP 주소를 사용하셔야만 합니다 (이 시점에서는 아직 name 서비스가 설정되지 않았기 때문입니다).  킥스타트 사전 설치 스크립트에 대한 보다 상세한 정보는 &lt;strong&gt;Red Hat Enterprise Linux 시스템 관리 가이드&lt;/strong&gt;에서 참조하시기 바랍니다.
 &lt;br/&gt;&lt;br/&gt;
-아래에서 이 킥스타트의 사후 설치 스크립트도 수정하실 수 있습니다.  우선 @@PRODUCT_NAME@@과 관련된 명령이 자동으로 실행될 것입니다 (예, @@PRODUCT_NAME@@에 시스템 등록).  
+아래에서 이 킥스타트의 사후 설치 스크립트도 수정하실 수 있습니다.  우선 @@PRODUCT_NAME@@과 관련된 명령이 자동으로 실행될 것입니다 (예, @@PRODUCT_NAME@@에 시스템 등록).
 다음으로 비-chroot 사후 설치 스크립트가 실행되고, 마지막으로 사후 설치 스크립트가 실행됩니다.  킥스타트 사후 설치 스크립트와 관련된 보다 자세한 정보는 &lt;strong&gt;Red Hat Enterprise Linux 시스템 관리 가이드&lt;/strong&gt;에서 참조하시기 바랍니다.  </target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.langheader">
@@ -11773,7 +11773,7 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<source>Packages listed below may be removed from one or more systems.
 
              Select one or more and click the &lt;b&gt;Remove Selected Packages&lt;/b&gt; button to schedule package removal.</source>
-				<target>아래의 패키지를 1 개 이상의 시스템에서 삭제할 수있습니다. 
+				<target>아래의 패키지를 1 개 이상의 시스템에서 삭제할 수있습니다.
 
              1 개 이상의 패키지를 선택하고 &lt;b&gt;선택한 패키지 삭제&lt;/b&gt; 버튼을 클릭하여 패키지 제거를 스케줄합니다. </target>
 			</trans-unit>
@@ -11845,7 +11845,7 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<source>Packages listed below may be removed from one or more systems.
 
             Select one or more and click the &lt;b&gt;Verify Selected Packages&lt;/b&gt; button to schedule package removal.</source>
-				<target>아래의 패키지를 1 개 이상의 시스템에서 삭제할 수 있습니다. 
+				<target>아래의 패키지를 1 개 이상의 시스템에서 삭제할 수 있습니다.
 
              1 개 이상의 패키지를 선택하고 &lt;b&gt;선택한 패키지 확인&lt;/b&gt; 버튼을 클릭하여 패키지 제거를 스케줄합니다.  </target>
 			</trans-unit>
@@ -11904,9 +11904,9 @@ below.  &lt;strong&gt;Note&lt;/strong&gt;: This list will
 only show package profiles that were made against the same
 Base Channel chosen on the
 &lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;Operating System&lt;/a&gt; page.</source>
-				<target>아래에서 패키지 프로파일을 선택하여, 킥스타트 중인 시스템을 @@PRODUCT_NAME@@에 등록된 
-시스템의 패키지 프로파일에 동기화시킬 수 있습니다.  &lt;strong&gt;알림&lt;/strong&gt;: 이 목록은 
-&lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;운영 체제&lt;/a&gt; 페이지에서 
+				<target>아래에서 패키지 프로파일을 선택하여, 킥스타트 중인 시스템을 @@PRODUCT_NAME@@에 등록된
+시스템의 패키지 프로파일에 동기화시킬 수 있습니다.  &lt;strong&gt;알림&lt;/strong&gt;: 이 목록은
+&lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;운영 체제&lt;/a&gt; 페이지에서
 선택된 동일한 기본 채널에 대해 생성된 패키지 프로파일만 보여줍니다.  </target>
 			</trans-unit>
 			<trans-unit id="kickstart.packageprofiles.jsp.tip">
@@ -11915,7 +11915,7 @@ Make sure you subscribe systems to the appropriate software channels during kick
 so they have access to the packages in the package profile you sync them to.  Visit
 the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Keys&lt;/a&gt;
  tab to subscribe systems to software channels during kickstart.&lt;/span&gt;</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;힌트:&lt;/strong&gt; 
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;힌트:&lt;/strong&gt;
 킥스타트 과정에서 시스템을 적절한 소프트웨어 채널에 서브스크라이브하셔야,
 동기화하신 패키지 프로파일에 있는 패키지를 이용할 수 있습니다.
 킥스타트 과정에서 소프트웨어 채널에 시스템을 서브스크라이브하시려면
@@ -12400,14 +12400,14 @@ the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
 need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
 performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;</source>
 				<target> &lt;strong&gt;킥스타트 RPM을 찾을 수 없습니다. 이 RPM은 지원되는 부모 채널의
-@@PRODUCT_NAME@@ 도구 채널에 위치합니다. 새로운 킥스타트 배포판의 생성 혹은 
-킥스타트를 수행하시기 전에 @@PRODUCT_NAME@@ 도구 채널의 satellite 동기화를 수행하시기 
+@@PRODUCT_NAME@@ 도구 채널에 위치합니다. 새로운 킥스타트 배포판의 생성 혹은
+킥스타트를 수행하시기 전에 @@PRODUCT_NAME@@ 도구 채널의 satellite 동기화를 수행하시기
 바랍니다.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
-				<source> 
+				<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;</source>
-				<target> 
+				<target>
  &lt;strong&gt;선택한 기본 채널에 대해 사용 가능한 설치 프로그램을 찾을 수 없음. &lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.toolbar">
@@ -13104,9 +13104,9 @@ advantages of a registered account. We strive to maintain 100% uptime
 for your @@PRODUCT_NAME@@ service, but must also periodically perform maintenance
 tasks to upgrade functionality, fix reported bugs, and improve
 performance.</source>
-				<target>저희는 @@PRODUCT_NAME@@로의 액세스와 등록된 계정의 혜택을 최우선으로 합니다. 
-사용자의  @@PRODUCT_NAME@@ 서비스에 대한 100% 가동 유지를 위해 노력하고 있으며, 
-지속적으로 기능을 업그레이드하기 위한 작업의 실행은 물론, 버그 수정, 성능 
+				<target>저희는 @@PRODUCT_NAME@@로의 액세스와 등록된 계정의 혜택을 최우선으로 합니다.
+사용자의  @@PRODUCT_NAME@@ 서비스에 대한 100% 가동 유지를 위해 노력하고 있으며,
+지속적으로 기능을 업그레이드하기 위한 작업의 실행은 물론, 버그 수정, 성능
 개선을 위해 노력하고 있습니다.   </target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.scheduled-header">
@@ -13120,10 +13120,10 @@ necessarily use every one of these windows to perform maintenance, we recommend 
 enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
 Red Hat will always attempt to inform at least one week in advance through the email outage
 list (see below) about this scheduled downtime whenever possible.</source>
-				<target>Red Hat은 매주 화요일 9pm에서 3am까지, 미국 동부시로는 (1am-7am UTC)에 
-@@PRODUCT_NAME@@ 관리를 예약합니다. Red Hat은 관리를 위해 모든 윈도우를 
-사용하지 않더라도 사용자의 @@PRODUCT_NAME@@ 솔루션을 위해 서비스 비가동시간을 허용하여 기업 경영을 향상시킬 것을 권장합니다. 
-Red Hat은 최소 1주 전에 Email Outage List (아래 참조) 메일링 리스트를 통하여 
+				<target>Red Hat은 매주 화요일 9pm에서 3am까지, 미국 동부시로는 (1am-7am UTC)에
+@@PRODUCT_NAME@@ 관리를 예약합니다. Red Hat은 관리를 위해 모든 윈도우를
+사용하지 않더라도 사용자의 @@PRODUCT_NAME@@ 솔루션을 위해 서비스 비가동시간을 허용하여 기업 경영을 향상시킬 것을 권장합니다.
+Red Hat은 최소 1주 전에 Email Outage List (아래 참조) 메일링 리스트를 통하여
 스케줄된 서비스 비가동시간에 관해 통보해드립니다.       </target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.unscheduled-header">
@@ -13135,9 +13135,9 @@ Red Hat은 최소 1주 전에 Email Outage List (아래 참조) 메일링 리스
 Network will attempt notification, again through the email outage list
 (see below), at least 12 hours or as soon as possible in advance of
 unscheduled maintenance.</source>
-				<target>스케줄되지 않은 관리 윈도우를 사용하실 수 있으나 많이 사용되지 않습니다. 
-Red Hat Network는 Email Outage List (아래 참조) 메일링 리스트를 통하여, 
-최소한 12시간 이전이나 또는 가능한한 빨리 스케줄되지 않은 관리에 대해 
+				<target>스케줄되지 않은 관리 윈도우를 사용하실 수 있으나 많이 사용되지 않습니다.
+Red Hat Network는 Email Outage List (아래 참조) 메일링 리스트를 통하여,
+최소한 12시간 이전이나 또는 가능한한 빨리 스케줄되지 않은 관리에 대해
 통보해드립니다.</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.emergency-header">
@@ -13162,10 +13162,10 @@ This email list will provide you with periodic updates about our
 scheduled downtime maintenance activities, and will also serve as the
 emailing list that Red Hat will use in the case of Unscheduled and
 Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-				<target>모든 @@PRODUCT_NAME@@ 사용자는 Email Outage List 메일링 리스트 옵션에 가입할 것을 
-권장합니다. 이 메일링 리스트는 스케줄된 서비스 비가동시간에 관해 
-정기적으로 업데이트해 드리며, 스케줄되지 않은 긴급 보수 윈도우와 같은 
-경우가 발생했을 경우 Red Hat은 이러한 메일링 리스트를 사용하여 통보해 
+				<target>모든 @@PRODUCT_NAME@@ 사용자는 Email Outage List 메일링 리스트 옵션에 가입할 것을
+권장합니다. 이 메일링 리스트는 스케줄된 서비스 비가동시간에 관해
+정기적으로 업데이트해 드리며, 스케줄되지 않은 긴급 보수 윈도우와 같은
+경우가 발생했을 경우 Red Hat은 이러한 메일링 리스트를 사용하여 통보해
 드립니다. &lt;a href="{0}"&gt;Email Outage List에 등록합니다&lt;/a&gt;. </target>
 			</trans-unit>
 			<trans-unit id="common.download.channelAlt">
@@ -13308,11 +13308,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.description">
 				<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)</source>
 				<target>
-	아래에서 {0}의 &lt;strong&gt;최신 릴리즈&lt;/strong&gt;에 해당하는 ISO 이미지 세트를 확인해 보시기 바랍니다.  
+	아래에서 {0}의 &lt;strong&gt;최신 릴리즈&lt;/strong&gt;에 해당하는 ISO 이미지 세트를 확인해 보시기 바랍니다.
 	설치하시고자 하는 다양한 {0}에 따라 이 디스켓의 하부 집합만이 필요할 수 있습니다.
     (&lt;a href="{1}"&gt;자세한 정보&lt;/a&gt;)</target>
 			</trans-unit>
@@ -13338,11 +13338,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.note">
 				<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
-&lt;strong&gt;알림:&lt;/strong&gt; {0}를 설치하시려면 설치 번호가 필요합니다.  
+&lt;strong&gt;알림:&lt;/strong&gt; {0}를 설치하시려면 설치 번호가 필요합니다.
 &lt;a href="{1}"&gt;설치 번호가 무엇인지 모르십니까?&lt;/a&gt;
 &lt;a href="{2}"&gt;설치 번호를 찾아보시겠습니까?&lt;/a&gt;</target>
 			</trans-unit>
@@ -13352,10 +13352,10 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.rest.description">
 				<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.</source>
 				<target>
-아래에서 {0}의 &lt;strong&gt;이전 릴리즈&lt;/strong&gt;에 대한 완전한 ISO 이미지 세트를 찾아보시기 바랍니다.  
+아래에서 {0}의 &lt;strong&gt;이전 릴리즈&lt;/strong&gt;에 대한 완전한 ISO 이미지 세트를 찾아보시기 바랍니다.
 {0}의 특정 릴리즈를 설치하려면 한개의 ISO 이미지 세트만 있으면 됩니다.</target>
 			</trans-unit>
 			<trans-unit id="isodownload.viewprevious">
@@ -13881,7 +13881,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
@@ -14887,27 +14887,27 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.</source>
 				<target>이 페이지에서 소프트웨어 채널을 만들거나 편집합니다.
-         &lt;p/&gt; 
+         &lt;p/&gt;
          부모 채널이 'none'으로 설정되어 있을 경우, 채널은 기본 채널이 됩니다.
-         그렇지 않을 경우, 채널은 지정된 채널의 자식 채널이 됩니다. 
-         &lt;p/&gt; 
+         그렇지 않을 경우, 채널은 지정된 채널의 자식 채널이 됩니다.
+         &lt;p/&gt;
          채널 이름 및 레이블이 필요합니다. 채널 이름 및 레이블은 최소 6 자리
           문자로 되어야 합니다. 레이블은 문자로 시작하여야 하며,
           소문자, 하이픈 ('-'), 마침표 ('.'), 밑줄 ('_'), 숫자로만 되어 있어야 합니다.
          채널 이름에는 빈 칸이나 슬래시 ('/')를 사용할 수 있습니다.
-        &lt;p/&gt; 
+        &lt;p/&gt;
          채널 요약 내용도 필요합니다.  </target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
@@ -14922,7 +14922,7 @@ given channel.</source>
 				<source>This channel is &lt;strong&gt;protected&lt;/strong&gt; and may
         only be accessed by specific &lt;a href="{0}"&gt;trusted
         organizations&lt;/a&gt;.</source>
-				<target>이 채널은 &lt;strong&gt;보안&lt;/strong&gt;되므로, 
+				<target>이 채널은 &lt;strong&gt;보안&lt;/strong&gt;되므로,
          특정의 &lt;a href="{0}"&gt;신뢰되는
          조직&lt;/a&gt;만이 액세스할 수 있습니다.  </target>
 			</trans-unit>
@@ -14952,10 +14952,10 @@ given channel.</source>
         this channel may adversely affect those systems. For example, those
         systems may no longer receive critical security updates to content
         provided by this channel.</source>
-				<target>정말로 이 채널을 &lt;strong&gt;비공개&lt;/strong&gt;로 설정하여 
+				<target>정말로 이 채널을 &lt;strong&gt;비공개&lt;/strong&gt;로 설정하여
          조직에 있는 시스템만이 접근할 수 있게 하시겠습니까?
          이 채널이 제공하는 컨텐츠에 등록한 다른 조직에 있는
-         시스템은 다음과 같습니다. 이 채널의 액세스를 제거하면, 
+         시스템은 다음과 같습니다. 이 채널의 액세스를 제거하면,
          채널에 의해 제공되는 컨텐츠에 대해 더이상 중요 보안 업데이트를 받을 수 없게 되는등
          시스템에 악영향을 미칠 수있습니다.  </target>
 			</trans-unit>

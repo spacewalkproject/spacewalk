@@ -1006,7 +1006,7 @@ example: this is a reusable text unit which is used 42 times in other texts.</xs
 					<xsd:documentation>Indicates the text of a variable.</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-	 		<xsd:enumeration value="versioninfo">
+			<xsd:enumeration value="versioninfo">
 				<xsd:annotation>
 					<xsd:documentation>Indicates version information about a resource like VERSIONINFO in Windows.</xsd:documentation>
 				</xsd:annotation>

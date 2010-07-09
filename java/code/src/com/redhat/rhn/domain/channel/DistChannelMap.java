@@ -27,72 +27,72 @@ import java.io.Serializable;
 public class DistChannelMap implements Serializable {
 
     private static final long serialVersionUID = 4083273166300423729L;
-    
+
     private String os;
     private String release;
     private ChannelArch channelArch;
     private Channel channel;
-    
-    /** 
-     * Getter for os 
+
+    /**
+     * Getter for os
      * @return String to get
     */
     public String getOs() {
         return this.os;
     }
 
-    /** 
-     * Setter for os 
+    /**
+     * Setter for os
      * @param osIn to set
     */
     public void setOs(String osIn) {
         this.os = osIn;
     }
 
-    /** 
-     * Getter for release 
+    /**
+     * Getter for release
      * @return String to get
     */
     public String getRelease() {
         return this.release;
     }
 
-    /** 
-     * Setter for release 
+    /**
+     * Setter for release
      * @param releaseIn to set
     */
     public void setRelease(String releaseIn) {
         this.release = releaseIn;
     }
-    
+
     /**
      * @return the channelArch
      */
     public ChannelArch getChannelArch() {
         return channelArch;
     }
-    
+
     /**
      * @param channelArchIn The channelArch to set.
      */
     public void setChannelArch(ChannelArch channelArchIn) {
         this.channelArch = channelArchIn;
     }
-    
+
     /**
      * @return the channel
      */
     public Channel getChannel() {
         return channel;
     }
-    
+
     /**
      * @param channelIn The channel to set.
      */
     public void setChannel(Channel channelIn) {
         this.channel = channelIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -123,5 +123,5 @@ public class DistChannelMap implements Serializable {
                 channel).toString();
     }
 
-    
+
 }

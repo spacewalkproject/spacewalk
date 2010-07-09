@@ -16,7 +16,7 @@
 <div>
 
     <table class="details" width="100%">
-       
+
       <tr>
         <th><bean:message key="package.jsp.description"/>:</th>
         <td>${description}</td>
@@ -26,36 +26,36 @@
         <th><bean:message key="package.jsp.arch"/>:</th>
         <td><c:out value="${pack.packageArch.label}" /></td>
       </tr>
-      
+
       <tr>
         <th><bean:message key="package.jsp.availarch"/>:</th>
         <td>
         	${pack.packageArch.name}
-			<c:forEach items="${packArches}" var="tmpPack">   
+			<c:forEach items="${packArches}" var="tmpPack">
 			  , <a href="/rhn/software/packages/Details.do?pid=${tmpPack.id}">
-			  		${tmpPack.packageArch.name} 
+					${tmpPack.packageArch.name}
 			   </a>
 			</c:forEach>        		
         </td>
-      </tr>      
-       
-      
+      </tr>
+
+
       <tr>
         <th><bean:message key="package.jsp.availfrom"/>:</th>
         <td>
-			<c:forEach items="${pack.channels}" var="channel">   
+			<c:forEach items="${pack.channels}" var="channel">
 			  <a href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">
-			  		${channel.name} 
+					${channel.name}
 			   </a><br>
-			</c:forEach>   
+			</c:forEach>
         </td>
       </tr>
-      
+
       <tr>
         <th><bean:message key="package.jsp.vendor"/>:</th>
         <td><c:out value="${pack.vendor}" /></td>
-      </tr>      
-      
+      </tr>
+
       <tr>
         <th><bean:message key="package.jsp.key"/>:</th>
         <c:if test="${package_key !=  null}">
@@ -75,51 +75,51 @@
       <tr>
         <th><bean:message key="package.jsp.path"/>:</th>
         <td><c:out value="${pack.path}" /></td>
-      </tr>              
-      
+      </tr>
+
       <tr>
         <th><bean:message key="package.jsp.packagesize"/>:</th>
         <td><c:out value="${pack.packageSizeString}" /> </td>
-      </tr>      
-      
-      
-   <!-- Patch stuff -->   
+      </tr>
+
+
+   <!-- Patch stuff -->
    <rhn:require acl="package_type_capable(solaris_patch)"
 		mixins="com.redhat.rhn.common.security.acl.PackageAclHandler">
        <tr>
         <th><bean:message key="package.jsp.solarisrelease"/>:</th>
         <td><c:out value="${pack.solarisRelease}" /></td>
-      </tr>    
-      
+      </tr>
+
        <tr>
         <th><bean:message key="package.jsp.sunosrelease"/>:</th>
         <td><c:out value="${pack.sunosRelease}" /></td>
-      </tr>    
-      
+      </tr>
+
        <tr>
         <th><bean:message key="package.jsp.patchtype"/>:</th>
         <td><c:out value="${pack.patchType.name}" /></td>
-      </tr>          
-       
+      </tr>
+
        <tr>
         <th><bean:message key="package.jsp.patchinfo"/>:</th>
         <td><c:out value="${pack.patchInfo}" /></td>
-      </tr>  
-        	        
+      </tr>
+
       <tr>
         <th><bean:message key="package.jsp.readme"/>:</th>
         <td><a href="<c:out value="${readme_url}" />">
         	<bean:message key="package.jsp.readmedownload"/>
         	</a>
         </td>
-      </tr>           
-  
-  </rhn:require>      
-  
-  
-  
-  
-  <!-- Patch Set stuff -->   
+      </tr>
+
+  </rhn:require>
+
+
+
+
+  <!-- Patch Set stuff -->
   <rhn:require acl="package_type_capable(solaris_patchset)"
 		mixins="com.redhat.rhn.common.security.acl.PackageAclHandler">
       <tr>
@@ -128,49 +128,49 @@
         	<bean:message key="package.jsp.readmedownload"/>
         	</a>
         </td>
-      </tr>               	        
-  
-  
-  </rhn:require>        
-      
-      
-      
-      
-  <!-- RPM stuff -->   
+      </tr>
+
+
+  </rhn:require>
+
+
+
+
+  <!-- RPM stuff -->
   <rhn:require acl="package_type_capable(rpm)"
     mixins="com.redhat.rhn.common.security.acl.PackageAclHandler">
 
 	      <tr>
 	        <th><bean:message key="package.jsp.payloadsize"/>:</th>
 	        <td><c:out value="${pack.payloadSizeString}" /> </td>
-	      </tr>           
-	      
+	      </tr>
+
 	      <tr>
 	        <th><bean:message key="package.jsp.buildhost"/>:</th>
 	        <td><c:out value="${pack.buildHost}" /></td>
-	      </tr>          
-	      
+	      </tr>
+
 	      <tr>
 	        <th><bean:message key="package.jsp.builddate"/>:</th>
 	        <td><c:out value="${pack.buildTime}" /></td>
-	      </tr>             
+	      </tr>
 	
 	      <tr>
 	        <th><bean:message key="package.jsp.license"/>:</th>
 	        <td><c:out value="${pack.copyright}" /></td>
-	      </tr>            
-	      
+	      </tr>
+
 	      <tr>
 	        <th><bean:message key="package.jsp.group"/>:</th>
 	        <td><c:out value="${pack.packageGroup.name}" /> </td>
-	      </tr>                       
+	      </tr>
 	
 	      <tr>
 	        <th><bean:message key="package.jsp.rpmversion"/>:</th>
 	        <td><c:out value="${pack.rpmVersion}" /> </td>
-	      </tr>             
+	      </tr>
       </rhn:require>
-  
+
       <tr>
         <th><bean:message key="package.jsp.download"/>:</th>
         <td>
@@ -178,15 +178,15 @@
         		<a href="${url}">${pack.file}</a> ${pack.packageSizeString}
         	</c:if>
         	<c:if test="${url eq null}">
-        		<div style="font-weight: bold;">  
-        			<bean:message key="package.jsp.missingfile"/>: ${pack.file}</div> 
+			<div style="font-weight: bold;">
+				<bean:message key="package.jsp.missingfile"/>: ${pack.file}</div>
         	    </div>
-        	</c:if>       
+		</c:if>
         	
         </td>
-      </tr>          
-      
-      
+      </tr>
+
+
       <tr>
       	<th>
       	  <bean:message key="package.jsp.source"/>:
@@ -196,14 +196,14 @@
 			<a href="${srpm_url}">${srpm_path}</a>
         	</c:if>
         	<c:if test="${srpm_url eq null}">
-        		<div style="font-weight: bold;">  
+			<div style="font-weight: bold;">
         			<bean:message key="package.jsp.unavailable"/>
         		</div>	
         	</c:if>          	
       	</td>
      </tr>
-    		   
-    
+
+
 </div>
 
 </body>

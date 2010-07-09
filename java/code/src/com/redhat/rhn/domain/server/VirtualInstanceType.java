@@ -24,7 +24,7 @@ import com.redhat.rhn.domain.Label;
  * @version $Rev$
  */
 public class VirtualInstanceType extends Label {
-    
+
     VirtualInstanceType() {
     }
 

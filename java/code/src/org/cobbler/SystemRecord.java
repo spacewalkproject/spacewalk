@@ -43,19 +43,19 @@ public class SystemRecord extends CobblerObject {
     public static final String REDHAT_MGMT_SERVER = "redhat_management_server";
     private static final String SET_INTERFACES = "modify_interface";
     private static final String GET_INTERFACES = "interface";
-    
+
     private SystemRecord(CobblerConnection clientIn) {
         client = clientIn;
     }
 
     /**
-     * Create a new system record in cobbler 
+     * Create a new system record in cobbler
      * @param client the xmlrpc client
      * @param name the system record name
      * @param profile the profile to be associated to this system
      * @return the newly created system record
      */
-    public static SystemRecord create(CobblerConnection client, 
+    public static SystemRecord create(CobblerConnection client,
                                 String name,
                                 Profile profile) {
         SystemRecord sys = new SystemRecord(client);
@@ -79,13 +79,13 @@ public class SystemRecord extends CobblerObject {
 
     /**
      *  Returns the system matching the given uid or null
-     * @param client client the xmlrpc client  
+     * @param client client the xmlrpc client
      * @param id the uid of the system record
      * @return the system record matching the given uid or null
      */
     public static SystemRecord lookupById(CobblerConnection client, String id) {
         return handleLookup(client, lookupDataMapById(client, id, "find_system"));
-    }    
+    }
 
     /**
      * List all SystemRecords associated with a particular profile
@@ -113,18 +113,18 @@ public class SystemRecord extends CobblerObject {
             return sys;
         }
         return null;
-    }    
-    
+    }
+
     /**
-     * Returns a list of available systems 
+     * Returns a list of available systems
      * @param connection the cobbler connection
      * @return a list of systems.
      */
     public static List<SystemRecord> list(CobblerConnection connection) {
         List <SystemRecord> systems = new LinkedList<SystemRecord>();
-        List <Map<String, Object >> cSystems = (List <Map<String, Object >>) 
+        List <Map<String, Object >> cSystems = (List <Map<String, Object >>)
                                         connection.invokeMethod("get_systems");
-        
+
         for (Map<String, Object> sysMap : cSystems) {
             SystemRecord sys = new SystemRecord(connection);
             sys.dataMap = sysMap;
@@ -137,35 +137,35 @@ public class SystemRecord extends CobblerObject {
     /**
      * Returns a list of available systems minus the excludes list
      * @param connection the cobbler connection
-     * @param excludes a list of cobbler ids to file on 
+     * @param excludes a list of cobbler ids to file on
      * @return a list of systems.
      */
     public static List<SystemRecord> list(CobblerConnection connection,
                                 Set<String> excludes) {
         List <SystemRecord> systems = new LinkedList<SystemRecord>();
-        List <Map<String, Object >> cSystems = (List <Map<String, Object >>) 
+        List <Map<String, Object >> cSystems = (List <Map<String, Object >>)
                                         connection.invokeMethod("get_systems");
-        
+
         for (Map<String, Object> sysMap : cSystems) {
             SystemRecord sys = new SystemRecord(connection);
             sys.dataMap = sysMap;
             if (!excludes.contains(sys.getId())) {
-                systems.add(sys);    
+                systems.add(sys);
             }
         }
         return systems;
     }
-    
+
     @Override
     protected String invokeGetHandle() {
         return (String)client.invokeTokenMethod("get_system_handle", this.getName());
     }
-    
+
     @Override
     protected void invokeModify(String key, Object value) {
         client.invokeTokenMethod("modify_system", getHandle(), key, value);
     }
-    
+
     /**
      * calls save_system to complete the commit
      */
@@ -181,7 +181,7 @@ public class SystemRecord extends CobblerObject {
     protected boolean invokeRemove() {
         return (Boolean) client.invokeTokenMethod("remove_system", getName());
     }
-    
+
     /**
      * reloads the kickstart system.
      */
@@ -198,8 +198,8 @@ public class SystemRecord extends CobblerObject {
     @Override
     protected void invokeRename(String newNameIn) {
         client.invokeTokenMethod("rename_system", getHandle(), newNameIn);
-    }    
-    
+    }
+
     /**
 
 
@@ -261,7 +261,7 @@ public class SystemRecord extends CobblerObject {
          return Boolean.TRUE.toString().
              equalsIgnoreCase((String.valueOf(dataMap.get(NETBOOT_ENABLED))));
      }
- 
+
       /**
       * @param virtBridgeIn the VirtBridge
       */
@@ -318,7 +318,7 @@ public class SystemRecord extends CobblerObject {
       public void  setNameServers(List<String> nameServersIn) {
           modify(NAME_SERVERS, nameServersIn);
       }
-   
+
       /**
        * @param gateway the Gateway
        */
@@ -341,7 +341,7 @@ public class SystemRecord extends CobblerObject {
       }
 
       /**
-       * Associates a profile to this system record 
+       * Associates a profile to this system record
        * @param profileName the name of the profile
        */
       public void  setProfile(String profileName) {

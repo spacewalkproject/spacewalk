@@ -40,17 +40,17 @@ import java.util.Vector;
  * @version $Rev$
  */
 public class LookupExceptionHandlerTest extends MockObjectTestCase {
-    
+
     private TraceBackAction tba;
-    
+
     public void setUp() {
         tba = new TraceBackAction();
         MessageQueue.registerAction(tba, TraceBackEvent.class);
         MessageQueue.startMessaging();
     }
-    
+
     public void testExecute() throws Exception {
-        
+
         /*
          * Turn off logging and tracebacks
          * Logging complains and sends warnings (expected)
@@ -86,7 +86,7 @@ public class LookupExceptionHandlerTest extends MockObjectTestCase {
                     .proxy(), form, request, response);
             assertEquals(ex, request.getAttribute("error"));
             mapping.verify();
-        } 
+        }
         finally {
             //Turn tracebacks and logging back on
             Thread.sleep(1000); //wait for message to be sent
@@ -94,10 +94,10 @@ public class LookupExceptionHandlerTest extends MockObjectTestCase {
             log.setLevel(orig);
         }
     }
-    
+
     protected void tearDown() {
         MessageQueue.stopMessaging();
         MessageQueue.deRegisterAction(tba, TraceBackEvent.class);
     }
-    
+
 }

@@ -32,17 +32,17 @@ public class CustomDataValueTest extends RhnBaseTestCase {
     public void testCustomDataValue() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         Server server = ServerFactoryTest.createTestServer(user);
-        
+
         CustomDataKey key = CustomDataKeyTest.createTestCustomDataKey(user);
-        CustomDataValue val = createTestCustomDataValue(user, key, server);   
-        
+        CustomDataValue val = createTestCustomDataValue(user, key, server);
+
         CustomDataValue val2 = server.getCustomDataValue(key);
-        
+
         assertNotNull(val2);
         assertEquals(val.getValue(), val2.getValue());
         assertEquals(val.getCreator(), val2.getCreator());
         assertEquals(val.getKey(), val2.getKey());
-        
+
         CustomDataValue val3 = server.getCustomDataValue(null);
         assertNull(val3);
         //try an undefined key
@@ -50,7 +50,7 @@ public class CustomDataValueTest extends RhnBaseTestCase {
         val3 = server.getCustomDataValue(key2);
         assertNull(val3);
     }
-    
+
     public static CustomDataValue createTestCustomDataValue(User user,
             CustomDataKey key, Server server) {
         CustomDataValue val = new CustomDataValue();
@@ -58,9 +58,9 @@ public class CustomDataValueTest extends RhnBaseTestCase {
         val.setKey(key);
         val.setServer(server);
         val.setValue("Test value");
-        
+
         TestUtils.saveAndFlush(val);
-        
+
         return val;
     }
 }

@@ -18,26 +18,26 @@
 	         width = "100%"
 	         filter="com.redhat.rhn.frontend.action.configuration.ConfigChannelFilter"
 	         >
-	    <rl:selectablecolumn value="${current.selectionKey}" 
-	    					selected="${current.selected}" 
+	    <rl:selectablecolumn value="${current.selectionKey}"
+						selected="${current.selected}"
 	    					styleclass="first-column"/>
 	    					
 		<!-- Channel name column -->
-		<rl:column sortable="true" 
-		           headerkey="sdc.config.subscriptions.jsp.channel" 
+		<rl:column sortable="true"
+		           headerkey="sdc.config.subscriptions.jsp.channel"
 		           sortattr="name">
-            	<cfg:channel id = "${current.id}" 
-            					name = "${current.name}" 
+		<cfg:channel id = "${current.id}"
+						name = "${current.name}"
             					type = "central"/>
 		</rl:column>
 		
 		<rl:column bound="true"
-		           headerkey="copy2channels.jsp.total_systems" 
+		           headerkey="copy2channels.jsp.total_systems"
 		           attr="systemCountString"
 		           />
 
 		<rl:column bound="true"
-		           headerkey="sdc.config.subscriptions.jsp.files" 
+		           headerkey="sdc.config.subscriptions.jsp.files"
 		           attr="filesAndDirsDisplayString"
 		           styleclass="last-column"
 		           />
@@ -58,4 +58,3 @@
 <p><bean:message key="copy2channels.jsp.noChannels"/></p>
 </c:otherwise>
 </c:choose>
-	  

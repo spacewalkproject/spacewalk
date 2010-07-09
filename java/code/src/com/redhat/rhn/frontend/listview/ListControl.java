@@ -36,7 +36,7 @@ public class ListControl {
     private String filterData;
     private boolean filter;
     private ResultsFilter customFilter;
-    
+
     /**
      * Determine if this list should have an indexData
      * @return True if an indexData is desired
@@ -44,7 +44,7 @@ public class ListControl {
     public boolean hasIndex() {
         return indexData;
     }
-    
+
     /**
      * Set if this list should have an indexData
      * @param abar True if an indexData is desired
@@ -52,21 +52,21 @@ public class ListControl {
     public void setIndexData(boolean abar) {
         this.indexData = abar;
     }
-    
+
     /** Determine if this list should have a filter box
      * @return True if filter box is desired
      */
     public boolean hasFilter() {
         return filter;
     }
-    
+
     /** Set if this list should have a filter box
      * @param filterIn True if filtering is desired
      */
     public void setFilter(boolean filterIn) {
         this.filter = filterIn;
     }
-    
+
     /**
      * Get the column on which to filter
      * @return Returns the filterColumn.
@@ -74,7 +74,7 @@ public class ListControl {
     public String getFilterColumn() {
         return filterColumn;
     }
-    
+
     /**
      * Set the column on which to filter
      * @param fColumn The column on which to filter.
@@ -82,7 +82,7 @@ public class ListControl {
     public void setFilterColumn(String fColumn) {
         this.filterColumn = fColumn;
     }
-    
+
     /**
      * Get the data to filter for
      * @return Returns the filterData.
@@ -90,7 +90,7 @@ public class ListControl {
     public String getFilterData() {
         return filterData;
     }
-    
+
     /**
      * set the data to filter for
      * @param fData The to filter for.
@@ -98,15 +98,15 @@ public class ListControl {
     public void setFilterData(String fData) {
         this.filterData = fData;
     }
-    
-    /** 
+
+    /**
      * set the ListFilter object to use in filtering the data results
      * @param filterIn filter to use
      */
     public void setCustomFilter(ResultsFilter filterIn) {
         customFilter = filterIn;
     }
-    
+
     /**
      * Create index on the DataResult dr
      * @param dr DataResult to create index on
@@ -122,7 +122,7 @@ public class ListControl {
         int i = 0;
         while (di.hasNext()) {
             Object inputRow = di.next();
-            String value = (String)MethodUtil.callMethod(inputRow, 
+            String value = (String)MethodUtil.callMethod(inputRow,
                                                 StringUtil.beanify("get " + filterColumn),
                                                 new Object[0]);
             /* Filter the data if necessary
@@ -151,7 +151,7 @@ public class ListControl {
      */
     public void filterData(DataResult dr) {
         Iterator di;
-        
+
         if (customFilter == null) {
            Matcher matcher = Matcher.DEFAULT_MATCHER;
            di = dr.iterator();
@@ -159,13 +159,13 @@ public class ListControl {
                 if (!matcher.include(di.next(), filterData, filterColumn)) {
                     di.remove();
                 }
-            }  
+            }
         }
         else {
             customFilter.filterData(dr, filterData, filterColumn);
         }
 
-        
+
         dr.setFilter(filter);
         dr.setFilterData(filterData);
     }

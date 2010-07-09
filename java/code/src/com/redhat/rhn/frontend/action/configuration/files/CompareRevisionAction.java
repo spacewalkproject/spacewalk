@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class CompareRevisionAction extends BaseListAction {
-    
+
     protected void processRequestAttributes(RequestContext rctxIn) {
         ConfigActionHelper.processRequestAttributes(rctxIn);
     }
@@ -42,12 +42,12 @@ public class CompareRevisionAction extends BaseListAction {
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
         HttpServletRequest request = rctxIn.getRequest();
         User user = rctxIn.getLoggedInUser();
-        
+
         ConfigFile file = ConfigActionHelper.getFile(request);
         ConfigRevision revision = ConfigActionHelper.getRevision(request, file);
-        
+
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listRevisionsForCompare(user, file, revision, pcIn);
     }
-    
+
 }

@@ -22,8 +22,8 @@ import com.redhat.rhn.domain.action.ActionFormatter;
  * @version $Rev$
  */
 public class ScriptAction extends Action {
-    
-    private ScriptActionDetails scriptActionDetails; 
+
+    private ScriptActionDetails scriptActionDetails;
 
     /**
      * @return Returns the scriptActionDetails.
@@ -38,12 +38,12 @@ public class ScriptAction extends Action {
         scriptActionDetailsIn.setParentAction(this);
         scriptActionDetails = scriptActionDetailsIn;
     }
-    
-    
+
+
     /**
      * Get the Formatter for this class but in this case we use
      * ScriptActionFormatter.
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionFormatter getFormatter() {
@@ -52,5 +52,5 @@ public class ScriptAction extends Action {
         }
         return formatter;
     }
-    
+
 }

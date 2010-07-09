@@ -33,14 +33,14 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
  * @version $Rev$
  */
 public class RegisteredSetupActionTest extends RhnMockStrutsTestCase {
-    
+
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/Registered");
         user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
-    
+
     public void testExecute() throws Exception {
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
@@ -48,11 +48,11 @@ public class RegisteredSetupActionTest extends RhnMockStrutsTestCase {
                 .createTestServerGroup(user.getOrg(), null);
         SystemManager.addServerToServerGroup(server, group);
         ServerFactory.save(server);
-        
+
         for (int j = 0; j < RegisteredSetupAction.OPTIONS.length; ++j) {
             request.addParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
             request.addParameter("threshold", RegisteredSetupAction.OPTIONS[j]);
-            
+
             actionPerform();
             DataResult dr = (DataResult) request.getAttribute("pageList");
             assertNotNull(dr);

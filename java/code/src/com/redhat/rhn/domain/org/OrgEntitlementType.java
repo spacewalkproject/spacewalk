@@ -32,7 +32,7 @@ public class OrgEntitlementType extends BaseDomainHelper {
      */
     public OrgEntitlementType() {
     }
-   
+
     /**
      * Constructs an OrgEntitlementType by label and id.
      * @param labelIn Entitlement label
@@ -50,55 +50,55 @@ public class OrgEntitlementType extends BaseDomainHelper {
     public OrgEntitlementType(String labelIn) {
         label = labelIn;
     }
-    
-    /** 
-    * Getter for id 
+
+    /**
+    * Getter for id
     * @return Long id of this object
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn id to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
-    /** 
-    * Getter for label 
+
+    /**
+    * Getter for label
     * @return String label
     */
     public String getLabel() {
         return this.label;
     }
 
-    /** 
-    * Setter for label 
+    /**
+    * Setter for label
     * @param labelIn new label to set
     */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
 
-    /** 
-    * Getter for name 
+    /**
+    * Getter for name
     * @return String Name of OE
     */
     public String getName() {
         return this.name;
     }
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn new name to set
     */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
-    
+
     /** {@inheritDoc} */
     public String toString() {
         StringBuffer retval = new StringBuffer();
@@ -106,14 +106,14 @@ public class OrgEntitlementType extends BaseDomainHelper {
         retval.append(label);
         return retval.toString();
     }
-    
+
     /** {@inheritDoc} */
     public boolean equals(Object ent) {
         // Compaire based on the label only
         OrgEntitlementType oet = (OrgEntitlementType) ent;
         return (oet.getLabel().equals(label));
     }
-    
+
     /** {@inheritDoc} */
     public int hashCode() {
         return label.hashCode();

@@ -30,11 +30,11 @@ import redstone.xmlrpc.XmlRpcSerializer;
 public class ManagedServerGroupSerializerTest extends MockObjectTestCase {
 
     private XmlRpcSerializer serializer;
-    
+
     public void setUp() {
         serializer = new XmlRpcSerializer();
     }
-    
+
     public void testSerialize() throws Exception {
         ManagedServerGroupSerializer sgs = new ManagedServerGroupSerializer();
         Long id = new Long(10);
@@ -52,7 +52,7 @@ public class ManagedServerGroupSerializerTest extends MockObjectTestCase {
         mockMethod(mock, "getCurrentMembers", currentMembers);
         mockMethod(mock, "getOrg", (Org) mockOrg.proxy());
         ManagedServerGroup sg = (ManagedServerGroup) mock.proxy();
-        
+
         sgs.serialize(sg, output, serializer);
         String out = output.toString();
         assertExists("name", name, out);
@@ -61,32 +61,32 @@ public class ManagedServerGroupSerializerTest extends MockObjectTestCase {
         assertExists(ManagedServerGroupSerializer.CURRENT_MEMBERS, currentMembers, out);
         assertExists("org_id", orgId, out);
     }
-    
+
     /**
-     * Quick method to assert a property is property constructed bean 
+     * Quick method to assert a property is property constructed bean
      * @param map the map obtained by mapifying a bean
-     * @param name the key name 
+     * @param name the key name
      * @param value the  value.
-     */    
-    private void assertExists(String name, 
-                                    Object value, 
+     */
+    private void assertExists(String name,
+                                    Object value,
                                     String beanOut) throws Exception {
-        Writer output = new StringWriter(); 
+        Writer output = new StringWriter();
         serializer.serialize(value, output);
-        
+
         String nameTag = "<name>" + name + "</name>";
         String valueTag = output.toString();
 
         String msg = "Cannot find property with tag [" + nameTag + "]" +
                                 " in bean [" + beanOut + "]";
         assertTrue(msg, beanOut.indexOf(nameTag) > -1);
-        
+
         msg = "Cannot find property value with Value-> [" + valueTag + "]" +
                                                    " in bean [" + beanOut + "]";
-        assertTrue(msg, beanOut.indexOf(valueTag) > -1);            
+        assertTrue(msg, beanOut.indexOf(valueTag) > -1);
 
-    }    
-    
+    }
+
     private void mockMethod(Mock mock, String method, Object value) {
         mock.expects(once())
             .method(method)

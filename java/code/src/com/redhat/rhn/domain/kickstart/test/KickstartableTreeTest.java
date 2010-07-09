@@ -53,7 +53,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
     public static void createKickstartTreeItems() throws Exception {
         createKickstartTreeItems(KICKSTART_TREE_PATH);
     }
-    
+
     public static void createKickstartTreeItems(File basePath) throws Exception {
         //Alright setup things we need for trees
         createDirIfNotExists(basePath);
@@ -63,42 +63,42 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         tree.setBasePath(basePath.getAbsolutePath());
         tree.setOrg(user.getOrg());
         createKickstartTreeItems(tree);
-    }    
-    
+    }
+
     public static void createKickstartTreeItems(KickstartableTree tree) throws Exception {
         createDirIfNotExists(new File(tree.getKernelPath()).getParentFile());
         createDirIfNotExists(new File(tree.getKernelXenPath()).getParentFile());
-        
+
         FileUtils.writeStringToFile("kernel", tree.getKernelPath());
         FileUtils.writeStringToFile("kernel-xen", tree.getKernelXenPath());
 
         createDirIfNotExists(new File(tree.getInitrdPath()).getParentFile());
         createDirIfNotExists(new File(tree.getInitrdXenPath()).getParentFile());
-        
+
         FileUtils.writeStringToFile("initrd", tree.getInitrdPath());
-        FileUtils.writeStringToFile("initrd-xen", tree.getInitrdXenPath());        
+        FileUtils.writeStringToFile("initrd-xen", tree.getInitrdXenPath());
     }
-    
+
     public void testKickstartableTree() throws Exception {
         KickstartableTree k = createTestKickstartableTree();
         assertNotNull(k);
         assertNotNull(k.getId());
-        
+
         KickstartableTree k2 = lookupById(k.getId());
         assertEquals(k2.getLabel(), k.getLabel());
-        
+
         Org o = OrgFactory.lookupById(k2.getOrgId());
-        
+
         KickstartableTree k3 = KickstartFactory.
             lookupKickstartTreeByLabel(k2.getLabel(), o);
         assertEquals(k3.getLabel(), k2.getLabel());
-        
+
         List trees = KickstartFactory.
-            lookupKickstartTreesByChannelAndOrg(k2.getChannel().getId(), o); 
-    
+            lookupKickstartTreesByChannelAndOrg(k2.getChannel().getId(), o);
+
         assertNotNull(trees);
         assertTrue(trees.size() > 0);
-        
+
         KickstartableTree kwithnullorg = createTestKickstartableTree();
         String label = "treewithnullorg: " + TestUtils.randomString();
         kwithnullorg.setLabel(label);
@@ -109,21 +109,21 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         assertNotNull(lookedUp);
         assertNull(lookedUp.getOrgId());
     }
-    
+
     public void testIsRhnTree() throws Exception {
         KickstartableTree k = createTestKickstartableTree();
         assertFalse(k.isRhnTree());
         k.setOrg(null);
         assertTrue(k.isRhnTree());
     }
-    
+
     public void testDownloadLocation() throws Exception {
         KickstartableTree k = createTestKickstartableTree();
         String expected = "/ks/dist/org/" + k.getOrg().getId() + "/" +
                                 k.getLabel();
         assertEquals(expected, k.getDefaultDownloadLocation("localhost"));
     }
-    
+
     public void testKsDataByTree() throws Exception {
         KickstartableTree k = createTestKickstartableTree(
                 ChannelFactoryTest.createTestChannel(user));
@@ -132,13 +132,13 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         ksdata.getKickstartDefaults().setKstree(k);
         KickstartFactory.saveKickstartData(ksdata);
         flushAndEvict(ksdata);
-        
+
         List profiles = KickstartFactory.lookupKickstartDatasByTree(k);
         assertNotNull(profiles);
         assertTrue(profiles.size() > 0);
     }
-    
-    
+
+
     /**
      * Helper method to lookup KickstartableTree by id
      * @param id Id to lookup
@@ -151,7 +151,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
                           .setString("id", id.toString())
                           .uniqueResult();
     }
-    
+
     /**
      * Creates KickstartableTree for testing purposes.
      * @return Returns a committed KickstartableTree
@@ -162,32 +162,32 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         ChannelTestUtils.addDistMapToChannel(channel);
         return createTestKickstartableTree(channel);
     }
-    
+
     /**
      * Creates KickstartableTree for testing purposes.
      * @param treeChannel Channel this Tree uses.
      * @return Returns a committed KickstartableTree
      * @throws Exception
      */
-    public static KickstartableTree 
+    public static KickstartableTree
         createTestKickstartableTree(Channel treeChannel) throws Exception {
         Date created = new Date();
         Date modified = new Date();
         Date lastmodified = new Date();
-        
+
         Long testid = new Long(1);
         String query = "KickstartInstallType.findById";
         KickstartInstallType installtype = (KickstartInstallType)
                                             TestUtils.lookupFromCacheById(testid, query);
-        
+
         query = "KickstartTreeType.findById";
         KickstartTreeType treetype = (KickstartTreeType)
                                      TestUtils.lookupFromCacheById(testid, query);
-   
+
         KickstartableTree k = new KickstartableTree();
-        k.setLabel("ks-" + treeChannel.getLabel() + 
+        k.setLabel("ks-" + treeChannel.getLabel() +
                 RandomStringUtils.randomAlphanumeric(5));
-        
+
         k.setBasePath(KICKSTART_TREE_PATH.getAbsolutePath());
         k.setCreated(created);
         k.setModified(modified);
@@ -198,7 +198,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         k.setChannel(treeChannel);
 
         createKickstartTreeItems(k);
-        
+
         Distro d = Distro.create(CobblerXMLRPCHelper.getConnection("test"),
                 k.getLabel(), k.getKernelPath(), k.getInitrdPath(), new HashMap());
         Distro xend = Distro.create(CobblerXMLRPCHelper.getConnection("test"),
@@ -206,10 +206,10 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
 
         k.setCobblerId(d.getUid());
         k.setCobblerXenId(xend.getUid());
-        
+
         TestUtils.saveAndFlush(k);
-        
-        
+
+
         return k;
     }
 }

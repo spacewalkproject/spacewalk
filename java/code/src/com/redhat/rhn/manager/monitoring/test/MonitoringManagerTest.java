@@ -151,16 +151,16 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
      * Add some test data to the probe
      * @param probeIn to add data to
      */
-    public static Timestamp addTimeSeriesDataToProbe(User userIn, 
+    public static Timestamp addTimeSeriesDataToProbe(User userIn,
             Probe probeIn, int number) {
         return addTimeSeriesDataToProbe(userIn, probeIn, number, TEST_METRIC);
     }
-    
+
     /**
      * Add some test data to the probe
      * @param probeIn to add data to
      */
-    public static Timestamp addTimeSeriesDataToProbe(User userIn, 
+    public static Timestamp addTimeSeriesDataToProbe(User userIn,
             Probe probeIn, int number, String metric) {
         Timestamp entryTime = null;
         for (int i = 0; i < number; i++) {
@@ -170,7 +170,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
             Float rnd = new Float(Math.random() * 10);
             entryTime = new Timestamp(start.getTimeInMillis());
             insertTimeSeriesData(entryTime,
-                    userIn.getOrg().getId(), 
+                    userIn.getOrg().getId(),
                     probeIn.getId(), rnd.toString(), metric);
          }
         // Insert a blank number, since some probe data has NULL data.
@@ -195,7 +195,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         params.put("data", data);
         m.executeUpdate(params);
     }
-    
+
     /**
      * Add an entry in the state_change table for this probe
      * @param probeIn probe we want to add it to
@@ -207,7 +207,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         String dateString = "Nov 1, 2000 6:00 PM";
         return addStateChangeToProbe(probeIn, dateString);
     }
-    
+
     /**
      * Add an entry in the state_change table for this probe
      * @param probeIn probe we want to add it to
@@ -262,7 +262,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         // Make sure we get back an actual DTO object
         assertTrue(scd.get(0) instanceof StateChangeData);
         StateChangeData sc = (StateChangeData) scd.get(0);
-        // Test to make sure we get 2001 because we want the 
+        // Test to make sure we get 2001 because we want the
         // most recent entry first, see BZ: 161950
         assertEquals(sc.getEntryDate(), "11/1/01 6:00:00 PM GMT");
     }
@@ -304,7 +304,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         user.addRole(RoleFactory.MONITORING_ADMIN);
         assertTrue(MonitoringManager.getInstance()
                 .getEditableConfigMacros(user).size() > 0);
-        
+
 
     }
 
@@ -361,13 +361,13 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
             createTestProbe(user, MonitoringConstants.getProbeTypeSuite());
         suite.addProbe(tprobe, user);
         // TODO: Add sat cluster as a param
-        SatCluster satCluster = (SatCluster) 
+        SatCluster satCluster = (SatCluster)
             user.getOrg().getMonitoringScouts().iterator().next();
         MonitoringManager.getInstance().addSystemToProbeSuite(suite, s, satCluster, user);
     }
-    
+
     public void testServersToSuite() throws Exception {
-        
+
         if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
@@ -377,20 +377,20 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         Long orgId = probeSuite.getOrg().getId();
         MonitoringFactory.saveProbeSuite(probeSuite, user);
         flushAndEvict(probeSuite);
-        probeSuite = MonitoringFactory.lookupProbeSuiteByIdAndOrg(psId, 
+        probeSuite = MonitoringFactory.lookupProbeSuiteByIdAndOrg(psId,
                 OrgFactory.lookupById(orgId));
         assertTrue(probeSuite.getProbes().size() == 5);
-        
-        assertEquals("Servers in Suite is not == 5", 
+
+        assertEquals("Servers in Suite is not == 5",
                     5, probeSuite.getServersInSuite().size());
-        
+
         Iterator i = probeSuite.getProbes().iterator();
         while (i.hasNext()) {
             TemplateProbe p = (TemplateProbe) i.next();
-            assertEquals("Servers using ServerProbe not equal 5", 
+            assertEquals("Servers using ServerProbe not equal 5",
                     5, p.getServersUsingProbe().size());
         }
-        
+
         // Test removing a system.
         Server s = (Server) probeSuite.getServersInSuite().iterator().next();
         MonitoringManager.getInstance().removeServerFromSuite(probeSuite, s, user);
@@ -398,7 +398,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         MonitoringFactory.saveProbeSuite(probeSuite, user);
         flushAndEvict(probeSuite);
 
-        probeSuite = MonitoringFactory.lookupProbeSuiteByIdAndOrg(psId, 
+        probeSuite = MonitoringFactory.lookupProbeSuiteByIdAndOrg(psId,
                 OrgFactory.lookupById(orgId));
         assertTrue(probeSuite.getServersInSuite().size() == 4);
 
@@ -415,31 +415,31 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
             return;
         }
         ProbeSuite probeSuite = ProbeSuiteTest.createTestProbeSuite(user);
-        TemplateProbe tprobe = (TemplateProbe) MonitoringFactoryTest.createTestProbe(user, 
+        TemplateProbe tprobe = (TemplateProbe) MonitoringFactoryTest.createTestProbe(user,
                 MonitoringConstants.getProbeTypeSuite());
         probeSuite.addProbe(tprobe, user);
         // Add some servers and their probes
         ProbeSuiteTest.addTestServersToSuite(probeSuite, user);
         MonitoringFactory.saveProbeSuite(probeSuite, user);
         probeSuite = (ProbeSuite) reload(probeSuite);
-        
+
         assertTrue(probeSuite.getServersInSuite().size() == 5);
         Server s = (Server) probeSuite.getServersInSuite().iterator().next();
         MonitoringManager.getInstance().
             detatchServerFromSuite(probeSuite, s, user);
-        
+
         assertTrue(probeSuite.getServersInSuite().size() == 4);
         MonitoringFactory.saveProbeSuite(probeSuite, user);
-        
+
         probeSuite = (ProbeSuite) reload(probeSuite);
         assertTrue(probeSuite.getServersInSuite().size() == 4);
-        
+
         MonitoredServer monS = (MonitoredServer) reload(s);
         assertEquals(6, monS.getProbes().size());
     }
-    
-    
-    
+
+
+
     public void testGetCommands() {
         List commandGroups = MonitoringFactory.loadAllCommandGroups();
         HashSet allGroupNames = groupsToGroupNames(commandGroups);
@@ -457,7 +457,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
             }
         }
     }
-    
+
     public void testGetProbeCountsByState() throws Exception {
         if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
@@ -468,7 +468,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         List critProbes = MonitoringManager.getInstance().
             listProbeCountsByState(user, MonitoringConstants.PROBE_STATE_CRITICAL, null);
         assertTrue("not enough returned: " + critProbes.size(), critProbes.size() >= 1);
-        
+
     }
 
     public void testGetProbesByState() throws Exception {
@@ -487,7 +487,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         ServerProbeDto row = (ServerProbeDto) allprobes.get(0);
         assertNotNull(row.getStateString());
     }
-    
+
     public void testListProbeStateSummary() throws Exception {
         if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
@@ -499,10 +499,10 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
             listProbeStateSummary(user);
         assertTrue("not enough returned: " + states.size(), states.size() >= 1);
     }
-    
-    
+
+
     public static Probe createProbeWithState(User userIn, String stateIn) {
-        
+
         SatCluster sc = (SatCluster)
             userIn.getOrg().getMonitoringScouts().iterator().next();
         Probe p = MonitoringFactoryTest.createTestProbe(userIn);

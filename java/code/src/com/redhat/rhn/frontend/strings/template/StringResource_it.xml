@@ -35,7 +35,7 @@ Questa email è stata inviata per convalidare l'indirizzo email per
  sottoscrizione attiva di Red Hat, fornisce un accesso alle capacità
  di gestione dei sistemi attraverso il @@PRODUCT_NAME@@.
 
-Per garantire la sicurezza delle informazioni relative all'account associate con il suo login 
+Per garantire la sicurezza delle informazioni relative all'account associate con il suo login
 di Red Hat, le suggeriamo di spendere qualche secondo per navigare attraverso
  il link di seguito riportato, e di verificare la correttezza dell'indirizzo email. Non
  confermando il suo indirizzo email,  il login di Red Hat potrebbe essere
@@ -72,7 +72,7 @@ Important: Please change your password upon logging in.
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>Salve,
- 
+
 Un login di Red Hat è stato appena creato per Lei da {0} {1}. Il
  suddetto login,in combinazione con una sottoscrizione attiva di Red Hat,
  le garantisce la possibilità di gestire i sistemi presenti su @@PRODUCT_NAME@@.
@@ -106,7 +106,7 @@ Important: Please change your password upon logging in.
 Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
 				<target>Salve,
- 
+
 Un login di Red Hat è stato appena creato per Lei. Il
  suddetto login,in combinazione con una sottoscrizione attiva di Red Hat,
  le garantisce la possibilità di gestire i sistemi presenti su @@PRODUCT_NAME@@.
@@ -169,7 +169,7 @@ please visit:
 Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
 				<target>Salve,
- 
+
 Un nuovo utente è stato appena aggiunto al vostro account.
 
 {0}
@@ -263,7 +263,7 @@ Red Hat Account Management Team</source>
 				<target>
 Egregio cliente di Red Hat,
 
-Il suo nome è presente all'interno di una ordinazione di nuove sottoscrizioni di Red Hat. 
+Il suo nome è presente all'interno di una ordinazione di nuove sottoscrizioni di Red Hat.
  Le suddette sottoscrizioni sono ora disponibili all'interno del seguente account:
 
   Nome Cliente: {0}
@@ -588,7 +588,7 @@ per il suo login di Red Hat.
 Il suddetto login, in combinazione con una sottoscrizione attiva di Red Hat,
 fornisce un accesso alle capacità di gestione dei sistemi attraverso il @@PRODUCT_NAME@@.
 
-Per garantire la sicurezza delle informazioni relative all'account associate con il suo login 
+Per garantire la sicurezza delle informazioni relative all'account associate con il suo login
 di Red Hat, Le suggeriamo di spendere qualche secondo per navigare attraverso il
 link di seguito riportato, e di verificare la correttezza dell'indirizzo email. Non
 confermando il suo indirizzo email,  il login di Red Hat potrebbe essere
@@ -624,7 +624,7 @@ deactivated.
 Please note that this is a final notice.  If you do not click through
 this URL within the next 2 days, your Red Hat login will deactivated.
 
-To confirm your email address, please visit the following URL: 
+To confirm your email address, please visit the following URL:
 
 {0}
 
@@ -639,7 +639,7 @@ fornito per il suo Red Hat login. Il suddetto login, in combinazione
 con una sottoscrizione attiva di Red Hat, fornisce un accesso alle
 capacità di gestione dei sistemi attraverso il @@PRODUCT_NAME@@.
 
-Per garantire la sicurezza delle informazioni relative all'account associate con il suo login 
+Per garantire la sicurezza delle informazioni relative all'account associate con il suo login
 di Red Hat, Le suggeriamo di spendere qualche secondo per navigare
 attraverso il link di seguito riportato, e di verificare la correttezza dell'indirizzo email.
 Non confermando il suo indirizzo email, il login di Red Hat potrebbe essere
@@ -669,9 +669,9 @@ Grazie per aver usato @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems 
+has expired on your local satellite {0}. After {1} day(s) the systems
 management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information 
+Please contact your regional Red Hat Customer  Service Representative for information
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -680,9 +680,9 @@ Thank you for using @@PRODUCT_NAME@@.
 Egregio utente di @@PRODUCT_NAME@@,
 
 Questa email le è stata recapitata per informarLa che il suo Certificato @@PRODUCT_NAME@@
-sul suo satellite locale  {0} è scaduto. Fra {1} giorno(i) i servizi di gestione del sistema 
+sul suo satellite locale  {0} è scaduto. Fra {1} giorno(i) i servizi di gestione del sistema
 forniti dal suo @@PRODUCT_NAME@@ Server non saranno più accessibili.
-La preghiamo di contattare il suo rappresentante di zona del Red Hat Customer Service per informazioni 
+La preghiamo di contattare il suo rappresentante di zona del Red Hat Customer Service per informazioni
 su come rinnovare il suo Certificato @@PRODUCT_NAME@@.
 
 Grazie per aver scelto @@PRODUCT_NAME@@.
@@ -697,8 +697,8 @@ Grazie per aver scelto @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible 
-until your certificate is renewed. Please contact your regional Red Hat 
+has expired on your local satellite {0}. The system management services will be inaccessible
+until your certificate is renewed. Please contact your regional Red Hat
 Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
@@ -708,7 +708,7 @@ Thank you for using @@PRODUCT_NAME@@.
 Egregio utente di Red Hat Network,
 
 Questa email le è stata recapitata per informarLa che il suo Certificato @@PRODUCT_NAME@@
-sul suo satellite locale {0} è scaduto. I servizi di gestione del sistema non saranno più accessibili 
+sul suo satellite locale {0} è scaduto. I servizi di gestione del sistema non saranno più accessibili
 fino a quando il suo certificato non verrà rinnovato. La preghiamo di contattare il suo
 rappresentante di zona del Red Hat Customer Service, per informazioni su come rinnovare il suo Certificato @@PRODUCT_NAME@@.
 

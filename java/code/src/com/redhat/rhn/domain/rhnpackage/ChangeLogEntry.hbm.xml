@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.rhnpackage.ChangeLogEntry" 
+    <class name="com.redhat.rhn.domain.rhnpackage.ChangeLogEntry"
         table="rhnPackageChangeLog">
         <composite-id unsaved-value="any">
             <key-many-to-one name="rhnPackage"
@@ -13,11 +13,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <key-property name="text" column="text" type="string" length="3000" />
             <key-property name="time" column="time" type="timestamp" />
         </composite-id>
-        
-        <property name="created" column="created" type="timestamp" 
+
+        <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
-            
-        <property name="modified" column="modified" type="timestamp" 
+
+        <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
     </class>
 

@@ -41,20 +41,20 @@ public class ConfigChannelTagTest extends RhnBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         ConfigChannelTag tag = new ConfigChannelTag();
-        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest(); 
-        TagTestHelper tth = TagTestUtils.setupTagTest(tag, 
+        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
+        TagTestHelper tth = TagTestUtils.setupTagTest(tag,
                                         new URL("http://localhost"),
                                         request);
-        tag.setPageContext(tth.getPageContext());        
-    }   
-    
+        tag.setPageContext(tth.getPageContext());
+    }
+
     /** Test tag output for central
      */
     public void testCentral() throws Exception {
 
         String alt = ConfigChannelTag.CENTRAL_ALT_KEY;
         String imgName = ConfigChannelTag.CENTRAL_LIST_ICON;
-        
+
         execTest(0, "bar",
                     ConfigChannelType.global().getLabel(),
                         false, alt, imgName);
@@ -67,7 +67,7 @@ public class ConfigChannelTagTest extends RhnBaseTestCase {
         execTest(-2, "bar2", "gloBal", false, alt, imgName);
         execTest(2, "bar2", "global", true, alt, imgName);
     }
-    
+
     /** Test tag output for central
      */
     public void testLocal() throws Exception {
@@ -89,12 +89,12 @@ public class ConfigChannelTagTest extends RhnBaseTestCase {
                         false, alt, imgName);
         execTest(1, "bar1", "sandbox", false, alt, imgName);
     }
-    
+
     public void testFailure() throws Exception {
 
         ConfigChannelTag tag = new ConfigChannelTag();
-        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest(); 
-        TagTestHelper tth = TagTestUtils.setupTagTest(tag, 
+        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
+        TagTestHelper tth = TagTestUtils.setupTagTest(tag,
                                         new URL("http://localhost"),
                                         request);
         tag.setPageContext(tth.getPageContext());
@@ -113,28 +113,28 @@ public class ConfigChannelTagTest extends RhnBaseTestCase {
         assertTrue(rout.toString().
                 indexOf(ConfigTagHelper.CONFIG_ERROR_IMG) > -1);
     }
-    
-    public void execTest(int id, String name, 
+
+    public void execTest(int id, String name,
                            String type, boolean nolink,
                              String altKey, String imgName) throws Exception {
         ConfigChannelTag tag = new ConfigChannelTag();
-        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest(); 
-        TagTestHelper tth = TagTestUtils.setupTagTest(tag, 
+        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
+        TagTestHelper tth = TagTestUtils.setupTagTest(tag,
                                         new URL("http://localhost"),
                                         request);
         tag.setPageContext(tth.getPageContext());
         if (id >= 0) {
-            tag.setId(String.valueOf(id));    
+            tag.setId(String.valueOf(id));
         }
-        
+
         tag.setName(name);
         tag.setType(type);
         tag.setNolink(String.valueOf(nolink));
-        
+
         // ok let's test the tag
         tth.assertDoStartTag(Tag.SKIP_BODY);
         tth.assertDoEndTag(Tag.SKIP_BODY);
-        
+
         RhnMockJspWriter rout = (RhnMockJspWriter) tth.getPageContext().getOut();
 
         assertTrue(rout.toString().indexOf(name) > -1);
@@ -153,46 +153,46 @@ public class ConfigChannelTagTest extends RhnBaseTestCase {
             assertFalse(rout.toString().startsWith("<a href"));
         }
     }
-    
+
     public void testFunctions() {
-        checkFunctions(ConfigChannelTag.CENTRAL_HEADER_ICON, 
+        checkFunctions(ConfigChannelTag.CENTRAL_HEADER_ICON,
                             ConfigChannelTag.CENTRAL_ALT_KEY,
                             "global");
         //also checking case sensititvity
-        checkFunctions(ConfigChannelTag.CENTRAL_HEADER_ICON, 
+        checkFunctions(ConfigChannelTag.CENTRAL_HEADER_ICON,
                         ConfigChannelTag.CENTRAL_ALT_KEY,
                             "cenTral");
 
-        checkFunctions(ConfigChannelTag.CENTRAL_HEADER_ICON, 
+        checkFunctions(ConfigChannelTag.CENTRAL_HEADER_ICON,
                         ConfigChannelTag.CENTRAL_ALT_KEY,
                    ConfigChannelType.global().getLabel());
-        
-        
 
-        checkFunctions(ConfigChannelTag.LOCAL_HEADER_ICON, 
+
+
+        checkFunctions(ConfigChannelTag.LOCAL_HEADER_ICON,
                         ConfigChannelTag.LOCAL_ALT_KEY,
-                            "local");        
-        
-        
-        checkFunctions(ConfigChannelTag.LOCAL_HEADER_ICON, 
+                            "local");
+
+
+        checkFunctions(ConfigChannelTag.LOCAL_HEADER_ICON,
                 ConfigChannelTag.LOCAL_ALT_KEY,
            ConfigChannelType.local().getLabel());
 
 
-        checkFunctions(ConfigChannelTag.SANDBOX_HEADER_ICON, 
+        checkFunctions(ConfigChannelTag.SANDBOX_HEADER_ICON,
                         ConfigChannelTag.SANDBOX_ALT_KEY,
-                            "sandbox");        
-        
-        
-        checkFunctions(ConfigChannelTag.SANDBOX_HEADER_ICON, 
+                            "sandbox");
+
+
+        checkFunctions(ConfigChannelTag.SANDBOX_HEADER_ICON,
                 ConfigChannelTag.SANDBOX_ALT_KEY,
            ConfigChannelType.sandbox().getLabel());
-        
+
         String url = ConfigChannelTag.makeConfigChannelUrl("" + 1);
         assertTrue(url.indexOf("ccid=1") > -1);
         assertTrue(url.startsWith(ConfigChannelTag.CHANNEL_URL));
     }
-    
+
     private void checkFunctions(String icon, String altKey, String type) {
         assertEquals(altKey, ConfigChannelTag.getAltKeyFor(type));
         assertEquals(icon, ConfigChannelTag.getHeaderIconFor(type));

@@ -39,8 +39,8 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class SubscriptionsSubmitAction extends BaseSetOperateOnSelectedItemsAction {
-    
-    public static final String CONTINUE_ACTION = 
+
+    public static final String CONTINUE_ACTION =
                                         "sdc.config.subscriptions.jsp.continue";
     public static final String WIZARD_MODE = "wizard_mode";
     /**
@@ -58,7 +58,7 @@ public class SubscriptionsSubmitAction extends BaseSetOperateOnSelectedItemsActi
         RequestContext context = new RequestContext(request);
         ConfigurationManager cm = ConfigurationManager.getInstance();
         Server server = context.lookupAndBindServer();
-        return cm.listGlobalChannelsForSystemSubscriptions(server, user, null);        
+        return cm.listGlobalChannelsForSystemSubscriptions(server, user, null);
     }
 
     /**
@@ -69,16 +69,16 @@ public class SubscriptionsSubmitAction extends BaseSetOperateOnSelectedItemsActi
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected ActionMessage getNoScriptMessage() {
        return new ActionMessage(
-               "common.config.subscription.jsp.error.nojavascript"); 
+               "common.config.subscription.jsp.error.nojavascript");
     }
-    
+
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -99,8 +99,8 @@ public class SubscriptionsSubmitAction extends BaseSetOperateOnSelectedItemsActi
        if (!context.isJavaScriptEnabled()) {
            return handleNoScript(mapping, formIn, request, response);
        }
-       
-       Server server = context.lookupAndBindServer();       
+
+       Server server = context.lookupAndBindServer();
         //Map params = makeParamMap(formIn, request);
         Map params2 = new HashMap();
         params2.put(RequestContext.SID, server.getId().toString());
@@ -109,10 +109,10 @@ public class SubscriptionsSubmitAction extends BaseSetOperateOnSelectedItemsActi
                                                                         params2);
     }
 
-    protected void processParamMap(ActionForm form, 
+    protected void processParamMap(ActionForm form,
                                     HttpServletRequest request, Map params) {
         RequestContext  context = new RequestContext(request);
-        params.put(RequestContext.SID, 
+        params.put(RequestContext.SID,
                         context.lookupAndBindServer().getId().toString());
-    }    
+    }
 }

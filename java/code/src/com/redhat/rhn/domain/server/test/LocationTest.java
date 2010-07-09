@@ -31,7 +31,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class LocationTest extends RhnBaseTestCase {
-    
+
     public static final String MACHINE = "Skyrunner";
     public static final String RACK = "Test Rack";
     public static final String ROOM = "Lobby";
@@ -41,21 +41,21 @@ public class LocationTest extends RhnBaseTestCase {
     public static final String CITY = "Raleigh";
     public static final String STATE = "NC";
     public static final String COUNTRY = "USA";
-    
+
     public void testLocation() throws Exception {
         Location loc1 = createTestLocation();
         Location loc2 = new Location();
-        
+
         assertFalse(loc1.equals(loc2));
         assertFalse(loc1.equals(new Date()));
-        
+
         Session session = HibernateFactory.getSession();
         loc2 = (Location) session.getNamedQuery("Location.findById")
                                       .setLong("id", loc1.getId().longValue())
                                       .uniqueResult();
         assertEquals(loc1, loc2);
     }
-    
+
     public static Location createTestLocation() throws Exception {
         Location loc = new Location();
         loc.setMachine(MACHINE);
@@ -67,16 +67,16 @@ public class LocationTest extends RhnBaseTestCase {
         loc.setCity(CITY);
         loc.setCity(STATE);
         loc.setCity(COUNTRY);
-        
+
         User user = UserTestUtils.createUser("testuser",
                 UserTestUtils.createOrg("testorg"));
         Server s = ServerFactoryTest.createTestServer(user);
         loc.setServer(s);
-        
+
         assertNull(loc.getId());
         TestUtils.saveAndFlush(loc);
         assertNotNull(loc.getId());
-        
+
         return loc;
     }
 

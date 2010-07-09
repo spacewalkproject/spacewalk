@@ -67,7 +67,7 @@
             <label for="proxy_password_confirm"><bean:message key="general.jsp.proxy_password_confirm"/></label>
         </th>
         <td>
-            <html:password property="server|satellite|http_proxy_password_confirm" 
+            <html:password property="server|satellite|http_proxy_password_confirm"
             size="32" styleId="proxy_password_confirm" />
         </td>
     </tr>

@@ -51,7 +51,7 @@ public class ListTagUtil {
                                                 "name=\"%s\" value=\"%s\"/>";
     private static final String IE_MAGIC_SNIPPET = "<!--[if IE]><input type=\"text\" " +
             "style=\"display: none;\" disabled=\"disabled\" size=\"1\" /><![endif]-->";
-    
+
     private ListTagUtil() {
 
     }
@@ -226,7 +226,7 @@ public class ListTagUtil {
             String listName, String attrName, String sortDir) {
         String sortById = ListTagUtil.makeSortById(listName);
         String sortDirId = ListTagUtil.makeSortDirId(listName);
-        
+
         String js = "sortColumn('%s', '%s', '%s', '%s')";
         if (StringUtils.isBlank(sortDir)) {
             sortDir = RequestContext.SORT_ASC;
@@ -237,10 +237,10 @@ public class ListTagUtil {
         else {
             sortDir = RequestContext.SORT_ASC;
         }
-        
+
         return String.format(js, sortById, attrName, sortDirId, sortDir);
     }
-    
+
     /**
      * provides the sort direction url key
      * @param listName the name of the list
@@ -275,8 +275,8 @@ public class ListTagUtil {
      */
     public static String makeSortById(String listName) {
         return "list_" + listName + "_sortby_id";
-    }    
-    
+    }
+
     /**
      * provides the filter label (what to sort by) url key
      * @param listName the list name
@@ -312,8 +312,8 @@ public class ListTagUtil {
     public static String makeFilterSearchChildLabel(String listName) {
         return "list_" + listName + "_search_child";
     }
-    
-    
+
+
     /**
      * provides the filter label (what to sort by) url key
      * @param listName the list name
@@ -333,7 +333,7 @@ public class ListTagUtil {
         return "list_" + listName + "_filterattr";
     }
 
-    
+
     /**
      * provides the filter name (the name value for the go button on the filter box)
      * @param listName the list name
@@ -598,7 +598,7 @@ public class ListTagUtil {
             }
         }
     }
-    
+
     /**
      * Returns the name of the attribute that holds the  parent is an element
      * value (used by list tag)
@@ -607,7 +607,7 @@ public class ListTagUtil {
      */
     public static String makeParentIsAnElementLabel(String listName) {
         return "list_" + listName + "_parent_is_an_element";
-    }    
+    }
 
     /**
      * Renders the filter UI
@@ -621,7 +621,7 @@ public class ListTagUtil {
      * @throws JspException if something bad happens writing to the page
      */
     public static void renderFilterUI(PageContext pageContext, ListFilter filter,
-            String uniqueName, String width, int columnCount, 
+            String uniqueName, String width, int columnCount,
              boolean searchParent, boolean searchChild) throws JspException {
         LocalizationService ls = LocalizationService.getInstance();
         HttpServletRequest request = (HttpServletRequest) pageContext
@@ -632,13 +632,13 @@ public class ListTagUtil {
         String filterName = makeFilterNameByLabel(uniqueName);
         String filterValue =  ListTagHelper.getFilterValue(pageContext.getRequest(),
                 uniqueName);
-        
-        
+
+
         //We set this so we know next time around what the old filter value was
         ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
                         makeOldFilterValueByLabel(uniqueName), filterValue));
 
-        
+
         ListTagUtil.write(pageContext, "<td");
         ListTagUtil.write(pageContext, " align=\"left\">");
         List fields = filter.getFieldNames();
@@ -684,7 +684,7 @@ public class ListTagUtil {
             ListTagUtil.write(pageContext, filterValue);
         }
         ListTagUtil.write(pageContext, "\" />");
-        
+
         ListTagUtil.write(pageContext, IE_MAGIC_SNIPPET);
         ListTagUtil.write(pageContext,
                 "&nbsp;&nbsp;&nbsp;<input type=\"submit\"" +  "name=\""  +

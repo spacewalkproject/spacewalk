@@ -24,7 +24,7 @@ public class Capability {
     private String name;
 
     /**
-     * 
+     *
      */
     public Capability() {
         super();
@@ -36,21 +36,21 @@ public class Capability {
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */

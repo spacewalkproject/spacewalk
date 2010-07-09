@@ -37,7 +37,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class EnableConfirmSetupActionTest extends RhnBaseTestCase {
-    
+
     /**
      * Setting "dispatch" to a non-null value.
      * Expecting to return a "enabled" ActionForward.
@@ -56,7 +56,7 @@ public class EnableConfirmSetupActionTest extends RhnBaseTestCase {
         set.addElement(one.getId());
         set.addElement(two.getId());
         RhnSetManager.store(set);
-        
+
         //success
         StateChange change = new StateChange();
         StateChange change2 = new StateChange();
@@ -72,7 +72,7 @@ public class EnableConfirmSetupActionTest extends RhnBaseTestCase {
         change2.setChangedBy(ah.getUser());
         one.addChange(change);
         two.addChange(change2);
-        
+
         //Add parameter for list.
         String listName = TagHelper.generateUniqueName(EnableConfirmSetupAction.LIST_NAME);
 

@@ -13,7 +13,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <many-to-one name="server"
                      class="com.redhat.rhn.domain.server.Server"
-                     column="server_id" />    
+                     column="server_id" />
         <property name="vendor" column="vendor" type="string" length="256" />
 		<property name="system" column="system" type="string" length="256" />
 		<property name="product" column="product" type="string" length="256" />
@@ -21,9 +21,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="board" column="board" type="string" length="256" />
         <property name="created" column="created" type="timestamp"
                   insert="false" update="false"/>
-        <property name="modified" column="modified" type="timestamp" 
+        <property name="modified" column="modified" type="timestamp"
                   insert="false" update="false"/>
-                  
+
         <component name="bios" class="com.redhat.rhn.domain.server.Dmi$Bios">
             <property name="vendor" column="bios_vendor"
                       type="string" length="256" />

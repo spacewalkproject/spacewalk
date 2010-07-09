@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.session.WebSessionImpl" 
+    <class name="com.redhat.rhn.domain.session.WebSessionImpl"
         table="PXTSessions">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -11,13 +11,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">pxt_id_seq</param>
             </generator>
         </id>
-        <property name="value" 
-            type="string" 
-            column="value" />  
+        <property name="value"
+            type="string"
+            column="value" />
         <property name="webUserId" type="long" column="web_user_id" />
         <property name="expires" type="long" />
     </class>
     <query name="WebSession.deleteByUserId">
         <![CDATA[delete  com.redhat.rhn.domain.session.WebSessionImpl  w where w.webUserId = :user_id]]>
-    </query>    
+    </query>
 </hibernate-mapping>

@@ -20,7 +20,7 @@ import java.util.Date;
 
 /**
  * ConfigDateFileAction - Class representation of the table rhnActionConfigDateFile.
- * 
+ *
  * @version $Rev$
  */
 public class ConfigDateAction extends Action {
@@ -31,65 +31,65 @@ public class ConfigDateAction extends Action {
     private String importContents;
     private Date configDateCreated;
     private Date configDateModified;
-    
-    /** 
-     * Getter for actionId 
+
+    /**
+     * Getter for actionId
      * @return Long to get
     */
     public Long getActionId() {
         return this.actionId;
     }
 
-    /** 
-     * Setter for actionId 
+    /**
+     * Setter for actionId
      * @param actionIdIn to set
     */
     public void setActionId(Long actionIdIn) {
         this.actionId = actionIdIn;
     }
 
-    /** 
-     * Getter for startDate 
+    /**
+     * Getter for startDate
      * @return Date to get
     */
     public Date getStartDate() {
         return this.startDate;
     }
 
-    /** 
-     * Setter for startDate 
+    /**
+     * Setter for startDate
      * @param startDateIn to set
     */
     public void setStartDate(Date startDateIn) {
         this.startDate = startDateIn;
     }
 
-    /** 
-     * Getter for endDate 
+    /**
+     * Getter for endDate
      * @return Date to get
     */
     public Date getEndDate() {
         return this.endDate;
     }
 
-    /** 
-     * Setter for endDate 
+    /**
+     * Setter for endDate
      * @param endDateIn to set
     */
     public void setEndDate(Date endDateIn) {
         this.endDate = endDateIn;
     }
 
-    /** 
-     * Getter for importContents 
+    /**
+     * Getter for importContents
      * @return String to get
     */
     public String getImportContents() {
         return this.importContents;
     }
 
-    /** 
-     * Setter for importContents 
+    /**
+     * Setter for importContents
      * @param importContentsIn to set
     */
     public void setImportContents(String importContentsIn) {
@@ -102,7 +102,7 @@ public class ConfigDateAction extends Action {
     public Date getConfigDateCreated() {
         return configDateCreated;
     }
-    
+
     /**
      * @param configDateCreatedIn The configDateCreated to set.
      */

@@ -26,39 +26,39 @@ public class ClientCertificateDigesterTest extends RhnBaseTestCase {
     public void testBuildSystemId() throws Exception {
         ClientCertificate cert = ClientCertificateDigester.buildCertificate(
                     TestUtils.findTestData("systemid.xml"));
-        
+
         assertNotNull("SystemId is null", cert);
-        
+
         // hardcoded key from test system
         cert.validate("3050cf46ac0417297e2dd964fdaac1ae");
     }
-    
+
     public void testBuildSystemIdStream() throws Exception {
         ClientCertificate cert = ClientCertificateDigester.buildCertificate(
                     TestUtils.findTestData("systemid.xml").openStream());
-        
+
         assertNotNull("SystemId is null", cert);
-        
+
         // hardcoded key from test system
         cert.validate("3050cf46ac0417297e2dd964fdaac1ae");
     }
-    
+
     public void testBuildSystemIdReader() throws Exception {
         String data = TestUtils.readAll(TestUtils.findTestData("systemid.xml"));
         StringReader rdr = new StringReader(data);
         ClientCertificate cert =
                ClientCertificateDigester.buildCertificate(rdr);
-        
+
         assertNotNull("SystemId is null", cert);
-        
+
         // hardcoded key from test system
         cert.validate("3050cf46ac0417297e2dd964fdaac1ae");
     }
-    
+
     public void testGetValueByName() throws Exception {
         ClientCertificate cert = ClientCertificateDigester.buildCertificate(
                 TestUtils.findTestData("systemid.xml"));
-        
+
         assertEquals("4AS", cert.getValueByName("os_release"));
         assertEquals("8c9a5c69ea45c9fc850058e9fd457e59",
                 cert.getValueByName("checksum"));
@@ -68,21 +68,21 @@ public class ClientCertificateDigesterTest extends RhnBaseTestCase {
         assertEquals("Rat's Hat Linux", cert.getValueByName("operating_system"));
         assertEquals("firefox104", cert.getValueByName("profile_name"));
         assertEquals("jesusr_redhat", cert.getValueByName("username"));
-        
+
         // test a field which has multiple values
         assertEquals("system_id", cert.getValueByName("fields"));
-        
+
         // test null
         assertNull(cert.getValueByName(null));
-        
+
         // test invalid name
         assertNull(cert.getValueByName("invalid name"));
     }
-    
+
     public void testGetValuesByName() throws Exception {
         ClientCertificate cert = ClientCertificateDigester.buildCertificate(
                 TestUtils.findTestData("systemid.xml"));
-        
+
         assertEquals("4AS", cert.getValuesByName("os_release")[0]);
         assertEquals("8c9a5c69ea45c9fc850058e9fd457e59",
                 cert.getValuesByName("checksum")[0]);
@@ -93,7 +93,7 @@ public class ClientCertificateDigesterTest extends RhnBaseTestCase {
                 cert.getValuesByName("operating_system")[0]);
         assertEquals("firefox104", cert.getValuesByName("profile_name")[0]);
         assertEquals("jesusr_redhat", cert.getValuesByName("username")[0]);
-        
+
         // test fields
         String[] values = cert.getValuesByName("fields");
         assertNotNull(values);
@@ -104,10 +104,10 @@ public class ClientCertificateDigesterTest extends RhnBaseTestCase {
         assertEquals("architecture", values[3]);
         assertEquals("username", values[4]);
         assertEquals("type", values[5]);
-        
+
         // test null
         assertNull(cert.getValuesByName(null));
-        
+
         // test invalid name
         assertNull(cert.getValuesByName("invalid name"));
     }

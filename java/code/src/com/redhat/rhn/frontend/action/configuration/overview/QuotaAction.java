@@ -26,7 +26,7 @@ import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * QuotaAction extends RhnListAction.  
+ * QuotaAction extends RhnListAction.
  * For showing org-wide config file quota and quota usage.
  * @version $Rev$
  */
@@ -44,24 +44,24 @@ public class QuotaAction extends BaseListAction {
                 .listAllFilesWithTotalSize(user, pc);
         return dr;
     }
-    
+
     protected void processRequestAttributes(RequestContext context) {
         HttpServletRequest request = context.getRequest();
         User user = context.getLoggedInUser();
-        
+
         OrgQuota quota = user.getOrg().getOrgQuota();
         long total = quota.getTotal().longValue() + quota.getBonus().longValue();
         long used = quota.getUsed().longValue();
         long left = total - used;
-        
+
         request.setAttribute("total", StringUtil.displayFileSize(total));
         request.setAttribute("used", StringUtil.displayFileSize(used));
         request.setAttribute("left", StringUtil.displayFileSize(left));
     }
-    
+
     protected void processPageControl(PageControl pc) {
         pc.setFilter(true);
         pc.setFilterColumn("path");
     }
-    
+
 }

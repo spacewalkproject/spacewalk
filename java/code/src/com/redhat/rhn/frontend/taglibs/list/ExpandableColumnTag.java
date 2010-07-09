@@ -35,7 +35,7 @@ public class ExpandableColumnTag  extends BodyTagSupport {
     private static final String IMAGE_SCRIPT = "<a onclick=\"toggleRowVisibility('%s', " +
                                                 "rowHash%s);\" " +
                                         "style=\"cursor: pointer;\"><img name=\"%s\"" +
-                                         " src=\"/img/list-expand.gif\"/></a>";    
+                                         " src=\"/img/list-expand.gif\"/></a>";
     /**
      * true to render icon
      * @param render true to render icon
@@ -48,12 +48,12 @@ public class ExpandableColumnTag  extends BodyTagSupport {
         BodyTagSupport.findAncestorWithClass(this, ListTag.class);
         return parent.getCurrentObject();
     }
-    
+
     protected boolean canRender() {
         return RhnListTagFunctions.isExpandable(getCurrent());
     }
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @throws JspException
      */
     public int doStartTag() throws JspException {
@@ -63,7 +63,7 @@ public class ExpandableColumnTag  extends BodyTagSupport {
             try {
                 if (canRender()) {
                     if (renderIcon) {
-                        renderIcon();    
+                        renderIcon();
                     }
                     return EVAL_BODY_INCLUDE;
                 }
@@ -85,18 +85,18 @@ public class ExpandableColumnTag  extends BodyTagSupport {
                                             rowId, listName, imageId));
         ListTagUtil.write(pageContext, "&nbsp;");
     }
-    
-    /** {@inheritDoc} 
+
+    /** {@inheritDoc}
      */
     @Override
     public void release() {
         renderIcon = false;
         super.release();
     }
-    
+
     protected String getListName() {
         ListTag parent = (ListTag)
             BodyTagSupport.findAncestorWithClass(this, ListTag.class);
         return parent.getUniqueName();
-    }    
+    }
 }

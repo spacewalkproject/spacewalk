@@ -36,23 +36,23 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * ServerSerializer: Converts a Server object for representation as an XMLRPC struct.
  * Includes full server details, which may be more data than some calls would like.
  * @version $Rev$
- * 
- * 
+ *
+ *
  * @xmlrpc.doc
  *  #struct("server snapshot")
  *      #prop("int", "id")
  *      #prop_desc("string", "reason", "the reason for the snapshot's existence")
- *      #prop($date, "created")                            
- *      #prop_array("channels", "string", "labels of channels associated with the 
+ *      #prop($date, "created")
+ *      #prop_array("channels", "string", "labels of channels associated with the
  *              snapshot")
- *      #prop_array("groups", "string", "Names of server groups associated with 
- *              the snapshot")         
- *      #prop_array("entitlements", "string", "Names of system entitlements associated 
+ *      #prop_array("groups", "string", "Names of server groups associated with
+ *              the snapshot")
+ *      #prop_array("entitlements", "string", "Names of system entitlements associated
  *              with the snapshot")
- *       #prop_array("config_channels", "string", "Labels of config channels the snapshot 
+ *       #prop_array("config_channels", "string", "Labels of config channels the snapshot
  *                  is associated with.")
  *      #prop_array("tags", "string", "Tag names associated with this snapshot.")
- *      #prop_desc("string", "Invalid_reason", "If the snapshot is invalid, this is the 
+ *      #prop_desc("string", "Invalid_reason", "If the snapshot is invalid, this is the
  *                  reason (optional).")
  *  #struct_end()
  */
@@ -70,21 +70,21 @@ public class ServerSnapshotSerializer implements XmlRpcCustomSerializer {
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
+
         ServerSnapshot snap = (ServerSnapshot)value;
 
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("id", snap.getId());
         helper.add("reason", snap.getReason());
         helper.add("created", snap.getCreated());
-        
-        
+
+
         Set<String> channels = new HashSet<String>();
         for (Channel chan : snap.getChannels()) {
             channels.add(chan.getLabel());
         }
         helper.add("channels", channels);
-        
+
         Set<String> entGroups = new HashSet<String>();
         Set<String> mgmtGroups = new HashSet<String>();
         for (ServerGroup grp : snap.getGroups()) {
@@ -97,25 +97,25 @@ public class ServerSnapshotSerializer implements XmlRpcCustomSerializer {
         }
         helper.add("groups", mgmtGroups);
         helper.add("entitlements", entGroups);
-        
+
         Set<String> cfgChans = new HashSet<String>();
         for (ConfigChannel grp : snap.getConfigChannels()) {
             cfgChans.add(grp.getLabel());
         }
         helper.add("config_channels", cfgChans);
-        
+
         if (snap.getInvalidReason() != null) {
             helper.add("Invalid_reason", snap.getInvalidReason().getName());
         }
-        
+
         Set<String> tags = new HashSet();
         for (SnapshotTag tag : snap.getTags()) {
             tags.add(tag.getName().getName());
         }
         helper.add("tags", tags);
-        
+
         helper.writeTo(output);
     }
-    
-    
+
+
 }

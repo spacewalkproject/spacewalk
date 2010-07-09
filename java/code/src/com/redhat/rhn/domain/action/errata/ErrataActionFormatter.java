@@ -23,11 +23,11 @@ import java.util.Set;
 /**
  * ErrataActionFormatter - Class that overrides getNotes()
  * to display Errata specific information.
- * 
+ *
  * @version $Rev$
  */
 public class ErrataActionFormatter extends ActionFormatter {
-    
+
     /**
      * Create a new ErrataActionFormatter
      * @param actionIn the ErrataAction we want to use to format
@@ -35,7 +35,7 @@ public class ErrataActionFormatter extends ActionFormatter {
     public ErrataActionFormatter(ErrataAction actionIn) {
         super(actionIn);
     }
-    
+
     /**
      * Output the Errata info into the body.
      * @return String of the Errata HTML
@@ -64,9 +64,9 @@ public class ErrataActionFormatter extends ActionFormatter {
             }
             retval.append("<br/>");
         }
-        
+
         return retval.toString();
     }
-    
-    
+
+
 }

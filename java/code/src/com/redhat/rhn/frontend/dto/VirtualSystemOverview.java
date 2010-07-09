@@ -18,10 +18,10 @@ import com.redhat.rhn.frontend.filter.DepthAware;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
- * 
+ *
  * @version $Rev$
  */
-public class VirtualSystemOverview extends SystemOverview  
+public class VirtualSystemOverview extends SystemOverview
                                         implements DepthAware {
 
     private Long systemId;
@@ -224,7 +224,7 @@ public class VirtualSystemOverview extends SystemOverview
     public void setNoActionReason(String argNoActionReason) {
         this.noActionReason = argNoActionReason;
     }
-    
+
     /**
      * Gets the value of actionName
      *
@@ -242,7 +242,7 @@ public class VirtualSystemOverview extends SystemOverview
     public void setActionName(String argActionName) {
         this.actionName = argActionName;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -254,7 +254,7 @@ public class VirtualSystemOverview extends SystemOverview
             return 1;
         }
     }
-    
+
     /**
      *  gets the current virtual entitlement string (none if the system has no virt ent)
      * @return the current virtual entitlement label
@@ -262,7 +262,7 @@ public class VirtualSystemOverview extends SystemOverview
     public String getVirtEntitlement() {
         return virtEntitlement;
     }
-    
+
     /**
      *  sets the virtual Entitlement label of this system
      * @param virtEntitlementIn the virt entitlement label to set

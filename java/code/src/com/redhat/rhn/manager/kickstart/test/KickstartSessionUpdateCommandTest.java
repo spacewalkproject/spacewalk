@@ -28,16 +28,16 @@ public class KickstartSessionUpdateCommandTest extends BaseKickstartCommandTestC
 
     public void testUpdateSession() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
-        KickstartSession session = 
+        KickstartSession session =
             KickstartSessionTest.createKickstartSession(ksdata, user);
         KickstartFactory.saveKickstartSession(session);
         session = (KickstartSession) reload(session);
-        KickstartSessionUpdateCommand cmd = 
+        KickstartSessionUpdateCommand cmd =
             new KickstartSessionUpdateCommand(session.getId());
         cmd.setSessionState(KickstartFactory.SESSION_STATE_CONFIG_ACCESSED);
         cmd.store();
         assertEquals(session.getState(), KickstartFactory.SESSION_STATE_CONFIG_ACCESSED);
-        
+
     }
-    
+
 }

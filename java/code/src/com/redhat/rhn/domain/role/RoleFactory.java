@@ -26,14 +26,14 @@ import org.hibernate.Session;
 public class RoleFactory extends HibernateFactory {
 
     private static Logger log = Logger.getLogger(RoleFactory.class);
-    
+
     /**
      * Constructs an RoleFactory and initializes the Hibernate
      * Configuration and SessionFactory.
      */
     private RoleFactory() { }
 
-    
+
     /**
      * Create a new Role object
      * @return Role to use
@@ -41,7 +41,7 @@ public class RoleFactory extends HibernateFactory {
     public static Role createRole() {
         return new RoleImpl();
     }
-    
+
     /** {@inheritDoc} */
     protected Logger getLogger() {
         return log;
@@ -60,7 +60,7 @@ public class RoleFactory extends HibernateFactory {
                                        .setCacheable(true)
                                        .uniqueResult();
     }
-    
+
     /**
      * Get the statetype by name.
      * @param name Name of statetype
@@ -79,7 +79,7 @@ public class RoleFactory extends HibernateFactory {
      * The constant representing org_admin role.  Used for comparison.
      */
     public static final Role ORG_ADMIN = lookupByLabel("org_admin");
-    
+
     /**
      * The constant representing satellite_admin role.  Used for comparison.
      */
@@ -120,7 +120,7 @@ public class RoleFactory extends HibernateFactory {
      * The constant representing rhn_support
      */
     public static final Role RHN_SUPPORT = lookupByLabel("rhn_support");
-     
+
     /**
      * The constant representing config_admin
      */
@@ -145,5 +145,5 @@ public class RoleFactory extends HibernateFactory {
      * The constant representing cert_admin
      */
     public static final Role CERT_ADMIN = lookupByLabel("cert_admin");
-    
+
 }

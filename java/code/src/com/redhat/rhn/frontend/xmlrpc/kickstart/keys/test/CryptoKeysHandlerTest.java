@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Test cases for the {@link CryptoKeysHandler}.
- * 
+ *
  * @version $Revision$
  */
 public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
@@ -45,14 +45,14 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
 
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
-        
+
         List allKeys = handler.listAllKeys(
                 XmlRpcTestUtils.getSessionKey(otherOrg));
-        
+
         // Verify
         assertNotNull(allKeys);
         assertEquals(allKeys.size(), 1);
-        
+
         CryptoKeyDto dto = (CryptoKeyDto)allKeys.get(0);
         assertEquals(key.getDescription(), dto.getDescription());
         assertEquals(key.getOrg().getId(), dto.getOrgId());
@@ -62,15 +62,15 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
         // Setup
         String description = "CryptoKeysHandler.testCreate-Description";
         String content = MD5Crypt.md5Hex(RandomStringUtils.random(28));
-        
+
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
         handler.create(regularKey, description, "GPG", content);
-        
+
         // Verify
         CryptoKey cryptoKey =
             KickstartFactory.lookupCryptoKey(description, regular.getOrg());
-        
+
         assertNotNull(cryptoKey);
         assertEquals(cryptoKey.getDescription(), description);
         assertEquals(cryptoKey.getCryptoKeyType().getLabel(), "GPG");
@@ -83,11 +83,11 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
         KickstartFactory.saveCryptoKey(key);
         assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
         flushAndEvict(key);
-        
+
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
         handler.delete(regularKey, key.getDescription());
-        
+
         // Verify
         CryptoKey deletedKey =
             KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg());
@@ -104,7 +104,7 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
         CryptoKey cryptoKey = handler.getDetails(regularKey, key.getDescription());
-        
+
         // Verify
         assertNotNull(cryptoKey);
         assertEquals(cryptoKey.getDescription(), cryptoKey.getDescription());

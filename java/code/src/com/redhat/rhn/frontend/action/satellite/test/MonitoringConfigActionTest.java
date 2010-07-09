@@ -34,22 +34,22 @@ import java.util.List;
  * @version $Rev: 53047 $
  */
 public class MonitoringConfigActionTest extends RhnBaseTestCase {
-    
+
     private MonitoringConfigAction action;
     private boolean restartCalled = false;
     private ActionHelper ah;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         // If this is in HOSTED, dont run the test
-        
+
         restartCalled = false;
         // Heheh, lovely, eh?  Makes sure
-        // that the MonitoringManager doesn't actually call 
+        // that the MonitoringManager doesn't actually call
         // runtime.exec() and restart services on the person
         // who is running this test.
         action = new MonitoringConfigAction() {
-            protected MonitoringManager getManager() { 
+            protected MonitoringManager getManager() {
                 MonitoringManager man = new MonitoringManager() {
                     protected void restartService(String serviceName) {
                         restartCalled = true;
@@ -60,21 +60,21 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
             }
         };
 
-        
+
         ah = new ActionHelper();
         ah.setUpAction(action);
         User user = ah.getUser();
         user.addRole(RoleFactory.MONITORING_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
         Config.get().setString("web.com.redhat.rhn.frontend." +
-                "action.satellite.MonitoringConfigAction.command", 
+                "action.satellite.MonitoringConfigAction.command",
                 TestConfigureSatelliteCommand.class.getName());
-        
+
     }
-    
+
     public void testSetupExecute() throws Exception {
         // If this is in HOSTED, dont run the test
-        
+
         ah.getForm().set(MonitoringConfigAction.SUBMITTED, new Boolean(false));
         setupExpectedProperties(ah);
         ActionForward af = ah.executeAction();
@@ -82,9 +82,9 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
         assertEquals("default", af.getName());
         assertNotNull(ah.getRequest().getAttribute("configList"));
         assertNotNull(ah.getForm().get(MonitoringConfigAction.IS_MONITORING_SCOUT));
-        
+
     }
-    
+
     public void testSaveExecute() throws Exception {
 
         // If this is in HOSTED, dont run the test
@@ -92,10 +92,10 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
         ah.getForm().set(MonitoringConfigAction.SUBMITTED, new Boolean(true));
         boolean oldScoutValue = Config.get().getBoolean(
                 ConfigDefaults.WEB_IS_MONITORING_SCOUT);
-        ah.getForm().set(MonitoringConfigAction.IS_MONITORING_SCOUT, 
+        ah.getForm().set(MonitoringConfigAction.IS_MONITORING_SCOUT,
                 new Boolean(!oldScoutValue));
         User user = ah.getUser();
-        
+
         // Save the original email so we can revert after this test
         String originalEmail = null;
         List configs = MonitoringManager.getInstance().
@@ -106,17 +106,17 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
                 originalEmail = cm.getDefinition();
                 // Change the admin email to the test user
                 ah.getRequest().setupAddParameter("RHN_ADMIN_EMAIL", user.getEmail());
-            } 
+            }
             else {
                 ah.getRequest().setupAddParameter(cm.getName(), cm.getDefinition());
             }
         }
-        
+
         // Change the admin email to the test user
         ah.getRequest().setupAddParameter("RHN_ADMIN_EMAIL", user.getEmail());
         ActionForward af = ah.executeAction();
         assertTrue(restartCalled);
-        assertEquals(!oldScoutValue, 
+        assertEquals(!oldScoutValue,
                 Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT));
         assertEquals("default", af.getName());
         assertNotNull(ah.getRequest().getAttribute("configList"));
@@ -133,17 +133,17 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
                 cm.setDefinition(originalEmail);
                 MonitoringManager.getInstance().storeConfigMacro(cm);
             }
-        }        
+        }
         assertTrue(changed);
         assertTrue(TestUtils.validateUIMessage(ah, "monitoring.services.restarted"));
-        Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT, 
+        Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT,
                 new Boolean(oldScoutValue).toString());
     }
-    
+
     public void testNoChanges() throws Exception {
 
         ah.getForm().set(MonitoringConfigAction.SUBMITTED, new Boolean(true));
-        ah.getForm().set(MonitoringConfigAction.IS_MONITORING_SCOUT, 
+        ah.getForm().set(MonitoringConfigAction.IS_MONITORING_SCOUT,
                 new Boolean(Config.get().getBoolean(
                         ConfigDefaults.WEB_IS_MONITORING_SCOUT)));
         setupExpectedProperties(ah);
@@ -152,7 +152,7 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
     }
 
     private void setupExpectedProperties(ActionHelper ahIn) {
-        
+
         List configs = MonitoringManager.getInstance().
                      getEditableConfigMacros(ahIn.getUser());
         for (int i = 0; i < configs.size(); i++) {
@@ -161,5 +161,5 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
         }
 
     }
-    
+
 }

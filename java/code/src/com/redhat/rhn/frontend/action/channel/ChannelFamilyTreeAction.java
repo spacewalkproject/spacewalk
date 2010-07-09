@@ -36,23 +36,23 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
-    
-  
-    
+
+
+
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long cfid = requestContext.getRequiredParam("cfid");
-        
+
         User user = requestContext.getLoggedInUser();
         ChannelOverview co = ChannelManager.getEntitlement(user.getOrg().getId(), cfid);
-        
+
         DataResult<ChannelTreeNode> dr = getDataResult(requestContext, null);
         Collections.sort(dr);
         dr = handleOrphans(dr);
@@ -71,9 +71,9 @@ public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
         return ChannelManager.channelFamilyTree(user, cfid, lc);
     }
 
-    
 
-    
-    
+
+
+
 
 }

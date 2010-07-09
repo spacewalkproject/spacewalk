@@ -22,7 +22,7 @@
       </c:if>
     </p>
   </div>
-  
+
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/DiffFiles.do?sid=${param.sid}">
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="difffiles.jsp.noFiles">
@@ -45,12 +45,12 @@
           </c:otherwise>
         </c:choose>
       </rhn:column>
-      
+
       <rhn:column header="difffiles.jsp.revision"
                   url="/rhn/configuration/file/FileDetails.do?cfid=${current.configFileId}&crid=${current.configRevisionId}">
         <bean:message key="difffiles.jsp.filerev" arg0="${current.configRevision}" />
       </rhn:column>
-      
+
       <rhn:column header="config.common.configChannel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
         <c:if test="${current.configChannelType == 'normal'}">
@@ -58,18 +58,18 @@
     	       src="/img/rhn-listicon-channel.gif" />
           ${current.channelNameDisplay}
         </c:if>
-        
+
         <c:if test="${current.configChannelType == 'local_override'}">
           <img alt='<bean:message key="config.common.localAlt" />'
                src="/img/rhn-listicon-system.gif" />
           ${current.channelNameDisplay}
         </c:if>
-        
+
         <%-- There is no sandbox possibility in this list. --%>
       </rhn:column>
     </rhn:listdisplay>
   </rhn:list>
-</form>  
-  
+</form>
+
 </body>
 </html>

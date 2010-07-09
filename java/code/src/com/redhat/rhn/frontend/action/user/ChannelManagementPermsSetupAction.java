@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ChannelManagementPermsSetupAction extends RhnListAction {
- 
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -51,14 +51,14 @@ public class ChannelManagementPermsSetupAction extends RhnListAction {
         RequestContext rctx = new RequestContext(request);
         DynaActionForm form = (DynaActionForm)formIn;
         User user = rctx.getUserFromUIDParameter();
-        
+
         if (user == null) {
             throw new BadParameterException("Invalid uid");
         }
-        
+
         request.setAttribute(RhnHelper.TARGET_USER, user);
 
-                        
+
         PageControl pc = new PageControl();
         pc.setFilterColumn("name");
 
@@ -72,14 +72,14 @@ public class ChannelManagementPermsSetupAction extends RhnListAction {
                 selectedChannels.add(String.valueOf(current.getId()));
             }
         }
-        
+
         request.setAttribute("pageList", dr);
         request.setAttribute("user", user);
         request.setAttribute("role", "manage");
-        request.setAttribute("userIsChannelAdmin", 
+        request.setAttribute("userIsChannelAdmin",
                              new Boolean(user.hasRole(RoleFactory.CHANNEL_ADMIN)));
         form.set("selectedChannels", selectedChannels.toArray(new String[0]));
-        
+
         return mapping.findForward("default");
     }
 }

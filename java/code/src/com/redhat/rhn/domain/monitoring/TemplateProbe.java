@@ -35,19 +35,19 @@ import java.util.Set;
 
 /**
  * TemplateProbe - subclass of ServerProbe that includes ServerProbe Suite
- * functionality.  All Probes of ProbeType == 'suite' are 
+ * functionality.  All Probes of ProbeType == 'suite' are
  * instantiated as this class.
  * @version $Rev: 1 $
  */
 public class TemplateProbe extends Probe {
-    
+
     private List serverProbes;
     private Set probeSuites;
-    
+
     /**
      * Creates new TemplateProbe instance with appropriate defaults
      * @return TemplateProbe
-     */    
+     */
     public static TemplateProbe newInstance() {
         TemplateProbe retval = new TemplateProbe();
         retval.getType();
@@ -60,7 +60,7 @@ public class TemplateProbe extends Probe {
     public TemplateProbe() {
         super();
     }
-    
+
     /**
      * @return Returns the serverProbes.
      */
@@ -70,16 +70,16 @@ public class TemplateProbe extends Probe {
         // to confuse hibernate and lead to failures in ProbeSuiteTest
         return serverProbes;
     }
-    
+
     /**
      * @param serverProbesIn The serverProbes to set.
      */
     public void setServerProbes(List serverProbesIn) {
         this.serverProbes = serverProbesIn;
     }
-    
+
     /**
-     * Add a new standard ServerProbe to this TemplateProbe.  The 
+     * Add a new standard ServerProbe to this TemplateProbe.  The
      * passed in ServerProbe should be associated with a Server and
      * SatCluster, IOTW, a standard probe.
      * @param probeIn ServerProbe we want to add
@@ -90,7 +90,7 @@ public class TemplateProbe extends Probe {
         }
         this.serverProbes.add(probeIn);
     }
-    
+
     /**
      * Remove a Server's ServerProbe from this TemplateProbe
      * @param probeIn ServerProbe to remove
@@ -98,7 +98,7 @@ public class TemplateProbe extends Probe {
     public void removeServerProbe(ServerProbe probeIn) {
         this.serverProbes.remove(probeIn);
     }
-    
+
     /**
      * Convenience method to get the Servers using this ServerProbe
      * @return Set of Servers using this probe
@@ -110,25 +110,25 @@ public class TemplateProbe extends Probe {
         Iterator i = getServerProbes().iterator();
         Set retval = new HashSet();
         while (i.hasNext()) {
-            ServerProbe p = (ServerProbe) i.next(); 
+            ServerProbe p = (ServerProbe) i.next();
             retval.add(p.getServer());
         }
         return retval;
     }
-    
+
     /**
-     * UsupportedOperation in ProbeTemplate.  No Servers are directly 
+     * UsupportedOperation in ProbeTemplate.  No Servers are directly
      * associated with a ProbeTemplate
      * @return Server n/a - not supported
      */
     public Server getServer() {
         throw new UnsupportedOperationException(
-                "No Servers are directly associated with a ProbeTemplate"); 
- 
+                "No Servers are directly associated with a ProbeTemplate");
+
     }
 
     /***** OVERRIDDEN METHODS TO UPDATE ALL THE PROBES IN THE SUITE *******/
-    
+
     /**
      * {@inheritDoc}
      */
@@ -142,10 +142,10 @@ public class TemplateProbe extends Probe {
      */
     public void setCommandParameterValue(CommandParameter paramIn, String valueIn) {
         super.setCommandParameterValue(paramIn, valueIn);
-        Closure c = ClosureUtils.invokerClosure("setCommandParameterValue", 
-                new Class[] { CommandParameter.class, String.class }, 
+        Closure c = ClosureUtils.invokerClosure("setCommandParameterValue",
+                new Class[] { CommandParameter.class, String.class },
                 new Object[] { paramIn, valueIn });
-        CollectionUtils.forAllDo(getServerProbes(), c);        
+        CollectionUtils.forAllDo(getServerProbes(), c);
     }
 
     /**
@@ -193,7 +193,7 @@ public class TemplateProbe extends Probe {
      */
     public void setNotificationIntervalMinutes(Long notificationIntervalMinutesIn) {
         super.setNotificationIntervalMinutes(notificationIntervalMinutesIn);
-        forAllProbes("setNotificationIntervalMinutes", Long.class, 
+        forAllProbes("setNotificationIntervalMinutes", Long.class,
                 notificationIntervalMinutesIn);
     }
 
@@ -242,12 +242,12 @@ public class TemplateProbe extends Probe {
      */
     public void setRetryIntervalMinutes(Long retryIntervalMinutesIn) {
         super.setRetryIntervalMinutes(retryIntervalMinutesIn);
-        forAllProbes("setRetryIntervalMinutes", Long.class, retryIntervalMinutesIn);        
+        forAllProbes("setRetryIntervalMinutes", Long.class, retryIntervalMinutesIn);
     }
 
     private void forAllProbes(String setter, Class valueClass, Object value) {
-        Closure c = ClosureUtils.invokerClosure(setter, 
-                new Class[] { valueClass }, 
+        Closure c = ClosureUtils.invokerClosure(setter,
+                new Class[] { valueClass },
                 new Object[] { value });
         CollectionUtils.forAllDo(getServerProbes(), c);
     }
@@ -267,8 +267,8 @@ public class TemplateProbe extends Probe {
         }
     }
 
-    
-    /** 
+
+    /**
      * Get the ProbeSuite this TemplateProbe is a member of
      * @return ProbeSuite instance
      */
@@ -280,7 +280,7 @@ public class TemplateProbe extends Probe {
             return (ProbeSuite) getProbeSuites().iterator().next();
         }
     }
-    
+
     /**
      * Set the probe suite to which this probe belongs
      * @param ps the new parent probe suite
@@ -300,7 +300,7 @@ public class TemplateProbe extends Probe {
         }
         assert getProbeSuites().size() == 1;
     }
-    
+
     /**
      * Returns current ProbeType
      * @return ProbeType
@@ -313,7 +313,7 @@ public class TemplateProbe extends Probe {
         }
         return this.type;
     }
-    
+
     /**
      * @return Returns the probeSuites.
      */
@@ -321,12 +321,12 @@ public class TemplateProbe extends Probe {
         return probeSuites;
     }
 
-    
+
     /**
      * @param probeSuitesIn The probeSuites to set.
      */
     private void setProbeSuites(Set probeSuitesIn) {
         this.probeSuites = probeSuitesIn;
     }
-    
+
 }

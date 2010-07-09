@@ -34,7 +34,7 @@ import java.util.Map;
 public class ProbeCreateAction extends BaseProbeCreateAction {
 
     private static final String SAT_CLUSTER_ID = "sat_cluster_id";
-    
+
     /**
      * {@inheritDoc}
      */
@@ -43,7 +43,7 @@ public class ProbeCreateAction extends BaseProbeCreateAction {
         Long satClusterID = (Long) form.get(SAT_CLUSTER_ID);
         SatCluster satCluster = SatClusterFactory.findSatClusterById(satClusterID);
         Server server = ctx.lookupAndBindServer();
-        return new CreateServerProbeCommand(ctx.getCurrentUser(), command, 
+        return new CreateServerProbeCommand(ctx.getCurrentUser(), command,
                 server, satCluster);
     }
 
@@ -59,7 +59,7 @@ public class ProbeCreateAction extends BaseProbeCreateAction {
      * {@inheritDoc}
      */
     protected void addAttributes(RequestContext ctx) {
-        ctx.lookupAndBindServer();        
+        ctx.lookupAndBindServer();
     }
 
 }

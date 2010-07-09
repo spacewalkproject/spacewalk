@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Class responsible for executing one-time upgrade logic
- * 
+ *
  * @version $Rev$
  */
 public class UpgradeCommand extends BaseTransactionCommand {
@@ -39,11 +39,11 @@ public class UpgradeCommand extends BaseTransactionCommand {
      * Logger for this class
      */
     private static Logger log = Logger.getLogger(UpgradeCommand.class);
-    
+
     public static final String UPGRADE_TASK_NAME = "upgrade_satellite_";
-    public static final String UPGRADE_KS_PROFILES = 
+    public static final String UPGRADE_KS_PROFILES =
         UPGRADE_TASK_NAME + "kickstart_profiles";
-    
+
     /**
      * Constructor
      */
@@ -75,23 +75,23 @@ public class UpgradeCommand extends BaseTransactionCommand {
         catch (Exception e) {
             log.error("Problem upgrading!", e);
             HibernateFactory.rollbackTransaction();
-            
+
         }
         finally {
             handleTransaction();
         }
     }
-    
+
     private void processKickstartProfiles() {
         // Use WARN here because we want this operation logged.
         log.warn("Processing ks profiles.");
         List allKickstarts = KickstartFactory.listAllKickstartData();
         for (int i = 0; i < allKickstarts.size(); i++) {
             KickstartData ksdata = (KickstartData) allKickstarts.get(i);
-            KickstartSession ksession = 
+            KickstartSession ksession =
                 KickstartFactory.lookupDefaultKickstartSessionForKickstartData(ksdata);
             if (ksession == null) {
-                log.warn("Kickstart does not have a session: id: " + ksdata.getId() + 
+                log.warn("Kickstart does not have a session: id: " + ksdata.getId() +
                         " label: " + ksdata.getLabel());
                 KickstartSessionCreateCommand kcmd = new KickstartSessionCreateCommand(
                         ksdata.getOrg(), ksdata);

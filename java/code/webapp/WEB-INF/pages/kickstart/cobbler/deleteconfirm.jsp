@@ -16,7 +16,7 @@
 	<form method="post" action="/rhn/kickstart/cobbler/CobblerSnippetDelete.do">
 <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>	
     <table class="details">
-    <tr>    
+    <tr>
         <th>
          <bean:message key="snippetcreate.jsp.contents"/>
         </th>
@@ -31,7 +31,7 @@
       <td></td>
       <rhn:submitted/>
       <input type="hidden" name="name" value="${requestScope.name}"/>
-      <td align="right"><input type=submit name="dispatch"  
+      <td align="right"><input type=submit name="dispatch"
        value="${rhn:localize('snippetdelete.jsp.deletesnippet')}"/></td>
     </tr>
         </table>

@@ -28,70 +28,70 @@ public class ChannelProduct {
     private String beta;
     private Date created;
     private Date modified;
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for product 
+    /**
+     * Getter for product
      * @return String to get
     */
     public String getProduct() {
         return this.product;
     }
 
-    /** 
-     * Setter for product 
+    /**
+     * Setter for product
      * @param productIn to set
     */
     public void setProduct(String productIn) {
         this.product = productIn;
     }
 
-    /** 
-     * Getter for version 
+    /**
+     * Getter for version
      * @return String to get
     */
     public String getVersion() {
         return this.version;
     }
 
-    /** 
-     * Setter for version 
+    /**
+     * Setter for version
      * @param versionIn to set
     */
     public void setVersion(String versionIn) {
         this.version = versionIn;
     }
 
-    /** 
-     * Getter for beta 
+    /**
+     * Getter for beta
      * @return String to get
     */
     public String getBeta() {
         return this.beta;
     }
 
-    /** 
-     * Setter for beta 
+    /**
+     * Setter for beta
      * @param betaIn to set
     */
     public void setBeta(String betaIn) {
         this.beta = betaIn;
     }
-    
+
     /**
      * Whether the channel product is a beta product
      * @return true if product is a beta product, false otherwise
@@ -99,7 +99,7 @@ public class ChannelProduct {
     public boolean isBeta() {
         return this.beta.equals("Y");
     }
-    
+
     /**
      * Setter for whether the channel product is a beta product or not
      * @param isBeta true if the product is a beta product, false otherwise
@@ -113,32 +113,32 @@ public class ChannelProduct {
         }
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {

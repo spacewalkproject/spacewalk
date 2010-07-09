@@ -1799,7 +1799,7 @@ to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
 			<trans-unit id="disableself.jsp.message2">
 				<source>Once your account is deactivated, you will need to contact your organization's
 @@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
-				<target>一旦您的帐户被取消激活，您需要联系您 
+				<target>一旦您的帐户被取消激活，您需要联系您
 机构的 @@PRODUCT_NAME@@ 机构管理员重新激活您的帐户。</target>
 			</trans-unit>
 			<trans-unit id="disableselfconfirm.jsp.warning">
@@ -6492,8 +6492,8 @@ the following tabs in the left navigation menu:</source>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
 				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>管理您 @@PRODUCT_NAME@@ 中的订阅。您还可用查看每个权利
 都提供那些访问。在每个权利中，您还可以在此为您 @@PRODUCT_NAME@@ 中所有机构中的任意
@@ -6810,7 +6810,7 @@ Please note that some manual configuration of these scripts may still be require
 				<target>更新变量</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
 				<target>Kickstart 变量可用于替换 kickstart 侧写中的值。要定义一个变量只要在下面添加 'name=value' 即可。
         			然后您就可以在该侧写中使用 $name 替换值。</target>
@@ -7153,8 +7153,8 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;注：&lt;/strong&gt;更改虚拟化类型可能需要更改
 Kickstart 侧写的引导装载程序和分区选项，有可能覆盖用户定制选项。
@@ -7654,11 +7654,11 @@ You can also edit the post script for this kickstart below.  First, commands rel
 Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to
 the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
 				<target>您可以为下面的这个 kickstart 编辑前脚本和后脚本。当一个 kickstart 文件在一个系统上被解析后，kickstart 前脚本会被马上运行。
-您可以在这个部分访问网络，但您必须使用 IP 地址（此时还没有配置名称服务）。更多关于 
+您可以在这个部分访问网络，但您必须使用 IP 地址（此时还没有配置名称服务）。更多关于
 kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系统管理指南》&lt;/strong&gt; 中获得。
 &lt;br/&gt;&lt;br/&gt;
 您也可以为这个 kickstart 编辑后脚本。首先，会自动执行与 @@PRODUCT_NAME@@ 相关的命令（例如，系统注册到 @@PRODUCT_NAME@@）。
-接下来会执行 non-chroot 后脚本。最后执行后脚本。更多关于 kickstart 后脚本的内容可以 
+接下来会执行 non-chroot 后脚本。最后执行后脚本。更多关于 kickstart 后脚本的内容可以
 在&lt;strong&gt;《红帽企业版 Linux 系统管理指南》&lt;/strong&gt; 中获得。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.langheader">
@@ -9380,7 +9380,7 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
 			<trans-unit id="channelfiles.jsp.description">
 				<source>This list shows the files that this configuration channel contains.  You can remove
 a file or files, or copy the latest version into a set of local overrides or into other central configuration channels.</source>
-				<target>本列表显示了这个配置频道所包含的文件。您可以删除 
+				<target>本列表显示了这个配置频道所包含的文件。您可以删除
 一个或多个文件，或这把最新的版本复制到本地或其他集中的配置频道。</target>
 			</trans-unit>
 			<trans-unit id="channelfiles.jsp.path">
@@ -11923,7 +11923,7 @@ Make sure you subscribe systems to the appropriate software channels during kick
 so they have access to the packages in the package profile you sync them to.  Visit
 the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Keys&lt;/a&gt;
  tab to subscribe systems to software channels during kickstart.&lt;/span&gt;</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;窍门：&lt;/strong&gt; 
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;窍门：&lt;/strong&gt;
 确定您在 kickstart 时把系统订阅到了适当的软件频道中。
 这样，它们可以访问它们同步的软件包侧写中的软件包。
 访问 &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;激活码&lt;/a&gt;
@@ -12412,9 +12412,9 @@ kickstart 或创建一个新的 kickstart 发布前
 执行一个 @@PRODUCT_NAME@@ 工具子频道的 satellite sync。&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
-				<source> 
+				<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;</source>
-				<target> 
+				<target>
  &lt;strong&gt;没有知道选定基本频道的可用安装程序。&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.toolbar">
@@ -13317,7 +13317,7 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.description">
 				<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)</source>
 				<target>
@@ -13347,11 +13347,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.note">
 				<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
-&lt;strong&gt;注意：&lt;/strong&gt;您将需要一个安装序列号来安装 {0}。  
+&lt;strong&gt;注意：&lt;/strong&gt;您将需要一个安装序列号来安装 {0}。
 &lt;a href="{1}"&gt;不确定什么是安装序列号？&lt;/a&gt;
 &lt;a href="{2}"&gt;需要查找您的安装序列号？&lt;/a&gt;</target>
 			</trans-unit>
@@ -13361,7 +13361,7 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.rest.description">
 				<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.</source>
 				<target>
 请找到 {0} 的 &lt;strong&gt;旧版本&lt;/strong&gt; 的完整 ISO 映像集。
@@ -13890,7 +13890,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
@@ -14893,28 +14893,28 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.</source>
 				<target>在此页创建或者编辑软件频道。
-        &lt;p/&gt; 
+        &lt;p/&gt;
         如果将父频道设定为 'none'，该频道就是一个基本频道。
         否则该频道就是指定频道的子频道。
-        &lt;p/&gt; 
+        &lt;p/&gt;
         需要频道名称及标签。它们必须至少 6 个字符长。
         标签必须以字母开头，只能包含小写
         字母、横线（'-'）、点（'.'）、下划线（'_'）和数字。
         频道名称还可包含空格以及
         斜杠（'/'）。
-        &lt;p/&gt; 
+        &lt;p/&gt;
         还需要频道总结。</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">

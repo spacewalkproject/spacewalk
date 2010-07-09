@@ -24,7 +24,7 @@ import org.apache.struts.action.DynaActionForm;
  * @version $Rev$
  */
 public class AssignedGroupsSetupActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testPerformExecute() throws Exception {
         setRequestPathInfo("/users/AssignedSystemGroups");
         addRequestParameter("availableGroups", "someGroups");

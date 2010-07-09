@@ -24,10 +24,10 @@
 
   <rhn:listdisplay set="${requestScope.set}" hiddenvars="${requestScope.newset}"
                    filterBy="virtualguestslist.jsp.guestname" domainClass="systems">
-    
+
     <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
       <c:choose>
-        <c:when test="${current.selectable}"> 
+        <c:when test="${current.selectable}">
           <rhn:set value="${current.id}"/>
         </c:when>
         <c:otherwise>
@@ -41,7 +41,7 @@
     <rhn:column header="virtualguestslist.jsp.guestname">
       ${current.name}
     </rhn:column>
-    
+
     <rhn:column header="systemlist.jsp.system">
       <c:choose>
         <c:when test="${current.virtualSystemId == null}">
@@ -54,24 +54,24 @@
         </c:otherwise>
       </c:choose>
     </rhn:column>
-    
-    <rhn:column header="virtualguestslist.jsp.updates" 
+
+    <rhn:column header="virtualguestslist.jsp.updates"
                 style="text-align: center;">
         ${current.statusDisplay}
     </rhn:column>
-        
+
     <rhn:column header="virtualguestslist.jsp.state">
         ${current.stateName}
     </rhn:column>
-        
+
     <rhn:column header="virtualguestslist.jsp.memory">
         ${current.memory / 1024} MB
     </rhn:column>
-        
+
     <rhn:column header="virtualguestslist.jsp.vcpus">
         ${current.vcpus}
     </rhn:column>
-        
+
     <rhn:column header="virtualguestslist.jsp.channel">
       <c:choose>
         <c:when test="${current.channelId == null}">
@@ -99,7 +99,7 @@
     <html:submit property="dispatch">
         <bean:message key="virtualguestslist.jsp.applyaction"/>
     </html:submit>
-      
+
   </div>
     <div align="right">
         <bean:message key="virtualguestslist.jsp.set"/>

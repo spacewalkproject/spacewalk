@@ -17,10 +17,10 @@
 <html:form action="/systems/details/probes/ProbeDelete" method="POST">
 
     <p><bean:message key="probdelete.jsp.p1"/></p>
-  
+
     <p><strong><bean:message key="probdelete.jsp.p2" arg0="${probe.id}" arg1="${system.id}"/>
     </strong></p>
-      
+
     <p><bean:message key="probdelete.jsp.p3"/></p>
 
     <p><strong><bean:message key="probdelete.jsp.p4"/></strong></p>
@@ -34,6 +34,6 @@
         <html:hidden property="submitted" value="true"/>
     </div>
 </html:form>
-           
+
 </body>
 </html>

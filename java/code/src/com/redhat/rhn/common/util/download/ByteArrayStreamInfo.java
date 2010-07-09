@@ -28,10 +28,10 @@ import java.io.InputStream;
  * @version $Rev$
  */
 public class ByteArrayStreamInfo implements StreamInfo {
-    
+
     protected String contentType;
     protected byte[] bytes;
-    
+
     /**
      * Constructor
      * @param conType ContentType
@@ -41,7 +41,7 @@ public class ByteArrayStreamInfo implements StreamInfo {
         this.contentType = conType;
         this.bytes = data;
     }
-    
+
     /**
      * {@inheritDoc}
      */

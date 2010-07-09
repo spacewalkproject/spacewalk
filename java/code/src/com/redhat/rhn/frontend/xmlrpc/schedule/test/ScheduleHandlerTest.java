@@ -36,7 +36,7 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
     public void testCancelActions() throws Exception {
 
         // setup
-        
+
         //obtain number of actions from action manager
         DataResult actions = ActionManager.allActions(admin, null);
         int numActions = actions.size();
@@ -48,18 +48,18 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         //add new actions and verify that the value returned by the api
         //has increased correctly
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        
-        Action a1 = ActionFactoryTest.createAction(admin, 
+
+        Action a1 = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction1 = ServerActionTest.createServerAction(server, a1);
         saction1.setStatus(ActionFactory.STATUS_COMPLETED);
 
-        Action a2 = ActionFactoryTest.createAction(admin, 
+        Action a2 = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction2 = ServerActionTest.createServerAction(server, a2);
         saction2.setStatus(ActionFactory.STATUS_QUEUED);
-        
-        Action a3 = ActionFactoryTest.createAction(admin, 
+
+        Action a3 = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction3 = ServerActionTest.createServerAction(server, a3);
         saction3.setStatus(ActionFactory.STATUS_FAILED);
@@ -93,29 +93,29 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
         //add new actions and verify that the value returned by the api
         //has increased correctly
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        
-        Action a1 = ActionFactoryTest.createAction(admin, 
+
+        Action a1 = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction1 = ServerActionTest.createServerAction(server, a1);
         saction1.setStatus(ActionFactory.STATUS_COMPLETED);
 
-        Action a2 = ActionFactoryTest.createAction(admin, 
+        Action a2 = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction2 = ServerActionTest.createServerAction(server, a2);
         saction2.setStatus(ActionFactory.STATUS_QUEUED);
-        
-        Action a3 = ActionFactoryTest.createAction(admin, 
+
+        Action a3 = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction3 = ServerActionTest.createServerAction(server, a3);
         saction3.setStatus(ActionFactory.STATUS_FAILED);
-        
-        // execute 
+
+        // execute
         apiActions = handler.listAllActions(adminKey);
 
         // verify
         assertEquals(numActions + 3, apiActions.length);
     }
-    
+
     public void testListCompletedActions() throws Exception {
 
         //obtain number of actions from action manager
@@ -124,13 +124,13 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
 
         //compare against number retrieved from api... should be the same
         Object[] apiActions = handler.listCompletedActions(adminKey);
-        
+
         assertEquals(numActions, apiActions.length);
 
         //add a new action and verify that the value returned by the api
         //has increased
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        Action a = ActionFactoryTest.createAction(admin, 
+        Action a = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction = ServerActionTest.createServerAction(server, a);
         saction.setStatus(ActionFactory.STATUS_COMPLETED);
@@ -147,13 +147,13 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
 
         //compare against number retrieved from api... should be the same
         Object[] apiActions = handler.listInProgressActions(adminKey);
-        
+
         assertEquals(numActions, apiActions.length);
 
         //add a new action and verify that the value returned by the api
         //has increased
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        Action a = ActionFactoryTest.createAction(admin, 
+        Action a = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction = ServerActionTest.createServerAction(server, a);
         saction.setStatus(ActionFactory.STATUS_QUEUED);
@@ -170,13 +170,13 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
 
         //compare against number retrieved from api... should be the same
         Object[] apiActions = handler.listFailedActions(adminKey);
-        
+
         assertEquals(numActions, apiActions.length);
 
         //add a new action and verify that the value returned by the api
         //has increased
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        Action a = ActionFactoryTest.createAction(admin, 
+        Action a = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction = ServerActionTest.createServerAction(server, a);
         saction.setStatus(ActionFactory.STATUS_FAILED);
@@ -193,13 +193,13 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
 
         //compare against number retrieved from api... should be the same
         Object[] apiActions = handler.listArchivedActions(adminKey);
-        
+
         assertEquals(numActions, apiActions.length);
 
         //add a new action and verify that the value returned by the api
         //has increased
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        Action a = ActionFactoryTest.createAction(admin, 
+        Action a = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         a.setArchived(new Long(1));
         ServerAction saction = ServerActionTest.createServerAction(server, a);
@@ -207,65 +207,65 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
 
         apiActions = handler.listArchivedActions(adminKey);
 
-        assertTrue(apiActions.length > numActions);       
+        assertTrue(apiActions.length > numActions);
     }
 
     public void testListCompletedSystems() throws Exception {
-        //create a new action 
+        //create a new action
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        Action action = ActionFactoryTest.createAction(admin, 
+        Action action = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction = ServerActionTest.createServerAction(server, action);
         saction.setStatus(ActionFactory.STATUS_COMPLETED);
-        
+
         //obtain number of systems from action manager
         DataResult systems = ActionManager.completedSystems(admin, action, null);
         int numSystems = systems.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiSystems = handler.listCompletedSystems(adminKey, 
+        Object[] apiSystems = handler.listCompletedSystems(adminKey,
             action.getId().intValue());
-        
+
         assertTrue(apiSystems.length > 0);
         assertEquals(numSystems, apiSystems.length);
     }
 
     public void testListInProgressSystems() throws Exception {
-        //create a new action 
+        //create a new action
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        Action action = ActionFactoryTest.createAction(admin, 
+        Action action = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction = ServerActionTest.createServerAction(server, action);
         saction.setStatus(ActionFactory.STATUS_QUEUED);
-        
+
         //obtain number of systems from action manager
         DataResult systems = ActionManager.inProgressSystems(admin, action, null);
         int numSystems = systems.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiSystems = handler.listInProgressSystems(adminKey, 
+        Object[] apiSystems = handler.listInProgressSystems(adminKey,
             action.getId().intValue());
-        
+
         assertTrue(apiSystems.length > 0);
         assertEquals(numSystems, apiSystems.length);
     }
 
     public void testListFailedSystems() throws Exception {
-        //create a new action 
+        //create a new action
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        Action action = ActionFactoryTest.createAction(admin, 
+        Action action = ActionFactoryTest.createAction(admin,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
         ServerAction saction = ServerActionTest.createServerAction(server, action);
         saction.setStatus(ActionFactory.STATUS_FAILED);
-        
+
         //obtain number of systems from action manager
         DataResult systems = ActionManager.failedSystems(admin, action, null);
         int numSystems = systems.size();
 
         //compare against number retrieved from api... should be the same
-        Object[] apiSystems = handler.listFailedSystems(adminKey, 
+        Object[] apiSystems = handler.listFailedSystems(adminKey,
             action.getId().intValue());
-        
+
         assertTrue(apiSystems.length > 0);
         assertEquals(numSystems, apiSystems.length);
     }

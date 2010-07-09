@@ -1793,7 +1793,7 @@
 			<trans-unit id="disableself.jsp.message">
 				<source>You may deactivate your @@PRODUCT_NAME@@ account below. &lt;b&gt;This will remove your ability
 to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
-				<target>Você pode desativar sua conta @@NOME_DO_PRODUTO@@ abaixo. &lt;b&gt;Isto irá remover seu direito de acesso 
+				<target>Você pode desativar sua conta @@NOME_DO_PRODUTO@@ abaixo. &lt;b&gt;Isto irá remover seu direito de acesso
 ao @@NOME_DO_PRODUTO@@.&lt;/b&gt;</target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message2">
@@ -1805,7 +1805,7 @@ do @@NOME_DO_PRODUTO@@ para reativar sua conta.</target>
 			<trans-unit id="disableselfconfirm.jsp.warning">
 				<source>You will be logged out immediately after pressing the 'Deactivate Account'
 button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
-				<target>Você será desconectado imediatamente após pressionar o botão 'Desativar Conta' 
+				<target>Você será desconectado imediatamente após pressionar o botão 'Desativar Conta'
 abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target>
 			</trans-unit>
 			<trans-unit id="disableselfconfirm.jsp.warning_question">
@@ -3903,7 +3903,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target>
 			<trans-unit id="softwareentitlements.tip">
 				<source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available to the @@PRODUCT_NAME@@
 as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
-				<target>&lt;strong&gt;*Dica:&lt;/strong&gt; 'Total' se refere ao total disponível ao @@NOME_DO_PRODUTO@@ 
+				<target>&lt;strong&gt;*Dica:&lt;/strong&gt; 'Total' se refere ao total disponível ao @@NOME_DO_PRODUTO@@
  como refletido neste certificado do @@NOME_DO_PRODUTO@@ .</target>
 			</trans-unit>
 			<trans-unit id="satusers.tip">
@@ -3914,7 +3914,7 @@ organization. You may grant or remove the organization administrator role in the
 "Roles" section of the "Details" tab in individual users' profiles.</source>
 				<target>&lt;strong&gt;*Dica:&lt;/strong&gt; Os previlégios de administrador de empresa podem
 permanecer sem modificações nesta página. Caso queira modificá-los, visite
- a aba  "Users" de busca avançada, para acessar os perfis dos usuários individuais em sua empresa. Você pode adicionar ou remover a função de 
+ a aba  "Users" de busca avançada, para acessar os perfis dos usuários individuais em sua empresa. Você pode adicionar ou remover a função de
  administrador de empresa na seção "Funções" da aba "Detalhes" nos perfis de usuários individuais.</target>
 			</trans-unit>
 			<trans-unit id="organizations.tip">
@@ -3922,7 +3922,7 @@ permanecer sem modificações nesta página. Caso queira modificá-los, visite
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-				<target>&lt;strong&gt;Dica:&lt;/strong&gt; Esta é a empresa padrão de seu @@NOME_DO_PRODUTO@@. Os serviços para esta empresa estão ligados ao seu arquivo de certificado do @@NOME_DO_PRODUTO@@, portanto não podem ser modificados. Caso você remova os serviços de uma empresa não-padrão acima 
+				<target>&lt;strong&gt;Dica:&lt;/strong&gt; Esta é a empresa padrão de seu @@NOME_DO_PRODUTO@@. Os serviços para esta empresa estão ligados ao seu arquivo de certificado do @@NOME_DO_PRODUTO@@, portanto não podem ser modificados. Caso você remova os serviços de uma empresa não-padrão acima
 estes serviços serão adicionados novamente à empresa padrão, e se você adicionar
 serviços de uma empresa não-padrão, eles serão deduzidos da empresa padrão.</target>
 			</trans-unit>
@@ -5831,7 +5831,7 @@ regain this role if you choose to remove it now.  You will no longer have access
 organization management tools if you choose to remove this role from your login.</source>
 				<target>Você tem certeza que quer remover a função  "Administrador do @@NOME_DO_PRODUTO@@" de seu
 próprio registro? Você terá que entrar em contato com outro administrador do satellite para
-recuperar esta função, caso você escolha removê-la agora. Você não terá mais acesso às ferramentas de configuração do @@NOME_DO_PRODUTO@@ e 
+recuperar esta função, caso você escolha removê-la agora. Você não terá mais acesso às ferramentas de configuração do @@NOME_DO_PRODUTO@@ e
 ferramentas de gerenciamento da empresa se você escolher remover esta função de seu registro. </target>
 			</trans-unit>
 			<trans-unit id="orgs.trust.channels.plural.jsp.enabled">
@@ -5868,8 +5868,8 @@ ferramentas de gerenciamento da empresa se você escolher remover esta função 
           granted access to view and consume the content in
           &lt;strong&gt;{0}&lt;/strong&gt; channel. Organizations that are not checked below will not have access to this software channel. You can modify an organization's access to this channel below.</source>
 				<target>As organizações listadas abaixo são organizações com as quais
-                 sua organização possui um trust. As organizações selecionadas abaixo obterão 
-                   acesso à visualização e consumo do conteúdo no 
+                 sua organização possui um trust. As organizações selecionadas abaixo obterão
+                   acesso à visualização e consumo do conteúdo no
                 canal &lt;strong&gt;{0}&lt;/strong&gt;. Organizações que não são selecionadas abaixo não terão acesso à este canal de software. Você pode modificar um acesso de organização à este canal abaixo.</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.header3">
@@ -6468,7 +6468,7 @@ canais de software, subscrições e serviços, perfis de kickstart, chaves de at
 canais e arquivos de configuração, usuários, ou seja, tudo que você gerencia usando
 o @@NOME_DO_PRODUTO@@. Cada organização é gerenciada por ao menos um administrador, e todo
  o @@NOME_DO_PRODUTO@@ é gerenciado por um administrador. As organizações em um @@NOME_DO_PRODUTO@@ com várias organizações
-funcionam de forma semelhante à organizações em Satellites múltiplos com 
+funcionam de forma semelhante à organizações em Satellites múltiplos com
 uma organização.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary3">
@@ -6487,8 +6487,8 @@ as seguintes abas no menu de navegação da esquerda:</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
 				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>Gerencie as subscrições em seu @@NOME_DO_PRODUTO@@. Você também pode procurar qual acesso
 é fornecido por cada serviço. Você também pode alocar aqui os serviços, um a um, para qualquer serviço em todos os
@@ -6513,7 +6513,7 @@ administrator privileges in all of the organizations on your @@PRODUCT_NAME@@ an
 may also assign or take away an organization administrator's satellite
 administrator privileges.</source>
 				<target>Crie e gerencie as organizações em seu @@NOME_DO_PRODUTO@@. Você pode não conseguir visualizar todos
-os usuários no @@NOME_DO_PRODUTO@@ por aqui, mas você pode procurar pelos usuários com os previlégios do administrador da organização em todas as organizaçẽos em seu @@NOME_DO_PRODUTO@@ e 
+os usuários no @@NOME_DO_PRODUTO@@ por aqui, mas você pode procurar pelos usuários com os previlégios do administrador da organização em todas as organizaçẽos em seu @@NOME_DO_PRODUTO@@ e
 também pode atribuir ou tomar os previlégios do administrador de uma organização do satellite.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link3">
@@ -6803,9 +6803,9 @@ Please note that some manual configuration of these scripts may still be require
 				<target>Atualizações das Variantes</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
-				<target>As variantes do kickstart podem ser usadas para substituir valores nos perfis do kickstart. Para definir a variante, simplesmente adicione nome=valor na caixa abaixo. 
+				<target>As variantes do kickstart podem ser usadas para substituir valores nos perfis do kickstart. Para definir a variante, simplesmente adicione nome=valor na caixa abaixo.
         			 Você teria então que usar o $nome dentro do perfil para substituir no valor.</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
@@ -7146,12 +7146,12 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; Caso você mude o Tipo de Virtualização, precisará realizar mudanças no
-            carregador de inicialização do perfil do kickstart e opções de partição, sobrescrevendo principalmente as padronizações do usuário. 
-            Por favor, visite a aba &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            carregador de inicialização do perfil do kickstart e opções de partição, sobrescrevendo principalmente as padronizações do usuário.
+            Por favor, visite a aba &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             para verificar as novas configurações.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -9373,7 +9373,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			<trans-unit id="channelfiles.jsp.description">
 				<source>This list shows the files that this configuration channel contains.  You can remove
 a file or files, or copy the latest version into a set of local overrides or into other central configuration channels.</source>
-				<target>Esta lista mostra os arquivos que este canal de configuração contém. Você pode remover 
+				<target>Esta lista mostra os arquivos que este canal de configuração contém. Você pode remover
  um arquivo ou arquivos, ou copiar a última versão para um conjunto de sobrescrições locais ou para um outro canal de configuração central.</target>
 			</trans-unit>
 			<trans-unit id="channelfiles.jsp.path">
@@ -11773,7 +11773,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 				<source>Packages listed below may be removed from one or more systems.
 
              Select one or more and click the &lt;b&gt;Remove Selected Packages&lt;/b&gt; button to schedule package removal.</source>
-				<target>Pacotes listados abaixo podem ser removidos de um ou mais sistemas 
+				<target>Pacotes listados abaixo podem ser removidos de um ou mais sistemas
 
             Selecione um ou mais e clique em &lt;b&gt;Remover Pacotes Selecionados&lt;/b&gt; para agendar a remoção de pacotes.</target>
 			</trans-unit>
@@ -11845,7 +11845,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 				<source>Packages listed below may be removed from one or more systems.
 
             Select one or more and click the &lt;b&gt;Verify Selected Packages&lt;/b&gt; button to schedule package removal.</source>
-				<target>Pacotes listados abaixo devem ser removidos de um ou mais sistemas 
+				<target>Pacotes listados abaixo devem ser removidos de um ou mais sistemas
 
                Selecione um ou mais e clique em &lt;b&gt;Verificar Pacotes Selecionados&lt;/b&gt; para agendar remoção de pacote.</target>
 			</trans-unit>
@@ -12356,7 +12356,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 
 O campo Etiqueta da Distribuição deve conter apenas letras, números, hífens, pontos finais, e sublinhados (underscores). Além disso, deve ter pelo menos 4 caracteres.&lt;br/&gt;&lt;br/&gt;
 
-O Caminho da Árvore, o RPM do Kickstart, o Canal Base, e a Geração do Instalador sempre devem coincidir. Isto geralmente significa que as versões para cada campo devem ser da mesma versão do Red Hat Enterprise Linux.&lt;br/&gt; 
+O Caminho da Árvore, o RPM do Kickstart, o Canal Base, e a Geração do Instalador sempre devem coincidir. Isto geralmente significa que as versões para cada campo devem ser da mesma versão do Red Hat Enterprise Linux.&lt;br/&gt;
 O Caminho da Árvore deve ser um caminho de disco local em seu servidor @@NOME_DO_PRODUTO@@, contendo toda a àrvore do kickstart para uma distribuição incluindo o kernel, initrd, e informações sobre repo, mas excluindo quaisquer rpms. Este diretório deve ser legível por usuários do apache e tomcat. A partir do caminho da árvore especificada, um kernel deve estar disponível em "./images/pxeboot/vmlinuz"  e uma imagem de initrd deve estar disponível em "./images/pxeboot/initrd.img". Por exemplo, se você possui uma mídia localizada no servidor @@PRODUCT_NAME@@ em &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt; você precisa especificar o caminho como o valor do Caminho da Árvore, o qual buscaria por um kernel e um initrd aqui: &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="treecreate.jsp.header2">
@@ -12407,9 +12407,9 @@ Você pode precisar executar uma sincronização do Satellite dos canais de
  distribuição de kickstart.&lt;/strong&gt; </target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
-				<source> 
+				<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;</source>
-				<target> 
+				<target>
  &lt;strong&gt;Nenhuma geração de isntalador aplicável encontrado para o canal base selecionado.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.toolbar">
@@ -13125,9 +13125,9 @@ Red Hat will always attempt to inform at least one week in advance through the e
 list (see below) about this scheduled downtime whenever possible.</source>
 				<target>A Red Hat agenda todas as manutenções planejadas do @@NOME_DO_PRODUTO@@ para
 cada Terça-Feira das 9 PM às 3 AM, Horário do Leste dos EUA (1 AM às 7 AM UTC).  Apesar
-da Red Hat não necessariamente usar todos estes períodos para executar tarefas de manutenção, nós recomendamos que a sua 
-organização desenvolva práticas que levem em conta estes períodos de indisponibilidade do @@NOME_DO_PRODUTO@@.  
-A Red Hat, sempre que for possível, tentará informar sobre estes períodos de manutenção programados com pelo menos uma semana de antecedência através da lista de e-mails relevante 
+da Red Hat não necessariamente usar todos estes períodos para executar tarefas de manutenção, nós recomendamos que a sua
+organização desenvolva práticas que levem em conta estes períodos de indisponibilidade do @@NOME_DO_PRODUTO@@.
+A Red Hat, sempre que for possível, tentará informar sobre estes períodos de manutenção programados com pelo menos uma semana de antecedência através da lista de e-mails relevante
 (veja abaixo). </target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.unscheduled-header">
@@ -13314,11 +13314,11 @@ Você não sabe como fazer o  download e usar estas imagens? &lt;a href="{0}"&gt
 			</trans-unit>
 			<trans-unit id="isodownload.latest.description">
 				<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)</source>
 				<target>
-	Segue abaixo um conjunto completo das imagens do ISO para o &lt;strong&gt;último lançamento&lt;/strong&gt; of {0}.  
+	Segue abaixo um conjunto completo das imagens do ISO para o &lt;strong&gt;último lançamento&lt;/strong&gt; of {0}.
 	Dependendo da variante de {0} que você deseja instalar, você pode precisar somente de um subconjunto destes discos.
     (&lt;a href="{1}"&gt;mais informações&lt;/a&gt;)</target>
 			</trans-unit>
@@ -13344,11 +13344,11 @@ Você não sabe como fazer o  download e usar estas imagens? &lt;a href="{0}"&gt
 			</trans-unit>
 			<trans-unit id="isodownload.latest.note">
 				<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
-&lt;strong&gt;NOTE:&lt;/strong&gt; Você irá precisar de um número de instalação para instalar {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; Você irá precisar de um número de instalação para instalar {0}.
 &lt;a href="{1}"&gt;Não sei o que é um número de instalação?&lt;/a&gt;
 &lt;a href="{2}"&gt;Precisa consultar seus números de instalação?&lt;/a&gt;</target>
 			</trans-unit>
@@ -13358,10 +13358,10 @@ Você não sabe como fazer o  download e usar estas imagens? &lt;a href="{0}"&gt
 			</trans-unit>
 			<trans-unit id="isodownload.rest.description">
 				<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.</source>
 				<target>
-Segue abaixo conjuntos completos de imagens ISO para as &lt;strong&gt; versões anteriores&lt;/strong&gt; do {0}.  
+Segue abaixo conjuntos completos de imagens ISO para as &lt;strong&gt; versões anteriores&lt;/strong&gt; do {0}.
 Note que somente um conjunto das imagens ISO é necesário para instalar qualquer versão específica do {0}.</target>
 			</trans-unit>
 			<trans-unit id="isodownload.viewprevious">
@@ -13729,7 +13729,7 @@ Como forma alternativa, caso você queira atualizar os canais que você já impo
 			<trans-unit id="sys_entitlements.tip">
 				<source>*&lt;strong&gt;Tip:&lt;/strong&gt;'Total' refers to the total available to the @@PRODUCT_NAME@@
 as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
-				<target>*&lt;strong&gt;Dica:&lt;/strong&gt; 'Total' se refere ao total disponível no @@NOME_DO_PRODUTO@@ 
+				<target>*&lt;strong&gt;Dica:&lt;/strong&gt; 'Total' se refere ao total disponível no @@NOME_DO_PRODUTO@@
 como refletido neste certificado do @@NOME_DO_PRODUTO@@. </target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.not_allocated">
@@ -13866,7 +13866,7 @@ as organizações (excluindo a organização do @@NOME_DO_PRODUTO@@ padrão) nes
           possible to share content and migrate systems between these two organizations. You may add a trust by checking
           the box next to an organization (or remove a trust by unchecking it) and clicking the 'Modify Trusts' button.</source>
 				<target>
-             As organizações selecionadas abaixo são organizações em trust de {0} organização. Isto significa que é 
+             As organizações selecionadas abaixo são organizações em trust de {0} organização. Isto significa que é
             possível de compartilhar conteúdo e migrar sistemas entre estas duas organizações. Você pode adicionar uma trust, selecionando
             a caixa próxima à uma organização (ou remover uma trust desselecionando-a) e clicando em 'Modificar Trusts'. </target>
 			</trans-unit>
@@ -13879,22 +13879,22 @@ as organizações (excluindo a organização do @@NOME_DO_PRODUTO@@ padrão) nes
             &lt;p/&gt;
             Please review the changes you are about to make before confirming the trust removal(s).</source>
 				<target>
-           Você tem certeza de que deseja remover a(s) trust(s) listadas abaixo? Existem sistemas na 
-          {0} organização que possui inscrição do conteúdo fornecido pela(s) organizações cuja(s) trust(s) 
-          você deseja remover. Esta ação pode afetar estes sistemas. Por exemplo, estes sistemas podem 
-         não receber mais atualizações de segurança para o conteúdo fornecido através da trust. 
+           Você tem certeza de que deseja remover a(s) trust(s) listadas abaixo? Existem sistemas na
+          {0} organização que possui inscrição do conteúdo fornecido pela(s) organizações cuja(s) trust(s)
+          você deseja remover. Esta ação pode afetar estes sistemas. Por exemplo, estes sistemas podem
+         não receber mais atualizações de segurança para o conteúdo fornecido através da trust.
             &lt;p/&gt;
             Por favor, revise as mudanças que irá realizar antes de confirmar a remoção da(s) trust(s).</target>
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
 				<target>
-        Os sistemas listados abaixo serão afetados com a remoção da relação da trust entre 
-         a &lt;b&gt;{0}&lt;/b&gt; organização e a  &lt;b&gt;{1}&lt;/b&gt; organização. 
+        Os sistemas listados abaixo serão afetados com a remoção da relação da trust entre
+         a &lt;b&gt;{0}&lt;/b&gt; organização e a  &lt;b&gt;{1}&lt;/b&gt; organização.
          A remoção desta trust pode afetar seriamente estes sistemas. Por exemplo, estes sistemas podem
         não receber mais atualizações de segurança para o conteúdo fornecido através desta trust.</target>
 			</trans-unit>
@@ -14041,7 +14041,7 @@ As a Channel Administrator, you may change the base channels your systems are su
 &lt;p/&gt;
 &lt;strong&gt;This operation can have a dramatic effect on the packages and errata available to the systems, and should be used with caution.&lt;/strong&gt;</source>
 				<target>
-Como um Administrador de Canal, você pode modificar os canais base aos quais seus sistemas são registrados. Os canais válidos podem ser canais criados por sua empresa, ou canal base padrão da Red Hat para a versão de seu sistema operacional e tipo de processador. Os sistemas irão cancelar suas subscrições dos canais e registrar aos seus canais base. 
+Como um Administrador de Canal, você pode modificar os canais base aos quais seus sistemas são registrados. Os canais válidos podem ser canais criados por sua empresa, ou canal base padrão da Red Hat para a versão de seu sistema operacional e tipo de processador. Os sistemas irão cancelar suas subscrições dos canais e registrar aos seus canais base.
 &lt;p/&gt;
 &lt;strong&gt; Esta operação pode surtir um efeito dramático nos pacotes e erratas diponíveis nos sistemas, e deve ser usada com cuidado.&lt;/strong&gt;</target>
 			</trans-unit>
@@ -14289,7 +14289,7 @@ Como um Administrador de Canal, você pode modificar os canais base aos quais se
 				<source>NOTE: Different architectures of the same package can exist in a
 single channel, this may cause a package to be listed twice for a
 given channel.</source>
-				<target>Nota: Podem existir arquiteturas diferentes do mesmo pacote em um único canal, isto pode fazer com que um pacote seja listado duas vezes para um 
+				<target>Nota: Podem existir arquiteturas diferentes do mesmo pacote em um único canal, isto pode fazer com que um pacote seja listado duas vezes para um
  mesmo canal.</target>
 			</trans-unit>
 			<trans-unit id="docsearch.content">
@@ -14892,16 +14892,16 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.</source>
 				<target>Criar ou editar canais de software a partir desta página
          &lt;p/&gt;
@@ -14910,10 +14910,10 @@ given channel.</source>
          &lt;p/&gt;
          O nome do canal e etiqueta são requeridos. Cada um deve conter ao menos 6
         caracteres. As etiquetas devem iniciar com uma letra, conter somente
-         letras minúsculas, hifens ('-'), pontos finais ('.'), e sublinhado ('_'), e 
-        numerais. O nome do canal também pode conter espaços e barras 
-         ('/'). 
-         &lt;p/&gt; 
+         letras minúsculas, hifens ('-'), pontos finais ('.'), e sublinhado ('_'), e
+        numerais. O nome do canal também pode conter espaços e barras
+         ('/').
+         &lt;p/&gt;
         O sumário do canal também é necessário.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
@@ -14958,7 +14958,7 @@ given channel.</source>
         this channel may adversely affect those systems. For example, those
         systems may no longer receive critical security updates to content
         provided by this channel.</source>
-				<target>Você tem certeza de que quer configurar este canal para 
+				<target>Você tem certeza de que quer configurar este canal para
         &lt;strong&gt;privado&lt;/strong&gt;, acessível somente por sistemas em sua
          empresa? Existem sistemas nesta empresa listados abaixo
          que são registrados neste conteúdo fornecido por este canal. Se você remover o acesso
@@ -14979,10 +14979,10 @@ given channel.</source>
         Removing these organizations' access may adversely affect those systems.
         For example, they may no longer receive critical security updates to
         content provided by this channel.</source>
-				<target>Você tem certeza de que deseja configurar esta política de acesso do canal para 
+				<target>Você tem certeza de que deseja configurar esta política de acesso do canal para
           ser um canal &lt;strong&gt;protegido&lt;/strong&gt;, observe que as
-          empresas abaixo possuem sistemas que são registrados neste canal. 
-          Se você remover o acesso à este canal, poderá afetar seriamente estes sistemas. 
+          empresas abaixo possuem sistemas que são registrados neste canal.
+          Se você remover o acesso à este canal, poderá afetar seriamente estes sistemas.
            Por exemplo, eles podem não receber mais atualizações de segurança críticas para o conteúdo
           fornecido por este canal.</target>
 			</trans-unit>
@@ -14990,7 +14990,7 @@ given channel.</source>
 				<source>You may choose to grant the organizations below access to this
         channel, or you may deny them access. You can modify access to this
         channel at any time using the 'Organizations' tab above.</source>
-				<target>Você pode escolher fornecer às organizações acesso baixo à este 
+				<target>Você pode escolher fornecer às organizações acesso baixo à este
           canal, ou você pode negar acesso à elas. Você poderá modificar o acesso
          à este canal a qualquer hora usando a aba acima 'Organizações'.</target>
 			</trans-unit>

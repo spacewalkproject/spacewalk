@@ -30,9 +30,9 @@ import java.util.List;
  * @version $Rev: 1 $
  */
 public class BaseKickstartEditTestCase extends RhnMockStrutsTestCase {
-    
-    protected KickstartData ksdata;    
-    
+
+    protected KickstartData ksdata;
+
     public void setUp() throws Exception {
         super.setUp();
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);

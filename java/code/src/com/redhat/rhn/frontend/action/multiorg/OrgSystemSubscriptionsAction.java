@@ -50,26 +50,26 @@ public class OrgSystemSubscriptionsAction extends RhnAction {
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
-                                  HttpServletResponse response) {        
+                                  HttpServletResponse response) {
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         RequestContext ctx = new RequestContext(request);
         Long oid = ctx.getParamAsLong(RequestContext.ORG_ID);
         Org org = OrgFactory.lookupById(oid);
-        
-        ActionForward retval = 
-            getStrutsDelegate().forwardParam(mapping.findForward("default"), 
+
+        ActionForward retval =
+            getStrutsDelegate().forwardParam(mapping.findForward("default"),
                 "oid", oid.toString());
-        
-        if (isSubmitted(dynaForm)) {            
+
+        if (isSubmitted(dynaForm)) {
             ActionErrors ae = updateSubscriptions(org, dynaForm, request);
             if (ae != null && ae.size() > 0) {
                 getStrutsDelegate().saveMessages(request, ae);
-                retval = getStrutsDelegate().forwardParam(mapping.findForward("error"), 
+                retval = getStrutsDelegate().forwardParam(mapping.findForward("error"),
                         "oid", oid.toString());
             }
             else {
                 createSuccessMessage(request, "org.entitlements.syssoft.success", null);
-                retval = getStrutsDelegate().forwardParam(mapping.findForward("success"), 
+                retval = getStrutsDelegate().forwardParam(mapping.findForward("success"),
                         "oid", oid.toString());
             }
         }
@@ -77,7 +77,7 @@ public class OrgSystemSubscriptionsAction extends RhnAction {
         return retval;
     }
 
-    private ActionErrors updateSubscriptions(Org org, 
+    private ActionErrors updateSubscriptions(Org org,
             DynaActionForm dynaForm, HttpServletRequest request) {
 
         if (org.getId().equals(OrgFactory.getSatelliteOrg().getId())) {
@@ -89,21 +89,21 @@ public class OrgSystemSubscriptionsAction extends RhnAction {
 
         List <Entitlement> entitlements = new LinkedList<Entitlement>();
         entitlements.addAll(EntitlementManager.getBaseEntitlements());
-        entitlements.addAll(EntitlementManager.getAddonEntitlements()); 
-        
+        entitlements.addAll(EntitlementManager.getAddonEntitlements());
+
         for (Entitlement ent : entitlements) {
             String count = (String) dynaForm.get(ent.getLabel());
             Long newCount = null;
             try {
                 newCount = Long.parseLong(count.trim());
             }
-            catch (NumberFormatException ex) {                
+            catch (NumberFormatException ex) {
                 ValidatorError error = new ValidatorError(
                         "orgsystemsubs.invalid", ent.getHumanReadableLabel());
                 return (RhnValidationHelper.validatorErrorToActionErrors(error));
-            } 
+            }
             if (count != null && !StringUtils.isEmpty(count)) {
-                UpdateOrgSystemEntitlementsCommand cmd = 
+                UpdateOrgSystemEntitlementsCommand cmd =
                     new UpdateOrgSystemEntitlementsCommand(ent, org, newCount);
                 ValidatorError ve = cmd.store();
                 if (ve != null) {
@@ -123,5 +123,5 @@ public class OrgSystemSubscriptionsAction extends RhnAction {
                         dto.getMaxEntitlements().toString());
         }
     }
-    
+
 }

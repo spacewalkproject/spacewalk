@@ -33,16 +33,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Action for the probe details page. Note that there is no correpsonding 
+ * Action for the probe details page. Note that there is no correpsonding
  * SetupAction since there isn't really a good separation between setup
  * and performing the action.
- * 
+ *
  * @version $Rev: 53910 $
  */
 public class ProbeDeleteAction extends BaseProbeAction {
 
     private static Logger log = Logger.getLogger(ProbeDeleteAction.class);
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest req, HttpServletResponse resp) {
@@ -52,27 +52,27 @@ public class ProbeDeleteAction extends BaseProbeAction {
         Probe probe = rctx.lookupProbe();
         Server server = rctx.lookupAndBindServer();
         User user = rctx.getCurrentUser();
-        
+
         // Handle the submit
         boolean submitted = handleSubmit(probe, user, form, req);
-        
+
         req.setAttribute("probe", probe);
 
         if (submitted) {
             HashMap params = new HashMap();
             params.put(RequestContext.SID, server.getId());
             log.debug("Deleted probe: " + probe.getId());
-            return getStrutsDelegate().forwardParams(mapping.findForward("deleted"), 
+            return getStrutsDelegate().forwardParams(mapping.findForward("deleted"),
                     params);
         }
         return mapping.findForward("default");
-    }    
-    
+    }
+
     // Copy values from the DynaActionForm into the ServerProbe object
     // and store it to the DB.
-    private boolean handleSubmit(Probe probe, User user, DynaActionForm form, 
+    private boolean handleSubmit(Probe probe, User user, DynaActionForm form,
             HttpServletRequest req) {
-        
+
         boolean submitted = isSubmitted(form);
         if (submitted) {
             MonitoringManager.getInstance().deleteProbe(probe, user);
@@ -81,5 +81,5 @@ public class ProbeDeleteAction extends BaseProbeAction {
         }
         return submitted;
     }
-    
+
 }

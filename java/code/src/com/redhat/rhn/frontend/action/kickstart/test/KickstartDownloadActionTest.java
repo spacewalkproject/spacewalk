@@ -25,8 +25,8 @@ import com.redhat.rhn.domain.user.User;
  * @version $Rev: 1 $
  */
 public class KickstartDownloadActionTest extends BaseKickstartEditTestCase {
-    
-    
+
+
     public void testDownloadFile() throws Exception {
         setupKickstartDownloadTest(ksdata, user);
         setRequestPathInfo("/kickstart/KickstartFileDownload");
@@ -34,7 +34,7 @@ public class KickstartDownloadActionTest extends BaseKickstartEditTestCase {
         verifyNoActionErrors();
     }
 
-    public static Channel setupKickstartDownloadTest(KickstartData ksdata, 
+    public static Channel setupKickstartDownloadTest(KickstartData ksdata,
             User user) throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         ksdata.getKickstartDefaults().getKstree().setChannel(c);

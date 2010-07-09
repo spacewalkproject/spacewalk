@@ -20,9 +20,9 @@ import java.util.Collection;
  * Assertions that should be used to check parameters on public methods.
  * Note that, as opposed to the <code>assert</code> keyword, these checks
  * can not and should not be turned off.
- * 
- * <p> See <a href="http://java.sun.com/docs/books/jls/assert-spec.html">Sun's 
- * assert specification</a> for recommended best practices.  
+ *
+ * <p> See <a href="http://java.sun.com/docs/books/jls/assert-spec.html">Sun's
+ * assert specification</a> for recommended best practices.
  * @version $Rev$
  */
 public final class Asserts {
@@ -34,7 +34,7 @@ public final class Asserts {
     /**
      * Assert that an arbitrary condition is true and throw an exception if the
      * condition is false.
-     * 
+     *
      * @param cond condition to assert
      * @throws IllegalStateException if condition is <code>false</code>
      */
@@ -45,7 +45,7 @@ public final class Asserts {
     /**
      * Assert that an arbitrary condition is true throw an exception with
      * message <code>msg</code> if the condition is false.
-     * 
+     *
      * @param cond condition to assert
      * @param msg failure message
      * @throws IllegalStateException if condition is <code>false</code>
@@ -103,7 +103,7 @@ public final class Asserts {
     public static void assertNotEmpty(String s, String label)
         throws IllegalStateException {
         if (s == null || s.trim().length() == 0) {
-            assertTrue(s != null && s.trim().length() > 0, 
+            assertTrue(s != null && s.trim().length() > 0,
                     "Value of " + label + " is empty.");
         }
     }
@@ -111,10 +111,10 @@ public final class Asserts {
     /**
      * Verify that two values are equal (according to their equals method,
      * unless expected is null, then according to ==).
-     * 
+     *
      * @param expected Expected value.
      * @param actual Actual value.
-     * @throws IllegalStateException if <code>expected</code> is not 
+     * @throws IllegalStateException if <code>expected</code> is not
      * equal to <code>actual</code>
      */
     public static void assertEquals(Object expected, Object actual)
@@ -125,7 +125,7 @@ public final class Asserts {
     /**
      * Verify that two values are equal (according to their equals method,
      * unless expected is null, then according to ==).
-     * 
+     *
      * @param expected Expected value.
      * @param actual Actual value.
      * @param expectedLabel Label for first (generally expected) value.
@@ -149,7 +149,7 @@ public final class Asserts {
 
     /**
      * Verify that two values are equal.
-     * 
+     *
      * @param expected Expected value.
      * @param actual Actual value.
      * @throws IllegalStateException if <code>expected != actual</code>
@@ -161,7 +161,7 @@ public final class Asserts {
 
     /**
      * Verify that two values are equal.
-     * 
+     *
      * @param expected Expected value.
      * @param actual Actual value.
      * @param expectedLabel Label for first (generally expected) value.
@@ -191,7 +191,7 @@ public final class Asserts {
 
     /**
      * This is the equivalent of assertTrue(false, msg).
-     * 
+     *
      * @param msg A string describing the condition of failure.
      * @throws IllegalStateException always
      */

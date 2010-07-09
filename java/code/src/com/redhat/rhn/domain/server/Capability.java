@@ -25,29 +25,29 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Capability {
     private Long id;
     private String name;
-    
-    
+
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
@@ -77,7 +77,7 @@ public class Capability {
                                   .isEquals();
     }
 
-    /** 
+    /**
      * {@inheritDoc}
      */
     public String toString() {

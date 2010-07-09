@@ -24,13 +24,13 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class RenderGuardCompositeTest extends RhnBaseTestCase {
-    
+
     public void testNoGuards() {
         RenderGuardComposite comp = new RenderGuardComposite();
         boolean rc = comp.canRender(null, 0);
         assertTrue(rc);
     }
-    
+
     public void testNullGuards() {
         RenderGuardComposite comp = new RenderGuardComposite();
         comp.addRenderGuard(null);
@@ -45,7 +45,7 @@ public class RenderGuardCompositeTest extends RhnBaseTestCase {
         boolean rc = comp.canRender(null, 0);
         assertFalse(rc);
     }
-    
+
     // 1 = true
     public void testRenderGuard1() {
         RenderGuardComposite comp = new RenderGuardComposite();
@@ -53,7 +53,7 @@ public class RenderGuardCompositeTest extends RhnBaseTestCase {
         boolean rc = comp.canRender(null, 0);
         assertTrue(rc);
     }
-    
+
     // 2 -> 10 -> true & false -> false
     public void testRenderGuard2() {
         RenderGuardComposite comp = new RenderGuardComposite();
@@ -71,7 +71,7 @@ public class RenderGuardCompositeTest extends RhnBaseTestCase {
         boolean rc = comp.canRender(null, 0);
         assertTrue(rc);
     }
-    
+
     // 7 -> 111 -> true & true & true -> true
     public void testRenderGuard7() {
         RenderGuardComposite comp = new RenderGuardComposite();
@@ -81,14 +81,14 @@ public class RenderGuardCompositeTest extends RhnBaseTestCase {
         boolean rc = comp.canRender(null, 0);
         assertTrue(rc);
     }
-    
+
     public static class TrueGuard implements RenderGuard {
 
         public boolean canRender(NavNode node, int depth) {
             return true;
         }
     }
-    
+
     public static class FalseGuard implements RenderGuard {
 
         public boolean canRender(NavNode node, int depth) {

@@ -30,19 +30,19 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  *
  * @xmlrpc.doc
- * #struct("organization info") 
+ * #struct("organization info")
  *   #prop("int", "id")
  *   #prop("string", "name")
  *   #prop_desc("int", "active_users", "Number of active users in the organization.")
  *   #prop_desc("int", "systems", "Number of systems in the organization.")
  *   #prop_desc("int", "trusts", "Number of trusted organizations.")
- *   #prop_desc("int", "system_groups", 
+ *   #prop_desc("int", "system_groups",
  *                              "Number of system groups in the organization.")
- *   #prop_desc("int", "activation_keys", 
+ *   #prop_desc("int", "activation_keys",
  *                              "Number of activation keys in the organization. (optional)")
- *   #prop_desc("int", "kickstart_profiles", 
+ *   #prop_desc("int", "kickstart_profiles",
  *                          "Number of kickstart profiles in the organization. (optional)")
- *   #prop_desc("int", "configuration_channels", 
+ *   #prop_desc("int", "configuration_channels",
  *                      "Number of configuration channels in the organization. (optional)")
  * #struct_end()
  */
@@ -57,7 +57,7 @@ public class OrgDtoSerializer implements XmlRpcCustomSerializer {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void serialize(Object value, Writer output,
@@ -65,7 +65,7 @@ public class OrgDtoSerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
-        OrgDto dto = (OrgDto) value; 
+        OrgDto dto = (OrgDto) value;
         helper.add("id", dto.getId());
         helper.add("name", dto.getName());
         add(helper, "active_users", dto.getUsers());

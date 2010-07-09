@@ -47,7 +47,7 @@ public class ExpandableRowRenderer extends RowRenderer {
             return rowClasses[rowNum % rowClasses.length];
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -58,7 +58,7 @@ public class ExpandableRowRenderer extends RowRenderer {
         }
         return "child-" + listName + "-" + ListTagHelper.getObjectId(current);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -68,5 +68,5 @@ public class ExpandableRowRenderer extends RowRenderer {
             return "display: none;";
         }
         return super.getRowStyle(currentObject);
-    }    
+    }
 }

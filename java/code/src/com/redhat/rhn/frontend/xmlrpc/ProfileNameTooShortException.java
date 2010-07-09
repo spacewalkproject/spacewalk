@@ -44,12 +44,12 @@ public class ProfileNameTooShortException extends FaultException  {
         /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public ProfileNameTooShortException(Throwable cause) {
-        super(1060 , "systemProfileNameTooShort" , "system profile name is too short", 
+        super(1060 , "systemProfileNameTooShort" , "system profile name is too short",
                 cause);
         // begin member variable initialization
     }

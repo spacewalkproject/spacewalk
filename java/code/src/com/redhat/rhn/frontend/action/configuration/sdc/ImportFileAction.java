@@ -39,7 +39,7 @@ public class ImportFileAction extends BaseSetListAction {
         Server server = rctx.lookupServer();
         return ConfigurationManager.getInstance().listFileNamesForSystem(user, server, pc);
     }
-    
+
     protected void processRequestAttributes(RequestContext rctx) {
         if (!rctx.isSubmitted()) {
             getSetDecl().clear(rctx.getLoggedInUser());
@@ -49,12 +49,12 @@ public class ImportFileAction extends BaseSetListAction {
         User user = rctx.getLoggedInUser();
         SdcHelper.ssmCheck(rctx.getRequest(), server.getId(), user);
     }
-    
+
     protected void processPageControl(PageControl pc) {
         pc.setFilter(true);
         pc.setFilterColumn("path");
     }
-    
+
     /**
      * {@inheritDoc}
      */

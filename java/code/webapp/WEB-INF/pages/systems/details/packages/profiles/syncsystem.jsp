@@ -25,7 +25,7 @@
         name="compareList"
         styleclass="list"
         emptykey="schedulesync.jsp.nopackagesselected">
-        
+
         <rl:column headerkey="schedulesync.jsp.package" bound="false">
             ${current.name}
         </rl:column>
@@ -38,7 +38,7 @@
             ${current.actionStatus}
         </rl:column>
     </rl:list>
-      
+
     <p><bean:message key="schedulesync.jsp.disclaimer" /></p>
     <table class="schedule-action-interface" align="center">
         <tr>
@@ -60,7 +60,7 @@
             </td>
         </tr>
     </table>
-      
+
     <rhn:require acl="system_feature(ftr_delta_action)"
         mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
         <rhn:submitted/>
@@ -75,8 +75,8 @@
     <html:hidden property="sid" value="${param.sid}" />
     <html:hidden property="sid_1" value="${param.sid_1}" />
     <html:hidden property="set_label" value="packages_for_system_sync" />
-    
+
 </rl:listset>
-    
+
 </body>
 </html>

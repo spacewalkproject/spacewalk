@@ -4,23 +4,23 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.server.VirtualInstanceState" 
+    <class name="com.redhat.rhn.domain.server.VirtualInstanceState"
            table="RhnVirtualInstanceState"
            mutable="false">
-           
+
     	<cache usage="read-only"/>
     	
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="native"/>
         </id>
-        
+
         <property name="name" column="name" type="string" length="128"/>
         <property name="label" column="label" type="string" length="128"/>
         <property name="created" column="CREATED" type="timestamp" insert="false" update="false"/>
     	<property name="modified" column="MODIFIED" type="timestamp" insert="false" update="false"/>    	
     </class>
-    
+
     <query name="VirtualInstanceState.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.server.VirtualInstanceState as state where state.label = :label]]>
     </query>

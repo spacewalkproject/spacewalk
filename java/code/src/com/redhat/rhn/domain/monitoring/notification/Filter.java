@@ -45,7 +45,7 @@ public class Filter {
     private FilterType type;
     private Set criteria;
     private Set emailAddresses;
-    
+
     /**
      * Add a match criteria of the given type that matches
      * against <code>value</code>
@@ -66,7 +66,7 @@ public class Filter {
         getCriteria().add(result);
         return result;
     }
-    
+
 
     /**
      * @return Returns the id.
@@ -75,7 +75,7 @@ public class Filter {
         return id;
     }
 
-    
+
     /**
      * @param idIn The id to set.
      */
@@ -83,103 +83,103 @@ public class Filter {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
 
-    /** 
-     * Getter for reason 
+    /**
+     * Getter for reason
      * @return String to get
     */
     public String getReason() {
         return this.reason;
     }
 
-    /** 
-     * Setter for reason 
+    /**
+     * Setter for reason
      * @param reasonIn to set
     */
     public void setReason(String reasonIn) {
         this.reason = reasonIn;
     }
 
-    /** 
-     * Getter for expiration 
+    /**
+     * Getter for expiration
      * @return Date to get
     */
     public Date getExpiration() {
         return this.expiration;
     }
 
-    /** 
-     * Setter for expiration 
+    /**
+     * Setter for expiration
      * @param expirationIn to set
     */
     public void setExpiration(Date expirationIn) {
         this.expiration = expirationIn;
     }
 
-    /** 
-     * Getter for lastUpdateUser 
+    /**
+     * Getter for lastUpdateUser
      * @return String to get
     */
     public String getLastUpdateUser() {
         return this.lastUpdateUser;
     }
 
-    /** 
-     * Setter for lastUpdateUser 
+    /**
+     * Setter for lastUpdateUser
      * @param lastUpdateUserIn to set
     */
     public void setLastUpdateUser(String lastUpdateUserIn) {
         this.lastUpdateUser = lastUpdateUserIn;
     }
 
-    /** 
-     * Getter for lastUpdateDate 
+    /**
+     * Getter for lastUpdateDate
      * @return Date to get
     */
     public Date getLastUpdateDate() {
         return this.lastUpdateDate;
     }
 
-    /** 
-     * Setter for lastUpdateDate 
+    /**
+     * Setter for lastUpdateDate
      * @param lastUpdateDateIn to set
     */
     public void setLastUpdateDate(Date lastUpdateDateIn) {
         this.lastUpdateDate = lastUpdateDateIn;
     }
 
-    /** 
-     * Getter for startDate 
+    /**
+     * Getter for startDate
      * @return Date to get
     */
     public Date getStartDate() {
         return this.startDate;
     }
 
-    /** 
-     * Setter for startDate 
+    /**
+     * Setter for startDate
      * @param startDateIn to set
     */
     public void setStartDate(Date startDateIn) {
         this.startDate = startDateIn;
     }
 
-    
+
     /**
      * @return Returns the recurring.
      */
@@ -188,7 +188,7 @@ public class Filter {
     }
 
 
-    
+
     /**
      * @param recurringIn The recurring to set.
      */
@@ -197,12 +197,12 @@ public class Filter {
     }
 
 
-    
+
     /**
      * Get the number of minutes we want the recurring filter
      * to run for.  So, if we say the filter is for 30 minutes
      * then each time it runs, it will run for 30 minutes.
-     * 
+     *
      * @return Returns the recurringDuration.
      */
     public Long getRecurringDuration() {
@@ -210,25 +210,25 @@ public class Filter {
     }
 
 
-    
+
     /**
      * Set the number of minutes we want the recurring filter
      * to run for.  So, if we say the filter is for 30 minutes
      * then each time it runs, it will run for 30 minutes.
-     * 
+     *
      * @param recurringDurationIn The recurringDuration to set.
      */
     public void setRecurringDuration(Long recurringDurationIn) {
         this.recurringDuration = recurringDurationIn;
     }
-    
+
     /**
      * @return Returns the recurringDurationType.
      */
     public Long getRecurringDurationType() {
         return recurringDurationType;
     }
-    
+
     /**
      * @param recurringDurationTypeIn The recurringDurationType to set.
      */
@@ -238,13 +238,13 @@ public class Filter {
 
 
     /**
-     * How often this Filter recurrs.  
+     * How often this Filter recurrs.
      *
      * These values correspond to the constants defined in java.util.Calendar:
      *    public final static int DAY_OF_YEAR = 6;
      *    public final static int WEEK_OF_YEAR = 3;
      *    public final static int MONTH = 2;
-     *                
+     *
      * @return Returns the recurringFrequency.
      */
     public Long getRecurringFrequency() {
@@ -252,15 +252,15 @@ public class Filter {
     }
 
 
-    
+
     /**
-     * How often this Filter recurrs.  
+     * How often this Filter recurrs.
      *
      * These values correspond to the constants defined in java.util.Calendar:
      *    public final static int DAY_OF_YEAR = 6;
      *    public final static int WEEK_OF_YEAR = 3;
      *    public final static int MONTH = 2;
- 
+
      * @param recurringFrequencyIn The recurringFrequency to set.
      */
     public void setRecurringFrequency(Long recurringFrequencyIn) {
@@ -274,7 +274,7 @@ public class Filter {
     public Org getOrg() {
         return org;
     }
-    
+
     /**
      * @param orgIn The org to set.
      */
@@ -296,7 +296,7 @@ public class Filter {
         this.user = userIn;
     }
 
-    
+
     /**
      * @return Returns the type.
      */
@@ -304,7 +304,7 @@ public class Filter {
         return type;
     }
 
-    
+
     /**
      * @param typeIn The type to set.
      */
@@ -313,7 +313,7 @@ public class Filter {
     }
 
 
-    
+
     /**
      * @return Returns the criteria.
      */
@@ -322,7 +322,7 @@ public class Filter {
     }
 
 
-    
+
     /**
      * @param criteria The criteria to set.
      */
@@ -330,7 +330,7 @@ public class Filter {
         this.criteria = criteria0;
     }
 
-    
+
     /**
      * @return Returns the emailAddresses.
      */
@@ -341,13 +341,13 @@ public class Filter {
         return emailAddresses;
     }
 
-    
+
     /**
      * @param emailAddresses The emailAddresses to set.
      */
     private void setEmailAddresses(Set emailAddresses0) {
         this.emailAddresses = emailAddresses0;
     }
-    
-    
+
+
 }

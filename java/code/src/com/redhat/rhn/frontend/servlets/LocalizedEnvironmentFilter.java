@@ -41,7 +41,7 @@ import javax.servlet.jsp.jstl.core.Config;
 /**
  * Filter for centralizing locale and charset detection
  * and processing per-request
- * 
+ *
  * @version $Rev$
  */
 public class LocalizedEnvironmentFilter implements Filter {
@@ -66,7 +66,7 @@ public class LocalizedEnvironmentFilter implements Filter {
         initializeContext(httpRequest);
         chain.doFilter(request, response);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -110,7 +110,7 @@ public class LocalizedEnvironmentFilter implements Filter {
 
     private void resolveLocale(Context ctx, User user,
             HttpServletRequest request) {
-        RhnHttpServletRequest rhnRequest = (RhnHttpServletRequest) request;        
+        RhnHttpServletRequest rhnRequest = (RhnHttpServletRequest) request;
         ctx.setOriginalLocale(rhnRequest.getBrowserLocale());
         if (user != null && user.getPreferredLocale() != null) {
             Locale userLocale = null;

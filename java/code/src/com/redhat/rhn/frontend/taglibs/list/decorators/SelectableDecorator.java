@@ -26,52 +26,52 @@ import javax.servlet.jsp.JspException;
 
 /**
  * Handles selectable lists, such as lists backed by RhnSet
- * 
+ *
  * @version $Rev $
  */
 public class SelectableDecorator extends BaseListDecorator {
     private static final String NULL_SELECTION = "0";
     private static final String JAVASCRIPT_TAG =
-                    "<script type=\"text/javascript\">%s</script>";    
-    
+                    "<script type=\"text/javascript\">%s</script>";
+
     /**
      * {@inheritDoc}
      */
     public void beforeList() throws JspException {
         ListTagUtil.write(pageContext, "<input type=\"hidden\" name=\"list_" +
-                listName + "_all\" value=\"false\" id=\"" + "list_" + listName + 
+                listName + "_all\" value=\"false\" id=\"" + "list_" + listName +
                 "_all\" />");
         ListTagUtil.write(pageContext, "<input type=\"hidden\" name=\"list_" +
-                listName + "_none\" value=\"false\" id=\"" + "list_" + listName + 
+                listName + "_none\" value=\"false\" id=\"" + "list_" + listName +
                 "_none\" />");
     }
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public void afterTopPagination() throws JspException {
         renderSelectedCaption(true);
     }
-    
+
     /**
      * {@inheritDoc}
-     */    
+     */
     public void afterBottomPagination() throws JspException {
         renderSelectedCaption(false);
     }
-    
+
     /**
      * {@inheritDoc}
-     */    
+     */
     public void afterList() throws JspException {
         renderSelectButtons();
         String script = SelectableColumnTag.
                         getPostScript(listName, pageContext.getRequest());
         if (!StringUtils.isBlank(script)) {
-            ListTagUtil.write(pageContext, String.format(JAVASCRIPT_TAG, script));    
+            ListTagUtil.write(pageContext, String.format(JAVASCRIPT_TAG, script));
         }
     }
-    
+
     private void renderSelectedCaption(boolean isHeader) throws JspException {
         if (!currentList.isEmpty()) {
             String selectedName = ListTagUtil.makeSelectedAmountName(listName);
@@ -83,7 +83,7 @@ public class SelectableDecorator extends BaseListDecorator {
             Object[] args = new Object[1];
             args[0] = selected;
             //
-            //            
+            //
             String msg = ls.getMessage("message.numselected", args);
             ListTagUtil.write(pageContext, "&nbsp;<strong><span id=\"");
             if (isHeader) {
@@ -97,7 +97,7 @@ public class SelectableDecorator extends BaseListDecorator {
             ListTagUtil.write(pageContext, "</span></strong>");
         }
     }
-    
+
     private void renderSelectButtons() throws JspException {
         if (!currentList.isEmpty()) {
             StringBuffer buf = new StringBuffer();
@@ -107,20 +107,20 @@ public class SelectableDecorator extends BaseListDecorator {
             HtmlTag tag = new HtmlTag("input");
             tag.setAttribute("type", "submit");
             tag.setAttribute("name", buttonName);
-            tag.setAttribute("value", 
+            tag.setAttribute("value",
                     ls.getMessage(ListDisplayTag.UPDATE_LIST_KEY));
             buf.append(tag.render()).append("&nbsp;");
 
-            tag.setAttribute("value", 
+            tag.setAttribute("value",
                     ls.getMessage(ListDisplayTag.SELECT_ALL_KEY));
             buf.append(tag.render()).append("&nbsp;");
-            
+
             String selectedName = ListTagUtil.makeSelectedAmountName(listName);
             String selected = (String) pageContext.getRequest().getAttribute(selectedName);
             if (!NULL_SELECTION.equals(selected) &&  selected != null) {
-                tag.setAttribute("value", 
+                tag.setAttribute("value",
                         ls.getMessage(ListDisplayTag.UNSELECT_ALL_KEY));
-                buf.append(tag.render()).append("\n");        
+                buf.append(tag.render()).append("\n");
             }
             buf.append("</span>");
             ListTagUtil.write(pageContext, buf.toString());

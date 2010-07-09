@@ -36,7 +36,7 @@ class XmlResourceBundleParser  extends DefaultHandler {
     private StringBuffer thisText;
     private String currKey;
     private static Logger log = Logger.getLogger(XmlResourceBundleParser.class);
-    
+
     /** constructor
      */
     public XmlResourceBundleParser() {
@@ -65,22 +65,22 @@ class XmlResourceBundleParser  extends DefaultHandler {
             // For the en_US files we use source
             if (qualifiedName.equals("source")) {
                 if (messages.containsKey(currKey)) {
-                    log.warn("Duplicate message key found in XML Resource file: " + 
+                    log.warn("Duplicate message key found in XML Resource file: " +
                         currKey);
                 }
                 log.debug("Adding: [" + currKey + "] value: [" + thisText.toString() + "]");
-                messages.put(currKey, thisText.toString()); 
+                messages.put(currKey, thisText.toString());
             }
-            // For other languages we use target and overwrite the previously 
+            // For other languages we use target and overwrite the previously
             // placed "source" tag.  Depends on the fact that the target tag
             // comes after the source tag.
             if (qualifiedName.equals("target")) {
                 log.debug("Adding: [" + currKey + "] value: [" + thisText.toString() + "]");
-                messages.put(currKey, thisText.toString()); 
+                messages.put(currKey, thisText.toString());
             }
         }
     }
-    
+
     /** {@inheritDoc} */
     public void warning(SAXParseException e) throws SAXException {
         log.error("SAXParseException Warning: ");
@@ -107,9 +107,9 @@ class XmlResourceBundleParser  extends DefaultHandler {
         log.error("   Column number: " + e.getColumnNumber());
         log.error("   Message: " + e.getMessage());
     }
-    
-    
-    
+
+
+
     /** {@inheritDoc} */
     public void characters(char[] ch, int start, int length) {
         String appendme = new String(ch, start, length);

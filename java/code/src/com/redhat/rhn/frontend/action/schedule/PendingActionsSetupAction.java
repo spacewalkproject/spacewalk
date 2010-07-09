@@ -57,5 +57,5 @@ public class PendingActionsSetupAction extends BaseScheduledListAction {
             HttpServletResponse response) {
         return mapping.findForward("confirm");
     }
-    
+
 }

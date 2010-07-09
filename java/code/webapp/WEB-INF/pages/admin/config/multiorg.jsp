@@ -9,9 +9,9 @@
   <bean:message key="general.jsp.org.toolbar"/>
 </rhn:toolbar>
 
-<div class="page-summary">    
-        <p><bean:message key="general.jsp.org.summary1"/></p>        
-        <p><bean:message key="general.jsp.org.summary2"/></p>    
+<div class="page-summary">
+        <p><bean:message key="general.jsp.org.summary1"/></p>
+        <p><bean:message key="general.jsp.org.summary2"/></p>
 </div>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/sat_config.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

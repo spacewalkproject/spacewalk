@@ -25,9 +25,9 @@ import java.util.Date;
  * @version $Rev$
  */
 public class PackageCapabilityTest extends RhnBaseTestCase {
-    
+
     /**
-     * Simple test to make sure we can create 
+     * Simple test to make sure we can create
      * PackageCapabilities and write them to the db.
      * @throws Exception Exception
      */
@@ -38,7 +38,7 @@ public class PackageCapabilityTest extends RhnBaseTestCase {
         assertNotNull(p.getId());
 
     }
-    
+
     /**
      * Create a test PackageCapability
      * @return Returns a committed test PackageCapability
@@ -47,20 +47,20 @@ public class PackageCapabilityTest extends RhnBaseTestCase {
     public static PackageCapability createTestCapability() throws Exception {
         return createTestCapability("Test Name " + TestUtils.randomString());
     }
-    
+
     /**
      * Create a test PackageCapability
      * @return Returns a committed test PackageCapability
      * @throws Exception
      */
-    public static PackageCapability createTestCapability(String capabilityName) 
+    public static PackageCapability createTestCapability(String capabilityName)
     throws Exception {
         PackageCapability p = new PackageCapability();
         p.setName(capabilityName);
         p.setVersion("-1.0");
         p.setCreated(new Date());
         p.setModified(new Date());
-        
+
         TestUtils.saveAndFlush(p);
         return p;
     }

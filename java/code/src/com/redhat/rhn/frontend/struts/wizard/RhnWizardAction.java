@@ -34,25 +34,25 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Base class designed to make writing wizard-type interfaces easier.
- * 
+ *
  * The responsibilities of a class extending this one are:
- * 
+ *
  * <ul>
- * 
- * <li>Implement the <code>generateWizardSteps</code> method. This method should create 
- * instances of <code>WizardStep</code> objects and place them in the provided map under 
- * a key which corresponds to the step name. The first, or starting, wizard step should 
- * be associated with two keys: the desired step name and the constant 
- * <code>RhnWizardAction.STEP_START</code>. The constant is used as a fallback when no 
+ *
+ * <li>Implement the <code>generateWizardSteps</code> method. This method should create
+ * instances of <code>WizardStep</code> objects and place them in the provided map under
+ * a key which corresponds to the step name. The first, or starting, wizard step should
+ * be associated with two keys: the desired step name and the constant
+ * <code>RhnWizardAction.STEP_START</code>. The constant is used as a fallback when no
  * step name is provided by the UI.</li>
- * 
- * <li>Implement a <code>DynaActionForm</code> which contains a field named "wizardStep". 
- * This form field must contain the name of the submitted form action. This can be tricky 
- * since the field should normally point to the <em>next</em> step not the current 
+ *
+ * <li>Implement a <code>DynaActionForm</code> which contains a field named "wizardStep".
+ * This form field must contain the name of the submitted form action. This can be tricky
+ * since the field should normally point to the <em>next</em> step not the current
  * step.</li>
- * 
+ *
  * </ul>
- * 
+ *
  * @version $Rev $
  */
 public abstract class RhnWizardAction extends RhnAction {
@@ -61,17 +61,17 @@ public abstract class RhnWizardAction extends RhnAction {
      * Logger for this class
      */
     private static Logger log = Logger.getLogger(RhnWizardAction.class);
-    
+
     public static final String STEP_START = "start";
     public static final String STEP_PARAM = "wizardStep";
-    
+
     private Map steps = new HashMap();
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         synchronized (this) {
@@ -83,17 +83,17 @@ public abstract class RhnWizardAction extends RhnAction {
         DynaActionForm dynaForm = (DynaActionForm) form;
         String step = dynaForm.getString(STEP_PARAM);
         ActionForward retval = null;
-        
+
         if (step != null) {
             log.debug("Step selected: " + step);
             retval = dispatch(step, mapping, form, ctx, response);
         }
         return retval;
     }
-    
+
     protected  abstract void generateWizardSteps(Map wizardSteps);
-        
-    protected ActionForward dispatch(String step, ActionMapping mapping, ActionForm form, 
+
+    protected ActionForward dispatch(String step, ActionMapping mapping, ActionForm form,
             RequestContext ctx, HttpServletResponse response) throws Exception {
         WizardStep wizardStep = (WizardStep) steps.get(step);
         if (wizardStep == null) {
@@ -106,7 +106,7 @@ public abstract class RhnWizardAction extends RhnAction {
             return null;
         }
     }
-    
+
     protected List findMethods(String methodPrefix) {
         List retval = new LinkedList();
         Method[] methods = this.getClass().getDeclaredMethods();

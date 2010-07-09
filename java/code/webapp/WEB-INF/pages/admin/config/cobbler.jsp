@@ -19,7 +19,7 @@
     </p>
     <p>
         <bean:message key="cobbler.jsp.summary3"/>
-    </p>       
+    </p>
 </div>
 <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/sat_config.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
@@ -34,7 +34,7 @@
         </th>
         <td>
             <input type="submit" name="cobbler_sync" value="${rhn:localize('update')}" />
-        </td>    
+        </td>
     </tr>
     </table>
     <hr/>

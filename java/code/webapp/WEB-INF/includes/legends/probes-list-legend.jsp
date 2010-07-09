@@ -11,7 +11,7 @@
        alt="<bean:message key='monitoring.status.warn'/>"/>
     <bean:message key="probes-list-legend.jsp.warning"/>
   </li>
-  <li><img src="/img/rhn-mon-down.gif" title="<bean:message key='monitoring.status.critical'/>" 
+  <li><img src="/img/rhn-mon-down.gif" title="<bean:message key='monitoring.status.critical'/>"
        alt="<bean:message key='monitoring.status.critical'/>"/>
     <bean:message key="probes-list-legend.jsp.critical"/>
   </li>

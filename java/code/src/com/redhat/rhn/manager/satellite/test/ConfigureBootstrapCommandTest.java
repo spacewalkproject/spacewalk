@@ -24,9 +24,9 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
  * @version $Rev$
  */
 public class ConfigureBootstrapCommandTest extends BaseTestCaseWithUser {
-    
+
     private ConfigureBootstrapCommand cmd;
-    
+
     public void testCreateCommand() throws Exception {
         user.addRole(RoleFactory.SAT_ADMIN);
         cmd = new ConfigureBootstrapCommand(user) {
@@ -34,7 +34,7 @@ public class ConfigureBootstrapCommandTest extends BaseTestCaseWithUser {
                 return new TestExecutor();
             }
         };
-        
+
         assertNotNull(cmd.getUser());
         cmd.setHostname("localhost");
         cmd.setSslPath("/tmp/somepath.cert");
@@ -47,11 +47,11 @@ public class ConfigureBootstrapCommandTest extends BaseTestCaseWithUser {
         cmd.setHttpProxyPassword("password");
         assertNull(cmd.storeConfiguration());
     }
-    
+
     /**
-     * TestExecutor - 
+     * TestExecutor -
      * @version $Rev$
-    */ 
+    */
     public class TestExecutor implements Executor {
 
         public int execute(String[] args) {

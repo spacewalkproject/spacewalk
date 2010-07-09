@@ -23,45 +23,45 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @version $Rev: 118113 $
  */
 public class SnapshotTagName extends BaseDomainHelper {
-    
+
     private String name;
     private Long id;
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {
         return new HashCodeBuilder().append(name)
                                     .toHashCode();
     }
-    
+
 }

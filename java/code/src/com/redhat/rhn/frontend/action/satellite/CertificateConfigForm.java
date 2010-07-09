@@ -29,9 +29,9 @@ public class CertificateConfigForm extends ScrubbingDynaActionForm {
 
     public static final String CERT_TEXT = "cert_text";
     public static final String CERT_FILE = "cert_file";
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected boolean isScrubbable(String name, Object value) {

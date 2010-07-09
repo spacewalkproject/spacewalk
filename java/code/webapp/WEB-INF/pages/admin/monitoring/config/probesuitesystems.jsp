@@ -14,7 +14,7 @@
   </rhn:toolbar>
 
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/probesuite_detail_edit.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/probesuite_detail_edit.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="probesuitesystems.jsp.header2"/></h2>
@@ -22,11 +22,11 @@
 <div>
   <p>
     <bean:message key="probesuitesystems.jsp.summary"/>
-    
+
     <form method="POST" name="rhn_list" action="/rhn/monitoring/config/ProbeSuiteSystemsSubmit.do">
     <rhn:list pageList="${requestScope.pageList}" noDataText="probesuitesystems.jsp.nosystems"
         legend="probes-list">
-      <rhn:listdisplay   set="${requestScope.set}" exportColumns="id,name,status" 
+      <rhn:listdisplay   set="${requestScope.set}" exportColumns="id,name,status"
         hiddenvars="${requestScope.newset}">
         <rhn:set value="${current.id}" />
         <rhn:column header="probesuitesystems.jsp.state">
@@ -47,7 +47,7 @@
                    alt="<bean:message key='monitoring.status.pending'/>"/>
             </c:if>
             <c:if test="${current.status == 'CRITICAL'}">
-              <img src="/img/rhn-mon-down.gif" title="<bean:message key='monitoring.status.critical'/>" 
+              <img src="/img/rhn-mon-down.gif" title="<bean:message key='monitoring.status.critical'/>"
                    alt="<bean:message key='monitoring.status.critical'/>"/>
             </c:if>
         </rhn:column>

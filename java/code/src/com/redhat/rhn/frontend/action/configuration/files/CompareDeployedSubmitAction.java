@@ -55,11 +55,11 @@ public class CompareDeployedSubmitAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest requestIn) {
         Long cfnid = ConfigActionHelper.getFile(requestIn).getConfigFileName().getId();
-        
+
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listSystemsForFileCompare(userIn, cfnid, null);
     }
@@ -81,12 +81,12 @@ public class CompareDeployedSubmitAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest requestIn, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest requestIn,
                                    Map paramsIn) {
         ConfigActionHelper.processParamMap(requestIn, paramsIn);
     }
-    
+
     /**
      * Schedule the config diff action using the set of systems in rhnSet.
      * @param mapping struts ActionMapping
@@ -97,16 +97,16 @@ public class CompareDeployedSubmitAction extends RhnSetAction {
      */
     public ActionForward schedule(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest request, HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         updateSet(request);
         User user = requestContext.getLoggedInUser();
-        
+
         //get the set from the database and then clear it.
         RhnSet set = RhnSetDecl.CONFIG_SYSTEMS.get(user);
         RhnSetDecl.CONFIG_SYSTEMS.clear(user);
-        
+
         //We want a set of ids, but we have a set of RhnSetElements.  This
         //does the conversion.
         Set sids = new HashSet();
@@ -115,34 +115,34 @@ public class CompareDeployedSubmitAction extends RhnSetAction {
             Long sid = ((RhnSetElement)i.next()).getElement();
             sids.add(sid);
         }
-        
+
         //We need a set of ids to send to ActionManager.  We only have one id.
-        ConfigRevision revision = 
+        ConfigRevision revision =
             ConfigActionHelper.getRevision(request, ConfigActionHelper.getFile(request));
         Set crids = new HashSet();
         crids.add(revision.getId());
-        
+
         //create the action and then create the message to send the user.
         Action action = ActionManager.createConfigDiffAction(user, crids, sids);
         makeMessage(action, request);
-        
+
         //go to the next page.
         ActionForward base = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         Map params = new HashMap();
         processParamMap(formIn, request, params);
         return getStrutsDelegate().forwardParams(base, params);
     }
-    
+
     private void makeMessage(Action action, HttpServletRequest request) {
         if (action != null) {
             //get how many servers this action was created for.
             int successes = action.getServerActions().size();
             String number = LocalizationService.getInstance()
                     .formatNumber(new Integer(successes));
-            
+
             //build the url for the action we have created.
             String url = "/rhn/schedule/ActionDetails.do?aid=" + action.getId();
-            
+
             //create the success message
             ActionMessages msg = new ActionMessages();
             String key;
@@ -152,11 +152,11 @@ public class CompareDeployedSubmitAction extends RhnSetAction {
             else {
                 key = "configdiff.schedule.success";
             }
-            
+
             Object[] args = new Object[2];
             args[0] = StringEscapeUtils.escapeHtml(url);
             args[1] = StringEscapeUtils.escapeHtml(number);
-            
+
             //add in the success message
             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(key, args));
             getStrutsDelegate().saveMessages(request, msg);
@@ -168,5 +168,5 @@ public class CompareDeployedSubmitAction extends RhnSetAction {
             getStrutsDelegate().saveMessages(request, errors);
         }
     }
-    
+
 }

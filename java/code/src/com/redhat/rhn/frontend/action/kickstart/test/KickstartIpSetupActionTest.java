@@ -30,20 +30,20 @@ import java.util.Date;
  * @version $Rev: 1 $
  */
 public class KickstartIpSetupActionTest extends RhnMockStrutsTestCase {
-    
-    public void testKickstartIpList() throws Exception {    
+
+    public void testKickstartIpList() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
 
         // Create a kickstart and the ranges so the list
         // will return something.
         KickstartData k = KickstartDataTest.createTestKickstartData(user.getOrg());
-                
+
         KickstartIpRange ip1 = new KickstartIpRange();
         KickstartIpRange ip2 = new KickstartIpRange();
 
         ip1.setKsdata(k);
-        ip2.setKsdata(k);        
+        ip2.setKsdata(k);
         ip1.setOrg(k.getOrg());
         ip2.setOrg(k.getOrg());
         ip1.setMin(3232236800L);
@@ -54,17 +54,17 @@ public class KickstartIpSetupActionTest extends RhnMockStrutsTestCase {
         ip2.setCreated(new Date());
         ip1.setModified(new Date());
         ip2.setModified(new Date());
-        
-        k.addIpRange(ip1);
-        k.addIpRange(ip2);                
 
-        TestUtils.saveAndFlush(k);        
-        
+        k.addIpRange(ip1);
+        k.addIpRange(ip2);
+
+        TestUtils.saveAndFlush(k);
+
         setRequestPathInfo("/kickstart/KickstartIpRanges");
         actionPerform();
         DataResult dr = (DataResult) request.getAttribute("pageList");
         assertNotNull(dr);
-        assertTrue(dr.size() >= 2);             
+        assertTrue(dr.size() >= 2);
     }
 
 }

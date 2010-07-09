@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Handles display and update of Kickstart -> System Details -> Troubleshooting
- * 
+ *
  * @version $Rev $
  */
 public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction {
@@ -43,10 +43,10 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction 
     public static final String VERBOSEUP2DATE = "verboseUp2date";
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    protected void setupFormValues(RequestContext ctx, DynaActionForm form, 
+    protected void setupFormValues(RequestContext ctx, DynaActionForm form,
             BaseKickstartCommand cmdIn) {
         KickstartTroubleshootingCommand cmd = (KickstartTroubleshootingCommand) cmdIn;
 
@@ -60,11 +60,11 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction 
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected ValidatorError processFormValues(HttpServletRequest request,
-            DynaActionForm form, 
+            DynaActionForm form,
             BaseKickstartCommand cmd) {
 
         ValidatorError retval = null;
@@ -90,7 +90,7 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction 
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected String getSuccessKey() {
@@ -98,7 +98,7 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction 
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected BaseKickstartCommand getCommand(RequestContext ctx) {
@@ -135,5 +135,5 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction 
 
         return displayList;
     }
-   
+
 }

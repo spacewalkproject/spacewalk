@@ -31,18 +31,18 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class CompletedSystemsAction extends RhnListAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-    
+
         Map params = getParamMap(request);
-    
+
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
     }
-    
+
     /**
      * Makes a parameter map containing request params that need to
      * be forwarded on to the success mapping.
@@ -51,12 +51,12 @@ public class CompletedSystemsAction extends RhnListAction {
      */
     private Map getParamMap(HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
-        
+
         Map params = requestContext.makeParamMapWithPagination();
         //Add action id to the params
         Long aid = requestContext.getParamAsLong("aid");
         params.put("aid", aid);
-        
+
         return params;
     }
 }

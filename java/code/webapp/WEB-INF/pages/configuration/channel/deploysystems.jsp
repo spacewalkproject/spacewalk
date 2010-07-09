@@ -14,8 +14,8 @@
 
 <h2><bean:message key="deploysystems.jsp.h2" /></h2>
 <p><bean:message key="deploysystems.jsp.note" /></p>
-<c:set var="channel_name_display"><cfg:channel id="${ccid}" 
-									name="${channel.name}" 
+<c:set var="channel_name_display"><cfg:channel id="${ccid}"
+									name="${channel.name}"
 									type="global"/></c:set>
 <p><bean:message key="deploysystems.jsp.warning" arg0="${channel_name_display}"/></p>
 

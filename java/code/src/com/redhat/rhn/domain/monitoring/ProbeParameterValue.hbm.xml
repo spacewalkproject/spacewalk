@@ -3,22 +3,22 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.ProbeParameterValue" 
+    <class name="com.redhat.rhn.domain.monitoring.ProbeParameterValue"
         table="rhn_probe_param_value" >
         <composite-id unsaved-value="any">
-            <key-many-to-one name="probe" 
-                class="com.redhat.rhn.domain.monitoring.ServerProbe" 
+            <key-many-to-one name="probe"
+                class="com.redhat.rhn.domain.monitoring.ServerProbe"
                 column="probe_id"/>
-            <key-many-to-one name="command" 
-                class="com.redhat.rhn.domain.monitoring.command.Command" 
+            <key-many-to-one name="command"
+                class="com.redhat.rhn.domain.monitoring.command.Command"
                 column="command_id"/>
-            <key-property name="paramName" column="param_name" type="string" 
+            <key-property name="paramName" column="param_name" type="string"
                 length="40"/>
         </composite-id>
         <property name="value" column="value" type="string" length="1024" />
-        <property name="lastUpdateUser" column="last_update_user" type="string" 
+        <property name="lastUpdateUser" column="last_update_user" type="string"
             length="40" />
-        <property name="lastUpdateDate" column="last_update_date" 
+        <property name="lastUpdateDate" column="last_update_date"
             type="timestamp" />
     </class>
 </hibernate-mapping>

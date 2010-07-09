@@ -38,13 +38,13 @@ public class PackageHelper {
     /**
      * Private constructor
      */
-    private PackageHelper() { 
+    private PackageHelper() {
     }
-    
+
     /**
-     * Utility method to convert a package to a map. 
+     * Utility method to convert a package to a map.
      * @param pkg The package to convert
-     * @param user The user requesting the package conversion (used in calculating the 
+     * @param user The user requesting the package conversion (used in calculating the
      * providing_channels attribute)
      * @return Returns a map representation of a package
      */
@@ -60,7 +60,7 @@ public class PackageHelper {
             channelLabels.add(map.get("label"));
         }
         pkgMap.put("providing_channels", channelLabels);
-        
+
         // now deal with the actual package object.
         if (pkg.getPackageName() == null) {
             addEntry(pkgMap, "name", "");
@@ -80,7 +80,7 @@ public class PackageHelper {
             addEntry(pkgMap, "version", StringUtils.defaultString(evr.getVersion()));
             addEntry(pkgMap, "release", StringUtils.defaultString(evr.getRelease()));
         }
-        
+
         if (pkg.getPackageArch() == null) {
             addEntry(pkgMap, "arch_label", "");
         }
@@ -113,16 +113,16 @@ public class PackageHelper {
                       Translator.date2String(pkg.getBuildTime()));
         addEntry(pkgMap, "last_modified_date",
                       Translator.date2String(pkg.getLastModified()));
-        
+
         Long sz = pkg.getPackageSize();
         addEntry(pkgMap, "size", (sz == null) ? "" : String.valueOf(sz));
-        
+
         sz = pkg.getPayloadSize();
         addEntry(pkgMap, "payload_size", (sz == null) ? "" : String.valueOf(sz));
-        
+
         return pkgMap;
     }
-    
+
     private static void addEntry(Map map, String key, Object value) {
         map.put(key, value);
     }

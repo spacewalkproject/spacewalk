@@ -26,13 +26,13 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class ManageRevisionActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
-        
+
         setRequestPathInfo("/configuration/file/ManageRevision");
         addRequestParameter("cfid", revision.getConfigFile().getId().toString());
         actionPerform();

@@ -11,11 +11,11 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/activationkeys/common-header.jspf" %>
-<h2> <img src="${cfg:channelHeaderIcon('central')}" 
+<h2> <img src="${cfg:channelHeaderIcon('central')}"
 					alt="${cfg:channelAlt('central')}"/>
 			<bean:message key="sdc.config.subscriptions.jsp.header"/></h2>	
 <h3><bean:message key="ssm.config.subscribe.jsp.step"/></h3>
-<p><bean:message key="activation-key.config.subscriptions.jsp.para1" 
+<p><bean:message key="activation-key.config.subscriptions.jsp.para1"
 			arg0="${rhn:localize('sdc.config.subscriptions.jsp.continue')}"/></p>
 <noscript>
 	<p><bean:message key="common.config.rank.jsp.warning.noscript"/></p>
@@ -28,7 +28,7 @@
 <c:choose>
 <c:when test="${not empty pageList}">
 	<rl:list dataset="pageList"
-         width="100%"        
+         width="100%"
          name="list"
          emptykey="activation-keys.config.subscriptions.jsp.noChannels"
          alphabarcolumn="name">
@@ -43,7 +43,7 @@
 		  <rl:column headerkey="sdc.config.subscriptions.jsp.channel" bound="false"
 		  	sortattr="name"
 		  	sortable="true" filterattr="name">
-		  				<cfg:channel id = "${current.id}" 
+						<cfg:channel id = "${current.id}"
 							name ="${current.nameDisplay}"
 							type = "central" nolink="${not current.canAccess}"/>
 		  </rl:column>
@@ -56,14 +56,14 @@
    <rhn:submitted/>
    <hr/>
 	
-    <input type="submit" 
+    <input type="submit"
     	name ="dispatch"
 	    value='<bean:message key="sdc.config.subscriptions.jsp.continue"/>'/>		
 </div>
 </c:if> 	
 </c:when>
 <c:otherwise>
-	<p><strong><bean:message key="activation-keys.config.subscriptions.jsp.noChannels" 
+	<p><strong><bean:message key="activation-keys.config.subscriptions.jsp.noChannels"
 				arg0="/rhn/activationkeys/configuration/List.do?tid=${param.tid}"/>
 	</strong></p>
 </c:otherwise>

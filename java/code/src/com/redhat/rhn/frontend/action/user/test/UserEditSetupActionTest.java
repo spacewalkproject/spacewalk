@@ -62,15 +62,15 @@ public class UserEditSetupActionTest extends RhnBaseTestCase {
         TestUtils.enableLocalizationDebugMode();
         try {
             sah.executeAction();
-    
+
             // verify the dyna form got the right values we expected.
             sah.getForm().verify();
-    
+
             assertNotNull(sah.getRequest().getAttribute("lastLoggedIn"));
             // Verify some more intensive stuff
             assertNotNull(sah.getRequest().getAttribute("adminRoles"));
             assertNotNull(sah.getRequest().getAttribute("regularRoles"));
-            List<UserRoleStatusBean> regularRoles = (List<UserRoleStatusBean>) 
+            List<UserRoleStatusBean> regularRoles = (List<UserRoleStatusBean>)
                 sah.getRequest().getAttribute("regularRoles");
             assertEquals(5, regularRoles.size());
             UserRoleStatusBean lv = regularRoles.get(0);
@@ -78,7 +78,7 @@ public class UserEditSetupActionTest extends RhnBaseTestCase {
             assertEquals(true, lv.isDisabled());
             assertNotNull(sah.getRequest().getAttribute("disabledRoles"));
             assertTrue(sah.getRequest().getAttribute("user") instanceof User);
-    
+
             //If we have pam setup where we're testing, make sure displaypam was set
             String pamAuthService = Config.get().getString(
                     ConfigDefaults.WEB_PAM_AUTH_SERVICE);

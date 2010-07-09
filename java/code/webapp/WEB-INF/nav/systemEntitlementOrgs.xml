@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<rhn-navi-tree label="systemEntitlementOrgs" formvar="label" title-depth="1"> 
-  <rhn-tab name="Details" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/EntitlementDetails.do"/> 
+<rhn-navi-tree label="systemEntitlementOrgs" formvar="label" title-depth="1">
+  <rhn-tab name="Details" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/EntitlementDetails.do"/>
   <rhn-tab name="Organizations" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/EntitlementOrgs.do"/>
 </rhn-navi-tree>

@@ -23,7 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 
+ *
  * SystemDetailsForm
  * @version $Rev$
  */
@@ -33,7 +33,7 @@ public class SystemDetailsForm extends ScrubbingDynaActionForm {
 
     public static final String[] SPECIAL_VALUES = {"system_name"};
     public static final String[] SPECIAL_PROHIBITED_INPUT = {"<", ">", "\\{", "\\}"};
-    
+
     /**
      * Tell the form to "scrub thyself"
      */
@@ -43,9 +43,9 @@ public class SystemDetailsForm extends ScrubbingDynaActionForm {
             String name = (String) iter.next();
             Object value = dynaValues.get(name);
             if (isScrubbable(name, value)) {
-                
+
                 if (ArrayUtils.contains(SPECIAL_VALUES, name)) {
-                     value = scrubSpecialString((String) value);                    
+                     value = scrubSpecialString((String) value);
                 }
                 else {
                     value = scrub(value);
@@ -59,7 +59,7 @@ public class SystemDetailsForm extends ScrubbingDynaActionForm {
             }
         }
     }
-    
+
     protected Object scrubSpecialString(String value) {
         for (int x = 0; x < SPECIAL_PROHIBITED_INPUT.length; x++) {
             value = value.replaceAll(SPECIAL_PROHIBITED_INPUT[x], "");

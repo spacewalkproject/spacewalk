@@ -53,14 +53,14 @@ public abstract class BaseSystemPackagesAction extends RhnAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
-        
-        
+
+
         User user = requestContext.getLoggedInUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
-        
+
         Set sessionSet = SessionSetHelper.lookupAndBind(request, getDecl(sid));
 
         //if its not submitted
@@ -68,12 +68,12 @@ public abstract class BaseSystemPackagesAction extends RhnAction {
         // clear the 'dirty set'
         if (!requestContext.isSubmitted()) {
             sessionSet.clear();
-        }        
+        }
 
         SessionSetHelper helper = new SessionSetHelper(request);
-        
+
         if (request.getParameter("dispatch") != null) {
-            // if its one of the Dispatch actions handle it..            
+            // if its one of the Dispatch actions handle it..
             helper.updateSet(sessionSet, LIST_NAME);
             if (!sessionSet.isEmpty()) {
                 return handleDispatchAction(mapping, requestContext);
@@ -81,35 +81,35 @@ public abstract class BaseSystemPackagesAction extends RhnAction {
             else {
                 RhnHelper.handleEmptySelection(request);
             }
-        }   
+        }
         DataResult dataSet = getDataResult(server);
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
-            helper.execute(sessionSet, 
+            helper.execute(sessionSet,
                             LIST_NAME,
                             dataSet);
-        }        
+        }
 
-        // if I have a previous set selections populate data using it       
+        // if I have a previous set selections populate data using it
         if (!sessionSet.isEmpty()) {
             helper.syncSelections(sessionSet, dataSet);
             ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(), request);
         }
-        
+
         request.setAttribute("system", server);
 
-        request.setAttribute(ListTagHelper.PARENT_URL, 
-                request.getRequestURI() + "?sid=" + server.getId());  
-        
+        request.setAttribute(ListTagHelper.PARENT_URL,
+                request.getRequestURI() + "?sid=" + server.getId());
+
         request.setAttribute(DATA_SET, dataSet);
         SdcHelper.ssmCheck(request, server.getId(), user);
         ListTagHelper.bindSetDeclTo(LIST_NAME, getDecl(sid), request);
         TagHelper.bindElaboratorTo(LIST_NAME, dataSet.getElaborator(), request);
-        
-        
+
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-    
+
     private ActionForward handleDispatchAction(ActionMapping mapping,
             RequestContext context) {
         Server server = context.lookupAndBindServer();
@@ -133,5 +133,5 @@ public abstract class BaseSystemPackagesAction extends RhnAction {
      */
     public String getDecl(Long sid) {
         return getClass().getName() + sid.toString();
-    }    
+    }
 }

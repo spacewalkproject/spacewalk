@@ -28,28 +28,28 @@ import com.redhat.rhn.manager.kickstart.KickstartLister;
  * @version $Rev: 1 $
  */
 public class ScriptsSetupAction extends BaseListAction {
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(RequestContext rctx, PageControl pc) {    
+    protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
         Long ksid = rctx.getRequiredParam(RequestContext.KICKSTART_ID);
         Org org = rctx.getCurrentUser().getOrg();
         return KickstartLister.getInstance().scriptsInKickstart(org, ksid, pc);
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected void processRequestAttributes(RequestContext rctx) {
         super.processRequestAttributes(rctx);
-        
+
         KickstartData ksdata = KickstartFactory
             .lookupKickstartDataByIdAndOrg(rctx.getCurrentUser().getOrg(),
                     rctx.getRequiredParam(RequestContext.KICKSTART_ID));
-        rctx.getRequest().setAttribute(RequestContext.KICKSTART, ksdata);        
+        rctx.getRequest().setAttribute(RequestContext.KICKSTART, ksdata);
     }
 
 }

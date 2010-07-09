@@ -19,7 +19,7 @@
                    name="${ochannel.displayName}"
                    type="${ochannel.configChannelType.label}" />
     </c:set>
-    <bean:message key="comparefile.jsp.summary" 
+    <bean:message key="comparefile.jsp.summary"
                   arg0="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${revision.id}"
                   arg1="${revision.revision}"
                   arg2="${beanarg}" />
@@ -35,15 +35,15 @@
                   path="${current.path}"
                   type="${current.type}" />
     </rhn:column>
-    
+
     <rhn:column header="comparefile.jsp.modified">
         ${current.modifiedDisplay}
     </rhn:column>
-    
+
     <rhn:column header="comparefile.jsp.size">
       ${current.latestRevisionSizeDisplay}
     </rhn:column>
-    
+
     <rhn:column header="comparefile.jsp.comparison">
         <a class="link-button" href="/rhn/configuration/file/Diff.do?cfid=${file.id}&amp;crid=${revision.id}&amp;ocrid=${current.latestConfigRevisionId}">
             <bean:message key="comparefile.jsp.compare" />

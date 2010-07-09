@@ -34,46 +34,46 @@ import org.quartz.JobExecutionException;
 public class SatelliteCertificateCheck extends SingleThreadedTask {
 
     private static Logger log = Logger.getLogger(SatelliteCertificateCheck.class);
-    
+
     public static final String DISPLAY_NAME = "satcert_check";
-    
+
     /**
      * {@inheritDoc}
      */
     protected void run(JobExecutionContext ctx) throws JobExecutionException {
         LocalizationService ls = LocalizationService.getInstance();
-        
+
         CertificateManager man = CertificateManager.getInstance();
-        
+
         if (man.isSatelliteCertExpired()) {
-           sendMessage(ls.getMessage("email.satellitecert.expired.subject"), 
-                       ls.getMessage("email.satellitecert.expired.body", 
+           sendMessage(ls.getMessage("email.satellitecert.expired.subject"),
+                       ls.getMessage("email.satellitecert.expired.body",
                                ConfigDefaults.get().getHostname()));
         }
         else if (man.isSatelliteCertInGracePeriod()) {
-            long daysUntilExpiration = (man.getGracePeriodEndDate().getTime()  - 
-                    System.currentTimeMillis()) / 
+            long daysUntilExpiration = (man.getGracePeriodEndDate().getTime()  -
+                    System.currentTimeMillis()) /
                     86400000;
-            
+
             Object[] args = new String[2];
             args[0] = ConfigDefaults.get().getHostname();
             args[1] = new Long(daysUntilExpiration).toString();
-            sendMessage(ls.getMessage("email.satellitecert.graceperiod.subject"), 
+            sendMessage(ls.getMessage("email.satellitecert.graceperiod.subject"),
                         ls.getMessage("email.satellitecert.graceperiod.body", args));
         }
     }
-    
+
     protected void sendMessage(String subject, String body) {
         Org org = OrgFactory.getSatelliteOrg();
-        
+
         Mail mail = getMailer();
         mail.setSubject(subject);
         mail.setBody(body);
         mail.setRecipients(TaskHelper.getAdminEmails(org));
-        
+
         String from = Config.get().getString("web.customer_service_email",
                                              "dev-null@redhat.com");
-        
+
         mail.setFrom(from);
         mail.setHeader("X-RHN-Info", "backend_satellite_certificate_check");
         try {
@@ -84,9 +84,9 @@ public class SatelliteCertificateCheck extends SingleThreadedTask {
                     "org_id: " + org.getId());
           log.error(e.getMessage(), e);
         }
-        
+
     }
-    
+
     /**
      * @return Returns a Mail object
      */

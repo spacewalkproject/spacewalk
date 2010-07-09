@@ -62,10 +62,10 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
     public void brokentTestExecuteUnpublished() throws Exception {
         ChannelSetupAction action = new ChannelSetupAction();
         ActionHelper sah = new ActionHelper();
-        
+
         sah.setUpAction(action);
         sah.setupClampListBounds();
-        
+
         //Create a new errata
         Errata e = ErrataFactoryTest.createTestUnpublishedErrata(UserTestUtils
                                                          .createOrg("channelTestOrg"));
@@ -79,7 +79,7 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
         //make sure set was set
         assertNotNull(sah.getRequest().getAttribute("set"));
         assertEquals(result.getName(), "default");
-        
+
         //get the data result back out of the request and inspect
         DataResult dr = (DataResult) sah.getRequest().getAttribute("pageList");
         assertNotNull(dr);
@@ -91,14 +91,14 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
         }
         //make sure returnvisit was set
         assertNotNull(sah.getRequest().getAttribute("returnvisit"));
-        
+
         RequestContext requestContext = new RequestContext(sah.getRequest());
-        
+
         //make sure set is empty
         User user = requestContext.getLoggedInUser();
         RhnSet set = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user);
         assertTrue(set.isEmpty());
-        
+
         //Set the setupdated variable to make sure we are keeping changes from the set
         User usr = requestContext.getLoggedInUser();
         RhnSet newset = RhnSetDecl.CHANNELS_FOR_ERRATA.create(usr);
@@ -106,7 +106,7 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
         newset.addElement(new Long(43));
         newset.addElement(new Long(44));
         RhnSetManager.store(newset);
-        
+
         //setup the request
         sah.getRequest().setupAddParameter("eid", e.getId().toString());
         sah.getRequest().setupAddParameter("newset", (String) null);
@@ -115,13 +115,13 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("setupdated", "true");
         sah.setupClampListBounds();
         result = sah.executeAction();
-        
+
         //ok, now we should have went to the db to get the newset var
         String ns = (String) sah.getRequest().getAttribute("newset");
         assertNotNull(ns);
         assertTrue(ns.length() > 2); // greater than '[]'
     }
-    
+
     /**
      * This setup action will get called with a published errata from the channels edit
      * tab that appears in the details nav for a published errata. We need to make sure
@@ -135,10 +135,10 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
     public void brokenTestExecutePublished() throws Exception {
         ChannelSetupAction action = new ChannelSetupAction();
         ActionHelper sah = new ActionHelper();
-        
+
         sah.setUpAction(action);
         sah.setupClampListBounds();
-        
+
         //Create a new errata
         Errata e = ErrataFactoryTest.createTestPublishedErrata(UserTestUtils
                                         .createOrg("channelTestOrg"));
@@ -152,9 +152,9 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("returnvisit", (String) null);
         sah.getRequest().setupAddParameter("returnvisit", (String) null);
         sah.executeAction();
-        
+
         RequestContext requestContext = new RequestContext(sah.getRequest());
-        
+
         //make sure set is not empty
         User user = requestContext.getLoggedInUser();
         RhnSet set = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user);

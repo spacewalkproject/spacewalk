@@ -26,32 +26,32 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev: 1 $
  */
 public class KickstartAdvancedOptionsActionTest extends RhnMockStrutsTestCase {
-    
+
     protected KickstartData ksdata;
     protected KickstartData ksdataOptions;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         this.ksdata = KickstartDataTest.createKickstartWithChannel(user.getOrg());
         this.ksdataOptions = KickstartDataTest.createKickstartWithOptions(user.getOrg());
-        
+
         TestUtils.saveAndFlush(ksdata);
         TestUtils.saveAndFlush(ksdataOptions);
-        
+
         addRequestParameter(RequestContext.KICKSTART_ID, this.ksdata.getId().toString());
     }
-    
+
     public void testExecute() throws Exception {
-        setRequestPathInfo("/kickstart/KickstartOptionsEdit");        
+        setRequestPathInfo("/kickstart/KickstartOptionsEdit");
         actionPerform();
         assertNotNull(request.getAttribute(KickstartAdvancedOptionsAction.OPTIONS));
-    }  
-    
-    public void testSubmit() throws Exception {                        
+    }
+
+    public void testSubmit() throws Exception {
         setRequestPathInfo("/kickstart/KickstartOptionsEdit");
-        addRequestParameter(KickstartAdvancedOptionsAction.SUBMITTED, 
-                Boolean.TRUE.toString());        
-        
+        addRequestParameter(KickstartAdvancedOptionsAction.SUBMITTED,
+                Boolean.TRUE.toString());
+
         // setup some required fields
         addRequestParameter("keyboard", "keyboard");
         addRequestParameter("keyboard_txt", "US");
@@ -66,14 +66,14 @@ public class KickstartAdvancedOptionsActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("timezone", "timezone");
         addRequestParameter("timezone_txt", "America/New_York");
         addRequestParameter("auth", "auth");
-        addRequestParameter("auth_txt", "--enablemd5 --enableshadow");        
+        addRequestParameter("auth_txt", "--enablemd5 --enableshadow");
         addRequestParameter("rootpw", "rootpw");
         addRequestParameter("rootpw_txt", "$1$nCCVpGg");
         addRequestParameter("customOptions", "repo blah");
-        
+
         // setup a non required field
         addRequestParameter("skipx", "skipx");
-        
+
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
         assertNotNull(request.getParameter("rootpw"));
@@ -86,24 +86,24 @@ public class KickstartAdvancedOptionsActionTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getParameter("auth"));
         assertNotNull(request.getParameter("skipx"));
 
-        String[] keys = {"kickstart.options.success"};        
+        String[] keys = {"kickstart.options.success"};
         verifyActionMessages(keys);
 
         // Verify we can submit twice
         actionPerform();
         verifyActionMessages(keys);
     }
-    
+
     /*
-     * need to test how hibernate handles cascading orphans from the 
+     * need to test how hibernate handles cascading orphans from the
      * parent set. Page is loaded that has a ksdata with options already
-     * set. The reqeste params will replace the existing option set     
+     * set. The reqeste params will replace the existing option set
      */
-    public void testReplaceSubmit() throws Exception {        
+    public void testReplaceSubmit() throws Exception {
         setRequestPathInfo("/kickstart/KickstartOptionsEdit");
-        addRequestParameter(KickstartAdvancedOptionsAction.SUBMITTED, 
-                Boolean.TRUE.toString());        
-        
+        addRequestParameter(KickstartAdvancedOptionsAction.SUBMITTED,
+                Boolean.TRUE.toString());
+
         // setup some required fields
         addRequestParameter("keyboard", "keyboard");
         addRequestParameter("keyboard_txt", "US");
@@ -118,21 +118,21 @@ public class KickstartAdvancedOptionsActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("timezone", "timezone");
         addRequestParameter("timezone_txt", "America/New_York");
         addRequestParameter("auth", "auth");
-        addRequestParameter("auth_txt", "--enablemd5 --enableshadow");        
+        addRequestParameter("auth_txt", "--enablemd5 --enableshadow");
         addRequestParameter("rootpw", "rootpw");
         addRequestParameter("rootpw_txt", "badpassword");
         addRequestParameter("customOptions", "repo blah");
-        
+
         // setup a non required field
         addRequestParameter("skipx", "skipx");
-        addRequestParameter(RequestContext.KICKSTART_ID, 
+        addRequestParameter(RequestContext.KICKSTART_ID,
                 this.ksdataOptions.getId().toString());
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
 
-        String[] keys = {"kickstart.options.success"};        
+        String[] keys = {"kickstart.options.success"};
         verifyActionMessages(keys);
     }
-    
-    
+
+
 }

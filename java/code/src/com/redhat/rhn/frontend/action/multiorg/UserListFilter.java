@@ -22,20 +22,20 @@ import java.util.Map;
 
 /**
  * UserListFilter
- * 
+ *
  * @version $Rev $
  */
 public class UserListFilter extends BaseListFilter {
-           
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void processMap(Map map, Locale userLocale) {
-        LocalizationService ls = 
+        LocalizationService ls =
             LocalizationService.getInstance();
-        String orgLabel = ls.getMessage("username.nopunc.displayname", userLocale);        
-        map.put(orgLabel, "login");        
+        String orgLabel = ls.getMessage("username.nopunc.displayname", userLocale);
+        map.put(orgLabel, "login");
     }
 
 }

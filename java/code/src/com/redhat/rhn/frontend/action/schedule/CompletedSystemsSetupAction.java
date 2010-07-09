@@ -35,30 +35,30 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class CompletedSystemsSetupAction extends RhnListAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long aid = requestContext.getRequiredParam("aid");
 
-        User user = requestContext.getLoggedInUser();                
+        User user = requestContext.getLoggedInUser();
         PageControl pc = new PageControl();
 
         Action action = ActionManager.lookupAction(user, aid);
         clampListBounds(pc, request, user);
         DataResult dr = ActionManager.completedSystems(user, action, pc);
-        ActionFormatter af = action.getFormatter();      
-        
+        ActionFormatter af = action.getFormatter();
+
         request.setAttribute("actionname", af.getName());
         request.setAttribute("pageList", dr);
         request.setAttribute("user", user);
         request.setAttribute("action", action);
-        
+
         return mapping.findForward("default");
     }
 }

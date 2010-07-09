@@ -33,15 +33,15 @@ public class ErrataSetupActionTest extends RhnMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/details/ErrataList");
-        
+
     }
     public void testInvalidParamCase() {
         addRequestParameter(RequestContext.SID, "-9999");
         actionPerform();
         assertPermissionException();
-        
+
     }
-    
+
     public void testNormalCase() throws Exception {
         Server server = ServerFactoryTest.createTestServer(user, true);
         addRequestParameter("sid", server.getId().toString());
@@ -52,16 +52,16 @@ public class ErrataSetupActionTest extends RhnMockStrutsTestCase {
             ErrataCacheManager.insertNeededPackageCache(server.getId(),
                     e.getId(), pkg.getId());
         }
-        
+
         actionPerform();
         assertNotNull(request.getAttribute("set"));
         assertNotNull(request.getAttribute("system"));
-        
+
         //trying show bttn logic
-        assertEquals(Boolean.TRUE.toString(), 
+        assertEquals(Boolean.TRUE.toString(),
                     request.getAttribute("showApplyErrata"));
         assertTrue(getActualForward().indexOf("errata.jsp") > -1);
-        
+
         assertTrue(request.getAttribute("showApplyErrata").equals("true"));
         clearRequestParameters();
         addRequestParameter("sid", server.getId().toString());
@@ -72,7 +72,7 @@ public class ErrataSetupActionTest extends RhnMockStrutsTestCase {
                     e.getId(), pkg.getId());
         }
         actionPerform();
-        assertEquals(Boolean.FALSE.toString(), 
+        assertEquals(Boolean.FALSE.toString(),
                 request.getAttribute("showApplyErrata"));
     }
 

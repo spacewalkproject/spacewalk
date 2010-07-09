@@ -33,12 +33,12 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class TreeEditOperationTest extends BaseTestCaseWithUser {
-    
+
     public void testCreate() throws Exception {
         TreeCreateOperation cmd = new TreeCreateOperation(user);
         setTreeParamsAndStore(cmd);
     }
-    
+
     public void testEdit() throws Exception {
         KickstartableTree tree = KickstartableTreeTest.
             createTestKickstartableTree(ChannelFactoryTest.createTestChannel(user));
@@ -52,7 +52,7 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
         tree = (KickstartableTree) reload(tree);
         assertEquals(nlabel, tree.getLabel());
     }
-    
+
     public void testInvalidEdit() throws Exception {
         KickstartableTree tree = KickstartableTreeTest.
             createTestKickstartableTree(ChannelFactoryTest.createTestChannel(user));
@@ -71,18 +71,18 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
             lookupKickstartTreeByIdAndOrg(tid, user.getOrg());
         assertFalse(lookedUp.getLabel().startsWith("testInvalidEdit"));
     }
-    
+
     public void testDelete() throws Exception {
         TreeCreateOperation cmd = new TreeCreateOperation(user);
         setTreeParamsAndStore(cmd);
         TreeDeleteOperation deleteCmd = new TreeDeleteOperation(
-                                                     cmd.getTree().getId(), user); 
+                                                     cmd.getTree().getId(), user);
         assertNotNull(deleteCmd);
         assertNull(deleteCmd.store());         // actually does a remove operation
         assertNull(KickstartFactory.
               lookupKickstartTreeByIdAndOrg(cmd.getTree().getId(), user.getOrg()));
     }
-    
+
     public void testDeleteWithProfiles() throws Exception {
         TreeCreateOperation cmd = new TreeCreateOperation(user);
         setTreeParamsAndStore(cmd);
@@ -90,18 +90,18 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
         ksd.getKickstartDefaults().setKstree(cmd.getTree());
         KickstartFactory.saveKickstartData(ksd);
         flushAndEvict(ksd);
-        
+
         TreeDeleteOperation deleteCmd = new TreeDeleteOperation(
-                                                     cmd.getTree().getId(), user); 
+                                                     cmd.getTree().getId(), user);
         assertNotNull(deleteCmd.store());   // Check to make sure we got an error message
-        
+
         // Now delete associated profiles
-        TreeDeleteWithProfilesOperation delCmd2 = new 
+        TreeDeleteWithProfilesOperation delCmd2 = new
             TreeDeleteWithProfilesOperation(cmd.getTree().getId(), user);
         assertNull(delCmd2.store());
-        
+
     }
-    
+
     private void setTreeParamsAndStore(BaseTreeEditOperation cmd) throws Exception {
         cmd.setInstallType(KickstartFactory.
                       lookupKickstartInstallTypeByLabel("rhel_4"));

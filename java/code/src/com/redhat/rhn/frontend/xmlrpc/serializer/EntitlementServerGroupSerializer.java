@@ -25,12 +25,12 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * EntitlementServerGroupSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
- * #struct("system entitlement") 
+ * #struct("system entitlement")
  *   #prop("string", "label")
  *   #prop("string", "name")
  *   #prop("int", "used_slots")
@@ -39,7 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * #struct_end()
  */
 public class EntitlementServerGroupSerializer implements XmlRpcCustomSerializer {
-   
+
     /**
      * {@inheritDoc}
      */
@@ -62,6 +62,6 @@ public class EntitlementServerGroupSerializer implements XmlRpcCustomSerializer 
                         group.getCurrentMembers().longValue()));
         helper.add("total_slots", group.getMaxMembers());
         helper.writeTo(output);
-        
+
     }
 }

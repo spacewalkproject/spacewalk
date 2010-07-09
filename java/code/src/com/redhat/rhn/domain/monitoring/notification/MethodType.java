@@ -25,48 +25,48 @@ public class MethodType {
     private Long id;
     private String methodTypeName;
     private Long notificationFormatId;
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for methodTypeName 
+    /**
+     * Getter for methodTypeName
      * @return String to get
     */
     public String getMethodTypeName() {
         return this.methodTypeName;
     }
 
-    /** 
-     * Setter for methodTypeName 
+    /**
+     * Setter for methodTypeName
      * @param methodTypeNameIn to set
     */
     public void setMethodTypeName(String methodTypeNameIn) {
         this.methodTypeName = methodTypeNameIn;
     }
 
-    /** 
-     * Getter for notificationFormatId 
+    /**
+     * Getter for notificationFormatId
      * @return Long to get
     */
     public Long getNotificationFormatId() {
         return this.notificationFormatId;
     }
 
-    /** 
-     * Setter for notificationFormatId 
+    /**
+     * Setter for notificationFormatId
      * @param notificationFormatIdIn to set
     */
     public void setNotificationFormatId(Long notificationFormatIdIn) {

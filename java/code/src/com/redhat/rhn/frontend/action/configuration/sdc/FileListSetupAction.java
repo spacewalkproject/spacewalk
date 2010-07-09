@@ -48,12 +48,12 @@ public class FileListSetupAction extends BaseSetListAction {
         Server server = rctxIn.lookupAndBindServer();
         return ConfigurationManager.getInstance().listFileNamesForSystem(user, server, pc);
     }
-    
+
     protected void processPageControl(PageControl pc) {
         pc.setFilter(true);
         pc.setFilterColumn("path");
     }
-    
+
     protected void processRequestAttributes(RequestContext rctxIn) {
         super.processRequestAttributes(rctxIn);
         rctxIn.lookupAndBindServer();

@@ -41,7 +41,7 @@ public class ConfigChannelDto extends BaseDto {
     private Integer filesOnlyCount;
     private Integer dirsOnlyCount;
     private Integer symlinksOnlyCount;
-    
+
     //These three are when dealing with a single revision
     private Integer configRevision;
     private Long configRevisionId;
@@ -49,7 +49,7 @@ public class ConfigChannelDto extends BaseDto {
     private String configFileType;
     private Integer subscribed;
     private Integer canAccess;
-    
+
 
 
 
@@ -61,7 +61,7 @@ public class ConfigChannelDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param configFileTypeIn The configFileType to set.
      */
@@ -77,7 +77,7 @@ public class ConfigChannelDto extends BaseDto {
         return configFileId;
     }
 
-    
+
     /**
      * @param configFileIdIn The configFileId to set.
      */
@@ -85,7 +85,7 @@ public class ConfigChannelDto extends BaseDto {
         configFileId = configFileIdIn;
     }
 
-    
+
     /**
      * @return Returns the configRevision.
      */
@@ -93,7 +93,7 @@ public class ConfigChannelDto extends BaseDto {
         return configRevision;
     }
 
-    
+
     /**
      * @param configRevisionIn The configRevision to set.
      */
@@ -101,7 +101,7 @@ public class ConfigChannelDto extends BaseDto {
         configRevision = configRevisionIn;
     }
 
-    
+
     /**
      * @return Returns the configRevisionId.
      */
@@ -109,7 +109,7 @@ public class ConfigChannelDto extends BaseDto {
         return configRevisionId;
     }
 
-    
+
     /**
      * @param configRevisionIdIn The configRevisionId to set.
      */
@@ -123,28 +123,28 @@ public class ConfigChannelDto extends BaseDto {
     public Date getCreated() {
         return created;
     }
-    
+
     /**
      * @param createdIn The created to set.
      */
     public void setCreated(Date createdIn) {
         created = createdIn;
     }
-    
+
     /**
      * @return Returns the description.
      */
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * @param descriptionIn The description to set.
      */
     public void setDescription(String descriptionIn) {
         description = descriptionIn;
     }
-    
+
     /**
      * @return Returns the fileCount.
      */
@@ -166,77 +166,77 @@ public class ConfigChannelDto extends BaseDto {
         }
         return fileCount;
     }
-    
+
     /**
      * @param fileCountIn The fileCount to set.
      */
     public void setFileCount(Integer fileCountIn) {
         fileCount = fileCountIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param labelIn The label to set.
      */
     public void setLabel(String labelIn) {
         label = labelIn;
     }
-    
+
     /**
      * @return Returns the modified.
      */
     public Date getModified() {
         return modified;
     }
-    
+
     /**
      * @param modifiedIn The modified to set.
      */
     public void setModified(Date modifiedIn) {
         modified = modifiedIn;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */
     public void setName(String nameIn) {
         name = nameIn;
     }
-    
+
     /**
      * @return Returns the orgId.
      */
     public Long getOrgId() {
         return orgId;
     }
-    
+
     /**
      * @param orgIdIn The orgId to set.
      */
@@ -244,7 +244,7 @@ public class ConfigChannelDto extends BaseDto {
         orgId = orgIdIn;
     }
     /**
-     * 
+     *
      * @return returns the localized system count
      */
     public String getSystemCountString() {
@@ -257,17 +257,17 @@ public class ConfigChannelDto extends BaseDto {
         if (count == null) {
             count = new Integer(0);
         }
-        return service.getMessage("system.common.numsystems", 
+        return service.getMessage("system.common.numsystems",
                                         new Object[] {count});
     }
-    
+
     /**
      * @return Returns the systemCount.
      */
     public Integer getSystemCount() {
         return systemCount;
     }
-    
+
     /**
      * @param systemCountIn The systemCount to set.
      */
@@ -276,7 +276,7 @@ public class ConfigChannelDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return Returns the type.
      */
@@ -285,21 +285,21 @@ public class ConfigChannelDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param typeIn The type to set.
      */
     public void setType(String typeIn) {
         type = typeIn;
     }
-    
+
     /**
      * @return a Localized and user-friendly display for the config channel type.
      */
     public String getTypeDisplay() {
         return LocalizationService.getInstance().getMessage("config_channel." + getType());
     }
-    
+
     /**
      * @return A localized version of the channel name.
      */
@@ -308,7 +308,7 @@ public class ConfigChannelDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return Returns the deployableFileCount.
      */
@@ -318,7 +318,7 @@ public class ConfigChannelDto extends BaseDto {
 
 
 
-    
+
     /**
      * @param deployableFileCountIn The deployableFileCount to set.
      */
@@ -328,7 +328,7 @@ public class ConfigChannelDto extends BaseDto {
 
 
 
-    
+
     /**
      * @return Returns the position.
      */
@@ -338,7 +338,7 @@ public class ConfigChannelDto extends BaseDto {
 
 
 
-    
+
     /**
      * @param positionIn The position to set.
      */
@@ -346,7 +346,7 @@ public class ConfigChannelDto extends BaseDto {
         position = positionIn;
     }
 
-    
+
     /**
      * @return the dirsOnlyCount
      */
@@ -355,7 +355,7 @@ public class ConfigChannelDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param count the dirsOnlyCount to set
      */
@@ -364,7 +364,7 @@ public class ConfigChannelDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return the filesOnlyCount
      */
@@ -372,7 +372,7 @@ public class ConfigChannelDto extends BaseDto {
         return filesOnlyCount;
     }
 
-    
+
     /**
      * @param count the filesOnlyCount to set
      */
@@ -395,11 +395,11 @@ public class ConfigChannelDto extends BaseDto {
     }
 
     /**
-     * Returns a i18ned string 
+     * Returns a i18ned string
      * holding info on the Number of Files &amp; Directories
      * this is used in Config Channel Subscriptions page
      * @return a i18n'ed string..
-     *          
+     *
      */
     public String getFilesAndDirsDisplayString() {
         int files = 0, dirs = 0, symlinks = 0;
@@ -429,7 +429,7 @@ public class ConfigChannelDto extends BaseDto {
     public void setSubscribed(Integer val) {
         this.subscribed = val;
     }
-    
+
     /**
      * check to see the user can this channel.
      * @return true if the user can access this channel
@@ -437,7 +437,7 @@ public class ConfigChannelDto extends BaseDto {
     public boolean getCanAccess() {
         return 1 == canAccess;
     }
-    
+
     /**
      * check to see the user can this channel.
      * @param access true if the user can access this channel
@@ -445,5 +445,5 @@ public class ConfigChannelDto extends BaseDto {
     public void setCanAccess(Integer access) {
         this.canAccess = access;
     }
-    
+
 }

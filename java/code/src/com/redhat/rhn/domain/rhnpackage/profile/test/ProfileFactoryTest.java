@@ -43,12 +43,12 @@ public class ProfileFactoryTest  extends RhnBaseTestCase {
         assertNotNull(p);
         assertEquals(ProfileFactory.TYPE_NORMAL, p.getProfileType());
     }
-    
+
     public void testLookupByLabel() {
         ProfileType pt = ProfileFactory.lookupByLabel("normal");
         assertNotNull("ProfileType is null", pt);
         assertEquals("Not equal to normal", ProfileFactory.TYPE_NORMAL, pt);
-        
+
         pt = ProfileFactory.lookupByLabel("foo");
         assertNull("Found a ProfileType labeled foo", pt);
     }
@@ -59,10 +59,10 @@ public class ProfileFactoryTest  extends RhnBaseTestCase {
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         ProfileTest.createTestProfile(user, channel);
         Session session = HibernateFactory.getSession();
-        
+
         // gotta make sure the Channel gets saved.
         session.flush();
-        
+
         List list = ProfileFactory.compatibleWithServer(server, user.getOrg());
         assertNotNull("List is null", list);
         assertFalse("List is empty", list.isEmpty());
@@ -72,7 +72,7 @@ public class ProfileFactoryTest  extends RhnBaseTestCase {
                     Profile.class, o.getClass());
         }
     }
-    
+
     public void testLookupById() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Channel channel = ChannelFactoryTest.createTestChannel(user);

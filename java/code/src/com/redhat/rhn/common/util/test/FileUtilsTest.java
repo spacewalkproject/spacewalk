@@ -26,13 +26,13 @@ import junit.framework.TestCase;
  * @author mmccune
  */
 public class FileUtilsTest extends TestCase {
-    
+
     public void testReadWrite() throws Exception {
-        String path = "/tmp/" + 
-            System.currentTimeMillis() + 
+        String path = "/tmp/" +
+            System.currentTimeMillis() +
             TestUtils.randomString() + ".cfg";
-        // the BufferedWriter will automaticall append a 
-        // newline to the end of the file so our test should 
+        // the BufferedWriter will automaticall append a
+        // newline to the end of the file so our test should
         // just include one.
         String contents = "this is a test\n";
         FileUtils.writeStringToFile(contents, path);
@@ -41,7 +41,7 @@ public class FileUtilsTest extends TestCase {
     }
 
     public void testGetBytesFromFile() throws Exception {
-        
+
         File testFile = new File(TestUtils.findTestData("test.file").getFile());
         byte[] out = FileUtils.readByteArrayFromFile(testFile, 25, 30);
         String received = new String(out);

@@ -22,11 +22,11 @@
     </p>
   </div>
 
-<html:form method="post" 
+<html:form method="post"
 		action="/systems/details/configuration/addfiles/ImportFileConfirmSubmit.do?sid=${system.id}">
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="sdcimportconfirm.jsp.noFiles">
-              
+
       <rhn:listdisplay>
         <rhn:column header="sdcimportconfirm.jsp.filename">
 			${current.path}
@@ -59,7 +59,7 @@
       	
       </rhn:listdisplay>
     </rhn:list>
-    
+
     <c:if test="${not empty requestScope.pageList}">
       <p><bean:message key="sdcimportconfirm.jsp.widgetsummary" /></p>
       <table class="schedule-action-interface" align="center">
@@ -82,7 +82,7 @@
           </td>
         </tr>
       </table>
-      
+
       <div align="right">
         <hr />
           <html:submit property="dispatch">
@@ -90,8 +90,8 @@
           </html:submit>
       </div>
     </c:if>
-  
+
 </html:form>
-  
+
 </body>
 </html>

@@ -35,7 +35,7 @@ import java.util.Map;
  * @version $Rev$
  */
 public class DmiTest extends RhnBaseTestCase {
-    
+
     public static final String VENDOR = "ZEUS computers";
     public static final String SYSTEM = "1234UKX";
     public static final String PRODUCT = "1234UKX";
@@ -44,10 +44,10 @@ public class DmiTest extends RhnBaseTestCase {
     public static final String BIOS_RELEASE = "10/21/1999";
     public static final String ASSET = "(board: CNR780A1K11) (system: 23N7011)";
     public static final String BOARD = "MSI";
-    
+
     public void testServerDmi() throws Exception {
         Dmi dmi = createTestDmi();
-        
+
         Map params = new HashMap();
         params.put("vendor", VENDOR);
         params.put("system", SYSTEM);
@@ -63,8 +63,8 @@ public class DmiTest extends RhnBaseTestCase {
         // to be able to clean up after ourselves.
         //assertEquals(1, TestUtils.removeObject(server));
     }
-    
-  
+
+
     private void verifyInDb(Long id, Map params) throws Exception {
         // Now lets manually test to see if the user got updated
         Session session = null;
@@ -96,7 +96,7 @@ public class DmiTest extends RhnBaseTestCase {
             ps.close();
         }
     }
-    
+
     /**
      * Helper method to create a test Dmi object
      * @return Returns a test Dmi object
@@ -116,13 +116,13 @@ public class DmiTest extends RhnBaseTestCase {
         dmi.setBios(BIOS_VENDOR, BIOS_VERSION, BIOS_RELEASE);
         dmi.setAsset(ASSET);
         dmi.setBoard(BOARD);
-        
+
         assertNull(dmi.getId());
         TestUtils.saveAndFlush(dmi);
         assertNotNull(dmi.getId());
-        
+
         return dmi;
     }
-    
+
 
 }

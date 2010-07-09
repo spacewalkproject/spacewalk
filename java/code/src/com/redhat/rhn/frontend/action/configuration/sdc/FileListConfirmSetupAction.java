@@ -48,34 +48,34 @@ public class FileListConfirmSetupAction extends BaseListAction {
         if (Boolean.TRUE.toString().equalsIgnoreCase(selectAll)) {
             selectAll(user, server);
         }
-        
+
         return ConfigurationManager.getInstance().listFileNamesInSet(user, server,
                 getSetDecl().getLabel(), pcIn);
     }
-    
+
     protected void processRequestAttributes(RequestContext rctxIn) {
         rctxIn.lookupAndBindServer();
     }
-    
+
     protected void processForm(RequestContext ctxt, ActionForm form) {
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(ctxt.getRequest(),
                 (DynaActionForm) form, "date", DatePicker.YEAR_RANGE_POSITIVE);
         ctxt.getRequest().setAttribute("date", picker);
     }
-    
-    
+
+
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_FILE_NAMES;
     }
 
     /**
-     * 
+     *
      * @param user the logged in user
-     * @param server containing the filenames 
+     * @param server containing the filenames
      */
     private void selectAll(User user, Server server) {
         RhnSetHelper helper = new RhnSetHelper(getSetDecl());
-        
+
         List list =  ConfigurationManager.getInstance()
                             .listFileNamesForSystem(user, server, null);
         helper.selectAllData(list, user);

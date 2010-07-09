@@ -1,11 +1,11 @@
    <rhn:set value="${current.id}" />
-    
+
 	<rhn:column header="errata.edit.packages.add.package">
         <a href="/rhn/software/packages/Details.do?pid=${current.id}">
           ${current.packageNvre}
         </a>
     </rhn:column>
-    
+
     <rhn:column header="errata.edit.packages.add.channels">
       <c:choose>
         <c:when test="${current.packageChannels != null}">
@@ -17,6 +17,5 @@
           (none)
         </c:otherwise>
       </c:choose>
-         
+
     </rhn:column>
-    

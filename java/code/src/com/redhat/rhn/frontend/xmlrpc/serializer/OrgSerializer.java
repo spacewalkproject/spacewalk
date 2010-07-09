@@ -31,7 +31,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  */
 public class OrgSerializer implements XmlRpcCustomSerializer {
-    
+
     /** {@inheritDoc} */
     public Class getSupportedClass() {
         return Org.class;
@@ -40,13 +40,13 @@ public class OrgSerializer implements XmlRpcCustomSerializer {
     /** {@inheritDoc} */
     public void serialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
-        
+
         SerializerHelper helper = new SerializerHelper(serializer);
         Org org = (Org) value;
-        
+
         helper.add("id", org.getId());
         helper.add("name", org.getName());
-        helper.writeTo(output);       
-        
+        helper.writeTo(output);
+
     }
 }

@@ -36,16 +36,16 @@ import javax.servlet.http.HttpServletResponse;
  * PatchListSetupAction
  * @version $Rev: 53561 $
  */
-public class PatchListSetupAction extends RhnListAction {    
+public class PatchListSetupAction extends RhnListAction {
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long sid = requestContext.getRequiredParam("sid");
 
         User user = requestContext.getLoggedInUser();
@@ -58,13 +58,13 @@ public class PatchListSetupAction extends RhnListAction {
         DataResult dr = getDataResult(sid, pc);
 
         RhnSet set = RhnSetDecl.PATCH_REMOVE.get(user);
-        
+
         Server server = SystemManager.lookupByIdAndUser(sid, user);
-        
+
         request.setAttribute("pageList", dr);
         request.setAttribute("set", set);
         request.setAttribute("system", server);
-        
+
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                                        request.getParameterMap());
     }
@@ -74,7 +74,7 @@ public class PatchListSetupAction extends RhnListAction {
      * by the values of the PageControl.
      * @param sid Server id.
      * @param pc boundary values
-     * @return List of unpublished errata for the given user 
+     * @return List of unpublished errata for the given user
      * bounded by the values of the PageControl.
      */
     protected DataResult getDataResult(Long sid, PageControl pc) {

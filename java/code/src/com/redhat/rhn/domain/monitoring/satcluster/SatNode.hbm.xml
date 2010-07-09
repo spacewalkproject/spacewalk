@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.satcluster.SatNode" 
+    <class name="com.redhat.rhn.domain.monitoring.satcluster.SatNode"
         table="rhn_sat_node" >
         <id name="id" type="long" column="recid">
             <meta attribute="scope-set">protected</meta>
@@ -11,36 +11,36 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="property">commandTarget</param>
             </generator>
         </id>
-        <property name="targetType" column="target_type" not-null="true" 
+        <property name="targetType" column="target_type" not-null="true"
             type="string" length="10" />
-        <property name="lastUpdateUser" column="last_update_user" type="string" 
+        <property name="lastUpdateUser" column="last_update_user" type="string"
             length="40" />
-        <property name="lastUpdateDate" column="last_update_date" 
+        <property name="lastUpdateDate" column="last_update_date"
             type="timestamp" />
-        <property name="macAddress" column="mac_address" not-null="true" 
+        <property name="macAddress" column="mac_address" not-null="true"
             type="string" length="17" />
-        <property name="maxConcurrentChecks" column="max_concurrent_checks" 
+        <property name="maxConcurrentChecks" column="max_concurrent_checks"
             type="long" />
         <property name="ip" column="ip" type="string" length="15" />
-        <property name="schedLogLevel" column="sched_log_level" not-null="true" 
+        <property name="schedLogLevel" column="sched_log_level" not-null="true"
             type="long" />
-        <property name="sputLogLevel" column="sput_log_level" not-null="true" 
+        <property name="sputLogLevel" column="sput_log_level" not-null="true"
             type="long" />
-        <property name="dqLogLevel" column="dq_log_level" not-null="true" 
+        <property name="dqLogLevel" column="dq_log_level" not-null="true"
             type="long" />
-        <property name="scoutSharedKey" column="scout_shared_key" 
+        <property name="scoutSharedKey" column="scout_shared_key"
             not-null="true" type="string" length="64" />
-        <many-to-one name="server" column="server_id" 
+        <many-to-one name="server" column="server_id"
             class="com.redhat.rhn.domain.server.Server" outer-join="false">
         </many-to-one>
-        <many-to-one name="satCluster" column="sat_cluster_id" 
-            class="com.redhat.rhn.domain.monitoring.satcluster.SatCluster" 
+        <many-to-one name="satCluster" column="sat_cluster_id"
+            class="com.redhat.rhn.domain.monitoring.satcluster.SatCluster"
             outer-join="false" not-null="true">
         </many-to-one>
-        <many-to-one name="commandTarget" 
+        <many-to-one name="commandTarget"
         	class="com.redhat.rhn.domain.monitoring.satcluster.CommandTarget"
             column="recid" insert="false" update="false"/>
-        
+
     </class>
 	<query name="SatNode.findBySatCluster">
         <![CDATA[from com.redhat.rhn.domain.monitoring.satcluster.SatNode as sn

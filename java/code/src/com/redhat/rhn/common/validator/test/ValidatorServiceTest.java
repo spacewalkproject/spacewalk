@@ -26,9 +26,9 @@ import java.util.Date;
  * @version $Rev$
  */
 public class ValidatorServiceTest extends RhnBaseTestCase {
-    
+
     private Validator validator;
-    
+
     public void setUp() throws Exception {
         disableLocalizationServiceLogging();
         validator = Validator.getInstance(TestUtils.findTestData("TestObject.xsd"));
@@ -50,8 +50,8 @@ public class ValidatorServiceTest extends RhnBaseTestCase {
             ValidatorService.getInstance().validateObject(to, validator).isEmpty());
     }
 
-    /** Test the method on the ValidationService where we let the 
-     * service attempt to find the XSD associated with the object 
+    /** Test the method on the ValidationService where we let the
+     * service attempt to find the XSD associated with the object
      * in the same directory.
      * @throws Exception
      */
@@ -70,8 +70,8 @@ public class ValidatorServiceTest extends RhnBaseTestCase {
         assertTrue(
             ValidatorService.getInstance().validateObject(to).isEmpty());
     }
-    
-    
+
+
     public void testInvalidObject() throws Exception {
         TestObject to = new TestObject();
         to.setStringField("somevaluelkjajsjlfdlkjaslkjdf0980934098234");
@@ -91,7 +91,7 @@ public class ValidatorServiceTest extends RhnBaseTestCase {
         enableLocalizationServiceLogging();
     }
 
-    
-}    
+
+}
 
 

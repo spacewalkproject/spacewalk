@@ -27,47 +27,47 @@ import java.io.Serializable;
  * Keyword
  * @version $Rev$
  */
-public class PublishedKeyword extends BaseDomainHelper 
+public class PublishedKeyword extends BaseDomainHelper
                               implements Keyword, Serializable {
 
     private String keyword;
     private Errata errata;
-    
+
     /**
      * @return Returns the keyword.
      */
     public String getKeyword() {
         return keyword;
     }
-    
+
     /**
      * @param k The keyword to set.
      */
     public void setKeyword(String k) {
         this.keyword = k;
     }
-    
+
     /**
      * @return Returns the errata.
      */
     public Errata getErrata() {
         return errata;
     }
-    
+
     /**
      * @param errataIn The errata to set.
      */
     public void setErrata(Errata errataIn) {
         this.errata = errataIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String toString() {
         return keyword;
     }
-    
+
     /**
      * {@inheritDoc}
      */

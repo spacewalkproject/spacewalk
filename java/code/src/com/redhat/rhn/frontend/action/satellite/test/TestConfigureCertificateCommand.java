@@ -34,7 +34,7 @@ public class TestConfigureCertificateCommand extends ConfigureCertificateCommand
     public ValidatorError[] storeConfiguration() {
         if (getCertificateText() == null) {
             ValidatorError[] retval = new ValidatorError[1];
-            retval[0] = new ValidatorError("some.error.key"); 
+            retval[0] = new ValidatorError("some.error.key");
             return retval;
         }
         else {

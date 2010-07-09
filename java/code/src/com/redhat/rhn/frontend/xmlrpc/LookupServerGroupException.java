@@ -24,7 +24,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class LookupServerGroupException extends FaultException {
-    
+
     /**
      * Constructor
      * @param id server group id
@@ -33,7 +33,7 @@ public class LookupServerGroupException extends FaultException {
         super(2201, "lookupServerGroup" , LocalizationService.getInstance().
                 getMessage("api.systemgroup.lookupServerGroup", id));
     }
-    
+
     /**
      * Constructor
      * @param name server group name
@@ -42,13 +42,13 @@ public class LookupServerGroupException extends FaultException {
         super(2201, "lookupServerGroup" , LocalizationService.getInstance().
                 getMessage("api.systemgroup.lookupServerGroup", name));
     }
-    
-    
+
+
     /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public LookupServerGroupException(Throwable cause) {

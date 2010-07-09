@@ -34,7 +34,7 @@ public class FileListTest extends RhnBaseTestCase {
     public void testDeleteFileList() {
         Org o = UserTestUtils.findNewOrg(TestStatics.TESTORG);
         FileList f = createTestFileList(o);
-        
+
         CommonFactory.saveFileList(f);
         assertNotNull(CommonFactory.lookupFileList(f.getId(), o));
         f.addFileName("/tmp/dir/history/file.history");
@@ -44,13 +44,13 @@ public class FileListTest extends RhnBaseTestCase {
         assertEquals(CommonFactory.removeFileList(f), 1);
         flushAndEvict(f);
         assertNull(CommonFactory.lookupFileList(f.getId(), o));
-           
+
     }
-    
+
     public void testFileList() throws Exception {
         Org o = UserTestUtils.findNewOrg(TestStatics.TESTORG);
         FileList f = createTestFileList(o);
-        
+
         CommonFactory.saveFileList(f);
         f.addFileName("/tmp/foo.txt");
         flushAndEvict(f);
@@ -59,15 +59,15 @@ public class FileListTest extends RhnBaseTestCase {
         ConfigFileName cfn = (ConfigFileName) f2.getFileNames().iterator().next();
         assertEquals("/tmp/foo.txt", cfn.getPath());
     }
-    
-        
+
+
     public static FileList createTestFileList(Org orgIn) {
         FileList f = new FileList();
-        
+
         f.setLabel("Test FileList" + TestUtils.randomString());
         f.setOrg(orgIn);
         f.setCreated(new Date());
-        f.setModified(new Date());                                                      
+        f.setModified(new Date());
         assertNull(f.getId());
         return f;
     }

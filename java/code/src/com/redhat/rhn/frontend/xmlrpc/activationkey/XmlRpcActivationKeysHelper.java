@@ -28,24 +28,24 @@ import java.util.List;
  * @version $Rev$
  */
 public class XmlRpcActivationKeysHelper {
-    
-    private static final XmlRpcActivationKeysHelper HELPER = 
+
+    private static final XmlRpcActivationKeysHelper HELPER =
                                         new XmlRpcActivationKeysHelper();
     /**
      * Constructor
      */
     private XmlRpcActivationKeysHelper() {
     }
-    
-    
+
+
     /**
-     * 
+     *
      * @return an instance of the class.
      */
     public static XmlRpcActivationKeysHelper getInstance() {
         return HELPER;
     }
-    
+
     /**
      * Helper method to lookup a ActivationKey object from key, and throws a FaultException
      * if the key cannot be found.
@@ -62,16 +62,16 @@ public class XmlRpcActivationKeysHelper {
         }
         return activationKey;
     }
-    
+
     /**
      * Helper method to lookup a bunch of activationkeys
-     *  from a list of  key values 
+     *  from a list of  key values
      * @param user The user looking up the ActivationKey
      * @param keys  activationkeys  ids we're looking for
      * @return Returns a list of actication keys  corresponding to provided key.
      */
     public List<ActivationKey> lookupKeys(User user, List<String> keys) {
-        
+
         List<ActivationKey> activationKeys = new LinkedList<ActivationKey>();
         for (String key : keys) {
             activationKeys.add(lookupKey(user, key));

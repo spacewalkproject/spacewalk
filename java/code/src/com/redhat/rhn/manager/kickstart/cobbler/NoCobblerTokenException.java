@@ -15,14 +15,14 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 /**
- * 
+ *
  * Exception when we didnt setup our token with cobbler.
  * @version $Rev$
  */
 public class NoCobblerTokenException extends RuntimeException {
 
     /**
-     * Constructor 
+     * Constructor
      * @param msg to show user
      */
     public NoCobblerTokenException(String msg) {
@@ -30,12 +30,12 @@ public class NoCobblerTokenException extends RuntimeException {
     }
 
     /**
-     * Constructor 
+     * Constructor
      * @param msg to show user
-     * @param e the actual exception 
+     * @param e the actual exception
      */
     public NoCobblerTokenException(String msg, Exception e) {
         super(msg, e);
     }
-    
+
 }

@@ -39,7 +39,7 @@ import junit.framework.TestSuite;
 public class ExceptionsWrapperTest extends TestCase {
 
     private static final Logger LOG = Logger.getLogger(ExceptionsWrapperTest.class);
-    private static final String EXCEPTION_TRANSLATOR = 
+    private static final String EXCEPTION_TRANSLATOR =
         "com.redhat.rhn.common.translation.ExceptionTranslator";
 
     public ExceptionsWrapperTest(String name) {
@@ -159,7 +159,7 @@ public class ExceptionsWrapperTest extends TestCase {
         }
 
     }
-    
+
     public static Test suite() throws Exception {
         TestSuite suite = new TestSuite(ExceptionsWrapperTest.class);
         TestSetup wrapper = new TestSetup(suite) {
@@ -196,7 +196,7 @@ public class ExceptionsWrapperTest extends TestCase {
         }
         finally {
             HibernateHelper.cleanupDB(stmt);
-        }        
+        }
     }
 
     protected static void oneTimeTeardown() throws Exception {
@@ -211,7 +211,7 @@ public class ExceptionsWrapperTest extends TestCase {
         }
         finally {
             HibernateHelper.cleanupDB(stmt);
-        }        
+        }
     }
 
     private static void forceQuery(Connection c, String query) {

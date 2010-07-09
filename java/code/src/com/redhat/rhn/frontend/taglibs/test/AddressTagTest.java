@@ -89,7 +89,7 @@ public class AddressTagTest extends RhnBaseTestCase {
 
     private String getPopulatedReturnValue(HttpServletRequest req, Long uid) {
         return "<tr><th>Mailing Address</th><td><div>444 Castro<br/>" +
-        "#1<br/>Mountain View, CA 94043</div><div>Phone: 650-555-1212</div><div>Fax: " + 
+        "#1<br/>Mountain View, CA 94043</div><div>Phone: 650-555-1212</div><div>Fax: " +
         "650-555-1212</div><div><a href=\"/EditAddress.do?type=M&amp" +
         ";uid=" + uid + "\">Edit this address</a></div></td></tr>";
     }

@@ -55,19 +55,19 @@ import javax.servlet.http.HttpServletRequest;
  * of a request. The objects are created by looking at request
  * parameters for their ID's and then retrieving them from the
  * appropriate manager.
- * 
+ *
  * @version $Rev$
  */
 public class RequestContext {
-    
+
     private static final Logger LOG = Logger.getLogger(RequestContext.class);
-    
-    
+
+
     // Request IDs go here.
     public static final String LABEL = "label";
     public static final String USER_ID = "uid";
     public static final String ORG_ID = "oid";
-    public static final String PROBEID = "probe_id"; 
+    public static final String PROBEID = "probe_id";
     public static final String SUITE_ID = "suite_id";
     public static final String FILTER_ID = "filter_id";
     public static final String ERRATA_ID = "eid";
@@ -80,12 +80,12 @@ public class RequestContext {
     public static final String PREVIOUS_FILTER_STRING = "prev_filter_value";
     public static final String LIST_DISPLAY_EXPORT = "lde";
     public static final String TOKEN_ID = "tid";
-    
+
     public static final String LIST_SORT = "sort";
     public static final String SORT_ORDER = "order";
     public static final String SORT_ASC = "asc";
     public static final String SORT_DESC = "desc";
-    
+
     public static final String METHOD_ID = "cmid";
     public static final String KICKSTART_ID = "ksid";
     public static final String KSTREE_ID = "kstid";
@@ -112,19 +112,19 @@ public class RequestContext {
     /** the name of the Red Hat session cookie */
     public static final String WEB_SESSION_COOKIE_NAME = "pxt-session-cookie";
     public static final String POST = "POST";
-    
-    
+
+
     private HttpServletRequest request;
     private User               currentUser;
-        
+
     /**
      * Create a new context object that looks up objects
      * from the request <code>req0</code>
-     * 
+     *
      * @param req0 the request from which to look up objects
      */
     public RequestContext(HttpServletRequest req0) {
-        request = req0;        
+        request = req0;
     }
 
     /**
@@ -135,11 +135,11 @@ public class RequestContext {
     public HttpServletRequest getRequest() {
         return request;
     }
-    
+
     /**
      * Return the currently LOGged in user that is making the
      * request.
-     * 
+     *
      * @return the currently LOGged in user that is making the
      * request.
      */
@@ -149,10 +149,10 @@ public class RequestContext {
         }
         return currentUser;
     }
-    
+
     /**
      * Get the currently LOGged in User from the pxt session.
-     * 
+     *
      * @return Currently LOGged in User.
      */
     public User getLoggedInUser() {
@@ -166,19 +166,19 @@ public class RequestContext {
         }
 
         WebSession pxtSession = getWebSession();
-        
+
         if (pxtSession == null) {
             return null;
         }
-        
+
         return pxtSession.getUser();
     }
-    
+
     /**
-     * Get the user on the request based on the "uid" paramter.  Used 
+     * Get the user on the request based on the "uid" paramter.  Used
      * when editing Users other than the LOGged in user.
-     * 
-     * @return User found. 
+     *
+     * @return User found.
      */
     // TODO Write unit tests for getUserFromUIDParameter()
     public User getUserFromUIDParameter() {
@@ -186,14 +186,14 @@ public class RequestContext {
         User user = UserManager.lookupUser(getCurrentUser(), uid);
         return user;
     }
-    
+
     /**
      * Return the probe suite with the ID given by the request's
      * {@link #SUITE_ID}parameter
      * @return the probe suite with the ID given by the request's
      * {@link #SUITE_ID}parameter
-     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request 
-     * does not contain the required parameter, or if the parameter can not be converted 
+     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request
+     * does not contain the required parameter, or if the parameter can not be converted
      * to a <code>Long</code>
      * @throws IllegalArgumentException if no probe suite with the ID given in
      * the request can be found
@@ -207,14 +207,14 @@ public class RequestContext {
         assertObjectFound(retval, suiteId, SUITE_ID, "probe suite");
         return retval;
     }
-    
+
     /**
      * Return the erratum with the ID given by the request's
      * {@link #ERRATA_ID}parameter
      * @return the erratum with the ID given by the request's
      * {@link #ERRATA_ID}parameter
-     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request 
-     * does not contain the required parameter, or if the parameter can not be converted 
+     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request
+     * does not contain the required parameter, or if the parameter can not be converted
      * to a <code>Long</code>
      * @throws IllegalArgumentException if no probe suite with the ID given in
      * the request can be found
@@ -226,14 +226,14 @@ public class RequestContext {
         assertObjectFound(retval, errataId, ERRATA_ID, "erratum");
         return retval;
     }
-    
+
     /**
      * Return the server with the ID given by the request's {@link #SID}
      * parameter
      * @return the server with the ID given by the request's {@link #SID}
      * parameter
-     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request 
-     * does not contain the required parameter, or if the parameter can not be converted 
+     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request
+     * does not contain the required parameter, or if the parameter can not be converted
      * to a <code>Long</code>
      * @throws IllegalArgumentException if no server with the ID given in the
      * request can be found
@@ -248,14 +248,14 @@ public class RequestContext {
 
         return retval;
     }
-    
+
     /**
      * Return the server with the ID given by the request's {@link #SID}
      * parameter. Puts the server in the request attributes.
      * @return the server with the ID given by the request's {@link #SID}
      * parameter
-     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request 
-     * does not contain the required parameter, or if the parameter can not be converted 
+     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request
+     * does not contain the required parameter, or if the parameter can not be converted
      * to a <code>Long</code>
      * @throws IllegalArgumentException if no server with the ID given in the
      * request can be found
@@ -269,14 +269,14 @@ public class RequestContext {
 
         return (Server) request.getAttribute(SYSTEM);
     }
-    
+
     /**
      * Return the Activation Key with the ID given by the request's {@link #TOKEN_ID}
      * parameter. Puts the activation key in the request attributes.
      * @return the  Activation Key with the ID given by the request's {@link #TOKEN_ID}
      * parameter
-     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request 
-     * does not contain the required parameter, or if the parameter can not be converted 
+     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request
+     * does not contain the required parameter, or if the parameter can not be converted
      * to a <code>Long</code>
      * @throws IllegalArgumentException if no  Activation Key with the ID given in the
      * request can be found
@@ -285,7 +285,7 @@ public class RequestContext {
         if (request.getAttribute(ACTIVATION_KEY) == null) {
             Long id = getRequiredParam(TOKEN_ID);
             ActivationKey key = ActivationKeyFactory.lookupByToken(
-                                                        TokenFactory.lookup(id, 
+                                                        TokenFactory.lookup(id,
                                                         getLoggedInUser().getOrg()));
             request.setAttribute(ACTIVATION_KEY, key);
         }
@@ -297,8 +297,8 @@ public class RequestContext {
      * parameter. Puts the activation key in the request attributes.
      * @return the  KickstartDatay with the ID given by the request's {@link #KICKSTART_ID}
      * parameter
-     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request 
-     * does not contain the required parameter, or if the parameter can not be converted 
+     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request
+     * does not contain the required parameter, or if the parameter can not be converted
      * to a <code>Long</code>
      * @throws IllegalArgumentException if no Kickstart Data with the ID given in the
      * request can be found
@@ -313,7 +313,7 @@ public class RequestContext {
             request.setAttribute(KICKSTART, data);
         }
         return (KickstartData) request.getAttribute(KICKSTART);
-    }    
+    }
 
     /**
      * Return the ServerGroup with the ID given by the request's {@link #SERVER_GROUP_ID}
@@ -336,15 +336,15 @@ public class RequestContext {
         }
         return (ManagedServerGroup) request.getAttribute(SERVER_GROUP);
     }
-    
+
     /**
      * Return the probe with the ID given by the request's {@link #PROBEID}
      * parameter
      * @return the probe with the ID given by the request's {@link #PROBEID}
      * parameter
-     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request 
-     * does not contain the required parameter, or if the parameter can not be converted 
-     * to a <code>Long</code>   
+     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request
+     * does not contain the required parameter, or if the parameter can not be converted
+     * to a <code>Long</code>
      * @throws IllegalArgumentException if no probe with the ID given in the
      * request can be found
      */
@@ -356,17 +356,17 @@ public class RequestContext {
         assertObjectFound(retval, probeid, PROBEID, "probe");
         return retval;
     }
-    
+
     private void assertObjectFound(Object obj, Long id, String paramName, String objName) {
         if (obj == null) {
             throw new IllegalArgumentException(
                     "Could not find " + objName + " with ID " + paramName + "=" + id);
         }
     }
-    
+
     /**
      * Get the parameter <code>paramName</code> from the request. If
-     * <code>required</code> is <code>true</code>, this method will never 
+     * <code>required</code> is <code>true</code>, this method will never
      * return <code>null</code>; instead, it will throw a
      * <code>BadParameterException</code> if the parameter is not in the
      * request. If <code>required</code> is <code>false</code>, the return
@@ -386,10 +386,10 @@ public class RequestContext {
             throw new BadParameterException("Required parameter [" +
                 paramName + "] is null");
         }
-        
+
         return param;
     }
-    
+
     /**
      * Get whether a parameter is present in the request.
      * @param name The parameter name.
@@ -398,20 +398,20 @@ public class RequestContext {
     public boolean hasParam(String name) {
         return (request.getParameter(name) != null);
     }
-    
+
     /**
      * Returns the value of the parameter named param of the request as a Long.
-     * 
+     *
      * This method will trim the String as well to check for "" and " ". If the
      * String is "1234 " it will return a Long with value: 1234. If the String
      * is "" and required is true it will treat it like a null value and throw
      * BadParameterException.
-     * 
+     *
      * @param param Name of request parameter to be converted.
-     * 
+     *
      * @throws BadParameterException if the parameter <code>param</code> can
      * not be converted to a Long
-     * 
+     *
      * @return the value of the parameter named param of the request as a Long.
      *         <code>null</code> if the parameter is blank.
      */
@@ -426,7 +426,7 @@ public class RequestContext {
             }
             catch (NumberFormatException e) {
                 BadParameterException bad = new BadParameterException(
-                        "The parameter " + param + " must be a Long, but was '" + 
+                        "The parameter " + param + " must be a Long, but was '" +
                         p + "'", e);
                 bad.setStackTrace(e.getStackTrace());
                 throw bad;
@@ -434,7 +434,7 @@ public class RequestContext {
         }
         return result;
     }
-    
+
     /**
      * Get the parameter <code>paramName</code> from the request and convert
      * it to a <code>Long</code>. A BadParameterException is thrown if the
@@ -450,14 +450,14 @@ public class RequestContext {
             // throw new BadParameterException("The parameter " + param +
             // " is required and must be a Long, but was '" + p +"'");
             // That one day has finally arrived! And the coders rejoiced.
-            throw new BadParameterException("The parameter " + paramName + 
+            throw new BadParameterException("The parameter " + paramName +
                     " is required.");
         }
         return result;
     }
 
     /**
-     * Get the parameter <code>paramName</code> from the request 
+     * Get the parameter <code>paramName</code> from the request
      * A BadParameterException is thrown if the
      * parameter is not present in the request or is empty
      * @param paramName the name of the parameter
@@ -466,45 +466,45 @@ public class RequestContext {
     public String getRequiredParamAsString(String paramName) {
         String p = request.getParameter(paramName);
         if (StringUtils.isBlank(p)) {
-            throw new BadParameterException("The parameter " + paramName + 
+            throw new BadParameterException("The parameter " + paramName +
                     " is required.");
         }
         return p;
-    }    
-    
+    }
+
     /**
      * If this current Request includes a parameter to indicate the User is attempting
      * to produce an export of viewable data then return true.
-     * 
-     * Only for use with the Old list tag's exporter.  The new list tag doesn't use 
+     *
+     * Only for use with the Old list tag's exporter.  The new list tag doesn't use
      *      "lde" as a parameter, it uses   lde_unique(listName).
-     * 
+     *
      * @return if this request includes an export param
      */
     // TODO Write unit tests for isRequestedExport()
     public boolean isRequestedExport() {
         String lde = request.getParameter(LIST_DISPLAY_EXPORT);
-        return (lde != null && lde.equals("1")); 
+        return (lde != null && lde.equals("1"));
     }
 
     /**
      * Retrieves the currently Logged in user's pxt session. If it doesn't exist, a new
      * session is created.
-     * 
+     *
      * @return The currently Logged in user's pxt session. If it doesn't exist, a new
      * session is created.
      */
     public WebSession getWebSession() {
         PxtSessionDelegateFactory factory = PxtSessionDelegateFactory.getInstance();
         PxtSessionDelegate pxtDelegate = factory.newPxtSessionDelegate();
-        
+
         return pxtDelegate.getPxtSession(request);
     }
-        
+
     /**
      * Returns the pxt session cookie name, handles allow_pxt_personalities. This
      * should be removed once completely Java and stick to the HttpSession.
-     * 
+     *
      * @return The WebSession (pxt session) name taking into consideration the
      * allow_pxt_personalities.
      */
@@ -520,10 +520,10 @@ public class RequestContext {
 
         return WEB_SESSION_COOKIE_NAME;
     }
-    
+
     /**
      * Creates the WebSession (pxt session) cookie with the given id.
-     * 
+     *
      * @param sessionId WebSession (pxt session) id.
      * @param timeout lifespan of cookie in seconds.
      * @return The WebSession (pxt session) cookie.
@@ -547,7 +547,7 @@ public class RequestContext {
 
         return cookie;
     }
-        
+
     /**
      * Returns the value for the given named cookie, the value is cached in the
      * Request as an attribute.
@@ -574,7 +574,7 @@ public class RequestContext {
         LOG.debug("Returning [" + value + "] for cookie named [" + name + "]");
         return value;
     }
-    
+
     /**
      * Get the value for the lowest part of the list to display. This is
      * protected so that the setup actions can get this value for redirecting
@@ -583,11 +583,11 @@ public class RequestContext {
      */
     public String processPagination() {
         String lower;
-        if (request.getParameter("First") != null || 
+        if (request.getParameter("First") != null ||
                 request.getParameter("First.x") != null) {
             lower = request.getParameter("first_lower");
         }
-        else if (request.getParameter("Prev") != null || 
+        else if (request.getParameter("Prev") != null ||
                 request.getParameter("Prev.x") != null) {
             lower = request.getParameter("prev_lower");
         }
@@ -595,7 +595,7 @@ public class RequestContext {
                 request.getParameter("Next.x") != null) {
             lower = request.getParameter("next_lower");
         }
-        else if (request.getParameter("Last") != null || 
+        else if (request.getParameter("Last") != null ||
                 request.getParameter("Last.x") != null) {
             lower = request.getParameter("last_lower");
         }
@@ -604,7 +604,7 @@ public class RequestContext {
         }
         return lower;
     }
-    
+
     /**
      * Creates a hashmap with pagination vars added.
      * @return Returns a new hashmap containing the parameters
@@ -620,12 +620,12 @@ public class RequestContext {
 
         return params;
     }
-    
+
     /**
      * Take a HttpServletRequest and build a self-link to the requested page and
      * include a name/value parameter. Won't re-append the parameter if adding
      * it is re-attempted.
-     * 
+     *
      * @param name of parameter to add
      * @param value value of paramter
      * @return url that is built.
@@ -670,43 +670,43 @@ public class RequestContext {
         }
         return page.toString();
     }
-    
+
     /**
      * Copies an attached parameter to the attributes list
-     * This is useful when we want to propagate a parameter 
-     * that was passed to us, like sid   
+     * This is useful when we want to propagate a parameter
+     * that was passed to us, like sid
      * @param paramId the param to copy
      */
     public void copyParamToAttributes(String paramId) {
         HttpServletRequest req = getRequest();
         String param = req.getParameter(paramId);
-        
+
         if (param != null) {
             req.setAttribute(paramId, req.getParameter(paramId));
         }
     }
-    
+
     /**
-     * Examines a submit action of the name "dispatch" 
+     * Examines a submit action of the name "dispatch"
      * with the i18n'ed value of the key passed in.
      * This is useful for example in the following
      * scenario.. Lets say you have the following html input
-     * <input type = "submit" name="dispatch" 
+     * <input type = "submit" name="dispatch"
      *      value="rhn:localize('copy.to.local')"/>
      * Lets suppose 'copy.to.local' was the message key
-     * you'd pass to localizationService if i18n'ing... 
-     * Lets suppose the en_US value of copy.to.local = Copy To Local  
+     * you'd pass to localizationService if i18n'ing...
+     * Lets suppose the en_US value of copy.to.local = Copy To Local
      * When the button is submitted, IE will submit
      *  "dispatch=Copy To Local"
-     * This means in the submit action we need to i18n 
+     * This means in the submit action we need to i18n
      * the button value again when doing a lookup...
-     * This method is supposed to help there.. 
+     * This method is supposed to help there..
      * One can just do
      * if (requestContext.wasDispatched("copy.to.local"))
      * Alternatively one can also extend
-     *  RhnLookupDispatchAction to achieve the same.   
+     *  RhnLookupDispatchAction to achieve the same.
      * @param messageKey the message key to be i18ned.
-     * @return true if a "dispatch" parameter 
+     * @return true if a "dispatch" parameter
      *          was set and that equaled the i18ned
      *          value of the message key
      */
@@ -722,36 +722,36 @@ public class RequestContext {
 
     /**
      * Returns if javascript is enabled/not in this page.
-     * This needs to be used in conjuction with rhn noscript 
+     * This needs to be used in conjuction with rhn noscript
      * taglib.. If you need to use this method add the following line
      * to your jsp after the form, so that it gets submitted
-     * <rhn:noscript/> 
+     * <rhn:noscript/>
      * @return true if java script is enabled, false other wise.
      */
     public boolean isJavaScriptEnabled() {
         return !Boolean.TRUE.toString().equals(getParam(NO_SCRIPT, false));
     }
-    
+
     /**
      * Simple util to check if the Form  on a page was submitted
-     * This needs to be used in conjuction with rhn submitted 
+     * This needs to be used in conjuction with rhn submitted
      * taglib.. If you need to use this method add the following line
      * to your jsp after the form, so that it gets submitted
-     * <rhn:submitted/> 
+     * <rhn:submitted/>
      * @return true if the form was submitted, false other wise
      */
     public boolean isSubmitted() {
         return Boolean.TRUE.toString().equals(getParam(RhnAction.SUBMITTED, false));
     }
-    
+
     /**
      * verify that the request is a POST and throw an exception otherwise.
      */
-    public void requirePost() {        
+    public void requirePost() {
         if (!POST.equals(request.getMethod())) {
             throw new PermissionException(
                     LocalizationService.getInstance().getMessage("request.post.check"));
         }
     }
-    
+
 }

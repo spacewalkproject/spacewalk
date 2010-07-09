@@ -35,7 +35,7 @@ public class PageSizeDecoratorTest extends RhnBaseTestCase {
         assertTrue(PageSizeDecorator.getPageSizes().
                 contains(PageSizeDecorator.getDefaultPageSize()));
     }
-    
+
     public void testConfigPageSizes() {
         List<Integer> custom = new LinkedList<Integer>();
         custom.add(4);
@@ -44,13 +44,13 @@ public class PageSizeDecoratorTest extends RhnBaseTestCase {
         custom.add(88);
         custom.add(99);
         custom.add(300);
-        Config.get().setString(ConfigDefaults.PAGE_SIZES, 
+        Config.get().setString(ConfigDefaults.PAGE_SIZES,
                         StringUtils.join(custom.iterator(), ", "));
         assertEquals(custom, PageSizeDecorator.getPageSizes());
-        
+
         assertTrue(custom.contains(PageSizeDecorator.getDefaultPageSize()));
-        
-        Config.get().setString(ConfigDefaults.DEFAULT_PAGE_SIZE, 
+
+        Config.get().setString(ConfigDefaults.DEFAULT_PAGE_SIZE,
                                 String.valueOf(custom.get(4) - 5));
         assertTrue(custom.contains(PageSizeDecorator.getDefaultPageSize()));
         assertEquals((Integer)custom.get(3),

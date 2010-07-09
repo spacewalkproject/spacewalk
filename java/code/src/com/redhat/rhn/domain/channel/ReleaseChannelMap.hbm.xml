@@ -5,35 +5,35 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.channel.ReleaseChannelMap"
         table="rhnReleaseChannelMap">
-        
+
         <composite-id>
-        
+
             <key-property name="product" column="product" type="string"
                 length="64"/>
-                
+
             <key-property name="version" column="version" type="string"
                 length="64"/>
 
             <key-property name="release" column="release" type="string"
                 length="64"/>
-                
+
             <key-many-to-one name="channelArch"
                 class="com.redhat.rhn.domain.channel.ChannelArch"
                 column="channel_arch_id"/>
-                
+
         <key-many-to-one name="channel"
             class="com.redhat.rhn.domain.channel.Channel"
             column="channel_id"/>
-            
+
         </composite-id>
-        
+
     </class>
-    
+
     <query name="ReleaseChannelMap.findDefaultForChannel">
         <![CDATA[
-            from com.redhat.rhn.domain.channel.ReleaseChannelMap as r where 
+            from com.redhat.rhn.domain.channel.ReleaseChannelMap as r where
                 r.channel = :channel
         ]]>
     </query>
-    
+
 </hibernate-mapping>

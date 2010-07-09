@@ -32,10 +32,10 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  *
  * @xmlrpc.doc
- * 
+ *
  * #struct("system")
  *      #prop("int", "id")
- *      #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server 
+ *      #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server
  *              successfully checked in")
  * #struct_end()
  */

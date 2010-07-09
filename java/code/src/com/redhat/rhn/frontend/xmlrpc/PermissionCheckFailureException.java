@@ -45,7 +45,7 @@ public class PermissionCheckFailureException extends FaultException  {
      * Constructor
      */
     public PermissionCheckFailureException() {
-        super(-23, "permissionCheckFailure" , "You do not have permissions to " + 
+        super(-23, "permissionCheckFailure" , "You do not have permissions to " +
                 "perform this action.");
         // begin member variable initialization
     }
@@ -53,12 +53,12 @@ public class PermissionCheckFailureException extends FaultException  {
         /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public PermissionCheckFailureException(Throwable cause) {
-        super(-23 , "permissionCheckFailure", "You do not have permissions to " + 
+        super(-23 , "permissionCheckFailure", "You do not have permissions to " +
                 "perform this action.", cause);
         // begin member variable initialization
     }
@@ -68,7 +68,7 @@ public class PermissionCheckFailureException extends FaultException  {
      * @param role Cause for the exception (bad role)
      */
     public PermissionCheckFailureException(Role role) {
-        super(-23, "permissionCheckFailure", "You do not have permissions to " + 
+        super(-23, "permissionCheckFailure", "You do not have permissions to " +
                 "perform this action. You need to have at least a " + role.getName() +
                                  " role to perform this action");
         // begin member variable initialization
@@ -79,18 +79,18 @@ public class PermissionCheckFailureException extends FaultException  {
      * @param ent  Cause for the exception (bad org entitlement type)
      */
     public PermissionCheckFailureException(OrgEntitlementType ent) {
-        super(-23, "permissionCheckFailure" , "You do not have permissions to " + 
+        super(-23, "permissionCheckFailure" , "You do not have permissions to " +
                 "perform this action. You need to have at least a " + ent.getName() +
                                  " entitement to perform this action");
         // begin member variable initialization
-    }    
-    
+    }
+
     /**
      * Constructor
      * @param server  Cause for the exception (not permitted for server)
      */
     public PermissionCheckFailureException(Server server) {
-        super(-23, "permissionCheckFailure" , "You do not have permissions to " + 
+        super(-23, "permissionCheckFailure" , "You do not have permissions to " +
                 "perform this action for system id[" + server.getId() + "]");
         // begin member variable initialization
     }

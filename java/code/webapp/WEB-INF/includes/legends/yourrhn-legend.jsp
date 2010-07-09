@@ -17,10 +17,10 @@
   <li><img src="/img/icon_pending.gif" alt="" /><bean:message key="system-legend.jsp.pending"/></li>
   <li><img src="/img/rhn-listicon-error.gif" alt="" /><bean:message key="yourrhn-legend.jsp.failedactions"/></li>
   <li><img src="/img/rhn-listicon-ok.gif" alt="" /><bean:message key="yourrhn-legend.jsp.completedactions"/></li>
-<rhn:require	acl="show_monitoring();" 
+<rhn:require	acl="show_monitoring();"
 				mixins="com.redhat.rhn.common.security.acl.MonitoringAclHandler">
   <li><img src="/img/icon_subicon_monitoring.gif" alt="" /><bean:message key="system-legend.jsp.monitoring"/></li>
-  </rhn:require> 
+  </rhn:require>
   <li><img src="/img/wrh-security.gif" alt="" /><bean:message key="errata-legend.jsp.security"/></li>
   <li><img src="/img/wrh-bug.gif" alt="" /><bean:message key="errata-legend.jsp.bugfix"/></li>
   <li><img src="/img/wrh-product.gif" alt="" /><bean:message key="errata-legend.jsp.enhancement"/></li>

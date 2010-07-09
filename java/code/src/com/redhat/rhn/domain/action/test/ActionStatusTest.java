@@ -23,7 +23,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class ActionStatusTest extends RhnBaseTestCase {
-    
+
     /**
      * Test Equals
      * @throws Exception
@@ -39,12 +39,12 @@ public class ActionStatusTest extends RhnBaseTestCase {
         assertFalse(s1.equals(s3));
         assertTrue(s1.equals(s1));
     }
-    
+
     /**
      * Test findByName query
-     * This method can be used to test the 
+     * This method can be used to test the
      * second level cache in hibernate. Turn on sql output
-     * in the hibernate.properties file and make sure that 
+     * in the hibernate.properties file and make sure that
      * we're not going to the db twice
      * @throws Exception
      */
@@ -53,5 +53,5 @@ public class ActionStatusTest extends RhnBaseTestCase {
         ActionStatus r2 = ActionFactory.STATUS_COMPLETED;
         assertEquals(r2.getName(), r1.getName());
     }
-    
+
 }

@@ -21,7 +21,7 @@ import org.hibernate.Transaction;
  * A interface representing a class that can act on a EventMessage that contains
  * a database transaction.  We pass a Transaction into this EventMessage so the
  * MessageQueue can *wait* on the caller's Transaction to finish before starting its work.
- * 
+ *
  *  This is useful if your Event needs to wait for the caller to finish writing
  *  things to the database.
  *
@@ -31,7 +31,7 @@ public interface EventDatabaseMessage extends EventMessage {
 
     /**
      *  Get the Transaction from the caller/creator of this EventMessage.
-     * 
+     *
      * @return Transaction associated with the caller/creator of the EventMessage.
      */
     Transaction getTransaction();

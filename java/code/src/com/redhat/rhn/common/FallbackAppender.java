@@ -39,13 +39,13 @@ public class FallbackAppender extends FileAppender {
         this.setErrorHandler(fb);
         fb.setAppender(this);
         Appender rootAppen = Logger.getRootLogger().getAppender("RootAppender");
-        
+
         if (rootAppen != null) {
             fb.setBackupAppender(rootAppen);
         }
-        
+
         Logger logger = Logger.getLogger(LoggingInvocationProcessor.class);
         fb.setLogger(logger);
-    }    
-    
+    }
+
 }

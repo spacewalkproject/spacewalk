@@ -21,16 +21,16 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 
 public class TestAction implements MessageAction {
 
-    private static MessageAction registered = new TestAction(); 
+    private static MessageAction registered = new TestAction();
 
     public static void registerAction() {
         MessageQueue.registerAction(registered, TestEventMessage.class);
     }
-    
+
     public static void deRegisterAction() {
         MessageQueue.deRegisterAction(registered, TestEventMessage.class);
     }
-    
+
     /**
      * Perform the action on the EventMessage
      */

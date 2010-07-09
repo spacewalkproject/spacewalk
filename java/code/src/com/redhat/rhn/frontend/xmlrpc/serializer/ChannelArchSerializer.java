@@ -40,12 +40,12 @@ public class ChannelArchSerializer implements XmlRpcCustomSerializer {
         return ChannelArch.class;
     }
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @throws IOException */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
         ChannelArch arch = (ChannelArch) value;
-        
+
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("name", arch.getName());
         helper.add("label", arch.getLabel());

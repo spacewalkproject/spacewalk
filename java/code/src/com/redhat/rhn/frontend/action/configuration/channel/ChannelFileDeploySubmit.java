@@ -72,7 +72,7 @@ public class ChannelFileDeploySubmit extends BaseSetOperateOnSelectedItemsAction
      */
     public ActionForward doAll(
             ActionMapping mapping,
-            ActionForm formIn, 
+            ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
         selectall(mapping, formIn, request, response);
@@ -90,7 +90,7 @@ public class ChannelFileDeploySubmit extends BaseSetOperateOnSelectedItemsAction
      */
     public ActionForward doSelected(
             ActionMapping mapping,
-            ActionForm formIn, 
+            ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
         RhnSet set = updateSet(request);

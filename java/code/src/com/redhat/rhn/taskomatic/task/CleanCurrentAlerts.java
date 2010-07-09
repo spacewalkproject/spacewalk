@@ -29,24 +29,24 @@ import java.util.HashMap;
  * @version $Rev$
  */
 public class CleanCurrentAlerts extends SingleThreadedTask {
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "clean_current_alerts";
 
     private static Logger log = Logger.getLogger(CleanCurrentAlerts.class);
-    
+
     /**
      * {@inheritDoc}
      */
     protected void run(JobExecutionContext contextIn)
         throws JobExecutionException {
-        
+
         if (log.isDebugEnabled()) {
             log.debug("Starting clean_current_alerts run ...");
         }
-        
+
         /*
          * First, set DATE_COMPLETED on any alerts that may be left hanging
          * around (e.g. from a server crash)
@@ -54,37 +54,37 @@ public class CleanCurrentAlerts extends SingleThreadedTask {
         if (log.isDebugEnabled()) {
             log.debug("Updating DATE_COMPLETED");
         }
-        
+
         int rowsUpdated = updateDateCompleted();
-        
+
         if (log.isDebugEnabled()) {
             log.debug(rowsUpdated + " rows updated.");
         }
-        
+
         /*
          * Next, delete old CURRENT_ALERTS records.
          */
         if  (log.isDebugEnabled()) {
             log.debug("Deleting old CURRENT_ALERTS records");
         }
-        
+
         int rowsDeleted = deleteOldAlerts();
-        
+
         if (log.isDebugEnabled()) {
             log.debug(rowsDeleted + " rows deleted");
         }
-        
+
         if (log.isDebugEnabled()) {
             log.debug("Finished clean_current_alerts run.");
         }
     }
-    
+
     /**
      * Updated the date_completed and in_progress columns of rhn_current_alerts.
      * @return Returns the number of rows affected.
      */
     private int updateDateCompleted() {
-        WriteMode m = ModeFactory.getWriteMode("General_queries", 
+        WriteMode m = ModeFactory.getWriteMode("General_queries",
                                                "update_current_alerts_date_completed");
         return m.executeUpdate(new HashMap());
     }

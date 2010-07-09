@@ -3,10 +3,10 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class 
-		name="com.redhat.rhn.domain.action.config.DaemonConfigDetails" 
+	<class
+		name="com.redhat.rhn.domain.action.config.DaemonConfigDetails"
 		table="rhnActionDaemonConfig" >
-		<id name="actionId" type="long" 
+		<id name="actionId" type="long"
 			column="action_id">
 			<meta attribute="scope-set">protected</meta>
 			<generator class="foreign">
@@ -17,9 +17,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="restart" column="restart" type="string" length="1" />
         <property name="daemonConfigCreated" column="created" type="timestamp" />
         <property name="daemonConfigModified" column="modified" type="timestamp" />
-    	<many-to-one name="parentAction" 
-	    	column="action_id" 
-		    class="com.redhat.rhn.domain.action.Action" 
-			outer-join="true" not-null="true" insert="false" update="false" />        
+	<many-to-one name="parentAction"
+		column="action_id"
+		    class="com.redhat.rhn.domain.action.Action"
+			outer-join="true" not-null="true" insert="false" update="false" />
 	</class>
 </hibernate-mapping>

@@ -112,7 +112,7 @@ public class UpgradablePackageListItem extends PackageListItem {
 
     /**
      * Returns the three errata instance variables as
-     * a list of HashMaps all in a single convenient Object 
+     * a list of HashMaps all in a single convenient Object
      * @return list of HashMaps with advisory, id, and type keys
      */
     public List getErrata() {
@@ -122,7 +122,7 @@ public class UpgradablePackageListItem extends PackageListItem {
             current.put("advisory", errataAdvisory.get(i));
             current.put("id", errataId.get(i));
             if (i < errataAdvisoryType.size()) {
-                current.put("type", errataAdvisoryType.get(i));    
+                current.put("type", errataAdvisoryType.get(i));
             }
             retval.add(current);
         }

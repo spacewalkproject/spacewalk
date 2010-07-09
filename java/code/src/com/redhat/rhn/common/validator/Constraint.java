@@ -23,7 +23,7 @@ package com.redhat.rhn.common.validator;
  */
 public interface Constraint {
 
-    /** 
+    /**
     * Check the field against this Constraint to see
     * if it is in a valid state.
     * @param value the value to check
@@ -31,14 +31,14 @@ public interface Constraint {
     *         otherwise.
     */
     ValidatorError checkConstraint(Object value);
-    
-    
-    /** 
+
+
+    /**
     * Get the named identifier of this Constraint
     * @return String identifier
     */
     String getIdentifier();
-    
+
     /**
      * <p>
      *  This will return the <code>String</code> version of the Java data type for this
@@ -48,8 +48,8 @@ public interface Constraint {
      * @return <code>String</code> - the data type for this constraint.
      */
     String getDataType();
-    
-    
+
+
     /**
      * <p>
      *  This will allow the data type for the constraint to be set. The type is specified
@@ -58,6 +58,6 @@ public interface Constraint {
      *
      * @param dataTypeIn <code>String</code> that is the Java data type for this constraint.
      */
-    void setDataType(String dataTypeIn);    
-    
+    void setDataType(String dataTypeIn);
+
 }

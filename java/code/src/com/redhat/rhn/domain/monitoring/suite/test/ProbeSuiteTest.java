@@ -44,28 +44,28 @@ import java.util.Map;
 public class ProbeSuiteTest extends BaseTestCaseWithUser {
 
     private ProbeSuite probeSuite;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         probeSuite = createTestProbeSuite(user);
     }
-    
+
     public void testCreateNew() throws Exception {
         checkSuiteFields(probeSuite);
         probeSuite = (ProbeSuite) reload(probeSuite);
-        checkSuiteFields(probeSuite);        
+        checkSuiteFields(probeSuite);
     }
-    
+
     public void testDelete() throws Exception {
         Long id = probeSuite.getId();
         MonitoringFactory.deleteProbeSuite(probeSuite);
         flushAndEvict(probeSuite);
         assertNull(MonitoringFactory.lookupProbeSuiteByIdAndOrg(id, user.getOrg()));
     }
-    
+
     public void testAddRemoveProbes() throws Exception {
         TemplateProbe probe = createTemplateProbe();
-        
+
         probeSuite.addProbe(probe, user);
         assertTrue(probeSuite.getProbes().size() == 1);
         probeSuite.removeProbe(probe);
@@ -74,7 +74,7 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
         MonitoringFactory.saveProbeSuite(probeSuite, user);
         Long psId = probeSuite.getId();
         flushAndEvict(probeSuite);
-        probeSuite = MonitoringFactory.lookupProbeSuiteByIdAndOrg(psId, user.getOrg()); 
+        probeSuite = MonitoringFactory.lookupProbeSuiteByIdAndOrg(psId, user.getOrg());
         assertTrue(probeSuite.getProbes().size() == 1);
         Probe savedP = (Probe) probeSuite.getProbes().iterator().next();
         assertTrue(savedP instanceof TemplateProbe);
@@ -84,19 +84,19 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
         MonitoringFactory.deleteProbeSuite(probeSuite);
         flushAndEvict(probeSuite);
         assertNull(MonitoringFactory.lookupProbeSuiteByIdAndOrg(id, user.getOrg()));
-        
+
     }
-    
+
     public void testDeleteProbe() throws HibernateException {
         // bugzilla 161405
         TemplateProbe probe = createTemplateProbe();
         TemplateProbe otherProbe = createTemplateProbe();
-        
+
         probeSuite.addProbe(probe, user);
         probeSuite.addProbe(otherProbe, user);
         assertEquals(2, probeSuite.getProbes().size());
         flushAndEvict(probeSuite);
-        
+
         probe = (TemplateProbe) reload(probe);
         MonitoringFactory.deleteProbe(probe);
         probeSuite = (ProbeSuite) reload(probeSuite);
@@ -114,31 +114,31 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
                 newProbe.getProbeParameterValues().size());
         checkProbeFields(probe, newProbe);
     }
-    
-    
+
+
     // Found bug where when you add a ServerProbe to the suite all
     // the Servers assigned to the Suite get removed.
     public void testAddingProbesAfterServers() throws Exception {
-        
+
         addTestServersToSuite(probeSuite, user);
         MonitoringFactory.saveProbeSuite(probeSuite, user);
         probeSuite = (ProbeSuite) reload(probeSuite);
         // Add a probe
         TemplateProbe tprobe = createTemplateProbe();
         probeSuite.addProbe(tprobe, user);
-        assertEquals("Servers in Suite is not == 5", 
+        assertEquals("Servers in Suite is not == 5",
                 5, probeSuite.getServersInSuite().size());
         MonitoringFactory.saveProbeSuite(probeSuite, user);
         probeSuite = (ProbeSuite) reload(probeSuite);
         // This actually failed before the fix which involved
-        // switching from a <bag> for the Probes back to a 
+        // switching from a <bag> for the Probes back to a
         // <set> since Hibernate was too dumb to figure out we needed
-        // to just add one, it would delete *ALL* the records for the 
+        // to just add one, it would delete *ALL* the records for the
         // bag and re-insert.  This would cause orphaned records.
-        assertEquals("Servers in Suite is not == 5", 
+        assertEquals("Servers in Suite is not == 5",
                 5, probeSuite.getServersInSuite().size());
     }
-    
+
     public void testUpdateProbeValues() throws Exception {
         // Add a probe
         TemplateProbe tprobe = createTemplateProbe();
@@ -156,8 +156,8 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
         tprobe.setNotifyUnknown(new Boolean(!tprobe.getNotifyUnknown().booleanValue()));
         tprobe.setNotifyWarning(new Boolean(!tprobe.getNotifyWarning().booleanValue()));
         tprobe.setRetryIntervalMinutes(new Long(42));
-        
-        ProbeParameterValue pval = (ProbeParameterValue) 
+
+        ProbeParameterValue pval = (ProbeParameterValue)
             tprobe.getProbeParameterValues().iterator().next();
         tprobe.setParameterValue(pval, "changed");
         MonitoringFactory.saveProbeSuite(probeSuite, user);
@@ -169,67 +169,67 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
         while (i.hasNext()) {
             ServerProbe p = (ServerProbe) i.next();
             checkProbeFields(tprobe, p);
-            assertEquals(MonitoringConstants.PROBE_STATE_PENDING, 
+            assertEquals(MonitoringConstants.PROBE_STATE_PENDING,
                     p.getState().getState());
         }
-        
+
     }
-    
-    /** 
+
+    /**
      * Add some test Systems to the ProbeSuite
      * @param probeSuite
      * @param user The user who will own the systems in this suite
      */
-    public static void addTestServersToSuite(ProbeSuite probeSuite, User user) 
+    public static void addTestServersToSuite(ProbeSuite probeSuite, User user)
         throws Exception {
-        
+
         user.addRole(RoleFactory.ORG_ADMIN);
         Server[] svrs = new Server[5];
         for (int i  = 0; i < 5; i++) {
             Server s = ServerFactoryTest.createTestServer(user, true);
             svrs[i] = s;
         }
-        
+
         // Just grab the 1st one for this test.
-        SatCluster sc = (SatCluster) 
+        SatCluster sc = (SatCluster)
             user.getOrg().getMonitoringScouts().iterator().next();
-        
-        
+
+
         // Add 5 probes to the Suite.
         for (int i = 0; i < 5; i++) {
             TemplateProbe probe = (TemplateProbe)
-                MonitoringFactoryTest.createTestProbe(user, 
+                MonitoringFactoryTest.createTestProbe(user,
                     MonitoringConstants.getProbeTypeSuite());
             probeSuite.addProbe(probe, user);
-            
+
         }
-        
+
         // Add the Servers to the Suite.
         for (int i = 0; i < 5; i++) {
             probeSuite.addServerToSuite(sc, svrs[i], user);
         }
     }
-    
+
     private void checkProbeFields(Probe probeOne, Probe probeTwo) {
-        assertEquals(probeOne.getCheckIntervalMinutes(), 
+        assertEquals(probeOne.getCheckIntervalMinutes(),
                 probeTwo.getCheckIntervalMinutes());
         assertEquals(probeOne.getDescription(), probeTwo.getDescription());
         assertEquals(probeOne.getLastUpdateUser(), probeTwo.getLastUpdateUser());
         assertEquals(probeOne.getLastUpdateDate(), probeTwo.getLastUpdateDate());
-        
+
         assertEquals(probeOne.getCommand(), probeTwo.getCommand());
         assertEquals(probeOne.getContactGroup(), probeTwo.getContactGroup());
-        
+
         assertEquals(probeOne.getMaxAttempts(), probeTwo.getMaxAttempts());
-        assertEquals(probeOne.getNotificationIntervalMinutes(), 
+        assertEquals(probeOne.getNotificationIntervalMinutes(),
                 probeTwo.getNotificationIntervalMinutes());
         assertEquals(probeOne.getNotifyCritical(), probeTwo.getNotifyCritical());
         assertEquals(probeOne.getNotifyRecovery(), probeTwo.getNotifyRecovery());
         assertEquals(probeOne.getNotifyUnknown(), probeTwo.getNotifyUnknown());
         assertEquals(probeOne.getNotifyWarning(), probeTwo.getNotifyWarning());
         assertEquals(probeOne.getOrg(), probeTwo.getOrg());
-        
-        // Create some temporary sets of just the actual 
+
+        // Create some temporary sets of just the actual
         // String values so we can make sure they all got copied
         // OK. Can't rely on the equals() in ProbeParameterValue
         // since the values are assigned to different Probes
@@ -246,8 +246,8 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
         assertNotNull(ps.getLastUpdateDate());
         assertNotNull(ps.getLastUpdateUser());
     }
-    
-    /** 
+
+    /**
      * Create a test ProbeSuite
      * @param user
      * @return new ProbeSuite
@@ -261,9 +261,9 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
     }
 
     private TemplateProbe createTemplateProbe() {
-        return (TemplateProbe) MonitoringFactoryTest.createTestProbe(user, 
+        return (TemplateProbe) MonitoringFactoryTest.createTestProbe(user,
                 MonitoringConstants.getProbeTypeSuite());
     }
-    
+
 }
 

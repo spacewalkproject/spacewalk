@@ -23,36 +23,36 @@ public class State {
 
     private Long id;
     private String label;
-    
-    
+
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param s The label to set.
      */
     public void setLabel(String s) {
         this.label = s;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -62,7 +62,7 @@ public class State {
         }
         return label.equals(((State)other).getLabel());
     }
-    
+
     /**
      * {@inheritDoc}
      */

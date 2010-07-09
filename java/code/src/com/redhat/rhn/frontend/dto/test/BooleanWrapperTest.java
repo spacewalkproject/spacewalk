@@ -24,45 +24,45 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 public class BooleanWrapperTest extends RhnBaseTestCase {
 
     private BooleanWrapper bw;
-    
+
     public void setUp() {
         bw = new BooleanWrapper();
     }
-    
+
     public void testIntegerSet() {
         bw.setBool(new Integer(1));
         assertTrue(bw.booleanValue());
         assertNotNull(bw.getBool());
-        
+
         bw.setBool(new Integer(0));
         assertFalse(bw.booleanValue());
         assertNotNull(bw.getBool());
-        
+
         bw.setBool(new Integer(-1));
         assertTrue(bw.booleanValue());
         assertNotNull(bw.getBool());
-        
+
         bw.setBool(new Integer(10));
         assertTrue(bw.booleanValue());
         assertNotNull(bw.getBool());
-        
+
         bw.setBool((Integer)null);
         assertFalse(bw.booleanValue());
         assertNull(bw.getBool());
     }
-    
+
     public void testBooleanSet() {
         bw.setBool(Boolean.TRUE);
         assertTrue(bw.booleanValue());
         assertNotNull(bw.getBool());
-        
+
         bw.setBool(Boolean.FALSE);
         assertFalse(bw.booleanValue());
         assertNotNull(bw.getBool());
-        
+
         bw.setBool((Boolean)null);
         assertFalse(bw.booleanValue());
         assertNull(bw.getBool());
-        
+
     }
 }

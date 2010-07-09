@@ -25,7 +25,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class ProvisionStateTest extends RhnBaseTestCase {
-    
+
     public void testProvisionState() throws Exception {
 
         ProvisionState p = new ProvisionState();
@@ -33,11 +33,11 @@ public class ProvisionStateTest extends RhnBaseTestCase {
         p.setDescription("Test Description");
         p.setLabel("Test Label " + TestUtils.randomString());
         p.setModified(new Date());
-        
+
         assertNull(p.getId());
         TestUtils.saveAndFlush(p);
         assertNotNull(p.getId());
 
     }
-    
+
 }

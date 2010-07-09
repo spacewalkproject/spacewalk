@@ -26,17 +26,17 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * 
+ *
  * TaskManager
  * @version $Rev$
  */
 public class TaskManager {
 
-    
+
     private TaskManager() {
-        
+
     }
-    
+
     /**
      * gets the last time a certain task was exectued
      * @param label the label of the task
@@ -68,7 +68,7 @@ public class TaskManager {
         }
         return null;
     }
-    
+
     /**
      *  Get the channel package list for a channel
      * @param channel channel info
@@ -81,6 +81,6 @@ public class TaskManager {
         params.put("channel_id", channel.getId());
         return m.execute(params).iterator();
     }
-    
+
 
 }

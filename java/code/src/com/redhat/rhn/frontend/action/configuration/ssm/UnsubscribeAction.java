@@ -42,7 +42,7 @@ public class UnsubscribeAction extends BaseSetListAction {
         User user = rctxIn.getLoggedInUser();
         return ConfigurationManager.getInstance().ssmChannelList(user, pcIn);
     }
-    
+
     protected void processPageControl(PageControl pcIn) {
         pcIn.setFilter(true);
         pcIn.setFilterColumn("name");

@@ -27,14 +27,14 @@ import java.util.concurrent.ConcurrentMap;
 
 
 /**
- * Class for managing integration from Spacewalk to other 
- * external systems.  Examples include logic for interacting 
+ * Class for managing integration from Spacewalk to other
+ * external systems.  Examples include logic for interacting
  * between Spacewalk and Cobbler.
  *
  * @version $Rev$
  */
 public class IntegrationService {
-    
+
     private static Logger log = Logger.getLogger(IntegrationService.class);
     // private instance of the service.
     private static IntegrationService instance = new IntegrationService();
@@ -53,19 +53,19 @@ public class IntegrationService {
     public static IntegrationService get() {
         return instance;
     }
-    
+
     /**
-     * Get the associated cobbler xmlrpc token 
-     * for the associated login.  
-     * 
+     * Get the associated cobbler xmlrpc token
+     * for the associated login.
+     *
      * @param login to lookup Cobbler xmlrpc token
      * @return String xmlrpc token - null if not defined
      */
-    public String getAuthToken(String login) {        
+    public String getAuthToken(String login) {
         String token = cobblerAuthTokenStore.get(login);
         if (token == null) {
             token = this.authorize(login);
-        } 
+        }
         else {
             // Need to re-check cobbler to make sure the token
             // is still valid.  If not valid, re-auth.
@@ -79,28 +79,28 @@ public class IntegrationService {
 
     /**
      * Authorize Spacewalk to defined set of services.  If we need to
-     * we can eventually make this pluggable to go through a list of 
-     * things that need to setup authorization. 
-     * 
+     * we can eventually make this pluggable to go through a list of
+     * things that need to setup authorization.
+     *
      * @param username to authorize with
      * @param password to authorize with
      * @return token created during authorization
      */
     private String authorize(String login) {
-        
+
         String passwd;
-        
+
         //Handle the taskomatic case (Where we can't rely on the tokenStore since it's
         //  a completely different VM)
         if (login.equals(Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER))) {
-            
+
             passwd = Config.get().getString(ConfigDefaults.WEB_SESSION_SECRET_1);
         }
         else {
             String md5random = SessionSwap.computeMD5Hash(
                     RandomStringUtils.random(10, SessionSwap.HEX_CHARS));
-            // Store the md5random number in our map 
-            // and send over the encoded version of it.  
+            // Store the md5random number in our map
+            // and send over the encoded version of it.
             // On the return checkRandomToken() call
             // we will decode the encoded data to make sure it is the
             // unaltered random number.
@@ -118,10 +118,10 @@ public class IntegrationService {
         }
         return token;
     }
-    
+
     /**
      * Set the xmlrpc token for the associated login
-     * 
+     *
      * @param login to set token for
      * @param token to set
      */
@@ -130,21 +130,21 @@ public class IntegrationService {
     }
 
     /**
-     * Check to see if the randomized token is valid for the 
+     * Check to see if the randomized token is valid for the
      * passed in login.
-     *   
+     *
      * @param login to check token against.
      * @param encodedRandom to check if valid
      * @return boolean if valid or not.
      */
     public boolean checkRandomToken(String login, String encodedRandom) {
-        
+
         if (login.equals(Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER))) {
             log.debug("checkRandomToken called with taskomatic user!");
             return encodedRandom.equals(
                     Config.get().getString(ConfigDefaults.WEB_SESSION_SECRET_1));
         }
-        
+
         log.debug("checkRandomToken called with username: " + login);
         if (!randomTokenStore.containsKey(login)) {
             log.debug("login not stored.  invalid check!");

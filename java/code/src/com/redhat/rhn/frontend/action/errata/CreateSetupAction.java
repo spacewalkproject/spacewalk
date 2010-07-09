@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class CreateSetupAction extends RhnAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -41,19 +41,19 @@ public class CreateSetupAction extends RhnAction {
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm) formIn;
-        
+
         if (StringUtils.isBlank(form.getString("advisoryRelease"))) {
             //set advisory release field to 1
             form.set("advisoryRelease", LocalizationService.getInstance()
                                                        .formatNumber(new Long(1)));
         }
-        
+
         //set advisoryTypes list for select drop down
         request.setAttribute("advisoryTypes", ErrataManager.advisoryTypes());
 
         //set l10n-ed advisoryTypeLabels list for select drop down
         form.set("advisoryTypeLabels", ErrataManager.advisoryTypeLabels());
-        
+
         return mapping.findForward("default");
     }
 }

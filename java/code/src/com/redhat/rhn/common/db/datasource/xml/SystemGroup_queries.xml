@@ -1,9 +1,9 @@
 <datasource_modes>
 
 <query name="visible_to_user_overview_fast" params="org_id, user_id">
-		SELECT   
-         G.ID AS ID, G.NAME AS NAME, 
-         
+		SELECT
+         G.ID AS ID, G.NAME AS NAME,
+
 	          (SELECT COUNT(*) FROM rhnUserManagedServerGroups UMSG WHERE UMSG.server_group_id = G.id)
          AS GROUP_ADMINS,
 
@@ -36,25 +36,25 @@
    AND   UMSG.user_id = :user_id
    AND   G.id IN (%s)
    AND   G.id = UMSG.server_group_id
-  </query> 
-  
+  </query>
+
   <query name="errata_count">
-           SELECT 
+           SELECT
            	 sgm.server_group_id AS ID,
-           	 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Security Advisory') AS SECURITY_ERRATA, 
-           	 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Bug Fix Advisory') AS BUG_ERRATA, 
+		 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Security Advisory') AS SECURITY_ERRATA,
+		 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Bug Fix Advisory') AS BUG_ERRATA,
            	 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Product Enhancement Advisory') AS ENHANCEMENT_ERRATA
-            FROM 
+            FROM
                  rhnServerNeededPackageCache SNPC,
                  rhnServerGroupMembers SGM,
-                 
 
-           WHERE 
-                 
+
+           WHERE
+
                   snpc.server_id = sgm.server_id
                  AND sgm.server_group_id IN (%s)
 
-                   
+
   </query>
 
   <query name="visible_to_user_overview_slow" params="org_id, user_id">
@@ -72,7 +72,7 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
 
 
 <query name="visible_to_user_ids-back" params="user_id">
-SELECT DISTINCT SG.id AS ID, SG.name AS NAME, 
+SELECT DISTINCT SG.id AS ID, SG.name AS NAME,
 		( SELECT COUNT ( * )
 			   FROM rhnServerGroupMembers SGM
 			  WHERE SGM.server_group_id = SG.id
@@ -102,7 +102,7 @@ ORDER BY UPPER(NAME)
 	<query  params="sgid, user_id">
 		SELECT 1
 		  FROM rhnServerGroup SG
-		  		inner join rhnUserManagedServerGroups UMSG on UMSG.server_group_id = SG.id 
+				inner join rhnUserManagedServerGroups UMSG on UMSG.server_group_id = SG.id
 		 WHERE UMSG.user_id = :user_id
 		   AND UMSG.SERVER_GROUP_ID = :sgid
 		   AND SG.group_type IS NULL
@@ -138,8 +138,8 @@ ORDER BY UPPER(VSGM.group_name), VSGM.group_id
   <query params="user_id, org_id">
 SELECT SG.id, SG.name AS NAME, SG.current_Members as server_count,
        NVL((SELECT MAX(1)
-              FROM rhnUserServerGroupPerms USGP 
-             WHERE USGP.server_group_id = SG.id 
+              FROM rhnUserServerGroupPerms USGP
+             WHERE USGP.server_group_id = SG.id
                AND USGP.user_id = :user_id), 0) AS selected
   FROM rhnServerGroup SG
  WHERE SG.org_id = :org_id

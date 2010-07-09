@@ -41,7 +41,7 @@ public class NavDialogMenuTag extends NavMenuTag {
     public NavDialogMenuTag() {
         super();
     }
-    
+
     /** {@inheritDoc} */
     protected String renderNav(NavTreeIndex nti, Renderable r,
                                RenderGuard guard, Map params) {

@@ -29,35 +29,35 @@ public class ActionArchType extends BaseDomainHelper implements Serializable {
 
     private Long archTypeId;
     private String actionStyle;
-        
+
     private ActionType actionType;
 
-    /** 
-     * Getter for archTypeId 
+    /**
+     * Getter for archTypeId
      * @return Long to get
     */
     public Long getArchTypeId() {
         return this.archTypeId;
     }
 
-    /** 
-     * Setter for archTypeId 
+    /**
+     * Setter for archTypeId
      * @param archTypeIdIn to set
     */
     public void setArchTypeId(Long archTypeIdIn) {
         this.archTypeId = archTypeIdIn;
     }
 
-    /** 
-     * Getter for actionStyle 
+    /**
+     * Getter for actionStyle
      * @return String to get
     */
     public String getActionStyle() {
         return this.actionStyle;
     }
 
-    /** 
-     * Setter for actionStyle 
+    /**
+     * Setter for actionStyle
      * @param actionStyleIn to set
     */
     public void setActionStyle(String actionStyleIn) {

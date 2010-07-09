@@ -47,26 +47,26 @@ public class SelectUpgradePackagesAction extends RhnAction implements Listable {
     public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm,
                                  HttpServletRequest request, HttpServletResponse response)
         throws Exception {
-        
+
         request.setAttribute("parentUrl", request.getRequestURI());
-        
+
         Map params = new HashMap();
 
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
         helper.setDataSetName(DATA_SET);
         helper.execute();
-        
+
         if (helper.isDispatched()) {
             request.setAttribute("packagesDecl", helper.getDecl());
             return actionMapping.findForward("confirm");
         }
-        
+
         // Determine number of packages for summary text to user
         String packagesDecl = (String) request.getAttribute("packagesDecl");
         Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
         request.setAttribute("numSystems", data.size());
-        
-        return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD); 
+
+        return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /** {@inheritDoc} */

@@ -38,29 +38,29 @@ import org.apache.struts.action.ActionMapping;
  */
 public class DeleteUserActionTest extends RhnBaseTestCase {
 
-    
-    
+
+
     public void testExecute() throws Exception {
         DeleteUserAction action = new DeleteUserAction();
         ActionForward forward;
-        
+
         ActionMapping mapping = new ActionMapping();
         ActionForward failure = new ActionForward("failure", "path", true);
         ActionForward success = new ActionForward("success", "path", true);
         mapping.addForwardConfig(failure);
         mapping.addForwardConfig(success);
-        
+
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long uid = new Long(Long.parseLong(request.getParameter("uid")));
         request.setupAddParameter("uid", uid.toString()); //put it back
         assertNotNull(UserFactory.lookupById(uid));
-        
-        
+
+
         //Not an org admin
         try {
             forward = action.execute(mapping, form, request, response);
@@ -69,7 +69,7 @@ public class DeleteUserActionTest extends RhnBaseTestCase {
         catch (PermissionException e) {
             //no op
         }
-        
+
         //Null parameter
         request.getParameter("uid");
         request.setupAddParameter("uid", (String)null);
@@ -81,14 +81,14 @@ public class DeleteUserActionTest extends RhnBaseTestCase {
         catch (BadParameterException e) {
             //no op
         }
-        
+
         //try to delete self
         request.setupAddParameter("uid", uid.toString());
         forward = action.execute(mapping, form, request, response);
         failure.setPath("path?uid=" + uid.toString());
         assertEquals(failure.getName(), forward.getName());
         assertEquals(failure.getPath(), forward.getPath());
-        
+
         //try to delete non-existing user
         request.setupAddParameter("uid", "-9999");
         try {
@@ -98,10 +98,10 @@ public class DeleteUserActionTest extends RhnBaseTestCase {
         catch (LookupException e) {
             //no op
         }
-        
+
         //try to delete org admin
         failure.setPath("path");
-        User usr = UserTestUtils.createUser("testUser", 
+        User usr = UserTestUtils.createUser("testUser",
                 requestContext.getLoggedInUser().getOrg().getId());
         usr.addRole(RoleFactory.lookupByLabel("org_admin"));
         request.setupAddParameter("uid", usr.getId().toString());
@@ -109,13 +109,13 @@ public class DeleteUserActionTest extends RhnBaseTestCase {
         failure.setPath("path?uid=" + usr.getId());
         assertEquals(failure.getName(), forward.getName());
         assertEquals(failure.getPath(), forward.getPath());
-        
+
         //successful delete
-        User usr2 = UserTestUtils.createUser("testUser", 
+        User usr2 = UserTestUtils.createUser("testUser",
                 requestContext.getLoggedInUser().getOrg().getId());
         request.setupAddParameter("uid", usr2.getId().toString());
         forward = action.execute(mapping, form, request, response);
         assertEquals(success, forward);
     }
-    
+
 }

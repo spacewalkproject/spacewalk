@@ -35,7 +35,7 @@
         		<rhn:tooltip key="cobbler.snippet.copy-paste-snippet-tip"/>
         </td>
      </tr>
-    
+
      <tr>
         <th>
             <bean:message key="cobbler.snippet.type"/>:
@@ -44,15 +44,15 @@
 				<bean:message key="cobbler.snippet.default"/><br/>
             <rhn:tooltip key ="cobbler.snippet.default.tip"/>	
         </td>
-     </tr>     
+     </tr>
      </table>
     <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
-    
-    <table  class="details"> 
-    <tr>    
+
+    <table  class="details">
+    <tr>
         <th>
             <bean:message key="snippetcreate.jsp.contents"/>
-        </th>    
+        </th>
         <td>
    			<pre  class="file-display">${data}</pre>
        </td>

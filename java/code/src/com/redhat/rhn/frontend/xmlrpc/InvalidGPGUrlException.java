@@ -28,12 +28,12 @@ public class InvalidGPGUrlException extends FaultException {
     public InvalidGPGUrlException() {
         super(1207, "invalidGpgUrl", "Invalid GPG Url");
     }
-    
+
     /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public InvalidGPGUrlException(Throwable cause) {

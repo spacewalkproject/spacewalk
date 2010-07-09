@@ -40,22 +40,22 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChannelFilesImportSubmit extends BaseSetOperateOnSelectedItemsAction {
     public static final String KEY_IMPORT = "addfiles.jsp.import.jspf.submit";
-   
+
     protected void processMethodKeys(Map map) {
         map.put(KEY_IMPORT, "processImport");
     }
 
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long ccid = requestContext.getRequiredParam("ccid");
         params.put("ccid", ccid);
     }
 
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -64,7 +64,7 @@ public class ChannelFilesImportSubmit extends BaseSetOperateOnSelectedItemsActio
      */
     public ActionForward processImport(
             ActionMapping mapping,
-            ActionForm formIn, 
+            ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
         ActionForward fwd = operateOnSelectedSet(mapping, formIn, request, response,
@@ -74,12 +74,12 @@ public class ChannelFilesImportSubmit extends BaseSetOperateOnSelectedItemsActio
     /**
      * This method is called when the &quot;Import Into Channel&quot;
      * button is clicked in the Channel Add-Files\Import page.
-     * Copies the specified files into the channel. 
+     * Copies the specified files into the channel.
      * @param form Action form object.
      * @param req The servlet request object
      * @param elementIn The checked element in the set
      * @param userIn logged in user
-     * @return true 
+     * @return true
      */
     public Boolean setFilesToImport(ActionForm form,
                                     HttpServletRequest req,
@@ -91,7 +91,7 @@ public class ChannelFilesImportSubmit extends BaseSetOperateOnSelectedItemsActio
         if (file == null) {
             return Boolean.FALSE;
         }
-        
+
         ConfigChannel cc = ConfigActionHelper.getChannel(req);
 
         //try to delete the file
@@ -109,16 +109,16 @@ public class ChannelFilesImportSubmit extends BaseSetOperateOnSelectedItemsActio
         return Boolean.TRUE;
     }
 
-    protected DataResult getDataResult(User u, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User u,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
         ConfigActionHelper.setupRequestAttributes(ctx, cc);
-        
+
         DataResult dr = ConfigurationManager.getInstance().
             listFilesNotInChannel(u, cc, null);
-        
+
         return dr;
     }
 

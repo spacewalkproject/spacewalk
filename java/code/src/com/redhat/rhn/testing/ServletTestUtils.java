@@ -33,27 +33,27 @@ public class ServletTestUtils extends Assert {
      * string should look like <code>param1=value1&param2=value2</code>. Note that because
      * the parameters in a query string are basically an unordered collection of name/value
      * pairs, the following two query strings would be considered equal:
-     * 
+     *
      * <br/><br/>
-     * 
+     *
      * <code>param1=value1&param2=value2</code><br/>
      * <code>param2=value2&param1=value1</code>
-     * 
+     *
      * @param expected The expcected query string.
-     * 
+     *
      * @param actual The actual query string.
      */
     public static void assertQueryStringEquals(String expected, String actual) {
         Set expectedParams = createQueryStringParameterSet(expected);
         Set actualParams = createQueryStringParameterSet(actual);
-        
+
         assertEquals(expectedParams, actualParams);
     }
-    
+
     private static Set createQueryStringParameterSet(String queryString) {
         Set parameterSet = new TreeSet();
         CollectionUtils.addAll(parameterSet, queryString.split("&"));
-        
+
         return parameterSet;
     }
 }

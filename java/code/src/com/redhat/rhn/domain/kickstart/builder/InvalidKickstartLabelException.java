@@ -24,7 +24,7 @@ import com.redhat.rhn.common.RhnRuntimeException;
 public class InvalidKickstartLabelException extends RhnRuntimeException {
 
     /**
-     * 
+     *
      */
     public InvalidKickstartLabelException() {
         super();

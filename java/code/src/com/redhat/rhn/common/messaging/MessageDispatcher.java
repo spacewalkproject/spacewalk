@@ -21,21 +21,21 @@ import org.apache.log4j.Logger;
 
 /**
  * Polls the EventQueue for events and executes them
- * 
+ *
  * @version $Rev $
  */
 public class MessageDispatcher implements Runnable {
-    
+
     private static Logger log = Logger.getLogger(MessageDispatcher.class);
     private boolean isStopped = false;
-    
+
     /**
      * Signals the dispatcher to stop
      */
     public synchronized void stop() {
         isStopped = true;
     }
-    
+
     /**
      * Returns the current stop state
      * @return true if stopped, else false
@@ -43,10 +43,10 @@ public class MessageDispatcher implements Runnable {
     public synchronized boolean isStopped() {
         return isStopped;
     }
-    
+
     /**
      * Main run loop where events are popped off the queue
-     * and executed. Events are wrapped inside of a Runnable instance 
+     * and executed. Events are wrapped inside of a Runnable instance
      */
     public void run() {
         while (!isStopped) {

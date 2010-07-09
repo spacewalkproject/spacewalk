@@ -21,17 +21,17 @@ import javax.servlet.jsp.JspException;
  * @version $Rev$
  */
 public class NonExpandableColumnTag  extends ExpandableColumnTag {
- 
+
     /**
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = -5967265795977525121L;
-   
+
     @Override
     protected boolean canRender() {
         return !super.canRender();
     }
-    
+
     /**
      * {@inheritDoc}
      */

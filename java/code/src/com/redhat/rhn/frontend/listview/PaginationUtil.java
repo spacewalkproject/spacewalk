@@ -100,7 +100,7 @@ public class PaginationUtil {
         }
         return String.valueOf(total - mod + 1);
     }
-    
+
     /**
      * Returns the last upper limit.
      * @return the last upper limit.

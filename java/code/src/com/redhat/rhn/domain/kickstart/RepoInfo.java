@@ -39,11 +39,11 @@ public class RepoInfo {
     private static final Pattern URL_REGEX =
         Pattern.compile("--baseurl\\s*=\\s*(\\S+)", Pattern.CASE_INSENSITIVE);
 
-    private RepoInfo() { 
+    private RepoInfo() {
     }
     /**
      * Creates a repo info object by parsing a KS Repo command
-     * @param cmd the ksrepo command to parse 
+     * @param cmd the ksrepo command to parse
      * @return the RepoInfoobject associated to this command
      */
     public static RepoInfo parse(KickstartCommand cmd) {
@@ -58,7 +58,7 @@ public class RepoInfo {
         info.baseUrl = search(URL_REGEX, cmd);
         return info;
     }
-    
+
     /**
      * Create a new repo info object with the given name and base url
      * @param name the repo name
@@ -71,7 +71,7 @@ public class RepoInfo {
         info.baseUrl = baseUrl;
         return info;
     }
-    
+
     /**
      * @return the repo name
      */
@@ -91,29 +91,29 @@ public class RepoInfo {
         if (match.find()) {
             return match.group(1);
         }
-        return "";        
+        return "";
     }
-    
+
     /**
      * Returns the actual command line that will be used in the
      * KickstartFormatter.
      * @param data KickstartData needed to generate the media url
      * @return the formatted command
      */
-    public String getFormattedCommand(KickstartData data) { 
+    public String getFormattedCommand(KickstartData data) {
         KickstartUrlHelper helper = new KickstartUrlHelper(data);
-        return String.format("repo --name=%s --baseurl=%s", name, 
+        return String.format("repo --name=%s --baseurl=%s", name,
                                     helper.getRepoUrl(this));
     }
-    
+
     /**
-     * updates the arguments in kickstart command.  
+     * updates the arguments in kickstart command.
      * @param command the command to set arguments on.
      */
     public void setArgumentsIn(KickstartCommand command) {
         command.setArguments(String.format("--name=%s --baseurl=%s", name, baseUrl));
     }
-    
+
     /**
      * Gets the RepoInfo for the VT repo
      * @return the RepoInfo for the Vt repo
@@ -122,7 +122,7 @@ public class RepoInfo {
         String name = "VT";
         return create(name, name);
     }
-    
+
     /**
      * Returns all the 4 standard repos available to rhel 5
      * cluster, clusterstorage, workstation and VT
@@ -136,12 +136,12 @@ public class RepoInfo {
         addToMap(map, "VT");
         return map;
     }
-    
+
     private static void addToMap(Map <String, RepoInfo> map,  String name) {
         RepoInfo info = create(name, name);
         map.put(info.getName(), info);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -150,18 +150,18 @@ public class RepoInfo {
         if (this == obj) {
             return true;
         }
-        
+
         if (!(obj instanceof RepoInfo)) {
             return false;
         }
         RepoInfo that = (RepoInfo)obj;
-        
+
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(name, that.name);
         builder.append(baseUrl, that.baseUrl);
         return builder.isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */

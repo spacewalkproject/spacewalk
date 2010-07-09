@@ -42,7 +42,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Renders a list of data bean in a page
- * 
+ *
  * @version $Rev $
  */
 public class ListTag extends BodyTagSupport {
@@ -67,7 +67,7 @@ public class ListTag extends BodyTagSupport {
     private Object currentObject;
     private Object parentObject;
     private String styleClass = "list";
-    private String styleId;    
+    private String styleId;
     private int rowCounter = -1;
     private String width;
     private ListFilter filter;
@@ -87,8 +87,8 @@ public class ListTag extends BodyTagSupport {
     private boolean parentIsElement = true;
     private boolean searchParent = true;
     private boolean searchChild;
-    
-    
+
+
     /**
      * @param searchParentIn The searchParent to set.
      */
@@ -96,7 +96,7 @@ public class ListTag extends BodyTagSupport {
         searchParent = ListTagUtil.toBoolean(searchParentIn);
     }
 
-    
+
     /**
      * @param searchChildIn The searchChild to set.
      */
@@ -108,9 +108,9 @@ public class ListTag extends BodyTagSupport {
      * method to let the list tag know
      * that atleast one of its columns
      * is sortable. This will help the
-     * list tag render the hidden sortBy 
-     * and sortDir fields.. 
-     * This method has only package access 
+     * list tag render the hidden sortBy
+     * and sortDir fields..
+     * This method has only package access
      * because on ColumnTag needs to talk to this.
      * @param isSortable true if atleast
      * one of the columns in this list is sortable
@@ -118,7 +118,7 @@ public class ListTag extends BodyTagSupport {
     void setSortable(boolean isSortable) {
         sortable = isSortable;
     }
-    
+
     private boolean isSortable() {
         return sortable;
     }
@@ -130,10 +130,10 @@ public class ListTag extends BodyTagSupport {
     public void addDecorator(String decName) throws JspException {
         ListDecorator dec = getDecorator(decName);
         if (dec != null) {
-            getDecorators().add(dec);    
+            getDecorators().add(dec);
         }
     }
-    
+
     private List<ListDecorator> getDecorators() {
         if (decorators == null) {
             decorators = new LinkedList<ListDecorator>();
@@ -197,7 +197,7 @@ public class ListTag extends BodyTagSupport {
 
     /**
      * Bumps up the column count
-     * 
+     *
      */
     public void addColumn() {
         columnCount++;
@@ -238,14 +238,14 @@ public class ListTag extends BodyTagSupport {
     public void setName(String nameIn) {
         name = nameIn;
     }
-    
+
     /**
      * The name of the list
      * @return the list name
      */
     public String getName() {
         return name;
-    }    
+    }
 
     /**
      * Build the list's unique name Algorithm for the unique name is: Take the
@@ -293,16 +293,16 @@ public class ListTag extends BodyTagSupport {
             throw new JspException(e.getMessage());
         }
     }
-    
+
     /**
-     * 
+     *
      * @param f the filter to set
      */
     void setColumnFilter(ListFilter f) throws JspException {
         if (filter != null) {
             String msg = "Cannot set the column filter - [%s], " +
                         "since the table has been has already assigned a filter - [%s]";
-            
+
             throw new JspException(String.format(msg, String.valueOf(f),
                                                         String.valueOf(filter)));
         }
@@ -310,7 +310,7 @@ public class ListTag extends BodyTagSupport {
         Context threadContext = Context.getCurrentContext();
         filter.prepare(threadContext.getLocale());
         manip.filter(filter,  pageContext);
-    }    
+    }
 
     /**
      * Sets the title row needed for this page
@@ -319,7 +319,7 @@ public class ListTag extends BodyTagSupport {
     public void setTitle(String titleIn) {
         title = titleIn;
     }
-      
+
     /**
      * Get current page row count
      * @return number of rows on current page
@@ -332,7 +332,7 @@ public class ListTag extends BodyTagSupport {
     /**
      * Sets the name of the dataset to use Tries to locate the list in the
      * following order: page context, request attribute, session attribute
-     * 
+     *
      * @param nameIn name of dataset
      * @throws JspException indicates something went wrong
      */
@@ -358,7 +358,7 @@ public class ListTag extends BodyTagSupport {
             }
         }
         else {
-            pageData = Collections.EMPTY_LIST;  
+            pageData = Collections.EMPTY_LIST;
         }
     }
 
@@ -377,7 +377,7 @@ public class ListTag extends BodyTagSupport {
     public Object getParentObject() {
         return parentObject;
     }
-    
+
     /**
      * Name used to store the currentObject in the page
      * @param nameIn row name
@@ -389,12 +389,12 @@ public class ListTag extends BodyTagSupport {
         }
         rowName = nameIn;
     }
-    
+
     /**
      * ${@inheritDoc}
      */
     public int doEndTag() throws JspException {
-        
+
         /* If a reference link was provided, it needs to be rendered on a separate
          * row within the table.
          */
@@ -402,14 +402,14 @@ public class ListTag extends BodyTagSupport {
             ListTagUtil.write(pageContext, "<tr");
             renderRowClassAndId();
             ListTagUtil.write(pageContext, ">");
-            
+
             ListTagUtil.write(pageContext, "<td style=\"text-align: center;\" " +
                 "class=\"first-column last-column\" ");
-                
-            ListTagUtil.write(pageContext, 
+
+            ListTagUtil.write(pageContext,
                 "colspan=" + String.valueOf(getColumnCount()) + ">");
             ListTagUtil.write(pageContext, "<a href=\"" + refLink + "\" >");
-                
+
             /* Here we render the reflink and its key. If the key hasn't been set
              * we just display the link address itself.
              */
@@ -419,13 +419,13 @@ public class ListTag extends BodyTagSupport {
                 args[1] = refLinkKeyArg0;
                 String message = LocalizationService.getInstance().
                     getMessage(refLinkKey, args);
-                
+
                 ListTagUtil.write(pageContext, message);
             }
             else {
                 ListTagUtil.write(pageContext, refLink);
             }
-            
+
             ListTagUtil.write(pageContext, "</a>");
             ListTagUtil.write(pageContext, "</td>");
             ListTagUtil.write(pageContext, "</tr>");
@@ -456,12 +456,12 @@ public class ListTag extends BodyTagSupport {
             setupManipulator();
             manip.sort();
             pageData = manip.getPage();
-            
+
             if (!manip.isListEmpty() && !StringUtils.isBlank(alphaBarColumn)) {
-                AlphaBarHelper.getInstance().writeAlphaBar(pageContext, 
+                AlphaBarHelper.getInstance().writeAlphaBar(pageContext,
                         manip.getAlphaBarIndex(), getUniqueName());
             }
-            
+
             for (ListDecorator dec : getDecorators()) {
                 dec.setCurrentList(this);
                 dec.beforeList();
@@ -481,11 +481,11 @@ public class ListTag extends BodyTagSupport {
             if (isSortable()) {
                 String sortByLabel = ListTagUtil.makeSortByLabel(getUniqueName());
                 String sortDirLabel = ListTagUtil.makeSortDirLabel(getUniqueName());
-                
+
                 HtmlTag sortByInputTag = new HtmlTag("input");
                 sortByInputTag.setAttribute("type", "hidden");
                 sortByInputTag.setAttribute("name", sortByLabel);
-                sortByInputTag.setAttribute("id", 
+                sortByInputTag.setAttribute("id",
                         ListTagUtil.makeSortById(getUniqueName()));
                 sortByInputTag.setAttribute("value", StringUtils.defaultString(
                         pageContext.getRequest().getParameter(sortByLabel)));
@@ -501,9 +501,9 @@ public class ListTag extends BodyTagSupport {
                 ListTagUtil.write(pageContext, sortByInputTag.render());
                 ListTagUtil.write(pageContext, sortByDirTag.render());
             }
-            
-            
-           if (!isEmpty()) {  
+
+
+           if (!isEmpty()) {
                 for (ListDecorator dec : getDecorators()) {
                     dec.beforeTopPagination();
                 }
@@ -522,27 +522,27 @@ public class ListTag extends BodyTagSupport {
             }
             else {
                 iterator = null;
-            }            
+            }
         }
         if (haveColsEnumerated && haveTblHeadersRendered &&
                             !haveColHeadersRendered) {
             ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
                     ListCommand.COL_HEADER);
-            
+
             ListTagUtil.write(pageContext, "<thead><tr>");
-            
+
             if (!StringUtils.isBlank(title)) {
                 HtmlTag th = new HtmlTag("th");
                 th.setAttribute("colspan", String.valueOf(getColumnCount()));
                 HtmlTag strong = new HtmlTag("strong");
                 strong.addBody(title);
                 th.addBody(strong.render());
-                
-                ListTagUtil.write(pageContext, th.render()); 
-                            
+
+                ListTagUtil.write(pageContext, th.render());
+
                 ListTagUtil.write(pageContext, "</tr>\n<tr>");
             }
-            
+
         }
         if (haveColHeadersRendered && !haveTblFootersRendered) {
             if (!haveRenderedColumnHeaderEndTag) {
@@ -561,7 +561,7 @@ public class ListTag extends BodyTagSupport {
                     if (RhnListTagFunctions.isExpandable(obj)) {
                         parentObject = obj;
                     }
-                    currentObject = obj; 
+                    currentObject = obj;
                 }
                 else {
                     currentObject = null;
@@ -607,8 +607,8 @@ public class ListTag extends BodyTagSupport {
             }
         }
         else {
-            pageData = Collections.EMPTY_LIST;  
-        }        
+            pageData = Collections.EMPTY_LIST;
+        }
     }
     /**
      * ${@inheritDoc}
@@ -619,7 +619,7 @@ public class ListTag extends BodyTagSupport {
         setupPageData();
         setPageSize();
         manip = new DataSetManipulator(pageSize, pageData,
-                (HttpServletRequest) pageContext.getRequest(), 
+                (HttpServletRequest) pageContext.getRequest(),
                 getUniqueName(), isParentAnElement(), searchParent, searchChild);
         int retval = BodyTagSupport.EVAL_BODY_INCLUDE;
         emitId();
@@ -635,9 +635,9 @@ public class ListTag extends BodyTagSupport {
         if (!StringUtils.isBlank(ListTagHelper.
                 getFilterValue(pageContext.getRequest(), uniqueName))) {
             LocalizationService ls = LocalizationService.getInstance();
-            
+
             ListTagUtil.write(pageContext, "<div class=\"site-info\">");
-            
+
             if (manip.getTotalDataSetSize() != manip.getUnfilteredDataSize()) {
                 if (manip.getAllData().size() == 0) {
                     ListTagUtil.write(pageContext, ls.getMessage(
@@ -646,10 +646,10 @@ public class ListTag extends BodyTagSupport {
                 }
                 else {
                     ListTagUtil.write(pageContext,
-                                        ls.getMessage("listtag.filteredmessage", 
+                                        ls.getMessage("listtag.filteredmessage",
                             new Integer(manip.getTotalDataSetSize())));
                 }
-                
+
                 ListTagUtil.write(pageContext, "<br /><a href=\"");
                 List<String> excludeParams = new ArrayList<String>();
                 excludeParams.add(ListTagUtil.makeSelectActionName(getUniqueName()));
@@ -661,28 +661,28 @@ public class ListTag extends BodyTagSupport {
                         makeFilterSearchParentLabel(getUniqueName()));
                 excludeParams.add(ListTagUtil.
                         makeParentIsAnElementLabel(getUniqueName()));
-                             
-                ListTagUtil.write(pageContext,  
-                        ListTagUtil.makeParamsLink(pageContext.getRequest(), name, 
+
+                ListTagUtil.write(pageContext,
+                        ListTagUtil.makeParamsLink(pageContext.getRequest(), name,
                                 Collections.EMPTY_MAP, excludeParams));
-                
+
                 ListTagUtil.write(pageContext, "\">" +
                                             ls.getMessage("listtag.clearfilter"));
-                ListTagUtil.write(pageContext, ls.getMessage("listtag.seeall", 
-                        new Integer(manip.getUnfilteredDataSize())));        
+                ListTagUtil.write(pageContext, ls.getMessage("listtag.seeall",
+                        new Integer(manip.getUnfilteredDataSize())));
                 ListTagUtil.write(pageContext, "</a>");
             }
             else {
                 ListTagUtil.write(pageContext, ls.getMessage(
                          "listtag.all_items_in_filter",
-                          ListTagHelper.getFilterValue(pageContext.getRequest(), 
+                          ListTagHelper.getFilterValue(pageContext.getRequest(),
                                                 uniqueName)));
             }
-            
+
             ListTagUtil.write(pageContext, "</div>");
         }
     }
-    
+
     /**
      * ${@inheritDoc}
      */
@@ -698,7 +698,7 @@ public class ListTag extends BodyTagSupport {
         currentObject = null;
         parentObject = null;
         styleClass = "list";
-        styleId = null;        
+        styleId = null;
         rowCounter = -1;
         width = null;
         columnCount = 0;
@@ -726,14 +726,14 @@ public class ListTag extends BodyTagSupport {
         ListTagUtil.write(pageContext, "colspan=\"");
         ListTagUtil.write(pageContext, String.valueOf(columnCount));
         ListTagUtil.write(pageContext, "\">");
-        
+
 
         if (emptyKey != null) {
             LocalizationService ls = LocalizationService.getInstance();
             String msg = ls.getMessage(emptyKey);
             ListTagUtil
                     .write(pageContext, "<div class=\"list-empty-message\">");
-            ListTagUtil.write(pageContext, msg);            
+            ListTagUtil.write(pageContext, msg);
             ListTagUtil.write(pageContext, "<br /></div>");
         }
 
@@ -747,7 +747,7 @@ public class ListTag extends BodyTagSupport {
         ListTagUtil.write(pageContext, getRowRenderer().getRowClass(getCurrentObject()));
         if (rowCounter == manip.findAlphaPosition() % pageSize) {
             ListTagUtil.write(pageContext, " alphaResult");
-        }   
+        }
         ListTagUtil.write(pageContext, "\" ");
         ListTagUtil.write(pageContext, "id=\"");
         ListTagUtil.write(pageContext, getRowRenderer().getRowId(getUniqueName(),
@@ -757,7 +757,7 @@ public class ListTag extends BodyTagSupport {
         if (!StringUtils.isBlank(style)) {
             ListTagUtil.write(pageContext, "style=\"");
             ListTagUtil.write(pageContext, style);
-            ListTagUtil.write(pageContext, "\" ");            
+            ListTagUtil.write(pageContext, "\" ");
         }
     }
 
@@ -780,7 +780,7 @@ public class ListTag extends BodyTagSupport {
         ListTagUtil.write(pageContext, " id=\"");
         ListTagUtil.write(pageContext, getStyleId());
         ListTagUtil.write(pageContext, "\"");
-        
+
         if (width != null) {
             ListTagUtil.write(pageContext, " width=\"");
             ListTagUtil.write(pageContext, width);
@@ -810,7 +810,7 @@ public class ListTag extends BodyTagSupport {
         if (isFooter && (isEmpty() || hidePageNums)) {
             return;
         }
-        
+
         if (isFooter) {
             ListTagUtil.write(pageContext, "<div>");
             ListTagUtil.write(pageContext, "<table ");
@@ -818,19 +818,19 @@ public class ListTag extends BodyTagSupport {
             ListTagUtil.write(pageContext, "cellpadding=\"0\" width=\"100%\">");
             ListTagUtil.write(pageContext, "<tr>");
             ListTagUtil.write(pageContext, "<td align=\"left\">");
-            
+
             for (ListDecorator dec : getDecorators()) {
                 dec.afterList();
             }
             ListTagUtil.write(pageContext, "</td>");
         }
-        
+
         ListTagUtil.write(pageContext,
                 "<td valign=\"middle\" class=\"list-infotext\">");
         if (!isEmpty() && !hidePageNums) {
             ListTagUtil.write(pageContext, manip.getPaginationMessage());
         }
-        
+
         if (!manip.isListEmpty()) {
             for (ListDecorator dec : getDecorators()) {
                 if (isFooter) {
@@ -840,7 +840,7 @@ public class ListTag extends BodyTagSupport {
                 else {
                     dec.afterTopPagination();
                 }
-            }        
+            }
         }
 
         ListTagUtil.write(pageContext, "&nbsp;&nbsp;");
@@ -851,7 +851,7 @@ public class ListTag extends BodyTagSupport {
         ListTagUtil.write(pageContext, "</table></div>");
     }
 
-    
+
     private void setupFilterUI() throws JspException {
         ListTagUtil.write(pageContext, "<div class=\"filter-input\"><table");
         ListTagUtil.write(pageContext, " cellspacing=\"0\"");
@@ -882,13 +882,13 @@ public class ListTag extends BodyTagSupport {
         if (pageSize < 1) {
             pageSize = 10;
         }
-        
-        
-        HttpServletRequest httpRequest = (HttpServletRequest) 
+
+
+        HttpServletRequest httpRequest = (HttpServletRequest)
             pageContext.getRequest();
-        
+
         if (PageSizeDecorator.pageWidgetSelected(httpRequest, getUniqueName())) {
-            int size = PageSizeDecorator.getSelectedPageSize(httpRequest, 
+            int size = PageSizeDecorator.getSelectedPageSize(httpRequest,
                                                         getUniqueName());
             List <Integer> pageSizes = PageSizeDecorator.getPageSizes();
             if (size < 1 || size > pageSizes.get(pageSizes.size() - 1)) {
@@ -897,7 +897,7 @@ public class ListTag extends BodyTagSupport {
             else {
                 pageSize = size;
             }
-            
+
         }
     }
 
@@ -906,15 +906,15 @@ public class ListTag extends BodyTagSupport {
             throw new JspException("List must be enclosed by a ListSetTag");
         }
     }
-    
+
     /**
-     * 
+     *
      * @return returns the page context
      */
     public PageContext getContext() {
         return pageContext;
     }
-    
+
     /**
      * @return Returns the manip.
      */
@@ -922,7 +922,7 @@ public class ListTag extends BodyTagSupport {
         return manip;
     }
 
-    
+
     /**
      * @param alphaBarColumnIn The alphaBarColumn to set.
      */
@@ -930,7 +930,7 @@ public class ListTag extends BodyTagSupport {
         this.alphaBarColumn = alphaBarColumnIn;
     }
 
-    
+
     /**
      * provides the current page size
      * @return the page size
@@ -939,16 +939,16 @@ public class ListTag extends BodyTagSupport {
         return pageSize;
     }
 
-    
+
     /**
      * @return Returns the alphaBarColumn.
      */
     public String getAlphaBarColumn() {
         return alphaBarColumn;
     }
-    
+
     /**
-     * if set to true, the page numbers at the top and bottom of the list will not 
+     * if set to true, the page numbers at the top and bottom of the list will not
      *      be displayed
      * @param value true or false
      */
@@ -958,13 +958,13 @@ public class ListTag extends BodyTagSupport {
 
     /**
      * if set to true, the parent in a tree setup will
-     * be considered as an element by itself 
+     * be considered as an element by itself
      * @param value true or false
      */
     public void setParentiselement(String value) {
         parentIsElement = ListTagUtil.toBoolean(value);
     }
-    
+
     /**
      * if set to true, the parent in a tree setup will
      * be considered as an element by itself
@@ -973,10 +973,10 @@ public class ListTag extends BodyTagSupport {
     public boolean isParentAnElement() {
         return parentIsElement;
     }
-    
-    
+
+
     /**
-     * 
+     *
      * @return CSS ID for <table>
      */
     public String getStyleId() {
@@ -986,18 +986,18 @@ public class ListTag extends BodyTagSupport {
         return styleId;
     }
 
-    
+
     /**
-     * 
+     *
      * @param styleIdIn CSS ID to set for HTML table tag
      */
     public void setStyleId(String styleIdIn) {
         this.styleId = styleIdIn;
-    }   
-    
+    }
+
     /**
-     * 
-     * @return the optional reference link that will be included in the last row 
+     *
+     * @return the optional reference link that will be included in the last row
      * of the table
      */
     public String getRefLink() {
@@ -1005,16 +1005,16 @@ public class ListTag extends BodyTagSupport {
     }
 
     /**
-     * 
-     * @param refLinkIn the optional reference link that will be added to the last row 
+     *
+     * @param refLinkIn the optional reference link that will be added to the last row
      * of the table
      */
     public void setReflink(String refLinkIn) {
         this.refLink = refLinkIn;
     }
-    
+
     /**
-     * 
+     *
      * @return the key for the reference link
      */
     public String getRefLinkKey() {
@@ -1022,24 +1022,24 @@ public class ListTag extends BodyTagSupport {
     }
 
     /**
-     * 
+     *
      * @param refLinkKeyIn the key for the reference link
      */
     public void setReflinkkey(String refLinkKeyIn) {
         this.refLinkKey = refLinkKeyIn;
     }
-    
+
     /**
-     * 
-     * @return the optional argument that may be included in the reference link 
+     *
+     * @return the optional argument that may be included in the reference link
      */
     public String getRefLinkKeyArg0() {
         return refLinkKeyArg0;
     }
 
     /**
-     * 
-     * @param refLinkKeyArg0In the optional argument that may be included in the 
+     *
+     * @param refLinkKeyArg0In the optional argument that may be included in the
      * reference link
      */
     public void setReflinkkeyarg0(String refLinkKeyArg0In) {

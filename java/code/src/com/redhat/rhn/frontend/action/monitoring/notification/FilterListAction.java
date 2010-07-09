@@ -35,17 +35,17 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev: 51639 $
  */
 public class FilterListAction extends BaseSetOperateOnSelectedItemsAction {
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext rctx = new RequestContext(request);
         Org org = rctx.getCurrentUser().getOrg();
-        // We only have "select all" on the Active list so we can just 
+        // We only have "select all" on the Active list so we can just
         // pass in true here
         return MonitoringManager.getInstance().filtersInOrg(org, null, true);
     }
@@ -54,14 +54,14 @@ public class FilterListAction extends BaseSetOperateOnSelectedItemsAction {
      * {@inheritDoc}
      */
     protected void processMethodKeys(Map map) {
-        map.put("filters.jsp.expirefilters", "operateOnSelectedSet");        
+        map.put("filters.jsp.expirefilters", "operateOnSelectedSet");
     }
 
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         // no-op
     }

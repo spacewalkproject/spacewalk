@@ -25,7 +25,7 @@ import org.apache.struts.Globals;
  * @version $Rev: 64451 $
  */
 public class EnvironmentFilterTest extends BaseFilterTst {
-    
+
     public void setUp() {
         super.setUp();
         this.request.setRequestURL("http://rhn.webdev.redhat.com/rhn/Login.do");
@@ -39,7 +39,7 @@ public class EnvironmentFilterTest extends BaseFilterTst {
         request.setupAddParameter("messagep2", "param value");
         request.setupAddParameter("messagep3", "param value");
         filter.init(null);
-        
+
         Config c = Config.get();
         Boolean origValue = new Boolean(ConfigDefaults.get().isSSLAvailable());
         c.setBoolean(ConfigDefaults.SSL_AVAILABLE, Boolean.TRUE.toString());
@@ -53,7 +53,7 @@ public class EnvironmentFilterTest extends BaseFilterTst {
         // Check that we got the expected redirect.
         String expectedRedir = "https://mymachine.rhndev.redhat.com/rhn/Login.do";
         assertEquals(expectedRedir, response.getRedirect());
-        
+
         request.setupGetRequestURI("/rhn/kickstart/DownloadFile");
         response.clearRedirect();
         request.setupAddParameter("message", "some.key.to.localize");
@@ -69,7 +69,7 @@ public class EnvironmentFilterTest extends BaseFilterTst {
         filter.doFilter(request, response, chain);
         assertNull(response.getRedirect());
     }
-    
+
     public void testAddAMessage() throws Exception {
         Config c = Config.get();
         boolean origValue = ConfigDefaults.get().isSSLAvailable();
@@ -84,9 +84,9 @@ public class EnvironmentFilterTest extends BaseFilterTst {
             filter.doFilter(request, response, chain);
         }
         finally {
-            c.setBoolean(ConfigDefaults.SSL_AVAILABLE, String.valueOf(origValue));    
+            c.setBoolean(ConfigDefaults.SSL_AVAILABLE, String.valueOf(origValue));
         }
-        
+
         assertNotNull(request.getAttribute(Globals.MESSAGE_KEY));
         assertNotNull(session.getAttribute(Globals.MESSAGE_KEY));
     }

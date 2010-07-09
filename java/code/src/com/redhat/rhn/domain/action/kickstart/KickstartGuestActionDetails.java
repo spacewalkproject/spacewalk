@@ -28,8 +28,8 @@ public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
     private Long diskGb;
     private String virtBridge;
     private String diskPath;
-    
-    
+
+
 
 
     /**
@@ -47,7 +47,7 @@ public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
     public void setKickstartSessionId(Long ksSessionIdIn) {
         this.kickstartSessionId = ksSessionIdIn;
     }
-    
+
     /**
      * @return Returns the guestName
      */
@@ -103,7 +103,7 @@ public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
     public void setDiskGb(Long diskGbIn) {
         this.diskGb = diskGbIn;
     }
-    
+
     /**
      * @return Returns the virtBridge.
      */
@@ -111,7 +111,7 @@ public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
         return virtBridge;
     }
 
-    
+
     /**
      * @param virtBridgeIn The virtBridge to set.
      */
@@ -119,7 +119,7 @@ public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
         this.virtBridge = virtBridgeIn;
     }
 
-    
+
     /**
      * @return Returns the diskPath.
      */
@@ -127,7 +127,7 @@ public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
         return diskPath;
     }
 
-    
+
     /**
      * @param diskPathIn The diskPath to set.
      */
@@ -135,5 +135,5 @@ public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
         this.diskPath = diskPathIn;
     }
 
-    
+
 }

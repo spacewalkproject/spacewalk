@@ -27,13 +27,13 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class ConfigRevisionTest extends BaseTestCaseWithUser {
-    
+
     public void testCreateConfigRevision() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
 
         ConfigRevision cr = ConfigTestUtils.createConfigRevision(user.getOrg());
-        
+
         cr.setConfigFileType(ConfigFileType.dir());
         cr.setChangedById(user.getId());
         ConfigurationFactory.commit(cr);
@@ -45,7 +45,7 @@ public class ConfigRevisionTest extends BaseTestCaseWithUser {
         assertNotNull(cr.getConfigFileType());
         assertEquals("directory", cr.getConfigFileType().getLabel());
         assertTrue(cr.isDirectory());
-        
+
         assertNotNull(cr.getChangedById());
         assertTrue(cr.getChangedById().equals(user.getId()));
         assertNotNull(cr.getChangedBy());

@@ -25,7 +25,7 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * CpuSerializer
  * @version $Rev$
  * @xmlrpc.doc
@@ -39,20 +39,20 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "arch")
  *      #prop("string", "stepping")
  *      #prop("string", "count")
- *  #struct_end()    
- * 
+ *  #struct_end()
+ *
  */
 public class CpuSerializer implements XmlRpcCustomSerializer {
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Class getSupportedClass() {
         return CPU.class;
     }
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)

@@ -23,14 +23,14 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class InvalidKickstartLabelException extends FaultException {
-    
+
     /**
      * Constructor
      * @param virtType the kickstart label
      */
     public InvalidKickstartLabelException(String virtType) {
         super(2753, "invalidKickstartLabel" , LocalizationService.getInstance().
-                getMessage("api.kickstart.invalidkickstartlabel", 
+                getMessage("api.kickstart.invalidkickstartlabel",
                         new Object [] {virtType}));
     }
 

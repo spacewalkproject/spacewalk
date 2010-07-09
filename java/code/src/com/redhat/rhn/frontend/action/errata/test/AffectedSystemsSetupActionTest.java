@@ -31,19 +31,19 @@ public class AffectedSystemsSetupActionTest extends RhnMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/errata/details/SystemsAffected");
-        
+
     }
     public void testBadParams() {
         actionPerform();
         assertBadParamException();
     }
-    
+
     public void testInvalidParams() {
         addRequestParameter("eid", "-99999");
         actionPerform();
         assertLookupException();
     }
-    
+
     public void testNormalCase() throws Exception {
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         addRequestParameter("eid", e.getId().toString());
@@ -58,5 +58,5 @@ public class AffectedSystemsSetupActionTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getAttribute("errata"));
         assertNotNull(request.getAttribute("set"));
     }
-    
+
 }

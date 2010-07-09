@@ -18,16 +18,16 @@ import com.redhat.rhn.common.RhnRuntimeException;
 
 
 /**
- * Throw to indicate that a problem occurred while initializing an AuthenticationService 
+ * Throw to indicate that a problem occurred while initializing an AuthenticationService
  * object. When this exception is throw, the AuthenticationService object may not be in a
  * usable state.
- * 
+ *
  * @version $Rev$
  */
 public class AuthenticationServiceInitializationException extends RhnRuntimeException {
 
     /**
-     * 
+     *
      */
     public AuthenticationServiceInitializationException() {
     }

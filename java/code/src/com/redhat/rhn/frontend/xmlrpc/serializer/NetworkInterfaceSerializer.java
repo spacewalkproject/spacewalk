@@ -30,18 +30,18 @@ import redstone.xmlrpc.XmlRpcSerializer;
 /**
  * NetworkInterfaceSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
  *      #struct("network device")
  *          #prop_desc("string", "ip", "IP address assigned to this network device")
- *          #prop_desc("string", "interface", "Network interface assigned to device e.g. 
+ *          #prop_desc("string", "interface", "Network interface assigned to device e.g.
  *                              eth0")
  *          #prop_desc("string", "netmask", "Network mask assigned to device")
  *          #prop_desc("string", "hardware_address", "Hardware Address of device.")
  *          #prop_desc("string", "module", "Network driver used for this device.")
  *          #prop_desc("string", "broadcase", " Broadcast address for device.")
  *      #struct_end()
- * 
+ *
  */
 public class NetworkInterfaceSerializer implements XmlRpcCustomSerializer {
 
@@ -57,7 +57,7 @@ public class NetworkInterfaceSerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         NetworkInterface device = (NetworkInterface)value;
         SerializerHelper devMap = new SerializerHelper(builtInSerializer);
-        
+
         devMap.add("interface", StringUtils.defaultString(device.getName()));
         devMap.add("ip", StringUtils.defaultString(device.getIpaddr()));
         devMap.add("netmask", StringUtils.defaultString(device.getNetmask()));

@@ -18,11 +18,11 @@ import com.redhat.rhn.frontend.dto.BaseDto;
 
 /**
  * Kickstartable Tree DTO
- * 
+ *
  * @version $Rev $
  */
 public class KickstartableTreeDto extends BaseDto {
-    
+
     private Long id;
     private String treeLabel;
     private String channelLabel;
@@ -34,7 +34,7 @@ public class KickstartableTreeDto extends BaseDto {
     public Long getId() {
         return this.id;
     }
-    
+
     /**
      * Sets id
      * @param idIn id to set
@@ -42,7 +42,7 @@ public class KickstartableTreeDto extends BaseDto {
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * returns tree label
      * @return label
@@ -50,7 +50,7 @@ public class KickstartableTreeDto extends BaseDto {
     public String getKickstartlabel() {
         return this.treeLabel;
     }
-    
+
     /**
      * sets tree label
      * @param labelIn label to set
@@ -58,7 +58,7 @@ public class KickstartableTreeDto extends BaseDto {
     public void setKickstartlabel(String labelIn) {
         this.treeLabel = labelIn;
     }
-    
+
     /**
      * returns base channel label
      * @return label
@@ -66,7 +66,7 @@ public class KickstartableTreeDto extends BaseDto {
     public String getChannellabel() {
         return this.channelLabel;
     }
-    
+
     /**
      * sets base channel label
      * @param labelIn label to set

@@ -26,7 +26,7 @@ import org.apache.struts.action.ActionForm;
  * @version $Rev$
  */
 public class UngroupedSetupAction  extends BaseSystemsAction {
-    
+
     protected DataResult getDataResult(User user, PageControl pc, ActionForm formIn) {
         return SystemManager.ungroupedList(user, pc);
     }

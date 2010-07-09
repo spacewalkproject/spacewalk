@@ -10,8 +10,8 @@
   <bean:message key="kickstartdelete.jsp.header1" arg0="${ksdata.label}"/>
 </rhn:toolbar>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstart.scriptdelete.jsp.header2"/></h2>
@@ -43,7 +43,7 @@
                   <textarea name="contents" disabled="true" cols="80" rows="24">${ksscript.dataContents}</textarea>
               </td>
           </tr>
-          <tr>          
+          <tr>
             <td align="right" colspan="2">
             <html:submit>
             <bean:message key="kickstart.scriptdelete.jsp.confirmdelete"/>

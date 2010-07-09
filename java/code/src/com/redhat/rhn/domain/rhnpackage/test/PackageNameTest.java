@@ -24,7 +24,7 @@ import com.redhat.rhn.testing.TestUtils;
  */
 public class PackageNameTest extends RhnBaseTestCase {
     /**
-     * Simple test to make sure we can create 
+     * Simple test to make sure we can create
      * PackageNames and write them to the db.
      * @throws Exception Exception
      */
@@ -34,7 +34,7 @@ public class PackageNameTest extends RhnBaseTestCase {
         //make sure we got committed to the db.
         assertNotNull(p.getId());
     }
-    
+
     /**
      * Create a test PackageName
      * @return a test PackageName object.

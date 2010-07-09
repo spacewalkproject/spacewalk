@@ -39,10 +39,10 @@ public class KickstartScriptEditAction extends BaseKickstartScriptAction {
     /**
      * {@inheritDoc}
      */
-    protected void setupFormValues(RequestContext ctx, DynaActionForm form, 
+    protected void setupFormValues(RequestContext ctx, DynaActionForm form,
             BaseKickstartCommand cmd) {
         super.setupFormValues(ctx, form, cmd);
-        ctx.getRequest().setAttribute(RequestContext.KICKSTART_SCRIPT_ID, 
+        ctx.getRequest().setAttribute(RequestContext.KICKSTART_SCRIPT_ID,
                 ctx.getRequiredParam(RequestContext.KICKSTART_SCRIPT_ID));
     }
 

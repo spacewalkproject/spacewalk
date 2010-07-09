@@ -21,14 +21,14 @@ import org.hibernate.TransactionException;
 /**
  * TestCaseHelper - helper class to contain some common logic
  * between a few of our base unit test classes.
- * 
+ *
  * @version $Rev$
  */
 public class TestCaseHelper {
 
     private TestCaseHelper() {
     }
-    
+
     /**
      * shared logic for tearing down resources used in our unit tests
      */
@@ -38,7 +38,7 @@ public class TestCaseHelper {
             try {
                 HibernateFactory.rollbackTransaction();
                 //HibernateFactory.commitTransaction();
-            } 
+            }
             catch (TransactionException e) {
                 rollbackException = e;
             }
@@ -47,10 +47,10 @@ public class TestCaseHelper {
         if (rollbackException != null) {
             throw rollbackException;
         }
-        // In case someone disabled it and forgot to 
+        // In case someone disabled it and forgot to
         // renable it.
         RhnBaseTestCase.enableLocalizationServiceLogging();
-        
+
     }
-    
+
 }

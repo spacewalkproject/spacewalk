@@ -32,9 +32,9 @@ public class PackageNameFilter extends BaseListFilter {
      */
     @Override
     public void processMap(Map map, Locale userLocale) {
-        LocalizationService ls = 
+        LocalizationService ls =
             LocalizationService.getInstance();
-        String pkgname = ls.getMessage("packagesearch.jsp.name", userLocale);        
+        String pkgname = ls.getMessage("packagesearch.jsp.name", userLocale);
         map.put(pkgname, "packageName");
     }
 }

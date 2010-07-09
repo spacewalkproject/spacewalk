@@ -27,16 +27,16 @@ import java.util.Map;
  * @version $Rev $
  */
 public class ScrubbingDynaActionForm extends DynaActionForm {
-    
+
     private static final long serialVersionUID = 7679506300113360100L;
-    
+
     public static final String[] PROHIBITED_INPUT = {"<", ">", "\\(", "\\)", "\\{", "\\}"};
 
     /** constructor */
     public ScrubbingDynaActionForm() {
         super();
     }
-    
+
     /**
      * Tell the form to "scrub thyself"
      */
@@ -56,18 +56,18 @@ public class ScrubbingDynaActionForm extends DynaActionForm {
             }
         }
     }
-    
+
     protected boolean isScrubbable(String name, Object value) {
         boolean retval = false;
-        if (value != null && 
-                (value instanceof String || 
+        if (value != null &&
+                (value instanceof String ||
                  value instanceof Collection ||
                  value.getClass().isArray())) {
             retval = true;
         }
         return retval;
     }
-    
+
     protected Object scrub(Object value) {
         if (value == null) {
             return null;
@@ -88,7 +88,7 @@ public class ScrubbingDynaActionForm extends DynaActionForm {
             return value;
         }
     }
-        
+
     protected Object scrubList(List value) {
         List retval = new LinkedList();
         for (Iterator iter = value.iterator(); iter.hasNext();) {
@@ -96,7 +96,7 @@ public class ScrubbingDynaActionForm extends DynaActionForm {
         }
         return retval;
     }
-    
+
     protected Object scrubMap(Map value) {
         if (value == null || value.size() == 0) {
             return value;
@@ -108,7 +108,7 @@ public class ScrubbingDynaActionForm extends DynaActionForm {
         }
         return value;
     }
-    
+
     protected Object scrubArray(Object[] value) {
         Object[] v = (Object[]) value;
         if (v.length > 0) {
@@ -118,7 +118,7 @@ public class ScrubbingDynaActionForm extends DynaActionForm {
         }
         return value;
     }
-    
+
     protected Object scrubString(String value) {
         for (int x = 0; x < PROHIBITED_INPUT.length; x++) {
             value = value.replaceAll(PROHIBITED_INPUT[x], "");

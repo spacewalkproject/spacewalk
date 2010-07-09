@@ -23,7 +23,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class InvalidVirtualizationTypeException extends FaultException {
-    
+
     /**
      * Constructor
      * @param virtType the kickstart label

@@ -15,24 +15,24 @@
 package com.redhat.rhn.frontend.dto.kickstart;
 
 /**
- * blah 
- * 
+ * blah
+ *
  * @version $Rev $
  */
 public class KickstartChannelDto extends KickstartDto {
-    
+
     private String channelLabel;
-    
+
     /**
-     * blah 
+     * blah
      * @param label blah
      */
     public void setChannelLabel(String label) {
         this.channelLabel = label;
     }
-    
+
     /**
-     * blah 
+     * blah
      * @return blah
      */
     public String getChannelLabel() {

@@ -31,14 +31,14 @@ import junit.framework.TestCase;
  * @version $Rev$
  */
 public class DatePickerTest extends TestCase {
-    
+
     private static final TimeZone TZ = TimeZone.getTimeZone("America/Los_Angeles");
 
     public void testDateFormat() {
         DatePicker p = makePicker(Locale.ENGLISH);
         assertTrue(p.isLatin());
         assertTrue(!p.isDayBeforeMonth());
-        
+
         p = makePicker(Locale.GERMAN);
         assertTrue(!p.isLatin());
         assertTrue(p.isDayBeforeMonth());
@@ -55,7 +55,7 @@ public class DatePickerTest extends TestCase {
         assertEquals(3, p.getHour());
         assertEquals(33, p.getMinute());
     }
-    
+
     public void testPositiveRange() throws ParseException {
         DatePicker p = makePicker(Locale.ENGLISH, DatePicker.YEAR_RANGE_POSITIVE);
         Date d = parseDate("2005-08-03T15:33");
@@ -67,20 +67,20 @@ public class DatePickerTest extends TestCase {
         assertEquals(curYear, p.getYearRange()[0]);
         assertEquals(curYear + 4, p.getYearRange()[4]);
     }
-    
-    
+
+
     public void testReadWriteFromMap() throws ParseException {
         HashMap form = new HashMap();
         DatePicker p = makePicker(Locale.ENGLISH);
         Date d = parseDate("1996-08-03T15:33");
         p.setDate(d);
         p.writeToMap(form);
-        
+
         p = makePicker(Locale.ENGLISH);
         p.readMap(form);
         assertEquals(d, p.getDate());
     }
-    
+
     public void testBadDate() throws ParseException {
         DatePicker p = makePicker(Locale.ENGLISH);
         Date d = parseDate("1996-08-03T15:33");
@@ -88,7 +88,7 @@ public class DatePickerTest extends TestCase {
         p.setMonth(new Integer(13));
         assertNull(p.getDate());
     }
-    
+
     public void testBadField() throws ParseException {
         DatePicker p = makePicker(Locale.ENGLISH);
         Date d = parseDate("1996-08-03T15:33");
@@ -96,7 +96,7 @@ public class DatePickerTest extends TestCase {
         p.setMonth(new Integer(13));
         assertNull(p.getYear());
     }
-    
+
     private Date parseDate(String date) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm", Locale.ENGLISH);
         sdf.setTimeZone(TZ);
@@ -111,7 +111,7 @@ public class DatePickerTest extends TestCase {
     private DatePicker makePicker(Locale locale) {
         return makePicker(locale, DatePicker.YEAR_RANGE_NEGATIVE);
     }
-    
+
     private void assertEquals(int exp, Integer act) {
         assertEquals(new Integer(exp), act);
     }

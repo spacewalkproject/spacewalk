@@ -23,7 +23,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class MissingErrataAttributeException extends FaultException {
-    
+
     /**
      * Constructor
      * @param attribute the attribute that was missing

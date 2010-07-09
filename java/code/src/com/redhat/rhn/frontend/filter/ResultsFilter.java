@@ -28,7 +28,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
  * @version $Rev$
  */
 public interface ResultsFilter {
-    
+
     /**
      * @param dr DataResult to be filtered
      * @param filterData String to filter the DataResult with

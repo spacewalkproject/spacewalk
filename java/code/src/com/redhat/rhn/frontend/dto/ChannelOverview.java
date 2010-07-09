@@ -104,7 +104,7 @@ public class ChannelOverview extends BaseDto implements Comparable {
         }
         return max - currentFlex;
     }
-    
+
     /**
      * @return Returns the originalId.
      */
@@ -112,7 +112,7 @@ public class ChannelOverview extends BaseDto implements Comparable {
         return originalId;
     }
 
-    
+
     /**
      * @param originalIdIn The originalId to set.
      */
@@ -124,7 +124,7 @@ public class ChannelOverview extends BaseDto implements Comparable {
      */
     public ChannelOverview() {
     }
-    
+
     /**
      * Constructor with name and id
      * @param nameIn to set
@@ -140,14 +140,14 @@ public class ChannelOverview extends BaseDto implements Comparable {
     public Long getCurrentMembers() {
         return currentMembers;
     }
-    
+
     /**
      * @param currentMembersIn The currentMembers to set.
      */
     public void setCurrentMembers(Long currentMembersIn) {
         this.currentMembers = currentMembersIn;
     }
-    
+
     /**
      * @return Returns the free members.
      */
@@ -159,7 +159,7 @@ public class ChannelOverview extends BaseDto implements Comparable {
         }
         return max - currentMembers;
     }
-    
+
     /**
      * @return Returns the hasSubscription.
      */
@@ -172,7 +172,7 @@ public class ChannelOverview extends BaseDto implements Comparable {
     public void setHasSubscription(Long hasSubscriptionIn) {
         this.hasSubscription = hasSubscriptionIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
@@ -265,14 +265,14 @@ public class ChannelOverview extends BaseDto implements Comparable {
     public Long getRelevantPackages() {
         return relevantPackages;
     }
-    
+
     /**
      * @param r The relevantPackages to set.
      */
     public void setRelevantPackages(Long r) {
         this.relevantPackages = r;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -282,14 +282,14 @@ public class ChannelOverview extends BaseDto implements Comparable {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int compareTo(Object o) {
            return getName().compareTo(((ChannelOverview) o).getName());
     }
 
-    
+
     /**
      * @return Returns the hasSubscription.
      */

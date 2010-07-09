@@ -32,7 +32,7 @@ public class RenderEngine {
      * @param treeIndexIn the index for the tree we are rendering
      */
     public RenderEngine(NavTreeIndex treeIndexIn) {
-        treeIndex = treeIndexIn;        
+        treeIndex = treeIndexIn;
     }
 
     /**
@@ -47,7 +47,7 @@ public class RenderEngine {
     /**
      * actually render the tree, given a render interface implementation
      * @param renderer the render interface
-     * @param parameters Any request parameters to add to links as they are rendered. 
+     * @param parameters Any request parameters to add to links as they are rendered.
      * @return the rendered nav
      */
     public String render(Renderable renderer, Map parameters) {
@@ -57,11 +57,11 @@ public class RenderEngine {
         renderer.preNav(result);
         this.renderLevel(renderer, todo, parameters, 0);
         renderer.postNav(result);
-        
+
         return result.toString();
     }
 
-    private void renderLevel(Renderable renderer, List todo, 
+    private void renderLevel(Renderable renderer, List todo,
                              Map parameters, int depth) {
         if (todo == null || todo.size() == 0) {
             return;
@@ -74,7 +74,7 @@ public class RenderEngine {
         int size = todo.size();
         for (int i = 0; i < size; i++) {
             NavNode node = (NavNode) todo.get(i);
-            
+
             // mark the nodes as first or last based on index.
             if (i == 0) {
                 node.setFirst(true);
@@ -82,7 +82,7 @@ public class RenderEngine {
             else if (i == (size - 1)) {
                 node.setLast(true);
             }
-            
+
             renderer.preNavNode(this.result, depth);
 
             if (treeIndex.isNodeActive(node)) {
@@ -101,10 +101,10 @@ public class RenderEngine {
 
 
         renderer.postNavLevel(result, depth);
-        
+
         if (activeNode != null && !renderer.nodeRenderInline(depth)) {
             renderLevel(renderer, activeNode.getNodes(), parameters, depth + 1);
-        }        
+        }
     }
 }
 

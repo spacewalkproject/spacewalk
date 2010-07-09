@@ -23,7 +23,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 /**
- * 
+ *
  * CompressionUtil
  * @version $Rev$
  */
@@ -31,7 +31,7 @@ public class CompressionUtil {
 
     private CompressionUtil() {
     }
-    
+
     /**
      * Gzip compress a string
      * @param string the string to compress
@@ -45,7 +45,7 @@ public class CompressionUtil {
             bufos.write(string.getBytes());
             bufos.flush();
             bufos.close();
-            return stream.toByteArray();            
+            return stream.toByteArray();
         }
         catch (IOException e) {
             return null;
@@ -74,6 +74,6 @@ public class CompressionUtil {
             return null;
         }
     }
-    
-    
+
+
 }

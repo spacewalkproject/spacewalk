@@ -3,21 +3,21 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.channel.ContentSource" 
+    <class name="com.redhat.rhn.domain.channel.ContentSource"
         table="rhnContentSource" >
-        
+
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="sequence">
                 <param name="sequence">rhn_chan_content_src_id_seq</param>
             </generator>
         </id>
-  
+
         <property name="sourceUrl" type="string" column="source_url"/>
         <property name="created" type="timestamp" column="created"  insert="false" update="false" />
         <property name="modified" type="timestamp" column="modified" insert="false" update="false" />
         <property name="label" type="string" column="label"/>
-        
+
         <many-to-one name="org"
                      column="org_id"
                      class="com.redhat.rhn.domain.org.OrgImpl"

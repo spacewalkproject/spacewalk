@@ -42,7 +42,7 @@ import java.util.Iterator;
  */
 public class ModifyProbeCommandTest extends BaseTestCaseWithUser {
 
-    
+
     public void testCreateForProbeSuite() throws Exception {
         if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
@@ -50,14 +50,14 @@ public class ModifyProbeCommandTest extends BaseTestCaseWithUser {
         ProbeSuite ps = ProbeSuiteTest.createTestProbeSuite(user);
         Date now = getNow();
         Probe probe = createTemplateProbe(ps);
-        
+
         ps = (ProbeSuite) reload(ps);
         probe = (Probe) reload(probe);
         assertEquals(1, ps.getProbes().size());
         assertContains(ps.getProbes(), probe);
         assertNotBefore(now, probe.getLastUpdateDate());
         assertEquals(user.getLogin(), probe.getLastUpdateUser());
-        
+
         // bz163562: add a system, then a probe, and make sure
         // that the probe shows up on the system
         addNewServer(ps);
@@ -109,7 +109,7 @@ public class ModifyProbeCommandTest extends BaseTestCaseWithUser {
         cmd.setCheckIntervalMinutes(new Long(10));
         cmd.storeProbe();
         Probe probe = cmd.getProbe();
-        
+
         probe = (ServerProbe) reload(probe);
         assertEquals(scout.getId(), ((ServerProbe) probe).getSatCluster().getId());
         assertEquals(s.getId(), ((ServerProbe) probe).getServer().getId());
@@ -123,7 +123,7 @@ public class ModifyProbeCommandTest extends BaseTestCaseWithUser {
         return (SatCluster) user.getOrg().getMonitoringScouts()
                 .iterator().next();
     }
-    
+
     /**
      * Test that it is possible to abort probe creation
      * in mid-stream
@@ -143,7 +143,7 @@ public class ModifyProbeCommandTest extends BaseTestCaseWithUser {
     /**
      * Test that it is possible to abort probe creation
      * in mid-stream
-     * @throws Exception 
+     * @throws Exception
      */
     public void testCreateEmptyServerProbe() throws Exception {
         if (!ConfigDefaults.get().isMonitoringBackend()) {

@@ -39,22 +39,22 @@ public class SystemHealthIconDecorator extends BaseListDecorator {
     public void setCurrentList(ListTag current) {
         super.setCurrentList(current);
         if (current != null) {
-            elaborateContents();    
+            elaborateContents();
         }
     }
-    
+
     private void elaborateContents() {
         List<SystemOverview> systems = getCurrentList().getPageData();
-        
+
         RequestContext context = new RequestContext(
                 (HttpServletRequest)getCurrentList().getContext().getRequest());
-        
+
         for (SystemOverview next : systems) {
             DataResult result = SystemManager.getMonitoringStatus(
                     context.getLoggedInUser(), next.getId().longValue());
             if (result != null && result.size() == 1) {
                 next.setMonitoringStatus((String)
-                        ((HashMap) result.get(0)).values().iterator().next());              
+                        ((HashMap) result.get(0)).values().iterator().next());
             }
         }
     }

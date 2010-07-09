@@ -29,31 +29,31 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Renders YourRhn fragment for recent systems
- * 
+ *
  * @version $Rev$
  */
 public class RecentSystemsRenderer extends BaseFragmentRenderer {
 
     public static final String RECENTLY_REGISTERED_EMPTY = "recentlyRegisteredEmpty";
-    public static final String RECENTLY_REGISTERED_SYSTEMS_LIST = 
+    public static final String RECENTLY_REGISTERED_SYSTEMS_LIST =
        "recentlyRegisteredSystemsList";
-    public static final String SHOW_RECENTLY_REGISTERED_SYSTEMS = 
+    public static final String SHOW_RECENTLY_REGISTERED_SYSTEMS =
        "showRecentlyRegisteredSystems";
     public static final String PAGINATION_MESSAGE = "paginationMessage";
-    
+
     /**
      * {@inheritDoc}
      */
     protected void render(User user, PageControl pc, HttpServletRequest request) {
         DataResult rdr = SystemManager.registeredList(user, pc, 30);
         String registeredSystemsCSSTable = null;
-        
+
         Iterator i = rdr.iterator();
         while (i.hasNext()) {
             SystemOverview next = (SystemOverview) i.next();
             SystemListHelper.setSystemStatusDisplay(user, next);
         }
-        
+
         request.setAttribute(RECENTLY_REGISTERED_EMPTY, registeredSystemsCSSTable);
         request.setAttribute(RECENTLY_REGISTERED_SYSTEMS_LIST, rdr);
         request.setAttribute(SHOW_RECENTLY_REGISTERED_SYSTEMS, Boolean.TRUE);
@@ -62,9 +62,9 @@ public class RecentSystemsRenderer extends BaseFragmentRenderer {
                             "yourrhn.jsp.recentlyregistered.description"));
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
     }
-    
+
     protected String getPageUrl() {
-        return "/WEB-INF/pages/common/fragments/yourrhn/recentlyRegistered.jsp";        
+        return "/WEB-INF/pages/common/fragments/yourrhn/recentlyRegistered.jsp";
     }
 
 }

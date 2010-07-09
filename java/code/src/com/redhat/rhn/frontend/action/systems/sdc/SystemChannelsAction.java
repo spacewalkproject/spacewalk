@@ -49,7 +49,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * SystemChannelsAction - action to setup/process viewing a system's channel subscription 
+ * SystemChannelsAction - action to setup/process viewing a system's channel subscription
  * info.
  * @version $Rev: 1 $
  */
@@ -66,17 +66,17 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
     public static final String NEW_BASE_CHANNEL_ID = "new_base_channel_id";
 
     public static final String CHILD_CHANNELS = "child_channel";
-    
-    public static final String CURRENT_PRESERVED_CHILD_CHANNELS = 
+
+    public static final String CURRENT_PRESERVED_CHILD_CHANNELS =
         "current_preserved_child_channels";
-    public static final String CURRENT_UNPRESERVED_CHILD_CHANNELS = 
+    public static final String CURRENT_UNPRESERVED_CHILD_CHANNELS =
         "current_unpreserved_child_channels";
     public static final String PRESERVED_CHILD_CHANNELS = "preserved_child_channels";
-    
+
     public static final String CURRENT_BASE_CHANNEL = "current_base_channel";
     public static final String CURRENT_BASE_CHANNEL_ID = "current_base_channel_id";
     public static final String NEW_BASE_CHANNEL = "new_base_channel";
-    
+
 
     /** {@inheritDoc} */
     public ActionForward unspecified(ActionMapping mapping,
@@ -88,21 +88,21 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         User user = rctx.getLoggedInUser();
         Server s  = SystemManager.lookupByIdAndUser(
                 rctx.getRequiredParam(RequestContext.SID), user);
-        
+
         // Setup request attributes
         request.setAttribute(RequestContext.SYSTEM, s);
         if (s.getBaseChannel() != null) {
             Channel baseChannel = s.getBaseChannel();
             List channels = baseChannel.getAccessibleChildrenFor(user);
 
-            Collections.sort(channels, 
+            Collections.sort(channels,
                     new DynamicComparator("name", RequestContext.SORT_ASC));
-            
+
             ChildChannelDto[] childchannels = new ChildChannelDto[channels.size()];
             for (int i = 0; i < channels.size(); i++) {
-                Channel child = (Channel) channels.get(i); 
-                childchannels[i] = new ChildChannelDto(child.getId(), child.getName(), 
-                        s.isSubscribed(child), 
+                Channel child = (Channel) channels.get(i);
+                childchannels[i] = new ChildChannelDto(child.getId(), child.getName(),
+                        s.isSubscribed(child),
                         ChannelManager.isChannelFreeForSubscription(s, child),
                         child.isSubscribable(user.getOrg(), s));
                 childchannels[i].setAvailableSubscriptions(
@@ -110,23 +110,23 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
             }
             request.setAttribute(AVAIL_CHILD_CHANNELS, childchannels);
             form.set(NEW_BASE_CHANNEL_ID, s.getBaseChannel().getId());
-            
+
             if (log.isDebugEnabled()) {
                 log.debug("base_channel: " + form.get(NEW_BASE_CHANNEL_ID));
             }
-            
-        } 
+
+        }
         else {
             log.debug("System base_channel is null.");
         }
-        
-        
+
+
         List<EssentialChannelDto> orgChannels = ChannelManager.listBaseChannelsForSystem(
                 user, s);
-        
+
         List<EssentialChannelDto> rhnChannels = new LinkedList<EssentialChannelDto>();
         List<EssentialChannelDto> customChannels = new LinkedList<EssentialChannelDto>();
-        
+
         for (EssentialChannelDto bc : orgChannels) {
             if (bc.isCustom()) {
                 customChannels.add(bc);
@@ -135,9 +135,9 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
                 rhnChannels.add(bc);
             }
         }
-        
+
         SdcHelper.ssmCheck(request, s.getId(), user);
-        
+
         request.setAttribute(BASE_CHANNELS, rhnChannels);
         request.setAttribute(CUSTOM_BASE_CHANNELS, customChannels);
         // Used to compare to the EssentialChannelDto id's:
@@ -147,7 +147,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         }
         request.setAttribute(CURRENT_BASE_CHANNEL_ID, currentBaseChanId);
         SdcHelper.ssmCheck(request, s.getId(), user);
-        return getStrutsDelegate().forwardParam(mapping.findForward("default"), 
+        return getStrutsDelegate().forwardParam(mapping.findForward("default"),
                 RequestContext.SID, s.getId().toString());
     }
 
@@ -158,10 +158,10 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         }
         return retval;
     }
-    
+
     /**
      * Confirm the changing of the base channel for a system.
-     *   
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -180,17 +180,17 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         List<Channel> currentChildChans = new LinkedList<Channel>();
         List<Channel> currentPreservedChildChans = new LinkedList<Channel>();
         List<Channel> currentUnpreservedChildChans = new LinkedList<Channel>();
-        
+
         if (s.getChildChannels() != null) {
             for (Channel childChan : s.getChildChannels()) {
                 log.debug("   " + childChan.getName());
                 currentChildChans.add(childChan);
             }
         }
-        
+
         Long newBaseChannelId = (Long) ((DynaActionForm) formIn).get(NEW_BASE_CHANNEL_ID);
         log.debug("newBaseChannelId = " + newBaseChannelId);
-        
+
         Channel newChannel = null;
         List<Channel> preservedChildChannels = new LinkedList<Channel>();
 
@@ -202,7 +202,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
                     s.getBaseChannel(), newChannel, user);
             log.debug("Preservations:");
             for (Entry<Channel, Channel> entry : preservations.entrySet()) {
-                log.debug("   " + entry.getKey().getName() + " -> " + 
+                log.debug("   " + entry.getKey().getName() + " -> " +
                         entry.getValue().getName());
                 if (currentChildChans.contains(entry.getKey())) {
                     preservedChildChannels.add(entry.getValue());
@@ -226,9 +226,9 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         }
 
         // Pass along data for the actual update:
-        request.setAttribute(CURRENT_PRESERVED_CHILD_CHANNELS, 
+        request.setAttribute(CURRENT_PRESERVED_CHILD_CHANNELS,
                 convertToChannelOverview(currentPreservedChildChans));
-        request.setAttribute(CURRENT_UNPRESERVED_CHILD_CHANNELS, 
+        request.setAttribute(CURRENT_UNPRESERVED_CHILD_CHANNELS,
                 convertToChannelOverview(currentUnpreservedChildChans));
         request.setAttribute(PRESERVED_CHILD_CHANNELS,
                 convertToChannelOverview(preservedChildChannels));
@@ -236,12 +236,12 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         request.setAttribute(CURRENT_BASE_CHANNEL, s.getBaseChannel());
         request.setAttribute(NEW_BASE_CHANNEL_ID, newBaseChannelId);
         SdcHelper.ssmCheck(request, s.getId(), user);
-        return getStrutsDelegate().forwardParam(mapping.findForward("confirm"), 
+        return getStrutsDelegate().forwardParam(mapping.findForward("confirm"),
                 RequestContext.SID, s.getId().toString());
     }
-    
+
     /**
-     * Update the base channel for a system.  
+     * Update the base channel for a system.
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -258,31 +258,31 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         User user = rctx.getLoggedInUser();
         Server s  = SystemManager.lookupByIdAndUser(
                 rctx.getRequiredParam(RequestContext.SID), user);
-        
+
         Long newBaseChannelId = (Long) ((DynaActionForm) formIn).get(NEW_BASE_CHANNEL_ID);
-        UpdateBaseChannelCommand cmd = new UpdateBaseChannelCommand(user, s, 
+        UpdateBaseChannelCommand cmd = new UpdateBaseChannelCommand(user, s,
                 newBaseChannelId);
         ValidatorError error = cmd.store();
         if (error != null) {
             log.debug("Got error trying to store child channels: " + error);
-            getStrutsDelegate().saveMessages(request, 
+            getStrutsDelegate().saveMessages(request,
                     RhnValidationHelper.validatorErrorToActionErrors(error));
         }
         else {
-            getStrutsDelegate().saveMessage("sdc.channels.edit.base_channel_updated", 
+            getStrutsDelegate().saveMessage("sdc.channels.edit.base_channel_updated",
                     request);
 
-            String message = 
+            String message =
                 LocalizationService.getInstance().getMessage("snapshots.basechannel");
             SystemManager.snapshotServer(s, message);
         }
         SdcHelper.ssmCheck(request, s.getId(), user);
-        return getStrutsDelegate().forwardParam(mapping.findForward("update"), 
+        return getStrutsDelegate().forwardParam(mapping.findForward("update"),
                 RequestContext.SID, s.getId().toString());
     }
 
     /**
-     * Update the base channel for a system.  
+     * Update the base channel for a system.
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -297,9 +297,9 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         User user = rctx.getLoggedInUser();
         Server s  = SystemManager.lookupByIdAndUser(
                 rctx.getRequiredParam(RequestContext.SID), user);
-        
+
         String[] childChannelIds = request.getParameterValues(CHILD_CHANNELS);
-        
+
         List<Long> channelIdsList = new LinkedList<Long>();
         if (childChannelIds != null) {
             for (int i = 0; i < childChannelIds.length; i++) {
@@ -307,24 +307,24 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
                 log.debug("Adding child id: " + channelIdsList.get(i));
             }
         }
-        UpdateChildChannelsCommand cmd = new UpdateChildChannelsCommand(user, s, 
+        UpdateChildChannelsCommand cmd = new UpdateChildChannelsCommand(user, s,
                 channelIdsList);
         ValidatorError error = cmd.store();
         if (error != null) {
             log.debug("Got error trying to store child channels: " + error);
-            getStrutsDelegate().saveMessages(request, 
+            getStrutsDelegate().saveMessages(request,
                     RhnValidationHelper.validatorErrorToActionErrors(error));
         }
         else {
-            getStrutsDelegate().saveMessage("sdc.channels.edit.child_channels_updated", 
+            getStrutsDelegate().saveMessage("sdc.channels.edit.child_channels_updated",
                     request);
 
-            String message = 
+            String message =
                 LocalizationService.getInstance().getMessage("snapshots.childchannel");
             SystemManager.snapshotServer(s, message);
         }
-        
-        return getStrutsDelegate().forwardParam(mapping.findForward("update"), 
+
+        return getStrutsDelegate().forwardParam(mapping.findForward("update"),
                 RequestContext.SID, s.getId().toString());
     }
 
@@ -333,9 +333,9 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         map.put("sdc.channels.edit.confirm_update_base", "confirmUpdateBaseChannel");
         map.put("sdc.channels.edit.update_sub", "updateChildChannels");
         map.put("sdc.channels.confirmNewBase.cancel", "unspecified");
-        map.put("sdc.channels.confirmNewBase.modifyBaseSoftwareChannel", 
+        map.put("sdc.channels.confirmNewBase.modifyBaseSoftwareChannel",
                 "updateBaseChannel");
         return map;
-        
+
     }
 }

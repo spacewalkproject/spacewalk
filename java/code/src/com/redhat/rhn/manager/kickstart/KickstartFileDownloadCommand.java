@@ -24,20 +24,20 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Simple class to reduce dependencies between Struts and database laysers
- * 
+ *
  * @version $Rev $
  */
 public class KickstartFileDownloadCommand extends BaseKickstartCommand {
     private KickstartHelper helper;
     private String protocol;
-    
+
     /**
      * Constructor
      * @param ksidIn kickstart id
      * @param userIn logged in user
      * @param request HttpServletRequest
      */
-    public KickstartFileDownloadCommand(Long ksidIn, User userIn, 
+    public KickstartFileDownloadCommand(Long ksidIn, User userIn,
             HttpServletRequest request) {
         super(ksidIn, userIn);
         helper = new KickstartHelper(request);
@@ -52,13 +52,13 @@ public class KickstartFileDownloadCommand extends BaseKickstartCommand {
     }
     /**
      * Get the URL to the org_default for this Org.  Looks like this:
-     * 
+     *
      * https://rhn.redhat.com/kickstart/ks/org/
      *   2824120xe553d920d21606ccfc668e13bd8d8e3f/org_default
-     * 
+     *
      * @return String url
     */
-    public String getOrgDefaultUrl() { 
+    public String getOrgDefaultUrl() {
         return new KickstartUrlHelper(
                 this.ksdata, helper.getKickstartHost(),
                 this.protocol).getKickstartOrgDefaultUrl();

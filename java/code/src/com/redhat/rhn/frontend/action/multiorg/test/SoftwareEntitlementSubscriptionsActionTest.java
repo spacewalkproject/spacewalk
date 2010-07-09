@@ -30,7 +30,7 @@ import com.redhat.rhn.testing.TestUtils;
 public class SoftwareEntitlementSubscriptionsActionTest extends RhnMockStrutsTestCase {
     private Org testOrg;
     private ChannelFamily family;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
@@ -41,16 +41,16 @@ public class SoftwareEntitlementSubscriptionsActionTest extends RhnMockStrutsTes
         Channel chan = (Channel)s.getChannels().iterator().next();
         family = chan.getChannelFamily();
         testOrg = s.getOrg();
-        
-        
+
+
         setRequestPathInfo("/admin/multiorg/SoftwareEntitlementSubscriptions");
         addRequestParameter("cfid", family.getId().toString());
         actionPerform();
     }
-        
+
     public void testSatelliteOrg() throws Exception {
         // Default org should not have any entry for the test channel family created:
         assertNull(request.getAttribute("satelliteOrgOverview"));
     }
-        
+
 }

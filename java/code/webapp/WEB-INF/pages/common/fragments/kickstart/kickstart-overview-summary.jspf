@@ -6,7 +6,7 @@
 			 hidepagenums="true">
 
 	<rl:rowrenderer name="RowRenderer" rowclasses="list-row-odd"/>
-			 
+
 	<rl:column bound="false"
 				sortable="false"
 				headerkey="kickstartoverview.jsp.kickstartsummary"

@@ -5,7 +5,7 @@
 <struts-config>
 
     <form-beans>
-        <form-bean name="loginForm" 
+        <form-bean name="loginForm"
             type="org.apache.struts.action.DynaActionForm">
             <form-property name="username" type="java.lang.String"/>
             <form-property name="password" type="java.lang.String"/>
@@ -87,7 +87,7 @@
             <form-property name="zip" type="java.lang.String"/>
             <form-property name="usepam" type="java.lang.Boolean"/>
         </form-bean>
-        <form-bean name="userDetailsForm" 
+        <form-bean name="userDetailsForm"
             type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="uid" type="java.lang.Long"/>
             <form-property name="firstNames" type="java.lang.String"/>
@@ -96,13 +96,13 @@
             <form-property name="prefix" type="java.lang.String"/>
             <form-property name="desiredpassword" type="java.lang.String"/>
             <form-property name="desiredpasswordConfirm" type="java.lang.String"/>
-            <form-property name="possibleRoles" 
+            <form-property name="possibleRoles"
                            type="org.apache.struts.util.LabelValueBean[]"/>
             <form-property name="selectedRoles" type="java.lang.String[]"/>
             <form-property name="usersRoles" type="java.lang.String[]"/>
             <form-property name="usepam" type="java.lang.Boolean"/>
         </form-bean>
-        <form-bean name="orgCreateForm" 
+        <form-bean name="orgCreateForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="orgName" type="java.lang.String"/>
             <form-property name="login" type="java.lang.String"/>
@@ -115,7 +115,7 @@
             <form-property name="usepam" type="java.lang.Boolean"/>
             <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
-        <form-bean name="orgDetailsForm" 
+        <form-bean name="orgDetailsForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="orgName" type="java.lang.String"/>
             <form-property name="id" type="java.lang.String"/>
@@ -127,7 +127,7 @@
             <form-property name="cfgchannels" type="java.lang.String"/>
             <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
-        <form-bean name="orgSystemSubscriptionsForm" 
+        <form-bean name="orgSystemSubscriptionsForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="enterprise_entitled" type="java.lang.String"/>
             <form-property name="provisioning_entitled" type="java.lang.String"/>
@@ -143,11 +143,11 @@
             <form-property name="entName" type="java.lang.String"/>
             <form-property name="submitted" type="java.lang.Boolean"/>
         </form-bean>
-        <form-bean name="softwareEntitlementSubsForm" 
+        <form-bean name="softwareEntitlementSubsForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
-        <form-bean name="userPrefForm" 
+        <form-bean name="userPrefForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="uid" type="java.lang.Long"/>
             <form-property name="email" type="java.lang.Boolean"/>
@@ -156,7 +156,7 @@
             <form-property name="fax" type="java.lang.Boolean"/>
             <form-property name="mail" type="java.lang.Boolean"/>
             <form-property name="pagesize" type="java.lang.Integer"/>
-            <form-property name="possiblePanes" 
+            <form-property name="possiblePanes"
                            type="org.apache.struts.util.LabelValueBean[]"/>
             <form-property name="selectedPanes" type="java.lang.String[]"/>
         </form-bean>
@@ -172,7 +172,7 @@
             <form-property name="uid" type="java.lang.Long"/>
             <form-property name="email" type="java.lang.String"/>
         </form-bean>
-        <form-bean name="editAddressForm" 
+        <form-bean name="editAddressForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="uid" type="java.lang.Long"/>
             <form-property name="type" type="java.lang.String"/>
@@ -185,7 +185,7 @@
             <form-property name="state" type="java.lang.String"/>
             <form-property name="zip" type="java.lang.String"/>
             <form-property name="country" type="java.lang.String"/>
-        </form-bean>     
+        </form-bean>
         <form-bean name="channelPermsForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="uid" type="java.lang.Long"/>
@@ -283,7 +283,7 @@
             <form-property name="relevant" type="java.lang.String" />
             <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
-        
+
         <form-bean 	name="systemSearchForm"
         			type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
         <form-property name="search_string" type="java.lang.String" />
@@ -292,14 +292,14 @@
         <form-property name="invert" type="java.lang.Boolean" />
         <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
-        
+
         <form-bean  name="docsSearchForm"
                     type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
         <form-property name="search_string" type="java.lang.String" />
         <form-property name="view_mode" type="java.lang.String" />
         <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
-        
+
         <form-bean name="searchForm"
         		   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
         <form-property name="search_type" type="java.lang.String" />
@@ -362,7 +362,7 @@
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
-        
+
         <form-bean name="probeSuiteEditForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="description"  type="java.lang.String"/>
@@ -376,14 +376,14 @@
             <form-property name="is_monitoring_scout"  type="java.lang.Boolean"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
-        
+
         <form-bean name="scheduleRemoteCmdForm"
                    type="com.redhat.rhn.frontend.struts.CommandForm">
             <form-property name="run_script" type="java.lang.String"/>
             <form-property name="username" type="java.lang.String"/>
             <form-property name="group" type="java.lang.String"/>
-            <form-property name="timeout" type="java.lang.Long"/>            
-            <form-property name="script" type="java.lang.String"/>                        
+            <form-property name="timeout" type="java.lang.Long"/>
+            <form-property name="script" type="java.lang.String"/>
             <form-property name="session_set_label" type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="mode" type="java.lang.String"/>
@@ -409,7 +409,7 @@
             <form-property name="submitted" type="java.lang.Boolean"/>
         </form-bean>
 
-        <form-bean name="compareProfileForm" 
+        <form-bean name="compareProfileForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="profile" type="java.lang.Long"/>
             <form-property name="server" type="java.lang.Long"/>
@@ -418,15 +418,15 @@
             <form-property name="compareSystemsBtn" type="java.lang.String"/>
             <form-property name="createBtn" type="java.lang.String"/>
         </form-bean>
-        
-        <form-bean name="deleteProfileForm" 
+
+        <form-bean name="deleteProfileForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="prid" type="java.lang.Long"/>
             <form-property name="sid" type="java.lang.Long"/>
             <form-property name="submitted" type="java.lang.Boolean"/>
         </form-bean>
 
-        <form-bean name="deleteSatAdminRoleForm" 
+        <form-bean name="deleteSatAdminRoleForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="uid" type="java.lang.Long"/>
             <form-property name="submitted" type="java.lang.Boolean"/>
@@ -463,7 +463,7 @@
             <form-property name="output_match_case"  type="java.lang.Boolean"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
-        
+
         <form-bean name="syncProfilesForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="use_date"  type="java.lang.Boolean"/>
@@ -474,7 +474,7 @@
             <form-property name="date_minute"  type="java.lang.Integer"/>
             <form-property name="date_am_pm"  type="java.lang.Integer"/>
         </form-bean>
-        
+
         <form-bean name="applyErrataConfirmForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="use_date"  type="java.lang.Boolean"/>
@@ -493,12 +493,12 @@
             <form-property name="type"  type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
-        
+
         <form-bean name="generalConfigForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="traceback_mail"  type="java.lang.String"/>
             <form-property name="server|jabber_server"  type="java.lang.String"/>
-            <form-property name="server|satellite|http_proxy"  type="java.lang.String"/>            
+            <form-property name="server|satellite|http_proxy"  type="java.lang.String"/>
             <form-property name="server|satellite|http_proxy_username"  type="java.lang.String"/>
             <form-property name="server|satellite|http_proxy_password"  type="java.lang.String"/>
             <form-property name="server|satellite|http_proxy_password_confirm"  type="java.lang.String"/>
@@ -507,7 +507,7 @@
             <form-property name="web|enable_solaris_support"  type="java.lang.Boolean"/>
             <form-property name="disconnected"  type="java.lang.Boolean"/>
             <form-property name="web|is_monitoring_backend"  type="java.lang.Boolean"/>
-            
+
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
 
@@ -531,7 +531,7 @@
             <form-property name="http-proxy-password"  type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
-        
+
         <form-bean name="restartForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="restart"  type="java.lang.Boolean"/>
@@ -566,7 +566,7 @@
             <form-property name="showalreadycloned"  type="java.lang.Boolean"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
-        
+
         <form-bean name="packagePushForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
         	<form-property name="cid" type="java.lang.Long"/>
@@ -576,13 +576,13 @@
         <!-- Kickstart Form Beans -->
         <form-bean name="kickstartDetailsForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="label" type="java.lang.String"/>            
+            <form-property name="label" type="java.lang.String"/>
             <form-property name="active" type="java.lang.Boolean" />
             <form-property name="post_log" type="java.lang.Boolean" />
             <form-property name="pre_log" type="java.lang.Boolean" />
             <form-property name="ksCfg" type="java.lang.Boolean" />
             <form-property name="org_default" type="java.lang.Boolean" />
-            <form-property name="comments" type="java.lang.String" /> 
+            <form-property name="comments" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="virtualizationTypes" type="java.util.List" />
             <form-property name="virtualizationTypeLabel" type="java.lang.String" />
@@ -593,41 +593,41 @@
  			<form-property name="virt_cpus"  type="java.lang.Integer"/>
  			<form-property name="virt_disk_size"  type="java.lang.Integer"/>
  			<form-property name="virt_bridge" type="java.lang.String"/>
-            
+
         </form-bean>
-        
+
         <form-bean name="kickstartDeleteForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-         	<form-property name="submitted"  type="java.lang.Boolean"/>          
+		<form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
-        
+
         <form-bean name="kickstartSoftwareForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="channel" type="java.lang.Long"/>            
+            <form-property name="channel" type="java.lang.Long"/>
             <form-property name="tree" type="java.lang.Long" />
-            <form-property name="url" type="java.lang.String" /> 
+            <form-property name="url" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="fieldChanged" type="java.lang.String" />
             <form-property name="child_channels" type="java.lang.String[]"/>
-			<form-property name="possibleRepos" 
+			<form-property name="possibleRepos"
                            type="com.redhat.rhn.frontend.struts.LabelValueEnabledBean[]"/>
-            <form-property name="selectedRepos" type="java.lang.String[]"/>            
-            
+            <form-property name="selectedRepos" type="java.lang.String[]"/>
+
         </form-bean>
-        
+
         <form-bean name="kickstartIpRangeForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="octet1a" type="java.lang.Long" />                   
-            <form-property name="octet1b" type="java.lang.Long" />                   
-            <form-property name="octet1c" type="java.lang.Long" />                               
-            <form-property name="octet1d" type="java.lang.Long" />                               
+            <form-property name="octet1a" type="java.lang.Long" />
+            <form-property name="octet1b" type="java.lang.Long" />
+            <form-property name="octet1c" type="java.lang.Long" />
+            <form-property name="octet1d" type="java.lang.Long" />
             <form-property name="octet2a" type="java.lang.Long" />
-            <form-property name="octet2b" type="java.lang.Long" />                   
-            <form-property name="octet2c" type="java.lang.Long" />                   
+            <form-property name="octet2b" type="java.lang.Long" />
+            <form-property name="octet2c" type="java.lang.Long" />
             <form-property name="octet2d" type="java.lang.Long" />
-            <form-property name="submitted"  type="java.lang.Boolean"/>                   
+            <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
-        
+
         <form-bean name="kickstartSystemDetailsForm"
                   type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="ksid" type="java.lang.Long" />
@@ -639,11 +639,11 @@
             <form-property name="rootPassword" type="java.lang.String" />
             <form-property name="rootPasswordConfirm" type="java.lang.String" />
             <form-property name="submitted" type="java.lang.Boolean" />
-        </form-bean>                                                
+        </form-bean>
 
         <form-bean name="kickstartScriptForm"
                    type="org.apache.struts.action.DynaActionForm">
-            <form-property name="language" type="java.lang.String" />            
+            <form-property name="language" type="java.lang.String" />
             <form-property name="contents" type="java.lang.String" />
             <form-property name="type" type="java.lang.String" />
             <form-property name="nochroot" type="java.lang.Boolean" />
@@ -678,20 +678,20 @@
                    type="com.redhat.rhn.frontend.action.kickstart.KickstartPartitionForm">
             <form-property name="partitions" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
-        </form-bean>        
+        </form-bean>
 
       <form-bean name="kickstartVariableForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="variables" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="netbootEnabled" type="java.lang.Boolean"/>
-        </form-bean>           
-        
+        </form-bean>
+
         <form-bean name="kickstartDownloadForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="filedata" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
-        </form-bean>        
+        </form-bean>
 
         <form-bean name="kickstartFileForm"
                    type="com.redhat.rhn.frontend.struts.ContentsForm">
@@ -704,14 +704,14 @@
 			<form-property name="contents" type="java.lang.String" />
             <form-property name="org_default" type="java.lang.Boolean" />
             <form-property name="comments" type="java.lang.String" />
-            <form-property name="active" type="java.lang.Boolean" /> 
+            <form-property name="active" type="java.lang.Boolean" />
             <form-property name="kernel_options" type="java.lang.String"/>
-            <form-property name="post_kernel_options" type="java.lang.String"/> 
+            <form-property name="post_kernel_options" type="java.lang.String"/>
 			<form-property name="virt_disk_path" type="java.lang.String"/>
  			<form-property name="virt_mem_mb"  type="java.lang.Integer"/>
  			<form-property name="virt_cpus"  type="java.lang.Integer"/>
  			<form-property name="virt_disk_size"  type="java.lang.Integer"/>
- 			<form-property name="virt_bridge" type="java.lang.String"/>                        
+			<form-property name="virt_bridge" type="java.lang.String"/>
         </form-bean>
 
         <form-bean name="kickstartCreateWizardForm"
@@ -736,7 +736,7 @@
 	    	<form-property name="rawData" type="java.lang.String" />
 			<form-property name="cffUpload"      type="org.apache.struts.upload.FormFile" />	    	
         </form-bean>
-        
+
         <form-bean name="kickstartScheduleWizardForm"
             	   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="sid" type="java.lang.Long" />
@@ -744,7 +744,7 @@
             <form-property name="cobbler_id" type="java.lang.String" />
             <form-property name="wizardStep" type="java.lang.String" />
             <form-property name="prevStep" type="java.lang.String" />
-            <form-property name="nextStep" type="java.lang.String" /> 
+            <form-property name="nextStep" type="java.lang.String" />
             <form-property name="scheduleAsap" type="java.lang.String" />
             <form-property name="scheduleDate" type="java.util.Date" />
             <form-property name="nextAction" type="java.lang.String" />
@@ -755,7 +755,7 @@
             <form-property name="kernelParamsType" type="java.lang.String" />
             <form-property name="kernelParams" type="java.lang.String" />
             <form-property name="postKernelParamsType" type="java.lang.String" />
-            <form-property name="postKernelParams" type="java.lang.String" />            
+            <form-property name="postKernelParams" type="java.lang.String" />
             <form-property name="targetProfileType" type="java.lang.String" />
             <form-property name="targetProfile" type="java.lang.Long" />
             <form-property name="syncPackages" type="java.util.List" />
@@ -766,7 +766,7 @@
             <form-property name="date_hour" type="java.lang.Integer" />
             <form-property name="date_minute" type="java.lang.Integer" />
             <form-property name="date_am_pm" type="java.lang.Integer" />
-			<!-- Needed for scheduling Virtualization stuff-->            
+			<!-- Needed for scheduling Virtualization stuff-->
 		    <form-property name="memoryAllocation" type="java.lang.String" />
 		    <form-property name="virtualCpus" type="java.lang.String" />
 		    <form-property name="virtBridge" type="java.lang.String" />
@@ -775,12 +775,12 @@
 		    <form-property name="localStorageMegabytes" type="java.lang.String" />
 		    <form-property name="guestName" type="java.lang.String" />
 
-            
+
         </form-bean>
 
         <form-bean name="kickstartCloneForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="label" type="java.lang.String"/>            
+            <form-property name="label" type="java.lang.String"/>
             <form-property name="name" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
@@ -807,7 +807,7 @@
             <form-property name="kernelopts" type="java.lang.String"/>
             <form-property name="postkernelopts" type="java.lang.String"/>
         </form-bean>
-        
+
         <form-bean name="treeDeleteForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="submitted"  type="java.lang.Boolean"/>
@@ -815,7 +815,7 @@
             <form-property name="installtype" type="java.lang.String"/>
             <form-property name="basepath" type="java.lang.String"/>
             <form-property name="bootimage" type="java.lang.String"/>
-            <form-property name="channelid" type="java.lang.Long"/>       
+            <form-property name="channelid" type="java.lang.Long"/>
         </form-bean>
 
         <form-bean name="contentSourceForm"
@@ -824,7 +824,7 @@
             <form-property name="sourceid" type="java.lang.Long" />
             <form-property name="label" type="java.lang.String"/>
         </form-bean>
-                
+
         <form-bean name="cobblerSnippetsForm"
                    type="com.redhat.rhn.frontend.struts.ContentsForm">
             <form-property name="name" type="java.lang.String" />
@@ -839,7 +839,7 @@
         <form-bean name="localePreferencesForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
            <form-property name="preferredLocale" type="java.lang.String" />
-           <form-property name="timezone" type="java.lang.Integer"/>           
+           <form-property name="timezone" type="java.lang.Integer"/>
            <form-property name="submitted" type="java.lang.Boolean" />
            <form-property name="uid" type="java.lang.Long" />
         </form-bean>
@@ -877,12 +877,12 @@
             <form-property name="checksum" type="java.lang.String" />
         </form-bean>
 
-       <form-bean name="channelDeleteForm" 
+       <form-bean name="channelDeleteForm"
            type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
            <form-property name="cid" type="java.lang.Long"/>
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
-       
+
 	<!-- ConfigChannel forms -->
     <form-bean name="channelOverviewForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
@@ -920,9 +920,9 @@
         <form-property name="guestSettingValue" type="java.lang.String"/>
     </form-bean>
 
-    <form-bean name="channelRanksForm" 
+    <form-bean name="channelRanksForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="possibleChannels" 
+            <form-property name="possibleChannels"
                            type="java.util.LinkedHashSet"/>
             <form-property name="selectedChannel" type="java.lang.String"/>
             <form-property name="submitted"   type="java.lang.Boolean" />
@@ -930,7 +930,7 @@
             <form-property name="rankedValues" type="java.lang.String"/>
 
     </form-bean>
-    
+
     <form-bean name="recentlyRegisteredSystemsForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
                <form-property name="threshold" type="java.lang.String"/>
@@ -939,7 +939,7 @@
 
 
     <!--END ConfigChannel forms -->
-    
+
     <form-bean name="systemDetailsForm"
                type="com.redhat.rhn.frontend.action.systems.sdc.SystemDetailsForm">
       <form-property name="system_name" type="java.lang.String"/>
@@ -962,7 +962,7 @@
       <form-property name="room" type="java.lang.String"/>
       <form-property name="rack" type="java.lang.String"/>
     </form-bean>
-        
+
     <form-bean name="systemChannelsForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
       <form-property name="child_channels" type="java.lang.String[]"/>
@@ -970,8 +970,8 @@
       <form-property name="new_base_channel_id" type="java.lang.Long"/>
       <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
-        
-    
+
+
     <form-bean name="targetSystemsForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="use_date"  type="java.lang.Boolean"/>
@@ -983,12 +983,12 @@
       <form-property name="date_am_pm"  type="java.lang.Integer"/>
       <form-property name="submitted"   type="java.lang.Boolean" />
     </form-bean>
-    
+
     <form-bean name="fileUploadForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="file"  type="org.apache.struts.upload.FormFile" />
   </form-bean>
-    
+
     <form-bean name="datePickerForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="use_date"  type="java.lang.Boolean"/>
@@ -1000,13 +1000,13 @@
       <form-property name="date_am_pm"  type="java.lang.Integer"/>
       <form-property name="submitted"   type="java.lang.Boolean" />
     </form-bean>
-    
+
     <form-bean name="submittedForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="submitted"   type="java.lang.Boolean" />
     </form-bean>
 		
-	<form-bean name="scrollForm" 
+	<form-bean name="scrollForm"
 		type="org.apache.struts.action.DynaActionForm">
         <form-property name="xPosition" type="java.lang.Integer"/>
         <form-property name="yPosition" type="java.lang.Integer"/>
@@ -1041,7 +1041,7 @@
       handler="com.redhat.rhn.common.errors.SatelliteExceptionHandler"/>
   </global-exceptions>
 
-  <!-- 
+  <!--
     almost all of our jsp's are protected by WEB-INF and use a
     model 2 controller to choose as views
   -->
@@ -1081,7 +1081,7 @@
       <forward name="failure" path="/WEB-INF/pages/common/relogin.jsp" />
       <forward name="error" path="/WEB-INF/pages/common/errors/loginerror.jsp" />
     </action>
-    
+
     <action path="/Login"
             scope="request"
             input="/WEB-INF/pages/common/login.jsp"
@@ -1091,7 +1091,7 @@
           <forward name="needuser" path="/newlogin/CreateFirstUser.do" redirect="true"/>
           <forward name="loggedin" path="/YourRhn.do" redirect="true"/>
     </action>
-    
+
     <action path="/LoginSubmit"
         name="loginForm"
         scope="request"
@@ -1115,7 +1115,7 @@
         input="/WEB-INF/pages/user/create/usercreate.jsp"
         type="com.redhat.rhn.frontend.action.user.CreateUserSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/user/create/usercreate.jsp" />
     </action>
@@ -1138,10 +1138,10 @@
         input="/WEB-INF/pages/user/create/usercreate.jsp"
         type="com.redhat.rhn.frontend.action.user.CreateUserAction">
       <forward name="success_sat" path="/YourRhn.do"
-               redirect="true"/>         
+               redirect="true"/>
       <forward name="fail-sat" path="/newlogin/CreateFirstUser.do"/>
     </action>
-    
+
     <action path="/newlogin/CreateSatelliteSubmit"
         name="createSatelliteForm"
         scope="request"
@@ -1152,14 +1152,14 @@
                redirect="true"/>
       <forward name="failure" path="/users/CreateUser.do"/>
     </action>
-    
+
     <action path="/YourRhn"
         scope="request"
         input="/WEB-INF/pages/yourrhn.jsp"
         type="com.redhat.rhn.frontend.action.YourRhnAction">
       <forward name="default" path="/WEB-INF/pages/yourrhn.jsp" />
     </action>
-    
+
     <action path="/Search"
         name="searchForm"
         scope="request"
@@ -1180,7 +1180,7 @@
         input="/WEB-INF/pages/admin/users/userdetails.jsp"
         type="com.redhat.rhn.frontend.action.user.UserEditSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/userdetails.jsp" />
     </action>
@@ -1191,11 +1191,11 @@
         input="/WEB-INF/pages/admin/users/userdetails.jsp"
         type="com.redhat.rhn.frontend.action.user.AdminUserEditAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
-      <forward name="success" path="/users/UserDetails.do" 
+      <forward name="success" path="/users/UserDetails.do"
                redirect="true" />
-      <!-- noaccess forward is used when a user takes roles away from himself and then 
+      <!-- noaccess forward is used when a user takes roles away from himself and then
            doesn't have access to the UserDetails page anymore -->
       <forward name="noaccess" path="/account/UserDetails.do" redirect="true"/>
       <forward name="failure" path="/users/UserDetails.do" />
@@ -1214,11 +1214,11 @@
         scope="request"
         input="/WEB-INF/pages/user/edit/yourdetails.jsp"
         type="com.redhat.rhn.frontend.action.user.SelfEditAction">
-      <forward name="success" path="/account/UserDetails.do" 
+      <forward name="success" path="/account/UserDetails.do"
                redirect="true" />
       <forward name="failure" path="/account/UserDetails.do" />
     </action>
- 
+
 <!-- ===============================================  User Preferences -->
     <action path="/users/UserPreferences"
         name="userPrefForm"
@@ -1226,23 +1226,23 @@
         input="/WEB-INF/pages/admin/users/userpreferences.jsp"
         type="com.redhat.rhn.frontend.action.user.UserPrefSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/userpreferences.jsp" />
     </action>
-    
+
     <action path="/users/LocalePreferences"
         name="localePreferencesForm"
         scope="request"
         input="/WEB-INF/pages/admin/users/userpreferences.jsp"
         type="com.redhat.rhn.frontend.action.user.UserLocalePrefAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/localepreferences.jsp" />
       <forward name="display" path="/users/LocalePreferences.do" />
     </action>
-    
+
 
     <action path="/account/UserPreferences"
         name="userPrefForm"
@@ -1251,7 +1251,7 @@
         type="com.redhat.rhn.frontend.action.user.UserPrefSetupAction">
       <forward name="default" path="/WEB-INF/pages/user/edit/yourpreferences.jsp" />
     </action>
-    
+
     <action path="/account/LocalePreferences"
          name="localePreferencesForm"
          scope="request"
@@ -1260,16 +1260,16 @@
          	redirect="true" />
         <forward name="default" path="/WEB-INF/pages/user/edit/localepreference.jsp" />
     </action>
-    
+
     <action path="/users/PrefSubmit"
         name="userPrefForm"
         scope="request"
         input="/WEB-INF/pages/admin/users/userpreferences.jsp"
         type="com.redhat.rhn.frontend.action.user.UserPrefAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
-      <forward name="success" path="/users/UserPreferences.do" 
+      <forward name="success" path="/users/UserPreferences.do"
                redirect="true" />
       <forward name="failure" path="/users/UserPreferences.do" />
     </action>
@@ -1279,12 +1279,12 @@
         scope="request"
         input="/WEB-INF/pages/admin/users/userpreferences.jsp"
         type="com.redhat.rhn.frontend.action.user.UserPrefAction">
-      <forward name="success" path="/account/UserPreferences.do" 
+      <forward name="success" path="/account/UserPreferences.do"
                redirect="true" />
       <forward name="failure" path="/account/UserPreferences.do" />
     </action>
     <!-- ===========================================  End User Preferences -->
-    
+
     <action path="/users/EditAddress"
         name="editAddressForm"
         scope="request"
@@ -1292,7 +1292,7 @@
         input="/WEB-INF/pages/admin/users/edit_address.jsp"
         type="com.redhat.rhn.frontend.action.user.EditAddressSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/edit_address.jsp" />
     </action>
@@ -1313,9 +1313,9 @@
         input="/WEB-INF/pages/admin/users/edit_address.jsp"
         type="com.redhat.rhn.frontend.action.user.EditAddressAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
-      <forward name="success" path="/users/Addresses.do" 
+      <forward name="success" path="/users/Addresses.do"
                redirect="true" />
       <forward name="failure" path="/users/EditAddress.do" />
     </action>
@@ -1326,7 +1326,7 @@
         validate="false"
         input="/WEB-INF/pages/admin/users/edit_address.jsp"
         type="com.redhat.rhn.frontend.action.user.EditAddressAction">
-      <forward name="success" path="/account/Addresses.do" 
+      <forward name="success" path="/account/Addresses.do"
                redirect="true" />
       <forward name="failure" path="/account/EditAddress.do" />
     </action>
@@ -1337,7 +1337,7 @@
         input="/WEB-INF/pages/admin/assignedgroups.jsp"
         type="com.redhat.rhn.frontend.action.user.AssignedGroupsSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/assignedgroups.jsp" />
     </action>
@@ -1348,7 +1348,7 @@
         input="/WEB-INF/pages/admin/users/changeemail.jsp"
         type="com.redhat.rhn.frontend.action.user.ChangeEmailSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/changeemail.jsp" />
     </action>
@@ -1359,7 +1359,7 @@
         input="/WEB-INF/pages/admin/users/changeemail.jsp"
         type="com.redhat.rhn.frontend.action.user.ChangeEmailAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="updated" path="/users/ChangeEmail.do" redirect="true" />
       <forward name="failure" path="/users/ChangeEmail.do" />
@@ -1387,7 +1387,7 @@
             input="/WEB-INF/pages/admin/users/useraddresses.jsp"
             type="com.redhat.rhn.frontend.action.user.AddressesAction"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/useraddresses.jsp" />
     </action>
@@ -1404,73 +1404,73 @@
         input="/WEB-INF/pages/admin/users/userlist.jsp"
         type="com.redhat.rhn.frontend.action.user.UserListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/userlist.jsp" />
     </action>
-    
+
      <action path="/users/UserListSubmit"
          scope="request"
          input="/WEB-INF/pages/admin/users/userlist.jsp"
          type="com.redhat.rhn.frontend.action.user.UserListAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping"
          parameter="dispatch">
-       <set-property property="acls" 
+       <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
        <forward name="default" path="/users/UserList.do" redirect="true" />
      </action>
-     
+
     <action path="/users/ActiveList"
         scope="request"
         input="/WEB-INF/pages/admin/users/activelist.jsp"
         type="com.redhat.rhn.frontend.action.user.EnabledListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/activelist.jsp" />
     </action>
-     
+
     <action path="/users/DisabledList"
         scope="request"
         input="/WEB-INF/pages/admin/users/disabledlist.jsp"
         type="com.redhat.rhn.frontend.action.user.DisabledListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/disabledlist.jsp" />
 	  <forward name="enable" path="/users/EnableConfirm.do" redirect="true" />
     </action>
-    
+
      <action path="/users/DisabledListSubmit"
          scope="request"
          input="/WEB-INF/pages/admin/users/disabledlist.jsp"
          type="com.redhat.rhn.frontend.action.user.DisabledListSetupAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping"
          parameter="dispatch">
-       <set-property property="acls" 
+       <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
        <forward name="default" path="/users/DisabledList.do" redirect="true" />
        <forward name="enable" path="/users/EnableConfirm.do" redirect="true" />
      </action>
-     
+
     <action path="/users/EnableConfirm"
         scope="request"
         input="/WEB-INF/pages/admin/users/userconfirm.jsp"
         type="com.redhat.rhn.frontend.action.user.EnableConfirmSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/userconfirm.jsp" />
       <forward name="enabled" path="/users/ActiveList.do" redirect="true" />
     </action>
-    
-    <action path="/users/ChannelPerms" 
+
+    <action path="/users/ChannelPerms"
         name="channelPermsForm"
         scope="request"
         input="/WEB-INF/pages/admin/channelperms.jsp"
         type="com.redhat.rhn.frontend.action.user.ChannelPermsSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/channelperms.jsp" />
     </action>
@@ -1481,19 +1481,19 @@
         input="/WEB-INF/pages/admin/channelperms.jsp"
         type="com.redhat.rhn.frontend.action.user.ChannelPermsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="subscribe" path="/users/ChannelPerms.do" redirect="true" />
       <forward name="manage" path="/users/ChannelManagementPerms.do" redirect="true" />
     </action>
-    
+
     <action path="/users/ChannelManagementPerms"
         name="channelPermsForm"
         scope="request"
         input="/WEB-INF/pages/channelperms.jsp"
         type="com.redhat.rhn.frontend.action.user.ChannelManagementPermsSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/channelmanagementperms.jsp" />
     </action>
@@ -1503,7 +1503,7 @@
         input="/WEB-INF/pages/admin/users/userlist.jsp"
         type="com.redhat.rhn.frontend.action.user.VisibleSystemsListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/systemsadmined.jsp" />
     </action>
@@ -1514,56 +1514,56 @@
         type="com.redhat.rhn.frontend.action.user.VisibleSystemsListAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/users/SystemsAdmined.do" redirect="true"/>
     </action>
-    
+
     <action path="/users/DeleteUser"
         scope="request"
         input="/WEB-INF/pages/admin/users/deleteuser.jsp"
         type="com.redhat.rhn.frontend.action.user.DeleteUserSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/deleteuser.jsp"/>
     </action>
-    
+
      <action path="/users/DeleteUserSubmit"
          scope="request"
          input="/WEB-INF/pages/admin/users/userlist.jsp"
          type="com.redhat.rhn.frontend.action.user.DeleteUserAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-       <set-property property="acls" 
+       <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
        <forward name="success" path="/users/ActiveList.do" redirect="true"/>
        <forward name="failure" path="/users/UserDetails.do" redirect="false"/>
      </action>
-     
+
     <action path="/users/DisableUser"
         scope="request"
         input="/WEB-INF/pages/admin/users/disableuser.jsp"
         type="com.redhat.rhn.frontend.action.user.DisableUserSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/disableuser.jsp"/>
     </action>
-    
+
      <action path="/users/DisableUserSubmit"
          scope="request"
          input="/WEB-INF/pages/admin/users/userlist.jsp"
          type="com.redhat.rhn.frontend.action.user.DisableUserAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-       <set-property property="acls" 
+       <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
        <forward name="success" path="/users/ActiveList.do" redirect="true"/>
        <forward name="failure" path="/users/UserDetails.do" redirect="false"/>
      </action>
-    
+
     <action path="/account/AccountDeactivation"
             forward="/WEB-INF/pages/admin/disableself.jsp" />
-            
+
     <action path="/account/AccountDeactivationSubmit"
             scope="request"
             input="/WEB-INF/pages/admin/disableself.jsp"
@@ -1571,7 +1571,7 @@
        <forward name="default" path="/account/AccountDeactivationConfirm.do"
                 redirect="true" />
     </action>
-     
+
     <action path="/account/AccountDeactivationConfirm"
             name="deactivateSelfForm"
             scope="request"
@@ -1580,30 +1580,30 @@
        <forward name="default" path="/WEB-INF/pages/admin/disableselfconfirm.jsp" />
        <forward name="failure" path="/account/AccountDeactivation.do" />
     </action>
-     
+
     <action path="/users/EnableUser"
         scope="request"
         input="/WEB-INF/pages/admin/users/enableuser.jsp"
         type="com.redhat.rhn.frontend.action.user.EnableUserSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/enableuser.jsp" />
     </action>
-    
+
      <action path="/users/EnableUserSubmit"
          scope="request"
          input="/WEB-INF/pages/admin/users/userlist.jsp"
          type="com.redhat.rhn.frontend.action.user.EnableUserAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-       <set-property property="acls" 
+       <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
        <forward name="success" path="/users/ActiveList.do" redirect="true"/>
        <forward name="failure" path="/users/UserDetails.do" redirect="false"/>
      </action>
 
     <!-- ================================= Scheduled Actions -->
-    
+
     <action path="/schedule/PendingActions"
         scope="request"
         input="/WEB-INF/pages/schedule/pendingactions.jsp"
@@ -1613,8 +1613,8 @@
         <forward name="confirm"
             path="/schedule/PendingActionsDeleteConfirm.do" redirect="true" />
     </action>
-    
-     
+
+
     <action path="/schedule/PendingActionsDeleteConfirm"
          scope="request"
          input="/WEB-INF/pages/schedule/pendingactionsconfirm.jsp"
@@ -1623,14 +1623,14 @@
             path="/WEB-INF/pages/schedule/pendingactionsconfirm.jsp" />
          <forward name="success" path="/schedule/PendingActions.do" redirect="true"/>
     </action>
-     
-     
+
+
     <action path="/schedule/FailedActions"
         scope="request"
         input="/WEB-INF/pages/schedule/failedactions.jsp"
         type="com.redhat.rhn.frontend.action.schedule.FailedActionsSetupAction">
         <forward name="default"
-               path="/WEB-INF/pages/schedule/failedactions.jsp" />  
+               path="/WEB-INF/pages/schedule/failedactions.jsp" />
         <forward name="archive" path="/schedule/FailedActions.do" redirect="true"/>
     </action>
 
@@ -1639,7 +1639,7 @@
         input="/WEB-INF/pages/schedule/completedactions.jsp"
         type="com.redhat.rhn.frontend.action.schedule.CompletedActionsSetupAction">
         <forward name="default"
-               path="/WEB-INF/pages/schedule/completedactions.jsp" />  
+               path="/WEB-INF/pages/schedule/completedactions.jsp" />
 		<forward name="archive" path="/schedule/CompletedActions.do" redirect="true"/>
     </action>
 
@@ -1649,18 +1649,18 @@
         input="/WEB-INF/pages/schedule/archivedactions.jsp"
         type="com.redhat.rhn.frontend.action.schedule.ArchivedActionsSetupAction">
         <forward name="default"
-               path="/WEB-INF/pages/schedule/archivedactions.jsp" />  
+               path="/WEB-INF/pages/schedule/archivedactions.jsp" />
     </action>
 
-   
+
      <action path="/schedule/PackageList"
         scope="request"
         input="/WEB-INF/pages/schedule/packagelist.jsp"
         type="com.redhat.rhn.frontend.action.schedule.PackageListSetupAction">
         <forward name="default"
-            path="/WEB-INF/pages/schedule/packagelist.jsp" />   
+            path="/WEB-INF/pages/schedule/packagelist.jsp" />
      </action>
-     
+
      <action path="/schedule/ActionDetails"
          scope="request"
          input="/WEB-INF/pages/schedule/actiondetails.jsp"
@@ -1704,7 +1704,7 @@
             <forward name="scheduled"
                      path="/schedule/ActionDetails.do" redirect="true" />
     </action>
-    
+
     <action path="/schedule/InProgressSystems"
             scope="request"
             input="/WEB-INF/pages/schedule/inprogresssystems.jsp"
@@ -1712,7 +1712,7 @@
             <forward name="default"
                      path="/WEB-INF/pages/schedule/inprogresssystems.jsp" />
     </action>
-    
+
     <action path="/schedule/InProgressSystemsSubmit"
             scope="request"
             input="/WEB-INF/pages/schedule/inprogresssystems.jsp"
@@ -1758,7 +1758,7 @@
       <forward name="default" path="/WEB-INF/pages/errata/erratasearch.jsp"/>
       <forward name="success" path="/errata/Search.do" redirect="true" />
     </action>
-    
+
     <action path="/errata/AllErrata"
         scope="request"
         input="/WEB-INF/pages/errata/all.jsp"
@@ -1798,7 +1798,7 @@
         <forward name="default"
             path="/WEB-INF/pages/errata/overview.jsp"/>
     </action>
-    
+
     <action path="/errata/OverviewBugErrata"
         scope="request"
         input="/WEB-INF/pages/errata/overview.jsp"
@@ -1828,7 +1828,7 @@
         input="/WEB-INF/pages/errata/relevant.jsp"
         type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantAction">
         <forward name="default"
-               path="/WEB-INF/pages/errata/relevant.jsp" />  
+               path="/WEB-INF/pages/errata/relevant.jsp" />
     </action>
 
    <action path="/errata/RelevantBugErrata"
@@ -1862,7 +1862,7 @@
         <forward name="default"
                path="/WEB-INF/pages/errata/details.jsp" />
     </action>
-    
+
     <action path="/errata/details/Packages"
         scope="request"
         input="/WEB-INF/pages/errata/erratapackages.jsp"
@@ -1870,13 +1870,13 @@
         <forward name="default"
             path="/WEB-INF/pages/errata/erratapackages.jsp" />
     </action>
-    
+
     <action path="/errata/details/SystemsAffected"
         scope="request"
         input="/WEB-INF/pages/errata/affectedsystems.jsp"
         type="com.redhat.rhn.frontend.action.errata.AffectedSystemsSetupAction">
         <forward name="default"
-               path="/WEB-INF/pages/errata/affectedsystems.jsp" />  
+               path="/WEB-INF/pages/errata/affectedsystems.jsp" />
 		<forward name="confirm"
 				path="/errata/details/SystemsAffectedSubmit.do" />
     </action>
@@ -1891,12 +1891,12 @@
          <forward name="confirm"
                   path="/errata/details/ErrataConfirm.do" redirect="true"/>
      </action>
-     
+
     <action path="/errata/details/ErrataConfirm"
         scope="request"
         input="/WEB-INF/pages/admin/errata/confirm.jsp"
         name="applyErrataConfirmForm"
-        type="com.redhat.rhn.frontend.action.errata.ErrataConfirmSetupAction">        
+        type="com.redhat.rhn.frontend.action.errata.ErrataConfirmSetupAction">
         <forward name="default"
             path="/WEB-INF/pages/admin/errata/confirm.jsp" />
     </action>
@@ -1912,7 +1912,7 @@
          <forward name="confirmed"
                   path="/errata/RelevantErrata.do" redirect="true"/>
      </action>
-     
+
      <!-- Beginning of errata management -->
 
     <action path="/errata/manage/UnpublishedErrata"
@@ -1922,7 +1922,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
-               path="/WEB-INF/pages/errata/unpublished.jsp" />  
+               path="/WEB-INF/pages/errata/unpublished.jsp" />
        <forward name="continue"
                 path="/errata/manage/UnpublishedDeleteConfirm.do" redirect="true"/>
     </action>
@@ -1934,11 +1934,11 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
-               path="/WEB-INF/pages/errata/published.jsp" />  
+               path="/WEB-INF/pages/errata/published.jsp" />
         <forward name="continue"
                  path="/errata/manage/PublishedDeleteConfirm.do" redirect="true"/>
     </action>
-     
+
     <action path="/errata/manage/CloneErrata"
         scope="request"
         name="cloneErrataForm"
@@ -1951,7 +1951,7 @@
         <forward name="continue"
                  path="/errata/manage/CloneConfirm.do" redirect="true" />
     </action>
-    
+
     <action path="/errata/manage/CloneConfirm"
             scope="request"
             input="/WEB-INF/pages/admin/errata/cloneconfirm.jsp"
@@ -1961,7 +1961,7 @@
             <forward name="default"
                      path="/WEB-INF/pages/admin/errata/cloneconfirm.jsp"/>
     </action>
-    
+
      <action path="/errata/manage/CloneConfirmSubmit"
          scope="request"
          input="/WEB-INF/pages/admin/errata/cloneconfirm.jsp"
@@ -1971,7 +1971,7 @@
          <forward name="default"
                   path="/errata/manage/UnpublishedErrata.do" redirect="true"/>
      </action>
-     
+
     <action path="/errata/manage/UnpublishedDeleteConfirm"
         scope="request"
         input="/WEB-INF/pages/admin/errata/unpublisheddeleteconfirm.jsp"
@@ -1981,7 +1981,7 @@
         <forward name="default"
                path="/WEB-INF/pages/admin/errata/unpublisheddeleteconfirm.jsp" />
     </action>
-    
+
     <action path="/errata/manage/PublishedDeleteConfirm"
         scope="request"
         input="/WEB-INF/pages/admin/errata/publisheddeleteconfirm.jsp"
@@ -2001,7 +2001,7 @@
          <forward name="default"
                   path="/errata/AllErrata.do" redirect="true"/>
      </action>
-     
+
      <action path="/errata/manage/PublishedDeleteConfirmSubmit"
          scope="request"
          input="/WEB-INF/pages/admin/errata/publisheddeleteconfirm.jsp"
@@ -2011,7 +2011,7 @@
          <forward name="default"
                   path="/errata/AllErrata.do" redirect="true"/>
      </action>
-     
+
      <action path="/errata/manage/Delete"
          scope="request"
          input="/WEB-INF/pages/errata/delete.jsp"
@@ -2024,15 +2024,15 @@
          <forward name="deleted"
                   path="/errata/manage/PublishedErrata.do" redirect="true" />
      </action>
-     
-     <action path="/errata/manage/Create" 
+
+     <action path="/errata/manage/Create"
              name="errataCreateForm"
              scope="request"
              input="/WEB-INF/pages/errata/create.jsp"
              type="com.redhat.rhn.frontend.action.errata.CreateSetupAction"
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
        <set-property property="acls" value="user_role(channel_admin)"/>
-       <forward name="default" 
+       <forward name="default"
                 path="/WEB-INF/pages/errata/create.jsp"/>
      </action>
 
@@ -2046,7 +2046,7 @@
          <forward name="failure" path="/errata/manage/Create.do"/>
          <forward name="success" path="/errata/manage/Edit.do" redirect="true"/>
      </action>
-     
+
      <action path="/errata/manage/Edit"
              name="errataEditForm"
              scope="request"
@@ -2062,7 +2062,7 @@
          <forward name="default"
              path="/WEB-INF/pages/errata/edit.jsp"/>
      </action>
-     
+
      <action path="/errata/manage/SelectChannels"
              name="errataPublishForm"
              scope="request"
@@ -2072,20 +2072,20 @@
          <set-property property="acls" value="user_role(channel_admin)"/>
          <forward name="default" path="/WEB-INF/pages/errata/addchannels.jsp"/>
      </action>
-     
-     <action path="/errata/manage/SelectChannelsSubmit" scope="request" 
-             input="/WEB-INF/pages/errata/addchannels.jsp" 
-             type="com.redhat.rhn.frontend.action.errata.ChannelAction" 
+
+     <action path="/errata/manage/SelectChannelsSubmit" scope="request"
+             input="/WEB-INF/pages/errata/addchannels.jsp"
+             type="com.redhat.rhn.frontend.action.errata.ChannelAction"
              parameter="dispatch"
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
          <set-property property="acls" value="user_role(channel_admin)"/>
-         <forward name="default" path="/errata/manage/SelectChannels.do" 
+         <forward name="default" path="/errata/manage/SelectChannels.do"
              redirect="true"/>
-         <forward name="publish" path="/errata/manage/PackagePush.do" 
+         <forward name="publish" path="/errata/manage/PackagePush.do"
              redirect="true"/>
          <forward name="failure" path="/errata/manage/SelectChannels.do" />
      </action>
-     
+
      <action path="/errata/manage/PackagePush"
              scope="request"
              input="/WEB-INF/pages/errata/packagepush.jsp"
@@ -2095,7 +2095,7 @@
          <forward name="default" path="/WEB-INF/pages/errata/packagepush.jsp"/>
          <forward name="finished" path="/errata/AllErrata.do" redirect="true" />
      </action>
-     
+
      <action path="/errata/manage/PackagePushSubmit"
              name="packagePushForm"
              scope="request"
@@ -2107,39 +2107,39 @@
          <forward name="default" path="/errata/manage/PackagePush.do"/>
          <forward name="defaultWithoutRedirect" path="/errata/manage/PackagePush.do" />
      </action>
-     
+
      <action path="/errata/manage/DeleteBug"
              scope="request"
              type="com.redhat.rhn.frontend.action.errata.DeleteBugAction">
          <forward name="default" path="/errata/manage/Edit.do" redirect="true"/>
      </action>
 
-        <action path="/errata/manage/Notify" scope="request" 
+        <action path="/errata/manage/Notify" scope="request"
             type="com.redhat.rhn.frontend.action.errata.NotifySetupAction"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
             <set-property property="acls" value="user_role(channel_admin)"/>
             <forward name="default" path="/WEB-INF/pages/errata/notify.jsp"/>
         </action>
-     
-     <action path="/errata/manage/NotifySubmit" 
-             scope="request" 
-             input="/WEB-INF/pages/errata/notify.jsp" 
+
+     <action path="/errata/manage/NotifySubmit"
+             scope="request"
+             input="/WEB-INF/pages/errata/notify.jsp"
              type="com.redhat.rhn.frontend.action.errata.NotifyAction"
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
          <set-property property="acls" value="user_role(channel_admin)"/>
          <forward name="default" path="/errata/manage/PublishedErrata.do" redirect="true"/>
      </action>
-     
-     <action path="/errata/manage/Channels" 
-             scope="request" 
-             input="/WEB-INF/pages/errata/editchannels.jsp" 
+
+     <action path="/errata/manage/Channels"
+             scope="request"
+             input="/WEB-INF/pages/errata/editchannels.jsp"
              type="com.redhat.rhn.frontend.action.errata.ChannelSetupAction"
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
          <set-property property="acls" value="user_role(channel_admin)"/>
-         <forward name="default" 
+         <forward name="default"
                   path="/WEB-INF/pages/errata/editchannels.jsp"/>
      </action>
-     
+
     <action path="/errata/manage/ChannelsSubmit"
             scope="request"
             input="/WEB-INF/pages/errata/editchannels.jsp"
@@ -2151,7 +2151,7 @@
         <forward name="push" path="/errata/manage/AddChannelPackagePush.do" redirect="true"/>
         <forward name="failure" path="/errata/manage/Channels.do"/>
     </action>
-    
+
      <action path="/errata/manage/AddChannelPackagePush"
              scope="request"
              input="/WEB-INF/pages/errata/addchannelpackagepush.jsp"
@@ -2161,7 +2161,7 @@
          <forward name="default" path="/WEB-INF/pages/errata/addchannelpackagepush.jsp"/>
          <forward name="finished" path="/errata/manage/Channels.do" />
      </action>
-     
+
      <action path="/errata/manage/AddChannelPackagePushSubmit"
              name="packagePushForm"
              scope="request"
@@ -2174,14 +2174,14 @@
          <forward name="defaultWithoutRedirect" path="/errata/manage/AddChannelPackagePush.do" />
      </action>
 
-    <action path="/errata/manage/Packages" scope="request" 
+    <action path="/errata/manage/Packages" scope="request"
         type="com.redhat.rhn.frontend.action.errata.BaseErrataSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default" 
+        <forward name="default"
             path="/WEB-INF/pages/errata/packages/packages.jsp"/>
     </action>
-     
+
     <action path="/errata/manage/AddPackages" scope="request"
             type="com.redhat.rhn.frontend.action.errata.AddPackagesAction">
        <forward name="default" path="/WEB-INF/pages/errata/packages/add.jsp"/>
@@ -2198,7 +2198,7 @@
        <forward name="success"
            path="/errata/manage/AddPackagePackagePush.do" redirect="true"/>
     </action>
-    
+
      <action path="/errata/manage/AddPackagePackagePush"
              scope="request"
              input="/WEB-INF/pages/errata/addpackagepackagepush.jsp"
@@ -2208,7 +2208,7 @@
          <forward name="default" path="/WEB-INF/pages/errata/addpackagepackagepush.jsp"/>
          <forward name="finished" path="/errata/manage/ListPackages.do" />
      </action>
-     
+
      <action path="/errata/manage/AddPackagePackagePushSubmit"
              name="packagePushForm"
              scope="request"
@@ -2220,14 +2220,14 @@
          <forward name="default" path="/errata/manage/AddPackagePackagePush.do"/>
          <forward name="defaultWithoutRedirect" path="/errata/manage/AddPackagePackagePush.do" />
      </action>
-    
+
     <action path="/errata/manage/ListPackages"
             scope="request"
             type="com.redhat.rhn.frontend.action.errata.ListPackagesSetupAction"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
-            path="/WEB-INF/pages/errata/packages/list.jsp"/>        
+            path="/WEB-INF/pages/errata/packages/list.jsp"/>
     </action>
 
     <action path="/errata/manage/ListPackagesSubmit"
@@ -2249,9 +2249,9 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
-            path="/WEB-INF/pages/errata/packages/remove.jsp"/>        
+            path="/WEB-INF/pages/errata/packages/remove.jsp"/>
     </action>
-    
+
     <action path="/errata/manage/RemovePackagesSubmit"
         scope="request"
         input="/WEB-INF/pages/errata/packages/remove.jsp"
@@ -2264,33 +2264,33 @@
         <forward name="success"
             path="/errata/manage/ListPackages.do" redirect="true"/>
     </action>
-    
+
     <!-- ===== CHANNELS ===== -->
-    
+
     <action path="/software/channels/RedHat"
     	scope="request"
     	input="/WEB-INF/pages/channel/redhat.jsp"
     	type="com.redhat.rhn.frontend.action.channel.RedHatChannelTreeAction">
     	<forward name="default"
     	         path="/WEB-INF/pages/channel/redhat.jsp" />
-    </action>   
-    
+    </action>
+
     <action path="/software/channels/Popular"
     	scope="request"
     	input="/WEB-INF/pages/channel/popular.jsp"
     	type="com.redhat.rhn.frontend.action.channel.PopularChannelTreeAction">
     	<forward name="default"
     	         path="/WEB-INF/pages/channel/popular.jsp" />
-    </action>       
-    
+    </action>
+
     <action path="/software/channels/Custom"
     	scope="request"
     	input="/WEB-INF/pages/channel/custom.jsp"
     	type="com.redhat.rhn.frontend.action.channel.MyChannelTreeAction">
     	<forward name="default"
     	         path="/WEB-INF/pages/channel/custom.jsp" />
-    </action>         
-    
+    </action>
+
     <action path="/software/channels/All"
     	scope="request"
     	input="/WEB-INF/pages/channel/all.jsp"
@@ -2298,7 +2298,7 @@
     	<forward name="default"
     	         path="/WEB-INF/pages/channel/all.jsp" />
     </action>
-    
+
     <action path="/software/channels/Shared"
       scope="request"
       input="/WEB-INF/pages/channel/all.jsp"
@@ -2306,7 +2306,7 @@
       <forward name="default"
                path="/WEB-INF/pages/channel/shared.jsp" />
     </action>
-    
+
         <action path="/software/channels/Retired"
     	scope="request"
     	input="/WEB-INF/pages/channel/retired.jsp"
@@ -2314,7 +2314,7 @@
     	<forward name="default"
     	         path="/WEB-INF/pages/channel/retired.jsp" />
     </action>
-    
+
     <action path="/software/channels/ChannelFamilyTree"
     	scope="request"
     	input="/WEB-INF/pages/channel/channel_family_tree.jsp"
@@ -2322,14 +2322,14 @@
     	<forward name="default"
     	         path="/WEB-INF/pages/channel/channel_family_tree.jsp" />
     </action>
-    
+
     <action path="/multiorg/channels/Consumed"
     	scope="request"
     	input="/WEB-INF/pages/multiorg/channels/consumed.jsp"
     	type="com.redhat.rhn.frontend.action.multiorg.ChannelConsumeAction">
     	<forward name="default"
     	         path="/WEB-INF/pages/multiorg/channels/consumed.jsp" />
-    </action>   
+    </action>
 
     <action path="/multiorg/channels/Provided"
     	scope="request"
@@ -2337,8 +2337,8 @@
     	type="com.redhat.rhn.frontend.action.multiorg.ChannelProvideAction">
     	<forward name="default"
     	         path="/WEB-INF/pages/multiorg/channels/provided.jsp" />
-    </action>   
-    
+    </action>
+
     <action path="/channels/software/Entitlements"
         scope="request"
         input="/WEB-INF/pages/channel/entitlements.jsp"
@@ -2348,7 +2348,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/channel/entitlements.jsp"/>
     </action>
-    
+
      <action path="/channels/software/EntitlementsSubmit"
          scope="request"
          input="/WEB-INF/pages/channel/entitlements.jsp"
@@ -2357,7 +2357,7 @@
          <forward name="default"
                   path="/channels/software/Entitlements.do" redirect="true" />
      </action>
-     
+
     <action path="/channels/software/Search"
         scope="request"
         name="packageSearchForm"
@@ -2368,7 +2368,7 @@
         <forward name="success"
                  path="/channels/software/Search.do" redirect="true"/>
     </action>
-    
+
     <action path="/software/packages/NameOverview"
         scope="request"
         input="/WEB-INF/pages/software/packages/packagenameoverview.jsp"
@@ -2376,7 +2376,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/software/packages/packagenameoverview.jsp"/>
     </action>
-    
+
     <!-- ===== SYSTEMS ===== -->
     <action path="/systems/Overview"
         scope="request"
@@ -2401,7 +2401,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/systemlist.jsp"/>
     </action>
-    
+
      <action path="/systems/SystemListSubmit"
          scope="request"
          input="/WEB-INF/pages/systems/systemlist.jsp"
@@ -2437,7 +2437,7 @@
                   path="/systems/ssm/DeleteConfirm.do"
                   redirect="true"/>
     </action>
-    
+
     <action path="/systems/DuplicateMacAddress"
         scope="request"
         input="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"
@@ -2450,7 +2450,7 @@
                   path="/systems/ssm/DeleteConfirm.do"
                   redirect="true"/>
     </action>
-    
+
 
     <action path="/systems/DuplicateSystemsCompare"
         scope="request"
@@ -2470,8 +2470,8 @@
                   path="/systems/DuplicateMacAddress"
                   redirect="true"/>
     </action>
-            		 
-    		  
+
+
     <action path="/systems/OutOfDate"
         scope="request"
         input="/WEB-INF/pages/systems/outofdatelist.jsp"
@@ -2479,7 +2479,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/outofdatelist.jsp"/>
     </action>
-    
+
      <action path="/systems/OutOfDateSubmit"
          scope="request"
          input="/WEB-INF/pages/systems/outofdatelist.jsp"
@@ -2489,7 +2489,7 @@
                   path="/systems/OutOfDate.do"
                   redirect="true"/>
      </action>
-    
+
     <action path="/systems/Unentitled"
         scope="request"
         input="/WEB-INF/pages/systems/unentitledlist.jsp"
@@ -2497,7 +2497,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/unentitledlist.jsp"/>
     </action>
-    
+
      <action path="/systems/UnentitledSubmit"
          scope="request"
          input="/WEB-INF/pages/systems/unentitledlist.jsp"
@@ -2507,18 +2507,18 @@
                   path="/systems/Unentitled.do"
                   redirect="true"/>
      </action>
-    
+
     <action path="/systems/Ungrouped"
         scope="request"
         input="/WEB-INF/pages/systems/ungroupedlist.jsp"
         type="com.redhat.rhn.frontend.action.systems.UngroupedSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-          <set-property property="acls" 
+          <set-property property="acls"
                value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/ungroupedlist.jsp"/>
     </action>
-    
+
      <action path="/systems/UngroupedSubmit"
          scope="request"
          input="/WEB-INF/pages/systems/ungroupedlist.jsp"
@@ -2528,7 +2528,7 @@
                   path="/systems/Ungrouped.do"
                   redirect="true"/>
      </action>
-     
+
     <action path="/systems/Inactive"
         scope="request"
         input="/WEB-INF/pages/systems/inactivelist.jsp"
@@ -2536,7 +2536,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/inactivelist.jsp"/>
     </action>
-    
+
      <action path="/systems/InactiveSubmit"
          scope="request"
          input="/WEB-INF/pages/systems/inactivelist.jsp"
@@ -2546,7 +2546,7 @@
                   path="/systems/Inactive.do"
                   redirect="true"/>
      </action>
-     
+
     <action path="/systems/Registered"
         scope="request"
         name="recentlyRegisteredSystemsForm"
@@ -2555,18 +2555,18 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/registeredlist.jsp"/>
     </action>
-     
+
     <action path="/systems/ProxyList"
         scope="request"
         input="/WEB-INF/pages/systems/proxylist.jsp"
         type="com.redhat.rhn.frontend.action.systems.ProxyListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-          <set-property property="acls" 
+          <set-property property="acls"
                value="org_channel_family(rhn-proxy); user_role(org_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/proxylist.jsp"/>
     </action>
-    
+
      <action path="/systems/ProxyListSubmit"
          scope="request"
          input="/WEB-INF/pages/systems/proxylist.jsp"
@@ -2576,7 +2576,7 @@
                   path="/systems/ProxyList.do"
                   redirect="true"/>
      </action>
-     
+
     <action path="/systems/VirtualSystemsList"
         scope="request"
         input="/WEB-INF/pages/systems/virtuallist.jsp"
@@ -2594,18 +2594,18 @@
                   path="/systems/VirtualSystemsList.do"
                   redirect="true"/>
      </action>
-     
+
     <action path="/systems/SystemGroupList"
         scope="request"
         input="/WEB-INF/pages/systems/grouplist.jsp"
         type="com.redhat.rhn.frontend.action.systems.SystemGroupListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-          <set-property property="acls" 
+          <set-property property="acls"
                value="org_entitlement(sw_mgr_enterprise)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/grouplist.jsp"/>
     </action>
-    
+
      <action path="/systems/SystemGroupListSubmit"
          scope="request"
          input="/WEB-INF/pages/systems/grouplist.jsp"
@@ -2626,7 +2626,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/entitlements/entitlements.jsp"/>
     </action>
-    
+
      <action path="/systems/SystemEntitlementsSubmit"
          name="systemEntitlementsForm"
          scope="request"
@@ -2637,8 +2637,8 @@
                   path="/systems/SystemEntitlements.do"
                   redirect="true"/>
      </action>
-         
-     
+
+
     <action path="/systems/Search"
     	name="systemSearchForm"
         scope="request"
@@ -2688,7 +2688,7 @@
                  path="/systems/details/packages/ScheduleRemoteCommand.do"
                  redirect="true" />
     </action>
-        
+
     <action path="/systems/details/packages/VerifyPackages"
         scope="request"
         input="/WEB-INF/pages/systems/details/packages/verifypkgs.jsp"
@@ -2697,9 +2697,9 @@
                  path="/WEB-INF/pages/systems/details/packages/verifypkgs.jsp"/>
         <forward name="confirm"
                  path="/systems/details/packages/VerifyConfirm.do"
-                 redirect="true" />                 
+                 redirect="true" />
     </action>
-    
+
      <action path="/systems/details/packages/VerifyConfirm"
         scope="request"
         name="datePickerForm"
@@ -2709,9 +2709,9 @@
                  path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
-                 redirect="true" />                
+                 redirect="true" />
     </action>
-    
+
     <action path="/systems/details/packages/PackageList"
         scope="request"
         input="/WEB-INF/pages/systems/details/packages/packagelist.jsp"
@@ -2722,10 +2722,10 @@
                  path="/systems/details/packages/RemoveConfirm.do"
                  redirect="true" />
     </action>
-    
+
     <action path="/systems/details/packages/RemoveConfirm"
         scope="request"
-        name="datePickerForm"        
+        name="datePickerForm"
         input="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.RemoveConfirmSetupAction">
         <forward name="default"
@@ -2746,9 +2746,9 @@
                  path="/WEB-INF/pages/systems/details/packages/upgradable.jsp"/>
          <forward name="confirm"
                   path="/systems/details/packages/UpgradeConfirm.do"
-                  redirect="true" />                 
+                  redirect="true" />
     </action>
-     
+
     <action path="/systems/details/packages/UpgradeConfirm"
         scope="request"
         name="datePickerForm"
@@ -2763,7 +2763,7 @@
                  path="/systems/details/packages/ScheduleRemoteCommand.do"
                  redirect="true" />
     </action>
-    
+
     <action path="/systems/details/packages/ScheduleRemoteCommand"
         scope="request"
         name="scheduleRemoteCmdForm"
@@ -2790,7 +2790,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/patchsets/patchsetlist.jsp"/>
     </action>
-    
+
     <action path="/systems/details/packages/patchsets/InstallPatchSet"
         scope="request"
         input="/WEB-INF/pages/systems/details/packages/patchsets/install_patchset.jsp"
@@ -2849,7 +2849,7 @@
                  path="/WEB-INF/pages/systems/details/packages/patches/patchinstallconfirm.jsp"/>
     </action>
 
-    
+
     <action path="/systems/details/packages/patches/PatchInstallConfirmSubmit"
          scope="request"
          input="/WEB-INF/pages/systems/details/packages/patches/patchinstallconfirm.jsp"
@@ -2862,7 +2862,7 @@
                   path="/systems/details/packages/patches/PatchInstall.do"
                   redirect="true"/>
      </action>
-    
+
     <action path="/systems/details/packages/patches/PatchListSubmit"
         scope="request"
         input="/WEB-INF/pages/systems/details/packages/patches/patchlist.jsp"
@@ -2883,7 +2883,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/patches/patchconfirm.jsp"/>
     </action>
-    
+
      <action path="/systems/details/packages/patches/PatchConfirmSubmit"
          scope="request"
          input="/WEB-INF/pages/systems/details/packages/patches/patchconfirm.jsp"
@@ -2919,7 +2919,7 @@
         input="/WEB-INF/pages/systems/errata.jsp"
         type="com.redhat.rhn.frontend.action.systems.ErrataSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_errata_updates); not is_solaris()"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/errata.jsp"/>
@@ -2927,7 +2927,7 @@
                   path="/systems/details/ErrataConfirm.do"
                   redirect="true"/>
     </action>
-	  
+
     <action path="/systems/details/ErrataConfirm"
         scope="request"
         input="/WEB-INF/pages/systems/errataconfirm.jsp"
@@ -2939,7 +2939,7 @@
                   path="/systems/details/ErrataList.do"
                   redirect="true"/>
     </action>
-    
+
     <!--System Details SSM Configuration -->
         <action path="/systems/ssm/DeleteConfirm"
         scope="request"
@@ -2949,7 +2949,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/ssmdeleteconfirm.jsp"/>
 		<forward name="confirm"
-                 path="/ssm/ViewAllLog.do" redirect="true"/>                 
+                 path="/ssm/ViewAllLog.do" redirect="true"/>
     </action>
     <!--System Details Configuration -->
      <action path="/systems/details/configuration/Overview"
@@ -2958,13 +2958,13 @@
          type="com.redhat.rhn.frontend.action.configuration.sdc.OverviewAction"
          parameter="dispatch"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config)"/>
          <forward name="default"
                   path="/WEB-INF/pages/configuration/sdc/overview.jsp"
                   />
       </action>
-      
+
      <action path="/systems/details/Overview"
              scope="request"
              input="/WEB-INF/pages/systems/sdc/overview.jsp"
@@ -2972,23 +2972,23 @@
              <forward name="default"
                       path="/WEB-INF/pages/systems/sdc/overview.jsp" />
      </action>
-     
+
      <action path="/systems/details/AddToSSM"
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.sdc.AddToSSMAction">
              <forward name="default"
-                      path="/systems/details/Overview.do" 
+                      path="/systems/details/Overview.do"
                       redirect="true"/>
-     </action>     
-     
+     </action>
+
      <action path="/systems/details/RemoveFromSSM"
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.sdc.RemoveFromSSMAction">
              <forward name="default"
-                      path="/systems/details/Overview.do" 
+                      path="/systems/details/Overview.do"
                       redirect="true"/>
-     </action>          
-     
+     </action>
+
      <action path="/systems/details/Edit"
              name="systemDetailsForm"
              scope="request"
@@ -3025,9 +3025,9 @@
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.groups.ListRemoveGroupsAction"
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="acls" 
+         <set-property property="acls"
                   value="system_feature(ftr_system_grouping)"/>
-         
+
          <forward name="default"
                   path="/WEB-INF/pages/systems/groups/listremove.jsp" />
          <forward name="success"
@@ -3039,8 +3039,8 @@
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.groups.AddGroupsAction"
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-             <set-property property="acls" 
-                      value="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)"/>             
+             <set-property property="acls"
+                      value="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)"/>
              <forward name="default"
                       path="/WEB-INF/pages/systems/groups/add.jsp" />
              <forward name="success"
@@ -3052,15 +3052,15 @@
              scope="request"
              type="com.redhat.rhn.frontend.action.groups.AddSystemsAction"
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-             <set-property property="acls" 
-                      value="user_role(system_group_admin)"/>             
+             <set-property property="acls"
+                      value="user_role(system_group_admin)"/>
              <forward name="default"
                       path="/WEB-INF/pages/groups/addsystems.jsp" />
              <forward name="success"
                       path="/groups/AddSystems.do"
                       redirect="true" />
      </action>
-     
+
 
      <action path="/groups/ListRemoveSystems"
              scope="request"
@@ -3071,13 +3071,13 @@
                       path="/groups/ListRemoveSystems.do"
                       redirect="true" />
      </action>
-          
+
      <action path="/systems/details/configuration/ViewModifyCentralPaths"
          scope="request"
          type="com.redhat.rhn.frontend.action.configuration.sdc.ViewModifyPathsAction"
          parameter="normal"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config)"/>
          <forward name="default"
                   path="/WEB-INF/pages/configuration/sdc/viewmodifyfilescentral.jsp"
@@ -3091,14 +3091,14 @@
                   redirect="true"
                   />
      </action>
-     
-     
+
+
      <action path="/systems/details/configuration/ViewModifyLocalPaths"
          scope="request"
          type="com.redhat.rhn.frontend.action.configuration.sdc.ViewModifyPathsAction"
          parameter="local_override"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config)"/>
          <forward name="default"
                   path="/WEB-INF/pages/configuration/sdc/viewmodifyfileslocal.jsp"
@@ -3114,16 +3114,16 @@
          <forward name="delete_files"
                   path="/systems/details/configuration/ViewModifyLocalPaths.do"
                   redirect="true"
-                  />                  
+                  />
      </action>
-     
+
 
      <action path="/systems/details/configuration/ViewModifySandboxPaths"
          scope="request"
          type="com.redhat.rhn.frontend.action.configuration.sdc.ViewModifyPathsAction"
          parameter="server_import"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config)"/>
          <forward name="default"
                   path="/WEB-INF/pages/configuration/sdc/viewmodifyfilessandbox.jsp"
@@ -3148,7 +3148,7 @@
          type="com.redhat.rhn.frontend.action.configuration.sdc.SDCCopy2ChannelsAction"
          parameter="dispatch"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);user_role(config_admin)"/>
          <forward name="default"
                   path="/WEB-INF/pages/configuration/sdc/copy2channels.jsp"
@@ -3156,7 +3156,7 @@
          <forward name="success"
                   path="/systems/details/configuration/ViewModifyCentralPaths.do"
                   redirect="true"
-                  />                  
+                  />
      </action>
 
      <action path="/systems/details/configuration/ViewDiffResult"
@@ -3168,22 +3168,22 @@
          <set-property property="acls" value="system_feature(ftr_config)"/>
          <forward name="default"
              path="/WEB-INF/pages/configuration/sdc/viewdiffresult.jsp"
-                  />        
+                  />
       </action>
-          
+
      <action path="/systems/details/configuration/SubscriptionsSetup"
          name="submittedForm"
          scope="request"
          type="com.redhat.rhn.frontend.action.configuration.sdc.SubscriptionsSetupAction"
          parameter="dispatch"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config)"/>
          <forward name="default"
                   path="/WEB-INF/pages/configuration/sdc/subscriptions.jsp"
-                  />          
+                  />
      </action>
-     
+
      <action path="/systems/details/configuration/SubscriptionsSubmit"
          name="submittedForm"
          scope="request"
@@ -3194,11 +3194,11 @@
          <set-property property="acls" value="system_feature(ftr_config)"/>
          <forward name="default"
              path="/systems/details/configuration/SubscriptionsSetup.do"
-                  />        
+                  />
          <forward name="rank"
              path="/systems/details/configuration/RankChannels.do"
              redirect="true"
-                  />          
+                  />
       </action>
 
    <action path="/systems/details/configuration/RankChannels"
@@ -3207,7 +3207,7 @@
          type="com.redhat.rhn.frontend.action.configuration.sdc.RankChannelsAction"
          parameter="dispatch"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="acls" 
+         <set-property property="acls"
                        value="system_feature(ftr_config)"/>
          <forward name="default"
                   path="/WEB-INF/pages/configuration/sdc/rankchannels.jsp"/>
@@ -3234,49 +3234,49 @@
                   path="/systems/details/configuration/ConfigChannelList.do"/>
      </action>
 
-    
+
     <action path="/systems/details/configuration/addfiles/CreateFile"
         scope="request"
 		name="configFileForm"
         input="/WEB-INF/pages/configuration/sdc/createfile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.LocalAddFileAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config)"/>
         <forward name="default"
                  path="/WEB-INF/pages/configuration/sdc/createfile.jsp"/>
         <forward name="success" redirect="true"
                  path="/systems/details/configuration/ViewModifySandboxPaths.do"/>
     </action>
-    
+
     <action path="/systems/details/configuration/addfiles/UploadFile"
         scope="request"
 		name="configFileForm"
         input="/WEB-INF/pages/configuration/sdc/uploadfile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.LocalAddFileAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config)"/>
         <forward name="default"
                  path="/WEB-INF/pages/configuration/sdc/uploadfile.jsp"/>
         <forward name="success" redirect="true"
                  path="/systems/details/configuration/ViewModifySandboxPaths.do"/>
     </action>
-        
+
     <action path="/systems/details/configuration/addfiles/ImportFile"
         scope="request"
 		name="configFileForm"
         input="/WEB-INF/pages/configuration/sdc/importfile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.ImportFileAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.upload)"/>
-        <set-property property="mixins" 
+        <set-property property="mixins"
                       value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/WEB-INF/pages/configuration/sdc/importfile.jsp"/>
     </action>
-     
+
     <action path="/systems/details/configuration/addfiles/ImportFileSubmit"
         scope="request"
 		name="configFileForm"
@@ -3284,30 +3284,30 @@
         type="com.redhat.rhn.frontend.action.configuration.sdc.ImportFileSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.upload)"/>
-        <set-property property="mixins" 
+        <set-property property="mixins"
                       value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/systems/details/configuration/addfiles/ImportFile.do"/>
         <forward name="success" redirect="true"
                  path="/systems/details/configuration/addfiles/ImportFileConfirm.do"/>
     </action>
-    
+
     <action path="/systems/details/configuration/addfiles/ImportFileConfirm"
         scope="request"
 		name="datePickerForm"
         input="/WEB-INF/pages/configuration/sdc/importfileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.ImportFileConfirmAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.upload)"/>
-        <set-property property="mixins" 
+        <set-property property="mixins"
                       value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/WEB-INF/pages/configuration/sdc/importfileconfirm.jsp"/>
     </action>
-    
+
     <action path="/systems/details/configuration/addfiles/ImportFileConfirmSubmit"
         scope="request"
 		name="datePickerForm"
@@ -3315,59 +3315,59 @@
         input="/WEB-INF/pages/configuration/sdc/importfileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListConfirmSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.upload)"/>
-        <set-property property="mixins" 
+        <set-property property="mixins"
                       value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/systems/details/configuration/addfiles/ImportFileConfirm.do"/>
         <forward name="success" redirect="true"
                  path="/systems/details/configuration/ViewModifySandboxPaths.do"/>
     </action>
-    
+
     <action path="/systems/details/configuration/DeployFile"
         scope="request"
         input="/WEB-INF/pages/configuration/sdc/deployfile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.deploy)"/>
-        <set-property property="mixins" 
-                      value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>                      
+        <set-property property="mixins"
+                      value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/WEB-INF/pages/configuration/sdc/deployfile.jsp"/>
     </action>
-    
+
     <action path="/systems/details/configuration/DeployFileSubmit"
         scope="request"
 		parameter="dispatch"
         input="/WEB-INF/pages/configuration/sdc/deployfile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.deploy)"/>
-        <set-property property="mixins" 
+        <set-property property="mixins"
                       value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/systems/details/configuration/DeployFile.do"/>
         <forward name="confirm" redirect="true"
                  path="/systems/details/configuration/DeployFileConfirm.do"/>
     </action>
-    
+
     <action path="/systems/details/configuration/DeployFileConfirm"
         scope="request"
 		name="datePickerForm"
         input="/WEB-INF/pages/configuration/sdc/deployfileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListConfirmSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.deploy)"/>
-        <set-property property="mixins" 
+        <set-property property="mixins"
                       value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/WEB-INF/pages/configuration/sdc/deployfileconfirm.jsp"/>
     </action>
-    
+
     <action path="/systems/details/configuration/DeployFileConfirmSubmit"
         scope="request"
 		name="datePickerForm"
@@ -3375,59 +3375,59 @@
         input="/WEB-INF/pages/configuration/sdc/deployfileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListConfirmSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.deploy)"/>
-        <set-property property="mixins" 
+        <set-property property="mixins"
                       value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/systems/details/configuration/DeployFileConfirm.do"/>
         <forward name="success" redirect="true"
                  path="/systems/details/configuration/Overview.do"/>
     </action>
-    
+
     <action path="/systems/details/configuration/DiffFile"
         scope="request"
         input="/WEB-INF/pages/configuration/sdc/difffile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.diff)"/>
-        <set-property property="mixins" 
-                      value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>    
+        <set-property property="mixins"
+                      value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
 	   <forward name="default"
                  path="/WEB-INF/pages/configuration/sdc/difffile.jsp"/>
     </action>
-    
+
     <action path="/systems/details/configuration/DiffFileSubmit"
         scope="request"
 		parameter="dispatch"
         input="/WEB-INF/pages/configuration/sdc/difffile.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.diff)"/>
-        <set-property property="mixins" 
+        <set-property property="mixins"
                       value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/systems/details/configuration/DiffFile.do"/>
         <forward name="confirm" redirect="true"
                  path="/systems/details/configuration/DiffFileConfirm.do"/>
     </action>
-    
+
     <action path="/systems/details/configuration/DiffFileConfirm"
         scope="request"
 		name="datePickerForm"
         input="/WEB-INF/pages/configuration/sdc/difffileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListConfirmSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.diff)"/>
-        <set-property property="mixins" 
+        <set-property property="mixins"
                       value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/WEB-INF/pages/configuration/sdc/difffileconfirm.jsp"/>
     </action>
-    
+
     <action path="/systems/details/configuration/DiffFileConfirmSubmit"
         scope="request"
 		name="datePickerForm"
@@ -3435,9 +3435,9 @@
         input="/WEB-INF/pages/configuration/sdc/difffileconfirm.jsp"
         type="com.redhat.rhn.frontend.action.configuration.sdc.FileListConfirmSubmitAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_config);client_capable(configfiles.diff)"/>
-        <set-property property="mixins" 
+        <set-property property="mixins"
                       value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/systems/details/configuration/DiffFileConfirm.do"/>
@@ -3521,7 +3521,7 @@
                  path="/WEB-INF/pages/admin/monitoring/config/notification/filters.jsp"/>
     </action>
 
-    
+
     <action path="/monitoring/config/notification/FiltersSubmit"
          scope="request"
         input="/WEB-INF/pages/admin/monitoring/config/notification/filters.jsp"
@@ -3529,8 +3529,8 @@
          parameter="dispatch">
          <forward name="default"
                   path="/monitoring/config/notification/ActiveFilters.do" redirect="true"/>
-    </action>  
-    
+    </action>
+
     <action path="/monitoring/config/notification/FilterCreate"
          name="filterCreateForm"
          scope="request"
@@ -3541,7 +3541,7 @@
          <forward name="success"
                   path="/monitoring/config/notification/ActiveFilters.do" redirect="true"/>
     </action>
-    
+
     <action path="/monitoring/config/notification/FilterEdit"
          name="filterCreateForm"
          scope="request"
@@ -3552,7 +3552,7 @@
          <forward name="success"
                   path="/monitoring/config/notification/ActiveFilters.do" redirect="true"/>
     </action>
-    
+
     <!-- PROBE SUITES -->
     <action path="/monitoring/config/ProbeSuites"
         scope="request"
@@ -3566,7 +3566,7 @@
          <forward name="remove"
                   path="/monitoring/config/ProbeSuitesRemoveConfirm.do" redirect="true"/>
     </action>
-    
+
 
 
     <action path="/monitoring/config/ProbeSuitesRemoveConfirm"
@@ -3585,7 +3585,7 @@
          <forward name="default"
                   path="/monitoring/config/ProbeSuites.do" redirect="true"/>
     </action>
-    
+
     <action path="/monitoring/config/ProbeSuiteListProbes"
         scope="request"
         input="/WEB-INF/pages/admin/monitoring/config/probes.jsp"
@@ -3593,7 +3593,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
     <set-property property="acls" value="probe_suite_access()"/>
         <forward name="default"
-                 path="/WEB-INF/pages/admin/monitoring/config/probes.jsp"/> 
+                 path="/WEB-INF/pages/admin/monitoring/config/probes.jsp"/>
         <forward name="remove"
                  path="/monitoring/config/ProbeSuiteListProbes.do" redirect="true"/>
     </action>
@@ -3636,7 +3636,7 @@
         <forward name="preconditionfailed"
                  path="/monitoring/config/ProbeSuiteSystems.do" redirect="true"/>
     </action>
-      
+
     <action path="/monitoring/config/ProbeSuiteSystemsEditSubmit"
         scope="request"
         input="/WEB-INF/pages/admin/monitoring/config/probesuitesystemsedit.jsp"
@@ -3671,7 +3671,7 @@
                   path="/monitoring/config/ProbeSuiteSystems.do" redirect="true"/>
          <forward name="delete"
                   path="/monitoring/config/ProbeSuiteSystemsDelete.do" />
-    </action>  
+    </action>
 
     <action path="/monitoring/config/ProbeSuiteEdit"
         name="probeSuiteEditForm"
@@ -3741,7 +3741,7 @@
          scope="request"
          type="com.redhat.rhn.frontend.action.rhnset.SetItemSelectionAction">
     </action>
-    
+
     <action path="/systems/details/probes/ProbeDelete"
          name="probeDeleteForm"
          scope="request"
@@ -3752,8 +3752,8 @@
          <forward name="deleted"
                   path="/systems/details/probes/ProbesList.do"
                   redirect="true" />
-                  
-                  
+
+
     </action>
     <!-- SDC Package Profiles -->
     <action path="/systems/details/packages/profiles/Create"
@@ -3767,10 +3767,10 @@
                  path="/systems/details/packages/profiles/ShowProfiles.do"
                  redirect="true" />
         <forward name="error"
-                 path="/WEB-INF/pages/systems/details/packages/profiles/create.jsp"/>                 
+                 path="/WEB-INF/pages/systems/details/packages/profiles/create.jsp"/>
     </action>
-    
-        
+
+
     <action path="/systems/details/packages/profiles/ShowProfiles"
         scope="request"
         name="compareProfileForm"
@@ -3788,7 +3788,7 @@
                  path="/systems/details/packages/profiles/CompareSystems.do"
                  redirect="true" />
     </action>
-    
+
     <action path="/systems/details/packages/profiles/DeleteProfile"
         scope="request"
         name="deleteProfileForm"
@@ -3824,9 +3824,9 @@
         <forward name="sync"
                  path="/systems/details/packages/profiles/SyncProfiles.do"
                  redirect="true" />
-                 
+
     </action>
-    
+
     <action path="/systems/details/packages/profiles/CompareSystems"
         scope="request"
         input="/WEB-INF/pages/systems/details/packages/profiles/comparesystems.jsp"
@@ -3851,7 +3851,7 @@
                  path="/systems/details/packages/profiles/SyncSystems.do"
                  redirect="true" />
     </action>
-    
+
     <action path="/systems/details/packages/profiles/SyncProfiles"
         scope="request"
         name="datePickerForm"
@@ -3883,7 +3883,7 @@
                  path="/systems/details/packages/profiles/MissingPackages.do"
                  redirect="true" />
     </action>
-    
+
     <action path="/systems/details/packages/profiles/SyncSystems"
         scope="request"
         name="datePickerForm"
@@ -3914,8 +3914,8 @@
         <forward name="missing"
                  path="/systems/details/packages/profiles/MissingPackages.do"
                  redirect="true" />
-    </action>    
-         
+    </action>
+
     <action path="/systems/details/packages/profiles/MissingPackages"
         scope="request"
         input="/WEB-INF/pages/systems/details/packages/profiles/missingpkgs.jsp"
@@ -3938,7 +3938,7 @@
                  path="/systems/details/packages/profiles/ShowProfiles.do"
                  redirect="true" />
     </action>
-    
+
 
     <!-- ===== SYSTEM SET MANAGER ===== -->
     <!-- SSM\Channels -->
@@ -3953,7 +3953,7 @@
         <forward name="success" redirect="true"
                  path="/channel/ssm/ChildSubscriptionsConfirm.do"/>
     </action>
-    
+
     <action path="/channel/ssm/ChildSubscriptionsConfirm"
         scope="request"
         input="/WEB-INF/pages/channel/ssm/childsubconfirm.jsp"
@@ -3965,7 +3965,7 @@
         <forward name="success" redirect="true"
                  path="/ssm/ViewAllLog.do"/>
     </action>
-    
+
     <action path="/channel/ssm/BaseChannelSubscribe"
         scope="request"
         input="/WEB-INF/pages/channel/ssm/basesub.jsp"
@@ -3980,7 +3980,7 @@
         <forward name="success" redirect="true"
                  path="/channel/ssm/BaseChannelSubscribe.do"/>
     </action>
-        
+
     <!-- SSM\Configuration -->
     <action path="/systems/ssm/config/Diff"
         scope="request"
@@ -3991,7 +3991,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/diff.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/DiffSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/diff.jsp"
@@ -4005,7 +4005,7 @@
                  redirect="true"
                  path="/systems/ssm/config/DiffConfirm.do"/>
     </action>
-    
+
     <action path="/systems/ssm/config/DiffConfirm"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/diffconfirm.jsp"
@@ -4015,7 +4015,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/diffconfirm.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/DiffConfirmSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/diffconfirm.jsp"
@@ -4028,7 +4028,7 @@
         <forward name="success"
                  path="/systems/ssm/config/Diff.do"/>
     </action>
-    
+
     <action path="/systems/ssm/config/DiffSystems"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/diffsystems.jsp"
@@ -4038,7 +4038,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/diffsystems.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/DiffFiles"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/difffiles.jsp"
@@ -4048,7 +4048,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/difffiles.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/Deploy"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/deploy.jsp"
@@ -4058,7 +4058,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/deploy.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/DeploySubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/deploy.jsp"
@@ -4072,7 +4072,7 @@
                  redirect="true"
                  path="/systems/ssm/config/DeployConfirm.do"/>
     </action>
-    
+
     <action path="/systems/ssm/config/DeployConfirm"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/deployconfirm.jsp"
@@ -4083,7 +4083,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/deployconfirm.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/DeployConfirmSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/deployconfirm.jsp"
@@ -4097,7 +4097,7 @@
         <forward name="success"
                  path="/systems/ssm/config/Deploy.do"/>
     </action>
-    
+
     <action path="/systems/ssm/config/Subscribe"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/subscribe.jsp"
@@ -4108,7 +4108,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/subscribe.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/SubscribeSubmit"
         scope="request"
         parameter="dispatch"
@@ -4122,7 +4122,7 @@
         <forward name="confirm" redirect="true"
                  path="/systems/ssm/config/Rank.do"/>
     </action>
-    
+
     <action path="/systems/ssm/config/Rank"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/rankchannels.jsp"
@@ -4136,7 +4136,7 @@
         <forward name="confirm" redirect="true"
                  path="/systems/ssm/config/SubscribeConfirm.do"/>
     </action>
-    
+
     <action path="/systems/ssm/config/SubscribeConfirm"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/subscribeconfirm.jsp"
@@ -4153,7 +4153,7 @@
         <forward name="success" redirect="true"
                  path="/systems/ssm/config/Subscribe.do"/>
     </action>
-    
+
     <action path="/systems/ssm/config/Unsubscribe"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/unsubscribe.jsp"
@@ -4163,7 +4163,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/unsubscribe.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/UnsubscribeSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/unsubscribe.jsp"
@@ -4177,7 +4177,7 @@
                  redirect="true"
                  path="/systems/ssm/config/UnsubscribeConfirm.do"/>
     </action>
-    
+
     <action path="/systems/ssm/config/UnsubscribeConfirm"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/unsubscribeconfirm.jsp"
@@ -4188,7 +4188,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/unsubscribeconfirm.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/UnsubscribeConfirmSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/unsubscribeconfirm.jsp"
@@ -4202,7 +4202,7 @@
                  redirect="true"
                  path="/systems/ssm/config/Unsubscribe.do"/>
     </action>
-    
+
     <action path="/systems/ssm/config/ChannelSystems"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/channelsystems.jsp"
@@ -4212,7 +4212,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/channelsystems.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/SystemChannels"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/systemchannels.jsp"
@@ -4222,7 +4222,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/systemchannels.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/Enable"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/enable.jsp"
@@ -4233,7 +4233,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/enable.jsp"/>
     </action>
-    
+
     <action path="/systems/ssm/config/EnableSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/enable.jsp"
@@ -4247,7 +4247,7 @@
         <forward name="summary" redirect="true"
                  path="/systems/ssm/config/EnableSummary.do"/>
     </action>
-    
+
     <action path="/systems/ssm/config/EnableSummary"
         scope="request"
         input="/WEB-INF/pages/configuration/ssm/enablesummary.jsp"
@@ -4258,7 +4258,7 @@
                  path="/WEB-INF/pages/configuration/ssm/enablesummary.jsp"/>
     </action>
     <!-- ===== END SSM ===== -->
-    
+
     <action path="/monitoring/config/notification/Methods"
         scope="request"
         input="/WEB-INF/pages/admin/monitoring/config/notification/methods.jsp"
@@ -4269,10 +4269,10 @@
         <forward name="default"
                  path="/WEB-INF/pages/admin/monitoring/config/notification/methods.jsp"/>
     </action>
-    
+
     <action path="/monitoring/config/notification/MethodCreate"
         scope="request"
-        name="methodEditForm"        
+        name="methodEditForm"
         input="/WEB-INF/pages/admin/monitoring/config/notification/method-create.jsp"
         type="com.redhat.rhn.frontend.action.monitoring.notification.MethodCreateAction">
         <forward name="default"
@@ -4280,10 +4280,10 @@
          <forward name="success"
                   path="/monitoring/config/notification/Methods.do" redirect="true"/>
     </action>
-    
+
     <action path="/monitoring/config/notification/MethodEdit"
         scope="request"
-        name="methodEditForm"        
+        name="methodEditForm"
         input="/WEB-INF/pages/admin/monitoring/config/notification/method-edit.jsp"
         type="com.redhat.rhn.frontend.action.monitoring.notification.MethodEditAction">
         <forward name="default"
@@ -4291,10 +4291,10 @@
          <forward name="success"
                   path="/monitoring/config/notification/Methods.do" redirect="true"/>
     </action>
-    
+
     <action path="/admin/config/GeneralConfig"
         scope="request"
-        name="generalConfigForm"        
+        name="generalConfigForm"
         input="/WEB-INF/pages/admin/config/general.jsp"
         type="com.redhat.rhn.frontend.action.satellite.GeneralConfigAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -4305,7 +4305,7 @@
                  path="/WEB-INF/pages/admin/config/general.jsp"/>
     </action>
 
-    
+
     <action path="/admin/config/CertificateConfig"
         scope="request"
         name="certificateConfigForm"
@@ -4316,18 +4316,18 @@
         <forward name="default"
                  path="/WEB-INF/pages/admin/config/certificate.jsp"/>
     </action>
-    
+
     <action path="/admin/config/BootstrapConfig"
         scope="request"
         name="bootstrapConfigForm"
         input="/WEB-INF/pages/admin/config/bootstrap.jsp"
-        type="com.redhat.rhn.frontend.action.satellite.BootstrapConfigAction"        
+        type="com.redhat.rhn.frontend.action.satellite.BootstrapConfigAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/config/bootstrap.jsp"/>
     </action>
-    
+
     <action path="/admin/config/Restart"
         scope="request"
         name="restartForm"
@@ -4347,9 +4347,9 @@
         <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/config/cobbler.jsp"/>
-                 
+
     </action>
-    
+
     <action path="/YourRhnClips"
         scope="request"
         input="/WEB-INF/pages/common/fragments/yourrhn/yourrhnclips.jsp"
@@ -4436,10 +4436,10 @@
                  path="/WEB-INF/pages/multiorg/channels/orglist.jsp"/>
         <forward name="success"
                  path="/multiorg/channels/OrgList.do"
-                 redirect = "true"/>                 
+                 redirect = "true"/>
     </action>
-    
-    <action path="/multiorg/OrgTrustDetails"        
+
+    <action path="/multiorg/OrgTrustDetails"
         scope="request"
         input="/WEB-INF/pages/multiorg/orgtrustdetails.jsp"
         type="com.redhat.rhn.frontend.action.multiorg.OrgTrustDetailsAction"
@@ -4464,7 +4464,7 @@
       <forward name="success"
                path="/admin/multiorg/OrgSystemSubscriptions.do" redirect="true" />
     </action>
-    
+
     <action path="/admin/multiorg/OrgTrusts"
         scope="request"
         input="/WEB-INF/pages/admin/multiorg/orgtrust.jsp"
@@ -4478,7 +4478,7 @@
         <forward name="success"
                  path="/admin/multiorg/OrgTrusts.do" redirect="true" />
         <forward name="affectedsystems"
-                 path="/WEB-INF/pages/admin/multiorg/affectedsystems.jsp"/>   
+                 path="/WEB-INF/pages/admin/multiorg/affectedsystems.jsp"/>
     </action>
 
     <action path="/admin/multiorg/ToggleSatAdmin"
@@ -4495,7 +4495,7 @@
         input="/WEB-INF/pages/admin/multiorg/deletesatadmin.jsp"
         type="com.redhat.rhn.frontend.action.multiorg.SatRoleConfirm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="acls" 
+      <set-property property="acls"
                     value="org_entitlement(sw_mgr_enterprise); user_role(satellite_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/multiorg/deletesatadmin.jsp" />
       <forward name="cancel" path="/admin/multiorg/Users.do" redirect="true" />
@@ -4515,7 +4515,7 @@
       <forward name="error"
                path="/admin/multiorg/OrgDetails.do" redirect="true" />
     </action>
-    
+
     <action path="/admin/multiorg/OrgSystemSubscriptions"
         name="orgSystemSubscriptionsForm"
         scope="request"
@@ -4530,7 +4530,7 @@
         <forward name="error"
                path="/admin/multiorg/OrgSystemSubscriptions.do" redirect="true" />
     </action>
-    
+
     <action path="/admin/multiorg/OrgSoftwareSubscriptions"
         name="submittedForm"
         scope="request"
@@ -4545,7 +4545,7 @@
         <forward name="error"
                path="/WEB-INF/pages/admin/multiorg/orgsoftwaresubs.jsp"/>
     </action>
-    
+
     <action path="/admin/multiorg/SoftwareEntitlements"
         scope="request"
         input="/WEB-INF/pages/admin/multiorg/softwareentitlements.jsp"
@@ -4555,7 +4555,7 @@
         <forward name="default"
             path="/WEB-INF/pages/admin/multiorg/softwareentitlements.jsp"/>
     </action>
-   
+
     <action path="/admin/multiorg/SoftwareEntitlementDetails"
         scope="request"
         input="/WEB-INF/pages/admin/multiorg/softwareentitlementdetails.jsp"
@@ -4580,8 +4580,8 @@
         <forward name="unlimited"
                path="/admin/multiorg/SoftwareEntitlements.do" redirect="true" />
     </action>
-    
-   
+
+
     <action path="/admin/multiorg/SystemEntitlements"
         scope="request"
         input="/WEB-INF/pages/admin/multiorg/sys_entitlements.jsp"
@@ -4612,7 +4612,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/admin/multiorg/entitlementorgs.jsp"/>
     </action>
- 
+
  	<!-- Activation Key  Pages-->
     <action path="/activationkeys/List"
     	name="activationKeyForm"
@@ -4626,7 +4626,7 @@
                  path="/WEB-INF/pages/activationkeys/list.jsp"/>
         <forward name="success"
                  path="/activationkeys/List.do"
-                 redirect = "true"/>                 
+                 redirect = "true"/>
     </action>
  	
     <action path="/activationkeys/Create"
@@ -4642,9 +4642,9 @@
         <forward name="success" redirect = "true"
                  path="/activationkeys/Edit.do"/>
         <forward name="error"
-                 path="/WEB-INF/pages/activationkeys/create.jsp"/>                                  
+                 path="/WEB-INF/pages/activationkeys/create.jsp"/>
     </action>
-    
+
     <action path="/activationkeys/Edit"
     	name="activationKeyForm"
         scope="request"
@@ -4656,9 +4656,9 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/edit.jsp"/>
         <forward name="success" redirect = "true"
-                 path="/activationkeys/Edit.do"/>                 
+                 path="/activationkeys/Edit.do"/>
     </action>
-    
+
 	<action path="/activationkeys/Delete"
         scope="request"
         input="/WEB-INF/pages/activationkeys/delete.jsp"
@@ -4669,7 +4669,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/delete.jsp"/>
         <forward name="success" redirect = "true"
-                 path="/activationkeys/List.do"/>                 
+                 path="/activationkeys/List.do"/>
     </action>
 
     <action path="/activationkeys/packages/Packages"
@@ -4696,7 +4696,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/configuration/list.jsp"/>
         <forward name="success" redirect = "true"
-                 path="/activationkeys/configuration/List.do"/>                 
+                 path="/activationkeys/configuration/List.do"/>
     </action>
 
 	<action path="/activationkeys/configuration/Subscribe"
@@ -4712,9 +4712,9 @@
                  path="/activationkeys/configuration/Rank.do"/>
         <forward name="singleAdd" redirect = "true"
                  path="/activationkeys/configuration/List.do"/>
-                                  
+
     </action>
-    
+
 	<action path="/activationkeys/configuration/Rank"
 		name = "channelRanksForm"
         scope="request"
@@ -4726,8 +4726,8 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/configuration/rank.jsp"/>
         <forward name="success" redirect = "true"
-                 path="/activationkeys/configuration/List.do"/>                                  
-    </action>    
+                 path="/activationkeys/configuration/List.do"/>
+    </action>
 
 	<action path="/activationkeys/groups/List"
         scope="request"
@@ -4739,7 +4739,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/groups/list.jsp"/>
         <forward name="success" redirect = "true"
-                 path="/activationkeys/groups/List.do"/>                 
+                 path="/activationkeys/groups/List.do"/>
     </action>
 
 	<action path="/activationkeys/groups/Add"
@@ -4752,7 +4752,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/groups/add.jsp"/>
         <forward name="success" redirect = "true"
-                 path="/activationkeys/groups/List.do"/>                 
+                 path="/activationkeys/groups/List.do"/>
     </action>
 
 	<action path="/activationkeys/systems/List"
@@ -4765,8 +4765,8 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/systems//list.jsp"/>
         <forward name="success" redirect = "true"
-                 path="/activationkeys/systems/List.do"/>                 
-    </action>    
+                 path="/activationkeys/systems/List.do"/>
+    </action>
 
     <!-- Stored Profiles Pages -->
 
@@ -4848,7 +4848,7 @@
     </action>
 
  	<!-- Kickstart Pages  -->
- 
+
     <action path="/kickstart/Kickstarts"
         scope="request"
         input="/WEB-INF/pages/kickstart/kickstarts.jsp"
@@ -4868,7 +4868,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/scripts.jsp"/>
     </action>
-    
+
     <action path="/kickstart/KickstartIpRanges"
         scope="request"
         input="/WEB-INF/pages/kickstart/kickstartranges.jsp"
@@ -4877,8 +4877,8 @@
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstartranges.jsp"/>
-    </action>    
-    
+    </action>
+
     <action path="/kickstart/KickstartOverview"
         scope="request"
         input="/WEB-INF/pages/kickstart/kickstartoverview.jsp"
@@ -4888,7 +4888,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstartoverview.jsp"/>
     </action>
-    
+
     <action path="/kickstart/KickstartsSubmit"
         scope="request"
         input="/WEB-INF/pages/kickstart/kickstarts.jsp"
@@ -4896,21 +4896,21 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstarts.jsp"/>
     </action>
-  
+
   <action path="/kickstart/KickstartDetailsEdit"
         scope="request"
         name="kickstartDetailsForm"
         input="/WEB-INF/pages/kickstart/kickstartdetails.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartDetailsEditAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-		<set-property property="acls" 
+		<set-property property="acls"
                         value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstartdetails.jsp"/>
         <forward name="raw_mode"
                  path="/kickstart/AdvancedModeEdit.do" redirect="true"/>
     </action>
-  
+
   <action path="/kickstart/KickstartDelete"
         scope="request"
         name="kickstartDeleteForm"
@@ -4919,9 +4919,9 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstartdeleteconfirm.jsp"/>
         <forward name="success"
-                 path="/kickstart/Kickstarts.do"/>                 
-    </action> 
-  
+                 path="/kickstart/Kickstarts.do"/>
+    </action>
+
    <action path="/kickstart/KickstartSoftwareEdit"
         scope="request"
         name="kickstartSoftwareForm"
@@ -4930,7 +4930,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/softwareedit.jsp"/>
     </action>
-    
+
     <action path="/kickstart/KickstartOptionsEdit"
         scope="request"
         input="/WEB-INF/pages/kickstart/kickstartoptions.jsp"
@@ -4938,8 +4938,8 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstartoptions.jsp"/>
     </action>
-    
-    <action path="/kickstart/KickstartIpRangeEdit"    
+
+    <action path="/kickstart/KickstartIpRangeEdit"
         scope="request"
         name="kickstartIpRangeForm"
         input="/WEB-INF/pages/kickstart/kickstartips.jsp"
@@ -4947,8 +4947,8 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstartips.jsp"/>
     </action>
-    
-    <action path="/kickstart/KickstartIpRangeDelete"    
+
+    <action path="/kickstart/KickstartIpRangeDelete"
         scope="request"
         name="kickstartIpRangeForm"
         input="/WEB-INF/pages/kickstart/kickstartips.jsp"
@@ -4957,33 +4957,33 @@
                  path="/kickstart/KickstartIpRangeEdit.do"/>
     </action>
 
-    <action path="/kickstart/KickstartPartitionEdit"    
+    <action path="/kickstart/KickstartPartitionEdit"
         scope="request"
         name="kickstartPartitionForm"
         input="/WEB-INF/pages/kickstart/kickstartpartition.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartPartitionEditAction">
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstartpartition.jsp"/>
-    </action>    
-    
-    <action path="/kickstart/KickstartFileDownload"    
+    </action>
+
+    <action path="/kickstart/KickstartFileDownload"
         scope="request"
         name="kickstartDownloadForm"
         input="/WEB-INF/pages/kickstart/kickstartdownload.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartFileDownloadAction">
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstartdownload.jsp"/>
-    </action>    
-        
+    </action>
+
     <action path="/kickstart/SystemDetailsEdit"
         scope="request"
         name="kickstartSystemDetailsForm"
         type="com.redhat.rhn.frontend.action.kickstart.SystemDetailsEditAction"
-        input="/WEB-INF/pages/kickstart/systemdetails.jsp">    
+        input="/WEB-INF/pages/kickstart/systemdetails.jsp">
         <forward name="display"
                 path="/WEB-INF/pages/kickstart/systemdetails.jsp" />
     </action>
-      
+
     <action path="/kickstart/KickstartPackagesEdit"
         scope="request"
         name="kickstartPackages"
@@ -4992,7 +4992,7 @@
         <forward name="display"
                 path="/WEB-INF/pages/kickstart/assignedpackages.jsp" />
     </action>
-      
+
     <action path="/kickstart/CreateProfileWizard"
         scope="request"
         name="kickstartCreateWizardForm"
@@ -5006,7 +5006,7 @@
                 path="/WEB-INF/pages/kickstart/wizard/profile/second.jsp" />
         <forward name="third"
                 path="/WEB-INF/pages/kickstart/wizard/profile/third.jsp" />
-        
+
     </action>
 
     <action path="/kickstart/AdvancedModeCreate"
@@ -5015,40 +5015,40 @@
         type="com.redhat.rhn.frontend.action.kickstart.AdvancedModeDetailsAction"
         parameter="create"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-		<set-property property="acls" 
+		<set-property property="acls"
                         value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                 path="/WEB-INF/pages/kickstart/wizard/profile/advanced/create.jsp"/>
         <forward name="success"
                  path="/kickstart/AdvancedModeEdit.do"
                  redirect="true"
-                 />                   
+                 />
     </action>
-    
+
    <action path="/kickstart/EditVariables"
         scope="request"
         name="kickstartVariableForm"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartProfileVariableAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-		<set-property property="acls" 
+		<set-property property="acls"
                         value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                path="/WEB-INF/pages/kickstart/kickstartvariables.jsp"/>        
+                path="/WEB-INF/pages/kickstart/kickstartvariables.jsp"/>
     </action>
-    
-    
+
+
    <action path="/kickstart/tree/EditVariables"
         scope="request"
         name="kickstartVariableForm"
         type="com.redhat.rhn.frontend.action.kickstart.tree.KickstartTreeVariableAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-		<set-property property="acls" 
+		<set-property property="acls"
                         value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                path="/WEB-INF/pages/kickstart/kickstarttreevariables.jsp"/>        
-    </action>    
-    
-    
+                path="/WEB-INF/pages/kickstart/kickstarttreevariables.jsp"/>
+    </action>
+
+
 
     <action path="/kickstart/AdvancedModeEdit"
         scope="request"
@@ -5056,14 +5056,14 @@
         type="com.redhat.rhn.frontend.action.kickstart.AdvancedModeDetailsAction"
         parameter="edit"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-		<set-property property="acls" 
+		<set-property property="acls"
                         value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                 path="/WEB-INF/pages/kickstart/wizard/profile/advanced/edit.jsp"/>
         <forward name="success"
                  path="/kickstart/AdvancedModeEdit.do"
                  redirect="true"
-                 />                
+                 />
     </action>
 
     <action path="/kickstart/KickstartCloneAdvanced"
@@ -5085,19 +5085,19 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/wizard/profile/advanced/deleteconfirm.jsp"/>
         <forward name="success"
-                 path="/kickstart/Kickstarts.do"/>                 
-    </action> 
-    
-    <action path="/kickstart/KickstartFileDownloadAdvanced"    
+                 path="/kickstart/Kickstarts.do"/>
+    </action>
+
+    <action path="/kickstart/KickstartFileDownloadAdvanced"
         scope="request"
         name="kickstartDownloadForm"
         input="/WEB-INF/pages/kickstart/wizard/profile/advanced/download.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartFileDownloadAction">
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/wizard/profile/advanced/download.jsp"/>
-    </action>     
+    </action>
 
-    <action path="/kickstart/KickstartIpRangeEditAdvanced"    
+    <action path="/kickstart/KickstartIpRangeEditAdvanced"
         scope="request"
         name="kickstartIpRangeForm"
         input="/WEB-INF/pages/kickstart/wizard/profile/advanced/iprange.jsp"
@@ -5105,8 +5105,8 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/wizard/profile/advanced/iprange.jsp"/>
     </action>
-    
-    <action path="/kickstart/KickstartIpRangeDeleteAdvanced"    
+
+    <action path="/kickstart/KickstartIpRangeDeleteAdvanced"
         scope="request"
         name="kickstartIpRangeForm"
         input="/WEB-INF/pages/kickstart/wizard/profile/advanced/iprange.jsp"
@@ -5116,10 +5116,10 @@
     </action>
 
 
-    
-    <action path="/kickstart/ViewTrees"    
+
+    <action path="/kickstart/ViewTrees"
         type="com.redhat.rhn.frontend.action.kickstart.ViewTreesAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">        
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kstrees.jsp"/>
@@ -5146,7 +5146,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/cobbler/snippets.jsp"/>
     </action>
-        
+
     <action path="/kickstart/cobbler/CobblerSnippetList"
         scope="request"
         parameter="all"
@@ -5172,7 +5172,7 @@
                  path="/kickstart/cobbler/CobblerSnippetEdit.do" redirect = "true"
                  />
     </action>
-    
+
     <action path="/kickstart/cobbler/CobblerSnippetEdit"
         scope="request"
         name="cobblerSnippetsForm"
@@ -5182,7 +5182,7 @@
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/cobbler/snippetdetails.jsp"/>
-        <forward name="success" 
+        <forward name="success"
                  path="/kickstart/cobbler/CobblerSnippetEdit.do" redirect = "true"/>
     </action>
 
@@ -5219,7 +5219,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/keys/keys.jsp"/>
     </action>
-    
+
     <action path="/keys/CryptoKeyCreate"
         scope="request"
         name="cryptoKeyForm"
@@ -5243,7 +5243,7 @@
         <forward name="success"
                  path="/keys/CryptoKeysList.do"/>
     </action>
-    
+
     <action path="/keys/CryptoKeyDelete"
         scope="request"
         name="cryptoKeyDeleteForm"
@@ -5254,7 +5254,7 @@
         <forward name="success"
                  path="/keys/CryptoKeysList.do"/>
     </action>
-    
+
     <action path="/systems/provisioning/preservation/PreservationList"
         scope="request"
         input="/WEB-INF/pages/systems/provisioning/preservation/preservation_list.jsp"
@@ -5265,7 +5265,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/provisioning/preservation/preservation_list.jsp"/>
     </action>
-    
+
     <action path="/systems/provisioning/preservation/PreservationListDeleteSubmit"
         scope="request"
         input="/WEB-INF/pages/systems/provisioning/preservation/preservation_list.jsp"
@@ -5278,7 +5278,7 @@
         <forward name="delete"
                  path="/systems/provisioning/preservation/PreservationListConfirmDelete.do"/>
     </action>
-      
+
     <action path="/systems/provisioning/preservation/PreservationListDeleteSingle"
         scope="request"
         type="com.redhat.rhn.frontend.action.systems.provisioning.PreservationListDeleteSingleAction"
@@ -5287,8 +5287,8 @@
         <forward name="default" redirect="true"
                  path="/systems/provisioning/preservation/PreservationListDeleteSubmit.do"/>
     </action>
-      
-    
+
+
     <action path="/systems/provisioning/preservation/PreservationListConfirmDelete"
         scope="request"
         input="/WEB-INF/pages/systems/provisioning/preservation/preservationlistconfirm.jsp"
@@ -5299,7 +5299,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/provisioning/preservation/preservationlistconfirm.jsp"/>
     </action>
-    
+
     <action path="/systems/provisioning/preservation/PreservationListDelete"
         scope="request"
         input="/WEB-INF/pages/systems/provisioning/preservation/preservation_list.jsp"
@@ -5310,7 +5310,7 @@
         <forward name="default"
                  path="/systems/provisioning/preservation/PreservationList.do"/>
     </action>
-    
+
     <action path="/systems/provisioning/preservation/PreservationListEdit"
         scope="request"
         name="fileListForm"
@@ -5322,9 +5322,9 @@
                  path="/WEB-INF/pages/systems/provisioning/preservation/preservation_edit.jsp"/>
         <forward name="success"
                  path="/systems/provisioning/preservation/PreservationList.do"/>
-                 
+
     </action>
-    
+
     <action path="/systems/provisioning/preservation/PreservationListCreate"
         scope="request"
         name="fileListForm"
@@ -5371,8 +5371,8 @@
         type="com.redhat.rhn.frontend.action.kickstart.ActivationKeysSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/activationkeys.jsp"/>
-    </action> 
-   
+    </action>
+
     <action path="/kickstart/ActivationKeysSubmit"
         scope="request"
         input="/WEB-INF/pages/kickstart/activationkeys.jsp"
@@ -5381,7 +5381,7 @@
         <forward name="default"
                  path="/kickstart/ActivationKeys.do"/>
     </action>
-   
+
     <action path="/kickstart/KickstartFilePreservationLists"
         name="submittedForm"
         scope="request"
@@ -5412,22 +5412,22 @@
 
     <action path="/kickstart/DownloadLog"
         scope="request"
-        type="com.redhat.rhn.frontend.action.kickstart.RenderKickstartLogAction" /> 
-      
+        type="com.redhat.rhn.frontend.action.kickstart.RenderKickstartLogAction" />
+
     <!-- This action should not be called directly by the client.
          Instead, this url should be invoked via a mod_rewrite RewriteRule.
          See webapp.conf for the appropriate rule. -->
     <action path="/kickstart/DownloadFile"
         scope="request"
         type="com.redhat.rhn.frontend.action.kickstart.RenderKickstartFileAction" />
-      
+
     <!-- This action should not be called directly by the client.
          Instead, this url should be invoked via a mod_rewrite RewriteRule.
          See webapp.conf for the appropriate rule. -->
     <action path="/ty/TinyUrl"
         scope="request"
-        type="com.redhat.rhn.frontend.action.common.TinyUrlAction" />      
-      
+        type="com.redhat.rhn.frontend.action.common.TinyUrlAction" />
+
     <action path="/kickstart/Troubleshooting"
         scope="request"
         name="kickstartTroubleshootingForm"
@@ -5467,13 +5467,13 @@
         <forward name="success"
                  path="/rhn/kickstart/Locale.do"/>
     </action>
-      
+
     <action path="/systems/details/kickstart/ScheduleWizard"
         scope="request"
         name="kickstartScheduleWizardForm"
         type="com.redhat.rhn.frontend.action.kickstart.ScheduleKickstartWizardAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" 
+        <set-property property="acls"
                       value="system_feature(ftr_kickstart)"/>
         <forward name="first"
                 path="/WEB-INF/pages/kickstart/wizard/schedule/first.jsp" />
@@ -5482,9 +5482,9 @@
         <forward name="success"
                  redirect="true" path="/systems/details/kickstart/SessionStatus.do"/>
         <forward name="cobbler-success"
-                 redirect="true" path="/systems/details/kickstart/ScheduleWizard.do"/>                 
+                 redirect="true" path="/systems/details/kickstart/ScheduleWizard.do"/>
     </action>
-    
+
     <action path="/systems/details/virtualization/ProvisionVirtualizationWizard"
         scope="request"
 	name="kickstartScheduleWizardForm"
@@ -5501,7 +5501,7 @@
 
     <action path="/kickstart/KickstartScriptCreate"
         scope="request"
-        name="kickstartScriptForm"        
+        name="kickstartScriptForm"
         input="/WEB-INF/pages/kickstart/scriptedit.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartScriptCreateAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -5511,10 +5511,10 @@
         <forward name="success"
                  path="/kickstart/Scripts.do"/>
     </action>
-    
+
     <action path="/kickstart/KickstartScriptEdit"
         scope="request"
-        name="kickstartScriptForm"        
+        name="kickstartScriptForm"
         input="/WEB-INF/pages/kickstart/scriptedit.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartScriptEditAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -5537,7 +5537,7 @@
         <forward name="success"
                  path="/kickstart/Scripts.do"/>
     </action>
-      
+
     <action path="/kickstart/KickstartClone"
         scope="request"
         name="kickstartCloneForm"
@@ -5548,17 +5548,17 @@
         <forward name="success"
                  redirect="true" path="/kickstart/KickstartDetailsEdit.do"/>
     </action>
- 
+
    <action path="/systems/details/kickstart/Variables"
         scope="request"
         name="kickstartVariableForm"
         type="com.redhat.rhn.frontend.action.systems.provisioning.kickstart.VariablesAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default"
-                path="/WEB-INF/pages/systems/details/kickstart/variables.jsp"/>        
+                path="/WEB-INF/pages/systems/details/kickstart/variables.jsp"/>
     </action>
- 
-      
+
+
     <action path="/systems/details/kickstart/SessionStatus"
         scope="request"
 		name="scrollForm"
@@ -5578,7 +5578,7 @@
         <forward name="success"
                  redirect="true" path="/systems/details/kickstart/SessionStatus.do"/>
     </action>
-      
+
     <action path="/kickstart/TreeCreate"
         scope="request"
         name="treeEditForm"
@@ -5591,7 +5591,7 @@
         <forward name="success"
                  redirect="true" path="/kickstart/ViewTrees.do"/>
     </action>
-      
+
     <action path="/kickstart/TreeEdit"
         scope="request"
         name="treeEditForm"
@@ -5604,7 +5604,7 @@
         <forward name="success"
                  path="/WEB-INF/pages/kickstart/treeedit.jsp"/>
     </action>
-    
+
     <action path="/kickstart/TreeDelete"
         scope="request"
         name="treeDeleteForm"
@@ -5615,7 +5615,7 @@
         <forward name="success"
                  redirect="true" path="/kickstart/ViewTrees.do"/>
     </action>
-      
+
     <action path="/monitoring/ProbeList"
         scope="request"
         input="/WEB-INF/pages/monitoring/probes.jsp"
@@ -5626,9 +5626,9 @@
         <forward name="default"
                  path="/WEB-INF/pages/monitoring/probes.jsp"/>
     </action>
-    
+
     <!-- ===== CONFIGURATION ===== -->
-    
+
 	<!--
 	  ** OVERVIEW ACTIONS
 	  -->
@@ -5651,7 +5651,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/overview/globalconfiglist.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/GlobalConfigFileList"
         scope="request"
         input="/WEB-INF/pages/configuration/overview/globalfilelist.jsp"
@@ -5661,7 +5661,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/overview/globalfilelist.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/LocalConfigFileList"
         scope="request"
         input="/WEB-INF/pages/configuration/overview/localfilelist.jsp"
@@ -5671,7 +5671,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/overview/localfilelist.jsp"/>
     </action>
-    
+
     <action path="/configuration/system/ManagedSystems"
         scope="request"
         input="/WEB-INF/pages/configuration/overview/managedsystems.jsp"
@@ -5681,7 +5681,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/overview/managedsystems.jsp"/>
     </action>
-    
+
     <action path="/configuration/system/TargetSystems"
         scope="request"
         name="targetSystemsForm"
@@ -5692,7 +5692,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/overview/targetsystems.jsp"/>
     </action>
-    
+
     <action path="/configuration/system/TargetSystemsSubmit"
         scope="request"
         name="targetSystemsForm"
@@ -5706,7 +5706,7 @@
         <forward name="summary" redirect="true"
                  path="/configuration/system/Summary.do" />
     </action>
-    
+
     <action path="/configuration/system/Summary"
         scope="request"
         input="/WEB-INF/pages/configuration/overview/summary.jsp"
@@ -5716,7 +5716,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/overview/summary.jsp"/>
     </action>
-    
+
 	<!--
 	  ** CHANNEL ACTIONS
 	  -->
@@ -5737,7 +5737,7 @@
 				 redirect="true"/>
         <forward name="success" redirect="true"
                  path="/configuration/ChannelOverview.do"/>
-        <forward name="error" 
+        <forward name="error"
                  path="/WEB-INF/pages/configuration/channel/channelOverview.jsp"/>
     </action>
 
@@ -5776,10 +5776,10 @@
         type="com.redhat.rhn.frontend.action.configuration.channel.ChannelFilesListSetup"
 		name="submittedForm"
 		className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <forward name="default" 
+        <forward name="default"
 			path="/WEB-INF/pages/configuration/channel/channelfiles.jsp"/>
     </action>
-    
+
     <action path="/configuration/ChannelFilesSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/channelfiles.jsp"
@@ -5794,7 +5794,7 @@
         <forward name="copy2channels" redirect="true"
 			path="/configuration/channel/Copy2Channels.do"/>
     </action>
-    	  
+
     <action path="/configuration/channel/Copy2Systems"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/copy2systems.jsp"
@@ -5802,9 +5802,9 @@
 		name="submittedForm"
 		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
 		parameter="dispatch">
-        <forward name="default" 
+        <forward name="default"
 			path="/WEB-INF/pages/configuration/channel/copy2systems.jsp"/>
-        <forward name="success" 
+        <forward name="success"
 			path="/configuration/ChannelFiles.do"/>
     </action>
 
@@ -5815,9 +5815,9 @@
 		name="submittedForm"
 		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
 		parameter="dispatch">
-        <forward name="default" 
+        <forward name="default"
 			path="/WEB-INF/pages/configuration/channel/copy2channels.jsp"/>
-        <forward name="success" 
+        <forward name="success"
 			path="/configuration/ChannelFiles.do"/>
     </action>
 
@@ -5829,10 +5829,10 @@
 		className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="config_channel_type(normal);"/>
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.ConfigAclHandler" />
-        <forward name="default" 
+        <forward name="default"
 			path="/WEB-INF/pages/configuration/channel/channelsystems.jsp"/>
     </action>
-    
+
     <action path="/configuration/channel/ChannelSystemsSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/channelfiles.jsp"
@@ -5842,12 +5842,12 @@
 		parameter="dispatch">
         <set-property property="acls" value="config_channel_type(normal);"/>
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.ConfigAclHandler" />
-        <forward name="default" 
+        <forward name="default"
 			path="/configuration/channel/ChannelSystems.do"/>
         <forward name="success" redirect="true"
 			path="/configuration/channel/ChannelSystems.do"/>
     </action>
-    
+
     <action path="/configuration/channel/TargetSystems"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/targetsystems.jsp"
@@ -5856,10 +5856,10 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="config_channel_type(normal);user_role(config_admin);"/>
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.ConfigAclHandler" />
-        <forward name="default" 
+        <forward name="default"
 	  		path="/WEB-INF/pages/configuration/channel/targetsystems.jsp"/>
     </action>
-    
+
     <action path="/configuration/channel/TargetSystemsSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/targetsystems.jsp"
@@ -5869,7 +5869,7 @@
 		parameter="dispatch">
 		<set-property property="acls" value="config_channel_type(normal);user_role(config_admin);"/>
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.ConfigAclHandler" />
-        <forward name="default" 
+        <forward name="default"
 	  		path="/configuration/channel/TargetSystems.do"/>
         <forward name="success" redirect="true"
 	  		path="/configuration/channel/TargetSystems.do"/>
@@ -5883,7 +5883,7 @@
 		name="submittedForm"
 		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
 		parameter="dispatch">
-        <forward name="all2all" 
+        <forward name="all2all"
 	  		path="/configuration/channel/DeployConfirm.do"/>
         <forward name="sel2all" redirect="true"
 	  		path="/configuration/channel/ChooseFiles.do"/>
@@ -5896,7 +5896,7 @@
         <forward name="default" redirect="true"
 	  		path="/configuration/ChannelOverview.do"/>
 	</action>
-	  
+
 	<action path="/configuration/channel/ChooseFiles"
 		scope="request"
 		input="/WEB-INF/pages/configuration/channel/deploy.jsp"
@@ -5904,10 +5904,10 @@
 		name="submittedForm"
 		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
 		parameter="dispatch">
-        <forward name="default" 
+        <forward name="default"
 	  		path="/WEB-INF/pages/configuration/channel/deploy.jsp"/>
 	</action>
-	  
+
 	<action path="/configuration/channel/ChooseFilesSubmit"
 		scope="request"
 		input="/WEB-INF/pages/configuration/channel/deploy.jsp"
@@ -5915,12 +5915,12 @@
 		name="submittedForm"
 		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
 		parameter="dispatch">
-        <forward name="default" 
+        <forward name="default"
 	  		path="/configuration/channel/ChooseFiles.do"/>
         <forward name="success" redirect="true"
 	  		path="/configuration/channel/ChooseSystems.do"/>
 	</action>
-	  
+
 	<action path="/configuration/channel/ChooseSystems"
 		scope="request"
 		input="/WEB-INF/pages/configuration/channel/deploysystems.jsp"
@@ -5928,10 +5928,10 @@
 		name="submittedForm"
 		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
 		parameter="dispatch">
-        <forward name="default" 
+        <forward name="default"
 	  		path="/WEB-INF/pages/configuration/channel/deploysystems.jsp"/>
 	</action>
-	  
+
 	<action path="/configuration/channel/ChooseSystemsSubmit"
 		scope="request"
 		input="/WEB-INF/pages/configuration/channel/deploysystems.jsp"
@@ -5939,7 +5939,7 @@
 		name="submittedForm"
 		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
 		parameter="dispatch">
-        <forward name="default" 
+        <forward name="default"
 	  		path="/configuration/channel/ChooseSystems.do"/>
         <forward name="confirm" redirect="true"
 	  		path="/configuration/channel/DeployConfirm.do"/>
@@ -5948,7 +5948,7 @@
         <forward name="failure" redirect="true"
 	  		path="/configuration/channel/ChooseSystems.do"/>
 	</action>
-	  
+
 	<action path="/configuration/channel/DeployConfirm"
 		scope="request"
 		input="/WEB-INF/pages/configuration/channel/deployconfirm.jsp"
@@ -5956,14 +5956,14 @@
 		name="datePickerForm"
 		className="com.redhat.rhn.frontend.struts.RhnActionMapping"
 		parameter="dispatch">
-        <forward name="default" 
+        <forward name="default"
 	  		path="/WEB-INF/pages/configuration/channel/deployconfirm.jsp"/>
         <forward name="success" redirect="true"
 	  		path="/configuration/ChannelOverview.do"/>
         <forward name="failure" redirect="true"
 	  		path="/configuration/channel/DeployConfirm.do"/>
 	</action>
-	  
+
 	<action path="/configuration/DeleteChannelSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/channel/deleteChannel.jsp"
@@ -5974,7 +5974,7 @@
         <forward name="default" redirect="true"
 			path="/configuration/GlobalConfigChannelList.do"/>
     </action>
-    
+
     <action path="/configuration/ChannelUploadFiles"
         scope="request"
 		name="configFileForm"
@@ -6000,7 +6000,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/channel/fileimport.jsp"/>
     </action>
-	  
+
     <action path="/configuration/ChannelImportFilesSubmit"
         scope="request"
 		name="configFileForm"
@@ -6040,7 +6040,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/manage.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/ManageRevisionSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/files/manage.jsp"
@@ -6053,7 +6053,7 @@
         <forward name="deletedfile" redirect="true"
                  path="/configuration/ChannelFiles.do" />
     </action>
-    
+
     <action path="/configuration/file/CopyFileCentral"
         scope="request"
         input="/WEB-INF/pages/configuration/files/copycentral.jsp"
@@ -6063,7 +6063,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/copycentral.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/CopyFileLocal"
         scope="request"
         input="/WEB-INF/pages/configuration/files/copylocal.jsp"
@@ -6072,7 +6072,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/copylocal.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/CopyFileSandbox"
         scope="request"
         input="/WEB-INF/pages/configuration/files/copysandbox.jsp"
@@ -6081,7 +6081,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/copysandbox.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/CopyFileCentralSubmit"
         scope="request"
         type="com.redhat.rhn.frontend.action.configuration.files.CopyFileCentralSubmitAction"
@@ -6091,7 +6091,7 @@
         <forward name="default"
                  path="/configuration/file/CopyFileCentral.do"/>
     </action>
-    
+
     <action path="/configuration/file/CopyFileLocalSubmit"
         scope="request"
         type="com.redhat.rhn.frontend.action.configuration.files.CopyFileLocalSubmitAction"
@@ -6100,7 +6100,7 @@
         <forward name="default"
                  path="/configuration/file/CopyFileLocal.do"/>
     </action>
-    
+
     <action path="/configuration/file/CopyFileSandboxSubmit"
         scope="request"
         type="com.redhat.rhn.frontend.action.configuration.files.CopyFileSandboxSubmitAction"
@@ -6109,7 +6109,7 @@
         <forward name="default"
                  path="/configuration/file/CopyFileSandbox.do"/>
     </action>
-    
+
     <action path="/configuration/file/CompareRevision"
         scope="request"
         input="/WEB-INF/pages/configuration/files/comparerevision.jsp"
@@ -6118,7 +6118,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/comparerevision.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/CompareCopy"
         scope="request"
         input="/WEB-INF/pages/configuration/files/comparecopy.jsp"
@@ -6127,7 +6127,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/comparecopy.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/CompareChannel"
         scope="request"
         input="/WEB-INF/pages/configuration/files/comparechannel.jsp"
@@ -6136,7 +6136,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/comparechannel.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/CompareFile"
         scope="request"
         input="/WEB-INF/pages/configuration/files/comparefile.jsp"
@@ -6145,7 +6145,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/comparefile.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/FileDetails"
         scope="request"
         input="/WEB-INF/pages/configuration/files/filedetails.jsp"
@@ -6211,7 +6211,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/comparedeployed.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/CompareDeployedSubmit"
         scope="request"
         input="/WEB-INF/pages/configuration/files/comparedeployed.jsp"
@@ -6221,7 +6221,7 @@
         <forward name="default" redirect="true"
                  path="/configuration/file/CompareDeployed.do"/>
     </action>
-    
+
     <action path="/configuration/file/Diff"
         scope="request"
         input="/WEB-INF/pages/configuration/files/diff.jsp"
@@ -6231,7 +6231,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/files/diff.jsp"/>
     </action>
-    
+
     <action path="/configuration/file/DownloadDiff"
         scope="request"
         input="/WEB-INF/pages/configuration/files/diff.jsp"
@@ -6242,7 +6242,7 @@
         <forward name="default"
                  path="/configuration/file/Diff.do"/>
     </action>
-    
+
 	<action path="/configuration/file/RevisionDeploy"
         scope="request"
         input="/WEB-INF/pages/configuration/files/deploy.jsp"
@@ -6274,7 +6274,7 @@
 		name="submittedForm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
 		parameter="dispatch">
-        <forward name="default" 
+        <forward name="default"
                  path="/configuration/file/GlobalRevisionDeploy.do"/>
         <forward name="confirm" redirect="true"
                  path="/configuration/file/GlobalRevisionDeployConfirm.do"/>
@@ -6321,9 +6321,9 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/software/downloads/download.jsp"/>
     </action>
-    
+
 	<!-- ===== END ISO DOWNLOAD ===== -->
-      
+
      <action path="/systems/entitlements/GuestLimitedHosts"
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.entitlements.VirtualizationEntitlementsAction"
@@ -6332,7 +6332,7 @@
        <set-property property="acls" value="user_role(org_admin)"/>
        <forward name="success" path="/WEB-INF/pages/systems/entitlements/guestlimited.jsp"/>
      </action>
-     
+
      <action path="/systems/entitlements/GuestUnlimitedHosts"
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.entitlements.VirtualizationEntitlementsAction"
@@ -6341,7 +6341,7 @@
        <set-property property="acls" value="user_role(org_admin)"/>
        <forward name="success" path="/WEB-INF/pages/systems/entitlements/guestunlimited.jsp"/>
      </action>
-    
+
      <action path="/systems/entitlements/PhysicalHosts"
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.entitlements.VirtualizationEntitlementsAction"
@@ -6350,7 +6350,7 @@
        <set-property property="acls" value="user_role(org_admin)"/>
        <forward name="success" path="/WEB-INF/pages/systems/entitlements/physicalhosts.jsp"/>
      </action>
-     
+
      <action path="/systems/entitlements/FlexGuests"
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.entitlements.FlexGuestAction"
@@ -6367,7 +6367,7 @@
        <forward name="default" path="/WEB-INF/pages/systems/entitlements/flexguests.jsp"/>
        <forward name="success" path="/systems/entitlements/EligibleFlexGuests.do" redirect="true"/>
      </action>
-     
+
     <action path="/channels/manage/errata/Add"
         scope="request"
         input="/WEB-INF/pages/channel/manage/add.jsp"
@@ -6393,7 +6393,7 @@
       <forward name="default" path="/WEB-INF/pages/channel/manage/confirmerrataremove.jsp" />
       <forward name="submit" path="/channels/manage/errata/ListRemove.do"  redirect="true"/>
     </action>
-     
+
       <action path="/channels/manage/errata/AddRedHatErrata"
         scope="request"
         input="/WEB-INF/pages/channel/manage/adderrataredhat.jsp"
@@ -6401,8 +6401,8 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/adderrataredhat.jsp" />
       <forward name="submit" path="/channels/manage/errata/ConfirmErrataAdd.do"  redirect="true"/>
-      </action>        
-      
+      </action>
+
       <action path="/channels/manage/errata/AddCustomErrata"
         scope="request"
         input="/WEB-INF/pages/channel/manage/addcustomerrata.jsp"
@@ -6410,8 +6410,8 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/addcustomerrata.jsp" />
       <forward name="submit" path="/channels/manage/errata/ConfirmErrataAdd.do" redirect="true"/>
-      </action>              
-      
+      </action>
+
       <action path="/channels/manage/errata/ConfirmErrataAdd"
         scope="request"
         input="/WEB-INF/pages/channel/manage/confirmerrata.jsp"
@@ -6419,8 +6419,8 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/confirmerrata.jsp" />
       <forward name="clone" path="/channels/manage/errata/PublishErrata.do" redirect="true"/>
-      </action> 
-      
+      </action>
+
      <action path="/channels/manage/errata/PublishErrata"
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.manage.PublishErrataAction"
@@ -6457,27 +6457,27 @@
       </action>
 
 
-      
+
      <action path="/channels/manage/solaris/ListPatchSets"
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.manage.PatchSetListAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/listpatchset.jsp" />
-      </action>   
-      
+      </action>
+
    <action path="/channels/ChannelPackages"
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.ChannelPackagesAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/packagelist.jsp" />
-      </action>          
-      
+      </action>
+
    <action path="/channels/ChannelErrata"
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.ChannelErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/erratalist.jsp" />
-      </action>                
+      </action>
 
    <action path="/channels/ChannelDetail"
         scope="request"
@@ -6486,7 +6486,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/channeldetail.jsp" />
       <forward name="success" path="/channels/ChannelDetail.do" redirect="true" />
-   </action>         
+   </action>
 
    <action path="/channels/manage/ChannelPackages"
         scope="request"
@@ -6516,18 +6516,18 @@
            scope="request"
            type="com.redhat.rhn.frontend.action.channel.manage.ManageChannelsAction"
            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <forward name="default" path="/WEB-INF/pages/channel/manage/manage.jsp"/> 
+      <forward name="default" path="/WEB-INF/pages/channel/manage/manage.jsp"/>
    </action>
-     
+
    <action path="/channels/manage/Delete"
            scope="request"
            name="channelDeleteForm"
            type="com.redhat.rhn.frontend.action.channel.manage.DeleteChannelAction"
            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <forward name="default" path="/WEB-INF/pages/channel/manage/delete.jsp"/> 
-      <forward name="success" path="/channels/manage/Manage.do"/> 
+      <forward name="default" path="/WEB-INF/pages/channel/manage/delete.jsp"/>
+      <forward name="success" path="/channels/manage/Manage.do"/>
    </action>
-     
+
    <action path="/channels/manage/Edit"
            scope="request"
            name="channelEditForm"
@@ -6537,7 +6537,7 @@
       <forward name="private"
                path="/WEB-INF/pages/channel/manage/confirmprivate.jsp" />
       <forward name="protected"
-               path="/WEB-INF/pages/channel/manage/confirmprotected.jsp" /> 
+               path="/WEB-INF/pages/channel/manage/confirmprotected.jsp" />
       <forward name="success" path="/channels/manage/Edit.do" redirect="true" />
    </action>
 
@@ -6561,8 +6561,8 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/channel/manage/addpackages.jsp" />
           <forward name="confirm" path="/channels/manage/ChannelPackagesAddConfirm.do" redirect="true" />
-      </action>      
-      
+      </action>
+
    <action path="/channels/manage/ChannelPackagesAddConfirm"
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.manage.ChannelPackagesAddConfirmAction"
@@ -6575,7 +6575,7 @@
 		type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
 	        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/channel/subscribedsystems.jsp" />
-      </action>          
+      </action>
 
 	 <action path="/channels/TargetSystems"
 		type="com.redhat.rhn.frontend.action.channel.TargetSystemsAction"
@@ -6622,14 +6622,14 @@
         <forward name="default" path="/WEB-INF/pages/channel/manage/package/confirmdeletepackages.jsp" />
         <forward name="deleted" path="/software/manage/packages/PackageList.do" redirect="true" />
       </action>
-      
+
    <action path="/software/packages/Details"
         scope="request"
         type="com.redhat.rhn.frontend.action.rhnpackage.PackageDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/rhnpackage/packagedetail.jsp" />
-		<forward name="package" path="/software/packages/Details.do" redirect="true"/>        
-      </action>      
+		<forward name="package" path="/software/packages/Details.do" redirect="true"/>
+      </action>
 
 
 <!-- Repo Sync -->
@@ -6681,18 +6681,18 @@
     </action>
 
 <!-- end repo -->
-      
+
    <action path="/common/DownloadFile"
         scope="request"
         type="com.redhat.rhn.frontend.action.common.DownloadFile"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
 		<forward name="error"
              path="/WEB-INF/pages/common/errors/baddownloadaction.jsp"/>
-      </action>      
-      
-      
+      </action>
 
-	  
+
+
+
     <action path="/admin/config/Orgs"
             forward="/WEB-INF/pages/admin/config/multiorg.jsp" />
     <action path="/account/VerificationSent"
@@ -6705,14 +6705,14 @@
             forward="/WEB-INF/pages/common/errors/permission.jsp" />
     <action path="/Load"
             forward="/WEB-INF/pages/common/loading/loading.jsp" />
-	  
+
 	<!-- Used by CSVTag, data must be stored in session context -->
 	<action path="/CSVDownloadAction"
 			type="com.redhat.rhn.frontend.action.CSVDownloadAction">
 		<forward name="error"
                  path="/WEB-INF/pages/common/errors/badcsvaction.jsp"/>
 	</action>
-      
+
     <action path="/help/Search"
         scope="request"
         name="docsSearchForm"
@@ -6723,7 +6723,7 @@
         <forward name="success"
                  path="/help/Search.do" redirect="true"/>
     </action>
-    
+
     <action path="/help/index"
         scope="request"
         type="com.redhat.rhn.frontend.action.help.HelpAction">
@@ -6736,25 +6736,25 @@
        <forward name="default"
                 path="/WEB-INF/pages/ssm/view-log.jsp"/>
     </action>
-     
+
     <action path="/ssm/ViewAllLog"
             type="com.redhat.rhn.frontend.action.ssm.ViewAllLogAction">
        <forward name="default"
                 path="/WEB-INF/pages/ssm/view-log.jsp"/>
     </action>
-     
+
     <action path="/ssm/ViewCompletedLog"
             type="com.redhat.rhn.frontend.action.ssm.ViewCompletedLogAction">
        <forward name="default"
                 path="/WEB-INF/pages/ssm/view-log.jsp"/>
     </action>
-     
+
     <action path="/ssm/ViewLogDetails"
             type="com.redhat.rhn.frontend.action.ssm.ViewLogDetailsAction">
        <forward name="default"
-                path="/WEB-INF/pages/ssm/view-log-details.jsp"/>       
+                path="/WEB-INF/pages/ssm/view-log-details.jsp"/>
     </action>
-     
+
     <!-- SSM Package tab home page -->
     <action path="/ssm/Packages"
             forward="/WEB-INF/pages/ssm/packages.jsp" />
@@ -6810,7 +6810,7 @@
         <forward name="confirm"
                  path="/ssm/ViewLog.do" redirect="true"/>
      </action>
-     
+
      <!-- SSM Package Upgrade Pages -->
      <action path="/ssm/PackageUpgrade"
          scope="request"
@@ -6820,8 +6820,8 @@
                  path="/WEB-INF/pages/ssm/packageupgrade.jsp" />
         <forward name="confirm"
                  path="/ssm/PackageUpgradeSchedule.do"/>
-     </action>                                          
-    
+     </action>
+
      <action path="/ssm/PackageUpgradeSchedule"
          scope="request"
          name="datePickerForm"
@@ -6831,8 +6831,8 @@
                  path="/WEB-INF/pages/ssm/packageupgradeschedule.jsp" />
         <forward name="confirm"
                  path="/ssm/ViewLog.do" redirect="true"/>
-     </action>                                          
-    
+     </action>
+
      <!-- SSM Package Verify Pages -->
      <action path="/ssm/PackageVerify"
          scope="request"
@@ -6842,8 +6842,8 @@
                  path="/WEB-INF/pages/ssm/packageverify.jsp" />
         <forward name="confirm"
                  path="/ssm/PackageVerifySchedule.do"/>
-     </action>                                          
-    
+     </action>
+
      <action path="/ssm/PackageVerifySchedule"
          scope="request"
          name="datePickerForm"
@@ -6865,7 +6865,7 @@
         <forward name="confirm"
                  path="/ssm/Packages.do"/>
      </action>
-    
+
   </action-mappings>
 
   <!-- ===================================== -->
@@ -6874,10 +6874,10 @@
 
   <controller
       processorClass="com.redhat.rhn.frontend.struts.RhnRequestProcessor"
-      nocache="false" 
+      nocache="false"
       locale="false" />
 
   <message-resources factory="com.redhat.rhn.frontend.struts.XmlMessageResourcesFactory"
-      parameter="." null="false"/>       
-  
+      parameter="." null="false"/>
+
 </struts-config>

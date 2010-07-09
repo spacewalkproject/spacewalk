@@ -54,9 +54,9 @@ import javax.servlet.http.HttpSession;
 public abstract class BaseProbeCreateAction extends BaseProbeAction {
 
     public static final String COMMAND_GROUP = "command_group";
-    public static final String SELECTED_COMMAND_GROUP_SESSION = 
+    public static final String SELECTED_COMMAND_GROUP_SESSION =
                                    "selected_command_group_session";
-    public static final String SELECTED_COMMAND_SESSION = 
+    public static final String SELECTED_COMMAND_SESSION =
                                     "selected_command_session";
     private static final String COMMAND = "command";
     private static final String OLD_DESCR = "old_description";
@@ -67,10 +67,10 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
     public final ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest req, HttpServletResponse resp) {
         DynaActionForm form = (DynaActionForm) formIn;
-        
+
         RequestContext ctx = new RequestContext(req);
         User user = ctx.getCurrentUser();
-        
+
         // Process form
         CommandGroup group = lookupCommandGroup(form, req.getSession());
         List commands = listCommands(group);
@@ -81,26 +81,26 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
             cmd = makeModifyProbeCommand(ctx, form, command);
             if (editProbe(cmd, form, req)) {
                 // ServerProbe created and saved
-                createSuccessMessage(req, "probecreate.created", 
+                createSuccessMessage(req, "probecreate.created",
                         cmd.getProbe().getDescription());
                 HashMap params = new HashMap();
                 addSuccessParams(ctx, params, cmd.getProbe());
-                return getStrutsDelegate().forwardParams(mapping.findForward("success"), 
+                return getStrutsDelegate().forwardParams(mapping.findForward("success"),
                         params);
             }
         }
-        
+
         // We only get here  if (a) this is the initial form request
         // or (b) the user submitted a form with validation errors
         form.set(COMMAND_GROUP, group.getGroupName());
         form.set(COMMAND, command.getName());
         setDefault(form, CHECK_INTERVAL_MIN, ModifyProbeCommand.CHECK_INTERVAL_DEFAULT);
-        setDefault(form, NOTIFICATION_INTERVAL_MIN, 
+        setDefault(form, NOTIFICATION_INTERVAL_MIN,
                 ModifyProbeCommand.NOTIF_INTERVAL_DEFAULT);
         // Set up request attributes for display of the form
         if (submitted) {
             setParamValueList(req, cmd.getProbe(), cmd.getProbe().getCommand(), submitted);
-        } 
+        }
         else {
             setParamValueList(req, null, command, submitted);
         }
@@ -111,11 +111,11 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
             String defaultDesc = description(command, true);
             form.set(DESCR, defaultDesc);
             form.set(OLD_DESCR, defaultDesc);
-        } 
+        }
         else {
             form.set(OLD_DESCR, "[[user-modified]]");
         }
-        
+
         addAttributes(ctx);
         setSatClusters(ctx);
         setIntervals(req);
@@ -123,7 +123,7 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
         setCommandGroups(req);
         req.setAttribute("commands", toLabelValue(group, commands));
         req.setAttribute(COMMAND, command);
-        
+
         return mapping.findForward("default");
     }
 
@@ -155,10 +155,10 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
     private void setSatClusters(RequestContext ctx) {
         //We want all sat clusters regardless of org since they are a "Shared resource"
         ctx.getRequest().setAttribute("satClusters", SatClusterFactory.findSatClusters());
-        
+
     }
 
-    private Command lookupCommand(DynaActionForm form, CommandGroup group, 
+    private Command lookupCommand(DynaActionForm form, CommandGroup group,
                                   List commands, HttpSession session) {
         assert (group != null);
         assert commands != null && commands.size() > 0;
@@ -166,7 +166,7 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
         String name = form.getString(COMMAND);
         if (StringUtils.isBlank(name)) {
             name = (String) session.getAttribute(SELECTED_COMMAND_SESSION);
-            if (StringUtils.isBlank(name)) {            
+            if (StringUtils.isBlank(name)) {
                 name = ModifyProbeCommand.COMMAND_DEFAULT;
             }
         }
@@ -179,7 +179,7 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
         return result;
     }
 
-    private static CommandGroup lookupCommandGroup(DynaActionForm form, 
+    private static CommandGroup lookupCommandGroup(DynaActionForm form,
             HttpSession session) {
         CommandGroup result = null;
         String name = form.getString(COMMAND_GROUP);
@@ -202,7 +202,7 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
         Collections.sort(lv, LabelValueBean.CASE_INSENSITIVE_ORDER);
         req.setAttribute("commandGroups", lv);
     }
-    
+
     private static List listCommands(CommandGroup group) {
         assert group != null;
         LinkedList commands = new LinkedList();
@@ -254,7 +254,7 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
             Command c2 = (Command) o2;
             return c1.getDescription().compareTo(c2.getDescription());
         }
-        
+
     }
 
     private static final class CommandToLVBean implements Transformer {
@@ -264,13 +264,13 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
         public CommandToLVBean(String group) {
             qualify = CommandGroup.ALL_GROUP_NAME.equals(group);
         }
-        
+
         public Object transform(Object input) {
             Command c = (Command) input;
             String d = description(c, qualify);
             return new LabelValueBean(d, c.getName());
         }
-        
+
     }
 
     private static final class CommandGroupToLVBean implements Transformer {
@@ -280,6 +280,6 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
             String d = LocalizationService.getInstance().getMessage(c.getDescription());
             return new LabelValueBean(d, c.getGroupName());
         }
-        
+
     }
 }

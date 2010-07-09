@@ -42,13 +42,13 @@ public enum SsmOperationStatus {
 
     /**
      * Returns the textual representation of a particular enum instance.
-     * 
+     *
      * @return will not be <code>null</code>
      */
     public String getText() {
         return this.text;
     }
-    
+
     /**
      * {@inheritDoc}
      */

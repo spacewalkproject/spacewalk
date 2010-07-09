@@ -30,7 +30,7 @@
             <required>false</required>
         </attribute>
     </tag>
-    
+
     <tag>
         <name>dialogmenu</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.NavDialogMenuTag</tag-class>
@@ -38,7 +38,7 @@
         <attribute>
             <name>mindepth</name>
             <required>false</required>
-			<rtexprvalue>true</rtexprvalue>            
+			<rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>maxdepth</name>
@@ -72,16 +72,16 @@
             <required>false</required>
         </attribute>
     </tag>
-    
+
     <tag>
         <name>submitted</name>
-        <tag-class>com.redhat.rhn.frontend.taglibs.SubmittedTag</tag-class> 
+        <tag-class>com.redhat.rhn.frontend.taglibs.SubmittedTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 
     <tag>
         <name>tooltip</name>
-        <tag-class>com.redhat.rhn.frontend.taglibs.ToolTipTag</tag-class> 
+        <tag-class>com.redhat.rhn.frontend.taglibs.ToolTipTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>key</name>
@@ -92,12 +92,12 @@
             <name>typeKey</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
-        </attribute>        
+        </attribute>
     </tag>
 
     <tag>
         <name>warning</name>
-        <tag-class>com.redhat.rhn.frontend.taglibs.WarningTag</tag-class> 
+        <tag-class>com.redhat.rhn.frontend.taglibs.WarningTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>key</name>
@@ -108,7 +108,7 @@
 
     <tag>
         <name>note</name>
-        <tag-class>com.redhat.rhn.frontend.taglibs.NoteTag</tag-class> 
+        <tag-class>com.redhat.rhn.frontend.taglibs.NoteTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>key</name>
@@ -119,7 +119,7 @@
 
     <tag>
         <name>required-field</name>
-        <tag-class>com.redhat.rhn.frontend.taglibs.RequiredFieldTag</tag-class> 
+        <tag-class>com.redhat.rhn.frontend.taglibs.RequiredFieldTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>key</name>
@@ -129,9 +129,9 @@
     </tag>
     <tag>
         <name>noscript</name>
-        <tag-class>com.redhat.rhn.frontend.taglibs.NoScriptTag</tag-class> 
+        <tag-class>com.redhat.rhn.frontend.taglibs.NoScriptTag</tag-class>
         <body-content>empty</body-content>
-    </tag>    
+    </tag>
     <tag>
         <name>address</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.AddressTag</tag-class>
@@ -154,7 +154,7 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-        
+
     </tag>
     <tag>
         <name>toolbar</name>
@@ -191,7 +191,7 @@
         <attribute>
             <name>miscUrl</name>
             <required>false</required>
-            <rtexprvalue>true</rtexprvalue>            
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>creationUrl</name>
@@ -232,7 +232,7 @@
         <attribute>
             <name>uploadType</name>
             <required>false</required>
-        </attribute>        
+        </attribute>
         <attribute>
             <name>deletionUrl</name>
             <required>false</required>
@@ -294,7 +294,7 @@
             <name>noDataText</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
-        </attribute> 
+        </attribute>
         <attribute>
             <name>legend</name>
             <required>false</required>
@@ -303,7 +303,7 @@
             <name>formatMessage</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
-        </attribute>       
+        </attribute>
     </tag>
 
     <tag>
@@ -363,11 +363,11 @@
             <name>domainClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
-        </attribute>    
+        </attribute>
         <attribute>
             <name>title</name>
             <required>false</required>
-        </attribute>    
+        </attribute>
         <attribute>
             <name>paging</name>
             <required>false</required>
@@ -454,11 +454,11 @@
             <name>domainClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
-        </attribute>    
+        </attribute>
         <attribute>
             <name>title</name>
             <required>false</required>
-        </attribute>    
+        </attribute>
         <attribute>
             <name>paging</name>
             <required>false</required>
@@ -495,7 +495,7 @@
         	<required>false</required>
         </attribute>
     </tag>
-   
+
     <tag>
         <name>unpagedlistdisplay</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.UnpagedListDisplayTag</tag-class>
@@ -616,7 +616,7 @@
             <name>buttons</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
-        </attribute>        
+        </attribute>
         <attribute>
             <name>align</name>
         </attribute>
@@ -630,7 +630,7 @@
             <name>type</name>
         </attribute>
     </tag>
-    
+
     <tag>
         <name>setdisplay</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.SystemSetDisplayTag</tag-class>
@@ -641,7 +641,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-    
+
     <tag>
         <name>highlight</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.HighlightTag</tag-class>
@@ -661,7 +661,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-    
+
     <tag>
         <name>systemtimemessage</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.SystemTimeMessageTag</tag-class>
@@ -676,15 +676,15 @@
           <name>localize</name>
           <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
           <function-signature>java.lang.String localizedValue(java.lang.String)</function-signature>
-    </function>     
+    </function>
     <function>
           <name>localizeWithParams</name>
           <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
           <function-signature>java.lang.String localizedValue(java.lang.String, java.lang.String)</function-signature>
-    </function>    
+    </function>
     <function>
         <name>getConfig</name>
         <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
         <function-signature>java.lang.String getConfig(java.lang.String)</function-signature>
-    </function>    
+    </function>
 </taglib>

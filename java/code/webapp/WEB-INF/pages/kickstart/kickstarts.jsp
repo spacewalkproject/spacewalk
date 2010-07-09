@@ -17,19 +17,19 @@
                >
   <bean:message key="kickstarts.jsp.toolbar"/>
 </rhn:toolbar>
- 
+
 <div>
     <bean:message key="kickstart.jsp.summary"/>
       <rl:listset name="ksSet">
-      	<rl:list dataset="pageList" name="ksList" emptykey="kickstart.jsp.nokickstarts" 
+	<rl:list dataset="pageList" name="ksList" emptykey="kickstart.jsp.nokickstarts"
       			alphabarcolumn="label"
                 filter="com.redhat.rhn.frontend.action.kickstart.KickstartProfileFilter">      			
         	<rl:decorator name="ElaborationDecorator"/>
       		<rl:decorator name="PageSizeDecorator"/>
 			<rl:column
-          		bound="false" 
-          		headerkey="kickstart.jsp.label" 
-          		sortattr="label" 
+			bound="false"
+			headerkey="kickstart.jsp.label"
+			sortattr="label"
           		defaultsort="asc"
           		styleclass="first-column">
           			<c:choose>
@@ -43,20 +43,20 @@
           					<a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${current.id}"><c:out value="${current.label}" escapeXml="true" /></a>
           				</c:otherwise>
           			</c:choose>
-					 
+
 					<c:if test="${current.orgDefault}">
 		            **
 		          </c:if>
-      		</rl:column>  	      
+		</rl:column>
       		<rl:column  bound="false" headerkey="kickstart.jsp.active"  sortattr="active">
 	      		<c:if test="${current.active}">
-	            <img src="/img/rhn-listicon-ok.gif" alt="<bean:message key="kickstart.jsp.active"/>" 
+	            <img src="/img/rhn-listicon-ok.gif" alt="<bean:message key="kickstart.jsp.active"/>"
 	            									title="<bean:message key="kickstart.jsp.active"/>"/>
 	          </c:if>
 	         <c:if test="${not current.active}">
-	            <img src="/img/rhn-listicon-error.gif" alt="<bean:message key="kickstart.jsp.inactive"/>" 
+	            <img src="/img/rhn-listicon-error.gif" alt="<bean:message key="kickstart.jsp.inactive"/>"
 	            									   title="<bean:message key="kickstart.jsp.inactive"/>"/>
-	          </c:if>          
+	          </c:if>
       		</rl:column>
                 <rl:column headerkey="kickstart.distro.label.jsp" sortattr="treeLabel">
                     <c:out value="${current.treeLabel}"/>
@@ -72,7 +72,7 @@
                 </c:choose>
             </rl:column>
          </rl:list>
-       
+
       </rl:listset>
 </div>
   <p><rhn:tooltip>* - <bean:message key="kickstarts.distro.cobbler-only.tooltip"/></rhn:tooltip></p>

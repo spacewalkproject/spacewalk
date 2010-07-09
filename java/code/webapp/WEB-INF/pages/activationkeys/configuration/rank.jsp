@@ -10,10 +10,10 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/activationkeys/common-header.jspf" %>
-	<html:form  method="post" 
-					action="/activationkeys/configuration/Rank.do?tid=${param.tid}" 
+	<html:form  method="post"
+					action="/activationkeys/configuration/Rank.do?tid=${param.tid}"
 					styleId="ranksForm">
-		<h2> <img src="${cfg:channelHeaderIcon('central')}" 
+		<h2> <img src="${cfg:channelHeaderIcon('central')}"
 					alt="${cfg:channelAlt('central')}"/>
 			<bean:message key="sdc.config.rank.jsp.header"/></h2>
 		<c:if test="${not empty param.wizardMode}">	
@@ -21,10 +21,10 @@
 			<input type="hidden" name="wizardMode" value="true"/>
 		</c:if>
 		<p><bean:message key="activation-keys.config.rank.jsp.para1"/></p>
-		<p><bean:message key="activation-keys.config.rank.jsp.para2" 
+		<p><bean:message key="activation-keys.config.rank.jsp.para2"
 				arg0="${rhn:localize('sdc.config.rank.jsp.update')}"/></p>
 		<c:if test="${not empty param.wizardMode}">					
-			<p><span class="small-text"><bean:message key="common.config.rank.jsp.warning" 
+			<p><span class="small-text"><bean:message key="common.config.rank.jsp.warning"
 					arg0="${rhn:localize('sdc.config.rank.jsp.update')}"/></span></p>
 		</c:if>
 		<noscript>
@@ -40,7 +40,7 @@
       <hr />
       <rhn:submitted/>
       <html:hidden property="dispatch" value="${rhn:localize('sdc.config.rank.jsp.update')}"/>
-      <input type=submit name="dispatcher" 
+      <input type=submit name="dispatcher"
 			value="${rhn:localize('sdc.config.rank.jsp.update')}"
                    onclick="handle_config_channels_dispatch('ranksWidget','rankedValues','ranksForm');"/>
 	</div>

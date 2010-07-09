@@ -34,41 +34,41 @@ import org.apache.struts.action.ActionForward;
  * @version $Rev: 53047 $
  */
 public class ProbeDeleteActionTest extends RhnBaseTestCase {
-    
+
     private User user;
     private Probe probe;
     private ProbeDeleteAction action;
     private ActionHelper ah;
 
-    
+
     public void setUpAction(String expectedFwd) throws Exception {
         super.setUp();
         action = new ProbeDeleteAction();
         ah = new ActionHelper();
         ah.setUpAction(action, expectedFwd);
-        
+
         user = ah.getUser();
         user.addRole(RoleFactory.ORG_ADMIN);
         Server s = ServerFactoryTest.createTestServer(user, true);
         probe = MonitoringFactoryTest.createTestProbe(user);
-        
+
         ah.getForm().setFormName("probeEditForm");
         ah.getRequest().setupAddParameter(ProbeDetailsAction.PROBEID,
                 probe.getId().toString());
         ah.getRequest().setupAddParameter(ProbeDetailsAction.SID,
                 s.getId().toString());
-        
+
     }
-    
+
     public void testExecute() throws Exception {
-       
+
         setUpAction("default");
         ActionForward af = ah.executeAction();
         assertEquals("default", af.getName());
         assertNotNull(ah.getRequest().getAttribute("probe"));
         assertNotNull(ah.getRequest().getAttribute("system"));
     }
-    
+
     public void testSubmitExecute() throws Exception {
         setUpAction("deleted");
         ah.getForm().set(ProbeEditAction.SUBMITTED, new Boolean(true));

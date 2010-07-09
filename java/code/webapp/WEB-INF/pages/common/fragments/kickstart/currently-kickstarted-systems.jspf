@@ -4,7 +4,7 @@
 			 emptykey="kickstartoverview.jsp.nocurrentlyks"
 			 name="kickstartingList"
 			 width="100%">
-			 
+
 	<rl:column bound="false"
 				sortable="false"
 				headerkey="kickstart.jsp.system"

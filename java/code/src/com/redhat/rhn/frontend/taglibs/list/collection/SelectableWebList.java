@@ -44,21 +44,21 @@ abstract class SelectableWebList extends WebList {
         super(request);
         setup();
     }
-    
+
     /**
      * Asks the helper to ignore reporting
      * errors if no checkbox was selected
-     * and the dispatch action was pressed.  
+     * and the dispatch action was pressed.
      */
     public void ignoreEmptySelection() {
         ignoreEmptySelection = true;
     }
-    
+
     /** {@inheritDoc} */
     protected void setup() {
         RequestContext context = getContext();
         HttpServletRequest request = context.getRequest();
-        
+
         String alphaBarPressed = request.getParameter(
                                 AlphaBarHelper.makeAlphaKey(
                                   TagHelper.generateUniqueName(getListName())));
@@ -67,31 +67,31 @@ abstract class SelectableWebList extends WebList {
         // clear the 'dirty set'
         if (!context.isSubmitted() && alphaBarPressed == null) {
             clear();
-        }        
-        
+        }
+
         if (request.getParameter(RequestContext.DISPATCH) != null) {
-            // if its one of the Dispatch actions handle it..            
+            // if its one of the Dispatch actions handle it..
             update();
-            
+
             if (size() > 0) {
                 return;
             }
             else {
                 if (!ignoreEmptySelection) {
-                    RhnHelper.handleEmptySelection(request);    
+                    RhnHelper.handleEmptySelection(request);
                 }
-                
+
             }
         }
         setupDataSet();
-        
+
         List dataSet = getDataSet();
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(getListName(), request) != null) {
             execute(dataSet);
-        }        
+        }
 
-        // if I have a previous set selections populate data using it       
+        // if I have a previous set selections populate data using it
         if (size() > 0) {
             syncSelections();
         }
@@ -100,11 +100,11 @@ abstract class SelectableWebList extends WebList {
             ListTagHelper.bindSetDeclTo(getListName(),
                                 getDecl(), request);
     }
-    
+
     private void syncSelections() {
         HttpServletRequest request = getContext().getRequest();
         List dataSet = getDataSet();
-        
+
         if (!dataSet.isEmpty()) {
             if (dataSet.get(0) instanceof Selectable) {
                 syncSelections(dataSet);
@@ -116,28 +116,28 @@ abstract class SelectableWebList extends WebList {
             }
         }
     }
-    
+
     protected  String getDecl() {
         return getClass().getName();
     }
-    
+
     /**
      * clear the set
      */
     protected abstract void clear();
-    
+
     /**
      * Obliterate the set
      */
     protected abstract void obliterate();
 
     /**
-     * Update the set getting data 
+     * Update the set getting data
      * from List, basically perform
-     * the RhnListSetHelper.updateSet 
+     * the RhnListSetHelper.updateSet
      */
     protected abstract void update();
-    
+
     /**
      * Perform the execute step of the helpers
      * basicall handles the selectall updateset etc..
@@ -150,16 +150,16 @@ abstract class SelectableWebList extends WebList {
      * @param dataSet the result set.
      */
     protected abstract void syncSelections(List dataSet);
-    
+
     /**
      * return the size of the set
      * @return set size
      */
     protected abstract int size();
-    
+
     /**
      * returns the selections map.
      * @return selection map
      */
-    protected abstract Map getSelections();    
+    protected abstract Map getSelections();
 }

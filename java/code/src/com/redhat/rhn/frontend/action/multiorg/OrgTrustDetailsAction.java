@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class OrgTrustDetailsAction extends RhnAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -42,25 +42,25 @@ public class OrgTrustDetailsAction extends RhnAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
-        RequestContext requestContext = new RequestContext(request);        
+
+        RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
         Org org = user.getOrg();
-        
-        Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);        
+
+        Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         Org trustOrg = OrgFactory.lookupById(oid);
-                
+
         String created = LocalizationService.getInstance()
         .formatDate(trustOrg.getCreated());
-        
+
         String since = OrgManager.getTrustedSince(user, org, trustOrg);
-                
+
         request.setAttribute("orgtrust", trustOrg.getName());
         request.setAttribute("created", created);
         request.setAttribute("since", since);
-        request.setAttribute("migrationsfrom", 
+        request.setAttribute("migrationsfrom",
                 OrgManager.getMigratedSystems(user, trustOrg, org));
-        request.setAttribute("migrationsto", 
+        request.setAttribute("migrationsto",
                 OrgManager.getMigratedSystems(user, org, trustOrg));
         request.setAttribute("channelsfrom",
                 OrgManager.getSharedChannels(user, trustOrg, org));

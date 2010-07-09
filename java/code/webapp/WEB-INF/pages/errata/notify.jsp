@@ -16,15 +16,15 @@
     <bean:message key="errata.edit.toolbar"/> <c:out value="${advisory}" />
   </rhn:toolbar>
 
-  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml" 
+  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml"
                   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-                  
+
   <h2><bean:message key="errata.notify.senderratanotification"/></h2>
-               
+
   <p><bean:message key="errata.notify.instructions"/></p>
-  
+
   <hr />
-  
+
   <div align="right">
     <form action="/rhn/errata/manage/NotifySubmit.do">
       <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>"/>
@@ -33,6 +33,6 @@
       </html:submit>
     </form>
   </div>
-     
+
 </body>
 </html>

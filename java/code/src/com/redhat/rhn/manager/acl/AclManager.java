@@ -46,7 +46,7 @@ public class AclManager {
         if (acl == null || "".equals(acl)) {
             return true;
         }
-        return hasAcl(acl, new RequestContext(request).getLoggedInUser(), mixins, 
+        return hasAcl(acl, new RequestContext(request).getLoggedInUser(), mixins,
                 new HashMap(request.getParameterMap()));
     }
 
@@ -56,7 +56,7 @@ public class AclManager {
      * @param user The user object needed for verification.
      * @param mixins Any mixins with this acl
      * @param context Context object thats used by the acl mixin to evaluate data,
-     *                this needs to be a writable Map or can be null if there is no data.  
+     *                this needs to be a writable Map or can be null if there is no data.
      * @return has acl boolean
      */
     public static boolean hasAcl(String acl, User user, String mixins,

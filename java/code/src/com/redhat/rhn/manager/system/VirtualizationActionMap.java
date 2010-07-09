@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 /**
  * A map between virtualization states and actions
- * 
+ *
  * @version $Rev $
  */
 public class VirtualizationActionMap {
@@ -72,13 +72,13 @@ public class VirtualizationActionMap {
         restartMap.put("stopped", ActionFactory.TYPE_VIRTUALIZATION_START);
         restartMap.put("crashed", ActionFactory.TYPE_VIRTUALIZATION_START);
         restartMap.put("paused", ActionFactory.TYPE_VIRTUALIZATION_REBOOT);
-    
+
         shutdownMap = new HashMap();
         shutdownMap.put("running", ActionFactory.TYPE_VIRTUALIZATION_SHUTDOWN);
         shutdownMap.put("stopped", null);
         shutdownMap.put("crashed", ActionFactory.TYPE_VIRTUALIZATION_SHUTDOWN);
         shutdownMap.put("paused", ActionFactory.TYPE_VIRTUALIZATION_SHUTDOWN);
-        
+
         deleteMap = new HashMap();
         deleteMap.put("destroy", ActionFactory.TYPE_VIRTUALIZATION_DESTROY);
 
@@ -108,7 +108,7 @@ public class VirtualizationActionMap {
      * Find the appropriate action label for a given action name and current state.
      *
      * @param currentState The current state of the instance
-     * @param actionName The name of the action the user wants to perform 
+     * @param actionName The name of the action the user wants to perform
      *                   from the button on the form in the web UI.
      * @return The ActionType of the (RHN) action that should be performed.
      */

@@ -29,18 +29,18 @@ import javax.servlet.jsp.tagext.Tag;
  * @version $Rev: 694 $
  */
 public class LocalizedSubmitTagTest extends RhnBaseTestCase {
-    
+
     // TODO : Fix this so the build isnt broken
     public void testTagOutput() {
         LocalizedSubmitTag ltag = new LocalizedSubmitTag();
         ltag.setValueKey("none.message");
         ltag.setTabindex("3");
         try {
-            TagTestHelper tth = TagTestUtils.setupTagTest(ltag, null); 
-            tth.getPageContext().getRequest(); 
-            // setup mock objects 
+            TagTestHelper tth = TagTestUtils.setupTagTest(ltag, null);
+            tth.getPageContext().getRequest();
+            // setup mock objects
             MockJspWriter out = (MockJspWriter)tth.getPageContext().getOut();
-            out.setExpectedData("<input type=\"submit\"" + 
+            out.setExpectedData("<input type=\"submit\"" +
                 " tabindex=\"3\" value=\"(none)\">");
             // ok let's test the tag
             tth.assertDoStartTag(Tag.SKIP_BODY);

@@ -26,27 +26,27 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * SystemOverviewSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
- * 
+ *
  * #struct("system")
  *      #prop("int", "id")
  *      #prop("string", "name")
- *       #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server 
+ *       #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server
  *              successfully checked in")
  * #struct_end()
- * 
- * 
+ *
+ *
  */
 public class SystemOverviewSerializer implements XmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
      */
-    public Class getSupportedClass() {        
+    public Class getSupportedClass() {
         return SystemOverview.class;
     }
 
@@ -55,8 +55,8 @@ public class SystemOverviewSerializer implements XmlRpcCustomSerializer {
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
-        SystemOverview system = (SystemOverview) value;        
+
+        SystemOverview system = (SystemOverview) value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("id", system.getId());
         helper.add("name", system.getName());

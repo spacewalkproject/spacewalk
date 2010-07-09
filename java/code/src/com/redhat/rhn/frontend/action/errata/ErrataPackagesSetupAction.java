@@ -45,13 +45,13 @@ public class ErrataPackagesSetupAction extends RhnAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         User user = requestContext.getLoggedInUser();
         Errata errata = requestContext.lookupErratum();
-        
+
         List<ChannelOverview> chans = new ArrayList<ChannelOverview>();
 
         for (Channel chan : errata.getChannels()) {
@@ -63,12 +63,12 @@ public class ErrataPackagesSetupAction extends RhnAction {
                 chans.add(co);
             }
         }
-        
+
         Collections.sort(chans);
 
         request.setAttribute("errata", errata);
         request.setAttribute("channels", chans);
-        
+
         return strutsDelegate.forwardParams(mapping.findForward("default"),
                                        request.getParameterMap());
     }

@@ -31,13 +31,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Handles the page display and actual deletion of a software channel. 
- *  
- * @version $Revision$ 
+ * Handles the page display and actual deletion of a software channel.
+ *
+ * @version $Revision$
  */
 public class DeleteChannelAction extends RhnAction {
     private static final String DISABLE_DELETE = "disableDelete";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
@@ -96,7 +96,7 @@ public class DeleteChannelAction extends RhnAction {
             }
         }
         else if (channel.containsDistributions()) {
-            createErrorMessage(request, 
+            createErrorMessage(request,
                     "message.channel.cannot-be-deleted.has-distros", null);
             request.setAttribute(DISABLE_DELETE, Boolean.TRUE);
         }

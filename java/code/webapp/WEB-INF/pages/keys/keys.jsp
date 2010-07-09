@@ -18,35 +18,35 @@
     <bean:message key="keys.jsp.summary"/>
     <form method="post" name="rhn_list" action="/rhn/keys/CryptoKeysList.do">
 
- <rl:listset name="keySet"> 
+ <rl:listset name="keySet">
   <rl:list dataset="pageList"
          width="100%"
          name="keysList"
          styleclass="list"
          emptykey="keys.jsp.nokeys"
          alphabarcolumn="description">
-         
-	<rl:decorator name="PageSizeDecorator"/>         
-         
+
+	<rl:decorator name="PageSizeDecorator"/>
+
 	<!-- Description name column -->
-	<rl:column bound="false" 
-	           sortable="true" 
-	           headerkey="kickstart.cryptokey.description" 
+	<rl:column bound="false"
+	           sortable="true"
+	           headerkey="kickstart.cryptokey.description"
 	           styleclass="first-column"
 	           sortattr="description">
 		<c:out value="<a href=\"/rhn/keys/CryptoKeyEdit.do?key_id=${current.id}\">${current.description}</a>" escapeXml="false" />
 	</rl:column>
 
 	<!-- Type Column -->
-		<rl:column bound="false" 
-	           sortable="true" 
-	           headerkey="kickstart.cryptokey.type" 
+		<rl:column bound="false"
+	           sortable="true"
+	           headerkey="kickstart.cryptokey.type"
 			   styleclass="last-column"
 	           attr="label"
 	           sortattr="label">
-		<c:out value="${current.label}" escapeXml="false" />	           
+		<c:out value="${current.label}" escapeXml="false" />
 	</rl:column>
-        
+
       </rl:list>
      </rl:listset>
 

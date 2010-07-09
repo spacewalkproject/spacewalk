@@ -23,14 +23,14 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
  * @version $Rev$
  */
 public class SearchActionTest extends RhnMockStrutsTestCase {
-    
-    
+
+
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/Search");
         user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
     }
-    
+
     public void testSystemRedirect() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter("search_string", "test search");
@@ -38,7 +38,7 @@ public class SearchActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         assertTrue(getMockResponse().getStatusCode() == 302);
     }
-    
+
     public void testErrataRedirect() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter("search_string", "test search");
@@ -46,7 +46,7 @@ public class SearchActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         assertTrue(getMockResponse().getStatusCode() == 302);
     }
-    
+
     public void testPackageRedirect() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter("search_string", "test search");
@@ -54,13 +54,13 @@ public class SearchActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         assertTrue(getMockResponse().getStatusCode() == 302);
     }
-    
+
     public void testFaultySubmit() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter("search_string", "test search");
         addRequestParameter("search_type", "l337_hax0r");
         actionPerform();
-        verifyForward("error");     
+        verifyForward("error");
     }
 
 }

@@ -1793,19 +1793,19 @@
 			<trans-unit id="disableself.jsp.message">
 				<source>You may deactivate your @@PRODUCT_NAME@@ account below. &lt;b&gt;This will remove your ability
 to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
-				<target>以下の @@PRODUCT_NAME@@ アカウントを非アクティブにすることができます。 &lt;b&gt;非アクティブにすると 
+				<target>以下の @@PRODUCT_NAME@@ アカウントを非アクティブにすることができます。 &lt;b&gt;非アクティブにすると
 @@PRODUCT_NAME@@ にログインできなくなります。&lt;/b&gt;</target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message2">
 				<source>Once your account is deactivated, you will need to contact your organization's
 @@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
-				<target>アカウントを非アクティブにした後、再度アクティブにするには、 
+				<target>アカウントを非アクティブにした後、再度アクティブにするには、
 @@PRODUCT_NAME@@ Organization Administrator (組織管理者) に連絡する必要があります。</target>
 			</trans-unit>
 			<trans-unit id="disableselfconfirm.jsp.warning">
 				<source>You will be logged out immediately after pressing the 'Deactivate Account'
 button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
-				<target>以下にある「アカウントを非アクティブにする」ボタンを押すと直ちにログアウトすることに 
+				<target>以下にある「アカウントを非アクティブにする」ボタンを押すと直ちにログアウトすることに
 なり、 &lt;b&gt;再びログインすることはできなくなります&lt;/b&gt;。</target>
 			</trans-unit>
 			<trans-unit id="disableselfconfirm.jsp.warning_question">
@@ -6442,7 +6442,7 @@ organization management tools if you choose to remove this role from your login.
 			<trans-unit id="general.jsp.org.summary1">
 				<source>@@PRODUCT_NAME@@ allows for the creation of multiple 'organizations'
 on a @@PRODUCT_NAME@@.</source>
-				<target>@@PRODUCT_NAME@@ により、@@PRODUCT_NAME@@ 上に複数の組織を作成する 
+				<target>@@PRODUCT_NAME@@ により、@@PRODUCT_NAME@@ 上に複数の組織を作成する
 ことが可能になります。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary2">
@@ -6459,7 +6459,7 @@ organization.</source>
 			<trans-unit id="general.jsp.org.summary3">
 				<source>To get started creating and managing organizations on your @@PRODUCT_NAME@@, refer to
 the following tabs in the left navigation menu:</source>
-				<target>ご使用の @@PRODUCT_NAME@@ で、組織の作成と管理を開始するには、左ナビゲーションメニュー内の 
+				<target>ご使用の @@PRODUCT_NAME@@ で、組織の作成と管理を開始するには、左ナビゲーションメニュー内の
 以下のタブを参照して下さい。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary4">
@@ -6472,8 +6472,8 @@ the following tabs in the left navigation menu:</source>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
 				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>ご使用の @@PRODUCT_NAME@@ 上のサブスクリプションを管理します。また各エンタイトルメントで提供されているアクセスも確認します。エンタイトルメントごとに、ご使用の @@PRODUCT_NAME@@ 上の すべての組織で、特定のエンタイトルメントにエンタイトルメントを割り当てることもできます。</target>
 			</trans-unit>
@@ -6784,9 +6784,9 @@ Please note that some manual configuration of these scripts may still be require
 				<target>変数の更新　</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
-				<target>キックスタート変数を使用すると、キックスタートプロフィールに値を代用できます。変数を定義するには、 name=value を下記のボックスに追加します。  
+				<target>キックスタート変数を使用すると、キックスタートプロフィールに値を代用できます。変数を定義するには、 name=value を下記のボックスに追加します。
         			その後、プロフィールに $name を使用して値を代用することができます。</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
@@ -7127,8 +7127,8 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;注記:&lt;/strong&gt; 仮想化タイプを変更するとキックスタートプロフィールのブートローダー
             やパーティションオプションの変更が必要となることがあるため、ユーザーがカスタマイズした内容が上書きされる可能性があります。
@@ -7632,7 +7632,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 キックスタートのプレスクリプトに関する詳細は、 &lt;strong&gt;Red Hat Enterprise Linux システム管理ガイド&lt;/strong&gt; を参照してください。
 &lt;br/&gt;&lt;br/&gt;
 以下では、 このキックスタートのポストスクリプトも編集することができます。 最初に、 @@PRODUCT_NAME@@ 関連のコマンドが自動的に実行されます (例、 @@PRODUCT_NAME@@ への esystem 登録)。
-次に、 非 chroot のポストスクリプトが実行され、 最後にポストスクリプトが実行されます。 キックスタートポストスクリプトに関する詳細は、 
+次に、 非 chroot のポストスクリプトが実行され、 最後にポストスクリプトが実行されます。 キックスタートポストスクリプトに関する詳細は、
 &lt;strong&gt;Red Hat Enterprise Linux システム管理ガイド&lt;/strong&gt;を参照してください。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.langheader">
@@ -9354,7 +9354,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			<trans-unit id="channelfiles.jsp.description">
 				<source>This list shows the files that this configuration channel contains.  You can remove
 a file or files, or copy the latest version into a set of local overrides or into other central configuration channels.</source>
-				<target>この一覧はこの設定チャンネルが含んでいるファイルを示しています。 1 ファイルまたは複数のファイルの削除、 
+				<target>この一覧はこの設定チャンネルが含んでいるファイルを示しています。 1 ファイルまたは複数のファイルの削除、
 最新バージョンをローカルのオーバーライド一式にコピー、 最新バージョンを他の中央設定チャンネルにコピーなどを行うことができます。</target>
 			</trans-unit>
 			<trans-unit id="channelfiles.jsp.path">
@@ -9917,8 +9917,8 @@ If you believe this configuration file is ready for deployment to a system, you 
 or &lt;a href="{1}"&gt;copy it to a globally-managed config channel&lt;/a&gt; via the '&lt;a href="{3}"&gt;{4}&lt;/a&gt;' tab above.
 From there, you can deploy the file to systems.</source>
 				<target>設定サンドボックスは、 開発中の設定ファイルを格納しておく場所です。
-この設定ファイルがシステムに対して配備できると思う場合は、 &lt;a href="{0}"&gt;それをローカル管理設定チャンネルにコピー&lt;/a&gt; するか、 
-上記の '&lt;a href="{3}"&gt;{4}&lt;/a&gt;' タブから &lt;a href="{1}"&gt;それをグローバル管理設定チャンネルにコピー&lt;/a&gt; することができます。 
+この設定ファイルがシステムに対して配備できると思う場合は、 &lt;a href="{0}"&gt;それをローカル管理設定チャンネルにコピー&lt;/a&gt; するか、
+上記の '&lt;a href="{3}"&gt;{4}&lt;/a&gt;' タブから &lt;a href="{1}"&gt;それをグローバル管理設定チャンネルにコピー&lt;/a&gt; することができます。
 それから、 そのファイルをシステムに配備します。</target>
 			</trans-unit>
 			<trans-unit id="deployglobal.jspf.note">
@@ -9926,7 +9926,7 @@ From there, you can deploy the file to systems.</source>
 You can deploy the latest revision of this file (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to any of the systems subscribed to this file's
 centrally-managed configuration channel, {2}; below is a list of systems you may deploy this file to.</source>
 				<target>
-このファイルの最新リビジョン (&lt;a href="{1}"&gt;リビジョン {0}&lt;/a&gt;) は、 このファイルの中央管理設定チャンネルにサブスクライブ 
+このファイルの最新リビジョン (&lt;a href="{1}"&gt;リビジョン {0}&lt;/a&gt;) は、 このファイルの中央管理設定チャンネルにサブスクライブ
 しているシステムならいずれにも配備することができます。 {2}、 以下にこのファイルを配備できるシステムの一覧を示します。</target>
 			</trans-unit>
 			<trans-unit id="globalDeploy.jsp.noSystems">
@@ -11894,8 +11894,8 @@ Make sure you subscribe systems to the appropriate software channels during kick
 so they have access to the packages in the package profile you sync them to.  Visit
 the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Keys&lt;/a&gt;
  tab to subscribe systems to software channels during kickstart.&lt;/span&gt;</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;ヒント:&lt;/strong&gt; 
-キックスタート中にシステムを必ず適切なソフトウェアチャンネルにサブスクライブ するようにします。 これによりシステムは同期されるパッケージプロフィール内の 
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;ヒント:&lt;/strong&gt;
+キックスタート中にシステムを必ず適切なソフトウェアチャンネルにサブスクライブ するようにします。 これによりシステムは同期されるパッケージプロフィール内の
 パッケージにアクセスできるようになります。&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;アクティベーションキー&lt;/a&gt; タブに行き、
 キックスタート中にシステムをソフトウェアチャンネルにサブスクライブするようにします。&lt;/span&gt;</target>
 			</trans-unit>
@@ -12376,15 +12376,15 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
 need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
 performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;</source>
-				<target> &lt;strong&gt; キックスタート RPM は見つかりませんでした。 このような RPM は 
-サポートされている各親チャンネルの @@PRODUCT_NAME@@ ツールチャンネルにあります。 キックスタート 
-を行なう前、 または新規のキックスタートディストリビューションを作成する前に、 
+				<target> &lt;strong&gt; キックスタート RPM は見つかりませんでした。 このような RPM は
+サポートされている各親チャンネルの @@PRODUCT_NAME@@ ツールチャンネルにあります。 キックスタート
+を行なう前、 または新規のキックスタートディストリビューションを作成する前に、
  @@PRODUCT_NAME@@ ツールチャンネルのサテライト同期を行なう必要がある場合があります。&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
-				<source> 
+				<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;</source>
-				<target> 
+				<target>
  &lt;strong&gt;選択されたベースチャンネルに適用できるインストーラ生成は見つかりませんでした。 &lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.toolbar">
@@ -13082,8 +13082,8 @@ for your @@PRODUCT_NAME@@ service, but must also periodically perform maintenanc
 tasks to upgrade functionality, fix reported bugs, and improve
 performance.</source>
 				<target>弊社の最優先事項はお客様の @@PRODUCT_NAME@@ と登録アカウントの特典へのアクセスです。
- その為、@@PRODUCT_NAME@@ サービスに 100% の運用時間を維持することに尽力しておりますが、定期的に 
-機能アップグレード、報告済みバグの修正、パフォーマンス向上などの為にメンテナンス作業を 
+ その為、@@PRODUCT_NAME@@ サービスに 100% の運用時間を維持することに尽力しておりますが、定期的に
+機能アップグレード、報告済みバグの修正、パフォーマンス向上などの為にメンテナンス作業を
 する必要もあります。</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.scheduled-header">
@@ -13097,11 +13097,11 @@ necessarily use every one of these windows to perform maintenance, we recommend 
 enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
 Red Hat will always attempt to inform at least one week in advance through the email outage
 list (see below) about this scheduled downtime whenever possible.</source>
-				<target>Red Hat では、 @@PRODUCT_NAME@@ に対する全ての予定メンテナンスをアメリカ東海岸標準時で、 
-毎週火曜日の午後 9 時から午前 3 時 までの間 (UTC 午前 1 時から 7 時) にスケジュールしています。 
-Red Hat は 毎週必ずこれらの時間枠を使用してメンテナンスを行うわけではありませんが、 
-企業及び組織の皆様には、 @@PRODUCT_NAME@@ ソリューションのダウンタイムとしてこの時間枠を考慮に入れた 
-業務を展開されるようお勧めします。 Red Hat は常に可能な限り、 最低でも 1 週間前にはこのような 
+				<target>Red Hat では、 @@PRODUCT_NAME@@ に対する全ての予定メンテナンスをアメリカ東海岸標準時で、
+毎週火曜日の午後 9 時から午前 3 時 までの間 (UTC 午前 1 時から 7 時) にスケジュールしています。
+Red Hat は 毎週必ずこれらの時間枠を使用してメンテナンスを行うわけではありませんが、
+企業及び組織の皆様には、 @@PRODUCT_NAME@@ ソリューションのダウンタイムとしてこの時間枠を考慮に入れた
+業務を展開されるようお勧めします。 Red Hat は常に可能な限り、 最低でも 1 週間前にはこのような
 ダウンタイムの予定に関して Email による機能停止リスト(下記参照) を送信しご連絡できるよう努めます。</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.unscheduled-header">
@@ -13124,8 +13124,8 @@ Network は、 Email を通じて運用停止リスト(下記)を、スケジュ
 				<source>When failing equipment or any other critical issue forces an outage,
 Red Hat will open a trouble ticket on the outage and contact all users
 on the email outage list as soon as possible.</source>
-				<target>器機が故障したり、他の重大な問題が運用停止を強要する場合には、Red Hat は運用停止に関する 
-問題チケット(記録簿)を開き、可能な限り早急に Email の運用停止リスト上のお客様に 
+				<target>器機が故障したり、他の重大な問題が運用停止を強要する場合には、Red Hat は運用停止に関する
+問題チケット(記録簿)を開き、可能な限り早急に Email の運用停止リスト上のお客様に
 連絡をします。</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.notification-header">
@@ -13280,11 +13280,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.description">
 				<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)</source>
 				<target>
-	{0} の &lt;strong&gt;最新リリース&lt;/strong&gt; の ISO イメージ完全セットは以下をご覧ください。  
+	{0} の &lt;strong&gt;最新リリース&lt;/strong&gt; の ISO イメージ完全セットは以下をご覧ください。
 	{0} の種類によりインストールを行いたい方は、 必要となるのはこれらディスクのサブセットのみとなります。
     (&lt;a href="{1}"&gt;詳細情報&lt;/a&gt;)</target>
 			</trans-unit>
@@ -13310,11 +13310,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.note">
 				<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
-&lt;strong&gt;注記:&lt;/strong&gt; {0} のインストールにはインストール番号が必要となります。  
+&lt;strong&gt;注記:&lt;/strong&gt; {0} のインストールにはインストール番号が必要となります。
 &lt;a href="{1}"&gt;インストール番号がよくわからない&lt;/a&gt;
 &lt;a href="{2}"&gt;インストール番号を調べる必要がある&lt;/a&gt;</target>
 			</trans-unit>
@@ -13324,10 +13324,10 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.rest.description">
 				<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.</source>
 				<target>
-{0} の &lt;strong&gt;旧リリース&lt;/strong&gt; の ISO イメージ完全セットは以下をご覧ください。  
+{0} の &lt;strong&gt;旧リリース&lt;/strong&gt; の ISO イメージ完全セットは以下をご覧ください。
 {0} のいずれのリリースをインストールする場合も必要となる ISO イメージは 1 セットのみになるので注意してください。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.viewprevious">
@@ -13355,7 +13355,7 @@ You will want to download &lt;strong&gt;Base Channel Content ISOs&lt;/strong&gt;
 Alternatively, you will want to download &lt;strong&gt;Incremental Channel Content ISOs&lt;/strong&gt; if you want to update channels that you have already imported into your @@PRODUCT_NAME@@.</source>
 				<target>
 チャンネルコンテント ISO は 2 タイプあります。ベースチャンネルコンテント ISO と インクリメンタルチャンネルコンテント ISO です。
-はじめてチャンネルコンテントで新しい @@PRODUCT_NAME@@ を移植する必要がある場合は、 &lt;strong&gt;ベースチャンネルコンテント ISO&lt;/strong&gt; をダウンロードすることになります。 
+はじめてチャンネルコンテントで新しい @@PRODUCT_NAME@@ を移植する必要がある場合は、 &lt;strong&gt;ベースチャンネルコンテント ISO&lt;/strong&gt; をダウンロードすることになります。
 一方、 すでに @@PRODUCT_NAME@@ にインポートしているチャンネルを更新する場合には、 &lt;strong&gt;インクリメンタルチャンネルコンテント ISO&lt;/strong&gt; をダウンロードする方がよいでしょう。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dump-note">
@@ -13851,7 +13851,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
@@ -14855,28 +14855,28 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.</source>
 				<target>このページからソフトウェアチャンネルの作成または編集を行います。
-        &lt;p/&gt; 
+        &lt;p/&gt;
         親チャンネルが none に設定されていると、チャンネルはペースチャンネルになります。
         その他の場合、チャンネルは指定されたチャンネルの子チャンネルとなります。
-        &lt;p/&gt; 
+        &lt;p/&gt;
         チャンネル名とラベルが必須項目となります。チャンネル名とラベルは 6 文字以上でなければ
         なりません。ラベルの 1 文字目は小文字のアルファベットでなければならず、2 文字以降に
         使用できるのは、小文字のアルファベット、ハイフン (-)、ピリオド (.)、アンダーライン (_)、
-        数字のみです。チャンネル名にはこれらの文字だけでなく空白文字やフォワードスラッシュ (/) 
+        数字のみです。チャンネル名にはこれらの文字だけでなく空白文字やフォワードスラッシュ (/)
         も使用できます。
-        &lt;p/&gt; 
+        &lt;p/&gt;
         チャンネルの要約も必要となります。</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">

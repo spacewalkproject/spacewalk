@@ -20,8 +20,8 @@
 </rhn:toolbar>
 
 
-	  <rhn:dialogmenu mindepth="0" maxdepth="1" 
-	    definition="/WEB-INF/nav/kickstart_tree_details.xml" 
+	  <rhn:dialogmenu mindepth="0" maxdepth="1"
+	    definition="/WEB-INF/nav/kickstart_tree_details.xml"
 	    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 

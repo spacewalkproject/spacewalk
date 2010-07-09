@@ -54,16 +54,16 @@ public class ServerUuid {
         this.server = serverIn;
     }
 
-    /** 
-     * Getter for uuid 
+    /**
+     * Getter for uuid
      * @return String to get
     */
     public String getUuid() {
         return this.uuid;
     }
 
-    /** 
-     * Setter for uuid 
+    /**
+     * Setter for uuid
      * @param uuidIn to set
     */
     public void setUuid(String uuidIn) {

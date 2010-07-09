@@ -29,17 +29,17 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class LogoutAction extends RhnAction {
-    
+
     /**
      * Initializes this action.
      */
     public LogoutAction() {
     }
-    
+
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         AuthenticationServiceFactory.getInstance().getAuthenticationService().invalidate(
                 request, response);
         return mapping.findForward("success");

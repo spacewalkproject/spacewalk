@@ -46,7 +46,7 @@ import servletunit.struts.MockStrutsTestCase;
  * @version $Rev$
  */
 public class RhnMockStrutsTestCase extends MockStrutsTestCase {
-    
+
     protected User user;
 
     /**
@@ -54,13 +54,13 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
      */
     public void setUp() throws Exception {
         super.setUp();
-        
+
         RequestContext requestContext = new RequestContext(request);
         Context ctx = Context.getCurrentContext();
         ctx.setLocale(Locale.getDefault());
         ctx.setTimezone(TimeZone.getDefault());
         PxtCookieManager pxtCookieManager = new PxtCookieManager();
-        
+
         request.setServerName("localhost");
         request.setMethod(HttpServletRequestSimulator.GET);
         user = UserTestUtils.findNewUser(TestStatics.TESTUSER, TestStatics.TESTORG);
@@ -73,16 +73,16 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         request.setAttribute("session", s);
         request.setRequestURI("http://localhost.redhat.com");
         request.setRequestURL("http://localhost.redhat.com/");
-        
+
         PxtSessionDelegateFactory pxtDelegateFactory =
             PxtSessionDelegateFactory.getInstance();
-        
+
         PxtSessionDelegate pxtDelegate = pxtDelegateFactory.newPxtSessionDelegate();
-        
+
         pxtDelegate.updateWebUserId(request, response, user.getId());
         KickstartDataTest.setupTestConfiguration();
     }
-    
+
     /**
      * Tears down the fixture, and closes the HibernateSession.
      */
@@ -91,7 +91,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         TestCaseHelper.tearDownHelper();
     }
 
-    
+
     protected ServletContextSimulator getContext() {
         return this.context;
     }
@@ -108,7 +108,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
             assertEquals(expectedValue, formval);
         }
     }
-    
+
     /**
      * Util method to add an "ID" to be selected on a list page.
      * Usefull for testing list selection code.
@@ -117,22 +117,22 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
     protected void addSelectedItem(Long id) {
         addRequestParameter("items_selected", id.toString());
     }
-    
-    /** 
-     * Add a request param to simulate a button click on one 
-     * of your dispatch actions.  See your processMethodKeys() 
-     * 
+
+    /**
+     * Add a request param to simulate a button click on one
+     * of your dispatch actions.  See your processMethodKeys()
+     *
      * @param key to the button.  See your Struts Action method: processMethodKeys()
      */
     protected void addDispatchCall(String key) {
-        addRequestParameter("dispatch", 
+        addRequestParameter("dispatch",
                 LocalizationService.getInstance().getMessage(key));
-        
+
     }
 
     /**
      * Verify that the attribute "pageList" is setup properly:
-     * 
+     *
      * 1) not null
      * 2) size > 0
      * 3) first item in list is instance of classIn
@@ -144,12 +144,12 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         assertNotNull("Your list: " + attribName + " is null", dr);
         assertTrue("Your list: " + attribName + " is empty", dr.size() > 0);
         assertEquals("Your list: " + attribName + " is the wrong class",
-                classIn, dr.iterator().next().getClass());        
+                classIn, dr.iterator().next().getClass());
     }
-    
+
     /**
      * Verify that the attribute "pageList" is setup properly:
-     * 
+     *
      * 1) not null
      * 2) size > 0
      * 3) first item in list is instance of classIn
@@ -159,10 +159,10 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         verifyList(RequestContext.PAGE_LIST, classIn);
     }
 
-    
+
     /**
      * Verify that the attribute "pageList" is setup properly:
-     * 
+     *
      * 1) not null
      * 2) size > 0
      * 3) first item in list is instance of classIn
@@ -174,15 +174,15 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         DataResult dr = (DataResult) form.get(attribName);
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
-        assertEquals(classIn, dr.iterator().next().getClass());        
+        assertEquals(classIn, dr.iterator().next().getClass());
     }
-    
-    
-    
+
+
+
     /**
      * Util to check to see that a message is in the response.  Like
      * verifyActionMessages() but doesn't require a string array.
-     * 
+     *
      * @param key to the message.
      */
     protected void verifyActionMessage(String key) {
@@ -194,26 +194,26 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
     protected void addSubmitted() {
         request.addParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
     }
-    
+
     protected void assertBadParamException() {
         assertTrue(getActualForward().indexOf("errors/badparam.jsp") > 0);
     }
-    
+
     protected void assertLookupException() {
         assertTrue(getActualForward().indexOf("errors/lookup.jsp") > 0);
     }
-    
+
     protected void assertPermissionException() {
         assertTrue(getActualForward().indexOf("errors/Permission.do") > 0);
-    }    
-    
+    }
+
     protected void assertException() {
         assertTrue(getActualForward().indexOf("/errors") > 0);
     }
-    
+
     /**
      * PLEASE Refrain from using this unless you really have to.
-     * 
+     *
      * Try clearSession() instead
      * @throws HibernateException
      */
@@ -221,6 +221,6 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         HibernateFactory.commitTransaction();
         HibernateFactory.closeSession();
     }
-    
+
 
 }

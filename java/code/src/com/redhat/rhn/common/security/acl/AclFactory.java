@@ -18,13 +18,13 @@ package com.redhat.rhn.common.security.acl;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Class to assist with creating Acls.  This Factory will setup 
- * the Acl class as well as setup the default as well as the mixin AclHandlers 
+ * Class to assist with creating Acls.  This Factory will setup
+ * the Acl class as well as setup the default as well as the mixin AclHandlers
  * associated with the Acl.
- * 
+ *
  * TODO - consider caching the Acl instances within the Factory so we don't have to
  * instantiate new ones each time. Not sure how to do this yet.
- * 
+ *
  * @version $Rev$
  */
 public class AclFactory {
@@ -38,7 +38,7 @@ public class AclFactory {
     private AclFactory() {
         // hidden constructor
     }
-    
+
     /** Get the running instance of the AclFactory
      *
      * @return The AclFactory singleton
@@ -46,11 +46,11 @@ public class AclFactory {
     public static AclFactory getInstance() {
         return instance;
     }
-    
-    /** 
-     * Get an instance of an Acl 
+
+    /**
+     * Get an instance of an Acl
      * @param mixinsIn the String with a comma separated list of classnames
-     * @return Acl created 
+     * @return Acl created
      */
     public Acl getAcl(String mixinsIn) {
         Acl aclObj = new Acl();
@@ -63,7 +63,7 @@ public class AclFactory {
             for (int i = 0; i < mixin.length; i++) {
                 aclObj.registerHandler(StringUtils.trim(mixin[i]));
             }
-        }        
+        }
         return aclObj;
     }
 

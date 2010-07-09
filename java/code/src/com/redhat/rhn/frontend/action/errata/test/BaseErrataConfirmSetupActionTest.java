@@ -32,20 +32,20 @@ public class BaseErrataConfirmSetupActionTest extends RhnBaseTestCase {
         RemovePackagesSetupAction action2 = new RemovePackagesSetupAction();
         runTest(action2);
     }
-    
+
     public void runTest(Action action) throws Exception {
 
         ActionHelper sah = new ActionHelper();
-        
+
         sah.setUpAction(action);
         sah.setupClampListBounds();
-        
+
         //Create a new errata
         Errata e = ErrataFactoryTest.createTestPublishedErrata(
                 sah.getUser().getOrg().getId());
         sah.getRequest().setupAddParameter("eid", e.getId().toString());
         sah.getRequest().setupAddParameter("eid", e.getId().toString());
-        
+
         sah.executeAction();
         assertNotNull(sah.getRequest().getAttribute("pageList"));
     }

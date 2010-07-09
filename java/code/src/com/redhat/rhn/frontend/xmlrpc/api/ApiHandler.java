@@ -51,7 +51,7 @@ public class ApiHandler extends BaseHandler {
     public String systemVersion() {
         return Config.get().getString("web.version");
     }
-    
+
     /**
      * Returns the api version. Called as: api.get_version
      * @return the api version.

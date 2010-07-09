@@ -44,5 +44,5 @@ public class InvalidPackageKeyException extends FaultException  {
                 getMessage("api.package.provider.invalidKey", new Object [] {label}),
                 cause);
     }
-    
+
 }

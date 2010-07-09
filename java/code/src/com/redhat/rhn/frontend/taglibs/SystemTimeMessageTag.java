@@ -31,7 +31,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @version $Rev$
  */
 public class SystemTimeMessageTag extends TagSupport {
-    
+
     private Server server;
 
     /**
@@ -46,7 +46,7 @@ public class SystemTimeMessageTag extends TagSupport {
     public void setServer(Server serverIn) {
         this.server = serverIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -61,25 +61,25 @@ public class SystemTimeMessageTag extends TagSupport {
             throw new JspException("Error writing to JSP file:", e);
         }
     }
-    
+
     private String getMessage() throws JspException {
         if (server == null) {
             throw new JspException("Tag error: Server must be defined");
         }
         StringBuffer retval = new StringBuffer();
         LocalizationService translate = LocalizationService.getInstance();
-        
+
         Date now = new Date();
         Date lastCheckIn = server.getLastCheckin();
         Date expectedCheckIn = new Date(lastCheckIn.getTime() + (1000 * 60 * 60 * 2));
         //expected check in is two hours after last check in, regardless of threshold
         long checkInAgo = now.getTime() - lastCheckIn.getTime();
         Long days = new Long((((checkInAgo / 1000) / 60) / 60) / 24);
-        boolean awol = days.intValue() > 
+        boolean awol = days.intValue() >
                        Config.get().getInt(ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD);
-        
+
         retval.append("<table border=\"0\" cellspacing=\"0\" cellpadding=\"6\">");
-        
+
         //System last check-in: 2005-04-06 11:19:37 EDT
         //(14 days, 5 hours, and 31 minutes ago)
         retval.append("\n  <tr><td>");
@@ -87,17 +87,17 @@ public class SystemTimeMessageTag extends TagSupport {
         retval.append("</td><td>");
         retval.append(translate.formatDate(lastCheckIn));
         retval.append(" (");
-        retval.append(StringUtil.categorizeTime(lastCheckIn.getTime(), 
+        retval.append(StringUtil.categorizeTime(lastCheckIn.getTime(),
                 StringUtil.DAYS_UNITS, StringUtil.MINUTES_UNITS));
         retval.append(")</td></tr>\n");
-        
+
         //Current RHN time: 2005-04-06 11:19:37 EDT
         retval.append("  <tr><td>");
         retval.append(translate.getMessage("timetag.current"));
         retval.append("</td><td>");
         retval.append(translate.formatDate(now));
         retval.append("</td></tr>\n");
-        
+
         //Expected check-in time: 2005-04-06 11:19:37 EDT
         //(14 days, 5 hours, and 31 minutes ago)
         if (!awol) {
@@ -106,19 +106,19 @@ public class SystemTimeMessageTag extends TagSupport {
             retval.append("</td><td>");
             retval.append(translate.formatDate(expectedCheckIn));
             retval.append(" (");
-            retval.append(StringUtil.categorizeTime(expectedCheckIn.getTime(), 
+            retval.append(StringUtil.categorizeTime(expectedCheckIn.getTime(),
                     StringUtil.DAYS_UNITS, StringUtil.MINUTES_UNITS));
             retval.append(")</td></tr>\n");
         }
-        
+
         retval.append("</table><br/>");
         if (awol) {
             retval.append(translate.getMessage("timetag.awol"));
         }
-        
+
         return retval.toString();
     }
-    
+
     /**
      * {@inheritDoc}
      */

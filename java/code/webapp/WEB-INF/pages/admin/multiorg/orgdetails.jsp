@@ -43,49 +43,49 @@
 
  <table class="details" align="center">
   <tr>
-    <c:choose>                  
+    <c:choose>
       <c:when test="${param.oid != 1}">
         <th width="25%"><bean:message key="org.name.jsp"/></th>
          <td><html:text property="orgName" maxlength="128" size="40" />
          <br>
-         <span class="small-text"><strong>Tip:</strong>Between 3 and 128 characters</span> 
+         <span class="small-text"><strong>Tip:</strong>Between 3 and 128 characters</span>
         </td>
       </c:when>
       <c:otherwise>
         <th><bean:message key="org.name.jsp"/></th>
-        <td><bean:write name="orgDetailsForm" property="orgName"/></td>                     
+        <td><bean:write name="orgDetailsForm" property="orgName"/></td>
       </c:otherwise>
     </c:choose>
   </tr>
   <tr>
     <th><bean:message key="org.id.jsp"/></th>
-    <td><bean:write name="orgDetailsForm" property="id"/></td>    
+    <td><bean:write name="orgDetailsForm" property="id"/></td>
   </tr>
   <tr>
     <th><bean:message key="org.active.users.jsp"/></th>
-    <td><a href="/rhn/admin/multiorg/OrgUsers.do?oid=${param.oid}"><bean:write name="orgDetailsForm" property="users"/></a></td>    
+    <td><a href="/rhn/admin/multiorg/OrgUsers.do?oid=${param.oid}"><bean:write name="orgDetailsForm" property="users"/></a></td>
   </tr>
   <tr>
     <th><bean:message key="org.systems.jsp"/></th>
-    <td><bean:write name="orgDetailsForm" property="systems"/></td>    
+    <td><bean:write name="orgDetailsForm" property="systems"/></td>
   </tr>
   <tr>
     <th><bean:message key="org.system.groups.jsp"/></th>
-    <td><bean:write name="orgDetailsForm" property="groups"/></td>    
+    <td><bean:write name="orgDetailsForm" property="groups"/></td>
   </tr>
   <tr>
     <th><bean:message key="org.actkeys.jsp"/></th>
-    <td><bean:write name="orgDetailsForm" property="actkeys"/></td>    
+    <td><bean:write name="orgDetailsForm" property="actkeys"/></td>
   </tr>
   <tr>
     <th><bean:message key="org.kickstart.profiles.jsp"/></th>
-    <td><bean:write name="orgDetailsForm" property="ksprofiles"/></td>    
+    <td><bean:write name="orgDetailsForm" property="ksprofiles"/></td>
   </tr>
   <tr>
     <th><bean:message key="org.config.channels.jsp"/></th>
     <td><bean:write name="orgDetailsForm" property="cfgchannels"/></td>
   </tr>
-  
+
  </table>
 
  <div align="right">

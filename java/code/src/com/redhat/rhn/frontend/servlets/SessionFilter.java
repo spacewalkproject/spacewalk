@@ -36,7 +36,7 @@ import javax.servlet.ServletResponse;
  */
 public class SessionFilter implements Filter {
 
-    
+
 private static final String ROLLBACK_MSG = "Error during transaction. Rolling back";
     private static final Logger LOG = Logger.getLogger(SessionFilter.class);
 
@@ -89,7 +89,7 @@ private static final String ROLLBACK_MSG = "Error during transaction. Rolling ba
                         LOG.warn(msg, e);
                     }
                 }
-            } 
+            }
             finally {
                 // cleanup the session
                 HibernateFactory.closeSession();

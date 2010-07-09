@@ -41,26 +41,26 @@ public class BaseSetOperateOnDiffActionTest extends RhnMockStrutsTestCase {
 
         KickstartData ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         for (int i = 0; i < 5; i++) {
-            ActivationKey key = ActivationKeyFactory.createNewKey(user, 
+            ActivationKey key = ActivationKeyFactory.createNewKey(user,
                     TestUtils.randomString());
             ActivationKeyFactory.save(key);
             TestUtils.flushAndEvict(key);
         }
-        assertTrue((ksdata.getDefaultRegTokens() == null || 
+        assertTrue((ksdata.getDefaultRegTokens() == null ||
                 ksdata.getDefaultRegTokens().size() == 0));
         setRequestPathInfo("/kickstart/ActivationKeysSubmit");
-        addSelectedItem(ActivationKeyTest.createTestActivationKey(user, 
+        addSelectedItem(ActivationKeyTest.createTestActivationKey(user,
                 ServerFactoryTest.createTestServer(user)).getId());
         addDispatchCall(ListDisplayTag.SELECT_ALL_KEY);
         actionPerform();
         assertTrue(
-            RhnSetDecl.KICKSTART_ACTIVATION_KEYS.get(user).getElements().size() >= 5); 
+            RhnSetDecl.KICKSTART_ACTIVATION_KEYS.get(user).getElements().size() >= 5);
         clearRequestParameters();
         addRequestParameter(RequestContext.KICKSTART_ID, ksdata.getId().toString());
         addDispatchCall(ActivationKeysSubmitAction.UPDATE_METHOD);
         actionPerform();
         verifyActionMessage("kickstart_activation_keys.added");
-        assertTrue((ksdata.getDefaultRegTokens() != null && 
+        assertTrue((ksdata.getDefaultRegTokens() != null &&
                 ksdata.getDefaultRegTokens().size() > 0));
 
     }

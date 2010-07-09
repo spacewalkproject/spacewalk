@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Builds a map that could be used to 
+ * Builds a map that could be used to
  * convert a bean object to xml rpc
  * MapBuilder
  * @version $Rev$
@@ -34,37 +34,37 @@ import java.util.Set;
 public class MapBuilder {
     private Set excludes = new HashSet();
     private Set includes = new HashSet();
-    private static Logger log = Logger.getLogger(MapBuilder.class);    
+    private static Logger log = Logger.getLogger(MapBuilder.class);
     /**
-     * Add a debeanified name that must be excluded from the final map 
+     * Add a debeanified name that must be excluded from the final map
      * @param fieldName the debeanified property name to exclude
      */
     public void exclude(String fieldName) {
         excludes.add(fieldName);
     }
-    
+
     /**
-     *  
+     *
      * @param fieldName the debeanified property name
      *              to be included in the final map.
      */
     public void include(String fieldName) {
         includes.add(fieldName);
-    }    
-    
-    
+    }
+
+
     /**
      * Basically you pass in a bean object to it
-     * and it spits out a Map of name value pairs 
+     * and it spits out a Map of name value pairs
      * where the name is the debeanified method name
      * and the value is what ever the method returns.
-     * 
+     *
      * Basic operation is (Master List ^ includes) - excludes
      * Where ^ = intersection
      * However there is on catch ...
-     * If "includes" is empty, it includes everything.. 
+     * If "includes" is empty, it includes everything..
      * ie... includes  = empty ==> Master List - excludes
-     *  
+     *
      * @param bean the bean object to be mapified
      * @return a map containing the debeanified values.
      */

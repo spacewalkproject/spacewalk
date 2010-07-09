@@ -21,7 +21,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 
 /**
- * 
+ *
  * OrgDto class represents Trusted Org lists
  * @version $Rev$
  */
@@ -31,31 +31,31 @@ public class TrustedOrgDto extends BaseDto {
     private String name;
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
-     * 
-     * @param idIn OrgIn Id 
+     *
+     * @param idIn OrgIn Id
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
-     * 
+     *
      * @return Name of Org
      */
     public String getName() {
         return name;
     }
-    
+
     /**
-     * 
+     *
      * @param nameIn of Org to set
      */
     public void setName(String nameIn) {
@@ -63,7 +63,7 @@ public class TrustedOrgDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return number of shared channels
      */
     public Long getSharedChannels() {
@@ -71,13 +71,13 @@ public class TrustedOrgDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param sharedIn shared channels of Org to set
      */
     public void setSharedchannels(Long sharedIn) {
         this.sharedChannels = sharedIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -95,7 +95,7 @@ public class TrustedOrgDto extends BaseDto {
         b.append(this.getName(), that.getName());
         return b.isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -104,6 +104,6 @@ public class TrustedOrgDto extends BaseDto {
         HashCodeBuilder b = new HashCodeBuilder();
         b.append(getId()).append(getName());
         return b.toHashCode();
-    }   
-    
+    }
+
 }

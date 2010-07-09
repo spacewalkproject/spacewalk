@@ -25,9 +25,9 @@ import java.io.File;
 import java.sql.Statement;
 
 public class PackageCleanupTest extends RhnBaseTestCase {
-    
-    
-    
+
+
+
     protected void setUp() throws Exception {
         Session session = HibernateFactory.getSession();
         StringBuffer sql = new StringBuffer();
@@ -50,6 +50,6 @@ public class PackageCleanupTest extends RhnBaseTestCase {
     public void testPackageCleanup() throws Exception {
         TestableTask task = new PackageCleanup();
         task.execute(null, true);
-        
+
     }
 }

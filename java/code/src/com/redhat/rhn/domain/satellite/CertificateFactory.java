@@ -23,14 +23,14 @@ import org.apache.log4j.Logger;
  * @version $Rev$
  */
 public class CertificateFactory extends HibernateFactory {
-    
+
     private static CertificateFactory singleton = new CertificateFactory();
     private static Logger log = Logger.getLogger(CertificateFactory.class);
-    
+
     private CertificateFactory() {
         super();
     }
-    
+
     /**
      * Get the Logger for the derived class so log messages
      * show up on the correct class
@@ -38,7 +38,7 @@ public class CertificateFactory extends HibernateFactory {
     protected Logger getLogger() {
         return log;
     }
-    
+
     /**
      * @return the newest versiono of the satellite's certificate
      */

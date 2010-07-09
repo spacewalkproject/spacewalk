@@ -44,7 +44,7 @@ public class ErrataConfirmActionTest extends RhnMockStrutsTestCase {
     }
     /**
      * Tests a good/clean operation, errata are present.
-     * 
+     *
      * @throws Exception
      */
     public void testExecuteConfirmed() throws Exception {
@@ -52,20 +52,20 @@ public class ErrataConfirmActionTest extends RhnMockStrutsTestCase {
         // DatePicker widget needs Context.getTimezone to return a non-null value
         // By default, Context will return a null timezone.
         ctx.setTimezone(TimeZone.getDefault());
-        
+
         addDispatchCall("errataconfirm.jsp.confirm");
 
         addRequestParameter(DatePicker.USE_DATE, "true");
         // Create System
         Server server = ServerFactoryTest.createTestServer(user, true);
-        
+
         RhnSet errata = RhnSetDecl.ERRATA.createCustom(
                                         server.getId()).get(user);
-        
+
         //Fully create channels so that errata can be added to them.
 
         Channel channel = ChannelFactoryTest.createTestChannel(user);
-        
+
         // Create a set of Errata IDs
         for (int i = 0; i < 5; i++) {
             Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
@@ -73,12 +73,12 @@ public class ErrataConfirmActionTest extends RhnMockStrutsTestCase {
             ErrataManager.storeErrata(e);
             errata.addElement(e.getId());
             ErrataFactoryTest.updateNeedsErrataCache(
-                    ((Package)e.getPackages().iterator().next()).getId(), 
+                    ((Package)e.getPackages().iterator().next()).getId(),
                     server.getId(), e.getId());
             UserFactory.save(user);
         }
         RhnSetManager.store(errata); //save the set
-                
+
         addRequestParameter("sid", server.getId().toString());
         addSubmitted();
         // Execute the Action
@@ -86,33 +86,33 @@ public class ErrataConfirmActionTest extends RhnMockStrutsTestCase {
         String forward = getActualForward();
         assertTrue(forward.contains("details/ErrataList"));
     }
-    
+
     /**
      * Tests when an incomplete set of errata is passed into the action.
      * @throws Exception
      */
     public void testExecuteIncomplete() throws Exception {
-        
+
         Context ctx = Context.getCurrentContext();
         // DatePicker widget needs Context.getTimezone to return a non-null value
         // By default, Context will return a null timezone.
         ctx.setTimezone(TimeZone.getDefault());
-        
-        
+
+
         addRequestParameter("all", "false");
         RhnSet errata = RhnSetDecl.ERRATA.get(user);
         // Create System
         Server server = ServerFactoryTest.createTestServer(user, true);
-        
+
         //Fully create channels so that errata can be added to them.
         ChannelFactoryTest.createTestChannel(user);
-        
+
 
         RhnSetManager.store(errata); //save the set
-                
+
         addRequestParameter("sid", server.getId().toString());
 
-        addSubmitted(); 
+        addSubmitted();
         addRequestParameter("dispatch", "dispatch");
         // Execute the Action
         actionPerform();

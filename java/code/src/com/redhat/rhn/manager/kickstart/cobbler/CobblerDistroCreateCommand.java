@@ -33,7 +33,7 @@ import java.util.Map;
  * @version $Rev$
  */
 public class CobblerDistroCreateCommand extends CobblerDistroCommand {
-    
+
     private static Logger log = Logger.getLogger(CobblerDistroCreateCommand.class);
     private boolean syncProfiles;
     /**
@@ -43,7 +43,7 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
     public CobblerDistroCreateCommand(KickstartableTree ksTreeIn) {
         super(ksTreeIn);
     }
-    
+
     /**
      * Constructor
      * @param ksTreeIn to sync
@@ -67,7 +67,7 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
         this(ksTreeIn, userIn);
         syncProfiles = syncProfilesIn;
     }
-    
+
      /**
      * Save the Cobbler profile to cobbler.
      * @return ValidatorError if there was a problem
@@ -77,26 +77,26 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
 
         Map ksmeta = new HashMap();
         KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);
-        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, 
+        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
                 helper.getKickstartMediaPath());
         if (!tree.isRhnTree()) {
             ksmeta.put("org", tree.getOrgId().toString());
         }
-        
-        Distro distro = Distro.create(CobblerXMLRPCHelper.getConnection(user), 
-                tree.getCobblerDistroName(), tree.getKernelPath(), 
+
+        Distro distro = Distro.create(CobblerXMLRPCHelper.getConnection(user),
+                tree.getCobblerDistroName(), tree.getKernelPath(),
                 tree.getInitrdPath(), ksmeta);
         // Setup the kickstart metadata so the URLs and activation key are setup
         tree.setCobblerId((String) distro.getUid());
         invokeCobblerUpdate();
-        
+
         if (tree.doesParaVirt()) {
-            Distro distroXen = Distro.create(CobblerXMLRPCHelper.getConnection(user), 
-                tree.getCobblerXenDistroName(), tree.getKernelXenPath(), 
-                tree.getInitrdXenPath(), ksmeta); 
+            Distro distroXen = Distro.create(CobblerXMLRPCHelper.getConnection(user),
+                tree.getCobblerXenDistroName(), tree.getKernelXenPath(),
+                tree.getInitrdXenPath(), ksmeta);
             tree.setCobblerXenId(distroXen.getUid());
         }
-        
+
         if (syncProfiles) {
             List<KickstartData> profiles = KickstartFactory.
                                             lookupKickstartDatasByTree(tree);

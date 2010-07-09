@@ -1,4 +1,4 @@
-          
+
   <rhn:listdisplay set="${requestScope.set}" button="actions.jsp.archiveactions">
     <rhn:set value="${current.id}" />
     <rhn:column header="actions.jsp.action"

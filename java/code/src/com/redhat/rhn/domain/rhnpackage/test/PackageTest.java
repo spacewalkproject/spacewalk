@@ -47,73 +47,73 @@ import java.util.Map;
  * @version $Rev$
  */
 public class PackageTest extends RhnBaseTestCase {
-    
+
     public void testPackage() throws Exception {
-        
+
         Package pkg = createTestPackage();
         assertNotNull(pkg);
         //make sure we got written to the db
         assertNotNull(pkg.getId());
         TestUtils.flushAndEvict(pkg);
-        
+
         Package lookup = PackageFactory.lookupByIdAndOrg(pkg.getId(), pkg.getOrg());
         assertNotNull(lookup.getBuildTime());
-                
-        
+
+
         assertTrue(lookup.getChangeLog().size() > 0);
-        
+
         ChangeLogEntry change2 = ChangeLogEntryTest.createTestChangeLogEntry(lookup,
                 new Date(System.currentTimeMillis() + 1000));
         lookup.addChangeLogEntry(change2);
-        
+
         assertTrue(lookup.getChangeLog().size() > 1);
     }
 
     public void testFile() throws Exception {
         Package pkg = createTestPackage();
         assertNotNull(pkg);
-        
+
         String filename = "foo-2.31-4-i386.rpm";
         String path = "/foo/bar/foos/";
-        
+
         pkg.setPath(path + filename);
         assertEquals(filename, pkg.getFile());
 
         pkg.setPath(filename);
         assertEquals(filename, pkg.getFile());
-        
+
         pkg.setPath("");
         assertNull(pkg.getFile());
-        
+
         pkg.setPath(null);
         assertNull(pkg.getFile());
-        
+
         pkg.setPath("////foo//b///foo/");
         assertEquals("foo", pkg.getFile());
     }
-    
+
     //TODO: scrap this in preference of createTestPackage(org)
     public static Package createTestPackage() throws Exception {
         Package p = new Package();
         Org org = OrgFactory.lookupById(UserTestUtils.createOrg("testOrg"));
-        
+
         p = populateTestPackage(p, org);
         TestUtils.saveAndFlush(p);
 
         return p;
     }
-    
+
 
 
     public static Package createTestPackage(Org org) throws Exception {
         Package p = new Package();
         populateTestPackage(p, org);
-        
+
         TestUtils.saveAndFlush(p);
-        
+
         return p;
     }
-    
+
     public static Package populateTestPackage(Package p, Org org) throws Exception {
         PackageName pname = PackageNameTest.createTestPackageName();
         PackageEvr pevr = PackageEvrFactoryTest.createTestPackageEvr();
@@ -123,7 +123,7 @@ public class PackageTest extends RhnBaseTestCase {
         Long testid = new Long(100);
         String query = "PackageArch.findById";
         PackageArch parch = (PackageArch) TestUtils.lookupFromCacheById(testid, query);
-        
+
         p.setRpmVersion("foo");
         p.setDescription("RHN-JAVA Package Test");
         p.setSummary("Created by RHN-JAVA unit tests. Please disregard.");
@@ -143,14 +143,14 @@ public class PackageTest extends RhnBaseTestCase {
         p.setLastModified(new Date());
         p.setCreated(new Date());
         p.setModified(new Date());
-        
+
         p.setOrg(org);
         p.setPackageName(pname);
         p.setPackageEvr(pevr);
         p.setPackageGroup(pgroup);
         p.setSourceRpm(srpm);
         p.setPackageArch(parch);
-        
+
 
         p.getPackageFiles().add(createTestPackageFile(p));
         p.getPackageFiles().add(createTestPackageFile(p));
@@ -163,7 +163,7 @@ public class PackageTest extends RhnBaseTestCase {
         return p;
 
     }
-    
+
 
     public static ChangeLogEntry createTestChangeLogEntry(Package pack) {
         ChangeLogEntry log = new ChangeLogEntry();
@@ -238,12 +238,12 @@ public class PackageTest extends RhnBaseTestCase {
 
     public static void addPackageToChannelNewestPackage(Package p, Channel c) {
         /*
-       INSERT INTO rhnChannelNewestPackage(CHANNEL_ID, NAME_ID, EVR_ID, 
+       INSERT INTO rhnChannelNewestPackage(CHANNEL_ID, NAME_ID, EVR_ID,
          PACKAGE_ARCH_ID, PACKGE_ID)
          VALUES(:channel_id, :name_id, :evr_id, :package_arch_id, :packge_id)
          */
-        
-        WriteMode m = 
+
+        WriteMode m =
             ModeFactory.
             getWriteMode("test_queries", "insert_into_rhnChannelNewestPackage");
         Map params = new HashMap();
@@ -254,9 +254,9 @@ public class PackageTest extends RhnBaseTestCase {
         params.put("packge_id", p.getId());
 
         m.executeUpdate(params);
-        
+
         // insert_into_rhnChannelPackage
-        WriteMode cp = 
+        WriteMode cp =
             ModeFactory.
             getWriteMode("test_queries", "insert_into_rhnChannelPackage");
         params = new HashMap();
@@ -265,7 +265,7 @@ public class PackageTest extends RhnBaseTestCase {
 
         cp.executeUpdate(params);
     }
-    
+
     public void testIsInChannel() {
         // TODO make this work on sate
     }

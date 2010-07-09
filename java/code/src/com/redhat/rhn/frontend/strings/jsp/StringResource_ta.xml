@@ -6455,7 +6455,7 @@ organization management tools if you choose to remove this role from your login.
 			<trans-unit id="general.jsp.org.summary1">
 				<source>@@PRODUCT_NAME@@ allows for the creation of multiple 'organizations'
 on a @@PRODUCT_NAME@@.</source>
-				<target>ஒரு @@PRODUCT_NAME@@ பல'நிறுவனங்களை' @@PRODUCT_NAME@@களை 
+				<target>ஒரு @@PRODUCT_NAME@@ பல'நிறுவனங்களை' @@PRODUCT_NAME@@களை
 உருவாக்க அனுமதிக்கிறது.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary2">
@@ -6491,12 +6491,12 @@ the following tabs in the left navigation menu:</source>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
 				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>உங்கள் @@PRODUCT_NAME@@இல் சந்தாக்களை மேலாண்மை செய்யவும். நீங்கள் ஒவ்வொரு உரிமமும்
 எந்த அணுகலை கொண்டுள்ளது என்பதை பார்க்கலாம். ஒரு உரிமத்தின்
-அடிப்படையில், நீங்கள் எந்த குறிப்பிட்ட உரிமத்திற்கும் உங்கள் @@PRODUCT_NAME@@இல் 
+அடிப்படையில், நீங்கள் எந்த குறிப்பிட்ட உரிமத்திற்கும் உங்கள் @@PRODUCT_NAME@@இல்
 அனைத்து நிறுவனங்களுக்கும் ஒதுக்கலாம்.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link2">
@@ -6810,9 +6810,9 @@ Please note that some manual configuration of these scripts may still be require
 				<target>மேம்படுத்தல் மாறிகள்</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
-				<target>கிக்ஸ்டார்ட் மாறிகள் கிக்ஸ்டார்ட் விவரக்குறிப்புகளில் மதிப்புகளை பிரதியிட பயன்படுத்தப்படலாம்.  ஒரு மாறியை குறிப்பிட 'name=value' கீழேயுள்ள பெட்டியில் குறிப்பிடவும்.  
+				<target>கிக்ஸ்டார்ட் மாறிகள் கிக்ஸ்டார்ட் விவரக்குறிப்புகளில் மதிப்புகளை பிரதியிட பயன்படுத்தப்படலாம்.  ஒரு மாறியை குறிப்பிட 'name=value' கீழேயுள்ள பெட்டியில் குறிப்பிடவும்.
         			நீங்கள் $name ஐ விவரக்குறிப்பில் மதிப்பில் பிரதியிட வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
@@ -7153,12 +7153,12 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
-				<target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; மெய்நிகராக்க வகையை மாற்றுகிறது இது கிக்ஸ்டார்ட் விவரக்குறிப்புகள் பூட்லோடர் மற்றும் 
-           பகிர்வு விருப்பங்களாக பயனர் தனிபயனாக்குதலை மேலெழுதுகிறது. 
-            இந்த &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;பகிர்வு&lt;/a&gt; 
+				<target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; மெய்நிகராக்க வகையை மாற்றுகிறது இது கிக்ஸ்டார்ட் விவரக்குறிப்புகள் பூட்லோடர் மற்றும்
+           பகிர்வு விருப்பங்களாக பயனர் தனிபயனாக்குதலை மேலெழுதுகிறது.
+            இந்த &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;பகிர்வு&lt;/a&gt;
             தத்தலை புதிய அமைவுகளுக்காக பார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -7654,11 +7654,11 @@ You can also edit the post script for this kickstart below.  First, commands rel
 Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to
 the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
 				<target>கீழே இந்த கிக்ஸ்டார்ட்டின் பின் மற்றும் முன் உரைகளை நீங்கள் மாற்றலாம்.  கிக்ஸ்டார்ட்டின் முன் உரை கிக்ஸ்டார்ட் கோப்பு கணினியில் செயல்படுத்தியவுடனே இயங்கும்.
-நீங்கள் இந்த பகுதியில் பிணையத்தின் அணுகலாம், ஆனால் நீங்கள் ஐபி முகவரிகளை பயன்படுத்த வேண்டும் (பெயர் சேவை இந்த சமயத்தில் கட்டமைக்கப்பட்டிருக்காது). 
+நீங்கள் இந்த பகுதியில் பிணையத்தின் அணுகலாம், ஆனால் நீங்கள் ஐபி முகவரிகளை பயன்படுத்த வேண்டும் (பெயர் சேவை இந்த சமயத்தில் கட்டமைக்கப்பட்டிருக்காது).
 கிக்ஸ்டார்ட் முன் உரை பற்றிய கூடுதல் தகவல்களுக்கு &lt;strong&gt;Red Hat Enterprise Linux நிர்வாக கையேட்டை&lt;/strong&gt; பார்க்கவும்.
 &lt;br/&gt;&lt;br/&gt;
 நீங்கள் கீழே இந்த கிக்ஸ்டார்ட்டின் பின் உரையை மாற்றலாம்.  முதலில், @@PRODUCT_NAME@@ க்கு தொடர்புடைய கட்டளைகள் தானாக இயக்கப்படும் (எடுத்துக்காட்டாக, @@PRODUCT_NAME@@ க்கு esystem பதிவு).
-அடுத்து chrootயில்லா முன் உரைகள் செயல்படுத்தப்படும், மற்றும் கடைசியாக முன் உரை இயக்கப்படும்.  மேலும் கிக்ஸ்டார்ட் முன் உரை பற்றிய கூடுதல் விவரங்களுக்கு 
+அடுத்து chrootயில்லா முன் உரைகள் செயல்படுத்தப்படும், மற்றும் கடைசியாக முன் உரை இயக்கப்படும்.  மேலும் கிக்ஸ்டார்ட் முன் உரை பற்றிய கூடுதல் விவரங்களுக்கு
 &lt;strong&gt;Red Hat Enterprise Linux கணினி நிர்வாக கையேட்டை&lt;/strong&gt; பார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.langheader">
@@ -9952,7 +9952,7 @@ From there, you can deploy the file to systems.</source>
 You can deploy the latest revision of this file (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to any of the systems subscribed to this file's
 centrally-managed configuration channel, {2}; below is a list of systems you may deploy this file to.</source>
 				<target>
-நீங்கள் இந்த கோப்பின் சமீபத்திய மறுபார்வையை (&lt;a href="{1}"&gt;மறுபார்வை {0}&lt;/a&gt;) மையமாக-மேலாண்மை செய்யப்பட்ட கட்டமைப்பு தடத்தின் கோப்புடன் சந்தாப்படுத்திய 
+நீங்கள் இந்த கோப்பின் சமீபத்திய மறுபார்வையை (&lt;a href="{1}"&gt;மறுபார்வை {0}&lt;/a&gt;) மையமாக-மேலாண்மை செய்யப்பட்ட கட்டமைப்பு தடத்தின் கோப்புடன் சந்தாப்படுத்திய
 கணினிகளுடன் சந்தாப்படுத்தலாம், {2} க்கு கீழே பட்டியலிடப்பட்ட கணினிகள் இந்த கோப்புடன் வரிசைப்படுத்தப்படலாம்.</target>
 			</trans-unit>
 			<trans-unit id="globalDeploy.jsp.noSystems">
@@ -11925,9 +11925,9 @@ Make sure you subscribe systems to the appropriate software channels during kick
 so they have access to the packages in the package profile you sync them to.  Visit
 the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Keys&lt;/a&gt;
  tab to subscribe systems to software channels during kickstart.&lt;/span&gt;</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;துணுக்கு:&lt;/strong&gt; 
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;துணுக்கு:&lt;/strong&gt;
 மென்பொருள் தடங்கள் கிக்ஸ்டார்ட் செய்யும் போது அதற்கான சந்தா கணினிகள் உள்ளதா என்பதை உறுதிபடுத்தவும்
-அதனால் நீங்கள் ஒருங்கிணைத்த தொகுப்பு விவரக்குறிப்பில் தொகுப்புகளை அணுக முடியும். கிக்ஸ்டார்ட்டின் 
+அதனால் நீங்கள் ஒருங்கிணைத்த தொகுப்பு விவரக்குறிப்பில் தொகுப்புகளை அணுக முடியும். கிக்ஸ்டார்ட்டின்
 போது &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;செயல்படுத்தும் விசைகளை&lt;/a&gt;
  மென்பொருள் தடங்களை கணினிகளுக்கு சந்தாப்படுத்தும்.&lt;/span&gt;</target>
 			</trans-unit>
@@ -12408,13 +12408,13 @@ need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
 performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;</source>
 				<target> &lt;strong&gt; தானியக்க கிக்ஸ்டார்ட் RPMகள் எதுவும் இல்லை.  இந்த RPMகள்
 @@PRODUCT_NAME@@ கருவிகள் தடங்கள் ஒவ்வொரு துணையான தாய் தடங்களில் இருக்கும்.
-நீங்கள் கிக்ஸ்டார்ட் செய்ய அல்லது புதிய கிக்ஸ்டார்ட் பகிர்ந்தளிப்பினை உருவாக்கும் முன் 
+நீங்கள் கிக்ஸ்டார்ட் செய்ய அல்லது புதிய கிக்ஸ்டார்ட் பகிர்ந்தளிப்பினை உருவாக்கும் முன்
 சேட்டிலைட் ஒருங்கிணைப்பினை @@PRODUCT_NAME@@ கருவிகள் தடங்களில் செய்ய வேண்டும் .&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
-				<source> 
+				<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;</source>
-				<target> 
+				<target>
  &lt;strong&gt;தேர்ந்தெடுக்கப்பட்ட அடிப்படை தடத்திற்கு நிறுவி உருவாக்குதல் இல்லை.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.toolbar">
@@ -13132,7 +13132,7 @@ list (see below) about this scheduled downtime whenever possible.</source>
 @@PRODUCT_NAME@@க்கு ஒவ்வொரு செவ்வாய்கிழமையும் 9pm-3am, கிழக்கு U.S. நேரம்(1am-7am UTC)
 கொண்டிருக்கிறது.  Red Hat இந்த சாளரங்களின் ஒவ்வொரு செயல்பாட்டு பராமரிப்பையும் பயன்படுத்தாவிட்டாலும்,
 நாங்கள் உங்களை தொழில் முறை வளர்ச்சி பயிற்சி உங்கள் @@PRODUCT_NAME@@ தீர்வுக்கு அனுமதிக்கப்படும்.
-Red Hat எப்போதும் குறைந்தது ஒரு வாரத்திற்கு முன்பே மின்னஞ்சல் நிறுத்த பட்டியலை 
+Red Hat எப்போதும் குறைந்தது ஒரு வாரத்திற்கு முன்பே மின்னஞ்சல் நிறுத்த பட்டியலை
 (கீழே பார்க்கவும்)அறிவிக்க முயற்சிக்கும்.</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.unscheduled-header">
@@ -13145,7 +13145,7 @@ Network will attempt notification, again through the email outage list
 (see below), at least 12 hours or as soon as possible in advance of
 unscheduled maintenance.</source>
 				<target>திட்டமிடப்படாத பராமரிப்பு சாளரங்களுக்கு வாய்ப்புள்ளது, ஆனால்
-அரிதானது. Red Hat Network அறிவிப்பை மீண்டும் மின்னஞ்சல் நிறுத்த 
+அரிதானது. Red Hat Network அறிவிப்பை மீண்டும் மின்னஞ்சல் நிறுத்த
 பட்டியலில் முயற்சிக்கும் (கீழே பார்க்கவும்), குறைந்தது 12 மணிநேரம் அல்லது
 திட்டமிடப்படாத பராமரிப்புக்கு எவ்வளவு சீக்கிரம் முடியுமோ அவ்வளவு சீக்கிரம்</target>
 			</trans-unit>
@@ -13158,7 +13158,7 @@ unscheduled maintenance.</source>
 Red Hat will open a trouble ticket on the outage and contact all users
 on the email outage list as soon as possible.</source>
 				<target>சாதன செயலிழப்பு அல்லது வேறு சிக்கலான பிரச்சனையால் நிறுத்தப்பட்டால்,
- Red Hat நிறுத்தத்தில் ஒரு பிரச்சனை டிக்கெட்டை திறந்து, சீக்கிரமாக அனைத்து 
+ Red Hat நிறுத்தத்தில் ஒரு பிரச்சனை டிக்கெட்டை திறந்து, சீக்கிரமாக அனைத்து
 மின்னஞ்சல் நிறுத்த பட்டியலிலுள்ள பயனர்களையும் தொடர்பு கொள்ளும்.</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.notification-header">
@@ -13317,11 +13317,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.description">
 				<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)</source>
 				<target>
-	 {0}இன் &lt;strong&gt;சமீபத்திய வெளியீட்டுக்கு&lt;/strong&gt; முழு ISO அமைவை கீழே காணலாம்.  
+	 {0}இன் &lt;strong&gt;சமீபத்திய வெளியீட்டுக்கு&lt;/strong&gt; முழு ISO அமைவை கீழே காணலாம்.
 	 நீங்கள் நிறுவ விரும்பும் {0}இன் மாறியின் படி, இந்த வட்டுகளின் துணை அமைவு மட்டுமே தேவைப்படும்.
     (&lt;a href="{1}"&gt;கூடுதல் தகவல்கள்&lt;/a&gt;)</target>
 			</trans-unit>
@@ -13347,11 +13347,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.note">
 				<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
-&lt;strong&gt;குறிப்பு:&lt;/strong&gt; {0} ஐ நிறுவ உங்களுக்கு ஒரு நிறுவல் எண் தேவைப்படும்.  
+&lt;strong&gt;குறிப்பு:&lt;/strong&gt; {0} ஐ நிறுவ உங்களுக்கு ஒரு நிறுவல் எண் தேவைப்படும்.
 &lt;a href="{1}"&gt;நிறுவல் எண் என்றால் என்ன?&lt;/a&gt;
 &lt;a href="{2}"&gt;உங்கள் நிறுவல் எண்களை பார்க்க வேண்டுமா?&lt;/a&gt;</target>
 			</trans-unit>
@@ -13361,10 +13361,10 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.rest.description">
 				<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.</source>
 				<target>
-கீழே {0}இன் &lt;strong&gt;பழைய வெளியீடுக்கு&lt;/strong&gt; ISO உருக்களின் முழு அமைவுகளை காணலாம்.  
+கீழே {0}இன் &lt;strong&gt;பழைய வெளியீடுக்கு&lt;/strong&gt; ISO உருக்களின் முழு அமைவுகளை காணலாம்.
 ISO உருக்களின் ஒரே ஒரு அமைவு {0}இன் குறிப்பிட்ட வெளியீடு நிறுவ தேவைப்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="isodownload.viewprevious">
@@ -13882,7 +13882,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
             &lt;p/&gt;
             Please review the changes you are about to make before confirming the trust removal(s).</source>
 				<target>
-            கீழே பட்டியலிடப்பட்ட நம்பகங்களை நீக்க வேண்டுமா?  நீங்கள் நீக்கும் நம்பக 
+            கீழே பட்டியலிடப்பட்ட நம்பகங்களை நீக்க வேண்டுமா?  நீங்கள் நீக்கும் நம்பக
             நிறுவனங்களால் வழங்கப்பட்ட {0} நிறுவனங்களை சந்தாப்படுத்த
             கணினிகள் உள்ளன.  இது அந்த கணினிகளை பாதிக்கும்.  எடுத்துக்காட்டாக, அந்த கணினிகள்
             இந்த நம்பகம் மூலம் பெறப்பட்ட பாதுகாப்பு மேம்படுத்தலை பெறவில்லை.
@@ -13891,12 +13891,12 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
 				<target>
-            கீழே பட்டியலிடப்பட்ட கணினிகள் நம்பக உறவுநிலையான இந்த &lt;b&gt;{0}&lt;/b&gt; நிறுவனம் 
+            கீழே பட்டியலிடப்பட்ட கணினிகள் நம்பக உறவுநிலையான இந்த &lt;b&gt;{0}&lt;/b&gt; நிறுவனம்
              மற்றும் &lt;b&gt;{1}&lt;/b&gt; நிறுவனங்களுக்கிடையே நீக்குவதை பாதிக்கும்.
             இந்த நம்பகத்தை நீக்குவது இந்த கணினிகளை பாதிக்கும். எடுத்துக்காட்டாக, இந்த கணினிகள் எந்த பாதுகாப்பு
             மேம்படுத்தலையும் இந்த நம்பகம் மூலம் பெறாது.</target>
@@ -14895,28 +14895,28 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.</source>
 				<target>உருவாக்கு அல்லதுஇந்த பக்கத்து மென்பொருள் தடங்களைதிருத்து.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         பெற்றோர் தடத்தினை அமைக்க 'ஒன்றுமில்லாத', இந்த தடம் ஒரு அடிப்படை தடமாகும்.
         இல்லையெனில், ஒரு குறிப்பிட்ட தடத்தின் சேய் தடமாக மாகும்.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         தடத்தின் பெயர் மற்றும் லேபல் தேவைப்படுகிறது.ஒவ்வொரு நீளத்தில் 6
         எழுத்துக்களையும் கொண்டுள்ளது. லேபிள்கள் எழுத்துகளுடன் தொடரும், லோவர்கேஸ் எழுத்துக்கள்
         மட்டுமே, hyphens ('-'), periods ('.'), underscores ('_'), மற்றும்
         நியூமரல்ஸ். தடப் பெயர் இடைவெளிகளையும் மற்றும் முன் ஸ்லாஷ்களைப் பெற்றுள்ளது
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         தடச் சுருக்கமும் தேவைப்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
@@ -14994,7 +14994,7 @@ given channel.</source>
         channel, or you may deny them access. You can modify access to this
         channel at any time using the 'Organizations' tab above.</source>
 				<target>நீங்கள் நிறுவனங்களுக்கு கீழே இந்த சேனலை அணுக தேர்ந்தெடுக்கலாம்
-        அல்லது அவற்றை அணுக மறுக்கலாம். நீஙள் இந்த சேனல் அணுகலை 
+        அல்லது அவற்றை அணுக மறுக்கலாம். நீஙள் இந்த சேனல் அணுகலை
         எந்த நேரமும் 'நிறுவனங்கள்' தத்தலை மேலே பயன்படுத்தி மாற்றலாம்.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.software.channel">

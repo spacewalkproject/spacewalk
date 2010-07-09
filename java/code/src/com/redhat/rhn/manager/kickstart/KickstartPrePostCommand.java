@@ -45,42 +45,42 @@ public class KickstartPrePostCommand extends BaseKickstartCommand {
     }
 
     /**
-     * Set the contents of the pre script.  
+     * Set the contents of the pre script.
      * @param language or interpreter used
      * @param contentsIn of the actual script
      */
     public void setPreScript(String language, String contentsIn) {
         logger.debug("setPreScript(String language=" + language +
                 ", String contentsIn=" + contentsIn + ") - start");
-        
-        setScript(language, contentsIn, KickstartScript.TYPE_PRE);        
+
+        setScript(language, contentsIn, KickstartScript.TYPE_PRE);
         logger.debug("setPreScript(String, String) - end");
     }
-    
+
     /**
-     * Set the contents of the post script.  
+     * Set the contents of the post script.
      * @param language or interpreter used
      * @param contentsIn of the actual script
      */
     public void setPostScript(String language, String contentsIn) {
         logger.debug("setPostScript(String language=" + language +
                 ", String contentsIn=" + contentsIn + ") - start");
-        
-        setScript(language, contentsIn, KickstartScript.TYPE_POST);        
+
+        setScript(language, contentsIn, KickstartScript.TYPE_POST);
         logger.debug("setPostScript(String, String) - end");
     }
 
 
     /**
-     * Set the contents of the pre script.  
+     * Set the contents of the pre script.
      * @param language or interpreter used
      * @param contentsIn of the actual script
      */
     private void setScript(String language, String contentsIn, String typeIn) {
         logger.debug("setPreScript(String language=" + language +
                 ", String contentsIn=" + contentsIn + ") - start");
-        
-        try {        
+
+        try {
             if (language != null) {
                 // Edit existing KickstartScript
                 KickstartScript kss = null;
@@ -94,16 +94,16 @@ public class KickstartPrePostCommand extends BaseKickstartCommand {
                     throw new IllegalArgumentException(
                             "Unknown KickstartScript type: " + typeIn);
                 }
-                
+
                 if (kss != null) {
                     kss.setInterpreter(language);
                     kss.setData(contentsIn.getBytes("UTF-8"));
-                }                
+                }
                 else {
                     // Add new one
                     addKickstartScript(language, contentsIn, typeIn);
                 }
-            } 
+            }
             else {
                 Iterator i = this.ksdata.getScripts().iterator();
                 while (i.hasNext()) {
@@ -119,12 +119,12 @@ public class KickstartPrePostCommand extends BaseKickstartCommand {
             logger.error("setPreScript(String, String)", e);
             throw new RuntimeException("UnsupportedEncodingException" +
                     " while trying to set Pre script", e);
-        }        
+        }
         logger.debug("setPreScript(String, String) - end");
     }
 
-    
-    private void addKickstartScript(String language, String contentsIn, 
+
+    private void addKickstartScript(String language, String contentsIn,
             String scriptTypeIn)
         throws UnsupportedEncodingException {
         KickstartScript kss = new KickstartScript();
@@ -135,32 +135,32 @@ public class KickstartPrePostCommand extends BaseKickstartCommand {
         this.ksdata.addScript(kss);
     }
 
-    
+
     /**
-     * Get the language in use by the script.  The #!/bin/sh 
+     * Get the language in use by the script.  The #!/bin/sh
      * at the top of the file.
-     * 
+     *
      * @return String of the language chosen
      */
     public String getPreLanguage() {
         KickstartScript kss = ksdata.getPreKickstartScript();
         if (kss != null) {
             return kss.getInterpreter();
-        } 
+        }
         else {
             return null;
         }
     }
 
     /**
-     * Get the contents of the string.  
+     * Get the contents of the string.
      * @return String contents of the pre script
      */
     public String getPreContents() {
         KickstartScript kss = ksdata.getPreKickstartScript();
         if (kss != null) {
             return kss.getDataContents();
-        } 
+        }
         else {
             // return ksdata.getPreContents();
             return null;
@@ -175,7 +175,7 @@ public class KickstartPrePostCommand extends BaseKickstartCommand {
         KickstartScript kss = ksdata.getPostKickstartScript();
         if (kss != null) {
             return kss.getDataContents();
-        } 
+        }
         else {
             // return ksdata.getPostContents();
             return null;
@@ -190,7 +190,7 @@ public class KickstartPrePostCommand extends BaseKickstartCommand {
         KickstartScript kss = ksdata.getPostKickstartScript();
         if (kss != null) {
             return kss.getInterpreter();
-        } 
+        }
         else {
             return null;
         }

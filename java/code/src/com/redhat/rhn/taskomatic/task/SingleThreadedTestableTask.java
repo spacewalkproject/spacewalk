@@ -22,28 +22,28 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 /**
- * Custom Quartz Job implementation which only allows one thread to 
- * run at a time. All other threads return without performing any work. 
- * This policy was chosen instead of blocking so as to reduce threading 
+ * Custom Quartz Job implementation which only allows one thread to
+ * run at a time. All other threads return without performing any work.
+ * This policy was chosen instead of blocking so as to reduce threading
  * problems inside Quartz itself.
- *  
+ *
  * @version $Rev $
  *
  */
 public abstract class SingleThreadedTestableTask implements TestableTask {
-    
+
     private boolean isExecuting = false;
-   
+
     /**
      * {@inheritDoc}
      */
-    public void execute(JobExecutionContext context) 
+    public void execute(JobExecutionContext context)
             throws JobExecutionException {
         synchronized (this) {
             if (this.isExecuting) {
                 Logger logger = Logger.getLogger(SchedulerKernel.class);
-                logger.info("Instance of " + getClass().getName() + " already running..." + 
-                        "Exiting");                
+                logger.info("Instance of " + getClass().getName() + " already running..." +
+                        "Exiting");
                 return;
             }
             else {
@@ -55,7 +55,7 @@ public abstract class SingleThreadedTestableTask implements TestableTask {
             HibernateFactory.commitTransaction();
         }
         catch (Throwable t) {
-            HibernateFactory.rollbackTransaction();            
+            HibernateFactory.rollbackTransaction();
             Logger logger = Logger.getLogger(SchedulerKernel.class);
             logger.error(t);
             TaskHelper.sendErrorMail(logger, t);

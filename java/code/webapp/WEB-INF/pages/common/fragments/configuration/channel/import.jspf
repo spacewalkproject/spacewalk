@@ -11,7 +11,7 @@
 	<rhn:list
 	  pageList="${requestScope.pageList}"
 	  noDataText="channelfiles.jsp.noFiles">
-	  
+
 	<rhn:listdisplay filterBy="channelfiles.jsp.path" set="${requestScope.set}">
 	 	<rhn:set value="${current.id}"/>
 		<rhn:column header="channelfiles.jsp.path">

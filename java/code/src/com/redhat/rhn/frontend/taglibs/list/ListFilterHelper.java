@@ -33,20 +33,20 @@ public class ListFilterHelper {
      */
     private ListFilterHelper() {
     }
-    
+
     /**
-     * Filter a list using the specified filter 
+     * Filter a list using the specified filter
      * @param dataSet the dataset to filter
      * @param filter the filter to use
      * @param filterBy which value to filter by in the bean
      * @param filterValue the value to filter on
      * @param searchParent true if we want to search the parent value
-     *          in the list when filtering. 
+     *          in the list when filtering.
      * @param searchChild true if we want to search the child value
      *          in the list when filtering.
      * @return the filtered list
      */
-    public static  List filterChildren(List dataSet, ListFilter filter, String filterBy, 
+    public static  List filterChildren(List dataSet, ListFilter filter, String filterBy,
             String filterValue, boolean searchParent, boolean searchChild) {
         List expanded = new LinkedList();
         for (Object obj : dataSet) {
@@ -61,25 +61,25 @@ public class ListFilterHelper {
                 else {
                     expanded.addAll(children);
                 }
-                      
+
             }
         }
         return expanded;
-    }    
-    
+    }
+
     /**
-     * Filter a list using the specified filter 
+     * Filter a list using the specified filter
      * @param dataSet the dataset to filter
      * @param filter the filter to use
      * @param filterBy which value to filter by in the bean
      * @param filterValue the value to filter on
      * @param searchParent true if we want to search the parent value
-     *          in the list when filtering. 
+     *          in the list when filtering.
      * @param searchChild true if we want to search the child value
      *          in the list when filtering.
      * @return the filtered list
      */
-    public static List filter(List dataSet, ListFilter filter, String filterBy, 
+    public static List filter(List dataSet, ListFilter filter, String filterBy,
             String filterValue, boolean searchParent, boolean searchChild) {
         String tmp = null;
         try {
@@ -94,7 +94,7 @@ public class ListFilterHelper {
             // an illegal sequence was detected
             tmp = null;
         }
-        
+
         try {
             tmp = URLDecoder.decode(filterValue, "UTF-8");
             filterValue = tmp;
@@ -107,7 +107,7 @@ public class ListFilterHelper {
             // an illegal sequence was detected
             tmp = null;
         }
-        
+
         List filteredData = new ArrayList();
         Expandable parent = null;
         for (Object object : dataSet) {
@@ -132,6 +132,6 @@ public class ListFilterHelper {
         }
         return filteredData;
     }
-    
-    
+
+
 }

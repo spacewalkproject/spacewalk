@@ -27,7 +27,7 @@
     <rhn-tab name="Channel Management" url="/rhn/help/dispatcher/channel_mgmt_guide">
       <rhn-tab-directory>/rhn/help/channel-mgmt</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="API" url="/rhn/apidoc/index.jsp"> 
+    <rhn-tab name="API" url="/rhn/apidoc/index.jsp">
     	<rhn-tab name="Overview" url="/rhn/apidoc/index.jsp">
 			<rhn-tab-directory>/rhn/apidoc</rhn-tab-directory>
 		</rhn-tab>

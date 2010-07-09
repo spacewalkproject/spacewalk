@@ -28,7 +28,7 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * PackageSerializer
  * @version $Rev$
  * @xmlrpc.doc
@@ -41,11 +41,11 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "arch_label")
  *      #prop_desc("string", "path", "The path on that file system that the package
  *             resides")
- *      #prop_desc("string", "provider", "The provider of the package, determined by 
+ *      #prop_desc("string", "provider", "The provider of the package, determined by
  *              the gpg key it was signed with.")
  *      #prop("dateTime.iso8601", "last_modified")
  *  #struct_end()
- * 
+ *
  */
 public class PackageSerializer implements XmlRpcCustomSerializer {
 
@@ -62,7 +62,7 @@ public class PackageSerializer implements XmlRpcCustomSerializer {
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
         Package pack = (Package) value;
-        
+
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("name", pack.getPackageName().getName());
         helper.add("version", pack.getPackageEvr().getVersion());
@@ -73,7 +73,7 @@ public class PackageSerializer implements XmlRpcCustomSerializer {
         helper.add("arch_label", pack.getPackageArch().getLabel());
         helper.add("last_modified", pack.getLastModified());
         helper.add("path", pack.getPath());
-        
+
         String provider = LocalizationService.getInstance().getMessage(
                 "channel.jsp.gpgunknown");
         if (pack.getPackageKeys() != null) {
@@ -84,7 +84,7 @@ public class PackageSerializer implements XmlRpcCustomSerializer {
                 }
             }
         }
-        helper.add("provider", provider); 
+        helper.add("provider", provider);
         helper.writeTo(output);
     }
 }

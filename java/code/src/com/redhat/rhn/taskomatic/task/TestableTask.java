@@ -20,13 +20,13 @@ import org.quartz.JobExecutionException;
 
 /**
  * Eases unit testing Quartz' jobs
- * 
+ *
  * @version $Rev $
  */
 public interface TestableTask extends Job {
-    
+
     /**
-     * Entry point for all scheduled tasks 
+     * Entry point for all scheduled tasks
      * @param ctx Quartz job runtime environment
      * @param testContext Flags if the task is executing inside of a unit test
      * @throws JobExecutionException Indicates a fatal processing error

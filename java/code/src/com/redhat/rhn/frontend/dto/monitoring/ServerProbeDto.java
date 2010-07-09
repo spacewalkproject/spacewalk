@@ -31,7 +31,7 @@ public class ServerProbeDto extends CheckProbeDto {
     private String state;
     private String output;
     private Date lastCheck;
-    
+
     /**
      * Determine if this Probe is a member of a ProbeSuite
      * @return Returns the suiteProbe.
@@ -39,9 +39,9 @@ public class ServerProbeDto extends CheckProbeDto {
     public boolean getIsSuiteProbe() {
         return (probeSuiteId != null);
     }
-    
+
     /**
-     * Convenience method to get the ID of the ProbeSuite this Probe 
+     * Convenience method to get the ID of the ProbeSuite this Probe
      * is a member of.  Throws an IllegalArgumentException if the contained
      * probe isn't a member of a Suite.
      * @return id of this Probe's Probe Suite.
@@ -60,7 +60,7 @@ public class ServerProbeDto extends CheckProbeDto {
         this.probeSuiteId = probeSuiteIdIn;
     }
 
-    
+
     /**
      * @return Returns the templateProbeId.
      */
@@ -68,15 +68,15 @@ public class ServerProbeDto extends CheckProbeDto {
         return templateProbeId;
     }
 
-    
+
     /**
      * @param templateProbeIdIn The templateProbeId to set.
      */
     public void setTemplateProbeId(Long templateProbeIdIn) {
         this.templateProbeId = templateProbeIdIn;
     }
-    
-    /** 
+
+    /**
      * Get a HTML friendly status string.  Replaces \n and \r\n with <br>
      * @return HTML friendly string
      */
@@ -88,7 +88,7 @@ public class ServerProbeDto extends CheckProbeDto {
             return null;
         }
     }
-        
+
     /**
      * @return Returns the output.
      */
@@ -96,7 +96,7 @@ public class ServerProbeDto extends CheckProbeDto {
         return output;
     }
 
-    
+
     /**
      * @param outputIn The output to set.
      */
@@ -104,7 +104,7 @@ public class ServerProbeDto extends CheckProbeDto {
         this.output = outputIn;
     }
 
-    
+
     /**
      * @return Returns the state.
      */
@@ -112,24 +112,24 @@ public class ServerProbeDto extends CheckProbeDto {
         return state;
     }
 
-    
+
     /**
      * @param stateIn The state to set.
      */
     public void setState(String stateIn) {
         this.state = stateIn;
     }
-    
-    /** 
+
+    /**
      * Convenience method to get back the State string for
      * display purposes.  Defaults to "PENDING" if there
-     * is no state.  
+     * is no state.
      * @return String value of probestate.
      */
     public String getStateString() {
         if (state == null) {
             return MonitoringConstants.PROBE_STATE_PENDING;
-        } 
+        }
         else {
             return state;
         }
@@ -142,13 +142,13 @@ public class ServerProbeDto extends CheckProbeDto {
         return lastCheck;
     }
 
-    
+
     /**
      * @param lastCheckIn The lastCheck to set.
      */
     public void setLastCheck(Date lastCheckIn) {
         this.lastCheck = lastCheckIn;
     }
-    
-    
+
+
 }

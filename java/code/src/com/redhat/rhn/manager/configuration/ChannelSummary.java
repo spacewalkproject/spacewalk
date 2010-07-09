@@ -21,15 +21,15 @@ import com.redhat.rhn.domain.server.Server;
 /**
  * ChannelSummary
  * @version $Rev$
- * 
- * Data object to hold the values displayed for config-channel 
+ *
+ * Data object to hold the values displayed for config-channel
  * overview page.
- * 
+ *
  * Created and filled by ConfigurationManager
- * 
+ *
  */
 public class ChannelSummary {
-    
+
     private int numFiles;
     private int numDirs;
     private int numSymlinks;
@@ -40,7 +40,7 @@ public class ChannelSummary {
     private String recentDeployDate;
     private Server mostRecentSystem;
     private String recentSystemDate;
-    
+
     ChannelSummary() {
         super();
     }
@@ -60,7 +60,7 @@ public class ChannelSummary {
     public void setMostRecentDeploy(ConfigDeployAction cda) {
         this.mostRecentDeploy = cda;
     }
-    
+
     /**
      * Return the most recent file-revision made in a channel
      * @return the most-recent COnfigRevision
@@ -85,7 +85,7 @@ public class ChannelSummary {
         return mostRecentSystem;
     }
 
-    
+
     /**
      * Set the most-recently-subscribed server
      * @param srv most recent server subscribed
@@ -94,7 +94,7 @@ public class ChannelSummary {
         this.mostRecentSystem = srv;
     }
 
-    
+
     /**
      * How many directories are contained in this channel?
      * @return number of files of type "directory" controlled by this channel
@@ -158,7 +158,7 @@ public class ChannelSummary {
     public void setNumSystems(int systems) {
         this.numSystems = systems;
     }
-    
+
     /**
      * Set date when mostRecentSystem's relationship to this channel was affected
      * @param aDate date of the change, from rhnServerConfigChannel
@@ -190,7 +190,7 @@ public class ChannelSummary {
     public String getRecentFileDate() {
         return recentFileDate;
     }
-    
+
     /**
      * Set date-string for when mostRecentDeploy happened
      * @param aDate date of the change

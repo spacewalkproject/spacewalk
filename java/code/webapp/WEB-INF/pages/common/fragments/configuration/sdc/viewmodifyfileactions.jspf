@@ -6,26 +6,26 @@
    <rhn:submitted/>
    <hr/>
 	<c:if test="${not requestScope.normal}" >
-		<rhn:require acl="user_role(config_admin)">	  
-		    <input type="submit" 
+		<rhn:require acl="user_role(config_admin)">
+		    <input type="submit"
 	    		name ="dispatch"
 		    	value="${requestScope.copy_to_global}"/>
 		</rhn:require>
 	</c:if>
 	
 	<c:if test="${not requestScope.server_import}" >
-	    <input type="submit" 
+	    <input type="submit"
 	    	name ="dispatch"
 		    value="${requestScope.copy_to_sandbox}"/>
 	</c:if>
-	<c:if test="${not requestScope.local_override}" >       
-	    <input type="submit" 
+	<c:if test="${not requestScope.local_override}" >
+	    <input type="submit"
 	    	name ="dispatch"
 		    value="${requestScope.copy_to_local}"/>
    </c:if>
 	<c:if test="${not requestScope.normal}" >
-		<rhn:require acl="user_role(config_admin)">	  
-		    <input type="submit" 
+		<rhn:require acl="user_role(config_admin)">
+		    <input type="submit"
 		    	name ="dispatch"
 			    value="${requestScope.delete_files}"/>		
        </rhn:require>	

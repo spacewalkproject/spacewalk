@@ -25,7 +25,7 @@ import org.apache.struts.action.DynaActionForm;
  * @version $Rev: 1 $
  */
 public class TreeCreateAction extends BaseTreeAction {
-    
+
     protected String getSuccessKey() {
         return "tree.create.success";
     }

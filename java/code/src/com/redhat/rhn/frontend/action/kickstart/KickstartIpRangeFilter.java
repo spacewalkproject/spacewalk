@@ -33,7 +33,7 @@ public class KickstartIpRangeFilter extends BaseListFilter {
      * ${@inheritDoc}
      */
     public void processMap(Map map, Locale userLocale) {
-        LocalizationService ls = 
+        LocalizationService ls =
             LocalizationService.getInstance();
         String label = ls.getMessage("list.filter.iprange",
                 userLocale);
@@ -43,18 +43,18 @@ public class KickstartIpRangeFilter extends BaseListFilter {
     /**
      * ${@inheritDoc}
      */
-    public boolean filter(Object object, String field, 
+    public boolean filter(Object object, String field,
             String criteria) {
-        
+
         KickstartIpRangeDto range = (KickstartIpRangeDto) object;
-        
+
         IpAddress min = new IpAddress(range.getMin());
         IpAddress max = new IpAddress(range.getMax());
-        
+
         return filterOnRange(criteria, min.toString(), max.toString());
-        
+
     }
-    
+
     /**
      * Returns true if the search ip is within the min and max
      *  helper method used by filter and by other things
@@ -67,12 +67,12 @@ public class KickstartIpRangeFilter extends BaseListFilter {
         IpAddress minIp = new IpAddress(min);
         IpAddress maxIp = new IpAddress(max);
         IpAddress searchIp = new IpAddress(search);
-        
-        IpAddressRange ipRange = new IpAddressRange(minIp.getLongNumber(), 
+
+        IpAddressRange ipRange = new IpAddressRange(minIp.getLongNumber(),
                 maxIp.getLongNumber());
-        
+
         return ipRange.isIpAddressContained(searchIp);
     }
-    
-    
+
+
 }

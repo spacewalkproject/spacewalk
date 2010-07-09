@@ -100,9 +100,9 @@ public class StringUtil {
 
     /**
      * Convert the passed in bean style string to a underscore separated string.
-     * 
+     *
      * For example: someFieldName -> some_field_name
-     * 
+     *
      * @param str The string to convert
      * @return The converted string
      */
@@ -211,7 +211,7 @@ public class StringUtil {
      * would be converted to a list containing:<BR>
      * {"AAA", "BBB", "CCC", "DDD", "EEE", "FFF"}<BR>
      * <BR>
-     * 
+     *
      * @param convertIn convert this string to a list
      * @return List version of specified string
      * @todo This should be removed and replaced with a call like:
@@ -346,7 +346,7 @@ public class StringUtil {
     /**
      * Join the strings contained in inputList with the separator. Returns null
      * if the input list is empty
-     * 
+     *
      * @param separator The String to glue the strings in inputList together
      * with
      * @param inputList The List of Strings to join
@@ -467,7 +467,7 @@ public class StringUtil {
      * Takes a target time (in msecs) and a maximum and minimum
      * time-unit-of-interest and returns an I18N string in
      * "x [maxUnits] y [units] ... z [minUnits] [ago:from now]" format.
-     * 
+     *
      * @param target timestamp in msecs-since-epoch of the event
      * @param maxUnit constant representing the maximum unit you want to
      * display.
@@ -520,7 +520,7 @@ public class StringUtil {
     /**
      * Takes a target time (in msecs) and a time-unit-of-interest and returns an
      * I18N string in "x {units} {ago:from now}" format.
-     * 
+     *
      * @param target timestamp in msecs-since-epoch of the event
      * @param maxUnit constant representing the unit you want to display. The
      * code will "back off" from that to show the largest non-zero unit needed
@@ -547,7 +547,7 @@ public class StringUtil {
         // If the remainder > half a unit, round up.
         // Note: we don't round seconds
         if (theUnit != SECONDS_UNITS &&
-                remainder >= (MILLIS_PER_UNIT[theUnit - 1] * 
+                remainder >= (MILLIS_PER_UNIT[theUnit - 1] *
                         (UNITS_PER_NEXT[theUnit - 1] / 2))) {
             valInMaxUnits++;
         }
@@ -671,14 +671,14 @@ public class StringUtil {
      * Basically turns an html or xml snippet to plain text Meant to be used
      * along with string resources xml file messages. This is a best guess plain
      * text conversion.. For example the following text
-     * 
+     *
      * <pre>
      * &lt;p&gt;You donot have enough entitlements for &lt;strong&gt;
      *                   xyz system &lt;/strong&gt;&lt;/p&gt;
      * will get converted to
      * You donot have enough entitlements for xyz system
      * It just returns the original snippet back in the case
-     * of an xml error (however it throws a warning)... 
+     * of an xml error (however it throws a warning)...
      * &#064;param html the html/xml String resources snippet to convert
      * @param html html input
      * @return the plain text version.
@@ -715,7 +715,7 @@ public class StringUtil {
      * @param options the string of options
      * @param errorKey the localization key of the error message to throw if we
      * can't parse it correctly
-     * @param separator the separator the separates different name value pairs 
+     * @param separator the separator the separates different name value pairs
      * @return a map containing name value pairs of options
      * @throws ValidatorException if there isn't an '=' sign seperating the
      * pairs
@@ -775,7 +775,7 @@ public class StringUtil {
     }
 
     /**
-     * 
+     *
      * @param b The byteArray of the compressedDigest stream
      * @return the hexString equivalent
      */

@@ -20,5 +20,5 @@
   </rhn-tab>
   <rhn-tab name="Cobbler" acl="user_role(satellite_admin)">
     <rhn-tab-url>/rhn/admin/config/Cobbler.do</rhn-tab-url>
-  </rhn-tab>  
+  </rhn-tab>
 </rhn-navi-tree>

@@ -37,11 +37,11 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class DeleteErratumAction extends LookupDispatchAction {
-    
+
     private StrutsDelegate getStrutsDelegate() {
         return StrutsDelegate.getInstance();
     }
-    
+
     /**
      * This is the equivalent of the SetupAction
      * @param mapping ActionMapping
@@ -54,16 +54,16 @@ public class DeleteErratumAction extends LookupDispatchAction {
                                       ActionForm formIn,
                                       HttpServletRequest request,
                                       HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         Errata errata = requestContext.lookupErratum();
-        
+
         request.setAttribute("errata", errata);
         return getStrutsDelegate().forwardParam(mapping.findForward("default"),
                 "eid", errata.getId().toString());
     }
-    
-    
+
+
     /**
      * This is the equivalent of the Action
      * Deletes an erratum
@@ -77,9 +77,9 @@ public class DeleteErratumAction extends LookupDispatchAction {
                                        ActionForm formIn,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Errata errata = requestContext.lookupErratum();
         ErrataManager.deleteErratum(requestContext.getLoggedInUser(), errata);
         ActionMessages msgs = new ActionMessages();
@@ -88,7 +88,7 @@ public class DeleteErratumAction extends LookupDispatchAction {
         getStrutsDelegate().saveMessages(request, msgs);
         return mapping.findForward("deleted");
     }
-    
+
     /**
      * {@inheritDoc}
      */

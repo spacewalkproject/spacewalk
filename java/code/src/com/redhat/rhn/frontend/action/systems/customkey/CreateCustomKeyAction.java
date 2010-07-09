@@ -52,7 +52,7 @@ public class CreateCustomKeyAction extends RhnAction {
             String description = request.getParameter(DESC_PARAM);
 
             String error = validateLabelAndDescription(label, description, user);
-            
+
             if (error != null) {
                 request.setAttribute("old_label", label);
                 request.setAttribute("old_description", description);
@@ -83,8 +83,8 @@ public class CreateCustomKeyAction extends RhnAction {
     }
 
     /**
-     * Validates the user specified label and descriptions are acceptable values. 
-     * 
+     * Validates the user specified label and descriptions are acceptable values.
+     *
      * @param label       label given to the new key
      * @param description description of the key
      * @param user        user creating the key
@@ -94,16 +94,16 @@ public class CreateCustomKeyAction extends RhnAction {
     private String validateLabelAndDescription(String label, String description,
                                                User user) {
         /* Validation proceeds according to the following:
-        
+
            I.  Key does not already exist; do not allow duplicate keys
           II.  Label is at least 2 characters long
          III.  Description is at least 2 characters long
           IV.  Label only contains valid characters (these need to match what is allowed
                in a macro argument)
          */
-        
+
         String error = null;
-        
+
         // I
         if (OrgFactory.lookupKeyByLabelAndOrg(label, user.getOrg()) != null) {
             error = "system.customkey.error.alreadyexists";
@@ -116,8 +116,8 @@ public class CreateCustomKeyAction extends RhnAction {
         else if (!label.trim().matches("[\\w-]*")) {
             error = "system.customkey.error.invalid";
         }
-        
+
         return error;
     }
-    
+
 }

@@ -25,7 +25,7 @@
 </p>
 <p>
 	<bean:message key="channel.edit.jsp.orgaccess.summary" arg0="${channel_name}"/>
-</p>       
+</p>
 
 <rl:listset name="orgChannelProtectionSet">
     <html:hidden property="cid" value="${param.cid}"/>
@@ -35,28 +35,28 @@
 	         name="list"
 	         decorator="SelectableDecorator"
              width="100%"
-             emptykey = "org.channels.trusted.protection"             
+             emptykey = "org.channels.trusted.protection"
 	         >
-	        
-      <rl:selectablecolumn value="${current.selectionKey}" 
-	    					selected="${current.selected}" 
-	    					styleclass="first-column"/>	        
+
+      <rl:selectablecolumn value="${current.selectionKey}"
+						selected="${current.selected}"
+						styleclass="first-column"/>
 		<!-- Organization column -->
 		<rl:column  headerkey="general.jsp.org.tbl.header1" filterattr="name">
 		   ${current.name}
 		</rl:column>
 		
 		<!-- Subscribed Systems column -->
-		<rl:column bound="true" 
+		<rl:column bound="true"
 		           headerkey="org.channel.subscribed.systems"
-		           attr="systems" 
+		           attr="systems"
 					/>
 	</rl:list>
 <hr/>
 <c:if test="${not empty requestScope.dataset}">
 <div align="right">
    <rhn:submitted/>
-    <input type="submit" 
+    <input type="submit"
 		name ="dispatch"
     	value="${rhn:localize('orgchannel.jsp.submit')}"/>
 </div>

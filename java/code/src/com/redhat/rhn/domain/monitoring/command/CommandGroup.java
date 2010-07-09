@@ -33,33 +33,33 @@ public class CommandGroup {
     private String groupName;
     private String description;
     private Set commands;
-    
-    /** 
-     * Getter for groupName 
+
+    /**
+     * Getter for groupName
      * @return String to get
     */
     public String getGroupName() {
         return this.groupName;
     }
 
-    /** 
-     * Setter for groupName 
+    /**
+     * Setter for groupName
      * @param groupNameIn to set
     */
     private void setGroupName(String groupNameIn) {
         this.groupName = groupNameIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     private void setDescription(String descriptionIn) {
@@ -72,7 +72,7 @@ public class CommandGroup {
     public Set getCommands() {
         return commands;
     }
-    
+
     private void setCommands(Set commandsIn) {
         commands = commandsIn;
     }
@@ -80,7 +80,7 @@ public class CommandGroup {
     /**
      * Return <code>true</code> if <code>c</code> is contained in this
      * group. The comparison is based on command names.
-     * @param c the command to check for 
+     * @param c the command to check for
      * @return <code>true</code> if <code>c</code> is contained in this
      * group
      */

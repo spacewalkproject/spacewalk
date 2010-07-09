@@ -23,9 +23,9 @@ import com.redhat.rhn.manager.satellite.RestartCommand;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 
 public class RestartSatelliteActionTest extends BaseTestCaseWithUser {
-    
+
     private TestRestartCommand command;
-    
+
     public void testAction() throws Exception {
         user.addRole(RoleFactory.SAT_ADMIN);
         command = new TestRestartCommand(user);
@@ -34,12 +34,12 @@ public class RestartSatelliteActionTest extends BaseTestCaseWithUser {
             protected RestartCommand getCommand(User currentUser) {
                 return command;
             }
-            
+
         };
         action.execute(event);
         assertTrue(command.stored);
     }
-    
+
     public class TestRestartCommand extends RestartCommand {
         private boolean stored = false;
         public TestRestartCommand(User userIn) {
@@ -53,6 +53,6 @@ public class RestartSatelliteActionTest extends BaseTestCaseWithUser {
             stored = true;
             return null;
         }
-        
+
     }
 }

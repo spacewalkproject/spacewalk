@@ -27,7 +27,7 @@ public class SynchProbeStateTest extends RhnBaseTestCase {
                 TaskConstants.TASK_QUERY_SYNCHPROBESTATE_PROC);
         assertNotNull(proc);
     }
-    
+
     public void testSynchProbeState() throws Exception {
         SynchProbeState task = new SynchProbeState();
         task.execute(null);

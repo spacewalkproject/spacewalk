@@ -12,7 +12,7 @@
 
 <div class="page-summary">
   <p>
-    <bean:message key="comparerevision.jsp.summary" 
+    <bean:message key="comparerevision.jsp.summary"
                   arg0="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${revision.id}"
                   arg1="${revision.revision}"
                   arg2="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}"
@@ -27,11 +27,11 @@
                 url="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${current.id}">
         <bean:message key="comparerevision.jsp.revnum" arg0="${current.revisionNumber}"/>
     </rhn:column>
-    
+
     <rhn:column header="comparerevision.jsp.created">
         ${current.createdDisplay}
     </rhn:column>
-    
+
     <rhn:column header="comparerevision.jsp.comparison">
         <a class="link-button" href="/rhn/configuration/file/Diff.do?cfid=${file.id}&amp;crid=${revision.id}&amp;ocrid=${current.id}">
             <bean:message key="comparerevision.jsp.compare" />

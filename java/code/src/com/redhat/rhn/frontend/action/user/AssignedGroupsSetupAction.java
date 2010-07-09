@@ -57,49 +57,49 @@ import javax.servlet.http.HttpServletResponse;
 public class AssignedGroupsSetupAction extends RhnListAction {
 
     private final String LIST_NAME = "groupList";
-    
-    
+
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-       
-        LocalizationService ls =  LocalizationService.getInstance(); 
+
+        LocalizationService ls =  LocalizationService.getInstance();
         RhnListSetHelper helper = new RhnListSetHelper(request);
-        
+
         Long uid = requestContext.getRequiredParam("uid");
         User currentUser =  requestContext.getCurrentUser();
         User user = UserFactory.lookupById(currentUser, uid);
         DataResult dr = UserManager.getSystemGroups(user, null);
-        
+
         RhnSet set =  getSetDecl().get(currentUser);
         if (!requestContext.isSubmitted()) {
             set.clear();
             RhnSetManager.store(set);
         }
-        
+
 
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
             helper.execute(set, LIST_NAME, dr);
-            
-        }     
 
-     
-        request.setAttribute(ListTagHelper.PARENT_URL, 
+        }
+
+
+        request.setAttribute(ListTagHelper.PARENT_URL,
                 request.getRequestURI());
         request.setAttribute("user", user);
         request.setAttribute("userIsOrgAdmin",
                 new Boolean(user.hasRole(RoleFactory.ORG_ADMIN)));
-       
-        
-       
-        
+
+
+
+
         String submit = request.getParameter("submit");
         //If the default system groups were submitted
-        if (submit != null && 
+        if (submit != null &&
                 submit.equals(ls.getMessage("assignedgroups.jsp.submitdefaults"))) {
             updateDefaults(mapping, formIn, request, response);
         }
@@ -107,7 +107,7 @@ public class AssignedGroupsSetupAction extends RhnListAction {
                     submit.equals(ls.getMessage("assignedgroups.jsp.submitpermissions"))) {
             updatePerm(mapping, formIn, request, response);
             dr = UserManager.getSystemGroups(user, null);
-            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);  
+            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
         } //else nothing was selected (normal page view)
         else {
             helper.syncSelections(set, dr);
@@ -115,18 +115,18 @@ public class AssignedGroupsSetupAction extends RhnListAction {
             for (Iterator it = dr.iterator(); it.hasNext();) {
                 SystemGroupOverview group = (SystemGroupOverview) it.next();
                 if (group.isSelected()) {
-                    RhnSetElement elem = new RhnSetElement(currentUser.getId(), 
+                    RhnSetElement elem = new RhnSetElement(currentUser.getId(),
                             RhnSetDecl.SYSTEM_GROUPS.getLabel(), group.getId().toString());
                     set.addElement(elem);
                 }
             }
             RhnSetManager.store(set);
-            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);         
+            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
         }
-        
 
-       
-        
+
+
+
         //Bottom form
         DynaActionForm form = (DynaActionForm)formIn;
         List selDefaults = new ArrayList();
@@ -136,14 +136,14 @@ public class AssignedGroupsSetupAction extends RhnListAction {
         form.set("defaultGroups", getDefaultGroupStrings(user));
         request.setAttribute("availableGroups", selDefaults);
         request.setAttribute("targetuser", user);
-        
-        
+
+
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
         request.setAttribute("pageList", dr);
 
         return mapping.findForward("default");
     }
-   
+
     /**
      * Goes through the DataResult and pulls out the values
      * which the User has permission to see.  The selGroups list
@@ -157,9 +157,9 @@ public class AssignedGroupsSetupAction extends RhnListAction {
     private void processList(DataResult dr, List selGroups, List selDefaults) {
         for (Iterator itr = dr.iterator(); itr.hasNext();) {
             SystemGroupOverview item = (SystemGroupOverview)itr.next();
-            
+
             String display = item.getName();
-            
+
 
             if (item.isSelected()) {
                 selGroups.add(item.getId().toString());
@@ -172,7 +172,7 @@ public class AssignedGroupsSetupAction extends RhnListAction {
             selDefaults.add(map);
         }
     }
-   
+
     /**
      * Converts a List of Strings into a String array.
      * @param list List to convert.
@@ -181,11 +181,11 @@ public class AssignedGroupsSetupAction extends RhnListAction {
     private String[] convert(List list) {
         return (String[])list.toArray(new String[list.size()]);
     }
-    
+
     /**
      * Get the String versions of the Default System Groups
      * @param user group strings to get from
-     * @return array of strings 
+     * @return array of strings
      */
     private String[] getDefaultGroupStrings(User user) {
         // We need to be setting the defaultGroups stuff to a String[], but
@@ -205,7 +205,7 @@ public class AssignedGroupsSetupAction extends RhnListAction {
         return RhnSetDecl.SYSTEM_GROUPS;
     }
 
-    
+
     /**
      * Updates the Default System Groups permissions for the specified user.
      * @param mapping Struts ActionMapping
@@ -217,19 +217,19 @@ public class AssignedGroupsSetupAction extends RhnListAction {
                                         ActionForm formIn,
                                         HttpServletRequest request,
                                         HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         DynaActionForm form = (DynaActionForm)formIn;
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(), 
+        User user = UserManager.lookupUser(requestContext.getLoggedInUser(),
                 requestContext.getParamAsLong("uid"));
         if (user == null) {
             throw new BadParameterException("Invalid uid");
         }
         //request.setAttribute(RhnHelper.TARGET_USER, user);
-        
+
         String[] groupArray = (String[])form.get("defaultGroups");
-        
+
         Set groupSet = new HashSet();
         for (int i = 0; i < groupArray.length; i++) {
             groupSet.add(new Long(groupArray[i]));
@@ -238,16 +238,16 @@ public class AssignedGroupsSetupAction extends RhnListAction {
 
         UserManager.storeUser(user);
         ActionMessages msgs = new ActionMessages();
-        msgs.add(ActionMessages.GLOBAL_MESSAGE, 
+        msgs.add(ActionMessages.GLOBAL_MESSAGE,
              new ActionMessage("message.defaultSystemGroups",
                  StringEscapeUtils.escapeHtml(user.getLogin())));
         saveMessages(request, msgs);
     }
-    
-    
-    
-    
-    
+
+
+
+
+
     /**
      * Updates the System Groups permissions for the specified user.
      * @param mapping Struts ActionMapping
@@ -259,32 +259,32 @@ public class AssignedGroupsSetupAction extends RhnListAction {
                                     ActionForm formIn,
                                     HttpServletRequest request,
                                     HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        User user = UserManager.lookupUser(requestContext.getLoggedInUser(), 
+        User user = UserManager.lookupUser(requestContext.getLoggedInUser(),
                 requestContext.getParamAsLong("uid"));
         if (user == null) {
             throw new BadParameterException("Invalid uid");
         }
         //request.setAttribute(RhnHelper.TARGET_USER, user);
-        
+
         RhnSet set =  getSetDecl().get(requestContext.getCurrentUser());
-        
+
         //First remove the user from all groups
         DataResult dr = UserManager.getSystemGroups(user, null);
         for (Iterator it = dr.iterator(); it.hasNext();) {
            SystemGroupOverview map =  (SystemGroupOverview) it.next();
             UserManager.revokeServerGroupPermission(user, map.getId().longValue());
         }
-        
-        //Then add him to the ones selected.  Easiest way to do this.  
+
+        //Then add him to the ones selected.  Easiest way to do this.
         for (Iterator it = set.getElements().iterator(); it.hasNext();) {
-            RhnSetElement elem = (RhnSetElement) it.next();     
+            RhnSetElement elem = (RhnSetElement) it.next();
               UserManager.grantServerGroupPermission(user, elem.getElement());
         }
 
         ActionMessages msgs = new ActionMessages();
-        msgs.add(ActionMessages.GLOBAL_MESSAGE, 
+        msgs.add(ActionMessages.GLOBAL_MESSAGE,
              new ActionMessage("message.perms_updated",
              StringEscapeUtils.escapeHtml(user.getLogin())));
         saveMessages(request, msgs);

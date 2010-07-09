@@ -12,8 +12,8 @@
     <bean:message key="probesuitesystemsedit.jsp.header1" arg0="${probeSuite.suiteName}" />
   </rhn:toolbar>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/probesuite_detail_edit.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/probesuite_detail_edit.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <div>
@@ -23,7 +23,7 @@
     <form method="POST" name="rhn_list" action="/rhn/monitoring/config/ProbeSuiteSystemsEditSubmit.do">
     <rhn:list pageList="${requestScope.pageList}" noDataText="probesuitesystemsedit.jsp.nosystems">
       <rhn:listdisplay filterBy="probesuitesystemsedit.jsp.systemname"
-            set="${requestScope.set}" 
+            set="${requestScope.set}"
         hiddenvars="${requestScope.newset}" >
         <rhn:set value="${current.id}" />
         <rhn:column header="probesuitesystems.jsp.system">

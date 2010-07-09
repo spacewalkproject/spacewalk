@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<rhn-navi-tree label="channel_tabs" invisible="1" formvar="aid" title-depth="1" 
+<rhn-navi-tree label="channel_tabs" invisible="1" formvar="aid" title-depth="1"
     acl_mixins="com.redhat.rhn.common.security.acl.action.ActionAclHandler">
   <rhn-tab name="channel.nav.all">
     <rhn-tab-url>/rhn/software/channels/All.do</rhn-tab-url>
@@ -9,13 +9,13 @@
   </rhn-tab>
   <rhn-tab name="channel.nav.popular">
     <rhn-tab-url>/rhn/software/channels/Popular.do</rhn-tab-url>
-  </rhn-tab>    
+  </rhn-tab>
   <rhn-tab name="channel.nav.custom">
     <rhn-tab-url>/rhn/software/channels/Custom.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="channel.nav.shared">
     <rhn-tab-url>/rhn/software/channels/Shared.do</rhn-tab-url>
-  </rhn-tab>  
+  </rhn-tab>
   <rhn-tab name="channel.nav.retired">
     <rhn-tab-url>/rhn/software/channels/Retired.do</rhn-tab-url>
   </rhn-tab>

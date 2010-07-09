@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.server.ServerGroup" 
+	<class name="com.redhat.rhn.domain.server.ServerGroup"
 		table="rhnServerGroup">
 		<id name="id" type="long" column="id">
 			<meta attribute="scope-set">protected</meta>
@@ -15,17 +15,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				type="string"/>
 				
 		<property name="name" column="name" type="string" length="64" />
-		<property name="description" column="description" type="string" 
+		<property name="description" column="description" type="string"
 			length="1024" />
 		
-		<property name="created" column="created" type="timestamp" 
+		<property name="created" column="created" type="timestamp"
                   insert="false" update="false"/>
-        <property name="modified" column="modified" type="timestamp" 
+        <property name="modified" column="modified" type="timestamp"
                   insert="false" update="false"/>
 		
-		<many-to-one name="groupType" 
-				class="com.redhat.rhn.domain.server.ServerGroupType" 
-				column="group_type" cascade="none" insert="false"  
+		<many-to-one name="groupType"
+				class="com.redhat.rhn.domain.server.ServerGroupType"
+				column="group_type" cascade="none" insert="false"
 				update="false" lazy="false"/>
 						
         <many-to-one
@@ -33,32 +33,32 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             class="com.redhat.rhn.domain.org.OrgImpl"
             column="org_id"
             />
-        
+
 		
         <subclass name="com.redhat.rhn.domain.server.ManagedServerGroup"
                 discriminator-value="null">
     		<set name="associatedAdmins" lazy="true" table="rhnUserServerGroupPerms"
     				cascade="save-update">
         			<key column="server_group_id"/>
-      		<many-to-many 
+		<many-to-many
 			class="com.redhat.rhn.domain.user.legacy.UserImpl"
             		column="user_id"/>
-    		</set>                    
+		</set>
        </subclass>
-       
+
        <subclass name="com.redhat.rhn.domain.server.EntitlementServerGroup"
                 discriminator-value="not null">
 			<property name="maxMembers" column="max_members" type="long" />
-       </subclass>    
+       </subclass>
 	</class>
 
     <query name="ServerGroup.lookupByIdAndOrg">
-        <![CDATA[from com.redhat.rhn.domain.server.ServerGroup as s where s.id = :id 
+        <![CDATA[from com.redhat.rhn.domain.server.ServerGroup as s where s.id = :id
                  and s.org = :org and (s.groupType is null)]]>
     </query>
 
     <query name="ServerGroup.lookupByNameAndOrg">
-        <![CDATA[from com.redhat.rhn.domain.server.ServerGroup as s where s.name = :name 
+        <![CDATA[from com.redhat.rhn.domain.server.ServerGroup as s where s.name = :name
                  and s.org = :org and (s.groupType is null)]]>
     </query>
 
@@ -66,7 +66,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.server.ServerGroup as s where s.groupType = :groupType
                  and s.org = :org]]>
     </query>
-    
+
     <sql-query name="ServerGroup.lookupByTypeLabelAndOrg2">
         <![CDATA[ select {sg.*}
 					from rhnServerGroup SG
@@ -76,7 +76,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
 
     <query name="ServerGroup.lookupByTypeLabelAndOrg">
-        <![CDATA[ from com.redhat.rhn.domain.server.ServerGroup as s where 
+        <![CDATA[ from com.redhat.rhn.domain.server.ServerGroup as s where
                  s.groupType.label = :label
                  and s.org = :org
             ]]>
@@ -90,7 +90,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 					 and sg.group_type is null
 					 and umsg.user_id = :uid]]>
 	        <return alias="sg" class="com.redhat.rhn.domain.server.ServerGroup"/>
-    </sql-query>      
+    </sql-query>
 
 
     <sql-query name="ServerGroup.lookupAdministrators">
@@ -98,64 +98,64 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 					from WEB_CONTACT wc	
 					inner join rhnUserManagedServerGroups umsg on wc.id = umsg.user_id
 					inner join rhnServerGroup SG on SG.id = umsg.server_group_id
-                  where 
+                  where
 	               	sg.id = :sgid
 	              	and sg.org_id = :org_id]]>
 	        <return alias="wc" class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
     </sql-query>
 
-    
+
     <sql-query name="ServerGroup.lookupGroupsWithNoAssocAdmins">
         <![CDATA[ select {sg.*}
 					from rhnServerGroup SG
 	                where
 	                	sg.group_type is null
 	                	AND sg.org_id = :org_id
-	                	AND 
-	                 NOT EXISTS 
+				AND
+	                 NOT EXISTS
 	                 (select 1 from rhnUserServerGroupPerms usgp where usgp.server_group_id = sg.id
 	                 	AND NOT Exists (
-                      			select 1 from rhnUserGroupMembers ugm 
-	                 			inner join rhnUserGroup ug on  ug.id = ugm.user_group_id 
+					select 1 from rhnUserGroupMembers ugm
+						inner join rhnUserGroup ug on  ug.id = ugm.user_group_id
 	                 			inner join rhnUserGroupType ugt on ug.group_type = ugt.id
 	               				where ugt.label != 'org_admin'
-	               					AND ug.org_id=sg.org_id 
+							AND ug.org_id=sg.org_id
                                     AND ugm.user_id = usgp.user_id
 	               	 ))]]>
 	        <return alias="sg" class="com.redhat.rhn.domain.server.ServerGroup"/>
     </sql-query>
-    
+
     <sql-query name="ServerGroup.lookupServerIds">
         <![CDATA[ select s.id
-					from rhnServer s 
+					from rhnServer s
 					inner join rhnServerGroupMembers sgm on s.id = sgm.server_id
-                  where 
+                  where
 	               	sgm.server_group_id = :sgid
 	               	and s.org_id = :org_id
 	           ]]>
-    </sql-query> 
+    </sql-query>
 
     <sql-query name="ServerGroup.lookupCurrentMembersValue">
-        <![CDATA[ select Current_Members from rhnServerGroup 
+        <![CDATA[ select Current_Members from rhnServerGroup
         			where id = :sgid
 	           ]]>
     </sql-query>
 
-    
+
 	<query name="ServerGroup.lookupEntitlementGroupsByServer">
-        <![CDATA[select sg 
-        			from com.redhat.rhn.domain.server.Server as s 
+        <![CDATA[select sg
+				from com.redhat.rhn.domain.server.Server as s
         				inner join s.groups as sg
         			where s.id = :id  and (sg.groupType is not null)]]>
     </query>
 
 	<query name="ServerGroup.lookupManagedGroupsByServer">
-        <![CDATA[select sg 
-        			from com.redhat.rhn.domain.server.Server as s 
+        <![CDATA[select sg
+				from com.redhat.rhn.domain.server.Server as s
         				inner join s.groups as sg
         			where s.id = :id  and (sg.groupType is null)]]>
     </query>
-    
+
     <query name="ServerGroup.lookupEntitlementGroupsByOrg">
         <![CDATA[from com.redhat.rhn.domain.server.EntitlementServerGroup as s where
         			 s.org = :org and (s.groupType is not null)]]>
@@ -165,7 +165,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.server.ManagedServerGroup as s where
         			 s.org = :org and (s.groupType is null)]]>
     </query>
-    
+
     <sql-query name="ServerGroup.lookupActiveServerIds">
         <return-scalar type="long" column="id"/>
         <![CDATA[
@@ -187,7 +187,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				  		inner join rhnServerInfo SI on S.id = SI.server_id
 				 WHERE
 					SI.checkin < (sysdate - :threshold) AND
-					SGM.server_group_id = :sgid        
+					SGM.server_group_id = :sgid
         ]]>
     </sql-query>                	
 </hibernate-mapping>

@@ -3,43 +3,43 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.rhnpackage.PackageProvider" 
+    <class name="com.redhat.rhn.domain.rhnpackage.PackageProvider"
         table="rhnPackageProvider" mutable="true">
-       
+
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="sequence">
                 <param name="sequence">rhn_package_provider_id_seq</param>
             </generator>
         </id>
-  
+
         <property name="name" type="string" column="name"/>
-        
+
       <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
-            
+
         <set name="keys" cascade="save-update">
             <key column="provider_id"/>
             <one-to-many class="com.redhat.rhn.domain.rhnpackage.PackageKey"/>
-        </set>            
-        
+        </set>
+
     </class>
 
     <query name="PackageProvider.findById">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider as p 
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider as p
         		where p.id = :id]]>
     </query>
 
     <query name="PackageProvider.findByName">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider as p 
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider as p
         		where p.name = :name]]>
     </query>
-    
+
     <query name="PackageProvider.listProviders">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider]]>    	
-    </query>    
-    
- 
+    </query>
+
+
 </hibernate-mapping>

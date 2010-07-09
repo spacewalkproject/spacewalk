@@ -48,7 +48,7 @@ public class RepoLister extends BaseManager {
     public static RepoLister getInstance() {
         return INSTANCE;
     }
-    
+
     /**
      *
      * @param orgIn org to check

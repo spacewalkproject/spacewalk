@@ -40,28 +40,28 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
         super.setUp();
         setRequestPathInfo("/systems/SystemList");
     }
-    
+
     public void testPerformExecute() throws Exception {
         ServerFactoryTest.createTestServer(user, true);
         actionPerform();
         DataResult dr = (DataResult) request.getAttribute("pageList");
         assertTrue(dr.size() > 0);
     }
-    
+
     public void aTestSetStatusDisplay() throws Exception {
-        
+
         SystemListSetupAction action = new SystemListSetupAction();
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerFactory.lookupServerGroupTypeByLabel("sw_mgr_entitled"));
         Long sid = server.getId();
-        
+
         PageControl pc = new PageControl();
         pc.setPageSize(50);
         pc.setStart(1);
         boolean isThere = false;
         DataResult dr = SystemManager.systemList(user, pc);
-        
+
         LocalizationService ls = LocalizationService.getInstance();
         // TODO: This looks a bit on the fragile side:
         String up2date = "<a><img src=\"/img/icon_up2date.gif\" title=\"" +
@@ -92,11 +92,11 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
         Date ago = new Date(now.getTime() - secondsOld);
         server.getServerInfo().setCheckin(ago);
         ServerFactory.save(server);
-        
+
         pc.setStart(1);
         isThere = false;
         dr = SystemManager.systemList(user, pc);
-        
+
         //Page through all the systems because we don't know where our new system is
         while (!isThere && pc.getStart() <= dr.getTotalSize()) {
             action.setStatusDisplay(dr, user);
@@ -105,9 +105,9 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
             dr = SystemManager.systemList(user, pc);
         }
         assertTrue(isThere);
-        
+
     }
-    
+
     private boolean findStatus(DataResult dr, String status, Long sid) {
         boolean isThere = false;
         Iterator i = dr.iterator();
@@ -118,7 +118,7 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
             }
         }
         return isThere;
-        
+
     }
 
 }

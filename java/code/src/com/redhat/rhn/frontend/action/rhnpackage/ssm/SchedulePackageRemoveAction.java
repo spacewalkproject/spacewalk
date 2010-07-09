@@ -95,7 +95,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         return getResult(context, false);
 
     }
-    
+
     /**
      * Provide the data result
      * @param context The request context
@@ -111,15 +111,15 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         String packagesDecl = (String) request.getAttribute("packagesDecl");
         if (packagesDecl != null) {
             Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
-    
+
             RhnSet packageSet = RhnSetManager.createSet(user.getId(),
                 RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
-    
+
             for (String idCombo : data) {
                 PackageListItem item = PackageListItem.parse(idCombo);
                 packageSet.addElement(item.getIdOne(), item.getIdTwo(), item.getIdThree());
             }
-    
+
             RhnSetManager.store(packageSet);
         }
 
@@ -145,7 +145,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
                                                HttpServletRequest request,
                                                HttpServletResponse response) {
 
-        
+
         RequestContext context = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         User user = context.getLoggedInUser();
@@ -153,7 +153,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm) formIn,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
 
-        // Parse through all of the results        
+        // Parse through all of the results
         DataResult result = (DataResult) getResult(context, true);
         result.elaborate();
 
@@ -161,7 +161,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         SsmRemovePackagesEvent event = new SsmRemovePackagesEvent(user.getId(), earliest,
                 result);
         MessageQueue.publish(event);
-        
+
         log.debug("Clearing set.");
         // Remove the packages from session and the DB
         SessionSetHelper.obliterate(request, request.getParameter("packagesDecl"));

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.errata.impl.UnpublishedErrataFile" table="rhnErrataFileTmp">    
+    <class name="com.redhat.rhn.domain.errata.impl.UnpublishedErrataFile" table="rhnErrataFileTmp">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="sequence">
@@ -13,33 +13,33 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one name="checksum" class="com.redhat.rhn.domain.common.Checksum"
             column="checksum_id" />
         <property name="fileName" type="string" length="1024" />
-        <property name="created" column="created" type="timestamp" 
+        <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
-        <property name="modified" column="modified" type="timestamp" 
+        <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
         <many-to-one name="fileType" class="com.redhat.rhn.domain.errata.ErrataFileType"
-            column="type" />        
+            column="type" />
         <many-to-one name="errata" class="com.redhat.rhn.domain.errata.impl.UnpublishedErrata"
-            column="errata_id" />    
+            column="errata_id" />
         <set name="channels" lazy="true" table="rhnErrataFileChannelTmp">
             <key column="errata_file_id"/>
-            <many-to-many 
-                class="com.redhat.rhn.domain.channel.Channel" 
+            <many-to-many
+                class="com.redhat.rhn.domain.channel.Channel"
                 column="channel_id"/>
         </set>
-        <set name="packages" lazy="true" table="rhnErrataFilePackageTmp" 
+        <set name="packages" lazy="true" table="rhnErrataFilePackageTmp"
             order-by="PACKAGE_ID asc">
             <key column="errata_file_id"/>
-            <many-to-many class="com.redhat.rhn.domain.rhnpackage.Package" 
+            <many-to-many class="com.redhat.rhn.domain.rhnpackage.Package"
                 column="package_id"/>
         </set>
     </class>
     <query name="UnpublishedErrataFile.listByErrata">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.UnpublishedErrataFile as uef
                  where uef.errata.id = :errata_id]]>
-    </query>    
+    </query>
     <query name="UnpublishedErrataFile.listByErrataAndFileType">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.UnpublishedErrataFile as uef
                  where uef.errata.id = :errata_id and uef.fileType.label = :file_type]]>
-    </query>        
+    </query>
 </hibernate-mapping>

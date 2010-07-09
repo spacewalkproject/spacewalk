@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.command.Command" 
+    <class name="com.redhat.rhn.domain.monitoring.command.Command"
         table="rhn_command" mutable="false" lazy="true">
         <cache usage="read-only"/>
         <id name="id" type="long" column="recid">
@@ -12,48 +12,48 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_COMMAND_RECID_SEQ</param>
             </generator>
         </id>
-        <property name="name" column="name" not-null="true" type="string" 
+        <property name="name" column="name" not-null="true" type="string"
             length="40" />
-        <property name="description" column="description" not-null="true" 
+        <property name="description" column="description" not-null="true"
             type="string" length="80" />
-        <property name="allowedInSuite" column="allowed_in_suite" 
+        <property name="allowedInSuite" column="allowed_in_suite"
             not-null="true" type="boolean" length="1" />
-        <property name="enabled" column="enabled" not-null="true" type="boolean" 
+        <property name="enabled" column="enabled" not-null="true" type="boolean"
             length="1" />
-        <property name="forHostProbe" column="for_host_probe" not-null="true" 
+        <property name="forHostProbe" column="for_host_probe" not-null="true"
             type="boolean" length="1" />
-        <property name="lastUpdateUser" column="last_update_user" type="string" 
+        <property name="lastUpdateUser" column="last_update_user" type="string"
             length="40" />
-        <property name="lastUpdateDate" column="last_update_date" 
+        <property name="lastUpdateDate" column="last_update_date"
             type="timestamp" insert="false" update="false"/>
-        <property name="systemRequirements" column="system_requirements" 
+        <property name="systemRequirements" column="system_requirements"
             type="string" length="40" />
-        <property name="versionSupport" column="version_support" type="string" 
+        <property name="versionSupport" column="version_support" type="string"
             length="1024" />
-        <property name="helpUrl" column="help_url" type="string" length="1024" 
+        <property name="helpUrl" column="help_url" type="string" length="1024"
             />
-        <many-to-one name="commandClass" insert="false" update="false" 
-            class="com.redhat.rhn.domain.monitoring.command.CommandClass" 
+        <many-to-one name="commandClass" insert="false" update="false"
+            class="com.redhat.rhn.domain.monitoring.command.CommandClass"
             not-null="true" >
             <column name="command_class" />
         </many-to-one>
-        <many-to-one name="commandGroup" insert="false" update="false" 
+        <many-to-one name="commandGroup" insert="false" update="false"
             class="com.redhat.rhn.domain.monitoring.command.CommandGroup" >
             <column name="group_name" />
         </many-to-one>
-        <set name="commandParameters" outer-join="false" cascade="all" 
+        <set name="commandParameters" outer-join="false" cascade="all"
             inverse="false" >
             <key column="command_id"/>
-            <one-to-many 
-                class="com.redhat.rhn.domain.monitoring.command.CommandParameter" 
+            <one-to-many
+                class="com.redhat.rhn.domain.monitoring.command.CommandParameter"
                 />
         </set>
     </class>
-    <query name="Command.findByName"> 
+    <query name="Command.findByName">
 		<![CDATA[from com.redhat.rhn.domain.monitoring.command.Command as c where c.name = :name]]>
     </query>
     <query name="Command.loadAll">
-        <![CDATA[from com.redhat.rhn.domain.monitoring.command.Command as c 
+        <![CDATA[from com.redhat.rhn.domain.monitoring.command.Command as c
 		         where c.commandGroup is not null]]>
     </query>
 

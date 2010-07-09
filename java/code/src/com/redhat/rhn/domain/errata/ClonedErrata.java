@@ -24,7 +24,7 @@ public interface ClonedErrata {
      * @return the original Errata the errata was cloned from
      */
     Errata getOriginal();
-    
+
     /**
      * Set the original version of the clone
      * @param originalIn original Errata this clone was created from

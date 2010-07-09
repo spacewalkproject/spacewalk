@@ -50,7 +50,7 @@ public class OrgChannelDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return number of subscribed systems for organization
      */
     public Integer getSystems() {
@@ -58,7 +58,7 @@ public class OrgChannelDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param systemsIn number of subscribed systems to set for this org
      */
     public void setSystems(Integer systemsIn) {

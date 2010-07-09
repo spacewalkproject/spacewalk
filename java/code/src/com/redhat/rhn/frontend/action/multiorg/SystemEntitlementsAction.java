@@ -38,21 +38,21 @@ public class SystemEntitlementsAction extends RhnAction {
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
-        RequestContext requestContext = new RequestContext(request);   
-        User u = requestContext.getLoggedInUser();                
-        
+
+        RequestContext requestContext = new RequestContext(request);
+        User u = requestContext.getLoggedInUser();
+
         List<MultiOrgSystemEntitlementsDto>result = OrgManager.allOrgsEntitlements();
 
         Long orgCount = OrgManager.getTotalOrgCount(u);
-        
+
         request.setAttribute("orgCount", orgCount);
         request.setAttribute("pageList", result);
         request.setAttribute("parentUrl", request.getRequestURI());
 
         return mapping.findForward("default");
     }
-    
+
 }

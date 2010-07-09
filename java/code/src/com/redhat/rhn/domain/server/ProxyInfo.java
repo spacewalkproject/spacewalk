@@ -27,21 +27,21 @@ public class ProxyInfo {
     private Server server;
     private PackageEvr version;
     private Long id;
-    
+
     /**
      * @return the id
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param sid the server_id to set
      */
     public void setId(Long sid) {
         this.id = sid;
     }
-    
+
     /**
      * @return Returns the version.
      */
@@ -49,14 +49,14 @@ public class ProxyInfo {
         return version;
     }
 
-    
+
     /**
      * @param aVersion The version to set.
      */
     public void setVersion(PackageEvr aVersion) {
         version = aVersion;
     }
-    
+
     /**
      * Sets the satellite version in epoch, version, release format.
      * @param e Epoch can be null.
@@ -68,7 +68,7 @@ public class ProxyInfo {
     }
 
 
-    
+
     /**
      * @return the server
      */
@@ -77,7 +77,7 @@ public class ProxyInfo {
     }
 
 
-    
+
     /**
      * @param s the server to set
      */
@@ -86,6 +86,6 @@ public class ProxyInfo {
     }
 
 
-    
+
 
 }

@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 53116 $
  */
 public class PatchConfirmInstallAction extends LookupDispatchAction {
-    
+
     private StrutsDelegate getStrutsDelegate() {
         return StrutsDelegate.getInstance();
     }
@@ -60,23 +60,23 @@ public class PatchConfirmInstallAction extends LookupDispatchAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         User user = requestContext.getLoggedInUser();
         Long sid = requestContext.getRequiredParam("sid");
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         RhnSet set = RhnSetDecl.PATCH_INSTALL.get(user);
-        
+
         int numPatches = set.size();
-                       
-        if (set != null) {             
+
+        if (set != null) {
              Action install = ActionManager.createPatchInstallAction(user, server, set);
-             
+
              ActionManager.storeAction(install); //commit action
              RhnSetDecl.PATCH_INSTALL.clear(user);
-             
+
              ActionMessages msgs = new ActionMessages();
 
              /**
@@ -94,27 +94,27 @@ public class PatchConfirmInstallAction extends LookupDispatchAction {
              }
              else {
                  msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                          new ActionMessage("message.patchinstalls", 
+                          new ActionMessage("message.patchinstalls",
                                   LocalizationService.getInstance()
                                   .formatNumber(new Integer(numPatches)),
                               install.getId().toString(),
                               sid.toString(),
                               server.getName()));
              }
-             
+
              strutsDelegate.saveMessages(request, msgs);
-                                                   
+
              Map params = makeParamMap(request);
              return strutsDelegate.forwardParams(mapping.findForward("installed"), params);
         }
         /*
-         * Everything is not ok.                 
+         * Everything is not ok.
          * TODO: error msg
          */
         Map params = makeParamMap(request);
         return strutsDelegate.forwardParams(mapping.findForward("default"), params);
     }
-    
+
     /**
      * Default action to execute if dispatch parameter is missing
      * or isn't in map
@@ -131,26 +131,26 @@ public class PatchConfirmInstallAction extends LookupDispatchAction {
         Map params = makeParamMap(request);
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
     }
-    
+
     /**
      * Makes a parameter map containing request params that need to
      * be forwarded on to the success mapping.
      * @param request HttpServletRequest containing request vars
      * @return Returns Map of parameters
      */
-    
+
     protected Map makeParamMap(HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
         Map params = requestContext.makeParamMapWithPagination();
         Long sid = requestContext.getParamAsLong("sid");
-        
+
         if (sid != null) {
             params.put("sid", sid);
         }
-        
+
         return params;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -158,6 +158,6 @@ public class PatchConfirmInstallAction extends LookupDispatchAction {
         Map map = new HashMap();
         map.put("packagelist.jsp.confirmpatchinstall", "confirmPatch");
         return map;
-    }    
-    
+    }
+
 }

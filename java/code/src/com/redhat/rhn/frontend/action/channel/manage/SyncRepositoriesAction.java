@@ -43,7 +43,7 @@ import com.redhat.rhn.taskomatic.task.RepoSyncTask;
  * @version $Rev$
  */
 public class SyncRepositoriesAction extends RhnAction implements Listable {
-    
+
   /**
    *
    * {@inheritDoc}
@@ -82,7 +82,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
 
         return mapping.findForward("default");
     }
-        
+
         /**
          *
          * {@inheritDoc}

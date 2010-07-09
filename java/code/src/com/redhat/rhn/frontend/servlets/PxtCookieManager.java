@@ -25,45 +25,45 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * A PxtCookieManager creates, retrieves, and parses pxt cookies. For a general overview of 
- * the pxt cookie, see 
+ * A PxtCookieManager creates, retrieves, and parses pxt cookies. For a general overview of
+ * the pxt cookie, see
  * <a href="http://wiki.rhndev.redhat.com/wiki/SSO#What_is_the_pxt_cookie.3F">
  *   What is the pxt cookie?
- * </a> 
- * 
+ * </a>
+ *
  * <br/><br/>
- * 
+ *
  * This class is thread-safe.
- * 
+ *
  * @version $Rev$
  */
 public class PxtCookieManager {
 
-    /** 
-     * The name of the pxt session cookie 
+    /**
+     * The name of the pxt session cookie
      */
     public static final String PXT_SESSION_COOKIE_NAME = "pxt-session-cookie";
-    
+
     public static final String DEFAULT_PATH = "/";
 
     /**
      * Creates a new pxt cookie with the specified session id and timeout.
-     * 
+     *
      * @param pxtSessionId The id of the pxt session for which the cookie is being created.
-     * 
+     *
      * @param request The current request.
-     * 
+     *
      * @param timeout The max age of the cookie in seconds.
-     * 
+     *
      * @return a new pxt cookie.
      */
-    public Cookie createPxtCookie(Long pxtSessionId, HttpServletRequest request, 
+    public Cookie createPxtCookie(Long pxtSessionId, HttpServletRequest request,
             int timeout) {
-        
+
         String cookieName = getCookieName(request);
-        String cookieValue = pxtSessionId + "x" + 
+        String cookieValue = pxtSessionId + "x" +
             SessionManager.generateSessionKey(pxtSessionId.toString());
-        
+
         Cookie pxtCookie = new Cookie(cookieName, cookieValue);
         // BZ #454876
         // when not using setDomain, default "Host" will be set for the cookie
@@ -73,53 +73,53 @@ public class PxtCookieManager {
         pxtCookie.setMaxAge(timeout);
         pxtCookie.setPath(DEFAULT_PATH);
         pxtCookie.setSecure(ConfigDefaults.get().isSSLAvailable());
-        
+
         return pxtCookie;
     }
-    
+
     /**
      * Retrieves the pxt cookie from the request if one is included in the request.
-     * 
+     *
      * @param request The current request.
-     * 
+     *
      * @return The pxt cookie included in the request, or <code>null</code> if no cookie is
      * found.
      */
     public Cookie getPxtCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        
+
         if (cookies == null) {
             return null;
         }
-        
+
         String pxtCookieName = getCookieName(request);
-        
+
         for (int i = 0; i < cookies.length; ++i) {
             if (pxtCookieName.equals(cookies[i].getName())) {
                 return cookies[i];
             }
         }
-        
+
         return null;
     }
-    
+
     /**
      * Determines the pxt cookie name. The name will include the server name from the
      * request if the <code>web.allow_pxt_personalities</code> property in rhn.conf is set.
-     * 
+     *
      * @param request The current request.
-     * 
+     *
      * @return The pxt cookie name.
      */
     protected String getCookieName(HttpServletRequest request) {
         Config c = Config.get();
         int personality = c.getInt(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES);
-        
+
         if (personality > 0) {
             String[] name = StringUtils.split(request.getServerName(), '.');
             return name[0] + "-" + PXT_SESSION_COOKIE_NAME;
         }
-        
+
         return PXT_SESSION_COOKIE_NAME;
     }
 

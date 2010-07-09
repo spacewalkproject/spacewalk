@@ -26,13 +26,13 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class FileDownloadActionTest extends RhnMockStrutsTestCase {
-        
+
         public void testPlaintextExecute() throws Exception {
             UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
             UserTestUtils.addProvisioning(user.getOrg());
-            
+
             ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
-            
+
             setRequestPathInfo("/configuration/file/FileDownload");
             addRequestParameter("cfid", revision.getConfigFile().getId().toString());
             addRequestParameter("crid", revision.getId().toString());
@@ -40,20 +40,20 @@ public class FileDownloadActionTest extends RhnMockStrutsTestCase {
             assertNotNull(request.getParameter("cfid"));
             String contentType = response.getContentType();
             assertTrue(contentType.startsWith("text/plain"));
-            
+
             revision = ConfigTestUtils.createConfigRevision(user.getOrg());
             revision.getConfigContent().setBinary(true);
             ConfigurationFactory.commit(revision);
         }
-        
+
         public void testBinaryExecute() throws Exception {
             UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
             UserTestUtils.addProvisioning(user.getOrg());
-            
+
             ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
             revision.getConfigContent().setBinary(true);
             ConfigurationFactory.commit(revision);
-            
+
             setRequestPathInfo("/configuration/file/FileDownload");
             addRequestParameter("cfid", revision.getConfigFile().getId().toString());
             addRequestParameter("crid", revision.getId().toString());

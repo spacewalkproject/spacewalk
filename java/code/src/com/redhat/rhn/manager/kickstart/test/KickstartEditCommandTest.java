@@ -26,29 +26,29 @@ import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 public class KickstartEditCommandTest extends BaseKickstartCommandTestCase {
 
     public void testKickstartEditCommand() throws Exception {
-        
+
         KickstartEditCommand command = new KickstartEditCommand(ksdata.getId(), user);
         command.setComments("My Comment");
         command.setActive(Boolean.TRUE);
         command.setLabel("scoobykickstart");
         command.store();
-        
+
         KickstartData k2 = command.getKickstartData();
         assertNotNull(k2.getComments());
         assertNotNull(k2.getLabel());
-        
+
         assertEquals(Boolean.TRUE, k2.isActive());
         assertEquals(command.getComments(), k2.getComments());
-        assertEquals(command.getLabel(), k2.getLabel());                
+        assertEquals(command.getLabel(), k2.getLabel());
     }
-    
+
     public void testKickstartLabel() throws Exception {
         KickstartEditCommand command = new KickstartEditCommand(ksdata.getId(), user);
         command.setLabel("shaggy-ks-rhel4");
         command.store();
         assertEquals(ksdata.getLabel(), command.getLabel());
     }
-    
+
     public void testOrgDefault() throws Exception {
         assertFalse(ksdata.isOrgDefault().booleanValue());
         KickstartData k1 = KickstartDataTest.createKickstartWithChannel(user.getOrg());
@@ -57,12 +57,12 @@ public class KickstartEditCommandTest extends BaseKickstartCommandTestCase {
         assertTrue(k1.isOrgDefault().booleanValue());
         KickstartFactory.saveKickstartData(k1);
         flushAndEvict(k1);
-        
+
         KickstartEditCommand command = new KickstartEditCommand(ksdata.getId(), user);
         command.setIsOrgDefault(Boolean.TRUE);
         assertTrue(ksdata.isOrgDefault().booleanValue());
         k1 = KickstartFactory.lookupKickstartDataByIdAndOrg(user.getOrg(), oldDefaultId);
         assertFalse(k1.isOrgDefault().booleanValue());
     }
-    
+
 }

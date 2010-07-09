@@ -42,7 +42,7 @@ import java.util.Set;
  * ConfigureSatelliteCommand
  * @version $Rev$
  */
-public class ConfigureSatelliteCommand extends BaseConfigureCommand 
+public class ConfigureSatelliteCommand extends BaseConfigureCommand
     implements SatelliteConfigurator {
 
     /**
@@ -50,11 +50,11 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
      */
     private static Logger logger = Logger.
         getLogger(ConfigureSatelliteCommand.class);
-    
+
     private List keysToBeUpdated;
-    
+
     /**
-     * Create a new ConfigureSatelliteCommand class with the 
+     * Create a new ConfigureSatelliteCommand class with the
      * user requesting the config.
      * @param userIn who wants to config the sat.
      */
@@ -64,7 +64,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
     }
 
     /**
-     * Get the formatted String array of command line arguments to execute 
+     * Get the formatted String array of command line arguments to execute
      * when we call out to the system utility to store the config.
      * @param configFilePath path to config file to update
      * @param optionMap Map of key/value pairs to update local config with.
@@ -72,7 +72,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
      */
     public String[] getCommandArguments(String configFilePath, Map optionMap) {
         if (logger.isDebugEnabled()) {
-            logger.debug("getCommandArguments(String configFilePath=" + 
+            logger.debug("getCommandArguments(String configFilePath=" +
                     configFilePath + ", Iterator keyIterator=" + optionMap +
                     ") - start");
         }
@@ -97,10 +97,10 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             else {
                 sb.append(val);
             }
-            
+
             argList.add(sb.toString());
         }
-        
+
         argList.add("2>&1");
         argList.add(">");
         argList.add("/dev/null");
@@ -111,10 +111,10 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         }
         return returnStringArray;
     }
-    
+
     /**
-     * Store the Configuration to the filesystem 
-     * @return ValidatorError   
+     * Store the Configuration to the filesystem
+     * @return ValidatorError
      */
     public ValidatorError[] storeConfiguration() {
         if (logger.isDebugEnabled()) {
@@ -127,7 +127,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
                     ConfigDefaults.WEB_IS_MONITORING_BACKEND);
             if (backend) {
                 enableMonitoring();
-            } 
+            }
         }
         if (keysToBeUpdated.contains(ConfigDefaults.WEB_IS_MONITORING_SCOUT)) {
             boolean scout = Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT);
@@ -135,44 +135,44 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
                 enableMonitoringScout();
             }
         }
-        
+
         if (keysToBeUpdated.contains(ConfigDefaults.JABBER_SERVER)) {
             updateHostname();
-            
+
             // if hostname changes, we must update
             // osa-dispatcher.server_jabber as well
-            this.updateString("osa-dispatcher.jabber_server", 
+            this.updateString("osa-dispatcher.jabber_server",
                     ConfigDefaults.get().getHostname());
         }
-        
+
         if (keysToBeUpdated.contains(ConfigDefaults.MOUNT_POINT)) {
-            this.updateString(ConfigDefaults.KICKSTART_MOUNT_POINT, 
+            this.updateString(ConfigDefaults.KICKSTART_MOUNT_POINT,
                     Config.get().getString(ConfigDefaults.MOUNT_POINT));
         }
-        
-        if (keysToBeUpdated.contains(ConfigDefaults.DISCONNECTED) && 
+
+        if (keysToBeUpdated.contains(ConfigDefaults.DISCONNECTED) &&
                 !Config.get().getBoolean(ConfigDefaults.DISCONNECTED)) {
-            //if there isn't already a value set for the satellite parent (We don't want to 
+            //if there isn't already a value set for the satellite parent (We don't want to
             // overwrite a custom value.)
-            if (Config.get().getString(ConfigDefaults.SATELLITE_PARENT) == null || 
+            if (Config.get().getString(ConfigDefaults.SATELLITE_PARENT) == null ||
                     Config.get().getString(ConfigDefaults.SATELLITE_PARENT).length() == 0) {
-                this.updateString(ConfigDefaults.SATELLITE_PARENT, 
+                this.updateString(ConfigDefaults.SATELLITE_PARENT,
                         ConfigDefaults.DEFAULT_SAT_PARENT);
             }
         }
-        
+
         Map optionMap = new HashMap();
         Iterator i = getKeysToBeUpdated().iterator();
         while (i.hasNext()) {
             String key = (String) i.next();
             optionMap.put(key, Config.get().getString(key));
         }
-        
-        int exitcode = e.execute(getCommandArguments(Config.getDefaultConfigFilePath(), 
+
+        int exitcode = e.execute(getCommandArguments(Config.getDefaultConfigFilePath(),
                 optionMap));
         if (exitcode != 0) {
             ValidatorError[] retval = new ValidatorError[1];
-            retval[0] = new ValidatorError("config.storeconfig.error", 
+            retval[0] = new ValidatorError("config.storeconfig.error",
                     new Integer(exitcode).toString());
 
             if (logger.isDebugEnabled()) {
@@ -188,10 +188,10 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             }
             return null;
         }
-        
+
     }
-    
-    
+
+
 
     private void enableMonitoringScout() {
         // Enable monitoring cron
@@ -203,7 +203,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         args.add("install");
         int exitcode = e.execute((String[]) args.toArray(new String[0]));
         if (exitcode != 0) {
-            String message = "Not able to execute: [" + 
+            String message = "Not able to execute: [" +
                 args.toString() + "] got back exit code: " + exitcode;
             logger.error(message);
             throw new RuntimeException(message);
@@ -220,7 +220,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
 
         // Add the MONITORING_ADMIN role
         this.getUser().getOrg().addRole(RoleFactory.MONITORING_ADMIN);
-        
+
         Set scouts = this.getUser().getOrg().getMonitoringScouts();
         //We need to create the SatCluster (the Scout)
         if (scouts == null || scouts.size() == 0) {
@@ -230,9 +230,9 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             SatNode node =  SatClusterFactory.createSatNode(getUser(), scout);
             SatClusterFactory.saveSatCluster(scout);
             SatClusterFactory.saveSatNode(node);
-            
+
             // Set the scout shared key so it can be stored out to disk.
-            Config.get().setString(ConfigDefaults.WEB_SCOUT_SHARED_KEY, 
+            Config.get().setString(ConfigDefaults.WEB_SCOUT_SHARED_KEY,
                     node.getScoutSharedKey());
             ModifyMethodCommand mmc = new ModifyMethodCommand(getUser());
             mmc.setType(NotificationFactory.TYPE_EMAIL);
@@ -243,36 +243,36 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             mmc.storeMethod(getUser());
             //HibernateFactory.getSession().evict(scout);
             scouts.add(scout);
-        } 
-        
-        
+        }
+
+
         Executor e = getExecutor();
         List args = new LinkedList();
-        
+
         // Write the scout shared key to cluster.ini
         Map optionMap = new HashMap();
         optionMap.put("LocalConfig.0.dbd", "Oracle");
         optionMap.put("LocalConfig.0.orahome", "/opt/oracle");
-        optionMap.put("LocalConfig.0.dbname", 
+        optionMap.put("LocalConfig.0.dbname",
                 MonitoringConfigFactory.getDatabaseName());
-        optionMap.put("LocalConfig.0.username", 
+        optionMap.put("LocalConfig.0.username",
                 MonitoringConfigFactory.getDatabaseUsername());
-        optionMap.put("LocalConfig.0.password", 
+        optionMap.put("LocalConfig.0.password",
                 MonitoringConfigFactory.getDatabasePassword());
         optionMap.put("smonaddr", "127.0.0.1");
         optionMap.put("smonfqdn", "localhost");
         optionMap.put("smontestaddr", "127.0.0.1");
         optionMap.put("smontestfqdn", "localhost");
-        
+
         SatCluster c = (SatCluster) scouts.iterator().next();
-        optionMap.put("scoutsharedkey", 
+        optionMap.put("scoutsharedkey",
                 SatClusterFactory.lookupSatNodeByCluster(c).getScoutSharedKey());
-        
-        
+
+
         int exitcode = e.execute(getCommandArguments("/etc/rhn/cluster.ini", optionMap));
         if (exitcode != 0) {
             String message = "Not able to write to /etc/rhn/cluster.ini, " +
-                "got exit code: " + exitcode + 
+                "got exit code: " + exitcode +
                 ".  Check that /etc/rhn/cluster.ini exists";
             logger.error(message);
             throw new RuntimeException(message);
@@ -309,18 +309,18 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         ConfigMacro port = MonitoringConfigFactory.
             lookupConfigMacroByName("RHN_SAT_WEB_PORT");
         setConfigMacroDefault(port, "443");
-        
+
         if (logger.isDebugEnabled()) {
             logger.debug("enableMonitoring() - end");
         }
     }
-    
-    
+
+
     // Util to set the ConfigMacro.definition field to a default value
     // if its set to the **DEFAULT** value that the records start
     // out in when the schema is initialized.
     private void setConfigMacroDefault(ConfigMacro cm, String value) {
-        if (cm.getDefinition().startsWith("**") && 
+        if (cm.getDefinition().startsWith("**") &&
                 cm.getDefinition().endsWith("**")) {
             setConfigMacro(cm, value);
         }
@@ -332,15 +332,15 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         cm.setDefinition(value);
         MonitoringConfigFactory.saveConfigMacro(cm);
     }
-    
-    
+
+
     // Update hostname when modified in the UI
     private void updateHostname() {
         ConfigMacro sathostname = MonitoringConfigFactory.
                            lookupConfigMacroByName("RHN_SAT_HOSTNAME");
         setConfigMacro(sathostname, ConfigDefaults.get().getHostname());
     }
-    
+
     /**
      * Update a configuration value for this satellite.  This tracks
      * the values that are actually changed.
@@ -359,7 +359,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
                 Config.get().setBoolean(configKey, Boolean.FALSE.toString());
                 keysToBeUpdated.add(configKey);
             }
-        } 
+        }
         else {
             if (Config.get().getBoolean(configKey) != newValue.booleanValue()) {
                 Config.get().setBoolean(configKey, newValue.toString());
@@ -383,9 +383,9 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
                     ", String newValue=" + newValue + ") - start");
         }
 
-        if (Config.get().getString(configKey) == null || 
+        if (Config.get().getString(configKey) == null ||
                 !Config.get().getString(configKey).equals(newValue)) {
-            keysToBeUpdated.add(configKey);    
+            keysToBeUpdated.add(configKey);
             Config.get().setString(configKey, newValue);
         }
 
@@ -393,7 +393,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             logger.debug("updateString(String, String) - end");
         }
     }
-    
+
     /**
      * Get the list of configuration values that need to be written out
      * to the persistence mechanism.
@@ -402,7 +402,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
     public List getKeysToBeUpdated() {
         return keysToBeUpdated;
     }
-    
+
     /**
      * Clear the set of configuration changes from the Command.
      */

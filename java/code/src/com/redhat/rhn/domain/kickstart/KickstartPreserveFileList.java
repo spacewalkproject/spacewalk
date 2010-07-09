@@ -23,7 +23,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * kickstartpreservefilelist - Class representation of the table 
+ * kickstartpreservefilelist - Class representation of the table
  * rhnkickstartpreservefilelist.
  * @version $Rev: 1 $
  */
@@ -33,7 +33,7 @@ public class KickstartPreserveFileList implements Serializable {
     private FileList fileList;
     private Date created;
     private Date modified;
-    /** 
+    /**
      * Getter for ksdata
      * @return KickstartData to get
     */
@@ -41,7 +41,7 @@ public class KickstartPreserveFileList implements Serializable {
         return this.ksdata;
     }
 
-    /** 
+    /**
      * Setter for ksdata
      * @param ksdataIn to set
     */
@@ -49,48 +49,48 @@ public class KickstartPreserveFileList implements Serializable {
         this.ksdata = ksdataIn;
     }
 
-    /** 
-     * Getter for fileList 
+    /**
+     * Getter for fileList
      * @return Long to get
     */
     public FileList getFileList() {
         return this.fileList;
     }
 
-    /** 
-     * Setter for fileList 
+    /**
+     * Setter for fileList
      * @param fileListIn to set
     */
     public void setFileList(FileList fileListIn) {
         this.fileList = fileListIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {

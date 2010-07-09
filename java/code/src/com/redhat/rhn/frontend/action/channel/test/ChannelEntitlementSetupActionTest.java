@@ -32,17 +32,17 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 public class ChannelEntitlementSetupActionTest extends RhnBaseTestCase {
     public void testPerformExecute() throws Exception {
         ChannelEntitlementSetupAction action = new ChannelEntitlementSetupAction();
-        
+
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action, "default");
         sah.getRequest().setupAddParameter(RequestContext.FILTER_STRING, (String) null);
-        
+
         User user = sah.getUser();
         user.addRole(RoleFactory.ORG_ADMIN);
         ChannelFactoryTest.createTestChannel(user);
-        
+
         OrgFactory.save(user.getOrg());
-        
+
         sah.setupProcessPagination();
         sah.setupClampListBounds();
         sah.executeAction();

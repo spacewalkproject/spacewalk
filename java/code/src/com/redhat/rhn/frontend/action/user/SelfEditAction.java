@@ -43,9 +43,9 @@ public class SelfEditAction extends UserEditActionHelper {
         DynaActionForm form = (DynaActionForm)formIn;
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
-        
+
         ActionErrors errors = updateDetails(user, form);
- 
+
         //If there are no errors, store the user and return the success mapping
         if (errors.isEmpty()) {
             UserManager.storeUser(user);

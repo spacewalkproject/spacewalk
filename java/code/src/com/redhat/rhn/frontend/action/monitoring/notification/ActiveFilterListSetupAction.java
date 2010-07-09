@@ -22,7 +22,7 @@ package com.redhat.rhn.frontend.action.monitoring.notification;
  * @version $Rev: 55183 $
  */
 public class ActiveFilterListSetupAction extends BaseFilterListSetupAction {
-    
+
     /**
      * {@inheritDoc}
      */

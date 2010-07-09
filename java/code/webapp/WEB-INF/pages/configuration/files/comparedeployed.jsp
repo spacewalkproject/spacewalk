@@ -14,7 +14,7 @@
 
 <div class="page-summary">
   <p>
-    <bean:message key="comparedeployed.jsp.summary" 
+    <bean:message key="comparedeployed.jsp.summary"
                   arg0="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${revision.id}"
                   arg1="${revision.revision}"/>
   </p>
@@ -26,11 +26,11 @@
                    set="${requestScope.set}"
                    button="comparedeployed.jsp.schedule">
     <rhn:set value="${current.id}"/>
-  
+
     <rhn:column header="system.common.systemName">
       <cfg:system id="${current.id}" name="${current.name}" />
     </rhn:column>
-    
+
     <rhn:column header="comparedeployed.jsp.deployed">
         <%-- The c:choose statement here creates the correct image with alt message
              for the channel type we are dealing with. These are later used in a
@@ -55,7 +55,7 @@
             </c:set>
           </c:when>
         </c:choose>
-        
+
         <c:choose>
           <c:when test="${current.configRevision != null}">
             <%-- Rather ugly bean message here, lots of code and few words.
@@ -73,7 +73,7 @@
           </c:otherwise>
         </c:choose>
     </rhn:column>
-    
+
   </rhn:listdisplay>
 </rhn:list>
 </form>

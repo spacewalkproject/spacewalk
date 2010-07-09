@@ -23,7 +23,7 @@ import java.io.Serializable;
 
 /**
  * ConfigDateFileAction - Class representation of the table rhnActionConfigDateFile.
- * 
+ *
  * @version $Rev$
  */
 public class ConfigDateFileAction extends ActionChild implements Serializable {
@@ -31,32 +31,32 @@ public class ConfigDateFileAction extends ActionChild implements Serializable {
     private String fileName;
     private String fileType;
 
-    /** 
-     * Getter for fileName 
+    /**
+     * Getter for fileName
      * @return String to get
     */
     public String getFileName() {
         return this.fileName;
     }
 
-    /** 
-     * Setter for fileName 
+    /**
+     * Setter for fileName
      * @param fileNameIn to set
     */
     public void setFileName(String fileNameIn) {
         this.fileName = fileNameIn;
     }
 
-    /** 
-     * Getter for fileType 
+    /**
+     * Getter for fileType
      * @return String to get
     */
     public String getFileType() {
         return this.fileType;
     }
 
-    /** 
-     * Setter for fileType 
+    /**
+     * Setter for fileType
      * @param fileTypeIn to set
     */
     public void setFileType(String fileTypeIn) {
@@ -74,7 +74,7 @@ public class ConfigDateFileAction extends ActionChild implements Serializable {
         return new EqualsBuilder().append(getParentAction(), castOther.getParentAction())
                                   .append(fileName, castOther.getFileName()).isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */

@@ -24,7 +24,7 @@ import java.util.Collection;
 
 /**
  * Handles performing subscription changes for servers in the SSM.
- * 
+ *
  * @see com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent
  * @version $Revision$
  */

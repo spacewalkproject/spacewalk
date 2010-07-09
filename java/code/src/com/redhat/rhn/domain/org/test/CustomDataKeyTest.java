@@ -30,10 +30,10 @@ public class CustomDataKeyTest extends RhnBaseTestCase {
     public void testCustomDataKey() {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         CustomDataKey key = createTestCustomDataKey(user);
-        
+
         Long id = key.getId();
         String label = key.getLabel();
-        
+
         CustomDataKey key2 = OrgFactory.lookupKeyByLabelAndOrg(label, user.getOrg());
 
         assertNotNull(key2);
@@ -41,7 +41,7 @@ public class CustomDataKeyTest extends RhnBaseTestCase {
         assertEquals(user, key2.getCreator());
         assertEquals(id, key2.getId());
     }
-    
+
     public static CustomDataKey createTestCustomDataKey(User user) {
         String label = TestUtils.randomString();
         CustomDataKey key = new CustomDataKey();
@@ -51,7 +51,7 @@ public class CustomDataKeyTest extends RhnBaseTestCase {
         key.setOrg(user.getOrg());
 
         TestUtils.saveAndFlush(key);
-        
+
         return key;
     }
 }

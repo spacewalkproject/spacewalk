@@ -28,7 +28,7 @@
 	<rhn:list
 	  pageList="${requestScope.pageList}"
 	  noDataText="channelsystems.jsp.noSystemsFound">
-	  
+
 	<rhn:listdisplay filterBy="system.common.systemName"
 	 set="${requestScope.set}"
 	 button="channelsystems.jsp.unsubscribe"
@@ -36,7 +36,7 @@
 	    <rhn:require acl="user_role(config_admin)">
           <rhn:set value="${current.id}"/>
         </rhn:require>
-        
+
 		<rhn:column header="system.common.systemName"
 			url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
 			<img src="/img/rhn-listicon-system.gif"

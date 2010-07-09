@@ -36,7 +36,7 @@ public class ChannelConsumeAction extends BaseChannelTreeAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext requestContext, ListControl lc) {
-        
+
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         //grab the trusted org id passed in
         Org trustOrg = OrgFactory.lookupById(oid);
@@ -47,7 +47,7 @@ public class ChannelConsumeAction extends BaseChannelTreeAction {
 
         return ChannelManager.trustChannelConsume(org, trustOrg, user, lc);
     }
-    
+
     /**
      * adds attributes to the request
      * @param requestContext the Request Context

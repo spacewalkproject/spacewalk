@@ -44,7 +44,7 @@ import junit.framework.TestCase;
  * @version $Rev$
  */
 public abstract class RhnBaseTestCase extends TestCase {
-   
+
     /**
      * Constructs a TestCase with the given name.
      * @param name Name of TestCase.
@@ -61,7 +61,7 @@ public abstract class RhnBaseTestCase extends TestCase {
         MessageQueue.configureDefaultActions();
     }
 
-    /** 
+    /**
      * Called once per test method.
      * @throws Exception if an error occurs during setup.
      */
@@ -79,10 +79,10 @@ public abstract class RhnBaseTestCase extends TestCase {
         super.tearDown();
         TestCaseHelper.tearDownHelper();
     }
-    
+
     /**
      * PLEASE Refrain from using this unless you really have to.
-     * 
+     *
      * Try clearSession() instead
      * @throws HibernateException
      */
@@ -90,11 +90,11 @@ public abstract class RhnBaseTestCase extends TestCase {
         HibernateFactory.commitTransaction();
         HibernateFactory.closeSession();
     }
-    
+
     protected void clearSession() {
         HibernateFactory.getSession().clear();
     }
-    
+
     protected void flushAndEvict(Object obj) throws HibernateException {
         Session session = HibernateFactory.getSession();
         session.flush();
@@ -106,7 +106,7 @@ public abstract class RhnBaseTestCase extends TestCase {
         Object obj = TestUtils.reload(objClass, id);
         return reload(obj);
     }
-    
+
     protected static Object reload(Object obj) throws HibernateException {
         assertNotNull(obj);
         Object result = TestUtils.reload(obj);
@@ -118,7 +118,7 @@ public abstract class RhnBaseTestCase extends TestCase {
      * Get a date representing "now" and wait for one second to
      * ensure that future attempts to get a date will use a date
      * that is definitely later.
-     * 
+     *
      * @return a date representing now
      */
     protected Date getNow() {
@@ -135,7 +135,7 @@ public abstract class RhnBaseTestCase extends TestCase {
     //
     // Utility methods for assertions
     //
-    
+
     /**
      * Assert that <code>coll</code> contains <code>elem</code>
      * @param coll a collection
@@ -168,7 +168,7 @@ public abstract class RhnBaseTestCase extends TestCase {
     /**
      * Assert that the beans <code>exp</code> and <code>act</code> have the same values
      * for property <code>propName</code>
-     * 
+     *
      * @param propName name of the proeprty to compare
      * @param exp the bean with the expected values
      * @param act the bean with the actual values
@@ -182,11 +182,11 @@ public abstract class RhnBaseTestCase extends TestCase {
             return PropertyUtils.getProperty(bean, propName);
         }
         catch (IllegalAccessException e) {
-            throw new RuntimeException("Could not get property " + propName + 
+            throw new RuntimeException("Could not get property " + propName +
                     " from " + bean, e);
         }
         catch (InvocationTargetException e) {
-            throw new RuntimeException("Could not get property " + propName + 
+            throw new RuntimeException("Could not get property " + propName +
                     " from " + bean, e);
         }
         catch (NoSuchMethodException e) {
@@ -199,7 +199,7 @@ public abstract class RhnBaseTestCase extends TestCase {
      * Assert that the date <code>later</code> is after the date
      * <code>earlier</code>. The assertion succeeds if the dates
      * are equal. Both dates must be non-null.
-     * 
+     *
      * @param earlier the earlier date to compare
      * @param later teh later date to compare
      */
@@ -211,7 +211,7 @@ public abstract class RhnBaseTestCase extends TestCase {
      * Assert that the date <code>later</code> is after the date
      * <code>earlier</code>. The assertion succeeds if the dates
      * are equal. Both dates must be non-null.
-     * 
+     *
      * @param msg the message to print if the assertion fails
      * @param earlier the earlier date to compare
      * @param later the later date to compare
@@ -225,7 +225,7 @@ public abstract class RhnBaseTestCase extends TestCase {
             throw new ComparisonFailure(msg, e, l);
         }
     }
-    
+
     /**
      * Assert that <code>fragment</code> is a substring of <code>body</code>
      * @param body the larger string in which to search
@@ -248,8 +248,8 @@ public abstract class RhnBaseTestCase extends TestCase {
             fail(msg);
         }
     }
-    
-    /** 
+
+    /**
      * Util for turning of the spew from the l10n service for
      * test cases that make calls with dummy string IDs.
      */
@@ -258,7 +258,7 @@ public abstract class RhnBaseTestCase extends TestCase {
         log.setLevel(Level.OFF);
     }
 
-    /** 
+    /**
      * Util for turning on the spew from the l10n service for
      * test cases that make calls with dummy string IDs.
      */
@@ -268,16 +268,16 @@ public abstract class RhnBaseTestCase extends TestCase {
     }
 
     protected static void createDirIfNotExists(File dir) {
-        String error = 
+        String error =
                 "Could not create the following directory:[" + dir.getPath() +
-                    "] . Please create that directory before proceeding with the tests"; 
+                    "] . Please create that directory before proceeding with the tests";
         if (dir.exists() && !dir.isDirectory()) {
             if (!dir.renameTo(new File(dir.getPath() + ".bak")) &&
                          !dir.delete()) {
                 throw new RuntimeException(error);
             }
         }
-        
+
         if (!dir.exists() && !dir.mkdirs()) {
             throw new RuntimeException(error);
         }

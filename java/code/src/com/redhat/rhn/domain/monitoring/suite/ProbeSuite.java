@@ -38,84 +38,84 @@ public class ProbeSuite {
     private String description;
     private String lastUpdateUser;
     private Date lastUpdateDate;
-    
+
     private Org org;
     private Set probes;
-    
-    /** 
-     * Getter for recid 
+
+    /**
+     * Getter for recid
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for suiteName 
+    /**
+     * Getter for suiteName
      * @return String to get
     */
     public String getSuiteName() {
         return this.suiteName;
     }
 
-    /** 
-     * Setter for suiteName 
+    /**
+     * Setter for suiteName
      * @param suiteNameIn to set
     */
     public void setSuiteName(String suiteNameIn) {
         this.suiteName = suiteNameIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
 
-    /** 
-     * Getter for lastUpdateUser 
+    /**
+     * Getter for lastUpdateUser
      * @return String to get
     */
     public String getLastUpdateUser() {
         return this.lastUpdateUser;
     }
 
-    /** 
-     * Setter for lastUpdateUser 
+    /**
+     * Setter for lastUpdateUser
      * @param lastUpdateUserIn to set
     */
     public void setLastUpdateUser(String lastUpdateUserIn) {
         this.lastUpdateUser = lastUpdateUserIn;
     }
 
-    /** 
-     * Getter for lastUpdateDate 
+    /**
+     * Getter for lastUpdateDate
      * @return Date to get
     */
     public Date getLastUpdateDate() {
         return this.lastUpdateDate;
     }
 
-    /** 
-     * Setter for lastUpdateDate 
+    /**
+     * Setter for lastUpdateDate
      * @param lastUpdateDateIn to set
     */
     public void setLastUpdateDate(Date lastUpdateDateIn) {
@@ -128,7 +128,7 @@ public class ProbeSuite {
     public Org getOrg() {
         return org;
     }
-    
+
     /**
      * @param orgIn The org to set.
      */
@@ -141,19 +141,19 @@ public class ProbeSuite {
     public Set getProbes() {
         if (this.probes == null) {
             return Collections.EMPTY_SET;
-        } 
+        }
         else {
             return probes;
         }
     }
-    
+
     /**
      * @param probesIn The probes to set.
      */
     public void setProbes(Set probesIn) {
         this.probes = probesIn;
     }
-    
+
     /**
      * Add a ServerProbe to the suite.
      * @param probeIn ServerProbe to add.
@@ -179,25 +179,25 @@ public class ProbeSuite {
             }
         }
     }
-    
-    /** 
+
+    /**
      * Remove a ServerProbe from the Suite.
      * @param probeIn to remove.
      */
     public void removeProbe(TemplateProbe probeIn) {
         this.probes.remove(probeIn);
     }
-    
+
     /**
      * Convenience method to add a Server to this ProbeSuite.
-     * 
+     *
      * @param satCluster SatCluster we want to associate the ServerProbe with.
      * @param serverIn Server to add to the ProbeSuite.
      * @param currentUser who is adding the suite
-     * 
+     *
      */
     public void addServerToSuite(SatCluster satCluster, Server serverIn, User currentUser) {
-        
+
         // Loop through all the probes and add the Server to
         // each ServerProbe associated with this ProbeSuite.
         if (getProbes() == null || getProbes().size() == 0) {
@@ -218,7 +218,7 @@ public class ProbeSuite {
         newProbe.addProbeToSatCluster(satCluster, server);
         probe.addServerProbe(newProbe);
     }
-    
+
     /**
      * Get the Set of Server objects associated with this ProbeSuite
      * @return Set of Servers.

@@ -7,6 +7,6 @@
 </rhn:toolbar>
 
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
                 definition="/WEB-INF/nav/manage_channel.xml"
                 renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

@@ -23,32 +23,32 @@ import java.util.List;
  * @version $Rev$
  */
 public interface QueueDriver {
-    
+
     /**
      * The logger to use for all logging operations
      * @return log4j Logger
      */
     Logger getLogger();
-    
+
     /**
      * List of work items to "prime" the queue
      * @return list of work items
      */
     List getCandidates();
-    
+
     /**
      * Maximum number of worker threads to run
      * @return number of worker threads
      */
     int getMaxWorkers();
-    
+
     /**
      * Create a worker instance to work on a particular work item
      * @param workItem object contained in the list returned from getCandidates()
      * @return worker instance
      */
     QueueWorker makeWorker(Object workItem);
-    
+
     /**
      * Logic to tell the queue when to stop running
      * Queues will always stop when there is no more work to do.

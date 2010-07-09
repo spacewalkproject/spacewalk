@@ -7,8 +7,8 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstart.locale.jsp.header1"/></h2>
@@ -25,7 +25,7 @@
         <tr>
           <th><bean:message key="kickstart.locale.jsp.timezone" /></th>
 	  <td>
-            <html:select property="timezone"> 
+            <html:select property="timezone">
               <html:options collection="timezones"
                             property="value"
                             labelProperty="display" />

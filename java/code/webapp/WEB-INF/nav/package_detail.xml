@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<rhn-navi-tree label="package_detail" invisible="1" 
+<rhn-navi-tree label="package_detail" invisible="1"
     formvar="pid" title-depth="1"  acl_mixins="com.redhat.rhn.common.security.acl.PackageAclHandler">
   <rhn-tab name="package.jsp.menu.details" url="/rhn/software/packages/Details.do">
     <rhn-tab name="package.jsp.menu.overview" url="/rhn/software/packages/Details.do"/>
@@ -20,4 +20,4 @@
   <rhn-tab name="package.jsp.menu.targetsystems" url="/network/software/packages/target_system_list_for_patchset.pxt" acl="org_entitlement(sw_mgr_enterprise);package_type_capable(solaris_patchset)"  node-id="target_systems_for_package"/>
   <rhn-tab name="package.jsp.menu.targetsystems"
   url="/network/software/packages/target_system_list.pxt" acl="org_entitlement(sw_mgr_enterprise);not package_type_capable(solaris_patch); not package_type_capable(solaris_patchset)"  node-id="target_systems_for_package"/>
-</rhn-navi-tree> 
+</rhn-navi-tree>

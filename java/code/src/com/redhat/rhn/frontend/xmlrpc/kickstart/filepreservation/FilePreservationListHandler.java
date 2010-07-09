@@ -38,15 +38,15 @@ import java.util.List;
 public class FilePreservationListHandler extends BaseHandler {
 
     /**
-     * Lists all file preservation lists associated with the org of the user 
+     * Lists all file preservation lists associated with the org of the user
      * (identified by the session key).
      *
      * @param sessionKey identifies the user that is logged in and performing the call
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
-     * @return a list of maps containing the file preservation lists 
+     * @return a list of maps containing the file preservation lists
      *
-     * @xmlrpc.doc List all file preservation lists for the organization 
+     * @xmlrpc.doc List all file preservation lists for the organization
      * associated with the user logged into the given session
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype
@@ -54,9 +54,9 @@ public class FilePreservationListHandler extends BaseHandler {
      *        $FilePreservationDtoSerializer
      *      #array_end()
      */
-    public List listAllFilePreservations(String sessionKey) 
+    public List listAllFilePreservations(String sessionKey)
         throws FaultException {
-        
+
         User loggedInUser = getLoggedInUser(sessionKey);
 
         if (loggedInUser == null) {
@@ -87,7 +87,7 @@ public class FilePreservationListHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "name - file names to include")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int create(String sessionKey, String name, List<String> files) 
+    public int create(String sessionKey, String name, List<String> files)
         throws FaultException {
 
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -99,14 +99,14 @@ public class FilePreservationListHandler extends BaseHandler {
             // file list already exists...
             throw new FileListAlreadyExistsException(name);
         }
-        
+
         CreateFileListCommand command = new CreateFileListCommand(loggedInUser);
         command.setLabel(name);
         for (String file : files) {
             command.getFileList().addFileName(file);
         }
         command.store();
-        
+
         return 1;
     }
 
@@ -125,7 +125,7 @@ public class FilePreservationListHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "name of the file list to delete")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int delete(String sessionKey, String name) 
+    public int delete(String sessionKey, String name)
         throws FaultException {
 
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -142,22 +142,22 @@ public class FilePreservationListHandler extends BaseHandler {
 
     /**
      * Returns all of the data associated with the given file preservation list.
-     * 
+     *
      * @param sessionKey  identifies the user that is logged in and performing the call
-     * @param name identifies the file preservation list     
+     * @param name identifies the file preservation list
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
      * @return holder object containing the data associated with the list
-     * 
-     * @xmlrpc.doc Returns all of the data associated with the given file preservation 
+     *
+     * @xmlrpc.doc Returns all of the data associated with the given file preservation
      * list.
      * @xmlrpc.param #param("string", "session_key")
-     * @xmlrpc.param #param_desc("string", "name", "name of the file list to retrieve 
+     * @xmlrpc.param #param_desc("string", "name", "name of the file list to retrieve
      * details for")
      * @xmlrpc.returntype
      *     $FileListSerializer
      */
-    public FileList getDetails(String sessionKey, String name) 
+    public FileList getDetails(String sessionKey, String name)
         throws FaultException {
 
         User loggedInUser = getLoggedInUser(sessionKey);

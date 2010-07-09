@@ -27,23 +27,23 @@ import java.util.Set;
 
 
 public class ConfigUploadActionTest extends RhnBaseTestCase {
-    
+
     public void testLookup() throws Exception {
         //create the action
         User user = UserTestUtils.findNewUser("bob", "ibm");
-        Action a = 
+        Action a =
             ActionFactoryTest.createAction(user, ActionFactory.TYPE_CONFIGFILES_UPLOAD);
-        
+
         //look it back up
         Action lookedUp = ActionFactory.lookupByUserAndId(user, a.getId());
         assertNotNull(lookedUp);
         assertTrue(lookedUp instanceof ConfigUploadAction);
-        
+
         //see that we have an expected collection
         Set set = ((ConfigUploadAction)lookedUp).getRhnActionConfigFileName();
         assertNotNull(set);
         assertEquals(2, set.size());
-        
+
         //check one of the collection elements
         Object o = set.iterator().next();
         assertTrue(o instanceof ConfigFileNameAssociation);

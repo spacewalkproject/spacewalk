@@ -10,10 +10,10 @@
   <bean:message key="orgdelete.jsp.header1" arg0="${orgName}"/>
 </rhn:toolbar>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/org_tabs.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/org_tabs.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-    
+
 <html:form action="/admin/multiorg/DeleteOrg?oid=${oid}">
  <html:hidden property="submitted" value="true"/>
  <h2><bean:message key="orgdelete.jsp.header2"/></h2>
@@ -21,33 +21,33 @@
  <table class="details" align="center">
   <tr>
     <th width="25%"><bean:message key="org.name.jsp"/></th>
-    <td>${orgName}</td>    
+    <td>${orgName}</td>
   </tr>
   <tr>
     <th><bean:message key="org.active.users.jsp"/></th>
-    <td>${users}</td>    
+    <td>${users}</td>
   </tr>
   <tr>
     <th><bean:message key="org.systems.jsp"/></th>
-    <td>${systems}</td>    
+    <td>${systems}</td>
   </tr>
   <tr>
     <th><bean:message key="org.system.groups.jsp"/></th>
-    <td>${groups}</td>    
+    <td>${groups}</td>
   </tr>
   <tr>
     <th><bean:message key="org.actkeys.jsp"/></th>
-    <td>${actkeys}</td>    
+    <td>${actkeys}</td>
   </tr>
   <tr>
     <th><bean:message key="org.kickstart.profiles.jsp"/></th>
-    <td>${ksprofiles}</td>    
+    <td>${ksprofiles}</td>
   </tr>
   <tr>
     <th><bean:message key="org.config.channels.jsp"/></th>
     <td>${cfgchannels}</td>
   </tr>
-  
+
  </table>
 
  <div align="right">

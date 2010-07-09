@@ -22,18 +22,18 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Renders headers or footers for a list
  * The class name derives from the fact that headers and footers
  * _span_ columsn when they are displayed
- * 
+ *
  * @version $Rev $
  */
 public class SpanTag extends TagSupport {
-    
+
     private static final long serialVersionUID = -4119626049333137991L;
-    
+
     private String style;
     private String url;
     private String align;
     private String role = "header";
-    
+
     /**
      * Sets the role of the span, either "header" or "footer"
      * @param roleIn role of the span
@@ -45,7 +45,7 @@ public class SpanTag extends TagSupport {
         }
         role = roleIn;
     }
-    
+
     /**
      * Sets the CSS style class
      * @param styleIn CSS class
@@ -53,7 +53,7 @@ public class SpanTag extends TagSupport {
     public void setStyleclass(String styleIn) {
         style = styleIn;
     }
-    
+
     /**
      * Sets the URL to use to fetch the content
      * @param urlIn url pointing to header/footer content
@@ -61,7 +61,7 @@ public class SpanTag extends TagSupport {
     public void setUrl(String urlIn) {
         url = urlIn;
     }
-    
+
     /**
      * Sets the alignment
      * @param alignIn  either "left", "right", or "center"
@@ -69,7 +69,7 @@ public class SpanTag extends TagSupport {
     public void setAlign(String alignIn) {
         align = alignIn;
     }
-    
+
     /**
      * ${@inheritDoc}
      */
@@ -83,7 +83,7 @@ public class SpanTag extends TagSupport {
 
     /**
      * ${@inheritDoc}
-     */    
+     */
     public int doEndTag() throws JspException {
         ListCommand cmd = ListTagUtil.getCurrentCommand(this, pageContext);
         ListTag parent = (ListTag) TagSupport.findAncestorWithClass(this, ListTag.class);
@@ -95,7 +95,7 @@ public class SpanTag extends TagSupport {
         }
         return TagSupport.EVAL_PAGE;
     }
-    
+
     private void renderHeader(ListTag parent) throws JspException {
         StringBuffer buf = new StringBuffer();
         renderCommonAttributes(buf, parent);
@@ -103,7 +103,7 @@ public class SpanTag extends TagSupport {
         ListTagUtil.includeContent(pageContext, url);
         ListTagUtil.write(pageContext, "</td></tr>");
     }
-    
+
     private void renderFooter(ListTag parent) throws JspException {
         StringBuffer buf = new StringBuffer();
         buf.append("<tr>");
@@ -112,7 +112,7 @@ public class SpanTag extends TagSupport {
         ListTagUtil.includeContent(pageContext, url);
         ListTagUtil.write(pageContext, "</td></tr>");
     }
-    
+
     private void renderCommonAttributes(StringBuffer buf, ListTag parent) {
         buf.append("<tr><td ");
         buf.append("colspan=\"").append(parent.getColumnCount()).append("\"");
@@ -122,6 +122,6 @@ public class SpanTag extends TagSupport {
         if (align != null) {
             buf.append(" align=\"").append(align).append("\"");
         }
-        buf.append(">");        
+        buf.append(">");
     }
 }

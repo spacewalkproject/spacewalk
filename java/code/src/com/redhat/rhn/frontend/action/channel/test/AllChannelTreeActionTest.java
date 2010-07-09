@@ -31,8 +31,8 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class AllChannelTreeActionTest extends RhnBaseTestCase {
-    
-    
+
+
     public void testPerformExecute() throws Exception {
         AllChannelTreeAction action = new AllChannelTreeAction() {
             protected DataResult getDataResult(User user, ListControl lc) {
@@ -42,13 +42,13 @@ public class AllChannelTreeActionTest extends RhnBaseTestCase {
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action, "default");
         sah.getRequest().setupAddParameter(RequestContext.FILTER_STRING, (String) null);
-        
+
         User user = sah.getUser();
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         user.getOrg().addOwnedChannel(channel);
-        
+
         OrgFactory.save(user.getOrg());
-               
+
         sah.executeAction();
         DataResult dr = (DataResult) sah.getRequest().getAttribute("pageList");
         assertNotEmpty(dr);

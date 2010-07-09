@@ -480,49 +480,49 @@ public interface User {
      * @param panes a set of pane objects
      */
     void setHiddenPanes(Set panes);
-    
+
     /**
      * Returns the user's preferred locale
      * @return String locale
      */
     String getPreferredLocale();
-    
+
     /**
      * Sets the user's preferred locale
      * @param locale overrides browser locale
      */
     void setPreferredLocale(String locale);
-    
+
     /**
      * Sets the value of emailNotify to new value
      * @param emailNotifyIn New value for emailNotify
      */
     void setEmailNotify(int emailNotifyIn);
-    
+
     /**
      * Gets the current value of emailNotify
      * @return int the current value
      */
     int getEmailNotify();
-    
+
     /**
-     * Retrieves the set of server groups associated 
+     * Retrieves the set of server groups associated
      * to this user.
      * Note: this is NOT getAllServerGroups
      * this is getAssociatedServerGroups
-     * Subtle difference here is, 
-     * if the user is an ORG Admin the return value 
-     * is an empty list, since all the servergroups  
+     * Subtle difference here is,
+     * if the user is an ORG Admin the return value
+     * is an empty list, since all the servergroups
      * are implicitly subscribed.
-     * In DB terms the list here directly maps 
-     * to rhnUserServerGroupPerms 
+     * In DB terms the list here directly maps
+     * to rhnUserServerGroupPerms
      * @return set of server groups
      */
     Set getAssociatedServerGroups();
-    
+
     /**
      * Removes all the associated server groups.
-     * This step becomes necessary when 
+     * This step becomes necessary when
      */
     //void clearAssociatedServerGroups();
 

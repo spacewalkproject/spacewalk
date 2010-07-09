@@ -6,8 +6,8 @@
 <html:html xhtml="true">
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstart.partition.jsp.header"/></h2>
@@ -29,7 +29,7 @@
                   <html:textarea rows="6" cols="80" property="partitions"/>
               </td>
           </tr>
-          <tr>          
+          <tr>
             <td align="right" colspan="2"><html:submit><bean:message key="kickstart.partition.jsp.update"/></html:submit></td>
           </tr>
       </table>

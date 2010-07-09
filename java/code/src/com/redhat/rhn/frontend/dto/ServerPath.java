@@ -22,68 +22,68 @@ package com.redhat.rhn.frontend.dto;
 public class ServerPath {
 
     private Long id;
-    private String name; 
+    private String name;
     private Long position;
     private String hostname;
-    
+
     /**
-     * 
+     *
      * @return host name for proxy
      */
     public String getHostname() {
         return hostname;
     }
-    
+
     /**
-     * 
+     *
      * @param hostnameIn host name to set
      */
     public void setHostname(String hostnameIn) {
         this.hostname = hostnameIn;
     }
-    
+
     /**
-     * 
+     *
      * @return id of proxy
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
-     * 
+     *
      * @param idIn id of proxy to set
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
-     * 
+     *
      * @return name of proxy
      */
     public String getName() {
         return name;
     }
-    
+
     /**
-     * 
+     *
      * @param nameIn name of proxy to set
      */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
-    
+
     /**
-     * 
+     *
      * @return position in proxy chain
      */
     public Long getPosition() {
         return position;
     }
-    
+
     /**
-     * 
+     *
      * @param positionIn position to set in proxy chain
      */
     public void setPosition(Long positionIn) {

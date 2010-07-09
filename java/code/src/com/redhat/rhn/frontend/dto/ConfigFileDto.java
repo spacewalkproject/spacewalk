@@ -39,13 +39,13 @@ public class ConfigFileDto extends BaseDto {
     private Integer systemCount;
     private Integer overrideCount;
     private Date modified;
-    
+
     //These two are used if the file is from a local channel
     private String serverName;
     private Long serverId;
-    
-    
-    
+
+
+
     /**
      * @return Returns the modified.
      */
@@ -56,7 +56,7 @@ public class ConfigFileDto extends BaseDto {
 
 
 
-    
+
     /**
      * @param modifiedIn The modified to set.
      */
@@ -76,7 +76,7 @@ public class ConfigFileDto extends BaseDto {
 
 
 
-    
+
     /**
      * @param serverIdIn The serverId to set.
      */
@@ -86,7 +86,7 @@ public class ConfigFileDto extends BaseDto {
 
 
 
-    
+
     /**
      * @return Returns the serverName.
      */
@@ -96,7 +96,7 @@ public class ConfigFileDto extends BaseDto {
 
 
 
-    
+
     /**
      * @param serverNameIn The serverName to set.
      */
@@ -114,7 +114,7 @@ public class ConfigFileDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param overrideCountIn The overrideCount to set.
      */
@@ -123,7 +123,7 @@ public class ConfigFileDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @return Returns the systemCount.
      */
@@ -132,7 +132,7 @@ public class ConfigFileDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param systemCountIn The systemCount to set.
      */
@@ -148,7 +148,7 @@ public class ConfigFileDto extends BaseDto {
         return type;
     }
 
-    
+
     /**
      * @param typeIn The type to set.
      */
@@ -162,119 +162,119 @@ public class ConfigFileDto extends BaseDto {
     public Long getConfigChannelId() {
         return configChannelId;
     }
-    
+
     /**
      * @param configChannelIdIn The configChannelId to set.
      */
     public void setConfigChannelId(Long configChannelIdIn) {
         configChannelId = configChannelIdIn;
     }
-    
+
     /**
      * @return Returns the configChannelLabel.
      */
     public String getConfigChannelLabel() {
         return configChannelLabel;
     }
-    
+
     /**
      * @param configChannelLabelIn The configChannelLabel to set.
      */
     public void setConfigChannelLabel(String configChannelLabelIn) {
         configChannelLabel = configChannelLabelIn;
     }
-    
+
     /**
      * @return Returns the configChannelName.
      */
     public String getConfigChannelName() {
         return configChannelName;
     }
-    
+
     /**
      * @param configChannelNameIn The configChannelName to set.
      */
     public void setConfigChannelName(String configChannelNameIn) {
         configChannelName = configChannelNameIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * @return Returns the latestConfigRevision.
      */
     public Integer getLatestConfigRevision() {
         return latestConfigRevision;
     }
-    
+
     /**
      * @param latestConfigRevisionIn The latestConfigRevision to set.
      */
     public void setLatestConfigRevision(Integer latestConfigRevisionIn) {
         latestConfigRevision = latestConfigRevisionIn;
     }
-    
+
     /**
      * @return Returns the latestConfigRevisionId.
      */
     public Long getLatestConfigRevisionId() {
         return latestConfigRevisionId;
     }
-    
+
     /**
      * @param latestConfigRevisionIdIn The latestConfigRevisionId to set.
      */
     public void setLatestConfigRevisionId(Long latestConfigRevisionIdIn) {
         latestConfigRevisionId = latestConfigRevisionIdIn;
     }
-    
+
     /**
      * @return Returns the path.
      */
     public String getPath() {
         return path;
     }
-    
+
     /**
      * @param pathIn The path to set.
      */
     public void setPath(String pathIn) {
         path = pathIn;
     }
-    
+
     /**
      * @return Returns the totalFileSize.
      */
     public Long getTotalFileSize() {
         return totalFileSize;
     }
-    
+
     /**
      * @param totalFileSizeIn The totalFileSize to set.
      */
     public void setTotalFileSize(Long totalFileSizeIn) {
         totalFileSize = totalFileSizeIn;
     }
-    
+
     /**
      * @return Returns a formatted and localized version of the total file size
      */
     public String getTotalFileSizeDisplay() {
         return StringUtil.displayFileSize(totalFileSize.longValue(), false);
     }
-    
+
     /**
      * @return Returns a formatted and localized version of the difference between
      * the modified date and now.
@@ -282,7 +282,7 @@ public class ConfigFileDto extends BaseDto {
     public String getModifiedDisplay() {
         return StringUtil.categorizeTime(modified.getTime(), StringUtil.WEEKS_UNITS);
     }
-    
+
     /**
      * @return A localized version of the channel name.
      */
@@ -304,7 +304,7 @@ public class ConfigFileDto extends BaseDto {
     public void setLatestRevisionSize(Long latestRevisionSizeIn) {
         latestRevisionSize = latestRevisionSizeIn;
     }
-    
+
     /**
      * @return Returns a formatted and localized version of the latest revision size
      */

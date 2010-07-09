@@ -21,18 +21,18 @@ import com.redhat.rhn.domain.user.User;
  * @version $Rev: 54849 $
  */
 public abstract class BaseTestCaseWithUser extends RhnBaseTestCase {
-   
+
     protected User user;
-    
-    /** 
+
+    /**
      * {@inheritDoc}
      */
     public void setUp() throws Exception {
         super.setUp();
         user = UserTestUtils.findNewUser("testUser", "testOrg");
     }
-    
-    
+
+
     /**
      * {@inheritDoc}
      */

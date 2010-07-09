@@ -29,12 +29,12 @@ import java.util.List;
  *  Test cases for the KeysHandler.
  */
 public class KeysHandlerTest extends BaseHandlerTestCase {
-    
+
     private KeysHandler handler = new KeysHandler();
     private ActivationKeyManager manager = ActivationKeyManager.getInstance();
 
     public void testGetActivationKeys() throws Exception {
-        
+
         // setup test ...
         ActivationKey activationKey1 = manager.createNewActivationKey(admin, "Test");
         ActivationKey activationKey2 = manager.createNewActivationKey(admin, "Test");
@@ -47,20 +47,20 @@ public class KeysHandlerTest extends BaseHandlerTestCase {
 
         // execute api under test
         List<ActivationKey> keys = handler.getActivationKeys(adminKey, ks.getLabel());
-        
+
         // verify results ...
         assertEquals(keys.size(), 2);
-        
+
         boolean found1 = false, found2 = false, found3 = false;
         for (ActivationKey key : keys) {
             if (key.getId() == activationKey1.getId()) {
                 found1 = true;
             }
-            
+
             if (key.getId() == activationKey2.getId()) {
                 found2 = true;
             }
-            
+
             if (key.getId() == activationKey3.getId()) {
                 found3 = true;
             }
@@ -69,9 +69,9 @@ public class KeysHandlerTest extends BaseHandlerTestCase {
         assertTrue(found2);
         assertFalse(found3);
     }
-    
+
     public void testAddActivationKey() throws Exception {
-        
+
         // setup test ...
         ActivationKey activationKey1 = manager.createNewActivationKey(admin, "Test");
         ActivationKey activationKey2 = manager.createNewActivationKey(admin, "Test");
@@ -90,13 +90,13 @@ public class KeysHandlerTest extends BaseHandlerTestCase {
 
         assertEquals(keySizeInitial, 0);
         assertEquals(keys.size(), 2);
-               
+
         boolean found1 = false, found2 = false;
         for (ActivationKey key : keys) {
             if (key.getId() == activationKey1.getId()) {
                 found1 = true;
             }
-            
+
             if (key.getId() == activationKey2.getId()) {
                 found2 = true;
             }
@@ -104,9 +104,9 @@ public class KeysHandlerTest extends BaseHandlerTestCase {
         assertTrue(found1);
         assertTrue(found2);
     }
-    
+
     public void testRemoveActivationKey() throws Exception {
-        
+
         // setup test ...
         ActivationKey activationKey1 = manager.createNewActivationKey(admin, "Test");
         ActivationKey activationKey2 = manager.createNewActivationKey(admin, "Test");
@@ -116,7 +116,7 @@ public class KeysHandlerTest extends BaseHandlerTestCase {
         ks.getDefaultRegTokens().add(activationKey2.getToken());
         KickstartFactory.saveKickstartData(ks);
         int keySizeInitial = ks.getDefaultRegTokens().size();
-        
+
         // execute api under test
         handler.removeActivationKey(adminKey, ks.getLabel(), activationKey1.getKey());
 
@@ -125,13 +125,13 @@ public class KeysHandlerTest extends BaseHandlerTestCase {
 
         assertEquals(keySizeInitial, 2);
         assertEquals(keys.size(), 1);
-               
+
         boolean found1 = false, found2 = false;
         for (ActivationKey key : keys) {
             if (key.getId() == activationKey1.getId()) {
                 found1 = true;
             }
-            
+
             if (key.getId() == activationKey2.getId()) {
                 found2 = true;
             }
@@ -139,5 +139,5 @@ public class KeysHandlerTest extends BaseHandlerTestCase {
         assertFalse(found1);
         assertTrue(found2);
     }
-    
+
 }

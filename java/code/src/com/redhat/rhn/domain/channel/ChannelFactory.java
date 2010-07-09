@@ -49,17 +49,17 @@ import com.redhat.rhn.manager.channel.ChannelManager;
  * @version $Rev$
  */
 public class ChannelFactory extends HibernateFactory {
-    
+
     private static ChannelFactory singleton = new ChannelFactory();
     private static Logger log = Logger.getLogger(ChannelFactory.class);
-    
-    public static final ContentSourceType CONTENT_SOURCE_TYPE_YUM = 
+
+    public static final ContentSourceType CONTENT_SOURCE_TYPE_YUM =
                             ChannelFactory.lookupContentSourceType("yum");
-    
+
     private ChannelFactory() {
         super();
     }
-    
+
     /**
      * Get the Logger for the derived class so log messages
      * show up on the correct class
@@ -67,7 +67,7 @@ public class ChannelFactory extends HibernateFactory {
     protected Logger getLogger() {
         return log;
     }
-    
+
     /**
      * Lookup a Channel by its id
      * @param id the id to search for
@@ -78,7 +78,7 @@ public class ChannelFactory extends HibernateFactory {
         Channel c = (Channel) session.get(Channel.class, id);
         return c;
     }
-    
+
     /**
      * Lookup a Channel by id and User
      * @param id the id to search for
@@ -105,9 +105,9 @@ public class ChannelFactory extends HibernateFactory {
         params.put("userId", userIn.getId());
         return (Channel) singleton.lookupObjectByNamedQuery(
                                        "Channel.findByLabelAndUserId", params);
-    }    
-    
-    
+    }
+
+
     /**
      * Lookup a content source type by label
      * @param label the label to lookup
@@ -119,7 +119,7 @@ public class ChannelFactory extends HibernateFactory {
         return (ContentSourceType) singleton.lookupObjectByNamedQuery(
                 "ContentSourceType.findByLabel", params);
     }
-    
+
     /**
      * Lookup a content source  by id
      * @param id the id to lookup
@@ -173,8 +173,8 @@ public class ChannelFactory extends HibernateFactory {
                 "ContentSource.findByIdandOrg", params);
     }
 
-    
-    
+
+
     /**
      * Retrieve a list of channel ids associated with the labels provided
      * @param labelsIn the labels to search for
@@ -194,15 +194,15 @@ public class ChannelFactory extends HibernateFactory {
     public static void save(Channel c) {
         singleton.saveObject(c);
     }
-    
+
     /**
      * Insert or Update a content source.
      * @param c content source to be stored in database.
      */
     public static void save(ContentSource c) {
         singleton.saveObject(c);
-    }    
-    
+    }
+
     /**
      * Insert or Update a DistChannelMap.
      * @param dcm DistChannelMap to be stored in database.
@@ -221,12 +221,12 @@ public class ChannelFactory extends HibernateFactory {
         // and simply use singleton.removeObject(c); Until then I'm
         // using DataSource.  I must say that working with existing
         // schema, while a reality in most software projects, SUCKS!
-        
+
         CallableMode m = ModeFactory.getCallableMode(
                 "Channel_queries", "delete_channel");
         Map inParams = new HashMap();
         inParams.put("cid", c.getId());
-        
+
         m.execute(inParams, new HashMap());
     }
 
@@ -257,7 +257,7 @@ public class ChannelFactory extends HibernateFactory {
         return (Channel) singleton.lookupObjectByNamedQuery(
                 "Channel.findBaseChannel", params);
     }
-    
+
     /**
      * Returns a list of Channels which have clonable errata.
      * @param org Org.
@@ -270,7 +270,7 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.channelsWithClonableErrata", params, false);
     }
-    
+
     /**
      * Returns the list of Channel ids which the given orgid has access to.
      * @param orgid Org id
@@ -284,12 +284,12 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.accessibleChildChannelIds", params);
     }
-    
+
     /**
      * Returns the accessible child channels associated to a base channel.
      * @param baseChannel the base channel who's child channels are needed
      * @param user the user requesting the info.. (has to be globally subscribed etc.)
-     * @return the accessible child channels.. 
+     * @return the accessible child channels..
      */
     public static List<Channel> getAccessibleChildChannels(Channel baseChannel,
                                                                     User user) {
@@ -297,9 +297,9 @@ public class ChannelFactory extends HibernateFactory {
         params.put("userId", user.getId());
         params.put("cid", baseChannel.getId());
         return singleton.listObjectsByNamedQuery(
-                "Channel.accessibleChildChannels", params);        
+                "Channel.accessibleChildChannels", params);
     }
-    
+
     /**
      * Returns the list of Channels accessible by an org
      * Channels are accessible if they are owned by an org or public.
@@ -311,7 +311,7 @@ public class ChannelFactory extends HibernateFactory {
         params.put("org_id", orgid);
         return singleton.listObjectsByNamedQuery("Org.accessibleChannels", params);
     }
-    
+
     /**
      * Returns a list of Channels matching the given labels and a child of the
      * given baseChannel.
@@ -327,7 +327,7 @@ public class ChannelFactory extends HibernateFactory {
         c.add(Restrictions.in("label", labels));
         return c.list();
     }
-    
+
     /**
      * Returns list of channel architectures
      * @return list of channel architectures
@@ -347,9 +347,9 @@ public class ChannelFactory extends HibernateFactory {
         Session session = getSession();
         Criteria criteria = session.createCriteria(ChannelArch.class);
         criteria.add(Restrictions.eq("label", label));
-        return (ChannelArch) criteria.uniqueResult();       
+        return (ChannelArch) criteria.uniqueResult();
     }
-    
+
     /**
      * Returns the Channel whose label matches the given label.
      * @param org The org of the user looking up the channel
@@ -360,11 +360,11 @@ public class ChannelFactory extends HibernateFactory {
         Session session = getSession();
         Criteria c = session.createCriteria(Channel.class);
         c.add(Restrictions.eq("label", label));
-        c.add(Restrictions.or(Restrictions.eq("org", org), 
+        c.add(Restrictions.or(Restrictions.eq("org", org),
                             Restrictions.isNull("org")));
         return (Channel) c.uniqueResult();
     }
-    
+
     /**
      * Returns the Channel whose label matches the given label.
      * This was added to allow taskomatic to lookup channels by label,
@@ -378,9 +378,9 @@ public class ChannelFactory extends HibernateFactory {
         c.add(Restrictions.eq("label", label));
         return (Channel) c.uniqueResult();
     }
-    
-    
-    
+
+
+
     /**
      * Returns true if the given channel is globally subscribable for the
      * given org.
@@ -395,7 +395,7 @@ public class ChannelFactory extends HibernateFactory {
         params.put("org_id", org.getId());
         params.put("cid", c.getId());
         params.put("label", "not_globally_subscribable");
-        
+
         DataResult dr = mode.execute(params);
         // if the query returns something that means that this channel
         // is NOT globally subscribable by the org.  Which means the DataResult
@@ -403,7 +403,7 @@ public class ChannelFactory extends HibernateFactory {
         // the DataResult will be empty (true);
         return dr.isEmpty();
     }
-    
+
     /**
      * Set the globally subscribable attribute for a given channel
      * @param org The org containing the channel
@@ -417,7 +417,7 @@ public class ChannelFactory extends HibernateFactory {
         if (value == channel.isGloballySubscribable(org)) {
             return;
         }
-        
+
         /*
          *  this is some bass-ackwards logic...
          *  if value == true, remove the 'not_globally_subscribable' setting
@@ -430,7 +430,7 @@ public class ChannelFactory extends HibernateFactory {
             addOrgChannelSetting(org, channel, "not_globally_subscribable");
         }
     }
-    
+
     /**
      * Remove an org-channel setting
      * @param org The org in question
@@ -438,7 +438,7 @@ public class ChannelFactory extends HibernateFactory {
      * @param label the label of the setting to remove
      */
     private static void removeOrgChannelSetting(Org org, Channel channel, String label) {
-        WriteMode m = ModeFactory.getWriteMode("Channel_queries", 
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries",
                                       "remove_org_channel_setting");
         Map params = new HashMap();
         params.put("org_id", org.getId());
@@ -446,7 +446,7 @@ public class ChannelFactory extends HibernateFactory {
         params.put("label", label);
         m.executeUpdate(params);
     }
-    
+
     /**
      * Adds an org-channel setting
      * @param org The org in question
@@ -454,7 +454,7 @@ public class ChannelFactory extends HibernateFactory {
      * @param label the label of the setting to add
      */
     private static void addOrgChannelSetting(Org org, Channel channel, String label) {
-        WriteMode m = ModeFactory.getWriteMode("Channel_queries", 
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries",
                                       "add_org_channel_setting");
         Map params = new HashMap();
         params.put("org_id", org.getId());
@@ -462,21 +462,21 @@ public class ChannelFactory extends HibernateFactory {
         params.put("label", label);
         m.executeUpdate(params);
     }
-    
+
     /**
-     * 
+     *
      * @param cid Channel package is being added to
      * @param pid Package id from rhnPackage
      */
     public static void addChannelPackage(Long cid, Long pid) {
-        WriteMode m = ModeFactory.getWriteMode("Channel_queries", 
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries",
         "add_channel_package");
-        Map params = new HashMap();        
+        Map params = new HashMap();
         params.put("cid", cid);
         params.put("pid", pid);
-        m.executeUpdate(params);        
+        m.executeUpdate(params);
     }
-    
+
     /**
      * Returns available entitlements for the org and the given channel.
      * @param org Org (used <b>only</b> when channel's org is NULL)
@@ -546,7 +546,7 @@ public class ChannelFactory extends HibernateFactory {
 
     /**
      * Returns true if the given label is in use.
-     * @param label Label 
+     * @param label Label
      * @return true if the given label is in use.
      */
     public static boolean doesChannelLabelExist(String label) {
@@ -556,9 +556,9 @@ public class ChannelFactory extends HibernateFactory {
                 "Channel.verifyLabel", params, false);
         return (o != null);
     }
-    
+
     /**
-     * 
+     *
      * @param cIn Channel coming in
      * @param userIn User coming in
      * @param pkgIn Package Name coming in
@@ -567,7 +567,7 @@ public class ChannelFactory extends HibernateFactory {
     public static Package lookupLatestPackage(Channel cIn, User userIn, String pkgIn) {
         Session session = null;
         List retval;
-        try {            
+        try {
             session = HibernateFactory.getSession();
             retval =  session.getNamedQuery("Channel.latestPackage")
                                           .setString("package_name", pkgIn)
@@ -577,18 +577,18 @@ public class ChannelFactory extends HibernateFactory {
         }
         catch (HibernateException e) {
             log.error(e);
-            throw new 
+            throw new
                 HibernateRuntimeException("Error looking up latest package in channel");
         }
-                
+
         if (retval.size() > 0) {
             return (Package)retval.get(0);
         }
-        else {            
+        else {
             return null;
         }
     }
-    
+
     /**
      * Returns true if the given name is in use.
      * @param name name
@@ -614,10 +614,10 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.kickstartableChannels", params, false);
     }
-    
+
     /**
      * Get a list of base channels that have an org associated
-     * @param user the logged in user 
+     * @param user the logged in user
      * @return List of Channels
      */
     public static List<Channel> listCustomBaseChannels(User user) {
@@ -626,9 +626,9 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.findCustomBaseChannels", params);
     }
-    
-    
-    
+
+
+
     /**
      * Find all trees using a given channel
      * @param channel channel
@@ -640,7 +640,7 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "KickstartableTree.findTreesForChannel", params);
     }
-    
+
     /**
      * Find yum supported checksum types
      * @return List of ChecksumTypes instances
@@ -649,7 +649,7 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "ChecksumType.loadAllForYum", Collections.EMPTY_MAP);
     }
-    
+
     /**
      * Find checksumtype by label
      * @param checksum checksum label
@@ -661,7 +661,7 @@ public class ChannelFactory extends HibernateFactory {
         return (ChecksumType)
             singleton.lookupObjectByNamedQuery("ChecksumType.findByLabel", params);
     }
-    
+
     /**
      * Get a list of packages ids that are in a channel
      *  and in a list of errata.  (The errata do not
@@ -687,10 +687,10 @@ public class ChannelFactory extends HibernateFactory {
     public static ChannelArch lookupArchByName(String name) {
         Map params = new HashMap();
         params.put("name", name);
-        return (ChannelArch)  
+        return (ChannelArch)
             singleton.lookupObjectByNamedQuery("ChannelArch.findByName", params);
     }
-    
+
     /**
      * Lookup list of server ids associated with this channel.
      * @param cid Channel id
@@ -704,8 +704,8 @@ public class ChannelFactory extends HibernateFactory {
         params.put("cid", cid);
         return singleton.listObjectsByNamedQuery("Channel.getServerIds", params);
     }
-    
-    
+
+
     /**
      * Get package ids for a channel
      * @param cid the channel id
@@ -719,10 +719,10 @@ public class ChannelFactory extends HibernateFactory {
         params.put("cid", cid);
         return singleton.listObjectsByNamedQuery("Channel.getPackageIdList", params);
     }
-       
+
     /**
-     * Looksup the number of Packages in a channel 
-     * @param channel the Channel who's package count you are interested in. 
+     * Looksup the number of Packages in a channel
+     * @param channel the Channel who's package count you are interested in.
      * @return number of packages in this channel.
      */
     public static int getPackageCount(Channel channel) {
@@ -730,8 +730,8 @@ public class ChannelFactory extends HibernateFactory {
         params.put("cid", channel.getId());
         return (Integer)singleton.lookupObjectByNamedQuery
                                 ("Channel.getPackageCount", params);
-    }    
-    
+    }
+
     /**
      * Get the errata count for a channel
      * @param channel the channel
@@ -742,13 +742,13 @@ public class ChannelFactory extends HibernateFactory {
         params.put("cid", channel.getId());
         return (Integer)singleton.lookupObjectByNamedQuery
                                 ("Channel.getErrataCount", params);
-    }    
-    
+    }
+
     /**
-     * Find the original packages that were part of a channel.  This list 
+     * Find the original packages that were part of a channel.  This list
      *      includes only those packages that have not had errata released for them.
      * @param channel the channel to clone from
-     * @param org the org doing the cloning. 
+     * @param org the org doing the cloning.
      * @return List of packages
      */
     public static List findOriginalPackages(Channel channel, Org org) {
@@ -760,17 +760,17 @@ public class ChannelFactory extends HibernateFactory {
                     "Channel.lookupOriginalPackages", params);
             return idList;
     }
-    
+
     /**
-     * Lookup the default release channel map for the given channel. Returns null if no 
+     * Lookup the default release channel map for the given channel. Returns null if no
      * default is found.
-     * 
+     *
      * @param channel Channel to lookup mapping for
      * @return Default ReleaseChannelMap
      */
     public static ReleaseChannelMap lookupDefaultReleaseChannelMapForChannel(
             Channel channel) {
-        
+
         Map params = new HashMap();
         params.put("channel", channel);
         List<ReleaseChannelMap> list = singleton.listObjectsByNamedQuery(
@@ -797,7 +797,7 @@ public class ChannelFactory extends HibernateFactory {
     /**
      * Lookup the dist channel map for the given product name, release, and channel arch.
      * Returns null if none is found.
-     * 
+     *
      * @param productName Product name.
      * @param release Version.
      * @param channelArch Channel arch.
@@ -805,7 +805,7 @@ public class ChannelFactory extends HibernateFactory {
      */
     public static DistChannelMap lookupDistChannelMapByPnReleaseArch(
                         String productName, String release, ChannelArch channelArch) {
-        
+
         Map params = new HashMap();
         params.put("productName", productName);
         params.put("release", release);
@@ -835,20 +835,20 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
-     * Lookup the dist channel map for the given channel. 
+     * Lookup the dist channel map for the given channel.
      * Returns null if none is found.
-     * 
+     *
      * @param c Channel to lookup mapping for
      * @return DistChannelMap, null if none is found
      */
     public static DistChannelMap lookupDistChannelMap(Channel c) {
-        
+
         Map params = new HashMap();
         params.put("channel", c);
         return (DistChannelMap)singleton.lookupObjectByNamedQuery(
                 "DistChannelMap.findByChannel", params);
     }
-    
+
     /**
      * Get a list of channels with no org that are not a child
      * @return List of Channels
@@ -857,7 +857,7 @@ public class ChannelFactory extends HibernateFactory {
         Map params = new HashMap();
         return singleton.listObjectsByNamedQuery("Channel.findRedHatBaseChannels", params);
     }
-    
+
 
     /**
      * Lookup a List of redhat base channels with a given ChannelVersion
@@ -875,7 +875,7 @@ public class ChannelFactory extends HibernateFactory {
         }
         return toReturn;
     }
-    
+
     /**
      * Lookup the original channel of a cloned channel
      * @param chan the channel to find the original of
@@ -900,12 +900,12 @@ public class ChannelFactory extends HibernateFactory {
         return (ProductName)singleton.lookupObjectByNamedQuery(
                 "ProductName.findByLabel", params);
     }
-    
+
     /**
      * Returns a distinct list of ChannelArch labels for all synch'd and custom
-     * channels in the satellite. 
+     * channels in the satellite.
      * @return a distinct list of ChannelArch labels for all synch'd and custom
-     * channels in the satellite. 
+     * channels in the satellite.
      */
     public static List<String> findChannelArchLabelsSyncdChannels() {
         return singleton.listObjectsByNamedQuery(
@@ -923,7 +923,7 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.listCustomChannels", params);
     }
-    
+
     /**
      * List all accessible base channels for an org
      * @param user logged in user.
@@ -936,7 +936,7 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.findAllBaseChannels", params);
     }
-    
+
     /**
      * List all accessible base channels for the entire satellite
      * @return list of base channels
@@ -946,12 +946,12 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.findAllBaseChannelsOnSatellite", params);
     }
-    
+
 
     /**
      * List all child channels of the given parent regardless of the user
      * @param parent the parent channel
-     * @return list of children of the parent 
+     * @return list of children of the parent
      */
     public static List<Channel> listAllChildrenForChannel(Channel parent) {
         Map params = new HashMap();
@@ -968,7 +968,7 @@ public class ChannelFactory extends HibernateFactory {
      */
     public static Package lookupPackageByFilename(Channel channel,
             String fileName) {
-        
+
         Package retval = (Package)
             HibernateFactory.getSession().getNamedQuery("Channel.packageByFileName")
               .setString("pathlike", "%/" + fileName)
@@ -977,11 +977,11 @@ public class ChannelFactory extends HibernateFactory {
 
         return retval;
     }
-    
+
     /**
      * Method to check if the channel contains any kickstart distributions
      * associated to it.
-     * @param ch the channel to check distros on 
+     * @param ch the channel to check distros on
      * @return true of the channels contains any distros
      */
     public static boolean containsDistributions(Channel ch) {

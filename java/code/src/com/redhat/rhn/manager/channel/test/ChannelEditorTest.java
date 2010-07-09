@@ -42,12 +42,12 @@ public class ChannelEditorTest extends RhnBaseTestCase {
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         assertTrue(UserManager.verifyChannelAdmin(user, channel));
         assertEquals(0, channel.getPackages().size());
-        
+
         List pkgList = new ArrayList();
         pkgList.add(pkg.getId());
         Long bogusId = new Long(System.currentTimeMillis());
         pkgList.add(bogusId);
-        
+
         ChannelEditor editor = ChannelEditor.getInstance();
         try {
             editor.addPackages(user, channel, pkgList);
@@ -60,12 +60,12 @@ public class ChannelEditorTest extends RhnBaseTestCase {
         pkgList.remove(bogusId);
         editor.addPackages(user, channel, pkgList);
         assertEquals(1, channel.getPackages().size());
-        
+
         Long cid = channel.getId();
         Channel c = ChannelManager.lookupByIdAndUser(cid, user);
         assertNotNull(c);
         assertEquals(1, c.getPackages().size());
-        
+
         //Test package removal
         pkgList.add(bogusId);
         try {
@@ -75,12 +75,12 @@ public class ChannelEditorTest extends RhnBaseTestCase {
         catch (PermissionException e) {
             //success... bogusId does not exist
         }
-        
+
         pkgList.remove(bogusId);
         assertEquals(1, c.getPackages().size());
         editor.removePackages(user, channel, pkgList);
         assertEquals(0, c.getPackages().size());
-        
+
         List intList = new ArrayList();
         intList.add(new Integer(pkg.getId().intValue()));
         editor.addPackages(user, channel, intList);

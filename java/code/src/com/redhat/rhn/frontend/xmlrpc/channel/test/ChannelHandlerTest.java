@@ -39,9 +39,9 @@ import java.util.Set;
 public class ChannelHandlerTest extends BaseHandlerTestCase {
 
     private ChannelHandler handler = new ChannelHandler();
-    
+
     public void testListSoftwareChannels() throws Exception {
-        
+
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
         admin.getOrg().addOwnedChannel(channel);
         OrgFactory.save(admin.getOrg());
@@ -51,7 +51,7 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         Object[] result = handler.listSoftwareChannels(adminKey);
         assertNotNull(result);
         assertTrue(result.length > 0);
-        
+
         for (int i = 0; i < result.length; i++) {
             Map item = (Map) result[i];
             Set keys = item.keySet();
@@ -62,7 +62,7 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
             }
         }
     }
-    
+
     public void testListAllChannels() throws Exception {
         // setup
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
@@ -73,11 +73,11 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
 
         // execute
         Object[] result = handler.listAllChannels(adminKey);
-        
+
         // verify
         assertNotNull(result);
         assertTrue(result.length > 0);
-        
+
         boolean foundChannel = false;
         for (int i = 0; i < result.length; i++) {
             ChannelTreeNode item = (ChannelTreeNode) result[i];
@@ -94,18 +94,18 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
     public void testListPopularChannels() throws Exception {
         // setup
         Server server = ServerFactoryTest.createTestServer(admin, true);
-        
+
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
         channel.setParentChannel(null);  // base channel
         SystemManager.subscribeServerToChannel(admin, server, channel);
 
         // execute
         Object[] result = handler.listPopularChannels(adminKey, 1);
-        
+
         // verify
         assertNotNull(result);
         assertTrue(result.length > 0);
-        
+
         boolean foundChannel = false;
         for (int i = 0; i < result.length; i++) {
             ChannelTreeNode item = (ChannelTreeNode) result[i];
@@ -117,15 +117,15 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
             }
         }
         assertTrue(foundChannel);
-        
+
         // execute
         result = handler.listPopularChannels(adminKey, 50000);
-        
+
         // verify
         assertNotNull(result);
         assertEquals(0, result.length);
     }
-    
+
     public void testListMyChannels() throws Exception {
         // setup
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
@@ -136,11 +136,11 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
 
         // execute
         Object[] result = handler.listMyChannels(adminKey);
-        
+
         // verify
         assertNotNull(result);
         assertTrue(result.length > 0);
-        
+
         boolean foundChannel = false;
         for (int i = 0; i < result.length; i++) {
             ChannelTreeNode item = (ChannelTreeNode) result[i];
@@ -166,11 +166,11 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         channel.getTrustedOrgs().add(org2);
         channel.getTrustedOrgs().add(org3);
         channel.setAccess(Channel.PUBLIC);
-        
+
         OrgFactory.save(admin.getOrg());
         ChannelFactory.save(channel);
         flushAndEvict(channel);
-        
+
         // execute
         Object[] result = handler.listSharedChannels(adminKey);
 
@@ -203,11 +203,11 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
 
         // execute
         Object[] result = handler.listRetiredChannels(adminKey);
-        
+
         // verify
         assertNotNull(result);
         assertTrue(result.length > 0);
-        
+
         boolean foundChannel = false;
         for (int i = 0; i < result.length; i++) {
             ChannelTreeNode item = (ChannelTreeNode) result[i];
@@ -220,7 +220,7 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         }
         assertTrue(foundChannel);
     }
-    
+
     private Org createOrg() throws Exception {
         String random = TestUtils.randomString();
         Org org = OrgFactory.createOrg();

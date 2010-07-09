@@ -38,7 +38,7 @@ public class CobblerSyncCommand extends CobblerCommand {
      */
     @Override
     public ValidatorError store() {
-        if (!Boolean.TRUE.equals(invokeXMLRPC("sync", xmlRpcToken))) { 
+        if (!Boolean.TRUE.equals(invokeXMLRPC("sync", xmlRpcToken))) {
             return new ValidatorError("cobbler.jsp.error_syncing");
         }
         return null;

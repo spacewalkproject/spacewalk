@@ -21,11 +21,11 @@ import javax.servlet.jsp.JspException;
  * @version $Rev$
  */
 public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
-    
+
     public ToolbarTagDeletionTest() {
         super();
     }
-    
+
     private void setupDeletionTag(String base, String url, String acl, String type) {
         tt.setBase(base);
         tt.setDeletionUrl(url);
@@ -33,7 +33,7 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
         tt.setDeletionType(type);
         tt.setAclMixins(BooleanAclHandler.class.getName());
     }
-    
+
     public void testDeletionNoAcl() {
         try {
             // setup mock objects
@@ -43,16 +43,16 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
                 " title=\"delete user\" />delete user</a></span>" +
                 "</div></div>";
 
-            
+
             setupDeletionTag("h1", "deletion-url", "", "user");
-            
+
             verifyTag(output);
         }
         catch (JspException e) {
             fail(e.toString());
-        } 
+        }
     }
-    
+
     public void testDeletionWithMissingType() {
         try {
             // setup mock objects
@@ -60,14 +60,14 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
                 "toolbar\"></div></div>";
 
             setupDeletionTag("h1", "deletion-url", "true_test()", "");
-            
+
             verifyTag(output);
         }
         catch (JspException e) {
             fail(e.toString());
-        } 
+        }
     }
-    
+
     public void testCreateAclMultipleMixinsMultipleAcls() {
         try {
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
@@ -79,7 +79,7 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
             setupDeletionTag("h1", "deletion-url",
                     "first_true_acl(); second_true_acl(); is_foo(foo)",
                     "user");
-            
+
             tt.setAclMixins(MockOneAclHandler.class.getName() + "," +
                     MockTwoAclHandler.class.getName());
 
@@ -100,7 +100,7 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
             "<img src=\"/img/action-del.gif\" alt=\"delete user\"" +
             " title=\"delete user\" />delete user</a></span>" +
             "</div></div>";
-            
+
             setupDeletionTag("h1", "deletion-url",
                     "first_true_acl(); second_true_acl()", "user");
 
@@ -124,7 +124,7 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
 
             setupDeletionTag("h1", "deletion-url",
                     "true_test()", "user");
-            
+
             tt.setAclMixins("throws.class.not.found.exception");
 
             verifyTag(output);
@@ -137,7 +137,7 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
             fail(e.toString());
         }
     }
-    
+
     public void testDeletionAcl() {
 
         try {
@@ -147,7 +147,7 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
                 "<img src=\"/img/action-del.gif\" alt=\"delete user\"" +
                 " title=\"delete user\" />delete user</a></span>" +
                 "</div></div>";
-            
+
             setupDeletionTag("h1", "deletion-url", "true_test()", "user");
 
             verifyTag(output);
@@ -156,19 +156,19 @@ public class ToolbarTagDeletionTest extends BaseTestToolbarTag {
             fail(e.toString());
         }
     }
-    
+
     public void testDeletionWithMissingUrl() {
         try {
             // setup mock objects
             String output = "<div class=\"toolbar-h1\"><div class=\"" +
                 "toolbar\"></div></div>";
-            
+
             setupDeletionTag("h1", null, "true_test()", "user");
-            
+
             verifyTag(output);
         }
         catch (JspException e) {
             fail(e.toString());
-        } 
+        }
     }
 }

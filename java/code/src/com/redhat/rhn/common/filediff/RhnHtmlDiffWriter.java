@@ -22,19 +22,19 @@ import java.util.Iterator;
 
 /**
  * Converts a list of hunks from a file diff into an html string that represents
- * the view of a diff. 
+ * the view of a diff.
  * @version $Rev$
  */
 public class RhnHtmlDiffWriter implements DiffWriter, DiffVisitor {
-    
+
     private static final int CHARS_PER_LINE = 40;
-    
+
     private StringBuffer oldfile;
     private StringBuffer newfile;
     private NumberFormat formatter;
-    
+
     private boolean onlyChanged;
-    
+
     /**
      * @param lines The number of lines in the longest file.
      *              Used to find out how many digits a line number should be.
@@ -49,14 +49,14 @@ public class RhnHtmlDiffWriter implements DiffWriter, DiffVisitor {
         formatter.setMaximumFractionDigits(0);
         formatter.setMinimumIntegerDigits(Integer.toString(lines).length());
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void writeHunk(Hunk hunk) {
         hunk.visit(this);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -64,7 +64,7 @@ public class RhnHtmlDiffWriter implements DiffWriter, DiffVisitor {
         printStartDiv("changed");
         int numOld = printLines(oldfile, hunk.getOldLines());
         int numNew = printLines(newfile, hunk.getNewLines());
-        
+
         //Line up the changes.
         if (numOld > numNew) {
             printBlankLines(newfile, numOld - numNew);
@@ -81,11 +81,11 @@ public class RhnHtmlDiffWriter implements DiffWriter, DiffVisitor {
     public void accept(DeleteHunk hunk) {
         printStartDiv("deleted");
         int numlines = printLines(oldfile, hunk.getOldLines());
-        
-        //to line up the two files in the html, print blank lines for 
+
+        //to line up the two files in the html, print blank lines for
         //each deleted line.
         printBlankLines(newfile, numlines);
-        
+
         printEndDiv();
     }
 
@@ -103,21 +103,21 @@ public class RhnHtmlDiffWriter implements DiffWriter, DiffVisitor {
             newfile.append("<br />");
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void accept(InsertHunk hunk) {
         printStartDiv("inserted");
         int numlines = printLines(newfile, hunk.getNewLines());
-        
-        //to line up the two files in the html, print blank lines for 
+
+        //to line up the two files in the html, print blank lines for
         //each inserted line.
         printBlankLines(oldfile, numlines);
-        
+
         printEndDiv();
     }
-    
+
     private int printLines(StringBuffer buffy, FileLines block) {
         Iterator i = block.getLines().iterator();
         int numWritten = 0;
@@ -148,18 +148,18 @@ public class RhnHtmlDiffWriter implements DiffWriter, DiffVisitor {
         }
         return numWritten;
     }
-    
+
     private void printBlankLines(StringBuffer buffy, int number) {
         for (int i = 0; i < number; i++) {
             buffy.append("&nbsp;<br />");
         }
     }
-    
+
     private void printStartDiv(String cssClass) {
         oldfile.append("<div class=\"" + cssClass + "\">");
         newfile.append("<div class=\"" + cssClass + "\">");
     }
-    
+
     private void printEndDiv() {
         oldfile.append("</div>");
         newfile.append("</div>");
@@ -182,7 +182,7 @@ public class RhnHtmlDiffWriter implements DiffWriter, DiffVisitor {
         return result.toString();
     }
 
-    
+
     /**
      * @param onlyChangedIn The onlyChanged to set.
      */

@@ -30,10 +30,10 @@ import java.util.Map;
  */
 public class InstallConfirmSetupAction extends BaseSystemPackagesConfirmAction {
     public static final String PACKAGE_INSTALL = "install";
-    
+
     private static final InstallPackageSetupAction DECL_ACTION =
                                                 new InstallPackageSetupAction();
-    
+
     /**
      * {@inheritDoc}
      */
@@ -41,36 +41,36 @@ public class InstallConfirmSetupAction extends BaseSystemPackagesConfirmAction {
         return DECL_ACTION.getDecl(sid);
     }
 
-    
+
     /**
-     * {@inheritDoc}  
+     * {@inheritDoc}
      **/
     protected String getRemoteMode() {
         return PACKAGE_INSTALL;
     }
-    
+
     /**
-     * {@inheritDoc}     
+     * {@inheritDoc}
      **/
     protected  String getMessageKeyForOne() {
         return "message.packageinstall";
     }
-    
+
     /**
-     * {@inheritDoc}     
+     * {@inheritDoc}
      **/
     protected String getMessageKeyForMany() {
         return "message.packageinstalls";
     }
-    
-    
+
+
     /**
      * {@inheritDoc}
      **/
     protected String getActionKey() {
         return "installconfirm.jsp.confirm";
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -78,8 +78,8 @@ public class InstallConfirmSetupAction extends BaseSystemPackagesConfirmAction {
                                                            RequestContext context,
                                                            List<Map<String, Long>> pkgs,
                                                            Date earliest) {
-        return ActionManager.schedulePackageInstall(context.getLoggedInUser(), 
-                                                    context.lookupAndBindServer(), 
+        return ActionManager.schedulePackageInstall(context.getLoggedInUser(),
+                                                    context.lookupAndBindServer(),
                                                     pkgs, earliest);
     }
 

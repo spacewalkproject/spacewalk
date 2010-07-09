@@ -39,40 +39,40 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public abstract class KickstartVariableAction extends RhnAction {
-    
+
     public static final String VARIABLES = "variables";
 
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        
-        
+
+
         checkPermissions(request);
-        
-       
-        String cobblerId = getCobblerId(context);        
-        
+
+
+        String cobblerId = getCobblerId(context);
+
         if (isSubmitted((DynaActionForm) formIn)) {
-            ValidatorError ve = processFormValues(request, (DynaActionForm) formIn, 
+            ValidatorError ve = processFormValues(request, (DynaActionForm) formIn,
                     cobblerId);
             if (ve != null) {
                 ValidatorError[] verr = {ve};
                 getStrutsDelegate().saveMessages(request,
                         RhnValidationHelper.validatorErrorToActionErrors(verr));
-            } 
-            
+            }
+
         }
-        
+
         setupFormValues(context, (DynaActionForm) formIn, cobblerId);
         request.setAttribute(getObjectString(), request.getParameter(getObjectString()));
-        
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), 
+
+        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                 request.getParameterMap());
-        
+
     }
     /**
      * Checks the permissions for the KS variable pages
@@ -97,30 +97,30 @@ public abstract class KickstartVariableAction extends RhnAction {
     /**
      * {@inheritDoc}
      */
-    protected void setupFormValues(RequestContext ctx, 
+    protected void setupFormValues(RequestContext ctx,
             DynaActionForm form, String cId) {
         CobblerObject cobj = getCobblerObject(cId, ctx.getLoggedInUser());
         form.set(VARIABLES, StringUtil.convertMapToString(cobj.getKsMeta(), "\n"));
     }
-        
+
 
     /**
      * {@inheritDoc}
      */
-    protected ValidatorError processFormValues(HttpServletRequest request, 
-            DynaActionForm form, 
+    protected ValidatorError processFormValues(HttpServletRequest request,
+            DynaActionForm form,
             String cId) {
-        
+
         ValidatorError error = null;
         RequestContext ctx = new RequestContext(request);
-    
+
         try {
-            
+
             CobblerObject cobj = getCobblerObject(cId, ctx.getLoggedInUser());
-            cobj.setKsMeta(StringUtil.convertOptionsToMap((String)form.get(VARIABLES), 
+            cobj.setKsMeta(StringUtil.convertOptionsToMap((String)form.get(VARIABLES),
                     "kickstart.jsp.error.invalidvariable", "\n"));
             cobj.save();
-            
+
             return null;
         }
         catch (ValidatorException ve) {
@@ -134,15 +134,15 @@ public abstract class KickstartVariableAction extends RhnAction {
 
 
     /**
-     * 
+     *
      * @param context
      * @return
      */
     protected abstract String getCobblerId(RequestContext context);
-    
+
     protected abstract String getObjectString();
-            
-    
+
+
     /**
      * Get the CobblerObject that we'll use to set the ksmeta data
      * @param cobblerId the cobbler Id
@@ -151,5 +151,5 @@ public abstract class KickstartVariableAction extends RhnAction {
      */
     protected abstract CobblerObject getCobblerObject(String cobblerId, User user);
 
-    
+
 }

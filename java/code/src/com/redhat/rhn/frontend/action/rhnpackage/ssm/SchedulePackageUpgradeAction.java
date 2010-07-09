@@ -67,9 +67,9 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
                                  ActionForm actionForm,
                                  HttpServletRequest request,
                                  HttpServletResponse response) throws Exception {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         ListHelper helper = new ListHelper(this, request);
         helper.setDataSetName(DATA_SET);
         helper.execute();
@@ -80,7 +80,7 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
             }
         }
 
-        // Prepopulate the date picker 
+        // Prepopulate the date picker
         DynaActionForm dynaForm = (DynaActionForm) actionForm;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
@@ -89,7 +89,7 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
 
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-    
+
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
 
@@ -105,55 +105,55 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
             // keeping the highest EVR
             Map<String, PackageListItem> packageNameIdsToItems =
                 new HashMap<String, PackageListItem>(data.size());
-            
+
             for (String idCombo : data) {
                 PackageListItem item = PackageListItem.parse(idCombo);
-                
-                PackageListItem existing = 
-                    packageNameIdsToItems.get(item.getIdOne() + "|" + item.getIdThree()); 
+
+                PackageListItem existing =
+                    packageNameIdsToItems.get(item.getIdOne() + "|" + item.getIdThree());
                 if (existing != null) {
                     String[] existingParts = splitEvr(existing.getNvre());
                     String[] itemParts = splitEvr(item.getNvre());
-                    
+
                     PackageEvr existingEvr = new PackageEvr();
                     existingEvr.setEpoch(existingParts[0]);
                     existingEvr.setVersion(existingParts[1]);
                     existingEvr.setRelease(existingParts[2]);
-                    
+
                     PackageEvr itemEvr = new PackageEvr();
                     itemEvr.setEpoch(itemParts[0]);
                     itemEvr.setVersion(itemParts[1]);
                     itemEvr.setRelease(itemParts[2]);
 
                     if (existingEvr.compareTo(itemEvr) < 0) {
-                        packageNameIdsToItems.put(item.getIdOne() + "|" + 
+                        packageNameIdsToItems.put(item.getIdOne() + "|" +
                                 item.getIdThree(), item);
                     }
                 }
                 else {
-                    packageNameIdsToItems.put(item.getIdOne() + "|" + 
+                    packageNameIdsToItems.put(item.getIdOne() + "|" +
                             item.getIdThree(), item);
                 }
             }
 
             RhnSet packageSet = RhnSetManager.createSet(user.getId(),
                 RhnSetDecl.SSM_UPGRADE_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
-            
+
             for (PackageListItem item : packageNameIdsToItems.values()) {
                 packageSet.addElement(item.getIdOne(), item.getIdTwo(), item.getIdThree());
             }
-            
+
             RhnSetManager.store(packageSet);
-        }        
-        
+        }
+
         DataResult results = SystemManager.ssmSystemPackagesToUpgrade(user,
             RhnSetDecl.SSM_UPGRADE_PACKAGES_LIST.getLabel());
-        
+
         TagHelper.bindElaboratorTo("groupList", results.getElaborator(), request);
-        
+
         return results;
     }
-    
+
     private String[] splitEvr(String evr) {
         String[] values = StringUtils.split(evr, "-");
         for (int i = 0; i < values.length; i++) {
@@ -163,7 +163,7 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
         }
         return values;
     }
-    
+
     private ActionForward executePackageAction(ActionMapping mapping,
                                                ActionForm formIn,
                                                HttpServletRequest request,
@@ -176,7 +176,7 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
         // Load the date selected by the user
         Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm) formIn,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
-                
+
         log.debug("Getting package upgrade data.");
         List<Map> result =  getResult(context);
         ((DataResult) result).elaborate();
@@ -206,7 +206,7 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
 
         // Remove the packages from session and the DB
         SessionSetHelper.obliterate(request, request.getParameter("packagesDecl"));
-        
+
         log.debug("Deleting set.");
         RhnSetManager.deleteByLabel(user.getId(),
             RhnSetDecl.SSM_UPGRADE_PACKAGES_LIST.getLabel());
@@ -219,6 +219,6 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
 
         return mapping.findForward("confirm");
 
-    
-    }    
+
+    }
 }

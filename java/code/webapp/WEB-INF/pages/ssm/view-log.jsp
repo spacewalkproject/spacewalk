@@ -7,7 +7,7 @@
 <html:xhtml/>
 <html>
 <body>
-<rhn:toolbar base="h1" 
+<rhn:toolbar base="h1"
     img="/img/rhn-icon-system_group.gif"
 	imgAlt="ssm.jsp.imgAlt"
 	helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-ssm">
@@ -33,7 +33,7 @@
              emptykey="ssm.operations.viewlog.empty">
 
         <rl:decorator name="PageSizeDecorator"/>
-        
+
         <rl:column headerkey="ssm.operations.viewlog.description" bound="false"
                    sortattr="description" sortable="true" styleclass="first-column">
             <a href="/rhn/ssm/ViewLogDetails.do?oid=${current.id}"><c:out value="${current.description}"/></a>

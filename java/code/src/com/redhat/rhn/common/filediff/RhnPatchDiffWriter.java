@@ -30,18 +30,18 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
     private static final char TO_LABEL = '+';
     private static final char MATCH_LABEL = ' ';
     private static final String HUNK_LABEL = "@@";
-    
+
     //diff the entire result
     private StringBuffer diff;
     private int contextLines;
-    
+
     //stores the current edit, which can consist of multiple hunks with context lines.
     private EditPoint currentEdit;
-    
+
     //needed when the last hunk is not a MatchHunk
     private int oldEndLine;
     private int newEndLine;
-    
+
     /**
      * @param fromPath The from(old, first) file's path
      * @param toPath The to(new, second) file's path
@@ -50,8 +50,8 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
      */
     public RhnPatchDiffWriter(String fromPath, String toPath, Date fromDate, Date toDate) {
         diff = new StringBuffer();
-        
-        
+
+
         String dateString = fromDate.toString(); //TODO: format the date
         writeHeader(FROM_LABEL, fromPath, dateString);
         dateString = toDate.toString();
@@ -59,7 +59,7 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
         contextLines = DEFAULT_CONTEXT_LINES;
         currentEdit = null;
     }
-    
+
     private void writeHeader(char label, String path, String date) {
         //show the label three times
         for (int i = 0; i < 3; i++) {
@@ -68,10 +68,10 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
         diff.append(" ");
         diff.append(path);
         diff.append("\t"); //just doing what GNU diff does.
-        diff.append(date); 
+        diff.append(date);
         diff.append("\n");
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -99,7 +99,7 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
     public void accept(InsertHunk hunk) {
         processEditHunk(hunk);
     }
-    
+
     private void processEditHunk(Hunk hunk) {
         //This should only ever happen if this edit hunk is the very first hunk.
         if (currentEdit == null) {
@@ -107,17 +107,17 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
             int oldStartLine = hunk.getOldLines().getFromLine();
             currentEdit = new EditPoint(oldStartLine, newStartLine);
         }
-        
+
         //according to GNU patch, the order doesn't matter, but GNU diff
         //always shows the 'from' lines first, so I do the same.
         addEditLines(hunk.getOldLines().getLines(), FROM_LABEL);
         addEditLines(hunk.getNewLines().getLines(), TO_LABEL);
-        
+
         //remember in case this hunk goes to the end of the file.
         oldEndLine = hunk.getOldLines().getToLine();
         newEndLine = hunk.getNewLines().getToLine();
     }
-    
+
     private void addEditLines(List lines, char edit) {
         //adding lines to the edit.
         Iterator i = lines.iterator();
@@ -133,10 +133,10 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
         int startLine = hunk.getOldLines().getFromLine();
         int endLine = hunk.getOldLines().getToLine();
         int numLines = endLine - startLine;
-        
+
         //Get the matching lines.
         Iterator lines = hunk.getOldLines().getLines().iterator();
-        
+
         int counter = 0;
         if (currentEdit != null) { //There was an edit hunk before us.
             //Add context after a previous edit.
@@ -145,20 +145,20 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
                 counter++;
             }
         }
-        
+
         //if this is a separation of two hunks.
         if (currentEdit != null && numLines > 2 * contextLines) {
             //writes one entire edit.
             writeLines(hunk.getOldLines().getFromLine() + counter,
                     hunk.getNewLines().getFromLine() + counter);
         }
-        
+
         //skip all the lines outside of our context.
         while ((numLines - counter) > contextLines) {
             lines.next();
             counter++;
         }
-        
+
         if (lines.hasNext() && currentEdit == null) {
             int fromStart = startLine + counter;
             int toStart = hunk.getNewLines().getFromLine() + counter;
@@ -169,12 +169,12 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
             currentEdit.addLine((String)lines.next(), MATCH_LABEL);
         }
     }
-    
+
     private void writeLines(int fromEnd, int toEnd) {
         diff.append(currentEdit.write(fromEnd, toEnd, HUNK_LABEL, FROM_LABEL, TO_LABEL));
         currentEdit = null;
     }
-    
+
     /**
      * @return The patch diff.
      */
@@ -186,13 +186,13 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
         }
         return diff.toString();
     }
-    
+
     private class EditPoint {
         private int fromStart;
         private int toStart;
         private boolean writable;
         private StringBuffer lines;
-        
+
         /**
          * @param fromLine Starting line for from file
          * @param toLine Starting line for to file
@@ -203,7 +203,7 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
             lines = new StringBuffer();
             writable = false;
         }
-        
+
         public String write(int fromEnd, int toEnd, String edit, char from, char to) {
             if (!writable) { //don't write something that is purely matching lines.
                 return new String();
@@ -222,7 +222,7 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
             retval.append(lines);
             return retval.toString();
         }
-        
+
         private void writeLines(int from, int to, StringBuffer buffy) {
             buffy.append(from);
             if (from + 1 != to) { //more than one line shown.
@@ -230,7 +230,7 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
                 buffy.append(to - from); //the number of lines from file shown.
             }
         }
-        
+
         public void addLine(String line, char type) {
             if (type != MATCH_LABEL) {
                 writable = true;
@@ -240,5 +240,5 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
             lines.append("\n");
         }
     }
-    
+
 }

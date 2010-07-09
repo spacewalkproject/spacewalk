@@ -20,6 +20,6 @@
 <html:form action="/monitoring/config/notification/FilterEdit" method="POST">
     <%@ include file="filter-form.jspf" %>
 </html:form>
-           
+
 </body>
 </html>

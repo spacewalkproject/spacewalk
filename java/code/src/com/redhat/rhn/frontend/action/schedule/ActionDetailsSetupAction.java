@@ -32,20 +32,20 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1226 $
  */
 public class ActionDetailsSetupAction extends RhnAction {
- 
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long aid = requestContext.getRequiredParam("aid");
-        
+
         Action action = ActionManager.lookupAction(requestContext.getLoggedInUser(),
                 aid);
-        ActionFormatter af = action.getFormatter();        
+        ActionFormatter af = action.getFormatter();
         request.setAttribute("actionname", af.getName());
         request.setAttribute("actiontype", af.getActionType());
         request.setAttribute("scheduler", af.getScheduler());
@@ -54,5 +54,5 @@ public class ActionDetailsSetupAction extends RhnAction {
 
         return mapping.findForward("default");
     }
-    
+
 }

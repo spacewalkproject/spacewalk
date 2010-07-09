@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Renders YourRhn fragment for inactive systems
- * 
+ *
  * @version $Rev$
  */
 public class InactiveSystemsRenderer extends BaseFragmentRenderer {
@@ -39,7 +39,7 @@ public class InactiveSystemsRenderer extends BaseFragmentRenderer {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     protected void render(User user, PageControl pc, HttpServletRequest request) {
         LocalizationService ls = LocalizationService.getInstance();
         DataResult isdr = SystemManager.inactiveListSortbyCheckinTime(user, pc);
@@ -68,10 +68,10 @@ public class InactiveSystemsRenderer extends BaseFragmentRenderer {
 
                 so.setLastCheckinString(buffer.toString());
             }
-            request.setAttribute(INACTIVE_SYSTEM_LIST, isdr);            
+            request.setAttribute(INACTIVE_SYSTEM_LIST, isdr);
         }
         else {
-            inactiveSystemCSSTable = RendererHelper.makeEmptyTable(true, 
+            inactiveSystemCSSTable = RendererHelper.makeEmptyTable(true,
                                                        "inactivelist.jsp.header",
                                                        "yourrhn.jsp.noinactivesystems");
             request.setAttribute(INACTIVE_SYSTEMS_EMPTY, inactiveSystemCSSTable);
@@ -79,10 +79,10 @@ public class InactiveSystemsRenderer extends BaseFragmentRenderer {
         RendererHelper.setTableStyle(request, INACTIVE_SYSTEMS_CLASS);
 
     }
-    
+
     /**
      * {@inheritDoc}
-     */    
+     */
     protected String getPageUrl() {
         return "/WEB-INF/pages/common/fragments/yourrhn/inactiveSystems.jsp";
     }

@@ -19,7 +19,7 @@
     <bean:message key="failedactions.jsp.summary"/>
     </p>
   </div>
-  
+
 	<br/>
 
 

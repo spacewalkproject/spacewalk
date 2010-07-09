@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LookupExceptionHandler extends ExceptionHandler {
 
     private LookupException exception;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -43,8 +43,8 @@ public class LookupExceptionHandler extends ExceptionHandler {
         log.error("Hibernate LookupException", ex);
         exception = (LookupException) ex;
     }
-    
-    protected void storeException(HttpServletRequest request, String property, 
+
+    protected void storeException(HttpServletRequest request, String property,
                                   ActionMessage msg, ActionForward forward, String scope) {
         TraceBackEvent evt = new TraceBackEvent();
         RequestContext requestContext = new RequestContext(request);
@@ -53,8 +53,8 @@ public class LookupExceptionHandler extends ExceptionHandler {
         evt.setRequest(request);
         evt.setException(exception);
         MessageQueue.publish(evt);
-        
+
         request.setAttribute("error", exception);
     }
-    
+
 }

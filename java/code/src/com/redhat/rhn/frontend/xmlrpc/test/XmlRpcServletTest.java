@@ -33,15 +33,15 @@ import javax.servlet.http.HttpServletResponse;
 
 public class XmlRpcServletTest extends MockObjectTestCase {
 
-    public void doTest(String request, String expectedResponse) 
+    public void doTest(String request, String expectedResponse)
         throws Exception {
 
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
-        
+
         MockServletInputStream input = new MockServletInputStream();
         input.setupRead(request.getBytes());
-        
+
         Mock mockreq = this.mock(HttpServletRequest.class);
         mockreq.expects(atLeastOnce()).method("getHeader")
                .with(eq("SOAPAction")).will(returnValue(null));
@@ -54,7 +54,7 @@ public class XmlRpcServletTest extends MockObjectTestCase {
                 .will(returnValue("foo.devel.redhat.com"));
         mockreq.expects(atLeastOnce()).method("getProtocol")
                     .will(returnValue("http"));
-        
+
         Mock mockresp = this.mock(HttpServletResponse.class);
         mockresp.expects(atLeastOnce()).method("getWriter")
                 .will(returnValue(pw));
@@ -108,7 +108,7 @@ public class XmlRpcServletTest extends MockObjectTestCase {
                "<param><value><i4>" + param1 + "</i4></value></param>" +
                "</params>" +
                "</methodCall>",
-                
+
                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                "<methodResponse><fault><value><struct><member><name>" +
                "faultCode</name><value><int>-1</int></value></member>" +
@@ -129,9 +129,9 @@ public class XmlRpcServletTest extends MockObjectTestCase {
                "<param><value><i4>" + param2 + "</i4></value></param>" +
                "</params>" +
                "</methodCall>",
-                
+
                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-               "<methodResponse><params><param><value><i4>" + 
+               "<methodResponse><params><param><value><i4>" +
                (param1 + param2) + "</i4>" +
                "</value></param></params>" +
                "</methodResponse>");
@@ -141,7 +141,7 @@ public class XmlRpcServletTest extends MockObjectTestCase {
         doTest("<?xml version=\"1.0\"?> <methodCall> " +
                "<methodName>unittest.throwFault</methodName> <params> " +
                "</params> </methodCall>",
-                
+
                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                "<methodResponse><fault><value><struct><member><name>" +
                "faultCode</name><value><int>1</int></value></member>" +
@@ -159,14 +159,14 @@ public class XmlRpcServletTest extends MockObjectTestCase {
                "<param><value><i4>" + user.getId() + "</i4></value></param>" +
                "</params>" +
                "</methodCall>",
-                
+
                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                "<methodResponse><params><param><value><string>" +
                user.getLogin() +
                "</string></value></param></params>" +
                "</methodResponse>");
     }
-    
+
     public void testCtor() {
         // this test makes sure we always have a default ctor
         XmlRpcServlet xrs = new XmlRpcServlet();

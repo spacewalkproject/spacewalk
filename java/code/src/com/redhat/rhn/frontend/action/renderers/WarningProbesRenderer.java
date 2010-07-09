@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Renders YourRhn fragment for warning probes
- * 
+ *
  * @version $Rev$
  */
 public class WarningProbesRenderer extends  BaseFragmentRenderer {
@@ -53,7 +53,7 @@ public class WarningProbesRenderer extends  BaseFragmentRenderer {
         }
 
         if (mwdr.isEmpty()) {
-            warningProbesCSSTable = RendererHelper.makeEmptyTable(true, 
+            warningProbesCSSTable = RendererHelper.makeEmptyTable(true,
                     "yourrhn.jsp.warningprobes",
                     "yourrhn.jsp.nowarningprobes");
         }

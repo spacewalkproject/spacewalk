@@ -24,7 +24,7 @@ import com.redhat.rhn.manager.errata.ErrataManager;
  * @version $Rev: 94458 $
  */
 public class UnpublishedDeleteConfirmSetupAction extends BaseErrataListSetupAction {
-    
+
     /**
      * {@inheritDoc}
      */

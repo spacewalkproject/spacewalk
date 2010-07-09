@@ -38,7 +38,7 @@ import java.sql.Timestamp;
  * @version $Rev: 55327 $
  */
 public class FilterListSetupActionTest extends RhnBaseTestCase {
-    
+
     public void testActiveExecute() throws Exception {
         executeAction(new ActiveFilterListSetupAction(), false);
     }
@@ -46,25 +46,25 @@ public class FilterListSetupActionTest extends RhnBaseTestCase {
     public void testExpiredExecute() throws Exception {
         executeAction(new ExpiredFilterListSetupAction(), true);
     }
-    
+
     public void executeAction(Action action, boolean expire) throws Exception {
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action);
 
         // Use the User created by the Helper
         User user = sah.getUser();
-        Filter f = FilterTest.createTestFilter(user, "listTest" + 
+        Filter f = FilterTest.createTestFilter(user, "listTest" +
                 TestUtils.randomString());
         if (expire) {
             // Set the start/expire to be now minus some substantial time in the past.
-            // Test was previously set to just 6 seconds in the past but would 
+            // Test was previously set to just 6 seconds in the past but would
             // fail in some cases is the system running the test was out of sync with the
             // database server. (items not showing up as expired)
             f.setStartDate(new Timestamp(System.currentTimeMillis() - 700000000));
             f.setExpiration(new Timestamp(System.currentTimeMillis() - 600000000));
             NotificationFactory.saveFilter(f, user);
             reload(f);
-        } 
+        }
         else {
             // Set the start/expire to be now plus a while in the future
             f.setStartDate(new Timestamp(System.currentTimeMillis()));
@@ -78,17 +78,17 @@ public class FilterListSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("newset", (String)null);
         sah.getRequest().setupAddParameter("returnvisit", (String) null);
         sah.executeAction();
-        
+
         RhnMockHttpServletRequest request = sah.getRequest();
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         user = requestContext.getLoggedInUser();
         RhnSet set = (RhnSet) request.getAttribute("set");
-        
+
         DataResult dr = (DataResult) request.getAttribute("pageList");
         assertNotNull(dr);
-        
+
         assertTrue(dr.size() > 0);
         assertNotNull(set);
         assertEquals(RhnSetDecl.FILTER_EXPIRE.getLabel(), set.getLabel());

@@ -25,7 +25,7 @@ import javax.servlet.ServletOutputStream;
 public class JMockTestUtils extends MockObjectTestCase {
 
     /**
-     * Add the proper params to the mock request to work with unit tests that 
+     * Add the proper params to the mock request to work with unit tests that
      * excercise CSV export functionality
      * @param mresp mock response
      * @param out ServletOutputStream to write output to
@@ -43,14 +43,14 @@ public class JMockTestUtils extends MockObjectTestCase {
     }
 
     /**
-     * Add the proper params to the mock request to work with unit tests that 
+     * Add the proper params to the mock request to work with unit tests that
      * excercise CSV export functionality
      * @param mresp mock response
      * @param out ServletOutputStream to write output to
      */
-    public static void setupExportParameters(org.jmock.Mock mresp, 
+    public static void setupExportParameters(org.jmock.Mock mresp,
             ServletOutputStream out) {
         new JMockTestUtils().addExportParameters(mresp, out);
     }
-    
+
 }

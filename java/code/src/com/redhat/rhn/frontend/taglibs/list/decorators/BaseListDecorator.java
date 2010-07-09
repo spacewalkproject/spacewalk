@@ -22,17 +22,17 @@ import javax.servlet.jsp.PageContext;
 
 /**
  * General-use base class for writing decorators
- * 
+ *
  * @version $Rev $
  */
 public abstract class BaseListDecorator implements ListDecorator {
-    
+
     protected PageContext pageContext;
     protected ListSetTag parent;
     protected String listName;
     protected int columnCount;
     protected ListTag currentList;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -41,29 +41,29 @@ public abstract class BaseListDecorator implements ListDecorator {
         parent = parentIn;
         listName = name;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void addColumn() {
         columnCount++;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void setCurrentList(ListTag current) {
         currentList = current;
     }
-    
+
     /**
-     * 
+     *
      * @return the associated list tag.
      */
     protected ListTag getCurrentList() {
         return currentList;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -73,10 +73,10 @@ public abstract class BaseListDecorator implements ListDecorator {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public void afterBottomPagination() throws JspException {
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -90,13 +90,13 @@ public abstract class BaseListDecorator implements ListDecorator {
     public void beforeList() throws JspException {
 
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void beforeTopPagination() throws JspException {
-        
+
     }
-    
+
 }

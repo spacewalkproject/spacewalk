@@ -28,18 +28,18 @@ import java.util.List;
  * @version $Rev$
  */
 public class SoftwareEntitlementsActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
         TestUtils.saveAndFlush(user);
         ServerFactoryTest.createTestServer(user);
-        
+
         setRequestPathInfo("/admin/multiorg/SoftwareEntitlements");
         actionPerform();
         List<SoftwareEntitlementDto> entitlements = (List<SoftwareEntitlementDto>)
             request.getAttribute(ListHelper.DATA_SET);
-        assertNotNull(entitlements);        
+        assertNotNull(entitlements);
     }
 }
 

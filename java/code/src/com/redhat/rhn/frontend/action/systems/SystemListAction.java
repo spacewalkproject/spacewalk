@@ -28,8 +28,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SystemListAction extends BaseSystemListAction {
 
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         return SystemManager.systemList(user, null);
     }

@@ -23,7 +23,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class HistoryEvent extends BaseDto {
-    
+
     private Long id;
     private Date created;
     private Date pickedUp;
@@ -41,7 +41,7 @@ public class HistoryEvent extends BaseDto {
     public String getDetails() {
         return details;
     }
-    
+
     /**
      * sets details of the event
      * @param detailsIn event details to set
@@ -61,8 +61,8 @@ public class HistoryEvent extends BaseDto {
     public void setCompleted(Date completedIn) {
         this.completed = completedIn;
     }
-    
-    
+
+
     /**
      * sets the completed date based on a string format dateFormat
      * @param completedIn the date in a string format
@@ -70,17 +70,17 @@ public class HistoryEvent extends BaseDto {
     public void setCompleted(String completedIn) {
         String dateFormat = "yyyy-MM-dd kk:mm:ss";
         SimpleDateFormat format = new SimpleDateFormat(dateFormat);
-        
+
         try {
             this.completed = format.parse(completedIn);
         }
        catch (ParseException e) {
-            System.out.println("Cannot parse " + completedIn + 
+            System.out.println("Cannot parse " + completedIn +
                     " according to format " + dateFormat);
             e.printStackTrace();
-       }        
+       }
     }
-    
+
     /**
      * @return Returns the created.
      */

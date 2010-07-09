@@ -32,10 +32,10 @@ public class SystemEntitlementOrgsFilter extends BaseListFilter {
      */
     @Override
     public void processMap(Map map, Locale userLocale) {
-        LocalizationService ls = 
+        LocalizationService ls =
             LocalizationService.getInstance();
-        String filterBy = ls.getMessage("entitlementorgs.filterBy", 
-                userLocale);        
+        String filterBy = ls.getMessage("entitlementorgs.filterBy",
+                userLocale);
         map.put(filterBy, "name");
     }
 

@@ -34,7 +34,7 @@ import java.util.Map;
 
 import redstone.xmlrpc.XmlRpcClient;
 import redstone.xmlrpc.XmlRpcFault;
-      
+
 /**
  * PackageSearchHelper
  * @version $Rev$
@@ -49,7 +49,7 @@ public class PackageSearchHelper {
 
     private PackageSearchHelper() {
     }
-    
+
     /**
      * Will form a search request and send message to search server
      *
@@ -70,7 +70,7 @@ public class PackageSearchHelper {
 
     /**
      * Will form a search request and send message to search server
-     * 
+     *
      * @param sessionId session id
      * @param searchString search string
      * @param mode mode as in name only, name description, name and summary, free form
@@ -123,7 +123,7 @@ public class PackageSearchHelper {
         // need to make the search server results usable by database
         // so we can get the actual results we are to display to the user.
         // also save the items into a Map for lookup later.
-        
+
         List<Long> pids = new ArrayList<Long>();
         Map<String, Integer> lookupmap = new HashMap<String, Integer>();
         // do it in reverse because the search server can return more than one
@@ -138,7 +138,7 @@ public class PackageSearchHelper {
             Long pid = new Long((String)item.get("id"));
             pids.add(pid);
         }
-        
+
         // The database does not maintain the order of the where clause.
         // In order to maintain the ranking from the search server, we
         // need to reorder the database results to match. This will lead
@@ -151,7 +151,7 @@ public class PackageSearchHelper {
         List<PackageOverview> unsorted =
             ChannelManager.packageSearch(pids, arList, relevantFlag);
         List<PackageOverview> ordered = new LinkedList<PackageOverview>();
-        
+
         // we need to use the package names to determine the mapping order
         // because the id in PackageOverview is that of a PackageName while
         // the id from the search server is the Package id.
@@ -181,7 +181,7 @@ public class PackageSearchHelper {
                     break;
                 }
             }
-            
+
             if (!added) {
                 ordered.add(po);
             }
@@ -189,7 +189,7 @@ public class PackageSearchHelper {
 
         return ordered;
     }
-    
+
     private static String preprocessSearchString(String searchstring,
                                           String mode,
                                           List<String> arches) {
@@ -197,7 +197,7 @@ public class PackageSearchHelper {
         if (!OPT_FREE_FORM.equals(mode) && searchstring.indexOf(':') > 0) {
             throw new ValidatorException("Can't use free form and field search.");
         }
-        
+
         StringBuffer buf = new StringBuffer(searchstring.length());
         String[] tokens = searchstring.split(" ");
         for (String s : tokens) {
@@ -209,7 +209,7 @@ public class PackageSearchHelper {
             buf.append(s);
             buf.append(" ");
         }
-        
+
         // if we're passing in arches let's add them to the query
         StringBuffer archBuf = new StringBuffer();
         if (arches != null && !arches.isEmpty()) {

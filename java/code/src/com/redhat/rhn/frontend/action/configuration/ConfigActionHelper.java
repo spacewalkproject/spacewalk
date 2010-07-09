@@ -34,30 +34,30 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public abstract class ConfigActionHelper {
-    
+
 
     // REQUIRED for all cfg-mgt pages
     public static final String REVISION_ID  = "crid";
     public static final String FILE_ID      = "cfid";
     public static final String CHANNEL_ID   = "ccid";
-    
+
     public static final String FILE         = "file";
     public static final String REVISION     = "revision";
     public static final String CHANNEL      = "channel";
-    
+
     private static final int NONE = 0;
     private static final int SINGULAR = 1;
-    private static final int PLURAL = 2;    
+    private static final int PLURAL = 2;
 
     /**
      * Utility classes can't be instantiated.
      */
     private ConfigActionHelper() {
     }
-    
+
     /**
      * Adds the config revision, config file, and config channel as request attributes
-     * using the identifiers of the request parameters. 
+     * using the identifiers of the request parameters.
      * @param rctxIn The request context which has the request.
      */
     public static void processRequestAttributes(RequestContext rctxIn) {
@@ -69,20 +69,20 @@ public abstract class ConfigActionHelper {
 
     /**
      * Adds the config revision, config file, and config channel as request attributes
-     * when we already know the file and rev 
+     * when we already know the file and rev
      * @param rctxIn The request context which has the request.
      * @param file known config-file
      * @param cr known revision (null if there isn't one)
      */
-    public static void setupRequestAttributes(RequestContext rctxIn, ConfigFile file, 
+    public static void setupRequestAttributes(RequestContext rctxIn, ConfigFile file,
             ConfigRevision cr) {
         HttpServletRequest req = rctxIn.getRequest();
-        
+
         setupRequestAttributes(rctxIn, file.getConfigChannel());
-        
+
         req.setAttribute(FILE_ID, file.getId());
         req.setAttribute(FILE, file);
-        
+
         // Sometimes (like, say, when you've just deleted the revision) you may
         // not want to set the revision-info
         if (cr != null) {
@@ -90,7 +90,7 @@ public abstract class ConfigActionHelper {
             req.setAttribute(REVISION, cr);
         }
     }
-    
+
     /**
      * Adds the config channel info as request attributes
      * when we know the channel
@@ -100,14 +100,14 @@ public abstract class ConfigActionHelper {
      */
     public static void setupRequestAttributes(RequestContext ctx, ConfigChannel channel) {
         HttpServletRequest req = ctx.getRequest();
-        
+
         req.setAttribute(CHANNEL_ID, channel.getId());
         req.setAttribute(CHANNEL, channel);
     }
-    
+
     /**
      * Adds the config channel info to the given map
-     * using the identifiers of the request parameters. 
+     * using the identifiers of the request parameters.
      * @param cc ConfigChannel of interest
      * @param params The map in which findings should be stored.
      */
@@ -117,7 +117,7 @@ public abstract class ConfigActionHelper {
 
     /**
      * Adds the config revision, config file, and config channel to the given map
-     * using the identifiers of the request parameters. 
+     * using the identifiers of the request parameters.
      * @param request The HttServletRequest to get identifiers from
      * @param params The map to which findings should be stored.
      */
@@ -127,14 +127,14 @@ public abstract class ConfigActionHelper {
 
         params.put(FILE_ID, file.getId());
         params.put(REVISION_ID, cr.getId());
-        
+
         ConfigActionHelper.processParamMap(file.getConfigChannel(), params);
     }
-    
+
     /**
      * Finds the config channel with the identifier corresponding with the value
      * of the request parameter with the given name.
-     * @param request The request to look in for the id (if we're creating a new channel, 
+     * @param request The request to look in for the id (if we're creating a new channel,
      * it might be null)
      * @param param The name of the id request parameter.
      * @return The sought config channel.
@@ -145,11 +145,11 @@ public abstract class ConfigActionHelper {
         if (ccid == null) {
             return null;
         }
-        
+
         User user = requestContext.getLoggedInUser();
         return ConfigurationManager.getInstance().lookupConfigChannel(user, ccid);
     }
-    
+
     /**
      * Finds the config channel with the identifier corresponding with the value
      * of the ccid request parameter.
@@ -159,7 +159,7 @@ public abstract class ConfigActionHelper {
     public static ConfigChannel getChannel(HttpServletRequest request) {
         return getChannel(request, CHANNEL_ID);
     }
-    
+
     /**
      * Finds the config file from the cfid request parameter.
      * @param request The HttpServletRequest with a cfid
@@ -184,17 +184,17 @@ public abstract class ConfigActionHelper {
             }
         }
     }
-    
+
     /**
      * Tries to find the revision using a request parameter.  Defaults to the newest
      * revision of the given file if it is not found.
-     * @param request The HttpServletRequest which has a crid parameter 
+     * @param request The HttpServletRequest which has a crid parameter
      * @param file The file this revision should belong to.
      * @return The found revision
      */
     public static ConfigRevision getRevision(HttpServletRequest request, ConfigFile file) {
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         Long crid = requestContext.getParamAsLong(REVISION_ID);
         if (crid != null) {
@@ -204,19 +204,19 @@ public abstract class ConfigActionHelper {
             return file.getLatestConfigRevision();
         }
     }
-    
+
     /**
-     * Find the requested REVISION.  We have a revision-id as "crid" - but sometimes, we 
+     * Find the requested REVISION.  We have a revision-id as "crid" - but sometimes, we
      * only have a file-id as "cfid".  If the latter, find the ConfigFile's latest revision.
      * @param req incoming request
      * @return a ConfigRevision, or NULL if we couldn't find one
      */
     public static ConfigRevision findRevision(HttpServletRequest req) {
         RequestContext requestContext = new RequestContext(req);
-        
+
         User user = requestContext.getLoggedInUser();
         Long crid = requestContext.getParamAsLong(REVISION_ID);
-        
+
         ConfigRevision cr = null;
 
         if (crid != null) {
@@ -227,10 +227,10 @@ public abstract class ConfigActionHelper {
             if (cf != null) {
                 cr = cf.getLatestConfigRevision();
             }
-        }        
+        }
         return cr;
     }
-    
+
     /**
      * Clears all of the configuration management sets.
      * @param user The user for which to clear the sets.
@@ -256,7 +256,7 @@ public abstract class ConfigActionHelper {
      * No files or directories or symlinks
      * Very standard i18nized counts messages
      * used in various places in config management.
-     * @param count the ConfigFileCount object, 
+     * @param count the ConfigFileCount object,
      *          that stores info on the number of files and directories
      * @param url the url to wrap the messages if so desired
      * @return the properly formatted File & Directories helper messages ..
@@ -265,7 +265,7 @@ public abstract class ConfigActionHelper {
                                                String url) {
         return makeFileCountsMessage(count, url, false);
     }
-    
+
     /**
      * Makes messages that look like
      * 1 file and 5 directories and 0 symlinks
@@ -343,9 +343,9 @@ public abstract class ConfigActionHelper {
         if (i > 1) {
             return PLURAL;
         }
-        
+
         return NONE;
-    }    
+    }
 
     /**
      * Makes messages that look like
@@ -370,7 +370,7 @@ public abstract class ConfigActionHelper {
         else {
             message = service.getMessage(key);
         }
-        
+
         if (suffix != NONE && url != null && !"".equals(url)) {
             HtmlTag a = new HtmlTag("a");
             a.setAttribute("href", url);

@@ -240,8 +240,8 @@ public class PackagesSearchHandler extends BaseHandler {
      *
      * @xmlrpc.doc Advanced method to search lucene indexes with a passed in query written
      * in Lucene Query Parser syntax, additionally this method will limit results to those
-     * which are associated with a given activation key.<br/>  
-     * Lucene Query Parser syntax is defined 
+     * which are associated with a given activation key.<br/>
+     * Lucene Query Parser syntax is defined
      * <a href="http://lucene.apache.org/java/2_3_2/queryparsersyntax.html"> here</a>.<br/>
      * Fields searchable for Packages:
      * name, epoch, version, release, arch, description, summary<br/>

@@ -39,7 +39,7 @@ public abstract class BaseTag {
     protected BaseTag(String tagIn) {
         this(tagIn, true);
     }
-    
+
     protected BaseTag(String tagIn, boolean spaceBefore) {
         attribs = new LinkedHashMap<String, String>();
         tag = tagIn;
@@ -56,7 +56,7 @@ public abstract class BaseTag {
         attribs.put(name, value);
 
     }
-    
+
     /**
      * Removes an attribute of the html tag.
      * @param name the attribute name to be removed.
@@ -72,7 +72,7 @@ public abstract class BaseTag {
     public void addBody(String bodyIn) {
         body.add(bodyIn);
     }
-    
+
     /**
      * Adds the given tag to the body of this tag.
      * @param bodyTag Tag to be added to the body of this tag.
@@ -128,14 +128,14 @@ public abstract class BaseTag {
      */
     public String renderBody() {
         StringBuilder buf = new StringBuilder();
-        
+
         for (Iterator itr = body.iterator(); itr.hasNext();) {
             buf.append(convertToString(itr.next()));
         }
 
         return buf.toString();
     }
-    
+
     private String convertToString(Object o) {
         if (o instanceof BaseTag) {
             return ((BaseTag)o).render();

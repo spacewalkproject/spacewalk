@@ -50,7 +50,7 @@ import java.util.TreeSet;
 /**
  * Localization service class to simplify the job for producing localized
  * (translated) strings within the product.
- * 
+ *
  * @version $Rev$
  */
 public class LocalizationService {
@@ -124,7 +124,7 @@ public class LocalizationService {
             }
         }
         catch (ClassNotFoundException ce) {
-            String message = "Class not found when trying to initalize " + 
+            String message = "Class not found when trying to initalize " +
                                 "the LocalizationService: " + ce.toString();
             log.error(message, ce);
             throw new LocalizationException(message, ce);
@@ -160,7 +160,7 @@ public class LocalizationService {
 
     /**
      * Get the running instance of the LocalizationService
-     * 
+     *
      * @return The LocalizationService singleton
      */
     public static LocalizationService getInstance() {
@@ -214,7 +214,7 @@ public class LocalizationService {
         Context ctx = Context.getCurrentContext();
         return getMessage(messageId, ctx.getLocale(), args);
     }
-    
+
     /**
      * Gets a  Plain Text + localized version of a string with the default locale.
      * @param messageId The key of the message we are fetching
@@ -226,7 +226,7 @@ public class LocalizationService {
         String unescaped = StringEscapeUtils.unescapeHtml(msg);
         return StringUtil.toPlainText(unescaped);
     }
-    
+
     /**
      * Gets a  Plain Text + localized version of a string with the default locale.
      * @param messageId The key of the message we are fetching
@@ -234,7 +234,7 @@ public class LocalizationService {
      */
     public String getPlainText(String messageId) {
         return getPlainText(messageId, (Object[])null);
-    }    
+    }
     /**
      * Take in a String array of keys and transform it into a String array of
      * localized Strings.
@@ -257,7 +257,7 @@ public class LocalizationService {
      * @return Translated String
      */
     public String getMessage(String messageId, Locale locale, Object... args) {
-        log.debug("getMessage() called with messageId: " + messageId + 
+        log.debug("getMessage() called with messageId: " + messageId +
                 " and locale: " + locale);
         // Short-circuit the rest of the method if the messageId is null
         // See bz 199892
@@ -266,7 +266,7 @@ public class LocalizationService {
         }
         String userLocale = locale == null ? "null" : locale.toString();
         if (msgLogger.isDebugEnabled()) {
-            msgLogger.debug("Resolving message \"" + messageId + 
+            msgLogger.debug("Resolving message \"" + messageId +
                     "\" for locale " + userLocale);
         }
         String mess = null;
@@ -386,7 +386,7 @@ public class LocalizationService {
     /**
      * Format the date as a short date depending on locale (YYYY-MM-DD in the
      * US)
-     * 
+     *
      * @param date Date to be formatted
      * @param locale Locale to use for formatting
      * @return String representation of given date.
@@ -412,9 +412,9 @@ public class LocalizationService {
     /**
      * Format the date based on the locale and convert it to a String to
      * display. Uses DateFormat.SHORT. Example: 2004-12-10 13:20:00 PST
-     * 
+     *
      * Also includes the timezone of the current User if there is one
-     * 
+     *
      * @param date Date to format.
      * @param locale Locale to use for formatting.
      * @return String representation of given date in given locale.
@@ -539,7 +539,7 @@ public class LocalizationService {
      * Get a SortedMap containing NAME/CODE value pairs. The reason we key the
      * Map based on the NAME is that we desire to maintain a localized sort
      * order based on the display value and not the code.
-     * 
+     *
      * <pre>
      *     {name=Spain,     code=ES}
      *     {name=Sri Lanka, code=LK}
@@ -547,7 +547,7 @@ public class LocalizationService {
      *     {name=Suriname,  code=SR, }
      *     etc ...
      * </pre>
-     * 
+     *
      * @return SortedMap sorted map of available countries.
      */
     public SortedMap availableCountries() {
@@ -617,7 +617,7 @@ public class LocalizationService {
     /**
      * Determine the Timezone from the Context. Uses TimeZone.getDefault() if
      * there isn't one.
-     * 
+     *
      * @return TimeZone from the Context
      */
     private TimeZone determineTimeZone() {
@@ -638,21 +638,21 @@ public class LocalizationService {
         return retval;
 
     }
-    
+
     /**
      * Returns a NEW instance of the collator/string comparator
-     * based on the current locale.. 
+     * based on the current locale..
      * Look at the javadoc for COllator to see what it does...
-     * (basically an i18n aware string comparator) 
+     * (basically an i18n aware string comparator)
      * @return neww instance of the collator
      */
     public Collator newCollator() {
         Context context = Context.getCurrentContext();
         if (context != null && context.getLocale() != null) {
-            return Collator.getInstance(context.getLocale());   
+            return Collator.getInstance(context.getLocale());
         }
         else {
-            return Collator.getInstance();    
+            return Collator.getInstance();
         }
     }
 }

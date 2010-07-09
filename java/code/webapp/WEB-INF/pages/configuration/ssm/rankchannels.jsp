@@ -11,7 +11,7 @@
 </head>
 <body>
     <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
-    
+
 <h2>
   <img src="/img/rhn-config_channels.gif" alt='<bean:message key="config.common.channelsAlt" />' />
   <bean:message key="ssm.config.rank.jsp.header" />
@@ -25,10 +25,10 @@
 		<p><bean:message key="common.config.rank.jsp.warning.noscript"/></p>
 	</noscript>  				
 </div>
-<html:form method="POST" 
-               action="/systems/ssm/config/Rank.do" 
+<html:form method="POST"
+               action="/systems/ssm/config/Rank.do"
                styleId="ranksForm">
-		<h2><bean:message key="sdc.config.rank.jsp.subscribed_channels"/></h2>               
+		<h2><bean:message key="sdc.config.rank.jsp.subscribed_channels"/></h2>
 		<table style="width:60%;">
 			<tr>
 			<%@ include file="/WEB-INF/pages/common/fragments/configuration/rankchannels.jspf" %>
@@ -54,9 +54,9 @@
 	<div align="right">
       <hr />
       <html:hidden property="dispatch" value="${rhn:localize('ssm.config.rank.jsp.apply')}"/>
-      <input type=submit name="dispatcher" 
+      <input type=submit name="dispatcher"
 			value="${rhn:localize('ssm.config.rank.jsp.apply')}"
-                   onclick="handle_config_channels_dispatch('ranksWidget','rankedValues','ranksForm');"/>      
+                   onclick="handle_config_channels_dispatch('ranksWidget','rankedValues','ranksForm');"/>
     </div>
 	</html:form>
 </body>

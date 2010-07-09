@@ -32,9 +32,9 @@ import org.apache.struts.action.DynaActionForm;
  * @version $Rev: 1 $
  */
 public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
-    
+
     private Server server;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -48,16 +48,16 @@ public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
         child2.setOrg(null);
         child2.getChannelFamily().addVirtSubscriptionLevel(
                 CommonConstants.getVirtSubscriptionLevelPlatformFree());
-        
+
         TestUtils.saveAndFlush(child1);
         TestUtils.saveAndFlush(child2);
-        
+
         server.addChannel(child2);
         TestUtils.saveAndFlush(server);
-        
+
         // Org Owned channel
         ChannelTestUtils.createTestChannel(user);
-        
+
         addRequestParameter(RequestContext.SID, server.getId().toString());
         setRequestPathInfo("/systems/details/SystemChannels");
 
@@ -65,49 +65,49 @@ public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
 
 
     public void testExecute() throws Exception {
-        
+
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.SYSTEM));
         DynaActionForm form = (DynaActionForm) getActionForm();
         assertNotNull(request.getAttribute(SystemChannelsAction.AVAIL_CHILD_CHANNELS));
-        
-        ChildChannelDto[] children = (ChildChannelDto[]) 
+
+        ChildChannelDto[] children = (ChildChannelDto[])
             request.getAttribute(SystemChannelsAction.AVAIL_CHILD_CHANNELS);
-        
+
         assertEquals(2, children.length);
-        
+
         boolean found = false;
         for (int i = 0; i < children.length; i++) {
-            if (children[i].getSubscribed()) { 
+            if (children[i].getSubscribed()) {
                 found = true;
             }
         }
         assertTrue("Enabled child not found.", found);
-               
+
         assertNotNull(request.getAttribute(SystemChannelsAction.BASE_CHANNELS));
         assertNotNull(request.getAttribute(SystemChannelsAction.CUSTOM_BASE_CHANNELS));
         assertNotNull(form.get(SystemChannelsAction.NEW_BASE_CHANNEL_ID));
-        
+
     }
-    
+
     /*
      * TODO: I'm not certain what we're trying to accomplish here.  HOWEVER - you
      * can't make another ChannelFamily have the label SATELLITE_CHANNEL_FAMILY_LABEL;
      * labels must be unique, and that one's in use.
-     * 
+     *
      * Commenting this test out until we can correct it.
      */
 //    public void testProxySatChannels() throws Exception {
-//        Channel child3 = ChannelTestUtils.createChildChannel(user, 
+//        Channel child3 = ChannelTestUtils.createChildChannel(user,
 //                server.getBaseChannel());
 //        child3.getChannelFamily().setLabel(ChannelFamilyFactory
 //                       .SATELLITE_CHANNEL_FAMILY_LABEL);
 //        TestUtils.saveAndFlush(child3);
 //        actionPerform();
-//        ChildChannelDto[] children = 
-//            (ChildChannelDto[]) 
+//        ChildChannelDto[] children =
+//            (ChildChannelDto[])
 //                request.getAttribute(SystemChannelsAction.AVAIL_CHILD_CHANNELS);
-//        
+//
 //        boolean found = false;
 //        for (int i = 0; i < children.length; i++) {
 //            if (!children[i].getSubscribable()) {
@@ -115,13 +115,13 @@ public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
 //            }
 //        }
 //        assertTrue("We didnt find the unsubscribeable sat channel", found);
-//        
+//
 //    }
-    
+
     public void testConfirmUpdateBaseChannel() throws Exception {
         addDispatchCall("sdc.channels.edit.confirm_update_base");
         Channel newBase = ChannelTestUtils.createBaseChannel(user);
-        addRequestParameter(SystemChannelsAction.NEW_BASE_CHANNEL_ID, 
+        addRequestParameter(SystemChannelsAction.NEW_BASE_CHANNEL_ID,
                 newBase.getId().toString());
         actionPerform();
         assertNotNull(request.getAttribute(
@@ -131,11 +131,11 @@ public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getAttribute(SystemChannelsAction.CURRENT_BASE_CHANNEL));
         assertNotNull(request.getAttribute(SystemChannelsAction.NEW_BASE_CHANNEL));
     }
-    
+
     public void testUpdateBaseChannel() throws Exception {
         addDispatchCall("sdc.channels.confirmNewBase.modifyBaseSoftwareChannel");
         Channel newBase = ChannelTestUtils.createBaseChannel(user);
-        addRequestParameter(SystemChannelsAction.NEW_BASE_CHANNEL_ID, 
+        addRequestParameter(SystemChannelsAction.NEW_BASE_CHANNEL_ID,
                 newBase.getId().toString());
         actionPerform();
         server = (Server) TestUtils.reload(server);
@@ -143,7 +143,7 @@ public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
         verifyActionMessage("sdc.channels.edit.base_channel_updated");
 
     }
-    
+
     public void testUpdateNoBaseChannel() throws Exception {
         addDispatchCall("sdc.channels.confirmNewBase.modifyBaseSoftwareChannel");
         addRequestParameter(SystemChannelsAction.NEW_BASE_CHANNEL_ID, "-1");
@@ -153,14 +153,14 @@ public class SystemChannelsActionTest extends RhnMockStrutsTestCase {
         verifyActionMessage("sdc.channels.edit.base_channel_updated");
 
     }
-    
+
     public void testUpdateChildChannels() throws Exception {
         addDispatchCall("sdc.channels.edit.update_sub");
-        
+
         Channel child1 = ChannelTestUtils.createChildChannel(user, server.getBaseChannel());
         Channel child2 = ChannelTestUtils.createChildChannel(user, server.getBaseChannel());
         Channel child3 = ChannelTestUtils.createChildChannel(user, server.getBaseChannel());
-        
+
         String[] childchan = new String[2];
         childchan[0] = child1.getId().toString();
         childchan[1] = child2.getId().toString();

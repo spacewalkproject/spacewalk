@@ -23,7 +23,7 @@ import java.util.Map;
 public class VirtualizationSetVcpusAction extends BaseVirtualizationAction {
 
     public static final String SET_CPU_STRING = "setVcpu";
-    
+
     private Integer vcpu;
 
     /**

@@ -34,7 +34,7 @@ public class SolarisManager extends BaseManager {
      * @param sid Server
      * @param pc PageControl
      * @param mode DataSource mode name
-     * @return list of packages, patches or patch clusters 
+     * @return list of packages, patches or patch clusters
      */
     private static DataResult solarisPackageHelper(Long sid, PageControl pc, String mode) {
         SelectMode m = ModeFactory.getMode("Package_queries", mode);
@@ -98,7 +98,7 @@ public class SolarisManager extends BaseManager {
      * @param label list label
      * @param pc PageControl
      * @param user Logged in User
-     * @return list of packages, patches or patch clusters 
+     * @return list of packages, patches or patch clusters
      */
     public static DataResult patchesInSet(User user, PageControl pc, String label) {
         SelectMode m = ModeFactory.getMode("Package_queries", "patches_in_set");

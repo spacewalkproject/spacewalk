@@ -21,7 +21,7 @@ import java.util.Date;
  * $Rev$
  */
 public class TestImpl implements TestInterface {
-    
+
     private String testColumn;
     private String foobar;
     private String hidden;
@@ -29,7 +29,7 @@ public class TestImpl implements TestInterface {
     private Integer pin;
     private String noColumnField;
     private Date created;
-    
+
     public void setId(Long i) {
         id = i;
     }
@@ -45,7 +45,7 @@ public class TestImpl implements TestInterface {
     public Integer getPin() {
         return pin;
     }
-    
+
     public void setFoobar(String foo) {
         foobar = foo;
     }
@@ -58,7 +58,7 @@ public class TestImpl implements TestInterface {
         // Thread.dumpStack();
         hidden = hideIn;
     }
-    
+
     public String getHidden() {
         return hidden;
     }
@@ -74,7 +74,7 @@ public class TestImpl implements TestInterface {
     public void setNoColumnField(String foo) {
         this.noColumnField = foo;
     }
-    
+
     public String getNoColumnField() {
         return this.noColumnField;
     }

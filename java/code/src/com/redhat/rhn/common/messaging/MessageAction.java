@@ -16,12 +16,12 @@
 package com.redhat.rhn.common.messaging;
 
 /**
- * A interface representing a class that can act on a EventMessage 
+ * A interface representing a class that can act on a EventMessage
  *
  * @version $Rev$
  */
 public interface MessageAction {
-    
+
     /**
      * Perform the action on the EventMessage
      * @param msg EventMessage to execute.

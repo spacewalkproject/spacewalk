@@ -25,7 +25,7 @@
     </p>
   </div>
 
-<form method="post" 
+<form method="post"
 		name="rhn_list"
 		action="/rhn/systems/details/configuration/DiffFileSubmit.do?sid=${system.id}">
     <c:set var="button" value="sdcdifffile.jsp.confirm" />

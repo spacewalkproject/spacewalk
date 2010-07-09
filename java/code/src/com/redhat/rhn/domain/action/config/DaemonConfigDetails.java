@@ -20,7 +20,7 @@ import java.util.Date;
 
 /**
  * DamonConfigAction - Class representation of the table rhnActionDaemonConfig.
- * 
+ *
  * @version $Rev$
  */
 public class DaemonConfigDetails extends ActionChild {
@@ -43,64 +43,64 @@ public class DaemonConfigDetails extends ActionChild {
     public void setActionId(Long actionIdIn) {
         this.actionId = actionIdIn;
     }
-    /** 
-     * Getter for interval 
+    /**
+     * Getter for interval
      * @return Long to get
     */
     public Long getInterval() {
         return this.interval;
     }
 
-    /** 
-     * Setter for interval 
+    /**
+     * Setter for interval
      * @param intervalIn to set
     */
     public void setInterval(Long intervalIn) {
         this.interval = intervalIn;
     }
 
-    /** 
-     * Getter for restart 
+    /**
+     * Getter for restart
      * @return String to get
     */
     public String getRestart() {
         return this.restart;
     }
 
-    /** 
-     * Setter for restart 
+    /**
+     * Setter for restart
      * @param restartIn to set
     */
     public void setRestart(String restartIn) {
         this.restart = restartIn;
     }
 
-    /** 
-     * Getter for daemonConfigCreated 
+    /**
+     * Getter for daemonConfigCreated
      * @return Date to get
     */
     public Date getDaemonConfigCreated() {
         return this.daemonConfigCreated;
     }
 
-    /** 
-     * Setter for daemonConfigCreated 
+    /**
+     * Setter for daemonConfigCreated
      * @param daemonConfigCreatedIn to set
     */
     public void setDaemonConfigCreated(Date daemonConfigCreatedIn) {
         this.daemonConfigCreated = daemonConfigCreatedIn;
     }
 
-    /** 
-     * Getter for daemonConfigModified 
+    /**
+     * Getter for daemonConfigModified
      * @return Date to get
     */
     public Date getDaemonConfigModified() {
         return this.daemonConfigModified;
     }
 
-    /** 
-     * Setter for daemonConfigModified 
+    /**
+     * Setter for daemonConfigModified
      * @param daemonConfigModifiedIn to set
     */
     public void setDaemonConfigModified(Date daemonConfigModifiedIn) {

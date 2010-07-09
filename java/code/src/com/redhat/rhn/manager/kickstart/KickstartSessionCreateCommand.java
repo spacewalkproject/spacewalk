@@ -41,9 +41,9 @@ import java.util.List;
 public class KickstartSessionCreateCommand {
 
     private static Logger log = Logger.getLogger(KickstartSessionCreateCommand.class);
-    
+
     private KickstartSession ksession;
-    
+
     /**
      * Constructor
      * @param owner who creates the session
@@ -51,8 +51,8 @@ public class KickstartSessionCreateCommand {
      */
     public KickstartSessionCreateCommand(Org owner, KickstartData ksdata) {
         this(owner, ksdata, null);
-    }    
-    
+    }
+
     /**
      * Constructor
      * @param owner who creates the session
@@ -75,12 +75,12 @@ public class KickstartSessionCreateCommand {
         log.debug("serverProfile on ksdata: " + ksdata.getKickstartDefaults().getProfile());
         if (ksdata.getKickstartDefaults().getProfile() != null) {
             Profile p = ProfileManager.
-                lookupByIdAndOrg(ksdata.getKickstartDefaults().getProfile().getId(), 
+                lookupByIdAndOrg(ksdata.getKickstartDefaults().getProfile().getId(),
                     owner);
             log.debug("setting serverProfile on session: " + p.getId());
-            this.ksession.setServerProfile(p);    
+            this.ksession.setServerProfile(p);
         }
-        
+
         log.debug("Saving new KickstartSession: " + this.ksession.getId());
         KickstartFactory.saveKickstartSession(this.ksession);
         log.debug("Saved new KickstartSession: " + this.ksession.getId());
@@ -90,30 +90,30 @@ public class KickstartSessionCreateCommand {
         log.debug("Got random orgadmin: " + user.getLogin());
         String note = LocalizationService.getInstance().
             getMessage("kickstart.session.newtokennote", " ");
-       
-        Channel toolsChannel = KickstartScheduleCommand.getToolsChannel(ksdata, user, 
+
+        Channel toolsChannel = KickstartScheduleCommand.getToolsChannel(ksdata, user,
                 null);
         log.debug("creating one-time-activation key: " + user.getLogin());
-        ActivationKey key = KickstartScheduleCommand.createKickstartActivationKey(user, 
-                ksdata, null, 
+        ActivationKey key = KickstartScheduleCommand.createKickstartActivationKey(user,
+                ksdata, null,
                 this.ksession, toolsChannel, BooleanUtils.toBoolean(
                         ksdata.getKickstartDefaults().getCfgManagementFlag()), null, note);
         log.debug("added key: " + key.getKey());
-        
-        // Need to add child channels to the key so when kickstarting the 
+
+        // Need to add child channels to the key so when kickstarting the
         // system from bare metal we will have the proper child channel subscriptions.
         if (ksdata.getKickstartDefaults().getProfile() != null) {
             log.debug("Checking child channels for packages in profile.");
-            addChildChannelsForProfile(ksdata.getKickstartDefaults().getProfile(), 
+            addChildChannelsForProfile(ksdata.getKickstartDefaults().getProfile(),
                     ksdata.getChannel(), key);
         }
     }
-    
-    private void addChildChannelsForProfile(Profile profile, Channel baseChannel, 
+
+    private void addChildChannelsForProfile(Profile profile, Channel baseChannel,
             ActivationKey key) {
         log.debug("** addChildChannelsForProfile");
         User orgAdmin = UserFactory.findRandomOrgAdmin(this.ksession.getOrg());
-        List channels = ProfileManager.getChildChannelsNeededForProfile(orgAdmin, 
+        List channels = ProfileManager.getChildChannelsNeededForProfile(orgAdmin,
                 baseChannel, profile);
         Iterator i = channels.iterator();
         while (i.hasNext()) {
@@ -121,12 +121,12 @@ public class KickstartSessionCreateCommand {
             log.debug("** adding child channel for profile: " + child.getLabel());
             key.addChannel(child);
         }
-        
-        
-        
+
+
+
     }
 
-    
+
     /**
      * Saves the kickstart session returning any validation errors if any.
      * @return ValidatorError validation errors if any, can also be null.

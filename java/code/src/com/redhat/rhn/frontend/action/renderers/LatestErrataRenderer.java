@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Renders YourRhn fragment for latest errata
- * 
+ *
  * @version $Rev$
  */
 public class LatestErrataRenderer extends BaseFragmentRenderer {
@@ -37,7 +37,7 @@ public class LatestErrataRenderer extends BaseFragmentRenderer {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     protected void render(User user, PageControl pc, HttpServletRequest request) {
         PageControl erratapc = new PageControl();
         erratapc.setStart(1);
@@ -59,10 +59,10 @@ public class LatestErrataRenderer extends BaseFragmentRenderer {
         request.setAttribute(ERRATA_SECURITY_LIST, sedr);
         request.setAttribute(SHOW_ERRATA, Boolean.TRUE);
     }
-    
+
     /**
      * {@inheritDoc}
-     */    
+     */
     protected String getPageUrl() {
         return "/WEB-INF/pages/common/fragments/yourrhn/errata.jsp";
     }

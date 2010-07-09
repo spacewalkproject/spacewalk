@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ChannelDetailsAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
@@ -52,31 +52,31 @@ public class ChannelDetailsAction extends RhnAction {
         User user =  ctx.getLoggedInUser();
         Map params = makeParamMap(request);
         String fwd = "default";
-        
+
         long cid = ctx.getRequiredParam("cid");
         Channel chan = ChannelManager.lookupByIdAndUser(cid, user);
-        
+
         if (isSubmitted(form)) {
             UserManager.verifyChannelAdmin(user, chan);
             String global = (String)form.get("global");
             chan.setGloballySubscribable((global != null) &&
                     ("all".equals(global)), user.getOrg());
-            
+
             createSuccessMessage(request, "message.channelupdated",
                     chan.getName());
-            
-            //did they enable per user subscriptions?                       
+
+            //did they enable per user subscriptions?
             if (!global.equals("all")) {
                 addMessage(request, "message.channelsubscribers");
             }
-            
+
             // this is evil but necessary
             chan = (Channel) ChannelFactory.reload(chan);
             params.put("cid", cid);
             fwd = "success";
         }
 
-        request.setAttribute("systems_subscribed",  
+        request.setAttribute("systems_subscribed",
                 SystemManager.subscribedToChannelSize(user, cid));
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute("pack_size", ChannelFactory.getPackageCount(chan));
@@ -84,7 +84,7 @@ public class ChannelDetailsAction extends RhnAction {
         request.setAttribute("channel", chan);
         request.setAttribute("channel_last_modified", LocalizationService.
                     getInstance().formatCustomDate(chan.getLastModified()));
-        //Check if the channel needed repodata, 
+        //Check if the channel needed repodata,
         // if so get the status and last build info
         if (chan.isChannelRepodataRequired()) {
             request.setAttribute("repo_status",
@@ -98,15 +98,15 @@ public class ChannelDetailsAction extends RhnAction {
         else {
             form.set("global", "selected");
         }
-        
-        if ((chan.getOrg() == null && user.hasRole(RoleFactory.CHANNEL_ADMIN)) || 
+
+        if ((chan.getOrg() == null && user.hasRole(RoleFactory.CHANNEL_ADMIN)) ||
                 UserManager.verifyChannelAdmin(user, chan)) {
             request.setAttribute("has_access", true);
         }
         else {
             request.setAttribute("has_access", false);
         }
-        
+
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(fwd), params);
     }

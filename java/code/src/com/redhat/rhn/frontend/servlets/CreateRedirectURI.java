@@ -25,40 +25,40 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 
+ *
  * A CreateRedirectURI is a functor object that returns a redirect URI for a given
  * HttpServletRequest object. The URI consists of the original request URI along with
  * any query string parameters and values (from a GET request) or any form parameters and
- * values (from a POST request) added to the new query string. 
- * 
+ * values (from a POST request) added to the new query string.
+ *
  * <br/><br/>
- * 
+ *
  * If the length exceeds <code>MAX_URL_LENGTH</code>, then the redirect URI will default
- * to a value of {@link LoginAction#DEFAULT_URL_BOUNCE}; 
- * 
+ * to a value of {@link LoginAction#DEFAULT_URL_BOUNCE};
+ *
  * <br/><br/>
- * 
+ *
  * <strong>Note:</strong> This implementation does not support multi-value parameters.
- * 
+ *
  * <br/><br/>
- * 
- * <strong>Note:</strong> This clas may/should get generalized and wind up implementing a 
- * "functor" interface or extending from some base class if other request-related functor 
+ *
+ * <strong>Note:</strong> This clas may/should get generalized and wind up implementing a
+ * "functor" interface or extending from some base class if other request-related functor
  * classes are added to the code base.
- * 
+ *
  * @version $Rev$
  */
 public class CreateRedirectURI {
-    
+
     /**
      * Most browsers limit a URL length to 2048 bytes.
      */
     public static final long MAX_URL_LENGTH = 2048;
-    
+
     /**
      * Execute this functor object and create a redirect URI with request params appended
      * to the query string.
-     * 
+     *
      * @param request The current request
      * @return A redirect URI with request params appended to the query string
      * @throws IOException If an IO error occurs
@@ -68,26 +68,26 @@ public class CreateRedirectURI {
         StringBuffer redirectURI = new StringBuffer(request.getRequestURI()).append("?");
         String paramName = null;
         String paramValue = null;
-        
+
         Enumeration paramNames = request.getParameterNames();
-        
+
         while (paramNames.hasMoreElements()) {
             paramName = (String)paramNames.nextElement();
             paramValue = request.getParameter(paramName);
-            
+
             paramName = encode(paramName);
             paramValue = encode(paramValue);
-            
+
             redirectURI.append(paramName).append("=").append(paramValue).append("&");
         }
-        
+
         if (redirectURI.length() > MAX_URL_LENGTH) {
             return LoginAction.DEFAULT_URL_BOUNCE;
         }
-        
+
         return redirectURI.toString();
     }
-    
+
     private String encode(String string) throws UnsupportedEncodingException {
         return URLEncoder.encode(string, "UTF-8");
     }

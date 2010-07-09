@@ -41,9 +41,9 @@ public class AddressesAction extends RhnAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long uid = requestContext.getParamAsLong("uid");
         //Addresses under /rhn/users needs parameter, but /rhn/account does not
         if (request.getRequestURL().toString().indexOf("/rhn/users/") != -1 &&

@@ -35,29 +35,29 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class NotifyAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         //Get the errata
         Errata errata = requestContext.lookupErratum();
 
         //Add the notification with the current time
         errata.addNotification(new Date()); //add a notification to the queue
         ErrataManager.storeErrata(errata);
-        
+
         //Save success message and forward to default mapping
         ActionMessages msgs = new ActionMessages();
         msgs.add(ActionMessages.GLOBAL_MESSAGE,
                  new ActionMessage("errata.notify.success",
                                    errata.getId().toString(), errata.getAdvisory()));
         saveMessages(request, msgs);
-        
+
         return getStrutsDelegate().forwardParam(mapping.findForward("default"),
                                       "eid", errata.getId().toString());
     }

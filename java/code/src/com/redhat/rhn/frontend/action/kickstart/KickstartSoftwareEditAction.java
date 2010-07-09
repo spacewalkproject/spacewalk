@@ -42,13 +42,13 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * KickstartSoftwareEditAction 
+ * KickstartSoftwareEditAction
  * @version $Rev: 1 $
  */
 public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
 
     private static Logger log = Logger.getLogger(KickstartSoftwareEditAction.class);
-    
+
     public static final String URL = "url";
     public static final String CHANNELS = "channels";
     public static final String CHANNEL = "channel";
@@ -66,7 +66,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
     /**
      * {@inheritDoc}
      */
-    protected void setupFormValues(RequestContext ctx, DynaActionForm form, 
+    protected void setupFormValues(RequestContext ctx, DynaActionForm form,
             BaseKickstartCommand cmdIn) {
         String fieldChanged = form.getString("fieldChanged");
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
@@ -79,7 +79,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
             trees = cmd.getTrees(incomingChannelId, ctx.getCurrentUser().getOrg());
             KickstartableTree kstree = null;
             if (trees != null && trees.size() > 0) {
-                kstree = (KickstartableTree) 
+                kstree = (KickstartableTree)
                     trees.get(trees.size() - 1);
                 form.set(TREE, kstree.getId());
             }
@@ -97,7 +97,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
             else {
                 channelId = tree.getChannel().getId();
             }
-            trees = cmd.getTrees(channelId, 
+            trees = cmd.getTrees(channelId,
                     ctx.getCurrentUser().getOrg());
             KickstartableTree kstree = null;
             if (trees != null && trees.size() > 0) {
@@ -108,7 +108,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
             selectedTree = kstree;
         }
         if (fieldChanged.equals("kstree")) {
-            KickstartableTree kstree = 
+            KickstartableTree kstree =
                 KickstartFactory.lookupKickstartTreeByIdAndOrg((Long) form.get(TREE),
                     ctx.getCurrentUser().getOrg());
             setupUrl(ctx, form, kstree);
@@ -121,35 +121,35 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
 
         // Setup child channels
         setupChildChannels(ctx, channelId, cmd);
-        
+
         // Setup list of releases and channels
         List channels = new LinkedList();
         Iterator i = cmd.getAvailableChannels().iterator();
         while (i.hasNext()) {
             Channel c = (Channel) i.next();
             log.debug("channel : " + c);
-            LabelValueBean lb = lv(c.getName(), c.getId().toString()); 
+            LabelValueBean lb = lv(c.getName(), c.getId().toString());
             if (!channels.contains(lb)) {
                 channels.add(lb);
             }
-        }                
+        }
         log.debug("setting channel attrib: " + channels);
         ctx.getRequest().setAttribute(CHANNELS, channels);
-        
+
         if (form.get(CHANNEL) == null) {
             form.set(CHANNEL, tree.getChannel().getId());
         }
         if (form.get(TREE) == null) {
             form.set(TREE, tree.getId());
         }
-        
+
         if (form.getString(URL) == null) {
             ctx.getRequest().setAttribute("nourl", "true");
         }
         setupRepos(ctx, form, cmd.getKickstartData(), selectedTree);
     }
 
-    private void setupChildChannels(RequestContext ctx, Long channelId, 
+    private void setupChildChannels(RequestContext ctx, Long channelId,
             KickstartEditCommand cmd) {
         log.debug("ChannelId: " + channelId);
         // Get all available child channels for this user
@@ -170,7 +170,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
                 selectedChannels.put(c.getId(), c.getId());
             }
         }
-        
+
         ctx.getRequest().setAttribute("stored_child_channels", selectedChannels);
         log.debug("scc: " + selectedChannels);
 
@@ -181,7 +181,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
      * @param form the dyna form
      * @param kstree the kickstart tree
      */
-    private void setupUrl(RequestContext ctx, DynaActionForm form, 
+    private void setupUrl(RequestContext ctx, DynaActionForm form,
                             KickstartableTree kstree) {
         if (kstree != null) {
             KickstartHelper kshelper = new KickstartHelper(ctx.getRequest());
@@ -192,44 +192,44 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
             form.set(URL, "");
         }
     }
-    
-    
+
+
 
     /**
      * {@inheritDoc}
      */
     protected ValidatorError processFormValues(HttpServletRequest request,
-            DynaActionForm form,  
+            DynaActionForm form,
             BaseKickstartCommand cmdIn) {
-        
+
         KickstartData ksdata = cmdIn.getKickstartData();
         RequestContext ctx = new RequestContext(request);
-        
+
         KickstartableTree tree =  KickstartFactory.lookupKickstartTreeByIdAndOrg(
-                (Long) form.get(TREE), 
+                (Long) form.get(TREE),
                 ctx.getLoggedInUser().getOrg());
         if (tree == null) {
             return new ValidatorError("kickstart.softwaredit.tree.required");
         }
-        
-        Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree, 
+
+        Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree,
                 cmdIn.getKickstartData().getKickstartDefaults().getVirtualizationType(),
                 ctx.getLoggedInUser());
         if (distro == null) {
             return new ValidatorError("kickstart.cobbler.profile.invalidtreeforvirt");
         }
-        
+
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
         ValidatorError ve = cmd.updateKickstartableTree(
-                (Long) form.get(CHANNEL), cmdIn.getUser().getOrg().getId(), 
+                (Long) form.get(CHANNEL), cmdIn.getUser().getOrg().getId(),
                 (Long) form.get(TREE),
                 (String) form.getString(URL));
-        
+
         if (ve == null) {
             String [] repos = form.getStrings(SELECTED_REPOS);
             cmd.updateRepos(repos);
         }
-        
+
         CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(
                 cmdIn.getKickstartData(), ctx.getLoggedInUser());
         cpec.store();
@@ -237,7 +237,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         // Process the selected child channels
         String[] childchannelIds = request.getParameterValues(CHILD_CHANNELS);
         cmd.updateChildChannels(childchannelIds);
-        
+
         if (ve != null) {
             return ve;
         }
@@ -246,10 +246,10 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         }
     }
 
-    private void setupRepos(RequestContext context, 
-            DynaActionForm form, KickstartData ksdata, 
+    private void setupRepos(RequestContext context,
+            DynaActionForm form, KickstartData ksdata,
             KickstartableTree tree) {
-        
+
         if (tree != null && !tree.getInstallType().isRhel2() &&
                 !tree.getInstallType().isRhel3() &&
                 !tree.getInstallType().isRhel4()) {
@@ -266,10 +266,10 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
                 items[i] = repo.getName();
                 i++;
             }
-            form.set(SELECTED_REPOS, items);            
+            form.set(SELECTED_REPOS, items);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */

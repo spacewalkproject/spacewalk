@@ -27,7 +27,7 @@ import javax.servlet.jsp.JspException;
  */
 public class ExpansionDecorator extends BaseListDecorator {
 
-    private static final String SHOW_ALL_SCRIPT = 
+    private static final String SHOW_ALL_SCRIPT =
        "<div style=\"text-align: right;\"><a href=\"javascript:showAllRows(rowHash%s);\"" +
             " style=\"cursor: pointer;\">%s</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
             "<a href=\"javascript:hideAllRows(rowHash%s);\" " +
@@ -35,11 +35,11 @@ public class ExpansionDecorator extends BaseListDecorator {
 
     private static final String NEW_VAR_SCRIPT = "<script type=\"text/javascript\">var " +
                                                        "rowHash%s = new Array();</script>";
-    
+
     private static final String LOAD_SCRIPT = "<script type=\"text/javascript\">" +
                                             "onLoadStuff(%s, '%s', rowHash%s);" +
                                                 "showAllRows(rowHash%s);</script>";
-    
+
     private static final String IMPORT_TREE_JS =
         "<script src=\"/javascript/tree.js\" type=\"text/javascript\"></script>";
     /**
@@ -51,18 +51,18 @@ public class ExpansionDecorator extends BaseListDecorator {
         ListTagUtil.write(pageContext, IMPORT_TREE_JS);
         ListTagUtil.write(pageContext, String.format(NEW_VAR_SCRIPT, listName));
         LocalizationService ls = LocalizationService.getInstance();
-        ListTagUtil.write(pageContext, String.format(SHOW_ALL_SCRIPT, listName, 
+        ListTagUtil.write(pageContext, String.format(SHOW_ALL_SCRIPT, listName,
                           ls.getMessage("show.all"), listName, ls.getMessage("hide.all")));
     }
-    
-        
+
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void afterList() throws JspException {
         ListTag list = getCurrentList();
-        ListTagUtil.write(pageContext, String.format(LOAD_SCRIPT, 
+        ListTagUtil.write(pageContext, String.format(LOAD_SCRIPT,
                             list.getColumnCount(), list.getStyleId(), listName, listName));
-    }    
+    }
 }

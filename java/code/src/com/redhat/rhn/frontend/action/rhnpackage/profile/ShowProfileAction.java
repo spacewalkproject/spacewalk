@@ -45,20 +45,20 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ShowProfileAction extends RhnAction {
-    
+
     private static Logger log = Logger.getLogger(ShowProfileAction.class);
     private static final String BTN_CREATE = "createBtn";
     private static final String BTN_COMPARE_PROFILES = "compareProfilesBtn";
     private static final String BTN_COMPARE_SYSTEMS = "compareSystemsBtn";
-    
+
     /**
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         ActionForward forward = null;
         DynaActionForm f = (DynaActionForm)form;
         Long sid = requestContext.getRequiredParam("sid");
@@ -80,19 +80,19 @@ public class ShowProfileAction extends RhnAction {
         else if (buttonPressed(BTN_COMPARE_SYSTEMS, f)) {
             forward = compareSystems(mapping, f, request, response);
         }
-        
+
         return forward;
     }
-    
+
     private boolean buttonPressed(String btnName, DynaActionForm form) {
         String btn = (String) form.get(btnName);
         return (btn != null && !"".equals(btn));
     }
-    
+
     private ActionForward compareSystems(ActionMapping mapping,
             DynaActionForm f, HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         User user = new RequestContext(request).getLoggedInUser();
         RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC.clear(user);
         Map params = new HashMap();
@@ -122,7 +122,7 @@ public class ShowProfileAction extends RhnAction {
         return getStrutsDelegate().forwardParams(mapping.findForward("create"),
                 params);
     }
-   
+
     private void setup(HttpServletRequest request, DynaActionForm form) {
         if (log.isDebugEnabled()) {
             log.debug("Setting up form with default values.");
@@ -137,7 +137,7 @@ public class ShowProfileAction extends RhnAction {
             Profile p = (Profile) itr.next();
             profiles.add(new LabelValueBean(p.getName(), p.getId().toString()));
         }
-        
+
         List dbservers = SystemManager.compatibleWithServer(user, server);
         List servers = new ArrayList(dbservers.size());
         for (Iterator itr = dbservers.iterator(); itr.hasNext();) {

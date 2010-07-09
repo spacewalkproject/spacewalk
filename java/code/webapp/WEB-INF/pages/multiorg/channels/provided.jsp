@@ -21,9 +21,9 @@ function showFiltered() {
   ${trustorg}
 </rhn:toolbar>
 
-<rhn:dialogmenu mindepth="0" maxdepth="3" 
-                    definition="/WEB-INF/nav/org_trust.xml" 
-                    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" /> 
+<rhn:dialogmenu mindepth="0" maxdepth="3"
+                    definition="/WEB-INF/nav/org_trust.xml"
+                    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <p>
 	<bean:message key="orgtrust.jsp.channelprovide.summary" arg0="${trustorg}" />

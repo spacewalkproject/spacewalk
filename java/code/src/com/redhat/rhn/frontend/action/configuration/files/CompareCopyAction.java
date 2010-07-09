@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class CompareCopyAction extends BaseListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -44,9 +44,9 @@ public class CompareCopyAction extends BaseListAction {
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
         HttpServletRequest request = rctxIn.getRequest();
         User user = rctxIn.getLoggedInUser();
-        
+
         ConfigFile file = ConfigActionHelper.getFile(request);
-        
+
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listAlternateFilesForCompare(user, file, pcIn);
     }

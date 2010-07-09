@@ -52,19 +52,19 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ChannelAction extends RhnSetAction {
-    
+
 
     private static Logger log = Logger.getLogger(ChannelAction.class);
 
 
     /**
-     * Publishes an unpublished errata (with id = eid) and adds the errata to the 
+     * Publishes an unpublished errata (with id = eid) and adds the errata to the
      * channels selected on the confirmation page.
      * @param mapping ActionMapping for this action
      * @param formIn The form
      * @param request The request
      * @param response The response
-     * @return Returns to the publish mapping if publish was executed successfully, to 
+     * @return Returns to the publish mapping if publish was executed successfully, to
      * the failure mapping otherwise.
      */
     public ActionForward publish(ActionMapping mapping,
@@ -73,37 +73,37 @@ public class ChannelAction extends RhnSetAction {
                                  HttpServletResponse response) {
         log.debug("Publish");
         StrutsDelegate strutsDelegate = getStrutsDelegate();
- 
+
         RequestContext requestContext = new RequestContext(request);
         //Get the logged in user
         User user = requestContext.getLoggedInUser();
-        
+
         //Get the errata object
         Errata errata = requestContext.lookupErratum();
-        
+
         //Update the set with items on the page the user has selected
         RhnSet set = updateSet(request);
-        
+
         //Make sure the user has selected something
         if (set.isEmpty()) {
             return failNoChannelsSelected(request, mapping, errata.getId());
         }
-        
+
         //publish the errata
         errata = ErrataManager.publish(errata, getChannelIdsFromRhnSet(set), user);
-        
+
         return strutsDelegate.forwardParam(mapping.findForward("publish"),
                 "eid",
                 errata.getId().toString());
     }
-    
+
     /**
      * Updates the channels associated with this errata
      * @param mapping ActionMapping for this action
      * @param formIn The form
      * @param request The request
      * @param response The response
-     * @return Returns to the publish mapping if publish was executed successfully, to 
+     * @return Returns to the publish mapping if publish was executed successfully, to
      * the failure mapping otherwise.
      */
     public ActionForward updateChannels(ActionMapping mapping,
@@ -111,36 +111,36 @@ public class ChannelAction extends RhnSetAction {
                                         HttpServletRequest request,
                                         HttpServletResponse response) {
         log.debug("updateChannels called.");
-        RequestContext requestContext = new RequestContext(request); 
+        RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
-        
+
         //Get the errata object
         Errata errata = requestContext.lookupErratum();
-        
+
         //Update the set with items on the page the user has selected
         RhnSet set = updateSet(request);
         //Make sure the user has selected something
         if (set.isEmpty()) {
             return failNoChannelsSelected(request, mapping, errata.getId());
         }
-        
+
         // Save off original channel ids so we can update caches
         Set<Channel> originalChannels = new HashSet<Channel>(errata.getChannels());
         Set<Long> newChannels = getChannelIdsFromRhnSet(set);
         //Otherwise, add each channel to errata
-        //The easiest way to do this is to clear the errata's channels and add back the 
+        //The easiest way to do this is to clear the errata's channels and add back the
         //channels that are in the user's current set
         errata.clearChannels(); //clear the channels associated with errata.
         //add the channels from the set back to the errata
 
-        errata = ErrataManager.addChannelsToErrata(errata, 
+        errata = ErrataManager.addChannelsToErrata(errata,
                 newChannels, user);
 
         //Update Errata Cache
-        if (errata.isPublished()) {          
-            
+        if (errata.isPublished()) {
+
             log.debug("updateChannels - isPublished");
-            // Compute list of old and NEW channels so we can 
+            // Compute list of old and NEW channels so we can
             // refresh both of their caches.
             List<Channel> channelsToRemove = new LinkedList<Channel>();
             List<Long> channelsToAdd = new LinkedList<Long>();
@@ -148,10 +148,10 @@ public class ChannelAction extends RhnSetAction {
                 if (!newChannels.contains(c.getId())) {
                     //We are removing the errata from the channel
                     log.debug("updateChannels.Adding1: " + c.getId());
-                    channelsToRemove.add(c);                    
+                    channelsToRemove.add(c);
                 }
             }
-            
+
             for (Long cid : newChannels) {
                 Channel newChan = ChannelFactory.lookupById(cid);
                 if (!originalChannels.contains(newChan)) {
@@ -159,20 +159,20 @@ public class ChannelAction extends RhnSetAction {
                 }
             }
             log.debug("updateChannels() - channels to remove errata: " + channelsToRemove);
-            
+
             //If the errata was removed from any channels lets remove it.
             List<Long> eList = new ArrayList<Long>();
             eList.add(errata.getId());
             for (Channel toRemove : channelsToRemove) {
                 ErrataManager.removeErratumFromChannel(errata, toRemove, user);
             }
-            
-            
-            
+
+
+
         }
        StrutsDelegate strutsDelegate = getStrutsDelegate();
        strutsDelegate.saveMessages(request, getMessages(errata));
-        
+
         //Store a success message and forward to default mapping
         //ActionMessages msgs = getMessages(errata);
         //strutsDelegate.saveMessages(request, msgs);
@@ -180,7 +180,7 @@ public class ChannelAction extends RhnSetAction {
                                       "eid",
                                       errata.getId().toString());
     }
-    
+
     /**
      * Takes an RhnSet object with ids and gets all the channelIds from the set.
      * @param set The RhnSet object containing channel ids
@@ -199,7 +199,7 @@ public class ChannelAction extends RhnSetAction {
         }
         return retval;
     }
-    
+
     /**
      * Private helper method to setup a no channels selected failure ActionForward
      * @param request The request to save the errors to
@@ -218,20 +218,20 @@ public class ChannelAction extends RhnSetAction {
         addErrors(request, errors);
         //return to the failure mapping
         return getStrutsDelegate().forwardParam(mapping.findForward("failure"),
-                                      "eid", 
+                                      "eid",
                                       eid.toString());
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    public DataResult getDataResult(User user, 
-                                    ActionForm formIn, 
+    public DataResult getDataResult(User user,
+                                    ActionForm formIn,
                                     HttpServletRequest request) {
         //returns *all* items for the select all list function
         return ChannelManager.channelsOwnedByOrg(user.getOrg().getId(), null);
     }
-    
+
     /**
      * {@inheritDoc}
      * Add publish method to our map of dispatch methods
@@ -240,13 +240,13 @@ public class ChannelAction extends RhnSetAction {
         map.put("errata.publish.publisherrata", "publish");
         map.put("errata.channels.updatechannels", "updateChannels");
     }
-    
+
     /**
      * {@inheritDoc}
      * Add eid to our parameter map
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         //keep eid in params
         Long eid = new RequestContext(request).getRequiredParam("eid");
@@ -256,16 +256,16 @@ public class ChannelAction extends RhnSetAction {
             params.put("returnvisit", "true");
         }
         params.put("eid", eid);
-        
+
     }
 
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.CHANNELS_FOR_ERRATA;
     }
-    
-    
+
+
     /**
-     * Determines whether the success message should be plural or not and fills 
+     * Determines whether the success message should be plural or not and fills
      * out the ActionMessages object appropriately.
      * @param errata The Errata we're working on.
      * @return Returns an ActionMessages object with the correct pluralization.
@@ -282,12 +282,12 @@ public class ChannelAction extends RhnSetAction {
         else { //plural version '4 channels'
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
                      new ActionMessage("errata.channels.updated.plural",
-                                       errata.getAdvisoryName(), size));    
+                                       errata.getAdvisoryName(), size));
         }
         return msgs;
-    }    
-    
-    
-    
-    
+    }
+
+
+
+
 }

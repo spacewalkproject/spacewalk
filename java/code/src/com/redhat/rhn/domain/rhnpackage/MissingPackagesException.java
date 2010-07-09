@@ -23,8 +23,8 @@ import com.redhat.rhn.common.RhnRuntimeException;
 /**
  * No Base Channel was found for a particular server.
  * <p>
- * 
- * 
+ *
+ *
  * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
  */
 public class MissingPackagesException extends RhnRuntimeException {

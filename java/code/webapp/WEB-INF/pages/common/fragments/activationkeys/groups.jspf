@@ -24,9 +24,9 @@
 <c:set var="pageList" value="${requestScope.all}" />
 <rl:listset name="groupListSet">
 <c:choose>
-<c:when test="${not empty pageList}">  
+<c:when test="${not empty pageList}">
 	<rl:list dataset="pageList"
-         width="100%"        
+         width="100%"
          name="list"
          emptykey="assignedgroups.jsp.nogroups"
          alphabarcolumn="name">
@@ -36,9 +36,9 @@
 	 			styleclass="first-column"/>
 	 			
   	   <!--Name Column -->
-		<rl:column sortable="true" 
+		<rl:column sortable="true"
 				   bound="false"
-		           headerkey="grouplist.jsp.name" 
+		           headerkey="grouplist.jsp.name"
 		           sortattr="name" filterattr="name" styleclass="last-column">
 		    <c:choose>
 		    	<c:when test = "${not empty requestScope.accessMap[current.id]}">
@@ -57,7 +57,7 @@
    <rhn:submitted/>
    <hr/>
 	
-    <input type="submit" 
+    <input type="submit"
     	name ="dispatch"
 	    value='<bean:message key="${param.action_key}"/>'/>		
 </div>

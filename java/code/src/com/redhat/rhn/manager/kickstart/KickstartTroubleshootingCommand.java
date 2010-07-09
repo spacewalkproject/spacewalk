@@ -63,8 +63,8 @@ public class KickstartTroubleshootingCommand extends BaseKickstartCommand {
 
         if (bootloaderCommand == null) {
             logger.debug("No bootloader command yet.  Creating one.");
-            
-            bootloaderCommand = KickstartFactory.createKickstartCommand(getKickstartData(), 
+
+            bootloaderCommand = KickstartFactory.createKickstartCommand(getKickstartData(),
                     "bootloader");
             if (bootloaderTypeIn.equals("lilo")) {
                 bootloaderCommand.setArguments("--useLilo");
@@ -75,10 +75,10 @@ public class KickstartTroubleshootingCommand extends BaseKickstartCommand {
         }
         logger.debug("setBootloaderType(String) - end");
     }
-    
+
     /**
      * Get the kernel parameters
-     * 
+     *
      * @return String of the kernel parameters
      */
     public String getKernelParams() {
@@ -102,7 +102,7 @@ public class KickstartTroubleshootingCommand extends BaseKickstartCommand {
     }
 
     /**
-     * Set the kernel parameters.  
+     * Set the kernel parameters.
      * @param kernelParamsIn the kernel parameters to set
      */
     public void setKernelParams(String kernelParamsIn) {
@@ -110,7 +110,7 @@ public class KickstartTroubleshootingCommand extends BaseKickstartCommand {
                      ") - start");
 
         getKickstartData().setKernelParams(kernelParamsIn);
-        
+
         logger.debug("setKernelParams(String) - end");
     }
 

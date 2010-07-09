@@ -33,29 +33,29 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class DeleteBugAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         Long bid = requestContext.getRequiredParam("bid");
-        
+
         //Get the errata
         Errata errata = requestContext.lookupErratum();
         //remove the bug
         errata.removeBug(bid);
         //save the errata
         ErrataManager.storeErrata(errata);
-        
+
         ActionMessages msgs = new ActionMessages();
         msgs.add(ActionMessages.GLOBAL_MESSAGE,
                  new ActionMessage("errata.edit.bugdeleted",
                                    bid.toString(), errata.getAdvisory()));
         saveMessages(request, msgs);
-        
+
         return getStrutsDelegate().forwardParam(mapping.findForward("default"),
                                       "eid", errata.getId().toString());
     }

@@ -34,11 +34,11 @@ public class ConfigSystemTag extends TagSupport {
     public static final String SYSTEM_ALT_KEY = "system.common.systemAlt";
     public static final String SYSTEM_LIST_ICON = "/img/rhn-listicon-system.gif";
     public static final String SYSTEM_HEADER_ICON = "/img/rhn-icon-system.gif";
-    public static final String SYSTEM_URL = 
+    public static final String SYSTEM_URL =
         "/rhn/systems/details/configuration/Overview.do";
-    
+
     /**
-     * <cfg:system id=""  name="" nolink="">  
+     * <cfg:system id=""  name="" nolink="">
      */
      private String id;
      private String name;
@@ -60,7 +60,7 @@ public class ConfigSystemTag extends TagSupport {
          }
          return BodyTagSupport.SKIP_BODY;
      }
-     
+
      /**
       * {@inheritDoc}
       */
@@ -71,7 +71,7 @@ public class ConfigSystemTag extends TagSupport {
          super.release();
      }
 
-     
+
      /**
       * @param val the id to set
       */
@@ -79,7 +79,7 @@ public class ConfigSystemTag extends TagSupport {
          this.id = val;
      }
 
-     
+
      /**
       * @param isNoLink the nolink to set
       */
@@ -87,24 +87,24 @@ public class ConfigSystemTag extends TagSupport {
          this.nolink = Boolean.TRUE.toString().equalsIgnoreCase(isNoLink);
      }
 
-     
+
      /**
       * @param value the name to set
       */
      public void setName(String value) {
          this.name = value;
      }
-     
+
      private void writeIcon() throws JspException {
         ConfigTagHelper.writeIcon(SYSTEM_LIST_ICON, SYSTEM_ALT_KEY, pageContext);
      }
-     
+
      /**
-     * Returns the URL to reach the SDC\ConfigOverview page for a system. 
+     * Returns the URL to reach the SDC\ConfigOverview page for a system.
      * This method may also be used with the el expression
      * ${config:systemUrl('id')}
      * This method is public static because
-     * EL functions defined in a TLD file, 
+     * EL functions defined in a TLD file,
      * need to be public static methods.. systemConfig file
      * @param id the SID of the system in question
      * @return the URL to reach the cfg-overview page in the SDC
@@ -116,8 +116,8 @@ public class ConfigSystemTag extends TagSupport {
     /**
       * Returns the Header icon image path for a system
       * This method is public static because
-      * EL functions defined in a TLD file, 
-      * need to be public static methods.. 
+      * EL functions defined in a TLD file,
+      * need to be public static methods..
       * @return the image path
       */
      public static final String getHeaderIconFor() {
@@ -127,23 +127,23 @@ public class ConfigSystemTag extends TagSupport {
      /**
       * Returns the List icon image path for a system
       * This method is public static because
-      * EL functions defined in a TLD file, 
-      * need to be public static methods.. 
+      * EL functions defined in a TLD file,
+      * need to be public static methods..
       * @return the image path
       */
      public static final String getListIconFor() {
          return SYSTEM_LIST_ICON;
      }
-          
-     
+
+
      /**
       * Returns the Header alt key  for a system
       * This method is public static because
-      * EL functions defined in a TLD file, 
-      * need to be public static methods..  
-      * @return the alt key 
+      * EL functions defined in a TLD file,
+      * need to be public static methods..
+      * @return the alt key
       */
      public static final String getAltKeyFor() {
-         return SYSTEM_ALT_KEY;     
-     }     
+         return SYSTEM_ALT_KEY;
+     }
 }

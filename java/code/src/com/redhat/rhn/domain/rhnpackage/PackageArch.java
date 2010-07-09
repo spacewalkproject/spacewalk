@@ -89,7 +89,7 @@ public class PackageArch extends BaseDomainHelper implements Comparable<PackageA
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -111,7 +111,7 @@ public class PackageArch extends BaseDomainHelper implements Comparable<PackageA
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object archIn) {

@@ -40,8 +40,8 @@ public class NoChannelsSelectedException extends FaultException  {
      */
     public NoChannelsSelectedException(String advisory, Throwable cause) {
         super(2603, "No Channels Selected" , LocalizationService.getInstance().
-                getMessage("api.errata.nochannelsselected", 
+                getMessage("api.errata.nochannelsselected",
                 new Object [] {advisory}), cause);
     }
-    
+
 }

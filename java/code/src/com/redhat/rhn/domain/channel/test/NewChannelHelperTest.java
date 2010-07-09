@@ -23,8 +23,8 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class NewChannelHelperTest extends RhnBaseTestCase {
-    
-    
+
+
     public void testVerifyName() throws Exception {
        String name = "Redhat-test-channel";
        assertFalse(NewChannelHelper.verifyName(name));
@@ -36,9 +36,9 @@ public class NewChannelHelperTest extends RhnBaseTestCase {
        assertFalse(NewChannelHelper.verifyName(name));
        name = "test-channel";
        assertTrue(NewChannelHelper.verifyName(name));
-           
+
     }
-    
+
     public void testVerifyLabel() throws Exception {
         String label = "test-channel";
         assertTrue(NewChannelHelper.verifyLabel(label));
@@ -51,18 +51,18 @@ public class NewChannelHelperTest extends RhnBaseTestCase {
         label = "test-{channel}";
         assertFalse(NewChannelHelper.verifyLabel(label));
     }
-    
+
     public void testVerifyGpgFingerprint() throws Exception {
         String fp = "CA20 8686 2BD6 9DFC 65F6 ECC4 2191 80CD DB42 A60E";
         assertTrue(NewChannelHelper.verifyGpgFingerprint(fp));
         fp = "A20 8686 2BD6 9DFC 65F6 ECC4 2191 80CD DB42 A60E";
         assertFalse(NewChannelHelper.verifyGpgFingerprint(fp));
-        fp = "8686 2BD6 9DFC 65F6 ECC4 2191 80CD DB42 A60E"; 
+        fp = "8686 2BD6 9DFC 65F6 ECC4 2191 80CD DB42 A60E";
         assertFalse(NewChannelHelper.verifyGpgFingerprint(fp));
-        fp = "CA2] 8686 2BD6 9DFC 65F6 ECC4 2191 80CD DB42 A60E"; 
+        fp = "CA2] 8686 2BD6 9DFC 65F6 ECC4 2191 80CD DB42 A60E";
         assertFalse(NewChannelHelper.verifyGpgFingerprint(fp));
     }
-    
+
     public void testVerifyGpgId() throws Exception {
         String id = "DB42A60E";
         assertTrue(NewChannelHelper.verifyGpgId(id));
@@ -70,9 +70,9 @@ public class NewChannelHelperTest extends RhnBaseTestCase {
         assertFalse(NewChannelHelper.verifyGpgId(id));
         id = "DB42A50]";
         assertFalse(NewChannelHelper.verifyGpgId(id));
-        
+
     }
-    
+
     public void testVerifyGpgUrl() throws Exception {
         String url = "http://test/filename.txt";
         assertTrue(NewChannelHelper.verifyGpgUrl(url));

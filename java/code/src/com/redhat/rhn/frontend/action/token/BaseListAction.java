@@ -56,8 +56,8 @@ public abstract class BaseListAction extends RhnAction implements Listable {
      */
     public String getListName() {
         return LIST_NAME;
-    } 
-    
+    }
+
     /**
      * Adds activation key info
      * @param request the servlet request.
@@ -71,23 +71,23 @@ public abstract class BaseListAction extends RhnAction implements Listable {
     protected Map getParamsMap(HttpServletRequest request) {
         RequestContext context = new RequestContext(request);
         Map params = new HashMap();
-        params.put(RequestContext.TOKEN_ID, 
+        params.put(RequestContext.TOKEN_ID,
                     context.getRequiredParam(RequestContext.TOKEN_ID));
         return params;
     }
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         setup(request);
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, 
+        ListSessionSetHelper helper = new ListSessionSetHelper(this,
                                         request, getParamsMap(request));
         processHelper(helper);
         helper.execute();
         if (helper.isDispatched()) {
-            ActionForward forward = 
+            ActionForward forward =
                     handleDispatch(helper, mapping, formIn, request, response);
             processPostSubmit(helper);
             return forward;
@@ -96,20 +96,20 @@ public abstract class BaseListAction extends RhnAction implements Listable {
     }
 
     protected  ActionForward handleDispatch(
-            ListSessionSetHelper helper, 
+            ListSessionSetHelper helper,
             ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         return null;
     }
-    
+
     protected void processHelper(ListSessionSetHelper helper) {
         helper.setDataSetName(getDataSetName());
         helper.setListName(getListName());
     }
-    
+
     protected void processPostSubmit(ListSessionSetHelper helper) {
         helper.destroy();
-    }    
+    }
 }

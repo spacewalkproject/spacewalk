@@ -27,9 +27,9 @@ public class KickstartScriptEditCommand extends BaseKickstartScriptCommand {
 
     /**
      * Throws IllegalArgumentException.  Must use:
-     * 
+     *
      * KickstartScriptEditCommand(Long ksidIn, Long scriptId, User userIn)
-     * 
+     *
      * @param ksidIn id of Kickstart
      * @param userIn user wanting to edit
      */
@@ -38,9 +38,9 @@ public class KickstartScriptEditCommand extends BaseKickstartScriptCommand {
         throw new IllegalArgumentException(
                 "Need to construct this Command with a KickstartScript id");
     }
-    
+
     /**
-     * Constructor that initalizes the KickstartScript associated with the 
+     * Constructor that initalizes the KickstartScript associated with the
      * KickstartData we get from the ksidIn
      * @param ksidIn id of the KickstartData object
      * @param scriptId id of the KickstartScript object associated with this KickstartData
@@ -49,18 +49,18 @@ public class KickstartScriptEditCommand extends BaseKickstartScriptCommand {
     public KickstartScriptEditCommand(Long ksidIn, Long scriptId, User userIn) {
         super(ksidIn, userIn);
         Iterator i = this.ksdata.getScripts().iterator();
-        
-        while (i.hasNext()) { 
+
+        while (i.hasNext()) {
             KickstartScript s = (KickstartScript) i.next();
             if (s.getId().equals(scriptId)) {
                 this.script = s;
             }
         }
         if (this.script == null) {
-            throw new IllegalArgumentException("KickstartScript with ID: " + 
+            throw new IllegalArgumentException("KickstartScript with ID: " +
                     scriptId + " not found to be associated with this KicsktartData");
         }
-        
+
     }
 
 }

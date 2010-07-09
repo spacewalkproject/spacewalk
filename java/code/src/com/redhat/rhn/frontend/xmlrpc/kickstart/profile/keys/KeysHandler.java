@@ -37,7 +37,7 @@ import java.util.List;
 * KeysHandler
 * @version $Rev$
 * @xmlrpc.namespace kickstart.profile.keys
-* @xmlrpc.doc Provides methods to access and modify the list of activation keys 
+* @xmlrpc.doc Provides methods to access and modify the list of activation keys
 * associated with a kickstart profile.
 */
 public class KeysHandler extends BaseHandler {
@@ -52,19 +52,19 @@ public class KeysHandler extends BaseHandler {
      * profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("string", "ksLabel", "the kickstart profile label")
-     * @xmlrpc.returntype 
-     *   #array() 
+     * @xmlrpc.returntype
+     *   #array()
      *     $ActivationKeySerializer
      *   #array_end()
      */
     public List<ActivationKey> getActivationKeys(String sessionKey, String ksLabel) {
-        
+
         User loggedInUser = getLoggedInUser(sessionKey);
         checkKickstartPerms(loggedInUser);
-        
+
         // retrieve the data associated with the kickstart profile
         KickstartData data = lookupKsData(ksLabel, loggedInUser.getOrg());
-        
+
         // The activation keys are stored in the profile as 'tokens'.  While a
         // token is similar to an activation key, it lacks the actual key value
         // (e.g. "1-asdflkajdklajdfk").  As a result, we'll use the token to
@@ -77,7 +77,7 @@ public class KeysHandler extends BaseHandler {
         }
         return keys;
     }
-    
+
     /**
      * Add an activation key association to the kickstart profile.
      * @param sessionKey The current user's session key
@@ -92,7 +92,7 @@ public class KeysHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int addActivationKey(String sessionKey, String ksLabel, String key) {
-        
+
         User loggedInUser = getLoggedInUser(sessionKey);
         checkKickstartPerms(loggedInUser);
 
@@ -110,7 +110,7 @@ public class KeysHandler extends BaseHandler {
 
         return 1;
     }
-    
+
     /**
      * Remove an activation key association from the kickstart profile.
      * @param sessionKey The current user's session key
@@ -125,7 +125,7 @@ public class KeysHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int removeActivationKey(String sessionKey, String ksLabel, String key) {
-        
+
         User loggedInUser = getLoggedInUser(sessionKey);
         checkKickstartPerms(loggedInUser);
 
@@ -143,7 +143,7 @@ public class KeysHandler extends BaseHandler {
 
         return 1;
     }
-    
+
     private void checkKickstartPerms(User user) {
         if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionException(LocalizationService.getInstance()

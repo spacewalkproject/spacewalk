@@ -18,7 +18,7 @@ import com.redhat.rhn.frontend.struts.Expandable;
 
 
 /**
- * RlTagFunctions - class to encapsulate the set of static methods that 
+ * RlTagFunctions - class to encapsulate the set of static methods that
  * a JSP can interact with.  See rl-taglib.tld for list of <function> definitions
  * @version $Rev$
  */
@@ -26,20 +26,20 @@ public class RhnListTagFunctions {
     // Pure util class.  No need for construction.
     private RhnListTagFunctions() {
     }
-    
+
     /**
      * Quick check to see if the passed in object is expandable.
-     * 
+     *
      * @param current The object to be checked
      * @return true if the current object is expandable
      */
     public static boolean isExpandable(Object current) {
         return current instanceof Expandable;
     }
-    
+
     /**
      * Quick check to see if the passed in object is expandable.
-     * 
+     *
      * @param current The object to be checked
      * @return true if the current object is expandable
      */
@@ -48,5 +48,5 @@ public class RhnListTagFunctions {
             return 0;
         }
         return ((Expandable)current).expand().size();
-    }    
+    }
 }

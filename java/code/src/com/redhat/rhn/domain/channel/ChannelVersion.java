@@ -25,10 +25,10 @@ import java.util.Map;
  * @version $Rev$
  */
 public class ChannelVersion {
-    
+
     private String name;
     private String version;
-    
+
     public static final ChannelVersion LEGACY = new ChannelVersion(
             "RedHat Legacy Channels", "legacy");
     public static final ChannelVersion RHEL21 = new ChannelVersion(
@@ -41,14 +41,14 @@ public class ChannelVersion {
             "Red Hat Enterprise Linux 5", "5");
     public static final ChannelVersion RHEL6 = new ChannelVersion(
             "Red Hat Enterprise Linux 6", "6");
-    
+
     // Map kickstart install type labels to channel version constants.
     private static final Map KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION = new HashMap();
-    
+
     // Map releases to channel version constants. Anything not in this map
     // will be assumed to be legacy.
     public static final Map DIST_CHANNEL_MAP_TO_CHANNEL_VERSION = new HashMap();
-    
+
     static {
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("5Client", ChannelVersion.RHEL5);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("5Server", ChannelVersion.RHEL5);
@@ -56,12 +56,12 @@ public class ChannelVersion {
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("4.92Server", ChannelVersion.RHEL5);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("4.91Client", ChannelVersion.RHEL5);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("4.91Server", ChannelVersion.RHEL5);
-        
+
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("4AS", ChannelVersion.RHEL4);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("4ES", ChannelVersion.RHEL4);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("4WS", ChannelVersion.RHEL4);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("4Desktop", ChannelVersion.RHEL4);
-        
+
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("4AS-shadow", ChannelVersion.RHEL4);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("4ES-shadow", ChannelVersion.RHEL4);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("4WS-shadow", ChannelVersion.RHEL4);
@@ -71,30 +71,30 @@ public class ChannelVersion {
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("3.93ES", ChannelVersion.RHEL4);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("3.93WS", ChannelVersion.RHEL4);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("3.93Desktop", ChannelVersion.RHEL4);
-        
+
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("3AS", ChannelVersion.RHEL3);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("3ES", ChannelVersion.RHEL3);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("3WS", ChannelVersion.RHEL3);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("3Desktop", ChannelVersion.RHEL3);
-        
+
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("3AS-shadow", ChannelVersion.RHEL3);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("3ES-shadow", ChannelVersion.RHEL3);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("3WS-shadow", ChannelVersion.RHEL3);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("3Desktop-shadow", ChannelVersion.RHEL3);
-        
+
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("2.1AS", ChannelVersion.RHEL21);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("2.1ES", ChannelVersion.RHEL21);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("2.1WS", ChannelVersion.RHEL21);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("2.1AW", ChannelVersion.RHEL21);
         DIST_CHANNEL_MAP_TO_CHANNEL_VERSION.put("2.1ASDE", ChannelVersion.RHEL21);
 
-        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_21, 
+        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_21,
                 ChannelVersion.RHEL21);
-        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_3, 
+        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_3,
                 ChannelVersion.RHEL3);
-        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_4, 
+        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_4,
                 ChannelVersion.RHEL4);
-        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_5, 
+        KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.put(KickstartInstallType.RHEL_5,
                 ChannelVersion.RHEL5);
     }
 
@@ -106,9 +106,9 @@ public class ChannelVersion {
         name = nameIn;
         version = versionIn;
     }
-    
+
     /**
-     * Returns the channel version constant for the given kickstart install 
+     * Returns the channel version constant for the given kickstart install
      * type, based on it's label and the contents of a static mapping.
      * @param type KickstartInstallType to lookup channel version for.
      * @return ChannelVersion for this KickstartInstallType.
@@ -118,7 +118,7 @@ public class ChannelVersion {
         return (ChannelVersion)KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION.get(
                 type.getLabel());
     }
-    
+
     /**
      * Returns the channel version constant for the given DistChannelMap,
      * based on the map's release and a static mapping.
@@ -133,9 +133,9 @@ public class ChannelVersion {
         }
         return ChannelVersion.LEGACY;
     }
-    
 
-    
+
+
     /**
      * @return Returns the name.
      */
@@ -143,7 +143,7 @@ public class ChannelVersion {
         return name;
     }
 
-    
+
     /**
      * @param nameIn The name to set.
      */
@@ -151,7 +151,7 @@ public class ChannelVersion {
         this.name = nameIn;
     }
 
-    
+
     /**
      * @return Returns the version.
      */
@@ -159,12 +159,12 @@ public class ChannelVersion {
         return version;
     }
 
-    
+
     /**
      * @param versionIn The version to set.
      */
     public void setVersion(String versionIn) {
         this.version = versionIn;
     }
-    
+
 }

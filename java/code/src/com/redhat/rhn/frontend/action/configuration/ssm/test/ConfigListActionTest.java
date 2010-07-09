@@ -36,17 +36,17 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class ConfigListActionTest extends RhnMockStrutsTestCase {
-    
+
     private void doTheTest(String path) throws Exception {
         //give the user org_admin role.
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //create the revision, file, and channel.
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
         revision.getConfigFile().setLatestConfigRevision(revision);
         ConfigurationFactory.commit(revision);
-        
+
         //create a server and add it to the two required server groups
         //provisioning for config management and enterprise for server grouping
         Server server = ServerFactoryTest.createTestServer(user, true,
@@ -56,18 +56,18 @@ public class ConfigListActionTest extends RhnMockStrutsTestCase {
         ServerFactory.addServerToGroup(server, group);
         server.subscribe(revision.getConfigFile().getConfigChannel());
         ServerFactory.save(server);
-        
+
         //add the server to the system list and save.
         RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         set.addElement(server.getId());
         RhnSetFactory.save(set);
-        
+
         //perform the action we are testing.
         setRequestPathInfo(path);
         actionPerform();
         verifyPageList(ConfigFileNameDto.class);
     }
-    
+
     public void testExecute() throws Exception {
         doTheTest("/systems/ssm/config/Diff");
         doTheTest("/systems/ssm/config/Deploy");

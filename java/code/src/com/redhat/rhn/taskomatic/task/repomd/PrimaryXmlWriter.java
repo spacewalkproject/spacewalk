@@ -34,7 +34,7 @@ import java.util.Iterator;
 /**
  * Primary.xml writer class
  * @version $Rev $
- * 
+ *
  */
 public class PrimaryXmlWriter extends RepomdWriter {
 
@@ -46,7 +46,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
     private static Logger log = Logger.getLogger(PrimaryXmlWriter.class);
 
     /**
-     * 
+     *
      * @param writer The writer object for primary xml
      */
     public PrimaryXmlWriter(Writer writer) {
@@ -54,7 +54,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param channel channel info
      * @return primaryXml for the given channel
      * @throws Exception exception
@@ -114,28 +114,28 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param pkgDto pkg info to add to xml
      */
     public void addPackage(PackageDto pkgDto) {
-        try {            
+        try {
             String xml = pkgDto.getPrimaryXml();
             if (ConfigDefaults.get().useDBRepodata() && !StringUtils.isEmpty(xml)) {
-                
+
                 if (xml != null) {
                     handler.addCharacters(xml);
                     return;
                 }
             }
-            
+
             ByteArrayOutputStream st = new ByteArrayOutputStream();
             SimpleContentHandler tmpHandler = getTemporaryHandler(st);
-            
-            
+
+
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
             attr.addAttribute("type", "rpm");
             tmpHandler.startDocument();
-            
+
             tmpHandler.startElement("package", attr);
 
             addBasicPackageDetails(pkgDto, tmpHandler);
@@ -146,7 +146,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
             String pkg =  st.toString();
             PackageManager.updateRepoPrimary(pkgDto.getId(), pkg);
             handler.addCharacters(pkg);
-            
+
         }
         catch (SAXException e) {
             throw new RepomdRuntimeException(e);
@@ -154,11 +154,11 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param pkgDto pkg info to add to xml
      * @throws SAXException sax exception
      */
-    private void addPackageFormatDetails(PackageDto pkgDto, 
+    private void addPackageFormatDetails(PackageDto pkgDto,
             SimpleContentHandler localHandler) throws SAXException {
         long pkgId = pkgDto.getId().longValue();
 
@@ -187,11 +187,11 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param pkgDto pkg info to add to xml
      * @throws SAXException sax exception
      */
-    private void addBasicPackageDetails(PackageDto pkgDto, 
+    private void addBasicPackageDetails(PackageDto pkgDto,
             SimpleContentHandler localHandler) throws SAXException {
         long pkgId = pkgDto.getId().longValue();
 
@@ -247,11 +247,11 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param pkgDto pkg info to add to xml
      * @throws SAXException
      */
-    private void addPackagePrcoData(PackageDto pkgDto, 
+    private void addPackagePrcoData(PackageDto pkgDto,
             SimpleContentHandler localHandler) throws SAXException {
         addPackageDepData(providesIterator, pkgDto.getId().longValue(),
                 "provides", localHandler);
@@ -264,13 +264,13 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param pkgCapIter pkg capability info
      * @param pkgId package Id to set
      * @param dep dependency info
      * @throws SAXException sax exception
      */
-    private void addPackageDepData(PackageCapabilityIterator pkgCapIter, long pkgId, 
+    private void addPackageDepData(PackageCapabilityIterator pkgCapIter, long pkgId,
                 String dep, SimpleContentHandler localHandler) throws SAXException {
         localHandler.startElement("rpm:" + dep);
         while (pkgCapIter.hasNextForPackage(pkgId)) {
@@ -307,7 +307,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param evr package evr info
      * @return package evr object
      */
@@ -342,11 +342,11 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param pkgId package Id info
      * @throws SAXException sax exception
      */
-    private void addEssentialPackageFiles(long pkgId, 
+    private void addEssentialPackageFiles(long pkgId,
             SimpleContentHandler hndlr) throws SAXException {
         String regex = ".*bin/.*|^/etc/.*|^/usr/lib.sendmail$";
         while (filesIterator.hasNextForPackage(pkgId)) {
@@ -358,7 +358,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param pkgDto package info
      * @return package filename
      */

@@ -49,17 +49,17 @@ function setStep(stepName) {
 	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-sync.jspf" %>
       </c:if>
     </table>
-	<c:if test="${empty regularKS}">    
+	<c:if test="${empty regularKS}">
     	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/virt-options.jspf" %>
     </c:if>
     <hr/>
 	<table width="100%">
 	  <tr>
 	    <td align="right">
-	      <input type="button" value="<bean:message key="kickstart.schedule.button3.jsp" />" onclick="setStep('first');moveNext();" />	    
+	      <input type="button" value="<bean:message key="kickstart.schedule.button3.jsp" />" onclick="setStep('first');moveNext();" />
           <input type="button" value="<bean:message key="kickstart.schedule.button2.jsp" />" onclick="setStep('third');moveNext();" />
 	    </td>
-	  </tr>    
+	  </tr>
 </html:form>
 </div>
 </body>

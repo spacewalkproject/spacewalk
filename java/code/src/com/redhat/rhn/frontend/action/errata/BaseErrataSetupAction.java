@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class BaseErrataSetupAction extends RhnListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -40,12 +40,12 @@ public class BaseErrataSetupAction extends RhnListAction {
                                  HttpServletResponse response) {
         //Get the errata
         Errata errata = new RequestContext(request).lookupErratum();
-        
+
         //put advisory in request for the toolbar
         request.setAttribute("advisory", errata.getAdvisory());
-        
+
         //default forward
         return mapping.findForward("default");
     }
-    
+
 }

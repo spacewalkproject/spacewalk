@@ -23,18 +23,18 @@ import com.redhat.rhn.domain.action.Action;
  */
 public class KickstartGuestAction extends Action {
 
-    
+
     private KickstartGuestActionDetails kickstartGuestActionDetails;
-    
+
     /**
      * Get the detail record associated with this KickstartGuestAction
-     * 
+     *
      * @return Returns the kickstartGuestActionDetails.
      */
     public KickstartGuestActionDetails getKickstartGuestActionDetails() {
         return kickstartGuestActionDetails;
     }
-    
+
     /**
      * Set the detail record associated with this KickstartGuestAction
      * @param kickstartGuestActionDetailsIn The kickstartGuestActionDetails to set.

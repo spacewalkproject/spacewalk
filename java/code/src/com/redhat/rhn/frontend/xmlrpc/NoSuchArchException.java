@@ -43,5 +43,5 @@ public class NoSuchArchException extends FaultException  {
         super(1062, "invalidPackage" , LocalizationService.getInstance().
                 getMessage("api.system.invalidarch", new Object [] {arch}), cause);
     }
-    
+
 }

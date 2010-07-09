@@ -24,7 +24,7 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class RhnTagFunctionsTest extends RhnBaseTestCase {
-    
+
     public void setUp() throws Exception {
         TestUtils.disableLocalizationLogging();
         super.setUp();
@@ -33,7 +33,7 @@ public class RhnTagFunctionsTest extends RhnBaseTestCase {
     public void testConfig() {
         assertNotNull(RhnTagFunctions.getConfig("web.version"));
     }
-    
+
     public void testLocalize() {
         assertNotNull(RhnTagFunctions.localizedValue("test.string"));
         assertNotNull(RhnTagFunctions.localizedValue("test.string", "asdf|asdf"));

@@ -38,15 +38,15 @@ public class CopyFileCentralAction  extends BaseCopyConfigFileAction {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listChannelsForFileCopy(user, file, getLabel(), pcIn);
     }
-    
+
     protected String getLabel() {
         return ConfigChannelType.global().getLabel();
     }
-    
+
     protected String getType() {
         return BaseCopyConfigFileAction.CENTRAL_TYPE;
     }
-    
+
     /**
      * Only config-admins get to copy files into central channels
      * {@inheritDoc}
@@ -69,6 +69,6 @@ public class CopyFileCentralAction  extends BaseCopyConfigFileAction {
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_CHANNELS;
     }
-    
-    
+
+
 }

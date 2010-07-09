@@ -23,7 +23,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class NoSuchActionException extends FaultException  {
-    
+
     /**
      * Constructor
      * @param action Action ID.

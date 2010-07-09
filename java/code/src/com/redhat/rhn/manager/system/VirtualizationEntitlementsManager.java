@@ -33,7 +33,7 @@ import java.util.Map;
  * @version $Rev$
  */
 public class VirtualizationEntitlementsManager {
-    private static final VirtualizationEntitlementsManager INSTANCE = 
+    private static final VirtualizationEntitlementsManager INSTANCE =
                                     new VirtualizationEntitlementsManager();
     /**
      * Initializes the manager.
@@ -47,43 +47,43 @@ public class VirtualizationEntitlementsManager {
     public static VirtualizationEntitlementsManager getInstance() {
         return INSTANCE;
     }
-    
+
     /**
-     * Queries an org for host systems, having the 'Unlimited Virtualization' entitlement, 
+     * Queries an org for host systems, having the 'Unlimited Virtualization' entitlement,
      * and the guest count for each host.
-     * 
+     *
      * @param org The org to search in
-     * 
+     *
      * @return A set of HostAndGuestView objects
-     * 
+     *
      * @see com.redhat.rhn.domain.server.HostAndGuestCountView
      */
     public List findGuestUnlimitedHostsByOrg(Org org) {
         return ServerFactory.findVirtPlatformHostsByOrg(org);
     }
-    
+
     /**
      * Queries an org for host systems, having the 'Limited Virtualization' entitlement that
      * have exceeded their guest limit. The guest count for each host is also fetched.
-     * 
+     *
      * @param org The org to search in
-     * 
+     *
      * @return A set of HostAndGuestView objects
-     * 
+     *
      * @see com.redhat.rhn.domain.server.HostAndGuestCountView
      */
     public List findGuestLimitedHostsByOrg(Org org) {
         return ServerFactory.findVirtHostsExceedingGuestLimitByOrg(org);
     }
-    
+
     /**
      * Queries an org for guest systems whose hosts either do not have any virtualization
      * entitlements or are not registered with RHN.
-     * 
+     *
      * @param org The org to search in
-     * 
+     *
      * @return A set of GuestAndNonVirtHostView objects
-     * 
+     *
      * @see com.redhat.rhn.domain.server.GuestAndNonVirtHostView
      */
     public List findGuestsWithoutHostsByOrg(Org org) {
@@ -92,7 +92,7 @@ public class VirtualizationEntitlementsManager {
                                            findGuestsWithNonVirtHostByOrg(org));
        guestsWithoutHosts.addAll(VirtualInstanceFactory.getInstance().
                                                findGuestsWithoutAHostByOrg(org));
-       
+
        return guestsWithoutHosts;
     }
 
@@ -103,10 +103,10 @@ public class VirtualizationEntitlementsManager {
      */
     public List<ChannelFamilySystemGroup> listFlexGuests(User user) {
         return VirtualInstanceFactory.getInstance().listFlexGuests(user);
-        
+
     }
 
-    
+
     /**
      * Returns a list of eligible guest systems that could be moved to FVE bucket
      * @param user user for access checks
@@ -114,16 +114,16 @@ public class VirtualizationEntitlementsManager {
      */
     public List<ChannelFamilySystemGroup> listEligibleFlexGuests(User user) {
         return VirtualInstanceFactory.getInstance().listEligibleFlexGuests(user);
-        
+
     }
-    
+
     /**
      * Converts a given server to flex entitlement
      * @param systemId the server id
      * @param channelFamilyId the channel family id
      * @param user the user object
      */
-    public void convertToFlex(Long systemId, 
+    public void convertToFlex(Long systemId,
                         Long channelFamilyId,
                         User user) {
         SystemManager.ensureAvailableToUser(user, systemId);

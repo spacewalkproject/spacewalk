@@ -38,22 +38,22 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * ServerSerializer: Converts a Server object for representation as an XMLRPC struct.
  * Includes full server details, which may be more data than some calls would like.
  * @version $Rev$
- * 
- * 
+ *
+ *
  * @xmlrpc.doc
  *  #struct("server details")
  *         #prop_desc("int", "id", "System id")
  *         #prop("string", "profile_name")
- *         #prop_desc("string", "base_entitlement", "System's base entitlement label. 
+ *         #prop_desc("string", "base_entitlement", "System's base entitlement label.
  *                      (enterprise_entitled or sw_mgr_entitled)")
- *          
+ *
  *         #prop_array("string", "addon_entitlements","System's addon entitlements labels,
- *                       including monitoring_entitled, provisioning_entitled, 
+ *                       including monitoring_entitled, provisioning_entitled,
  *                                 virtualization_host, virtualization_host_platform")
- *          #prop_desc("boolean", "auto_update", "True if system has auto errata updates 
+ *          #prop_desc("boolean", "auto_update", "True if system has auto errata updates
  *                                          enabled.")
- *          #prop_desc("string", "release", "The Operating System release (i.e. 4AS, 
- *                      5Server")                                
+ *          #prop_desc("string", "release", "The Operating System release (i.e. 4AS,
+ *                      5Server")
  *          #prop("string", "address1")
  *          #prop("string", "address2")
  *          #prop("string", "city")
@@ -62,9 +62,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop("string", "building")
  *          #prop("string", "room")
  *          #prop("string", "rack")
- *          #prop("string", "description")    
- *          #prop("string", "hostname")  
- *          #prop($date, "last_boot")                               
+ *          #prop("string", "description")
+ *          #prop("string", "hostname")
+ *          #prop($date, "last_boot")
  *          #prop_desc("string", "osa_status", "Either 'unknown', 'offline', or 'online'.")
  *          #prop_desc("boolean", "lock_status", "True indicates that the system is locked.
  *           False indicates that the system is unlocked.")
@@ -84,9 +84,9 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
+
         Server server = (Server)value;
-        
+
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("id", server.getId());
         helper.add("profile_name", server.getName());
@@ -121,9 +121,9 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
             autoUpdate = Boolean.TRUE;
         }
         helper.add("auto_update", autoUpdate);
-        
+
         helper.add("description", StringUtils.defaultString(server.getDescription()));
-        
+
         String address1 = "";
         String address2 = "";
         String city = "";
@@ -158,10 +158,10 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
         helper.add("building", building);
         helper.add("room", room);
         helper.add("rack", rack);
-        
+
         helper.add("release", server.getRelease());
         helper.add("last_boot", server.getLastBootAsDate());
-        
+
         if (server.getPushClient() != null) {
             helper.add("osa_status", server.getPushClient().getState().getName());
         }
@@ -169,13 +169,13 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
             helper.add("osa_status", LocalizationService.getInstance().getMessage(
                     "sdc.details.overview.unknown"));
         }
-        
+
         Boolean locked = Boolean.FALSE;
         if (server.getLock() != null) {
             locked = Boolean.TRUE;
         }
         helper.add("lock_status", locked);
-        
+
         helper.writeTo(output);
     }
 }

@@ -7,8 +7,8 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstart.troubleshooting.jsp.header1"/></h2>
@@ -29,7 +29,7 @@
             <bean:message key="kickstart.troubleshooting.jsp.bootloader.elilo.required"/>
 </c:if>
 <c:if test="${!ksdata.eliloRequired}">
-            <html:select property="bootloader"> 
+            <html:select property="bootloader">
               <html:options collection="bootloaders"
                             property="value"
                             labelProperty="display" />
@@ -55,7 +55,7 @@
           <td><html:checkbox property="verboseUp2date" /></td>
         </tr>
 
-        <tr>          
+        <tr>
           <td align="right" colspan="2"><html:submit><bean:message key="kickstart.troubleshooting.jsp.updatekickstart"/></html:submit></td>
         </tr>
       </table>

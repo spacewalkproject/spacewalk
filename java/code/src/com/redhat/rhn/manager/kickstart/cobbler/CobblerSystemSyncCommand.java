@@ -25,29 +25,29 @@ import java.util.Map;
 
 
 /**
- * This command finds profiles that have been changed on the cobbler server and syncs 
+ * This command finds profiles that have been changed on the cobbler server and syncs
  *  those changes to the satellite
  * @version $Rev$
  */
 public class CobblerSystemSyncCommand extends CobblerCommand {
-  
+
     private Logger log;
-    
+
     /**
-     * Command to sync unsynced Kickstart profiles to cobbler. 
+     * Command to sync unsynced Kickstart profiles to cobbler.
      */
     public CobblerSystemSyncCommand() {
         super();
         log = Logger.getLogger(this.getClass());
     }
-    
 
-    
-    
-    
+
+
+
+
     /**
      *  Get a map of CobblerID -> profileMap from cobbler
-     * @return a list of cobbler profile names 
+     * @return a list of cobbler profile names
      */
     private Map<String, Map> getModifiedSystemNames() {
         Map<String, Map> toReturn = new HashMap<String, Map>();
@@ -56,8 +56,8 @@ public class CobblerSystemSyncCommand extends CobblerCommand {
                 toReturn.put((String)system.get("uid"), system);
         }
         return toReturn;
-    }    
-    
+    }
+
 
     /**
      * {@inheritDoc}

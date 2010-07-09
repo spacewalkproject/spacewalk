@@ -29,11 +29,11 @@ import java.util.List;
  * @version $Rev$
  */
 public class SoftwareHandlerTest extends BaseHandlerTestCase {
-    
+
     private SoftwareHandler handler = new SoftwareHandler();
 
     public void testGetSoftwareList() throws Exception {
-        
+
         KickstartData ksProfile  = KickstartDataTest.createKickstartWithProfile(admin);
 
         List<String> packages = handler.getSoftwareList(adminKey, ksProfile.getLabel());
@@ -42,52 +42,52 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
         assertTrue(ksProfile.getKsPackages().size() > 0);
         assertEquals(ksProfile.getKsPackages().size(), packages.size());
     }
-    
+
     public void testSetSoftwareList() throws Exception {
-        
+
         KickstartData ksProfile  = KickstartDataTest.createKickstartWithProfile(admin);
 
         List<String> packages = new ArrayList<String>();
         packages.add("gcc");
-        
+
         int result = handler.setSoftwareList(adminKey, ksProfile.getLabel(), packages);
-        
+
         boolean pkgFound = false;
         for (Iterator<KickstartPackage> itr = ksProfile.getKsPackages().iterator();
              itr.hasNext();) {
-              KickstartPackage pkg = (KickstartPackage) itr.next(); 
+              KickstartPackage pkg = (KickstartPackage) itr.next();
               if (pkg.getPackageName().getName().equals("gcc")) {
                   pkgFound = true;
-                  
+
               }
         }
         assertEquals(1, result);
         assertEquals(ksProfile.getKsPackages().size(), 1);
         assertEquals(pkgFound, true);
     }
-    
+
     public void testAppendToSoftwareList() throws Exception {
-        
+
         KickstartData ksProfile  = KickstartDataTest.createKickstartWithProfile(admin);
 
         int numPackagesInitial = ksProfile.getKsPackages().size();
-        
+
         List<String> packages = new ArrayList<String>();
         packages.add("bash");
         packages.add("gcc");
-        
+
         int result = handler.appendToSoftwareList(adminKey, ksProfile.getLabel(), packages);
-          
+
         assertEquals(1, result);
-        assertEquals(numPackagesInitial + packages.size(), 
+        assertEquals(numPackagesInitial + packages.size(),
                 ksProfile.getKsPackages().size());
-        
+
         // attempt to add the same packages again and verify that the list did not change
         // (i.e. we don't allow duplicates)
         result = handler.appendToSoftwareList(adminKey, ksProfile.getLabel(), packages);
 
         assertEquals(1, result);
-        assertEquals(numPackagesInitial + packages.size(), 
+        assertEquals(numPackagesInitial + packages.size(),
                 ksProfile.getKsPackages().size());
     }
 }

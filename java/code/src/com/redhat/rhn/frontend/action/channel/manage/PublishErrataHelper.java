@@ -30,45 +30,45 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 
+ *
  * PublishErrataHelper
  * @version $Rev$
  */
 public class PublishErrataHelper {
 
-    
+
     private PublishErrataHelper() {
-        
+
     }
-    
+
     /**
-     * Perform a check to see if the user can modify channels, throws an 
+     * Perform a check to see if the user can modify channels, throws an
      *          PermissionException if the user does not have permission
      * @param user the user to check
-     * 
+     *
      */
     public static void checkPermissions(User user) {
-        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN) &&  
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN) &&
                 !user.hasRole(RoleFactory.ORG_ADMIN)) {
             LocalizationService ls = LocalizationService.getInstance();
             throw new PermissionException(
                     ls.getMessage("frontend.actions.channels.manager.add.permsfailure"));
-        }        
+        }
     }
-    
-    
+
+
     /**
-     * Clones an errata Similarly to ErrataFactory.createClone, but creates a published 
-     *      errata instead of going through the stupid process of being unpublished and 
-     *       then copying all the data to 4 tables 
+     * Clones an errata Similarly to ErrataFactory.createClone, but creates a published
+     *      errata instead of going through the stupid process of being unpublished and
+     *       then copying all the data to 4 tables
      * @param original the original errata to clone
      * @param org the org to clone it for
      * @return The cloned (and published) errata
      */
     public static Errata cloneErrataFast(Errata original, Org  org) {
-               
+
         Errata clone = new PublishedClonedErrata();
-        
+
 
         clone.setAdvisoryType(original.getAdvisoryType());
         clone.setProduct(original.getProduct());
@@ -86,55 +86,55 @@ public class PublishErrataHelper {
         clone.setLastModified(original.getLastModified());
         clone.setOrg(org);
         clone.getCves().addAll(original.getCves());
-        
+
         clone.setPackages(new HashSet(original.getPackages()));
 
-        
+
         for (Keyword k : (Set<Keyword>)original.getKeywords()) {
             clone.addKeyword(k.getKeyword());
         }
 
-        
+
         for (Bug bugIn : (Set<Bug>) original.getBugs()) {
             Bug bClone;
-                bClone = ErrataManager.createNewPublishedBug(bugIn.getId(), 
+                bClone = ErrataManager.createNewPublishedBug(bugIn.getId(),
                                                             bugIn.getSummary());
            clone.addBug(bClone);
         }
-        
-        
+
+
         String baseClonedAdvisoryName = "CL" + original.getAdvisoryName().substring(3);
         String baseClonedAdvisory = "CL" + original.getAdvisory().substring(3);
         String clonedAdvisory = baseClonedAdvisory;
         String clonedAdvisoryName = baseClonedAdvisoryName;
         boolean unusedNameFound = false;
-        
+
 
         for (int j = 1; !unusedNameFound; ++j) {
             Errata advisoryNameMatch = ErrataFactory.lookupByAdvisory(
                     clonedAdvisoryName);
             Errata advisoryMatch = ErrataFactory.lookupByAdvisoryId(clonedAdvisory);
-            
+
             if ((advisoryNameMatch == null) && (advisoryMatch == null)) {
                 unusedNameFound = true;
             }
             else {
-                clonedAdvisoryName = baseClonedAdvisoryName + '-' + 
+                clonedAdvisoryName = baseClonedAdvisoryName + '-' +
                                      new Integer(j).toString();
                 clonedAdvisory = baseClonedAdvisory + '-' +
                                  new Integer(j).toString();
             }
         }
-        
-        
+
+
         clone.setAdvisoryName(clonedAdvisoryName);
         clone.setAdvisory(clonedAdvisory);
         ((PublishedClonedErrata) clone).setOriginal(original);
         clone.setOrg(org);
         ErrataFactory.save(clone);
-        
+
         return clone;
-                
+
     }
-    
+
 }

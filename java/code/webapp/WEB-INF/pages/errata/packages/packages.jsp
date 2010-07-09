@@ -13,16 +13,16 @@
 	           helpUrl="/rhn/help/channel-mgmt/en-US/channel-mgmt-Custom_Errata_Management-Managed_Errata_Details.jsp">
     <bean:message key="errata.edit.toolbar"/> <c:out value="${advisory}" />
   </rhn:toolbar>
-  
-  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml" 
+
+  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml"
                   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-  
+
   <h2>
     <img src="/img/rhn-icon-packages.gif"
          alt="<bean:message key='errata.common.packageAlt' />" />
     <bean:message key="errata.edit.packages.erratapackages"/>
   </h2>
-  
+
   <ul>
       <li>
         <a href="/rhn/errata/manage/ListPackages.do?eid=<c:out value="${param.eid}"/>">
@@ -34,8 +34,8 @@
         <a href="/rhn/errata/manage/AddPackages.do?eid=<c:out value="${param.eid}"/>">
           Add Packages
         </a>
-      </li>   
+      </li>
   </ul>
-  
+
 </body>
 </html>

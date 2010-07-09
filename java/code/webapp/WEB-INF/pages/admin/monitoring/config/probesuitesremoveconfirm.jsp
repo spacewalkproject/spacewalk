@@ -21,7 +21,7 @@
     <bean:message key="probesuitesremoveconfirm.jsp.summary"/>
 
     <form method="POST" name="rhn_list" action="/rhn/monitoring/config/ProbeSuitesRemoveConfirmSubmit.do">
-       <rhn:list pageList="${requestScope.pageList}" 
+       <rhn:list pageList="${requestScope.pageList}"
             noDataText="probesuitesremoveconfirm.jsp.nothingselected">
        <rhn:listdisplay button="probesuitesremoveconfirm.jsp.deleteprobesuites">
           <rhn:column header="probesuites.jsp.name">
@@ -31,7 +31,7 @@
       </rhn:list>
     </form>
 
-    
+
   </p>
 </div>
 

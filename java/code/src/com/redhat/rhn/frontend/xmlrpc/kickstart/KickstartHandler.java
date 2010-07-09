@@ -77,7 +77,7 @@ public class KickstartHandler extends BaseHandler {
      * List kickstartable channels for the logged in user.
      * @param sessionKey User's session key.
      * @return Array of Channel objects.
-     * 
+     *
      * @xmlrpc.doc List kickstartable channels for the logged in user.
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype #array() $ChannelSerializer #array_end()
@@ -87,23 +87,23 @@ public class KickstartHandler extends BaseHandler {
         ensureConfigAdmin(loggedInUser);
         return  ChannelFactory
                 .getKickstartableChannels(loggedInUser.getOrg());
-        
+
     }
 
-    
+
 
     /**
      * Import a kickstart profile into RHN. This method will maintain the
      * url/nfs/harddrive/cdrom command in the kickstart file rather than replace
      * it with the kickstartable tree's default URL.
-     * 
+     *
      * @param sessionKey User's session key.
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
      * @param kickstartableTreeLabel Label of a kickstartable tree.
      * @param kickstartFileContents Contents of a kickstart file.
      * @return 1 if successful, exception otherwise.
-     * 
+     *
      * @xmlrpc.doc Import a kickstart profile into RHN.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
@@ -121,7 +121,7 @@ public class KickstartHandler extends BaseHandler {
             String kickstartFileContents) {
 
         return importFile(sessionKey, profileLabel, virtualizationType,
-                kickstartableTreeLabel, 
+                kickstartableTreeLabel,
                 RhnXmlRpcServer.getServerName(), kickstartFileContents);
     }
 
@@ -129,7 +129,7 @@ public class KickstartHandler extends BaseHandler {
      * Import a kickstart profile into RHN, overriding the
      * url/nfs/harddrive/cdrom command in the file and replacing it with the
      * default URL for the kickstartable tree and kickstart host specified.
-     * 
+     *
      * @param sessionKey User's session key.
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
@@ -140,7 +140,7 @@ public class KickstartHandler extends BaseHandler {
      * url/nfs/cdrom/harddrive commands in the kickstart file itself.
      * @param kickstartFileContents Contents of a kickstart file.
      * @return 1 if successful, exception otherwise.
-     * 
+     *
      * @xmlrpc.doc Import a kickstart profile into RHN.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
@@ -190,7 +190,7 @@ public class KickstartHandler extends BaseHandler {
     /**
      * Create a new kickstart profile using the default download URL for the
      * kickstartable tree and kickstart host specified.
-     * 
+     *
      * @param sessionKey User's session key.
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
@@ -199,7 +199,7 @@ public class KickstartHandler extends BaseHandler {
      * construct the default download URL for the new kickstart profile.
      * @param rootPassword Root password.
      * @return 1 if successful, exception otherwise.
-     * 
+     *
      * @xmlrpc.doc Import a kickstart profile into RHN.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel" "Label for the new
@@ -244,7 +244,7 @@ public class KickstartHandler extends BaseHandler {
 
     /**
      * Create a new kickstart profile with a custom download URL.
-     * 
+     *
      * @param sessionKey User's session key.
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
@@ -253,7 +253,7 @@ public class KickstartHandler extends BaseHandler {
      * default URL.
      * @param rootPassword Root password.
      * @return 1 if successful, exception otherwise.
-     * 
+     *
      * @xmlrpc.doc Import a kickstart profile into RHN.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
@@ -310,7 +310,7 @@ public class KickstartHandler extends BaseHandler {
      * List kickstarts for a user
      * @param sessionKey key
      * @return list of KickstartDto objects
-     * 
+     *
      * @xmlrpc.doc Provides a list of kickstart profiles visible to the user's
      * org
      * @xmlrpc.param #session_key()
@@ -328,12 +328,12 @@ public class KickstartHandler extends BaseHandler {
      * Lists all ip ranges for an org
      * @param sessionKey An active session key
      * @return List of KickstartIpRange objects
-     * 
+     *
      * @xmlrpc.doc List all Ip Ranges and their associated kickstarts available
      * in the user's org.
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype #array() $KickstartIpRangeSerializer #array_end()
-     * 
+     *
      */
     public List listAllIpRanges(String sessionKey) {
         User user = getLoggedInUser(sessionKey);
@@ -349,7 +349,7 @@ public class KickstartHandler extends BaseHandler {
      * @param sessionKey the session
      * @param ipAddress the ipaddress to search on
      * @return label of the associated kickstart
-     * 
+     *
      * @xmlrpc.doc Find an associated kickstart for a given ip address.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ipAddress", "The ip address to
@@ -376,14 +376,14 @@ public class KickstartHandler extends BaseHandler {
      * @param sessionKey the session key
      * @param ksLabel the kickstart to remove an ip range from
      * @return 1 on removal, 0 if not found, exception otherwise
-     * 
+     *
      * @xmlrpc.doc Delete a kickstart profile
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of
      * the kickstart profile you want to remove")
      * @xmlrpc.returntype int - 1 on successful deletion, 0 if kickstart wasn't found
      *  or couldn't be deleted.
-     */    
+     */
     public int deleteProfile(String sessionKey, String ksLabel) {
         User user = getLoggedInUser(sessionKey);
         if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
@@ -399,15 +399,15 @@ public class KickstartHandler extends BaseHandler {
             return 0;
         }
     }
-    
+
     /**
      * Rename a kickstart profile.
-     * 
+     *
      * @param sessionKey User's session key.
      * @param originalLabel Label for tree we want to edit
      * @param newLabel to assign to tree.
      * @return 1 if successful, exception otherwise.
-     * 
+     *
      * @xmlrpc.doc Rename a Kickstart Tree (Distribution) in Satellite
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "originalLabel" "Label for the
@@ -419,7 +419,7 @@ public class KickstartHandler extends BaseHandler {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksData = lookupKsData(originalLabel, loggedInUser.getOrg());
-        
+
         KickstartData existing = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 newLabel, loggedInUser.getOrg().getId());
 
@@ -428,10 +428,10 @@ public class KickstartHandler extends BaseHandler {
         }
         KickstartEditCommand cmd = new KickstartEditCommand(
                 ksData.getId(), loggedInUser);
-        
+
         cmd.setLabel(newLabel);
         cmd.store();
-        
+
         /*if (op.getTree() == null) {
             throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
         }
@@ -481,14 +481,14 @@ public class KickstartHandler extends BaseHandler {
      * Import a kickstart profile into RHN, overriding the
      * url/nfs/harddrive/cdrom command in the file and replacing it with the
      * default URL for the kickstartable tree and kickstart host specified.
-     * 
+     *
      * @param sessionKey User's session key.
      * @param profileLabel Label for the new kickstart profile.
      * @param virtualizationType Virtualization type, or none.
      * @param kickstartableTreeLabel Label of a kickstartable tree.
      * @param kickstartFileContents Contents of a kickstart file.
      * @return 1 if successful, exception otherwise.
-     * 
+     *
      * @xmlrpc.doc Import a raw kickstart file into satellite.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
@@ -527,5 +527,5 @@ public class KickstartHandler extends BaseHandler {
         }
 
         return 1;
-    }    
+    }
 }

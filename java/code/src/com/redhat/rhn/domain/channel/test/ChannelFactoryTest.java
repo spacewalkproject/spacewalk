@@ -45,15 +45,15 @@ import java.util.List;
  * @version $Rev$
  */
 public class ChannelFactoryTest extends RhnBaseTestCase {
-    
+
     public void testChannelFactory() throws Exception {
         Channel c = createTestChannel();
-        
+
         assertNotNull(c.getChannelFamily());
-        
+
         Channel c2 = ChannelFactory.lookupById(c.getId());
         assertEquals(c.getLabel(), c2.getLabel());
-        
+
         Channel c3 = createTestChannel();
         Long id = c3.getId();
         assertNotNull(c.getChannelArch());
@@ -61,12 +61,12 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         flushAndEvict(c3);
         assertNull(ChannelFactory.lookupById(id));
     }
-    
+
     public static Channel createTestChannel() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         return createTestChannel(user);
     }
-    
+
     public static ProductName lookupOrCreateProductName(String label) throws Exception {
         ProductName attempt = ChannelFactory.lookupProductNameByLabel(label);
         if (attempt == null) {
@@ -77,7 +77,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         }
         return attempt;
     }
-    
+
     public static Channel createBaseChannel(User user) throws Exception {
         Channel c = createTestChannel(user);
         c.setOrg(null);
@@ -88,7 +88,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         ChannelFactory.save(c);
         return c;
     }
-    
+
     public static Channel createBaseChannel(User user,
                                 ChannelFamily fam) throws Exception {
         Channel c = createTestChannel(null, fam);
@@ -107,7 +107,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         UserManager.addChannelPerm(user, c.getId(), "subscribe");
         UserManager.addChannelPerm(user, c.getId(), "manage");
         ChannelFactory.save(c);
-        return c; 
+        return c;
     }
 
     public static Channel createTestChannel(Org org, ChannelFamily cfam) throws Exception {
@@ -146,18 +146,18 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         c.setChannelArch(arch);
         c.setChannelFamily(cfam);
         ChannelFactory.save(c);
-        return c; 
+        return c;
     }
- 
+
     /**
      * TODO: need to fix this test when we put errata management back in.
-     * @throws Exception 
+     * @throws Exception
      */
     public void testChannelsWithClonableErrata() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         ChannelManager.
             getChannelsWithClonableErrata(user.getOrg());
-        
+
         Channel original = ChannelFactoryTest.createTestChannel(user);
         Channel clone = ChannelFactoryTest.createTestClonedChannel(original, user);
         TestUtils.flushAndEvict(original);
@@ -168,7 +168,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
 
         assertTrue(channels.size() > 0);
     }
-    
+
     /**
      * TODO: create a test base channel with child channels and perform search.
      */
@@ -179,8 +179,8 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         labels.add("redhat-rhn-proxy-as-i386-2.1");
         List children = ChannelFactory.getChildChannelsByLabels(base, labels);
         assertNotEmpty("List is empty", children);
-    }    
-    
+    }
+
     public void testLookupByLabel() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         Channel rh = createTestChannel(user);
@@ -188,11 +188,11 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         rh.setOrg(null);
         ChannelFactory.save(rh);
         assertNull(rh.getOrg());
-        
+
         //Lookup a channel without an org (An RH channel)
         Channel c = ChannelFactory.lookupByLabel(user.getOrg(), label);
         assertEquals(label, c.getLabel());
-        
+
         //Lookup a channel with an org (user custom channel)
         Channel cust = createTestChannel(user);
         label = cust.getLabel();
@@ -201,50 +201,50 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         assertNotNull(c);
         assertEquals(label, c.getLabel());
         assertEquals(user.getOrg(), c.getOrg());
-        
+
         //Lookup a channel in a different org
         return; //no need to test in sat since we have only one org.
     }
-    
+
     public void testIsGloballySubscribable() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Channel c = createTestChannel(user);
         assertTrue(ChannelFactory.isGloballySubscribable(user.getOrg(), c));
     }
-    
+
     public void testChannelArchByLabel() {
         assertNull("Arch found for null label",
                 ChannelFactory.findArchByLabel(null));
         assertNull("Arch found for invalid label",
                 ChannelFactory.findArchByLabel("some-invalid_arch_label"));
-        
+
         ChannelArch ca = ChannelFactory.findArchByLabel("channel-x86_64");
         assertNotNull(ca);
         assertEquals("channel-x86_64", ca.getLabel());
         assertEquals("x86_64", ca.getName());
     }
-    
+
     public void testVerifyLabel() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Channel c = createTestChannel(user);
         assertFalse(ChannelFactory.doesChannelLabelExist("foo"));
         assertTrue(ChannelFactory.doesChannelLabelExist(c.getLabel()));
     }
-    
+
     public void testVerifyName() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Channel c = createTestChannel(user);
         assertFalse(ChannelFactory.doesChannelNameExist("power house foo channel"));
         assertTrue(ChannelFactory.doesChannelNameExist(c.getName()));
     }
-    
+
     public void testKickstartableChannels() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        
+
         List channels = ChannelFactory.getKickstartableChannels(user.getOrg());
         assertNotNull(channels);
         int originalSize = channels.size();
-        
+
         createTestChannel(user);
 
         channels = ChannelFactory.getKickstartableChannels(user.getOrg());
@@ -252,7 +252,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         assertTrue(channels.size() > 0);
         assertEquals(originalSize + 1, channels.size());
     }
-    
+
     public void testPackageCount() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Channel original = ChannelFactoryTest.createTestChannel(user);
@@ -264,10 +264,10 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         original = (Channel)reload(original);
         assertEquals(1, ChannelFactory.getPackageCount(original));
     }
-    
+
     /**
-     * Create a test cloned channel. NOTE: This function does not copy its 
-     * original's package list like a real clone would. It is only useful for 
+     * Create a test cloned channel. NOTE: This function does not copy its
+     * original's package list like a real clone would. It is only useful for
      * testing purposes.
      * @param original Channel to be cloned
      * @return a test cloned channel
@@ -276,7 +276,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         Org org = user.getOrg();
         ClonedChannel clone = new ClonedChannel();
         ChannelFamily cfam = ChannelFamilyFactory.lookupOrCreatePrivateFamily(org);
-        
+
         clone.setOrg(org);
         clone.setLabel("clone-" + original.getLabel());
         clone.setBaseDir(original.getBaseDir());
@@ -292,16 +292,16 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         clone.setEndOfLife(new Date());
         clone.setChannelFamily(cfam);
         clone.setChannelArch(original.getChannelArch());
-        
+
         /* clone specific calls */
         clone.setOriginal(original);
-        
+
         ChannelFactory.save(clone);
-        
+
         // assume we want the user to have access to this channel once created
         UserManager.addChannelPerm(user, clone.getId(), "subscribe");
         UserManager.addChannelPerm(user, clone.getId(), "manage");
-        
+
         return clone;
     }
     public void testAccessibleChildChannels() throws Exception {
@@ -313,11 +313,11 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(parent);
         TestUtils.flushAndEvict(child);
         List<Channel> dr = parent.getAccessibleChildrenFor(user);
-        
+
         assertFalse(dr.isEmpty());
         assertEquals(child, dr.get(0));
     }
-    
+
     public static ProductName createProductName() {
         ProductName pn = new ProductName();
         pn.setLabel("Label - " + TestUtils.randomString());
@@ -325,13 +325,13 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(pn);
         return pn;
     }
-    
+
     public void testFindChannelArchesSyncdChannels() {
         List<String> labels = ChannelFactory.findChannelArchLabelsSyncdChannels();
         assertNotNull(labels);
         assertNotEmpty(labels);
     }
-    
+
     public void testListAllBaseChannels() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         // do NOT use createBaseChannel here because that will create a Red Hat
@@ -341,7 +341,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         assertNotNull(channels);
         assertEquals(1, channels.size());
     }
-    
+
     public void testLookupPackageByFileName() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Channel channel = ChannelTestUtils.createTestChannel(user);
@@ -352,12 +352,12 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
                 "x86_64/c7dd5e9b6975bc7f80f2f4657260af53/" +
                 fileName);
         TestUtils.saveAndFlush(p);
-        
-        Package lookedUp = ChannelFactory.lookupPackageByFilename(channel, 
+
+        Package lookedUp = ChannelFactory.lookupPackageByFilename(channel,
                 fileName);
         assertNotNull(lookedUp);
         assertEquals(p.getId(), lookedUp.getId());
-        
+
         // Test in child channel.
         Channel child = ChannelTestUtils.createChildChannel(user, channel);
         Package cp = PackageManagerTest.addPackageToChannel("some-package-child", child);
@@ -366,23 +366,23 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
                 "x86_64/c7dd5e9b6975bc7f80f2f4657260af53/" +
                 fileNameChild);
 
-        Package lookedUpChild = ChannelFactory.lookupPackageByFilename(channel, 
+        Package lookedUpChild = ChannelFactory.lookupPackageByFilename(channel,
                 fileNameChild);
         assertNotNull(lookedUpChild);
         assertEquals(cp.getId(), lookedUpChild.getId());
-                
+
     }
-    
+
     public void testfindChecksumByLabel() {
         assertNull("Checksum found for null label",
                 ChannelFactory.findChecksumTypeByLabel(null));
         assertNull("Checksum found for invalid label",
                 ChannelFactory.findChecksumTypeByLabel("some-invalid_checksum"));
-        
+
         ChecksumType ct = ChannelFactory.findChecksumTypeByLabel("sha256");
         assertNotNull(ct);
         assertEquals("sha256", ct.getLabel());
-        
+
         ChecksumType ct2 = ChannelFactory.findChecksumTypeByLabel("sha1");
         assertNotNull(ct2);
         assertEquals("sha1", ct2.getLabel());

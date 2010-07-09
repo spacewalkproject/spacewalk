@@ -30,10 +30,10 @@ import redstone.xmlrpc.XmlRpcFault;
  *
  */
 public class MockXMLRPCInvoker implements XMLRPCInvoker {
-    
+
     private static Logger log = Logger.getLogger(MockXMLRPCInvoker.class);
-    
-    public MockXMLRPCInvoker() { 
+
+    public MockXMLRPCInvoker() {
         log.debug("Constructor: " + TestUtils.randomString());
     }
 

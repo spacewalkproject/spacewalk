@@ -43,9 +43,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * 
+ *
  * @version $Rev $
- * 
+ *
  */
 public class RepositoryWriter {
 
@@ -71,7 +71,7 @@ public class RepositoryWriter {
     }
 
     /**
-     * 
+     *
      * @param channel channel info
      * @return repodata sanity
      */
@@ -87,16 +87,16 @@ public class RepositoryWriter {
         return !fileModifiedDate.equals(channel.getLastModified());
     }
     /**
-     * 
+     *
      * @param channel channelinfo for repomd file creation
      */
     public void writeRepomdFiles(Channel channel) {
-        
+
         PackageManager.createRepoEntrys(channel.getId());
-        
+
         String prefix = mountPoint + File.separator + pathPrefix +
         File.separator + channel.getLabel() + File.separator;
-        
+
         if (channel.getChannelArch().getArchType().getLabel().equalsIgnoreCase("deb")) {
             log.info("Generating new DEB repository for channel " + channel.getLabel());
             generateDebRepository(channel, prefix);
@@ -259,7 +259,7 @@ public class RepositoryWriter {
                     (int) (new Date().getTime() - start.getTime()) / 1000 + " seconds");
         }
     }
-    
+
     /**
      * Create repository for APT
      * @param channel
@@ -296,7 +296,7 @@ public class RepositoryWriter {
     }
 
     /**
-     * 
+     *
      * @param channel channel indo
      * @param checksumAlgo checksum algorithm
      * @return repomd index for given channel
@@ -344,8 +344,8 @@ public class RepositoryWriter {
     }
 
     /**
-     * TODO: This static comps paths should go away once 
-     * we can get the paths directly from hosted through 
+     * TODO: This static comps paths should go away once
+     * we can get the paths directly from hosted through
      * satellite-sync and only limit to supporting cloned.
      * @param channel channel object
      * @return compsPath comps file path
@@ -356,13 +356,13 @@ public class RepositoryWriter {
         Map<String, String> compsMapping = new HashMap<String, String>();
         String rootClientPath = "/rhn/kickstart/ks-rhel-x86_64-client-5";
         String rootServerPath = "/rhn/kickstart/ks-rhel-x86_64-server-5";
-        compsMapping.put("rhel-x86_64-client-5", 
+        compsMapping.put("rhel-x86_64-client-5",
               rootClientPath + "/Client/repodata/comps-rhel5-client-core.xml");
         compsMapping.put("rhel-x86_64-client-vt-5",
               rootClientPath + "/VT/repodata/comps-rhel5-vt.xml");
         compsMapping.put("rhel-x86_64-client-workstation-5",
               rootClientPath + "/Workstation/repodata/comps-rhel5-client-workstation.xml");
-        compsMapping.put("rhel-x86_64-server-5", 
+        compsMapping.put("rhel-x86_64-server-5",
               rootServerPath + "/Server/repodata/comps-rhel5-server-core.xml");
         compsMapping.put("rhel-x86_64-server-vt-5",
               rootServerPath + "/VT/repodata/comps-rhel5-vt.xml");
@@ -375,12 +375,12 @@ public class RepositoryWriter {
         Map<String, String> newCompsmap = new HashMap<String, String>();
         for (String k : compsMapping.keySet()) {
             for (String arch : arches) {
-                newCompsmap.put(k.replace("x86_64", arch), 
+                newCompsmap.put(k.replace("x86_64", arch),
                     compsMapping.get(k).replace("x86_64", arch));
             }
         }
         compsMapping.putAll(newCompsmap);
- 
+
         if (compsMapping.containsKey(channel.getLabel())) {
             compsPath = compsMapping.get(channel.getLabel());
         }
@@ -395,9 +395,9 @@ public class RepositoryWriter {
      * @param checksumtype checksum type
      * @return repodata index
      */
-    private RepomdIndexData generateUpdateinfo(Channel channel, String prefix, 
+    private RepomdIndexData generateUpdateinfo(Channel channel, String prefix,
             String checksumtypeIn) {
-        
+
         if (channel.getErrataCount() == 0) {
             return null;
         }

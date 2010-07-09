@@ -39,7 +39,7 @@ public class ContentSource extends BaseDomainHelper {
         return label;
     }
 
-    
+
     /**
      * @param labelIn The label to set.
      */
@@ -77,7 +77,7 @@ public class ContentSource extends BaseDomainHelper {
         this.id = idIn;
     }
 
-    
+
     /**
      * @return Returns the type.
      */
@@ -85,7 +85,7 @@ public class ContentSource extends BaseDomainHelper {
         return type;
     }
 
-    
+
     /**
      * @param typeIn The type to set.
      */
@@ -93,7 +93,7 @@ public class ContentSource extends BaseDomainHelper {
         this.type = typeIn;
     }
 
-    
+
     /**
      * @return Returns the sourceUrl.
      */
@@ -101,7 +101,7 @@ public class ContentSource extends BaseDomainHelper {
         return sourceUrl;
     }
 
-    
+
     /**
      * @param sourceUrlIn The sourceUrl to set.
      */
@@ -110,7 +110,7 @@ public class ContentSource extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * @param channelsIn of channels this repo is pushed to
      */
     public void setChannels(Set<Channel> channelsIn) {

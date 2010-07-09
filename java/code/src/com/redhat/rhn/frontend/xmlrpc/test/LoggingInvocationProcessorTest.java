@@ -35,7 +35,7 @@ public class LoggingInvocationProcessorTest extends RhnBaseTestCase {
 
     private LoggingInvocationProcessor lip;
     private Writer writer;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         lip = new LoggingInvocationProcessor();
@@ -44,38 +44,38 @@ public class LoggingInvocationProcessorTest extends RhnBaseTestCase {
 
     public void testPreProcess() {
         String[] args = {"username", "password"};
-        
+
         boolean rc = lip.before(new XmlRpcInvocation(10, "handler",
                 "method", null, Arrays.asList(args), writer));
-        
+
         assertTrue(rc);
     }
-    
+
     public void testPreProcessWithXmlArg() {
         String[] args = {"<?xml version=\"1.0\"?><somestuff>foo</somestuff>",
                 "password"};
 
         boolean rc = lip.before(new XmlRpcInvocation(10, "handler",
                 "method", null, Arrays.asList(args), writer));
-        
+
         assertTrue(rc);
     }
-    
+
     public void testPreProcessWithValidSession() {
         // create a web session indicating a logged in user.
         WebSession s = WebSessionFactory.createSession();
         assertNotNull(s);
         WebSessionFactory.save(s);
         assertNotNull(s.getId());
-        
+
         String[] args = {s.getKey()};
 
         boolean rc = lip.before(new XmlRpcInvocation(10, "handler",
                 "method", null, Arrays.asList(args), writer));
-        
+
         assertTrue(rc);
     }
-    
+
     public void testPreProcessWithInvalidSession() {
         String[] args = {"12312312xFFFFFABABABFFFCD01"};
 
@@ -83,7 +83,7 @@ public class LoggingInvocationProcessorTest extends RhnBaseTestCase {
                     "method", null, Arrays.asList(args), writer));
         assertTrue(rc);
     }
-    
+
     public void testPostProcess() {
         String[] args = {"<?xml version=\"1.0\"?><somestuff>foo</somestuff>",
                 "password"};
@@ -93,7 +93,7 @@ public class LoggingInvocationProcessorTest extends RhnBaseTestCase {
         assertEquals("returnthis", rc);
         assertEquals("", writer.toString());
     }
-    
+
     public void testPostProcessValidSession() {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         // create a web session indicating a logged in user.
@@ -102,9 +102,9 @@ public class LoggingInvocationProcessorTest extends RhnBaseTestCase {
         assertNotNull(s);
         WebSessionFactory.save(s);
         assertNotNull(s.getId());
-        
+
         String[] args = {s.getKey()};
-        
+
         lip.before(new XmlRpcInvocation(10, "handler", "method",
                 null, Arrays.asList(args), writer));
         Object rc = lip.after(new XmlRpcInvocation(10, "handler", "method",
@@ -112,10 +112,10 @@ public class LoggingInvocationProcessorTest extends RhnBaseTestCase {
         assertEquals("returnthis", rc);
         assertEquals("", writer.toString());
     }
-    
+
     public void testPostProcessInvalidSession() {
         String[] args = {"12312312xFFFFFABABABFFFCD01"};
-        
+
         lip.before(new XmlRpcInvocation(10, "handler", "method",
                 null, Arrays.asList(args), writer));
         Object rc = lip.after(new XmlRpcInvocation(10, "handler", "method",
@@ -123,7 +123,7 @@ public class LoggingInvocationProcessorTest extends RhnBaseTestCase {
         assertEquals("returnthis", rc);
         assertEquals("", writer.toString());
     }
-    
+
     public void testPostProcessWhereFirstArgHasNoX() {
         String[] args = {"abcdefghijklmnopqrstuvwyz", "password"};
 

@@ -15,10 +15,10 @@
   <div class="page-summary">
     <bean:message key="basesub.jsp.summary"/>
   </div>
-  
+
   <rl:listset name="baselist">
-    <html:hidden property="submitted" value="true"/>  
-    
+    <html:hidden property="submitted" value="true"/>
+
 	<!-- Start of active users list -->
 	<rl:list dataset="baselist"
          width="100%"
@@ -26,9 +26,9 @@
          styleclass="list"
          emptykey="basesub.jsp.noSystems">
 
-	<rl:column bound="false" 
-	           sortable="true" 
-	           headerkey="basesub.jsp.channelname" 
+	<rl:column bound="false"
+	           sortable="true"
+	           headerkey="basesub.jsp.channelname"
 	           styleclass="first-column"
 	           sortattr="name"
 	           >
@@ -39,9 +39,9 @@
           <c:out value="${current.name}" escapeXml="false" />
 	    </c:if>
     </rl:column>
-    
-    <rl:column bound="false" 
-	           sortable="false" 
+
+    <rl:column bound="false"
+	           sortable="false"
 	           headerkey="basesub.jsp.systemCount">
 	    <c:if test="${current.id > 0}">
           <a href="/rhn/channels/ChannelSubscribers.do?cid=${current.id}">${current.systemCount}</a>
@@ -50,10 +50,10 @@
           ${current.systemCount}
 	    </c:if>
     </rl:column>
-    
-    <rl:column bound="false" 
-	           sortable="false" 
-	           headerkey="basesub.jsp.options" 
+
+    <rl:column bound="false"
+	           sortable="false"
+	           headerkey="basesub.jsp.options"
 	           styleclass="last-column">
         <select name="base-for-${current.id}" size="5">
         	<option value="__no_change__" selected><bean:message key="basesub.jsp.no-channel-change"/></option>
@@ -76,11 +76,10 @@
         	</c:if>
         </select>
     </rl:column>
-    
+
   	</rl:list>
 	<hr />
 	<div align="right"><html:submit property="dispatch"><bean:message key="basesub.jsp.confirmSubscriptions"/></html:submit></div>
   </rl:listset>
 </body>
 </html>
-  

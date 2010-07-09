@@ -24,7 +24,7 @@ import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.testing.TestUtils;
 
 public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -35,15 +35,15 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
         cmd.createCommand("selinux", "--permissive", ksdata);
     }
 
-    public void testDisplay() throws Exception {    
-        
+    public void testDisplay() throws Exception {
+
         // Create a kickstart and the ranges so the list
         // will return something.
         setupForDisplay(ksdata);
         actionPerform();
         verifyNoActionErrors();
      }
-    
+
     public void testEditSELinux() throws Exception {
         setupForEdit(ksdata);
         addRequestParameter("selinuxMode", "enforcing");
@@ -54,7 +54,7 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
         verifyNoActionErrors();
         verifyFormValue("selinuxMode", "enforcing");
     }
-    
+
     public void testEditRootPasswordErr() throws Exception {
         setupForEdit(ksdata);
         addRequestParameter("rootPassword", "blahblah");
@@ -62,9 +62,9 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
         addRequestParameter("pwdChanged", "true");
         actionPerform();
         String[] errMessages = {"kickstart.systemdetails.root.password.jsp.error"};
-        verifyActionErrors(errMessages);        
+        verifyActionErrors(errMessages);
     }
-    
+
     public void testEditRootPasswordSuccess() throws Exception {
         setupForEdit(ksdata);
         addRequestParameter("selinuxMode", "permissive");
@@ -72,7 +72,7 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
         addRequestParameter("rootPasswordConfirm", "blahblah");
         addRequestParameter("pwdChanged", "true");
         actionPerform();
-        verifyNoActionErrors();        
+        verifyNoActionErrors();
     }
 
     public void testEditNetworkSuccess() throws Exception {
@@ -84,7 +84,7 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
         actionPerform();
         verifyNoActionErrors();
     }
-    
+
     public void testRHEL3Execute() throws Exception {
         ksdata.getKickstartDefaults().getKstree().
             setInstallType(KickstartFactory.
@@ -95,7 +95,7 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
         setRequestPathInfo("/kickstart/SystemDetailsEdit");
         addRequestParameter("registrationType", "reactivation");
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(SystemDetailsEditAction.SE_LINUX_PARAM, 
+        addRequestParameter(SystemDetailsEditAction.SE_LINUX_PARAM,
                 SELinuxMode.ENFORCING.getValue());
         actionPerform();
         // Make sure we DONT update if its rhel3
@@ -114,21 +114,21 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
         setRequestPathInfo("/kickstart/SystemDetailsEdit");
         addRequestParameter("registrationType", "reactivation");
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(SystemDetailsEditAction.SE_LINUX_PARAM, 
+        addRequestParameter(SystemDetailsEditAction.SE_LINUX_PARAM,
                 SELinuxMode.ENFORCING.getValue());
         actionPerform();
         // Make sure we update if its rhel4
         assertEquals("--enforcing", ksdata.getCommand("selinux").getArguments());
         verifyNoActionErrors();
-        
+
     }
-    
+
     private void setupForDisplay(KickstartData k) throws Exception {
         clearRequestParameters();
         setRequestPathInfo("/kickstart/SystemDetailsEdit");
-        addRequestParameter("ksid", k.getId().toString());        
+        addRequestParameter("ksid", k.getId().toString());
     }
-    
+
     private void setupForEdit(KickstartData k) throws Exception {
         setupForDisplay(k);
         addRequestParameter("submitted", "true");

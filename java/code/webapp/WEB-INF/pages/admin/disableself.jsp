@@ -13,7 +13,7 @@
           <bean:message key="disableself.jsp.message" />
         </p>
     </div>
-    
+
     <form method="post" name="rhn_list" action="/rhn/account/AccountDeactivationSubmit.do">
     <div align="right">
     <html:submit>

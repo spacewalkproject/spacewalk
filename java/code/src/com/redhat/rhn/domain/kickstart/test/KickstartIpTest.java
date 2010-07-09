@@ -34,7 +34,7 @@ public class KickstartIpTest extends BaseTestCaseWithUser {
         k = addIpRangesToKickstart(k);
         assertEquals(2, k.getIps().size());
     }
-    
+
     public static KickstartData addIpRangesToKickstart(KickstartData ksdata) {
         KickstartIpRange ip1 = new KickstartIpRange();
         KickstartIpRange ip2 = new KickstartIpRange();
@@ -61,5 +61,5 @@ public class KickstartIpTest extends BaseTestCaseWithUser {
         assertEquals(ip1.getKsdata(), ip2.getKsdata());
         return ksdata;
     }
-    
+
 }

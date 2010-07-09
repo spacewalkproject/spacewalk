@@ -33,11 +33,11 @@ public class TagHelper {
 
     private TagHelper() {
     }
-    
-    
+
+
     /**
      * Stores the declaration information of an rhnSet
-     * so as to be used by the list tag while 
+     * so as to be used by the list tag while
      * rendering a set.
      * @param listName name of list
      * @param elab the elaboratable object to bind to bind
@@ -49,16 +49,16 @@ public class TagHelper {
         String selectedName = "list_" + uniqueName + ELAB_TAG;
         HttpSession session = ((HttpServletRequest)request).getSession(true);
         session.setAttribute(selectedName, elab);
-    }    
-    
-    
+    }
+
+
     /**
      * Returns an Elaborator associated to this list
      * if it was previously bound.
      * @param listName the name of the list to who holds the set.
-     *                  Note: this must be a Unique Name .. 
+     *                  Note: this must be a Unique Name ..
      *                  See bindElaboratorTo method for more info.
-     * @param request the servlet request object 
+     * @param request the servlet request object
      * @return returns the elaborator associated to the list.
      */
     public static Elaborator lookupElaboratorFor(String listName,
@@ -69,8 +69,8 @@ public class TagHelper {
         }
         String selectedName = "list_" + listName + ELAB_TAG;
         return (Elaborator) session.getAttribute(selectedName);
-    }    
-    
+    }
+
 
     /**
      * Generates the unique name for a list
@@ -80,7 +80,7 @@ public class TagHelper {
     public static String generateUniqueName(String name) {
         CRC32 crc = new CRC32();
         crc.update(name.getBytes());
-        return String.valueOf(crc.getValue());        
+        return String.valueOf(crc.getValue());
     }
 
 }

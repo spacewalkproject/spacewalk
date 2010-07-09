@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 
 /**
  * <p>
- *  The <code>Constraint</code> class represents a single data constraint, 
+ *  The <code>Constraint</code> class represents a single data constraint,
  *    including the data type, allowed values, and required ranges.
  * </p>
  * @version $Rev$
@@ -42,7 +42,7 @@ public class NumericConstraint extends RequiredIfConstraint {
      *  This will create a new <code>Constraints</code> with the specified
      *    identifier as the "name".
      * </p>
-     * 
+     *
      * @param identifierIn <code>String</code> identifier for <code>Constraint</code>.
      */
     public NumericConstraint(String identifierIn) {
@@ -57,10 +57,10 @@ public class NumericConstraint extends RequiredIfConstraint {
         if (requiredCheck != null) {
             return requiredCheck;
         }
-        
-        String localizedIdentifier = 
+
+        String localizedIdentifier =
             LocalizationService.getInstance().getMessage(getIdentifier());
-        
+
         // Validate against range specifications
         try {
             if (!StringUtils.isBlank(value.toString())) {
@@ -72,7 +72,7 @@ public class NumericConstraint extends RequiredIfConstraint {
                     args[1] = getMinInclusive();
                     return new ValidatorError("errors.decimalvalue", args);
                 }
-                
+
                 if (hasMinInclusive()) {
                     if (doubleValue < getMinInclusive().doubleValue()) {
                         log.debug("Under min size ...");
@@ -98,10 +98,10 @@ public class NumericConstraint extends RequiredIfConstraint {
             Object[] args = new Object[1];
             args[0] = localizedIdentifier;
             return new ValidatorError("errors.notanumber", args);
-            
+
         }
-        
-        
+
+
         return null;
     }
 

@@ -28,16 +28,16 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
  * @version $Rev$
  */
 public class ChannelListActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         //Create a config channel and a server
         ConfigChannel channel = ConfigTestUtils.createConfigChannel(user.getOrg());
-        Server server = ServerFactoryTest.createTestServer(user, true, 
+        Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         //associate the two.
         server.subscribe(channel);
         SystemManager.storeServer(server);
-        
+
         setRequestPathInfo("/systems/details/configuration/ConfigChannelList");
         addRequestParameter("sid", server.getId().toString());
         actionPerform();

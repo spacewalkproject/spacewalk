@@ -60,11 +60,11 @@ public class AddGroupsAction extends DispatchedAction {
         User user = context.getLoggedInUser();
         Server server = context.lookupAndBindServer();
         ServerGroupManager manager = ServerGroupManager.getInstance();
-        
+
         List <Server> servers = new LinkedList<Server>();
         servers.add(server);
         Set <String> set = SessionSetHelper.lookupAndBind(request, groups.getDecl());
-        
+
         for (String id : set) {
             Long sgid = Long.valueOf(id);
             ServerGroup group = manager.lookup(sgid, user);
@@ -73,7 +73,7 @@ public class AddGroupsAction extends DispatchedAction {
         getStrutsDelegate().saveMessage(
                     "systems.groups.jsp.added",
                         new String [] {String.valueOf(set.size())}, request);
-        
+
         Map params = new HashMap();
         params.put(RequestContext.SID, server.getId().toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
@@ -90,20 +90,20 @@ public class AddGroupsAction extends DispatchedAction {
         User user = context.getLoggedInUser();
         new GroupSet(request);
         SdcHelper.ssmCheck(request, server.getId(), user);
-        request.setAttribute(ListTagHelper.PARENT_URL, 
-                                request.getRequestURI() + "?" + 
-                                RequestContext.SID + "=" + server.getId()); 
-        
+        request.setAttribute(ListTagHelper.PARENT_URL,
+                                request.getRequestURI() + "?" +
+                                RequestContext.SID + "=" + server.getId());
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-    
+
 
     private static class GroupSet extends WebSessionSet {
 
         public GroupSet(HttpServletRequest request) {
             super(request);
         }
-        
+
         /** {@inheritDoc} */
         @Override
         protected List getResult() {
@@ -124,18 +124,18 @@ public class AddGroupsAction extends DispatchedAction {
         }
 
         /**
-         * Returns the declaration 
+         * Returns the declaration
          * @return the declaration
          */
         @Override
         protected String getDecl() {
-            return getClass().getName() + 
+            return getClass().getName() +
                 getContext().getRequiredParam(RequestContext.SID);
         }
-        
+
         @Override
         protected String getDataSetName() {
             return "all";
         }
-    }    
+    }
 }

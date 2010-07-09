@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.action.kickstart.KickstartGuestActionDetails" 
+    <class name="com.redhat.rhn.domain.action.kickstart.KickstartGuestActionDetails"
         table="rhnActionKickstartGuest" >
 
 		<id name="id" type="long" column="id">
@@ -24,15 +24,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="diskGb" type="long" column="disk_gb"/>
         <property name="cobblerSystemName" type="string" column="cobbler_system_name"/>
 
-	<many-to-one name="parentAction" column="action_id" 
-		     class="com.redhat.rhn.domain.action.Action" outer-join="true" 
+	<many-to-one name="parentAction" column="action_id"
+		     class="com.redhat.rhn.domain.action.Action" outer-join="true"
 		     not-null="true" insert="true" update="false" />
-  
-                
+
+
         <set name="fileLists" table="RHNACTIONKICKSTARTFILELIST" lazy="true">
             <key column="action_ks_id"/>
             <element type="long" column="file_list_id" not-null="true"/>
         </set>
-  
+
     </class>
 </hibernate-mapping>

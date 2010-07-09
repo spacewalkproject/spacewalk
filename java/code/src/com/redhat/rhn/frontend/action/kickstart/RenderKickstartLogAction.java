@@ -33,30 +33,30 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Render a kickstart log.
- * 
+ *
  * @version $Rev $
  */
 public class RenderKickstartLogAction extends Action {
 
     private static final String ORG_TOKEN     = "orgtoken";
     private static final String KS_SESSION_ID = "ksid";
-    
-    private static Logger log = 
+
+    private static Logger log =
         Logger.getLogger(RenderKickstartLogAction.class);
-    
+
     /**
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, 
-                                 ActionForm form, 
-                                 HttpServletRequest request, 
-                                 HttpServletResponse response) 
+    public ActionForward execute(ActionMapping mapping,
+                                 ActionForm form,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response)
     throws Exception {
 
         String orgToken       = request.getParameter(ORG_TOKEN);
         String ksSessionIdStr = request.getParameter(KS_SESSION_ID);
 
-        // Both orgToken and ksSessionId are required, otherwise we return a 
+        // Both orgToken and ksSessionId are required, otherwise we return a
         // 404.
 
         if (orgToken == null || ksSessionIdStr == null) {
@@ -79,7 +79,7 @@ public class RenderKickstartLogAction extends Action {
         // Now, lookup the kickstart session id in the database and retrieve
         // the list of log messages associated with it.
 
-        List logMessages = 
+        List logMessages =
             KickstartFactory.lookupGuestKickstartInstallLog(
                 new Long(ksSessionIdStr));
 
@@ -87,9 +87,9 @@ public class RenderKickstartLogAction extends Action {
 
         return null;
     }
-    
-    private void renderResponse(HttpServletResponse response, 
-                                List /* <String> */ logMessages) 
+
+    private void renderResponse(HttpServletResponse response,
+                                List /* <String> */ logMessages)
     throws IOException {
 
         response.setContentType("text/plain");

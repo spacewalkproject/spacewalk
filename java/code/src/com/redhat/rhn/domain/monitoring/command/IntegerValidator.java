@@ -57,7 +57,7 @@ class IntegerValidator extends ParameterValidator {
         try {
             Integer.parseInt(value);
             return true;
-        } 
+        }
         catch (NumberFormatException e) {
             return false;
         }

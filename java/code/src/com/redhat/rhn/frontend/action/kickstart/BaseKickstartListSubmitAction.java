@@ -32,8 +32,8 @@ public abstract class BaseKickstartListSubmitAction extends BaseSetOperateOnDiff
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         RequestContext requestContext = new RequestContext(request);
         Long ksid = requestContext.getParamAsLong("ksid");

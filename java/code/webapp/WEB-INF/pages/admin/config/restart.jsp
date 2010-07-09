@@ -35,7 +35,7 @@
             <html:checkbox property="restart" styleId="restart" />
         </td>
     </tr>
-    
+
     </table>
     <hr/>
     <div align="right"><html:submit><bean:message key="restart.jsp.restart"/></html:submit></div>

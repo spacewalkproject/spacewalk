@@ -19,7 +19,7 @@
 
 <div>
    <html:form action="/channels/manage/Edit">
-      
+
    <h2><bean:message key="channel.edit.jsp.basicchanneldetails"/></h2>
    <div class="page-summary">
       <bean:message key="channel.edit.jsp.introparagraph"/>
@@ -136,7 +136,7 @@
 		</tr>
    </c:if>
    </table>
-   
+
 
 
    <h2><bean:message key="channel.edit.jsp.contactsupportinfo"/></h2>

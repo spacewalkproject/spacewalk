@@ -32,7 +32,7 @@ import java.util.Map;
  * @version $Rev$
  */
 public class ConfigAclHandler extends BaseHandler implements AclHandler {
-    
+
     /**
      * Tell whether a file is a directory.
      * @param ctx Our current context, containing a crid or cfid.
@@ -42,9 +42,9 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
     public boolean aclFileIsDirectory(Object ctx, String[] params) {
         ConfigRevision revision = getRevision((Map) ctx, params);
         //return whether or not this errata is published
-        return revision.isDirectory(); 
+        return revision.isDirectory();
     }
-    
+
     /**
      * Tell whether the logged in user can edit the give channel.
      * @param ctx Our current context, containing the user
@@ -56,22 +56,22 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
         Map map = (Map)ctx;
         User user = (User) ((Map)ctx).get("user");
         ConfigChannel cc = getChannel(map, params);
-        
+
         //This happens if the channel is there but is not accessible.
         if (cc == null) {
             return false;
         }
-        
+
         if (cc.isGlobalChannel()) {
             return user.hasRole(RoleFactory.CONFIG_ADMIN);
         }
-        
+
         //You have only gotton this far if you have access to the channel
         //and it is not a global channel, which means that you administer the
         //particular server that the channel is for.
         return true;
     }
-    
+
     /**
      * Whether the config channel of the current context is of the given type.
      * The possible types are the labels of the different <code>ConfigChannelType</code>
@@ -88,7 +88,7 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
         //does the type in params match the channels type.
         return cc.getConfigChannelType().getLabel().equalsIgnoreCase(params[0]);
     }
-    
+
     /**
      * Tell whether the config channel represented by a <code>ccid</code> in
      * the current context has files.
@@ -104,7 +104,7 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
         ConfigChannel cc = getChannel((Map)ctx, params);
         return (cc.getConfigFiles().size() > 0);
     }
-    
+
     /**
      * Tell us whether the selected channel has any subscribed systems or not
      * @param ctx Current context
@@ -122,24 +122,24 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
      * name, but different number of parameters. We can't do that because all
      * acls are handled the same way. Therefore, we decide how we are being called
      * by whether there is a parameter in the String[].
-     *    
+     *
      * Case 1:
      * First it looks in the params, and if it finds one, it tries to parse it as
      * a Long representing the config revision id.
-     * 
+     *
      * If there are no parameters, it gets the config revision id from the context.
      * Case 2:
      * The context can either have a crid representing the revision id or,
      * Case 3: a cfid representing the config file, from which we will get
      * the latest config revision.
      * @param map Context that contains
-     *            <ol> 
+     *            <ol>
      *              <li>Case 1: Nothing important</li>
      *              <li>Case 2: crid as a Long</li>
      *              <li>Case 3: cfid as a Long</li>
      *            </ol>
      * @param params Parameters that contains
-     *            <ol> 
+     *            <ol>
      *              <li>Case 1: A single revision id parsable as a Long</li>
      *              <li>Case 2: Nothing</li>
      *              <li>Case 3: Nothing</li>
@@ -150,7 +150,7 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
         Long crid;
         User user = (User) map.get("user");
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        
+
         //Case 1:
         if (params != null && params.length == 1) {
             try {
@@ -165,7 +165,7 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
             crid = getAsLong(map.get("crid"));
             //Case 2:
             if (crid != null) {
-                
+
                 return cm.lookupConfigRevision(user, crid);
             }
             //Case 3:
@@ -178,7 +178,7 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
             }
         }
     }
-    
+
     private ConfigChannel getChannel(Map map, String[] params) {
         User user = (User) map.get("user");
         Long ccid;
@@ -191,12 +191,12 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
             // another parameter and the ccid is solely in the context map.
             ccid = null;
         }
-        
+
         //Look for ccid from parameters
         if (ccid == null) {
             ccid = getAsLong(map.get("ccid"));
         }
-        
+
         //Finally, look for the revision, and figure out the config channel from that
         if (ccid == null) {
             ConfigRevision cr = getRevision(map, params);
@@ -205,19 +205,19 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
             }
             //else, ccid is still null and the following if will throw exception.
         }
-        
+
         if (user == null || ccid == null) {
             throw new IllegalArgumentException("Context must have a user" +
                     " and config channel id must be a parameter");
         }
-        
+
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        
+
         //check the user's access to channel. This will prevent a LookupException.
         if (!cm.accessToChannel(user.getId(), ccid)) {
             return null;
         }
-        
+
         return cm.lookupConfigChannel(user, ccid);
     }
 
@@ -235,16 +235,16 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
             throw new IllegalArgumentException("Context must have a user" +
                     " and server id.");
         }
-        
+
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         if (server == null) {
             String format = "Server with sid [%s] could not be found in org [%s]";
-            throw new IllegalArgumentException(String.format(format, 
+            throw new IllegalArgumentException(String.format(format,
                                                 sid, user.getOrg()));
         }
-        
+
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        
+
         return cm.isConfigEnabled(server, user);
     }
 }

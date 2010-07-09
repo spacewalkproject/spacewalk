@@ -38,22 +38,22 @@ public class ConfigConfirmAction extends BaseListAction {
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pcIn) {
         User user = rctxIn.getLoggedInUser();
         String feature  = rctxIn.getRequest().getParameter("feature");
-        return ConfigurationManager.getInstance().listSystemsForConfigAction(user, pcIn, 
+        return ConfigurationManager.getInstance().listSystemsForConfigAction(user, pcIn,
                                     feature);
     }
-    
+
     protected void processRequestAttributes(RequestContext rctxIn) {
         User user = rctxIn.getLoggedInUser();
         int size = RhnSetDecl.CONFIG_FILE_NAMES.get(user).size();
         rctxIn.getRequest().setAttribute("filenum", new Integer(size));
         super.processRequestAttributes(rctxIn);
     }
-    
+
     protected void processPageControl(PageControl pcIn) {
         pcIn.setFilter(true);
         pcIn.setFilterColumn("name");
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -61,8 +61,8 @@ public class ConfigConfirmAction extends BaseListAction {
         if (formIn == null) {
             return; //no date picker on diff page
         }
-        
-        
+
+
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(ctxt.getRequest(),
                 dynaForm, "date", DatePicker.YEAR_RANGE_POSITIVE);

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.channel.ContentSourceType" 
+    <class name="com.redhat.rhn.domain.channel.ContentSourceType"
         table="rhnContentSourceType" mutable="false">
         <cache usage="read-only"/>
         <id name="id" type="long" column="id">
@@ -12,11 +12,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">rhn_content_source_type_id_seq</param>
             </generator>
         </id>
-  
+
         <property name="label" type="string" column="label"/>
         <property name="created" type="date" column="created"/>
         <property name="modified" type="date" column="modified"/>
-   
+
     </class>
 
 

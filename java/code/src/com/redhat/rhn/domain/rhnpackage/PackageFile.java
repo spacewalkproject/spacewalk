@@ -248,7 +248,7 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
@@ -264,7 +264,7 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override

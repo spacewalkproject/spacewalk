@@ -20,7 +20,7 @@ package com.redhat.rhn.frontend.dto;
  */
 public interface BaseListDto {
 
-    /** 
+    /**
      * If false is returned, the unpagedListDisplay rendering
      * the dto will use the color of the previous row when
      * it renders the row representing this particular instance
@@ -28,14 +28,14 @@ public interface BaseListDto {
      * @return true if the row should change colors, false otherwise
      */
     boolean changeRowColor();
-    
+
     /**
      * If false is returned, row is rendered normally.
      * Else, row is rendered "greyed-out"
      * @return true if row should be greyed out, false otherwise
      */
     boolean greyOutRow();
-    
+
     /**
      * @return a id string in the form of "p*id*" or
      * "c*id* depending on whether or not the node is considered

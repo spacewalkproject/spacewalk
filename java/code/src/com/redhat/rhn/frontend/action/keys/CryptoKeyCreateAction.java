@@ -19,7 +19,7 @@ import com.redhat.rhn.manager.kickstart.crypto.BaseCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.crypto.CreateCryptoKeyCommand;
 
 /**
- * CryptoKeyCreateAction 
+ * CryptoKeyCreateAction
  * @version $Rev: 1 $
  */
 public class CryptoKeyCreateAction extends BaseCryptoKeyEditAction {

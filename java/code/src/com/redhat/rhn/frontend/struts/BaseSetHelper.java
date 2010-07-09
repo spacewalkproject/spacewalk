@@ -110,7 +110,7 @@ public class BaseSetHelper {
                                 ListTagHelper.canSearchByChild(request, uniqueName));
             }
             else {
-                filterList = ListFilterHelper.filterChildren(dataSet, null, null, null, 
+                filterList = ListFilterHelper.filterChildren(dataSet, null, null, null,
                         ListTagHelper.canSearchByParent(request, uniqueName),
                         ListTagHelper.canSearchByChild(request, uniqueName));
             }
@@ -127,7 +127,7 @@ public class BaseSetHelper {
             updateSet(set, listName);
 
             String[] selected = ListTagHelper.getSelected(listName, request);
-            
+
             RequestContext context = new RequestContext(request);
             User user = context.getLoggedInUser();
 
@@ -138,14 +138,14 @@ public class BaseSetHelper {
                 SsmManager.clearSsm(user);
             }
 
-            // If the user has made any selections, add those to the SSM 
+            // If the user has made any selections, add those to the SSM
             if (selected != null && selected.length > 0) {
                 SsmManager.addServersToSsm(user, selected);
             }
         }
     }
 
-    
+
     protected boolean lookupEquals(String lookupKey, String value) {
         if (value == null) {
             return false;
@@ -257,7 +257,7 @@ public class BaseSetHelper {
     public void selectAll(Set set,
                                 String listName,
                                  List dataSet) {
-        
+
         boolean everyThingIsAnElement = ListTagHelper.
                             isParentAnElement(request,
                                     TagHelper.generateUniqueName(listName));
@@ -277,7 +277,7 @@ public class BaseSetHelper {
                    Identifiable next = (Identifiable) obj;
                    set.add(next.getId().toString());
                 }
-            }            
+            }
         }
         storeSet(set);
         ListTagHelper.setSelectedAmount(listName, set.size(), request);

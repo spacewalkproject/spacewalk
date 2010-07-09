@@ -35,7 +35,7 @@ public class CobblerSnippetTest extends BaseTestCaseWithUser {
        String path = CobblerSnippet.getCobblerSnippetsDir() +
                                    "/" + TestUtils.randomString();
        FileUtils.writeStringToFile(contents, path);
-       
+
        CobblerSnippet snip = CobblerSnippet.loadReadOnly(new File(path));
        assertEquals(new File(path), snip.getPath());
        assertEquals(contents, snip.getContents());
@@ -47,7 +47,7 @@ public class CobblerSnippetTest extends BaseTestCaseWithUser {
        catch (ValidatorException ve) {
            // thankfully it failed...
        }
-       
+
        try {
            snip.delete();
            fail("The delete operation succeded." +
@@ -55,9 +55,9 @@ public class CobblerSnippetTest extends BaseTestCaseWithUser {
        }
        catch (ValidatorException ve) {
            // thankfully it failed...
-       }       
+       }
    }
-    
+
     public void testEditable() throws Exception {
         String contents = TestUtils.randomString();
         String name = TestUtils.randomString();
@@ -79,17 +79,17 @@ public class CobblerSnippetTest extends BaseTestCaseWithUser {
         snip = CobblerSnippet.createOrUpdate(false, name,
                 contents, user.getOrg());
         assertEquals(contents, snip.getContents());
-        
+
         contents = contents + "Ugh";
         snip.writeContents(contents);
         assertEquals(contents, snip.getContents());
-        
-        assertEquals(contents, 
+
+        assertEquals(contents,
                 FileUtils.readStringFromFile(snip.getDisplayPath()));
         snip.delete();
         assertFalse(snip.getPath().exists());
     }
-    
+
     public void testIllegalCreates() throws Exception {
         String contents = TestUtils.randomString();
         String name = TestUtils.randomString() + "/HoHO";
@@ -101,7 +101,7 @@ public class CobblerSnippetTest extends BaseTestCaseWithUser {
         catch (ValidatorException ve) {
             //nice job recognizing the error..
         }
-        
+
         name = TestUtils.randomString();
         CobblerSnippet snip = CobblerSnippet.createOrUpdate(true, name,
                         contents, user.getOrg());
@@ -113,7 +113,7 @@ public class CobblerSnippetTest extends BaseTestCaseWithUser {
     }
 
     /**
-     * Useful method to generate and 
+     * Useful method to generate and
      * return a quick read only snippet..
      * @return read only snippet
      */
@@ -122,16 +122,16 @@ public class CobblerSnippetTest extends BaseTestCaseWithUser {
         String path = CobblerSnippet.getCobblerSnippetsDir() +
                                     "/" + TestUtils.randomString();
         FileUtils.writeStringToFile(contents, path);
-        
+
         CobblerSnippet snip = CobblerSnippet.loadReadOnly(new File(path));
         assertEquals(new File(path), snip.getPath());
         assertEquals(contents, snip.getContents());
         assertFalse(snip.isEditable());
-        return snip;        
+        return snip;
     }
-    
+
     /**
-     * Useful method to generate and 
+     * Useful method to generate and
      * return a quick editable snippet..
      * @param user user object needed for org information
      * @return the editable snippet
@@ -145,5 +145,5 @@ public class CobblerSnippetTest extends BaseTestCaseWithUser {
         assertEquals(contents, snip.getContents());
         assertTrue(snip.isEditable());
         return snip;
-    }    
+    }
 }

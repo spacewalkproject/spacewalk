@@ -50,7 +50,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -58,7 +58,7 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
         map.put("diffconfirm.jsp.confirm", "diff");
         map.put("deployconfirm.jsp.confirm", "deploy");
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -84,7 +84,7 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
         return confirm(mapping, request, form, "schedulediff",
                 ActionFactory.TYPE_CONFIGFILES_DIFF);
     }
-    
+
     /**
      * Schedules deploy config actions
      * @param mapping struts ActionMapping
@@ -98,7 +98,7 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
         return confirm(mapping, request, form, "scheduledeploy",
                 ActionFactory.TYPE_CONFIGFILES_DEPLOY);
     }
-    
+
     /**
      * Schedules a config action for the systems in the system set for the
      * config file names in the config file name set.
@@ -111,36 +111,36 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
      */
     public ActionForward confirm(ActionMapping mapping, HttpServletRequest request,
             ActionForm form, String msgPrefix, ActionType type) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         //schedule diff actions
         User user = requestContext.getLoggedInUser();
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        
+
         DataResult<ConfigSystemDto> systems = cm.listSystemsForConfigAction(user, null,
                 type.getLabel());
         RhnSet fileNames = RhnSetDecl.CONFIG_FILE_NAMES.get(user);
         int successes = 0;
-        
+
         Date earliest = getEarliestAction(form);
-        
+
         //go through all of the selected systems
         for (ConfigSystemDto system : systems) {
             //the current system
             Long sid = system.getId();
-            
+
             //create the two sets needed for the action
             Set<Long> servers = new HashSet<Long>();
             servers.add(sid);
             Set<Long> revisions = new HashSet<Long>();
-            
+
             //go through all of the selected file names
             Iterator<RhnSetElement> nameItty = fileNames.getElements().iterator();
             while (nameItty.hasNext()) {
                 Long cfnid = nameItty.next().getElement();
                 Long crid = cm.getDeployableRevisionForFileName(cfnid, sid);
-                
+
                 //add to the set if this system has a deployable revision of this
                 //file name
                 if (crid != null) {
@@ -153,7 +153,7 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
                 successes++;
             }
         }
-        
+
         //create the message
         if (successes > 0) {
             RhnSetManager.remove(fileNames);
@@ -162,11 +162,11 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
         else {
             createFailureMessage(request, msgPrefix);
         }
-        
+
         //go back to the beginning
         return mapping.findForward("success");
     }
-    
+
     private void createSuccessMessage(int successes, HttpServletRequest request,
             String prefix) {
         ActionMessages msg = new ActionMessages();
@@ -180,14 +180,14 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
         }
         getStrutsDelegate().saveMessages(request, msg);
     }
-    
+
     private void createFailureMessage(HttpServletRequest request, String prefix) {
         ActionMessages msg = new ActionMessages();
         msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage(prefix + ".ssm.failure"));
         getStrutsDelegate().saveMessages(request, msg);
     }
-    
+
     private Date getEarliestAction(ActionForm formIn) {
         if (formIn == null) {
             return new Date();

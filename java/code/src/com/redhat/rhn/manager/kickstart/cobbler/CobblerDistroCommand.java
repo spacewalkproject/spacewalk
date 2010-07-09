@@ -33,13 +33,13 @@ import java.util.Map;
  * @version $Rev$
  */
 public class CobblerDistroCommand extends CobblerCommand {
-    
+
     private static Logger log = Logger.getLogger(CobblerDistroCommand.class);
-    
+
     protected KickstartableTree tree;
-    
+
     /**
-     * @param userIn - user wanting to sync with cobbler 
+     * @param userIn - user wanting to sync with cobbler
      */
     public CobblerDistroCommand(User userIn) {
         super(userIn);
@@ -47,7 +47,7 @@ public class CobblerDistroCommand extends CobblerCommand {
 
     /**
      * @param ksTreeIn - KickstartableTree to sync
-     * @param userIn - user wanting to sync with cobbler 
+     * @param userIn - user wanting to sync with cobbler
      */
     public CobblerDistroCommand(KickstartableTree ksTreeIn, User userIn) {
         super(userIn);
@@ -72,7 +72,7 @@ public class CobblerDistroCommand extends CobblerCommand {
 
         Map ksmeta = new HashMap();
         KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);
-        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, 
+        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
                 helper.getKickstartMediaPath());
         if (tree.getOrgId() != null) {
             ksmeta.put("org", tree.getOrg().getId());
@@ -82,7 +82,7 @@ public class CobblerDistroCommand extends CobblerCommand {
         if (tree.doesParaVirt()) {
             //IT does paravirt so we need to either update the xen distro or create one
             if (xen == null) {
-                xen = Distro.create(con, tree.getCobblerXenDistroName(), 
+                xen = Distro.create(con, tree.getCobblerXenDistroName(),
                         tree.getKernelXenPath(), tree.getInitrdXenPath(), ksmeta);
                 xen.save();
                 tree.setCobblerXenId(xen.getId());
@@ -91,9 +91,9 @@ public class CobblerDistroCommand extends CobblerCommand {
                 xen.setKernel(tree.getKernelXenPath());
                 xen.setInitrd(tree.getInitrdXenPath());
                 xen.setKsMeta(ksmeta);
-                xen.save();   
+                xen.save();
             }
-            
+
         }
         else {
             //it doesn't do paravirt, so we need to delete the xen distro
@@ -102,7 +102,7 @@ public class CobblerDistroCommand extends CobblerCommand {
                 tree.setCobblerXenId(null);
             }
         }
-        
+
         if (nonXen != null) {
             nonXen.setInitrd(tree.getInitrdPath());
             nonXen.setKernel(tree.getKernelPath());

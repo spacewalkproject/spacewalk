@@ -22,28 +22,28 @@ import com.redhat.rhn.domain.server.Server;
  * @version $Rev$
  */
 public class MissingCapabilityException extends RhnRuntimeException {
-    
+
     /**
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = 1569955542059271165L;
     private Server server;
     private String  capability;
-    
+
     /**
      * Constructor for exception on missing capability on a bunch of servers.
-     * @param missingCapability the missing capability. 
-     * @param incapableServer the server missing the capaibility 
+     * @param missingCapability the missing capability.
+     * @param incapableServer the server missing the capaibility
      */
     public MissingCapabilityException(String missingCapability,
                                     Server incapableServer) {
-        
-        
+
+
         server = incapableServer;
         capability = missingCapability;
     }
-    
-    
+
+
     /**
      * @return the servers missing the given capability
      *          or null if none exist.
@@ -52,7 +52,7 @@ public class MissingCapabilityException extends RhnRuntimeException {
         return server;
     }
 
-    
+
     /**
      * @return the missing capability
      */

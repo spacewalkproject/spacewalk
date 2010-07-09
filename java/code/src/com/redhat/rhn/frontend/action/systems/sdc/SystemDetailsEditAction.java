@@ -60,9 +60,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class SystemDetailsEditAction extends RhnAction {
-    
+
     private static Logger log = Logger.getLogger(SystemDetailsEditAction.class);
-    
+
     public static final String NAME = "system_name";
     public static final String BASE_ENTITLEMENT_OPTIONS = "base_entitlement_options";
     public static final String BASE_ENTITLEMENT = "base_entitlement";
@@ -79,7 +79,7 @@ public class SystemDetailsEditAction extends RhnAction {
     public static final String ROOM = "room";
     public static final String RACK = "rack";
     public static final String UNENTITLE = "unentitle";
-    
+
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
@@ -91,18 +91,18 @@ public class SystemDetailsEditAction extends RhnAction {
         Server s  = SystemManager.lookupByIdAndUser(
                 rctx.getRequiredParam(RequestContext.SID), user);
         String forwardName = "default";
-        
+
         if (isSubmitted(daForm)) {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, daForm);
-            
+
             if (errors.isEmpty()) {
                 if (processSubmission(request, daForm, user, s)) {
                     createSuccessMessage(request,
                             "sdc.details.edit.propertieschanged",
                             s.getName());
 
-                    return getStrutsDelegate().forwardParam(mapping.findForward("success"), 
-                            "sid", 
+                    return getStrutsDelegate().forwardParam(mapping.findForward("success"),
+                            "sid",
                             s.getId().toString());
                 }
                 else {
@@ -114,13 +114,13 @@ public class SystemDetailsEditAction extends RhnAction {
                 getStrutsDelegate().saveMessages(request, errors);
             }
         }
-        
+
         SdcHelper.ssmCheck(request, s.getId(), user);
-        
+
         setupPageAndFormValues(rctx.getRequest(), daForm, user, s);
         return mapping.findForward(forwardName);
     }
-    
+
     /**
      * Proccesses the system details edit form
      * @param request to add messages to.
@@ -133,12 +133,12 @@ public class SystemDetailsEditAction extends RhnAction {
             DynaActionForm daForm, User user, Server s) {
 
         boolean success = true;
-        
+
         s.setName(daForm.getString(NAME));
         s.setDescription(daForm.getString(DESCRIPTION));
-        
-        // Process the base entitlement selection.  Need to 
-        // do this first because the below code is effected by the 
+
+        // Process the base entitlement selection.  Need to
+        // do this first because the below code is effected by the
         // base entitlement chosen
         String selectedEnt = daForm.getString(BASE_ENTITLEMENT);
         Entitlement base = EntitlementManager.getByName(selectedEnt);
@@ -149,14 +149,14 @@ public class SystemDetailsEditAction extends RhnAction {
         else if (selectedEnt.equals(UNENTITLE)) {
             SystemManager.removeAllServerEntitlements(s.getId());
         }
-        
+
         // setup location information
         if (s.getLocation() == null) {
             Location l = new Location();
             s.setLocation(l);
             l.setServer(s);
         }
-        
+
         s.getLocation().setCountry(daForm.getString(COUNTRY));
         s.getLocation().setAddress1(daForm.getString(ADDRESS_ONE));
         s.getLocation().setAddress2(daForm.getString(ADDRESS_TWO));
@@ -165,19 +165,19 @@ public class SystemDetailsEditAction extends RhnAction {
         s.getLocation().setBuilding(daForm.getString(BUILDING));
         s.getLocation().setRoom(daForm.getString(ROOM));
         s.getLocation().setRack(daForm.getString(RACK));
-        
+
         /* If the server does not have a Base Entitlement
          * the user should not be updating these values
-         * no matter what the form they are submitting looks 
+         * no matter what the form they are submitting looks
          * like
          */
         if (s.getBaseEntitlement() != null) {
-            
+
             if (Boolean.TRUE.equals(daForm.get(AUTO_UPDATE)) &&
                 !s.getAutoUpdate().equals("Y")) {
                 // only set it if it has changed
                 s.setAutoUpdate("Y");
-                
+
                 ActionManager.scheduleAllErrataUpdate(user, s, new Date());
                 createSuccessMessage(request,
                        "sdc.details.edit.propertieschangedupdate", s.getName());
@@ -185,28 +185,28 @@ public class SystemDetailsEditAction extends RhnAction {
             else {
                 s.setAutoUpdate("N");
             }
-            
+
             boolean flag = Boolean.TRUE.equals(
                     daForm.get(UserServerPreferenceId.INCLUDE_IN_DAILY_SUMMARY));
-            UserManager.setUserServerPreferenceValue(user, s, 
+            UserManager.setUserServerPreferenceValue(user, s,
                     UserServerPreferenceId.INCLUDE_IN_DAILY_SUMMARY, flag);
-            
+
             flag = Boolean.TRUE.equals(
                     daForm.get(UserServerPreferenceId.RECEIVE_NOTIFICATIONS));
-            UserManager.setUserServerPreferenceValue(user, s, 
+            UserManager.setUserServerPreferenceValue(user, s,
                     UserServerPreferenceId.RECEIVE_NOTIFICATIONS, flag);
 
             if (log.isDebugEnabled()) {
                 log.debug("looping on addon entitlements");
             }
-            
+
             Set validAddons = user.getOrg().getValidAddOnEntitlementsForOrg();
             success = checkVirtEntitlements(request, daForm, validAddons, s, user);
-        } 
- 
+        }
+
         return success;
     }
-    
+
     /**
      * Checks the complicated virt logic.
      * @param request the current HTTP request
@@ -214,25 +214,25 @@ public class SystemDetailsEditAction extends RhnAction {
      * @param validAddons list of valid add-on entitlements
      * @return true if validation succeeds, false otherwise.
      */
-    private boolean checkVirtEntitlements(HttpServletRequest request, 
+    private boolean checkVirtEntitlements(HttpServletRequest request,
             DynaActionForm daForm, Set validAddons, Server s, User user) {
 
         boolean success = true;
-        
+
         // Tracks whether or not a change has been made that requires a new snapshot
         // to be made
         boolean needsSnapshot = false;
-        
+
         //Check add-on entitlements for V18n
         //Basically make sure both Virt and Virt_platform are not checked
         //if so mention it as an error.
         final Entitlement virt = EntitlementManager.VIRTUALIZATION;
         final Entitlement virtPlatform = EntitlementManager.VIRTUALIZATION_PLATFORM;
-        if (validAddons.contains(virtPlatform) && validAddons.contains(virt) && 
+        if (validAddons.contains(virtPlatform) && validAddons.contains(virt) &&
                  Boolean.TRUE.equals(daForm.get(virt.getLabel())) &&
                  Boolean.TRUE.equals(daForm.get(virtPlatform.getLabel()))) {
             ValidatorError err = new ValidatorError("system.entitle.alreadyvirt");
-            getStrutsDelegate().saveMessages(request, 
+            getStrutsDelegate().saveMessages(request,
                     RhnValidationHelper.validatorErrorToActionErrors(err));
             success = false;
         }
@@ -271,14 +271,14 @@ public class SystemDetailsEditAction extends RhnAction {
                     if (vr.getErrors().size() > 0) {
                         ValidatorError ve = vr.getErrors().get(0);
                         log.debug("Got error: " + ve);
-                        getStrutsDelegate().saveMessages(request, 
+                        getStrutsDelegate().saveMessages(request,
                                 RhnValidationHelper.
                                             validatorErrorToActionErrors(ve));
                         success = false;
-                    } 
+                    }
                     else {
                         needsSnapshot = true;
-                        
+
                         if (log.isDebugEnabled()) {
                             log.debug("entitling worked?: " + s.hasEntitlement(e));
                         }
@@ -291,22 +291,22 @@ public class SystemDetailsEditAction extends RhnAction {
                     }
                 }
                 else if ((daForm.get(e.getLabel()) == null ||
-                         daForm.get(e.getLabel()).equals(Boolean.FALSE)) && 
+                         daForm.get(e.getLabel()).equals(Boolean.FALSE)) &&
                          s.hasEntitlement(e)) {
                     log.debug("removing entitlement: " + e);
                     SystemManager.removeServerEntitlement(s.getId(), e);
-                    
+
                     needsSnapshot = true;
                 }
             }
         }
-        
+
         if (needsSnapshot) {
-            String message = 
+            String message =
                 LocalizationService.getInstance().getMessage("snapshots.entitlements");
-            SystemManager.snapshotServer(s, message);            
+            SystemManager.snapshotServer(s, message);
         }
-        
+
         return success;
     }
 
@@ -314,29 +314,29 @@ public class SystemDetailsEditAction extends RhnAction {
             DynaActionForm daForm, User user, Server s) {
 
         request.setAttribute("system", s);
-        request.setAttribute(BASE_ENTITLEMENT_OPTIONS, 
+        request.setAttribute(BASE_ENTITLEMENT_OPTIONS,
                 createBaseEntitlementDropDownList(user, s));
         request.setAttribute("countries", getCountries());
         request.setAttribute(ADDON_ENTITLEMENTS,
                 createAddOnEntitlementList(user.getOrg(),
                             s.getValidAddonEntitlementsForServer()));
-        
-        request.setAttribute("notifications_disabled", 
+
+        request.setAttribute("notifications_disabled",
                 user.getEmailNotify() == 0 ? Boolean.TRUE : Boolean.FALSE);
-        
+
         daForm.set(NAME, s.getName());
-        
+
         if (s.getBaseEntitlement() != null) {
             daForm.set(BASE_ENTITLEMENT, s.getBaseEntitlement().getLabel());
-            request.setAttribute(BASE_ENTITLEMENT_PERMANENT, 
+            request.setAttribute(BASE_ENTITLEMENT_PERMANENT,
                                  new Boolean(s.getBaseEntitlement().isPermanent()));
         }
         else {
             daForm.set(BASE_ENTITLEMENT, "none");
         }
-        
+
         Iterator i = s.getAddOnEntitlements().iterator();
-        
+
         while (i.hasNext()) {
             Entitlement e = (Entitlement) i.next();
             if (log.isDebugEnabled()) {
@@ -345,20 +345,20 @@ public class SystemDetailsEditAction extends RhnAction {
             }
             daForm.set(e.getLabel(), Boolean.TRUE);
         }
-        
+
         daForm.set(UserServerPreferenceId.RECEIVE_NOTIFICATIONS,
                 new Boolean(UserManager.lookupUserServerPreferenceValue(
                         user, s, UserServerPreferenceId.RECEIVE_NOTIFICATIONS)));
-        
+
         daForm.set(UserServerPreferenceId.INCLUDE_IN_DAILY_SUMMARY,
                 new Boolean(UserManager.lookupUserServerPreferenceValue(
                         user, s, UserServerPreferenceId.INCLUDE_IN_DAILY_SUMMARY)));
-        
-        daForm.set(AUTO_UPDATE, 
+
+        daForm.set(AUTO_UPDATE,
                    s.getAutoUpdate().equals("Y") ? Boolean.TRUE : Boolean.FALSE);
-        
+
         daForm.set(DESCRIPTION, s.getDescription());
-        
+
         if (s.getLocation() != null) {
             daForm.set(ADDRESS_ONE, s.getLocation().getAddress1());
             daForm.set(ADDRESS_TWO, s.getLocation().getAddress2());
@@ -370,14 +370,14 @@ public class SystemDetailsEditAction extends RhnAction {
             daForm.set(RACK, s.getLocation().getRack());
         }
     }
-    
-    private List createAddOnEntitlementList(Org orgIn, 
+
+    private List createAddOnEntitlementList(Org orgIn,
             Set validAddonEntitlementsForServer) {
         List retval = new LinkedList();
         Iterator i = validAddonEntitlementsForServer.iterator();
         while (i.hasNext()) {
             Entitlement e = (Entitlement) i.next();
-            retval.add(new EntitlementDto(e, 
+            retval.add(new EntitlementDto(e,
                     EntitlementManager.getAvailableEntitlements(e, orgIn)));
         }
         Collections.sort(retval);
@@ -387,44 +387,44 @@ public class SystemDetailsEditAction extends RhnAction {
     protected List createBaseEntitlementDropDownList(User user, Server s) {
         LocalizationService ls = LocalizationService.getInstance();
         Entitlement baseEntitlement = s.getBaseEntitlement();
-        
+
         List entitlements = new ArrayList();
-        
+
         if (baseEntitlement == null) {
             entitlements.add(new LabelValueBean(
                     ls.getMessage("sdc.details.edit.none"), "none"));
         }
-        
+
         if (user.hasRole(RoleFactory.ORG_ADMIN)) {
            if (baseEntitlement != null) {
                entitlements.add(new LabelValueBean(
                        ls.getMessage("sdc.details.edit.unentitle"), UNENTITLE));
            }
-           
+
            Iterator i = user.getOrg().getValidBaseEntitlementsForOrg().iterator();
-           
+
            while (i.hasNext()) {
               Entitlement e = (Entitlement) i.next();
 
               if (log.isDebugEnabled()) {
                   log.debug("Adding Entitlement to list of valid ents: " +
-                          e.getLabel());    
+                          e.getLabel());
               }
-              
+
               entitlements.add(new LabelValueBean(
                       e.getHumanReadableLabel(), e.getLabel()));
            }
         }
-        
+
         return entitlements;
     }
-    
+
     protected List getCountries() {
         LocalizationService ls = LocalizationService.getInstance();
         Map cmap = ls.availableCountries();
         Iterator i = cmap.keySet().iterator();
         List countries = new LinkedList();
-        
+
         countries.add(new LabelValueBean(ls.getMessage("sdc.details.edit.none"), ""));
         while (i.hasNext()) {
             String name = (String) i.next();
@@ -433,22 +433,22 @@ public class SystemDetailsEditAction extends RhnAction {
         }
         return countries;
     }
-    
+
     private void handleSolarisError(HttpServletRequest request, Entitlement e) {
         log.debug("Solaris Machine can't accept monitoring slotes.");
-        
+
         ValidatorError err = new ValidatorError(
                 "system.entitle.no-add.solaris-slots", e.getHumanReadableLabel());
-        
-        getStrutsDelegate().saveMessages(request, 
+
+        getStrutsDelegate().saveMessages(request,
                 RhnValidationHelper.validatorErrorToActionErrors(err));
     }
-    
+
     private boolean checkSolarisFailure(Set<Entitlement> validAddons, Entitlement e,
             DynaActionForm daForm, Server s) {
         return (s.isSolaris()) ? checkEnt(validAddons, e, daForm) : false;
     }
-    
+
     private boolean checkEnt(Set<Entitlement> validAddons,
             Entitlement e, DynaActionForm daForm) {
 

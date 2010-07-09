@@ -42,7 +42,7 @@ public class BaseUpdateChannelCommand extends BasePersistOperation {
         publishUpdateErrataCacheEvent();
         return null;
     }
-    
+
     /**
      * Private helper method to create a new UpdateErrataCacheEvent and publish it to the
      * MessageQueue.
@@ -54,12 +54,12 @@ public class BaseUpdateChannelCommand extends BasePersistOperation {
             log.debug("Updating errata cache");
             sw.start();
         }
-        
-        UpdateErrataCacheEvent uece = 
+
+        UpdateErrataCacheEvent uece =
             new UpdateErrataCacheEvent(UpdateErrataCacheEvent.TYPE_ORG);
         uece.setOrgId(user.getOrg().getId());
         MessageQueue.publish(uece);
-        
+
         if (log.isDebugEnabled()) {
             sw.stop();
             log.debug("Finished Updating errata cache. Took [" +

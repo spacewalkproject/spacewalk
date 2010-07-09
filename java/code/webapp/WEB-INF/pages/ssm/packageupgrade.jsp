@@ -44,12 +44,12 @@
                         key="packagelist.jsp.notspecified"/></c:otherwise>
             </c:choose>
         </rl:column>
-        
+
         <rl:column headerkey="ssm.package.upgrade.select.numsystems" bound="false"
                    styleclass="thin-column">
             <c:out value="${current.numSystems}"/>
         </rl:column>
-                  
+
         <rl:column headerkey="ssm.package.upgrade.select.advisory" bound="false"
                    styleclass="last-column">
             <c:if test="${not empty current.advisory}">
@@ -71,7 +71,7 @@
               <a href="/rhn/errata/details/Details.do?eid=${current.advisoryId}">${current.advisory}</a><br/>
             </c:if>
         </rl:column>
-                  
+
     </rl:list>
 
     <div align="right">

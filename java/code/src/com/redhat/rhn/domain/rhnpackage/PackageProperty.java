@@ -119,7 +119,7 @@ public class PackageProperty extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -131,7 +131,7 @@ public class PackageProperty extends BaseDomainHelper {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object obj) {

@@ -30,32 +30,32 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * General helper for fragment rendering
- * 
+ *
  * @version $Rev$
  */
 public class RendererHelper {
 
-    private static final String FULL_TABLE_HEADER = 
+    private static final String FULL_TABLE_HEADER =
             "<div style=\"clear:both; padding-top: 30px;\">" +
              "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" class=\"list\">" +
              "<thead><tr><th style=\"text-align:left;\">";
 
     private static final String FULL_TABLE_FOOTER = "</td></tr></thead></table></div>";
 
-    private static final String HALF_TABLE_HEADER = 
+    private static final String HALF_TABLE_HEADER =
             "<table cellspacing=\"0\" cellpadding=\"0\" class=\"half-table\">" +
             "<thead><tr><th style=\"text-align:left;\">";
 
     private static final String HALF_TABLE_FOOTER = "</td></tr></thead></table>";
-    
-    private static final String TABLE_BODY = 
+
+    private static final String TABLE_BODY =
         "</th></tr><tr class=\"list-row-odd\">" +
-        "<td style=\"padding-bottom: 24px;\" class=\"first-column last-column\">";    
+        "<td style=\"padding-bottom: 24px;\" class=\"first-column last-column\">";
 
     private RendererHelper() {
 
     }
-    
+
     /**
      * Sort overview DTOs
      * @param dr data result to sort
@@ -70,7 +70,7 @@ public class RendererHelper {
         else {
             return dr;
         }
-    }    
+    }
 
     /**
      * Creates an empty YourRhn table
@@ -97,7 +97,7 @@ public class RendererHelper {
         }
         return header + headerText + TABLE_BODY + messageText + footer;
     }
-    
+
     /**
      * Sets table style
      * @param request incoming request
@@ -110,7 +110,7 @@ public class RendererHelper {
         }
         toggleNextTableStyle(request);
     }
-    
+
     /**
      * Renders a URL and returns the content generated as a string
      * @param url content to generate
@@ -120,12 +120,12 @@ public class RendererHelper {
      * @throws ServletException something goes wrong
      * @throws IOException something goes wrong
      */
-    public static String renderRequest(String url, HttpServletRequest req, 
+    public static String renderRequest(String url, HttpServletRequest req,
             HttpServletResponse resp) throws ServletException, IOException {
         String retval = null;
         RequestDispatcher dispatcher = req.getRequestDispatcher(url);
         if (dispatcher != null) {
-            CachingResponseWrapper wrapper = 
+            CachingResponseWrapper wrapper =
                 new CachingResponseWrapper(resp);
             dispatcher.include(req, wrapper);
             retval = wrapper.getCachedContent();
@@ -135,11 +135,11 @@ public class RendererHelper {
         }
         return retval;
     }
-    
+
     private static void toggleNextTableStyle(HttpServletRequest request) {
-        String tableStyle = (String) 
+        String tableStyle = (String)
             request.getAttribute(FragmentRenderer.NEXT_TABLE_STYLE);
-        if (tableStyle == null || 
+        if (tableStyle == null ||
                 tableStyle.equals("half-table half-table-left")) {
             request.setAttribute(FragmentRenderer.NEXT_TABLE_STYLE,
                     "half-table half-table-right");

@@ -23,7 +23,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class NotPermittedByOrgException extends FaultException  {
-    
+
     /**
      * Constructor
      * @param orgId Org ID.
@@ -32,7 +32,7 @@ public class NotPermittedByOrgException extends FaultException  {
      */
     public NotPermittedByOrgException(String orgId, String request, String targetOrgId) {
         super(1066, "notPermittedByOrg", LocalizationService.getInstance().
-                getMessage("api.org.notpermittedbyorg", new Object[] {orgId, request, 
+                getMessage("api.org.notpermittedbyorg", new Object[] {orgId, request,
                         targetOrgId}));
     }
 
@@ -48,7 +48,7 @@ public class NotPermittedByOrgException extends FaultException  {
     public NotPermittedByOrgException(String orgId, String request, String targetOrgId,
             Throwable cause) {
         super(1066, "notPermittedByOrg", LocalizationService.getInstance().
-                getMessage("api.org.notpermittedbyorg", new Object[] {orgId, request, 
+                getMessage("api.org.notpermittedbyorg", new Object[] {orgId, request,
                         targetOrgId}), cause);
     }
 }

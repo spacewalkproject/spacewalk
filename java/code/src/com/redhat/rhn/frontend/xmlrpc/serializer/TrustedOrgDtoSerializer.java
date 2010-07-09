@@ -36,7 +36,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  */
 public class TrustedOrgDtoSerializer implements XmlRpcCustomSerializer {
-    
+
     /** {@inheritDoc} */
     public Class<TrustedOrgDto> getSupportedClass() {
         return TrustedOrgDto.class;
@@ -50,6 +50,6 @@ public class TrustedOrgDtoSerializer implements XmlRpcCustomSerializer {
         helper.add("org_id", tr.getId());
         helper.add("org_name", tr.getName());
         helper.add("shared_channels", tr.getSharedChannels());
-        helper.writeTo(output);       
+        helper.writeTo(output);
     }
 }

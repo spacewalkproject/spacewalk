@@ -3,4 +3,4 @@
           <rhn:column header="preservation_list.jsp.description" style="text-align: left;">
            	<a href="PreservationListEdit.do?file_list_id=${current.id}">${current.label}</a>
           </rhn:column>
-</rhn:listdisplay> 
+</rhn:listdisplay>

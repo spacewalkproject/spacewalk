@@ -30,42 +30,42 @@ public class UserDefaults {
      * Get instance of UserDefaults.
      * @return UserDefaults instance.
      */
-    public static UserDefaults get() { 
+    public static UserDefaults get() {
         return instance;
     }
-    
+
     /**
      * @return the max password length
      */
     public int getMaxPasswordLength() {
         return Config.get().getInt(MAX_PASSWORD_LENGTH, 32);
     }
-    
+
     /**
      * @return the min password length
-     */    
+     */
     public int getMinPasswordLength() {
         return Config.get().getInt(MIN_PASSWORD_LENGTH, 5);
     }
-    
+
     /**
      * @return the max login name length
-     */    
+     */
     public int getMaxUserLength() {
         return Config.get().getInt(MAX_USER_LENGTH, 64);
     }
-    
+
     /**
      * @return the min login name length
-     */    
+     */
     public int getMinUserLength() {
         return Config.get().getInt(MIN_USER_LENGTH, 5);
     }
-    
+
     /**
      * @return the max email length
-     */    
+     */
     public int getMaxEmailLength() {
         return Config.get().getInt(MAX_EMAIL_LENGTH, 128);
-    }    
+    }
 }

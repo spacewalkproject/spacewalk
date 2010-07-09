@@ -28,17 +28,17 @@ Thank you for using @@PRODUCT_NAME@@.
 {1}
 
 {2}</source>
-				<target>Уважаемый пользователь @@PRODUCT_NAME@@, 
+				<target>Уважаемый пользователь @@PRODUCT_NAME@@,
 
 это сообщение отправлено с целью подтверждения эл.адреса,
-указанного вами для авторизации в Red Hat. Имя входа Red Hat 
+указанного вами для авторизации в Red Hat. Имя входа Red Hat
 в совокупности с активной подпиской Red Hat обеспечивает
 доступ к возможностям управления системами с помощью @@PRODUCT_NAME@@.
 
 Для защиты информации учетной записи,
 связанной с вашим именем входа Red Hat, уделите минуту,
 чтобы подтвердить адрес, нажав ссылку, приведенную ниже.
-Если адрес не будет подтвержден, имя входа 
+Если адрес не будет подтвержден, имя входа
 Red Hat будет деактивировано.
 
 Чтобы подтвердить эл.адрес, посетите:
@@ -262,7 +262,7 @@ Red Hat Account Management Team</source>
 				<target>
 Уважаемый пользователь Red Hat,
 
-Ваше имя указано при запросе новых подписок Red Hat. 
+Ваше имя указано при запросе новых подписок Red Hat.
 Эти подписки доступны для учетной записи:
 
   Имя: {0}
@@ -590,9 +590,9 @@ Thank you for using @@PRODUCT_NAME@@.
 доступ к возможностям управления системами с помощью @@PRODUCT_NAME@@.
 
 Для обеспечения безопасности учетной записи,
-связанной с именем входа Red Hat уделите минуту, 
+связанной с именем входа Red Hat уделите минуту,
 чтобы подтвердить эл.адрес, нажав ссылку,
-приведенную ниже. Если адрес не будет подтвержден, имя входа 
+приведенную ниже. Если адрес не будет подтвержден, имя входа
 Red Hat будет деактивировано.
 
 Чтобы подтвердить адрес, перейдите по ссылке:
@@ -625,7 +625,7 @@ deactivated.
 Please note that this is a final notice.  If you do not click through
 this URL within the next 2 days, your Red Hat login will deactivated.
 
-To confirm your email address, please visit the following URL: 
+To confirm your email address, please visit the following URL:
 
 {0}
 
@@ -641,9 +641,9 @@ Thank you for using @@PRODUCT_NAME@@.
 доступ к возможностям управления системами с помощью @@PRODUCT_NAME@@.
 
 Для обеспечения безопасности учетной записи,
-связанной с именем входа Red Hat, пожалуйста, уделите минуту, 
+связанной с именем входа Red Hat, пожалуйста, уделите минуту,
 чтобы подтвердить эл.адрес, нажав ссылку,
-приведенную ниже. Если адрес не будет подтвержден, имя входа 
+приведенную ниже. Если адрес не будет подтвержден, имя входа
 Red Hat будет деактивировано.
 
 Это последнее предупреждение. Если в течение двух дней адрес не будет подтвержден, учетная запись будет отключена.
@@ -669,9 +669,9 @@ Red Hat будет деактивировано.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems 
+has expired on your local satellite {0}. After {1} day(s) the systems
 management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information 
+Please contact your regional Red Hat Customer  Service Representative for information
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -699,8 +699,8 @@ Thank you for using @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible 
-until your certificate is renewed. Please contact your regional Red Hat 
+has expired on your local satellite {0}. The system management services will be inaccessible
+until your certificate is renewed. Please contact your regional Red Hat
 Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 

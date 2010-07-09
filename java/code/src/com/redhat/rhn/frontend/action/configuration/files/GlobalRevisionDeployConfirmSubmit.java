@@ -75,28 +75,28 @@ public class GlobalRevisionDeployConfirmSubmit extends RhnListDispatchAction {
      */
     public ActionForward scheduleDeploy(
             ActionMapping mapping,
-            ActionForm form, 
+            ActionForm form,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         //schedule diff actions
         User user = requestContext.getLoggedInUser();
         ConfigRevision cr = ConfigActionHelper.findRevision(request);
-        
+
         RhnSet systems = RhnSetDecl.CONFIG_FILE_DEPLOY_SYSTEMS.get(user);
 
         int successes = 0;
-        
+
         Date earliest = getEarliestAction(form);
-        
+
         //create the set needed for the action
         Set revisions = new HashSet();
         revisions.add(cr.getId());
-        
+
         ActionType deploy = ActionFactory.TYPE_CONFIGFILES_DEPLOY;
-        
+
         //go through all of the selected systems
         Iterator itr = systems.getElements().iterator();
         while (itr.hasNext()) {
@@ -106,13 +106,13 @@ public class GlobalRevisionDeployConfirmSubmit extends RhnListDispatchAction {
             Long sid = ((RhnSetElement)itr.next()).getElement();
             servers.add(sid);
             //created the action.  One action per server.
-            if (revisions.size() > 0 && 
+            if (revisions.size() > 0 &&
                     ActionManager.createConfigAction(
                             user, revisions, servers, deploy, earliest) != null) {
                 successes++;
             }
         }
-        
+
         //create the message
         if (successes > 0) {
             RhnSetManager.remove(systems);
@@ -128,7 +128,7 @@ public class GlobalRevisionDeployConfirmSubmit extends RhnListDispatchAction {
                     mapping.findForward("failure"), params);
         }
     }
-    
+
     private Date getEarliestAction(ActionForm formIn) {
         if (formIn == null) {
             return new Date();
@@ -151,7 +151,7 @@ public class GlobalRevisionDeployConfirmSubmit extends RhnListDispatchAction {
         }
         getStrutsDelegate().saveMessages(request, msg);
     }
-    
+
     private void createFailureMessage(HttpServletRequest request, String prefix) {
         ActionMessages msg = new ActionMessages();
         msg.add(ActionMessages.GLOBAL_MESSAGE,

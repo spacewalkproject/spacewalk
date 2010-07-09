@@ -55,7 +55,7 @@ public class RankChannelsAction  extends RhnAction {
     protected static final String NO_SCRIPT = "noScript";
     protected static final String RANKED_VALUES = "rankedValues";
 
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -72,23 +72,23 @@ public class RankChannelsAction  extends RhnAction {
         }
         return handleNoScript(mapping, formIn, request, response);
 
-    }    
-    
+    }
+
     /**
      * Sets up the rangling widget.
      * @param context the request context of the current request
-     * @param form the dynaform  related to the current request. 
+     * @param form the dynaform  related to the current request.
      * @param set the set holding the channel ids.
      */
-    private void setupWidget(RequestContext context, 
-                                     DynaActionForm form, 
+    private void setupWidget(RequestContext context,
+                                     DynaActionForm form,
                                      Set<String> set) {
         LinkedHashSet labelValues = new LinkedHashSet();
         populateWidgetLabels(labelValues, context);
         for (String id : set) {
             Long ccid = Long.valueOf(id);
             ConfigChannel channel = ConfigurationFactory.lookupConfigChannelById(ccid);
-            labelValues.add(lv(channel.getName(), channel.getId().toString()));            
+            labelValues.add(lv(channel.getName(), channel.getId().toString()));
         }
 
         //set the form variables for the widget to read.
@@ -97,7 +97,7 @@ public class RankChannelsAction  extends RhnAction {
             if (form.get(SELECTED_CHANNEL) == null) {
                 String selected = ((LabelValueBean)labelValues.iterator().next())
                                                         .getValue();
-                form.set(SELECTED_CHANNEL, selected);    
+                form.set(SELECTED_CHANNEL, selected);
             }
         }
     }
@@ -105,7 +105,7 @@ public class RankChannelsAction  extends RhnAction {
     /**
      * Returns the the channel Ids info retrieved after one
      * has clicked Update Channel Rankings or Apply Subscriptions.
-     * @param form the submitted form..  
+     * @param form the submitted form..
      * @return List containing the channel ids in the order of
      *                   their new  rankings.
      */
@@ -120,11 +120,11 @@ public class RankChannelsAction  extends RhnAction {
         }
         return channels;
     }
-    
-    
+
+
     /**
-     * 
-     * Raises an error message saying javascript is required 
+     *
+     * Raises an error message saying javascript is required
      * to process this page
      * @param mapping struts ActionMapping
      * @param formIn struts ActionForm
@@ -137,11 +137,11 @@ public class RankChannelsAction  extends RhnAction {
                             HttpServletRequest request,
                             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        
-        
+
+
         if (!context.isJavaScriptEnabled()) {
             getStrutsDelegate().
-            saveMessage("common.config.rank.jsp.error.nojavascript", request);            
+            saveMessage("common.config.rank.jsp.error.nojavascript", request);
         }
 
         Map map = new HashMap();
@@ -152,7 +152,7 @@ public class RankChannelsAction  extends RhnAction {
                                     (mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                                                         map);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -164,7 +164,7 @@ public class RankChannelsAction  extends RhnAction {
         setup(context, (DynaActionForm)form, set);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-    
+
 
     /**
      * Updates the set and then applies changes to the server
@@ -182,35 +182,35 @@ public class RankChannelsAction  extends RhnAction {
         if (!context.isJavaScriptEnabled()) {
             return handleNoScript(mapping, formIn, request, response);
         }
-        
+
         User user = context.getLoggedInUser();
         DynaActionForm form = (DynaActionForm) formIn;
         ActivationKey key = context.lookupAndBindActivationKey();
-        
+
         for (Long id : getChannelIds(form)) {
             ConfigChannel channel = ConfigurationFactory.lookupConfigChannelById(id);
             ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
             proc.add(key.getConfigChannelsFor(user), channel);
-        }            
-    
-        Set<String> set = getSet(context); 
+        }
+
+        Set<String> set = getSet(context);
         set.clear();
         String[] params = {key.getNote()};
-        getStrutsDelegate().saveMessage("sdc.config.rank.jsp.success", 
+        getStrutsDelegate().saveMessage("sdc.config.rank.jsp.success",
                                                     params, request);
-        SessionSetHelper.obliterate(request, 
+        SessionSetHelper.obliterate(request,
                         request.getParameter(SubscribeChannelsAction.DECL));
         return getStrutsDelegate().forwardParam(mapping.findForward("success"),
                 RequestContext.TOKEN_ID, key.getId().toString());
     }
-    
+
     private Set<String> getSet(RequestContext context) {
         return  SessionSetHelper.lookupAndBind(context.getRequest(),
                     context.getRequest().getParameter(SubscribeChannelsAction.DECL));
 
     }
 
-    
+
     private void setup(RequestContext context, DynaActionForm form,
                             Set<String> set) {
         //This happens if the rank channels page is used without the
@@ -224,20 +224,20 @@ public class RankChannelsAction  extends RhnAction {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    private void populateWidgetLabels(LinkedHashSet labelValues, 
+    private void populateWidgetLabels(LinkedHashSet labelValues,
                                             RequestContext context) {
-        
+
         ActivationKey key = context.lookupAndBindActivationKey();
-        for (ConfigChannel channel : 
+        for (ConfigChannel channel :
                 key.getConfigChannelsFor(context.getLoggedInUser())) {
             labelValues.add(lv(channel.getName(),
                                         channel.getId().toString()));
         }
     }
-    
+
     private void processParams(RequestContext context, Map map) {
         ActivationKey key = context.lookupAndBindActivationKey();
         map.put(RequestContext.TOKEN_ID, key.getId().toString());
@@ -246,7 +246,7 @@ public class RankChannelsAction  extends RhnAction {
             map.put(SubscribeChannelsAction.WIZARD_MODE, Boolean.TRUE.toString());
         }
     }
-    
+
     /**
      * @param request
      * @return
@@ -254,5 +254,5 @@ public class RankChannelsAction  extends RhnAction {
     private boolean isWizardMode(RequestContext context) {
         return  Boolean.TRUE.toString().equals(context.getParam
                          (SubscribeChannelsAction.WIZARD_MODE, false));
-    }     
+    }
 }

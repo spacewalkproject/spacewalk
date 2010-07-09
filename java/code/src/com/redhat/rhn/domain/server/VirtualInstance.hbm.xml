@@ -13,7 +13,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">rhn_vi_id_seq</param>
             </generator>
         </id>
-        
+
         <property name="uuid" column="UUID" type="string" length="128"/>
         <property name="confirmed" column="CONFIRMED" type="boolean"/>
         <property name="created" column="CREATED" type="timestamp" insert="false" update="false"/>
@@ -28,29 +28,29 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     	             column="host_system_id"
     	             class="com.redhat.rhn.domain.server.Server"
     	             cascade="save-update"/>
-        
+
     	<one-to-one name="instanceInfo"
     	            class="com.redhat.rhn.domain.server.VirtualInstanceInfo"
     	            cascade="all"/>
     </class>
-    
+
     <query name="VirtualInstance.findAllRegisteredGuests">
     	<![CDATA[
-    	  from VirtualInstance guest 
+	  from VirtualInstance guest
     	  where guest.guestSystem.org = :org
     	]]>
     </query>
-    
+
     <query name="VirtualInstance.findAllUnregisteredGuests">
     	<![CDATA[
-    	  from VirtualInstance guest 
+	  from VirtualInstance guest
     	  where guest.guestSystem is null and guest.hostSystem.org = :org
     	]]>
     </query>
-    
+
     <query name="VirtualInstance.lookupGuestBySid">
     	<![CDATA[
-    	  from VirtualInstance guest 
+	  from VirtualInstance guest
     	  where guest.guestSystem.id = :sid and guest.guestSystem.org = :org
     	]]>
     </query>
@@ -65,39 +65,39 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="VirtualInstance.findGuestsWithNonVirtHostByOrg">
     	<![CDATA[
-          select 
-                guest.id as guest_id, 
+          select
+                guest.id as guest_id,
                 guest.org_id as guest_org_id,
-                guest.name as guest_name, 
+                guest.name as guest_name,
                 host.org_id as host_org_id,
-                host.id as host_id, 
+                host.id as host_id,
                 host.name as host_name
           from
-            RhnVirtualInstance vi 
+            RhnVirtualInstance vi
                 inner join rhnServer guest on vi.virtual_system_id = guest.id
                 inner join rhnServer host on vi.host_system_id = host.id
-          where 
+          where
             guest.org_id = :org_id and
             (host.org_id != :org_id  or
             not exists (
               select 1 from rhnServerGroupMembers sgm
                         inner join rhnServerGroup sg on sgm.server_group_id = sg.id
-                        inner join rhnServerGroupType sgt on sg.group_type = sgt.id 
-               where 
-                    sgt.label in ('virtualization_host', 'virtualization_host_platform')  
+                        inner join rhnServerGroupType sgt on sg.group_type = sgt.id
+               where
+                    sgt.label in ('virtualization_host', 'virtualization_host_platform')
                     and sgm.server_id = host.id
             ))
        	]]>
     </sql-query>
-    
+
     <query name="VirtualInstance.findGuestsWithoutAHostByOrg">
     	<![CDATA[
           select
             new GuestAndNonVirtHostView(guest.id, guest.org.id, guest.name)
-          from 
+          from
             VirtualInstance virtualInstance join virtualInstance.guestSystem guest
-          where 
-            virtualInstance.hostSystem is null and 
+          where
+            virtualInstance.hostSystem is null and
             guest.org = :org
        	]]>
     </query>

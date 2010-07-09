@@ -49,10 +49,10 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ErrataSetupAction extends RhnAction implements Listable {
-     
+
     public static final String DISPATCH = "dispatch";
     public static final String LIST_NAME = "errataList";
-    
+
     public static final String ALL = "All";
     public static final String NON_CRITICAL = "errata.updates.noncritical";
     public static final String SECUR = "errata.create.securityadvisory";
@@ -68,13 +68,13 @@ public class ErrataSetupAction extends RhnAction implements Listable {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
         Long sid = requestContext.getRequiredParam("sid");
-        RhnSet set = getSetDecl(sid).get(user);  
+        RhnSet set = getSetDecl(sid).get(user);
 
-        
+
 
         ListRhnSetHelper help = new ListRhnSetHelper(this, request, getSetDecl(sid));
         help.setListName(LIST_NAME);
@@ -89,25 +89,25 @@ public class ErrataSetupAction extends RhnAction implements Listable {
             }
         }
 
-        
+
         String showButton = "true";
         // Show the "Apply Errata" button only when unapplied errata exist:
         if (!SystemManager.hasUnscheduledErrata(user, sid)) {
            showButton = "false";
         }
-        
 
 
 
 
 
-        Map params =  new HashMap();   
+
+        Map params =  new HashMap();
         Set keys = request.getParameterMap().keySet();
         for (Iterator i = keys.iterator(); i.hasNext();) {
             String key = (String) i.next();
             params.put(key, request.getParameter(key));
         }
-        
+
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         SdcHelper.ssmCheck(request, server.getId(), user);
         request.setAttribute("showApplyErrata", showButton);
@@ -115,10 +115,10 @@ public class ErrataSetupAction extends RhnAction implements Listable {
         request.setAttribute("system", server);
         request.setAttribute("combo", getComboList(request));
         request.setAttribute(SELECTOR, request.getParameter(SELECTOR));
-        
+
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
     }
-    
+
 
     private List<Map<String, Object>> getComboList(HttpServletRequest request) {
 
@@ -177,41 +177,41 @@ public class ErrataSetupAction extends RhnAction implements Listable {
                                      ActionForm formIn,
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
-      
+
         Map params = new HashMap();
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         //if they chose errata, send them to the confirmation page
         Long sid = requestContext.getParamAsLong("sid");
-        
+
         User user = requestContext.getLoggedInUser();
         RhnSet set = getSetDecl(sid).get(user);
-        
+
         //if they chose no errata, return to the same page with a message
         if (set.isEmpty()) {
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("errata.applynone"));
             params = makeParamMap(formIn, request);
             strutsDelegate.saveMessages(request, msg);
             return strutsDelegate.forwardParams(mapping.findForward("default"), params);
         }
-        
+
         if (sid != null) {
             params.put("sid", sid);
         }
-          
+
         return strutsDelegate.forwardParams(mapping.findForward("confirm"), params);
     }
-    
+
     /**
      * @return Returns RhnSetDecl.ERRATA
      */
     static RhnSetDecl getSetDecl(Long sid) {
         return RhnSetDecl.ERRATA.createCustom(sid);
     }
-    
+
     /**
      * Makes a parameter map containing request params that need to
      * be forwarded on to the success mapping.

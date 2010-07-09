@@ -17,7 +17,7 @@ package com.redhat.rhn.internal.doclet;
 import com.sun.javadoc.RootDoc;
 
 /**
- * 
+ *
  * JSPDoclet
  * @version $Rev$
  */
@@ -25,16 +25,16 @@ public class JSPDoclet {
 
     private JSPDoclet() {
     }
-    
+
     /**
      * starts the jspDoclet
      * @param root the doc root
-     * @return true if successful 
+     * @return true if successful
      * @throws Exception e
      */
     public static boolean start(RootDoc root) throws Exception {
-        
+
         return ApiDoclet.start(root, "jsp");
     }
-    
+
 }

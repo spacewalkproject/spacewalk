@@ -23,7 +23,7 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev: 119601 $
  */
 public class OrgCreateActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecuteSubmit() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
@@ -41,7 +41,7 @@ public class OrgCreateActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         verifyActionMessage("org.create.success");
     }
-    
+
     public void testEmptyFields() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
@@ -49,11 +49,11 @@ public class OrgCreateActionTest extends RhnMockStrutsTestCase {
         addSubmitted();
         setRequestPathInfo("/admin/multiorg/OrgCreate");
         actionPerform();
-        String[] errors =  {"errors.required", "errors.required", 
+        String[] errors =  {"errors.required", "errors.required",
                 "errors.required", "errors.required", "errors.required", "errors.required"};
         verifyActionErrors(errors);
     }
-    
+
     public void testCreateDupeUser() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
@@ -71,6 +71,6 @@ public class OrgCreateActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         verifyActionErrors(new String[]{"error.login_already_taken"});
     }
-    
+
 }
 

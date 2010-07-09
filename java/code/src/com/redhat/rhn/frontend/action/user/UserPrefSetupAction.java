@@ -93,7 +93,7 @@ public class UserPrefSetupAction extends RhnAction {
         }
         return pages;
     }
-    
+
     private void setupTasks(DynaActionForm form, User user) {
         // sets up the possible tasks...
         Set userPanes = user.getHiddenPanes();
@@ -112,7 +112,7 @@ public class UserPrefSetupAction extends RhnAction {
                                             key));
                 if (!userPanes.contains(pane)) {
                     selectedPanes.add(key);
-                }                
+                }
             }
         }
 
@@ -125,11 +125,11 @@ public class UserPrefSetupAction extends RhnAction {
         return "<strong>" + service.getMessage(pane.getNameKey()) +
                    ":</strong>" + service.getMessage(pane.getDescriptionKey());
     }
-    
+
     private Map createDisplayMap(String display, String value) {
         Map selection = new HashMap();
         selection.put("display", display);
         selection.put("value", value);
         return selection;
-    }     
+    }
 }

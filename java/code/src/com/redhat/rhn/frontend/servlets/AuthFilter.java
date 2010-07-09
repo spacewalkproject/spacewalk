@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * AuthFilter - a servlet filter to ensure authenticated user info is put at
  * request scope properly
- * 
+ *
  * @version $Rev$
  */
 public class AuthFilter implements Filter {
@@ -48,33 +48,33 @@ public class AuthFilter implements Filter {
     private static Logger log = Logger.getLogger(AuthFilter.class);
 
     private AuthenticationService authenticationService;
-    
+
     /**
      * This method is intended for testing purposes only so that a fake, mock, ect.
      * service can be used. This method should <strong>not</strong> be used to change
      * the service implementation used. That is the responsibility of
      * AuthenticationServiceFactory.
-     *  
+     *
      * @param service An AuthenticationService to use for testing.
      * @see AuthenticationServiceFactory
      */
     protected void setAuthenticationService(AuthenticationService service) {
         authenticationService = service;
     }
-    
+
     /** {@inheritDoc} */
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
-        
+
 
 
         if (log.isDebugEnabled()) {
-            log.debug("ENTER AuthFilter.doFilter: " + request.getRemoteAddr() + 
-                    " [" + new Date() + "] (" + 
+            log.debug("ENTER AuthFilter.doFilter: " + request.getRemoteAddr() +
+                    " [" + new Date() + "] (" +
                     ((HttpServletRequest)(request)).getRequestURI() + ")");
         }
-        
-        if (authenticationService.validate((HttpServletRequest)request, 
+
+        if (authenticationService.validate((HttpServletRequest)request,
                 (HttpServletResponse)response)) {
 
             //Check the referrer and redirect to YourRhn.do if it doesn't match
@@ -97,19 +97,19 @@ public class AuthFilter implements Filter {
                 }
             }
 
-            
+
             chain.doFilter(request, response);
         }
         else {
-            authenticationService.redirectToLogin((HttpServletRequest)request, 
+            authenticationService.redirectToLogin((HttpServletRequest)request,
                     (HttpServletResponse)response);
         }
- 
+
 //        if (log.isDebugEnabled()) {
-//            log.debug("EXIT AuthFilter.doFilter: " + request.getRemoteAddr() + 
-//                    " [" + new Date() + "] (" + 
+//            log.debug("EXIT AuthFilter.doFilter: " + request.getRemoteAddr() +
+//                    " [" + new Date() + "] (" +
 //                    ((HttpServletRequest)(request)).getRequestURI() + ")");
-//        }        
+//        }
     }
 
     /**
@@ -117,7 +117,7 @@ public class AuthFilter implements Filter {
      */
     public void destroy() {
     }
-    
+
     /**
      * {@inheritDoc}
      */

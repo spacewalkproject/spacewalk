@@ -3,12 +3,12 @@
 	    <th><rhn:required-field key="edit_address.jsp.phone"/>:</th>
 	    <td><html:text size="14" property="phone"/></td>
     </tr>
-    
+
     <tr>
 	    <th><bean:message key="edit_address.jsp.fax"/>:</th>
 	    <td><html:text size="14" property="fax"/></td>
     </tr>
-    
+
     <tr>
 	    <th><rhn:required-field key="edit_address.jsp.address"/>:</th>
 	    <td><html:text size="30" property="address1"/><br />
@@ -30,11 +30,11 @@
 	    <th><rhn:required-field key="edit_address.jsp.country"/>:</th>
         <td>
         <html:select property="country">
-                <html:options collection="availableCountries" 
-                    property="value" 
+                <html:options collection="availableCountries"
+                    property="value"
                     labelProperty="label" />
                 </html:select>
         </td>
     </tr>
-    
+
 </table>

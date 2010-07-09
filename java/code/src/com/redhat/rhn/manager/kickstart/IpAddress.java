@@ -25,19 +25,19 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @version $Rev$
  */
 public class IpAddress {
-    
+
     private long [] octets = new long[4];
     private long number;
-    
+
     /**
      * Default Construtor
      *
      */
-    public IpAddress() {        
+    public IpAddress() {
     }
-    
+
     /**
-     * 
+     *
      * @param ipIn Ip Address in String Form
      */
     public IpAddress(String ipIn) {
@@ -48,8 +48,8 @@ public class IpAddress {
 
         String [] soctets = StringUtils.split(ipIn, ".");
         if (soctets.length == 4) {
-            try {      
-                for (int i = 0; i < 4; i++) {                          
+            try {
+                for (int i = 0; i < 4; i++) {
                     setOctet(i, new Long(soctets[i]).longValue());
                 }
             }
@@ -61,9 +61,9 @@ public class IpAddress {
             throw new InvalidIpAddressException(ipIn);
         }
     }
-    
+
     /**
-     * 
+     *
      * @param ipaddressIn  array of 4 octets to create IP address
      */
     public IpAddress(long [] ipaddressIn) {
@@ -71,28 +71,28 @@ public class IpAddress {
         if (ipaddressIn.length == 4) {
             this.octets = ipaddressIn;
             setNumber();
-        }               
+        }
     }
-    
+
     /**
-     * 
+     *
      * @param ipNumIn long number to create IP address
      */
-    public IpAddress(long ipNumIn) {         
+    public IpAddress(long ipNumIn) {
         setNumber(ipNumIn);
         setOctets(ipNumIn);
-    }        
-    
+    }
+
     /**
-     * 
+     *
      * @return 1st octet of ip address
      */
     public long [] getOctets() {
         return this.octets;
     }
-    
+
     /**
-     * 
+     *
      * @param octetIn which octet to set
      * @param valueIn value to set for octet
      */
@@ -100,19 +100,19 @@ public class IpAddress {
         this.octets[octetIn] = valueIn;
         setNumber();
     }
-    
+
     /**
-     * 
+     *
      * @param valueIn long in to update octets
      */
     public void setOctets(long valueIn) {
-        
+
         for (int i = 3; i >= 0; i--) {
             this.octets[i] = valueIn & 0xFF;
             valueIn >>= 8;
         }
     }
-    
+
     /**
      * compute the ip number for this ip addr
      *
@@ -122,34 +122,34 @@ public class IpAddress {
         for (int i = 0; i < this.octets.length; i++) {
             this.number <<= 8;
             this.number = this.number | this.octets[i];
-        }                                 
+        }
     }
-    
+
     /**
-     * 
+     *
      * @param numIn long to set ip number
      */
     public void setNumber(long numIn) {
         this.number = numIn;
         setOctets(numIn);
     }
-    
+
     /**
-     * 
+     *
      * @return long representation of ip address
      */
     public long getNumber() {
         return this.number;
     }
-    
+
     /**
-     * 
+     *
      * @return Long object of this ip number
      */
     public Long getLongNumber() {
         return new Long(getNumber());
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -162,7 +162,7 @@ public class IpAddress {
                                   .append(this.getNumber(), other.getNumber())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -171,9 +171,9 @@ public class IpAddress {
                                     .append(this.getNumber())
                                     .toHashCode();
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public String toString() {
@@ -182,5 +182,5 @@ public class IpAddress {
         this.octets[2] + "." +
         this.octets[3];
     }
-    
+
 }

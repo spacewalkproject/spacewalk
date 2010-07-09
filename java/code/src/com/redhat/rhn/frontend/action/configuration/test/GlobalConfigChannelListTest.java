@@ -23,22 +23,22 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
 public class GlobalConfigChannelListTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //Make a config channel so that it will appear in the list.
         ConfigChannel channel = ConfigTestUtils.createConfigChannel(user.getOrg());
         ConfigTestUtils.giveUserChanAccess(user, channel);
         ConfigurationFactory.commit(channel);
-        
+
         setRequestPathInfo("/configuration/GlobalConfigChannelList");
         actionPerform();
-        
+
         verifyList("pageList", ConfigChannelDto.class);
     }
-    
-    
+
+
 
 }

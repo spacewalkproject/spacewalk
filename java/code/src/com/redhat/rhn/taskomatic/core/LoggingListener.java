@@ -28,18 +28,18 @@ import java.lang.reflect.Field;
 /**
  * Quartz TriggerListener implementation which logs lifecycle events
  * for each executing Taskomatic task
- * 
+ *
  * @version $Rev $
  */
 
 public class LoggingListener implements TriggerListener {
-       
+
     private static final String NAME = "LoggingListener";
-    
+
     private static Logger logger = Logger.getLogger(SchedulerKernel.class);
-    
+
     private Channel msgs = new LinkedQueue();
-    
+
     private DaemonStateWriter stateWriter = null;
 
     /**
@@ -61,7 +61,7 @@ public class LoggingListener implements TriggerListener {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public void triggerFired(Trigger trigger, JobExecutionContext ctx) {
         updateDB(ctx.getJobDetail().getJobClass());
         if (logger.isInfoEnabled()) {
@@ -75,7 +75,7 @@ public class LoggingListener implements TriggerListener {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public boolean vetoJobExecution(Trigger arg0, JobExecutionContext arg1) {
         // TODO Auto-generated method stub
         return false;
@@ -83,7 +83,7 @@ public class LoggingListener implements TriggerListener {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public void triggerMisfired(Trigger trigger) {
         if (logger.isEnabledFor(Priority.ERROR)) {
             StringBuffer msg = new StringBuffer();
@@ -96,9 +96,9 @@ public class LoggingListener implements TriggerListener {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public void triggerComplete(Trigger trigger, JobExecutionContext ctx, int code) {
-        updateDB(ctx.getJobDetail().getJobClass());        
+        updateDB(ctx.getJobDetail().getJobClass());
         if (logger.isInfoEnabled()) {
             StringBuffer msg = new StringBuffer();
             msg.append(trigger.getJobGroup()).append(":");
@@ -108,7 +108,7 @@ public class LoggingListener implements TriggerListener {
         }
 
     }
-    
+
     private void updateDB(Class jobClass) {
         Field displayNameField = null;
         try {
@@ -119,7 +119,7 @@ public class LoggingListener implements TriggerListener {
             logger.warn("Missing display name for " + jobClass.getName());
             return;
         }
-               
+
         if (displayNameField != null) {
             try {
                 String displayName = (String) displayNameField.get(null);
@@ -131,7 +131,7 @@ public class LoggingListener implements TriggerListener {
                 }
                 logger.error(t.getMessage(), t);
             }
-            
+
         }
         else {
             logger.warn("Missing display name for " + jobClass.getName());

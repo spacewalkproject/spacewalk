@@ -26,7 +26,7 @@ public class CompressionUtilTest extends RhnBaseTestCase {
         String decomp = CompressionUtil.gzipDecompress(gzip);
         assertEquals(toComp, decomp);
     }
-    
-    
-    
+
+
+
 }

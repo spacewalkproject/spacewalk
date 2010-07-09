@@ -21,53 +21,53 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 
+ *
  * BaseKickstartActionDetails
  * @version $Rev$
  */
 public abstract class BaseKickstartActionDetails extends ActionChild {
-    
+
     private String cobblerSystemName;
     private String appendString;
     private String kickstartHost;
     private Set fileLists;
     private Long id;
-    
+
     /**
-     * This is the PK for this object.  Its not the 
+     * This is the PK for this object.  Its not the
      * actual ID to a KickstartData object
      * @return Returns the id.
      */
     protected Long getId() {
         return id;
     }
-    
+
     /**
-     * This is the PK for this object.  Its not the 
-     * actual ID to a KickstartData object.  Making 
+     * This is the PK for this object.  Its not the
+     * actual ID to a KickstartData object.  Making
      * this protected because nobody should really touch this.
      * @param i The id to set.
      */
     protected void setId(Long i) {
         this.id = i;
     }
-    
-    
+
+
     /**
      * @return Returns the appendString.
      */
     public String getAppendString() {
         return appendString;
     }
-    
+
     /**
      * @param a The appendString to set.
      */
     public void setAppendString(String a) {
         this.appendString = a;
     }
-    
-    
+
+
     /**
      * @return the kickstartHost
      */
@@ -75,7 +75,7 @@ public abstract class BaseKickstartActionDetails extends ActionChild {
         return kickstartHost;
     }
 
-    
+
     /**
      * @param kickstartHostIn the kickstartHost to set
      */
@@ -83,7 +83,7 @@ public abstract class BaseKickstartActionDetails extends ActionChild {
         this.kickstartHost = kickstartHostIn;
     }
 
-    
+
     /**
      * @return Returns the cobblerSystemName.
      */
@@ -91,14 +91,14 @@ public abstract class BaseKickstartActionDetails extends ActionChild {
         return cobblerSystemName;
     }
 
-    
+
     /**
      * @param cobblerSystemNameIn The cobblerSystemName to set.
      */
     public void setCobblerSystemName(String cobblerSystemNameIn) {
         this.cobblerSystemName = cobblerSystemNameIn;
     }
-    
+
     /**
      * Adds a FileList object to fileLists.
      * @param f FileList to add
@@ -109,14 +109,14 @@ public abstract class BaseKickstartActionDetails extends ActionChild {
         }
         fileLists.add(f);
     }
-    
+
     /**
      * @return Returns the fileLists.
      */
     public Set getFileLists() {
         return fileLists;
     }
-    
+
     /**
      * @param f The fileLists to set.
      */

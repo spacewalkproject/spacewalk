@@ -7,8 +7,8 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstartdetails.jsp.header2"/></h2>
@@ -23,15 +23,15 @@
     <form method="post" name="rhn_list" action="/rhn/kickstart/KickstartFilePreservationListsSubmit.do">
       <rhn:submitted />
       <rhn:list pageList="${requestScope.pageList}" noDataText="kickstart.filelists.jsp.nolists">
-          
+
   <rhn:listdisplay renderDisabled="true" set="${requestScope.set}" hiddenvars="${requestScope.newset}">
     <rhn:set value="${current.id}" />
 
         <rhn:column header="kickstart.filelists.jsp.name">
             <a href="/rhn/systems/provisioning/preservation/PreservationListEdit.do?file_list_id=${current.id}">${current.label}</a>
         </rhn:column>
-        
-      </rhn:listdisplay>      
+
+      </rhn:listdisplay>
       </rhn:list>
 
 <hr />

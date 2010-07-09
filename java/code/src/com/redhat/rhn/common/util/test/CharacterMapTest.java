@@ -34,14 +34,14 @@ public class CharacterMapTest extends RhnBaseTestCase {
         assertTrue(cm.size() == 1);
         assertTrue(cm.get(c).equals(new Integer(5)));
     }
-    
+
     public void testEquals() {
         CharacterMap cm1 = new CharacterMap();
         CharacterMap cm2 = new CharacterMap();
         Character a = new Character('A');
         Character b = new Character('B');
         Integer i = new Integer(5);
-        
+
         assertTrue(cm1.equals(cm1));
         assertTrue(cm1.equals(cm2));
         cm1.put(a, i);
@@ -50,7 +50,7 @@ public class CharacterMapTest extends RhnBaseTestCase {
         assertTrue(cm1.equals(cm2));
         cm2.put(b, i);
         assertFalse(cm1.equals(cm2));
-                
+
         CharacterMap cm3 = cm1;
         assertEquals(cm1, cm3);
         assertTrue(cm1.equals(cm3));

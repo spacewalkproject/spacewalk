@@ -219,9 +219,9 @@ public class SSMScheduleCommand {
 
         ValidatorError error = com.store();
         if (error == null) {
-            this.scheduledActions.add(com.getScheduledAction());    
+            this.scheduledActions.add(com.getScheduledAction());
         }
-        
+
         return error;
     }
 

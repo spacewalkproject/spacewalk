@@ -26,25 +26,25 @@ import junit.framework.TestCase;
  * @version $Rev$
  */
 public class LabelTest extends TestCase {
-    
+
     class BeerLabel extends Label {
         private String beerLabel;
         private String beerName;
-        
+
         public BeerLabel(String name, String label) {
             this.beerLabel = label;
             this.beerName = name;
         }
-        
+
         public String getName() {
             return beerName;
         }
-        
+
         public String getLabel() {
             return beerLabel;
         }
     }
-    
+
     /**
      * @param arg0
      */
@@ -56,14 +56,14 @@ public class LabelTest extends TestCase {
      * Test method for {@link com.redhat.rhn.domain.Label#equals(java.lang.Object)}.
      */
     public void testEqualsObject() {
-        BeerLabel negroModelo = new BeerLabel("Negro Model", 
+        BeerLabel negroModelo = new BeerLabel("Negro Model",
                 "Negro Modelo....what beer was meant to be");
-        BeerLabel anotherNegroModelo = new BeerLabel("Negro Model", 
+        BeerLabel anotherNegroModelo = new BeerLabel("Negro Model",
                 "Negro Modelo....what beer was meant to be");
         BeerLabel aprihop = new BeerLabel("Aprihop",
                 "Aprihop....Dogfish Head bringing you America's finest beer");
-        
-        
+
+
         new EqualsTester(negroModelo, anotherNegroModelo, aprihop, new Object());
     }
 

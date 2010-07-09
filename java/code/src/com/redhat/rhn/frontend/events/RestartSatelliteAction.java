@@ -28,14 +28,14 @@ import org.apache.log4j.Logger;
  * @version $Rev: 74533 $
  */
 public class RestartSatelliteAction implements MessageAction {
-    
+
     private static Logger log = Logger.getLogger(RestartSatelliteAction.class);
-    
+
     /**
      * {@inheritDoc}
      */
     public void execute(EventMessage msgIn) {
-        
+
         RestartSatelliteEvent evt = (RestartSatelliteEvent) msgIn;
         User user = evt.getUser();
         RestartCommand rc = getCommand(user);
@@ -45,12 +45,12 @@ public class RestartSatelliteAction implements MessageAction {
         if (errors != null) {
             for (int i = 0; i < errors.length; i++) {
                 ValidatorError error = errors[i];
-                log.error("Error trying to restart the satellite: " + 
+                log.error("Error trying to restart the satellite: " +
                         LocalizationService.getInstance()
                         .getMessage(error.getKey(), evt.getUserLocale()));
             }
         }
-        
+
     }
 
     protected RestartCommand getCommand(User currentUser) {

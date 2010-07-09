@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  * OrgDetailsAction extends RhnAction - Class representation of the table web_customer
  * @version $Rev: 1 $
  */
-public class SatRoleConfirm extends RhnAction {    
+public class SatRoleConfirm extends RhnAction {
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -52,36 +52,36 @@ public class SatRoleConfirm extends RhnAction {
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orgdetail"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
-        }        
-        
-        RequestContext requestContext = new RequestContext(request);   
+        }
+
+        RequestContext requestContext = new RequestContext(request);
         Long uid = requestContext.getParamAsLong(RequestContext.USER_ID);
-        // protect against cached/manual urls  
+        // protect against cached/manual urls
         if (uid == null) {
             return mapping.findForward("cancel");
-        }                
+        }
 
         User u = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
-                
+
         // just in case user bypasses user page using bookmarks
         if (SatManager.getActiveSatAdmins().size() == 1) {
-            createErrorMessage(request, "satadmin.jsp.error.lastsatadmin", 
+            createErrorMessage(request, "satadmin.jsp.error.lastsatadmin",
                                u.getLogin());
             return mapping.findForward("cancel");
         }
-        
+
         ActionForward retval = mapping.findForward("default");
-                
+
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         if (isSubmitted(dynaForm)) {
           u.removeRole(RoleFactory.SAT_ADMIN);
-          retval = mapping.findForward("logout");  
-        } 
-        else {        
+          retval = mapping.findForward("logout");
+        }
+        else {
           request.setAttribute("username", u.getLogin());
         }
-        
+
         return retval;
     }
-    
+
 }

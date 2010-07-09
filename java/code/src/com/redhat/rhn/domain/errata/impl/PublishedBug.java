@@ -32,49 +32,49 @@ public class PublishedBug extends BaseDomainHelper implements Bug, Serializable 
     private Long id;
     private String summary;
     private Errata errata;
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the summary.
      */
     public String getSummary() {
         return summary;
     }
-    
+
     /**
      * @param s The summary to set.
      */
     public void setSummary(String s) {
         this.summary = s;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public Errata getErrata() {
         return errata;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void setErrata(Errata errataIn) {
         this.errata = errataIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */

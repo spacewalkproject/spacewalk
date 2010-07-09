@@ -21,11 +21,11 @@ import com.redhat.rhn.domain.action.ActionFormatter;
 /**
  * ErrataActionFormatter - Class that overrides getNotes()
  * to display Errata specific information.
- * 
+ *
  * @version $Rev$
  */
 public class ScriptActionFormatter extends ActionFormatter {
-    
+
     /**
      * Create a new ErrataActionFormatter
      * @param actionIn the ErrataAction we want to use to format
@@ -33,7 +33,7 @@ public class ScriptActionFormatter extends ActionFormatter {
     public ScriptActionFormatter(ScriptAction actionIn) {
         super(actionIn);
     }
-    
+
     /**
      * Output the Errata info into the body.
      * @return String of the Errata HTML
@@ -52,6 +52,6 @@ public class ScriptActionFormatter extends ActionFormatter {
                       sa.getScriptActionDetails().getScriptContents()));
         retval.append("</code></div><br/>");
         return retval.toString();
-    
+
     }
 }

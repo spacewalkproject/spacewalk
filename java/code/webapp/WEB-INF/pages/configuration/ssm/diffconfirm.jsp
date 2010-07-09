@@ -24,10 +24,10 @@
     </c:choose>
     </p>
   </div>
-  
+
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/DiffConfirmSubmit.do">
   <%@ include file="/WEB-INF/pages/common/fragments/configuration/ssm/configconfirmlist.jspf"%>
-  
+
   <c:if test="${not empty requestScope.pageList}">
     <div align="right">
       <hr />

@@ -54,30 +54,30 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      */
     private static Logger logger = Logger
             .getLogger(KickstartEditCommand.class);
-    
-      
-    
+
+
+
     /**
-     * 
-     * @param ksid Kickstart Id 
-     * @param userIn to set on this Command.   
+     *
+     * @param ksid Kickstart Id
+     * @param userIn to set on this Command.
      */
     public KickstartEditCommand(Long ksid, User userIn) {
         super(ksid, userIn);
     }
 
-    
+
     /**
-     * 
-     * @param data Kickstart data 
-     * @param userIn to set on this Command.   
+     *
+     * @param data Kickstart data
+     * @param userIn to set on this Command.
      */
     public KickstartEditCommand(KickstartData data, User userIn) {
         super(data, userIn);
     }
-    
+
     /**
-     * 
+     *
      * @return Kickstart Label
      */
     public String getLabel() {
@@ -85,23 +85,23 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         logger.debug("getLabel() - end - return value=" + returnString);
         return returnString;
     }
-    
+
     /**
-     * 
+     *
      * @param labelIn Kickstart Label to set
      */
     public void setLabel(String labelIn) {
         if (!ksdata.getLabel().equals(labelIn)) {
             KickstartBuilder builder = new KickstartBuilder(getUser());
-            builder.validateNewLabel(labelIn);    
+            builder.validateNewLabel(labelIn);
         }
         logger.debug("setLabel(String labelIn=" + labelIn + ") - start");
         this.ksdata.setLabel(labelIn);
     }
 
     /**
-     * 
-     * @return Whether the Kickstart is active 
+     *
+     * @return Whether the Kickstart is active
      */
     public Boolean getActive() {
         logger.debug("getActive() - start");
@@ -109,30 +109,30 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         logger.debug("getActive() - end - return value=" + returnBoolean);
         return returnBoolean;
     }
-    
+
     /**
-     * 
+     *
      * @param activeIn Set active status of Kickstart
      */
     public void setActive(Boolean activeIn) {
         logger.debug("setActive(Boolean activeIn=" + activeIn + ") - start");
         this.ksdata.setActive(activeIn);
     }
-    
+
     /**
-     * 
+     *
      * @return Get virtualizationtype
      */
     public KickstartVirtualizationType getVirtualizationType() {
         return this.ksdata.getKickstartDefaults().getVirtualizationType();
     }
-    
+
     /**
-     * 
+     *
      * @param typeIn Set virtualization type
      */
     public void setVirtualizationType(KickstartVirtualizationType typeIn) {
-        
+
         // If the virtualization type is changing to or from guest, we need to adjust
         // some kickstart options potentially wiping out user changes. (a note will be
         // present in the UI to indicate this side effect)
@@ -145,12 +145,12 @@ public class KickstartEditCommand extends BaseKickstartCommand {
                 rebuildPartitionCommands = true;
             }
         }
-        
+
         this.ksdata.getKickstartDefaults().setVirtualizationType(typeIn);
     }
-    
+
     /**
-     * 
+     *
      * @return Kickstart Comments
      */
     public String getComments() {
@@ -158,20 +158,20 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         logger.debug("getComments() - end - return value=" + returnString);
         return returnString;
     }
-    
+
     /**
-     * Update the isOrgDefault field for this KickstartData.  If set to 
+     * Update the isOrgDefault field for this KickstartData.  If set to
      * true this will update any existing KickstartData records for this Org
-     * that have their isOrgDefault set to true.  There can be only *ONE* 
+     * that have their isOrgDefault set to true.  There can be only *ONE*
      * KickstartData with isOrgDefault set.
-     * 
+     *
      * @param defaultIn to update this profile to
      */
     public void setIsOrgDefault(Boolean defaultIn) {
         this.ksdata.setOrgDefault(defaultIn);
     }
     /**
-     * 
+     *
      * @param commentsIn to set for Kickstart
      */
     public void setComments(String commentsIn) {
@@ -180,32 +180,32 @@ public class KickstartEditCommand extends BaseKickstartCommand {
 
     }
 
-    /** 
+    /**
      * Take in the set of required information to
-     * determine what kickstartable tree to use for this Kickstart 
-     * profile. 
-     * 
+     * determine what kickstartable tree to use for this Kickstart
+     * profile.
+     *
      * @param channelId id of ChannelFamily selected.
      * @param orgId org id
      * @param treeId kickstart tree id
-     * @param url the url of the channel. 
+     * @param url the url of the channel.
      * @return ValidatorError if we couldn't find a KickstartableTree to update to
      */
-    public ValidatorError updateKickstartableTree(Long channelId, 
-                                                    Long orgId, 
+    public ValidatorError updateKickstartableTree(Long channelId,
+                                                    Long orgId,
                                                     Long treeId,
                                                     String url) {
 
 
-        
+
         if (!KickstartFactory.verifyTreeAssignment(channelId, orgId, treeId)) {
             ValidatorError ve = new ValidatorError("kickstart.software.notree");
             return ve;
         }
-        
+
         KickstartableTree tree = KickstartFactory.findTreeById(treeId, orgId);
         KickstartWizardHelper helper = new KickstartWizardHelper(getUser());
-        
+
 
         for (Token token : ksdata.getDefaultRegTokens()) {
             ActivationKey key = ActivationKeyFactory.lookupByToken(token);
@@ -213,7 +213,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
                 token.setBaseChannel(tree.getChannel());
             }
         }
-        
+
         if (tree != null) {
 
             this.ksdata.getKickstartDefaults().setKstree(tree);
@@ -236,16 +236,16 @@ public class KickstartEditCommand extends BaseKickstartCommand {
                     "String, Long) - end - return value=" + ve);
             return ve;
         }
-        
+
     }
-    
-    /** 
+
+    /**
      * Update child channels for this KickstartData.  This clears out previous selections.
-     * 
+     *
      * @param childchannelIds as strings
      */
     public void updateChildChannels(String[] childchannelIds) {
-        
+
         // Clear out the old selections
         if (getKickstartData().getChildChannels() != null) {
             getKickstartData().getChildChannels().clear();
@@ -253,18 +253,18 @@ public class KickstartEditCommand extends BaseKickstartCommand {
 
         if (childchannelIds != null) {
             for (int i = 0; i < childchannelIds.length; i++) {
-                Long channelId = Long.valueOf(childchannelIds[i]); 
-                Channel c = ChannelManager.lookupByIdAndUser(channelId, 
+                Long channelId = Long.valueOf(childchannelIds[i]);
+                Channel c = ChannelManager.lookupByIdAndUser(channelId,
                         user);
                 getKickstartData().addChildChannel(c);
             }
         }
 
     }
-    
+
     /**
-     * Get the Set of ChannelArches that are available 
-     * to this Kickstart.  
+     * Get the Set of ChannelArches that are available
+     * to this Kickstart.
      * @return Set of ChannelArch objects that are available
      * to this Kickstart.
      */
@@ -344,7 +344,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         String retval = null;
 
         // TODO: Actually fetch this off the kickstartableTree
-        // Only can parse the label if its an RHN 
+        // Only can parse the label if its an RHN
         // owned channel
         //if (this.ksdata.getTree().getChannel().getOrg() == null) {
         logger.debug("we have an RHN owned channel");
@@ -356,11 +356,11 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         if (hyphen >= 0) {
             retval = retval.substring(hyphen + 1, retval.length());
         }
-        //} 
+        //}
         logger.debug("retval: " + retval);
         return retval;
     }
-    
+
     // private string to concat "ks-" + Channel.label
     private String getBaseLabel(Channel c) {
         return "ks-" + c.getLabel();
@@ -372,10 +372,10 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      */
     public void updateRepos(String[] reposIn) {
         if (ksdata.isRhel5OrGreater()) {
-            
+
             Map<String, RepoInfo> repos = RepoInfo.getStandardRepos();
             Set<RepoInfo> selected = new HashSet <RepoInfo>();
-            
+
             for (int i = 0; i < reposIn.length; i++) {
                 selected.add(repos.get(reposIn[i]));
             }

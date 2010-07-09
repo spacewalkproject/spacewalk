@@ -41,10 +41,10 @@
 	            	<rhn:tooltip key="activation-key.jsp.blank.auto-generator"/><br/>
 	            	<rhn:tooltip>
 	            		<bean:message key="activation-key.jsp.org_notice" arg0="${requestScope.prefix}"/>	
-	            	</rhn:tooltip> 
+			</rhn:tooltip>
             	</c:otherwise>
             </c:choose>
-            
+
     </td>
     </tr>
     <tr>
@@ -66,15 +66,15 @@
         						    property="value"
             						labelProperty="label" />
            </html:select><br/>
-           
+
             <rhn:tooltip>
 	            <bean:message key="activation-key.jsp.edit-basechannel-tooltip"
 	            	 arg0 = "${rhn:localize('activation-key.jsp.rh-default')}"/>
             </rhn:tooltip>
-           
+
         </td>
     </tr>
-    
+
 	<tr>
         <th>
             <bean:message key="activation-key.jsp.addon-entitlements"/>:
@@ -87,17 +87,17 @@
     <c:out value="${item.label}"/>
     	<br />
 	</c:forEach>
-    
+
        </td>
     </tr>
-    <c:if test="${not requestScope.create}">    
+    <c:if test="${not requestScope.create}">
 	<tr>
         <th>
             <label for="enable-config-auto-deploy"><bean:message key="activation-key.jsp.enable-config-auto-deploy"/>:</label>
         </th>
          <td>
-         
-      <rhn:require acl="token_has_entitlement(provisioning_entitled)" 
+
+      <rhn:require acl="token_has_entitlement(provisioning_entitled)"
       		mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
             <html:checkbox property="autoDeploy" styleId="enable-config-auto-deploy" /><br/>
             <rhn:tooltip key="activation-key.jsp.config-auto-deploy-tooltip"/>
@@ -111,7 +111,7 @@
 			</rhn:tooltip>            							
       </rhn:require>
       </td>
-    </tr>    
+    </tr>
 	</c:if>
     <tr>
         <th>

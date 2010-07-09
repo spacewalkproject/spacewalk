@@ -28,9 +28,9 @@ import java.util.List;
  */
 
 public class ManifestFactoryTest extends RhnBaseTestCase {
-    
-    private boolean threadsFail = false; 
-    
+
+    private boolean threadsFail = false;
+
     public void testFactory() throws Exception {
         String s = (String)PrimitiveFactory.getObject("string-object-foo");
         assertEquals("Foo", s);
@@ -48,7 +48,7 @@ public class ManifestFactoryTest extends RhnBaseTestCase {
         String foo2 = (String)PrimitiveFactory.getObject("string-object-foo");
         assertSame(foo1, foo2);
     }
-    
+
     public void testMultiThreadedStartup() throws Exception {
         PrimitiveFactory.initFactory();
         for (int i = 0; i < 100; i++) {
@@ -58,21 +58,21 @@ public class ManifestFactoryTest extends RhnBaseTestCase {
         Thread.sleep(1000);
         assertFalse(threadsFail);
     }
-    
+
     public class TestGetObjectThread extends Thread {
-      
+
         public void run() {
             try {
                 Collection keys = PrimitiveFactory.getKeys();
                 assertTrue(keys.size() == 3);
                 String s = (String)PrimitiveFactory.getObject("string-object-foo");
                 assertEquals("Foo", s);
-            } 
+            }
             catch (ManifestFactoryLookupException mfle) {
                 threadsFail = true;
                 mfle.printStackTrace();
             }
         }
-        
-    }    
+
+    }
 }

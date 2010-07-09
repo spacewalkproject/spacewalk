@@ -32,16 +32,16 @@
     </rhn:toolbar>
 
 
-    <rhn:dialogmenu mindepth="0" 
-                    maxdepth="1" 
-                    definition="/WEB-INF/nav/virt_entitlements.xml" 
+    <rhn:dialogmenu mindepth="0"
+                    maxdepth="1"
+                    definition="/WEB-INF/nav/virt_entitlements.xml"
                     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer"/>
-<h2><bean:message key="${headerkey}"/></h2>                    
+<h2><bean:message key="${headerkey}"/></h2>
 		<p><bean:message key="${messagekey}" arg0="http://kbase.redhat.com/faq/docs/DOC-17424"/>
 		</p>
-		  
+
 <rl:listset name="FlexSet">
-<rl:list 
+<rl:list
 	emptykey="${empty_msg}"
 	parentiselement = "false"
 	searchparent="false"
@@ -71,7 +71,7 @@
 	<rl:column headerkey="systemlist.jsp.system" filterattr="name" filtermessage="${filtermessage}" styleclass="${namestyle}">
 	    <rl:expandable rendericon="true"> <a href="/rhn/software/channels/ChannelFamilyTree.do?cfid=${current.id}">${current.name} <em>(${current.entitlementCountMessage})</em>  </a>
 	    </rl:expandable>
-	    
+
 	    <rl:non-expandable rendericon="true">
 			<c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
 			<c:choose>
@@ -82,7 +82,7 @@
 					<c:out value="${current.name}</a>" escapeXml="false" />
 				</c:otherwise>
 			</c:choose>
-	    </rl:non-expandable>       
+	    </rl:non-expandable>
 	</rl:column>
 
 	<rl:column headerkey="Status">
@@ -116,7 +116,7 @@
     <html:submit property="dispatch">
         <bean:message key="Make Flex"/>
     </html:submit>
-      
+
   </div>
 </c:if>
 

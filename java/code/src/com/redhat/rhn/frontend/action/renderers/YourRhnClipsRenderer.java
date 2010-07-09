@@ -38,7 +38,7 @@ public class YourRhnClipsRenderer extends RhnAction {
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         RequestContext context = new RequestContext(request);
@@ -81,12 +81,12 @@ public class YourRhnClipsRenderer extends RhnAction {
         else if (key.equals(Pane.TASKS)) {
             renderer = new TasksRenderer();
         }
-        
+
         if (renderer != null) {
             request.setAttribute("pageUrl", renderer.getPageUrl());
             renderer.render(user, pc, request);
         }
-        
-        return mapping.findForward(RhnHelper.DEFAULT_FORWARD); 
+
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

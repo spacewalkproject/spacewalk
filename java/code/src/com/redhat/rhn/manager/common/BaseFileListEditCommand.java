@@ -25,19 +25,19 @@ import org.apache.commons.lang.StringUtils;
 import java.util.Iterator;
 
 /**
- * BaseFileListEditCommand - baseclass for editing a FileList class. 
+ * BaseFileListEditCommand - baseclass for editing a FileList class.
  * @version $Rev$
  */
 public abstract class BaseFileListEditCommand extends BasePersistOperation {
-    
+
     protected User user;
     protected FileList list;
     protected String newLabel;
 
     /**
-     * Construct a command with a User. 
+     * Construct a command with a User.
      * @param userIn to use.
-     */    
+     */
     public BaseFileListEditCommand(User userIn) {
         super();
         this.user = userIn;
@@ -58,9 +58,9 @@ public abstract class BaseFileListEditCommand extends BasePersistOperation {
     public FileList getFileList() {
         return this.list;
     }
-    
+
     /**
-     * Set the label on the list. 
+     * Set the label on the list.
      * @param labelIn to set.
      */
     public void setLabel(String labelIn) {
@@ -71,33 +71,33 @@ public abstract class BaseFileListEditCommand extends BasePersistOperation {
      * Store the FileList.
      *
      * @return ValidatorError[] if there were errors before the save.
-     */ 
+     */
     public abstract ValidatorError store();
 
     /**
-     * Parse the incoming list of files by newline.  
-     *   
+     * Parse the incoming list of files by newline.
+     *
      * @param listIn to parse
      */
     public void updateFiles(String listIn) {
-        this.list.getFileNames().clear();                
+        this.list.getFileNames().clear();
         String[] files = StringUtils.split(listIn, "\n");
         for (int i = 0; i < files.length; i++) {
             String cleanFile = files[i].trim();
             if (cleanFile != null && !cleanFile.equals("")) {
                 this.list.addFileName(files[i].trim());
             }
-        }        
+        }
     }
 
     /**
-     * Convert the list of file names into a single String with \n 
+     * Convert the list of file names into a single String with \n
      * at the end of each name.  Useful for display purposes:
-     * 
+     *
      *  /tmp/file1.txt
      *  /tmp/file2.txt
      *  /tmp/file3.txt
-     *  
+     *
      *  becomes:
      *  /tmp/file1.txt\n/tmp/file2.txt\n/tmp/file3.txt
      * @return String of file names
@@ -111,12 +111,12 @@ public abstract class BaseFileListEditCommand extends BasePersistOperation {
         while (i.hasNext()) {
             ConfigFileName cfn = (ConfigFileName) i.next();
             names.append(cfn.getPath());
-           
+
             if (i.hasNext()) {
                 names.append("\n");
             }
         }
-        
+
         return names.toString();
     }
 

@@ -17,7 +17,7 @@ package com.redhat.rhn.internal.doclet;
 import com.sun.javadoc.RootDoc;
 
 /**
- * 
+ *
  * HtmlDoclet
  * @version $Rev$
  */
@@ -25,7 +25,7 @@ public class SinglePageDoclet {
 
     private SinglePageDoclet() {
     }
-    
+
     /**
      * Starts the wiki doclet
      * @param root document root
@@ -33,8 +33,8 @@ public class SinglePageDoclet {
      * @throws Exception e
      */
     public static boolean start(RootDoc root) throws Exception {
-        
+
         return ApiDoclet.start(root, "singlepage");
     }
-    
+
 }

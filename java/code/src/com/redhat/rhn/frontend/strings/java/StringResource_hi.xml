@@ -1233,7 +1233,7 @@ available for this kickstart profile to function properly.
 और फिर कोशिश करें.
 &lt;/li&gt;
 &lt;li&gt;
-निश्चित करें कि rhn-kickstart* संकुल इस किकस्टार्ट में मौजूद 
+निश्चित करें कि rhn-kickstart* संकुल इस किकस्टार्ट में मौजूद
 किकस्टार्ट के सहवर्ती है जो किकस्टार्ट बेस चैनल के 'rhn-tools' चैनल में उपलब्ध है. यदि नहीं, आपको
 इसे ठीक से काम करने के लिए किकस्टार्ट प्रोफाइल को उपलब्ध करने की जरूरत होगी.
 &lt;/li&gt;
@@ -5049,7 +5049,7 @@ Follow this url to see the full list of inactive systems:
 				<source>One or more of the packages you have selected for removal below are not contained in
 			a software channel that this system is subscribed to.  If you choose to continue with the removal
 			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
-				<target>हटाने के लिए एक या अधिक संकुल जिसे आपने चुना है वह 
+				<target>हटाने के लिए एक या अधिक संकुल जिसे आपने चुना है वह
 			साफ्टवेयर चैनल में समाहित नहीं है जिसमें यह सिस्टम सदस्यता लिया हुआ है.  यदि आप हटाए जाने के साथ जारी रखना चाहते हैं
 			आप इस सिस्टम को रोलबैक करने में इस स्नैपशॉट या किसी पहले के स्नैपशॉट में समर्थ नहीं होंगे.</target>
 			</trans-unit>
@@ -5238,32 +5238,32 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to 
-syncronize kickstart distributions from Spacewalk to Cobbler.  These 
-errors must be corrected for the distributions to be available for 
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
 kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-निम्नलिखित त्रुटियों की सूची है जो तब इकट्ठा की गई जब Spacewalk 
-किकस्टार्ट वितरण को स्पेसवाक से कोब्बलर में तुल्यकालित करने के लिए प्रयास करता है.  इन 
+निम्नलिखित त्रुटियों की सूची है जो तब इकट्ठा की गई जब Spacewalk
+किकस्टार्ट वितरण को स्पेसवाक से कोब्बलर में तुल्यकालित करने के लिए प्रयास करता है.  इन
 त्रुटियों को जरूर सही किया जाना चाहिए
-सिस्टम के वितरण को किकस्टार्ट करने के लिए मौजूद रहने के लिए 
+सिस्टम के वितरण को किकस्टार्ट करने के लिए मौजूद रहने के लिए
 
 {0}
 
 कृपया जाँचें:
 
-/var/log/rhn/rhn_taskomatic_daemon.log और 
+/var/log/rhn/rhn_taskomatic_daemon.log और
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

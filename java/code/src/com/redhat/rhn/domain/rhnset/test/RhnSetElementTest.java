@@ -31,7 +31,7 @@ public class RhnSetElementTest extends RhnBaseTestCase {
         assertNull(rse.getElement());
         assertNull(rse.getElementTwo());
     }
-    
+
     public void testArgCtorWithNulls() {
         RhnSetElement rse = new RhnSetElement(null, null, null, null);
         assertNotNull(rse);
@@ -40,7 +40,7 @@ public class RhnSetElementTest extends RhnBaseTestCase {
         assertNull(rse.getElement());
         assertNull(rse.getElementTwo());
     }
-    
+
     public void testTwoArgCtor() {
         Long id = new Long(10);
         Long elem = new Long(400);
@@ -52,7 +52,7 @@ public class RhnSetElementTest extends RhnBaseTestCase {
         assertEquals(elem, rse.getElement());
         assertEquals(elem, rse.getElementTwo());
     }
-    
+
     public void testThreeArgCtor() {
         Long id = new Long(10);
         Long elem = new Long(400);
@@ -74,10 +74,10 @@ public class RhnSetElementTest extends RhnBaseTestCase {
         assertNotNull(rse);
         rse.setUserId(id);
         assertEquals(id, rse.getUserId());
-        
+
         rse.setLabel(label);
         assertEquals(label, rse.getLabel());
-        
+
         rse.setElement(elem);
         assertEquals(elem, rse.getElement());
 
@@ -89,25 +89,25 @@ public class RhnSetElementTest extends RhnBaseTestCase {
 
         rse.setElementTwo(null);
         assertNull(rse.getElementTwo());
-        
+
         rse.setElementThree(elem);
         assertEquals(elem, rse.getElementThree());
 
         rse.setElementThree(null);
         assertNull(rse.getElementThree());
     }
-    
+
     public void testEquals() {
         Long uid = new Long(42);
         Long elem = new Long(3131);
         Long elemTwo = new Long(3132);
         Long elemThree = new Long(3133);
         String label = "testEquals label";
-        
+
         RhnSetElement r1 = new RhnSetElement();
         RhnSetElement r2 = new RhnSetElement();
         assertEquals(r1, r2);
-        
+
         r1.setUserId(uid);
         r2.setUserId(uid);
         assertEquals(r1, r2);
@@ -128,7 +128,7 @@ public class RhnSetElementTest extends RhnBaseTestCase {
         assertFalse(r1.equals(r2));
         r1.setElementTwo(null);
         assertEquals(r1, r2);
-        
+
         r1.setElementThree(elemThree);
         r2.setElementThree(elemThree);
         assertEquals(r1, r2);
@@ -141,7 +141,7 @@ public class RhnSetElementTest extends RhnBaseTestCase {
         assertEquals(r1, r2);
 
     }
-    
+
     public void testStringConstructor() {
         Long uid = new Long(42);
         String label = "testEquals label";

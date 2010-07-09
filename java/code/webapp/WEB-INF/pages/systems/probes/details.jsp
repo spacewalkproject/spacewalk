@@ -14,25 +14,25 @@
 <br>
 
 <c:if test="${is_suite_probe}">
-  <rhn:toolbar base="h2" img="/img/rhn-icon-system.gif" 
+  <rhn:toolbar base="h2" img="/img/rhn-icon-system.gif"
       miscAlt="probedetails.jsp.editsuiteprobe"
       miscImg="action-clone.gif"
       miscUrl="/rhn/monitoring/config/ProbeSuiteProbeEdit.do?suite_id=${probe.templateProbe.probeSuite.id}&amp;probe_id=${probe.templateProbe.id}"
       miscText="probedetails.jsp.editsuiteprobe"
-      creationUrl="/rhn/systems/details/probes/ProbeCreate.do?sid=${system.id}" 
+      creationUrl="/rhn/systems/details/probes/ProbeCreate.do?sid=${system.id}"
       creationType="probe">
    <bean:message key="probedetails.jsp.currentstate" />
   </rhn:toolbar>
 </c:if>
-<c:if test="${not is_suite_probe}">   
-  <rhn:toolbar base="h2" img="/img/rhn-icon-system.gif" 
-      deletionUrl="/rhn/systems/details/probes/ProbeDelete.do?probe_id=${probe.id}&amp;sid=${system.id}" 
+<c:if test="${not is_suite_probe}">
+  <rhn:toolbar base="h2" img="/img/rhn-icon-system.gif"
+      deletionUrl="/rhn/systems/details/probes/ProbeDelete.do?probe_id=${probe.id}&amp;sid=${system.id}"
       deletionType="probe"
       miscAlt="probedetails.jsp.editthisprobe"
       miscImg="action-clone.gif"
       miscUrl="ProbeEdit.do?probe_id=${probe.id}&amp;sid=${system.id}"
       miscText="probedetails.jsp.editthisprobe"
-      creationUrl="/rhn/systems/details/probes/ProbeCreate.do?sid=${system.id}" 
+      creationUrl="/rhn/systems/details/probes/ProbeCreate.do?sid=${system.id}"
     creationType="probe">
    <bean:message key="probedetails.jsp.currentstate" />
   </rhn:toolbar>
@@ -83,7 +83,7 @@
             labelProperty="label" />
         </html:select>
       </td>
-    </tr>    
+    </tr>
     <tr>
       <th><bean:message key="probedetails.jsp.show_graph" /></th>
       <td><html:checkbox property="show_graph" /></td>

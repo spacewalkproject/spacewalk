@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * SelectableChannelVersion
  * @version $Rev$
  */
@@ -43,7 +43,7 @@ public class SelectableChannelVersion  implements Selectable {
     public String getSelectionKey() {
         return null;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -63,24 +63,24 @@ public class SelectableChannelVersion  implements Selectable {
      */
     public void setSelected(boolean selectedIn) {
         selected = selectedIn;
-        
+
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return version.getName();
     }
-    
+
     /**
      * @param name The name to set.
      */
     public void setName(String name) {
         version.setName(name);
     }
-    
-    
+
+
     /**
      * @return Returns the version.
      */
@@ -88,14 +88,14 @@ public class SelectableChannelVersion  implements Selectable {
         return version.getVersion();
     }
 
-    
+
     /**
      * @param versionIn The version to set.
      */
     public void setVersion(String versionIn) {
         version.setVersion(versionIn);
     }
-    
+
     /**
      * Provides a list of the current Channel Versions
      * @return List of SelectableChannelVersion objects
@@ -105,9 +105,9 @@ public class SelectableChannelVersion  implements Selectable {
         currentList.add(new SelectableChannelVersion(ChannelVersion.RHEL5));
         currentList.add(new SelectableChannelVersion(ChannelVersion.RHEL4));
         currentList.add(new SelectableChannelVersion(ChannelVersion.RHEL3));
-        currentList.add(new SelectableChannelVersion(ChannelVersion.RHEL21));        
+        currentList.add(new SelectableChannelVersion(ChannelVersion.RHEL21));
         return currentList;
     }
-    
-    
+
+
 }

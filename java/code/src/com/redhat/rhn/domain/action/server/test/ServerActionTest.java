@@ -30,44 +30,44 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class ServerActionTest extends RhnBaseTestCase {
-    
+
     public void testEquals() {
         ServerAction sa = new ServerAction();
         ServerAction sa2 = null;
         assertFalse(sa.equals(sa2));
-        
+
         sa2 = new ServerAction();
         assertTrue(sa.equals(sa2));
-        
+
         Server one = ServerFactory.createServer();
         sa.setServer(one);
         assertFalse(sa.equals(sa2));
         assertFalse(sa2.equals(sa));
-        
+
         sa2.setServer(ServerFactory.createServer());
         assertTrue(sa.equals(sa2));
-        
+
         one.setName("foo");
         assertFalse(sa.equals(sa2));
-        
+
         sa2.setServer(one);
         assertTrue(sa.equals(sa2));
-        
+
         Action parent = new Action();
         parent.setId(new Long(243));
         sa.setParentAction(parent);
         assertFalse(sa.equals(sa2));
-        
+
         sa2.setParentAction(parent);
         assertTrue(sa.equals(sa2));
     }
-    
+
     public void testCreate() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Action parent = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
         ServerAction child = createServerAction(ServerFactoryTest
                 .createTestServer(user), parent);
-        
+
         parent.addServerAction(child);
         ActionFactory.save(parent);
 
@@ -77,13 +77,13 @@ public class ServerActionTest extends RhnBaseTestCase {
         assertNotNull(parent.getServerActions().toArray()[0]);
         assertTrue(child.equals(parent.getServerActions().toArray()[0]));
     }
-    
+
     /**
      * Test fetching a ServerAction
      * @throws Exception
      */
     public void testLookupServerAction() throws Exception {
-        Action newA = ActionFactoryTest.createAction(UserTestUtils.createUser("testUser", 
+        Action newA = ActionFactoryTest.createAction(UserTestUtils.createUser("testUser",
                 UserTestUtils.createOrg("testOrg")), ActionFactory.TYPE_REBOOT);
         Long id = newA.getId();
         Action a = ActionFactory.lookupById(id);
@@ -93,7 +93,7 @@ public class ServerActionTest extends RhnBaseTestCase {
         assertNotNull(sa);
         assertNotNull(sa.getParentAction());
     }
-    
+
     /**
      * Create a new ServerAction
      * @param newS
@@ -101,7 +101,7 @@ public class ServerActionTest extends RhnBaseTestCase {
      * @return ServerAction created
      * @throws Exception
      */
-    public static ServerAction createServerAction(Server newS, Action newA) 
+    public static ServerAction createServerAction(Server newS, Action newA)
         throws Exception {
         ServerAction sa = new ServerAction();
         sa.setStatus(ActionFactory.STATUS_QUEUED);

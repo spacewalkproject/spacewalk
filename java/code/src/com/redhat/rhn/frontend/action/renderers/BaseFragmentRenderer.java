@@ -31,9 +31,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Simple implementation of a fragment renderer which automates 
+ * Simple implementation of a fragment renderer which automates
  * the boilerplate work done rendering a fragment
- * 
+ *
  * @version $Rev$
  */
 public abstract class BaseFragmentRenderer implements FragmentRenderer {
@@ -53,11 +53,11 @@ public abstract class BaseFragmentRenderer implements FragmentRenderer {
         render(user, pc, req);
         HttpServletResponse resp = ctx.getHttpServletResponse();
         return RendererHelper.renderRequest(
-                getPageUrl(), 
-                req, 
+                getPageUrl(),
+                req,
                 resp);
     }
-    
+
     /**
      * Gentlemen, render your fragments!
      * @param user logged in user
@@ -65,18 +65,18 @@ public abstract class BaseFragmentRenderer implements FragmentRenderer {
      * @param req incoming request
      */
     protected abstract void render(User user, PageControl pc, HttpServletRequest req);
-    
+
     /**
      * Hook method for child classes to return a URL to the page
      * which renders the generated content
      * @return page url
      */
     protected abstract String getPageUrl();
-    
+
     /**
-     * Util method to return the page size in a accessible way. 
+     * Util method to return the page size in a accessible way.
      * @param totalSize the total size of page
-     * @param descriptionKey the message key for description 
+     * @param descriptionKey the message key for description
      * @return the appropriate pagination message.
      */
     protected String makePaginationMessage(int end, int totalSize, String descriptionKey) {

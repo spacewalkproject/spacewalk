@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * ApiCall
  * @version $Rev$
  */
@@ -35,7 +35,7 @@ public class ApiCall implements Comparable<ApiCall> {
     private boolean sinceAvailable = false;
     private String sinceVersion;
     private MethodDoc method;
- 
+
     /**
      * constructor
      * @param meth the method to set
@@ -43,15 +43,15 @@ public class ApiCall implements Comparable<ApiCall> {
     public ApiCall(MethodDoc meth) {
         method = meth;
     }
-    
+
     /**
      * constructor
      *
      */
     public ApiCall() {
 
-    }    
-    
+    }
+
     /**
      * Gets the deprecated version
      * @return the deprecated version
@@ -67,7 +67,7 @@ public class ApiCall implements Comparable<ApiCall> {
     public void setDeprecatedVersion(String deprecatedVersionIn) {
         this.deprecatedVersion = deprecatedVersionIn;
     }
-    
+
     /**
      * is the call deprecated
      * @return true of it's deprecated
@@ -77,7 +77,7 @@ public class ApiCall implements Comparable<ApiCall> {
     }
 
     /**
-     * Sets if the call is deprecated 
+     * Sets if the call is deprecated
      * @param deprecatedIn is it deprecated?
      */
     public void setDeprecated(boolean deprecatedIn) {
@@ -122,7 +122,7 @@ public class ApiCall implements Comparable<ApiCall> {
     public String getName() {
         return name;
     }
-    
+
     /**
      * Sets the call's name
      * @param nameIn the name
@@ -130,7 +130,7 @@ public class ApiCall implements Comparable<ApiCall> {
     public void setName(String nameIn) {
         this.name = nameIn;
     }
-    
+
     /**
      * gets the call's params
      * @return an array of the calls params
@@ -138,7 +138,7 @@ public class ApiCall implements Comparable<ApiCall> {
     public List<String> getParams() {
         return params;
     }
-    
+
     /**
      * sets the call's params
      * @param paramsIn the aprams to set
@@ -146,7 +146,7 @@ public class ApiCall implements Comparable<ApiCall> {
     public void setParams(List<String> paramsIn) {
         this.params = paramsIn;
     }
-    
+
     /**
      * adds a param to teh call's list
      * @param param the param
@@ -154,17 +154,17 @@ public class ApiCall implements Comparable<ApiCall> {
     public void addParam(String param) {
         this.params.add(param);
     }
-    
+
     /**
-     * gets the return documentatino of the call 
+     * gets the return documentatino of the call
      * @return the return docs
      */
     public String getReturnDoc() {
         return returnDoc;
     }
-    
+
     /**
-     * Sets the return documentation 
+     * Sets the return documentation
      * @param returnDocIn the return doc
      */
     public void setReturnDoc(String returnDocIn) {
@@ -173,7 +173,7 @@ public class ApiCall implements Comparable<ApiCall> {
 
     /**
      * gets a description of the api call
-     * @return a description 
+     * @return a description
      */
     public String getDoc() {
         return doc;
@@ -189,7 +189,7 @@ public class ApiCall implements Comparable<ApiCall> {
 
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int compareTo(ApiCall o) {
@@ -214,7 +214,7 @@ public class ApiCall implements Comparable<ApiCall> {
     public void setMethod(MethodDoc methodIn) {
         this.method = methodIn;
     }
-    
-    
-    
+
+
+
 }

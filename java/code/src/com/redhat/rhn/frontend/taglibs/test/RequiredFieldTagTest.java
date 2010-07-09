@@ -35,24 +35,24 @@ import javax.servlet.jsp.tagext.Tag;
 public class RequiredFieldTagTest extends RhnBaseTestCase {
     public void testRender() throws Exception {
         RequiredFieldTag tag = new RequiredFieldTag();
-        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest(); 
-        TagTestHelper tth = TagTestUtils.setupTagTest(tag, 
+        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
+        TagTestHelper tth = TagTestUtils.setupTagTest(tag,
                                         new URL("http://localhost"),
                                         request);
         tag.setPageContext(tth.getPageContext());
-        String key = "getMessage"; 
+        String key = "getMessage";
         tag.setKey(key);
         // ok let's test the tag
         tth.assertDoStartTag(Tag.EVAL_BODY_INCLUDE);
-        tth.assertDoEndTag(Tag.SKIP_BODY);        
-        
+        tth.assertDoEndTag(Tag.SKIP_BODY);
+
         RhnMockJspWriter rout = (RhnMockJspWriter) tth.getPageContext().getOut();
         assertTrue(rout.toString().indexOf("<span class") > -1);
         assertTrue(rout.toString().indexOf("</span>") > -1);
         assertTrue(rout.toString().indexOf("*") > -1);
-        assertTrue(rout.toString().indexOf("\"" + 
+        assertTrue(rout.toString().indexOf("\"" +
                     RequiredFieldTag.REQUIRED_FIELD_CSS + "\"") > -1);
-        LocalizationService ls = LocalizationService.getInstance(); 
+        LocalizationService ls = LocalizationService.getInstance();
         assertTrue(rout.toString().startsWith(ls.getMessage(key)));
     }
 }

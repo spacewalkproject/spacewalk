@@ -3,10 +3,10 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class 
-		name="com.redhat.rhn.domain.action.config.ConfigRevisionActionResult" 
+	<class
+		name="com.redhat.rhn.domain.action.config.ConfigRevisionActionResult"
 		table="rhnActionConfigRevisionResult" >
-		<id name="actionConfigRevisionId" type="long" 
+		<id name="actionConfigRevisionId" type="long"
 			column="action_config_revision_id">
 			<meta attribute="scope-set">protected</meta>
 			<generator class="foreign">
@@ -16,9 +16,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="resultBlob" column="result" type="blob" lazy="true" />
 		<property name="created" column="created" type="timestamp" />
 		<property name="modified" column="modified" type="timestamp" />
-		<many-to-one name="configRevisionAction" 
-			column="action_config_revision_id" 
-			class="com.redhat.rhn.domain.action.config.ConfigRevisionAction" 
+		<many-to-one name="configRevisionAction"
+			column="action_config_revision_id"
+			class="com.redhat.rhn.domain.action.config.ConfigRevisionAction"
 			outer-join="true" not-null="true" insert="false" update="false" />
 	</class>
     <query name="ConfigRevisionActionResult.findById">

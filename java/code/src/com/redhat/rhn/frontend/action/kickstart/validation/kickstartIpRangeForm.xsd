@@ -1,63 +1,63 @@
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 
-<schema targetNamespace="http://rhn.redhat.com" 
-        xmlns="http://www.w3.org/1999/XMLSchema" 
-        xmlns:rhn="http://rhn.redhat.com"> 
+<schema targetNamespace="http://rhn.redhat.com"
+        xmlns="http://www.w3.org/1999/XMLSchema"
+        xmlns:rhn="http://rhn.redhat.com">
 
-  <attribute name="octet1a"> 
-    <simpleType baseType="long"> 
-      <minInclusive value="1" /> 
-      <maxInclusive value="256" /> 
-    </simpleType> 
-  </attribute>   
+  <attribute name="octet1a">
+    <simpleType baseType="long">
+      <minInclusive value="1" />
+      <maxInclusive value="256" />
+    </simpleType>
+  </attribute>
 
-  <attribute name="octet1b"> 
-    <simpleType baseType="long"> 
-      <minInclusive value="1" /> 
-      <maxInclusive value="256" /> 
-    </simpleType> 
-  </attribute>   
+  <attribute name="octet1b">
+    <simpleType baseType="long">
+      <minInclusive value="1" />
+      <maxInclusive value="256" />
+    </simpleType>
+  </attribute>
 
-  <attribute name="octet1c"> 
-    <simpleType baseType="long"> 
-      <minInclusive value="1" /> 
-      <maxInclusive value="256" /> 
-    </simpleType> 
-  </attribute>   
+  <attribute name="octet1c">
+    <simpleType baseType="long">
+      <minInclusive value="1" />
+      <maxInclusive value="256" />
+    </simpleType>
+  </attribute>
 
-  <attribute name="octet1d"> 
-    <simpleType baseType="long"> 
-      <minInclusive value="1" /> 
-      <maxInclusive value="256" /> 
-    </simpleType> 
-  </attribute>   
+  <attribute name="octet1d">
+    <simpleType baseType="long">
+      <minInclusive value="1" />
+      <maxInclusive value="256" />
+    </simpleType>
+  </attribute>
 
-  <attribute name="octet2a"> 
-    <simpleType baseType="long"> 
-      <minInclusive value="1" /> 
-      <maxInclusive value="256" /> 
-    </simpleType> 
-  </attribute>   
+  <attribute name="octet2a">
+    <simpleType baseType="long">
+      <minInclusive value="1" />
+      <maxInclusive value="256" />
+    </simpleType>
+  </attribute>
 
-  <attribute name="octet2b"> 
-    <simpleType baseType="long"> 
-      <minInclusive value="1" /> 
-      <maxInclusive value="256" /> 
-    </simpleType> 
-  </attribute>   
+  <attribute name="octet2b">
+    <simpleType baseType="long">
+      <minInclusive value="1" />
+      <maxInclusive value="256" />
+    </simpleType>
+  </attribute>
 
-  <attribute name="octet2c"> 
-    <simpleType baseType="long"> 
-      <minInclusive value="1" /> 
-      <maxInclusive value="256" /> 
-    </simpleType> 
-  </attribute>   
+  <attribute name="octet2c">
+    <simpleType baseType="long">
+      <minInclusive value="1" />
+      <maxInclusive value="256" />
+    </simpleType>
+  </attribute>
 
-  <attribute name="octet2d"> 
-    <simpleType baseType="long"> 
-      <minInclusive value="1" /> 
-      <maxInclusive value="256" /> 
-    </simpleType> 
-  </attribute>   
+  <attribute name="octet2d">
+    <simpleType baseType="long">
+      <minInclusive value="1" />
+      <maxInclusive value="256" />
+    </simpleType>
+  </attribute>
 
 </schema>

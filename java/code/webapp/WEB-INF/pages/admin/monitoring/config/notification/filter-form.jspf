@@ -25,13 +25,13 @@ function toggleRecurringFields() {
     if (radioGrp[i].checked) {
         if (radioGrp[i].value == "true") {
             rval = true;
-        } 
+        }
         else {
             rval = false;
         }
     }
   }
-  
+
   form.recurring_frequency.disabled = !rval;
   form.recurring_duration.disabled = !rval;
   form.duration_type.disabled = !rval;
@@ -49,7 +49,7 @@ function showDestination() {
 }
 //-->
 </script>
-    
+
     <table class="details">
     <tr>
         <th>
@@ -191,7 +191,7 @@ function showDestination() {
                     labelProperty="label" />
                 </html:select>
             </td>
-    </tr>    
+    </tr>
     <tr>
         <th><label for="recurring_frequency"><bean:message key="filter-form.jspf.recurring_frequency"/></label></th>
         <td>
@@ -217,4 +217,4 @@ selectScope();
 toggleRecurringFields();
 showDestination();
 //-->
-</script>           
+</script>

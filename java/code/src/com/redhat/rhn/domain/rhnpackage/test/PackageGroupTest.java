@@ -25,7 +25,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class PackageGroupTest extends RhnBaseTestCase {
-    
+
     /**
      * Simple test to make sure we can create PackageGroups
      * and write them to the db.
@@ -45,12 +45,12 @@ public class PackageGroupTest extends RhnBaseTestCase {
      */
     public static PackageGroup createTestPackageGroup() throws Exception {
         String name = TestUtils.randomString();
-        
+
         PackageGroup p = new PackageGroup();
         p.setName(name);
         p.setCreated(new Date());
         p.setModified(new Date());
-        
+
         TestUtils.saveAndFlush(p);
         return p;
     }

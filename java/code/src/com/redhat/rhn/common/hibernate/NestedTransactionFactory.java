@@ -28,12 +28,12 @@ import javax.transaction.Synchronization;
 
 /**
  * A transaction factory that ignores transaction nesting. Only toplevel transactions
- * are actually connected to the database, and calling <code>commit</code> and 
+ * are actually connected to the database, and calling <code>commit</code> and
  * <code>rollback</code> on them will have an effect. A transaction is a toplevel
  * transaction if it is the first transaction within a thread and a session. The scope
- * of a toplevel transaction extends to the first call to <code>commit</code> or 
- * <code>rollback</code> on that transaction object, or to the end of the session, 
- * if the transaction is never committed or rolled back. The following code snippet 
+ * of a toplevel transaction extends to the first call to <code>commit</code> or
+ * <code>rollback</code> on that transaction object, or to the end of the session,
+ * if the transaction is never committed or rolled back. The following code snippet
  * illustrates this:
  * <pre>
  *   Session session = getHibernateSession();
@@ -44,7 +44,7 @@ import javax.transaction.Synchronization;
  *   Transaction txn3 = session.beginTransaction(); // Toplevel txn
  *   txn3.rollback();                               // Actual rollback in DB
  * </pre>
- * 
+ *
  * @version $Rev$
  */
 public class NestedTransactionFactory implements TransactionFactory {
@@ -74,7 +74,7 @@ public class NestedTransactionFactory implements TransactionFactory {
     static Transaction threadTransaction() {
         return getTransaction();
     }
-    
+
     private static ToplevelTransaction getTransaction() {
         return (ToplevelTransaction) TXN_TLS.get();
     }
@@ -114,7 +114,7 @@ public class NestedTransactionFactory implements TransactionFactory {
         private JDBCContext jdbcCtx;
         private Context ctx;
         private Transaction realTxn;
-        
+
         public void begin() throws HibernateException {
             //System.out.println("XXX begin");
             realTxn.begin();
@@ -159,12 +159,12 @@ public class NestedTransactionFactory implements TransactionFactory {
         public void registerSynchronization(Synchronization synchronization)
                 throws HibernateException {
             realTxn.registerSynchronization(synchronization);
-            
+
         }
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean isTransactionInProgress(JDBCContext arg0, Context arg1,

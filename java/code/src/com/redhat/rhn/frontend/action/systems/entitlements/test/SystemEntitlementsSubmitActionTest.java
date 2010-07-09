@@ -36,26 +36,26 @@ import com.redhat.rhn.testing.TestUtils;
 import java.util.Iterator;
 
 /**
- * 
+ *
  * SystemEntitlementSubmitActionToast
  * @version $Rev$
  */
 public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
 
-    private static final String UPDATE = 
+    private static final String UPDATE =
                                     "system_entitlements.setToUpdateEntitled";
     private static final String MANAGEMENT =
                                    "system_entitlements.setToManagementEntitled";
     private static final String UNENTITLED =
                                     "system_entitlements.unentitle";
-    
+
     /**
      * {@inheritDoc}
      */
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/SystemEntitlementsSubmit");
-    }    
+    }
 
     /**
      * @param server
@@ -66,8 +66,8 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addDispatchCall(key);
         actionPerform();
-    }    
-    
+    }
+
     private String success(String str) {
         return str + ".success";
     }
@@ -75,36 +75,36 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
     private String failure(String str) {
         return str + ".failure";
     }
-    
+
     /**
      * @throws Exception on server init failure
-     */ 
+     */
     public void testManagementWithUnentitledSystems() throws Exception {
         testWithUnentitledSystem(EntitlementManager.MANAGEMENT,
                                    SystemEntitlementsSubmitAction.KEY_MANAGEMENT_ENTITLED,
                                    success(MANAGEMENT)
                                    );
-    }  
-    
+    }
+
     /**
      * @throws Exception on server init failure
-     */     
+     */
     private void testWithUnentitledSystem(Entitlement ent,
                                             String dispatchKey,
                                             String msg) throws Exception {
-        
+
         Server server = ServerFactoryTest.createTestServer(user, true,
                             ServerConstants.getServerGroupTypeEnterpriseEntitled());
 
-        if (EntitlementManager.UPDATE.equals(ent) && 
+        if (EntitlementManager.UPDATE.equals(ent) &&
                 !orgHasGroupType(ServerConstants.
                                     getServerGroupTypeUpdateEntitled())) {
             // add type update to the server now
             ServerGroupTest.createTestServerGroup(
-                              user.getOrg(), 
+                              user.getOrg(),
                               ServerConstants.getServerGroupTypeUpdateEntitled());
         }
-        
+
         ServerFactory.save(server);
         OrgFactory.save(user.getOrg());
         UserFactory.save(user);
@@ -113,54 +113,54 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
 
         /*
         * this should Succeed because the org only has groups of both types
-        * Management & Update and both have available subscriptions > 0.. 
+        * Management & Update and both have available subscriptions > 0..
         */
         dispatch(dispatchKey, server);
         assertTrue(SystemManager.hasEntitlement(server.getId(), ent));
-        verifyActionMessage(msg);        
+        verifyActionMessage(msg);
 
     }
-    
-    
+
+
     /**
      * @throws Exception on server init failure
      */
     public void testUpdateWithNoUpdatableGroups() throws Exception {
 
-        
+
         if (orgHasGroupType(ServerConstants.
                                 getServerGroupTypeUpdateEntitled())) {
-            
+
             // well if its the satellite then our tests will
             // depend on what servergrup types were listed in the
             // satellite certificate.
             // so this test will make sense only if the
             // satellite does NOT have Update Entitled Cert..
-            
-            return;            
+
+            return;
         }
 
         Server server = ServerFactoryTest.createTestServer(user, true,
                             ServerConstants.getServerGroupTypeEnterpriseEntitled());
 
         assertFalse(user.getOrg().getEntitledServerGroups().
-                contains(ServerConstants.getServerGroupTypeUpdateEntitled()));        
+                contains(ServerConstants.getServerGroupTypeUpdateEntitled()));
         dispatch(SystemEntitlementsSubmitAction.KEY_UPDATE_ENTITLED, server);
-        
+
         /*
          * this should fail because the org only has groups of type
-         * Management .. No groups of type Update. 
+         * Management .. No groups of type Update.
          */
-        assertFalse(SystemManager.hasEntitlement(server.getId(), 
+        assertFalse(SystemManager.hasEntitlement(server.getId(),
                                                     EntitlementManager.UPDATE));
         verifyActionMessage(failure(UPDATE));
-        
+
     }
-    
+
     private boolean orgHasGroupType(ServerGroupType type) {
         return findGroupOfType(type) != null;
     }
-    
+
     private EntitlementServerGroup  findGroupOfType(ServerGroupType type) {
         for (Iterator itr = user.getOrg().getEntitledServerGroups().iterator();
                                                         itr.hasNext();) {
@@ -168,10 +168,10 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
             if (type.equals(grp.getGroupType())) {
                 return grp;
             }
-        }        
+        }
         return null;
     }
-    
+
 
     /**
      * @throws Exception on server init failure
@@ -183,23 +183,23 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
             // depend on what servergrup types were listed in the
             // satellite certificate.
             // so this test will make sense only if the
-            // satellite does NOT have Management Entitled Cert..            
+            // satellite does NOT have Management Entitled Cert..
             return;
         }
-        
+
         Server server = ServerFactoryTest.createTestServer(user, true,
                             ServerConstants.getServerGroupTypeUpdateEntitled());
 
         dispatch(SystemEntitlementsSubmitAction.KEY_MANAGEMENT_ENTITLED, server);
-        
+
         /*
          * this should fail because the org only has groups of type
-         * Management .. No groups of type Update. 
+         * Management .. No groups of type Update.
          */
-        assertFalse(SystemManager.hasEntitlement(server.getId(), 
+        assertFalse(SystemManager.hasEntitlement(server.getId(),
                                                     EntitlementManager.MANAGEMENT));
         verifyActionMessage(failure(MANAGEMENT));
-        
+
     }
 
     /**
@@ -210,44 +210,44 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
                             ServerConstants.getServerGroupTypeEnterpriseEntitled());
         /*
          * this should Succeed because the org only has groups type = Update
-         *  that has available subscriptions > 0.. 
+         *  that has available subscriptions > 0..
          */
         dispatch(SystemEntitlementsSubmitAction.KEY_MANAGEMENT_ENTITLED, server);
-        assertTrue(SystemManager.hasEntitlement(server.getId(), 
+        assertTrue(SystemManager.hasEntitlement(server.getId(),
                                                     EntitlementManager.MANAGEMENT));
         verifyActionMessage(success(MANAGEMENT));
-    }    
-    
-    
+    }
+
+
     /**
-     * 
+     *
      * @throws Exception on server init failure
      */
     public void testUpdateToManagement() throws Exception {
-        
+
         Server server = ServerFactoryTest.createTestServer(user, true,
                         ServerConstants.getServerGroupTypeUpdateEntitled());
 
         if (!orgHasGroupType(ServerConstants.
                 getServerGroupTypeEnterpriseEntitled())) {
             ServerGroupTest.createTestServerGroup(
-                       user.getOrg(), 
+                       user.getOrg(),
                        ServerConstants.getServerGroupTypeEnterpriseEntitled());
         }
-        
+
          /*
           * this should Succeed because the org only has groups of both types
-          * Management & Update and both have available subscriptions > 0.. 
+          * Management & Update and both have available subscriptions > 0..
           */
          dispatch(SystemEntitlementsSubmitAction.KEY_MANAGEMENT_ENTITLED, server);
-         assertTrue(SystemManager.hasEntitlement(server.getId(), 
+         assertTrue(SystemManager.hasEntitlement(server.getId(),
                                                      EntitlementManager.MANAGEMENT));
-         verifyActionMessage(success(MANAGEMENT));         
-    }    
-    
-    
-    /** 
-     * 
+         verifyActionMessage(success(MANAGEMENT));
+    }
+
+
+    /**
+     *
      * @throws Exception on server init failure
      */
     public void testUpdateOnGroupsWithExhaustedSlots() throws Exception {
@@ -258,8 +258,8 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
                             failure(UPDATE));
     }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     public void testManagementOnGroupsWithExhaustedSlots() throws Exception {
@@ -268,10 +268,10 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
                             SystemEntitlementsSubmitAction.KEY_MANAGEMENT_ENTITLED,
                             EntitlementManager.MANAGEMENT,
                             failure(MANAGEMENT));
-    }    
-    
-    /** 
-     * 
+    }
+
+    /**
+     *
      * @throws Exception on server init failure
      */
     private void testExhaustedSlots(ServerGroupType initType,
@@ -282,43 +282,43 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
                                         ) throws Exception {
         final Server server1 = ServerFactoryTest.createTestServer(user, true, initType);
         final Server server2 = ServerFactoryTest.createTestServer(user, true, initType);
-        
+
         // add type update to the server now
         EntitlementServerGroup addOn = ServerGroupTestUtils.createEntitled(user.getOrg(),
                                                                           addOnType);
         addOn.setMaxMembers(new Long(addOn.getCurrentMembers().longValue() + 1));
         TestUtils.saveAndFlush(addOn);
-        
-        String [] selectedItems = {server1.getId().toString(), 
+
+        String [] selectedItems = {server1.getId().toString(),
                                                 server2.getId().toString()};
-        
+
         addRequestParameter("items_on_page", (String)null);
         addRequestParameter("items_selected", selectedItems);
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addDispatchCall(dispatchKey);
-        actionPerform();        
-        
+        actionPerform();
+
         /*
          * this should fail on server2 even though the org has groups of both types
          * because the org becasue Max Members = 1 but
-         *  we are trying to add 2 systems to updategroup. 
+         *  we are trying to add 2 systems to updategroup.
          */
         verifyActionMessage(failMsg);
-        
-        boolean a = SystemManager.hasEntitlement(server1.getId(), ent); 
-        
+
+        boolean a = SystemManager.hasEntitlement(server1.getId(), ent);
+
         boolean b = SystemManager.hasEntitlement(server2.getId(), ent);
-        
-        // Either the the first server1 got updated successfully & 
+
+        // Either the the first server1 got updated successfully &
         // second one didn't
         // or vice versa
         assertTrue((a && !b)  || (!a && b));
     }
-    
-    /** 
-     * 
+
+    /**
+     *
      * @throws Exception on server init failure
-     */    
+     */
     public void testUnentitleForManagement() throws Exception {
         Server server1 = ServerFactoryTest.createTestServer(user, true,
                             ServerConstants.getServerGroupTypeEnterpriseEntitled());
@@ -326,16 +326,16 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
         assertTrue(SystemManager.hasEntitlement(server1.getId(),
                                                   EntitlementManager.MANAGEMENT));
 
-        
-        
+
+
         dispatch(SystemEntitlementsSubmitAction.KEY_UNENTITLED, server1);
         verifyActionMessage(success(UNENTITLED));
         assertFalse(SystemManager.hasEntitlement(server1.getId(),
-                                                EntitlementManager.MANAGEMENT));        
-    }    
+                                                EntitlementManager.MANAGEMENT));
+    }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     public void testAddProvisioningForUpdate() throws Exception {
@@ -345,8 +345,8 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
                            ServerConstants.getServerGroupTypeProvisioningEntitled());
     }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     public void testAddVirtForManagement() throws Exception {
@@ -356,8 +356,8 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
                 ServerConstants.getServerGroupTypeVirtualizationEntitled());
     }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     public void testAddVirtPlatformForManagement() throws Exception {
@@ -367,19 +367,19 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
                 ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled());
     }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     public void testAddProvisioningForManagement() throws Exception {
         testAddOnForManagement("provisioning_entitled",
                 "provisioning",
                 EntitlementManager.PROVISIONING,
-               ServerConstants.getServerGroupTypeProvisioningEntitled());        
-    }    
+               ServerConstants.getServerGroupTypeProvisioningEntitled());
+    }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     public void testRemoveProvisioningForManagement() throws Exception {
@@ -390,20 +390,20 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
                ServerConstants.getServerGroupTypeProvisioningEntitled());
     }
 
-    
-    /** 
-     * 
+
+    /**
+     *
      * @throws Exception on server init failure
      */
     public void testAddMonitoringForUpdate() throws Exception {
         testAddOnForUpdate("monitoring_entitled",
             "monitoring",
             EntitlementManager.MONITORING,
-            ServerConstants.getServerGroupTypeMonitoringEntitled());            
+            ServerConstants.getServerGroupTypeMonitoringEntitled());
     }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     public void testAddMonitoringForManagement() throws Exception {
@@ -411,10 +411,10 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
             "monitoring",
             EntitlementManager.MONITORING,
             ServerConstants.getServerGroupTypeMonitoringEntitled());
-    }    
+    }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     public void testRemoveMonitoringForManagement() throws Exception {
@@ -422,11 +422,11 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
                 "monitoring",
                 EntitlementManager.MONITORING,
                ServerConstants.getServerGroupTypeMonitoringEntitled());
-        
+
     }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     private void testAddOnForUpdate(String selectKey,
@@ -440,12 +440,12 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("addOnEntitlement", selectKey);
         dispatch(SystemEntitlementsSubmitAction.KEY_ADD_ENTITLED, server);
         verifyActionMessage("system_entitlements." + msgSubKey + ".noManagement");
-        
-        assertFalse(SystemManager.hasEntitlement(server.getId(), ent));        
+
+        assertFalse(SystemManager.hasEntitlement(server.getId(), ent));
     }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     private void testAddOnForManagement(String selectKey,
@@ -456,15 +456,15 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         ServerGroupTest.createTestServerGroup(user.getOrg(), groupType);
-        
+
         addRequestParameter("addOnEntitlement", selectKey);
         dispatch(SystemEntitlementsSubmitAction.KEY_ADD_ENTITLED, server);
         verifyActionMessage("system_entitlements." + msgSubKey + ".success");
-        assertTrue(SystemManager.hasEntitlement(server.getId(), ent));        
-    }    
+        assertTrue(SystemManager.hasEntitlement(server.getId(), ent));
+    }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     private void testAddOnVirt(String selectKey,
@@ -480,30 +480,30 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
         else {
             server = ServerTestUtils.createVirtHostWithGuests(user, 1);
         }
-        
-        
-        SystemManager.removeServerEntitlement(server.getId(), 
+
+
+        SystemManager.removeServerEntitlement(server.getId(),
                 EntitlementManager.VIRTUALIZATION);
-        SystemManager.removeServerEntitlement(server.getId(), 
+        SystemManager.removeServerEntitlement(server.getId(),
                 EntitlementManager.VIRTUALIZATION_PLATFORM);
-        ServerGroupTest.createTestServerGroup(user.getOrg(), 
+        ServerGroupTest.createTestServerGroup(user.getOrg(),
                 groupType);
-        
+
         addRequestParameter("addOnEntitlement", selectKey);
         dispatch(SystemEntitlementsSubmitAction.KEY_ADD_ENTITLED, server);
-        
-        String[] messageNames = {"system_entitlements." + 
+
+        String[] messageNames = {"system_entitlements." +
                 ent.getLabel() + ".success",
-                "system_entitlements.virtualization.success_note"}; 
-        
+                "system_entitlements.virtualization.success_note"};
+
         verifyActionMessages(messageNames);
-        assertTrue("Doesn't have: " + ent, 
-                SystemManager.hasEntitlement(server.getId(), ent));        
+        assertTrue("Doesn't have: " + ent,
+                SystemManager.hasEntitlement(server.getId(), ent));
 
-    }    
+    }
 
-    /** 
-     * 
+    /**
+     *
      * @throws Exception on server init failure
      */
     private Server testRemoveAddOnForManagement(String selectKey,
@@ -514,16 +514,16 @@ public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         ServerGroupTest.createTestServerGroup(user.getOrg(), groupType);
-        
+
         assertTrue(SystemManager.hasEntitlement(server.getId(),
                                         EntitlementManager.MANAGEMENT));
         SystemManager.entitleServer(server, ent);
-        
+
         addRequestParameter("addOnEntitlement", selectKey);
         dispatch(SystemEntitlementsSubmitAction.KEY_REMOVE_ENTITLED, server);
         verifyActionMessage("system_entitlements." + msgSubKey + ".removed.success");
-        assertFalse(SystemManager.hasEntitlement(server.getId(), ent));        
+        assertFalse(SystemManager.hasEntitlement(server.getId(), ent));
         return server;
-    }    
-    
+    }
+
 }

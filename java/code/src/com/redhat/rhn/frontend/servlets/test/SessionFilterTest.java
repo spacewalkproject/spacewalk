@@ -39,12 +39,12 @@ public class SessionFilterTest extends MockObjectTestCase {
     private Mock mreq;
     private Mock mresp;
     private Mock mchain;
-    
+
     public void setUp() {
         mreq = mock(HttpServletRequest.class);
         mresp = mock(HttpServletResponse.class);
         mchain = mock(FilterChain.class);
-        
+
         request = (HttpServletRequest) mreq.proxy();
         response = (HttpServletResponse) mresp.proxy();
         chain = (FilterChain) mchain.proxy();
@@ -53,17 +53,17 @@ public class SessionFilterTest extends MockObjectTestCase {
               .method("doFilter")
               .with(eq(request), eq(response));
     }
-    
+
     public void testDoFilter() throws Exception {
         SessionFilter filter = new SessionFilter();
         Session sess = HibernateFactory.getSession();
         assertTrue(sess.isOpen());
         assertTrue(sess.isConnected());
-        
+
         try {
             filter.doFilter(request, response, chain);
             assertFalse(sess.isOpen());
-        } 
+        }
         catch (IOException ioe) {
             // This should never happen ..
             throw new Exception("doFilter() failed ..");
@@ -72,7 +72,7 @@ public class SessionFilterTest extends MockObjectTestCase {
         mresp.verify();
         mreq.verify();
     }
-    
+
     public void tearDown() {
         request = null;
         response = null;

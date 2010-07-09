@@ -27,7 +27,7 @@ import java.util.Calendar;
  * @version $Rev$
  */
 public class SystemSearchResult extends SystemOverview {
-    
+
     private String matchingField;
     private String matchingFieldValue;
     private String hostname;
@@ -56,7 +56,7 @@ public class SystemSearchResult extends SystemOverview {
     private HardwareDeviceDto hw;
     private Integer rank;
     private Double score;
-    
+
     private static Logger log = Logger.getLogger(SystemSearchResult.class);
     /**
      * This method will look up the value of "matchingField" it will then
@@ -89,7 +89,7 @@ public class SystemSearchResult extends SystemOverview {
         }
         catch (NoSuchMethodException e) {
             log.info("SystemSearchResult.lookupMatchingField() " +
-                    "NoSuchMethodException caught looking up: " + field + 
+                    "NoSuchMethodException caught looking up: " + field +
                     ", for system id = " + getId() + ">");
         }
         catch (InvocationTargetException e) {
@@ -100,7 +100,7 @@ public class SystemSearchResult extends SystemOverview {
     }
 
     /**
-     * @return returns the data in the field 
+     * @return returns the data in the field
      * that was searched on
      */
     public String getMatchingField() {
@@ -113,7 +113,7 @@ public class SystemSearchResult extends SystemOverview {
     public void setMatchingField(String matchingFieldIn) {
         this.matchingField = matchingFieldIn;
     }
-    
+
     /**
      * Takes care of cases where the DB will be returning numerical
      * instead of varchar vlues
@@ -173,7 +173,7 @@ public class SystemSearchResult extends SystemOverview {
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
-    
+
     /**
      * @return the runningKernel
      */
@@ -187,7 +187,7 @@ public class SystemSearchResult extends SystemOverview {
     public void setRunningKernel(String runningKernelIn) {
         this.runningKernel = runningKernelIn;
     }
-    
+
     /**
      * @return the cpuNumberOfCpus
      */

@@ -26,27 +26,27 @@ import com.redhat.rhn.testing.RhnMockDynaActionForm;
  * @version $Rev: 1635 $
  */
 public class CreateUserSetupActionTest extends RhnBaseTestCase {
-    
+
     public void testPerformExecute() throws Exception {
         CreateUserSetupAction action = new CreateUserSetupAction();
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action);
 
         setupExpectations(sah.getForm(), sah.getUser());
-        sah.executeAction(); 
+        sah.executeAction();
 
         // verify the dyna form got the right values we expected.
         sah.getForm().verify();
-        
+
         //If we're a sat, make sure displaypam was set
         assertEquals("true", sah.getRequest().getAttribute("displaypam"));
     }
-    
+
     private void setupExpectations(RhnMockDynaActionForm form, User user) {
         form.addExpectedProperty("country", "US");
         form.addExpectedProperty("contact_email", new Boolean(true));
         form.addExpectedProperty("contact_partner", new Boolean(true));
-        form.addExpectedProperty("prefix", 
+        form.addExpectedProperty("prefix",
             LocalizationService.getInstance().getMessage("user prefix Mr."));
     }
 }

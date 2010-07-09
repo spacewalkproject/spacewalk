@@ -18,9 +18,9 @@ package com.redhat.rhn.frontend.struts;
 import org.apache.struts.util.LabelValueBean;
 
 /**
- * An extension of the LabelValueBean that adds in 
- * an extra attribute that can be defined.  Useful for configuring 
- * UI widgets that have display value, actual value and a 'checked' or 
+ * An extension of the LabelValueBean that adds in
+ * an extra attribute that can be defined.  Useful for configuring
+ * UI widgets that have display value, actual value and a 'checked' or
  * 'enabled' attribute.
  * @version $Rev: 1591 $
  */
@@ -28,7 +28,7 @@ import org.apache.struts.util.LabelValueBean;
 public class LabelValueEnabledBean extends LabelValueBean {
 
     private boolean disabled = false;
-    
+
     /**
      * Create a new MultiboxItem
      * @param label to set
@@ -39,12 +39,12 @@ public class LabelValueEnabledBean extends LabelValueBean {
         super(label, value);
         disabled = disabledIn;
     }
-    
+
     /**
      * Create a new MultiboxItem
      * @param label to set
      * @param value to set
-     */    
+     */
     public LabelValueEnabledBean(String label, String value) {
         this(label, value, false);
     }
@@ -52,9 +52,9 @@ public class LabelValueEnabledBean extends LabelValueBean {
      * Get the disabled field.  This can be used from within a JSP
      * to set the disabled flag on the item.
      * @return Returns the disabled.
-     */    
+     */
     public boolean isDisabled() {
         return disabled;
     }
-    
+
 }

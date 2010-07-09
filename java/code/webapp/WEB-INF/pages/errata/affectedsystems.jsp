@@ -39,7 +39,7 @@
 			<rl:decorator name="SelectableDecorator"/>
 			<rl:decorator name="PageSizeDecorator"/>
 			<rl:decorator name="AddToSsmDecorator"/>
-            
+
 			<rl:selectablecolumn value="${current.id}"
 	 			selected="${current.selected}"
 	 			disabled="${not current.selectable}"
@@ -50,7 +50,7 @@
 	 			sortattr="name">
 	 			<a href="/rhn/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
 	 		</rl:column>
-			<rl:column sortable="false" 
+			<rl:column sortable="false"
 				bound="false"
 		    	headerkey="affectedsystems.jsp.status">
 		    	<c:if test="${not empty current.status}">
@@ -67,13 +67,13 @@
             		<bean:message key="affectedsystems.jsp.none"/>
       			</c:if>
 			</rl:column>
-			<rl:column sortable="true" 
+			<rl:column sortable="true"
 				bound="false"
 		    	headerkey="actions.jsp.basechannel"
 		    	sortattr="channelLabels">
 				${current.channelLabels}
 			</rl:column>
-			<rl:column sortable="true" 
+			<rl:column sortable="true"
 				bound="false"
 		    	headerkey="affectedsystems.jsp.entitle"
 		    	sortattr="entitlementLevel">
@@ -89,7 +89,7 @@
 		</div>
 		
 		<rl:csv dataset="pageList"
-			name="systemAffectedCSVExport" 
+			name="systemAffectedCSVExport"
 			exportColumns="name, status, channelLabels, entitlementLevel"
 			header="${errata.advisoryName} - ${errata.advisoryType}" />
 			

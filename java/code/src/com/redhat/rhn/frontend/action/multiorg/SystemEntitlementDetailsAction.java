@@ -31,13 +31,13 @@ public class SystemEntitlementDetailsAction extends RhnAction {
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         String entitlementLabel = request.getParameter("label");
-        request.setAttribute("name", entitlementLabel);                
+        request.setAttribute("name", entitlementLabel);
         request.setAttribute("parentUrl", request.getRequestURI());
 
         return mapping.findForward("default");
     }
-    
+
 }

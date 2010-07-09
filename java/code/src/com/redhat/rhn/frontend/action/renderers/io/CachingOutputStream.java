@@ -26,16 +26,16 @@ import javax.servlet.ServletOutputStream;
  * @version $Rev$
  */
 public class CachingOutputStream extends ServletOutputStream {
-    
+
     private ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-    
+
     /**
      * {@inheritDoc}
      */
     public void write(int c) throws IOException {
         buffer.write(c);
     }
-    
+
     /**
      * returns the cached content
      * @return returns the cached content

@@ -31,11 +31,11 @@ import java.util.List;
  * @version $Rev: 1 $
  */
 public class TreeDeleteAction extends BaseTreeAction {
-    
+
     protected String getSuccessKey() {
         return "tree.delete.success";
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -44,18 +44,18 @@ public class TreeDeleteAction extends BaseTreeAction {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) opr;
         List profiles = KickstartFactory.lookupKickstartDatasByTree(bte.getTree());
         if (profiles != null && profiles.size() > 0) {
-            rctx.getRequest().setAttribute(RequestContext.PAGE_LIST, 
+            rctx.getRequest().setAttribute(RequestContext.PAGE_LIST,
                     new DataResult(profiles));
         }
         rctx.getRequest().setAttribute(RequestContext.KSTREE, bte.getTree());
-        
+
     }
-    
+
     /**
      * {@inheritDoc}
      */
     protected PersistOperation getCommand(RequestContext ctx) {
-        return new TreeDeleteOperation(ctx.getRequiredParam(RequestContext.KSTREE_ID), 
+        return new TreeDeleteOperation(ctx.getRequiredParam(RequestContext.KSTREE_ID),
                                             ctx.getCurrentUser());
     }
 
@@ -65,11 +65,11 @@ public class TreeDeleteAction extends BaseTreeAction {
     protected void processFormValues(PersistOperation operation, DynaActionForm form) {
         // NOOOP For delete
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    protected ValidatorError processCommandSetters(PersistOperation operation, 
+    protected ValidatorError processCommandSetters(PersistOperation operation,
                                                             DynaActionForm form) {
        return null;
     }

@@ -21,7 +21,7 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
  * @version $Rev: 1 $
  */
 public class CobblerSnippetEditActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         setRequestPathInfo("/kickstart/cobbler/CobblerSnippetEdit");
         addRequestParameter("name", "redhat_register");
@@ -36,8 +36,8 @@ public class CobblerSnippetEditActionTest extends RhnMockStrutsTestCase {
         addSubmitted();
         actionPerform();
     }
-     
-    
+
+
     public void testDelete() throws Exception {
         setRequestPathInfo("/kickstart/cobbler/CobblerSnippetDelete");
         addRequestParameter("name", "pre_install_network_config.rpmnew");

@@ -97,7 +97,7 @@
 	<rhn-tab name="configchannel.nav.add" url="/rhn/systems/details/configuration/addfiles/UploadFile.do">
 		<rhn-tab name="configchannel.nav.add.upload" url="/rhn/systems/details/configuration/addfiles/UploadFile.do"/>
         <rhn-tab name="configchannel.nav.add.import" acl ="client_capable(configfiles.upload)"  url="/rhn/systems/details/configuration/addfiles/ImportFile.do">
-			<rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileSubmit.do</rhn-tab-url> 
+			<rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileSubmit.do</rhn-tab-url>
             <rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileConfirm.do</rhn-tab-url>
             <rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileConfirmSubmit.do</rhn-tab-url>
 
@@ -108,15 +108,15 @@
     <rhn-tab name="configchannel.nav.deploy" acl ="client_capable(configfiles.deploy)" url="/rhn/systems/details/configuration/DeployFile.do">
          <rhn-tab-url>/rhn/systems/details/configuration/DeployFileSubmit.do</rhn-tab-url>
          <rhn-tab-url>/rhn/systems/details/configuration/DeployFileConfirm.do</rhn-tab-url>
-         <rhn-tab-url>/rhn/systems/details/configuration/DeployFileConfirmSubmit.do</rhn-tab-url>         
+         <rhn-tab-url>/rhn/systems/details/configuration/DeployFileConfirmSubmit.do</rhn-tab-url>
     </rhn-tab>
-    
+
     <rhn-tab name="nav.sdc.config.compare_files" acl ="client_capable(configfiles.diff)" url="/rhn/systems/details/configuration/DiffFile.do">
  	     <rhn-tab-url>/rhn/systems/details/configuration/DiffFileSubmit.do</rhn-tab-url>
          <rhn-tab-url>/rhn/systems/details/configuration/DiffFileConfirm.do</rhn-tab-url>
-         <rhn-tab-url>/rhn/systems/details/configuration/DiffFileConfirmSubmit.do</rhn-tab-url>         
+         <rhn-tab-url>/rhn/systems/details/configuration/DiffFileConfirmSubmit.do</rhn-tab-url>
     </rhn-tab>
-    
+
 
     <rhn-tab name="nav.sdc.config.manage_channels" url="/rhn/systems/details/configuration/ConfigChannelList.do">
         <rhn-tab name="nav.sdc.config.list_unsubscribe_channels" url="/rhn/systems/details/configuration/ConfigChannelList.do">
@@ -169,7 +169,7 @@
   </rhn-tab>
 
   <rhn-tab name="Groups" acl="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)" url="/rhn/systems/details/groups/ListRemove.do">
-    
+
     <rhn-tab name="List / Leave" url="/rhn/systems/details/groups/ListRemove.do"/>
     <rhn-tab name="Join" url="/rhn/systems/details/groups/Add.do"/>
   </rhn-tab>

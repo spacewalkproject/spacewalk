@@ -47,7 +47,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SyncProfilesSetupAction extends RhnAction implements Listable {
 
-    private static final CompareProfileSetupAction DECL_ACTION = 
+    private static final CompareProfileSetupAction DECL_ACTION =
         new CompareProfileSetupAction();
 
     /** {@inheritDoc} */
@@ -55,12 +55,12 @@ public class SyncProfilesSetupAction extends RhnAction implements Listable {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         Long prid = requestContext.getRequiredParam(RequestContext.PRID);
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
-        
+
         User user = requestContext.getLoggedInUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         Profile profile = ProfileManager.lookupByIdAndOrg(prid, user.getOrg());
@@ -101,15 +101,15 @@ public class SyncProfilesSetupAction extends RhnAction implements Listable {
         Long prid = context.getRequiredParam("prid");
         User user = context.getLoggedInUser();
 
-        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(context.getRequest(), 
+        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(context.getRequest(),
                 getDecl(sid));
 
         DataResult dr = ProfileManager.prepareSyncToProfile(sid, prid,
                 user.getOrg().getId(), null, pkgIdCombos);
-        
+
         return dr;
     }
-    
+
     protected String getDecl(Long sid) {
         return DECL_ACTION.getDecl(sid);
     }

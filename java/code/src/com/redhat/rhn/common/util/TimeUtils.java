@@ -24,7 +24,7 @@ public class TimeUtils {
     private TimeUtils() {
         // private constructor
     }
-    
+
     /**
      * Returns the current system time in seconds.
      * @see java.lang.System#currentTimeMillis

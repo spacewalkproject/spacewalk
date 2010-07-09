@@ -26,11 +26,11 @@ import java.util.StringTokenizer;
  * @version $Rev: 50942 $
  */
 public class StateChangeData extends BaseDto {
-    private String oId; 
+    private String oId;
     private String data;
     private String htmlifiedData;
     private Long entryTime;
-    
+
     /**
      * @return Returns the oId.
      */
@@ -43,7 +43,7 @@ public class StateChangeData extends BaseDto {
     public void setOId(String id) {
         oId = id;
     }
-    
+
     /**
      * @return Returns the data.
      */
@@ -70,22 +70,22 @@ public class StateChangeData extends BaseDto {
     public void setEntryTime(Long entryTimeIn) {
         this.entryTime = entryTimeIn;
     }
-    
+
     /**
      * Format the entryTime field into a Localized date string.
      * @return String version of the entryTime Date
      */
     public String getEntryDate() {
         // Since the entryTime is stored in UNIX time - Minutes
-        // we have to multiple by 1000 to get millis and then 
-        // can format it into a Java date 
+        // we have to multiple by 1000 to get millis and then
+        // can format it into a Java date
         Timestamp ts = new Timestamp(entryTime.longValue() * 1000);
         return LocalizationService.getInstance().formatDate(ts);
     }
-    
+
     /**
      * The Message is the latter half of the "DATA" field:
-     * UNKNOWN Lost connection to the monitored host 
+     * UNKNOWN Lost connection to the monitored host
      *         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
      * @return Returns the message.
      */
@@ -96,7 +96,7 @@ public class StateChangeData extends BaseDto {
         String message = data.substring(data.indexOf(" ") + 1);
         return message;
     }
-    
+
     /**
      * The htmlifiedMessage is the latter half of the "htmlified DATA" field:
      * @return Returns the htmlified message.
@@ -111,7 +111,7 @@ public class StateChangeData extends BaseDto {
 
     /**
      * The Message is the latter half of the "DATA" field:
-     * UNKNOWN Lost connection to the monitored host 
+     * UNKNOWN Lost connection to the monitored host
      * ^^^^^^^
      * @return Returns the state.
      */

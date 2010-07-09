@@ -37,13 +37,13 @@ import java.util.Vector;
  */
 
 public class NewUserEventTest extends RhnBaseTestCase {
-    
+
     private MockMail mailer;
-    
+
     public void setUp() {
         mailer = new MockMail();
     }
-    
+
     /**
      * test that makes sure we can instantiate the service
      */
@@ -52,10 +52,10 @@ public class NewUserEventTest extends RhnBaseTestCase {
         String eventText = evt.toText();
         assertNotNull(eventText);
         assertContains(eventText, "A Red Hat login has been created for you");
-        assertContains(eventText, 
+        assertContains(eventText,
                 "Red Hat login, in combination with an active Red Hat subscription,");
         assertContains(eventText, "e-mail: redhatJavaTest@redhat.com");
-        
+
     }
 
     public void testAction() {
@@ -69,7 +69,7 @@ public class NewUserEventTest extends RhnBaseTestCase {
         action.execute(evt);
         mailer.verify();
         assertContains(mailer.getSubject(), "Spacewalk User Created: testUser");
-        assertContains(mailer.getBody(), 
+        assertContains(mailer.getBody(),
                 "someserver.rhndev.redhat.com/rhn/users/ActiveList.do");
 
         assertTrue(mailer.getBody().contains("Your Spacewalk login:         testUser") ||
@@ -82,28 +82,28 @@ public class NewUserEventTest extends RhnBaseTestCase {
 
     private NewUserEvent createTestEvent() {
         NewUserEvent evt = new NewUserEvent();
-        // In the implementation we use getHeaderNames so we override it with 
+        // In the implementation we use getHeaderNames so we override it with
         // one that returns an empty implementation.
         MockHttpServletRequest request = new MockHttpServletRequest() {
             public Enumeration getHeaderNames() {
-                return new Vector().elements();     
+                return new Vector().elements();
             }
         };
         request.setSession(new MockHttpSession());
         request.setupGetRequestURI("http://localhost:8080");
         request.setupGetMethod("POST");
         User usr = UserTestUtils.findNewUser("testUser", "testOrg");
-        
+
         evt.setUser(usr);
         evt.setDomain("someserver.rhndev.redhat.com");
         evt.setAdmins(createAdmins());
         evt.setRequest(request);
-        return evt;    
+        return evt;
     }
 
     private List<User> createAdmins() {
         User adminOne = UserTestUtils.findNewUser("testUserOne", "testOrgOne", true);
-        User adminTwo = UserTestUtils.findNewUser("testUserTwo", "testOrgTwo", true); 
+        User adminTwo = UserTestUtils.findNewUser("testUserTwo", "testOrgTwo", true);
         List<User> admins = new ArrayList<User>();
         admins.add(adminOne);
         admins.add(adminTwo);

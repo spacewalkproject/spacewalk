@@ -20,8 +20,8 @@
 <h2><bean:message key="deployconfirm.jsp.h2" /></h2>
 <bean:message key="deployconfirm.jsp.note" />
 <p />
-<c:set var="channel_name_display"><cfg:channel id="${ccid}" 
-									name="${channel.name}" 
+<c:set var="channel_name_display"><cfg:channel id="${ccid}"
+									name="${channel.name}"
 									type="global"/></c:set>
 <p><bean:message key="deploysystems.jsp.warning" arg0="${channel_name_display}"/></p>
 <rl:listset name="lists">
@@ -57,7 +57,7 @@
 	<!--  Systems-list -->
 	<div>
 	<rl:list dataset="selectedSystems" name="systemList"
-		styleclass="list" emptykey="deployconfirm.jsp.noSystems" width="100%" 
+		styleclass="list" emptykey="deployconfirm.jsp.noSystems" width="100%"
 		filter="com.redhat.rhn.frontend.action.configuration.ConfigSystemFilter" >
 		<rl:column headerkey="system.common.systemName" sortable="true" sortattr="name" styleclass="first-column">
 			<img alt='<bean:message key="system.common.systemAlt"/>' src="/img/rhn-listicon-system.gif" />

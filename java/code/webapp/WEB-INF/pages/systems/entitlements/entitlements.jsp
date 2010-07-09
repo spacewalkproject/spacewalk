@@ -20,19 +20,19 @@
 
 <html:form action="/systems/SystemEntitlementsSubmit">
 
-    <rhn:list pageList="${requestScope.pageList}" 
+    <rhn:list pageList="${requestScope.pageList}"
     		  noDataText="systementitlements.jsp.nodata"
               legend="system">
-              
+
       <rhn:listdisplay  set="${requestScope.set}"
-      	 filterBy="systemlist.jsp.system" 
+	 filterBy="systemlist.jsp.system"
       	 domainClass="systems"
       	 >
         <rhn:set value="${current.id}"/>
-	    <rhn:column header="systemlist.jsp.status" 
+	    <rhn:column header="systemlist.jsp.status"
 	                style="text-align: center;">
 	        ${current.statusDisplay}
-	    </rhn:column>        
+	    </rhn:column>
 	    <rhn:column header="systemlist.jsp.system"
 	                url="/rhn/systems/details/Overview.do?sid=${current.id}">
 	        ${fn:escapeXml(current.serverName)}
@@ -40,7 +40,7 @@
 
 	    <rhn:column header="systementitlements.jsp.baseentitlement">
 	        ${current.baseEntitlementLevel}
-	    </rhn:column>	    
+	    </rhn:column>
 
 	    <rhn:column header="systementitlements.jsp.addonentitlement">
 	        ${current.addOnEntitlementLevel}
@@ -61,10 +61,10 @@
       </rhn:listdisplay>
     </rhn:list>
 
-<!--  Entitlements Section -->    
+<!--  Entitlements Section -->
     <c:if test="${requestScope.showCommands}">
 		  <table class="entitle-bar">
-			<!--  Base Entitlement Section -->    	  
+			<!--  Base Entitlement Section -->
 			<tr>
 		          <th><bean:message key="systementitlements.jsp.baseentitlement" /></th>
 		    	  <td align="right">
@@ -72,7 +72,7 @@
 						        <html:submit property="dispatch">
 						          <bean:message key="systementitlements.jsp.set_to_update_entitled" />
 						        </html:submit>
-						  </c:if>	    	  
+						  </c:if>
 				          <c:if test="${requestScope.showManagementAspects}">
 					        	<html:submit property="dispatch">
 				    	      		<bean:message key="systementitlements.jsp.set_to_manage_entitled" />
@@ -85,15 +85,15 @@
 						        </html:submit>
 						  </c:if>			
 				  </td>
-			</tr>	      
-			<!--  Add On Entitlement Section -->      
+			</tr>
+			<!--  Add On Entitlement Section -->
 		      <c:if test="${requestScope.showAddOnAspects}">
 			    	<tr>
 			              <th><bean:message key="systementitlements.jsp.addonentitlement" /></th>
 			        	  <td align="right">
 				              <html:select property="addOnEntitlement">
 				                  <html:optionsCollection name="addOnEntitlements"/>
-				              </html:select>	        
+				              </html:select>
 					        <html:submit property="dispatch">
 					          <bean:message key="systementitlements.jsp.add_entitlement" />
 					        </html:submit>
@@ -102,14 +102,14 @@
 					        </html:submit>
 						  </td>
 			    	</tr>
-			  </c:if>   
+			  </c:if>
 		  </table>
-     </c:if>			      
+     </c:if>
 
-<!--  Entitlement Counts Section -->             
+<!--  Entitlement Counts Section -->
        <h2><bean:message key="systementitlements.jsp.entitlement_counts" /></h2>
 
-<!--  Base Entitlement Counts Section -->             
+<!--  Base Entitlement Counts Section -->
        <h3><bean:message key="systementitlements.jsp.base_entitlements"/></h3>
        <table class="details">
 	    	<tr>
@@ -128,10 +128,10 @@
                 </tr>
             </c:if>
 
-       </table>       
+       </table>
 
 
-<!--  Add - On Entitlement Counts Section -->             
+<!--  Add - On Entitlement Counts Section -->
        <h3><bean:message key="systementitlements.jsp.addonentitlement"/></h3>
        <table class="details">
 	    	<tr>
@@ -152,8 +152,8 @@
 	    		<th><bean:message key="virtualization_host_platform"/>:</th>
 	       		<td>${requestScope.virtualizationPlatformCountsMessage}</td>
 	    	</tr>
-       </table>       
-<!--  Foot Note -->       
+       </table>
+<!--  Foot Note -->
 
 </html:form>
 </body>

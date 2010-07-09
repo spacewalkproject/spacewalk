@@ -22,61 +22,61 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import java.io.Serializable;
 
 /**
- * 
+ *
  * ServerSnapshot
  * @version $Rev$
  */
-public class ServerSnapshotTagLink extends BaseDomainHelper implements Serializable {    
-    
+public class ServerSnapshotTagLink extends BaseDomainHelper implements Serializable {
+
 
     private Server server;
     private ServerSnapshot snapshot;
     private SnapshotTag tag;
-    
+
     /**
      * @return Returns the server.
      */
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * @param serverIn The server to set.
      */
     public void setServer(Server serverIn) {
         this.server = serverIn;
     }
-    
+
     /**
      * @return Returns the snapshot.
      */
     public ServerSnapshot getSnapshot() {
         return snapshot;
     }
-    
+
     /**
      * @param snapshotIn The snapshot to set.
      */
     public void setSnapshot(ServerSnapshot snapshotIn) {
         this.snapshot = snapshotIn;
     }
-    
+
     /**
      * @return Returns the tag.
      */
     public SnapshotTag getTag() {
         return tag;
     }
-    
+
     /**
      * @param tagIn The tag to set.
      */
     public void setTag(SnapshotTag tagIn) {
         this.tag = tagIn;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -84,17 +84,17 @@ public class ServerSnapshotTagLink extends BaseDomainHelper implements Serializa
                                     .append(tag.hashCode()).append(snapshot.hashCode())
                                     .toHashCode();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean equals(Object obj) {
         ServerSnapshotTagLink link = (ServerSnapshotTagLink) obj;
         EqualsBuilder build = new EqualsBuilder();
-        
+
         return build.append(this.getServer(), link.getServer()).
                 append(this.getSnapshot(), link.getSnapshot()).
                 append(this.getTag(), link.getTag()).isEquals();
     }
-    
+
 }

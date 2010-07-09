@@ -50,19 +50,19 @@ public class ChannelAccessHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int enableUserRestrictions(String sessionKey, String channelLabel) 
+    public int enableUserRestrictions(String sessionKey, String channelLabel)
         throws FaultException {
-        
+
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, channelLabel);
         verifyChannelAdmin(user, channel);
-        
+
         channel.setGloballySubscribable(false, user.getOrg());
         ChannelFactory.save(channel);
-        
+
         return 1;
     }
-    
+
     /**
      * Disable user restrictions for the given channel. If disabled,
      * all users within the organization may subscribe to the channel.
@@ -80,9 +80,9 @@ public class ChannelAccessHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int disableUserRestrictions(String sessionKey, String channelLabel) 
+    public int disableUserRestrictions(String sessionKey, String channelLabel)
         throws FaultException {
-        
+
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, channelLabel);
         verifyChannelAdmin(user, channel);
@@ -92,7 +92,7 @@ public class ChannelAccessHandler extends BaseHandler {
 
         return 1;
     }
-    
+
     /**
      * Set organization sharing access control.
      * @param sessionKey The sessionKey containing the logged in user
@@ -109,13 +109,13 @@ public class ChannelAccessHandler extends BaseHandler {
      * @xmlrpc.doc Set organization sharing access control.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
-     * @xmlrpc.param #prop_desc("string", "access", "Access (one of the 
-     *                  following: 'public', 'private', or 'protected'") 
+     * @xmlrpc.param #prop_desc("string", "access", "Access (one of the
+     *                  following: 'public', 'private', or 'protected'")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int setOrgSharing(String sessionKey, String channelLabel, String access) 
+    public int setOrgSharing(String sessionKey, String channelLabel, String access)
         throws FaultException {
-        
+
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, channelLabel);
         verifyChannelAdmin(user, channel);
@@ -129,7 +129,7 @@ public class ChannelAccessHandler extends BaseHandler {
         }
         return 1;
     }
-    
+
     /**
      * Get organization sharing access control.
      * @param sessionKey The sessionKey containing the logged in user
@@ -147,13 +147,13 @@ public class ChannelAccessHandler extends BaseHandler {
      * @xmlrpc.returntype string - The access value (one of the following: 'public',
      * 'private', or 'protected'.
      */
-    public String getOrgSharing(String sessionKey, String channelLabel) 
+    public String getOrgSharing(String sessionKey, String channelLabel)
         throws FaultException {
-        
+
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, channelLabel);
         verifyChannelAdmin(user, channel);
-        
+
         return channel.getAccess();
     }
 
@@ -167,7 +167,7 @@ public class ChannelAccessHandler extends BaseHandler {
 
         return channel;
     }
-    
+
     private boolean verifyChannelAdmin(User user, Channel channel) {
         try {
             if (!ChannelManager.verifyChannelAdmin(user, channel.getId())) {

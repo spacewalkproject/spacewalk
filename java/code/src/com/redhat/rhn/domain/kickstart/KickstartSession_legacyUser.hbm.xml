@@ -10,7 +10,7 @@
                 <param name="sequence">RHN_KS_SESSION_ID_SEQ</param>
             </generator>
         </id>
-        
+
         <property name="kickstartMode" column="kickstart_mode" type="string"
             length="32"/>
         <property name="lastAction" column="last_action" not-null="true"
@@ -30,55 +30,55 @@
         <property name="deployConfigs" column="deploy_configs" not-null="true"
             type="yes_no"/>
         <property name="clientIp" column="client_ip" type="string" length="15"/>
-        
+
         <many-to-one name="ksdata"
             class="com.redhat.rhn.domain.kickstart.KickstartData"
             cascade="save-update" column="kickstart_id"/>
-        
+
         <many-to-one name="kstree"
             class="com.redhat.rhn.domain.kickstart.KickstartableTree"
             cascade="save-update" column="kstree_id"/>
-        
+
         <many-to-one name="org" column="org_id"
             class="com.redhat.rhn.domain.org.OrgImpl" outer-join="true"
             not-null="true"/>
-        
+
         <many-to-one name="user" column="scheduler" cascade="save-update"
             class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
-        
+
         <many-to-one name="action" class="com.redhat.rhn.domain.action.Action"
             cascade="save-update" column="action_id"/>
-        
+
         <many-to-one name="state"
             class="com.redhat.rhn.domain.kickstart.KickstartSessionState"
             cascade="none" column="state_id"/>
-        
+
         <many-to-one name="virtualizationType"
             class="com.redhat.rhn.domain.kickstart.KickstartVirtualizationType"
             cascade="none" column="virtualization_type"/>
-        
+
         <many-to-one name="oldServer" class="com.redhat.rhn.domain.server.Server"
             cascade="save-update" column="old_server_id"/>
-        
+
         <many-to-one name="newServer" class="com.redhat.rhn.domain.server.Server"
             cascade="save-update" column="new_server_id"/>
 
         <many-to-one name="hostServer" class="com.redhat.rhn.domain.server.Server"
             cascade="save-update" column="host_server_id"/>
-        
+
         <many-to-one name="serverProfile" column="server_profile_id"
             class="com.redhat.rhn.domain.rhnpackage.profile.Profile"/>
-        
+
         <set name="history" outer-join="false" cascade="all-delete-orphan"
             inverse="true" >
             <key column="kickstart_session_id"/>
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartSessionHistory" />
         </set>
-        
-        
+
+
     </class>
-    
-    
+
+
     <!-- Look in KickstartSessionQueries.hbm.xml for the queries for this class -->
-    
+
 </hibernate-mapping>

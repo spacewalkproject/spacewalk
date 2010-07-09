@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.rhnpackage.PackageName" 
+    <class name="com.redhat.rhn.domain.rhnpackage.PackageName"
         table="rhnPackageName">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -11,10 +11,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_PKG_NAME_SEQ</param>
             </generator>
         </id>
-        
+
         <property name="name" type="string" column="name"/>
     </class>
-    
+
     <query name="PackageName.findById">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageName as p where p.id = :id]]>
     </query>

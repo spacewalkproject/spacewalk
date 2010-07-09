@@ -35,19 +35,19 @@ import java.util.Map;
  * @version $Rev $
  */
 class DaemonStateWriter implements Runnable {
-    
+
     private static final String LAST_TASK = "last_task_completed";
-    
-    private static Logger logger = Logger.getLogger(SchedulerKernel.class);    
-    
-    private boolean stopped = false; 
-    
+
+    private static Logger logger = Logger.getLogger(SchedulerKernel.class);
+
+    private boolean stopped = false;
+
     private Channel stateQueue;
-    
+
     public DaemonStateWriter(Channel queue) {
         this.stateQueue = queue;
     }
-    
+
     /**
      * Sets the stopped flag
      * @param flag true to stop
@@ -55,7 +55,7 @@ class DaemonStateWriter implements Runnable {
     public synchronized void isStopped(boolean flag) {
         this.stopped = flag;
     }
-    
+
     /**
      * Returns current stop state
      * @return true if stopped, false if not
@@ -81,14 +81,14 @@ class DaemonStateWriter implements Runnable {
             logger.error(e.getMessage(), e);
             return;
         }
-    
+
     }
-    
+
     private void writeUpdate(String displayName) {
         Transaction txn = null;
         try {
             txn = HibernateFactory.getSession().beginTransaction();
-            SelectMode mode = ModeFactory.getMode(TaskomaticConstants.MODE_NAME, 
+            SelectMode mode = ModeFactory.getMode(TaskomaticConstants.MODE_NAME,
                     TaskomaticConstants.DAEMON_QUERY_FIND_STATS);
             Map params = new HashMap();
             params.put("display_name", displayName);
@@ -111,6 +111,6 @@ class DaemonStateWriter implements Runnable {
             txn.rollback();
             logger.error(t.getMessage(), t);
         }
-    }    
+    }
 
 }

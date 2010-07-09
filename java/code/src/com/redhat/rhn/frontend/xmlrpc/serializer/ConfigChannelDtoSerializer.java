@@ -29,16 +29,16 @@ import redstone.xmlrpc.XmlRpcSerializer;
 /**
  * ConfigChannelDtoSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
- * #struct("Configuration Channel information") 
+ * #struct("Configuration Channel information")
  *   #prop("int", "id")
  *   #prop("int", "orgId")
  *   #prop("string", "label")
  *   #prop("string", "name")
  *   #prop("string", "description")
  *   #prop("string", "type")
- *   #prop("struct", "configChannelType") 
+ *   #prop("struct", "configChannelType")
  *   $ConfigChannelTypeSerializer
  * #struct_end()
  */

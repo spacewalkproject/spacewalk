@@ -22,7 +22,7 @@
 	<rhn:list
 	  pageList="${requestScope.pageList}"
 	  noDataText="channelfiles.jsp.noFiles">
-	  
+
 	<rhn:listdisplay filterBy="channelfiles.jsp.path"
 	 set="${requestScope.set}">
 	 	<rhn:set value="${current.id}"/>
@@ -33,7 +33,7 @@
 
 		<rhn:column header="channelfiles.jsp.actions">
 			[<a href="/rhn/configuration/file/FileDetails.do?cfid=${current.id}">
-				<bean:message key="config.common.view" /></a>] | 
+				<bean:message key="config.common.view" /></a>] |
    			[<a href="/rhn/configuration/file/CompareRevision.do?cfid=${current.id}">
    				<bean:message key="config.common.compare" /></a>]
 		</rhn:column>

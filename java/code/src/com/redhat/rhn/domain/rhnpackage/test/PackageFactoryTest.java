@@ -55,10 +55,10 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
         assertNotNull(pkg2);
         // Check to make sure it returns NULL
         // if we lookup with a User who isnt part of the
-        // Org that owns that Action.  Ignore for 
+        // Org that owns that Action.  Ignore for
         // Sat mode since there is only one Org.
     }
-        
+
     public void testLookupPackageArchByLabel() {
         assertNull(PackageFactory.lookupPackageArchByLabel("biteme-arch"));
         assertNotNull(PackageFactory.lookupPackageArchByLabel("i386"));
@@ -66,10 +66,10 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
 
     public void testLookupByNameAndServer() throws Exception {
         Server testServer = ServerFactoryTest.createTestServer(user, true);
-        
+
         Channel channel = ChannelFactoryTest.createBaseChannel(user);
         testServer.addChannel(channel);
-        
+
         Package testPackage = PackageTest.createTestPackage(user.getOrg());
 
         //Test a package the satellite knows about
@@ -77,26 +77,26 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
         testInstPack.setArch(testPackage.getPackageArch());
         testInstPack.setEvr(testPackage.getPackageEvr());
         testInstPack.setName(testPackage.getPackageName());
-        testInstPack.setServer(testServer);        
+        testInstPack.setServer(testServer);
         Set serverPackages = new HashSet();
         serverPackages.add(testInstPack);
         testServer.setPackages(serverPackages);
 
         ServerFactory.save(testServer);
         testServer = (Server) reload(testServer);
-        
+
         InstalledPackage pack = PackageFactory.lookupByNameAndServer(
                 testInstPack.getName().getName(), testServer);
-        
+
         assertEquals(testInstPack, pack);
     }
-    
+
     public void testPackageSearch() {
         List pids = new ArrayList();
         pids.add(2125L);
         pids.add(2915L);
         String[] arches = {"channel-ia32", "channel-ia64"};
-        
+
         List<PackageOverview> results =
             PackageFactory.packageSearch(pids, Arrays.asList(arches));
         assertNotNull(results);

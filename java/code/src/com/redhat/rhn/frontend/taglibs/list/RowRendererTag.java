@@ -32,36 +32,36 @@ public class RowRendererTag extends BodyTagSupport {
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = -4725527714962599693L;
-    
+
     private String name;
-    
+
     /**
      * Row style classes
      */
     private String classes;
-    
+
     /**
-     * sets the name of the decorator. A classname.. 
+     * sets the name of the decorator. A classname..
      * @param decoratorName the names of the decorator
      */
     public void setName(String decoratorName) {
         name = decoratorName;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public int doEndTag() throws JspException {
-        ListCommand command = (ListCommand) 
+        ListCommand command = (ListCommand)
                     ListTagUtil.getCurrentCommand(this, pageContext);
         if (command.equals(ListCommand.ENUMERATE)) {
             if (!StringUtils.isBlank(name)) {
-                ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this, 
+                ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this,
                         ListTag.class);
-                
+
                 try {
                     ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        
+
                     if (name.indexOf('.') == -1) {
                         name = "com.redhat.rhn.frontend.taglibs.list.row." +
                             name;
@@ -72,17 +72,17 @@ public class RowRendererTag extends BodyTagSupport {
                         row.setRowClasses(classes);
                     }
                     parent.setRowRenderer(row);
-                    
+
                 }
                 catch (Exception e) {
                     String msg = "Exception while adding Decorator [" + name + "]";
                     throw new JspException(msg, e);
-                }               
+                }
             }
         }
         return super.doEndTag();
     }
-    
+
     /**
      * Set the row style classes
      * @param stylesIn the div styles

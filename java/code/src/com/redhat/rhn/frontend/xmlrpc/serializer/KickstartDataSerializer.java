@@ -26,7 +26,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
 
 
 /**
- * KickstartDataSerializer: Converts a KickstartData object for representation 
+ * KickstartDataSerializer: Converts a KickstartData object for representation
  * as an XMLRPC struct.
  * @version $Rev$
  *

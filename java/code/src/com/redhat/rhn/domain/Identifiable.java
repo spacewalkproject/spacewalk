@@ -17,13 +17,13 @@ package com.redhat.rhn.domain;
 
 
 /**
- * Simple interface that a domain object can implement if it wants to provide a 
+ * Simple interface that a domain object can implement if it wants to provide a
  * common way to give back an id field.
- * 
+ *
  * @version $Rev: 59372 $
  */
 public interface Identifiable {
-    
+
     /**
      * Get the database id of this Object.
      * @return Long id of Object.

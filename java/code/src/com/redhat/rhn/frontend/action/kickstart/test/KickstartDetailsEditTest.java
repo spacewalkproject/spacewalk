@@ -24,7 +24,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
  * @version $Rev: 1 $
  */
 public class KickstartDetailsEditTest extends BaseKickstartEditTestCase {
-    
+
     public void testExecute() throws Exception {
         setRequestPathInfo("/kickstart/KickstartDetailsEdit");
         addRequestParameter(KickstartDetailsEditAction.SUBMITTED, Boolean.FALSE.toString());
@@ -35,7 +35,7 @@ public class KickstartDetailsEditTest extends BaseKickstartEditTestCase {
         assertNotNull(orgDefaultUrl);
         assertTrue(orgDefaultUrl.indexOf("/ks/cfg/org") > 0);
         assertTrue(orgDefaultUrl.indexOf("/org_default") > 0);
-    }   
+    }
 
     public void testSubmit() throws Exception {
         setRequestPathInfo("/kickstart/KickstartDetailsEdit");
@@ -43,9 +43,9 @@ public class KickstartDetailsEditTest extends BaseKickstartEditTestCase {
         addRequestParameter(KickstartDetailsEditAction.COMMENTS, "some comment");
         addRequestParameter(KickstartDetailsEditAction.LABEL, "somelabel");
         addRequestParameter(KickstartDetailsEditAction.ACTIVE, Boolean.TRUE.toString());
-        addRequestParameter(KickstartDetailsEditAction.ORG_DEFAULT, 
+        addRequestParameter(KickstartDetailsEditAction.ORG_DEFAULT,
                 Boolean.TRUE.toString());
-        addRequestParameter(KickstartDetailsEditAction.VIRTUALIZATION_TYPE_LABEL, 
+        addRequestParameter(KickstartDetailsEditAction.VIRTUALIZATION_TYPE_LABEL,
                 KickstartVirtualizationType.KVM_FULLYVIRT);
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));

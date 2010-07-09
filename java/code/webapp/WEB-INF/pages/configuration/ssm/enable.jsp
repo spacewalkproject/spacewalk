@@ -23,7 +23,7 @@
 <html:form method="POST" action="/systems/ssm/config/EnableSubmit">
 <rhn:list pageList="${requestScope.pageList}"
           noDataText="targetsystems.jsp.noSystems">
-	          
+
   <rhn:listdisplay filterBy="system.common.systemName">
     <%@ include file="/WEB-INF/pages/common/fragments/configuration/enablelist.jspf" %>
   </rhn:listdisplay>

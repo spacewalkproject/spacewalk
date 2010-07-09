@@ -17,9 +17,9 @@ ORDER BY UPPER(SP.name)
   <query params="prid">
 SELECT PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
        PA.label as arch
-  FROM rhnServerProfilePackage SPP 
+  FROM rhnServerProfilePackage SPP
   		LEFT JOIN rhnPackageArch PA ON SPP.package_arch_id = PA.id
-  		INNER JOIN rhnPackageName PN ON SPP.name_id = PN.id 
+		INNER JOIN rhnPackageName PN ON SPP.name_id = PN.id
   		INNER JOIN rhnPackageEVR PE ON SPP.evr_id = PE.id
  WHERE SPP.server_profile_id = :prid
 ORDER BY UPPER(PN.name), PE.evr

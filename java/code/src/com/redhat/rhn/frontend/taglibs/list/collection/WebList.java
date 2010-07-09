@@ -35,7 +35,7 @@ public abstract class WebList {
     private static final String LIST = "list";
     private static final String DATA_SET = "dataset";
     private RequestContext context;
-    
+
     /**
      * Constructor
      * @param request servlet request
@@ -44,37 +44,37 @@ public abstract class WebList {
         context = new RequestContext(request);
         setupDataSet();
     }
-    
+
     protected RequestContext getContext() {
         return context;
     }
-    
+
     protected List getDataSet() {
         return (List)context.getRequest().getAttribute(getDataSetName());
     }
-    
+
     protected void setupDataSet() {
         List dataSet = getResult();
         HttpServletRequest request = context.getRequest();
-        
+
         request.setAttribute(getDataSetName(), dataSet);
         if (!StringUtils.isBlank(getListName()) &&
                                     dataSet instanceof DataResult) {
             DataResult data = (DataResult) dataSet;
             Elaborator elab = data.getElaborator();
             if (elab != null) {
-                TagHelper.bindElaboratorTo(getListName(), 
-                        elab, request);       
+                TagHelper.bindElaboratorTo(getListName(),
+                        elab, request);
             }
-        }        
+        }
     }
-    
+
     /**
      * The dataresult associated to a set
      * @return a List of Selectable or Identifiable objects
      */
     protected abstract List getResult();
-    
+
     /**
      * gets the list name
      * @return listname
@@ -82,7 +82,7 @@ public abstract class WebList {
     protected String getListName() {
         return LIST;
     }
-    
+
     /**
      * gets the DataSet Name
      * @return dataSetName

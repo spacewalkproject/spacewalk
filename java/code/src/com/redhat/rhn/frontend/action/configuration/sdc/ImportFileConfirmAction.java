@@ -25,5 +25,5 @@ public class ImportFileConfirmAction extends FileListConfirmSetupAction {
 
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_IMPORT_FILE_NAMES;
-    }    
+    }
 }

@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/errata/errata-header.jspf" %>
 
 <h2><bean:message key="packagelist.jsp.header.packages"/></h2>
-    
+
 
 
     <c:forEach items="${channels}" var="current">

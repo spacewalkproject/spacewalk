@@ -41,7 +41,7 @@ public class KickstartPackageProfileCommand extends BaseKickstartCommand {
     public void setProfile(Profile profileIn) {
         this.ksdata.getKickstartDefaults().setProfile(profileIn);
     }
-    
-    
+
+
 
 }

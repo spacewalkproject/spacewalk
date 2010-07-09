@@ -25,11 +25,11 @@ import com.redhat.rhn.domain.user.User;
  * @version $Rev$
  */
 public abstract class BaseMailAction {
-    
+
     protected abstract String getSubject(BaseEvent evt);
-    
+
     protected abstract String[] getRecipients(User user);
-    
+
     /**
      * Execute the TraceBack
      * @param msg EventMessage to executed.
@@ -42,7 +42,7 @@ public abstract class BaseMailAction {
         mailer.setBody(msg.toText());
         mailer.send();
     }
-    
+
     /**
     * Get the mailer associated with this class
     */

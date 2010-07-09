@@ -16,14 +16,14 @@ package com.redhat.rhn.frontend.dto;
 
 
 /**
- * ISOCategory - handles DataResult return from 
+ * ISOCategory - handles DataResult return from
  *   channel_queries.channel_download_categories_by_type
  * @version $Rev$
  */
 public class ISOCategory extends BaseDto {
     private String category;
     private Long minOrder;
-    
+
     /**
      * {@inheritDoc}
      */

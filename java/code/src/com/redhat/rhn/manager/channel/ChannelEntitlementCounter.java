@@ -24,7 +24,7 @@ import com.redhat.rhn.domain.org.Org;
  * @version $Rev: 112392 $
  */
 public class ChannelEntitlementCounter {
-    
+
     /**
      * Get the available entitlements for the passed in Org
      * and Channel

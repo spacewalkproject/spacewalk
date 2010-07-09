@@ -62,7 +62,7 @@ public class ColumnTag extends BodyTagSupport {
     public void setWidth(String widthIn) {
         this.width = widthIn;
     }
-    
+
     /**
      * @param filterMessageIn The filterMessage to set.
      */
@@ -255,7 +255,7 @@ public class ColumnTag extends BodyTagSupport {
             filterClass.setAttribute("value", filterAttr);
             ListTagUtil.write(pageContext, filterClass.render());
         }
-        
+
         if (isSortable()) {
             writeSortLink();
         }
@@ -294,7 +294,7 @@ public class ColumnTag extends BodyTagSupport {
         ListTagUtil.write(pageContext, String.format(href, jsurl));
         writeColumnName();
         ListTagUtil.write(pageContext, "</a>");
-        
+
     }
 
     /**

@@ -63,7 +63,7 @@ public class AddGroupsAction extends BaseListAction {
         getStrutsDelegate().saveMessage(
                     "activation-key.groups.jsp.added",
                         new String [] {String.valueOf(helper.getSet().size())}, request);
-        
+
         Map params = new HashMap();
         params.put(RequestContext.TOKEN_ID, key.getToken().getId().toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
@@ -86,9 +86,9 @@ public class AddGroupsAction extends BaseListAction {
         setupAccessMap(context, groups);
         return groups;
     }
-    
+
     /**
-     * Setups the user permissions access map 
+     * Setups the user permissions access map
      * after checking if the user can access
      * the servergroup.
      * @param context the request context
@@ -99,7 +99,7 @@ public class AddGroupsAction extends BaseListAction {
         Map<Long, Long> accessMap = new HashMap<Long, Long>();
         for (ServerGroup sg : groups) {
             if (sgm.canAccess(context.getLoggedInUser(), sg)) {
-                accessMap.put(sg.getId(), sg.getId());    
+                accessMap.put(sg.getId(), sg.getId());
             }
         }
         context.getRequest().setAttribute(ACCESS_MAP, accessMap);

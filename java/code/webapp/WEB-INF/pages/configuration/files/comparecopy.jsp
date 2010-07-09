@@ -13,7 +13,7 @@
 
 <div class="page-summary">
   <p>
-    <bean:message key="comparecopy.jsp.summary" 
+    <bean:message key="comparecopy.jsp.summary"
                   arg0="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${revision.id}"
                   arg1="${revision.revision}"/>
   </p>
@@ -25,11 +25,11 @@
     <rhn:column header="comparecopy.jsp.channel">
       <cfg:channel id="${current.id}" name="${current.name}" type="${current.type}" />
     </rhn:column>
-    
+
     <rhn:column header="comparecopy.jsp.type">
         ${current.typeDisplay}
     </rhn:column>
-    
+
     <rhn:column header="comparecopy.jsp.revision"
                 url="/rhn/configuration/file/FileDetails.do?cfid=${current.configFileId}&amp;crid=${current.configRevisionId}">
         <c:choose>
@@ -48,7 +48,7 @@
         </c:choose>
         <bean:message key="comparecopy.jsp.revnum" arg0="${current.configRevision}" />
     </rhn:column>
-    
+
     <rhn:column header="comparerevision.jsp.comparison">
         <a class="link-button" href="/rhn/configuration/file/Diff.do?cfid=${file.id}&amp;crid=${revision.id}&amp;ocrid=${current.configRevisionId}">
             <bean:message key="comparerevision.jsp.compare" />

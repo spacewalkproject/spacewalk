@@ -19,26 +19,26 @@ import com.redhat.rhn.manager.kickstart.crypto.BaseCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.crypto.DeleteCryptoKeyCommand;
 
 /**
- * CryptoKeyDeleteAction 
+ * CryptoKeyDeleteAction
  * @version $Rev: 1 $
  */
 public class CryptoKeyDeleteAction extends BaseCryptoKeyEditAction {
-    
+
     /**
      * {@inheritDoc}
      */
     protected BaseCryptoKeyCommand getCommand(RequestContext ctx) {
-        return new DeleteCryptoKeyCommand(ctx.getCurrentUser(), 
+        return new DeleteCryptoKeyCommand(ctx.getCurrentUser(),
                 ctx.getRequiredParam(RequestContext.KEY_ID));
     }
-    
+
     /**
      * {@inheritDoc}
      */
     protected String getSuccessKey() {
         return "cryptokey.delete.success";
     }
-    
+
     /**
      * {@inheritDoc}
      */

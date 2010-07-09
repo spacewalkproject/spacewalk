@@ -22,9 +22,9 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import org.hibernate.Session;
 
 public class KickstartDeleteActionTest extends BaseKickstartEditTestCase {
-    
+
     private final String KICKSTART_ID = "ksid";
-    
+
     public void testExecute() throws Exception {
         setRequestPathInfo("/kickstart/KickstartDelete");
         addRequestParameter(KickstartDetailsEditAction.COMMENTS, "test comment");
@@ -32,23 +32,23 @@ public class KickstartDeleteActionTest extends BaseKickstartEditTestCase {
         addRequestParameter(KickstartDetailsEditAction.ACTIVE, Boolean.TRUE.toString());
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
-    }  
-    
+    }
+
     public void testSubmit() throws Exception {
         setRequestPathInfo("/kickstart/KickstartDelete");
-        addRequestParameter(KickstartDetailsEditAction.SUBMITTED, 
+        addRequestParameter(KickstartDetailsEditAction.SUBMITTED,
                                                Boolean.TRUE.toString());
         addRequestParameter(KickstartDetailsEditAction.COMMENTS, "test comment");
         addRequestParameter(KickstartDetailsEditAction.LABEL, "test label");
         addRequestParameter(KickstartDetailsEditAction.ACTIVE, Boolean.TRUE.toString());
         actionPerform();
-       
+
         String[] keys = {"kickstart.delete.success"};
         verifyActionMessages(keys);
-        
+
         assertNull(lookupById(new Long(request.getParameter(KICKSTART_ID))));
-    } 
-    
+    }
+
     /**
      * Helper method to lookup KickstartData by id
      * @param id Id to lookup

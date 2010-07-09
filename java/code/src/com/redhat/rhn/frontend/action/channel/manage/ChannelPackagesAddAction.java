@@ -80,12 +80,12 @@ public class ChannelPackagesAddAction extends RhnAction {
             throw new PermissionCheckFailureException();
         }
 
-        
+
         request.setAttribute("cid", chan.getId());
-        
-        
+
+
         RhnSet set =  RhnSetDecl.PACKAGES_TO_ADD.get(user);
-        
+
         //Since if we are going to the confirm screen, we don't need to
         //actually do anything else, so lets go ahead and forward and save some time
         String button = LocalizationService.getInstance().getMessage(
@@ -96,22 +96,22 @@ public class ChannelPackagesAddAction extends RhnAction {
             return getStrutsDelegate().forwardParams(mapping.findForward("confirm"),
                     params);
         }
-        
-        
 
-        
+
+
+
         String selectedChan = request.getParameter(SELECTED_CHANNEL);
         DataResult result = null;
-        
-        
+
+
         //selected channel id
         long scid = 0;
 
-        
+
         //go ahead and set these to false.  We'll change them down a bit  if we need to
         request.setAttribute(ALL_PACKAGES_SELECTED, false);
         request.setAttribute(ORPHAN_PACKAGES_SELECTED, false);
-        
+
         //If a channel isn't selected, select one smartly
         if (selectedChan == null) {
             if (chan.isCloned()) {
@@ -121,15 +121,15 @@ public class ChannelPackagesAddAction extends RhnAction {
                 selectedChan = ORPHAN_PACKAGES;
             }
         }
-        
-        
+
+
         if (ALL_PACKAGES.equals(selectedChan)) {
-            result = PackageManager.lookupCustomPackagesForChannel(cid, 
+            result = PackageManager.lookupCustomPackagesForChannel(cid,
                     user.getOrg().getId());
             request.setAttribute(ALL_PACKAGES_SELECTED, true);
         }
         else if (ORPHAN_PACKAGES.equals(selectedChan)) {
-            result = PackageManager.lookupOrphanPackagesForChannel(cid, 
+            result = PackageManager.lookupOrphanPackagesForChannel(cid,
                     user.getOrg().getId());
             request.setAttribute(ORPHAN_PACKAGES_SELECTED, true);
         }
@@ -137,19 +137,19 @@ public class ChannelPackagesAddAction extends RhnAction {
             scid = Long.parseLong(selectedChan);
             result = PackageManager.lookupPackageForChannelFromChannel(scid, cid);
         }
-        
-        
+
+
         //Add Red Hat Base Channels, and custom base channels to the list, and if one
         //      is selected, select it
         List<SelectableChannel> chanList = findChannels(user, scid);
-        
-        
-        
-        
-        
+
+
+
+
+
         RhnListSetHelper helper = new RhnListSetHelper(request);
 
-        
+
         String alphaBarPressed = request.getParameter(
                 AlphaBarHelper.makeAlphaKey(TagHelper.generateUniqueName(listName)));
         if (!requestContext.isSubmitted() && alphaBarPressed == null) {
@@ -170,11 +170,11 @@ public class ChannelPackagesAddAction extends RhnAction {
         ListTagHelper.bindSetDeclTo(listName,  RhnSetDecl.PACKAGES_TO_ADD, request);
         TagHelper.bindElaboratorTo(listName, result.getElaborator(), request);
 
-        
-        
+
+
         request.setAttribute("channel_list", chanList);
-        
-        
+
+
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("pageList", result);
@@ -205,13 +205,13 @@ public class ChannelPackagesAddAction extends RhnAction {
         }
         return chanList;
     }
-    
-    
+
+
     private boolean canAccessChannel(User user, Channel channel) {
         return UserManager.verifyChannelSubscribable(user, channel) ||
             UserManager.verifyChannelAdmin(user, channel);
     }
-    
+
     private SelectableChannel setSelected(Channel chan, Long selectedChan) {
         SelectableChannel selChan = new SelectableChannel(chan);
         if (selChan.getChannel().getId().equals(selectedChan)) {

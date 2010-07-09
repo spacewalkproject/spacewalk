@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public abstract class BaseCopyFileSubmitAction extends BaseSetOperateOnSelectedItemsAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -50,11 +50,11 @@ public abstract class BaseCopyFileSubmitAction extends BaseSetOperateOnSelectedI
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest requestIn, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest requestIn,
                                    Map paramsIn) {
         RequestContext requestContext = new RequestContext(requestIn);
-        
+
         Long cfid = requestContext.getRequiredParam("cfid");
         Long crid = requestContext.getParamAsLong("crid");
         paramsIn.put("cfid", cfid);
@@ -62,17 +62,17 @@ public abstract class BaseCopyFileSubmitAction extends BaseSetOperateOnSelectedI
             paramsIn.put("crid", crid);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public Boolean operateOnElement(ActionForm formIn, HttpServletRequest requestIn,
             RhnSetElement elementIn, User user) {
-        
+
         RequestContext requestContext = new RequestContext(requestIn);
-        
+
         Long crid = requestContext.getRequiredParam("crid");
-        
+
         //Lookup the pieces
         ConfigRevision revision;
         ConfigChannel channel;
@@ -84,7 +84,7 @@ public abstract class BaseCopyFileSubmitAction extends BaseSetOperateOnSelectedI
         catch (LookupException e) {
             return Boolean.FALSE;
         }
-        
+
         //Now start copying
         try {
             ConfigurationManager.getInstance().copyConfigFile(revision, channel, user);
@@ -94,12 +94,12 @@ public abstract class BaseCopyFileSubmitAction extends BaseSetOperateOnSelectedI
             log.error("Error copying config revision " + revision.getId() + " to channel " +
                     channel.getId(), e);
         }
-        
+
         return Boolean.FALSE;
     }
-    
-    protected void addToMessage(ActionMessages msg, 
-            String methodName, 
+
+    protected void addToMessage(ActionMessages msg,
+            String methodName,
             boolean success,
             long count) {
         if (count > 0) {
@@ -120,7 +120,7 @@ public abstract class BaseCopyFileSubmitAction extends BaseSetOperateOnSelectedI
                     key += "copyfile.jsp.failures";
                 }
             }
-            
+
             Object[] args = new Object[]{String.valueOf(count)};
             ActionMessage temp =  new ActionMessage(key, args);
             msg.add(ActionMessages.GLOBAL_MESSAGE, temp);
@@ -128,6 +128,6 @@ public abstract class BaseCopyFileSubmitAction extends BaseSetOperateOnSelectedI
     }
 
     protected abstract String getLabel();
-    
+
     protected abstract ConfigChannel getChannelFromElement(User usr, Long anId);
 }

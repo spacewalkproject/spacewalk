@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class FailedSystemsAction extends RhnSetAction {
 
-    
+
     /**
      * Resechedules the action whose id is found in the aid formvar.
      * @param mapping actionmapping
@@ -52,37 +52,37 @@ public class FailedSystemsAction extends RhnSetAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long aid = requestContext.getParamAsLong("aid");
-        Action action = ActionManager.lookupAction(requestContext.getLoggedInUser(), 
+        Action action = ActionManager.lookupAction(requestContext.getLoggedInUser(),
                                                    aid);
-        updateSet(request);        
+        updateSet(request);
         ActionManager.rescheduleAction(action, true);
-        
+
         ActionMessages msgs = new ActionMessages();
-        
+
         msgs.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("message.actionrescheduled",
                         action.getActionType().getName()));
-        getStrutsDelegate().saveMessages(request, msgs);        
-        
+        getStrutsDelegate().saveMessages(request, msgs);
+
         return getStrutsDelegate().forwardParam(
                 mapping.findForward("scheduled"), "aid", String.valueOf(aid));
     }
-    
+
     /** {@inheritDoc} */
-    protected DataResult getDataResult(User user, ActionForm form, 
+    protected DataResult getDataResult(User user, ActionForm form,
             HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
         Long aid = requestContext.getParamAsLong("aid");
         Action action = ActionManager.lookupAction(user, aid);
-        //Get an "unelaborated" DataResult containing all of the 
+        //Get an "unelaborated" DataResult containing all of the
         //user's visible systems
         return ActionManager.failedSystems(user, action, null);
-    }    
-    
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -93,8 +93,8 @@ public class FailedSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         RequestContext requestContext = new RequestContext(request);
         params.put("aid", requestContext.getParamAsLong("aid"));
@@ -105,5 +105,5 @@ public class FailedSystemsAction extends RhnSetAction {
      */
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.SYSTEMS_FAILED;
-    }    
+    }
 }

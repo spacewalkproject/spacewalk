@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.action.script.ScriptActionDetails" 
+	<class name="com.redhat.rhn.domain.action.script.ScriptActionDetails"
 		table="rhnActionScript" >
 		<id name="id" type="long" column="id">
 			<meta attribute="scope-set">protected</meta>
@@ -18,13 +18,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="timeout" type="long" column="timeout" />
 		<property name="created" type="timestamp" insert="false" update="false" />
         <property name="modified" type="timestamp" insert="false" update="false" />
-		<many-to-one name="parentAction" column="action_id" 
-			class="com.redhat.rhn.domain.action.Action" outer-join="true" 
+		<many-to-one name="parentAction" column="action_id"
+			class="com.redhat.rhn.domain.action.Action" outer-join="true"
 			not-null="true" insert="true" update="false" />
 
 		<set name="results" cascade="all" inverse="true" outer-join="false">
 			<key column="action_script_id" />
-			<one-to-many 
+			<one-to-many
 				class="com.redhat.rhn.domain.action.script.ScriptResult" />
 		</set>
 	</class>

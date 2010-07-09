@@ -28,14 +28,14 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev: 1 $
  */
 public class CryptoKeysListSetupActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
         CryptoKey key = CryptoTest.createTestKey(user.getOrg());
         KickstartFactory.saveCryptoKey(key);
-        TestUtils.flushAndEvict(key);            
-        
+        TestUtils.flushAndEvict(key);
+
         setRequestPathInfo("/keys/CryptoKeysList");
         actionPerform();
         verifyPageList(CryptoKeyDto.class);

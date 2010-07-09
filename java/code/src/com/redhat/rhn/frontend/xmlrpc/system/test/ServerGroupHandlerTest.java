@@ -52,7 +52,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
     public void testCreate() {
         ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
         assertNotNull(manager.lookup(NAME, admin));
-        
+
         try {
             handler.create(adminKey, NAME, DESCRIPTION);
             fail("Duplicate key didn't raise an exception");
@@ -62,7 +62,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         }
         regular.removeRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         try {
-           
+
             handler.create(regularKey, NAME + "F", DESCRIPTION + "F");
             fail("Regular user allowed to create server groups");
         }
@@ -70,7 +70,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
             //Cool only sys admins can create.
         }
     }
-    
+
     public void testUpdate() {
 
         ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
@@ -87,7 +87,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         group = handler.update(adminKey, NAME, newDescription);
         assertEquals(group.getDescription(), newDescription);
     }
-    
+
     public void testListAdministrators() {
         regular.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         ServerGroup group = handler.create(regularKey, NAME, DESCRIPTION);
@@ -105,15 +105,15 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
           //access check successful.
         }
     }
-    
+
     public void testAddRemoveAdmins() {
         ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
         assertNotNull(manager.lookup(NAME, admin));
         User newbie = UserTestUtils.createUser("Hahaha", admin.getOrg().getId());
-        
+
         List logins = new ArrayList();
         logins.add(newbie.getLogin());
-        
+
 
         try {
             handler.addOrRemoveAdmins(regularKey, group.getName(), logins, true);
@@ -121,19 +121,19 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         }
         catch (Exception e) {
             //Cool only sys admins can create.
-        }        
+        }
 
-        handler.addOrRemoveAdmins(adminKey, group.getName(),        
+        handler.addOrRemoveAdmins(adminKey, group.getName(),
                 Arrays.asList(new String []{regular.getLogin()}), true);
 
         regular.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         handler.addOrRemoveAdmins(regularKey, group.getName(), logins, true);
         List admins = handler.listAdministrators(regularKey, group.getName());
         assertTrue(admins.contains(newbie));
-        
+
         handler.addOrRemoveAdmins(regularKey, group.getName(), logins, false);
         assertFalse(manager.canAccess(newbie, group));
-        admins = handler.listAdministrators(adminKey, group.getName());        
+        admins = handler.listAdministrators(adminKey, group.getName());
         assertFalse(admins.contains(newbie));
 
         // verify that neither an org or sat admin may have their
@@ -172,7 +172,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
             //Cool cannot change access permissions for an sat/org admin.
         }
     }
-    
+
     public void testListGroupsWithNoAssociatedAdmins() {
         ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
         ServerGroup group1 = handler.create(adminKey, NAME + "1",
@@ -190,11 +190,11 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         assertTrue(manager.canAccess(regular, group1));
         groups = handler.listGroupsWithNoAssociatedAdmins(adminKey);
         assertFalse(groups.contains(group1));
-        
+
         assertTrue(groups.contains(group));
         assertTrue(groups.contains(group2));
     }
-    
+
     public void testDelete() {
         ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
         handler.delete(adminKey, NAME);
@@ -216,15 +216,15 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         List logins = new ArrayList();
         logins.add(regular.getLogin());
         logins.add(unpriv.getLogin());
-        
+
         handler.addOrRemoveAdmins(adminKey, group.getName(), logins, true);
         regular.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
-        
+
         Server server1 = ServerFactoryTest.createTestServer(regular, true);
         Server server2 = ServerFactoryTest.createTestServer(regular, true);
         Server server3 = ServerFactoryTest.createTestServer(regular, true);
 
-        handler.addOrRemoveSystems(regularKey, group.getName(),        
+        handler.addOrRemoveSystems(regularKey, group.getName(),
                 Arrays.asList(new Integer []{
                             new Integer(server3.getId().intValue())}), new Boolean(true));
 
@@ -233,17 +233,17 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         systems.add(server2.getId());
         systems.add(server3.getId());
         handler.addOrRemoveSystems(regularKey, group.getName(), systems, new Boolean(true));
-        
-        
+
+
         List actual = handler.listSystems(unprivKey, group.getName());
         assertTrue(actual.contains(server1));
-        
-        handler.addOrRemoveSystems(regularKey, group.getName(), systems, 
+
+        handler.addOrRemoveSystems(regularKey, group.getName(), systems,
                 new Boolean(false));
-        
-        actual = handler.listSystems(regularKey, group.getName());        
+
+        actual = handler.listSystems(regularKey, group.getName());
         assertFalse(actual.contains(server1));
-    }    
+    }
 
     public void testRemoveNonExistentServer() throws Exception {
         ServerGroup group = handler.create(adminKey, NAME, DESCRIPTION);
@@ -251,7 +251,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         Server server1 = ServerFactoryTest.createTestServer(admin, true);
         systems.add(server1.getId());
         try {
-            handler.addOrRemoveSystems(adminKey, group.getName(), systems, 
+            handler.addOrRemoveSystems(adminKey, group.getName(), systems,
                     new Boolean(false));
             fail();
         }
@@ -259,30 +259,30 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
             // expected
         }
     }
-    
+
     public void testListAllGroups() throws Exception {
         int preSize = handler.listAllGroups(adminKey).size();
-        
+
         ManagedServerGroup group = ServerGroupTestUtils.createManaged(admin);
         List groups = handler.listAllGroups(adminKey);
         assertTrue(groups.contains(group));
         assertEquals(1, groups.size() - preSize);
     }
-    
+
     public void testGetDetailsById() throws Exception {
         ManagedServerGroup group = ServerGroupTestUtils.createManaged(admin);
-        ServerGroup sg = handler.getDetails(adminKey, 
+        ServerGroup sg = handler.getDetails(adminKey,
                 new Integer(group.getId().intValue()));
         assertEquals(sg, group);
     }
-    
+
     public void testGetDetailsByName() throws Exception {
         ManagedServerGroup group = ServerGroupTestUtils.createManaged(admin);
         ServerGroup sg = handler.getDetails(adminKey, group.getName());
         assertEquals(sg, group);
-        
+
     }
-    
+
     public void testGetDetailsByUnknownId() throws Exception {
         boolean exceptCaught = false;
         int badValue = -80;
@@ -294,7 +294,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         }
         assertTrue(exceptCaught);
     }
-    
+
     public void testGetDetailsByUnknownName() throws Exception {
         boolean exceptCaught = false;
         String badName = new String("intentionalBadName123456789");
@@ -306,19 +306,19 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         }
         assertTrue(exceptCaught);
     }
-    
-    
+
+
     public void testListInactiveServersInGroup() throws Exception {
         ManagedServerGroup group = ServerGroupTestUtils.createManaged(admin);
         Server server = ServerTestUtils.createTestSystem(admin);
         Server server2 = ServerTestUtils.createTestSystem(admin);
-        
+
         List  test = new ArrayList();
         test.add(server);
         test.add(server2);
         ServerGroupManager.getInstance().addServers(group, test, admin);
-       
-        
+
+
         Calendar cal = Calendar.getInstance();
         cal.add(cal.HOUR, -442);
         server.getServerInfo().setCheckin(cal.getTime());
@@ -329,30 +329,30 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, list.size());
         assertEquals(server.getId().toString(), list.get(0).toString());
     }
-    
+
     public void testListActiveServersInGroup() throws Exception {
         ManagedServerGroup group = ServerGroupTestUtils.createManaged(admin);
         Server server = ServerTestUtils.createTestSystem(admin);
         Server server2 = ServerTestUtils.createTestSystem(admin);
-        
+
         List  test = new ArrayList();
         test.add(server);
         test.add(server2);
-        
+
         Calendar cal = Calendar.getInstance();
         cal.add(cal.HOUR, -442);
         server2.getServerInfo().setCheckin(cal.getTime());
-        
+
         ServerGroupManager.getInstance().addServers(group, test, admin);
-       
+
         TestUtils.saveAndFlush(server);
         TestUtils.saveAndFlush(group);
-              
+
         List list = handler.listActiveSystemsInGroup(adminKey, group.getName());
-        
+
         assertEquals(1, list.size());
         assertEquals(server.getId().toString(), list.get(0).toString());
     }
-    
-    
+
+
 }

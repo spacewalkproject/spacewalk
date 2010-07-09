@@ -28,7 +28,7 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ChannelFamilyTest extends BaseTestCaseWithUser {
-    
+
     public void testChannelFamily() throws Exception {
 
         ChannelFamily cfam = ChannelFamilyFactory.
@@ -45,14 +45,14 @@ public class ChannelFamilyTest extends BaseTestCaseWithUser {
         assertEquals(cfam, cfam2);
 
         ChannelFamily cfam3 = ChannelFamilyFactory.lookupById(cfam.getId());
-        
+
         assertEquals(cfam.getId(), cfam3.getId());
         assertEquals(cfam.getLabel(), cfam3.getLabel());
         assertEquals(cfam.getName(), cfam3.getName());
         assertEquals(cfam.getProductUrl(), cfam3.getProductUrl());
         assertEquals(cfam.getOrg(), cfam3.getOrg());
     }
-    
+
     public void testVirtSubType() throws Exception {
         ChannelFamily cfam = ChannelFamilyFactory.
                                 lookupOrCreatePrivateFamily(user.getOrg());

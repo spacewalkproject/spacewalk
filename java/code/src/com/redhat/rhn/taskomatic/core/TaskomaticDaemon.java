@@ -32,19 +32,19 @@ import redstone.xmlrpc.XmlRpcClient;
 
 /**
  * Implementation of the Taskomatic schedule task execution system.
- * This class serves merely as an interface between the native daemon 
- * library and the actual scheduler setup and running logic implemented 
+ * This class serves merely as an interface between the native daemon
+ * library and the actual scheduler setup and running logic implemented
  * in SchedulerKernel.
  * @version $Rev$
  * @see SchedulerKernel
  */
 public class TaskomaticDaemon  extends BaseDaemon {
-    
+
     public static final int ERR_SCHED_CREATE = -5;
-     
+
     private Map masterOptionsMap = new HashMap();
     private SchedulerKernel kernel;
-    
+
     /**
      * Main entry point for the native daemon
      * @param argv "Command-line" parameters
@@ -53,35 +53,35 @@ public class TaskomaticDaemon  extends BaseDaemon {
         TaskomaticDaemon daemon = new TaskomaticDaemon();
         daemon.registerImplementation(argv);
     }
-   
+
     protected Options buildOptionsList() {
         Options accum = new Options();
-        createOption(accum, TaskomaticConstants.CLI_DEBUG, 
+        createOption(accum, TaskomaticConstants.CLI_DEBUG,
                 false, null, "turn on debug mode");
-        createOption(accum, TaskomaticConstants.CLI_DAEMON, 
+        createOption(accum, TaskomaticConstants.CLI_DAEMON,
                 false, null, "turn on daemon mode");
-        createOption(accum, TaskomaticConstants.CLI_SINGLE, 
+        createOption(accum, TaskomaticConstants.CLI_SINGLE,
                 false, null, "run a single task and exit");
-        createOption(accum, TaskomaticConstants.CLI_HELP, 
+        createOption(accum, TaskomaticConstants.CLI_HELP,
                 false, null, "prints out help screen");
-        createOption(accum, TaskomaticConstants.CLI_PIDFILE, 
+        createOption(accum, TaskomaticConstants.CLI_PIDFILE,
                 true, "<pidfile>", "use PID file <pidfile>");
         createOption(accum, TaskomaticConstants.CLI_TASK,
                 true, "taskname", "run this task (may be specified multiple times)");
-        createOption(accum, TaskomaticConstants.CLI_DBURL, 
+        createOption(accum, TaskomaticConstants.CLI_DBURL,
                 true, "url", "jdbcurl");
-        createOption(accum, TaskomaticConstants.CLI_DBUSER, 
+        createOption(accum, TaskomaticConstants.CLI_DBUSER,
                 true, "username", "database username");
-        createOption(accum, TaskomaticConstants.CLI_DBPASSWORD, 
+        createOption(accum, TaskomaticConstants.CLI_DBPASSWORD,
                 true, "password", "database password");
-        return accum;        
+        return accum;
     }
 
     protected int onStartup(CommandLine commandLine) {
         Logger log = Logger.getLogger(this.getClass());
         Map overrides = null;
         int retval = BaseDaemon.SUCCESS;
-        
+
         //since the cobbler sync tasks rely on tomcat to be up
         //   let sleep until it is up
         while (!isTomcatUp()) {
@@ -106,7 +106,7 @@ public class TaskomaticDaemon  extends BaseDaemon {
                     }
                     catch (TaskomaticException e) {
                         logMessage(BaseDaemon.LOG_FATAL, e.getMessage(), e);
-                        
+
                     }
                 }
             };
@@ -124,34 +124,34 @@ public class TaskomaticDaemon  extends BaseDaemon {
         // TODO Auto-generated method stub
         return 0;
     }
-    
+
     private Map parseOverrides(CommandLine commandLine) {
         Map configOverrides = new HashMap();
         // Loop thru all possible options and let's see what we get
         for (Iterator iter = this.masterOptionsMap.keySet().iterator(); iter.hasNext();) {
-            
+
             String optionName = (String) iter.next();
-            
+
             if (commandLine.hasOption(optionName)) {
-                
-                // All of these options are single-value options so they're 
+
+                // All of these options are single-value options so they're
                 // grouped together here
-                if (optionName.equals(TaskomaticConstants.CLI_PIDFILE) || 
+                if (optionName.equals(TaskomaticConstants.CLI_PIDFILE) ||
                         optionName.equals(TaskomaticConstants.CLI_DBURL) ||
                         optionName.equals(TaskomaticConstants.CLI_DBUSER) ||
                         optionName.equals(TaskomaticConstants.CLI_DBPASSWORD)) {
-                    configOverrides.put(optionName, 
+                    configOverrides.put(optionName,
                             commandLine.getOptionValue(optionName));
                 }
-                
-                // The presence of these options toggle them on, hence the use of 
+
+                // The presence of these options toggle them on, hence the use of
                 // Boolean.TRUE
-                else if (optionName.equals(TaskomaticConstants.CLI_DEBUG) || 
+                else if (optionName.equals(TaskomaticConstants.CLI_DEBUG) ||
                         optionName.equals(TaskomaticConstants.CLI_DAEMON) ||
                         optionName.equals(TaskomaticConstants.CLI_SINGLE)) {
                     configOverrides.put(optionName, Boolean.TRUE);
                 }
-                
+
                 // Possibly multi-value list of task implementations to schedule
                 else if (optionName.equals(TaskomaticConstants.CLI_TASK)) {
                     String[] taskImpls = commandLine.getOptionValues(optionName);
@@ -163,7 +163,7 @@ public class TaskomaticDaemon  extends BaseDaemon {
         }
         return configOverrides;
     }
-    
+
     private void createOption(Options accum, String longopt, boolean arg,
             String argName, String description) {
         OptionBuilder.withArgName(argName);
@@ -175,8 +175,8 @@ public class TaskomaticDaemon  extends BaseDaemon {
         if (this.masterOptionsMap.get(longopt) == null) {
             this.masterOptionsMap.put(longopt, option);
         }
-    }        
-    
+    }
+
     private boolean isTomcatUp() {
         boolean toRet = false;
         try {

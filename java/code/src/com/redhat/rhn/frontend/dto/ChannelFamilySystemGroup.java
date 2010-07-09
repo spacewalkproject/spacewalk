@@ -48,7 +48,7 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
         if (available > 1) {
             key = key + "_1";
         }
-        
+
         return ls.getMessage(key, currentMembers, available);
     }
 
@@ -58,7 +58,7 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
     public void setCurrentMembers(Long currentMembersIn) {
         currentMembers = currentMembersIn;
     }
-    
+
     /**
      * @param maxMembersIn The maxMembers to set.
      */
@@ -72,7 +72,7 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
     public Long getId() {
         return id;
     }
-    
+
     /**
      * adds a system to the grouping
      * @param sys a System overview object
@@ -82,7 +82,7 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
         sys.setGroup(this);
     }
 
-    
+
     /**
      * @return Returns the name.
      */
@@ -90,7 +90,7 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
         return name;
     }
 
-    
+
     /**
      * @param nameIn The name to set.
      */
@@ -98,7 +98,7 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
         name = nameIn;
     }
 
-    
+
     /**
      * @param idIn The id to set.
      */
@@ -107,7 +107,7 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public List<ChannelFamilySystem> expand() {

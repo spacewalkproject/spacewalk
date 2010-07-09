@@ -48,41 +48,41 @@ public class CreateUserCommand {
     private Address addr;
     private boolean makeOrgAdmin;
     private boolean makeSatAdmin;
-    
+
     private List<ValidatorError> errors;
     private List<ValidatorError> passwordErrors;
 
     /*
      * Why we need passwordErrors.
-     * The setPassword method on UserImpl encrypts passwords (If configured to do so). 
-     * If we don't validate the password before we set it, we will only ever be able 
+     * The setPassword method on UserImpl encrypts passwords (If configured to do so).
+     * If we don't validate the password before we set it, we will only ever be able
      * to get to the encrypted password back which will always be valid.
      */
-    
+
     /**
      * Constructor... creates an empty user object
      */
     public CreateUserCommand() {
         user = UserFactory.createUser();
     }
-    
+
     /**
      * Validates the user object. Checks login and email attributes.
      * @return an Object array of ValidatorErrors.
      */
     public ValidatorError[] validate() {
         errors = new ArrayList(); //clear validation errors
-        
+
         if (passwordErrors != null) {
             errors.addAll(passwordErrors); //add any password validation errors
         }
         validateEmail();
         validateLogin();
         validatePrefix();
-        
+
         return (ValidatorError[]) errors.toArray(new ValidatorError[0]);
     }
-    
+
     /**
      * Publishes a new user event to the message queue
      * @param accountCreator The person whom created the user
@@ -92,9 +92,9 @@ public class CreateUserCommand {
      * seperate from the user because the password associated with the User object
      * might be encrypted, thus useless for this method
      */
-    public void publishNewUserEvent(User accountCreator, 
-                                    List admins, 
-                                    String domain, 
+    public void publishNewUserEvent(User accountCreator,
+                                    List admins,
+                                    String domain,
                                     String password) {
         NewUserEvent userevt = new NewUserEvent();
         userevt.setAccountCreator(accountCreator);
@@ -110,18 +110,18 @@ public class CreateUserCommand {
      */
     public void storeNewUser() {
         /*
-         * Ok, this is a bloody ugly hack, but since the pl/sql used by 
+         * Ok, this is a bloody ugly hack, but since the pl/sql used by
          * UserFactory.saveNewUser() is shared and the use pam authentication seems to be
-         * the only thing affected by it, we are going to work around it here. 
-         * 
+         * the only thing affected by it, we are going to work around it here.
+         *
          * The Create_New_User function in the db creates an entry in rhnUserInfo with the
-         * default values. This means that anything stored in User.personalInfo gets 
-         * reset. We need to be able to update the use_pam_authentication column in this 
+         * default values. This means that anything stored in User.personalInfo gets
+         * reset. We need to be able to update the use_pam_authentication column in this
          * table, so save the value, save the user, then set the attribute back to what it
-         * was before we called UserManager.createUser(). This will ensure that what was 
-         * selected on the form is what gets stored with the user (since hibernate will 
+         * was before we called UserManager.createUser(). This will ensure that what was
+         * selected on the form is what gets stored with the user (since hibernate will
          * then be taking care of the db values).
-         * 
+         *
          * We really need to a) divorce ourselves from www and oracle apps b) get rid of the
          * application/business logic stored in pl/sql functions in the db and c) clean up
          * the dirty hacks like this that are throughout our code. We shouldn't have to work
@@ -138,8 +138,8 @@ public class CreateUserCommand {
         user.setUsePamAuthentication(usePam); //set it back
         UserManager.storeUser(user); //save the user via hibernate
     }
-    
-    
+
+
     /**
      * Private helper method to validate the user's email address. Puts errors into the
      * errors list.
@@ -156,7 +156,7 @@ public class CreateUserCommand {
             errors.add(new ValidatorError("error.maxemail"));
             return;
         }
-        
+
         // Make sure set email is valid
         try {
             new InternetAddress(user.getEmail()).validate();
@@ -165,7 +165,7 @@ public class CreateUserCommand {
             errors.add(new ValidatorError("error.addr_invalid", user.getEmail()));
         }
     }
-    
+
     /**
      * Private helper method to validate the user's login. Puts errors into the errors List.
      */
@@ -181,14 +181,14 @@ public class CreateUserCommand {
          * Since login.getBytes().length >= login.length(), just check for min length
          */
         if (login.length() < UserDefaults.get().getMinUserLength()) {
-            errors.add(new ValidatorError("error.minlogin", 
+            errors.add(new ValidatorError("error.minlogin",
                                     UserDefaults.get().getMinUserLength()));
             return;
         }
         /*
          * Check for login maximum length
-         * Since we are allowing utf8 input, but not supporting it in the db, we need to 
-         * check the length of the bytes here as well. 
+         * Since we are allowing utf8 input, but not supporting it in the db, we need to
+         * check the length of the bytes here as well.
          * TODO: Do better error checking here once the db and code is fully localized and
          * we are supporting it on logins
          */
@@ -196,7 +196,7 @@ public class CreateUserCommand {
             errors.add(new ValidatorError("error.maxlogin", login));
             return;
         }
-        
+
         // validate using the webui code.  I must say that RequiredConstraint
         // is a stupid place for hiding username validation.  But nevertheless
         // I will continue to propogate this crap until we want to revisit
@@ -206,19 +206,19 @@ public class CreateUserCommand {
             errors.add(new ValidatorError("errors.username", login));
             return;
         }
-        
+
         // Make sure desiredLogin isn't taken already
         try {
             UserFactory.lookupByLogin(login);
             errors.add(new ValidatorError("error.login_already_taken", login));
         }
         catch (LookupException le) {
-            // User is not taken 
-            // so we can coolly add him. 
+            // User is not taken
+            // so we can coolly add him.
         }
-        
+
     }
-    
+
     /**
      * Private helper method to validate the user's prefix. Puts errors into the
      * errors list.
@@ -241,9 +241,9 @@ public class CreateUserCommand {
      * @param passwordIn The password to check.
      */
     private void validatePassword(String passwordIn) {
-        if (passwordIn == null || passwordIn.length() < 
+        if (passwordIn == null || passwordIn.length() <
                                 UserDefaults.get().getMinPasswordLength()) {
-            passwordErrors.add(new ValidatorError("error.minpassword", 
+            passwordErrors.add(new ValidatorError("error.minpassword",
                                     UserDefaults.get().getMinPasswordLength()));
         }
 
@@ -253,34 +253,34 @@ public class CreateUserCommand {
         }
 
         else if (passwordIn.length() > UserDefaults.get().getMaxPasswordLength()) {
-            passwordErrors.add(new ValidatorError("error.maxpassword", 
+            passwordErrors.add(new ValidatorError("error.maxpassword",
                                                   user.getPassword()));
         }
     }
-    
+
     /***** User accessors *****/
-    
+
     /**
      * @param companyIn The company sent
      */
     public void setCompany(String companyIn) {
         user.setCompany(companyIn);
     }
-    
+
     /**
      * @param emailIn The email to set
      */
     public void setEmail(String emailIn) {
         user.setEmail(emailIn);
     }
-    
+
     /**
      * @param loginIn The login to set
      */
     public void setLogin(String loginIn) {
         user.setLogin(loginIn);
     }
-    
+
     /**
      * @param passwordIn The password to set
      */
@@ -289,42 +289,42 @@ public class CreateUserCommand {
         validatePassword(passwordIn);
         user.setPassword(passwordIn);
     }
-    
+
     /**
      * @param prefixIn The prefix to set
      */
     public void setPrefix(String prefixIn) {
         user.setPrefix(prefixIn);
     }
-    
+
     /**
      * @param firstNamesIn The first names to set
      */
     public void setFirstNames(String firstNamesIn) {
         user.setFirstNames(firstNamesIn);
     }
-    
+
     /**
      * @param lastNameIn The last name to set
      */
     public void setLastName(String lastNameIn) {
         user.setLastName(lastNameIn);
     }
-    
+
     /**
      * @param phoneIn The phone to set
      */
     public void setPhone(String phoneIn) {
         user.setPhone(phoneIn);
     }
-    
+
     /**
      * @param faxIn The fax to set
      */
     public void setFax(String faxIn) {
         user.setFax(faxIn);
     }
-           
+
     /**
      * @param val Should this user use pam authentication?
      */
@@ -333,13 +333,13 @@ public class CreateUserCommand {
     }
 
     /**
-     * Setter for the org object. 
+     * Setter for the org object.
      * @param orgIn the org to set
      */
     public void setOrg(Org orgIn) {
         this.org = orgIn;
     }
-    
+
     /**
      * Sets the Address object
      * @param addrIn The address to set
@@ -347,23 +347,23 @@ public class CreateUserCommand {
     public void setAddress(Address addrIn) {
         this.addr = addrIn;
     }
-    
+
     /**
      * @param val Should this user be an org admin?
      */
     public void setMakeOrgAdmin(boolean val) {
         this.makeOrgAdmin = val;
     }
-        
+
     /**
      * @return The user object
      */
     public User getUser() {
         return this.user;
     }
-    
+
     /**
-     * 
+     *
      * @param val Should this user be a sat admin?
      */
     public void setMakeSatAdmin(boolean val) {

@@ -82,7 +82,7 @@ public class ImportFileSubmitAction extends RhnSetAction {
         //keep sid around
         paramsIn.put("sid", requestIn.getParameter("sid"));
     }
-    
+
     /**
      * Validate all the written paths.  Add all of the chosen paths
      * to an RhnSet and forward to the confirm page.
@@ -98,18 +98,18 @@ public class ImportFileSubmitAction extends RhnSetAction {
                                     HttpServletRequest request,
                                     HttpServletResponse response) {
         Map params = makeParamMap(formIn, request);
-        
+
         //read the file names from the textbox and add them to the import set
         //return to the same page if there are any validation errors.
         if (readTextBox(formIn, request)) {
             return getStrutsDelegate().forwardParams(
                     mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
-        
+
         //read the selected file names from the form and add them to the import
         //set.  Find out how many we have selected
         int totalFiles = importSelected(request);
-        
+
         //go to the confirm page.
         if (totalFiles > 0) {
             return getStrutsDelegate().forwardParams(
@@ -124,7 +124,7 @@ public class ImportFileSubmitAction extends RhnSetAction {
                     mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
     }
-    
+
     /**
      * Read line by line from the text box, update the RhnSet
      * @param formIn The ActionForm we are reading from
@@ -133,13 +133,13 @@ public class ImportFileSubmitAction extends RhnSetAction {
      */
     private boolean readTextBox(ActionForm formIn, HttpServletRequest request) {
         User user = new RequestContext(request).getLoggedInUser();
-        
+
         DynaActionForm form = (DynaActionForm) formIn;
         String[] names = form.getString("contents").split("\n");
-        
+
         RhnSet importSet = RhnSetDecl.CONFIG_IMPORT_FILE_NAMES.create(user);
         ValidatorResult result = new ValidatorResult();
-        
+
         //Look at every path, validate and either add that path to the
         //import set or add error messages for that path to the request.
         for (int i = 0; i < names.length; i++) {
@@ -147,9 +147,9 @@ public class ImportFileSubmitAction extends RhnSetAction {
             if (name.equals("")) {
                 continue; //skip blank lines... would cause error.
             }
-            
+
             ValidatorResult problems = ConfigurationValidation.validatePath(name);
-            
+
             //add to the import set
             if (problems.isEmpty()) {
                 ConfigFileName path =
@@ -161,7 +161,7 @@ public class ImportFileSubmitAction extends RhnSetAction {
                 result.append(problems);
             }
         }
-        
+
         //Some of the paths had validation errors, go back to the same
         //page with a message.  The set we have been building is also moot.
         if (!result.isEmpty()) {
@@ -173,20 +173,20 @@ public class ImportFileSubmitAction extends RhnSetAction {
         RhnSetManager.store(importSet);
         return false;
     }
-    
+
     private int importSelected(HttpServletRequest request) {
         User user = new RequestContext(request).getLoggedInUser();
         //note that the set could already be populated by the text box
         RhnSet importSet = RhnSetDecl.CONFIG_IMPORT_FILE_NAMES.get(user);
         RhnSet selectedSet = updateSet(request);
-        
+
         //All we are doing is copying the values of the selected set into
         //the import set.
-        
+
         /*
          * To accomplish this task, I would like to just do the following line
          * importSet.getElements().addAll(selectedSet.getElements());
-         * 
+         *
          * However, this does not work, because RhnSetElement contains member
          * variables for the user and set label, even though the element is
          * actually just the two longs. The user and label should be for the
@@ -196,11 +196,11 @@ public class ImportFileSubmitAction extends RhnSetAction {
         while (i.hasNext()) {
             importSet.addElement(((RhnSetElement)i.next()).getElement());
         }
-        
+
         //data cleanup
         RhnSetManager.store(importSet);
         RhnSetManager.remove(selectedSet);
-        
+
         return importSet.size();
     }
 

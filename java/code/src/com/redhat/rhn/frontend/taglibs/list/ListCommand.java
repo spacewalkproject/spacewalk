@@ -26,13 +26,13 @@ public enum ListCommand {
     TBL_FOOTER ("__tbl__footer__"),
     COL_HEADER ("__col_header__"),
     ENUMERATE ("__enum__");
-    
+
     private String _cmd;
-    
+
     private ListCommand(String cmd) {
         _cmd = cmd;
     }
-    
+
     /**
      * ${@inheritDoc}
      */

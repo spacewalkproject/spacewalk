@@ -22,11 +22,11 @@
    ORDER BY op.modified DESC
   </query>
 </mode>
-   
+
 <!-- Loads SSM operation details associated with the user for operations that match the
      given status. In addition, this query will return the number of servers involved in
      each operation.
-     
+
      The values for status should be taken from the enumeration SsmOperationStatus.
      -->
 <mode name="find_operations_with_status" class="com.redhat.rhn.frontend.dto.OperationDetailsDto">
@@ -45,7 +45,7 @@
     ORDER BY op.modified DESC
    </query>
 </mode>
-   
+
 <!-- Loads the SSM operation details identified by the given user and operation ID. -->
 <mode name="find_operation_by_id" class="com.redhat.rhn.frontend.dto.OperationDetailsDto">
    <query params="user_id, op_id">
@@ -59,17 +59,17 @@
          AND op.user_id = :user_id
    </query>
 </mode>
-   
-<!-- Returns the next value in the operation sequence. --> 
+
+<!-- Returns the next value in the operation sequence. -->
 <mode name="get_seq_nextval">
    <query>
       SELECT rhn_ss_op_seq.nextval
         FROM dual
    </query>
 </mode>
-   
+
 <!-- Adds a new SSM operation to be tracked, defaulting the created and modified values.
-     
+
      The values for status should be taken from the enumeration SsmOperationStatus.
      -->
 <write-mode name="create_operation">
@@ -90,24 +90,24 @@
 
 <!-- adds sids for which servers we want to work on -->
 <write-mode name="map_sids_to_operation">
-   <query params="op_id, user_id"> 
+   <query params="op_id, user_id">
       INSERT  INTO   rhnSsmOperationServer( operation_id, server_id)
              (
              select :op_id, S.id
-             from rhnServer S inner join rhnUserServerPerms USP on S.id = USP.server_id 
-             where S.id in (%s) 
+             from rhnServer S inner join rhnUserServerPerms USP on S.id = USP.server_id
+             where S.id in (%s)
              	   AND user_id = :user_id
-             	   and S.id not in 
+		   and S.id not in
              	   (
                     SELECT sos.server_id
                       FROM rhnSsmOperationServer sos
                      WHERE sos.operation_id = :op_id
-                       AND sos.server_id = s.id             	   
-             	   ) 
+                       AND sos.server_id = s.id
+		   )
              )
-   </query> 
+   </query>
 </write-mode>
-   
+
 <!-- Updates the status of the given operation.
 
      The values for status should be taken from the enumeration SsmOperationStatus.
@@ -121,11 +121,11 @@
          AND user_id = :user_id
    </query>
 </write-mode>
-   
+
 <!-- Creates a mapping between an operation (rhnSsmOperation) and the servers on which
      the operation is performed (rhnServer). This query will take the server IDs from
      an RhnSet and will check to ensure the mapping doesn't already exist.
-     
+
      This call assumes the server IDs are stored in the set's "element" field.
      -->
 <write-mode name="map_servers_to_operation">
@@ -146,7 +146,7 @@
              )
    </query>
 </write-mode>
-   
+
 <!-- Returns a list of all servers involved in the operation identified by the given ID. -->
 <mode name="find_server_data_for_operation_id">
    <query params="op_id">
@@ -157,5 +157,5 @@
          AND s.id = sos.server_id
    </query>
 </mode>
-   
+
 </datasource_modes>

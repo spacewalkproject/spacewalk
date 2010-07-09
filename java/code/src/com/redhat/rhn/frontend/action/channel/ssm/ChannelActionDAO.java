@@ -22,17 +22,17 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ChannelActionDAO {
-    
+
     public static final Long SUBSCRIBE = 1L;
     public static final Long UNSUBSCRIBE = 2L;
     private String name;
     private Long id;
     private Set<Long> subsAllowed = new HashSet<Long>();
     private Set<Long> unsubsAllowed = new HashSet<Long>();
-    
+
     private Set<String> subNamesAllowed =  new HashSet<String>();
     private Set<String> unsubNamesAllowed = new HashSet<String>();
-    
+
     /**
      * What Server are we going to act on?
      * @return the affected server
@@ -40,7 +40,7 @@ public class ChannelActionDAO {
     public Long getId() {
         return id;
     }
-    
+
     /**
      * Set which Server we're affecting
      * @param serverIn to set.
@@ -64,15 +64,15 @@ public class ChannelActionDAO {
     public String getName() {
         return name;
     }
-    
-    /** 
+
+    /**
      * What channels are we trying to subscribe this system to?
      * @return list of channels to subscribe to
      */
     public Set<Long> getSubscribeChannelIds() {
         return subsAllowed;
     }
-    
+
 
     /**
      * Add a channel name to subscribe (for display purposes only)
@@ -81,7 +81,7 @@ public class ChannelActionDAO {
     public void addSubscribeName(String nameIn) {
         subNamesAllowed.add(nameIn);
     }
-    
+
     /**
      * get the list of channel names to subscribe
      * @return the list
@@ -97,7 +97,7 @@ public class ChannelActionDAO {
     public void addUnsubcribeName(String nameIn) {
         unsubNamesAllowed.add(nameIn);
     }
-    
+
     /**
      * get the names of the channels for unsubscribing
      * @return the list of names
@@ -113,8 +113,8 @@ public class ChannelActionDAO {
     public void addSubscribeChannelId(Long cid) {
         this.subsAllowed.add(cid);
     }
-    
-    
+
+
     /**
      * What channels are we trying to unsubscribe this system from?
      * @return list of channels to unsubscribe
@@ -122,7 +122,7 @@ public class ChannelActionDAO {
     public Set<Long> getUnsubscribeChannelIds() {
         return unsubsAllowed;
     }
-    
+
     /**
      * Add an unsubscribe channel
      * @param cid the channel id
@@ -130,7 +130,7 @@ public class ChannelActionDAO {
     public void addUnsubscribeChannelId(Long cid) {
         this.unsubsAllowed.add(cid);
     }
-    
+
     /**
      * Are there any unsubscribe or subscribe channels
      * @return if empty true

@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 
 /**
  * <p>
- *  The <code>Constraint</code> class represents a single data constraint, 
+ *  The <code>Constraint</code> class represents a single data constraint,
  *    including the data type, allowed values, and required ranges.
  * </p>
  * @version $Rev: 94458 $
@@ -32,48 +32,48 @@ import java.util.regex.Pattern;
 public class StringConstraint extends RequiredIfConstraint {
 
     protected static Logger log = Logger.getLogger(StringConstraint.class);
-    
+
     /** Min length of the string */
     protected Double minLength;
-    
+
     /** Max length of the String */
     protected Double maxLength;
-    
+
     /** String must match this regular expression **/
     protected String regEx;
-    
+
     /**
      * <p>
      *  This will create a new <code>Constraints</code> with the specified
      *    identifier as the "name".
      * </p>
-     * 
+     *
      * @param identifierIn <code>String</code> identifier for <code>Constraint</code>.
      */
     public StringConstraint(String identifierIn) {
         super(identifierIn);
     }
-    
+
     private boolean lengthLessThan(String str, Number length) {
         try {
-            return str.getBytes("UTF8").length <= length.intValue();    
+            return str.getBytes("UTF8").length <= length.intValue();
         }
         catch (UnsupportedEncodingException use) {
             log.warn("Couldn;t convert to UTF8-> [" + str + "]");
-            return str.length() < length.intValue();    
+            return str.length() < length.intValue();
         }
     }
-    
+
     private boolean lengthGreaterThan(String str, Number length) {
         try {
-            return str.getBytes("UTF8").length >= length.intValue();    
+            return str.getBytes("UTF8").length >= length.intValue();
         }
         catch (UnsupportedEncodingException use) {
             log.warn("Couldn;t convert to UTF8-> [" + str + "]");
-            return str.length() >= length.intValue();    
+            return str.length() >= length.intValue();
         }
-    }    
-    
+    }
+
     /** {@inheritDoc} */
     public ValidatorError checkConstraint(Object value) {
 
@@ -82,17 +82,17 @@ public class StringConstraint extends RequiredIfConstraint {
             return requiredCheck;
         }
         String strValue = (String) value;
-        String localizedIdentifier = 
+        String localizedIdentifier =
                 LocalizationService.getInstance().getMessage(getIdentifier());
 
         // Validate String length
         if (hasMaxLength()) {
             log.debug("HasMaxlength ..");
             if (!(lengthLessThan(strValue, getMaxLength()))) {
-                log.debug("Above max length: " + strValue.length() + " data: " + strValue + 
+                log.debug("Above max length: " + strValue.length() + " data: " + strValue +
                         "max length: " + getMaxLength());
                 Object[] args = new Object[2];
-                args[0] = localizedIdentifier;                
+                args[0] = localizedIdentifier;
                 args[1] = getMaxLength();
                 return new ValidatorError("errors.maxlength", args);
             }
@@ -113,25 +113,25 @@ public class StringConstraint extends RequiredIfConstraint {
                 return new ValidatorError("errors.minlength", args);
             }
         }
-        
+
         if (hasRegEx()) {
             Pattern pattern = Pattern.compile(regEx);
             Matcher matcher = pattern.matcher(strValue);
-            
+
             if (!matcher.matches()) {
                 log.debug("Does not match pattern " + regEx + " data: " + strValue);
-                
+
                 return new ValidatorError("errors.invalid", localizedIdentifier);
             }
         }
-        
+
         return null;
     }
 
 
     /**
      * Set the max length of the Constraint
-     * 
+     *
      * @param maxLengthIn The maxLength to set.
      */
     public void setMaxLength(Double maxLengthIn) {
@@ -161,7 +161,7 @@ public class StringConstraint extends RequiredIfConstraint {
 
     /**
      * Set the minimum length of the Constraint
-     * 
+     *
      * @param minLengthIn The minLength to set.
      */
     public void setMinLength(Double minLengthIn) {
@@ -187,16 +187,16 @@ public class StringConstraint extends RequiredIfConstraint {
     public boolean hasMinLength() {
         return minLength != null;
     }
-    
-    /** 
-     * Sets the regular expression for the Constraint. Must be a String 
+
+    /**
+     * Sets the regular expression for the Constraint. Must be a String
      * containing a valid Java  egular expression pattern
      * @param regExIn Java Reg Ex to validate the field against
      */
     public void setRegEx(String regExIn) {
         regEx = regExIn;
     }
-    
+
     /**
      * Returns the regular expression
      * @return regular expression to validate against
@@ -204,7 +204,7 @@ public class StringConstraint extends RequiredIfConstraint {
     public String getRegEx() {
         return regEx;
     }
-    
+
     /**
      * @return True if a reg ex has been set, false otherwise
      */

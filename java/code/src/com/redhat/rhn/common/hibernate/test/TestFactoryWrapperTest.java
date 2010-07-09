@@ -49,16 +49,16 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
         TestInterface obj = TestFactory.lookupByFoobar("NOTFOUND");
         assertNull(obj);
     }
-    
+
     // This is a trivial test, but it proves that we can create a simple
     // SQL query automatically from the table definition.
     public void testLookup() throws Exception {
         TestInterface obj = TestFactory.lookupByFoobar("Blarg");
-        assertEquals("Blarg", obj.getFoobar()); 
+        assertEquals("Blarg", obj.getFoobar());
         // 1 is a magic number, this is basically checking that the id is set
         // correctly.  We know this will be 1, because we create the sequence
         // to start at 0, and Blarg is the first value inserted.
-        assertTrue(obj.getId().longValue() == 1); 
+        assertTrue(obj.getId().longValue() == 1);
     }
 
      public void testNullIntoPrimitive() throws Exception {
@@ -77,8 +77,8 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
         TestFactory.save(obj);
         assertTrue(obj.getId().longValue() != 0L);
         TestFactory.lookupByFoobar("testNewInsert");
-        assertEquals("testNewInsert", obj.getFoobar()); 
-        assertTrue(obj.getId().longValue() != 0); 
+        assertEquals("testNewInsert", obj.getFoobar());
+        assertTrue(obj.getId().longValue() != 0);
     }
 
 
@@ -89,14 +89,14 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
         obj.setPin(new Integer(12345));
         TestFactory.save(obj);
         TestInterface result = TestFactory.lookupByFoobar("update_Multi_test");
-        assertEquals("update_Multi_test", result.getFoobar()); 
+        assertEquals("update_Multi_test", result.getFoobar());
 
         result.setFoobar("After_multi_change");
         result.setPin(new Integer(54321));
         TestFactory.save(result);
         TestInterface updated = TestFactory.lookupByFoobar("After_multi_change");
-        assertEquals("After_multi_change", updated.getFoobar()); 
-        assertEquals(54321, updated.getPin().intValue()); 
+        assertEquals("After_multi_change", updated.getFoobar());
+        assertEquals(54321, updated.getPin().intValue());
     }
 
     public void testUpdateAfterCommit() throws Exception {
@@ -112,14 +112,14 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
         List allTests = TestFactory.lookupAll();
         assertTrue(allTests.size() > 0);
     }
-    
+
     public void testUpdateToNullValue() throws Exception {
         TestInterface obj = TestFactory.createTest();
         obj.setFoobar("update_test3");
         obj.setTestColumn("AAA");
         TestFactory.save(obj);
         TestInterface result = TestFactory.lookupByFoobar("update_test3");
-        assertEquals("update_test3", result.getFoobar()); 
+        assertEquals("update_test3", result.getFoobar());
 
         result.setFoobar("After_change3");
         // This is the critical part where we set a value
@@ -127,22 +127,22 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
         result.setTestColumn(null);
         TestFactory.save(result);
         result = TestFactory.lookupByFoobar("After_change3");
-        assertTrue(result.getTestColumn() == null); 
+        assertTrue(result.getTestColumn() == null);
     }
 
     public void testLotsOfTransactions() throws Exception {
-    
+
         for (int i = 0; i < 20; i++) {
             SelectMode m = ModeFactory.getMode("test_queries", "date_dto_test");
             m.execute(new HashMap());
             HibernateFactory.commitTransaction();
             HibernateFactory.closeSession();
         }
-        
+
     }
-    
-    
-    public static Test suite() 
+
+
+    public static Test suite()
         throws Exception {
         TestSuite suite = new TestSuite(TestFactoryWrapperTest.class);
         TestSetup wrapper = new TestSetup(suite) {
@@ -170,7 +170,7 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
         }
         catch (SQLException e) {
             // let's clean up anything that MAY have been left
-            // over 
+            // over
             forceQuery(c, "drop sequence persist_sequence");
             forceQuery(c, "drop table persist_test");
             // Couldn't select 1, so the table didn't exist, create it
@@ -180,7 +180,7 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
                     "  foobar VarChar2(32)," +
                     "  test_column VarChar2(5)," +
                     "  pin    number, " +
-                    "  hidden VarChar(32), " + 
+                    "  hidden VarChar(32), " +
                     "  id     number" +
                     "         constraint persist_test_pk primary key," +
                     "  created date" +
@@ -194,7 +194,7 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
                     "values ('duplicate', persist_sequence.nextval)");
             stmt.execute("insert into persist_test (foobar, hidden, id) " +
                     "values ('duplicate', 'xxxxx', persist_sequence.nextval)");
-                    
+
             c.commit();
         }
         finally {
@@ -203,10 +203,10 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
     }
 
     protected static void oneTimeTeardown() throws Exception {
-           
+
         Connection c = null;
         Statement stmt = null;
-        Session session = null;        
+        Session session = null;
         try {
             session = HibernateFactory.getSession();
             c = session.connection();

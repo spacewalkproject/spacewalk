@@ -41,11 +41,11 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class PackageIndexAction extends LookupDispatchAction {
-    
+
     private StrutsDelegate getStrutsDelegate() {
         return StrutsDelegate.getInstance();
     }
-    
+
     /**
      * Schedule a package profile refresh
      * @param mapping ActionMapping
@@ -58,21 +58,21 @@ public class PackageIndexAction extends LookupDispatchAction {
                                 ActionForm formIn,
                                 HttpServletRequest request,
                                 HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         Long sid = requestContext.getRequiredParam("sid");
         Server server = SystemManager.lookupByIdAndUser(sid, user);
-        
+
         PackageAction pa = ActionManager.schedulePackageRefresh(user, server);
-        
+
         ActionMessages msg = new ActionMessages();
         Object[] args = new Object[3];
         args[0] = pa.getId().toString();
         args[1] = sid.toString();
         args[2] = server.getName();
-        
+
         msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("message.packagerefresh", args));
         getStrutsDelegate().saveMessages(request, msg);
@@ -80,7 +80,7 @@ public class PackageIndexAction extends LookupDispatchAction {
         request.setAttribute("system", server);
         return mapping.findForward("default");
     }
-    
+
     /**
      * Default action to execute if dispatch parameter is missing
      * or isn't in map
@@ -94,16 +94,16 @@ public class PackageIndexAction extends LookupDispatchAction {
                                      ActionForm formIn,
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         Long sid = requestContext.getRequiredParam("sid");
         SdcHelper.ssmCheck(request, sid, user);
         request.setAttribute("system", SystemManager.lookupByIdAndUser(sid, user));
         return mapping.findForward("default");
     }
-    
+
     protected Map getKeyMethodMap() {
         Map params = new HashMap();
         params.put("packagesindex.jsp.update", "update");

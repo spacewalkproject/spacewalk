@@ -37,7 +37,7 @@ import java.util.Set;
 public abstract class Probe implements Identifiable, Comparable {
 
     private Long id;
-    
+
     private String description;
     private Boolean notifyCritical;
     private Boolean notifyWarning;
@@ -49,210 +49,210 @@ public abstract class Probe implements Identifiable, Comparable {
     private Long maxAttempts;
     private String lastUpdateUser;
     private Date lastUpdateDate;
-    
+
     protected ProbeType type;
     private Org org;
     private Command command;
     private ProbeState state;
     private ContactGroup contactGroup;
 
-    
+
     private Set probeParameterValues;
-        
+
     protected Probe() {
-        
+
     }
-    
+
     protected Probe(ProbeType type0) {
         setType(type0);
     }
-    
-    /** 
-     * Getter for id 
+
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param recidIn to set
     */
     public void setId(Long recidIn) {
         this.id = recidIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
 
-    /** 
-     * Getter for notifyCritical 
+    /**
+     * Getter for notifyCritical
      * @return Boolean to get
     */
     public Boolean getNotifyCritical() {
         return this.notifyCritical;
     }
 
-    /** 
-     * Setter for notifyCritical 
+    /**
+     * Setter for notifyCritical
      * @param notifyCriticalIn to set
     */
     public void setNotifyCritical(Boolean notifyCriticalIn) {
         this.notifyCritical = notifyCriticalIn;
     }
 
-    /** 
-     * Getter for notifyWarning 
+    /**
+     * Getter for notifyWarning
      * @return Boolean to get
     */
     public Boolean getNotifyWarning() {
         return this.notifyWarning;
     }
 
-    /** 
-     * Setter for notifyWarning 
+    /**
+     * Setter for notifyWarning
      * @param notifyWarningIn to set
     */
     public void setNotifyWarning(Boolean notifyWarningIn) {
         this.notifyWarning = notifyWarningIn;
     }
 
-    /** 
-     * Getter for notifyUnknown 
+    /**
+     * Getter for notifyUnknown
      * @return Boolean to get
     */
     public Boolean getNotifyUnknown() {
         return this.notifyUnknown;
     }
 
-    /** 
-     * Setter for notifyUnknown 
+    /**
+     * Setter for notifyUnknown
      * @param notifyUnknownIn to set
     */
     public void setNotifyUnknown(Boolean notifyUnknownIn) {
         this.notifyUnknown = notifyUnknownIn;
     }
 
-    /** 
-     * Getter for notifyRecovery 
+    /**
+     * Getter for notifyRecovery
      * @return Boolean to get
     */
     public Boolean getNotifyRecovery() {
         return this.notifyRecovery;
     }
 
-    /** 
-     * Setter for notifyRecovery 
+    /**
+     * Setter for notifyRecovery
      * @param notifyRecoveryIn to set
     */
     public void setNotifyRecovery(Boolean notifyRecoveryIn) {
         this.notifyRecovery = notifyRecoveryIn;
     }
 
-    /** 
-     * Getter for notificationIntervalMinutes 
+    /**
+     * Getter for notificationIntervalMinutes
      * @return Long to get
     */
     public Long getNotificationIntervalMinutes() {
         return this.notificationIntervalMinutes;
     }
 
-    /** 
-     * Setter for notificationIntervalMinutes 
+    /**
+     * Setter for notificationIntervalMinutes
      * @param notificationIntervalMinutesIn to set
     */
     public void setNotificationIntervalMinutes(Long notificationIntervalMinutesIn) {
         this.notificationIntervalMinutes = notificationIntervalMinutesIn;
     }
 
-    /** 
-     * Getter for checkIntervalMinutes 
+    /**
+     * Getter for checkIntervalMinutes
      * @return Long to get
     */
     public Long getCheckIntervalMinutes() {
         return this.checkIntervalMinutes;
     }
 
-    /** 
-     * Setter for checkIntervalMinutes 
+    /**
+     * Setter for checkIntervalMinutes
      * @param checkIntervalMinutesIn to set
     */
     public void setCheckIntervalMinutes(Long checkIntervalMinutesIn) {
         this.checkIntervalMinutes = checkIntervalMinutesIn;
     }
 
-    /** 
-     * Getter for retryIntervalMinutes 
+    /**
+     * Getter for retryIntervalMinutes
      * @return Long to get
     */
     public Long getRetryIntervalMinutes() {
         return this.retryIntervalMinutes;
     }
 
-    /** 
-     * Setter for retryIntervalMinutes 
+    /**
+     * Setter for retryIntervalMinutes
      * @param retryIntervalMinutesIn to set
     */
     public void setRetryIntervalMinutes(Long retryIntervalMinutesIn) {
         this.retryIntervalMinutes = retryIntervalMinutesIn;
     }
 
-    /** 
-     * Getter for maxAttempts 
+    /**
+     * Getter for maxAttempts
      * @return Long to get
     */
     public Long getMaxAttempts() {
         return this.maxAttempts;
     }
 
-    /** 
-     * Setter for maxAttempts 
+    /**
+     * Setter for maxAttempts
      * @param maxAttemptsIn to set
     */
     public void setMaxAttempts(Long maxAttemptsIn) {
         this.maxAttempts = maxAttemptsIn;
     }
 
-    /** 
-     * Getter for lastUpdateUser 
+    /**
+     * Getter for lastUpdateUser
      * @return String to get
     */
     public String getLastUpdateUser() {
         return this.lastUpdateUser;
     }
 
-    /** 
-     * Setter for lastUpdateUser 
+    /**
+     * Setter for lastUpdateUser
      * @param lastUpdateUserIn to set
     */
     public void setLastUpdateUser(String lastUpdateUserIn) {
         this.lastUpdateUser = lastUpdateUserIn;
     }
 
-    /** 
-     * Getter for lastUpdateDate 
+    /**
+     * Getter for lastUpdateDate
      * @return Date to get
     */
     public Date getLastUpdateDate() {
         return this.lastUpdateDate;
     }
 
-    /** 
-     * Setter for lastUpdateDate 
+    /**
+     * Setter for lastUpdateDate
      * @param lastUpdateDateIn to set
     */
     public void setLastUpdateDate(Date lastUpdateDateIn) {
@@ -308,7 +308,7 @@ public abstract class Probe implements Identifiable, Comparable {
     public void setState(ProbeState stateIn) {
         this.state = stateIn;
     }
-    
+
     /**
      * @return Returns the contactGroup.
      */
@@ -321,7 +321,7 @@ public abstract class Probe implements Identifiable, Comparable {
     public void setContactGroup(ContactGroup contactGroupIn) {
         this.contactGroup = contactGroupIn;
     }
-        
+
     /**
      * Set of monitoring.command.ProbeParameterValues
      * @return Returns the probeParameterValues.
@@ -336,19 +336,19 @@ public abstract class Probe implements Identifiable, Comparable {
     public void setProbeParameterValues(Set paramValuesIn) {
         this.probeParameterValues = paramValuesIn;
     }
-    
+
     /**
      * Add a value to a CommandParameter for this probe.
      * @param value value of the param
      * @param paramIn the param you want to add the value to
      * @param userIn who is adding the value (auditing purposes)
      */
-    public void addProbeParameterValue(String value, CommandParameter paramIn, 
+    public void addProbeParameterValue(String value, CommandParameter paramIn,
             User userIn) {
         if (this.probeParameterValues == null) {
             this.probeParameterValues = new HashSet();
         }
-        
+
         ProbeParameterValue ppv = new ProbeParameterValue();
         ppv.setProbe(this);
         setParameterValue(ppv, value);
@@ -357,9 +357,9 @@ public abstract class Probe implements Identifiable, Comparable {
         ppv.setLastUpdateDate(new Date());
         ppv.setLastUpdateUser(userIn.getLogin());
         this.probeParameterValues.add(ppv);
-        
+
     }
-    
+
     /**
      * Convenience method to fetch a parameter value class for the passed in
      * CommandParameter. It is an error to pass in a command parameter that
@@ -397,13 +397,13 @@ public abstract class Probe implements Identifiable, Comparable {
         // Not found
         return null;
     }
-    
+
     /**
-     * Convenience method to set this ServerProbe's value for a 
+     * Convenience method to set this ServerProbe's value for a
      * specified CommandParameter
      * @param paramIn parameter to lookup value for
      * @param valueIn String value to set
-     * 
+     *
      */
     public void setCommandParameterValue(CommandParameter paramIn, String valueIn) {
         if (this.probeParameterValues == null) {
@@ -434,7 +434,7 @@ public abstract class Probe implements Identifiable, Comparable {
      * Copy this probe to a new ServerProbe and make sure its of
      * type CHECK
      * @param cloningUser who is cloning the ServerProbe
-     * @return newly cloned ServerProbe 
+     * @return newly cloned ServerProbe
      */
     public ServerProbe deepCopy(User cloningUser) {
         ServerProbe copied = ServerProbe.newInstance();
@@ -465,7 +465,7 @@ public abstract class Probe implements Identifiable, Comparable {
 
         return copied;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -480,7 +480,7 @@ public abstract class Probe implements Identifiable, Comparable {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public String toString() {

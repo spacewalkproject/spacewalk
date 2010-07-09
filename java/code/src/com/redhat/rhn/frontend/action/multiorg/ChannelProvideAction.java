@@ -35,19 +35,19 @@ public class ChannelProvideAction extends BaseChannelTreeAction {
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext requestContext, ListControl lc) {
-        
+
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         //grab the trusted org id passed in
         Org provideOrg = OrgFactory.lookupById(oid);
         User user = requestContext.getCurrentUser();
         Org org = requestContext.getCurrentUser().getOrg();
-        
+
         /* reverse thinking here, the providing org becomes the supply org for query
-           and the current logged in org becomes the leecher since its receiving 
+           and the current logged in org becomes the leecher since its receiving
         */
         return ChannelManager.trustChannelConsume(provideOrg, org, user, lc);
     }
-    
+
     /**
      * adds attributes to the request
      * @param requestContext the Request Context

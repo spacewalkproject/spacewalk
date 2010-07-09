@@ -28,14 +28,14 @@ public class NonLinuxEntitlement extends Entitlement {
     public NonLinuxEntitlement() {
         super(EntitlementManager.NONLINUX_ENTITLED);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean isPermanent() {
         return false;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -50,5 +50,5 @@ public class NonLinuxEntitlement extends Entitlement {
     @Override
     public boolean isSatelliteEntitlement() {
         return false;
-    }    
+    }
 }

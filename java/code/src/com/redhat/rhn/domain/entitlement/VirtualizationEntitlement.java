@@ -33,7 +33,7 @@ public class VirtualizationEntitlement extends Entitlement {
     VirtualizationEntitlement(String labelIn) {
         super(labelIn);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -55,5 +55,5 @@ public class VirtualizationEntitlement extends Entitlement {
     @Override
     public boolean isSatelliteEntitlement() {
         return true;
-    }    
+    }
 }

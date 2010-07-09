@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.kickstart.crypto.CryptoKey" 
+    <class name="com.redhat.rhn.domain.kickstart.crypto.CryptoKey"
         table="rhnCryptoKey" >
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -14,26 +14,26 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="description" column="description" not-null="true" type="string" length="1024" />
         <property name="keyBlob" column="key"  type="blob" />
 
-        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl" 
+        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
             column="org_id"/>
-        
+
         <many-to-one
             name="cryptoKeyType"
             class="com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType"
             column="crypto_key_type_id"/>
-        
+
     </class>
     <query name="CryptoKey.findByDescAndOrg">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKey as c 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKey as c
                 where c.description = :description and c.org = :org_id]]>
     </query>
     <query name="CryptoKey.findByIdAndOrg">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKey as c 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKey as c
                 where c.id = :key_id and c.org = :org_id]]>
     </query>
     <query name="CryptoKey.findByOrg">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKey as c 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKey as c
                 where c.org = :org_id]]>
-    </query>    
-    
+    </query>
+
 </hibernate-mapping>

@@ -37,7 +37,7 @@ function showFiltered() {
 			<bean:message key="channels.popular.jsp.label1" />
 			<select name="server_count" >
 		         <c:forEach var="parameter" items="${counts}">
-					<option value="<c:out value='${parameter.count}' />"  
+					<option value="<c:out value='${parameter.count}' />"
 						<c:if test="${parameter.selected}">
 							selected
 						</c:if>

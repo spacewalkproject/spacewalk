@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.action.rhnpackage.PackageActionDetails" 
+    <class name="com.redhat.rhn.domain.action.rhnpackage.PackageActionDetails"
         table="rhnActionPackage" >
 		<id name="packageId" type="long" column="id">
 			<meta attribute="scope-set">protected</meta>
@@ -13,34 +13,34 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		</id>
 
         <property name="parameter" type="string" column="parameter"/>
-        
+
   		<many-to-one
             name="evr"
             class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
             column="evr_id"
             cascade="save-update"/>
-   
+
 		<many-to-one
         	name="packageName"
             class="com.redhat.rhn.domain.rhnpackage.PackageName"
             column="name_id"
             cascade="all"/>
-                
+
         <many-to-one
             name="arch"
             class="com.redhat.rhn.domain.rhnpackage.PackageArch"
-            column="package_arch_id"/> 
-   
-   		<many-to-one 
-            name="parentAction" 
-	    	column="action_id" 
-		    class="com.redhat.rhn.domain.action.rhnpackage.PackageAction" 
+            column="package_arch_id"/>
+
+		<many-to-one
+            name="parentAction"
+		column="action_id"
+		    class="com.redhat.rhn.domain.action.rhnpackage.PackageAction"
 			not-null="true"/>
-            
+
         <set name="results" inverse="true" cascade="save-update">
             <key column="action_package_id"/>
             <one-to-many class="com.redhat.rhn.domain.action.rhnpackage.PackageActionResult"/>
         </set>
-   
+
     </class>
 </hibernate-mapping>

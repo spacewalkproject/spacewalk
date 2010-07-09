@@ -24,7 +24,7 @@
    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 <div class="page-summary" style="padding-top: 10px;">
 <p>
-<bean:message key="org.trust.affectedsystems.summary" 
+<bean:message key="org.trust.affectedsystems.summary"
                         arg0="${orgA.name}"
                         arg1="${orgB.name}" />
 </p>

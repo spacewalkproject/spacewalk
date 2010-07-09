@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.action.kickstart.KickstartActionDetails" 
+    <class name="com.redhat.rhn.domain.action.kickstart.KickstartActionDetails"
         table="rhnActionKickstart" >
 
 		<id name="id" type="long" column="id">
@@ -17,8 +17,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="staticDevice" type="string" column="static_device"/>
         <property name="cobblerSystemName" type="string" column="cobbler_system_name"/>
 
-		<many-to-one name="parentAction" column="action_id" 
-			class="com.redhat.rhn.domain.action.Action" outer-join="true" 
+		<many-to-one name="parentAction" column="action_id"
+			class="com.redhat.rhn.domain.action.Action" outer-join="true"
 			not-null="true" insert="true" update="false" />
 
         <set name="fileLists" table="RHNACTIONKICKSTARTFILELIST" lazy="true">
@@ -26,6 +26,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <many-to-many column="file_list_id"
                 class="com.redhat.rhn.domain.common.FileList" />
         </set>
-  
+
     </class>
 </hibernate-mapping>

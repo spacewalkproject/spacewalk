@@ -3,8 +3,8 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.errata.ErrataFileType" 
-          table="rhnErrataFileType" mutable="false">    
+    <class name="com.redhat.rhn.domain.errata.ErrataFileType"
+          table="rhnErrataFileType" mutable="false">
         <cache usage="read-only"/>
         <id name="id" type="long" column="id">
            <meta attribute="scope-set">protected</meta>

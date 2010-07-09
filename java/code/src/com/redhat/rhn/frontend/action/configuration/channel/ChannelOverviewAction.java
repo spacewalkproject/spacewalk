@@ -40,19 +40,19 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public class ChannelOverviewAction extends RhnAction {
-    
+
     /** Current ChannelSummary, in request/responce */
     public static final String CHANNEL_SUMMARY = "summary";
     /** Are we editing? */
     public static final String CHANNEL_EDITING = "editing";
-    
+
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm form,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-    
+
         DynaActionForm daForm = (DynaActionForm)form;
         Map params = makeParamMap(request);
         RequestContext  context = new RequestContext(request);
@@ -60,7 +60,7 @@ public class ChannelOverviewAction extends RhnAction {
         ConfigurationManager manager = ConfigurationManager.getInstance();
         ConfigChannelCreationHelper helper = new ConfigChannelCreationHelper();
         ConfigChannel cc = findChannel(daForm, request, helper);
-        
+
         // If submitting, validate
         if (isSubmitted(daForm)) {
             try {
@@ -68,7 +68,7 @@ public class ChannelOverviewAction extends RhnAction {
                 if (cc != null) {
                     helper.update(cc, daForm);
                     helper.save(cc);
-                    setupForm(request, cc, daForm, params);                
+                    setupForm(request, cc, daForm, params);
                     return getStrutsDelegate().forwardParams(
                             mapping.findForward("success"), params);
                 }
@@ -79,11 +79,11 @@ public class ChannelOverviewAction extends RhnAction {
                 daForm.getMap().put(CHANNEL_EDITING, Boolean.TRUE);
                 RhnValidationHelper.setFailedValidation(request);
                 return getStrutsDelegate().forwardParams(
-                        mapping.findForward("error"), params);                
+                        mapping.findForward("error"), params);
             }
-            
-        }        
-        
+
+        }
+
         if (cc != null) {
             // Have a Channel and updating
             if (!isSubmitted(daForm)) {
@@ -100,27 +100,27 @@ public class ChannelOverviewAction extends RhnAction {
                             mapping.findForward("local"), params);
                 }
                 else {
-                    setupForm(request, cc, daForm, params);                
+                    setupForm(request, cc, daForm, params);
                     return getStrutsDelegate().forwardParams(
                             mapping.findForward("default"), params);
                 }
             }
         }
-        
+
         // No channel - proabably creating a new one
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
     }
 
-    
+
     /**
      * Given the incoming request, set up the ChanelOverview form with channel info
      * @param request the incoming request
      * @param cc the channel to be affected
      * @param form the form to be filled in
      */
-    protected void setupForm(HttpServletRequest request, ConfigChannel cc, 
+    protected void setupForm(HttpServletRequest request, ConfigChannel cc,
             DynaActionForm form, Map params) {
-        
+
         RequestContext ctx = new RequestContext(request);
 
         if (form != null) {
@@ -128,7 +128,7 @@ public class ChannelOverviewAction extends RhnAction {
             form.set("cofLabel", cc.getLabel());
             form.set("cofDescription", cc.getDescription());
         }
-        
+
         if (cc.getId() != null) {
             User u = ctx.getLoggedInUser();
             request.setAttribute(CHANNEL_SUMMARY, getSummary(u, cc));
@@ -148,7 +148,7 @@ public class ChannelOverviewAction extends RhnAction {
     protected ChannelSummary getSummary(User u, ConfigChannel cc) {
         return ConfigurationManager.getInstance().getChannelSummary(u, cc);
     }
-    
+
     /**
      * Find the channel specified in the request (if any).
      * If there is no channel specified but the form was submitted, then this must
@@ -157,16 +157,16 @@ public class ChannelOverviewAction extends RhnAction {
      * initial "fill in the blanks" request and can return "null" for channel.
      * @param form incoming channelOverviewForm
      * @param request incoming request
-     * @return existing channel, or a new (empty) channel on submit, or null if 
+     * @return existing channel, or a new (empty) channel on submit, or null if
      * we're asking the user for new-channel info for the first time
      */
-    protected ConfigChannel findChannel(DynaActionForm form, HttpServletRequest request, 
+    protected ConfigChannel findChannel(DynaActionForm form, HttpServletRequest request,
                                                       ConfigChannelCreationHelper helper) {
         RequestContext ctx = new RequestContext(request);
         User u = ctx.getLoggedInUser();
-        
+
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
-        
+
         // Creating a new channel?
         if (cc == null && isSubmitted(form)) {
             cc = helper.create(u);

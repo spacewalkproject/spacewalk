@@ -18,7 +18,7 @@ import java.util.Comparator;
 
 /**
  * Implements the java.util.Comparator class for sorting SystemOverview objects
- * 
+ *
  * @version $Rev$
  */
 public class SystemOverviewComparator implements Comparator {
@@ -39,7 +39,7 @@ public class SystemOverviewComparator implements Comparator {
         int retval = compareLongs(first.getSecurityErrata(),
                 second.getSecurityErrata());
         if (retval == 0) {
-            retval = compareLongs(first.getBugErrata(), 
+            retval = compareLongs(first.getBugErrata(),
                     second.getBugErrata());
             if (retval == 0) {
                 retval = compareLongs(first.getEnhancementErrata(),
@@ -53,7 +53,7 @@ public class SystemOverviewComparator implements Comparator {
         }
         return retval;
     }
-    
+
     private int compareLongs(Long first, Long second) {
         int retval = -2;
         if (first != null && second == null) {

@@ -8,15 +8,15 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
- 
+
 <%@ include file="/WEB-INF/pages/common/fragments/groups/header.jspf" %>
 <c:set var="noSystemIcons" value="true"/>
 <c:set var="noMonitoring" value="true"/>
 
 <rhn:require acl="not user_role(org_admin);not user_role(system_group_admin)">
  <c:set var="notSelectable" value="True"/>
- </rhn:require> 
- 
+ </rhn:require>
+
 <c:set var="noUpdates" value="true"/>
     <h2>
       <img src="/img/rhn-icon-system.gif" alt="system" />
@@ -33,7 +33,7 @@
 <div align="right">
    <rhn:submitted/>
    <hr/>	
-    <input type="submit" 
+    <input type="submit"
     	name ="dispatch"
 	    value='<bean:message key="${param.action_key}"/>'/>		
 </div>

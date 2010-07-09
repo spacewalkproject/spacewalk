@@ -29,7 +29,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * KickstartIpRangeSerializer
  * @version $Rev$
  *
- * @xmlrpc.doc 
+ * @xmlrpc.doc
  *   #struct("Kickstart Ip Range")
  *     #prop_desc("string", "ksLabel", "The kickstart label associated with the ip range")
  *     #prop_desc("string", "max", "The max ip of the range")
@@ -50,10 +50,10 @@ public class KickstartIpRangeSerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         KickstartIpRange range = (KickstartIpRange)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
-        
+
         helper.add("ksLabel", range.getKsdata().getLabel());
         helper.add("min", range.getMinString());
-        helper.add("max", range.getMaxString()); 
+        helper.add("max", range.getMaxString());
         helper.writeTo(output);
     }
 

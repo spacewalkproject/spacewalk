@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rhn-navi-tree xmlns:xi="http://www.w3.org/2001/XInclude" 
-	label="sitenav_unauth" title-depth="0" 
+<rhn-navi-tree xmlns:xi="http://www.w3.org/2001/XInclude"
+	label="sitenav_unauth" title-depth="0"
 	acl_mixins="com.redhat.rhn.common.security.acl.test.MixinTestHandler">
-	<rhn-tab name="Sign In" url="/rhn/Login.do" 
-		active-image="tab-sign_in-selected.gif" 
+	<rhn-tab name="Sign In" url="/rhn/Login.do"
+		active-image="tab-sign_in-selected.gif"
 		inactive-image="tab-sign_in.gif">
 	</rhn-tab>
     <rhn-tab name="Monitoring" url="/network/monitoring/index.pxt" active-image="tab-monitoring-selected.gif" inactive-image="tab-monitoring.gif" acl="show_monitoring()">
@@ -17,55 +17,55 @@
       <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
-	<rhn-tab name="About Spacewalk" url="/help/about.pxt" 
-		active-image="tab-about_rhn-selected.gif" 
+	<rhn-tab name="About Spacewalk" url="/help/about.pxt"
+		active-image="tab-about_rhn-selected.gif"
 		inactive-image="tab-about_rhn.gif" >
 		<rhn-tab name="About Spacewalk" url="/help/about.pxt" />
-		<rhn-tab name="FAQ" url="/help/faq/" 
+		<rhn-tab name="FAQ" url="/help/faq/"
 			dynamic-children="Sniglets::HTML->faq_tabs"/>
 		<rhn-tab name="Spacewalk Security" url="/legal/security.pxt" />
 		<rhn-tab name="Account" url="/newlogin/index.pxt">
 			<rhn-tab name="Create Account" url="/newlogin/index.pxt"/>
-			<rhn-tab name="Lookup Login/Password" 
+			<rhn-tab name="Lookup Login/Password"
 				url="/help/forgot_password.pxt"/>
 		</rhn-tab>
 		<rhn-tab name="Help" url="/rhn/help/index.do">
 			<rhn-tab name="Reference Guide" url="/help/basic/" />
 			<rhn-tab name="Release Notes" url="/help/release-notes/index.pxt">
-				<rhn-tab name="3.3.0" 
+				<rhn-tab name="3.3.0"
 					url="/help/release-notes/rhn-release-notes-3.3.0.html"/>
-				<rhn-tab name="3.2.0" 
+				<rhn-tab name="3.2.0"
 					url="/help/release-notes/rhn-release-notes-3.2.0.html"/>
-				<rhn-tab name="3.1.0" 
+				<rhn-tab name="3.1.0"
 					url="/help/release-notes/rhn-release-notes-3.1.0.html"/>
-				<rhn-tab name="3.0.0" 
+				<rhn-tab name="3.0.0"
 					url="/help/release-notes/rhn-release-notes-3.0.0.html"/>
-				<rhn-tab name="2.9.0" 
+				<rhn-tab name="2.9.0"
 					url="/help/release-notes/rhn-release-notes-2.9.0.html"/>
-				<rhn-tab name="2.8.0" 
+				<rhn-tab name="2.8.0"
 					url="/help/release-notes/rhn-release-notes-2.8.0.html"/>
-				<rhn-tab name="2.7.0" 
+				<rhn-tab name="2.7.0"
 					url="/help/release-notes/rhn-release-notes-2.7.0.html"/>
-				<rhn-tab name="2.6.0" 
+				<rhn-tab name="2.6.0"
 					url="/help/release-notes/rhn-release-notes-2.6.0.html"/>
-				<rhn-tab name="2.5.0" 
+				<rhn-tab name="2.5.0"
 					url="/help/release-notes/rhn-release-notes-2.5.0.html"/>
-				<rhn-tab name="2.4.0" 
+				<rhn-tab name="2.4.0"
 					url="/help/release-notes/rhn-release-notes-2.4.0.html"/>
 			</rhn-tab>
-			<rhn-tab name="Spacewalk Release Notes" 
-				url="/help/sat-release-notes/index.pxt" 
+			<rhn-tab name="Spacewalk Release Notes"
+				url="/help/sat-release-notes/index.pxt"
 				>
-				<rhn-tab name="3.2.0" 
+				<rhn-tab name="3.2.0"
 					url="/help/sat-release-notes/sat-release-notes-3.2.0.html"/>
-				<rhn-tab name="3.0.0" 
+				<rhn-tab name="3.0.0"
 					url="/help/sat-release-notes/sat-release-notes-3.0.0.html"/>
-				<rhn-tab name="2.0.1" 
+				<rhn-tab name="2.0.1"
 					url="/help/sat-release-notes/sat-release-notes-2.0.1.html"/>
-				<rhn-tab name="2.0.0" 
+				<rhn-tab name="2.0.0"
 					url="/help/sat-release-notes/sat-release-notes-2.0.0.html"/>
 			</rhn-tab>
-			<rhn-tab name="API" url="/rpc/api/" 
+			<rhn-tab name="API" url="/rpc/api/"
 				acl="is(development_environment)">
 				<rhn-tab-directory>/rpc/api</rhn-tab-directory>
 			</rhn-tab>

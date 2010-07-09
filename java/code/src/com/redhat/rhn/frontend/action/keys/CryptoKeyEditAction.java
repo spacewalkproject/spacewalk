@@ -19,13 +19,13 @@ import com.redhat.rhn.manager.kickstart.crypto.BaseCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.crypto.EditCryptoKeyCommand;
 
 /**
- * CryptoKeyCreateAction 
+ * CryptoKeyCreateAction
  * @version $Rev: 1 $
  */
 public class CryptoKeyEditAction extends BaseCryptoKeyEditAction {
 
     protected BaseCryptoKeyCommand getCommand(RequestContext ctx) {
-        return new EditCryptoKeyCommand(ctx.getCurrentUser(), 
+        return new EditCryptoKeyCommand(ctx.getCurrentUser(),
                 ctx.getRequiredParam(RequestContext.KEY_ID));
     }
 

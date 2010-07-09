@@ -32,7 +32,7 @@ public class RhnSetManager extends BaseManager {
      */
     private RhnSetManager() {
     }
-    
+
     /**
      * Returns a list of RhnSets found for the given label and userid.
      * @param userId User Id for the RhnSet.
@@ -64,7 +64,7 @@ public class RhnSetManager extends BaseManager {
     public static void deleteByLabel(Long userId, String label) {
         RhnSetFactory.removeByLabel(userId, label);
     }
-    
+
     /**
      * Removes the RhnSet
      * @param set The set to remove.
@@ -75,7 +75,7 @@ public class RhnSetManager extends BaseManager {
         }
         RhnSetFactory.remove(set);
     }
-    
+
     /**
      * Stores the RhnSet in the db
      * Replaces old set if one exists.

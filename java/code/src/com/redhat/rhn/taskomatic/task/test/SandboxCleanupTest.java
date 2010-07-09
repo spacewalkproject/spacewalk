@@ -29,9 +29,9 @@ public class SandboxCleanupTest extends RhnBaseTestCase {
      */
     public void testExecute() throws Exception {
         //the default db user doesn't have access to do this in hosted
-        
+
         SandboxCleanup task = new SandboxCleanup();
         task.execute(null);
     }
-    
+
 }

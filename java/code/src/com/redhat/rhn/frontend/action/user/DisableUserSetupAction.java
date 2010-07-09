@@ -38,13 +38,13 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class DisableUserSetupAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         if (!AclManager.hasAcl("user_role(org_admin)", request, null)) {
@@ -61,10 +61,10 @@ public class DisableUserSetupAction extends RhnAction {
 
         User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, user);
-        
+
         if (user.isDisabled()) {
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("userdisable.error.userdisabled",
                     StringEscapeUtils.escapeHtml(user.getLogin())));
             getStrutsDelegate().saveMessages(request, msg);

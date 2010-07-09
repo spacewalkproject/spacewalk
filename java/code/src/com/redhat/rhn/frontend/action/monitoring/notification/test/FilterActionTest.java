@@ -73,9 +73,9 @@ public class FilterActionTest extends RhnBaseTestCase {
         ConfigureSatelliteCommand cmd = new ConfigureSatelliteCommand(user);
         cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, true);
         cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, true);
-        
+
     }
-    
+
     // Not used directly by JUnit, instead we just want
     // to re-use ALL this stuff in this class twice for
     // each Action: Create and Edit.
@@ -127,7 +127,7 @@ public class FilterActionTest extends RhnBaseTestCase {
     }
 
     public void testCreateExecute() throws Exception {
-       
+
         setUpAction(new FilterCreateAction(), "default");
         executeNonSubmit();
     }
@@ -204,7 +204,7 @@ public class FilterActionTest extends RhnBaseTestCase {
     }
 
     public void testEditExecute() throws Exception {
-        
+
         setUpAction(new FilterEditAction(), "default");
         filter.setRecurringDuration(new Long(TEST_DURATION));
         filter.setRecurringFrequency(new Long(Calendar.MONTH));

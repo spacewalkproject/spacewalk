@@ -3,9 +3,9 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.errata.impl.PublishedKeyword" 
+    <class name="com.redhat.rhn.domain.errata.impl.PublishedKeyword"
         table="rhnErrataKeyword" >
-        
+
         <composite-id unsaved-value="any">
             <key-many-to-one name="errata"
                 class="com.redhat.rhn.domain.errata.impl.PublishedErrata"
@@ -13,7 +13,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <key-property name="keyword" column="keyword"
                 type="string" length="64"/>
         </composite-id>
-           
+
         <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"

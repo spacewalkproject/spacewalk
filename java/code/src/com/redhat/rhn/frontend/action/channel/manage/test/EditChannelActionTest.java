@@ -21,7 +21,7 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
  * @version $Rev: 1 $
  */
 public class EditChannelActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
     /*
         setRequestPathInfo("/channel/manage/EditChannel");

@@ -24,7 +24,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev: $
  */
 public class ConfigChannelTest extends RhnBaseTestCase {
-    
+
     public void testIsTypeMethods() {
         ConfigChannel cc = ConfigurationFactory.newConfigChannel();
         cc.setConfigChannelType(ConfigChannelType.local());

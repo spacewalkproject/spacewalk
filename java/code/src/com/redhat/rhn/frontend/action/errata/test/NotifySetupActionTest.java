@@ -35,17 +35,17 @@ import org.apache.struts.action.ActionMapping;
  * @version $Rev$
  */
 public class NotifySetupActionTest extends RhnBaseTestCase {
-    
+
     public void testExecute() throws Exception {
         NotifySetupAction action = new NotifySetupAction();
-        
+
         ActionMapping mapping = new ActionMapping();
         ActionForward def = new ActionForward("default", "path", false);
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         MockHttpServletResponse response = new MockHttpServletResponse();
         mapping.addForwardConfig(def);
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         User user = requestContext.getLoggedInUser();
@@ -53,7 +53,7 @@ public class NotifySetupActionTest extends RhnBaseTestCase {
                 .createTestPublishedErrata(user.getOrg().getId());
         Errata unpublished = ErrataFactoryTest
                 .createTestUnpublishedErrata(user.getOrg().getId());
-        
+
         //test bad parameter exception
         request.setupAddParameter("eid", unpublished.getId().toString());
         try {
@@ -63,7 +63,7 @@ public class NotifySetupActionTest extends RhnBaseTestCase {
         catch (BadParameterException e) {
             //Success!!!
         }
-        
+
         //test default case
         request.setupAddParameter("eid", published.getId().toString());
         request.setupAddParameter("eid", unpublished.getId().toString());

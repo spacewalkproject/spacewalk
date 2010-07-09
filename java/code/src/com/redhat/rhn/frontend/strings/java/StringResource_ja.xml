@@ -1057,7 +1057,7 @@
 			<trans-unit id="message.range.withtypedescription">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;
 {3} displayed</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{2}&lt;/strong&gt; のうち &lt;strong&gt;{1}&lt;/strong&gt; 
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{2}&lt;/strong&gt; のうち &lt;strong&gt;{1}&lt;/strong&gt;
 {3} 表示されました</target>
 			</trans-unit>
 			<trans-unit id="message.numselected">
@@ -1222,15 +1222,15 @@ available for this kickstart profile to function properly.
 &lt;p&gt;この問題を解決するために、以下の事項を確認してください。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-このキックスタートプロフィールのベースチャンネルに対する rhn-tools の子ソフトウェア 
+このキックスタートプロフィールのベースチャンネルに対する rhn-tools の子ソフトウェア
 チャンネルは、ユーザーの組織で使用できますか？ 使用できなければ、@@PRODUCT_NAME@@ 管理者に rhn-tools のソフトウェアチャンネルのエンタイトルメントをリクエストしなければなりません。
 &lt;/li&gt;
 &lt;li&gt;
-このキックスタートプロフィールのベースチャンネルに対する rhn-tools の子チャンネルが 
+このキックスタートプロフィールのベースチャンネルに対する rhn-tools の子チャンネルが
 @@PRODUCT_NAME@@ で使用できるか確認してください。使用できなければ、担当の Satellite 管理者に連絡し、rhn-tools チャンネルの satellite-sync をリクエストしてから再度試してください。
 &lt;/li&gt;
 &lt;li&gt;
-このキックスタートに対応する rhn-kickstart* パッケージが、このキックスタート 
+このキックスタートに対応する rhn-kickstart* パッケージが、このキックスタート
 のベースチャンネルの rhn-tools チャンネル内で使用できるか確認してください。rhn-kickstart* パッケージが使用できないとキックスタートプロフィールが正しく動作しないため、使用できるようにしてください。
 &lt;/li&gt;
 &lt;li&gt;
@@ -5233,16 +5233,16 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to 
-syncronize kickstart distributions from Spacewalk to Cobbler.  These 
-errors must be corrected for the distributions to be available for 
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
 kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
@@ -5257,7 +5257,7 @@ Spacewalk からCobbler へキックスタートディストリビューショ�
 
 エラーの詳細は以下をチェックしてください。
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

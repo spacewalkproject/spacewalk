@@ -42,7 +42,7 @@ public class EditAddressSetupAction extends RhnAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         DynaActionForm form = (DynaActionForm)formIn;

@@ -20,7 +20,7 @@ package com.redhat.rhn.common.filediff;
  * @version $Rev$
  */
 public class ChangeHunk extends Hunk {
-    
+
     /**
      * {@inheritDoc}
      */

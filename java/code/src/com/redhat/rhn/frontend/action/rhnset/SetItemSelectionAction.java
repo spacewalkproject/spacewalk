@@ -38,16 +38,16 @@ import javax.servlet.http.HttpServletResponse;
  * updates the set controlled by the page, and returns an xml chunk
  * that is then used by the javascript code to update the totals on
  * the page.  Currently works only for the system list {@link RhnSetDecl#SYSTEMS}.
- * 
+ *
  * @version $Rev$
  */
-public class SetItemSelectionAction extends RhnAction {    
+public class SetItemSelectionAction extends RhnAction {
 
     public static final String JSON_HEADER = "X-JSON";
     public static final String IDS = "ids";
     public static final String CHECKED = "checked";
     public static final String SET_LABEL = "set_label";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -55,7 +55,7 @@ public class SetItemSelectionAction extends RhnAction {
         if (size == null) {
             return null;
         }
-        String setLabel = req.getParameter(SET_LABEL);        
+        String setLabel = req.getParameter(SET_LABEL);
         writeResponse(resp, size, setLabel);
 
         return null;
@@ -66,8 +66,8 @@ public class SetItemSelectionAction extends RhnAction {
         String setLabel = req.getParameter(SET_LABEL);
         String[] which = req.getParameterValues(IDS);
         String checked = req.getParameter(CHECKED);
-        boolean isOn = checked.equals("on"); 
-        
+        boolean isOn = checked.equals("on");
+
         if (which == null) {
             return null;
         }
@@ -77,12 +77,12 @@ public class SetItemSelectionAction extends RhnAction {
 
             if (isOn) {
                 for (String id : which) {
-                    set.add(id);    
+                    set.add(id);
                 }
             }
             else {
                 for (String id : which) {
-                    set.remove(id);    
+                    set.remove(id);
                 }
             }
             return set.size();
@@ -98,17 +98,17 @@ public class SetItemSelectionAction extends RhnAction {
                     set.removeElements(which);
                 }
                 RhnSetManager.store(set);
-                return set.size();    
+                return set.size();
             }
         }
         return null;
-    }    
-    
-    
+    }
+
+
     // Write an responseText with the current count from the set
     private void writeResponse(HttpServletResponse resp, int setSize, String setLabel) {
         StringBuffer responseText = new StringBuffer();
-        LocalizationService ls = LocalizationService.getInstance(); 
+        LocalizationService ls = LocalizationService.getInstance();
         if (RhnSetDecl.SYSTEMS.getLabel().equals(setLabel)) {
             String headerMessage;
             if (setSize == 0) {
@@ -118,25 +118,25 @@ public class SetItemSelectionAction extends RhnAction {
                 headerMessage = ls.getMessage("header.jsp.singleSystemSelected");
             }
             else {
-                headerMessage = ls.getMessage("header.jsp.systemsSelected", 
+                headerMessage = ls.getMessage("header.jsp.systemsSelected",
                                                       Integer.toString(setSize));
             }
             responseText.append("\"header\":\"").append(headerMessage).append("\"");
-            
+
         }
 
         if (responseText.length() > 0) {
             responseText.append(",");
         }
-        
+
         String  paginationMessage = ls.getMessage("message.numselected",
                                                 Integer.toString(setSize));
         responseText.append("\"pagination\":\"").
                         append(paginationMessage).
                         append("\"");
-        
+
         resp.setContentType("application/json");
-        resp.addHeader("X-JSON", 
+        resp.addHeader("X-JSON",
                         "({" + responseText.toString() + "})");
     }
 

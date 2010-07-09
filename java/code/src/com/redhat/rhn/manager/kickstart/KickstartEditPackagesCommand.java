@@ -20,7 +20,7 @@ import com.redhat.rhn.domain.user.User;
 
 /**
  * Simple class to reduce dependencies between Struts and database laysers
- * 
+ *
  * @version $Rev $
  */
 public class KickstartEditPackagesCommand extends BaseKickstartCommand {

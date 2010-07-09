@@ -52,9 +52,9 @@ import java.util.List;
 import java.util.Map;
 
 public class OrgHandlerTest extends BaseHandlerTestCase {
-    
+
     private OrgHandler handler = new OrgHandler();
-    
+
     private static final String LOGIN = "fakeadmin";
     private static final String PASSWORD = "fakeadmin";
     private static final String FIRST = "Bill";
@@ -62,8 +62,8 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     private static final String EMAIL = "fakeadmin@example.com";
     private static final String PREFIX = "Mr.";
     private String[] orgName = {"Test Org 1", "Test Org 2"};
-    
-    
+
+
     public void setUp() throws Exception {
         super.setUp();
         admin.addRole(RoleFactory.SAT_ADMIN);
@@ -74,16 +74,16 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testCreate() throws Exception {
-        handler.create(adminKey, orgName[0], "fakeadmin", "password", "Mr.", "Bill", 
+        handler.create(adminKey, orgName[0], "fakeadmin", "password", "Mr.", "Bill",
                 "FakeAdmin", "fakeadmin@example.com", Boolean.FALSE);
         Org testOrg = OrgFactory.lookupByName(orgName[0]);
         assertNotNull(testOrg);
     }
-    
+
     public void testCreateShortOrgName() throws Exception {
         String shortName = "aa"; // Must be at least 3 characters in UI
         try {
-            handler.create(adminKey, shortName, "fakeadmin", "password", "Mr.", "Bill", 
+            handler.create(adminKey, shortName, "fakeadmin", "password", "Mr.", "Bill",
                     "FakeAdmin", "fakeadmin@example.com", Boolean.FALSE);
             fail();
         }
@@ -94,10 +94,10 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
     public void testCreateDuplicateOrgName() throws Exception {
         String dupOrgName = "Test Org " + TestUtils.randomString();
-        handler.create(adminKey, dupOrgName, "fakeadmin1", "password", "Mr.", "Bill", 
+        handler.create(adminKey, dupOrgName, "fakeadmin1", "password", "Mr.", "Bill",
                 "FakeAdmin", "fakeadmin1@example.com", Boolean.FALSE);
         try {
-            handler.create(adminKey, dupOrgName, "fakeadmin2", "password", "Mr.", "Bill", 
+            handler.create(adminKey, dupOrgName, "fakeadmin2", "password", "Mr.", "Bill",
                     "FakeAdmin", "fakeadmin2@example.com", Boolean.FALSE);
             fail();
         }
@@ -105,7 +105,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
             // expected
         }
     }
-    
+
     public void testListOrgs() throws Exception {
         Org testOrg = createOrg();
         OrgDto dto = OrgManager.toDetailsDto(testOrg);
@@ -132,21 +132,21 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
     public void testListActiveUsers() throws Exception {
         Org testOrg = createOrg();
-        List <MultiOrgUserOverview> users = handler.listUsers(adminKey, 
+        List <MultiOrgUserOverview> users = handler.listUsers(adminKey,
                                                 testOrg.getId().intValue());
         assertTrue(users.size() == 1);
         User user = UserFactory.lookupByLogin(
                 testOrg.getActiveOrgAdmins().get(0).getLogin());
         assertEquals(users.get(0).getId(), user.getId());
-    }    
-    
+    }
+
     public void testGetDetails() throws Exception {
         Org testOrg = createOrg();
         OrgDto actual = handler.getDetails(adminKey, testOrg.getId().intValue());
-        OrgDto expected = OrgManager.toDetailsDto(testOrg); 
+        OrgDto expected = OrgManager.toDetailsDto(testOrg);
         assertNotNull(actual);
         compareDtos(expected, actual);
-        
+
         actual = handler.getDetails(adminKey, testOrg.getName());
         assertNotNull(actual);
         compareDtos(expected, actual);
@@ -159,7 +159,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         assertEquals(newName, dto.getName());
         assertNotNull(OrgFactory.lookupByName(newName));
     }
-    
+
     private void compareDtos(OrgDto expected, OrgDto actual) {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getName(), actual.getName());
@@ -170,20 +170,20 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         assertEquals(expected.getServerGroups(), actual.getServerGroups());
         assertEquals(expected.getConfigChannels(), actual.getConfigChannels());
     }
-    
+
     private Org createOrg() {
         return createOrg(0);
     }
-    
+
     private Org createOrg(int index) {
-        return createOrg(orgName[index], LOGIN + TestUtils.randomString(), 
+        return createOrg(orgName[index], LOGIN + TestUtils.randomString(),
                 PASSWORD, PREFIX, FIRST, LAST, EMAIL, false);
     }
-    
-    private Org createOrg(String name, String login, 
-                        String password, String prefix, String first, 
+
+    private Org createOrg(String name, String login,
+                        String password, String prefix, String first,
                         String last, String email, boolean usePam) {
-        handler.create(adminKey, name, login, password, prefix, first, 
+        handler.create(adminKey, name, login, password, prefix, first,
                                                     last, email, usePam);
         Org org =  OrgFactory.lookupByName(name);
         assertNotNull(org);
@@ -294,7 +294,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         ChannelFamily cf = lookupRedHatChannelFamily();
         MultiOrgEntitlementsDto dto1 = findEntitlementDto(ents, cf.getLabel());
         assertNotNull(dto1);
-        
+
         String random = TestUtils.randomString();
         String newOrgName = "EdwardNortonOrg" + random;
         String login = "edward" + random;
@@ -302,25 +302,25 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         String first = "Edward";
         String last = "Norton";
         String email = "EddieNorton@redhat.com";
-        Org org = createOrg(newOrgName, login, password, "Dr.", 
+        Org org = createOrg(newOrgName, login, password, "Dr.",
                                         first, last, email, false);
         int slots = 1;
-        handler.setSoftwareEntitlements(adminKey, 
+        handler.setSoftwareEntitlements(adminKey,
                     org.getId().intValue(), cf.getLabel(), slots);
-        
+
         ents = handler.listSoftwareEntitlements(adminKey);
-        
+
         MultiOrgEntitlementsDto dto2 = findEntitlementDto(ents, cf.getLabel());
         assertNotNull(dto2);
-        
+
         assertEquals(dto1.getLabel(), dto2.getLabel());
         assertEquals(dto1.getTotal(), dto2.getTotal());
         assertEquals(dto1.getUsed(), dto2.getUsed());
         assertEquals(Long.valueOf(dto1.getAvailable() - slots), dto2.getAvailable());
         assertEquals(Long.valueOf(dto1.getAllocated() + slots), dto2.getAllocated());
     }
-    
-    
+
+
     private MultiOrgEntitlementsDto findEntitlementDto(
                                     List< ? extends MultiOrgEntitlementsDto> dtos,
                                                 String label) {
@@ -331,7 +331,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
         return null;
     }
-    
+
     public void testSetSoftwareEntitlements() throws Exception {
         // Spacewalk servers have no software entitlements:
         if (ConfigDefaults.get().isSpacewalk()) {
@@ -340,7 +340,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
         Org testOrg = createOrg();
         ChannelFamily cf = lookupRedHatChannelFamily();
-        int result = handler.setSoftwareEntitlements(adminKey, 
+        int result = handler.setSoftwareEntitlements(adminKey,
                        testOrg.getId().intValue(), cf.getLabel(), 1);
         assertEquals(1, result);
 
@@ -351,7 +351,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         Org testOrg = createOrg();
 
         String systemEnt = EntitlementManager.ENTERPRISE_ENTITLED;
-        int result = handler.setSystemEntitlements(adminKey, 
+        int result = handler.setSystemEntitlements(adminKey,
                 new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
         assertEquals(1, result);
 
@@ -387,8 +387,8 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         Org testOrg = createOrg();
         ChannelFamily cf = lookupRedHatChannelFamily();
         try {
-            handler.setSoftwareEntitlements(adminKey, 
-                    new Integer(testOrg.getId().intValue()), "nosuchfamily", 
+            handler.setSoftwareEntitlements(adminKey,
+                    new Integer(testOrg.getId().intValue()), "nosuchfamily",
                     new Integer(1));
             fail();
         }
@@ -397,8 +397,8 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
 
         try {
-            handler.setSoftwareEntitlements(adminKey, 
-                    new Integer(-1), cf.getLabel(), 
+            handler.setSoftwareEntitlements(adminKey,
+                    new Integer(-1), cf.getLabel(),
                     new Integer(1));
             fail();
         }
@@ -411,8 +411,8 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         Org testOrg = createOrg();
         String systemEnt = EntitlementManager.PROVISIONING_ENTITLED;
         try {
-            handler.setSystemEntitlements(adminKey, 
-                    new Integer(testOrg.getId().intValue()), "nosuchentitlement", 
+            handler.setSystemEntitlements(adminKey,
+                    new Integer(testOrg.getId().intValue()), "nosuchentitlement",
                     new Integer(1));
             fail();
         }
@@ -421,7 +421,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
 
         try {
-            handler.setSystemEntitlements(adminKey, 
+            handler.setSystemEntitlements(adminKey,
                     new Integer(-1), systemEnt, new Integer(1));
             fail();
         }
@@ -438,7 +438,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
         ChannelFamily cf = lookupRedHatChannelFamily();
         try {
-            handler.setSoftwareEntitlements(adminKey, 
+            handler.setSoftwareEntitlements(adminKey,
                     new Integer(1), cf.getLabel(), new Integer(10));
             fail();
         }
@@ -450,7 +450,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     public void testSetSystemEntitlementsDefaultOrg() throws Exception {
         String systemEnt = EntitlementManager.PROVISIONING_ENTITLED;
         try {
-            handler.setSystemEntitlements(adminKey, 
+            handler.setSystemEntitlements(adminKey,
                     new Integer(1), systemEnt, new Integer(10));
             fail();
         }
@@ -516,18 +516,18 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     }
 
     /**
-     * Test both list entitlement calls by verifying the given org has the 
+     * Test both list entitlement calls by verifying the given org has the
      * expected allocation for the given channel family.
-     * 
+     *
      * @param orgId orgId to lookup allocations for
      * @param channelFamilyLabel channel family label
      * @param expectedAllocation expected allocation
      */
-    private void assertOrgSoftwareEntitlementCount(Long orgId, String channelFamilyLabel, 
+    private void assertOrgSoftwareEntitlementCount(Long orgId, String channelFamilyLabel,
             int expectedAllocation) {
 
         boolean found = false;
-        
+
         List<OrgSoftwareEntitlementDto> entitlementCounts =
             handler.listSoftwareEntitlements(adminKey, channelFamilyLabel);
 
@@ -548,7 +548,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         List <OrgChannelFamily> entCounts = handler.listSoftwareEntitlementsForOrg(adminKey,
                 orgId.intValue());
         found = false;
-        
+
         for (OrgChannelFamily counts : entCounts) {
             String lookupLabel = counts.getLabel();
             if (!lookupLabel.equals(channelFamilyLabel)) {
@@ -565,19 +565,19 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     }
 
     /**
-     * Test both list entitlement calls by verifying the given org has the 
+     * Test both list entitlement calls by verifying the given org has the
      * expected allocation for the given system entitlement.
-     * 
+     *
      * @param orgId orgId to lookup allocations for
      * @param systemEntitlementLabel system entitlement label
      * @param expectedAllocation expected allocation
      */
-    private void assertOrgSystemEntitlementCount(Long orgId, 
+    private void assertOrgSystemEntitlementCount(Long orgId,
             String systemEntitlementLabel, int expectedAllocation) {
         List<Map> entitlementCounts = handler.listSystemEntitlements(adminKey,
                 systemEntitlementLabel);
         boolean found = false;
-        
+
         for (Map counts : entitlementCounts) {
             Integer lookupOrgId = (Integer)counts.get("org_id");
             if (lookupOrgId.longValue() != orgId.longValue()) {
@@ -596,7 +596,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         List<OrgEntitlementDto> counts2 = handler.listSystemEntitlementsForOrg(adminKey,
                 new Integer(orgId.intValue()));
         found = false;
-        
+
         for (OrgEntitlementDto dto : counts2) {
             String lookupLabel = dto.getEntitlement().getLabel();
             if (!lookupLabel.equals(systemEntitlementLabel)) {
@@ -615,12 +615,12 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     /**
      * Lookup an official Red Hat channel family with free slots.
      * Fail the test if none can be found.
-     * 
+     *
      * @return channel family with free slots.
      */
     private ChannelFamily lookupRedHatChannelFamily() {
         Org satelliteOrg = OrgFactory.getSatelliteOrg();
-        List<ChannelOverview> channelOverviews = 
+        List<ChannelOverview> channelOverviews =
             ChannelManager.entitlements(satelliteOrg.getId(), null);
         for (ChannelOverview co : channelOverviews) {
             if (co.getFreeMembers() > 0) {
@@ -645,11 +645,11 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         servers.add(new Integer(server.getId().intValue()));
         // Actual migration is tested internally, just make sure the API call doesn't
         // error out:
-        handler.migrateSystems(adminKey, newOrgAdmin.getOrg().getId().intValue(), servers); 
+        handler.migrateSystems(adminKey, newOrgAdmin.getOrg().getId().intValue(), servers);
     }
-    
+
     public void testMigrateInvalid() throws Exception {
-        
+
         User orgAdmin1 = UserTestUtils.findNewUser("orgAdmin1", "org1", true);
         orgAdmin1.getOrg().getTrustedOrgs().add(admin.getOrg());
 
@@ -663,23 +663,23 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         // attempt migration where user is not a satellite admin and orginating
         // org is not the same as the user's.
         try {
-            handler.migrateSystems(orgAdmin2Key, orgAdmin1.getOrg().getId().intValue(), 
+            handler.migrateSystems(orgAdmin2Key, orgAdmin1.getOrg().getId().intValue(),
                     servers);
             fail();
         }
         catch (PermissionCheckFailureException e) {
             // expected
         }
-        
+
         // attempt to migrate systems to an org that does not exist
         try {
-            handler.migrateSystems(adminKey, new Integer(-1), servers); 
+            handler.migrateSystems(adminKey, new Integer(-1), servers);
             fail();
         }
         catch (NoSuchOrgException e) {
             // expected
         }
-        
+
         // attempt to migrate systems from/to the same org
         try {
             handler.migrateSystems(adminKey, admin.getOrg().getId().intValue(), servers);
@@ -687,23 +687,23 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
         catch (MigrationToSameOrgException e) {
             // expected
-        }   
-        
+        }
+
         // attempt to migrate systems to an org that isn't defined in trust
         try {
-            handler.migrateSystems(adminKey, orgAdmin2.getOrg().getId().intValue(), 
+            handler.migrateSystems(adminKey, orgAdmin2.getOrg().getId().intValue(),
                     servers);
             fail();
         }
         catch (OrgNotInTrustException e) {
             // expected
-        }   
-        
+        }
+
         // attempt to migrate systems that do not exist
         List<Integer> invalidServers = new LinkedList<Integer>();
         invalidServers.add(new Integer(-1));
         try {
-            handler.migrateSystems(adminKey, orgAdmin1.getOrg().getId().intValue(), 
+            handler.migrateSystems(adminKey, orgAdmin1.getOrg().getId().intValue(),
                     invalidServers);
             fail();
         }

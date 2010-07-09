@@ -43,21 +43,21 @@ import javax.servlet.http.HttpServletResponse;
 public class ActivatedSystemsAction extends BaseListAction {
     private static final String ACCESS_MAP = "accessMap";
     private static final String DATE_MAP = "dateMap";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         setup(request);
-        ListHelper helper = new ListHelper(this, 
+        ListHelper helper = new ListHelper(this,
                                         request, getParamsMap(request));
         helper.setDataSetName(getDataSetName());
         helper.setListName(getListName());
         helper.execute();
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-    }    
-    
+    }
+
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         ActivationKey key = context.lookupAndBindActivationKey();
@@ -67,7 +67,7 @@ public class ActivatedSystemsAction extends BaseListAction {
         return servers;
     }
     /**
-     * Setups the user permissions access map 
+     * Setups the user permissions access map
      * after checking if the user can access
      * the systems.
      * @param context the request context

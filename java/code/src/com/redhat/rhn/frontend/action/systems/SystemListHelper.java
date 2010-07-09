@@ -28,7 +28,7 @@ import com.redhat.rhn.manager.system.SystemManager;
  * @version $Rev$
  */
 public class SystemListHelper {
-    
+
     private SystemListHelper() {
     }
 
@@ -36,25 +36,25 @@ public class SystemListHelper {
      * Sets up the HTML tags (image and link) by computing the status from the
      * SystemOverview DTO. This method chains to {@link #setSystemStatusDisplay(User,
      * SystemOverview, boolean)} and defaults to display links.
-     * 
+     *
      * @param user used in entitlement calculation
      * @param next row used to populate the HTML tags
      */
     public static void setSystemStatusDisplay(User user, SystemOverview next) {
         setSystemStatusDisplay(user, next, true);
     }
-    
+
     /**
      * Sets up the HTML tags (image and potentially link) by computing the status from the
-     * SystemOverview DTO. 
-     * 
+     * SystemOverview DTO.
+     *
      * @param user      used to calc some entitlement info
      * @param next      row used to populate html tags
      * @param makeLinks indicates if the icons should be rendered as links to other pages
      */
     public static void setSystemStatusDisplay(User user, SystemOverview next,
                                               boolean makeLinks) {
-        
+
         String message;
         HtmlTag url = new HtmlTag("a");
         HtmlTag img = new HtmlTag("img");
@@ -65,7 +65,7 @@ public class SystemListHelper {
             img.setAttribute("src", "/img/icon_unentitled.gif");
             img.setAttribute("title", message);
             img.setAttribute("alt", message);
-            if (user.hasRole(RoleFactory.ORG_ADMIN)) {                
+            if (user.hasRole(RoleFactory.ORG_ADMIN)) {
                 url.setAttribute("href", "/rhn/systems/details/Edit.do?sid=" +
                     next.getId());
             }
@@ -88,11 +88,11 @@ public class SystemListHelper {
             img.setAttribute("alt", message);
             img.setAttribute("title", message);
         }
-        else if (SystemManager.isKickstarting(user, 
+        else if (SystemManager.isKickstarting(user,
                  new Long(next.getId().longValue()))) {
             //status = "kickstarting";
             url.setAttribute("href",
-                    "/rhn/systems/details/kickstart/SessionStatus.do?sid=" + 
+                    "/rhn/systems/details/kickstart/SessionStatus.do?sid=" +
                     next.getId());
             message = ls.getMessage("systemlist.jsp.kickstart");
             img.setAttribute("src", "/img/icon_kickstart_session.gif");
@@ -108,7 +108,7 @@ public class SystemListHelper {
                     "/network/systems/details/history/pending.pxt?sid=" +
                     next.getId());
             message = ls.getMessage("systemlist.jsp.updatesscheduled");
-            img.setAttribute("src", "/img/icon_pending.gif"); 
+            img.setAttribute("src", "/img/icon_pending.gif");
             img.setAttribute("title", message);
             img.setAttribute("alt", message);
         }
@@ -118,7 +118,7 @@ public class SystemListHelper {
                     "/network/systems/details/history/pending.pxt?sid=" +
                     next.getId());
             message = ls.getMessage("systemlist.jsp.actionsscheduled");
-            img.setAttribute("src", "/img/icon_pending.gif"); 
+            img.setAttribute("src", "/img/icon_pending.gif");
             img.setAttribute("title", message);
             img.setAttribute("alt", message);
         }
@@ -141,7 +141,7 @@ public class SystemListHelper {
                     next.getId() + "&type=" +
                     LocalizationService.getInstance().getMessage(ErrataSetupAction.SECUR));
             message = ls.getMessage("systemlist.jsp.critical");
-            img.setAttribute("src", "/img/icon_crit_update.gif"); 
+            img.setAttribute("src", "/img/icon_crit_update.gif");
             img.setAttribute("title", message);
             img.setAttribute("alt", message);
         }
@@ -151,14 +151,14 @@ public class SystemListHelper {
                     "/rhn/systems/details/packages/UpgradableList.do?sid=" +
                     next.getId());
             message = ls.getMessage("systemlist.jsp.updates");
-            img.setAttribute("src", "/img/icon_reg_update.gif"); 
+            img.setAttribute("src", "/img/icon_reg_update.gif");
             img.setAttribute("title", message);
             img.setAttribute("alt", message);
         }
-        
+
         url.addBody(img);
         String statusDisplay;
-        
+
         if (makeLinks) {
             statusDisplay = url.render();
         }

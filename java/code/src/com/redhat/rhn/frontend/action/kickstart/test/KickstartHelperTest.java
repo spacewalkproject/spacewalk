@@ -41,7 +41,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
     private KickstartData ksdata;
     private RhnHttpServletRequest request;
     private RhnMockHttpServletRequest mockRequest;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -59,7 +59,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
 
     public void testKsPathparse() {
         // URL:
-        String url = "http://rhn.redhat.com/ks/cfg/org/" + 
+        String url = "http://rhn.redhat.com/ks/cfg/org/" +
             user.getOrg().getId().toString() +
                 "/label/" + ksdata.getLabel();
         request.setAttribute(RequestContext.REQUESTED_URI, url);
@@ -84,9 +84,9 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
         //  This is the key test
         assertNull(options.get("session"));
     }
-    
+
     public void testIpRangeLabel() throws Exception {
-   
+
 
         KickstartIpRange range = new KickstartIpRange();
         range.setMaxString("127.0.0.2");
@@ -96,20 +96,20 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
         ksdata.getIps().add(range);
 
         // URL:
-        String url = "http://rhn.redhat.com/ks/cfg/org/" + 
+        String url = "http://rhn.redhat.com/ks/cfg/org/" +
             user.getOrg().getId().toString() +
                 "/mode/ip_range";
         request.setAttribute(RequestContext.REQUESTED_URI, url);
         helper = new KickstartHelper(request);
         Map options = helper.parseKickstartUrl(url);
-        
+
         assertEquals(ksdata, options.get("ksdata"));
         //  This is the key test
-        
-        
+
+
         assertNotNull(options.get("session"));
     }
-    
+
     public void testValidateKickstartChannel() throws Exception {
         Channel base = ChannelTestUtils.createBaseChannel(user);
         Channel tools = ChannelTestUtils.createChildChannel(user, base);
@@ -118,7 +118,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_4));
         assertFalse(ksdata.isRhel5());
         assertFalse(helper.verifyKickstartChannel(ksdata, user));
-        
+
         PackageManagerTest.addPackageToChannel("rhn-kickstart", tools);
         assertFalse(helper.verifyKickstartChannel(ksdata, user));
         ksdata.getTree().setInstallType(KickstartFactory.
@@ -126,15 +126,15 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
         assertTrue(helper.verifyKickstartChannel(ksdata, user, false));
     }
 
-    
+
     public void testKsSessionPathparse() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
-        KickstartSession session = 
+        KickstartSession session =
             KickstartSessionTest.createKickstartSession(ksdata, user);
         KickstartFactory.saveKickstartSession(session);
         session = (KickstartSession) reload(session);
         assertNotSame(session.getState(), KickstartFactory.SESSION_STATE_CONFIG_ACCESSED);
-        
+
         String encodedSession = SessionSwap.encodeData(session.getId().toString());
         // URL: /kickstart/ks/session/2xb7d56e8958b0425e762cc74e8705d8e7
         String url = "http://rhn.redhat.com/session/ks/session/" + encodedSession;
@@ -148,29 +148,29 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
         assertEquals(session.getState(), KickstartFactory.SESSION_STATE_CONFIG_ACCESSED);
     }
 
-    
+
     public void testKsNoOrg() {
-        String url = "http://somesat.redhat.com/ks/cfg/label/" + 
+        String url = "http://somesat.redhat.com/ks/cfg/label/" +
             ksdata.getLabel();
         request.setAttribute(RequestContext.REQUESTED_URI, url);
         Map options = helper.parseKickstartUrl(url);
         assertNotNull(options);
     }
-    
+
     public void testProxyFetch() throws Exception {
-        
+
         String proxyheader = "1006681409::1151513167.96:21600.0:VV/xFNEmCYOuHx" +
                 "EBAs7BEw==:fjs-0-08.rhndev.redhat.com,1006681408::1151513034." +
                 "3:21600.0:w2lm+XWSFJMVCGBK1dZXXQ==:fjs-0-11.rhndev.redhat.com" +
                 ",1006678487::1152567362.02:21600.0:t15lgsaTRKpX6AxkUFQ11A==:f" +
                 "js-0-12.rhndev.redhat.com";
-        
+
         // mockRequest.setupAddHeader(KickstartHelper.XRHNPROXYAUTH, proxyheader);
         mockRequest.setupGetHeader(KickstartHelper.XRHNPROXYAUTH, proxyheader);
         helper = new KickstartHelper(request);
         assertEquals("fjs-0-08.rhndev.redhat.com", helper.getKickstartHost());
-        
+
     }
 
-    
+
 }

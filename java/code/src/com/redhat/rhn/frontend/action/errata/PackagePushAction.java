@@ -55,7 +55,7 @@ public class PackagePushAction extends RhnSetAction {
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.PACKAGES_TO_PUSH;
     }
-    
+
     /**
      * We push the packages the user has selected into
      * the channel sent by the form. We then push
@@ -80,13 +80,13 @@ public class PackagePushAction extends RhnSetAction {
         Long eid = (Long) daForm.get("eid");
         Long cid = (Long) daForm.get("cid");
         Errata errata = ErrataManager.lookupErrata(eid, user);
-        
-        
+
+
         Channel c = ChannelManager.lookupByIdAndUser(cid, user);
-        
+
 
         //Load up all the packages
-        Set<Package> filePackages = new HashSet<Package>();        
+        Set<Package> filePackages = new HashSet<Package>();
         for (Iterator i = set.getElements().iterator(); i.hasNext();) {
             RhnSetElement element = (RhnSetElement) i.next();
             Package p = PackageManager.lookupByIdAndUser(element.getElement(), user);
@@ -94,26 +94,26 @@ public class PackagePushAction extends RhnSetAction {
         }
         //publish them and the errata to the channel
         errata = ErrataFactory.publishToChannel(errata, c, user, filePackages);
-        
+
         RhnSet targetChannels = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user);
         targetChannels.removeElement(cid);
         RhnSetManager.store(targetChannels);
-        
+
         set.clear();
         RhnSetManager.store(set);
-        
+
         if (filePackages.isEmpty()) {
-            getStrutsDelegate().saveMessage("errata.publish.packagepush.nopackages_pushed", 
+            getStrutsDelegate().saveMessage("errata.publish.packagepush.nopackages_pushed",
                                                 new String[] {c.getName()},
                                                           request);
         }
         else {
-            getStrutsDelegate().saveMessage("errata.publish.packagepush.packages_pushed", 
-                                                new String[] {c.getName(), 
+            getStrutsDelegate().saveMessage("errata.publish.packagepush.packages_pushed",
+                                                new String[] {c.getName(),
                                             String.valueOf(filePackages.size())},
                                                         request);
         }
-        
+
         request.setAttribute("eid", eid);
         return mapping.findForward("defaultWithoutRedirect");
     }

@@ -29,13 +29,13 @@ public class ErrataCacheTaskTest extends RhnBaseTestCase {
         StopWatch sw = new StopWatch();
 
         ErrataCacheTask ect = new ErrataCacheTask();
-        
+
         sw.start();
         ect.execute(null);
         sw.stop();
         System.out.println("ErrataCacheTask took [" + sw.getTime() + "]");
     }
-    
+
     public void testNothing() {
         assertTrue(true);
     }

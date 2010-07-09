@@ -22,23 +22,23 @@ import com.redhat.rhn.testing.TestUtils;
 
 /**
  * A factory for VirtualInstance objects.
- * 
+ *
  * @version $Rev$
  */
 public class VirtualInstanceManufacturer {
-    
+
     private User user;
     private static final int DEFAULT_GUEST_RAM_MB = 256;
-    
+
     public VirtualInstanceManufacturer(User theUser) {
         this.user = theUser;
     }
-    
+
     public VirtualInstance newUnregisteredGuest() throws Exception {
         VirtualInstance guest = createVirtualInstance(
                 VirtualInstanceFactory.getInstance().getRunningState());
         guest.setHostSystem(ServerFactoryTest.createTestServer(user));
-        
+
         return guest;
     }
 
@@ -51,29 +51,29 @@ public class VirtualInstanceManufacturer {
         guest.setTotalMemory(new Long(1024 * DEFAULT_GUEST_RAM_MB));
         guest.setState(state);
         guest.setNumberOfCPUs(new Integer(1));
-        
+
         return guest;
     }
-    
+
     public VirtualInstance newRegisteredGuestWithoutHost() throws Exception {
         VirtualInstance guest = createVirtualInstance(
                 VirtualInstanceFactory.getInstance().getRunningState());
         guest.setGuestSystem(ServerFactoryTest.createTestServer(user));
         return guest;
     }
-    
-    public VirtualInstance newRegisteredGuestWithoutHost(VirtualInstanceState state) 
+
+    public VirtualInstance newRegisteredGuestWithoutHost(VirtualInstanceState state)
         throws Exception {
         VirtualInstance guest = createVirtualInstance(state);
         guest.setGuestSystem(ServerFactoryTest.createTestServer(user));
-        
+
         return guest;
     }
-    
+
     public VirtualInstance newRegisteredGuestWithHost() throws Exception {
         VirtualInstance guest = newRegisteredGuestWithoutHost();
         guest.setHostSystem(ServerFactoryTest.createTestServer(user));
-        
+
         return guest;
     }
 

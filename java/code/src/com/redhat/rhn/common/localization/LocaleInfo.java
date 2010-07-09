@@ -18,11 +18,11 @@ import java.util.Locale;
 
 /**
  * Links up potential locales with RHN supported ones
- * 
+ *
  * @version $Rev $
  */
 class LocaleInfo {
-    
+
     private String locale;
     private Locale supportedLocale;
 
@@ -30,24 +30,24 @@ class LocaleInfo {
         this.locale = localeIn;
         this.supportedLocale = makeLocale(localeIn);
     }
-    
+
     LocaleInfo(String localeIn, String supportedLocaleIn) {
         this.locale = localeIn;
         this.supportedLocale = makeLocale(supportedLocaleIn);
     }
-    
+
     public boolean isAlias() {
         return !locale.equals(supportedLocale.toString());
     }
-    
+
     String getLocale() {
         return locale;
     }
-    
+
     Locale getSupportedLocale() {
         return supportedLocale;
     }
-    
+
     private Locale makeLocale(String localeIn) {
         String[] parts = localeIn.split("_");
         switch(parts.length) {

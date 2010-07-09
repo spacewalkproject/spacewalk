@@ -23,26 +23,26 @@ import java.util.Set;
 
 /**
  * This class represents the User Managed Server Groups
- * i.e. the types 
+ * i.e. the types
  * @version $Rev$
  */
 public class ManagedServerGroup extends ServerGroup {
     private Set associatedAdmins = new HashSet();
-    /** 
-     * returns the set of 'non-org-admin' users that have been 
-     * subscribed to this ServerGroup 
-     * Note: since ORG ADMINS are subscribed by default this 
+    /**
+     * returns the set of 'non-org-admin' users that have been
+     * subscribed to this ServerGroup
+     * Note: since ORG ADMINS are subscribed by default this
      * list does not include that.
      * @return a set of users
      */
     protected Set getAssociatedAdmins() {
         return associatedAdmins;
     }
-    
-    /** 
-     * returns the set of 'non-org-admin' users that are 
-     * associated to this ServerGroup 
-     * Note: since ORG ADMINS are subscribed by default this 
+
+    /**
+     * returns the set of 'non-org-admin' users that are
+     * associated to this ServerGroup
+     * Note: since ORG ADMINS are subscribed by default this
      * list does not include that.
      * @param user needed for authentication
      * @return a set of users
@@ -52,20 +52,20 @@ public class ManagedServerGroup extends ServerGroup {
                 validateAdminCredentials(user);
         return getAssociatedAdmins();
     }
-    
+
     /**
      * sets admins
      * @param newUsers the associated users of the group
      */
-    protected void setAssociatedAdmins(Set newUsers) {        
+    protected void setAssociatedAdmins(Set newUsers) {
         this.associatedAdmins = newUsers;
-    }    
-    
+    }
+
     /**
      * returns true if this is user managed, false otherwise.
      * @return true if this is user managed, false otherwise.
      */
     public boolean isUserManaged() {
         return true;
-    }    
+    }
 }

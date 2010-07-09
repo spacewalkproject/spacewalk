@@ -24,7 +24,7 @@ import com.redhat.rhn.testing.TestUtils;
  */
 public class PackageDeltaTest extends RhnBaseTestCase {
     /**
-     * Simple test to make sure we can create 
+     * Simple test to make sure we can create
      * PackageDeltas and write them to the db.
      * @throws Exception Exception
      */

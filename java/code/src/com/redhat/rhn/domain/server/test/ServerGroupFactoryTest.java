@@ -33,25 +33,25 @@ import java.util.HashSet;
  */
 public class ServerGroupFactoryTest extends BaseTestCaseWithUser {
     private ManagedServerGroup managedGroup;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         managedGroup = ServerGroupFactory.create(
-                            ServerGroupTestUtils.NAME, 
-                            ServerGroupTestUtils.DESCRIPTION, 
+                            ServerGroupTestUtils.NAME,
+                            ServerGroupTestUtils.DESCRIPTION,
                             user.getOrg());
     }
     public void testCreate() throws Exception {
         String name = ServerGroupTestUtils.NAME;
         String description = ServerGroupTestUtils.DESCRIPTION;
-        
+
         assertNotNull(managedGroup);
         assertTrue(managedGroup.getName().startsWith(name));
         assertTrue(managedGroup.getDescription().startsWith(description));
         assertEquals(user.getOrg(), managedGroup.getOrg());
 
         name += "1";
-        managedGroup = ServerGroupFactory.create(name, description, 
+        managedGroup = ServerGroupFactory.create(name, description,
                 user.getOrg());
         managedGroup = (ManagedServerGroup) reload(managedGroup);
         assertNotNull(managedGroup);
@@ -60,11 +60,11 @@ public class ServerGroupFactoryTest extends BaseTestCaseWithUser {
         assertTrue(managedGroup.getName().startsWith(name));
         assertTrue(managedGroup.getDescription().startsWith(description));
         assertEquals(user.getOrg(), managedGroup.getOrg());
-       
+
     }
-    
+
     public void testSave() throws Exception {
-        EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(user.getOrg(), 
+        EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(user.getOrg(),
                     ServerConstants.getServerGroupTypeUpdateEntitled());
         sg.setMaxMembers(new Long(10));
         ServerGroupFactory.save(sg);
@@ -73,33 +73,33 @@ public class ServerGroupFactoryTest extends BaseTestCaseWithUser {
 
     public void testLookup() throws Exception {
         TestUtils.flushAndEvict(managedGroup);
-        ServerGroup sg1 = ServerGroupFactory.lookupByIdAndOrg(managedGroup.getId(), 
+        ServerGroup sg1 = ServerGroupFactory.lookupByIdAndOrg(managedGroup.getId(),
                                                     managedGroup.getOrg());
         assertEquals(managedGroup, sg1);
     }
-    
+
     public void testListNoAssociatedAdmins() throws Exception {
         TestUtils.flushAndEvict(managedGroup);
         Collection groups = ServerGroupFactory.listNoAdminGroups(managedGroup.getOrg());
         int initSize = groups.size();
-        ServerGroup sg1 = ServerGroupFactory.create(ServerGroupTestUtils.NAME + "ALPHA", 
-                ServerGroupTestUtils.DESCRIPTION, 
+        ServerGroup sg1 = ServerGroupFactory.create(ServerGroupTestUtils.NAME + "ALPHA",
+                ServerGroupTestUtils.DESCRIPTION,
                 user.getOrg());
         Collection groups1 = ServerGroupFactory.listNoAdminGroups(sg1.getOrg());
         assertEquals(initSize + 1, groups1.size());
         groups.add(sg1);
         assertEquals(new HashSet(groups), new HashSet(groups1));
-    }    
-    
+    }
+
     public void testRemove() throws Exception {
         ServerGroupFactory.remove(managedGroup);
         TestUtils.flushAndEvict(managedGroup);
-        ServerGroup sg1 = ServerGroupFactory.lookupByIdAndOrg(managedGroup.getId(), 
+        ServerGroup sg1 = ServerGroupFactory.lookupByIdAndOrg(managedGroup.getId(),
                                                     managedGroup.getOrg());
-        assertNull(sg1);        
+        assertNull(sg1);
     }
-    
+
     public void testListAdministrators() {
-        
+
     }
 }

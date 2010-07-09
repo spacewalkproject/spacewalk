@@ -55,7 +55,7 @@ public class ListRemoveChannelsAction extends BaseListAction {
         ActivationKey key = context.lookupAndBindActivationKey();
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
         Set <String> set = helper.getSet();
-        
+
         for (String id : set) {
             Long ccid = Long.valueOf(id);
             ConfigChannel cc = ConfigurationFactory.lookupConfigChannelById(ccid);
@@ -64,8 +64,8 @@ public class ListRemoveChannelsAction extends BaseListAction {
         getStrutsDelegate().saveMessage(
                     "config_channels_to_unsubscribe.unsubscribe.success",
                         new String [] {String.valueOf(set.size())}, request);
-        
-        
+
+
         Map params = new HashMap();
         params.put(RequestContext.TOKEN_ID, key.getToken().getId().toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
@@ -78,7 +78,7 @@ public class ListRemoveChannelsAction extends BaseListAction {
     public List getResult(RequestContext context) {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listGlobalChannelsForActivationKey(
-                    context.lookupAndBindActivationKey(), 
+                    context.lookupAndBindActivationKey(),
                     context.getLoggedInUser());
     }
 }

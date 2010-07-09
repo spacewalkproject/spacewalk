@@ -25,7 +25,7 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * ErrataOverviewSerializer
  * @version $Rev$
  * @xmlrpc.doc
@@ -40,22 +40,22 @@ import redstone.xmlrpc.XmlRpcSerializer;
 public class ErrataOverviewSerializer implements XmlRpcCustomSerializer {
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    public Class getSupportedClass() {        
+    public Class getSupportedClass() {
         return ErrataOverview.class;
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
-     * @throws IOException 
+     * @throws IOException
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
-        ErrataOverview errata = (ErrataOverview) value;        
+
+        ErrataOverview errata = (ErrataOverview) value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
         helper.add("id", errata.getId());

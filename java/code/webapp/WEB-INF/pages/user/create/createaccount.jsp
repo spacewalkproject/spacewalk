@@ -5,7 +5,7 @@
 <html>
 <body>
 <h1><bean:message key="usercreate.createLogin" /></h1>
-                                                                                
+
 <h2><bean:message key="usercreate.createAccount" /></h2>
 
     <div class="page-summary">

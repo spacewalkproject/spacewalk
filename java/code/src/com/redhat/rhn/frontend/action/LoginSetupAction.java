@@ -42,7 +42,7 @@ public class LoginSetupAction extends RhnAction {
     public ActionForward execute(ActionMapping mapping,
         ActionForm form, HttpServletRequest request,
         HttpServletResponse response) {
-      
+
         CertificateManager man = CertificateManager.getInstance();
         if (man.isSatelliteCertExpired()) {
             addMessage(request, "satellite.expired");
@@ -51,14 +51,14 @@ public class LoginSetupAction extends RhnAction {
         }
         else if (man.isSatelliteCertInGracePeriod()) {
             long daysUntilExpiration = man.getDaysLeftBeforeCertExpiration();
-            createSuccessMessage(request, 
-                "satellite.graceperiod", 
+            createSuccessMessage(request,
+                "satellite.graceperiod",
                 String.valueOf(daysUntilExpiration));
         }
         else if (!UserManager.satelliteHasUsers()) {
             return mapping.findForward("needuser");
         }
-        
+
         if (AclManager.hasAcl("user_authenticated()", request, null)) {
             return mapping.findForward("loggedin");
         }
@@ -75,7 +75,7 @@ public class LoginSetupAction extends RhnAction {
             DynaActionForm f = (DynaActionForm)form;
             f.set("url_bounce", urlBounce);
         }
-       
+
         return mapping.findForward("default");
     }
 

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.command.CommandClass" 
+    <class name="com.redhat.rhn.domain.monitoring.command.CommandClass"
         table="rhn_command_class" mutable="false">
         <cache usage="read-only"/>
         <id name="className" type="string" column="class_name">
@@ -12,7 +12,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </id>
         <set name="metrics" outer-join="false" cascade="none" lazy="false" >
             <key column="command_class" />
-            <one-to-many 
+            <one-to-many
                 class="com.redhat.rhn.domain.monitoring.command.Metric" />
         </set>
     </class>

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.kickstart.KickstartIpRange" 
+    <class name="com.redhat.rhn.domain.kickstart.KickstartIpRange"
         table="rhnkickstartiprange" >
         <composite-id unsaved-value="any">
           <key-many-to-one name="ksdata"
@@ -24,7 +24,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="KickstartIpRange.findById">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartIpRange as t where t.id = :id]]>
     </query>
-    
+
     <query name="KickstartIpRange.lookupByOrg">
 		<![CDATA[from com.redhat.rhn.domain.kickstart.KickstartIpRange as t
 		        where t.org = :org ]]>

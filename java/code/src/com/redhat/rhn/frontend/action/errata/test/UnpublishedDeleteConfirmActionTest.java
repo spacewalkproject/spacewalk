@@ -27,12 +27,12 @@ public class UnpublishedDeleteConfirmActionTest extends BaseDeleteErrataActionTe
 
     /**
      * {@inheritDoc}
-     * @throws Exception 
+     * @throws Exception
      */
     public Errata createAnErrata(User user) throws Exception {
         return ErrataFactoryTest.createTestUnpublishedErrata(user.getOrg().getId());
     }
-    
+
     /**
      * {@inheritDoc}
      */

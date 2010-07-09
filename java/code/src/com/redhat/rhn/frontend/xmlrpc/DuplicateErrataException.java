@@ -43,5 +43,5 @@ public class DuplicateErrataException extends FaultException  {
         super(2601, "Errata already exists" , LocalizationService.getInstance().
                 getMessage("api.errata.duplicateerrata", new Object [] {advisory}), cause);
     }
-    
+
 }

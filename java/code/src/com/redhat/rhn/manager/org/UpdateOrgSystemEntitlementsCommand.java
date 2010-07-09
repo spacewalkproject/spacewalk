@@ -39,9 +39,9 @@ import java.util.Map;
  * @version $Rev$
  */
 public class UpdateOrgSystemEntitlementsCommand {
-    
+
     private static Logger log = Logger.getLogger(UpdateOrgSystemEntitlementsCommand.class);
-    
+
     private Org org;
     private long newTotal;
     private Entitlement entitlement;
@@ -52,7 +52,7 @@ public class UpdateOrgSystemEntitlementsCommand {
      * @param orgIn to update totals for
      * @param newTotalIn This is the *proposed* new total for the org you are passing in.
      */
-    public UpdateOrgSystemEntitlementsCommand(Entitlement ent, 
+    public UpdateOrgSystemEntitlementsCommand(Entitlement ent,
             Org orgIn, Long newTotalIn) {
         if (orgIn.getId().equals(OrgFactory.getSatelliteOrg().getId())) {
             throw new IllegalArgumentException("Cant update the default org");
@@ -61,60 +61,60 @@ public class UpdateOrgSystemEntitlementsCommand {
         this.newTotal = newTotalIn;
         this.entitlement = ent;
     }
-    
+
     /**
-     * 
+     *
      * @return if we should force unentitling systems that have more entitlements
      * in use then the proposed new entitlement count
-     * 
+     *
      */
     private boolean forceUnentitlement() {
-        boolean retval = true;         
+        boolean retval = true;
         Long orgCur = new Long(0);
 
-        EntitlementServerGroup sg = 
-            ServerGroupFactory.lookupEntitled(entitlement, this.org);        
-        
+        EntitlementServerGroup sg =
+            ServerGroupFactory.lookupEntitled(entitlement, this.org);
+
         if (sg != null) {
             orgCur = sg.getCurrentMembers();
         }
-        
-        if (orgCur > this.newTotal && !ConfigDefaults.get().forceUnentitlement()) { 
+
+        if (orgCur > this.newTotal && !ConfigDefaults.get().forceUnentitlement()) {
             retval = false;
-        }  
-        
+        }
+
         return retval;
     }
-    
+
     /**
      * Update the entitlements in the DB.
      * @return ValidatorError if there were any problems with the proposed total
      */
-    public ValidatorError store() {       
+    public ValidatorError store() {
         // Check available entitlements
-        Long avail = EntitlementManager.getAvailableEntitlements(entitlement, 
+        Long avail = EntitlementManager.getAvailableEntitlements(entitlement,
                 OrgFactory.getSatelliteOrg());
-        
-        EntitlementServerGroup sg = 
+
+        EntitlementServerGroup sg =
             ServerGroupFactory.lookupEntitled(entitlement, this.org);
-        
-        Long orgMax = new Long(0);        
+
+        Long orgMax = new Long(0);
         Long upper = avail;
-        
+
         // setup max, current and upper limit
-        if (sg != null) {        
-          orgMax = sg.getMaxMembers();                         
+        if (sg != null) {
+          orgMax = sg.getMaxMembers();
           upper = avail + orgMax; //upper is avail from org 1 plus current org max
         }
-        
+
         if (upper < this.newTotal) {
             return new ValidatorError("org.entitlements.system.toomany",
                     this.org.getName(),
-                    LocalizationService.getInstance().getMessage(entitlement.getLabel()), 
+                    LocalizationService.getInstance().getMessage(entitlement.getLabel()),
                     upper);
         }
         // Proposed cannot be lower than current members
-        if (!forceUnentitlement()) {        
+        if (!forceUnentitlement()) {
            return new ValidatorError(
                    "org.entitlements.software.proposedwarning",
                    this.entitlement.getHumanReadableLabel(),
@@ -123,26 +123,26 @@ public class UpdateOrgSystemEntitlementsCommand {
         }
 
         // No sense making the call if its the same.
-        if (orgMax.longValue() == this.newTotal) {            
+        if (orgMax.longValue() == this.newTotal) {
             return null;
         }
-        
+
         Long toOrgId;
         Long fromOrgId;
         long actualTotal;
         // If we are decreasing the # of entitlements
         // we give back to the default org.
-        if (orgMax.longValue() > this.newTotal) {         
+        if (orgMax.longValue() > this.newTotal) {
             fromOrgId = this.org.getId();
             toOrgId = OrgFactory.getSatelliteOrg().getId();
             actualTotal = orgMax.longValue() - this.newTotal;
-        } 
-        else {            
+        }
+        else {
             toOrgId = this.org.getId();
             fromOrgId = OrgFactory.getSatelliteOrg().getId();
             actualTotal = this.newTotal - orgMax.longValue();
         }
-        
+
         Map in = new HashMap();
         // "group_label, from_org_id, to_org_id, quantity"
         in.put("group_label", entitlement.getLabel());
@@ -154,6 +154,6 @@ public class UpdateOrgSystemEntitlementsCommand {
         m.execute(in, new HashMap());
         return null;
     }
-    
+
 
 }

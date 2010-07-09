@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * BaseCryptoKeyEditAction - abstract base class for cryptokeys
- *  
+ *
  * @version $Rev: 1 $
  */
 public abstract class BaseCryptoKeyEditAction extends RhnAction {
@@ -50,7 +50,7 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
     public static final String CONTENTS = "contents";
     public static final String TYPE = "type";
     public static final String TYPES = "types";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
@@ -73,12 +73,12 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext ctx = new RequestContext(request);
         BaseCryptoKeyCommand cmd = getCommand(ctx);
-        
-        StrutsDelegate strutsDelegate = getStrutsDelegate(); 
-        
+
+        StrutsDelegate strutsDelegate = getStrutsDelegate();
+
         request.setAttribute(KEY, cmd.getCryptoKey());
         List types = new LinkedList();
-        types.add(lvl10n("crypto.key.gpg", 
+        types.add(lvl10n("crypto.key.gpg",
                 KickstartFactory.KEY_TYPE_GPG.getLabel()));
         types.add(lvl10n("crypto.key.ssl",
                 KickstartFactory.KEY_TYPE_SSL.getLabel()));
@@ -93,23 +93,23 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
             }
             if (!errors.isEmpty()) {
                 strutsDelegate.saveMessages(request, errors);
-            } 
+            }
             else {
                 cmd.setDescription(form.getString(DESCRIPTION));
                 cmd.setContents(contents);
                 cmd.setType(form.getString(TYPE));
                 ValidatorError[] verrors = cmd.store();
                 if (verrors != null) {
-                    ActionErrors storeErrors = 
+                    ActionErrors storeErrors =
                         RhnValidationHelper.validatorErrorToActionErrors(verrors);
                     strutsDelegate.saveMessages(request, storeErrors);
-                } 
+                }
                 else {
                     createSuccessMessage(request, getSuccessKey(), null);
                     retval = mapping.findForward("success");
                 }
             }
-        } 
+        }
         else {
             if (cmd.getCryptoKey() != null) {
                 form.set(DESCRIPTION, cmd.getCryptoKey().getDescription());
@@ -120,20 +120,20 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
     }
 
     protected abstract BaseCryptoKeyCommand getCommand(RequestContext ctx);
-    
+
     /**
-     * 'Overrideable' method for subclasses that require a 
-     * different success message.  
-     * @return String "crypto.key.success" that can be overridden 
+     * 'Overrideable' method for subclasses that require a
+     * different success message.
+     * @return String "crypto.key.success" that can be overridden
      */
     protected String getSuccessKey() {
         return "crypto.key.success";
     }
 
     /**
-     * 'Overrideable' method for subclasses that require 
-     * the contents field of cryptoKey to be set and non-empty  
-     * @return boolean "true" that can be overridden 
+     * 'Overrideable' method for subclasses that require
+     * the contents field of cryptoKey to be set and non-empty
+     * @return boolean "true" that can be overridden
      */
     protected boolean isContentsRequired() {
         return true;

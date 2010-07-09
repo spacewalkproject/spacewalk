@@ -333,7 +333,7 @@ public class Acl {
 
     }
 
-    /** 
+    /**
      * Creates an ACL handler name from an ACL method name.
      * See class description for sample conversions.
      * @param name The ACL name to convert
@@ -386,14 +386,14 @@ public class Acl {
         if (log.isDebugEnabled()) {
             log.debug("acl: " + acl);
         }
-        
+
         // protect against nulls.
         if (acl == null) {
             throw new IllegalArgumentException(
                           LocalizationService.getInstance().getMessage(
                              "bad-syntax", acl));
         }
-        
+
         String[] expressions = acl.split(ACL_SPLIT_REGEX);
         int exprLen = expressions.length;
 

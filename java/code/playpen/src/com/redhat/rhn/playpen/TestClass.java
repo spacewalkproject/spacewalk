@@ -23,42 +23,42 @@ public class TestClass {
     private String foo;
     private String bar;
     private String baz;
-    
+
     /**
      * @return the bar
      */
     public String getBar() {
         return bar;
     }
-    
+
     /**
      * @param bar The bar to set.
      */
     public void setBar(String bar) {
         this.bar = bar;
     }
-    
+
     /**
      * @return the baz
      */
     public String getBaz() {
         return baz;
     }
-    
+
     /**
      * @param bazIn The baz to set.
      */
     public void setBaz(String bazIn) {
         this.baz = bazIn;
     }
-    
+
     /**
      * @return the foo
      */
     public String getFoo() {
         return foo;
     }
-    
+
     /**
      * @param fooIn The foo to set.
      */

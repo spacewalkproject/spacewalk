@@ -23,7 +23,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         column="server_id"/>
 
      <many-to-one name="invalidReason" class="com.redhat.rhn.domain.server.InvalidSnapshotReason"
-        column="invalid"/>                
+        column="invalid"/>
 
 
         <set  name="channels" lazy="true" table="rhnSnapshotChannel"
@@ -32,28 +32,28 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
              <many-to-many class="com.redhat.rhn.domain.channel.Channel"
                 column="channel_id"/>
         </set>
-        
+
         <set  name="configChannels" lazy="true" table="rhnSnapshotConfigChannel"
              >
              <key column="snapshot_id"/>
              <many-to-many class="com.redhat.rhn.domain.config.ConfigChannel"
                 column="config_channel_id"/>
-        </set>        
+        </set>
 
         <set  name="configRevisions" lazy="true" table="rhnSnapshotConfigRevision"
             >
              <key column="snapshot_id"/>
              <many-to-many class="com.redhat.rhn.domain.config.ConfigRevision"
                 column="config_revision_id"/>
-        </set>        
-        
+        </set>
+
         <set  name="groups" lazy="true" table="rhnSnapshotServerGroup"
              >
              <key column="snapshot_id"/>
              <many-to-many class="com.redhat.rhn.domain.server.ServerGroup"
                 column="server_group_id"/>
-        </set>          
-        
+        </set>
+
         <set  name="packages" lazy="true" table="rhnSnapshotPackage"
             >
              <key column="snapshot_id"/>

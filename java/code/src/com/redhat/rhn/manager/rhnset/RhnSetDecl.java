@@ -37,7 +37,7 @@ import java.util.Map;
  * To create a new set, you need to first define the needed cleanup as a
  * constant in {@link SetCleanup} and then declare the set with a new constant
  * in this class.
- * 
+ *
  * @version $Rev$
  */
 public class RhnSetDecl {
@@ -190,9 +190,9 @@ public class RhnSetDecl {
             SetCleanup.UNOWNED_ACTIVATION_KEYS);
 
     public static final RhnSetDecl KICKSTART_ACTIVATION_KEYS =
-        make("kickstart_activation_keys", SetCleanup.UNOWNED_ACTIVATION_KEYS);    
-    
-    public static final RhnSetDecl GPGSSL_KEYS = 
+        make("kickstart_activation_keys", SetCleanup.UNOWNED_ACTIVATION_KEYS);
+
+    public static final RhnSetDecl GPGSSL_KEYS =
         make("gpgssl_keys", SetCleanup.UNOWNED_GPGSSL_KEYS);
 
     public static final RhnSetDecl PACKAGE_PROFILES = make("package_profiles",
@@ -244,11 +244,11 @@ public class RhnSetDecl {
     // Set of config-revisions to be deployed from a specified config-channel
     public static final RhnSetDecl CONFIG_CHANNEL_DEPLOY_REVISIONS =
         make("config_channel_deploy_revisions", SetCleanup.NOOP);
-    
+
     // Set of systems subscribed to a channel to deploy CONFIG_CHANNEL_DEPLOY_REVISIONS to
     public static final RhnSetDecl CONFIG_CHANNEL_DEPLOY_SYSTEMS =
         make("config_channel_deploy_systems", SetCleanup.NOOP);
-    
+
     // Set of channels we're subscribing to/unsubscribing from in the SSM
     public static final RhnSetDecl SSM_CHANNEL_LIST =
         make("channel_list", SetCleanup.UNOWNED_CHANNELS);
@@ -257,17 +257,17 @@ public class RhnSetDecl {
     // query but the UI uses SessionSet)
     public static final RhnSetDecl SSM_REMOVE_PACKAGES_LIST =
         make("ssm_remove_packages_list", SetCleanup.NOOP);
-    
+
     // Set of packages being upgraded from packages in the SSM (this is used by the
     // query but the UI uses SessionSet)
     public static final RhnSetDecl SSM_UPGRADE_PACKAGES_LIST =
         make("ssm_upgrade_packages_list", SetCleanup.NOOP);
-    
+
     // Set of packages being verified from packages in the SSM (this is used by the
     // query but the UI uses SessionSet)
     public static final RhnSetDecl SSM_VERIFY_PACKAGES_LIST =
         make("ssm_verify_packages_list", SetCleanup.NOOP);
-    
+
     // This cleanser is for when the set contains rhnVirtualInstance.id
     // instead of rhnServer.id
     public static final RhnSetDecl VIRTUAL_SYSTEMS = make("virtual_systems",
@@ -364,14 +364,14 @@ public class RhnSetDecl {
             "sscd_removable_package_list", SetCleanup.NOOP);
 
     public static final RhnSetDecl MULTIORG_TRUST_LIST = make(
-            "multiorg_trust_list", SetCleanup.NOOP);       
+            "multiorg_trust_list", SetCleanup.NOOP);
 
     public static final RhnSetDecl SSM_CHANNEL_SUBSCRIBE = make(
             "ssm_channel_subscribe", SetCleanup.NOOP);
-    
+
     public static final RhnSetDecl SSM_CHANNEL_UNSUBSCRIBE = make(
             "ssm_channel_unsubscribe", SetCleanup.NOOP);
-    
+
     private SetCleanup cleanup;
     private String label;
 
@@ -431,7 +431,7 @@ public class RhnSetDecl {
     public RhnSet lookup(User u) {
         return RhnSetManager.findByLabel(u.getId(), label, cleanup);
     }
-    
+
     /**
      * Creates new Declaration based on the selections for this set.
      * @param suffix suffix to make this set declaration unique
@@ -482,7 +482,7 @@ public class RhnSetDecl {
     public static RhnSetDecl find(String label) {
         return DECLS.get(label);
     }
-    
+
     /**
      * get the set for Channel Errata cloning
      * @param chan the Channel passed in
@@ -491,7 +491,7 @@ public class RhnSetDecl {
     public static RhnSetDecl setForChannelErrata(Channel chan) {
         return make("errata_clone_list" + chan.getId(), SetCleanup.ILLEGAL_ERRATA);
     }
-    
+
     /**
      * get the set for Channel package pushing
      * @param chan the Channel passed in

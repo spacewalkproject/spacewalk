@@ -26,7 +26,7 @@ import java.util.Date;
 
 /**
  * ServerActionDetails - Class representation of the table rhnServerAction.
- * 
+ *
  * @version $Rev$
  */
 public class ServerAction extends ActionChild implements Serializable {
@@ -37,107 +37,107 @@ public class ServerAction extends ActionChild implements Serializable {
     private Date pickupTime;
     private Date completionTime;
     private Long remainingTries;
-    
+
     private ActionStatus status;
     private Server server;
 
-    
-    /** 
-     * Getter for status 
+
+    /**
+     * Getter for status
      * @return ActionStatus to get
     */
     public ActionStatus getStatus() {
         return this.status;
     }
 
-    /** 
-     * Setter for status 
+    /**
+     * Setter for status
      * @param statusIn to set
     */
     public void setStatus(ActionStatus statusIn) {
         this.status = statusIn;
     }
 
-    /** 
-     * Getter for resultCode 
+    /**
+     * Getter for resultCode
      * @return Long to get
     */
     public Long getResultCode() {
         return this.resultCode;
     }
 
-    /** 
-     * Setter for resultCode 
+    /**
+     * Setter for resultCode
      * @param resultCodeIn to set
     */
     public void setResultCode(Long resultCodeIn) {
         this.resultCode = resultCodeIn;
     }
 
-    /** 
-     * Getter for resultMsg 
+    /**
+     * Getter for resultMsg
      * @return String to get
     */
     public String getResultMsg() {
         return this.resultMsg;
     }
 
-    /** 
-     * Setter for resultMsg 
+    /**
+     * Setter for resultMsg
      * @param resultMsgIn to set
     */
     public void setResultMsg(String resultMsgIn) {
         this.resultMsg = resultMsgIn;
     }
 
-    /** 
-     * Getter for pickupTime 
+    /**
+     * Getter for pickupTime
      * @return Date to get
     */
     public Date getPickupTime() {
         return this.pickupTime;
     }
 
-    /** 
-     * Setter for pickupTime 
+    /**
+     * Setter for pickupTime
      * @param pickupTimeIn to set
     */
     public void setPickupTime(Date pickupTimeIn) {
         this.pickupTime = pickupTimeIn;
     }
 
-    /** 
-     * Getter for completionTime 
+    /**
+     * Getter for completionTime
      * @return Date to get
     */
     public Date getCompletionTime() {
         return this.completionTime;
     }
 
-    /** 
-     * Setter for completionTime 
+    /**
+     * Setter for completionTime
      * @param completionTimeIn to set
     */
     public void setCompletionTime(Date completionTimeIn) {
         this.completionTime = completionTimeIn;
     }
 
-    /** 
-     * Getter for remainingTries 
+    /**
+     * Getter for remainingTries
      * @return Long to get
     */
     public Long getRemainingTries() {
         return this.remainingTries;
     }
 
-    /** 
-     * Setter for remainingTries 
+    /**
+     * Setter for remainingTries
      * @param remainingTriesIn to set
     */
     public void setRemainingTries(Long remainingTriesIn) {
         this.remainingTries = remainingTriesIn;
     }
-    
+
     /**
      * Gets the Server associated with this ServerAction record
      * @return Returns the server.
@@ -145,7 +145,7 @@ public class ServerAction extends ActionChild implements Serializable {
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * Sets the Server associated with this ServerAction record
      * @param serverIn The server to set.
@@ -154,7 +154,7 @@ public class ServerAction extends ActionChild implements Serializable {
         this.server = serverIn;
         this.setServerId(serverIn.getId());
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -166,7 +166,7 @@ public class ServerAction extends ActionChild implements Serializable {
         return new EqualsBuilder().append(getParentAction(), castOther.getParentAction())
                                   .append(server, castOther.getServer()).isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -175,7 +175,7 @@ public class ServerAction extends ActionChild implements Serializable {
                 .toHashCode();
     }
 
-    
+
     /**
      * get the server ID
      * @return the server id
@@ -186,7 +186,7 @@ public class ServerAction extends ActionChild implements Serializable {
 
     /**
      * Set the server id
-     * @param serverIdIn the serverid 
+     * @param serverIdIn the serverid
      */
     public void setServerId(Long serverIdIn) {
         this.serverId = serverIdIn;

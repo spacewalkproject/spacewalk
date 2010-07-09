@@ -22,7 +22,7 @@ import com.redhat.rhn.webapp.RhnServletListener;
  * @version $Rev$
  */
 public class RhnServletListenerTest extends RhnBaseTestCase {
-    
+
     public void testListenerStartup() {
         RhnServletListener rl = new RhnServletListener();
         // Test startup
@@ -30,12 +30,12 @@ public class RhnServletListenerTest extends RhnBaseTestCase {
         assertTrue(rl.hibernateStarted());
         assertTrue(rl.loggingStarted());
         assertTrue(rl.loggingStarted());
-        
+
         // Test teardown
         rl.contextDestroyed(null);
         assertFalse(rl.hibernateStarted());
         assertFalse(rl.loggingStarted());
         assertFalse(rl.loggingStarted());
-        
+
     }
 }

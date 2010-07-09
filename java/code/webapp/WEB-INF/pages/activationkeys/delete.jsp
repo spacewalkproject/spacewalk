@@ -4,7 +4,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <html:html xhtml="true">
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-keyring.gif" 
+<rhn:toolbar base="h1" img="/img/rhn-icon-keyring.gif"
 			imgAlt="activation-keys.common.alt"
 			helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-systems-activation-keys"
 			>
@@ -35,15 +35,15 @@
         <td>
         	<c:out value="${requestScope.activationkey.key}"/>
         </td>
-    </tr>    
+    </tr>
 </table>
- 
+
 <div align="right">
-<hr/>   
+<hr/>
     <form action="/rhn/activationkeys/Delete.do"
     	 id ="delete_confirm" name = "delete_confirm" method="POST">
     	 <input type="hidden" name="tid" value="${param.tid}"/>
-    	 <input type="submit"  name="dispatch" 
+	 <input type="submit"  name="dispatch"
     	 			value="${rhn:localize('activation-key.jsp.delete-key')}" align="top" />
     	 <rhn:submitted/>
     </form>

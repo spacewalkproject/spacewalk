@@ -47,45 +47,45 @@
 <!-- Start of org list -->
 <rl:list dataset="pageList"
          width="100%"
-         name="userList"         
-         styleclass="list"      
-         filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"   
+         name="userList"
+         styleclass="list"
+         filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"
          emptykey="org.jsp.noUsers">
-        
+
 	<!-- Organization name column -->		
-	<rl:column bound="false" 
-	           sortable="true" 
+	<rl:column bound="false"
+	           sortable="true"
 	           styleclass="first-column"
 	           headerkey="username.nopunc.displayname"
 	           sortattr="login">
-	    <c:choose>	    
-	      <c:when test="${canModify == 1}">	      
-<c:out value="<a href=\"/rhn/users/UserDetails.do?uid=${current.id}\">${current.login}</a>" escapeXml="false" />	        
+	    <c:choose>
+	      <c:when test="${canModify == 1}">
+<c:out value="<a href=\"/rhn/users/UserDetails.do?uid=${current.id}\">${current.login}</a>" escapeXml="false" />
 	      </c:when>
 	      <c:otherwise>
 	  ${current.login}
 	      </c:otherwise>
-		</c:choose>	            	           	           
+		</c:choose>
 		
 	</rl:column>
-	<rl:column bound="false" 
+	<rl:column bound="false"
 	           headerkey="multiorg.jsp.email"
-	        	> 	           	           
+			>
 		<c:out value="${current.address}" />
 	</rl:column>	
-	<rl:column bound="false" 
-	           sortable="false" 
-	           headerkey="realname.displayname" 	           
+	<rl:column bound="false"
+	           sortable="false"
+	           headerkey="realname.displayname"
 	           attr="userLastName">
 		<c:out value="${current.userDisplayName}" />
 	</rl:column>
-	<rl:column bound="false" 
-	           sortable="false" 
-	           headerkey="orgadmin.displayname" 
+	<rl:column bound="false"
+	           sortable="false"
+	           headerkey="orgadmin.displayname"
 	           styleclass="last-column"
 	           attr="orgAdmin">
 	    <c:choose>
-	      <c:when test="${current.orgAdmin == 1}">	      
+	      <c:when test="${current.orgAdmin == 1}">
 	        <img src="/img/rhn-listicon-checked_immutable.gif">
 	      </c:when>
 	      <c:otherwise>

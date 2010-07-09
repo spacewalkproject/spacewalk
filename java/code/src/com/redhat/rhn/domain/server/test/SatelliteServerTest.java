@@ -36,7 +36,7 @@ public class SatelliteServerTest extends RhnBaseTestCase {
         assertFalse(s.isProxy());
         */
     }
-    
+
     public void testSetVersion() {
         SatelliteServer ss = new SatelliteServer();
         ss.setVersion("4.1.0");

@@ -3,43 +3,43 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.action.rhnpackage.PackageActionRemovalFailure" 
+	<class name="com.redhat.rhn.domain.action.rhnpackage.PackageActionRemovalFailure"
            table="rhnActionPackageRemovalFailure" >
 		<composite-id>
-            <key-many-to-one 
+            <key-many-to-one
                 name="server"
                 class="com.redhat.rhn.domain.server.Server"
             	column="server_id"/>
-                
+
             <key-many-to-one
 	           	name="action"
 	            class="com.redhat.rhn.domain.action.Action"
 	            column="action_id"/>
-                
+
             <key-many-to-one
            	 	name="packageName"
             	class="com.redhat.rhn.domain.rhnpackage.PackageName"
             	column="name_id"/>
-        </composite-id> 
+        </composite-id>
 		
 		<property name="flags" type="long" column="flags"/>
-        <property name="sense" type="long" column="sense"/>       
+        <property name="sense" type="long" column="sense"/>
 
         <many-to-one
             name="evr"
             class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
             column="evr_id"/>
-            
+
         <many-to-one
             name="capability"
             class="com.redhat.rhn.domain.rhnpackage.PackageCapability"
             column="capability_id"/>
-            
+
         <many-to-one
             name="suggested"
             class="com.redhat.rhn.domain.rhnpackage.PackageName"
             column="suggested"/>
-            
+
 	</class>
     <query name="PackageActionRemovalFailure.findByKey">
         <![CDATA[from com.redhat.rhn.domain.action.rhnpackage.PackageActionRemovalFailure

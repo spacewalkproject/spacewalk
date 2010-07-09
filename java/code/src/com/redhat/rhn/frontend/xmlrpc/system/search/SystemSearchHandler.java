@@ -93,7 +93,7 @@ public class SystemSearchHandler extends BaseHandler {
      * @xmlrpc.doc List the systems which match this ip.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "searchTerm")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $SystemSearchResultSerializer
      *     #array_end()
@@ -114,7 +114,7 @@ public class SystemSearchHandler extends BaseHandler {
      * @xmlrpc.doc List the systems which match this hostname
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "searchTerm")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $SystemSearchResultSerializer
      *     #array_end()
@@ -136,7 +136,7 @@ public class SystemSearchHandler extends BaseHandler {
      * @xmlrpc.doc List the systems which match this device vendor_id
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "searchTerm")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $SystemSearchResultSerializer
      *     #array_end()
@@ -158,7 +158,7 @@ public class SystemSearchHandler extends BaseHandler {
      * @xmlrpc.doc List the systems which match this device id
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "searchTerm")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $SystemSearchResultSerializer
      *     #array_end()
@@ -180,7 +180,7 @@ public class SystemSearchHandler extends BaseHandler {
      * @xmlrpc.doc List the systems which match this device driver.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "searchTerm")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $SystemSearchResultSerializer
      *     #array_end()
@@ -202,7 +202,7 @@ public class SystemSearchHandler extends BaseHandler {
      * @xmlrpc.doc List the systems which match the device description.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "searchTerm")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $SystemSearchResultSerializer
      *     #array_end()
@@ -224,7 +224,7 @@ public class SystemSearchHandler extends BaseHandler {
      * @xmlrpc.doc List the systems which match this name or description
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "searchTerm")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $SystemSearchResultSerializer
      *     #array_end()

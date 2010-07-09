@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.config.ConfigChannelType" 
+	<class name="com.redhat.rhn.domain.config.ConfigChannelType"
 		table="rhnConfigChannelType" mutable="false">
 		<cache usage="read-only"/>
 		<id name="id" type="long" column="id">
@@ -16,7 +16,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="created" column="created" type="timestamp" />
 		<property name="modified" column="modified" type="timestamp" />
 	</class>
-    
+
     <query name="ConfigChannelType.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.config.ConfigChannelType as t where t.label = :label]]>
     </query>

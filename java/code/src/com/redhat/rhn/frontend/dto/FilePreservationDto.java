@@ -26,70 +26,70 @@ public class FilePreservationDto extends BaseDto {
     private String label;
     private Date created;
     private Date modified;
-    
+
     /**
      * @return Returns the FileList id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @return Returns the date FileList was created.
      */
     public Date getCreated() {
         return created;
     }
-    
+
     /**
      * @param cdateIn The cdateIn to set.
      */
     public void setCreated(Date cdateIn) {
         this.created = cdateIn;
     }
-    
+
     /**
      * @return Returns the FileList label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param labelIn The labelIn to set.
      */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
-    
+
     /**
      * @return Returns the date the FileList was modified.
      */
     public Date getModified() {
         return modified;
     }
-    
+
     /**
      * @param mdateIn The mdateIn to set.
      */
     public void setModified(Date mdateIn) {
         this.modified = mdateIn;
     }
-    
+
     /**
      * @return Returns The FileList org_id.
      */
     public Long getOrgId() {
         return org_id;
     }
-    
+
     /**
      * @param orgIn The orgIn to set.
      */
     public void setOrgId(Long orgIn) {
         this.org_id = orgIn;
     }
-    
+
     /**
      * @param idIn The idIn to set.
      */

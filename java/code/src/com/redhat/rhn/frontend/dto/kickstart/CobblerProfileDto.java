@@ -41,15 +41,15 @@ public class CobblerProfileDto extends KickstartDto {
     @Override
     public boolean isActive() {
         return true;
-    }    
+    }
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public String getSelectionKey() {
         return selectionKey;
     }
-    
+
     /**
      * Dummy method to return null for channel
      * @return dummy label
@@ -57,8 +57,8 @@ public class CobblerProfileDto extends KickstartDto {
     public String getChannelLabel() {
         return "";
     }
-    
-    
+
+
     /**
      * Create as CobblerProfileDto instance
      *  from the given Cobbler profile object

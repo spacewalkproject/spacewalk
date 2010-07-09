@@ -40,62 +40,62 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class KickstartOverviewAction extends RhnAction {
 
-    public static final String FULL_TABLE_HEADER = 
+    public static final String FULL_TABLE_HEADER =
         "<div style=\"clear:both; padding-top: 30px;\">" +
         "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" class=\"list\">" +
         "<thead><tr><th style=\"text-align:left;\">";
-    
-    public static final String HALF_TABLE_HEADER = 
+
+    public static final String HALF_TABLE_HEADER =
         "<table cellspacing=\"0\"  cellpadding=\"0\" class=\"half-table\"" +
           "class=\"border-bottom: 1px solid #ffffff;\">" +
               "<thead><tr><th style=\"text-align: left;\">";
-    
-    public static final String TABLE_BODY = 
+
+    public static final String TABLE_BODY =
         "</th></tr></thead><tr class=\"list-row-odd\">" +
         "<td style=\"padding-bottom: 24px;\" class=\"first-column last-column\">";
-    
+
     public static final String HALF_TABLE_BODY =
         " </th></tr></thead><tr class=\"list-row-odd\">" +
                 "<td style=\"text-align: left;\" class=\"first-column last-column\">";
-    
+
     public static final String FULL_TABLE_FOOTER = "</td></tr></table></div>";
-    
+
     public static final String HALF_TABLE_FOOTER = "</td></tr></table> ";
-    
+
     public static final String SYSTEMS_TO_BE_KICKSTARTED = "sysToBeKickstarted";
     public static final String SYSTEMS_CURRENTLY_KICKSTARTING = "sysKickstarting";
     public static final String KICKSTART_SUMMARY = "kickstartSummaryList";
     public static final String SYS_TO_BE_KS_EMPTY = "sysToBeKSEmpty";
     public static final String SYS_CUR_KS_EMPTY = "sysKSEmpty";
     public static final String KSPROFILES_EMPTY = "emptyKSProfiles";
-    
-    
+
+
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
        RequestContext rctx = new RequestContext(request);
        User user = rctx.getCurrentUser();
-       
+
        DataResult ksdr = KickstartLister.getInstance()
                                   .getKickstartSummary(user.getOrg(), null);
        DataResult ckdr = KickstartLister.getInstance()
                             .getSystemsCurrentlyKickstarting(user.getOrg(), null);
        DataResult skdr = KickstartLister.getInstance()
                               .getSystemsScheduledToBeKickstarted(user.getOrg(), null);
-             
+
        formatKSSummary(ksdr);
        formatKSSystemInfo(ckdr);
        formatKSSystemInfo(skdr);
-       
-       String ckEmpty = renderEmptyCSSTable("kickstart.jsp.system", 
+
+       String ckEmpty = renderEmptyCSSTable("kickstart.jsp.system",
                                                   "kickstartoverview.jsp.nocurrentlyks");
        String skEmpty = renderEmptyCSSTable("kickstart.jsp.system",
                                               "kickstartoverview.jsp.noscheduledtobeks");
        String emptyKSProfiles = renderEmptyCSSHalfTable(
                  "kickstartoverview.jsp.kickstartsummary", "kickstart.jsp.nokickstarts");
-       
-       
+
+
        rctx.getRequest().setAttribute(SYS_CUR_KS_EMPTY, ckEmpty);
        rctx.getRequest().setAttribute(SYS_TO_BE_KS_EMPTY , skEmpty);
        rctx.getRequest().setAttribute(KSPROFILES_EMPTY, emptyKSProfiles);
@@ -104,10 +104,10 @@ public class KickstartOverviewAction extends RhnAction {
        rctx.getRequest().setAttribute(SYSTEMS_TO_BE_KICKSTARTED, skdr);
        rctx.getRequest().setAttribute("parentUrl", request.getRequestURI());
 
-       
+
        return mapping.findForward("default");
     }
-    
+
     /**
      * formats dr for web UI
      * @param dr The dr to format
@@ -117,13 +117,13 @@ public class KickstartOverviewAction extends RhnAction {
             LocalizationService ls = LocalizationService.getInstance();
             KickstartOverviewSummaryDto kdto = new KickstartOverviewSummaryDto();
             for (Iterator i = dr.iterator(); i.hasNext();) {
-                 kdto = (KickstartOverviewSummaryDto)i.next(); 
-                 kdto.setName(kdto.getName() + 
+                 kdto = (KickstartOverviewSummaryDto)i.next();
+                 kdto.setName(kdto.getName() +
                                  ls.getMessage("filter-form.jsp.ksoverviewprofiles"));
             }
         }
     }
-   
+
     /**
      * formats dr for web UI
      * @param dr The dr to format
@@ -139,33 +139,33 @@ public class KickstartOverviewAction extends RhnAction {
           }
        }
     }
-    
+
     /**
-     * This renders an empty list view using our CSS defs for full tables. 
+     * This renders an empty list view using our CSS defs for full tables.
      * @param tableHeaderKey the String that goes between "<th></th>" tags
      * @param tableMessageKey the message inside the table
      * @return String representation of rendered table
      */
     public String renderEmptyCSSTable(String tableHeaderKey, String tableMessageKey) {
-        return FULL_TABLE_HEADER + 
+        return FULL_TABLE_HEADER +
         LocalizationService.getInstance().getMessage(tableHeaderKey)  + TABLE_BODY +
-        LocalizationService.getInstance().getMessage(tableMessageKey) + 
+        LocalizationService.getInstance().getMessage(tableMessageKey) +
         FULL_TABLE_FOOTER;
     }
 
     /**
-     * This renders an empty list view using our CSS defs for half tables. 
+     * This renders an empty list view using our CSS defs for half tables.
      * @param tableHeaderKey the String that goes between "<th></th>" tags
      * @param tableMessageKey the message inside the table
      * @return String representation of rendered table
      */
-    public String renderEmptyCSSHalfTable(String tableHeaderKey, 
+    public String renderEmptyCSSHalfTable(String tableHeaderKey,
                                           String tableMessageKey) {
-        return HALF_TABLE_HEADER + 
-        LocalizationService.getInstance().getMessage(tableHeaderKey)  + 
-        HALF_TABLE_BODY + 
-        LocalizationService.getInstance().getMessage(tableMessageKey) + 
+        return HALF_TABLE_HEADER +
+        LocalizationService.getInstance().getMessage(tableHeaderKey)  +
+        HALF_TABLE_BODY +
+        LocalizationService.getInstance().getMessage(tableMessageKey) +
         HALF_TABLE_FOOTER;
     }
-    
+
 }

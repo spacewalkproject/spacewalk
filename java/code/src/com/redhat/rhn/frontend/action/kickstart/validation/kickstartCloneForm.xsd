@@ -1,14 +1,14 @@
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 
-<schema targetNamespace="http://rhn.redhat.com" 
-        xmlns="http://www.w3.org/1999/XMLSchema" 
-        xmlns:rhn="http://rhn.redhat.com"> 
+<schema targetNamespace="http://rhn.redhat.com"
+        xmlns="http://www.w3.org/1999/XMLSchema"
+        xmlns:rhn="http://rhn.redhat.com">
 
-  <attribute name="label"> 
-    <simpleType baseType="string"> 
+  <attribute name="label">
+    <simpleType baseType="string">
         <minLength value="1" />
         <maxLength value="64" />
-    </simpleType> 
-  </attribute>   
-    
+    </simpleType>
+  </attribute>
+
 </schema>

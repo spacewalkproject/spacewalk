@@ -24,10 +24,10 @@ package com.redhat.rhn.common.validator;
  * @version $Rev$
  */
 public class ValidatorWarning extends ValidationMessage {
-    
+
     /**
     * Construct a ValidatorWarning with the proper
-    * key and values 
+    * key and values
     * @param keyIn the key to use to lookup the localized string
     * @param valuesIn the values to substitute in the message
     */
@@ -43,7 +43,7 @@ public class ValidatorWarning extends ValidationMessage {
     public ValidatorWarning(String keyIn) {
         super(keyIn);
     }
-    
+
     /** {@inheritDoc} */
     public String toString() {
         return "ValidatorWarning [Key: " + getKey() + "]";

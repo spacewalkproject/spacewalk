@@ -18,11 +18,11 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.frontend.action.kickstart.KickstartOverviewAction;
 
 public class KickstartOverviewActionTest extends BaseKickstartEditTestCase {
-    
+
     public void testExecute() throws Exception {
         setRequestPathInfo("/kickstart/KickstartOverview");
         actionPerform();
-        
+
         DataResult ksdr = (DataResult) request.getAttribute(
                                             KickstartOverviewAction.KICKSTART_SUMMARY);
         assertNotNull(ksdr);
@@ -31,5 +31,5 @@ public class KickstartOverviewActionTest extends BaseKickstartEditTestCase {
                                 KickstartOverviewAction.SYSTEMS_CURRENTLY_KICKSTARTING));
         assertNotNull(request.getAttribute(
                                 KickstartOverviewAction.SYSTEMS_TO_BE_KICKSTARTED));
-    }  
+    }
 }

@@ -30,25 +30,25 @@ import org.cobbler.Profile;
 import java.io.File;
 
 public class KickstartFileSyncTaskTest extends RhnBaseTestCase {
-    
-    
-    
+
+
+
     public void testTask() throws Exception {
-        
+
         User user = UserTestUtils.createUserInOrgOne();
         user.addRole(RoleFactory.ORG_ADMIN);
-        
+
         KickstartData ks = KickstartDataTest.createTestKickstartData(user.getOrg());
-        ks.setKickstartDefaults(KickstartDataTest.createDefaults(ks, user));       
+        ks.setKickstartDefaults(KickstartDataTest.createDefaults(ks, user));
         KickstartDataTest.createCobblerObjects(ks);
         KickstartFactory.saveKickstartData(ks);
-        
-        
+
+
         ks = (KickstartData) TestUtils.saveAndReload(ks);
-        
-        Profile p = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user), 
+
+        Profile p = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user),
                 ks.getCobblerId());
-        
+
         File f = new File(p.getKickstart());
         assertTrue(f.exists());
         f.delete();
@@ -56,7 +56,7 @@ public class KickstartFileSyncTaskTest extends RhnBaseTestCase {
         KickstartFileSyncTask task = new KickstartFileSyncTask();
         task.execute(null);
         assertTrue(f.exists());
-        
+
     }
 
 }

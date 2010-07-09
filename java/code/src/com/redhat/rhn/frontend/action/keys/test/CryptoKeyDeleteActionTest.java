@@ -27,9 +27,9 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
  * @version $Rev: 1 $
  */
 public class CryptoKeyDeleteActionTest extends RhnMockStrutsTestCase {
-    
+
     private CreateCryptoKeyCommand cmd;
-        
+
     public void testExecute() throws Exception {
         cmd = new CreateCryptoKeyCommand(user.getOrg());
         CryptoKeyCommandTest testObj = new CryptoKeyCommandTest();
@@ -51,7 +51,7 @@ public class CryptoKeyDeleteActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         String[] keys = {"cryptokey.delete.success"};
         verifyActionMessages(keys);
-        assertNull(KickstartFactory.lookupCryptoKeyById(cmd.getCryptoKey().getId(), 
+        assertNull(KickstartFactory.lookupCryptoKeyById(cmd.getCryptoKey().getId(),
                                                               cmd.getCryptoKey().getOrg()));
     }
 }

@@ -37,29 +37,29 @@ import org.hibernate.Session;
  */
 public class ServerGroupTest extends RhnBaseTestCase {
     public static final long DEFAULT_MAX_MEMBERS = 10;
-    
+
     public void testEquals() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testorg");
         ServerGroup sg1 = ServerGroupTestUtils.createManaged(user);
         ServerGroup sg2 = new ServerGroup();
-        
+
         assertFalse(sg1.equals(sg2));
         assertFalse(sg1.equals("foo"));
-        
+
         Session session = HibernateFactory.getSession();
         sg2 = (ServerGroup) session.getNamedQuery("ServerGroup.lookupByIdAndOrg")
                                             .setParameter("id", sg1.getId())
                                             .setParameter("org", user.getOrg())
                                             .uniqueResult();
-                                                
+
         assertEquals(sg1, sg2);
     }
-    
+
     /* Commented out while we redo the virtualization entitlements
     public void testVirtServerGroup() {
         assertNotNull(ServerConstants.getServerGroupTypeVirtualizationEntitled());
     }*/
-    
+
     /**
      * @param user
      */
@@ -67,24 +67,24 @@ public class ServerGroupTest extends RhnBaseTestCase {
         if (!user.hasRole(RoleFactory.SYSTEM_GROUP_ADMIN)) {
             user.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
         }
-    }    
-    
+    }
+
     public static ServerGroup createTestServerGroup(Org org,
-                                            ServerGroupType typeIn) 
+                                            ServerGroupType typeIn)
         throws Exception {
-        
+
         if (typeIn != null) {
-            EntitlementServerGroup existingGroup = 
+            EntitlementServerGroup existingGroup =
                         ServerGroupFactory.lookupEntitled(org, typeIn);
             if (existingGroup != null) {
-                return existingGroup;    
+                return existingGroup;
             }
             else {
                 assertNull(new UpdateOrgSystemEntitlementsCommand(
                         typeIn.getAssociatedEntitlement(), org,
                         DEFAULT_MAX_MEMBERS).store());
                 EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
-                                            typeIn.getAssociatedEntitlement(), org); 
+                                            typeIn.getAssociatedEntitlement(), org);
                 assertNotNull(group);
                 assertNotNull(group.getMaxMembers());
                 assertTrue(group.getMaxMembers() > 0);
@@ -92,11 +92,11 @@ public class ServerGroupTest extends RhnBaseTestCase {
                 assertNotNull(group.getGroupType().getAssociatedEntitlement());
                 return group;
             }
-            
+
         }
         ManagedServerGroup sg = ServerGroupFactory.create("NewGroup" +
-                                                        TestUtils.randomString(), 
-                                                            "RHN Managed Group", 
+                                                        TestUtils.randomString(),
+                                                            "RHN Managed Group",
                                                             org);
         assertNotNull(sg.getId());
         return sg;
@@ -109,5 +109,5 @@ public class ServerGroupTest extends RhnBaseTestCase {
         assertTrue(org1.getEntitledServerGroups().get(0).getGroupType().
                                                         getFeatures().size() > 0);
     }
-    
+
 }

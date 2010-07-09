@@ -50,10 +50,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Action for the probe details page. Note that there is no correpsonding 
+ * Action for the probe details page. Note that there is no correpsonding
  * SetupAction since there isn't really a good separation between setup
  * and performing the action.
- * 
+ *
  * @version $Rev$
  */
 public class ProbeDetailsAction extends BaseProbeAction implements Listable {
@@ -66,24 +66,24 @@ public class ProbeDetailsAction extends BaseProbeAction implements Listable {
     public static final String L10NED_SELECTED_METRICS_STRING =
             "l10ned_selected_metrics_string";
     public static final String L10NKEY = "l10nmetric_";
-    
-    
+
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest req, HttpServletResponse resp) {
-        
+
         RequestContext rctx = new RequestContext(req);
         ServerProbe probe = (ServerProbe) rctx.lookupProbe();
-        
+
         if (probe.getTemplateProbe() != null) {
             req.setAttribute(IS_SUITE_PROBE, Boolean.TRUE);
-        } 
+        }
         else {
             req.setAttribute(IS_SUITE_PROBE, Boolean.FALSE);
         }
         Server server = rctx.lookupAndBindServer();
         DynaActionForm form = (DynaActionForm) formIn;
-        
+
         boolean showGraph = BooleanUtils.toBoolean((Boolean) form.get(SHOW_GRAPH));
         boolean showLog = BooleanUtils.toBoolean((Boolean) form.get(SHOW_LOG));
         // Process the dates, default the start date to yesterday
@@ -93,23 +93,23 @@ public class ProbeDetailsAction extends BaseProbeAction implements Listable {
         Calendar yesterday = Calendar.getInstance();
         yesterday.setTime(new Date());
         yesterday.add(Calendar.DAY_OF_YEAR, -1);
-        
-        DateRangePicker picker = new DateRangePicker(form, req, yesterday.getTime(), 
-                today.getTime(), 
-                DatePicker.YEAR_RANGE_NEGATIVE, 
+
+        DateRangePicker picker = new DateRangePicker(form, req, yesterday.getTime(),
+                today.getTime(),
+                DatePicker.YEAR_RANGE_NEGATIVE,
                 "probedetails.jsp.start_date",
                 "probedetails.jsp.end_date");
         DatePickerResults dates = picker.processDatePickers(isSubmitted(form));
         ActionMessages errors = dates.getErrors();
-        
+
         // Setup the Metrics array
         Map l10nmetrics = new HashMap();
-        Metric[] marray = (Metric[]) 
+        Metric[] marray = (Metric[])
             probe.getCommand().getMetrics().toArray(new Metric[0]);
         LabelValueBean[] metrics = new LabelValueBean[marray.length];
         for (int i = 0; i < marray.length; i++) {
             String label = LocalizationService.getInstance().
-                getMessage("metrics." + marray[i].getLabel()); 
+                getMessage("metrics." + marray[i].getLabel());
             metrics[i] = new LabelValueBean(
                     label, marray[i].getMetricId());
             l10nmetrics.put(marray[i].getMetricId(), label);
@@ -131,17 +131,17 @@ public class ProbeDetailsAction extends BaseProbeAction implements Listable {
             }
         }
         req.setAttribute(SELECTED_METRICS, selectedMetrics);
-        
+
         if (showLog || showGraph) {
             boolean valid = errors.isEmpty();
-            
+
             if (valid && showGraph) {
                 // Setup the graphing specific parameters so we can
                 // fill out the URL on details.jsp to the ProbeGraphAction
                 StringBuffer ssString = new StringBuffer();
-                // We also need to localize the labels so we can 
+                // We also need to localize the labels so we can
                 // pass them into ProbeGraphAction so it can localize
-                // the metric lables within the graph itself. 
+                // the metric lables within the graph itself.
                 StringBuffer l10nString = new StringBuffer();
                 // Here we concat together the selected metrics
                 // so we don't have to do this in the JSP.  The graphing
@@ -157,32 +157,32 @@ public class ProbeDetailsAction extends BaseProbeAction implements Listable {
                 }
                 req.setAttribute(SELECTED_METRICS_STRING, ssString.toString());
                 req.setAttribute(L10NED_SELECTED_METRICS_STRING, l10nString.toString());
-                req.setAttribute(STARTTS, 
+                req.setAttribute(STARTTS,
                         new Long(dates.getStart().getCalendar().getTimeInMillis()));
-                req.setAttribute(ENDTS, 
+                req.setAttribute(ENDTS,
                         new Long(dates.getEnd().getCalendar().getTimeInMillis()));
             }
             if (valid && showLog) {
-                DataResult dr = 
-                    MonitoringManager.getInstance().getProbeStateChangeData(probe, 
+                DataResult dr =
+                    MonitoringManager.getInstance().getProbeStateChangeData(probe,
                             new Timestamp(dates.getStart().getCalendar().getTimeInMillis()),
                             new Timestamp(dates.getEnd().getCalendar().getTimeInMillis()));
                 req.setAttribute(ListHelper.LIST, dr);
                 ListHelper helper = new ListHelper(this, req);
                 helper.execute();
             }
-        } 
-        
+        }
+
         if (!errors.isEmpty()) {
             addErrors(req, errors);
         }
         req.setAttribute("probe", probe);
         req.setAttribute("system", server);
-        
+
         if (probe.getState() == null || probe.getState().getOutput() == null) {
-            req.setAttribute("status", 
+            req.setAttribute("status",
                LocalizationService.getInstance().getMessage("probe.empty.status"));
-        } 
+        }
         else {
             ProbeState state = probe.getState();
             String statusString = LocalizationService.getInstance().
@@ -195,14 +195,14 @@ public class ProbeDetailsAction extends BaseProbeAction implements Listable {
             if (probe.getState().getState().
                     equals(MonitoringConstants.PROBE_STATE_UNKNOWN)) {
                 req.setAttribute("status_class", "probe-status-unknown");
-            } 
+            }
             else if (probe.getState().getState().
                     equals(MonitoringConstants.PROBE_STATE_CRITICAL)) {
                 req.setAttribute("status_class", "probe-status-critical");
             }
-            
+
         }
-        
+
         req.setAttribute(SHOW_GRAPH, Boolean.valueOf(showGraph));
         req.setAttribute(SHOW_LOG, Boolean.valueOf(showLog));
         return mapping.findForward("default");

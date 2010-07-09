@@ -258,7 +258,7 @@ DELETE
 
 <write-mode name ="remove_unowned_kickstart_scripts">
   <query params="user_id, label">
-DELETE 
+DELETE
   FROM rhnSet
  WHERE 1=1
    AND S.user_id = :user_id

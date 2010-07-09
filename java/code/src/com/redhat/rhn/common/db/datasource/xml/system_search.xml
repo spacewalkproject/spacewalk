@@ -38,7 +38,7 @@ SELECT  S.id AS ID
 </mode>
 
 <query name="systemsearch_id_elab" params="">
-SELECT S.id AS ID, S.id AS MATCHING_FIELD 
+SELECT S.id AS ID, S.id AS MATCHING_FIELD
   FROM rhnServer S
   WHERE S.id IN (%s)
 </query>

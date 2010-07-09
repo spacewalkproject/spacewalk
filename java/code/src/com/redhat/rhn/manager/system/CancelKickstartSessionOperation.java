@@ -25,7 +25,7 @@ import com.redhat.rhn.manager.PersistOperation;
  * DeleteSystemFromActionOperation - deletes a system from an action
  * @version $Rev$
  */
-public class CancelKickstartSessionOperation 
+public class CancelKickstartSessionOperation
     extends BaseSystemOperation implements PersistOperation {
 
     /**
@@ -37,19 +37,19 @@ public class CancelKickstartSessionOperation
         super(sid);
         this.user = userIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public ValidatorError store() {
-        
-        KickstartSession ksession = 
+
+        KickstartSession ksession =
             KickstartFactory.lookupKickstartSessionByServer(server.getId());
         String failedMessage = LocalizationService.getInstance().
-        getMessage("kickstart.session.user_canceled", this.user.getLogin()); 
+        getMessage("kickstart.session.user_canceled", this.user.getLogin());
         ksession.markFailed(failedMessage);
         KickstartFactory.saveKickstartSession(ksession);
-        
+
         return null;
     }
 

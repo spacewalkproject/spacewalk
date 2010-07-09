@@ -29,14 +29,14 @@ public class ChildChannelDto {
     private boolean isSubscribable;
     private Long availableSubscriptions;
     private Long systemCount;
-    
+
     /**
      * Constructor
      */
     public ChildChannelDto() {
         super();
     }
-    
+
     /**
      * Constructor
      * @param idIn id
@@ -45,7 +45,7 @@ public class ChildChannelDto {
      * @param isFreeForGuestsIn is it free?
      * @param isSubscriableIn if subscriable or not
      */
-    public ChildChannelDto(Long idIn, String nameIn, 
+    public ChildChannelDto(Long idIn, String nameIn,
             boolean subscribedIn, boolean isFreeForGuestsIn, boolean isSubscriableIn) {
         this.id = idIn;
         this.name = nameIn;
@@ -53,14 +53,14 @@ public class ChildChannelDto {
         this.isFreeForGuests = isFreeForGuestsIn;
         this.isSubscribable = isSubscriableIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * Set the id.
      * @param idIn id to set.
@@ -68,16 +68,16 @@ public class ChildChannelDto {
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
-     * 
+     *
      * @return parent ID.
      */
     public Long getParentId() {
         return parentId;
     }
 
-    
+
     /**
      * Set the parentId.
      * @param inId to set.
@@ -100,7 +100,7 @@ public class ChildChannelDto {
         this.name = nameIn;
     }
 
-    
+
     /**
      * @return Returns the subscribed.
      */
@@ -108,7 +108,7 @@ public class ChildChannelDto {
         return subscribed;
     }
 
-    
+
     /**
      * @param subscribedIn The subscribed to set.
      */
@@ -116,7 +116,7 @@ public class ChildChannelDto {
         this.subscribed = subscribedIn;
     }
 
-    
+
     /**
      * @return Returns the isSubscribable.
      */
@@ -124,7 +124,7 @@ public class ChildChannelDto {
         return isSubscribable;
     }
 
-    
+
     /**
      * @param isSubscribableIn The isSubscribable to set.
      */
@@ -132,7 +132,7 @@ public class ChildChannelDto {
         this.isSubscribable = !new Long(0).equals(isSubscribableIn);
     }
 
-    
+
     /**
      * @return Returns the availableSubscriptions.
      */
@@ -140,7 +140,7 @@ public class ChildChannelDto {
         return availableSubscriptions;
     }
 
-    
+
     /**
      * @param availableSubscriptionsIn The availableSubscriptions to set.
      */
@@ -148,14 +148,14 @@ public class ChildChannelDto {
         this.availableSubscriptions = availableSubscriptionsIn;
     }
 
-    
+
     /**
      * @return Returns the isSubscribable.
      */
     public boolean isSubscribable() {
         return isSubscribable;
     }
-    
+
     /**
      * @return the isFreeForGuests
      */
@@ -169,9 +169,9 @@ public class ChildChannelDto {
     public void setFreeForGuests(boolean isFreeForGuestsIn) {
         this.isFreeForGuests = isFreeForGuestsIn;
     }
-    
+
     /**
-     * 
+     *
      * @return label
      */
     public String getLabel() {
@@ -185,7 +185,7 @@ public class ChildChannelDto {
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
-    
+
     /**
      * Get the system count.
      * @return system count.
@@ -194,7 +194,7 @@ public class ChildChannelDto {
         return systemCount;
     }
 
-    
+
     /**
      * Set the system count.
      * @param systemCountIn to set.
@@ -202,5 +202,5 @@ public class ChildChannelDto {
     public void setSystemCount(Long systemCountIn) {
         this.systemCount = systemCountIn;
     }
-    
+
 }

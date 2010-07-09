@@ -22,16 +22,16 @@
     <bean:message key="filters.jsp.summary"/>
     <form method="POST" name="rhn_list" action="/rhn/monitoring/config/notification/FiltersSubmit.do">
 
-    <rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/filters.xml" 
+    <rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/filters.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
     <br>
-    
+
     <rhn:list pageList="${requestScope.pageList}" noDataText="filters.jsp.nofilters">
       <%-- There is only one list, but we have to define the same columns
            twice since we can't just stick the opening tags into the c:if --%>
       <c:if test="${allowSelection}">
-      <rhn:listdisplay   set="${requestScope.set}" 
+      <rhn:listdisplay   set="${requestScope.set}"
         hiddenvars="${requestScope.newset}" button="filters.jsp.expirefilters">
         <rhn:set value="${current.recid}" />
         <rhn:column header="filters.jsp.description">

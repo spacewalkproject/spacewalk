@@ -28,7 +28,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  */
 public class SerializerHelperTest extends TestCase {
-    
+
     public void testSerialize() throws Exception {
         SerializerHelper sl = new SerializerHelper(new XmlRpcSerializer());
         sl.add("foo", new Long(12));

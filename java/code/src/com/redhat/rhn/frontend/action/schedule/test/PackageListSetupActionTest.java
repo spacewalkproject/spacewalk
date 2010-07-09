@@ -29,9 +29,9 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
  * @version $Rev$
  */
 public class PackageListSetupActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testPeformExecute() throws Exception {
-        
+
         setRequestPathInfo("/schedule/PackageList");
 
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -46,16 +46,16 @@ public class PackageListSetupActionTest extends RhnMockStrutsTestCase {
         assertNotNull(getRequest().getAttribute("dataset"));
         assertNotNull(getRequest().getAttribute("actionname"));
     }
-        
+
    public void testPerformExecuteBad() {
        setRequestPathInfo("/schedule/PackageList");
-        
+
         addRequestParameter("aid", (String) null);
         actionPerform();
         assertTrue(getActualForward().contains("errors/badparam.jsp"));
    }
-   
-   
+
+
    public void testPerformExecuteBad2() {
         setRequestPathInfo("/schedule/PackageList");
         addRequestParameter("aid", "-99999");

@@ -88,7 +88,7 @@ public class AclTest extends RhnBaseTestCase {
         handler.verify();
 
         // test 2 params with diff spacings
-        handler.setExpected("handler_zero", 
+        handler.setExpected("handler_zero",
                 new String[]{"true", "false"});
         assertTrue(acl.evalAcl(context, "handler_zero(true,false)"));
         handler.verify();
@@ -121,7 +121,7 @@ public class AclTest extends RhnBaseTestCase {
     public void testMultipleOrStatementsAcl() {
         handler.setExpected("handler_zero", new String[]{"false"});
         handler.setExpected("handler_one", new String[]{"true"});
-        assertTrue(acl.evalAcl(context, 
+        assertTrue(acl.evalAcl(context,
                     "handler_zero(false) or handler_one(true)"));
         handler.verify();
 
@@ -130,7 +130,7 @@ public class AclTest extends RhnBaseTestCase {
         // to have an expectation value. handler_one won't get called
         // because handler_zero will return true
         handler.setExpected("handler_one", null);
-        assertTrue(acl.evalAcl(context, 
+        assertTrue(acl.evalAcl(context,
                     "handler_zero(true) or handler_one(false)"));
         handler.verify();
     }
@@ -148,7 +148,7 @@ public class AclTest extends RhnBaseTestCase {
         // to have an expectation value. handler_one won't get called
         // because handler_zero will return true
         handler.setExpected("handler_one", null);
-        assertFalse(acl.evalAcl(context, 
+        assertFalse(acl.evalAcl(context,
                     "handler_zero(false) ; handler_one(true)"));
         handler.verify();
 
@@ -175,7 +175,7 @@ public class AclTest extends RhnBaseTestCase {
         handler.setExpected("handler_one", null);
         handler.setExpected("handler_two", new String[]{"true"});
 
-        assertTrue(acl.evalAcl(context, 
+        assertTrue(acl.evalAcl(context,
             "handler_zero(true) or handler_one(false) ; handler_two(true)"));
 
         handler.verify();
@@ -205,7 +205,7 @@ public class AclTest extends RhnBaseTestCase {
             // good
         }
     }
-    
+
     /* Test bad syntax.
      */
     public void test() {
@@ -217,7 +217,7 @@ public class AclTest extends RhnBaseTestCase {
             // good
         }
     }
-    
+
     /** Makes sure that method names are properly converted to acl handler
      *  names.
      *  Tests the following:
@@ -286,7 +286,7 @@ public class AclTest extends RhnBaseTestCase {
         assertTrue(localAcl.evalAcl(context, "handler_zero(true)"));
         assertTrue(localAcl.evalAcl(context, "xml_test()"));
     }
-    
+
     public void testGetAclHandlerNames() {
         Acl localAcl = new Acl();
         localAcl.registerHandler(MockAclHandler.class.getName());
@@ -301,8 +301,8 @@ public class AclTest extends RhnBaseTestCase {
 
     /* Mock AclHandler that can be used to check that the Acl class
      * is parsing parameters correctly.
-     * If no parameters are given to this AclHandler, its 
-     * {@link #handleAcl} method returns false. If the 
+     * If no parameters are given to this AclHandler, its
+     * {@link #handleAcl} method returns false. If the
      * first parameter equals "true", then handleAcl() returns true.
      */
    public static class MockAclHandler implements AclHandler, Verifiable {
@@ -319,10 +319,10 @@ public class AclTest extends RhnBaseTestCase {
                    new ExpectationValue("handler_one params"));
            expected.put("handler_two",
                    new ExpectationValue("handler_two params"));
-           
+
            // defer verifying until verify() is called
            // otherwise, calling setActual() might throw an Exception,
-           // which we don't want because then we won't get our 
+           // which we don't want because then we won't get our
            // assert exceptions
            Collection expectedValues = expected.values();
            Iterator iter = expectedValues.iterator();
@@ -336,7 +336,7 @@ public class AclTest extends RhnBaseTestCase {
         * is called. */
        public void setExpected(String handlerName, String[] params) {
            if (params != null) {
-               ExpectationValue exp = 
+               ExpectationValue exp =
                    (ExpectationValue)expected.get(handlerName);
                exp.setExpected(Arrays.asList(params));
            }

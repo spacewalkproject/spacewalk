@@ -26,7 +26,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @version $Rev$
  */
 public class RoleImpl extends BaseDomainHelper implements Role {
-    
+
     private Long id;
     private String name;
     private String label;
@@ -37,7 +37,7 @@ public class RoleImpl extends BaseDomainHelper implements Role {
      */
     protected RoleImpl() {
     }
-    
+
     /** {@inheritDoc} */
     public Long getId() {
         return this.id;
@@ -79,7 +79,7 @@ public class RoleImpl extends BaseDomainHelper implements Role {
             return false;
         }
         RoleImpl castOther = (RoleImpl) other;
-        return new EqualsBuilder().append(getName(), 
+        return new EqualsBuilder().append(getName(),
                 castOther.getName()).append(getLabel(),
                 castOther.getLabel()).isEquals();
     }

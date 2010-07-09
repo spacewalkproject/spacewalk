@@ -45,7 +45,7 @@ import java.util.Set;
 public class ServerGroupManager {
 
     private static final ServerGroupManager MANAGER = new ServerGroupManager();
-    
+
     /**
      * Singleton Instance to get manager object
      * @return an instance of the manager
@@ -58,9 +58,9 @@ public class ServerGroupManager {
      */
     private ServerGroupManager() {
     }
-    
+
     /**
-     * Lookup a ServerGroup by ID and organization. 
+     * Lookup a ServerGroup by ID and organization.
      * @param id Server group id
      * @param user logged in user needed for authentication
      * @return Server group requested
@@ -69,17 +69,17 @@ public class ServerGroupManager {
         ManagedServerGroup sg = ServerGroupFactory.
                                 lookupByIdAndOrg(id, user.getOrg());
         if (sg == null) {
-            validateAccessCredentials(user, sg, id.toString());    
+            validateAccessCredentials(user, sg, id.toString());
         }
         else {
-            validateAccessCredentials(user, sg, sg.getName());    
+            validateAccessCredentials(user, sg, sg.getName());
         }
 
         return sg;
     }
 
     /**
-     * Lookup a ServerGroup by ID and organization. 
+     * Lookup a ServerGroup by ID and organization.
      * @param name Server group name
      * @param user logged in user needed for authentication
      * @return Server group requested
@@ -89,8 +89,8 @@ public class ServerGroupManager {
                                 lookupByNameAndOrg(name, user.getOrg());
         validateAccessCredentials(user, sg, name);
         return sg;
-    }    
-    
+    }
+
     /**
      * Returns an EntitlementServerGroup for a given entitlement type
      * @param ent the entitlement type desired
@@ -104,7 +104,7 @@ public class ServerGroupManager {
                                 lookupEntitled(ent, user.getOrg());
 
         return sg;
-    }    
+    }
 
     /**
      * Returns an EntitlementServerGroup for a given server group type
@@ -120,14 +120,14 @@ public class ServerGroupManager {
                                 lookupEntitled(user.getOrg(), typeIn);
 
         return sg;
-    }    
-    
+    }
+
     /**
-     * Returns true if the the given user can 
-     * administer server groups.. 
-     * This should be the baseline for us to load activation keys. 
+     * Returns true if the the given user can
+     * administer server groups..
+     * This should be the baseline for us to load activation keys.
      * @param user the user to check on
-     * @param group the server group object to authenticate. 
+     * @param group the server group object to authenticate.
      * @return true if a key can be administered. False otherwise.
      */
     public boolean canAccess(User user, ServerGroup group) {
@@ -144,22 +144,22 @@ public class ServerGroupManager {
         List result = m.execute(params);
         return result.size() > 0;
     }
-    
+
     /**
-     * validates that the given user can access 
+     * validates that the given user can access
      * the given ServerGroup object. Raises a permission exception
-     * if the combination is invalid..  
+     * if the combination is invalid..
      * @param user the user to authenticate
      * @param group the servergroup to authenticate
-     * @param groupIdentifier id or group name to use when reporting exception 
+     * @param groupIdentifier id or group name to use when reporting exception
      * (group could be null)
      */
-    public void validateAccessCredentials(User user, 
+    public void validateAccessCredentials(User user,
                                     ServerGroup group, String groupIdentifier) {
         if (group == null || (group.isManaged() && !canAccess(user, group))) {
             LocalizationService ls = LocalizationService.getInstance();
-            LookupException e = 
-                new LookupException("Unable to locate or access server group: " + 
+            LookupException e =
+                new LookupException("Unable to locate or access server group: " +
                     groupIdentifier);
             e.setLocalizedTitle(ls.getMessage("lookup.servergroup.title"));
             e.setLocalizedReason1(ls.getMessage("lookup.servergroup.reason1"));
@@ -169,7 +169,7 @@ public class ServerGroupManager {
     }
 
     /**
-     * validates that the given user can administer 
+     * validates that the given user can administer
      * a server group.  Raises a permission exception if administering
      *  is Not possible
      * @param user the user to authenticate
@@ -177,14 +177,14 @@ public class ServerGroupManager {
     public void validateAdminCredentials(User user) {
         if (!user.hasRole(RoleFactory.SYSTEM_GROUP_ADMIN)) {
             String msg = "The desired operation cannot be performed since the user" +
-                            "[" + user + "] does not have the system group admin role"; 
-            throw new PermissionException(msg);            
+                            "[" + user + "] does not have the system group admin role";
+            throw new PermissionException(msg);
         }
     }
 
-    
+
     /**
-     * validates that the given user can administer 
+     * validates that the given user can administer
      * or lookup an entitled server group.
      *  Raises a permission exception if administering
      *  is Not possible
@@ -193,15 +193,15 @@ public class ServerGroupManager {
     public void validateOrgAdminCredentials(User user) {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
             String msg = "The desired operation cannot be performed since the user" +
-                            "[" + user + "] does not have the Org Admin role"; 
-            throw new PermissionException(msg);            
+                            "[" + user + "] does not have the Org Admin role";
+            throw new PermissionException(msg);
         }
-    }    
+    }
     /**
-     * Removes an ServerGroup. 
+     * Removes an ServerGroup.
      * @param user user object needed for authentication
      * @param group the group to remove
-     */    
+     */
     public void remove(User user, ManagedServerGroup group) {
         validateAccessCredentials(user, group, group.getName());
         validateAdminCredentials(user);
@@ -209,11 +209,11 @@ public class ServerGroupManager {
         dissociateAdmins(group, group.getAssociatedAdminsFor(user), user);
         ServerGroupFactory.remove(group);
     }
-    
+
     /**
-     * Create a new Server group 
+     * Create a new Server group
      * @param user user needed for authentication
-     * @param name the name of the server group 
+     * @param name the name of the server group
      * @param description the description of the server group
      * @return the created server group.
      */
@@ -228,11 +228,11 @@ public class ServerGroupManager {
         }
         return sg;
     }
-    
+
     /**
      * Associates/Disocciates a list of admins to a server group
      * by using User's login name.. This method had to be added
-     * to give access to a list of users to a 
+     * to give access to a list of users to a
      * server group admin. By default one needs Org Admin role
      * to access/acquire user objects other than the loggedInUser.
      * However according to the UI, Server Group Admin
@@ -245,9 +245,9 @@ public class ServerGroupManager {
      * @param associate true if we want to associate false otherwise.
      * @param loggedInUser the logged in user.
      */
-    
+
     public void associateOrDissociateAdminsByLoginName(ManagedServerGroup group,
-                                Collection adminLogins, 
+                                Collection adminLogins,
                                 boolean associate,
                                 User loggedInUser) {
         validateAccessCredentials(loggedInUser, group, group.getName());
@@ -279,7 +279,7 @@ public class ServerGroupManager {
      * @param admins a collection of users to add as administrators
      * @param loggedInUser the loggedInUser needed for credentials
      */
-    public void associateAdmins(ManagedServerGroup sg, Collection admins, 
+    public void associateAdmins(ManagedServerGroup sg, Collection admins,
                                                         User loggedInUser) {
         validateAccessCredentials(loggedInUser, sg, sg.getName());
         validateAdminCredentials(loggedInUser);
@@ -293,18 +293,18 @@ public class ServerGroupManager {
             factory.syncServerGroupPerms(u);
         }
     }
-    
+
     /**
      * Disssociates a bunch of administrators from a server group
      * @param sg the server group to process
-     * @param admins a collection of administrators to deassociate 
+     * @param admins a collection of administrators to deassociate
      * @param loggedInUser the loggedInUser needed for credentials
      */
-    public void dissociateAdmins(ManagedServerGroup sg, Collection admins, 
+    public void dissociateAdmins(ManagedServerGroup sg, Collection admins,
                                                     User loggedInUser) {
         validateAccessCredentials(loggedInUser, sg, sg.getName());
         validateAdminCredentials(loggedInUser);
-        
+
         Set adminSet = sg.getAssociatedAdminsFor(loggedInUser);
         processAdminList(sg, admins, loggedInUser);
         admins.remove(loggedInUser); //can't disassociate thyself.
@@ -313,7 +313,7 @@ public class ServerGroupManager {
         for (Iterator itr = admins.iterator(); itr.hasNext();) {
             User u = (User) itr.next();
             UserFactory.save(u);
-        }        
+        }
     }
     /**
      * @param sg the server group to process
@@ -337,8 +337,8 @@ public class ServerGroupManager {
                 itr.remove();
             }
         }
-    } 
-    
+    }
+
     /**
      * Associates a bunch of servers to a server group
      * @param sg the server group to process
@@ -350,17 +350,17 @@ public class ServerGroupManager {
         validateAdminCredentials(loggedInUser);
         for (Iterator itr = servers.iterator(); itr.hasNext();) {
             Server s = (Server) itr.next();
-            SystemManager.addServerToServerGroup(s, sg);    
+            SystemManager.addServerToServerGroup(s, sg);
         }
     }
-    
+
     /**
      * Dissociates a bunch of servers from a server group
      * @param sg the server group to process
      * @param servers a collection of servers to dissociate
      * @param loggedInUser the loggedInUser needed for credentials
      */
-    public void removeServers(ServerGroup sg, Collection servers, 
+    public void removeServers(ServerGroup sg, Collection servers,
                                                         User loggedInUser) {
         validateAccessCredentials(loggedInUser, sg, sg.getName());
         validateAdminCredentials(loggedInUser);
@@ -377,14 +377,14 @@ public class ServerGroupManager {
     public void removeServers(ServerGroup sg, Collection servers) {
         for (Iterator itr = servers.iterator(); itr.hasNext();) {
             Server s = (Server) itr.next();
-            SystemManager.removeServerFromServerGroup(s, sg);    
+            SystemManager.removeServerFromServerGroup(s, sg);
         }
     }
 
     /**
      * Returns the admins of a given servergroup. This list includes
-     * ORG ADMINS + Associated Admins.. so this is different from 
-     * sg.getAssociatedAdmins()  
+     * ORG ADMINS + Associated Admins.. so this is different from
+     * sg.getAssociatedAdmins()
      * @param sg the server group that you want the admin list for.
      * @param loggedInUser the loggedInUser needed for credentials
      * @return list of User objects that can administer the server group
@@ -395,7 +395,7 @@ public class ServerGroupManager {
         return ServerGroupFactory.listAdministrators(sg);
     }
 
-    
+
     /**
      * Returns a list of servergroups that have NO administrators
      * associated to it.
@@ -412,16 +412,16 @@ public class ServerGroupManager {
         }
         return ServerGroupFactory.listNoAdminGroups(user.getOrg());
     }
-    
+
     /**
-     * Returns the servers of a given servergroup 
+     * Returns the servers of a given servergroup
      * @param sg the server group to find the servers of
-     * @return list of Server objects that are a part of the given server group. 
+     * @return list of Server objects that are a part of the given server group.
      */
     public List<Server> listServers(ServerGroup sg) {
         return ServerGroupFactory.listServers(sg);
     }
-    
+
     /**
      * List all servers that have checked in within a X days
      * @param sg the sever group
@@ -431,7 +431,7 @@ public class ServerGroupManager {
     public List<Long> listActiveServers(ServerGroup sg, Long threshold) {
         return ServerGroupFactory.listActiveServerIds(sg, threshold);
     }
-    
+
     /**
      * List all servers that have not checked in in X days
      * @param sg the sever group
@@ -440,5 +440,5 @@ public class ServerGroupManager {
      */
     public List<Long> listInactiveServers(ServerGroup sg, Long threshold) {
         return ServerGroupFactory.listInactiveServerIds(sg, threshold);
-    }   
+    }
 }

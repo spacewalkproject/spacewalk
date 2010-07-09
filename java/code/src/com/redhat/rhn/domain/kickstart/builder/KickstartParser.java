@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * KickstartParser: Parses a kickstart file into the appropriate sections of lines.
- * 
+ *
  * @version $Rev$
  */
 public class KickstartParser {
@@ -29,22 +29,22 @@ public class KickstartParser {
     private List<String> optionLines;
     private List<String> packageLines;
     private List<String> preScriptLines;
-    private List<String> postScriptLines; 
-    
+    private List<String> postScriptLines;
+
     /**
      * Constructor.
      * @param kickstartFileContentsIn Contents of the kickstart file.
      */
     public KickstartParser(String kickstartFileContentsIn) {
         ksFileContents = kickstartFileContentsIn;
-        
+
         optionLines = new LinkedList<String>();
         packageLines = new LinkedList<String>();
         preScriptLines = new LinkedList<String>();
         postScriptLines = new LinkedList<String>();
-        
+
         String [] ksFileLines = ksFileContents.split("\\n");
-        
+
         List<String> currentSectionLines = new LinkedList<String>();
         for (int i = 0; i < ksFileLines.length; i++) {
             String currentLine = ksFileLines[i];
@@ -52,12 +52,12 @@ public class KickstartParser {
                 storeSection(currentSectionLines);
                 currentSectionLines = new LinkedList<String>();
             }
-            
+
             currentSectionLines.add(currentLine);
         }
         storeSection(currentSectionLines);
     }
-    
+
     /**
      * Returns true if the given line indicates the start of a new section.
      * @param currentLine Line to check.
@@ -67,13 +67,13 @@ public class KickstartParser {
         if (!currentLine.startsWith("%")) {
             return false;
         }
-       
+
         // %include command is not a new section, thus this check:
         String command = currentLine.split(" ")[0];
-        return command.equals("%pre") || command.equals("%post") || 
+        return command.equals("%pre") || command.equals("%post") ||
             command.equals("%packages");
     }
-    
+
     /**
      * Get the option lines of the kickstart file.
      * @return List of option lines.
@@ -81,7 +81,7 @@ public class KickstartParser {
     public List<String> getOptionLines() {
         return optionLines;
     }
-    
+
     /**
      * Get the package lines of the kickstart file.
      * @return Line of package lines.
@@ -89,7 +89,7 @@ public class KickstartParser {
     public List<String> getPackageLines() {
         return packageLines;
     }
-    
+
     /**
      * Get the pre lines of the kickstart file.
      * @return List of pre-script lines.
@@ -97,7 +97,7 @@ public class KickstartParser {
     public List<String> getPreScriptLines() {
         return preScriptLines;
     }
-    
+
     /**
      * Get the post lines of the kickstart file.
      * @return List of post-script lines.
@@ -105,18 +105,18 @@ public class KickstartParser {
     public List<String> getPostScriptLines() {
         return postScriptLines;
     }
-    
+
     /**
      * Check the first line in the given list, if it begins with a % then assign the list
-     * to the appropriate section. Otherwise assume it's the first section (kickstart 
+     * to the appropriate section. Otherwise assume it's the first section (kickstart
      * options) which are not proceeded by a % delimiter and store it accordingly.
-     * 
+     *
      * @param currentSectionLines Section lines to store.
      */
     private void storeSection(List<String> currentSectionLines) {
-        // Check the first line in the current section, if it doesn't start with a 
+        // Check the first line in the current section, if it doesn't start with a
         // % delimiter, assume it's the kickstart options:
-        String firstLineInCurrentSection = currentSectionLines.get(0); 
+        String firstLineInCurrentSection = currentSectionLines.get(0);
         if (!firstLineInCurrentSection.startsWith("%")) {
             optionLines.addAll(currentSectionLines);
         }
@@ -132,7 +132,7 @@ public class KickstartParser {
                 postScriptLines.addAll(currentSectionLines);
             }
             else {
-                throw new KickstartParsingException("Unknown section: " + 
+                throw new KickstartParsingException("Unknown section: " +
                         section);
             }
         }

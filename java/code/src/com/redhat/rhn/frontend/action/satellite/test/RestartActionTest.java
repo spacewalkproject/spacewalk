@@ -37,18 +37,18 @@ public class RestartActionTest extends RhnMockStrutsTestCase {
         user.addRole(RoleFactory.SAT_ADMIN);
         setRequestPathInfo("/admin/config/Restart");
         Config.get().setString("web.com.redhat.rhn.frontend." +
-                "action.satellite.RestartAction.command", 
+                "action.satellite.RestartAction.command",
                 TestRestartCommand.class.getName());
-        
+
     }
-    
+
     public void testExecuteNoSubmit() throws Exception {
 
         actionPerform();
         DynaActionForm form = (DynaActionForm) getActionForm();
         assertFalse(((Boolean) form.get(RestartAction.RESTART)).booleanValue());
     }
-    
+
     public void testExecuteSubmitTrue() throws Exception {
 
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
@@ -68,9 +68,9 @@ public class RestartActionTest extends RhnMockStrutsTestCase {
         assertTrue((request.getParameter(RestartAction.RESTART).
                     equals(Boolean.FALSE.toString())));
     }
-    
+
     public void testExecuteRefresh() throws Exception {
-        
+
         addRequestParameter(RhnAction.SUBMITTED, Boolean.FALSE.toString());
         addRequestParameter(RestartAction.RESTART, Boolean.FALSE.toString());
         addRequestParameter(RestartAction.RESTARTED, Boolean.TRUE.toString());

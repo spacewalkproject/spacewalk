@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class KickstartAclHandler extends BaseHandler {
     private static final String USER = "user";
     private KickstartData getKickstart(User usr, String[] params) {
-        String ksStr = params[0];        
+        String ksStr = params[0];
         Long id = null;
         try {
             id = Long.valueOf(ksStr);
@@ -68,7 +68,7 @@ public class KickstartAclHandler extends BaseHandler {
             return false;
         }
     }
-    
+
     /**
      * Returns true if the kickstart is a 'wizard format'
      * @param ctx request context (user,cid)
@@ -82,11 +82,11 @@ public class KickstartAclHandler extends BaseHandler {
         if (ks == null) {
             return false;
         }
-        return !ks.isRawData();        
+        return !ks.isRawData();
     }
-    
+
     /**
-     * Returns true if the kickstart  tree 
+     * Returns true if the kickstart  tree
      * is synced to cobbler
      * @param ctx request context (user,kstid)
      * @param params check parameters
@@ -99,15 +99,15 @@ public class KickstartAclHandler extends BaseHandler {
         Long id = getAsLong(ctxMap.get(RequestContext.KSTREE_ID));
         if (id == null) {
             return false;
-        }        
+        }
         KickstartableTree ks =  KickstartFactory.
                         lookupKickstartTreeByIdAndOrg(id, usr.getOrg());
-        return !StringUtils.isBlank(ks.getCobblerId());        
+        return !StringUtils.isBlank(ks.getCobblerId());
     }
 
     /**
-     * Returns true if the kickstart  profile 
-     * is synced to cobbler and if the profile 
+     * Returns true if the kickstart  profile
+     * is synced to cobbler and if the profile
      * has a valid distribution
      * @param ctx request context (user,kstid)
      * @param params check parameters

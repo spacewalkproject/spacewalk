@@ -46,12 +46,12 @@ import junit.framework.TestCase;
  * @version $Rev$
  */
 public class SatScrubberTest extends TestCase {
-    
+
     private User orgAdmin;
     private static Logger log = Logger.getLogger(SatScrubberTest.class);
-    
 
-    
+
+
     public void testNothing() throws Exception {
         cleanupKickstarts();
         cleanupChannels();
@@ -60,7 +60,7 @@ public class SatScrubberTest extends TestCase {
         cleanupOrgs();
         commitAndCloseSession();
     }
-    
+
     public void cleanupKickstarts() throws Exception {
         orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
         List kickstarts = KickstartLister.
@@ -83,10 +83,10 @@ public class SatScrubberTest extends TestCase {
                 KickstartFactory.removeKickstartableTree(tree);
             }
         }
-        
+
         commitAndCloseSession();
     }
-    
+
 
     public void cleanupChannels() throws Exception {
         // testOrg
@@ -106,7 +106,7 @@ public class SatScrubberTest extends TestCase {
                 commitAndCloseSession();
             }
         }
-        commitAndCloseSession();        
+        commitAndCloseSession();
     }
     private void deleteChannel(long cid) throws Exception {
         CallableMode m = ModeFactory.getCallableMode(
@@ -131,11 +131,11 @@ public class SatScrubberTest extends TestCase {
                 commitAndCloseSession();
             }
 
-            
+
         }
         commitAndCloseSession();
     }
-    
+
     public void cleanupServers() throws Exception {
         DataResult dr = TestUtils.runTestQuery("get_test_servers", new HashMap());
         int numdeleted = 0;
@@ -148,7 +148,7 @@ public class SatScrubberTest extends TestCase {
                 commitAndCloseSession();
             }
         }
-        
+
         commitAndCloseSession();
         log.debug("Done deleting [" + numdeleted + "] systems");
     }
@@ -164,9 +164,9 @@ public class SatScrubberTest extends TestCase {
         m.execute(in, new HashMap());
     }
 
-    
-    
-    
+
+
+
     public void cleanupOrgs() throws Exception {
         // testOrg
         DataResult dr = TestUtils.runTestQuery("get_test_orgs", new HashMap());
@@ -187,7 +187,7 @@ public class SatScrubberTest extends TestCase {
         }
         commitAndCloseSession();
     }
-    
+
     /**
      * Tears down the fixture, and closes the HibernateSession.
      * @see TestCase#tearDown()
@@ -197,15 +197,15 @@ public class SatScrubberTest extends TestCase {
         super.tearDown();
         TestCaseHelper.tearDownHelper();
     }
-    
+
     /**
      * PLEASE Refrain from using this unless you really have to.
-     * 
+     *
      * Try clearSession() instead
      * @throws HibernateException
      */
     protected void commitAndCloseSession() throws HibernateException {
         HibernateFactory.commitTransaction();
         HibernateFactory.closeSession();
-    }    
+    }
 }

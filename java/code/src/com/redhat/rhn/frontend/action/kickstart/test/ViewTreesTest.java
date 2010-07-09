@@ -19,15 +19,15 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
  * Tests the View Kickstartable Distributions page
- * 
+ *
  * @version $Rev $
  */
 public class ViewTreesTest extends RhnMockStrutsTestCase {
-    
+
     public void testTrees() throws Exception {
         KickstartableTreeTest.createTestKickstartableTree();
         setRequestPathInfo("/kickstart/ViewTrees");
         actionPerform();
         verifyNoActionErrors();
-    } 
+    }
 }

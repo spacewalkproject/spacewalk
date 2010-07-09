@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RankChannels extends BaseRankChannels {
     public static final String PRIORITY = "priority";
-    
+
     /**
      * {@inheritDoc}
      */
@@ -49,7 +49,7 @@ public class RankChannels extends BaseRankChannels {
         Map keys = new HashMap();
         keys.put("ssm.config.rank.jsp.apply", "apply");
         keys.put("ssm.config.rank.jsp.up", "handleNoScript");
-        keys.put("ssm.config.rank.jsp.down", "handleNoScript");        
+        keys.put("ssm.config.rank.jsp.down", "handleNoScript");
         return keys;
     }
 
@@ -61,12 +61,12 @@ public class RankChannels extends BaseRankChannels {
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
-        
+
         RhnSet set = getRhnSet(user);
         setup(context, (DynaActionForm)form, set);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
- 
+
     /**
      * Updates the set and then moves the user to the confirm page.
      * @param mapping struts ActionMapping
@@ -82,18 +82,18 @@ public class RankChannels extends BaseRankChannels {
         if (!context.isJavaScriptEnabled()) {
             return handleNoScript(mapping, formIn, request, response);
         }
-        String position = ((DynaActionForm)formIn).getString(PRIORITY);        
+        String position = ((DynaActionForm)formIn).getString(PRIORITY);
         User user = context.getLoggedInUser();
-        
+
         DynaActionForm form = (DynaActionForm) formIn;
         RhnSet set = getRhnSet(user);
-        
+
         //update the set and go to confirm.
         updateSet(form, set);
         return getStrutsDelegate().forwardParam(mapping.findForward("confirm"),
                 "position", position);
     }
-    
+
     protected void setup(RequestContext context,
                              DynaActionForm form,
                              RhnSet set) {
@@ -104,15 +104,15 @@ public class RankChannels extends BaseRankChannels {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    protected void populateWidgetLabels(LinkedHashSet labelValues, 
+    protected void populateWidgetLabels(LinkedHashSet labelValues,
                                             RequestContext context) {
         // TODO Auto-generated method stub
-        
+
     }
-    
+
     private void updateSet(DynaActionForm form, RhnSet set) {
         List channelIds = getChannelIds(form);
         if (!channelIds.isEmpty()) {
@@ -120,13 +120,13 @@ public class RankChannels extends BaseRankChannels {
             for (int i = 0; i < channelIds.size(); i++) {
                 set.addElement((Long)channelIds.get(i), new Long(i));
             }
-            RhnSetManager.store(set);            
+            RhnSetManager.store(set);
         }
     }
 
     protected void processParams(RequestContext context, Map map) {
         // TODO Auto-generated method stub
-        
-    }    
-    
+
+    }
+
 }

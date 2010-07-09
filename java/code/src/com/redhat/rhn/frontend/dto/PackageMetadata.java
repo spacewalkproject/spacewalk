@@ -35,7 +35,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
     public static final int KEY_THIS_NEWER = 2;
     public static final int KEY_OTHER_ONLY = 3;
     public static final int KEY_OTHER_NEWER = 4;
-    
+
     public static final int ACTION_NONE = -1;
     public static final int ACTION_INSTALL = 0;
     public static final int ACTION_REMOVE = 1;
@@ -48,7 +48,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
     private String compareParam;
     private int actionStatus;
     private List channels;
-    
+
     /**
      * Constructs a PackageMetadata
      * @param sys PackageListItem for the current system
@@ -62,14 +62,14 @@ public class PackageMetadata extends BaseDto implements Comparable {
         actionStatus = ACTION_NONE;
         channels = new ArrayList();
     }
-    
+
     /**
      * Default ctor
      */
     public PackageMetadata() {
         this(new PackageListItem(), new PackageListItem());
     }
-    
+
     /**
      * Return the actionstatus as an int.
      * @return the actionstatus as an int.
@@ -77,7 +77,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
     public int getActionStatusAsInt() {
         return actionStatus;
     }
-    
+
     /**
      * Return the localized action status string.
      * @return the localized action status string.
@@ -98,7 +98,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
                 return "";
         }
     }
-    
+
     /**
      * Returns the comparison key.
      * @return the comparison key.
@@ -131,7 +131,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
                 return "";
         }
     }
-    
+
     /**
      * Sets the comparison to given value.
      * @param comparisonIn The comparison to set.
@@ -146,7 +146,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
     public void setCompareParam(String aCompareParam) {
         compareParam = aCompareParam;
     }
-    
+
     /**
      * Returns the System's PackageListItem
      * @return the System's PackageListItem
@@ -154,7 +154,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
     public PackageListItem getSystem() {
         return system;
     }
-    
+
     /**
      * Returns the other system or profile's PackageListItem
      * @return  the other system or profile's PackageListItem
@@ -162,7 +162,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
     public PackageListItem getOther() {
         return other;
     }
-    
+
     /**
      *  {@inheritDoc}
      */
@@ -174,7 +174,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
             .append("comparison", comparison)
             .toString();
     }
-    
+
     /**
      * Returns the name of the Package, if both the system and
      * other PackageListItem are null, returns the empty string.
@@ -188,10 +188,10 @@ public class PackageMetadata extends BaseDto implements Comparable {
         else if (other != null) {
             return other.getName();
         }
-        
+
         return "";
     }
-    
+
     /**
      * Returns the nameid of the Package, if both the system and
      * other PackageListItem are null, returns null.
@@ -205,10 +205,10 @@ public class PackageMetadata extends BaseDto implements Comparable {
         else if (other != null) {
             return other.getNameId();
         }
-        
+
         return null;
     }
-    
+
     /**
      * Returns the evrid of the Package, if both the system and
      * other PackageListItem are null, returns null.
@@ -222,10 +222,10 @@ public class PackageMetadata extends BaseDto implements Comparable {
         else if (other != null) {
             return other.getEvrId();
         }
-        
+
         return null;
     }
-    
+
     /**
      * Returns the archid of the Package, if both the system and
      * other PackageListItem are null, returns null.
@@ -273,10 +273,10 @@ public class PackageMetadata extends BaseDto implements Comparable {
         else if (other != null) {
             return other.getEpoch();
         }
-        
+
         return null;
     }
-    
+
     /**
      * Returns the version of the Package, if both the system and
      * other PackageListItem are null, returns null.
@@ -290,10 +290,10 @@ public class PackageMetadata extends BaseDto implements Comparable {
         else if (other != null) {
             return other.getVersion();
         }
-        
+
         return null;
     }
-    
+
     /**
      * Returns the release of the Package, if both the system and
      * other PackageListItem are null, returns null.
@@ -307,10 +307,10 @@ public class PackageMetadata extends BaseDto implements Comparable {
         else if (other != null) {
             return other.getRelease();
         }
-        
+
         return null;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -359,7 +359,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
     public Long getId() {
         return getNameId();
     }
-    
+
     /**
      * Returns the list of Channels which supply this package.
      * @return the list of Channels which supply this package.
@@ -367,7 +367,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
     public List getChannels() {
         return channels;
     }
-    
+
     /**
      * Sets the list of Channels which supply this package.
      * @param chanList list of Channels which supply this package.
@@ -375,7 +375,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
     public void setChannels(List chanList) {
         channels.addAll(chanList);
     }
-    
+
     /**
      * Add a channel which supplies this package to the list.
      * @param c the Channel which supplies this package.
@@ -421,7 +421,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
         }
         return null;
     }
-    
+
     /**
      * Get the EVR of the Other's package
      * @return String EVR from Other system/profile
@@ -438,6 +438,6 @@ public class PackageMetadata extends BaseDto implements Comparable {
      */
     @Override
     public String getSelectionKey() {
-        return getIdCombo(); 
+        return getIdCombo();
     }
 }

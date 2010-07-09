@@ -1,9 +1,9 @@
 
 
-<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif" imgAlt="channels.jsp.alt"> 
+<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif" imgAlt="channels.jsp.alt">
  	<c:out value="${channel_name}" escapeXml="true"/>
 </rhn:toolbar>
 
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
 		definition="/WEB-INF/nav/channel_detail.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

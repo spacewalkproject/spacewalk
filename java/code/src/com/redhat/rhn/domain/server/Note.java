@@ -31,78 +31,78 @@ public class Note extends BaseDomainHelper {
     private String note;
     private User creator;
     private Server server;
-    
-    
+
+
     /**
      * @return Returns the creator.
      */
     public User getCreator() {
         return creator;
     }
-    
+
     /**
      * @param c The creator to set.
      */
     public void setCreator(User c) {
         this.creator = c;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the note.
      */
     public String getNote() {
         return note;
     }
-    
+
     /**
      * @param n The note to set.
      */
     public void setNote(String n) {
         this.note = n;
     }
-    
+
     /**
      * @return Returns the server.
      */
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * @param s The server to set.
      */
     public void setServer(Server s) {
         this.server = s;
     }
-    
+
     /**
      * @return Returns the subject.
      */
     public String getSubject() {
         return subject;
     }
-    
+
     /**
      * @param s The subject to set.
      */
     public void setSubject(String s) {
         this.subject = s;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -120,7 +120,7 @@ public class Note extends BaseDomainHelper {
                                   .append(getModified(), castOther.getModified())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */

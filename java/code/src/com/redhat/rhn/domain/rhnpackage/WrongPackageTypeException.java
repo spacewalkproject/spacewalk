@@ -24,8 +24,8 @@ import com.redhat.rhn.common.RhnRuntimeException;
  * An exception encountered when an rhn Package object is not of the expected
  * arch type.
  * <p>
- * 
- * 
+ *
+ *
  * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
  */
 public class WrongPackageTypeException extends RhnRuntimeException {

@@ -23,10 +23,10 @@ import javax.servlet.ServletResponse;
  * @version $Rev$
  */
 public class RhnMockPageContext extends MockPageContext {
-    
+
     private ServletResponse response;
 
-    
+
     /**
      * @return Returns the response.
      */
@@ -34,12 +34,12 @@ public class RhnMockPageContext extends MockPageContext {
         return response;
     }
 
-    
+
     /**
      * @param responseIn The response to set.
      */
     public void setResponse(ServletResponse responseIn) {
         this.response = responseIn;
     }
-    
+
 }

@@ -36,7 +36,7 @@ public class PackageListSetupTest extends RhnMockStrutsTestCase {
         UserTestUtils.addProvisioning(user.getOrg());
         Server server = ServerFactoryTest.createTestServer(user, true);
         PackageManagerTest.addPackageToSystemAndChannel(
-                "test-package-name" + TestUtils.randomString(), server, 
+                "test-package-name" + TestUtils.randomString(), server,
                 ChannelFactoryTest.createTestChannel(user));
         server = (Server)TestUtils.reload(server);
         //.do?sid=1000010000

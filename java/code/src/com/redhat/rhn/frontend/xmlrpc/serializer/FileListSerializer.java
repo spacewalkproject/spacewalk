@@ -28,11 +28,11 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * FileListSerializer: Converts a FileList object for representation 
+ * FileListSerializer: Converts a FileList object for representation
  * as an XMLRPC struct.
  * @version $Rev$
- * 
- * @xmlrpc.doc 
+ *
+ * @xmlrpc.doc
  *   #struct("file list")
  *     #prop("string", "name")
  *     #prop_array("file_names", "string", "name")
@@ -63,7 +63,7 @@ public class FileListSerializer implements XmlRpcCustomSerializer {
             fileNames.add(cfn.getPath());
         }
         helper.add("file_names", fileNames);
-        
+
         helper.writeTo(output);
     }
 }

@@ -24,15 +24,15 @@ import com.redhat.rhn.testing.BaseDeleteErrataActionTest;
  * @version $Rev$
  */
 public class PublishedDeleteConfirmActionTest extends BaseDeleteErrataActionTest {
-    
+
     /**
      * {@inheritDoc}
-     * @throws Exception 
+     * @throws Exception
      */
     public Errata createAnErrata(User user) throws Exception {
         return ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
     }
-    
+
     /**
      * {@inheritDoc}
      */

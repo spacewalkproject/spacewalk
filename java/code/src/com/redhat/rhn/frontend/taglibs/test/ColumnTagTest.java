@@ -33,7 +33,7 @@ import javax.servlet.jsp.tagext.Tag;
  * @version $Rev$
  */
 public class ColumnTagTest extends RhnBaseTestCase {
-    
+
     public void testConstructor() {
         ColumnTag ct = new ColumnTag();
         assertNotNull(ct);
@@ -47,7 +47,7 @@ public class ColumnTagTest extends RhnBaseTestCase {
         assertTrue(ct.isRenderUrl());
         assertNull(ct.getArg0());
     }
-    
+
     public void testCopyConstructor() {
         ColumnTag ct = new ColumnTag();
         ct.setHeader("header");
@@ -61,7 +61,7 @@ public class ColumnTagTest extends RhnBaseTestCase {
         ColumnTag copy = new ColumnTag(ct);
         assertEquals(ct, copy);
     }
-    
+
     public void testEquals() {
         ColumnTag ct = new ColumnTag();
         ct.setHeader("header");
@@ -70,7 +70,7 @@ public class ColumnTagTest extends RhnBaseTestCase {
         ct.setUrl("http://www.hostname.com");
         ct.setWidth("10%");
         ct.setNowrap("false");
-        
+
         ColumnTag ct1 = new ColumnTag();
         ct1.setHeader("header");
         ct1.setStyle("text-align: center;");
@@ -78,15 +78,15 @@ public class ColumnTagTest extends RhnBaseTestCase {
         ct1.setUrl("http://www.hostname.com");
         ct1.setWidth("10%");
         ct1.setNowrap("false");
-        
+
         assertTrue(ct.equals(ct1));
         assertTrue(ct1.equals(ct));
-        
+
         ct1.setUrl("http://www.hostname.com?sgid=1234");
         assertTrue(ct.equals(ct1));
         assertTrue(ct1.equals(ct));
     }
-    
+
     public void testSettersGetters() {
         ColumnTag ct = new ColumnTag();
         ct.setHeader("header");
@@ -97,7 +97,7 @@ public class ColumnTagTest extends RhnBaseTestCase {
         ct.setRenderUrl(true);
         ct.setNowrap("true");
         ct.setArg0("foo");
-        
+
         assertEquals("header", ct.getHeader());
         assertEquals("foo", ct.getArg0());
         assertEquals("text-align: center;", ct.getStyle());
@@ -108,18 +108,18 @@ public class ColumnTagTest extends RhnBaseTestCase {
         assertTrue(ct.isRenderUrl());
         assertNull(ct.getParent());
     }
-    
+
     public void testFindListDisplay() {
         ColumnTag ct = new ColumnTag();
         ct.setParent(new ListDisplayTag());
         assertNotNull(ct.findListDisplay());
-        
+
         ColumnTag ct2 = new ColumnTag();
         NavMenuTag middle = new NavMenuTag();
         middle.setParent(new ListDisplayTag());
         ct2.setParent(middle);
         assertNotNull(ct2.findListDisplay());
-        
+
         ColumnTag ct3 = new ColumnTag();
         ct3.setParent(new NavMenuTag());
         assertNull(ct3.findListDisplay());
@@ -131,13 +131,13 @@ public class ColumnTagTest extends RhnBaseTestCase {
         ColumnTag ct = new ColumnTag();
         ct.setSortProperty("sortProp");
         assertNull(ct.getParent());
-        
+
         ct.setParent(ldt);
         ct.setHeader("headervalue");
         assertEquals(ldt, ct.getParent());
-        
+
         TagTestHelper tth = TagTestUtils.setupTagTest(ct, null);
-        MockHttpServletRequest mockRequest = (MockHttpServletRequest) 
+        MockHttpServletRequest mockRequest = (MockHttpServletRequest)
                 tth.getPageContext().getRequest();
         // Dumb, dumb, dumb
         // Mock request doesn't parse the query string!
@@ -148,7 +148,7 @@ public class ColumnTagTest extends RhnBaseTestCase {
         mockRequest.setupQueryString("this=stupid&library=needs_this");
         // setup mock objects
         MockJspWriter out = (MockJspWriter)tth.getPageContext().getOut();
-        
+
         out.setExpectedData("<th>" +
                 "<a title=\"Sort By This Column\" " +
                 "href=\"http://localhost:8080/rhnjava/index.jsp?order=desc" +
@@ -161,7 +161,7 @@ public class ColumnTagTest extends RhnBaseTestCase {
         //TODO: verify if this test is needed, followup with bug 458688
         //out.verify();
         enableLocalizationServiceLogging();
-        
+
     }
 
 }

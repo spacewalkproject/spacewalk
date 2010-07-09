@@ -22,42 +22,42 @@ public class ProbeCategoryDto extends CheckProbeDto {
         private String description;
         private Long probeCount;
         private Long serverCount;
-        
+
         /**
          * @return String that is a description of probes in probe category
          */
         public String getDescription() {
             return this.description;
         }
-        
+
         /**
          * @return Long that is a count of how many probes are in this category
          */
         public Long getProbeCount() {
             return this.probeCount;
         }
-        
+
         /**
          * @return Long that is count of how many servers are affected by the probe group
          */
         public Long getServerCount() {
             return this.serverCount;
         }
-        
+
         /**
          *@param stringIn String that is the description of the probe category
          */
         public void setDescription(String stringIn) {
             this.description = stringIn;
         }
-        
+
         /**
          * @param longIn Long that is the number of probes in the category
          */
         public void setProbeCount(Long longIn) {
             this.probeCount = longIn;
         }
-        
+
         /**
          * @param longIn Long that is the number of probes in the category
          */

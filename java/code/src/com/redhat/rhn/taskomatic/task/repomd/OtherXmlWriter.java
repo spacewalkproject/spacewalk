@@ -31,9 +31,9 @@ import java.io.Writer;
 import java.util.Iterator;
 
 /**
- * 
+ *
  * @version $Rev $
- * 
+ *
  */
 public class OtherXmlWriter extends RepomdWriter {
 
@@ -41,7 +41,7 @@ public class OtherXmlWriter extends RepomdWriter {
     private Logger log = Logger.getLogger(OtherXmlWriter.class);
 
     /**
-     * 
+     *
      * @param writer The writer object for other.xml
      */
     public OtherXmlWriter(Writer writer) {
@@ -49,7 +49,7 @@ public class OtherXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param channel channel info
      * @return other.xml for given channel
      * @throws Exception exception
@@ -101,7 +101,7 @@ public class OtherXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param pkgDto pkg info to add to xml
      */
     public void addPackage(PackageDto pkgDto) {
@@ -114,20 +114,20 @@ public class OtherXmlWriter extends RepomdWriter {
                     return;
                 }
             }
-            
+
             OutputStream st = new ByteArrayOutputStream();
             SimpleContentHandler tmpHandler = getTemporaryHandler(st);
             tmpHandler.startDocument();
-            
+
             addPackageBoilerplate(tmpHandler, pkgDto);
             addPackageChangelog(pkgDto, tmpHandler);
             tmpHandler.endElement("package");
             tmpHandler.endDocument();
-            
+
             String pkg =  st.toString();
             PackageManager.updateRepoOther(pkgDto.getId(), pkg);
             handler.addCharacters(pkg);
-            
+
         }
         catch (SAXException e) {
             throw new RepomdRuntimeException(e);
@@ -135,11 +135,11 @@ public class OtherXmlWriter extends RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param pkgDto pkg changelog info to add to xml
      * @throws SAXException sax exception
      */
-    private void addPackageChangelog(PackageDto pkgDto, 
+    private void addPackageChangelog(PackageDto pkgDto,
             SimpleContentHandler tmpHandler) throws SAXException {
 
         long pkgId = pkgDto.getId().longValue();

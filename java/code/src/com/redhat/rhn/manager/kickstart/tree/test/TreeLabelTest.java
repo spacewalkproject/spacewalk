@@ -36,17 +36,17 @@ public class TreeLabelTest extends BaseTestCaseWithUser {
         // a-zA-Z\d\-\._
         // qr/^[a-zA-Z\d\-\._]*$/
         // PatternCompiler compiler = new Perl5Compiler();
-        
+
         String regEx = "^([-_0-9A-Za-z@.]{1,255})$";
         Pattern pattern = Pattern.compile(regEx);
         String invalid = "jlkasf*(*&^^(((";
         Matcher matcher = pattern.matcher(invalid);
         assertFalse(matcher.matches());
-        
+
         invalid = "asdf asdf asdf";
         matcher = pattern.matcher(invalid);
         assertFalse(matcher.matches());
-        
+
         invalid = "asdf *";
         matcher = pattern.matcher(invalid);
         assertFalse(matcher.matches());
@@ -54,7 +54,7 @@ public class TreeLabelTest extends BaseTestCaseWithUser {
         String valid = "jlkasf_";
         matcher = pattern.matcher(valid);
         assertTrue(matcher.matches());
-        
+
         valid = "jlkasf_asdf-ajksldf";
         matcher = pattern.matcher(valid);
         assertTrue(matcher.matches());
@@ -62,17 +62,17 @@ public class TreeLabelTest extends BaseTestCaseWithUser {
         valid = "jlkasf_asdf-ajksldf";
         matcher = pattern.matcher(valid);
         assertTrue(matcher.matches());
-        
+
         //"The Distribution Label field should contain only letters, numbers, hyphens,
         // periods, and underscores. It must also be at least 4 characters long."
         valid = "jlkasf_asdf-ajksldf.890234";
         matcher = pattern.matcher(valid);
         assertTrue(matcher.matches());
-        
+
     }
-    
+
     public void testValidateLabel() throws Exception {
-        
+
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree(
                 ChannelFactoryTest.createTestChannel(user));
         KickstartFactory.saveKickstartableTree(tree);
@@ -80,9 +80,9 @@ public class TreeLabelTest extends BaseTestCaseWithUser {
         tree.setLabel("jlkasf_asdf-ajksldf.890234");
         TreeEditOperation cmd = new TreeEditOperation(tree.getId(), user);
         assertTrue(cmd.validateLabel());
-        
+
         tree.setLabel("jlkasf_asdf-ajksldf.890234**((*(*(9");
         assertFalse(cmd.validateLabel());
     }
-    
+
 }

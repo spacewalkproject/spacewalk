@@ -1238,7 +1238,7 @@ disponibles en el canal de 'rhn-tools' del canal base de kickstart. Si no lo est
 necesitará hacerlos disponibles para que este perfil de kickstart funcione correctamente.
 &lt;/li&gt;
 &lt;li&gt;
-¿Están disponibles los paquetes listados anteriormente en este canal de base kickstart? Si no lo están, necesitará hacerlos disponibles 
+¿Están disponibles los paquetes listados anteriormente en este canal de base kickstart? Si no lo están, necesitará hacerlos disponibles
 para que este perfil de kickstart funcione correctamente.
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -5238,31 +5238,31 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to 
-syncronize kickstart distributions from Spacewalk to Cobbler.  These 
-errors must be corrected for the distributions to be available for 
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
 kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-La siguiente es una lista de errores recogidos mientras Spacewalk intenta 
-sincronizar distribuciones kickstart desde Spacewalk a Cobbler.  Estos 
+La siguiente es una lista de errores recogidos mientras Spacewalk intenta
+sincronizar distribuciones kickstart desde Spacewalk a Cobbler.  Estos
 errores se deben corregir para que las distribuciones estén disponibles para los sistemas que estén iniciando una instalación con kickstart:
 
 {0}
 
 Por favor revise:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

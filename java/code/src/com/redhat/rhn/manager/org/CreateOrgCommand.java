@@ -41,31 +41,31 @@ public class CreateOrgCommand {
     private String email;
     private Org newOrg;
     private String prefix;
-    
+
     // first user name info
     private String fname;
     private String lname;
     private boolean usePam;
-    
+
     private static Logger log = Logger.getLogger(CreateOrgCommand.class);
 
-    /** 
+    /**
      * Constructor to create an org
      * @param nameIn to set on the org
      * @param loginIn to use for 1st user in org
      * @param passwordIn to set for first user
      * @param emailIn to set for first user
      */
-    public CreateOrgCommand(String nameIn, String loginIn, 
+    public CreateOrgCommand(String nameIn, String loginIn,
             String passwordIn, String emailIn) {
         this.name = nameIn;
         this.login = loginIn;
         this.password = passwordIn;
         this.email = emailIn;
     }
-    
+
     /**
-     * 
+     *
      * @return prefix for user
      */
     public String getPrefix() {
@@ -73,7 +73,7 @@ public class CreateOrgCommand {
     }
 
     /**
-     * 
+     *
      * @param prefixIn prefix to set for user
      */
     public void setPrefix(String prefixIn) {
@@ -81,15 +81,15 @@ public class CreateOrgCommand {
     }
 
     /**
-     * 
+     *
      * @param nameIn for org admin first name
-     */            
+     */
     public void setFirstName(String nameIn) {
-        this.fname = nameIn;              
+        this.fname = nameIn;
     }
-    
+
     /**
-     * 
+     *
      * @param nameIn for org admin last name
      */
     public void setLastName(String nameIn) {
@@ -115,11 +115,11 @@ public class CreateOrgCommand {
         CreateUserCommand cmd = new CreateUserCommand();
         cmd.setLogin(this.login);
         cmd.setMakeOrgAdmin(true);
-        cmd.setPassword(this.password);        
+        cmd.setPassword(this.password);
         cmd.setEmail(email);
         cmd.setUsePamAuthentication(this.usePam);
         cmd.setPrefix(this.prefix);
-        
+
         if (this.fname != null) {
             cmd.setFirstNames(this.fname);
         }
@@ -127,7 +127,7 @@ public class CreateOrgCommand {
             cmd.setFirstNames(
                 LocalizationService.getInstance().getMessage("user.unspecified.name"));
             }
-        
+
         if (this.lname != null) {
             cmd.setLastName(this.lname);
         }
@@ -135,17 +135,17 @@ public class CreateOrgCommand {
             cmd.setLastName(
                 LocalizationService.getInstance().getMessage("user.unspecified.name"));
             }
-        
+
         ValidatorError[] errors = cmd.validate();
         if (errors != null && errors.length > 0) {
             return errors;
         }
         else {
             createdOrg = OrgFactory.save(createdOrg);
-            cmd.setOrg(createdOrg);            
+            cmd.setOrg(createdOrg);
             cmd.storeNewUser();
             this.newOrg = createdOrg;
-            
+
             // Lookup the SSL crypto key for the default org and copy it to the new:
             Org defaultOrg = OrgFactory.getSatelliteOrg();
             List<CryptoKey> defaultOrgKeys = KickstartFactory.lookupCryptoKeys(defaultOrg);
@@ -159,18 +159,18 @@ public class CreateOrgCommand {
             }
             if (ssl != null) {
                 // TODO
-                log.debug("Found a SSL key for the default org to copy: " + 
+                log.debug("Found a SSL key for the default org to copy: " +
                         ssl.getId());
-                CreateCryptoKeyCommand createCryptoKey = 
+                CreateCryptoKeyCommand createCryptoKey =
                     new CreateCryptoKeyCommand(createdOrg);
                 createCryptoKey.setContents(ssl.getKeyString());
                 createCryptoKey.setDescription(ssl.getDescription());
                 createCryptoKey.setType("SSL");
                 createCryptoKey.store();
             }
-            
+
             ChannelFamilyFactory.lookupOrCreatePrivateFamily(createdOrg);
-            
+
             return null;
         }
     }
@@ -182,9 +182,9 @@ public class CreateOrgCommand {
     public Org getNewOrg() {
         return this.newOrg;
     }
-    
+
     /**
-     * 
+     *
      * @return use Pam auth
      */
     public boolean usePam() {
@@ -192,7 +192,7 @@ public class CreateOrgCommand {
     }
 
     /**
-     * 
+     *
      * @param usePamIn determines whether we use pam auth
      */
     public void setUsePam(boolean usePamIn) {

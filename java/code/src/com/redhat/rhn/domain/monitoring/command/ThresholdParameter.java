@@ -19,15 +19,15 @@ import java.util.Comparator;
 /**
  * A command parameter that represents a threshold triggering
  * a probe. Maps table <tt>rhn_command_param_threshold</tt>; the mapping
- * is in the mapping file for 
+ * is in the mapping file for
  * {@link com.redhat.rhn.domain.monitoring.command.CommandParameter}
  * @version $Rev$
  */
 public class ThresholdParameter extends CommandParameter {
-    
+
     private String thresholdType;
     private Metric metric;
-    
+
     /**
      * @return Returns the typeName.
      */

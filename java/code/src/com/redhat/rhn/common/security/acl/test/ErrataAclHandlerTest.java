@@ -40,20 +40,20 @@ public class ErrataAclHandlerTest extends RhnBaseTestCase {
                 .createTestUnpublishedErrata(user.getOrg().getId());
 
         ErrataAclHandler handler = new ErrataAclHandler();
-        
+
         //test false
         Map ctx = new HashMap();
         ctx.put("user", user);
         ctx.put("eid", unpublished.getId());
         boolean result = handler.aclErrataIsPublished(ctx, null);
         assertFalse(result);
-        
+
         //test true
         //ctx = new HashMap();
         ctx.put("eid", published.getId());
         result = handler.aclErrataIsPublished(ctx, null);
         assertTrue(result);
-        
+
         //make sure we get exceptions when we should
         //ctx = new HashMap();
         //bad errata id

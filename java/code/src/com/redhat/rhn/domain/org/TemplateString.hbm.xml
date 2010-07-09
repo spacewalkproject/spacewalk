@@ -16,11 +16,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="description" column="description" type="string" length="512" />
 		<property name="created" column="created" type="timestamp" insert="false" update="false" />
 		<property name="modified" column="modified" type="timestamp" insert="false" update="false" />
-		<many-to-one name="category" 
+		<many-to-one name="category"
                      column="category_id"
-                     class="com.redhat.rhn.domain.org.TemplateCategory" 
+                     class="com.redhat.rhn.domain.org.TemplateCategory"
                      not-null="true"
-                     insert="false" 
+                     insert="false"
                      update="false"
                       />
     </class>

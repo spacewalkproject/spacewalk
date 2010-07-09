@@ -21,7 +21,7 @@ package com.redhat.rhn.frontend.xmlrpc;
 import com.redhat.rhn.FaultException;
 
 /**
- * cannot find a valid satellite child channel for particular base channel + 
+ * cannot find a valid satellite child channel for particular base channel +
  * sat version combo
  * <p>
 
@@ -38,7 +38,7 @@ public class NoSatChanForVersionException extends FaultException  {
      * Constructor
      */
     public NoSatChanForVersionException() {
-        super(1029 , "noSatChanForVersion" , "Cannot find correct " + 
+        super(1029 , "noSatChanForVersion" , "Cannot find correct " +
                 "channel for given version");
         // begin member variable initialization
     }
@@ -46,12 +46,12 @@ public class NoSatChanForVersionException extends FaultException  {
         /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public NoSatChanForVersionException(Throwable cause) {
-        super(1029 , "noSatChanForVersion" , "Cannot find correct " + 
+        super(1029 , "noSatChanForVersion" , "Cannot find correct " +
                 "channel for given version" , cause);
         // begin member variable initialization
     }

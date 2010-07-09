@@ -38,7 +38,7 @@ public class ProbeSuiteCreateAction extends BaseProbeSuiteEditAction {
         ProbeSuite retval;
         if (ctx.getRequest().getAttribute("probeSuite") != null) {
             retval = (ProbeSuite) ctx.getRequest().getAttribute("probeSuite");
-        } 
+        }
         else {
             retval = MonitoringManager.
                 getInstance().createProbeSuite(ctx.getCurrentUser());

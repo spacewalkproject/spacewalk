@@ -25,7 +25,7 @@ public class ActionMessage {
     private int count;
     private String advisory;
     private String synopsis;
-    
+
     /** {@inheritDoc} */
     public String toString() {
         return "[type=" + type + ",status=" + status + ",count=" + count +
@@ -37,63 +37,63 @@ public class ActionMessage {
     public String getAdvisory() {
         return advisory;
     }
-    
+
     /**
      * @param advisoryIn The advisory to set.
      */
     public void setAdvisory(String advisoryIn) {
         advisory = advisoryIn;
     }
-    
+
     /**
      * @return Returns the count.
      */
     public int getCount() {
         return count;
     }
-    
+
     /**
      * @param countIn The count to set.
      */
     public void setCount(int countIn) {
         count = countIn;
     }
-    
+
     /**
      * @return Returns the status.
      */
     public String getStatus() {
         return status;
     }
-    
+
     /**
      * @param statusIn The status to set.
      */
     public void setStatus(String statusIn) {
         status = statusIn;
     }
-    
+
     /**
      * @return Returns the synopsis.
      */
     public String getSynopsis() {
         return synopsis;
     }
-    
+
     /**
      * @param synopsisIn The synopsis to set.
      */
     public void setSynopsis(String synopsisIn) {
         synopsis = synopsisIn;
     }
-    
+
     /**
      * @return Returns the type.
      */
     public String getType() {
         return type;
     }
-    
+
     /**
      * @param typeIn The type to set.
      */

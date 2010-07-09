@@ -33,7 +33,7 @@ import java.sql.ResultSet;
  * @version $Rev$
  */
 public class DeviceTest extends RhnBaseTestCase {
-    
+
     public static final String DESCRIPTION = "Test Device";
     public static final String DEVICE = "device";
     public static final String PROP_ONE = "Zeus Vendor";
@@ -41,7 +41,7 @@ public class DeviceTest extends RhnBaseTestCase {
     public static final String PROP_THREE = "prop3";
     public static final String PROP_FOUR = "prop4";
     public static final String DRIVER = "Test Driver";
-    
+
     public void testDevice() throws Exception {
         Device hd = createTestDevice();
 
@@ -51,7 +51,7 @@ public class DeviceTest extends RhnBaseTestCase {
         verifyInDb(hd.getId(),  "Zeus Vendor");
         assertEquals(1, TestUtils.removeObject(hd));
     }
-    
+
     private void verifyInDb(Long id, String value) throws Exception {
         // Now lets manually test to see if the user got updated
         Session session = null;
@@ -77,16 +77,16 @@ public class DeviceTest extends RhnBaseTestCase {
             rs.close();
             ps.close();
         }
-        
+
         assertNotNull(rawValue);
         assertEquals(value, rawValue);
     }
-    
+
     public static Device createTestDevice() throws Exception {
         Device hd = new Device();
         User u = UserTestUtils.findNewUser("testUser", "testOrg");
         Server server = ServerFactoryTest.createTestServer(u);
-        
+
         hd.setServer(server);
         hd.setBus(Device.BUS_PCI);
         hd.setDescription(DESCRIPTION);
@@ -99,12 +99,12 @@ public class DeviceTest extends RhnBaseTestCase {
         hd.setProp2(PROP_TWO);
         hd.setProp3(PROP_THREE);
         hd.setProp4(PROP_FOUR);
-        
+
         assertNull(hd.getId());
         TestUtils.saveAndFlush(hd);
         assertNotNull(hd.getId());
-        
+
         return hd;
-        
+
     }
 }

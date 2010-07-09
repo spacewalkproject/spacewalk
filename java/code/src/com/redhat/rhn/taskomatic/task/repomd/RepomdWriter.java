@@ -29,9 +29,9 @@ import java.io.OutputStream;
 import java.io.Writer;
 
 /**
- * 
+ *
  * @version $Rev $
- * 
+ *
  */
 public abstract class RepomdWriter {
 
@@ -57,11 +57,11 @@ public abstract class RepomdWriter {
 
         OutputFormat of = new OutputFormat();
         of.setPreserveSpace(true);
-        
+
         //We use an unescaping serializer because we'll be appending xml
         XMLSerializer serializer = new UnescapingXmlSerializer(writer, of);
-        
-        
+
+
         try {
             handler = new SimpleContentHandler(serializer.asContentHandler());
         }
@@ -83,13 +83,13 @@ public abstract class RepomdWriter {
         of.setOmitXMLDeclaration(true);
         XMLSerializer tmpSerial = new XMLSerializer(st, of);
         SimpleContentHandler tmpHandler = new SimpleContentHandler(tmpSerial);
-        return tmpHandler;        
+        return tmpHandler;
     }
-    
-    
+
+
 
     /**
-     * 
+     *
      * @param handler content handler
      * @param pkgDto package info dto object
      * @throws SAXException
@@ -113,7 +113,7 @@ public abstract class RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param pkg package object
      * @return package epoch string
      */
@@ -122,7 +122,7 @@ public abstract class RepomdWriter {
     }
 
     /**
-     * 
+     *
      * @param epoch package epoch string
      * @return modified epoch string
      */
@@ -148,10 +148,10 @@ public abstract class RepomdWriter {
         }
         return StringUtils.replaceChars(input, CONTROL_CHARS, CONTROL_CHARS_REPLACEMENT);
     }
-    
+
 
     /**
-     * 
+     *
      * @param channel channel info
      */
     public abstract void begin(Channel channel);

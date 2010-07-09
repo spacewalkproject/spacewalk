@@ -29,7 +29,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  * @version $Rev$
  */
 public class SubscriptionsSetupAction extends BaseSetListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -37,16 +37,16 @@ public class SubscriptionsSetupAction extends BaseSetListAction {
         return RhnSetDecl.CONFIG_CHANNELS_RANKING;
     }
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected void processRequestAttributes(RequestContext rctx) {
         if (!rctx.isSubmitted()) {
             getSetDecl().clear(rctx.getLoggedInUser());
-        }        
+        }
         super.processRequestAttributes(rctx);
         return;
-    }    
+    }
 
     /**
      * {@inheritDoc}

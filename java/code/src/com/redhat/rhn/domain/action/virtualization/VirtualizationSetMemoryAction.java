@@ -17,15 +17,15 @@ package com.redhat.rhn.domain.action.virtualization;
 import java.util.Map;
 
 /**
- * VirtualizationSetMemoryAction - Class representing TYPE_VIRTUALIZATION_SET_MEMORY.  
- * Make sure the 'memory' field is in kilobytes. 
+ * VirtualizationSetMemoryAction - Class representing TYPE_VIRTUALIZATION_SET_MEMORY.
+ * Make sure the 'memory' field is in kilobytes.
  *
  * @version $Rev$
  */
 public class VirtualizationSetMemoryAction extends BaseVirtualizationAction {
 
     public static final String SET_MEMORY_STRING = "setMemory";
-    
+
     private Integer memory;
 
     /**

@@ -52,7 +52,7 @@ import java.util.TreeMap;
  * @version $Rev$
  */
 public class DailySummary extends SingleThreadedTestableTask {
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
@@ -65,7 +65,7 @@ public class DailySummary extends SingleThreadedTestableTask {
 
     private Mail mail;
     private static Logger log = Logger.getLogger(DailySummary.class);
-    
+
     /**
      * Default constructor
      */
@@ -80,7 +80,7 @@ public class DailySummary extends SingleThreadedTestableTask {
     public DailySummary(Mail mailer) {
         mail = mailer;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -89,8 +89,8 @@ public class DailySummary extends SingleThreadedTestableTask {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_DAILY_SUMMARY_QUEUE);
         List results = m.execute();
-        
-        
+
+
         OrgIdWrapper oiw = null;
         for (Iterator itr = results.iterator(); itr.hasNext();) {
             try {
@@ -115,7 +115,7 @@ public class DailySummary extends SingleThreadedTestableTask {
                     HibernateFactory.closeSession();
                 }
             }
-        }        
+        }
     }
 
     /**
@@ -142,7 +142,7 @@ public class DailySummary extends SingleThreadedTestableTask {
                 TaskConstants.TASK_QUERY_USERS_WANTING_REPORTS);
         Map params = new HashMap();
         params.put("org_id", orgId);
-        
+
         StopWatch watch = new StopWatch();
         watch.start();
         List users = m.execute(params);
@@ -152,24 +152,24 @@ public class DailySummary extends SingleThreadedTestableTask {
             List awol = getAwolServers(ru.idAsLong());
             // send email
             List actions = getActionInfo(ru.idAsLong());
-            if ((awol == null || awol.size() == 0) && (actions == null || 
+            if ((awol == null || awol.size() == 0) && (actions == null ||
                     actions.size() == 0)) {
-                log.debug("Skipping ORG " + orgId + " because daily summary info has " + 
+                log.debug("Skipping ORG " + orgId + " because daily summary info has " +
                         "changed");
                 continue;
             }
 
             String awolMsg = renderAwolServersMessage(awol);
             String actionMsg = renderActionsMessage(actions);
-            
+
             String emailMsg = prepareEmail(
                     ru.getLogin(), ru.getAddress(), awolMsg, actionMsg);
-            
-            LocalizationService ls = LocalizationService.getInstance(); 
+
+            LocalizationService ls = LocalizationService.getInstance();
             mail.setSubject(ls.getMessage(
                     "dailysummary.email.subject", ls.formatDate(new Date())));
             mail.setRecipient(ru.getAddress());
-            
+
             if (log.isDebugEnabled()) {
                 log.debug("Sending email to [" + ru.getAddress() + "]");
             }
@@ -179,11 +179,11 @@ public class DailySummary extends SingleThreadedTestableTask {
         }
         watch.stop();
         if (log.isDebugEnabled()) {
-            log.debug("queued emails of org of " + users.size() + 
+            log.debug("queued emails of org of " + users.size() +
                 " users in " + watch.getTime() + "ms");
         }
     }
-    
+
     /**
      * DO NOT CALL FROM OUTSIDE THIS CLASS. Returns the list of awol servers.
      * @param uid User id whose awol servers are sought.
@@ -196,10 +196,10 @@ public class DailySummary extends SingleThreadedTestableTask {
         params.put("user_id", uid);
         params.put("checkin_threshold",
                 Config.get().getInteger(ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD));
-        
+
         return m.execute(params);
     }
-    
+
     /**
      * DO NOT CALL FROM OUTSIDE THIS CLASS. Returns the list of recent actions.
      * @param uid User id whose recent actions are sought.
@@ -210,10 +210,10 @@ public class DailySummary extends SingleThreadedTestableTask {
                 TaskConstants.TASK_QUERY_GET_ACTION_INFO);
         Map params = new HashMap();
         params.put("user_id", uid);
-        
+
         return m.execute(params);
     }
-    
+
     /**
      * DO NOT CALL FROM OUTSIDE THIS CLASS. Renders the awol servers message
      * @param servers list of awol servers
@@ -226,12 +226,12 @@ public class DailySummary extends SingleThreadedTestableTask {
         /*
          * The Awol message is going to be a table containing a list of systems
          * that have gone AWOL.
-         * 
+         *
          * All the calculation crap for tables will be done...  how many spaces
          * between columns and the column width for the given data.
          * This means that we will read through the data twice, once to find the
          * longest entries and again to build the return string.
-         * 
+         *
          * Since this will be going in an email, if the receiver doesn't use
          * monospace fonts *ever* than all this calculation is for nothing.
          */
@@ -239,12 +239,12 @@ public class DailySummary extends SingleThreadedTestableTask {
         String sid = ls.getMessage("taskomatic.daily.sid"); //System Id column
         String sname = ls.getMessage("taskomatic.daily.systemname"); //System Name column
         String checkin = ls.getMessage("taskomatic.daily.checkin"); //Last Checkin column
-        
+
         //First we need to figure out how long the width of the columns should be.
         int minDiff = 4; //this is the minimum spaces between header elements
         int sidLength = sid.length() + minDiff;
         int snameLength = sid.length() + minDiff;
-        
+
         //Find the longest entry in the table for both sid and sname.
         for (Iterator itr = servers.iterator(); itr.hasNext();) {
             AwolServer as = (AwolServer) itr.next();
@@ -259,7 +259,7 @@ public class DailySummary extends SingleThreadedTestableTask {
                 snameLength = currentName.length() + 1;
             }
         }
-        
+
         //render the header--  System Id        System Name        LastCheckin
         StringBuffer buf = new StringBuffer();
         buf.append(sid);
@@ -268,7 +268,7 @@ public class DailySummary extends SingleThreadedTestableTask {
         buf.append(StringUtils.repeat(" ", snameLength - sname.length()));
         buf.append(checkin);
         buf.append("\n");
-        
+
         //Now render the data in the table
         for (Iterator itr = servers.iterator(); itr.hasNext();) {
             AwolServer as = (AwolServer) itr.next();
@@ -281,7 +281,7 @@ public class DailySummary extends SingleThreadedTestableTask {
             buf.append(as.getCheckin());
             buf.append("\n");
         }
-        
+
         //Lastly, create the url for the link in the email.
         StringBuffer url = new StringBuffer();
         if (Config.get().getBoolean(ConfigDefaults.SSL_AVAILABLE)) {
@@ -292,11 +292,11 @@ public class DailySummary extends SingleThreadedTestableTask {
         }
         url.append(getHostname());
         url.append("/rhn/systems/Inactive.do");
-        
+
         return LocalizationService.getInstance().getMessage(
                 "taskomatic.msg.awolservers", buf.toString(), url);
     }
-    
+
     /**
      * DO NOT CALL FROM OUTSIDE THIS CLASS. Renders the actions email message
      * @param actions list of recent actions
@@ -356,7 +356,7 @@ public class DailySummary extends SingleThreadedTestableTask {
             }
 
         }
-        
+
         hdr.append(StringUtils.repeat(" ", longestActionLength));
         for (String status : statusSet) {
             hdr.append(status + StringUtils.repeat(" ", (longestStatusLength +
@@ -389,7 +389,7 @@ public class DailySummary extends SingleThreadedTestableTask {
         }
         return msg.toString();
     }
-    
+
     private StringBuffer renderActionTree(int longestActionLength,
             int longestStatusLength, LinkedHashSet<String> statusSet,
             TreeMap<String, HashMap<String, Integer>> actionTree) {
@@ -438,13 +438,13 @@ public class DailySummary extends SingleThreadedTestableTask {
         args[6] = OrgFactory.EMAIL_ACCOUNT_INFO.getValue();
         String msg =  ls.getMessage(
                 "dailysummary.email.body", (Object[])args);
-        
+
         // wow, what an ugly @$$ hack, but this requires rewriting
         // the email templating engine which kinda sucks.
         msg = StringUtils.replace(msg, "<login />", login);
         return StringUtils.replace(msg, "<email-address />", email);
     }
-    
+
     private String getHostname() {
         return ConfigDefaults.get().getHostname();
     }

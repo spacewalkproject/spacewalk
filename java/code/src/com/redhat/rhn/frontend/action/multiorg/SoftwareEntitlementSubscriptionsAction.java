@@ -55,26 +55,26 @@ import javax.servlet.http.HttpServletResponse;
 public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements Listable {
 
     private static Logger log = Logger.getLogger(
-            SoftwareEntitlementSubscriptionsAction.class);    
+            SoftwareEntitlementSubscriptionsAction.class);
     private static final String ORGS = "orgs";
-    
+
     private static String makeLabel(HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
         Long cfid = ctx.getParamAsLong("cfid");
         return "SoftwareEntitlementSubscriptionsAction" + cfid;
-    }    
-    
-    
+    }
+
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
-                                  HttpServletResponse response) {        
-        
+                                  HttpServletResponse response) {
+
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         RequestContext ctx = new RequestContext(request);
         User user = ctx.getLoggedInUser();
-        
+
         Long cfid = ctx.getParamAsLong("cfid");
         ChannelFamily channelFamily = ChannelFamilyFactory.lookupById(cfid);
 
@@ -83,7 +83,7 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
         if (max == null) {
             return mapping.findForward("unlimited");
         }
-        
+
         Map params = new HashMap();
         params.put("cfid", cfid);
         ListHelper helper = new ListHelper(this, request, params);
@@ -91,20 +91,20 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
         ActionForward retval = mapping.findForward("default");
 
         if (isSubmitted(dynaForm)) {
-            
+
             Map <String, String> subsMap = (Map <String, String>)
             request.getSession().getAttribute(makeLabel(request));
             for (String id : subsMap.keySet()) {
                 if (request.getParameter(id) != null) {
                     subsMap.put(id, request.getParameter(id));
                 }
-            }            
-            
+            }
+
             String orgClickedStr = request.getParameter("orgClicked");
             if (!StringUtils.isBlank(orgClickedStr)) {
                 Long orgId = Long.parseLong(orgClickedStr);
                 Org org = OrgFactory.lookupById(orgId);
-                
+
                 ActionErrors ae = updateSubscriptions(org, dynaForm, request,
                         channelFamily, subsMap);
 
@@ -129,15 +129,15 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
             List <OrgSoftwareEntitlementDto> subs = helper.getDataSet();
             for (OrgSoftwareEntitlementDto sub : subs) {
                 if (sub.getMaxPossibleAllocation() > 0) {
-                    subsMap.put(sub.getKey(), sub.getMaxMembers().toString());    
+                    subsMap.put(sub.getKey(), sub.getMaxMembers().toString());
                 }
                 if (sub.getMaxPossibleFlexAllocation() > 0) {
-                    subsMap.put(sub.getFlexKey(), sub.getMaxFlex().toString());    
+                    subsMap.put(sub.getFlexKey(), sub.getMaxFlex().toString());
                 }
             }
             request.getSession().setAttribute(makeLabel(request), subsMap);
         }
-        request.setAttribute(ORGS, 
+        request.setAttribute(ORGS,
                 request.getSession().getAttribute(makeLabel(request)));
         setupFormValues(request, user, cfid, channelFamily);
 
@@ -168,24 +168,24 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
 
     private void setupEntitlementUsageTotals(HttpServletRequest request,
             Long cfid, Org satelliteOrg, User user) {
-        List<ChannelOverview> channelOverviews = 
+        List<ChannelOverview> channelOverviews =
             ChannelManager.getEntitlementForAllOrgs(cfid);
-        
+
         Long maxMembers = new Long(0);
         Long currMembers = new Long(0);
         Long entitlementRatio = new Long(0);
         Long orgRatio = new Long(0);
         Long entitledOrgs = new Long(0);
-        boolean regularAvailable = false; 
-        
-        
+        boolean regularAvailable = false;
+
+
         long currFlex = 0;
         long maxFlex = 0;
         long flexEntRatio = 0;
         long flexOrgRatio = 0;
         long flexEntitledOrgs = 0;
         boolean flexAvailable = false;
-        
+
         // don't include default org
         Long orgCount = OrgManager.getTotalOrgCount(user) - 1;
         for (ChannelOverview co : channelOverviews) {
@@ -194,55 +194,55 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
                 regularAvailable = co.getFreeMembers() > 0;
                 continue;
             }
-            
+
             currMembers += co.getCurrentMembers();
             maxMembers += co.getMaxMembers();
             currFlex += co.getCurrentFlex();
-            maxFlex += co.getMaxFlex(); 
-            
+            maxFlex += co.getMaxFlex();
+
             if (co.getMaxMembers() > 0) {
                 // manually count rather then use list size since max mem can be 0
                 entitledOrgs++;
                 regularAvailable = true;
             }
-            
+
             if (co.getMaxFlex() > 0) {
                 flexAvailable = true;
                 flexEntitledOrgs++;
-            }            
+            }
         }
-        
+
         try {
             if (maxMembers > 0) {
-                entitlementRatio = currMembers * 100 / maxMembers;    
+                entitlementRatio = currMembers * 100 / maxMembers;
             }
             if (maxFlex > 0) {
-                flexEntRatio = currFlex * 100 / maxFlex;    
+                flexEntRatio = currFlex * 100 / maxFlex;
             }
             if (orgCount > 0) {
                 orgRatio = entitledOrgs * 100 / orgCount;
                 flexOrgRatio = flexEntitledOrgs * 100 / orgCount;
             }
-            
-        } 
+
+        }
         catch (Exception e) {
             //default to 0
         }
-        
-        
+
+
         request.setAttribute("orgCount", orgCount);
         request.setAttribute("entitledOrgs", entitledOrgs);
-        request.setAttribute("maxMem", maxMembers);        
+        request.setAttribute("maxMem", maxMembers);
         request.setAttribute("curMem", currMembers);
         request.setAttribute("entRatio", entitlementRatio);
         request.setAttribute("orgRatio", orgRatio);
         if (regularAvailable) {
             request.setAttribute("regularAvailable", Boolean.TRUE);
         }
-        
+
 
         request.setAttribute("flexEntitledOrgs", flexEntitledOrgs);
-        request.setAttribute("maxFlex", maxFlex);        
+        request.setAttribute("maxFlex", maxFlex);
         request.setAttribute("curFlex", currFlex);
         request.setAttribute("flexEntRatio", flexEntRatio);
         request.setAttribute("flexOrgRatio", flexOrgRatio);
@@ -251,14 +251,14 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
         }
     }
 
-    private ActionErrors updateSubscriptions(Org org, DynaActionForm dynaForm, 
+    private ActionErrors updateSubscriptions(Org org, DynaActionForm dynaForm,
             HttpServletRequest request, ChannelFamily channelFamily,
             Map<String, String> subsMap) {
 
         ActionErrors ae = new ActionErrors();
         long regCount = 0;
         long flexCount = 0;
-        
+
         if (subsMap.containsKey(OrgSoftwareEntitlementDto.makeFlexKey(org.getId()))) {
             try {
                 String flexValue = subsMap.get(
@@ -271,7 +271,7 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
                 ae.add(RhnValidationHelper.validatorErrorToActionErrors(error));
             }
         }
-        
+
         if (subsMap.containsKey(OrgSoftwareEntitlementDto.makeKey(org.getId()))) {
             try {
                 String value = subsMap.get(
@@ -291,10 +291,10 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
             createErrorMessage(request, "org.entitlements.system.defaultorg", null);
             return null;
         }
-        
+
         UpdateOrgSoftwareEntitlementsCommand updateCmd = null;
         try {
-             updateCmd = new UpdateOrgSoftwareEntitlementsCommand(channelFamily.getLabel(), 
+             updateCmd = new UpdateOrgSoftwareEntitlementsCommand(channelFamily.getLabel(),
                      org, regCount, flexCount);
         }
         catch (IllegalArgumentException e) {
@@ -303,13 +303,13 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
             ae.add(RhnValidationHelper.validatorErrorToActionErrors(error));
             return ae;
         }
-        
+
         ValidatorError ve = updateCmd.store();
         if (ve != null) {
             ae.add(RhnValidationHelper
                     .validatorErrorToActionErrors(ve));
         }
-        
+
         return ae;
 
     }
@@ -320,12 +320,12 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
     public List getResult(RequestContext contextIn) {
         ChannelFamily cf = ChannelFamilyFactory.
                         lookupById(contextIn.getParamAsLong("cfid"));
-        List<OrgSoftwareEntitlementDto> entitlementUsage = 
-                        ChannelManager.listEntitlementsForAllOrgsWithEmptyOrgs(cf, 
+        List<OrgSoftwareEntitlementDto> entitlementUsage =
+                        ChannelManager.listEntitlementsForAllOrgsWithEmptyOrgs(cf,
                                                             contextIn.getLoggedInUser());
         Org satelliteOrg = OrgFactory.getSatelliteOrg();
 
-        for (Iterator <OrgSoftwareEntitlementDto> itr = 
+        for (Iterator <OrgSoftwareEntitlementDto> itr =
                             entitlementUsage.iterator(); itr.hasNext();) {
             OrgSoftwareEntitlementDto dto = itr.next();
             if (satelliteOrg.equals(dto.getOrg())) {

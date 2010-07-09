@@ -22,10 +22,10 @@ import com.redhat.rhn.FaultException;
  * @version $Rev$
  */
 public class ValidationException extends FaultException {
-    
+
     /**
      * Constructor
-     * @param msg Message for exception, already localized by the validation 
+     * @param msg Message for exception, already localized by the validation
      * framework.
      */
     public ValidationException(String msg) {
@@ -34,7 +34,7 @@ public class ValidationException extends FaultException {
 
     /**
      * Constructor
-     * @param msg Message for exception, already localized by the validation 
+     * @param msg Message for exception, already localized by the validation
      * framework.
      * @param cause the cause (which is saved for later retrieval by the
      * Throwable.getCause() method). (A null value is permitted, and indicates

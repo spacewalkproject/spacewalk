@@ -64,15 +64,15 @@ public class LocalRevisionDeployAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         Map params = makeParamMap(request);
         ConfigActionHelper.processParamMap(request, params);
-        
+
         DynaActionForm dForm = (DynaActionForm) form;
         User usr = requestContext.getLoggedInUser();
 
         ConfigRevision cr = ConfigActionHelper.findRevision(request);
-        
+
         if (ConfigChannelType.global().equals(
                 cr.getConfigFile().getConfigChannel().getConfigChannelType())) {
-            return getStrutsDelegate().forwardParams(mapping.findForward("global"), 
+            return getStrutsDelegate().forwardParams(mapping.findForward("global"),
                     params);
         }
 
@@ -84,13 +84,13 @@ public class LocalRevisionDeployAction extends RhnAction {
             if (isSubmitted(dForm)) {
                 submitDeploy(dForm, cr, srv, usr);
                 success(request);
-                return getStrutsDelegate().forwardParams(mapping.findForward("success"), 
+                return getStrutsDelegate().forwardParams(mapping.findForward("success"),
                         params);
             }
             updateRequest(request, cr, srv);
         }
-        
-        DatePicker d = getStrutsDelegate().prepopulateDatePicker(request, dForm, "date", 
+
+        DatePicker d = getStrutsDelegate().prepopulateDatePicker(request, dForm, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
         request.setAttribute("date", d);
         ConfigActionHelper.setupRequestAttributes(requestContext, cr.getConfigFile(), cr);
@@ -99,7 +99,7 @@ public class LocalRevisionDeployAction extends RhnAction {
 
     protected Server findServer(HttpServletRequest request, ConfigRevision cr) {
         RequestContext requestContext = new RequestContext(request);
-        
+
         Server srv = null;
         User usr = requestContext.getLoggedInUser();
         ConfigFile cf = cr.getConfigFile();
@@ -121,11 +121,11 @@ public class LocalRevisionDeployAction extends RhnAction {
         User usr = requestContext.getLoggedInUser();
         ConfigFile cf = cr.getConfigFile();
         ConfigChannel cc = cf.getConfigChannel();
-        
+
         if (cc.isGlobalChannel()) {
             return;
         }
-        
+
         request.setAttribute(SYSTEM, srv.getName());
         request.setAttribute(SYSTEM_ID, srv.getId());
 
@@ -138,7 +138,7 @@ public class LocalRevisionDeployAction extends RhnAction {
         }
     }
 
-    protected void submitDeploy(DynaActionForm form, ConfigRevision cr, 
+    protected void submitDeploy(DynaActionForm form, ConfigRevision cr,
             Server srv, User u) {
         Date datePicked = getStrutsDelegate().
            readDatePicker(form, "date", DatePicker.YEAR_RANGE_POSITIVE);
@@ -148,7 +148,7 @@ public class LocalRevisionDeployAction extends RhnAction {
         system.add(srv.getId());
         ConfigurationManager.getInstance().deployFiles(u, file, system, datePicked);
     }
-    
+
     private void success(HttpServletRequest request) {
         ActionMessages msg = new ActionMessages();
         msg.add(ActionMessages.GLOBAL_MESSAGE,

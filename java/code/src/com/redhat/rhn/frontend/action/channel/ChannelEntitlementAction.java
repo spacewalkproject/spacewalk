@@ -25,7 +25,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
  * @version $Rev$
  */
 public class ChannelEntitlementAction extends BaseListAction {
-   
+
     /**
      * {@inheritDoc}
      */

@@ -22,13 +22,13 @@
 
 <rl:listset name="groupSet">
 
-	<rl:list dataset="pageList" name="groupList" decorator="SelectableDecorator" 
+	<rl:list dataset="pageList" name="groupList" decorator="SelectableDecorator"
 	     emptykey="grouplist.jsp.nogroups"
 			 filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemGroupFilter">
 
 
- <rl:selectablecolumn value="${current.id}" 
-	    		        	selected="${current.selected}" 
+ <rl:selectablecolumn value="${current.id}"
+					selected="${current.selected}"
 	    				styleclass="first-column"/>
 
 		<rl:column sortable="true"
@@ -37,7 +37,7 @@
 					
 		<c:out value="<a href=\"/network/systems/groups/details.pxt?sgid=${current.id}\">${current.name}</a>" escapeXml="false" />
 	    </rl:column>
-	    
+
 		<rl:column sortable="true"
 					headerkey="grouplist.jsp.systems"
 					sortattr="serverCount"
@@ -45,7 +45,7 @@
 					
 						<c:out value="<a href=\"/rhn/groups/ListRemoveSystems.do?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
 	    </rl:column>
-	    
+
 
 
 
@@ -58,7 +58,7 @@
       </html:submit>
     </div>
   </c:if>
-  
+
   <input type="hidden" name="uid" value="${user.id}" />
   <input type="hidden" name="formvars" value="uid" />
 
@@ -90,7 +90,7 @@
       </td>
     </tr>
   </table>
-  
+
     <c:if test="${!empty availableGroups}">
     <html:hidden property="uid" />
     <div align="right">
@@ -100,7 +100,7 @@
       </html:submit>
     </div>
   </c:if>
-  
+
 </html:form>
 
 

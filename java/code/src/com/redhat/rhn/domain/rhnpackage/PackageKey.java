@@ -73,7 +73,7 @@ public class PackageKey extends BaseDomainHelper implements Comparable<PackageKe
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -81,7 +81,7 @@ public class PackageKey extends BaseDomainHelper implements Comparable<PackageKe
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object archIn) {

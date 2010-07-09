@@ -27,12 +27,12 @@ import com.redhat.rhn.manager.kickstart.KickstartLister;
  */
 public class KickstartsSubmitAction extends BaseListAction {
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
         Org org = rctx.getCurrentUser().getOrg();
         return KickstartLister.getInstance().kickstartsInOrg(org, pc);
     }
-    
+
 }

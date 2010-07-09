@@ -63,12 +63,12 @@ public class AdvancedModeDetailsAction extends RhnAction {
     private static final String VIRTUALIZATION_TYPES_PARAM = "virtualizationTypes";
     private static final String VIRTUALIZATION_TYPE_LABEL_PARAM = "virtualizationTypeLabel";
     private static final String CONTENTS = "contents";
-    private static final String FILE_UPLOAD = "fileUpload"; 
+    private static final String FILE_UPLOAD = "fileUpload";
     private static final String ORG_DEFAULT = "org_default";
     private static final String ACTIVE = "active";
-    
+
     private static final String CREATE_MODE = "create";
-    
+
     private static Logger log = Logger.getLogger(AdvancedModeDetailsAction.class);
     private static final String UPLOAD_KEY = "manage.jsp.uploadbutton";
     private static final String UPLOAD_KEY_LABEL = "uploadKey";
@@ -84,13 +84,13 @@ public class AdvancedModeDetailsAction extends RhnAction {
             HttpServletResponse response) throws Exception {
         RequestContext context = new RequestContext(request);
 
-        
+
         request.setAttribute(UPLOAD_KEY_LABEL, UPLOAD_KEY);
         context.copyParamToAttributes(RequestContext.KICKSTART_ID);
         if (CREATE_MODE.equals(mapping.getParameter())) {
             context.getRequest().setAttribute(CREATE_MODE, Boolean.TRUE);
         }
-        
+
         DynaActionForm form = (DynaActionForm) formIn;
         if (!context.isSubmitted()) {
             setup(context, form);
@@ -101,7 +101,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
         else {
             return submit(context, form, mapping);
         }
-        
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
     private ActionForward submitInvalid(RequestContext context,
@@ -133,7 +133,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
         }
     }
 
-    private ActionForward submit(RequestContext context, 
+    private ActionForward submit(RequestContext context,
                         DynaActionForm form, ActionMapping mapping) {
         try {
             validateInput(form, context);
@@ -144,7 +144,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
 
             String virtType = form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM);
             String label = form.getString(KICKSTART_LABEL_PARAM);
-            
+
             KickstartBuilder builder = new KickstartBuilder(user);
             KickstartRawData ks;
             String fileData = getData(context, form);
@@ -158,10 +158,10 @@ public class AdvancedModeDetailsAction extends RhnAction {
                 ks.setActive(Boolean.TRUE.equals(form.get(ACTIVE)));
                 ks.setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
             }
-            
-            KickstartDetailsEditAction.processCobblerFormValues(ks, form, 
+
+            KickstartDetailsEditAction.processCobblerFormValues(ks, form,
                     context.getLoggedInUser());
-            
+
             return getStrutsDelegate().forwardParam(mapping.findForward("success"),
                                                         RequestContext.KICKSTART_ID,
                                                         ks.getId().toString());
@@ -175,12 +175,12 @@ public class AdvancedModeDetailsAction extends RhnAction {
                 return getStrutsDelegate().forwardParam(mapping.
                                     findForward(RhnHelper.DEFAULT_FORWARD),
                         RequestContext.KICKSTART_ID,
-                        ks.getId().toString());                
+                        ks.getId().toString());
             }
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
     }
-    
+
     private void setup(RequestContext context, DynaActionForm form) {
         User user  = context.getLoggedInUser();
         KickstartWizardHelper cmd = new KickstartWizardHelper(user);
@@ -196,29 +196,29 @@ public class AdvancedModeDetailsAction extends RhnAction {
             form.set(KICKSTART_LABEL_PARAM, data.getLabel());
             form.set(CONTENTS, data.getData());
             KickstartFileDownloadCommand dcmd = new KickstartFileDownloadCommand(
-                    data.getId(), 
+                    data.getId(),
                     user,
                     context.getRequest());
             context.getRequest().setAttribute(KickstartFileDownloadAction.KSURL,
                     dcmd.getOrgDefaultUrl());
-            
+
             KickstartDetailsEditAction.setupCobblerFormValues(context, form, data);
-            
+
             form.set(ORG_DEFAULT, data.isOrgDefault());
             form.set(ACTIVE, data.isActive());
             KickstartDetailsEditAction.checkKickstartFile(context, getStrutsDelegate());
          }
     }
- 
-    
+
+
     private void loadVirtualizationTypes(KickstartWizardHelper cmd, DynaActionForm form,
             RequestContext context) {
 
         List types = cmd.getVirtualizationTypes();
         form.set(VIRTUALIZATION_TYPES_PARAM, types);
-        
+
         if (isCreateMode(context.getRequest())) {
-            form.set(VIRTUALIZATION_TYPE_LABEL_PARAM, 
+            form.set(VIRTUALIZATION_TYPE_LABEL_PARAM,
                     KickstartVirtualizationType.NONE);
         }
         else {
@@ -227,10 +227,10 @@ public class AdvancedModeDetailsAction extends RhnAction {
                                                 getVirtualizationType().getLabel());
         }
     }
-    
+
     private void loadTrees(KickstartWizardHelper cmd, DynaActionForm form,
                                                 RequestContext context) {
-        
+
         List <KickstartableTree> trees = cmd.getKickstartableTrees();
         if (trees == null || trees.size() == 0) {
             context.getRequest().setAttribute(NOTREES_PARAM, Boolean.TRUE);
@@ -238,27 +238,27 @@ public class AdvancedModeDetailsAction extends RhnAction {
         }
         else {
             form.set(KSTREES_PARAM, trees);
-            
+
             if (isCreateMode(context.getRequest())) {
-                form.set(KSTREE_ID_PARAM, null);    
+                form.set(KSTREE_ID_PARAM, null);
             }
             else {
-                KickstartRawData data = getKsData(context); 
+                KickstartRawData data = getKsData(context);
                 KickstartableTree tree = data.getTree();
                 if (tree == null) {
-                    form.set(KSTREE_ID_PARAM, null);    
+                    form.set(KSTREE_ID_PARAM, null);
                 }
                 else {
                     form.set(KSTREE_ID_PARAM, tree.getId());
                 }
             }
         }
-    }    
-    
+    }
+
     private boolean isCreateMode(HttpServletRequest request) {
         return Boolean.TRUE.equals(request.getAttribute(CREATE_MODE));
     }
-    
+
     private void validateInput(DynaActionForm form,
                                     RequestContext context) {
         String label = form.getString(KICKSTART_LABEL_PARAM);
@@ -272,48 +272,48 @@ public class AdvancedModeDetailsAction extends RhnAction {
                 builder.validateNewLabel(label);
             }
         }
-        ValidatorResult result = RhnValidationHelper.validate(this.getClass(), 
-                                            makeValidationMap(form), null, 
+        ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
+                                            makeValidationMap(form), null,
                                             VALIDATION_XSD);
          if (!result.isEmpty()) {
              throw new ValidatorException(result);
          }
-         
-      
+
+
          KickstartableTree tree =  KickstartFactory.lookupKickstartTreeByIdAndOrg(
-                 (Long) form.get(KSTREE_ID_PARAM), 
+                 (Long) form.get(KSTREE_ID_PARAM),
                  context.getLoggedInUser().getOrg());
          KickstartVirtualizationType vType =
              KickstartFactory.lookupKickstartVirtualizationTypeByLabel(
                  form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM));
-         
+
          Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree, vType,
                  context.getLoggedInUser());
          if (distro == null) {
-             ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt"); 
+             ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt");
          }
    }
-    
+
     private String getData(RequestContext context, DynaActionForm form) {
         if (context.wasDispatched(UPLOAD_KEY)) {
             StrutsDelegate delegate = getStrutsDelegate();
             FormFile file = (FormFile) form.get(FILE_UPLOAD);
             return delegate.extractString(file);
         }
-        return StringUtil.webToLinux(form.getString(CONTENTS));    
+        return StringUtil.webToLinux(form.getString(CONTENTS));
     }
-    
+
     private KickstartRawData getKsData(RequestContext context) {
         return (KickstartRawData) context.lookupAndBindKickstartData();
     }
-    
+
     private Map makeValidationMap(DynaActionForm form) {
         Map map = new HashMap();
         map.put(KSTREE_ID_PARAM, form.get(KSTREE_ID_PARAM));
         map.put(KICKSTART_LABEL_PARAM, form.get(KICKSTART_LABEL_PARAM));
         return map;
     }
-    
+
     private String getSuccessKey() {
         return "kickstart.details.success";
     }

@@ -37,19 +37,19 @@ import java.util.Map;
  */
 public class CobblerDistroSyncCommand extends CobblerCommand {
 
-    
+
     private Logger log;
-    
-    
+
+
     /**
-     * Constructor to create a 
+     * Constructor to create a
      * DistorSyncCommand
      */
     public CobblerDistroSyncCommand() {
         super();
         log = Logger.getLogger(this.getClass());
     }
-    
+
 
     protected Map<String, Distro> getDistros() {
         Map<String, Distro> toReturn = new HashMap<String, Distro>();
@@ -59,11 +59,11 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         }
         return toReturn;
     }
-    
-    
+
+
     /**
      * Sync spacewalk distros that have a null cobblerId
-     *  we do this in store as well, (while doing other syncing 
+     *  we do this in store as well, (while doing other syncing
      *  tasks, but this is needed occasoinally outside of store.
      * @return an error if applicable
      */
@@ -79,23 +79,23 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             }
 
             Distro distro = Distro.lookupByName(
-                    CobblerXMLRPCHelper.getAutomatedConnection(), 
+                    CobblerXMLRPCHelper.getAutomatedConnection(),
                     tree.getCobblerDistroName());
             if (distro != null) {
                 tree.setCobblerId(distro.getUid());
             }
             else {
-                log.debug("syncing null distro " + tree.getLabel());            
+                log.debug("syncing null distro " + tree.getLabel());
                 err = createDistro(tree, false);
                 if (err != null) {
                     errors.add(err);
                 }
             }
-            
-            //Now do virt            
+
+            //Now do virt
             if (tree.doesParaVirt() && tree.getCobblerXenId() == null) {
                 distro = Distro.lookupByName(
-                        CobblerXMLRPCHelper.getAutomatedConnection(), 
+                        CobblerXMLRPCHelper.getAutomatedConnection(),
                         tree.getCobblerXenDistroName());
                 if (distro != null) {
                     tree.setCobblerXenId(distro.getUid());
@@ -106,7 +106,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                         errors.add(err);
                     }
                 }
-            }               
+            }
 
         }
         StringBuffer messages = new StringBuffer();
@@ -121,16 +121,16 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             return new ValidatorError("kickstart.cobbler.distro.syncfail", messages);
         }
     }
-    
-    
-    
+
+
+
     /**
      * {@inheritDoc}
      */
     @Override
     public ValidatorError store() {
         List errors = new LinkedList();
-        
+
         List <KickstartableTree> trees = KickstartFactory.lookupKickstartTrees();
 
         //Any distros exist on spacewalk and not in cobbler?
@@ -142,18 +142,18 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                     errors.add(err);
                 }
             }
-            if (!cobblerDistros.containsKey(tree.getCobblerXenId()) && 
+            if (!cobblerDistros.containsKey(tree.getCobblerXenId()) &&
                                                     tree.doesParaVirt()) {
                 String err = createDistro(tree, true);
                 if (err != null) {
                     errors.add(err);
                 }
-            }            
+            }
         }
-        
+
         log.debug(trees);
         log.debug(cobblerDistros);
-        //Are there any distros on cobbler that have changed       
+        //Are there any distros on cobbler that have changed
         for (KickstartableTree tree : trees) {
             if (cobblerDistros.containsKey(tree.getCobblerId())) {
                 Distro cobDistro = cobblerDistros.get(tree.getCobblerId());
@@ -181,32 +181,32 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             return new ValidatorError("kickstart.cobbler.distro.syncfail", messages);
         }
     }
-    
-    
+
+
     private String createDistro(KickstartableTree tree, boolean xen) {
         log.debug("Trying to create: " + tree.getLabel() + " in cobbler over xmlrpc");
         Map ksmeta = new HashMap();
         KickstartUrlHelper helper = new KickstartUrlHelper(tree);
-        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, 
+        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
                 helper.getKickstartMediaPath());
-        
-        
-        
+
+
+
         if (!xen) {
-            
+
             log.debug("tree in spacewalk but not in cobbler. " +
                     "creating non-xenpv distro in cobbler : " + tree.getLabel());
-            
+
             String error =
-                validateKernelInitrd(tree.getLabel(), 
+                validateKernelInitrd(tree.getLabel(),
                         tree.getKernelPath(), tree.getInitrdPath());
             if (error != null) {
                 return error;
             }
-            
+
             Distro distro = Distro.create(
                     CobblerXMLRPCHelper.getAutomatedConnection(),
-                    tree.getCobblerDistroName(), tree.getKernelPath(), 
+                    tree.getCobblerDistroName(), tree.getKernelPath(),
                     tree.getInitrdPath(), ksmeta);
             tree.setCobblerId(distro.getUid());
             invokeCobblerUpdate();
@@ -216,39 +216,39 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                     "creating xenpv distro in cobbler : " + tree.getLabel());
 
             String error =
-                validateKernelInitrd(tree.getLabel(), 
+                validateKernelInitrd(tree.getLabel(),
                         tree.getKernelXenPath(), tree.getInitrdXenPath());
             if (error != null) {
                 return error;
             }
-            
+
             Distro distroXen = Distro.create(
                     CobblerXMLRPCHelper.getAutomatedConnection(),
-                tree.getCobblerXenDistroName(), tree.getKernelXenPath(), 
-                tree.getInitrdXenPath(), ksmeta); 
+                tree.getCobblerXenDistroName(), tree.getKernelXenPath(),
+                tree.getInitrdXenPath(), ksmeta);
             tree.setCobblerXenId(distroXen.getUid());
         }
         tree.setModified(new Date());
         return null;
     }
-    
-    private String validateKernelInitrd(String label, String kernelPath, 
+
+    private String validateKernelInitrd(String label, String kernelPath,
             String initrdPath) {
         File kernel = new File(kernelPath);
         if (!kernel.exists()) {
-            String msg = "ERROR: No kernel found in this path: [" + kernelPath + 
+            String msg = "ERROR: No kernel found in this path: [" + kernelPath +
                          "] Spacewalk cant create the distro in cobbler which" +
-                         " makes this kickstart distribution: [" + label + 
+                         " makes this kickstart distribution: [" + label +
                          "] unusable to Spacewalk.";
-                
+
             log.error(msg);
             return msg;
         }
         File initrd = new File(initrdPath);
         if (!initrd.exists()) {
-            String msg = "ERROR: No initrd found in this path: [" + initrdPath + 
+            String msg = "ERROR: No initrd found in this path: [" + initrdPath +
                          "] Spacewalk cant create the distro in cobbler which" +
-                         " makes this kickstart distribution: [" + label + 
+                         " makes this kickstart distribution: [" + label +
                          "] unusable to Spacewalk.";
             log.error(msg);
             return msg;
@@ -262,7 +262,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                 distro.getName());
         String kernel;
         String initrd;
-        
+
         //if this is the xenpv distro, then use those paths..
         if (distro.getUid().equals(tree.getCobblerXenId())) {
             kernel = tree.getKernelXenPath();
@@ -272,8 +272,8 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             kernel = tree.getKernelPath();
             initrd = tree.getKernelXenPath();
         }
-        
-        if (tree.isRhnTree()) {         
+
+        if (tree.isRhnTree()) {
             distro.setKernel(kernel);
             distro.setInitrd(initrd);
             distro.save();
@@ -281,5 +281,5 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         else {
             //Do nothing.  Let us be out of sync with cobbler
         }
-    }    
+    }
 }

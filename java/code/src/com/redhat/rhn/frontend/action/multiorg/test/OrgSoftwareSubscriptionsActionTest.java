@@ -35,7 +35,7 @@ import java.util.Map;
  * @version $Rev: 1 $
  */
 public class OrgSoftwareSubscriptionsActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
@@ -45,9 +45,9 @@ public class OrgSoftwareSubscriptionsActionTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getAttribute("org"));
         assertNotNull(request.getAttribute(ListHelper.DATA_SET));
         List pl = (List) request.getAttribute(ListHelper.DATA_SET);
-        assertTrue(pl.size() > 0);        
+        assertTrue(pl.size() > 0);
     }
-    
+
     public void testExecuteSubmit() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
@@ -57,14 +57,14 @@ public class OrgSoftwareSubscriptionsActionTest extends RhnMockStrutsTestCase {
         System.out.println("CFM TEST ID is " + cfm.getId().toString());
         addRequestParameter(cfm.getId().toString(), "10");
         addRequestParameter("updateOrganizations", "1");
-        LocalizationService ls = LocalizationService.getInstance(); 
+        LocalizationService ls = LocalizationService.getInstance();
         addRequestParameter("dispatch", ls.getMessage("orgdetails.jsp.submit"));
         Map<String, String> subsMap = new HashMap<String, String>();
         subsMap.put(cfm.getId().toString(), "10");
-        request.getSession().setAttribute("OrgSoftwareSubscriptions" + 
+        request.getSession().setAttribute("OrgSoftwareSubscriptions" +
                                 user.getOrg().getId().toString(), subsMap);
         setRequestPathInfo("/admin/multiorg/OrgSoftwareSubscriptions");
-        
+
         addSubmitted();
         actionPerform();
         assertTrue(getActualForward().contains("oid=" + user.getOrg().getId()));
@@ -75,7 +75,7 @@ public class OrgSoftwareSubscriptionsActionTest extends RhnMockStrutsTestCase {
             TestUtils.reload(i.next());
         }
         assertEquals(10, cfm.getMaxMembers(user.getOrg()).longValue());
-        
+
         // Check the setup request params
         assertNotNull(request.getAttribute(ListHelper.DATA_SET));
         List pl = (List) request.getAttribute(ListHelper.DATA_SET);

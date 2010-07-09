@@ -44,7 +44,7 @@ import java.util.List;
  * @version $Rev: 1 $
  */
 public class TreeActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testCreateNonSubmit() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
@@ -59,17 +59,17 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         executeSubmit("/kickstart/TreeCreate", c);
         verifyActionMessage("tree.create.success");
     }
-    
+
     public void testCreateRefresh() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         Channel rhel5BaseChan = createRhel5Channels();
         Channel rhel4BaseChan = createRhel4Channels();
-        
+
         // Execute a non-submit to load the page initially:
         executeNonSubmit("/kickstart/TreeCreate");
-        
+
         // Make sure the base channels we created are appearing in the dropdown list:
         assertNotNull(request.getAttribute(TreeCreateAction.CHANNELS));
         List channelLabels = (List)request.getAttribute(TreeCreateAction.CHANNELS);
@@ -87,18 +87,18 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         assertTrue(channelLabels.size() >= 2);
         assertTrue(foundRhel4BaseChan);
         assertTrue(foundRhel5BaseChan);
-        
+
         // Set fields on the form to verify values are saved after a refresh:
         String ksDistLabel = "somelabel" + TestUtils.randomString();
         addRequestParameter(TreeCreateAction.LABEL, ksDistLabel);
-        addRequestParameter(TreeCreateAction.BASE_PATH, 
+        addRequestParameter(TreeCreateAction.BASE_PATH,
                     KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath());
-       
+
         // Choose the RHEL 5 base channel so we can verify the package list is updated:
         addRequestParameter(TreeCreateAction.CHANNEL_ID, rhel5BaseChan.getId().toString());
-        
+
         executeRefresh("/kickstart/TreeCreate");
-        
+
         // Verify that things are as they should be after a refresh:
         verifyFormValue(TreeCreateAction.LABEL, ksDistLabel);
         verifyFormValue(TreeCreateAction.BASE_PATH,
@@ -108,8 +108,8 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
     }
 
     /**
-     * Create a fake RHEL 5 base channel and associated fake RHN tools channel. 
-     * The tools channel should contain a single rhn-kickstart package providing 
+     * Create a fake RHEL 5 base channel and associated fake RHN tools channel.
+     * The tools channel should contain a single rhn-kickstart package providing
      * the kickstart capability.
      * @param kickstartCapability
      * @return The RHEL 5 base channel.
@@ -124,27 +124,27 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
     }
 
     /**
-     * Create a fake RHEL 4 base channel and associated fake RHN tools channel. 
+     * Create a fake RHEL 4 base channel and associated fake RHN tools channel.
      * The tools channel should contain several autokickstart packages.
      * @return The RHEL 4 base channel.
      * @throws Exception
      */
     private Channel createRhel4Channels() throws Exception {
-        Channel rhel4BaseChan = ChannelTestUtils.createTestChannel(user); 
+        Channel rhel4BaseChan = ChannelTestUtils.createTestChannel(user);
         Channel rhel4ToolsChan = ChannelTestUtils.createChildChannel(user, rhel4BaseChan);
-        
+
         PackageManagerTest.addKickstartPackageToChannel(
-                KickstartData.LEGACY_KICKSTART_PACKAGE_NAME + "ks-rh-i386-desktop-4", 
+                KickstartData.LEGACY_KICKSTART_PACKAGE_NAME + "ks-rh-i386-desktop-4",
                 rhel4ToolsChan);
         PackageManagerTest.addKickstartPackageToChannel(
-                KickstartData.LEGACY_KICKSTART_PACKAGE_NAME + "ks-rh-i386-desktop-4-u1", 
+                KickstartData.LEGACY_KICKSTART_PACKAGE_NAME + "ks-rh-i386-desktop-4-u1",
                 rhel4ToolsChan);
         PackageManagerTest.addKickstartPackageToChannel(
-                KickstartData.LEGACY_KICKSTART_PACKAGE_NAME + "ks-rh-i386-desktop-4-u2", 
+                KickstartData.LEGACY_KICKSTART_PACKAGE_NAME + "ks-rh-i386-desktop-4-u2",
                 rhel4ToolsChan);
         return rhel4BaseChan;
     }
-    
+
     public void testEditSubmit() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         UserTestUtils.addProvisioning(user.getOrg());
@@ -164,7 +164,7 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         KickstartableTree t = KickstartableTreeTest.createTestKickstartableTree(c);
         addRequestParameter(RequestContext.KSTREE_ID, t.getId().toString());
         executeNonSubmit("/kickstart/TreeEdit");
-        
+
         verifyFormValue(TreeEditAction.BASE_PATH, t.getBasePath());
         verifyFormValue(TreeEditAction.CHANNEL_ID, t.getChannel().getId());
         verifyFormValue(TreeEditAction.LABEL, t.getLabel());
@@ -195,7 +195,7 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
             assertNotNull(request.getAttribute(TreeCreateAction.INSTALLTYPES));
         }
     }
-    
+
     public String executeSubmit(String path, Channel c) throws Exception {
         String newLabel = "somelabel" + TestUtils.randomString();
         //KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
@@ -205,7 +205,7 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         setRequestPathInfo(path);
         addRequestParameter(TreeCreateAction.BASE_PATH,
                 KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath());
-        addRequestParameter(TreeCreateAction.CHANNEL_ID, 
+        addRequestParameter(TreeCreateAction.CHANNEL_ID,
                 c.getId().toString());
         addRequestParameter(TreeCreateAction.LABEL, newLabel);
         actionPerform();
@@ -223,7 +223,7 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         assertNotNull(t);
         addRequestParameter(RequestContext.KSTREE_ID, t.getId().toString());
         addRequestParameter(TreeEditAction.BASE_PATH, t.getBasePath());
-        addRequestParameter(TreeEditAction.CHANNEL_ID, 
+        addRequestParameter(TreeEditAction.CHANNEL_ID,
                 c.getId().toString());
         addRequestParameter(TreeEditAction.LABEL, t.getLabel());
         addRequestParameter(RhnAction.SUBMITTED, Boolean.FALSE.toString());
@@ -234,18 +234,18 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getAttribute(RequestContext.PAGE_LIST));
         verifyPageList(KickstartData.class);
     }
-    
+
     public void testDeleteSubmit() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         KickstartableTree t = KickstartableTreeTest.createTestKickstartableTree(c);
         assertNotNull(t);
-        
+
         KickstartFactory.saveKickstartableTree(t);
-        assertNotNull(KickstartFactory.   
+        assertNotNull(KickstartFactory.
                         lookupKickstartTreeByIdAndOrg(t.getId(), user.getOrg()));
         addRequestParameter(RequestContext.KSTREE_ID, t.getId().toString());
-        addRequestParameter(TreeEditAction.BASE_PATH, t.getBasePath());        
-        addRequestParameter(TreeEditAction.CHANNEL_ID, 
+        addRequestParameter(TreeEditAction.BASE_PATH, t.getBasePath());
+        addRequestParameter(TreeEditAction.CHANNEL_ID,
                 c.getId().toString());
         addRequestParameter(TreeEditAction.LABEL, t.getLabel());
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
@@ -255,6 +255,6 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         verifyForward("success");
         verifyActionMessage("tree.delete.success");
     }
-    
+
 }
 

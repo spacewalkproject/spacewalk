@@ -21,10 +21,10 @@ import java.util.Date;
 
 
 /**
- * A Label is essentially a constant because Label implementations are mapped to read-only, 
- * reference tables where the Label objects/rows already exist. Reference tables like these 
+ * A Label is essentially a constant because Label implementations are mapped to read-only,
+ * reference tables where the Label objects/rows already exist. Reference tables like these
  * consist of (at least) the following columns:
- * 
+ *
  * <ul>
  *   <li>ID</li>
  *   <li>NAME</li>
@@ -32,22 +32,22 @@ import java.util.Date;
  *   <li>CREATED</li>
  *   <li>MODIFIED</li>
  * </ul>
- * 
+ *
  * Examples of these types of tables include <code>rhnServerGroupType</code> and <code>
  * rhnVirtualInstanceType</code>. Additional columns can be mapped in subclasses.
- * 
+ *
  * <br/><br/>
- * 
+ *
  * {@link AbstractLabelNameHelper} is conceptually the same as this class; however, it is
  * not implemented as an immutable like this class.
- * 
+ *
  * <br/><br/>
- * 
+ *
  * For an example of how to implement a Label, take a look at VirtualInstanceType and
  * VirtualInstanceTypeFactory.
- * 
+ *
  * @see com.redhat.rhn.domain.server.VirtualInstanceType
- * 
+ *
  * @version $Rev$
  */
 public abstract class Label {
@@ -60,7 +60,7 @@ public abstract class Label {
 
     /**
      * Returns the primary key.
-     * 
+     *
      * @return The primary key
      */
     public Long getId() {
@@ -73,7 +73,7 @@ public abstract class Label {
 
     /**
      * Returns the name of this label.
-     * 
+     *
      * @return The name of this label
      */
     public String getName() {
@@ -86,7 +86,7 @@ public abstract class Label {
 
     /**
      * Returns the label text of this label.
-     * 
+     *
      * @return The label text of this label
      */
     public String getLabel() {
@@ -99,7 +99,7 @@ public abstract class Label {
 
     /**
      * Get the date on which this label was created.
-     * 
+     *
      * @return The date on which this label was created.
      */
     public Date getCreated() {
@@ -112,7 +112,7 @@ public abstract class Label {
 
     /**
      * Get the date of last modification.
-     * 
+     *
      * @return The date of last modification.
      */
     public Date getModified() {
@@ -125,9 +125,9 @@ public abstract class Label {
 
     /**
      * Two labels are considered equal when they have the same name and label text.
-     * 
+     *
      * @param object The object to compare against this label
-     * 
+     *
      * @return <code>true</code> if <code>object</code> is a label and its
      * label text and name are the same as this label.
      */
@@ -135,15 +135,15 @@ public abstract class Label {
         if (object == null || object.getClass() != getClass()) {
             return false;
         }
-        
+
         Label that = (Label)object;
-        
+
         return new EqualsBuilder().append(this.getName(), that.getName())
                 .append(this.getLabel(), that.getLabel()).isEquals();
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {

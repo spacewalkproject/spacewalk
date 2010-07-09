@@ -56,21 +56,21 @@ public class MonitoringFactoryTest extends RhnBaseTestCase {
     }
 
     /**
-     * Test fetching a ServerProbe 
+     * Test fetching a ServerProbe
      * @throws Exception in case of error
      */
     public void testLookup() throws Exception {
         Long id = probe.getId();
         flushAndEvict(probe);
-        Probe lookedUp = MonitoringFactory.lookupProbeByIdAndOrg(id, 
-                user.getOrg()); 
+        Probe lookedUp = MonitoringFactory.lookupProbeByIdAndOrg(id,
+                user.getOrg());
         assertNotNull(lookedUp);
         assertNotNull(lookedUp.getLastUpdateDate());
         assertNotNull(lookedUp.getLastUpdateUser());
         assertNotNull(((ServerProbe) lookedUp).getSatCluster());
         assertNotNull(((ServerProbe)probe).getSatCluster());
     }
-    
+
     public void testProbeState() throws HibernateException {
 
         ProbeState ps = new ProbeState((SatCluster)
@@ -87,9 +87,9 @@ public class MonitoringFactoryTest extends RhnBaseTestCase {
         assertNotNull(probe.getState().getProbe());
         assertFalse(probe.getNotifyCritical().booleanValue());
     }
-    
+
     public void testProbeLastUpdate() throws Exception {
-        // Set its lastupdatedate to 
+        // Set its lastupdatedate to
         // something way in the past.
         Calendar cal = Calendar.getInstance();
         cal.roll(Calendar.YEAR, -10);
@@ -100,8 +100,8 @@ public class MonitoringFactoryTest extends RhnBaseTestCase {
         assertTrue(probe.getLastUpdateUser().equals(
                 user.getLogin()));
     }
-    
-    
+
+
     public void testDeleteProbe() throws HibernateException {
         Long id = probe.getId();
         MonitoringFactory.deleteProbe(probe);
@@ -109,18 +109,18 @@ public class MonitoringFactoryTest extends RhnBaseTestCase {
         assertNull(MonitoringFactory.
                 lookupProbeByIdAndOrg(id, user.getOrg()));
     }
-    
+
     public void testGetCommandGroups() {
         List l = MonitoringFactory.loadAllCommandGroups();
         assertNotNull(l);
         assertTrue(l.size() > 0);
         assertEquals(CommandGroup.class, l.get(0).getClass());
     }
-    
+
     public static Probe createTestProbe(User userIn) {
         return createTestProbe(userIn, MonitoringConstants.getProbeTypeCheck());
     }
-    
+
     public static Probe createTestProbe(User u, ProbeType typeIn) {
         ModifyProbeCommand cmd = new CreateTestProbeCommand(u, typeIn);
         assertNotNull(cmd.getProbe().getId());
@@ -129,7 +129,7 @@ public class MonitoringFactoryTest extends RhnBaseTestCase {
     }
 
     private static final class CreateTestProbeCommand extends ModifyProbeCommand {
-        
+
         public CreateTestProbeCommand(User u, ProbeType pt) {
             super(u, MonitoringConstants.getCommandCheckTCP(), createProbe(pt, u));
             setDescription("rhnUnitTest" + TestUtils.randomString());
@@ -153,13 +153,13 @@ public class MonitoringFactoryTest extends RhnBaseTestCase {
                     throw new RuntimeException(e);
                 }
                 retval.setServer(s);
-                retval.setSatCluster((SatCluster) 
+                retval.setSatCluster((SatCluster)
                         u.getOrg().getMonitoringScouts().iterator().next());
                 return retval;
-            } 
+            }
             else if (MonitoringConstants.getProbeTypeSuite().equals(pt)) {
                 return TemplateProbe.newInstance();
-            } 
+            }
             else {
                 fail("Illegal probe type " + pt);
                 return null; // Make the compiler happy

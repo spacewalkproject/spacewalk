@@ -20,25 +20,25 @@ import com.redhat.rhn.frontend.struts.BaseSetListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
 /**
- * CopyFilesCentralAction 
+ * CopyFilesCentralAction
  * @version $Rev$
  */
 public abstract class BaseCopyConfigFileAction extends BaseSetListAction {
-    
+
     public static final String CENTRAL_TYPE = "central";
     public static final String LOCAL_TYPE = "local";
     public static final String SANDBOX_TYPE = "sandbox";
-    
+
     public static final String CHANNEL_FILTER = "nameDisplay";
     public static final String SYSTEM_FILTER = "name";
-    
+
     public static final String TYPE_ATTR = "type";
-    
+
     protected void processPageControl(PageControl pc) {
         pc.setFilterColumn(getFilterAttr());
         pc.setFilter(true);
     }
-    
+
     protected void processRequestAttributes(RequestContext rctxIn) {
         ConfigActionHelper.processRequestAttributes(rctxIn);
         rctxIn.getRequest().setAttribute(TYPE_ATTR, getType());
@@ -52,12 +52,12 @@ public abstract class BaseCopyConfigFileAction extends BaseSetListAction {
      * @return the config-channel-type that the subclass knows how to handle
      */
     protected abstract String getType();
-    
+
     /**
      * @return The DB label for the desired config channel type.
      */
     protected abstract String getLabel();
-    
+
     /**
      * @return The attr of ConfigSystemDto top be used for filtering
      */

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.kickstart.KickstartCommandName" 
+    <class name="com.redhat.rhn.domain.kickstart.KickstartCommandName"
         table="rhnKickstartCommandName">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -11,34 +11,34 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_KSCOMMANDNAME_ID_SEQ</param>
             </generator>
         </id>
-        
+
         <property name="name" type="string" column="name"/>
         <property name="args" type="yes_no" column="uses_arguments" />
         <property name="order" type="long" column="sort_order" />
         <property name="required" type="yes_no" column="required" />
 
     </class>
-    
+
     <query name="KickstartComandName.findById">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartCommandName as p where p.id = :id]]>
     </query>
-    
+
     <query name="KickstartCommandName.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartCommandName as t where t.name = :name]]>
     </query>
-    
+
     <query name="KickstartCommandName.listAdvancedOptions">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartCommandName as t where t.name 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartCommandName as t where t.name
                NOT IN ('partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom', 'custom_partition') order by t.order]]>
     </query>
-    
+
     <query name="KickstartCommandName.listAllOptions">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartCommandName as t order by t.order]]>
     </query>
-    
+
     <query name="KickstartCommandName.requiredOptions">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartCommandName as t where t.required = 'Y'
                AND t.name NOT IN ('partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom', 'custom_partition') order by t.order]]>
     </query>
-    
+
 </hibernate-mapping>

@@ -41,12 +41,12 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
 
     public static final String UPDATE_METHOD = "kickstart.activationkeys.jsp.submit";
     private static Logger log = Logger.getLogger(ActivationKeysSubmitAction.class);
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext rctx = new RequestContext(request);
         Org org = rctx.getCurrentUser().getOrg();
@@ -54,7 +54,7 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected void operateOnRemovedElements(List elements,
@@ -74,11 +74,11 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
         while (i.hasNext()) {
             ids.add(((RhnSetElement) i.next()).getElement());
         }
-        
+
         if (log.isDebugEnabled()) {
             log.debug("ids to remove: " + ids);
         }
-        
+
         cmd.removeTokensByIds(ids);
         cmd.store();
 
@@ -86,7 +86,7 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected void operateOnAddedElements(List elements, HttpServletRequest request) {
@@ -94,7 +94,7 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
 
         KickstartActivationKeysCommand cmd =
             new KickstartActivationKeysCommand(
-                    ctx.getRequiredParam(RequestContext.KICKSTART_ID), 
+                    ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                     ctx.getCurrentUser());
 
         // my @ids = map { $_->id() } @elements;
@@ -109,7 +109,7 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
         if (log.isDebugEnabled()) {
             log.debug("ids to add: " + ids);
         }
-        
+
         cmd.addTokensByIds(ids);
         cmd.store();
 
@@ -117,7 +117,7 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
     }
 
     /**
-     * 
+     *
      * @return security label for activation keys
      */
     public RhnSetDecl getSetDecl() {
@@ -128,13 +128,13 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
      * {@inheritDoc}
      */
     protected void processMethodKeys(Map map) {
-        map.put(UPDATE_METHOD, "operateOnDiff");        
+        map.put(UPDATE_METHOD, "operateOnDiff");
     }
 
     protected Iterator getCurrentItemsIterator(RequestContext ctx) {
         KickstartActivationKeysCommand cmd =
             new KickstartActivationKeysCommand(
-                    ctx.getRequiredParam(RequestContext.KICKSTART_ID), 
+                    ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                     ctx.getCurrentUser());
         return cmd.getDefaultRegTokens().iterator();
     }

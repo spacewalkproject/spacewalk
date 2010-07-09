@@ -37,13 +37,13 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class RegisteredSetupAction extends BaseSystemsAction {
-    public static final String[] OPTIONS = {"oneday", 
-                                            "oneweek", 
-                                            "onemonth", 
-                                            "sixmonths", 
+    public static final String[] OPTIONS = {"oneday",
+                                            "oneweek",
+                                            "onemonth",
+                                            "sixmonths",
                                             "oneyear",
                                             "allregisteredsystems"};
-    
+
     /**
      * {@inheritDoc}
      */
@@ -54,12 +54,12 @@ public class RegisteredSetupAction extends BaseSystemsAction {
         ActionForward forward = super.execute(mapping, formIn, request, response);
         LocalizationService ls = LocalizationService.getInstance();
         List optionsLabelValueBeans = new ArrayList();
-        
+
         for (int j = 0; j < OPTIONS.length; ++j) {
-            optionsLabelValueBeans.add(new LabelValueBean(ls.getMessage(OPTIONS[j]), 
+            optionsLabelValueBeans.add(new LabelValueBean(ls.getMessage(OPTIONS[j]),
                                                                         OPTIONS[j]));
         }
-        
+
         request.setAttribute("options", optionsLabelValueBeans);
         return forward;
     }
@@ -69,11 +69,11 @@ public class RegisteredSetupAction extends BaseSystemsAction {
      */
     protected DataResult getDataResult(User user, PageControl pc, ActionForm formIn) {
         DynaActionForm daForm = (DynaActionForm) formIn;
-        
+
         String thresholdString = daForm.getString("threshold");
         /* by default our threshold is one day */
         int threshold = 1;
-        
+
         if (isSubmitted(daForm) && thresholdString != null) {
             if (thresholdString.equals("oneweek")) {
                 threshold = 7;

@@ -30,7 +30,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  *
  * @xmlrpc.doc
- * #struct("entitlement usage") 
+ * #struct("entitlement usage")
  *   #prop("string", "label")
  *   #prop("string", "name")
  *   #prop("int", "allocated")
@@ -56,11 +56,11 @@ public class OrgChannelFamilySerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         OrgChannelFamily dto = (OrgChannelFamily) value;
-        
+
         helper.add("name", dto.getName());
         helper.add("label", dto.getLabel());
         helper.add("allocated", dto.getMaxMembers());
-        helper.add("unallocated", dto.getSatelliteMaxMembers() - 
+        helper.add("unallocated", dto.getSatelliteMaxMembers() -
                                     dto.getSatelliteCurrentMembers() +
                                     dto.getCurrentMembers());
         helper.add("used", dto.getCurrentMembers());

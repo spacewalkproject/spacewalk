@@ -24,36 +24,36 @@ import com.redhat.rhn.domain.server.Server;
  * @version $Rev$
  */
 public class ConfigFileNameAssociation extends ActionChild {
-    
+
     private ConfigFileName configFileName;
     private Server server;
-    
+
     /**
      * @return Returns the configFileName.
      */
     public ConfigFileName getConfigFileName() {
         return configFileName;
     }
-    
+
     /**
      * @param configFileNameIn The configFileName to set.
      */
     public void setConfigFileName(ConfigFileName configFileNameIn) {
         configFileName = configFileNameIn;
     }
-    
+
     /**
      * @return Returns the server.
      */
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * @param serverIn The server to set.
      */
     public void setServer(Server serverIn) {
         server = serverIn;
     }
-    
+
 }

@@ -67,11 +67,11 @@ import java.util.Map;
 
 /**
  * OrgHandler
- * 
+ *
  * @version $Rev$
- * 
+ *
  * @xmlrpc.namespace org
- * @xmlrpc.doc Contains methods to access common organization management 
+ * @xmlrpc.doc Contains methods to access common organization management
  * functions available from the web interface.
  */
 public class OrgHandler extends BaseHandler {
@@ -101,21 +101,21 @@ public class OrgHandler extends BaseHandler {
      *
      * @xmlrpc.doc Create a new organization and associated administrator account.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("string", "orgName", "Organization name. Must meet same 
+     * @xmlrpc.param #param_desc("string", "orgName", "Organization name. Must meet same
      * criteria as in the web UI.")
      * @xmlrpc.param #param_desc("string", "adminLogin", "New administrator login name.")
      * @xmlrpc.param #param_desc("string", "adminPassword", "New administrator password.")
-     * @xmlrpc.param #param_desc("string", "prefix", "New administrator's prefix. Must 
+     * @xmlrpc.param #param_desc("string", "prefix", "New administrator's prefix. Must
      * match one of the values available in the web UI. (i.e. Dr., Mr., Mrs., Sr., etc.)")
      * @xmlrpc.param #param_desc("string", "firstName", "New administrator's first name.")
      * @xmlrpc.param #param_desc("string", "lastName", "New administrator's first name.")
      * @xmlrpc.param #param_desc("string", "email", "New administrator's e-mail.")
-     * @xmlrpc.param #param_desc("boolean", "usePamAuth", "True if PAM authentication 
+     * @xmlrpc.param #param_desc("boolean", "usePamAuth", "True if PAM authentication
      * should be used for the new administrator account.")
      * @xmlrpc.returntype $OrgDtoSerializer
      */
     public OrgDto create(String sessionKey, String orgName, String adminLogin,
-            String adminPassword, String prefix, String firstName, String lastName, 
+            String adminPassword, String prefix, String firstName, String lastName,
             String email, Boolean usePamAuth) {
         log.debug("OrgHandler.create");
         getSatAdmin(sessionKey);
@@ -123,12 +123,12 @@ public class OrgHandler extends BaseHandler {
         validateCreateOrgData(orgName, adminPassword, firstName, lastName, email,
             usePamAuth);
 
-        CreateOrgCommand cmd = new CreateOrgCommand(orgName, adminLogin, adminPassword, 
+        CreateOrgCommand cmd = new CreateOrgCommand(orgName, adminLogin, adminPassword,
             email);
         cmd.setFirstName(firstName);
         cmd.setLastName(lastName);
         cmd.setPrefix(prefix);
-        
+
         String pamAuthService = Config.get().getString(ConfigDefaults.WEB_PAM_AUTH_SERVICE);
         if (usePamAuth) {
             if (pamAuthService != null && pamAuthService.trim().length() > 0) {
@@ -149,17 +149,17 @@ public class OrgHandler extends BaseHandler {
         return OrgManager.toDetailsDto(cmd.getNewOrg());
     }
 
-    private void validateCreateOrgData(String orgName, String password, String firstName, 
+    private void validateCreateOrgData(String orgName, String password, String firstName,
             String lastName, String email, Boolean usePamAuth) {
-        
+
         Map<String, String> values = new HashMap<String, String>();
         values.put("orgName", orgName);
         values.put("desiredPassword", password);
         values.put("desiredPasswordConfirm", password);
         values.put("firstNames", firstName);
         values.put("lastName", lastName);
-        
-        ValidatorResult result = RhnValidationHelper.validate(this.getClass(), 
+
+        ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
                 values, new LinkedList<String>(values.keySet()), VALIDATION_XSD);
 
         if (!result.isEmpty()) {
@@ -185,22 +185,22 @@ public class OrgHandler extends BaseHandler {
      * @return list of orgs.
      * @xmlrpc.doc Returns the list of organizations.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      * $OrgDtoSerializer
      */
     public List<OrgDto> listOrgs(String sessionKey) {
         User user  = getSatAdmin(sessionKey);
         return OrgManager.activeOrgs(user);
     }
-    
+
     /**
      * Delete an organization.
-     * 
+     *
      * @param sessionKey User's session key.
      * @param orgId ID of organization to delete.
      * @return 1 on success, exception thrown otherwise.
      *
-     * @xmlrpc.doc Delete an organization. The default organization 
+     * @xmlrpc.doc Delete an organization. The default organization
      * (i.e. orgId=1) cannot be deleted.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
@@ -239,7 +239,7 @@ public class OrgHandler extends BaseHandler {
         }
         return org;
     }
-    
+
     private Entitlement verifyEntitlementExists(String sysLabel) {
         Entitlement ent = EntitlementManager.getByName(sysLabel);
         if (ent == null) {
@@ -247,16 +247,16 @@ public class OrgHandler extends BaseHandler {
         }
         return ent;
     }
-    
+
     /**
-     * Returns the list of active users in a given organization 
+     * Returns the list of active users in a given organization
      * @param sessionKey Caller's session key.
      * @param orgId the orgId of the organization to lookup on.
      * @return the list of users in a organization.
      * @xmlrpc.doc Returns the list of users in a given organization.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *   #array()
      *     $MultiOrgUserOverviewSerializer
      *   #array_end()
@@ -269,12 +269,12 @@ public class OrgHandler extends BaseHandler {
 
     /**
      * Returns the detailed information about an organization
-     * given the org_id.  
+     * given the org_id.
      * @param sessionKey Caller's session key.
      * @param orgId the orgId of the organization to lookup on.
      * @return the list of users in a organization.
      *
-     * @xmlrpc.doc The detailed information about an organization given 
+     * @xmlrpc.doc The detailed information about an organization given
      * the organization ID.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
@@ -287,12 +287,12 @@ public class OrgHandler extends BaseHandler {
 
     /**
      * Returns the detailed information about an organization
-     * given the org_name.  
+     * given the org_name.
      * @param sessionKey Caller's session key.
      * @param name the name of the organization to lookup on.
      * @return the list of users in a organization.
      *
-     * @xmlrpc.doc The detailed information about an organization given 
+     * @xmlrpc.doc The detailed information about an organization given
      * the organization name.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "name")
@@ -301,10 +301,10 @@ public class OrgHandler extends BaseHandler {
     public OrgDto getDetails(String sessionKey, String name) {
         getSatAdmin(sessionKey);
         return OrgManager.toDetailsDto(verifyOrgExists(name));
-    }    
-    
+    }
+
     /**
-     * 
+     *
      * @param sessionKey Caller's session key.
      * @param orgId the orgId of the organization to set name on
      * @param name the new name for the org.
@@ -312,8 +312,8 @@ public class OrgHandler extends BaseHandler {
      *
      * @xmlrpc.doc Updates the name of an organization
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "orgId") 
-     * @xmlrpc.param #param_desc("string", "name", "Organization name. Must meet same 
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param #param_desc("string", "name", "Organization name. Must meet same
      * criteria as in the web UI.")
      * @xmlrpc.returntype $OrgDtoSerializer
      */
@@ -323,7 +323,7 @@ public class OrgHandler extends BaseHandler {
         if (!org.getName().equals(name)) {
             try {
                 OrgManager.checkOrgName(name);
-                org.setName(name);    
+                org.setName(name);
             }
             catch (ValidatorException ve) {
                 throw new ValidationException(ve.getMessage());
@@ -331,9 +331,9 @@ public class OrgHandler extends BaseHandler {
         }
         return OrgManager.toDetailsDto(org);
     }
-    
+
     /**
-     * Convenience method to get the loggedInUser 
+     * Convenience method to get the loggedInUser
      * and ensure the logged in user is a SatelliteAdmin
      * @param sessionKey  User's session key.
      * @return the logged in user with him guaranteed to be satellite admin.
@@ -345,7 +345,7 @@ public class OrgHandler extends BaseHandler {
     }
 
     /**
-     * Convenience method to get the loggedInUser 
+     * Convenience method to get the loggedInUser
      * and ensure the logged in user is an Org admin
      * @param sessionKey  User's session key.
      * @return the logged in user with him guaranteed to be org admin.
@@ -355,11 +355,11 @@ public class OrgHandler extends BaseHandler {
         ensureUserRole(user, RoleFactory.ORG_ADMIN);
         return user;
     }
-    
+
     /**
      * Lists software entitlement allocation/distribution information
      *  across all organizations.
-     * User needs to be a satellite administrator to get this information 
+     * User needs to be a satellite administrator to get this information
      * @param sessionKey User's session key.
      * @return Array of MultiOrgEntitlementsDto.
      *
@@ -367,17 +367,17 @@ public class OrgHandler extends BaseHandler {
      * across all organizations.
      * Caller must be a satellite administrator.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *   #array()
      *      $MultiOrgEntitlementsDtoSerializer
      *   #array_end()
-     */    
+     */
     public List<MultiOrgEntitlementsDto> listSoftwareEntitlements(String sessionKey) {
         getSatAdmin(sessionKey);
         return ChannelManager.entitlementsForAllMOrgs();
     }
-    
-    
+
+
     /**
      * List an organization's allocation for each software entitlement.
      * A value of -1 indicates unlimited entitlements.
@@ -388,28 +388,28 @@ public class OrgHandler extends BaseHandler {
      *
      * @xmlrpc.doc List an organization's allocation of each software entitlement.
      * A value of -1 indicates unlimited entitlements.
-     * 
+     *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *   #array()
      *      $OrgChannelFamilySerializer
      *   #array_end()
      */
-    public List<OrgChannelFamily> listSoftwareEntitlementsForOrg(String sessionKey, 
+    public List<OrgChannelFamily> listSoftwareEntitlementsForOrg(String sessionKey,
             Integer orgId) {
 
         getSatAdmin(sessionKey);
         Org org = verifyOrgExists(orgId);
-        
+
         return ChannelManager.listChannelFamilySubscriptionsFor(org);
     }
-    
+
     /**
      * List each organization's allocation of a given software entitlement.
      * Organizations with no allocations will not be present in the list. A value of -1
      * indicates unlimited entitlements.
-     * 
+     *
      * @param sessionKey User's session key.
      * @param channelFamilyLabel Software entitlement label.
      * @return Array of maps.
@@ -419,15 +419,15 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.doc List each organization's allocation of a given software entitlement.
      * Organizations with no allocation will not be present in the list. A value of -1
      * indicates unlimited entitlements.
-     * 
+     *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("string", "label", "Software entitlement label.")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *   #array()
      *     $OrgSoftwareEntitlementDtoSerializer
      *   #array_end()
      */
-    public List<OrgSoftwareEntitlementDto> listSoftwareEntitlements(String sessionKey, 
+    public List<OrgSoftwareEntitlementDto> listSoftwareEntitlements(String sessionKey,
             String channelFamilyLabel) {
 
         User user = getSatAdmin(sessionKey);
@@ -479,13 +479,13 @@ public class OrgHandler extends BaseHandler {
         }
         return ChannelManager.listEntitlementsForAllOrgs(cf, user);
     }
-    
+
     /**
-     * Set an organizations entitlement allocation for a channel family. 
+     * Set an organizations entitlement allocation for a channel family.
      *
      * If increasing the entitlement allocation, the default organization
      * must have a sufficient number of free entitlements.
-     * 
+     *
      * @param sessionKey User's session key.
      * @param orgId Organization ID to set allocation for.
      * @param channelFamilyLabel Channel family to set allocation for.
@@ -495,24 +495,24 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.doc Set an organization's entitlement allocation for the given software
      * entitlement.
      *
-     * If increasing the entitlement allocation, the default organization 
+     * If increasing the entitlement allocation, the default organization
      * (i.e. orgId=1) must have a sufficient number of free entitlements.
-     * 
+     *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.param #param_desc("string", "label", "Software entitlement label.")
      * @xmlrpc.param #param("int", "allocation")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setSoftwareEntitlements(String sessionKey, Integer orgId, 
+    public int setSoftwareEntitlements(String sessionKey, Integer orgId,
             String channelFamilyLabel, Integer allocation) {
 
         getSatAdmin(sessionKey);
         Org org = verifyOrgExists(orgId);
         lookupChannelFamily(channelFamilyLabel);
 
-        UpdateOrgSoftwareEntitlementsCommand cmd = 
-            new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org, 
+        UpdateOrgSoftwareEntitlementsCommand cmd =
+            new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org,
                     Long.valueOf(allocation), 0L);
         ValidatorError ve = cmd.store();
         if (ve != null) {
@@ -523,11 +523,11 @@ public class OrgHandler extends BaseHandler {
     }
 
     /**
-     * Set an organizations entitlement allocation for a channel family. 
+     * Set an organizations entitlement allocation for a channel family.
      *
      * If increasing the entitlement allocation, the default organization
      * must have a sufficient number of free entitlements.
-     * 
+     *
      * @param sessionKey User's session key.
      * @param orgId Organization ID to set allocation for.
      * @param channelFamilyLabel Channel family to set allocation for.
@@ -537,24 +537,24 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.doc Set an organization's flex entitlement allocation for the given software
      * entitlement.
      *
-     * If increasing the flex entitlement allocation, the default organization 
+     * If increasing the flex entitlement allocation, the default organization
      * (i.e. orgId=1) must have a sufficient number of free flex entitlements.
-     * 
+     *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.param #param_desc("string", "label", "Software entitlement label.")
      * @xmlrpc.param #param("int", "allocation")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setSoftwareFlexEntitlements(String sessionKey, Integer orgId, 
+    public int setSoftwareFlexEntitlements(String sessionKey, Integer orgId,
             String channelFamilyLabel, Integer allocation) {
 
         getSatAdmin(sessionKey);
         Org org = verifyOrgExists(orgId);
         lookupChannelFamily(channelFamilyLabel);
 
-        UpdateOrgSoftwareEntitlementsCommand cmd = 
-            new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org, 
+        UpdateOrgSoftwareEntitlementsCommand cmd =
+            new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org,
                     0L, Long.valueOf(allocation));
         ValidatorError ve = cmd.store();
         if (ve != null) {
@@ -563,12 +563,12 @@ public class OrgHandler extends BaseHandler {
 
         return 1;
     }
-    
-    
-    
+
+
+
     /**
      * Lookup a channel family, throwing an exception if it cannot be found.
-     * 
+     *
      * @param channelFamilyLabel Channel family label to look up.
      */
     private ChannelFamily lookupChannelFamily(String channelFamilyLabel) {
@@ -578,11 +578,11 @@ public class OrgHandler extends BaseHandler {
         }
         return cf;
     }
-    
+
     /**
      * Lists system entitlement allocation/distribution information
      *  across all organizations.
-     * User needs to be a satellite administrator to get this information 
+     * User needs to be a satellite administrator to get this information
      * @param sessionKey User's session key.
      * @return Array of MultiOrgSystemEntitlementsDto.
      *
@@ -591,16 +591,16 @@ public class OrgHandler extends BaseHandler {
      * Caller must be a satellite administrator.
      *
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *   #array()
      *     $MultiOrgEntitlementsDtoSerializer
      *   #array_end()
-     */   
+     */
     public List<MultiOrgSystemEntitlementsDto> listSystemEntitlements(String sessionKey) {
         getSatAdmin(sessionKey);
         return OrgManager.allOrgsEntitlements();
     }
-    
+
     /**
      * List an organization's allocation of a system entitlement.
      * If the organization has no allocation for a particular entitlement, it will
@@ -611,14 +611,14 @@ public class OrgHandler extends BaseHandler {
      * @return a list of Maps having the system entitlements info.
      * @deprecated being replaced by listSystemEntitlements(string sessionKey,
      * string label, boolean includeUnentitled)
-     * 
+     *
      * @xmlrpc.doc List each organization's allocation of a system entitlement.
      * If the organization has no allocation for a particular entitlement, it will
      * not appear in the list.
-     * 
+     *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "label")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *   #array()
      *     #struct("entitlement usage")
      *       #prop("int", "org_id")
@@ -630,7 +630,7 @@ public class OrgHandler extends BaseHandler {
      *     #struct_end()
      *   #array_end()
      */
-    public List<Map> listSystemEntitlements(String sessionKey,    
+    public List<Map> listSystemEntitlements(String sessionKey,
                     String label) {
         getSatAdmin(sessionKey);
         verifyEntitlementExists(label);
@@ -651,7 +651,7 @@ public class OrgHandler extends BaseHandler {
         }
         return details;
     }
-    
+
     /**
      * List an organization's allocation of a system entitlement.
      *
@@ -713,7 +713,7 @@ public class OrgHandler extends BaseHandler {
         }
         return details;
     }
-    
+
     /**
      * List an organization's allocations of each system entitlement.
      *
@@ -722,7 +722,7 @@ public class OrgHandler extends BaseHandler {
      * @return Array of maps.
      *
      * @xmlrpc.doc List an organization's allocation of each system entitlement.
-     * 
+     *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.returntype
@@ -730,7 +730,7 @@ public class OrgHandler extends BaseHandler {
      *     $OrgEntitlementDtoSerializer
      *   #array_end()
      */
-    public List<OrgEntitlementDto> listSystemEntitlementsForOrg(String sessionKey, 
+    public List<OrgEntitlementDto> listSystemEntitlementsForOrg(String sessionKey,
                             Integer orgId)  {
         getSatAdmin(sessionKey);
         Org org = verifyOrgExists(orgId);
@@ -738,23 +738,23 @@ public class OrgHandler extends BaseHandler {
     }
 
     /**
-     * Set an organizations entitlement allocation for a channel family. 
+     * Set an organizations entitlement allocation for a channel family.
      *
      * If increasing the entitlement allocation, the default organization
      * (i.e. orgId=1) must have a sufficient number of free entitlements.
-     * 
+     *
      * @param sessionKey User's session key.
      * @param orgId Organization ID to set allocation for.
      * @param systemEntitlementLabel System entitlement to set allocation for.
      * @param allocation New entitlement allocation.
      * @return 1 on success.
      *
-     * @xmlrpc.doc Set an organization's entitlement allocation for the given 
+     * @xmlrpc.doc Set an organization's entitlement allocation for the given
      * software entitlement.
      *
      * If increasing the entitlement allocation, the default organization
      * (i.e. orgId=1) must have a sufficient number of free entitlements.
-     * 
+     *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.param #param_desc("string", "label", "System entitlement label.
@@ -769,7 +769,7 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "allocation")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setSystemEntitlements(String sessionKey, Integer orgId, 
+    public int setSystemEntitlements(String sessionKey, Integer orgId,
             String systemEntitlementLabel, Integer allocation) {
 
         getSatAdmin(sessionKey);
@@ -782,7 +782,7 @@ public class OrgHandler extends BaseHandler {
             throw new InvalidEntitlementException();
         }
 
-        UpdateOrgSystemEntitlementsCommand cmd = 
+        UpdateOrgSystemEntitlementsCommand cmd =
             new UpdateOrgSystemEntitlementsCommand(ent, org, new Long(allocation));
         ValidatorError ve = cmd.store();
         if (ve != null) {
@@ -797,10 +797,10 @@ public class OrgHandler extends BaseHandler {
      * a Satellite administrator, the systems will be migrated from their current
      * organization to the organization specified by the toOrgId.  If executed by
      * an organization administrator, the systems must exist in the same organization
-     * as that administrator and the systems will be migrated to the organization 
-     * specified by the toOrgId. In any scenario, the origination and destination 
+     * as that administrator and the systems will be migrated to the organization
+     * specified by the toOrgId. In any scenario, the origination and destination
      * organizations must be defined in a trust.
-     *  
+     *
      * @param sessionKey User's session key.
      * @param toOrgId destination organization ID.
      * @param sids System IDs.
@@ -813,13 +813,13 @@ public class OrgHandler extends BaseHandler {
      *   - One or more of the servers provides do not exist
      *   - The origination or destination organization does not exist
      *   - The user is not defined in the destination organization's trust
-     * 
+     *
      * @xmlrpc.doc Migrate systems from one organization to another.  If executed by
      * a Satellite administrator, the systems will be migrated from their current
      * organization to the organization specified by the toOrgId.  If executed by
      * an organization administrator, the systems must exist in the same organization
-     * as that administrator and the systems will be migrated to the organization 
-     * specified by the toOrgId. In any scenario, the origination and destination 
+     * as that administrator and the systems will be migrated to the organization
+     * specified by the toOrgId. In any scenario, the origination and destination
      * organizations must be defined in a trust.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "toOrgId", "ID of the organization where the
@@ -828,23 +828,23 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.returntype
      * #array_single("int", "serverIdMigrated")
      */
-    public Object[] migrateSystems(String sessionKey, Integer toOrgId, 
+    public Object[] migrateSystems(String sessionKey, Integer toOrgId,
             List<Integer> sids) throws FaultException {
 
         // the user executing the request must at least be an org admin to perform
         // a system migration
         User admin = getOrgAdmin(sessionKey);
-        
+
         Org toOrg = verifyOrgExists(toOrgId);
 
         List<Server> servers = new LinkedList<Server>();
-        
+
         for (Integer sid : sids) {
             Long serverId = new Long(sid.longValue());
             Server server = null;
             try {
                 server = ServerFactory.lookupById(serverId);
-            
+
                 // throw a no_such_system exception if the server was not found.
                 if (server == null) {
                     throw new NoSuchSystemException("No such system - sid[" + sid + "]");
@@ -854,33 +854,33 @@ public class OrgHandler extends BaseHandler {
                 throw new NoSuchSystemException("No such system - sid[" + sid + "]");
             }
             servers.add(server);
-            
+
             // As a pre-requisite to performing the actual migration, verify that each
             // server that is planned for migration passes the criteria that follows.
             // If any of the servers fails that criteria, none will be migrated.
-            
+
             // unless the user is a satellite admin, they are not permitted to migrate
             // systems from an org that they do not belong to
-            if ((!admin.hasRole(RoleFactory.SAT_ADMIN)) && 
+            if ((!admin.hasRole(RoleFactory.SAT_ADMIN)) &&
                 (!admin.getOrg().equals(server.getOrg()))) {
                 throw new PermissionCheckFailureException(server);
             }
-            
+
             // do not allow the user to migrate systems to/from the same org.  doing so
             // would essentially remove entitlements, channels...etc from the systems
             // being migrated.
             if (toOrg.equals(server.getOrg())) {
                 throw new MigrationToSameOrgException(server);
             }
-            
+
             // if the originating org is not defined within the destination org's trust
             // the migration should not be permitted.
             if (!toOrg.getTrustedOrgs().contains(server.getOrg())) {
                 throw new OrgNotInTrustException(server);
             }
         }
-        
-        List<Long> serversMigrated = MigrationManager.migrateServers(admin, 
+
+        List<Long> serversMigrated = MigrationManager.migrateServers(admin,
                 toOrg, servers);
         return serversMigrated.toArray();
     }

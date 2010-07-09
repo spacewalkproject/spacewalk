@@ -53,13 +53,13 @@ public class CreateAction extends RhnAction {
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm) formIn;
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         //Validate the form to make sure everything was filled out correctly
         ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, form);
-        
+
         String advisoryNameFromForm = form.getString("advisoryName");
         //Make sure advisoryName is unique
         if (!ErrataManager.advisoryNameIsUnique(null, advisoryNameFromForm)) {
@@ -75,7 +75,7 @@ public class CreateAction extends RhnAction {
             addErrors(request, errors);
             return mapping.findForward("failure");
         }
-        
+
         //Create a new unpublished errata
         Errata e = ErrataManager.createNewErrata();
         e.setSynopsis(form.getString("synopsis"));
@@ -83,11 +83,11 @@ public class CreateAction extends RhnAction {
         e.setAdvisoryRel(new Long(form.getString("advisoryRelease")));
         e.setAdvisoryType(form.getString("advisoryType"));
         e.setProduct(form.getString("product"));
-        
+
         //Advisory = advisoryName-advisoryRelease
         e.setAdvisory(form.getString("advisoryName") + "-" +
                       form.getString("advisoryRelease"));
-        
+
         //create a bug and add it to the set
         Bug bug = createBug(form);
         if (bug != null) {
@@ -96,7 +96,7 @@ public class CreateAction extends RhnAction {
         e.setTopic(form.getString("topic"));
         e.setDescription(form.getString("description"));
         e.setSolution(form.getString("solution"));
-        
+
         //add keywords... split on commas and add separately to list
         String keywordsField = form.getString("keywords");
         if (keywordsField != null) {
@@ -112,29 +112,29 @@ public class CreateAction extends RhnAction {
         }
         e.setRefersTo(form.getString("refersTo"));
         e.setNotes(form.getString("notes"));
-        
+
         //Set issueDate to now
         Date date = new Date(System.currentTimeMillis());
         e.setIssueDate(date);
         e.setUpdateDate(date);
-        
+
         //Set the org for the errata to the logged in user's org
         User user = requestContext.getLoggedInUser();
         e.setOrg(user.getOrg());
-        
+
         ErrataManager.storeErrata(e);
-        
+
         ActionMessages msgs = new ActionMessages();
         msgs.add(ActionMessages.GLOBAL_MESSAGE,
                  new ActionMessage("errata.created",
                                    e.getAdvisoryName(),
                                    e.getAdvisoryRel().toString()));
         saveMessages(request, msgs);
-        return strutsDelegate.forwardParam(mapping.findForward("success"), 
-                                      "eid", 
+        return strutsDelegate.forwardParam(mapping.findForward("success"),
+                                      "eid",
                                       e.getId().toString());
     }
-    
+
     /**
      * Helper method to create a new bug from a form
      * @param form the form containing the bug items
@@ -142,7 +142,7 @@ public class CreateAction extends RhnAction {
      */
     private Bug createBug(DynaActionForm form) {
         //if id and summary are not null, we can create a new bug, otherwise return null
-        if (form.getString("buglistId").length() > 0 && 
+        if (form.getString("buglistId").length() > 0 &&
             form.getString("buglistSummary").length() > 0) {
             Long id = new Long(form.getString("buglistId"));
             String summary = form.getString("buglistSummary");

@@ -39,8 +39,8 @@ public class Translator extends Translations {
      * Translate from from one object type to another.
      * @param have The object to convert
      * @param want The Class to convert to.
-     * @return the converted object 
-     */ 
+     * @return the converted object
+     */
     public static Object convert(Object have, Class want) {
         return convert(Translator.class, have, want);
     }
@@ -53,7 +53,7 @@ public class Translator extends Translations {
     public static String int2String(Integer i) {
         return (i == null) ? "" : i.toString();
     }
-    
+
     /**
      * Convert an Integer object into a list containing the integer
      * @param i The integer to add to the list
@@ -66,14 +66,14 @@ public class Translator extends Translations {
         }
         return list;
     }
-    
+
     /**
      * Convert an Integer object to a boolean
      * @param i Integer to check. 1 = true, anything else = false
      * @return Returns the boolean representation of i
      */
     public static boolean int2Boolean(Integer i) {
-        return (i == null) ? false : i.equals(new Integer(1)); 
+        return (i == null) ? false : i.equals(new Integer(1));
     }
 
     /**
@@ -82,15 +82,15 @@ public class Translator extends Translations {
      * @return Returns the boolean representation of i
      */
     public static boolean long2Boolean(Long i) {
-        return (i == null) ? false : i == 1; 
+        return (i == null) ? false : i == 1;
     }
-    
-    /** Convert from Integer to User 
+
+    /** Convert from Integer to User
      * @param l The Long to convert
      * @return The resulting User
      * @throws Exception if anything goes wrong while doing the conversion.
      */
-    public static User long2User(Integer l) 
+    public static User long2User(Integer l)
         throws Exception {
         return UserFactory.lookupById(new Long(l.longValue()));
     }
@@ -100,23 +100,23 @@ public class Translator extends Translations {
      * @return The resulting long
      * @throws Exception if anything goes wrong while doing the conversion.
      */
-    public static long long2Objlong(Long l) 
+    public static long long2Objlong(Long l)
         throws Exception {
         return (l == null) ? 0 : l.longValue();
     }
-    
+
     /**
      * Converts a Long to an Integer if needed.
-     * @param l Long object to be 
+     * @param l Long object to be
      * @return Integer version of the Long.
      */
     public static Integer long2Integer(Long l) {
         return (l == null) ? null : new Integer(l.intValue());
     }
-    
+
     /**
      * Converts a Long to an int if needed.
-     * @param l Long object to be 
+     * @param l Long object to be
      * @return int version of the Long.
      */
     public static int long2Int(Long l) {
@@ -128,17 +128,17 @@ public class Translator extends Translations {
      * @return The resulting int
      * @throws Exception if anything goes wrong while doing the conversion.
      */
-    public static int bigDecimal2Int(BigDecimal bd) 
+    public static int bigDecimal2Int(BigDecimal bd)
         throws Exception {
         return (bd == null) ? 0 : bd.intValue();
     }
 
-    /** Convert from BigDecimal to Integer 
+    /** Convert from BigDecimal to Integer
      * @param bd The BigDecimal to convert
      * @return The resulting Integer
      * @throws Exception if anything goes wrong while doing the conversion.
      */
-    public static Integer bigDecimal2IntObject(BigDecimal bd) 
+    public static Integer bigDecimal2IntObject(BigDecimal bd)
         throws Exception {
         return (bd == null) ? new Integer(0) : new Integer(bd.intValue());
     }
@@ -148,13 +148,13 @@ public class Translator extends Translations {
      * @return The resulting long
      * @throws Exception if anything goes wrong while doing the conversion.
      */
-    public static long bigDecimal2Long(BigDecimal bd) 
+    public static long bigDecimal2Long(BigDecimal bd)
         throws Exception {
         return (bd == null) ? 0 : bd.longValue();
     }
 
-    /** 
-     * Convert from BigDecimal to Long 
+    /**
+     * Convert from BigDecimal to Long
      * @param bd The BigDecimal to convert
      * @return The resulting Long
      * @throws Exception if anything goes wrong while doing the conversion.
@@ -164,18 +164,18 @@ public class Translator extends Translations {
         return (bd == null) ? null : new Long(bd.longValue());
     }
 
-    /** 
+    /**
      * Convert from String to boolean.
      * @param str The string to convert
      * @return true if the string equals "Y", false otherwise.
      * @throws Exception if anything goes wrong while doing the conversion.
      */
-    public static boolean string2boolean(String str) 
+    public static boolean string2boolean(String str)
         throws Exception {
         if (str == null) {
             return false;
         }
-        
+
         // need to check the possible true values
         // tried to use BooleanUtils, but that didn't
         // get the job done for an integer as a String.
@@ -183,10 +183,10 @@ public class Translator extends Translations {
                 str.equalsIgnoreCase("true")) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Convert from Double to String.
      * @param d The double to convert
@@ -195,7 +195,7 @@ public class Translator extends Translations {
     public static String double2String(Double d) {
         return (d == null) ? "0" : d.toString();
     }
-    
+
     /**
      * Converts a List to a String
      * @param l list to be converted
@@ -204,7 +204,7 @@ public class Translator extends Translations {
     public static String list2String(List l) {
         return (l == null) ? "" : l.toString();
     }
-    
+
     /**
      * Converts a Map to a String.
      * @param m map to be converted
@@ -225,18 +225,18 @@ public class Translator extends Translations {
 
     /**
      * Convert from Date to String.
-     * 
+     *
      * @param d Date to convert
      * @return Resulting string
      */
     public static String date2String(Date d) {
         return (d == null) ? "" : d.toString();
     }
-    
+
     /**
      * Convert from a Boolean to a boolean
      * @param b the Boolean to convert
-     * @return a boolean primitive 
+     * @return a boolean primitive
      */
     public static boolean boolean2boolean(Boolean b) {
         return (b == null) ? false : b.booleanValue();

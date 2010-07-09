@@ -29,7 +29,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * ActivationKeySerializer
  * @version $Rev$
  *
- * @xmlrpc.doc 
+ * @xmlrpc.doc
  *   #struct("kickstart")
  *          #prop("string", "label")
  *          #prop("string", "tree_label")
@@ -65,8 +65,8 @@ public class KickstartDtoSerializer implements XmlRpcCustomSerializer {
         else {
             helper.add("org_default", false);
         }
-        
-        
+
+
         helper.writeTo(output);
     }
 

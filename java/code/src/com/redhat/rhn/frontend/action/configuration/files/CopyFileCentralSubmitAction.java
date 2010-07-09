@@ -32,12 +32,12 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class CopyFileCentralSubmitAction extends BaseCopyFileSubmitAction {
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest requestIn) {
         ConfigFile file = ConfigActionHelper.getFile(requestIn);
         ConfigurationManager cm = ConfigurationManager.getInstance();
@@ -54,7 +54,7 @@ public class CopyFileCentralSubmitAction extends BaseCopyFileSubmitAction {
     protected String getLabel() {
         return ConfigChannelType.global().getLabel();
     }
-    
+
     protected ConfigChannel getChannelFromElement(User usr, Long anId) {
         return ConfigurationManager.getInstance()
             .lookupConfigChannel(usr, anId);

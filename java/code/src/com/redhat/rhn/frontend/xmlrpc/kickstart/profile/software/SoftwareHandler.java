@@ -54,7 +54,7 @@ public class SoftwareHandler extends BaseHandler {
      * software packages.
      */
     public List<String> getSoftwareList(String sessionKey, String ksLabel) {
-        
+
         User user = getLoggedInUser(sessionKey);
         checkKickstartPerms(user);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
@@ -84,7 +84,7 @@ public class SoftwareHandler extends BaseHandler {
             String sessionKey,
             String ksLabel,
             List<String> packageList) {
-        
+
         User user = getLoggedInUser(sessionKey);
         checkKickstartPerms(user);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
@@ -108,7 +108,7 @@ public class SoftwareHandler extends BaseHandler {
      * @param packageList  A list of package names.
      * @return 1 on success.
      * @throws FaultException
-     * @xmlrpc.doc Append the list of software packages to a kickstart profile.  
+     * @xmlrpc.doc Append the list of software packages to a kickstart profile.
      * Duplicate packages will be ignored.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
@@ -117,9 +117,9 @@ public class SoftwareHandler extends BaseHandler {
      * names to be added to the profile.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int appendToSoftwareList(String sessionKey, String ksLabel, 
+    public int appendToSoftwareList(String sessionKey, String ksLabel,
             List<String> packageList) {
-        
+
         User user = getLoggedInUser(sessionKey);
         checkKickstartPerms(user);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
@@ -128,7 +128,7 @@ public class SoftwareHandler extends BaseHandler {
         for (String p : packageList) {
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
             pos++;
-            KickstartPackage kp = new KickstartPackage(ksdata, pn, pos);            
+            KickstartPackage kp = new KickstartPackage(ksdata, pn, pos);
             if (!ksdata.hasKsPackage(kp.getPackageName())) {
                 packages.add(kp);
             }
@@ -136,14 +136,14 @@ public class SoftwareHandler extends BaseHandler {
         KickstartFactory.saveKickstartData(ksdata);
         return 1;
     }
-    
+
     private void checkKickstartPerms(User user) {
         if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionException(LocalizationService.getInstance()
                     .getMessage("permission.configadmin.needed"));
         }
     }
-    
+
     private KickstartData lookupKsData(String label, Org org) {
         return XmlRpcKickstartHelper.getInstance().lookupKsData(label, org);
     }

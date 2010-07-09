@@ -19,33 +19,33 @@ package com.redhat.rhn.domain.kickstart;
  * @version $Rev $
  */
 public class KickstartQueries {
-    
-    public static final String KICKSTARTABLE_TREE_FIND_BY_ID = 
+
+    public static final String KICKSTARTABLE_TREE_FIND_BY_ID =
         "KickstartableTree.findById";
-    
-    public static final String KICKSTARTABLE_TREE_FIND_BY_LABEL_ORG = 
+
+    public static final String KICKSTARTABLE_TREE_FIND_BY_LABEL_ORG =
         "KickstartableTree.findByLabelAndOrg";
-    
-    public static final String KICKSTARTABLE_TREE_FIND_BY_LABEL_NULL_ORG = 
+
+    public static final String KICKSTARTABLE_TREE_FIND_BY_LABEL_NULL_ORG =
         "KickstartableTree.findByLabelAndNullOrg";
-    
-    public static final String KICKSTARTABLE_TREE_FIND_BY_CHANNEL_ORG = 
+
+    public static final String KICKSTARTABLE_TREE_FIND_BY_CHANNEL_ORG =
         "KickstartableTree.findByChannelAndOrg";
-    
+
     public static final String KICKSTART_CMD_FIND_BY_ID = "KickstartComandName.findById";
-    
-    public static final String KICKSTART_CMD_FIND_BY_LABEL = 
+
+    public static final String KICKSTART_CMD_FIND_BY_LABEL =
         "KickstartCommandName.findByLabel";
-    
+
     public static final String KICKSTART_CMD_LIST_ADVANCED_OPTIONS =
         "KickstartCommandName.listAdvancedOptions";
-    
-    public static final String KICKSTART_CMD_NAME_REQUIRED_OPTIONS = 
+
+    public static final String KICKSTART_CMD_NAME_REQUIRED_OPTIONS =
         "KickstartCommandName.requiredOptions";
-    
-    
+
+
     // Prevent constant class from being instantiated
     private KickstartQueries() {
-        
+
     }
 }

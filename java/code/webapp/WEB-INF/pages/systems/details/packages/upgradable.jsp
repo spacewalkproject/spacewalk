@@ -25,7 +25,7 @@
 
 <rl:listset name="packageListSet">
 	<rl:list dataset="pageList"
-         width="100%"        
+         width="100%"
          name="packageList"
          emptykey="packagelist.jsp.nopackages"
          alphabarcolumn="nvrea">
@@ -44,11 +44,11 @@
 		      <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
 		        ${current.nvrea}</a>
 		  </rl:column>
-		  
+
 		  <rl:column headerkey="upgradable.jsp.installed" bound="false">
 		      ${current.installedPackage}
 		  </rl:column>
-		  
+
     <rl:column headerkey="upgradable.jsp.errata" styleclass="last-column">
       <c:forEach items="${current.errata}" var="errata">
         <c:if test="${not empty errata.advisory}">
@@ -70,14 +70,14 @@
           <a href="/rhn/errata/details/Details.do?eid=${errata.id}">${errata.advisory}</a><br/>
         </c:if>
       </c:forEach>
-    </rl:column>		  
+    </rl:column>
 </rl:list>
  			
 <c:if test="${not empty requestScope.all}">
 <div align="right">
    <rhn:submitted/>
    <hr/>
-    <input type="submit" 
+    <input type="submit"
     	name ="dispatch"
 	    value='<bean:message key="upgradable.jsp.upgrade"/>'/>		
 </div>

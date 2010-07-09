@@ -26,7 +26,7 @@ import java.util.Set;
 public class PackageAction extends Action {
 
     private Set details = new HashSet();
-    
+
     /**
      * Add a PackageActionDetails to the set of details
      * for a PackageAction.
@@ -36,19 +36,19 @@ public class PackageAction extends Action {
         d.setParentAction(this);
         details.add(d);
     }
-    
+
     /**
      * @return Returns the details.
      */
     public Set getDetails() {
         return details;
     }
-    
+
     /**
      * @param d The details to set.
      */
     public void setDetails(Set d) {
         this.details = d;
     }
-    
+
 }

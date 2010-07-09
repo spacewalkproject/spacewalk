@@ -18,7 +18,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
- * 
+ *
  * @version $Rev: 101893 $
  */
 public class MultiOrgAllUserOverview extends BaseDto {
@@ -33,9 +33,9 @@ public class MultiOrgAllUserOverview extends BaseDto {
     private Long satAdmin;
     private String address;
     private Long orgId;
-            
+
     /**
-     * 
+     *
      * @return orgId
      */
     public Long getOrgId() {
@@ -43,7 +43,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param orgIdIn orgId to set
      */
     public void setOrgId(Long orgIdIn) {
@@ -51,7 +51,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return email address
      */
     public String getAddress() {
@@ -59,7 +59,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param addressIn email address to set
      */
     public void setAddress(String addressIn) {
@@ -81,7 +81,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     public String getUserLogin() {
         return StringEscapeUtils.escapeHtml(userLogin);
     }
-    
+
     /**
      * get the login
      * @return the login
@@ -89,7 +89,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     public String getLogin() {
         return login;
     }
-    
+
     /**
      * get the login Uppercased
      * @return the login Uppercased
@@ -97,7 +97,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     public String getLoginUc() {
         return loginUc;
     }
-    
+
     /**
      * get the user's first name
      * @return the user's first name
@@ -105,7 +105,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     public String getUserFirstName() {
         return StringEscapeUtils.escapeHtml(userFirstName);
     }
-    
+
     /**
      * get the user's last name
      * @return the user's last name
@@ -113,7 +113,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     public String getUserLastName() {
         return StringEscapeUtils.escapeHtml(userLastName);
     }
-        
+
     /**
      * Set the id
      * @param i the id to set.
@@ -129,7 +129,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     public void setLogin(String l) {
         login = l;
     }
-    
+
     /**
      * Set the upper case login
      * @param l the login to set.
@@ -137,7 +137,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     public void setLoginUc(String l) {
         loginUc = l;
     }
-    
+
     /**
      * Set the user login
      * @param l the id to set.
@@ -145,7 +145,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     public void setUserLogin(String l) {
         userLogin = l;
     }
-    
+
     /**
      * Set the first name
      * @param fname the first nameto set.
@@ -153,7 +153,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     public void setUserFirstName(String fname) {
         userFirstName = fname;
     }
-    
+
     /**
      * Set the last name
      * @param lname the last name to set.
@@ -163,15 +163,15 @@ public class MultiOrgAllUserOverview extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return if user is a sat admin
      */
     public Long getSatAdmin() {
         return satAdmin;
     }
-    
+
     /**
-     * 
+     *
      * @param satAdminIn if user is a org admin
      */
     public void setSatAdmin(Long satAdminIn) {
@@ -179,15 +179,15 @@ public class MultiOrgAllUserOverview extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return if user is a org admin
      */
     public Long getOrgAdmin() {
         return orgAdmin;
     }
-    
+
     /**
-     * 
+     *
      * @param orgAdminIn if user is a org admin
      */
     public void setOrgAdmin(Long orgAdminIn) {
@@ -195,7 +195,7 @@ public class MultiOrgAllUserOverview extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return Org name for this record
      */
     public String getOrgName() {
@@ -203,12 +203,12 @@ public class MultiOrgAllUserOverview extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param orgNameIn Org name to set for this record
      */
     public void setOrgName(String orgNameIn) {
         this.orgName = orgNameIn;
     }
-        
+
 }
 

@@ -36,15 +36,15 @@ public class KickstartDefaults {
     private Date modified;
 
 
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return ID to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
+    /**
      * Setter for id
      * @param idIn to set
     */
@@ -52,15 +52,15 @@ public class KickstartDefaults {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for ksdata 
+    /**
+     * Getter for ksdata
      * @return KickstartData to get
     */
     public KickstartData getKsdata() {
         return this.ksdata;
     }
 
-    /** 
+    /**
      * Setter for ksdata
      * @param ksdataIn to set
     */
@@ -68,48 +68,48 @@ public class KickstartDefaults {
         this.ksdata = ksdataIn;
     }
 
-    /** 
-     * Getter for kstree 
+    /**
+     * Getter for kstree
      * @return KickstartableTree to get
     */
     public KickstartableTree getKstree() {
         return this.kstree;
     }
 
-    /** 
-     * Setter for kstree 
+    /**
+     * Setter for kstree
      * @param kstreeIn to set
     */
     public void setKstree(KickstartableTree kstreeIn) {
         this.kstree = kstreeIn;
     }
 
-    /** 
-     * Getter for cfgManagementFlag 
+    /**
+     * Getter for cfgManagementFlag
      * @return Boolean to get
     */
     public Boolean getCfgManagementFlag() {
         return this.cfgManagementFlag;
     }
 
-    /** 
-     * Setter for cfgManagementFlag 
+    /**
+     * Setter for cfgManagementFlag
      * @param cfgManagementFlagIn to set
     */
     public void setCfgManagementFlag(Boolean cfgManagementFlagIn) {
         this.cfgManagementFlag = cfgManagementFlagIn;
     }
 
-    /** 
-     * Getter for remoteCommandFlag 
+    /**
+     * Getter for remoteCommandFlag
      * @return Boolean to get
     */
     public Boolean getRemoteCommandFlag() {
         return this.remoteCommandFlag;
     }
 
-    /** 
-     * Setter for remoteCommandFlag 
+    /**
+     * Setter for remoteCommandFlag
      * @param remoteCommandFlagIn to set
     */
     public void setRemoteCommandFlag(Boolean remoteCommandFlagIn) {
@@ -132,32 +132,32 @@ public class KickstartDefaults {
         this.virtualizationType = typeIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {
@@ -172,7 +172,7 @@ public class KickstartDefaults {
         return profile;
     }
 
-    
+
     /**
      * @param profileIn The profile to set.
      */

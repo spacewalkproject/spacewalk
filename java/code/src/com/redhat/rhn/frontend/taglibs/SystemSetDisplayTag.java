@@ -30,7 +30,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * title of the column using the header attribute, and display the body after
  * it has setup the header.  The column has five main attributes: header,
  * align, cssClass, url, width.  Header is <strong>REQUIRED</strong>.  All
- * others are optional. 
+ * others are optional.
  * @version $Rev: 1793 $
  */
 public class SystemSetDisplayTag extends TagSupport {
@@ -40,7 +40,7 @@ public class SystemSetDisplayTag extends TagSupport {
      * {@inheritDoc}
      */
     public int doEndTag() throws JspException {
-        
+
         try {
             JspWriter out = pageContext.getOut();
             if (user != null) { //Make sure we have a user
@@ -73,15 +73,15 @@ public class SystemSetDisplayTag extends TagSupport {
             throw new JspException("IO error writing to JSP file:", ioe);
         }
     }
-    
-    
+
+
     /**
      * @return Returns the user.
      */
     public User getUser() {
         return user;
     }
-    
+
     /**
      * @param u The user to set.
      */
@@ -97,5 +97,5 @@ public class SystemSetDisplayTag extends TagSupport {
         user = null;
         super.release();
     }
-    
+
 }

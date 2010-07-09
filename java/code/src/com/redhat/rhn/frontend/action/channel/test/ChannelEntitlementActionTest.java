@@ -30,8 +30,8 @@ public class ChannelEntitlementActionTest extends RhnBaseTestCase {
     public void testExecute() throws Exception {
         ChannelEntitlementAction action = new ChannelEntitlementAction();
         ActionHelper ah = new ActionHelper();
-            
-        ah.setUpAction(action);    
+
+        ah.setUpAction(action);
         ah.setupProcessPagination();
         ah.setupClampListBounds();
         ah.executeAction();

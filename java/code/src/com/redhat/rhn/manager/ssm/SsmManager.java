@@ -46,7 +46,7 @@ import java.util.Set;
 public class SsmManager {
 
     private static Log log = LogFactory.getLog(SsmManager.class);
-    
+
     /** Private constructor to enforce the stateless nature of this class. */
     private SsmManager() {
     }
@@ -73,7 +73,7 @@ public class SsmManager {
         for (Channel c : allChannels) {
             idToChan.put(c.getId(), c);
         }
-        
+
 
         // Keeps a mapping of how many entitlements are left on each channel. This map
         // will be updated as the processing continues, however changes won't be written
@@ -82,10 +82,10 @@ public class SsmManager {
         // always loading the static value from the DB.
         Map<Channel, Long> channelToAvailableEntitlements =
             new HashMap<Channel, Long>(allChannels.size());
-        
-        
+
+
         for (Long sysid : sysMapping.keySet()) {
-            
+
             Set<Long> chanIds = sysMapping.get(sysid).getSubscribeChannelIds();
             //Use an iterator so i can remove from the set
             Iterator it = chanIds.iterator();
@@ -102,8 +102,8 @@ public class SsmManager {
                 if (availableEntitlements == null) {
                     continue;
                 }
-                if (availableEntitlements > 0) {                    
-                        // Update our cached count for what will happen when 
+                if (availableEntitlements > 0) {
+                        // Update our cached count for what will happen when
                         // the subscribe is done
                         availableEntitlements = availableEntitlements - 1;
                         channelToAvailableEntitlements.put(channel, availableEntitlements);
@@ -138,7 +138,7 @@ public class SsmManager {
      * @param user user performing the action creations
      * @param sysMapping a collection of ChannelActionDAOs
      */
-    public static void performChannelActions(User user, 
+    public static void performChannelActions(User user,
                     Collection<ChannelActionDAO> sysMapping) {
 
         for (ChannelActionDAO system : sysMapping) {
@@ -147,13 +147,13 @@ public class SsmManager {
             }
             for (Long cid : system.getUnsubscribeChannelIds()) {
                 unsubscribeChannel(system.getId(), cid);
-            }            
+            }
         }
     }
 
-    
+
     private static void subscribeChannel(Long sid, Long cid, Long uid) {
-        
+
         CallableMode m = ModeFactory.getCallableMode("Channel_queries",
                 "subscribe_server_to_channel");
 
@@ -163,24 +163,24 @@ public class SsmManager {
         in.put("channel_id", cid);
         m.execute(in, new HashMap());
     }
-    
-    
-    private static void unsubscribeChannel(Long sid, Long cid) {    
-    
+
+
+    private static void unsubscribeChannel(Long sid, Long cid) {
+
         CallableMode m = ModeFactory.getCallableMode("Channel_queries",
                 "unsubscribe_server_from_channel");
         Map in = new HashMap();
         in.put("server_id", sid);
-        in.put("channel_id", cid);        
+        in.put("channel_id", cid);
         m.execute(in, new HashMap());
     }
-    
-    
+
+
     /**
      * Parses through the indicated changes, populating the necessary RhnSets. This call
      * is necessary before {@link #performChannelActions(User)} as the perform call
      * requires the sets contain the subscription change information.
-     * 
+     *
      * @param user    user performing the change
      * @param actions subscription changes being made
      */
@@ -215,7 +215,7 @@ public class SsmManager {
 
     /**
      * Adds the selected server IDs to the SSM RhnSet.
-     * 
+     *
      * @param user      cannot be <code>null</code>
      * @param serverIds cannot be <code>null</code>
      */
@@ -227,7 +227,7 @@ public class SsmManager {
 
     /**
      * Clears the list of servers in the SSM.
-     * 
+     *
      * @param user cannot be <code>null</code>
      */
     public static void clearSsm(User user) {

@@ -48,9 +48,9 @@ public class NotifyActionTest extends RhnBaseTestCase {
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
         MockHttpServletResponse response = new MockHttpServletResponse();
         mapping.addForwardConfig(def);
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         Errata published = ErrataFactoryTest
                 .createTestPublishedErrata(user.getOrg().getId());
@@ -58,7 +58,7 @@ public class NotifyActionTest extends RhnBaseTestCase {
         published.addChannel(c);
         Errata unpublished = ErrataFactoryTest
                 .createTestUnpublishedErrata(user.getOrg().getId());
-        
+
         //test PublishOnly exception
         request.setupAddParameter("eid", unpublished.getId().toString());
         try {
@@ -68,12 +68,12 @@ public class NotifyActionTest extends RhnBaseTestCase {
         catch (PublishedOnlyException e) {
             //Success!!!
         }
-        
+
         //test default case
         request.setupAddParameter("eid", published.getId().toString());
         ActionForward result = action.execute(mapping, form, request, response);
         assertEquals("default", result.getName());
-        
+
         Long id = published.getId();
         flushAndEvict(published);
         Errata errata = ErrataManager.lookupErrata(id, user);

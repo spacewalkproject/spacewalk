@@ -48,7 +48,7 @@ public class PackageDetailsAction extends RhnAction {
 
     private final String PACKAGE_NAME = "package_name";
     private final String PACKAGE_KEY = "package_key";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
@@ -129,18 +129,18 @@ public class PackageDetailsAction extends RhnAction {
             if (item.getIdThree() != null) {
                 archId = item.getIdThree();
             }
-           
+
             Long cid = requestContext.getParamAsLong("cid");
             Long sid = requestContext.getParamAsLong("sid");
             if (cid != null) {
                 pkg = PackageManager.guestimatePackageByChannel(
                    cid, nameId, evrId, user.getOrg());
-                
+
             }
             else if (sid != null) {
                 pkg = PackageManager.guestimatePackageBySystem(
                    sid, nameId, evrId, archId, user.getOrg());
-                
+
             }
             else {
                 throw new BadParameterException("pid, cid, or sid");
@@ -150,7 +150,7 @@ public class PackageDetailsAction extends RhnAction {
             if (pkg == null) {
                 throw new NoSuchPackageException();
             }
-            
+
             Map params = new HashMap();
             params.put("pid", pkg.getId());
             return getStrutsDelegate().forwardParams(mapping.findForward("package"),

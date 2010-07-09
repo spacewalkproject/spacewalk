@@ -38,7 +38,7 @@ import java.util.TreeSet;
 
 /**
  * Program to generate Exceptions.
- * Make sure that you have set rhn.checkout.dir in your 
+ * Make sure that you have set rhn.checkout.dir in your
  * ~/.rhn.properties file.  Without that property, these tests will
  * _NOT_ run.  When the DataSource xml files get moved into the rhn-java
  * repo, that requirement will be removed.
@@ -62,7 +62,7 @@ public class ExplainPlanGenerator {
         outfile = output;
     }
 
-    private static final String EXPLAIN_QUERY = "select " + 
+    private static final String EXPLAIN_QUERY = "select " +
                                    "to_char(parent_id) explain_parent_id, " +
                                    "to_char(id) explain_id, " +
                                    "lpad(' ',2*(LEVEL-1)) || operation || " +
@@ -82,7 +82,7 @@ public class ExplainPlanGenerator {
                 (m.getName().equals("tablespace_overview") ||
                  m.getQuery().getOrigQuery().trim().startsWith("--")));
     }
-    
+
     /** Execute the task
      *  @throws IOException If the output file can't be opened.
      *  @throws SQLException if something goes wrong with the DB.
@@ -132,8 +132,8 @@ public class ExplainPlanGenerator {
                     // HACK!  Some of the queries actually have %s in them.
                     // So, replace all %s with :rbb so that the explain plan
                     // can be generated.
-                    query = query.replaceAll("%s", ":rbb"); 
-                    
+                    query = query.replaceAll("%s", ":rbb");
+
                     PreparedStatement ps = conn.prepareStatement(query);
 
                     ps.execute();
@@ -159,15 +159,15 @@ public class ExplainPlanGenerator {
                     st.execute("Delete FROM plan_table where " +
                                     "STATEMENT_ID='" + QUERY_NAME + "'");
                     st.close();
-                    
+
                 }
             }
             out.close();
         }
         catch (HibernateException he) {
-            throw new 
+            throw new
                 HibernateRuntimeException(
-                    "HibernateException in ExplainPlanGenerator.", he);        
+                    "HibernateException in ExplainPlanGenerator.", he);
         }
     }
 
@@ -188,7 +188,7 @@ public class ExplainPlanGenerator {
             System.out.println("Done generating explain plans in " + args[1]);
         }
         catch (SQLException e) {
-            System.err.println("Something went wrong in the DB: " + 
+            System.err.println("Something went wrong in the DB: " +
                                e.getMessage());
         }
         catch (IOException e) {

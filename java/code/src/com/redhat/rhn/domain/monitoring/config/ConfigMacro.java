@@ -33,96 +33,96 @@ public class ConfigMacro implements Serializable {
     private String lastUpdateUser;
     private Date lastUpdateDate;
 
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * @return String to get
     */
     public String getName() {
         return this.name;
     }
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn to set
     */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
 
-    /** 
-     * Getter for definition 
+    /**
+     * Getter for definition
      * @return String to get
     */
     public String getDefinition() {
         return this.definition;
     }
 
-    /** 
-     * Setter for definition 
+    /**
+     * Setter for definition
      * @param definitionIn to set
     */
     public void setDefinition(String definitionIn) {
         this.definition = definitionIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
 
-    /** 
-     * Getter for editable 
+    /**
+     * Getter for editable
      * @return String to get
     */
     public String getEditable() {
         return this.editable;
     }
 
-    /** 
-     * Setter for editable 
+    /**
+     * Setter for editable
      * @param editableIn to set
     */
     public void setEditable(String editableIn) {
         this.editable = editableIn;
     }
 
-    /** 
-     * Getter for lastUpdateUser 
+    /**
+     * Getter for lastUpdateUser
      * @return String to get
     */
     public String getLastUpdateUser() {
         return this.lastUpdateUser;
     }
 
-    /** 
-     * Setter for lastUpdateUser 
+    /**
+     * Setter for lastUpdateUser
      * @param lastUpdateUserIn to set
     */
     public void setLastUpdateUser(String lastUpdateUserIn) {
         this.lastUpdateUser = lastUpdateUserIn;
     }
 
-    /** 
-     * Getter for lastUpdateDate 
+    /**
+     * Getter for lastUpdateDate
      * @return Date to get
     */
     public Date getLastUpdateDate() {
         return this.lastUpdateDate;
     }
 
-    /** 
-     * Setter for lastUpdateDate 
+    /**
+     * Setter for lastUpdateDate
      * @param lastUpdateDateIn to set
     */
     public void setLastUpdateDate(Date lastUpdateDateIn) {

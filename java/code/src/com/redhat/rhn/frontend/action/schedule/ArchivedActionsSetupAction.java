@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ArchivedActionsSetupAction extends RhnAction implements Listable {
-    
+
     /**
      *
      * {@inheritDoc}
@@ -43,7 +43,7 @@ public class ArchivedActionsSetupAction extends RhnAction implements Listable {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext context = new RequestContext(request);
         ListHelper helper = new ListHelper(this, request);
         helper.execute();

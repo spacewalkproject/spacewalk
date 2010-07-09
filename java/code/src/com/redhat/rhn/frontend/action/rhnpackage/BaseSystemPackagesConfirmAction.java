@@ -55,17 +55,17 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
     private static final String DATA_SET = "pageList";
-    private static final String ENABLE_REMOTE_COMMAND = 
+    private static final String ENABLE_REMOTE_COMMAND =
                                             "enableRemoteCommand";
     private static final String WIDGET_SUMMARY = "widgetSummary";
     private static final String HEADER_KEY = "header";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         if (request.getParameter("dispatch") != null) {
@@ -75,14 +75,14 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
             else if (!StringUtils.isBlank(getRemoteMode())) {
                 return runRemoteCommand(mapping, formIn, request, response);
             }
-        }         
-        
+        }
+
         List<PackageListItem> items = getDataResult(request);
 
         Server server = requestContext.lookupAndBindServer();
-        
+
         request.setAttribute("mode", getRemoteMode());
-        
+
         /*
          * If we are removing a package that is not in a channel the server is
          *  subscribed to, then the rollback will not work, lets give the user
@@ -107,41 +107,41 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
-       
-        request.setAttribute("date", picker); 
+
+        request.setAttribute("date", picker);
         request.setAttribute("system", server);
         requestContext.copyParamToAttributes(RequestContext.SID);
-        request.setAttribute(ListTagHelper.PARENT_URL, 
-                request.getRequestURI() + "?sid=" + server.getId());  
+        request.setAttribute(ListTagHelper.PARENT_URL,
+                request.getRequestURI() + "?sid=" + server.getId());
         if (!StringUtils.isBlank(getRemoteMode())) {
-            request.setAttribute(ENABLE_REMOTE_COMMAND, Boolean.TRUE);            
+            request.setAttribute(ENABLE_REMOTE_COMMAND, Boolean.TRUE);
         }
         request.setAttribute(WIDGET_SUMMARY, getWidgetSummary());
         request.setAttribute(HEADER_KEY, getHeaderKey());
-        request.setAttribute(DATA_SET, items);        
-        
+        request.setAttribute(DATA_SET, items);
+
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                                        request.getParameterMap());
-        
-    
+
+
     }
-    
-    
+
+
     private List<PackageListItem> getDataResult(HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long sid = requestContext.getRequiredParam("sid");
-        
+
         Set <String> data = SessionSetHelper.lookupAndBind(request, getDecl(sid));
         List<PackageListItem> items = new LinkedList<PackageListItem>();
         for (String key : data) {
             items.add(PackageListItem.parse(key));
         }
         return items;
-    }    
+    }
 
-    
-    
+
+
     /**
      * Runs remote packages
      * @param mapping ActionMapping
@@ -154,19 +154,19 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
                                        ActionForm formIn,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
         Map params = new HashMap();
         params.put("session_set_label", getDecl(sid));
         params.put("sid", sid.toString());
         params.put("mode", getRemoteMode());
-        
+
         getStrutsDelegate().rememberDatePicker(params,
                 (DynaActionForm)formIn, "date", DatePicker.YEAR_RANGE_POSITIVE);
         return getStrutsDelegate().forwardParams(mapping.findForward("remotecmd"), params);
-    }    
-    
+    }
+
     /**
      * Executes the appropriate PackageAction
      * @param mapping ActionMapping
@@ -179,31 +179,31 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
                                        ActionForm formIn,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         Long sid = requestContext.getRequiredParam("sid");
         User user = requestContext.getLoggedInUser();
         //updateList(newactions, user.getId());
-        
+
         List<Map<String, Long>> data = PackageListItem.toKeyMaps(getDataResult(request));
         int numPackages = data.size();
 
         //Archive the actions
         Server server = SystemManager.lookupByIdAndUser(sid, user);
-        
+
         //The earliest time to perform the action.
         Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm)formIn,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         PackageAction pa = schedulePackageAction(formIn, requestContext, data, earliest);
-        
+
         //Remove the actions from the users set
         SessionSetHelper.obliterate(request, getDecl(sid));
 
-        
-        
+
+
         ActionMessages msgs = new ActionMessages();
 
         /**
@@ -221,7 +221,7 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
         }
         else {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage(getMessageKeyForMany(), 
+                     new ActionMessage(getMessageKeyForMany(),
                              LocalizationService.getInstance()
                              .formatNumber(numPackages),
                          pa.getId().toString(),
@@ -232,48 +232,48 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
         Map params = new HashMap();
         processParamMap(formIn, request, params);
         return strutsDelegate.forwardParams(mapping.findForward("confirm"), params);
-    }    
+    }
 
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
         params.put("sid", sid);
         getStrutsDelegate().rememberDatePicker(params, (DynaActionForm)formIn,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
-    }    
-    
+    }
+
     /**
      * the Session set declaration..
      * @param sid the sid of the system
      * @return the Session Set label.
      */
     protected abstract String getDecl(Long sid);
-    
+
     /**
-     * The remote command mode.. Blank if no remote command mode  
+     * The remote command mode.. Blank if no remote command mode
      * @return the remote command mode.
      */
     protected String getRemoteMode() {
         return "";
     }
-    
+
     /**
-     * hook point to return the notification message key for single package updates 
+     * hook point to return the notification message key for single package updates
      * @return the message key
      */
     protected abstract String getMessageKeyForOne();
-    
+
     /**
-     * hook point to return the notification message key for multiple package updates 
+     * hook point to return the notification message key for multiple package updates
      * @return the message key
      */
     protected abstract String getMessageKeyForMany();
-    
+
     /**
      * hook point to return the widget summary key
      * @return the widget summary key
@@ -284,7 +284,7 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
      * hook point to return the widget summary key
      * @return the widget summary key
      */
-    protected abstract String getHeaderKey();    
+    protected abstract String getHeaderKey();
     /**
      * hook point to return action key.
      * @return the action key
@@ -293,8 +293,8 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
         return "installconfirm.jsp.confirm";
     }
     /**
-     * Hook point for subclasses to 
-     * schedule the package action and return the scheduled 
+     * Hook point for subclasses to
+     * schedule the package action and return the scheduled
      * action for storing
      * @param formIn the action form
      * @param context the request context
@@ -306,5 +306,5 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
                                                            RequestContext context,
                                                            List<Map<String, Long>> pkgs,
                                                            Date earliest);
-    
+
 }

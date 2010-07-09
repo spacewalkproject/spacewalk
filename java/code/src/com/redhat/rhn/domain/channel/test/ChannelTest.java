@@ -41,7 +41,7 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ChannelTest extends BaseTestCaseWithUser {
-    
+
     private static Logger log = Logger.getLogger(ChannelTest.class);
 
 
@@ -68,25 +68,25 @@ public class ChannelTest extends BaseTestCaseWithUser {
         Channel c2 = ChannelFactory.lookupById(c.getId());
         log.debug("Finished lookup");
         assertEquals(c2.getErratas().size(), 1);
-        
+
         assertEquals(c.getLabel(), c2.getLabel());
         assertNotNull(c.getChannelArch());
-        
+
         Channel c3 = ChannelFactoryTest.createTestChannel();
-        
+
         c.setParentChannel(c3);
         assertEquals(c.getParentChannel().getId(), c3.getId());
-        
+
         //Test isGloballySubscribable
         assertTrue(c.isGloballySubscribable(c.getOrg()));
         c.setGloballySubscribable(false, c.getOrg());
         assertFalse(c.isGloballySubscribable(c.getOrg()));
         c.setGloballySubscribable(true, c.getOrg());
         assertTrue(c.isGloballySubscribable(c.getOrg()));
-        
-        
+
+
     }
-    
+
     public void testEquals() throws Exception {
         Channel c1 = ChannelFactoryTest.createTestChannel(user);
         Channel c2 = ChannelFactoryTest.createTestChannel(user);
@@ -98,7 +98,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
         testSet.add(c3);
         assertTrue(testSet.size() == 2);
     }
-    
+
     public void testDistChannelMap() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         ChannelTestUtils.addDistMapToChannel(c);
@@ -106,28 +106,28 @@ public class ChannelTest extends BaseTestCaseWithUser {
         assertNotNull(c.getDistChannelMaps());
         assertTrue(c.getDistChannelMaps().size() > 0);
     }
-    
+
     public void testIsProxy() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel();
         ChannelFamily cfam = ChannelFamilyFactory
                              .lookupByLabel(ChannelFamilyFactory
-                                            .PROXY_CHANNEL_FAMILY_LABEL, 
+                                            .PROXY_CHANNEL_FAMILY_LABEL,
                                             null);
-        
+
         c.setChannelFamily(cfam);
-        
+
         TestUtils.saveAndFlush(c);
-        
+
         Channel c2 = ChannelFactory.lookupById(c.getId());
         assertTrue(c2.isProxy());
     }
-    
+
     public void testIsSub() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         Server s = ServerTestUtils.createTestSystem(user);
         assertTrue(c.isSubscribable(c.getOrg(), s));
     }
-    
+
     public void testDeleteChannel() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         Long id = c.getId();
@@ -138,7 +138,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
         TestUtils.flushAndEvict(c);
         assertNull(ChannelFactory.lookupById(id));
     }
-    
+
     public void testIsBaseChannel() {
         Channel c = new Channel();
         Channel p = new Channel();
@@ -147,7 +147,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
         c.setParentChannel(null);
         assertTrue(c.isBaseChannel());
     }
-    
+
     public void testAddPackage() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         Package p = PackageTest.createTestPackage(user.getOrg());
@@ -155,7 +155,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
         assertEquals("channel-ia32", c.getChannelArch().getLabel());
         assertNotNull(p);
         assertEquals("noarch", p.getPackageArch().getLabel());
-        
+
         try {
             c.addPackage(p);
         }
@@ -163,7 +163,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
             fail("noarch should be acceptible in an ia32 channel");
         }
 
-        
+
         try {
             PackageArch pa = PackageFactory.lookupPackageArchByLabel("x86_64");
             assertNotNull(pa);
@@ -176,7 +176,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
         }
 
     }
-    
+
     public void testContentSource() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         ContentSource cs = new ContentSource();
@@ -190,5 +190,5 @@ public class ChannelTest extends BaseTestCaseWithUser {
         assertNotEmpty(c.getSources());
     }
 
-    
+
 }

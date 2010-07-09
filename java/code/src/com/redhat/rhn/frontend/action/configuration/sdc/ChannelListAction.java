@@ -41,23 +41,23 @@ public class ChannelListAction extends BaseSetListAction {
         SdcHelper.ssmCheck(rctxIn.getRequest(), server.getId(), user);
         return ConfigurationManager.getInstance().listChannelsForSystem(user, server, pc);
     }
-    
+
     protected void processPageControl(PageControl pc) {
         pc.setFilter(true);
         pc.setFilterColumn("name");
     }
-    
-    
-    
+
+
+
     /**
      * {@inheritDoc}
      */
     protected void processRequest(HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public RhnSetDecl getSetDecl() {

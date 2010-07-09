@@ -20,7 +20,7 @@
 
 <rl:listset name="packageListSet">
 	<rl:list dataset="pageList"
-         width="100%"        
+         width="100%"
          name="packageList"
          styleclass="list"
          emptykey="packagelist.jsp.nopackages">
@@ -36,12 +36,12 @@
  			
 <c:if test="${not empty requestScope.pageList}">
       <div align="right">
-        <div align="left"> 
+        <div align="left">
           <p><bean:message key="${widgetSummary}"/></p>
         </div>
-      
+
         <table class="schedule-action-interface" align="center">
-        
+
           <tr>
             <td><input type="radio" name="use_date" value="false" checked="checked" /></td>
             <th><bean:message key="confirm.jsp.now"/></th>
@@ -67,28 +67,28 @@
         <rhn:require mixins="com.redhat.rhn.common.security.acl.SystemAclHandler" acl="system_feature(ftr_remote_command); client_capable(script.run)">
         <c:choose>
         	<c:when test="${requestScope.mode == 'remove'}">
-        	<input type="submit" 
+		<input type="submit"
 		    	name ="dispatch"
 			    value='<bean:message key="removeconfirm.jsp.runremotecommand"/>'/>
         	</c:when>
         	<c:when test="${requestScope.mode == 'install'}">
-        	<input type="submit" 
+		<input type="submit"
 		    	name ="dispatch"
 			    value='<bean:message key="installconfirm.jsp.runremotecommand"/>'/>
         	</c:when>
         	<c:otherwise>
-        	<input type="submit" 
+		<input type="submit"
 		    	name ="dispatch"
 			    value='<bean:message key="upgradeconfirm.jsp.runremotecommand"/>'/>
         	</c:otherwise>
         </c:choose>
         </rhn:require>
-      </c:if>        
-		    <input type="submit" 
+      </c:if>
+		    <input type="submit"
 		    	name ="dispatch"
-			    value='<bean:message key="installconfirm.jsp.confirm"/>'/>          
+			    value='<bean:message key="installconfirm.jsp.confirm"/>'/>
       </div>
-      
+
       <input type="hidden" name="sid" value="${param.sid}" /></c:if> 			
  			
 </rl:listset>

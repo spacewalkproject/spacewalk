@@ -29,7 +29,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 {2}</source>
 				<target>@@PRODUCT_NAME@@ 고객님 귀하,
- 
+
 고객님의 Red Hat 로그인 이메일 주소
 확인을 위해 이 이메일을 보내드립니다. Red Hat 로그인과 활성화된
 Red Hat 서브스크립션이 있다면 @@PRODUCT_NAME@@의
@@ -73,7 +73,7 @@ Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>안녕하세요,
 
-{0} {1}께서 고객님의 Red Hat 로그인을 생성하였습니다.  
+{0} {1}께서 고객님의 Red Hat 로그인을 생성하였습니다.
 이 Red Hat 로그인과 활성화된 Red Hat 서브스크립션이 있다면
  @@PRODUCT_NAME@@의 시스템 관리 기능을 이용하실 수 있습니다.
 
@@ -107,7 +107,7 @@ Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
 				<target>안녕하세요,
 
-고객님의 Red Hat 로그인을 생성하였습니다.  
+고객님의 Red Hat 로그인을 생성하였습니다.
 이 Red Hat 로그인과 활성화된 Red Hat 서브스크립션이 있다면
  @@PRODUCT_NAME@@의 시스템 관리 기능을 이용하실 수 있습니다.
 
@@ -138,7 +138,7 @@ Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>안녕하세요,
 
-{0} {1}에 의해 고객님의 Red Hat 로그인을 생성하였습니다.  
+{0} {1}에 의해 고객님의 Red Hat 로그인을 생성하였습니다.
 이 Red Hat 로그인과 활성화된 Red Hat 서브스크립션이 있다면
  @@PRODUCT_NAME@@의 시스템 관리 기능을 이용하실 수 있습니다.
 
@@ -175,7 +175,7 @@ Thank you for using @@PRODUCT_NAME@@.
 {0}
 
 고객님 계정에 연계된 모든 활성화된 사용자와 Red Hat 로그인 목록을 보시려면,
-다음 사이트를 방문하시기 바랍니다: 
+다음 사이트를 방문하시기 바랍니다:
 
   {1}
 
@@ -267,30 +267,30 @@ Red Hat 고객님
   고객 이름 : {0}
   계정 번호: {1}
 
-다음 링크를 클릭하여 이 계정에 대한 새 Red Hat 로그인을 
+다음 링크를 클릭하여 이 계정에 대한 새 Red Hat 로그인을
 생성하신 후 서브스크립션을 이용하실 수 있습니다:
 
 {2}
 
-만일 구매하신 Red Hat 서브스크립션 서비스를 사용할 기술 관리자가 아니시라면, 
-이 이메일을 회사 내 담당자에게 전달해주시기 바랍니다. 해당 담당자에게 기존 
+만일 구매하신 Red Hat 서브스크립션 서비스를 사용할 기술 관리자가 아니시라면,
+이 이메일을 회사 내 담당자에게 전달해주시기 바랍니다. 해당 담당자에게 기존
 Red Hat 로그인이 없는 경우에는 다음 링크를 이용하여 새로 만드셔야 합니다.
 
-기존 로그인이 있으며 상위 계정에 이미 연계된 경우에는, 
-아무런 작업도 수행하실 필요가 없습니다. 다음 페이지로 로그인하시면 
+기존 로그인이 있으며 상위 계정에 이미 연계된 경우에는,
+아무런 작업도 수행하실 필요가 없습니다. 다음 페이지로 로그인하시면
 기존 Red Hat 로그인에 연계된 계정 번호를 찾으실 수 있습니다:
 
 http://www.redhat.com/support/
 
-이 이메일에 적힌 계정이 아닌 다른 계정에 연계된 Red Hat 로그인을 
-가지고 계신 경우, 그 계정으로 서브스크립션을 관리하고자 하신다면, 
-Red Hat은 원하시는 계정으로 서브스크립션을 이전시켜드릴 수 있습니다. 
-다음 링크에서 고객님 지역의 Red Hat 고객 서비스 담당자 연락처를 찾아 
+이 이메일에 적힌 계정이 아닌 다른 계정에 연계된 Red Hat 로그인을
+가지고 계신 경우, 그 계정으로 서브스크립션을 관리하고자 하신다면,
+Red Hat은 원하시는 계정으로 서브스크립션을 이전시켜드릴 수 있습니다.
+다음 링크에서 고객님 지역의 Red Hat 고객 서비스 담당자 연락처를 찾아
 문의하시기 바랍니다:
 
 {3}
 
-계정 관리자 (조직 관리자) 분들께 알리는 말씀: 새로운 사용자가 서브스크립션을 이용하기 위해서는, 먼저 관리자 계정에서 새 사용자가 서브스크립션을 확인하고 관리할 수 있는 권한이 부여되어야 합니다. 이 작업을 수행하시려면 관리자 계정에 사용자 관리 인타이틀먼트가 있어야 합니다. 필요하시다면, 위에 나온 링크에서 해당 지역의 Red Hat 고객 서비스 담당자 연락처를 찾아 
+계정 관리자 (조직 관리자) 분들께 알리는 말씀: 새로운 사용자가 서브스크립션을 이용하기 위해서는, 먼저 관리자 계정에서 새 사용자가 서브스크립션을 확인하고 관리할 수 있는 권한이 부여되어야 합니다. 이 작업을 수행하시려면 관리자 계정에 사용자 관리 인타이틀먼트가 있어야 합니다. 필요하시다면, 위에 나온 링크에서 해당 지역의 Red Hat 고객 서비스 담당자 연락처를 찾아
 이 기능을 요청하시기 바랍니다.
 
 Red Hat을 사용해주셔서 감사드립니다.
@@ -344,29 +344,29 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 Red Hat 고객님,
 
-지난 몇일간 다음 시스템이 고객님 Red Hat 로그인 및 계정에 
+지난 몇일간 다음 시스템이 고객님 Red Hat 로그인 및 계정에
 연계되었지만, @@PRODUCT_NAME@@ 서비스를 이용할 수 없었습니다.
 
 {0}
 
 다음 중 한가지 원인 때문인 것 같습니다:
 
-1) 최근 시스템을 재설치하신 후 기존 활성 서브스크립션을 가지고 
+1) 최근 시스템을 재설치하신 후 기존 활성 서브스크립션을 가지고
    이 시스템을 연결하려고 하신 경우. @@PRODUCT_NAME@@에 있는
    기존 시스템 프로파일을 삭제하시기 바랍니다.
 
-2) @@PRODUCT_NAME@@에 연결된 시스템 숫자가 고객님 계정에 할당된 
-   활성 Red Hat 서브스크립션 숫자를 초과한 경우. 고객님 서브스크립션이 
+2) @@PRODUCT_NAME@@에 연결된 시스템 숫자가 고객님 계정에 할당된
+   활성 Red Hat 서브스크립션 숫자를 초과한 경우. 고객님 서브스크립션이
    만기되었다면, 새로운 Red Hat 서브스크립션을 구입하셔야 합니다.
 
-   기존 Red Hat 서브스크립션의 만기 날짜를 확인하시려면 
+   기존 Red Hat 서브스크립션의 만기 날짜를 확인하시려면
    다음 사이트를 방문하시기 바랍니다
 
    https://www.redhat.com/apps/support/
 
    로그인하신 후 보기를 클릭하여 고객님 서브스크립션 링크를 관리하십시오.
 
-3) 고객님께서 최근에 Red Hat 제품을 설치하신 후 서브스크립션 번호가 
+3) 고객님께서 최근에 Red Hat 제품을 설치하신 후 서브스크립션 번호가
    성공적으로 활성화되지 않은 경우. 서브스크립션을 다시 한번 활성화하시려면
    다음 사이트를 방문하시기 바랍니다:
 
@@ -569,7 +569,7 @@ Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-@@PRODUCT_NAME@@ 사용자 귀하. 
+@@PRODUCT_NAME@@ 사용자 귀하.
 
 고객님의 Red Hat 로그인 이메일 주소
 확인을 위해 이 이메일을 보내드립니다. Red Hat 로그인과 활성화된
@@ -612,7 +612,7 @@ deactivated.
 Please note that this is a final notice.  If you do not click through
 this URL within the next 2 days, your Red Hat login will deactivated.
 
-To confirm your email address, please visit the following URL: 
+To confirm your email address, please visit the following URL:
 
 {0}
 
@@ -620,7 +620,7 @@ Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-@@PRODUCT_NAME@@ 사용자 귀하. 
+@@PRODUCT_NAME@@ 사용자 귀하.
 
 고객님의 Red Hat 로그인 이메일 주소
 확인을 위해 이 이메일을 보내드립니다. Red Hat 로그인과 활성화된
@@ -633,8 +633,8 @@ Red Hat 서브스크립션이 있다면 @@PRODUCT_NAME@@의
 이메일 주소를 확인하지 않으신다면, 고객님의 Red Hat 로그인이
 비활성화될 것입니다.
 
-이번 통지가 최종 통고이오니, 앞으로 이틀 내에 
-이 URL을 방문하지 않으시면, 고객님의 Red Hat 로그인이 
+이번 통지가 최종 통고이오니, 앞으로 이틀 내에
+이 URL을 방문하지 않으시면, 고객님의 Red Hat 로그인이
 비활성화될 것입니다.
 
 이메일 주소를 확인하시려면, 다음 URL을 방문하시기 바랍니다:
@@ -658,9 +658,9 @@ Red Hat 서브스크립션이 있다면 @@PRODUCT_NAME@@의
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems 
+has expired on your local satellite {0}. After {1} day(s) the systems
 management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information 
+Please contact your regional Red Hat Customer  Service Representative for information
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -668,10 +668,10 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 @@PRODUCT_NAME@@ 사용자 귀하,
 
-로컬 satellite {0}에 있는 귀하의 @@PRODUCT_NAME@@ 인증서가 만료되었음을 
-알려드리기 위해 이 이메일을 보내드립니다. {1}일이 후에 귀하의 @@PRODUCT_NAME@@  서버에서 
-제공된 시스템 관리 서비스는 사용할 수 없게 됩니다. 
-@@PRODUCT_NAME@@ 인증서를 갱신하는 방법에 관한 정보를 얻으시려면 해당 지역의 
+로컬 satellite {0}에 있는 귀하의 @@PRODUCT_NAME@@ 인증서가 만료되었음을
+알려드리기 위해 이 이메일을 보내드립니다. {1}일이 후에 귀하의 @@PRODUCT_NAME@@  서버에서
+제공된 시스템 관리 서비스는 사용할 수 없게 됩니다.
+@@PRODUCT_NAME@@ 인증서를 갱신하는 방법에 관한 정보를 얻으시려면 해당 지역의
 Red Hat 고객 서비스 담당자에게 연락하시기 바랍니다.
 
 @@PRODUCT_NAME@@를 사용해 주셔서 감사합니다.
@@ -686,8 +686,8 @@ Red Hat 고객 서비스 담당자에게 연락하시기 바랍니다.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible 
-until your certificate is renewed. Please contact your regional Red Hat 
+has expired on your local satellite {0}. The system management services will be inaccessible
+until your certificate is renewed. Please contact your regional Red Hat
 Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
@@ -696,8 +696,8 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 @@PRODUCT_NAME@@ 사용자 귀하,
 
-로컬 satellite {0}에 있는 귀하의 @@PRODUCT_NAME@@ 인증서가 만료되었음을 
-알려드리기 위해 이 이메일을 보내드립니다. 인증서를 갱신하실 때 까지 귀하의 시스템 관리 서비를 
+로컬 satellite {0}에 있는 귀하의 @@PRODUCT_NAME@@ 인증서가 만료되었음을
+알려드리기 위해 이 이메일을 보내드립니다. 인증서를 갱신하실 때 까지 귀하의 시스템 관리 서비를
 사용하실 수 없습니다. @@PRODUCT_NAME@@ 인증서를 갱신하는 방법에 관한 정보를 얻으시려면
 해당 지역의 Red Hat 고객 서비스 담당자에게 연락하시기 바랍니다.
 

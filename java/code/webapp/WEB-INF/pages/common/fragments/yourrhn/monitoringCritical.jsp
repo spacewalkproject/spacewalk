@@ -15,12 +15,12 @@
              		 reflink="/rhn/monitoring/ProbeList.do?state=CRITICAL"
              		 reflinkkey="yourrhn.jsp.allcriticalprobes"
              		 reflinkkeyarg0="${requestScope.criticalReflinkkeyarg0}">
-				<rl:column headerkey="yourrhn.jsp.criticalprobes" 
+				<rl:column headerkey="yourrhn.jsp.criticalprobes"
 		           	styleclass="first-column">
 		    		<img src="/img/rhn-mon-down.gif"/>
     				<c:out value="${current.description}"/>
 				</rl:column>
-				<rl:column headerkey="yourrhn.jsp.systems" 
+				<rl:column headerkey="yourrhn.jsp.systems"
 		           	styleclass="last-column">
 					<c:out value="${current.probeCount}"/>
 				</rl:column>

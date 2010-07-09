@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class Overview extends RhnAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -42,13 +42,13 @@ public class Overview extends RhnAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
-        
+
         ConfigurationManager manager = ConfigurationManager.getInstance();
-        
+
         Map summary = manager.getOverviewSummary(user);
         request.setAttribute("summary", summary);
         request.setAttribute("is_admin", new Boolean(AclManager

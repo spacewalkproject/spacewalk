@@ -5,14 +5,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.kickstart.KickstartCommand"
            table="rhnKickstartCommand">
-       
+
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="sequence">
                 <param name="sequence">RHN_KSCOMMAND_ID_SEQ</param>
             </generator>
         </id>
-                
+
         <many-to-one name="kickstartData"
                 class="com.redhat.rhn.domain.kickstart.KickstartData"
                 column="kickstart_id"/>
@@ -22,7 +22,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property   name="arguments" type="string" column="arguments"/>
         <property   name="created"   type="date"   column="created"/>
         <property   name="modified"  type="date"   column="modified"/>
-        
+
     </class>
-    
+
 </hibernate-mapping>

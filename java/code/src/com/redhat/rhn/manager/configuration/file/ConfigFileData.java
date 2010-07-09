@@ -53,18 +53,18 @@ public abstract class ConfigFileData {
     private String macroStart;
     private String macroEnd;
     private String revNumber;
-    
+
     private ConfigFileType type;
-    
+
     public static final String DEFAULT_CONFIG_DELIM_START = "{|";
     public static final String DEFAULT_CONFIG_DELIM_END = "|}";
     public static final long MAX_FILE_SIZE = Config.get().
                                     getInt(ConfigDefaults.CONFIG_REVISION_MAX_SIZE);
     private static final String DEFAULT_MACRO_START = Config.get().
-                                            getString("web.config_delim_start", 
-                                                            DEFAULT_CONFIG_DELIM_START); 
+                                            getString("web.config_delim_start",
+                                                            DEFAULT_CONFIG_DELIM_START);
     private static final String DEFAULT_MACRO_END = Config.get().
-                                        getString("web.config_delim_end", 
+                                        getString("web.config_delim_end",
                                                 DEFAULT_CONFIG_DELIM_END);
     /**
      * Constructor for COnfigFIleData
@@ -85,35 +85,35 @@ public abstract class ConfigFileData {
     public String getPath() {
         return path;
     }
-    
+
     /**
      * @param filePath the path to set
      */
     public void setPath(String filePath) {
         this.path = filePath;
     }
-    
+
     /**
      * @return the owner
      */
     public String getOwner() {
         return owner;
     }
-    
+
     /**
      * @param ownerName the owner to set
      */
     public void setOwner(String ownerName) {
         this.owner = ownerName;
     }
-    
+
     /**
      * @return the group
      */
     public String getGroup() {
         return group;
     }
-    
+
     /**
      * @param groupIn the group to set
      */
@@ -127,7 +127,7 @@ public abstract class ConfigFileData {
     public String getPermissions() {
         return permissions;
     }
-    
+
     /**
      * @param perms the permissions to set
      */
@@ -148,7 +148,7 @@ public abstract class ConfigFileData {
     public void setSelinuxCtx(String context) {
         this.selinuxCtx = context;
     }
-    
+
     /**
      * @return the macroStart
      */
@@ -169,7 +169,7 @@ public abstract class ConfigFileData {
     public String getMacroEnd() {
         return macroEnd;
     }
-    
+
     /**
      * @param macroEndDelimiter the macroEnd to set
      */
@@ -183,7 +183,7 @@ public abstract class ConfigFileData {
     public boolean isBinary() {
         return false;
     }
-    
+
     /**
      * @return the type
      */
@@ -197,35 +197,35 @@ public abstract class ConfigFileData {
     public void setType(ConfigFileType fileType) {
         this.type = fileType;
     }
-    
+
     /**
-     * 
+     *
      * @return info pertaining to this form.
      */
     public ConfigInfo extractInfo() {
         ConfigInfo info = ConfigurationFactory.lookupOrInsertConfigInfo(
-                            getOwner(), getGroup(), 
+                            getOwner(), getGroup(),
                             Long.valueOf(getPermissions()),
                             getSelinuxCtx());
         return info;
-    }    
-    
+    }
+
     /**
      * Validate config-file data before commiting changes.  Specifically,
      * do validation that the Struts Validator doesn't know how to do.
-     * 
+     *
      * This checks that:
      * <ul>
      * <li>size is &lt; max
-     * <li>owner exists and is a valid Linux username of &lt; 32 chars 
+     * <li>owner exists and is a valid Linux username of &lt; 32 chars
      * (or user-id, but it can't tell the diff)
-     * <li>group exists nd is a valid Linux groupname of &lt; 32 chars 
+     * <li>group exists nd is a valid Linux groupname of &lt; 32 chars
      * (or group-id, but it can't tell the diff)
      * <li>mode exists and is a valid three-digit file mode
      * <li>delimiter start and end exist, are two chars, and contain no percent signs
      * <li>contents (if text) validate after macro-substitution
      * </ul>
-     * 
+     *
      * @param onCreate true if we're creating a config-file, false if we're only updating
      * @return messages describing all errors found
      * @throws ValidatorException if there are any validation errors.
@@ -233,19 +233,19 @@ public abstract class ConfigFileData {
     private void validateData(boolean onCreate) throws ValidatorException {
 
         ValidatorResult msgs = new ValidatorResult();
-        
+
         // Validate user/uid
         if (!ConfigurationValidation.validateUserOrGroup(getOwner()) &&
             !ConfigurationValidation.validateUGID(getOwner())) {
-            msgs.addError(error("user-invalid"));            
+            msgs.addError(error("user-invalid"));
         }
-        
+
         // Validate group
         if (!ConfigurationValidation.validateUserOrGroup(group) &&
             !ConfigurationValidation.validateUGID(group)) {
             msgs.addError(error("group-invalid"));
         }
-        
+
         // Validate mode
         if (!getPermissions().matches("^[0-7][0-7][0-7][0-7]?$")) {
             msgs.addError(error("mode-invalid"));
@@ -265,35 +265,35 @@ public abstract class ConfigFileData {
                 ")?)?)?)?$")) {
             msgs.addError(new ValidatorError("Invalid SELinux context"));
         }
-        
+
         if (!StringUtils.isBlank(getMacroStart())) {
             // Validate macro-start
             if (getMacroStart().indexOf('%') != -1) {
                 msgs.addError(error("start-delim-percent"));
             }
         }
-        
+
         // Validate macro-end
         if (!StringUtils.isBlank(getMacroEnd())) {
             if (getMacroEnd().indexOf('%') != -1) {
                 msgs.addError(error("end-delim-percent"));
             }
         }
-        
+
         if (getContentSize() > ConfigFile.getMaxFileSize()) {
             msgs.addError("error.configtoolarge",
                     StringUtil.displayFileSize(ConfigFile.getMaxFileSize(), false));
-        }        
+        }
         validateContents(msgs, onCreate);
-        
+
         if (!msgs.isEmpty()) {
             throw new ValidatorException(msgs);
         }
     }
-    
+
     protected abstract void validateContents(ValidatorResult result,
                                                         boolean onCreate);
-        
+
     private ValidatorError error(String msgKey) {
         return new ValidatorError("config-file-form.error." + msgKey);
     }
@@ -302,14 +302,14 @@ public abstract class ConfigFileData {
      * @return the contentStream
      */
     public abstract InputStream getContentStream();
-    
+
     /**
      * @return the contentSize
      */
     public abstract long getContentSize();
-    
+
     /**
-     * 
+     *
      * @return true if the data in this Calass is a directory
      */
     public boolean isDirectory() {
@@ -317,7 +317,7 @@ public abstract class ConfigFileData {
     }
 
     /**
-     * Entry point to validate the contents of this form.. 
+     * Entry point to validate the contents of this form..
      * @param onCreate true if we're creating a config-file, false if we're only updating
      * @throws ValidatorException if there are any validation errors.
      */
@@ -326,15 +326,15 @@ public abstract class ConfigFileData {
             validatePath();
         }
         // Struts-validation errors?  Bug out if so
-        ValidatorResult result = RhnValidationHelper.validate(this.getClass(), 
-                                            makeValidationMap(), null, 
+        ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
+                                            makeValidationMap(), null,
                                             VALIDATION_XSD);
         if (!result.isEmpty()) {
             throw new ValidatorException(result);
         }
         validateData(onCreate);
     }
-    
+
     /**
      * Validates the path explicatily ensuring it follows Linux/Unix path
      *  conventions. This is separate form the regular validate method because
@@ -346,9 +346,9 @@ public abstract class ConfigFileData {
         ValidatorResult result = ConfigurationValidation.validatePath(getPath());
         if (!result.isEmpty()) {
             throw new ValidatorException(result);
-        }        
+        }
     }
-    
+
     /**
      * Basically returns a map equating ConfigFileForm's form fieldnames
      * to values from config file data.. This is needed by the RHnValidationHelper
@@ -378,7 +378,7 @@ public abstract class ConfigFileData {
         setMacroStart(rev.getDelimStart());
         setMacroEnd(rev.getDelimEnd());
     }
-    
+
     /**
      * Basically Extension point to update the relevant in this data file
      * with the content provided in the revision param. This is mainly
@@ -387,7 +387,7 @@ public abstract class ConfigFileData {
      * @param rev the revision to copy stuff from..
      */
     protected abstract void copyRevisedContentFrom(ConfigRevision rev);
-    
+
     /**
      * {@inheritDoc}
      */
@@ -401,7 +401,7 @@ public abstract class ConfigFileData {
                 append("Type", getType()).
                 append("Macro Start", getMacroStart()).
                 append("Macro End", getMacroEnd()).
-                append("isBinary", isBinary()).                
+                append("isBinary", isBinary()).
                 append("Size:", getContentSize());
         return builder.toString();
     }

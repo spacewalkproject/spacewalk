@@ -20,7 +20,7 @@ package com.redhat.rhn.domain.rpm;
  * @version $Rev$
  */
 public class SourceRpm {
-    
+
     private Long id;
     private String name;
 
@@ -36,14 +36,14 @@ public class SourceRpm {
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */

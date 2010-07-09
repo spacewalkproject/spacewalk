@@ -25,7 +25,7 @@
         name="compareList"
         styleclass="list"
         emptykey="schedulesync.jsp.nopackagesselected">
-        
+
         <rl:column headerkey="schedulesync.jsp.package" bound="false">
             ${current.name}
         </rl:column>
@@ -60,7 +60,7 @@
             </td>
         </tr>
     </table>
-         
+
     <html:hidden property="sid" value="${param.sid}" />
     <html:hidden property="prid" value="${param.prid}" />
     <html:hidden property="set_label" value="packages_for_system_sync" />

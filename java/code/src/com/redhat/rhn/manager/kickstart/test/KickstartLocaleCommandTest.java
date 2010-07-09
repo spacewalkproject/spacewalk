@@ -27,8 +27,8 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
 public class KickstartLocaleCommandTest extends BaseTestCaseWithUser {
 
     public void testKickstartLocaleCommand() throws Exception {
-        KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());      
-        
+        KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
+
         KickstartLocaleCommand cmd = new KickstartLocaleCommand(k.getId(), user);
         String tz = cmd.getTimezone();
 
@@ -43,8 +43,8 @@ public class KickstartLocaleCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testKickstartLocaleCommandWithUtc() throws Exception {
-        KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());      
-        
+        KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
+
         KickstartLocaleCommand cmd = new KickstartLocaleCommand(k.getId(), user);
 
         // set timezone command to --utc America/New_York

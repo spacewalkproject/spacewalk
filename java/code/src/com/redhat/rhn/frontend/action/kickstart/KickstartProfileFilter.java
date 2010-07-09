@@ -21,7 +21,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * 
+ *
  * KickstartProfileFilter
  * @version $Rev$
  */
@@ -31,7 +31,7 @@ public class KickstartProfileFilter extends BaseListFilter {
      * ${@inheritDoc}
      */
     public void processMap(Map map, Locale userLocale) {
-        LocalizationService ls = 
+        LocalizationService ls =
             LocalizationService.getInstance();
         String label = ls.getMessage("filter.kickstart.label",
                 userLocale);

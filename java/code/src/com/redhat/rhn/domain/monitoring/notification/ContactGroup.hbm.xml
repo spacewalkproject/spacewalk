@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.notification.ContactGroup" 
+    <class name="com.redhat.rhn.domain.monitoring.notification.ContactGroup"
         table="rhn_contact_groups" >
         <id name="id" type="long" column="recid">
             <meta attribute="scope-set">protected</meta>
@@ -11,21 +11,21 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_CONTACT_GROUPS_RECID_SEQ</param>
             </generator>
         </id>
-        <property name="contactGroupName" column="contact_group_name" 
+        <property name="contactGroupName" column="contact_group_name"
             not-null="true" type="string" length="30" />
-        <property name="customerId" column="customer_id" not-null="true" 
+        <property name="customerId" column="customer_id" not-null="true"
             type="long" />
-        <property name="strategyId" column="strategy_id" not-null="true" 
+        <property name="strategyId" column="strategy_id" not-null="true"
             type="long" />
-        <property name="ackWait" column="ack_wait" not-null="true" type="long" 
+        <property name="ackWait" column="ack_wait" not-null="true" type="long"
             />
-        <property name="rotateFirst" column="rotate_first" not-null="true" 
+        <property name="rotateFirst" column="rotate_first" not-null="true"
             type="string" length="1" />
-        <property name="lastUpdateUser" column="last_update_user" 
+        <property name="lastUpdateUser" column="last_update_user"
             not-null="true" type="string" length="40" />
-        <property name="lastUpdateDate" column="last_update_date" 
+        <property name="lastUpdateDate" column="last_update_date"
             not-null="true" type="timestamp" />
-        <property name="notificationFormatId" column="notification_format_id" 
+        <property name="notificationFormatId" column="notification_format_id"
             not-null="true" type="long" />
     </class>
     <query name="ContactGroup.findByName">

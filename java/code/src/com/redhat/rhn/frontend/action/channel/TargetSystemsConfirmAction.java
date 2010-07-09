@@ -39,14 +39,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * TargetSystemsConfirmAction
  * @version $Rev$
  */
 public class TargetSystemsConfirmAction extends RhnAction implements Listable {
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping,
@@ -56,40 +56,40 @@ public class TargetSystemsConfirmAction extends RhnAction implements Listable {
 
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
-        
+
         Long cid = requestContext.getRequiredParam(RequestContext.CID);
         Channel chan = ChannelManager.lookupByIdAndUser(cid, user);
         request.setAttribute("channel_name", chan.getName());
-        ListRhnSetHelper helper = new ListRhnSetHelper(this, request, 
+        ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
                 TargetSystemsAction.getSetDecl(chan));
         helper.setWillClearSet(false);
         helper.execute();
-        
+
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute("cid", chan.getId());
         if (helper.isDispatched()) {
             RhnSet set = TargetSystemsAction.getSetDecl(chan).get(user);
             for (Long id : set.getElementValues()) {
                 Server s  = SystemManager.lookupByIdAndUser(id, user);
-                SystemManager.subscribeServerToChannel(user, s, chan);   
+                SystemManager.subscribeServerToChannel(user, s, chan);
             }
             Map params = new HashMap();
             params.put(RequestContext.CID, cid);
             ActionMessages msgs = new ActionMessages();
-            msgs.add(ActionMessages.GLOBAL_MESSAGE,  
+            msgs.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("channeltarget.success", set.size(), chan.getName()));
             getStrutsDelegate().saveMessages(request, msgs);
-            
-            
+
+
             return getStrutsDelegate().forwardParams(mapping.findForward("success"),
                     params);
-        } 
+        }
         return mapping.findForward("default");
     }
-    
-    
+
+
     /**
-     *     
+     *
      * {@inheritDoc}
      */
     public List getResult(RequestContext context) {
@@ -98,7 +98,7 @@ public class TargetSystemsConfirmAction extends RhnAction implements Listable {
         Channel chan = ChannelManager.lookupByIdAndUser(cid, user);
         return SystemManager.inSet(user, TargetSystemsAction.getSetDecl(chan).getLabel());
     }
-    
-    
-    
+
+
+
 }

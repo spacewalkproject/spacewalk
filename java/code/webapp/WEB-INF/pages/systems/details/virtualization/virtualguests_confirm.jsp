@@ -16,10 +16,10 @@
         <p>
       <c:choose>
         <c:when test="${param.actionName == 'delete'}">
-          <bean:message key="virtualguests_confirm.jsp.summary.delete" />  
+          <bean:message key="virtualguests_confirm.jsp.summary.delete" />
         </c:when>
         <c:otherwise>
-          <bean:message key="virtualguests_confirm.jsp.summary" />  
+          <bean:message key="virtualguests_confirm.jsp.summary" />
         </c:otherwise>
       </c:choose>
         </p>
@@ -31,7 +31,7 @@
 
   <rhn:listdisplay set="${requestScope.set}" hiddenvars="${requestScope.newset}"
                    filterBy="virtualguests_confirm.jsp.guestname" domainClass="systems">
-    
+
     <rhn:column header="virtualguests_confirm.jsp.guestname">
       ${current.name}
     </rhn:column>
@@ -48,7 +48,7 @@
         </c:otherwise>
       </c:choose>
     </rhn:column>
-    
+
     <rhn:column header="virtualguests_confirm.jsp.state">
         ${current.stateName}
     </rhn:column>
@@ -71,11 +71,11 @@
   <div align="right">
 
     <hr />
-      
+
     <html:submit property="dispatch">
       <bean:message key="virtualguests_confirm.jsp.confirm"/>
     </html:submit>
-      
+
   </div>
 
   <input type="hidden" name="actionName" value="${param.actionName}" />

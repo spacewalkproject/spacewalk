@@ -46,7 +46,7 @@ public abstract class BaseListAction extends RhnAction {
      */
     public String getListName() {
         return LIST_NAME;
-    } 
+    }
 
     /**
      * Returns the parent URL
@@ -58,14 +58,14 @@ public abstract class BaseListAction extends RhnAction {
         return uri + "?" + RequestContext.SID + "=" +
                 context.getRequiredParam(RequestContext.SID);
     }
-    
+
     /**
-     * Returns the declaration 
+     * Returns the declaration
      * @param context the request context
      * @return the declaration
      */
     public String getDecl(RequestContext context) {
-        return getClass().getName() + 
+        return getClass().getName() +
             context.getRequiredParam(RequestContext.SID);
     }
 
@@ -78,6 +78,6 @@ public abstract class BaseListAction extends RhnAction {
         Server server = context.lookupAndBindServer();
         User user = context.getLoggedInUser();
         SdcHelper.ssmCheck(request, server.getId(), user);
-        
-    }    
+
+    }
 }

@@ -17,7 +17,7 @@ package com.redhat.rhn.domain.role;
 
 /**
  * Class UserGroup that reflects the DB representation of RHNUSERGROUP
- * This class and package are only intended to be used internally by the 
+ * This class and package are only intended to be used internally by the
  * parent of this package, com.redhat.rhn.domain.org
  *
  * DB table: RHNUSERGROUP
@@ -25,32 +25,32 @@ package com.redhat.rhn.domain.role;
  */
 public interface Role {
 
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return id
      */
     Long getId();
 
-    /** 
-     * Getter for label 
+    /**
+     * Getter for label
      * @return label
      */
     String getLabel();
 
     /**
-     * Setter for label 
+     * Setter for label
      * @param labelIn Value to set label to.
      */
     void setLabel(String labelIn);
 
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * @return name
      */
     String getName();
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn Value to set name to.
      */
     void setName(String nameIn);

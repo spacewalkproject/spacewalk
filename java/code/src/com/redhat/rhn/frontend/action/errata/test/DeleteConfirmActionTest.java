@@ -33,34 +33,34 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 public class DeleteConfirmActionTest extends RhnBaseTestCase {
 
     public void testExecute() throws Exception {
-        
+
         UnpublishedDeleteConfirmAction action = new UnpublishedDeleteConfirmAction();
         ActionHelper sah = new ActionHelper();
-        
+
         sah.setUpAction(action);
         User usr = sah.getUser();
 
-        RhnSet deleteme = RhnSetFactory.createRhnSet(usr.getId(), "errata_to_delete", 
+        RhnSet deleteme = RhnSetFactory.createRhnSet(usr.getId(), "errata_to_delete",
                 SetCleanup.NOOP);
-        
+
         //Create a set of Errata id's
         for (int i = 0; i < 5; i++) {
             Errata e = ErrataFactoryTest.createTestErrata(usr.getOrg().getId());
             deleteme.addElement(e.getId());
         }
-        RhnSetManager.store(deleteme); //save the set   
-        
+        RhnSetManager.store(deleteme); //save the set
+
         RhnSet set = RhnSetDecl.ERRATA_TO_DELETE.get(usr);
         assertEquals(5, set.size());
         sah.executeAction();
         /*
-         * TODO: 
-         * Currently, the delete procedure takes around 5 min. to run. This is 
+         * TODO:
+         * Currently, the delete procedure takes around 5 min. to run. This is
          * unacceptable. We will eventually, need to put a timer in here to wait
          * a second or two before making sure that the set was deleted, but until
          * we can delete erratas in an acceptable time frame to have integrated
          * into our unit tests, I'm going to comment this line out.
-         * 
+         *
         assertTrue(UserManager.getSet(usr, "errata_to_delete").size() == 0);
          */
     }

@@ -30,23 +30,23 @@ public class MatchType {
     public static final String CAT_STATE = "state";
     public static final String CAT_REGEX = "regex";
     public static final String CAT_CONTACT = "contact";
-    
+
     private static final HashMap TYPES = new HashMap();
     private static final HashMap CATEGORIES = new HashMap();
-    
+
     public static final MatchType PROBE = create("PROBE_ID", "probe", CAT_SCOPE);
     public static final MatchType SCOUT = create("NETSAINT_ID", "scout", CAT_SCOPE);
     public static final MatchType ORG   = create("CUSTOMER_ID", "org", CAT_SCOPE);
 
     public static final MatchType STATE = create("SERVICE_STATE", null, CAT_STATE);
-    
-    public static final MatchType REGEX      = create("CASE_SEN_MSG_PATTERN", null, 
+
+    public static final MatchType REGEX      = create("CASE_SEN_MSG_PATTERN", null,
                                                       CAT_REGEX);
-    public static final MatchType REGEX_CASE = create("CASE_INSEN_MSG_PATTERN", null, 
+    public static final MatchType REGEX_CASE = create("CASE_INSEN_MSG_PATTERN", null,
                                                       CAT_REGEX);
     public static final MatchType CONTACT = create("CONTACT_GROUP_ID", null, CAT_CONTACT);
 
-    
+
     private static MatchType create(String name, String scope, String category) {
         MatchType result = new MatchType(name, scope, category);
         TYPES.put(name, result);
@@ -58,18 +58,18 @@ public class MatchType {
         catSet.add(result);
         return result;
     }
-    
+
     private String name;
     private String scope;
     private String category;
-    
+
     private MatchType(String name0, String scope0, String category0) {
         Asserts.assertNotNull(name0, "name0");
         name = name0;
         scope = scope0;
         category = category0;
     }
-    
+
     /**
      * Get the name
      * @return the name
@@ -78,7 +78,7 @@ public class MatchType {
         return name;
     }
 
-    
+
     /**
      * @return Returns the scope.
      */
@@ -86,7 +86,7 @@ public class MatchType {
         return scope;
     }
 
-    
+
     /**
      * Return the category of the match type, one of the constants
      * {@link #CAT_SCOPE}, {@link #CAT_STATE}, or {@link #CAT_REGEX}
@@ -129,7 +129,7 @@ public class MatchType {
         }
         return result;
     }
-    
+
     /**
      * Return a set of all the match types with the given category
      * @param category the category for which to return match types

@@ -5240,23 +5240,23 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to 
-syncronize kickstart distributions from Spacewalk to Cobbler.  These 
-errors must be corrected for the distributions to be available for 
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
 kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-Im Folgenden sehen Sie eine Liste auftretender Fehler während 
+Im Folgenden sehen Sie eine Liste auftretender Fehler während
 Spacewalk versucht, Kickstart-Distributionen von Spacewalk nach Cobbler
 zu synchronisieren.  Diese Fehler müssen behoben werden, damit die
 Distributionen für kickstartende Systeme verfügbar werden:
@@ -5265,7 +5265,7 @@ Distributionen für kickstartende Systeme verfügbar werden:
 
 Bitte überprüfen Sie:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

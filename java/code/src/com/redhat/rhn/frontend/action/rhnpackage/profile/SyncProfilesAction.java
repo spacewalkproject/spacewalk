@@ -41,11 +41,11 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class SyncProfilesAction extends BaseProfilesAction {
-    
+
     private static Logger log = Logger.getLogger(SyncProfilesAction.class);
-    private static final CompareProfileSetupAction DECL_ACTION = 
+    private static final CompareProfileSetupAction DECL_ACTION =
         new CompareProfileSetupAction();
-    
+
     /**
      * Schedules the synchronization of packages.
      * @param mapping ActionMapping
@@ -59,7 +59,7 @@ public class SyncProfilesAction extends BaseProfilesAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
@@ -69,35 +69,35 @@ public class SyncProfilesAction extends BaseProfilesAction {
         if (log.isDebugEnabled()) {
             log.debug("Calling syncToProfile");
         }
-        
+
         try {
-            Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, 
+            Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request,
                     getDecl(sid));
 
-            PackageAction pa = ProfileManager.syncToProfile(user, sid, prid, 
+            PackageAction pa = ProfileManager.syncToProfile(user, sid, prid,
                     pkgIdCombos, null, time);
-            
+
             if (pa != null) {
-               
+
                 addHardwareMessage(pa, requestContext);
-                
+
                 // sid, actionid, servername, profilename
                 List args = new ArrayList();
                 args.add(sid.toString());
                 args.add(pa.getId().toString());
                 args.add(requestContext.lookupAndBindServer().getName());
                 args.add(ProfileManager.lookupByIdAndOrg(prid, user.getOrg()).getName());
-                
+
                 createMessage(request, "message.syncpackages", args);
             }
             else {
                 createMessage(request, "message.nopackagestosync");
             }
-            
+
             if (log.isDebugEnabled()) {
                 log.debug("Returned from syncToProfile");
             }
-            
+
             Map params = new HashMap();
             params.put(RequestContext.SID, sid);
             params.put(RequestContext.PRID, prid);

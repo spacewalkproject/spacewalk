@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * GlobalConfigChannelList
  * @version $Rev$
  */
@@ -42,23 +42,23 @@ public class GlobalConfigChannelList extends RhnListAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         PageControl pc = new PageControl();
         pc.setFilterColumn("name");
         pc.setFilter(true);
-        
+
         clampListBounds(pc, request, user);
         request.setAttribute("pageList", getDataResult(user, pc));
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                 request.getParameterMap());
-        
+
     }
-    
+
     /**
-     * Gets a data result containing all of the global channels the given user can see. 
+     * Gets a data result containing all of the global channels the given user can see.
      * @param user The user requesting to see channels (logged in User)
      * @param pc A page control for this user
      * @return A list of Config Channels as a DTO

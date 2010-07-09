@@ -29,18 +29,18 @@ class StringMatcher implements Matcher {
      * {@inheritDoc}
      */
     public boolean include(Object obj, String filterData, String filterColumn) {
-        
+
         if (StringUtils.isBlank(filterData) ||
                     StringUtils.isBlank(filterColumn)) {
             return true; ///show all if I entered a blank value
         }
         else {
-            String value = ((String)MethodUtil.callMethod(obj, 
-                    StringUtil.beanify("get " + 
+            String value = ((String)MethodUtil.callMethod(obj,
+                    StringUtil.beanify("get " +
                                         filterColumn),
                                     new Object[0]));
             if (!StringUtils.isBlank(value)) {
-                return  value.toUpperCase().indexOf(filterData.toUpperCase()) >= 0;    
+                return  value.toUpperCase().indexOf(filterData.toUpperCase()) >= 0;
             }
         }
         return false;

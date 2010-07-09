@@ -31,7 +31,7 @@ public class InvalidIpRangeException extends FaultException  {
      */
     public InvalidIpRangeException(String range) {
         super(2786, "ipRange" , LocalizationService.getInstance().
-                getMessage("api.kickstart.iprange.invalid", 
+                getMessage("api.kickstart.iprange.invalid",
                         new Object [] {range}));
     }
 
@@ -42,8 +42,8 @@ public class InvalidIpRangeException extends FaultException  {
      */
     public InvalidIpRangeException(String range, Throwable cause) {
         super(2786, "ipRange" , LocalizationService.getInstance().
-                getMessage("api.kickstart.iprange.invalid", 
+                getMessage("api.kickstart.iprange.invalid",
                         new Object [] {range}), cause);
     }
-    
+
 }

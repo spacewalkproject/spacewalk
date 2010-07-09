@@ -32,9 +32,9 @@ public class CreateOrgCommandTest extends BaseTestCaseWithUser {
                 "test@redhat.com");
         assertNull(cmd.store());
         assertNotNull(cmd.getNewOrg());
-        assertNotNull(cmd.getNewOrg().getId());        
+        assertNotNull(cmd.getNewOrg().getId());
     }
-    
+
     public void testFailCreate() throws Exception {
         CreateOrgCommand cmd = new CreateOrgCommand(
                 "newOrg" + TestUtils.randomString(),

@@ -36,7 +36,7 @@ public class SystemIdInstantiationException extends FaultException  {
      * Constructor
      */
     public SystemIdInstantiationException() {
-        super(1004 , "systemIdCouldNotBeCreated" , "The system id file could " + 
+        super(1004 , "systemIdCouldNotBeCreated" , "The system id file could " +
                 "not be generated for this server.");
         // begin member variable initialization
     }
@@ -44,12 +44,12 @@ public class SystemIdInstantiationException extends FaultException  {
         /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public SystemIdInstantiationException(Throwable cause) {
-        super(1004 , "systemIdCouldNotBeCreated" , "The system id file could " + 
+        super(1004 , "systemIdCouldNotBeCreated" , "The system id file could " +
                 "not be generated for this server.", cause);
         // begin member variable initialization
     }

@@ -30,7 +30,7 @@
       <name>decorator</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-    </attribute>    
+    </attribute>
     <attribute>
       <name>name</name>
       <required>false</required>
@@ -65,7 +65,7 @@
       <name>title</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-    </attribute>    
+    </attribute>
     <attribute>
       <name>filter</name>
       <required>false</required>
@@ -152,7 +152,7 @@
       <name>rendericon</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-    </attribute>    
+    </attribute>
   </tag>
 
   <tag>
@@ -163,7 +163,7 @@
       <name>rendericon</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-    </attribute>    
+    </attribute>
   </tag>
 
 
@@ -215,7 +215,7 @@
       <name>defaultsort</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-    </attribute>    
+    </attribute>
     <attribute>
       <name>width</name>
       <required>false</required>
@@ -224,13 +224,13 @@
 	<attribute>
       <name>filterattr</name>
       <required>false</required>
-      <rtexprvalue>true</rtexprvalue>	    
+      <rtexprvalue>true</rtexprvalue>
     </attribute>
 	<attribute>
       <name>filtermessage</name>
       <required>false</required>
-      <rtexprvalue>true</rtexprvalue>	    
-    </attribute>    
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
   </tag>
   <tag>
     <name>selectablecolumn</name>
@@ -255,7 +255,7 @@
       <name>headerkey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-    </attribute> 
+    </attribute>
     <attribute>
       <name>value</name>
       <required>true</required>
@@ -271,7 +271,7 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-  </tag> 
+  </tag>
   <tag>
     <name>radiocolumn</name>
     <tag-class>com.redhat.rhn.frontend.taglibs.list.RadioColumnTag</tag-class>
@@ -295,7 +295,7 @@
       <name>headerkey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-    </attribute> 
+    </attribute>
     <attribute>
        <name>value</name>
       <required>true</required>
@@ -306,7 +306,7 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-  </tag> 
+  </tag>
 	<tag>
 		<name>csv</name>
 		<tag-class>com.redhat.rhn.frontend.taglibs.list.CSVTag</tag-class>

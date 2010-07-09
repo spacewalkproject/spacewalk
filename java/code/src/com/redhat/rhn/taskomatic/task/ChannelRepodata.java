@@ -24,17 +24,17 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 /**
- * 
+ *
  * @version $Rev $
  *
  */
 public class ChannelRepodata extends SingleThreadedTestableTask {
-    
+
     public static final String DISPLAY_NAME = "channel_repodata";
 
-    
+
     private static final Logger LOG = Logger.getLogger(ChannelRepodata.class);
-    
+
     /**
      * {@inheritDoc}
      */
@@ -44,7 +44,7 @@ public class ChannelRepodata extends SingleThreadedTestableTask {
         TaskQueue queue = factory.getQueue("channel_repodata_queue");
         if (queue == null) {
             try {
-                queue = factory.createQueue("channel_repodata_queue", 
+                queue = factory.createQueue("channel_repodata_queue",
                         ChannelRepodataDriver.class);
             }
             catch (Exception e) {
@@ -57,8 +57,8 @@ public class ChannelRepodata extends SingleThreadedTestableTask {
                 "taskomatic.channel_repodata_max_work_items", 2);
         if (queue.getQueueSize() < maxWorkItems) {
             queue.run();
-        }        
+        }
     }
-    
+
 
 }

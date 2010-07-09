@@ -36,13 +36,13 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
 
     private ChannelOrgHandler handler = new ChannelOrgHandler();
     private OrgHandler orgHandler = new OrgHandler();
-    
+
     public void setUp() throws Exception {
         super.setUp();
         admin.addRole(RoleFactory.SAT_ADMIN);
         TestUtils.saveAndFlush(admin);
     }
-    
+
     public void testList() throws Exception {
         // setup
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
@@ -51,29 +51,29 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
 
         Org org2 = createOrg();
         Org org3 = createOrg();
-        
+
         org2.addTrust(admin.getOrg());
         org3.addTrust(admin.getOrg());
-        
+
         channel.getTrustedOrgs().add(org3);
-        
+
         OrgFactory.save(admin.getOrg());
         ChannelFactory.save(channel);
         flushAndEvict(channel);
 
         // execute
         List<Map<String, Object>> result = handler.list(adminKey, channel.getLabel());
-        
+
         // verify
         assertNotNull(result);
         assertTrue(result.size() >= 2);
-        
+
         boolean foundOrg2 = false, foundOrg3 = false;
         for (Map<String, Object> org : result) {
             String name = (String) org.get("org_name");
             Integer orgId = (Integer) org.get("org_id");
             Boolean access = (Boolean) org.get("access_enabled");
-            
+
             if (name.equals(org2.getName())) {
                 foundOrg2 = true;
                 assertEquals(org2.getId().intValue(), orgId.intValue());
@@ -107,19 +107,19 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         flushAndEvict(channel);
 
         assertFalse(channel.getTrustedOrgs().contains(org2));
-        assertFalse(channel.getTrustedOrgs().contains(org3));        
-        
+        assertFalse(channel.getTrustedOrgs().contains(org3));
+
         // execute
-        int result = handler.enableAccess(adminKey, channel.getLabel(), 
+        int result = handler.enableAccess(adminKey, channel.getLabel(),
                 org3.getId().intValue());
-        
+
         // verify
         assertEquals(1, result);
         channel = ChannelFactory.lookupByLabelAndUser(channel.getLabel(), admin);
         assertFalse(channel.getTrustedOrgs().contains(org2));
         assertTrue(channel.getTrustedOrgs().contains(org3));
     }
-    
+
     public void testDisableAccess() throws Exception {
         // setup
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
@@ -129,28 +129,28 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         Org org3 = createOrg();
         org2.addTrust(admin.getOrg());
         org3.addTrust(admin.getOrg());
-        
+
         channel.getTrustedOrgs().add(org2);
         channel.getTrustedOrgs().add(org3);
-        
+
         // only protected channels can have separate org trusts
         channel.setAccess(Channel.PROTECTED);
 
         OrgFactory.save(admin.getOrg());
         ChannelFactory.save(channel);
         flushAndEvict(channel);
-        
+
         // execute
-        int result = handler.disableAccess(adminKey, channel.getLabel(), 
+        int result = handler.disableAccess(adminKey, channel.getLabel(),
                 org3.getId().intValue());
-        
+
         // verify
         assertEquals(1, result);
         channel = ChannelFactory.lookupByLabelAndUser(channel.getLabel(), admin);
         assertTrue(channel.getTrustedOrgs().contains(org2));
         assertFalse(channel.getTrustedOrgs().contains(org3));
     }
-    
+
     private Org createOrg() throws Exception {
         String random = TestUtils.randomString();
         String orgName = "EdwardNortonOrg" + random;
@@ -162,9 +162,9 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         String email = "EddieNorton@redhat.com";
         Boolean usePam = Boolean.FALSE;
 
-        orgHandler.create(adminKey, orgName, login, password, prefix, first, 
+        orgHandler.create(adminKey, orgName, login, password, prefix, first,
                 last, email, usePam);
-        
+
         Org org =  OrgFactory.lookupByName(orgName);
         assertNotNull(org);
         return org;

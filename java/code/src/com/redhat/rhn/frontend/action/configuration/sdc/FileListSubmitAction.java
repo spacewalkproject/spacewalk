@@ -75,7 +75,7 @@ public class FileListSubmitAction extends RhnSetAction {
             HttpServletRequest request, Map params) {
         params.put("sid", new RequestContext(request).getRequiredParam("sid"));
     }
-    
+
     /**
      * Forwards to the confirm page unless the user hasn't selected anything.
      * @param mapping struts ActionMapping
@@ -98,7 +98,7 @@ public class FileListSubmitAction extends RhnSetAction {
                     mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     makeParamMap(formIn, request));
         }
-        
+
         //They selected stuff! send them to the confirm page.
         Map params = new HashMap();
         processParamMap(formIn, request, params);

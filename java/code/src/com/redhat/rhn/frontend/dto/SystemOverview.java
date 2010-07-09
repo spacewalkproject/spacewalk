@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
- * 
+ *
  * @version $Rev: 1743 $
  */
 public class SystemOverview extends BaseDto implements Serializable  {
@@ -73,8 +73,8 @@ public class SystemOverview extends BaseDto implements Serializable  {
     private boolean isVirtualHost;
     private boolean isVirtualGuest;
     private static final  String NONE_VALUE = "(none)";
-    
-    
+
+
     /**
      * @return Returns the statusDisplay.
      */
@@ -128,7 +128,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
      */
     public String getChannelLabels() {
         if (StringUtils.isBlank(channelLabels) ||  channelLabels.equals(NONE_VALUE)) {
-            return LocalizationService.getInstance().getMessage("none.message");    
+            return LocalizationService.getInstance().getMessage("none.message");
         }
         return channelLabels;
     }
@@ -174,7 +174,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
     public void setHistoryCount(Long historyCountIn) {
         this.historyCount = historyCountIn;
     }
-    /** 
+    /**
      * @return Returns the id for the base software channel.
      */
     public Long getChannelId() {
@@ -198,25 +198,25 @@ public class SystemOverview extends BaseDto implements Serializable  {
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * @return Returns Date of the lastCheckin
      */
     public Date getLastCheckinDate() {
         return lastCheckin;
     }
-    
+
     /**
      * @return Returns string that represents the lastCheckin time
      */
     public String getLastCheckinString() {
         return lastCheckinString;
     }
-    
+
     /**
-     * @param stringIn string to set the lastCheckinString to 
+     * @param stringIn string to set the lastCheckinString to
      */
-    
+
     public void setLastCheckinString(String stringIn) {
         this.lastCheckinString = stringIn;
     }
@@ -239,8 +239,8 @@ public class SystemOverview extends BaseDto implements Serializable  {
                         LocalizationService.RHN_DB_DATEFORMAT).parse(lastCheckinIn);
             }
             catch (ParseException e) {
-                throw new IllegalArgumentException("lastCheckin must be of the: [" + 
-                        LocalizationService.RHN_DB_DATEFORMAT + "] it was: " + 
+                throw new IllegalArgumentException("lastCheckin must be of the: [" +
+                        LocalizationService.RHN_DB_DATEFORMAT + "] it was: " +
                         lastCheckinIn);
             }
         }
@@ -479,14 +479,14 @@ public class SystemOverview extends BaseDto implements Serializable  {
         }
         return results;
     }
-    
+
     /**
      * This is now for display only - the data goes into entitlement
      *
      * @return Returns the entitlementLevel.
      */
     public String getEntitlementLevel() {
-        // Get the entitlements for this row. If not null, loop through and get 
+        // Get the entitlements for this row. If not null, loop through and get
         // localized versions of the labels and make into a comma-delimited list
         LocalizationService ls = LocalizationService.getInstance();
         List ent = getEntitlement();
@@ -508,11 +508,11 @@ public class SystemOverview extends BaseDto implements Serializable  {
         }
     }
     /**
-     * Display only..  
+     * Display only..
      * @return Returns the base entitlement
      */
     public String getBaseEntitlementLevel() {
-        // Get the entitlements for this row. If not null, loop through and get 
+        // Get the entitlements for this row. If not null, loop through and get
         // localized versions of the labels and make into a comma-delimited list
         LocalizationService ls = LocalizationService.getInstance();
         List ent = getEntitlement();
@@ -521,30 +521,30 @@ public class SystemOverview extends BaseDto implements Serializable  {
         }
         return ls.getMessage("unentitled");
     }
-    
+
     /**
-     * Display only..  
+     * Display only..
      * @return Returns the add-on entitlements
      */
     public String getAddOnEntitlementLevel() {
-        // Get the entitlements for this row. If not null, loop through and get 
+        // Get the entitlements for this row. If not null, loop through and get
         // localized versions of the labels and make into a comma-delimited list
         LocalizationService ls = LocalizationService.getInstance();
         List ent = getEntitlement();
-        
+
         if (ent == null || ent.size() < 2) {
-            return ls.getMessage("unentitled"); 
+            return ls.getMessage("unentitled");
         }
-        
+
         String msg = ls.getMessage((String) ent.get(1));
-        
+
         for (int i = 2; i < ent.size(); i++) {
-            msg = msg + 
-                  ls.getMessage("list delimiter") + 
+            msg = msg +
+                  ls.getMessage("list delimiter") +
                   ls.getMessage((String) ent.get(i));
         }
         return msg;
-    }    
+    }
 
     /**
      * @return Returns the entitlement.
@@ -597,7 +597,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
     public void setEntitlementIsBase(List entitlementIsBaseIn) {
         this.entitlementIsBase = entitlementIsBaseIn;
     }
-    
+
     /**
      * @param selectableIn Whether a server is selectable
      * one if selectable, null if not selectable
@@ -605,7 +605,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
     public void setSelectable(Long selectableIn) {
         selectable = (selectableIn != null);
     }
-    
+
     /**
      * Tells whether a system is selectable for the SSM
      * All management and provisioning entitled servers are true
@@ -623,16 +623,16 @@ public class SystemOverview extends BaseDto implements Serializable  {
         return new ToStringBuilder(this).append("id", id).append("serverName",
                 serverName).toString();
     }
-    
+
     /**
      * Creates a string to represent how long the system has been inactive.
      * The unit it is in depends on how many hours is has been inactive
      */
     public void setInactivityString() {
-        
+
         LocalizationService ls = LocalizationService.getInstance();
         StringBuffer buffer = new StringBuffer();
-        
+
         if (lastCheckinDaysAgo.compareTo(new Long(1)) < 0) {
             buffer.append(lastCheckinDaysAgo * new Long(24));
             ls.getMessage("filter-form.jspf.hours");
@@ -645,10 +645,10 @@ public class SystemOverview extends BaseDto implements Serializable  {
             buffer.append(lastCheckinDaysAgo.longValue() / 7);
             ls.getMessage("filter-form.jspf.weeks");
         }
-        
+
         lastCheckinString = buffer.toString();
     }
-    
+
     /**
      * @return Returns the info.
      */
@@ -680,7 +680,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
     public Date getCreated() {
         return created;
     }
-    
+
     /**
      * @param createdIn The created to set.
      */
@@ -701,29 +701,29 @@ public class SystemOverview extends BaseDto implements Serializable  {
     public boolean getVirtualGuest() {
         return this.isVirtualGuest;
     }
-  
+
     /**
-     * @param host Value is true if the system is a virtual host, false if the 
+     * @param host Value is true if the system is a virtual host, false if the
      *  system is not a virtual host. Sets isVirtualHost to true or false.
      */
     public void setVirtualHost(Object host) {
-        isVirtualHost = (host != null); 
+        isVirtualHost = (host != null);
     }
 
     /**
-     * @param guest Value is true if the system is a virtual guest, false if the 
+     * @param guest Value is true if the system is a virtual guest, false if the
      * system is not a virtual guest. Sets isVirtualGuest to true or false.
      */
     public void setVirtualGuest(Object guest) {
         isVirtualGuest = (guest != null);
     }
-    
+
     /**
      * @return Returns the totalErrataCount.
      */
     public Long getTotalErrataCount() {
         return enhancementErrata + securityErrata + bugErrata;
     }
-    
+
 
 }

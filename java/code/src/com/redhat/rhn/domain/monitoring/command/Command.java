@@ -301,7 +301,7 @@ public class Command {
      * <code>value1 &gt;= value2</code> when compared as numbers. The
      * parameters in the returned list are of type {@link ThresholdParameter},
      * and the values are strings.
-     * 
+     *
      * @param metric the metric for which to check the parameter values
      * @param toValue a transformer mapping threshold parameters to their value
      * @return a list indicating which parameters have non-ascending values.
@@ -317,7 +317,7 @@ public class Command {
             Float currValue = null;
             try {
                 currValue = NumberUtils.createFloat(currStr);
-            } 
+            }
             catch (NumberFormatException e) {
                 // Ignore this value
                 currValue = null;
@@ -374,7 +374,7 @@ public class Command {
         }
 
         public boolean evaluate(Object object) {
-            return (object instanceof ThresholdParameter) && 
+            return (object instanceof ThresholdParameter) &&
                 m.equals(((ThresholdParameter) object).getMetric());
         }
 

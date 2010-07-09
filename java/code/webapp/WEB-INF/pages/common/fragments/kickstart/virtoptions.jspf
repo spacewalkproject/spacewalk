@@ -14,7 +14,7 @@
             <th><bean:message key="kickstartdetails.jsp.virt_mem_mb"/>:</th>
             <td><html:text property="virt_mem_mb" size="10" /></td>
           </tr>
-                    
+
          <tr>
             <th><bean:message key="kickstartdetails.jsp.virt_cpus"/>:</th>
             <td><html:text property="virt_cpus" size="10" /></td>
@@ -23,10 +23,10 @@
             <th><bean:message key="kickstartdetails.jsp.virt_disk_size"/>:</th>
             <td><html:text property="virt_disk_size" size="10" /></td>
           </tr>
-          
+
         <tr>
             <th><bean:message key="kickstartdetails.jsp.virt_bridge"/>:</th>
             <td><html:text property="virt_bridge"  size="10" /></td>
          </tr>
-          
+
 </c:if>

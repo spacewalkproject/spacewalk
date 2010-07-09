@@ -33,7 +33,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class RetiredChannelTreeActionTest extends RhnBaseTestCase {
-    
+
     public void testPerformExecute() throws Exception {
         RetiredChannelTreeAction action = new RetiredChannelTreeAction() {
             protected DataResult getDataResult(User user, ListControl lc) {
@@ -43,14 +43,14 @@ public class RetiredChannelTreeActionTest extends RhnBaseTestCase {
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action, "default");
         sah.getRequest().setupAddParameter(RequestContext.FILTER_STRING, (String) null);
-        
+
         User user = sah.getUser();
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         channel.setEndOfLife(new Date(System.currentTimeMillis() - 100000));
         user.getOrg().addOwnedChannel(channel);
-        
+
         OrgFactory.save(user.getOrg());
-        
+
         sah.executeAction();
         DataResult dr = (DataResult) sah.getRequest().getAttribute("pageList");
         assertNotEmpty(dr);

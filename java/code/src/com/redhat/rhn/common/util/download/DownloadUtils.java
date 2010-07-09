@@ -28,16 +28,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * 
+ *
  * DownloadUtils
  * @version $Rev$
  */
 public class DownloadUtils {
 
     private DownloadUtils() {
-        
+
     }
-    
+
     /**
      * Downloads text from the URL and returns it as a string
      * @param url the url
@@ -51,15 +51,15 @@ public class DownloadUtils {
            u = new URL(url);
            HttpURLConnection conn = (HttpURLConnection)u.openConnection();
            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-               throw new DownloadException(url, 
-                               toString(conn.getErrorStream()), 
+               throw new DownloadException(url,
+                               toString(conn.getErrorStream()),
                                conn.getResponseCode());
            }
            toReturn.append(toString(conn.getInputStream()));
-        } 
+        }
         catch (MalformedURLException mue) {
             toReturn.append(mue.getLocalizedMessage());
-        } 
+        }
         catch (IOException ioe) {
             toReturn.append(ioe.getLocalizedMessage());
         }
@@ -68,14 +68,14 @@ public class DownloadUtils {
               if (is != null) {
                   is.close();
               }
-           } 
+           }
            catch (IOException ioe) {
                toReturn.append(ioe.getLocalizedMessage());
            }
         }
         return toReturn.toString();
     }
-    
+
     private static String toString(InputStream stream) throws IOException {
         StringWriter writer = new StringWriter();
         IOUtils.getInstance().copyWriter(

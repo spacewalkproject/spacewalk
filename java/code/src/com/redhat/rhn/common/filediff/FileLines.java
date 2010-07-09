@@ -22,58 +22,58 @@ import java.util.List;
  * @version $Rev$
  */
 public class FileLines {
-    
+
     private List lines;
     private int fromLine;
     private int toLine;
-    
+
     /**
      * Can only be created in this package.
      */
     protected FileLines() {
         lines = new ArrayList();
     }
-    
-    
+
+
     /**
      * @param fromLineIn The fromLine to set.
      */
     public void setFromLine(int fromLineIn) {
         fromLine = fromLineIn;
     }
-    
-    
+
+
     /**
      * @param toLineIn The toLine to set.
      */
     public void setToLine(int toLineIn) {
         toLine = toLineIn;
     }
-    
-    
+
+
     /**
      * @return Returns the fromLine.
      */
     public int getFromLine() {
         return fromLine;
     }
-    
-    
+
+
     /**
      * @return Returns the toLine.
      */
     public int getToLine() {
         return toLine;
     }
-    
-    
+
+
     /**
      * @return Returns the lines.
      */
     public List getLines() {
         return lines;
     }
-    
+
     /**
      * @param line The line to append to the list of lines.
      */

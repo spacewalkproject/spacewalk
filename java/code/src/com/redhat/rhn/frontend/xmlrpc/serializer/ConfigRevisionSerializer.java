@@ -29,9 +29,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
 /**
  * ConfigRevisionSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
- * #struct("Configuration Revision information") 
+ * #struct("Configuration Revision information")
  *   #prop("string", "type")
  *              #options()
  *                  #item("file")
@@ -69,8 +69,8 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
     public static final String MACRO_END = "macro-end-delimiter";
     public static final String BINARY = "binary";
     public static final String TYPE = "type";
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -104,7 +104,7 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
         if (rev.isFile()) {
             if (!rev.getConfigContent().isBinary()) {
                 helper.add(BINARY, Boolean.FALSE);
-                helper.add(CONTENTS, rev.getConfigContent().getContentsString());    
+                helper.add(CONTENTS, rev.getConfigContent().getContentsString());
             }
             else {
                 helper.add(BINARY, Boolean.TRUE);

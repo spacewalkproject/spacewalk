@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class TargetSystemsAction extends RhnListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -48,39 +48,39 @@ public class TargetSystemsAction extends RhnListAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         PageControl pc = new PageControl();
         pc.setFilterColumn("name");
         pc.setFilter(true);
 
         clampListBounds(pc, request, user);
-        
+
         DataResult dr = getDataResult(user, pc);
         request.setAttribute(RequestContext.PAGE_LIST, dr);
-        
+
         if (!isSubmitted((DynaActionForm) formIn)) {
             getSetDecl().clear(user);
         }
-        
+
         //Put the date picker into the form
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
-        
+
         RhnSet set = getSetDecl().get(user);
         request.setAttribute("date", picker);
         request.setAttribute("set", set);
         request.setAttribute("newset", trackSet(set, request));
-        
-        
+
+
         Map params = request.getParameterMap();
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
-    
+
     /**
      * @return set declarative
      */

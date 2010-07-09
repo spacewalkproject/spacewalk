@@ -49,7 +49,7 @@
 <h2><bean:message key="duplicate.compare.jsp.header"/></h2>
 <rl:listset name="DupesCompareSet" legend="system">
 		<p><bean:message key="duplicate.compares.jsp.message" arg0="${requestScope.maxLimit}"/>.</p>
-<rl:list 
+<rl:list
 	emptykey="nosystems.message"
 		alphabarcolumn="name"	
 		filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter"	
@@ -60,9 +60,9 @@
 	 						styleclass="first-column"/>
 
 	<!-- Name Column -->
-	<rl:column headerkey="systemlist.jsp.system" sortable="true" bound="false" sortattr="name" 
+	<rl:column headerkey="systemlist.jsp.system" sortable="true" bound="false" sortattr="name"
 		           defaultsort="asc">
-		<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>		           
+		<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
 	</rl:column>
 	<rl:column sortattr="lastCheckinDate"
 					attr="lastCheckin"
@@ -84,7 +84,7 @@
 <h2><bean:message key='System Comparison'/></h2>
 <c:choose> <c:when test="${requestScope.systems.size > 0}">
 <table cellpadding="0" cellspacing="0" class="list compare-list">
-	<thead><tr> 
+	<thead><tr>
 	<th> Property</th>
 	<c:forEach items="${requestScope.systems.servers}" var="current">
   		<th><%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %></th>
@@ -168,7 +168,7 @@
 	    </th>
 	</tr>
 
-	<tr class="list-row-odd" id = "baseChannelRow"> 
+	<tr class="list-row-odd" id = "baseChannelRow">
 		<c:set var ="key" value="kickstart.channel.label.jsp"/>
 		<c:set var ="items_list" value="${requestScope.systems.baseChannels}"/>
 		<c:set var ="href" value="/rhn/channels/ChannelDetail.do?cid="/>

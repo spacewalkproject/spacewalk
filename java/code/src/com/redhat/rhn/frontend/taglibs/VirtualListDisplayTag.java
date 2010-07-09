@@ -30,7 +30,7 @@ public class VirtualListDisplayTag extends ListDisplayTag {
 
     protected int outerRowCnt = 0;
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      *
      * We need to override getTrElement because we are doing two
      * different 'levels' of background color.  One for the 'host'
@@ -78,7 +78,7 @@ public class VirtualListDisplayTag extends ListDisplayTag {
         return super.doStartTag();
     }
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      *
      * Overriding release just to reset outerRowCnt
      */

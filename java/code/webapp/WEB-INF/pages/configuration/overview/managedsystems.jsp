@@ -20,7 +20,7 @@
     <bean:message key="managedsystems.jsp.summary"/>
     </p>
   </div>
-  
+
 <form method="post" name="rhn_list" action="/rhn/configuration/system/ManagedSystems.do">
 
   <rhn:list pageList="${requestScope.pageList}" noDataText="managedsystems.jsp.noSystems">
@@ -31,7 +31,7 @@
              alt="<bean:message key='system.common.systemAlt' />" />
         <c:out value="${current.name}" />
       </rhn:column>
-      
+
       <rhn:column header="managedsystems.jsp.localfiles">
         <c:set var="locfiles" scope="request" >
           <c:if test="${current.localFileCount == 1}">
@@ -49,19 +49,19 @@
             <bean:message key="managedsystems.jsp.numoverrides" arg0="${current.overriddenCount}" />
           </c:if>
         </c:set>
-        
+
         <c:choose>
         	<c:when test="${current.overriddenCount == 0}">
         	  <bean:message key="none.message"/>
         	</c:when>
         	<c:otherwise>
-        	  <bean:message key="managedsystems.jsp.local" 
+		  <bean:message key="managedsystems.jsp.local"
                       arg0="/rhn/systems/details/configuration/ViewModifyLocalPaths.do?sid=${current.id}"
                       arg1="${requestScope.locfiles}" arg2="${requestScope.overs}"/>
             </c:otherwise>
          </c:choose>
       </rhn:column>
-      
+
       <rhn:column header="managedsystems.jsp.globalfiles">
         <c:set var="globfiles" scope="request" >
           <c:if test="${current.globalFileCount == 1}">
@@ -84,8 +84,8 @@
         	  <bean:message key="none.message"/>
         	</c:when>
         	<c:otherwise>
-        	  <bean:message key="managedsystems.jsp.global" 
-                      arg0="${requestScope.globfiles}" 
+		  <bean:message key="managedsystems.jsp.global"
+                      arg0="${requestScope.globfiles}"
                       arg1="/rhn/systems/details/configuration/ConfigChannelList.do?sid=${current.id}"
                       arg2="${requestScope.confchan}"/>
            </c:otherwise>
@@ -93,7 +93,7 @@
       </rhn:column>
     </rhn:listdisplay>
   </rhn:list>
-  
+
 </form>
 
 </body>

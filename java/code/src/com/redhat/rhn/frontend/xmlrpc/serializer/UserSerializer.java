@@ -26,16 +26,16 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * UserSerializer a serializer for the User class
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
  *      #struct("user")
  *              #prop("int", "id")
  *              #prop("string", "login")
  *              #prop_desc("string", "login_uc", "upper case version of the login")
- *              #prop_desc("boolean", "enabled", "true if user is enabled, 
+ *              #prop_desc("boolean", "enabled", "true if user is enabled,
  *                         false if the user is disabled")
  *      #struct_end()
  */
@@ -43,29 +43,29 @@ public class UserSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    public Class getSupportedClass() {       
+    public Class getSupportedClass() {
         return User.class;
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
        SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
-       User user = (User) value; 
+       User user = (User) value;
        helper.add("id", user.getId());
        helper.add("login", user.getLogin());
        helper.add("login_uc", user.getLoginUc());
-       
+
        if (user.isDisabled()) {
            helper.add("enabled", Boolean.FALSE);
        }
        else {
            helper.add("enabled", Boolean.TRUE);
        }
-       
+
        helper.writeTo(output);
     }
 }

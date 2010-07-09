@@ -11,8 +11,8 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstart.script.header1"/></h2>
@@ -22,7 +22,7 @@
     <bean:message key="kickstart.script.summary"/>
   </p>
     <html:form method="post" action="/kickstart/KickstartScriptCreate.do">
-      <%@ include file="script-form.jspf" %>      
+      <%@ include file="script-form.jspf" %>
       <html:hidden property="ksid" value="${ksdata.id}"/>
       <html:hidden property="submitted" value="true"/>
     </html:form>

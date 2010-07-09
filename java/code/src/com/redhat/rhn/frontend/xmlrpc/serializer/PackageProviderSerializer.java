@@ -29,7 +29,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * PackageKeySerializer
  * @version $Rev$
  *
- * @xmlrpc.doc 
+ * @xmlrpc.doc
  *   #struct("package provider")
  *   #prop("string", "name")
  *   #prop_array_begin("keys")

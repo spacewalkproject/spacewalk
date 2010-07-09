@@ -35,9 +35,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class FlexGuestAction extends RhnAction implements Listable {
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping,

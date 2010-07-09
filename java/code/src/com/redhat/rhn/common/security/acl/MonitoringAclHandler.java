@@ -28,14 +28,14 @@ import java.util.Map;
 public class MonitoringAclHandler extends BaseHandler implements AclHandler {
 
     /**
-     * 
+     *
      */
     public MonitoringAclHandler() {
         super();
     }
 
     /**
-     * Check to see if Monitoring is turned on and if the 
+     * Check to see if Monitoring is turned on and if the
      * User is a MONITORING_ADMIN or not.
      * @param ctx Context Map to pass in
      * @param params Parameters to use to fetch from Context
@@ -62,9 +62,9 @@ public class MonitoringAclHandler extends BaseHandler implements AclHandler {
             Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT) ||
             Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
     }
-    
+
     /**
-     * Check to see if Monitoring is turned on and if the 
+     * Check to see if Monitoring is turned on and if the
      * User is a MONITORING_ADMIN or not.
      * @param ctx Context Map to pass in
      * @param params Parameters to use to fetch from Context
@@ -73,7 +73,7 @@ public class MonitoringAclHandler extends BaseHandler implements AclHandler {
     public boolean aclOrgHasScouts(Object ctx, String[] params) {
         Map map = (Map) ctx;
         User user = (User) map.get("user");
-        return (checkMonitoring(user) && 
+        return (checkMonitoring(user) &&
                 user.getOrg().getMonitoringScouts() != null &&
                 user.getOrg().getMonitoringScouts().size() > 0);
     }

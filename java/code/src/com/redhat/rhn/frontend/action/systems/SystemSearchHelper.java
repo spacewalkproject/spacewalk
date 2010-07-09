@@ -187,12 +187,12 @@ public class SystemSearchHelper {
             log.warn("Unknown index: " + index);
             log.warn("Defaulting to treating this as a " + SERVER_INDEX + " index");
             serverIds = getResultMapFromServerIndex(results);
-        } 
+        }
         if (invertResults) {
             serverIds = invertResults(user, serverIds);
         }
         // Assuming we search all systems by default, unless whereToSearch states
-        // to use the System Set Manager systems only.  In that case we simply do a 
+        // to use the System Set Manager systems only.  In that case we simply do a
         // filter of returned search results to only return IDs which are in SSM
         if ("system_list".equals(whereToSearch)) {
             serverIds = filterOutIdsNotInSSM(user, serverIds);
@@ -377,10 +377,10 @@ public class SystemSearchHelper {
     }
 
     /**
-     * We did a normal package search and got back a List of results for 
-     * the package name(s), now we correlate that to what systems have those 
+     * We did a normal package search and got back a List of results for
+     * the package name(s), now we correlate that to what systems have those
      * installed, or need them to be updated.
-     * 
+     *
      * TODO:  Look into a quicker/more efficient implementation.  This appears to
      * work....but I think it can be become quicker.
      */
@@ -398,8 +398,8 @@ public class SystemSearchHelper {
             pkgItem.put("score", result.get("score"));
             pkgItem.put("name", result.get("name"));
             pkgItem.put("pkgId", result.get("id"));
-            
-            /** 
+
+            /**
              * Ensure we process at least the first result.
              * Remeber, first result might be a group of packages with the same
              * name but different archs, we want to process the whole group.
@@ -674,12 +674,12 @@ public class SystemSearchHelper {
         }
         return serverList;
     }
-    
+
     protected static List<Long> getSystemsByInstalledPackageId(User user, Long pkgId) {
         List serverIds = new ArrayList<Long>();
         List<SystemOverview> data = SystemManager.listSystemsWithPackage(user, pkgId);
         if (data == null) {
-            log.info("SystemSearchHelper.getSystemsByInstalledPackageId(" + pkgId + 
+            log.info("SystemSearchHelper.getSystemsByInstalledPackageId(" + pkgId +
                     ") got back null.");
             return null;
         }
@@ -688,12 +688,12 @@ public class SystemSearchHelper {
         }
         return serverIds;
     }
-    
+
     protected static List<Long> getSystemsByNeededPackageId(User user, Long pkgId) {
         List serverIds = new ArrayList<Long>();
         List<SystemOverview> data = SystemManager.listSystemsWithNeededPackage(user, pkgId);
         if (data == null) {
-            log.info("SystemSearchHelper.getSystemsByNeededPackageId(" + pkgId + 
+            log.info("SystemSearchHelper.getSystemsByNeededPackageId(" + pkgId +
                     ") got back null.");
             return null;
         }
@@ -702,20 +702,20 @@ public class SystemSearchHelper {
         }
         return serverIds;
     }
-    
+
     protected static Map filterOutIdsNotInSSM(User user, Map ids) {
         RhnSet systems = RhnSetDecl.SYSTEMS.get(user);
         Object[] keys = ids.keySet().toArray();
         for (Object key : keys) {
             if (!systems.contains((Long)key)) {
-                log.debug("SystemSearchHelper.filterOutIdsNotInSSM() removing system id " + 
+                log.debug("SystemSearchHelper.filterOutIdsNotInSSM() removing system id " +
                         key + ", because it is not in the SystemSetManager list of ids");
                 ids.remove(key);
             }
         }
         return ids;
     }
-    
+
     protected static Map invertResults(User user, Map ids) {
         // Hack to guess at what the matchingField should be, use the "matchingField" from
         // the first item in the passed in Map of ids
@@ -725,12 +725,12 @@ public class SystemSearchHelper {
             Map firstItem = (Map)ids.get(key);
             matchingField = (String)firstItem.get("matchingField");
         }
-        log.info("Will use <" + matchingField + "> as the value to supply for " + 
+        log.info("Will use <" + matchingField + "> as the value to supply for " +
                 "matchingField in all of these invertMatches");
-        // Get list of all SystemIds and save to new Map 
+        // Get list of all SystemIds and save to new Map
         Map invertedIds = new HashMap();
         DataResult<SystemOverview> dr = SystemManager.systemList(user, null);
-        log.info(dr.size() + " systems came back as the total number of visible systems " + 
+        log.info(dr.size() + " systems came back as the total number of visible systems " +
                 "to this user");
         for (SystemOverview so : dr) {
             log.debug("Adding system id: " + so.getId() + " to allIds map");
@@ -749,7 +749,7 @@ public class SystemSearchHelper {
         log.info("returning " + invertedIds.size() + " system ids as the inverted results");
         return invertedIds;
     }
-    
+
     protected static String formatDateString(Date d) {
         String dateFormat = "yyyyMMddHHmm";
         java.text.SimpleDateFormat sdf =

@@ -24,7 +24,7 @@ import java.net.URL;
 import javax.servlet.jsp.tagext.Tag;
 
 /**
- * A class that allows us to easily test jsp tags. 
+ * A class that allows us to easily test jsp tags.
  *
  * @version $Rev$
  */
@@ -42,9 +42,9 @@ public class TagTestUtils {
      * @return TagTestHelper
      * @see com.mockobjects.helpers.TagTestHelper
      */
-    public static TagTestHelper setupTagTest(Tag tag, URL url, 
+    public static TagTestHelper setupTagTest(Tag tag, URL url,
                                              RhnMockHttpServletRequest request) {
-    
+
         TagTestHelper tth = new TagTestHelper(tag);
         MockPageContext mpc = tth.getPageContext();
         MockServletContext ctx = (MockServletContext) mpc.getServletContext();
@@ -56,7 +56,7 @@ public class TagTestUtils {
         request.setSession(new RhnMockHttpSession());
         mpc.setRequest(request);
         mpc.setJspWriter(new RhnMockJspWriter());
-                
+
         if (url != null) {
             ctx.setupGetResource(url);
         }
@@ -74,6 +74,6 @@ public class TagTestUtils {
     public static TagTestHelper setupTagTest(Tag tag, URL url) {
         return setupTagTest(tag, url, null);
     }
-    
+
 }
 

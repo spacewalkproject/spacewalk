@@ -22,7 +22,7 @@ package org.cobbler;
  */
 public class XmlRpcException extends RuntimeException {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 
@@ -38,8 +38,8 @@ public class XmlRpcException extends RuntimeException {
      */
     public XmlRpcException(Throwable causeIn) {
         super(causeIn);
-    }    
-    
+    }
+
     /**
      * @param messageIn exception message
      * @param causeIn cause

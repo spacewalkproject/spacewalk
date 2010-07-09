@@ -32,21 +32,21 @@ import java.util.Map;
  * NotificationFactory - the singleton class used to fetch and store
  * com.redhat.rhn.domain.monitoring.notification.* objects from the
  * database.
- * @version $Rev: 51602 $ 
+ * @version $Rev: 51602 $
  */
 public class NotificationFactory extends HibernateFactory {
-    
-    
+
+
     public static final FilterType FILTER_TYPE_REDIR = lookupFilterType("REDIR");
-    
+
     public static final FilterType FILTER_TYPE_ACK = lookupFilterType("ACK");
-    
+
     public static final FilterType FILTER_TYPE_BLACKHOLE = lookupFilterType("BLACKHOLE");
-    
+
     public static final FilterType FILTER_TYPE_METOO = lookupFilterType("METOO");
 
     private static final List FILTER_TYPES;
-    
+
     static {
         List types = new ArrayList();
         types.add(FILTER_TYPE_REDIR);
@@ -57,24 +57,24 @@ public class NotificationFactory extends HibernateFactory {
     }
 
     /** Default Format class for Notification Methods */
-    
+
     public static final Format FORMAT_DEFAULT = lookupFormat(new Long(4));
-    
+
     public static final MethodType TYPE_PAGER = lookupMethodType(new Long(1));
-    
+
     public static final MethodType TYPE_EMAIL = lookupMethodType(new Long(2));
-    
+
     public static final MethodType TYPE_GROUP = lookupMethodType(new Long(4));
-    
+
     public static final MethodType TYPE_SNMP = lookupMethodType(new Long(5));
-    
+
     private static NotificationFactory singleton = new NotificationFactory();
     private static Logger log = Logger.getLogger(NotificationFactory.class);
-    
+
     private NotificationFactory() {
         super();
     }
-    
+
     /**
      * Get the Logger for the derived class so log messages
      * show up on the correct class
@@ -82,13 +82,13 @@ public class NotificationFactory extends HibernateFactory {
     protected Logger getLogger() {
         return log;
     }
-    
+
     /**
      * Create a new ContactGroup.  Sets up proper defaults.
      * @param creator who owns this group
      * @return ContactGroup created
      */
-    public static ContactGroup createContactGroup(User creator) { 
+    public static ContactGroup createContactGroup(User creator) {
         ContactGroup cg = new ContactGroup();
         cg.setAckWait(new Long(0));
         cg.setCustomerId(creator.getOrg().getId());
@@ -98,10 +98,10 @@ public class NotificationFactory extends HibernateFactory {
         cg.setStrategyId(new Long(1));
         return cg;
     }
-    
-    /** 
+
+    /**
      * Store a notification Filter
-     * 
+     *
      * @param filterIn Filter to save.
      * @param currentUser who is saving the Filter
      */
@@ -110,7 +110,7 @@ public class NotificationFactory extends HibernateFactory {
         filterIn.setLastUpdateUser(currentUser.getLogin());
         singleton.saveObject(filterIn);
     }
-    
+
     /**
      * Lookup a Filter
      * @param id of the Filter
@@ -132,7 +132,7 @@ public class NotificationFactory extends HibernateFactory {
     public static List listFilterTypes() {
         return FILTER_TYPES;
     }
-    
+
     /**
      * Return the filter type with the given name
      * @param type the name of the filter type
@@ -144,12 +144,12 @@ public class NotificationFactory extends HibernateFactory {
             retval = (FilterType) getSession().get(FilterType.class, type);
         }
         catch (HibernateException e) {
-            throw new 
+            throw new
                 HibernateRuntimeException("Exception looking up FilterType: " + e, e);
         }
         return retval;
     }
-    
+
     /**
      * Lookup a Format.
      * @param idIn  of the Format
@@ -159,15 +159,15 @@ public class NotificationFactory extends HibernateFactory {
         Format retval = null;
         try {
             retval = (Format) getSession().get(Format.class, idIn);
-            
+
         }
         catch (HibernateException e) {
-            throw new 
+            throw new
                 HibernateRuntimeException("Exception looking up Format: " + e, e);
         }
         return retval;
     }
-    
+
     /**
      * Lookup a Format.
      * @param idIn  of the Format
@@ -177,18 +177,18 @@ public class NotificationFactory extends HibernateFactory {
         MethodType retval = null;
         try {
             retval = (MethodType) getSession().get(MethodType.class, idIn);
-            
+
         }
         catch (HibernateException e) {
-            throw new 
+            throw new
                 HibernateRuntimeException("Exception looking up MethodType: " + e, e);
         }
         return retval;
     }
 
-    /** 
+    /**
      * Store a notification Method
-     * 
+     *
      * @param methodIn Method to save.
      * @param currentUser who is saving the Method
      */
@@ -208,16 +208,16 @@ public class NotificationFactory extends HibernateFactory {
         Method retval = null;
         try {
             retval = (Method) getSession().get(Method.class, methodId);
-            
+
         }
         catch (HibernateException e) {
-            throw new 
+            throw new
                 HibernateRuntimeException("Exception looking up Method: " + e, e);
         }
-        // Security check since the 
+        // Security check since the
         if (retval != null && retval.getUser().getOrg().equals(currentUser.getOrg())) {
             return retval;
-        } 
+        }
         else {
             return null;
         }
@@ -238,7 +238,7 @@ public class NotificationFactory extends HibernateFactory {
     }
 
     /**
-     * Save a ContactGroup 
+     * Save a ContactGroup
      * @param userIn who is saving the ContactGroup
      * @param cg to save
      */

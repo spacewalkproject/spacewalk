@@ -37,11 +37,11 @@ import java.util.Map;
  */
 public class ErrataQueueDriver implements QueueDriver {
 
-    private static final Logger LOG = Logger.getLogger(ErrataQueue.class);    
-    
+    private static final Logger LOG = Logger.getLogger(ErrataQueue.class);
+
     /**
      * {@inheritDoc}
-     */    
+     */
     public boolean canContinue() {
         return true;
     }
@@ -67,7 +67,7 @@ public class ErrataQueueDriver implements QueueDriver {
             HibernateFactory.closeSession();
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -77,14 +77,14 @@ public class ErrataQueueDriver implements QueueDriver {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public int getMaxWorkers() {
         return Config.get().getInt("taskomatic.errata_queue_workers", 2);
     }
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public QueueWorker makeWorker(Object workItem) {
         return new ErrataQueueWorker((Map) workItem, LOG);
     }

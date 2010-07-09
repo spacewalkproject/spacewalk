@@ -53,51 +53,51 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1196 $
  */
 public class AdminUserEditAction extends UserEditActionHelper {
-    
+
     private static Logger log = Logger.getLogger(AdminUserEditAction.class);
     private static final String ROLE_SETTING_PREFIX = "role_";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         DynaActionForm form = (DynaActionForm)formIn;
-                
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         //We could be editing ourself, we could be editing another user...
-        User targetUser = UserManager.lookupUser(requestContext.getLoggedInUser(), 
+        User targetUser = UserManager.lookupUser(requestContext.getLoggedInUser(),
                                            requestContext.getParamAsLong("uid"));
         request.setAttribute(RhnHelper.TARGET_USER, targetUser);
-        
+
         //Make sure we got a user, if not, we must have gotten a bad uid
         if (targetUser == null) {
             throw new BadParameterException("Invalid uid, targetUser not found");
         }
         User loggedInUser = requestContext.getLoggedInUser();
-        
+
         //Update the users details with info entered on the form
         ActionErrors errors = updateDetails(targetUser, form);
         //If we have validation/form errors, return now and let the user fix those first
         if (!errors.isEmpty()) {
             return returnFailure(mapping, request, errors, targetUser.getId());
         }
-        
+
         /*
          * Update PAM Authentication attribute
          * If we're a satellite that is configured to use pam and the loggedIn user is an
-         * org_admin (and therefore the checkbox was displayed), we need to inspect the 
-         * "usepam" field on the form and set the targetUser's pam auth attribute 
+         * org_admin (and therefore the checkbox was displayed), we need to inspect the
+         * "usepam" field on the form and set the targetUser's pam auth attribute
          * accordingly. (we don't want to set this field if it wasn't displayed or if the
          * user doesn't have access to set this attribute)
          */
         String pamAuthService = Config.get().getString(ConfigDefaults.WEB_PAM_AUTH_SERVICE);
-        if (pamAuthService != null && 
-                pamAuthService.trim().length() > 0 && 
+        if (pamAuthService != null &&
+                pamAuthService.trim().length() > 0 &&
                 loggedInUser.hasRole(RoleFactory.ORG_ADMIN)) {
-            if (form.get("usepam") != null && 
+            if (form.get("usepam") != null &&
                     ((Boolean) form.get("usepam")).booleanValue()) {
                 targetUser.setUsePamAuthentication(true);
             }
@@ -105,16 +105,16 @@ public class AdminUserEditAction extends UserEditActionHelper {
                 targetUser.setUsePamAuthentication(false);
             }
         }
-        
+
         //Create the user info updated success message
-        createSuccessMessage(request, "message.userInfoUpdated", null); 
-        
+        createSuccessMessage(request, "message.userInfoUpdated", null);
+
         //Now we need to update user roles. If we get errors here, return failure
         errors = updateRoles(request, targetUser, loggedInUser);
         if (!errors.isEmpty()) {
             return returnFailure(mapping, request, errors, targetUser.getId());
         }
-        
+
         //Everything must have gone smoothly
         UserManager.storeUser(targetUser);
 
@@ -129,27 +129,27 @@ public class AdminUserEditAction extends UserEditActionHelper {
             !targetUser.hasRole(RoleFactory.ORG_ADMIN)) {
             dest = mapping.findForward("noaccess");
         }
-        
+
         return strutsDelegate.forwardParam(dest, "uid", String.valueOf(targetUser.getId()));
     }
-    
+
     /**
-     * Private helper method to save errors to the request and forward to the 
+     * Private helper method to save errors to the request and forward to the
      * failure mapping
      */
-    private ActionForward returnFailure(ActionMapping mapping, 
-                                        HttpServletRequest request, 
+    private ActionForward returnFailure(ActionMapping mapping,
+                                        HttpServletRequest request,
                                         ActionErrors errors,
                                         Long uid) {
         addErrors(request, errors);
         return getStrutsDelegate().forwardParam(mapping.findForward("failure"), "uid",
                                       String.valueOf(uid));
     }
-    
+
     /**
      * Private helper method to handle getting the new roles from the form and calling
      * UserManager.updateUserRolesFromRoleLabels().
-     * @param form The form containing selectedRoles. selectedRoles are the new set of 
+     * @param form The form containing selectedRoles. selectedRoles are the new set of
      *             roles to associate with the user.
      * @param targetUser The user who is having their roles updated.
      * @return Returns an ActionErrors object containing any errors that occurred while
@@ -159,34 +159,34 @@ public class AdminUserEditAction extends UserEditActionHelper {
                                         User targetUser,
                                         User loggedInUser) {
         log.debug(this.getClass().getName() + ".updateRoles()");
-        
+
         Set<String> disabledRoles = extractDisabledRoles(request);
-        
+
         ActionErrors errors = new ActionErrors();
         Org org = targetUser.getOrg();
         Set<Role> orgRoles = org.getRoles();
-        
+
         // Build a set of the users current role labels to help determine what we need
         // to add and remove:
         Set<String> existingRoles = new HashSet<String>();
         for (Role r : targetUser.getRoles()) {
             existingRoles.add(r.getLabel());
         }
-        
+
         // Look for an add/remove setting for each org role in the form:
         List<String> rolesToAdd = new LinkedList<String>();
         List<String> rolesToRemove = new LinkedList<String>();
         for (Role role : orgRoles) {
-            
+
             if (disabledRoles.contains(role.getLabel())) {
                 // Role was disabled when we built this form, so skip:
                 continue;
             }
-            
-            String roleSetting = request.getParameter(ROLE_SETTING_PREFIX + 
+
+            String roleSetting = request.getParameter(ROLE_SETTING_PREFIX +
                     role.getLabel());
             log.debug("   " + role.getName() + " / " + roleSetting);
-            
+
             if (roleSetting != null && !existingRoles.contains(role.getLabel())) {
                 // Must have been newly checked:
                 rolesToAdd.add(role.getLabel());
@@ -198,22 +198,22 @@ public class AdminUserEditAction extends UserEditActionHelper {
         }
 
         try {
-            UserManager.addRemoveUserRoles(targetUser, rolesToAdd, 
+            UserManager.addRemoveUserRoles(targetUser, rolesToAdd,
                     rolesToRemove);
-            
+
             //if he is an org amin make sure he does NOT
             // have any subscribed Server Groups, because
             // by becoming an org admin he is automatically
-            // subscribed to every group... and so his list 
-            // will be empty.. 
-            if (targetUser.hasRole(RoleFactory.ORG_ADMIN) && 
+            // subscribed to every group... and so his list
+            // will be empty..
+            if (targetUser.hasRole(RoleFactory.ORG_ADMIN) &&
                     !targetUser.getAssociatedServerGroups().isEmpty()) {
                 ServerGroupManager manager = ServerGroupManager.getInstance();
                 Set admins = new HashSet();
                 admins.add(targetUser);
-                for (Iterator itr = targetUser.getAssociatedServerGroups().iterator(); 
+                for (Iterator itr = targetUser.getAssociatedServerGroups().iterator();
                         itr.hasNext();) {
-                    
+
                     ManagedServerGroup sg = (ManagedServerGroup) itr.next();
                     manager.dissociateAdmins(sg, admins, loggedInUser);
                     itr.remove();
@@ -227,7 +227,7 @@ public class AdminUserEditAction extends UserEditActionHelper {
 
         return errors;
     }
-    
+
     private Set<String> extractDisabledRoles(HttpServletRequest request) {
         String hiddenInput = request.getParameter("disabledRoles");
         Set<String> returnVal = new HashSet<String>(

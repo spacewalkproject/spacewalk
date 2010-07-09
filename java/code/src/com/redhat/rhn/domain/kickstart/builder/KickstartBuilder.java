@@ -57,11 +57,11 @@ import java.util.regex.Pattern;
 public class KickstartBuilder {
 
     private static Logger log = Logger.getLogger(KickstartBuilder.class);
-    
+
     private static final String IA64 = "IA-64";
     private static final String PPC = "PPC";
     private static final int MIN_KS_LABEL_LENGTH = 6;
-    
+
     // Kickstart options frequently have multiple aliases, but we only support one version
     // in our database. This map will be used to convert to the supported version.
     private static Map<String, String> optionAliases;
@@ -74,16 +74,16 @@ public class KickstartBuilder {
         optionAliases.put("part", "partitions");
         optionAliases.put("raid", "raids");
         optionAliases.put("volgroup", "volgroups");
-        
+
         installationTypes = new HashSet<String>();
         installationTypes.add("nfs");
         installationTypes.add("url");
         installationTypes.add("cdrom");
         installationTypes.add("harddrive");
     }
-    
+
     private final User user;
-    
+
 
     /**
      * Constructor
@@ -92,7 +92,7 @@ public class KickstartBuilder {
     public KickstartBuilder(User userIn) {
         user = userIn;
     }
-    
+
     /**
      * Create KickstartCommands and associate with their KickstartData.
      * @param ksData KickstartData to associate commands with.
@@ -100,20 +100,20 @@ public class KickstartBuilder {
      * @param tree KickstartableTree for the new kickstart profile.
      * @param kickstartHost Kickstart host to use when constructing the default URL. Set to
      * null if you wish to use the url/cdrom/nfs/harddrive command values in the kickstart
-     * file instead. 
+     * file instead.
      */
-    public void buildCommands(KickstartData ksData, List<String> lines, 
+    public void buildCommands(KickstartData ksData, List<String> lines,
             KickstartableTree tree, String kickstartHost) {
 
         // Grab a list of all the available command names:
         List<KickstartCommandName> availableOptions = KickstartFactory
                 .lookupAllKickstartCommandNames(ksData);
-        Map<String, KickstartCommandName> commandNames = 
+        Map<String, KickstartCommandName> commandNames =
             new HashMap<String, KickstartCommandName>();
         for (KickstartCommandName cmdName : availableOptions) {
             commandNames.put(cmdName.getName(), cmdName);
         }
-        
+
         Set<KickstartCommand> commandOptions = new HashSet<KickstartCommand>();
 
         for (String currentLine : lines) {
@@ -129,7 +129,7 @@ public class KickstartBuilder {
                 restOfLine = currentLine.substring(firstSpaceIndex).trim();
                 firstWord = currentLine.substring(0, firstSpaceIndex).trim();
             }
-            
+
             if (optionAliases.containsKey(firstWord)) {
                 firstWord = (String)optionAliases.get(firstWord);
             }
@@ -141,7 +141,7 @@ public class KickstartBuilder {
                 log.warn("Unable to parse kickstart command: " + firstWord);
                 continue;
             }
-            
+
             // If we're to use the default URL for the new profile's kickstart tree,
             // ignore any url/nfs/cdrom/harddrive commands and instead add the default url:
             if (kickstartHost != null && installationTypes.contains(firstWord)) {
@@ -161,7 +161,7 @@ public class KickstartBuilder {
             kc.setModified(new Date());
             if (cn.getArgs().booleanValue()) {
                 if (cn.getName().equals("rootpw")) {
-                    
+
                     // RHN only stores encrypted passwords and assumes it should add the
                     // --iscrypted option to rootpw when generating the final kickstart
                     // file. When importing we need to check for this option, remove it
@@ -182,17 +182,17 @@ public class KickstartBuilder {
                         restOfLine = MD5Crypt.crypt(tokens[0]);
                     }
                 }
-                
+
                 kc.setArguments(restOfLine);
             }
             commandOptions.add(kc);
 
         }
-        
+
         ksData.getCommands().addAll(commandOptions);
         KickstartFactory.saveKickstartData(ksData);
     }
-    
+
     /**
      * Add packages to the given KickstartData.
      * @param ksData KickstartData to associate commands with.
@@ -203,18 +203,18 @@ public class KickstartBuilder {
             // Could conceivably be no packages?
             return;
         }
-        
+
         // Make sure the first line starts with %packages for sanity:
         if (!((String)lines.get(0)).startsWith("%packages")) {
             throw new KickstartParsingException("Packages section didn't start with " +
                 "%packages tag.");
         }
-        
+
         Set<KickstartPackage> ksPackagesSet = new TreeSet<KickstartPackage>();
         Long pos = new Long(0);
         for (Iterator<String> it = lines.iterator(); it.hasNext();) {
             String currentLine = (String)it.next();
-            if (currentLine.startsWith("#") || currentLine.startsWith("%packages") || 
+            if (currentLine.startsWith("#") || currentLine.startsWith("%packages") ||
                     currentLine.equals("")) {
                 continue;
             }
@@ -222,7 +222,7 @@ public class KickstartBuilder {
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(currentLine);
             ksPackagesSet.add(new KickstartPackage(ksData, pn, pos));
         }
-        
+
         ksData.getKsPackages().addAll(ksPackagesSet);
     }
 
@@ -235,7 +235,7 @@ public class KickstartBuilder {
     public void buildPreScripts(KickstartData ksData, List<String> lines) {
         parseScript(ksData, lines, "%pre");
     }
-    
+
     /**
      * Builds the post-scripts and associates them with the given KickstartData. Lines can
      * include multiple %post sections.
@@ -247,11 +247,11 @@ public class KickstartBuilder {
     }
 
     private void parseScript(KickstartData ksData, List<String> lines, String prefix) {
-        
+
         if (lines.size() == 0) {
             return;
         }
-        
+
         if (!(lines.get(0)).startsWith(prefix)) {
             throw new KickstartParsingException("Pre section didn't start with " +
                 "%pre tag.");
@@ -266,10 +266,10 @@ public class KickstartBuilder {
                     storeScript(prefix, ksData, buf, interpreter, chroot);
                 }
                 buf = new StringBuffer();
-                
+
                 interpreter = getInterpreter(currentLine);
                 chroot = getChroot(prefix, currentLine);
-                
+
                 continue;
             }
             if (buf.length() > 0) {
@@ -279,7 +279,7 @@ public class KickstartBuilder {
         }
         storeScript(prefix, ksData, buf, interpreter, chroot);
     }
-    
+
     private String getInterpreter(String prefixLine) {
         String [] tokens = prefixLine.split(" ");
         for (int i = 1; i < tokens.length; i++) {
@@ -293,7 +293,7 @@ public class KickstartBuilder {
         }
         return null;
     }
-    
+
     private String getChroot(String prefix, String prefixLine) {
         String [] tokens = prefixLine.split(" ");
         for (int i = 1; i < tokens.length; i++) {
@@ -308,30 +308,30 @@ public class KickstartBuilder {
         }
         return "Y";
     }
-    
+
     private void storeScript(String prefix, KickstartData ksData, StringBuffer buf,
             String interpreter, String chroot) {
-        KickstartScriptCreateCommand scriptCommand = 
+        KickstartScriptCreateCommand scriptCommand =
             new KickstartScriptCreateCommand(ksData.getId(), user);
-        
+
         String type = KickstartScript.TYPE_PRE;
         if (prefix.equals("%post")) {
             type = KickstartScript.TYPE_POST;
         }
-        
+
         scriptCommand.setScript(interpreter, buf.toString(), type, chroot, false);
         scriptCommand.store();
 
     }
-    
+
     private void checkRoles() {
-        if (!user.hasRole(RoleFactory.ORG_ADMIN) && 
+        if (!user.hasRole(RoleFactory.ORG_ADMIN) &&
                 !user.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionException("Only Org Admins or Configuration Admins can " +
                 "modify kickstarts.");
         }
     }
-    
+
     /**
      * Construct a KickstartData.
      * @param parser KickstartParser to build from.
@@ -341,11 +341,11 @@ public class KickstartBuilder {
      * @param tree KickstartableTree to associate with the new KickstartData.
      * @param kickstartHost Kickstart host to use when constructing the default URL. Set to
      * null if you wish to use the url/cdrom/nfs/harddrive command values in the kickstart
-     * file instead. 
+     * file instead.
      * the kickstart file and use the default for the given kickstart tree.
      * @return KickstartData
      */
-    public KickstartData createFromParser(KickstartParser parser, String label, 
+    public KickstartData createFromParser(KickstartParser parser, String label,
             String virtualizationType, KickstartableTree tree, String kickstartHost) {
         KickstartData ksdata = new KickstartData();
         setupBasicInfo(label, ksdata, tree, virtualizationType);
@@ -353,17 +353,17 @@ public class KickstartBuilder {
         if (ksdata.getKsPackages() == null) {
             ksdata.setKsPackages(new TreeSet<KickstartPackage>());
         }
-        
+
         buildCommands(ksdata, parser.getOptionLines(), tree, kickstartHost);
         buildPackages(ksdata, parser.getPackageLines());
         buildPreScripts(ksdata, parser.getPreScriptLines());
         buildPostScripts(ksdata, parser.getPostScriptLines());
-        
+
         KickstartWizardHelper cmd = new KickstartWizardHelper(user);
         cmd.store(ksdata);
         return ksdata;
     }
-    
+
     /**
      * Tests to see if a kickstart label is valid or not
      * @param ksLabel The label to test
@@ -375,9 +375,9 @@ public class KickstartBuilder {
         }
         Pattern pattern = Pattern.compile("[A-Za-z0-9_-]+", Pattern.CASE_INSENSITIVE);
         Matcher match = pattern.matcher(ksLabel);
-        return match.matches();        
+        return match.matches();
     }
- 
+
     /**
      * Checks to see if the given label aready exists
      * @param label  the Ks label
@@ -395,7 +395,7 @@ public class KickstartBuilder {
      */
     public void validateNewLabel(String label) {
         if (StringUtils.isBlank(label)) {
-            ValidatorException.raiseException("kickstart.details.nolabel", 
+            ValidatorException.raiseException("kickstart.details.nolabel",
                                                            MIN_KS_LABEL_LENGTH);
         }
         if (labelAlreadyExists(label)) {
@@ -404,9 +404,9 @@ public class KickstartBuilder {
         if (!isLabelValid(label)) {
             ValidatorException.raiseException("kickstart.error.invalidlabel",
                                             MIN_KS_LABEL_LENGTH);
-        }   
+        }
     }
-    
+
     /**
      * Create a new KickstartRawData object
      * basically useful for KS raw mode.
@@ -416,7 +416,7 @@ public class KickstartBuilder {
      * @param fileContents to actually write out to disk.
      * @return new Kickstart Raw Data object
      */
-    public KickstartRawData createRawData(String label, 
+    public KickstartRawData createRawData(String label,
                                     KickstartableTree tree,
                                     String fileContents,
                                     String virtType) {
@@ -428,10 +428,10 @@ public class KickstartBuilder {
         cmd.store(ksdata);
         return ksdata;
     }
-    
-    
-    private void setupBasicInfo(String ksLabel, 
-            KickstartData ksdata, 
+
+
+    private void setupBasicInfo(String ksLabel,
+            KickstartData ksdata,
             KickstartableTree ksTree,
             String virtType) {
         checkRoles();
@@ -446,17 +446,17 @@ public class KickstartBuilder {
         defaults.setKsdata(ksdata);
         defaults.setCfgManagementFlag(Boolean.FALSE);
         defaults.setRemoteCommandFlag(Boolean.FALSE);
-        setupVirtType(virtType, ksdata);        
+        setupVirtType(virtType, ksdata);
     }
     /**
-     * Updates the label, tree and virty tpe infor 
+     * Updates the label, tree and virty tpe infor
      * for the passed in data
      * @param data ks data
      * @param label ks label
      * @param ksTree the ks tree
      * @param virtType the virt type
      */
-    public void update(KickstartData data, String label, 
+    public void update(KickstartData data, String label,
             KickstartableTree ksTree,
             String virtType) {
         checkRoles();
@@ -467,9 +467,9 @@ public class KickstartBuilder {
         data.getKickstartDefaults().setKstree(ksTree);
         setupVirtType(virtType, data);
         KickstartEditCommand cmd = new KickstartEditCommand(data, user);
-        cmd.store();    
+        cmd.store();
     }
-    
+
     /**
      * sets up the virt info for a ksdata
      * @param virtType vurt type
@@ -486,10 +486,10 @@ public class KickstartBuilder {
         }
         data.getKickstartDefaults().setVirtualizationType(ksVirtType);
     }
-    
+
     /**
      * Create a new KickstartData.
-     * 
+     *
      * @param ksLabel Label for the new kickstart profile.
      * @param tree KickstartableTree the new profile is associated with.
      * @param virtType fully_virtualized, para_virtualized, or none.
@@ -498,10 +498,10 @@ public class KickstartBuilder {
      * @param kickstartHost the host that is serving up the kickstart configuration file.
      * @return Newly created KickstartData.
      */
-    public KickstartData create(String ksLabel, KickstartableTree tree, 
+    public KickstartData create(String ksLabel, KickstartableTree tree,
             String virtType, String downloadUrl, String rootPassword,
             String kickstartHost) {
-        
+
         checkRoles();
         KickstartData ksdata = new KickstartData();
         setupBasicInfo(ksLabel, ksdata, tree, virtType);
@@ -515,12 +515,12 @@ public class KickstartBuilder {
         ksdata.getCommands().add(kscmd);
         kscmd.setKickstartData(ksdata);
         kscmd.setCreated(new Date());
-        
+
         KickstartWizardHelper cmd = new KickstartWizardHelper(user);
         setNetwork(cmd, ksdata);
-        
+
         setRootPassword(cmd, ksdata, rootPassword);
-        
+
         // Set defaults
         setLanguage(cmd, ksdata);
         setKeyboardMouse(cmd, ksdata);
@@ -540,40 +540,40 @@ public class KickstartBuilder {
         return ksdata;
 
     }
-    
-    private void setRootPassword(KickstartWizardHelper cmd, 
+
+    private void setRootPassword(KickstartWizardHelper cmd,
             KickstartData ksdata, String rootPassword) {
         cmd.createCommand("rootpw", MD5Crypt.crypt(rootPassword), ksdata);
     }
-    
-    private void setLanguage(KickstartWizardHelper cmd, 
+
+    private void setLanguage(KickstartWizardHelper cmd,
             KickstartData ksdata) {
         cmd.createCommand("lang", "en_US", ksdata);
         if (!ksdata.isRhel5OrGreater()) {
             cmd.createCommand("langsupport", "--default en_US en_US", ksdata);
         }
     }
-    
-    private void setKeyboardMouse(KickstartWizardHelper cmd, 
+
+    private void setKeyboardMouse(KickstartWizardHelper cmd,
             KickstartData ksdata) {
         cmd.createCommand("keyboard", "us", ksdata);
         if (!ksdata.isRhel5OrGreater()) {
             cmd.createCommand("mouse", "none", ksdata);
         }
     }
-    
+
     private void setTimezone(KickstartWizardHelper cmd, KickstartData ksdata) {
         cmd.createCommand("timezone", "America/New_York", ksdata);
     }
-    
+
     private void setAuth(KickstartWizardHelper cmd, KickstartData ksdata) {
         cmd.createCommand("auth", "--enablemd5 --enableshadow", ksdata);
     }
-    
+
     private void setNetwork(KickstartWizardHelper cmd, KickstartData ksdata) {
         cmd.createCommand("network", "--bootproto dhcp", ksdata);
     }
-    
+
     private void setMiscDefaults(KickstartWizardHelper cmd, KickstartData ksdata) {
         if (!ksdata.isRhel5OrGreater()) {
             cmd.createCommand("zerombr", "yes", ksdata);
@@ -589,9 +589,9 @@ public class KickstartBuilder {
             cmd.createCommand("selinux", "--permissive", ksdata);
         }
         cmd.createCommand("text", null, ksdata);
-        cmd.createCommand("install", null, ksdata);        
+        cmd.createCommand("install", null, ksdata);
     }
-     
+
     /**
      * Setup the bootloader command for this profile's current settings.
      * @param cmd Helper
@@ -600,22 +600,22 @@ public class KickstartBuilder {
     public static void setBootloader(KickstartWizardHelper cmd, KickstartData ksdata) {
         if (ksdata.getKickstartDefaults().getVirtualizationType().getLabel().equals(
                 KickstartVirtualizationType.XEN_PARAVIRT)) {
-            cmd.createCommand("bootloader", "--location mbr --driveorder=xvda --append=", 
+            cmd.createCommand("bootloader", "--location mbr --driveorder=xvda --append=",
                     ksdata);
         }
         else {
             cmd.createCommand("bootloader", "--location mbr", ksdata);
         }
     }
-    
+
     /**
      * Setup the default partition scheme for this kickstart profile's current settings.
-     * 
+     *
      * @param cmd Helper
      * @param ksdata Kickstart data.
      */
     public static void setPartitionScheme(KickstartWizardHelper cmd, KickstartData ksdata) {
-        
+
         if (ksdata.getChannel().getChannelArch().getName().equals(IA64)) {
             setItaniumParitionScheme(cmd, ksdata);
         }
@@ -628,11 +628,11 @@ public class KickstartBuilder {
             if (virtType.equals(KickstartVirtualizationType.XEN_PARAVIRT)) {
                 cmd.createCommand("partitions", "pv.00 --size=0 --grow --ondisk=xvda",
                         ksdata);
-                cmd.createCommand("partitions", 
+                cmd.createCommand("partitions",
                         "/boot --fstype ext3 --size=100 --ondisk=xvda",
                         ksdata);
                 cmd.createCommand("volgroups", "VolGroup00 --pesize=32768 pv.00", ksdata);
-                cmd.createCommand("logvols", 
+                cmd.createCommand("logvols",
                         "/ --fstype ext3 --name=LogVol00 --vgname=VolGroup00" +
                         " --size=1024 --grow",
                         ksdata);
@@ -642,14 +642,14 @@ public class KickstartBuilder {
                         ksdata);
             }
             else if (!ksdata.isLegacyKickstart()) {
-                cmd.createCommand("partitions", "/boot --fstype=ext3 --size=200", 
+                cmd.createCommand("partitions", "/boot --fstype=ext3 --size=200",
                         ksdata);
-                cmd.createCommand("partitions", "swap --size=1000   --maxsize=2000", 
+                cmd.createCommand("partitions", "swap --size=1000   --maxsize=2000",
                         ksdata);
-                cmd.createCommand("partitions", "pv.01 --size=1000 --grow", 
+                cmd.createCommand("partitions", "pv.01 --size=1000 --grow",
                         ksdata);
                 cmd.createCommand("volgroups", "myvg pv.01", ksdata);
-                cmd.createCommand("logvols", 
+                cmd.createCommand("logvols",
                         "/ --vgname=myvg --name=rootvol --size=1000 --grow", ksdata);
             }
             else {
@@ -662,18 +662,18 @@ public class KickstartBuilder {
             }
         }
     }
-    
-    private static void setItaniumParitionScheme(KickstartWizardHelper cmd, 
+
+    private static void setItaniumParitionScheme(KickstartWizardHelper cmd,
             KickstartData ksdata) {
         if (!ksdata.isLegacyKickstart()) {
-            cmd.createCommand("partitions", "/boot/efi --fstype=vfat --size=100", 
+            cmd.createCommand("partitions", "/boot/efi --fstype=vfat --size=100",
                     ksdata);
-            cmd.createCommand("partitions", "swap --size=1000 --grow --maxsize=2000", 
+            cmd.createCommand("partitions", "swap --size=1000 --grow --maxsize=2000",
                     ksdata);
-            cmd.createCommand("partitions", "pv.01 --fstype=ext3 --size=700 --grow", 
+            cmd.createCommand("partitions", "pv.01 --fstype=ext3 --size=700 --grow",
                     ksdata);
             cmd.createCommand("volgroups", "myvg pv.01", ksdata);
-            cmd.createCommand("logvols", 
+            cmd.createCommand("logvols",
                     "/ --vgname=myvg --name=rootvol --size=1000 --grow", ksdata);
         }
         else {
@@ -685,23 +685,23 @@ public class KickstartBuilder {
                     ksdata);
         }
     }
-    
-    private static void setPpcPartitionScheme(KickstartWizardHelper cmd, 
+
+    private static void setPpcPartitionScheme(KickstartWizardHelper cmd,
             KickstartData ksdata) {
         log.debug("Adding PPC specific partition info:");
         if (!ksdata.isLegacyKickstart()) {
             cmd.createCommand("partitions", "/boot --fstype=ext3 --size=200", ksdata);
-            cmd.createCommand("partitions", "prepboot --fstype \"PPC PReP Boot\" --size=4", 
+            cmd.createCommand("partitions", "prepboot --fstype \"PPC PReP Boot\" --size=4",
                     ksdata);
             cmd.createCommand("partitions", "swap --size=1000   --maxsize=2000", ksdata);
             cmd.createCommand("partitions", "pv.01 --size=1000 --grow", ksdata);
             cmd.createCommand("volgroups", "myvg pv.01", ksdata);
-            cmd.createCommand("logvols", 
+            cmd.createCommand("logvols",
                     "/ --vgname=myvg --name=rootvol --size=1000 --grow", ksdata);
         }
         else {
             cmd.createCommand("partitions", "/boot --fstype=ext3 --size=200", ksdata);
-            cmd.createCommand("partitions", "prepboot --fstype \"PPC PReP Boot\" --size=4", 
+            cmd.createCommand("partitions", "prepboot --fstype \"PPC PReP Boot\" --size=4",
                     ksdata);
             cmd.createCommand("partitions", "swap --size=1000 --grow --maxsize=2000",
                     ksdata);
@@ -709,6 +709,6 @@ public class KickstartBuilder {
         }
 
     }
-    
-    
+
+
 }

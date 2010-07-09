@@ -42,9 +42,9 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
      * Logger for this class
      */
     private static Logger log = Logger.getLogger(SystemAclHandler.class);
-    
+
     /**
-     * 
+     *
      */
     public SystemAclHandler() {
         super();
@@ -67,7 +67,7 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
         Long sid = getAsLong(map.get("sid"));
         return SystemManager.clientCapable(sid, params[0]);
     }
-    
+
     /**
      * TODO: Right now this method calls a small little query
      * very similar to how the perl code decides this acl.
@@ -81,7 +81,7 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
         Map map = (Map) ctx;
         Long sid = getAsLong(map.get("sid"));
         String label = params[0];
-        
+
         SelectMode m = ModeFactory.getMode("Channel_queries", "child_channel_candidate");
         Map queryParams = new HashMap();
         queryParams.put("label", label);
@@ -89,7 +89,7 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
         DataResult dr = m.execute(queryParams);
         return (dr.size() > 0);
     }
-    
+
     /**
      * This acl is basically a combination of two others.
      * I basically lifted the logic right from the perl code.
@@ -103,7 +103,7 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
         return handler.aclOrgChannelFamily(ctx, params) &&
                 aclChildChannelCandidate(ctx, params);
     }
-    
+
     /**
      * FIXME not implemented. Currently this method
      * is unimplemented and ALWAYS returns false
@@ -115,7 +115,7 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
         // FIXME implement
         throw new UnsupportedOperationException("aclSystemProfileCapable not implemented");
     }
-    
+
     /**
      * Uses the sid param to decide if a system is a satellite server
      * @param ctx Context Map to pass in
@@ -125,14 +125,14 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
     public boolean aclSystemIsSatellite(Object ctx, String[] params) {
         Map map = (Map) ctx;
         Long sid = getAsLong(map.get("sid"));
-        
+
         SelectMode m = ModeFactory.getMode("System_queries", "is_satellite");
         Map queryParams = new HashMap();
         queryParams.put("sid", sid);
         DataResult dr = m.execute(queryParams);
         return (dr.size() > 0);
     }
-    
+
     /**
      * Uses the sid param to decide if a system is a proxy server
      * @param ctx Context Map to pass in
@@ -142,14 +142,14 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
     public boolean aclSystemIsProxy(Object ctx, String[] params) {
         Map map = (Map) ctx;
         Long sid = getAsLong(map.get("sid"));
-        
+
         SelectMode m = ModeFactory.getMode("System_queries", "is_proxy");
         Map queryParams = new HashMap();
         queryParams.put("sid", sid);
         DataResult dr = m.execute(queryParams);
         return (dr.size() > 0);
     }
-    
+
     /**
      * Uses the sid param to decide if a system is a satellite server
      * @param ctx Context Map to pass in
@@ -161,12 +161,12 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
         Long sid = getAsLong(map.get("sid"));
         User user = (User)map.get("user");
         Server lookedUp = SystemManager.lookupByIdAndUser(sid, user);
-        
+
         return lookedUp.isVirtualGuest();
     }
-    
+
     /**
-     * Checks to see if the system has a KickstartSession 
+     * Checks to see if the system has a KickstartSession
      * @param ctx Context Map to pass in
      * @param params Parameters to use (unused)
      * @return true if a system has a session
@@ -174,11 +174,11 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
     public boolean aclSystemKickstartSessionExists(Object ctx, String[] params) {
         Map map = (Map) ctx;
         Long sid = getAsLong(map.get("sid"));
-        return (KickstartFactory.lookupKickstartSessionByServer(sid) != null); 
+        return (KickstartFactory.lookupKickstartSessionByServer(sid) != null);
     }
-    
+
     /**
-     * Checks to see if a cobbler system record exists for this system  
+     * Checks to see if a cobbler system record exists for this system
      * @param ctx Context Map to pass in
      * @param params Parameters to use (unused)
      * @return true if a system has a session
@@ -198,7 +198,7 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
             return record != null;
         }
         catch (Exception e) {
-            log.error("Cobbler connection errored out for Id" + 
+            log.error("Cobbler connection errored out for Id" +
                                                 server.getCobblerId(), e);
             return false;
         }
@@ -213,6 +213,6 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
         Map map = (Map) ctx;
         User user = (User)map.get("user");
         List  proxies = ServerFactory.lookupProxiesByOrg(user);
-        return proxies.size() > 0; 
+        return proxies.size() > 0;
     }
 }

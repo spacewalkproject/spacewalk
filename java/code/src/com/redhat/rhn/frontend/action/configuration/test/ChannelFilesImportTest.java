@@ -26,25 +26,25 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class ChannelFilesImportTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecuteNoFiles() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //create a file that is not in this channel
         ConfigTestUtils.createConfigFile(user.getOrg());
-        
+
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
         long ccid = cc.getId().longValue();
         setRequestPathInfo("/configuration/ChannelImportFiles");
         addRequestParameter("ccid", "" + ccid);
         actionPerform();
     }
-    
+
     public void testSubmitNoFiles() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
         long ccid = cc.getId().longValue();
         setRequestPathInfo("/configuration/ChannelImportFilesSubmit");

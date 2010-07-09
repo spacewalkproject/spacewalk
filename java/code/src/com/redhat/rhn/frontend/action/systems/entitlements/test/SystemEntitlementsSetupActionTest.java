@@ -38,7 +38,7 @@ import com.redhat.rhn.testing.UserTestUtils;
 import java.util.Iterator;
 
 /**
- * 
+ *
  * SystemEntitlementsSetupActionToast
  * @version $Rev$
  */
@@ -48,13 +48,13 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
      */
     public void setUp() throws Exception {
         super.setUp();
-        
+
         setRequestPathInfo("/systems/SystemEntitlements");
         UserTestUtils.addManagement(user.getOrg());
         UserTestUtils.addMonitoring(user.getOrg());
     }
     /**
-     * 
+     *
      * @throws Exception exception if test fails
      */
     public void tesUpdateEntitledUser() throws Exception {
@@ -62,11 +62,11 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         ServerFactoryTest.createTestServer(user);
         executeTests();
         assertNotNull(request.getAttribute(
-                SystemEntitlementsSetupAction.SHOW_UPDATE_ASPECTS));        
+                SystemEntitlementsSetupAction.SHOW_UPDATE_ASPECTS));
         assertNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_NO_SYSTEMS));
         assertNotNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_COMMANDS));
         assertNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_MONITORING));
-        
+
         assertNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_ADDON_ASPECTS));
         assertNull(request.getAttribute(SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));
         assertNull(request.getAttribute(
@@ -78,25 +78,25 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getAttribute(
                 SystemEntitlementsSetupAction.MANAGEMENT_COUNTS_MESSAGE));
         testZeroSlots(SystemEntitlementsSetupAction.SHOW_UPDATE_ASPECTS,
-                ServerConstants.getServerGroupTypeUpdateEntitled());        
+                ServerConstants.getServerGroupTypeUpdateEntitled());
     }
-    
+
     public void testUpdatePlusVirt() throws Exception {
-        
+
         ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeUpdateEntitled());
-        
+
         UserTestUtils.addVirtualization(user.getOrg());
         executeTests();
         assertNotNull(request.getAttribute(
-                SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));            
+                SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));
         assertNotNull(request.getAttribute(
                 SystemEntitlementsSetupAction.VIRTUALIZATION_COUNTS_MESSAGE));
-        
+
     }
-    
+
     /**
-     * 
+     *
      * @throws Exception exception if test fails
      */
     public void testManagementEntitledUser() throws Exception {
@@ -105,29 +105,29 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
                         ServerConstants.getServerGroupTypeEnterpriseEntitled());
 
         UserFactory.save(user);
-        OrgFactory.save(user.getOrg());        
-        
+        OrgFactory.save(user.getOrg());
+
         executeTests();
         assertNotNull(request.getAttribute(
                                 SystemEntitlementsSetupAction.SHOW_MANAGEMENT_ASPECTS));
         assertNotNull(request.getAttribute(
                 SystemEntitlementsSetupAction.MANAGEMENT_COUNTS_MESSAGE));
-        
+
         assertNotNull(request.getAttribute(
                 SystemEntitlementsSetupAction.SHOW_ADDON_ASPECTS));
         assertNotNull(request.getAttribute(
-                SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));            
+                SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));
 
         assertNotNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_COMMANDS));
 
         //add provisioning and test again...
         user.getOrg().getEntitlements().add(OrgFactory.getEntitlementProvisioning());
-        
+
         ServerGroup provisioning = ServerGroupTest.createTestServerGroup(user.getOrg(),
                  ServerConstants.getServerGroupTypeProvisioningEntitled());
          SystemManager.addServerToServerGroup(server, provisioning);
          UserFactory.save(user);
-         OrgFactory.save(user.getOrg());         
+         OrgFactory.save(user.getOrg());
          ServerFactory.save(server);
          executeTests();
          assertNotNull(request.getAttribute(
@@ -136,19 +136,19 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
                              SystemEntitlementsSetupAction.ADDON_ENTITLEMENTS));
 
          testZeroSlots(SystemEntitlementsSetupAction.SHOW_MANAGEMENT_ASPECTS,
-                         ServerConstants.getServerGroupTypeEnterpriseEntitled());         
+                         ServerConstants.getServerGroupTypeEnterpriseEntitled());
     }
     /**
-     * Tests the case where there are zero slots available  
+     * Tests the case where there are zero slots available
      * for a give servergroup type. In ttaht case we want the
-     * button set by the param name hidden. 
+     * button set by the param name hidden.
      * @param server server object
      * @param buttonName name of the button to be hidden
      * @param testGroupType the group type who's available subscriptions = 0
      */
-    private void testZeroSlots(String buttonName, 
+    private void testZeroSlots(String buttonName,
                                 ServerGroupType testGroupType) throws Exception {
-        
+
         // Testing to make sure the Management Entitled Button does not show up
          // if the number of subscription slots = 0
         EntitlementServerGroup group = ServerGroupFactory.lookupEntitled
@@ -158,10 +158,10 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         request.removeAttribute(buttonName);
         executeTests();
         assertNull(request.getAttribute(buttonName));
-    }    
-    
+    }
+
     /**
-     * 
+     *
      *
      */
     public void testNoEntitlements() {
@@ -171,14 +171,14 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         assertNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_COMMANDS));
         assertNotNull(request.getAttribute(SystemEntitlementsSetupAction.SHOW_NO_SYSTEMS));
     }
-    
+
     private void executeTests() {
         actionPerform();
         DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
     }
-        
+
     private void setupMonitoring() {
         user.addRole(RoleFactory.MONITORING_ADMIN);
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -186,39 +186,39 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
             OrgFactory.lookupEntitlementByLabel("rhn_monitor"));
         Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "1");
     }
-    
-   
+
+
     /**
-     * 
+     *
      * @throws Exception throws exception if createServerTest fails
      */
     public void testMonitoring() throws Exception {
         Server server = ServerFactoryTest.createTestServer(user);
         final ServerGroup provisioning = ServerGroupTest.createTestServerGroup(
-                                user.getOrg(), 
+                                user.getOrg(),
                                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         ServerFactory.save(server);
-        
-        SystemManager.addServerToServerGroup(server, provisioning);        
+
+        SystemManager.addServerToServerGroup(server, provisioning);
         setupMonitoring();
         executeTests();
         assertNotNull(request.getAttribute(
             SystemEntitlementsSetupAction.SHOW_MONITORING));
         assertNotNull(request.getAttribute(
-            SystemEntitlementsSetupAction.MONITORING_COUNTS_MESSAGE));            
+            SystemEntitlementsSetupAction.MONITORING_COUNTS_MESSAGE));
     }
 
     /**
-     * 
+     *
      * @throws Exception exception if test fails
      */
     public void testEntitlementCountMessage() throws Exception {
         user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
-        
+
         Server server = ServerFactoryTest.createTestServer(user, true,
                         ServerConstants.getServerGroupTypeEnterpriseEntitled());
         assertTrue(server.getEntitlements().size() > 0);
-        
+
         EntitlementServerGroup eGrp = null;
         for (Iterator itr = server.getEntitledGroups().iterator(); itr.hasNext();) {
             EntitlementServerGroup sg = (EntitlementServerGroup)itr.next();
@@ -228,11 +228,11 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
                 break;
             }
         }
-        
+
         executeTests();
         String message = (String)request.getAttribute(
                 SystemEntitlementsSetupAction.MANAGEMENT_COUNTS_MESSAGE);
-        
+
         assertTrue(message.indexOf(String.valueOf(eGrp.getMaxMembers())) > 0);
         assertTrue(message.indexOf(String.valueOf(eGrp.getCurrentMembers())) > 0);
     }

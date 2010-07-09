@@ -54,13 +54,13 @@
 
 
 	<rl:list
-         width="100%"        
+         width="100%"
          name="errataList"
          styleclass="list"
          emptykey="erratalist.jsp.norelevanterrata"
          alphabarcolumn="advisorySynopsis">
-         
-        <rl:decorator name="ElaborationDecorator"/> 
+
+        <rl:decorator name="ElaborationDecorator"/>
  		<rl:decorator name="PageSizeDecorator"/>
  		
  		<c:if test="${requestScope.showApplyErrata == 'false'}">
@@ -123,7 +123,7 @@
 		         <c:if test="${current.currentStatusAndActionId[0] == 'Picked Up'}">
 		            <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${current.currentStatusAndActionId[1]}">
 		              <bean:message key="actions.jsp.pickedup"/></a>
-		         </c:if>		         
+		         </c:if>
 		      </c:if>
 		      <c:if test="${empty current.status}">
 		            <bean:message key="affectedsystems.jsp.none"/>
@@ -150,8 +150,8 @@
 
 	
 	<c:if test="${requestScope.showApplyErrata == 'true'}">
-		<rl:csv 
-			name="errataList" 
+		<rl:csv
+			name="errataList"
 			exportColumns="associatedSystem,errataAdvisoryType,advisoryName,advisorySynopsis,errataStatus,updateDate"
 			header="${system.name}"/>
 	</c:if>

@@ -59,7 +59,7 @@ public class UserPrefAction extends RhnAction {
         if (user == null) {
             user = requestContext.getLoggedInUser();
         }
-        
+
         user.setEmailNotify(BooleanUtils.toInteger((Boolean) form
                 .get("emailNotif"), 1, 0, 0));
         user.setPageSize(getAsInt(form, "pagesize", 5));

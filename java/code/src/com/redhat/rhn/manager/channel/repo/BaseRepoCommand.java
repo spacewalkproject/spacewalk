@@ -50,7 +50,7 @@ public class BaseRepoCommand {
     }
 
     /**
-     * 
+     *
      * @param orgIn to set for repo
      */
     public void setOrg(Org orgIn) {

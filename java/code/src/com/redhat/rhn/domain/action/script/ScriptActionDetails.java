@@ -28,77 +28,77 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ScriptActionDetails extends ActionChild {
-    
+
     private Long id;
     private String username;
     private String groupname;
     private byte[] script;
     private Long timeout;
     private Set results;
-    
+
     /**
      * @return Returns the groupname.
      */
     public String getGroupname() {
         return groupname;
     }
-    
+
     /**
      * @param g The groupname to set.
      */
     public void setGroupname(String g) {
         this.groupname = g;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the timeout.
      */
     public Long getTimeout() {
         return timeout;
     }
-    
+
     /**
      * @param t The timeout to set.
      */
     public void setTimeout(Long t) {
         this.timeout = t;
     }
-    
+
     /**
      * @return Returns the username.
      */
     public String getUsername() {
         return username;
     }
-    
+
     /**
      * @param u The username to set.
      */
     public void setUsername(String u) {
         this.username = u;
     }
-    
+
     /**
      * @return Returns the result.
      */
     public Set getResults() {
         return results;
     }
-    
+
     /**
      * @param r The result to set.
      */
@@ -117,7 +117,7 @@ public class ScriptActionDetails extends ActionChild {
         r.setParentScriptActionDetails(this);
         this.results.add(r);
     }
-    
+
     /**
      * Get the script
      * @return Returns the script.
@@ -135,7 +135,7 @@ public class ScriptActionDetails extends ActionChild {
     }
 
     /**
-     * Let Hibernate get the script blob, used only by Hibernate. 
+     * Let Hibernate get the script blob, used only by Hibernate.
      * @return Returns the script.
      */
     private Blob getScriptBlob() {
@@ -148,7 +148,7 @@ public class ScriptActionDetails extends ActionChild {
     }
 
     /**
-     * Let Hibernate set the Script Blob contents, used only by Hibernate. 
+     * Let Hibernate set the Script Blob contents, used only by Hibernate.
      * @param scriptBlob The script to set.
      */
     private void setScriptBlob(Blob scriptBlob) {

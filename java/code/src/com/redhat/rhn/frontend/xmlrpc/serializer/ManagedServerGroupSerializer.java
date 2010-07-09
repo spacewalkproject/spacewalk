@@ -38,13 +38,13 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop("int", "org_id")
  *          #prop("int", "system_count")
  *      #struct_end()
- *          
+ *
  */
 public class ManagedServerGroupSerializer implements XmlRpcCustomSerializer {
 
-    public static final String MAX_MEMBERS = "max_system_count"; 
+    public static final String MAX_MEMBERS = "max_system_count";
     public static final String CURRENT_MEMBERS = "system_count";
-    
+
     /** {@inheritDoc} */
     public Class getSupportedClass() {
         return ManagedServerGroup.class;
@@ -64,14 +64,14 @@ public class ManagedServerGroupSerializer implements XmlRpcCustomSerializer {
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
+
         ServerGroup sg = (ServerGroup) value;
-        
+
         SerializerHelper serializer = new SerializerHelper(builtInSerializer);
         serializer.add("id", sg.getId());
         serializer.add("name", sg.getName());
         serializer.add("description", sg.getDescription());
-        serializer.add(CURRENT_MEMBERS, sg.getCurrentMembers());        
+        serializer.add(CURRENT_MEMBERS, sg.getCurrentMembers());
         serializer.add("org_id", sg.getOrg().getId());
         serializer.writeTo(output);
     }

@@ -75,7 +75,7 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         getStrutsDelegate().rememberDatePicker(params, (DynaActionForm)formIn,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
     }
-    
+
     /**
      * Actually schedules the config upload action.
      * @param mapping struts ActionMapping
@@ -89,7 +89,7 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         RequestContext ctxt = new RequestContext(request);
         User user = ctxt.getLoggedInUser();
         Server server = ctxt.lookupServer();
-        
+
         //The set of config file names to add to the action.
         RhnSet set = RhnSetDecl.CONFIG_IMPORT_FILE_NAMES.get(user);
         Set cfnids = getCfnids(set);
@@ -97,7 +97,7 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         if (cfnids.size() < 1) {
             return createNoSelectedMessage(request, mapping, formIn, server.getId());
         }
-        
+
         //The channel to which files will be uploaded
         ConfigChannel sandbox = server.getSandboxOverride();
         //The earliest time to perform the action.
@@ -105,20 +105,20 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
         ConfigUploadAction upload = (ConfigUploadAction)ActionManager
                 .createConfigUploadAction(user, cfnids, server, sandbox, earliest);
-        
+
         //clear the set, we are done with it.
         RhnSetManager.remove(set);
-        
+
         //Create a success message
         if (upload != null) {
             createSuccessMessage(upload, upload.getRhnActionConfigFileName().size(),
                     "config.import.success", request);
         }
-        
+
         return getStrutsDelegate().forwardParam(
                 mapping.findForward("success"), "sid", server.getId().toString());
     }
-    
+
     /**
      * Actually schedules the config deploy action.
      * @param mapping struts ActionMapping
@@ -132,7 +132,7 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         return createRevisionAction(request, formIn, mapping,
                 ActionFactory.TYPE_CONFIGFILES_DEPLOY, "config.deploy.success");
     }
-    
+
     /**
      * Actually schedules the config diff action.
      * @param mapping struts ActionMapping
@@ -146,13 +146,13 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         return createRevisionAction(request, form, mapping,
                 ActionFactory.TYPE_CONFIGFILES_DIFF, "config.diff.success");
     }
-    
+
     private ActionForward createRevisionAction(HttpServletRequest request, ActionForm form,
             ActionMapping mapping, ActionType type, String successKey) {
         RequestContext ctxt = new RequestContext(request);
         User user = ctxt.getLoggedInUser();
         Long sid = ctxt.getRequiredParam("sid");
-        
+
         //create a set of config revisions from the set of config file names
         RhnSet set = RhnSetDecl.CONFIG_FILE_NAMES.get(user);
         Set revisions = getCrids(set, sid);
@@ -160,31 +160,31 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         if (revisions.size() < 1) {
             return createNoSelectedMessage(request, mapping, form, sid);
         }
-        
+
         //we need a set, so add our one server to a set.
         Set servers = new HashSet();
         servers.add(sid);
-        
+
         //create the action
         Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm)form,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
         ConfigAction action = (ConfigAction)ActionManager.createConfigAction(user,
                 revisions, servers, type, earliest);
-        
+
         //clean-up the set we just worked with
         RhnSetManager.remove(set);
-        
+
         //create a success message
         if (action != null) {
             createSuccessMessage(action, action.getConfigRevisionActions().size(),
                     successKey, request);
         }
-        
+
         //success, go to the config file manage page
         return getStrutsDelegate().forwardParam(
                 mapping.findForward("success"), "sid", sid.toString());
     }
-    
+
     private Set getCfnids(RhnSet rhnSet) {
         //We currently have a set of RhnSetElements, but we need a set
         //of Longs, this does that conversion.
@@ -195,7 +195,7 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
         }
         return cfnids;
     }
-    
+
     private void createSuccessMessage(Action action, int successes,
             String transKey, HttpServletRequest request) {
         ActionMessages msgs = new ActionMessages();
@@ -206,27 +206,27 @@ public class FileListConfirmSubmitAction extends RhnListDispatchAction {
                 new ActionMessage(transKey, params));
         getStrutsDelegate().saveMessages(request, msgs);
     }
-    
+
     private Set getCrids(RhnSet rhnSet, Long sid) {
         Set revisions = new HashSet();
-        
+
         //go through all of the selected file names
         Iterator nameItty = rhnSet.getElements().iterator();
         while (nameItty.hasNext()) {
             Long cfnid = ((RhnSetElement)nameItty.next()).getElement();
             Long crid = ConfigurationManager.getInstance()
                     .getDeployableRevisionForFileName(cfnid, sid);
-            
+
             //add to the set if this system has a deployable revision of this
             //file name
             if (crid != null) {
                 revisions.add(crid);
             }
         }
-        
+
         return revisions;
     }
-    
+
     private ActionForward createNoSelectedMessage(HttpServletRequest request,
             ActionMapping mapping, ActionForm formIn, Long sid) {
         ActionErrors errors = new ActionErrors();

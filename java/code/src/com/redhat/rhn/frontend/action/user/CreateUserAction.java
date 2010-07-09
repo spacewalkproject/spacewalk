@@ -46,43 +46,43 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1196 $
  */
 public class CreateUserAction extends RhnAction {
-    
+
     public static final String FAILURE_SATELLITE = "fail-sat";
     public static final String FAILURE = "failure";
-    
+
     // Success
     public static final String SUCCESS_INTO_ORG = "existorgsuccess";
     public static final String SUCCESS_SAT = "success_sat";
-    
+
     // The different account type
     public static final String TYPE_CREATE_SAT = "create_sat";
     public static final String TYPE_INTO_ORG = "into_org";
-    
+
     public static final String ACCOUNT_TYPE = "account_type";
 
     // It is ok to maintain an instance because PxtSessionDelegate does not maintain client
     // state.
     private PxtSessionDelegate pxtDelegate;
-    
+
     /**
      * Initialize the action.
      */
     public CreateUserAction() {
         PxtSessionDelegateFactory pxtDelegateFactory =
             PxtSessionDelegateFactory.getInstance();
-        
+
         pxtDelegate = pxtDelegateFactory.newPxtSessionDelegate();
     }
-    
+
     private ActionErrors populateCommand(DynaActionForm form, CreateUserCommand command) {
         ActionErrors errors = new ActionErrors();
-        
+
         command.setEmail(form.getString("email"));
         command.setLogin(form.getString("login"));
         command.setPrefix(form.getString("prefix"));
         command.setFirstNames(form.getString("firstNames"));
         command.setLastName(form.getString("lastName"));
-        
+
         //Should this user use pam authentication?
         if (form.get("usepam") != null && ((Boolean)form.get("usepam")).booleanValue()) {
             command.setUsePamAuthentication(true);
@@ -90,7 +90,7 @@ public class CreateUserAction extends RhnAction {
         else {
             command.setUsePamAuthentication(false);
         }
-        
+
         // Put any validationErrors into ActionErrors object
         ValidatorError[] validationErrors = command.validate();
         for (int i = 0; i < validationErrors.length; i++) {
@@ -102,11 +102,11 @@ public class CreateUserAction extends RhnAction {
         Address addr = UserFactory.createAddress();
         fillOutAddress(form, addr);
         command.setAddress(addr);
-        
+
         // Check passwords
         String passwd = (String)form.get(UserActionHelper.DESIRED_PASS);
         String passwdConfirm = (String)form.get(UserActionHelper.DESIRED_PASS_CONFIRM);
-        
+
         if (passwd.equals(passwdConfirm)) {
             command.setPassword(passwd);
         }
@@ -114,10 +114,10 @@ public class CreateUserAction extends RhnAction {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                        new ActionMessage("error.password_mismatch"));
         }
-        
+
         return errors;
     }
-    
+
     private void fillOutAddress(DynaActionForm form, Address addr) {
         // Add address information to the user.
         addr.setAddress1((String)form.get("address1"));
@@ -135,9 +135,9 @@ public class CreateUserAction extends RhnAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         DynaActionForm form = (DynaActionForm)formIn;
 
         /*
@@ -145,7 +145,7 @@ public class CreateUserAction extends RhnAction {
          * Since password is required in the db and since in all other cases it is required,
          * we'll trick the validation by doing all of the manipulation before validating
          * the form.
-         * 
+         *
          * Also, if the user for some reason does want to set a default password to stick
          * in the db (even though it won't be used), we'll just validate it like a regular
          * password and allow it.
@@ -161,14 +161,14 @@ public class CreateUserAction extends RhnAction {
                 form.set(UserActionHelper.DESIRED_PASS_CONFIRM, hash);
             }
         }
-        
+
         // Validate the form
         ActionErrors verrors = RhnValidationHelper.validateDynaActionForm(this, form);
         if (!verrors.isEmpty()) {
             RhnValidationHelper.setFailedValidation(request);
             return returnError(mapping, request, verrors);
         }
-        
+
         // Create the user and do some more validation
         CreateUserCommand command = getCommand();
         ActionErrors errors = populateCommand(form, command);
@@ -189,10 +189,10 @@ public class CreateUserAction extends RhnAction {
                     msgs);
             User orgAdmin = requestContext.getLoggedInUser();
             saveMessages(request, msgs);
-            command.publishNewUserEvent(orgAdmin, orgAdmin.getOrg().getActiveOrgAdmins(), 
-                    request.getServerName(),  
+            command.publishNewUserEvent(orgAdmin, orgAdmin.getOrg().getActiveOrgAdmins(),
+                    request.getServerName(),
                     (String) form.get(UserActionHelper.DESIRED_PASS));
-            return getStrutsDelegate().forwardParam(mapping.findForward(SUCCESS_INTO_ORG), 
+            return getStrutsDelegate().forwardParam(mapping.findForward(SUCCESS_INTO_ORG),
                     "uid", String.valueOf(user.getId()));
 
         }
@@ -206,7 +206,7 @@ public class CreateUserAction extends RhnAction {
         // we're screwed if we get this far
         return mapping.findForward(FAILURE);
     }
-    
+
     private User createIntoOrg(RequestContext requestContext,
                                CreateUserCommand command,
                                String password,
@@ -220,20 +220,20 @@ public class CreateUserAction extends RhnAction {
         command.setMakeOrgAdmin(false);
         command.setMakeSatAdmin(false);
         command.storeNewUser();
-        
+
         User newUser = command.getUser();
-       
-        msgs.add(ActionMessages.GLOBAL_MESSAGE, 
-                new ActionMessage("message.userCreatedIntoOrg", 
-                        StringEscapeUtils.escapeHtml(newUser.getLogin()), 
+
+        msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                new ActionMessage("message.userCreatedIntoOrg",
+                        StringEscapeUtils.escapeHtml(newUser.getLogin()),
                         newUser.getEmail()));
-        
+
 
         return newUser;
     }
-    
+
     /**
-     * 
+     *
      * @param requestContext request coming in
      * @param command user command to modify
      * @param msgs any messages we want to display back to user
@@ -247,12 +247,12 @@ public class CreateUserAction extends RhnAction {
         command.setMakeOrgAdmin(true);
         command.setMakeSatAdmin(true);
         command.storeNewUser();
-        
+
         User newUser = command.getUser();
 
-        msgs.add(ActionMessages.GLOBAL_MESSAGE, 
-                new ActionMessage("message.firstusercreated", 
-                                    StringEscapeUtils.escapeHtml(newUser.getLogin()), 
+        msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                new ActionMessage("message.firstusercreated",
+                                    StringEscapeUtils.escapeHtml(newUser.getLogin()),
                                     newUser.getEmail()));
         return newUser;
     }
@@ -269,13 +269,13 @@ public class CreateUserAction extends RhnAction {
         }
         return mapping.findForward(FAILURE);
     }
-    
+
     protected CreateUserCommand getCommand() {
         return new CreateUserCommand();
     }
-    
+
     private boolean validateAccountType(String type) {
-        
+
         return !StringUtils.isEmpty(type) &&
                 (TYPE_CREATE_SAT.equals(type) ||
                   TYPE_INTO_ORG.equals(type));

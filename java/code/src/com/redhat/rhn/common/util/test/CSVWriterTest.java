@@ -31,18 +31,18 @@ import java.util.Map;
  * @version $Rev$
  */
 public class CSVWriterTest extends RhnBaseTestCase {
-    
+
     public void setUp() throws Exception {
         super.setUp();
         disableLocalizationServiceLogging();
     }
-    
-    
+
+
     public void testMimeType() {
         ExportWriter writer = new CSVWriter(new StringWriter());
         assertEquals("text/csv", writer.getMimeType());
     }
-    
+
     public void testListOutput() throws Exception {
         ExportWriter writer = new CSVWriter(new StringWriter());
         List values = new LinkedList();
@@ -50,47 +50,47 @@ public class CSVWriterTest extends RhnBaseTestCase {
         values.add("val2");
         values.add("val3");
         values.add("val4");
-        
+
         writer.write(values);
         assertEquals("val1,val2,val3,val4\n", writer.getContents());
     }
 
     public void testListofMaps() throws Exception {
-        
+
         ExportWriter writer = new CSVWriter(new StringWriter());
         List columns = new LinkedList();
         columns.add("column1");
         columns.add("column2");
         columns.add("column3");
         columns.add("nullColumn");
-        
+
         List values = getTestListOfMaps();
         boolean failed = false;
-        try { 
+        try {
             writer.write(values);
-        } 
+        }
         catch (IllegalArgumentException ia) {
             failed = true;
         }
         assertTrue(failed);
         writer.setColumns(columns);
         writer.write(values);
-        
+
         assertTrue(writer.getContents().
                 startsWith("**column1**,**column2**,**column3**,**nullColumn**\n"));
         assertTrue(writer.getContents().
                 endsWith("cval1-9,cval2-9,cval3-9,\n"));
     }
-    
+
     public void testListofDtos() throws Exception {
-        
+
         ExportWriter writer = new CSVWriter(new StringWriter());
         List columns = new LinkedList();
         columns.add("fieldOne");
         columns.add("fieldTwo");
         columns.add("fieldThree");
         writer.setColumns(columns);
-        
+
         List values = new LinkedList();
         for (int i = 0; i < 10; i++) {
             TestCsvDto dto = new TestCsvDto();
@@ -100,14 +100,14 @@ public class CSVWriterTest extends RhnBaseTestCase {
             dto.setId(new Long(i));
             values.add(dto);
         }
-        
+
         writer.write(values);
         assertTrue(writer.getContents().
                 startsWith("**fieldOne**,**fieldTwo**,**fieldThree**\n"));
         assertTrue(writer.getContents().
                 endsWith("f1 - 9,f2 - 9,f3 - 9\n"));
     }
-    
+
     public static List getTestListOfMaps() {
         List values = new LinkedList();
 
@@ -120,18 +120,18 @@ public class CSVWriterTest extends RhnBaseTestCase {
         }
         return values;
     }
-    
+
     public class TestCsvDto extends BaseDto {
         private Long id;
         private String fieldOne;
         private String fieldTwo;
         private String fieldThree;
-        
+
         public Long getId() {
             return id;
         }
 
-        
+
         /**
          * @return Returns the fieldOne.
          */
@@ -139,7 +139,7 @@ public class CSVWriterTest extends RhnBaseTestCase {
             return fieldOne;
         }
 
-        
+
         /**
          * @param fieldOneIn The fieldOne to set.
          */
@@ -147,7 +147,7 @@ public class CSVWriterTest extends RhnBaseTestCase {
             this.fieldOne = fieldOneIn;
         }
 
-        
+
         /**
          * @return Returns the fieldThree.
          */
@@ -155,7 +155,7 @@ public class CSVWriterTest extends RhnBaseTestCase {
             return fieldThree;
         }
 
-        
+
         /**
          * @param fieldThreeIn The fieldThree to set.
          */
@@ -163,7 +163,7 @@ public class CSVWriterTest extends RhnBaseTestCase {
             this.fieldThree = fieldThreeIn;
         }
 
-        
+
         /**
          * @return Returns the fieldTwo.
          */
@@ -171,7 +171,7 @@ public class CSVWriterTest extends RhnBaseTestCase {
             return fieldTwo;
         }
 
-        
+
         /**
          * @param fieldTwoIn The fieldTwo to set.
          */
@@ -179,14 +179,14 @@ public class CSVWriterTest extends RhnBaseTestCase {
             this.fieldTwo = fieldTwoIn;
         }
 
-        
+
         /**
          * @param idIn The id to set.
          */
         public void setId(Long idIn) {
             this.id = idIn;
         }
-        
+
     }
-    
+
 }

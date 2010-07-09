@@ -34,28 +34,28 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class BaseSessionTestCase extends RhnMockStrutsTestCase {
-    
+
     protected KickstartSession sess;
     protected Server s;
-    
+
     /**
      * {@inheritDoc}
      */
     public void setUp() throws Exception {
         super.setUp();
         KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
-        
+
         sess = KickstartSessionTest.createKickstartSession(k, user);
         s = sess.getOldServer();
-        addRequestParameter(RequestContext.SID, 
+        addRequestParameter(RequestContext.SID,
                 s.getId().toString());
-        
-        Action a = ActionFactoryTest.createAction(user, 
+
+        Action a = ActionFactoryTest.createAction(user,
                 ActionFactory.TYPE_KICKSTART_INITIATE);
         sess.setAction(a);
-        
+
         sess = KickstartSessionTest.addHistory(sess);
-        Profile p  = ProfileTest.createTestProfile(user, 
+        Profile p  = ProfileTest.createTestProfile(user,
                 k.getKickstartDefaults().getKstree().getChannel());
         sess.setServerProfile(p);
         TestUtils.saveAndFlush(sess);
@@ -63,6 +63,6 @@ public class BaseSessionTestCase extends RhnMockStrutsTestCase {
         sess = (KickstartSession) TestUtils.reload(sess);
     }
 
-    
-    
+
+
 }

@@ -23,18 +23,18 @@ import com.redhat.rhn.manager.BasePersistOperation;
  * @version $Rev$
  */
 public abstract class BaseSystemOperation extends BasePersistOperation {
-    
+
     protected Server server;
 
     /**
-     * Construct command with passed in id to 
+     * Construct command with passed in id to
      * lookup a Server
      * @param sid id of Server to operate on
      */
     public BaseSystemOperation(Long sid) {
         this.server = ServerFactory.lookupById(sid);
     }
-    
+
     /**
      * @return Returns the system.
      */

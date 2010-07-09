@@ -21,7 +21,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import java.util.Date;
 
 /**
- * 
+ *
  * ProductName
  * @version $Rev$
  */
@@ -31,7 +31,7 @@ public class ProductName {
     private String name;
     private Date created;
     private Date modified;
-    
+
     /**
      * @return the id
      */
@@ -39,63 +39,63 @@ public class ProductName {
         return id;
     }
 
-    
+
     /**
      * @param val the id to set
      */
     public void setId(Long val) {
         this.id = val;
     }
-    
+
     /**
      * @return the label
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param labelIn the label to set
      */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
-    
+
     /**
      * @return the name
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn the name to set
      */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
-    
+
     /**
      * @return the created
      */
     public Date getCreated() {
         return created;
     }
-    
+
     /**
      * @param date the created to set
      */
     public void setCreated(Date date) {
         this.created = date;
     }
-    
+
     /**
      * @return the modified
      */
     public Date getModified() {
         return modified;
     }
-    
+
     /**
      * @param date the modified to set
      */
@@ -103,16 +103,16 @@ public class ProductName {
         this.modified = date;
     }
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {
        return new HashCodeBuilder().append(getId()).
-                           append(getName()).append(getLabel()).toHashCode(); 
+                           append(getName()).append(getLabel()).toHashCode();
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object o) {
@@ -135,5 +135,5 @@ public class ProductName {
             return new ToStringBuilder(this).append("id", getId())
                     .append("label", getLabel()).
                     append("name", getName()).toString();
-    }    
+    }
 }

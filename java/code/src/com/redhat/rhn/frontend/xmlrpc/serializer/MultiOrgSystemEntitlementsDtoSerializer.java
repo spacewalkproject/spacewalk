@@ -20,9 +20,9 @@ import com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto;
 /**
  * MultiOrgSystemEntitlementsDtoSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
- * #struct("entitlement usage") 
+ * #struct("entitlement usage")
  *   #prop("string", "label")
  *   #prop("string", "name")
  *   #prop("int", "free")
@@ -31,7 +31,7 @@ import com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto;
  *   #prop("int", "unallocated")
  * #struct_end()
  */
-public class MultiOrgSystemEntitlementsDtoSerializer 
+public class MultiOrgSystemEntitlementsDtoSerializer
                 extends MultiOrgEntitlementsDtoSerializer {
 
     /**

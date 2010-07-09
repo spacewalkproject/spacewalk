@@ -51,7 +51,7 @@ public class ISODownloadAction extends RhnUnpagedListAction {
 
     public static final String  BASE_CHANNEL_CONTENT = "baseContent";
     public static final String  INCR_CHANNEL_CONTENT = "incrContent";
-    
+
     private static final String CHANNEL_DUMP_TYPE    = "channel-xml-dump";
     private static final String BASE                 = "(Base";
     private static final String INCR                 = "(Incremental";

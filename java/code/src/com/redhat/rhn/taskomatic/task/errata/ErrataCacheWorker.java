@@ -33,16 +33,16 @@ import java.util.Map;
  * @version $Rev $
  */
 class ErrataCacheWorker implements QueueWorker {
-    
+
     public static final String BY_CHANNEL = "update_errata_cache_by_channel";
     public static final String FOR_SERVER = "update_server_errata_cache";
 
-    
+
     private Task task;
     private Long orgId;
     private Logger logger;
     private TaskQueue parentQueue;
-    
+
     public ErrataCacheWorker(Map items, Logger parentLogger) {
         task = (Task) items.get("task");
         orgId = (Long) items.get("orgId");
@@ -50,7 +50,7 @@ class ErrataCacheWorker implements QueueWorker {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void run() {
@@ -61,7 +61,7 @@ class ErrataCacheWorker implements QueueWorker {
             HibernateFactory.commitTransaction();
             HibernateFactory.closeSession();
             parentQueue.workerStarting();
-            UpdateErrataCacheCommand uecc = new UpdateErrataCacheCommand();        
+            UpdateErrataCacheCommand uecc = new UpdateErrataCacheCommand();
             if (ErrataCacheWorker.FOR_SERVER.equals(task.getName())) {
                 Long sid = task.getData();
                 if (logger.isDebugEnabled()) {
@@ -74,7 +74,7 @@ class ErrataCacheWorker implements QueueWorker {
                 if (logger.isDebugEnabled()) {
                     logger.debug("Updating errata cache for cid [" + cid + "]");
                 }
-                uecc.updateErrataCacheForChannel(cid);                
+                uecc.updateErrataCacheForChannel(cid);
             }
             HibernateFactory.commitTransaction();
         }
@@ -91,7 +91,7 @@ class ErrataCacheWorker implements QueueWorker {
     public void setParentQueue(TaskQueue queue) {
         parentQueue = queue;
     }
-    
+
     private void removeTask() {
         WriteMode mode = ModeFactory.getWriteMode("Task_queries", "delete_task");
         Map params = new HashMap();

@@ -21,7 +21,7 @@ import com.redhat.rhn.domain.BaseDomainHelper;
  * @version $Rev$
  */
 public class TemplateCategory extends BaseDomainHelper {
-    
+
     private Long id;
     private String label;
     private String description;

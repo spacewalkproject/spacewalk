@@ -33,35 +33,35 @@ public class Dmi extends BaseDomainHelper {
     private Bios bios;
     private String asset;
     private String board;
-    
+
     /**
-     * 
+     *
      */
     public Dmi() {
         super();
     }
-    
+
     /**
      * @return Returns the asset.
      */
     public String getAsset() {
         return asset;
     }
-    
+
     /**
      * @param assetIn The asset to set.
      */
     public void setAsset(String assetIn) {
         asset = assetIn;
     }
-    
+
     /**
      * @return Returns the bios.
      */
     public Bios getBios() {
         return bios;
     }
-    
+
     /**
      * Sets the bios.
      * @param biosVendor BIOS vendor
@@ -71,99 +71,99 @@ public class Dmi extends BaseDomainHelper {
     public void setBios(String biosVendor, String version, String release) {
         bios = new Bios(biosVendor, version, release);
     }
-    
+
     /**
      * @param biosIn The bios to set.
      */
     private void setBios(Bios biosIn) {
         bios = biosIn;
     }
-    
+
     /**
      * @return Returns the board.
      */
     public String getBoard() {
         return board;
     }
-    
+
     /**
      * @param boardIn The board to set.
      */
     public void setBoard(String boardIn) {
         board = boardIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * @return Returns the product.
      */
     public String getProduct() {
         return product;
     }
-    
+
     /**
      * @param productIn The product to set.
      */
     public void setProduct(String productIn) {
         product = productIn;
     }
-    
+
     /**
      * @return Returns the server.
      */
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * @param serverIn The server to set.
      */
     public void setServer(Server serverIn) {
         server = serverIn;
     }
-    
+
     /**
      * @return Returns the system.
      */
     public String getSystem() {
         return system;
     }
-    
+
     /**
      * @param systemIn The system to set.
      */
     public void setSystem(String systemIn) {
         system = systemIn;
     }
-    
+
     /**
      * @return Returns the vendor.
      */
     public String getVendor() {
         return vendor;
     }
-    
+
     /**
      * @param vendorIn The vendor to set.
      */
     public void setVendor(String vendorIn) {
         vendor = vendorIn;
     }
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -182,7 +182,7 @@ public class Dmi extends BaseDomainHelper {
                                   .append(server, castOther.server)
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -197,24 +197,24 @@ public class Dmi extends BaseDomainHelper {
                                     .append(server)
                                     .toHashCode();
     }
-    
+
     /**
      * Bios class
      * @version $Rev$
      */
     public static class Bios {
-        
+
         private String vendor;
         private String version;
         private String release;
-        
+
         /**
          * default constructor
          */
         public Bios() {
             this("", "", "");
         }
-        
+
         /**
          * Constructs a BIOS object with vendor, version, and release.
          * @param vendorIn BIOS vendor
@@ -226,49 +226,49 @@ public class Dmi extends BaseDomainHelper {
             version = versionIn;
             release = releaseIn;
         }
-        
+
         /**
          * @return Returns the release.
          */
         public String getRelease() {
             return release;
         }
-        
+
         /**
          * @param releaseIn The release to set.
          */
         public void setRelease(String releaseIn) {
             release = releaseIn;
         }
-        
+
         /**
          * @return Returns the vendor.
          */
         public String getVendor() {
             return vendor;
         }
-        
+
         /**
          * @param vendorIn The vendor to set.
          */
         public void setVendor(String vendorIn) {
             vendor = vendorIn;
         }
-        
+
         /**
          * @return Returns the version.
          */
         public String getVersion() {
             return version;
         }
-        
+
         /**
          * @param versionIn The version to set.
          */
         public void setVersion(String versionIn) {
             version = versionIn;
         }
-        
+
         /**
          * {@inheritDoc}
          */
@@ -282,7 +282,7 @@ public class Dmi extends BaseDomainHelper {
                                       .append(release, castOther.release)
                                       .isEquals();
         }
-        
+
         /**
          * {@inheritDoc}
          */

@@ -35,20 +35,20 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class MessagesTag extends TagSupport {
     private HtmlTag baseTag;
-    
-    /** {@inheritDoc} 
+
+    /** {@inheritDoc}
      * @throws JspException
      */
     public int doStartTag() throws JspException {
         JspWriter out = null;
         try {
             out = pageContext.getOut();
-            
+
             // For now, hard-code the site-info class.  If we want to abstract
             // this later, we can.
             baseTag = new HtmlTag("div");
             baseTag.setAttribute("class", "site-info");
-            
+
             out.print(baseTag.renderOpenTag());
             return (EVAL_BODY_INCLUDE);
         }
@@ -56,7 +56,7 @@ public class MessagesTag extends TagSupport {
             throw new JspException("Error writing to JSP file:", e);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -72,7 +72,7 @@ public class MessagesTag extends TagSupport {
             throw new JspException("Error writing to JSP file:", e);
         }
     }
-    
+
     private void removeMessagesFromSession(JspWriter out) {
         HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
         HttpSession session = request.getSession();

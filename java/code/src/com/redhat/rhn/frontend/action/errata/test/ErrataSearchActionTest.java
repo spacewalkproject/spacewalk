@@ -49,7 +49,7 @@ public class ErrataSearchActionTest extends RhnBaseTestCase {
         ah.getRequest().setupAddParameter("search_string", name);
         ah.getRequest().setupAddParameter("view_mode", "errata_search_by_advisory");
         ah.getRequest().setupAddParameter("view_mode", "errata_search_by_advisory");
-        
+
         // I *HATE* Mockobjects
         Map paramnames = new HashMap();
         paramnames.put("search_string", name);
@@ -57,7 +57,7 @@ public class ErrataSearchActionTest extends RhnBaseTestCase {
         paramnames.put(RhnAction.SUBMITTED, "true");
         ah.getRequest().setupGetParameterNames(
                 IteratorUtils.asEnumeration(paramnames.keySet().iterator()));
-        
+
         ah.setupClampListBounds();
 
         ActionForward af = ah.executeAction();

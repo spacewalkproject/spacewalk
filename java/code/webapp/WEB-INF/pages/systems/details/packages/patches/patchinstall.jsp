@@ -25,18 +25,18 @@
 <rhn:list pageList="${requestScope.pageList}" noDataText="packagelist.jsp.nopatches" >
   <rhn:listdisplay filterBy="packagelist.jsp.packagename" set="${requestScope.set}" hiddenvars="${requestScope.newset}">
     <rhn:set element="${current.idOne}" elementTwo="${current.idTwo}" />
-    <rhn:column header="packagelist.jsp.patchname" 
+    <rhn:column header="packagelist.jsp.patchname"
                 url="/rhn/software/packages/Details.do?sid=${param.sid}&id_combo=${current.idCombo}">
       ${current.nvre}
     </rhn:column>
     <rhn:column header="packagelist.jsp.patchtype">
       ${current.patchType}
-    </rhn:column>    
+    </rhn:column>
     <rhn:column header="packagelist.jsp.packagesaffected">
       <c:forEach var="item" items="${current.elabNvre}">
         ${item}<br>
-      </c:forEach>       
-    </rhn:column>    
+      </c:forEach>
+    </rhn:column>
   </rhn:listdisplay>
   <div align="right">
       <hr />

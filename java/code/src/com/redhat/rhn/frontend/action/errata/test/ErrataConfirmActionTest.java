@@ -26,7 +26,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
- * ErrataConfirmActionTest - test that ErrataConfirmAction correctly 
+ * ErrataConfirmActionTest - test that ErrataConfirmAction correctly
  * schedules the Actions associated with the Errata
  * @version $Rev$
  */
@@ -44,16 +44,16 @@ public class ErrataConfirmActionTest extends RhnMockStrutsTestCase {
             Server s = ServerFactoryTest.createTestServer(user, true);
             updateMe.addElement(s.getId());
             ErrataFactoryTest.updateNeedsErrataCache(
-                    ((Package)e.getPackages().iterator().next()).getId(), 
+                    ((Package)e.getPackages().iterator().next()).getId(),
                     s.getId(), e.getId());
             UserFactory.save(user);
         }
         RhnSetManager.store(updateMe); //save the set
-                
+
         addRequestParameter("eid", e.getId().toString());
         // Execute the Action
         actionPerform();
         verifyForward("confirmed");
     }
-    
+
 }

@@ -58,16 +58,16 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ServerTestUtils {
-    
+
     private static final String REDHAT_RELEASE = "redhat-release";
     private static final Long I386_PACKAGE_ARCH_ID = new Long(101);
-    
+
     private ServerTestUtils() {
     }
-    
-    /** 
+
+    /**
      * Create a test system that has a base channel
-     * 
+     *
      * @param creator who owns the server
      * @return Server created
      * @throws Exception if error
@@ -81,7 +81,7 @@ public class ServerTestUtils {
         retval = (Server) TestUtils.reload(retval);
         return retval;
     }
-    
+
     /**
      * Adds a simulated redhat-release rpm to the given server.
      * @param user User performing the action.
@@ -91,36 +91,36 @@ public class ServerTestUtils {
      * @return Reloaded server object.
      * @throws Exception Um, if something goes wrong. :)
      */
-    public static Server addRedhatReleasePackageToServer(User user, Server addTo, 
-            String version, String release) 
+    public static Server addRedhatReleasePackageToServer(User user, Server addTo,
+            String version, String release)
         throws Exception {
-        
+
         InstalledPackage testInstPack = new InstalledPackage();
         String epoch = "idontcare";
         PackageEvr evr = PackageEvrFactory.createPackageEvr(epoch, version, release);
         testInstPack.setEvr(evr);
-        
+
         PackageArch parch = (PackageArch) TestUtils.lookupFromCacheById(
                 I386_PACKAGE_ARCH_ID, "PackageArch.findById");
         testInstPack.setArch(parch);
-        
+
         PackageName redhatRelease = PackageManager.lookupPackageName(REDHAT_RELEASE);
         if (redhatRelease == null) {
             redhatRelease = new PackageName();
             redhatRelease.setName(REDHAT_RELEASE);
             TestUtils.saveAndFlush(redhatRelease);
         }
-        
+
         testInstPack.setName(redhatRelease);
         testInstPack.setServer(addTo);
         Set<InstalledPackage> serverPackages = new HashSet<InstalledPackage>();
         serverPackages.add(testInstPack);
         addTo.setPackages(serverPackages);
-        
+
         ServerFactory.save(addTo);
         return (Server) TestUtils.reload(addTo);
     }
-    
+
     /**
      * Create a test System with a new user/org as well.
      * @return Server created
@@ -132,13 +132,13 @@ public class ServerTestUtils {
 
     /**
      * Create a system with associated guest systems associated with it.
-     * 
+     *
      * @param user to own system
      * @param numberOfGuests number of guests to create
      * @return Server with guest.
      * @throws Exception if error
      */
-    public static Server createVirtHostWithGuests(User user, int numberOfGuests) 
+    public static Server createVirtHostWithGuests(User user, int numberOfGuests)
         throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         TestUtils.saveAndFlush(user);
@@ -152,18 +152,18 @@ public class ServerTestUtils {
         for (int i = 0; i < numberOfGuests; i++) {
             VirtualInstance vi = new VirtualInstanceManufacturer(user).
                 newRegisteredGuestWithoutHost();
-        
+
             s.addGuest(vi);
         }
-        
+
         return s;
     }
-    
+
     /**
-     * 
+     *
      * Create a sytem with the virtualization platform entitlement and  with 1 guest system
      * associated with it.
-     * 
+     *
      * @param user to own system
      * @return Server with guest.
      * @throws Exception if error
@@ -178,12 +178,12 @@ public class ServerTestUtils {
 
         VirtualInstance vi = new VirtualInstanceManufacturer(user).
             newRegisteredGuestWithoutHost();
-        
+
         s.addGuest(vi);
-        
+
         return s;
     }
-    
+
     /**
      * Add a new Server as a guest of the passed in Server.
      * @param user adding
@@ -193,17 +193,17 @@ public class ServerTestUtils {
     public static void addGuestToServer(User user, Server server) throws Exception {
         VirtualInstance vi = new VirtualInstanceManufacturer(user).
             newRegisteredGuestWithoutHost();
-    
+
         server.addGuest(vi);
     }
-    
-    
+
+
     /**
      * Add virtualization to the server passed in.  Will setup the base channel and child
      * channels with the right packages.
      * @param user user
      * @param s server
-     * @throws Exception fi error 
+     * @throws Exception fi error
      */
     public static void addVirtualization(User user, Server s) throws Exception {
         ChannelTestUtils.setupBaseChannelForVirtualization(user, s.getBaseChannel());
@@ -236,23 +236,23 @@ public class ServerTestUtils {
     public static  void addServerPackageMapping(Long serverId, Package packageIn) {
         WriteMode wm = ModeFactory.getWriteMode("test_queries",
             "insert_into_rhnServerPackage_with_arch");
-        
+
         Map<String, Long> params = new HashMap<String, Long>(4);
         params.put("server_id", serverId);
         params.put("pn_id", packageIn.getPackageName().getId());
         params.put("evr_id", packageIn.getPackageEvr().getId());
         params.put("arch_id", packageIn.getPackageArch().getId());
-        
+
         int result = wm.executeUpdate(params);
-        
+
         assert result == 1;
     }
-    
+
     /**
      * Creates two packages and errata agains the specified server. An installed package
      * with the default EVR is created and installed to the server. The newer package
-     * is created with the given EVR and is the package associated with the errata. 
-     * 
+     * is created with the given EVR and is the package associated with the errata.
+     *
      * @param org user's organization
      * @param server wher the packages will be installed
      * @param upgradedPackageEvr used as the EVR for the errata package
@@ -264,31 +264,31 @@ public class ServerTestUtils {
                                                        PackageEvr upgradedPackageEvr,
                                                        String errataType)
         throws Exception {
-        
+
         Errata errata = ErrataFactoryTest.createTestErrata(org.getId());
-        errata.setAdvisoryType(errataType);        
+        errata.setAdvisoryType(errataType);
         TestUtils.saveAndFlush(errata);
-        
+
         Package installedPackage = PackageTest.createTestPackage(org);
         TestUtils.saveAndFlush(installedPackage);
-        
+
         Session session = HibernateFactory.getSession();
         session.flush();
-        
+
         Package upgradedPackage = PackageTest.createTestPackage(org);
         upgradedPackage.setPackageName(installedPackage.getPackageName());
         upgradedPackage.setPackageEvr(upgradedPackageEvr);
         TestUtils.saveAndFlush(upgradedPackage);
-        
+
         ErrataCacheManager.insertNeededPackageCache(
                 server.getId(), errata.getId(), installedPackage.getId());
-        
+
         return installedPackage;
     }
 
     /**
      * Adds the servers identified by the given server IDs to the SSM.
-     * 
+     *
      * @param user      represents the logged in user
      * @param serverIds list of servers to add to the SSM
      */
@@ -306,12 +306,12 @@ public class ServerTestUtils {
         for (Long serverId : serverIds) {
             ssmSet.addElement(serverId);
         }
-        
+
         RhnSetManager.store(ssmSet);
 
         ssmSet = RhnSetManager.findByLabel(user.getId(),
             RhnSetDecl.SYSTEMS.getLabel(), SetCleanup.NOOP);
         assert ssmSet != null;
     }
-        
+
 }

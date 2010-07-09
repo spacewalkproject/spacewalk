@@ -26,7 +26,7 @@ import javax.servlet.jsp.JspException;
  * in a table to the SSM.
  * <p/>
  * This decorator must be used in conjunction with the {@link SelectableDecorator}.
- * 
+ *
  * @version $Revision$
  */
 public class AddToSsmDecorator extends BaseListDecorator {

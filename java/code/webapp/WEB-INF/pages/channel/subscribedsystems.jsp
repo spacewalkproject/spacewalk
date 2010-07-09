@@ -68,7 +68,7 @@
 	</rl:list>
 	<rl:csv dataset="pageList"
 		        name="systemList"
-		        exportColumns="id, name,entitlementLevel" /> 
+		        exportColumns="id, name,entitlementLevel" />
 
 		<rhn:submitted/>
 

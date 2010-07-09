@@ -23,7 +23,7 @@ package com.redhat.rhn.frontend.action;
 public class OptionsCollectionBean {
     private String label;
     private String value;
-    
+
     /**
      * Create an OptionsCollectionBean with the given label and value.
      * @param labelIn Bean label.
@@ -33,7 +33,7 @@ public class OptionsCollectionBean {
         label = labelIn;
         value = valueIn;
     }
-    
+
     /**
      * Label getter.
      * @return Label for this options collection entry.
@@ -41,7 +41,7 @@ public class OptionsCollectionBean {
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * Value getter.
      * @return Value for this options collection entry.
@@ -49,7 +49,7 @@ public class OptionsCollectionBean {
     public String getValue() {
         return value;
     }
-    
+
     /**
      * Value setter.
      * @param valueIn Value to set.

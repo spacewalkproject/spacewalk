@@ -21,7 +21,7 @@ package com.redhat.rhn.common.filediff;
  * @version $Rev$
  */
 public interface DiffWriter {
-    
+
     /**
      * Write the diff, one hunk at a time.
      * @param hunk A collection of lines for a diff that represents a similar edit state

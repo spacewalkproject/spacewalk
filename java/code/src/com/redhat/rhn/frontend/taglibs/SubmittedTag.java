@@ -51,7 +51,7 @@ public class SubmittedTag extends TagSupport {
         }
         catch (IOException e) {
             throw new JspException(e);
-        }        
+        }
         return SKIP_BODY;
     }
 

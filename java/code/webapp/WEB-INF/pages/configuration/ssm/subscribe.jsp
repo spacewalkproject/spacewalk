@@ -19,7 +19,7 @@
   </p>
 <noscript>
 	<p><bean:message key="common.config.rank.jsp.warning.noscript"/></p>
-</noscript>  
+</noscript>
 </div>
 <html:form method="post" action="/systems/ssm/config/SubscribeSubmit.do">
   <rhn:list pageList="${requestScope.pageList}"
@@ -28,17 +28,17 @@
                      set="${requestScope.set}"
                      button="ssm.config.subscribe.jsp.continue">
       <rhn:set value="${current.id}"/>
-    
+
       <rhn:column header="config.common.configChannel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
         <img alt="<bean:message key='config.common.globalAlt' />" src="/img/rhn-listicon-channel.gif" />
         ${current.name}
       </rhn:column>
-      
+
       <rhn:column header="ssm.config.subscribe.jsp.files">
         ${current.filesAndDirsDisplayString}
       </rhn:column>
-      
+
       <rhn:column header="ssm.config.subscribe.jsp.systems"
                   url="/rhn/systems/ssm/config/ChannelSystems.do?ccid=${current.id}">
         <c:choose>

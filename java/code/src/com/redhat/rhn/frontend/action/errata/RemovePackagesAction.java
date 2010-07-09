@@ -50,7 +50,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RemovePackagesAction extends RhnSetAction {
 
     /**
-     * Remove packages corresponding to the ids in the packages_to_remove set from the 
+     * Remove packages corresponding to the ids in the packages_to_remove set from the
      * errata.
      * @param mapping ActionMapping
      * @param formIn ActionForm
@@ -62,24 +62,24 @@ public class RemovePackagesAction extends RhnSetAction {
                                                   ActionForm formIn,
                                                   HttpServletRequest request,
                                                   HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         //Get the Logged in user and the errata in question
         User user = requestContext.getLoggedInUser();
         Errata errata = requestContext.lookupErratum();
-        
+
         //Retrieve the set containing the ids of the packages we want to remove
         RhnSet packageIdsToRemove = RhnSetDecl.PACKAGES_TO_REMOVE.get(user);
-        
+
         /*
          * We now need to loop through the set and get the package corresponding to
          * the id stored in ElementOne of the set. If the package exists, remove it
          * to the errata.
          */
         Iterator itr = packageIdsToRemove.getElements().iterator();
-        int packagesRemoved = 0; 
+        int packagesRemoved = 0;
         while (itr.hasNext()) {
             Long pid = ((RhnSetElement) itr.next()).getElement(); //package id
             Package pkg = PackageManager.lookupByIdAndUser(pid, user); //package
@@ -93,8 +93,8 @@ public class RemovePackagesAction extends RhnSetAction {
         }
         //Save the errata
         ErrataManager.storeErrata(errata);
-        
-        
+
+
         //Update Errata Cache
         //First we remove all errata cache entries
         if (errata.isPublished()) {
@@ -102,8 +102,8 @@ public class RemovePackagesAction extends RhnSetAction {
             pList.addAll(packageIdsToRemove.getElementValues());
             ErrataCacheManager.deleteCacheEntriesForErrataPackages(errata.getId(), pList);
         }
-        
-        //Now since we didn't actually remove the packages, we need to 
+
+        //Now since we didn't actually remove the packages, we need to
         //      re-insert entries for the packages that are still in teh channel
         //      in case they aren't there
         List<Long> cList = new ArrayList<Long>();
@@ -113,21 +113,21 @@ public class RemovePackagesAction extends RhnSetAction {
         List<Long> pList = new ArrayList<Long>();
         pList.addAll(RhnSetDecl.PACKAGES_TO_REMOVE.get(user).getElementValues());
         ErrataCacheManager.insertCacheForChannelPackagesAsync(cList, pList);
-        
-        
-        
+
+
+
         //Clean up
         RhnSetDecl.PACKAGES_TO_REMOVE.clear(user);
-        
 
-        
+
+
         //Set the correct action message and return to the success mapping
         ActionMessages msgs = getMessages(packagesRemoved, errata.getAdvisory());
         strutsDelegate.saveMessages(request, msgs);
-        return strutsDelegate.forwardParam(mapping.findForward("success"), 
+        return strutsDelegate.forwardParam(mapping.findForward("success"),
                                       "eid", errata.getId().toString());
     }
-    
+
     /**
      * Helper method that gets the correct success action message depending on how
      * many packages were successfully added to the errata.
@@ -138,8 +138,8 @@ public class RemovePackagesAction extends RhnSetAction {
     private ActionMessages getMessages(int packagesRemoved, String advisory) {
         ActionMessages msgs = new ActionMessages();
         if (packagesRemoved < 2) {
-            msgs.add(ActionMessages.GLOBAL_MESSAGE, 
-                     new ActionMessage("errata.edit.packages.remove.success.singular", 
+            msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                     new ActionMessage("errata.edit.packages.remove.success.singular",
                                        String.valueOf(packagesRemoved), advisory));
         }
         else { //plural version
@@ -149,12 +149,12 @@ public class RemovePackagesAction extends RhnSetAction {
         }
         return msgs;
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         return null;
     }
@@ -169,8 +169,8 @@ public class RemovePackagesAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         params.put("eid", request.getParameter("eid"));
     }

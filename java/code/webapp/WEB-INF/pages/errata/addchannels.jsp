@@ -13,7 +13,7 @@
 	           helpUrl="/rhn/help/channel-mgmt/en-US/channel-mgmt-Custom_Errata_Management.jsp">
     <bean:message key="errata.publish.toolbar"/> <c:out value="${advisory}" />
   </rhn:toolbar>
-  
+
   <p><bean:message key="errata.publish.instructions"/></p>
 <c:set var="pageList" value="${requestScope.pageList}" />
 <form method="post" name="rhn_list" action="/rhn/errata/manage/SelectChannelsSubmit.do">
@@ -36,7 +36,7 @@
         </c:otherwise>
       </c:choose>
     </rhn:column>
-    
+
   </rhn:listdisplay>
 </rhn:list>
 <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />

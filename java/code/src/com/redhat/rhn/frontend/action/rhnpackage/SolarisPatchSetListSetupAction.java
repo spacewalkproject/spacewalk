@@ -41,9 +41,9 @@ public class SolarisPatchSetListSetupAction extends RhnListAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long sid = requestContext.getRequiredParam("sid");
 
         User user = requestContext.getLoggedInUser();
@@ -53,19 +53,19 @@ public class SolarisPatchSetListSetupAction extends RhnListAction {
         pc.setFilter(true);
 
         clampListBounds(pc, request, user);
-        
+
         DataResult dr = getDataResult(sid, pc);
 
         // need security
         Server server = SystemManager.lookupByIdAndUser(sid, user);
-        
+
         request.setAttribute("pageList", dr);
         request.setAttribute("system", server);
-        
+
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                                        request.getParameterMap());
     }
-    
+
     /**
      * Returns the name/label for the particular
      * scheduled action we are working on.
@@ -80,7 +80,7 @@ public class SolarisPatchSetListSetupAction extends RhnListAction {
      * by the values of the PageControl.
      * @param sid Server id.
      * @param pc boundary values
-     * @return List of unpublished errata for the given user 
+     * @return List of unpublished errata for the given user
      * bounded by the values of the PageControl.
      */
     protected DataResult getDataResult(Long sid, PageControl pc) {

@@ -21,10 +21,10 @@
     			<bean:message key="system.jsp.customkey.createlink"/>
     		</a>
     	</span>
-    </div><img src="/img/rhn-icon-keyring.gif" alt="keyring" />  
+    </div><img src="/img/rhn-icon-keyring.gif" alt="keyring" />
 	<bean:message key="system.jsp.customkey.title"/>
 </div>
-    
+
     <bean:message key="system.jsp.customkey.message" arg0="<a href=\"/rhn/systems/Search.do\">" arg1="</a>"/>
     <br><br>
     <bean:message key="system.jsp.customkey.message2"/>
@@ -58,19 +58,19 @@
                            headerkey="system.jsp.customkey.description"
                           >
                        <c:out value="${current.description}" />
-                </rl:column>     
-                
-                
-                
-            <rl:column sortable="false" 
+                </rl:column>
+
+
+
+            <rl:column sortable="false"
                            bound="false"
                           headerkey="system.jsp.customkey.systemcount"
                           >
                         <c:out value="${current.serverCount}" />
-                </rl:column>                    
-                
-                
-                 <rl:column sortable="true" 
+                </rl:column>
+
+
+                 <rl:column sortable="true"
                                    bound="false"
                            sortattr="lastModified"
                            headerkey="system.jsp.customkey.modified"

@@ -39,7 +39,7 @@
 
 <rl:listset name="packageListSet">
 	<rl:list dataset="pageList"
-         width="100%"        
+         width="100%"
          name="packageList"
          emptykey="packagelist.jsp.nopackages"
          alphabarcolumn="nvre">
@@ -76,7 +76,7 @@
    <rhn:submitted/>
    <hr/>
 	<rhn:require acl="system_feature(ftr_package_remove)">
-		    <input type="submit" 
+		    <input type="submit"
 		    	name ="dispatch"
 			    value='<bean:message key="packagelist.jsp.removepackages"/>'/>		
      </rhn:require>

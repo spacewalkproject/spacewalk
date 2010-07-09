@@ -44,5 +44,5 @@ public class DuplicateChannelLabelException extends FaultException  {
                 getMessage("api.channel.duplicatechannellabel", new Object [] {label}),
                 cause);
     }
-    
+
 }

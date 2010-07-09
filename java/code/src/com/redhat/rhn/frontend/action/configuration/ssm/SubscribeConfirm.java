@@ -54,7 +54,7 @@ public class SubscribeConfirm extends RhnAction {
     private static final String LOWEST = "lowest";
     private static final String HIGHEST = "highest";
     private static final String POSITION = "position";
-    
+
     /**
      * Set up the page.
      * @param mapping struts ActionMapping
@@ -68,12 +68,12 @@ public class SubscribeConfirm extends RhnAction {
             HttpServletResponse response) {
         //check that we have a viable priority
         checkPosition(request);
-        
+
         //typical stuff
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
-        
-        //Decide whether we are visiting the same page or 
+
+        //Decide whether we are visiting the same page or
         //performing the subscribe.
         String dispatch = request.getParameter("dispatch");
         if (dispatch != null && dispatch.equals(LocalizationService
@@ -83,9 +83,9 @@ public class SubscribeConfirm extends RhnAction {
         else {
             return setup(mapping, request, user);
         }
-        
+
     }
-    
+
     private ActionForward setup(ActionMapping mapping,
             HttpServletRequest request, User user) {
         //Get the data
@@ -100,15 +100,15 @@ public class SubscribeConfirm extends RhnAction {
         parentUrl.append(POSITION);
         parentUrl.append("=");
         parentUrl.append(request.getParameter(POSITION));
-        
+
         //store the data so the list tag can see it
         request.setAttribute("parentUrl", parentUrl.toString());
         request.setAttribute("channelList", channels);
         request.setAttribute("systemList", systems);
-        
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-    
+
     /**
      * Subscribe to config channels
      * @param mapping struts ActionMapping
@@ -122,10 +122,10 @@ public class SubscribeConfirm extends RhnAction {
         //validate the position parameter
         String position = request.getParameter(POSITION);
         checkPosition(request);
-        
+
         List systems = ConfigurationManager.getInstance().ssmSystemsForSubscribe(user);
         RhnSet channels = RhnSetDecl.CONFIG_CHANNELS_RANKING.get(user);
-        
+
         //visit every server and change their subscriptions
         //keep track of how many servers we have changed
         int successes = 0;
@@ -134,7 +134,7 @@ public class SubscribeConfirm extends RhnAction {
             Long sid = ((ConfigSystemDto)i.next()).getId();
             try {
                 Server server = SystemManager.lookupByIdAndUser(sid, user);
-                
+
                 if (subscribeServer(user, server, channels, position)) {
                     successes++;
                 }
@@ -143,7 +143,7 @@ public class SubscribeConfirm extends RhnAction {
                 //skip this server
             }
         }
-        
+
         //Give the user a message about how many servers we have changed.
         if (successes == 1) {
             getStrutsDelegate().saveMessage("ssm.config.subscribeconfirm.jsp.onesuccess",
@@ -154,18 +154,18 @@ public class SubscribeConfirm extends RhnAction {
             getStrutsDelegate().saveMessage("ssm.config.subscribeconfirm.jsp.success",
                     params, request);
         }
-        
+
         return mapping.findForward("success");
     }
-    
+
     private boolean subscribeServer(User user, Server server,
             RhnSet channels, String position) {
         boolean retval = false; //whether subscriptions have changed
         List toCheck = server.getConfigChannels(); //so we don't add duplicates
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        
+
         if (position.equals(REPLACE)) {
-            //clear the current subscriptions, 
+            //clear the current subscriptions,
             toCheck.clear();
         }
         else if (position.equals(HIGHEST)) {
@@ -174,12 +174,12 @@ public class SubscribeConfirm extends RhnAction {
             toCheck = new ArrayList(server.getConfigChannels());
             server.getConfigChannels().clear();
         }
-        
+
         //Order the channels in the order requested by user
         List setElements = new ArrayList(channels.getElements());
         Collections.sort(setElements, new ConfigChannelSetComparator());
         Iterator i = setElements.iterator();
-        
+
         //subscribe to all the channels
         while (i.hasNext()) {
             Long ccid = ((RhnSetElement)i.next()).getElement();
@@ -187,17 +187,17 @@ public class SubscribeConfirm extends RhnAction {
             /* Decision Point:
              * there are two ways to approach subscribing channels
              * when servers already are subscribed.
-             * One: leave the current subscriptions as they were 
+             * One: leave the current subscriptions as they were
              * if (!toCheck.contains(channel)) {
              *   server.subscribe(channel);
              *   retval = true;
              * }
-             * 
+             *
              * Two: resubscribe in the new position.
-             * 
+             *
              * We chose number two because the user gets what
              * they see and therefore is less surprised.
-             * 
+             *
              * We did not allow the user to choose which functionality
              * they wanted because that would have complicated an
              * already complex series of decisions.
@@ -208,7 +208,7 @@ public class SubscribeConfirm extends RhnAction {
             server.subscribe(channel);
             retval = true; //subscriptions have changed
         }
-        
+
         if (position.equals(HIGHEST)) {
             //now we have to add back what they had before.
             Iterator j = toCheck.iterator();
@@ -218,7 +218,7 @@ public class SubscribeConfirm extends RhnAction {
         }
         return retval; //whether subscriptions have changed
     }
-    
+
     private void checkPosition(HttpServletRequest request) {
         String position = request.getParameter(POSITION);
         String[] valids = {REPLACE, LOWEST, HIGHEST};

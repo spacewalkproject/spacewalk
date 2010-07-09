@@ -265,15 +265,15 @@ public class SsmOperationManager extends BaseManager {
 
     /**
      * Associates an operation with a group of servers against which it was run, where
-     * a list of server ids are passed in 
+     * a list of server ids are passed in
      * @param operationId identifies an existing operation to associate with servers
-     * @param userId      identifies the user performing the operation 
+     * @param userId      identifies the user performing the operation
      * @param sidsIn the list server ids
      */
-    public static void associateServersWithOperation(long operationId, long userId, 
+    public static void associateServersWithOperation(long operationId, long userId,
                                                          List<Long> sidsIn) {
-        WriteMode writeMode = 
-            ModeFactory.getWriteMode("ssm_operation_queries", 
+        WriteMode writeMode =
+            ModeFactory.getWriteMode("ssm_operation_queries",
                                         "map_sids_to_operation");
         Map<String, Object> params = new HashMap<String, Object>(2);
         params.put("op_id", operationId);

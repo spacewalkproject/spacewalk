@@ -32,7 +32,7 @@ public class GlobalConfigFileList extends BaseListAction {
         DataResult dr = ConfigurationManager.getInstance().listGlobalConfigFiles(user, pc);
         return dr;
     }
-    
+
     protected void processPageControl(PageControl pc) {
         pc.setFilterColumn("path");
         pc.setFilter(true);

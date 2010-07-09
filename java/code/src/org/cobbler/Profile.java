@@ -48,7 +48,7 @@ public class Profile extends CobblerObject {
     private static final String ENABLE_MENU = "enable_menu";
     private static final String VIRT_FILE_SIZE = "virt_file_size";
     private static final String VIRT_RAM = "virt_ram";
-    private static final String DISTRO = "distro";    
+    private static final String DISTRO = "distro";
 
 
     private Profile(CobblerConnection clientIn) {
@@ -56,13 +56,13 @@ public class Profile extends CobblerObject {
     }
 
     /**
-     * Create a new kickstart profile in cobbler 
+     * Create a new kickstart profile in cobbler
      * @param client the xmlrpc client
      * @param name the profile name
      * @param distro the distro allocated to this profile.
      * @return the newly created profile
      */
-    public static Profile create(CobblerConnection client, 
+    public static Profile create(CobblerConnection client,
                                 String name, Distro distro) {
         Profile profile = new Profile(client);
         profile.handle = (String) client.invokeTokenMethod("new_profile");
@@ -85,7 +85,7 @@ public class Profile extends CobblerObject {
 
     /**
      *  Returns the profile matching the given uid or null
-     * @param client client the xmlrpc client  
+     * @param client client the xmlrpc client
      * @param id the uid of the profile
      * @return the profile matching the given uid or null
      */
@@ -93,10 +93,10 @@ public class Profile extends CobblerObject {
         if (id == null) {
             return null;
         }
-        return handleLookup(client, lookupDataMapById(client, id, 
+        return handleLookup(client, lookupDataMapById(client, id,
                                         "find_profile"));
     }
-    
+
     private static Profile handleLookup(CobblerConnection client, Map profileMap) {
         if (profileMap != null) {
             Profile profile = new Profile(client);
@@ -106,15 +106,15 @@ public class Profile extends CobblerObject {
         return null;
     }
     /**
-     * Returns a list of available profiles 
+     * Returns a list of available profiles
      * @param connection the cobbler connection
      * @return a list of profiles.
      */
     public static List<Profile> list(CobblerConnection connection) {
         List <Profile> profiles = new LinkedList<Profile>();
-        List <Map<String, Object >> cProfiles = (List <Map<String, Object >>) 
+        List <Map<String, Object >> cProfiles = (List <Map<String, Object >>)
                                         connection.invokeMethod("get_profiles");
-        
+
         for (Map<String, Object> profMap : cProfiles) {
             Profile profile = new Profile(connection);
             profile.dataMap = profMap;
@@ -127,37 +127,37 @@ public class Profile extends CobblerObject {
     /**
      * Returns a list of available profiles minus the excludes list
      * @param connection the cobbler connection
-     * @param excludes a list of cobbler ids to file on 
+     * @param excludes a list of cobbler ids to file on
      * @return a list of profiles.
      */
     public static List<Profile> list(CobblerConnection connection,
                                 Set<String> excludes) {
         List <Profile> profiles = new LinkedList<Profile>();
-        List <Map<String, Object >> cProfiles = (List <Map<String, Object >>) 
+        List <Map<String, Object >> cProfiles = (List <Map<String, Object >>)
                                         connection.invokeMethod("get_profiles");
-        
+
         for (Map<String, Object> profMap : cProfiles) {
             Profile profile = new Profile(connection);
             profile.dataMap = profMap;
             if (!excludes.contains(profile.getId())) {
-                profiles.add(profile);    
+                profiles.add(profile);
             }
-            
+
 
         }
         return profiles;
     }
-    
+
     @Override
     protected String invokeGetHandle() {
         return (String)client.invokeTokenMethod("get_profile_handle", this.getName());
     }
-    
+
     @Override
     protected void invokeModify(String key, Object value) {
         client.invokeTokenMethod("modify_profile", getHandle(), key, value);
     }
-    
+
     /**
      * calls save_profile to complete the commit
      */
@@ -173,7 +173,7 @@ public class Profile extends CobblerObject {
     protected boolean invokeRemove() {
         return (Boolean) client.invokeTokenMethod("remove_profile", getName());
     }
-    
+
     /**
      * reloads the kickstart profile.
      */
@@ -190,8 +190,8 @@ public class Profile extends CobblerObject {
     @Override
     protected void invokeRename(String newNameIn) {
         client.invokeTokenMethod("rename_profile", getHandle(), newNameIn);
-    }    
-    
+    }
+
     /**
 
      * @return the DhcpTag
@@ -284,7 +284,7 @@ public class Profile extends CobblerObject {
          String distroName = (String)dataMap.get(DISTRO);
          return Distro.lookupByName(client, distroName);
      }
-     
+
      /**
       * @param dhcpTagIn the DhcpTag
       */

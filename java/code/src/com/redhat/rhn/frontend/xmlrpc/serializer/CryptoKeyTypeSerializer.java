@@ -25,7 +25,7 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * CryptoKeyTypeSerializer: Converts a CryptoKeyType object for representation 
+ * CryptoKeyTypeSerializer: Converts a CryptoKeyType object for representation
  * as an XMLRPC struct.
  * @version $Rev$
  *

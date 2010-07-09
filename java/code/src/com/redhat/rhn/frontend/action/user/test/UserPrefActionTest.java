@@ -38,9 +38,9 @@ public class UserPrefActionTest extends RhnBaseTestCase {
     private static final Integer PAGE_SIZE = new Integer(50);
 
     /**
-     * 
+     *
      * @throws Exception on server init failure
-     */    
+     */
     public void testPerformExecute() throws Exception {
         UserPrefAction action = new UserPrefAction();
 
@@ -51,9 +51,9 @@ public class UserPrefActionTest extends RhnBaseTestCase {
         MockHttpServletResponse response = new MockHttpServletResponse();
 
         mapping.addForwardConfig(success);
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = UserManager.lookupUser(requestContext.getLoggedInUser(),
                 requestContext.getParamAsLong("uid"));
         request.setAttribute(RhnHelper.TARGET_USER, user);

@@ -32,7 +32,7 @@ import java.util.Set;
  * @version $Rev$
  */
 public class Action extends BaseDomainHelper implements Serializable {
-    
+
     private Long id;
     private String name;
     // private Long scheduler;
@@ -43,195 +43,195 @@ public class Action extends BaseDomainHelper implements Serializable {
     private Date modified;
     private Action prerequisite;
     private ActionType actionType;
-    
+
     private Set serverActions;
     private User schedulerUser;
     private Org org;
-    
+
     private String ageString;
-    
+
     /**
      * The ActionFormatter associated with this Action.  Protected
      * so subclasses can init it.
      */
     protected ActionFormatter formatter;
-    
-    /** 
+
+    /**
      * Getter for ageString
      * @return String to get
      */
     public String getAgeString() {
         return this.ageString;
     }
-    
-    /** 
+
+    /**
      * Setter for ageString
-     * @param stringIn String to set ageString to 
+     * @param stringIn String to set ageString to
      */
     public void setAgeString(String stringIn) {
         this.ageString = stringIn;
     }
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
-    /** 
-     * Getter for actionType 
+
+    /**
+     * Getter for actionType
      * @return ActionType to get
     */
     public ActionType getActionType() {
         return this.actionType;
     }
 
-    /** 
-     * Setter for actionType 
+    /**
+     * Setter for actionType
      * @param actionTypeIn to set
     */
     public void setActionType(ActionType actionTypeIn) {
         this.actionType = actionTypeIn;
     }
 
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * @return String to get
     */
     public String getName() {
         return this.name;
     }
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn to set
     */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
 
-    /** 
-     * Getter for scheduler 
+    /**
+     * Getter for scheduler
      * @return Long to get
-    
+
     public Long getScheduler() {
         return this.scheduler;
     }*/
 
-    /** 
-     * Setter for scheduler 
+    /**
+     * Setter for scheduler
      * @param schedulerIn to set
-    
+
     public void setScheduler(Long schedulerIn) {
         this.scheduler = schedulerIn;
     }*/
 
-    /** 
-     * Getter for earliestAction 
+    /**
+     * Getter for earliestAction
      * @return Date to get
     */
     public Date getEarliestAction() {
         return this.earliestAction;
     }
 
-    /** 
-     * Setter for earliestAction 
+    /**
+     * Setter for earliestAction
      * @param earliestActionIn to set
     */
     public void setEarliestAction(Date earliestActionIn) {
         this.earliestAction = earliestActionIn;
     }
 
-    /** 
-     * Getter for version 
+    /**
+     * Getter for version
      * @return Long to get
     */
     public Long getVersion() {
         return this.version;
     }
 
-    /** 
-     * Setter for version 
+    /**
+     * Setter for version
      * @param versionIn to set
     */
     public void setVersion(Long versionIn) {
         this.version = versionIn;
     }
 
-    /** 
-     * Getter for archived 
+    /**
+     * Getter for archived
      * @return Long to get
     */
     public Long getArchived() {
         return this.archived;
     }
 
-    /** 
-     * Setter for archived 
+    /**
+     * Setter for archived
      * @param archivedIn to set
     */
     public void setArchived(Long archivedIn) {
         this.archived = archivedIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {
         this.modified = modifiedIn;
     }
 
-    /** 
-     * Getter for prerequisite 
+    /**
+     * Getter for prerequisite
      * @return Long to get
     */
     public Action getPrerequisite() {
         return this.prerequisite;
     }
 
-    /** 
-     * Setter for prerequisite 
+    /**
+     * Setter for prerequisite
      * @param prerequisiteIn to set
     */
     public void setPrerequisite(Action prerequisiteIn) {
         this.prerequisite = prerequisiteIn;
     }
 
-    /** 
+    /**
      * Getter for serverActions.  Contains:
      * a collection of: com.redhat.rhn.domain.action.server.ServerAction classes
      * @return Set of com.redhat.rhn.domain.action.server.ServerAction classes
@@ -240,7 +240,7 @@ public class Action extends BaseDomainHelper implements Serializable {
         return this.serverActions;
     }
 
-    /** 
+    /**
      * Setter for serverActions.   Contains:
      * a collection of: com.redhat.rhn.domain.action.server.ServerAction classes
      * @param serverActionsIn to set
@@ -260,15 +260,15 @@ public class Action extends BaseDomainHelper implements Serializable {
         saIn.setParentAction(this);
         serverActions.add(saIn);
     }
-    
-    /** 
+
+    /**
     * Set the Scheduler User who scheduled this Action
     * @param schedulerIn the User who did the scheduling
     */
     public void setSchedulerUser(User schedulerIn) {
         this.schedulerUser = schedulerIn;
     }
-    
+
     /**
      * Get the User who scheduled this Action.
      * @return User who scheduled this Action
@@ -276,7 +276,7 @@ public class Action extends BaseDomainHelper implements Serializable {
     public User getSchedulerUser() {
         return this.schedulerUser;
     }
-     
+
     /**
      * @return Returns the org.
      */
@@ -300,8 +300,8 @@ public class Action extends BaseDomainHelper implements Serializable {
         }
         return formatter;
     }
-    
-    /** 
+
+    /**
      * Get the count of the number of times this action has failed.
      * @return Count of failed actions.
      */
@@ -309,20 +309,20 @@ public class Action extends BaseDomainHelper implements Serializable {
         return new Long(getActionStatusCount(ActionFactory.STATUS_FAILED));
     }
 
-    /** 
+    /**
      * Get the count of the number of times this action has succeeded.
      * @return Count of successful actions.
      */
     public Long getSuccessfulCount() {
         return new Long(getActionStatusCount(ActionFactory.STATUS_COMPLETED));
     }
-    
+
     // Get the number of ServerAction objects that match
     // the passed in ActionStatus
     private long getActionStatusCount(ActionStatus status) {
         return ActionFactory.getServerActionCountByStatus(this.getOrg(), this, status);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -334,13 +334,13 @@ public class Action extends BaseDomainHelper implements Serializable {
         return new EqualsBuilder().append(this.getId(), castOther.getId())
                                   .append(this.getOrg(), castOther.getOrg())
                                   .append(this.getName(), castOther.getName())
-                                  .append(this.getEarliestAction(), 
+                                  .append(this.getEarliestAction(),
                                           castOther.getEarliestAction())
                                   .append(this.getVersion(), castOther.getVersion())
                                   .append(this.getArchived(), castOther.getArchived())
                                   .append(this.getCreated(), castOther.getCreated())
                                   .append(this.getModified(), castOther.getModified())
-                                  .append(this.getPrerequisite(), 
+                                  .append(this.getPrerequisite(),
                                           castOther.getPrerequisite())
                                   .append(this.getActionType(), castOther.getActionType())
                                   .isEquals();
@@ -360,7 +360,7 @@ public class Action extends BaseDomainHelper implements Serializable {
                                     .append(this.getPrerequisite())
                                     .append(this.getActionType()).toHashCode();
     }
-    
+
     /**
      * {@inheritDoc}
      */

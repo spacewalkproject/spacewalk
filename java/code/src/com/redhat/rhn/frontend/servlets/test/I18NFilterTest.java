@@ -25,17 +25,17 @@ import java.io.IOException;
 public class I18NFilterTest extends BaseFilterTst {
 
     private static final String UTF8 = "UTF-8";
-    
+
     /** Test the CheckCharSet functionality
      * @throws Exception if something fails
      */
     public void testCheckCharset() throws Exception {
 
         SetCharacterEncodingFilter filter = new SetCharacterEncodingFilter();
-        
+
         try {
             filter.doFilter(request, response, chain);
-        } 
+        }
         catch (IOException ioe) {
             // This should never happen ..
             throw new Exception("doFilter() failed ..");
@@ -43,6 +43,6 @@ public class I18NFilterTest extends BaseFilterTst {
 
         assertEquals(request.getCharacterEncoding(), UTF8);
         assertEquals(response.getCharacterEncoding(), UTF8);
-    }    
-    
+    }
+
 }

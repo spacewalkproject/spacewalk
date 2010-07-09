@@ -29,7 +29,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  * @version $Rev$
  */
 public class ChannelFilesListSetup extends BaseSetListAction {
-    
+
     protected DataResult getDataResult(RequestContext ctx, PageControl pc) {
         User user = ctx.getLoggedInUser();
         ConfigChannel cc = ConfigActionHelper.getChannel(ctx.getRequest());
@@ -51,7 +51,7 @@ public class ChannelFilesListSetup extends BaseSetListAction {
         pc.setFilterColumn("path");
         pc.setFilter(true);
     }
-    
+
     /**
      * We affect the selected-files set
      * @return FILE_LISTS identifier

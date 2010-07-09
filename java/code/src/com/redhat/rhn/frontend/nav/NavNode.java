@@ -157,7 +157,7 @@ public class NavNode {
     }
 
     /**
-     * Sets the value of name to the localized version of the passed in name.  
+     * Sets the value of name to the localized version of the passed in name.
      * @param nameIn Message key for name
      */
     public void setName(String nameIn) {
@@ -332,11 +332,11 @@ public class NavNode {
         if (urls != null && urls.size() > 0) {
             return (String)urls.get(0);
         }
-        throw new IndexOutOfBoundsException("attempt to ask for primary URL of " + 
-                                            this.getName() + 
+        throw new IndexOutOfBoundsException("attempt to ask for primary URL of " +
+                                            this.getName() +
                                             " node with no URLs associated");
     }
-    
+
     /**
      * Marks the Node as the first in a list.
      * @param flag true if this Node is the first in a particular level of
@@ -346,7 +346,7 @@ public class NavNode {
         first = flag;
         last = false;
     }
-    
+
     /**
      * Returns true if this Node is the first in a particular level of
      * the tree.
@@ -356,7 +356,7 @@ public class NavNode {
     public boolean isFirst() {
         return first;
     }
-    
+
     /**
      * Marks the Node as the last in a list.
      * @param flag true if this Node is the last in a particular level of

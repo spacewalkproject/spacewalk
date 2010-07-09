@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?> 
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="com.redhat.rhn.domain.config.ConfigFileType" table="RHNCONFIGFILETYPE">
@@ -10,7 +10,7 @@
 	<property column="CREATED" length="7" name="created" not-null="true" type="timestamp"/>
 	<property column="MODIFIED" length="7" name="modified" not-null="true" type="timestamp"/>
 </class>
-<query name="ConfigFileType.findByLabel"> 
+<query name="ConfigFileType.findByLabel">
 	<![CDATA[from com.redhat.rhn.domain.config.ConfigFileType as s where s.label = :label]]>
 </query>
 </hibernate-mapping>

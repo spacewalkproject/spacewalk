@@ -35,41 +35,41 @@ import javax.servlet.jsp.tagext.Tag;
 public class CSVTagTest extends MockObjectTestCase {
     private ListSetTag lst;
     private CSVTag csv;
-    
+
     private HttpServletRequest req;
     private HttpSession session;
     private PageContext context;
     private RhnMockJspWriter writer;
 
-    
+
     private Mock mreq;
     private Mock mresp;
     private Mock msess;
     private Mock mcontext;
     private String listName = "testDataListName";
-    
+
     public void setUp() throws Exception {
         super.setUp();
         RhnBaseTestCase.disableLocalizationServiceLogging();
         List dataList = CSVWriterTest.getTestListOfMaps();
-        
+
         mreq = mock(HttpServletRequest.class);
         mresp = mock(HttpServletResponse.class);
         msess = mock(HttpSession.class);
         mcontext = mock(PageContext.class);
-        
+
         req = (HttpServletRequest) mreq.proxy();
         session = (HttpSession) msess.proxy();
         context = (PageContext) mcontext.proxy();
-        
+
         writer = new RhnMockJspWriter();
-        
+
         mcontext.expects(atLeastOnce()).method("getAttribute").
             with(eq(listName)).will(returnValue(dataList));
         mcontext.expects(atLeastOnce()).method("getRequest").
             withNoArguments().will(returnValue(req));
 
-        
+
         mreq.expects(atLeastOnce()).method("getSession").
             with(eq(true)).will(returnValue(session));
 
@@ -79,14 +79,14 @@ public class CSVTagTest extends MockObjectTestCase {
         csv.setPageContext(context);
         csv.setParent(lst);
         csv.setDataset(listName);
-        
+
         msess.expects(atLeastOnce()).method("setAttribute").
             with(eq("exportColumns_" + csv.getUniqueName()), isA(String.class));
         msess.expects(atLeastOnce()).method("setAttribute").
             with(eq("pageList_" + csv.getUniqueName()), isA(List.class));
     }
-    
-    
+
+
     public void testCreateRequestParameters() throws Exception {
         boolean stat = false;
         csv.setExportColumns("column1,column2,column3");
@@ -97,18 +97,18 @@ public class CSVTagTest extends MockObjectTestCase {
         stat = reqParams.contains(CSVDownloadAction.PAGE_LIST_DATA);
         assertTrue(stat);
         stat = reqParams.contains(CSVDownloadAction.UNIQUE_NAME);
-        assertTrue(stat);    
+        assertTrue(stat);
     }
-    
+
     /**
      * Creates a sample list and tests CSV functionality.
      * Requires a list of columns set under "exportColumns"
-     * as well as a parameter "lde=1" to be present on the 
+     * as well as a parameter "lde=1" to be present on the
      * requesting URL.
      * @throws Exception
      */
     public void testExport() throws Exception {
-        
+
         mcontext.expects(atLeastOnce()).method("getOut").
             withNoArguments().will(returnValue(writer));
         csv.setExportColumns("column1,column2,column3");
@@ -117,18 +117,18 @@ public class CSVTagTest extends MockObjectTestCase {
         assertEquals(Tag.EVAL_BODY_INCLUDE, tagval);
         tagval = csv.doEndTag();
         assertEquals(Tag.EVAL_PAGE, tagval);
-        
+
         mresp.verify();
         mreq.verify();
         mcontext.verify();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     protected void tearDown() throws Exception {
         super.tearDown();
         RhnBaseTestCase.enableLocalizationServiceLogging();
-    }  
+    }
 
 }

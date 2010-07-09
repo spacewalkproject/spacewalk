@@ -42,7 +42,7 @@ public abstract class BasePreservationListEditAction extends BaseEditAction {
         rctx.getRequest().setAttribute(FILE_LIST, bopr.getFileList());
     }
 
-    protected ValidatorError processCommandSetters(PersistOperation opr, 
+    protected ValidatorError processCommandSetters(PersistOperation opr,
                                                         DynaActionForm form) {
         BaseFileListEditCommand bopr = (BaseFileListEditCommand) opr;
         bopr.setLabel(form.getString(LABEL));

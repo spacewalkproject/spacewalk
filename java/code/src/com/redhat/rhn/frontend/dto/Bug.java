@@ -20,11 +20,11 @@ package com.redhat.rhn.frontend.dto;
  * @version $Rev$
  */
 public class Bug {
-    
+
     private Long errataId;
     private Long bugId;
     private String summary;
-    
+
 
     /**
      * @return Returns the bugId.

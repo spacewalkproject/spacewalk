@@ -35,17 +35,17 @@ public class HighlightTagTest extends RhnBaseTestCase {
         HighlightTag ht = new HighlightTag();
         TagTestHelper tth = TagTestUtils.setupTagTest(ht, null);
         ht.setPageContext(tth.getPageContext());
-        
+
         RhnMockBodyContent bc = new RhnMockBodyContent("some test text");
         ht.setBodyContent(bc);
-        
+
         MockJspWriter out = (MockJspWriter) tth.getPageContext().getOut();
-        
-        /* 
+
+        /*
          * <rhn:highlight tag="foo" text="test">
          *     some test text
          * </rhn:highlight>
-         */  
+         */
         ht.setTag("foo");
         ht.setText("test");
         out.setExpectedData("some <foo>test</foo> text");
@@ -71,7 +71,7 @@ public class HighlightTagTest extends RhnBaseTestCase {
         catch (JspException e) {
             fail(e.toString());
         }
-        
+
         /*
          * <rhn:highlight startTag="<foo>" endTag="</foo>" text="test">
          *     some test text
@@ -87,7 +87,7 @@ public class HighlightTagTest extends RhnBaseTestCase {
         catch (JspException e) {
             fail(e.toString());
         }
-        
+
         // Make sure it fails correctly
         /*
          * <rhn:highlight endTag="</foo>" text="test">
@@ -102,7 +102,7 @@ public class HighlightTagTest extends RhnBaseTestCase {
         catch (JspException e) {
             //Success
         }
-        
+
         /*
          * <rhn:highlight tag="foo" text="test"></rhn:highlight>
          */
@@ -114,13 +114,13 @@ public class HighlightTagTest extends RhnBaseTestCase {
         catch (JspException e) {
             fail(e.toString());
         }
-        
+
         RhnMockBodyContent bc2 = new RhnMockBodyContent("some test text " +
                                                         "to Test in a TEST");
         ht.setBodyContent(bc2);
         ht.setTag("foo");
         ht.setText("test");
-        out.setExpectedData("some <foo>test</foo> text to <foo>Test</foo> " + 
+        out.setExpectedData("some <foo>test</foo> text to <foo>Test</foo> " +
                             "in a <foo>TEST</foo>");
         try {
             tth.assertDoEndTag(Tag.EVAL_PAGE);

@@ -65,7 +65,7 @@ public class ListRemoveGroupsAction extends BaseListAction implements Listable {
         }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-    
+
     /** {@inheritDoc} */
     public ActionForward handleDispatch(
             ListSessionSetHelper helper,
@@ -79,7 +79,7 @@ public class ListRemoveGroupsAction extends BaseListAction implements Listable {
         List <Server> servers = new LinkedList<Server>();
         servers.add(server);
         Set <String> set = helper.getSet();
-        
+
         for (String id : set) {
             Long sgid = Long.valueOf(id);
             ServerGroup group = manager.lookup(sgid, user);
@@ -89,12 +89,12 @@ public class ListRemoveGroupsAction extends BaseListAction implements Listable {
         getStrutsDelegate().saveMessage(
                     "systems.groups.jsp.removed",
                         new String [] {String.valueOf(set.size())}, request);
-        
+
         Map params = new HashMap();
         params.put(RequestContext.SID, server.getId().toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         return strutsDelegate.forwardParams
-                        (mapping.findForward("success"), params);        
+                        (mapping.findForward("success"), params);
     }
 
     /** {@inheritDoc} */

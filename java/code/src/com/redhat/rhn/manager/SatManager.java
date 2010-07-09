@@ -32,35 +32,35 @@ import java.util.Map;
  */
 public class SatManager extends BaseManager {
     private static final SatManager MANAGER = new SatManager();
-    
+
     private SatManager() {
     }
-    
+
     /**
-     * 
+     *
      * @return retuns the instance
      */
     public static SatManager getInstance() {
         return MANAGER;
     }
 
-    /** 
+    /**
      * Returns a list of the activate satellite admins. If none exist,
      * returns Empty list.
      * @return a list of the activate satellite admins.
      */
     public static List getActiveSatAdmins() {
         SelectMode m = ModeFactory.getMode("User_queries", "active_sat_admins");
-        Map params = new HashMap();       
+        Map params = new HashMap();
         DataResult dr = m.execute(params);
         if (dr == null) {
             return Collections.EMPTY_LIST;
         }
         return dr;
     }
-    
+
     /**
-     * Grants the sat admin role to the 'assignee' 
+     * Grants the sat admin role to the 'assignee'
      * @param assignee The user to whom sat admin role is to be granted
      * @param satAdmin the satAdmin user who is granting the role
      */
@@ -70,7 +70,7 @@ public class SatManager extends BaseManager {
     }
 
     /**
-     * Revokes the sat admin role from the 'revokee' 
+     * Revokes the sat admin role from the 'revokee'
      * @param revokee The satadmin from whom the sat admin role is to be revoked.
      * @param revoker the satAdmin user who is Revoking the role from the revokee
      */
@@ -84,7 +84,7 @@ public class SatManager extends BaseManager {
             revokee.removeRole(RoleFactory.SAT_ADMIN);
         }
     }
-    
+
     /**
      * Basically throws an error if the user is not a sat admin
      * @param user the user claiming to be a sat admin

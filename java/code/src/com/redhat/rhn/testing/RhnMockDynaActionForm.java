@@ -31,7 +31,7 @@ import junit.framework.AssertionFailedError;
 
 /**
  * RhnMockDynaActionForm is a mock implementation of
- * a Struts DynaActionForm which allows the user to 
+ * a Struts DynaActionForm which allows the user to
  * set expected values during testing.
  * @version $Rev$
  */
@@ -40,7 +40,7 @@ public class RhnMockDynaActionForm extends DynaActionForm
 
     /** Name of FormBean */
     private String formName;
-    
+
     /** Map of actual properties which have been set */
     private Map actual;
     /** Map of expected properties to be set */
@@ -51,7 +51,7 @@ public class RhnMockDynaActionForm extends DynaActionForm
      * defaults to false
      */
     private boolean expectNothing;
-    
+
     private Map formPropertyConfigs;
 
     /**
@@ -62,7 +62,7 @@ public class RhnMockDynaActionForm extends DynaActionForm
         this();
         formName = formNameIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -71,7 +71,7 @@ public class RhnMockDynaActionForm extends DynaActionForm
     }
 
     /**
-     * Default constructor 
+     * Default constructor
      */
     public RhnMockDynaActionForm() {
         super();
@@ -79,15 +79,15 @@ public class RhnMockDynaActionForm extends DynaActionForm
         expected = new HashMap();
         expectNothing = false;
         formPropertyConfigs = new HashMap();
-        
+
         // Setup the empty config.
         FormBeanConfig beanConfig = new FormBeanConfig();
-        beanConfig.setType(this.getClass().getName());        
+        beanConfig.setType(this.getClass().getName());
         DynaActionFormClass theDynaClass = DynaActionFormClass
                 .createDynaActionFormClass(beanConfig);
         setDynamicActionFormClass(theDynaClass);
     }
-    
+
     /**
      * Use this to set the DyanActionFormClass. Needed because the
      * setDynaActionFormClass method is package private in DynaActionForm.
@@ -96,31 +96,31 @@ public class RhnMockDynaActionForm extends DynaActionForm
     public void setDynamicActionFormClass(DynaActionFormClass dynaClass) {
         this.dynaClass = dynaClass;
     }
-    
+
     /**
      * Stores the name with the given value.
      * @param name Name to be associated.
      * @param value Value to associate with name.
      */
     public void set(String name, Object value) {
-        // Nothin to do here if we are inserting a 
+        // Nothin to do here if we are inserting a
         // null value.
         if (value == null) {
             return;
         }
-        
-        // This set of code below adds the name of this 
-        // property to the DynaClass that is used by 
+
+        // This set of code below adds the name of this
+        // property to the DynaClass that is used by
         // the DynaForm so we can actually treat this
         // Mock Form like a DynaBean.
         if (!formPropertyConfigs.containsKey(name)) {
             FormBeanConfig beanConfig = new FormBeanConfig();
 
-            beanConfig.setName(getFormName()); 
-            beanConfig.setType(this.getClass().getName());        
-            // Right now we only support Strings as dynamic members of 
+            beanConfig.setName(getFormName());
+            beanConfig.setType(this.getClass().getName());
+            // Right now we only support Strings as dynamic members of
             // the dynaclass.
-            FormPropertyConfig fc = 
+            FormPropertyConfig fc =
                 new FormPropertyConfig(name, "java.lang.String", value.toString());
             formPropertyConfigs.put(name, fc);
 
@@ -132,14 +132,14 @@ public class RhnMockDynaActionForm extends DynaActionForm
             }
 
             // Construct a corresponding DynaActionFormClass
-            DynaActionFormClass theDynaClass = 
+            DynaActionFormClass theDynaClass =
                  DynaActionFormClass.createDynaActionFormClass(beanConfig);
             setDynamicActionFormClass(theDynaClass);
         }
         // Add the actual value
         actual.put(name, value);
     }
-    
+
     /**
      * Adds a property that is expected to be set via the set method.
      * @param name Property name
@@ -150,7 +150,7 @@ public class RhnMockDynaActionForm extends DynaActionForm
             expected.put(name, value);
         }
     }
-    
+
     /**
      * Returns the value mapped to name or null if not found.
      * @param name Property whose value you seek.
@@ -159,7 +159,7 @@ public class RhnMockDynaActionForm extends DynaActionForm
     public Object get(String name) {
         return actual.get(name);
     }
-    
+
     /**
      * Verifies the object received the expected values.
      */
@@ -172,11 +172,11 @@ public class RhnMockDynaActionForm extends DynaActionForm
             Object key = itr.next();
             Object expValue = expected.get(key);
             Object actValue = actual.get(key);
-            
+
             if (expValue == null) {
                 throw new NullPointerException("Expected value of [" + key + "] is null.");
             }
-            
+
             if (!expValue.equals(actValue)) {
                 StringBuffer msg =
                     new StringBuffer("Did not receive expected values.\n");
@@ -212,7 +212,7 @@ public class RhnMockDynaActionForm extends DynaActionForm
     public void setFailOnVerify() {
         // do nothing
     }
-    
+
     /**
      * Get the formName
      * @return Returns the formName.
@@ -220,7 +220,7 @@ public class RhnMockDynaActionForm extends DynaActionForm
     public String getFormName() {
         if (formName == null) {
             return "dynaForm";
-        } 
+        }
         return formName;
     }
     /**

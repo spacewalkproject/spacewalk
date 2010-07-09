@@ -57,20 +57,20 @@ public class SessionManagerTest extends RhnBaseTestCase {
         k2 = SessionManager.generateSessionKey(s);
         assertTrue(k1.equals(k2));
     }
-    
+
     public void testMakeSecureParamNoTimestamp() {
         String s = "12345678";
         String param = SessionManager.makeSecureParamNoTimestamp(s);
         assertTrue("param == null", param != null);
         assertTrue("param is empty", !param.equals(""));
-        assertTrue("token not found", 
+        assertTrue("token not found",
               param.indexOf(SessionManager.SEC_PARM_TOKENIZER_CHAR) > 0);
         assertTrue("s != param",
               s.equals(SessionManager.extractSecureParam(param)));
         assertTrue("not a valid secure param",
               SessionManager.isValidSecureParam(param));
     }
-    
+
     public void testMakeSecureParamTimestamped() {
         String s = "12345678";
         String param = SessionManager.makeSecureParamTimestamped(s);
@@ -80,7 +80,7 @@ public class SessionManagerTest extends RhnBaseTestCase {
         assertTrue(s.equals(SessionManager.extractSecureParam(param)));
         assertTrue(SessionManager.isValidSecureParam(param));
     }
-    
+
     public void testIsValidSecureParam() {
         String s = "12345678";
         String paramNTS = SessionManager.makeSecureParamNoTimestamp(s);
@@ -89,7 +89,7 @@ public class SessionManagerTest extends RhnBaseTestCase {
         assertTrue(SessionManager.isValidSecureParam(paramNTS));
         assertFalse(SessionManager.isValidSecureParam(s));
     }
-    
+
     public void testExtractSecureParam() {
         String s = "12345678";
         String paramTS = SessionManager.makeSecureParamTimestamped(s);
@@ -100,46 +100,46 @@ public class SessionManagerTest extends RhnBaseTestCase {
         assertFalse(SessionManager.extractSecureParam(paramNTS).equals(""));
         assertTrue(SessionManager.extractSecureParam(paramNTS).equals(s));
     }
-    
+
     public void testIsPxtSessionKeyValidWhenKeyIsNull() {
         assertFalse(SessionManager.isPxtSessionKeyValid(null));
     }
-    
+
     public void testIsPxtSessionKeyValidWhenKeyIsValid() {
         String pxtSessionKey = generatePxtSessionKey();
-        
+
         assertTrue(SessionManager.isPxtSessionKeyValid(pxtSessionKey));
     }
-    
+
     /**
-     * This test was created for 
+     * This test was created for
      * https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=206558
      */
     public void testIsPxtSessionKeyValidWhenKeyIsInvalid() {
         String pxtSessionKey = generatePxtSessionKey();
         pxtSessionKey = pxtSessionKey.replace('x', ':');
-        
+
         assertFalse(SessionManager.isPxtSessionKeyValid(pxtSessionKey));
     }
-    
+
     public void testIsPxtSessionKeyValidWhenSessionIdHijacked() {
         String pxtSessionKey = generatePxtSessionKey();
         String[] keyParts = pxtSessionKey.split("x");
         String sessionId = keyParts[0];
-        
+
         sessionId = sessionId.replaceAll("2", "3");
         sessionId = sessionId.replaceAll("5", "7");
-        
+
         pxtSessionKey = sessionId + "x" + keyParts[1];
-        
+
         assertFalse(SessionManager.isPxtSessionKeyValid(pxtSessionKey));
     }
-    
+
     private String generatePxtSessionKey() {
         String id = "12345678";
         String generatedKey = SessionManager.generateSessionKey(id);
         String pxtSessionKey = id + "x" + generatedKey;
-        
+
         return pxtSessionKey;
     }
 
@@ -152,19 +152,19 @@ public class SessionManagerTest extends RhnBaseTestCase {
             // expected
         }
     }
-    
+
     public void testLookupByKey() {
         WebSession s = WebSessionFactory.createSession();
         verifySession(s);
         assertNotNull(s);
         WebSessionFactory.save(s);
         assertNotNull(s.getId());
-        
+
         String key = s.getKey();
-        
+
         WebSession s2 = SessionManager.lookupByKey(key);
         assertEquals(s, s2);
-        
+
         String invalidKey = s.getId() + "xfoobaredkeyhash";
         try {
             s2 = SessionManager.lookupByKey(invalidKey);
@@ -172,22 +172,22 @@ public class SessionManagerTest extends RhnBaseTestCase {
         catch (InvalidSessionIdException e) {
             //success
         }
-        
+
         try {
             s2 = SessionManager.lookupByKey(null);
         }
         catch (InvalidSessionIdException e) {
             //success
         }
-        
+
         try {
             s2 = SessionManager.lookupByKey(s.getId() + "foobaredkeyhash");
         }
         catch (InvalidSessionIdException e) {
             //success
-        }   
+        }
     }
-    
+
     private void verifySession(WebSession s) {
         assertNull(s.getId());
         assertNull(s.getUser());
@@ -195,21 +195,21 @@ public class SessionManagerTest extends RhnBaseTestCase {
         assertNull(s.getWebUserId());
         assertEquals(0, s.getExpires());
     }
-    
+
     public void testPurgeSession() throws Exception {
         long duration = 3600L;
         User u = UserTestUtils.findNewUser("testUser", "testOrg");
         WebSession s = SessionManager.makeSession(u.getId(), duration);
         assertNotNull(s);
         long actualDuration = s.getExpires() - TimeUtils.currentTimeSeconds();
-        
+
         short tolerance = 2;
         // this works because it's in the same second.
         assertTrue(actualDuration > duration - tolerance);
         assertTrue(actualDuration < duration + tolerance);
         flushAndEvict(s);
         SessionManager.purgeUserSessions(u);
-        
+
         try {
             SessionManager.lookupByKey(s.getKey());
             fail("Lookup exception not thrown for a null key even after purge");
@@ -218,5 +218,5 @@ public class SessionManagerTest extends RhnBaseTestCase {
             //Cool this means it properly threw exception...
         }
 
-    }    
+    }
 }

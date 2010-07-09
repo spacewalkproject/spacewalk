@@ -46,7 +46,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         SelectMode m = ModeFactory.getMode("System_queries", "ssm_remote_commandable");
         assertNotNull(m);
     }
- 
+
     public void testGetModesNoFile() throws Exception {
         try {
             ModeFactory.getMode("Garbage", "ssm_remote_commandable");
@@ -66,7 +66,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
             // Expected this exception, Garbage isn't a valid file.
         }
     }
-    
+
     public void testExternalElaborator() throws Exception {
         SelectMode m = ModeFactory.getMode("test_queries",
                                            "user_tables_external_elaborator");
@@ -161,12 +161,12 @@ public class DataSourceParserTest extends RhnBaseTestCase {
                     CachedStatement stmt = m.getQuery();
                     if (stmt != null) {
                         String query = m.getQuery().getQuery();
-    
+
                         // HACK!  Some of the queries actually have %s in them.
                         // So, replace all %s with :rbb so that the explain plan
                         // can be generated.
                         query = query.replaceAll("%s", ":rbb");
-    
+
                         ps = conn.prepareStatement(query);
                     }
                 }
@@ -195,7 +195,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         dr.elaborate(new HashMap());
         assertNotNull(dr);
         assertEquals(3, dr.size());
-        
+
         i = dr.iterator();
         while (i.hasNext()) {
             Map hm = (Map)i.next();
@@ -381,7 +381,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         assertTrue(dr.size() > 0);
         dr = (DataResult)dr.subList(0, 1);
         dr.elaborate(new HashMap());
-        
+
         Iterator i = dr.iterator();
         TableData first = (TableData)i.next();
         assertTrue(first.getTableName().startsWith("RHN"));

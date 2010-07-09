@@ -29,7 +29,7 @@ import java.util.Map;
  * of bean-ready field names (ie, if getFoo() exists in the Dto, "foo" is the field name),
  * and an I18N msg of the form "configfilter.method.<field>", and the base class will
  * do the rest.
- *  
+ *
  * ConfigFileFilter
  * @version $Rev$
  */
@@ -68,7 +68,7 @@ public abstract class BaseConfigFilter implements ListFilter {
         return retval;
     }
 
-    
+
     private void buildMap(Locale aLoc) {
         LocalizationService ls = LocalizationService.getInstance();
         fieldMap = new HashMap();
@@ -78,8 +78,8 @@ public abstract class BaseConfigFilter implements ListFilter {
             fieldMap.put(ls.getMessage(getI18NPrefix() + "." + aName, aLoc), aName);
         }
     }
-    
+
     protected abstract List activeNames();
-    
+
     protected abstract String getI18NPrefix();
 }

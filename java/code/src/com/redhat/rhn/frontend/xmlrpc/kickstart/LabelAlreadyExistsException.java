@@ -23,7 +23,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class LabelAlreadyExistsException extends FaultException {
-    
+
     /**
      * Constructor
      * @param label the kickstart label

@@ -27,7 +27,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * RadioTag
- * Implements a simple radio button collection useful with 
+ * Implements a simple radio button collection useful with
  * rl list tag.
  *  <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
  *   <rl:radiocolumn value="${current.selectionKey}" styleclass="first-column"/>
@@ -70,7 +70,7 @@ public class RadioColumnTag extends TagSupport {
     public void setHeaderkey(String key) {
         headerKey = key;
     }
-    
+
     /**
      * Sets the individual cells' CSS style class
      * @param style CSS style class
@@ -78,7 +78,7 @@ public class RadioColumnTag extends TagSupport {
     public void setStyleclass(String style) {
         styleClass = style;
     }
-    
+
     /**
      * Sets the value for the cell
      * Should probably reference the ${current} variable in some way
@@ -87,16 +87,16 @@ public class RadioColumnTag extends TagSupport {
     public void setValue(String valueIn) {
         valueExpr = valueIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public int doStartTag() throws JspException {
-        
-        ListCommand command = (ListCommand) 
+
+        ListCommand command = (ListCommand)
             ListTagUtil.getCurrentCommand(this, pageContext);
-        ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this, 
+        ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this,
                 ListTag.class);
         listName = parent.getUniqueName();
         int retval = BodyTagSupport.SKIP_BODY;
@@ -109,12 +109,12 @@ public class RadioColumnTag extends TagSupport {
         else if (command.equals(ListCommand.COL_HEADER)) {
             renderHeader(parent);
             retval = BodyTagSupport.EVAL_PAGE;
-        }        
+        }
         else if (command.equals(ListCommand.RENDER)) {
             render(valueExpr);
         }
         return retval;
-    } 
+    }
 
     /**
      * {@inheritDoc}
@@ -124,12 +124,12 @@ public class RadioColumnTag extends TagSupport {
         ListCommand command = (ListCommand) ListTagUtil.
                                             getCurrentCommand(this, pageContext);
         if (command.equals(ListCommand.RENDER)) {
-            ListTagUtil.write(pageContext, "</td>");    
+            ListTagUtil.write(pageContext, "</td>");
         }
         release();
         return BodyTagSupport.EVAL_PAGE;
     }
-    
+
     private void render(String value) throws JspException {
         writeStartingTd();
         HtmlTag radio = new HtmlTag("input");
@@ -148,12 +148,12 @@ public class RadioColumnTag extends TagSupport {
     protected void writeStartingTd() throws JspException {
         SelectableColumnTag.writeStartingTd(pageContext, styleClass, width);
     }
-    
+
     private boolean isSelected() {
         String value = getRadioValue();
         return valueExpr.equals(value);
     }
-    
+
     private void renderHiddenField() throws JspException {
         HtmlTag hidden = new HtmlTag("input");
         hidden.setAttribute("type", "hidden");
@@ -161,7 +161,7 @@ public class RadioColumnTag extends TagSupport {
         hidden.setAttribute("value", getRadioValue());
         ListTagUtil.write(pageContext, hidden.render());
     }
-  
+
     private void renderHeader(ListTag parent) throws JspException {
         if (!parent.isEmpty()) {
             ListTagUtil.write(pageContext, "<th");
@@ -178,28 +178,28 @@ public class RadioColumnTag extends TagSupport {
             ListTagUtil.write(pageContext, "</th>");
         }
     }
-    
+
     private static String getRadioName(String listName) {
-        return String.format("list_%s_radio", listName);  
-    }    
-    
+        return String.format("list_%s_radio", listName);
+    }
+
     private static String getRadioHidden(String listName) {
-        return String.format("list_%s_hidden", listName);  
+        return String.format("list_%s_hidden", listName);
     }
 
     private static String getDefaultValueName(String listName) {
-        return String.format("list_%s_default", listName);  
+        return String.format("list_%s_default", listName);
     }
-    
+
     private String getRadioValue() {
         return getRadioValue(pageContext.getRequest(), listName);
     }
-    
-    static void bindDefaultValue(ServletRequest request, 
+
+    static void bindDefaultValue(ServletRequest request,
                                     String listName, String value) {
         request.setAttribute(getDefaultValueName(listName), value);
     }
-    
+
     static String getRadioValue(ServletRequest request, String listName) {
         String value = (String)request.getAttribute(getRadioName(listName));
         if (StringUtils.isBlank(value)) {
@@ -208,14 +208,14 @@ public class RadioColumnTag extends TagSupport {
                 value = request.getParameter(getRadioHidden(listName));
                 if (StringUtils.isBlank(value)) {
                     value = (String)request.getAttribute(
-                                                getDefaultValueName(listName));    
+                                                getDefaultValueName(listName));
                 }
-            }            
+            }
         }
         request.setAttribute(getRadioName(listName), value);
         return value;
     }
-    
+
     /**
      * {@inheritDoc}
      */

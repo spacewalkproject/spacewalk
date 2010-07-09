@@ -26,8 +26,8 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev: 1 $
  */
 public class KickstartsSetupActionTest extends RhnMockStrutsTestCase {
-    
-    public void testKickstartList() throws Exception {    
+
+    public void testKickstartList() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
 
@@ -37,8 +37,8 @@ public class KickstartsSetupActionTest extends RhnMockStrutsTestCase {
         setRequestPathInfo("/kickstart/Kickstarts");
         actionPerform();
         DataResult dr = (DataResult) request.getAttribute("pageList");
-        assertNotNull(dr);        
-        assertTrue(dr.size() >= 1);             
+        assertNotNull(dr);
+        assertTrue(dr.size() >= 1);
     }
 
 }

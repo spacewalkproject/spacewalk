@@ -27,18 +27,18 @@ public class ErrataConfirmSetupActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         setRequestPathInfo("/systems/details/ErrataConfirm");
-        
+
         // Create Server
         Server server = ServerFactoryTest.createTestServer(user, true);
         addRequestParameter("sid", server.getId().toString());
-        
+
         //Note: 2 invocations of getParameter("use_date") will be called by DatePicker
         addRequestParameter(DatePicker.USE_DATE, "true");
         actionPerform();
         assertNotNull(request.getAttribute("system"));
         Server server2 = (Server) request.getAttribute("system");
         assertEquals(server, server2);
-        
+
     }
 
 }

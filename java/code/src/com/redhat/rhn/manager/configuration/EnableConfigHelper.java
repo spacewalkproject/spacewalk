@@ -42,13 +42,13 @@ import java.util.Map;
  * @version $Rev$
  */
 public class EnableConfigHelper {
-    
+
     private User user;
 
     protected EnableConfigHelper(User userIn) {
         user = userIn;
     }
-    
+
     /**
      * Enable the set of systems given for configuration management.
      * @param setLabel The label for the set that contains systems selected for enablement
@@ -59,7 +59,7 @@ public class EnableConfigHelper {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         //Get the list of systems and what we need to do to them.
         DataResult dr = cm.listNonManagedSystemsInSetElaborate(user, setLabel);
-        
+
         /*
          * The set going to store the system ids and an error code
          * for any problems we run into.  The element_two column will
@@ -67,16 +67,16 @@ public class EnableConfigHelper {
          * I realize that this is cheating with the element_two column,
          * but the other option was to have a separate set for every
          * error condition and then union the sets when we wish to display them.
-         * 
+         *
          * The problem we are solving by using RhnSet is remembering what
          * systems ran into what problems across page requests (pagination especially)
-         * 
+         *
          * TODO: currently any single system will only have one error
          *       condition.  We should probably tell the user multiple
          *       errors if we can.
          */
         RhnSet set = RhnSetDecl.CONFIG_ENABLE_SYSTEMS.create(user);
-        
+
         //iterate through the dataresult and perform actions
         for (int n = 0; n < dr.getTotalSize(); n++) {
             ConfigSystemDto dto = (ConfigSystemDto)dr.get(n);
@@ -85,14 +85,14 @@ public class EnableConfigHelper {
             set.addElement(new Long(dto.getId().longValue()),
                     new Long(enableSystem(dto, current, earliestIn)));
         }
-        
+
         //save the results
         RhnSetManager.store(set);
     }
-    
+
     private int enableSystem(ConfigSystemDto dto, Server current, Date earliest) {
         boolean needOrgAdmin = false;
-        
+
         //give provisioning if this current doesn't have it.
         if (!dto.isProvisioning()) {
             if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
@@ -102,37 +102,37 @@ public class EnableConfigHelper {
                 return ConfigurationManager.ENABLE_ERROR_PROVISIONING;
             }
         }
-        
+
         //subscribe the system to RhnTools child channel if they need it.
         if (!dto.isRhnTools()) {
-            if (ChannelManager.subscribeToChildChannelWithPackageName(user, current, 
+            if (ChannelManager.subscribeToChildChannelWithPackageName(user, current,
                     ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME) == null) {
                 return ConfigurationManager.ENABLE_ERROR_RHNTOOLS;
             }
         }
-        
+
         //schedule package installs for the rhncfg-* packages.
         if (!installPackages(dto, current, earliest)) {
             return ConfigurationManager.ENABLE_ERROR_PACKAGES;
         }
-        
+
         //If everything went peachy, but we need an org admin to
         //finish the job.
         if (needOrgAdmin) {
             return ConfigurationManager.ENABLE_NEED_ORG_ADMIN;
         }
-        
+
         return ConfigurationManager.ENABLE_SUCCESS;
     }
-    
+
     private boolean grantProvisioning(Org org, Server current) {
         Long sid = current.getId();
-        
+
         if (ServerGroupFactory.lookupEntitled(EntitlementManager.PROVISIONING, org)
                 .getAvailableSlots() < 1) {
             return false;
         }
-        
+
         /*
          * This is more complicated than it might originally seem.
          * If they have no entitlements, I have to give them management
@@ -156,7 +156,7 @@ public class EnableConfigHelper {
             //problem that we can't fix.
             return false;
         }
-        
+
         //remember what entitlements they had so we can put them back if we fail.
         boolean hadNonlinux = false;
         boolean hadUpdate = false;
@@ -169,26 +169,26 @@ public class EnableConfigHelper {
             SystemManager.removeServerEntitlement(sid, EntitlementManager.UPDATE);
         }
         //else they were unentitled
-        
+
         long manageSlots = ServerGroupFactory.lookupEntitled(
                                 EntitlementManager.MANAGEMENT, org).
                                     getAvailableSlots();
-        
+
         if (SystemManager.canEntitleServer(sid, EntitlementManager.MANAGEMENT) &&
                 manageSlots > 0) {
             SystemManager.entitleServer(org, sid, EntitlementManager.MANAGEMENT);
-            
+
             if (SystemManager.canEntitleServer(sid, EntitlementManager.PROVISIONING)) {
                 //Excellent, we will now grant provisioning and be happy.
                 SystemManager.entitleServer(org, sid, EntitlementManager.PROVISIONING);
                 return true;
             }
-            
+
             //We added management, but we couldn't add provisioning, take back management.
             SystemManager.removeServerEntitlement(sid, EntitlementManager.MANAGEMENT);
         }
-        
-        
+
+
         //Something went wrong,  revert changes!!
         if (hadNonlinux) {
             SystemManager.entitleServer(org, sid, EntitlementManager.NONLINUX);
@@ -198,46 +198,46 @@ public class EnableConfigHelper {
         }
         return false;
     }
-    
+
     private boolean installPackages(ConfigSystemDto dto, Server current, Date earliest) {
         boolean error = false;
         List packages = new ArrayList();
-        
+
         /*
          * If there is ever an error, we will stop what we are doing.  Utilizing
          * the short circuit of boolean expression evaluation to easily do this.
          */
-        error = installPackagesHelper(current, packages, 
+        error = installPackagesHelper(current, packages,
                                                 PackageManager.RHNCFG, dto.getRhncfg());
-        error = error || installPackagesHelper(current, packages, 
+        error = error || installPackagesHelper(current, packages,
                                                 PackageManager.RHNCFG_ACTIONS,
                 dto.getRhncfgActions());
         error = error || installPackagesHelper(current, packages,
                                                 PackageManager.RHNCFG_CLIENT,
                 dto.getRhncfgClient());
-        
+
         if (error) {
             return false;  //there was an error, bail out
         }
         else if (packages.size() == 0) {
             return true;  //This particular system didn't need any packages
         }
-        
+
         ActionManager.schedulePackageAction(user, packages,
             ActionFactory.TYPE_PACKAGES_UPDATE, earliest, current);
-        
+
         return true;
-        
+
     }
-    
-    private boolean installPackagesHelper(Server current, 
+
+    private boolean installPackagesHelper(Server current,
             List packages, String packageName, int status) {
         if (status == ConfigSystemDto.NEEDED) {
             Map map = PackageManager.lookupEvrIdByPackageName(current.getId(), packageName);
             if (map == null) {
                 return true;
             }
-            
+
             packages.add(map);
         }
         return false;

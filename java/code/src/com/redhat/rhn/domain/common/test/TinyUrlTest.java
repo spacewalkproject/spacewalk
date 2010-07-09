@@ -45,14 +45,14 @@ public class TinyUrlTest extends RhnBaseTestCase {
         String expected = "http://xmlrpc.rhn.webdev.redhat.com/ty/" + url.getToken();
         assertEquals(expected, path);
     }
-    
+
     public void testComputeTinyPath() {
         TinyUrl url = CommonFactory.createTinyUrl(
                 "/rhn/kickstart/ks-rhel-i386-as-4-u2", new Date());
         String expected = "/ty/" + url.getToken();
         assertEquals(expected, url.computeTinyPath());
     }
-    
+
     public void testDateMath() {
         TimeZone defaulttz = TimeZone.getDefault();
         Calendar pcal = Calendar.getInstance();
@@ -60,7 +60,7 @@ public class TinyUrlTest extends RhnBaseTestCase {
         Date zero = new Date(0);
         pcal.setTime(zero);
         pcal.add(Calendar.HOUR, 4);
-        
+
         TinyUrl url = CommonFactory.createTinyUrl(
                 "/rhn/kickstart/ks-rhel-i386-as-4-u2", pcal.getTime());
 

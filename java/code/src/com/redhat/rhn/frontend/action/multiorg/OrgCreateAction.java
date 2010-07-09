@@ -58,7 +58,7 @@ public class OrgCreateAction extends RhnAction {
         if (pamAuthService != null && pamAuthService.trim().length() > 0) {
             request.setAttribute("displaypamcheckbox", "true");
         }
-        
+
         request.setAttribute("availablePrefixes", UserActionHelper.getPrefixes());
         if (isSubmitted(dynaForm)) {
         /*
@@ -66,12 +66,12 @@ public class OrgCreateAction extends RhnAction {
          * Since password is required in the db and since in all other cases it is req,
          * we'll trick the validation by doing all of the manipulation before validating
          * the form.
-         * 
+         *
          * Also, if the user for some reason does want to set a default password to stick
          * in the db (even though it won't be used), we'll just validate it like a regular
          * password and allow it.
          */
-            if (dynaForm.get("usepam") != null && 
+            if (dynaForm.get("usepam") != null &&
                     ((Boolean) dynaForm.get("usepam")).booleanValue()) {
                 String hash = MD5Crypt.crypt("" + System.currentTimeMillis());
                 if (dynaForm.get(UserActionHelper.DESIRED_PASS) == null ||
@@ -83,10 +83,10 @@ public class OrgCreateAction extends RhnAction {
                     dynaForm.set(UserActionHelper.DESIRED_PASS_CONFIRM, hash);
                 }
             }
-            
+
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
                     this, dynaForm);
-            
+
             if (!errors.isEmpty()) {
                 getStrutsDelegate().saveMessages(request, errors);
             }
@@ -97,7 +97,7 @@ public class OrgCreateAction extends RhnAction {
                 String pass = dynaForm.getString("desiredpassword");
                 String passConfirm = dynaForm.getString("desiredpasswordConfirm");
                 String fname = dynaForm.getString("firstNames");
-                String lname = dynaForm.getString("lastName"); 
+                String lname = dynaForm.getString("lastName");
                 String prefix = dynaForm.getString("prefix");
 
                 if (!pass.equals(passConfirm)) {
@@ -107,7 +107,7 @@ public class OrgCreateAction extends RhnAction {
                     CreateOrgCommand cmd = new CreateOrgCommand(name, login, pass, email);
 
                     //Should this user use pam authentication?
-                    if (dynaForm.get("usepam") != null && 
+                    if (dynaForm.get("usepam") != null &&
                             ((Boolean)dynaForm.get("usepam")).booleanValue()) {
                         cmd.setUsePam(true);
                     }
@@ -120,12 +120,12 @@ public class OrgCreateAction extends RhnAction {
                     cmd.setPrefix(prefix);
                     ValidatorError[] verrors = cmd.store();
                     if (verrors != null) {
-                        ActionErrors ae = 
+                        ActionErrors ae =
                             RhnValidationHelper.validatorErrorToActionErrors(verrors);
                         getStrutsDelegate().saveMessages(request, ae);
                     }
                     else {
-                        createSuccessMessage(request, "org.create.success", 
+                        createSuccessMessage(request, "org.create.success",
                                 cmd.getNewOrg().getName());
                         retval = getStrutsDelegate().
                                  forwardParam(mapping.findForward("success"),

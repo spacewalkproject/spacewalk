@@ -37,17 +37,17 @@ public class SystemIconDecorator extends BaseListDecorator {
     public void setCurrentList(ListTag current) {
         super.setCurrentList(current);
         if (current != null) {
-            elaborateContents();    
+            elaborateContents();
         }
-        
+
     }
-    
+
     private void elaborateContents() {
         List<SystemOverview> systems = getCurrentList().getPageData();
-        
+
         RequestContext context = new RequestContext(
                 (HttpServletRequest)getCurrentList().getContext().getRequest());
-        
+
         for (SystemOverview next : systems) {
             SystemListHelper.setSystemStatusDisplay(context.getLoggedInUser(), next, true);
         }

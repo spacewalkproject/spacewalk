@@ -1,9 +1,9 @@
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" 
-  xmlns:xyz="urn:appInfo:Items" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1"
+  xmlns:xyz="urn:appInfo:Items"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1
-http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" 
-  version="1.1">  
+http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
+  version="1.1">
   <file source-language="en" datatype="plaintext" original="">
     <body>
       <trans-unit id="email.verify.subject">
@@ -13,7 +13,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
       <context context-type="sourcefile">/users/ChangeEmail.do</context>
         </context-group>
       </trans-unit>
-      
+
 <!-- New Account Email -->
       <trans-unit id="email.newaccount.subject">
 <source>Your @@PRODUCT_NAME@@ Account is ready</source>
@@ -22,7 +22,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
       <context context-type="sourcefile">/users/ChangeEmail.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="email.newaccountbycreator.body">
 <source>Hello,
 
@@ -54,7 +54,7 @@ Thank you for using @@PRODUCT_NAME@@.
           </context>
         </context-group>
       </trans-unit>
-    
+
     <trans-unit id="email.newaccount.body">
 <source>Hello,
 
@@ -86,7 +86,7 @@ Thank you for using @@PRODUCT_NAME@@.
           </context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="email.newaccount.pam.body">
 <source>Hello,
 
@@ -109,13 +109,13 @@ Thank you for using @@PRODUCT_NAME@@.
               admin = account creator's login.
               ...Red Hat login: kjohnny e-mail: kganong@redhat.com
               https://rhn.redhat.com/
-        
+
               Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
       </trans-unit>
-    
+
 <!-- New User Email -->
       <trans-unit id="email.newuser.subject">
 <source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
@@ -125,7 +125,7 @@ Thank you for using @@PRODUCT_NAME@@.
       <context context-type="paramnotes">@@PRODUCT_NAME@@ User Created: dugb (Bordon, Duglas &lt;dugb@meko.com&gt;)</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="email.newuser.body">
 <source>Hello,
 
@@ -164,14 +164,14 @@ The Red Hat login {0} has been deactivated in response to your request.
 Thank you for contacting Red Hat.
          </source>
       </trans-unit>
-      
+
       <trans-unit id="email.newuser.bala.subject">
 <source>Red Hat login creation request</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="email.newuser.bala.footer">
 <source>
 For additional information in German language, please visit our Website:
@@ -184,7 +184,7 @@ For additional information in German language, please visit our Website:
           </context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="email.newuser.bala.footer2">
 <source>
 For French, click here: {0}
@@ -315,7 +315,7 @@ Thank you for using @@PRODUCT_NAME@@.
   <context-group name="ctx">
     <context context-type="sourcefile">Taskomatic task: ErrataMailer.java</context>
   </context-group>
-  
+
   <trans-unit id="email.errata.notification.body.summary">
     <source>
 @@PRODUCT_NAME@@ has determined that the following advisory is applicable to
@@ -421,7 +421,7 @@ click the "Details" tab.
     </context-group>
   </trans-unit>
 </group>
-      
+
       <trans-unit id="dailysummary.email.subject">
 <source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
         <context-group name="ctx">
@@ -520,7 +520,7 @@ deactivated.
 Please note that this is a final notice.  If you do not click through
 this URL within the next 2 days, your Red Hat login will deactivated.
 
-To confirm your email address, please visit the following URL: 
+To confirm your email address, please visit the following URL:
 
 {0}
 
@@ -544,7 +544,7 @@ Thank you for using @@PRODUCT_NAME@@.
           <context context-type="sourcefile">Taskomatic</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="email.satellitecert.graceperiod.subject">
 <source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
         <context-group name="ctx">
@@ -557,9 +557,9 @@ Thank you for using @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems 
+has expired on your local satellite {0}. After {1} day(s) the systems
 management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information 
+Please contact your regional Red Hat Customer  Service Representative for information
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -580,14 +580,14 @@ Thank you for using @@PRODUCT_NAME@@.
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
       </trans-unit>
-    
+
       <trans-unit id="email.satellitecert.expired.body">
 <source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible 
-until your certificate is renewed. Please contact your regional Red Hat 
+has expired on your local satellite {0}. The system management services will be inaccessible
+until your certificate is renewed. Please contact your regional Red Hat
 Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 

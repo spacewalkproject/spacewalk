@@ -29,7 +29,7 @@ import org.cobbler.Profile;
  * @version $Rev$
  */
 public class KickstartRawData extends KickstartData {
-    
+
     private String data;
 
     /**
@@ -39,7 +39,7 @@ public class KickstartRawData extends KickstartData {
         super();
         this.kickstartType = TYPE_RAW;
     }
-    
+
     /**
      * the actual raw data asa string. ....
      * @return the raw data
@@ -58,7 +58,7 @@ public class KickstartRawData extends KickstartData {
         }
         return this.data;
     }
-    
+
     /**
      * set the raw data info.
      * @param dataIn raw data
@@ -66,13 +66,13 @@ public class KickstartRawData extends KickstartData {
     public void setData(String dataIn) {
         this.data = dataIn;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isRawData() {
         return true;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public KickstartData deepCopy(User user, String newLabel) {
@@ -81,11 +81,11 @@ public class KickstartRawData extends KickstartData {
         copied.setData(this.getData());
         return copied;
     }
-    
+
     /** {@inheritDoc} */
     @Override
-    public String getFileData(String host, 
+    public String getFileData(String host,
             KickstartSession session) {
         return getData();
-    }    
+    }
 }

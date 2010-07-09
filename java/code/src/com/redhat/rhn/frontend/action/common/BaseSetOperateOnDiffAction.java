@@ -42,13 +42,13 @@ import javax.servlet.http.HttpServletResponse;
  * BaseSetOperateOnDiffAction - extension of RhnSetAction
  * that provides a framework for performing specified business
  * operations on the currently selected items in the list.
- *  
+ *
  * @version $Rev$
  */
 public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
-    
+
     private static Logger log = Logger.getLogger(BaseSetOperateOnDiffAction.class);
-    
+
     /**
      * Execute some operation on the items that have removed or added
      * from the set.  Forwards to the "default"
@@ -65,7 +65,7 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
      * "1 Activation Key(s) removed."
      *
      * If a different message format is required, just override generateUserMessage
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -78,33 +78,33 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
                                        HttpServletResponse response) {
 
         log.debug("operateOnDiff called");
-        
+
         User user = new RequestContext(request).getLoggedInUser();
         // RhnSet originalSet = getSetDecl().get(user);
-        
+
         RhnSet currentset = updateSet(request);
         RhnSetManager.store(currentset);
 
         Map params = makeParamMap(formIn, request);
         HashMap diffmap = new HashMap();
-        
+
         Iterator originalItems = getCurrentItemsIterator(new RequestContext(request));
-        
+
         if (log.isDebugEnabled()) {
             log.debug("current set  : " + currentset.getElements());
         }
 
         while (originalItems.hasNext()) {
             Identifiable ido = (Identifiable) originalItems.next();
-            
+
             if (log.isDebugEnabled()) {
                 log.debug("original item  : " + ido.getId());
             }
-            diffmap.put(new RhnSetElement(user.getId(), 
+            diffmap.put(new RhnSetElement(user.getId(),
                     getSetDecl().getLabel(), ido.getId(), null),
                         "original");
         }
-        
+
 
         Iterator currentIter = currentset.getElements().iterator();
         ArrayList added = new ArrayList();
@@ -128,7 +128,7 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
                 removed.add(elem);
             }
         }
-        
+
         if (log.isDebugEnabled()) {
             log.debug("removed : " + removed);
             log.debug("added : " + added);
@@ -166,8 +166,8 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
             getStrutsDelegate().saveMessages(request, msg);
         }
     }
-    
-    /** 
+
+    /**
      * Operate on the removed elements, whatever that entails for a
      * given subclass.  This method is called immediately before
      * operateOnAddedElements.
@@ -177,7 +177,7 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
     protected abstract void operateOnRemovedElements(List elements,
                                                      HttpServletRequest request);
 
-    /** 
+    /**
      * Operate on the added elements, whatever that entails for a
      * given subclass.  This method is called immediately after
      * operateOnRemovedElements.
@@ -187,24 +187,24 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
     protected abstract void operateOnAddedElements(List elements,
                                                    HttpServletRequest request);
 
-    /** 
+    /**
      * Get the RhnSet 'Decl' for the action
      * @return The set decleration
      */
     public abstract RhnSetDecl getSetDecl();
-    
+
     /**
-     * Get the Iterator for a Collection of Objects 
-     * that implement the Identifiable interface.  This is required 
+     * Get the Iterator for a Collection of Objects
+     * that implement the Identifiable interface.  This is required
      * so this base class can calculate the original set of items
      * that are associated with the main object we are operating on.
-     * 
+     *
      * This iterator is then 'diffed' against the items in the RhnSet
      * to determine what should be added vs removed.
-     * 
+     *
      * @param ctx to fetch info from
      * @return Iterator containing Identifiable objects.
      */
     protected abstract Iterator getCurrentItemsIterator(RequestContext ctx);
-    
+
 }

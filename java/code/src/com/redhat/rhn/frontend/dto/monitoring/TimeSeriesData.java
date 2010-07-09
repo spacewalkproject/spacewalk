@@ -21,17 +21,17 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import java.util.Date;
 
 /**
- * TimeSeriesData - DTO version of table "time_series" 
- * 
+ * TimeSeriesData - DTO version of table "time_series"
+ *
  * @version $Rev: 50942 $
  */
 public class TimeSeriesData extends BaseDto {
-    
+
     private String oid;
     private Float data;
     private Date time;
     private String metric;
-    
+
     /**
      * Create a new TimeSeriesData record with default values
      * @param oidIn oid for this record (the id)
@@ -78,7 +78,7 @@ public class TimeSeriesData extends BaseDto {
     public void setTime(Date timeIn) {
         this.time = timeIn;
     }
-    
+
     /**
      * @return Returns the metric.
      */
@@ -94,7 +94,7 @@ public class TimeSeriesData extends BaseDto {
                     time).append("metric", metric).toString();
         }
 
-    
+
     /**
      * @return Returns the oid.
      */

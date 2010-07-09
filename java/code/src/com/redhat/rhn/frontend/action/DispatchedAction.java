@@ -32,29 +32,29 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public abstract class DispatchedAction extends RhnAction {
-    
+
     /**
      * ${@inheritDoc}
      */
     public ActionForward execute(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        
+
         RequestContext context = new RequestContext(request);
-        
+
         if (context.hasParam(RequestContext.DISPATCH)) {
             return commitAction(mapping, form, request, response);
         }
-        
+
         if (context.hasParam(RequestContext.CONFIRM)) {
             return confirmAction(mapping, form, request, response);
         }
 
         return setupAction(mapping, form, request, response);
     }
-    
+
     /**
      * Called to setup the page for display.
      * @param mapping An action mapping.
@@ -65,11 +65,11 @@ public abstract class DispatchedAction extends RhnAction {
      * @throws Exception
      */
     protected abstract ActionForward setupAction(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception;
-    
+
     /**
      * Called when a page form has been submitted and requires confirmation.
      * @param mapping An action mapping.
@@ -80,13 +80,13 @@ public abstract class DispatchedAction extends RhnAction {
      * @throws Exception
      */
     protected ActionForward confirmAction(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         throw new Exception("confirmAction called but not overridden");
     }
-    
+
     /**
      * Called when a page form has been submitted and confirmed.
      * Applies page submit to the system.
@@ -98,9 +98,9 @@ public abstract class DispatchedAction extends RhnAction {
      * @throws Exception
      */
     protected ActionForward commitAction(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         throw new Exception("commitAction called but not overridden");
     }

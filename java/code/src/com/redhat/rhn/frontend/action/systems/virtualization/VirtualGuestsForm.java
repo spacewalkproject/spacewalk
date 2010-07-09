@@ -25,7 +25,7 @@ public class VirtualGuestsForm extends ScrubbingDynaActionForm {
     private String guestAction;
     private String guestSettingToModify = "";
     private String guestSettingValue;
-    
+
     /**
      * Getter for the dispatch selection.
      * @return Dispatch selection.
@@ -33,7 +33,7 @@ public class VirtualGuestsForm extends ScrubbingDynaActionForm {
     public String getGuestAction() {
         return guestAction;
     }
-    
+
     /**
      * Setter for dispatch selection.
      * @param dispatchIn Dispatch selection to set.
@@ -41,7 +41,7 @@ public class VirtualGuestsForm extends ScrubbingDynaActionForm {
     public void setGuestAction(String dispatchIn) {
         guestAction = dispatchIn;
     }
-    
+
     /**
      * Getter for the guestSettingToModify selection.
      * @return Guest setting to be modified.
@@ -49,7 +49,7 @@ public class VirtualGuestsForm extends ScrubbingDynaActionForm {
     public String getGuestSettingToModify() {
         return guestSettingToModify;
     }
-    
+
     /**
      * Setter for guestSettingToModify selection.
      * @param guestSettingToModifyIn Guest setting to be modified.
@@ -65,7 +65,7 @@ public class VirtualGuestsForm extends ScrubbingDynaActionForm {
     public String getGuestSettingValue() {
         return guestSettingValue;
     }
-    
+
     /**
      * Setter for guestSettingToModify selection.
      * @param guestSettingValueIn Guest setting to be modified.

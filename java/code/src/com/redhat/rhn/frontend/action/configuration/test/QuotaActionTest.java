@@ -22,9 +22,9 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
  * @version $Rev$
  */
 public class QuotaActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
-        
+
         return; //There are no quotas in satellite.
     }
 }

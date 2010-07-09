@@ -21,9 +21,9 @@ package com.redhat.rhn.domain.action.kickstart;
  */
 public class KickstartActionDetails extends BaseKickstartActionDetails {
 
-    
+
     private String staticDevice;
-    
+
 
     /**
      * @return Returns the staticDevice.
@@ -31,7 +31,7 @@ public class KickstartActionDetails extends BaseKickstartActionDetails {
     public String getStaticDevice() {
         return staticDevice;
     }
-    
+
     /**
      * @param s The staticDevice to set.
      */

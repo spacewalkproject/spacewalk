@@ -23,7 +23,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class CPUArchTest extends RhnBaseTestCase {
-    
+
     /**
      * Simple test to make sure we can lookup CPUArchs from
      * the db. Turn on hibernate.show_sql to make sure hibernate
@@ -31,14 +31,14 @@ public class CPUArchTest extends RhnBaseTestCase {
      * @throws Exception HibernateException
      */
     public void testCPUArch() throws Exception {
-        
+
         String testname = "sun4u";
         String invalid = "foobar4me";
-        
+
         CPUArch c1 = ServerFactory.lookupCPUArchByName(testname);
         CPUArch c2 = ServerFactory.lookupCPUArchByName(c1.getName());
         CPUArch c3 = ServerFactory.lookupCPUArchByName(invalid);
-        
+
         assertNull(c3);
         assertNotNull(c1.getCreated());
         assertEquals(c1.getLabel(), c2.getLabel());

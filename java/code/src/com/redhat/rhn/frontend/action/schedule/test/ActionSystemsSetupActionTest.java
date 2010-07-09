@@ -34,12 +34,12 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
  * @version $Rev$
  */
 public class ActionSystemsSetupActionTest extends RhnBaseTestCase {
-    
+
     public void testPeformExecute() throws Exception {
         ActionSystemsSetupAction action = new InProgressSystemsSetupAction();
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action);
-        
+
         sah.getRequest().setupAddParameter("aid", (String)null);
         try {
             sah.executeAction();
@@ -48,7 +48,7 @@ public class ActionSystemsSetupActionTest extends RhnBaseTestCase {
         catch (BadParameterException e) {
             //no op
         }
-        
+
         sah.getRequest().setupAddParameter("aid", "-99999");
         try {
             sah.executeAction();
@@ -57,20 +57,20 @@ public class ActionSystemsSetupActionTest extends RhnBaseTestCase {
         catch (LookupException e) {
             //no op
         }
-        
+
         sah.getUser().addRole(RoleFactory.ORG_ADMIN);
-        Action a = ActionFactoryTest.createAction(sah.getUser(), 
+        Action a = ActionFactoryTest.createAction(sah.getUser(),
                 ActionFactory.TYPE_CONFIGFILES_DEPLOY);
         Server server = ServerFactoryTest.createTestServer(sah.getUser(), true);
         ServerActionTest.createServerAction(server, a);
         ActionManager.storeAction(a);
-        
+
         sah.setupClampListBounds();
         sah.getRequest().setupAddParameter("aid", a.getId().toString());
         sah.getRequest().setupAddParameter("filter_string", "");
         sah.getRequest().setupAddParameter("newset", (String)null);
         sah.getRequest().setupAddParameter("returnvisit", (String) null);
-        
+
         sah.executeAction();
         assertNotNull(sah.getRequest().getAttribute("pageList"));
         assertNotNull(sah.getRequest().getAttribute("user"));

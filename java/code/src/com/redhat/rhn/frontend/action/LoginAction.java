@@ -48,38 +48,38 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class LoginAction extends RhnAction {
-    
+
     private static Logger log = Logger.getLogger(LoginAction.class);
     public static final String DEFAULT_URL_BOUNCE = "/rhn/YourRhn.do";
-    
+
     // It is OK to maintain a PxtSessionDelegate instance because PxtSessionDelegate
     // objects do not maintain client state.
     private PxtSessionDelegate pxtDelegate;
-    
+
     /**
      * Initialize the action.
      */
     public LoginAction() {
-        PxtSessionDelegateFactory pxtDelegateFactory = 
+        PxtSessionDelegateFactory pxtDelegateFactory =
             PxtSessionDelegateFactory.getInstance();
-        
+
         pxtDelegate = pxtDelegateFactory.newPxtSessionDelegate();
     }
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         if (CertificateManager.getInstance().isSatelliteCertExpired()) {
             addMessage(request, "satellite.expired");
             request.setAttribute(LoginSetupAction.HAS_EXPIRED, new Boolean(true));
             return mapping.findForward("failure");
         }
-        
+
         ActionForward ret = null;
         DynaActionForm f = (DynaActionForm)form;
-        
+
         // Validate the form
         ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, f);
         if (!errors.isEmpty()) {
@@ -90,7 +90,7 @@ public class LoginAction extends RhnAction {
         String username = (String) f.get("username");
         String password = (String) f.get("password");
         String urlBounce = (String) f.get("url_bounce");
-        
+
         ActionErrors e = new ActionErrors();
         User user = loginUser(username, password, request, response, e);
         RequestContext ctx = new RequestContext(request);
@@ -123,13 +123,13 @@ public class LoginAction extends RhnAction {
                 }
 
             }
-            
+
             if (log.isDebugEnabled()) {
                 log.debug("5 - redirecting to [" + urlBounce + "]");
             }
             if (user != null) {
                 pxtDelegate.updateWebUserId(request, response, user.getId());
-                
+
                 try {
                     response.sendRedirect(urlBounce);
                     return null;
@@ -144,9 +144,9 @@ public class LoginAction extends RhnAction {
             if (log.isDebugEnabled()) {
                 log.debug("6 - forwarding to failure");
             }
-            
+
             performGracePeriodCheck(request);
-            
+
             addErrors(request, e);
             request.setAttribute("url_bounce", urlBounce);
             ret = mapping.findForward("failure");
@@ -166,12 +166,12 @@ public class LoginAction extends RhnAction {
             log.debug("Updating errata cache");
             sw.start();
         }
-        
-        UpdateErrataCacheEvent uece = new 
+
+        UpdateErrataCacheEvent uece = new
             UpdateErrataCacheEvent(UpdateErrataCacheEvent.TYPE_ORG);
         uece.setOrgId(orgIn.getId());
         MessageQueue.publish(uece);
-        
+
         if (log.isDebugEnabled()) {
             sw.stop();
             log.debug("Finished Updating errata cache. Took [" +
@@ -188,24 +188,24 @@ public class LoginAction extends RhnAction {
      * @return Any action error messages that may have occurred.
      */
     private User loginUser(String username,
-                                   String password, 
+                                   String password,
                                    HttpServletRequest request,
                                    HttpServletResponse response,
                                    ActionErrors e) {
 
         User user = null;
-        
+
         try {
             user = UserManager.loginUser(username, password);
         }
         catch (LoginException ex) {
-            e.add(ActionMessages.GLOBAL_MESSAGE, 
+            e.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage(ex.getMessage()));
         }
-        
+
         return user;
     }
-    
+
     private void performGracePeriodCheck(HttpServletRequest request) {
         CertificateManager man = CertificateManager.getInstance();
         if (man.isSatelliteCertInGracePeriod()) {
@@ -215,5 +215,5 @@ public class LoginAction extends RhnAction {
                                      new Long(daysUntilExpiration).toString());
             }
     }
-    
+
 }

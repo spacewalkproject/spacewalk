@@ -30,19 +30,19 @@ import java.util.Date;
 public class ServerUuidTest extends RhnBaseTestCase {
 
     public static final String UUID = "e280ccb0-1f31-11dc-9c52-00425200ea2f";
-    
-    /** 
+
+    /**
      * Simple test to exercise codepaths in ServerUuid class
      * @throws Exception
      */
     public void testServerUuid() throws Exception {
         ServerUuid su1 = createTestServerUuid();
         ServerUuid su2 = new ServerUuid();
-        
+
         assertFalse(su1.equals(su2));
         assertFalse(su1.equals(new Date()));
     }
-    
+
     /**
      * Helper method to create a test ServerUuid object
      * @throws Exception
@@ -50,17 +50,17 @@ public class ServerUuidTest extends RhnBaseTestCase {
     public static ServerUuid createTestServerUuid() throws Exception {
         ServerUuid su = new ServerUuid();
         su.setUuid(UUID);
-        
+
         User user = UserTestUtils.createUser("testuser",
                 UserTestUtils.createOrg("testorg"));
-        
+
         Server s = ServerFactoryTest.createTestServer(user);
         su.setServer(s);
-        
+
         assertNull(su.getId());
         TestUtils.saveAndFlush(su);
         assertNotNull(su.getId());
-        
+
         return su;
     }
 }

@@ -36,30 +36,30 @@ import java.io.IOException;
  * @version $Rev$
  */
 public class ConfigFileBuilder {
-    private static final ConfigFileBuilder HELPER = 
+    private static final ConfigFileBuilder HELPER =
                                             new ConfigFileBuilder();
-     
+
     private ConfigFileBuilder() {
     }
-    
-    
+
+
     /**
      * @return an instance of this class
      */
     public static ConfigFileBuilder getInstance() {
         return HELPER;
     }
-    
+
     /**
      * Validates the passed in channel using the info provided
      * @param cff the COnfigFileForm associated to the request
      * @param user the logged in user
      * @param channel the config channel.
-     * @return returns a ValidatorResult 
+     * @return returns a ValidatorResult
      */
-    private void validateForCreate(ConfigFileData cff, 
+    private void validateForCreate(ConfigFileData cff,
                           User user, ConfigChannel channel) throws ValidatorException {
-        
+
         cff.validatePath();
                 // File exists?  Report and bolt
         String path = cff.getPath();
@@ -72,7 +72,7 @@ public class ConfigFileBuilder {
     }
 
     /**
-     * 
+     *
      * @param user the logged in user
      * @param form the config file form
      * @param cc the config channel
@@ -81,17 +81,17 @@ public class ConfigFileBuilder {
     private boolean fileExists(
             User user, String path, ConfigChannel cc) {
         ConfigFile file = null;
-        
+
         if (path != null && path.trim().length() > 0) {
             file = ConfigurationManager.getInstance().
                 lookupConfigFile(user, cc.getId(), path);
         }
-            
+
         return (file != null);
     }
-    
+
     /**
-     * Creates a new config file using the information provided 
+     * Creates a new config file using the information provided
      * in the config file form.
      * @param cff the config file from holding input data
      * @param user the logged in user.
@@ -100,8 +100,8 @@ public class ConfigFileBuilder {
      * @throws IOException in the case of issues with content stream reading.
      * @throws ValidatorException in the case of invalid data passed in.
      */
-    public ConfigRevision create(ConfigFileData cff, 
-                        User user, ConfigChannel channel) 
+    public ConfigRevision create(ConfigFileData cff,
+                        User user, ConfigChannel channel)
                                 throws IOException, ValidatorException {
         validateForCreate(cff, user, channel);
         // Yay! We actually might be able to create this file!
@@ -120,7 +120,7 @@ public class ConfigFileBuilder {
     }
 
     /**
-     * Creates a new New config revision of a config file using the passed in data. 
+     * Creates a new New config revision of a config file using the passed in data.
      * @param user the logged in user
      * @param form the config file form
      * @param cf the the config file to populate and commit
@@ -139,7 +139,7 @@ public class ConfigFileBuilder {
                     .createNewContentFromStream(form.getContentStream(),
                             form.getContentSize(), form.isBinary());
             revision.setConfigContent(content);
-            revision.setChangedById(user.getId());                
+            revision.setChangedById(user.getId());
         }
         else {
             revision = manager.createNewRevision(
@@ -163,17 +163,17 @@ public class ConfigFileBuilder {
         return revision;
     }
 
-    
+
     /**
-     * Updates a config file 
-     * depending on the data in the given  configFileForm.. 
+     * Updates a config file
+     * depending on the data in the given  configFileForm..
      * @param form the ConfigFileData form containing the input data
      * @param user the logged in user.
      * @param file the config file to update.
      * @return the create revision of the file.
      * @throws ValidatorException in the case of invalid data.
      */
-    public ConfigRevision update(ConfigFileData form, 
+    public ConfigRevision update(ConfigFileData form,
                             User user, ConfigFile file)
                                         throws ValidatorException {
         ValidatorResult result;
@@ -207,17 +207,17 @@ public class ConfigFileBuilder {
             }
 
 
-            form.validate(false);    
+            form.validate(false);
         }
 
         return makeNewRevision(user, form, file, false);
     }
-    
+
     /**
-     * Creates Or Updates a config file 
-     * depending on the data in the given  configFileForm.. 
-     * i.e. if a  file with the given path exists, it updates the 
-     * file with that path. Else it creates a new file of the path.. 
+     * Creates Or Updates a config file
+     * depending on the data in the given  configFileForm..
+     * i.e. if a  file with the given path exists, it updates the
+     * file with that path. Else it creates a new file of the path..
      * @param form the config file form with the input data
      * @param user the logged in user.
      * @param cc the config channel of the file
@@ -225,17 +225,17 @@ public class ConfigFileBuilder {
      * @throws IOException in the case of issues due to parsing of contents.
      * @throws ValidatorException in the case of invalid data.
      */
-    public ConfigRevision createOrUpdate(ConfigFileData form, 
+    public ConfigRevision createOrUpdate(ConfigFileData form,
                                             User user, ConfigChannel cc)
                                         throws IOException, ValidatorException {
         String path = form.getPath();
         ConfigurationManager manager = ConfigurationManager.getInstance();
         ConfigFile file = manager.lookupConfigFile(user, cc.getId(), path);
         if (file == null) {
-            return create(form, user, cc);                
+            return create(form, user, cc);
         }
         return update(form, user, file);
     }
-    
+
 
 }

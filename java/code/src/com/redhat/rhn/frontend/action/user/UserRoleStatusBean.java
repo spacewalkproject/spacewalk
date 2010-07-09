@@ -20,25 +20,25 @@ package com.redhat.rhn.frontend.action.user;
  * @version $Rev$
  */
 public class UserRoleStatusBean {
-    
+
     private String name;
     private String value;
     private boolean selected;
     private boolean disabled;
-    
+
     /**
      * Constructor.
-     * 
+     *
      * Note: if both addable and removable are false, the role is read-only.
-     * 
+     *
      * @param nameIn User visible name for this role.
      * @param valueIn Role label in the database.
      * @param selectedIn Does the user currently have this role.
      * @param disabledIn Is the role modifiable for this user.
      */
-    public UserRoleStatusBean(String nameIn, String valueIn, boolean selectedIn, 
+    public UserRoleStatusBean(String nameIn, String valueIn, boolean selectedIn,
             boolean disabledIn) {
-        
+
         this.name = nameIn;
         this.value = valueIn;
         this.selected = selectedIn;
@@ -51,42 +51,42 @@ public class UserRoleStatusBean {
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
-    
+
     /**
      * @return Returns the value.
      */
     public String getValue() {
         return value;
     }
-    
+
     /**
      * @param valueIn The value to set.
      */
     public void setValue(String valueIn) {
         this.value = valueIn;
     }
-    
+
     /**
      * @return Returns the disabled.
      */
     public boolean isDisabled() {
         return disabled;
     }
-    
+
     /**
      * @param disabledIn The disabled to set.
      */
     public void setRemovable(boolean disabledIn) {
         this.disabled = disabledIn;
     }
-    
+
     /**
      * @return Returns the selected.
      */
@@ -94,7 +94,7 @@ public class UserRoleStatusBean {
         return selected;
     }
 
-    
+
     /**
      * @param selectedIn The selected to set.
      */

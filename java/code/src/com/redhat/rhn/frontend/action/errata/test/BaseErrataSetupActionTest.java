@@ -35,23 +35,23 @@ import org.apache.struts.action.ActionMapping;
  * @version $Rev$
  */
 public class BaseErrataSetupActionTest extends RhnBaseTestCase {
-    
+
     public void testExecute() throws Exception {
         BaseErrataSetupAction action = new BaseErrataSetupAction();
-        
+
         ActionMapping mapping = new ActionMapping();
         ActionForward def = new ActionForward("default", "path", false);
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         MockHttpServletResponse response = new MockHttpServletResponse();
         mapping.addForwardConfig(def);
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         User user = requestContext.getLoggedInUser();
         Errata published = ErrataFactoryTest
                 .createTestPublishedErrata(user.getOrg().getId());
-        
+
         //test lookup exception
         request.setupAddParameter("eid", new Long(-92861).toString());
         try {
@@ -61,7 +61,7 @@ public class BaseErrataSetupActionTest extends RhnBaseTestCase {
         catch (LookupException e) {
             //Success!!!
         }
-        
+
         //test default case
         request.setupAddParameter("eid", published.getId().toString());
         ActionForward result = action.execute(mapping, form, request, response);

@@ -65,7 +65,7 @@
 		</c:when>
 		<c:otherwise>
 	            <p><strong><bean:message key="system.sdc.missing.config_deploy1"/></strong></p>
-	            <p><strong><bean:message key="system.sdc.missing.config_deploy2" 
+	            <p><strong><bean:message key="system.sdc.missing.config_deploy2"
 	            		arg0="/rhn/configuration/system/TargetSystems.do"
 	            		arg1="${rhn:localize('targetsystems.jsp.toolbar')}"
 	            		arg2="${rhn:localize('targetsystems.jsp.enable')}"/></strong></p>		

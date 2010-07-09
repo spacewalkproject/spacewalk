@@ -30,20 +30,20 @@ public class XmlRpcUserHelper {
 
     //private instance
     private static XmlRpcUserHelper helper = new XmlRpcUserHelper();
-    
+
     //private constructor
     private XmlRpcUserHelper() {
     }
-    
+
     /**
      * @return Returns the running instance of this helper class
      */
     public static XmlRpcUserHelper getInstance() {
         return helper;
     }
-    
+
     /**
-     * Helper method to lookup a target user to operate on. 
+     * Helper method to lookup a target user to operate on.
      * @param loggedInUser The user looking up the other user
      * @param login The login of the user you're looking for
      * @return Returns the user corresponding to login
@@ -52,7 +52,7 @@ public class XmlRpcUserHelper {
      * NoSuchUserException is thrown if the loggedInUser has the correct credentials but
      * the user corresponding to login doesn't exist.
      */
-    public User lookupTargetUser(User loggedInUser, String login) 
+    public User lookupTargetUser(User loggedInUser, String login)
         throws FaultException {
         try {
             User user = UserManager.lookupUser(loggedInUser, login);

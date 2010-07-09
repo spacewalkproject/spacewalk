@@ -28,7 +28,7 @@ public class MultiOrgTest extends RhnBaseTestCase {
 
     public void testAddMultiOrg() throws Exception {
         User user = UserTestUtils.findNewUser("test-morg", "testorg-morg", true);
-        
+
         Org o = user.getOrg();
         UserTestUtils.addManagement(o);
         UserTestUtils.addProvisioning(o);
@@ -36,9 +36,9 @@ public class MultiOrgTest extends RhnBaseTestCase {
         // Check to make sure we get an org greater than 1.
         assertTrue(o.getId().longValue() > 1);
     }
-    
+
     public void testInitialOrgRoles() throws Exception {
-        
+
     }
-    
+
 }

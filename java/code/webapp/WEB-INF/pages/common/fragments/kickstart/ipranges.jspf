@@ -15,7 +15,7 @@
 
 <div class="page-summary">
 <h2><bean:message key="kickstartips.jsp.baremetal2"/></h2>
-  <p>        
+  <p>
     <bean:message key="kickstartips.jsp.baremetal_summary2"/>
   </p>
     <p>
@@ -29,20 +29,20 @@
 
 <div class="page-summary">
 <h2><bean:message key="kickstartips.jsp.ranges"/></h2>
-  <p>        
+  <p>
     <bean:message key="kickstartips.jsp.ranges_summary"/>
   </p>
-  
-        <table class="details">          
-          <c:forEach items="${ranges}" var="ip_range">                        
-            <tr>                            
-              <th><bean:message key="kickstartips.jsp.label" />:</th>                            
+
+        <table class="details">
+          <c:forEach items="${ranges}" var="ip_range">
+            <tr>
+              <th><bean:message key="kickstartips.jsp.label" />:</th>
               <td>${ip_range.range}</td>
-              <td><a href="${param.range_delete_url}?ksid=${ksdata.id}&min=${ip_range.min.number}&max=${ip_range.max.number}">delete</a></td>            
+              <td><a href="${param.range_delete_url}?ksid=${ksdata.id}&min=${ip_range.min.number}&max=${ip_range.max.number}">delete</a></td>
             </tr>
-          </c:forEach>         
+          </c:forEach>
         </table>
-      
+
       <html:form method="post" action="${param.range_edit_url}">
         <table class="details">
           <tr>
@@ -50,13 +50,13 @@
             <td><html:text property="octet1a" maxlength="3" size="3" />.
             <html:text property="octet1b" maxlength="3" size="3" />.
             <html:text property="octet1c" maxlength="3" size="3" />.
-            <html:text property="octet1d" maxlength="3" size="3" /> - 
+            <html:text property="octet1d" maxlength="3" size="3" /> -
             <html:text property="octet2a" maxlength="3" size="3" />.
             <html:text property="octet2b" maxlength="3" size="3" />.
             <html:text property="octet2c" maxlength="3" size="3" />.
-            <html:text property="octet2d" maxlength="3" size="3" /></td>                                                                        
+            <html:text property="octet2d" maxlength="3" size="3" /></td>
           </tr>
-          <tr>          
+          <tr>
             <td align="right" colspan="2"><html:submit><bean:message key="kickstartips.jsp.addrange"/></html:submit></td>
           </tr>
         </table>

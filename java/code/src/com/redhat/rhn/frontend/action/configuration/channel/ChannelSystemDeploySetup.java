@@ -62,7 +62,7 @@ public class ChannelSystemDeploySetup extends BaseSetListAction {
         ConfigActionHelper.processParamMap(cc, m);
         return m;
     }
-    
+
     protected void processPageControl(PageControl pc) {
         pc.setFilterColumn("name");
         pc.setFilter(true);

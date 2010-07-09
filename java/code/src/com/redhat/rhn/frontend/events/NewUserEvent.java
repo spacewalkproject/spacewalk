@@ -30,24 +30,24 @@ import java.util.List;
  * @version $Rev: 59372 $
  */
 public class NewUserEvent extends BaseEvent implements EventMessage  {
-    
+
     private static final int NO_CREATOR_INDEX = 0;
     private static final int WITH_CREATOR_INDEX = 2;
     private User accountCreator;
     private String password;
     private String domain;
     private List adminList;
-    
+
     /**
      * format this message as a string
-     *   TODO mmccune - fill out the email properly with the entire 
+     *   TODO mmccune - fill out the email properly with the entire
      *                  request values
      * @return Text of email.
      */
-    public String toText() {        
+    public String toText() {
         LocalizationService ls = LocalizationService.getInstance();
         //gather information for the email to newUser
-        
+
         Object[] bodyArgs = new Object[8];
         populateBodyArgs(bodyArgs);
         String retval;
@@ -56,16 +56,16 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
          * poor user further by mentioning a new password. Just don't mention it.
          */
         if (getUser().getUsePamAuthentication()) {
-            retval = ls.getMessage("email.newaccount.pam.body", 
+            retval = ls.getMessage("email.newaccount.pam.body",
                     getUserLocale(), bodyArgs);
         }
         else {
             if (getAccountCreator() != null) {
-                retval = ls.getMessage("email.newaccountbycreator.body", 
+                retval = ls.getMessage("email.newaccountbycreator.body",
                         getUserLocale(), bodyArgs);
             }
             else {
-                retval = ls.getMessage("email.newaccount.body", 
+                retval = ls.getMessage("email.newaccount.body",
                         getUserLocale(), bodyArgs);
             }
         }
@@ -75,7 +75,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
     /**
      * This mail event includes a link back to the server.  This method
      * generates the String version of this URL.
-     * @return String URL. 
+     * @return String URL.
      */
     public String getUrl() {
         //create url for new user
@@ -99,9 +99,9 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
         }
         url.append("/");
         return url.toString();
-        
+
     }
-    
+
     /**
      * @return Returns the accountCreator.
      */
@@ -117,7 +117,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
     }
 
 
-    
+
     /**
      * @return Returns the domain.
      */
@@ -126,7 +126,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
     }
 
 
-    
+
     /**
      * @param domainIn The domain to set.
      */
@@ -135,7 +135,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
     }
 
 
-    
+
     /**
      * @return Returns the password.
      */
@@ -144,7 +144,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
     }
 
 
-    
+
     /**
      * @param passwordIn The password to set.
      */
@@ -163,7 +163,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
     public void setAdmins(List admins) {
         this.adminList = admins;
     }
-    
+
     /**
      * Populates the arguments that need to go the body of the message
      * that is sent to the new account.

@@ -40,26 +40,26 @@ import java.util.Set;
 
 public class UpdateErrataCacheEventTest extends BaseTestCaseWithUser {
 
-    
+
     public void testUpdateCache() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         for (int i = 0; i < 10; i++) {
             ErrataCacheManagerTest.createServerNeedintErrataCache(user);
         }
-        
-        UpdateErrataCacheEvent evt = 
+
+        UpdateErrataCacheEvent evt =
             new UpdateErrataCacheEvent(UpdateErrataCacheEvent.TYPE_ORG);
         evt.setOrgId(user.getOrg().getId());
-        
+
         UpdateErrataCacheAction action = new UpdateErrataCacheAction();
         action.execute(evt);
     }
-    
+
     public void testUpdateCacheForChannel() throws Exception {
         Channel c = ChannelTestUtils.createTestChannel(user);
         Channel c2 = ChannelTestUtils.createTestChannel(user);
         Server s2 = ServerFactoryTest.createTestServer(user);
-        
+
         user.addRole(RoleFactory.ORG_ADMIN);
         Map testobjects = ErrataCacheManagerTest.
             createServerNeededPackageCache(user, ErrataFactory.ERRATA_TYPE_BUG);
@@ -67,15 +67,15 @@ public class UpdateErrataCacheEventTest extends BaseTestCaseWithUser {
         Server s = (Server) testobjects.get("server");
         Package p = (Package) testobjects.get("package");
         p = (Package) TestUtils.saveAndReload(p);
-        
+
         Package newpackage = (Package) testobjects.get("newpackage");
-        
+
         // Setup Errata
         e.addPackage(newpackage);
         e.addChannel(c);
         e.addChannel(c2);
-        e = (Errata) TestUtils.saveAndReload(e);        
-        
+        e = (Errata) TestUtils.saveAndReload(e);
+
         // Setup Channel
         c.addPackage(p);
         c.addPackage(newpackage);
@@ -85,48 +85,48 @@ public class UpdateErrataCacheEventTest extends BaseTestCaseWithUser {
         TestUtils.flushAndEvict(c);
         ChannelFactory.save(c2);
         TestUtils.flushAndEvict(c2);
-        
-        
+
+
         // Setup System
         PackageManagerTest.associateSystemToPackage(s, p);
         PackageManagerTest.associateSystemToPackage(s2, p);
         SystemManager.subscribeServerToChannel(user, s, c);
         SystemManager.subscribeServerToChannel(user, s2, c2);
-        
+
         // Delete so we can actually test to see if the event does something
-        ErrataCacheManager.deleteNeededErrataCache(s.getId(), 
+        ErrataCacheManager.deleteNeededErrataCache(s.getId(),
                 e.getId());
-        
+
         // Recalc the cache
-        UpdateErrataCacheEvent evt = 
+        UpdateErrataCacheEvent evt =
             new UpdateErrataCacheEvent(UpdateErrataCacheEvent.TYPE_CHANNEL);
-        
+
         List channelIds = new LinkedList();
         channelIds.add(c.getId());
         evt.setChannels(channelIds);
         evt.setOrgId(user.getOrg().getId());
-        
+
         UpdateErrataCacheAction action = new UpdateErrataCacheAction();
         action.execute(evt);
 
-        
+
         // SystemManager.unsubscribeServerFromChannel(s2, c2);
         // Remove c2 from errata
         Set newchannels = new HashSet();
         newchannels.add(c);
         e = ErrataFactory.lookupById(e.getId());
         e.setChannels(newchannels);
-        
-        
-        
+
+
+
         TestUtils.saveAndFlush(e);
-        
+
         channelIds.clear();
         channelIds.add(c2.getId());
         evt.setChannels(channelIds);
         action.execute(evt);
-        
 
-        
+
+
     }
 }

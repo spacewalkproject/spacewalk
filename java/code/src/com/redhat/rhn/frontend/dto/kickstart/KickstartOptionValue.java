@@ -21,55 +21,55 @@ package com.redhat.rhn.frontend.dto.kickstart;
  */
 public class KickstartOptionValue implements Comparable<KickstartOptionValue> {
 
-    private String name;    
-    private String arg;    
+    private String name;
+    private String arg;
     private Boolean hasArgs;
     private Boolean enabled;
     private Boolean required;
     private String additionalNotesKey; // resource key
-    
+
     /**
-     * 
+     *
      *default constructor
      */
     public KickstartOptionValue() {
         this.arg = "";
     }
-    
+
     /**
-     * 
+     *
      * @return If value is allowed optional arguments
      */
     public Boolean getHasArgs() {
         return hasArgs;
     }
-    
+
     /**
-     * 
+     *
      * @param hasArgsIn to set for advanced option
      */
     public void setHasArgs(Boolean hasArgsIn) {
         this.hasArgs = hasArgsIn;
     }
-    
+
     /**
-     * 
-     * @return name of ui widget 
+     *
+     * @return name of ui widget
      */
     public String getName() {
         return name;
     }
-    
+
     /**
-     * 
+     *
      * @param nameIn of ui widget to set
      */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
-    
+
     /**
-     * Return the value of the option argument with '"' characters 
+     * Return the value of the option argument with '"' characters
      * replaced by their HTML escape sequence '&quot;'.
      * @return value of the option arg
      */
@@ -81,33 +81,33 @@ public class KickstartOptionValue implements Comparable<KickstartOptionValue> {
             return arg;
         }
     }
-    
+
     /**
-     * 
+     *
      * @param argIn of optional arg to set
      */
     public void setArg(String argIn) {
         this.arg = argIn;
     }
-    
+
     /**
-     * 
+     *
      * @return if this option is enabled
      */
-    public Boolean getEnabled() { 
+    public Boolean getEnabled() {
         return this.enabled;
     }
-    
+
     /**
-     * 
-     * @param enabledIn to set 
+     *
+     * @param enabledIn to set
      */
     public void setEnabled(Boolean enabledIn) {
         this.enabled = enabledIn;
     }
 
     /**
-     * 
+     *
      * @return if this option is required
      */
     public Boolean getRequired() {
@@ -115,14 +115,14 @@ public class KickstartOptionValue implements Comparable<KickstartOptionValue> {
     }
 
     /**
-     * 
+     *
      * @param requiredIn set if this option is required
      */
     public void setRequired(Boolean requiredIn) {
         this.required = requiredIn;
     }
 
-    
+
     /**
      * @return Returns the additionalNotesKey.
      */
@@ -130,7 +130,7 @@ public class KickstartOptionValue implements Comparable<KickstartOptionValue> {
         return additionalNotesKey;
     }
 
-    
+
     /**
      * @param additionalNotesKeyIn The additionalNotesKey to set.
      */
@@ -163,7 +163,7 @@ public class KickstartOptionValue implements Comparable<KickstartOptionValue> {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int compareTo(KickstartOptionValue o) {

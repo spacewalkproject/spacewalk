@@ -33,7 +33,7 @@ public class JobFactory {
      * @throws IllegalAccessException thrown if a malformed classname is given
      * @throws InstantiationException thrown if there is a problem creating Job
      */
-    public static Job createJob(String className) throws ClassNotFoundException, 
+    public static Job createJob(String className) throws ClassNotFoundException,
             IllegalAccessException, InstantiationException {
         Class c = Thread.currentThread().getContextClassLoader().loadClass(className);
         return (Job) c.newInstance();

@@ -25,7 +25,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 public class SatelliteFactoryTest extends RhnBaseTestCase {
 
     public void testLookupNewestCertificate() throws Exception {
-        
+
         SatelliteCertificate sc = SatelliteFactory.lookupNewestCertificate();
         assertNotNull(sc);
         assertNotNull(sc.getExpires());
@@ -34,6 +34,6 @@ public class SatelliteFactoryTest extends RhnBaseTestCase {
         assertNotNull(sc.getIssued());
         assertNotNull(sc.getCreated());
         assertNotNull(sc.getModified());
-        
+
     }
 }

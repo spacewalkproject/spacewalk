@@ -25,7 +25,7 @@ import java.util.Map;
 public final class ClassBuilder implements ManifestFactoryBuilder {
 
     private String filename;
-    
+
     /**
      * Instantiates objects by name for use by the ManifestFactory. Takes in
      * a filename of the manifest xml file which MUST BE in your classpath to
@@ -39,7 +39,7 @@ public final class ClassBuilder implements ManifestFactoryBuilder {
         }
         filename = packageAsPath(pkg) + fname;
     }
-    
+
     /** {@inheritDoc} */
     public Object createObject(Map params) {
         String className = (String)params.get("classname");
@@ -51,7 +51,7 @@ public final class ClassBuilder implements ManifestFactoryBuilder {
             return Class.forName(className).newInstance();
         }
         catch (Exception e) {
-            throw new ObjectCreateWrapperException("Unable to create: " + 
+            throw new ObjectCreateWrapperException("Unable to create: " +
                                                    className, e);
         }
     }
@@ -60,12 +60,12 @@ public final class ClassBuilder implements ManifestFactoryBuilder {
     public String getManifestFilename() {
         return filename;
     }
-    
+
     private String packageAsPath(String pkg) {
         if (pkg == null) {
             return "";
         }
-        
+
         // Start by translating into an absolute path.
         String name = pkg;
         if (!pkg.startsWith("/")) {

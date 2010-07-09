@@ -12,7 +12,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/action-header.jspf" %>
 
   <h2><bean:message key="packagelist.jsp.header.${type}"/></h2>
-  
+
   <div class="page-summary">
     <p>
       <bean:message key="packagelist.jsp.summary.${type}"/>

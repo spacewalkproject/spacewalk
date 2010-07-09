@@ -26,9 +26,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.zip.GZIPOutputStream;
 
 /**
- * 
+ *
  * @version $Rev $
- * 
+ *
  */
 public class CompressingDigestOutputWriter extends OutputStream implements
         Closeable, Flushable {
@@ -38,10 +38,10 @@ public class CompressingDigestOutputWriter extends OutputStream implements
     private OutputStream compressedStream;
 
     /**
-     * 
+     *
      * @param stream The stream to compress
      * @param checksumAlgo checksum algorithm
-     * @throws NoSuchAlgorithmException nosuchalgorithmexception 
+     * @throws NoSuchAlgorithmException nosuchalgorithmexception
      * @throws IOException ioexception
      */
     public CompressingDigestOutputWriter(OutputStream stream, String checksumAlgo)
@@ -88,7 +88,7 @@ public class CompressingDigestOutputWriter extends OutputStream implements
     }
 
     /**
-     * 
+     *
      * @return Returns the HexString of the Uncompressed digest stream
      */
     public String getUncompressedChecksum() {
@@ -97,7 +97,7 @@ public class CompressingDigestOutputWriter extends OutputStream implements
     }
 
     /**
-     * 
+     *
      * @return Returns the HexString of the compressed digest stream
      */
     public String getCompressedChecksum() {

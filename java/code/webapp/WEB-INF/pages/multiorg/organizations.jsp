@@ -20,30 +20,30 @@
 <!-- Start of org list -->
 <rl:list dataset="pageList"
          width="100%"
-         name="orgList"         
-         styleclass="list"      
-         filter="com.redhat.rhn.frontend.action.multiorg.OrgListFilter"   
+         name="orgList"
+         styleclass="list"
+         filter="com.redhat.rhn.frontend.action.multiorg.OrgListFilter"
          emptykey="orglist.jsp.noOrgs">
-        
+
 	<!-- Organization name column -->		
-	<rl:column bound="false" 
-	           sortable="true" 
+	<rl:column bound="false"
+	           sortable="true"
 	           styleclass="first-column"
 	           headerkey="org.nopunc.displayname"
-	           sortattr="name"> 
+	           sortattr="name">
 		<c:out value="<a href=\"/rhn/multiorg/OrgTrustDetails.do?oid=${current.id}\">${current.name}</a>" escapeXml="false" />
 		<c:if test="${current.id == 1}">*</c:if>
 	</rl:column>
-	<rl:column bound="false" 
-	           sortable="false" 
-	           headerkey="org.nopunc.sharedchannels" 	           
+	<rl:column bound="false"
+	           sortable="false"
+	           headerkey="org.nopunc.sharedchannels"
 	           attr="sharedChannels">
 	    <c:choose>
-	    <c:when test="${current.sharedChannels > 0}">	    
+	    <c:when test="${current.sharedChannels > 0}">
 		  <c:out value="<a href=\"/rhn/multiorg/channels/Consumed.do?oid=${current.id}\">${current.sharedChannels}</a>" escapeXml="false" />
 		</c:when>
 		<c:otherwise>
-		  <c:out value="${current.sharedChannels}" /> 
+		  <c:out value="${current.sharedChannels}" />
 		</c:otherwise>
 		</c:choose>
 	</rl:column>	

@@ -27,7 +27,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
  * @version $Rev$
  */
 public class UpdateChannelCommand extends CreateChannelCommand {
-    
+
     /**
      * default constructor.
      */
@@ -52,24 +52,24 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         verifyRequiredParameters();
         verifyChannelName(name);
         verifyGpgInformation();
-        
+
         // lookup the channel first.
         Channel c = ChannelFactory.lookupById(cid);
-        
+
         if (ChannelFactory.doesChannelNameExist(name) &&
                 !name.equals(c.getName())) {
             throw new InvalidChannelNameException();
         }
-        
+
         if (ChannelFactory.findArchByLabel(archLabel) == null) {
             throw new IllegalArgumentException("Invalid architecture label");
         }
-        
+
         ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
         if (!ct.getLabel().equals(c.getChecksumTypeLabel()) && c.getPackageCount() > 0) {
-            // schedule repo re generation if the checksum type changed 
+            // schedule repo re generation if the checksum type changed
             // and the channel has packages
-            ChannelManager.queueChannelChange(c.getLabel(), 
+            ChannelManager.queueChannelChange(c.getLabel(),
                     "java::updateChannelCommon", null);
         }
 

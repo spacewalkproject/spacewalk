@@ -27,7 +27,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
 /**
  * Converts PackageMetadata to an XMLRPC &lt;struct&gt;.
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
  *  #struct("Package Metadata")
  *      #prop("int", "package_name_id")
@@ -43,8 +43,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *              #item("4 - Newer package version on other system.")
  *           #options_end()
  *   #struct_end()
- * 
- * 
+ *
+ *
  */
 public class PackageMetadataSerializer implements XmlRpcCustomSerializer {
 
@@ -56,7 +56,7 @@ public class PackageMetadataSerializer implements XmlRpcCustomSerializer {
     /** {@inheritDoc} */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
+
         PackageMetadata pkg = (PackageMetadata)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("package_name_id", pkg.getId());

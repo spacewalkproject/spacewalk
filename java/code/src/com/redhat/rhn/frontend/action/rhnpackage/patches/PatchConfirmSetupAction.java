@@ -44,36 +44,36 @@ public class PatchConfirmSetupAction extends RhnListAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         Long sid = requestContext.getRequiredParam("sid");
         Server server = SystemManager.lookupByIdAndUser(sid, user);
-        
+
         PageControl pc = new PageControl();
 
         clampListBounds(pc, request, user);
-        
+
         DataResult dr = SolarisManager.patchesInSet(user, pc, SetLabels.PATCH_REMOVE_SET);
-        
-        String msg = ""; 
-        Object[] args = new Object[4]; 
+
+        String msg = "";
+        Object[] args = new Object[4];
         args[0] = server.getName();
         args[1] = server.getLastCheckin();
         args[2] = new Date(server.getLastCheckin().getTime() +
                             (1000 * 60 * 60 * 2));
         args[3] = sid.toString();
-        
-        if (dr.size() == 1) {            
+
+        if (dr.size() == 1) {
             msg = LocalizationService.getInstance()
-            .getMessage("packagelist.confirmpatchsummary", args);                    
+            .getMessage("packagelist.confirmpatchsummary", args);
         }
         else {
             msg = LocalizationService.getInstance()
                     .getMessage("packagelist.confirmpatchsummary.plural", args);
         }
-        
+
         request.setAttribute("lastcheckin", server.getLastCheckin());
         request.setAttribute("now", new Date());
         Date expectedCheckIn = new Date(server.getLastCheckin().getTime() +

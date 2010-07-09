@@ -21,15 +21,15 @@ package com.redhat.rhn.common.filediff;
  * @version $Rev$
  */
 public class Edit {
-    
+
     public static final char DELETE = 'd';
     public static final char ADD = 'a';
     public static final char MATCH = 'm';
-    
+
     private Edit parent;
     private char type;
     private int number;
-    
+
     /**
      * @param typeIn The edit command (d | a | m)
      * @param parentIn This edits parent.
@@ -39,42 +39,42 @@ public class Edit {
         parent = parentIn;
         number = 1;
     }
-    
+
     /**
      * @return The edit command.
      */
     public char getType() {
         return type;
     }
-    
+
     /**
      * @return The number of this type of edit in a row.
      */
     public int getNumber() {
         return number;
     }
-    
+
     /**
      * @param numberIn The number to set.
      */
     public void setNumber(int numberIn) {
         number = numberIn;
     }
-    
+
     /**
      * Increment the number.
      */
     public void increment() {
         number++;
     }
-    
+
     /**
      * @return The parent
      */
     public Edit getParent() {
         return parent;
     }
-    
+
     /**
      * @return A copy of this edit.
      */

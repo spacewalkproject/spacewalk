@@ -18,7 +18,7 @@ package com.redhat.rhn.frontend.nav;
 import java.util.Map;
 
 /**
- * TitleRenderer renders each active Node in the Navigation Tree 
+ * TitleRenderer renders each active Node in the Navigation Tree
  * separated by a dash "-".  The resulting string is used as
  * the title of the page, which makes it easy to see how you
  * navigated through the site.

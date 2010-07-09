@@ -33,11 +33,11 @@ import java.util.Set;
 public class SatClusterTest extends BaseTestCaseWithUser {
 
     /**
-     * Test fetching a ServerProbe 
+     * Test fetching a ServerProbe
      * @throws Exception in case of error
      */
     public void testLookup() throws Exception {
-        
+
         Set scouts = user.getOrg().getMonitoringScouts();
         assertNotNull(scouts);
         assertTrue(scouts.size() > 0);
@@ -46,12 +46,12 @@ public class SatClusterTest extends BaseTestCaseWithUser {
         assertNotNull(cluster.getPhysicalLocation());
         assertNotNull(cluster.getOrg());
     }
-   
+
     public void testSatClusterForProbe() throws Exception {
         ServerProbe probe = (ServerProbe) MonitoringFactoryTest.
             createTestProbe(user);
         Server server = ServerFactoryTest.createTestServer(user, false);
-        
+
         Set scouts = user.getOrg().getMonitoringScouts();
         assertNotNull(scouts);
         SatCluster cluster = (SatCluster) scouts.toArray()[0];
@@ -61,12 +61,12 @@ public class SatClusterTest extends BaseTestCaseWithUser {
         SatCluster pc = probe.getSatCluster();
         assertNotNull(pc);
     }
-    
+
     public void testCreateSatCluster() {
         SatCluster sc = SatClusterFactory.createSatCluster(user);
         sc.setDescription("Test Monitoring Scout");
         SatClusterFactory.saveSatCluster(sc);
-        
+
         sc = (SatCluster) reload(sc);
         assertNotNull(sc.getOrg());
         assertNotNull(sc.getDescription());
@@ -76,14 +76,14 @@ public class SatClusterTest extends BaseTestCaseWithUser {
         assertNotNull(sc.getDeployed());
         assertNotNull(sc.getTargetType());
     }
-    
+
     public void testCreateSatNode() {
         SatCluster sc = SatClusterFactory.createSatCluster(user);
         sc.setDescription("Test Monitoring Scout");
         SatNode sn = SatClusterFactory.createSatNode(user, sc);
         SatClusterFactory.saveSatCluster(sc);
         SatClusterFactory.saveSatNode(sn);
-        
+
         sn = (SatNode) reload(sn);
         assertNotNull(sn.getSatCluster());
         assertEquals(sn.getIp(), sc.getVip());
@@ -96,15 +96,15 @@ public class SatClusterTest extends BaseTestCaseWithUser {
         assertNotNull(sn.getScoutSharedKey());
         assertEquals(12, sn.getScoutSharedKey().length());
     }
-    
+
     public void testLookupSatNode() {
-        
+
         SatCluster sc = (SatCluster) user.getOrg().
             getMonitoringScouts().iterator().next();
         SatNode sn = SatClusterFactory.lookupSatNodeByCluster(sc);
         assertNotNull(sn);
     }
- 
+
 }
 
 

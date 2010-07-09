@@ -30,7 +30,7 @@ import java.util.Map;
  * Main functionality: elaborates the data right before it is requested so
  * that only the subset of data needed is elaborated and nobody needs to
  * remember to elaborate the list.
- * 
+ *
  * Differences from DataResult:
  * DataList elaborates on its own, DataResult had to be told.
  * DataList contains no pagination data, expecting the UI to handle that
@@ -46,14 +46,14 @@ public class DataList<E> extends ArrayList<E> {
     private static final long serialVersionUID = -4742688110496214350L;
 
     private static final Logger LOG = Logger.getLogger(DataList.class);
-    
+
     //used for elaborating only
     private SelectMode mode;
     private Map elaboratorParams;
-    
+
     //switch to turn on or off automatic elaboration
     private boolean autoElab = true;
-    
+
     /**
      * Helper method so that one can get a dataresult through the usual way
      * of querying database with a driving query from a datasource select mode.
@@ -82,7 +82,7 @@ public class DataList<E> extends ArrayList<E> {
     public DataList(Collection c) {
         super(c);
     }
-    
+
     /**
      * Elaborates this DataList. This is private because you should
      * never have to call it explicitly.
@@ -106,7 +106,7 @@ public class DataList<E> extends ArrayList<E> {
                     "DataList functions exactly the same as ArrayList.");
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -120,7 +120,7 @@ public class DataList<E> extends ArrayList<E> {
         DataList retval = new DataList(super.subList(start, end));
         //set autoElab back to what it was.
         autoElab = temp;
-        
+
         //copy non-list attributes to new sublist.
         retval.setMode(mode);
         retval.setElaboratorParams(elaboratorParams);
@@ -128,7 +128,7 @@ public class DataList<E> extends ArrayList<E> {
         retval.setAutoElab(autoElab);
         return retval;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -136,7 +136,7 @@ public class DataList<E> extends ArrayList<E> {
         elaborate();
         return super.get(arg0In);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -187,7 +187,7 @@ public class DataList<E> extends ArrayList<E> {
         return super.toArray(arg);
     }
 
-    
+
     /**
      * @return Returns the elaboratorParams.
      */
@@ -195,7 +195,7 @@ public class DataList<E> extends ArrayList<E> {
         return elaboratorParams;
     }
 
-    
+
     /**
      * @param elaboratorParamsIn The elaboratorParams to set.
      */
@@ -203,7 +203,7 @@ public class DataList<E> extends ArrayList<E> {
         elaboratorParams = elaboratorParamsIn;
     }
 
-    
+
     /**
      * @return Returns the mode.
      */
@@ -211,24 +211,24 @@ public class DataList<E> extends ArrayList<E> {
         return mode;
     }
 
-    
+
     /**
      * @param modeIn The mode to set.
      */
     public void setMode(SelectMode modeIn) {
         mode = modeIn;
     }
-    
+
     private void setAutoElab(boolean b) {
         autoElab = b;
     }
-    
+
     /**
      * {@inheritDoc}
-     * 
+     *
      * Prints meta-data about the list instead of the list itself.
      * Prevents a database call to elaborate by not accessing the
-     * data of the list. 
+     * data of the list.
      */
     public String toString() {
         StringBuffer buffy = new StringBuffer();

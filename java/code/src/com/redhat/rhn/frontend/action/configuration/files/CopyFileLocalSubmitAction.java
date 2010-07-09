@@ -35,27 +35,27 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class CopyFileLocalSubmitAction extends BaseCopyFileSubmitAction {
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest requestIn) {
         RequestContext ctx = new RequestContext(requestIn);
         User user = ctx.getLoggedInUser();
         ConfigFile file = ConfigActionHelper.getFile(ctx.getRequest());
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        return cm.listSystemsForFileCopy(user, file.getConfigFileName().getId(), 
+        return cm.listSystemsForFileCopy(user, file.getConfigFileName().getId(),
                 ConfigChannelType.local(), null);    }
-        
+
     /**
      * {@inheritDoc}
      */
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_SYSTEMS;
     }
-   
+
     protected ConfigChannel getChannelFromElement(User usr, Long anId) {
         Server srv = ServerFactory.lookupById(anId);
         return srv.getLocalOverride();

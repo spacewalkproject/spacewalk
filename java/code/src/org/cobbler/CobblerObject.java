@@ -30,7 +30,7 @@ import java.util.Set;
 
 
 /**
- * Base class has attributes common to 
+ * Base class has attributes common to
  * distros, profiles, system records
  * @author paji
  * @version $Rev$
@@ -55,22 +55,22 @@ public abstract class CobblerObject {
     protected static final String PROFILE = "profile";
     private static final String REDHAT_KEY = "redhat_management_key";
     public static final String INHERIT_KEY = "<<inherit>>";
-    
+
     protected String handle;
     protected Map<String, Object> dataMap = new HashMap<String, Object>();
-    protected CobblerConnection client;    
+    protected CobblerConnection client;
 
     /**
-     * Helper method used by all cobbler objects to 
+     * Helper method used by all cobbler objects to
      * return a version of themselves by UID
      * @see org.cobbler.Distro.lookupById for example usage..
-     * 
+     *
      * @param client the Cobbler Connection
      * @param id the UID of the distro/profile/system record
      * @param findMethod the find xmlrpc method, eg: find_distro
-     * @return true if the cobbler object was found. 
+     * @return true if the cobbler object was found.
      */
-    protected static Map<String, Object> lookupDataMapById(CobblerConnection client, 
+    protected static Map<String, Object> lookupDataMapById(CobblerConnection client,
                              String id, String findMethod) {
         if (id == null) {
             return null;
@@ -105,19 +105,19 @@ public abstract class CobblerObject {
         return objects;
 
     }
-    
+
 
     /**
-     * Helper method used by all cobbler objects to 
+     * Helper method used by all cobbler objects to
      * return a Map of themselves by name.
      * @see org.cobbler.Distro.lookupByName for example usage..
      * @param client  the Cobbler Connection
      * @param name the name of the cobbler object
      * @param lookupMethod the name of the xmlrpc
-     *                       method to lookup: eg get_profile for profile 
+     *                       method to lookup: eg get_profile for profile
      * @return the Cobbler Object Data Map or null
      */
-    protected static Map <String, Object> lookupDataMapByName(CobblerConnection client, 
+    protected static Map <String, Object> lookupDataMapByName(CobblerConnection client,
                                     String name, String lookupMethod) {
         Object obj = client.invokeMethod(lookupMethod, name);
         if ("~".equals(obj)) {
@@ -129,26 +129,26 @@ public abstract class CobblerObject {
         }
         return map;
     }
-    
+
     protected abstract void invokeModify(String key, Object value);
     protected abstract void invokeSave();
     protected abstract boolean invokeRemove();
     protected abstract String invokeGetHandle();
     protected abstract void reload();
     protected abstract void invokeRename(String newName);
-    
+
     protected String getHandle() {
         if (isBlank(handle)) {
             handle = invokeGetHandle();
         }
         return handle;
     }
-    
+
     protected void modify(String key, Object value) {
         invokeModify(key, value);
         dataMap.put(key, value);
     }
-    
+
     /**
      * calls save object to complete the commit
      */
@@ -164,8 +164,8 @@ public abstract class CobblerObject {
     public boolean remove() {
         return invokeRemove();
     }
-    
-    
+
+
     /**
      * @return the comment
      */
@@ -173,14 +173,14 @@ public abstract class CobblerObject {
         return (String)dataMap.get(COMMENT);
     }
 
-    
+
     /**
      * @param commentIn the comment to set
      */
     public void setComment(String commentIn) {
         modify(COMMENT, commentIn);
     }
-    
+
     /**
      * @return the managementClasses
      */
@@ -188,7 +188,7 @@ public abstract class CobblerObject {
         return (List<String>)dataMap.get(MGMT_CLASSES);
     }
 
-    
+
     /**
      * @param managementClassesIn the managementClasses to set
      */
@@ -196,7 +196,7 @@ public abstract class CobblerObject {
         modify(MGMT_CLASSES, managementClassesIn);
     }
 
-    
+
     /**
      * @return the templateFiles
      */
@@ -204,7 +204,7 @@ public abstract class CobblerObject {
         return (Map<String, String>)dataMap.get(TEMPLATE_FILES);
     }
 
-    
+
     /**
      * @param templateFilesIn the templateFiles to set
      */
@@ -212,7 +212,7 @@ public abstract class CobblerObject {
         modify(TEMPLATE_FILES, templateFilesIn);
     }
 
-    
+
     /**
      * @return the uid
      */
@@ -226,7 +226,7 @@ public abstract class CobblerObject {
     public String getId() {
         return getUid();
     }
-    
+
     /**
      * @param uidIn the uid to set
      */
@@ -234,7 +234,7 @@ public abstract class CobblerObject {
         modify(UID, uidIn);
     }
 
-    
+
     /**
      * @return the parent
      */
@@ -242,14 +242,14 @@ public abstract class CobblerObject {
         return (String)dataMap.get(PARENT);
     }
 
-    
+
     /**
      * @param parentIn the parent to set
      */
     public void setParent(String parentIn) {
         modify(PARENT, parentIn);
     }
-    
+
     /**
      * @return the owners
      */
@@ -257,29 +257,29 @@ public abstract class CobblerObject {
         return (List<String>)dataMap.get(OWNERS);
     }
 
-    
+
     /**
      * @param ownersIn the owners to set
      */
     public void setOwners(List<String> ownersIn) {
         modify(OWNERS, ownersIn);
     }
-    
+
     /**
      * @return the created
      */
     public Date getCreated() {
         Double time = (Double)dataMap.get(CTIME);
-        return new Date(time.longValue());        
+        return new Date(time.longValue());
     }
-    
+
     /**
      * @param createdIn the created to set
      */
     public void setCreated(Date createdIn) {
         modify(CTIME, createdIn.getTime());
     }
-    
+
     /**
      * @return the modified
      */
@@ -287,7 +287,7 @@ public abstract class CobblerObject {
         Double time = (Double)dataMap.get(MTIME);
         return new Date(time.longValue());
     }
-    
+
     /**
      * @param modifiedIn the modified to set
      */
@@ -301,7 +301,7 @@ public abstract class CobblerObject {
     public int getDepth() {
         return (Integer)dataMap.get(DEPTH);
     }
-    
+
     /**
      * @param depthIn the depth to set
      */
@@ -309,7 +309,7 @@ public abstract class CobblerObject {
         modify(DEPTH, depthIn);
     }
 
-    
+
     /**
      * @return the kernelOptions
      */
@@ -346,7 +346,7 @@ public abstract class CobblerObject {
         return string.toString();
     }
 
-    
+
     /**
      * @param kernelOptionsIn the kernelOptions to set
      */
@@ -389,7 +389,7 @@ public abstract class CobblerObject {
         return toRet;
     }
 
-    
+
     /**
      * @return the kernelMeta
      */
@@ -397,7 +397,7 @@ public abstract class CobblerObject {
         return (Map<String, Object>)dataMap.get(KS_META);
     }
 
-    
+
     /**
      * @param kernelMetaIn the kernelMeta to set
      */
@@ -405,7 +405,7 @@ public abstract class CobblerObject {
         modify(SET_KS_META, kernelMetaIn);
     }
 
-    
+
     /**
      * @return the name
      */
@@ -423,8 +423,8 @@ public abstract class CobblerObject {
         handle = getHandle();
         reload();
     }
-    
-    
+
+
     /**
      * @return the kernelPostOptions
      */
@@ -432,24 +432,24 @@ public abstract class CobblerObject {
         return (Map<String, Object>)dataMap.get(KERNEL_OPTIONS_POST);
     }
 
-    
+
     /**
      * @param kernelPostOptionsIn the kernelPostOptions to set
      */
     public void setKernelPostOptions(Map<String, Object> kernelPostOptionsIn) {
         modify(SET_KERNEL_OPTIONS_POST, kernelPostOptionsIn);
     }
-    
+
     protected void update() {
-        client.invokeTokenMethod("update");            
+        client.invokeTokenMethod("update");
     }
-    
+
     protected boolean isBlank(String str) {
         return str == null || str.trim().length() == 0;
     }
-    
+
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

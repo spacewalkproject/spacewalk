@@ -17,9 +17,9 @@ package com.redhat.rhn.taskomatic.task.repomd;
 import java.util.Date;
 
 /**
- * 
+ *
  * @version $Rev $
- * 
+ *
  */
 public class RepomdIndexData {
 
@@ -27,10 +27,10 @@ public class RepomdIndexData {
     private String openChecksum;
     private Date timestamp;
     private String type;
-    
+
 
     /**
-     * 
+     *
      * @param checksumIn checksum info
      * @param openChecksumIn open checksum info
      * @param timestampIn timestamp
@@ -42,7 +42,7 @@ public class RepomdIndexData {
     }
 
     /**
-     * 
+     *
      * @return checksum type
      */
     public String getType() {
@@ -58,7 +58,7 @@ public class RepomdIndexData {
     }
 
     /**
-     * 
+     *
      * @return checksum info
      */
     public String getChecksum() {
@@ -66,7 +66,7 @@ public class RepomdIndexData {
     }
 
     /**
-     * 
+     *
      * @param checksumIn The checksum to set.
      */
     public void setChecksum(String checksumIn) {
@@ -74,7 +74,7 @@ public class RepomdIndexData {
     }
 
     /**
-     * 
+     *
      * @return The open checksum
      */
     public String getOpenChecksum() {
@@ -82,7 +82,7 @@ public class RepomdIndexData {
     }
 
     /**
-     * 
+     *
      * @param openChecksumIn The open checksum to set.
      */
     public void setOpenChecksum(String openChecksumIn) {
@@ -90,7 +90,7 @@ public class RepomdIndexData {
     }
 
     /**
-     * 
+     *
      * @return Returns timestamp
      */
     public Date getTimestamp() {
@@ -98,7 +98,7 @@ public class RepomdIndexData {
     }
 
     /**
-     * 
+     *
      * @param timestampIn The timestamp to set.
      */
     public void setTimestamp(Date timestampIn) {

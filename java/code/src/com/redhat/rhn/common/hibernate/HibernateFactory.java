@@ -54,7 +54,7 @@ import java.util.Set;
  * @version $Rev$
  */
 public abstract class HibernateFactory {
-    
+
     private static ConnectionManager connectionManager = new ConnectionManager();
     private static final Logger LOG = Logger.getLogger(HibernateFactory.class);
 
@@ -335,7 +335,7 @@ public abstract class HibernateFactory {
     public static boolean inTransaction() {
         return connectionManager.isTransactionPending();
     }
-    
+
     /**
      * Closes the Hibernate Session stored in ThreadLocal storage.
      */
@@ -441,10 +441,10 @@ public abstract class HibernateFactory {
      * utility to convert blob to String
      * @param fromBlob blob to convert
      * @return String converted from blob
-     */    
+     */
     public static String blobToString(Blob fromBlob) {
         if (fromBlob != null) {
-            return getByteArrayContents(blobToByteArray(fromBlob));    
+            return getByteArrayContents(blobToByteArray(fromBlob));
         }
         return "";
     }
@@ -497,7 +497,7 @@ public abstract class HibernateFactory {
                 retval = new String(barr, "UTF-8");
             }
             catch (UnsupportedEncodingException uee) {
-                throw new RuntimeException("Illegal Argument: " + 
+                throw new RuntimeException("Illegal Argument: " +
               "This VM or environment doesn't support UTF-8: Data - " +
                                                  barr, uee);
             }
@@ -536,18 +536,18 @@ public abstract class HibernateFactory {
         if (StringUtils.isEmpty(data)) {
             return null;
         }
-        
+
         try {
             return byteArrayToBlob(data.getBytes("UTF-8"));
         }
         catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("Illegal Argument: " + 
+            throw new RuntimeException("Illegal Argument: " +
             "This VM or environment doesn't support UTF-8 - Data - " +
                                              data, e);
         }
-    }    
-    
-    
+    }
+
+
     /**
      * Initialize the underlying db layer
      *
@@ -555,7 +555,7 @@ public abstract class HibernateFactory {
     public static void initialize() {
         connectionManager.initialize();
     }
-    
+
     /**
      * Returns the current initialization status
      * @return boolean current status

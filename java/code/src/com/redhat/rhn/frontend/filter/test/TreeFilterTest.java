@@ -28,39 +28,39 @@ import java.util.List;
  */
 public class TreeFilterTest extends RhnBaseTestCase {
 
-    private DataResult main; 
+    private DataResult main;
     private TreeFilter filter;
-    
-    
+
+
     public void setUp() {
-        
+
         main = populate();
         filter = new TreeFilter();
     }
-    
+
     private DataResult populate() {
-        
+
         /**
          * Content Tree looks like this
-         * 
+         *
          *        Aa1              Ba1       Ca1           Dd1    Da1
          *       /  \              /  \      /  \
          *     Aa2   Ab4          Bb2 Bb6   Bb7  Bb8
-         *     /     /  \         /                 \ 
+         *     /     /  \         /                 \
          *    Aa3   Ac5  Ac6     Bb3                Aa4
-         *                       /                   \   
+         *                       /                   \
          *                      Bb4                  Aa5
          *                      /                      \
          *                      Bb5                   Aa6
          */
-        
+
         String tree = "(Aa1,0) (Aa2,1) (Aa3,2) (Ab4,1) (Ac5,2) (Ac6,2)" +
                           "(Ba1,0)(Bb2,1) (Bb3,2) (Bb4,3) (Bb5,4) (Bb6,1)" +
                             "(Ca1,0) (Bb7,1) (Bb8,1) (Aa4,2) (Aa5,3) (Aa6,4)" +
                             "(Dd1,0) (Da1,0)";
         return makeDataResult(tree);
     }
-    
+
     public void testEmptySearch() {
         //we search on "" as the search filter value
         // and expect everything to show up.
@@ -70,13 +70,13 @@ public class TreeFilterTest extends RhnBaseTestCase {
         dr = new DataResult(main);
         filter.filterData(dr, "", "content");
         assertEquals(main, dr);
-        
+
         //now try an impossible search
         dr = new DataResult(main);
         filter.filterData(dr, "HAHAHAHAHAHAHAHA", "content");
         assertTrue(dr.isEmpty());
    }
-    
+
     public void testRootElementSearch() {
         assertFilter("Aa1", "(Aa1, 0)");
         assertFilter("Ba1", "(Ba1, 0)");
@@ -84,7 +84,7 @@ public class TreeFilterTest extends RhnBaseTestCase {
         assertFilter("Dd1", "(Dd1, 0)");
         assertFilter("Da1", "(Da1, 0)");
     }
-    
+
     public void testSinglePathSearch() {
         assertFilter("Aa2", "(Aa1, 0) (Aa2,1)");
         assertFilter("Ac6", "(Aa1, 0) (Ab4,1) (Ac6,2)");
@@ -92,43 +92,43 @@ public class TreeFilterTest extends RhnBaseTestCase {
         assertFilter("Bb5", "(Ba1, 0) (Bb2,1) (Bb3,2) (Bb4,3) (Bb5,4)");
         assertFilter("Bb4", "(Ba1, 0) (Bb2,1) (Bb3,2) (Bb4,3)");
         assertFilter("Bb3", "(Ba1, 0) (Bb2,1) (Bb3,2)");
-        
+
         assertFilter("Aa6", "(Ca1, 0) (Bb8,1) (Aa4,2) (Aa5,3) (Aa6,4)");
         assertFilter("Aa5", "(Ca1, 0) (Bb8,1) (Aa4,2) (Aa5,3)");
         assertFilter("Bb7", "(Ca1, 0) (Bb7,1)");
     }
-    
+
     public void testMultiPathSearch() {
-        assertFilter("Aa", 
+        assertFilter("Aa",
                 "(Aa1, 0) (Aa2,1) (Aa3,2)" +
                 "(Ca1,0) (Bb8,1) (Aa4,2) (Aa5,3) (Aa6,4)");
-                 
 
-        assertFilter("Bb", 
+
+        assertFilter("Bb",
                 "(Ba1, 0) (Bb2,1) (Bb3,2) (Bb4,3) (Bb5,4) (Bb6,1)" +
                 "(Ca1,0) (Bb7,1) (Bb8,1)");
-        
+
         assertFilter("a",
                 "(Aa1, 0) (Aa2,1) (Aa3,2) (Ab4,1) (Ac5,2) (Ac6,2) (Ba1,0)" +
                 "(Ca1,0) (Bb8,1) (Aa4,2) (Aa5,3) (Aa6,4)" +
                 "(Da1,0)");
-        
+
         assertFilter("b",
                 "(Aa1, 0) (Ab4,1)" +
                 "(Ba1, 0) (Bb2,1) (Bb3,2) (Bb4,3) (Bb5,4) (Bb6,1)" +
-                    "(Ca1,0) (Bb7,1) (Bb8,1)");                
+                    "(Ca1,0) (Bb7,1) (Bb8,1)");
     }
-    
-    
+
+
     private void assertFilter(String searchVal, String expected) {
         DataResult dr = new DataResult(main);
         filter.filterData(dr, searchVal, "content");
         assertEquals(makeDataResult(expected), dr);
     }
-    
+
     /**
      * Pass in an input string like "(content, depth) (content, depth)..."
-     * and it returns a DataResult with a DepthAware Bean for each row.. 
+     * and it returns a DataResult with a DepthAware Bean for each row..
      * @param input Content String
      * @return DataResult of DepthAwareBeans
      */
@@ -144,7 +144,7 @@ public class TreeFilterTest extends RhnBaseTestCase {
             String val = contents[i].trim();
           //val = "content,depth"
             String [] tuple = val.split(",");
-            lst.add(DepthAwareBean.instance(tuple[0].trim(), 
+            lst.add(DepthAwareBean.instance(tuple[0].trim(),
                                 Integer.parseInt(tuple[1].trim())));
         }
         return new DataResult(lst);

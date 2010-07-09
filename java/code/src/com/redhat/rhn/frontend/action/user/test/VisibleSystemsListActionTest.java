@@ -38,18 +38,18 @@ public class VisibleSystemsListActionTest extends RhnBaseTestCase {
         ah.setUpAction(action);
         ah.setupClampListBounds();
 
-        
+
         User user = ah.getUser();
         user.addRole(RoleFactory.ORG_ADMIN);
         TestUtils.saveAndFlush(user);
-        ServerFactoryTest.createTestServer(user, true, 
+        ServerFactoryTest.createTestServer(user, true,
                         ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        
+
         ah.getRequest().setupAddParameter("newset", (String[]) null);
         ah.getRequest().setupAddParameter("items_on_page", (String[]) null);
         ah.getRequest().setupAddParameter("items_selected", (String[]) null);
         ah.getRequest().setupAddParameter("uid", user.getId().toString());
-        
+
         RhnSetDecl.SYSTEMS.clear(user);
         assertTrue(0 == RhnSetDecl.SYSTEMS.get(user).size());
         ah.executeAction("selectall");

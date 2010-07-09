@@ -71,7 +71,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
     public static final String REV_NUMBER        = "revnum";
 
 
-    
+
     public static final String DEFAULT_CONFIG_DELIM_START = "{|";
     public static final String DEFAULT_CONFIG_DELIM_END = "|}";
 
@@ -89,15 +89,15 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
         set(ConfigFileForm.REV_FILETYPE, ConfigFileType.FILE);
         setBinary(false);
 
-        String macroStart = Config.get().getString("web.config_delim_start", 
+        String macroStart = Config.get().getString("web.config_delim_start",
                 DEFAULT_CONFIG_DELIM_START);
-        String macroEnd = Config.get().getString("web.config_delim_end", 
+        String macroEnd = Config.get().getString("web.config_delim_end",
                 DEFAULT_CONFIG_DELIM_END);
         set(ConfigFileForm.REV_MACROSTART, macroStart);
         set(ConfigFileForm.REV_MACROEND, macroEnd);
     }
 
-    
+
     /**
      * Validate a file-upload. This checks that:
      * <ul>
@@ -110,17 +110,17 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
      */
     public ValidatorResult validateUpload(HttpServletRequest request) {
         ValidatorResult msgs = new ValidatorResult();
-        
+
         FormFile file = (FormFile)get(REV_UPLOAD);
         //make sure there is a file
-        if (file == null || 
-            file.getFileName() == null || 
+        if (file == null ||
+            file.getFileName() == null ||
             file.getFileName().trim().length() == 0) {
             msgs.addError(new ValidatorError("error.config-not-specified"));
-               
+
         }
         else if (file.getFileSize() == 0) {
-            msgs.addError(new ValidatorError("error.config-empty", 
+            msgs.addError(new ValidatorError("error.config-empty",
                                                         file.getFileName()));
         }
         //make sure they didn't send in something huge
@@ -135,7 +135,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
                 String startDelim = getString(REV_MACROSTART);
                 String endDelim   = getString(REV_MACROEND);
                 msgs.append(ConfigurationValidation.validateContent(
-                                    content, startDelim, endDelim)); 
+                                    content, startDelim, endDelim));
             }
             catch (Exception e) {
                 msgs.addError(new ValidatorError("error.fatalupload",
@@ -143,21 +143,21 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
                                           ConfigFile.getMaxFileSize(), false)));
             }
         }
-        
+
         return msgs;
     }
-    
+
     /**
      * Given the incoming request, fill us in with revision info
      * @param request the request
      * @param cr the revision we're getting data from
      */
     public void updateFromRevision(HttpServletRequest request, ConfigRevision cr) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User u = requestContext.getLoggedInUser();
-       
+
         set(ConfigFileForm.REV_PATH, cr.getConfigFile().getConfigFileName().getPath());
         Long mode = cr.getConfigInfo().getFilemode();
         String modeStr = new DecimalFormat("000").format(mode.longValue());
@@ -167,21 +167,21 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
         set(ConfigFileForm.REV_GID, cr.getConfigInfo().getGroupname());
         set(ConfigFileForm.REV_BINARY, new Boolean(cr.getConfigContent().isBinary()));
         set("submitted", Boolean.TRUE);
-        
+
         if (!cr.getConfigContent().isBinary() && !cr.isDirectory()) {
             set(ConfigFileForm.REV_CONTENTS, cr.getConfigContent().getContentsString());
         }
-        
+
         ConfigActionHelper.setupRequestAttributes(requestContext, cr.getConfigFile(), cr);
-        
+
         request.setAttribute(REV_DISPLAYABLE, new Boolean(canDisplayContent(cr)));
         request.setAttribute(REV_EDITABLE, new Boolean(canEditContent(u, cr)));
-        
+
         Boolean toolarge = new Boolean(
                 cr.getConfigContent().getFileSize().longValue() > MAX_EDITABLE_SIZE);
         request.setAttribute(REV_TOOLARGE, toolarge);
     }
-    
+
     /**
      * You can DISPLAY content IFF
      *   - It's not a directory
@@ -192,10 +192,10 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
      */
     protected boolean canDisplayContent(ConfigRevision cr) {
         return (!cr.isDirectory() &&
-                !cr.getConfigContent().isBinary() && 
+                !cr.getConfigContent().isBinary() &&
                 cr.getConfigContent().getFileSize().longValue() < MAX_EDITABLE_SIZE);
     }
-    
+
     /**
      * You can edit a file IFF:
      *   - You're a config-admin, and this is a GLOBAL channel
@@ -207,12 +207,12 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
     protected boolean canEditContent(User user, ConfigRevision cr) {
         ConfigurationManager mgr = ConfigurationManager.getInstance();
         ConfigChannel cc = cr.getConfigFile().getConfigChannel();
-        
+
         if (cc.isGlobalChannel()) {
             return (user.hasRole(RoleFactory.CONFIG_ADMIN));
         }
         else {
-            return (mgr.accessToChannel(user.getId(), cc.getId())); 
+            return (mgr.accessToChannel(user.getId(), cc.getId()));
         }
     }
 
@@ -231,19 +231,19 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
             return super.isScrubbable(name, value);
         }
     }
-    
+
     private boolean isUpload() {
         return get(REV_UPLOAD) != null;
     }
-    
+
     /**
-     * 
+     *
      * @return true if content is binary false other wise
      */
     private boolean isBinary() {
         return Boolean.TRUE.equals(get(REV_BINARY));
     }
-    
+
     /**
      * Returns the config file type of the content
      * @return dir/file...
@@ -252,9 +252,9 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
         String ft = getString(ConfigFileForm.REV_FILETYPE);
         return ConfigFileType.lookup(ft);
     }
- 
 
-    
+
+
     /**
      * sets if the file is a binary or text.
      * @param isBinary true if this file is a binary
@@ -262,20 +262,20 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
     private void setBinary(boolean isBinary) {
         set(REV_BINARY, Boolean.valueOf(isBinary));
     }
-    
+
     /**
-     * 
+     *
      * @return true if this holds a dir, returns false if it holds a file..
      */
     private boolean isDirectory() {
         return ConfigFileType.dir().equals(extractFileType());
     }
-    
+
     private String getContents() {
         return StringUtil.webToLinux(getString(ConfigFileForm.REV_CONTENTS));
     }
     /**
-     * 
+     *
      * @return a ConfigFileData representation of this Form
      */
     public ConfigFileData toData() {
@@ -287,7 +287,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
             if (isUpload()) {
                 FormFile file = (FormFile) get(REV_UPLOAD);
                 try {
-                    data = new BinaryFileData(file.getInputStream(), 
+                    data = new BinaryFileData(file.getInputStream(),
                                                         file.getFileSize());
                 }
                 catch (IOException e) {
@@ -303,7 +303,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
             if (isUpload()) {
                 FormFile file = (FormFile) get(REV_UPLOAD);
                 StrutsDelegate del = StrutsDelegate.getInstance();
-                data = new TextFileData(del.extractString(file));                
+                data = new TextFileData(del.extractString(file));
             }
             else {
                 data = new TextFileData(getContents());
@@ -323,22 +323,22 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
 
     /**
      * Returns a ConfigFileData representation of this Form, similar to toData()
-     * however in addition it replicates the contents of the passed in revision 
+     * however in addition it replicates the contents of the passed in revision
      * rev to the ConfigFIleData.. This is mainly used in the FileDetailAction
      * where want the contents of a "non-displayable" file replicated on to the
-     * newer revision... 
+     * newer revision...
      * @param rev the revision to replicate the content stream.
      * @return the newly updated revision..
      */
     public ConfigFileData toRevisedData(ConfigRevision rev) {
         ConfigFileData data = toData();
-        boolean toBeBinary = (Boolean)get(REV_BINARY) == null ? 
-                rev.getConfigContent().isBinary() : 
-                 isBinary();        
+        boolean toBeBinary = (Boolean)get(REV_BINARY) == null ?
+                rev.getConfigContent().isBinary() :
+                 isBinary();
         if (!canDisplayContent(rev) || toBeBinary) {
             data.processRevisedContentFrom(rev);
         }
         return data;
-        
+
     }
 }

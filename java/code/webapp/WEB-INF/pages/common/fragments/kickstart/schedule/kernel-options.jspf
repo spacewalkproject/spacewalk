@@ -22,7 +22,7 @@
           <c:choose> <c:when test = "${not empty requestScope.distro_kernel_params}"> ${requestScope.distro_kernel_params}</c:when>
           			<c:otherwise>(<bean:message key="none specified"/>)</c:otherwise>
           </c:choose>
-        
+
         <br /><br />
 		  <html:radio value="profile" property="kernelParamsType" onclick="form.kernelParamsId.disabled = true;">
               <bean:message key="kickstart.schedule.kernel.options.profile"/>
@@ -31,11 +31,11 @@
           			<c:otherwise>(<bean:message key="none specified"/>)</c:otherwise>
           </c:choose>
           <br /><br />
-          
+
 		  <html:radio value="custom" property="kernelParamsType" onclick="form.kernelParamsId.disabled = false;">
               <strong><bean:message key="Custom" /></strong>
           </html:radio>: &nbsp;&nbsp;<html:text styleId = "kernelParamsId" property="kernelParams" onkeydown="return blockEnter(event)" disabled= "${form.kernelParamsType ne &quot;custom&quot;}" /><br /><br />
-          <rhn:tooltip><bean:message key="kickstart.schedule.kernel.options.custom.tip" arg0="${rhn:localize('Custom')}"/></rhn:tooltip>                  
+          <rhn:tooltip><bean:message key="kickstart.schedule.kernel.options.custom.tip" arg0="${rhn:localize('Custom')}"/></rhn:tooltip>
         </td>
       </tr>
       <tr>
@@ -47,20 +47,20 @@
           <c:choose> <c:when test = "${not empty requestScope.distro_post_kernel_params}"> ${requestScope.distro_post_kernel_params}</c:when>
           			<c:otherwise>(<bean:message key="none specified"/>)</c:otherwise>
           </c:choose><br /><br />
-        
+
 		  <html:radio value="profile" property="postKernelParamsType" onclick="form.postKernelParamsId.disabled = true;">
               <bean:message key="kickstart.schedule.kernel.options.profile"/>
 		 </html:radio> ${profile_url}:<br/>
           <c:choose> <c:when test = "${not empty requestScope.profile_post_kernel_params}"> ${requestScope.profile_post_kernel_params}</c:when>
           			<c:otherwise>(<bean:message key="none specified"/>)</c:otherwise>
           </c:choose><br /><br />
-          
+
 		  <html:radio value="custom" property="postKernelParamsType" onclick="form.postKernelParamsId.disabled = false;">
               <strong><bean:message key="Custom" /></strong>
-          </html:radio>: &nbsp;&nbsp;<html:text styleId = "postKernelParamsId" 
-          		property="postKernelParams" 
+          </html:radio>: &nbsp;&nbsp;<html:text styleId = "postKernelParamsId"
+			property="postKernelParams"
 			onkeydown="return blockEnter(event)" disabled= "${form.postKernelParamsType ne &quot;custom&quot;}"/><br /><br />
            <rhn:tooltip><bean:message key="kickstart.schedule.kernel.options.custom.tip" arg0="${rhn:localize('Custom')}"/></rhn:tooltip>
         </td>
-        
-      </tr>      
+
+      </tr>

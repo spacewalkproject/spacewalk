@@ -31,13 +31,13 @@ import org.apache.commons.lang.RandomStringUtils;
  * @version $Rev$
  */
 public class CryptoKeyCommandTest extends BaseTestCaseWithUser {
-    
-    
-    
+
+
+
     private BaseCryptoKeyCommand cmd;
 
     public void setupKey(BaseCryptoKeyCommand cmdIn) throws Exception {
-        this.cmd = cmdIn; 
+        this.cmd = cmdIn;
         assertNotNull(cmd.getCryptoKey().getOrg());
         cmd.setDescription("Test desc");
         cmd.setType("GPG");
@@ -62,9 +62,9 @@ public class CryptoKeyCommandTest extends BaseTestCaseWithUser {
         cmd.setType("GPG");
         cmd.setContents(MD5Crypt.md5Hex(RandomStringUtils.random(28)));
         assertNotNull(cmd.store());
-        
+
     }
-    
+
     public void testEdit() throws Exception {
         CryptoKey key = CryptoTest.createTestKey(user.getOrg());
         KickstartFactory.saveCryptoKey(key);
@@ -72,7 +72,7 @@ public class CryptoKeyCommandTest extends BaseTestCaseWithUser {
         setupKey(new EditCryptoKeyCommand(user, key.getId()));
         assertNotNull(cmd.getCryptoKey());
         assertNull(cmd.store());
-        
+
     }
 
     public void testDelete() throws Exception {
@@ -82,13 +82,13 @@ public class CryptoKeyCommandTest extends BaseTestCaseWithUser {
         flushAndEvict(key);
         KickstartFactory.removeCryptoKey(key);
         assertNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
-                
+
         //second method
         CryptoKey key2 = CryptoTest.createTestKey(user.getOrg());
         KickstartFactory.saveCryptoKey(key2);
         assertNotNull(KickstartFactory.lookupCryptoKeyById(key2.getId(), key2.getOrg()));
         flushAndEvict(key2);
-        
+
         //CryptoKey will be deleted by the cmd.store command in setupKey
         setupKey(new DeleteCryptoKeyCommand(user, key2.getId()));
         assertNull(KickstartFactory.lookupCryptoKeyById(key2.getId(), key2.getOrg()));

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.config.ConfigFile" table="rhnConfigFile" 
+	<class name="com.redhat.rhn.domain.config.ConfigFile" table="rhnConfigFile"
 		>
 		<id name="id" type="long" column="id">
 			<meta attribute="scope-set">protected</meta>
@@ -17,14 +17,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 <!-- "cascade=none??" you say?  Config Revisions, Config Channels
      and Config Files all use stored procedures for insertions
      meaning that hibernate doesn't do it intelligently -->
-		<many-to-one name="configChannel" 
-			class="com.redhat.rhn.domain.config.ConfigChannel" 
+		<many-to-one name="configChannel"
+			class="com.redhat.rhn.domain.config.ConfigChannel"
 			column="config_channel_id" cascade="none" />
-		<many-to-one name="configFileName" 
-			class="com.redhat.rhn.domain.config.ConfigFileName" 
+		<many-to-one name="configFileName"
+			class="com.redhat.rhn.domain.config.ConfigFileName"
 			column="config_file_name_id" cascade="none" />
-		<many-to-one name="configFileState" 
-			class="com.redhat.rhn.domain.config.ConfigFileState" 
+		<many-to-one name="configFileState"
+			class="com.redhat.rhn.domain.config.ConfigFileState"
 			column="state_id"/>
 			
 	</class>

@@ -29,13 +29,13 @@
         <bean:message key="packagesindex.jsp.remove"/></a>
     </rhn:require>
   </li>
-  
-  <rhn:require acl="system_feature(ftr_package_verify); client_capable(packges.verify) or client_capable(packages.verify)" 
+
+  <rhn:require acl="system_feature(ftr_package_verify); client_capable(packges.verify) or client_capable(packages.verify)"
                mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
       <li><a href="/rhn/systems/details/packages/VerifyPackages.do?sid=${param.sid}">
         <bean:message key="packagesindex.jsp.verify"/></a></li>
   </rhn:require>
-  
+
   <rhn:require acl="system_feature(ftr_package_updates)">
       <li><a href="/rhn/systems/details/packages/UpgradableList.do?sid=${param.sid}">
         <bean:message key="packagesindex.jsp.upgrade"/></a></li>
@@ -47,7 +47,7 @@
       <li><a href="/rhn/systems/details/packages/profiles/ShowProfiles.do?sid=${param.sid}">
         <bean:message key="packagesindex.jsp.profiles"/></a></li>
   </rhn:require>
-  
+
 </ul>
 
 <rhn:require acl="system_feature(ftr_package_refresh)">

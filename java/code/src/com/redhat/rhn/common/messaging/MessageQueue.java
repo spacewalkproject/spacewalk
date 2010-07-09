@@ -72,7 +72,7 @@ public class MessageQueue {
     */
     private MessageQueue() {
     }
-    
+
     /**
      * Publish a new message
      * Each message is wrapped in a ActionExecutor instance
@@ -98,7 +98,7 @@ public class MessageQueue {
                     catch (InterruptedException e) {
                         logger.error(e.getMessage(), e);
                     }
-                } 
+                }
                 else {
                     logger.debug("handlers is null, not processing!");
                 }
@@ -109,7 +109,7 @@ public class MessageQueue {
             logger.debug("publish(EventMessage) - end");
         }
     }
-    
+
     static Runnable popEventMessage() throws InterruptedException {
         Runnable retval = (Runnable) messages.poll(500);
         if (retval != null) {
@@ -136,8 +136,8 @@ public class MessageQueue {
         dispatcherThread.setDaemon(false);
         dispatcherThread.start();
         if (logger.isDebugEnabled()) {
-            logger.debug("startMessaging() - end"); 
-        }        
+            logger.debug("startMessaging() - end");
+        }
     }
 
     /**
@@ -159,7 +159,7 @@ public class MessageQueue {
     */
     public static int getMessageCount() {
         return messageCount;
-    }    
+    }
 
     /**
      * Register an action
@@ -188,7 +188,7 @@ public class MessageQueue {
      */
     public static void deRegisterAction(MessageAction act, Class eventType) {
         if (logger.isDebugEnabled()) {
-            logger.debug("deRegisterAction(MessageAction, Class) - start"); 
+            logger.debug("deRegisterAction(MessageAction, Class) - start");
         }
         synchronized (ACTIONS) {
             List handlers = (List) ACTIONS.get(eventType);
@@ -198,15 +198,15 @@ public class MessageQueue {
             logger.debug("deRegisterAction(MessageAction, Class) - end");
         }
     }
-    
-    /** 
+
+    /**
      * Get list of String Classnames of the registered Actions.  For Managment
      * of the MessageQueue and testability.
      * @return String[] array of registered events.
      */
     public static String[] getRegisteredEventNames() {
         if (logger.isDebugEnabled()) {
-            logger.debug("getRegisteredEventNames() - start"); 
+            logger.debug("getRegisteredEventNames() - start");
         }
         String[] retval = null;
         synchronized (ACTIONS) {
@@ -226,17 +226,17 @@ public class MessageQueue {
         }
         return retval;
     }
-    
-    /** 
-    * Check to see if the MessageQueue is running and available to 
+
+    /**
+    * Check to see if the MessageQueue is running and available to
     * publish MessageEvents to
     * @return boolean true if MessageQueue is running.
     */
     public static boolean isMessaging() {
         return (dispatcher != null && !dispatcher.isStopped());
     }
-    
-    
+
+
     /**
      * Configures defaut messaging actions needed by RHN
      * This method should be called directly after <code>startMessaging</code>.
@@ -256,17 +256,17 @@ public class MessageQueue {
         // for 40 seconds.
         UpdateErrataCacheAction ueca = new UpdateErrataCacheAction();
         MessageQueue.registerAction(ueca, UpdateErrataCacheEvent.class);
-        
+
         // Used for asynchronusly restarting the satellite
         RestartSatelliteAction ra = new RestartSatelliteAction();
         MessageQueue.registerAction(ra, RestartSatelliteEvent.class);
-        
+
         // Used to allow SSM child channel changes to be run asynchronously
         SsmChangeChannelSubscriptionsAction sccsa =
             new SsmChangeChannelSubscriptionsAction();
         MessageQueue.registerAction(sccsa, SsmChangeChannelSubscriptionsEvent.class);
-        
-        MessageQueue.registerAction(new SsmDeleteServersAction(), 
+
+        MessageQueue.registerAction(new SsmDeleteServersAction(),
                                                 SsmDeleteServersEvent.class);
 
         // Used to allow SSM package installs to be run asynchronously
@@ -285,7 +285,7 @@ public class MessageQueue {
         //Clone Errata into a channel
         CloneErrataAction cea = new CloneErrataAction();
         MessageQueue.registerAction(cea, CloneErrataEvent.class);
-        
+
     }
 }
 

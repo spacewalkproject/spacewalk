@@ -39,7 +39,7 @@ import java.util.Map;
  * @version $Rev$
  */
 public class EditActionTest extends RhnBaseTestCase {
-    
+
     public void testUpdateErrata() throws Exception {
         EditAction action = new EditAction();
 
@@ -50,15 +50,15 @@ public class EditActionTest extends RhnBaseTestCase {
         mapping.addForwardConfig(def);
         mapping.addForwardConfig(failure);
         mapping.addForwardConfig(success);
-        
+
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
         RhnMockDynaActionForm form = new RhnMockDynaActionForm("errataEditForm");
         //request.setSession(session);
         request.setupServerName("mymachine.rhndev.redhat.com");
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         //Create a new unpublished errata
         User user = requestContext.getLoggedInUser();
         Errata errata = ErrataFactoryTest
@@ -66,38 +66,38 @@ public class EditActionTest extends RhnBaseTestCase {
         //Create another for checking adv name uniqueness constraint
         Errata errata2 = ErrataFactoryTest
                 .createTestUnpublishedErrata(user.getOrg().getId());
-        
+
         request.setupAddParameter("eid", errata.getId().toString());
         request.setupAddParameter("eid", errata.getId().toString());
-        
+
         //Execute setupAction to fillout form
         ActionForward result = action.unspecified(mapping, form, request, response);
         assertEquals("default", result.getName());
         //make sure form was filled out
-        assertEquals(form.get("synopsis"), errata.getSynopsis()); 
+        assertEquals(form.get("synopsis"), errata.getSynopsis());
         //add empty buglistId & buglistSummary so validator doesn't freak out
         form.set("buglistId", "");
         form.set("buglistSummary", "");
-        
+
         //make sure we still get validation errors
         request.setupAddParameter("eid", errata.getId().toString());
         form.set("synopsis", ""); //required field, so we should get a validation error
         result = action.update(mapping, form, request, response);
         assertEquals("default", result.getName());
-        
+
         //make sure adv name has to be unique
         request.setupAddParameter("eid", errata.getId().toString());
         form.set("synopsis", "this errata has been edited");
-        form.set("advisoryName", errata2.getAdvisoryName()); 
+        form.set("advisoryName", errata2.getAdvisoryName());
         result = action.update(mapping, form, request, response);
         assertEquals("default", result.getName());
-        
+
         //make sure adv name cannot start with rh
         request.setupAddParameter("eid", errata.getId().toString());
         form.set("advisoryName", "rh" + TestUtils.randomString());
         result = action.update(mapping, form, request, response);
         assertEquals("default", result.getName());
-        
+
         //make sure we can edit an errata
         String newAdvisoryName = errata.getAdvisoryName() + "edited";
         /*
@@ -120,7 +120,7 @@ public class EditActionTest extends RhnBaseTestCase {
         request.setupAddParameter("buglistSummaryNew", "test bug for a test errata");
         result = action.update(mapping, form, request, response);
         assertEquals("default", result.getName());
-        
+
         //errata has now been edited... let's look it back up from the db and make sure
         //our changes were saved.
         Long id = errata.getId();
@@ -133,7 +133,7 @@ public class EditActionTest extends RhnBaseTestCase {
         //make sure bug was added
         assertEquals(1, edited.getBugs().size());
     }
-    
+
     public void testSetupExecute() throws Exception {
         EditAction action = new EditAction();
 
@@ -143,14 +143,14 @@ public class EditActionTest extends RhnBaseTestCase {
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         MockHttpServletResponse response = new MockHttpServletResponse();
         mapping.addForwardConfig(def);
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
 
         request.setupAddParameter("eid", errata.getId().toString());
-        
+
         //make sure our form vars are null
         assertNull(form.get("synopsis"));
         //execute the action

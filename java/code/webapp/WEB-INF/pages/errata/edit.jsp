@@ -16,10 +16,10 @@
     <bean:message key="errata.edit.toolbar"/> <c:out value="${advisory}" />
   </rhn:toolbar>
 
-  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml" 
+  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml"
                   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
-  
+
 <%-- Publish or Send notification --%>
   <html:form action="/errata/manage/Edit">
   <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
@@ -140,14 +140,14 @@
           <table cellpadding="3">
             <tr>
               <td><bean:message key="errata.create.jsp.id"/></td>
-              <td><html:text property="buglistId${bug.id}" size="6" 
+              <td><html:text property="buglistId${bug.id}" size="6"
                        value="${bug.id}" /></td>
             </tr>
             <tr>
               <td><bean:message key="errata.create.jsp.summary"/></td>
-              <td><html:text property="buglistSummary${bug.id}" size="60" 
+              <td><html:text property="buglistSummary${bug.id}" size="60"
                        value="${bug.summary}" />
-             
+
             &nbsp;&nbsp;
             <a href="/rhn/errata/manage/DeleteBug.do?eid=<c:out value="${param.eid}"/>&amp;bid=<c:out value="${bug.id}"/>">
               <img src="/img/action-del.gif" alt="<bean:message key="errata.edit.deletebug"/>" />
@@ -156,7 +156,7 @@
           </table>
           <hr />
         </c:forEach>
-        
+
         <%-- Display an empty bug shell for input --%>
           <table>
             <tr>

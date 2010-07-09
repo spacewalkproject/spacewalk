@@ -44,12 +44,12 @@ public class DownloadManager extends BaseManager {
     public static final String DOWNLOAD_TYPE_SOURCE = "srpm";
     public static final String DOWNLOAD_TYPE_ISO = "iso";
     public static final String DOWNLOAD_TYPE_PATCH_README = "patchreadme";
-    public static final String DOWNLOAD_TYPE_PATCH_SET_README = "patchsetreadme";    
+    public static final String DOWNLOAD_TYPE_PATCH_SET_README = "patchsetreadme";
     public static final String DOWNLOAD_TYPE_REPO_LOG = "repolog";
-    
+
     /**
      * Get a download path (part of the url) that is used to download a package.
-     *  The url will be in the form of 
+     *  The url will be in the form of
      *  /download/SHA1_TOKEN/EXPIRE_TIME/userId/packId/filename.rpm
      * @param pack the package
      * @param user the user
@@ -64,10 +64,10 @@ public class DownloadManager extends BaseManager {
             return getNonExpiringDownloadPath(pack.getId(), pack.getFile(), user,
                     DownloadManager.DOWNLOAD_TYPE_PACKAGE);
         }
-        return getDownloadPath(pack.getId(), pack.getFile(), user, 
+        return getDownloadPath(pack.getId(), pack.getFile(), user,
                 DownloadManager.DOWNLOAD_TYPE_PACKAGE);
     }
-    
+
     /**
      * Get a download path (part of the url) that is used to download a package.
      *  The url will be in the form of
@@ -82,10 +82,10 @@ public class DownloadManager extends BaseManager {
                 DownloadManager.DOWNLOAD_TYPE_PACKAGE);
     }
 
-    
+
     /**
      * Get a download path that is used to download a srpm.
-     *  The url will be in the form of 
+     *  The url will be in the form of
      *  /download/SHA1_TOKEN/EXPIRE_TIME/userId/packId/filename.rpm
      * @param pkg the package
      * @param src the package source
@@ -96,8 +96,8 @@ public class DownloadManager extends BaseManager {
                                         PackageSource src, User user) {
         return getDownloadPath(pkg.getId(), src.getFile(), user,
                 DownloadManager.DOWNLOAD_TYPE_SOURCE);
-    }    
-    
+    }
+
     /**
      * Get a download path that is used to download a repo log file.
      *
@@ -112,30 +112,30 @@ public class DownloadManager extends BaseManager {
     }
 
 
-    
+
     /**
-     * Get the an ISO download Path 
+     * Get the an ISO download Path
      * @param image the Iso Image
      * @param user the user
      * @return the path to be used to download the iso
      */
     public static String getISODownloadPath(ISOImage image, User user) {
-        return getDownloadPath(image.getFileId(), image.getDownloadName(), user, 
+        return getDownloadPath(image.getFileId(), image.getDownloadName(), user,
                 DownloadManager.DOWNLOAD_TYPE_PACKAGE);
     }
-    
+
     /**
      * Get the patch readme download url/path
-     * @param patch the patch 
+     * @param patch the patch
      * @param user the user requesting
      * @return the path used to download the readme.
-     */    
+     */
     public static String getPatchReadmeDownloadPath(Patch patch, User user) {
-        return getDownloadPath(patch.getId(), "README", user, 
+        return getDownloadPath(patch.getId(), "README", user,
                 DownloadManager.DOWNLOAD_TYPE_PATCH_README);
-        
+
     }
-    
+
     /**
      * Get the patch set readme download url/path
      * @param patchset the patch set
@@ -143,11 +143,11 @@ public class DownloadManager extends BaseManager {
      * @return the path used to download the readme.
      */
     public static String getPatchSetReadmeDownloadPath(PatchSet patchset, User user) {
-        return getDownloadPath(patchset.getId(), "README", user, 
-                DownloadManager.DOWNLOAD_TYPE_PATCH_SET_README);        
-    }    
-    
-    private static String getDownloadPath(Long fileId, String filename, 
+        return getDownloadPath(patchset.getId(), "README", user,
+                DownloadManager.DOWNLOAD_TYPE_PATCH_SET_README);
+    }
+
+    private static String getDownloadPath(Long fileId, String filename,
             User user, String type) {
         Long time = 0L;
         if (Config.get().getInt(ConfigDefaults.DOWNLOAD_URL_LIFETIME) > 0) {
@@ -157,12 +157,12 @@ public class DownloadManager extends BaseManager {
             time = cal.getTimeInMillis();
         }
 
-        return "/download/" + type + "/" + getFileSHA1Token(fileId,  
+        return "/download/" + type + "/" + getFileSHA1Token(fileId,
                 filename, user, time, type) + "/" +
                 time + "/" + user.getId() + "/" + fileId + "/" +
                 filename;
     }
-    
+
     private static String getNonExpiringDownloadPath(Long fileId, String filename,
             User user, String type) {
         Long time = 0L;
@@ -183,19 +183,19 @@ public class DownloadManager extends BaseManager {
      * @param type the type of the download (i.e. package, iso, etc..)
      * @return a string representing the hash
      */
-    public static String getFileSHA1Token(Long fileId, String filename, 
+    public static String getFileSHA1Token(Long fileId, String filename,
             User user, Long expire, String type) {
-        
+
         List<String> data = new ArrayList<String>();
         data.add(expire.toString());
         data.add(user.getId().toString());
         data.add(fileId.toString());
         data.add(filename);
         data.add(type);
-        
+
         return SessionSwap.rhnHmacData(data);
     }
-    
+
     /**
      * Checks to see if a file exists
      * @param path the path to the file
@@ -204,9 +204,9 @@ public class DownloadManager extends BaseManager {
     public static boolean isFileAvailable(String path) {
         String file = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" + path;
         return new File(file).exists();
-    }    
-    
-    
+    }
 
-    
+
+
+
 }

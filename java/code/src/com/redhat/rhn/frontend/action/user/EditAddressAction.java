@@ -52,7 +52,7 @@ public class EditAddressAction extends RhnAction {
 
         DynaActionForm form = (DynaActionForm)formIn;
 
-        /* Validate the form. We don't do this on satellite since none of 
+        /* Validate the form. We don't do this on satellite since none of
          * the fields are required */
         ActionErrors verrors = RhnValidationHelper.validateDynaActionForm(this, form);
         if (!verrors.isEmpty()) {
@@ -60,9 +60,9 @@ public class EditAddressAction extends RhnAction {
             addErrors(request, verrors);
             return mapping.findForward("failure");
         }
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User targetUser = UserManager.lookupUser(requestContext.getLoggedInUser(),
                 requestContext.getParamAsLong("uid"));
         request.setAttribute(RhnHelper.TARGET_USER, targetUser);

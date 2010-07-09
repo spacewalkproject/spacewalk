@@ -26,26 +26,26 @@ import com.redhat.rhn.domain.user.User;
  * @version $Rev $
  */
 public class XmlRpcKickstartHelper {
-    private static final XmlRpcKickstartHelper HELPER = 
-                                            new XmlRpcKickstartHelper();    
+    private static final XmlRpcKickstartHelper HELPER =
+                                            new XmlRpcKickstartHelper();
     /**
-     * private constructor to make this a singleton 
+     * private constructor to make this a singleton
      */
     private XmlRpcKickstartHelper() {
     }
-    
+
     /**
      * @return Returns the running instance of this helper class
      */
     public static XmlRpcKickstartHelper getInstance() {
         return HELPER;
     }
-    
+
     /**
      * Returns the kickstart data associated to the given label and org
      * @param label the label of the Ks profile
      * @param org the org of the ks profile
-     * @return the kickstart data 
+     * @return the kickstart data
      */
     public KickstartData lookupKsData(String label, Org org) {
         KickstartData data = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
@@ -59,8 +59,8 @@ public class XmlRpcKickstartHelper {
     /**
      * Returns the kickstart data associated to the given label and user's org
      * @param label the label of the Ks profile
-     * @param user the user.        
-     * @return the kickstart data 
+     * @param user the user.
+     * @return the kickstart data
      */
     public KickstartData lookupKsData(String label, User user) {
         return lookupKsData(label, user.getOrg());

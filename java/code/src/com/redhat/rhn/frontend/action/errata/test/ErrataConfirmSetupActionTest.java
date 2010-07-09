@@ -31,21 +31,21 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
  * ErrataConfirmSetupActionTest - test ErrataConfirmSetupAction setting
- * up the information in the request for the pageview 
+ * up the information in the request for the pageview
  * @version $Rev$
  */
 public class ErrataConfirmSetupActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
-        
+
         // Create Errata
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         request.addParameter("eid", e.getId().toString());
         request.addParameter(DatePicker.USE_DATE, "true");
-        
+
         //Create a System
-        Server server = ServerFactoryTest.createTestServer(user, true); 
-        
+        Server server = ServerFactoryTest.createTestServer(user, true);
+
         //Associate the system and the errata
         UserFactory.save(user);
         OrgFactory.save(user.getOrg());
@@ -53,16 +53,16 @@ public class ErrataConfirmSetupActionTest extends RhnMockStrutsTestCase {
         int rows = ErrataCacheManager.insertNeededErrataCache(
                 server.getId(), e.getId(), p.getId());
         assertEquals(1, rows);
-        
+
         //Add the system to the set
         RhnSet set = RhnSetDecl.SYSTEMS_AFFECTED.get(user);
         set.addElement(server.getId());
         RhnSetFactory.save(set);
-        
+
         // Execute the Action
         setRequestPathInfo("/errata/details/ErrataConfirm");
         actionPerform();
-        
+
         //Test the expected results.
         verifyPageList(SystemOverview.class);
         assertNotNull(request.getAttribute("errata"));

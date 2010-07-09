@@ -92,7 +92,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         TestDateDto d = (TestDateDto) dr.get(0);
         assertTrue(d.getCreated() instanceof Timestamp);
     }
-    
+
     public void testMaxRows() {
         SelectMode m = ModeFactory.getMode("test_queries", "withClass");
         try {
@@ -108,7 +108,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         assertNotNull(dr);
         assertTrue(dr.size() == 10);
     }
-    
+
     /**
      * Test for ModeFactory.getMode methods
      */
@@ -123,7 +123,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
          * care what it is as long as it isn't a Map.
          */
         assertTrue(!obj.getClass().getName().equals("java.util.Map"));
-        
+
         //Try over-riding and getting a Map back
         SelectMode m2 = ModeFactory.getMode("test_queries", "withClass", Map.class);
         dr = m2.execute(params);
@@ -132,7 +132,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         obj = dr.iterator().next();
         //make sure we got some sort of a Map back
         assertEquals("java.util.HashMap", obj.getClass().getName());
-        
+
         //Try over-riding with something incompatible
         SelectMode m3 = ModeFactory.getMode("test_queries", "withClass", Set.class);
         try {
@@ -142,12 +142,12 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         catch (ObjectCreateWrapperException e) {
             //success!
         }
-        
+
         //Make sure our selectMode object was a copy and not the one cached
         SelectMode m2a = ModeFactory.getMode("test_queries", "withClass");
         assertFalse(m2a.getClassString().equals("java.util.Set"));
         assertFalse(m2a.getClassString().equals("java.util.Map"));
-        
+
         //finally, make sure that by default our DataResult objects contain Maps
         SelectMode m4 = ModeFactory.getMode("test_queries", "all_tables");
         dr = m4.execute(params);
@@ -156,7 +156,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         obj = dr.iterator().next();
         assertEquals("java.util.HashMap", obj.getClass().getName());
     }
-    
+
     public void testInsert() throws Exception {
         insert("insert_test", 3);
         // Close our Session so we test to make sure it
@@ -192,7 +192,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         commitAndCloseSession();
         lookup("after_update", 4, 1);
     }
-    
+
     /** This test makes sure we can call "execute" multiple times
      * and re-use the existing internal transaction within the CommitableMode
      */
@@ -205,22 +205,22 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         params.put("id", new Integer(5));
         int res = m.executeUpdate(params);
         m = ModeFactory.getWriteMode("test_queries", "update_in_table");
-        // Call it 5 times to make sure we can 
+        // Call it 5 times to make sure we can
         // execute it multipletimes.
         for (int i = 0; i < 5; i++) {
             res = m.executeUpdate(params);
             assertEquals(1, res);
         }
         lookup("after_update_multi", 5, 1);
-    }    
+    }
 
     public void testGetCallable() throws Exception {
-        CallableMode m = ModeFactory.getCallableMode("test_queries", 
+        CallableMode m = ModeFactory.getCallableMode("test_queries",
                                         "stored_procedure_jdbc_format");
         assertNotNull(m);
     }
-    
-    public void testCollectionCreate() { 
+
+    public void testCollectionCreate() {
         List ll = new LinkedList();
         for (int i = 0; i < 13; i++) {
             ll.add("i" + i);
@@ -229,11 +229,11 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         assertTrue(dr.size() == 13);
         assertTrue(dr.getStart() == 1);
         assertTrue(dr.getEnd() == 13);
-        
+
     }
 
     public void testStoredProcedureJDBC() throws Exception {
-        CallableMode m = ModeFactory.getCallableMode("test_queries", 
+        CallableMode m = ModeFactory.getCallableMode("test_queries",
                                         "stored_procedure_jdbc_format");
         Map inParams = new HashMap();
         Map outParams = new HashMap();
@@ -242,11 +242,11 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         Map row = m.execute(inParams, outParams);
         assertNotNull(row);
         assertEquals(100, ((Long)row.get("arch")).intValue());
-        
+
     }
 
     public void testStoredProcedureOracle() throws Exception {
-        CallableMode m = ModeFactory.getCallableMode("test_queries", 
+        CallableMode m = ModeFactory.getCallableMode("test_queries",
                                         "stored_procedure_oracle_format");
         Map inParams = new HashMap();
         Map outParams = new HashMap();
@@ -271,7 +271,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
     public void testStressedElaboration() throws Exception {
         int startId = 1000;
         int endId = startId + 1500;
-        
+
         for (int i = startId; i < endId; i++) {
             insert("foobar" + TestUtils.randomString(), i);
         }
@@ -284,7 +284,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
             assertNotNull(row.getFoobar());
         }
     }
-    
+
     public void testDoubleElaboration() throws Exception {
         SelectMode m = ModeFactory.getMode("test_queries", "withClass");
         DataResult<TableData> dr = m.execute(Collections.EMPTY_MAP);
@@ -306,7 +306,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
     public void testMaxRowsWithElaboration() throws Exception {
         int startId = 1000;
         int endId = startId + 50;
-        
+
         for (int i = startId; i < endId; i++) {
             insert("foobar" + TestUtils.randomString(), i);
         }
@@ -322,7 +322,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
             assertNotNull(row.getFoobar());
         }
     }
-    
+
     public void testSelectInWithParams() throws Exception {
         SelectMode m = ModeFactory.getMode("test_queries", "select_in_withparams");
         List inclause = new ArrayList();
@@ -330,13 +330,13 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         inclause.add(1);
         Map params = new HashMap();
         params.put("name", "jesusr");
-        
+
         DataResult dr = m.execute(params, inclause);
         assertNotNull(dr);
         System.out.println(dr);
     }
 
-    public static Test suite() 
+    public static Test suite()
         throws Exception {
         TestSuite suite = new TestSuite(AdvDataSourceTest.class);
         TestSetup wrapper = new TestSetup(suite) {
@@ -406,7 +406,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
             log.warn("Failed to execute query " + query + ": " + se.toString());
         }
     }
-    
+
     public void testFoo() {
         SelectMode mode = ModeFactory.getMode("Errata_queries",
                 "unscheduled_relevant_to_system");

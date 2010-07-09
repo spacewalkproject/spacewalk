@@ -26,21 +26,21 @@ import java.io.Serializable;
 /**
  * ConfigChannelAssocation - Class representation of the table rhnActionConfigChannel.  This
  * class has to exist because we need to map *two* objects with this mapping table instead
- * of the standard one.  usually with Hibernate you don't need a class to represent a 
+ * of the standard one.  usually with Hibernate you don't need a class to represent a
  * mapping table but since this maps two objects we gotta have a class.
- * 
- * The mapping for this class is a composite element in Action.hbm.xml 
- * 
+ *
+ * The mapping for this class is a composite element in Action.hbm.xml
+ *
  * See:
- * http://www.hibernate.org/118.html#A11 
- * 
+ * http://www.hibernate.org/118.html#A11
+ *
  * @version $Rev$
  */
 public class ConfigChannelAssociation extends ActionChild implements Serializable {
 
     private Server server;
     private ConfigChannel configChannel;
-    
+
     /**
      * @return Returns the configChannel.
      */
@@ -73,15 +73,15 @@ public class ConfigChannelAssociation extends ActionChild implements Serializabl
         if (obj == null || !(obj instanceof ConfigChannelAssociation)) {
             return false;
         }
-       
+
         ConfigChannelAssociation r = (ConfigChannelAssociation) obj;
-        
+
         return new EqualsBuilder().append(r.getCreated(), getCreated())
                                   .append(r.getModified(), getModified())
                                   .append(r.getServer(), getServer())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -91,6 +91,6 @@ public class ConfigChannelAssociation extends ActionChild implements Serializabl
                                     .append(getModified())
                                     .toHashCode();
     }
-    
+
 
 }

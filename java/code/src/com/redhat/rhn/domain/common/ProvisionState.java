@@ -25,42 +25,42 @@ public class ProvisionState extends BaseDomainHelper {
     private Long id;
     private String label;
     private String description;
-    
+
     /**
      * @return Returns the description.
      */
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * @param d The description to set.
      */
     public void setDescription(String d) {
         this.description = d;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param l The label to set.
      */

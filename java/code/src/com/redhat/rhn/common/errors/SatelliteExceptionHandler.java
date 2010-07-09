@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SatelliteExceptionHandler extends ExceptionHandler {
     private Exception exception;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -43,8 +43,8 @@ public class SatelliteExceptionHandler extends ExceptionHandler {
         log.error(ex);
         exception = (Exception) ex;
     }
-    
-    protected void storeException(HttpServletRequest request, String property, 
+
+    protected void storeException(HttpServletRequest request, String property,
                                   ActionMessage msg, ActionForward forward, String scope) {
         TraceBackEvent evt = new TraceBackEvent();
         RequestContext requestContext = new RequestContext(request);

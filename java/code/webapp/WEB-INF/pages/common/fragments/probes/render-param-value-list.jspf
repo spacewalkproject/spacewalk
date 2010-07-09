@@ -7,23 +7,23 @@
         <c:when test="${empty field.threshold}">
     <td colspan="3">
         </c:when>
-        <c:otherwise>   
+        <c:otherwise>
     <td align="right"><bean:message key="${field.threshold}"/></td>
     <td>
         </c:otherwise>
       </c:choose>
       <c:choose>
         <c:when test="${field.fieldWidgetName == 'text'}">
-          <input type="text" name="${field.paramName}" value="${field.value}" 
+          <input type="text" name="${field.paramName}" value="${field.value}"
               maxlength="${field.maxLength}" size="${field.size}" />
         </c:when>
         <c:when test="${field.fieldWidgetName == 'password'}">
-          <input type="password" name="${field.paramName}" 
-              value="${field.value}" maxlength="${field.maxLength}" 
+          <input type="password" name="${field.paramName}"
+              value="${field.value}" maxlength="${field.maxLength}"
               size="${field.size}" />
         </c:when>
         <c:when test="${field.fieldWidgetName == 'checkbox'}">
-          <input type="checkbox" name="${field.paramName}" 
+          <input type="checkbox" name="${field.paramName}"
               value="1" <c:if test="${field.value == 1}">checked</c:if> />
         </c:when>
       </c:choose>

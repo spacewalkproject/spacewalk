@@ -33,35 +33,35 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
  * @version $Rev$
  */
 public class CloneConfirmSetupActionTest extends RhnMockStrutsTestCase {
-    
+
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/errata/manage/CloneConfirm");
         user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
-    
+
     public void testExecute() throws Exception {
-        
-        RhnSet errataToClone = RhnSetFactory.createRhnSet(user.getId(), 
-                                                          "clone_errata_list", 
+
+        RhnSet errataToClone = RhnSetFactory.createRhnSet(user.getId(),
+                                                          "clone_errata_list",
                                                           SetCleanup.NOOP);
-        
+
         Channel original = ChannelFactoryTest.createTestChannel(user);
-        
+
         for (int j = 0; j < 5; ++j) {
             Errata e = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
             original.addErrata(e);
             errataToClone.addElement(e.getId());
         }
-        
+
         RhnSetManager.store(errataToClone);
-        
+
         RhnSet set = RhnSetDecl.ERRATA_CLONE.get(user);
         assertEquals(5, set.size());
-        
+
         actionPerform();
-        
+
         DataResult dr = (DataResult) request.getAttribute("pageList");
         assertNotNull(dr);
         assertTrue(dr.size() == 5);

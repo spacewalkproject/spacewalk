@@ -43,5 +43,5 @@ public class InvalidAdvisoryTypeException extends FaultException  {
         super(1062, "Invalid Errata Type" , LocalizationService.getInstance().
                 getMessage("api.errata.invalidadvisorytype", new Object [] {arch}), cause);
     }
-    
+
 }

@@ -21,7 +21,7 @@ import com.redhat.rhn.domain.BaseDomainHelper;
  * @version $Rev$
  */
 public class Ram extends BaseDomainHelper {
-    
+
     private Long id;
     private Server server;
     private long ram;
@@ -41,7 +41,7 @@ public class Ram extends BaseDomainHelper {
     public Long getId() {
         return id;
     }
-    
+
     /**
      * Sets the database id of the ram object.
      * @param idIn The id to set.
@@ -49,7 +49,7 @@ public class Ram extends BaseDomainHelper {
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * Returns the amount of total ram on a server.
      * @return the amount of total ram on a server.
@@ -57,7 +57,7 @@ public class Ram extends BaseDomainHelper {
     public long getRam() {
         return ram;
     }
-    
+
     /**
      * Sets the total amount of ram on a server
      * @param ramIn The total amount of ram on a server.
@@ -65,7 +65,7 @@ public class Ram extends BaseDomainHelper {
     public void setRam(long ramIn) {
         ram = ramIn;
     }
-    
+
     /**
      * The parent server.
      * @return Returns the server.
@@ -73,7 +73,7 @@ public class Ram extends BaseDomainHelper {
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * Sets the parent server.
      * @param serverIn The server to set.
@@ -81,7 +81,7 @@ public class Ram extends BaseDomainHelper {
     public void setServer(Server serverIn) {
         server = serverIn;
     }
-    
+
     /**
      * Returns the amount of total swap on a server.
      * @return the amount of total swap on a server.
@@ -89,7 +89,7 @@ public class Ram extends BaseDomainHelper {
     public long getSwap() {
         return swap;
     }
-    
+
     /**
      * Sets the total swap on a server.
      * @param swapIn The total swap on a server.

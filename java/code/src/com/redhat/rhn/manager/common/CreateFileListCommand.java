@@ -20,7 +20,7 @@ import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.user.User;
 
 /**
- * CreateFileListCommand - Command Class to create and store a 
+ * CreateFileListCommand - Command Class to create and store a
  * com.redhat.rhn.domain.common.FileList.
  * @version $Rev$
  */
@@ -35,12 +35,12 @@ public class CreateFileListCommand extends BaseFileListEditCommand {
         this.list = new FileList();
         this.list.setOrg(userIn.getOrg());
     }
-    
+
     /**
      * Store the FileList. Checks to make sure that the label doesn't already exist.
      *
      * @return ValidatorError[] if there were errors before the save.
-     */ 
+     */
     public ValidatorError store() {
         if (CommonFactory.lookupFileList(this.newLabel, user.getOrg()) == null) {
             list.setLabel(this.newLabel);

@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ViewDiffResultAction extends RhnAction {
     public static final String REVISION_BEAN = "revisionBean";
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
@@ -44,8 +44,8 @@ public class ViewDiffResultAction extends RhnAction {
         Long acrid = context.getRequiredParam("acrid");
         ConfigRevisionAction action = ActionFactory.lookupConfigRevisionAction(acrid);
         request.setAttribute(REVISION_BEAN, action);
-        
-        return mapping.findForward("default");    
+
+        return mapping.findForward("default");
     }
 
 }

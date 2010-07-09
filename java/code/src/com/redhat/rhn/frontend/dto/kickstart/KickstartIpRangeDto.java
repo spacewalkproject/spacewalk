@@ -30,7 +30,7 @@ public class KickstartIpRangeDto extends BaseDto {
     private Long max;
     private String label;
     private IpAddressRange iprange;
-    
+
     /**
      * Default constructor. uses IpAddressRange for string range output
      *
@@ -43,94 +43,94 @@ public class KickstartIpRangeDto extends BaseDto {
         this.label = "";
         this.iprange = new IpAddressRange();
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
-     * 
+     *
      * @param idIn ksid to set
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
-     * 
+     *
      * @return max ip range number
      */
     public Long getMax() {
         return this.max;
     }
-    
+
     /**
-     * 
+     *
      * @param maxIn max ip number to set
      */
     public void setMax(Long maxIn) {
         this.max = maxIn;
         this.iprange.setMax(new IpAddress(maxIn.longValue()));
     }
-    
+
     /**
-     * 
+     *
      * @return min ip range number
      */
     public Long getMin() {
         return this.min;
     }
-    
+
     /**
-     * 
+     *
      * @param minIn min ip number to set
      */
-    public void setMin(Long minIn) {        
+    public void setMin(Long minIn) {
         this.min = minIn;
         this.iprange.setMin(new IpAddress(minIn.longValue()));
     }
-    
+
     /**
-     * 
+     *
      * @return Kickstart profile name
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
-     * 
+     *
      * @param labelIn of Kickstart profile to set
      */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
-    
+
     /**
-     * 
+     *
      * @return org id of this kickstart range
      */
     public Long getOrgId() {
         return orgId;
     }
-    
+
     /**
-     * 
+     *
      * @param orgIdIn org id of this kickstart range to set
      */
     public void setOrgId(Long orgIdIn) {
         this.orgId = orgIdIn;
     }
-    
+
     /**
-     * 
+     *
      * @return kickstart range object for this kickstart ip range
      */
     public IpAddressRange getIprange() {
         return this.iprange;
-    }    
+    }
 }

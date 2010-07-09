@@ -29,12 +29,12 @@ public class TestExceptionAction implements MessageAction  {
         registered = new TestExceptionAction();
         MessageQueue.registerAction(registered, TestEventMessage.class);
     }
-    
+
     public static void deRegisterAction() {
         MessageQueue.deRegisterAction(registered, TestEventMessage.class);
         registered = null;
     }
-    
+
     /**
      * Perform the action on the EventMessage
      */

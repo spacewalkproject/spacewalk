@@ -57,37 +57,37 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
     public static final String COPY_TO_GLOBAL = "copy_to_global";
     public static final String DELETE_FILES = "delete_files";
     private static final String TYPE = "__CONFIG_CHANNEL_TYPE__";
-    public static final String COPY_TO_LOCAL_KEY = 
+    public static final String COPY_TO_LOCAL_KEY =
                                     "sdc.config.file_list.copy_to_local";
-    public static final String COPY_TO_SANDBOX_KEY = 
+    public static final String COPY_TO_SANDBOX_KEY =
                                     "sdc.config.file_list.copy_to_sandbox";
-    public static final String COPY_TO_GLOBAL_KEY = 
+    public static final String COPY_TO_GLOBAL_KEY =
                                      "sdc.config.file_list.copy_to_global";
-    public static final String DELETE_FILES_KEY = 
+    public static final String DELETE_FILES_KEY =
                                     "sdc.config.file_list.delete_files";
-    
+
     public static final String DISPATCH = "dispatch";
-    
-    public static final String SANDBOX_SUCCESS_KEY = 
+
+    public static final String SANDBOX_SUCCESS_KEY =
                                      "sdc.config.file_list.sandbox.success";
-    
-    public static final String LOCAL_SUCCESS_KEY = 
+
+    public static final String LOCAL_SUCCESS_KEY =
                                       "sdc.config.file_list.local.success";
-    
-    public static final String DELETE_FILES_SANDBOX_SUCCESS_KEY = 
+
+    public static final String DELETE_FILES_SANDBOX_SUCCESS_KEY =
                                        "sdc.config.file_list.sandbox.delete.success";
-    
+
     public static final String DELETE_FILES_LOCAL_SUCCESS_KEY =
                                        "sdc.config.file_list.local.delete.success";
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         RequestContext context = new RequestContext(request);
         Map params = new HashMap();
         params.put(RequestContext.SID, context.getRequiredParam(RequestContext.SID));
-        
+
         request.setAttribute(TYPE, getType(mapping.getParameter()));
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
         helper.execute();
@@ -95,14 +95,14 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
             return handleDispatchAction(helper, mapping, context);
         }
         setupButtons(request);
-        
+
         //mapping.getParameter() is used to identify the type
         // channel we are trying to process..
-        // the struts-config has paramter set to 
+        // the struts-config has paramter set to
         // either 'sandbox' or 'local' or 'central'
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
 
-        
+
         SdcHelper.ssmCheck(request, context.lookupAndBindServer().getId(),
                                                     context.getLoggedInUser());
 
@@ -120,9 +120,9 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
      * @return the forward url
      */
     private ActionForward  handleDispatchAction(ListSessionSetHelper helper,
-                                                    ActionMapping mapping, 
+                                                    ActionMapping mapping,
                                                 RequestContext context) {
-        
+
         User user = context.getLoggedInUser();
         Server server = context.lookupAndBindServer();
         String action = COPY_TO_GLOBAL;
@@ -133,20 +133,20 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
             action = COPY_TO_GLOBAL;
         }
         else if (context.wasDispatched(COPY_TO_LOCAL_KEY)) {
-            int size = copySelectedToChannel(helper, 
-                                    server.getLocalOverride(), 
+            int size = copySelectedToChannel(helper,
+                                    server.getLocalOverride(),
                                     context.getRequest(),
                                         user);
-            successMessage(context.getRequest(), 
+            successMessage(context.getRequest(),
                                LOCAL_SUCCESS_KEY, size);
             action = COPY_TO_LOCAL;
         }
         else if (context.wasDispatched(COPY_TO_SANDBOX_KEY)) {
-            int size = copySelectedToChannel(helper, 
+            int size = copySelectedToChannel(helper,
                                 server.getSandboxOverride(),
                     context.getRequest(),
-                    user);            
-            successMessage(context.getRequest(), 
+                    user);
+            successMessage(context.getRequest(),
                                 SANDBOX_SUCCESS_KEY, size);
             action = COPY_TO_SANDBOX;
         }
@@ -155,26 +155,26 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
             if (ConfigChannelType.local().getLabel().
                                             equals(mapping.getParameter())) {
                 int size = deleteFiles(helper,
-                                        server.getLocalOverride(), 
+                                        server.getLocalOverride(),
                                         context.getRequest(), user);
-                successMessage(context.getRequest(), 
-                                    DELETE_FILES_LOCAL_SUCCESS_KEY, size);                
+                successMessage(context.getRequest(),
+                                    DELETE_FILES_LOCAL_SUCCESS_KEY, size);
             }
             else {
                 int size = deleteFiles(helper, server.getSandboxOverride(),
                                             context.getRequest(), user);
-                successMessage(context.getRequest(), 
+                successMessage(context.getRequest(),
                                     DELETE_FILES_SANDBOX_SUCCESS_KEY, size);
             }
         }
-        //if its a COPY_TO_GLOBAL, we'd use the forward 
+        //if its a COPY_TO_GLOBAL, we'd use the forward
         // link from the struts-config.xml so thats covered..
         // even though that doesn appear in the if/else clause
         return getStrutsDelegate().
-                     forwardParams(mapping.findForward(action), params);            
+                     forwardParams(mapping.findForward(action), params);
     }
-    
-    private void updateRhnSet(ListSessionSetHelper helper, 
+
+    private void updateRhnSet(ListSessionSetHelper helper,
                     HttpServletRequest request, User user) {
         Set<String> set = helper.getSet();
         RhnSet configFiles = RhnSetDecl.CONFIG_FILE_NAMES.get(user);
@@ -192,12 +192,12 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
      * @param user user needed for permission checking..
      * @return returns the number of files deleted
      */
-    private int deleteFiles(ListSessionSetHelper helper, 
-                        ConfigChannel channel, HttpServletRequest request, 
+    private int deleteFiles(ListSessionSetHelper helper,
+                        ConfigChannel channel, HttpServletRequest request,
                                 User user) {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         Set<String>  set = helper.getSet();
-        
+
         for (String key : set) {
             ConfigFile cf = cm.lookupConfigFile(user, Long.valueOf(key));
             cm.deleteConfigFile(user, cf);
@@ -206,14 +206,14 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
         helper.destroy();
         return size;
     }
-    
+
     /**
      * Copies the select files to a given channel..
      * @param channel channel to copy the files to..
      * @param user used for security..
      * @return returns the number of files copied
      */
-    private int copySelectedToChannel(ListSessionSetHelper helper, 
+    private int copySelectedToChannel(ListSessionSetHelper helper,
                                     ConfigChannel channel,
                                       HttpServletRequest request,
                                         User user) {
@@ -228,29 +228,29 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
         helper.destroy();
         return size;
     }
-    
+
     private void successMessage(HttpServletRequest req,
                                              String key,
                                              long numFiles) {
         ActionMessages msg = new ActionMessages();
         Object[] args = new Object[] {String.valueOf(numFiles)};
-        
+
         msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(key, args));
-        saveMessages(req, msg);        
+        saveMessages(req, msg);
     }
-    
+
     /**
-     * 
-     * @return the set declaration used to this action.. 
+     *
+     * @return the set declaration used to this action..
      */
     protected String getDecl() {
         return getClass().getName();
     }
-    
+
     /**
-     * Returns the "ConfigChannelType" based on 
+     * Returns the "ConfigChannelType" based on
      * the channel type key..
-     * @param channelType the key -> 'central'| 'local' | 'sandbox' 
+     * @param channelType the key -> 'central'| 'local' | 'sandbox'
      * @return the channel type..
      */
     private ConfigChannelType getType(String channelType) {
@@ -269,22 +269,22 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
         }
         String message = "Unknown channel type provided.. [" + channelType +
                                     "] in " + getClass().getName() +
-                                    ".getType ()"; 
-                            
+                                    ".getType ()";
+
         throw new RuntimeException(message);
     }
-    
+
     private void setupButtons(HttpServletRequest request) {
         LocalizationService ls = LocalizationService.getInstance();
-        request.setAttribute(COPY_TO_LOCAL, 
+        request.setAttribute(COPY_TO_LOCAL,
                             ls.getMessage(COPY_TO_LOCAL_KEY));
-        request.setAttribute(COPY_TO_GLOBAL, 
+        request.setAttribute(COPY_TO_GLOBAL,
                         ls.getMessage(COPY_TO_GLOBAL_KEY));
-        request.setAttribute(COPY_TO_SANDBOX, 
-                        ls.getMessage(COPY_TO_SANDBOX_KEY));        
+        request.setAttribute(COPY_TO_SANDBOX,
+                        ls.getMessage(COPY_TO_SANDBOX_KEY));
 
-        request.setAttribute(DELETE_FILES, 
-                ls.getMessage(DELETE_FILES_KEY));        
+        request.setAttribute(DELETE_FILES,
+                ls.getMessage(DELETE_FILES_KEY));
     }
 
     /**
@@ -293,10 +293,10 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
     public List getResult(RequestContext context) {
         Server server  = context.lookupAndBindServer();
         User user = context.getLoggedInUser();
-        ConfigChannelType type = (ConfigChannelType) 
+        ConfigChannelType type = (ConfigChannelType)
                                     context.getRequest().getAttribute(TYPE);
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listManagedPathsFor(server, user, type);
-        
+
     }
 }

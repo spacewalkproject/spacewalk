@@ -30,7 +30,7 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ChannelFamily extends BaseDomainHelper {
-    
+
     private Long id;
     private String name;
     private String label;
@@ -38,7 +38,7 @@ public class ChannelFamily extends BaseDomainHelper {
     private String productUrl;
     private Set<Channel> channels = new HashSet<Channel>();
     private Set virtSubscriptionLevels = new HashSet();
-    
+
     private Set<PrivateChannelFamily> privateChannelFamilies =
                                     new HashSet<PrivateChannelFamily>();
 
@@ -48,7 +48,7 @@ public class ChannelFamily extends BaseDomainHelper {
     public Set<Channel> getChannels() {
         return this.channels;
     }
-    
+
     /**
      * @param channelsIn The channels to set.
      */
@@ -128,7 +128,7 @@ public class ChannelFamily extends BaseDomainHelper {
             return false;
         }
         ChannelFamily castOther = (ChannelFamily) other;
-         
+
         return new EqualsBuilder().append(id, castOther.id)
                                   .append(label, castOther.label)
                                   .append(name, castOther.name)
@@ -136,7 +136,7 @@ public class ChannelFamily extends BaseDomainHelper {
                                   .append(productUrl, castOther.productUrl)
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -148,7 +148,7 @@ public class ChannelFamily extends BaseDomainHelper {
                                     .append(productUrl)
                                     .toHashCode();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -157,7 +157,7 @@ public class ChannelFamily extends BaseDomainHelper {
             .append("label", label).toString();
     }
 
-    
+
     /**
      * @return Returns the virtSubscriptionLevels.
      */
@@ -165,7 +165,7 @@ public class ChannelFamily extends BaseDomainHelper {
         return virtSubscriptionLevels;
     }
 
-    
+
     /**
      * @param virtSubscriptionLevelsIn The virtSubscriptionLevels to set.
      */
@@ -196,9 +196,9 @@ public class ChannelFamily extends BaseDomainHelper {
         }
         return null;
     }
-    
+
     /**
-     * Get current members of this channel family. 
+     * Get current members of this channel family.
      * @param orgIn org to lookup the current members for
      * @return currentMembers of this channelfamily.
      */
@@ -223,9 +223,9 @@ public class ChannelFamily extends BaseDomainHelper {
         }
         return null;
     }
-    
+
     /**
-     * Get current flex members of this channel family. 
+     * Get current flex members of this channel family.
      * @param orgIn org to lookup the current flex members for
      * @return currentflex  Members of this channelfamily.
      */
@@ -236,10 +236,10 @@ public class ChannelFamily extends BaseDomainHelper {
         }
         return null;
     }
-    
-    
+
+
     /**
-     * returns the channel family allocation of this channel family  
+     * returns the channel family allocation of this channel family
      * in  the given org
      * @param orgIn the org whose allocation is requested
      * @return the channel allocation
@@ -252,7 +252,7 @@ public class ChannelFamily extends BaseDomainHelper {
         }
         return null;
     }
-    
+
     /**
      * @return Returns the privateChannelFamilies.
      */
@@ -260,7 +260,7 @@ public class ChannelFamily extends BaseDomainHelper {
         return privateChannelFamilies;
     }
 
-    
+
     /**
      * @param privateChannelFamiliesIn The privateChannelFamilies to set.
      */
@@ -268,7 +268,7 @@ public class ChannelFamily extends BaseDomainHelper {
             Set<PrivateChannelFamily> privateChannelFamiliesIn) {
         this.privateChannelFamilies = privateChannelFamiliesIn;
     }
-    
+
     /**
      * Setter
      * @param pcfIn to set
@@ -279,7 +279,7 @@ public class ChannelFamily extends BaseDomainHelper {
         }
         this.privateChannelFamilies.add(pcfIn);
     }
-    
-    
+
+
 }
 

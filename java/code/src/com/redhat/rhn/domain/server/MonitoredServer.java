@@ -22,13 +22,13 @@ import java.util.List;
 
 /**
  * MonitoredServer - extension of Server that includes ServerProbe data
- * 
+ *
  * @version $Rev: 55933 $
  */
 public class MonitoredServer extends Server {
-    
+
     private List probes;
-    
+
     /**
      * @return Returns the probes.
      */
@@ -42,7 +42,7 @@ public class MonitoredServer extends Server {
     public void setProbes(List<ServerProbe> probesIn) {
         this.probes = probesIn;
     }
-    
+
     /**
      * Util method to fetch the overall health of the probes aligned to this
      * System
@@ -59,7 +59,7 @@ public class MonitoredServer extends Server {
         boolean warn = false;
         boolean unknown = false;
         boolean ok = false;
-        // Loop over all the probes and check in decending order 
+        // Loop over all the probes and check in decending order
         // if any states are matched.  If any one probe is critical
         // then we return that status, decending down to OK.
         while (i.hasNext()) {
@@ -92,7 +92,7 @@ public class MonitoredServer extends Server {
             return MonitoringConstants.PROBE_STATE_CRITICAL;
         }
         if (warn) {
-            return MonitoringConstants.PROBE_STATE_WARN; 
+            return MonitoringConstants.PROBE_STATE_WARN;
         }
         if (unknown) {
             return MonitoringConstants.PROBE_STATE_UNKNOWN;

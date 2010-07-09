@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<rhn-navi-tree label="activation_key" invisible="1" title-depth="1" formvar="tid" 
+<rhn-navi-tree label="activation_key" invisible="1" title-depth="1" formvar="tid"
         acl_mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
   <rhn-tab name="Details" url="/rhn/activationkeys/Edit.do" />
   <rhn-tab name="Child Channels" url="/network/account/activation_keys/child_channels.pxt" />
@@ -9,8 +9,8 @@
   <rhn-tab name="Configuration"
            url="/rhn/activationkeys/configuration/List.do"
            acl="token_has_entitlement(provisioning_entitled)">
-		<rhn-tab-directory>/rhn/activationkeys/configuration</rhn-tab-directory>           
-    
+		<rhn-tab-directory>/rhn/activationkeys/configuration</rhn-tab-directory>
+
         <rhn-tab name="nav.sdc.config.list_unsubscribe_channels" url="/rhn/activationkeys/configuration/List.do">
         	<rhn-tab url="/rhn/activationkeys/configuration/List.do"/>
         </rhn-tab>
@@ -29,7 +29,7 @@
         </rhn-tab>
         <rhn-tab name="Join" url="/rhn/activationkeys/groups/Add.do">
         	<rhn-tab url="/rhn/activationkeys/groups/Add.do"/>
-        </rhn-tab>  
+        </rhn-tab>
   </rhn-tab>
   <rhn-tab name="activation-keys.nav.activated_systems" url="/rhn/activationkeys/systems/List.do" />
 </rhn-navi-tree>

@@ -34,7 +34,7 @@ public class CopyFileSandboxAction extends BaseCopyConfigFileAction {
         User user = rctxIn.getLoggedInUser();
         ConfigFile file = ConfigActionHelper.getFile(rctxIn.getRequest());
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        return cm.listSystemsForFileCopy(user, file.getConfigFileName().getId(), 
+        return cm.listSystemsForFileCopy(user, file.getConfigFileName().getId(),
                 ConfigChannelType.sandbox(), pcIn);
     }
 
@@ -44,11 +44,11 @@ public class CopyFileSandboxAction extends BaseCopyConfigFileAction {
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_SYSTEMS;
     }
-    
+
     protected String getLabel() {
         return ConfigChannelType.sandbox().getLabel();
     }
-    
+
     protected String getType() {
         return BaseCopyConfigFileAction.SANDBOX_TYPE;
     }

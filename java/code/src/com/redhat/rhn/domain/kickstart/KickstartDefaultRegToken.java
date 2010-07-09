@@ -32,15 +32,15 @@ public class KickstartDefaultRegToken implements Serializable {
     private Token token;
     private Date created;
     private Date modified;
-    /** 
-     * Getter for kickstartId 
+    /**
+     * Getter for kickstartId
      * @return KickstartData to get
     */
     public KickstartData getKsdata() {
         return this.ksdata;
     }
 
-    /** 
+    /**
      * Setter for ksdata
      * @param ksdataIn to set
     */
@@ -48,7 +48,7 @@ public class KickstartDefaultRegToken implements Serializable {
         this.ksdata = ksdataIn;
     }
 
-    /** 
+    /**
      * Getter for token
      * @return Token to get
     */
@@ -56,40 +56,40 @@ public class KickstartDefaultRegToken implements Serializable {
         return this.token;
     }
 
-    /** 
-     * Setter for regtokenId 
+    /**
+     * Setter for regtokenId
      * @param tokenIn to set
     */
     public void setToken(Token tokenIn) {
         this.token = tokenIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {

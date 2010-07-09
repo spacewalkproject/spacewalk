@@ -32,22 +32,22 @@ import java.util.List;
  * SatClusterFactory - the singleton class used to fetch and store
  * com.redhat.rhn.domain.monitoring.config.* objects from the
  * database.
- * @version $Rev: 51602 $ 
+ * @version $Rev: 51602 $
  */
 public class SatClusterFactory extends HibernateFactory {
 
     private static SatClusterFactory singleton = new SatClusterFactory();
     private static Logger log = Logger.getLogger(SatClusterFactory.class);
     // There is only one of these
-    private static final PhysicalLocation PHYSICAL_LOCATION = 
+    private static final PhysicalLocation PHYSICAL_LOCATION =
         lookupPhysicalLocation(new Long(1));
-    
+
     private static final Long DEFAULT_LOG_LEVEL = new Long(1);
-    
+
     private SatClusterFactory() {
         super();
     }
-    
+
     private static PhysicalLocation lookupPhysicalLocation(Long id) {
         Session session = HibernateFactory.getSession();
         PhysicalLocation u = (PhysicalLocation)
@@ -62,7 +62,7 @@ public class SatClusterFactory extends HibernateFactory {
     protected Logger getLogger() {
         return log;
     }
-    
+
     /**
      * Return the <code>SatCluster</code> with ID <code>satClusterID</code>
      * @param satClusterID the ID of the <code>SatCluster</code> to find
@@ -71,13 +71,13 @@ public class SatClusterFactory extends HibernateFactory {
     public static SatCluster findSatClusterById(Long satClusterID) {
         HashMap params = new HashMap();
         params.put("satClusterID", satClusterID);
-        return (SatCluster) 
+        return (SatCluster)
             singleton.lookupObjectByNamedQuery("SatCluster.findByID", params);
     }
 
     /**
      * Return the default SatCluster created during satellite installation.
-     * 
+     *
      * @return Default SatCluster.
      */
     public static SatCluster getDefaultSatCluster() {
@@ -114,14 +114,14 @@ public class SatClusterFactory extends HibernateFactory {
                 }
             }
             retval.setVip(ipbuff.toString());
-        } 
+        }
         catch (UnknownHostException e) {
             throw new RuntimeException("Couldn't lookup localhost!  " +
                     "Something is very wrong.");
         }
         return retval;
     }
-    
+
     /**
      * Create a new SatNode.
      * @param userIn who is creating node
@@ -145,7 +145,7 @@ public class SatClusterFactory extends HibernateFactory {
         sn.setTargetType(ct.getTargetType());
         return sn;
     }
-    
+
     // Generate a random set of string data
     private static String generateScoutSharedKey() {
         String random = RandomStringUtils.random(128);
@@ -167,7 +167,7 @@ public class SatClusterFactory extends HibernateFactory {
      */
     public static void saveSatNode(SatNode sn) {
         singleton.saveObject(sn);
-        
+
     }
 
     /**
@@ -178,10 +178,10 @@ public class SatClusterFactory extends HibernateFactory {
     public static SatNode lookupSatNodeByCluster(SatCluster clusterIn) {
         return (SatNode) HibernateFactory.getSession()
                       .getNamedQuery("SatNode.findBySatCluster")
-                      .setEntity("satCluster", clusterIn)                          
+                      .setEntity("satCluster", clusterIn)
                       .uniqueResult();
     }
-    
+
     /**
      * Return list of satClusters regardless of Org
      * @return list of sat clusters
@@ -190,6 +190,6 @@ public class SatClusterFactory extends HibernateFactory {
         HashMap params = new HashMap();
         return singleton.listObjectsByNamedQuery("SatCluster.findAll", params);
     }
-    
+
 }
 

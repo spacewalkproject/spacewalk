@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChannelSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction {
     public static final String KEY_UNSUBSCRIBE = "channelsystems.jsp.unsubscribe";
-   
+
     /**
      * {@inheritDoc}
      */
@@ -59,7 +59,7 @@ public class ChannelSystemsListSubmit extends BaseSetOperateOnSelectedItemsActio
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User u, ActionForm formIn, 
+    protected DataResult getDataResult(User u, ActionForm formIn,
             HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
         ConfigChannel cc = ConfigActionHelper.getChannel(ctx.getRequest());
@@ -71,15 +71,15 @@ public class ChannelSystemsListSubmit extends BaseSetOperateOnSelectedItemsActio
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest requestIn, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest requestIn,
                                    Map paramsIn) {
         ConfigChannel cc = ConfigActionHelper.getChannel(requestIn);
         ConfigActionHelper.processParamMap(cc, paramsIn);
     }
-    
+
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -88,7 +88,7 @@ public class ChannelSystemsListSubmit extends BaseSetOperateOnSelectedItemsActio
      */
     public ActionForward processUnsubscribe(
             ActionMapping mapping,
-            ActionForm formIn, 
+            ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
         Map params = makeParamMap(formIn, request);
@@ -97,16 +97,16 @@ public class ChannelSystemsListSubmit extends BaseSetOperateOnSelectedItemsActio
         ConfigActionHelper.clearRhnSets(requestContext.getLoggedInUser());
         return getStrutsDelegate().forwardParams(mapping.findForward("success"), params);
     }
-    
+
     /**
      * This method is called when the &quot;Unsubscribe from Channel&quot;
      * button is clicked in the Channel Systems page.
-     * Unsubscribes the specified systems from the channel. 
+     * Unsubscribes the specified systems from the channel.
      * @param form Action form object.
      * @param req The servlet request object
      * @param elementIn The checked element in the set
      * @param userIn logged in user
-     * @return true 
+     * @return true
      */
     public Boolean unsubscribeSystems(ActionForm form,
                                       HttpServletRequest req,

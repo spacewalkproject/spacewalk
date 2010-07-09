@@ -25,12 +25,12 @@ import org.apache.struts.action.ActionForward;
  * @version $Rev$
  */
 public class DisableSelfActionTest extends RhnBaseTestCase {
-    
+
     public void testExecute() throws Exception {
         DisableSelfAction action = new DisableSelfAction();
         ActionHelper ah = new ActionHelper();
         ActionForward af;
-        
+
     }
 
 }

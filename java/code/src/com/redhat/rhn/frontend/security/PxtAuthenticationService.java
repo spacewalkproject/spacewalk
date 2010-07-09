@@ -37,13 +37,13 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class PxtAuthenticationService extends BaseAuthenticationService {
-    
+
     public static final long MAX_URL_LENGTH = 2048;
-    
+
     private static final Logger LOG = Logger.getLogger(PxtAuthenticationService.class);
-    
+
     private static final Set UNPROTECTED_URIS;
-    
+
     static {
         TreeSet set = new TreeSet();
         set.add("/rhn/Login");
@@ -63,30 +63,30 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         set.add("/img");
         set.add("/favicon.ico");
         set.add("/rhn/common/DownloadFile");
-        
+
         UNPROTECTED_URIS = UnmodifiableSet.decorate(set);
     }
-    
+
     private PxtSessionDelegate pxtDelegate;
-    
+
     protected PxtAuthenticationService() {
     }
-    
+
     protected Set getUnprotectedURIs() {
         return UNPROTECTED_URIS;
     }
-    
+
     /**
      * "Wires up" the PxtSessionDelegate that this service object will use. Note that this
      * method should be invoked by a factory that creates instances of this class, such as
      * a dependency injection container...should one be used (/me/hopes/).
-     * 
+     *
      * @param delegate The PxtSessionDelegate to be used.
      */
     public void setPxtSessionDelegate(PxtSessionDelegate delegate) {
         pxtDelegate = delegate;
     }
-        
+
     /**
      * {@inheritDoc}
      */
@@ -105,20 +105,20 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         }
         return true;
     }
-    
+
     private boolean isAuthenticationRequired(HttpServletRequest request) {
         return requestURIRequiresAuthentication(request) &&
-               (!pxtDelegate.isPxtSessionKeyValid(request) || 
+               (!pxtDelegate.isPxtSessionKeyValid(request) ||
                pxtDelegate.isPxtSessionExpired(request) ||
                pxtDelegate.getWebUserId(request) == null);
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    public void redirectToLogin(HttpServletRequest request, HttpServletResponse response) 
+    public void redirectToLogin(HttpServletRequest request, HttpServletResponse response)
         throws ServletException {
-        
+
         try {
             StringBuffer redirectURI = new StringBuffer(request.getRequestURI());
             String params = ServletUtils.requestParamsToQueryString(request);
@@ -127,14 +127,14 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
                 redirectURI.append("?");
                 redirectURI.append(ServletUtils.requestParamsToQueryString(request));
             }
-            
+
             if (redirectURI.length() > MAX_URL_LENGTH) {
                 request.setAttribute("url_bounce", LoginAction.DEFAULT_URL_BOUNCE);
             }
             else {
                 request.setAttribute("url_bounce", redirectURI.toString());
             }
-            
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("/ReLogin.do");
             dispatcher.forward(request, response);
         }
@@ -142,7 +142,7 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
             throw new ServletException(e);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */

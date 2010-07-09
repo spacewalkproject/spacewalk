@@ -43,8 +43,8 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
     private static final String TEST_CONFIG_BOOLEAN = "test.boolean_config.config_sat_test";
     private static final String TEST_CONFIG_STRING = "test.string_config.config_sat_test";
     private static final String TEST_CONFIG_NULL = "test.null_config.config_sat_test";
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -55,7 +55,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testCreateCommand() throws Exception {
-        
+
         cmd = new ConfigureSatelliteCommand(user) {
             public ValidatorError[] storeConfiguration() {
                 this.clearUpdates();
@@ -68,7 +68,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         cmd.updateBoolean(TEST_CONFIG_BOOLEAN, new Boolean(!origValue));
         cmd.updateString(TEST_CONFIG_STRING, testString);
         cmd.updateString(TEST_CONFIG_NULL, "");
-        assertEquals(3, cmd.getKeysToBeUpdated().size()); 
+        assertEquals(3, cmd.getKeysToBeUpdated().size());
         assertTrue(cmd.getKeysToBeUpdated().contains(TEST_CONFIG_BOOLEAN));
         assertTrue(cmd.getKeysToBeUpdated().contains(TEST_CONFIG_STRING));
         assertTrue(cmd.getKeysToBeUpdated().contains(TEST_CONFIG_NULL));
@@ -77,11 +77,11 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         Iterator i = cmd.getKeysToBeUpdated().iterator();
         while (i.hasNext()) {
             String key = (String) i.next();
-            optionMap.put(key, Config.get().getString(key)); 
+            optionMap.put(key, Config.get().getString(key));
         }
-        String[] cmdargs = cmd.getCommandArguments(Config.getDefaultConfigFilePath(), 
+        String[] cmdargs = cmd.getCommandArguments(Config.getDefaultConfigFilePath(),
                 optionMap);
-        
+
         assertEquals("--option=test.null_config.config_sat_test=", cmdargs[5]);
         assertEquals(9, cmdargs.length);
         assertNull(cmd.storeConfiguration());
@@ -95,8 +95,8 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         assertNull(cmd.storeConfiguration());
         cmd.updateBoolean(TEST_CONFIG_BOOLEAN, null);
         assertEquals(1, cmd.getKeysToBeUpdated().size());
-        assertNull(cmd.storeConfiguration());        
-        
+        assertNull(cmd.storeConfiguration());
+
         // Now test to see if updating it to FALSE doesnt
         // indicate we need actual changes written out.
         cmd.updateBoolean(TEST_CONFIG_BOOLEAN, Boolean.FALSE);
@@ -104,27 +104,27 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         cmd.updateString(TEST_CONFIG_STRING, testString);
         assertTrue(cmd.getKeysToBeUpdated().size() == 0);
 
-    }    
-   
+    }
+
     public void testEnableMonitoring() throws Exception {
-        Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, 
+        Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND,
                 Boolean.FALSE.toString());
-        
+
         // Delete the Scout so we can have the script re-set it up.
-        if (user.getOrg().getMonitoringScouts() != null || 
+        if (user.getOrg().getMonitoringScouts() != null ||
                 user.getOrg().getMonitoringScouts().size() != 0) {
-            SatCluster cluster = (SatCluster) 
+            SatCluster cluster = (SatCluster)
                 user.getOrg().getMonitoringScouts().iterator().next();
-            
+
             TestUtils.removeObject(cluster);
             flushAndEvict(cluster);
             flushAndEvict(user.getOrg());
             user = (User) reload(user);
             assertEquals(0, user.getOrg().getMonitoringScouts().size());
             assertEquals(0, user.getNotificationMethods().size());
-            
+
         }
-        
+
         List configMacros = MonitoringConfigFactory.lookupConfigMacros(true);
         Iterator i = configMacros.iterator();
         while (i.hasNext()) {
@@ -169,7 +169,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, Boolean.TRUE);
         assertNull(cmd.storeConfiguration());
         assertTrue(Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
-        
+
         cmd = new ConfigureSatelliteCommand(user) {
             protected Executor getExecutor() {
                 return new TestExecutor();
@@ -178,7 +178,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, Boolean.FALSE);
         assertFalse(Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
     }
-    
+
     public void testEnableMonitoringScout() throws Exception {
         cmd = new ConfigureSatelliteCommand(user) {
             protected Executor getExecutor() {
@@ -191,13 +191,13 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testUpdateHostname() throws Exception {
-        
+
         cmd = new ConfigureSatelliteCommand(user) {
             protected Executor getExecutor() {
                 return new TestExecutor();
             }
         };
-        
+
         cmd.updateString(ConfigDefaults.JABBER_SERVER, "test.hostname.jabber");
         ValidatorError[] verrors = cmd.storeConfiguration();
         ConfigMacro sathostname = MonitoringConfigFactory.
@@ -205,31 +205,31 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         assertNull(verrors);
         assertTrue(sathostname.getDefinition().equals("test.hostname.jabber"));
     }
-    
-    
+
+
     public void testMountPoint() throws Exception {
-        
+
         cmd = new ConfigureSatelliteCommand(user) {
             protected Executor getExecutor() {
                 return new TestExecutor();
             }
         };
-        
+
         String testmount = "/tmp/mount/point";
         cmd.updateString(ConfigDefaults.MOUNT_POINT, testmount);
         ValidatorError[] verrors = cmd.storeConfiguration();
         assertNull(verrors);
-        assertEquals(testmount, 
+        assertEquals(testmount,
                 Config.get().getString(ConfigDefaults.KICKSTART_MOUNT_POINT));
     }
-    
+
     public void testRoles() throws Exception {
 
         user.removeRole(RoleFactory.SAT_ADMIN);
         try {
             cmd = new ConfigureSatelliteCommand(user);
             fail("Should have thrown an IllegalArgumentException");
-        } 
+        }
         catch (IllegalArgumentException iae) {
             // noop
         }
@@ -238,7 +238,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         cmd = new ConfigureSatelliteCommand(user);
         assertNotNull(cmd);
     }
-    
+
     public class TestExecutor implements Executor {
         public int execute(String[] args) {
             return 0;

@@ -10,18 +10,18 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_SERVER_NET_ID_SEQ</param>
             </generator>
         </id>
-        <property name="hostname" column="hostname" type="string" length="128" 
+        <property name="hostname" column="hostname" type="string" length="128"
             />
         <property name="ipaddr" column="ipaddr" type="string" length="16" />
-        <property name="created" column="created" type="timestamp" 
+        <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
-        <property name="modified" column="modified" type="timestamp" 
+        <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
-            
-        <many-to-one name="server" class="com.redhat.rhn.domain.server.Server" 
+
+        <many-to-one name="server" class="com.redhat.rhn.domain.server.Server"
             column="server_id"/>
     </class>
-    
+
     <query name="Network.findById">
         <![CDATA[from com.redhat.rhn.domain.server.Network as n where n.id = :id]]>
     </query>

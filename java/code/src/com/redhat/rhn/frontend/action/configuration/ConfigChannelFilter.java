@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * ConfigChannelFilter
  * @version $Rev$
  */
@@ -32,7 +32,7 @@ public class ConfigChannelFilter extends BaseConfigFilter {
         fields = new ArrayList();
         fields.add("name");
     }
-    
+
     /**
      * {@inheritDoc}
      */

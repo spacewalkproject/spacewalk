@@ -29,7 +29,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * PackageKeySerializer
  * @version $Rev$
  *
- * @xmlrpc.doc 
+ * @xmlrpc.doc
  *   #struct("package security key")
  *     #prop("string", "key")
  *     #prop("string", "type")

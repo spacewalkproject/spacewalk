@@ -36,7 +36,7 @@ import redstone.xmlrpc.XmlRpcInvocationInterceptor;
 public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
     private static Logger log = Logger.getLogger(LoggingInvocationProcessor.class);
     private static ThreadLocal caller = new ThreadLocal();
-    
+
     private static ThreadLocal timer = new ThreadLocal() {
         protected synchronized Object initialValue() {
             return new StopWatch();
@@ -47,14 +47,14 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
      * {@inheritDoc}
      */
     public boolean before(XmlRpcInvocation invocation) {
-        
+
         // we start the timing and return true so processing
         // continues.
         // NOTE: as of commons-lang 2.1 we must reset before
         // starting.
         getStopWatch().reset();
         getStopWatch().start();
-        
+
         List arguments = invocation.getArguments();
         // HACK ALERT!  We need the caller, would be better in
         // the postProcess, but that works for ALL methods except
@@ -69,7 +69,7 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
 
         return true;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -94,16 +94,16 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
             buf.append(") TIME: ");
 
             getStopWatch().stop();
-            
+
             buf.append(getStopWatch().getTime() / 1000.00);
             buf.append(" seconds");
-            
+
             log.info(buf.toString());
         }
         catch (RuntimeException e) {
             log.error("postProcess error", e);
         }
-        
+
         return returnValue;
     }
 
@@ -131,17 +131,17 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
             buf.append(") TIME: ");
 
             getStopWatch().stop();
-            
+
             buf.append(getStopWatch().getTime() / 1000.00);
             buf.append(" seconds");
-            
+
             log.error(buf.toString(), exception);
         }
         catch (RuntimeException e) {
             log.error("postProcess error", e);
         }
     }
-    
+
     private void processArguments(String handler, String method,
                                   List arguments, StringBuffer buf) {
 
@@ -150,7 +150,7 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
             if (arguments != null && arguments.size() > 0) {
                 String arg = (String) Translator.convert(
                         arguments.get(0), String.class);
-                
+
                 buf.append(arg);
                 buf.append(", ********");
             }
@@ -161,9 +161,9 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
                 for (int i = 0; i < size; i++) {
                     String arg = (String) Translator.convert(
                             arguments.get(i), String.class);
-                    
+
                     buf.append(arg);
-                    
+
                     if ((i + 1) < size) {
                         buf.append(", ");
                     }
@@ -171,7 +171,7 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
             }
         }
     }
-    
+
     /**
      * If the key is a sessionKey, we'll return the username, otherwise we'll
      * return (unknown).
@@ -188,18 +188,18 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
         catch (LookupException le) {
             // do nothing
         }
-        
+
         catch (InvalidSessionIdException e) {
             return "(Invalid Session ID)";
         }
-        
+
         catch (Exception e) {
             log.error("problem with getting logged in user for logging", e);
         }
-        
+
         return "(unknown)";
     }
-    
+
     /**
      * Returns true if the given key contains an 'x' which is the separator
      * character in the session key.
@@ -211,7 +211,7 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
         if (key == null || key.equals("")) {
             return false;
         }
-        
+
         // Get the id
         String[] keyParts = StringUtils.split(key, 'x');
 
@@ -219,23 +219,23 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
         if (!StringUtils.isNumeric(keyParts[0])) {
             return false;
         }
-        
+
         return true;
     }
-    
-    private static StopWatch getStopWatch() { 
+
+    private static StopWatch getStopWatch() {
         return (StopWatch) timer.get();
     }
-    
+
     private static String getCaller() {
         String c = (String) caller.get();
         if (c == null) {
             return "none";
         }
-        
+
         return c;
     }
-    
+
     private static void setCaller(String c) {
         caller.set(c);
     }

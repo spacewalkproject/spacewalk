@@ -30,7 +30,7 @@ import com.redhat.rhn.manager.system.SystemManager;
  * @xmlrpc.doc Provides methods to access and modify custom system information.
  */
 public class CustomInfoHandler extends BaseHandler {
-    
+
     /**
      * Create a new custom key
      * @param sessionKey key
@@ -49,16 +49,16 @@ public class CustomInfoHandler extends BaseHandler {
      */
     public int createKey(String sessionKey, String keyLabel,
                 String keyDescription) throws FaultException {
-        
+
         User loggedInUser = getLoggedInUser(sessionKey);
 
         if ((keyLabel.length() < 2) || (keyDescription.length() < 2)) {
-            throw new FaultException(-1, "labelOrDescriptionTooShort", 
+            throw new FaultException(-1, "labelOrDescriptionTooShort",
                     "Label and description must be at least two characters long");
         }
 
         if (OrgFactory.lookupKeyByLabelAndOrg(keyLabel, loggedInUser.getOrg()) != null) {
-            throw new FaultException(-1, "keyAlreadyExists", 
+            throw new FaultException(-1, "keyAlreadyExists",
                     "A custom key already exists with the label:" + keyLabel);
         }
 
@@ -85,16 +85,16 @@ public class CustomInfoHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "keyLabel", "new key's label")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteKey(String sessionKey, String keyLabel) 
+    public int deleteKey(String sessionKey, String keyLabel)
         throws FaultException {
-        
+
         User loggedInUser = getLoggedInUser(sessionKey);
 
-        CustomDataKey key = OrgFactory.lookupKeyByLabelAndOrg(keyLabel, 
+        CustomDataKey key = OrgFactory.lookupKeyByLabelAndOrg(keyLabel,
                 loggedInUser.getOrg());
-        
+
         if (key == null) {
-            throw new FaultException(-1, "keyDoesNotExist", 
+            throw new FaultException(-1, "keyDoesNotExist",
                     "A custom key does not exist with label: " + keyLabel);
         }
 
@@ -107,9 +107,9 @@ public class CustomInfoHandler extends BaseHandler {
      * @param sessionKey the session of the user
      * @return list of inactive systems
      * @throws FaultException A FaultException is thrown on error.
-     * 
+     *
      * @xmlrpc.doc List the custom information keys defined for the user's organization.
-     * @xmlrpc.param #param("string", "sessionKey") 
+     * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype array
      *              $CustomDataKeySerializer
      */

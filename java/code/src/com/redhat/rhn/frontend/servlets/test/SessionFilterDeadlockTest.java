@@ -33,7 +33,7 @@ import javax.servlet.ServletResponse;
  * @version $Rev: 50384 $
  */
 public class SessionFilterDeadlockTest extends BaseFilterTst {
-    
+
     public void testDeadlockFilter() throws Exception {
         // Make sure the chain blows up.
         chain = new MockFilterChain() {
@@ -45,14 +45,14 @@ public class SessionFilterDeadlockTest extends BaseFilterTst {
         SessionFilter filter = new SessionFilter();
         HibernateFactory.getSession();
         int caughtCount = 0;
-        
+
         Logger log = Logger.getLogger(SessionFilter.class);
         Level orig = log.getLevel();
         log.setLevel(Level.OFF);
         for (int i = 0; i < 5; i++) {
             try {
                 filter.doFilter(request, response, chain);
-            } 
+            }
             catch (IOException ioe) {
                 caughtCount++;
             }
@@ -62,8 +62,8 @@ public class SessionFilterDeadlockTest extends BaseFilterTst {
         HibernateFactory.getSession();
         assertTrue(HibernateFactory.inTransaction());
     }
-        
-        
+
+
 
 }
 

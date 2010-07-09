@@ -20,12 +20,12 @@
     </div>
 
     <rl:listset name="compareListSet">
-    
+
 	    <rl:list dataset="pageList"
-            width="100%"        
+            width="100%"
             name="compareList"
             emptykey="compare.jsp.nodifferences">
-            
+
             <rl:decorator name="SelectableDecorator"/>
             <rl:selectablecolumn value="${current.selectionKey}"
 	 			selected="${current.selected}"
@@ -39,15 +39,15 @@
             <rl:column headerkey="packagelist.jsp.packagearch" bound="false">
                 ${current.arch}
             </rl:column>
-            
+
             <rl:column headerkey="compare.jsp.thissystem" bound="false">
                 ${current.system.evr}
             </rl:column>
-            
+
             <rl:column headertext="${requestScope.profilename}" bound="false">
                 ${current.other.evr}
             </rl:column>
-                        
+
             <rl:column headerkey="compare.jsp.difference" bound="false">
                 ${current.comparison}
             </rl:column>
@@ -59,16 +59,16 @@
                 <div align="right">
                     <rhn:submitted/>
                     <hr />
-                    <input type="submit" name="dispatch" 
-                        value="<bean:message key="compare.jsp.syncpackageto" arg0="${requestScope.profilename}"/>" /> 
+                    <input type="submit" name="dispatch"
+                        value="<bean:message key="compare.jsp.syncpackageto" arg0="${requestScope.profilename}"/>" />
                 </div>
             </rhn:require>
-        
+
             <rhn:require acl="not system_feature(ftr_delta_action)"
                 mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
                 <div align="left">
                     <hr />
-                    <strong><bean:message key="compare.jsp.noprovisioning" 
+                    <strong><bean:message key="compare.jsp.noprovisioning"
                         arg0="${system.name}" arg1="${param.sid}"/></strong>
                 </div>
             </rhn:require>

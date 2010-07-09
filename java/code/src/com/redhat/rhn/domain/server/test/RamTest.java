@@ -33,9 +33,9 @@ import java.sql.ResultSet;
  * @version $Rev$
  */
 public class RamTest extends RhnBaseTestCase {
-    
+
     public void testRam() throws Exception {
-        
+
         User u = UserTestUtils.findNewUser("testUser", "testOrg");
         Server server = ServerFactoryTest.createTestServer(u);
         assertNotNull(server);
@@ -45,7 +45,7 @@ public class RamTest extends RhnBaseTestCase {
         ram.setServer(server);
         ram.setRam(1024);
         ram.setSwap(256);
-        
+
         TestUtils.saveAndFlush(ram);
         verifyInDb(ram.getId(),  1024, 256);
         assertEquals(1, TestUtils.removeObject(ram));
@@ -53,8 +53,8 @@ public class RamTest extends RhnBaseTestCase {
         // to be able to clean up after ourselves.
         //assertEquals(1, TestUtils.removeObject(server));
     }
-    
-  
+
+
     private void verifyInDb(Long id, long ram, long swap) throws Exception {
         // Now lets manually test to see if the user got updated
         Session session = null;
@@ -80,6 +80,6 @@ public class RamTest extends RhnBaseTestCase {
             ps.close();
         }
     }
-    
+
 
 }

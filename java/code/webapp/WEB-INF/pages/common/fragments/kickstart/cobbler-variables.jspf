@@ -10,7 +10,7 @@
   </p>
     <c:if test= "${not empty param.summary}">
     	<p><bean:message key="${param.summary}"/></p>
-    </c:if>  
+    </c:if>
   <br>
     <html:form method="post" action="${param.post_url}">
       <table class="details">
@@ -23,7 +23,7 @@
                   <html:checkbox property="netbootEnabled"/>
               </td>
           </tr>
-		</c:if>      
+		</c:if>
           <tr>
               <th>
                   <bean:message key="kickstart.variable.jsp.variabledetails"/>:
@@ -32,10 +32,10 @@
                   <html:textarea rows="25" cols="60" property="variables"/>
               </td>
           </tr>
-          
-          
-          
-          <tr>          
+
+
+
+          <tr>
             <td align="right" colspan="2"><html:submit><bean:message key="kickstart.variable.jsp.update"/></html:submit></td>
           </tr>
       </table>

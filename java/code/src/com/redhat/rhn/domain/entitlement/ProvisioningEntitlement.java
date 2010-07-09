@@ -28,14 +28,14 @@ public class ProvisioningEntitlement extends Entitlement {
     public ProvisioningEntitlement() {
         super(EntitlementManager.PROVISIONING_ENTITLED);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean isPermanent() {
         return false;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -50,5 +50,5 @@ public class ProvisioningEntitlement extends Entitlement {
     @Override
     public boolean isSatelliteEntitlement() {
         return true;
-    }    
+    }
 }

@@ -47,20 +47,20 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public abstract class BaseRankChannels extends RhnLookupDispatchAction {
-    
+
     protected static final String POSSIBLE_CHANNELS = "possibleChannels";
     protected static final String SELECTED_CHANNEL = "selectedChannel";
     protected static final String NO_SCRIPT = "noScript";
     protected static final String RANKED_VALUES = "rankedValues";
-    
+
     /**
      * Sets up the rangling widget.
      * @param context the request context of the current request
-     * @param form the dynaform  related to the current request. 
+     * @param form the dynaform  related to the current request.
      * @param set the rhnset holding the channel ids.
      */
-    protected void setupWidget(RequestContext context, 
-                                     DynaActionForm form, 
+    protected void setupWidget(RequestContext context,
+                                     DynaActionForm form,
                                      RhnSet set) {
         User user = context.getLoggedInUser();
         LinkedHashSet labelValues = new LinkedHashSet();
@@ -69,7 +69,7 @@ public abstract class BaseRankChannels extends RhnLookupDispatchAction {
             Long ccid = ((RhnSetElement) itr.next()).getElement();
             ConfigChannel channel = ConfigurationManager.getInstance()
                                         .lookupConfigChannel(user, ccid);
-            labelValues.add(lv(channel.getName(), channel.getId().toString()));            
+            labelValues.add(lv(channel.getName(), channel.getId().toString()));
         }
 
         //set the form variables for the widget to read.
@@ -78,31 +78,31 @@ public abstract class BaseRankChannels extends RhnLookupDispatchAction {
             if (form.get(SELECTED_CHANNEL) == null) {
                 String selected = ((LabelValueBean)labelValues.iterator().next())
                                                         .getValue();
-                form.set(SELECTED_CHANNEL, selected);    
+                form.set(SELECTED_CHANNEL, selected);
             }
         }
     }
-    
+
     /**
-     * Extension point for each of the subclasses to add content 
+     * Extension point for each of the subclasses to add content
      * LabelValues before more content is added to it using rhn sets
-     *  to the RankWidget check box.. 
-     * The subclasses should update the labelValues  
+     *  to the RankWidget check box..
+     * The subclasses should update the labelValues
      * @param labelValues a LinkedHashSet/List in some sense that
      *                     holds a bunch of lv(Channel labels, Channel ids).
-     *                     This is a Linked Hash Set becasue we needed to 
+     *                     This is a Linked Hash Set becasue we needed to
      *                     throw away duplicate insertions while maintaining
-     *                     the correct order of insertion. 
+     *                     the correct order of insertion.
      * @param context the request context of the current request
      */
     protected abstract void populateWidgetLabels(LinkedHashSet labelValues,
                                         RequestContext context);
 
-    
+
     /**
      * Returns the the channel Ids info retrieved after one
      * has clicked Update Channel Rankings or Apply Subscriptions.
-     * @param form the submitted form..  
+     * @param form the submitted form..
      * @return List containing the channel ids in the order of
      *                   their new  rankings.
      */
@@ -117,19 +117,19 @@ public abstract class BaseRankChannels extends RhnLookupDispatchAction {
         }
         return channels;
     }
-    
+
     /**
-     * returns the Rhn Set used to store the sets.. 
+     * returns the Rhn Set used to store the sets..
      * @param user The Loggin User
      * @return rhn set used to store channel ids.
      */
     protected RhnSet getRhnSet(User user) {
         return  RhnSetDecl.CONFIG_CHANNELS_RANKING.get(user);
     }
-    
+
     /**
-     * 
-     * Raises an error message saying javascript is required 
+     *
+     * Raises an error message saying javascript is required
      * to process this page
      * @param mapping struts ActionMapping
      * @param formIn struts ActionForm
@@ -142,11 +142,11 @@ public abstract class BaseRankChannels extends RhnLookupDispatchAction {
                             HttpServletRequest request,
                             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        
-        
+
+
         if (!context.isJavaScriptEnabled()) {
             getStrutsDelegate().
-            saveMessage("common.config.rank.jsp.error.nojavascript", request);            
+            saveMessage("common.config.rank.jsp.error.nojavascript", request);
         }
 
         Map map = new HashMap();
@@ -158,7 +158,7 @@ public abstract class BaseRankChannels extends RhnLookupDispatchAction {
                                     (mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                                                         map);
     }
-    
+
     /**
      * Extension points for each of the BaseRankChannel sub classses
      * to add params to forwarding page..
@@ -169,12 +169,12 @@ public abstract class BaseRankChannels extends RhnLookupDispatchAction {
 
     /**
      * Extension point for doing additional setup stuff
-     * before the jsp is loaded... 
-     * @param context the request context of the current request. 
-     * @param form the action form for setting up form contents on the new page 
+     * before the jsp is loaded...
+     * @param context the request context of the current request.
+     * @param form the action form for setting up form contents on the new page
      * @param set the set storing the rank contents
      */
-    protected abstract void setup(RequestContext context, 
+    protected abstract void setup(RequestContext context,
                                             DynaActionForm form,
                                             RhnSet set);
 

@@ -83,12 +83,12 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         PageControl pc = new PageControl();
         pc.setIndexData(false);
         pc.setStart(1);
-        
+
         user.addRole(RoleFactory.ORG_ADMIN);
-        
+
         Server server = ServerFactoryTest.createTestServer(user, true);
         PackageManagerTest.addPackageToSystemAndChannel(
-                "test-package-name" + TestUtils.randomString(), server, 
+                "test-package-name" + TestUtils.randomString(), server,
                 ChannelFactoryTest.createTestChannel(user));
 
         DataResult dr = PackageManager.systemPackageList(server.getId(), pc);
@@ -100,7 +100,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             assertTrue(o instanceof PackageListItem);
         }
     }
-    
+
     public void testGuestimateChannelInvalidPackage() {
         // guestimatePackageByChannel should return null if it
         // can't find a package, not throw an exception.
@@ -139,7 +139,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         Package p = (Package) info.get("package");
         p = (Package) TestUtils.saveAndReload(p);
 
-        DataResult<UpgradablePackageListItem> dr = 
+        DataResult<UpgradablePackageListItem> dr =
             PackageManager.upgradable(s.getId(), null);
         assertFalse(dr.isEmpty());
         boolean containsSamePackage = false;
@@ -150,8 +150,8 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             assertTrue(item.getIdCombo().split("\\|").length == 3);
         }
         assertTrue(containsSamePackage);
-    }    
-    
+    }
+
     public void testSystemAvailablePackages() throws Exception {
         // need a system
         // need to add packages to that system
@@ -159,13 +159,13 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         PageControl pc = new PageControl();
         pc.setIndexData(false);
         pc.setStart(1);
-        
+
         user.addRole(RoleFactory.ORG_ADMIN);
-        
+
         Server server = ServerFactoryTest.createTestServer(user, true);
 
         PackageManagerTest.addPackageToSystemAndChannel(
-                "test-package-name" + TestUtils.randomString(), server, 
+                "test-package-name" + TestUtils.randomString(), server,
                 ChannelFactoryTest.createTestChannel(user));
 
         // hard code for now.
@@ -178,7 +178,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             assertTrue(o instanceof PackageListItem);
         }
     }
-    
+
     /**
      * This method inserts a record into the rhnServerPackage mapping
      * table to associate a given Server with a particular Package.
@@ -191,7 +191,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
     public static void associateSystemToPackage(Server srvr,
             PackageName pn, PackageEvr pe) {
         try {
-            WriteMode m = 
+            WriteMode m =
                 ModeFactory.
                 getWriteMode("test_queries", "insert_into_rhnServerPackage");
             Map params = new HashMap();
@@ -202,7 +202,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             params.put("p_release", pe.getRelease());
 
             m.executeUpdate(params);
-        } 
+        }
         catch (Exception e) {
             e.printStackTrace();
         }
@@ -214,11 +214,11 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
      * The web code doesn't actually create any of these records, but
      * this will be needed by the backend code.
      * @param srvr Server to associate with the packages
-     * @param p The package 
+     * @param p The package
      */
     public static void associateSystemToPackage(Server srvr, Package p) {
         try {
-            WriteMode m = 
+            WriteMode m =
                 ModeFactory.
                 getWriteMode("test_queries", "insert_into_rhnServerPackageSimple");
             Map params = new HashMap();
@@ -227,19 +227,19 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             params.put("evr_id", p.getPackageEvr().getId());
 
             m.executeUpdate(params);
-        } 
+        }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * This method inserts a record into the rhnServerPackage mapping
      * table to associate a given Server with a particular Package.
      * The web code doesn't actually create any of these records, but
      * this will be needed by the backend code.
      * @param srvr Server to associate with the packages
-     * @param p The package 
+     * @param p The package
      */
     public static void associateSystemToPackageWithArch(Server srvr, Package p) {
         try {
@@ -253,18 +253,18 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             params.put("arch_id", p.getPackageArch().getId());
 
             m.executeUpdate(params);
-        } 
+        }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     /**
-     * Add a new Package to the specified Channel and associate the system 
-     * with it. 
+     * Add a new Package to the specified Channel and associate the system
+     * with it.
      * @param s
      * @param c
-     * @throws Exception 
+     * @throws Exception
      */
     public static Package addPackageToSystemAndChannel(String packageName,
             Server s, Channel c) throws Exception {
@@ -283,7 +283,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
      */
     public static Package addPackageToChannel(String packageName, Channel c)
             throws Exception {
-        
+
         PackageName pn = PackageFactory.lookupOrCreatePackageByName(packageName);
         if (pn == null) {
             pn = PackageNameTest.createTestPackageName();
@@ -291,16 +291,16 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         }
 
         Long existingId = ChannelManager.getLatestPackageEqual(c.getId(), packageName);
-        
+
         if (existingId != null) {
             return PackageFactory.lookupByIdAndOrg(existingId, c.getOrg());
         }
-    
-        //existingId = 
-        Session session = HibernateFactory.getSession();    
+
+        //existingId =
+        Session session = HibernateFactory.getSession();
         Query query = session.createQuery(
                 "from Package as " +
-                "package where package.org.id = " + c.getOrg().getId() + 
+                "package where package.org.id = " + c.getOrg().getId() +
                 " and package.packageName.id = " + pn.getId());
         List packages = query.list();
         Package retval = null;
@@ -310,14 +310,14 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         else {
             retval = PackageTest.createTestPackage(c.getOrg());
         }
-        
+
         retval.setPackageName(pn);
         TestUtils.saveAndFlush(retval);
         PackageTest.addPackageToChannelNewestPackage(retval, c);
-        
+
         return retval;
     }
-    
+
     public void testCreateLotsofPackagesInChannel() throws Exception {
         String rand = TestUtils.randomString();
         Channel c = ChannelTestUtils.createTestChannel(user);
@@ -325,16 +325,16 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             addPackageToChannel(rand, c);
         }
     }
-    
+
     public void testPossiblePackagesForPushingIntoChannel() throws Exception {
         Errata e = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
         Channel c = ChannelTestUtils.createTestChannel(user);
-        DataResult dr = PackageManager.possiblePackagesForPushingIntoChannel(c.getId(), 
+        DataResult dr = PackageManager.possiblePackagesForPushingIntoChannel(c.getId(),
                 e.getId(), null);
         assertTrue(dr.size() > 0);
    }
-    
-    
+
+
     public void testGetServerNeededUpdatePackageByName() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         Server s = ServerFactoryTest.createTestServer(user);
@@ -345,102 +345,102 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         assertNull(PackageManager.
                 getServerNeededUpdatePackageByName(s.getId(), "some-test-package"));
     }
-    
+
     public void testPackagesAvailableToErrata() throws Exception {
         Errata errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
         PageControl pc = new PageControl();
-        
+
         DataResult dr = PackageManager.packagesAvailableToErrata(errata, user, pc);
         assertNotNull(dr);
-        
+
         Channel c = ChannelFactoryTest.createTestChannel();
         dr = PackageManager.packagesAvailableToErrataInChannel(errata, c.getId(), user, pc);
         assertNotNull(dr);
     }
-    
+
     public void testPackageIdsInSet() throws Exception {
-        
-        DataResult dr = PackageManager.packageIdsInSet(user, "packages_to_add", 
+
+        DataResult dr = PackageManager.packageIdsInSet(user, "packages_to_add",
                                                        new PageControl());
-        
+
         assertNotNull(dr);
     }
-    
+
     public void testVerCmp() {
-        
+
         //epoch
         int result = testEpoch("1", "2");
         assertEquals(-1, result);
-        
+
         result = testEpoch("2", "1");
         assertEquals(1, result);
-        
+
         result = testEpoch(null, "1");
         assertEquals(-1, result);
-        
+
         result = testEpoch("2", null);
         assertEquals(1, result);
-        
+
         //version
         result = testVersion("1", "2");
         assertEquals(-1, result);
-        
+
         result = testVersion("2", "1");
         assertEquals(1, result);
-        
+
         result = testVersion(null, "1");
         assertEquals(-1, result);
-        
+
         result = testVersion("1", null);
         assertEquals(1, result);
-        
+
         //release
         result = testRelease("1", "2");
         assertEquals(-1, result);
-        
+
         result = testRelease("2", "1");
         assertEquals(1, result);
-        
+
         result = testRelease(null, "1");
         assertEquals(-1, result);
-        
+
         result = testRelease("1", null);
         assertEquals(1, result);
-        
+
         //make sure we test alpha-numerics through rpmVersionComparator
         result = testRelease("1.2b", "1.2c");
         assertEquals(-1, result);
-        
+
         result = testRelease("1.2b3a", "1.2b2");
         assertEquals(1, result);
-        
+
         //test all nulls
         result = testEpoch(null, null);
         assertEquals(0, result);
-        
+
         //test equals
-        result = PackageManager.verCmp("4", "2.1", "b3", 
+        result = PackageManager.verCmp("4", "2.1", "b3",
                                        "4", "2.1", "b3");
         assertEquals(0, result);
     }
-    
+
     // This test only works if you have Channels syched to your sat
     public void xxxxPackageNamesByCapability() throws Exception {
-        
+
         /*user.addRole(RoleFactory.ORG_ADMIN);
         Channel c = ChannelFactoryTest.createTestChannel(user);
         Package pak = addPackageToChannel(user, TestUtils.randomString(), c);
         PackageCapability cap = PackageCapabilityTest.createTestCapability();*/
-        DataResult dr = PackageManager.packageNamesByCapability(user.getOrg(), 
+        DataResult dr = PackageManager.packageNamesByCapability(user.getOrg(),
                 "rhn.kickstart.boot_image");
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
     }
-    
+
     /**
-     * Add the up2date package to a system and a channel.  Version 
+     * Add the up2date package to a system and a channel.  Version
      * should be specified such as "2.9.0"
-     * 
+     *
      * @param userIn
      * @param s
      * @param version
@@ -448,9 +448,9 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
      * @return
      * @throws Exception
      */
-    public static Package addUp2dateToSystemAndChannel(User userIn, Server s, 
+    public static Package addUp2dateToSystemAndChannel(User userIn, Server s,
             String version, Channel c) throws Exception {
-        
+
         Package p = null;
         PackageName pn = PackageFactory.lookupOrCreatePackageByName("up2date");
         if (pn != null) {
@@ -459,7 +459,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             while (i.hasNext()) {
                 Package innerp = (Package) i.next();
                 PackageEvr evr = innerp.getPackageEvr();
-                if (evr != null && 
+                if (evr != null &&
                         evr.getVersion().equals(version)) {
                     p = innerp;
                 }
@@ -482,39 +482,39 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
 
         return p;
     }
-    
+
     private int testEpoch(String e1, String e2) {
         return PackageManager.verCmp(e1, null, null, e2, null, null);
     }
-    
+
     private int testVersion(String v1, String v2) {
         return PackageManager.verCmp("1", v1, null, "1", v2, null);
     }
-    
+
     private int testRelease(String r1, String r2) {
         return PackageManager.verCmp("1", "2", r1, "1", "2", r2);
     }
-    
+
     /**
      * Add a kickstart package with the given name to the given channel.
      * @param packageName
      * @param channel
      * @throws Exception
      */
-    public static void addKickstartPackageToChannel(String packageName, Channel channel) 
+    public static void addKickstartPackageToChannel(String packageName, Channel channel)
     throws Exception {
         PackageCapability kickstartCapability =  findOrCreateKickstartCapability();
-        com.redhat.rhn.domain.rhnpackage.Package kickstartPkg = 
+        com.redhat.rhn.domain.rhnpackage.Package kickstartPkg =
             PackageManagerTest.addPackageToChannel(packageName, channel);
-        
-        WriteMode m = ModeFactory.getWriteMode("test_queries", 
+
+        WriteMode m = ModeFactory.getWriteMode("test_queries",
                 "insert_into_rhnPackageProvides");
         Map params = new HashMap();
         params.put("pkg_id", kickstartPkg.getId());
         params.put("capability_id", kickstartCapability.getId());
         params.put("sense_id", "8");
         m.executeUpdate(params);
-        
+
         // Repeast for another sense:
         params.put("sense_id", "268435464");
         m.executeUpdate(params);
@@ -531,126 +531,126 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
                 "from PackageCapability where name = :capability");
         query.setParameter("capability", BaseTreeEditOperation.KICKSTART_CAPABILITY);
         List results = query.list();
-        
-        // Multiple results could be returned for this capability, 
+
+        // Multiple results could be returned for this capability,
         // take the first:
         if (results.size() >= 1) {
             return (PackageCapability)results.get(0);
         }
-        
+
         return PackageCapabilityTest.createTestCapability(
                 BaseTreeEditOperation.KICKSTART_CAPABILITY);
     }
-    
+
     public void testPackageNamesByCapabilityAndChannel() throws Exception {
         Channel channel1 = ChannelFactoryTest.createTestChannel(user);
         addKickstartPackageToChannel(
                 ConfigDefaults.get().getKickstartPackageName(), channel1);
-        
+
         // Add a regular non-kickstart package as well:
         PackageManagerTest.addPackageToChannel("Another package", channel1);
-        
-        DataResult dr = PackageManager.packageNamesByCapabilityAndChannel(user.getOrg(), 
+
+        DataResult dr = PackageManager.packageNamesByCapabilityAndChannel(user.getOrg(),
                 BaseTreeEditOperation.KICKSTART_CAPABILITY, channel1);
         assertNotNull(dr);
         assertEquals(1, dr.size());
         PackageListItem item = (PackageListItem)dr.get(0);
         assertEquals(ConfigDefaults.get().getKickstartPackageName(), item.getName());
     }
-    
+
     // Verify that packages with the given capability in other channels are not visible:
     public void testPackageNamesByCapabilityAndChannelFiltering() throws Exception {
         Channel channel1 = ChannelFactoryTest.createTestChannel(user);
         addKickstartPackageToChannel(
                 ConfigDefaults.get().getKickstartPackageName(), channel1);
-        
+
         Channel channel2 = ChannelFactoryTest.createTestChannel(user);
         addKickstartPackageToChannel(ConfigDefaults.get().
                         getKickstartPackageName() + "2", channel2);
-        
-        DataResult dr = PackageManager.packageNamesByCapabilityAndChannel(user.getOrg(), 
+
+        DataResult dr = PackageManager.packageNamesByCapabilityAndChannel(user.getOrg(),
                 BaseTreeEditOperation.KICKSTART_CAPABILITY, channel1);
         assertNotNull(dr);
-        
+
         assertEquals(1, dr.size());
         PackageListItem item = (PackageListItem)dr.get(0);
         assertEquals(ConfigDefaults.get().getKickstartPackageName(), item.getName());
     }
-    
+
     public void testPackageNameOverview() {
         String packageName = "kernel";
         String[] channelarches = {"channel-ia32", "channel-x86_64"};
         DataResult dr = PackageManager.lookupPackageNameOverview(
                 user.getOrg(), packageName, channelarches);
-        
+
         assertNotNull(dr);
     }
-    
+
     public void testLookupPackageForChannelFromChannel() throws Exception {
         Channel channel1 = ChannelFactoryTest.createTestChannel(user);
         Channel channel2 = ChannelFactoryTest.createTestChannel(user);
-        
+
         Package pack = PackageTest.createTestPackage(null);
         channel1.addPackage(pack);
-        
-        List test = PackageManager.lookupPackageForChannelFromChannel(channel1.getId(), 
+
+        List test = PackageManager.lookupPackageForChannelFromChannel(channel1.getId(),
                 channel2.getId());
         assertTrue(test.size() == 1);
         PackageOverview packOver = (PackageOverview) test.get(0);
         assertEquals(pack.getId(), packOver.getId());
-        
-        
+
+
         channel2.addPackage(pack);
-        test = PackageManager.lookupPackageForChannelFromChannel(channel1.getId(), 
+        test = PackageManager.lookupPackageForChannelFromChannel(channel1.getId(),
                 channel2.getId());
         assertTrue(test.size() == 0);
     }
-    
+
     public void testLookupCustomPackagesForChannel() throws Exception {
         Channel channel1 = ChannelFactoryTest.createTestChannel(user);
         Package pack = PackageTest.createTestPackage(user.getOrg());
         List test = PackageManager.lookupCustomPackagesForChannel(
                 channel1.getId(), user.getOrg().getId());
-        
+
         assertTrue(test.size() == 1);
         PackageOverview packOver = (PackageOverview) test.get(0);
         assertEquals(pack.getId(), packOver.getId());
-        
+
         channel1.addPackage(pack);
         test = PackageManager.lookupCustomPackagesForChannel(
                 channel1.getId(), user.getOrg().getId());
-        
+
         assertTrue(test.size() == 0);
     }
-    
+
     public void testLookupOrphanPackagesForChannel() throws Exception {
         Channel channel1 = ChannelFactoryTest.createTestChannel(user);
         Package pack = PackageTest.createTestPackage(user.getOrg());
         List test = PackageManager.lookupOrphanPackagesForChannel(
                 channel1.getId(), user.getOrg().getId());
-        
+
         assertTrue(test.size() == 1);
         PackageOverview packOver = (PackageOverview) test.get(0);
         assertEquals(pack.getId(), packOver.getId());
-        
+
         channel1.addPackage(pack);
         test = PackageManager.lookupOrphanPackagesForChannel(
                 channel1.getId(), user.getOrg().getId());
-        
+
         assertTrue(test.size() == 0);
         Package pack2 = PackageTest.createTestPackage(user.getOrg());
         test = PackageManager.lookupOrphanPackagesForChannel(
                 channel1.getId(), user.getOrg().getId());
-        
+
         assertTrue(test.size() == 1);
-        
-    }    
-    
+
+    }
+
     public void testUpgradablePackagesFromServerSet() throws Exception {
         // Setup
         User admin = UserTestUtils.findNewUser("ssmUpgradeUser1", "ssmUpgradeOrg1");
         Org org = admin.getOrg();
-        
+
         //   Create the server and add to the SSM
         Server server = ServerTestUtils.createTestSystem(admin);
         ServerTestUtils.addServersToSsm(admin, server.getId());
@@ -660,19 +660,19 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             PackageEvrFactory.createPackageEvr("1", "1.0.0", "2");
         upgradedPackageEvr =
             (PackageEvr)TestUtils.saveAndReload(upgradedPackageEvr);
-        
+
         ServerTestUtils.populateServerErrataPackages(org, server,
             upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_SECURITY);
         ServerTestUtils.populateServerErrataPackages(org, server,
             upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_BUG);
-        
+
         // Test
         DataResult result = PackageManager.upgradablePackagesFromServerSet(admin);
-        
+
         assertTrue(result != null);
         assertEquals(2, result.size());
     }
-    
+
     public void testDeletePackages() throws Exception {
         // Configuration
         final int numPackagesToDelete = 50;
@@ -685,73 +685,73 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             Package pack = PackageTest.createTestPackage(user.getOrg());
             doomedPackageIds.add(pack.getId());
         }
-        
+
         int numPackagesBeforeDelete =
             PackageFactory.lookupOrphanPackages(user.getOrg()).size();
         assertTrue(numPackagesBeforeDelete >= numPackagesToDelete);
-        
-        
+
+
         // Test
         PackageManager.deletePackages(doomedPackageIds, user);
-        
+
         // Verify
         int numPackagesAfterDelete =
         PackageFactory.lookupOrphanPackages(user.getOrg()).size();
                 assertEquals(numPackagesBeforeDelete - numPackagesToDelete,
                              numPackagesAfterDelete);
-                
+
     }
-    
-    
+
+
     protected SimpleContentHandler getTemporaryHandler(OutputStream st) {
         OutputFormat of = new OutputFormat();
         of.setPreserveSpace(true);
         of.setOmitXMLDeclaration(true);
         XMLSerializer tmpSerial = new XMLSerializer(st, of);
         SimpleContentHandler tmpHandler = new SimpleContentHandler(tmpSerial);
-        return tmpHandler;        
+        return tmpHandler;
     }
-    
-    
+
+
     public void testRepodata() throws Exception {
-        
+
         OutputStream st = new ByteArrayOutputStream();
         SimpleContentHandler tmpHandler = getTemporaryHandler(st);
-        
-        
+
+
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("type", "rpm");
         tmpHandler.startDocument();
-        
+
         tmpHandler.startElement("package", attr);
-        
+
         SimpleAttributesImpl secattr = new SimpleAttributesImpl();
         attr.addAttribute("bar", "&>><<");
         tmpHandler.startElement("foo", secattr);
         tmpHandler.addCharacters("&&&&");
         tmpHandler.endElement("foo");
-        
+
         tmpHandler.endElement("package");
         tmpHandler.endDocument();
-        
+
         //st.flush();
         String test = st.toString();
-        System.out.println(test); 
-        
+        System.out.println(test);
+
         Package p = PackageTest.createTestPackage();
         Channel c = ChannelFactoryTest.createTestChannel();
         c.addPackage(p);
         ChannelFactory.save(c);
-        
+
         PackageManager.createRepoEntrys(c.getId());
-        
+
         PackageManager.updateRepoPrimary(p.getId(), test);
         DataResult dr = PackageManager.getRepoData(p.getId());
         PackageDto dto = (PackageDto) dr.get(0);
         String prim = dto.getPrimaryXml();
         String other = dto.getOtherXml();
         assertEquals(prim, test);
-        
-        
-    }    
+
+
+    }
 }

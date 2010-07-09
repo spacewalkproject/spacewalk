@@ -10,7 +10,7 @@
         <input type="hidden" name="postKernelParams" value="${form.postKernelParams}" />
         <input type="hidden" name="kernelParamsType" value="${form.kernelParamsType}" />
         <input type="hidden" name="kernelParams" value="${form.kernelParams}" />
-        
+
         <input type="hidden" name="networkType" value="${form.networkType}" />
         <input type="hidden" name="networkInterface" value="${form.networkInterface}" />
 

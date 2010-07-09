@@ -40,7 +40,7 @@ import javax.servlet.jsp.tagext.Tag;
 public class UnpagedListDisplayTagTest extends MockObjectTestCase {
     private UnpagedListDisplayTag ldt;
     private ListTag lt;
-    
+
     private HttpServletRequest request;
     private HttpServletResponse response;
     private PageContext context;
@@ -48,24 +48,24 @@ public class UnpagedListDisplayTagTest extends MockObjectTestCase {
     private Mock mreq;
     private Mock mresp;
     private Mock mcontext;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         RhnBaseTestCase.disableLocalizationServiceLogging();
         mreq = mock(HttpServletRequest.class);
         mresp = mock(HttpServletResponse.class);
         mcontext = mock(PageContext.class);
-        
+
         request = (HttpServletRequest) mreq.proxy();
         response = (HttpServletResponse) mresp.proxy();
         context = (PageContext) mcontext.proxy();
         writer = new RhnMockJspWriter();
-        
+
         ldt = new UnpagedListDisplayTag();
         lt = new ListTag();
         ldt.setPageContext(context);
         ldt.setParent(lt);
-        
+
         lt.setPageList(new DataResult(CSVWriterTest.getTestListOfMaps()));
 
         mcontext.expects(atLeastOnce()).method("getOut").
@@ -75,7 +75,7 @@ public class UnpagedListDisplayTagTest extends MockObjectTestCase {
         mcontext.expects(atLeastOnce()).method("setAttribute")
         .with(eq("current"), NULL);
     }
-    
+
     public void testTitle() throws JspException {
         mcontext.expects(atLeastOnce()).method("popBody")
                 .withNoArguments();
@@ -88,7 +88,7 @@ public class UnpagedListDisplayTagTest extends MockObjectTestCase {
 
 
         writer.setExpectedData(EXPECTED_HTML_OUT_WITH_TITLE);
-        
+
         ldt.setTitle("Inactive Systems");
         int tagval = ldt.doStartTag();
         assertEquals(Tag.EVAL_BODY_INCLUDE, tagval);
@@ -99,7 +99,7 @@ public class UnpagedListDisplayTagTest extends MockObjectTestCase {
         mcontext.verify();
         mreq.verify();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -107,7 +107,7 @@ public class UnpagedListDisplayTagTest extends MockObjectTestCase {
         super.tearDown();
         RhnBaseTestCase.enableLocalizationServiceLogging();
     }
-    
+
     public void testTag() throws Exception {
         ldt.setExportColumns("column1,column2,column3");
         mcontext.expects(atLeastOnce()).method("popBody").
@@ -131,7 +131,7 @@ public class UnpagedListDisplayTagTest extends MockObjectTestCase {
         mcontext.verify();
         mreq.verify();
     }
-    
+
     public void testExport() throws Exception {
         RhnMockServletOutputStream out = new RhnMockServletOutputStream();
         ldt.setExportColumns("column1,column2,column3");
@@ -151,20 +151,20 @@ public class UnpagedListDisplayTagTest extends MockObjectTestCase {
         mreq.verify();
         mcontext.verify();
     }
-    
-    private static final String EXPECTED_HTML_OUT = 
+
+    private static final String EXPECTED_HTML_OUT =
         "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" " +
         "class=\"list\"><thead>\n" +
         "<tr></tbody></table>\n";
-    
-    private static final String EXPECTED_HTML_OUT_WITH_TITLE = 
+
+    private static final String EXPECTED_HTML_OUT_WITH_TITLE =
         "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" " +
         "class=\"list\"><thead><tr><th>**Inactive " +
         "Systems**</th></tr>\n<tr></tbody></table>\n";
-    
-    private static final String EXPECTED_CSV_OUT = 
-        "**column1**,**column2**,**column3**\n" + 
-        "cval1-0,cval2-0,cval3-0\n" + 
+
+    private static final String EXPECTED_CSV_OUT =
+        "**column1**,**column2**,**column3**\n" +
+        "cval1-0,cval2-0,cval3-0\n" +
         "cval1-1,cval2-1,cval3-1\n" +
         "cval1-2,cval2-2,cval3-2\n" +
         "cval1-3,cval2-3,cval3-3\n" +

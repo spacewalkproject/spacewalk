@@ -54,7 +54,7 @@ public class EnableSubmitAction extends RhnListDispatchAction {
         getStrutsDelegate().rememberDatePicker(params, (DynaActionForm)form, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
     }
-    
+
     /**
      * Enables the selected set of systems for configuration management
      * @param mapping struts ActionMapping
@@ -69,13 +69,13 @@ public class EnableSubmitAction extends RhnListDispatchAction {
             HttpServletResponse response) {
         User user = new RequestContext(request).getLoggedInUser();
         RhnSetDecl set = RhnSetDecl.SYSTEMS;
-        
+
         //get the earliest schedule for package install actions.
         DynaActionForm form = (DynaActionForm) formIn;
         Date earliest = getStrutsDelegate().readDatePicker(form, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
         ConfigurationManager.getInstance().enableSystems(set, user, earliest);
-        
+
         return mapping.findForward("summary");
     }
 

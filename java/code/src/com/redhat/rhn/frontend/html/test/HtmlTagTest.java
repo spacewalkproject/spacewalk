@@ -38,17 +38,17 @@ public class HtmlTagTest extends RhnBaseTestCase {
         i.setAttribute("src", "url");
         assertEquals("<img src=\"url\" />", i.render());
     }
-    
+
     public void testChildTags() throws Exception {
         HtmlTag a = new HtmlTag("a");
         a.setAttribute("href", "url");
         HtmlTag img = new HtmlTag("img");
         img.setAttribute("src", "foo.gif");
         a.addBody(img);
-        
+
         assertEquals("<a href=\"url\"><img src=\"foo.gif\" /></a>", a.render());
     }
-    
+
     public void testChildTagAndBody() throws Exception {
         HtmlTag a = new HtmlTag("a");
         a.setAttribute("href", "url");
@@ -59,12 +59,12 @@ public class HtmlTagTest extends RhnBaseTestCase {
 
         assertEquals("<a href=\"url\">Preferences<img src=\"foo.gif\" /></a>", a.render());
     }
-    
+
     public void testHasBody() {
         HtmlTag a = new HtmlTag("a");
         assertFalse(a.hasBody());
     }
-    
+
     public void testTextInputTag() {
         TextInputTag i = new TextInputTag();
         i.setName("testing");
@@ -73,9 +73,9 @@ public class HtmlTagTest extends RhnBaseTestCase {
         assertEquals(
            "<input type=\"text\" name=\"testing\" size=\"10\" value=\"something\" />",
            i.render());
-        
+
     }
-    
+
     public void testHiddenInputTag() {
         HiddenInputTag i = new HiddenInputTag();
         i.setName("testing");
@@ -101,7 +101,7 @@ public class HtmlTagTest extends RhnBaseTestCase {
         td.removeAttribute("class");
         assertEquals("<td />", td.render());
     }
-    
+
 }
 
 

@@ -26,16 +26,16 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
  * @version $Rev$
  */
 public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
-    
+
     private ConfigureCertificateCommand cmd;
-    
+
     public void testCreateCommand() throws Exception {
         String originalConfigParent =
                         Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
         String originalConfigDisconnected =
                         Config.get().getString(ConfigDefaults.DISCONNECTED);
 
-        Config.get().setString(ConfigDefaults.SATELLITE_PARENT, 
+        Config.get().setString(ConfigDefaults.SATELLITE_PARENT,
                 "satellite.webqa.redhat.com");
         Config.get().setBoolean(ConfigDefaults.DISCONNECTED, "1");
         user.addRole(RoleFactory.SAT_ADMIN);
@@ -44,16 +44,16 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
                 return new TestExecutor();
             }
         };
-        
+
         assertNotNull(cmd.getUser());
-        
+
         cmd.setCertificateText("some text");
         assertNotNull(cmd.getCertificateText());
         assertNull(cmd.storeConfiguration());
-        
+
         if (originalConfigParent == null) {
             Config.get().setString(ConfigDefaults.SATELLITE_PARENT, "");
-        } 
+        }
         else {
             Config.get().setString(ConfigDefaults.SATELLITE_PARENT, originalConfigParent);
         }
@@ -65,7 +65,7 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
                                                 originalConfigDisconnected);
         }
     }
-    
+
     public void testCreateCommandIgnoreMismatch() throws Exception {
         String originalConfigParent =
                         Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
@@ -83,17 +83,17 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
                 return testExecutor;
             }
         };
-        
+
         assertNotNull(cmd.getUser());
-        
+
         cmd.setCertificateText("some text");
         cmd.setIgnoreVersionMismatch(true);
-        
+
         assertNotNull(cmd.getCertificateText());
         assertNull(cmd.storeConfiguration());
         if (originalConfigParent == null) {
             Config.get().setString(ConfigDefaults.SATELLITE_PARENT, "");
-        } 
+        }
         else {
             Config.get().setString(ConfigDefaults.SATELLITE_PARENT, originalConfigParent);
         }
@@ -105,15 +105,15 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
                                                 originalConfigDisconnected);
         }
     }
-    
+
     /**
-     * TestExecutor - 
+     * TestExecutor -
      * @version $Rev$
      */
     private class TestExecutor implements Executor {
 
         protected boolean shouldIgnoreMismatch;
-        
+
         public int execute(String[] args) {
             if (!args[0].equals("/usr/bin/sudo")) {
                 return -1;
@@ -131,7 +131,7 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
                 return -1;
             }
             else if (shouldIgnoreMismatch) {
-                if (args.length != 6 || !args[5].equals("--ignore-version-mismatch")) { 
+                if (args.length != 6 || !args[5].equals("--ignore-version-mismatch")) {
                     return -1;
                 }
             }

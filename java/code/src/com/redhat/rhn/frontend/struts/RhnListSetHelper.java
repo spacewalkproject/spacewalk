@@ -25,11 +25,11 @@ public class RhnListSetHelper extends BaseSetHelper {
 
     /**
      * Constructor
-     * 
+     *
      * @param requestIn to associate
      */
     public  RhnListSetHelper(HttpServletRequest requestIn) {
         this.request = requestIn;
     }
-        
+
 }

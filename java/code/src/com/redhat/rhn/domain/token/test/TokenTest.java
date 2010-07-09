@@ -52,35 +52,35 @@ public class TokenTest extends RhnBaseTestCase {
         Token token2 = new Token();
 
         assertFalse(token1.equals(token2));
-        
+
         Session session = HibernateFactory.getSession();
         token2 = (Token) session.getNamedQuery("Token.findById")
                                    .setLong("id", token1.getId().longValue())
                                    .uniqueResult();
-        
-        assertEquals(token1, token2);  
+
+        assertEquals(token1, token2);
         assertFalse(token1.isTokenDisabled());
         token1.disable();
         assertTrue(token1.isTokenDisabled());
         assertEquals(2, token1.getEntitlements().size());
         assertEquals(token1.getEntitlements().size(), token2.getEntitlements().size());
     }
-    
+
     public void testLookupByServer() throws Exception {
         Token t = createTestToken();
         Server s = t.getServer();
         flushAndEvict(t);
         assertNotNull(TokenFactory.lookupByServer(s));
     }
-    
-    public void testRemoveToken() throws Exception { 
+
+    public void testRemoveToken() throws Exception {
         Token t = createTestToken();
         Long id = t.getId();
         TokenFactory.removeToken(t);
         flushAndEvict(t);
         assertNull(TokenFactory.lookupById(id));
     }
-    
+
     public void testChannel() throws Exception {
         Token t = createTestToken();
         Channel c = ChannelFactoryTest.createTestChannel(t.getCreator());
@@ -89,9 +89,9 @@ public class TokenTest extends RhnBaseTestCase {
         t = (Token) reload(t);
         assertNotNull(t.getChannels());
         assertEquals(1, t.getChannels().size());
-        
+
     }
-    
+
     public void testConfigChannels() throws Exception {
         Token t = createTestToken();
         User user = UserTestUtils.createUser("testuser1", t.getOrg().getId());
@@ -102,24 +102,24 @@ public class TokenTest extends RhnBaseTestCase {
         ConfigChannel global1 = ConfigTestUtils.createConfigChannel(user.getOrg(),
                 ConfigChannelType.global());
         ConfigChannel global2 = ConfigTestUtils.createConfigChannel(user.getOrg(),
-                ConfigChannelType.global());        
+                ConfigChannelType.global());
 
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
-        
+
         proc.add(t.getConfigChannelsFor(user), global1);
         proc.add(t.getConfigChannelsFor(user), global2);
-        
+
         TokenFactory.save(t);
         List ls = new ArrayList();
         ls.add(global1);
         ls.add(global2);
-        
+
         t = (Token) reload(t);
         assertNotNull(t.getConfigChannelsFor(user));
         assertEquals(2, t.getConfigChannelsFor(user).size());
         assertEquals(ls, t.getConfigChannelsFor(user));
-    }    
-    
+    }
+
     /**
      * Helper method to create a test Token
      * @return Returns a Token
@@ -131,19 +131,19 @@ public class TokenTest extends RhnBaseTestCase {
         token.setDeployConfigs(true);
         token.setNote("RHN-JAVA test note");
         token.setUsageLimit(new Long(42));
-        User user = UserTestUtils.createUser("testuser", 
+        User user = UserTestUtils.createUser("testuser",
                                              UserTestUtils.createOrg("testorg"));
         token.setCreator(user);
         token.setOrg(user.getOrg());
         token.setServer(ServerFactoryTest.createTestServer(user));
-        
+
         token.addEntitlement(ServerConstants.getServerGroupTypeEnterpriseEntitled());
         token.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
-        
+
         assertNull(token.getId());
         TestUtils.saveAndFlush(token);
         assertNotNull(token.getId());
-        
+
         return token;
     }
 }

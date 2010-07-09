@@ -21,7 +21,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * 
+ *
  * ViewModifyPathsFilter
  * @version $Rev$
  */
@@ -31,7 +31,7 @@ public class ViewModifyPathsFilter extends BaseListFilter {
      * ${@inheritDoc}
      */
     public void processMap(Map map, Locale userLocale) {
-        LocalizationService ls = 
+        LocalizationService ls =
             LocalizationService.getInstance();
         String label = ls.getMessage("sdc.config.file_list.name",
                 userLocale);

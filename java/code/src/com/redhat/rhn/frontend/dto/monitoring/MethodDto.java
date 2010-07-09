@@ -106,7 +106,7 @@ public class MethodDto extends BaseDto {
         this.login = loginIn;
     }
 
-    
+
     /**
      * @return Returns the methodTarget.
      */
@@ -114,7 +114,7 @@ public class MethodDto extends BaseDto {
         return methodTarget;
     }
 
-    
+
     /**
      * @param methodTargetIn The methodTarget to set.
      */

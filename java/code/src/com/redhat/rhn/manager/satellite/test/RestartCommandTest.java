@@ -24,9 +24,9 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
  * @version $Rev$
  */
 public class RestartCommandTest extends BaseTestCaseWithUser {
-    
+
     private RestartCommand cmd;
-    
+
     public void testCreateCommand() throws Exception {
         user.addRole(RoleFactory.SAT_ADMIN);
         cmd = new RestartCommand(user) {
@@ -37,11 +37,11 @@ public class RestartCommandTest extends BaseTestCaseWithUser {
         assertNotNull(cmd.getUser());
         assertNull(cmd.storeConfiguration());
     }
-    
+
     /**
-     * TestExecutor - 
+     * TestExecutor -
      * @version $Rev$
-    */ 
+    */
     public class TestExecutor implements Executor {
 
         public int execute(String[] args) {

@@ -40,15 +40,15 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 107809 $
  */
 public abstract class BaseSystemsAction extends RhnListAction {
-    public static final String SHOW_NO_SYSTEMS = "showNoSystems"; 
+    public static final String SHOW_NO_SYSTEMS = "showNoSystems";
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getCurrentUser();
         DataResult result = getDataResult(user, null, formIn);
 
@@ -58,29 +58,29 @@ public abstract class BaseSystemsAction extends RhnListAction {
 
         RhnSet set =  getSetDecl().get(user);
 
-        
+
         RhnListSetHelper helper = new RhnListSetHelper(request);
         if (ListTagHelper.getListAction("systemList", request) != null) {
             helper.execute(set, "systemList", result);
         }
-        
+
         if (!set.isEmpty()) {
             helper.syncSelections(set, result);
-            ListTagHelper.setSelectedAmount("systemList", set.size(), request);            
+            ListTagHelper.setSelectedAmount("systemList", set.size(), request);
         }
-       
-        
+
+
         request.setAttribute("pageList", result);
         ListTagHelper.bindSetDeclTo("systemList", getSetDecl(), request);
-        
+
         request.setAttribute("pageList", result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        
+
         TagHelper.bindElaboratorTo("systemList", result.getElaborator(), request);
 
         return mapping.findForward("default");
     }
-    /** 
+    /**
      * Retrives the set declation item
      * where the contents of the page control
      * are to be set.
@@ -89,25 +89,25 @@ public abstract class BaseSystemsAction extends RhnListAction {
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.SYSTEMS;
     }
-    
+
     /**
      * Sets the status and entitlementLevel variables of each System Overview
      * @param dr The list of System Overviews
      * @param user The user viewing the System List
      */
     public void setStatusDisplay(DataResult dr, User user) {
-        
+
         Iterator i = dr.iterator();
-        
+
         while (i.hasNext()) {
             SystemOverview next = (SystemOverview) i.next();
             SystemListHelper.setSystemStatusDisplay(user, next);
         }
-        
+
     }
-    
-    protected abstract DataResult getDataResult(User user, 
-                                                PageControl pc, 
+
+    protected abstract DataResult getDataResult(User user,
+                                                PageControl pc,
                                                 ActionForm formIn);
 }
 

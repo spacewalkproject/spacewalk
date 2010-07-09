@@ -34,7 +34,7 @@ public class TestConfigureBootstrapCommand extends ConfigureBootstrapCommand {
     public ValidatorError[] storeConfiguration() {
         return null;
     }
-    
-    
+
+
 
 }

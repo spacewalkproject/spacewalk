@@ -1,12 +1,12 @@
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" 
-	xmlns:xyz="urn:appInfo:Items" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1"
+	xmlns:xyz="urn:appInfo:Items"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1
-http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" 
+http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
 	version="1.1">	
   <file source-language="en" datatype="plaintext" original="">
     <body>
-    
+
     <!-- Action Statuses -->
     <trans-unit id="Queued">
 <source>Queued</source>
@@ -14,28 +14,28 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">/rhn/configuration/Overview</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="Picked Up">
 <source>Picked Up</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/Overview</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="Completed">
 <source>Completed</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/Overview</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="Failed">
 <source>Failed</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/Overview</context>
         </context-group>
     </trans-unit>
-    
+
     <!-- System Group Types -->
     <trans-unit id="Spacewalk Update Entitled Servers">
 <source>Update</source>
@@ -52,28 +52,28 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
     </trans-unit>
 
 
-    
+
     <trans-unit id="Spacewalk Management Entitled Servers">
 <source>Management</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="Spacewalk Provisioning Entitled Servers">
 <source>Provisioning</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="Non-Linux Entitled Servers">
 <source>Non-Linux</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="Spacewalk Monitoring Entitled Servers">
 <source>Monitoring</source>
         <context-group name="ctx">
@@ -85,7 +85,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
 	    <context-group name="ctx">
 		    <context context-type="sourcefile">/rhn/errata/details/SystemsAffected.do</context>
 		    <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>
-		    <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>		    
+		    <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
 		</context-group>
 		<trans-unit id="enterprise_entitled">
 			<source>Management</source>
@@ -126,21 +126,21 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
     </trans-unit>
-      
+
     <trans-unit id="Asia/Tokyo">
 <source>(GMT+0900) Japan</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="Asia/Hong_Kong">
 <source>(GMT+0800) Australia (Western)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
     </trans-unit>
-    
+
     <trans-unit id="Europe/Moscow">
 <source>(GMT+0300) Russia (Moscow)</source>
         <context-group name="ctx">
@@ -413,7 +413,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
     </trans-unit>
-    
+
 	<trans-unit id="RHN_SAT_HOSTNAME">
 <source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
       <context-group name="ctx">
@@ -434,7 +434,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
     </trans-unit>
-    
+
     <!-- Monitoring Probe Command Parameter descriptions -->
       <trans-unit id="Application Protocol">
         <source>Application Protocol</source>
@@ -442,896 +442,896 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Available Space Percent Used Critical if Above">
         <source>Available Space Percent Used Critical if Above</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Available Space Percent Used Warn if Above">
         <source>Available Space Percent Used Warn if Above</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="BEA Domain Admin Server">
         <source>BEA Domain Admin Server</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="BEA Server Name">
         <source>BEA Server Name</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Basic regular expression">
         <source>Basic regular expression</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Command">
         <source>Command</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Command name">
         <source>Command name</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Count process groups">
         <source>Count process groups</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical 1 min">
         <source>Critical 1 min</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical 15 min">
         <source>Critical 15 min</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical 5 min">
         <source>Critical 5 min</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Accesses">
         <source>Critical Accesses</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Active Locks">
         <source>Critical Active Locks</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Active Sessions">
         <source>Critical Active Sessions</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Avail Sessions Used Pct">
         <source>Critical Avail Sessions Used Pct</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Blocked Process Count">
         <source>Critical Blocked Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Blocking Sessions">
         <source>Critical Blocking Sessions</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Buffer Cache Hit Ratio">
         <source>Critical Buffer Cache Hit Ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical CLOSE_WAIT Connections">
         <source>Critical CLOSE_WAIT Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical CPU Load 1-Min Ave">
         <source>Critical CPU Load 1-Min Ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical CPU Load 15-Min Ave">
         <source>Critical CPU Load 15-Min Ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical CPU Load 5-Min Ave">
         <source>Critical CPU Load 5-Min Ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical CPU Pct Used">
         <source>Critical CPU Pct Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical CPU Time Rate">
         <source>Critical CPU Time Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Child Process Count">
         <source>Critical Child Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Child Process Groups">
         <source>Critical Child Process Groups</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Connection Rate">
         <source>Critical Connection Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Connections">
         <source>Critical Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Count">
         <source>Critical Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Data Dictionary Hit Ratio">
         <source>Critical Data Dictionary Hit Ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Defunct Process Count">
         <source>Critical Defunct Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Disk Sort Ratio">
         <source>Critical Disk Sort Ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical ESTABLISHED Connections">
         <source>Critical ESTABLISHED Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Execution Time Moving Ave">
         <source>Critical Execution Time Moving Ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Exit Status">
         <source>Critical Exit Status</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical FIN_WAIT Connections">
         <source>Critical FIN_WAIT Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Filesystem Pct Used">
         <source>Critical Filesystem Pct Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Heap Free">
         <source>Critical Heap Free</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical High Execution Time">
         <source>Critical High Execution Time</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Idle Sessions">
         <source>Critical Idle Sessions</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Idle Threads">
         <source>Critical Idle Threads</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Inodes Pct Used">
         <source>Critical Inodes Pct Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Input Rate">
         <source>Critical Input Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Latency">
         <source>Critical Latency</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Library Cache Miss Ratio">
         <source>Critical Library Cache Miss Ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Line Rate">
         <source>Critical Line Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Lines">
         <source>Critical Lines</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Match Rate">
         <source>Critical Match Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Matches">
         <source>Critical Matches</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Number Running Maximum">
         <source>Critical Number Running Maximum</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Number Running Minimum">
         <source>Critical Number Running Minimum</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Open Tables">
         <source>Critical Open Tables</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Opened Tables">
         <source>Critical Opened Tables</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Output Rate">
         <source>Critical Output Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Packet Loss Pct">
         <source>Critical Packet Loss Pct</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Percent">
         <source>Critical Percent</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Physical Memory Used">
         <source>Critical Physical Memory Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Process Count">
         <source>Critical Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Processes">
         <source>Critical Processes</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Query Rate">
         <source>Critical Query Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Query Time">
         <source>Critical Query Time</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Queue Length">
         <source>Critical Queue Length</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical RAM Free">
         <source>Critical RAM Free</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Read Rate">
         <source>Critical Read Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Redo Buffer Allocation Retries">
         <source>Critical Redo Buffer Allocation Retries</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Redo Log Space Requests">
         <source>Critical Redo Log Space Requests</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Request Rate">
         <source>Critical Request Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Requests">
         <source>Critical Requests</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Round-trip Ave">
         <source>Critical Round-trip Ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Round-trip Avg">
         <source>Critical Round-trip Avg</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical SYN_RCVD Connections">
         <source>Critical SYN_RCVD Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Seconds">
         <source>Critical Seconds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Size">
         <source>Critical Size</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Space Available">
         <source>Critical Space Available</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Space Used">
         <source>Critical Space Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Stopped Process Count">
         <source>Critical Stopped Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Swap Pct Free">
         <source>Critical Swap Pct Free</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Swapped Process Count">
         <source>Critical Swapped Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Threads">
         <source>Critical Threads</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Threads Running">
         <source>Critical Threads Running</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Total Connections">
         <source>Critical Total Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Traffic">
         <source>Critical Traffic</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Transferred Per Child">
         <source>Critical Transferred Per Child</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Transferred Per Slot">
         <source>Critical Transferred Per Slot</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Users">
         <source>Critical Users</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Value">
         <source>Critical Value</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Virtual Mem Pct Free">
         <source>Critical Virtual Mem Pct Free</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Virtual Memory Used">
         <source>Critical Virtual Memory Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Waiters">
         <source>Critical Waiters</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Write Rate">
         <source>Critical Write Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical Write rate">
         <source>Critical Write rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical if number of blocked processes exceeds">
         <source>Critical if number of blocked processes exceeds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical if number of children for any process exceeds">
         <source>Critical if number of children for any process exceeds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical if number of defunct processes exceeds">
         <source>Critical if number of defunct processes exceeds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical if number of stopped processes exceeds">
         <source>Critical if number of stopped processes exceeds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Critical if number of swapped processes exceeds">
         <source>Critical if number of swapped processes exceeds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Database">
         <source>Database</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Device">
         <source>Device</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Disk number or disk name (from iostat)">
         <source>Disk number or disk name (from iostat)</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Expect">
         <source>Expect</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Expect Content">
         <source>Expect Content</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Expect Header">
         <source>Expect Header</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Expected DB Name (V$DATABASE.NAME)">
         <source>Expected DB Name (V$DATABASE.NAME)</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="FTP Port">
         <source>FTP Port</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Filesystem">
         <source>Filesystem</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="HTTP Port">
         <source>HTTP Port</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="HTTPS Port">
         <source>HTTPS Port</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Host or Address to Look Up">
         <source>Host or Address to Look Up</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="IMAP Port">
         <source>IMAP Port</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="IP Address (optional; defaults to host IP)">
         <source>IP Address (optional; defaults to host IP)</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Include reclaimable memory">
         <source>Include reclaimable memory</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Index Name">
         <source>Index Name</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Index Owner">
         <source>Index Owner</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Input Traffic Critical">
         <source>Input Traffic Critical</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Interface">
         <source>Interface</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="JDBC Pool Name">
         <source>JDBC Pool Name</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Local IP address filter pattern list">
         <source>Local IP address filter pattern list</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Local port number filter">
         <source>Local port number filter</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Log file">
         <source>Log file</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="MySQL Port">
         <source>MySQL Port</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Number of Allocated Extents Critical if Above">
         <source>Number of Allocated Extents Critical if Above</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Number of Allocated Extents Warn if Above">
         <source>Number of Allocated Extents Warn if Above</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="OK Exit Status">
         <source>OK Exit Status</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="ORACLE_HOME">
         <source>ORACLE_HOME</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Oracle Hostname or IP">
         <source>Oracle Hostname or IP</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Oracle Password">
         <source>Oracle Password</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Oracle Password_confirm">
         <source>Oracle Password Confirm</source>
           <context-group name="ctx">
@@ -1345,98 +1345,98 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Oracle SID">
         <source>Oracle SID</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Oracle Username">
         <source>Oracle Username</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Output Traffic Critical">
         <source>Output Traffic Critical</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="PID file (overrides command name)">
         <source>PID file (overrides command name)</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Packets to send">
         <source>Packets to send</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Password">
         <source>Password</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Pathname">
         <source>Pathname</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Percent of Available Extents Critical if Above">
         <source>Percent of Available Extents Critical if Above</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Percent of Available Extents Warn if Above">
         <source>Percent of Available Extents Warn if Above</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Port">
         <source>Port</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Protocol (TCP/UDP)">
         <source>Protocol (TCP/UDP)</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Queue Name">
         <source>Queue Name</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="RHNMD Port">
         <source>RHNMD Port</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="RHNMD User">
         <source>RHNMD User</source>
           <context-group name="ctx">
@@ -1450,777 +1450,777 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Remote IP Address">
         <source>Remote IP Address</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Remote IP address filter pattern list">
         <source>Remote IP address filter pattern list</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Remote port number filter">
         <source>Remote port number filter</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="SMTP Port">
         <source>SMTP Port</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="SNMP Community String">
         <source>SNMP Community String</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="SNMP OID">
         <source>SNMP OID</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="SNMP Port">
         <source>SNMP Port</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="SNMP Version">
         <source>SNMP Version</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="SSH Port">
         <source>SSH Port</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Send">
         <source>Send</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Service Name">
         <source>Service Name</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Servlet Name">
         <source>Servlet Name</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Status (OK/WARNING/CRITICAL/UNKNOWN)">
         <source>Status (OK/WARNING/CRITICAL/UNKNOWN)</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="TNS Listener Port">
         <source>TNS Listener Port</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Table Name">
         <source>Table Name</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Table Owner">
         <source>Table Owner</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Tablespace Name">
         <source>Tablespace Name</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Time Blocking (seconds)">
         <source>Time Blocking (seconds)</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Time Idle (seconds)">
         <source>Time Idle (seconds)</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Timeout (seconds)">
         <source>Timeout (seconds)</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="URL Path">
         <source>URL Path</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="UserAgent">
         <source>UserAgent</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Username">
         <source>Username</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Virtual Host">
         <source>Virtual Host</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warn 1 min">
         <source>Warn 1 min</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warn 15 min">
         <source>Warn 15 min</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warn 5 min">
         <source>Warn 5 min</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warn Percent">
         <source>Warn Percent</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warn Processes">
         <source>Warn Processes</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warn Users">
         <source>Warn Users</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warn if number of blocked processes exceeds">
         <source>Warn if number of blocked processes exceeds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warn if number of children for any process exceeds">
         <source>Warn if number of children for any process exceeds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warn if number of defunct processes exceeds">
         <source>Warn if number of defunct processes exceeds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warn if number of stopped processes exceeds">
         <source>Warn if number of stopped processes exceeds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warn if number of swapped processes exceeds">
         <source>Warn if number of swapped processes exceeds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Active Locks">
         <source>Warning Active Locks</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Active Sessions">
         <source>Warning Active Sessions</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Avail Sessions Used Pct">
         <source>Warning Avail Sessions Used Pct</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Blocked Process Count">
         <source>Warning Blocked Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Blocking Sessions">
         <source>Warning Blocking Sessions</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Buffer Cache Hit Ratio">
         <source>Warning Buffer Cache Hit Ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning CLOSE_WAIT Connections">
         <source>Warning CLOSE_WAIT Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning CPU Load 1-Min Ave">
         <source>Warning CPU Load 1-Min Ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning CPU Load 15-Min Ave">
         <source>Warning CPU Load 15-Min Ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning CPU Load 5-Min Ave">
         <source>Warning CPU Load 5-Min Ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning CPU Pct Used">
         <source>Warning CPU Pct Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning CPU Time Rate">
         <source>Warning CPU Time Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Child Process Count">
         <source>Warning Child Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Child Process Groups">
         <source>Warning Child Process Groups</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Connection Rate">
         <source>Warning Connection Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Connections">
         <source>Warning Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Count">
         <source>Warning Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Data Dictionary Hit Ratio">
         <source>Warning Data Dictionary Hit Ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Defunct Process Count">
         <source>Warning Defunct Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Disk Sort Ratio">
         <source>Warning Disk Sort Ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning ESTABLISHED Connections">
         <source>Warning ESTABLISHED Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Execution Time Moving Ave">
         <source>Warning Execution Time Moving Ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Exit Status">
         <source>Warning Exit Status</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning FIN_WAIT Connections">
         <source>Warning FIN_WAIT Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Filesystem Pct Used">
         <source>Warning Filesystem Pct Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Heap Free">
         <source>Warning Heap Free</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning High Execution Time">
         <source>Warning High Execution Time</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Idle Sessions">
         <source>Warning Idle Sessions</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Idle Threads">
         <source>Warning Idle Threads</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Inodes Pct Used">
         <source>Warning Inodes Pct Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Input Rate">
         <source>Warning Input Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Latency">
         <source>Warning Latency</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Library Cache Miss Ratio">
         <source>Warning Library Cache Miss Ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Line Rate">
         <source>Warning Line Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Lines">
         <source>Warning Lines</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Match Rate">
         <source>Warning Match Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Matches">
         <source>Warning Matches</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Open Tables">
         <source>Warning Open Tables</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Opened Tables">
         <source>Warning Opened Tables</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Output Rate">
         <source>Warning Output Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Packet Loss Pct">
         <source>Warning Packet Loss Pct</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Physical Memory Used">
         <source>Warning Physical Memory Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Process Count">
         <source>Warning Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Query Rate">
         <source>Warning Query Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Query Time">
         <source>Warning Query Time</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Queue Length">
         <source>Warning Queue Length</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning RAM Free">
         <source>Warning RAM Free</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Read Rate">
         <source>Warning Read Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Redo Buffer Allocation Retries">
         <source>Warning Redo Buffer Allocation Retries</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Redo Log Space Requests">
         <source>Warning Redo Log Space Requests</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Request Rate">
         <source>Warning Request Rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Requests">
         <source>Warning Requests</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Round-trip Ave">
         <source>Warning Round-trip Ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Round-trip Avg">
         <source>Warning Round-trip Avg</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning SYN_RCVD Connections">
         <source>Warning SYN_RCVD Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Seconds">
         <source>Warning Seconds</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Size">
         <source>Warning Size</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Space Available">
         <source>Warning Space Available</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Space Used">
         <source>Warning Space Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Stopped Process Count">
         <source>Warning Stopped Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Swap Pct Free">
         <source>Warning Swap Pct Free</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Swapped Process Count">
         <source>Warning Swapped Process Count</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Threads">
         <source>Warning Threads</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Threads Running">
         <source>Warning Threads Running</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Total Connections">
         <source>Warning Total Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Traffic">
         <source>Warning Traffic</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Transferred Per Child">
         <source>Warning Transferred Per Child</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Transferred Per Slot">
         <source>Warning Transferred Per Slot</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Users">
         <source>Warning Users</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Value">
         <source>Warning Value</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Virtual Mem Pct Free">
         <source>Warning Virtual Mem Pct Free</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Virtual Memory Used">
         <source>Warning Virtual Memory Used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Waiters">
         <source>Warning Waiters</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Warning Write Rate">
         <source>Warning Write Rate</source>
           <context-group name="ctx">
@@ -2228,7 +2228,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 
-      <!-- PROBE METRICS --> 
+      <!-- PROBE METRICS -->
 
       <trans-unit id="metrics.Active locks">
         <source>Active locks</source>
@@ -2236,609 +2236,609 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Active sessions">
         <source>Active sessions</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Blocked processes">
         <source>Blocked processes</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Blocking sessions">
         <source>Blocking sessions</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Buffer cache hit ratio">
         <source>Buffer cache hit ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.CLOSE_WAIT conns">
         <source>CLOSE_WAIT conns</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.CPU load 1-min ave">
         <source>CPU load 1-min ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.CPU load 1-min avg">
         <source>CPU load 1-min avg</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.CPU load 15-min ave">
         <source>CPU load 15-min ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.CPU load 15-min avg">
         <source>CPU load 15-min avg</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.CPU load 5-min ave">
         <source>CPU load 5-min ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.CPU load 5-min avg">
         <source>CPU load 5-min avg</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.CPU pct used">
         <source>CPU pct used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.CPU usage">
         <source>CPU usage</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Cache miss rate">
         <source>Cache miss rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Child process groups">
         <source>Child process groups</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Conn rate">
         <source>Conn rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Connections">
         <source>Connections</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Consistent get rate">
         <source>Consistent get rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Current requests">
         <source>Current requests</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.DB block get rate">
         <source>DB block get rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Data dict hit ratio">
         <source>Data dict hit ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Defunct processes">
         <source>Defunct processes</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Disk sort rate">
         <source>Disk sort rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Disk sort ratio">
         <source>Disk sort ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.ESTABLISHED conns">
         <source>ESTABLISHED conns</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Exec time moving ave">
         <source>Exec time moving ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Execution rate">
         <source>Execution rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Execution time ave">
         <source>Execution time ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.FIN_WAIT conns">
         <source>FIN_WAIT conns</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Filesystem pct used">
         <source>Filesystem pct used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Get rate">
         <source>Get rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.High exec time">
         <source>High exec time</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Idle sessions">
         <source>Idle sessions</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Idle threads">
         <source>Idle threads</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Inodes pct used">
         <source>Inodes pct used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Input rate">
         <source>Input rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Invocation rate">
         <source>Invocation rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Latency">
         <source>Latency</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Library cache miss ratio">
         <source>Library cache miss ratio</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Line rate">
         <source>Line rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Lines">
         <source>Lines</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Low exec time">
         <source>Low exec time</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Max transferred per child">
         <source>Max transferred per child</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Max transferred per slot">
         <source>Max transferred per slot</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Memory sort rate">
         <source>Memory sort rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Open objects">
         <source>Open objects</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Opened objects">
         <source>Opened objects</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Output rate">
         <source>Output rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Packet loss pct">
         <source>Packet loss pct</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Pattern match rate">
         <source>Pattern match rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Pattern matches">
         <source>Pattern matches</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Physical memory used">
         <source>Physical memory used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Physical read rate">
         <source>Physical read rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Probe exec time ave">
         <source>Probe exec time ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Probe latency ave">
         <source>Probe latency ave</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Probes">
         <source>Probes</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Processes">
         <source>Processes</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Query rate">
         <source>Query rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Query time">
         <source>Query time</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Queue length">
         <source>Queue length</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.RAM free">
         <source>RAM free</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Read rate">
         <source>Read rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Redo buffer allocation retry rate">
         <source>Redo buffer allocation retry rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Redo log space request rate">
         <source>Redo log space request rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Reload rate">
         <source>Reload rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Request rate">
         <source>Request rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Round-trip avg">
         <source>Round-trip avg</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.SYN_RCVD conns">
         <source>SYN_RCVD conns</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Size">
         <source>Size</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Sleeping processes">
         <source>Sleeping processes</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Space available">
         <source>Space available</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Space used">
         <source>Space used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Stopped processes">
         <source>Stopped processes</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Swap pct free">
         <source>Swap pct free</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.TIME_WAIT conns">
         <source>TIME_WAIT conns</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Threads">
         <source>Threads</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Threads running">
         <source>Threads running</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Total conns">
         <source>Total conns</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Traffic">
         <source>Traffic</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Used Sessions">
         <source>Used Sessions</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Users">
         <source>Users</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Value">
         <source>Value</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Virtual mem pct free">
         <source>Virtual mem pct free</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Virtual memory used">
         <source>Virtual memory used</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Waiters">
         <source>Waiters</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.Write rate">
         <source>Write rate</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="metrics.value">
         <source>value</source>
           <context-group name="ctx">
@@ -2873,27 +2873,27 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
             <context context-type="sourcefile">/rhn/monitoring/config/notification/Filters.do</context>
         </context-group>
       </trans-unit>
-        
+
       <trans-unit id="CRITICAL">
 <source>CRITICAL</source>
         <context-group name="ctx">
 			<context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-      </trans-unit>                
+      </trans-unit>
 
       <trans-unit id="OK">
 <source>OK</source>
         <context-group name="ctx">
 			<context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-      </trans-unit>                
-        
+      </trans-unit>
+
       <trans-unit id="UNKNOWN">
 <source>UNKNOWN</source>
         <context-group name="ctx">
 			<context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-      </trans-unit>                
+      </trans-unit>
 
       <trans-unit id="PENDING">
 <source>PENDING</source>
@@ -2908,12 +2908,12 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
                        <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
        </trans-unit>
-        
+
       <group>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <note>Threshold types for threshold parameters 
+        <note>Threshold types for threshold parameters
 		rhn_command_param_threshold.threshold_type_name -> text
         </note>
         <trans-unit id="crit_max">
@@ -2935,7 +2935,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <note>Metrics for threshold params:
-          rhn_metrics.description -> rhn_metrics.description 
+          rhn_metrics.description -> rhn_metrics.description
         </note>
         <trans-unit id="Active Locks">
           <source>Active Locks</source>
@@ -3162,8 +3162,8 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         <trans-unit id="Write Rate">
           <source>Write Rate</source>
         </trans-unit>
-      </group>      
-	 
+      </group>
+
       <group>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
@@ -3277,12 +3277,12 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <source>(Milliseconds per second)</source>
         </trans-unit>		
       </group>
-	  
+
       <group>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
-        <note>Probe command requirements: 
+        <note>Probe command requirements:
           rhn_command_requirements.name -> rhn_command_requirements.description</note>
         <trans-unit id="npunix">
           <source>RHNMD must be running on the monitored host to perform this check.</source>
@@ -3303,12 +3303,12 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <source>The ExtendedStatus directive in the httpd.conf file of this webserver must be set to On for this check to function properly.</source>
         </trans-unit>
       </group>
-	  
+
 	  <group>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeCreate.do</context>
         </context-group>
-        <note>Command group names: 
+        <note>Command group names:
 			rhn_command_groups.description -> rhn_command_groups.description</note>
         <trans-unit id="All">
 		  <source>All</source>
@@ -3580,7 +3580,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         <trans-unit id="Red Hat Enterprise Linux 2.1">
           <source>Red Hat Enterprise Linux 2.1</source>
         </trans-unit>
-        
+
     </group>
 
     <group>
@@ -3589,46 +3589,46 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
         <trans-unit id="kickstart.state.created">
           <source>Kickstart session created but has not yet been used.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.deployed">
           <source>Files required for kickstart action have been installed.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.injected">
           <source>The system configuration has been modified to begin kickstart upon next boot.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.restarted">
           <source>The system has been restarted in order to begin the kickstart process.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.configuration_accessed">
           <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.in_progress">
           <source>The system is downloading the RPMs required to install.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.registered">
           <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.package_synch">
           <source>Package synchronization in progress.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.configuration_deploy">
           <source>Configuration files are being deployed.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.complete">
           <source>Kickstart complete.</source>
-        </trans-unit>     
+        </trans-unit>
         <trans-unit id="kickstart.state.failed">
           <source>Kickstart failed.</source>
-        </trans-unit>     
+        </trans-unit>
     </group>
-    
-        
+
+
     </body>
   </file>
 </xliff>

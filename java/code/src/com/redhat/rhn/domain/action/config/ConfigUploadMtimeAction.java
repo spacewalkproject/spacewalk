@@ -29,13 +29,13 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ConfigUploadMtimeAction extends Action {
-    
+
     private Set configDateFileActions;
-    
+
     private Set rhnActionConfigChannel;
 
     private ConfigDateDetails configDateDetails;
-    
+
     /**
      * @return Returns the configDateFileActions.
      */
@@ -48,7 +48,7 @@ public class ConfigUploadMtimeAction extends Action {
     public void setConfigDateFileActions(Set configDateFileActionsIn) {
         this.configDateFileActions = configDateFileActionsIn;
     }
-    
+
     /**
      * Add a ConfigDateFileAction to the collection.
      * @param cdIn the ConfigDateFileAction to add
@@ -74,7 +74,7 @@ public class ConfigUploadMtimeAction extends Action {
         }
         return (ConfigChannel[])retval.toArray(new ConfigChannel[0]);
     }
-    
+
     /**
      * @return Returns the servers associated with this Action
      */
@@ -90,7 +90,7 @@ public class ConfigUploadMtimeAction extends Action {
 
     /**
      * Add a ConfigChannel and a Server to this action.  They must be added in pairs.
-     * 
+     *
      * @param ccIn the ConfigChannel we want to asssociate with this Action
      * @param serverIn the Server we want to associate with this Action
      */
@@ -106,7 +106,7 @@ public class ConfigUploadMtimeAction extends Action {
         newCA.setParentAction(this);
         rhnActionConfigChannel.add(newCA);
     }
-    
+
     /**
      * @return Returns the rhnActionConfigChannel.
      */
@@ -119,7 +119,7 @@ public class ConfigUploadMtimeAction extends Action {
     public void setRhnActionConfigChannel(Set rhnActionConfigChannelIn) {
         this.rhnActionConfigChannel = rhnActionConfigChannelIn;
     }
-    
+
     /**
      * @return Returns the configDateDetails.
      */
@@ -132,5 +132,5 @@ public class ConfigUploadMtimeAction extends Action {
     public void setConfigDateDetails(ConfigDateDetails configDateDetailsIn) {
         this.configDateDetails = configDateDetailsIn;
     }
-    
+
 }

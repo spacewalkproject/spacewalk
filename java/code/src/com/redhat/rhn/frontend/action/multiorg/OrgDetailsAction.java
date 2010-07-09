@@ -40,14 +40,14 @@ import javax.servlet.http.HttpServletResponse;
  * OrgDetailsAction extends RhnAction - Class representation of the table web_customer
  * @version $Rev: 1 $
  */
-public class OrgDetailsAction extends RhnAction {        
+public class OrgDetailsAction extends RhnAction {
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-     
+
         if (!AclManager.hasAcl("user_role(satellite_admin)", request, null)) {
             LocalizationService ls = LocalizationService.getInstance();
             PermissionException pex =
@@ -56,7 +56,7 @@ public class OrgDetailsAction extends RhnAction {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
         }
-        
+
         ActionForward retval = mapping.findForward("default");
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         if (isSubmitted(dynaForm)) {
@@ -65,15 +65,15 @@ public class OrgDetailsAction extends RhnAction {
             retval = getStrutsDelegate().forwardParam(retval, "oid", oid.toString());
         }
         else {
-            setupFormValues(request, dynaForm);            
+            setupFormValues(request, dynaForm);
         }
         return retval;
-    }    
-    
+    }
+
     private void setupFormValues(HttpServletRequest request,
                                    DynaActionForm daForm) {
-        
-        RequestContext requestContext = new RequestContext(request);                
+
+        RequestContext requestContext = new RequestContext(request);
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         Org org = OrgFactory.lookupById(oid);
         OrgDto dto = OrgManager.toDetailsDto(org);
@@ -81,47 +81,47 @@ public class OrgDetailsAction extends RhnAction {
         daForm.set("submitted", Boolean.TRUE);
         daForm.set("orgName", dto.getName());
         daForm.set("id", dto.getId().toString());
-        daForm.set("users", dto.getUsers().toString());            
+        daForm.set("users", dto.getUsers().toString());
         daForm.set("systems", dto.getSystems().toString());
         daForm.set("actkeys", dto.getActivationKeys().toString());
         daForm.set("ksprofiles", dto.getKickstartProfiles().toString());
         daForm.set("groups", dto.getServerGroups().toString());
         daForm.set("cfgchannels", dto.getConfigChannels().toString());
-        
+
         request.setAttribute("org", org);
         request.setAttribute(RequestContext.ORG_ID, oid);
     }
-    
+
     /**
-     * 
+     *
      * @param mapping action mapping
      * @param dynaForm form for org details
      * @param request coming in
      * @param response going out
-     * @return ActionFoward 
+     * @return ActionFoward
      * @throws Exception to parent
      */
-    private Long updateOrgDetails(ActionMapping mapping, 
-            DynaActionForm dynaForm, 
-            HttpServletRequest request, 
-            HttpServletResponse response) throws Exception {        
-        
+    private Long updateOrgDetails(ActionMapping mapping,
+            DynaActionForm dynaForm,
+            HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+
         RequestContext requestContext = new RequestContext(request);
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
-        if (validateForm(request, dynaForm)) {                                         
+        if (validateForm(request, dynaForm)) {
             Org org = OrgFactory.lookupById(oid);
             String name = dynaForm.getString("orgName");
-            org.setName(name);            
-            ActionMessages msg = new ActionMessages();            
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            org.setName(name);
+            ActionMessages msg = new ActionMessages();
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("message.org_name_updated", name));
-            getStrutsDelegate().saveMessages(request, msg);            
-        }                     
+            getStrutsDelegate().saveMessages(request, msg);
+        }
         return oid;
     }
-    
+
     /**
-     * 
+     *
      * @param request coming in
      * @param form to validate against
      * @return if it passed
@@ -129,24 +129,24 @@ public class OrgDetailsAction extends RhnAction {
     private boolean validateForm(HttpServletRequest request, DynaActionForm form) {
         boolean retval = true;
 
-        String orgName = form.getString("orgName");        
+        String orgName = form.getString("orgName");
         RequestContext requestContext = new RequestContext(request);
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         Org currOrg = OrgFactory.lookupById(oid);
 
-        if (currOrg.getName().equals(orgName)) {            
-            getStrutsDelegate().saveMessage("message.org_name_not_updated", 
+        if (currOrg.getName().equals(orgName)) {
+            getStrutsDelegate().saveMessage("message.org_name_not_updated",
                                         new String[] {"orgName"}, request);
             retval = false;
         }
-        else {            
+        else {
             try {
-                OrgManager.checkOrgName(orgName);              
+                OrgManager.checkOrgName(orgName);
             }
             catch (ValidatorException ve) {
                 getStrutsDelegate().saveMessages(request, ve.getResult());
                 retval = false;
-            }            
+            }
         }
         return retval;
     }

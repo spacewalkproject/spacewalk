@@ -39,66 +39,66 @@ public class KickstartOverviewSystemsDto extends BaseDto {
     public String getClientIp() {
         return clientIp;
     }
-    
+
     /**
      * @param clientIpIn The client IP to set.
      */
     public void setClientIp(String clientIpIn) {
         this.clientIp = clientIpIn;
     }
-    
+
     /**
      * @return Returns the system's status description.
      */
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * @param descriptionIn The descriptionIn to set.
      */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
-    
+
     /**
-     * @return Returns the date this system was 
+     * @return Returns the date this system was
      * last modified.
      */
     public Timestamp getLastModified() {
         return lastModified;
     }
-    
+
     /**
      * @param lastModifiedIn The lastModifiedIn to set.
      */
     public void setLastModified(Timestamp lastModifiedIn) {
         this.lastModified = lastModifiedIn;
     }
-    
+
     /**
-     * @param time The time to set. This is how many minutes, 
+     * @param time The time to set. This is how many minutes,
      * hours, days and weeks ago since lastModified
      */
     public void setElapsedTimeAfterModify(String time) {
         this.elapsedTimeAfterModify = time;
     }
-    
+
     /**
-     * @return Returns the floor of elaspsed time since 
+     * @return Returns the floor of elaspsed time since
      * lastModified
      */
     public String getElapsedTimeAfterModify() {
         return elapsedTimeAfterModify;
     }
-    
+
     /**
      * @return Returns the label
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param labelIn to set
      */
@@ -112,14 +112,14 @@ public class KickstartOverviewSystemsDto extends BaseDto {
     public void setOldServerId(Long idIn) {
         this.oldServerId = idIn;
     }
-    
+
     /**
      * @return Returns old server id
      */
     public Long getOldServerId() {
         return oldServerId;
     }
-    
+
     /**
      * @return Returns new server id
      * if it exist otherwise old server id.
@@ -132,37 +132,37 @@ public class KickstartOverviewSystemsDto extends BaseDto {
             return null;    //this should never happen
         }
     }
-    
+
     /**
-     * 
+     *
      * @return Server Name
      */
     public String getServerName() {
         Server s = ServerFactory.lookupById(new Long(getServerId().longValue()));
         return s.getName();
     }
-    
+
     /**
      * @return Returns new server id
      */
     public Long getNewServerId() {
         return newServerId;
     }
-    
+
     /**
      * @param idIn The idIn to set
      */
     public void setNewServerId(Long idIn) {
         this.newServerId = idIn;
     }
-    
+
     /**
      * @return whether or not the current system is a bare metal
      */
     public boolean getIsBareMetal() {
         return (getOldServerId() == null && getNewServerId() == null);
     }
-    
+
     /**
      * unimplemented method
      * @return Returns the id.

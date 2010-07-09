@@ -18,7 +18,7 @@
   <li><img src="/img/icon_unentitled.gif" alt=""/><bean:message key="system-legend.jsp.unentitled"/></li>
   <rhn:require acl="org_entitlement(rhn_monitor)">
   <li><img src="/img/icon_subicon_monitoring.gif" alt="" /><bean:message key="system-legend.jsp.monitoring"/></li>
-  </rhn:require> 
+  </rhn:require>
   <li><img src="/img/rhn-listicon-virthost.gif" alt="<bean:message key="systemlist.jsp.virthost"/>" /><bean:message key="systemlist.jsp.virthost"/></li>
   <li><img src="/img/rhn-listicon-virtguest.gif" alt="<bean:message key="systemlist.jsp.virtguest"/>" /><bean:message key="systemlist.jsp.virtguest"/></li>
   <li><img src="/img/rhn-listicon-system.gif" alt="<bean:message key="systemlist.jsp.nonvirt"/>" /><bean:message key="systemlist.jsp.nonvirt"/></li>

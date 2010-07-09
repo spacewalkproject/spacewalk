@@ -32,7 +32,7 @@ public class SolarisManagerTest extends RhnBaseTestCase {
         // This test is only here to make junit happy. It complains
         // if there are no tests in a TestCase
     }
-    
+
     public void atestSystemAvailablePackageList() {
         PageControl pc = new PageControl();
         pc.setIndexData(false);

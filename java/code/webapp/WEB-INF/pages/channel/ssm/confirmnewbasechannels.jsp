@@ -37,18 +37,18 @@
                          name="unmatchedChannels"
                          styleclass="list"
                          emptykey="basesub.jsp.confirm.noChannelsFound">
-                        
-                    <rl:column bound="false" 
-                        sortable="false" 
-                        headerkey="basesub.jsp.confirm.header.oldChannel" 
+
+                    <rl:column bound="false"
+                        sortable="false"
+                        headerkey="basesub.jsp.confirm.header.oldChannel"
                         styleclass="first-column">
                         <a href="/rhn/channels/ChannelDetail.do?cid=${current.oldChannelId}">
                             ${current.oldChannelName}
                         </a>
                     </rl:column>
 
-                    <rl:column bound="false" 
-                        sortable="false" 
+                    <rl:column bound="false"
+                        sortable="false"
                         attr="otherChannelName"
                         headerkey="basesub.jsp.confirm.header.parentChannel">
                         <a href="/rhn/channels/ChannelDetail.do?cid=${current.otherChannelId}">
@@ -56,14 +56,14 @@
                         </a>
                     </rl:column>
 
-                    <rl:column bound="false" 
-                        sortable="false" 
+                    <rl:column bound="false"
+                        sortable="false"
                         headerkey="basesub.jsp.confirm.header.systemsAffected"
                         styleclass="last-column"
                         attr="systemsAffectedCount">
 
-                        ${current.systemsAffectedCount} 
-                        <a id="show-sys-list-link-${current.oldChannelId}" style="display:block;" onclick="toggle_visibility('sys-list-for-child-${current.oldChannelId}');toggle_visibility('show-sys-list-link-${current.oldChannelId}');toggle_visibility('hide-sys-list-link-${current.oldChannelId}');">    
+                        ${current.systemsAffectedCount}
+                        <a id="show-sys-list-link-${current.oldChannelId}" style="display:block;" onclick="toggle_visibility('sys-list-for-child-${current.oldChannelId}');toggle_visibility('show-sys-list-link-${current.oldChannelId}');toggle_visibility('hide-sys-list-link-${current.oldChannelId}');">
                             <bean:message key="basesub.jsp.confirm.clickToShowSystems"/>
                         </a>
                         <br/>
@@ -91,18 +91,18 @@
                      name="matchedChannels"
                      styleclass="list"
                      emptykey="basesub.jsp.confirm.noChannelsFound">
-                    
-                <rl:column bound="false" 
-                    sortable="false" 
-                    headerkey="basesub.jsp.confirm.header.oldChannel" 
+
+                <rl:column bound="false"
+                    sortable="false"
+                    headerkey="basesub.jsp.confirm.header.oldChannel"
                     styleclass="first-column">
                     <a href="/rhn/channels/ChannelDetail.do?cid=${current.oldChannelId}">
                         ${current.oldChannelName}
                     </a>
                 </rl:column>
 
-                <rl:column bound="false" 
-                    sortable="false" 
+                <rl:column bound="false"
+                    sortable="false"
                     attr="otherChannelName"
                     headerkey="basesub.jsp.confirm.header.newChannel">
                     <a href="/rhn/channels/ChannelDetail.do?cid=${current.otherChannelId}">
@@ -110,14 +110,14 @@
                     </a>
                 </rl:column>
 
-                <rl:column bound="false" 
-                    sortable="false" 
+                <rl:column bound="false"
+                    sortable="false"
                     headerkey="basesub.jsp.confirm.header.systemsAffected"
                     styleclass="last-column"
                     attr="systemsAffectedCount">
 
-                    ${current.systemsAffectedCount} 
-                    <a id="show-sys-list-link-${current.oldChannelId}" style="display:block;" onclick="toggle_visibility('sys-list-for-child-${current.oldChannelId}');toggle_visibility('show-sys-list-link-${current.oldChannelId}');toggle_visibility('hide-sys-list-link-${current.oldChannelId}');">    
+                    ${current.systemsAffectedCount}
+                    <a id="show-sys-list-link-${current.oldChannelId}" style="display:block;" onclick="toggle_visibility('sys-list-for-child-${current.oldChannelId}');toggle_visibility('show-sys-list-link-${current.oldChannelId}');toggle_visibility('hide-sys-list-link-${current.oldChannelId}');">
                         <bean:message key="basesub.jsp.confirm.clickToShowSystems"/>
                     </a>
                     <br/>

@@ -40,18 +40,18 @@ import java.util.Vector;
  * @version $Rev$
  */
 public class BadParameterExceptionHandlerTest extends MockObjectTestCase {
-    
+
     private TraceBackAction tba;
-    
+
     public void setUp() throws Exception {
         tba = new TraceBackAction();
         MessageQueue.registerAction(tba, TraceBackEvent.class);
         MessageQueue.startMessaging();
     }
-    
-    
+
+
     public void testExecute() throws Exception {
-        
+
         /*
          * Turn off logging and tracebacks
          * Logging complains and sends warnings (expected)
@@ -106,7 +106,7 @@ public class BadParameterExceptionHandlerTest extends MockObjectTestCase {
             log.setLevel(origLevel);
         }
     }
-    
+
     protected void tearDown() {
         MessageQueue.stopMessaging();
         MessageQueue.deRegisterAction(tba, TraceBackEvent.class);

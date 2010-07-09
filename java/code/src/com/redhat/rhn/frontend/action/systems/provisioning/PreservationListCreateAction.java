@@ -19,7 +19,7 @@ import com.redhat.rhn.manager.PersistOperation;
 import com.redhat.rhn.manager.common.CreateFileListCommand;
 
 /**
- * 
+ *
  * PreservationListCreateAction - for creating FileList objects
  * @version $Rev$
  */

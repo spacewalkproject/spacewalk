@@ -6488,8 +6488,8 @@ the following tabs in the left navigation menu:</source>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
 				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>管理您 @@PRODUCT_NAME@@ 上的訂閱服務。您也可以檢閱每個權利所提供的存取功能。
 在單一權利的基礎上，
@@ -6807,7 +6807,7 @@ Please note that some manual configuration of these scripts may still be require
 				<target>更新變數</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
 				<target>Kickstart 變數可被使用來將數值帶入 kickstart 設定檔中。若要定義某個變數，請將「name=value」新增至下列方塊中。
         			接著您便需在設定檔中使用 $name 來將該數值帶入。</target>
@@ -7150,12 +7150,12 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;請注意：&lt;/strong&gt;若要更改虛擬化類型，您可能需要修改
             kickstart 設定檔的 bootloader 和分割區選項，並將用戶自訂化覆寫。
-            請至 &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;磁碟分割&lt;/a&gt; 
+            請至 &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;磁碟分割&lt;/a&gt;
             分頁來驗證新的設定。</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -11922,7 +11922,7 @@ Make sure you subscribe systems to the appropriate software channels during kick
 so they have access to the packages in the package profile you sync them to.  Visit
 the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Keys&lt;/a&gt;
  tab to subscribe systems to software channels during kickstart.&lt;/span&gt;</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;提示：&lt;/strong&gt; 
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;提示：&lt;/strong&gt;
 在 kickstart 時，請確定您為系統訂閱了適當的軟體頻道，
 如此一來，系統就可以存取套件設定檔中的套件。
 要在 kickstart 時，讓系統訂閱軟體頻道，請參閱&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;啟動金鑰&lt;/a&gt;分頁。&lt;/span&gt;</target>
@@ -12410,9 +12410,9 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 針對「@@PRODUCT_NAME@@ 工具」頻道進行衛星伺服器的同步工作。&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
-				<source> 
+				<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;</source>
-				<target> 
+				<target>
  &lt;strong&gt;選擇的基礎頻道沒有發現適當的安裝程式產生器。&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.toolbar">
@@ -13311,7 +13311,7 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.description">
 				<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)</source>
 				<target>
@@ -13341,7 +13341,7 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.note">
 				<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
@@ -13355,7 +13355,7 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.rest.description">
 				<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.</source>
 				<target>
 請於下列尋找 {0} 的&lt;strong&gt;舊發行版&lt;/strong&gt;的完整 ISO 映像檔叢集。
@@ -13883,7 +13883,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
@@ -14888,28 +14888,28 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.</source>
 				<target>請由此網頁建立或編輯軟體頻道。
-        &lt;p/&gt; 
+        &lt;p/&gt;
         若父頻道被設為「none」的話，頻道就會是基礎頻道。
         否則，頻道將會是個特定頻道的子頻道。
-        &lt;p/&gt; 
+        &lt;p/&gt;
         需要頻道名稱和標籤。它們的長度至少必須為 6 個
         字元。標籤必須以一個字母作為起始，並且只包含
         小寫字母、連字符號（「-」）、句號（「.」）、下劃線（「_」）以及
         數字。頻道名稱也能包含空格和正斜線
         （「/」）。
-        &lt;p/&gt; 
+        &lt;p/&gt;
         頻道摘要也是必要的。</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">

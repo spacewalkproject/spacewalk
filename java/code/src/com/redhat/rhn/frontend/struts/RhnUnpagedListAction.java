@@ -25,33 +25,33 @@ import javax.servlet.ServletRequest;
  * @version $Rev$
  */
 public class RhnUnpagedListAction extends RhnAction {
-    
+
     /**
      * Sets up the ListControl filter data
      * @param lc ListControl to use
      * @param request ServletRequest
      * @param viewer user requesting the page
-     */ 
+     */
     public void filterList(ListControl lc, ServletRequest request, User viewer) {
-        /* 
+        /*
          * Make sure we have a user. If not, something bad happened and we should
          * just bail out with an exception. Since this is probably the result of
-         * a bad uid param, throw a BadParameterException. 
+         * a bad uid param, throw a BadParameterException.
          */
         if (viewer == null) {
             throw new BadParameterException("Null viewer");
         }
 
         String filterData = request.getParameter(RequestContext.FILTER_STRING);
-        
+
         if (filterData != null && !filterData.equals("")) {
             request.setAttribute("isFiltered", new Boolean(true));
         }
         else {
             request.setAttribute("isFiltered", new Boolean(false));
         }
-            
-        
+
+
         lc.setFilterData(filterData);
     }
 

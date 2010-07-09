@@ -35,7 +35,7 @@ public class IncompatibleArchException extends RhnRuntimeException {
     public IncompatibleArchException(String message) {
         super(message);
     }
-    
+
     /**
      * Ctor
      * @param sa ServerArch which is incompatible with ChannelArch.
@@ -45,7 +45,7 @@ public class IncompatibleArchException extends RhnRuntimeException {
         this("The server architecture (" + sa.getName() + ") is incompatible " +
                 "with the channel architecture (" + ca.getName() + ")");
     }
-    
+
     /**
      * Ctor
      * @param pa ServerArch which is incompatible with ChannelArch.

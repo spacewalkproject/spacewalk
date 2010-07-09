@@ -20,8 +20,8 @@ import com.redhat.rhn.FaultException;
 /**
  * no such system
  * <p>
- * 
- * 
+ *
+ *
  * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
  */
 public class NoSuchSystemException extends FaultException {
@@ -54,5 +54,5 @@ public class NoSuchSystemException extends FaultException {
      */
     public NoSuchSystemException(String message) {
         super(-208, "noSuchSystem", message);
-    }    
+    }
 }

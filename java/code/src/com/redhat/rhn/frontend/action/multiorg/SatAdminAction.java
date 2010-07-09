@@ -36,26 +36,26 @@ import javax.servlet.http.HttpServletResponse;
  * OrgDetailsAction extends RhnAction - Class representation of the table web_customer
  * @version $Rev: 1 $
  */
-public class SatAdminAction extends RhnAction {    
+public class SatAdminAction extends RhnAction {
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-        
-        RequestContext requestContext = new RequestContext(request);   
+
+        RequestContext requestContext = new RequestContext(request);
         Long uid = requestContext.getParamAsLong(RequestContext.USER_ID);
         User u = UserFactory.lookupById(uid);
         User current = requestContext.getCurrentUser();
         ActionForward retval = mapping.findForward("default");
-        
+
         // protect self from removing sat admin role
         if (current.getId() == u.getId()) {
             //make sure we always have at least one sat admin
             if (SatManager.getActiveSatAdmins().size() == 1) {
-                createErrorMessage(request, "satadmin.jsp.error.lastsatadmin", 
-                                   u.getLogin());                
+                createErrorMessage(request, "satadmin.jsp.error.lastsatadmin",
+                                   u.getLogin());
             }
             else {
               retval = mapping.findForward("confirm");
@@ -63,7 +63,7 @@ public class SatAdminAction extends RhnAction {
             }
             return retval;
         }
-                        
+
         if (!AclManager.hasAcl("user_role(satellite_admin)", request, null)) {
             LocalizationService ls = LocalizationService.getInstance();
             PermissionException pex =
@@ -72,21 +72,21 @@ public class SatAdminAction extends RhnAction {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
         }
-                                       
+
         // check role and toggle
         if (u.hasRole(RoleFactory.SAT_ADMIN)) {
             u.removeRole(RoleFactory.SAT_ADMIN);
-            createErrorMessage(request, "user.satadmin.remove", 
+            createErrorMessage(request, "user.satadmin.remove",
                     u.getLogin());
         }
         else {
             u.addRole(RoleFactory.SAT_ADMIN);
-            createErrorMessage(request, "user.satadmin.add", 
+            createErrorMessage(request, "user.satadmin.add",
                     u.getLogin());
         }
-        
+
         return retval;
     }
-                                 
-    
+
+
 }

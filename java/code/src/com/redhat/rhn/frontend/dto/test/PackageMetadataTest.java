@@ -32,81 +32,81 @@ public class PackageMetadataTest extends RhnBaseTestCase {
 
     public void testParameterizedCtor() {
         PackageMetadata pm = new PackageMetadata(null, null);
-        
+
         assertNull(pm.getSystem());
         assertNull(pm.getOther());
         assertEquals(PackageMetadata.KEY_NO_DIFF, pm.getComparisonAsInt());
         assertEquals(PackageMetadata.ACTION_NONE, pm.getActionStatusAsInt());
-        
+
         assertEquals("", pm.getActionStatus());
         assertEquals("", pm.getComparison());
         assertNotNull(pm.toString());
         assertEquals("", pm.getName());
         assertNull(pm.getNameId());
         assertNull(pm.getEvrId());
-        
+
         pm.updateActionStatus();
         assertEquals(PackageMetadata.ACTION_NONE, pm.getActionStatusAsInt());
     }
-    
+
     public void testDefaultCtor() {
         PackageMetadata pm = new PackageMetadata();
-        
+
         assertNotNull(pm.getSystem());
         assertNotNull(pm.getOther());
         assertEquals(PackageMetadata.KEY_NO_DIFF, pm.getComparisonAsInt());
         assertEquals(PackageMetadata.ACTION_NONE, pm.getActionStatusAsInt());
-        
+
         assertEquals("", pm.getActionStatus());
         assertEquals("", pm.getComparison());
         assertNotNull(pm.toString());
         assertNull(pm.getName());
         assertNull(pm.getNameId());
         assertNull(pm.getEvrId());
-        
+
         pm.updateActionStatus();
         assertEquals(PackageMetadata.ACTION_NONE, pm.getActionStatusAsInt());
     }
-    
+
     public void testGetActionStatusAsInt() {
         PackageMetadata pm = new PackageMetadata();
         pm.setComparison(PackageMetadata.KEY_OTHER_NEWER);
         pm.updateActionStatus();
         assertEquals(PackageMetadata.ACTION_UPGRADE, pm.getActionStatusAsInt());
-        
+
         pm.setComparison(PackageMetadata.KEY_THIS_ONLY);
         pm.updateActionStatus();
         assertEquals(PackageMetadata.ACTION_REMOVE, pm.getActionStatusAsInt());
-        
+
         pm.setComparison(PackageMetadata.KEY_THIS_NEWER);
         pm.updateActionStatus();
         assertEquals(PackageMetadata.ACTION_DOWNGRADE, pm.getActionStatusAsInt());
-        
+
         pm.setComparison(PackageMetadata.KEY_OTHER_ONLY);
         pm.updateActionStatus();
         assertEquals(PackageMetadata.ACTION_INSTALL, pm.getActionStatusAsInt());
     }
-    
+
     public void testGetComparison() {
         PackageMetadata pm = new PackageMetadata();
-        
+
         pm.setComparison(PackageMetadata.KEY_OTHER_NEWER);
         assertEquals("Profile newer", pm.getComparison());
         pm.setCompareParam("foo");
         assertEquals("foo newer", pm.getComparison());
-        
+
         pm.setCompareParam(null);
         pm.setComparison(PackageMetadata.KEY_THIS_ONLY);
         assertEquals("This system only", pm.getComparison());
         pm.setCompareParam("foo");
         assertEquals("This system only", pm.getComparison());
-        
+
         pm.setCompareParam(null);
         pm.setComparison(PackageMetadata.KEY_THIS_NEWER);
         assertEquals("This system newer", pm.getComparison());
         pm.setCompareParam("foo");
         assertEquals("This system newer", pm.getComparison());
-        
+
         pm.setCompareParam(null);
         pm.setComparison(PackageMetadata.KEY_OTHER_ONLY);
         assertEquals("Profile only", pm.getComparison());

@@ -41,7 +41,7 @@ import java.util.Map;
 /**
  * ConfigurationFactory.  For use when dealing with ConfigChannel, ConfigChannelType,
  * ConfigFile, ConfigRevision, ConfigFileState, ConfigContent, and ConfigInfo.
- * 
+ *
  * When saving config channels, config files, and config revisions: please use the
  * commitConfigBlah methods.
  * @version $Rev$
@@ -49,15 +49,15 @@ import java.util.Map;
 public class ConfigurationFactory extends HibernateFactory {
     private static ConfigurationFactory singleton = new ConfigurationFactory();
     private static Logger log = Logger.getLogger(ConfigurationFactory.class);
-    
+
     private ConfigurationFactory() {
         super();
     }
-    
+
     protected Logger getLogger() {
         return log;
     }
-    
+
     /**
      * Create a new ConfigFile object.
      * @return new ConfigFile object
@@ -65,7 +65,7 @@ public class ConfigurationFactory extends HibernateFactory {
     public static ConfigFile newConfigFile() {
         return new ConfigFile();
     }
-    
+
     /**
      * Create a new ConfigRevision object.
      * @return new ConfigRevision object
@@ -78,7 +78,7 @@ public class ConfigurationFactory extends HibernateFactory {
         cr.setModified(now);
         return cr;
     }
-    
+
     /**
      * Create a new ConfigChannel object.
      * @return new ConfigChannel object
@@ -86,7 +86,7 @@ public class ConfigurationFactory extends HibernateFactory {
     public static ConfigChannel newConfigChannel() {
         return new ConfigChannel();
     }
-    
+
     /**
      * Create a new ConfigContent object.
      * @return new ConfigContent object
@@ -94,7 +94,7 @@ public class ConfigurationFactory extends HibernateFactory {
     public static ConfigContent newConfigContent() {
         return new ConfigContent();
     }
-    
+
     /**
      * Create and save a new configuration channel.
      * This method creates a configuration channel and then uses the
@@ -117,11 +117,11 @@ public class ConfigurationFactory extends HibernateFactory {
         saveNewConfigChannel(out);
         return out;
     }
-    
+
     /**
      * Save a new configuration channel.
      * Note, this method uses a stored procedure, so it must be used for all newly
-     * created configuration channels.  
+     * created configuration channels.
      * @param channel The channel object to persist.
      */
     public static void saveNewConfigChannel(ConfigChannel channel) {
@@ -129,21 +129,21 @@ public class ConfigurationFactory extends HibernateFactory {
             "create_new_config_channel");
         Map inParams = new HashMap();
         Map outParams = new HashMap();
-    
+
         inParams.put("org_id_in", channel.getOrgId());
         inParams.put("type_in", channel.getConfigChannelType().getLabel());
         inParams.put("name_in", channel.getName());
-        inParams.put("label_in", channel.getLabel()); 
+        inParams.put("label_in", channel.getLabel());
         inParams.put("description_in", channel.getDescription());
         //Outparam
         outParams.put("channelId", new Integer(Types.NUMERIC));
-        
+
         Map result = m.execute(inParams, outParams);
-    
+
         Long channelId = (Long) result.get("channelId");
         channel.setId(channelId);
     }
-    
+
     /**
      * Save a new configuration file.
      * Note, this method uses a stored procedure, so it must be used for all newly
@@ -163,8 +163,8 @@ public class ConfigurationFactory extends HibernateFactory {
             throw new IllegalStateException("Config Channels must be " +
                     "saved before config files");
         }
-        
-        //Have to commit the configFileName before we commit the 
+
+        //Have to commit the configFileName before we commit the
         // ConfigFile so the stored proc will have an ID to work with
         singleton.saveObject(file.getConfigFileName());
 
@@ -172,23 +172,23 @@ public class ConfigurationFactory extends HibernateFactory {
             "create_new_config_file");
         Map inParams = new HashMap();
         Map outParams = new HashMap();
-        
+
         //this will generate a foreign-key constraint violation if the config
         //channel is not already persisted.
         inParams.put("config_channel_id_in", file.getConfigChannel().getId());
         inParams.put("name_in", file.getConfigFileName().getPath());
         // Outparam
         outParams.put("configFileId", new Integer(Types.NUMERIC));
-        
+
         Map result = m.execute(inParams, outParams);
         file.setId((Long)result.get("configFileId"));
     }
-    
+
     /**
      * Save a new ConfigRevision.
      * Note, this method uses a stored procedure, so it must be used for all newly
      * created configuration revisions.
-     * NOTE: This configuration revision must have a persisted config file 
+     * NOTE: This configuration revision must have a persisted config file
      *       attached to it.  config files also used stored procedures for
      *       insertions, so we can't simply ask hibernate to save it for us.
      * @param revision the new ConfigRevision we want to store.
@@ -203,20 +203,20 @@ public class ConfigurationFactory extends HibernateFactory {
             throw new IllegalStateException("Config Channels must be " +
                     "saved before config files");
         }
-        
+
         CallableMode m = ModeFactory.getCallableMode("config_queries",
                             "create_new_config_revision");
-        
+
         //We need to save the content first so that we have an id for
         // the stored procedure.
         singleton.saveObject(revision.getConfigContent());
         //We do not have to save the ConfigInfo, because the info should always already be
         // in the database.  If this is not the case, please read the documentation for
         // lookupOrInsertConfigInfo(String, String, Long) and correct the problem.
-        
+
         Map inParams = new HashMap();
         Map outParams = new HashMap();
-        
+
         inParams.put("revision_in", revision.getRevision());
         inParams.put("config_file_id_in", revision.getConfigFile().getId());
         inParams.put("config_content_id_in", revision.getConfigContent().getId());
@@ -228,24 +228,24 @@ public class ConfigurationFactory extends HibernateFactory {
 
         // Outparam
         outParams.put("configRevisionId", new Integer(Types.NUMERIC));
-        
+
         Map result = m.execute(inParams, outParams);
-        
+
         revision.setId((Long)result.get("configRevisionId"));
     }
-    
+
     private static void save(ConfigChannel channel) {
         singleton.saveObject(channel);
     }
-    
+
     private static void save(ConfigFile file) {
         singleton.saveObject(file);
     }
-    
+
     private static void save(ConfigRevision revision) {
         singleton.saveObject(revision);
     }
-    
+
     /**
      * Save or update a config channel.  Since config channels
      * use a stored procedure for inserting, we have to decide whether to
@@ -260,7 +260,7 @@ public class ConfigurationFactory extends HibernateFactory {
             save(channel);
         }
     }
-    
+
     /**
      * Save or update a config file.  Since config files
      * use a stored procedure for inserting, we have to decide whether to
@@ -276,7 +276,7 @@ public class ConfigurationFactory extends HibernateFactory {
             save(file);
         }
     }
-    
+
     /**
      * Save or update a config revision.  Since config revisions
      * use a stored procedure for inserting, we have to decide whether to
@@ -313,7 +313,7 @@ public class ConfigurationFactory extends HibernateFactory {
         // about a revision, we have to commit it -again-.  Sigh.  See BZ212236
         save(revision);
     }
-    
+
     /**
      * Lookup a ConfigChannel by its id
      * @param id The identifier for the ConfigChannel
@@ -326,7 +326,7 @@ public class ConfigurationFactory extends HibernateFactory {
     }
 
     /**
-     * Lookup a ConfigChannel by its label. A config channel 
+     * Lookup a ConfigChannel by its label. A config channel
      * is uniquely identified by label, org id and channel type
      * @param label The label for the ConfigChannel
      * @param org the org to which the config channel belongs.
@@ -343,7 +343,7 @@ public class ConfigurationFactory extends HibernateFactory {
                         add(Restrictions.eq("configChannelType", cct)).
                         uniqueResult();
         return c;
-    }    
+    }
 
     /**
      * Lookup a ConfigFile by its id
@@ -355,7 +355,7 @@ public class ConfigurationFactory extends HibernateFactory {
         ConfigFile c = (ConfigFile)session.get(ConfigFile.class, id);
         return c;
     }
-    
+
     /**
      * Lookup a ConfigFile by its channel's id and config file name's id
      * @param channel The file's config channel id
@@ -374,7 +374,7 @@ public class ConfigurationFactory extends HibernateFactory {
                     .setCacheable(true)
                     .uniqueResult();
     }
-    
+
     /**
      * Finds a ConfigRevision from the database with a given id.
      * @param id The identifier for the ConfigRevision
@@ -385,7 +385,7 @@ public class ConfigurationFactory extends HibernateFactory {
         ConfigRevision a = (ConfigRevision)session.get(ConfigRevision.class, id);
         return a;
     }
-    
+
     /**
      * Finds a ConfigInfo from the database with a given id.
      * @param id The identifier for the ConfigInfo
@@ -396,7 +396,7 @@ public class ConfigurationFactory extends HibernateFactory {
         ConfigInfo c = (ConfigInfo)session.get(ConfigInfo.class, id);
         return c;
     }
-    
+
     /**
      * Finds a ConfigFileName from the database with a given id.
      * @param id The identifier for the ConfigFileName
@@ -407,8 +407,8 @@ public class ConfigurationFactory extends HibernateFactory {
         ConfigFileName c = (ConfigFileName)session.get(ConfigFileName.class, id);
         return c;
     }
-    
-    
+
+
     /**
      * Used to look up ConfigChannelTypes.  Note: there is a static list of
      * ConfigChannelTypes and therefore a static list of labels.  This method
@@ -426,7 +426,7 @@ public class ConfigurationFactory extends HibernateFactory {
                                         .setCacheable(true)
                                         .uniqueResult();
     }
-    
+
     /**
      * Used to look up ConfigFileStates.  Note: there is a static list of
      * ConfigFileStates and therefore a static list of labels.  This method
@@ -443,9 +443,9 @@ public class ConfigurationFactory extends HibernateFactory {
                                        .setCacheable(true)
                                        .uniqueResult();
     }
-    
+
     /**
-     * Returns the the config file types associted to the given label 
+     * Returns the the config file types associted to the given label
      * @param label the filte type label
      * @return config filetype object
      */
@@ -462,19 +462,19 @@ public class ConfigurationFactory extends HibernateFactory {
      * Return a <code>ConfigInfo</code> from the username, groupname, file mode, and
      * selinux context. If no corresponding entry exists yet in the database, one will be
      * created.
-     * 
+     *
      * Uses the stored procedure <code>lookup_config_info</code> to get the id of the
      * ConfigInfo and then uses hibernate to lookup using that id.
-     * 
+     *
      * Note: we should use the stored procedure because it is autonomous and avoids race
      * conditions. However, we also need to make sure that hibernate knows that the object
      * already exists in the database.  Therefore after storing it, instead of simply
      * creating the object in java, we ask hibernate to look it up (which will find the
      * correct created and modified dates as well).
-     * 
+     *
      * ConfigInfo's have a unique constraint around username, groupname, and filemode
      * so we can't just create them willy nilly.
-     * 
+     *
      * @param username The linux username associated with a file
      * @param groupname The linux groupname associated with a file
      * @param filemode The three digit file mode (ex: 655)
@@ -486,7 +486,7 @@ public class ConfigurationFactory extends HibernateFactory {
         Long id = lookupConfigInfo(username, groupname, filemode, selinuxCtx);
         return lookupConfigInfoById(id);
     }
-    
+
     /**
      * Using a stored procedure that looks up the config info and will
      * create one if it does not exist.
@@ -514,23 +514,23 @@ public class ConfigurationFactory extends HibernateFactory {
 
         return (Long)out.get("info_id");
     }
-    
+
     /**
      * Return a <code>ConfigFileName</code> for the path given. If no corresponding
      * entry exists yet in the database, one will be created.
-     * 
+     *
      * Uses the stored procedure <code>lookup_config_filename</code> to get the id of the
      * ConfigFileName and then uses hibernate to lookup using that id.
-     * 
+     *
      * Note: we should use the stored procedure because it is autonomous and avoids race
      * conditions. However, we also need to make sure that hibernate knows that the object
      * already exists in the database.  Therefore after storing it, instead of simply
      * creating the object in java, we ask hibernate to look it up (which will find the
      * correct created and modified dates as well).
-     * 
+     *
      * ConfigFileName's have a unique constraint around path so we can't just create
      * them willy nilly.
-     * 
+     *
      * @param path the path for the <code>ConfigFileName</code>
      * @return The <code>ConfigFileName</code> found
      */
@@ -538,7 +538,7 @@ public class ConfigurationFactory extends HibernateFactory {
         Long id = lookupConfigFileName(path);
         return lookupConfigFileNameById(id);
     }
-    
+
     /**
      * Using a stored procedure that looks up the config file name and will
      * create one if it does not exist.
@@ -559,7 +559,7 @@ public class ConfigurationFactory extends HibernateFactory {
 
         return (Long)out.get("name_id");
     }
-    
+
     /**
      * Remove a ConfigChannel.
      * This uses a stored procedure and the stored procedure is required
@@ -576,7 +576,7 @@ public class ConfigurationFactory extends HibernateFactory {
         inParams.put("config_channel_id_in", channel.getId());
         m.execute(inParams, outParams);
     }
-    
+
     /**
      * Remove a ConfigFile.
      * This uses a stored procedure and the stored procedure is required
@@ -593,7 +593,7 @@ public class ConfigurationFactory extends HibernateFactory {
         inParams.put("config_file_id_in", file.getId());
         m.execute(inParams, outParams);
     }
-    
+
     /**
      * Remove a ConfigRevision.
      * This uses a stored procedure and the stored procedure is required
@@ -611,7 +611,7 @@ public class ConfigurationFactory extends HibernateFactory {
                 .equals(revision.getId())) {
             latest = true;
         }
-        
+
         CallableMode m = ModeFactory.getCallableMode("config_queries",
             "remove_config_revision");
 
@@ -620,7 +620,7 @@ public class ConfigurationFactory extends HibernateFactory {
         inParams.put("config_revision_id_in", revision.getId());
         inParams.put("org_id", orgId);
         m.execute(inParams, outParams);
-        
+
         if (latest) {
             //We just deleted the latest revision and now the config file has no idea
             //what its latest revision is, so we will find out.
@@ -638,7 +638,7 @@ public class ConfigurationFactory extends HibernateFactory {
         }
         return false;
     }
-    
+
     /**
      * Create a local config channel for the given server. Fills in the necessary
      * fields with standard information.
@@ -653,27 +653,27 @@ public class ConfigurationFactory extends HibernateFactory {
         retval.setConfigChannelType(type);
         retval.setCreated(new Date());
         retval.setModified(new Date());
-        
+
         //The name of the channel should always be the server name for
         //local config channels.  See bug #203406
         retval.setName(server.getName());
         retval.setLabel(server.getId().toString());
-        
+
         //This is an english string. However, users should never see a description of
         //a local config channel. For all purposes, this is a useless field that only
         //exists because we currently treat local config channels exactly the same as
         //global config channels.
         retval.setDescription("Auto-generated " + type.getLabel() + " config channel");
-        
+
         //TODO: put the following line back. It is not here now because Server.findLocal
         //      does this task for us. It belongs here, but this would currently cause
         //      an infinite loop based on how setSandboxOverride works.
         //server.setSandboxOverride(retval);
         commit(retval);
-        
+
         return retval;
     }
-    
+
     /**
      * Creates a new revision object from the give input stream.  The size is set to
      * be the given size.  The revision object is placed into the given config file
@@ -688,7 +688,7 @@ public class ConfigurationFactory extends HibernateFactory {
             User usr, InputStream stream, Long size, ConfigFile file) {
         //get a copy of the latest revision (to copy meta-data)
         ConfigRevision revision = file.getLatestConfigRevision().copy();
-        
+
         /*
          * We need to make five changes to the current revision.
          * 1. increment the revision number
@@ -697,37 +697,37 @@ public class ConfigurationFactory extends HibernateFactory {
          * 4. compute the md5sum
          * 5. give it a new id
          */
-        
+
         //Step 1
         //For database integrity, we won't just increment the latest revision number and
         //hope that nobody has futzed around.  We will get the max revision and increment.
         Long next = getNextRevisionForFile(file);
         revision.setRevision(next);
         revision.setChangedById(usr.getId());
-        
+
         //Steps 2-4
         if (!revision.isDirectory()) {
             revision.setConfigContent(
-                    createNewContentFromStream(stream, size, 
+                    createNewContentFromStream(stream, size,
                             revision.getConfigContent().isBinary()));
         }
-        
+
         //Step 5
         revision.setId(null);
         commit(revision);
-        
+
         file.setLatestConfigRevision(revision);
         commit(file);
-        
+
         return revision;
     }
-    
+
     /**
-     * Creates a ConfigContent object whose BLOB is filled with the bytes from the 
+     * Creates a ConfigContent object whose BLOB is filled with the bytes from the
      * specified stream
      * @param stream stream containing the content
      * @param size number of bytes to read
-     * @param isBinary true if the content is to be treated as binary (which means we 
+     * @param isBinary true if the content is to be treated as binary (which means we
      * won't expand macros, morph EOL, or let you edit it from the web UI)
      * @return filled-in ConfigContent
      */
@@ -737,13 +737,13 @@ public class ConfigurationFactory extends HibernateFactory {
         content.setCreated(new Date());
         content.setModified(new Date());
         content.setFileSize(size);
-        
+
         byte[] foo = new byte[size.intValue()];
         try {
             //this silly bit of logic is to ensure that we read as much from the file
             //as we possibly can.  Most likely, stream.read(foo) would do the exact same
             //thing, but according to the javadoc, that may not always be the case.
-            
+
             int offset = 0;
             int read = 0;
             do {
@@ -756,14 +756,14 @@ public class ConfigurationFactory extends HibernateFactory {
             throw new RuntimeException("IOException while reading config content from" +
                     " input stream!");
         }
-        
+
         content.setContents(foo);
         Checksum newChecksum = ChecksumFactory.safeCreate(MD5Crypt.md5Hex(foo), "md5");
         content.setChecksum(newChecksum);
         content.setBinary(isBinary);
         return content;
     }
-    
+
     private static Map getMaxRevisionForFile(ConfigFile file) {
         Map params = new HashMap();
         params.put("cfid", file.getId());
@@ -774,13 +774,13 @@ public class ConfigurationFactory extends HibernateFactory {
         }
         return (Map)dr.get(0);
     }
-    
+
     private static Long getNextRevisionForFile(ConfigFile file) {
         Map results = getMaxRevisionForFile(file);
         Long next = new Long(((Long) results.get("revision")).longValue() + 1);
         return next;
     }
-    
+
     /**
      * Copies the given config revision to the given channel.
      * If there is a candidate config file that exists in that channel, this
@@ -798,7 +798,7 @@ public class ConfigurationFactory extends HibernateFactory {
          * 3. Associate the revision and the file
          * 4. save
          */
-        
+
         //Step 1.
         ConfigFileName name = revision.getConfigFile().getConfigFileName();
         ConfigFile file = lookupConfigFileByChannelAndName(channel.getId(), name.getId());
@@ -815,28 +815,28 @@ public class ConfigurationFactory extends HibernateFactory {
         else {
             rev = getNextRevisionForFile(file);
         }
-        
+
         //Step 2
         ConfigRevision newRevision = revision.copy();
         newRevision.setRevision(rev);
         newRevision.setChangedById(usr.getId());
         newRevision.setId(null);
-        
+
         //Step 3
         newRevision.setConfigFile(file);
-        
+
         //Step 4
         commit(newRevision);
         file.setLatestConfigRevision(newRevision);
         commit(file);
     }
-    
+
     /**
      * Returns a localized string for the name of a config channel.  This is here
      * because local and sandbox config channels are created automatically and therefore
      * have english names.  This is located in this file to be a central location for
      * the logic.
-     * @param type The type of the channel (one of the labels for 
+     * @param type The type of the channel (one of the labels for
      *             CONFIG_CHANNEL_TYPE_* constants)
      * @param channel The name of the channel, the system name for local channels.
      * @return A localized string for channel name
@@ -845,7 +845,7 @@ public class ConfigurationFactory extends HibernateFactory {
         if (type == null) {
             throw new IllegalArgumentException("Error: channel type cannot be null");
         }
-        
+
         if (ConfigChannelType.global().getLabel().equals(type)) {
             return channel; //for global channels, there name is the channel name.
         }
@@ -862,5 +862,5 @@ public class ConfigurationFactory extends HibernateFactory {
                     " Invalid channel type given.");
         }
     }
-    
+
 }

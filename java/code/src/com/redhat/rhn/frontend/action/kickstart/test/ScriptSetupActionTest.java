@@ -26,8 +26,8 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev: 1 $
  */
 public class ScriptSetupActionTest extends RhnMockStrutsTestCase {
-    
-    public void testKickstartList() throws Exception {    
+
+    public void testKickstartList() throws Exception {
         // Create a kickstart and the defaults so the list
         // will return something.
         UserTestUtils.addProvisioning(user.getOrg());
@@ -36,9 +36,9 @@ public class ScriptSetupActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RequestContext.KICKSTART_ID, k.getId().toString());
         actionPerform();
         DataResult dr = (DataResult) request.getAttribute("pageList");
-        assertNotNull(dr);        
+        assertNotNull(dr);
         assertTrue(dr.size() > 0);
-        
+
     }
 
 }

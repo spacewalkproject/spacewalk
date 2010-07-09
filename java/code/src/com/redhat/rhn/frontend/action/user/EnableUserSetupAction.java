@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class EnableUserSetupAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
@@ -55,17 +55,17 @@ public class EnableUserSetupAction extends RhnAction {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.enableuser"));
             throw pex;
         }
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long uid = requestContext.getRequiredParam("uid");
 
         User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, user);
-        
+
         if (!user.isDisabled()) {
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("userenable.error.usernotdisabled",
                    StringEscapeUtils.escapeHtml(user.getLogin())));
             getStrutsDelegate().saveMessages(request, msg);

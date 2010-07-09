@@ -25,11 +25,11 @@ import com.redhat.rhn.testing.RhnMockHttpServletRequest;
 import org.apache.struts.action.ActionErrors;
 
 /**
- * RhnHelperTest - test our RhnHelper class 
+ * RhnHelperTest - test our RhnHelper class
  * @version $Rev$
  */
 public class RhnValidationHelperTest extends RhnBaseTestCase {
-    
+
     /**
      * Test StringsToActionErrors
      */
@@ -42,7 +42,7 @@ public class RhnValidationHelperTest extends RhnBaseTestCase {
         assertNotNull(am);
         assertTrue(am.size() == 3);
      }
-    
+
      public void testValidateDynaActionForm() throws Exception {
          LoginAction la = new LoginAction();
          RhnMockDynaActionForm form = new RhnMockDynaActionForm();
@@ -53,7 +53,7 @@ public class RhnValidationHelperTest extends RhnBaseTestCase {
          form.set("username", "something");
          assertTrue(RhnValidationHelper.validateDynaActionForm(la, form).isEmpty());
      }
-     
+
      public void testValidateDynaActionFormPathed() throws Exception {
          ChannelOverviewAction coa = new ChannelOverviewAction();
          RhnMockDynaActionForm form = new RhnMockDynaActionForm();
@@ -66,7 +66,7 @@ public class RhnValidationHelperTest extends RhnBaseTestCase {
          form.set("submitted"      , Boolean.TRUE);
          assertTrue(
                  RhnValidationHelper.validateDynaActionForm(
-                         coa.getClass(), form, null, 
+                         coa.getClass(), form, null,
                          "/com/redhat/rhn/frontend/action/configuration/channel/" +
                          "validation/channelOverviewForm.xsd").isEmpty());
      }
@@ -77,7 +77,7 @@ public class RhnValidationHelperTest extends RhnBaseTestCase {
         assertTrue(RhnValidationHelper.getFailedValidation(request));
         request = new RhnMockHttpServletRequest();
         assertFalse(RhnValidationHelper.getFailedValidation(request));
-        
+
      }
 }
 

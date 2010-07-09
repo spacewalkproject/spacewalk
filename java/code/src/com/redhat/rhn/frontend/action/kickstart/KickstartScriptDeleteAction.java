@@ -43,7 +43,7 @@ public class KickstartScriptDeleteAction extends BaseKickstartEditAction {
      * {@inheritDoc}
      */
     protected ValidatorError processFormValues(HttpServletRequest request,
-            DynaActionForm form, 
+            DynaActionForm form,
             BaseKickstartCommand cmd) {
         return null;
     }
@@ -54,7 +54,7 @@ public class KickstartScriptDeleteAction extends BaseKickstartEditAction {
     protected String getSuccessKey() {
         return "kickstart.script.delete";
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -66,7 +66,7 @@ public class KickstartScriptDeleteAction extends BaseKickstartEditAction {
     /**
      * {@inheritDoc}
      */
-    protected void setupFormValues(RequestContext ctx, DynaActionForm form, 
+    protected void setupFormValues(RequestContext ctx, DynaActionForm form,
             BaseKickstartCommand cmd) {
         KickstartScriptDeleteCommand dcmd = (KickstartScriptDeleteCommand) cmd;
         ctx.getRequest().setAttribute(KICKSTART_SCRIPT, dcmd.getScript());

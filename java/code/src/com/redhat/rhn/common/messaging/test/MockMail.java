@@ -28,7 +28,7 @@ import junit.framework.AssertionFailedError;
  * @version $Rev$
  */
 public class MockMail implements Mail {
-    
+
     private int sendCount = 0;
     private int expectedSendCount = 0;
     private String body;
@@ -40,7 +40,7 @@ public class MockMail implements Mail {
     public MockMail() {
     }
 
-    /** 
+    /**
     * Send the actual message
     */
     public void send() {
@@ -53,7 +53,7 @@ public class MockMail implements Mail {
     public void setRecipient(String recipIn) {
         verifyAddress(recipIn);
     }
-    
+
     /** Set the recipient of the email message.
      *  This can be a comma or space separated list of recipients
     */
@@ -64,7 +64,7 @@ public class MockMail implements Mail {
             }
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -75,7 +75,7 @@ public class MockMail implements Mail {
             }
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -86,68 +86,68 @@ public class MockMail implements Mail {
             }
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void setFrom(String from) {
         verifyAddress(from);
     }
-    
+
     private void verifyAddress(String addr) {
         try {
             InternetAddress.parse(addr);
         }
         catch (AddressException e) {
             throw new RuntimeException("Bad address [" + addr + "]", e);
-        }        
+        }
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void setHeader(String name, String value) {
     }
-    
+
     /** Set the subject of the email message
     */
     public void setSubject(String subIn) {
         subject = subIn;
     }
-    
+
     /** Set the text of the email message
     */
     public void setBody(String bodyIn) {
         body = bodyIn;
     }
-    
+
     /**
     * Set the expected number of times send() will be called
     */
     public void setExpectedSendCount(int count) {
         expectedSendCount = count;
     }
-    
+
     /**
     * Get the subject so we can verify against it
     */
     public String getSubject() {
         return subject;
     }
-    
+
     /**
     * Get the body so we can verify against it
     */
     public String getBody() {
         return body;
     }
-    
+
     /**
      * Verify that the mailer sent enough email.
      */
     public void verify() {
         if (expectedSendCount > sendCount) {
-            throw new AssertionFailedError("expectedSendCount: " + 
+            throw new AssertionFailedError("expectedSendCount: " +
                     expectedSendCount + " actual count: " + sendCount);
         }
     }

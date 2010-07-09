@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.errata.impl.PublishedErrata" 
+    <class name="com.redhat.rhn.domain.errata.impl.PublishedErrata"
         table="rhnErrata" >
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -12,82 +12,82 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             </generator>
         </id>
         <property name="advisory" column="advisory" type="string" length="32" />
-        <property name="advisoryType" column="advisory_type" type="string" 
+        <property name="advisoryType" column="advisory_type" type="string"
             length="32" />
         <property name="product" column="product" type="string" length="64" />
-        <property name="description" column="description" type="string" 
+        <property name="description" column="description" type="string"
             length="4000" />
-        <property name="synopsis" column="synopsis" type="string" length="4000" 
+        <property name="synopsis" column="synopsis" type="string" length="4000"
             />
         <property name="topic" column="topic" type="string" length="4000" />
-        <property name="solution" column="solution" type="string" length="4000" 
+        <property name="solution" column="solution" type="string" length="4000"
             />
         <property name="issueDate" column="issue_date" type="timestamp" />
         <property name="updateDate" column="update_date" type="timestamp" />
         <property name="notes" column="notes" type="string" length="4000" />
-        <property name="refersTo" column="refers_to" type="string" 
+        <property name="refersTo" column="refers_to" type="string"
             length="4000" />
-        <property name="advisoryName" column="advisory_name" type="string" 
+        <property name="advisoryName" column="advisory_name" type="string"
             length="32" />
         <property name="advisoryRel" column="advisory_rel" type="long" />
-        <property name="locallyModified" column="locally_modified" 
+        <property name="locallyModified" column="locally_modified"
             type="yes_no" />
-        <property name="lastModified" column="last_modified" 
+        <property name="lastModified" column="last_modified"
             type="timestamp" insert="false" update="false"/>
-        <property name="created" column="created" type="timestamp" 
+        <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
-        <property name="modified" column="modified" type="timestamp" 
+        <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
-        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl" 
+        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
             column="org_id"/>
-        <set name="bugs" lazy="true" inverse="true" order-by="BUG_ID asc" 
+        <set name="bugs" lazy="true" inverse="true" order-by="BUG_ID asc"
             cascade="all">
             <key column="errata_id"/>
-            <one-to-many 
+            <one-to-many
                 class="com.redhat.rhn.domain.errata.impl.PublishedBug"/>
         </set>
         <set name="cves" lazy="true" cascade="all-delete-orphan" table="rhnErrataCve">
         	<key column="errata_id"/>
         	<many-to-many column="cve_id" class="com.redhat.rhn.domain.errata.Cve" />
         </set>
-        <set name="files" lazy="true" inverse="true" order-by="id asc" 
+        <set name="files" lazy="true" inverse="true" order-by="id asc"
             cascade="all">
             <key column="errata_id"/>
-            <one-to-many 
+            <one-to-many
                 class="com.redhat.rhn.domain.errata.impl.PublishedErrataFile"/>
         </set>
-        <set name="keywords" lazy="true" inverse="true" order-by="KEYWORD asc" 
+        <set name="keywords" lazy="true" inverse="true" order-by="KEYWORD asc"
             cascade="all">
             <key column="errata_id"/>
-            <one-to-many 
+            <one-to-many
                 class="com.redhat.rhn.domain.errata.impl.PublishedKeyword"/>
         </set>
-        <set name="packages" lazy="true" table="rhnErrataPackage" 
+        <set name="packages" lazy="true" table="rhnErrataPackage"
             order-by="PACKAGE_ID asc">
             <key column="errata_id"/>
-            <many-to-many class="com.redhat.rhn.domain.rhnpackage.Package" 
+            <many-to-many class="com.redhat.rhn.domain.rhnpackage.Package"
                 column="package_id"/>
         </set>
         <set name="channels" lazy="true" table="rhnChannelErrata" cascade="all">
             <key column="errata_id"/>
-            <many-to-many class="com.redhat.rhn.domain.channel.Channel" 
+            <many-to-many class="com.redhat.rhn.domain.channel.Channel"
                 column="channel_id"/>
         </set>
         <joined-subclass
                 name="com.redhat.rhn.domain.errata.impl.PublishedClonedErrata"
                 table="rhnErrataCloned">
                 <key column="id"/>
-                <many-to-one name="original" column="original_id" 
+                <many-to-one name="original" column="original_id"
                 class="com.redhat.rhn.domain.errata.impl.PublishedErrata" />
         </joined-subclass>
     </class>
     <query name="PublishedErrata.findByAdvisoryType">
-        <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e 
+        <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                 where e.advisoryType = :type]]>
     </query>
     <query name="PublishedErrata.findById">
-        <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e 
-                where e.id = :id]]>    
+        <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
+                where e.id = :id]]>
     </query>
     <query name="PublishedErrata.listByIds">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
@@ -112,11 +112,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         		from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                 where :channel in elements(e.channels) 	and
                 	( e.org = :org or e.org = null )
-                	order by e.issueDate 
-                ]]>    
+			order by e.issueDate
+                ]]>
     </query>
     <query name="PublishedErrata.lookupByChannelBetweenDates">
-        <![CDATA[select e 
+        <![CDATA[select e
                    from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                   where :channel in elements(e.channels) and
                         (e.org = :org or e.org = null) and
@@ -135,7 +135,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   and CE.channel_id IN(SELECT channel_id
                            FROM rhnAvailableChannels
                            WHERE org_id = :org_id)
-                ]]>    
+                ]]>
         <return-scalar column="id" type="long" />
         <return-scalar column="advisory" type="string" />
         <return-scalar column="advisoryName" type="string" />
@@ -197,10 +197,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
   	<sql-query name="PublishedErrata.lookupFromSet">
         <![CDATA[SELECT {e.*}
-			from rhnErrata e left join 
-				rhnErrataCloned E_1_ on e.id = E_1_.id, 
-				rhnSet S 
-			where S.element = e.id 
+			from rhnErrata e left join
+				rhnErrataCloned E_1_ on e.id = E_1_.id,
+				rhnSet S
+			where S.element = e.id
 				and S.label = :set        	
 				and S.user_id = :uid				
          ]]>

@@ -42,13 +42,13 @@ import java.util.Properties;
  * @version $Rev$
  */
 public class SchedulerKernel {
-    
+
     private static Logger log = Logger.getLogger(SchedulerKernel.class);
-    
+
     private byte[] shutdownLock = new byte[0];
     private Scheduler scheduler = null;
     private ChainedListener chainedJobListener = null;
-    
+
     /**
      * Kernel main driver behind Taskomatic
      * @throws InstantiationException thrown if this.scheduler can't be initialized.
@@ -62,7 +62,7 @@ public class SchedulerKernel {
             // this.scheduler
             this.scheduler = fact.getScheduler();
             this.scheduler.setJobFactory(new RhnJobFactory());
-            
+
             // Setup TriggerListener chain
             this.chainedJobListener = new ChainedListener();
             this.chainedJobListener.addListener(new TaskEnvironmentListener());
@@ -74,7 +74,7 @@ public class SchedulerKernel {
             throw new InstantiationException("this.scheduler failed");
         }
     }
-    
+
     /**
      * Starts Taskomatic
      * This method does not return until the this.scheduler is shutdown
@@ -102,7 +102,7 @@ public class SchedulerKernel {
             throw new TaskomaticException(e.getMessage(), e);
         }
     }
-    
+
     /**
      * Initiates the shutdown process. Needs to happen in a
      * separate thread to prevent Quartz scheduler errors.
@@ -117,16 +117,16 @@ public class SchedulerKernel {
         t.setDaemon(true);
         t.start();
     }
-    
+
     /**
      * Configures the system.
      * @param config Configuration object containing config values.
      * @throws ConfigException thrown if there is a problem creating jobs by name.
-     */    
+     */
     public void configure(Config config) throws ConfigException {
         configure(config, null);
     }
-    
+
     /**
      * Configures the system.
      * @param config Configuration object containing config values.
@@ -142,13 +142,13 @@ public class SchedulerKernel {
         if (log.isDebugEnabled()) {
             log.debug("No manual overrides detected...Using configuration");
         }
-        
+
         // get the default tasks first
         String[] jobs = config.getStringArray(ConfigDefaults.TASKOMATIC_DEFAULT_TASKS);
         if (jobs != null && jobs.length > 0) {
             jobImpls.addAll(Arrays.asList(jobs));
         }
-        
+
         // get other tasks
         String[] addlJobs = config.getStringArray(ConfigDefaults.TASKOMATIC_TASKS);
         if (addlJobs != null && addlJobs.length > 0) {
@@ -189,13 +189,13 @@ public class SchedulerKernel {
         }
         scheduleJobs(pendingJobs);
     }
-    
+
     /**
      * Shutsdown the application
      */
     protected void shutdown() {
         try {
-            this.scheduler.standby();            
+            this.scheduler.standby();
             deleteAllJobs();
             this.scheduler.shutdown();
         }
@@ -204,16 +204,16 @@ public class SchedulerKernel {
             e.printStackTrace();
         }
         finally {
-            MessageQueue.stopMessaging();            
-            HibernateFactory.closeSessionFactory();            
+            MessageQueue.stopMessaging();
+            HibernateFactory.closeSessionFactory();
             // Wake up thread waiting in startup() so it can exit
             synchronized (this.shutdownLock) {
                 this.shutdownLock.notify();
             }
         }
     }
-    
-    
+
+
     private void scheduleJobs(Map pendingJobs) throws ConfigException {
        // No jobs to schedule
        // This would be quite odd, but it could happen
@@ -228,11 +228,11 @@ public class SchedulerKernel {
                 String jobImpl = data[0];
                 String crontab = data[1];
                 String jobName = jobImpl + "-" + suffix;
-                JobDetail detail = new JobDetail(jobName, 
-                        TaskomaticConstants.TASK_GROUP, 
+                JobDetail detail = new JobDetail(jobName,
+                        TaskomaticConstants.TASK_GROUP,
                         this.getClass().getClassLoader().loadClass(jobImpl));
                 Trigger trigger = null;
-                trigger = new CronTrigger(jobImpl, 
+                trigger = new CronTrigger(jobImpl,
                         TaskomaticConstants.TASK_GROUP, crontab);
                 trigger.setMisfireInstruction(CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING);
                 trigger.addTriggerListener(this.chainedJobListener.getName());
@@ -247,7 +247,7 @@ public class SchedulerKernel {
             throw new ConfigException(t.getMessage(), t);
         }
     }
-    
+
     private void deleteAllJobs() {
         boolean done = false;
         while (!done) {

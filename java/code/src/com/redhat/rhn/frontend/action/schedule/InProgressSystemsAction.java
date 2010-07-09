@@ -41,8 +41,8 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class InProgressSystemsAction extends RhnSetAction {
-    
-    /** 
+
+    /**
      * Removes unscheduleaction set from server actions.
      * @param mapping ActionMapping
      * @param formIn ActionForm
@@ -54,7 +54,7 @@ public class InProgressSystemsAction extends RhnSetAction {
                                           ActionForm formIn,
                                           HttpServletRequest request,
                                           HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
@@ -69,17 +69,17 @@ public class InProgressSystemsAction extends RhnSetAction {
         int numSystems = updateSet(request).size();
         ActionMessages msgs = new ActionMessages();
         Map params = makeParamMap(formIn, request);
-        
+
         if (numSystems == 0) {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("systems.none"));
             strutsDelegate.saveMessages(request, msgs);
             return strutsDelegate.forwardParams(mapping.findForward("default"), params);
         }
-        
-        
+
+
         ActionFactory.removeActionForSystemSet(aid, "unscheduleaction", user);
-        
+
         /**
          * If we've unscheduled the action for more than one system, send the pluralized
          * version of the message.
@@ -93,16 +93,16 @@ public class InProgressSystemsAction extends RhnSetAction {
         }
         else {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage("message.unscheduled.systems", 
+                     new ActionMessage("message.unscheduled.systems",
                              action.getFormatter().getName(),
                              LocalizationService.getInstance()
                                                 .formatNumber(new Integer(numSystems))));
         }
         strutsDelegate.saveMessages(request, msgs);
-        
+
         //clear set
         RhnSetDecl.ACTIONS_UNSCHEDULE.clear(user);
-        
+
         /*
          * See how many remaining systems are in progress for this action. If > 0, return
          * to the default mapping, otherwise, go to the pending actions page.
@@ -119,13 +119,13 @@ public class InProgressSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
         Long aid = requestContext.getParamAsLong("aid");
         Action action = ActionManager.lookupAction(user, aid);
-        //Get an "unelaborated" DataResult containing all of the 
+        //Get an "unelaborated" DataResult containing all of the
         //user's visible systems
         return ActionManager.inProgressSystems(user, action, null);
     }
@@ -140,8 +140,8 @@ public class InProgressSystemsAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         RequestContext requestContext = new RequestContext(request);
         params.put("aid", requestContext.getParamAsLong("aid"));

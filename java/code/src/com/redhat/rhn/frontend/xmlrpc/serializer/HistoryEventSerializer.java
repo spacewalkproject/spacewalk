@@ -25,19 +25,19 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * HistoryEventSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
  *  #struct("History Event")
- *      #prop_desc("dateTime.iso8601", "completed", "Date that 
+ *      #prop_desc("dateTime.iso8601", "completed", "Date that
  *          the event occurred (optional)")
  *      #prop_desc("string", "summary", "Summary of the event")
  *      #prop_desc("string", "details", "Details of the event")
  *  #struct_end()
- * 
- * 
+ *
+ *
  */
 public class HistoryEventSerializer implements XmlRpcCustomSerializer {
 
@@ -45,7 +45,7 @@ public class HistoryEventSerializer implements XmlRpcCustomSerializer {
      * {@inheritDoc}
      */
     public Class getSupportedClass() {
-        
+
         return HistoryEvent.class;
     }
 
@@ -54,10 +54,10 @@ public class HistoryEventSerializer implements XmlRpcCustomSerializer {
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-       
+
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         HistoryEvent event = (HistoryEvent) value;
-        
+
        helper.add("summary", event.getSummary());
        helper.add("completed", event.getCompleted());
        if (event.getDetails() != null) {
@@ -66,7 +66,7 @@ public class HistoryEventSerializer implements XmlRpcCustomSerializer {
        else {
            helper.add("details", new String(""));
        }
-       
+
        helper.writeTo(output);
     }
 }

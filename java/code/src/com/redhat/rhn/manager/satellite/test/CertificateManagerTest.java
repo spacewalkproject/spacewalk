@@ -29,32 +29,32 @@ import java.util.Date;
 public class CertificateManagerTest extends RhnBaseTestCase {
 
     public void testIsSatelliteCertExpired() throws Exception {
-        
+
         CertificateManager man = CertificateManager.getInstance();
-        
+
         expireSatelliteCertificate();
         assertTrue(man.isSatelliteCertExpired());
-        
+
         renewSatelliteCertificate();
         assertFalse(man.isSatelliteCertExpired());
     }
-    
+
     public void testIsSatelliteCertInGracePeriod() throws Exception {
-        
+
         CertificateManager man = CertificateManager.getInstance();
-        
+
         activateGracePeriod();
         assertTrue(man.isSatelliteCertInGracePeriod());
-        
+
         renewSatelliteCertificate();
         assertFalse(man.isSatelliteCertInGracePeriod());
-        
+
         expireSatelliteCertificate();
         assertFalse(man.isSatelliteCertInGracePeriod());
     }
-    
+
     /**
-     * Changes the satellite's certificate such that it is expired for the 
+     * Changes the satellite's certificate such that it is expired for the
      * duration of the test
      * @throws Exception
      */
@@ -64,7 +64,7 @@ public class CertificateManagerTest extends RhnBaseTestCase {
         sc.setExpires(new Date(1));
         TestUtils.saveAndFlush(sc);
     }
-    
+
     /**
      * Change the satellite's certificate such that it is in a grace period
      * for the duration of the test
@@ -76,7 +76,7 @@ public class CertificateManagerTest extends RhnBaseTestCase {
         sc.setExpires(new Date(System.currentTimeMillis() - 48 * 60 * 60 * 1000));
         TestUtils.saveAndFlush(sc);
     }
-    
+
     /**
      * Change the satellite's certificate such that it is not in a grace period
      * or expired for the duration of the test

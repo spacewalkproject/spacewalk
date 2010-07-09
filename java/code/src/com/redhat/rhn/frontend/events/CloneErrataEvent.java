@@ -28,7 +28,7 @@ import java.util.Collection;
 /**
  * CloneErrataAction - publish event to clone the errata into a channel
  * or a set of Channels.
- * 
+ *
  * @version $Rev$
  */
 public class CloneErrataEvent implements EventDatabaseMessage {
@@ -44,7 +44,7 @@ public class CloneErrataEvent implements EventDatabaseMessage {
      * constructor
      * @param chanIn channel to clone errata into
      * @param errataIn the errata list to clone
-     * @param userIn the user 
+     * @param userIn the user
      */
     public CloneErrataEvent(Channel chanIn, Collection<Long> errataIn, User userIn) {
         chanId = chanIn.getId();
@@ -52,7 +52,7 @@ public class CloneErrataEvent implements EventDatabaseMessage {
         userId = userIn.getId();
         this.txn = HibernateFactory.getSession().getTransaction();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -62,14 +62,14 @@ public class CloneErrataEvent implements EventDatabaseMessage {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Transaction getTransaction() {
         return txn;
     }
 
-    
+
     /**
      * @return Returns the chan.
      */
@@ -77,7 +77,7 @@ public class CloneErrataEvent implements EventDatabaseMessage {
         return ChannelFactory.lookupById(chanId);
     }
 
-    
+
     /**
      * @param chanIn The chan to set.
      */
@@ -85,7 +85,7 @@ public class CloneErrataEvent implements EventDatabaseMessage {
         this.chanId = chanIn.getId();
     }
 
-    
+
     /**
      * @return Returns the errata.
      */
@@ -93,7 +93,7 @@ public class CloneErrataEvent implements EventDatabaseMessage {
         return errata;
     }
 
-    
+
     /**
      * @param errataIn The errata to set.
      */
@@ -101,13 +101,13 @@ public class CloneErrataEvent implements EventDatabaseMessage {
         this.errata = errataIn;
     }
 
-    
+
     /**
      * @return Returns the user.
      */
     public User getUser() {
         return UserFactory.lookupById(userId);
     }
-    
-  
+
+
 }

@@ -49,7 +49,7 @@ public class KickstartPackage
         this.packageName = packageNameIn;
         this.position = 0L;
     }
-    
+
 
     /**
      * @param ksDataIn identifies kickstart
@@ -58,7 +58,7 @@ public class KickstartPackage
      */
     public KickstartPackage(KickstartData ksDataIn, PackageName packageNameIn, Long posIn) {
         this(ksDataIn, packageNameIn);
-        this.position = posIn;        
+        this.position = posIn;
     }
 
 
@@ -186,7 +186,7 @@ public class KickstartPackage
                ", " + this.getPosition().toString() +
                ", " + this.getPackageName().getName() + " }";
     }
-    
+
     /**
      * Produce a clone of a kickstartPackage object
      * @param data The new kickstart data

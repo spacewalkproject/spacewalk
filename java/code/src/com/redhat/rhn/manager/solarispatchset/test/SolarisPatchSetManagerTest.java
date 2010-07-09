@@ -31,7 +31,7 @@ public class SolarisPatchSetManagerTest extends RhnBaseTestCase {
         PageControl pc = new PageControl();
         pc.setIndexData(false);
         pc.setStart(1);
-        
+
         // comment this out for now until we can write better tests
         //User u = UserTestUtils.findNewUser("testUser", "testOrg");
         //Server server = ServerFactoryTest.createTestServer(u);

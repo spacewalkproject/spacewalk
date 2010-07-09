@@ -28,7 +28,7 @@ import org.apache.struts.action.DynaActionForm;
  * @version $Rev: 1196 $
  */
 public abstract class UserEditActionHelper extends RhnAction {
-    
+
     /**
      * This method handles the common tasks between SelfEditAction and AdminUserEditAction.
      * @param targetUser The user to operate on
@@ -39,7 +39,7 @@ public abstract class UserEditActionHelper extends RhnAction {
 
         //get validation errors
         ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, form);
-        
+
         //Make sure password and passwordConfirm are equal
         if (!UserActionHelper.PLACEHOLDER_PASSWORD.equals(
                 form.get(UserActionHelper.DESIRED_PASS))) {
@@ -53,7 +53,7 @@ public abstract class UserEditActionHelper extends RhnAction {
                            new ActionMessage("error.password_mismatch"));
             }
         }
-        
+
         //Only set the attributes if there are no errors.
         if (errors.isEmpty()) {
             targetUser.setFirstNames((String)form.get("firstNames"));

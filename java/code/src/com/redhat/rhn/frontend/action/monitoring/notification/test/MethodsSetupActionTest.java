@@ -26,9 +26,9 @@ import com.redhat.rhn.testing.RhnMockHttpServletRequest;
  * @version $Rev: 1 $
  */
 public class MethodsSetupActionTest extends RhnBaseTestCase {
-    
+
     public void testExecute() throws Exception {
-        
+
         MethodsSetupAction action = new MethodsSetupAction();
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action);
@@ -37,14 +37,14 @@ public class MethodsSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("returnvisit", (String) null);
         sah.getRequest().setupAddParameter("submitted", "false");
         sah.executeAction();
-        
+
         // Remove if not a List SetupAction
         RhnMockHttpServletRequest request = sah.getRequest();
         DataResult dr = (DataResult) request.getAttribute("pageList");
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
         assertTrue(dr.iterator().next() instanceof MethodDto);
-        
+
     }
 }
 

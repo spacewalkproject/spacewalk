@@ -21,9 +21,9 @@ import com.redhat.rhn.domain.monitoring.command.Command;
  * @version $Rev$
  */
 public class MonitoringConstants {
-    
+
     private MonitoringConstants() {
-        
+
     }
 
     /** OK State **/
@@ -36,15 +36,15 @@ public class MonitoringConstants {
     public static final String PROBE_STATE_CRITICAL = "CRITICAL";
     /** PENDING State **/
     public static final String PROBE_STATE_PENDING = "PENDING";
-    
+
     /**
      * All possible probe states
      */
     public static final String[] PROBE_STATES = {
-        PROBE_STATE_OK, PROBE_STATE_PENDING, PROBE_STATE_WARN, PROBE_STATE_CRITICAL, 
+        PROBE_STATE_OK, PROBE_STATE_PENDING, PROBE_STATE_WARN, PROBE_STATE_CRITICAL,
         PROBE_STATE_UNKNOWN
     };
-    
+
     /**
      * Check probe type
      * @return ProbeType
@@ -57,15 +57,15 @@ public class MonitoringConstants {
      * Suite probe type
      * @return ProbeType
      */
-    public static final ProbeType getProbeTypeSuite() { 
+    public static final ProbeType getProbeTypeSuite() {
         return MonitoringFactory.lookupProbeType("suite");
     }
-    
+
     /**
      * Check tcp command
      * @return Command
      */
-    public static final Command getCommandCheckTCP() { 
+    public static final Command getCommandCheckTCP() {
         return MonitoringFactory.lookupCommand("check_tcp");
     }
 

@@ -28,9 +28,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
 /**
  * ConfigurationChannelSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
- * #struct("Configuration Channel information") 
+ * #struct("Configuration Channel information")
  *   #prop("int", "id")
  *   #prop("int", "orgId")
  *   #prop("string", "label")
@@ -49,9 +49,9 @@ public class ConfigChannelSerializer implements XmlRpcCustomSerializer {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
-     * @throws IOException 
+     * @throws IOException
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
@@ -64,5 +64,5 @@ public class ConfigChannelSerializer implements XmlRpcCustomSerializer {
         helper.add("orgId", chan.getOrgId());
         helper.add("configChannelType", chan.getConfigChannelType());
         helper.writeTo(output);
-    }    
+    }
 }

@@ -25,39 +25,39 @@ public class CommandTarget {
     private Long id;
     private String targetType;
     private Org org;
-    
-    /** 
-     * Getter for id 
+
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for recid 
+    /**
+     * Setter for recid
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for targetType 
+    /**
+     * Getter for targetType
      * @return String to get
     */
     public String getTargetType() {
         return this.targetType;
     }
 
-    /** 
-     * Setter for targetType 
+    /**
+     * Setter for targetType
      * @param targetTypeIn to set
     */
     public void setTargetType(String targetTypeIn) {
         this.targetType = targetTypeIn;
     }
-    
+
     /**
      * @return Returns the org.
      */

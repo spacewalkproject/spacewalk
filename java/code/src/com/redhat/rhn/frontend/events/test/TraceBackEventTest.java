@@ -34,16 +34,16 @@ import java.util.Vector;
  */
 
 public class TraceBackEventTest extends RhnBaseTestCase {
-    
+
     private static final String MSG_OUTER_EXC = "outer-exception";
     private static final String MSG_INNER_EXC = "inner-exception";
-    
+
     private MockMail mailer;
-    
+
     public void setUp() {
         mailer = new MockMail();
     }
-    
+
     /**
      * test that makes sure we can instantiate the service
      */
@@ -63,10 +63,10 @@ public class TraceBackEventTest extends RhnBaseTestCase {
         assertContains(eventText, "User");
         assertContains(eventText, "Exception");
     }
-    
+
     public void testProtectPassword() {
         TraceBackEvent evt = createTestEventWithValue("password", "no-secret");
-        mailer.setExpectedSendCount(1);  
+        mailer.setExpectedSendCount(1);
         TraceBackAction action = new TraceBackAction() {
             protected Mail getMail() {
                 return mailer;
@@ -74,14 +74,14 @@ public class TraceBackEventTest extends RhnBaseTestCase {
         };
         action.execute(evt);
         mailer.verify();
-        String body = mailer.getBody();        
+        String body = mailer.getBody();
         assertTrue(body.indexOf("password") > 0);
-        assertTrue(body.indexOf("password: " + evt.getHashMarks()) > 0);                
+        assertTrue(body.indexOf("password: " + evt.getHashMarks()) > 0);
     }
-    
+
     public void testNoPassword() {
         TraceBackEvent evt = createTestEventWithValue("passsword", "no-secret");
-        mailer.setExpectedSendCount(1);  
+        mailer.setExpectedSendCount(1);
         TraceBackAction action = new TraceBackAction() {
             protected Mail getMail() {
                 return mailer;
@@ -89,10 +89,10 @@ public class TraceBackEventTest extends RhnBaseTestCase {
         };
         action.execute(evt);
         mailer.verify();
-        String body = mailer.getBody();                
+        String body = mailer.getBody();
         assertFalse(body.indexOf("passsword: " + evt.getHashMarks()) > 0);
     }
-    
+
     public void testToTextWithNulls() {
         TraceBackEvent evt = new TraceBackEvent();
         evt.setRequest(null);
@@ -123,11 +123,11 @@ public class TraceBackEventTest extends RhnBaseTestCase {
 
     private TraceBackEvent createTestEvent() {
         TraceBackEvent evt = new TraceBackEvent();
-        // In the implementation we use getHeaderNames so we override it with 
+        // In the implementation we use getHeaderNames so we override it with
         // one that returns an empty implementation.
         MockHttpServletRequest request = new MockHttpServletRequest() {
             public Enumeration getHeaderNames() {
-                return new Vector().elements();     
+                return new Vector().elements();
             }
         };
         request.setSession(new MockHttpSession());
@@ -142,16 +142,16 @@ public class TraceBackEventTest extends RhnBaseTestCase {
         Throwable e = new RuntimeException(MSG_OUTER_EXC);
         e.initCause(new RuntimeException(MSG_INNER_EXC));
         evt.setException(e);
-        return evt;    
+        return evt;
     }
-    
+
     private TraceBackEvent createTestEventWithValue(String paramIn, String valueIn) {
         TraceBackEvent evt = new TraceBackEvent();
-        // In the implementation we use getHeaderNames so we override it with 
+        // In the implementation we use getHeaderNames so we override it with
         // one that returns an empty implementation.
         MockHttpServletRequest request = new MockHttpServletRequest() {
             public Enumeration getHeaderNames() {
-                return new Vector().elements();     
+                return new Vector().elements();
             }
         };
         request.setSession(new MockHttpSession());
@@ -166,7 +166,7 @@ public class TraceBackEventTest extends RhnBaseTestCase {
         Throwable e = new RuntimeException(MSG_OUTER_EXC);
         e.initCause(new RuntimeException(MSG_INNER_EXC));
         evt.setException(e);
-        return evt;    
+        return evt;
     }
 
 }

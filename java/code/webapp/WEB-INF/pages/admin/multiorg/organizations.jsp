@@ -17,36 +17,36 @@
 <!-- Start of org list -->
 <rl:list dataset="pageList"
          width="100%"
-         name="orgList"         
-         styleclass="list"      
-         filter="com.redhat.rhn.frontend.action.multiorg.OrgListFilter"   
+         name="orgList"
+         styleclass="list"
+         filter="com.redhat.rhn.frontend.action.multiorg.OrgListFilter"
          emptykey="orglist.jsp.noOrgs">
-        
+
 	<!-- Organization name column -->		
-	<rl:column bound="false" 
-	           sortable="true" 
+	<rl:column bound="false"
+	           sortable="true"
 	           styleclass="first-column"
 	           headerkey="org.nopunc.displayname"
-	           sortattr="name"> 
+	           sortattr="name">
 		<c:out value="<a href=\"/rhn/admin/multiorg/OrgDetails.do?oid=${current.id}\">${current.name}</a>" escapeXml="false" />
 		<c:if test="${current.id == 1}">*</c:if>
 	</rl:column>
-	<rl:column bound="false" 
-	           sortable="true" 
-	           headerkey="systems.nopunc.displayname" 	           
+	<rl:column bound="false"
+	           sortable="true"
+	           headerkey="systems.nopunc.displayname"
 	           attr="systems">
 		<c:out value="${current.systems}" />
 	</rl:column>
-	<rl:column bound="false" 
-	           sortable="true" 
-	           headerkey="users.nopunc.displayname" 
+	<rl:column bound="false"
+	           sortable="true"
+	           headerkey="users.nopunc.displayname"
 	           styleclass="last-column"
 	           attr="users">
 		<c:out value="<a href=\"/rhn/admin/multiorg/OrgUsers.do?oid=${current.id}\">${current.users}</a>" escapeXml="false" />
 	</rl:column>
-   <rl:column bound="false" 
-              sortable="true" 
-              headerkey="org.trust.trusts" 
+   <rl:column bound="false"
+              sortable="true"
+              headerkey="org.trust.trusts"
               styleclass="last-column"
               attr="users">
       <a href="/rhn/admin/multiorg/OrgTrusts.do?oid=${current.id}">${current.trusts}</a>

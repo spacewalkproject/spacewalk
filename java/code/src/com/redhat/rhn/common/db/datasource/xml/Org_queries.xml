@@ -14,14 +14,14 @@ DELETE
   <query params="user_id,cid,role_label">
 INSERT
   INTO rhnChannelPermission
-       (channel_id, user_id, role_id) 
+       (channel_id, user_id, role_id)
 VALUES (:cid, :user_id, (SELECT id FROM rhnChannelPermissionRole WHERE label = :role_label))
   </query>
 </write-mode>
 
 <mode name="get_all_orgs" class="com.redhat.rhn.frontend.dto.OrgSystemEntitlementDto">
   <query params="label">
-      SELECT id as orgid,name as orgname,:label as entname from web_customer where id != 1 
+      SELECT id as orgid,name as orgname,:label as entname from web_customer where id != 1
   </query>
 </mode>
 
@@ -37,8 +37,8 @@ SELECT 1
 <mode name="orgs_in_satellite" class="com.redhat.rhn.frontend.dto.OrgDto">
   <query params="">
 SELECT
-   wc.id, 
-   wc.name, 
+   wc.id,
+   wc.name,
    (SELECT COUNT(ru.id) FROM rhnuser ru WHERE ru.org_id = wc.id) users,
    (SELECT COUNT(s.id) FROM rhnServer s WHERE s.org_id = wc.id) systems,
    (SELECT COUNT(*) FROM rhnTrustedOrgs t WHERE t.org_id = wc.id) trusts
@@ -49,11 +49,11 @@ FROM web_customer wc
 <mode name="trusted_orgs" class="com.redhat.rhn.frontend.dto.TrustedOrgDto">
   <query params="org_id">
 SELECT wc.id, wc.name,
-       (SELECT COUNT(s.id)      
+       (SELECT COUNT(s.id)
        FROM rhnSharedChannelView s
        WHERE 1=1
        AND s.org_id = torg.org_id
-       AND s.org_trust_id = torg.org_trust_id) as sharedChannels       
+       AND s.org_trust_id = torg.org_trust_id) as sharedChannels
 FROM   web_customer wc, rhnTrustedOrgs torg
 WHERE  1=1
 AND    torg.org_trust_id = wc.id
@@ -81,11 +81,11 @@ WHERE  org.id != :org_id
             SUM(sg.current_members) as used,
             (SELECT (sg2.max_members) - (sg2.current_members)
              FROM rhnServerGroup sg2
-             	inner join  rhnServerGroupType sgt2 on sg2.group_type = sgt2.id 
-	         WHERE sg2.org_ID = 1 
-    	         AND sgt2.label = sgt.label) as available             
+		inner join  rhnServerGroupType sgt2 on sg2.group_type = sgt2.id
+	         WHERE sg2.org_ID = 1
+	         AND sgt2.label = sgt.label) as available
    FROM     rhnServerGroup sg
-   				inner join rhnServerGroupType sgt on sgt.id = sg.group_type 
+				inner join rhnServerGroupType sgt on sgt.id = sg.group_type
    WHERE    sgt.label != 'sw_mgr_entitled'
 GROUP BY sgt.label, sgt.id
 ORDER BY sgt.label
@@ -94,7 +94,7 @@ ORDER BY sgt.label
 
 <mode name="get_org_entitlement_counts">
   <query params="label">
-SELECT      wc.name as name, 
+SELECT      wc.name as name,
             wc.id as orgid,
             sgt.label,
             sg.max_members as total,

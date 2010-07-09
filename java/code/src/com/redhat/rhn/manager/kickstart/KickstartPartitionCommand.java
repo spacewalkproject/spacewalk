@@ -41,9 +41,9 @@ import java.util.StringTokenizer;
  * @version $Rev$
  */
 public class KickstartPartitionCommand extends BaseKickstartCommand {
-    
+
     private static Logger log = Logger.getLogger(KickstartPartitionCommand.class);
-    
+
     private static final String SWAP = "swap";
     private static final String LVMSWAP = "swap.";
     private static final String SPACE = " ";
@@ -54,36 +54,36 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
     private static final String PARTITIONS = "partitions";
     private static final String PARTITION = "partition";
     private static final String LOGVOLS = "logvols";
-    private static final String LOGVOL = "logvol";    
+    private static final String LOGVOL = "logvol";
     private static final String INCLUDE = "include";
     private static final String VOLGROUPS = "volgroups";
     private static final String VOLGROUP = "volgroup";
     private static final String CUSTOM_PARTITION = "custom_partition";
     private static final String EMPTY_STRING = "";
-    
+
     private KickstartCommandName raidName;
     private KickstartCommandName partitionName;
     private KickstartCommandName logVolName;
     private KickstartCommandName includeName;
     private KickstartCommandName volGroupName;
     private KickstartCommandName custom;
-    
+
     private LinkedHashMap partitions = new LinkedHashMap(Collections.EMPTY_MAP);
     private LinkedHashMap includes = new LinkedHashMap(Collections.EMPTY_MAP);
     private LinkedHashMap logvols = new LinkedHashMap(Collections.EMPTY_MAP);
     private LinkedHashMap volgroups = new LinkedHashMap(Collections.EMPTY_MAP);
     private LinkedHashMap raids = new LinkedHashMap(Collections.EMPTY_MAP);
-    
+
     private List partitionSet = new ArrayList();
     private Set includeSet = new HashSet();
     private Set logvolSet = new HashSet();
     private Set volGroupSet = new HashSet();
     private Set raidSet = new HashSet();
     private Set customSet = new HashSet();
-    
+
     private int partSwaps = 0;
     private int raidSwaps = 0;
-    
+
     /**
      * Constructor
      * @param ksidIn id of the Kickstart to lookup
@@ -101,31 +101,31 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
             custom = KickstartFactory.createCustomPartCommandName();
         }
     }
-    
+
     /**
-     * 
+     *
      * @return String representation of partition information
-     */                    
+     */
     public String populatePartitions() {
-        StringBuffer buf = new StringBuffer(); 
+        StringBuffer buf = new StringBuffer();
         // order listed in RHEL System Admin Guide
         // /docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/s1-kickstart2-options.html
         buf.append(getPartition(this.ksdata.getPartitions(), PARTITION));
-        buf.append(getPartition(this.ksdata.getRaids(), RAID));                
+        buf.append(getPartition(this.ksdata.getRaids(), RAID));
         buf.append(getPartition(this.ksdata.getVolgroups(), VOLGROUP));
         buf.append(getPartition(this.ksdata.getLogvols(), LOGVOL));
-        buf.append(getPartition(this.ksdata.getIncludes(), "%" + INCLUDE));        
+        buf.append(getPartition(this.ksdata.getIncludes(), "%" + INCLUDE));
         buf.append(getPartition(this.ksdata.getCustomPartitionOptions(),
                 CUSTOM_PARTITION));
         return buf.toString();
     }
-    
+
     /**
-     * 
+     *
      * @param partitionsIn String from dynaform
      * @return ValidatorError if validation error exists
      */
-    public ValidatorError parsePartitions(String partitionsIn) {      
+    public ValidatorError parsePartitions(String partitionsIn) {
         if (log.isDebugEnabled()) {
             log.debug("parsePartitions() : partitionsIn: " + partitionsIn);
         }
@@ -173,7 +173,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
                 return new ValidatorError("kickstart.partition.duplicate", key);
             }
         }
-        
+
         ksdata.setLogvols(logvolSet);
         ksdata.setVolgroups(volGroupSet);
         ksdata.setPartitions(partitionSet);
@@ -182,7 +182,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         ksdata.setCustomPartitionOptions(customSet);
         return null;
     }
-    
+
 
     private void handleCustom(String token) {
         KickstartCommand ksCommand = new KickstartCommand();
@@ -196,7 +196,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
 
 
     /**
-     * 
+     *
      * @param keyIn mount point coming in
      * @param partIn partition string coming in
      * @throws ParseException if we have duplicate mount points in the set
@@ -210,10 +210,10 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
                 keyIn = SWAP + partSwaps;
             }
             partSwaps++;
-        } 
+        }
         else if (partitions.containsKey(keyIn)) {
             throw new ParseException(keyIn, 0);
-        }        
+        }
         partitions.put(keyIn, partIn);
         KickstartCommand ksCommand = new KickstartCommand();
         ksCommand.setCommandName(partitionName);
@@ -223,11 +223,11 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         ksCommand.setKickstartData(this.ksdata);
         partitionSet.add(ksCommand);
     }
-    
+
     /**
-     * 
+     *
      * @param keyIn mount point coming in
-     * @param includeIn include string coming in 
+     * @param includeIn include string coming in
      * @throws ParseException if we have duplicate mount points in the set
      */
     private void handleIncludes(String keyIn, String includeIn) throws ParseException {
@@ -241,14 +241,14 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         ksCommand.setModified(ksCommand.getCreated());
         ksCommand.setArguments(includeIn);
         ksCommand.setKickstartData(this.ksdata);
-        includeSet.add(ksCommand);        
+        includeSet.add(ksCommand);
     }
-    
+
     /**
-     * 
+     *
      * @param keyIn mount point coming in
      * @param logvolIn string coming in
-     * @throws ParseException if we have duplicate mount points in the set 
+     * @throws ParseException if we have duplicate mount points in the set
      */
     private void handleLogVols(String keyIn, String logvolIn) throws ParseException {
         if (logvols.containsKey(keyIn)) {
@@ -261,16 +261,16 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         ksCommand.setModified(ksCommand.getCreated());
         ksCommand.setArguments(logvolIn);
         ksCommand.setKickstartData(this.ksdata);
-        logvolSet.add(ksCommand);        
+        logvolSet.add(ksCommand);
     }
-    
+
     /**
-     * 
+     *
      * @param keyIn mount point coming in
-     * @param raidIn raid string coming in 
-     * @throws ParseException if we have duplicate mount points in the set 
+     * @param raidIn raid string coming in
+     * @throws ParseException if we have duplicate mount points in the set
      */
-    private void handleRaids(String keyIn, String raidIn) throws ParseException {        
+    private void handleRaids(String keyIn, String raidIn) throws ParseException {
         // we can have multiple swaps...follow perl pattern of storing swap, swap1..swapN
         if (raidIn.startsWith(SWAP + SPACE)) {
             if (raidSwaps > 0) {
@@ -278,10 +278,10 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
                 keyIn = SWAP + raidSwaps;
             }
             raidSwaps++;
-        } 
+        }
         else if (raids.containsKey(keyIn)) {
             throw new ParseException(keyIn, 0);
-        }        
+        }
         raids.put(keyIn, raidIn);
         KickstartCommand ksCommand = new KickstartCommand();
         ksCommand.setCommandName(raidName);
@@ -289,14 +289,14 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         ksCommand.setModified(ksCommand.getCreated());
         ksCommand.setArguments(raidIn);
         ksCommand.setKickstartData(this.ksdata);
-        raidSet.add(ksCommand);        
+        raidSet.add(ksCommand);
     }
-    
+
     /**
-     * 
+     *
      * @param keyIn mount point coming in
      * @param volgroupIn volgroup coming in
-     * @throws ParseException if we have duplicate mount points in the set 
+     * @throws ParseException if we have duplicate mount points in the set
      */
     private void handleVolGroups(String keyIn, String volgroupIn) throws ParseException {
         if (volgroups.containsKey(keyIn)) {
@@ -309,23 +309,23 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         ksCommand.setModified(ksCommand.getCreated());
         ksCommand.setArguments(volgroupIn);
         ksCommand.setKickstartData(this.ksdata);
-        volGroupSet.add(ksCommand);        
+        volGroupSet.add(ksCommand);
     }
-                
+
     /**
-     * 
+     *
      * @param setIn Set of Kickstart Commands
      * @param prefixIn The Command name prefix
      * @return StringBuffer representation of partition info
      */
     private StringBuffer getPartition(Collection setIn, String prefixIn) {
-        
+
         StringBuffer retval = new StringBuffer();
-        
+
         if (setIn.size() == 0) {
             return retval;
         }
-                        
+
         for (Iterator itr = setIn.iterator(); itr.hasNext();) {
            KickstartCommand c = (KickstartCommand)itr.next();
            String args = c.getArguments();
@@ -337,7 +337,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
            // check legacy perl hack (e.g. swap1...swapN)
            if (args.startsWith(SWAP) && !args.startsWith(LVMSWAP)) {
               String[] tmp = args.split(WHITESPACE);
-              tmp[0] = SWAP;              
+              tmp[0] = SWAP;
               retval.append(StringUtils.join(tmp, SPACE));
            }
            else {
@@ -346,6 +346,6 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
            retval.append(NEWLINE);
         }
         retval.append(NEWLINE);
-        return retval;                    
-    }                
+        return retval;
+    }
 }

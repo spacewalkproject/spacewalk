@@ -37,18 +37,18 @@ public class TaskFactory extends HibernateFactory {
     private static TaskFactory singleton = new TaskFactory();
     private static Logger log = Logger.getLogger(TaskFactory.class);
     public static final int NO_MAXIMUM = -1;
-    
+
     private TaskFactory() {
         super();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     protected Logger getLogger() {
         return log;
     }
-    
+
     /**
      * Creates a new Task object.
      * @param org The org to which this task will belong
@@ -66,7 +66,7 @@ public class TaskFactory extends HibernateFactory {
         save(t); //store the task to the db
         return t;
     }
-    
+
     /**
      * list All tasks with the given name
      * @param name the name of the task
@@ -84,7 +84,7 @@ public class TaskFactory extends HibernateFactory {
         }
         return Collections.EMPTY_LIST;
     }
-    
+
     /**
      * Remove a task from teh database
      * @param task the task to remove
@@ -92,8 +92,8 @@ public class TaskFactory extends HibernateFactory {
     public static void removeTask(Task task) {
         TaskFactory.getSession().delete(task);
     }
-    
-    
+
+
     /**
      * Saves the object to the db
      * @param taskIn The task to save
@@ -101,17 +101,17 @@ public class TaskFactory extends HibernateFactory {
     public static void save(Task taskIn) {
         singleton.saveObject(taskIn);
     }
-    
+
     /**
      * Remove a completed Task from the queue.
-     * 
+     *
      * @param taskIn to remove
      */
     public static void remove(Task taskIn) {
         singleton.removeObject(taskIn);
     }
-    
-    
+
+
     /**
      * Lookups up a task.
      * @param org The org containing the task
@@ -127,7 +127,7 @@ public class TaskFactory extends HibernateFactory {
                                  .setEntity("org", org)
                                  .uniqueResult();
     }
-    
+
     /**
      * Gets the list of tasks with "update_errata_cache_by_channel" for their name attr.
      * @param org The org containing the tasks
@@ -140,7 +140,7 @@ public class TaskFactory extends HibernateFactory {
                       .setString("name", "update_errata_cache_by_channel")
                       .list();
     }
-    
+
     /**
      * Returns a list of tasks ordered by earliest date.  This could return
      * many records use cautiously.
@@ -150,7 +150,7 @@ public class TaskFactory extends HibernateFactory {
      */
     public static List getTaskList(boolean distinct, int maxresults) {
         Session session = HibernateFactory.getSession();
-        
+
         Criteria c = session.createCriteria(Task.class);
         c.setCacheable(false); // don't want to cache all this
         c.addOrder(Order.asc("earliest"));
@@ -158,7 +158,7 @@ public class TaskFactory extends HibernateFactory {
         if (maxresults != TaskFactory.NO_MAXIMUM) {
             c.setMaxResults(maxresults);
         }
-        
+
         if (distinct) {
             c.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         }

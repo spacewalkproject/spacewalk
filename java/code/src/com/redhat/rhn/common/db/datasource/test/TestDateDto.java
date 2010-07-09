@@ -24,7 +24,7 @@ public class TestDateDto {
 
     private Date created;
 
-    
+
     /**
      * @return Returns the created.
      */
@@ -32,7 +32,7 @@ public class TestDateDto {
         return created;
     }
 
-    
+
     /**
      * @param createdIn The created to set.
      */

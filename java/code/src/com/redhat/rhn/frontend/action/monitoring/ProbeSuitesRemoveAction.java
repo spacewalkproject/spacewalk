@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 51639 $
  */
 public class ProbeSuitesRemoveAction extends RhnSetAction {
-    
+
     /**
      * Delete the ServerProbe Suites selected.
      * @param mapping ActionMapping
@@ -56,18 +56,18 @@ public class ProbeSuitesRemoveAction extends RhnSetAction {
                                        ActionForm formIn,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         RhnSet set = updateSet(request);
         Map params = makeParamMap(formIn, request);
         User user = requestContext.getLoggedInUser();
-        
+
         //if they chose no probe suites, return to the same page with a message
         if (set.isEmpty()) {
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("probesuites.none"));
             strutsDelegate.saveMessages(request, msg);
             return strutsDelegate.forwardParams(mapping.findForward("default"), params);
@@ -84,18 +84,18 @@ public class ProbeSuitesRemoveAction extends RhnSetAction {
             updatedCount++;
         }
         RhnSetManager.store(set);
-        
-        createSuccessMessage(request, "probesuites.jsp.suitesdeleted", 
+
+        createSuccessMessage(request, "probesuites.jsp.suitesdeleted",
                 new Integer(updatedCount).toString());
         return strutsDelegate.forwardParams(mapping.findForward("default"), params);
     }
-    
+
     /**
      * {@inheritDoc}
      * * TODO:  THIS IS NASTY COPY PASTE
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         return MonitoringManager.getInstance().listProbeSuites(userIn, null);
     }
@@ -104,14 +104,14 @@ public class ProbeSuitesRemoveAction extends RhnSetAction {
      * {@inheritDoc}
      */
     protected void processMethodKeys(Map map) {
-        map.put("probesuites.jsp.deleteprobesuites", "removeProbeSuites");        
+        map.put("probesuites.jsp.deleteprobesuites", "removeProbeSuites");
     }
 
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         // no-op
     }

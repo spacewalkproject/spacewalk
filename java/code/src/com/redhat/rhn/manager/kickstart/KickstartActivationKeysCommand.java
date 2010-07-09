@@ -31,18 +31,18 @@ import java.util.Set;
  * KickstartActivationKeysCommand
  * @version $Rev$
  */
-public class KickstartActivationKeysCommand extends BaseKickstartCommand {        
-    
+public class KickstartActivationKeysCommand extends BaseKickstartCommand {
+
     /**
-     * 
-     * @param ksid Kickstart Id 
+     *
+     * @param ksid Kickstart Id
      * @param userIn Logged in User
      */
     public KickstartActivationKeysCommand(Long ksid, User userIn) {
-        super(ksid, userIn);        
+        super(ksid, userIn);
     }
-    
-    /** 
+
+    /**
      * Removes default regtokens from the kickstart profile.
      * @param ids The ids of the regtokens to remove.
     */
@@ -69,7 +69,7 @@ public class KickstartActivationKeysCommand extends BaseKickstartCommand {
         prof.save();
     }
 
-    /** 
+    /**
      * Adds default regtokens from the kickstart profile.
      * @param ids The ids of the regtokens to add.
     */
@@ -107,6 +107,6 @@ public class KickstartActivationKeysCommand extends BaseKickstartCommand {
         else {
             return Collections.EMPTY_SET;
         }
-    }    
+    }
 
 }

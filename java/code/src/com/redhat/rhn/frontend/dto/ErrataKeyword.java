@@ -47,7 +47,7 @@ public class ErrataKeyword {
     public void setKeyword(String keywordIn) {
         this.keyword = keywordIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */

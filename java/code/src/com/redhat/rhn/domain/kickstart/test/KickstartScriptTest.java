@@ -24,14 +24,14 @@ import org.apache.commons.lang.RandomStringUtils;
 import java.util.Iterator;
 
 /**
- * 
+ *
  * KickstartScriptTest
  * @version $Rev$
  */
 public class KickstartScriptTest extends BaseTestCaseWithUser {
-    
+
     public static final byte[] DATA = "echo \"hello world\"".getBytes();
-        
+
     /*
     public void testRevision() throws Exception {
         KickstartData ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
@@ -49,7 +49,7 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
             .uniqueResult();
         assertNotNull(lookedUp);
     }*/
-    
+
     public void testScript() throws Exception {
         KickstartData ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         KickstartFactory.saveKickstartData(ksdata);
@@ -57,16 +57,16 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
         assertNotNull(ksdata.getScripts());
         assertEquals(5, ksdata.getScripts().size());
         KickstartScript ks2 = (KickstartScript) ksdata.getScripts().iterator().next();
-        
+
         assertNotNull(ks2.getDataContents());
-        
+
         // Test delete
         ksdata.removeScript(ks2);
         KickstartFactory.saveKickstartData(ksdata);
         ksdata = (KickstartData) reload(ksdata);
         assertEquals(4, ksdata.getScripts().size());
     }
-    
+
     public void testMultiplePreScripts() throws Exception {
         KickstartData ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         KickstartScript kss1 = createPre(ksdata);
@@ -78,14 +78,14 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
         ksdata = (KickstartData) reload(ksdata);
         assertTrue(kss1.getPosition().longValue() < kss2.getPosition().longValue());
     }
-    
+
     public void testLargeScript() throws Exception {
         String largeString = RandomStringUtils.randomAscii(4000);
         KickstartData ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         ksdata.getScripts().clear();
         KickstartFactory.saveKickstartData(ksdata);
         ksdata = (KickstartData) reload(ksdata);
-        
+
         // Create 2 scripts, one with data, one without.
         KickstartScript script = createPost(ksdata);
         KickstartScript scriptEmpty = createPost(ksdata);
@@ -107,65 +107,65 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
         }
         assertTrue(found);
     }
-    
-    
-    
+
+
+
     public static KickstartScript createPreInterpreter(KickstartData k) {
         KickstartScript ks = new KickstartScript();
         ks.setInterpreter("/usr/bin/perl");
-        ks.setChroot("Y");        
-        ks.setData(DATA);        
+        ks.setChroot("Y");
+        ks.setData(DATA);
         ks.setPosition(new Long(1));
-        ks.setScriptType(KickstartScript.TYPE_PRE);        
+        ks.setScriptType(KickstartScript.TYPE_PRE);
         ks.setKsdata(k);
         ks.setRaw(true);
-        return ks;        
+        return ks;
     }
-    
+
     public static KickstartScript createPostInterpreter(KickstartData k) {
         KickstartScript ks = new KickstartScript();
         ks.setInterpreter("/usr/bin/python");
         ks.setChroot("Y");
         ks.setPosition(new Long(2));
-        ks.setData(DATA);        
+        ks.setData(DATA);
         ks.setScriptType(KickstartScript.TYPE_POST);
         ks.setKsdata(k);
         ks.setRaw(true);
-        return ks;        
+        return ks;
     }
-    
+
     public static KickstartScript createPostChrootInt(KickstartData k) {
         KickstartScript ks = new KickstartScript();
-        ks.setInterpreter("/usr/bin/python");        
+        ks.setInterpreter("/usr/bin/python");
         ks.setData(DATA);
         ks.setChroot("N");
         ks.setPosition(new Long(3));
         ks.setScriptType(KickstartScript.TYPE_POST);
         ks.setKsdata(k);
         ks.setRaw(true);
-        return ks;        
+        return ks;
     }
-    
+
     public static KickstartScript createPre(KickstartData k) {
-        KickstartScript ks = new KickstartScript();        
-        ks.setChroot("Y");        
+        KickstartScript ks = new KickstartScript();
+        ks.setChroot("Y");
         ks.setData(DATA);
         ks.setPosition(new Long(4));
         ks.setScriptType(KickstartScript.TYPE_PRE);
         ks.setKsdata(k);
         ks.setRaw(true);
-        return ks;        
+        return ks;
     }
-    
+
     public static KickstartScript createPost(KickstartData k) {
-        KickstartScript ks = new KickstartScript();        
-        ks.setChroot("Y");        
+        KickstartScript ks = new KickstartScript();
+        ks.setChroot("Y");
         ks.setData(DATA);
         ks.setPosition(new Long(5));
-        ks.setScriptType(KickstartScript.TYPE_POST);       
+        ks.setScriptType(KickstartScript.TYPE_POST);
         ks.setKsdata(k);
         ks.setRaw(true);
-        return ks;        
-    }    
+        return ks;
+    }
 
 }

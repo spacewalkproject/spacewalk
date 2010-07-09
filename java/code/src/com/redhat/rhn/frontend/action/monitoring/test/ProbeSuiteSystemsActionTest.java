@@ -36,12 +36,12 @@ public class ProbeSuiteSystemsActionTest extends RhnBaseTestCase {
     private ProbeSuiteSystemsAction action = null;
     private ActionHelper sah;
     private ProbeSuite suite;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         action = new ProbeSuiteSystemsAction();
     }
-    
+
     /**
      * Make sure when the delete button is hit we go to the proper
      * place.  No DB action occurs.
@@ -49,13 +49,13 @@ public class ProbeSuiteSystemsActionTest extends RhnBaseTestCase {
      */
     public void testRemoveFromSuite() throws Exception {
         ActionForward testForward = testExecute("deleteFromSuite");
-        assertEquals("path?lower=10&" + RequestContext.SUITE_ID + "=" + suite.getId() 
+        assertEquals("path?lower=10&" + RequestContext.SUITE_ID + "=" + suite.getId()
                 , testForward.getPath());
         assertNotNull(sah.getRequest().getSession().getAttribute(Globals.MESSAGE_KEY));
         assertTrue(suite.getServersInSuite().size() == 4);
         RhnSetActionTest.verifyRhnSetData(sah.getUser().getId(),
                 RhnSetDecl.PROBE_SUITE_SYSTEMS.getLabel(), 0);
-        
+
     }
 
     /**
@@ -65,21 +65,21 @@ public class ProbeSuiteSystemsActionTest extends RhnBaseTestCase {
      */
     public void testDetachFromSuite() throws Exception {
         ActionForward testForward = testExecute("detachFromSuite");
-        assertEquals("path?lower=10&" + RequestContext.SUITE_ID + "=" + suite.getId() 
+        assertEquals("path?lower=10&" + RequestContext.SUITE_ID + "=" + suite.getId()
                 , testForward.getPath());
         assertNotNull(sah.getRequest().getSession().getAttribute(Globals.MESSAGE_KEY));
         RhnSetActionTest.verifyRhnSetData(sah.getUser().getId(),
                 RhnSetDecl.PROBE_SUITE_SYSTEMS.getLabel(), 0);
-        
+
     }
-    
+
     public void testSelectAll() throws Exception {
         testExecute("selectall");
         RhnSetActionTest.verifyRhnSetData(sah.getUser().getId(),
                 RhnSetDecl.PROBE_SUITE_SYSTEMS.getLabel(), 5);
     }
-    
-    
+
+
     private ActionForward testExecute(String methodName) throws Exception {
         sah = new ActionHelper();
         sah.setUpAction(action);
@@ -103,6 +103,6 @@ public class ProbeSuiteSystemsActionTest extends RhnBaseTestCase {
         ActionForward testforward = sah.executeAction(methodName);
         return testforward;
     }
-    
+
 
 }

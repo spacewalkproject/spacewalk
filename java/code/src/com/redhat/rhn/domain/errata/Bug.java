@@ -20,32 +20,32 @@ package com.redhat.rhn.domain.errata;
  * @version $Rev$
  */
 public interface Bug  {
-    
+
     /**
      * @return Returns the id.
      */
     Long getId();
-    
+
     /**
      * @param i The id to set.
      */
     void setId(Long i);
-    
+
     /**
      * @return Returns the summary.
      */
     String getSummary();
-    
+
     /**
      * @param s The summary to set.
      */
     void setSummary(String s);
-    
+
     /**
      * @return Returns the errata.
      */
     Errata getErrata();
-    
+
     /**
      * @param errataIn the errata to set.
      */

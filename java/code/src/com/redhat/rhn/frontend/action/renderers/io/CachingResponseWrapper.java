@@ -25,14 +25,14 @@ import javax.servlet.http.HttpServletResponseWrapper;
 /**
  * Wraps a HttpServletResponse and uses a CachingOutputStream
  * to intercept all generated content
- * 
+ *
  * @version $Rev$
  */
 public class CachingResponseWrapper extends HttpServletResponseWrapper {
-    
+
     private CachingOutputStream stream = new CachingOutputStream();
     private PrintWriter writer = new PrintWriter(stream);
-    
+
     /**
      * constructor
      * @param response HttpServletResponse
@@ -54,7 +54,7 @@ public class CachingResponseWrapper extends HttpServletResponseWrapper {
     public PrintWriter getWriter() throws IOException {
         return writer;
     }
-    
+
     /**
      * @return all generated content as a string
      * @throws IOException if something goes wrong with the underlying stream

@@ -28,10 +28,10 @@ import org.cobbler.Profile;
  */
 public class CobblerProfileEditCommand extends CobblerProfileCommand {
     private static Logger log = Logger.getLogger(CobblerProfileEditCommand.class);
-    
+
     /**
      * Constructor
-     * @param ksDataIn to sync 
+     * @param ksDataIn to sync
      * @param userIn - user wanting to sync with cobbler
      */
     public CobblerProfileEditCommand(KickstartData ksDataIn,
@@ -46,12 +46,12 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
         if (StringUtils.isBlank(ksData.getCobblerId())) {
             return new CobblerProfileCreateCommand(ksData, user).store();
         }
-        
+
         String cobName = makeCobblerName(ksData);
-        
-        Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user), 
+
+        Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user),
                 ksData.getCobblerId());
-      
+
         if (prof != null) {
             if (!cobName.equals(prof.getName())) {
                 prof.setName(makeCobblerName(ksData));

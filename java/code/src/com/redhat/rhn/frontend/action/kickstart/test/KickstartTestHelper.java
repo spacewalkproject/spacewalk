@@ -20,17 +20,17 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.TestUtils;
 
 public class KickstartTestHelper {
-    
+
     private KickstartTestHelper() {
-        
+
     }
-    
+
     public static KickstartData createTestKickStart(User user) throws Exception {
         // Create a kickstart and the ranges so the list
         // will return something.
         KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
 
-        TestUtils.saveAndFlush(k);        
+        TestUtils.saveAndFlush(k);
         return k;
     }
 }

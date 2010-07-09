@@ -46,8 +46,8 @@ boolean staticIfDisabled = Boolean.valueOf(
 <body onload="init()">
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 
@@ -83,7 +83,7 @@ boolean staticIfDisabled = Boolean.valueOf(
          <th><bean:message key="kickstart.remote.cmd.jsp.label" />:</th>
          <td><html:checkbox property="remoteCommands" /><br />
              <span class="small-text"><bean:message key="kickstart.remote.cmd.tip.jsp.label" /></span>
-         </td>         
+         </td>
        </tr>
 		<tr>
           <th><bean:message key="kickstart.registration.type.jsp.label" />:</th>
@@ -93,7 +93,7 @@ boolean staticIfDisabled = Boolean.valueOf(
               <html:radio property="registrationType" value="none" /><bean:message key="kickstart.registration.type.none.jsp.label" />
           </td>
         </tr>
-       
+
       </table>
     <h2><bean:message key="kickstart.systemdetails.jsp.header4"/></h2>
     <table class="details">
@@ -104,7 +104,7 @@ boolean staticIfDisabled = Boolean.valueOf(
       <tr>
         <th><bean:message key="kickstart.root.password.verify.jsp.label" />:</th>
         <td><html:password property="rootPasswordConfirm" maxlength="32" size="32" redisplay="false"/></td>
-      </tr>      
+      </tr>
       <tr>
         <td align="right" colspan="2">
             <input type="submit" value="<bean:message key="kickstart.systemdetails.edit.submit.jsp.label" />" />

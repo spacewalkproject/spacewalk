@@ -38,9 +38,9 @@ public class UpdateBaseChannelCommand extends BaseUpdateChannelCommand {
 
     private Server server;
     private Long baseChannelId;
-    
+
     /**
-     * Constructor with 
+     * Constructor with
      * @param userIn current logged in user
      * @param s to update the base channel for
      * @param baseChanneldIn to update to
@@ -57,11 +57,11 @@ public class UpdateBaseChannelCommand extends BaseUpdateChannelCommand {
     public ValidatorError store() {
         Channel oldChannel = server.getBaseChannel();
         Channel newChannel = null;
-        // If the new ID is -1 we are unsubscribing to a no-base-channel 
+        // If the new ID is -1 we are unsubscribing to a no-base-channel
         // for the server.
         if (baseChannelId.longValue() != -1) {
             newChannel = ChannelManager.lookupByIdAndUser(
-                    new Long(baseChannelId.longValue()), 
+                    new Long(baseChannelId.longValue()),
                     user);
             // Make sure we got a valid base channel from the user
             if (newChannel == null || newChannel.getParentChannel() != null ||
@@ -69,15 +69,15 @@ public class UpdateBaseChannelCommand extends BaseUpdateChannelCommand {
                 throw new InvalidChannelException();
             }
         }
-        
+
         // Check for available subs
         if (newChannel != null &&
-                !SystemManager.canServerSubscribeToChannel(user.getOrg(), 
+                !SystemManager.canServerSubscribeToChannel(user.getOrg(),
                         server, newChannel)) {
             return new ValidatorError("system.channel.nochannelslots");
         }
         List <Long> newKidsToSubscribe = new LinkedList<Long>();
-        
+
         if (oldChannel != null && newChannel != null) {
             Map<Channel, Channel> preservableChildren = ChannelManager.
                             findCompatibleChildren(oldChannel, newChannel, user);
@@ -87,13 +87,13 @@ public class UpdateBaseChannelCommand extends BaseUpdateChannelCommand {
                 }
             }
         }
-         
+
         // First unsubscribe all the child channels
-        UpdateChildChannelsCommand cmd = new UpdateChildChannelsCommand(user, server, 
+        UpdateChildChannelsCommand cmd = new UpdateChildChannelsCommand(user, server,
                 ListUtils.EMPTY_LIST);
         cmd.store();
-        
-        
+
+
         // Unsubscribe the server from it's current base channel
         try {
             SystemManager.unsubscribeServerFromChannel(user, server, oldChannel);
@@ -102,15 +102,15 @@ public class UpdateBaseChannelCommand extends BaseUpdateChannelCommand {
             // convert to FaultException
             throw new PermissionCheckFailureException();
         }
-        
+
         if (newChannel != null) {
             // Subscribe the server to the new base channel
             try {
                 SystemManager.subscribeServerToChannel(user, server, newChannel);
-                cmd = new UpdateChildChannelsCommand(user, server, 
+                cmd = new UpdateChildChannelsCommand(user, server,
                         newKidsToSubscribe);
                 cmd.store();
-                
+
             }
             catch (PermissionException e) {
                 // convert to FaultException

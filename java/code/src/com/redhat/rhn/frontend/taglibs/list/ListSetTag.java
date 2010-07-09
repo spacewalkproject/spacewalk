@@ -19,18 +19,18 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Provides a container for the new-style lists
- * 
+ *
  * @version $Rev $
  */
 public class ListSetTag extends BodyTagSupport {
-    
+
     private static final long serialVersionUID = -1693186305171539903L;
-    
+
     private String uniqueName;
-    
+
     private String legend;
-    
-    
+
+
     /**
      * Name for this list set
      * @param setName name
@@ -38,7 +38,7 @@ public class ListSetTag extends BodyTagSupport {
     public void setName(String setName) {
         uniqueName = TagHelper.generateUniqueName(setName);
     }
-    
+
     /**
      * Gets the unique name of the list set
      * @return unique name
@@ -46,21 +46,21 @@ public class ListSetTag extends BodyTagSupport {
     public String getUniqueName() {
         return uniqueName;
     }
-    
+
     /**
      * @return Returns the legend.
      */
     public String getLegend() {
         return legend;
     }
-    
+
     /**
      * @param l The legend to set.
      */
     public void setLegend(String l) {
         this.legend = l;
     }
-    
+
     /**
      * setLegends
      * Builds legends variable and sticks it back into the request.
@@ -76,7 +76,7 @@ public class ListSetTag extends BodyTagSupport {
         }
         else {
             /*
-             * legends must look like either "foo" or "foo,bar". in 
+             * legends must look like either "foo" or "foo,bar". in
              * either case, we just want to append a comma and a new
              * value.
              */
@@ -84,9 +84,9 @@ public class ListSetTag extends BodyTagSupport {
         }
         pageContext.getRequest().setAttribute("legends", legends);
     }
-    
-    
-    
+
+
+
     /**
      * {@inheritDoc}
      */
@@ -99,7 +99,7 @@ public class ListSetTag extends BodyTagSupport {
         startForm();
         return BodyTagSupport.EVAL_BODY_INCLUDE;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -107,7 +107,7 @@ public class ListSetTag extends BodyTagSupport {
         endForm();
         return BodyTagSupport.EVAL_PAGE;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -115,22 +115,22 @@ public class ListSetTag extends BodyTagSupport {
         uniqueName = null;
         super.release();
     }
-    
+
     private void startForm() throws JspException {
         String targetUrl = (String) pageContext.getRequest().getAttribute("parentUrl");
         ListTagUtil.write(pageContext, "<form method=\"POST\" id=\"listset_");
         ListTagUtil.write(pageContext, uniqueName);
         ListTagUtil.write(pageContext, "\" name=\"name_");
-        ListTagUtil.write(pageContext, uniqueName);        
+        ListTagUtil.write(pageContext, uniqueName);
         ListTagUtil.write(pageContext, "\" action=\"");
         ListTagUtil.write(pageContext, targetUrl);
         ListTagUtil.write(pageContext, "\">\n");
     }
-    
+
     private void endForm() throws JspException {
         ListTagUtil.write(pageContext, "</form>\n");
     }
-    
+
     private void verifyEnvironment() throws JspException {
         if (BodyTagSupport.findAncestorWithClass(this, this.getClass()) != null) {
             throw new JspException("ListSet tags may not be nested.");

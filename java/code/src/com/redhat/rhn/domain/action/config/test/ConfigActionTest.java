@@ -27,11 +27,11 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class ConfigActionTest extends RhnBaseTestCase {
-    
+
     public void testCreate() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser", "testOrg");
-        
-        ConfigAction testAction = (ConfigAction)ActionFactoryTest.createAction(usr, 
+
+        ConfigAction testAction = (ConfigAction)ActionFactoryTest.createAction(usr,
                 ActionFactory.TYPE_CONFIGFILES_DEPLOY);
         ConfigRevisionActionTest.createTestRevision(usr, testAction);
         ActionFactory.save(testAction);
@@ -42,7 +42,7 @@ public class ConfigActionTest extends RhnBaseTestCase {
         Action same = ActionFactory.lookupById(testAction.getId());
         assertTrue(same instanceof ConfigAction);
         ConfigAction sameAction = (ConfigAction) same;
-        
+
         assertNotNull(sameAction.getConfigRevisionActions());
         assertEquals(sameAction.getConfigRevisionActions().size(), 2);
         assertNotNull(sameAction.getConfigRevisionActions().toArray()[0]);

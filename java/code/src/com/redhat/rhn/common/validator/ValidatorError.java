@@ -24,10 +24,10 @@ package com.redhat.rhn.common.validator;
  * @version $Rev: 1710 $
  */
 public class ValidatorError extends ValidationMessage {
-    
+
     /**
     * Construct a ValidatorError with the proper
-    * key and values 
+    * key and values
     * @param keyIn the key to use to lookup the localized string
     * @param valuesIn the values to substitute in the message
     */
@@ -44,7 +44,7 @@ public class ValidatorError extends ValidationMessage {
     public ValidatorError(String keyIn) {
         super(keyIn);
     }
-    
+
     /** {@inheritDoc} */
     public String toString() {
         return "ValidatorError [Key: " + getKey() + "]";

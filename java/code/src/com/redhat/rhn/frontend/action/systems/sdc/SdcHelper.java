@@ -21,22 +21,22 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 
+ *
  * SdcHelper
  * @version $Rev$
  */
 public class SdcHelper {
 
-    
+
     public static final String INSSM = "inSSM";
-    
+
     private SdcHelper() {
-        
+
     }
-    
-    
+
+
     /**
-     * Checks to see if a system is in the SSM set, and sets a request attribute 
+     * Checks to see if a system is in the SSM set, and sets a request attribute
      * accordingly
      * @param request the request to set the attribute on
      * @param sid the systemid of the system

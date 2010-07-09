@@ -27,7 +27,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.TestUtils;
 
 /**
- * ActivationKeysTest - test for ActivationKeys lists 
+ * ActivationKeysTest - test for ActivationKeys lists
  * @version $Rev$
  */
 public class ActivationKeysTest extends BaseKickstartEditTestCase {
@@ -37,23 +37,23 @@ public class ActivationKeysTest extends BaseKickstartEditTestCase {
         setRequestPathInfo("/kickstart/ActivationKeys");
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
-        
+
     }
-    
+
     public void testSubmit() throws Exception {
         addDispatchCall(ActivationKeysSubmitAction.UPDATE_METHOD);
         addKeysToKickstartData(user, ksdata);
         setRequestPathInfo("/kickstart/ActivationKeysSubmit");
-        addSelectedItem(ActivationKeyTest.createTestActivationKey(user, 
+        addSelectedItem(ActivationKeyTest.createTestActivationKey(user,
                 ServerFactoryTest.createTestServer(user)).getId());
         actionPerform();
-        String[] msgs = {"kickstart_activation_keys.added", 
+        String[] msgs = {"kickstart_activation_keys.added",
                 "kickstart_activation_keys.removed"};
         verifyActionMessages(msgs);
     }
-    
-    
-    public static ActivationKey addKeysToKickstartData(User user, 
+
+
+    public static ActivationKey addKeysToKickstartData(User user,
             KickstartData ksdata) throws Exception {
         ActivationKey key = ActivationKeyFactory.createNewKey(user, "some key");
         ActivationKeyFactory.save(key);

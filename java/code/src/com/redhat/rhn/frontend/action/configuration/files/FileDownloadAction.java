@@ -58,9 +58,9 @@ public class FileDownloadAction extends RhnAction {
         }
         catch (IOException ioe) {
             ActionMessages msgs = new ActionMessages();
-            ActionMessage am = 
-                new ActionMessage("filedetails.jsp.error.download", 
-                        ioe.getLocalizedMessage(), 
+            ActionMessage am =
+                new ActionMessage("filedetails.jsp.error.download",
+                        ioe.getLocalizedMessage(),
                         cr.getConfigFile().getConfigFileName().getPath());
             msgs.add(ActionMessages.GLOBAL_MESSAGE, am);
             saveMessages(request, msgs);

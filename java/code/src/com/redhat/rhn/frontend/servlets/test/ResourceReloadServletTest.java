@@ -37,18 +37,18 @@ public class ResourceReloadServletTest extends MockObjectTestCase {
     private ServletOutputStream output;
     private Mock mreq;
     private Mock mresp;
-    
+
     public void setUp() {
         mreq = mock(HttpServletRequest.class);
         mresp = mock(HttpServletResponse.class);
-        
+
         request = (HttpServletRequest) mreq.proxy();
         response = (HttpServletResponse) mresp.proxy();
         output = new MockServletOutputStream();
 
         mresp.expects(atLeastOnce())
         .method("setContentLength").with(eq(31));
-        
+
         mresp.expects(atLeastOnce())
         .method("getOutputStream").will(returnValue(output));
 
@@ -57,7 +57,7 @@ public class ResourceReloadServletTest extends MockObjectTestCase {
         .with(eq("text/plain"));
 
     }
-    
+
     public void testDoGet() throws Exception {
         ResourceReloadServlet servlet = new ResourceReloadServlet();
         boolean orig = Config.get().getBoolean("web.development_environment");
@@ -65,10 +65,10 @@ public class ResourceReloadServletTest extends MockObjectTestCase {
         servlet.doGet(request, response);
         MockServletOutputStream ms = (MockServletOutputStream) output;
         assertEquals("Reloaded resource files: [true]", ms.getContents());
-        Config.get().setBoolean("web.development_environment", 
+        Config.get().setBoolean("web.development_environment",
                 new Boolean(orig).toString());
     }
-    
+
     public void tearDown() {
         request = null;
         response = null;

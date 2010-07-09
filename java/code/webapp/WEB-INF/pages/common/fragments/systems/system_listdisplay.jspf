@@ -12,7 +12,7 @@
 </c:otherwise>
 </c:choose>
 	
-	<rl:list 
+	<rl:list
 		dataset="pageList"
 		name="systemList"
 		emptykey="nosystems.message"
@@ -27,7 +27,7 @@
    	    </c:if>
 		<rl:decorator name="PageSizeDecorator"/>
 		
-		<c:if test = "${empty notSelectable}">   	    
+		<c:if test = "${empty notSelectable}">
 	 	<rl:decorator name="SelectableDecorator"/>
 	 	<rl:selectablecolumn value="${current.id}"
 	 						selected="${current.selected}"
@@ -35,10 +35,10 @@
 	 						styleclass="first-column"/>
 		</c:if>
 		<!-- Name Column -->
-		<rl:column sortable="true" 
+		<rl:column sortable="true"
 				   bound="false"
-		           headerkey="systemlist.jsp.system" 
-		           sortattr="name" 
+		           headerkey="systemlist.jsp.system"
+		           sortattr="name"
 		           defaultsort="asc"
 		           styleclass="${namestyle}">
 			<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
@@ -47,9 +47,9 @@
 		
 		<c:if test = "${empty noUpdates}">
 		<!--Updates Column -->
-		<rl:column sortable="false" 
+		<rl:column sortable="false"
 				   bound="false"
-		           headerkey="systemlist.jsp.status" 
+		           headerkey="systemlist.jsp.status"
 		           styleclass="center"
 		           	headerclass="thin-column">
                       <c:out value="${current.statusDisplay}" escapeXml="false"/>
@@ -63,11 +63,11 @@
 
 		<c:if test = "${empty noErrata}">
 		<!-- errata Column -->
-		<rl:column sortable="false" 
+		<rl:column sortable="false"
 				   bound="false"
-		           headerkey="systemlist.jsp.errata" 
+		           headerkey="systemlist.jsp.errata"
 		           styleclass="center"
-		           headerclass="thin-column">        		   
+		           headerclass="thin-column">
 		        <c:choose>
 		    		<c:when test="${(current.totalErrataCount) == 0}">
 		        		<c:out value="0" />
@@ -75,17 +75,17 @@
 		        	<c:otherwise>
 						<c:out value="<a href=\"/rhn/systems/details/ErrataList.do?sid=${current.id}\">${current.totalErrataCount}</a>" escapeXml="false" />
 		        	</c:otherwise>
-		        </c:choose> 
+		        </c:choose>
 		</rl:column>
 	    </c:if>
 	   <c:if test = "${empty noPackages}">
 		<!-- Packages Column -->
-		<rl:column sortable="false" 
+		<rl:column sortable="false"
 				   bound="false"
-		           headerkey="systemlist.jsp.packages" 
+		           headerkey="systemlist.jsp.packages"
 		           styleclass="center"
-		           headerclass="thin-column">       		           
-		           
+		           headerclass="thin-column">
+
 		        <c:choose>
 		    		<c:when test="${(current.outdatedPackages) == 0}">
 		        		<c:out value="0" />
@@ -93,7 +93,7 @@
 		        	<c:otherwise>
 						<c:out value="<a href=\"/rhn/systems/details/packages/UpgradableList.do?sid=${current.id}\">${current.outdatedPackages}</a>" escapeXml="false" />
 		        	</c:otherwise>
-		        </c:choose>   		           
+		        </c:choose>
 		</rl:column>
 		</c:if>
 		<c:if test = "${empty noConfigFiles}">
@@ -120,17 +120,17 @@
 				
 		</c:if>
 		<!-- Base Channel Column -->
-		<rl:column sortable="false" 
+		<rl:column sortable="false"
 				   bound="false"
 		           headerkey="systemlist.jsp.channel"  >
            <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
 		</rl:column>
 		
 		<!-- Entitlement Column -->
-		<rl:column sortable="false" 
+		<rl:column sortable="false"
 				   bound="false"
-		           headerkey="systemlist.jsp.entitlement" 
-		           styleclass="last-column">       		           
+		           headerkey="systemlist.jsp.entitlement"
+		           styleclass="last-column">
                       <c:out value="${current.entitlementLevel}" escapeXml="false"/>
 		</rl:column>		
 	

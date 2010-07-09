@@ -19,11 +19,11 @@ import java.util.Date;
 
 /**
  * TODO: Implement subobject checking
- * 
+ *
  * $Rev$
  */
 public class TestObject {
-    
+
     private String stringField;
     private Long longField;
     private Date dateField;
@@ -36,7 +36,7 @@ public class TestObject {
     private String posixString;
     private String twoCharField;
 
-    
+
     /**
      * @return the twoCharField
      */
@@ -44,7 +44,7 @@ public class TestObject {
         return twoCharField;
     }
 
-    
+
     /**
      * @param twoCharFieldIn the twoCharField to set
      */
@@ -59,7 +59,7 @@ public class TestObject {
     public void setSecondStringField(String secondStringFieldIn) {
         this.secondStringField = secondStringFieldIn;
     }
-    
+
     public void setStringField(String sin) {
         stringField = sin;
     }
@@ -75,7 +75,7 @@ public class TestObject {
     public Long getLongField() {
         return longField;
     }
-    
+
 
     public void setDateField(Date din) {
         dateField = din;
@@ -88,12 +88,12 @@ public class TestObject {
     public void setCompoundField(String compoundIn) {
         compoundField = compoundIn;
     }
-    
+
     public String getCompoundField() {
         return compoundField;
     }
 
-    
+
     /**
      * @return Returns the secondLongField.
      */
@@ -101,7 +101,7 @@ public class TestObject {
         return secondLongField;
     }
 
-    
+
     /**
      * @param secondLongFieldIn The secondLongField to set.
      */
@@ -109,7 +109,7 @@ public class TestObject {
         this.secondLongField = secondLongFieldIn;
     }
 
-    
+
     /**
      * @return Returns the numberString.
      */
@@ -117,22 +117,22 @@ public class TestObject {
         return numberString;
     }
 
-    
+
     /**
      * @param numberStringIn The numberString to set.
      */
     public void setNumberString(String numberStringIn) {
         this.numberString = numberStringIn;
     }
-    
+
     /**
-     * 
+     *
      * @param asciiIn The ascii string to set
      */
     public void setAsciiString(String asciiIn) {
-        this.asciiString = asciiIn;  
+        this.asciiString = asciiIn;
     }
-    
+
     public String getAsciiString() {
         return asciiString;
     }
@@ -142,9 +142,9 @@ public class TestObject {
      * @param usernameIn The username string to set
      */
     public void setUsernameString(String usernameIn) {
-        this.usernameString = usernameIn;  
+        this.usernameString = usernameIn;
     }
-    
+
     /**
      * @return Returns the usernameString.
      */

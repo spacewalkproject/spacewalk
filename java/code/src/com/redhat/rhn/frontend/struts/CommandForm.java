@@ -35,7 +35,7 @@ public class CommandForm extends ScrubbingDynaActionForm {
     protected boolean isScrubbable(String name, Object value) {
         //Donot scrub the Contents because that contains the other characters
         //for every other field feel free to scrub.
-        if (COMMAND.equalsIgnoreCase(name) || 
+        if (COMMAND.equalsIgnoreCase(name) ||
                 SCRIPT.equalsIgnoreCase(name) || RUN_SCRIPT.equalsIgnoreCase(name)) {
             return false;
         }

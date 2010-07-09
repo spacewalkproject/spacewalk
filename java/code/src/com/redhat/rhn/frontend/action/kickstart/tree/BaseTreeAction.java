@@ -36,7 +36,7 @@ import java.util.List;
  * @version $Rev: 1 $
  */
 public abstract class BaseTreeAction extends BaseEditAction {
-    
+
     public static final String INSTALL_TYPE = "installtype";
     public static final String BASE_PATH = "basepath";
     public static final String CHANNEL_ID = "channelid";
@@ -59,10 +59,10 @@ public abstract class BaseTreeAction extends BaseEditAction {
             return;
         }
         else {
-            rctx.getRequest().setAttribute(CHANNELS, 
+            rctx.getRequest().setAttribute(CHANNELS,
                     createLabelValueList(i, "getName", "getId"));
         }
-        
+
         Channel selectedBaseChannel = getSelectedBaseChannel(rctx);
         if (selectedBaseChannel == null) {
             rctx.getRequest().setAttribute(HIDE_SUBMIT, "true");
@@ -74,16 +74,16 @@ public abstract class BaseTreeAction extends BaseEditAction {
             rctx.getRequest().setAttribute(HIDE_SUBMIT, "true");
         }
         else {
-            rctx.getRequest().setAttribute(INSTALLTYPES, 
+            rctx.getRequest().setAttribute(INSTALLTYPES,
             createLabelValueList(i, "getName", "getLabel"));
         }
-        
+
     }
 
-    protected ValidatorError processCommandSetters(PersistOperation operation, 
+    protected ValidatorError processCommandSetters(PersistOperation operation,
                                                             DynaActionForm form) {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) operation;
-        
+
         String label = form.getString(LABEL);
         if (!label.equals(bte.getTree().getLabel())) {
             KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
@@ -92,8 +92,8 @@ public abstract class BaseTreeAction extends BaseEditAction {
                 return new ValidatorError("distribution.tree.exists", tree.getLabel());
             }
         }
-        
-        
+
+
         bte.setBasePath(form.getString(BASE_PATH));
         Long channelId = (Long) form.get(CHANNEL_ID);
         Channel c = ChannelFactory.lookupByIdAndUser(channelId, operation.getUser());
@@ -107,9 +107,9 @@ public abstract class BaseTreeAction extends BaseEditAction {
         bte.setPostKernelOptions(form.getString(POST_KERNEL_OPTS));
 
         return null;
-        
+
     }
-    
+
     /**
      * Return the selected base channel, either the existing value for a
      * channel being edited, the previous selection on the form after an
@@ -118,25 +118,25 @@ public abstract class BaseTreeAction extends BaseEditAction {
      * @return Channel selected previously or by default, null if neither exist.
      */
     protected Channel getSelectedBaseChannel(RequestContext rctx) {
-        
+
         String previousChannelIdSelection = rctx.getParam(CHANNEL_ID, false);
         if (previousChannelIdSelection != null) {
             return ChannelFactory.lookupById(new Long(previousChannelIdSelection));
         }
-        
+
         KickstartableTree tree = (KickstartableTree)rctx.getRequest().getAttribute(
                 RequestContext.KSTREE);
         if (tree != null) {
             // Looks like we're editing an existing tree:
             return tree.getChannel();
         }
-        
+
         List channelLabels = (List)rctx.getRequest().getAttribute(CHANNELS);
         if (channelLabels != null) {
             String channelId = ((LabelValueBean)channelLabels.get(0)).getValue();
             return ChannelFactory.lookupById(new Long(channelId));
         }
-        
+
         return null;
     }
 }

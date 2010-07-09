@@ -35,7 +35,7 @@ public class Distro extends CobblerObject {
     private Distro(CobblerConnection clientIn) {
         client = clientIn;
     }
-  
+
     /**
      * Create a new distro in cobbler
      * @param client the xmlrpc client
@@ -45,8 +45,8 @@ public class Distro extends CobblerObject {
      * @param ksmeta inital ksmeta to set
      * @return a new Distro
      */
-    public static Distro create(CobblerConnection client, 
-                                String name, String kernel, String initrd, 
+    public static Distro create(CobblerConnection client,
+                                String name, String kernel, String initrd,
                                 Map ksmeta) {
         Distro distro = new Distro(client);
         distro.handle = (String) client.invokeTokenMethod("new_distro");
@@ -76,10 +76,10 @@ public class Distro extends CobblerObject {
      * @return the distro matching the UID
      */
     public static Distro lookupById(CobblerConnection client, String id) {
-        return handleLookup(client, lookupDataMapById(client, 
+        return handleLookup(client, lookupDataMapById(client,
                                         id, "find_distro"));
     }
-    
+
     private static Distro handleLookup(CobblerConnection client, Map distroMap) {
         if (distroMap != null) {
             Distro distro = new Distro(client);
@@ -87,18 +87,18 @@ public class Distro extends CobblerObject {
             return distro;
         }
         return null;
-    }    
-    
+    }
+
     /**
-     * Returns a list of available Distros 
+     * Returns a list of available Distros
      * @param connection the cobbler connection
      * @return a list of Distros.
      */
     public static List<Distro> list(CobblerConnection connection) {
         List <Distro> distros = new LinkedList<Distro>();
-        List <Map<String, Object >> cDistros = (List <Map<String, Object >>) 
+        List <Map<String, Object >> cDistros = (List <Map<String, Object >>)
                                         connection.invokeMethod("get_distros");
-        
+
         for (Map<String, Object> distroMap : cDistros) {
             Distro distro = new Distro(connection);
             distro.dataMap = distroMap;
@@ -111,12 +111,12 @@ public class Distro extends CobblerObject {
     protected String invokeGetHandle() {
         return (String)client.invokeTokenMethod("get_distro_handle", this.getName());
     }
-    
+
     @Override
     protected void invokeModify(String key, Object value) {
         client.invokeTokenMethod("modify_distro", getHandle(), key, value);
     }
-    
+
     /**
      * Save the distro
      */
@@ -126,7 +126,7 @@ public class Distro extends CobblerObject {
     }
 
     /**
-     * Remove the distro 
+     * Remove the distro
      */
     @Override
     protected boolean invokeRemove() {
@@ -134,13 +134,13 @@ public class Distro extends CobblerObject {
     }
 
     /**
-     * Rename the distro 
+     * Rename the distro
      */
     @Override
     protected void invokeRename(String newNameIn) {
         client.invokeTokenMethod("rename_distro", getHandle(), newNameIn);
     }
-    
+
     /**
      * Reloads the distro
      */
@@ -149,7 +149,7 @@ public class Distro extends CobblerObject {
         Distro newDistro = lookupById(client, getId());
         dataMap = newDistro.dataMap;
     }
-    
+
     /**
      * @return the arch
      */
@@ -157,14 +157,14 @@ public class Distro extends CobblerObject {
         return (String)dataMap.get(ARCH);
     }
 
-    
+
     /**
      * @param archIn the arch to set
      */
     public void setArch(String archIn) {
         modify(ARCH, archIn);
     }
-    
+
     /**
      * @return the kernelPath
      */
@@ -172,7 +172,7 @@ public class Distro extends CobblerObject {
         return (String)dataMap.get(KERNEL);
     }
 
-    
+
     /**
      * @param kernelPathIn the kernelPath to set
      */
@@ -180,7 +180,7 @@ public class Distro extends CobblerObject {
         modify(KERNEL, kernelPathIn);
     }
 
-    
+
     /**
      * @return the osVersion
      */
@@ -188,7 +188,7 @@ public class Distro extends CobblerObject {
         return (String)dataMap.get(OS_VERSION);
     }
 
-    
+
     /**
      * @param osVersionIn the osVersion to set
      */
@@ -196,7 +196,7 @@ public class Distro extends CobblerObject {
         modify(OS_VERSION, osVersionIn);
     }
 
-    
+
     /**
      * @return the initrdPath
      */
@@ -204,7 +204,7 @@ public class Distro extends CobblerObject {
         return (String)dataMap.get(INITRD);
     }
 
-    
+
     /**
      * @param initrdPathIn the initrdPath to set
      */
@@ -212,7 +212,7 @@ public class Distro extends CobblerObject {
         modify(INITRD, initrdPathIn);
     }
 
-    
+
     /**
      * @return the sourceRepos
      */
@@ -220,14 +220,14 @@ public class Distro extends CobblerObject {
         return (List<String>)dataMap.get(SOURCE_REPOS);
     }
 
-    
+
     /**
      * @param sourceReposIn the sourceRepos to set
      */
     public void setSourceRepos(List<String> sourceReposIn) {
         modify(SOURCE_REPOS, sourceReposIn);
     }
-    
+
     /**
      * @return the treeBuildTime
      */
@@ -235,14 +235,14 @@ public class Distro extends CobblerObject {
         return (Long)dataMap.get(TREE_BUILD_TIME);
     }
 
-    
+
     /**
      * @param treeBuildTimeIn the treeBuildTime to set
      */
     public void setTreeBuildTime(long treeBuildTimeIn) {
         modify(TREE_BUILD_TIME, treeBuildTimeIn);
     }
-    
+
     /**
      * @return the breed
      */
@@ -250,7 +250,7 @@ public class Distro extends CobblerObject {
         return (String)dataMap.get(BREED);
     }
 
-    
+
     /**
      * @param breedIn the breed to set
      */

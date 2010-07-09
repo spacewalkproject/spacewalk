@@ -64,19 +64,19 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
         RhnSet set = getSetDecl().get(user);
         if (!rctx.isSubmitted()) {
             getSetDecl().clear(rctx.getLoggedInUser());
-        }        
+        }
 
         DataResult dr = getDataResult(user, pc, request);
         if (!(dr.size() > 0)) {
             request.setAttribute(SHOW_NO_SYSTEMS, Boolean.TRUE);
         }
-        
+
         setStatusDisplay(dr, user);
 
         Long sid = rctx.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
-        SdcHelper.ssmCheck(request, sid, user);        
+        SdcHelper.ssmCheck(request, sid, user);
         request.setAttribute("set", set);
         request.setAttribute("pageList", dr);
         request.setAttribute("system", server);
@@ -84,7 +84,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
         request.setAttribute("guestSettingOptions", getGuestSettingOptions());
         return mapping.findForward("default");
     }
-    
+
     private List getActionOptions() {
         // Set parameter for the actions dropdown:
         List actionOptions = new LinkedList();
@@ -104,7 +104,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
         }
         return actionOptions;
     }
-    
+
     private List getGuestSettingOptions() {
         List guestSettingOptions = new LinkedList();
         String [] resourceBundleKeys = {
@@ -119,7 +119,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
         }
         return guestSettingOptions;
     }
-    
+
     /**
      * Sets the status and entitlementLevel variables of each System Overview
      * @param dr The list of System Overviews
@@ -127,9 +127,9 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
      */
     public void setStatusDisplay(DataResult dr, User user) {
         Iterator i = dr.iterator();
-        
+
         while (i.hasNext()) {
-            
+
             VirtualSystemOverview next = (VirtualSystemOverview) i.next();
 
             // If the system is not registered with RHN, we cannot show a status
@@ -142,17 +142,17 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
         }
     }
 
-    
+
     // Had to override getDataResult because in
     // BaseSystemListSetupAction we have no access to the
     // HttpServletRequest.  We need the request here to find the sid.
     protected DataResult getDataResult(User user,
                                        PageControl pc,
                                        HttpServletRequest request) {
-        
+
         RequestContext ctx = new RequestContext(request);
         Long sid = ctx.getRequiredParam(RequestContext.SID);
-        
+
         DataResult dr = SystemManager.virtualGuestsForHostList(user, sid, pc);
 
         for (int i = 0; i < dr.size(); i++) {
@@ -168,7 +168,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
         return null;
     }
 
-    /** 
+    /**
      * Retrives the set declation item
      * where the contents of the page control
      * are to be set.

@@ -39,21 +39,21 @@ public class DeleteBugActionTest extends RhnBaseTestCase {
 
     public void testDeleteBug() throws Exception {
         DeleteBugAction action = new DeleteBugAction();
-        
+
         ActionMapping mapping = new ActionMapping();
         ActionForward def = new ActionForward("default", "path", true);
         mapping.addForwardConfig(def);
-        
+
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
         RhnMockHttpSession session = new RhnMockHttpSession();
         request.setSession(session);
         request.setupServerName("mymachine.rhndev.redhat.com");
-        
+
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         //Create a test errata with a bug
         User user = requestContext.getLoggedInUser();
         Errata e = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
@@ -63,17 +63,17 @@ public class DeleteBugActionTest extends RhnBaseTestCase {
         e.addBug(bug);
         ErrataManager.storeErrata(e);
         Long eid = e.getId();
-        
+
         assertEquals(1, e.getBugs().size());
         //setup the request
         request.setupAddParameter("eid", eid.toString());
         request.setupAddParameter("bid", bugId.toString());
-        
+
         ActionForward result = action.execute(mapping, form, request, response);
         assertEquals(result.getName(), "default");
 
         flushAndEvict(e); //get rid of e
-        
+
         Errata e2 = ErrataManager.lookupErrata(eid, user);
         assertTrue(e2.getBugs().isEmpty()); //make sure bug was removed
     }

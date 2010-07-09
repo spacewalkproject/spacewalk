@@ -1,5 +1,5 @@
 <!-- Properties of the channel itself  -->
-<h2><bean:message key="channelOverview.jsp.properties" /> 
+<h2><bean:message key="channelOverview.jsp.properties" />
   <rhn:require acl="config_channel_type(normal); user_role(config_admin)"
                mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
     <c:if test="${channelOverviewForm.map.editing != 'true'}">

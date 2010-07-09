@@ -3,14 +3,14 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.server.ServerInfo" 
+    <class name="com.redhat.rhn.domain.server.ServerInfo"
         table="rhnServerInfo" mutable="true">
         <id name="id" column="server_id">
             <generator class="foreign">
               <param name="property">server</param>
             </generator>
         </id>
-  
+
         <one-to-one name="server"
             class="com.redhat.rhn.domain.server.Server"
             constrained="true"/>

@@ -26,10 +26,10 @@ import org.apache.struts.action.ActionForm;
  * @version $Rev$
  */
 public class SystemListSetupAction extends BaseSystemsAction {
-    
+
     protected DataResult getDataResult(User user, PageControl pc, ActionForm formIn) {
-        
-        return SystemManager.systemList(user, pc); 
+
+        return SystemManager.systemList(user, pc);
     }
-    
+
 }

@@ -14,9 +14,9 @@
 <p><bean:message key="channelperms.jsp.summary"/></p>
 
 <p>
-                                                                                
-(<span class="ok-explanation"><img src="/img/rhn-listicon-ok.gif" 
-        alt="<bean:message key="channelperms.jsp.permGranted.short"/>" 
+
+(<span class="ok-explanation"><img src="/img/rhn-listicon-ok.gif"
+        alt="<bean:message key="channelperms.jsp.permGranted.short"/>"
         title="<bean:message key="channelperms.jsp.permGranted.short"/>" /></span>
 <bean:message key="channelperms.jsp.permGranted" />)
 </p>

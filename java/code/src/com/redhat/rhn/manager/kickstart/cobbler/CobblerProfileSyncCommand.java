@@ -29,29 +29,29 @@ import java.util.Map;
 
 
 /**
- * This command finds profiles that have been changed on the cobbler server and syncs 
+ * This command finds profiles that have been changed on the cobbler server and syncs
  *  those changes to the satellite
  * @version $Rev$
  */
 public class CobblerProfileSyncCommand extends CobblerCommand {
-  
+
     private Logger log;
-    
+
     /**
-     * Command to sync unsynced Kickstart profiles to cobbler. 
+     * Command to sync unsynced Kickstart profiles to cobbler.
      */
     public CobblerProfileSyncCommand() {
         super();
         log = Logger.getLogger(this.getClass());
     }
-    
 
-    
-    
-    
+
+
+
+
     /**
      *  Get a map of CobblerID -> profileMap from cobbler
-     * @return a list of cobbler profile names 
+     * @return a list of cobbler profile names
      */
     private Map<String, Map> getModifiedProfileNames() {
         Map<String, Map> toReturn = new HashMap<String, Map>();
@@ -60,8 +60,8 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
                 toReturn.put((String)profile.get("uid"), profile);
         }
         return toReturn;
-    }    
-    
+    }
+
 
     /**
      * {@inheritDoc}
@@ -73,12 +73,12 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
         Map<String, Map> profileNames = getModifiedProfileNames();
         for (KickstartData profile : profiles) {
             /**
-             * workaround for bad data left in the DB (bz 525561) 
+             * workaround for bad data left in the DB (bz 525561)
              */
             if (profile.getKickstartDefaults() == null) {
                 continue;
             }
-            
+
             if (!profileNames.containsKey(profile.getCobblerId())) {
                   if (profile.getKickstartDefaults().getKstree().getCobblerId() == null) {
                      log.warn("Kickstart profile " + profile.getLabel() +
@@ -92,11 +92,11 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
                   }
             }
         }
-        
+
 
         log.debug(profiles);
         log.debug(profileNames);
-        //Are there any profiles on cobbler that have changed     
+        //Are there any profiles on cobbler that have changed
         for (KickstartData profile : profiles) {
             if (profileNames.containsKey(profile.getCobblerId())) {
                 Map cobProfile = profileNames.get(profile.getCobblerId());
@@ -107,22 +107,22 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
                     syncProfileToSpacewalk(cobProfile, profile);
                 }
             }
-        }  
-        
-        
+        }
+
+
         return null;
     }
-    
+
     private void createProfile(KickstartData profile) {
         CobblerProfileCreateCommand creator = new CobblerProfileCreateCommand(profile);
         creator.store();
     }
 
-    
+
     /**
      * Sync s the following things:
      *  Distro (if applicable)
-     *  
+     *
      * then overwrites the 'kickstart' attribute within the cobbler profile
      *      (in case they changed it to something spacewalk doesn't know about)
      * @param cobblerProfile
@@ -145,14 +145,14 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
                 profile.setTree(tree);
             }
         }
-        
+
         //Now re-set the filename in case someone set it incorrectly
-        String handle = (String) invokeXMLRPC("get_profile_handle", 
+        String handle = (String) invokeXMLRPC("get_profile_handle",
                 cobblerProfile.get("name"), xmlRpcToken);
-        invokeXMLRPC("modify_profile", handle, "kickstart", profile.getCobblerFileName(), 
+        invokeXMLRPC("modify_profile", handle, "kickstart", profile.getCobblerFileName(),
                 xmlRpcToken);
         invokeXMLRPC("save_profile", handle, xmlRpcToken);
-        
+
         //Lets update the modified date just to make sure
         profile.setModified(new Date());
     }

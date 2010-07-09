@@ -60,9 +60,9 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * data contained within the
  * {@link com.redhat.rhn.common.db.datasource.DataResult DataResult}.
  * <p>
- * The ListTag has the following optional attributes: 
- * <code>filterBy</code> 
- * <code>set</code> 
+ * The ListTag has the following optional attributes:
+ * <code>filterBy</code>
+ * <code>set</code>
  * <code>hiddenvars</code>
  * <code>exportColumns</code>
  * <code>renderDisabled</code>
@@ -80,8 +80,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * <code>reflinkkeyarg0</code>
  * <code>description</code>
  * <code>transparent</code>
- * 
- * When using a child {@link com.redhat.rhn.frontend.taglibs.SetTag SetTag}, 
+ *
+ * When using a child {@link com.redhat.rhn.frontend.taglibs.SetTag SetTag},
  * the <code>set</code> and <code>hiddenvars</code> become <strong>REQUIRED</strong>.
  * <p>
  * The <code>filterBy</code> attribute specifies the column name with which
@@ -95,8 +95,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * <p>
  * <code> reflink </code> will cause a link to display in the lower right corner of the
  * table while <code> reflinkkey </code> is the localization message we wish to show
- * that will be the key of the link. <code>reflinkkeyarg0</code> is an optional 
- * argument to be passed to 
+ * that will be the key of the link. <code>reflinkkeyarg0</code> is an optional
+ * argument to be passed to
  * the LocalizationService. <code>description</code> is what will appear
  * in non-paged lists in the lower left corner in the "1 of 1 <code>description</code>
  * displayed." <code>transparent</code> if set to true will make it so that the
@@ -144,7 +144,7 @@ public class ListDisplayTag extends BodyTagSupport {
     private static final String PREV_LOWER = "prev_lower";
     private static final String FIRST_LOWER = "first_lower";
     private static final Set PAGINATION_WASH_SET = buildPaginationWashSet();
-    
+
     /** iterates through the page list */
     private Iterator iterator;
     /** list of data to show on page */
@@ -163,17 +163,17 @@ public class ListDisplayTag extends BodyTagSupport {
     private int numItemsChecked;
     /** true if we are to show the set operation buttons */
     private boolean showSetButtons;
-    
+
     private String buttonsAttrName;
     private String buttonsAttrValue;
-   
+
     /** true if we are a paging list */
     private boolean paging = true;
     /** type of table we are using. default is list" */
     private String type = "list";
     /** The URL that will appear in the lower right corner of the table */
     private String reflink;
-    /** The text of the refferal that will appear 
+    /** The text of the refferal that will appear
      * in lower right corner of the table. Should
      * be a trans-unit id.
      */
@@ -232,10 +232,10 @@ public class ListDisplayTag extends BodyTagSupport {
     /** Public constructor  */
     public ListDisplayTag() {
     }
-    
+
     /**
      * domainClass is used by the page loader to display what
-     * domain object it is loading. For example, if this is 
+     * domain object it is loading. For example, if this is
      * a system display list, the domainClass should be "systems".
      * This is a key to the StringResource for the translated version
      * of the domain object.
@@ -248,7 +248,7 @@ public class ListDisplayTag extends BodyTagSupport {
         }
         return domainClass;
     }
-    
+
     /**
      * Set the name:value pair for the request attribute controlling display
      * of any optional buttons
@@ -263,14 +263,14 @@ public class ListDisplayTag extends BodyTagSupport {
         buttonsAttrName = parts[0];
         buttonsAttrValue = parts[1];
     }
-    
+
     /**
      * @param domainClassIn The domainClass to set.
      */
     public void setDomainClass(String domainClassIn) {
         this.domainClass = domainClassIn;
     }
-    
+
     /**
      * @return Returns the button.
      */
@@ -350,7 +350,7 @@ public class ListDisplayTag extends BodyTagSupport {
     public void setSet(RhnSet s) {
         this.set = s;
     }
-    
+
     /**
      * Get the set
      * @return The set for this page
@@ -358,21 +358,21 @@ public class ListDisplayTag extends BodyTagSupport {
     public RhnSet getSet() {
         return set;
     }
-    
+
     /**
      * @return Returns the hiddenvars.
      */
     public String getHiddenvars() {
         return hiddenvars;
     }
-    
+
     /**
      * @param hv The hiddenvars to set.
      */
     public void setHiddenvars(String hv) {
         this.hiddenvars = hv;
     }
-    
+
     /**
      * Set the header of the filter on which to filter
      * @param filterByIn The filterBy to set.
@@ -380,7 +380,7 @@ public class ListDisplayTag extends BodyTagSupport {
     public void setFilterBy(String filterByIn) {
         this.filterBy = filterByIn;
     }
-    
+
     /**
      * Returns the title message key.
      * @return Returns the title.
@@ -396,7 +396,7 @@ public class ListDisplayTag extends BodyTagSupport {
     public void setTitle(String titleIn) {
         title = titleIn;
     }
-    
+
     /**
      * Returns true if this is a paging list.
      * @return true if this is a paging list.
@@ -404,7 +404,7 @@ public class ListDisplayTag extends BodyTagSupport {
     public boolean isPaging() {
         return paging;
     }
-   
+
     /**
      * Sets this list as either a paging or non-paging list.
      * @param topageornottopage true for a paging list, false otherwise.
@@ -412,7 +412,7 @@ public class ListDisplayTag extends BodyTagSupport {
     public void setPaging(boolean topageornottopage) {
         paging = topageornottopage;
     }
-    
+
     /**
      * Sets the type of the list
      * @param stringIn desired alignment for the list
@@ -420,7 +420,7 @@ public class ListDisplayTag extends BodyTagSupport {
     public void setType(String stringIn) {
         type = stringIn;
     }
-    
+
     /**
      * Gets the type of the list
      * @return String alignment of the list
@@ -428,7 +428,7 @@ public class ListDisplayTag extends BodyTagSupport {
     public String getType() {
         return type;
     }
-    
+
     /**
      * sets the reflink to be used
      * @param stringIn the reflink to be used
@@ -436,14 +436,14 @@ public class ListDisplayTag extends BodyTagSupport {
     public void setReflink(String stringIn) {
         reflink = stringIn;
     }
-    
+
     /**
      * @return returns the reflink
      */
     public String getReflink() {
         return reflink;
     }
-    
+
     /**
      * Sets the refLinkKey to be used
      * @param stringIn the reflinkkey to be used
@@ -451,14 +451,14 @@ public class ListDisplayTag extends BodyTagSupport {
     public void setReflinkkey(String stringIn) {
         reflinkkey = stringIn;
     }
-    
+
     /**
      * @return returns the reflinkkey
      */
     public String getReflinkkey() {
         return reflinkkey;
     }
-    
+
     /**
      * Sets the first argument for the reflinkkey
      * @param stringIn the reflinkkeyarg0 to be used
@@ -466,7 +466,7 @@ public class ListDisplayTag extends BodyTagSupport {
     public void setReflinkkeyarg0(String stringIn) {
         reflinkkeyarg0 = stringIn;
     }
-    
+
     /**
      * @return returns reflinkeyarg1
      */
@@ -479,15 +479,15 @@ public class ListDisplayTag extends BodyTagSupport {
     public void setDescription(String stringIn) {
         description = stringIn;
     }
-    
+
     /**
      * @return String that is the trans-unit id of the description we wish
-     * to use 
+     * to use
      */
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * @return returns whether or not the table is transparent
      */
@@ -503,26 +503,26 @@ public class ListDisplayTag extends BodyTagSupport {
     }
     private void doSort(String sortedColumn) {
         HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-        Collections.sort(pageList, new DynamicComparator(sortedColumn, 
+        Collections.sort(pageList, new DynamicComparator(sortedColumn,
                 request.getParameter(RequestContext.SORT_ORDER)));
     }
 
     private String getSortedColumn() {
         HttpServletRequest request =
             (HttpServletRequest) pageContext.getRequest();
-        return request.getParameter(RequestContext.LIST_SORT);        
+        return request.getParameter(RequestContext.LIST_SORT);
     }
 
     private void setupPageList() throws JspTagException {
         ListTag listTag = (ListTag) findAncestorWithClass(this, ListTag.class);
         if (listTag == null) {
-            throw new JspTagException("Tag nesting error: " + 
+            throw new JspTagException("Tag nesting error: " +
                     "listDisplay must be nested in a list tag");
         }
         pageList = listTag.getPageList();
         iterator = pageList.iterator();
     }
-    
+
     /**
      * Method to fetch a new ExportWriter instance.  Override
      * if desired to use different instance.  Currently creates
@@ -591,12 +591,12 @@ public class ListDisplayTag extends BodyTagSupport {
         if (request.getQueryString() != null) {
             page.append("&" + request.getQueryString());
         }
-        out.println("<div class=\"csv-download\"><a href=\"" + page + 
-              "\"><img src=\"/img/csv-16.png\"/ alt=\"\">" + 
+        out.println("<div class=\"csv-download\"><a href=\"" + page +
+              "\"><img src=\"/img/csv-16.png\"/ alt=\"\">" +
               LocalizationService.getInstance().getMessage("listdisplay.csv") +
               "</a></div>");
     }
-    
+
     /**
      * Renders the title header if set.
      * @param out JspWriter
@@ -611,25 +611,25 @@ public class ListDisplayTag extends BodyTagSupport {
             out.println(tr.render());
         }
     }
-    
+
     private void renderBoundsVariables(JspWriter out) throws IOException {
         StringBuffer target = new StringBuffer();
         // pagination formvars
         renderHidden(target, "lower", String.valueOf(pageList.getStart()));
-            
+
         PaginationUtil putil = new PaginationUtil(
-                                    pageList.getStart(), 
+                                    pageList.getStart(),
                                     pageList.getEnd(),
-                                    pageList.getEnd() - pageList.getStart() + 1, 
+                                    pageList.getEnd() - pageList.getStart() + 1,
                                     pageList.getTotalSize());
-    
+
         renderHidden(target, FIRST_LOWER, putil.getFirstLower());
         renderHidden(target, PREV_LOWER, putil.getPrevLower());
         renderHidden(target, NEXT_LOWER, putil.getNextLower());
         renderHidden(target, LAST_LOWER, putil.getLastLower());
         out.println(target.toString());
     }
-    
+
     private void renderFilterBox(JspWriter out) throws IOException {
         LocalizationService ls = LocalizationService.getInstance();
         HtmlTag tag = new HtmlTag("div");
@@ -642,52 +642,52 @@ public class ListDisplayTag extends BodyTagSupport {
         input.setAttribute("name", RequestContext.FILTER_STRING);
         input.setAttribute("value", pageList.getFilterData());
         buf.append(input.render());
-        
+
         input = new HtmlTag("input");
         input.setAttribute("type", "hidden");
         input.setAttribute("name", RequestContext.PREVIOUS_FILTER_STRING);
         input.setAttribute("value", pageList.getFilterData());
         buf.append(input.render());
-        
+
         input = new HtmlTag("input");
         input.setAttribute("type", "submit");
         input.setAttribute("name", FILTER_DISPATCH);
         input.setAttribute("value", ls.getMessage(RequestContext.FILTER_KEY));
         buf.append(input.render());
-        
+
 
         tag.addBody(ls.getMessage("message.filterby", ls.getMessage(filterBy)) +
                     buf.toString());
-        out.println(tag.render());        
+        out.println(tag.render());
     }
 
-    
+
     private void renderSetButtons(JspWriter out) throws IOException {
         StringBuffer buf = new StringBuffer();
         addButtonTo(buf, RequestContext.DISPATCH, UPDATE_LIST_KEY);
         buf.append(" ");
         addButtonTo(buf, RequestContext.DISPATCH, SELECT_ALL_KEY);
-        
+
         if (numItemsChecked > 0) {
             buf.append(" ");
-            addButtonTo(buf, RequestContext.DISPATCH, UNSELECT_ALL_KEY);            
+            addButtonTo(buf, RequestContext.DISPATCH, UNSELECT_ALL_KEY);
         }
         out.println(buf.toString());
     }
-    
-    private void addButtonTo(StringBuffer buf, String name, 
+
+    private void addButtonTo(StringBuffer buf, String name,
                                String label) {
-        
+
         LocalizationService ls = LocalizationService.getInstance();
-        
+
         HtmlTag input = new HtmlTag("input");
         input.setAttribute("type", "submit");
         input.setAttribute("name", name);
         input.setAttribute("value", ls.getMessage(label));
         buf.append(input.render());
 
-    }    
-    private void renderPagination(JspWriter out, boolean top) 
+    }
+    private void renderPagination(JspWriter out, boolean top)
         throws IOException {
 
         if (type.equals("list")) {
@@ -696,18 +696,18 @@ public class ListDisplayTag extends BodyTagSupport {
         else {
             out.println("<table class=\"list-pagination\"");
         }
-        
+
         if (tableId != null) {
             out.print("id=\"" + tableId + "\" ");
         }
-        
+
         out.println(">");
         out.println("<tr>");
        // if (!showSetButtons) {
-            out.println("<td valign=\"middle\" width=\"90%\">");            
+            out.println("<td valign=\"middle\" width=\"90%\">");
         //}
         //else {
-        //    out.println("<td valign=\"middle\">");  
+        //    out.println("<td valign=\"middle\">");
         //}
 
         if (top && pageList.hasFilter()) {
@@ -723,15 +723,15 @@ public class ListDisplayTag extends BodyTagSupport {
         if (!top && exportColumns != null) {
             renderExport(out);
         }
-        
-        
+
+
         out.println("</td>");
         out.print("<td valign=\"middle\" class=\"list-infotext\">");
         int finalResult = pageList.getEnd();
         if (finalResult > pageList.getTotalSize()) {
             finalResult = pageList.getTotalSize();
         }
-        
+
         Object [] args = new Object[4];
         if (pageList.size() == 0) {
             args[0] = new Integer(0);
@@ -745,7 +745,7 @@ public class ListDisplayTag extends BodyTagSupport {
         }
         out.println(LocalizationService.getInstance()
                     .getMessage("message.range", args));
-        
+
         if (set != null) {
             if (top) {
                 out.print("<strong><span id=\"pagination_selcount_top\">");
@@ -765,7 +765,7 @@ public class ListDisplayTag extends BodyTagSupport {
         out.println("  </tr>\n");
         out.println("</table>");
     }
-    
+
     private void appendButtons(JspWriter out) throws IOException {
         out.println("<td valign=\"middle\" class=\"list-navbuttons\">");
 
@@ -784,7 +784,7 @@ public class ListDisplayTag extends BodyTagSupport {
         }
         out.println("</td>\n");
     }
-    
+
     private String renderPaginationButton(String name, String imgPrefix,
             String text, boolean active) {
         HtmlTag ret = new HtmlTag("input");
@@ -803,38 +803,38 @@ public class ListDisplayTag extends BodyTagSupport {
 
         return ret.render();
     }
-    
+
     private void renderActionButtons(JspWriter out) throws IOException {
         if (pageList.size() == 0 || getButton() == null) {
             return;
         }
-        
+
         if (!hasButtonAttrs()) {
             return;
         }
-        
-        
+
+
         out.println("<div align=\"right\">");
         out.println("  <hr />");
-        
-        if (getButton() != null && AclManager.hasAcl(getButtonAcl(), 
+
+        if (getButton() != null && AclManager.hasAcl(getButtonAcl(),
                 (HttpServletRequest) pageContext.getRequest(), getMixins())) {
-            
-            out.println("<input type=\"submit\" name=\"dispatch\" value=\"" + 
+
+            out.println("<input type=\"submit\" name=\"dispatch\" value=\"" +
                     LocalizationService.getInstance().getMessage(getButton()) +
                     "\" />");
         }
         if (getButton2() != null && AclManager.hasAcl(getButton2Acl(),
                 (HttpServletRequest) pageContext.getRequest(), getMixins())) {
-            
-            out.println("<input type=\"submit\" name=\"dispatch\" value=\"" + 
+
+            out.println("<input type=\"submit\" name=\"dispatch\" value=\"" +
                     LocalizationService.getInstance().getMessage(getButton2()) +
                     "\" />");
         }
-        
+
         out.println("</div>");
     }
-    
+
     private boolean hasButtonAttrs() {
         boolean retval = true;
         if (buttonsAttrName != null && buttonsAttrValue != null) {
@@ -860,7 +860,7 @@ public class ListDisplayTag extends BodyTagSupport {
         else {
             retval = new StringBuffer("<tr class=\"list-row-even");
         }
-        if (renderDisabled() && o instanceof UserOverview && 
+        if (renderDisabled() && o instanceof UserOverview &&
                 ((UserOverview)o).getStatus() != null &&
                 ((UserOverview)o).getStatus().equals("disabled")) {
                 return retval.append("-disabled\">").toString();
@@ -890,31 +890,31 @@ public class ListDisplayTag extends BodyTagSupport {
     }
 
     private void renderViewAllLink(JspWriter out) {
-        
-        
+
+
         /*
          * Bugzilla #185976
          * Link isn't working correctly commenting out for now
          * TODO: fix this
          * HtmlTag link = new HtmlTag("a");*/
-        
+
         /*
         link.setAttribute("href", "/rhn/Load.do?pagesize=" +
                 pageList.getTotalSize() + "&amp;what=" + getDomainClass() +
                 "&amp;return_url=" + buildReturnUrl());
-        
+
         link.addBody(
                 LocalizationService.getInstance().getMessage(
                         "listdisplaytag.viewall"));
-        
+
         out.println(link.render());*/
     }
 
     private void renderAlphabar(JspWriter out) throws IOException {
         StringBuffer target = new StringBuffer();
-        
+
         if (type.equals("list")) {
-            target.append("<table width=\"100%\" cellspacing=\"0\"" + 
+            target.append("<table width=\"100%\" cellspacing=\"0\"" +
             " cellpadding=\"1\">");
         }
         else {
@@ -929,7 +929,7 @@ public class ListDisplayTag extends BodyTagSupport {
         /**
          * Add any query args we got to alphabar links.
          * We do it this way to ensure that any variables set on the page
-         * carry from form submission (by pressing the pagination buttons) 
+         * carry from form submission (by pressing the pagination buttons)
          * to the alphabar links and vice-versa.
          */
         ServletRequest rq = pageContext.getRequest();
@@ -950,7 +950,7 @@ public class ListDisplayTag extends BodyTagSupport {
             while (iter.hasNext()) {
                 String key = (String) iter.next();
                 if (!PAGINATION_WASH_SET.contains(key)) {
-                    String encodedParam = StringUtil.urlEncode(rq.getParameter(key)); 
+                    String encodedParam = StringUtil.urlEncode(rq.getParameter(key));
                     enabled.append("&amp;" + key + "=" + encodedParam);
                 }
             }
@@ -976,7 +976,7 @@ public class ListDisplayTag extends BodyTagSupport {
     protected void incrementChecked() {
         numItemsChecked++;
     }
-    
+
     /**
      * Tells the ListDisplayTag to show Update List and Select All buttons.
      */
@@ -991,7 +991,7 @@ public class ListDisplayTag extends BodyTagSupport {
     public boolean isExport() {
         RequestContext ctx = new RequestContext((HttpServletRequest)
                 pageContext.getRequest());
-        return (ctx.isRequestedExport() && this.exportColumns != null); 
+        return (ctx.isRequestedExport() && this.exportColumns != null);
     }
 
     /**
@@ -1007,15 +1007,15 @@ public class ListDisplayTag extends BodyTagSupport {
     public void setExportColumns(String exportIn) {
         this.exportColumns = exportIn;
     }
-    
+
     /**
      * Build a set of all URL variables that are pagination-specific
      * and should not be part of the URL's in the Alphabar
      * @return a set of all URL variables that are pagination-specific
      */
     private static Set buildPaginationWashSet() {
-        String [] keys = new String[] {FIRST, PREV, NEXT, LAST, 
-                                        FIRST_LOWER, PREV_LOWER, 
+        String [] keys = new String[] {FIRST, PREV, NEXT, LAST,
+                                        FIRST_LOWER, PREV_LOWER,
                                             NEXT_LOWER, LAST_LOWER };
         Set result = new HashSet();
         for (int i = 0; i < keys.length; i++) {
@@ -1033,7 +1033,7 @@ public class ListDisplayTag extends BodyTagSupport {
     //////////////////////////////////////////////////////////////////////////
     // JSP Tag lifecycle methods
     //////////////////////////////////////////////////////////////////////////
-    
+
     /** {@inheritDoc} */
     public int doStartTag() throws JspException {
         rowCnt = 0;
@@ -1041,37 +1041,37 @@ public class ListDisplayTag extends BodyTagSupport {
         numberOfColumns = 0;
         JspWriter out = null;
         showSetButtons = false;
-        
+
         try {
             out = pageContext.getOut();
 
             setupPageList();
 
-            // Now that we have setup the proper tag state we 
+            // Now that we have setup the proper tag state we
             // need to return if this is an export render.
             if (isExport()) {
                 return SKIP_PAGE;
             }
-            
+
             String sortedColumn = getSortedColumn();
             if (sortedColumn != null) {
                 doSort(sortedColumn);
             }
-            
+
             /* If pageList contains an index and pageList.size() (what we are
              * displaying on the page) is less than pageList.getTotalSize()
              * (the total number of items in the data result), render alphabar.
              * This prevents the alphabar from showing up on pages that show
              * all of the entries on a single page and is similar to how the
-             * perl code behaves. 
+             * perl code behaves.
              */
-            if (pageList.getIndex().size() > 0 && 
+            if (pageList.getIndex().size() > 0 &&
                     pageList.size() < pageList.getTotalSize()) {
-                
+
                 renderViewAllLink(out);
                 renderAlphabar(out);
             }
-            
+
             if (isPaging()) {
                 renderPagination(out, true);
                 renderBoundsVariables(out);
@@ -1082,11 +1082,11 @@ public class ListDisplayTag extends BodyTagSupport {
              */
             if (type.equals("list") && title == null) {
                 out.print("<table width=\"100%\" cellspacing=\"0\"" +
-                        " cellpadding=\"0\" " + "class=\"list\"");               
+                        " cellpadding=\"0\" " + "class=\"list\"");
             }
             else if (type.equals("list") && title != null) {
                 out.print("<table width=\"100%\" cellspacing=\"0\"" +
-                        " cellpadding=\"0\" " + "class=\"list list-doubleheader\"");    
+                        " cellpadding=\"0\" " + "class=\"list list-doubleheader\"");
             }
             else {
                 out.print("<table cellspacing=\"0\" " + " cellpadding=\"0\" " +
@@ -1096,19 +1096,19 @@ public class ListDisplayTag extends BodyTagSupport {
             /*if (isTransparent()) {
                 out.print(" style=\"border-bottom: 1px solid #ffffff;\" ");
             }*/
-            
+
             if (tableId != null) {
                 out.print(" id=\"" + tableId + "\"");
             }
-            
+
             out.println(">");
-            
+
             out.println("<thead>");
-            
+
             renderTitle(out);
-            
+
             out.println("\n<tr>");
-            
+
             if (iterator != null && iterator.hasNext()) {
                 // Push a new BodyContent writer onto the stack so that
                 // we can buffer the body data.
@@ -1121,7 +1121,7 @@ public class ListDisplayTag extends BodyTagSupport {
             throw new JspException("IO error writing to JSP file:", ioe);
         }
     }
-    
+
     /** {@inheritDoc} */
     public int doEndTag() throws JspException {
         JspWriter out = null;
@@ -1149,13 +1149,13 @@ public class ListDisplayTag extends BodyTagSupport {
             BodyContent body = getBodyContent();
             pageContext.popBody();
             out = pageContext.getOut();
-            
+
             if (body != null) {
                 String bodyString = body.getString();
                 // The toReplace string is kind of odd, but it is because
                 // HtmlTag doesn't understand adding a property to be replaced.
                 if (numItemsChecked == pageList.size()) {
-                    bodyString = bodyString.replaceFirst("@@CHECKED@@=\"\"", 
+                    bodyString = bodyString.replaceFirst("@@CHECKED@@=\"\"",
                                                          "checked=\"1\"");
                 }
                 else {
@@ -1163,8 +1163,8 @@ public class ListDisplayTag extends BodyTagSupport {
                 }
                 out.println(bodyString);
             }
-            
-            /* If the type is a half-table, we must draw an extra row on the 
+
+            /* If the type is a half-table, we must draw an extra row on the
              * end of the table if the reflink has been set
              */
                 if (reflink != null) {
@@ -1174,25 +1174,25 @@ public class ListDisplayTag extends BodyTagSupport {
 
                     out.print("<td style=\"text-align: center;\" " +
                               "class=\"first-column last-column\" ");
-                    
-                    
+
+
                     /* TODO: Make this colspan setting dynamic so that
                      * the reflink row display correctly for lists of
                      * with n columns instead of just 2
                      */
                     out.println("colspan=\"2\">");
-                    
+
                     out.println("<a href=\"" + reflink + "\" >");
-                    
+
                     /* Here we render the reflink and its key. If the key hasn't been set
                      * we just display the link address itself.
                      */
                     if (reflinkkey != null) {
                         Object[] args = new Object[2];
-                        
+
                         args[0] = new Integer(pageList.getTotalSize());
                         args[1] = reflinkkeyarg0;
-                        
+
                         String message = LocalizationService.getInstance().
                                          getMessage(reflinkkey, args);
                         out.println(message);
@@ -1200,12 +1200,12 @@ public class ListDisplayTag extends BodyTagSupport {
                     else {
                         out.println(reflink);
                     }
-                
+
                     out.println("</a>");
                     out.println("</td>");
                     out.println("</tr>");
                 }
-            
+
             out.println("</tbody>");
             out.println("</table>\n");
 
@@ -1219,18 +1219,18 @@ public class ListDisplayTag extends BodyTagSupport {
              * of the list
              */
             else if (type.equals("list")) {
-                
+
                 int finalResult = pageList.getEnd();
                 if (finalResult > pageList.getTotalSize()) {
                     finalResult = pageList.getTotalSize();
                 }
-                
+
                 Object [] args = new Object[4];
                 args[0] = new Integer(pageList.getStart());
                 args[1] = new Integer(finalResult);
                 args[2] = new Integer(pageList.getTotalSize());
                 args[3] = LocalizationService.getInstance().getMessage(description);
-                
+
                 out.print("<span class=\"full-width-note-left\">\n");
                 out.print(LocalizationService.getInstance()
                             .getMessage("message.range.withtypedescription", args));
@@ -1248,7 +1248,7 @@ public class ListDisplayTag extends BodyTagSupport {
 
         return EVAL_PAGE;
     }
-    
+
     /** {@inheritDoc} */
     public int doAfterBody() throws JspException {
         JspWriter out = null;
@@ -1271,13 +1271,13 @@ public class ListDisplayTag extends BodyTagSupport {
                 pageContext.setAttribute("current", next);
                 return EVAL_BODY_AGAIN;
             }
-            
+
         }
         catch (IOException e) {
             throw new JspException("Error while writing to JSP: " +
                                    e.getMessage());
-        }        
-        
+        }
+
         return SKIP_BODY;
     }
 

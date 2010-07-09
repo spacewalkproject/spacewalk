@@ -25,7 +25,7 @@ public class MultiOrgSystemEntitlementsDto extends MultiOrgEntitlementsDto {
 
     /**
      * Returns the display name of the servergroup type
-     * @return the Display Name... 
+     * @return the Display Name...
      */
     public String getName() {
         Entitlement ent = EntitlementManager.getByName(getLabel());

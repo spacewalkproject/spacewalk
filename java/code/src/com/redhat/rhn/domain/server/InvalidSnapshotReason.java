@@ -17,53 +17,53 @@ package com.redhat.rhn.domain.server;
 import com.redhat.rhn.domain.BaseDomainHelper;
 
 /**
- * 
+ *
  * InvalidSnapshotReason
  * @version $Rev$
  */
 public class InvalidSnapshotReason extends BaseDomainHelper {
-    
-    
+
+
     private Long id;
     private String label;
     private String Name;
- 
-    
+
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param labelIn The label to set.
      */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return Name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */
@@ -71,6 +71,6 @@ public class InvalidSnapshotReason extends BaseDomainHelper {
         Name = nameIn;
     }
 
-    
+
 
 }

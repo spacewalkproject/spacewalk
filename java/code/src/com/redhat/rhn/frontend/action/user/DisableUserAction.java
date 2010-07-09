@@ -41,13 +41,13 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class DisableUserAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         if (!AclManager.hasAcl("user_role(org_admin)",
@@ -63,11 +63,11 @@ public class DisableUserAction extends RhnAction {
         Long uid = requestContext.getRequiredParam("uid");
         User loggedInUser = requestContext.getLoggedInUser();
         User user = UserManager.lookupUser(loggedInUser, uid);
-        
+
         try {
             UserManager.disableUser(loggedInUser, user);
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("user.disable", user.getLogin()));
             getStrutsDelegate().saveMessages(request, msg);
             if (user.getId().equals(loggedInUser.getId())) {
@@ -82,7 +82,7 @@ public class DisableUserAction extends RhnAction {
             Map params = new HashMap();
             params.put("uid", uid);
             addErrors(request, errors);
-            return getStrutsDelegate().forwardParams(mapping.findForward("failure"), 
+            return getStrutsDelegate().forwardParams(mapping.findForward("failure"),
                     params);
         }
     }

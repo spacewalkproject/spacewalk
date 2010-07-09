@@ -1,6 +1,6 @@
 When creating new xmlrpc exceptions, please attempt to find a free code
 within the ranges below. If space in a range is exhausted, create a new one
-elsewhere, likewise if your new exception doesn't fit in any of the 
+elsewhere, likewise if your new exception doesn't fit in any of the
 categories.
 
 NOTE: Some older exceptions do not fit within these ranges, but were left as

@@ -32,17 +32,17 @@ import org.apache.struts.action.Action;
  * @version $Rev$
  */
 public class SetItemSelectionActionTest extends RhnBaseTestCase {
-    
+
     public void testNoSystems() throws Exception {
         ActionHelper ah = new ActionHelper();
         Action action = new SetItemSelectionAction();
         ah.setUpAction(action);
-        
+
         ah.getRequest().setupAddParameter(SetItemSelectionAction.IDS, new String[] {});
         ah.getRequest().setupAddParameter(SetItemSelectionAction.CHECKED, "on");
-        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL, 
+        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL,
                                                           SetLabels.SYSTEM_LIST);
-        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL, 
+        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL,
                 SetLabels.SYSTEM_LIST);
         ah.executeAction("execute", false);
         String str = ah.getResponse().getHeader(SetItemSelectionAction.JSON_HEADER);
@@ -61,23 +61,23 @@ public class SetItemSelectionActionTest extends RhnBaseTestCase {
         user.addRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(user);
 
-        Server serverOne = ServerFactoryTest.createTestServer(user, true, 
+        Server serverOne = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         String sidOne = serverOne.getId().toString();
 
-        ah.getRequest().setupAddParameter(SetItemSelectionAction.IDS, 
+        ah.getRequest().setupAddParameter(SetItemSelectionAction.IDS,
                                                        new String[] { sidOne });
         ah.getRequest().setupAddParameter(SetItemSelectionAction.CHECKED, "on");
         ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL,
                                                          SetLabels.SYSTEM_LIST);
-        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL, 
+        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL,
                 SetLabels.SYSTEM_LIST);
         ah.executeAction("execute", false);
         String str = ah.getResponse().getHeader(SetItemSelectionAction.JSON_HEADER);
 
         String expectedResponse = "({\"header\":\"1 system selected\"," +
-                                    "\"pagination\":\"(1 selected)\"})"; 
-           
+                                    "\"pagination\":\"(1 selected)\"})";
+
 
         assertEquals(expectedResponse, str);
     }
@@ -91,21 +91,21 @@ public class SetItemSelectionActionTest extends RhnBaseTestCase {
         user.addRole(RoleFactory.ORG_ADMIN);
         UserManager.storeUser(user);
 
-        Server serverOne = ServerFactoryTest.createTestServer(user, true, 
+        Server serverOne = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         String sidOne = serverOne.getId().toString();
 
-        Server serverTwo = ServerFactoryTest.createTestServer(user, true, 
+        Server serverTwo = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         String sidTwo = serverTwo.getId().toString();
 
-        ah.getRequest().setupAddParameter(SetItemSelectionAction.IDS, 
+        ah.getRequest().setupAddParameter(SetItemSelectionAction.IDS,
                                                new String[] { sidOne, sidTwo });
         ah.getRequest().setupAddParameter(SetItemSelectionAction.CHECKED, "on");
-        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL, 
+        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL,
                                                          SetLabels.SYSTEM_LIST);
-        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL, 
-                SetLabels.SYSTEM_LIST);        
+        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL,
+                SetLabels.SYSTEM_LIST);
 
         ah.executeAction("execute", false);
         String str = ah.getResponse().getHeader(SetItemSelectionAction.JSON_HEADER);

@@ -34,7 +34,7 @@ import java.util.Map;
 public class MonitoringAclHandlerTest extends RhnBaseTestCase {
 
     public void testShowMonitoring() {
-        
+
         Config c = Config.get();
 
         Acl acl = new Acl();
@@ -44,19 +44,19 @@ public class MonitoringAclHandlerTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         context.put("user", user);
         assertFalse(acl.evalAcl(context, "show_monitoring()"));
-        
+
         user.getOrg().getEntitlements()
             .add(OrgFactory.lookupEntitlementByLabel("rhn_monitor"));
         String orig = c.getString(ConfigDefaults.WEB_IS_MONITORING_BACKEND);
         c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "1");
         assertFalse(acl.evalAcl(context, "show_monitoring()"));
-        
+
         user.addRole(RoleFactory.MONITORING_ADMIN);
         assertTrue(acl.evalAcl(context, "show_monitoring()"));
-        
+
         c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "0");
         assertFalse(acl.evalAcl(context, "show_monitoring()"));
-        
+
         c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, orig);
     }
 

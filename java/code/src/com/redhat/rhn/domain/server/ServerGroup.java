@@ -27,12 +27,12 @@ import java.util.List;
 
 /**
  * Server - Class representation of the table rhnServer.
- * 
+ *
  * @version $Rev: 2143 $
  */
 public class ServerGroup extends BaseDomainHelper
                                 implements Identifiable {
-    
+
     public static final long UNLIMITED = Long.MAX_VALUE;
 
     private Long id;
@@ -40,48 +40,48 @@ public class ServerGroup extends BaseDomainHelper
     private String description;
     private ServerGroupType groupType;
     private Org org;
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * @return String to get
     */
     public String getName() {
         return this.name;
     }
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn to set
     */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     public void setDescription(String descriptionIn) {
@@ -101,14 +101,14 @@ public class ServerGroup extends BaseDomainHelper
     public void setOrg(Org orgIn) {
         this.org = orgIn;
     }
-  
+
     /**
      * @return Returns the groupType.
      */
     public ServerGroupType getGroupType() {
         return groupType;
     }
-    
+
     /**
      * Note this is to be set by hibernate only
      * @param groupTypeIn The groupType to set.
@@ -120,15 +120,15 @@ public class ServerGroup extends BaseDomainHelper
     /**
      * Returns the set of servers associated to the group
      * Note this is readonly set because we DONOT
-     * want you to modify this set. 
+     * want you to modify this set.
      * @return a list of Servers which are members of the group.
-     */    
+     */
     public List getServers() {
         return ServerGroupManager.getInstance().
                                 listServers(this);
     }
 
-    
+
     /**
      * Returns true if this server group is a User Managed
      * false if its Entitlement Managed.
@@ -136,18 +136,18 @@ public class ServerGroup extends BaseDomainHelper
      */
     public boolean isManaged() {
         return getGroupType() == null;
-    }    
+    }
 
 
-    /** 
+    /**
      * the number of current servers
      * @return Long number for current servers
     */
     public Long getCurrentMembers() {
         return ServerGroupFactory.getCurrentMembers(this);
-    }    
-    
-    /** 
+    }
+
+    /**
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -159,7 +159,7 @@ public class ServerGroup extends BaseDomainHelper
                                     .toHashCode();
     }
 
-    /** 
+    /**
      * {@inheritDoc}
      */
     public boolean equals(Object other) {
@@ -173,7 +173,7 @@ public class ServerGroup extends BaseDomainHelper
                                   .append(getOrg(), castOther.getOrg())
                                   .append(getGroupType(), castOther.getGroupType())
                                   .isEquals();
-                                  
+
     }
 
     /**

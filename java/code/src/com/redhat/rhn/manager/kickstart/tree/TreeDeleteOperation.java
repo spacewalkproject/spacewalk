@@ -50,7 +50,7 @@ public class TreeDeleteOperation extends BaseTreeEditOperation {
         this.tree = KickstartFactory.
                     lookupKickstartTreeByIdAndOrg(treeId, userIn.getOrg());
     }
-    
+
     /**
      * Constructor for use when deleting an existing KickstartableTree
      * @param treeLabel to lookup
@@ -59,21 +59,21 @@ public class TreeDeleteOperation extends BaseTreeEditOperation {
     public TreeDeleteOperation(String treeLabel, User userIn) {
         super(treeLabel, userIn);
     }
-    
+
     /**
      * Set the delete profiles flag.  If set, invoking store will delete
      * any profile that are currently associated with the tree.
-     * 
+     *
      * @param deleteProfilesIn flag indicating if profiles associated with
      * the tree should be deleted during store()
      */
     public void setDeleteProfiles(Boolean deleteProfilesIn) {
         deleteProfiles = deleteProfilesIn;
     }
-    
+
     /**
      * {@inheritDoc}
-     * store() here actually does a remove operation. 
+     * store() here actually does a remove operation.
      * It is done to reuse code from BaseTreeEditOperation and BaseTreeAction
      */
     public ValidatorError store() {
@@ -98,7 +98,7 @@ public class TreeDeleteOperation extends BaseTreeEditOperation {
 
         if (error == null) {
             KickstartFactory.removeKickstartableTree(this.tree);
-            CobblerDistroDeleteCommand delcmd = new CobblerDistroDeleteCommand(this.tree, 
+            CobblerDistroDeleteCommand delcmd = new CobblerDistroDeleteCommand(this.tree,
                 this.user);
             delcmd.store();
         }

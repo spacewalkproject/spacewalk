@@ -30,15 +30,15 @@ Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
 				<target>@@PRODUCT_NAME@@ பயனர்களுக்கு,
 
-இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவிற்கு வழங்கப்பட்ட மின்னஞ்சல் 
-முகவரியை சரிபார்க்க அனுப்பப்பட்டதாகும். உங்கள் Red Hat புகுபதிவானது, 
-செயலிலுள்ள Red Hat சந்தாவுடன் இணைந்து, @@PRODUCT_NAME@@இன் 
+இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவிற்கு வழங்கப்பட்ட மின்னஞ்சல்
+முகவரியை சரிபார்க்க அனுப்பப்பட்டதாகும். உங்கள் Red Hat புகுபதிவானது,
+செயலிலுள்ள Red Hat சந்தாவுடன் இணைந்து, @@PRODUCT_NAME@@இன்
 வழியாக கணினி மேலாண்மை திறனை அணுக உதவுகிறது.
 
-Red Hat புகுபதிவில் பாதுகாப்பு கணக்கு விவரங்களை உறுதிபடுத்த, 
-கீழே கொடுக்கப்பட்டுள்ள இணைப்பினை சொடுக்கி, நாங்கள் சரியான 
-மின்னஞ்சல் முகவரியை உறுதிபடுத்தவும். நீங்கள் உங்கள் மின்னஞ்சல் 
-முகவரியை உறுதிபடுத்தவில்லையெனில், உங்கள் Red Hat புகுபதிவு 
+Red Hat புகுபதிவில் பாதுகாப்பு கணக்கு விவரங்களை உறுதிபடுத்த,
+கீழே கொடுக்கப்பட்டுள்ள இணைப்பினை சொடுக்கி, நாங்கள் சரியான
+மின்னஞ்சல் முகவரியை உறுதிபடுத்தவும். நீங்கள் உங்கள் மின்னஞ்சல்
+முகவரியை உறுதிபடுத்தவில்லையெனில், உங்கள் Red Hat புகுபதிவு
 செயலிழக்கப்படும்.
 
 உங்கள் மின்னஞ்சல் முகவரியை உறுதிபடுத்த பின்வரும் URLஐ பார்க்கவும்:
@@ -73,8 +73,8 @@ Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>வணக்கம்,
 
-{0} {1}ஆல் ஒரு Red Hat புகுபதிவு உங்களால் உருவாக்கப்பட்டது. செயலிலுள்ள 
-Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat புகுபதிவானது, 
+{0} {1}ஆல் ஒரு Red Hat புகுபதிவு உங்களால் உருவாக்கப்பட்டது. செயலிலுள்ள
+Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat புகுபதிவானது,
 @@PRODUCT_NAME@@இல் கணினிகளை மேலாண்மை செய்ய அணுக உதவுகிறது.
 
   Red Hat புகுபதிவு: {2}
@@ -107,8 +107,8 @@ Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
 				<target>வணக்கம்,
 
-ஒரு Red Hat புகுபதிவு உங்களால் உருவாக்கப்பட்டது. செயலிலுள்ள 
-Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat பதிவானது, 
+ஒரு Red Hat புகுபதிவு உங்களால் உருவாக்கப்பட்டது. செயலிலுள்ள
+Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat பதிவானது,
 @@PRODUCT_NAME@@இல் கணினிகளை மேலாண்மை செய்ய அணுக உதவுகிறது.
 
   Red Hat புகுபதிவு: {0}
@@ -138,8 +138,8 @@ Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>வணக்கம்,
 
-{0} {1}ஆல் உங்களுக்கு Red Hat புகுபதிவு உருவாக்கப்பட்டது. செயலிலுள்ள 
-Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat புகுபதிவானது, 
+{0} {1}ஆல் உங்களுக்கு Red Hat புகுபதிவு உருவாக்கப்பட்டது. செயலிலுள்ள
+Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat புகுபதிவானது,
 @@PRODUCT_NAME@@இல் கணினிகளை மேலாண்மை செய்ய அணுக உதவுகிறது.
 
   Red Hat பதிவு: {2}
@@ -351,21 +351,21 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 அன்புள்ள Red Hat வாடிக்கையாளர்களே,
 
-பின்வரும் கணினி உங்கள் Red Hat  புகுபதிவு மற்றும் கணக்குடன் முன் நாட்களில் 
-தொடர்புடையதாக இருந்தது, ஆனால் @@PRODUCT_NAME@@ சேவைகளுடன் 
+பின்வரும் கணினி உங்கள் Red Hat  புகுபதிவு மற்றும் கணக்குடன் முன் நாட்களில்
+தொடர்புடையதாக இருந்தது, ஆனால் @@PRODUCT_NAME@@ சேவைகளுடன்
 உரிமம் செய்ய முடியவில்லை.
 
 {0}
 
 இது நிகழ பல்வேறு காரணங்கள் உள்ளன:
 
-1) நீங்கள் சமீபத்தில் ஒரு கணினியை மீண்டும் நிறுவி, அதனை ஏற்கனவே இருக்கும் 
-   செயலிலுள்ள சந்தாவுடன் தொடர்புப்படுத்த முயலுகிறீர்கள். ஆனால் நீங்கள் ஏற்கனவே 
-   இருக்கும் கணினி விவரக்குறிப்பினை @@PRODUCT_NAME@@இலிருந்து பின்வரும் விவரத்தின் படி அழித்து விட்டீர்களா என்பதை உறுதி செய்யவும் 
+1) நீங்கள் சமீபத்தில் ஒரு கணினியை மீண்டும் நிறுவி, அதனை ஏற்கனவே இருக்கும்
+   செயலிலுள்ள சந்தாவுடன் தொடர்புப்படுத்த முயலுகிறீர்கள். ஆனால் நீங்கள் ஏற்கனவே
+   இருக்கும் கணினி விவரக்குறிப்பினை @@PRODUCT_NAME@@இலிருந்து பின்வரும் விவரத்தின் படி அழித்து விட்டீர்களா என்பதை உறுதி செய்யவும்
 
-2) உங்கள் கணக்கில் தொடர்புடைய செயலிலுள்ள Red Hat சந்தாக்களையும் 
-   தாண்டி @@PRODUCT_NAME@@இல் கணினிகள் இணைக்கப்பட்டுள்ளது  இதனால் 
-   உங்கள் சந்தாக்கள் முடிந்திருக்கும் அல்லது நீங்கள் 
+2) உங்கள் கணக்கில் தொடர்புடைய செயலிலுள்ள Red Hat சந்தாக்களையும்
+   தாண்டி @@PRODUCT_NAME@@இல் கணினிகள் இணைக்கப்பட்டுள்ளது  இதனால்
+   உங்கள் சந்தாக்கள் முடிந்திருக்கும் அல்லது நீங்கள்
    Red Hat சந்தாவை வாங்க வேண்டும்.
 
    ஏற்கனவே இருக்கும் உங்கள் Red Hat சந்தா முடியும் தேதியை     அறிய, பின்வரும் இணைய முகவரியை பார்க்கவும்:
@@ -374,13 +374,13 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
    பதிவு செய்து உங்கள் சந்தாக்களை பார்வையிட்டு மேலாண்மை செய்யவும் என்ற இணைப்பினை சொடுக்கவும்.
 
-3) நீங்கள் சமீபத்தில் Red Hat தயாரிப்பினை நிறுவியுள்ளீர்கள். மேலும் உங்கள் சந்தா 
-   எண் வெற்றிகரமாக செயல்படுத்தப்படவில்லை. நீங்கள் உங்கள் சந்தாவினை செயல்படுத்த 
+3) நீங்கள் சமீபத்தில் Red Hat தயாரிப்பினை நிறுவியுள்ளீர்கள். மேலும் உங்கள் சந்தா
+   எண் வெற்றிகரமாக செயல்படுத்தப்படவில்லை. நீங்கள் உங்கள் சந்தாவினை செயல்படுத்த
    வேண்டுமென்றால், பின்வரும் இணைய முகவரியில் பார்க்கவும்:
 
    https://www.redhat.com/activate
 
-மேலும் உங்கள் கேள்விகளுக்கு, Red Hat வாடிக்கையாளர் சேவை 
+மேலும் உங்கள் கேள்விகளுக்கு, Red Hat வாடிக்கையாளர் சேவை
 பிரதிநிதியை அணுக
 
 http://www.redhat.com/about/contact/directory.html#custservice
@@ -442,7 +442,7 @@ package profile for that server is out of date. In that case you should run
 There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-1 பாதிக்கப்பட்ட கணினி 'கண்ணோட்டத்தில்' பதிவு செய்யப்பட்டுள்ளது (தனியாக பிழைத்திருத்த 
+1 பாதிக்கப்பட்ட கணினி 'கண்ணோட்டத்தில்' பதிவு செய்யப்பட்டுள்ளது (தனியாக பிழைத்திருத்த
 எச்சரிக்கைகள் உள்ள கணினிகளில் மட்டும்).</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
@@ -450,7 +450,7 @@ which you have explicitly enabled Errata Alerts are shown).</source>
 There are {0} affected systems registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-{0} பாதிக்கப்பட்ட கணினிகள் 'கண்ணோட்டத்தில்' பதிவு செய்யப்பட்டுள்ளது (தனியாக பிழைத்திருத்த 
+{0} பாதிக்கப்பட்ட கணினிகள் 'கண்ணோட்டத்தில்' பதிவு செய்யப்பட்டுள்ளது (தனியாக பிழைத்திருத்த
 எச்சரிக்கைகள் உள்ள கணினிகளில் மட்டும்).</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.affected">
@@ -582,7 +582,7 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 அன்புள்ள @@PRODUCT_NAME@@ பயனர்கள்,
 
-இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவுக்கு வழங்கப்பட்ட மின்னஞ்சல் 
+இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவுக்கு வழங்கப்பட்ட மின்னஞ்சல்
 முகவரியை சரிபார்க்க அனுப்பப்பட்டது. உங்கள் Red Hat
 அனுமதி செயலிலுள்ள Red Hat சந்தாவோடு கலந்து, @@PRODUCT_NAME@@
 வழியாக உங்களுக்கு கணினி மேலாண்மை அதிகாரத்தை கொடுக்கிறது.
@@ -593,7 +593,7 @@ Thank you for using @@PRODUCT_NAME@@.
 நீங்கள் உங்கள் மின்னஞ்சல் முகவரியை உறுதிபடுத்தவில்லை எனில் உங்கள் Red Hat புகுபதிவு
 செயலிழக்கப்படும்.
 
-உங்கள் மின்னஞ்சலை உறுதிப்படுத்த பின்வரும் URLஐ பார்க்கவும்: 
+உங்கள் மின்னஞ்சலை உறுதிப்படுத்த பின்வரும் URLஐ பார்க்கவும்:
 
 {0}
 
@@ -623,7 +623,7 @@ deactivated.
 Please note that this is a final notice.  If you do not click through
 this URL within the next 2 days, your Red Hat login will deactivated.
 
-To confirm your email address, please visit the following URL: 
+To confirm your email address, please visit the following URL:
 
 {0}
 
@@ -633,7 +633,7 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 அன்புள்ள @@PRODUCT_NAME@@ பயனர்கள்,
 
-இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவுக்கு வழங்கப்பட்ட மின்னஞ்சல் 
+இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவுக்கு வழங்கப்பட்ட மின்னஞ்சல்
 முகவரியை சரிபார்க்க அனுப்பப்பட்டது. உங்கள் Red Hat
 அனுமதி செயலிலுள்ள Red Hat சந்தாவோடு கலந்து, @@PRODUCT_NAME@@
 வழியாக உங்களுக்கு கணினி மேலாண்மை அதிகாரத்தை கொடுக்கிறது.
@@ -644,10 +644,10 @@ Thank you for using @@PRODUCT_NAME@@.
 நீங்கள் உங்கள் மின்னஞ்சல் முகவரியை உறுதிபடுத்தவில்லை எனில் உங்கள் Red Hat புகுபதிவு
 செயலிழக்கப்படும்.
 
-இது இறுதி அறிவிப்பு என்பதை குறித்துக்கொள்ளவும். நீங்கள் இந்த URL ஐ 
+இது இறுதி அறிவிப்பு என்பதை குறித்துக்கொள்ளவும். நீங்கள் இந்த URL ஐ
 2 நாட்களுக்குள் சொடுக்கவில்லையெனில் உங்கள் Red Hat புகுபதிவு செயலிழக்கப்படும்.
 
-உங்கள் மின்னஞ்சலை உறுதிப்படுத்த பின்வரும் URLஐ பார்க்கவும்: 
+உங்கள் மின்னஞ்சலை உறுதிப்படுத்த பின்வரும் URLஐ பார்க்கவும்:
 
 {0}
 
@@ -668,9 +668,9 @@ Thank you for using @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems 
+has expired on your local satellite {0}. After {1} day(s) the systems
 management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information 
+Please contact your regional Red Hat Customer  Service Representative for information
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -678,10 +678,10 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 அன்புள்ள @@PRODUCT_NAME@@ பயனர்களே,
 
-இந்த மின்னஞ்சல் உங்கள் @@PRODUCT_NAME@@ சான்றிதழ் உங்கள் உள்ளமை 
-சேட்டிலைட் {0}இல் முடிவுற்றது என்பதை தெரிவிக்க அனுப்பப்படுகிறது. {1} நாட்(கள்) கழித்து கணினிகள் 
-மேலாண்மை சேவைகள் உங்கள் @@PRODUCT_NAME@@ சேவையகத்தில் வழங்கப்படுவதுஅணுக முடியாமல் போகும். 
-எனவே உங்கள் மண்டல Red Hat வாடிக்கையாளர் சேவை பிரதிநிதியைஅணுகி 
+இந்த மின்னஞ்சல் உங்கள் @@PRODUCT_NAME@@ சான்றிதழ் உங்கள் உள்ளமை
+சேட்டிலைட் {0}இல் முடிவுற்றது என்பதை தெரிவிக்க அனுப்பப்படுகிறது. {1} நாட்(கள்) கழித்து கணினிகள்
+மேலாண்மை சேவைகள் உங்கள் @@PRODUCT_NAME@@ சேவையகத்தில் வழங்கப்படுவதுஅணுக முடியாமல் போகும்.
+எனவே உங்கள் மண்டல Red Hat வாடிக்கையாளர் சேவை பிரதிநிதியைஅணுகி
 எவ்வாறு உங்கள் @@PRODUCT_NAME@@ சான்றிதழை புதுப்பிப்பது என கேட்கவும்.
 
 @@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்காக நன்றி.
@@ -696,8 +696,8 @@ Thank you for using @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible 
-until your certificate is renewed. Please contact your regional Red Hat 
+has expired on your local satellite {0}. The system management services will be inaccessible
+until your certificate is renewed. Please contact your regional Red Hat
 Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
@@ -706,9 +706,9 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 அன்புள்ள @@PRODUCT_NAME@@ பயனர்களே,
 
-இந்த மின்னஞ்சல் உங்கள் @@PRODUCT_NAME@@ சான்றிதழ் உங்கள் உள்ளமை 
-சேட்டிலைட் {0}இல் முடிவுற்றது என்பதை தெரிவிக்க அனுப்பப்படுகிறது. உங்கள் சான்றிதழ் 
-புதுப்பிக்கும் வரை கணினி மேலாண்மை சேவைகளை அணுக முடியாமல் போகும். 
+இந்த மின்னஞ்சல் உங்கள் @@PRODUCT_NAME@@ சான்றிதழ் உங்கள் உள்ளமை
+சேட்டிலைட் {0}இல் முடிவுற்றது என்பதை தெரிவிக்க அனுப்பப்படுகிறது. உங்கள் சான்றிதழ்
+புதுப்பிக்கும் வரை கணினி மேலாண்மை சேவைகளை அணுக முடியாமல் போகும்.
 எனவே உங்கள் மண்டல Red Hat வாடிக்கையாளர் சேவை பிரதிநிதியைஅணுகி உங்கள் @@PRODUCT_NAME@@ சான்றிதழைப் புதுப்பித்து கொள்ளவும்.
 
 

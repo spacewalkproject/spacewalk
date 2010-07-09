@@ -20,7 +20,7 @@
 
         </td>
     </tr>
-    <tr>    
+    <tr>
         <th>
             <rhn:required-field key="keycreate.jsp.selectfile"/>
         </th>
@@ -28,7 +28,7 @@
             <html:file property="contents"/>
         </td>
     </tr>
-    <tr>    
+    <tr>
         <th>
             <bean:message key="keycreate.jsp.filecontents"/>
         </th>
@@ -41,7 +41,7 @@
         <c:if test="${cryptoKey.keyString == null}">
             <bean:message key="keycreate.jsp.nokey"/>
         </c:if>
-        
+
         </td>
     </tr>
     </table>

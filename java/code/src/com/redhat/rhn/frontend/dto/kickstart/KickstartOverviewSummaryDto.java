@@ -25,22 +25,22 @@ public class KickstartOverviewSummaryDto extends BaseDto {
     private Long id;
     private int numberOfProfiles;
     private String label;
-    
-    
+
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The idIn to set.
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-        
+
     /**
      * @return Returns a count of Kickstarts
      * associated with this RHEL.
@@ -76,7 +76,7 @@ public class KickstartOverviewSummaryDto extends BaseDto {
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The nameIn to set.
      */

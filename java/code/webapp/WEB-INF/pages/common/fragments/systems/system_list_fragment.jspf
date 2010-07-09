@@ -18,4 +18,3 @@
 								<c:out value="${current.name}</a>" escapeXml="false" />
 							</c:otherwise>
 						</c:choose>
-                     

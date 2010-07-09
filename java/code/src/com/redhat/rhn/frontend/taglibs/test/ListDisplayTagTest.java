@@ -41,7 +41,7 @@ public class ListDisplayTagTest extends MockObjectTestCase {
 
     private ListDisplayTag ldt;
     private ListTag lt;
-    
+
     private HttpServletRequest request;
     private HttpServletResponse response;
     private PageContext context;
@@ -49,24 +49,24 @@ public class ListDisplayTagTest extends MockObjectTestCase {
     private Mock mreq;
     private Mock mresp;
     private Mock mcontext;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         RhnBaseTestCase.disableLocalizationServiceLogging();
         mreq = mock(HttpServletRequest.class);
         mresp = mock(HttpServletResponse.class);
         mcontext = mock(PageContext.class);
-        
+
         request = (HttpServletRequest) mreq.proxy();
         response = (HttpServletResponse) mresp.proxy();
         context = (PageContext) mcontext.proxy();
         writer = new RhnMockJspWriter();
-        
+
         ldt = new ListDisplayTag();
         lt = new ListTag();
         ldt.setPageContext(context);
         ldt.setParent(lt);
-        
+
         lt.setPageList(new DataResult(CSVWriterTest.getTestListOfMaps()));
 
         mcontext.expects(atLeastOnce()).method("getOut").
@@ -76,7 +76,7 @@ public class ListDisplayTagTest extends MockObjectTestCase {
         mcontext.expects(atLeastOnce()).method("setAttribute")
         .with(eq("current"), NULL);
     }
-    
+
     public void testTitle() throws JspException {
         mcontext.expects(atLeastOnce()).method("popBody")
                 .withNoArguments();
@@ -90,7 +90,7 @@ public class ListDisplayTagTest extends MockObjectTestCase {
                 returnValue(null));
         mreq.stubs().method("getParameter").with(eq(RequestContext.SORT_ASC)).will(
                 returnValue(null));
-        
+
         ldt.setTitle("Inactive Systems");
         int tagval = ldt.doStartTag();
         assertEquals(Tag.EVAL_BODY_INCLUDE, tagval);
@@ -114,9 +114,9 @@ public class ListDisplayTagTest extends MockObjectTestCase {
         assertTrue(htmlOut.indexOf("name=\"last_lower") > -1);
         assertTrue(htmlOut.indexOf("name=\"lower") > -1);
     }
-    
-   
-    
+
+
+
     /**
      * {@inheritDoc}
      */
@@ -175,9 +175,9 @@ public class ListDisplayTagTest extends MockObjectTestCase {
         mcontext.verify();
     }
 
-    private static final String EXPECTED_CSV_OUT = 
-            "**column1**,**column2**,**column3**\n" + 
-            "cval1-0,cval2-0,cval3-0\n" + 
+    private static final String EXPECTED_CSV_OUT =
+            "**column1**,**column2**,**column3**\n" +
+            "cval1-0,cval2-0,cval3-0\n" +
             "cval1-1,cval2-1,cval3-1\n" +
             "cval1-2,cval2-2,cval3-2\n" +
             "cval1-3,cval2-3,cval3-3\n" +

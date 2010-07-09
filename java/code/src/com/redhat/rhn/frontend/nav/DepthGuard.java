@@ -31,7 +31,7 @@ public class DepthGuard implements RenderGuard {
      */
     public DepthGuard(int minDepthIn, int maxDepthIn) {
         minDepth = minDepthIn;
-        maxDepth = maxDepthIn;        
+        maxDepth = maxDepthIn;
     }
 
     /**

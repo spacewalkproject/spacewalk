@@ -27,22 +27,22 @@ import org.apache.struts.action.ActionForward;
  * @version $Rev$
  */
 public class DisableSelfConfirmActionTest extends RhnBaseTestCase {
-    
+
     public void testExecute() throws Exception {
         DisableSelfConfirmAction action = new DisableSelfConfirmAction();
         ActionHelper ah = new ActionHelper();
         ActionForward af;
-        
+
         ah.setUpAction(action, "default");
         af = ah.executeAction();
         assertEquals("default", af.getName());
-        
+
         //successfully disabled
         ah.setUpAction(action, "logout");
         ah.getForm().set(RhnAction.SUBMITTED, Boolean.TRUE);
         af = ah.executeAction();
         assertEquals("logout", af.getName());
-        
+
         //already disabled, changing test to reflect
         // new functionality.  We no longer throw a
         // StateChangeException, we simply go logout.

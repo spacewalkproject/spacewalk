@@ -5873,7 +5873,7 @@ outils de gestion des organisations si vous supprimez ce rôle de votre nom de c
           &lt;strong&gt;{0}&lt;/strong&gt; channel. Organizations that are not checked below will not have access to this software channel. You can modify an organization's access to this channel below.</source>
 				<target>Les organisations listées ci-dessous sont des organisations avec lesquelles
           votre organisation a une relation de confiance (ou un trust). Les organisations cochées ci-dessous auront
-          la possibilité de voir et consommer le contenu dans 
+          la possibilité de voir et consommer le contenu dans
           &lt;strong&gt;{0}&lt;/strong&gt; canal/canaux. Les organisations ci-dessous qui ne sont pas cochées n'auront pas accès à ce canal de logiciel. Vous pouvez modifier l'accès d'une organisation à un canal ci-dessous.</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.header3">
@@ -6493,11 +6493,11 @@ aux onglets suivants situés dans le menu de navigation de gauche :</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
 				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>Gérer les abonnements sur votre @@PRODUCT_NAME@@. Vous pouvez également rechercher les accès
-fournis par chaque droit d'accès. Pour chaque droit d'accès, 
+fournis par chaque droit d'accès. Pour chaque droit d'accès,
 vous pouvez allouer des droits à un droit d'accès particulier à travers
 toutes les organisations de votre @@PRODUCT_NAME@@.</target>
 			</trans-unit>
@@ -6812,9 +6812,9 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 				<target>Mise à jour des variables</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
-				<target>Les variables kickstart peuvent être utilisées pour substituer les valeurs dans les profils kickstart. Pour définir une variable, ajoutez 'name=value'(nom=valeur) dans la case ci-dessous. 
+				<target>Les variables kickstart peuvent être utilisées pour substituer les valeurs dans les profils kickstart. Pour définir une variable, ajoutez 'name=value'(nom=valeur) dans la case ci-dessous.
         			Vous devrez ensuite utiliser $name à l'intérieur du profil pour y substituer la valeur.</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
@@ -7155,12 +7155,12 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;REMARQUE : &lt;/strong&gt; Un changement de type de virtualisation peut appeler à un changement du
-             chargeur de démarrage du profil kickstart et des options de partition, ce qui peut potentiellement remplacer les personnalisations de l'utilisateur. 
-             Rendez-vous sur l'onglet &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitionnement&lt;/a&gt; 
+             chargeur de démarrage du profil kickstart et des options de partition, ce qui peut potentiellement remplacer les personnalisations de l'utilisateur.
+             Rendez-vous sur l'onglet &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitionnement&lt;/a&gt;
             afin de vérifier les nouveaux paramètres.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -11926,7 +11926,7 @@ Make sure you subscribe systems to the appropriate software channels during kick
 so they have access to the packages in the package profile you sync them to.  Visit
 the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Keys&lt;/a&gt;
  tab to subscribe systems to software channels during kickstart.&lt;/span&gt;</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Astuce&amp;nbsp;:&lt;/strong&gt; 
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Astuce&amp;nbsp;:&lt;/strong&gt;
 assurez-vous d'abonner les systèmes aux canaux logiciels appropriés durant le kickstart
 pour qu'ils aient accès aux paquetages du profil de paquetages auquel vous les avez synchronisés.
 Passez sur l'onglet &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Clés d'activation&lt;/a&gt;
@@ -12415,9 +12415,9 @@ effectuer une synchronisation du satellite des canaux Outils @@PRODUCT_NAME@@ av
 un kickstart ou de créer une nouvelle distribution kickstart.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
-				<source> 
+				<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;</source>
-				<target> 
+				<target>
  &lt;strong&gt;Aucune génération d'installateur applicable pour le canal de base sélectionné.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.toolbar">
@@ -13116,7 +13116,7 @@ tasks to upgrade functionality, fix reported bugs, and improve
 performance.</source>
 				<target>Notre priorité la plus importante est votre accès à @@PRODUCT_NAME@@ et les
 avantages d'un compte enregistré. Nous nous efforçons de maintenir 100% de
-notre temps de service pour votre @@PRODUCT_NAME@@ mais périodiquement, nous devons également 
+notre temps de service pour votre @@PRODUCT_NAME@@ mais périodiquement, nous devons également
 effectuer des tâches afin de mettre à niveau les fonctionnalités, corriger les
 bogues reportés et améliorer les performances.</target>
 			</trans-unit>
@@ -13320,11 +13320,11 @@ Vous ne savez pas comment télécharger et utiliser ces images? &lt;a href="{0}"
 			</trans-unit>
 			<trans-unit id="isodownload.latest.description">
 				<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)</source>
 				<target>
-	Veuillez trouver ci-dessous l'ensemble d'images ISO complet pour la &lt;strong&gt;dernière version&lt;/strong&gt; de {0}.  
+	Veuillez trouver ci-dessous l'ensemble d'images ISO complet pour la &lt;strong&gt;dernière version&lt;/strong&gt; de {0}.
 	En fonction de la version de {0} que vous désirez installer, vous pourriez n'avoir besoin que d'un sous-ensemble de ces disques.
     (&lt;a href="{1}"&gt;plus d'informations&lt;/a&gt;)</target>
 			</trans-unit>
@@ -13350,11 +13350,11 @@ Vous ne savez pas comment télécharger et utiliser ces images? &lt;a href="{0}"
 			</trans-unit>
 			<trans-unit id="isodownload.latest.note">
 				<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
-&lt;strong&gt;REMARQUE&amp;nbsp;:&lt;/strong&gt; vous avez besoin d'un numéro d'installation pour installer {0}.  
+&lt;strong&gt;REMARQUE&amp;nbsp;:&lt;/strong&gt; vous avez besoin d'un numéro d'installation pour installer {0}.
 &lt;a href="{1}"&gt;Vous ne savez pas qu'est-ce qu'un numéro d'installation&amp;nbsp;?&lt;/a&gt;
 &lt;a href="{2}"&gt;Vous devez rechercher vos numéros d'installation&amp;nbsp;?&lt;/a&gt;</target>
 			</trans-unit>
@@ -13364,10 +13364,10 @@ Vous ne savez pas comment télécharger et utiliser ces images? &lt;a href="{0}"
 			</trans-unit>
 			<trans-unit id="isodownload.rest.description">
 				<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.</source>
 				<target>
-Veuillez trouver ci-dessous les ensembles d'images ISO complets pour les &lt;strong&gt;anciennes versions&lt;/strong&gt; de {0}.  
+Veuillez trouver ci-dessous les ensembles d'images ISO complets pour les &lt;strong&gt;anciennes versions&lt;/strong&gt; de {0}.
 Veuillez noter que seulement un ensemble d'images ISO est nécessaire pour installer n'importe laquelle des versions de {0}.</target>
 			</trans-unit>
 			<trans-unit id="isodownload.viewprevious">
@@ -13886,20 +13886,20 @@ disponibles pour les organisations (à l'exception de l'organisation @@PRODUCT_N
             Please review the changes you are about to make before confirming the trust removal(s).</source>
 				<target>
             Êtes-vous certain de vouloir supprimer la(les) confiance(s) listées ci-dessous?  Il y a des systèmes dans
-            l'organisation {0} enregistrés au contenu offert par une ou plusieurs organisation(s) à laquelle ou auxquelles vous supprimez 
-            la(les) confiance(s). Cela peut affecter ces systèmes. Par exemple, ces systèmes pourraient 
+            l'organisation {0} enregistrés au contenu offert par une ou plusieurs organisation(s) à laquelle ou auxquelles vous supprimez
+            la(les) confiance(s). Cela peut affecter ces systèmes. Par exemple, ces systèmes pourraient
             ne plus recevoir de mises à jour de sécurité pour le contenu offert par la confiance.
             &lt;p/&gt;
             Veuillez vérifier vos changements avant de confirmer la(les) suppression(s) de confiance(s).</target>
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
 				<target>
-            Les systèmes listés ci-dessous seront affectés par la suppression d'une relation de confiance entre 
+            Les systèmes listés ci-dessous seront affectés par la suppression d'une relation de confiance entre
             les organisations &lt;b&gt;{0}&lt;/b&gt; et &lt;b&gt;{1}&lt;/b&gt;.
             Supprimer cette confiance peut en effet affecter ces systèmes. Par exemple, ils pourraient
             ne plus recevoir de mises à jour de sécurité pour le contenu offert par cette confiance.</target>
@@ -14532,7 +14532,7 @@ fois pour un canal donné.</target>
 				<source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
 
 			Only packages of a compatible arch will be shown</source>
-				<target>Ci-dessous figure la liste de paquetages que vous pouvez ajouter à ce canal. La case "Canal" vous permet de limiter l'ensemble des paquetages disponibles. Pour ajouter des paquetages à ce canal, sélectionnez-les et cliquez sur "Ajouter des paquetages" ci-dessous. 
+				<target>Ci-dessous figure la liste de paquetages que vous pouvez ajouter à ce canal. La case "Canal" vous permet de limiter l'ensemble des paquetages disponibles. Pour ajouter des paquetages à ce canal, sélectionnez-les et cliquez sur "Ajouter des paquetages" ci-dessous.
 			Seuls les paquetages possédant une architecture compatible seront affichés</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.add.confirm.msg">
@@ -14899,27 +14899,27 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.</source>
 				<target>Créer ou modifier des canaux logiciel depuis cette page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Si le canal parent est réglé sur 'aucun', alors le canal est un canal de base.
         Sinon, le canal est un enfant du canal spécifié.­
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Le nom et l'étiquette sont requis. Chacun doit contenir au moins 6
         caractères. Les étiquettes doivent commencer par une lettre, ne peuvent contenir
         que des lettres minuscules, tirets ('-'), points ('.'), tirets bas ('_') et
         des chiffres. Le nom de canal peut aussi contenir des esapces et barres obliques ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Un résumé du canal est aussi requis.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">

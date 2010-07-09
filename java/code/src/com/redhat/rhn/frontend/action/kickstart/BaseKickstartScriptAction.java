@@ -41,13 +41,13 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
     public static final String TYPES = "types";
     public static final String NOCHROOT = "nochroot";
     public static final String TEMPLATE = "template";
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
     protected ValidatorError processFormValues(HttpServletRequest request,
-            DynaActionForm form, 
+            DynaActionForm form,
             BaseKickstartCommand cmd) {
         String chroot = "Y";
         Boolean b = new Boolean(true);
@@ -58,23 +58,23 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
         }
 
         BaseKickstartScriptCommand kssc = (BaseKickstartScriptCommand) cmd;
-        
+
         if (b.equals((Boolean)form.get(NOCHROOT))) {
             chroot = "N";
         }
 
         String scriptValue = getStrutsDelegate().getTextAreaValue(form, CONTENTS);
         int maxLength = Config.get().getInt("web.kickstart_script_max_length", 150000);
-        
+
         if (scriptValue.length() == 0) {
             return new ValidatorError("kickstart.script.required");
         }
         else if (scriptValue.length() > maxLength) {
-            return new ValidatorError("kickstart.script.toolarge", 
+            return new ValidatorError("kickstart.script.toolarge",
                     LocalizationService.getInstance().formatNumber(new Long(maxLength)));
         }
-        kssc.setScript(form.getString(LANGUAGE), 
-                scriptValue, 
+        kssc.setScript(form.getString(LANGUAGE),
+                scriptValue,
                 form.getString(TYPE),
                 chroot,
                 template);
@@ -97,7 +97,7 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
         types.add(lvl10n("kickstart.script.pre", KickstartScript.TYPE_PRE));
         types.add(lvl10n("kickstart.script.post", KickstartScript.TYPE_POST));
         ctx.getRequest().setAttribute(TYPES, types);
-        
+
         BaseKickstartScriptCommand kssc = (BaseKickstartScriptCommand) cmd;
         form.set(CONTENTS, kssc.getContents());
         form.set(LANGUAGE, kssc.getLanguage());

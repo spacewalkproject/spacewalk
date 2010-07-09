@@ -69,7 +69,7 @@ public class ChannelSystemDeploySubmit extends BaseSetOperateOnSelectedItemsActi
      */
     public ActionForward doConfirm(
             ActionMapping mapping,
-            ActionForm formIn, 
+            ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
         RhnSet set = updateSet(request);

@@ -30,7 +30,7 @@ public class SystemCommandExecutor implements Executor {
 
     private String lastCommandOutput;
     private String lastCommandError;
-    
+
     /**
      * Logger for this class
      */
@@ -43,26 +43,26 @@ public class SystemCommandExecutor implements Executor {
         if (logger.isDebugEnabled()) {
             logger.debug("execute(String[] args=" + Arrays.asList(args) + ") - start");
         }
-        
+
         Runtime r = Runtime.getRuntime();
         try {
             if (logger.isDebugEnabled()) {
                 logger.debug("execute() - Calling r.exec ..");
             }
             Process p = r.exec(args);
-            
+
             lastCommandOutput = inputStreamToString(p.getInputStream());
             if (logger.isDebugEnabled()) {
                 logger.debug("Output from process execution: " + lastCommandOutput);
             }
-            
+
             lastCommandError = inputStreamToString(p.getErrorStream());
             if (lastCommandError != null && lastCommandError.trim().length() > 0) {
-                logger.error("Error encountered executing (args=" + 
+                logger.error("Error encountered executing (args=" +
                              Arrays.asList(args) + ")");
                 logger.error("Error message from process: " + lastCommandError);
             }
-            
+
             try {
                 if (logger.isDebugEnabled()) {
                     logger.debug("execute() - Calling p.waitfor ..");
@@ -79,7 +79,7 @@ public class SystemCommandExecutor implements Executor {
 
             String message = "";
             for (int i = 0; i < args.length; i++) {
-                message = message + args[i] + " "; 
+                message = message + args[i] + " ";
             }
             logger.error("IOException while trying to exec: " + message, ioe);
             throw new RuntimeException(
@@ -103,7 +103,7 @@ public class SystemCommandExecutor implements Executor {
 
     /**
      * Reads the given input stream and returns a string containing its contents.
-     * 
+     *
      * @param in cannot be <code>null</code>
      * @return will not be <code>null</code> but may be the empty string
      */
@@ -124,5 +124,5 @@ public class SystemCommandExecutor implements Executor {
 
         return sb.toString();
     }
-    
+
 }

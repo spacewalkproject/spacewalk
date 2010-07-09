@@ -19,7 +19,7 @@
         <c:when test="${systemInactive}">
           <img src="/img/icon_checkin.gif"/> <bean:message key="sdc.details.overview.inactive" arg0="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-list"/>
         </c:when>
-          
+
         <c:when test="${hasUpdates}">
             <c:choose>
                 <c:when test="${criticalErrataCount > 0}">
@@ -31,7 +31,7 @@
             </c:choose>
 
             &nbsp; <bean:message key="sdc.details.overview.updatesavailable" /> &nbsp;&nbsp;
-            
+
             <c:if test="${criticalErrataCount > 0}">
                 <bean:message key="sdc.details.overview.updates.critical" arg0="/rhn/systems/details/ErrataList.do?sid=${system.id}&type=${rhn:localize('errata.create.securityadvisory')}" arg1="${criticalErrataCount}"/> &nbsp;&nbsp;
             </c:if>
@@ -40,9 +40,9 @@
             </c:if>
             <c:if test="${upgradablePackagesCount > 0}">
                 <bean:message key="sdc.details.overview.updates.packages" arg0="/rhn/systems/details/packages/UpgradableList.do?sid=${system.id}" arg1="${upgradablePackagesCount}"/>
-            </c:if>            
+            </c:if>
         </c:when>
-          
+
         <c:otherwise>
          <img src="/img/icon_up2date.gif"/> <bean:message key="sdc.details.overview.updated"/>
         </c:otherwise>

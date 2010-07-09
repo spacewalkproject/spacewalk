@@ -26,7 +26,7 @@ import java.util.Map;
 public class ModeElaborator implements Elaborator {
     private SelectMode mode;
     private Map params;
-    
+
     /**
      * @param select Select mode
      * @param elabParams elaborator params
@@ -35,9 +35,9 @@ public class ModeElaborator implements Elaborator {
         mode = select;
         params = elabParams;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void elaborate(List objectsToElaborate) {

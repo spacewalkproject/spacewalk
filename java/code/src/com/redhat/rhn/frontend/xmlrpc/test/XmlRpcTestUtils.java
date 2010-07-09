@@ -22,9 +22,9 @@ import com.redhat.rhn.manager.session.SessionManager;
 public class XmlRpcTestUtils {
 
     private XmlRpcTestUtils() { }
-    
+
     /**
-     * Util to getSessionKey for a user. This differs from AuthHandler.login in that it 
+     * Util to getSessionKey for a user. This differs from AuthHandler.login in that it
      * doesn't authenticate the user or make sure that they are committed in the db.
      * @param user The user to create the session key for
      * @return A session key for a session containing the user passed in.
@@ -34,10 +34,10 @@ public class XmlRpcTestUtils {
 
         String lifetime = Config.get().getString("session_database_lifetime");
         long duration = new Long(lifetime).longValue();
-        
+
         //Create a new session with the user
         WebSession session = SessionManager.makeSession(user.getId(), duration);
-        
+
         return session.getKey();
     }
 }

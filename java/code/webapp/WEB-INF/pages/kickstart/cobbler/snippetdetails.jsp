@@ -31,7 +31,7 @@
 	<c:when test="${empty requestScope.create_mode}">
 		<c:set var="url" value ="/kickstart/cobbler/CobblerSnippetEdit"/>
 	</c:when>
-	<c:otherwise> 
+	<c:otherwise>
 		<c:set var="url" value ="/kickstart/cobbler/CobblerSnippetCreate"/>
 	</c:otherwise>
 </c:choose>
@@ -80,15 +80,15 @@
         </th>
         <td>
 				<bean:message key="Custom"/><br/>
-            <rhn:tooltip><bean:message key="cobbler.snippet.custom.tip" 
+            <rhn:tooltip><bean:message key="cobbler.snippet.custom.tip"
             			arg0="${requestScope.org}"/></rhn:tooltip>	
         </td>
-     </tr>     
+     </tr>
      </table>
     <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
-    
-    <table  class="details"> 
-    <tr>    
+
+    <table  class="details">
+    <tr>
         <th>
         	<rhn:required-field key="snippetcreate.jsp.contents"/>
         </th>
@@ -97,7 +97,7 @@
         </td>
     </tr>
     </table>
-    
+
     <hr />
 
     <table align="right">

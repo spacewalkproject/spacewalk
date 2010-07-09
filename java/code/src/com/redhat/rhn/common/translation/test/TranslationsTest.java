@@ -28,26 +28,26 @@ public class TranslationsTest extends RhnBaseTestCase {
         try {
             // Try a translation that should be impossible.  This should make
             // sure that nobody ever writes a translator to do this.
-            TestTranslations.convert("hmmm", java.util.List.class); 
+            TestTranslations.convert("hmmm", java.util.List.class);
             fail("Shouldn't be able to translate from String to list");
         }
         catch (TranslationException e) {
             // Expected exception, shouldn't have a cause.
-            assertNull(e.getCause()); 
+            assertNull(e.getCause());
         }
     }
 
     public void testlongDateTranslation() throws Exception {
 
         long current = System.currentTimeMillis();
-        Date translated = (Date)TestTranslations.convert(new Long(current), 
-                                                   java.util.Date.class); 
+        Date translated = (Date)TestTranslations.convert(new Long(current),
+                                                   java.util.Date.class);
         assertEquals(new Date(current), translated);
     }
 
     public void testFailedTranslation() throws Exception {
         try {
-            TestTranslations.convert("hmmm", java.lang.Integer.class); 
+            TestTranslations.convert("hmmm", java.lang.Integer.class);
             fail("Translation should have failed");
         }
         catch (TranslationException e) {
@@ -58,7 +58,7 @@ public class TranslationsTest extends RhnBaseTestCase {
 
     public void testPrivateTranslator() throws Exception {
         try {
-            TestTranslations.convert(new Integer(1), java.lang.Long.class); 
+            TestTranslations.convert(new Integer(1), java.lang.Long.class);
             fail("Translation should have failed");
         }
         catch (TranslationException e) {
@@ -66,7 +66,7 @@ public class TranslationsTest extends RhnBaseTestCase {
                          java.lang.IllegalAccessException.class);
         }
     }
-    
+
     public void testListToString() {
         List list = new ArrayList();
         list.add(new Integer(10));
@@ -74,7 +74,7 @@ public class TranslationsTest extends RhnBaseTestCase {
         String s = (String) TestTranslations.convert(list, String.class);
         assertNotNull(s);
         assertEquals("[10, list]", s);
-        
+
         list = new LinkedList();
         list.add(new Integer(20));
         list.add("list");

@@ -31,17 +31,17 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public class CryptoKeysListSetupAction extends RhnAction {
-    
+
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         DataResult result = KickstartLister.getInstance().cryptoKeysInOrg(
-                requestContext.getCurrentUser().getOrg(), null);       
+                requestContext.getCurrentUser().getOrg(), null);
         request.setAttribute("pageList", result);
         request.setAttribute("parentUrl", request.getRequestURI());
         return mapping.findForward("default");

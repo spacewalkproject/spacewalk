@@ -17,7 +17,7 @@ package com.redhat.rhn.frontend.dto;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
- * 
+ *
  * @version $Rev$
  */
 public class ChannelPerms {
@@ -25,7 +25,7 @@ public class ChannelPerms {
     private String name;
     private boolean hasPerm;
     private boolean globallySubscribable;
-    
+
     /**
      * Is the channel gobally subscribable
      * @return Returns the globallySubscribable.
@@ -33,7 +33,7 @@ public class ChannelPerms {
     public boolean isGloballySubscribable() {
         return globallySubscribable;
     }
-    
+
     /**
      * Set if the channel is globally subscribable
      * @param value 1 if the channel is globally subscribable.
@@ -45,7 +45,7 @@ public class ChannelPerms {
         }
         this.globallySubscribable = true;
     }
-    
+
     /**
      * Does the user have permission to this channel
      * @return Returns the hasPerm.
@@ -53,7 +53,7 @@ public class ChannelPerms {
     public boolean isHasPerm() {
         return hasPerm;
     }
-    
+
     /**
      * Set if the user has permission to this channel
      * @param value 1 if the user has permissions to this channel
@@ -62,10 +62,10 @@ public class ChannelPerms {
         if (value == null || (!value.equals(new Integer(1)))) {
             this.hasPerm = false;
             return;
-        }  
+        }
         this.hasPerm = true;
     }
-    
+
     /**
      * Get the id of the channel
      * @return Returns the id.
@@ -73,7 +73,7 @@ public class ChannelPerms {
     public Long getId() {
         return id;
     }
-    
+
     /**
      * Set the id of the channel
      * @param i The id to set.
@@ -81,7 +81,7 @@ public class ChannelPerms {
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * Get the name of the channel
      * @return Returns the name.
@@ -89,7 +89,7 @@ public class ChannelPerms {
     public String getName() {
         return name;
     }
-    
+
     /**
      * Set the name of the channel
      * @param n The name to set.

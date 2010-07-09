@@ -23,7 +23,7 @@ import java.util.Date;
  * @version $Rev: 75755 $
  */
 public class KickstartSessionDto extends BaseDto {
-    
+
     private Long id;
     private Date created;
     private Date modified;

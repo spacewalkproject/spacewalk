@@ -20,17 +20,17 @@ import com.redhat.rhn.frontend.filter.Matcher;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 
+ *
  * VirtualSystemsFilterMatcher
  * @version $Rev$
  */
 public class VirtualSystemsFilterMatcher implements Matcher {
     /**
-     * 
+     *
      * {@inheritDoc}
      */
-    public boolean include(Object obj, 
-                                String filterData, 
+    public boolean include(Object obj,
+                                String filterData,
                                 String filterColumn) {
         if (StringUtils.isBlank(filterData) ||
                 StringUtils.isBlank(filterColumn)) {
@@ -43,16 +43,16 @@ public class VirtualSystemsFilterMatcher implements Matcher {
                 value = current.getServerName();
             }
             else if (current.getVirtualSystemId() == null) {
-                value = current.getName();   
+                value = current.getName();
             }
             else {
                 value = current.getServerName();
             }
             if (!StringUtils.isBlank(value)) {
-                return value.toUpperCase().indexOf(filterData.toUpperCase()) >= 0;    
+                return value.toUpperCase().indexOf(filterData.toUpperCase()) >= 0;
             }
             return false;
-             
+
         }
     }
 }

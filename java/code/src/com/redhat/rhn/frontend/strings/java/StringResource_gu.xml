@@ -5238,32 +5238,32 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to 
-syncronize kickstart distributions from Spacewalk to Cobbler.  These 
-errors must be corrected for the distributions to be available for 
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
 kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-નીચેની ભેગી થયેલ ભૂલોની યાદી છે જ્યારે Cobbler માં સ્પેસવોક માંથી કિકસ્ટાર્ટ વહેંચણીઓને સ્પેસવોક સુમેળ કરવા માટે પ્રયત્ન કરે છે.  આ ભૂલોને 
-કિકસ્ટાર્ટીંગ સિસ્ટમો માટે ઉપલ્બધ કરવા માટે વહેંચણીઓ માટે યોગ્ય કરવી જ 
-પડશે કિકસ્ટાર્ટ વહેંચણીઓ Cobbler માં સ્પેસવોક માંથી સુમેળ કરવા માટે નિષ્ફળ 
+નીચેની ભેગી થયેલ ભૂલોની યાદી છે જ્યારે Cobbler માં સ્પેસવોક માંથી કિકસ્ટાર્ટ વહેંચણીઓને સ્પેસવોક સુમેળ કરવા માટે પ્રયત્ન કરે છે.  આ ભૂલોને
+કિકસ્ટાર્ટીંગ સિસ્ટમો માટે ઉપલ્બધ કરવા માટે વહેંચણીઓ માટે યોગ્ય કરવી જ
+પડશે કિકસ્ટાર્ટ વહેંચણીઓ Cobbler માં સ્પેસવોક માંથી સુમેળ કરવા માટે નિષ્ફળ
 થયેલ છે:
 
 {0}
 
 મહેરબાની કરીને ચકાસો:
 
-/var/log/rhn/rhn_taskomatic_daemon.log અને 
+/var/log/rhn/rhn_taskomatic_daemon.log અને
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

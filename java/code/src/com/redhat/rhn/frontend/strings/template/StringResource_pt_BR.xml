@@ -168,7 +168,7 @@ please visit:
 
 Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
-				<target>Olá, 
+				<target>Olá,
 
 Um novo usuário foi adicionado à sua conta.
 
@@ -367,7 +367,7 @@ Há diversas possíveis razões para isto:
    Isto pode ter ocorrido porque suas assinaturas expiraram ou
    porque você precisa adquirir uma assinatura Red Hat.
 
-   Para verificar as datas de expiração de suas assinaturas Red Hat, 
+   Para verificar as datas de expiração de suas assinaturas Red Hat,
    por favor, visite:
 
    https://www.redhat.com/apps/support/
@@ -375,7 +375,7 @@ Há diversas possíveis razões para isto:
    Autentique-se e clique no link Visualizar e administrar suas assinaturas.
 
 3) Recentemente, você instalou um produto Red Hat e o número de sua
-   assinatura não foi devidamente ativado. Se você deseja tentar ativar sua assinatura novamente, 
+   assinatura não foi devidamente ativado. Se você deseja tentar ativar sua assinatura novamente,
    por favor visite:
 
    https://www.redhat.com/activate
@@ -506,7 +506,7 @@ e navegue a partir da "Visão Geral" / "Sua Conta" até a aba de "Preferências"
 
 Você também pode habilitar/desabilitar notificação com base em cada sistema, selecionando um
 sistema individual a partir da "Lista de Sistemas". A partir da visualização do sistema individual
-clique em "Detalhes". 
+clique em "Detalhes".
 
 {1}
 {2}</target>
@@ -549,7 +549,7 @@ Desativar este e-mail:
 ----------------------
 
 Para aprender a desativar este e-mail para os sistemas:
- 
+
 https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 
@@ -622,7 +622,7 @@ deactivated.
 Please note that this is a final notice.  If you do not click through
 this URL within the next 2 days, your Red Hat login will deactivated.
 
-To confirm your email address, please visit the following URL: 
+To confirm your email address, please visit the following URL:
 
 {0}
 
@@ -666,9 +666,9 @@ Obrigado por usar o @@NOME_DO_PRODUTO@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems 
+has expired on your local satellite {0}. After {1} day(s) the systems
 management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information 
+Please contact your regional Red Hat Customer  Service Representative for information
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -677,9 +677,9 @@ Thank you for using @@PRODUCT_NAME@@.
 Prezado Usuário do @@NOME_DO_PRODUTO@@,
 
 Este e-mail está sendo enviado para lhe informar que o seu Certificado do @@NOME_DO_PRODUTO@@
-seu Satellite {0} local está vencido. Após {1} dia(s) os serviços 
-de gerenciamento de sistemas oferecidos pelo seu @@NOME_DO_PRODUTO@@ irão se tornar inacessíveis. 
-Por favor contate o seu Representante regional de Serviços ao Cliente da Red Hat para informações 
+seu Satellite {0} local está vencido. Após {1} dia(s) os serviços
+de gerenciamento de sistemas oferecidos pelo seu @@NOME_DO_PRODUTO@@ irão se tornar inacessíveis.
+Por favor contate o seu Representante regional de Serviços ao Cliente da Red Hat para informações
 sobre como renovar o seu Certificado do @@NOME_DO_PRODUTO@@.
 
 Obrigado por usar o @@NOME_DO_PRODUTO@@.
@@ -694,8 +694,8 @@ Obrigado por usar o @@NOME_DO_PRODUTO@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible 
-until your certificate is renewed. Please contact your regional Red Hat 
+has expired on your local satellite {0}. The system management services will be inaccessible
+until your certificate is renewed. Please contact your regional Red Hat
 Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
@@ -704,9 +704,9 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 Prezado Usuário do @@NOME_DO_PRODUTO@@,
 
-Este e-mail está sendo enviado para lhe informar que o seu Certificado do @@NOME_DO_PRODUTO@@ 
-do seu Satellite local {0} venceu. Os serviços de gerenciamento de sistemas ficarão inacessíveis até que 
-o seu certificado seja renovado. Por favor contate o seu Representante regional de Serviços ao Cliente 
+Este e-mail está sendo enviado para lhe informar que o seu Certificado do @@NOME_DO_PRODUTO@@
+do seu Satellite local {0} venceu. Os serviços de gerenciamento de sistemas ficarão inacessíveis até que
+o seu certificado seja renovado. Por favor contate o seu Representante regional de Serviços ao Cliente
 da Red Hat para informações sobre como renovar o seu Certificado do @@NOME_DO_PRODUTO@@.
 
 

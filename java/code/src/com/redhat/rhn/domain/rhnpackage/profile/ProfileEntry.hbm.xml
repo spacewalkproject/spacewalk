@@ -3,20 +3,20 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.rhnpackage.profile.ProfileEntry" 
+    <class name="com.redhat.rhn.domain.rhnpackage.profile.ProfileEntry"
     		table="rhnServerProfilePackage" >
 		<composite-id>
-		    <key-many-to-one 
+		    <key-many-to-one
 		    			 name="profile"
 	                     class="com.redhat.rhn.domain.rhnpackage.profile.Profile"
-	                     column="server_profile_id" />   	                     
-	        <key-many-to-one 
+	                     column="server_profile_id" />
+	        <key-many-to-one
 	        			 name="evr"
 	                     class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
-	                     column="evr_id" />    
+	                     column="evr_id" />
 	        <key-many-to-one name="name"
 	                     class="com.redhat.rhn.domain.rhnpackage.PackageName"
-	                     column="name_id" /> 	        
+	                     column="name_id" />
 	        <key-many-to-one name="arch"
 	                     class="com.redhat.rhn.domain.rhnpackage.PackageArch"
 	                     column="package_arch_id" />

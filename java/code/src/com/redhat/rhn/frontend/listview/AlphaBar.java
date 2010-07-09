@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * AlphaBar, helper class to render a listing of letters/digits that 
+ * AlphaBar, helper class to render a listing of letters/digits that
  * are contained in a set.  For example a a simple text list could be generated
  * with a list of letters contained within the set passed into the getAlphaList()
  * method.
@@ -37,7 +37,7 @@ import java.util.List;
  *       System.out.println(ab.getAlphaList(charset));
  * </pre>
  * produces the following output:
- * 
+ *
  * A* B C D E F G H I J K L M* N O P Q R S T U V W X Y Z* 1 2 3 4 5* 6 7 8 9 0
  *
  * With each letter highlighted with an * indicating its contained within the set
@@ -51,27 +51,27 @@ public class AlphaBar {
     private String charDisabled;
 
     /**
-     * Public constructor.  In order for the characters to be 
-     * parameterized on a per character basis, the paramters 
+     * Public constructor.  In order for the characters to be
+     * parameterized on a per character basis, the paramters
      * must include a numbered parameter to indicate where to place
      * the alphanumeric character within the string if it is or is not
-     * contained within the set. 
-     * This simply means you must include a {0} in the string to indicate 
-     * where you want the character to go. If the Character is enabled, {1} 
+     * contained within the set.
+     * This simply means you must include a {0} in the string to indicate
+     * where you want the character to go. If the Character is enabled, {1}
      * represents the starting point in the DataResult of that character.
-     * @param charEnabledIn the MessageFormat style text 
-     * @param charDisabledIn the MessageFormat style text 
+     * @param charEnabledIn the MessageFormat style text
+     * @param charDisabledIn the MessageFormat style text
      */
     public AlphaBar(String charEnabledIn, String charDisabledIn) {
         charEnabled = charEnabledIn;
         charDisabled = charDisabledIn;
     }
 
-    /** 
-    * get the alphabetical list of enabled and disabled 
+    /**
+    * get the alphabetical list of enabled and disabled
     * elements in the alphabet.  See above for examples.
-    * 
-    * @param charsEnabled the set of characters that are 
+    *
+    * @param charsEnabled the set of characters that are
     * contained within the listview.
     * @return String representation of Alpha bar with the
     * correct characters enabled.
@@ -83,7 +83,7 @@ public class AlphaBar {
         List alist = LocalizationService.getInstance().getAlphabet();
         alist.addAll(LocalizationService.getInstance().getDigits());
         Iterator it = alist.iterator();
-        // Iterator over each character and determine if we need to 
+        // Iterator over each character and determine if we need to
         // enable or disable the row.
         while (it.hasNext()) {
             String ch = (String) it.next();
@@ -94,7 +94,7 @@ public class AlphaBar {
                 Object[] charArg = {ch, charsEnabled.get(ch.charAt(0)).toString()};
                 form = new MessageFormat(charEnabled);
                 target.append(form.format(charArg).toString());
-            } 
+            }
             else {
                 Object[] charArg = {ch};
                 form = new MessageFormat(charDisabled);

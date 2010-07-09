@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.action.server.ServerAction" 
+	<class name="com.redhat.rhn.domain.action.server.ServerAction"
 		   table="rhnServerAction" >
 
         <composite-id>
@@ -21,18 +21,18 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="created" type="timestamp" insert="false" update="false" />
         <property name="modified" type="timestamp" insert="false" update="false" />
         <property name="remainingTries" column="remaining_tries" type="long" />
-        <many-to-one name="status" 
-            class="com.redhat.rhn.domain.action.ActionStatus" 
+        <many-to-one name="status"
+            class="com.redhat.rhn.domain.action.ActionStatus"
             column="status"
             cascade="all" />
 		
 		<!-- we do this so that we don't have to load the whole server object as a key which is very expensive
-				this is the reason for insert="false" update="false" --> 
+				this is the reason for insert="false" update="false" -->
 	    <many-to-one
             name="server"
             class="com.redhat.rhn.domain.server.Server"
-            column="server_id" insert="false" update="false"/>            
-            
+            column="server_id" insert="false" update="false"/>
+
 	</class>
 	<query name="ServerAction.findPendingKickstartsForServer">
 	   <![CDATA[from com.redhat.rhn.domain.action.server.ServerAction as sa where sa.server.id = :serverId and sa.parentAction.actionType.label = :label

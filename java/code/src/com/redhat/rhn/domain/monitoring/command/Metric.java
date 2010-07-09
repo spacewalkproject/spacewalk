@@ -33,98 +33,98 @@ public class Metric implements Serializable {
     private String lastUpdateUser;
     private Date lastUpdateDate;
     private String label;
-    
+
     private String commandClass;
-    /** 
-     * Getter for metricId 
+    /**
+     * Getter for metricId
      * @return String to get
     */
     public String getMetricId() {
         return this.metricId;
     }
 
-    /** 
-     * Setter for metricId 
+    /**
+     * Setter for metricId
      * @param metricIdIn to set
     */
     public void setMetricId(String metricIdIn) {
         this.metricId = metricIdIn;
     }
 
-    /** 
-     * Getter for storageUnitId 
+    /**
+     * Getter for storageUnitId
      * @return String to get
     */
     public String getStorageUnitId() {
         return this.storageUnitId;
     }
 
-    /** 
-     * Setter for storageUnitId 
+    /**
+     * Setter for storageUnitId
      * @param storageUnitIdIn to set
     */
     public void setStorageUnitId(String storageUnitIdIn) {
         this.storageUnitId = storageUnitIdIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return String to get
     */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn to set
     */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
 
-    /** 
-     * Getter for lastUpdateUser 
+    /**
+     * Getter for lastUpdateUser
      * @return String to get
     */
     public String getLastUpdateUser() {
         return this.lastUpdateUser;
     }
 
-    /** 
-     * Setter for lastUpdateUser 
+    /**
+     * Setter for lastUpdateUser
      * @param lastUpdateUserIn to set
     */
     public void setLastUpdateUser(String lastUpdateUserIn) {
         this.lastUpdateUser = lastUpdateUserIn;
     }
 
-    /** 
-     * Getter for lastUpdateDate 
+    /**
+     * Getter for lastUpdateDate
      * @return Date to get
     */
     public Date getLastUpdateDate() {
         return this.lastUpdateDate;
     }
 
-    /** 
-     * Setter for lastUpdateDate 
+    /**
+     * Setter for lastUpdateDate
      * @param lastUpdateDateIn to set
     */
     public void setLastUpdateDate(Date lastUpdateDateIn) {
         this.lastUpdateDate = lastUpdateDateIn;
     }
 
-    /** 
-     * Getter for label 
+    /**
+     * Getter for label
      * @return String to get
     */
     public String getLabel() {
         return this.label;
     }
 
-    /** 
-     * Setter for label 
+    /**
+     * Setter for label
      * @param labelIn to set
     */
     public void setLabel(String labelIn) {
@@ -163,7 +163,7 @@ public class Metric implements Serializable {
     public void setCommandClass(String commandClassIn) {
         this.commandClass = commandClassIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */

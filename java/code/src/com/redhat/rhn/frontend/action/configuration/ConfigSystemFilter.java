@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ConfigSystemFilter extends BaseConfigFilter {
     private List fields;
-    
+
     /**
      * Create a new filter with "name" added to its filter-criteria
      */
@@ -31,11 +31,11 @@ public class ConfigSystemFilter extends BaseConfigFilter {
         fields = new ArrayList();
         fields.add("name");
     }
-    
+
     protected List activeNames() {
         return fields;
     }
-    
+
     protected String getI18NPrefix() {
         return "configsystemfilter";
     }

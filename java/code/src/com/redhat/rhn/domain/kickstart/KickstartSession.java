@@ -37,14 +37,14 @@ import java.util.TreeMap;
  */
 public class KickstartSession {
 
-    // Indicating this KickstartSession is being 
+    // Indicating this KickstartSession is being
     // used for a 'one time' kickstart of a System
     public static final String MODE_ONETIME = "one_time";
-    
+
     // Indicating this KickstartSession is the default session
     // that is associated with the KickstartData at creation time.
     public static final String MODE_DEFAULT_SESSION = "default_session";
-    
+
     private Long id;
     private Long packageFetchCount;
 
@@ -67,7 +67,7 @@ public class KickstartSession {
     private Profile serverProfile;
     private Set history;
     private String clientIp;
-    
+
     private Date created;
     private Date modified;
     private Date lastAction;
@@ -119,7 +119,7 @@ public class KickstartSession {
     public void setKickstartMode(String kickstartModeIn) {
         this.kickstartMode = kickstartModeIn;
     }
-    
+
     /**
      * Getter for client IP.
      * @return Client IP string.
@@ -127,7 +127,7 @@ public class KickstartSession {
     public String getClientIp() {
         return this.clientIp;
     }
-    
+
     /**
      * Setter for client IP.
      * @param clientIpIn to set.
@@ -418,7 +418,7 @@ public class KickstartSession {
 
     /**
      * Set the profile.
-     * 
+     *
      * @param serverProfileIn to set
      */
     public void setServerProfile(Profile serverProfileIn) {
@@ -441,7 +441,7 @@ public class KickstartSession {
 
     /**
      * Mark this KickstartSession as failed.
-     * @param messageIn to fill into into the History field 
+     * @param messageIn to fill into into the History field
      */
     public void markFailed(String messageIn) {
         if (this.action != null) {
@@ -458,7 +458,7 @@ public class KickstartSession {
         this.setAction(null);
         this.addHistory(this.getState(), messageIn);
     }
-    
+
     /**
      * Add a History entry
      * @param stateIn to set
@@ -470,13 +470,13 @@ public class KickstartSession {
         hist.setTime(new Date());
         hist.setSession(this);
         hist.setMessage(messageIn);
-        
+
         if (this.history == null) {
             this.history = new HashSet();
         }
         this.history.add(hist);
     }
-    
+
     private Server currentServer() {
         if (this.newServer != null) {
             return this.newServer;
@@ -484,7 +484,7 @@ public class KickstartSession {
         else if (this.oldServer != null) {
             return this.oldServer;
         }
-        return null; 
+        return null;
     }
 
     /**
@@ -493,7 +493,7 @@ public class KickstartSession {
      * @param kickstartHostIn server where this KS is served from
      * @param earliestDate that we are scheduling this KickstartSession.  This is
      * needed because we generate TinyUrls and they have an expire time.
-     * @return String url   
+     * @return String url
      */
     public String getUrl(String kickstartHostIn, Date earliestDate) {
         StringBuffer filepath = new StringBuffer();
@@ -508,7 +508,7 @@ public class KickstartSession {
         }
         else {
            turl = CommonFactory.
-            createTinyUrl(filepath.toString(), new Date());            
+            createTinyUrl(filepath.toString(), new Date());
         }
         CommonFactory.saveTinyUrl(turl);
         return turl.computeTinyUrl(kickstartHostIn);
@@ -520,23 +520,23 @@ public class KickstartSession {
      */
     public String getMostRecentHistory() {
         if (this.history != null && this.history.size() > 0) {
-            
+
             SortedMap sorted = new TreeMap();
             Iterator i = this.history.iterator();
             while (i.hasNext()) {
-                KickstartSessionHistory hist = 
+                KickstartSessionHistory hist =
                     (KickstartSessionHistory) i.next();
                 sorted.put(hist.getId(), hist);
             }
-            
-            KickstartSessionHistory hist = 
+
+            KickstartSessionHistory hist =
                 (KickstartSessionHistory) sorted.get(sorted.lastKey());
             return hist.getMessage();
         }
         else {
             return null;
         }
-        
+
     }
 
 }

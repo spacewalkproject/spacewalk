@@ -53,7 +53,7 @@ public class CobblerSnippetLister extends BaseManager {
         return INSTANCE;
     }
 
-    private void loadDefaultSnippets(File path, 
+    private void loadDefaultSnippets(File path,
                     List<CobblerSnippet> snippetFiles) {
         if (path.exists() && !path.isHidden()) {
             final String spacewalkSnippetsDir = CobblerSnippet.
@@ -67,24 +67,24 @@ public class CobblerSnippetLister extends BaseManager {
                     }
                 }
                 else {
-                    snippetFiles.add(CobblerSnippet.loadReadOnly(path));    
+                    snippetFiles.add(CobblerSnippet.loadReadOnly(path));
                 }
             }
         }
     }
-    
+
     private void loadSnippetsInSpacewalkDir(List<CobblerSnippet> snippetFiles) {
         for (File path : CobblerSnippet.getSpacewalkSnippetsDir().listFiles()) {
             if (path.isFile() && !path.isHidden()) {
                 snippetFiles.add(CobblerSnippet.loadReadOnly(path));
             }
         }
-        
+
     }
-    
+
     /**
      * Returns a list of snippets accessible to this user
-     * @param user the user has to be atleast a 
+     * @param user the user has to be atleast a
      * config admin to be able to access snippets.
      * @param common true if we want the common snippets
      *                   i.e ones in /var/lib/cobbler/snippets minus spacewalk
@@ -96,7 +96,7 @@ public class CobblerSnippetLister extends BaseManager {
         if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionException(RoleFactory.CONFIG_ADMIN);
         }
-        
+
         if (common) {
             List<CobblerSnippet> snippetFiles = new LinkedList<CobblerSnippet>();
             loadDefaultSnippets(CobblerSnippet.getCobblerSnippetsDir(),
@@ -107,7 +107,7 @@ public class CobblerSnippetLister extends BaseManager {
 
         List<CobblerSnippet> snippetFiles = new LinkedList<CobblerSnippet>();
         File spacewalkDir = new File(CobblerSnippet.getPrefixFor(user.getOrg()));
-        
+
         if (spacewalkDir.exists() && spacewalkDir.isDirectory()) {
             for (File file : spacewalkDir.listFiles()) {
                 if (!file.isHidden() && file.isFile()) {
@@ -122,7 +122,7 @@ public class CobblerSnippetLister extends BaseManager {
     /**
      * Returns a list of default snippets accessible to this user
      * i.e ones in /var/lib/cobbler/snippets minus spacewalk
-     * @param user the user has to be atleast a 
+     * @param user the user has to be atleast a
      * config admin to be able to access snippets.
      * @return the snippets accessible to the user.
      */
@@ -134,17 +134,17 @@ public class CobblerSnippetLister extends BaseManager {
     /**
      * Returns a list of custom snippets accessible to this user
      * i.e ones in /var/lib/cobbler/snippets/spacewalk
-     * @param user the user has to be atleast a 
+     * @param user the user has to be atleast a
      * config admin to be able to access snippets.
      * @return the snippets accessible to the user.
-     */    
+     */
     public List<CobblerSnippet> listCustom(User user) {
         return listSnippets(user, false);
     }
-    
+
     /**
      * Returns a list of snippets accessible to this user
-     * @param user the user has to be atleast a 
+     * @param user the user has to be atleast a
      * config admin to be able to access snippets.
      * @return the snippets accessible to the user.
      */

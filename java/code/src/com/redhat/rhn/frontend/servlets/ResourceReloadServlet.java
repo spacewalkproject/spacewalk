@@ -42,7 +42,7 @@ public class ResourceReloadServlet extends HttpServlet {
      */
     public void init() {
     }
-    
+
     /**
      * executed when a get request happens
      *
@@ -71,10 +71,10 @@ public class ResourceReloadServlet extends HttpServlet {
         throws ServletException, IOException {
         reloadStringResources(response);
     }
-    
-    private void reloadStringResources(HttpServletResponse response) 
+
+    private void reloadStringResources(HttpServletResponse response)
         throws ServletException, IOException {
-        
+
         response.setContentType("text/plain");
         boolean reloaded = LocalizationService.getInstance().reloadResourceFiles();
         OutputStream out = response.getOutputStream();

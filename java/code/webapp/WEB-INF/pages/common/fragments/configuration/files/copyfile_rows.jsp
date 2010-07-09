@@ -20,7 +20,7 @@
                      set="${requestScope.set}"
                      button="copycentral.jsp.copy">
       <rhn:set value="${current.id}"/>
-      
+
       <rhn:column header="${channeltrans}"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.id}">
         <c:choose>
@@ -36,11 +36,11 @@
         </c:choose>
         ${current.nameDisplay}
       </rhn:column>
-      
+
       <rhn:column header="copycentral.jsp.label">
         ${current.label}
       </rhn:column>
-      
+
       <rhn:column header="copycentral.jsp.current">
         <c:choose>
           <c:when test="${current.configRevision == null}">

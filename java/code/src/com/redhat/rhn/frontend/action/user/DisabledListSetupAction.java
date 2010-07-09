@@ -49,17 +49,17 @@ import javax.servlet.http.HttpServletResponse;
 public class DisabledListSetupAction extends RhnAction {
     public static final String DISPATCH = "dispatch";
     public static final String LIST_NAME = "disabledUserList";
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
         PageControl pc = setupPageControl(context);
-     
+
         RhnSet set = getDecl().get(user);
 
         //if its not submitted
@@ -70,9 +70,9 @@ public class DisabledListSetupAction extends RhnAction {
             RhnSetManager.store(set);
         }
         RhnListSetHelper helper = new RhnListSetHelper(request);
-        
+
         if (request.getParameter(DISPATCH) != null) {
-            // if its one of the Dispatch actions handle it..            
+            // if its one of the Dispatch actions handle it..
             helper.updateSet(set, LIST_NAME);
             if (!set.isEmpty()) {
                 return handleDispatchAction(mapping, context);
@@ -80,63 +80,63 @@ public class DisabledListSetupAction extends RhnAction {
             else {
                 RhnHelper.handleEmptySelection(request);
             }
-        }    
-        
+        }
+
         DataResult dr = UserManager.disabledInOrg(user, pc);
-        
+
         dr.setElaborationParams(Collections.EMPTY_MAP);
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
             helper.execute(set, LIST_NAME, dr);
-        }    
-        
-        // if I have a previous set selections populate data using it       
+        }
+
+        // if I have a previous set selections populate data using it
         if (!set.isEmpty()) {
             helper.syncSelections(set, dr);
-            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);            
+            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
         }
-        
+
         request.setAttribute("pageList", dr);
         request.setAttribute("set", set);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        
+
         ListTagHelper.bindSetDeclTo(LIST_NAME, getDecl(), request);
         TagHelper.bindElaboratorTo(LIST_NAME, dr.getElaborator(), request);
-        
+
         return mapping.findForward("default");
     }
-    
-    
+
+
     /**
      * Handles a dispatch action
      * @param mapping the action mapping used for returning 'forward' url
      * @param context the request context
      * @return the forward url
      */
-    private ActionForward  handleDispatchAction(ActionMapping mapping, 
+    private ActionForward  handleDispatchAction(ActionMapping mapping,
                                                 RequestContext context) {
-        
+
         User user = context.getLoggedInUser();
         HttpServletRequest request = context.getRequest();
         RhnSet set =  getDecl().get(user);
         Map params = new HashMap();
-       
+
         //if they chose no users, return to the same page with a message
         if (set.isEmpty()) {
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("reactivateusers.none"));
             params = makeParamMap(request);
             saveMessages(request, msg);
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("default"), params);
         }
-        
+
         //if they chose users, send them to the confirmation page
         return getStrutsDelegate().forwardParams(
-                mapping.findForward("enable"), params);          
+                mapping.findForward("enable"), params);
     }
-    
+
     protected PageControl setupPageControl(RequestContext context) {
         User viewer = context.getLoggedInUser();
         PageControl pc = new PageControl();
@@ -151,16 +151,16 @@ public class DisabledListSetupAction extends RhnAction {
         if (lower <= 1) {
             lower = 1;
         }
-    
+
         pc.setStart(lower);
         pc.setPageSize(viewer.getPageSize());
         pc.setFilterData(context.getRequest().getParameter(RequestContext.FILTER_STRING));
         return pc;
     }
-    
+
     /**
-     * 
-     * @return the set declaration used to this action.. 
+     *
+     * @return the set declaration used to this action..
      */
     protected RhnSetDecl getDecl() {
         return RhnSetDecl.USERS;

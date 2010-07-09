@@ -54,33 +54,33 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SystemEntitlementsSubmitAction extends
                 BaseSetOperateOnSelectedItemsAction {
-    
+
     private static Logger log = Logger.getLogger(SystemEntitlementsSubmitAction.class);
-    
-    public static final String KEY_UPDATE_ENTITLED = 
+
+    public static final String KEY_UPDATE_ENTITLED =
         "systementitlements.jsp.set_to_update_entitled";
     public static final String KEY_MANAGEMENT_ENTITLED =
         "systementitlements.jsp.set_to_manage_entitled";
-    public static final String KEY_UNENTITLED = 
+    public static final String KEY_UNENTITLED =
         "systementitlements.jsp.set_to_unentitled";
     public static final String KEY_ADD_ENTITLED =
         "systementitlements.jsp.add_entitlement";
     public static final String KEY_REMOVE_ENTITLED =
         "systementitlements.jsp.remove_entitlement";
-    
+
     /**
      * {@inheritDoc}
      */
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.SYSTEM_ENTITLEMENTS;
     }
-    
-    protected DataResult getDataResult(User user, 
-            ActionForm formIn, 
+
+    protected DataResult getDataResult(User user,
+            ActionForm formIn,
             HttpServletRequest request) {
         return SystemManager.getSystemEntitlements(user, null);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -91,14 +91,14 @@ public class SystemEntitlementsSubmitAction extends
         map.put(KEY_ADD_ENTITLED, "processAdd");
         map.put(KEY_REMOVE_ENTITLED, "processRemove");
     }
-    
-    protected void processParamMap(ActionForm formIn, 
-            HttpServletRequest request, 
+
+    protected void processParamMap(ActionForm formIn,
+            HttpServletRequest request,
             Map params) {
     }
-    
+
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -110,14 +110,14 @@ public class SystemEntitlementsSubmitAction extends
             HttpServletResponse response) {
         return operateOnSelectedSet(mapping, formIn, request, response,
         "setToUpdateEntitled");
-        
+
     }
-    
+
     /**
      * This method is called when the &quot;Set To Update Entitled&quot;
      * button is clicked in the System Entitlements page.
-     * Basically sets the entitlements of the selected systems to 
-     * Update. 
+     * Basically sets the entitlements of the selected systems to
+     * Update.
      * @param form Action form object.
      * @param req The servlet request object
      * @param elementIn The checked element in the set
@@ -129,28 +129,28 @@ public class SystemEntitlementsSubmitAction extends
             RhnSetElement elementIn, User userIn) {
         return entitle(elementIn.getElement(), EntitlementManager.UPDATE, userIn, req);
     }
-    
+
     //This method does not deal with add-on entitlements
     //prereq: ent is not an add-on entitlement
     //TODO: check this prereq.
-    private Boolean entitle(Long sid, 
+    private Boolean entitle(Long sid,
             Entitlement ent,
             User userIn,
             HttpServletRequest req) {
         final String availableSlotsLabel = "Available_Slots";
         //Only entitle if the system doesn't already have the entitlement
         if (!SystemManager.hasEntitlement(sid, ent)) {
-            
+
             if (req.getAttribute(availableSlotsLabel) == null) {
                 //The slots were not in the request, find them and put them there.
-                Long slots = EntitlementManager.getAvailableEntitlements(ent, 
+                Long slots = EntitlementManager.getAvailableEntitlements(ent,
                         userIn.getOrg());
                 req.setAttribute(availableSlotsLabel, slots);
             }
             //We need one slot to put our system in.
-            Long availableSlots = 
-                ((Long) req.getAttribute(availableSlotsLabel));            
-            
+            Long availableSlots =
+                ((Long) req.getAttribute(availableSlotsLabel));
+
             if (availableSlots != null && availableSlots.longValue() > 0) {
                 //Remove the current ones
                 //This is ok because of the prereq for this method.
@@ -159,14 +159,14 @@ public class SystemEntitlementsSubmitAction extends
                     SystemManager.entitleServer(userIn.getOrg(), sid, ent);
                     if (availableSlots.longValue() != ServerGroup.UNLIMITED) {
                         //Now we need to update our request attribute.
-                        req.setAttribute(availableSlotsLabel, 
+                        req.setAttribute(availableSlotsLabel,
                                 new Long(availableSlots.longValue() - 1));
                     }
                 }
                 else {
                     //entitlement is invalid
                     return Boolean.FALSE;
-                }                
+                }
             }
             else {
                 //not enough slots to put server
@@ -176,9 +176,9 @@ public class SystemEntitlementsSubmitAction extends
         //They have been successfully entitled, or they already were.
         return Boolean.TRUE;
     }
-    
+
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -190,14 +190,14 @@ public class SystemEntitlementsSubmitAction extends
             HttpServletResponse response) {
         return operateOnSelectedSet(mapping, formIn, request, response,
         "setToManagementEntitled");
-        
+
     }
-    
+
     /**
      * This method is called when the &quot;Set To Management Entitled&quot;
      * button is clicked in the System Entitlements page.
-     * Basically sets the entitlements of the selected systems to 
-     * Management. 
+     * Basically sets the entitlements of the selected systems to
+     * Management.
      * @param form Action form object.
      * @param req The servlet request object
      * @param elementIn The checked element in the set
@@ -210,9 +210,9 @@ public class SystemEntitlementsSubmitAction extends
             User userIn) {
         return entitle(elementIn.getElement(), EntitlementManager.MANAGEMENT, userIn, req);
     }
-    
+
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -224,34 +224,34 @@ public class SystemEntitlementsSubmitAction extends
             HttpServletResponse response) {
         return operateOnSelectedSet(mapping, formIn, request, response,
         "unentitle");
-        
+
     }
-    
-    
+
+
     /**
      * This method is called when the &quot;Unentitle&quot;
      * button is clicked in the System Entitlements page.
-     * Basically removes all the entitlements 
-     * related to the selected systems. 
+     * Basically removes all the entitlements
+     * related to the selected systems.
      * @param form Action form object.
      * @param req The servlet request object
      * @param elementIn The checked element in the set
      * @param userIn logged in user
-     * @return true of the server was unentitled. 
-     */    
-    public Boolean unentitle(ActionForm form, 
+     * @return true of the server was unentitled.
+     */
+    public Boolean unentitle(ActionForm form,
             HttpServletRequest req,
             RhnSetElement elementIn,
             User userIn) {
         SystemManager.removeAllServerEntitlements(elementIn.getElement());
         return Boolean.TRUE;
     }
-    
+
     private Entitlement findAddOnEntitlement(ActionForm formIn) {
         DynaActionForm form = (DynaActionForm) formIn;
         String entType = form
         .getString(SystemEntitlementsSetupAction.ADDON_ENTITLEMENT);
-        
+
         if (EntitlementManager.MONITORING_ENTITLED.equals(entType)) {
             return EntitlementManager.MONITORING;
         }
@@ -264,12 +264,12 @@ public class SystemEntitlementsSubmitAction extends
         else if (EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED.equals(entType)) {
             return EntitlementManager.VIRTUALIZATION_PLATFORM;
         }
-        
+
         return null;
     }
-    
+
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -280,9 +280,9 @@ public class SystemEntitlementsSubmitAction extends
             HttpServletRequest request, HttpServletResponse response) {
         return operateAddOnEntitlements(mapping, formIn, request, response, true);
     }
-    
+
     /**
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -294,15 +294,15 @@ public class SystemEntitlementsSubmitAction extends
             HttpServletResponse response) {
         return operateAddOnEntitlements(mapping, formIn, request, response, false);
     }
-    
-    
+
+
     /**
      * Execute some operation on the set of selected items.  Forwards
      * to the "default"
      * NOTE:  Must define StringResource for failure and success messages:
      * getSetName() + ".success" for providing a parameterized
      * message to the UI that would say "2 ServerProbe Suite(s) deleted."
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -316,18 +316,18 @@ public class SystemEntitlementsSubmitAction extends
             HttpServletResponse response,
             boolean add) {
         log.debug("operateAddOnEntitlements");
-        
+
         RhnSet set = updateSet(request);
-        
+
         //if they chose no probe suites, return to the same page with a message
         if (set.isEmpty()) {
             return handleEmptySelection(mapping, formIn, request);
         }
-        
+
         Map params = makeParamMap(formIn, request);
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
-        
+
         int successCount = 0;
         int failureDueToSlotsCount = 0;
         int failureDueToNonManagementCount = 0;
@@ -335,19 +335,19 @@ public class SystemEntitlementsSubmitAction extends
         int failureDueToSolarisCount = 0;
         int unknownFailureCount = 0;
         boolean isVirtEntitlement = false;
-        
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         Entitlement ent = findAddOnEntitlement(formIn);
-        
+
         isVirtEntitlement = (ent instanceof VirtualizationEntitlement);
-        
+
         // TODO: Why are we performing an 'i.remove()' in this loop?
         //Go through the set of systems to which we should add the entitlement
         for (Iterator i = set.getElements().iterator(); i.hasNext();) {
             RhnSetElement element = (RhnSetElement) i.next();
             Long sid = element.getElement();
-            
+
             //We are adding the add on entitlement
             if (add) {
                 //if the system already has the entitlement, do nothing
@@ -396,14 +396,14 @@ public class SystemEntitlementsSubmitAction extends
                     successCount++;
                 }
                 i.remove();
-                
+
             } //else
-            
+
         } //for
         RhnSetManager.store(set);
-        
+
         ActionMessages msg = new ActionMessages();
-        
+
         String prefix = getSetDecl().getLabel() + ".provisioning";
         log.debug("prefix: " + prefix);
         if (ent.equals(EntitlementManager.MONITORING)) {
@@ -421,13 +421,13 @@ public class SystemEntitlementsSubmitAction extends
             //Create the remove success message.
             Object [] args = new Object[] {String.valueOf(successCount)};
             ActionMessage m = new ActionMessage(prefix + ".removed.success", args);
-            msg.add(ActionMessages.GLOBAL_MESSAGE, m);            
-        }        
+            msg.add(ActionMessages.GLOBAL_MESSAGE, m);
+        }
         else {
             if (log.isDebugEnabled()) {
-                log.debug("successCount: " + successCount + 
-                        " failureDueToSlotsCount:" + failureDueToSlotsCount + 
-                        " failureDueToNonManagementCount: " + 
+                log.debug("successCount: " + successCount +
+                        " failureDueToSlotsCount:" + failureDueToSlotsCount +
+                        " failureDueToNonManagementCount: " +
                         failureDueToNonManagementCount);
             }
             //Create the 'added entitlements' success message
@@ -435,13 +435,13 @@ public class SystemEntitlementsSubmitAction extends
                     failureDueToSlotsCount == 0 &&
                     failureDueToNonManagementCount == 0 &&
                     failureDueToVirtErrorCount == 0 &&
-                    unknownFailureCount == 0 && 
+                    unknownFailureCount == 0 &&
                     failureDueToSolarisCount == 0) {
                 log.debug("adding success msg");
                 Object [] args = new Object[] {String.valueOf(successCount)};
                 ActionMessage m = new ActionMessage(prefix + ".success", args);
                 msg.add(ActionMessages.GLOBAL_MESSAGE, m);
-                
+
                 if (isVirtEntitlement) {
                     log.debug("adding virt note");
                     Object[] noteargs = new Object[3];
@@ -449,13 +449,13 @@ public class SystemEntitlementsSubmitAction extends
                     noteargs[0] = "rh-virtualization";
                     noteargs[1] = "rhn-tools";
                     noteargs[2] = "rhn-virtualization-host";
-                    ActionMessage note = new 
+                    ActionMessage note = new
                         ActionMessage("system_entitlements.virtualization.success_note",
                                 noteargs);
                     msg.add(ActionMessages.GLOBAL_MESSAGE, note);
                 }
             }
-            
+
             //Create the 'not enough slots' failure message
             if (failureDueToSlotsCount > 0) {
                 Object [] args = new Object[] {String.valueOf(successCount),
@@ -463,7 +463,7 @@ public class SystemEntitlementsSubmitAction extends
                 ActionMessage m = new ActionMessage(prefix + ".notEnoughSlots", args);
                 msg.add(ActionMessages.GLOBAL_MESSAGE, m);
             }
-            
+
             //Create the 'invalid entitlement' failure message
             if (failureDueToNonManagementCount > 0) {
                 Object [] args = new Object[] {String.valueOf(
@@ -472,33 +472,33 @@ public class SystemEntitlementsSubmitAction extends
                 ActionMessage m = new ActionMessage(prefix + ".noManagement", args);
                 msg.add(ActionMessages.GLOBAL_MESSAGE, m);
             }
-            
+
             if (failureDueToSolarisCount > 0) {
                 ActionMessage m = new ActionMessage(prefix + ".noSolarisSupport",
                                                         failureDueToSolarisCount);
-                msg.add(ActionMessages.GLOBAL_MESSAGE, m);                
+                msg.add(ActionMessages.GLOBAL_MESSAGE, m);
             }
-            
+
             if (failureDueToVirtErrorCount > 0) {
                 ActionMessage m = new ActionMessage(
-                        "system_entitlements.virtualization.setup_error", 
+                        "system_entitlements.virtualization.setup_error",
                         String.valueOf(failureDueToVirtErrorCount));
                 msg.add(ActionMessages.GLOBAL_MESSAGE, m);
             }
 
             if (unknownFailureCount > 0) {
                 ActionMessage m = new ActionMessage(
-                        "system_entitlements.unknown.error", 
+                        "system_entitlements.unknown.error",
                         String.valueOf(unknownFailureCount));
                 msg.add(ActionMessages.GLOBAL_MESSAGE, m);
             }
 
         }
-        
+
         strutsDelegate.saveMessages(request, msg);
         return strutsDelegate.forwardParams(mapping.findForward("default"), params);
     }
-    
+
     private boolean checkSolarisFailure(Long sid, Entitlement ent, User user) {
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         if (server.isSolaris()) {
@@ -510,34 +510,34 @@ public class SystemEntitlementsSubmitAction extends
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected void processMessage(ActionMessages msg,
             String methodName,
             long successCount,
             long failureCount) {
-        
+
         Object[] args = new Object [] {String.valueOf(successCount),
                 String.valueOf(failureCount)
         };
-        
+
         if (failureCount > 0) {
-            addToMessage(msg, methodName, false, args);    
+            addToMessage(msg, methodName, false, args);
         }
         else  if (successCount > 0) {
             addToMessage(msg, methodName, true, args);
         }
     }
-    
+
     /**
-     * 
-     * @return  empty selection message 
+     *
+     * @return  empty selection message
      */
     protected ActionMessage getEmptySelectionMessage() {
         return new ActionMessage("system_entitlements.emptyselectionerror");
-    }    
-    
+    }
+
     /**
      * Used for debug purposes to print out all the error mesages....
      * @param msgs
@@ -557,15 +557,15 @@ public class SystemEntitlementsSubmitAction extends
         addToMessage(msgs, "system_entitlements.monitoring.success", args);
         addToMessage(msgs, "system_entitlements.monitoring.notEnoughSlots", args);
         addToMessage(msgs, "system_entitlements.monitoring.noManagement", args);
-        
+
         return msgs;
     }
-    
+
     private void addToMessage(ActionMessages msgs, String key, Object[] args) {
         ActionMessage temp =  new ActionMessage(key, args);
         msgs.add(ActionMessages.GLOBAL_MESSAGE, temp);
     }
-    
-    
-    
+
+
+
 }

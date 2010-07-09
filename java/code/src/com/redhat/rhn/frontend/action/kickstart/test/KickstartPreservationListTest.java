@@ -26,7 +26,7 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class KickstartPreservationListTest extends BaseKickstartEditTestCase {
-    
+
     protected FileList list1;
     protected FileList list2;
     protected FileList list3;
@@ -53,7 +53,7 @@ public class KickstartPreservationListTest extends BaseKickstartEditTestCase {
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
     }
-    
+
     public void testSubmitExecute() throws Exception {
         addSelectedItem(list1.getId());
         addSelectedItem(list2.getId());
@@ -63,6 +63,6 @@ public class KickstartPreservationListTest extends BaseKickstartEditTestCase {
         actionPerform();
         //        assertTrue(ksdata.getCryptoKeys().size() == 1);
     }
-    
+
 }
 

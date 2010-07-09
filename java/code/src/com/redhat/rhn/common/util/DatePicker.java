@@ -31,11 +31,11 @@ import java.util.TimeZone;
 /**
  * A bean to support date picking in the UI. To add a date picker to a form,
  * add inputs for the year, day, month etc. to the form, and name them with
- * a common prefix; to support a date picker with name <code>date</code>, 
- * you would add inputs with names <code>date_year, date_month, date_day, 
+ * a common prefix; to support a date picker with name <code>date</code>,
+ * you would add inputs with names <code>date_year, date_month, date_day,
  * date_hour, date_minute, and date_am_pm</code> to the form. All this form
  * variables need to be declared as type <code>java.util.Integer</code>
- * 
+ *
  * <p> In your Struts action, you can initialize the form fields with
  * <pre>
  *   Date d = ...;
@@ -44,7 +44,7 @@ import java.util.TimeZone;
  *   p.setDate(d);
  *   p.writeForm(dynaForm.getMap());
  * </pre>
- * 
+ *
  * <p> Once the form is submitted, you can extract the date with
  * <pre>
  *   DynaActionForm dynaForm = ...;
@@ -55,21 +55,21 @@ import java.util.TimeZone;
  *     ... tell user that date was incorrect ...
  *   }
  * </pre>
- * 
+ *
  * @version $Rev$
  */
 public class DatePicker {
-    
+
     /**
      * Typical form field when dealing with a date picker.
      * @see com.redhat.rhn.frontend.struts.StrutsDelegate
      */
     public static final String USE_DATE = "use_date";
-    
+
     //
     // Names of the subfields for the date picker
     //
-    
+
     public static final String YEAR   = "year";
     public static final String MONTH  = "month";
     public static final String DAY    = "day";
@@ -78,15 +78,15 @@ public class DatePicker {
     public static final String AM_PM   = "am_pm";
     public static final int YEAR_RANGE_POSITIVE = 0;
     public static final int YEAR_RANGE_NEGATIVE = 1;
-    
+
     private static final int YEAR_RANGE_SIZE = 5;
     private static final Map FIELD_CALENDAR_MAP = new HashMap();
-    
+
     static {
         FIELD_CALENDAR_MAP.put(Boolean.TRUE, makeFieldCalendarMap(true));
         FIELD_CALENDAR_MAP.put(Boolean.FALSE, makeFieldCalendarMap(false));
     }
-    
+
     private String   name;
     private Calendar cal;
     private Locale   locale;
@@ -95,19 +95,19 @@ public class DatePicker {
     private DateFormatSymbols dateFormatSymbols;
     private int      currentYear;
     private int yearRangeDirection;
-    
+
     /**
-     * Create a new date picker that extracts fields prefixed with 
+     * Create a new date picker that extracts fields prefixed with
      * <code>name0 + "_"</code> and works with the given time zone
      * and locale.
-     * 
+     *
      * @param name0 the prefix for the subfields for the date picker
      * @param tz the timezone in which values are to be interpreted
      * @param locale0 the locale to use
-     * @param yearRangeDirection0 direction of the year range to use. 
+     * @param yearRangeDirection0 direction of the year range to use.
      * YEAR_RANGE_POSATIVE means the year selection will go from now
      * until YEAR_RANGE_SIZE in the future (2005-2010). YEAR_RANGE_NEGATIVE
-     * will include a range from now until YEAR_RANGE_SIZE in the 
+     * will include a range from now until YEAR_RANGE_SIZE in the
      * past (2000 - 2005)
      */
     public DatePicker(String name0, TimeZone tz, Locale locale0, int yearRangeDirection0) {
@@ -119,20 +119,20 @@ public class DatePicker {
         analyzeDateFormat();
         yearRangeDirection = yearRangeDirection0;
     }
-    
+
     /**
      * Return <code>true</code> if the locale uses 12 hour time formats
      * with the additional am/pm designation (like certain anglo-saxon countries).
      * A return value of <code>false</code> indicates that the locale uses
      * a 24 hour clock.
-     *  
-     * @return <code>true</code> if the locale uses 12 hour times with am/pm, 
+     *
+     * @return <code>true</code> if the locale uses 12 hour times with am/pm,
      * <code>false</code> if it uses a 24 hour clock.
      */
     public boolean isLatin() {
         return isLatin;
     }
-    
+
     /**
      * Return <code>true</code> if in the given locale the day
      * is written before the month, <false> otherwise.
@@ -142,16 +142,16 @@ public class DatePicker {
     public boolean isDayBeforeMonth() {
         return isDayBeforeMonth;
     }
-    
+
     /**
      * Return the name of this picker.
-     * 
+     *
      * @return the name of this picker
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * Return the month, a number from 0 to 12.
      * @return the month, a number from 0 to 12.
@@ -159,7 +159,7 @@ public class DatePicker {
     public Integer getMonth() {
         return getField(MONTH);
     }
-    
+
     /**
      * Return the day, a number from 1 to 31.
      * @return the day, a number from 1 to 31.
@@ -167,7 +167,7 @@ public class DatePicker {
     public Integer getDay() {
         return getField(DAY);
     }
-    
+
     /**
      * Return the year
      * @return the year
@@ -175,7 +175,7 @@ public class DatePicker {
     public Integer getYear() {
         return getField(YEAR);
     }
-    
+
     /**
      * Return the hour, a number between 1 and 11 if {@link #isLatin}
      * is <code>true</code>, and a number from 0 to 23 otherwise.
@@ -185,7 +185,7 @@ public class DatePicker {
     public Integer getHour() {
         return getField(HOUR);
     }
-    
+
     /**
      * Return the minute, a number from 0 to 59.
      * @return the minute, a number from 0 to 59.
@@ -193,7 +193,7 @@ public class DatePicker {
     public Integer getMinute() {
         return getField(MINUTE);
     }
-    
+
     /**
      * Return <code>0</code> to indicate AM and <code>1</code>
      * to indicate PM.
@@ -203,7 +203,7 @@ public class DatePicker {
     public Integer getAmPm() {
         return getField(AM_PM);
     }
-    
+
     /**
      * Set the month.
      * @param v the month, a number from 0 to 11
@@ -211,7 +211,7 @@ public class DatePicker {
     public void setMonth(Integer v) {
         setField(MONTH, v);
     }
-    
+
     /**
      * Set the day.
      * @param v the day, a number from 1 to 31
@@ -219,7 +219,7 @@ public class DatePicker {
     public void setDay(Integer v) {
         setField(DAY, v);
     }
-    
+
     /**
      * Set the year
      * @param v the year
@@ -227,7 +227,7 @@ public class DatePicker {
     public void setYear(Integer v) {
         setField(YEAR, v);
     }
-    
+
     /**
      * Set the hour
      * @param v the hour
@@ -236,7 +236,7 @@ public class DatePicker {
     public void setHour(Integer v) {
         setField(HOUR, v);
     }
-    
+
     /**
      * Set the minute
      * @param v the minute, a number from 0 to 59
@@ -244,7 +244,7 @@ public class DatePicker {
     public void setMinute(Integer v) {
         setField(MINUTE, v);
     }
-    
+
     /**
      * Set am or pm
      * @param v <code>0</code> to indicate AM and <code>1</code>
@@ -253,7 +253,7 @@ public class DatePicker {
     public void setAmPm(Integer v) {
         setField(AM_PM, v);
     }
-    
+
     /**
      * Get a list of years for display. The list starts with the current
      * year and descends <code>YEAR_RANGE_SIZE</code> years down.
@@ -264,23 +264,23 @@ public class DatePicker {
         for (int i = 0; i < result.length; i++) {
             if (yearRangeDirection == YEAR_RANGE_NEGATIVE) {
                 result[i] = currentYear - i;
-            } 
+            }
             else if (yearRangeDirection == YEAR_RANGE_POSITIVE) {
                 result[i] = currentYear + i;
             }
             else {
                 throw new IllegalArgumentException("yearRangeDirection isn't set " +
-                        "properly: " + yearRangeDirection + 
+                        "properly: " + yearRangeDirection +
                         " must be YEAR_RANGE_NEGATIVE or YEAR_RANGE_POSITIVE");
             }
         }
         return result;
     }
-    
+
     /**
-     * Get the range of valid hour values, 1 to 11 if {@link #isLatin} is 
+     * Get the range of valid hour values, 1 to 11 if {@link #isLatin} is
      * <code>true</code> and 0 to 23 otherwise.
-     * @return the range of valid hour values, 1 to 11 if {@link #isLatin} is 
+     * @return the range of valid hour values, 1 to 11 if {@link #isLatin} is
      * <code>true</code> and 0 to 23 otherwise.
      */
     public int[] getHourRange() {
@@ -290,7 +290,7 @@ public class DatePicker {
         }
         return result;
     }
-    
+
     /**
      * @return The date constructed from the individual field values
      * of this bean instance, or <code>null</code> if the date is invalid.
@@ -298,7 +298,7 @@ public class DatePicker {
     public Date getDate() {
         try {
             return cal.getTime();
-        } 
+        }
         catch (IllegalArgumentException e) {
             // Ignore and return null to indicate invalid date
             return null;
@@ -321,23 +321,23 @@ public class DatePicker {
     public Calendar getCalendar() {
         return cal;
     }
-    
+
     /**
-     * Parse the values in <code>map</code> into the internal date. The 
-     * <code>map</code> must map the names of the date widget fields like 
+     * Parse the values in <code>map</code> into the internal date. The
+     * <code>map</code> must map the names of the date widget fields like
      * <code>date_year</code> etc. to <code>Integer</code> or parsable
      * <code>String</code> values.
-     * 
+     *
      * If the map does not contain all of the required fields, the default
      * date of now will be used.
-     * 
+     *
      * @param map a map from date widget field names to <code>Integer</code>
      *            or <code>String</code> values.
      */
     public void readMap(Map map) {
         cal.clear();
         Map fieldCalMap = getFieldCalMap();
-        
+
         //go through and read all of the fields we need.
         for (Iterator i = fieldCalMap.keySet().iterator(); i.hasNext();) {
             String field = (String) i.next();
@@ -366,7 +366,7 @@ public class DatePicker {
                 throw new IllegalArgumentException("Form contains a date picker field" +
                         " that is the wrong type: " + value.getClass());
             }
-            
+
             if (fieldValue == null) {
                 //This means that one of the required fields wasn't found
                 //Therefore, we can't really build up a date, so fall back
@@ -378,7 +378,7 @@ public class DatePicker {
             setField(field, fieldValue);
         }
     }
-    
+
     /**
      * Reads the form fields to populate date fields.
      * If a form does not have all of the fields, the inital date
@@ -388,12 +388,12 @@ public class DatePicker {
     public void readForm(DynaActionForm form) {
         readMap(form.getMap());
     }
-    
+
     /**
-     * Write the internal date into <code>map</code>. The 
-     * <code>map</code> will map the names of the date widget fields like 
+     * Write the internal date into <code>map</code>. The
+     * <code>map</code> will map the names of the date widget fields like
      * <code>date_year</code> etc. to <code>Integer</code> values.
-     * 
+     *
      * @param map a map from date widget field names to <code>Integer</code> values
      */
     public void writeToMap(Map map) {
@@ -403,78 +403,78 @@ public class DatePicker {
             map.put(propertyName(field), getField(field));
         }
     }
-    
+
     /**
-     * Write the internal date into <code>form</code>. The 
-     * <code>form</code> will map the names of the date widget fields like 
+     * Write the internal date into <code>form</code>. The
+     * <code>form</code> will map the names of the date widget fields like
      * <code>date_year</code> etc. to <code>Integer</code> values.
-     * 
+     *
      * @param form a dyna action form with date widget field names
      *             to <code>Integer</code> values
      */
     public void writeToForm(DynaActionForm form) {
         writeToMap(form.getMap());
     }
-    
+
     /**
      * Return the value of a particular field from the internal date. Note
      * that the value for <code>HOUR</code> will be between <code>0-12</code>
      * if the locale uses a latin date format, and between <code>0-24</code>
      * if it doesn't.
-     * 
-     * @param field the name of the field, must be one of the constants 
+     *
+     * @param field the name of the field, must be one of the constants
      * defined by this class
      * @return the value in the internal date associated with the field.
      */
     private Integer getField(String field) {
         int calField = getCalField(field);
         try {
-            
+
             //HACK: instituted for UI's that display 1:00 - 12:00 for hours
             //instead of 0:00 - 11:00 like the Java calendar
             int result = cal.get(calField);
-            
+
             if (isLatin() && field.equals(HOUR) && result == 0) {
                 return new Integer(12);
             }
             else {
                return new Integer(result);
             }
-        } 
+        }
         catch (IllegalArgumentException e) {
             // Ignore and return null to indicate invalid date
             return null;
         }
     }
-    
+
     /**
      * Set the value of a <code>field</code> to the given <code>value</code>. Note
      * that setting a field to an invalid value, e.g., setting <code>MONTH</code> to
      * <code>13</code> will not immediately cause an error. To check that the date is
      * still valid, call {@link #getDate}.
-     * 
-     * @param field the name of the field to set 
+     *
+     * @param field the name of the field to set
      * @param value the value to set for that field
      */
     private void setField(String field, Integer value) {
         int calField = getCalField(field);
-        
+
         //HACK: instituted for UI's that display 1:00 - 12:00 for hours
         //instead of 0:00 - 11:00 like the Java calendar
         if (isLatin() && field.equals(HOUR) && value != null && value.intValue() == 12) {
             cal.set(calField, 0);
         }
         else {
-           cal.set(calField, value == null ? -1 : value.intValue());  
+           cal.set(calField, value == null ? -1 : value.intValue());
         }
-        
+
     }
-    
+
     /**
      * Return date format symbols for the locale associated with this date picker.
-     * This method is mainly provided as a conveniece for generating month names 
+     * This method is mainly provided as a conveniece for generating month names
      * and am/pm designations in the user interface.
-     * 
+     *
      * @return the date format symbols for the locale associated with this picker
      */
     public DateFormatSymbols getDateFormatSymbols() {
@@ -483,7 +483,7 @@ public class DatePicker {
         }
         return dateFormatSymbols;
     }
-    
+
     private String propertyName(String field) {
         return name + "_" + field;
     }
@@ -497,7 +497,7 @@ public class DatePicker {
         return (Map) FIELD_CALENDAR_MAP.get(Boolean.valueOf(isLatin()));
     }
 
-    
+
     /**
      * @return Returns the yearRangeDirection.
      */
@@ -508,8 +508,8 @@ public class DatePicker {
     private void analyzeDateFormat() {
         // HACK: This checks whether the am/pm indicator is
         // in the default date format for this locale
-        SimpleDateFormat sdf = 
-            (SimpleDateFormat) DateFormat.getDateTimeInstance(DateFormat.SHORT, 
+        SimpleDateFormat sdf =
+            (SimpleDateFormat) DateFormat.getDateTimeInstance(DateFormat.SHORT,
                     DateFormat.SHORT, locale);
         String pattern = sdf.toPattern();
         isLatin = (pattern.indexOf('a') >= 0);
@@ -525,7 +525,7 @@ public class DatePicker {
         if (isLatin) {
             result.put(HOUR, new Integer(Calendar.HOUR));
             result.put(AM_PM, new Integer(Calendar.AM_PM));
-        } 
+        }
         else {
             result.put(HOUR, new Integer(Calendar.HOUR_OF_DAY));
         }

@@ -33,10 +33,10 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
      */
     private static Logger logger = Logger
             .getLogger(BaseKickstartScriptCommand.class);
-    
-    
+
+
     protected KickstartScript script;
-    
+
     /**
      * Constructor
      * @param ksidIn Kickstart Script id
@@ -46,7 +46,7 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
         super(ksidIn, userIn);
     }
 
-    
+
     /**
      * @return the script
      */
@@ -62,13 +62,13 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
      * @param chrootIn value of chroot ("Y" or "N")
      * @param templatize whether to templatize the script or not
      */
-    public void setScript(String language, String contentsIn, 
+    public void setScript(String language, String contentsIn,
                                String typeIn, String chrootIn, boolean templatize) {
-        if (!typeIn.equals(KickstartScript.TYPE_POST) && 
+        if (!typeIn.equals(KickstartScript.TYPE_POST) &&
                 !typeIn.equals(KickstartScript.TYPE_PRE)) {
             throw new IllegalArgumentException("Unknown script type: " + typeIn);
         }
-            
+
         try {
             this.script.setData(contentsIn.getBytes("UTF-8"));
         }
@@ -78,14 +78,14 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
                     " while trying to set Pre script", e);
 
         }
-        
+
         if (StringUtils.isBlank(language)) {
             language = null;
         }
         else {
             language = language.trim();
         }
-        
+
         this.script.setInterpreter(language);
         this.script.setScriptType(typeIn);
         this.script.setChroot(chrootIn);
@@ -99,7 +99,7 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
     public String getContents() {
         return this.script.getDataContents();
     }
-    
+
     /**
      * Get the interpereter or language used by this script
      * /usr/bin/perl, /bin/csh, etc..
@@ -112,7 +112,7 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
     /**
      * Get the type of Script this is.  See KickstartScript.TYPE_PRE, TYPE_POST.
      * Defaults to KickstartScript.TYPE_PRE
-     * 
+     *
      * @return String representation of the type.
      */
     public String getType() {
@@ -123,7 +123,7 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
             return KickstartScript.TYPE_PRE;
         }
     }
-    
+
     /**
      * gets whether the script is raw or not.
      * @return true or false
@@ -138,7 +138,7 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
     }
 
     /**
-     * @return Boolean value that determines whether 
+     * @return Boolean value that determines whether
      * or not the checkbox associated with nochroot
      * should be checked
      */

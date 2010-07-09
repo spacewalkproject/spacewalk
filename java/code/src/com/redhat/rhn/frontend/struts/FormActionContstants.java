@@ -20,7 +20,7 @@ package com.redhat.rhn.frontend.struts;
  * @version $Rev$
  */
 public class FormActionContstants {
-    
+
     public static final String LABEL = "label";
     public static final String NAME = "name";
 

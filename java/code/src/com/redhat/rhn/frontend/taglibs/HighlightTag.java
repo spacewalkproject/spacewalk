@@ -29,36 +29,36 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * HighlightTag
  * The highlight tag is used to wrap a certain string in a body
  * of text with an html tag. Example usage:
- * 
+ *
  * &lt;rhn:highlight tag="foo" text="test"&gt;
  *     This is a test body of text.
  * &lt;/rhn:highlight&gt;
  * Result: This is a &lt;foo&gt;test&lt;/foo&gt; body of text.
- * 
- * &lt;rhn:highlight startTag="&lt;foo color=blue&gt;" 
+ *
+ * &lt;rhn:highlight startTag="&lt;foo color=blue&gt;"
  *                   endTag="&lt;/foo&gt;" text="test"&gt;
  *     This is a test body of text.
  * &lt;/rhn:highlight&gt;
  * Result: This is a &lt;foo color=blue&gt;test&lt;/foo&gt; body of text.
- * 
+ *
  * &lt;rhn:highlight tag="font" startTag="&lt;foo color=blue&gt;" text="test"&gt;
  *     This is a test body of text.
  * &lt;/rhn:highlight&gt;
  * Result: This is a &lt;foo color=blue&gt;test&lt;/foo&gt; body of text.
- * 
- * Note: This is currently *not* to be used with formatted text. For example, If I 
+ *
+ * Note: This is currently *not* to be used with formatted text. For example, If I
  * had the following:
  *     &lt;rhn:highlight tag="foo" text="as"&gt;
  *         This is a &lt;div class="bar"&gt;test&lt;/div&gt; body of text.
  *     &lt;/rhn:highlight&gt;
  * we would get the result:
- *     This is a &lt;div cl&lt;foo&gt;as&lt;/foo&gt;s = "bar" &gt;test&lt;/div&gt; 
+ *     This is a &lt;div cl&lt;foo&gt;as&lt;/foo&gt;s = "bar" &gt;test&lt;/div&gt;
  *     body of text.
- * 
- * It would be cool if this tag was smart enough to tell whether or not it was inside 
- * of a tag and if so, skip the matching text, but that will have to wait for a future 
+ *
+ * It would be cool if this tag was smart enough to tell whether or not it was inside
+ * of a tag and if so, skip the matching text, but that will have to wait for a future
  * version.
- * 
+ *
  * @version $Rev$
  */
 public class HighlightTag extends BodyTagSupport {
@@ -68,7 +68,7 @@ public class HighlightTag extends BodyTagSupport {
     private String endTag;
     private String text;
     private static Logger log = Logger.getLogger(HighlightTag.class);
-    
+
     /**
      * {@inheritDoc}
      */
@@ -80,20 +80,20 @@ public class HighlightTag extends BodyTagSupport {
         if (bc == null) {
             return SKIP_BODY;
         }
-        
+
         // Make sure tags are set and valid.
         initTags();
 
         String body = bc.getString();
         String search = "(" + text + ")"; //add grouping so we can get correct case out
-        
+
         try {
-            Pattern pattern = Pattern.compile(search, 
-                                              Pattern.CASE_INSENSITIVE | 
+            Pattern pattern = Pattern.compile(search,
+                                              Pattern.CASE_INSENSITIVE |
                                               Pattern.UNICODE_CASE);
-            
+
             Matcher matcher = pattern.matcher(body);
-            
+
             body = matcher.replaceAll(startTag + "$1" + endTag);
         }
         catch (PatternSyntaxException e) {
@@ -107,13 +107,13 @@ public class HighlightTag extends BodyTagSupport {
         catch (IOException ioe) {
             throw new JspException("IO error writing to JSP file:", ioe);
         }
-        
+
         return EVAL_PAGE;
     }
-    
+
     /**
      * initTags
-     * Since there are a few ways to use this tag, we need to 
+     * Since there are a few ways to use this tag, we need to
      * make sure that we have the minimum amount of data we need
      * to work with.
      * @throws JspException
@@ -122,8 +122,8 @@ public class HighlightTag extends BodyTagSupport {
 
         if (tag == null) {
             /*
-             * If tag is null, that means startTag and endTag should have 
-             * been set in the tag and shouldn't be messed with. Make sure 
+             * If tag is null, that means startTag and endTag should have
+             * been set in the tag and shouldn't be messed with. Make sure
              * both startTag and endTag exist and return.
              */
             if (startTag == null || endTag == null) {
@@ -134,7 +134,7 @@ public class HighlightTag extends BodyTagSupport {
                 return;
             }
         }
-        
+
         /*
          * Set start/end Tags. Leave over-ridden tags alone. For example,
          * someone could use the tag like:
@@ -144,61 +144,61 @@ public class HighlightTag extends BodyTagSupport {
         if (startTag == null) {
             startTag = "<" + tag + ">";
         }
-        
+
         if (endTag == null) {
             endTag = "</" + tag + ">";
         }
     }
-    
+
     /**
      * @return Returns the tag.
      */
     public String getTag() {
         return tag;
     }
-    
+
     /**
      * @param t The tag to set.
      */
     public void setTag(String t) {
         this.tag = t;
     }
-    
+
     /**
      * @return Returns the endTag.
      */
     public String getEndTag() {
         return endTag;
     }
-    
+
     /**
      * @param e The endTag to set.
      */
     public void setEndTag(String e) {
         this.endTag = e;
     }
-    
+
     /**
      * @return Returns the startTag.
      */
     public String getStartTag() {
         return startTag;
     }
-    
+
     /**
      * @param s The startTag to set.
      */
     public void setStartTag(String s) {
         this.startTag = s;
-    } 
-    
+    }
+
     /**
      * @return Returns the text.
      */
     public String getText() {
         return text;
     }
-    
+
     /**
      * @param t The text to set.
      */

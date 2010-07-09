@@ -27,7 +27,7 @@ public class PackageListSetupAction extends BaseSystemPackagesAction {
     /**
      * Returns the packages  in the given system
      * @param server The system.
-     * @return List of installed packages 
+     * @return List of installed packages
      */
     protected DataResult getDataResult(Server server) {
         if (!server.isSolaris()) {

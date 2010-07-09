@@ -26,16 +26,16 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * ChannelTreeNode
  * @version $Rev$
  */
-public class ChannelTreeNode extends BaseDto implements BaseListDto, 
-                                                            DepthAware, 
+public class ChannelTreeNode extends BaseDto implements BaseListDto,
+                                                            DepthAware,
                                                             Comparable<ChannelTreeNode> {
-    
+
     private Long id;
     private String name;
     private Long depth;
     private Long channelArchId;
     private Long currentMembers;
-    private Long availableMembers; 
+    private Long availableMembers;
     private Long packageCount;
     private Long systemCount;
     private String parentOrSelfLabel;
@@ -47,10 +47,10 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     private Long orgId;
     private String orgName;
     private String archName;
-    
 
-    
-    
+
+
+
     /**
      * @return Returns the parentId.
      */
@@ -58,7 +58,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
         return parentId;
     }
 
-    
+
     /**
      * @param parentIdIn The parentId to set.
      */
@@ -86,14 +86,14 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn channel id
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * retrieves the name of the channel
      * @return name
@@ -108,8 +108,8 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      */
     public String getUpperName() {
         return this.getName().toUpperCase();
-    }    
-    
+    }
+
 
     /**
      * @return Returns the availableMembers.
@@ -235,14 +235,14 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     public void setSystemCount(Long systemCountIn) {
         this.systemCount = systemCountIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean changeRowColor() {
        return !(this.getDepth() > 1);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -250,11 +250,11 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
         if (channelFamilyId == null || channelFamilySearchedFor == null) {
             return false;
         }
-        
+
         return !channelFamilyId.equals(channelFamilySearchedFor);
-        
+
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -265,7 +265,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
         else {
             return "p" + id;
         }
-            
+
     }
     /**
      * @return Returns the channelFamilyId.
@@ -308,9 +308,9 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      */
     public void setAccessible(boolean accessibleIn) {
         this.accessible = accessibleIn;
-        
+
     }
-    
+
     /**
      * Get if we should let the user see this channel or not. Defaults
      * to true.
@@ -324,20 +324,20 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      * Returns <code>true</code> if this node is a parent channel node, <code>false</code>
      * otherwise. A node is considered a parent if its <code>depth</code> is 1 and its
      * <code>id</code> and <code>parentOrSelfId</code> properties have the same value.
-     * 
-     * @return <code>true</code> if this node is a parent node, <code>false</code> 
+     *
+     * @return <code>true</code> if this node is a parent node, <code>false</code>
      * otherwise.
      */
     public boolean isParent() {
         return parentId == null;
     }
-    
+
     /**
      * Returns <code>true</code> if this node is a child node of the specified <code>parent
      * </code>.
-     * 
+     *
      * @param parent The parent to compare against
-     * 
+     *
      * @return <code>true</code> if this node is a child of <code>parent</code>, or return
      * <code>false</code> if <code>parent</code> is not a parent node or not the parent of
      * this node.
@@ -346,23 +346,23 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
         return parent != null && parent.isParent() && getParentOrSelfId().equals(
                 parent.getId());
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object object) {
         if (object == null || !getClass().equals(object.getClass())) {
             return false;
         }
-        
+
         ChannelTreeNode that = (ChannelTreeNode)object;
-        
+
         return new EqualsBuilder().append(this.id, that.id).isEquals();
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -370,17 +370,17 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public long depth() {
         return getDepth().longValue();
     }
 
-    
+
     /**
      * Used mainly for sorting so it is in a nice order.
-     * 
+     *
      * {@inheritDoc}
      */
     public int compareTo(ChannelTreeNode arg0) {
@@ -388,7 +388,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
         if (this.isParent() && arg0.isParent()) {
             return this.getUpperName().compareTo(arg0.getUpperName());
         }
-        
+
         //if none of them are parents
         if (!this.isParent() && !arg0.isParent()) {
             //if they have the same parent
@@ -404,7 +404,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
         }
         //If the first one is a parent, but the 2nd one isn't
         if (this.isParent() && !arg0.isParent()) {
-            //if a is a parent of b 
+            //if a is a parent of b
             if (this.getId().equals(arg0.getParentOrSelfId())) {
                 return -1;
             }
@@ -413,7 +413,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
                 return this.getUpperName().compareTo(two.getName().toUpperCase());
             }
         }
-        
+
         if (!this.isParent() && arg0.isParent()) {
             //is b a parent of a
             if (this.getParentOrSelfId().equals(arg0.getId())) {
@@ -434,7 +434,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     public Long getOrgId() {
         return orgId;
     }
-    
+
     /**
      * Set the channel's org id.
      * @param orgid The channel's org id.
@@ -442,7 +442,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     public void setOrgId(Long orgid) {
         orgId = orgid;
     }
-    
+
     /**
      * Get the channel's org name.
      * @return The channel's org name.
@@ -458,7 +458,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     public void setOrgName(String orgname) {
         orgName = orgname;
     }
-    
+
     /**
      * @return Returns the archName.
      */

@@ -25,11 +25,11 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev: 1 $
  */
 public class ChannelAddFilesActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testUpload() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
 
         long ccid = cc.getId().longValue();
@@ -42,7 +42,7 @@ public class ChannelAddFilesActionTest extends RhnMockStrutsTestCase {
     public void testImport() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
 
         long ccid = cc.getId().longValue();
@@ -55,7 +55,7 @@ public class ChannelAddFilesActionTest extends RhnMockStrutsTestCase {
     public void testCreate() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
 
         long ccid = cc.getId().longValue();

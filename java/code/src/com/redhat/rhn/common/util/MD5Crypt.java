@@ -28,21 +28,21 @@ import java.util.Random;
  * @version $Rev$
  */
 public class MD5Crypt {
-    
+
     /**
      * prefix is the prefix to use for our encoded string.
      * b64t is a string containing acceptable salt chars.
      */
     private static String prefix = "$1$";
-    private static String b64t = 
+    private static String b64t =
                 "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    
+
     /**
-     * Private Constructor 
+     * Private Constructor
      */
-    private MD5Crypt() { 
+    private MD5Crypt() {
     }
-    
+
     /**
      * getSalt - Cleans salt parameter
      * @param prefix - prefix for salt ($1$)
@@ -59,19 +59,19 @@ public class MD5Crypt {
         if (salt.startsWith(prefix)) {
             salt = salt.substring(prefix.length());
         }
-        
+
         int end = salt.indexOf("$");
         if (end != -1) {
             salt = salt.substring(0, end);
         }
-        
+
         if (salt.length() > 8) {
             salt = salt.substring(0, 8);
         }
-        
+
         return salt;
     }
-    
+
     /**
      * to64 - Utility function for generateEncodedKey
      * @param value value
@@ -80,7 +80,7 @@ public class MD5Crypt {
      */
     private static String to64(int value, int length) {
         StringBuffer out = new StringBuffer();
-        
+
         while (length > 0) {
             out.append(b64t.substring((value & 0x3f), (value & 0x3f) + 1));
             --length;
@@ -88,7 +88,7 @@ public class MD5Crypt {
         }
         return out.toString();
     }
-    
+
     /**
      * generateEncodedKey - Handles generating the encoded key from the
      * final digest.
@@ -101,7 +101,7 @@ public class MD5Crypt {
         StringBuffer out = new StringBuffer(prefix);
         out.append(salt);
         out.append("$");
-        
+
         int val = ((digest[0] & 0xff) << 16) |
                   ((digest[6] & 0xff) << 8) |
                   (digest[12] & 0xff);
@@ -111,28 +111,28 @@ public class MD5Crypt {
               ((digest[7] & 0xff) << 8) |
               (digest[13] & 0xff);
         out.append(to64(val, 4));
-        
+
         val = ((digest[2] & 0xff) << 16) |
               ((digest[8] & 0xff) << 8) |
               (digest[14] & 0xff);
         out.append(to64(val, 4));
-        
+
         val = ((digest[3] & 0xff) << 16) |
               ((digest[9] & 0xff) << 8) |
               (digest[15] & 0xff);
         out.append(to64(val, 4));
-        
+
         val = ((digest[4] & 0xff) << 16) |
               ((digest[10] & 0xff) << 8) |
               (digest[5] & 0xff);
         out.append(to64(val, 4));
-        
+
         val = (digest[11] & 0xff);
         out.append(to64(val, 2));
-        
+
         return out.toString();
     }
-    
+
     /**
      * crypt
      * Method to help in setting passwords.
@@ -146,14 +146,14 @@ public class MD5Crypt {
         for (int i = 0; i < 8; i++) {
             int rand = Math.abs(r.nextInt()) % b64t.length();
             salt.append(b64t.charAt(rand));
-        }       
+        }
         //Return encoded string: $1$salt$encodedkey
         return crypt(key, salt.toString());
     }
-    
+
     /**
      * crypt
-     * Encodes a key using a salt (s) in the same manner as the 
+     * Encodes a key using a salt (s) in the same manner as the
      * perl crypt() function.
      * This method will be called directly when checking passwords. It will
      * also be called from the crypt(key) function when setting a password.
@@ -163,7 +163,7 @@ public class MD5Crypt {
      * @throws MD5CryptException
      */
     public static String crypt(String key, String s) {
-        
+
         /**
          * If this method is called in order for a comparison, s may be
          * in the form of $1$salt$encodedkey. We'll need to extract
@@ -172,7 +172,7 @@ public class MD5Crypt {
         String salt = getSalt(s);
 
         MessageDigest md1;
-        MessageDigest md2; 
+        MessageDigest md2;
         try {
             md1 = MessageDigest.getInstance("MD5");
             md2 = MessageDigest.getInstance("MD5");
@@ -181,26 +181,26 @@ public class MD5Crypt {
             throw new MD5CryptException("Problem getting MD5 message digest " +
                                         "(NoSuchAlgorithm Exception).");
         }
-        
+
         byte[] keyBytes = key.getBytes();
         byte[] saltBytes = salt.getBytes();
         byte[] prefixBytes = prefix.getBytes();
         int keylength = key.length();
-        
+
         //Update first MessageDigest - key/prefix/salt
         md1.update(keyBytes);
         md1.update(prefixBytes);
         md1.update(saltBytes);
-        
+
         //Update second MessageDigest - key/salt/key
         md2.update(keyBytes);
         md2.update(saltBytes);
         md2.update(keyBytes);
-        
-        
+
+
         byte[] md2Digest = md2.digest();
         int md2DigestLength = md2Digest.length;
-        
+
         for (int i = keylength; i > 0; i -= md2DigestLength) {
             if (i > md2DigestLength) {
                 md1.update(md2Digest, 0, md2DigestLength);
@@ -209,20 +209,20 @@ public class MD5Crypt {
                 md1.update(md2Digest, 0, i);
             }
         }
-        
+
         md2.reset();
-        
+
         for (int i = keylength; i > 0; i >>= 1) {
             if ((i & 1) == 1) {
                 md1.update((byte) 0);
-            } 
+            }
             else {
                 md1.update(keyBytes[0]);
             }
         }
-        
+
         byte[] md1Digest = md1.digest();
-        
+
         for (int i = 0; i < 1000; i++) {
             md2.reset();
             if ((i & 1) == 1) {
@@ -245,10 +245,10 @@ public class MD5Crypt {
             }
             md1Digest = md2.digest();
         }
-        
+
         return generateEncodedKey(md1Digest, salt);
     }
-    
+
     /**
      * MD5 and Hexify a string.  Take the input string, MD5 encode it
      * and then turn it into Hex.
@@ -259,7 +259,7 @@ public class MD5Crypt {
         byte[] secretBytes;
         try {
             secretBytes = inputString.getBytes("UTF-8");
-            
+
         }
         catch (UnsupportedEncodingException e) {
             throw new RuntimeException("UnsupportedEncodingException when" +
@@ -267,7 +267,7 @@ public class MD5Crypt {
         }
         return md5Hex(secretBytes);
     }
-    
+
     /**
      * MD5 and Hexify an array of bytes.  Take the input array, MD5 encodes it
      * and then turns it into Hex.

@@ -23,7 +23,7 @@ import com.redhat.rhn.domain.user.User;
 public abstract class BasePersistOperation implements PersistOperation {
 
     protected User user;
-    
+
     /**
      * {@inheritDoc}
      */

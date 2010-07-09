@@ -39,18 +39,18 @@ public class InvalidChannelLabelException extends FaultException {
     /**
      * Creates a new indication of a channel label issue that does not specify the reason
      * for the error.
-     * <p/> 
+     * <p/>
      * Ideally, this won't be used frequently. This was kept in to support current uses
      * that don't fit into the idea of validating if a label can be used in a channel
-     * creation/edit. 
+     * creation/edit.
      */
     public InvalidChannelLabelException() {
         super(1201, "invalidChannelLabel", "Invalid channel label");
     }
-    
+
     /**
      * Creates a new indication that a given channel label is invalid
-     *  
+     *
      * @param labelIn  label the user attempted to give the channel
      * @param reasonIn flag indicating why the channel name is invalid; cannot be
      *                 <code>null</code>

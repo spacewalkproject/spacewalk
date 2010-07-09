@@ -40,7 +40,7 @@ public class SubmitImageInputTag extends InputTag {
     public void setAlt(String alt) {
         setAttribute("alt", alt);
     }
-    
+
     /**
      * set the path to the image
      * @param src url to the image for the button

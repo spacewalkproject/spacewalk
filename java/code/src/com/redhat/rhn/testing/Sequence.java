@@ -19,9 +19,9 @@ package com.redhat.rhn.testing;
  * @version $Rev$
  */
 public class Sequence {
-    
+
     private long initialValue;
-    
+
     /**
      * Creates a new sequence
      *
@@ -29,19 +29,19 @@ public class Sequence {
     public Sequence() {
         this(1L);
     }
-    
+
     /**
      * Creates a new sequence
-     * 
+     *
      * @param startValue The starting value for the sequence
      */
     public Sequence(long startValue) {
         this.initialValue = startValue;
     }
-    
+
     /**
      * Returns the next value in the sequence as a Long.
-     * 
+     *
      * @return The next value in the sequence as a Long
      */
     public Long nextLong() {

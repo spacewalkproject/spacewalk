@@ -4,12 +4,12 @@
 
         <rl:decorator name="PageSizeDecorator"/>
         <rl:decorator name="SelectableDecorator"/>
-        
+
         <rl:selectablecolumn value="${current.selectionKey}"
                              selected="${current.selected}"
                              disabled="${not current.selectable}"
                              styleclass="first-column"/>
-        
+
         <rl:column headerkey="erratalist.jsp.type">
             <c:if test="${current.securityAdvisory}">
                 <img src="/img/wrh-security.gif"
@@ -40,7 +40,7 @@
         </rl:column>
 
     </rl:list>
-    
+
     <div align="right">
         <rhn:submitted/>
         <hr/>
@@ -48,5 +48,5 @@
                name="dispatch"
                value='<bean:message key="erratalist.jsp.deleteerrata"/>'/>
     </div>
-    
+
 </rl:listset>

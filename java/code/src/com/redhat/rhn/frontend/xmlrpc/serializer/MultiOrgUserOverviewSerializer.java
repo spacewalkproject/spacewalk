@@ -25,12 +25,12 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * MultiOrgAllUserOverviewSerializer
  * @version $Rev$
  *
  * @xmlrpc.doc
- * #struct("user") 
+ * #struct("user")
  *   #prop("string", "login")
  *   #prop("string", "login_uc")
  *   #prop("string", "name")
@@ -42,7 +42,7 @@ public class MultiOrgUserOverviewSerializer implements
         XmlRpcCustomSerializer {
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Class getSupportedClass() {
@@ -50,7 +50,7 @@ public class MultiOrgUserOverviewSerializer implements
         return MultiOrgUserOverview.class;
     }
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void serialize(Object value, Writer output,
@@ -58,7 +58,7 @@ public class MultiOrgUserOverviewSerializer implements
         throws XmlRpcException, IOException {
         SerializerHelper se = new SerializerHelper(builtInSerializer);
         MultiOrgUserOverview dto = (MultiOrgUserOverview) value;
-        
+
         se.add("login", dto.getLogin());
         se.add("login_uc", dto.getLoginUc());
         se.add("name", dto.getUserDisplayName());

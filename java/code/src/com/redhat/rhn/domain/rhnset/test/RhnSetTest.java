@@ -39,25 +39,25 @@ public class RhnSetTest extends RhnBaseTestCase {
         super.tearDown();
         set = null;
     }
-    
+
     public void testUserId() {
         Long id = new Long(10);
         set.setUserId(id);
         assertEquals(id, set.getUserId());
     }
-    
+
     public void testLabel() {
         set.setLabel("set_label");
         assertEquals("set_label", set.getLabel());
     }
-    
+
     public void testElement() {
         Long num = new Long(10);
         set.addElement(num, null);
         set.addElement(num, num);
         set.addElement(num, num, null);
         set.addElement(num, num, num);
-        
+
         Set elements = set.getElements();
         assertNotNull(elements);
         assertEquals(set.size(), elements.size());
@@ -91,22 +91,22 @@ public class RhnSetTest extends RhnBaseTestCase {
         }
 
         assertEquals(3, i);
-        
+
         set.removeElement(num, num);
-        
+
         assertEquals(2, set.size());
         assertTrue(set.contains(num));
         assertFalse(set.contains(num, num));
         assertAddRemove(2, 0);
-        
+
         set.setLabel("label");
         assertEquals("label", set.getLabel());
     }
-    
+
     public void testGetElementValues() {
         set.addElement(new Long(100));
         set.addElement(new Long(101));
-        
+
         Set values = set.getElementValues();
         assertEquals(2, values.size());
         assertTrue(values.contains(new Long(100)));
@@ -144,7 +144,7 @@ public class RhnSetTest extends RhnBaseTestCase {
         assertFalse(set.contains(new Long("300")));
         assertAddRemove(3, 0);
     }
-    
+
     public void testMark() {
         set.addElements(TEST_ELEMS);
         set.sync();
@@ -158,7 +158,7 @@ public class RhnSetTest extends RhnBaseTestCase {
         set.sync();
         assertAddRemove(0, 0);
     }
-    
+
     public void testNullAddElements() {
         // make sure we don't cause a NullPointerException
         try {
@@ -167,9 +167,9 @@ public class RhnSetTest extends RhnBaseTestCase {
             Set elements = set.getElements();
             assertNotNull(elements);
             assertEquals(0, elements.size());
-    
+
             String[] testElems2 = {"100|50", "10|90", "30|30"};
-    
+
             set.addElements(testElems2);
             elements = set.getElements();
             assertEquals(3, elements.size());
@@ -181,7 +181,7 @@ public class RhnSetTest extends RhnBaseTestCase {
             fail("addElements didn't accept a null array");
         }
     }
-    
+
     public void testNullRemoveElements() {
         try {
             set.removeElements(null);
@@ -193,7 +193,7 @@ public class RhnSetTest extends RhnBaseTestCase {
             fail("removeElements didn't accept a null array");
         }
     }
-    
+
     private void assertAddRemove(int added, int removed) {
         assertEquals(added, set.getAdded().size());
         assertEquals(removed, set.getRemoved().size());

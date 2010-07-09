@@ -16,15 +16,15 @@
   <rhn:listdisplay button="deleteconfirm.jsp.confirm">
     <rhn:column header="erratalist.jsp.type">
         <c:if test="${current.securityAdvisory}">
-            <img src="/img/wrh-security.gif" 
+            <img src="/img/wrh-security.gif"
                  title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
         </c:if>
         <c:if test="${current.bugFix}">
-            <img src="/img/wrh-bug.gif" 
+            <img src="/img/wrh-bug.gif"
                  title="<bean:message key="erratalist.jsp.bugadvisory"/>" />
         </c:if>
         <c:if test="${current.productEnhancement}">
-            <img src="/img/wrh-product.gif" 
+            <img src="/img/wrh-product.gif"
                  title="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
         </c:if>
     </rhn:column>

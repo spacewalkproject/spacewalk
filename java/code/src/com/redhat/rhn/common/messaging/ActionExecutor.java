@@ -22,16 +22,16 @@ import java.util.List;
 
 /**
  * Utility class which encapsulates the logic necessary to dispatch actions
- * 
+ *
  * @version $Rev $
  */
 class ActionExecutor implements Runnable {
-    
+
     private static final Logger LOG = Logger.getLogger(ActionExecutor.class);
-    
+
     private EventMessage msg;
     private List actionHandlers = new ArrayList();
-    
+
     /**
      * Constructor
      * @param handlers list of event handlers to dispatch to
@@ -41,9 +41,9 @@ class ActionExecutor implements Runnable {
         actionHandlers.addAll(handlers);
         msg = eventMsg;
     }
-    
+
     /**
-     * Iterates over the list of handlers and dispatches 
+     * Iterates over the list of handlers and dispatches
      * the message to each
      */
     public void run() {
@@ -59,8 +59,8 @@ class ActionExecutor implements Runnable {
                     LOG.debug("Got a EventDatabaseMessage");
                     while (evtdb.getTransaction().isActive()) {
                         if (LOG.isDebugEnabled()) {
-                            LOG.debug("DB message, waiting for txn: active: " + 
-                                    evtdb.getTransaction().isActive() + " commited: " + 
+                            LOG.debug("DB message, waiting for txn: active: " +
+                                    evtdb.getTransaction().isActive() + " commited: " +
                                     evtdb.getTransaction().wasCommitted());
                         }
                         Thread.sleep(10);
@@ -71,7 +71,7 @@ class ActionExecutor implements Runnable {
                 else {
                     action.execute(msg);
                 }
-                
+
             }
             catch (Throwable t) {
                 LOG.error(t);

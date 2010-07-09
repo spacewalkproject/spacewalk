@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ListPackagesAction extends RhnSetAction {
 
     /**
-     * confirm handles updating the set and forwarding the user to the confirmation 
+     * confirm handles updating the set and forwarding the user to the confirmation
      * screen.
      * @param mapping ActionMapping
      * @param formIn ActionForm
@@ -51,27 +51,27 @@ public class ListPackagesAction extends RhnSetAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         //update the set
         updateSet(request);
-        
+
         //forward to the confirm mapping
         Long eid = requestContext.getRequiredParam("eid");
-        return strutsDelegate.forwardParam(mapping.findForward("confirm"), 
+        return strutsDelegate.forwardParam(mapping.findForward("confirm"),
                                       "eid", eid.toString());
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
-        
+
         //Get the errata from the eid in the request
         Errata errata = requestContext.lookupErratum();
         return PackageManager.packagesInErrata(errata, null);
@@ -87,8 +87,8 @@ public class ListPackagesAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         params.put("eid", request.getParameter("eid"));
     }

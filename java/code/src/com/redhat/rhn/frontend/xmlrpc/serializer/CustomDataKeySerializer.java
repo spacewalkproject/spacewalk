@@ -25,9 +25,9 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * CustomDataKeySerializer: Converts a CustomDataKeyOverview object for 
+ * CustomDataKeySerializer: Converts a CustomDataKeyOverview object for
  * representation as an XMLRPC struct.
- * 
+ *
  * @version $Rev$
  *
  * @xmlrpc.doc
@@ -53,7 +53,7 @@ public class CustomDataKeySerializer implements XmlRpcCustomSerializer {
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
+
         CustomDataKeyOverview key = (CustomDataKeyOverview)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("id", key.getId());

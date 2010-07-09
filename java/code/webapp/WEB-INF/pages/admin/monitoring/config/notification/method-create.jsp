@@ -55,7 +55,7 @@
     <html:hidden property="cmid" value="${method.id}"/>
     <html:hidden property="submitted" value="true"/>
 
-    
+
 </html:form>
 </div>
 

@@ -24,9 +24,9 @@ public class EssentialServerDto extends BaseDto {
 
     private Long id;
     private String name;
-    
+
     /**
-     * 
+     *
      * @return Server name.
      */
     public String getName() {
@@ -34,7 +34,7 @@ public class EssentialServerDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param nameIn Set the server name.
      */
     public void setName(String nameIn) {
@@ -42,7 +42,7 @@ public class EssentialServerDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @param idIn Id to set
      */
     public void setId(Long idIn) {

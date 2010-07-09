@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Override MockHttpSession's implementation of get/setAttribute so we 
+ * Override MockHttpSession's implementation of get/setAttribute so we
  * don't have to define ahead of time all the attributes that will be set
  * on the session.
  * @version $Rev$
@@ -28,7 +28,7 @@ import java.util.Map;
 public class RhnMockHttpSession extends MockHttpSession {
 
     private Map attributes;
-    
+
     /**
      * default constructor
      */
@@ -36,7 +36,7 @@ public class RhnMockHttpSession extends MockHttpSession {
         super();
         attributes = new HashMap();
     }
-    
+
     /**
      * Returns the attribute bound to the given name.
      * @param name Name of attribute whose value is sought.
@@ -45,7 +45,7 @@ public class RhnMockHttpSession extends MockHttpSession {
     public Object getAttribute(String name) {
         return attributes.get(name);
     }
-    
+
     /**
      * Adds a new attribute the Session.
      * @param name attribute name
@@ -54,7 +54,7 @@ public class RhnMockHttpSession extends MockHttpSession {
     public void setAttribute(String name, Object value) {
         attributes.put(name, value);
     }
-    
+
     /**
      * Removes an attribute from the session
      * @param name attribute name
@@ -62,7 +62,7 @@ public class RhnMockHttpSession extends MockHttpSession {
     public void removeAttribute(String name) {
         attributes.remove(name);
     }
-    
+
     /** {@inheritDoc} */
     public String toString() {
         return this.getClass().getName() + " attributes: " + attributes;

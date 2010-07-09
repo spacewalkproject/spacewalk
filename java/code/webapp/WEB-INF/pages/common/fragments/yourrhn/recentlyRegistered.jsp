@@ -7,30 +7,30 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:choose>
   <c:when test="${showRecentlyRegisteredSystems == 'true'}">
-    
+
 <rl:listset name="registeredSystemsSet">
 	<!-- Start of active users list -->
 	<rl:list dataset="recentlyRegisteredSystemsList"
-	         width="100%"        
+	         width="100%"
 	         name="systemsList"
 	         title="${rhn:localize('yourrhn.jsp.recentlyregistered')}"
 	         styleclass="list list-doubleheader"
 	         hidepagenums="true"
 	         emptykey="yourrhn.jsp.recentlyregistered.none"
 	 		 >
-		<rl:column bound="true" 
-		           headerkey="systemlist.jsp.status" 
+		<rl:column bound="true"
+		           headerkey="systemlist.jsp.status"
 		           styleclass="first-column"
 		           attr="statusDisplay"/>
-		<rl:column bound="false" 
-		           headerkey="systemlist.jsp.system" 
+		<rl:column bound="false"
+		           headerkey="systemlist.jsp.system"
 		           >
 		<a href="/rhn/systems/details/Overview.do?sid=${current.id}">
-		<c:out value="${current.serverName}"/></a> 	           
+		<c:out value="${current.serverName}"/></a>
 		</rl:column>
 		
-		<rl:column bound="false" 
-		           headerkey="systemlist.jsp.channel" 
+		<rl:column bound="false"
+		           headerkey="systemlist.jsp.channel"
 		           >
 			<c:choose>
 	    		<c:when test="${current.channelId == null}">
@@ -41,28 +41,28 @@
 	        			<c:out value = "${current.channelLabels}"/>
 	        		</a>
 	        	</c:otherwise>
-	        </c:choose>	           
+	        </c:choose>
 		</rl:column>
 	
-		<rl:column bound="false" 
-		           headerkey="registeredlist.jsp.date" 
+		<rl:column bound="false"
+		           headerkey="registeredlist.jsp.date"
 		           >
-			<fmt:formatDate value="${current.created}" type="both" dateStyle="short" timeStyle="long"/>	           
+			<fmt:formatDate value="${current.created}" type="both" dateStyle="short" timeStyle="long"/>
 		</rl:column>
 	
-		<rl:column bound="false" 
-		           headerkey="registeredlist.jsp.user" 
+		<rl:column bound="false"
+		           headerkey="registeredlist.jsp.user"
 		           >
 			<c:if test="${current.nameOfUserWhoRegisteredSystem != null}">
 	        	<img src="/img/rhn-listicon-user.gif" alt="<bean:message key="yourrhn.jsp.user.alt" />"  />
 	        	<c:out value="${current.nameOfUserWhoRegisteredSystem}"/>
-	        </c:if> 	           
+	        </c:if>
 		</rl:column>
 	
-		<rl:column bound="true" 
-		           headerkey="systemlist.jsp.entitlement" 
+		<rl:column bound="true"
+		           headerkey="systemlist.jsp.entitlement"
 		           attr="entitlementLevel"
-		           styleclass="last-column"/>	           	           
+		           styleclass="last-column"/>
 </rl:list>
   <span class="full-width-note-left">
   	${paginationMessage}
@@ -74,7 +74,7 @@
   	</a>
   </span>
 
-</rl:listset>    
+</rl:listset>
 
 </c:when>
 </c:choose>

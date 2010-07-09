@@ -19,7 +19,7 @@
     <bean:message key="completedactions.jsp.summary"/>
     </p>
   </div>
-  
+
 	<br/>
 
 	<rl:listset name="failedList">

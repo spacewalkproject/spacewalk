@@ -17,133 +17,133 @@ package com.redhat.rhn.taskomatic.task;
 
 /**
  * Miscellaneous constants used by Taskomatic tasks
- * 
+ *
  * @version $Rev $
  */
 
 public class TaskConstants {
-    
-    public static final String TASK_QUERY_KSCLEANUP_FIND_CANDIDATES = 
+
+    public static final String TASK_QUERY_KSCLEANUP_FIND_CANDIDATES =
         "kickstartcleanup_find_candidates";
-    
-    public static final String TASK_QUERY_KSCLEANUP_FIND_PREREQ_ACTION = 
+
+    public static final String TASK_QUERY_KSCLEANUP_FIND_PREREQ_ACTION =
         "kickstartcleanup_find_parent_action";
-    
-    public static final String TASK_QUERY_KSCLEANUP_REMOVE_ACTION = 
+
+    public static final String TASK_QUERY_KSCLEANUP_REMOVE_ACTION =
         "kickstartcleanup_remove_action";
-    
-    public static final String TASK_QUERY_KSCLEANUP_FIND_FAILED_STATE_ID = 
+
+    public static final String TASK_QUERY_KSCLEANUP_FIND_FAILED_STATE_ID =
         "kickstartcleanup_find_failed_state_id";
-    
-    public static final String TASK_QUERY_KSCLEANUP_MARK_SESSION_FAILED = 
+
+    public static final String TASK_QUERY_KSCLEANUP_MARK_SESSION_FAILED =
         "kickstartcleanup_mark_session_failed";
-    
-    public static final String TASK_QUERY_SYNCHPROBESTATE_PROC = 
+
+    public static final String TASK_QUERY_SYNCHPROBESTATE_PROC =
         "synchprobestate_synch_proc";
-    
-    public static final String TASK_QUERY_PKGCLEANUP_FIND_CANDIDATES = 
+
+    public static final String TASK_QUERY_PKGCLEANUP_FIND_CANDIDATES =
         "pkgcleanup_find_deleted_pkgs";
-    
-    public static final String TASK_QUERY_PKGCLEANUP_RESET_QUEUE = 
+
+    public static final String TASK_QUERY_PKGCLEANUP_RESET_QUEUE =
         "pkgcleanup_reset_queue";
-    
-    public static final String TASK_QUERY_SESSION_CLEANUP = 
+
+    public static final String TASK_QUERY_SESSION_CLEANUP =
         "taskomatic_session_cleanup";
-    
+
     public static final String TASK_QUERY_NOCHANNEL_FIND_ORGS =
         "nochannelcheck_find_orgs";
-    
-    public static final String TASK_QUERY_USER_DELETION_FIND_CANDIDATES = 
+
+    public static final String TASK_QUERY_USER_DELETION_FIND_CANDIDATES =
         "userdeletion_find_candidates";
-    
-    public static final String TASK_QUERY_USER_DELETION_DELETE_USER = 
+
+    public static final String TASK_QUERY_USER_DELETION_DELETE_USER =
         "userdeletion_delete_user";
-    
-    public static final String TASK_QUERY_USER_DELETION_DEL_QUEUE_ENTRY = 
+
+    public static final String TASK_QUERY_USER_DELETION_DEL_QUEUE_ENTRY =
         "userdeletion_remove_queue_entry";
 
-    public static final String TASK_QUERY_ERRATA_QUEUE_FIND_CANDIDATES = 
+    public static final String TASK_QUERY_ERRATA_QUEUE_FIND_CANDIDATES =
         "errataqueue_find_candidates";
-    
-    public static final String TASK_QUERY_ERRATA_QUEUE_ENQUEUE_SAT_ERRATA = 
+
+    public static final String TASK_QUERY_ERRATA_QUEUE_ENQUEUE_SAT_ERRATA =
         "errataqueue_enqueue_sat_errata";
-    
-    public static final String TASK_QUERY_ERRATA_QUEUE_ENQUEUE_NON_SAT_ERRATA = 
+
+    public static final String TASK_QUERY_ERRATA_QUEUE_ENQUEUE_NON_SAT_ERRATA =
         "errataqueue_enqueue_non_sat_errata";
-    
-    public static final String TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA_NOTIFICATION = 
+
+    public static final String TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA_NOTIFICATION =
         "errataqueue_dequeue_errata_notification";
-    
-    public static final String TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA = 
+
+    public static final String TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA =
         "errataqueue_dequeue_errata";
-    
-    public static final String TASK_QUERY_ERRATA_QUEUE_MARK_ERRATA_IN_PROGRESS = 
+
+    public static final String TASK_QUERY_ERRATA_QUEUE_MARK_ERRATA_IN_PROGRESS =
         "errataqueue_mark_errata_in_progress";
-    
-    public static final String TASK_QUERY_ERRATA_QUEUE_CLEAR_ERRATA_IN_PROGRESS = 
+
+    public static final String TASK_QUERY_ERRATA_QUEUE_CLEAR_ERRATA_IN_PROGRESS =
         "errataqueue_clear_errata_in_progress";
-    
-    public static final String TASK_QUERY_REPOMD_DEQUEUE = 
+
+    public static final String TASK_QUERY_REPOMD_DEQUEUE =
         "repomd_dequeue";
-    
+
     public static final String TASK_QUERY_REPOMD_DETAILS_QUERY = "repomd_details_query";
-    
-    public static final String TASK_QUERY_REPOMD_MARK_IN_PROGRESS = 
+
+    public static final String TASK_QUERY_REPOMD_MARK_IN_PROGRESS =
         "repomd_mark_in_progress";
-    
-    public static final String TASK_QUERY_REPOMOD_CLEAR_IN_PROGRESS = 
+
+    public static final String TASK_QUERY_REPOMOD_CLEAR_IN_PROGRESS =
         "repomd_clear_in_progress";
-    
-    public static final String TASK_QUERY_ERRATA_QUEUE_FETCH_DESC = 
+
+    public static final String TASK_QUERY_ERRATA_QUEUE_FETCH_DESC =
         "errataqueue_fetch_errata_description";
-    
-    public static final String TASK_QUERY_ERRATA_QUEUE_FIND_AUTOUPDATE_SERVERS = 
+
+    public static final String TASK_QUERY_ERRATA_QUEUE_FIND_AUTOUPDATE_SERVERS =
         "errataqueue_find_autoupdate_servers";
 
-    public static final String TASK_QUERY_SUMMARYPOP_AWOL_SERVER_IN_ORGS = 
+    public static final String TASK_QUERY_SUMMARYPOP_AWOL_SERVER_IN_ORGS =
         "summarypop_awol_server_in_orgs2";
-    
-    public static final String TASK_QUERY_SUMMARYPOP_ORGS_RECENT_ACTIONS = 
+
+    public static final String TASK_QUERY_SUMMARYPOP_ORGS_RECENT_ACTIONS =
         "summarypop_orgs_recent_actions";
-    
-    public static final String TASK_QUERY_INSERT_SUMMARY_QUEUE = 
+
+    public static final String TASK_QUERY_INSERT_SUMMARY_QUEUE =
         "insert_summary_queue";
-    
+
     public static final String TASK_QUERY_VERIFY_SUMMARY_QUEUE =
         "verify_summary_queue";
-    
+
     public static final String TASK_QUERY_DAILY_SUMMARY_QUEUE =
         "daily_summary_queue_batch";
-    
+
     public static final String TASK_QUERY_USERS_WANTING_REPORTS =
         "users_in_org_wanting_reports";
-    
+
     public static final String TASK_QUERY_DEQUEUE_DAILY_SUMMARY =
         "dequeue_daily_summary";
-    
+
     public static final String TASK_QUERY_USERS_AWOL_SERVERS =
         "users_awol_servers";
-    
+
     public static final String TASK_QUERY_GET_ACTION_INFO = "get_action_info";
-    
-    public static final String TASK_QUERY_ERRATAMAILER_FIND_ERRATA = 
+
+    public static final String TASK_QUERY_ERRATAMAILER_FIND_ERRATA =
         "erratamailer_find_errata";
-    
-    public static final String TASK_QUERY_ERRATAMAILER_FILL_WORK_QUEUE = 
+
+    public static final String TASK_QUERY_ERRATAMAILER_FILL_WORK_QUEUE =
         "erratamailer_fill_work_queue";
-    
-    public static final String TASK_QUERY_ERRATAMAILER_FIND_TARGET_USERS = 
+
+    public static final String TASK_QUERY_ERRATAMAILER_FIND_TARGET_USERS =
         "erratamailer_find_users";
-    
-    public static final String TASK_QUERY_ERRATAMAILER_FIND_TARGET_SERVERS = 
+
+    public static final String TASK_QUERY_ERRATAMAILER_FIND_TARGET_SERVERS =
         "erratamailer_find_servers";
-    
-    public static final String TASK_QUERY_ERRATAMAILER_CLEAN_QUEUE = 
+
+    public static final String TASK_QUERY_ERRATAMAILER_CLEAN_QUEUE =
         "erratamailer_clean_work_queue";
-    
-    public static final String TASK_QUERY_ERRATAMAILER_MARK_ERRATA_DONE = 
+
+    public static final String TASK_QUERY_ERRATAMAILER_MARK_ERRATA_DONE =
         "erratamailer_mark_errata_done";
-    
+
     public static final String TASK_QUERY_EMAILENGINE_FIND_USERS =
         "emailengine_find_users";
 

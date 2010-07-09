@@ -19,14 +19,14 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Provides an easy-to-use way to locate and use threaded 
- * work queues. Each queue is only created once. 
+ * Provides an easy-to-use way to locate and use threaded
+ * work queues. Each queue is only created once.
  * @version $Rev$
  */
 public class TaskQueueFactory {
-    
+
     private static TaskQueueFactory instance = new TaskQueueFactory();
-    
+
     private Map queues = new HashMap();
 
     /**
@@ -36,11 +36,11 @@ public class TaskQueueFactory {
     public static TaskQueueFactory get() {
         return instance;
     }
-    
+
     private TaskQueueFactory() {
         Runtime.getRuntime().addShutdownHook(new ShutdownHook(this));
     }
-    
+
     /**
      * Retrieves a queue by name
      * @param name queue name
@@ -51,10 +51,10 @@ public class TaskQueueFactory {
             return (TaskQueue) queues.get(name);
         }
     }
-    
+
     /**
      * Create the queue, if it doesn't exist already. If the
-     * queue has been created on a previous call to createQueue(), 
+     * queue has been created on a previous call to createQueue(),
      * then that instance is returned instead.
      * @param name queue name
      * @param driverClass class to use as the queue driver
@@ -73,7 +73,7 @@ public class TaskQueueFactory {
         }
         return retval;
     }
-    
+
     /**
      * Removes the queue from the map of available queues.
      * This DOES NOT shutdown the queue or perform any cleanup.
@@ -87,7 +87,7 @@ public class TaskQueueFactory {
         }
         return retval;
     }
-    
+
     void closeAllQueues() {
         synchronized (queues) {
             for (Iterator iter = queues.values().iterator(); iter.hasNext();) {
@@ -97,19 +97,19 @@ public class TaskQueueFactory {
         }
         queues.clear();
     }
-    
+
     /**
      * JVM shutdown hook used to clean up any remaining queues
      * @version $Rev$
      */
     class ShutdownHook extends Thread {
-        
+
         private TaskQueueFactory factory;
-        
+
         ShutdownHook(TaskQueueFactory factoryIn) {
             factory = factoryIn;
         }
-        
+
         public void run() {
             factory.closeAllQueues();
         }

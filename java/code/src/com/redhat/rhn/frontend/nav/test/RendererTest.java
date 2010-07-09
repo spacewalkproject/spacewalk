@@ -33,7 +33,7 @@ import java.util.Map;
  * @version $Rev$
  */
 public class RendererTest extends RhnBaseTestCase {
-    
+
     ////////////////////////////////////////////////////////////////
     // TEST: DialognavRenderer
     ////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ public class RendererTest extends RhnBaseTestCase {
         expectations.put("postNavNode", "");
         expectations.put("postNavLevel", "</ul>\n");
         expectations.put("nodeRenderInline", Boolean.FALSE);
-        
+
         // test depth > 1
         rendererTest(new DialognavRenderer(), new TrueRenderGuard(), expectations, 4);
 
@@ -79,7 +79,7 @@ public class RendererTest extends RhnBaseTestCase {
         expectations.put("postNavNode", "");
         expectations.put("postNavLevel", "");
         expectations.put("nodeRenderInline", Boolean.FALSE);
-        
+
         rendererTest(new DialognavRenderer(), new FalseRenderGuard(), expectations, 0);
     }
 
@@ -103,7 +103,7 @@ public class RendererTest extends RhnBaseTestCase {
         expectations.put("postNavNode", "");
         expectations.put("postNavLevel", "");
         expectations.put("nodeRenderInline", Boolean.TRUE);
-        
+
         rendererTest(new TextRenderer(), node, new TrueRenderGuard(), expectations, 4);
     }
 
@@ -116,7 +116,7 @@ public class RendererTest extends RhnBaseTestCase {
         expectations.put("postNavNode", "");
         expectations.put("postNavLevel", "");
         expectations.put("nodeRenderInline", Boolean.TRUE);
-        
+
         rendererTest(new TextRenderer(), new FalseRenderGuard(), expectations, 4);
     }
 
@@ -129,7 +129,7 @@ public class RendererTest extends RhnBaseTestCase {
         expectations.put("preNavLevel", "<ul id=\"mainNav\">");
         expectations.put("preNavNode", "");
         expectations.put("navNodeActive",
-                         "<li id=\"mainFirst-active\">" + 
+                         "<li id=\"mainFirst-active\">" +
                          "<a href=\"http://rhn.redhat.com\" class=" +
                          "\"mainFirstLink\">name</a></li>\n");
         expectations.put("navNodeInactive",
@@ -137,7 +137,7 @@ public class RendererTest extends RhnBaseTestCase {
         expectations.put("postNavNode", "");
         expectations.put("postNavLevel", "</ul>");
         expectations.put("nodeRenderInline", Boolean.TRUE);
-        
+
         rendererTest(new TopnavRenderer(), new TrueRenderGuard(), expectations, 4);
     }
 
@@ -150,43 +150,43 @@ public class RendererTest extends RhnBaseTestCase {
         expectations.put("postNavNode", "");
         expectations.put("postNavLevel", "");
         expectations.put("nodeRenderInline", Boolean.TRUE);
-        
+
         rendererTest(new TopnavRenderer(), new FalseRenderGuard(), expectations, 4);
     }
-    
+
     public void testTopnavBug187800() {
-        
+
         TopnavRenderer tr = new TopnavRenderer();
         StringBuffer buf = new StringBuffer();
         NavNode node1 = new NavNode();
         node1.addURL("/newlogin/index.pxt");
         node1.setName("Sign In");
         node1.setFirst(true);
-        
+
         NavNode node2 = new NavNode();
         node2.addURL("/newlogin/index.pxt");
         node2.setName("About Spacewalk");
         node2.setLast(true);
-        
+
         // test the case where active node runs first
         tr.navNodeActive(buf, node1, null, null, 4);
         tr.navNodeInactive(buf, node2, null, null, 4);
-        
+
         String expectation = "<li id=\"mainFirst-active\"><a href=\"" +
                "/newlogin/index.pxt\" class=\"mainFirstLink\">" +
-               "Sign In</a></li>\n<li id=\"mainLast\"><a href=\"" + 
+               "Sign In</a></li>\n<li id=\"mainLast\"><a href=\"" +
                "/newlogin/index.pxt\" class=\"mainLastLink\">About</a></li>\n";
         assertEquals(expectation, buf.toString());
-        
+
         // test the case where inactive node runs first
         buf = new StringBuffer();
         tr.navNodeInactive(buf, node1, null, null, 4);
         tr.navNodeActive(buf, node2, null, null, 4);
-        
-        String expectation2 = "<li id=\"mainFirst\">" + 
+
+        String expectation2 = "<li id=\"mainFirst\">" +
         "<a href=\"/newlogin/index.pxt\" class=\"mainFirstLink\">Sign In</a>" +
-        "</li>\n" + 
-        "<li id=\"mainLast-active\"><a href=\"/newlogin/index.pxt\" " + 
+        "</li>\n" +
+        "<li id=\"mainLast-active\"><a href=\"/newlogin/index.pxt\" " +
         "class=\"mainLastLink\">About</a>" +
         "</li>\n";
         assertEquals(expectation2, buf.toString());
@@ -200,18 +200,18 @@ public class RendererTest extends RhnBaseTestCase {
         Map expectations = new HashMap();
         expectations.put("preNavLevel", "<ul>");
         expectations.put("preNavNode", "");
-        expectations.put("navNodeActive", "<li class=\"sidenav-selected navparent\">" + 
+        expectations.put("navNodeActive", "<li class=\"sidenav-selected navparent\">" +
                          "<a href=\"http://rhn.redhat.com\">name</a></li>\n");
         expectations.put("navNodeInactive",
-                         "<li class=\"navparent\"><a href=\"http://rhn.redhat.com\">" + 
+                         "<li class=\"navparent\"><a href=\"http://rhn.redhat.com\">" +
                          "name</a></li>\n");
         expectations.put("postNavNode", "");
         expectations.put("postNavLevel", "</ul>\n");
         expectations.put("nodeRenderInline", Boolean.TRUE);
-        
+
         rendererTest(new SidenavRenderer(), new TrueRenderGuard(), expectations, 1);
     }
-    
+
     public void testSidenavFalse() {
         Map expectations = new HashMap();
         expectations.put("preNavLevel", "");
@@ -221,10 +221,10 @@ public class RendererTest extends RhnBaseTestCase {
         expectations.put("postNavNode", "");
         expectations.put("postNavLevel", "");
         expectations.put("nodeRenderInline", Boolean.TRUE);
-        
+
         rendererTest(new SidenavRenderer(), new FalseRenderGuard(), expectations, 4);
     }
-   
+
     ////////////////////////////////////////////////////////////////
     // Test methods
     ////////////////////////////////////////////////////////////////
@@ -235,27 +235,27 @@ public class RendererTest extends RhnBaseTestCase {
 
     private void rendererTest(Renderable r, NavNode node, RenderGuard guard,
             Map exp, int depth) {
-    
+
         NavTreeIndex treeIndex = forgeTreeIndex();
         rendererTest(r, node, guard, treeIndex, exp, depth);
     }
-    
+
     private void rendererTest(Renderable r, NavNode node, RenderGuard guard,
                               NavTreeIndex treeIndex, Map exp, int depth) {
-        
+
         r.setRenderGuard(guard);
-        
+
 
         // preNavLevel
         StringBuffer buf = new StringBuffer();
         r.preNavLevel(buf, depth);
         assertEquals(exp.get("preNavLevel"), buf.toString());
-        
+
         // preNavNode
         buf = new StringBuffer();
         r.preNavNode(buf, depth);
         assertEquals(exp.get("preNavNode"), buf.toString());
-        
+
 
         // navNodeActive
         buf = new StringBuffer();
@@ -266,7 +266,7 @@ public class RendererTest extends RhnBaseTestCase {
         buf = new StringBuffer();
         r.navNodeInactive(buf, node, treeIndex, null, depth);
         assertEquals(exp.get("navNodeInactive"), buf.toString());
-        
+
         // postNavNode
         buf = new StringBuffer();
         r.postNavNode(buf, depth);
@@ -281,11 +281,11 @@ public class RendererTest extends RhnBaseTestCase {
         boolean rc = r.nodeRenderInline(depth);
         Boolean v = (Boolean) exp.get("nodeRenderInline");
         assertEquals(v.booleanValue(), rc);
-        
+
         // cleanup
         buf = null;
     }
-    
+
     private NavTreeIndex forgeTreeIndex() {
         return new NavTreeIndex(new NavTree());
     }
@@ -311,7 +311,7 @@ public class RendererTest extends RhnBaseTestCase {
     }
 
     ////////////////////////////////////////////////////////////////
-    // INNER CLASSES 
+    // INNER CLASSES
     ////////////////////////////////////////////////////////////////
 
     /**
@@ -330,7 +330,7 @@ public class RendererTest extends RhnBaseTestCase {
             return false;
         }
     }
-    
+
     /**
      * A render guard that returns false for canRender for negative
      * testing.

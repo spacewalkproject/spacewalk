@@ -6,12 +6,12 @@
 <html:xhtml/>
 <html>
 <head>
-  <meta name="name" value="sdc.config.subscriptions.jsp.header"/> 
+  <meta name="name" value="sdc.config.subscriptions.jsp.header"/>
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<h2> <img src="${cfg:channelHeaderIcon('central')}" 
+<h2> <img src="${cfg:channelHeaderIcon('central')}"
 					alt="${cfg:channelAlt('central')}"/>
 			<bean:message key="sdc.config.subscriptions.jsp.header"/></h2>	
 <h3><bean:message key="ssm.config.subscribe.jsp.step"/></h3>
@@ -23,11 +23,11 @@
 <c:when test="${not empty pageList}">
 <html:form  method="POST" action="/systems/details/configuration/SubscriptionsSubmit.do?sid=${param.sid}">
 
-    <rhn:list pageList="${requestScope.pageList}" 
+    <rhn:list pageList="${requestScope.pageList}"
     		  noDataText="sdc.config.subscriptions.jsp.noChannels">
-              
+
       <rhn:listdisplay  set="${requestScope.set}"
-      	 filterBy = "sdc.config.subscriptions.jsp.channel" 
+	 filterBy = "sdc.config.subscriptions.jsp.channel"
       	 >
         <rhn:set value="${current.id}"/>
         <rhn:column header="sdc.config.subscriptions.jsp.channel"
@@ -51,11 +51,11 @@
     </rhn:list>
 	<rhn:noscript/>
 	
-	<rhn:submitted/>    
+	<rhn:submitted/>
 	</html:form>
 </c:when>
 <c:otherwise>
-	<p><strong><bean:message key="sdc.config.subscriptions.jsp.noChannels" 
+	<p><strong><bean:message key="sdc.config.subscriptions.jsp.noChannels"
 				arg0="/rhn/systems/details/configuration/ConfigChannelList.do?sid=${param.sid}"/>
 	</strong></p>
 </c:otherwise>

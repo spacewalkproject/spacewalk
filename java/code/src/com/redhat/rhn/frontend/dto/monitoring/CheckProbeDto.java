@@ -27,42 +27,42 @@ public class CheckProbeDto extends BaseDto {
     private String     description;
     private Long serverId;
     private String     serverName;
-    
+
     /**
      * {@inheritDoc}
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @return Returns the description.
      */
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * @return Returns the serverId.
      */
     public Long getServerId() {
         return serverId;
     }
-    
+
     /**
      * @return Returns the serverName.
      */
     public String getServerName() {
         return serverName;
     }
-    
+
     /**
      * @param description0 The description to set.
      */
     public void setDescription(String description0) {
         description = description0;
     }
-    
+
     /**
      * @param id0 The id to set.
      */
@@ -70,7 +70,7 @@ public class CheckProbeDto extends BaseDto {
         id = id0;
     }
 
-    
+
     /**
      * @param serverId0 The serverId to set.
      */
@@ -78,14 +78,14 @@ public class CheckProbeDto extends BaseDto {
         serverId = serverId0;
     }
 
-    
+
     /**
      * @param serverName0 The serverName to set.
      */
     public void setServerName(String serverName0) {
         serverName = serverName0;
     }
-    
+
     /**
      * @return a label that indicates probe description and server name
      */

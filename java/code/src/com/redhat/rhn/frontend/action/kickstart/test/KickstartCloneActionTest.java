@@ -25,34 +25,34 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev: 1 $
  */
 public class KickstartCloneActionTest extends BaseKickstartEditTestCase {
-    
+
     public void testExecute() throws Exception {
         setRequestPathInfo("/kickstart/KickstartClone");
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
     }
-    
+
     public void testExecuteSubmit() throws Exception {
         addRequestParameter(BaseKickstartEditAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(FormActionContstants.LABEL, 
+        addRequestParameter(FormActionContstants.LABEL,
                 "KickstartCloneActionTestLabel" + TestUtils.randomString());
         setRequestPathInfo("/kickstart/KickstartClone");
         actionPerform();
         verifyActionMessage("kickstart.clone.success");
-        KickstartData cloned = (KickstartData) 
+        KickstartData cloned = (KickstartData)
             request.getAttribute(RequestContext.KICKSTART);
         assertNotNull(cloned);
         assertNotSame(ksdata.getId(), cloned.getId());
-        String expectedForward = "/kickstart/KickstartDetailsEdit.do?" + 
+        String expectedForward = "/kickstart/KickstartDetailsEdit.do?" +
             RequestContext.KICKSTART_ID + "=" + cloned.getId();
         assertEquals(expectedForward, getActualForward());
         setRequestPathInfo(getActualForward());
-        addRequestParameter(BaseKickstartEditAction.SUBMITTED, 
+        addRequestParameter(BaseKickstartEditAction.SUBMITTED,
                 Boolean.FALSE.toString());
         actionPerform();
-        
+
     }
 
-    
+
 }
 

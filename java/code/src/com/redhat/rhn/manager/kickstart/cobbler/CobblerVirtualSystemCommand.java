@@ -31,7 +31,7 @@ import java.util.List;
 
 
 /**
- * 
+ *
  * @version $Rev$
  */
 public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
@@ -68,24 +68,24 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
      * @param guestNameIn the guest name to create
      * re-registers to Spacewalk
      */
-    public CobblerVirtualSystemCommand(User userIn, Server serverIn, 
+    public CobblerVirtualSystemCommand(User userIn, Server serverIn,
             KickstartData ksDataIn, String mediaPathIn,
                             String activationKeysIn, String guestNameIn) {
         super(userIn, serverIn, ksDataIn, mediaPathIn, activationKeysIn);
         guestName = guestNameIn;
     }
-    
+
     /**
      * Constructor
      * @param userIn who is requesting the sync
      * @param serverIn profile we want to create in cobbler
      * @param nameIn profile nameIn to associate with with server.
      */
-    public CobblerVirtualSystemCommand(User userIn, Server serverIn, 
+    public CobblerVirtualSystemCommand(User userIn, Server serverIn,
             String nameIn) {
         super(userIn, serverIn, nameIn);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -113,9 +113,9 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
                 CobblerXMLRPCHelper.getConnection(user), getCobblerSystemRecordName());
     }
 
-    
+
     /**
-     * Updates the cobbler virt attributes based on 
+     * Updates the cobbler virt attributes based on
      * params provided
      * @param memoryMB the memory in MB
      * @param diskSizeGb the diskSize in GB
@@ -131,10 +131,10 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
             rec.setVirtFileSize(diskSizeGb);
             rec.setVirtCpus(vcpus);
             rec.setVirtPath(diskPath);
-            rec.save();                
+            rec.save();
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -151,5 +151,5 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
         }
         return error;
     }
-  
+
 }

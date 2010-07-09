@@ -39,12 +39,12 @@ public class Translations {
         if (want.isAssignableFrom(have.getClass())) {
             return have;
         }
-        
+
         Method[] methods = thisClass.getDeclaredMethods();
 
         // tries to find an exact match
         Object rc = findMatch(methods, have, want, false);
-        
+
         if (rc == null) {
             // try to find the best match
             rc = findMatch(methods, have, want, true);
@@ -54,20 +54,20 @@ public class Translations {
                         have.getClass() + " to " + want);
             }
         }
-        
+
         return rc;
     }
-    
+
     private static Object findMatch(Method[] methods, Object have,
                                     Class want, boolean bestMatch)
             throws TranslationException {
-        
+
         for (int i = 0; i < methods.length; i++) {
             Class returnType = methods[i].getReturnType();
             Class[] params = methods[i].getParameterTypes();
-            
+
             // All conversions have a single parameter, the object to transform
-            if (!bestMatch && have != null && 
+            if (!bestMatch && have != null &&
                 (params.length != 1 || !params[0].equals(have.getClass()))) {
                 continue;
             }
@@ -83,17 +83,17 @@ public class Translations {
                 }
                 catch (IllegalAccessException e) {
                     throw new TranslationException("Could not execute " +
-                                    "translator for " + have.getClass() + 
+                                    "translator for " + have.getClass() +
                                     " to " + want, e);
                 }
                 catch (InvocationTargetException e) {
                     throw new TranslationException("Error when executing " +
-                                    "translator for " + have.getClass() + 
+                                    "translator for " + have.getClass() +
                                     " to " + want, e.getCause());
                 }
             }
         }
-        
+
         return null;
     }
 }

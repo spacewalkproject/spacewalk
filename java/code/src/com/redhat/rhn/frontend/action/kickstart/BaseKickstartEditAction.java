@@ -40,13 +40,13 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public abstract class BaseKickstartEditAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-        if (!AclManager.hasAcl("user_role(org_admin) or user_role(config_admin)", 
+        if (!AclManager.hasAcl("user_role(org_admin) or user_role(config_admin)",
             request, null)) {
             //Throw an exception with a nice error message so the user
             //knows what went wrong.
@@ -63,17 +63,17 @@ public abstract class BaseKickstartEditAction extends RhnAction {
         Map params = makeParamMap(request);
         RequestContext requestContext = new RequestContext(request);
         BaseKickstartCommand cmd = getCommand(requestContext);
-        
+
         User user = requestContext.getLoggedInUser();
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         //Display message if this kickstart profile's channel is inadequate.
         KickstartHelper helper = new KickstartHelper(request);
         if (!helper.verifyKickstartChannel(cmd.getKickstartData(), user)) {
             strutsDelegate.saveMessages(request,
                    helper.createInvalidChannelMsg(cmd.getKickstartData()));
         }
-        
+
         request.setAttribute(RequestContext.KICKSTART, cmd.getKickstartData());
 
         if (isSubmitted(form)) {
@@ -82,9 +82,9 @@ public abstract class BaseKickstartEditAction extends RhnAction {
                 ValidatorError[] verr = {ve};
                 strutsDelegate.saveMessages(request,
                         RhnValidationHelper.validatorErrorToActionErrors(verr));
-            } 
+            }
             else {
-                cmd.store();  
+                cmd.store();
                 createSuccessMessage(request, getSuccessKey(), null);
                 forwardname = getSuccessForward();
             }
@@ -99,14 +99,14 @@ public abstract class BaseKickstartEditAction extends RhnAction {
     protected abstract BaseKickstartCommand getCommand(RequestContext ctx);
 
     /**
-     * 'Overrideable' method for baseclasses that require a 
+     * 'Overrideable' method for baseclasses that require a
      * different action forward.  This currently returns "default".
-     * @return String "default" that can be overridden 
+     * @return String "default" that can be overridden
      */
     protected String getSuccessForward() {
         return "default";
     }
-  
+
     /**
      * Process the values from the form. This is called when the form is
      * submitted.  This is the 'submit' side of the action.
@@ -114,8 +114,8 @@ public abstract class BaseKickstartEditAction extends RhnAction {
      * @param cmd to execute
      * @return ValidatorError if something failed.
      */
-    protected abstract ValidatorError processFormValues(HttpServletRequest request, 
-            DynaActionForm form, 
+    protected abstract ValidatorError processFormValues(HttpServletRequest request,
+            DynaActionForm form,
             BaseKickstartCommand cmd);
 
     protected abstract String getSuccessKey();
@@ -128,7 +128,7 @@ public abstract class BaseKickstartEditAction extends RhnAction {
      * @param form
      * @param cmd
      */
-    protected abstract void setupFormValues(RequestContext ctx, DynaActionForm form, 
+    protected abstract void setupFormValues(RequestContext ctx, DynaActionForm form,
             BaseKickstartCommand cmd);
 
 }

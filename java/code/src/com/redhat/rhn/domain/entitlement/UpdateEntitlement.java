@@ -28,14 +28,14 @@ public class UpdateEntitlement extends Entitlement {
     public UpdateEntitlement() {
         super(EntitlementManager.SW_MGR_ENTITLED);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean isPermanent() {
         return false;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -50,5 +50,5 @@ public class UpdateEntitlement extends Entitlement {
     @Override
     public boolean isSatelliteEntitlement() {
         return false;
-    }    
+    }
 }

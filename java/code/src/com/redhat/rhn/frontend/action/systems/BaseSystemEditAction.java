@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public abstract class BaseSystemEditAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public final ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
@@ -47,31 +47,31 @@ public abstract class BaseSystemEditAction extends RhnAction {
         String forwardname = "default";
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext requestContext = new RequestContext(request);
-        BaseSystemOperation cmd = getOperation(requestContext);   
-        
+        BaseSystemOperation cmd = getOperation(requestContext);
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         request.setAttribute(RequestContext.SYSTEM, cmd.getServer());
         Map params = new HashMap();
         params.put(RequestContext.SID, cmd.getServer().getId());
-        
+
 
         if (isSubmitted(form)) {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
-                    this, form);            
-           
+                    this, form);
+
             if (!errors.isEmpty()) {
                 strutsDelegate.saveMessages(request, errors);
-            } 
+            }
             else {
                 ValidatorError ve = processFormValues(form, cmd);
                 if (ve != null) {
                     ValidatorError[] verr = {ve};
                     strutsDelegate.saveMessages(request,
                             RhnValidationHelper.validatorErrorToActionErrors(verr));
-                } 
+                }
                 else {
-                    cmd.store();  
+                    cmd.store();
                     createSuccessMessage(request, getSuccessKey(), null);
                     forwardname = getSuccessForward();
                 }
@@ -87,14 +87,14 @@ public abstract class BaseSystemEditAction extends RhnAction {
     protected abstract BaseSystemOperation getOperation(RequestContext ctx);
 
     /**
-     * 'Overrideable' method for baseclasses that require a 
+     * 'Overrideable' method for baseclasses that require a
      * different action forward.  This currently returns "default".
-     * @return String "default" that can be overridden 
+     * @return String "default" that can be overridden
      */
     protected String getSuccessForward() {
         return "success";
     }
-  
+
     /**
      * Process the values from the form. This is called when the form is
      * submitted.  This is the 'submit' side of the action.
@@ -102,7 +102,7 @@ public abstract class BaseSystemEditAction extends RhnAction {
      * @param cmd to execute
      * @return ValidatorError if something failed.
      */
-    protected abstract ValidatorError processFormValues(DynaActionForm form, 
+    protected abstract ValidatorError processFormValues(DynaActionForm form,
             BaseSystemOperation cmd);
 
     protected abstract String getSuccessKey();
@@ -115,7 +115,7 @@ public abstract class BaseSystemEditAction extends RhnAction {
      * @param form
      * @param cmd
      */
-    protected abstract void setupFormValues(RequestContext ctx, DynaActionForm form, 
+    protected abstract void setupFormValues(RequestContext ctx, DynaActionForm form,
             BaseSystemOperation cmd);
 
 }

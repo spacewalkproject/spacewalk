@@ -36,7 +36,7 @@ public class PackageActionDetails extends ActionChild {
     private String parameter;
     private PackageArch arch;
     private Set results = new HashSet();
-    
+
     /**
      * @param resultsIn The results to set.
      */
@@ -62,70 +62,70 @@ public class PackageActionDetails extends ActionChild {
     public PackageArch getArch() {
         return arch;
     }
-    
+
     /**
      * @param a The arch to set.
      */
     public void setArch(PackageArch a) {
         this.arch = a;
     }
-    
+
     /**
      * @return Returns the evr.
      */
     public PackageEvr getEvr() {
         return evr;
     }
-    
+
     /**
      * @param e The evr to set.
      */
     public void setEvr(PackageEvr e) {
         this.evr = e;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getPackageId() {
         return packageId;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setPackageId(Long i) {
         this.packageId = i;
     }
-    
+
     /**
      * @return Returns the packageName.
      */
     public PackageName getPackageName() {
         return packageName;
     }
-    
+
     /**
      * @param n The packageName to set.
      */
     public void setPackageName(PackageName n) {
         this.packageName = n;
     }
-    
+
     /**
      * @return Returns the parameter.
      */
     public String getParameter() {
         return parameter;
     }
-    
+
     /**
      * @param p The parameter to set.
      */
     public void setParameter(String p) {
         this.parameter = p;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -134,8 +134,8 @@ public class PackageActionDetails extends ActionChild {
             return false;
         }
         PackageActionDetails castOther = (PackageActionDetails) other;
-        return new EqualsBuilder().append((getParentAction() == null ? null : 
-                                       getParentAction().getId()), 
+        return new EqualsBuilder().append((getParentAction() == null ? null :
+                                       getParentAction().getId()),
                                        (castOther.getParentAction() == null ? null :
                                        castOther.getParentAction().getId()))
                                   .append(packageId, castOther.getPackageId())
@@ -143,7 +143,7 @@ public class PackageActionDetails extends ActionChild {
                                   .append(packageName, castOther.getPackageName())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */

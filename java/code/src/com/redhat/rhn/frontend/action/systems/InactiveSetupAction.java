@@ -26,7 +26,7 @@ import org.apache.struts.action.ActionForm;
  * @version $Rev$
  */
 public class InactiveSetupAction  extends BaseSystemsAction {
-    
+
     protected DataResult getDataResult(User user, PageControl pc, ActionForm formIn) {
         return SystemManager.inactiveList(user, null);
     }

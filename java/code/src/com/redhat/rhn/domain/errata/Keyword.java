@@ -25,17 +25,17 @@ public interface Keyword {
      * @return Returns the keyword.
      */
     String getKeyword();
-    
+
     /**
      * @param k The keyword to set.
      */
     void setKeyword(String k);
-    
+
     /**
      * @return Returns the errata.
      */
     Errata getErrata();
-    
+
     /**
      * @param errataIn The errata to set.
      */

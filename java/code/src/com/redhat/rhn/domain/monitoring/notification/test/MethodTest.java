@@ -32,18 +32,18 @@ public class MethodTest extends BaseTestCaseWithUser {
         Method m = new Method();
         assertEquals(new Long(1), m.getScheduleId());
     }
-    
+
     public void testFormat() {
         assertNotNull(NotificationFactory.FORMAT_DEFAULT);
     }
-    
+
     public void testRequiredFields() {
         ModifyMethodCommand mmc = new ModifyMethodCommand(user);
         mmc.setType(NotificationFactory.TYPE_EMAIL);
         ValidatorError ve = mmc.storeMethod(user);
         assertNotNull(ve);
     }
-    
+
     public void testCreateMethod() throws Exception {
         ModifyMethodCommand mmc = createTestMethodCommand(user);
         // Now assert things got stored properly
@@ -56,11 +56,11 @@ public class MethodTest extends BaseTestCaseWithUser {
         assertNotNull(m.getContactGroup());
         assertNotNull(m.getContactGroup().getId());
         assertEquals(new Long(1), m.getScheduleId());
-        // See BZ: 208277.  Need to test the assocation between the Method 
+        // See BZ: 208277.  Need to test the assocation between the Method
         // and the ContactGroup
         assertEquals(m.getContactGroup().getContactGroupName(), m.getMethodName());
     }
-    
+
     public void testEmptyEmail() throws Exception {
         ModifyMethodCommand mmc = createTestMethodCommand(user);
         mmc.setType(NotificationFactory.TYPE_PAGER);
@@ -68,8 +68,8 @@ public class MethodTest extends BaseTestCaseWithUser {
         ValidatorError e = mmc.storeMethod(user);
         assertNotNull(e);
     }
-    
-    
+
+
     public void testLookupById() throws Exception {
         ModifyMethodCommand mmc = createTestMethodCommand(user);
         Method m = mmc.getMethod();
@@ -79,9 +79,9 @@ public class MethodTest extends BaseTestCaseWithUser {
         assertNotNull(m);
         assertNotNull(m.getId());
         assertEquals(m.getId(), id);
-        
+
     }
-    
+
     public void testLookupUsersMethods() throws Exception {
         assertEquals(0, user.getNotificationMethods().size());
         ModifyMethodCommand mmc = createTestMethodCommand(user);
@@ -89,7 +89,7 @@ public class MethodTest extends BaseTestCaseWithUser {
         user = (User) reload(user);
         assertEquals(1, user.getNotificationMethods().size());
     }
-    
+
     public void testLookupByNameAndUser() throws Exception {
         ModifyMethodCommand mmc = createTestMethodCommand(user);
         Method m = mmc.getMethod();
@@ -100,9 +100,9 @@ public class MethodTest extends BaseTestCaseWithUser {
         assertNotNull(m.getId());
         assertEquals(m.getId(), id);
         assertNotNull(NotificationFactory.lookupContactGroupByName(m.getMethodName()));
-        
+
     }
-    
+
     public static ModifyMethodCommand createTestMethodCommand(User userIn) {
         ModifyMethodCommand mmc = new ModifyMethodCommand(userIn);
         assertNotNull(mmc.getMethod().getUser());
@@ -111,6 +111,6 @@ public class MethodTest extends BaseTestCaseWithUser {
         mmc.setEmail("someEmailTest@redhat.com");
         mmc.storeMethod(userIn);
         return mmc;
-        
+
     }
 }

@@ -27,9 +27,9 @@ import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 public class CreateUserCommandTest extends RhnBaseTestCase {
-    
+
     private CreateUserCommand command;
-    
+
     public void setUp() {
         command = new CreateUserCommand();
         assertNotNull(command.getUser());
@@ -42,7 +42,7 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         Config.get().setString(UserDefaults.MAX_USER_LENGTH, String.valueOf(5));
         Config.get().setString(UserDefaults.MAX_PASSWORD_LENGTH, String.valueOf(5));
         Config.get().setString(UserDefaults.MAX_EMAIL_LENGTH, String.valueOf(5));
-        
+
         String invalidLogin   = TestUtils.randomString();
         String invalidPassword = "password";
         String invalidEmail   = "foobar@foobar.com";
@@ -57,27 +57,27 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         command.setLastName("testuser");
         //We should get 4 errors (login, email, password, prefix)
         Object[] errors = command.validate();
-        Config.get().setString(UserDefaults.MAX_USER_LENGTH, 
+        Config.get().setString(UserDefaults.MAX_USER_LENGTH,
                                         String.valueOf(maxLogin));
-        Config.get().setString(UserDefaults.MAX_PASSWORD_LENGTH, 
+        Config.get().setString(UserDefaults.MAX_PASSWORD_LENGTH,
                                         String.valueOf(maxPassword));
         Config.get().setString(UserDefaults.MAX_EMAIL_LENGTH,
                                             String.valueOf(emailLength));
         assertEquals(3, errors.length);
-        
+
     }
-    
-    
+
+
     public void testValidate() {
         String invalidLogin = "";
         String validLogin   = TestUtils.randomString();
 
         String invalidPassword = "p";
         String validPassword = "password";
-        
+
         String invalidEmail = "foobar";
         String validEmail   = "foobar@foobar.com";
-        
+
         String invalidPrefix = "Foo.";
         String validPrefix = "Sr.";
 
@@ -92,20 +92,20 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         //We should get 4 errors (login, email, password, prefix)
         Object[] errors = command.validate();
         assertEquals(4, errors.length);
-        
+
         //Test valid values
         command.setLogin(validLogin);
         command.setEmail(validEmail);
         command.setPassword(validPassword);
         command.setPrefix(validPrefix);
-        
+
         errors = command.validate();
         assertEquals(0, errors.length);
     }
 
     public void testStore() {
         Org org = UserTestUtils.findNewOrg("testorg");
-        
+
         String login = TestUtils.randomString();
         command.setLogin(login);
         command.setPassword("password");
@@ -115,20 +115,20 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         command.setLastName("Texas Ranger");
         command.setOrg(org);
         command.setCompany("Test company");
-        
+
         Object[] errors = command.validate();
         assertEquals(0, errors.length);
-        
+
         command.storeNewUser();
-        
+
         Long uid = command.getUser().getId();
         assertNotNull(uid);
-        
+
         User result = UserFactory.lookupById(uid);
         assertEquals(login, result.getLogin());
         assertEquals(PageSizeDecorator.getDefaultPageSize(), result.getPageSize());
     }
-    
+
     public void testUsernameValidation() {
         // setup stuff required for command
         command.setEmail("validemail@mycompany.com");
@@ -136,7 +136,7 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         command.setLastName("testuser");
         command.setPassword("validPassword");
         command.setPrefix("Ms.");
-        
+
         invalidUsername("foo&user", command);
         invalidUsername("joe+page", command);
         invalidUsername("joe user", command);
@@ -146,12 +146,12 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         invalidUsername("joe=page", command);
         invalidUsername("foo#user", command);
         invalidUsername("joe\"user", command);
-        invalidUsername("機能拡張を", command); 
-        invalidUsername("shughes login", command); 
-        invalidUsername("shughes%login", command); 
-        invalidUsername(" shughes", command); 
+        invalidUsername("機能拡張を", command);
+        invalidUsername("shughes login", command);
+        invalidUsername("shughes%login", command);
+        invalidUsername(" shughes", command);
         invalidUsername("a p&i+u%s'e r1150586011843", command); // bug195807
-        
+
         validUsername("john.cusack@foobar.com", command);
         validUsername("a$user", command);
         validUsername("!@$^*()-_{}[]|\\:;?", command);
@@ -161,7 +161,7 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         validUsername("/shughes_login", command);
         validUsername("/\\/\\ark", command);
     }
-    
+
     private void invalidUsername(String username, CreateUserCommand cmd) {
         // ok now validate
         cmd.setLogin(username);
@@ -169,7 +169,7 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         assertNotNull(errors);
         assertEquals(username + " caused failure", 1, errors.length);
     }
-    
+
     private void validUsername(String username, CreateUserCommand cmd) {
         // ok now validate
         cmd.setLogin(username);

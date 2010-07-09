@@ -54,9 +54,9 @@ import java.util.Set;
 import java.util.TimeZone;
 
 public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
-    
+
     private Server s;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -64,7 +64,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         super.setUp();
         setRequestPathInfo("/systems/details/kickstart/ScheduleWizard");
         user.addRole(RoleFactory.ORG_ADMIN);
-        s = ServerFactoryTest.createTestServer(user, true, 
+        s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(s);
         s.addNetworkInterface(device);
@@ -73,12 +73,12 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         // Required so the Server has a base channel
         // otherwise we cant ks.
         s.addChannel(c);
-        
+
         PackageManagerTest.addPackageToSystemAndChannel(
                 ConfigDefaults.get().getKickstartPackageName(), s, c);
-        
+
         PackageManagerTest.
-            addUp2dateToSystemAndChannel(user, s, 
+            addUp2dateToSystemAndChannel(user, s,
                     KickstartScheduleCommand.UP2DATE_VERSION,  c);
 
         TestUtils.flushAndEvict(s);
@@ -89,18 +89,18 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         ctx.setTimezone(TimeZone.getDefault());
         ctx.setLocale(Locale.getDefault());
     }
-    
+
     public void testStepOneWithProxy() throws Exception {
         addProxy(user, s);
         actionPerform();
         verifyNoActionErrors();
-        assertEquals(Boolean.TRUE.toString(), 
+        assertEquals(Boolean.TRUE.toString(),
                 request.getAttribute(ScheduleKickstartWizardAction.HAS_PROXIES));
         verifyFormValue(ScheduleKickstartWizardAction.PROXY_HOST, "");
     }
 
     public static final Server addProxy(User user, Server s) throws Exception {
-        Server proxy = ServerFactoryTest.createTestServer(user, true, 
+        Server proxy = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled(),
                 ServerFactoryTest.TYPE_SERVER_PROXY);
         proxy.addNetwork(NetworkTest.createNetworkInstance());
@@ -116,7 +116,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getAttribute(RequestContext.SYSTEM));
         assertNotNull(request.getAttribute(ScheduleKickstartWizardAction.HAS_PROFILES));
     }
-    
+
     public void testStepTwo() throws Exception {
         executeStepTwo();
     }
@@ -124,19 +124,19 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
     public void testStepTwoWithProxy() throws Exception {
        Server proxy = addProxy(user, s);
         /** Assign a proxy host, this would be the case
-         * When user selects a proxy entry from the proxies combo  
+         * When user selects a proxy entry from the proxies combo
          */
         addRequestParameter(ScheduleKickstartWizardAction.PROXY_HOST,
                                                     proxy.getId().toString());
         executeStepTwo();
-        verifyFormValue(ScheduleKickstartWizardAction.PROXY_HOST, 
+        verifyFormValue(ScheduleKickstartWizardAction.PROXY_HOST,
                                        proxy.getId().toString());
     }
-    
+
     private void executeStepTwo() throws Exception {
         KickstartData k = KickstartDataTest.createKickstartWithProfile(user);
         ProfileManagerTest.createProfileWithServer(user);
-        
+
         ActivationKey key = ActivationKeyFactory.createNewKey(user, "some key");
         ActivationKeyFactory.save(key);
         key = (ActivationKey) TestUtils.reload(key);
@@ -145,7 +145,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         tokens.add(t);
         k.setDefaultRegTokens(tokens);
 
-        
+
         // Step Two
         addRequestParameter(RequestContext.SID, s.getId().toString());
         addRequestParameter("wizardStep", "second");
@@ -162,7 +162,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         verifyNoActionErrors();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
         assertNotNull(request.getAttribute(RequestContext.SYSTEM));
-        verifyFormList(ScheduleKickstartWizardAction.SYNCH_PACKAGES, 
+        verifyFormList(ScheduleKickstartWizardAction.SYNCH_PACKAGES,
                 ProfileDto.class);
         verifyFormList(ScheduleKickstartWizardAction.SYNCH_SYSTEMS,
                 HashMap.class);
@@ -182,14 +182,14 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         if (ks.size() == 0) {
             verifyActionMessage("kickstart.schedule.noprofiles");
         }
-        
+
         // Perform step2
         KickstartData k = KickstartDataTest.createKickstartWithProfile(user);
         // Required so the server and profile match base channels
         k.getKickstartDefaults().getKstree().setChannel(s.getBaseChannel());
 
         // Create other server to sync
-        Server otherServer = ServerFactoryTest.createTestServer(user, true, 
+        Server otherServer = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         otherServer.addChannel(ChannelFactoryTest.createTestChannel(user));
         Server proxy = null;
@@ -197,13 +197,13 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
             proxy = ScheduleKickstartWizardTest.addProxy(user, s);
             assertNotNull(proxy.getHostname());
             /** Assign a proxy host, this would be the case
-             * When user selects a proxy entry from the proxies combo  
+             * When user selects a proxy entry from the proxies combo
              */
             addRequestParameter(ScheduleKickstartWizardAction.PROXY_HOST,
                                                         proxy.getId().toString());
         }
         addRequestParameter(RequestContext.SID, s.getId().toString());
-        addRequestParameter("targetProfileType", 
+        addRequestParameter("targetProfileType",
                 KickstartScheduleCommand.TARGET_PROFILE_TYPE_SYSTEM);
         addRequestParameter("targetProfile", otherServer.getId().toString());
         addRequestParameter("wizardStep", "third");
@@ -218,26 +218,26 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         addRequestParameter(RequestContext.COBBLER_ID, k.getCobblerId());
         actionPerform();
         verifyActionMessage("kickstart.schedule.success");
-        assertEquals(getActualForward(), 
+        assertEquals(getActualForward(),
                 "/systems/details/kickstart/SessionStatus.do?sid=" + s.getId());
-        
+
         // TODO Figure out why this is breaking on digdug
         //assertNotNull(KickstartFactory.lookupKickstartSessionByServer(s.getId()));
         if (addProxy && proxy != null) {
-            verifyFormValue(ScheduleKickstartWizardAction.PROXY_HOST, 
+            verifyFormValue(ScheduleKickstartWizardAction.PROXY_HOST,
                     proxy.getId().toString());
             KickstartSession session = KickstartFactory.
                             lookupKickstartSessionByServer(s.getId());
             assertNotNull(session.getSystemRhnHost());
             assertEquals(proxy.getHostname(), session.getSystemRhnHost());
-        }        
+        }
     }
-    
+
     public void testStepThreeNoProxy() throws Exception {
         executeStepThree(false);
     }
-    
+
     public void testStepThreeWithProxy() throws Exception {
          executeStepThree(true);
-     }    
+     }
 }

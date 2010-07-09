@@ -47,9 +47,9 @@ public class KickstartSessionCommandCreateTest extends BaseKickstartCommandTestC
             setupChannelForKickstarting(toolsChannel, user);
         toolsChannel.setParentChannel(ksdata.getChannel());
         ChannelFactory.save(toolsChannel);
-        
+
         UserFactory.save(user);
-        KickstartSessionCreateCommand cmd = new 
+        KickstartSessionCreateCommand cmd = new
             KickstartSessionCreateCommand(user.getOrg(), ksdata, "127.0.0.1");
         assertNull(cmd.store());
         assertNotNull(cmd.getKickstartSession());

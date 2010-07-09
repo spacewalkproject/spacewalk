@@ -51,7 +51,7 @@ import java.util.Map;
 public class Access extends BaseHandler implements AclHandler {
 
     protected static Logger log = Logger.getLogger(Access.class);
-    
+
     /**
      * Constructor for Access object
      */
@@ -97,7 +97,7 @@ public class Access extends BaseHandler implements AclHandler {
     }
 
     /**
-     * Returns true if the given value in the param is found in 
+     * Returns true if the given value in the param is found in
      * the global configuration.
      * @param ctx Context Map to pass in
      * @param params Parameters to use to fetch from Context
@@ -110,7 +110,7 @@ public class Access extends BaseHandler implements AclHandler {
         }
         return Config.get().getBoolean(params[0]);
     }
-    
+
     /**
      * TODO: Right now this method calls a small little query
      * very similar to how the perl code decides this acl.
@@ -124,7 +124,7 @@ public class Access extends BaseHandler implements AclHandler {
         Map map = (Map) ctx;
         User user = (User) map.get("user");
         String label = params[0];
-        
+
         SelectMode m = ModeFactory.getMode("Org_queries",
             "has_channel_family_entitlement");
         Map queryParams = new HashMap();
@@ -133,9 +133,9 @@ public class Access extends BaseHandler implements AclHandler {
         DataResult dr = m.execute(queryParams);
         return (dr.size() > 0);
     }
-    
+
     /**
-     * Check if a System has a feature 
+     * Check if a System has a feature
      * @param ctx Context Map to pass in
      * @param params Parameters to use to fetch from Context
      * @return true if access is granted, false otherwise
@@ -147,7 +147,7 @@ public class Access extends BaseHandler implements AclHandler {
 
         return SystemManager.serverHasFeature(sid, feature);
     }
-    
+
     /**
      * Check if a system has virtualization entitlements.
      * @param ctx Context map to pass in.
@@ -158,10 +158,10 @@ public class Access extends BaseHandler implements AclHandler {
         Map map = (Map) ctx;
         Long sid = getAsLong(map.get("sid"));
         User user = (User) map.get("user");
-        
+
         return SystemManager.serverHasVirtuaizationEntitlement(sid, user.getOrg());
     }
-    
+
    /**
     * Check if a system has a management entitlement
     * @param ctx Context map to pass in.
@@ -178,7 +178,7 @@ public class Access extends BaseHandler implements AclHandler {
        }
        return server.hasEntitlement(EntitlementManager.MANAGEMENT);
    }
-   
+
    /**
     * Check if a system has a management entitlement
     * @param ctx Context map to pass in.
@@ -192,8 +192,8 @@ public class Access extends BaseHandler implements AclHandler {
        RhnSet set = RhnSetDecl.SYSTEMS.get(user);
        return set.contains(sid);
    }
-   
-    
+
+
     /**
      * Checks if this user is a paying customer.
      * Requires a User in the Context object.
@@ -212,10 +212,10 @@ public class Access extends BaseHandler implements AclHandler {
 
         return false;
     }
-    
+
     /**
      * Checks if their Org has the entitlement.
-     * Requires a User in the Context object 
+     * Requires a User in the Context object
      * @param ctx Context Map to pass in
      * @param params Used to specify the Role label
      * @return true if access is granted, false otherwise
@@ -224,7 +224,7 @@ public class Access extends BaseHandler implements AclHandler {
         Map map = (Map) ctx;
         User user = (User)map.get("user");
         if (user != null) {
-            Org org = user.getOrg();            
+            Org org = user.getOrg();
             boolean retval = org.hasEntitlement(OrgFactory.
                     lookupEntitlementByLabel(params[0]));
             if (log.isDebugEnabled()) {
@@ -237,7 +237,7 @@ public class Access extends BaseHandler implements AclHandler {
         }
         return false;
     }
-    
+
     /**
      * Checks if the User's Org has the requested Role.
      * Requires a User in the Context object.
@@ -255,7 +255,7 @@ public class Access extends BaseHandler implements AclHandler {
 
         return false;
     }
-    
+
     /**
      * Returns true if the User has been authenticated by the system.
      * @param ctx Context Map to pass in
@@ -269,7 +269,7 @@ public class Access extends BaseHandler implements AclHandler {
     }
 
     /**
-     * returns true if sid is a solaris system 
+     * returns true if sid is a solaris system
      * @param ctx Context Map to pass in
      * @param params Parameters to use to fetch from Context
      * @return true if access is granted, false otherwise
@@ -279,7 +279,7 @@ public class Access extends BaseHandler implements AclHandler {
         Long sid = getAsLong(map.get("sid"));
         return ServerFactory.lookupById(sid).isSolaris();
     }
-    
+
     /**
      * FIXME not implemented. Currently this method
      * is unimplemented and ALWAYS returns false
@@ -291,7 +291,7 @@ public class Access extends BaseHandler implements AclHandler {
         Map map = (Map) ctx;
         User user = (User) map.get("user");
         String version = params[0];
-        
+
         //Generate the EVR from the parameter string
         String[] temp = version.split("[:-]");
         PackageEvr paramEVR;
@@ -301,14 +301,14 @@ public class Access extends BaseHandler implements AclHandler {
         else {
             paramEVR = new PackageEvr(null, temp[0], temp[1]);
         }
-        
+
         //Get EVRs for each proxy server in this org
         SelectMode m = ModeFactory.getMode("System_queries",
                 "org_proxy_servers_evr");
         Map queryParams = new HashMap();
         queryParams.put("org_id", user.getOrg().getId());
         Iterator i = m.execute(queryParams).iterator();
-        
+
         //Loop through the dataresult and if one EVR is at least
         //equal to the parameter EVR
         while (i.hasNext()) {
@@ -318,7 +318,7 @@ public class Access extends BaseHandler implements AclHandler {
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -358,7 +358,7 @@ public class Access extends BaseHandler implements AclHandler {
         boolean flag = !(UserFactory.satelliteHasUsers());
         return flag;
     }
-    
+
     /**
      * returns true or false ifthe user has access to a channel
      * @param ctx acl context
@@ -368,7 +368,7 @@ public class Access extends BaseHandler implements AclHandler {
     public boolean aclCanAccessChannel(Object ctx, String[] params) {
         Map map = (Map) ctx;
         User user = (User) map.get("user");
-        
+
         try {
           if (user != null) {
               Channel chan = ChannelManager.lookupByIdAndUser(
@@ -381,8 +381,8 @@ public class Access extends BaseHandler implements AclHandler {
         }
         return false;
     }
-    
-    
+
+
     /**
      * Returns true if the user is either a channel administrator or an
      * org administrator
@@ -397,7 +397,7 @@ public class Access extends BaseHandler implements AclHandler {
             List chans = UserManager.channelManagement(user, null);
             return (user.hasRole(RoleFactory.CHANNEL_ADMIN)) || chans.size() > 0;
         }
-        
+
         return false;
     }
 
@@ -415,9 +415,9 @@ public class Access extends BaseHandler implements AclHandler {
 
         return map.get(params[0]) != null;
     }
-    
+
     /**
-     * 
+     *
      * @param ctx acl context
      * @param params parameters for acl (ignored)
      * @return true if user org is owner of channel
@@ -427,12 +427,12 @@ public class Access extends BaseHandler implements AclHandler {
         User user = (User) map.get("user");
         Long cid = getAsLong(map.get("cid"));
         Channel c = ChannelFactory.lookupById(cid);
-        
+
         return c.getOrg().getId() == user.getOrg().getId();
     }
-    
+
     /**
-     * 
+     *
      * @param ctx acl context
      * @param params parameters for acl
      * @return if channel is protected
@@ -441,9 +441,9 @@ public class Access extends BaseHandler implements AclHandler {
         Map map = (Map) ctx;
         Long cid = getAsLong(map.get("cid"));
         Channel c = ChannelFactory.lookupById(cid);
-        return c.isProtected();        
+        return c.isProtected();
     }
-    
+
     /*
      * These were taken out 06/16/2005 and should be implemented and put back in
      * as we need them.

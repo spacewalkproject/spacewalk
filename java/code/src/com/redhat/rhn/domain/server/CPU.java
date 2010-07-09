@@ -21,7 +21,7 @@ import com.redhat.rhn.domain.BaseDomainHelper;
  * @version $Rev$
  */
 public class CPU extends BaseDomainHelper {
-    
+
     private Long id;
     private Server server;
     private String bogomips;
@@ -39,7 +39,7 @@ public class CPU extends BaseDomainHelper {
     private String apmVersion;
     private String chipSet;
     private CPUArch arch;
-    
+
 
     /**
      * @return Returns the acpiVersion.
@@ -229,7 +229,7 @@ public class CPU extends BaseDomainHelper {
     public Server getServer() {
         return server;
     }
-    
+
     /**
      * @param serverIn The server to set.
      */
@@ -264,7 +264,7 @@ public class CPU extends BaseDomainHelper {
     public void setVendor(String vendorIn) {
         this.vendor = vendorIn;
     }
-    
+
     /**
      * @return Returns the version.
      */
@@ -278,9 +278,9 @@ public class CPU extends BaseDomainHelper {
     public void setVersion(String versionIn) {
         this.version = versionIn;
     }
-    
+
     /**
-     * provides the cpuarch name, which is really the only usefull info for the 
+     * provides the cpuarch name, which is really the only usefull info for the
      *  cpu arch object
      * @return the arch that the cpu is.
      */

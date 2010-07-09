@@ -35,7 +35,7 @@ public class ManifestFactory {
     private Map objects;
     private ManifestFactoryBuilder builder;
 
-    /** public constructor, requires a builder 
+    /** public constructor, requires a builder
     * @param builderIn the ManifestFactoryBuilder used to create this Factory
     */
     public ManifestFactory(ManifestFactoryBuilder builderIn) {
@@ -46,16 +46,16 @@ public class ManifestFactory {
     }
 
     /** generally used by a wrapper static class, returns the object
-     * stored inside this factory 
+     * stored inside this factory
      * @param key key to lookup Object by
-     * @return Object found will throw ManifestFactoryLookupException if 
+     * @return Object found will throw ManifestFactoryLookupException if
      * not found.
      */
     public Object getObject(String key) {
         Object ret = objects.get(key);
         if (ret == null) {
             throw new ManifestFactoryLookupException("No object for " +
-                                                    builder + " of name " + 
+                                                    builder + " of name " +
                                                     key);
         }
 
@@ -86,7 +86,7 @@ public class ManifestFactory {
         d.addObjectCreate("factory/template", HashMap.class);
         d.addRule("factory/template", new AttributeCopyRule());
         d.addSetNext("factory/template", "addFactoryTemplate");
-        
+
         try {
             d.parse(u.openStream());
         }

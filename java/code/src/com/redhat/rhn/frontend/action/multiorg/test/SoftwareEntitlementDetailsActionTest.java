@@ -27,7 +27,7 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class SoftwareEntitlementDetailsActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
@@ -36,12 +36,12 @@ public class SoftwareEntitlementDetailsActionTest extends RhnMockStrutsTestCase 
         Server s = ServerTestUtils.createTestSystem(user);
         Channel chan = (Channel)s.getChannels().iterator().next();
         ChannelFamily family = chan.getChannelFamily();
-        
+
         setRequestPathInfo("/admin/multiorg/SoftwareEntitlementDetails");
         addRequestParameter("cfid", family.getId().toString());
         actionPerform();
-                
-        assertNotNull(request.getAttribute("entitlementName"));       
+
+        assertNotNull(request.getAttribute("entitlementName"));
         assertEquals(family.getName(), request.getAttribute("entitlementName"));
     }
 }

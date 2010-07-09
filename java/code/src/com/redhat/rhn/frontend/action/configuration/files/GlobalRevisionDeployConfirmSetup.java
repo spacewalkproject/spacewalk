@@ -34,7 +34,7 @@ import org.apache.struts.action.DynaActionForm;
  * @version $Rev$
  */
 public class GlobalRevisionDeployConfirmSetup extends BaseListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -43,7 +43,7 @@ public class GlobalRevisionDeployConfirmSetup extends BaseListAction {
         ConfigFile cf = ConfigActionHelper.getFile(ctx.getRequest());
         ConfigChannel cc = cf.getConfigChannel();
         DataResult dr = ConfigurationManager.getInstance().
-            listGlobalFileDeployInfo(usr, cc, cf, pc, 
+            listGlobalFileDeployInfo(usr, cc, cf, pc,
                     RhnSetDecl.CONFIG_FILE_DEPLOY_SYSTEMS.getLabel());
         return dr;
     }
@@ -54,8 +54,8 @@ public class GlobalRevisionDeployConfirmSetup extends BaseListAction {
     protected void processRequestAttributes(RequestContext rctxIn) {
         ConfigActionHelper.processRequestAttributes(rctxIn);
         super.processRequestAttributes(rctxIn);
-    }   
-    
+    }
+
     /**
      * {@inheritDoc}
      */

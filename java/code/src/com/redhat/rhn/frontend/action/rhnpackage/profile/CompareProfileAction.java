@@ -62,14 +62,14 @@ public class CompareProfileAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long sid = requestContext.getRequiredParam("sid");
         Long prid = requestContext.getRequiredParam("prid");
-        
+
         return ProfileManager.compareServerToProfile(sid,
                 prid, user.getOrg().getId(), null);
     }
@@ -84,8 +84,8 @@ public class CompareProfileAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         params.put("sid", request.getParameter("sid"));
         params.put("prid", request.getParameter("prid"));
@@ -103,7 +103,7 @@ public class CompareProfileAction extends RhnSetAction {
      */
     protected String getLookupMapName(HttpServletRequest request,
             String keyName, ActionMapping mapping) throws ServletException {
-        
+
         String f = LocalizationService.getInstance()
                                       .getMessage("compare.jsp.syncpackageto");
         int idx = f.indexOf("{0}");
@@ -111,7 +111,7 @@ public class CompareProfileAction extends RhnSetAction {
             String sub = f.substring(0, idx);
             if (keyName.startsWith(sub)) {
                 return (String) getKeyMethodMap().get("compare.jsp.syncpackageto");
-            } 
+            }
         }
 
         return super.getLookupMapName(request, keyName, mapping);

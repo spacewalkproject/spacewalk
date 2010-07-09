@@ -23,12 +23,12 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 public class ManagementEntitlement extends Entitlement {
 
     /**
-     * 
+     *
      */
     public ManagementEntitlement() {
         super(EntitlementManager.ENTERPRISE_ENTITLED);
     }
-    
+
     /**
      * {@inheritDoc}
      */

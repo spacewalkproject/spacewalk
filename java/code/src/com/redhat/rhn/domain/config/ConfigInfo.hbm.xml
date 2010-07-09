@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.config.ConfigInfo" 
+	<class name="com.redhat.rhn.domain.config.ConfigInfo"
 	       table="rhnConfigInfo"
 	       mutable="false">
 	    <cache usage="read-only"/>
@@ -12,7 +12,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			<generator class="assigned" />
 		</id>
 		<property name="username" column="username" type="string" length="32" />
-		<property name="groupname" column="groupname" type="string" length="32" 
+		<property name="groupname" column="groupname" type="string" length="32"
 			/>
 		<property name="filemode" column="filemode" type="long" />
 		<property name="created" column="created" type="timestamp" />
@@ -21,7 +21,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	</class>
 	
 	<query name="ConfigInfo.findWithoutId">
-        <![CDATA[from com.redhat.rhn.domain.config.ConfigInfo as c 
+        <![CDATA[from com.redhat.rhn.domain.config.ConfigInfo as c
                 where c.username = :username
                   and c.groupname = :groupname
                   and c.filemode = :filemode]]>

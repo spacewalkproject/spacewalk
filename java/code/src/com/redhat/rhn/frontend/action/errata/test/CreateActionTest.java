@@ -33,35 +33,35 @@ public class CreateActionTest extends RhnBaseTestCase {
 
     public void testCreateErrata() {
         CreateAction action = new CreateAction();
-        
+
         ActionMapping mapping = new ActionMapping();
         ActionForward failure = new ActionForward("failure", "path", false);
         ActionForward success = new ActionForward("success", "path", false);
         mapping.addForwardConfig(failure);
         mapping.addForwardConfig(success);
-        
+
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
         RhnMockHttpSession session = new RhnMockHttpSession();
         request.setSession(session);
         request.setupServerName("mymachine.rhndev.redhat.com");
-        
+
         RhnMockDynaActionForm form = fillOutForm();
         form.set("synopsis", ""); //required field, so we should get a validation error
-        
+
         ActionForward result = action.execute(mapping, form, request, response);
         assertEquals(result.getName(), "failure");
-        
+
         //fillout form correctly
         form = fillOutForm();
-        
+
         result = action.execute(mapping, form, request, response);
         assertEquals(result.getName(), "success");
     }
-    
+
     public RhnMockDynaActionForm fillOutForm() {
         RhnMockDynaActionForm form = new RhnMockDynaActionForm("errataCreateForm");
-        
+
         form.set("synopsis", "synopsis");
         form.set("advisoryName", TestUtils.randomString());
         form.set("advisoryRelease", "2");
@@ -75,7 +75,7 @@ public class CreateActionTest extends RhnBaseTestCase {
         form.set("keywords", "  test1  , test2, test3,test4,, ,,,   ");
         form.set("refersTo", "refers to");
         form.set("notes", "notes");
-        
+
         return form;
     }
 }

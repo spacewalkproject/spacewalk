@@ -19,14 +19,14 @@ import com.redhat.rhn.domain.monitoring.command.CommandParameter;
 /**
  * Simple DTO to wrap a com.redhat.rhn.domain.monitoring.command.CommandParameter
  * and the value used by the ServerProbe
- * 
+ *
  * @version $Rev: 50942 $
  */
 public class CommandParameterValue {
-    
+
     private CommandParameter commandParameter;
     private String value;
-    
+
     /**
      * Create an instance with default values
      * @param paramIn param to use
@@ -37,7 +37,7 @@ public class CommandParameterValue {
         this.commandParameter = paramIn;
         this.value = valueIn;
     }
-    
+
     /**
      * @return Returns the commandParameter.
      */

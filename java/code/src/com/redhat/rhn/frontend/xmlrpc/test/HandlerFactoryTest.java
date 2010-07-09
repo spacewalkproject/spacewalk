@@ -24,11 +24,11 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 
 public class HandlerFactoryTest extends RhnBaseTestCase {
     private HandlerFactory factory = null;
-    
+
     public void setUp() {
         factory = new HandlerFactory();
     }
-    
+
     public void testHandlerFactoryNotFound() {
         try {
             factory.getHandler("NoHandler");
@@ -43,7 +43,7 @@ public class HandlerFactoryTest extends RhnBaseTestCase {
         BaseHandler handler = factory.getHandler("channel");
         assertEquals(ChannelHandler.class, handler.getClass());
     }
-    
+
     public void testDescendingClass() {
         BaseHandler handler = factory.getHandler("channel.software");
         assertNotNull(handler);

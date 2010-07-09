@@ -24,7 +24,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 public class KickstartKeyDeleteException extends FaultException {
 
     /**
-     * Creates a <code>KickstartKeyDeleteException</code> with no underlying cause. 
+     * Creates a <code>KickstartKeyDeleteException</code> with no underlying cause.
      */
     public KickstartKeyDeleteException() {
         super(2755, "kickstartKeyDelete",
@@ -33,12 +33,12 @@ public class KickstartKeyDeleteException extends FaultException {
 
     /**
      * Creates a new <code>KickstartKeyDeleteException</code> to wrap the given exception.
-     * 
+     *
      * @param cause cause of the delete failure
      */
     public KickstartKeyDeleteException(Throwable cause) {
         super(2755, "kickstartKeyDelete",
             LocalizationService.getInstance().getMessage("api.kickstart.keys.delete"),
-                cause);        
+                cause);
     }
 }

@@ -56,7 +56,7 @@ import java.util.Set;
 
 /**
  * Server - Class representation of the table rhnServer.
- * 
+ *
  * @version $Rev$
  */
 public class Server extends BaseDomainHelper implements Identifiable {
@@ -120,15 +120,15 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
 
 
-    
+
     /**
      * @param capabilitiesIn The capabilities to set.
      */
     public void setCapabilities(Set<Capability> capabilitiesIn) {
         capabilities = capabilitiesIn;
     }
-    
-    
+
+
     /**
      * @return Returns the groups.
      */
@@ -136,7 +136,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         return groups;
     }
 
-    
+
     /**
      * @param groupsIn The groups to set.
      */
@@ -150,7 +150,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public ProxyInfo getProxyInfo() {
         return proxyInfo;
     }
-    
+
     /**
      * the proxy information to set
      * @param proxy the proxyInfo to set
@@ -166,7 +166,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public ConfigChannel getLocalOverride() {
         return  findLocal(ConfigChannelType.local());
     }
-    
+
     /**
      * Retrieves the local override channel associated with this system.
      * @return the Local Override Channel or NULL if there's none created yet
@@ -185,27 +185,27 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
 
     /**
-     * 
+     *
      * @param ch Override channel to set
      */
     public void setLocalOverride(ConfigChannel ch) {
         setLocalType(ch, ConfigChannelType.local());
     }
-    
+
     private void setLocalType(ConfigChannel channel,
                                     ConfigChannelType cct) {
-        
+
         ConfigChannel ch =  findLocal(cct);
         if (ch != null) {
             localChannels.remove(ch);
         }
         localChannels.add(channel);
-    }    
-    
+    }
+
     protected void setLocalChannels(Set chls) {
         localChannels = chls;
     }
-    
+
     protected Set getLocalChannels() {
         return localChannels;
     }
@@ -215,9 +215,9 @@ public class Server extends BaseDomainHelper implements Identifiable {
      *  exacly the same. Creates the channel if it does not exist.
      * @param cct Config Channel type .. (local or sandbox)
      * @return Config channel associated with the given type
-     */    
+     */
     private ConfigChannel findLocal(ConfigChannelType cct) {
-        
+
         assert localChannels.size() <= 2 : "More than two local override  channels" +
                                 "Associated with this server." +
                                 "There should be NO more than Two" +
@@ -230,11 +230,11 @@ public class Server extends BaseDomainHelper implements Identifiable {
                 return ch;
             }
         }
-        
+
         //We automatically create local config channels, so
         //if we didn't find one, we just haven't created it yet.
         ConfigChannel channel = ConfigurationFactory.createNewLocalChannel(this, cct);
-        
+
         //TODO: Adding the new channel to the set of local channels should
         //happen in the createNewLocalChannel method.  However, the way things
         //are currently set up, I have to work with the member variable, because using
@@ -243,7 +243,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         setLocalChannels(localChannels);
         return channel;
     }
-    
+
     /**
      * Retrieves the sandbox override channel associated with this system.
      * @return the Sandbox Override Channel or create one if none exists
@@ -251,7 +251,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public ConfigChannel getSandboxOverride() {
         return findLocal(ConfigChannelType.sandbox());
     }
-    
+
     /**
      * Retrieves the sandbox override channel associated with this system.
      * @return the Sandbox Override Channel or NULL if there's none created yet
@@ -270,7 +270,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
 
     /**
-     * 
+     *
      * @param ch sets the sandbox override channel
      */
     public void setSandboxOverride(ConfigChannel ch) {
@@ -298,7 +298,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     protected List getConfigChannelsHibernate() {
         return configChannels;
     }
-    
+
     /**
      * @return Returns the ServerConfigChannels mappings currently available
      * to the server based on it's entitlements.
@@ -315,17 +315,17 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public int getConfigChannelCount() {
         return configChannels.size();
     }
-    
+
     private void ensureConfigManageable() {
         if (!getIgnoreEntitlementsForMigration()) {
             ConfigurationManager.getInstance().ensureConfigManageable(this);
         }
     }
-    
+
     /**
      * subscribes a channel to a system, giving it the
      * highest value for the  position (or the lowest priority)
-     * @param cc The config channel to subscribe to 
+     * @param cc The config channel to subscribe to
      */
     public void subscribe(ConfigChannel cc) {
         configListProc.add(getConfigChannels(), cc);
@@ -334,12 +334,12 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * subscribes a channel to a system at the given position
      * @param cc the channel to subscribe
      * @param position the positon/ranking of the channel in the system list,
-     *                  must be > 0 
+     *                  must be > 0
      */
     public void subscribeAt(ConfigChannel cc, int position) {
         configListProc.add(getConfigChannels(), cc, position);
     }
-    
+
     /**
      * @param cc the ConfigChannel to unsubscribe
      * @return returns true if the remove operation succeeded
@@ -347,7 +347,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public boolean unsubscribe(ConfigChannel cc) {
         return configListProc.remove(getConfigChannels(), cc);
     }
-    
+
     /**
      * Protected constructor
      */
@@ -389,7 +389,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
     /**
      * Getter for id
-     * 
+     *
      * @return Long to get
      */
     public Long getId() {
@@ -398,7 +398,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for id
-     * 
+     *
      * @param idIn to set
      */
     public void setId(Long idIn) {
@@ -421,7 +421,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for digitalServerId
-     * 
+     *
      * @return String to get
      */
     public String getDigitalServerId() {
@@ -430,7 +430,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for digitalServerId
-     * 
+     *
      * @param digitalServerIdIn to set
      */
     public void setDigitalServerId(String digitalServerIdIn) {
@@ -439,7 +439,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for os
-     * 
+     *
      * @return String to get
      */
     public String getOs() {
@@ -448,7 +448,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for os
-     * 
+     *
      * @param osIn to set
      */
     public void setOs(String osIn) {
@@ -457,7 +457,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for release
-     * 
+     *
      * @return String to get
      */
     public String getRelease() {
@@ -466,7 +466,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for release
-     * 
+     *
      * @param releaseIn to set
      */
     public void setRelease(String releaseIn) {
@@ -475,7 +475,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for name
-     * 
+     *
      * @return String to get
      */
     public String getName() {
@@ -484,7 +484,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for name
-     * 
+     *
      * @param nameIn to set
      */
     public void setName(String nameIn) {
@@ -493,7 +493,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for description
-     * 
+     *
      * @return String to get
      */
     public String getDescription() {
@@ -502,7 +502,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for description
-     * 
+     *
      * @param descriptionIn to set
      */
     public void setDescription(String descriptionIn) {
@@ -511,7 +511,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for info
-     * 
+     *
      * @return String to get
      */
     public String getInfo() {
@@ -520,7 +520,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for info
-     * 
+     *
      * @param infoIn to set
      */
     public void setInfo(String infoIn) {
@@ -529,7 +529,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for secret
-     * 
+     *
      * @return String to get
      */
     public String getSecret() {
@@ -538,7 +538,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for secret
-     * 
+     *
      * @param secretIn to set
      */
     public void setSecret(String secretIn) {
@@ -561,7 +561,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for autoDeliver
-     * 
+     *
      * @return String to get
      */
     public String getAutoDeliver() {
@@ -570,7 +570,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for autoDeliver
-     * 
+     *
      * @param autoDeliverIn to set
      */
     public void setAutoDeliver(String autoDeliverIn) {
@@ -579,7 +579,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for autoUpdate
-     * 
+     *
      * @return String to get
      */
     public String getAutoUpdate() {
@@ -588,7 +588,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for autoUpdate
-     * 
+     *
      * @param autoUpdateIn to set
      */
     public void setAutoUpdate(String autoUpdateIn) {
@@ -597,7 +597,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for runningKernel
-     * 
+     *
      * @return String to get
      */
     public String getRunningKernel() {
@@ -606,7 +606,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for runningKernel
-     * 
+     *
      * @param runningKernelIn to set
      */
     public void setRunningKernel(String runningKernelIn) {
@@ -615,16 +615,16 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for lastBoot
-     * 
+     *
      * @return Long to get
      */
     public Long getLastBoot() {
         return this.lastBoot;
     }
-    
+
     /**
      * Getter for lastBoot as a date
-     * 
+     *
      * @return lastBoot time as a Date object
      */
     public Date getLastBootAsDate() {
@@ -633,7 +633,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for lastBoot
-     * 
+     *
      * @param lastBootIn to set
      */
     public void setLastBoot(Long lastBootIn) {
@@ -670,7 +670,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Getter for channelsChanged
-     * 
+     *
      * @return Date to get
      */
     public Date getChannelsChanged() {
@@ -679,7 +679,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Setter for channelsChanged
-     * 
+     *
      * @param channelsChangedIn to set
      */
     public void setChannelsChanged(Date channelsChangedIn) {
@@ -701,7 +701,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public List<ManagedServerGroup> getManagedGroups() {
         return ServerGroupFactory.listManagedGroups(this);
     }
-    
+
     /**
      * Returns the set of devices attached to this server.
      * @return Returns the list of devices attached to this server.
@@ -716,7 +716,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     protected void setDevices(Set devicesIn) {
         devices = devicesIn;
     }
-    
+
     /**
      * Adds a device to the list of devices for this server.
      * @param device Device to add
@@ -725,14 +725,14 @@ public class Server extends BaseDomainHelper implements Identifiable {
         device.setServer(this);
         devices.add(device);
     }
-    
+
     /**
      * @return Returns the notes.
      */
     public Set getNotes() {
         return notes;
     }
-    
+
     /**
      * @param n The notes to set.
      */
@@ -748,7 +748,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         note.setServer(this);
         notes.add(note);
     }
-    
+
     /**
      * Adds a note to the notes set.
      * @param user The user creating the note
@@ -761,17 +761,17 @@ public class Server extends BaseDomainHelper implements Identifiable {
         note.setSubject(subject);
         note.setNote(body);
         note.setCreated(new Date());
-        
+
         addNote(note);
     }
-    
+
     /**
      * @return Returns the networks
      */
     public Set<Network> getNetworks() {
         return networks;
     }
-    
+
     /**
      * Sets teh set of networks
      * @param n The networks to set
@@ -779,7 +779,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public void setNetworks(Set n) {
         this.networks = n;
     }
-    
+
     /**
      * Adds a network to the set of networks for this server.
      * @param network The network to add.
@@ -788,7 +788,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         network.setServer(this);
         networks.add(network);
     }
-    
+
     /**
      * Get the primary ip address for this server
      * @return Returns the primary ip for this server
@@ -808,16 +808,16 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return null;
     }
-    
-    
+
+
     /**
      * Return the NetworkInterface which Spacewalk is guessing is
      * the primary.  Order of preference:
-     * 
-     * eth0, eth0*, eth1, eth1*, after that its first match that is 
+     *
+     * eth0, eth0*, eth1, eth1*, after that its first match that is
      * not 127.0.0.1
-     * 
-     * @return NetworkInterface in order of preference: eth0, eth0*, 
+     *
+     * @return NetworkInterface in order of preference: eth0, eth0*,
      * eth1, eth1*, after that its first match that is not 127.0.0.1
      */
     public NetworkInterface findPrimaryNetworkInterface() {
@@ -849,7 +849,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
             while (i.hasNext()) {
                 NetworkInterface n = (NetworkInterface) i.next();
                 String addr = n.getIpaddr();
-                if (addr != null && 
+                if (addr != null &&
                     !addr.equals("127.0.0.1")) {
                     log.debug("Found NetworkInterface !localhost");
                     return n;
@@ -862,8 +862,8 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return null;
     }
-    
-    
+
+
     // Sometimes java really annoys me
     private Network findPrimaryNetwork() {
         if (!networks.isEmpty()) {
@@ -871,7 +871,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
             while (i.hasNext()) {
                 Network n = (Network) i.next();
                 String addr = n.getIpaddr();
-                if (addr != null && 
+                if (addr != null &&
                         !addr.equals("127.0.0.1")) {
                     log.debug("returning Network that is !localhost");
                     return n;
@@ -882,8 +882,8 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return null;
     }
-    
-    
+
+
 
     /**
      * Get the primary MAC/hardware address for this server
@@ -908,21 +908,21 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return null;
     }
-    
+
     /**
      * @return Returns the networkInterfaces.
      */
     public Set<NetworkInterface> getNetworkInterfaces() {
         return networkInterfaces;
     }
-    
+
     /**
      * @param n The networkInterfaces to set.
      */
     public void setNetworkInterfaces(Set<NetworkInterface> n) {
         this.networkInterfaces = n;
     }
-    
+
     /**
      * Adds a network interface to the set of network interfaces
      * for this server.
@@ -932,7 +932,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         netIn.setServer(this);
         networkInterfaces.add(netIn);
     }
-    
+
     /**
      * Returns the total amount of ram for this server.
      * @return the total amount of ram for this server.
@@ -943,7 +943,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return ram.getRam();
     }
-    
+
     /**
      * Convenience method for formatting the Ram as a String value.
      * @return String of RAM.
@@ -951,7 +951,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public String getRamString() {
         return new Long(getRam()).toString();
     }
-    
+
     /**
      * the total amount of ram for this server.
      * @param ramIn The ram to set.
@@ -960,7 +960,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         initializeRam();
         ram.setRam(ramIn);
     }
-    
+
     /**
      * Returns the  amount of swap for this server.
      * @return the  amount of swap for this server.
@@ -971,7 +971,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return ram.getSwap();
     }
-    
+
     /**
      * the amount of swap for this server.
      * @param swapIn the amount of swap for this server.
@@ -980,14 +980,14 @@ public class Server extends BaseDomainHelper implements Identifiable {
         initializeRam();
         ram.setSwap(swapIn);
     }
-    
+
     /**
      * @return Returns the cpu.
      */
     public CPU getCpu() {
         return cpu;
     }
-    
+
     /**
      * @param cpuIn The cpu to set.
      */
@@ -1001,49 +1001,49 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public Dmi getDmi() {
         return dmi;
     }
-    
+
     /**
      * @param dmiIn The dmi to set.
      */
     public void setDmi(Dmi dmiIn) {
         dmi = dmiIn;
     }
-    
+
     /**
      * @return Returns the serverLocation associated with the server.
      */
     public Location getLocation() {
         return serverLocation;
     }
-    
+
     /**
      * @param locationIn Location to associate with the server.
      */
     public void setLocation(Location locationIn) {
         serverLocation = locationIn;
     }
-    
+
     private void initializeRam() {
         if (ram == null) {
             ram = new Ram();
             ram.setServer(this);
         }
     }
-    
+
     /**
      * @return Returns the customDataValues.
      */
     public Set<CustomDataValue> getCustomDataValues() {
         return customDataValues;
     }
-    
+
     /**
      * @param customDataValuesIn The customDataValues to set.
      */
     public void setCustomDataValues(Set customDataValuesIn) {
         this.customDataValues = customDataValuesIn;
     }
-    
+
     /**
      * Adds a custom data value to the set of custom data values
      * for this server.
@@ -1053,7 +1053,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         value.setServer(this);
         customDataValues.add(value);
     }
-    
+
     /**
      * Adds a custom data value to the set of custom data values
      * @param key The CustomDataKey for this value
@@ -1061,29 +1061,29 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @param user The user doing the setting
      */
     public void addCustomDataValue(CustomDataKey key, String value, User user) {
-        // Check for null key values. 
+        // Check for null key values.
         if (key == null || key.getLabel() == null) {
-            throw new 
+            throw new
                 UndefinedCustomDataKeyException("CustomDataKey can not be null.");
         }
-        
+
         // Make sure this org has this particular CustomDataKey defined
         if (!org.hasCustomDataKey(key.getLabel())) {
             throw new
-                UndefinedCustomDataKeyException("CustomDataKey: " + key.getLabel() + 
+                UndefinedCustomDataKeyException("CustomDataKey: " + key.getLabel() +
                     " is not defined for this org.");
         }
-        
+
         // get the CustomDataValue
         CustomDataValue customValue = getCustomDataValue(key);
-        
+
         // does the server already have this key defined?
         if (customValue != null) {
             // update the value
             customValue.setValue(value);
             // update last modifier
             customValue.setLastModifier(user);
-        } 
+        }
         // server doesn't have this key defined
         else {
             // create a new CustomDataValue object
@@ -1095,7 +1095,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         // add customValue to customDataValues set
         addCustomDataValue(customValue);
     }
-    
+
     /**
      * Adds a custom data value to the set of custom data values
      * @param keyLabel The label for the CustomDataKey for this value
@@ -1107,7 +1107,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         CustomDataKey key = OrgFactory.lookupKeyByLabelAndOrg(keyLabel, user.getOrg());
         addCustomDataValue(key, value, user);
     }
-    
+
     /**
      * Retrieves a specific CustomDataValue from the customDataValues set
      * @param key The Key for the value you're looking up
@@ -1116,7 +1116,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public CustomDataValue getCustomDataValue(CustomDataKey key) {
         return ServerFactory.getCustomDataValue(key, this);
     }
-    
+
     /**
      * Returns the set of Channels this Server is subscribed to.
      * @return the set of Channels this Server is subscribed to.
@@ -1124,11 +1124,11 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public Set<Channel> getChannels() {
         return channels;
     }
-    
+
     protected void setChannels(Set chans) {
         channels = chans;
     }
-    
+
     /**
      * Adds the given channel to this Server.
      * @param c Channel to be added.
@@ -1144,7 +1144,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public Channel getBaseChannel() {
         /*
          * The base channel for a given server is designated in the database by
-         * parent_channel == null. Since the number of channels for a given server is 
+         * parent_channel == null. Since the number of channels for a given server is
          * relatively small, loop through the channels set and look for one without a
          * parentChannel instead of going back to the db.
          */
@@ -1159,15 +1159,15 @@ public class Server extends BaseDomainHelper implements Identifiable {
         // case, the base channel cannot be determined for this server.
         return null;
     }
-    
+
     /**
-     * Checks to see if this server is Solaris 
+     * Checks to see if this server is Solaris
      * @return Returns true if System is Solaris.
      */
     public boolean isSolaris() {
         return this.getServerArch().getArchType().getLabel().equals("sysv-solaris");
     }
-    
+
     /**
      * Returns true if this is a satellite server.
      * @return true if this is a satellite server.
@@ -1175,7 +1175,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public boolean isSatellite() {
         return false;
     }
-    
+
     /**
      * Returns true if this is a proxy server.
      * @return true if this is a proxy server.
@@ -1183,7 +1183,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public boolean isProxy() {
         return getProxyInfo() != null;
     }
-    
+
     /**
      * Returns true if the server has the given Entitlement.
      * @param entitlement Entitlement to verify.
@@ -1195,7 +1195,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
             ServerGroup g = (ServerGroup) itr.next();
 
             // The server's group type can be null if the user has created some
-            // custom server groups.  If so, we won't check it against the 
+            // custom server groups.  If so, we won't check it against the
             // given entitlement.
 
             ServerGroupType groupType = g.getGroupType();
@@ -1203,10 +1203,10 @@ public class Server extends BaseDomainHelper implements Identifiable {
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     /**
      * Give a set of the entitlements a server has.
      * This is entirely based on the server groups, but server
@@ -1215,7 +1215,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
      */
     public Set<Entitlement> getEntitlements() {
         Set<Entitlement> entitlements = new HashSet<Entitlement>();
-        
+
         Iterator i = getEntitledGroups().iterator();
         while (i.hasNext()) {
             ServerGroup grp = (ServerGroup)i.next();
@@ -1224,7 +1224,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return entitlements;
     }
-    
+
     /**
      * Base entitlement for the Server.
      * @return Entitlement that is the base entitlement for the server
@@ -1232,18 +1232,18 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public Entitlement getBaseEntitlement() {
         Entitlement baseEntitlement = null;
         Iterator i = getEntitledGroups().iterator();
-        
+
         while (i.hasNext() && baseEntitlement == null) {
             ServerGroupType sgt = ((ServerGroup) i.next()).getGroupType();
-            
+
             if (sgt.isBase()) {
                 baseEntitlement = EntitlementManager.getByName(sgt.getLabel());
             }
         }
-        
+
         return baseEntitlement;
     }
-    
+
     /**
      * Base entitlement for the Server.
      * @param baseIn to update to
@@ -1254,7 +1254,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         if (!verify.isBase()) {
             throw new IllegalArgumentException("baseIn is not a base entitlement");
         }
-        
+
         Entitlement baseEntitlement = this.getBaseEntitlement();
         if (baseEntitlement != null && baseIn.equals(baseEntitlement)) {
             // noop if there is no change
@@ -1264,34 +1264,34 @@ public class Server extends BaseDomainHelper implements Identifiable {
             this.getEntitlements().remove(baseEntitlement);
             SystemManager.removeServerEntitlement(this.getId(), baseEntitlement);
         }
-        
+
         SystemManager.entitleServer(this, baseIn);
-    }    
-    
+    }
+
     /**
      * Set of add-on entitlements for the Server.
      * @return Set of entitlements that are add-on entitlements for the server
      */
     public Set<Entitlement> getAddOnEntitlements() {
         Set s = new HashSet();
-        
+
         Iterator i = getEntitledGroups().iterator();
-        
+
         while (i.hasNext()) {
             ServerGroupType sgt = ((ServerGroup) i.next()).getGroupType();
-            
+
             if (!sgt.isBase()) {
                 s.add(EntitlementManager.getByName(sgt.getLabel()));
             }
         }
-        
+
         return s;
     }
 
     /**
      * Returns a comma-delimted list of add-on entitlements with their human readable
      * labels.
-     * 
+     *
      * @return A comma-delimted list of add-on entitlements with their human readable
      * labels.
      */
@@ -1300,43 +1300,43 @@ public class Server extends BaseDomainHelper implements Identifiable {
         Iterator iterator = addOnEntitlements.iterator();
         StringBuffer buffer = new StringBuffer();
         Entitlement entitlement = null;
-        
+
         while (iterator.hasNext()) {
             entitlement = (Entitlement)iterator.next();
             buffer.append(entitlement.getHumanReadableLabel()).append(", ");
         }
-        
+
         if (!addOnEntitlements.isEmpty()) {
             buffer.delete(buffer.length() - 2, buffer.length());
         }
-        
+
         return buffer.toString();
     }
- 
+
     /**
      * Return <code>true</code> if this is a virtual host, <code>false</code> otherwise.
      * If this is a host system, {@link #getVirtualInstance()} will always be <code>null
      * </code> since we are not supporting/implementing guests of guest in the RHN 500
      * release.
-     * 
+     *
      * @return true if the system is a virtual host
      */
     public boolean isVirtualHost() {
         return hasVirtualizationEntitlement();
     }
-   
+
     /**
      * Return <code>true</code> if this a guest system, <code>false</code> otherwise. If
      * this system is a guest, {@link #getVirtualInstance()} will be non-<code>null</code>.
-     * 
+     *
      * @return <code>true</code> if this a guest system, <code>false</code> otherwise.
      */
     public boolean isVirtualGuest() {
         return getVirtualInstance() != null;
     }
-    
+
     /**
-     * Return <code>true</code> if this system has virtualization entitlements, 
+     * Return <code>true</code> if this system has virtualization entitlements,
      * <code>false</code> otherwise.
      * @return <code>true</code> if this system has virtualization entitlements,
      *      <code>false</code> otherwise.
@@ -1345,23 +1345,23 @@ public class Server extends BaseDomainHelper implements Identifiable {
         return hasEntitlement(EntitlementManager.VIRTUALIZATION) ||
             hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM);
     }
-    
+
     private boolean hasGuests() {
         return getGuests().size() > 0;
     }
-    
+
     /**
-     * 
+     *
      * @return the virtual guests
      */
     private Set<VirtualInstance> getVirtualGuests() {
         return guests;
     }
-    
+
     private void setVirtualGuests(Set<VirtualInstance> virtualGuests) {
         this.guests = virtualGuests;
     }
-    
+
     /**
      * Returns a read-only collection of VirtualInstance objects.
      * @return A read-only collection of VirtualInstance objects.
@@ -1377,22 +1377,22 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return Collections.unmodifiableCollection(retval);
     }
-    
+
     /**
-     * 
+     *
      * @param guest the guest to add
      */
     public void addGuest(VirtualInstance guest) {
         guest.setHostSystem(this);
         guests.add(guest);
     }
-    
+
     /**
      * Removes the virtual instance guest from this server. If the guest is registered,
      * then the guest server will be deleted from the virtual instance.
-     *  
+     *
      * @param guest The virtual instance to delete
-     *  
+     *
      * @return <code>true</code> if the guest is deleted, <code>false</code> otherwise.
      */
     public boolean deleteGuest(VirtualInstance guest) {
@@ -1402,7 +1402,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return false;
     }
-    
+
     private boolean canDeleteGuest(VirtualInstance guest) {
         for (VirtualInstance g : getGuests()) {
             if (g.getId().equals(guest.getId())) {
@@ -1411,11 +1411,11 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return false;
     }
-    
+
     /**
-     * Remove the association between a guest and this server, but do not delete the 
+     * Remove the association between a guest and this server, but do not delete the
      * guest server.
-     * 
+     *
      * @param guest Guest to remove from this server.
      * @return <code>true</code> if the guest is deleted, <code>false</code> otherwise.
      */
@@ -1425,41 +1425,41 @@ public class Server extends BaseDomainHelper implements Identifiable {
             VirtualInstance g = it.next();
             if (g.getId().equals(guest.getId())) {
                 guest.setHostSystem(null);
-                
+
                 it.remove();
                 deleted = true;
                 break;
             }
         }
-        
+
         return deleted;
     }
 
-    
+
     /**
      * Return the virtual instance that owns this server when the server is a virtual guest.
-     * 
-     * @return The virtual instance that owns this server when the server is a virtual 
+     *
+     * @return The virtual instance that owns this server when the server is a virtual
      * guest. If the server is not a guest, the method returns <code>null</code>.
      */
     public VirtualInstance getVirtualInstance() {
         return virtualInstance;
     }
-    
+
     /**
      * Sets the owning virtual instance for this server, which effectively makes this a
      * guest system.
-     * 
+     *
      * @param instance The owning virtual instance
      */
-    // Note that while the relationship between guest and virtual instance needs to be 
+    // Note that while the relationship between guest and virtual instance needs to be
     // bi-directional, we want to manage the relationship (add/delete) from the virtual
     // instance since it is the owner/parent. Hence, the reason for package visibility on
     // this method.
     void setVirtualInstance(VirtualInstance instance) {
         virtualInstance = instance;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -1483,7 +1483,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
                                   .append(getProxyInfo(), castOther.getProxyInfo())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -1548,7 +1548,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         this.serverUuid = serverUuidIn;
     }
 
-    /** 
+    /**
      * Business method to check if the system is considered 'inactive'
      * @return boolean if it hasn't checked in recently.
      */
@@ -1556,17 +1556,17 @@ public class Server extends BaseDomainHelper implements Identifiable {
         Date lastCheckin = this.getLastCheckin();
         long millisInDay = (1000 * 60 * 60 * 24);
         long threshold = Config.get().getInt(ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD, 1);
-        Date yesterday = new Timestamp(System.currentTimeMillis() - 
+        Date yesterday = new Timestamp(System.currentTimeMillis() -
                 (millisInDay * threshold));
         return lastCheckin.before(yesterday);
     }
-    
-    
+
+
     /**
-     * Get the Set of Child Channel objects associated with this server.  This 
+     * Get the Set of Child Channel objects associated with this server.  This
      * is just a convenience method.  Basically the channels associated with this
-     * server that are not base channels. 
-     * 
+     * server that are not base channels.
+     *
      * @return Set of Child Channels.  null of none found.
      */
     public Set<Channel> getChildChannels() {
@@ -1603,7 +1603,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public void setPushClient(PushClient pushClientIn) {
         this.pushClient = pushClientIn;
     }
-    
+
     /**
      * Simple check to see if the Server is subscribed to the passed in channel already.
      * @param channelIn to check
@@ -1616,7 +1616,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return false;
     }
-    
+
     /**
      * Check to see if the passed in entitlement can be applied to this server.
      * @param entIn to check
@@ -1631,10 +1631,10 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return true;
     }
-    
+
     /**
      * Get the Set of valid addon Entitlements for this server.
-     * 
+     *
      * @return Set of valid addon Entitlement instances for this server
      */
     public Set getValidAddonEntitlementsForServer() {
@@ -1651,12 +1651,12 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
     /**
      * An adapter method that transforms a Server into a HostAndGuestCountView.
-     * 
+     *
      * @return A HostAndGuestCountView from which the Server was transformed
      */
     public HostAndGuestCountView asHostAndGuestCountView() {
         return new HostAndGuestCountView(getId(), getName(), getGuests().size());
-                
+
     }
 
     /**
@@ -1673,7 +1673,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public void setHistory(Set historyIn) {
         this.history = historyIn;
     }
-    
+
     /**
      * @return Returns the packages.
      */
@@ -1681,7 +1681,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         return packages;
     }
 
-    
+
     /**
      * @param packagesIn The packages to set.
      */
@@ -1691,8 +1691,8 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Returns the "Release" package associated to this server
-     * This has useful information like the Rhel release, and evr 
-     * @return the Redhat release Installed Package 
+     * This has useful information like the Rhel release, and evr
+     * @return the Redhat release Installed Package
      */
     public InstalledPackage getReleasePackage() {
         return PackageManager.lookupReleasePackageFor(this);
@@ -1746,10 +1746,10 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
 
     /**
-     * Returns the cobbler object associated to 
+     * Returns the cobbler object associated to
      * to this server.
      * @param user the user object needed for connection,
-     *              enter null if you want to use the 
+     *              enter null if you want to use the
      *              automated connection as provided by
      *              taskomatic.
      * @return the SystemRecord associated to this server

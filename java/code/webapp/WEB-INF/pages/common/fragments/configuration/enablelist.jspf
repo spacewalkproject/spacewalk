@@ -25,6 +25,6 @@
       <font color="red"><strong><bean:message key="targetsystems.jsp.orgadmin"/></strong></font><br />
     </c:if>
   </rhn:require>
-  
+
   ${current.requiredActionsDisplay}
 </rhn:column>

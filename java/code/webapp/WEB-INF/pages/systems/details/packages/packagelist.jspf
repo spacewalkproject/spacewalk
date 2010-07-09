@@ -32,7 +32,7 @@
 
 <rl:listset name="packageListSet">
 	<rl:list dataset="pageList"
-         width="100%"        
+         width="100%"
          name="packageList"
          styleclass="list"
          emptykey="packagelist.jsp.nopackages"
@@ -58,14 +58,14 @@
     			<c:otherwise><bean:message key="packagelist.jsp.notspecified"/></c:otherwise>
     		</c:choose>
     	</rl:column>
-    </c:if>    		  
+    </c:if>
 	</rl:list>
  			
 <c:if test="${not empty requestScope.all}">
 <div align="right">
    <rhn:submitted/>
    <hr/>
-    <input type="submit" 
+    <input type="submit"
     	name ="dispatch"
 	    value='<bean:message key="${dispatch}"/>'/>
 </div>

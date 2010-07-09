@@ -28,27 +28,27 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class OrgManagerTest extends RhnBaseTestCase {
-  
+
     /**
      * TestOrgsInsat
      * @throws Exception if error
      */
     public void testOrgsInSat() throws Exception {
-      
+
         User user = UserTestUtils.findNewUser("test-morg", "testorg-foo", true);
         Org o = user.getOrg();
-        // add satellite_admin since its not one of the implied roles     
+        // add satellite_admin since its not one of the implied roles
         o.addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
         UserFactory.save(user);
-      
+
         UserTestUtils.addManagement(o);
         UserTestUtils.addProvisioning(o);
         UserTestUtils.addVirtualization(o);
-      
+
         DataList orgs = OrgManager.activeOrgs(user);
         assertNotNull(orgs);
-        assertTrue(orgs.size() > 0);      
+        assertTrue(orgs.size() > 0);
     }
-  
+
 }

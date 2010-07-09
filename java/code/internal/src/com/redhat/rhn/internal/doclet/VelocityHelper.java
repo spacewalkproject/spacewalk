@@ -25,15 +25,15 @@ import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 
 /**
- * 
+ *
  * VelocityHelper
  * @version $Rev$
  */
 public class VelocityHelper {
-    
+
     private VelocityEngine ve = new VelocityEngine();
     private VelocityContext context = new VelocityContext();
-    
+
     /**
      * Constructor to be used when using a template file
      * @param templateDir the template directory
@@ -43,18 +43,18 @@ public class VelocityHelper {
         Properties p = new Properties();
         p.setProperty("file.resource.loader.path", templateDir);
         ve.init(p);
-        
+
     }
-    
+
     /**
      * Constructor used when the template will be passed in
      * @throws Exception e
      */
     public VelocityHelper() throws Exception {
     }
- 
-    
-    
+
+
+
     /**
      * adds a template match to teh helper
      * @param key what to find
@@ -63,7 +63,7 @@ public class VelocityHelper {
     public void addMatch(String key, Object value) {
         context.put(key, value);
     }
-    
+
     /**
      * render the template according to a template file
      * @param fileName the filename
@@ -74,19 +74,19 @@ public class VelocityHelper {
         Template t = ve.getTemplate(fileName);
         StringWriter writer = new StringWriter();
         Calendar cal = Calendar.getInstance();
-        
-        String date = (cal.get(Calendar.MONTH) + 1) + "/" + 
-                 cal.get(Calendar.DAY_OF_MONTH) +  
+
+        String date = (cal.get(Calendar.MONTH) + 1) + "/" +
+                 cal.get(Calendar.DAY_OF_MONTH) +
                  "/" + cal.get(Calendar.YEAR);
-        
+
         context.put("current_date", date);
         t.merge(context, writer);
         return writer.toString();
     }
-    
-    
-    
-    
+
+
+
+
     /**
      * render the template according to what we've added to addMatch
      * @param template the template
@@ -96,10 +96,10 @@ public class VelocityHelper {
     public String renderTemplate(String template) throws Exception {
         StringWriter writer = new StringWriter();
         StringReader reader = new StringReader(template);
-        
-        Velocity.evaluate(context, writer, "a", reader);             
-        
+
+        Velocity.evaluate(context, writer, "a", reader);
+
         return writer.toString();
     }
-   
+
 }

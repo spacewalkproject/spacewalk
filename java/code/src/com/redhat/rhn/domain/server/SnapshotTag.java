@@ -26,21 +26,21 @@ import java.util.Set;
  * @version $Rev: 118113 $
  */
 public class SnapshotTag extends BaseDomainHelper {
-    
-   
+
+
     private Long id;
     private SnapshotTagName name;
     private Org org;
-    
+
     private Set<ServerSnapshot> snapshots;
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
@@ -48,7 +48,7 @@ public class SnapshotTag extends BaseDomainHelper {
         this.id = idIn;
     }
 
-    
+
     /**
      * @return Returns the name.
      */
@@ -56,7 +56,7 @@ public class SnapshotTag extends BaseDomainHelper {
         return name;
     }
 
-    
+
     /**
      * @param nameIn The name to set.
      */
@@ -64,7 +64,7 @@ public class SnapshotTag extends BaseDomainHelper {
         this.name = nameIn;
     }
 
-    
+
     /**
      * @return Returns the org.
      */
@@ -72,7 +72,7 @@ public class SnapshotTag extends BaseDomainHelper {
         return org;
     }
 
-    
+
     /**
      * @param orgIn The org to set.
      */
@@ -80,7 +80,7 @@ public class SnapshotTag extends BaseDomainHelper {
         this.org = orgIn;
     }
 
-    
+
     /**
      * @return Returns the snapshots.
      */
@@ -88,16 +88,16 @@ public class SnapshotTag extends BaseDomainHelper {
         return snapshots;
     }
 
-    
+
     /**
      * @param snapshotsIn The snapshots to set.
      */
     public void setSnapshots(Set<ServerSnapshot> snapshotsIn) {
         this.snapshots = snapshotsIn;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {

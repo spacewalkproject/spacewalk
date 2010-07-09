@@ -34,14 +34,14 @@ public class Task implements Serializable {
     private Date earliest;
     private Org org;
 
-    
+
     /**
      * @return Returns the data.
      */
     public Long getData() {
         return data;
     }
-    
+
     /**
      * @param dataIn The data to set.
      */
@@ -55,56 +55,56 @@ public class Task implements Serializable {
     public Date getEarliest() {
         return earliest;
     }
-    
+
     /**
      * @param earliestIn The earliest to set.
      */
     public void setEarliest(Date earliestIn) {
         this.earliest = earliestIn;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
-    
+
     /**
      * @return Returns the org.
      */
     public Org getOrg() {
         return org;
     }
-    
+
     /**
      * @param orgIn The org to set.
      */
     public void setOrg(Org orgIn) {
         this.org = orgIn;
     }
-    
+
     /**
      * @return Returns the priority.
      */
     public int getPriority() {
         return priority;
     }
-    
+
     /**
      * @param priorityIn The priority to set.
      */
     public void setPriority(int priorityIn) {
         this.priority = priorityIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -120,7 +120,7 @@ public class Task implements Serializable {
                                   .append(earliest, castOther.earliest)
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */

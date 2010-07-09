@@ -39,9 +39,9 @@ import java.util.List;
  * @version $Rev$
  */
 public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
-    
+
     protected Server s;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -55,16 +55,16 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());*/
         s = ServerTestUtils.createTestSystem(user);
         ChannelTestUtils.setupBaseChannelForVirtualization(user, s.getBaseChannel());
-        
+
         UserTestUtils.addProvisioning(user.getOrg());
         UserTestUtils.addMonitoring(user.getOrg());
         UserTestUtils.addVirtualization(user.getOrg());
         UserTestUtils.addVirtualizationPlatform(user.getOrg());
         TestUtils.saveAndFlush(user.getOrg());
-        
+
         request.addParameter("sid", s.getId().toString());
     }
-    
+
     public void testBasicFormSubmission() throws Exception {
         request.addParameter(SystemDetailsEditAction.NAME, "Augustus");
         request.addParameter(SystemDetailsEditAction.DESCRIPTION, "First Emperor");
@@ -90,7 +90,7 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
         assertEquals("Imperial Throne Room", s.getLocation().getRoom());
         assertEquals("Imperial PC Rack", s.getLocation().getRack());
     }
-    
+
     public void testInvalidFormSubmission() throws Exception {
         String originalName = s.getName();
         request.addParameter(SystemDetailsEditAction.NAME, "ha");
@@ -100,37 +100,37 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
         /* Verifying nothing changed */
         assertEquals(originalName, s.getName());
     }
-    
+
     public void testBaseEntitlementListForEntitledSystem() throws Exception {
         actionPerform();
         verifyForward("default");
         List options = (List) request
                               .getAttribute(SystemDetailsEditAction
                                             .BASE_ENTITLEMENT_OPTIONS);
-        
+
         boolean unentitledValueFound = false;
-        
+
         Iterator i = options.iterator();
-        
+
         while (i.hasNext()) {
             LabelValueBean bean = (LabelValueBean) i.next();
-            
+
             if (bean.getValue().equals("unentitle")) {
                 unentitledValueFound = true;
             }
         }
-        
+
         assertTrue(unentitledValueFound);
     }
-    
+
     public void testAddonEntitlemntsList() throws Exception {
         actionPerform();
         assertNotNull(request.getAttribute(SystemDetailsEditAction.ADDON_ENTITLEMENTS));
-        List addons = (List) 
+        List addons = (List)
             request.getAttribute(SystemDetailsEditAction.ADDON_ENTITLEMENTS);
         assertTrue(addons.size() > 0);
     }
-    
+
     public void testBaseEntitlementListForUnetitledSystem() throws Exception {
         SystemManager.removeAllServerEntitlements(s.getId());
         TestUtils.saveAndFlush(s);
@@ -139,31 +139,31 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
         List options = (List) request
                               .getAttribute(SystemDetailsEditAction
                                             .BASE_ENTITLEMENT_OPTIONS);
-        
+
         boolean unentitledValueFound = false;
-        
+
         Iterator i = options.iterator();
-        
+
         while (i.hasNext()) {
             LabelValueBean bean = (LabelValueBean) i.next();
-            
+
             if (bean.getValue().equals("none")) {
                 unentitledValueFound = true;
             }
         }
-        
+
         assertTrue(unentitledValueFound);
     }
-    
+
     public void testAddEntitlement() throws Exception {
         //add the base entitlement to the request to make sure we can
         // process both base and addon.  See BZ 229448
-        request.addParameter(SystemDetailsEditAction.BASE_ENTITLEMENT, 
+        request.addParameter(SystemDetailsEditAction.BASE_ENTITLEMENT,
                 EntitlementManager.MANAGEMENT.getLabel());
-        
-        addRequestParameter(EntitlementManager.PROVISIONING_ENTITLED, 
+
+        addRequestParameter(EntitlementManager.PROVISIONING_ENTITLED,
                 Boolean.TRUE.toString());
-        addRequestParameter(EntitlementManager.VIRTUALIZATION_ENTITLED, 
+        addRequestParameter(EntitlementManager.VIRTUALIZATION_ENTITLED,
                 Boolean.TRUE.toString());
         request.addParameter(SystemDetailsEditAction.NAME, s.getName());
 
@@ -172,7 +172,7 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
         s = (Server) TestUtils.reload(s);
         assertTrue(s.getAddOnEntitlements().contains(EntitlementManager.PROVISIONING));
     }
-    
+
     public void testSetBaseEntitlement() throws Exception {
         UserTestUtils.addManagement(user.getOrg());
         Long id = s.getId();
@@ -181,32 +181,32 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
         SystemManager.removeAllServerEntitlements(id);
         s = ServerFactory.lookupById(id);
         assertTrue(s.getBaseEntitlement() == null);
-                
+
         request.addParameter(SystemDetailsEditAction.NAME, name);
-        request.addParameter(SystemDetailsEditAction.BASE_ENTITLEMENT, 
+        request.addParameter(SystemDetailsEditAction.BASE_ENTITLEMENT,
                 EntitlementManager.MANAGEMENT.getLabel());
         addSubmitted();
         actionPerform();
         s = ServerFactory.lookupById(id);
         assertTrue(s.getBaseEntitlement().equals(EntitlementManager.MANAGEMENT));
     }
-     
+
     public void testUnentitle() throws Exception {
         request.addParameter(SystemDetailsEditAction.NAME, s.getName());
         assertTrue(s.getBaseEntitlement().equals(EntitlementManager.MANAGEMENT));
-        request.addParameter(SystemDetailsEditAction.BASE_ENTITLEMENT, 
+        request.addParameter(SystemDetailsEditAction.BASE_ENTITLEMENT,
                 "unentitle");
         addSubmitted();
         actionPerform();
         s = (Server) TestUtils.reload(s);
-        
+
         assertTrue("we shouldnt have a base entitlement", s.getBaseEntitlement() == null);
     }
-    
+
 
     public void testCheckboxesTrue() throws Exception {
         Iterator i = s.getValidAddonEntitlementsForServer().iterator();
-        
+
         while (i.hasNext()) {
             Entitlement e = (Entitlement) i.next();
             if (!e.equals(EntitlementManager.VIRTUALIZATION_PLATFORM)) {
@@ -215,9 +215,9 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
                 System.out.println("added: " + e.getLabel());
             }
         }
-        
+
         s.setAutoUpdate("N");
-        request.addParameter(SystemDetailsEditAction.AUTO_UPDATE, 
+        request.addParameter(SystemDetailsEditAction.AUTO_UPDATE,
                              Boolean.TRUE.toString());
         request.addParameter(SystemDetailsEditAction.NAME, s.getName());
         request.addParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
@@ -230,23 +230,23 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
         TestUtils.flushAndEvict(s);
         s = ServerFactory.lookupById(s.getId());
         i = s.getValidAddonEntitlementsForServer().iterator();
-        
+
         while (i.hasNext()) {
             Entitlement e = (Entitlement) i.next();
             if (!(e instanceof VirtualizationEntitlement)) {
-                assertTrue("Didnt find entitlement in server: " + e.getLabel(), 
+                assertTrue("Didnt find entitlement in server: " + e.getLabel(),
                         s.hasEntitlement(e));
             }
         }
         assertTrue(s.hasEntitlement(EntitlementManager.VIRTUALIZATION) ||
                 s.hasEntitlement(EntitlementManager.VIRTUALIZATION_PLATFORM));
-        
+
         assertEquals("Y", s.getAutoUpdate());
     }
-    
+
     public void testCheckboxesFalse() throws Exception {
         Iterator i = s.getValidAddonEntitlementsForServer().iterator();
-        
+
         while (i.hasNext()) {
             Entitlement e = (Entitlement) i.next();
             SystemManager.entitleServer(s, e);
@@ -254,7 +254,7 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
             s = ServerFactory.lookupById(s.getId());
             request.addParameter(e.getLabel(), Boolean.FALSE.toString());
         }
-        
+
         s.setAutoUpdate("Y");
         request .addParameter(SystemDetailsEditAction.AUTO_UPDATE,
                               Boolean.FALSE.toString());
@@ -266,12 +266,12 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
         TestUtils.flushAndEvict(s);
         s = ServerFactory.lookupById(s.getId());
         i = s.getValidAddonEntitlementsForServer().iterator();
-        
+
         while (i.hasNext()) {
             Entitlement e = (Entitlement) i.next();
             assertFalse("does have: " + e, s.hasEntitlement(e));
         }
-        
+
         assertTrue(s.getAutoUpdate().equals("N"));
     }
 }

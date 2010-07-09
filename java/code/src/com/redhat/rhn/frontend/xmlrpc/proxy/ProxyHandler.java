@@ -48,7 +48,7 @@ import java.util.List;
  * ProxyHandler
  * @version $Rev$
  * @xmlrpc.namespace proxy
- * @xmlrpc.doc Provides methods to activate/deactivate a proxy 
+ * @xmlrpc.doc Provides methods to activate/deactivate a proxy
  * server.
  */
 public class ProxyHandler extends BaseHandler {
@@ -57,7 +57,7 @@ public class ProxyHandler extends BaseHandler {
     /**
      * Create Monitoring Scout for proxy.
      * @param clientcert client certificate of the system.
-     * @return string - scout shared key on success, 
+     * @return string - scout shared key on success,
      *      empty string if system is not proxy (scout is not created)
      * @throws MethodInvalidParamException thrown if certificate is invalid.
      * @since 10.7
@@ -132,7 +132,7 @@ public class ProxyHandler extends BaseHandler {
 
         StringReader rdr = new StringReader(clientcert);
         Server server = null;
-        
+
         ClientCertificate cert;
         try {
             cert = ClientCertificateDigester.buildCertificate(rdr);
@@ -155,14 +155,14 @@ public class ProxyHandler extends BaseHandler {
         }
         return (server.isProxy() ? 1 : 0);
     }
-    
+
     /**
      * Deactivates the system identified by the given client certificate.
      * @param clientcert client certificate of the system.
      * @return 1 if the deactivation succeeded, 0 otherwise.
      * @throws ProxyNotActivatedException thrown if server is not a proxy.
      * @throws MethodInvalidParamException thrown if certificate is invalid.
-     * 
+     *
      * @xmlrpc.doc Deactivates the proxy identified by the given client
      * certificate i.e. systemid file.
      * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
@@ -170,7 +170,7 @@ public class ProxyHandler extends BaseHandler {
      */
     public int deactivateProxy(String clientcert)
         throws ProxyNotActivatedException, MethodInvalidParamException {
-        
+
         StringReader rdr = new StringReader(clientcert);
         try {
             ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
@@ -186,7 +186,7 @@ public class ProxyHandler extends BaseHandler {
             if (!server.isProxy()) {
                 throw new ProxyNotActivatedException();
             }
-            
+
             SystemManager.deactivateProxy(server);
             return 1;
         }
@@ -199,7 +199,7 @@ public class ProxyHandler extends BaseHandler {
             throw new ProxyNotActivatedException(e);
         }
     }
-    
+
     /**
      * Activates the proxy identified by the given client certificate.
      * @param clientcert client certificate of the system.
@@ -211,36 +211,36 @@ public class ProxyHandler extends BaseHandler {
      * @throws ProxySystemIsSatelliteException thrown if client certificate is
      * for a satellite
      * @throws InvalidProxyVersionException thrown if version is not supported.
-     * @throws ProxyNeedProvisioningException thrown if system do not have 
+     * @throws ProxyNeedProvisioningException thrown if system do not have
      * provisioning entitlement.
-     * 
+     *
      * @xmlrpc.doc Activates the proxy identified by the given client
      * certificate i.e. systemid file.
      * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
-     * @xmlrpc.param #param_desc("string", "version", "Version of proxy to be 
+     * @xmlrpc.param #param_desc("string", "version", "Version of proxy to be
      * registered.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int activateProxy(String clientcert, String version)
         throws ProxyAlreadyRegisteredException, MethodInvalidParamException,
                ProxySystemIsSatelliteException, InvalidProxyVersionException {
-        
+
         StringReader rdr = new StringReader(clientcert);
         try {
             ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
             Server server = SystemManager.lookupByCert(cert);
-            
+
             if (server.isProxy()) {
                 throw new ProxyAlreadyRegisteredException();
             }
-            
+
             if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
                 throw new ProxyNeedProvisioningException();
             }
 
             // if the server does nto have enterprise_entitled entitlement, add it
             //
-            
+
             if (!server.hasEntitlement(EntitlementManager.MANAGEMENT)) {
                 SystemManager.entitleServer(server, EntitlementManager.MANAGEMENT);
             }
@@ -267,7 +267,7 @@ public class ProxyHandler extends BaseHandler {
      * @return 1 if the deactivation succeeded, 0 otherwise.
      * @since 10.5
      *
-     * @xmlrpc.doc List available version of proxy channel for system 
+     * @xmlrpc.doc List available version of proxy channel for system
      * identified by the given client certificate i.e. systemid file.
      * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
      * @xmlrpc.returntype  #array_single ("string", "version")

@@ -21,7 +21,7 @@ import java.util.Date;
 
 /**
  * Class UserGroup that reflects the DB representation of RHNUSERGROUP
- * This class and package are only intended to be used internally by the 
+ * This class and package are only intended to be used internally by the
  * parent of this package, com.redhat.rhn.domain.org
  *
  * DB table: RHNUSERGROUP
@@ -29,108 +29,108 @@ import java.util.Date;
  */
 public interface UserGroup {
 
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return id
      */
     Long getId();
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn New value for id
      */
     void setId(Long idIn);
 
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * @return name
      */
     String getName();
 
-    /** 
-     * Setter for name 
+    /**
+     * Setter for name
      * @param nameIn New value for name
      */
     void setName(String nameIn);
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * @return description
      */
     String getDescription();
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * @param descriptionIn New value for description
      */
     void setDescription(String descriptionIn);
 
-    /** 
-     * Getter for currentMembers 
+    /**
+     * Getter for currentMembers
      * @return currentMembers
      */
     Long getCurrentMembers();
 
-    /** 
-     * Setter for currentMembers 
+    /**
+     * Setter for currentMembers
      * @param currentMembersIn New value for currentMembers
      */
     void setCurrentMembers(Long currentMembersIn);
 
-    /** 
-     * Getter for role 
+    /**
+     * Getter for role
      * @return role
      */
     Role getRole();
 
-    /** 
-     * Setter for role 
+    /**
+     * Setter for role
      * @param roleIn New value for role
      */
     void setRole(Role roleIn);
 
-    /** 
-     * Getter for orgId 
+    /**
+     * Getter for orgId
      * @return orgId
      */
     Long getOrgId();
 
-    /** 
-     * Setter for orgId 
+    /**
+     * Setter for orgId
      * @param orgIdIn New value for orgId
      */
     void setOrgId(Long orgIdIn);
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return created
      */
     Date getCreated();
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn New value for created
      */
     void setCreated(Date createdIn);
 
-    /** 
+    /**
      * Getter for modified
      * @return modified
      */
     Date getModified();
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn New value for modified
      */
     void setModified(Date modifiedIn);
-    
-    /** 
+
+    /**
      * Determine if the given Role is associated with this UserGroup
      * @param rin Role to test
      * @return true if rin is an associated role
      */
     boolean isAssociatedRole(Role rin);
-    
-   
+
+
 }

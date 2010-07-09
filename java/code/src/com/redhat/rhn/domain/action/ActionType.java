@@ -28,81 +28,81 @@ public class ActionType {
     private String name;
     private Character triggersnapshot;
     private Character unlockedonly;
-   
+
     /**
      * @return Returns the id.
      */
     public Integer getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Integer i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param l The label to set.
      */
     public void setLabel(String l) {
         this.label = l;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
     public void setName(String n) {
         this.name = n;
     }
-    
+
     /**
      * @return Returns the triggersnapshot.
      */
     public Character getTriggersnapshot() {
         return triggersnapshot;
     }
-    
+
     /**
      * @param t The triggersnapshot to set.
      */
     public void setTriggersnapshot(Character t) {
         this.triggersnapshot = t;
     }
-    
+
     /**
      * @return Returns the unlockedonly.
      */
     public Character getUnlockedonly() {
         return unlockedonly;
     }
-    
+
     /**
      * @param u The unlockedonly to set.
      */
     public void setUnlockedonly(Character u) {
         this.unlockedonly = u;
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    public boolean equals(Object o) {        
+    public boolean equals(Object o) {
         if (o == null || !(o instanceof ActionType)) {
             return false;
         }
@@ -115,7 +115,7 @@ public class ActionType {
                                   .append(this.getUnlockedonly(), other.getUnlockedonly())
                                   .isEquals();
     }
-    
+
     /**
      * Output ActionType to string
      * @return Returns ActionType as a String
@@ -127,7 +127,7 @@ public class ActionType {
         result.append(name);
         return result.toString();
     }
-    
+
     /**
      * {@inheritDoc}
      */

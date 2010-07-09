@@ -40,21 +40,21 @@ public class SatUserListAction extends RhnAction {
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
-        Long oid = user.getOrg().getId();        
+        Long oid = user.getOrg().getId();
         Org org = OrgFactory.lookupById(oid);
-        String name = org.getName();        
-        
-        DataList result = OrgManager.allUsers();                
-        
-        Long canModify =  (user.getOrg().getId().longValue() == 
-            oid.longValue()) && 
-           (user.hasRole(RoleFactory.ORG_ADMIN)) && 
-           (AclManager.hasAcl("org_entitlement(sw_mgr_enterprise)", request, null)) ? 
+        String name = org.getName();
+
+        DataList result = OrgManager.allUsers();
+
+        Long canModify =  (user.getOrg().getId().longValue() ==
+            oid.longValue()) &&
+           (user.hasRole(RoleFactory.ORG_ADMIN)) &&
+           (AclManager.hasAcl("org_entitlement(sw_mgr_enterprise)", request, null)) ?
                    new Long(1) : new Long(0);
 
         request.setAttribute("canModify", canModify);

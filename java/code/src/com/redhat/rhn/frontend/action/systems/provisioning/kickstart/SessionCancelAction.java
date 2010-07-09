@@ -36,7 +36,7 @@ public class SessionCancelAction extends BaseSystemEditAction {
                 ctx.getCurrentUser(), ctx.getRequiredParam(RequestContext.SID));
     }
 
-    protected ValidatorError processFormValues(DynaActionForm form, 
+    protected ValidatorError processFormValues(DynaActionForm form,
             BaseSystemOperation cmd) {
         return cmd.store();
     }
@@ -51,12 +51,12 @@ public class SessionCancelAction extends BaseSystemEditAction {
     /**
      * {@inheritDoc}
      */
-    protected void setupFormValues(RequestContext ctx, DynaActionForm form, 
+    protected void setupFormValues(RequestContext ctx, DynaActionForm form,
             BaseSystemOperation cmd) {
         KickstartSession kss = KickstartFactory.
             lookupKickstartSessionByServer(cmd.getServer().getId());
         ctx.getRequest().setAttribute(RequestContext.KICKSTART_SESSION, kss);
-        SdcHelper.ssmCheck(ctx.getRequest(), ctx.lookupServer().getId(), 
+        SdcHelper.ssmCheck(ctx.getRequest(), ctx.lookupServer().getId(),
                 ctx.getCurrentUser());
     }
 

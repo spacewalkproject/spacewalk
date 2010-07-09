@@ -28,9 +28,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
 /**
  * EntitlementSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
- * #struct("entitlement info") 
+ * #struct("entitlement info")
  *   #prop("string", "label")
  *   #prop("string", "name")
  *   #prop("string", "type")

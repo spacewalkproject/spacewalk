@@ -21,26 +21,26 @@ package com.redhat.rhn.common.messaging;
  * @version $Rev$
  */
 public interface Mail {
-    
-    /** 
+
+    /**
     * Send the actual message
     */
     void send();
-    
+
     /**
      * Set the from field of the email message
      * @param from Email address this message is from.
      */
     void setFrom(String from);
-    
+
     /**
      * Set a header value for the message
      * @param name The header name to set
      * @param value The header value to set
      */
     void setHeader(String name, String value);
-    
-    /** 
+
+    /**
      * Set the recipients of the email message.
      * @param recipIn Array of Recipients to whom to send.
      */
@@ -51,23 +51,23 @@ public interface Mail {
      * @param emailAddrs Array of email addrs to whom to send.
      */
     void setCCRecipients(String[] emailAddrs);
-    
+
     /**
      * Sets the BCC recipients of the email message
      * @param emailAddrs Array of email addrs to whom to send.
      */
     void setBCCRecipients(String[] emailAddrs);
-    
+
     /** Set a single recipient of the email message.
      * @param recipIn The intended recipient.
      */
     void setRecipient(String recipIn);
-    
+
     /** Set the subject of the email message
      * @param subIn Subject of email message.
      */
     void setSubject(String subIn);
-    
+
     /** Set the text of the email message
      * @param textIn Text of email.
     */

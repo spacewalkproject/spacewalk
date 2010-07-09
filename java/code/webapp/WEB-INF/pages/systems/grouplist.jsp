@@ -12,7 +12,7 @@
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-system_group.gif" imgAlt="system.common.groupAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-group-list"
- creationUrl="/network/systems/groups/create.pxt" 
+ creationUrl="/network/systems/groups/create.pxt"
  creationType="group"
  creationAcl="user_role(system_group_admin)">
   <bean:message key="grouplist.jsp.header"/>

@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * ScoutConfigPushCommand - simple command to invoke a Scout Config push for 
+ * ScoutConfigPushCommand - simple command to invoke a Scout Config push for
  * all the Scouts defined within an Organization.
  * @version $Rev$
  */
@@ -40,7 +40,7 @@ public class ScoutConfigPushCommand extends BasePersistOperation {
         super();
         this.user = userIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -59,7 +59,7 @@ public class ScoutConfigPushCommand extends BasePersistOperation {
 
             m.execute(in, new HashMap());
         }
-        
+
         return null;
     }
 

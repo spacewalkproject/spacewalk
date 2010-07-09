@@ -22,7 +22,7 @@
 
 	<br>
 
-  
+
 	<rl:listset name="pendingList">
 
 		<rl:list emptykey="pendingactions.jsp.nogroups" styleclass="list">
@@ -105,7 +105,7 @@
 	</rl:listset>
 
 
-  
+
 
 	
 </body>

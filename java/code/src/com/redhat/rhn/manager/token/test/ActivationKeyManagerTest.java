@@ -46,7 +46,7 @@ import java.util.Set;
  */
 public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
     private ActivationKeyManager manager;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         manager = ActivationKeyManager.getInstance();
@@ -69,11 +69,11 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
     public void testDeployConfig() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //need a tools channel for config deploy
         Channel base = ChannelTestUtils.createBaseChannel(user);
         ChannelTestUtils.setupBaseChannelForVirtualization(user, base);
-        
+
         ActivationKey key = createActivationKey();
         //Create a config channel
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
@@ -90,12 +90,12 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
         ActivationKey key = createActivationKey();
-        
+
         //need a tools channel for config deploy
         Channel base = ChannelTestUtils.createBaseChannel(user);
         ChannelTestUtils.setupBaseChannelForVirtualization(user, base);
-        
-        
+
+
         try {
             key.setDeployConfigs(true);
             fail("Permission exception not raised");
@@ -114,16 +114,16 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         assertFalse(key.getChannels().isEmpty());
         assertFalse(key.getPackages().isEmpty());
         assertTrue(key.getConfigChannelsFor(user).contains(cc));
-    }    
-    
+    }
+
     public void testLookup() {
         //first lets just check on permissions...
         user.addRole(RoleFactory.ACTIVATION_KEY_ADMIN);
         final ActivationKey key = manager.createNewActivationKey(user, "Test");
         ActivationKey temp;
         //we make newuser
-        // unfortunately satellite is NOT multiorg aware... 
-        //So we can't check on the org clause 
+        // unfortunately satellite is NOT multiorg aware...
+        //So we can't check on the org clause
         //so...
         User newUser = UserTestUtils.findNewUser("testUser2", "testOrg");
         try {
@@ -131,12 +131,12 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
             String msg = "Permission check failed :(.." +
                             "Activation key should not have gotten found out" +
                          " because the user does not have activation key admin role";
-                         
+
             fail(msg);
         }
         catch (Exception e) {
             // great!.. Exception for permission failure always welcome
-        }        
+        }
         try {
             temp = manager.lookupByKey(key.getKey() + "FOFOFOFOFOFOF", user);
             String msg = "NUll lookup failed, because this object should NOT exist!";
@@ -149,7 +149,7 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         assertNotNull(temp);
         assertEquals(user.getOrg(), temp.getOrg());
     }
-    
+
     public void testCreatePermissions() throws Exception {
         ActivationKey key;
         //test permissions
@@ -167,11 +167,11 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         //test permissions
         try {
             String keyName = "I_RULE_THE_WORLD";
-            Long usageLimit = new Long(1200); 
+            Long usageLimit = new Long(1200);
             Channel baseChannel = ChannelTestUtils.createBaseChannel(user);
-            String note = "Test";    
-            key = manager.createNewActivationKey(user, 
-                                                    keyName, note, usageLimit, 
+            String note = "Test";
+            key = manager.createNewActivationKey(user,
+                                                    keyName, note, usageLimit,
                                                     baseChannel, true);
 
             String msg = "Permission check failed :(.." +
@@ -182,9 +182,9 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         catch (Exception e) {
             // great!.. Exception for permission failure always welcome
         }
-        
+
     }
-    
+
     public void testCreate() throws Exception {
         user.addRole(RoleFactory.ACTIVATION_KEY_ADMIN);
         String note = "Test";
@@ -193,24 +193,24 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         assertEquals(note, key.getNote());
         assertNotNull(key.getKey());
         Server server = ServerFactoryTest.createTestServer(user, true);
-                
+
         final ActivationKey key1 = manager.createNewReActivationKey(user, server, note);
         assertEquals(server, key1.getServer());
-        
+
         ActivationKey temp = manager.lookupByKey(key.getKey(), user);
         assertNotNull(temp);
         assertEquals(user.getOrg(), temp.getOrg());
         assertEquals(note, temp.getNote());
-        
+
         String keyName = "I_RULE_THE_WORLD";
-        Long usageLimit = new Long(1200); 
+        Long usageLimit = new Long(1200);
         Channel baseChannel = ChannelTestUtils.createBaseChannel(user);
-        
+
         final ActivationKey key2 = manager.createNewReActivationKey(user, server,
-                                                keyName, note, usageLimit, 
+                                                keyName, note, usageLimit,
                                                 baseChannel, true, null);
-        
-        
+
+
         temp = (ActivationKey)reload(key2);
         assertTrue(temp.getKey().endsWith(keyName));
         assertEquals(note, temp.getNote());
@@ -218,27 +218,27 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         Set channels = new HashSet();
         channels.add(baseChannel);
         assertEquals(channels, temp.getChannels());
-        
-        //since universal default == true we have to 
-        // check if the user org has it..        
+
+        //since universal default == true we have to
+        // check if the user org has it..
         Token token = user.getOrg().getToken();
         assertEquals(channels, token.getChannels());
         assertEquals(usageLimit, token.getUsageLimit());
     }
-    
+
     public ActivationKey createActivationKey() throws Exception {
         user.addRole(RoleFactory.ACTIVATION_KEY_ADMIN);
         return  manager.createNewActivationKey(user, TestUtils.randomString());
     }
-    
+
     public void testVirtEnt() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
         UserTestUtils.addVirtualization(user.getOrg());
         Channel baseChannel = ChannelTestUtils.createBaseChannel(user);
-        Channel [] channels = 
+        Channel [] channels =
             ChannelTestUtils.setupBaseChannelForVirtualization(user, baseChannel);
-        
+
         checkVirtEnt(ServerConstants.getServerGroupTypeVirtualizationEntitled(),
                         channels[ChannelTestUtils.VIRT_INDEX],
                         channels[ChannelTestUtils.TOOLS_INDEX]);
@@ -246,8 +246,8 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
                 channels[ChannelTestUtils.VIRT_INDEX],
                 channels[ChannelTestUtils.TOOLS_INDEX]);
     }
-    
-    private void checkVirtEnt(ServerGroupType sgt, 
+
+    private void checkVirtEnt(ServerGroupType sgt,
                 Channel virt, Channel tools) throws Exception {
         ActivationKey key = createActivationKey();
         key.addEntitlement(sgt);

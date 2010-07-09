@@ -32,23 +32,23 @@ import java.util.Map;
 
 /**
  * Cleans up orphaned packages
- * 
+ *
  * @version $Rev $
  */
 
 public class PackageCleanup extends SingleThreadedTestableTask {
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
-     */    
+     */
     public static final String DISPLAY_NAME = "package_cleanup";
-    
+
     private static Logger logger = Logger.getLogger(PackageCleanup.class);
 
     /**
      * {@inheritDoc}
      */
-    public void execute(JobExecutionContext ctx, boolean testContext) 
+    public void execute(JobExecutionContext ctx, boolean testContext)
             throws JobExecutionException {
         try {
             String pkgDir = null;
@@ -58,13 +58,13 @@ public class PackageCleanup extends SingleThreadedTestableTask {
             else {
                 pkgDir = Config.get().getString("web.mount_point");
             }
-            
+
             // Retrieve list of orpahned packages
             List candidates = findCandidates();
             if (testContext) {
                 assert (candidates.size() == 1);
             }
-            
+
             // Bail if no work to do
             if (candidates == null || candidates.size() == 0) {
                 if (logger.isDebugEnabled()) {
@@ -74,7 +74,7 @@ public class PackageCleanup extends SingleThreadedTestableTask {
             else if (logger.isDebugEnabled()) {
                 logger.debug("Found " + candidates.size() + " orphaned pacakges");
             }
-            
+
             // Delete them from the filesystem
             for (Iterator iter = candidates.iterator(); iter.hasNext();) {
                 Map row = (Map) iter.next();
@@ -90,7 +90,7 @@ public class PackageCleanup extends SingleThreadedTestableTask {
                 }
                 deletePackage(pkgDir, path, testContext);
             }
-            
+
             // Reset the queue (table)
             resetQueue();
         }
@@ -99,13 +99,13 @@ public class PackageCleanup extends SingleThreadedTestableTask {
             throw new JobExecutionException(e);
         }
     }
-    
+
     private void resetQueue() {
-        WriteMode update = ModeFactory.getWriteMode(TaskConstants.MODE_NAME, 
+        WriteMode update = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_PKGCLEANUP_RESET_QUEUE);
         update.executeUpdate(Collections.EMPTY_MAP);
     }
-    
+
     private void deletePackage(String pkgDir, String path, boolean testContext) {
         File f = new File(pkgDir, path);
         if (testContext) {
@@ -135,7 +135,7 @@ public class PackageCleanup extends SingleThreadedTestableTask {
             logger.error(f.getAbsoluteFile() + " not found");
         }
     }
-       
+
     private List findCandidates() {
         SelectMode query = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_PKGCLEANUP_FIND_CANDIDATES);

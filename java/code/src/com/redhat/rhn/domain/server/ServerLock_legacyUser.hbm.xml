@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.server.ServerLock" 
+    <class name="com.redhat.rhn.domain.server.ServerLock"
         table="rhnServerLock" >
         <id name="id" type="long" column="server_id">
             <meta attribute="scope-set">protected</meta>
@@ -14,8 +14,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <one-to-one name="server"
             class="com.redhat.rhn.domain.server.Server"
             constrained="true"/>
-        <many-to-one name="locker" 
-        			column="LOCKER_ID" 
+        <many-to-one name="locker"
+				column="LOCKER_ID"
 				class="com.redhat.rhn.domain.user.legacy.UserImpl" />
         <property name="reason" column="REASON"  type="string" length="4000" />
         <property name="created" column="CREATED" not-null="true" type="timestamp" insert="false" update="false"/>

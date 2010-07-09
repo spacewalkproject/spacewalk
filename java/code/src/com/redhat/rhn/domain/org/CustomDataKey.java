@@ -23,7 +23,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class CustomDataKey {
-    
+
     private Long id;
     private Org org;
     private String label;

@@ -20,11 +20,11 @@ import java.util.Date;
  * PushDispatcher - Class representation of the rhnPushDispatcher table.
  * Contains data used to connect to the osa-dispatcher and trigger a push
  * to clients.
- * 
+ *
  * @version $Rev$
  */
 public class PushDispatcher {
-    
+
     private Long id;
     private String jabberId;
     private String hostname;
@@ -32,113 +32,113 @@ public class PushDispatcher {
     private Date lastCheckin;
     private Date created;
     private Date modified;
-    
-    /** 
-     * Getter for created 
+
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return created;
     }
-    
-    /** 
-     * Setter for created 
+
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
-    
-    /** 
-     * Getter for hostname 
+
+    /**
+     * Getter for hostname
      * @return String to get
     */
     public String getHostname() {
         return hostname;
     }
-    
-    /** 
-     * Setter for hostname 
+
+    /**
+     * Setter for hostname
      * @param hostnameIn to set
     */
     public void setHostname(String hostnameIn) {
         this.hostname = hostnameIn;
     }
-    
-    /** 
-     * Getter for id 
+
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return id;
     }
-    
-    /** 
-     * Setter for id 
+
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
-    /** 
-     * Getter for jabberId 
+
+    /**
+     * Getter for jabberId
      * @return String to get
     */
     public String getJabberId() {
         return jabberId;
     }
-    
-    /** 
-     * Setter for jabberId 
+
+    /**
+     * Setter for jabberId
      * @param jabberIdIn to set
     */
     public void setJabberId(String jabberIdIn) {
         this.jabberId = jabberIdIn;
     }
-    
-    /** 
-     * Getter for lastCheckin 
+
+    /**
+     * Getter for lastCheckin
      * @return Date to get
     */
     public Date getLastCheckin() {
         return lastCheckin;
     }
-    
-    /** 
-     * Setter for lastCheckin 
+
+    /**
+     * Setter for lastCheckin
      * @param lastCheckinIn to set
     */
     public void setLastCheckin(Date lastCheckinIn) {
         this.lastCheckin = lastCheckinIn;
     }
-    
-    /** 
-     * Getter for modified 
+
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return modified;
     }
-    
-    /** 
-     * Setter for modified 
+
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {
         this.modified = modifiedIn;
     }
-    
-    /** 
-     * Getter for port 
+
+    /**
+     * Getter for port
      * @return Integer to get
     */
     public Integer getPort() {
         return port;
     }
-    
-    /** 
-     * Setter for port 
+
+    /**
+     * Setter for port
      * @param portIn to set
     */
     public void setPort(Integer portIn) {

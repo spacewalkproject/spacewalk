@@ -36,7 +36,7 @@ public final class MonitoringTestUtils {
 
     private MonitoringTestUtils() {
     }
-    
+
     /**
      * Return a map of parameter names to their values for <code>probe</code>
      * @param probe the probe
@@ -74,11 +74,11 @@ public final class MonitoringTestUtils {
         Transformer transform = new CommandParameterToName();
         return (Set) CollectionUtils.collect(cps, transform, new HashSet());
     }
-    
+
     /**
      * Verify that the parameters in the probe have been set in accordance
      * with what {@link #setupParamValues} has set up.
-     * 
+     *
      * @param probe the probe to verify
      * @param command the command the probe uses
      */
@@ -92,24 +92,24 @@ public final class MonitoringTestUtils {
 
     /**
      * Setup request parameters for the command parameters for
-     * <code>command</code>. 
+     * <code>command</code>.
      * @param ah the action helper
      * @param command the command
-     * @param multiplicity the number of times the parameter values 
+     * @param multiplicity the number of times the parameter values
      * will be accessed
      */
-    public static void setupParamValues(ActionHelper ah, Command command, 
+    public static void setupParamValues(ActionHelper ah, Command command,
             int multiplicity) {
         HashMap defaults = makeParamDefaults(command, true);
         setupParamValues(ah, defaults, multiplicity);
     }
 
-    public static void setupParamValues(ActionHelper ah, HashMap params, 
+    public static void setupParamValues(ActionHelper ah, HashMap params,
             int multiplicity) {
         for (Iterator i = params.keySet().iterator(); i.hasNext();) {
             String name = (String) i.next();
             for (int j = 0; j < multiplicity; j++) {
-                ah.getRequest().setupAddParameter("param_" + name, 
+                ah.getRequest().setupAddParameter("param_" + name,
                         (String) params.get(name));
             }
         }
@@ -121,7 +121,7 @@ public final class MonitoringTestUtils {
      * @param includeInvisible TODO
      */
     public static HashMap makeParamDefaults(Command command, boolean includeInvisible) {
-        Assert.assertEquals("Only CHECK_TCP is supported", 
+        Assert.assertEquals("Only CHECK_TCP is supported",
                 MonitoringConstants.getCommandCheckTCP().getName(), command.getName());
         HashMap result = new HashMap();
         result.put("send", "send it");

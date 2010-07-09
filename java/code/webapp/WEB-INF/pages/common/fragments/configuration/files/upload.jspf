@@ -1,6 +1,6 @@
 <div id="upload-bar">
 	<strong><bean:message key="contents.jspf.upload"/></strong>
-	<html:form method="post" 
+	<html:form method="post"
 		action="/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}"
         enctype="multipart/form-data">
   		<table class="details">
@@ -10,7 +10,7 @@
       			  <html:file property="cffUpload" size="30"/><br />
       			  <span class="small-text"><bean:message key="filedetails.jsp.tip.upload" arg0="${maxbytes}"/></span>
       			</td>
-    		</tr>  
+		</tr>
   		</table>
   		<div align="right">
     		<hr />

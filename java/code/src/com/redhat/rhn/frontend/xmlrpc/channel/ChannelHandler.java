@@ -44,10 +44,10 @@ public class ChannelHandler extends BaseHandler {
      * @return Returns array of Maps with the following keys:
      * channel_label, channel_parent_label, channel_name, channel_end_of_life,
      * channel_arch
-     * 
+     *
      * @xmlrpc.doc List all visible software channels.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *  #array()
      *      #struct("channel")
      *          #prop("string", "label")
@@ -70,11 +70,11 @@ public class ChannelHandler extends BaseHandler {
         // this list of maps into a different list of maps.
         //
         // Just because it is ONE line it doesn't make it efficient.
-        
+
         List returnList = new ArrayList(items.size());
         for (Iterator itr = items.iterator(); itr.hasNext();) {
             Map item = (Map) itr.next();
-            
+
             // Deprecated stupid code
             // this is some really stupid code, but oh well, c'est la vie
             Map newItem = new HashMap();
@@ -92,23 +92,23 @@ public class ChannelHandler extends BaseHandler {
                     StringUtils.defaultString(
                             (String)item.get("end_of_life")));
             newItem.put("arch", item.get("channel_arch"));
-                        
-            
+
+
             returnList.add(newItem);
         }
 
         return returnList.toArray();
     }
-    
+
     /**
      * Lists all software channels that the user's organization is entitled to.
      * @param sessionKey session containing User information.
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
-     * 
+     *
      * @xmlrpc.doc List all software channels that the user's organization is entitled to.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $ChannelTreeNodeSerializer
      *     #array_end()
@@ -119,17 +119,17 @@ public class ChannelHandler extends BaseHandler {
         dr.elaborate();
         return dr.toArray();
     }
-    
+
     /**
      * Lists all Red Hat software channels that the user's organization is entitled to.
      * @param sessionKey session containing User information.
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
-     * 
-     * @xmlrpc.doc List all Red Hat software channels that the user's organization is 
+     *
+     * @xmlrpc.doc List all Red Hat software channels that the user's organization is
      * entitled to.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $ChannelTreeNodeSerializer
      *     #array_end()
@@ -140,7 +140,7 @@ public class ChannelHandler extends BaseHandler {
         dr.elaborate();
         return dr.toArray();
     }
-    
+
     /**
      * Lists the most popular software channels based on the popularity
      * count given.
@@ -149,34 +149,34 @@ public class ChannelHandler extends BaseHandler {
      * will be returned
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
-     * 
+     *
      * @xmlrpc.doc List the most popular software channels.  Channels that have at least
-     * the number of systems subscribed as specified by the popularity count will be 
+     * the number of systems subscribed as specified by the popularity count will be
      * returned.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #prop("int", "popularityCount")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $ChannelTreeNodeSerializer
      *     #array_end()
      */
     public Object[] listPopularChannels(String sessionKey, Integer popularityCount) {
         User user = ChannelHandler.getLoggedInUser(sessionKey);
-        DataResult<ChannelTreeNode> dr = ChannelManager.popularChannelTree(user, 
+        DataResult<ChannelTreeNode> dr = ChannelManager.popularChannelTree(user,
                 new Long(popularityCount), null);
         dr.elaborate();
         return dr.toArray();
     }
-    
+
     /**
      * Lists all software channels that belong to the user's organization.
      * @param sessionKey session containing User information.
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
-     * 
+     *
      * @xmlrpc.doc List all software channels that belong to the user's organization.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $ChannelTreeNodeSerializer
      *     #array_end()
@@ -187,17 +187,17 @@ public class ChannelHandler extends BaseHandler {
         dr.elaborate();
         return dr.toArray();
     }
-    
+
     /**
      * List all software channels that may be shared by the user's organization.
      * @param sessionKey session containing User information.
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
-     * 
-     * @xmlrpc.doc List all software channels that may be shared by the user's 
+     *
+     * @xmlrpc.doc List all software channels that may be shared by the user's
      * organization.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $ChannelTreeNodeSerializer
      *     #array_end()
@@ -208,7 +208,7 @@ public class ChannelHandler extends BaseHandler {
         dr.elaborate();
         return dr.toArray();
     }
-    
+
     /**
      * List all retired software channels.  These are channels that the user's organization
      * is entitled to, but are no longer supported as they have reached their 'end-of-life'
@@ -216,12 +216,12 @@ public class ChannelHandler extends BaseHandler {
      * @param sessionKey session containing User information.
      * @return Returns array of channels with info such as channel_label, channel_name,
      * channel_parent_label, packages and systems.
-     * 
-     * @xmlrpc.doc List all retired software channels.  These are channels that the user's 
-     * organization is entitled to, but are no longer supported because they have reached 
+     *
+     * @xmlrpc.doc List all retired software channels.  These are channels that the user's
+     * organization is entitled to, but are no longer supported because they have reached
      * their 'end-of-life' date.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *     #array()
      *         $ChannelTreeNodeSerializer
      *     #array_end()

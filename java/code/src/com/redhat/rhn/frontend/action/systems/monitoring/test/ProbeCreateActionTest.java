@@ -35,39 +35,39 @@ import com.redhat.rhn.testing.ForwardWrapper;
 public class ProbeCreateActionTest extends ProbeCreateTestCase {
 
     private static final String REQ_ATTRS = "system," + BASE_REQ_ATTRS;
-    
+
     protected void setUp() throws Exception {
         super.setUp();
     }
-    
+
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-    
+
     public void testSubmitExecute() throws Exception {
-        
+
         Probe orig = MonitoringFactoryTest.createTestProbe(user);
 
         modifyActionHelper("success");
         ah.getForm().set(RhnAction.SUBMITTED, Boolean.TRUE);
         setupCommand(ah, orig);
         setupProbeFields(ah, orig);
-        
+
         MonitoringTestUtils.setupParamValues(ah, orig.getCommand(), 3);
-        
+
         ForwardWrapper af = ah.executeAction();
         assertEquals("success", af.getName());
-        
-        // There seems to be no need for asserting 'NO' request 
+
+        // There seems to be no need for asserting 'NO' request
         // attributes are bound.....
         // Issue here is RequestContext.lookupAndBindServer()
         // will bind the Server object to SYSTEM attribute
         // through out the life time, so server object
-        // will always exist for the lifetime of this request.. 
+        // will always exist for the lifetime of this request..
         //so commenting out the following line
         //assertNoRequestAttributes(ah,REQ_ATTRS);
         Long probeID = af.getLongParam(BaseProbeAction.PROBEID);
-        
+
         ServerProbe created = (ServerProbe) verifyProbe(orig, ServerProbe.class, probeID);
         assertEquals(firstScoutID(), created.getSatCluster().getId());
         MonitoringTestUtils.verifyParameters(created, orig.getCommand());

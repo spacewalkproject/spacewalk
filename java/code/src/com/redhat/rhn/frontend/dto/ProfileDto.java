@@ -23,28 +23,28 @@ public class ProfileDto extends BaseDto {
 
     private Long id;
     private String name;
-    
+
     /**
      * @return the id
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * @return the name
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */

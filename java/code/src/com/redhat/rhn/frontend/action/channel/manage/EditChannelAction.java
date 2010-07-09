@@ -73,12 +73,12 @@ public class EditChannelAction extends RhnAction implements Listable {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-    
+
         ActionErrors errors = new ActionErrors();
         DynaActionForm form = (DynaActionForm)formIn;
         Map params = makeParamMap(request);
         RequestContext ctx = new RequestContext(request);
-        
+
         // keep the cid
         if (ctx.hasParam("cid")) {
             params.put("cid", ctx.getParam("cid", true));
@@ -101,14 +101,14 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         else if (ctx.hasParam("edit_button")) {
             String sharing = (String) form.get("org_sharing");
-            
+
             if (hasSharingChanged(form, ctx) && ("private".equals(sharing) ||
                     "protected".equals(sharing))) {
                 // forward to confirm page
                 request.setAttribute("org", ctx.getLoggedInUser().getOrg());
-                formToAttributes(request, form);                
+                formToAttributes(request, form);
                 Map urlParams = new HashMap();
-                urlParams.put(RequestContext.CID, 
+                urlParams.put(RequestContext.CID,
                             ctx.getRequiredParam(RequestContext.CID));
                 ListHelper helper = new ListHelper(this, request, urlParams);
                 helper.setDataSetName(getDataSetName());
@@ -119,16 +119,16 @@ public class EditChannelAction extends RhnAction implements Listable {
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward(sharing), params);
             }
-            
+
             edit(form, errors, ctx);
             if (errors.isEmpty()) {
                 createSuccessMessage(request, "message.channelupdated",
                     form.getString("name"));
             }
 
-                                     
+
             //did they enable per user subscriptions?
-            String sub = (String)form.get("per_user_subscriptions");            
+            String sub = (String)form.get("per_user_subscriptions");
             if (!sub.equals("all")) {
                  addMessage(request, "message.channelsubscribers");
             }
@@ -164,14 +164,14 @@ public class EditChannelAction extends RhnAction implements Listable {
             addErrors(request, errors);
             prepDropdowns(new RequestContext(request));
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"), 
+                    mapping.findForward("default"),
                     params);
         }
 
         return getStrutsDelegate().forwardParams(
                 mapping.findForward("success"), params);
     }
-    
+
     /**
      * Return true if the form value of org_sharing is different than the
      * Channel for the given id.
@@ -185,10 +185,10 @@ public class EditChannelAction extends RhnAction implements Listable {
         Channel c = ChannelFactory.lookupByIdAndUser(cid, ctx.getLoggedInUser());
         return !c.getAccess().equals(form.get("org_sharing"));
     }
-    
+
     /**
      * Stupid method to copy the contents of the form to the request so that we
-     * can perform the confirmation. There's probably a better way, but I've 
+     * can perform the confirmation. There's probably a better way, but I've
      * spent way too long battling Struts.
      * @param request ServletRequest to which the form will be copied as
      * attributes.
@@ -220,7 +220,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         request.setAttribute("gpg_key_fingerprint",
                 form.get("gpg_key_fingerprint"));
     }
-    
+
     /**
      *
      * @param form form to check
@@ -287,7 +287,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             }
         }
     }
-    
+
     private Channel grant(DynaActionForm form,
                           ActionErrors errors,
                           RequestContext ctx) {
@@ -381,7 +381,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage(iae.getMessage()));
         }
-        
+
         return updated;
     }
 
@@ -457,7 +457,7 @@ public class EditChannelAction extends RhnAction implements Listable {
 
         return cid;
     }
-    
+
     private void handleChannelNameException(ActionErrors errors,
                                             InvalidChannelNameException ferengi) {
         switch (ferengi.getReason()) {
@@ -465,23 +465,23 @@ public class EditChannelAction extends RhnAction implements Listable {
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("edit.channel.invalidchannelname.missing"));
                 break;
-            
+
             case REGEX_FAILS:
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("edit.channel.invalidchannelname.regex"));
                 break;
-            
+
             case RHN_CHANNEL_BAD_PERMISSIONS:
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("edit.channel.invalidchannelname.redhat"));
                 break;
-            
+
             case TOO_SHORT:
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("edit.channel.invalidchannelname.minlength",
                             CreateChannelCommand.CHANNEL_NAME_MIN_LENGTH));
                 break;
-            
+
             case TOO_LONG:
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("edit.channel.invalidchannelname.maxlength",
@@ -493,13 +493,13 @@ public class EditChannelAction extends RhnAction implements Listable {
                         new ActionMessage("edit.channel.invalidchannelname.nameinuse",
                             ferengi.getName()));
                 break;
-            
+
             default:
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("edit.channel.invalidchannelname"));
         }
     }
-    
+
     private void handleChannelLabelException(ActionErrors errors,
                                              InvalidChannelLabelException q) {
         switch (q.getReason()) {
@@ -507,7 +507,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("edit.channel.invalidchannellabel.missing"));
                 break;
-            
+
             case REGEX_FAILS:
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("edit.channel.invalidchannellabel.regex"));
@@ -523,13 +523,13 @@ public class EditChannelAction extends RhnAction implements Listable {
                     new ActionMessage("edit.channel.invalidchannellabel.minlength",
                         CreateChannelCommand.CHANNEL_LABEL_MIN_LENGTH));
                 break;
-            
+
             case LABEL_IN_USE:
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("edit.channel.invalidchannellabel.labelinuse",
                         q.getLabel()));
                 break;
-            
+
             default:
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("edit.channel.invalidchannellabel"));
@@ -600,14 +600,14 @@ public class EditChannelAction extends RhnAction implements Listable {
                             DownloadManager.getChannelSyncLogDownloadPath(c,
                                     ctx.getLoggedInUser()));
                 }
-                
+
             }
-            
+
             request.setAttribute("channel_label", c.getLabel());
             request.setAttribute("channel_name", c.getName());
             request.setAttribute("channel_arch", c.getChannelArch().getName());
             request.setAttribute("channel_arch_label", c.getChannelArch().getLabel());
-            
+
         }
         else {
             // default settings
@@ -633,7 +633,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             addOption(baseChannels, c.getName(), c.getId().toString());
         }
         ctx.getRequest().setAttribute("parentChannels", baseChannels);
-        
+
         // base channel arches
         List channelArches = new ArrayList();
         List<ChannelArch> arches = ChannelManager.getChannelArchitectures();
@@ -642,11 +642,11 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         ctx.getRequest().setAttribute("channelArches", channelArches);
         // set the list of yum supported checksums
-        ctx.getRequest().setAttribute("checksums", 
+        ctx.getRequest().setAttribute("checksums",
                 ChannelFactory.listYumSupportedChecksums());
-        
+
     }
-    
+
     /**
      * Utility function to create options for the dropdown.
      * @param options list containing all options.

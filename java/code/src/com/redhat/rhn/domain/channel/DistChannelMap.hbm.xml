@@ -11,11 +11,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 length="64"/>
             <key-property name="release" column="release" type="string"
                 length="64"/>
-            
+
             <key-many-to-one name="channelArch"
                 class="com.redhat.rhn.domain.channel.ChannelArch"
                 column="channel_arch_id"/>
-            
+
         </composite-id>
 
         <many-to-one name="channel"
@@ -33,10 +33,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="DistChannelMap.findByProductNameReleaseAndChannelArch">
         <![CDATA[
         select dcm
-        from com.redhat.rhn.domain.channel.DistChannelMap as dcm, 
-            com.redhat.rhn.domain.channel.ProductName as pn, 
+        from com.redhat.rhn.domain.channel.DistChannelMap as dcm,
+            com.redhat.rhn.domain.channel.ProductName as pn,
             com.redhat.rhn.domain.channel.Channel as chan
-        where dcm.release = :release 
+        where dcm.release = :release
         and dcm.channelArch = :channelArch
         and dcm.channel = chan
         and chan.productName = pn
@@ -56,8 +56,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <query name="DistChannelMap.findByChannel">
         <![CDATA[
-        from com.redhat.rhn.domain.channel.DistChannelMap as dcm 
-        where dcm.channel = :channel 
+        from com.redhat.rhn.domain.channel.DistChannelMap as dcm
+        where dcm.channel = :channel
         ]]>
     </query>
 

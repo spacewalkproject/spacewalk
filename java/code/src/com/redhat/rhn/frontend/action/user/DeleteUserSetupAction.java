@@ -35,13 +35,13 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class DeleteUserSetupAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
 
         if (!AclManager.hasAcl("user_role(org_admin)",

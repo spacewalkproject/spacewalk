@@ -13,8 +13,8 @@
   <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.label)}"/>
 </rhn:toolbar>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstartscript.jsp.header"/></h2>
@@ -27,14 +27,14 @@
     <bean:message key="kickstartscript.jsp.summary2"/>
     </p>
     <form method="post" name="rhn_list" action="/rhn/kickstart/Scripts.do">
-      
+
       <rhn:list pageList="${requestScope.pageList}" noDataText="kickstartscript.jsp.noscripts">
-          
-      <rhn:listdisplay renderDisabled="true" 
+
+      <rhn:listdisplay renderDisabled="true"
           set="${requestScope.set}">
-        
+
         <rhn:column header="kickstartscript.jsp.type" style="text-align: center;">
-        ${current.scriptType}                                
+        ${current.scriptType}
         </rhn:column>
         <rhn:column header="kickstartscript.jsp.scriptnum">
           <a href="/rhn/kickstart/KickstartScriptEdit.do?kssid=${current.id}&amp;ksid=${ksdata.id}"><bean:message key="kickstartscript.jsp.script"/> ${current.position}</a>
@@ -42,8 +42,8 @@
         <rhn:column header="kickstartscript.jsp.language">
         ${current.interpreter}
         </rhn:column>
-        
-      </rhn:listdisplay>      
+
+      </rhn:listdisplay>
       </rhn:list>
     </form>
 </div>

@@ -30,18 +30,18 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class SummaryActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //The information for this page is simply stored into a set
         Long sid = ServerFactoryTest.createTestServer(user, true).getId();
-        
+
         RhnSet set = RhnSetDecl.CONFIG_ENABLE_SYSTEMS.create(user);
         set.addElement(sid, new Long(ConfigurationManager.ENABLE_SUCCESS));
         RhnSetManager.store(set);
-        
+
         setRequestPathInfo("/configuration/system/Summary");
         actionPerform();
         verifyList(RequestContext.PAGE_LIST, ConfigSystemDto.class);

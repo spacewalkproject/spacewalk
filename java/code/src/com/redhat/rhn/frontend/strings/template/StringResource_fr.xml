@@ -622,7 +622,7 @@ deactivated.
 Please note that this is a final notice.  If you do not click through
 this URL within the next 2 days, your Red Hat login will deactivated.
 
-To confirm your email address, please visit the following URL: 
+To confirm your email address, please visit the following URL:
 
 {0}
 
@@ -666,9 +666,9 @@ Nous vous remercions d'utiliser @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems 
+has expired on your local satellite {0}. After {1} day(s) the systems
 management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information 
+Please contact your regional Red Hat Customer  Service Representative for information
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -678,8 +678,8 @@ Cher utilisateur de Red Hat Network,
 
 Ce courrier électronique vous est envoyé pour vous informer que le certificat de votre @@PRODUCT_NAME@@
 a expiré sur votre Satellite local {0}. Dans {1} jour(s) les services de gestion
-des systèmes fournient par votre serveur @@PRODUCT_NAME@@ deviendront inaccessibles. 
-Contactez le représentant du service clientèle Red Hat de votre région pour davantage d'informations 
+des systèmes fournient par votre serveur @@PRODUCT_NAME@@ deviendront inaccessibles.
+Contactez le représentant du service clientèle Red Hat de votre région pour davantage d'informations
 concernant le renouvellement de votre certificat @@PRODUCT_NAME@@.
 
 Nous vous remercions d'utiliser @@PRODUCT_NAME@@.
@@ -694,8 +694,8 @@ Nous vous remercions d'utiliser @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible 
-until your certificate is renewed. Please contact your regional Red Hat 
+has expired on your local satellite {0}. The system management services will be inaccessible
+until your certificate is renewed. Please contact your regional Red Hat
 Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
@@ -705,8 +705,8 @@ Thank you for using @@PRODUCT_NAME@@.
 Cher utilisateur de @@PRODUCT_NAME@@,
 
 Ce courrier électronique vous est envoyé pour vous informer que le certificat de votre @@PRODUCT_NAME@@
-a expiré sur votre Satellite local {0}. Les services de gestion du système seront inaccessibles 
-jusqu'à ce que votre certificat soit renouvelé. Contactez le représentant du service clientèle 
+a expiré sur votre Satellite local {0}. Les services de gestion du système seront inaccessibles
+jusqu'à ce que votre certificat soit renouvelé. Contactez le représentant du service clientèle
 Red Hat de votre région pour davantage d'informations concernant le renouvellement de votre certificat @@PRODUCT_NAME@@.
 
 

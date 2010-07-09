@@ -62,7 +62,7 @@ public class ProbeSuiteHelper {
         ProbeSuite probeSuite = rctx.lookupProbeSuite();
         rctx.getRequest().setAttribute("probeSuite", probeSuite);
         return MonitoringManager.getInstance().
-            systemsInSuite(rctx.getCurrentUser(), probeSuite, pc); 
+            systemsInSuite(rctx.getCurrentUser(), probeSuite, pc);
     }
 
     /**

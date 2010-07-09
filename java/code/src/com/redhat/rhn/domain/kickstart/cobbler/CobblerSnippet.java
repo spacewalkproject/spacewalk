@@ -49,7 +49,7 @@ public class CobblerSnippet implements Comparable {
 
     /**
      * Method to return the base spacewalk snippets dir
-     * (i.e. /var/lib/cobbler/snippets/spacewalk) .. 
+     * (i.e. /var/lib/cobbler/snippets/spacewalk) ..
      * Reason this is
      * a method is because we want it to be
      * changeable for unit tests..
@@ -58,23 +58,23 @@ public class CobblerSnippet implements Comparable {
     public static File getSpacewalkSnippetsDir() {
         return new File(getCobblerSnippetsDir(), "spacewalk");
     }
-    
+
     /**
      * Cobbler Snippet method to be called
      * when creating or updating the actual instance of a cobbler snippet.
-     * This is in a typical case would be considered a 
-     * manager layer method but its small enough to merit not creating 
+     * This is in a typical case would be considered a
+     * manager layer method but its small enough to merit not creating
      * another command/class for it.
      * @param create True if we are creating a new editable snippet
      *               False updating an existing editable snippet
-     * @param name the name of the snippet. 
+     * @param name the name of the snippet.
      * @param contents the contents of the snippet.
      * @param org the org of the editable snippet.
      * @return the newly Created or updated cobbler snippet..
      */
-    public static CobblerSnippet createOrUpdate(boolean create, 
+    public static CobblerSnippet createOrUpdate(boolean create,
                                     String name, String contents, Org org) {
-        
+
         CobblerSnippet snip = loadEditable(name, org);
         if (create) {
             validateNonExistence(snip.path);
@@ -82,10 +82,10 @@ public class CobblerSnippet implements Comparable {
 
         snip.writeContents(contents);
         return snip;
-    }    
+    }
 
     /**
-     * Renames cobbler snippet to a new name.. 
+     * Renames cobbler snippet to a new name..
      * @param name the name fo the new cobbler snippet
      */
     public void rename(String name) {
@@ -100,7 +100,7 @@ public class CobblerSnippet implements Comparable {
             path = snip.path;
         }
     }
-    
+
     private static void validateNonExistence(File path) {
         if (path.exists()) {
             ValidatorException.
@@ -108,17 +108,17 @@ public class CobblerSnippet implements Comparable {
                             path.getName());
         }
     }
-    
+
     private CobblerSnippet() {
     }
-    
+
     /**
      * Constructor to load a spacewalk Editable (as in Org Based) cobbler snippet..
-     * These are snippets that reside in 
+     * These are snippets that reside in
      *      /var/lib/cobbler/snippets/spacewalk/${org.id}/....
      * Note validation errors will be raised if the name contains slashes
      *  /var/lib/cobbler/snippets/spacewalk/${org.id}/${name}
-     * @param nameIn the snippet name ${name} in 
+     * @param nameIn the snippet name ${name} in
      *          ${spacewalk.snippets.dir}/${org.id}/${name}
      * @param orgIn the org in ${spacewalk.snippets.dir}/${org.id}/${name}
      * @return the cobbler snippet.
@@ -130,11 +130,11 @@ public class CobblerSnippet implements Comparable {
         snippy.path = new File(getPrefixFor(snippy.org) + "/" + nameIn);
         return snippy;
     }
-    
+
     /**
-     * Performs the same function as loadEditable, except it will return null instead 
+     * Performs the same function as loadEditable, except it will return null instead
      *  of a bad snippet
-     * @param nameIn the snippet name ${name} in 
+     * @param nameIn the snippet name ${name} in
      *          ${spacewalk.snippets.dir}/${org.id}/${name}
      * @param orgIn the org in ${spacewalk.snippets.dir}/${org.id}/${name}
      * @return the cobbler snippet. or null if doesn't exist
@@ -148,10 +148,10 @@ public class CobblerSnippet implements Comparable {
             return null;
         }
     }
-    
+
     /**
      * Constructor load a non editable spacewalk cobbler snippets
-     * as in all the snippets that reside under 
+     * as in all the snippets that reside under
      *  /var/lib/cobbler/snippets/ except
      *  /var/lib/cobbler/snippets/spacewalk
      *  Idea here is that this list is read only
@@ -164,8 +164,8 @@ public class CobblerSnippet implements Comparable {
         CobblerSnippet snippy = new CobblerSnippet();
         snippy.path = pathIn;
         return snippy;
-    }    
-    
+    }
+
     /**
      * The path for display purposes
      * @return the display path
@@ -173,26 +173,26 @@ public class CobblerSnippet implements Comparable {
     public String getDisplayPath() {
         return getPath().getAbsolutePath();
     }
-    
+
     /**
-     *  Returns the org associated to this snippet 
-     *  or null if none is associated 
+     *  Returns the org associated to this snippet
+     *  or null if none is associated
      * @return the org or null
      */
     public Org getOrg() {
         return org;
     }
-    
-    /** 
-     * Getter for name 
+
+    /**
+     * Getter for name
      * @return String to get
     */
     public File getPath() {
         return this.path;
     }
 
-    /** 
-     * Getter for contents 
+    /**
+     * Getter for contents
      * @return String to get
     */
     public String getContents() {
@@ -201,7 +201,7 @@ public class CobblerSnippet implements Comparable {
         }
         return null;
     }
-    
+
     /**
      * Basically writes the snippet contents sent to this method
      * to the disk..
@@ -216,13 +216,13 @@ public class CobblerSnippet implements Comparable {
         if (!path.exists()) {
             path.getParentFile().mkdirs();
         }
-        FileUtils.writeStringToFile(StringUtil.webToLinux(contents), 
+        FileUtils.writeStringToFile(StringUtil.webToLinux(contents),
                 path.getAbsolutePath());
     }
 
-    
+
     /**
-     * Method to allow you to delete the snippet. 
+     * Method to allow you to delete the snippet.
      * Note: only editable snippets can be deleted, i.e. snippets under
      * ${spacewalk.snippets.dir}/${org.id}/${name}
      */
@@ -233,22 +233,22 @@ public class CobblerSnippet implements Comparable {
                                                                     getName());
         }
     }
-    
+
     /**
      * Note: only snippets under
      * ${spacewalk.snippets.dir}/${org.id}/${name}
      * are editable..
-     * @return true if this cobbler snippet is editable.. 
+     * @return true if this cobbler snippet is editable..
      */
     public boolean isEditable() {
         return !isCommonPath(path);
     }
-    
-    
+
+
     /**
      * Returns just the name of the snippet file (same as basename)
-     * i.e. returns ${name} in ${spacewalk.snippets.dir}/${org.id}/${name} 
-     * @return the base name of the snippet file  
+     * i.e. returns ${name} in ${spacewalk.snippets.dir}/${org.id}/${name}
+     * @return the base name of the snippet file
      */
     public String getName() {
         if (path.getParentFile().equals(getSpacewalkSnippetsDir())) {
@@ -257,12 +257,12 @@ public class CobblerSnippet implements Comparable {
         }
         return path.getName();
     }
-    
-    
+
+
     /**
      * Returns the name of the directory hosting the snippet file (same as dirname)
      * i.e. returns ${spacewalk.snippets.dir}/${org.id}
-     *  in ${spacewalk.snippets.dir}/${org.id}/${name} 
+     *  in ${spacewalk.snippets.dir}/${org.id}/${name}
      * @return the name of the directory hosting the snippet file
      */
     public String getPrefix() {
@@ -288,20 +288,20 @@ public class CobblerSnippet implements Comparable {
                     getCobblerSnippetsDir().getPath().length() + 1);
         return makeFragment(snipPath);
     }
-    
+
     /**
-     * Returns a Cobbler snippet fragment with the given path 
+     * Returns a Cobbler snippet fragment with the given path
      * @param path the path to make a snippet of
      * @return the snippet fragment
      */
     public static String makeFragment(String path) {
         return String.format("$SNIPPET('%s')", path);
-    }    
+    }
     /**
      * Returns the name of the dir that should be hosting scripts
      * for the snippet. This is useful for example while
-     * creating snippets. 
-     * @param org  the org hosting the snippet, or null if its a common org 
+     * creating snippets.
+     * @param org  the org hosting the snippet, or null if its a common org
      * @return the name of the directory that should host the snippet file
      */
     public static String getPrefixFor(Org org) {
@@ -312,33 +312,33 @@ public class CobblerSnippet implements Comparable {
     }
 
     private static void validateFileName(String name) {
-        // file names can have no slashes/ can't be blan or 
+        // file names can have no slashes/ can't be blan or
         // can't start with a period (for it'll mean its hidden)
         if (StringUtils.isBlank(name) || name.contains("/") || name.startsWith(".")) {
             ValidatorException.raiseException("cobbler.snippet.invalidfilename.message");
         }
     }
-    
+
     private static void validateCommonPath(File path) {
-        if (!path.exists() || path.isHidden() || !path.isFile() || 
+        if (!path.exists() || path.isHidden() || !path.isFile() ||
                               !isCommonPath(path)) {
             ValidatorException.raiseException("cobbler.snippet.invalidfilename.message");
         }
     }
-    
+
     private static boolean isCommonPath(File path) {
-        boolean isFileInsideSpacewalkTopLevelDir = path.isFile() && 
+        boolean isFileInsideSpacewalkTopLevelDir = path.isFile() &&
                     path.getParentFile().equals(getSpacewalkSnippetsDir());
         if (isFileInsideSpacewalkTopLevelDir) {
             return true;
         }
-        
+
         return !path.getAbsolutePath().startsWith(
-                        getSpacewalkSnippetsDir().getAbsolutePath()) && 
+                        getSpacewalkSnippetsDir().getAbsolutePath()) &&
                     path.getAbsolutePath().
-                            startsWith(getCobblerSnippetsDir().getAbsolutePath()); 
+                            startsWith(getCobblerSnippetsDir().getAbsolutePath());
     }
-    
+
     private void verifyEditable() {
         if (!isEditable()) {
             ValidatorException.raiseException("cobbler.snippet.invalidfilename.message");
@@ -355,7 +355,7 @@ public class CobblerSnippet implements Comparable {
         if (!(o instanceof CobblerSnippet)) {
             return false;
         }
-        
+
         CobblerSnippet that = (CobblerSnippet) o;
         return getPath().equals(that.getPath());
     }
@@ -378,5 +378,5 @@ public class CobblerSnippet implements Comparable {
         }
         CobblerSnippet that = (CobblerSnippet) o;
         return that.getPath().compareTo(getPath());
-    }    
+    }
 }

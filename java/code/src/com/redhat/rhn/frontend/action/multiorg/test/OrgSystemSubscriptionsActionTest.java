@@ -26,7 +26,7 @@ import org.apache.struts.action.DynaActionForm;
  * @version $Rev: 1 $
  */
 public class OrgSystemSubscriptionsActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
@@ -48,21 +48,21 @@ public class OrgSystemSubscriptionsActionTest extends RhnMockStrutsTestCase {
         assertNotNull(af.get(EntitlementManager.VIRTUALIZATION_ENTITLED));
     }
 
-    
+
     public void testExecuteSubmit() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
         setRequestPathInfo("/admin/multiorg/OrgSystemSubscriptions");
         addRequestParameter(RequestContext.ORG_ID, user.getOrg().getId().toString());
-        addRequestParameter(EntitlementManager.ENTERPRISE_ENTITLED, 
+        addRequestParameter(EntitlementManager.ENTERPRISE_ENTITLED,
                 new Long(1).toString());
-        addRequestParameter(EntitlementManager.MONITORING_ENTITLED, 
+        addRequestParameter(EntitlementManager.MONITORING_ENTITLED,
                 new Long(0).toString());
-        addRequestParameter(EntitlementManager.PROVISIONING_ENTITLED, 
+        addRequestParameter(EntitlementManager.PROVISIONING_ENTITLED,
                 new Long(0).toString());
-        addRequestParameter(EntitlementManager.VIRTUALIZATION_ENTITLED, 
+        addRequestParameter(EntitlementManager.VIRTUALIZATION_ENTITLED,
                 new Long(0).toString());
-        addRequestParameter(EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED, 
+        addRequestParameter(EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED,
                 new Long(0).toString());
         addSubmitted();
         actionPerform();

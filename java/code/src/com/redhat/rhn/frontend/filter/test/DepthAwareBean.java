@@ -27,12 +27,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class DepthAwareBean implements DepthAware {
     private long depth;
     private String content;
-    
+
     private DepthAwareBean() {
     }
-    
+
     /**
-     * 
+     *
      * @param contentVal value of the content to be filtered on
      * @param depthVal the depth of the item in a tree
      * @return a new DepthAware bean.
@@ -43,7 +43,7 @@ public class DepthAwareBean implements DepthAware {
         bean.depth = depthVal;
         return bean;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -59,9 +59,9 @@ public class DepthAwareBean implements DepthAware {
         // TODO Auto-generated method stub
         return content;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object o) {
@@ -72,22 +72,22 @@ public class DepthAwareBean implements DepthAware {
             return false;
         }
         DepthAwareBean that = (DepthAwareBean) o;
-        
+
         return new EqualsBuilder().
                 append(this.content, that.content).
                 append(this.depth, that.depth).isEquals();
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public String toString() {
-        return "(" + content + ", " + depth + ")"; 
+        return "(" + content + ", " + depth + ")";
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {

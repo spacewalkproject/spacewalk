@@ -55,15 +55,15 @@ public class OrgManager extends BaseManager {
 
     private OrgManager() {
     }
-    
-    
+
+
     /**
      * Basically transfers relevant data
      * from Org object to the Dto object
      * returns a new OrgDto object.
      * This method is typically used in OrgDetails views
-     * @param org the org object to transfer from 
-     * @return the created Dto. 
+     * @param org the org object to transfer from
+     * @return the created Dto.
      */
     public static OrgDto toDetailsDto(Org org) {
         OrgDto dto = new OrgDto();
@@ -76,11 +76,11 @@ public class OrgManager extends BaseManager {
         dto.setServerGroups(OrgFactory.getServerGroups(org));
         dto.setConfigChannels(OrgFactory.getConfigChannels(org));
         return dto;
-    }    
-    
+    }
+
 
     /**
-     * 
+     *
      * @param user User to cross security check
      * @return List of Orgs on satellite
      */
@@ -98,10 +98,10 @@ public class OrgManager extends BaseManager {
 
         return DataList.getDataList(m, Collections.EMPTY_MAP,
                 Collections.EMPTY_MAP);
-    }    
+    }
 
     /**
-     * 
+     *
      * @param user User to cross security check
      * @return List of Orgs on satellite
      */
@@ -117,14 +117,14 @@ public class OrgManager extends BaseManager {
         }
         SelectMode m = ModeFactory.getMode("Org_queries", "trusted_orgs");
 
-        Long orgIdIn = user.getOrg().getId();        
+        Long orgIdIn = user.getOrg().getId();
         Map params = new HashMap();
         params.put("org_id", orgIdIn);
 
         return DataList.getDataList(m, params,
                 Collections.EMPTY_MAP);
     }
-    
+
     /**
      * Get a list of orgs with a trusted indicator for each.
      * @param user The user making the request.
@@ -149,7 +149,7 @@ public class OrgManager extends BaseManager {
     }
 
     /**
-     * 
+     *
      * @param orgIdIn to check active users
      * @return DataList of UserOverview Objects
      */
@@ -161,7 +161,7 @@ public class OrgManager extends BaseManager {
     }
 
     /**
-     * 
+     *
      * @param cid Channel ID
      * @param org Org used to check trust relationships
      * @return list of trusted relationships with access to cid
@@ -174,9 +174,9 @@ public class OrgManager extends BaseManager {
         params.put("cid", cid);
         return DataList.getDataList(m, params, Collections.EMPTY_MAP);
     }
-    
+
     /**
-     * 
+     *
      * @return all users on sat
      */
     public static DataList allUsers() {
@@ -187,7 +187,7 @@ public class OrgManager extends BaseManager {
     }
 
     /**
-     * 
+     *
      * @return all entitlements across all orgs on sat
      */
     public static DataList <MultiOrgSystemEntitlementsDto> allOrgsEntitlements() {
@@ -196,7 +196,7 @@ public class OrgManager extends BaseManager {
         return DataList.getDataList(m, Collections.EMPTY_MAP,
                 Collections.EMPTY_MAP);
     }
-    
+
     /**
      * @param entLabel Entitlement Label
      * @return single entitlement, entLabel, across all orgs on sat
@@ -214,28 +214,28 @@ public class OrgManager extends BaseManager {
      * Returns a list of organziations and their entitlement numbers (usage, total) for
      * the given entitlement. This call <strong>will include orgs that have a zero count
      * for the given entitlement.</strong>
-     * 
-     * @param entitlementLabel identifies the entitlement; cannot be <code>null</code> 
+     *
+     * @param entitlementLabel identifies the entitlement; cannot be <code>null</code>
      * @return one entry for each organization in the system (including the default org)
-     *         with details on the entitlement count for that org 
+     *         with details on the entitlement count for that org
      */
     public static DataList<Map> allOrgsSingleEntitlementWithEmptyOrgs(
         String entitlementLabel) {
-        
+
         /* The data model isn't conducive to doing all of the work in the query. There
            are only mapping entries from entitlement <-> org present if that mapping has
            been established previously (it will still exist if the mapping specifies
            zero for the title).
-           
+
            This method will first load all of the mappings. For every org that does not
            have a mapping, one will be created populating zero for the total and usage.
            These new mappings are added to the original list pulled from the database
            and then explicitly sorted to maintain the ordering in the query (currently
            ordered by org name).
-        
+
            jdobies: May 6, 2009
          */
-        
+
         // Only returns orgs that have been mapped to the entitlements
         SelectMode m = ModeFactory.getMode("Org_queries", "get_org_entitlement_counts");
         Map<String, String> params = new HashMap<String, String>(1);
@@ -249,7 +249,7 @@ public class OrgManager extends BaseManager {
             Long orgId = (Long) mappedOrgData.get("orgid");
             mappedOrgIds.add(orgId);
         }
-        
+
         // One piece of data necessary for each manually added org is the number of
         // available entitlements, for instance to be displayed in a "0 out of XXXX"
         // message.
@@ -261,27 +261,27 @@ public class OrgManager extends BaseManager {
         // For each org not already mapped, add a new entry to the existing result list
         List<Org> allOrgs = OrgFactory.lookupAllOrgs();
         for (Org checkMe : allOrgs) {
-            
+
             if (!mappedOrgIds.contains(checkMe.getId())) {
                 Map<String, Object> emptyOrgData = new HashMap<String, Object>(6);
                 emptyOrgData.put("name", checkMe.getName());
                 emptyOrgData.put("orgid", checkMe.getId());
                 emptyOrgData.put("label", entitlementLabel);
-                
+
                 // The reason we're here is because it has no entitlements, so use zero
                 emptyOrgData.put("total", 0L);
-                
+
                 // If there were no entitlements, none are used
                 emptyOrgData.put("usage", 0L);
-                
+
                 // Upper limit takes into account the total, so we can use the calculated
                 // value from above in all of these cases
                 emptyOrgData.put("upper", upper);
-                
+
                 result.add(emptyOrgData);
             }
         }
-        
+
         // Resort the list. If we don't, the orgs with entitlements will appear at the top
         // and the ones we explicitly add with zero entries appear at the bottom. This
         // gets really confusing in the UI.
@@ -289,7 +289,7 @@ public class OrgManager extends BaseManager {
             public int compare(Map result1, Map result2) {
                 String name1 = (String) result1.get("name");
                 String name2 = (String) result2.get("name");
-                
+
                 return name1.compareTo(name2);
             }
         };
@@ -336,7 +336,7 @@ public class OrgManager extends BaseManager {
     }
 
     /**
-     * 
+     *
      * @param entLabel to check used active orgs
      * @return DataList of Objects
      */
@@ -350,7 +350,7 @@ public class OrgManager extends BaseManager {
 
     /**
      * @param user User to cross security check
-     * @param entLabel to check used active orgs 
+     * @param entLabel to check used active orgs
      * @return DataList of Objects
      */
     public static DataList getAllOrgs(User user, String entLabel) {
@@ -388,13 +388,13 @@ public class OrgManager extends BaseManager {
 
         return OrgFactory.getTotalOrgCount();
     }
-    
+
     /**
      * Returns the date which this org trusted the supplied orgId
      * @param user currently logged in user
      * @param org our org
      * @param trustOrg the org we trust
-     * @return String representing date we started trusting this org     
+     * @return String representing date we started trusting this org
      */
     public static String getTrustedSince(User user, Org org, Org trustOrg) {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
@@ -406,15 +406,15 @@ public class OrgManager extends BaseManager {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
         }
-        
+
         return OrgFactory.getTrustedSince(org.getId(), trustOrg.getId());
     }
-    
+
     /**
      * Returns the date which this org trusted the supplied orgId
      * @param user currently logged in user
      * @param orgIn Org to calculate the number of System migrations to
-     * @return number of systems migrated to OrgIn     
+     * @return number of systems migrated to OrgIn
      */
     public static Long getSysMigrationsTo(User user, Org orgIn) {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
@@ -426,16 +426,16 @@ public class OrgManager extends BaseManager {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
         }
-        
+
         return OrgFactory.getSysMigrationsTo(orgIn.getId());
-    } 
-    
+    }
+
     /**
      * Returns the date which this org trusted the supplied orgId
      * @param user currently logged in user
      * @param orgTo Org to calculate the number of System migrations to
      * @param orgFrom Org to calculate the number of System migrations from
-     * @return number of systems migrated to OrgIn     
+     * @return number of systems migrated to OrgIn
      */
     public static Long getMigratedSystems(User user, Org orgTo, Org orgFrom) {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
@@ -447,16 +447,16 @@ public class OrgManager extends BaseManager {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
         }
-        
+
         return OrgFactory.getMigratedSystems(orgTo.getId(), orgFrom.getId());
-    }        
+    }
 
     /**
      * Returns the date which this org trusted the supplied orgId
      * @param user currently logged in user
      * @param org Org calculate the number of channels from
-     * @param orgTrust Org to calculate the number of channels to 
-     * @return number of systems migrated to OrgIn     
+     * @param orgTrust Org to calculate the number of channels to
+     * @return number of systems migrated to OrgIn
      */
     public static Long getSharedChannels(User user, Org org, Org orgTrust) {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
@@ -468,16 +468,16 @@ public class OrgManager extends BaseManager {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
         }
-        
+
         return OrgFactory.getSharedChannels(org.getId(), orgTrust.getId());
-    } 
-    
+    }
+
     /**
      * Returns the date which this org trusted the supplied orgId
      * @param user currently logged in user
      * @param org Org calculate the number of channels from
-     * @param orgTrust Org to calculate the number of channels to 
-     * @return number of systems orgTrust has subscribed to Org shared channels     
+     * @param orgTrust Org to calculate the number of channels to
+     * @return number of systems orgTrust has subscribed to Org shared channels
      */
     public static Long getSharedSubscribedSys(User user, Org org, Org orgTrust) {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
@@ -489,9 +489,9 @@ public class OrgManager extends BaseManager {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
         }
-        
+
         return OrgFactory.getSharedSubscribedSys(org.getId(), orgTrust.getId());
-    }        
+    }
     /**
      * Returns the total number of orgs on this satellite.
      * @param user User performing the query.
@@ -510,15 +510,15 @@ public class OrgManager extends BaseManager {
 
         return OrgFactory.lookupAllOrgs();
     }
-    
+
     /**
-     * Check if the passed in org is a valid name and raises an 
+     * Check if the passed in org is a valid name and raises an
      * exception if its invalid..
-     * @param newOrgName the orgname to be applied 
+     * @param newOrgName the orgname to be applied
      * @throws ValidatorException in case of bad/duplicate name
      */
     public static void checkOrgName(String newOrgName) throws ValidatorException {
-        if (newOrgName == null || 
+        if (newOrgName == null ||
                 newOrgName.trim().length() == 0 ||
                 newOrgName.trim().length() < 3 ||
                 newOrgName.trim().length() > 128) {
@@ -526,7 +526,7 @@ public class OrgManager extends BaseManager {
         }
         else if (OrgFactory.lookupByName(newOrgName) != null) {
             ValidatorException.raiseException("error.org_already_taken", newOrgName);
-        }        
+        }
     }
 
     /**
@@ -541,7 +541,7 @@ public class OrgManager extends BaseManager {
         List <OrgEntitlementDto> dtos = new LinkedList<OrgEntitlementDto>();
         List <Entitlement> entitlements = new LinkedList<Entitlement>();
         entitlements.addAll(EntitlementManager.getBaseEntitlements());
-        entitlements.addAll(EntitlementManager.getAddonEntitlements()); 
+        entitlements.addAll(EntitlementManager.getAddonEntitlements());
         for (Entitlement ent : entitlements) {
             dtos.add(new OrgEntitlementDto(ent, org));
         }

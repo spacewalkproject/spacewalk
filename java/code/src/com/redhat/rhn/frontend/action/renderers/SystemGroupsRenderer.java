@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Renders YourRhn fragment for system groups
- * 
+ *
  * @version $Rev$
  */
 public class SystemGroupsRenderer extends  BaseFragmentRenderer {
@@ -39,18 +39,18 @@ public class SystemGroupsRenderer extends  BaseFragmentRenderer {
     protected void render(User user, PageControl pc, HttpServletRequest request) {
         DataResult sgdr = SystemManager.groupList(user, pc);
         String systemGroupsCSSTable = null;
-        
+
         if (sgdr.isEmpty()) {
-            systemGroupsCSSTable = RendererHelper.makeEmptyTable(false, 
+            systemGroupsCSSTable = RendererHelper.makeEmptyTable(false,
                     "yourrhn.jsp.systemgroups.header",
                     "yourrhn.jsp.nogroups");
         }
-        
+
         request.setAttribute(SYSTEM_GROUP_EMPTY, systemGroupsCSSTable);
         request.setAttribute(SYSTEM_GROUP_LIST, sgdr);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
     }
-    
+
     /**
      * {@inheritDoc}
      */

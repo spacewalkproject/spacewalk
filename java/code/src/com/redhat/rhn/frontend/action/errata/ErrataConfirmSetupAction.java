@@ -42,22 +42,22 @@ public class ErrataConfirmSetupAction extends RhnListAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         PageControl pc = new PageControl();
 
         clampListBounds(pc, request, user);
-        
+
         Errata errata = requestContext.lookupErratum();
-        DataResult dr = ErrataManager.relevantSystemsInSet(user, 
+        DataResult dr = ErrataManager.relevantSystemsInSet(user,
                 SetLabels.AFFECTED_SYSTEMS_LIST, errata.getId(), pc);
-        
+
         //Setup the datepicker widget
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request,
                 (DynaActionForm)formIn, "date", DatePicker.YEAR_RANGE_POSITIVE);
-        
+
         request.setAttribute("date", picker);
         request.setAttribute("pageList", dr);
         request.setAttribute("errata", errata);

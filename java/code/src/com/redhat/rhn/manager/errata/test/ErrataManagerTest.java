@@ -70,32 +70,32 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         Errata e = ErrataFactoryTest.createTestUnpublishedErrata(user.getOrg().getId());
         assertFalse(e.isPublished()); //should be unpublished
       //publish errata and store back into self
-        e = ErrataManager.publish(e, new HashSet(), user); 
+        e = ErrataManager.publish(e, new HashSet(), user);
         assertTrue(e.isPublished());  //should be published
     }
-    
+
     public void testStore() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
-        
+
         e.setAdvisoryName(TestUtils.randomString());
         ErrataManager.storeErrata(e);
-        
+
         Errata e2 = ErrataManager.lookupErrata(e.getId(), user);
         assertEquals(e.getAdvisoryName(), e2.getAdvisoryName());
     }
-    
+
     public void testCreate() {
         Errata e = ErrataManager.createNewErrata();
         assertTrue(e instanceof UnpublishedErrata);
-        
+
         Bug b = ErrataManager.createNewUnpublishedBug(new Long(87), "test bug");
         assertTrue(b instanceof UnpublishedBug);
-        
+
         Bug b2 = ErrataManager.createNewPublishedBug(new Long(42), "test bug");
         assertTrue(b2 instanceof PublishedBug);
     }
-    
+
     public void testSearchByPackagesIds() throws Exception {
         Package p = PackageTest.createTestPackage();
         // errata search is done by the search-server. The search
@@ -117,7 +117,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         e.addPackage(p);
         e = ErrataManager.publish(e);
         assertTrue(e instanceof PublishedErrata);
-        
+
         WebSession session = WebSessionFactory.createSession();
         WebSessionFactory.save(session);
         assertNotNull(session.getId());
@@ -131,7 +131,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         params.put("obj_id", e.getId());
         params.put("obj_type", "errata");
         mode.executeUpdate(params);
-        
+
         // now test for errata
         List pids = new ArrayList();
         pids.add(p.getId());
@@ -142,7 +142,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         assertNotNull(eo);
         assertEquals(e.getAdvisory(), eo.getAdvisory());
     }
-    
+
     public void testSearch() throws Exception {
         // errata search is done by the search-server. The search
         // in ErrataManager is to load ErrataOverview objects from
@@ -172,17 +172,17 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         assertNotNull(eos);
         assertEquals(1, eos.size());
     }
-    
+
     public void testAllErrataList() {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         DataResult errata = ErrataManager.allErrata(user);
         assertNotNull(errata);
         assertTrue(errata.size() <= 20);
     }
-    
+
     public void testRelevantErrataList() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        ErrataCacheManagerTest.createServerNeededPackageCache(user, 
+        ErrataCacheManagerTest.createServerNeededPackageCache(user,
                 ErrataFactory.ERRATA_TYPE_BUG);
         DataResult errata = ErrataManager.relevantErrata(user);
         assertNotNull(errata);
@@ -196,12 +196,12 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         PageControl pc = new PageControl();
         pc.setStart(1);
         pc.setPageSize(20);
-        DataResult errata = 
+        DataResult errata =
             ErrataManager.relevantErrataByType(user, pc, ErrataFactory.ERRATA_TYPE_BUG);
         assertNotNull(errata);
         assertTrue(errata.size() >= 1);
     }
-    
+
     public void testUnpublishedErrata() {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         DataResult errata = ErrataManager.unpublishedOwnedErrata(user);
@@ -219,7 +219,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         assertTrue(errata.isEmpty());
         assertFalse(errata.size() > 0);
     }
-    
+
     public void testLookupErrata() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
@@ -228,7 +228,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         Errata check = ErrataManager.lookupErrata(errata.getId(), user);
         assertTrue(check.getAdvisory().equals(errata.getAdvisory()));
         assertTrue(check.getId().equals(errata.getId()));
-        
+
         /*
          * Bugzilla: 168292
          * Make sure we handle the case when returnedErrata.getOrg == null without throwing
@@ -236,7 +236,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
          */
         errata.setOrg(null);
         ErrataManager.storeErrata(errata);
-        
+
         try {
             check = ErrataManager.lookupErrata(errata.getId(), user);
             fail();
@@ -247,7 +247,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         Org org2 = OrgFactory.lookupById(UserTestUtils.createOrg("testOrg2"));
         errata.setOrg(org2);
         ErrataManager.storeErrata(errata);
-        
+
         try {
             check = ErrataManager.lookupErrata(errata.getId(), user);
         }
@@ -264,41 +264,41 @@ public class ErrataManagerTest extends RhnBaseTestCase {
             //This means we hit the returnedErrata == null path successfully
         }
     }
-    
+
     public void testSystemsAffected() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         PageControl pc = new PageControl();
         pc.setStart(1);
         pc.setPageSize(5);
-        
+
         Errata a = ErrataFactoryTest.createTestErrata(UserTestUtils.createOrg("testOrg"));
-        
+
         DataResult systems = ErrataManager.systemsAffected(user, a.getId(), pc);
         assertNotNull(systems);
         assertTrue(systems.isEmpty());
         assertFalse(systems.size() > 0);
-        
+
         DataResult systems2 = ErrataManager.systemsAffected(user, new Long(-2), pc);
         assertTrue(systems2.isEmpty());
     }
-    
+
     public void testAdvisoryNameUnique() throws Exception {
         Errata e1 = ErrataFactoryTest.createTestErrata(UserTestUtils.createOrg("testOrg"));
         Thread.sleep(100); //sleep for a bit to make sure we get unique advisoryNames
         Errata e2 = ErrataFactoryTest.createTestErrata(UserTestUtils.createOrg("testOrg"));
-        
+
         assertFalse(e1.getId().equals(e2.getId())); //make sure adv names are different
         assertTrue(ErrataManager.advisoryNameIsUnique(e2.getId(), e2.getAdvisoryName()));
         assertFalse(ErrataManager.advisoryNameIsUnique(e2.getId(), e1.getAdvisoryName()));
     }
-    
+
     // Don't need this test to actually run right now.  Its experimental.
     public void xxxxLookupErrataByAdvisoryType() throws IOException {
-        
+
         String bugfix = "Bug Fix Advisory";
         String pea = "Product Enhancement Advisory";
-        String security = "Security Advisory";        
-        
+        String security = "Security Advisory";
+
         StopWatch st = new StopWatch();
         st.start();
         List erratas = ErrataManager.lookupErrataByType(bugfix);
@@ -316,7 +316,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         st.stop();
         System.out.println("TIME: " + st.getTime());
     }
-    
+
     private void outputErrataList(List erratas) throws IOException {
         StringBuffer output = new StringBuffer();
         Iterator i = erratas.iterator();
@@ -350,7 +350,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     }
 
     /**
-     * TODO: need to put this test back in when we put back errata management. 
+     * TODO: need to put this test back in when we put back errata management.
      */
     /*public void aTestClonableErrata() {
         Long cid = new Long(231);

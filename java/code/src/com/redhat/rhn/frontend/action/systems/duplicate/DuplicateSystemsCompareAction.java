@@ -58,13 +58,13 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
             HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        
+
         Map params = new HashMap();
         params.put(KEY, context.getRequiredParamAsString(KEY));
         params.put(KEY_TYPE, context.getRequiredParamAsString(KEY_TYPE));
         request.setAttribute("maxLimit", MAX_LIMIT);
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
-        
+
         if (!context.isSubmitted()) {
             List<SystemOverview> result = getResult(context);
             Set<String> preSelect = new HashSet<String>();
@@ -73,7 +73,7 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
             }
             helper.preSelect(preSelect);
         }
-        
+
         helper.execute();
         if (context.isSubmitted()) {
             boolean resync = false;
@@ -86,20 +86,20 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
                     String name = server.getName();
                     server = null;
                     SystemManager.deleteServer(context.getLoggedInUser(), id);
-                    getStrutsDelegate().saveMessage("message.serverdeleted.param", 
+                    getStrutsDelegate().saveMessage("message.serverdeleted.param",
                                                     new String[] {name}, request);
                     itr.remove();
                     resync = true;
                 }
             }
-            if (resync) { 
+            if (resync) {
                 helper.execute();
             }
         }
         if (helper.getSet().size() > MAX_LIMIT) {
             LocalizationService ls = LocalizationService.getInstance();
             ActionErrors errors = new ActionErrors();
-            getStrutsDelegate().addError(errors, 
+            getStrutsDelegate().addError(errors,
                             "duplicate.compares.max_limit.message",
                     String.valueOf(MAX_LIMIT),  ls.getMessage("Refresh Comparison"));
             getStrutsDelegate().saveMessages(request, errors);
@@ -112,8 +112,8 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
             List<Server> systems = SystemManager.
             hydrateServerFromIds(sids, context.getLoggedInUser());
             request.setAttribute("systems",
-                    new SystemCompareDto(systems, context.getLoggedInUser())); 
-        }        
+                    new SystemCompareDto(systems, context.getLoggedInUser()));
+        }
 
 
         return mapping.findForward("default");

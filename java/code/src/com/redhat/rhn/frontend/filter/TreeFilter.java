@@ -36,14 +36,14 @@ public class TreeFilter implements ResultsFilter {
     /**
      * Set a matcher to match individual elements.
      * This facility was added so that we could evaluate things like
-     * if a given DTO had a condition x match on column X, 
+     * if a given DTO had a condition x match on column X,
      * else match on column Y.
      * @param m the matcher that evaluates individual elements.
      */
     public void setMatcher(Matcher m) {
         matcher = m;
     }
-    
+
     /**
      * {@inheritDoc}
      * There are some preconditions
@@ -52,12 +52,12 @@ public class TreeFilter implements ResultsFilter {
      * with 0 being the root depth. We need this keep track of the parents.
      * Another assumption is that the list is ordered depthwise
      * For example
-     * A data result with - {(C1,0), (C2,1), (C3,2), 
+     * A data result with - {(C1,0), (C2,1), (C3,2),
      *      (C4,1), (C5,2), (D1,0), (D2,1), (D3,1), (E1,0), (E2,1), (E3,1) }
      * will resemble the following tree (
-     * Note - In our notation (X,Y), the X = content while Y = depth, 
+     * Note - In our notation (X,Y), the X = content while Y = depth,
      * while 2nd is a unique id)
-     * 
+     *
      *     C1       D1       E1
      *    /  \      /  \    /  \
      *   C2   C4 D2   D3   E2  E3
@@ -66,23 +66,23 @@ public class TreeFilter implements ResultsFilter {
      */
     public void filterData(DataResult dr, String filterData,
             String filterColumn) {
-        
+
         /*
          * The overall logic of this function is to go through
-         * the flat list of our results, and build a tree using 
+         * the flat list of our results, and build a tree using
          * this logic.. If the Depth of a successor element is one greater
-         * than the current, then the successor must be a  
-         *  child of the current.. As we build this tree 
-         *  we try to find our filter match..   
-         *  When we find a match we trace it 
-         *  up to the topmost parent and add all elements 
-         *  in our path to a "filtered" list.  
-         *  When we are finally done, we clear the data result here 
+         * than the current, then the successor must be a
+         *  child of the current.. As we build this tree
+         *  we try to find our filter match..
+         *  When we find a match we trace it
+         *  up to the topmost parent and add all elements
+         *  in our path to a "filtered" list.
+         *  When we are finally done, we clear the data result here
          *  and re-add the  items from the filtered list to the data result..
          *  We use a "NodeTracker" to keep track of the parent nodes
-         *  and positions of the current node.. 
-         */        
-        
+         *  and positions of the current node..
+         */
+
         //Don't even bother filtering if there is
         // no filterData text or filterColumn specified
         // Or if the list is empty
@@ -98,7 +98,7 @@ public class TreeFilter implements ResultsFilter {
                 if (matcher.include(current.node, filterData, filterColumn)) {
                     addMatchedPath(current, dr);
                 }
-                
+
                 NodeInfo successor = NodeInfo.instance((DepthAware) it.next(),
                                             new Integer(current.position.intValue() + 1));
                 if (successor.node.depth() == current.node.depth()) {
@@ -107,7 +107,7 @@ public class TreeFilter implements ResultsFilter {
                 else if (successor.node.depth() == current.node.depth() + 1) {
                     successor.parent = current;
                 }
-                else if (successor.node.depth() != 0 && 
+                else if (successor.node.depth() != 0 &&
                             successor.node.depth() < current.node.depth()) {
                     NodeInfo temp = current;
                     while (temp.parent != null &&
@@ -115,9 +115,9 @@ public class TreeFilter implements ResultsFilter {
                         temp = temp.parent;
                     }
                     if (temp.parent != null) {
-                        successor.parent = temp.parent;    
+                        successor.parent = temp.parent;
                     }
-                    
+
                 }
                 current = successor;
             }
@@ -132,11 +132,11 @@ public class TreeFilter implements ResultsFilter {
     }
 
     /**
-     * Adds all the elements in the path from current to its 
+     * Adds all the elements in the path from current to its
      * topmost parent to the "filtered" list.. At the same time
-     * it also ensures that duplicate elements are NOT added to the  
-     * filtered list.    
-     * @param current the Node info of the matched object 
+     * it also ensures that duplicate elements are NOT added to the
+     * filtered list.
+     * @param current the Node info of the matched object
      * @param result the main data result passed in the input.
      */
     private void addMatchedPath(NodeInfo current, DataResult result) {
@@ -150,14 +150,14 @@ public class TreeFilter implements ResultsFilter {
             if (!positions.contains(current.position)) {
                 positions.add(current.position);
                 path.addFirst(result.get(current.position.intValue()));
-            }            
+            }
         }
         filtered.addAll(path);
     }
-    
+
     /**
-     * This class basically serves as a holder 
-     * of extra information needed by TreeFilter to identify parents. 
+     * This class basically serves as a holder
+     * of extra information needed by TreeFilter to identify parents.
      * NodeWrapper
      * @version $Rev$
      */
@@ -165,10 +165,10 @@ public class TreeFilter implements ResultsFilter {
         private DepthAware node;
         private NodeInfo parent;
         private Integer position;
-        
+
         private NodeInfo() {
         }
-        
+
         public static NodeInfo instance(DepthAware nd, Integer pos) {
             NodeInfo wrapper = new NodeInfo();
             wrapper.node = nd;

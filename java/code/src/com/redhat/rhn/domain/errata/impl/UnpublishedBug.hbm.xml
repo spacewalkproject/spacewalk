@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.errata.impl.UnpublishedBug" 
+    <class name="com.redhat.rhn.domain.errata.impl.UnpublishedBug"
         table="rhnErrataBuglistTmp" >
         <composite-id unsaved-value="any">
             <key-many-to-one name="errata"
@@ -11,16 +11,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="errata_id"/>
             <key-property name="id" column="bug_id" type="long"/>
         </composite-id>
-        
+
         <property name="summary" column="summary" type="string" length="4000"
             not-null="true"/>
-        <property name="created" column="created" type="timestamp" 
+        <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
-        <property name="modified" column="modified" type="timestamp" 
+        <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
     </class>
     <query name="UnpublishedBug.findById">
-        <![CDATA[from com.redhat.rhn.domain.errata.impl.UnpublishedBug as b 
+        <![CDATA[from com.redhat.rhn.domain.errata.impl.UnpublishedBug as b
                 where b.id = :id]]>
     </query>
 </hibernate-mapping>

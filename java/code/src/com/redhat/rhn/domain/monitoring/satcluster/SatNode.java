@@ -38,177 +38,177 @@ public class SatNode {
     private Server server;
     private SatCluster satCluster;
     private CommandTarget commandTarget;
-    
-    /** 
-     * Getter for id 
+
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for targetType 
+    /**
+     * Getter for targetType
      * @return String to get
     */
     public String getTargetType() {
         return this.targetType;
     }
 
-    /** 
-     * Setter for targetType 
+    /**
+     * Setter for targetType
      * @param targetTypeIn to set
     */
     public void setTargetType(String targetTypeIn) {
         this.targetType = targetTypeIn;
     }
 
-    /** 
-     * Getter for lastUpdateUser 
+    /**
+     * Getter for lastUpdateUser
      * @return String to get
     */
     public String getLastUpdateUser() {
         return this.lastUpdateUser;
     }
 
-    /** 
-     * Setter for lastUpdateUser 
+    /**
+     * Setter for lastUpdateUser
      * @param lastUpdateUserIn to set
     */
     public void setLastUpdateUser(String lastUpdateUserIn) {
         this.lastUpdateUser = lastUpdateUserIn;
     }
 
-    /** 
-     * Getter for lastUpdateDate 
+    /**
+     * Getter for lastUpdateDate
      * @return Date to get
     */
     public Date getLastUpdateDate() {
         return this.lastUpdateDate;
     }
 
-    /** 
-     * Setter for lastUpdateDate 
+    /**
+     * Setter for lastUpdateDate
      * @param lastUpdateDateIn to set
     */
     public void setLastUpdateDate(Date lastUpdateDateIn) {
         this.lastUpdateDate = lastUpdateDateIn;
     }
 
-    /** 
-     * Getter for macAddress 
+    /**
+     * Getter for macAddress
      * @return String to get
     */
     public String getMacAddress() {
         return this.macAddress;
     }
 
-    /** 
-     * Setter for macAddress 
+    /**
+     * Setter for macAddress
      * @param macAddressIn to set
     */
     public void setMacAddress(String macAddressIn) {
         this.macAddress = macAddressIn;
     }
 
-    /** 
-     * Getter for maxConcurrentChecks 
+    /**
+     * Getter for maxConcurrentChecks
      * @return Long to get
     */
     public Long getMaxConcurrentChecks() {
         return this.maxConcurrentChecks;
     }
 
-    /** 
-     * Setter for maxConcurrentChecks 
+    /**
+     * Setter for maxConcurrentChecks
      * @param maxConcurrentChecksIn to set
     */
     public void setMaxConcurrentChecks(Long maxConcurrentChecksIn) {
         this.maxConcurrentChecks = maxConcurrentChecksIn;
     }
 
-    /** 
-     * Getter for ip 
+    /**
+     * Getter for ip
      * @return String to get
     */
     public String getIp() {
         return this.ip;
     }
 
-    /** 
-     * Setter for ip 
+    /**
+     * Setter for ip
      * @param ipIn to set
     */
     public void setIp(String ipIn) {
         this.ip = ipIn;
     }
 
-    /** 
-     * Getter for schedLogLevel 
+    /**
+     * Getter for schedLogLevel
      * @return Long to get
     */
     public Long getSchedLogLevel() {
         return this.schedLogLevel;
     }
 
-    /** 
-     * Setter for schedLogLevel 
+    /**
+     * Setter for schedLogLevel
      * @param schedLogLevelIn to set
     */
     public void setSchedLogLevel(Long schedLogLevelIn) {
         this.schedLogLevel = schedLogLevelIn;
     }
 
-    /** 
-     * Getter for sputLogLevel 
+    /**
+     * Getter for sputLogLevel
      * @return Long to get
     */
     public Long getSputLogLevel() {
         return this.sputLogLevel;
     }
 
-    /** 
-     * Setter for sputLogLevel 
+    /**
+     * Setter for sputLogLevel
      * @param sputLogLevelIn to set
     */
     public void setSputLogLevel(Long sputLogLevelIn) {
         this.sputLogLevel = sputLogLevelIn;
     }
 
-    /** 
-     * Getter for dqLogLevel 
+    /**
+     * Getter for dqLogLevel
      * @return Long to get
     */
     public Long getDqLogLevel() {
         return this.dqLogLevel;
     }
 
-    /** 
-     * Setter for dqLogLevel 
+    /**
+     * Setter for dqLogLevel
      * @param dqLogLevelIn to set
     */
     public void setDqLogLevel(Long dqLogLevelIn) {
         this.dqLogLevel = dqLogLevelIn;
     }
 
-    /** 
-     * Getter for scoutSharedKey 
+    /**
+     * Getter for scoutSharedKey
      * @return String to get
     */
     public String getScoutSharedKey() {
         return this.scoutSharedKey;
     }
 
-    /** 
-     * Setter for scoutSharedKey 
+    /**
+     * Setter for scoutSharedKey
      * @param scoutSharedKeyIn to set
     */
     public void setScoutSharedKey(String scoutSharedKeyIn) {

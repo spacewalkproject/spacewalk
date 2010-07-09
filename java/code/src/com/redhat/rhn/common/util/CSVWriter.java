@@ -47,7 +47,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
         this.contents = out;
         this.headerText = null;
     }
-    
+
     /**
      * Set columns
      * @param columnsIn List of Strings containing the names of the columns
@@ -67,7 +67,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
     public void setHeaderText(String headerIn) {
         headerText = headerIn;
     }
-    
+
     /**
      * @return String Description of exported data with commas appended
      * to correspond to the number of columns being exported.  Needed so
@@ -102,8 +102,8 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
             throw new RuntimeException("IOException caught trying to write the list: " + e);
         }
     }
-    
-    
+
+
     /**
      * Write a List to the stream
      * @param values you want to write
@@ -111,9 +111,9 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
      */
     private void writeList(List values) throws IOException {
         Iterator itr = values.iterator();
-        
+
         // Write out the column headers
-        if (columns != null) { 
+        if (columns != null) {
             Iterator citer = columns.iterator();
             while (citer.hasNext()) {
                 String cname = (String) citer.next();
@@ -126,7 +126,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
                     write(LocalizationService.
                             getInstance().getMessage(cname));
                 }
-                
+
                 if (citer.hasNext()) {
                     writeSeparator();
                 }
@@ -142,7 +142,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
                 if (itr.hasNext()) {
                     writeSeparator();
                 }
-            } 
+            }
             // If its a list of Maps or Dtos
             else if (value instanceof Map || value instanceof BaseDto) {
                 if (columns == null || !columns.iterator().hasNext()) {
@@ -181,27 +181,27 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
         if (row instanceof Map) {
             Map rowmap = (Map) row;
             return rowmap.get(columnKey);
-        } 
+        }
         else if (row instanceof BaseDto) {
             String ovalue = null;
             try {
                 ovalue = BeanUtils.getProperty(row, columnKey);
             }
             catch (IllegalAccessException e) {
-                throw new IllegalArgumentException("Can't access method in DTO: get" + 
+                throw new IllegalArgumentException("Can't access method in DTO: get" +
                         columnKey + "(), IllegalAccessException:" + e.toString());
             }
             catch (InvocationTargetException e) {
-                throw new IllegalArgumentException("Can't access method in DTO: get" + 
+                throw new IllegalArgumentException("Can't access method in DTO: get" +
                         columnKey + "(),  InvocationTargetException:" + e.toString());
             }
             catch (NoSuchMethodException e) {
-                throw new IllegalArgumentException("Can't call method in DTO class: " + 
-                        row.getClass().getName() + "." + "get" + 
+                throw new IllegalArgumentException("Can't call method in DTO class: " +
+                        row.getClass().getName() + "." + "get" +
                         columnKey + "(), NoSuchMethodException: " + e.toString());
-            }    
+            }
             return ovalue;
-        } 
+        }
         return null;
     }
     /**
@@ -226,7 +226,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
                 super.write(s, from, s.length() - from);
                 break;
             }
-            
+
             super.write(s, from, to - from);
             super.write("\"\"");
 
@@ -260,7 +260,7 @@ public class CSVWriter extends BufferedWriter implements ExportWriter {
         }
         return this.contents.toString();
     }
-    
+
     /**
      * {@inheritDoc}
      */

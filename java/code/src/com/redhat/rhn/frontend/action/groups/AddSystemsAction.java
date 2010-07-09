@@ -59,7 +59,7 @@ public class AddSystemsAction extends BaseListAction {
             Long sid = Long.valueOf(id);
             servers.add(SystemManager.lookupByIdAndUser(sid, user));
         }
-        
+
         ServerGroupManager manager = ServerGroupManager.getInstance();
         manager.addServers(sg, servers, user);
         getStrutsDelegate().saveMessage(

@@ -26,15 +26,15 @@ public class OrgChannelFamily extends ChannelOverview {
     private Long satelliteMaxMembers;
     private Long satelliteCurrentMembers;
     private Long satelliteMaxFlexMembers;
-    private Long satelliteCurrentFlexMembers;    
-    
+    private Long satelliteCurrentFlexMembers;
+
     /**
      * @return the key
      */
     public String getKey() {
         return makeKey(getId());
     }
-    
+
     /**
      * @return the key
      */
@@ -42,7 +42,7 @@ public class OrgChannelFamily extends ChannelOverview {
         return makeFlexKey(getId());
     }
 
-    
+
     /**
      * @param id the id of the channel family
      * @return the key
@@ -50,7 +50,7 @@ public class OrgChannelFamily extends ChannelOverview {
     public static String makeKey(Long id) {
         return String.valueOf(id);
     }
-    
+
     /**
      * @param id the id of the channel family
      * @return the key
@@ -58,8 +58,8 @@ public class OrgChannelFamily extends ChannelOverview {
     public static String makeFlexKey(Long id) {
         return id + "-flex";
     }
-        
-    
+
+
     /**
      * @return Returns the satelliteMaxFlexMembers.
      */
@@ -67,7 +67,7 @@ public class OrgChannelFamily extends ChannelOverview {
         return satelliteMaxFlexMembers;
     }
 
-    
+
     /**
      * @param satelliteMaxFlexMembersIn The satelliteMaxFlexMembers to set.
      */
@@ -75,7 +75,7 @@ public class OrgChannelFamily extends ChannelOverview {
         satelliteMaxFlexMembers = satelliteMaxFlexMembersIn;
     }
 
-    
+
     /**
      * @return Returns the satelliteCurrentFlexMembers.
      */
@@ -83,7 +83,7 @@ public class OrgChannelFamily extends ChannelOverview {
         return satelliteCurrentFlexMembers;
     }
 
-    
+
     /**
      * @param satelliteCurrentFlexMembersIn The satelliteCurrentFlexMembers to set.
      */
@@ -97,28 +97,28 @@ public class OrgChannelFamily extends ChannelOverview {
     public Long getSatelliteMaxMembers() {
         return satelliteMaxMembers;
     }
-    
+
     /**
      * @param satelliteMaxMembersIn The satelliteMaxMembers to set.
      */
     public void setSatelliteMaxMembers(Long satelliteMaxMembersIn) {
         this.satelliteMaxMembers = satelliteMaxMembersIn;
     }
-    
+
     /**
      * @return Returns the satelliteCurrentMembers.
      */
     public Long getSatelliteCurrentMembers() {
         return satelliteCurrentMembers;
     }
-    
+
     /**
      * @param satelliteCurrentMembersIn The satelliteCurrentMembers to set.
      */
     public void setSatelliteCurrentMembers(Long satelliteCurrentMembersIn) {
         this.satelliteCurrentMembers = satelliteCurrentMembersIn;
     }
-    
+
     /**
      * the maximum number of the available slots
      * @return the number of slots
@@ -129,7 +129,7 @@ public class OrgChannelFamily extends ChannelOverview {
         }
         return getSatelliteMaxMembers() - getSatelliteCurrentMembers() + getMaxMembers();
     }
-    
+
     /**
      * the maximum number of the available flex slots
      * @return the number of slots
@@ -139,5 +139,5 @@ public class OrgChannelFamily extends ChannelOverview {
             return getMaxFlex();
         }
         return getSatelliteMaxFlex() - getSatelliteCurrentFlex() + getMaxFlex();
-    }    
+    }
 }

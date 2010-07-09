@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
- * 
+ *
  * @version $Rev: 1651 $
  */
 public class VisibleSystems extends BaseDto {
@@ -42,7 +42,7 @@ public class VisibleSystems extends BaseDto {
     public String getServerName() {
         return serverName;
     }
-    
+
     /**
      * get the group name
      * @return the group name
@@ -66,7 +66,7 @@ public class VisibleSystems extends BaseDto {
     public void setServerName(String s) {
         serverName = s;
     }
-    
+
     /**
      * Set the group name
      * @param g the group name to set.
@@ -74,7 +74,7 @@ public class VisibleSystems extends BaseDto {
     public void setGroupName(List g) {
         groupName = g;
     }
-    
+
     /**
      * @param selectableIn Whether a server is selectable
      * one if selectable, null if not selectable
@@ -82,7 +82,7 @@ public class VisibleSystems extends BaseDto {
     public void setSelectable(Long selectableIn) {
         selectable = (selectableIn != null);
     }
-    
+
     /**
      * Tells whether a system is selectable for the SSM
      * All management and provisioning entitled servers are true

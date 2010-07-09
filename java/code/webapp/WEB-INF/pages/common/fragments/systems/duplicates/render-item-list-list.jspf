@@ -16,25 +16,25 @@
 			</c:if>
 			<td class="${style_class} ">
 	  		<c:choose>
-	  		<c:when test ="${not empty sublist}"> 
+			<c:when test ="${not empty sublist}">
 	  			<ul>
 		  		<c:forEach items="${sublist}" var="item" varStatus="subloop">
 		  			<c:choose>
-		  				<c:when test="${item.similar}"><li class="inactive"></c:when> 
+						<c:when test="${item.similar}"><li class="inactive"></c:when>
 						<c:otherwise><li></c:otherwise>
 					</c:choose>		  		
 				
 		  		<c:choose>
 		  				<c:when test="${empty item.value}">
 		  					<c:set var ="value"><bean:message key="generic.jsp.none"/></c:set>
-		  				</c:when> 
+						</c:when>
 						<c:otherwise>
 							<c:set var ="value" value="${item.value}" />
 						</c:otherwise>
 				</c:choose>
 				<c:if test="${not empty href && not empty item.id}">
 					<c:set var ="value"> <a href="${href}${item.id}">${value}</a></c:set>
-				</c:if> 
+				</c:if>
 					${value}
 				</li>
 				</c:forEach>

@@ -62,7 +62,7 @@ public class UnsubscribeConfirmSubmitAction extends RhnListDispatchAction {
             HttpServletRequest requestIn, Map paramsIn) {
         //no-op
     }
-    
+
     /**
      * Unsubscribes selected systems from selected config channels.
      * @param mapping struts ActionMapping
@@ -77,7 +77,7 @@ public class UnsubscribeConfirmSubmitAction extends RhnListDispatchAction {
         RhnSet channelSet = RhnSetDecl.CONFIG_CHANNELS.get(user);
         ConfigurationManager cm = ConfigurationManager.getInstance();
         DataResult systemSet = cm.ssmSystemListForChannels(user, null);
-        
+
         int successes = 0;
         Iterator systems = systemSet.iterator();
         //go through each system in the set
@@ -91,7 +91,7 @@ public class UnsubscribeConfirmSubmitAction extends RhnListDispatchAction {
             catch (LookupException e) {
                 continue; //skip this element
             }
-            
+
             Iterator channels = channelSet.getElements().iterator();
             //go through each channel and unsubscribe the current system
             while (channels.hasNext()) {
@@ -103,28 +103,28 @@ public class UnsubscribeConfirmSubmitAction extends RhnListDispatchAction {
                 catch (LookupException e) {
                     continue; //skip this element
                 }
-                
+
                 //unsubscribe the channel
                 if (server.unsubscribe(channel)) {
                     hit = true;
                 }
             }
-            
+
             //update the number of successes if we have done something to this server
             if (hit) {
                 successes++;
             }
         }
-        
+
         RhnSetManager.remove(channelSet); //clear the set
         //now that we have unsubscribed from channels, these other sets may
         //no longer be valid, so delete them too.
         ConfigActionHelper.clearRhnSets(user);
-        
+
         createMessage(request, successes);
         return mapping.findForward("success");
     }
-    
+
     private void createMessage(HttpServletRequest request, int successes) {
         ActionMessages msg = new ActionMessages();
         if (successes == 1) {
@@ -137,5 +137,5 @@ public class UnsubscribeConfirmSubmitAction extends RhnListDispatchAction {
         }
         getStrutsDelegate().saveMessages(request, msg);
     }
-    
+
 }

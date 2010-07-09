@@ -75,13 +75,13 @@ public class Copy2SystemsAction extends BaseCopyToAction {
     public String getSuccessKey(int numFiles, int numChannels) {
         if (numFiles == 1 && numChannels == 1) {
             return "copy2systems.jsp.success.1x1";
-        } 
+        }
         else if (numFiles == 1) {
-            return "copy2systems.jsp.success.1xn";            
-        } 
+            return "copy2systems.jsp.success.1xn";
+        }
         else if (numChannels == 1) {
-            return "copy2systems.jsp.success.nx1";            
-        } 
+            return "copy2systems.jsp.success.nx1";
+        }
         else {
             return "copy2systems.jsp.success.nxn";
         }

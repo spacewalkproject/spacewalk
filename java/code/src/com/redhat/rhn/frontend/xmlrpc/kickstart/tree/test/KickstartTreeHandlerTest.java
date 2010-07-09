@@ -35,18 +35,18 @@ import java.util.List;
  * @version $Rev$
  */
 public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
-    
+
     private KickstartTreeHandler handler = new KickstartTreeHandler();
     private KickstartHandler ksHandler = new KickstartHandler();
-        
+
     public void testListKickstartableTrees() throws Exception {
-        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
-        List ksTrees = handler.list(adminKey, 
+        List ksTrees = handler.list(adminKey,
                 baseChan.getLabel());
         assertTrue(ksTrees.size() > 0);
-        
+
         boolean found = false;
         for (int i = 0; i < ksTrees.size(); i++) {
             KickstartableTree t = (KickstartableTree)ksTrees.get(i);
@@ -57,7 +57,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         }
         assertTrue(found);
     }
-    
+
     public void testCreateKickstartableTree() throws Exception {
         String label = TestUtils.randomString();
         List trees = KickstartFactory.
@@ -67,31 +67,31 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
             origCount = trees.size();
         }
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
-        handler.create(adminKey, label, 
-                KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath(), 
+        handler.create(adminKey, label,
+                KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath(),
                 baseChan.getLabel(), KickstartInstallType.RHEL_5);
         assertTrue(origCount + 1 == KickstartFactory.
                 lookupAccessibleTreesByOrg(admin.getOrg()).size());
     }
-    
+
     public void testEditKickstartableTree() throws Exception {
-        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
         String newBase = "/tmp/kickstart/new-base-path";
         KickstartableTreeTest.createKickstartTreeItems(new File(newBase));
         Channel newChan = ChannelFactoryTest.createTestChannel(admin);
-        handler.update(adminKey, testTree.getLabel(), 
-                newBase, newChan.getLabel(), 
+        handler.update(adminKey, testTree.getLabel(),
+                newBase, newChan.getLabel(),
                 testTree.getInstallType().getLabel());
 
         assertEquals(testTree.getBasePath(), newBase);
         assertEquals(testTree.getChannel(), newChan);
         assertNotNull(testTree.getInstallType());
     }
-    
+
     public void testRenameKickstartableTree() throws Exception {
-        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
         String newLabel = "newlabel-" + TestUtils.randomString();
@@ -100,7 +100,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testDeleteKickstartableTree() throws Exception {
-        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
         String label = testTree.getLabel();
@@ -132,9 +132,9 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         assertNotNull(ksTrees);
         assertNotNull(ksProfiles);
         assertEquals(numKsTrees - 1, ksTrees.size());
-        assertTrue(ksProfiles.size() < numKsProfiles);        
+        assertTrue(ksProfiles.size() < numKsProfiles);
     }
-    
+
     public void testListTreeTypes() throws Exception {
         List types = handler.listInstallTypes(adminKey);
         assertNotNull(types);

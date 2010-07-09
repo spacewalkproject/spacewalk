@@ -27,9 +27,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
 /**
  * Serializes instances of
  * {@link com.redhat.rhn.domain.kickstart.crypto.CryptoKey}.
- * 
+ *
  * @version $Revision$
- *      
+ *
  * @xmlrpc.doc
  *      #struct("key")
  *          #prop("string", "description")
@@ -47,15 +47,15 @@ public class CryptoKeySerializer implements XmlRpcCustomSerializer {
     /** {@inheritDoc} */
     public void serialize(Object o, Writer writer, XmlRpcSerializer xmlRpcSerializer)
         throws XmlRpcException, IOException {
-        
+
         if (!(o instanceof CryptoKey)) {
             throw new XmlRpcException("Object of incorrect type to be serialized. " +
-                "Expected: CryptoKeyDetails, Found: " + 
+                "Expected: CryptoKeyDetails, Found: " +
                 (o != null ? o.getClass() : null));
         }
-        
+
         CryptoKey key = (CryptoKey) o;
-        
+
         SerializerHelper serializer = new SerializerHelper(xmlRpcSerializer);
         serializer.add("description", key.getDescription());
         serializer.add("type", key.getCryptoKeyType().getLabel());

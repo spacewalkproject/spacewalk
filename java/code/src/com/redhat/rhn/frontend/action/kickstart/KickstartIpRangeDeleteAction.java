@@ -40,69 +40,69 @@ import javax.servlet.http.HttpServletResponse;
 public class KickstartIpRangeDeleteAction extends RhnAction {
 
     public static final String MIN = "min";
-    public static final String MAX = "max";        
-        
+    public static final String MAX = "max";
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public final ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
-        Map params = makeParamMap(request);        
+
+        Map params = makeParamMap(request);
         RequestContext ctx = new RequestContext(request);
         User user = ctx.getCurrentUser();
         ActionErrors messages = new ActionErrors();
-        
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
-        KickstartIpCommand cmd = 
-            new KickstartIpCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID), 
+
+        KickstartIpCommand cmd =
+            new KickstartIpCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                     ctx.getCurrentUser());
-        
+
         // make sure get params came across request
         if ((request.getParameter(MIN)) == null ||
                 (request.getParameter(MAX)) == null ||
-                (ctx.getRequiredParam(RequestContext.KICKSTART_ID) == null)) {            
+                (ctx.getRequiredParam(RequestContext.KICKSTART_ID) == null)) {
             throw new BadParameterException("Missing min, max and/or ksid for ks ip range");
         }
         // make sure org has permission
-        else if (user.getOrg().getId() != 
-            cmd.getKickstartData().getOrg().getId()) {              
+        else if (user.getOrg().getId() !=
+            cmd.getKickstartData().getOrg().getId()) {
             throw new BadParameterException("Invalid uid for /rhn/kickstart/");
         }
-        // delete ip range from kickstart 
-        else {            
-            boolean success = cmd.deleteRange(cmd.getKickstartData().getId(), 
-                    request.getParameter(MIN), 
-                    request.getParameter(MAX));            
-            if (success) {                
-                createSuccessMessage(request, getSuccessKey(), 
+        // delete ip range from kickstart
+        else {
+            boolean success = cmd.deleteRange(cmd.getKickstartData().getId(),
+                    request.getParameter(MIN),
+                    request.getParameter(MAX));
+            if (success) {
+                createSuccessMessage(request, getSuccessKey(),
                         cmd.getKickstartData().getLabel());
             }
-            else {                                                
-                messages.add(ActionMessages.GLOBAL_MESSAGE, 
-                        new ActionMessage("kickstart.iprange_delete.failure", 
+            else {
+                messages.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("kickstart.iprange_delete.failure",
                                 cmd.getKickstartData().getLabel()));
-                strutsDelegate.saveMessages(request, messages);                
+                strutsDelegate.saveMessages(request, messages);
             }
         }
-        
-        request.setAttribute(RequestContext.KICKSTART, 
-                cmd.getKickstartData());                                
-        
+
+        request.setAttribute(RequestContext.KICKSTART,
+                cmd.getKickstartData());
+
         return strutsDelegate.forwardParams(mapping.findForward("default"),
-                params);       
+                params);
     }
-    
+
     /**
-     * 
+     *
      * @return i18n key
      */
     private String getSuccessKey() {
-        return "kickstart.iprange_delete.success";        
-    }     
-                     
+        return "kickstart.iprange_delete.success";
+    }
+
 }

@@ -26,33 +26,33 @@ import com.redhat.rhn.testing.UserTestUtils;
 import java.util.Map;
 
 public class OverviewTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
-        
+
+
         TestUtils.saveAndFlush(user);
-        
+
         //Make a file for the recentFiles list
         ConfigFile file = ConfigTestUtils.createConfigFile(user.getOrg());
         //Make a revision so that the query can get at the file type attribute
         ConfigTestUtils.createConfigRevision(file);
-        
+
         ConfigTestUtils.giveUserChanAccess(user, file.getConfigChannel());
         ConfigurationFactory.commit(file);
-        
+
         setRequestPathInfo("/configuration/Overview");
         actionPerform();
-        
+
         Map summary = (Map)request.getAttribute("summary");
         verifyList("recentFiles", ConfigFileDto.class);
         assertNotNull(request.getAttribute("recentActions"));
         assertNotNull(summary);
-        
+
         assertTrue(summary.containsKey("channels"));
         assertFalse(summary.containsKey("quota"));
-        
+
     }
 
 }

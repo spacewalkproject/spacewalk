@@ -25,7 +25,7 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 /**
- * RhnHelperTest - test our RhnHelper class 
+ * RhnHelperTest - test our RhnHelper class
  * @version $Rev$
  */
 public class RhnHelperTest extends RhnBaseTestCase {
@@ -41,8 +41,8 @@ public class RhnHelperTest extends RhnBaseTestCase {
                                             RhnHelper.DEFAULT_EMPTY_SELECTION_KEY);
         assertEquals(key.getKey(), ((ActionMessage)am.get().next()).getKey());
     }
-    
-    
+
+
     public void testGetTextAreaValue() {
         String value = "asdf\r\nasdfwerwer\rasdf\n\radsfhjhhasdf";
         DynaActionForm form = new RhnMockDynaActionForm();
@@ -51,7 +51,7 @@ public class RhnHelperTest extends RhnBaseTestCase {
         assertNotNull(stripped);
         assertTrue(stripped.indexOf('\r') == -1);
     }
-    
+
     public void testGetParameterWithSpecialCharacters() throws Exception {
         RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
         request.setupQueryString("   ");
@@ -59,25 +59,25 @@ public class RhnHelperTest extends RhnBaseTestCase {
 
         request.setupQueryString(null);
         assertNull(RhnHelper.getParameterWithSpecialCharacters(request, "zzzz"));
-        
+
         request.setupQueryString("asdf12354");
         assertNull(RhnHelper.getParameterWithSpecialCharacters(request, "zzzz"));
-        
+
         request.setupQueryString("foo=bar");
         assertNull(RhnHelper.getParameterWithSpecialCharacters(request, "zzzz"));
-        
+
         request.setupQueryString("foo=bar");
         assertEquals("bar", RhnHelper.
                 getParameterWithSpecialCharacters(request, "foo"));
-        
+
         request.setupQueryString("foo=bar&baz=bloop&blippy=blorg");
         assertEquals("bar", RhnHelper.
                 getParameterWithSpecialCharacters(request, "foo"));
-        
+
         request.setupQueryString("foo=bar+++&baz=bloop&blippy=blorg");
         assertEquals("bar+++", RhnHelper.
                     getParameterWithSpecialCharacters(request, "foo"));
-        
+
     }
 
 }

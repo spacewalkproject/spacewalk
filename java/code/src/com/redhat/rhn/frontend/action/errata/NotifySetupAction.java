@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class NotifySetupAction extends BaseErrataSetupAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -38,7 +38,7 @@ public class NotifySetupAction extends BaseErrataSetupAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         /*
          * Notifications can only be sent for a published errata.
          */
@@ -46,7 +46,7 @@ public class NotifySetupAction extends BaseErrataSetupAction {
         if (!errata.isPublished()) {
             throw new BadParameterException("Unpublished errata.");
         }
-        
+
         //return the default for errata
         return super.execute(mapping, formIn, request, response);
     }

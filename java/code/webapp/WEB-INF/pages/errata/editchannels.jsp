@@ -13,12 +13,12 @@
 	           helpUrl="/rhn/help/channel-mgmt/en-US/channel-mgmt-Custom_Errata_Management-Managed_Errata_Details.jsp">
     <bean:message key="errata.edit.toolbar"/> <c:out value="${advisory}" />
   </rhn:toolbar>
-  
-  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml" 
+
+  <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/manage_errata.xml"
                   renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-  
+
   <h2><bean:message key="errata.edit.editerrata"/></h2>
-    
+
   <p><bean:message key="errata.edit.channels.instructions"/></p>
 <c:set var="pageList" value="${requestScope.pageList}" />
 <form method="POST" name="rhn_list" action="/rhn/errata/manage/ChannelsSubmit.do">
@@ -38,7 +38,7 @@
             </a>
         </c:if>
     </rhn:column>
-    
+
   </rhn:listdisplay>
 </rhn:list>
 <hr />

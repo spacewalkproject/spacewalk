@@ -34,11 +34,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * BaseKickstartListSetupAction - base class for Kickstart Details list pages that show
  * a list of items to associate with the kickstart.
- * 
+ *
  * @version $Rev: 76571 $
  */
 public abstract class BaseKickstartListSetupAction extends BaseSetListAction {
-   
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
@@ -59,29 +59,29 @@ public abstract class BaseKickstartListSetupAction extends BaseSetListAction {
         }
 
         return super.execute(mapping, formIn, request, response);
-    } 
+    }
     /**
      * {@inheritDoc}
      */
     protected void processForm(RequestContext rctx, ActionForm form) {
-        super.processForm(rctx, form);       
+        super.processForm(rctx, form);
         KickstartData ksdata = KickstartFactory
-            .lookupKickstartDataByIdAndOrg(rctx.getCurrentUser().getOrg(), 
+            .lookupKickstartDataByIdAndOrg(rctx.getCurrentUser().getOrg(),
                     rctx.getRequiredParam(RequestContext.KICKSTART_ID));
         rctx.getRequest().setAttribute(RequestContext.KICKSTART, ksdata);
-        
+
         if (!rctx.isSubmitted()) {
             populateNewSet(rctx, getCurrentItemsIterator(ksdata));
         }
     }
-    
+
     /**
-     * Get the Iterator for a Collection of Objects 
+     * Get the Iterator for a Collection of Objects
      * that implement the Identifiable interface.
      * @param ksdata KickstartData to fetch info from
      * @return Iterator containing Identifiable objects.
      */
     protected abstract Iterator getCurrentItemsIterator(KickstartData ksdata);
 
-    
+
 }

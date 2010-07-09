@@ -62,7 +62,7 @@ public class DocSearchSetupAction extends RhnAction {
     private static final String OPT_CONTENT_TITLE = "search_content_title";
 
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping, ActionForm formIn, 
+    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest request, HttpServletResponse response) {
 
         ActionErrors errors = new ActionErrors();
@@ -71,7 +71,7 @@ public class DocSearchSetupAction extends RhnAction {
         Map forwardParams = makeParamMap(request);
         String searchString = request.getParameter("search_string");
         String viewMode = form.getString("view_mode");
-        
+
         try {
             // handle setup, the submission setups the searchstring below
             // and redirects to this page which then performs the search.
@@ -129,31 +129,31 @@ public class DocSearchSetupAction extends RhnAction {
                 forwardParams.put(name, request.getParameter(name));
             }
         }
-    
+
         forwardParams.put("search_string", searchString);
         forwardParams.put("view_mode", viewMode);
 
         if (!errors.isEmpty()) {
             addErrors(request, errors);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"), 
+                    mapping.findForward("default"),
                     forwardParams);
         }
-        
+
         return getStrutsDelegate().forwardParams(
-                mapping.findForward("success"), 
+                mapping.findForward("success"),
                 forwardParams);
     }
-    
+
     private void setupForm(HttpServletRequest request, DynaActionForm form)
         throws MalformedURLException, XmlRpcFault {
 
         RequestContext ctx = new RequestContext(request);
         String searchString = form.getString("search_string");
         String viewmode = form.getString("view_mode");
-        
+
         List searchOptions = new ArrayList();
-        
+
         addOption(searchOptions, "docsearch.content_title", OPT_CONTENT_TITLE);
         addOption(searchOptions, "docsearch.free_form", OPT_FREE_FORM);
         addOption(searchOptions, "docsearch.content", OPT_CONTENT_ONLY);
@@ -176,7 +176,7 @@ public class DocSearchSetupAction extends RhnAction {
             request.setAttribute("pageList", Collections.EMPTY_LIST);
         }
     }
-    
+
     private List performSearch(Long sessionId, String searchString,
                                String mode)
         throws XmlRpcFault, MalformedURLException {
@@ -228,14 +228,14 @@ public class DocSearchSetupAction extends RhnAction {
         }
         return docs;
     }
-    
+
     private String preprocessSearchString(String searchstring,
                                           String mode) {
 
         if (!OPT_FREE_FORM.equals(mode) && searchstring.indexOf(':') > 0) {
             throw new ValidatorException("Can't use free form and field search.");
         }
-        
+
         StringBuffer buf = new StringBuffer(searchstring.length());
         String[] tokens = searchstring.split(" ");
         for (String s : tokens) {
@@ -245,11 +245,11 @@ public class DocSearchSetupAction extends RhnAction {
 
                 s = s.toUpperCase();
             }
-              
+
             buf.append(s);
             buf.append(" ");
         }
-        
+
 
         String query = buf.toString().trim();
         // when searching the name field, we also want to include the filename
@@ -264,11 +264,11 @@ public class DocSearchSetupAction extends RhnAction {
            return "(content:(" + query + ") title:(" + query + "))";
        }
 
-        
+
         // OPT_FREE_FORM send as is.
         return buf.toString();
     }
-    
+
     private void addOption(List options, String key, String value) {
         addOption(options, key, value, false);
     }

@@ -46,7 +46,7 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
     public static final String MAC_ADDRESS = "macaddress";
     public static final String HOSTNAME = "hostname";
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping,
@@ -76,7 +76,7 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
         String inactiveButton = ListTagUtil.makeExtraButtonName(helper.getUniqueName());
         if (!StringUtils.isBlank(request.getParameter(inactiveButton))) {
             List<DuplicateSystemGrouping> list = getResult(ctx);
-            
+
             RhnSet set = helper.getSet();
             for (DuplicateSystemGrouping grp : list) {
                 for (NetworkDto dto : grp.getSystems()) {
@@ -85,10 +85,10 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
                     }
                 }
             }
-            
+
             RhnSetManager.store(set);
             helper.resync(request);
-            
+
         }
 
 
@@ -123,5 +123,5 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
     private RhnSetDecl getSetDecl() {
         return RhnSetDecl.SYSTEMS;
     }
-    
+
 }

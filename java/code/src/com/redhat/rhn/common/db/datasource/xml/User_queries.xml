@@ -34,8 +34,8 @@ SELECT ugm.user_id
 <mode name="in_set" class="com.redhat.rhn.frontend.dto.UserOverview">
   <query params="user_id, set_label">
   SELECT  DISTINCT WC.id, WC.login_uc,UI.last_logged_in
-  
-    FROM  web_contact WC 
+
+    FROM  web_contact WC
     	inner join rhnSet ST on ST.element = WC.id
 	    inner join rhnUserInfo UI on UI.user_id = wc.id
    WHERE  ST.user_id = :user_id
@@ -73,7 +73,7 @@ ORDER BY wc.login_uc
 </mode>
 
 <query name="all_users_in_multiorg_overview" params="">
-  SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, 
+  SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name,
           rhn_user.check_role(user_id, 'org_admin') as org_admin,
           rhn_user.check_role(user_id, 'satellite_admin') as sat_admin,
           wc.name as org_name,
@@ -82,7 +82,7 @@ ORDER BY wc.login_uc
    WHERE  UIOO.user_id IN (%s)
      AND  wc.id = UIOO.org_id
      AND  wupi.web_user_id = uioo.user_id
-ORDER BY  UPPER(user_login), UIOO.user_id 
+ORDER BY  UPPER(user_login), UIOO.user_id
 </query>
 
 <mode name="users_in_multiorg" class="com.redhat.rhn.frontend.dto.MultiOrgUserOverview">
@@ -98,13 +98,13 @@ ORDER BY wc.login_uc
 </mode>
 
 <query name="users_in_multiorg_overview" params="">
-  SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, 
+  SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name,
           rhn_user.check_role(user_id, 'org_admin') as org_admin,
-          wupi.email as address 
+          wupi.email as address
     FROM  rhnUsersInOrgOverview UIOO, web_user_personal_info wupi
    WHERE  UIOO.user_id IN (%s)
      AND  wupi.web_user_id = uioo.user_id
-ORDER BY  UPPER(user_login), UIOO.user_id 
+ORDER BY  UPPER(user_login), UIOO.user_id
 </query>
 
 <mode name="active_in_org" class="com.redhat.rhn.frontend.dto.UserOverview">
@@ -113,7 +113,7 @@ SELECT wce.id AS ID,
        wce.login,
        wce.login_uc,
        UI.last_logged_in
-  FROM rhnWebContactEnabled wce 
+  FROM rhnWebContactEnabled wce
   	inner join rhnUserInfo UI on UI.user_id = wce.id
  WHERE wce.org_id = :org_id
 ORDER BY wce.login_uc
@@ -158,7 +158,7 @@ SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, role_na
 </callable-mode>
 
 <query name="users_in_org_overview" params="">
-  SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, role_names, 
+  SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, role_names,
           server_count, server_group_count, last_logged_in,
           nvl((select
                 distinct wccs.label
@@ -175,7 +175,7 @@ SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, role_na
     FROM  rhnUsersInOrgOverview UIOO, rhnUserInfo UI
    WHERE  UIOO.user_id IN (%s)
      AND  UI.user_id = UIOO.user_id
-ORDER BY  UPPER(user_login), UIOO.user_id 
+ORDER BY  UPPER(user_login), UIOO.user_id
 </query>
 
 <mode name="default_system_groups">
@@ -184,15 +184,15 @@ SELECT system_group_id
   FROM rhnUserDefaultSystemGroups
  WHERE user_id = :user_id
   </query>
-</mode> 
+</mode>
 
 <callable-mode name="create_new_user">
   <query params="userid, orgId, password, contactId, prefix, fname, lname, genqual, parentCompany, company, title, phone, fax, email, pin, fnameOl, lnameOl, addr1, addr2, addr3, city, state, zip, country, altFnames, altLnames, contCall, contMail, contEmail, contFax">
-      {:userId = call CREATE_NEW_USER( :orgId, :login, :password, :contactId, 
-                         :prefix, :fname, :lname, :genqual, :parentCompany, 
-                         :company, :title, :phone, :fax, :email, :pin, 
-                         :fnameOl, :lnameOl, :addr1, :addr2, :addr3, :city, 
-                         :state, :zip, :country, :altFnames, :altLnames, 
+      {:userId = call CREATE_NEW_USER( :orgId, :login, :password, :contactId,
+                         :prefix, :fname, :lname, :genqual, :parentCompany,
+                         :company, :title, :phone, :fax, :email, :pin,
+                         :fnameOl, :lnameOl, :addr1, :addr2, :addr3, :city,
+                         :state, :zip, :country, :altFnames, :altLnames,
                          :contCall, :contMail, :contEmail, :contFax)}
   </query>
 </callable-mode>
@@ -298,15 +298,15 @@ SELECT system_group_id
 SELECT count(id) as user_count
   FROM web_contact
   </query>
-</mode> 
+</mode>
 	
 <mode name="get_user_id">
   <query params="loginUc">
 SELECT id as user_id
-  FROM web_contact 
+  FROM web_contact
 	  WHERE login_uc = :loginUc
   </query>
-</mode> 
+</mode>
 	
 
 </datasource_modes>

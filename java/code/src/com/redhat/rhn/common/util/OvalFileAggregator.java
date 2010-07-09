@@ -35,20 +35,20 @@ import java.util.Map;
 
 /**
  * Builds a single OVAL XML file out of individual OVAL files
- * 
+ *
  * @version $Rev$
  */
 public class OvalFileAggregator {
-    
+
     private static final Logger LOGGER = Logger.getLogger(OvalFileAggregator.class);
-    
+
     private Document aggregate;
     private boolean isFinished;
     private Map defs;
     private Map tests;
     private Map objects;
     private Map states;
-   
+
     /**
      * No-arg constructor
      * @throws JDOMException if XML document initialization fails
@@ -56,7 +56,7 @@ public class OvalFileAggregator {
     public OvalFileAggregator() throws JDOMException {
         reset();
     }
-    
+
     /**
      * Adds a OVAL file to the aggregate
      * @param f file to add
@@ -81,7 +81,7 @@ public class OvalFileAggregator {
             throw e;
         }
     }
-    
+
     /**
      * Adds a parsed OVAL file to the aggregate
      * @param doc parsed OVAL file
@@ -96,7 +96,7 @@ public class OvalFileAggregator {
        storeObjects(doc);
        storeStates(doc);
     }
-    
+
     /**
      * Finalizes processing and builds the aggregated document
      * @param prettyPrint pretty print XML or not
@@ -124,7 +124,7 @@ public class OvalFileAggregator {
         retval = retval.replaceAll(" xmlns:oval=\"removeme\"", "");
         return retval.replaceAll(" xmlns:redhat=\"removeme\"", "");
     }
-    
+
     private void buildDocument() {
         Element defsElement = new Element("definitions");
         attachChildren(defsElement, defs);
@@ -140,11 +140,11 @@ public class OvalFileAggregator {
         children.add(objectsElement);
         children.add(statesElement);
     }
-    
+
     private boolean isEmpty() {
         return defs.size() == 0 && tests.size() == 0 && states.size() == 0;
     }
-    
+
     private void attachChildren(Element parent, Map children) {
         for (Iterator iter = children.keySet().iterator(); iter.hasNext();) {
             String key = (String) iter.next();
@@ -152,27 +152,27 @@ public class OvalFileAggregator {
             parent.getChildren().add(child);
         }
     }
-    
+
     private void storeStates(Document doc) {
         XPathLite xpl = new XPathLite("states");
         storeChildren(xpl, doc, states);
     }
-    
+
     private void storeObjects(Document doc) {
         XPathLite xpl = new XPathLite("objects");
         storeChildren(xpl, doc, objects);
     }
-    
+
     private void storeTests(Document doc) {
         XPathLite xpl = new XPathLite("tests");
         storeChildren(xpl, doc, tests);
     }
-    
+
     private void storeDefinitions(Document doc) {
         XPathLite xpl = new XPathLite("definitions");
         storeChildren(xpl, doc, defs);
     }
-    
+
     private void storeChildren(XPathLite xpl, Document doc, Map container) {
         for (Iterator iter = xpl.selectChildren(doc).iterator(); iter.hasNext();) {
             Element child = (Element) iter.next();
@@ -188,25 +188,25 @@ public class OvalFileAggregator {
                     container.put(key, child.clone());
                 }
             }
-        }        
+        }
     }
 
-    
-    
+
+
     private void reset() {
         Namespace schema = Namespace.getNamespace(
                 "xsi", "http://www.w3.org/2000/10/XMLSchema-instance");
         Namespace oval = Namespace.getNamespace("oval", "removeme");
         aggregate = new Document();
         Element root = new Element("oval_definitions");
-        root.setAttribute("schemaLocation", 
-                "http://oval.mitre.org/XMLSchema/oval-common-5 " + 
-                "oval-common-schema.xsd " + 
-                "http://oval.mitre.org/XMLSchema/oval-definitions-5 " + 
-                "oval-definitions-schema.xsd " + 
-                "http://oval.mitre.org/XMLSchema/oval-definitions-5#unix " + 
-                "unix-definitions-schema.xsd " + 
-                "http://oval.mitre.org/XMLSchema/oval-definitions-5#redhat " + 
+        root.setAttribute("schemaLocation",
+                "http://oval.mitre.org/XMLSchema/oval-common-5 " +
+                "oval-common-schema.xsd " +
+                "http://oval.mitre.org/XMLSchema/oval-definitions-5 " +
+                "oval-definitions-schema.xsd " +
+                "http://oval.mitre.org/XMLSchema/oval-definitions-5#unix " +
+                "unix-definitions-schema.xsd " +
+                "http://oval.mitre.org/XMLSchema/oval-definitions-5#redhat " +
                 "redhat-definitions-schema.xsd", schema);
         aggregate.setRootElement(root);
         Element generator = new Element("generator");
@@ -240,7 +240,7 @@ public class OvalFileAggregator {
         generator.getChildren().add(prodName);
         generator.getChildren().add(schemaVersion);
         generator.getChildren().add(timestamp);
-        
+
         defs = new LinkedHashMap();
         tests = new LinkedHashMap();
         objects = new LinkedHashMap();

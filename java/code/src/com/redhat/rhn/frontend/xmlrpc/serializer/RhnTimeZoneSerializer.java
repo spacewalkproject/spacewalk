@@ -28,9 +28,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * RhnTimeZoneSerializer will serialize an RhnTimeZone object to XMLRPC
  * syntax.
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
- * 
+ *
  * #struct("timezone")
  *   #prop_desc("int", "time_zone_id", "Unique identifier for timezone.")
  *   #prop_desc("string", "olson_name", "Name as identified by the Olson database.")
@@ -47,7 +47,7 @@ public class RhnTimeZoneSerializer implements XmlRpcCustomSerializer {
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
         RhnTimeZone tz = (RhnTimeZone) value;
-        
+
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("time_zone_id", new Integer(tz.getTimeZoneId()));
         helper.add("olson_name", tz.getOlsonName());

@@ -22,7 +22,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @version $Rev$
  */
 public class IpAddressRange {
-    
+
     private IpAddress min;
     private IpAddress max;
     private Long ksid;
@@ -36,9 +36,9 @@ public class IpAddressRange {
         this.max = new IpAddress();
         this.ksid = new Long(0);
     }
-    
+
     /**
-     * 
+     *
      * @param minIn min IP to set
      * @param maxIn max IP to set
      * @param ksidIn Kickstart ID to set
@@ -48,9 +48,9 @@ public class IpAddressRange {
         this.max = maxIn;
         this.ksid = ksidIn;
     }
-    
+
     /**
-     * 
+     *
      * @param minIn IpNumber to set min IpAddress
      * @param maxIn IpNumber to set max IpAddress
      * @param ksidIn Kickstart ID to set
@@ -60,30 +60,30 @@ public class IpAddressRange {
         this.max = new IpAddress(maxIn);
         this.ksid = ksidIn;
     }
-    
+
     /**
-     * 
+     *
      * @param minIn min ip long coming in
      * @param maxIn max ip long coming in
-     * @param ksidIn long id of ks data 
+     * @param ksidIn long id of ks data
      */
     public IpAddressRange(long minIn, long maxIn, long ksidIn) {
         this(minIn, maxIn, new Long(ksidIn));
     }
-    
+
     /**
-     * 
+     *
      * @param minIn IpNumber to set min IpAddress
      * @param maxIn IpNumber to set max IpAddress
      */
-    public IpAddressRange(Long minIn, Long maxIn) {                
+    public IpAddressRange(Long minIn, Long maxIn) {
         this.min = new IpAddress(minIn.longValue());
         this.max = new IpAddress(maxIn.longValue());
         this.ksid = new Long(0);
     }
- 
+
     /**
-     * 
+     *
      * @return Max IpAddress for this range
      */
     public IpAddress getMax() {
@@ -91,7 +91,7 @@ public class IpAddressRange {
     }
 
     /**
-     * 
+     *
      * @param maxIn IpAddress to set for this range
      */
     public void setMax(IpAddress maxIn) {
@@ -99,7 +99,7 @@ public class IpAddressRange {
     }
 
     /**
-     * 
+     *
      * @return min IpAddress for this range
      */
     public IpAddress getMin() {
@@ -107,13 +107,13 @@ public class IpAddressRange {
     }
 
     /**
-     * 
+     *
      * @param minIn IpAddress to set for this range
      */
     public void setMin(IpAddress minIn) {
         this.min = minIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -126,7 +126,7 @@ public class IpAddressRange {
                                   .append(this.getMin(), other.getMin())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -137,7 +137,7 @@ public class IpAddressRange {
     }
 
     /**
-     * 
+     *
      * @return Kickstart ID
      */
     public Long getKsid() {
@@ -145,13 +145,13 @@ public class IpAddressRange {
     }
 
     /**
-     * 
+     *
      * @param ksidIn KickstartId to set
      */
     public void setKsid(Long ksidIn) {
         this.ksid = ksidIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -168,44 +168,44 @@ public class IpAddressRange {
     }
 
     /**
-     * 
+     *
      * @param addrIn Address coming
      * @return is this IPaddress contained in this range
      */
     public boolean isIpAddressContained(IpAddress addrIn) {
         return (addrIn.getNumber() >= this.min.getNumber() &&
-                addrIn.getNumber() <= this.max.getNumber());        
+                addrIn.getNumber() <= this.max.getNumber());
     }
-    
+
     /**
-     * 
+     *
      * @param rangeIn Range coming in
      * @return if this range is before the other
      */
     public boolean isRangeBefore(IpAddressRange rangeIn) {
-        return (this.max.getNumber() < rangeIn.min.getNumber());                
+        return (this.max.getNumber() < rangeIn.min.getNumber());
     }
-    
+
     /**
-     * 
+     *
      * @param rangeIn Range coming in
      * @return if this range is after the other
      */
     public boolean isRangeAfter(IpAddressRange rangeIn) {
         return (this.min.getNumber() > rangeIn.max.getNumber());
     }
-    
+
     /**
-     * 
+     *
      * @param rangeIn Range coming in
      * @return is this range is disjoint from the other
      */
     public boolean isDisjoint(IpAddressRange rangeIn) {
         return (this.isRangeBefore(rangeIn) || this.isRangeAfter(rangeIn));
     }
-    
+
     /**
-     * 
+     *
      * @param rangeIn Range coming in
      * @return is this range a subset of the other
      */
@@ -213,9 +213,9 @@ public class IpAddressRange {
         return (this.min.getNumber() >= rangeIn.min.getNumber() &&
                 this.max.getNumber() <= rangeIn.max.getNumber());
     }
-    
+
     /**
-     * 
+     *
      * @param rangeIn Range coming in
      * @return does this range contain the other range
      */
@@ -223,15 +223,15 @@ public class IpAddressRange {
         return (this.min.getNumber() <= rangeIn.min.getNumber() &&
                 this.max.getNumber() >= rangeIn.max.getNumber());
     }
-    
+
     /**
-     * 
+     *
      * @param rangeIn Range coming in
      * @return can this range coexist with other ranges in org
      */
     public boolean canCoexist(IpAddressRange rangeIn) {
         return ((this.isDisjoint(rangeIn) || this.isSubset(rangeIn) ||
                 this.isSuperset(rangeIn)) && !this.equals(rangeIn));
-        
+
     }
 }

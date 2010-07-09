@@ -36,25 +36,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * DeleteProfileAction - this action is used for stored profile deletion. 
+ * DeleteProfileAction - this action is used for stored profile deletion.
  * It is used when deleting the profile from the system details page
  * (i.e. rhn/systems/details/packages/profiles/DeleteProfile.do) as well as
  * from the stored profiles page (i.e. rhn/profiles/Delete.do).
  * @version $Rev$
  */
 public class DeleteProfileAction extends RhnAction {
-    
+
     private static Logger log = Logger.getLogger(DeleteProfileAction.class);
-    
+
     /**
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         ActionForward forward = null;
         DynaActionForm f = (DynaActionForm)form;
         Long prid = requestContext.getRequiredParam(RequestContext.PRID);
@@ -86,36 +86,36 @@ public class DeleteProfileAction extends RhnAction {
         }
         return forward;
     }
-    
+
     private ActionMessages processForm(Profile profile, DynaActionForm f) {
-        
+
         if (log.isDebugEnabled()) {
             log.debug("Processing form.");
         }
 
         ActionMessages msgs = new ActionMessages();
-        
+
         int numDeleted = ProfileManager.deleteProfile(profile);
         if (numDeleted > 0) {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("deleteconfirm.jsp.profiledeleted",
                             profile.getName()));
         }
-        
+
         return msgs;
     }
-   
+
     private void setup(HttpServletRequest request, DynaActionForm form) {
         RequestContext requestContext = new RequestContext(request);
 
-        form.set(RequestContext.PRID, 
+        form.set(RequestContext.PRID,
                 requestContext.getRequiredParam(RequestContext.PRID));
-        
+
         if (requestContext.getRequest().getRequestURI().contains(
                 "systems/details/packages/profiles/DeleteProfile")) {
             // we only care about the sid if the action is executed from the system
             // details page...
-            form.set(RequestContext.SID, 
+            form.set(RequestContext.SID,
                     requestContext.getRequiredParam(RequestContext.SID));
         }
     }

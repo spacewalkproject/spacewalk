@@ -25,7 +25,7 @@
 <rhn:list pageList="${requestScope.pageList}" noDataText="packagelist.jsp.nopatches" >
   <rhn:listdisplay filterBy="packagelist.jsp.packagename" set="${requestScope.set}" hiddenvars="${requestScope.newset}">
     <rhn:set element="${current.idOne}" elementTwo="${current.idTwo}" />
-    <rhn:column header="packagelist.jsp.patchname" 
+    <rhn:column header="packagelist.jsp.patchname"
                 url="/rhn/software/packages/Details.do?sid=${param.sid}&id_combo=${current.idCombo}">
       ${current.nvre}
     </rhn:column>

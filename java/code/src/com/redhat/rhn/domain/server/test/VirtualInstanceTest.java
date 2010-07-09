@@ -28,7 +28,7 @@ import junit.framework.TestCase;
  * @version $Rev$
  */
 public class VirtualInstanceTest extends TestCase {
-    
+
     private class GuestStub extends VirtualInstance {
         public GuestStub(Long id) {
             super(id);
@@ -36,35 +36,35 @@ public class VirtualInstanceTest extends TestCase {
     }
 
     private Sequence idSequence;
-    
+
     protected void setUp() throws Exception {
         idSequence = new Sequence();
-    }    
-    
+    }
+
     public void testIsRegisteredGuest() {
         VirtualInstance virtualInstance = new VirtualInstance();
         virtualInstance.setGuestSystem(ServerFactory.createServer());
-        
+
         assertTrue(virtualInstance.isRegisteredGuest());
     }
-    
+
     public void testIsNotRegisteredGuest() {
         assertFalse(new VirtualInstance().isRegisteredGuest());
     }
-    
+
 
     public void testEqualsAndHashCode() {
         VirtualInstance guestA = new GuestStub(idSequence.nextLong());
         VirtualInstance guestB = new GuestStub(guestA.getId());
         VirtualInstance guestC = new GuestStub(idSequence.nextLong());
-        
+
         new EqualsTester(guestA, guestB, guestC, new Object());
     }
-    
+
     public void testGetNullInfo() {
         VirtualInstance instance = new GuestStub(idSequence.nextLong());
         instance.getName();
     }
-    
-   
+
+
 }

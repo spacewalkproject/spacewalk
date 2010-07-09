@@ -5,4 +5,4 @@
 		        	<c:otherwise>
 						<c:out value="<a href=\"/rhn/channels/ChannelDetail.do?cid=${current.channelId}\">${current.channelLabels}</a>" escapeXml="false" />
 		        	</c:otherwise>
-		        </c:choose>   
+		        </c:choose>

@@ -23,7 +23,7 @@ import com.redhat.rhn.domain.errata.Errata;
  */
 public class UnpublishedClonedErrata extends UnpublishedErrata implements ClonedErrata {
     private Errata original;
-    
+
 
     /**
      * {@inheritDoc}
@@ -31,14 +31,14 @@ public class UnpublishedClonedErrata extends UnpublishedErrata implements Cloned
     public Errata getOriginal() {
         return original;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void setOriginal(Errata originalIn) {
         this.original = originalIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */

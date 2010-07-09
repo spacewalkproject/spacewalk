@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.satcluster.CommandTarget" 
+    <class name="com.redhat.rhn.domain.monitoring.satcluster.CommandTarget"
         table="rhn_command_target" >
         <id name="id" type="long" column="recid">
             <meta attribute="scope-set">protected</meta>
@@ -11,7 +11,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_COMMAND_TARGET_RECID_SEQ</param>
             </generator>
         </id>
-        <property name="targetType" column="target_type" not-null="true" 
+        <property name="targetType" column="target_type" not-null="true"
         	type="string" length="10" />
         <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
             column="customer_id"/>

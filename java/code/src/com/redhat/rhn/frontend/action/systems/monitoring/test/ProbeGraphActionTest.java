@@ -37,22 +37,22 @@ import java.util.TimeZone;
  * @version $Rev: 53047 $
  */
 public class ProbeGraphActionTest extends RhnBaseTestCase {
-    
+
     private User user;
     private Probe probe;
     private ProbeGraphAction action;
     private ActionHelper ah;
     private Server server;
-    private Timestamp testTime; 
+    private Timestamp testTime;
 
-    
+
     public void setUp() throws Exception {
         super.setUp();
         testTime = new Timestamp(System.currentTimeMillis());
         user = UserTestUtils.createUserInOrgOne();
         server = ServerFactoryTest.createTestServer(user, false);
         probe = MonitoringFactoryTest.createTestProbe(user);
-        
+
         action = new ProbeGraphAction();
         ah = new ActionHelper();
         ah.setUpAction(action);
@@ -62,10 +62,10 @@ public class ProbeGraphActionTest extends RhnBaseTestCase {
         ah.getRequest().setupAddParameter(ProbeDetailsAction.SID,
                 server.getId().toString());
         ah.getRequest().setupAddParameter(
-                ProbeDetailsAction.L10NKEY + MonitoringManagerTest.TEST_METRIC, 
+                ProbeDetailsAction.L10NKEY + MonitoringManagerTest.TEST_METRIC,
                 "l10ned" + MonitoringManagerTest.TEST_METRIC);
         ah.getRequest().setupAddParameter(
-                ProbeDetailsAction.L10NKEY + MonitoringManagerTest.TEST_METRIC2, 
+                ProbeDetailsAction.L10NKEY + MonitoringManagerTest.TEST_METRIC2,
                 "l10ned" + MonitoringManagerTest.TEST_METRIC2);
         Context ctx = Context.getCurrentContext();
         ctx.setTimezone(TimeZone.getDefault());
@@ -80,15 +80,15 @@ public class ProbeGraphActionTest extends RhnBaseTestCase {
         Context.freeCurrentContext();
     }
 
-    
+
     public void testExecute() throws Exception {
         ah.getResponse().setExpectedContentType(ProbeGraphAction.MIME_TYPE);
-        
+
         testTime = MonitoringManagerTest.addTimeSeriesDataToProbe(user, probe, 20);
-        
-        ah.getRequest().setupAddParameter(ProbeGraphAction.STARTTS, 
+
+        ah.getRequest().setupAddParameter(ProbeGraphAction.STARTTS,
                 new Long(testTime.getTime() - 60000000).toString());
-        ah.getRequest().setupAddParameter(ProbeGraphAction.ENDTS, 
+        ah.getRequest().setupAddParameter(ProbeGraphAction.ENDTS,
                 new Long(testTime.getTime()).toString());
         String[] metrics = new String[2];
         metrics[0] = MonitoringManagerTest.TEST_METRIC;
@@ -99,13 +99,13 @@ public class ProbeGraphActionTest extends RhnBaseTestCase {
         assertNotNull(ah.getResponse().getOutputStreamContents());
         ah.getResponse().verify();
     }
-    
+
 
     public void testExecuteNoData() throws Exception {
 
-        ah.getRequest().setupAddParameter(ProbeGraphAction.STARTTS, 
+        ah.getRequest().setupAddParameter(ProbeGraphAction.STARTTS,
                 new Long(testTime.getTime() - 6000).toString());
-        ah.getRequest().setupAddParameter(ProbeGraphAction.ENDTS, 
+        ah.getRequest().setupAddParameter(ProbeGraphAction.ENDTS,
                 new Long(testTime.getTime()).toString());
         String[] metrics = new String[2];
         metrics[0] = MonitoringManagerTest.TEST_METRIC;
@@ -118,17 +118,17 @@ public class ProbeGraphActionTest extends RhnBaseTestCase {
 
     // Some Probes have no metrics (General: Check Nothing)
     public void testExecuteNoMetrics() throws Exception {
-        ah.getRequest().setupAddParameter(ProbeGraphAction.STARTTS, 
+        ah.getRequest().setupAddParameter(ProbeGraphAction.STARTTS,
                 new Long(testTime.getTime() - 6000).toString());
-        ah.getRequest().setupAddParameter(ProbeGraphAction.ENDTS, 
+        ah.getRequest().setupAddParameter(ProbeGraphAction.ENDTS,
                 new Long(testTime.getTime()).toString());
         // This is the KEY part of the test, set the Metrics array to NULL.
         ah.getRequest().setupAddParameter(ProbeGraphAction.METRICS, (String[]) null);
         ah.executeAction("execute", false);
         assertNotNull(ah.getResponse().getOutputStreamContents());
         ah.getResponse().verify();
-        
-        
+
+
     }
 
 }

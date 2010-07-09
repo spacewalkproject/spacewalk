@@ -21,9 +21,9 @@
                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
         <c:out value="${revision.delimStart}" />
     </rhn:require>
-    
+
     <bean:message key="filedetails.add_details.jspf.macro.end" />
-    
+
     <rhn:require acl="config_channel_editable(${channel.id})"
                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
         <html:text property="cffMacroEnd" value="${revision.delimEnd}" size="3"/>
@@ -33,7 +33,7 @@
         <c:out value="${revision.delimEnd}" />
     </rhn:require>
     <br />
-    
+
     <span class="small-text"><bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp"/></span>
 </tr>
 </c:if>

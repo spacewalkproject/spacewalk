@@ -26,7 +26,7 @@
                     arg1="/rhn/systems/details/configuration/ConfigChannelList.do?sid=${system.id}"/>
     </p>
   </div>
-  
+
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/SystemChannels.do?sid=${param.sid}">
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="ssmsystemchannels.jsp.noChannels">
@@ -36,7 +36,7 @@
         <img alt='<bean:message key="config.common.globalAlt" />' src="/img/rhn-listicon-channel.gif">
         ${current.name}
       </rhn:column>
-      
+
       <rhn:column header="ssmsystemchannels.jsp.files">
         <c:choose>
           <c:when test="${current.fileCount == 1}">
@@ -49,7 +49,7 @@
       </rhn:column>
     </rhn:listdisplay>
   </rhn:list>
-</form>  
-  
+</form>
+
 </body>
 </html>

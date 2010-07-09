@@ -33,9 +33,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
+ *
  * @version $Rev $
- * 
+ *
  */
 public class PackageCapabilityIterator {
 
@@ -52,7 +52,7 @@ public class PackageCapabilityIterator {
     private boolean hasMoreRows;
 
     /**
-     * 
+     *
      * @param ch channel
      * @param queryNameIn query name
      */
@@ -84,7 +84,7 @@ public class PackageCapabilityIterator {
     }
 
     /**
-     * 
+     *
      * @param pkgId package Id
      * @return Returns the next pkg in the sequence
      */
@@ -116,7 +116,7 @@ public class PackageCapabilityIterator {
     }
 
     /**
-     * 
+     *
      * @param key as string
      * @return key as string
      */
@@ -125,7 +125,7 @@ public class PackageCapabilityIterator {
     }
 
     /**
-     * 
+     *
      * @param key key as string
      * @return key as bigDecimal number
      */
@@ -134,7 +134,7 @@ public class PackageCapabilityIterator {
     }
 
     /**
-     * 
+     *
      * @param key key as string
      * @return key as date
      */
@@ -143,7 +143,7 @@ public class PackageCapabilityIterator {
     }
 
     /**
-     * 
+     *
      * @return package Id
      */
     private long getPkgId() {
@@ -151,7 +151,7 @@ public class PackageCapabilityIterator {
     }
 
     /**
-     * 
+     *
      * @return next element in the row
      */
     private boolean next() {

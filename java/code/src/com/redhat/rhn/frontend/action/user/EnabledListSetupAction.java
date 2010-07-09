@@ -40,7 +40,7 @@ public class EnabledListSetupAction extends RhnAction implements Listable {
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         ListHelper helper = new ListHelper(this, request);
         helper.setDataSetName(getDataSetName());

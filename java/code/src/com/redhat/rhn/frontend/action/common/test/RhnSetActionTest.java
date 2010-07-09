@@ -116,8 +116,8 @@ public class RhnSetActionTest extends RhnBaseTestCase {
     public void testSelectAll() throws Exception {
         ActionHelper sah = new ActionHelper();
         TestActionWithData a = new TestActionWithData() {
-            protected DataResult getDataResult(User user, 
-                                               ActionForm formIn, 
+            protected DataResult getDataResult(User user,
+                                               ActionForm formIn,
                                                HttpServletRequest request) {
                 List retval = new LinkedList();
                 for (int i = 0; i < 10; i++) {
@@ -140,7 +140,7 @@ public class RhnSetActionTest extends RhnBaseTestCase {
         sah.setUpAction(action);
         sah.getRequest().setupAddParameter(RequestContext.FILTER_STRING, "zzzz");
         sah.setupClampListBounds();
-        
+
         ActionForward forward = sah.executeAction("filter");
         verifyParam(forward.getPath(), RequestContext.FILTER_STRING, "zzzz");
     }
@@ -170,7 +170,7 @@ public class RhnSetActionTest extends RhnBaseTestCase {
         }
     }
 
-    public static void verifyRhnSetData(User user, RhnSetDecl decl, int size) 
+    public static void verifyRhnSetData(User user, RhnSetDecl decl, int size)
         throws HibernateException, SQLException {
         verifyRhnSetData(user.getId(), decl.getLabel(), size);
     }
@@ -219,8 +219,8 @@ public class RhnSetActionTest extends RhnBaseTestCase {
         /**
          * {@inheritDoc}
          */
-        protected DataResult getDataResult(User user, 
-                                           ActionForm formIn, 
+        protected DataResult getDataResult(User user,
+                                           ActionForm formIn,
                                            HttpServletRequest request) {
             return null;
         }
@@ -237,8 +237,8 @@ public class RhnSetActionTest extends RhnBaseTestCase {
         /**
          * {@inheritDoc}
          */
-        protected void processParamMap(ActionForm formIn, 
-                                       HttpServletRequest request, 
+        protected void processParamMap(ActionForm formIn,
+                                       HttpServletRequest request,
                                        Map params) {
             assertNotNull(params);
         }
@@ -254,8 +254,8 @@ public class RhnSetActionTest extends RhnBaseTestCase {
         /**
          * {@inheritDoc}
          */
-        protected DataResult getDataResult(User user, 
-                                           ActionForm formIn, 
+        protected DataResult getDataResult(User user,
+                                           ActionForm formIn,
                                            HttpServletRequest request) {
             List retval = Arrays.asList(Locale.getISOCountries());
             return new DataResult(retval);
@@ -273,8 +273,8 @@ public class RhnSetActionTest extends RhnBaseTestCase {
         /**
          * {@inheritDoc}
          */
-        protected void processParamMap(ActionForm formIn, 
-                                       HttpServletRequest request, 
+        protected void processParamMap(ActionForm formIn,
+                                       HttpServletRequest request,
                                        Map params) {
             assertNotNull(params);
         }

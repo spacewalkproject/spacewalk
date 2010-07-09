@@ -24,13 +24,13 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * RequestContextTest
- * 
+ *
  * @version $Rev$
  */
 public class RequestContextTest extends MockObjectTestCase {
 
     /**
-     * 
+     *
      * @param name Name of the TestCase
      */
     public RequestContextTest(String name) {
@@ -46,12 +46,12 @@ public class RequestContextTest extends MockObjectTestCase {
         RequestContext requestContext = new RequestContext(request);
         assertNotNull(requestContext.getLoggedInUser());
     }
-    
+
     /**
      * Tests the pagination: First.
     */
     /*public void testProcessPaginationFirst() {
-        MockHttpServletRequest request = 
+        MockHttpServletRequest request =
             new MockHttpServletRequest();
         request.setupAddParameter("First", "1");
         request.setupAddParameter("first_lower", "1");
@@ -64,7 +64,7 @@ public class RequestContextTest extends MockObjectTestCase {
      * Tests the pagination: Prev.
      */
     /*public void testProcessPaginationPrev() {
-        MockHttpServletRequest request = 
+        MockHttpServletRequest request =
             new MockHttpServletRequest();
         request.setupAddParameter("First", (String) null);
         request.setupAddParameter("Prev", "1");
@@ -78,7 +78,7 @@ public class RequestContextTest extends MockObjectTestCase {
      * Tests the pagination: Last.
      */
     /*public void testProcessPaginationLast() {
-        MockHttpServletRequest request = 
+        MockHttpServletRequest request =
             new MockHttpServletRequest();
         request.setupAddParameter("First", (String)null);
         request.setupAddParameter("Prev", (String)null);
@@ -94,7 +94,7 @@ public class RequestContextTest extends MockObjectTestCase {
      * Tests the pagination: Next.
      */
     /*public void testProcessPaginationNext() {
-        MockHttpServletRequest request = 
+        MockHttpServletRequest request =
             new MockHttpServletRequest();
         request.setupAddParameter("First", (String)null);
         request.setupAddParameter("Prev", (String)null);
@@ -104,7 +104,7 @@ public class RequestContextTest extends MockObjectTestCase {
         String rc = requestContext.processPagination();
         assertEquals("20", rc);
     }*/
-    
+
     /**
      * @throws Exception if an error occurs
      */
@@ -113,15 +113,15 @@ public class RequestContextTest extends MockObjectTestCase {
         request.setupAddParameter("someparam", "value");
         request.setupQueryString("otherparam=foo&barparam=beer");
         request.addAttribute("requestedUri", "http://localhost/rhn/somePage.do");
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         String url = requestContext.buildPageLink("someparam", "value");
         assertEquals("http://localhost/rhn/somePage.do?" +
                 "someparam=value&otherparam=foo&barparam=beer", url);
         request.setupQueryString("otherparam=foo&barparam=beer&someparam=value");
         url = requestContext.buildPageLink("someparam", "zzzzz");
-      
+
         // we really can't guarantee the order of a map, so let's hope this
         // works long term. Thankfully in most cases we don't care about
         // the parameters order.

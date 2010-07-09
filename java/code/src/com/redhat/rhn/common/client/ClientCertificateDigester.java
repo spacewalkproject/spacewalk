@@ -30,10 +30,10 @@ import java.util.ArrayList;
 public class ClientCertificateDigester {
 
     private ClientCertificateDigester() { }
-    
+
     private static void configureDigester(Digester digester) {
         digester.setValidating(false);
-        
+
         digester.addObjectCreate("params", ClientCertificate.class);
         digester.addObjectCreate("*/param/value/struct/member/", Member.class);
         digester.addCallMethod("*/param/value/struct/member/name",
@@ -49,7 +49,7 @@ public class ClientCertificateDigester {
                 "setValues");
         digester.addSetNext("*/param/value/struct/member", "addMember");
     }
-    
+
     /**
      * Creates a ClientCertificate from the given URL.
      * @param url to client certificate
@@ -59,15 +59,15 @@ public class ClientCertificateDigester {
      */
     public static ClientCertificate buildCertificate(URL url)
         throws IOException, SAXException {
-        
+
         if (url == null) {
             throw new IllegalArgumentException("URL is null, your definition " +
                     "tag probably points to a non existing file.");
         }
-        
+
         return ClientCertificateDigester.buildCertificate(url.openStream());
     }
-    
+
     /**
      * Creates a ClientCertificate from the given inputstream.
      * @param is to client certificate
@@ -77,13 +77,13 @@ public class ClientCertificateDigester {
      */
     public static ClientCertificate buildCertificate(InputStream is)
         throws IOException, SAXException {
-        
+
         Digester digester = new Digester();
         configureDigester(digester);
-        
+
         return (ClientCertificate)digester.parse(is);
     }
-    
+
     /**
      * @param rdr to client certificate
      * @return a ClientCertificate
@@ -92,10 +92,10 @@ public class ClientCertificateDigester {
      */
     public static ClientCertificate buildCertificate(Reader rdr)
         throws IOException, SAXException {
-        
+
         Digester digester = new Digester();
         configureDigester(digester);
-        
+
         return (ClientCertificate)digester.parse(rdr);
     }
 }

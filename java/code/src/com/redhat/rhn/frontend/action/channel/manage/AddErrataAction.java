@@ -28,13 +28,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * AddErrataAction
  * @version $Rev$
  */
 public class AddErrataAction extends RhnListAction {
 
-    
+
     private static final String CID = "cid";
 
     /**
@@ -44,23 +44,23 @@ public class AddErrataAction extends RhnListAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getCurrentUser();
-        
+
         PublishErrataHelper.checkPermissions(user);
-        
+
         Long cid = Long.parseLong(request.getParameter(CID));
-        Channel currentChan = ChannelFactory.lookupByIdAndUser(cid, 
+        Channel currentChan = ChannelFactory.lookupByIdAndUser(cid,
                 requestContext.getCurrentUser());
         request.setAttribute("channel_name", currentChan.getName());
-        
+
         request.setAttribute("cid", cid);
         return mapping.findForward("default");
     }
 
-    
-    
 
-    
+
+
+
 }

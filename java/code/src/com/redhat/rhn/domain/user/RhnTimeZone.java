@@ -24,14 +24,14 @@ public class RhnTimeZone {
     private int timeZoneId;
     private String olsonName;
     private TimeZone timeZone;
-    
+
     /**
      * @return Returns the olsonName.
      */
     public String getOlsonName() {
         return olsonName;
     }
-    
+
     /**
      * @param o The olsonName to set.
      */
@@ -41,28 +41,28 @@ public class RhnTimeZone {
             timeZone = TimeZone.getTimeZone(o);
         }
     }
-    
+
     /**
      * @return Returns the timeZoneId.
      */
     public int getTimeZoneId() {
         return timeZoneId;
     }
-    
+
     /**
      * @param t The timeZoneId to set.
      */
     public void setTimeZoneId(int t) {
         this.timeZoneId = t;
     }
-    
+
     /**
      * @return Returns the timeZone.
      */
     public TimeZone getTimeZone() {
         return timeZone;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -78,7 +78,7 @@ public class RhnTimeZone {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public int hashCode() {
         int result = 17;
         result = 37 * timeZoneId;

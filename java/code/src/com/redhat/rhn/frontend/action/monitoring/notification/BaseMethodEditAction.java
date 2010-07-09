@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * BaseMethodEditAction - Action for creating a notification method. 
+ * BaseMethodEditAction - Action for creating a notification method.
  * @version $Rev: 1 $
  */
 public abstract class BaseMethodEditAction extends RhnAction {
@@ -60,12 +60,12 @@ public abstract class BaseMethodEditAction extends RhnAction {
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         if (logger.isDebugEnabled()) {
-            logger.debug("execute(ActionMapping mapping=" + mapping + 
-                    ", ActionForm formIn=" + formIn + 
+            logger.debug("execute(ActionMapping mapping=" + mapping +
+                    ", ActionForm formIn=" + formIn +
                     ", HttpServletRequest request=" + request +
                     ", HttpServletResponse response=" + response + ") - start");
         }
-        
+
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
@@ -73,7 +73,7 @@ public abstract class BaseMethodEditAction extends RhnAction {
         request.setAttribute(METHOD, cmd.getMethod());
         request.setAttribute(RhnHelper.TARGET_USER, cmd.getUser());
         request.setAttribute(METHOD_TYPES, makeMethodTypes());
-        
+
         if (isSubmitted(form)) {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
                     this, form);
@@ -87,7 +87,7 @@ public abstract class BaseMethodEditAction extends RhnAction {
                 User cu = requestContext.getCurrentUser();
                 ValidatorError e = cmd.storeMethod(cu);
                 if (e == null) {
-                    createSuccessMessage(request, "method.createsuccess", 
+                    createSuccessMessage(request, "method.createsuccess",
                             cmd.getMethod().getMethodName());
                     ActionForward returnActionForward = mapping
                             .findForward("success");
@@ -97,7 +97,7 @@ public abstract class BaseMethodEditAction extends RhnAction {
                                 " - end - return value=" + returnActionForward);
                     }
                     return returnActionForward;
-                } 
+                }
                 else {
                     ValidatorError[] verrors = new ValidatorError[1];
                     verrors[0] = e;
@@ -106,18 +106,18 @@ public abstract class BaseMethodEditAction extends RhnAction {
                 }
             }
         }
-        
+
 
         ActionForward returnActionForward = strutsDelegate.forwardParams(mapping
                 .findForward("default"), request.getParameterMap());
         if (logger.isDebugEnabled()) {
             logger.debug("execute(ActionMapping, ActionForm, HttpServletRequest, " +
-                            "HttpServletResponse) - end - return value=" + 
+                            "HttpServletResponse) - end - return value=" +
                             returnActionForward);
         }
         return returnActionForward;
     }
-    
+
     private Object makeMethodTypes() {
         if (logger.isDebugEnabled()) {
             logger.debug("makeMethodTypes() - start");
@@ -130,7 +130,7 @@ public abstract class BaseMethodEditAction extends RhnAction {
                 "Pager"));
         result.add(lv("method-form.jspf.snmp",
                 "SNMP"));
-        
+
         localize(result);
 
         if (logger.isDebugEnabled()) {
@@ -153,7 +153,7 @@ public abstract class BaseMethodEditAction extends RhnAction {
                     "DynaActionForm) - end");
         }
     }
-    
+
     /**
      * Subclass implements method for creating the ModifyMethodCommand
      * @param rctx RequestContext used to fetch information.

@@ -38,10 +38,10 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class EligibleFlexGuestAction extends RhnAction implements Listable {
-    
+
     private static final String SELECTABLE = "selectable";
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping,
@@ -55,7 +55,7 @@ public class EligibleFlexGuestAction extends RhnAction implements Listable {
             RequestContext context = new RequestContext(request);
             return handleConfirm(helper, context, mapping);
         }
-        
+
         return mapping.findForward("default");
     }
 
@@ -71,9 +71,9 @@ public class EligibleFlexGuestAction extends RhnAction implements Listable {
             serverIds.add(sid);
         }
         helper.destroy();
-        
+
         getStrutsDelegate().saveMessage("eligible.flexguest.systems.confirm.message",
-                                    new String [] { String.valueOf(serverIds.size())}, 
+                                    new String [] { String.valueOf(serverIds.size())},
                                 context.getRequest());
         return  mapping.findForward("success");
     }

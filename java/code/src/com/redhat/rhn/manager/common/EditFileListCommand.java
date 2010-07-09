@@ -33,14 +33,14 @@ public class EditFileListCommand extends BaseFileListEditCommand {
         super(userIn);
         this.list = CommonFactory.lookupFileList(listId, userIn.getOrg());
     }
-    
+
     /**
      * Store the FileList. Checks to make sure that the label doesn't already exist,
      * unless we are passing in the same label as the already existing file list, in
-     * which case there isn't a problem. 
+     * which case there isn't a problem.
      *
      * @return ValidatorError[] if there were errors before the save.
-     */ 
+     */
     public ValidatorError store() {
         if (list.getLabel() != null && list.getLabel().equals(this.newLabel)) {
             CommonFactory.saveFileList(this.list);

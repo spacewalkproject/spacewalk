@@ -18,7 +18,7 @@ package com.redhat.rhn.taskomatic.task.test;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
 public class UserDeletionTest extends RhnBaseTestCase {
-    
+
     public void testUserDeletion() throws Exception {
         /*Long userPK = UserTestUtils.createUser("gfedcba", "mlkjih");
         User user = UserFactory.lookupById(userPK);

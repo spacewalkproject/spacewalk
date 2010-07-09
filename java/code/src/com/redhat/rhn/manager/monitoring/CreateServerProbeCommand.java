@@ -34,7 +34,7 @@ public class CreateServerProbeCommand extends ModifyProbeCommand {
      * Create a command that modifies a new probe. The probe is created for
      * <code>command</code> to run on <code>server</code> using the
      * SatCluster/scout <code>satCluster</code>.
-     * 
+     *
      * @param userIn the user creating the probe
      * @param command the command underlying the probe
      * @param server0 the server to which the probe should be associated

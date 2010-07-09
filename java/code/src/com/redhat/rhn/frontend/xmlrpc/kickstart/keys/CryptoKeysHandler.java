@@ -41,7 +41,7 @@ public class CryptoKeysHandler extends BaseHandler {
      * Lists all keys associated with the org of the user (identified by the session key).
      *
      * @param sessionKey identifies the user that is logged in and performing the call
-     * @return a list of maps containing the description and type of key found 
+     * @return a list of maps containing the description and type of key found
      *
      * @xmlrpc.doc list all keys for the org associated with the user logged into the
      *             given session
@@ -143,12 +143,12 @@ public class CryptoKeysHandler extends BaseHandler {
 
     /**
      * Returns all of the data associated with the given key.
-     * 
+     *
      * @param sessionKey  identifies the user that is logged in and performing the call
      * @param description identifies the key
-     * 
+     *
      * @return holder object containing the data associated with the key
-     * 
+     *
      * @xmlrpc.doc returns all of the data associated with the given key
      * @xmlrpc.param #param("string", "session_key")
      * @xmlrpc.param #param("string", "description")

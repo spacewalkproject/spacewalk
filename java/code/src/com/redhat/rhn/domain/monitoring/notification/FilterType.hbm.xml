@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.monitoring.notification.FilterType" 
+    <class name="com.redhat.rhn.domain.monitoring.notification.FilterType"
         table="rhn_redirect_types" >
         <id name="name" type="string" column="name">
             <meta attribute="scope-set">protected</meta>

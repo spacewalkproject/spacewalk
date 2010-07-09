@@ -18,13 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Allows us to filter lists whose data is a ConfigFileDto.  
+ * Allows us to filter lists whose data is a ConfigFileDto.
  * ConfigFileFilter
  * @version $Rev$
  */
 public class ConfigFileFilter extends BaseConfigFilter {
     private List fields;
-    
+
     /**
      * Create a new filter with "path" added to its filter-criteria
      */
@@ -32,11 +32,11 @@ public class ConfigFileFilter extends BaseConfigFilter {
         fields = new ArrayList();
         fields.add("path");
     }
-    
+
     protected List activeNames() {
         return fields;
     }
-    
+
     protected String getI18NPrefix() {
         return "configfilefilter";
     }

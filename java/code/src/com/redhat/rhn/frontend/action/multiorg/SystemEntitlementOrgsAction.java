@@ -41,8 +41,8 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
 
-/** 
- * SystemEntitlementOrgsAction 
+/**
+ * SystemEntitlementOrgsAction
  */
 public class SystemEntitlementOrgsAction extends RhnAction {
 
@@ -54,7 +54,7 @@ public class SystemEntitlementOrgsAction extends RhnAction {
                                  HttpServletRequest request,
                                  HttpServletResponse response)
         throws Exception {
-        
+
         DynaActionForm dynaForm = (DynaActionForm) form;
         RequestContext ctx = new RequestContext(request);
 
@@ -85,7 +85,7 @@ public class SystemEntitlementOrgsAction extends RhnAction {
             }
         }
 
-        //Render the data from database            
+        //Render the data from database
         DataList<Map> result =
             OrgManager.allOrgsSingleEntitlementWithEmptyOrgs(entitlementLabel);
         Org satelliteOrg = OrgFactory.getSatelliteOrg();
@@ -105,7 +105,7 @@ public class SystemEntitlementOrgsAction extends RhnAction {
         request.setAttribute("parentUrl", request.getRequestURI() +
             "?label=" + entitlementLabel);
 
-        //Calculate System Wide Sat usage 
+        //Calculate System Wide Sat usage
         Long orgCount = OrgManager.getTotalOrgCount(user) - 1;
         Long maxEnt = new Long(0);
         Long curEnt = new Long(0);
@@ -175,7 +175,7 @@ public class SystemEntitlementOrgsAction extends RhnAction {
             return errors;
         }
 
-        // Store/update db 
+        // Store/update db
         UpdateOrgSystemEntitlementsCommand updateCmd = new
             UpdateOrgSystemEntitlementsCommand(ent, org, count);
         ValidatorError ve = updateCmd.store();

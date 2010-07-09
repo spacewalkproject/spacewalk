@@ -39,7 +39,7 @@ public class ConstraintViolationException extends DatabaseException  {
      * @param name constraint name
      * @param message exception message
      */
-    public ConstraintViolationException(int type, String name, 
+    public ConstraintViolationException(int type, String name,
             String message) {
         super(message);
         // begin member variable initialization
@@ -53,11 +53,11 @@ public class ConstraintViolationException extends DatabaseException  {
      * @param name constraint name
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
-    public ConstraintViolationException(int type, String name, 
+    public ConstraintViolationException(int type, String name,
             String message, Throwable cause) {
         super(message, cause);
         // begin member variable initialization

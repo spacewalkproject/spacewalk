@@ -52,13 +52,13 @@ import javax.servlet.http.HttpServletResponse;
 public class YourRhnAction extends RhnAction {
 
     public static final String ANY_LISTS_SELECTED = "anyListsSelected";
-        
+
     /**
      * No-arg constructor
      */
     public YourRhnAction() {
         Map renderers = new HashMap();
-        
+
         List tasks = Arrays.asList(Pane.ALL_PANES);
         for (Iterator iter = tasks.iterator(); iter.hasNext();) {
             String key = (String) iter.next();
@@ -98,7 +98,7 @@ public class YourRhnAction extends RhnAction {
             }
         }
     }
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
@@ -110,7 +110,7 @@ public class YourRhnAction extends RhnAction {
         PageControl pc = new PageControl();
         pc.setStart(1);
         pc.setPageSize(5);
-                
+
         if (panes != null && panes.size() > 0) {
             anyListsSelected = true;
             for (Iterator iter = panes.keySet().iterator(); iter.hasNext();) {
@@ -123,7 +123,7 @@ public class YourRhnAction extends RhnAction {
         request.setAttribute("legends", "yourrhn");
         return mapping.findForward("default");
     }
-    
+
     private String formatKey(String key) {
         String[] parts = key.split("\\-");
         if (parts.length < 2) {
@@ -147,14 +147,14 @@ public class YourRhnAction extends RhnAction {
         Map mergedPanes = new HashMap();
 
         for (Iterator itr = panes.values().iterator(); itr.hasNext();) {
-            Pane pane = (Pane) itr.next();  
+            Pane pane = (Pane) itr.next();
             if (!hiddenPanes.contains(pane)) {
                 Pane actualPane = (Pane) panes.get(pane.getLabel());
                 if (actualPane.isValidFor(user)) {
                     mergedPanes.put(actualPane.getLabel(), actualPane);
-                }                
+                }
             }
         }
         return mergedPanes;
-    }    
+    }
 }

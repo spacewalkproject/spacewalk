@@ -50,8 +50,8 @@ public class ValidatorException extends RhnRuntimeException  {
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public ValidatorException(String message ,   Throwable cause) {
@@ -60,14 +60,14 @@ public class ValidatorException extends RhnRuntimeException  {
     }
 
     /**
-     * 
+     *
      * @param valResult attach a validator result to the exception.
      */
     public ValidatorException(ValidatorResult valResult) {
         super();
-        result = valResult; 
-    }   
-    
+        result = valResult;
+    }
+
     /**
      * Helper method to raise a ValidatorException given a single error msg
      * @param key the msg key
@@ -79,7 +79,7 @@ public class ValidatorException extends RhnRuntimeException  {
         throw new ValidatorException(valResult);
     }
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
@@ -91,9 +91,9 @@ public class ValidatorException extends RhnRuntimeException  {
             return result.getMessage();
         }
     }
-    
+
     /**
-     * 
+     *
      * @return a validator list associated to this exception
      *          or null if that doesnot exist.
      */
@@ -103,6 +103,6 @@ public class ValidatorException extends RhnRuntimeException  {
     /////////////////////////
     // Getters/Setters
     /////////////////////////
-    
-    
+
+
 }

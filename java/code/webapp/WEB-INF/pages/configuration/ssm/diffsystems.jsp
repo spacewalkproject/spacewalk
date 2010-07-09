@@ -23,7 +23,7 @@
       <bean:message key="diffsystems.jsp.summary" arg0="${beanarg}"/>
     </p>
   </div>
-  
+
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/DiffSystems.do?cfnid=${param.cfnid}">
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="diffconfirm.jsp.noSystems">
@@ -34,7 +34,7 @@
              alt="<bean:message key='system.common.systemAlt' />" />
         ${fn:escapeXml(current.name)}
       </rhn:column>
-      
+
       <rhn:column header="diffsystems.jsp.file">
         <bean:message key="diffsystems.jsp.configfile"
                       arg0="/rhn/configuration/file/FileDetails.do?cfid=${current.configFileId}&crid=${current.configRevisionId}"
@@ -44,7 +44,7 @@
       </rhn:column>
     </rhn:listdisplay>
   </rhn:list>
-</form>  
-  
+</form>
+
 </body>
 </html>

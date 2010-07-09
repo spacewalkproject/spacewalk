@@ -29,16 +29,16 @@ public class ConfigFile extends BaseDomainHelper {
     private ConfigFileName configFileName;
     private ConfigFileState configFileState;
     private ConfigRevision latestConfigRevision;
-    
-    
+
+
     /**
      * Protected constructor
      * Use ConfigurationFactory to create a new file.
      */
     protected ConfigFile() {
-        
+
     }
-    
+
     /**
      * @return Returns the latestConfigRevision.
      */
@@ -46,7 +46,7 @@ public class ConfigFile extends BaseDomainHelper {
         return latestConfigRevision;
     }
 
-    
+
     /**
      * @param latestConfigRevisionIn The latestConfigRevision to set.
      */
@@ -54,16 +54,16 @@ public class ConfigFile extends BaseDomainHelper {
         latestConfigRevision = latestConfigRevisionIn;
     }
 
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
@@ -101,7 +101,7 @@ public class ConfigFile extends BaseDomainHelper {
     public ConfigFileState getConfigFileState() {
         return configFileState;
     }
-    
+
     /**
      * @param configFileStateIn The configFileState to set.
      */

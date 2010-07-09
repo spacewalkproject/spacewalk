@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.kickstart.KickstartableTree" 
+    <class name="com.redhat.rhn.domain.kickstart.KickstartableTree"
         table="rhnKickstartableTree">
 
         <id name="id" type="long" column="id">
@@ -12,105 +12,105 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_KSTREE_ID_SEQ</param>
             </generator>
         </id>
-  
+
   		<property name="cobblerId" column="cobbler_id"  type="string" length="64" />
   		<property name="cobblerXenId" column="cobbler_xen_id"  type="string" length="64" />
         <property name="basePath" type="string" column="base_path"/>
         <property name="label" type="string" column="label"/>
         <property name="lastModified" type="date" column="last_modified"/>
-        
+
         <property name="created" type="date" column="created"/>
         <property name="modified" type="date" column="modified"/>
 
         <many-to-one name="org"
                      column="org_id"
                      class="com.redhat.rhn.domain.org.OrgImpl"
-                     outer-join="true"/>        
+                     outer-join="true"/>
         <many-to-one
             name="channel"
             class="com.redhat.rhn.domain.channel.Channel"
             column="channel_id"
             cascade="none"/>
-            
+
         <many-to-one
             name="installType"
             class="com.redhat.rhn.domain.kickstart.KickstartInstallType"
             column="install_type"
             cascade="none"/>
-            
+
         <many-to-one
             name="treeType"
             class="com.redhat.rhn.domain.kickstart.KickstartTreeType"
             column="kstree_type"
             cascade="none"/>
-                        
+
     </class>
 
     <query name="KickstartableTree.findById">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
         		where k.id = :id]]>
     </query>
     <query name="KickstartableTree.findByLabelAndOrg">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
         		where k.label = :label and k.org = :org_id]]>
     </query>
-    
+
     <query name="KickstartableTree.findByLabel">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
                 where k.label = :label]]>
     </query>
-    
+
     <query name="KickstartableTree.findByLabelAndNullOrg">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
         		where k.label = :label and k.org is null]]>
     </query>
-    
+
     <query name="KickstartableTree.findByChannelAndOrg">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
         		where k.channel = :channel_id and k.org = :org_id
         		order by k.label]]>
     </query>
-    
+
     <query name="KickstartableTree.findByChannel">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
-        		where k.channel.id = :channel_id and (k.org is null or 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
+			where k.channel.id = :channel_id and (k.org is null or
         		k.org = :org_id)
-        		order by k.label]]>    
+			order by k.label]]>
     </query>
-    
+
     <query name="KickstartableTree.findAccessibleToOrg">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
         		where k.org = :org_id or k.org is null order by k.label]]>
     </query>
     <query name="KickstartableTree.findByOrg">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
         		where k.org.id = :org_id order by k.label]]>
-    </query>    
+    </query>
     <query name="KickstartableTree.findAll">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
         		]]>
     </query>
 
     <query name="KickstartableTree.findByCobblerIdOrXenId">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
         		where k.cobblerId = :cid or k.cobblerXenId = :cid]]>
     </query>
-    
+
     <query name="KickstartableTree.verifyTreeAssignment">
     	<![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
     			where (k.org is null or k.org = :org_id) and
-    			k.channel.id = :channel_id and 
+			k.channel.id = :channel_id and
     			k.id = :tree_id]]>
     </query>	
 	
     <query name="KickstartableTree.findByIdAndOrg">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
         		where k.id = :tree_id and (k.org = :org_id or k.org is null)]]>
     </query>
-    
+
     <query name="KickstartableTree.getUnsyncedKickstartTrees">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
         		where k.cobblerId is null]]>
     </query>
-    
+
 </hibernate-mapping>

@@ -26,9 +26,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
  * Serializer for {@link KickstartOptionValue} objects.
- * 
+ *
  * @version $Revision$
- * 
+ *
  * @xmlrpc.doc
  *      #struct("value")
  *          #prop("string", "name")
@@ -49,23 +49,23 @@ public class KickstartOptionValueSerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         if (!(o instanceof KickstartOptionValue)) {
             throw new XmlRpcException("Object of incorrect type to be serialized. " +
-                "Expected: KickstartOptionValue, Found: " + 
+                "Expected: KickstartOptionValue, Found: " +
                 (o != null ? o.getClass() : null));
         }
-        
+
         KickstartOptionValue value = (KickstartOptionValue) o;
-        
+
         SerializerHelper serializer = new SerializerHelper(xmlRpcSerializer);
         serializer.add("name", value.getName());
         serializer.add("value", value.getArg());
-        
+
         // Null check so if enabled is effectively false, we send that and don't squash it
         Boolean enabled = value.getEnabled();
         if (enabled == null) {
             enabled = Boolean.FALSE;
         }
         serializer.add("enabled", enabled);
-        
+
         serializer.writeTo(writer);
     }
 }

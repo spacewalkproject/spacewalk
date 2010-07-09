@@ -65,7 +65,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * blah blah
- * 
+ *
  * @version $Rev $
  */
 public class ScheduleKickstartWizardAction extends RhnWizardAction {
@@ -180,16 +180,16 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         }
     }
 
-    private void setupNetworkInfo(DynaActionForm form, 
+    private void setupNetworkInfo(DynaActionForm form,
                     RequestContext context, KickstartScheduleCommand cmd) {
         Server server = cmd.getServer();
         List<NetworkInterface> nics = new LinkedList<NetworkInterface>
                                                 (server.getNetworkInterfaces());
-        
+
         if (nics.isEmpty()) {
             return;
         }
-        
+
         for (Iterator<NetworkInterface> itr = nics.iterator(); itr.hasNext();) {
             NetworkInterface nic = itr.next();
             if (nic.isDisabled() || "127.0.0.1".equals(nic.getIpaddr())) {
@@ -213,7 +213,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             }
         }
     }
-    
+
     /**
      * The first step in the wizard
      * @param mapping ActionMapping for struts
@@ -221,7 +221,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      * @param ctx RequestContext request context
      * @param response HttpServletResponse response object
      * @param step WizardStep what step are we on?
-     * 
+     *
      * @return ActionForward struts action forward
      * @throws Exception if something goes amiss
      */
@@ -271,7 +271,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 params);
         helper.execute();
         if (!StringUtils.isBlank(form.getString(RequestContext.COBBLER_ID))) {
-            ListTagHelper.selectRadioValue(ListHelper.LIST, 
+            ListTagHelper.selectRadioValue(ListHelper.LIST,
                     form.getString(RequestContext.COBBLER_ID), ctx.getRequest());
         }
         else if (system.getCobblerId() != null) {
@@ -298,7 +298,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      * @param ctx RequestContext request context
      * @param response HttpServletResponse response object
      * @param step WizardStep what step are we on?
-     * 
+     *
      * @return ActionForward struts action forward
      * @throws Exception if something goes amiss
      */
@@ -344,7 +344,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         else {
             ctx.getRequest().setAttribute(COBBLER_ONLY_PROFILE, Boolean.TRUE);
         }
-        
+
         if (StringUtils.isEmpty(form.getString(KERNEL_PARAMS_TYPE))) {
             form.set(KERNEL_PARAMS_TYPE, KERNEL_PARAMS_DISTRO);
         }
@@ -352,7 +352,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         if (StringUtils.isEmpty(form.getString(POST_KERNEL_PARAMS_TYPE))) {
             form.set(POST_KERNEL_PARAMS_TYPE, KERNEL_PARAMS_DISTRO);
         }
-        
+
         SdcHelper.ssmCheck(ctx.getRequest(), sid, user);
         return mapping.findForward("second");
     }
@@ -367,7 +367,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             ctx.getRequest().setAttribute("distro", cmd.getKsdata().getTree());
             CobblerConnection con = CobblerXMLRPCHelper.
                                     getConnection(ctx.getLoggedInUser());
-            
+
             Distro distro = Distro.lookupById(con,
                                 cmd.getKsdata().getTree().getCobblerId());
 
@@ -400,8 +400,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         setupNetworkInfo(form, ctx, cmd);
     }
 
-    
-    
+
+
     /**
      * The third step in the wizard
      * @param mapping ActionMapping for struts
@@ -409,7 +409,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      * @param ctx RequestContext request context
      * @param response HttpServletResponse response object
      * @param step WizardStep what step are we on?
-     * 
+     *
      * @return ActionForward struts action forward
      * @throws Exception if something goes amiss
      */
@@ -494,13 +494,13 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
 
     /**
      * Setup the system for provisioning with cobbler.
-     * 
+     *
      * @param mapping ActionMapping for struts
      * @param form DynaActionForm representing the form
      * @param ctx RequestContext request context
      * @param response HttpServletResponse response object
      * @param step WizardStep what step are we on?
-     * 
+     *
      * @return ActionForward struts action forward
      * @throws Exception if something goes amiss
      */
@@ -597,7 +597,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         if (StringUtils.isBlank(cobblerId)) {
             cobblerId = ctx.getParam(RequestContext.COBBLER_ID, true);
         }
-        
+
         boolean retval = false;
         form.set(RequestContext.COBBLER_ID, cobblerId);
         ctx.getRequest().setAttribute(RequestContext.COBBLER_ID, cobblerId);

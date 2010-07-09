@@ -26,48 +26,48 @@ public class UserServerPreference {
     private Date created;
     private Date modified;
 
-    /** 
-     * Getter for value 
+    /**
+     * Getter for value
      * @return String to get
     */
     public String getValue() {
         return this.value;
     }
 
-    /** 
-     * Setter for value 
+    /**
+     * Setter for value
      * @param valueIn to set
     */
     public void setValue(String valueIn) {
         this.value = valueIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {

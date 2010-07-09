@@ -16,7 +16,7 @@
 		<bean:message key="filedetails.contents.jspf.toolarge-edit" arg0="${requestScope.maxEditBytes}"/>
 		<p />
 		<strong><bean:message key="filedetails.contents.jspf.download-header"/></strong><br />
-		<bean:message key="filedetails.contents.jspf.download" 
+		<bean:message key="filedetails.contents.jspf.download"
 			arg0="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${revision.configFile.id}"
 			arg1="${fn:escapeXml(revision.configFile.configFileName.path)}"
 			arg2="${revision.revision}"
@@ -39,7 +39,7 @@
 		<bean:message key="filedetails.contents.jspf.toolarge-display" arg0="${requestScope.maxbytes}"/>
 		<p />
 		<strong><bean:message key="filedetails.contents.jspf.download-header"/></strong><br />
-		<bean:message key="filedetails.contents.jspf.download" 
+		<bean:message key="filedetails.contents.jspf.download"
 			arg0="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${revision.configFile.id}"
 			arg1="${fn:escapeXml(revision.configFile.configFileName.path)}"
 			arg2="${revision.revision}"

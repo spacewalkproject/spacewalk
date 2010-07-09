@@ -30,14 +30,14 @@ public class ServerProbeComparator implements Comparator {
     public int compare(Object arg0, Object arg1) {
         /* Sorts in descending order
          * Probes in the Critical State
-         * Probes in the Warning State 
+         * Probes in the Warning State
          * Probes in the Unknown State
          * Probes in the Pending State
          * Probes in the Ok State
          */
         ServerProbeDto first = (ServerProbeDto) arg0;
         ServerProbeDto second = (ServerProbeDto) arg1;
-        
+
         if (numericValue(first.getState()) == numericValue(second.getState())) {
             return 0;
         }
@@ -47,10 +47,10 @@ public class ServerProbeComparator implements Comparator {
         else {
             return 1;
         }
-        
-        
+
+
     }
-    
+
     protected int numericValue(String state) {
         if (state.equals(MonitoringConstants.PROBE_STATE_CRITICAL)) {
             return 4;

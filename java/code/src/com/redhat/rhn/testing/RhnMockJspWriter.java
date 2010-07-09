@@ -19,7 +19,7 @@ import com.mockobjects.servlet.MockJspWriter;
 import java.io.IOException;
 
 /**
- * JMockJspWriter - Simple abstract class that defines a default no arg constructor so 
+ * JMockJspWriter - Simple abstract class that defines a default no arg constructor so
  * JMock will be happy.
  * @version $Rev$
  */
@@ -31,7 +31,7 @@ public class RhnMockJspWriter extends MockJspWriter {
      * and there's no getters to access it.
      */
     private StringBuffer buf = new StringBuffer();
-    
+
     /**
      * {@inheritDoc}
      */
@@ -47,14 +47,14 @@ public class RhnMockJspWriter extends MockJspWriter {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void print(String stringIn) {
         buf.append(stringIn);
         super.println(stringIn);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -63,17 +63,17 @@ public class RhnMockJspWriter extends MockJspWriter {
         buf.append("\n");
         super.println(stringIn);
     }
-   
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public String toString() {
         return buf.toString();
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void println(Object anObject) {
@@ -83,7 +83,7 @@ public class RhnMockJspWriter extends MockJspWriter {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void write(String str) throws IOException {

@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 55183 $
  */
 public class ProbeSuiteListSetupAction extends RhnAction implements Listable {
-    
+
     /**
      * {@inheritDoc}
      */

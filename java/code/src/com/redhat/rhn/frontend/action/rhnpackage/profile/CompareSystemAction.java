@@ -60,22 +60,22 @@ public class CompareSystemAction extends RhnSetAction {
         if (log.isDebugEnabled()) {
             log.debug("SyncPackages called");
         }
-        
+
         updateSet(request);
         return getStrutsDelegate().forwardParams(mapping.findForward("sync"),
                 params);
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
         Long sid1 = requestContext.getRequiredParam("sid_1");
-        
+
         return ProfileManager.compareServerToServer(sid,
                 sid1, requestContext.getCurrentUser().getOrg().getId(), null);
     }
@@ -90,19 +90,19 @@ public class CompareSystemAction extends RhnSetAction {
     /**
      * {@inheritDoc}
      */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         params.put("sid", request.getParameter("sid"));
         params.put("sid_1", request.getParameter("sid_1"));
     }
-    
+
     /**
      * {@inheritDoc}
      */
     protected String getLookupMapName(HttpServletRequest request,
             String keyName, ActionMapping mapping) throws ServletException {
-        
+
         String f = LocalizationService.getInstance()
                                       .getMessage("compare.jsp.syncpackageto");
         int idx = f.indexOf("{0}");
@@ -110,7 +110,7 @@ public class CompareSystemAction extends RhnSetAction {
             String sub = f.substring(0, idx);
             if (keyName.startsWith(sub)) {
                 return (String) getKeyMethodMap().get("compare.jsp.syncpackageto");
-            } 
+            }
         }
 
         return super.getLookupMapName(request, keyName, mapping);

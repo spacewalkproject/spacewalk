@@ -26,28 +26,28 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcSerializer;
 
 /**
- * 
+ *
  * VirtualSystemOverviewSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
  *  #struct("virtual system")
  *      #prop("int", "id")
  *      #prop("string", "name")
- *      #prop_desc("string", "guest_name", "The virtual guest name as provided 
+ *      #prop_desc("string", "guest_name", "The virtual guest name as provided
  *                  by the virtual host")
- *      #prop_desc("dateTime.iso8601", "last_checkin", "Last time server successfully 
+ *      #prop_desc("dateTime.iso8601", "last_checkin", "Last time server successfully
  *                   checked in.")
  *      #prop("string", "uuid")
  *   #struct_end()
- * 
+ *
  */
 public class VirtualSystemOverviewSerializer implements XmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
      */
-    public Class getSupportedClass() {        
+    public Class getSupportedClass() {
         return VirtualSystemOverview.class;
     }
 
@@ -56,8 +56,8 @@ public class VirtualSystemOverviewSerializer implements XmlRpcCustomSerializer {
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
-        VirtualSystemOverview system = (VirtualSystemOverview) value;        
+
+        VirtualSystemOverview system = (VirtualSystemOverview) value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("uuid", system.getUuid());
         helper.add("id", system.getSystemId());

@@ -28,10 +28,10 @@ public class ChangeLogEntryTest extends RhnBaseTestCase {
     public void testChangeLogEntry() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         Package pkg = PackageTest.createTestPackage(user.getOrg());
-        
+
         ChangeLogEntry change1 = createTestChangeLogEntry(pkg, new Date());
         assertEquals(pkg.getId(), change1.getRhnPackage().getId());
-        
+
         ChangeLogEntry change2 = createTestChangeLogEntry(pkg,
                 new Date(System.currentTimeMillis() + 1000));
         assertFalse(change1.equals(null));
@@ -40,15 +40,15 @@ public class ChangeLogEntryTest extends RhnBaseTestCase {
         change2.setTime(change1.getTime());
         assertTrue(change1.equals(change2));
     }
-    
-    public static ChangeLogEntry createTestChangeLogEntry(Package pkg, 
+
+    public static ChangeLogEntry createTestChangeLogEntry(Package pkg,
             Date timeIn) {
         ChangeLogEntry change = new ChangeLogEntry();
         change.setRhnPackage(pkg);
         change.setName("testuser");
         change.setText("Some test text for a test package");
         change.setTime(timeIn);
-        
+
         TestUtils.saveAndFlush(change);
         return change;
     }

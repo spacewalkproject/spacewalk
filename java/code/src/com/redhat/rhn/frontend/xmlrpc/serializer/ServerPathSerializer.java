@@ -26,14 +26,14 @@ import redstone.xmlrpc.XmlRpcSerializer;
 
 
 /**
- * ServerPathSerializer: Converts a ServerPathSerializer object for representation as an 
+ * ServerPathSerializer: Converts a ServerPathSerializer object for representation as an
  * XMLRPC struct.
  *
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
  *  #struct("proxy connection path details")
- *         #prop_desc("int", "position", "Position of proxy in chain. The proxy that the 
+ *         #prop_desc("int", "position", "Position of proxy in chain. The proxy that the
  *             system connects directly to is listed in position 1.")
  *         #prop_desc("int", "id", "Proxy system id")
  *         #prop_desc("string", "hostname", "Proxy host name")
@@ -53,14 +53,14 @@ public class ServerPathSerializer implements XmlRpcCustomSerializer {
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
+
         ServerPath serverPath = (ServerPath)value;
-        
+
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("position", serverPath.getPosition());
         helper.add("id", serverPath.getId());
         helper.add("hostname", serverPath.getHostname());
-        
+
         helper.writeTo(output);
     }
 }

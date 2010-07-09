@@ -32,7 +32,7 @@
     <c:set var="action_path" value="${param.action_path}" scope="page"/>
   </c:if>
 <html:form action="${action_path}">
-  
+
   <h2><bean:message key="usercreate.login" /></h2>
 
   <table class="details" align="center">
@@ -62,7 +62,7 @@
         <td>
           <c:choose>
             <c:when test="${displaypamcheckbox == 'true'}">
-            <html:checkbox property="usepam" onclick="toggleVisibilityByName('password-asterisk')" styleId="pam"/> 
+            <html:checkbox property="usepam" onclick="toggleVisibilityByName('password-asterisk')" styleId="pam"/>
             <label for="pam"><bean:message key="usercreate.jsp.pam.instructions"/></label> <br/>
             <strong><span style="font-size: 10px">
                 <bean:message key="usercreate.jsp.pam.instructions.note"/>
@@ -76,7 +76,7 @@
       </tr>
     </c:if>
   </table>
-  
+
   <h2><bean:message key="usercreate.accountInfo" /></h2>
   <table class="details" align="center">
     <tr>
@@ -117,7 +117,7 @@
 
 </html:form>
 
-<%-- This makes sure that the asterisks toggle correctly. Before, they could get off 
+<%-- This makes sure that the asterisks toggle correctly. Before, they could get off
      if the user checked the usepam checkbox, submitted the form, and had errors. Then
      the form would start with the box checked but the asterisks visible.
 --%>

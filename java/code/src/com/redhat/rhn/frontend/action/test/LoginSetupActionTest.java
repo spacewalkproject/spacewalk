@@ -39,22 +39,22 @@ public class LoginSetupActionTest extends RhnMockStrutsTestCase {
         super.setUp();
         setRequestPathInfo("/Login");
     }
-    
+
     public void testExpirationMessage() throws Exception {
-        
+
         CertificateManagerTest.expireSatelliteCertificate();
         actionPerform();
         verifyActionMessage("satellite.expired");
         assertTrue(request.getAttribute(LoginSetupAction.HAS_EXPIRED).equals(Boolean.TRUE));
     }
-    
+
     public void testGracePeriodMessage() throws Exception {
-        
+
         CertificateManagerTest.activateGracePeriod();
         actionPerform();
         verifyActionMessage("satellite.graceperiod");
     }
-    
+
     public void testUrlBounce() {
         LoginSetupAction action = new LoginSetupAction();
 
@@ -67,13 +67,13 @@ public class LoginSetupActionTest extends RhnMockStrutsTestCase {
         req.setSession(new MockHttpSession());
         req.setupServerName("mymachine.rhndev.redhat.com");
         req.addAttribute("url_bounce", "/rhn/UserDetails.do?sid=1");
-        
+
         // ok run it
         ActionForward rc = action.execute(mapping, form, req, resp);
 
         // verify
         String bounce = (String) form.get("url_bounce");
-        
+
         assertNotNull(bounce);
         assertEquals(bounce, "/rhn/UserDetails.do?sid=1");
         assertNotNull(rc);

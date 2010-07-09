@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.kickstart.KickstartDefaults" 
+    <class name="com.redhat.rhn.domain.kickstart.KickstartDefaults"
         table="rhnkickstartdefaults" >
         <id name="id" column="kickstart_id">
             <generator class="foreign">

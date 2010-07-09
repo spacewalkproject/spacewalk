@@ -38,19 +38,19 @@ import javax.servlet.http.HttpServletRequest;
 public class KickstartPreservationListSubmitAction extends BaseKickstartListSubmitAction {
 
     public static final String UPDATE_METHOD = "kickstart.filelists.jsp.submit";
- 
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         return KickstartLister.getInstance().preservationListsInOrg(
                 userIn.getOrg(), null);
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected void operateOnRemovedElements(List elements,
@@ -76,7 +76,7 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected void operateOnAddedElements(List elements, HttpServletRequest request) {
@@ -84,7 +84,7 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
 
         FilePreservationListsCommand cmd =
             new FilePreservationListsCommand(
-                    ctx.getRequiredParam(RequestContext.KICKSTART_ID), 
+                    ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                     ctx.getCurrentUser());
 
         ArrayList ids = new ArrayList();
@@ -101,7 +101,7 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
     }
 
     /**
-     * 
+     *
      * @return security label for activation keys
      */
     public RhnSetDecl getSetDecl() {
@@ -112,7 +112,7 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
      * {@inheritDoc}
      */
     protected void processMethodKeys(Map map) {
-        map.put(UPDATE_METHOD, "operateOnDiff");        
+        map.put(UPDATE_METHOD, "operateOnDiff");
     }
 
     /**
@@ -121,7 +121,7 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
     protected Iterator getCurrentItemsIterator(RequestContext ctx) {
         FilePreservationListsCommand cmd =
             new FilePreservationListsCommand(
-                    ctx.getRequiredParam(RequestContext.KICKSTART_ID), 
+                    ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                     ctx.getCurrentUser());
         return cmd.getPreserveFileLists().iterator();
     }

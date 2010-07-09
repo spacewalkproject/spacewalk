@@ -23,19 +23,19 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 public class MonitoringEntitlement extends Entitlement {
 
     /**
-     * 
+     *
      */
     public MonitoringEntitlement() {
         super(EntitlementManager.MONITORING_ENTITLED);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean isPermanent() {
         return false;
     }
-    
+
     /**
      * {@inheritDoc}
      */

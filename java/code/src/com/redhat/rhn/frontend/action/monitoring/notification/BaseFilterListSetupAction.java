@@ -28,7 +28,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  * @version $Rev: 55183 $
  */
 public abstract class BaseFilterListSetupAction extends BaseSetListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -38,7 +38,7 @@ public abstract class BaseFilterListSetupAction extends BaseSetListAction {
             getInstance().filtersInOrg(org, pc, getActive());
         return dr;
     }
-    
+
     /**
      * Subclass indicates if it wants active or expired filters.
      * @return active or not.
@@ -59,5 +59,5 @@ public abstract class BaseFilterListSetupAction extends BaseSetListAction {
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.FILTER_EXPIRE;
     }
-    
+
 }

@@ -38,33 +38,33 @@ public class CobblerSnippetListerTest extends BaseTestCaseWithUser {
             //cool permission breakups
         }
     }
-    
+
     public void testList() throws Exception {
         user.addRole(RoleFactory.CONFIG_ADMIN);
         CobblerSnippet snip = CobblerSnippetTest.readOnly();
-        List <CobblerSnippet> snips = 
+        List <CobblerSnippet> snips =
             CobblerSnippetLister.getInstance().list(user);
         assertTrue(snips.contains(snip));
-        snips = 
+        snips =
             CobblerSnippetLister.getInstance().listDefault(user);
         assertTrue(snips.contains(snip));
-        
+
         CobblerSnippet snip2 = CobblerSnippetTest.editable(user);
-        snips = 
-            CobblerSnippetLister.getInstance().list(user);        
+        snips =
+            CobblerSnippetLister.getInstance().list(user);
         assertTrue(snips.contains(snip2));
-        snips = 
-            CobblerSnippetLister.getInstance().listCustom(user);        
+        snips =
+            CobblerSnippetLister.getInstance().listCustom(user);
         assertTrue(snips.contains(snip2));
-        snips = 
+        snips =
             CobblerSnippetLister.getInstance().listDefault(user);
         assertFalse(snips.contains(snip2));
         snip2.delete();
-        snips = 
+        snips =
             CobblerSnippetLister.getInstance().list(user);
         assertFalse(snips.contains(snip2));
-        
-        snips = 
+
+        snips =
             CobblerSnippetLister.getInstance().listCustom(user);
         assertFalse(snips.contains(snip2));
     }

@@ -42,11 +42,11 @@ public class PageSizeDecorator extends BaseListDecorator {
     public static final int MAX_PER_PAGE = 500;
     private static final String PAGE_SIZE_LABEL = "PAGE_SIZE_LABEL";
     private static final String PAGE_SELECTION_LABEL = "PAGE_SIZE_LABEL_SELECTED";
-    
+
     private static final String SELECTED = "selected";
     private static final String ON_CHANGE = "document.getElementById('%s').value='%s';" +
-                                                    "this.form.submit(); return true";    
-    
+                                                    "this.form.submit(); return true";
+
     static {
         PAGE_SIZE.add(5);
         PAGE_SIZE.add(10);
@@ -56,11 +56,11 @@ public class PageSizeDecorator extends BaseListDecorator {
         PAGE_SIZE.add(250);
         PAGE_SIZE.add(500);
     }
-    
+
     private static  String makePageSizeLabel(String listName) {
         return listName + "_" + PAGE_SIZE_LABEL;
     }
-    
+
     /**
      * Gets the page size decorator form widget label
      * @param listName name of the list (already uniquified)
@@ -68,8 +68,8 @@ public class PageSizeDecorator extends BaseListDecorator {
      */
     public static  String makeSelectionLabel(String listName) {
         return listName + "_" + PAGE_SELECTION_LABEL;
-    }    
-    
+    }
+
     /**
      * Returns true if the page size widget was selected
      * @param request the http  servlet request
@@ -80,9 +80,9 @@ public class PageSizeDecorator extends BaseListDecorator {
         return SELECTED.equals(request.getParameter
                         (makeSelectionLabel(listName)));
     }
-    
+
     /**
-     * returns the page size 
+     * returns the page size
      * @param request the http  servlet request
      * @param listName the name of the list
      * @return selected page size or -1 if none was selected.
@@ -93,14 +93,14 @@ public class PageSizeDecorator extends BaseListDecorator {
         }
         return -1;
     }
-    
+
     private static String makeSelectionId(String listName) {
         return makeSelectionLabel(listName) + "_id";
     }
-    
-    
+
+
     private String makeOnChangeScript() {
-        return String.format(ON_CHANGE, 
+        return String.format(ON_CHANGE,
                 makeSelectionId(listName), SELECTED);
     }
     /**
@@ -109,12 +109,12 @@ public class PageSizeDecorator extends BaseListDecorator {
     public void beforeTopPagination() throws JspException {
         if (!getCurrentList().isEmpty()) {
             StringBuilder stringBuild = new StringBuilder();
-            
+
             stringBuild.append("<td class=\"list-sizeselector\">");
             HtmlTag select = new HtmlTag("Select");
             select.setAttribute("name", makePageSizeLabel(listName));
             select.setAttribute("onChange", makeOnChangeScript());
-            
+
             for (int size : PAGE_SIZE) {
                 HtmlTag option = new HtmlTag("option");
                 option.setAttribute("value", String.valueOf(size));
@@ -124,9 +124,9 @@ public class PageSizeDecorator extends BaseListDecorator {
                 option.addBody(String.valueOf(size));
                 select.addBody(option);
             }
-            
+
             LocalizationService ls = LocalizationService.getInstance();
-            stringBuild.append(ls.getMessage("message.items.per.page", 
+            stringBuild.append(ls.getMessage("message.items.per.page",
                                                     select.render()));
             stringBuild.append("</td>");
             HtmlTag input = new HtmlTag("input");
@@ -143,7 +143,7 @@ public class PageSizeDecorator extends BaseListDecorator {
     /**
      * Returns the default page size that can be used
      * by the app. This is basically used at the user creation time.
-     * When a new user is created, the default page size is set 
+     * When a new user is created, the default page size is set
      * using the value returned by this method..
      * @return the defaut page size.
      */
@@ -152,7 +152,7 @@ public class PageSizeDecorator extends BaseListDecorator {
         int size = DEFAULT_PAGE_SIZE;
         try {
             if (!StringUtils.isBlank(sizeStr)) {
-                size = Integer.valueOf(sizeStr);                
+                size = Integer.valueOf(sizeStr);
             }
         }
         catch (NumberFormatException nfe) {
@@ -160,7 +160,7 @@ public class PageSizeDecorator extends BaseListDecorator {
                     ConfigDefaults.DEFAULT_PAGE_SIZE + "=" + sizeStr);
             size = DEFAULT_PAGE_SIZE;
         }
-        
+
         int prev = 0;
         for (int sz : getPageSizes()) {
             if (sz == size) {
@@ -176,13 +176,13 @@ public class PageSizeDecorator extends BaseListDecorator {
             }
             prev = sz;
         }
-        
+
         return prev;
     }
-    
+
     /**
      * Returns the list of available page sizes.
-     * This is used mainly in the PageSize selection 
+     * This is used mainly in the PageSize selection
      * drop down when rendering lists...
      * This is also used in the Your Preferences page to check
      * the list of page sizes..
@@ -194,7 +194,7 @@ public class PageSizeDecorator extends BaseListDecorator {
         if (StringUtils.isBlank(pageSizes) || sizes == null || sizes.length == 0) {
             return PAGE_SIZE;
         }
-        
+
         try {
             List<Integer> ret = new LinkedList<Integer>();
             for (String size : sizes) {
@@ -203,7 +203,7 @@ public class PageSizeDecorator extends BaseListDecorator {
             return ret;
         }
         catch (NumberFormatException nfe) {
-            logger.warn("Number format exception encountered while parsing " + 
+            logger.warn("Number format exception encountered while parsing " +
                     ConfigDefaults.PAGE_SIZES + "=" + pageSizes);
             return Collections.EMPTY_LIST;
         }

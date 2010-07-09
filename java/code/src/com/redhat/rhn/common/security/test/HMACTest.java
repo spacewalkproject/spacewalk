@@ -27,14 +27,14 @@ public class HMACTest extends RhnBaseTestCase {
 
     public void doTestSHA1(String data, String key, String expect)
         throws Exception {
-       
+
         String value = HMAC.sha1(data, key);
         assertEquals(expect, value);
     }
 
     public void doTestMD5(String data, String key, String expect)
         throws Exception {
-       
+
         String value = HMAC.md5(data, key);
         assertEquals(expect, value);
     }
@@ -48,14 +48,14 @@ public class HMACTest extends RhnBaseTestCase {
     }
 
     public void testLongKeySHA1() throws Exception {
-        doTestSHA1("data", 
-      "this is a very long key to see if that breaks the implementation, xxxx", 
+        doTestSHA1("data",
+      "this is a very long key to see if that breaks the implementation, xxxx",
                    "fba60ff23634892fa139a3a24de8514562fc9c8c");
     }
 
     public void testlongkeymd5() throws Exception {
-        doTestMD5("data", 
-      "this is a very long key to see if that breaks the implementation, xxxx", 
+        doTestMD5("data",
+      "this is a very long key to see if that breaks the implementation, xxxx",
                   "582c5a52823a09b071b2577eb9ccad28");
     }
 }

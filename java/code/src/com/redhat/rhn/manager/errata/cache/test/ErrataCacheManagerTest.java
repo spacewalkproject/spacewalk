@@ -59,10 +59,10 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         // setup the test
         Org org = UserTestUtils.findNewOrg("testOrg");
         insertRowIntoErrataCacheQueue(org);
-        
+
         // let's see if we find the right data.
         int cnt = ErrataCacheManager.countServersInQueue(org);
-        
+
         assertEquals(3, cnt);
     }
 
@@ -70,15 +70,15 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         // setup the test
         Org org = UserTestUtils.findNewOrg("testOrg");
         insertRowIntoErrataCacheQueue(org);
-        
+
         // let's see if we find the right data.
         int rows = ErrataCacheManager.deleteErrataCacheQueue(org);
         assertEquals(1, rows);
-        
+
         int cnt = ErrataCacheManager.countServersInQueue(org);
         assertEquals(0, cnt);
     }
-    
+
     public static Long insertRowIntoErrataCacheQueue(Org orgIn) {
         Long oid = orgIn.getId();
         WriteMode m = ModeFactory.getWriteMode("test_queries", "ready_errata_cache_queue");
@@ -90,21 +90,21 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         assertEquals(1, i);
         return oid;
     }
-    
+
     public void aTestNewPackages() {
         DataResult dr = ErrataCacheManager.newPackages(
                 new Long(1000089925));
-        
+
         assertFalse(dr.isEmpty());
-        
+
         for (Iterator itr = dr.iterator(); itr.hasNext();) {
             ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
             System.out.println(ecd.toString());
         }
     }
-    
+
     public void testInsertNeededPackageCache() throws Exception {
-        
+
         // create a lot of stuff to test this simple insert.
         Long oid = UserTestUtils.createOrg("testOrg");
         Org org = OrgFactory.lookupById(oid);
@@ -115,12 +115,12 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Long sid = server.getId();
         Long eid = e.getId();
         Long pid = pkg.getId();
-        
+
         // insert record into table
         int rows = ErrataCacheManager.insertNeededPackageCache(
                 sid, eid, pid);
         assertEquals(1, rows);
-        
+
         // verify what was inserted
         Session session = HibernateFactory.getSession();
         Connection conn = session.connection();
@@ -132,16 +132,16 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         assertEquals(sid.longValue(), rs.getLong("server_id"));
         assertEquals(eid.longValue(), rs.getLong("errata_id"));
         assertEquals(pid.longValue(), rs.getLong("package_id"));
-        
+
         // make sure we don't have more
         assertFalse(rs.next());
     }
-    
-    public static Map createServerNeededPackageCache(User userIn, 
+
+    public static Map createServerNeededPackageCache(User userIn,
             String errataType) throws Exception {
         Map retval = new HashMap();
         Errata e = ErrataFactoryTest.createTestErrata(userIn.getOrg().getId());
-        e.setAdvisoryType(errataType);        
+        e.setAdvisoryType(errataType);
         e = (Errata) TestUtils.saveAndReload(e);
         retval.put("errata", e);
         Server s = ServerFactoryTest.createTestServer(userIn);
@@ -149,14 +149,14 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         TestUtils.flushAndEvict(s);
         retval.put("server", s);
         Package p = PackageTest.createTestPackage(userIn.getOrg());
-        PackageEvr evr = PackageEvrFactory.createPackageEvr(p.getPackageEvr().getEpoch(), 
+        PackageEvr evr = PackageEvrFactory.createPackageEvr(p.getPackageEvr().getEpoch(),
                 p.getPackageEvr().getVersion(), "2");
         evr = (PackageEvr) TestUtils.saveAndReload(evr);
         Package newPackage = PackageTest.createTestPackage(userIn.getOrg());
         newPackage.setPackageName(p.getPackageName());
         newPackage.setPackageEvr(evr);
         newPackage = (Package) TestUtils.saveAndReload(newPackage);
-        
+
         InstalledPackage ip = new InstalledPackage();
         ip.setServer(s);
         ip.setArch(p.getPackageArch());
@@ -175,7 +175,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         assertEquals(1, rows);
         return retval;
     }
-    
+
     public void testDeleteNeededPackageCache() throws Exception {
         // create a lot of stuff to test this simple insert.
         Long oid = UserTestUtils.createOrg("testOrg");
@@ -187,12 +187,12 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Long sid = server.getId();
         Long eid = e.getId();
         Long pid = pkg.getId();
-        
+
         // insert record into table
         int rows = ErrataCacheManager.insertNeededPackageCache(
                 sid, eid, pid);
         assertEquals(1, rows);
-        
+
         // verify what was inserted
         Session session = HibernateFactory.getSession();
         Connection conn = session.connection();
@@ -204,38 +204,38 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         assertEquals(sid.longValue(), rs.getLong("server_id"));
         assertEquals(eid.longValue(), rs.getLong("errata_id"));
         assertEquals(pid.longValue(), rs.getLong("package_id"));
-        
+
         // make sure we don't have more
         assertFalse(rs.next());
-        
+
         // now let's delete the above record
         rows = ErrataCacheManager.deleteNeededPackageCache(sid, eid, pid);
         assertEquals(1, rows);
-        
+
         rs = stmt.executeQuery(
                 "select * from rhnServerNeededPackageCache where server_id = " +
                 sid.toString());
         assertFalse(rs.next());
     }
-    
+
     public static Server createServerNeedintErrataCache(User userIn) throws Exception {
         // create a lot of stuff to test this simple insert.
         Long oid = userIn.getOrg().getId();
         Server server = ServerFactoryTest.createTestServer(userIn);
         Errata e = ErrataFactoryTest.createTestErrata(oid);
-        
+
         e = (Errata) TestUtils.reload(e);
         Long sid = server.getId();
         Long eid = e.getId();
-        
+
         Package p = (Package) e.getPackages().iterator().next();
         // insert record into table
         int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, p.getId());
-        
+
         assertEquals(1, rows);
         return server;
     }
-    
+
     public void testInsertNeededErrataCache() throws Exception {
         // create a lot of stuff to test this simple insert.
         Long oid = UserTestUtils.createOrg("testOrg");
@@ -243,16 +243,16 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Server server = ServerFactoryTest.createTestServer(user);
         Errata e = ErrataFactoryTest.createTestErrata(oid);
         Long sid = server.getId();
-        
+
         e = (Errata) TestUtils.saveAndReload(e);
         Long eid = e.getId();
-        
+
         Package p = (Package) e.getPackages().iterator().next();
-        
+
         // insert record into table
         int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, p.getId());
         assertEquals(1, rows);
-        
+
         // verify what was inserted
         Session session = HibernateFactory.getSession();
         Connection conn = session.connection();
@@ -263,11 +263,11 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         assertTrue(rs.next());
         assertEquals(sid.longValue(), rs.getLong("server_id"));
         assertEquals(eid.longValue(), rs.getLong("errata_id"));
-        
+
         // make sure we don't have more
-        assertFalse(rs.next()); 
+        assertFalse(rs.next());
     }
-    
+
     public void testDeleteNeededErrataCache() throws Exception {
         // create a lot of stuff to test this simple insert.
         Long oid = UserTestUtils.createOrg("testOrg");
@@ -276,13 +276,13 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Errata e = ErrataFactoryTest.createTestErrata(oid);
         Long sid = server.getId();
         Long eid = e.getId();
-        
+
         Package p = (Package) e.getPackages().iterator().next();
-        
+
         // insert record into table
         int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, p.getId());
         assertEquals(1, rows);
-        
+
         // verify what was inserted
         Session session = HibernateFactory.getSession();
         Connection conn = session.connection();
@@ -293,20 +293,20 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         assertTrue(rs.next());
         assertEquals(sid.longValue(), rs.getLong("server_id"));
         assertEquals(eid.longValue(), rs.getLong("errata_id"));
-        
+
         // make sure we don't have more
-        assertFalse(rs.next()); 
-        
+        assertFalse(rs.next());
+
         // now let's delete the above record
         rows = ErrataCacheManager.deleteNeededErrataCache(sid, eid);
         assertEquals(1, rows);
-        
+
         rs = stmt.executeQuery(
                 "select * from rhnServerNeededErrataCache where server_id = " +
                 sid.toString());
         assertFalse(rs.next());
     }
-    
+
     public void testPackagesNeedingUpdates() throws Exception {
         // create a lot of stuff to test this simple insert.
         Long oid = UserTestUtils.createOrg("testOrg");
@@ -318,18 +318,18 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Long sid = server.getId();
         Long eid = e.getId();
         Long pid = pkg.getId();
-        
+
         // insert record into table
         int rows = ErrataCacheManager.insertNeededPackageCache(
                 sid, eid, pid);
         assertEquals(1, rows);
-        
+
         DataResult dr = ErrataCacheManager.packagesNeedingUpdates(
                 server.getId());
-        
+
         assertFalse(dr.isEmpty());
         assertEquals(1, dr.size());
-        
+
         for (Iterator itr = dr.iterator(); itr.hasNext();) {
             ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
             assertNotNull(ecd);
@@ -338,32 +338,32 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
             assertEquals(e.getId(), ecd.getErrataId());
         }
     }
-    
-    
+
+
     public void testUpdatePackageErrataForChannel() throws Exception {
         // I want to explicitly point out that the UpdateErrataCacheEventTest
         // actually tests the:
         //   ErrataCacheManager.updateErrataAndPackageCacheForChannel(()
-        // method so instead of copy-pasting or refactoring all the code in 
+        // method so instead of copy-pasting or refactoring all the code in
         // the below test we will just run it and indicate the coverage here.
         UpdateErrataCacheEventTest test = new UpdateErrataCacheEventTest();
         test.setUp();
         test.testUpdateCacheForChannel();
     }
-    
+
     public void testAllServerIdsForOrg() throws Exception {
         // create a lot of stuff to test this simple insert.
         Long oid = UserTestUtils.createOrg("testOrg");
         Org org = OrgFactory.lookupById(oid);
         User user = UserTestUtils.createUser("testUser", oid);
         ServerFactoryTest.createTestServer(user);
-        
+
         DataResult dr = ErrataCacheManager.allServerIdsForOrg(org);
         assertFalse(dr.isEmpty());
         assertTrue(dr.size() >= 1);
     }
-    
-    
-    
-    
+
+
+
+
 }

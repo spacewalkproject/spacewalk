@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Renders YourRhn fragment for critical systems
- * 
+ *
  * @version $Rev$
  */
 public class CriticalSystemsRenderer extends BaseFragmentRenderer {
@@ -44,15 +44,15 @@ public class CriticalSystemsRenderer extends BaseFragmentRenderer {
      */
     protected void render(User user, PageControl pc, HttpServletRequest request) {
         DataResult mcdr = SystemManager.mostCriticalSystems(user, pc);
-        
+
         if (!mcdr.isEmpty()) {
             mcdr = RendererHelper.sortOverviews(mcdr);
         }
-        
+
         mcdr.setElaborationParams(Collections.EMPTY_MAP);
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
         TagHelper.bindElaboratorTo(LIST_NAME, mcdr.getElaborator(), request);
-        
+
         request.setAttribute(MOST_CRITICAL_LIST, mcdr);
         request.setAttribute(SHOW_CRITICAL_SYSTEMS, Boolean.TRUE);
         request.setAttribute(PAGINATION_MESSAGE,
@@ -60,7 +60,7 @@ public class CriticalSystemsRenderer extends BaseFragmentRenderer {
                         "yourrhn.jsp.criticalsystems.description"));
         request.setAttribute("parentUrl", request.getRequestURI());
     }
-    
+
     /**
      * Get the RhnSet 'Decl' for the action
      * @return The set decleration
@@ -68,7 +68,7 @@ public class CriticalSystemsRenderer extends BaseFragmentRenderer {
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.SYSTEMS;
     }
-    
+
     /**
      * {@inheritDoc}
      */

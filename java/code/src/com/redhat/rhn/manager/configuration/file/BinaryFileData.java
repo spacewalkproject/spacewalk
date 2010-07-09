@@ -31,9 +31,9 @@ import java.io.InputStream;
 public class BinaryFileData extends ConfigFileData {
     private InputStream contents;
     private long contentSize;
-    
+
     /**
-     * 
+     *
      * @param data the contents to set
      * @param size the contentSize to set
      */
@@ -50,7 +50,7 @@ public class BinaryFileData extends ConfigFileData {
         return contents;
     }
 
-    
+
     /**
      * @param data the contents to set
      */
@@ -60,7 +60,7 @@ public class BinaryFileData extends ConfigFileData {
 
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
@@ -69,44 +69,44 @@ public class BinaryFileData extends ConfigFileData {
     }
 
 
-    
+
     /**
      * @param size the contentSize to set
      */
     public void setContentSize(long size) {
         this.contentSize = size;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
     public InputStream getContentStream() {
         return getContents();
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
     protected void validateContents(ValidatorResult result, boolean onCreate) {
         // NO Op
-        
+
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
     public boolean isBinary() {
         return true;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
@@ -126,5 +126,5 @@ public class BinaryFileData extends ConfigFileData {
         builder.append("ConfigFileData", super.toString()).
                         append("Size", getContentSize());
         return builder.toString();
-    }    
+    }
 }

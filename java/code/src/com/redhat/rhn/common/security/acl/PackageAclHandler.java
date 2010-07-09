@@ -35,11 +35,11 @@ import java.util.Set;
  * @version $Rev$
  */
 public class PackageAclHandler extends BaseHandler implements AclHandler {
-    
+
     private final Log log = LogFactory.getLog(this.getClass());
-    
+
     /**
-     * Returns true if the Token whose id matches the given tid, 
+     * Returns true if the Token whose id matches the given tid,
      * has the requested entitlement given by entitlement label in param 0
      * @param ctx Context Map to pass in
      * @param params Parameters to use to fetch from Context
@@ -61,35 +61,35 @@ public class PackageAclHandler extends BaseHandler implements AclHandler {
         }
         return false;
     }
-    
+
     /**
      * Tests to determine if the requested package is capable with the given ACLs.
-     * 
+     *
      * @param ctx context map describing the request
      * @param params Parameters to use to fetch from context
-     * @return true if the the package passes the ACL 
+     * @return true if the the package passes the ACL
      */
     public boolean aclPackageTypeCapable(Object ctx, String[] params) {
-        
+
         if (params.length == 0) {
             return false;
         }
-        
+
         String cap = params[0];
         Map map = (Map) ctx;
-        
+
         User user = (User) map.get("user");
         Long pid = getAsLong(map.get("pid"));
         Package pack = PackageManager.lookupByIdAndUser(pid, user);
-        
+
         if (user == null || pid == null || pack == null) {
             return false;
         }
-          
+
         ArchType type = pack.getPackageArch().getArchType();
         String archTypeLabel = type.getLabel();
         Map<String, Set<String>> capMap = PackageFactory.getPackageCapabilityMap();
-        
+
         if (capMap.get(archTypeLabel) == null) {
             return false;
         }
@@ -99,5 +99,5 @@ public class PackageAclHandler extends BaseHandler implements AclHandler {
         boolean capFound = capabilities.contains(cap);
         return capFound;
     }
-    
+
 }

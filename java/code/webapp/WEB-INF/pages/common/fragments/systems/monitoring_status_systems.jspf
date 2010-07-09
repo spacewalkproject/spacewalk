@@ -2,38 +2,38 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
-    
+
 <rhn:require	acl="show_monitoring();"  mixins="com.redhat.rhn.common.security.acl.MonitoringAclHandler">
 
-		<rl:column sortable="false" 
+		<rl:column sortable="false"
 				   bound="false"
-		           headerkey="systemlist.jsp.monitoring" 
+		           headerkey="systemlist.jsp.monitoring"
 		           styleclass="center"
-		           headerclass="row-2 thin-column"> 
+		           headerclass="row-2 thin-column">
 		    <c:out value="<a href=\"/rhn/systems/details/probes/ProbesList.do?sid=${current.id}\""  escapeXml="false"/>
-            
+
             <c:if test="${current.monitoringStatus == 'CRITICAL'}">
-                <img src="/img/rhn-mon-down.gif" 
+                <img src="/img/rhn-mon-down.gif"
                  alt="<bean:message key="systemlist.jsp.probecritical"/>"
                  title="<bean:message key="systemlist.jsp.probecritical"/>" />
             </c:if>
             <c:if test="${current.monitoringStatus == 'WARNING'}">
-                <img src="/img/rhn-mon-warning.gif" 
+                <img src="/img/rhn-mon-warning.gif"
                  alt="<bean:message key="systemlist.jsp.probewarning"/>"
                  title="<bean:message key="systemlist.jsp.probewarning"/>" />
             </c:if>
             <c:if test="${current.monitoringStatus == 'UNKNOWN'}">
-                <img src="/img/rhn-mon-unknown.gif" 
+                <img src="/img/rhn-mon-unknown.gif"
                  alt="<bean:message key="systemlist.jsp.probeunknown"/>"
                  title="<bean:message key="systemlist.jsp.probeunknown"/>" />
             </c:if>
             <c:if test="${current.monitoringStatus == 'PENDING'}">
-                <img src="/img/rhn-mon-pending.gif" 
+                <img src="/img/rhn-mon-pending.gif"
                  alt="<bean:message key="systemlist.jsp.probepending"/>"
                  title="<bean:message key="systemlist.jsp.probepending"/>" />
             </c:if>
             <c:if test="${current.monitoringStatus == 'OK'}">
-                <img src="/img/rhn-mon-ok.gif" 
+                <img src="/img/rhn-mon-ok.gif"
                  alt="<bean:message key="systemlist.jsp.probeok"/>"
                  title="<bean:message key="systemlist.jsp.probeok"/>" />
             </c:if>

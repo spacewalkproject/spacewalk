@@ -28,10 +28,10 @@ import javax.servlet.http.HttpServletResponseWrapper;
  * @version $Rev $
  */
 class BufferedResponseWrapper extends HttpServletResponseWrapper {
-    
+
    private BufferedServletOutputStream out = new BufferedServletOutputStream();
    private PrintWriter writer = new PrintWriter(out);
-   
+
    /**
     * ${@inheritDoc}
     */
@@ -39,7 +39,7 @@ class BufferedResponseWrapper extends HttpServletResponseWrapper {
         super(target);
     }
 
-    
+
     /**
      * ${@inheritDoc}
      */
@@ -49,19 +49,19 @@ class BufferedResponseWrapper extends HttpServletResponseWrapper {
 
     /**
      * ${@inheritDoc}
-     */    
+     */
     public PrintWriter getWriter() throws IOException {
         return writer;
     }
 
     /**
      * ${@inheritDoc}
-     */    
+     */
     public void flush() throws IOException {
         writer.flush();
         out.flush();
     }
-    
+
     /**
      * Gets buffered content from underlying output stream
      * @return string

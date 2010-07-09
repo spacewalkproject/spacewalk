@@ -7,13 +7,13 @@
   <form method="post" name="rhn_list" action="/YourRhn.do">
     <rhn:list pageList="${requestScope.scheduledActionList}"
     		  noDataText="${requestScope.scheduledActionEmpty}"
-    		  formatMessage="false">  
-  <rhn:listdisplay 	title="yourrhn.jsp.scheduledactions" 
-  					set="${requestScope.set}" 
+		  formatMessage="false">
+  <rhn:listdisplay 	title="yourrhn.jsp.scheduledactions"
+					set="${requestScope.set}"
   					paging="false"
   					description="yourrhn.jsp.actions.description"
   					type="list">
-  
+
     <rhn:column header="schedulesync.jsp.action">
     	<c:choose>
     		<c:when test="${current.actionStatusId == 0 || current.actionStatusId == 1}">
@@ -31,7 +31,7 @@
     	</c:choose>
     	<a href="/rhn/schedule/ActionDetails.do?aid=${current.id}">${current.actionName}</a>
     </rhn:column>
-    
+
         <rhn:column header="yourrhn.jsp.user"
         			style="text-align: center;">
         <c:choose>
@@ -44,15 +44,15 @@
             </c:otherwise>
 		</c:choose>
     </rhn:column>
-    
 
-    
+
+
     <rhn:column header="yourrhn.jsp.age"
     			style="text-align: center;">
    		${current.ageString}		
     </rhn:column>
   </rhn:listdisplay>
-  
+
   <span class="full-width-note-right">
   	<a href="/rhn/schedule/PendingActions.do">
   		<bean:message key="yourrhn.jsp.allactions" />

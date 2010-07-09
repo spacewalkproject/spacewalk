@@ -30,69 +30,69 @@ public class KickstartCommandName {
     private String name;
     private Boolean args;
     private Boolean required;
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     private void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
     public void setName(String n) {
         this.name = n;
     }
-    
+
     /**
-     * 
+     *
      * @param orderIn The order num to set
      */
     public void setOrder(Long orderIn) {
         this.order = orderIn;
     }
-    
+
     /**
-     * 
-     * @return Returns the display Order 
+     *
+     * @return Returns the display Order
      */
     public Long getOrder() {
         return this.order;
     }
-    
+
     /**
-     * 
+     *
      * @param argsIn Sets whether Command option takes in args
      */
     public void setArgs(Boolean argsIn) {
         this.args = argsIn;
     }
-    
+
     /**
-     * 
+     *
      * @return if this command can have args
      */
     public Boolean getArgs() {
         return this.args;
     }
-    
+
     /**
-     * 
+     *
      * @return if this command is required
      */
     public Boolean getRequired() {
@@ -100,20 +100,20 @@ public class KickstartCommandName {
     }
 
     /**
-     * 
+     *
      * @param requiredIn sets if this command is required
      */
     public void setRequired(Boolean requiredIn) {
         this.required = requiredIn;
     }
-    
+
     /**
      * @return returns true if this is repo command
      */
     public boolean isRepoCommand() {
         return REPO.equals(getName());
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -133,7 +133,7 @@ public class KickstartCommandName {
         builder.append(getRequired(), that.getRequired());
         return builder.isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */

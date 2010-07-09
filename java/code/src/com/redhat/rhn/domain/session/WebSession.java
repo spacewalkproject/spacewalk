@@ -69,7 +69,7 @@ public interface WebSession {
      * @return the value
      */
     String getValue();
-    
+
     /**
      * Makes a key for the session. This is a md5 hash of the id and the session secrets.
      * @return Returns the key for the session.

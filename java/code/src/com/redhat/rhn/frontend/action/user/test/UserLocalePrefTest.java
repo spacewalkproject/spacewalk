@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UserLocalePrefTest extends RhnMockStrutsTestCase {
-         
+
     public void testDisplay() {
         setRequestPathInfo("/account/LocalePreferences.do");
         actionPerform();
@@ -33,7 +33,7 @@ public class UserLocalePrefTest extends RhnMockStrutsTestCase {
         assertTrue(locales.size() > 0);
         assertTrue(timezones.size() > 0);
     }
-    
+
     public void testSubmit() {
         clearRequestParameters();
         List timezones = UserManager.lookupAllTimeZones();

@@ -25,48 +25,48 @@ public class MonitoredServerDto extends BaseDto {
     private Long id;
     private String status;
     private String name;
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
-    
+
     /**
      * @return Returns the status.
      */
     public String getStatus() {
         return status;
     }
-    
+
     /**
      * @param statusIn The status to set.
      */
     public void setStatus(String statusIn) {
         this.status = statusIn;
     }
-    
+
 
 }

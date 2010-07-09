@@ -38,7 +38,7 @@ import java.util.TimeZone;
  */
 
 public class GraphGeneratorTest extends RhnBaseTestCase {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -47,7 +47,7 @@ public class GraphGeneratorTest extends RhnBaseTestCase {
         Context ctx = Context.getCurrentContext();
         ctx.setTimezone(TimeZone.getDefault());
         ctx.setLocale(Locale.getDefault());
-        
+
     }
 
     /**
@@ -64,7 +64,7 @@ public class GraphGeneratorTest extends RhnBaseTestCase {
         assertNotNull(f.getAbsolutePath());
         // f.deleteOnExit();
     }
-    
+
     public void testEmptyGraphFile() throws Exception {
         File f = GraphGenerator.getInstance().generateGraphFile(
                 makeTestGraph(0), 800, 240);
@@ -83,22 +83,22 @@ public class GraphGeneratorTest extends RhnBaseTestCase {
            Calendar start = Calendar.getInstance();
            start.roll(Calendar.HOUR, -3);
            start.add(Calendar.MINUTE, (i * 5));
-           Float rnd = new Float(Math.random() * 10);           
-           tsd[i] = new TimeSeriesData("1-2-test", rnd, start.getTime(), 
-                   metric);           
+           Float rnd = new Float(Math.random() * 10);
+           tsd[i] = new TimeSeriesData("1-2-test", rnd, start.getTime(),
+                   metric);
         }
         return tsd;
     }
     public JFreeChart makeTestGraph(int size) {
-        TimeSeriesData[] tsd1 = 
+        TimeSeriesData[] tsd1 =
             getTestTimeSeriesData(MonitoringManagerTest.TEST_METRIC, size);
-        TimeSeriesData[] tsd2 = 
-            getTestTimeSeriesData(MonitoringManagerTest.TEST_METRIC2, size);        
+        TimeSeriesData[] tsd2 =
+            getTestTimeSeriesData(MonitoringManagerTest.TEST_METRIC2, size);
         List tsdList = new LinkedList();
         tsdList.add(tsd1);
         tsdList.add(tsd2);
         Map labels = new HashMap();
-        labels.put(MonitoringManagerTest.TEST_METRIC, 
+        labels.put(MonitoringManagerTest.TEST_METRIC,
                 "l10ned" + MonitoringManagerTest.TEST_METRIC);
         labels.put(MonitoringManagerTest.TEST_METRIC2,
                 "l10ned" + MonitoringManagerTest.TEST_METRIC2);
@@ -106,7 +106,7 @@ public class GraphGeneratorTest extends RhnBaseTestCase {
             generateJFReeChart(800, 240, "Time (PST)"  , "Metrics", tsdList, labels);
         return chart;
     }
-    
+
 }
 
 

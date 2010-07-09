@@ -33,13 +33,13 @@ public class AclGuardTest extends RhnBaseTestCase {
         boolean rc = aclGuard.canRender(node, 0);
         assertTrue(rc);
     }
-    
+
     public void testNullNodeDefined() {
         AclGuard aclGuard = new AclGuard(new HashMap());
         boolean rc = aclGuard.canRender(null, 0);
         assertTrue(rc);
     }
-    
+
     public void testAclDefinedFailsRender() {
         NavNode node = new NavNode();
         node.setAcl("false_test()");
@@ -48,7 +48,7 @@ public class AclGuardTest extends RhnBaseTestCase {
         boolean rc = aclGuard.canRender(node, 0);
         assertFalse(rc);
     }
-    
+
     public void testAclDefinedShouldRender() {
         NavNode node = new NavNode();
         node.setAcl("true_test()");
@@ -57,7 +57,7 @@ public class AclGuardTest extends RhnBaseTestCase {
         boolean rc = aclGuard.canRender(node, 0);
         assertTrue(rc);
     }
-    
+
     public static class MockAclHandler implements AclHandler {
         /**
          * Always returns true.
@@ -68,7 +68,7 @@ public class AclGuardTest extends RhnBaseTestCase {
         public boolean aclTrueTest(Object ctx, String[] params) {
             return true;
         }
-        
+
         /**
          * Always returns false.
          * @param ctx ignored

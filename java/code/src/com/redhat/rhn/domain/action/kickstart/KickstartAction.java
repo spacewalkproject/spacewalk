@@ -22,18 +22,18 @@ import com.redhat.rhn.domain.action.Action;
  */
 public class KickstartAction extends Action {
 
-    
+
     private KickstartActionDetails kickstartActionDetails;
-    
+
     /**
      * Get the detail record associated with this KickstartAction
-     * 
+     *
      * @return Returns the kickstartActionDetails.
      */
     public KickstartActionDetails getKickstartActionDetails() {
         return kickstartActionDetails;
     }
-    
+
     /**
      * Set the detail record associated with this KickstartAction
      * @param kickstartActionDetailsIn The kickstartActionDetails to set.

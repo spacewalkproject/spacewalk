@@ -23,16 +23,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 
+ *
  * DocWriter
  * @version $Rev$
  */
 public abstract class DocWriter {
 
-    
+
     protected VelocityHelper serializerRenderer;
-    
-    
+
+
     /**
      * Constructor
      *
@@ -40,7 +40,7 @@ public abstract class DocWriter {
     public DocWriter() {
 
     }
-    
+
     protected  void writeFile(String filePath, String contents) throws Exception {
        FileWriter fileWrite = new FileWriter(filePath);
        BufferedWriter bw = new BufferedWriter(fileWrite);
@@ -48,13 +48,13 @@ public abstract class DocWriter {
        bw.close();
 
    }
-    
+
     protected String readFile(String filePath) throws Exception {
         String toReturn = "";
         FileReader input = new FileReader(filePath);
         BufferedReader bufRead = new BufferedReader(input);
         String line = bufRead.readLine();
-        
+
         while (line != null) {
             toReturn += line + "\n";
             line = bufRead.readLine();
@@ -62,69 +62,69 @@ public abstract class DocWriter {
         bufRead.close();
         return toReturn;
    }
-    
+
     /**
      * Generate the index from the template dir from (API_HEADER/INDEX/FOOTER_FILE) files
      * @param handlers list of the handlers
      * @param templateDir directory of the templates
-     * @return a string representing the index 
+     * @return a string representing the index
      * @throws Exception e
      */
-    public  String generateIndex(List<Handler> handlers, String templateDir) 
+    public  String generateIndex(List<Handler> handlers, String templateDir)
                 throws Exception {
 
-        
+
         VelocityHelper vh = new VelocityHelper(templateDir);
         vh.addMatch("handlers", handlers);
         String output = vh.renderTemplateFile(ApiDoclet.API_HEADER_FILE);
-        output += vh.renderTemplateFile(ApiDoclet.API_INDEX_FILE);        
+        output += vh.renderTemplateFile(ApiDoclet.API_INDEX_FILE);
         output += vh.renderTemplateFile(ApiDoclet.API_FOOTER_FILE);
         return output;
     }
-    
+
     /**
      * generate a templated handler from teh template dir and the file (API_HANDLER_FILE)
-     * @param handler the handler in question 
+     * @param handler the handler in question
      * @param templateDir the directory of templates
      * @return a string that is the templated handler
      * @throws Exception e
      */
-    public String generateHandler(Handler handler, String templateDir) 
+    public String generateHandler(Handler handler, String templateDir)
             throws Exception {
-        
+
         for (ApiCall call : handler.getCalls()) {
-            call.setReturnDoc(renderMacro(templateDir, call.getReturnDoc(), 
+            call.setReturnDoc(renderMacro(templateDir, call.getReturnDoc(),
                     call.getName()));
             List<String> params = new ArrayList<String>();
-            
+
             for (String param : call.getParams()) {
-                params.add(renderMacro(templateDir, param, 
+                params.add(renderMacro(templateDir, param,
                         "param:" + param));
             }
             call.setParams(params);
-            
+
         }
-        
+
         VelocityHelper vh = new VelocityHelper(templateDir);
         vh.addMatch("handler", handler);
-        String output = vh.renderTemplateFile(ApiDoclet.API_HANDLER_FILE);     
+        String output = vh.renderTemplateFile(ApiDoclet.API_HANDLER_FILE);
 
         //Now we render the serializers
         output = serializerRenderer.renderTemplate(output);
-        
-        
+
+
         return output;
     }
-    
+
     /**
      * Renders the input agains the api macros file in a given directory.
      * @param templateDir The directory of the macros.txt file
-     * @param input the input to macrotize 
+     * @param input the input to macrotize
      * @param description a description to use in case something goes wrong
      * @return the macrotized input
      * @throws Exception e
      */
-    public String renderMacro(String templateDir, String input, String description) 
+    public String renderMacro(String templateDir, String input, String description)
                     throws Exception {
         VelocityHelper macros = new VelocityHelper();
         String macro = readFile(templateDir + ApiDoclet.API_MACROS_FILE);
@@ -143,9 +143,9 @@ public abstract class DocWriter {
             writeFile(errrorFile,  macro + input + "\n");
             throw e;
         }
-        
+
     }
-    
+
     /**
      * render the serializers
      * @param templateDir the template directory for this writer
@@ -154,16 +154,16 @@ public abstract class DocWriter {
      */
     public void renderSerializers(String templateDir, Map<String, String> serializers)
                     throws Exception {
-        
+
         serializerRenderer = new VelocityHelper();
-        
+
         //macrotize the serializers
         for (String name : serializers.keySet()) {
             String temp = renderMacro(templateDir, serializers.get(name), name);
             serializers.put(name, temp);
             serializerRenderer.addMatch(name, serializers.get(name));
         }
-        
+
         //do replacement on the serializers serveral times
         for (int i = 0; i < 3; i++) {
             VelocityHelper tempRenderer = new VelocityHelper();
@@ -175,16 +175,16 @@ public abstract class DocWriter {
             serializerRenderer = tempRenderer;
         }
     }
-    
-    
+
+
     /**
      * write the specified writer
      * @param handlers list of handlers
      * @param serializers a list of serializers to write with
      * @throws Exception e
      */
-    public abstract void write(List<Handler> handlers, 
+    public abstract void write(List<Handler> handlers,
             Map<String, String> serializers) throws Exception;
-    
-    
+
+
 }

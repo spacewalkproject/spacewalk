@@ -23,7 +23,7 @@ import com.redhat.rhn.manager.BaseManager;
 import java.util.HashMap;
 import java.util.Map;
 
-/**  
+/**
  * SolarisPatchSetManager
  * @version $Rev$
  */
@@ -32,7 +32,7 @@ public class SolarisPatchSetManager extends BaseManager {
      * Helper method to get various solaris patch clusters
      * @param sid Server
      * @param pc PageControl
-     * @return list of patch clusters 
+     * @return list of patch clusters
      */
     private static DataResult solarisPackageHelper(Long sid, PageControl pc, String mode) {
         SelectMode m = ModeFactory.getMode("Package_queries", mode);

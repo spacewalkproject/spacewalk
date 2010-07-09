@@ -44,7 +44,7 @@
 <html:form action="/admin/multiorg/OrgSystemSubscriptions.do">
  <html:hidden property="submitted" value="true"/>
  <html:hidden property="oid" value="${param.oid}"/>
- 
+
 
   <table class="list" cellpadding="0" cellspacing="0" width="100%">
     <thead>
@@ -69,16 +69,16 @@
                 ${enterprise_entitled.currentEntitlements}
                 </td>
                 <td class="last-column">
-                <c:choose>                  
+                <c:choose>
                   <c:when test="${param.oid != 1}">
-                    <html:text property="enterprise_entitled" 
+                    <html:text property="enterprise_entitled"
                                onkeydown="return blockEnter(event)"/>
                     <br><span class="small-text"><bean:message key="orgsystemsubs.jsp.possible_vals" arg0="0" arg1="${enterprise_entitled.upperRange}"/></span>
                   </c:when>
                   <c:otherwise>
-                     <bean:write name="orgSystemSubscriptionsForm" property="enterprise_entitled"/>                     
+                     <bean:write name="orgSystemSubscriptionsForm" property="enterprise_entitled"/>
                   </c:otherwise>
-                </c:choose>                
+                </c:choose>
                 </td>
             </tr>
             <tr class="list-row-even">
@@ -95,13 +95,13 @@
                 </td>
                 <td class="last-column">
                   <c:choose>
-                  <c:when test="${param.oid != 1}">                  
+                  <c:when test="${param.oid != 1}">
                     <html:text property="monitoring_entitled"
                                onkeydown="return blockEnter(event)"/>
                     <br><span class="small-text"><bean:message key="orgsystemsubs.jsp.possible_vals" arg0="0" arg1="${monitoring_entitled.upperRange}"/></span>
                   </c:when>
                   <c:otherwise>
-                     <bean:write name="orgSystemSubscriptionsForm" property="monitoring_entitled"/>                     
+                     <bean:write name="orgSystemSubscriptionsForm" property="monitoring_entitled"/>
                   </c:otherwise>
                 </c:choose>
                 </td>
@@ -126,7 +126,7 @@
                     <br><span class="small-text"><bean:message key="orgsystemsubs.jsp.possible_vals" arg0="0" arg1="${provisioning_entitled.upperRange}"/></span>
                   </c:when>
                   <c:otherwise>
-                     <bean:write name="orgSystemSubscriptionsForm" property="provisioning_entitled"/>                     
+                     <bean:write name="orgSystemSubscriptionsForm" property="provisioning_entitled"/>
                   </c:otherwise>
                 </c:choose>
                 </td>
@@ -151,9 +151,9 @@
                     <br><span class="small-text"><bean:message key="orgsystemsubs.jsp.possible_vals" arg0="0" arg1="${virtualization_host.upperRange}"/></span>
                   </c:when>
                   <c:otherwise>
-                     <bean:write name="orgSystemSubscriptionsForm" property="virtualization_host"/>                     
+                     <bean:write name="orgSystemSubscriptionsForm" property="virtualization_host"/>
                   </c:otherwise>
-                </c:choose>                
+                </c:choose>
                 </td>
             </tr>
             <tr class="list-row-odd">
@@ -176,14 +176,14 @@
                     <br><span class="small-text"><bean:message key="orgsystemsubs.jsp.possible_vals" arg0="0" arg1="${virtualization_host_platform.upperRange}"/></span>
                   </c:when>
                   <c:otherwise>
-                     <bean:write name="orgSystemSubscriptionsForm" property="virtualization_host_platform"/>                     
+                     <bean:write name="orgSystemSubscriptionsForm" property="virtualization_host_platform"/>
                   </c:otherwise>
-                </c:choose>                                
+                </c:choose>
                 </td>
             </tr>
         </tbody>
         </table>
-<c:if test="${param.oid != 1}">    
+<c:if test="${param.oid != 1}">
  <div align="right">
    <hr/>
    <html:submit>

@@ -37,7 +37,7 @@ import java.util.Date;
  * @version $Rev$
  */
 public class ConfigRevisionActionTest extends RhnBaseTestCase {
-    
+
     public void testBeanMethods() {
         ConfigRevisionAction cra = new ConfigRevisionAction();
         Date now = new Date();
@@ -46,40 +46,40 @@ public class ConfigRevisionActionTest extends RhnBaseTestCase {
         Server server = ServerFactory.createServer();
         ConfigRevision revision = ConfigurationFactory.newConfigRevision();
         ConfigRevisionActionResult result = new ConfigRevisionActionResult();
-        
+
         cra.setCreated(now);
         assertTrue(now.equals(cra.getCreated()));
-        
+
         cra.setModified(now);
         assertTrue(now.equals(cra.getModified()));
-        
+
         cra.setFailureId(three);
         assertEquals(three, cra.getFailureId());
-        
+
         cra.setId(three);
         assertEquals(three, cra.getId());
-        
+
         cra.setParentAction(parent);
         assertTrue(parent.equals(cra.getParentAction()));
-        
+
         cra.setServer(server);
         assertTrue(server.equals(cra.getServer()));
-        
+
         cra.setConfigRevision(revision);
         assertTrue(revision.equals(cra.getConfigRevision()));
-        
+
         cra.setConfigRevisionActionResult(result);
         assertTrue(result.equals(cra.getConfigRevisionActionResult()));
     }
-    
+
     /**
-     * Test fetching a ConfigRevisionAction 
+     * Test fetching a ConfigRevisionAction
      * @throws Exception
      */
     public void testLookupConfigRevision() throws Exception {
         User user = UserTestUtils.createUser("testUser", UserTestUtils
-                .createOrg("testOrg")); 
-        Action a = ActionFactoryTest.createAction(user, 
+                .createOrg("testOrg"));
+        Action a = ActionFactoryTest.createAction(user,
                    ActionFactory.TYPE_CONFIGFILES_DEPLOY);
 
         assertNotNull(a);
@@ -93,12 +93,12 @@ public class ConfigRevisionActionTest extends RhnBaseTestCase {
             a2.getConfigRevisionActions().toArray()[0];
         assertNotNull(cra.getId());
     }
-    
-    public static ConfigRevisionAction createTestRevision(User user, Action parent) 
+
+    public static ConfigRevisionAction createTestRevision(User user, Action parent)
                                                                      throws Exception {
         ConfigRevisionAction cra = new ConfigRevisionAction();
         cra.setServer(ServerFactoryTest.createTestServer(user));
-        
+
         ConfigTestUtils.giveOrgQuota(user.getOrg());
         cra.setConfigRevision(ConfigTestUtils.createConfigRevision(user.getOrg()));
         cra.setCreated(new Date());

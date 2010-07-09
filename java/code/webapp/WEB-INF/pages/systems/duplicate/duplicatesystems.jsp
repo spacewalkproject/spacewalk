@@ -59,7 +59,7 @@
 <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/duplicate_systems_tabs.xml"
                 renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 <br/>
-<rl:list 
+<rl:list
 	emptykey="nosystems.message"
 	parentiselement = "false"
 	searchchild="false"
@@ -85,7 +85,7 @@
 	<!-- Name Column -->
 	<rl:column headerkey="systemlist.jsp.system" filterattr="key" filtermessage="${filtermessage}">
 	    <rl:expandable rendericon="true">${current.key} <em>(<bean:message key="manysystems.message" arg0="${rl:countChildren(current)}"/>)</em> </rl:expandable>
-	    
+
 	    <rl:non-expandable rendericon="true">
 			<c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
 			<c:choose>
@@ -96,7 +96,7 @@
 					<c:out value="${current.name}</a>" escapeXml="false" />
 				</c:otherwise>
 			</c:choose>
-	    </rl:non-expandable>       
+	    </rl:non-expandable>
 	</rl:column>
 	<rl:column headerkey="systemlist.jsp.last_checked_in"
 				styleclass="last-column">
@@ -112,7 +112,7 @@
     <html:submit property="dispatch">
         <bean:message key="Delete Selected"/>
     </html:submit>
-      
+
   </div>
 <rhn:submitted/>
 

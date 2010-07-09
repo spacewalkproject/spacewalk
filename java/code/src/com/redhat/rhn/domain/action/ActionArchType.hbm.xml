@@ -3,21 +3,21 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.action.ActionArchType" 
+	<class name="com.redhat.rhn.domain.action.ActionArchType"
 		table="rhnArchTypeActions" mutable="false">
 		<cache usage="read-only"/>
         <composite-id>
             <key-property name="archTypeId" column="arch_type_id" />
             <key-property name="actionStyle" column="action_style" />
-        </composite-id> 
+        </composite-id>
 		<property name="created" column="created" type="date" />
 		<property name="modified" column="modified" type="date" />
-		<many-to-one name="actionType" 
-			class="com.redhat.rhn.domain.action.ActionType" 
+		<many-to-one name="actionType"
+			class="com.redhat.rhn.domain.action.ActionType"
 			column="action_type_id" cascade="all" update="false" />
 		
 	</class>
-    
+
     <query name="ActionArchType.loadAll">
         <![CDATA[from com.redhat.rhn.domain.action.ActionArchType]]>
     </query>

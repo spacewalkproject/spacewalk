@@ -28,7 +28,7 @@ import junit.framework.AssertionFailedError;
  * @version $Rev$
  */
 public class TinyUrlActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testTinyUrl() throws Exception {
         setRequestPathInfo("/ty/TinyUrl");
         TinyUrl url = CommonFactory.createTinyUrl(

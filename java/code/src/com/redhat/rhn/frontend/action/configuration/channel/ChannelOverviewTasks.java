@@ -60,18 +60,18 @@ public class ChannelOverviewTasks extends RhnAction {
     public static final String SEL_FILES_TO_SEL_SYS = "sel2sel";
     public static final String COMPARE = "compare";
     public static final String DEFAULT = "default";
-    
+
     /**
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping map, 
-            ActionForm form, 
-            HttpServletRequest req, 
+    public ActionForward execute(ActionMapping map,
+            ActionForm form,
+            HttpServletRequest req,
             HttpServletResponse resp) throws Exception {
-        
+
         Map params = makeParamMap(req);
         String mode = req.getParameter(MODE_PARAM);
-                
+
         if (ALL_FILES_TO_ALL_SYS.equals(mode)) {
             // Select everything and send the user to the confirm page
             initializeSets(map, req, params, true, true);
@@ -110,8 +110,8 @@ public class ChannelOverviewTasks extends RhnAction {
     }
 
     private void initializeSets(
-            ActionMapping map, 
-            HttpServletRequest req, 
+            ActionMapping map,
+            HttpServletRequest req,
             Map params,
             boolean chooseFiles,
             boolean chooseSystems) {
@@ -119,13 +119,13 @@ public class ChannelOverviewTasks extends RhnAction {
         User usr = ctx.getLoggedInUser();
         ConfigChannel cc = ConfigActionHelper.getChannel(req);
         ConfigurationManager mgr = ConfigurationManager.getInstance();
-        
+
         RhnSetDecl sysSet = RhnSetDecl.CONFIG_CHANNEL_DEPLOY_SYSTEMS;
         if (!chooseSystems) {
             sysSet.clear(usr);
             RhnSetManager.store(sysSet.get(usr));
         }
-        
+
         RhnSetDecl revSet = RhnSetDecl.CONFIG_CHANNEL_DEPLOY_REVISIONS;
         if (!chooseFiles) {
             revSet.clear(usr);
@@ -138,7 +138,7 @@ public class ChannelOverviewTasks extends RhnAction {
             sysHelper.setForward(ALL_FILES_TO_ALL_SYS);
             sysHelper.selectall(systems, params);
         }
-        
+
         if (chooseFiles) {
             DataResult files = mgr.listCurrentFiles(usr, cc, null);
             RhnSetHelper fileHelper = new RhnSetHelper(map, revSet, req);
@@ -148,47 +148,47 @@ public class ChannelOverviewTasks extends RhnAction {
     }
 
     private void submitDiffAction(
-            ActionMapping map, 
-            HttpServletRequest req, 
+            ActionMapping map,
+            HttpServletRequest req,
             Map params) {
-        
+
         ConfigurationManager mgr = ConfigurationManager.getInstance();
         ConfigChannel cc = ConfigActionHelper.getChannel(req);
         User usr = new RequestContext(req).getLoggedInUser();
-        
+
         DataResult systems = mgr.listChannelSystems(usr, cc, null);
         DataResult revs = mgr.listCurrentFiles(usr, cc, null);
-        
+
         if (systems.size() == 0 || revs.size() == 0) {
             createErrorMessage(req, "comparetask.error.emptysets", null);
             return;
         }
-        
+
         Set sids = new HashSet();
         for (Iterator itr = systems.iterator(); itr.hasNext();) {
             ConfigSystemDto csd = (ConfigSystemDto)itr.next();
             sids.add(new Long(csd.getId().longValue()));
         }
-        
+
         Set crids = new HashSet();
         for (Iterator itr = revs.iterator(); itr.hasNext();) {
             ConfigFileDto cfd = (ConfigFileDto)itr.next();
             crids.add(new Long(cfd.getLatestConfigRevisionId().longValue()));
         }
-        
+
         //create the action and then create the message to send the user.
         Action action = ActionManager.createConfigDiffAction(usr, crids, sids);
         makeMessage(action, req);
     }
-    
+
     protected Map makeParamMap(HttpServletRequest req) {
         Map m = new HashMap();
         ConfigChannel cc = ConfigActionHelper.getChannel(req);
         ConfigActionHelper.processParamMap(cc, m);
         return m;
     }
-    
-    
+
+
     // TODO: generalize and move this somewhere it can be used by other
     // action-producers!
     private void makeMessage(Action action, HttpServletRequest request) {
@@ -197,10 +197,10 @@ public class ChannelOverviewTasks extends RhnAction {
             int successes = action.getServerActions().size();
             String number = LocalizationService.getInstance()
                     .formatNumber(new Integer(successes));
-            
+
             //build the url for the action we have created.
             String url = "/rhn/schedule/ActionDetails.do?aid=" + action.getId();
-            
+
             //create the success message
             ActionMessages msg = new ActionMessages();
             String key;
@@ -210,11 +210,11 @@ public class ChannelOverviewTasks extends RhnAction {
             else {
                 key = "configdiff.schedule.success";
             }
-            
+
             Object[] args = new Object[2];
             args[0] = StringEscapeUtils.escapeHtml(url);
             args[1] = StringEscapeUtils.escapeHtml(number);
-            
+
             //add in the success message
             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(key, args));
             getStrutsDelegate().saveMessages(request, msg);

@@ -96,7 +96,7 @@
 					arg1="${summary.recentFileDate}"/>
 				</c:if>
 				<c:if test="${summary.mostRecentMod.configFile.latestConfigRevision.changedBy == null}">
-				  <bean:message key="filedetails.details.jspf.modifiedBy-unknown" 
+				  <bean:message key="filedetails.details.jspf.modifiedBy-unknown"
 					arg0="${summary.recentFileDate}"/>
 				</c:if>
 			  </c:when>

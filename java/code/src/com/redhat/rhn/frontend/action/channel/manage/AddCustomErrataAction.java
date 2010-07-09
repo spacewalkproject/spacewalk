@@ -43,30 +43,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
+ *
  * AddCustomErrataAction
  * @version $Rev$
  */
 public class AddCustomErrataAction extends RhnListAction {
 
-    
+
     private static final String CID = "cid";
     private static final String SELECTED_CHANNEL = "selected_channel";
     private static final String SELECTED_CHANNEL_OLD = "selected_channel_old";
-   
-    
+
+
     private static final String CHANNEL_LIST = "channel_list";
-    
+
     private static final String CHANNEL_SUBMIT = "frontend.actions.channels.manager." +
             "add.viewErrata";
     private static final String NULL = "null";
     private static final String CHECKED = "assoc_checked";
-    
+
     private static final String SUBMITTED = "frontend.actions.channels.manager.add." +
-            "submit";    
-    
+            "submit";
+
     private static final String LIST_NAME = "errata";
-    
+
     /**
      * {@inheritDoc}
      */
@@ -74,59 +74,59 @@ public class AddCustomErrataAction extends RhnListAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
         Long cid = Long.parseLong(request.getParameter(CID));
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid, user);
         Channel selectedChannel = null;
-        
-                
+
+
         PublishErrataHelper.checkPermissions(user);
-        
+
         request.setAttribute(CID, cid);
         request.setAttribute("user", user);
         request.setAttribute("channel_name", currentChan.getName());
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        
-        
+
+
         List<SelectableChannel> channelList = null;
 
-        
+
 
         String selectedChannelStr = null;
         Boolean checked = true;
-        
-        
+
+
         //Set initail strings
         selectedChannelStr = request.getParameter(SELECTED_CHANNEL_OLD);
-  
+
         //If the channel submit button was clicked
         if (requestContext.wasDispatched(CHANNEL_SUBMIT)) {
           selectedChannelStr = request.getParameter(SELECTED_CHANNEL);
           if (selectedChannelStr.equals(NULL)) {
               selectedChannelStr = null;
-          }          
+          }
         }
 
         //If this is a clone, go ahead and pre-select the original Channel
         Channel original = ChannelFactory.lookupOriginalChannel(currentChan);
-        if (!requestContext.isSubmitted() && selectedChannel == null && 
+        if (!requestContext.isSubmitted() && selectedChannel == null &&
                 original != null) {
             selectedChannel = original;
             selectedChannelStr = selectedChannel.getId().toString();
         }
-        
+
         request.setAttribute(SELECTED_CHANNEL, selectedChannelStr);
-        
-        
+
+
         if (requestContext.isSubmitted() && request.getParameter(CHECKED) == null)  {
             checked = false;
         }
-        
-        
+
+
         request.setAttribute(CHECKED, checked);
-        
+
         //if we submitted, go to confirm page
         if (requestContext.wasDispatched(SUBMITTED)) {
             Map params = new HashMap();
@@ -134,69 +134,69 @@ public class AddCustomErrataAction extends RhnListAction {
             params.put(CHECKED, request.getParameter(CHECKED));
             params.put(SELECTED_CHANNEL,
                     selectedChannelStr == null ? "" : selectedChannelStr);
-            return getStrutsDelegate().forwardParams(mapping.findForward("submit"), 
-                    params); 
+            return getStrutsDelegate().forwardParams(mapping.findForward("submit"),
+                    params);
         }
 
-        
-        
-            
+
+
+
         List<Channel> channelSet = ChannelFactory.listCustomBaseChannels(user);
-        
+
         channelList = new ArrayList();
         sortChannelsAndChildify(channelSet, channelList, user, selectedChannelStr);
         request.setAttribute(CHANNEL_LIST, channelList);
-           
-        
+
+
         //If we clicked on the channel selection, clear the set
         if (requestContext.wasDispatched(CHANNEL_SUBMIT) ||
                 !requestContext.isSubmitted()) {
             RhnSet set =  getSetDecl(currentChan).get(user);
             set.clear();
-            RhnSetManager.store(set);             
+            RhnSetManager.store(set);
         }
-        
-        
+
+
         if (selectedChannelStr != null) {
             selectedChannel = ChannelFactory.lookupByIdAndUser(Long.parseLong(
-                    selectedChannelStr), user);   
-        }                
+                    selectedChannelStr), user);
+        }
 
-            
-        RhnListSetHelper helper = new RhnListSetHelper(request);        
+
+        RhnListSetHelper helper = new RhnListSetHelper(request);
         RhnSet set =  getSetDecl(currentChan).get(user);
-        
 
-        DataResult dr = getData(request, selectedChannel, currentChan, null, 
-                checked, user);        
+
+        DataResult dr = getData(request, selectedChannel, currentChan, null,
+                checked, user);
         request.setAttribute("pageList", dr);
-        
+
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
             helper.execute(set, LIST_NAME, dr);
-        }    
+        }
         if (!set.isEmpty()) {
             helper.syncSelections(set, dr);
-            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);            
+            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
         }
-        
+
         TagHelper.bindElaboratorTo(LIST_NAME, dr.getElaborator(), request);
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(currentChan), request);
-        
-        
-        
+
+
+
         return mapping.findForward("default");
     }
-    
-    
-    private void sortChannelsAndChildify(List<Channel> listToSort, 
-            List<SelectableChannel> resultList, 
+
+
+    private void sortChannelsAndChildify(List<Channel> listToSort,
+            List<SelectableChannel> resultList,
             User user, String selectedId) {
-        
+
         Long cid = null;
         if (selectedId != null) {
             cid = Long.parseLong(selectedId);
         }
-        
+
         Collections.sort(listToSort);
         for (Channel chan : listToSort) {
             List<Channel> children = chan.getAccessibleChildrenFor(user);
@@ -213,28 +213,28 @@ public class AddCustomErrataAction extends RhnListAction {
             }
         }
     }
-    
-    
-    
+
+
+
     protected RhnSetDecl getSetDecl(Channel chan) {
         return RhnSetDecl.setForChannelErrata(chan);
     }
-    
-    
-    protected DataResult getData(HttpServletRequest request, 
-            Channel selectedChan, 
-            Channel currentChan, 
+
+
+    protected DataResult getData(HttpServletRequest request,
+            Channel selectedChan,
+            Channel currentChan,
             List<SelectableChannel> selChannelList,
             boolean packageAssoc,
             User user) {
-        
+
         if (selectedChan != null) {
             RhnSet set = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user);
-            set.clear();   
+            set.clear();
             set.addElement(selectedChan.getId());
             RhnSetManager.store(set);
-            return ChannelManager.findErrataFromRhnSetForTarget(currentChan, 
-                    packageAssoc, user);     
+            return ChannelManager.findErrataFromRhnSetForTarget(currentChan,
+                    packageAssoc, user);
         }
         else if (selChannelList != null) {
                 RhnSet set = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user);
@@ -243,13 +243,13 @@ public class AddCustomErrataAction extends RhnListAction {
                     set.addElement(chan.getId());
                 }
                 RhnSetManager.store(set);
-                return ChannelManager.findErrataFromRhnSetForTarget(currentChan, 
+                return ChannelManager.findErrataFromRhnSetForTarget(currentChan,
                         packageAssoc, user);
         }
         else {
-                return ChannelManager.findCustomErrataForTarget(currentChan, 
-                        packageAssoc);       
+                return ChannelManager.findCustomErrataForTarget(currentChan,
+                        packageAssoc);
         }
     }
-    
+
 }

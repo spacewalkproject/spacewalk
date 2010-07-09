@@ -56,7 +56,7 @@ public class RhnUnpagedListActionTest extends RhnBaseTestCase {
         public final ActionForward execute(ActionMapping mapping,
                 ActionForm formIn, HttpServletRequest request,
                 HttpServletResponse response) {
-            
+
             RequestContext requestContext = new RequestContext(request);
             StrutsDelegate strutsDelegate = StrutsDelegate.getInstance();
 
@@ -71,7 +71,7 @@ public class RhnUnpagedListActionTest extends RhnBaseTestCase {
                 //good, this is what we wanted...
             }
             filterList(lc, request, user);
-            
+
             return strutsDelegate.forwardParams(mapping.findForward("default"),
                     request.getParameterMap());
         }

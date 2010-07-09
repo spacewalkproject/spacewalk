@@ -21,31 +21,31 @@ import java.util.Set;
  * @version $Rev$
  */
 public interface RhnSet extends Set {
-    
+
     /**
      * Setter for user id
      * @param id User id associated with this Set.
      */
     void setUserId(Long id);
-    
+
     /**
      * Getter for user id
      * @return UserId associated with this Set.
      */
     Long getUserId();
-    
+
     /**
-     * Setter for label 
+     * Setter for label
      * @param lbl Label for this Set.
      */
     void setLabel(String lbl);
-    
+
     /**
-     * Getter for label 
+     * Getter for label
      * @return Set label
      */
     String getLabel();
-    
+
     /**
      * Add a new element to the Set.
      * @param e Element to add
@@ -59,26 +59,26 @@ public interface RhnSet extends Set {
      * @param elemThree Element three, can be null.
      */
     void addElement(Long elem, Long elemTwo, Long elemThree);
-    
+
     /**
      * Add a new element to the Set.
      * @param elem Element one.
      * @param elemTwo Element two, can be null.
      */
     void addElement(Long elem, Long elemTwo);
-    
+
     /**
      * Add a new element to the Set.
      * @param elem Element one
      */
     void addElement(Long elem);
-    
+
     /**
      * Add a new element to the Set.
      * @param elem Element one  or Element1|Element2
      */
-    void addElement(String elem);    
-    
+    void addElement(String elem);
+
     /**
      * Adds an array of elements to the set.
      * @param elems String [] - array of elements to add
@@ -96,14 +96,14 @@ public interface RhnSet extends Set {
      * @param e Element to remove
      */
     void removeElement(RhnSetElement e);
-    
+
     /**
      * Remove an element from the set
      * @param elem value for element
      * @param elemTwo value for elementTwo
      */
     void removeElement(Long elem, Long elemTwo);
-    
+
     /**
      * Remove an element from the set
      * @param elem value for element
@@ -120,46 +120,46 @@ public interface RhnSet extends Set {
      * @return java.util.Set of the Elements in the RhnSet.
      */
     Set <RhnSetElement> getElements();
-    
+
     /**
-     * Returns a java.util.Set of the Long values in each RhnSetElement. 
-     * 
+     * Returns a java.util.Set of the Long values in each RhnSetElement.
+     *
      * NOTE: does not include the element2 values.
-     * 
+     *
      * @return java.util.Set values in the RhnSet.
      */
     Set <Long>getElementValues();
-    
+
     /**
      * Returns whether or not the set contains the given RhnSetElement
      * @param e RhnSetElement to look for
      * @return true or false
      */
     boolean contains(RhnSetElement e);
-    
+
     /**
-     * Returns whether or not the set contains the given RhnSetElement 
+     * Returns whether or not the set contains the given RhnSetElement
      * given elem and elemTwo
      * @param elem first elem to look for
      * @param elemTwo second elem to look for
      * @return true or false
      */
     boolean contains(Long elem, Long elemTwo);
-    
+
     /**
-     * Returns whether or not the set contains the given RhnSetElement 
+     * Returns whether or not the set contains the given RhnSetElement
      * given elem (elementTwo is assumed to be null)
      * @param elem first elem to look for
      * @return true or false
      */
     boolean contains(Long elem);
-    
+
     /**
      * Returns the size of the element list for the set
      * @return elements.size()
      */
     int size();
-    
+
     /**
      * Determine if the set is empty
      * @return true if the set is empty

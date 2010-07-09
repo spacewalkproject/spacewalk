@@ -31,9 +31,9 @@ import java.util.Map;
 public class TaskEnvironmentListener implements TriggerListener {
 
     public static final String LISTENER_NAME = "TaskEnvironmentListener";
-    
+
     private static Logger logger = Logger.getLogger(SchedulerKernel.class);
-    
+
     private Map vetoedJobs = new HashMap();
     /**
      * {@inheritDoc}
@@ -44,12 +44,12 @@ public class TaskEnvironmentListener implements TriggerListener {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public void triggerFired(Trigger trigger, JobExecutionContext ctx) {
         // Insure that Hibernate is in a valid state before executing the task
         // Need to synchronize this because the method get called by multiple
         // scheduler threads concurrently
-        synchronized (this) { 
+        synchronized (this) {
             try {
                 HibernateFactory.initialize();
                 if (!HibernateFactory.isInitialized()) {
@@ -66,22 +66,22 @@ public class TaskEnvironmentListener implements TriggerListener {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public boolean vetoJobExecution(Trigger trigger, JobExecutionContext ctx) {
         // Closest we get to a unique id
         Integer contextHashCode = new Integer(ctx.hashCode());
-        return this.vetoedJobs.remove(contextHashCode) != null; 
+        return this.vetoedJobs.remove(contextHashCode) != null;
     }
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public void triggerMisfired(Trigger trigger) {
     }
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public void triggerComplete(Trigger trigger, JobExecutionContext ctx, int reasonCode) {
     }
 

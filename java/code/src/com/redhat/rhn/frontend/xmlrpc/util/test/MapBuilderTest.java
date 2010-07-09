@@ -23,24 +23,24 @@ import org.apache.commons.beanutils.BeanUtils;
 import java.util.Map;
 
 /**
- * 
+ *
  * MapBuilderTest
  * @version $Rev$
  */
 public class MapBuilderTest extends RhnBaseTestCase {
     private MapBuilder builder;
     private TestBean bean;
-    
+
     public void setUp() {
         builder = new MapBuilder();
         bean = new TestBean();
     }
     /**
-     * Quick method to assert a property in a mapified bean 
+     * Quick method to assert a property in a mapified bean
      * @param map the map obtained by mapifying a bean
-     * @param name the beanfied key name 
+     * @param name the beanfied key name
      * @param value beanified value.
-     * @param flag true if a properties existence is to be assert 
+     * @param flag true if a properties existence is to be assert
      *                              false orhterwise.
      */
     private void assertMethod(Map map, String name, String value, boolean flag) {
@@ -48,7 +48,7 @@ public class MapBuilderTest extends RhnBaseTestCase {
             assertTrue("Cannot find property with Name [" + name + "]" ,
                                     map.containsKey(StringUtil.debeanify(name)));
             assertEquals(value, map.get(StringUtil.debeanify(name)));
-            
+
         }
         else {
             assertFalse("COULD find property with Name [" + name + "]" ,
@@ -66,9 +66,9 @@ public class MapBuilderTest extends RhnBaseTestCase {
         assertMethod(map, "fieldWierdo", TestBean.DEFAULT_VALUE, true);
         assertMethod(map, "fieldNull", "", true);
     }
-    
-    
-    
+
+
+
     public void testIncludes() {
         builder.include("fieldA");
         builder.include("fieldWierdo");
@@ -80,20 +80,20 @@ public class MapBuilderTest extends RhnBaseTestCase {
         assertMethod(map, "fieldB", "", false);
         assertMethod(map, "fieldC", "", false);
     }
-    
+
     public void testExcludes() {
         builder.exclude("fieldA");
         builder.exclude("fieldWierdo");
         builder.exclude("fieldNull");
         Map map = builder.mapify(bean);
-        
+
         assertMethod(map, "fieldC", TestBean.DEFAULT_VALUE, true);
-        assertMethod(map, "fieldB", TestBean.DEFAULT_VALUE, true);        
+        assertMethod(map, "fieldB", TestBean.DEFAULT_VALUE, true);
 
         assertMethod(map, "fieldA", "", false);
         assertMethod(map, "fieldWierdo", "", false);
-    }    
-    
+    }
+
     public void testCombo() {
         builder.include("fieldA");
         builder.exclude("fieldA");

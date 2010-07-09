@@ -26,13 +26,13 @@ function setStep(stepName) {
         <bean:message key="virtualization.provision.first.jsp.summary1" arg0="${system.id}" arg1="${system.name}" />
       </p>
     </div>
-    
+
      <h2><bean:message key="virtualization.provision.first.jsp.header1"/></h2>
 <div>
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
 <rl:listset name="wizard-form">
 	<rl:list width="100%" emptykey = "virtualization.provision.first.jsp.no.profiles" alphabarcolumn="label">
-			<rl:decorator name = "PageSizeDecorator"/>        
+			<rl:decorator name = "PageSizeDecorator"/>
         	<rl:radiocolumn value="${current.cobblerId}" styleclass="first-column"/>
          	<rl:column headerkey="kickstartranges.jsp.profile" filterattr="label"  sortable="true" sortattr="label">
          		<a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>	

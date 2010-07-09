@@ -40,11 +40,11 @@ public class OrgEntitlementDto extends EntitlementDto {
         Long availEnts = EntitlementManager.getAvailableEntitlements(
                 entIn, orgIn);
         this.setAvailbleEntitlements(availEnts);
-        
+
     }
-    
+
     /**
-     * 
+     *
      * @return max members for this entitlement
      */
     public Long getMaxEntitlements() {
@@ -56,7 +56,7 @@ public class OrgEntitlementDto extends EntitlementDto {
             return count;
         }
     }
-    
+
     /**
      * Get the count of the number of used slots.
      * @return Long count, null if unlimited
@@ -86,7 +86,7 @@ public class OrgEntitlementDto extends EntitlementDto {
     }
 
     /**
-     * 
+     *
      * @return Long total of the available Entitlements in the default Org
      */
     public Long getSatelliteTotal() {
@@ -94,29 +94,29 @@ public class OrgEntitlementDto extends EntitlementDto {
         return EntitlementManager.
             getAvailableEntitlements(this.getEntitlement(), defaultOrg);
     }
-    
+
     /**
-     * 
-     * @return upper range for which a org can get entitlements 
+     *
+     * @return upper range for which a org can get entitlements
      * (org1 max - org1 consumed + org max)
      */
     public Long getUpperRange() {
-        Long defaultMax = EntitlementManager.getMaxEntitlements(this.getEntitlement(), 
+        Long defaultMax = EntitlementManager.getMaxEntitlements(this.getEntitlement(),
                                              OrgFactory.getSatelliteOrg());
-        Long defaultCur = EntitlementManager.getUsedEntitlements(this.getEntitlement(), 
+        Long defaultCur = EntitlementManager.getUsedEntitlements(this.getEntitlement(),
                                              OrgFactory.getSatelliteOrg());
         Long upper = getMaxEntitlements() + (defaultMax - defaultCur);
         return upper;
     }
 
-    
+
     /**
      * @return the ent
      */
     public Entitlement getEntitlement() {
         return ent;
     }
-    
+
     /**
      * Returns the org information.
      * @return the associated org

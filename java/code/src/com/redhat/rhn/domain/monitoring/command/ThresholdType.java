@@ -21,34 +21,34 @@ import java.util.ArrayList;
  * @version $Rev$
  */
 public class ThresholdType implements Comparable {
-    
+
     // Replicates table rhn_threshold_type
     private static final ArrayList TYPES = new ArrayList();
-    
+
     public static final ThresholdType CRIT_MIN = makeType("crit_min",  0);
     public static final ThresholdType WARN_MIN = makeType("warn_min", 10);
     public static final ThresholdType WARN_MAX = makeType("warn_max", 20);
     public static final ThresholdType CRIT_MAX = makeType("crit_max", 30);
-    
-    
+
+
     private String name;
     private int sortKey;
-    
+
     private ThresholdType() {
     }
-    
+
     private ThresholdType(String name0, int sortKey0) {
         name = name0;
         sortKey = sortKey0;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @return Returns the sortKey.
      */
@@ -61,9 +61,9 @@ public class ThresholdType implements Comparable {
      */
     public int compareTo(Object o) {
         ThresholdType other = (ThresholdType) o;
-        return getSortKey() - other.getSortKey(); 
+        return getSortKey() - other.getSortKey();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -96,7 +96,7 @@ public class ThresholdType implements Comparable {
         }
         throw new IllegalArgumentException("There is no threshold type with name " + name);
     }
-    
+
     private static ThresholdType makeType(String name, int sortKey) {
         ThresholdType result = new ThresholdType(name, sortKey);
         TYPES.add(result);

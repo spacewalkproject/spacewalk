@@ -25,7 +25,7 @@
                   path="${current.path}"
                   type="${current.type}" />
       </rhn:column>
-      
+
       <rhn:column header="localfilelist.jsp.system"
                   url="/rhn/systems/details/configuration/Overview.do?sid=${current.serverId}">
     	  <img src="/img/rhn-listicon-system.gif"
@@ -34,7 +34,7 @@
       </rhn:column>
     </rhn:listdisplay>
   </rhn:list>
-  
+
 </form>
 
 </body>

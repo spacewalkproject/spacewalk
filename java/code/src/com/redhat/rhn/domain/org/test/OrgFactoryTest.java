@@ -335,15 +335,15 @@ public class OrgFactoryTest extends RhnBaseTestCase {
      * OrgFactory.lookupById(new Long(-1)); OrgEntitlementType org1 =
      * OrgFactory.lookupEntitlementByLabel("sw_mgr_personal");
      * System.out.println(org1.getId());
-     * 
+     *
      * //Get one from the db OrgEntitlementType org2 =
      * OrgFactory.lookupEntitlementByLabel("rhn_monitor");
      * System.out.println(org2.getId());
-     * 
+     *
      * //Get it again... should come from cache OrgEntitlementType org3 =
      * OrgFactory.lookupEntitlementByLabel("rhn_monitor");
      * System.out.println(org3.getId());
-     * 
+     *
      * //Make sure is validEntitlement works... //OrgEntitlementType org4 = new
      * OrgEntitlementType(); //org4.setLabel("crap"); //org4.setId(new
      * Long(234334)); //System.out.println(OrgFactory.isValidEntitlement(org4)); }

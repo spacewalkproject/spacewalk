@@ -11,9 +11,9 @@
                helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp#s2-sm-software-search">
     <bean:message key="packagesbyname.jsp.toolbar"/>
   </rhn:toolbar>
-  
+
   <p><bean:message key="packagesbyname.jsp.introparagraph"/></p>
-  
+
   <hr />
   <c:set var="pageList" value="${requestScope.pageList}" />
   <!-- collapse the params into a string -->
@@ -38,7 +38,7 @@
     <c:forEach items="${paramValues.channel_arch}" var="item">
     <input type="hidden" name="channel_arch" value="${item}" />
     </c:forEach>
-    
+
   </rl:listset>
   </body>
 </html>

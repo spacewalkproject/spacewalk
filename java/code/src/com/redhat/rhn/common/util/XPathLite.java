@@ -23,14 +23,14 @@ import java.util.List;
 
 /**
  * Simple implementation of XPath-like selectors
- * without XPath 
- * 
+ * without XPath
+ *
  * @version $Rev$
  */
 public class XPathLite {
-    
+
     private String[] names = null;
-    
+
     /**
      * Constructor
      * @param expr XPath expression to use
@@ -44,8 +44,8 @@ public class XPathLite {
         }
         names = expr.split("/");
     }
-    
-   
+
+
     /**
      * Select a single node based on expression
      * @param doc XML doc to search
@@ -59,9 +59,9 @@ public class XPathLite {
                 break;
             }
         }
-        return current;        
+        return current;
     }
-    
+
     /**
      * Select all children of a node based on expression
      * @param doc XML doc to search
@@ -76,7 +76,7 @@ public class XPathLite {
             return Collections.EMPTY_LIST;
         }
     }
-    
+
     private Element findChild(Element current, String name) {
         List children = current.getChildren();
         for (Iterator iter = children.iterator(); iter.hasNext();) {
@@ -88,7 +88,7 @@ public class XPathLite {
             else {
                 current = null;
             }
-        }  
+        }
         return current;
     }
 }

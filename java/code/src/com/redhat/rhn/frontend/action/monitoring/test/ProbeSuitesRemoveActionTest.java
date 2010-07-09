@@ -34,12 +34,12 @@ import java.util.List;
  */
 public class ProbeSuitesRemoveActionTest extends RhnBaseTestCase {
     private Action action = null;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         action = new ProbeSuitesRemoveAction();
     }
-    
+
     /**
      * Test to make sure we delete the probesuites.
      * @throws Exception if test fails
@@ -59,14 +59,14 @@ public class ProbeSuitesRemoveActionTest extends RhnBaseTestCase {
 
         sah.getRequest().setupAddParameter("items_selected",
                 (String[]) ids.toArray(new String[0]));
-        
+
         ActionForward testforward = sah.executeAction("removeProbeSuites");
         assertEquals("path?lower=10", testforward.getPath());
         assertNotNull(sah.getRequest().getSession().getAttribute(Globals.MESSAGE_KEY));
         assertNull(MonitoringManager.getInstance().
                 lookupProbeSuite(new Long(ids.get(0).toString()), sah.getUser()));
     }
-    
+
     public void testSelectAll() throws Exception {
         ActionHelper sah = new ActionHelper();
         sah.setUpAction(action);
@@ -82,14 +82,14 @@ public class ProbeSuitesRemoveActionTest extends RhnBaseTestCase {
 
         sah.getRequest().setupAddParameter("items_selected",
                 (String[]) ids.toArray(new String[0]));
-        
+
         ActionForward testforward = sah.executeAction("removeProbeSuites");
         assertEquals("path?lower=10", testforward.getPath());
         assertNotNull(sah.getRequest().getSession().getAttribute(Globals.MESSAGE_KEY));
         assertNull(MonitoringManager.getInstance().
                 lookupProbeSuite(new Long(ids.get(0).toString()), sah.getUser()));
     }
-    
-    
+
+
 
 }

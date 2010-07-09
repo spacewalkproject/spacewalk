@@ -44,37 +44,37 @@ public abstract class ActionSystemsSetupAction extends RhnListAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long aid = requestContext.getRequiredParam("aid");
 
-        User user = requestContext.getLoggedInUser();                
+        User user = requestContext.getLoggedInUser();
         PageControl pc = new PageControl();
         pc.setFilterColumn("earliest");
-        
+
         Action action = ActionManager.lookupAction(user, aid);
         request.setAttribute("canEdit",
                 String.valueOf(action.getPrerequisite() == null));
-        
+
         clampListBounds(pc, request, user);
         DataResult dr = getDataResult(user, action, pc);
         ActionFormatter af = action.getFormatter();
-        
+
         request.setAttribute("actionname", af.getName());
         request.setAttribute("pageList", dr);
         request.setAttribute("user", user);
         request.setAttribute("action", action);
-        
+
         RhnSet set = getSetDecl().get(user);
         request.setAttribute("set", set);
         request.setAttribute("newset", trackSet(set, request));
-        
+
         return mapping.findForward("default");
     }
 
     /**
-     * Method that returns the correct data result for a 
+     * Method that returns the correct data result for a
      * particular scheduled action
      * @param user The user in question
      * @param action The action in question
@@ -82,12 +82,12 @@ public abstract class ActionSystemsSetupAction extends RhnListAction {
      * @return Returns the DataResult for the page.
      */
     protected abstract DataResult getDataResult(User user, Action action, PageControl pc);
-    
+
     /**
      * The declaration of the set we are working with, must be one of the
      * constants from {@link RhnSetDecl}
      * @return the declaration of the set we are working with
      */
     protected abstract RhnSetDecl getSetDecl();
-    
+
 }

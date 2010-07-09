@@ -35,28 +35,28 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class CopyFileSandboxSubmitAction extends BaseCopyFileSubmitAction {
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User userIn, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User userIn,
+                                       ActionForm formIn,
                                        HttpServletRequest requestIn) {
         RequestContext ctx = new RequestContext(requestIn);
         User user = ctx.getLoggedInUser();
         ConfigFile file = ConfigActionHelper.getFile(ctx.getRequest());
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        return cm.listSystemsForFileCopy(user, file.getConfigFileName().getId(), 
-                ConfigChannelType.sandbox(), null);        
+        return cm.listSystemsForFileCopy(user, file.getConfigFileName().getId(),
+                ConfigChannelType.sandbox(), null);
     }
-        
+
     /**
      * {@inheritDoc}
      */
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_SYSTEMS;
     }
-   
+
     protected String getLabel() {
         return ConfigChannelType.sandbox().getLabel();
     }

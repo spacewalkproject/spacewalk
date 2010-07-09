@@ -39,32 +39,32 @@ import java.util.Set;
 
 /**
  * VirtualInstanceFactory provides data access operations for virtual instances.
- * 
- * @see VirtualInstance 
+ *
+ * @see VirtualInstance
  * @version $Rev$
  */
 public class VirtualInstanceFactory extends HibernateFactory {
 
     private static VirtualInstanceFactory instance = new VirtualInstanceFactory();
-    
+
     /**
      * Logger for this class
      */
     private static Logger log = Logger
             .getLogger(VirtualInstanceFactory.class);
-    
+
     private static interface HibernateCallback {
         Object executeInSession(Session session);
     }
-    
+
     protected Logger getLogger() {
         return log;
     }
-    
+
     private Object execute(HibernateCallback command) {
         return command.executeInSession(HibernateFactory.getSession());
     }
-    
+
     /**
      * Get instance of this factory.
      * @return VirtualInstanceFactory instance
@@ -72,18 +72,18 @@ public class VirtualInstanceFactory extends HibernateFactory {
     public static VirtualInstanceFactory getInstance() {
         return instance;
     }
-    
+
     /**
-     * Saves the virtual instance to the database. The save is cascading so that if the 
+     * Saves the virtual instance to the database. The save is cascading so that if the
      * virtual instance is a registered guest, then any changes to this virtual instance's
      * guest server will be persisted as well.
-     * 
+     *
      * @param virtualInstance The virtual instance to save
      */
     public void saveVirtualInstance(VirtualInstance virtualInstance) {
         saveObject(virtualInstance);
     }
-    
+
     /**
      * Gets the virtual Instance for a given Sid for a guest
      * @param id the system id of the guest
@@ -95,12 +95,12 @@ public class VirtualInstanceFactory extends HibernateFactory {
         VirtualInstance results = (VirtualInstance) session.getNamedQuery(
                 "VirtualInstance.lookupGuestBySid").
                 setParameter("org", org).setParameter("sid", id).uniqueResult();
-        
+
         return results;
-        
+
     }
-    
-    
+
+
     /**
      * Check if the given guest instance is outdated. (i.e. a newer instance
      * exists with the same UUID)
@@ -116,11 +116,11 @@ public class VirtualInstanceFactory extends HibernateFactory {
 
         return results != null;
     }
-    
-    
+
+
     /**
      * Retrieves the virtual instance with the specified ID.
-     * 
+     *
      * @param id The primary key
      * @return The virtual instance with the specified ID or <code>null</none> if no match
      * is found.
@@ -129,14 +129,14 @@ public class VirtualInstanceFactory extends HibernateFactory {
         return (VirtualInstance)execute(new HibernateCallback() {
            public Object executeInSession(Session session) {
                 return session.get(VirtualInstance.class, id);
-            } 
+            }
         });
     }
-    
+
     /**
      * Deletes the virtual instance from the database. If the virtual instance is a
      * registered guest, then its guest system will be deleted as well.
-     * 
+     *
      * @param virtualInstance The virtual instance to delete
      */
     public void deleteVirtualInstance(VirtualInstance virtualInstance) {
@@ -151,15 +151,15 @@ public class VirtualInstanceFactory extends HibernateFactory {
            virtualInstance.deleteGuestSystem();
        }
     }
-    
+
     /**
      * Finds all registered guests, within a particular org, whose hosts do not have any
      * virtualization entitlements.
-     *  
+     *
      * @param org The org to search in
-     * 
+     *
      * @return A set of GuestAndNonVirtHostView objects
-     * 
+     *
      * @see GuestAndNonVirtHostView
      */
     public Set findGuestsWithNonVirtHostByOrg(Org org) {
@@ -167,17 +167,17 @@ public class VirtualInstanceFactory extends HibernateFactory {
         List results = session.getNamedQuery(
                 "VirtualInstance.findGuestsWithNonVirtHostByOrg").
                 setParameter("org_id", org.getId()).list();
-        
+
         return new HashSet(convertToView(results));
     }
-    
+
     /**
-     * transforms a result set of 
-     * guest.id as guest_id, 
+     * transforms a result set of
+     * guest.id as guest_id,
      * guest.org_id as guest_org_id,
-     * guest.name as guest_name, 
+     * guest.name as guest_name,
      * host.org_id as host_org_id,
-     * host.id as host_id, 
+     * host.id as host_id,
      * host.name as host_name
      * @param result a list of Object array of  id,name, count
      * @return list of GuestAndNonVirtHostView objects
@@ -186,24 +186,24 @@ public class VirtualInstanceFactory extends HibernateFactory {
         List ret = new ArrayList(out.size());
         for (Iterator itr = out.iterator(); itr.hasNext();) {
             Object [] row = (Object [])itr.next();
-            
+
             /**
-             * guest.id as guest_id, 
+             * guest.id as guest_id,
                             guest.org_id as guest_org_id,
-                            guest.name as guest_name, 
+                            guest.name as guest_name,
                             host.org_id as host_org_id,
-                            host.id as host_id, 
+                            host.id as host_id,
                             host.name as host_name
-             */            
+             */
 
             Number guestId = (Number) row[0];
             Number guestOrgId = (Number) row[1];
             String guestName = (String) row[2];
-            
+
             Number hostId = (Number) row[3];
             Number hostOrgId = (Number) row[4];
             String hostName = (String) row[5];
-            
+
             GuestAndNonVirtHostView view = new GuestAndNonVirtHostView(
                                                 new Long(guestId.longValue()),
                                                 new Long(guestOrgId.longValue()),
@@ -214,32 +214,32 @@ public class VirtualInstanceFactory extends HibernateFactory {
             ret.add(view);
         }
         return ret;
-    }    
-    
-    
+    }
+
+
     /**
      * Finds all registered guests, within a particular org, who do not have a registered
      * host.
-     * 
+     *
      * @param org The org to search in
-     * 
+     *
      * @return set A set of GuestAndNonVirtHostView objects
-     * 
+     *
      * @see GuestAndNonVirtHostView
      */
     public Set findGuestsWithoutAHostByOrg(Org org) {
         Session session = HibernateFactory.getSession();
-        
+
         List results = session.getNamedQuery(
                 "VirtualInstance.findGuestsWithoutAHostByOrg").setParameter("org", org)
                 .list();
-        
+
         return new HashSet(results);
     }
-    
+
     /**
      * Returns the para-virt type.
-     * 
+     *
      * @return  The para-virt type
      */
     public VirtualInstanceType getParaVirtType() {
@@ -247,10 +247,10 @@ public class VirtualInstanceFactory extends HibernateFactory {
                 "VirtualInstanceType.findByLabel").setString("label", "para_virtualized")
                 .setCacheable(true).uniqueResult();
     }
-    
+
     /**
      * Returns the fully-virt type.
-     * 
+     *
      * @return The fully-virt type.
      */
     public VirtualInstanceType getFullyVirtType() {
@@ -258,10 +258,10 @@ public class VirtualInstanceFactory extends HibernateFactory {
                 "VirtualInstanceType.findByLabel").setString("label", "fully_virtualized")
                 .setCacheable(true).uniqueResult();
     }
-    
+
     /**
      * Returns the running state.
-     * 
+     *
      * @return The running state
      */
     public VirtualInstanceState getRunningState() {
@@ -269,10 +269,10 @@ public class VirtualInstanceFactory extends HibernateFactory {
                 "VirtualInstanceState.findByLabel").setString("label", "running")
                 .uniqueResult();
     }
-    
+
     /**
      * Returns the stopped state.
-     * 
+     *
      * @return The stopped state
      */
     public VirtualInstanceState getStoppedState() {
@@ -280,10 +280,10 @@ public class VirtualInstanceFactory extends HibernateFactory {
             "VirtualInstanceState.findByLabel").setString("label", "stopped")
             .uniqueResult();
     }
-    
+
     /**
      * Returns the paused state.
-     * 
+     *
      * @return The paused state
      */
     public VirtualInstanceState getPausedState() {
@@ -291,10 +291,10 @@ public class VirtualInstanceFactory extends HibernateFactory {
             "VirtualInstanceState.findByLabel").setString("label", "paused")
             .uniqueResult();
     }
-    
+
     /**
      * Return the crashed state.
-     * 
+     *
      * @return The crashed state
      */
     public VirtualInstanceState getCrashedState() {
@@ -302,10 +302,10 @@ public class VirtualInstanceFactory extends HibernateFactory {
             "VirtualInstanceState.findByLabel").setString("label", "crashed")
             .uniqueResult();
     }
-    
+
     /**
      * Return the unknown state
-     * 
+     *
      *  @return The unknown state
      */
     public VirtualInstanceState getUnknownState() {
@@ -313,10 +313,10 @@ public class VirtualInstanceFactory extends HibernateFactory {
                 "VirtualInstanceState.findByLabel").setString("label", "unknown")
                 .uniqueResult();
     }
-    
-    
+
+
     /**
-     * Returns a list of floating guests with a channel family grouping 
+     * Returns a list of floating guests with a channel family grouping
      * @param user the user object needed for perms checking
      * @return a list of  ChannelFamilySystemGroups
      */
@@ -326,27 +326,27 @@ public class VirtualInstanceFactory extends HibernateFactory {
 
     /**
      * Returns a list of eligible systems who could become  floating guests
-     *  with a channel family grouping 
+     *  with a channel family grouping
      * @param user the user object needed for perms checking
      * @return a list of  ChannelFamilySystemGroups
      */
     public List<ChannelFamilySystemGroup> listEligibleFlexGuests(User user) {
         return runFlexGuestsQuery(user, "eligible_flex_guests");
     }
-    
-    
+
+
     private List<ChannelFamilySystemGroup> runFlexGuestsQuery(User user, String query) {
         List<ChannelFamilySystemGroup> ret = new LinkedList<ChannelFamilySystemGroup>();
-        
+
         SelectMode m = ModeFactory.getMode("System_queries", query);
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("checkin_threshold", Config.get().getInt(ConfigDefaults
                 .SYSTEM_CHECKIN_THRESHOLD));
         DataResult<Map<String, Object>> result =  m.execute(params);
-        Map<Long, ChannelFamilySystemGroup> map = new HashMap<Long, 
+        Map<Long, ChannelFamilySystemGroup> map = new HashMap<Long,
                                             ChannelFamilySystemGroup>();
-        
+
         for (Map<String, Object> row : result) {
             Long cfId = (Long)row.get("cf_id");
             String cfName = (String) row.get("cf_name");
@@ -356,8 +356,8 @@ public class VirtualInstanceFactory extends HibernateFactory {
             String registered = (String) row.get("registered");
             Long currentMembers = (Long) row.get("current_members");
             Long maxMembers = (Long) row.get("max_members");
-            
-            
+
+
             ChannelFamilySystemGroup cfg = map.get(cfId);
             if (cfg == null) {
                 cfg = new ChannelFamilySystemGroup();
@@ -367,7 +367,7 @@ public class VirtualInstanceFactory extends HibernateFactory {
             cfg.setName(cfName);
             cfg.setCurrentMembers(currentMembers);
             cfg.setMaxMembers(maxMembers);
-            
+
             ChannelFamilySystem ov = new ChannelFamilySystem();
             ov.setId(systemId);
             ov.setName(systemName);
@@ -379,7 +379,7 @@ public class VirtualInstanceFactory extends HibernateFactory {
         return ret;
     }
 
-    
-    
-    
+
+
+
 }

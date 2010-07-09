@@ -23,28 +23,28 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 /**
- * Custom Quartz Job implementation which only allows one thread to 
- * run at a time. All other threads return without performing any work. 
- * This policy was chosen instead of blocking so as to reduce threading 
+ * Custom Quartz Job implementation which only allows one thread to
+ * run at a time. All other threads return without performing any work.
+ * This policy was chosen instead of blocking so as to reduce threading
  * problems inside Quartz itself.
- *  
+ *
  * @version $Rev $
  *
  */
 public abstract class SingleThreadedTask implements Job {
-    
+
     private boolean isExecuting = false;
-    
+
     /**
      * {@inheritDoc}
      */
-    public void execute(JobExecutionContext ctx) 
+    public void execute(JobExecutionContext ctx)
             throws JobExecutionException {
         synchronized (this) {
             if (this.isExecuting) {
                 Logger logger = Logger.getLogger(SchedulerKernel.class);
-                logger.info("Instance of " + getClass().getName() + " already running..." + 
-                    "Exiting");                
+                logger.info("Instance of " + getClass().getName() + " already running..." +
+                    "Exiting");
                 return;
             }
             else {
@@ -69,7 +69,7 @@ public abstract class SingleThreadedTask implements Job {
             HibernateFactory.closeSession();
         }
     }
-    
+
     protected abstract void run(JobExecutionContext ctx) throws JobExecutionException;
-    
+
 }

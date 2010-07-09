@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.rhnpackage.PackageNevra" 
+    <class name="com.redhat.rhn.domain.rhnpackage.PackageNevra"
         table="rhnPackageNevra">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -11,15 +11,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">rhn_pkgnevra_id_seq</param>
             </generator>
         </id>
-        
-        <many-to-one name="name" class="com.redhat.rhn.domain.rhnpackage.PackageName"
-            column="name_id"/>        
-		<many-to-one name="evr" class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
-		            column="evr_id"/>                    
-		<many-to-one name="arch" class="com.redhat.rhn.domain.rhnpackage.PackageArch"
-		            column="package_arch_id"/>               
 
-        
+        <many-to-one name="name" class="com.redhat.rhn.domain.rhnpackage.PackageName"
+            column="name_id"/>
+		<many-to-one name="evr" class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
+		            column="evr_id"/>
+		<many-to-one name="arch" class="com.redhat.rhn.domain.rhnpackage.PackageArch"
+		            column="package_arch_id"/>
+
+
     </class>
 
 </hibernate-mapping>

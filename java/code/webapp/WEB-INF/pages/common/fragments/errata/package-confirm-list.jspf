@@ -1,11 +1,11 @@
 <rhn:list pageList="${requestScope.pageList}" noDataText="errata.edit.packages.add.nopackages">
   <rhn:listdisplay button="errata.edit.packages.confirm.confirm">
-      
+
 	<rhn:column header="packagelist.jsp.packagename">
         <a href="/rhn/software/packages/Details.do?pid=${current.id}">
           ${current.nvrea}
         </a>
     </rhn:column>
-    
+
   </rhn:listdisplay>
 </rhn:list>

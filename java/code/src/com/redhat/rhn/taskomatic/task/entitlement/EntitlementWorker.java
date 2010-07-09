@@ -29,15 +29,15 @@ import java.util.Map;
 
 /**
  * Performs an entitlement recalc for a single org
- * 
+ *
  * @version $Rev$
  */
 class EntitlementWorker implements QueueWorker {
-    
+
     private Long orgId;
     private Logger logger;
     private TaskQueue parentQueue;
-    
+
     /**
      * Constructor
      * @param org org id to recalc entitlements on
@@ -67,24 +67,24 @@ class EntitlementWorker implements QueueWorker {
                     return;
                 }
             }
-            
-            // Recalc org entitlements via the 
+
+            // Recalc org entitlements via the
             Map params = new HashMap();
             params.put("org_id", orgId);
             try {
-                CallableMode cm = 
+                CallableMode cm =
                     ModeFactory.getCallableMode("Task_queries", "entitle_org_direct");
                 cm.execute(params, new HashMap());
                 WriteMode wm = ModeFactory.getWriteMode("Task_queries",
                     "dequeue_entitlement_org");
                 wm.executeUpdate(params);
-                HibernateFactory.commitTransaction();                
+                HibernateFactory.commitTransaction();
             }
             catch (Throwable t) {
                 logger.error(t);
                 HibernateFactory.rollbackTransaction();
             }
-            finally {   
+            finally {
                 HibernateFactory.closeSession();
             }
         }

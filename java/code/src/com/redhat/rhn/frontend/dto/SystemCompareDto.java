@@ -44,7 +44,7 @@ import java.util.Set;
  * @version $Rev$
  */
 public class SystemCompareDto {
-    
+
     private List<Server> servers;
     private User user;
     /**
@@ -70,30 +70,30 @@ public class SystemCompareDto {
         }
         return compare(ret);
     }
-   
+
     /**
      * @return the list of servers being compared
      */
     public List<Server> getServers() {
         return servers;
     }
-    
+
     /**
      * @return the number of servers
      */
     public int getSize() {
         return servers.size();
     }
-    
-    
+
+
     private List<List<Item>> compareList(List<List> lists) {
         return compareList(lists, Collections.EMPTY_MAP);
     }
-    
+
     /**
-     * Call this compare things lists of tuples like 
-     *  [ [1,2,3] . [5,2], [9]  ] -> 
-     *  Note we expect unique set of items 
+     * Call this compare things lists of tuples like
+     *  [ [1,2,3] . [5,2], [9]  ] ->
+     *  Note we expect unique set of items
      * @param lists lists of tuples
      * @param idMap a map of value : id if its needed
      * @return a List of List of items
@@ -111,11 +111,11 @@ public class SystemCompareDto {
                 if (!similarity.containsKey(s)) {
                     similarity.put(s, 0);
                 }
-                similarity.put(s, similarity.get(s) + 1);                
+                similarity.put(s, similarity.get(s) + 1);
             }
             compared.add(itemized);
         }
-        
+
         for (List<Item> items : compared) {
             for (Item item : items) {
                 item.similar = !StringUtils.isBlank(item.value) &&
@@ -125,11 +125,11 @@ public class SystemCompareDto {
         }
         return compared;
     }
-    
+
     private List<Item> compare(List strings) {
         return compare(strings, Collections.EMPTY_MAP);
     }
-    
+
     private List<Item> compare(List strings, Map<String, String> idMap) {
         List<Item> compared = new LinkedList<Item>();
         Map<String, Integer> similarity = new HashMap<String, Integer>();
@@ -143,7 +143,7 @@ public class SystemCompareDto {
             }
             similarity.put(s, similarity.get(s) + 1);
         }
-        
+
         for (Item item : compared) {
             item.similar = !StringUtils.isBlank(item.value) &&
                                     similarity.get(item.value) > 1;
@@ -151,13 +151,13 @@ public class SystemCompareDto {
         }
         return compared;
     }
-    
+
     /**
      * Returns a list of ( mac addresses available per system)
-     * The similar items will be marked accordingly 
+     * The similar items will be marked accordingly
      * @return a list of Mac addresses per system
      */
-    
+
     public List<List<Item>> getMacAddresses() {
         List<List> addresses = new LinkedList<List>();
         for (Server system : servers) {
@@ -165,7 +165,7 @@ public class SystemCompareDto {
         }
         return compareList(addresses);
     }
-    
+
     /**
      * Returns a list of ( ip addresses available per system)
      * @return a list of ip addresses per system
@@ -197,7 +197,7 @@ public class SystemCompareDto {
     }
 
     /**
-     * List of registration dates in the same order as the system list passed in 
+     * List of registration dates in the same order as the system list passed in
      * @return the list of registration dates
      */
     public List<Item> getRegistrationDates() {
@@ -208,9 +208,9 @@ public class SystemCompareDto {
         }
         return compare(dates);
     }
-    
+
     /**
-     * List of system ids in the same order as the system list passed in 
+     * List of system ids in the same order as the system list passed in
      * @return the list of system ids
      */
     public List<Item> getSystemIds() {
@@ -220,9 +220,9 @@ public class SystemCompareDto {
         }
         return compare(ids);
     }
-    
+
     /**
-     * List of base channels in the same order as the system list passed in 
+     * List of base channels in the same order as the system list passed in
      * @return the list of base channels
      */
     public List<Item> getBaseChannels() {
@@ -230,7 +230,7 @@ public class SystemCompareDto {
         Map <String, String> idMap = new HashMap<String, String>();
         for (Server s : servers) {
             ids.add(s.getBaseChannel().getName());
-            idMap.put(s.getBaseChannel().getName(), 
+            idMap.put(s.getBaseChannel().getName(),
                     s.getBaseChannel().getId().toString());
         }
         return compare(ids, idMap);
@@ -238,7 +238,7 @@ public class SystemCompareDto {
     /**
      * Returns a list of (child channels per system)
      * @return a list of child channels per system
-     */    
+     */
     public List<List<Item>> getChildChannels() {
         List<List> ret = new LinkedList<List>();
         Map <String, String> idMap = new HashMap<String, String>();
@@ -256,7 +256,7 @@ public class SystemCompareDto {
         return compareList(ret, idMap);
     }
 
-    
+
     /**
      * Returns a list of (configuration channels per system)
      * @return a list of configuration channels per system
@@ -272,12 +272,12 @@ public class SystemCompareDto {
                     keys.add(channel.getName());
                     idMap.put(channel.getName(), channel.getId().toString());
                 }
-                
+
             }
             ret.add(keys);
         }
         return compareList(ret, idMap);
-    }    
+    }
 
     /**
      * Returns a list of (monitoring probes per system)
@@ -297,7 +297,7 @@ public class SystemCompareDto {
         }
         return compareList(ret, idMap);
     }
-    
+
     /**
      * Returns a list of (system addon entitlements per system)
      * @return a list of system add-on entitlements per system
@@ -306,7 +306,7 @@ public class SystemCompareDto {
         List<List> ret = new LinkedList<List>();
         for (Server system : servers) {
             List keys = new LinkedList();
-            
+
             if (system.getAddOnEntitlements().isEmpty()) {
                 keys.add(EntitlementManager.MANAGEMENT.getHumanReadableTypeLabel());
             }
@@ -314,13 +314,13 @@ public class SystemCompareDto {
                 for (Entitlement ent :  system.getAddOnEntitlements()) {
                     keys.add(ent.getHumanReadableLabel());
                 }
-                
+
             }
             ret.add(keys);
         }
         return compareList(ret);
     }
-    
+
     /**
      * Returns a list of (channel family entitlements per system)
      * @return a list of channel family entitlements per system
@@ -334,18 +334,18 @@ public class SystemCompareDto {
             }
             for (Channel channel : system.getChildChannels()) {
                 if (!channel.isCustom()) {
-                    keys.add(channel.getChannelFamily().getName());    
+                    keys.add(channel.getChannelFamily().getName());
                 }
-            }            
+            }
             ret.add(keys);
         }
         return compareList(ret);
     }
-    
+
     /**
      * Returns a list of (activation keys used per system)
      * @return a list of activation keys used per system
-     */    
+     */
     public List<List<Item>> getActivationKeys() {
         List<List> ret = new LinkedList<List>();
         Map <String, String> idMap = new HashMap<String, String>();
@@ -360,36 +360,36 @@ public class SystemCompareDto {
         }
         return compareList(ret, idMap);
     }
-    
-    
-    
+
+
+
     private List<String> getMacAddresses(Server system) {
         List<String> macs = new LinkedList<String>();
         for (NetworkInterface n : system.getNetworkInterfaces()) {
             String addr = n.getIpaddr();
-            if (addr != null && 
+            if (addr != null &&
                 !addr.equals("127.0.0.1")) {
                 macs.add(n.getHwaddr());
             }
         }
         return macs;
     }
-    
+
     private List<String> getIpAddresses(Server system) {
         List<String> macs = new LinkedList<String>();
         for (NetworkInterface n : system.getNetworkInterfaces()) {
             String addr = n.getIpaddr();
-            if (addr != null && 
+            if (addr != null &&
                 !addr.equals("127.0.0.1")) {
                 macs.add(addr);
             }
         }
         return macs;
     }
-    
+
     /**
-     * An item object to represent 
-     * value/ id/ and similarity 
+     * An item object to represent
+     * value/ id/ and similarity
      * Item
      * @version $Rev$
      */
@@ -403,7 +403,7 @@ public class SystemCompareDto {
         public String getValue() {
             return value;
         }
-        
+
         /**
          * @return Returns the similar.
          */
@@ -411,13 +411,13 @@ public class SystemCompareDto {
             return similar;
         }
 
-        
+
         /**
          * @return Returns the id.
          */
         public String getId() {
             return id;
         }
-        
+
     }
 }

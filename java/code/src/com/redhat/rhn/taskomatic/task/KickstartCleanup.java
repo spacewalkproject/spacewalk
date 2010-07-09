@@ -31,26 +31,26 @@ import java.util.Map;
 
 /**
  * Cleans up stale Kickstarts
- * 
+ *
  * @version $Rev $
  */
 
 public class KickstartCleanup extends SingleThreadedTestableTask {
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
-     */    
+     */
     public static final String DISPLAY_NAME = "kickstart_session_check";
-        
+
     private static Logger logger = Logger.getLogger(KickstartCleanup.class);
-    
-    private boolean inTest;    
-    
+
+    private boolean inTest;
+
     /**
      * Primarily a convenience method to make testing easier
      * @param ctx Quartz job runtime environment
      * @param testMode Enables task results validation
-     * 
+     *
      * @throws JobExecutionException Indicates somes sort of fatal error
      */
     public void execute(JobExecutionContext ctx,
@@ -70,7 +70,7 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
             if (dr.size() == 0) {
                 return;
             }
-            
+
             Long failedStateId = findFailedStateId();
             if (this.inTest) {
                 assert (failedStateId != null);
@@ -85,14 +85,14 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
             }
         }
         catch (Exception e) {
-            logger.error(e.getMessage(), e); 
+            logger.error(e.getMessage(), e);
             throw new JobExecutionException(e);
         }
     }
-        
+
     private Long findFailedStateId() {
         Long retval = null;
-        SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME, 
+        SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_KSCLEANUP_FIND_FAILED_STATE_ID);
         DataResult dr = select.execute(Collections.EMPTY_MAP);
         if (dr.size() > 0) {
@@ -100,7 +100,7 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
         }
         return retval;
     }
-    
+
     private void processRow(Long failedStateId, Map row) {
         Long sessionId = (Long) row.get("id");
         if (logger.isInfoEnabled()) {
@@ -126,7 +126,7 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
         }
         markFailed(sessionId, failedStateId);
     }
-    
+
     private void markFailed(Long sessionId, Long failedStateId) {
         WriteMode update = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_KSCLEANUP_MARK_SESSION_FAILED);
@@ -135,34 +135,34 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
         params.put("failed_state_id", failedStateId);
         update.executeUpdate(params);
     }
-    
+
     private void unlinkAction(Long actionId, Long serverId) {
-        CallableMode proc = ModeFactory.getCallableMode(TaskConstants.MODE_NAME, 
+        CallableMode proc = ModeFactory.getCallableMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_KSCLEANUP_REMOVE_ACTION);
         Map params = new HashMap();
         params.put("server_id", serverId);
         params.put("action_id", actionId);
         proc.execute(params, new HashMap());
     }
-    
+
     private Long findTopmostParentAction(Long startingAction) {
         SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_KSCLEANUP_FIND_PREREQ_ACTION);
         Map params = new HashMap();
         params.put("action_id", startingAction);
         if (logger.isDebugEnabled()) {
-            logger.debug("StartingAction: " + startingAction);    
+            logger.debug("StartingAction: " + startingAction);
         }
-        
+
         Long retval = startingAction;
         Long preqid = startingAction;
         DataResult dr = select.execute(params);
         if (logger.isDebugEnabled()) {
             logger.debug("dr: " + dr);
         }
-        
+
         while (dr.size() > 0 && preqid != null) {
-            preqid = (Long) 
+            preqid = (Long)
                 ((Map) dr.get(0)).get("prerequisite");
             if (preqid != null) {
                 retval = preqid;
@@ -174,7 +174,7 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
             logger.debug("preqid: " + preqid);
             logger.debug("Returning: " + retval);
         }
-        
+
         return retval;
     }
 }

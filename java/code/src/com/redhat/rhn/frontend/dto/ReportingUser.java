@@ -24,35 +24,35 @@ public class ReportingUser {
     private Long id;
     private String emailAddress;
     private String login;
-    
+
     /**
      * @return Returns the emailAddress.
      */
     public String getAddress() {
         return emailAddress;
     }
-    
+
     /**
      * @param emailAddressIn The emailAddress to set.
      */
     public void setAddress(String emailAddressIn) {
         emailAddress = emailAddressIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * returns id as a Long.
      * @return id as a Long
@@ -61,7 +61,7 @@ public class ReportingUser {
         return new Long(id.longValue());
     }
 
-    
+
     /**
      * @return Returns the login.
      */
@@ -69,7 +69,7 @@ public class ReportingUser {
         return login;
     }
 
-    
+
     /**
      * @param loginIn The login to set.
      */

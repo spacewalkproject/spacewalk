@@ -19,14 +19,14 @@ import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.user.User;
 
 /**
- * KickstartScriptCreateCommand - Command for creating a new KickstartScript object 
- * associated with specified KickstartData. 
+ * KickstartScriptCreateCommand - Command for creating a new KickstartScript object
+ * associated with specified KickstartData.
  * @version $Rev$
  */
 public class KickstartScriptCreateCommand extends BaseKickstartScriptCommand {
 
     /**
-     * 
+     *
      * @param ksidIn kicksart id to associate this script with
      * @param userIn User who is doing the creating
      */
@@ -40,7 +40,7 @@ public class KickstartScriptCreateCommand extends BaseKickstartScriptCommand {
      */
     public ValidatorError store() {
         // Its important that we add the script only before
-        // we save otherwise we will get scripts showing up 
+        // we save otherwise we will get scripts showing up
         // when the user only had to click on the page.
         this.ksdata.addScript(this.script);
         return super.store();

@@ -4,19 +4,19 @@
     <tr class="list-row-odd"><td class="last-column first-column"><a href="/rhn/configuration/system/ManagedSystems.do">
       <bean:message key="configoverview.jsp.viewsystems"/>
     </a></td></tr>
-    
+
     <tr class="list-row-even"><td class="last-column first-column"><a href="/rhn/configuration/file/GlobalConfigFileList.do">
       <bean:message key="configoverview.jsp.viewfiles"/>
     </a></td></tr>
-    
+
     <tr class="list-row-odd"><td class="last-column first-column"><a href="/rhn/configuration/GlobalConfigChannelList.do">
       <bean:message key="configoverview.jsp.viewchannels"/>
     </a></td></tr>
-    
+
     <tr class="list-row-even"><td class="last-column first-column"><a href="/rhn/configuration/ChannelCreate.do?editing=true">
       <bean:message key="configoverview.jsp.createchannel"/>
     </a></td></tr>
-    
+
     <tr class="list-row-odd"><td class="last-column first-column"><a href="/rhn/configuration/system/TargetSystems.do">
       <bean:message key="configoverview.jsp.enableconfig"/>
     </a></td></tr>

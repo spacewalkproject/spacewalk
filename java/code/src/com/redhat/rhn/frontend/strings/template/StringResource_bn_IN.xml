@@ -73,7 +73,7 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>নমস্কার,
 
 {0} {1} দ্বারা আপনার জন্য একটি Red Hat লগ-ইন নির্মাণ করা হয়েছে। আপনার
-Red Hat লগ-ইন ও সক্রিয় Red Hat সাবস্ক্রিপশনের সাহায্যে আপনি 
+Red Hat লগ-ইন ও সক্রিয় Red Hat সাবস্ক্রিপশনের সাহায্যে আপনি
 @@PRODUCT_NAME@@-র মধ্যে উপস্থিত সিস্টেম ব্যবস্থাপনার উদ্দেশ্যে অনুমোদন প্রাপ্ত করতে সক্ষম হবেন।
 
   Red Hat লগ-ইন: {2}
@@ -272,7 +272,7 @@ Red Hat-র প্রিয় গ্রাহক, নমস্কার
 {2}
 
 আপনি যদি এই Red Hat সাবস্ক্রিপশনের পরিসেবা ব্যবহারের জন্য নির্দিষ্ট প্রযুক্তিগত আধিকারিক না হয়ে থাকেন
-তাহলে আপনার প্রতিষ্ঠানের মধ্যে এই কাজের জন্য চিহ্নিত যথাযত ব্যক্তিকে এই বার্তা পাঠিয়ে দিন  যদি ঐ ব্যক্তির বর্তমানে কোনো Red Hat লগ-ইন উপস্থিত না থাকে 
+তাহলে আপনার প্রতিষ্ঠানের মধ্যে এই কাজের জন্য চিহ্নিত যথাযত ব্যক্তিকে এই বার্তা পাঠিয়ে দিন  যদি ঐ ব্যক্তির বর্তমানে কোনো Red Hat লগ-ইন উপস্থিত না থাকে
 তাহলে
 উপরোক্ত লিঙ্ক প্রয়োগ করে তিনি একটি নতুন লগ-ইন নির্মাণ করতে পারেন।
 
@@ -622,7 +622,7 @@ deactivated.
 Please note that this is a final notice.  If you do not click through
 this URL within the next 2 days, your Red Hat login will deactivated.
 
-To confirm your email address, please visit the following URL: 
+To confirm your email address, please visit the following URL:
 
 {0}
 
@@ -666,9 +666,9 @@ Thank you for using @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems 
+has expired on your local satellite {0}. After {1} day(s) the systems
 management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information 
+Please contact your regional Red Hat Customer  Service Representative for information
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -678,7 +678,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 আপনার স্থানীয় Satellite {0}-র মধ্যে @@PRODUCT_NAME@@ সার্টিফিকেটের মেয়াদপূর্তী সম্পর্কে অবগতির
 জন্য এই ই-মেইল প্রেরিত হয়েছে। {1} দিন পরে @@PRODUCT_NAME@@ Server দ্বারা উপলব্ধ
-সিস্টেম পরিচালনা পরিসেবাগুলি ব্যবহার করা সম্ভব হবে না। 
+সিস্টেম পরিচালনা পরিসেবাগুলি ব্যবহার করা সম্ভব হবে না।
 আপনার @@PRODUCT_NAME@@ সার্টিফিকেটের নবীকরণের প্রক্রিয়া সম্পর্কে জানতে অনুগ্রহ করে আপনার নিকটবর্তী
 Red Hat গ্রাহক পরিসেবাকারীর সাথে যোগাযোগ করুন।
 
@@ -694,8 +694,8 @@ Red Hat গ্রাহক পরিসেবাকারীর সাথে য
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible 
-until your certificate is renewed. Please contact your regional Red Hat 
+has expired on your local satellite {0}. The system management services will be inaccessible
+until your certificate is renewed. Please contact your regional Red Hat
 Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
@@ -705,7 +705,7 @@ Thank you for using @@PRODUCT_NAME@@.
 প্রিয় @@PRODUCT_NAME@@ ব্যবহারকারী,
 
 আপনার স্থানীয় Satellite {0}-র মধ্যে @@PRODUCT_NAME@@ Certificate-র মেয়াদপূর্তী সম্পর্কে অবগতির
-জন্য এই ই-মেইল প্রেরিত হয়েছে। সার্টিফিকেট নবীকরণ না করা অব্দি 
+জন্য এই ই-মেইল প্রেরিত হয়েছে। সার্টিফিকেট নবীকরণ না করা অব্দি
 সিস্টেম পরিচালনা পরিসেবাগুলি ব্যবহার করা সম্ভব হবে না।
 আপনার @@PRODUCT_NAME@@ সার্টিফিকেটের নবীকরণের প্রক্রিয়া সম্পর্কে জানতে অনুগ্রহ করে আপনার নিকটবর্তী
 Red Hat গ্রাহক পরিসেবাকারীর সাথে যোগাযোগ করুন।

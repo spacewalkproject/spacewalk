@@ -36,10 +36,10 @@ import java.util.Map;
  * @version $Rev$
  */
 public class UpdateOrgSoftwareEntitlementsCommand {
-    
-    private static Logger log = 
+
+    private static Logger log =
         Logger.getLogger(UpdateOrgSoftwareEntitlementsCommand.class);
-    
+
     private Org org;
     private long newTotal;
     private long newFlexTotal;
@@ -53,7 +53,7 @@ public class UpdateOrgSoftwareEntitlementsCommand {
      * @param newFlexTotalIn This is the *proposed* new flex total
      *                                               for the org you are passing in.
      */
-    public UpdateOrgSoftwareEntitlementsCommand(String channelFamilyLabel, 
+    public UpdateOrgSoftwareEntitlementsCommand(String channelFamilyLabel,
             Org orgIn, Long newTotalIn, Long newFlexTotalIn) {
         if (orgIn.getId().equals(OrgFactory.getSatelliteOrg().getId())) {
             throw new IllegalArgumentException("Cant update the default org");
@@ -61,17 +61,17 @@ public class UpdateOrgSoftwareEntitlementsCommand {
         this.org = orgIn;
         this.newTotal = newTotalIn;
         this.newFlexTotal = newFlexTotalIn;
-        this.channelFamily = ChannelFamilyFactory.lookupByLabel(channelFamilyLabel, 
+        this.channelFamily = ChannelFamilyFactory.lookupByLabel(channelFamilyLabel,
                 OrgFactory.getSatelliteOrg());
         if (this.channelFamily == null) {
-            throw new IllegalArgumentException("ChannelFamily not found: [" + 
+            throw new IllegalArgumentException("ChannelFamily not found: [" +
                     channelFamilyLabel + "]");
         }
     }
-    
+
     /**
-     * 
-     * @return if we should force unentitlement if 
+     *
+     * @return if we should force unentitlement if
      * current members is greater then proposed entitlement count
      */
     private boolean forceUnentitlement(Long orgCur, Long orgProposedMax) {
@@ -79,13 +79,13 @@ public class UpdateOrgSoftwareEntitlementsCommand {
         if (orgCur == null) {
             orgCur = 0L;
         }
-     
-        if (orgCur > orgProposedMax && !ConfigDefaults.get().forceUnentitlement()) { 
+
+        if (orgCur > orgProposedMax && !ConfigDefaults.get().forceUnentitlement()) {
             retval = false;
-        }        
+        }
         return retval;
     }
-    
+
     /**
      * Update the entitlements in the DB.
      * @return ValidatorError if there were any problems with the proposed total
@@ -98,14 +98,14 @@ public class UpdateOrgSoftwareEntitlementsCommand {
         }
         return err;
     }
-    
-    private ValidatorError storeRegular() {        
+
+    private ValidatorError storeRegular() {
         // Check available entitlements
         Org satOrg = OrgFactory.getSatelliteOrg();
         return store(channelFamily.getMaxMembers(satOrg),
-                        channelFamily.getMaxMembers(org), 
+                        channelFamily.getMaxMembers(org),
                         channelFamily.getCurrentMembers(satOrg),
-                        channelFamily.getCurrentMembers(org), 
+                        channelFamily.getCurrentMembers(org),
                         newTotal, false);
     }
 
@@ -113,13 +113,13 @@ public class UpdateOrgSoftwareEntitlementsCommand {
         // Check available entitlements
         Org satOrg = OrgFactory.getSatelliteOrg();
         return store(channelFamily.getMaxFlex(satOrg),
-                        channelFamily.getMaxFlex(org), 
+                        channelFamily.getMaxFlex(org),
                         channelFamily.getCurrentFlex(satOrg),
-                        channelFamily.getCurrentFlex(org), 
+                        channelFamily.getCurrentFlex(org),
                         newFlexTotal, true);
     }
 
-    private  ValidatorError store(Long satMax, Long orgMax, 
+    private  ValidatorError store(Long satMax, Long orgMax,
                                                 Long satCurrent, Long orgCurrent,
                                                 Long proposed, boolean isFlex) {
         // No sense making the call if its the same.
@@ -130,20 +130,20 @@ public class UpdateOrgSoftwareEntitlementsCommand {
         if (orgMax == null) {
             orgMax = 0L;
         }
-        
+
         Long avail = 0L;
         if (satMax != null) {
             avail = satMax - satCurrent + orgMax;
-        }                        
-        
+        }
+
         if (proposed == null || proposed < 0 || avail < proposed) {
-            String key = isFlex ? "org.entitlements.software.not_in_range.flex" : 
+            String key = isFlex ? "org.entitlements.software.not_in_range.flex" :
                             "org.entitlements.software.not_in_range";
-            
+
             return new ValidatorError(key, this.org.getName(),
                             this.channelFamily.getName(), 0, avail);
         }
-        
+
         // Proposed cannot be lower than current members
         if (!forceUnentitlement(orgCurrent, proposed)) {
            return new ValidatorError(
@@ -152,7 +152,7 @@ public class UpdateOrgSoftwareEntitlementsCommand {
                    this.org.getName()
                    );
         }
-        
+
 
         Long toOrgId;
         Long fromOrgId;
@@ -163,13 +163,13 @@ public class UpdateOrgSoftwareEntitlementsCommand {
             fromOrgId = this.org.getId();
             toOrgId = OrgFactory.getSatelliteOrg().getId();
             actualTotal = orgMax.longValue() - proposed;
-        } 
+        }
         else {
             toOrgId = this.org.getId();
             fromOrgId = OrgFactory.getSatelliteOrg().getId();
             actualTotal = proposed - orgMax.longValue();
         }
-        
+
         Map in = new HashMap();
         // "group_label, from_org_id, to_org_id, quantity"
         in.put("channel_family_label", channelFamily.getLabel());
@@ -178,12 +178,12 @@ public class UpdateOrgSoftwareEntitlementsCommand {
         if (isFlex) {
             in.put("quantity", 0);
             in.put("flex_quantity", actualTotal);
-            
+
         }
         else {
             in.put("quantity", actualTotal);
             in.put("flex_quantity", 0);
-            
+
         }
         CallableMode m = ModeFactory.getCallableMode(
                 "Org_queries", "assign_software_entitlements");

@@ -32,7 +32,7 @@ import java.util.List;
  * @version $Rev: 55033 $
  */
 public class BaseSetListActionTest extends RhnBaseTestCase {
-    
+
     private TestSetupListAction tla;
     private ActionHelper sah;
 
@@ -46,7 +46,7 @@ public class BaseSetListActionTest extends RhnBaseTestCase {
         sah.setupClampListBounds();
         sah.getRequest().setupAddParameter("submitted", "false");
     }
-    
+
     /**
      * Test to make sure we check for the right filter value string
      */
@@ -71,11 +71,11 @@ public class BaseSetListActionTest extends RhnBaseTestCase {
         assertEquals(1, dr.getStart());
         assertEquals(200, dr.getTotalSize());
     }
-    
+
     public class TestSetupListAction extends BaseSetListAction {
 
         protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
-            
+
             List values = new LinkedList();
             for (int i = 0; i < 20; i++) {
                 values.addAll(CSVWriterTest.getTestListOfMaps());

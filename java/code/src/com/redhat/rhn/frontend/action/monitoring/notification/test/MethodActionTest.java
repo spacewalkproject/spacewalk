@@ -29,9 +29,9 @@ import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 public class MethodActionTest extends RhnMockStrutsTestCase {
-    
+
     private String expectedName = "Expected Method Name";
-    
+
     public void testEditNonSubmit() throws Exception {
         setRequestPathInfo("/monitoring/config/notification/MethodEdit");
         ModifyMethodCommand mc = MethodTest.createTestMethodCommand(user);
@@ -39,13 +39,13 @@ public class MethodActionTest extends RhnMockStrutsTestCase {
         executeNonSubmit("/WEB-INF/pages/admin/monitoring" +
                 "/config/notification/method-edit.jsp");
     }
-    
+
     public void testExecuteEditSubmit() throws Exception {
- 
+
         setRequestPathInfo("/monitoring/config/notification/MethodEdit");
         // Create a different user to use as the owner of the Method (not same
         // as person creating the Method).
-        User differentUser = UserTestUtils.createUser("adifferentUser", 
+        User differentUser = UserTestUtils.createUser("adifferentUser",
                 user.getOrg().getId());
         ModifyMethodCommand mc = MethodTest.createTestMethodCommand(differentUser);
         addRequestParameter(RequestContext.USER_ID, differentUser.getId().toString());
@@ -53,13 +53,13 @@ public class MethodActionTest extends RhnMockStrutsTestCase {
         executeSubmit("/monitoring/config/notification/Methods.do");
         assertTrue(mc.getMethod().getUser().getLogin().startsWith("adifferentUser"));
     }
-    
+
     public void testCreateSubmit() throws Exception {
         setRequestPathInfo("/monitoring/config/notification/MethodCreate");
         Method m = executeSubmit("/monitoring/config/notification/Methods.do");
         assertNotNull(m.getId());
     }
-    
+
     public void testCreateNonSubmit() throws Exception {
         setRequestPathInfo("/monitoring/config/notification/MethodCreate");
         executeNonSubmit("/WEB-INF/pages/admin/monitoring" +
@@ -78,15 +78,15 @@ public class MethodActionTest extends RhnMockStrutsTestCase {
         executeSubmit("/WEB-INF/pages/admin/" +
                 "monitoring/config/notification/method-create.jsp");
         verifyActionErrors(new String[] {"method.nametaken"});
-    }    
-    
+    }
+
     public Method executeSubmit(String expectedFwd) throws Exception {
         String expectedEmail = "MethodActionTest@redhat.com";
         MethodType expectedType = NotificationFactory.TYPE_PAGER;
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(BaseMethodEditAction.EMAIL, expectedEmail);
         addRequestParameter(BaseMethodEditAction.NAME, expectedName);
-        addRequestParameter(BaseMethodEditAction.TYPE, 
+        addRequestParameter(BaseMethodEditAction.TYPE,
                 expectedType.getMethodTypeName());
         actionPerform();
         assertTrue(getActualForward().startsWith(expectedFwd));
@@ -94,7 +94,7 @@ public class MethodActionTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getAttribute(RhnHelper.TARGET_USER));
 
         Method m = (Method) request.getAttribute(BaseMethodEditAction.METHOD);
-        
+
         assertEquals(expectedEmail, m.getPagerEmail());
         assertEquals(expectedName, m.getMethodName());
         assertEquals(expectedType, m.getType());
@@ -102,7 +102,7 @@ public class MethodActionTest extends RhnMockStrutsTestCase {
         TestUtils.flushAndEvict(m);
         return m;
     }
-    
+
     public void executeNonSubmit(String expectedForward) throws Exception {
         actionPerform();
         Method m = (Method) request.getAttribute(BaseMethodEditAction.METHOD);
@@ -111,5 +111,5 @@ public class MethodActionTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getAttribute(RhnHelper.TARGET_USER));
         assertTrue(getActualForward().startsWith(expectedForward));
     }
-    
+
 }

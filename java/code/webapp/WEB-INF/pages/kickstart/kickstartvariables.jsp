@@ -8,14 +8,14 @@
 <rhn:require acl="is_ks_raw(${ksid})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
 	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/advanced/header.jspf"%>
  </rhn:require>
-   
- 
- 
+
+
+
   <rhn:require acl="is_ks_not_raw(${ksid})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-	  <rhn:dialogmenu mindepth="0" maxdepth="1" 
-	    definition="/WEB-INF/nav/kickstart_details.xml" 
+	  <rhn:dialogmenu mindepth="0" maxdepth="1"
+	    definition="/WEB-INF/nav/kickstart_details.xml"
 	    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 	
   </rhn:require>

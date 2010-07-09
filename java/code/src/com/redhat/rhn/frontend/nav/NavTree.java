@@ -111,7 +111,7 @@ public class NavTree {
     }
 
     /**
-     * Gets the current value of formvar 
+     * Gets the current value of formvar
      * @return String the current value
      */
     public String getFormvar() {

@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
  * @version $Rev$
  */
 public class UpdateErrataCacheAction extends AbstractDatabaseAction {
-    
+
     private static Logger log = Logger.getLogger(UpdateErrataCacheAction.class);
 
     /** {@inheritDoc} */
@@ -35,7 +35,7 @@ public class UpdateErrataCacheAction extends AbstractDatabaseAction {
         }
 
         UpdateErrataCacheCommand uecc = new UpdateErrataCacheCommand();
-        
+
         if (evt.getUpdateType() == UpdateErrataCacheEvent.TYPE_ORG) {
             Long orgId = evt.getOrgId();
             if (orgId == null) {
@@ -62,23 +62,23 @@ public class UpdateErrataCacheAction extends AbstractDatabaseAction {
         else if (evt.getUpdateType() == UpdateErrataCacheEvent.TYPE_CHANNEL_ERRATA) {
             for (Long cid : evt.getChannelIds()) {
                 if (log.isDebugEnabled()) {
-                    log.debug("Updating errata cache for channel: " + cid + 
+                    log.debug("Updating errata cache for channel: " + cid +
                             " and errata:" + evt.getErrataId());
                 }
                 if (evt.getPackageIds() == null || evt.getPackageIds().size() == 0) {
-                    uecc.updateErrataCacheForErrata(cid, evt.getErrataId());    
+                    uecc.updateErrataCacheForErrata(cid, evt.getErrataId());
                 }
                 else {
-                    uecc.updateErrataCacheForErrata(cid, evt.getErrataId(), 
-                            evt.getPackageIds());  
+                    uecc.updateErrataCacheForErrata(cid, evt.getErrataId(),
+                            evt.getPackageIds());
                 }
             }
         }
         else {
-            throw new IllegalArgumentException("Unknown update type: " + 
+            throw new IllegalArgumentException("Unknown update type: " +
                     evt.getUpdateType());
         }
-        
+
     }
 
 }

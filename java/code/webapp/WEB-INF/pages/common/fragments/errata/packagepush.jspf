@@ -5,15 +5,15 @@
     <rhn:column header="packagesearch.jsp.name">
         <c:out value="${current.name}"/>
     </rhn:column>
-    
+
     <rhn:column header="errata.publish.packagepush.currentversion">
       <c:out value="${current.currentNvrea}"/>
     </rhn:column>
-    
+
     <rhn:column header="errata.publish.packagepush.newversion">
       <c:out value="${current.newNvrea}"/>
     </rhn:column>
-    
+
   </rhn:listdisplay>
 </rhn:list>
 <input type="hidden" name="cid" value="<c:out value="${requestScope.cid}"/>" />

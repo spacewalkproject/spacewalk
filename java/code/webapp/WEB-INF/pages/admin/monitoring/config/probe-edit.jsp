@@ -27,7 +27,7 @@ function refreshNotifFields() {
     <bean:message key="probe-edit.jsp.header1" arg0="${probe.description}" arg1="${probeSuite.suiteName}" />
   </rhn:toolbar>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/probesuite_detail_edit.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/probesuite_detail_edit.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="probe-edit.jsp.header2"/></h2>
@@ -60,7 +60,7 @@ function refreshNotifFields() {
       <tr>
         <th><label for="notifmin"><bean:message key="probeedit.jsp.notifmin" /></label></th>
         <td colspan="3">
-            <html:select property="notification_interval_min" 
+            <html:select property="notification_interval_min"
                   disabled="${not probeEditForm.map.notification}" styleId="notifmin">
               <html:options collection="intervals"
                 property="value"
@@ -88,7 +88,7 @@ function refreshNotifFields() {
         </html:select>
       </td>
     </tr>
-    
+
     <%@ include file="/WEB-INF/pages/common/fragments/probes/render-param-value-list.jspf" %>
     <tr>
       <td></td>
@@ -99,6 +99,6 @@ function refreshNotifFields() {
   <html:hidden property="probe_id" value="${probe.id}"/>
   <html:hidden property="submitted" value="true"/>
 </html:form>
-           
+
 </body>
 </html>

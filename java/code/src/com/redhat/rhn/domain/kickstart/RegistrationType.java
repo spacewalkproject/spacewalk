@@ -37,17 +37,17 @@ public enum RegistrationType {
     }
 
     /**
-     * Find the registration type given a string 
-     * @param regType the string to search on 
+     * Find the registration type given a string
+     * @param regType the string to search on
      * @return a registration type
      */
      public static RegistrationType find(String  regType) {
         return findDefault(regType, getDefault());
     }
-     
+
      /**
-      * Find the registration type given a string 
-      * @param regType the string to search on 
+      * Find the registration type given a string
+      * @param regType the string to search on
       * @param def is not registration type is found the default will be returned
       * @return a registration type
       */
@@ -60,8 +60,8 @@ public enum RegistrationType {
          }
          else if (REACTIVATION.type.equals(regType)) {
              return REACTIVATION;
-         }         
-         
+         }
+
          return def;
      }
 

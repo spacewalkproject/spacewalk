@@ -200,7 +200,7 @@ public class RequireTagTest extends RhnBaseTestCase {
             return true;
         }
     }
-    
+
     public static class BooleanAclHandler implements AclHandler {
         /**
          * Always returns true.
@@ -211,7 +211,7 @@ public class RequireTagTest extends RhnBaseTestCase {
         public boolean aclTrueTest(Object ctx, String[] params) {
             return true;
         }
-        
+
         /**
          * Always returns false.
          * @param ctx ignored

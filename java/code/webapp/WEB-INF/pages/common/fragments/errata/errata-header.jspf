@@ -16,7 +16,7 @@
 	 </rhn:toolbar>
  </c:if>
  <c:if test="${errata.bugFix}">
-     <rhn:toolbar base="h1" img="/img/rhn-icon-bug.gif" 
+     <rhn:toolbar base="h1" img="/img/rhn-icon-bug.gif"
      						imgAlt="errata-legend.jsp.bugfix"
 						helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp">
 	   <c:if test="${empty errata}">

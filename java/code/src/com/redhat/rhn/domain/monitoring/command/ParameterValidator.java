@@ -44,9 +44,9 @@ public abstract class ParameterValidator {
     }
 
     /**
-     * Return <code>true</code> if this parameter must always 
+     * Return <code>true</code> if this parameter must always
      * have a value
-     * @return <code>true</code> if this parameter must always 
+     * @return <code>true</code> if this parameter must always
      * have a value
      */
     public boolean isMandatory() {
@@ -54,10 +54,10 @@ public abstract class ParameterValidator {
     }
 
     /**
-     * Return <code>true</code> if <code>value</code> can be 
+     * Return <code>true</code> if <code>value</code> can be
      * converted to the data type for the parameter
      * @param value the value to check
-     * @return <code>true</code> if <code>value</code> can be 
+     * @return <code>true</code> if <code>value</code> can be
      * converted to the data type for the parameter
      */
     public abstract boolean isConvertible(String value);
@@ -99,7 +99,7 @@ public abstract class ParameterValidator {
      * this parameter
      */
     public boolean isValid(String value) {
-        return (value != null || 
+        return (value != null ||
                 !isMandatory()) && isConvertible(value) && inRange(value);
     }
 }

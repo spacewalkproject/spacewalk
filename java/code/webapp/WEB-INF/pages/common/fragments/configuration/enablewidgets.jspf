@@ -25,7 +25,7 @@
         </td>
     </tr>
 </table>
-      
+
 <div align="right">
     <hr />
     <html:submit property="dispatch">

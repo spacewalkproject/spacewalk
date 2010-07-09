@@ -21,7 +21,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * 
+ *
  * ViewModifyPathsFilter
  * @version $Rev$
  */
@@ -31,13 +31,13 @@ public class SystemOverviewFilter extends BaseListFilter {
      * ${@inheritDoc}
      */
     public void processMap(Map map, Locale userLocale) {
-        LocalizationService ls = 
+        LocalizationService ls =
             LocalizationService.getInstance();
         String label = ls.getMessage("system.common.systemName",
                 userLocale);
         map.put(label, "name");
       //  map.put(label, "channelLabels");
-        
+
     }
 
 

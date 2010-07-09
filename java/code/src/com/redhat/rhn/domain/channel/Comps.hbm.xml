@@ -4,17 +4,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.channel.Comps" 
-           mutable="false" 
+    <class name="com.redhat.rhn.domain.channel.Comps"
+           mutable="false"
            table="rhnChannelComps">
-           
+
     	<id name="id" type="long" column="id">
           <meta attribute="scope-set">protected</meta>
           <generator class="sequence">
             <param name="sequence">rhn_channelcomps_id_seq</param>
           </generator>
         </id>
-        
+
     	<property name="relativeFilename" type="string" column="relative_filename" not-null="true"/>
     	
     	<many-to-one name="channel"
@@ -25,6 +25,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     	             unique="true"
     	             lazy="false"
     	             fetch="select"/>
-    	             
-    </class>    
+
+    </class>
 </hibernate-mapping>

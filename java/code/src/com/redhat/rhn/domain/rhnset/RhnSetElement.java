@@ -37,7 +37,7 @@ public class RhnSetElement implements Serializable {
     public RhnSetElement() {
         this(null, null, null, null, null);
     }
-    
+
     /**
      * Constructs an element with two identifiers.
      * @param uid User id associated with this element.
@@ -96,7 +96,7 @@ public class RhnSetElement implements Serializable {
             setup(uid, lbl, new Long(parts[0].trim()), null, null);
         }
     }
-    
+
     /**
      * Sets the userid associated with this element.
      * @param id Userid associated with this element.
@@ -184,7 +184,7 @@ public class RhnSetElement implements Serializable {
         if (obj == null || !(obj instanceof RhnSetElement)) {
             return false;
         }
-        
+
         RhnSetElement rse = (RhnSetElement)obj;
         return new EqualsBuilder().append(userid, rse.getUserId())
                                   .append(label, rse.getLabel())
@@ -193,7 +193,7 @@ public class RhnSetElement implements Serializable {
                                   .append(elementThree, rse.getElementThree())
                                   .isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */

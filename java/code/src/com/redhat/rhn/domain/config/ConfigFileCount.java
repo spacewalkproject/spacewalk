@@ -27,9 +27,9 @@ public class ConfigFileCount {
     private long files;
     private long directories;
     private long symlinks;
-    
+
     /**
-     * Creates a new instance of this class 
+     * Creates a new instance of this class
      * @param files the files to set
      * @param directories dirs to set
      * @param symlinks symlinks to set
@@ -43,28 +43,28 @@ public class ConfigFileCount {
         return cf;
     }
     /**
-     * 
+     *
      * @return the number of dirs
      */
     public long getDirectories() {
         return directories;
     }
     /**
-     * 
+     *
      * @param directories the number dirs to set
      */
     private void setDirectories(long dirs) {
         this.directories = dirs;
     }
     /**
-     * 
+     *
      * @return the number of files
      */
     public long getFiles() {
         return files;
     }
     /**
-     * 
+     *
      * @param files the number of files to set
      */
     private void setFiles(long numFiles) {
@@ -84,9 +84,9 @@ public class ConfigFileCount {
     private void setSymlinks(long numLinks) {
         this.symlinks = numLinks;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean equals(Object obj) {
@@ -99,11 +99,11 @@ public class ConfigFileCount {
                     append(directories, that.directories).
                     append(symlinks, that.symlinks).
                     isEquals();
-                    
+
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int hashCode() {

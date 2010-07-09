@@ -27,16 +27,16 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class GlobalConfigFileListTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //Make a file to appear in the list.
         ConfigFile file = ConfigTestUtils.createConfigFile(user.getOrg());
         ConfigTestUtils.giveUserChanAccess(user, file.getConfigChannel());
         ConfigurationFactory.commit(file);
-        
+
         setRequestPathInfo("/configuration/file/GlobalConfigFileList");
         actionPerform();
         verifyList("pageList", ConfigFileDto.class);

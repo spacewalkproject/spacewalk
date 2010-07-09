@@ -28,16 +28,16 @@ public class OrgSystemEntitlementDto {
     private String orgname;
     private OrgEntitlementDto orgEntDto;
     private String entname;
-    private Long availableEntitlements;    
-    private Long currentEntitlements;    
-    private Long satelliteTotal;    
- 
+    private Long availableEntitlements;
+    private Long currentEntitlements;
+    private Long satelliteTotal;
+
     /**
      * Constructor ..
      */
-    public OrgSystemEntitlementDto() { 
+    public OrgSystemEntitlementDto() {
     }
-   
+
     /**
      * returns the orgid as a Long
      * @return the orgid as a Long
@@ -47,15 +47,15 @@ public class OrgSystemEntitlementDto {
     }
 
     /**
-     * 
-     * @param orgId OrgIn Id 
+     *
+     * @param orgId OrgIn Id
      */
     public void setOrgid(Long orgId) {
         this.orgid = orgId;
     }
 
     /**
-     * 
+     *
      * @return Name of Org
      */
     public String getOrgname() {
@@ -63,15 +63,15 @@ public class OrgSystemEntitlementDto {
     }
 
     /**
-     * 
+     *
      * @param orgName of Org to set
      */
     public void setOrgname(String orgName) {
         this.orgname = orgName;
     }
- 
+
     /**
-     * 
+     *
      * @return Name of Ent
      */
     public String getEntname() {
@@ -79,7 +79,7 @@ public class OrgSystemEntitlementDto {
     }
 
     /**
-     * 
+     *
      * @param entName of Ent to set
      */
     public void setEntname(String entName) {
@@ -93,7 +93,7 @@ public class OrgSystemEntitlementDto {
     public Long getCurrentEntitlements() {
         return getDto().getCurrentEntitlements();
     }
-    
+
 
     /**
      * Get the count of the number of available slots.
@@ -103,9 +103,9 @@ public class OrgSystemEntitlementDto {
         return getDto().getAvailbleEntitlements();
     }
 
-    
+
     /**
-     * 
+     *
      * @return Long total of the available Entitlements in the default Org
      */
     public Long getSatelliteTotal() {
@@ -113,7 +113,7 @@ public class OrgSystemEntitlementDto {
     }
 
     /**
-     * 
+     *
      * @return OrgEntitlementDto object
      */
     public OrgEntitlementDto getDto() {

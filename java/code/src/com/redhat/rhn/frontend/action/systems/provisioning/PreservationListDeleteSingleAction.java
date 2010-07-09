@@ -34,20 +34,20 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class PreservationListDeleteSingleAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RhnSetHelper helper = new RhnSetHelper(mapping,  RhnSetDecl.FILE_LISTS, request);
-        
+
         RequestContext ctx = new RequestContext(request);
         Map params = ctx.makeParamMapWithPagination();
         params.put("dispatch", LocalizationService.getInstance().
                 getMessage("preservation_list.jsp.deletelist"));
-        params.put("items_selected", 
+        params.put("items_selected",
                 ctx.getRequiredParam(RequestContext.FILE_LIST_ID).toString());
         return helper.unselectall(params);
     }

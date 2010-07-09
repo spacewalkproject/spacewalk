@@ -30,7 +30,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  *
  * @xmlrpc.doc
- * #struct("entitlement usage") 
+ * #struct("entitlement usage")
  *   #prop("string", "label")
  *   #prop("string", "name")
  *   #prop("int", "free")
@@ -44,7 +44,7 @@ public class OrgEntitlementDtoSerializer implements XmlRpcCustomSerializer {
      * {@inheritDoc}
      */
     public Class getSupportedClass() {
-        
+
         return OrgEntitlementDto.class;
     }
 
@@ -62,7 +62,7 @@ public class OrgEntitlementDtoSerializer implements XmlRpcCustomSerializer {
         helper.add("unallocated", dto.getUpperRange() - dto.getMaxEntitlements());
         helper.add("used", dto.getCurrentEntitlements());
         helper.add("free", dto.getMaxEntitlements() - dto.getCurrentEntitlements());
-        
+
         helper.writeTo(output);
     }
 

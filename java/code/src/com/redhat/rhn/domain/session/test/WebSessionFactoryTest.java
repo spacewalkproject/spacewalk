@@ -32,15 +32,15 @@ import org.apache.commons.lang.StringUtils;
  */
 
 public class WebSessionFactoryTest extends RhnBaseTestCase {
-    
-    // This is the number of milliseconds that 
+
+    // This is the number of milliseconds that
     // we use in this test to determine timeouts
     // If these testcases are being ran over a slow link
     // (MTV -> RDU) they can fail and this time value
     // can be tweaked accordingly.
     private static final int EXP_TIME = 5000;
-    
-    
+
+
     private void verifySession(WebSession s) {
         assertNull(s.getId());
         assertNull(s.getUser());
@@ -48,15 +48,15 @@ public class WebSessionFactoryTest extends RhnBaseTestCase {
         assertNull(s.getWebUserId());
         assertEquals(0, s.getExpires());
     }
-    
+
     public void testId() throws Exception {
         WebSession s = WebSessionFactory.createSession();
         assertNull(s.getId());
         WebSessionFactory.save(s);
         assertNotNull(s.getId());
-        
+
     }
-    
+
     public void testCreateSession() throws Exception {
         WebSession s = WebSessionFactory.createSession();
         verifySession(s);
@@ -97,15 +97,15 @@ public class WebSessionFactoryTest extends RhnBaseTestCase {
         assertFalse(userId.equals(userId2));
         try {
             s.setWebUserId(userId2);
-        } 
+        }
         catch (IllegalArgumentException iae) {
             fail("setWebUserId should not throw an IllegalArgumentException");
         }
         s.setWebUserId(null);
         assertNull(s.getUser());
     }
-    
-    
+
+
     /**
      * Not ready for use yet.
      */
@@ -116,7 +116,7 @@ public class WebSessionFactoryTest extends RhnBaseTestCase {
 
         Long lastId = null;
         for (int i = 0; i < 50; i++) {
-            Long userId = UserTestUtils.createUser("st" + 
+            Long userId = UserTestUtils.createUser("st" +
                     Math.random() + System.currentTimeMillis(), "SessionTestOrg");
             assertFalse(userId.equals(lastId));
             s.setWebUserId(userId);
@@ -136,7 +136,7 @@ public class WebSessionFactoryTest extends RhnBaseTestCase {
         User u = UserTestUtils.findNewUser("sessionTest", "SessionTestOrg");
         long expTime = EXP_TIME;
         WebSession s = SessionManager.makeSession(u.getId(), expTime);
-        
+
         WebSession s2 = WebSessionFactory.lookupById(s.getId());
         assertNotNull(s2);
         assertEquals(s.getExpires(), s2.getExpires());
@@ -152,7 +152,7 @@ public class WebSessionFactoryTest extends RhnBaseTestCase {
         long expTime = TimeUtils.currentTimeSeconds() + EXP_TIME;
         s.setExpires(expTime);
         s.setWebUserId(userId);
-        
+
         WebSessionFactory.save(s);
 
         WebSession s2 = WebSessionFactory.lookupById(s.getId());
@@ -169,7 +169,7 @@ public class WebSessionFactoryTest extends RhnBaseTestCase {
         long expTime = TimeUtils.currentTimeSeconds() + EXP_TIME;
         s.setExpires(expTime);
         s.setWebUserId(null);
-        
+
         WebSessionFactory.save(s);
 
         WebSession s2 = WebSessionFactory.lookupById(s.getId());
@@ -177,7 +177,7 @@ public class WebSessionFactoryTest extends RhnBaseTestCase {
         assertNull(s2.getWebUserId());
         assertEquals(expTime, s2.getExpires());
     }
-    
+
     public void testGetKey() {
         WebSession s = WebSessionFactory.createSession();
         //Try with an invalid session id (null)
@@ -191,9 +191,9 @@ public class WebSessionFactoryTest extends RhnBaseTestCase {
         long expTime = TimeUtils.currentTimeSeconds() + EXP_TIME;
         s.setExpires(expTime);
         s.setWebUserId(null);
-      
+
         WebSessionFactory.save(s);
-        
+
         //Make sure we get a key
         assertNotNull(s.getKey());
         String id = s.getKey().substring(0, s.getKey().indexOf('x'));
@@ -209,7 +209,7 @@ public class WebSessionFactoryTest extends RhnBaseTestCase {
         long expTime = TimeUtils.currentTimeSeconds() - EXP_TIME;
         s.setExpires(expTime);
         s.setWebUserId(userId);
-        
+
         WebSessionFactory.save(s);
 
         WebSession s2 = WebSessionFactory.lookupById(s.getId());

@@ -29,9 +29,9 @@ import java.util.Iterator;
 
 /**
  * UpdateInfo.xml writer class
- * 
+ *
  * @version $Rev $
- * 
+ *
  */
 public class UpdateInfoWriter extends RepomdWriter {
 
@@ -179,7 +179,7 @@ public class UpdateInfoWriter extends RepomdWriter {
                         pkg.getFilename()));
 
                 attr.clear();
-                attr.addAttribute("type", 
+                attr.addAttribute("type",
                     sanitize(pkgId, pkg.getChecksum().getChecksumType().getLabel()));
                 handler.startElement("sum", attr);
                 handler.addCharacters(sanitize(pkgId, pkg.getChecksum().getChecksum()));

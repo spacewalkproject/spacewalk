@@ -34,54 +34,54 @@ public class SatelliteCertificate {
     private Date expires;
     private Date created;
     private Date modified;
-    /** 
-     * Getter for label 
+    /**
+     * Getter for label
      * @return String to get
     */
     public String getLabel() {
         return this.label;
     }
 
-    /** 
-     * Setter for label 
+    /**
+     * Setter for label
      * @param labelIn to set
     */
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
 
-    /** 
-     * Getter for version 
+    /**
+     * Getter for version
      * @return Long to get
     */
     public Long getVersion() {
         return this.version;
     }
 
-    /** 
-     * Setter for version 
+    /**
+     * Setter for version
      * @param versionIn to set
     */
     public void setVersion(Long versionIn) {
         this.version = versionIn;
     }
 
-    /** 
-     * Getter for cert 
+    /**
+     * Getter for cert
      * @return Blob to get
     */
     public byte[] getCert() {
         return this.cert;
     }
 
-    /** 
-     * Setter for cert 
+    /**
+     * Setter for cert
      * @param certIn to set
     */
     public void setCert(byte[] certIn) {
         this.cert = certIn;
     }
-    
+
     /**
      * Let Hibernate get the cert blob, used only by Hibernate.
      * @return Returns the cert blob.
@@ -103,64 +103,64 @@ public class SatelliteCertificate {
         this.cert = HibernateFactory.blobToByteArray(certIn);
     }
 
-    /** 
-     * Getter for issued 
+    /**
+     * Getter for issued
      * @return Date to get
     */
     public Date getIssued() {
         return this.issued;
     }
 
-    /** 
-     * Setter for issued 
+    /**
+     * Setter for issued
      * @param issuedIn to set
     */
     public void setIssued(Date issuedIn) {
         this.issued = issuedIn;
     }
 
-    /** 
-     * Getter for expires 
+    /**
+     * Getter for expires
      * @return Date to get
     */
     public Date getExpires() {
         return this.expires;
     }
 
-    /** 
-     * Setter for expires 
+    /**
+     * Setter for expires
      * @param expiresIn to set
     */
     public void setExpires(Date expiresIn) {
         this.expires = expiresIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {

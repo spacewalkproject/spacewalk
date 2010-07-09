@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.action.ActionStatus" 
+    <class name="com.redhat.rhn.domain.action.ActionStatus"
         table="rhnActionStatus" mutable="false">
         <cache usage="read-only"/>
         <id name="id" type="long" column="id">
@@ -12,7 +12,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </id>
         <property name="name" type="string" column="name" />
     </class>
-    
+
     <query name="ActionStatus.loadAll">
         <![CDATA[from com.redhat.rhn.domain.action.ActionType]]>
     </query>

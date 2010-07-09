@@ -32,14 +32,14 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ChannelTestUtils {
-    public static final int VIRT_INDEX = 1; 
+    public static final int VIRT_INDEX = 1;
     public static final int TOOLS_INDEX = 0;
-    
+
     private ChannelTestUtils() {
     }
-    
+
     /**
-     * Create test base channel 
+     * Create test base channel
      * @param creator of channel
      * @return Channel created
      * @throws Exception if error
@@ -60,15 +60,15 @@ public class ChannelTestUtils {
         return ChannelFactoryTest.createTestChannel(user);
     }
 
-    
+
     /** Create a child channel of the passed in base channel
-     * 
-     * @param user who's org owns channel 
+     *
+     * @param user who's org owns channel
      * @param baseChannel to use as parent
      * @return Channel child created
      * @throws Exception while creating
      */
-    public static Channel createChildChannel(User user, Channel baseChannel) 
+    public static Channel createChildChannel(User user, Channel baseChannel)
         throws Exception {
         if (baseChannel == null) {
             throw new NullPointerException("baseChannel is null");
@@ -76,25 +76,25 @@ public class ChannelTestUtils {
         if (!baseChannel.isBaseChannel()) {
             throw new IllegalArgumentException("baseChannel is not a base channel");
         }
-    
+
         Channel retval = ChannelFactoryTest.createTestChannel(user);
         retval.setParentChannel(baseChannel);
         ChannelFactory.save(retval);
         return retval;
     }
-    
-    /** 
-     * Setup a Base Channel with 2 child channels (rhn-tools and rhel-virt) to be 
-     * able to do virt stuff.   
+
+    /**
+     * Setup a Base Channel with 2 child channels (rhn-tools and rhel-virt) to be
+     * able to do virt stuff.
      * @param user u
      * @param baseChannel bc
-     * @return Channel[] array containing rhn-tools[0] and rhel-virt[1] 
+     * @return Channel[] array containing rhn-tools[0] and rhel-virt[1]
      * @throws Exception thrown if error
      */
-    public static Channel[] setupBaseChannelForVirtualization(User user, 
+    public static Channel[] setupBaseChannelForVirtualization(User user,
             Channel baseChannel) throws Exception {
         // Channels
-        Channel rhnTools = 
+        Channel rhnTools =
             ChannelTestUtils.createChildChannel(user, baseChannel);
 
         PackageManagerTest.addPackageToChannel(
@@ -104,15 +104,15 @@ public class ChannelTestUtils {
         PackageManagerTest.addPackageToChannel(
                 ConfigDefaults.get().getKickstartPackageName(), rhnTools);
 
-        
-        Channel rhelVirt = 
+
+        Channel rhelVirt =
             ChannelTestUtils.createChildChannel(user, baseChannel);
         ChannelTestUtils.addDistMapToChannel(rhelVirt, ChannelManager.VT_OS_PRODUCT,
                 TestUtils.randomString());
 
         PackageManagerTest.addPackageToChannel(
                 ChannelManager.VIRT_CHANNEL_PACKAGE_NAME, rhelVirt);
-        
+
         Channel[] retval = new Channel[2];
         retval[TOOLS_INDEX] = rhnTools;
         retval[VIRT_INDEX] = rhelVirt;
@@ -121,7 +121,7 @@ public class ChannelTestUtils {
 
     /**
      * Add a dist channel map for the given channel.
-     * 
+     *
      * @param c Channel
      * @param os Poorly named in the db, actually a product name.
      * @param release Poorly named, actually a RHEL version.
@@ -144,7 +144,7 @@ public class ChannelTestUtils {
      * @param c Channel to add a DistChannelMap to.
      */
     public static void addDistMapToChannel(Channel c) {
-        addDistMapToChannel(c, "Red Hat Unit Test" + TestUtils.randomString(), 
+        addDistMapToChannel(c, "Red Hat Unit Test" + TestUtils.randomString(),
                 TestUtils.randomString());
     }
 

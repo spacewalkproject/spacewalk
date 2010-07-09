@@ -26,9 +26,9 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev: 1 $
  */
 public class KickstartCryptoKeysEditActionTest extends BaseKickstartEditTestCase {
-    
+
     private CryptoKey key;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -44,7 +44,7 @@ public class KickstartCryptoKeysEditActionTest extends BaseKickstartEditTestCase
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
     }
-    
+
     public void testSubmitExecute() throws Exception {
         addSelectedItem(key.getId());
         addDispatchCall(KickstartCryptoKeysSubmitAction.UPDATE_METHOD);
@@ -55,6 +55,6 @@ public class KickstartCryptoKeysEditActionTest extends BaseKickstartEditTestCase
     }
 
 
-    
+
 }
 

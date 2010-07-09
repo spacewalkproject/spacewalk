@@ -36,16 +36,16 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class UnsubscribeActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         //give the user config admin status
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
+
         //create a global channel
         ConfigChannel channel = ConfigTestUtils.createConfigChannel(user.getOrg());
         ConfigurationFactory.commit(channel);
-        
+
         //create a server and add it to the two required server groups
         //provisioning for config management and enterprise for server grouping
         Server server = ServerFactoryTest.createTestServer(user, true,
@@ -53,16 +53,16 @@ public class UnsubscribeActionTest extends RhnMockStrutsTestCase {
         ServerGroup group = ServerGroupTest.createTestServerGroup(user.getOrg(),
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         ServerFactory.addServerToGroup(server, group);
-        
+
         //subscribe to the channel
         server.subscribe(channel);
         ServerFactory.save(server);
-        
+
         //add the server to the system list and save.
         RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         set.addElement(server.getId());
         RhnSetFactory.save(set);
-        
+
         setRequestPathInfo("/systems/ssm/config/Unsubscribe");
         actionPerform();
         verifyPageList(ConfigChannelDto.class);

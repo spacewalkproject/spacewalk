@@ -31,9 +31,9 @@ import javax.servlet.http.HttpServletResponse;
  * A base class for performing common list actions for
  * those struts actions that must extend LookupDispatchAction,
  * but do not manage a RhnSet.
- * 
+ *
  * Example: a confirm page.
- * 
+ *
  * @see com.redhat.rhn.frontend.action.common.RhnSetAction
  * @version $Rev$
  */
@@ -48,7 +48,7 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
         processMethodKeys(map);
         return map;
     }
-    
+
     /**
      * Setup the filter parameter on the request.
      *
@@ -71,7 +71,7 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
         String forward = getForwardName(request);
         return getStrutsDelegate().forwardParams(mapping.findForward(forward), params);
     }
-    
+
     /**
      * Default action to execute if dispatch parameter is missing
      * or isn't in map
@@ -93,7 +93,7 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
         String forward = getForwardName(request);
         return getStrutsDelegate().forwardParams(mapping.findForward(forward), params);
     }
-    
+
     /**
      * Makes a parameter map containing request params that need to
      * be forwarded on to the success mapping.
@@ -109,7 +109,7 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
 
         return params;
     }
-    
+
     /**
      * Here is a way for subclasses to serve multiple possible forwards.
      * @param request The request object containing possibly needed parameters.
@@ -118,7 +118,7 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
     protected String getForwardName(HttpServletRequest request) {
         return RhnHelper.DEFAULT_FORWARD;
     }
-    
+
     /**
      * Add a success message to the request with 1 parameter:
      *
@@ -139,10 +139,10 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
         msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(msgKey, args));
         getStrutsDelegate().saveMessages(req, msg);
     }
-    
+
     protected abstract void processParamMap(ActionForm form,
             HttpServletRequest request, Map params);
-    
+
     /**
      * This method is used to add additional buttons to a list display. It is
      * called from getKeyMethodMap. Simply add your resource bundle name as the
@@ -150,11 +150,11 @@ public abstract class RhnListDispatchAction extends RhnLookupDispatchAction {
      * if you have a resource bundle key of "failed.jsp.rescheduleActions" and
      * a method in your Struts action called "rescheduleAll" the result should
      * look as follows:
-     * 
+     *
      * <code>
      *    map.put("failed.jsp.rescheduleActions", "rescheduleAll");
      * </code>
-     * 
+     *
      * If there are no additional actions then simply return.
      * @param map Mapping between method and button names.
      */

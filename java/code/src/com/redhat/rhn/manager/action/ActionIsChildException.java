@@ -18,12 +18,12 @@ import com.redhat.rhn.common.RhnRuntimeException;
 
 /**
  * An exception thrown when a user attempts to delete an action has prerequisites.
- * 
+ *
  * @version $Rev$
  */
 public class ActionIsChildException extends RhnRuntimeException {
     /**
-     * 
+     *
      */
     public ActionIsChildException() {
     }

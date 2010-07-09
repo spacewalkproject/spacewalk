@@ -23,15 +23,15 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * BaseFilterAction
- * 
- * Abstract class for functionality to be shared amongst actions that 
+ *
+ * Abstract class for functionality to be shared amongst actions that
  * perform filtering.
  * @version $Rev$
  */
 public abstract class BaseFilterAction extends RhnAction {
-    
+
     /**
-     * Retrieve filter related values from the request context and add 
+     * Retrieve filter related values from the request context and add
      * appropriate values to the parameter map.
      * @param params Parameter map to add filter data to.
      * @param request Request object to extract filter data from.
@@ -40,12 +40,12 @@ public abstract class BaseFilterAction extends RhnAction {
         String filterValue = request.getParameter(RequestContext.FILTER_STRING);
         String prevFilterValue = request.getParameter(
                 RequestContext.PREVIOUS_FILTER_STRING);
-        
+
         String data = null;
         if (prevFilterValue != null) {
             data = prevFilterValue;
         }
-        
+
         if (filterValue != null) {
             // If our filter data changes, then reset the list back to the start,
             if (!filterValue.equals(data)) {
@@ -53,7 +53,7 @@ public abstract class BaseFilterAction extends RhnAction {
             }
             data = filterValue;
         }
-        
+
         if (data != null) {
             params.put("filter_string", data);
         }

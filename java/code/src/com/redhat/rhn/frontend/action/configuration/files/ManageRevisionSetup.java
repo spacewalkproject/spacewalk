@@ -32,24 +32,24 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  * @version $Rev: 101893 $
  */
 public class ManageRevisionSetup extends BaseSetListAction {
-    
+
     /**
      * {@inheritDoc}
      */
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_REVISIONS;
     }
-    
+
     protected void processRequestAttributes(RequestContext rctxIn) {
         int max = Config.get().getInt(ConfigDefaults.CONFIG_REVISION_MAX_SIZE,
                 ConfigDefaults.DEFAULT_CONFIG_REVISION_MAX_SIZE);
-        
+
         rctxIn.getRequest().setAttribute("max_size",
                 StringUtil.displayFileSize(max));
         ConfigActionHelper.processRequestAttributes(rctxIn);
         super.processRequestAttributes(rctxIn);
     }
-    
+
     /**
      * {@inheritDoc}
      */

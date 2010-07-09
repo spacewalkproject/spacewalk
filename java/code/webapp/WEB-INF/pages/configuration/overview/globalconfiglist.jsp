@@ -11,7 +11,7 @@
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-config_namespace-2.gif" imgAlt="config.jsp.imgAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-central"
- creationUrl="/rhn/configuration/ChannelCreate.do?editing=true" 
+ creationUrl="/rhn/configuration/ChannelCreate.do?editing=true"
  creationType="configchannel"
  creationAcl="user_role(config_admin)">
   <bean:message key="globalconfiglist.jsp.toolbar"/>
@@ -22,9 +22,9 @@
     <bean:message key="globalconfiglist.jsp.summary"/>
     </p>
   </div>
-  
+
 <form method="post" name="rhn_list" action="/rhn/configuration/GlobalConfigChannelList.do">
-  
+
   <rhn:list pageList="${requestScope.pageList}" noDataText="globalconfiglist.jsp.noChannels">
     <rhn:listdisplay filterBy="globalconfiglist.jsp.name">
       <rhn:column header="globalconfiglist.jsp.name"
@@ -33,11 +33,11 @@
              src="/img/rhn-listicon-channel.gif" />
         ${current.name}
       </rhn:column>
-      
+
       <rhn:column header="globalconfiglist.jsp.label">
         ${current.label}
       </rhn:column>
-      
+
       <rhn:column header="globalconfiglist.jsp.files"
                   url="/rhn/configuration/ChannelFiles.do?ccid=${current.id}"
                   renderUrl="${current.fileCount > 0}">
@@ -48,7 +48,7 @@
           <bean:message key="config.common.numfiles" arg0="${current.fileCount}"/>
         </c:if>
       </rhn:column>
-      
+
       <rhn:column header="globalconfiglist.jsp.systems"
                   url="/rhn/configuration/channel/ChannelSystems.do?ccid=${current.id}"
                   renderUrl="${current.systemCount > 0}">
@@ -64,7 +64,7 @@
       </rhn:column>
     </rhn:listdisplay>
   </rhn:list>
-  
+
 </form>
 
 </body>

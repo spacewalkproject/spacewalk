@@ -44,7 +44,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Handles display and update of Kickstart -> System Details
- * 
+ *
  * @version $Rev $
  */
 public class SystemDetailsEditAction extends RhnAction {
@@ -60,8 +60,8 @@ public class SystemDetailsEditAction extends RhnAction {
         throws Exception {
            RequestContext context = new RequestContext(request);
            User user = context.getLoggedInUser();
-           
-        if (!user.hasRole(RoleFactory.ORG_ADMIN) &&  
+
+        if (!user.hasRole(RoleFactory.ORG_ADMIN) &&
                     !user.hasRole(RoleFactory.CONFIG_ADMIN)) {
             // Throw an exception with a nice error message so the user
             // knows what went wrong.
@@ -138,7 +138,7 @@ public class SystemDetailsEditAction extends RhnAction {
             RhnValidationHelper.setFailedValidation(request);
             getStrutsDelegate().saveMessages(request, ve.getResult());
             request.setAttribute(RequestContext.KICKSTART, ksdata);
-            return mapping.findForward("display");                
+            return mapping.findForward("display");
         }
 
     }
@@ -179,9 +179,9 @@ public class SystemDetailsEditAction extends RhnAction {
     }
     private void prepareRegistrationTypeConfig(DynaActionForm dynaForm,
             KickstartData ksdata, User user) {
-        dynaForm.set(REGISTRATION_TYPE_PARAM, 
+        dynaForm.set(REGISTRATION_TYPE_PARAM,
                 ksdata.getRegistrationType(user).getType());
-    }    
+    }
 
 
     private void prepareFlags(DynaActionForm dynaForm, KickstartData ksdata) {

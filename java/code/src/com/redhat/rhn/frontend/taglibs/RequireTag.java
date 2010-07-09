@@ -89,7 +89,7 @@ public class RequireTag extends TagSupport {
         return mixins;
     }
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @throws JspException
      */
     public int doStartTag() throws JspException {
@@ -97,8 +97,8 @@ public class RequireTag extends TagSupport {
             if (acl == null || "".equals(acl)) {
                 throw new Exception();
             }
-            
-            if (AclManager.hasAcl(acl, (HttpServletRequest)pageContext.getRequest(), 
+
+            if (AclManager.hasAcl(acl, (HttpServletRequest)pageContext.getRequest(),
                                   mixins)) {
                 // acl methods must be in the following form
                 // aclXxxYyy(Object context, String[] params) and invoked

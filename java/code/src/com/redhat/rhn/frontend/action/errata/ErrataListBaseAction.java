@@ -40,8 +40,8 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class ErrataListBaseAction extends RhnAction implements Listable {
 
     /**
-     * Indicates the specific erratum returned by a particular subclass. 
-     * 
+     * Indicates the specific erratum returned by a particular subclass.
+     *
      * @return cannot be <code>null</code>
      */
     protected abstract ErrataFilter getErrataFilter();

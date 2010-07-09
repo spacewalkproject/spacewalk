@@ -13,16 +13,16 @@
 </rhn:toolbar>
 
   <p><bean:message key="systemsearch.jsp.summary"/></p>
-  
+
   <p><bean:message key="erratasearch.jsp.instructions"/></p>
 <html:form action="/systems/Search.do">
-  
+
 <div class="search-choices">
 	<div class="search-choices-group">
 	<table class="details">
 		<tr><th><bean:message key="erratasearch.jsp.searchfor"/></th>
 			<td>
-                <html:text property="search_string" name="search_string" 
+                <html:text property="search_string" name="search_string"
                            value="${search_string}" maxlength="36" />
                 <html:submit>
                    <bean:message key="button.search" />
@@ -50,7 +50,7 @@
 				</select>
 			</td>
         </tr>
-        
+
         <tr>
         	<th><bean:message key="systemsearch.jsp.wheretosearch"/></th>
         	<td>
@@ -62,7 +62,7 @@
         		</div>
         	</td>
         </tr>
-        
+
         <tr>
            <th><bean:message key="systemsearch.jsp.invertlabel"/></th>
            <td>
@@ -105,11 +105,11 @@
             </rhn:require>
 
             <rl:column bound="false" sortable="true" sortattr="name" headerkey="systemsearch.jsp.systemname">
-                    <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> 
+                    <a href="/rhn/systems/details/Overview.do?sid=${current.id}">
                         <rhn:highlight tag="strong" text="${search_string}">
-                            ${current.serverName} 
+                            ${current.serverName}
                         </rhn:highlight>
-                    </a>                       
+                    </a>
             </rl:column>
 
             <c:choose>

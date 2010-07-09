@@ -12,7 +12,7 @@
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp#s2-sm-users-all"
- creationUrl="/rhn/users/CreateUser.do?account_type=into_org" 
+ creationUrl="/rhn/users/CreateUser.do?account_type=into_org"
  creationType="user">
   <bean:message key="userlist.jsp.useroverview"/>
 </rhn:toolbar>
@@ -21,7 +21,7 @@
 
 <rl:listset name="userListSet">
 	<rl:list
-         width="100%"        
+         width="100%"
          name="userList"
          styleclass="list"
          filter="com.redhat.rhn.frontend.action.multiorg.UserListFilter"
@@ -30,9 +30,9 @@
  		
 
 
-		<rl:column bound="false" 
-			sortable="true" 
-			headerkey="username.nopunc.displayname" 
+		<rl:column bound="false"
+			sortable="true"
+			headerkey="username.nopunc.displayname"
 			sortattr="userLogin"
 			styleclass="first-column">
 			<c:out value="<a href=\"UserDetails.do?uid=${current.id}\">${current.userLogin}</a>" escapeXml="false" />
@@ -41,7 +41,7 @@
  		
  		<%@ include file="/WEB-INF/pages/common/fragments/user/userlist_columns.jspf" %>
 
-		<rl:column sortable="false" 
+		<rl:column sortable="false"
 	           headerkey="userlist.jsp.status"
 	           styleclass="last-column">
 	   		<c:if test="${current.status == 'enabled'}">
@@ -51,10 +51,10 @@
           		<bean:message key="userlist.jsp.${current.status}"/>
       		</c:if>
 	    </rl:column>
-	            
+
  	</rl:list>
  	<rl:csv dataset="pageList"
-		name="userList" 
+		name="userList"
 		exportColumns="userLogin,userLastName,userFirstName,roleNames,lastLoggedIn,status"/>
 </rl:listset>
 

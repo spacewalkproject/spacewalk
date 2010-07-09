@@ -51,7 +51,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
-      
+
 /**
  * PackageSearchAction
  * @version $Rev$
@@ -66,7 +66,7 @@ public class PackageSearchAction extends RhnAction {
     public static final String WHERE_CRITERIA = "whereCriteria";
 
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping, ActionForm formIn, 
+    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest request, HttpServletResponse response) {
 
         ActionErrors errors = new ActionErrors();
@@ -76,7 +76,7 @@ public class PackageSearchAction extends RhnAction {
         String searchString = request.getParameter("search_string");
         String viewMode = form.getString("view_mode");
         String[] channelArches = form.getStrings("channel_arch");
-        
+
         try {
             // handle setup, the submission setups the searchstring below
             // and redirects to this page which then performs the search.
@@ -139,7 +139,7 @@ public class PackageSearchAction extends RhnAction {
                 forwardParams.put(name, request.getParameter(name));
             }
         }
-    
+
         forwardParams.put("search_string", searchString);
         forwardParams.put("view_mode", viewMode);
         forwardParams.put("channel_arch", channelArches);
@@ -147,15 +147,15 @@ public class PackageSearchAction extends RhnAction {
         if (!errors.isEmpty()) {
             addErrors(request, errors);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"), 
+                    mapping.findForward("default"),
                     forwardParams);
         }
-        
+
         return getStrutsDelegate().forwardParams(
-                mapping.findForward("success"), 
+                mapping.findForward("success"),
                 forwardParams);
     }
-    
+
     private void setupForm(HttpServletRequest request, DynaActionForm form)
         throws MalformedURLException, XmlRpcFault, SearchServerIndexException {
 
@@ -194,18 +194,18 @@ public class PackageSearchAction extends RhnAction {
         if (viewmode.equals("")) { //first time viewing page
             viewmode = PackageSearchHelper.OPT_NAME_AND_SUMMARY;
         }
-        
+
         List searchOptions = new ArrayList();
         // setup the option list for select box (view_mode).
-        addOption(searchOptions, "packages.search.free_form", 
+        addOption(searchOptions, "packages.search.free_form",
                 PackageSearchHelper.OPT_FREE_FORM);
-        addOption(searchOptions, "packages.search.name", 
+        addOption(searchOptions, "packages.search.name",
                 PackageSearchHelper.OPT_NAME_ONLY);
-        addOption(searchOptions, "packages.search.name_and_desc", 
+        addOption(searchOptions, "packages.search.name_and_desc",
                 PackageSearchHelper.OPT_NAME_AND_DESC);
-        addOption(searchOptions, "packages.search.both", 
+        addOption(searchOptions, "packages.search.both",
                 PackageSearchHelper.OPT_NAME_AND_SUMMARY);
-        
+
         List channelArches = new ArrayList();
         List<ChannelArch> arches = ChannelManager.getChannelArchitectures();
         List<String> archLabels = ChannelManager.getSyncdChannelArches();
@@ -217,7 +217,7 @@ public class PackageSearchAction extends RhnAction {
                     break;
                 }
             }
-            
+
             if (!exclude) {
                 // if the label does *NOT* exist, this channel arch has no
                 // channels in the database. So we want to flag it.
@@ -225,11 +225,11 @@ public class PackageSearchAction extends RhnAction {
                         !archLabels.contains(arch.getLabel()));
             }
         }
-        
+
         // Load list of available channels to select as filter
         List allChannels =
             ChannelManager.allChannelsTree(ctx.getLoggedInUser());
-        
+
         request.setAttribute("search_string", searchString);
         request.setAttribute("view_mode", viewmode);
         request.setAttribute("searchOptions", searchOptions);

@@ -46,51 +46,51 @@ public class RemovePackagesActionTest extends RhnBaseTestCase {
 
     public void testRemovePackagesFromErrata() throws Exception {
         RemovePackagesAction action = new RemovePackagesAction();
-        
+
         ActionMapping mapping = new ActionMapping();
         ActionForward success = new ActionForward("success", "path", true);
         mapping.addForwardConfig(success);
-        
+
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
         RhnMockHttpSession session = new RhnMockHttpSession();
         request.setSession(session);
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
-        
+
         Errata errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
-        
+
         Package p1 = PackageTest.createTestPackage(user.getOrg());
         Package p2 = PackageTest.createTestPackage(user.getOrg());
         errata.addPackage(p1);
         errata.addPackage(p2);
-        
+
         ErrataManager.storeErrata(errata);
         assertTrue(errata.getPackages().size() == 3);
-        
+
         //add some crap to the packages_to_remove set for this user
-        RhnSet set = RhnSetManager.createSet(user.getId(), "packages_to_remove", 
+        RhnSet set = RhnSetManager.createSet(user.getId(), "packages_to_remove",
                 SetCleanup.NOOP);
         set.addElement(p1.getId());
         set.addElement(p2.getId());
         RhnSetManager.store(set);
-        
+
         request.setupAddParameter("eid", errata.getId().toString());
-        
+
         errata.setChannels(new HashSet());
-        
-        ActionForward result = action.removePackagesFromErrata(mapping, form, 
+
+        ActionForward result = action.removePackagesFromErrata(mapping, form,
                                                                request, response);
-        
+
         assertEquals("success", result.getName());
         assertTrue(RhnSetDecl.PACKAGES_TO_REMOVE.get(user).isEmpty());
-        
+
         Long id = errata.getId();
         flushAndEvict(errata);
-        
+
         Errata e2 = ErrataManager.lookupErrata(id, user);
         assertTrue(e2.getPackages().size() == 1);
     }

@@ -47,7 +47,7 @@ import java.util.Iterator;
  * @version $Rev$
  */
 public class ErrataTest extends RhnBaseTestCase {
-    
+
     public void testNotificationQueue() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Channel c = ChannelFactoryTest.createBaseChannel(user);
@@ -61,10 +61,10 @@ public class ErrataTest extends RhnBaseTestCase {
         //save errata and evict
         ErrataManager.storeErrata(e);
         flushAndEvict(e);
-        
+
         Errata e2 = ErrataManager.lookupErrata(id, user); //lookup the errata
         assertEquals(1, e2.getNotificationQueue().size()); //should be only 1
-        
+
         //Let's make sure we can't add notifications to unpublished erratas
         Errata e3 = ErrataFactoryTest.createTestUnpublishedErrata(
                                           UserTestUtils.createOrg("testOrg"));
@@ -76,7 +76,7 @@ public class ErrataTest extends RhnBaseTestCase {
             //Success!!!
         }
     }
-    
+
     /**
      * Test the bugs set in the Errata class. Make sure we can
      * add and store bugs.
@@ -89,28 +89,28 @@ public class ErrataTest extends RhnBaseTestCase {
         Bug bug1 = new PublishedBug();
         bug1.setId(new Long(1001));
         bug1.setSummary("This is a test summary");
-        
+
         Bug bug2 = new PublishedBug();
         bug2.setId(new Long(1002));
         bug2.setSummary("This is another test summary");
-        
+
         errata.addBug(bug1);
         errata.addBug(bug2);
-        
+
         assertEquals(errata.getBugs().size(), 2);
         ErrataFactory.save(errata);
         Long id = errata.getId();
-        
+
         //Evict so we know we're going to the db for the next one
         flushAndEvict(errata);
         Errata errata2 = ErrataManager.lookupErrata(id, user);
-        
+
         assertEquals(id, errata2.getId());
         assertEquals(errata2.getBugs().size(), 2);
         errata2.removeBug(bug1.getId());
         assertEquals(errata2.getBugs().size(), 1);
     }
-    
+
     /**
      * Test unpublished bugs
      * @throws Exception
@@ -123,27 +123,27 @@ public class ErrataTest extends RhnBaseTestCase {
         Bug bug1 = new UnpublishedBug();
         bug1.setId(new Long(1003));
         bug1.setSummary("This is a test summary");
-        
+
         Bug bug2 = new UnpublishedBug();
         bug2.setId(new Long(1004));
         bug2.setSummary("This is another test summary");
-        
+
         errata.addBug(bug1);
         errata.addBug(bug2);
-        
+
         assertEquals(errata.getBugs().size(), 2);
-        
+
         ErrataFactory.save(errata);
         Long id = errata.getId();
-        
+
         //Evict so we know we're going to the db for the next one
         flushAndEvict(errata);
         Errata errata2 = ErrataManager.lookupErrata(id, user);
-        
+
         assertEquals(errata2.getId(), id);
         assertEquals(errata2.getBugs().size(), 2);
     }
-    
+
     /**
      * Test the keywords set in the Errata class. Make sure we
      * can add and store keywords.
@@ -168,21 +168,21 @@ public class ErrataTest extends RhnBaseTestCase {
         errata.addKeyword("yankee");
         errata.addKeyword("hotel");
         errata.addKeyword("foxtrot");
-        
+
         assertEquals(errata.getKeywords().size(), 3);
         ErrataFactory.save(errata);
         Long id = errata.getId();
-        
+
         //Evict so we know we're going to the db for the next one
         flushAndEvict(errata);
         Errata errata2 = ErrataManager.lookupErrata(id, user);
-        
+
         assertEquals(id, errata2.getId());
         assertEquals(3, errata2.getKeywords().size());
     }
-    
+
     /**
-     * Test the packages set in 
+     * Test the packages set in
      * @throws Exception
      */
     //published
@@ -200,7 +200,7 @@ public class ErrataTest extends RhnBaseTestCase {
         assertTrue(errata instanceof UnpublishedErrata);
         runPackageTest(errata, user);
     }
-    
+
     public void testAddChannelsToErrata() throws Exception {
         User user = UserTestUtils.findNewUser();
         Errata e = ErrataFactoryTest.createTestPublishedErrata(
@@ -210,7 +210,7 @@ public class ErrataTest extends RhnBaseTestCase {
         Channel c = ChannelTestUtils.createTestChannel(user);
         Package p = PackageManagerTest.addPackageToChannel("some-errata-package", c);
         c = (Channel) reload(c);
-        
+
         // Add the package to an errataFile
         ErrataFile ef;
         ef = ErrataFactory.createPublishedErrataFile(ErrataFactory.
@@ -219,17 +219,17 @@ public class ErrataTest extends RhnBaseTestCase {
                     "testAddChannelsToErrata" + TestUtils.randomString(), new HashSet());
         ef.addPackage(p);
         e.addFile(ef);
-        
+
         e.addPackage(p);
         e.addChannel(c);
-        
+
         ErrataFactory.save(e);
         e = (Errata) reload(e);
-        
+
         assertEquals(1, e.getChannels().size());
-        
-        
-        
+
+
+
         // Now test clearing it out
         e.clearChannels();
         e = (Errata) TestUtils.saveAndReload(e);
@@ -244,28 +244,28 @@ public class ErrataTest extends RhnBaseTestCase {
         }
         assertTrue("didnt match the erratafile", matched);
     }
-    
 
-    
+
+
     private void runPackageTest(Errata errata, User user) throws Exception {
         Package pkg = PackageTest.createTestPackage();
         errata.addPackage(pkg);
-        
+
         assertEquals(2, errata.getPackages().size());
         ErrataFactory.save(errata);
         Long id = errata.getId();
         //Evict so we know we're going to the db for the next one
         flushAndEvict(errata);
         Errata errata2 = ErrataManager.lookupErrata(id, user);
-        
+
         assertEquals(errata2.getId(), id);
         assertEquals(2, errata2.getPackages().size());
-        
+
         //Remove the package and make sure db is updated
         Package removeme = (Package) errata2.getPackages().toArray()[0];
         errata2.removePackage(removeme);
         assertEquals(1, errata2.getPackages().size());
-        
+
         flushAndEvict(errata2);
         Errata errata3 = ErrataManager.lookupErrata(id, user);
         assertEquals(1, errata3.getPackages().size());
@@ -301,29 +301,29 @@ public class ErrataTest extends RhnBaseTestCase {
         Org org1 = OrgFactory.lookupById(UserTestUtils.createOrg("TBM1"));
         OrgFactory.lookupById(UserTestUtils.createOrg("TBM2"));
         Channel c1 = ChannelFactoryTest.createTestChannel();
-        
+
         err.setId(one);
         assertTrue(err.getId().equals(one));
         assertFalse(err.getId().equals(two));
         err.setId(null);
         assertNull(err.getId());
-        
+
         err.setAdvisory(foo);
         assertTrue(err.getAdvisory().equals("foo"));
         err.setAdvisory(null);
         assertNull(err.getAdvisory());
-        
+
         err.setAdvisoryName(foo);
         assertTrue(err.getAdvisoryName().equals("foo"));
         err.setAdvisoryName(null);
         assertNull(err.getAdvisoryName());
-        
+
         err.setAdvisoryRel(one);
         assertTrue(err.getAdvisoryRel().equals(one));
         assertFalse(err.getAdvisoryRel().equals(two));
         err.setAdvisoryRel(null);
         assertNull(err.getAdvisoryRel());
-        
+
         err.setAdvisoryType(foo);
         assertTrue(err.getAdvisoryType().equals("foo"));
         assertFalse(err.isBugFix());
@@ -341,67 +341,67 @@ public class ErrataTest extends RhnBaseTestCase {
         err.setAdvisoryType(null);
         assertNull(err.getAdvisoryType());
         assertFalse(err.isSecurityAdvisory());
-        
+
         err.setDescription(foo);
         assertTrue(err.getDescription().equals("foo"));
         err.setDescription(null);
         assertNull(err.getDescription());
-        
+
         err.setIssueDate(now);
         assertTrue(err.getIssueDate().equals(now));
         err.setIssueDate(null);
         assertNull(err.getIssueDate());
-        
+
         err.setLastModified(now);
         assertTrue(err.getLastModified().equals(now));
         err.setLastModified(null);
         assertNull(err.getLastModified());
-        
+
         err.setLocallyModified(Boolean.TRUE);
         assertTrue(err.getLocallyModified().booleanValue());
         err.setLocallyModified(Boolean.FALSE);
         assertFalse(err.getLocallyModified().booleanValue());
-        
+
         err.setNotes(foo);
         assertTrue(err.getNotes().equals("foo"));
         err.setNotes(null);
         assertNull(err.getNotes());
-        
+
         err.setOrg(org1);
         assertTrue(err.getOrg().equals(org1));
         err.setOrg(null);
         assertNull(err.getOrg());
-        
+
         err.setProduct(foo);
         assertTrue(err.getProduct().equals("foo"));
         err.setProduct(null);
         assertNull(err.getProduct());
-        
+
         err.setRefersTo(foo);
         assertTrue(err.getRefersTo().equals("foo"));
         err.setRefersTo(null);
         assertNull(err.getRefersTo());
-        
+
         err.setSolution(foo);
         assertTrue(err.getSolution().equals("foo"));
         err.setSolution(null);
         assertNull(err.getSolution());
-        
+
         err.setSynopsis(foo);
         assertTrue(err.getSynopsis().equals("foo"));
         err.setSynopsis(null);
         assertNull(err.getSynopsis());
-        
+
         err.setTopic(foo);
         assertTrue(err.getTopic().equals("foo"));
         err.setTopic(null);
         assertNull(err.getTopic());
-        
+
         err.setUpdateDate(now);
         assertTrue(err.getUpdateDate().equals(now));
         err.setUpdateDate(null);
         assertNull(err.getUpdateDate());
-        
+
         if (err.isPublished()) {
             err.addChannel(c1);
             assertEquals(1, err.getChannels().size());

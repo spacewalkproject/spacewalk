@@ -29,9 +29,9 @@ import java.io.BufferedWriter;
 import java.util.zip.GZIPOutputStream;
 
 /**
- * 
+ *
  * @version $Rev $
- * 
+ *
  */
 public class DebPackageWriter {
 

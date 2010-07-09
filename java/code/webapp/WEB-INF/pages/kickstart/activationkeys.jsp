@@ -7,8 +7,8 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstartdetails.jsp.header2"/></h2>
@@ -23,17 +23,17 @@
     <form method="post" name="rhn_list" action="/rhn/kickstart/ActivationKeysSubmit.do">
       <rhn:submitted />
       <rhn:list pageList="${requestScope.pageList}" noDataText="kickstart.activationkeys.jsp.nokeys">
-          
+
   <rhn:listdisplay   set="${requestScope.set}" hiddenvars="${requestScope.newset}">
-  		 
+
 	    <rhn:set value="${current.id}" />
         <rhn:column header="kickstart.activationkeys.jsp.description">
-			<rhn:require acl="user_role(activation_key_admin)">        
+			<rhn:require acl="user_role(activation_key_admin)">
             	<a href="/rhn/activationkeys/Edit.do?tid=${current.id}">${current.note}</a>
    			</rhn:require>
    			<rhn:require acl="not user_role(activation_key_admin)">
    				${current.note}
-   			</rhn:require>         
+			</rhn:require>
         </rhn:column>
         <rhn:column header="kickstart.activationkeys.jsp.key">
             ${current.token}
@@ -44,10 +44,10 @@
           </c:if>
           <c:if test="${current.usageLimit == null}">
             <bean:message key="kickstart.activationkeys.jsp.nousagelimit"/>
-          </c:if>          
+          </c:if>
         </rhn:column>
-        
-      </rhn:listdisplay>      
+
+      </rhn:listdisplay>
       </rhn:list>
 
   <p>

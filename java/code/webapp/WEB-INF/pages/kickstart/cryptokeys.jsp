@@ -7,8 +7,8 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-    definition="/WEB-INF/nav/kickstart_details.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+    definition="/WEB-INF/nav/kickstart_details.xml"
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstartdetails.jsp.header2"/></h2>
@@ -22,7 +22,7 @@
     <form method="post" name="rhn_list" action="/rhn/kickstart/KickstartCryptoKeysListSubmit.do">
       <rhn:submitted />
       <rhn:list pageList="${requestScope.pageList}" noDataText="kickstart.cryptokeys.jsp.nokeys">
-          
+
   <rhn:listdisplay   set="${requestScope.set}" hiddenvars="${requestScope.newset}">
     <rhn:set value="${current.id}" />
 
@@ -32,7 +32,7 @@
         <rhn:column header="kickstart.cryptokeys.jsp.key">
             ${current.label}
         </rhn:column>
-      </rhn:listdisplay>      
+      </rhn:listdisplay>
       </rhn:list>
 
 <hr />

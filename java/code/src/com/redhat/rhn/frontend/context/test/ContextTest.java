@@ -34,11 +34,11 @@ public class ContextTest extends RhnBaseTestCase {
         ctx.setLocale(Locale.US);
         TimeZone tz = TimeZone.getTimeZone("America/Los_Angeles");
         ctx.setTimezone(tz);
-        
+
         assertEquals(Context.getCurrentContext().getLocale(), Locale.US);
         assertEquals(Context.getCurrentContext().getTimezone(), tz);
     }
-    
+
     /**
     * Check to make sure we can support having NULL for a context
     */
@@ -48,5 +48,5 @@ public class ContextTest extends RhnBaseTestCase {
         int newHashcode = Context.getCurrentContext().hashCode();
         assertTrue(originalHashcode != newHashcode);
     }
-    
+
 }

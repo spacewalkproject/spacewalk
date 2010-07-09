@@ -52,14 +52,14 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * data contained within the
  * {@link com.redhat.rhn.common.db.datasource.DataResult DataResult}.
  * <p>
- * The UnpagedListTag has the following optional attributes: 
- * <code>filterBy</code> 
+ * The UnpagedListTag has the following optional attributes:
+ * <code>filterBy</code>
  * <code>renderDisabled</code>
  * <code>domainClass</code>
  * <code>title</code>
  * <code>type</code>
  * <code>transparent</code>
- * 
+ *
  * The <code>filterBy</code> attribute specifies the column name with which
  * to filter the data.
  * <p>
@@ -97,7 +97,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * @see com.redhat.rhn.frontend.taglibs.ListTag
  */
 public class UnpagedListDisplayTag extends BodyTagSupport {
-    
+
     /** iterates through the page list */
     private Iterator iterator;
     /** list of data to show on page */
@@ -143,7 +143,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     public void setRenderDisabled(String disabled) {
         renderDisabled = disabled.equals("true");
     }
-    
+
     /**
      * Set the header of the filter on which to filter
      * @param filterByIn The filterBy to set.
@@ -151,7 +151,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     public void setFilterBy(String filterByIn) {
         this.filterBy = filterByIn;
     }
-    
+
     /**
      * Returns the title message key.
      * @return Returns the title.
@@ -167,8 +167,8 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     public void setTitle(String titleIn) {
         title = titleIn;
     }
-    
-    
+
+
     /**
      * Sets the type of the list
      * @param stringIn desired alignment for the list
@@ -176,7 +176,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     public void setType(String stringIn) {
         type = stringIn;
     }
-    
+
     /**
      * Gets the type of the list
      * @return String alignment of the list
@@ -184,7 +184,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     public String getType() {
         return type;
     }
-    
+
     /**
      * @return returns whether or not the table is transparent
      */
@@ -200,17 +200,17 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     }
     private void doSort(String sortedColumn) {
         HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-        Collections.sort(pageList, new DynamicComparator(sortedColumn, 
+        Collections.sort(pageList, new DynamicComparator(sortedColumn,
                 request.getParameter(RequestContext.SORT_ORDER)));
     }
-    
+
     /**
      * @return Returns the hiddenvars.
      */
     public String getHiddenvars() {
         return hiddenvars;
     }
-    
+
     /**
      * @param hv The hiddenvars to set.
      */
@@ -221,20 +221,20 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     private String getSortedColumn() {
         HttpServletRequest request =
             (HttpServletRequest) pageContext.getRequest();
-        return request.getParameter(RequestContext.LIST_SORT);        
+        return request.getParameter(RequestContext.LIST_SORT);
     }
 
     private void setupPageList() throws JspTagException {
         ListTag listTag = (ListTag) findAncestorWithClass(this, ListTag.class);
         if (listTag == null) {
-            throw new JspTagException("Tag nesting error: " + 
+            throw new JspTagException("Tag nesting error: " +
                     "listDisplay must be nested in a list tag");
         }
         pageList = listTag.getPageList();
         iterator = pageList.iterator();
         currRow = 0;
     }
-    
+
     /**
      * Method to fetch a new ExportWriter instance.  Override
      * if desired to use different instance.  Currently creates
@@ -244,7 +244,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     protected ExportWriter createExportWriter() {
         return new CSVWriter(new StringWriter());
     }
-    
+
     /**
      * Increment the column # that is being rendered at this moment.
      **/
@@ -299,7 +299,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     //////////////////////////////////////////////////////////////////////////
     // RENDER methods
     //////////////////////////////////////////////////////////////////////////
-    
+
     /**
      * Renders the title header if set.
      * @param out JspWriter
@@ -314,9 +314,9 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
             out.println(tr.render());
         }
     }
-    
+
     private void renderFilterBox(JspWriter out) throws IOException {
-        LocalizationService ls = LocalizationService.getInstance();        
+        LocalizationService ls = LocalizationService.getInstance();
         HtmlTag tag = new HtmlTag("div");
         tag.setAttribute("class", "filter-input");
 
@@ -327,27 +327,27 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
         input.setAttribute("name", RequestContext.FILTER_STRING);
         input.setAttribute("value", pageList.getFilterData());
         buf.append(input.render());
-        
+
         input = new HtmlTag("input");
         input.setAttribute("type", "hidden");
         input.setAttribute("name", "prev_filter_value");
         input.setAttribute("value", pageList.getFilterData());
         buf.append(input.render());
-        
+
         input = new HtmlTag("input");
         input.setAttribute("type", "submit");
-        input.setAttribute("name", ListDisplayTag.FILTER_DISPATCH);        
+        input.setAttribute("name", ListDisplayTag.FILTER_DISPATCH);
         input.setAttribute("value", ls.getMessage(RequestContext.FILTER_KEY));
         buf.append(input.render());
-        
-        /* 
+
+        /*
          * TODO: This is BAD. Makes the code specific to the Chanel Tree view
          * Should be fixed in future versions
          */
         tag.addBody(ls.getMessage("message.filterby", ls.getMessage(filterBy)) +
                     buf.toString());
-        
-        
+
+
         if (type.equals("treeview")) {
             tag.addBody("<div style=\"text-align: right;\">" +
                     "<a href=\"javascript:showAllRows();\" style=\"cursor: pointer;\">" +
@@ -357,18 +357,18 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
                     ls.getMessage("channels.overview.hideall") + "</a></div>");
         }
 
-        
-        out.println(tag.render());        
+
+        out.println(tag.render());
     }
 
     private String getTrElement(Object o, int row) {
-        
+
         if (!(o instanceof BaseListDto &&
            !((BaseListDto)o).changeRowColor())) {
             rowCnt++;
             rowCnt = rowCnt % 2;
         }
-        
+
         StringBuffer retval;
         if (rowCnt == 1 || isTransparent()) {
             retval = new StringBuffer("<tr class=\"list-row-odd");
@@ -376,32 +376,32 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
         else {
             retval = new StringBuffer("<tr class=\"list-row-even");
         }
-        
-        if (renderDisabled() && o instanceof UserOverview && 
+
+        if (renderDisabled() && o instanceof UserOverview &&
                 ((UserOverview)o).getStatus().equals("disabled")) {
                 return retval.append("-disabled>").toString();
         }
-        
+
         if ((o instanceof BaseListDto &&
                 ((BaseListDto)o).greyOutRow())) {
                 retval = retval.append(" greyed-out");
             }
-        
+
         if ((o instanceof BaseListDto)) {
             nodeIdString = ((BaseListDto)o).getNodeIdString();
             retval = retval.append("\" id=\"" + createIdString(nodeIdString));
-            
+
             if (getType().equals("treeview") && isChild(nodeIdString)) {
                 retval.append("\" style=\"display: none;");
             }
         }
-        return retval.append("\">").toString();                
+        return retval.append("\">").toString();
     }
 
     /**
      * Creates the id-string for a given tree-node.  For parents, it's id####.
      * For children, it's child-id####
-     * 
+     *
      * @param nId the node's id-string
      * @return tr/td id-string
      */
@@ -409,14 +409,14 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
         StringBuffer retval = new StringBuffer();
         if (isParent(nId)) {
             retval.append("id" + nId.substring(1));
-            
+
         }
         else if (isChild(nId)) {
             retval.append("child-id" + nId.substring(1) + "-" + currRow);
         }
         return retval.toString();
     }
-    
+
     /**
      * Returns true if the node-id-string represent a parent-node
      * @param s string of interest
@@ -442,7 +442,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     public boolean isExport() {
         RequestContext ctx = new RequestContext((HttpServletRequest)
                 pageContext.getRequest());
-        return (ctx.isRequestedExport() && this.exportColumns != null); 
+        return (ctx.isRequestedExport() && this.exportColumns != null);
     }
 
     /**
@@ -458,27 +458,27 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
     public void setExportColumns(String exportIn) {
         this.exportColumns = exportIn;
     }
-    
+
 
     //////////////////////////////////////////////////////////////////////////
     // JSP Tag lifecycle methods
     //////////////////////////////////////////////////////////////////////////
-    
+
     /** {@inheritDoc} */
     public int doStartTag() throws JspException {
         rowCnt = 0;
         JspWriter out = null;
-        
+
         try {
             out = pageContext.getOut();
             setupPageList();
 
-            // Now that we have setup the proper tag state we 
+            // Now that we have setup the proper tag state we
             // need to return if this is an export render.
             if (isExport()) {
                 return SKIP_PAGE;
             }
-            
+
             String sortedColumn = getSortedColumn();
             if (sortedColumn != null) {
                 doSort(sortedColumn);
@@ -487,17 +487,17 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
             if (pageList.hasFilter()) {
                 renderFilterBox(out);
             }
-            
+
             /* If the type is list, we must set the width explicitly. Otherwise,
              * it shouldn't matter
              */
             if (type.equals("list")) {
                 out.print("<table width=\"100%\" cellspacing=\"0\"" +
-                        " cellpadding=\"0\" " + "class=\"list\"");               
+                        " cellpadding=\"0\" " + "class=\"list\"");
             }
             else if (type.equals("treeview")) {
                 out.print("<table width=\"100%\" cellspacing=\"0\"" +
-                        " cellpadding=\"0\" " + "class=\"list\" id=\"channel-list\""); 
+                        " cellpadding=\"0\" " + "class=\"list\" id=\"channel-list\"");
             }
             else {
                 out.print("<table cellspacing=\"0\" " + " cellpadding=\"0\" " +
@@ -507,15 +507,15 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
             /*if (isTransparent()) {
                 out.print(" style=\"border-bottom: 1px solid #ffffff;\" ");
             }*/
-            
-            
+
+
             out.println(">");
-            
+
             out.println("<thead>");
             renderTitle(out);
-            
+
             out.println("\n<tr>");
-            
+
             if (iterator != null && iterator.hasNext()) {
                 // Push a new BodyContent writer onto the stack so that
                 // we can buffer the body data.
@@ -528,7 +528,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
             throw new JspException("IO error writing to JSP file:", ioe);
         }
     }
-    
+
     /** {@inheritDoc} */
     public int doEndTag() throws JspException {
         JspWriter out = null;
@@ -556,7 +556,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
             BodyContent body = getBodyContent();
             pageContext.popBody();
             out = pageContext.getOut();
-            
+
             if (body != null) {
                 String bodyString = body.getString();
                 out.println(bodyString);
@@ -578,7 +578,7 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
 
         return EVAL_PAGE;
     }
-    
+
     /** {@inheritDoc} */
     public int doAfterBody() throws JspException {
         JspWriter out = null;
@@ -605,8 +605,8 @@ public class UnpagedListDisplayTag extends BodyTagSupport {
         catch (IOException e) {
             throw new JspException("Error while writing to JSP: " +
                                    e.getMessage());
-        }        
-        
+        }
+
         return SKIP_BODY;
     }
 

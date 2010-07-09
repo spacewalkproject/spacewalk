@@ -10,7 +10,7 @@
         FROM all_catalog c
        WHERE owner=:user_name
          AND table_type='TABLE'
-       GROUP BY owner 
+       GROUP BY owner
   </elaborator>
 </mode>
 
@@ -25,7 +25,7 @@
        WHERE owner=:user_name
          AND owner IN (%s)
          AND table_type='TABLE'
-       GROUP BY owner 
+       GROUP BY owner
   </elaborator>
 </mode>
 
@@ -92,7 +92,7 @@
 </mode>
 
 <mode name="all_tables_with_sort">
-  <query params="" sort="table_name,owner" defaultsort="table_name" 
+  <query params="" sort="table_name,owner" defaultsort="table_name"
          sortorder="asc">
       SELECT t.table_name, t.owner
         FROM all_tables t
@@ -109,7 +109,7 @@
 
 <write-mode name="update_group_type">
     <query params="type_id, sgid">
-update rhnServerGroup set group_type = :type_id where id = :sgid 
+update rhnServerGroup set group_type = :type_id where id = :sgid
     </query>
 </write-mode>
 
@@ -132,7 +132,7 @@ update rhnServerGroup set group_type = :type_id where id = :sgid
 </mode>
 
 
-<mode name="find_in_table" 
+<mode name="find_in_table"
 		class="com.redhat.rhn.common.db.datasource.test.AdvDataSourceDto">
   <query params="foobar">
     SELECT foobar, id
@@ -145,7 +145,7 @@ update rhnServerGroup set group_type = :type_id where id = :sgid
 <query name="adv_elab" params="">
 	select id,foobar, test_column, pin
 		from adv_datasource
-			where id in (%s) 
+			where id in (%s)
 </query>
 
 <write-mode name="insert_into_table">
@@ -158,7 +158,7 @@ update rhnServerGroup set group_type = :type_id where id = :sgid
 <write-mode name="update_in_table">
   <query params="foobar, id">
     UPDATE adv_datasource
-       SET foobar = :foobar  
+       SET foobar = :foobar
      WHERE id = :id
   </query>
 </write-mode>
@@ -182,7 +182,7 @@ SELECT u.username as USERNAME, u.user_id as USER_ID, u.created as CREATED
  WHERE u.username='SYS'
   </query>
 </mode>
-    
+
 <mode name="date_dto_test" class="com.redhat.rhn.common.db.datasource.test.TestDateDto">
   <query>
 SELECT u.created as CREATED
@@ -190,7 +190,7 @@ SELECT u.created as CREATED
  WHERE u.username='SYS'
   </query>
 </mode>
-    
+
 
 <!-- Test to benchmark datasource vs hibernate -->
 <mode name="withClass" class="com.redhat.rhn.common.db.datasource.test.TableData">
@@ -218,7 +218,7 @@ SELECT u.created as CREATED
         FROM all_catalog c
        WHERE owner=:username
          AND table_type='TABLE'
-       GROUP BY owner 
+       GROUP BY owner
   </elaborator>
 </mode>
 
@@ -235,7 +235,7 @@ SELECT u.created as CREATED
         FROM all_catalog c
        WHERE owner=:user_name
          AND table_type='TABLE'
-       GROUP BY owner 
+       GROUP BY owner
 </query>
 
 <write-mode name="insert_into_rhnServerPath">
@@ -261,11 +261,11 @@ SELECT u.created as CREATED
 
 <write-mode name="insert_into_rhnPackageProvides">
   <query params="pkg_id, capability_id, sense_id">
-    INSERT INTO rhnPackageProvides(PACKAGE_ID, CAPABILITY_ID, SENSE) 
+    INSERT INTO rhnPackageProvides(PACKAGE_ID, CAPABILITY_ID, SENSE)
       VALUES(:pkg_id, :capability_id, :sense_id)
   </query>
 </write-mode>
-    
+
 <write-mode name="insert_into_rhnChannelPackage">
   <query params="channel_id, packge_id">
     INSERT INTO rhnChannelPackage(CHANNEL_ID, PACKAGE_ID)
@@ -275,14 +275,14 @@ SELECT u.created as CREATED
 
 <write-mode name="insert_into_time_series">
   <query params="oid, entry_time, data">
-  INSERT INTO TIME_SERIES(O_ID, ENTRY_TIME, DATA) 
+  INSERT INTO TIME_SERIES(O_ID, ENTRY_TIME, DATA)
       VALUES(:oid, :entry_time, :data)
   </query>
 </write-mode>
 
 <write-mode name="insert_into_state_change">
   <query params="oid, entry_time, data">
-  INSERT INTO STATE_CHANGE(O_ID, ENTRY_TIME, DATA) 
+  INSERT INTO STATE_CHANGE(O_ID, ENTRY_TIME, DATA)
       VALUES(:oid, :entry_time, :data)
   </query>
 </write-mode>
@@ -299,7 +299,7 @@ VALUES (:server_id,
         LOOKUP_EVR(:p_epoch, :p_version, :p_release))
   </query>
 </write-mode>
-    
+
 <write-mode name="insert_into_rhnServerPackage_with_arch">
   <query params="server_id, pn_id, evr_id, arch_id">
 INSERT
@@ -328,7 +328,7 @@ VALUES (:server_id,
         :evr_id)
   </query>
 </write-mode>
-    
+
 
 <mode name="scheduled_actions">
   <query params="user_id">
@@ -411,26 +411,26 @@ DELETE FROM rhnDailySummaryQueue
     <query params="days_to_add">
     update rhnDemoEntitlementStopDate set STOP_DATE = sysdate + :days_to_add   where id = 1
     </query>
-</write-mode>    
+</write-mode>
 
 <write-mode name="add_to_client_capabilities">
     <query params="sid, capability, version">
 insert into rhnClientCapability (server_id, capability_name_id, version)
 	 values (:sid, LOOKUP_CLIENT_CAPABILITY(:capability), :version)
     </query>
-</write-mode>    
+</write-mode>
 
 <write-mode name="update_group_type">
     <query params="type_id, sgid">
-update rhnServerGroup set group_type = :type_id where id = :sgid 
+update rhnServerGroup set group_type = :type_id where id = :sgid
     </query>
 </write-mode>
 
 <mode name="package_install_list">
     <query params="action_id">
-SELECT * from rhntransactionpackage where 
-  id in (select transaction_package_id from rhnPackageDeltaElement where PACKAGE_DELTA_ID = 
-  (select id from rhnPackageDelta where id = (select PACKAGE_DELTA_ID from rhnActionPackageDelta 
+SELECT * from rhntransactionpackage where
+  id in (select transaction_package_id from rhnPackageDeltaElement where PACKAGE_DELTA_ID =
+  (select id from rhnPackageDelta where id = (select PACKAGE_DELTA_ID from rhnActionPackageDelta
   where action_id = :action_id)))
     </query>
 </mode>
@@ -462,7 +462,7 @@ SELECT id from web_contact where UPPER(login) like 'TEST%'
 
 <mode name="get_test_channels">
     <query params="">
-SELECT id from rhnChannel where UPPER(name) like 'CHANNELNAME%' or UPPER(label) like 'CHANNELLABEL%' 
+SELECT id from rhnChannel where UPPER(name) like 'CHANNELNAME%' or UPPER(label) like 'CHANNELLABEL%'
     </query>
 </mode>
 

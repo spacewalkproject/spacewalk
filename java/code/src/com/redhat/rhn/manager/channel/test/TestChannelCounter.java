@@ -24,7 +24,7 @@ public class TestChannelCounter extends ChannelEntitlementCounter {
 
     public TestChannelCounter() {
     }
-    
+
     /** Simulate no channel entitlements
      */
     public Long getAvailableEntitlements(Org orgIn, Channel channelIn) {

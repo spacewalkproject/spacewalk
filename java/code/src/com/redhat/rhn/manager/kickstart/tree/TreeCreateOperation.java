@@ -30,7 +30,7 @@ import java.util.Date;
 public class TreeCreateOperation extends BaseTreeEditOperation {
 
     /**
-     * Constructor 
+     * Constructor
      * @param userIn to associate
      */
     public TreeCreateOperation(User userIn) {
@@ -49,7 +49,7 @@ public class TreeCreateOperation extends BaseTreeEditOperation {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public ValidatorError store() {
@@ -59,7 +59,7 @@ public class TreeCreateOperation extends BaseTreeEditOperation {
             return new ValidatorError("distribution.tree.exists", tree.getLabel());
         }
         return super.store();
-        
+
     }
-    
+
 }

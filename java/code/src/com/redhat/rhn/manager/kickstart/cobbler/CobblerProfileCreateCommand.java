@@ -35,8 +35,8 @@ import java.util.Map;
 public class CobblerProfileCreateCommand extends CobblerProfileCommand {
 
     private static Logger log = Logger.getLogger(CobblerProfileCreateCommand.class);
-    
-    
+
+
     /**
      * Constructor
      * @param ksDataIn to sync
@@ -48,7 +48,7 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
 
     /**
      * Call this if you want to use the taskomatic_user.
-     * 
+     *
      * Useful for automated non-user initiated syncs
      * @param ksDataIn to sync
      */
@@ -63,14 +63,14 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
     public ValidatorError store() {
         CobblerConnection con = getCobblerConnection();
         Distro distro =  getDistroForKickstart();
-        
+
         if (distro == null) {
             return new ValidatorError("kickstart.cobbler.profile.invalidvirt");
         }
-        
+
         Profile prof = Profile.create(con, CobblerCommand.makeCobblerName(this.ksData),
                 distro);
-        
+
         Map<String, String> meta = new HashMap<String, String>();
         meta.put("org", ksData.getOrg().getId().toString());
         prof.setKsMeta(meta);
@@ -79,9 +79,9 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         prof.setVirtCpus(ConfigDefaults.get().getDefaultVirtCpus());
         prof.setVirtRam(ConfigDefaults.get().getDefaultVirtMemorySize());
         prof.setVirtFileSize(ConfigDefaults.get().getDefaultVirtDiskSize());
-        prof.setKickstart(this.ksData.getCobblerFileName());    
+        prof.setKickstart(this.ksData.getCobblerFileName());
         prof.save();
-                
+
         updateCobblerFields(prof);
 
         invokeCobblerUpdate();

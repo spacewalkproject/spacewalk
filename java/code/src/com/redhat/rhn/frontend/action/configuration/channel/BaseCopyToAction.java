@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * BaseCopyToAction
- * 
+ *
  * Copying, whether to local or global channels, looks pretty much the same.
  * This class handles all the common code
  * @version $Rev$
@@ -56,26 +56,26 @@ public abstract class BaseCopyToAction extends RhnAction {
      * On dispatch, do the copy - otherwise, we're just displaying/handling set updates
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, 
-            ActionForm form, 
-            HttpServletRequest req, 
+    public ActionForward execute(ActionMapping mapping,
+            ActionForm form,
+            HttpServletRequest req,
             HttpServletResponse resp) throws Exception {
-        
+
         RequestContext ctx = new RequestContext(req);
         User user = ctx.getLoggedInUser();
         //if its not submitted
         // ==> this is the first visit to this page
-        // clear the 'dirty set'        
+        // clear the 'dirty set'
         if (req.getParameter(SUBMITTED) == null) {
             RhnSet set = getSetDecl().get(user);
             set.clear();
             RhnSetManager.store(set);
-        }        
-        
+        }
+
         // If the page is dispatched - do the copy and report back
         if (req.getParameter(RequestContext.DISPATCH) != null) {
-            
-            return doCopy(mapping, req, user);            
+
+            return doCopy(mapping, req, user);
         }
         else { // not dispatched
             return doDisplay(mapping, req, user);
@@ -83,23 +83,23 @@ public abstract class BaseCopyToAction extends RhnAction {
     }
 
     protected ActionForward doDisplay(ActionMapping mapping,
-                                            HttpServletRequest req, 
+                                            HttpServletRequest req,
                                               User user) {
         RhnListSetHelper helper = new RhnListSetHelper(req);
         setupRequest(req);
         List result = getData(req);
-        
+
         if (ListTagHelper.getListAction(getJspLabel(), req) != null) {
             helper.execute(getSetDecl().get(user), getJspLabel(), result);
         }
-        
+
         req.setAttribute("pageList", result);
 
-        
+
         RhnSet destSet = getSetDecl().lookup(user);
         if (destSet != null && !destSet.isEmpty()) {
             helper.syncSelections(destSet, result);
-            ListTagHelper.setSelectedAmount(getJspLabel(), destSet.size(), req);            
+            ListTagHelper.setSelectedAmount(getJspLabel(), destSet.size(), req);
         }
         return mapping.findForward("default");
     }
@@ -108,10 +108,10 @@ public abstract class BaseCopyToAction extends RhnAction {
         RequestContext ctx = new RequestContext(req);
         ConfigChannel cc = ConfigActionHelper.getChannel(req);
         ConfigActionHelper.setupRequestAttributes(ctx, cc);
-        req.setAttribute("parentUrl",  req.getRequestURI() + "?ccid=" + cc.getId());        
+        req.setAttribute("parentUrl",  req.getRequestURI() + "?ccid=" + cc.getId());
     }
-    
-    protected ActionForward doCopy(ActionMapping mapping, 
+
+    protected ActionForward doCopy(ActionMapping mapping,
                             HttpServletRequest req, User user) {
         RhnListSetHelper helper = new RhnListSetHelper(req);
         ConfigurationManager cm = ConfigurationManager.getInstance();
@@ -122,14 +122,14 @@ public abstract class BaseCopyToAction extends RhnAction {
             return doDisplay(mapping, req, user);
         }
         Set destSet = set.getElements();
-        RhnSet fileSet = getFileSetDecl().lookup(user); 
-        
+        RhnSet fileSet = getFileSetDecl().lookup(user);
+
         if (fileSet == null || fileSet.isEmpty()) {
             RhnHelper.handleEmptySelection(req);
             return doDisplay(mapping, req, user);
         }
         Set files = fileSet.getElements();
-        
+
         // for each destination
         //   find the dest-channel
         //   for each file
@@ -145,12 +145,12 @@ public abstract class BaseCopyToAction extends RhnAction {
                 cm.copyConfigFile(cr, cc, user);
             }
         }
-        
+
         ActionMessages msg = new ActionMessages();
         Object[] args = new Object[2];
         args[0] = "" + files.size();
         args[1] = "" + destSet.size();
-        msg.add(ActionMessages.GLOBAL_MESSAGE, 
+        msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage(getSuccessKey(files.size(), destSet.size()), args));
         saveMessages(req, msg);
 
@@ -158,36 +158,36 @@ public abstract class BaseCopyToAction extends RhnAction {
         getSetDecl().clear(user);
         return mapping.findForward("success");
     }
-    
+
     /**
      * returns the set that stores the original config files
      * that are to be copied.
      * @return RhnSetDecl of the appropriate Config Files
      */
     protected RhnSetDecl getFileSetDecl() {
-        return RhnSetDecl.CONFIG_FILES; 
+        return RhnSetDecl.CONFIG_FILES;
     }
-    
-    
+
+
     /**
      * What set should we be using?
      * @return RhnSetDecl of the appropriate CONFIG_CHANNEL* set
      */
     public abstract RhnSetDecl getSetDecl();
-    
+
     /**
      * What data set are we showing?
      * @param req incoming HttpServletRequest
      * @return List of Dtos to drive the JSP list
      */
     public abstract List getData(HttpServletRequest req);
-    
+
     /**
      * What does the JSP expect the list-set to be called?
      * @return label used in the JSP
      */
     public abstract String getJspLabel();
-    
+
     /**
      * When we tell the user things worked, what's the bean-key?
      * @param numFiles TODO
@@ -195,7 +195,7 @@ public abstract class BaseCopyToAction extends RhnAction {
      * @return key into I18N system
      */
     public abstract String getSuccessKey(int numFiles, int numChannels);
-    
+
     /**
      * Where are we copying to?
      * Based on an Id, return a channel - what the "id" means is determined by the subclass,

@@ -35,24 +35,24 @@ public class KickstartSessionHistory {
     private Date time;
     private Date created;
     private Date modified;
-    
-    /** 
-     * Getter for id 
+
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
+    /**
      * Getter for session
      * @return KickstartSession to get
     */
@@ -60,104 +60,104 @@ public class KickstartSessionHistory {
         return this.session;
     }
 
-    /** 
-     * Setter for session 
+    /**
+     * Setter for session
      * @param sessionIn to set
     */
     public void setSession(KickstartSession sessionIn) {
         this.session = sessionIn;
     }
 
-    /** 
-     * Getter for action 
+    /**
+     * Getter for action
      * @return Action to get
     */
     public Action getAction() {
         return this.action;
     }
 
-    /** 
-     * Setter for action 
+    /**
+     * Setter for action
      * @param actionIn to set
     */
     public void setAction(Action actionIn) {
         this.action = actionIn;
     }
 
-    /** 
-     * Getter for state 
+    /**
+     * Getter for state
      * @return KickstartSessionState to get
     */
     public KickstartSessionState getState() {
         return this.state;
     }
 
-    /** 
-     * Setter for state 
+    /**
+     * Setter for state
      * @param stateIn to set
     */
     public void setState(KickstartSessionState stateIn) {
         this.state = stateIn;
     }
 
-    /** 
-     * Getter for time 
+    /**
+     * Getter for time
      * @return Date to get
     */
     public Date getTime() {
         return this.time;
     }
 
-    /** 
-     * Setter for time 
+    /**
+     * Setter for time
      * @param timeIn to set
     */
     public void setTime(Date timeIn) {
         this.time = timeIn;
     }
 
-    /** 
-     * Getter for created 
+    /**
+     * Getter for created
      * @return Date to get
     */
     public Date getCreated() {
         return this.created;
     }
 
-    /** 
-     * Setter for created 
+    /**
+     * Setter for created
      * @param createdIn to set
     */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
 
-    /** 
-     * Getter for modified 
+    /**
+     * Getter for modified
      * @return Date to get
     */
     public Date getModified() {
         return this.modified;
     }
 
-    /** 
-     * Setter for modified 
+    /**
+     * Setter for modified
      * @param modifiedIn to set
     */
     public void setModified(Date modifiedIn) {
         this.modified = modifiedIn;
     }
 
-    /** 
-     * Getter for message 
+    /**
+     * Getter for message
      * @return String to get
     */
     public String getMessage() {
         return this.message;
     }
 
-    /** 
-     * Setter for message 
+    /**
+     * Setter for message
      * @param messageIn to set
     */
     public void setMessage(String messageIn) {

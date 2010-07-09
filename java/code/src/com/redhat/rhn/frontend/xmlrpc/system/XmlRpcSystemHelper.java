@@ -27,64 +27,64 @@ import java.util.Map;
 
 /**
  * XmlRpcSystemHelper
- * Helper methods specific to the xml-rpc stack. This class should not be used outside of 
+ * Helper methods specific to the xml-rpc stack. This class should not be used outside of
  * the xml-rpc domain as it throws Xml-Rpc specific FaultExceptions.
  * @version $Rev$
  */
 public class XmlRpcSystemHelper {
-    
+
     // private instance
     private static XmlRpcSystemHelper helper = new XmlRpcSystemHelper();
-    
+
     // private constructor
     private XmlRpcSystemHelper() {
     }
-    
+
     /**
      * @return Returns the running instance of this helper class
      */
     public static XmlRpcSystemHelper getInstance() {
         return helper;
     }
-    
+
     /**
      * Helper method to lookup a server from an sid, and throws a FaultException
      * if the server cannot be found.
      * @param user The user looking up the server
      * @param sid The id of the server we're looking for
      * @return Returns the server corresponding to sid
-     * @throws NoSuchSystemException A NoSuchSystemException is thrown if the server 
+     * @throws NoSuchSystemException A NoSuchSystemException is thrown if the server
      * corresponding to sid cannot be found.
      */
     public Server lookupServer(User user, Number sid) throws NoSuchSystemException {
         Long serverId = new Long(sid.longValue());
-        
+
         try {
             Server server = SystemManager.lookupByIdAndUser(serverId, user);
-        
+
             // throw a no_such_system exception if the server was not found.
             if (server == null) {
                 throw new NoSuchSystemException("No such system - sid = " + sid);
             }
-            
+
             return server;
         }
         catch (LookupException e) {
             throw new NoSuchSystemException("No such system - sid = " + sid);
         }
     }
-    
+
     /**
-     * Helper method to lookup a bunch of servers from a list of  server ids, 
+     * Helper method to lookup a bunch of servers from a list of  server ids,
      * and throws a FaultException
      * if the server cannot be found.
      * @param user The user looking up the server
      * @param serverIds The ids of the servers we're looking for
      * @return Returns a list of server corresponding to provided server id
-     * @throws NoSuchSystemException A NoSuchSystemException is thrown if the server 
+     * @throws NoSuchSystemException A NoSuchSystemException is thrown if the server
      * corresponding to sid cannot be found.
      */
-    public List<Server> lookupServers(User user, 
+    public List<Server> lookupServers(User user,
                 List< ? extends Number> serverIds)  throws NoSuchSystemException {
         List<Server> servers = new LinkedList<Server>();
         for (Number sid : serverIds) {
@@ -92,11 +92,11 @@ public class XmlRpcSystemHelper {
         }
         return servers;
     }
-    
-    
+
+
     /**
-     * Basically creates a Minimalist representation of a 
-     * server object.. This is what will be retuned 
+     * Basically creates a Minimalist representation of a
+     * server object.. This is what will be retuned
      * in most cases when some one requests a server..
      * @param server server to format
      * @return a Map with just enough info to get details on a server

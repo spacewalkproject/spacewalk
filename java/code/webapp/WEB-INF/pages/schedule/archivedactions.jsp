@@ -20,7 +20,7 @@
     <bean:message key="archivedactions.jsp.summary"/>
     </p>
   </div>
-  
+
   <br/>
 
 	<rl:listset name="failedList">
@@ -108,6 +108,6 @@
 	</rl:listset>
 
 
-  
+
 </body>
 </html>

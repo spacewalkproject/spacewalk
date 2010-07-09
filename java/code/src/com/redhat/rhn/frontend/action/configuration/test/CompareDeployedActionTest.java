@@ -28,22 +28,22 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev$
  */
 public class CompareDeployedActionTest extends RhnMockStrutsTestCase {
-    
+
     public void testExecute() throws Exception {
         //Make the user a config admin
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
-        
-        
+
+
         //Create the revision to copy
         ConfigRevision revision = ConfigTestUtils.createConfigRevision(user.getOrg());
         Long cfid = revision.getConfigFile().getId();
         Long crid = revision.getId();
-        
+
         //Create a system to appear in the list.
         ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
-        
+
         setRequestPathInfo("/configuration/file/CompareDeployed");
         addRequestParameter("cfid", cfid.toString());
         addRequestParameter("crid", crid.toString());

@@ -22,9 +22,9 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * 
+ *
  * @version $Rev $
- * 
+ *
  */
 public class RepomdIndexWriter {
 
@@ -37,7 +37,7 @@ public class RepomdIndexWriter {
     private RepomdIndexData group;
 
     /**
-     * 
+     *
      * @param writerIn content writer
      * @param primaryIn primary.xml data
      * @param filelistsIn filelists.xml data

@@ -1228,7 +1228,7 @@ available for this kickstart profile to function properly.
 &lt;/li&gt;
 &lt;li&gt;
 অনুগ্রহ করে নিশ্চিত করুন চিহ্নিত kickstart প্রোফাইলের বেস চ্যানেলের জন্য 'rhn-tools' চাইল্ড
-চ্যানেল আপনার @@PRODUCT_NAME@@-র মধ্যে উপলব্ধ রয়েছে। উপলব্ধ না হলে, অনুগ্রহ করে 
+চ্যানেল আপনার @@PRODUCT_NAME@@-র মধ্যে উপলব্ধ রয়েছে। উপলব্ধ না হলে, অনুগ্রহ করে
 @@PRODUCT_NAME@@ অ্যাডমিনিস্ট্রেটরের সাথে যোগাযোগ করে rhn-tools চ্যানেলের জন্য satellite-sync-র অনুরোধ জানান
 ও পুনরায় প্রচেষ্টা করুন।
 &lt;/li&gt;
@@ -5238,36 +5238,36 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to 
-syncronize kickstart distributions from Spacewalk to Cobbler.  These 
-errors must be corrected for the distributions to be available for 
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
 kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-Spacewalk থেকে Cobbler-র মধ্যে kickstart ডিস্ট্রিবিউশন সুসংগত 
-করার সময় Spacewalk দ্বারা নিম্নলিখিত ত্রুটিগুলি সংগ্রহ করা হয়।  সিস্টেম kickstart করার 
-উদ্দেশ্যে ডিস্ট্রিবিউশনগুলি উপলব্ধ করার জন্য এই ত্রুটিগুলি সংশোধন করা 
+Spacewalk থেকে Cobbler-র মধ্যে kickstart ডিস্ট্রিবিউশন সুসংগত
+করার সময় Spacewalk দ্বারা নিম্নলিখিত ত্রুটিগুলি সংগ্রহ করা হয়।  সিস্টেম kickstart করার
+উদ্দেশ্যে ডিস্ট্রিবিউশনগুলি উপলব্ধ করার জন্য এই ত্রুটিগুলি সংশোধন করা
 আবশ্যক:
 
 {0}
 
 ত্রুটির বিবরণ জানার জন্য অনুগ্রহ করে নিম্নলিখিত ফাইলগুলি পরীক্ষা করুন:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
-এই ত্রুটিগুলির মীমাংসা না করা হলে, kickstart করার জন্য 
+এই ত্রুটিগুলির মীমাংসা না করা হলে, kickstart করার জন্য
 এই kickstart-ট্রি উপলব্ধ করা হবে না।</target>
 			</trans-unit>
 			<trans-unit id="errata.delete.msg">

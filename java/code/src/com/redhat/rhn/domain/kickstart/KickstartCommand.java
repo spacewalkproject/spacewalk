@@ -31,28 +31,28 @@ public class KickstartCommand implements Comparable {
     private KickstartCommandName commandName;
     private KickstartData kickstartData;
     private Integer customPosition;
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getArguments() {
         return arguments;
     }
-    
+
     /**
      * @param argsIn The arguments to set.
      */
@@ -113,25 +113,25 @@ public class KickstartCommand implements Comparable {
     public void setCommandName(KickstartCommandName commandNameIn) {
         this.commandName = commandNameIn;
     }
-    
+
     /**
-     * 
+     *
      * @param kc KickstartCommand to compare
      * @return how does it stack up!
-     */    
+     */
     public int compareTo(Object kc) {
         if (kc == this) {
             return 0;
         }
         KickstartCommand k = (KickstartCommand)kc;
         int order = getCommandName().getOrder().compareTo(k.getCommandName().getOrder());
-        
+
         if (order == 0) {
             String ourArgs = StringUtils.defaultString(getArguments(), "");
             String theirArgs = StringUtils.defaultString(k.getArguments(), "");
             order = ourArgs.compareTo(theirArgs);
         }
-        
+
         return order;
     }
 
@@ -151,12 +151,12 @@ public class KickstartCommand implements Comparable {
         return cloned;
     }
 
-    
+
     /**
      * {@inheritDoc}
      */
     public String toString() {
-            return this.getClass().getName() + " name: " + 
+            return this.getClass().getName() + " name: " +
                 this.getCommandName().getName() + " arguments " + getArguments();
      }
 
@@ -169,7 +169,7 @@ public class KickstartCommand implements Comparable {
     }
 
     /**
-     * sets the custom command position.  This is ignored by KickstartCommandComparator 
+     * sets the custom command position.  This is ignored by KickstartCommandComparator
      *          if id is not null
      * @param customPositionIn the position to set the custom option for
      */

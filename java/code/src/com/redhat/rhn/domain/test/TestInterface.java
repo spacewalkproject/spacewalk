@@ -14,7 +14,7 @@
  */
 
 package com.redhat.rhn.domain.test;
-                                                                                
+
 import java.util.Date;
 
 /**

@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * 
+ *
  * KickstartFileSyncTask
  *   Syncs kickstart profiles that were generated using the wizard.
  *   If the file does not exist on the file system, it re-generates the kickstart
@@ -39,34 +39,34 @@ import java.util.concurrent.atomic.AtomicLong;
  * @version $Rev$
  */
 public class KickstartFileSyncTask extends SingleThreadedTestableTask {
-    
+
     private static final AtomicLong LAST_UPDATED = new AtomicLong();
     private long WARN_COUNT;
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "sync_from_cobbler";
 
     private static Logger log = Logger.getLogger(KickstartFileSyncTask.class);
-    
+
     /**
      * Default constructor
      */
     public KickstartFileSyncTask() {
         WARN_COUNT = 0;
     }
- 
+
     /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext ctxIn, boolean testContextIn)
         throws JobExecutionException {
-        
-        
+
+
         CobblerConnection cc = CobblerXMLRPCHelper.getConnection(
                 Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER));
-        
+
         List<KickstartData> kickstarts = KickstartFactory.listAllKickstartData();
         for (KickstartData ks : kickstarts) {
             //If this is a wizard profile
@@ -76,13 +76,13 @@ public class KickstartFileSyncTask extends SingleThreadedTestableTask {
                     String file = p.getKickstart();
                     if (file != null && !(new File(file)).exists()) {
                         KickstartFactory.saveKickstartData(ks);
-                    }                    
+                    }
                 }
             }
         }
-       
+
     }
-    
-    
+
+
 
 }

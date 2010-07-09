@@ -27,7 +27,7 @@ import org.hibernate.HibernateException;
 public class ModifyFilterCommandTest extends BaseTestCaseWithUser {
 
     private ModifyFilterCommand cmd;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         makeCommand();
@@ -37,16 +37,16 @@ public class ModifyFilterCommandTest extends BaseTestCaseWithUser {
         cmd = null;
         super.tearDown();
     }
-    
+
     public void testStartEndDate() {
         assertTrue(cmd.getFilter().getExpiration().after(
                 cmd.getFilter().getStartDate()));
     }
-    
+
     public void testAllProbeStates() throws HibernateException {
         cmd.updateStates(MonitoringConstants.PROBE_STATES);
         cmd.storeFilter();
-        
+
         Filter filter = (Filter) reload(cmd.getFilter());
         int criteria = 0;
         if (filter.getCriteria() != null) {
@@ -54,7 +54,7 @@ public class ModifyFilterCommandTest extends BaseTestCaseWithUser {
         }
         assertEquals(0, criteria);
     }
-    
+
     public void testRegexMatch() throws HibernateException {
         checkMatch("[a-z]", Boolean.TRUE, MatchType.REGEX_CASE);
         makeCommand();
@@ -68,8 +68,8 @@ public class ModifyFilterCommandTest extends BaseTestCaseWithUser {
         cmd.updateScope(MatchType.PROBE, new String[] { "0" });
         assertEquals(MatchType.PROBE.getScope(), cmd.getScope());
     }
-    
-    private void checkMatch(String re, Boolean matchCase, MatchType matchType) 
+
+    private void checkMatch(String re, Boolean matchCase, MatchType matchType)
       throws HibernateException {
         cmd.updateMatch(re, matchCase);
         cmd.storeFilter();

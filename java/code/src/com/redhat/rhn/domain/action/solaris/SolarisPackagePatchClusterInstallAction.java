@@ -17,7 +17,7 @@ package com.redhat.rhn.domain.action.solaris;
 import com.redhat.rhn.domain.action.Action;
 
 /**
- * SolarisPackagePatchClusterInstallAction - 
+ * SolarisPackagePatchClusterInstallAction -
  * Class representing TYPE_SOLARISPKGS_PATCHCLUSTERREMOVE
  * @version $Rev$
  */

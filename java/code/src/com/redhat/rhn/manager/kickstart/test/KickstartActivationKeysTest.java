@@ -39,13 +39,13 @@ public class KickstartActivationKeysTest extends BaseKickstartCommandTestCase {
     public void testActivationKeysForKickstart() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
 
-        String note = TestUtils.randomString() + 
+        String note = TestUtils.randomString() +
             " -- Java unit test activation key.";
-        
+
         ActivationKey key = ActivationKeyFactory.createNewKey(user, note);
         ActivationKeyFactory.save(key);
         key = (ActivationKey) reload(key);
-        
+
         DataResult dr = KickstartLister.getInstance()
             .getActivationKeysInOrg(ksdata.getOrg(), null);
         assertTrue(dr.size() > 0);
@@ -76,9 +76,9 @@ public class KickstartActivationKeysTest extends BaseKickstartCommandTestCase {
 
         user.addRole(RoleFactory.ORG_ADMIN);
 
-        String note = TestUtils.randomString() + 
+        String note = TestUtils.randomString() +
             " -- Java unit test activation key.";
-        
+
         ActivationKey key1 = ActivationKeyFactory.createNewKey(user, "first " + note);
         ActivationKey key2 = ActivationKeyFactory.createNewKey(user, "second " + note);
         ActivationKey key3 = ActivationKeyFactory.createNewKey(user, "third " + note);
@@ -150,7 +150,7 @@ public class KickstartActivationKeysTest extends BaseKickstartCommandTestCase {
         command.store();
 
         KickstartData ks =
-            KickstartFactory.lookupKickstartDataByIdAndOrg(user.getOrg(), 
+            KickstartFactory.lookupKickstartDataByIdAndOrg(user.getOrg(),
                     command.getKickstartData().getId());
 
         assertEquals(expectedCount, ks.getDefaultRegTokens().size());

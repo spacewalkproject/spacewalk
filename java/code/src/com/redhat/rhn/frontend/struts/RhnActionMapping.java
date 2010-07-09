@@ -32,21 +32,21 @@ public class RhnActionMapping extends ActionMapping {
     public String getMixins() {
         return mixins;
     }
-    
+
     /**
      * @param mixinsIn The mixins to set.
      */
     public void setMixins(String mixinsIn) {
         this.mixins = mixinsIn;
     }
-    
+
     /**
      * @return Returns the acls.
      */
     public String getAcls() {
         return acls;
     }
-    
+
     /**
      * Takes a comma delimited string and populates aclList
      * @param aclsIn The acls to set.

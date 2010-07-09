@@ -41,13 +41,13 @@ public class InvalidPackageArchException extends FaultException  {
      * Constructor
      * @param label the arch label
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public InvalidPackageArchException(String label, Throwable cause) {
         super(2301 , "invalidPackageArch" , LocalizationService.getInstance().
-                getMessage("api.package.invalidpackagearch", new Object [] {label}) 
+                getMessage("api.package.invalidpackagearch", new Object [] {label})
                 , cause);
         // begin member variable initialization
     }

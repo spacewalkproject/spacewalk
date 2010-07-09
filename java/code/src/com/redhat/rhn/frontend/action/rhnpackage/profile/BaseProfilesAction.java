@@ -46,7 +46,7 @@ public abstract class BaseProfilesAction extends RhnLookupDispatchAction {
         else {
             msg = new ActionMessages();
         }
-        
+
         if (params != null && !params.isEmpty()) {
             Object[] args = params.toArray();
             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(key, args));
@@ -54,16 +54,16 @@ public abstract class BaseProfilesAction extends RhnLookupDispatchAction {
         else {
             msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(key));
         }
-        
+
         getStrutsDelegate().saveMessages(req, msg);
     }
-    
+
     protected void addHardwareMessage(PackageAction pa, RequestContext rctx) {
         // If we scheduled a hardware refresh too
         if (pa != null && pa.getPrerequisite() != null) {
-            // NOTE: Hardware refresh has been scheduled for 
-            // cascade.sfbay.redhat.com to be run before the 
-            // package profile sync.  This is required to verify that the 
+            // NOTE: Hardware refresh has been scheduled for
+            // cascade.sfbay.redhat.com to be run before the
+            // package profile sync.  This is required to verify that the
             // system has the ability to compare packages.
             List hwargs = new ArrayList();
             hwargs.add(rctx.lookupAndBindServer().getId().toString());
@@ -73,7 +73,7 @@ public abstract class BaseProfilesAction extends RhnLookupDispatchAction {
         }
 
     }
-    
+
     protected void createMessage(HttpServletRequest req, String key) {
         createMessage(req, key, null);
     }

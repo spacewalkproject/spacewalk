@@ -26,7 +26,7 @@
       	
       	<rhn:column header="sdcconfigfiles.jsp.channel"
                   url="/rhn/configuration/ChannelOverview.do?ccid=${current.configChannelId}">
-          <c:choose>          
+          <c:choose>
             <c:when test="${current.configChannelType == 'normal'}">
               <img alt='<bean:message key="config.common.globalAlt" />'
     	           src="/img/rhn-listicon-channel.gif">

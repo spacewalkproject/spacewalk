@@ -25,11 +25,11 @@ import java.util.List;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
- * 
+ *
  * @version $Rev$
  */
 public class ScheduledAction extends BaseDto implements RowCallback {
-    
+
     /** Status of Queued Action */
     private static final String QUEUED = "Queued";
     /** Status of an Action which was picked up to executed. */
@@ -38,7 +38,7 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     private static final String COMPLETED = "Completed";
     /** Status of an Action which did not complete */
     private static final String FAILED = "Failed";
-    
+
     private Long id;
     private Long actionStatusId;
     private Long prerequisite;
@@ -54,7 +54,7 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     private long tally;
     private String ageString;
     private String userName;
-    
+
     /**
      * Returns the Action's id.
      * @return the Action's id.
@@ -77,7 +77,7 @@ public class ScheduledAction extends BaseDto implements RowCallback {
      */
     public Date getEarliestDate() {
         return earliest;
-    }    
+    }
     /**
      * Returns the type name of the action.
      * @return the type name of the action.
@@ -109,7 +109,7 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     public String getSchedulerName() {
         return schedulerName;
     }
-    
+
     /**
      * Sets the Action's id.
      * @param idIn database id.
@@ -157,7 +157,7 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     public void setSchedulerName(String schedName) {
         schedulerName = schedName;
     }
-    
+
     /**
      * Returns the total count of the scheduled actions.
      * @return the total count of the scheduled actions..
@@ -165,7 +165,7 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     public long getTally() {
         return tally;
     }
-    
+
     /**
      * Returns the number of completed actions.
      * @return the number of completed actions.
@@ -173,7 +173,7 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     public long getCompleted() {
         return completed;
     }
-    
+
     /**
      * Returns the number of failed actions.
      * @return the number of failed actions.
@@ -181,7 +181,7 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     public long getFailed() {
         return failed;
     }
-    
+
     /**
      * Returns the number of actions which are in progress.
      * @return the number of actions which are in progress.
@@ -189,13 +189,13 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     public long getInProgress() {
         return (pickedUp + queued);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void callback(ResultSet rs) throws SQLException {
         if (rs != null) {
-                        
+
             String status = getString(rs, "ACTION_STATUS");
             long count = rs.getLong("TALLY");
             tally += count;
@@ -210,13 +210,13 @@ public class ScheduledAction extends BaseDto implements RowCallback {
             }
             else if (FAILED.equals(status)) {
                 failed += count;
-            }            
+            }
         }
     }
-    
+
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public List<String> getCallBackColumns() {
@@ -225,8 +225,8 @@ public class ScheduledAction extends BaseDto implements RowCallback {
         list.add("TALLY".toLowerCase());
         return list;
     }
-    
-    
+
+
     /**
      * Simple utility method to handle a null value coming
      * from the ResultSet, returns "" if rs.getString() is null.
@@ -240,37 +240,37 @@ public class ScheduledAction extends BaseDto implements RowCallback {
         if (val == null) {
             return "";
         }
-        
+
         return val;
     }
-    
-    /** 
+
+    /**
      * Getter for ageString
      * @return String to get
      */
     public String getAgeString() {
         return this.ageString;
     }
-    
-    /** 
+
+    /**
      * Setter for ageString
-     * @param stringIn String to set ageString to 
+     * @param stringIn String to set ageString to
      */
     public void setAgeString(String stringIn) {
         this.ageString = stringIn;
     }
-    
-    /** 
+
+    /**
      * Getter for userName
      * @return String to get
      */
     public String getUserName() {
         return this.userName;
     }
-    
-    /** 
+
+    /**
      * Setter for userName
-     * @param stringIn String to set userName to 
+     * @param stringIn String to set userName to
      */
     public void setUserName(String stringIn) {
         this.userName = stringIn;
@@ -289,7 +289,7 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     public void setActionStatusId(Long actionStatusIdIn) {
         this.actionStatusId = actionStatusIdIn;
     }
-    
+
     /**
      * Returns the prerequisite for this action.
      * @return Prerequisite action id for this action.
@@ -297,14 +297,14 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     public Long getPrerequisite() {
         return prerequisite;
     }
-    
+
     /**
      * @param prerequisiteIn The prerequisite to set.
      */
     public void setPrerequisite(Long prerequisiteIn) {
         prerequisite = prerequisiteIn;
     }
-    
+
     /**
      * @return True if this entry should be selectable in the UI.
      */

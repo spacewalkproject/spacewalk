@@ -22,7 +22,7 @@ import com.redhat.rhn.domain.user.User;
  * @version $Rev$
  */
 public class EditCryptoKeyCommand extends BaseCryptoKeyCommand {
-    
+
     /**
      * Create new Command and Key
      * @param currentUser who wants to create the key
@@ -38,7 +38,7 @@ public class EditCryptoKeyCommand extends BaseCryptoKeyCommand {
      *
      * @param currentUser used to identify the org under which the key is;
      *                    cannot be <code>null</code>
-     * @param description used to identify the key; cannot be <code>null</code> 
+     * @param description used to identify the key; cannot be <code>null</code>
      */
     public EditCryptoKeyCommand(User currentUser, String description) {
         super();

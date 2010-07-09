@@ -33,13 +33,13 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class CancelKickstartSessionOperationTest extends BaseTestCaseWithUser {
-    
+
     public void testOperation() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         KickstartSession ksession = KickstartSessionTest.createKickstartSession(k, user);
         Server s = ksession.getOldServer();
-        Action a = ActionFactoryTest.createAction(user, 
+        Action a = ActionFactoryTest.createAction(user,
                 ActionFactory.TYPE_KICKSTART_INITIATE);
         ksession.setAction(a);
         ActionFactory.save(a);
@@ -47,14 +47,14 @@ public class CancelKickstartSessionOperationTest extends BaseTestCaseWithUser {
         flushAndEvict(k);
         TestUtils.saveAndFlush(ksession);
         flushAndEvict(ksession);
-        
-        CancelKickstartSessionOperation dso = 
+
+        CancelKickstartSessionOperation dso =
             new CancelKickstartSessionOperation(user, s.getId());
         dso.store();
-        
+
         KickstartSession lookedUp = KickstartFactory.
             lookupKickstartSessionByServer(s.getId());
         assertNull(lookedUp.getAction());
-        
+
     }
 }

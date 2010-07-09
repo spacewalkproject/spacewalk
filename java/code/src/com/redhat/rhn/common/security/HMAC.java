@@ -52,8 +52,8 @@ public class HMAC {
         return buf.toString();
     }
 
-    /** 
-     * Generate an HMAC hash for the given text and key using SHA1 as the 
+    /**
+     * Generate an HMAC hash for the given text and key using SHA1 as the
      * hash function.
      * @param text The text to hash
      * @param key The key to use when generating the hash.
@@ -75,8 +75,8 @@ public class HMAC {
         }
     }
 
-    /** 
-     * Generate an HMAC hash for the given text and key using MD5 as the 
+    /**
+     * Generate an HMAC hash for the given text and key using MD5 as the
      * hash function.
      * @param text The text to hash
      * @param key The key to use when generating the hash.
@@ -87,14 +87,14 @@ public class HMAC {
     public static String md5(String text, String key) {
         return generate(text, key, "MD5");
     }
-    
+
     private static String generate(String text, String key, String algorithm) {
         MessageDigest msgDigest = null;
         try {
             msgDigest = MessageDigest.getInstance(algorithm);
         }
         catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException("Algorithm " + algorithm + 
+            throw new IllegalArgumentException("Algorithm " + algorithm +
                                                " not found");
         }
 
@@ -118,7 +118,7 @@ public class HMAC {
             }
         }
         keyBytes = temp;
-        
+
         /*
          * the HMAC_MD5 transform looks like:
          *
@@ -139,7 +139,7 @@ public class HMAC {
             iPad[i] = (byte)(keyBytes[i] ^ 0x36);
             oPad[i] = (byte)(keyBytes[i] ^ 0x5c);
         }
-        
+
         msgDigest.update(iPad);
         msgDigest.update(text.getBytes());
         byte[] digest = msgDigest.digest();

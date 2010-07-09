@@ -20,13 +20,13 @@ import java.util.regex.Pattern;
 
 /**
  * <p>
- *  The <code>Constraint</code> class represents a single data constraint, 
+ *  The <code>Constraint</code> class represents a single data constraint,
  *    including the data type, allowed values, and required ranges.
  * </p>
  * @version $Rev$
  */
 public class RequiredConstraint implements Constraint {
-        
+
     /** The identifier for this constraint */
     private String identifier;
 
@@ -41,13 +41,13 @@ public class RequiredConstraint implements Constraint {
 
     /** flag for posix property */
     private boolean posix;
-    
+
     /**
      * <p>
      *  This will create a new <code></code> with the specified
      *    identifier as the "name".
      * </p>
-     * 
+     *
      * @param identifierIn <code>String</code> identifier for <code>Constraint</code>.
      */
     public RequiredConstraint(String identifierIn) {
@@ -56,8 +56,8 @@ public class RequiredConstraint implements Constraint {
 
     /** {@inheritDoc} */
     public ValidatorError checkConstraint(Object value) {
-        
-        if (value != null) { 
+
+        if (value != null) {
 
             if (this.ascii && !this.isASCII((String)value)) {
                 return new ValidatorError("errors.ascii",
@@ -76,8 +76,8 @@ public class RequiredConstraint implements Constraint {
 
             return null;
         }
-               
-        return new ValidatorError("errors.required", 
+
+        return new ValidatorError("errors.required",
             LocalizationService.getInstance().getMessage(identifier));
     }
 
@@ -110,14 +110,14 @@ public class RequiredConstraint implements Constraint {
     }
 
 
-    /** 
+    /**
      * {@inheritDoc}
      */
     public String toString() {
         return this.getClass().getName() + " : " + identifier + " dataType: " +
             dataType;
     }
-    
+
     /**
      * set the ascii property check
      * @param flg boolean for on/off ascii check
@@ -133,7 +133,7 @@ public class RequiredConstraint implements Constraint {
     public boolean getASCII() {
         return ascii;
     }
- 
+
     /**
      * utility to check whether a string is strictly ascii.
      * @param s string to check for ascii chars
@@ -161,7 +161,7 @@ public class RequiredConstraint implements Constraint {
 
     /**
      * small utility to check whether a string is a valid username.
-     * @param s string to check for valid username 
+     * @param s string to check for valid username
      * @return true if string valid
      */
     public boolean isValidUserName(final String s) {
@@ -189,7 +189,7 @@ public class RequiredConstraint implements Constraint {
     public void setPosix(boolean flag) {
         posix = flag;
     }
-    
+
     /**
      * Determines whether POSIX flag set
      * @return true IFF we want POSIX validation

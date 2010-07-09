@@ -16,11 +16,11 @@ package com.redhat.rhn.frontend.dto;
 
 /**
  * List item used to display package upgrades for systems in the SSM.
- * 
+ *
  * @version $Revision$
  */
 public class SsmUpgradablePackageListItem extends PackageListItem {
-    
+
     private String advisory;
     private String advisoryType;
     private Long advisoryId;

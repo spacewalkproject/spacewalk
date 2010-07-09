@@ -23,20 +23,20 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class ChecksumTypeTest extends RhnBaseTestCase {
-    
+
     public void testChecksumType() throws Exception {
-        
+
         Long testid = new Long(1);
         String query = "ChecksumType.findById";
-        
+
         ChecksumType at1 = (ChecksumType) TestUtils.lookupFromCacheById(testid, query);
         assertNotNull(at1);
         assertEquals(at1.getId(), testid);
-        
+
         ChecksumType at2 = (ChecksumType) TestUtils.lookupFromCacheById(at1.getId(), query);
         assertEquals(at1.getLabel(), at2.getLabel());
-        
+
         ChecksumType at3 = (ChecksumType) TestUtils.lookupFromCacheById(at1.getId(), query);
     }
- 
+
 }

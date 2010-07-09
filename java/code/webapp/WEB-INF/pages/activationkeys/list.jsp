@@ -9,9 +9,9 @@
     <meta name="name" value="activationkeys.jsp.header" />
 </head>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-keyring.gif" 
+<rhn:toolbar base="h1" img="/img/rhn-icon-keyring.gif"
 			imgAlt="activation-keys.common.alt"
-			creationUrl="/rhn/activationkeys/Create.do" 
+			creationUrl="/rhn/activationkeys/Create.do"
  			creationType="activationkeys"
  			creationAcl = "user_role(activation_key_admin)"
             helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-systems-activation-keys"
@@ -28,7 +28,7 @@
 <h2><bean:message key="activation-key.jsp.universal-default"/></h2>
 <p>
 	<bean:message key="activation-keys.jsp.universal-default-text"/>
-</p>   
+</p>
 <c:choose>
    <c:when test="${not empty requestScope.default}">
 <table class="details">
@@ -48,10 +48,10 @@
                </c:otherwise>
             </c:choose>
             <br/><rhn:tooltip key="activation-keys.jsp.description-tooltip"/>
-            		           
+
         </td>
     </tr>
-    
+
     <tr>
         <th>
             <bean:message key="kickstart.activationkeys.jsp.key"/>
@@ -73,7 +73,7 @@
                <c:otherwise>
 					<bean:message key="kickstart.activationkeys.jsp.nousagelimit"/>
                </c:otherwise>
-            </c:choose>		           
+            </c:choose>
 
         </td>
     </tr>
@@ -89,16 +89,16 @@
                <c:otherwise>
 					<bean:message key="Disabled"/>
                </c:otherwise>
-            </c:choose>		           
+            </c:choose>
         </td>
-    </tr>    
-    
+    </tr>
+
 </table>
 	</c:when>
    <c:otherwise>
 		<bean:message key="activation-keys.jsp.no-universal-default"/>
    </c:otherwise>
-</c:choose>		           
+</c:choose>
 
 </p>
 
@@ -115,11 +115,11 @@
              emptykey = "kickstart.activationkeys.jsp.nokeys"
              alphabarcolumn="note"
 	         >
-	        
-      <rl:selectablecolumn value="${current.selectionKey}" 
-	    					selected="${current.selected}" 
+
+      <rl:selectablecolumn value="${current.selectionKey}"
+						selected="${current.selected}"
 	    					styleclass="first-column"
-	    					headerkey="activation-keys.jsp.enabled"/>	        
+						headerkey="activation-keys.jsp.enabled"/>
 		<!-- Description column -->
 		<rl:column  headerkey="kickstart.activationkeys.jsp.description" filterattr="note">
 			<c:choose>
@@ -132,18 +132,18 @@
 					     <bean:message key="kickstart.activationkeys.jsp.description.none"/></a>
                </c:otherwise>
             </c:choose>
-			<c:if test="${current.orgDefault}"><c:out value=" *"/></c:if>		           
+			<c:if test="${current.orgDefault}"><c:out value=" *"/></c:if>
 		</rl:column>
 		
 		<!-- Key -->
-		<rl:column bound="true" 
+		<rl:column bound="true"
 		           headerkey="kickstart.activationkeys.jsp.key"
-		           attr="token" 
+		           attr="token"
 					/>
 		
-		           
+
 		<!-- Usage Limit -->
-		<rl:column bound="false" 
+		<rl:column bound="false"
 		           headerkey="kickstart.activationkeys.jsp.usagelimit"
 		           styleclass="last-column"
 					>
@@ -154,7 +154,7 @@
                <c:otherwise>
 					    ${current.systemCount}/<bean:message key="kickstart.activationkeys.jsp.nousagelimit"/>
                </c:otherwise>
-            </c:choose>		           
+            </c:choose>
 					
 		</rl:column>				
 	</rl:list>
@@ -163,7 +163,7 @@
 <c:if test = "${not empty requestScope.pageList}">
 <div align="right">
    <rhn:submitted/>
-    <input type="submit" 
+    <input type="submit"
 		name ="dispatch"
     	value="${rhn:localize('kickstart.activationkeys.jsp.submit')}"/>
 </div>

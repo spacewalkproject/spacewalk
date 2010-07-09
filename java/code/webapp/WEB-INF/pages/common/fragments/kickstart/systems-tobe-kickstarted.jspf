@@ -4,12 +4,12 @@
 			 emptykey="kickstartoverview.jsp.noscheduledtobeks"
 			 name="pendingKSList"
 			 width="100%">
-			 
+
 	<rl:column bound="false"
 				sortable="false"
 				headerkey="kickstart.jsp.system"
 				styleclass="first-column"
-		           	headerclass="thin-column"> 
+				headerclass="thin-column">
 				
             <c:if test="${not current.isBareMetal}">								
       	       <a href="/rhn/systems/details/Overview.do?sid=${current.serverId}">
@@ -24,7 +24,7 @@
                 </c:if>
     		</c:if>
    	</rl:column>
-       
+
   	<rl:column bound="false"
 				sortable="false"
 				headerkey="kickstart.jsp.status">		  	
@@ -36,14 +36,14 @@
     			${current.description}
     		</c:if>   		
        </rl:column>
-       
+
   	<rl:column bound="false"
 				sortable="false"
 				headerkey="kickstart.jsp.lastchange"
 				styleclass="last-column"
 				>		  	
        		${current.elapsedTimeAfterModify}
-    </rl:column>      		      
+    </rl:column>
 					
    	
 </rl:list>   	 					

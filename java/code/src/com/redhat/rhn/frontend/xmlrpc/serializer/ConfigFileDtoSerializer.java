@@ -28,9 +28,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
 /**
  * ConfigFileDtoSerializer
  * @version $Rev$
- * 
+ *
  * @xmlrpc.doc
- * #struct("Configuration File information") 
+ * #struct("Configuration File information")
  *   #prop("string", "type")
  *              #options()
  *                  #item("file")

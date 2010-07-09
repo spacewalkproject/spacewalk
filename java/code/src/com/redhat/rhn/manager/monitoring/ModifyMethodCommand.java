@@ -26,7 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * ModifyMethodCommand - class for encapsulating business 
+ * ModifyMethodCommand - class for encapsulating business
  * logic around creating Notification Methods.
  * @version $Rev$
  */
@@ -36,14 +36,14 @@ public class ModifyMethodCommand {
      * Logger for this class
      */
     private static Logger logger = Logger.getLogger(ModifyMethodCommand.class);
-    
+
     private User user;
     private Method method;
-    
+
     /**
      * Create a new Command with specified User.  Used when
      * CREATING a new Method.
-     * 
+     *
      * @param userIn User who owns this NotificationMethod
      */
     public ModifyMethodCommand(User userIn) {
@@ -58,7 +58,7 @@ public class ModifyMethodCommand {
     /**
      * Create a new ModifyMethodCommand with the ID of an existing Notification
      * Method.  Used for EDITING an existing Method.
-     * 
+     *
      * @param userIn is requesting the lookup of the existing Method.  Not necessarily
      * the user who owns the Method itself.
      * @param methodId id of the Method
@@ -66,11 +66,11 @@ public class ModifyMethodCommand {
     public ModifyMethodCommand(User userIn, Long methodId) {
         this.method = NotificationFactory.lookupMethod(methodId, userIn);
         /*this.contactGroup = NotificationFactory.
-            lookupContactGroupByName(this.method.getMethodName());*/        
+            lookupContactGroupByName(this.method.getMethodName());*/
         this.user = this.method.getUser();
     }
-    
-    
+
+
     /**
      * Get the Method associated with the command.
      * @return Returns the method.
@@ -79,7 +79,7 @@ public class ModifyMethodCommand {
         return method;
     }
 
-    
+
     /**
      * Get the User
      * @return Returns the user.
@@ -87,7 +87,7 @@ public class ModifyMethodCommand {
     public User getUser() {
         return user;
     }
-    
+
     /**
      * Set the name of the method.
      * @param nameIn of the Method
@@ -110,7 +110,7 @@ public class ModifyMethodCommand {
      * @param currentUser The user/admin storing this method.  Usually not the user
      * associated with the Notification Method and instead is the one who initiated
      * the save.
-     * @return ValidatorError if the currentUser is in the wrong state or is 
+     * @return ValidatorError if the currentUser is in the wrong state or is
      * missing a field.
      */
     public ValidatorError storeMethod(User currentUser) {
@@ -119,7 +119,7 @@ public class ModifyMethodCommand {
                     ") - start");
         }
         String dest = null;
-        
+
         if (this.method.getType().equals(NotificationFactory.TYPE_EMAIL)) {
             dest = this.method.getEmailAddress();
         }
@@ -136,16 +136,16 @@ public class ModifyMethodCommand {
             }
             return returnValidatorError;
         }
-        // Verify the passed in name to make sure they aren't trying 
-        // to save a new (or existing) Method with a name that is 
+        // Verify the passed in name to make sure they aren't trying
+        // to save a new (or existing) Method with a name that is
         // already taken.
         Method lookedUp = NotificationFactory.lookupMethodByNameAndUser(
-                this.method.getMethodName(), this.method.getUser().getId()); 
-        if (lookedUp != null && 
+                this.method.getMethodName(), this.method.getUser().getId());
+        if (lookedUp != null &&
                 lookedUp.getMethodName().equals(this.method.getMethodName())) {
             // now check to see if the found Method has the same ID (is the same)
             // as the one in the Command:
-            if (this.method.getId() == null || 
+            if (this.method.getId() == null ||
                     lookedUp.getId().longValue() != this.method.getId().longValue()) {
                 ValidatorError returnValidatorError = new ValidatorError(
                         "method.nametaken", this.method.getMethodName());
@@ -159,7 +159,7 @@ public class ModifyMethodCommand {
 
         NotificationFactory.saveContactGroup(currentUser, this.method.getContactGroup());
         NotificationFactory.saveMethod(this.method, currentUser);
-        
+
 
         if (logger.isDebugEnabled()) {
             logger.debug("storeMethod(User) - end - return value=" + null);
@@ -168,7 +168,7 @@ public class ModifyMethodCommand {
     }
 
     /**
-     * Set the methodType 
+     * Set the methodType
      * @param typeIn to use
      */
     public void setType(MethodType typeIn) {
@@ -177,7 +177,7 @@ public class ModifyMethodCommand {
         }
 
         this.method.setType(typeIn);
-        
+
 
         if (logger.isDebugEnabled()) {
             logger.debug("setType(MethodType) - end");
@@ -199,7 +199,7 @@ public class ModifyMethodCommand {
         }
         if (this.method.getType().equals(NotificationFactory.TYPE_EMAIL)) {
             this.method.setEmailAddress(emailIn);
-        } 
+        }
         else if (this.method.getType().equals(NotificationFactory.TYPE_PAGER)) {
             this.method.setPagerEmail(emailIn);
         }
@@ -225,7 +225,7 @@ public class ModifyMethodCommand {
 
         if (NotificationFactory.TYPE_EMAIL.getMethodTypeName().equals(selectedType)) {
             this.method.setType(NotificationFactory.TYPE_EMAIL);
-        } 
+        }
         else if (NotificationFactory.TYPE_GROUP.getMethodTypeName().equals(selectedType)) {
             this.method.setType(NotificationFactory.TYPE_GROUP);
         }

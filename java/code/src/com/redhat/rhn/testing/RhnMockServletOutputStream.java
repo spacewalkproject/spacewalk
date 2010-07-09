@@ -24,14 +24,14 @@ import javax.servlet.ServletOutputStream;
  */
 public class RhnMockServletOutputStream extends ServletOutputStream {
     private StringBuffer contents;
-    
+
     /**
      * Default no arg constructor
      */
     public RhnMockServletOutputStream() {
         contents = new StringBuffer();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -39,7 +39,7 @@ public class RhnMockServletOutputStream extends ServletOutputStream {
         super.println(s);
         contents.append(s);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -54,7 +54,7 @@ public class RhnMockServletOutputStream extends ServletOutputStream {
     public String getContents() {
         return contents.toString();
     }
-    
+
     /**
      * {@inheritDoc}
      */

@@ -307,17 +307,17 @@ public class ServerFactory extends HibernateFactory {
     public static void removeCustomKey(CustomDataKey keyIn) {
 
         // If the CustomKey is being removed, any system that has a
-        // "Custom Info" value associated with it must have that 
+        // "Custom Info" value associated with it must have that
         // value removed...
         List<CustomDataValue> values = lookupCustomDataValues(keyIn);
         for (Iterator itr = values.iterator(); itr.hasNext();) {
             CustomDataValue value = (CustomDataValue) itr.next();
             singleton.removeObject(value);
         }
-        
+
         singleton.removeObject(keyIn);
     }
-    
+
     /**
      * Remove proxy info object associated to the server.
      * @param server the server to deProxify
@@ -328,11 +328,11 @@ public class ServerFactory extends HibernateFactory {
             singleton.removeObject(info);
             server.setProxyInfo(null);
         }
-    }    
+    }
 
     /**
      * Deletes a server
-     * 
+     *
      * @param server The server to delete
      */
     public static void delete(Server server) {
@@ -383,12 +383,12 @@ public class ServerFactory extends HibernateFactory {
      * This methods queries for servers, in the specified Org, that have the
      * virtual platform entitlement, and for the count of their registered
      * guests. A set of HostAndGuestView objects is returned.
-     * 
+     *
      * @param org The Org to search in
-     * 
+     *
      * @return A set of HostAndGuestView objects representing all the virtual
      * host and a count of their registered guests.
-     * 
+     *
      * @see HostAndGuestCountView
      */
     public static List findVirtPlatformHostsByOrg(Org org) {
@@ -409,12 +409,12 @@ public class ServerFactory extends HibernateFactory {
      * Queries for servers, in the specified org, that have the virtual host
      * entitlement and have exceeded their guest limit. A set of
      * HostAndGuestView objects is returned.
-     * 
+     *
      * @param org The org to search in
-     * 
+     *
      * @return A set of HostAndGuestView object representing all hosts exceeding
      * their guest limit.
-     * 
+     *
      * @see HostAndGuestCountView
      */
     public static List findVirtHostsExceedingGuestLimitByOrg(Org org) {
@@ -504,7 +504,7 @@ public class ServerFactory extends HibernateFactory {
      * return Server objects, but due to the parent child relationship of Server
      * to SpacewalkServer and ProxyServer, hibernate won't properly return all
      * the Servers
-     * 
+     *
      * @param user the user, who's accessible servers will be returned.
      * @return A list of servers
      */
@@ -555,7 +555,7 @@ public class ServerFactory extends HibernateFactory {
      * Returns a list of Server objects currently selected in the System Set
      * Manager. This list will <strong>not</strong> contain servers that are
      * proxies.
-     * 
+     *
      * @param user User requesting.
      * @return List of servers.
      */
@@ -654,7 +654,7 @@ public class ServerFactory extends HibernateFactory {
     public static void saveSnapshot(ServerSnapshot snapshotIn) {
         singleton.saveObject(snapshotIn);
     }
-    
+
     /**
      * Delete a snapshot
      * @param snap the snapshot to delete
@@ -762,7 +762,7 @@ public class ServerFactory extends HibernateFactory {
                 "ServerSnapshot.findTags", params);
         return snaps;
     }
-    
+
     /**
      * Filter out a list of systemIds with ones that are solaris systems
      * @param systemIds list of system ids
@@ -772,7 +772,7 @@ public class ServerFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery("Server.listSolarisSystems",
                 new HashMap(), systemIds, "sids");
     }
-    
+
     /**
      * Filter out a list of systemIds with ones that are linux systems
      *  (i.e. not solaris systems)
@@ -783,5 +783,5 @@ public class ServerFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery("Server.listRedHatSystems",
                 new HashMap(), systemIds, "sids");
     }
-    
+
 }

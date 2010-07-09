@@ -33,25 +33,25 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 
 /**
- * SessionManager is the helper class used to fetch configuration 
+ * SessionManager is the helper class used to fetch configuration
  * about com.redhat.rhn.domain.session.Session objects.
- * @version $Rev$ 
+ * @version $Rev$
  */
 public class SessionManager extends BaseManager {
-    
+
     /**
      * Logger for this class
      */
-    private static Logger logger = 
+    private static Logger logger =
         Logger.getLogger(SessionManager.class);
-    
+
     public static final String SEC_PARM_TOKENIZER_CHAR = ":";
     // Timeout value 900,000 = 15 min
     public static final long TIMEOUT_VAL = 900000;
-    
+
     protected SessionManager() {
     }
-    
+
     /**
      * Return the lifetime in seconds of the Session.  This differs
      * from the timeoutValue() above which is the time from now
@@ -87,7 +87,7 @@ public class SessionManager extends BaseManager {
         WebSessionFactory.save(s);
         return s;
     }
-    
+
     /**
      * Removes the given session.
      * @param s WebSession to remove.
@@ -105,7 +105,7 @@ public class SessionManager extends BaseManager {
     public static WebSession loadSession(String sessionKey) {
         return SessionManager.lookupByKey(sessionKey);
     }
-    
+
     /**
      * Removes the session specified by sessionKey from the database.
      * @param sessionKey Key for the session you want to remove.
@@ -114,11 +114,11 @@ public class SessionManager extends BaseManager {
         WebSession session = loadSession(sessionKey);
         removeSession(session);
     }
-    
+
     /**
      * Generates a session key for usage in passing sensitive
      * url based parameters around in a safe way.
-     * 
+     *
      * @param data String data to generate key on
      * @return String MD5 hash (with "salt") of passed in data.
      */
@@ -130,7 +130,7 @@ public class SessionManager extends BaseManager {
             msgDigest = MessageDigest.getInstance("MD5");
         }
         catch (NoSuchAlgorithmException nsae) {
-            // this really shouldn't happen.  really. 
+            // this really shouldn't happen.  really.
             throw new IllegalArgumentException("Unable to instantiate MD5 " +
                                                "MessageDigest object");
         }
@@ -147,10 +147,10 @@ public class SessionManager extends BaseManager {
 
         return HMAC.byteArrayToHex(msgDigest.digest());
     }
-    
+
     /**
      * Create a secure param string without timestamp
-     * 
+     *
      * @param data param to be secured
      * @return String secure param string (no timestamp)
      */
@@ -163,10 +163,10 @@ public class SessionManager extends BaseManager {
         }
         return secparm;
     }
-    
+
     /**
      * Create a secure param string with a timestamp for the current time.
-     * 
+     *
      * @param data param to be secured.
      * @return String secure param string (timestamped)
      */
@@ -182,7 +182,7 @@ public class SessionManager extends BaseManager {
         }
         return secparm;
     }
-    
+
     /**
      * Determine if this is a secure param as created by the other
      * methods on this class. The string parameter "data" should
@@ -193,13 +193,13 @@ public class SessionManager extends BaseManager {
      * <timestamp> value. If that is in range, then the <param>:<timestamp>
      * combined value is re-encoded and compared against the <encoded>
      * value.
-     * 
+     *
      * @param data potentially secure param string
      * @return boolean true if it is, otherwise false
      */
     public static boolean isValidSecureParam(String data) {
         if (logger.isDebugEnabled()) {
-            logger.debug("isValidSecureParam(String data=" + 
+            logger.debug("isValidSecureParam(String data=" +
                     data + ") - start");
         }
 
@@ -217,60 +217,60 @@ public class SessionManager extends BaseManager {
             else if (isTimestampedParamString(vals)) {
                 boolean returnboolean = isValidTimestampedParamString(vals);
                 if (logger.isDebugEnabled()) {
-                    logger.debug("isValidSecureParam(String) - end 2 - return value=" + 
+                    logger.debug("isValidSecureParam(String) - end 2 - return value=" +
                             returnboolean);
                 }
                 return returnboolean;
             }
         }
-        
+
 
         if (logger.isDebugEnabled()) {
             logger.debug("isValidSecureParam(String) - end 3 - return value=" + false);
         }
         return false;
     }
-    
+
     /**
      * If this is a valid secure param string, then extract the secure
      * param and return it. Otherwise return an empty string.
-     * 
+     *
      * @param data secure param string
      * @return String secure param or empty string
      */
     public static String extractSecureParam(String data) {
         if (logger.isDebugEnabled()) {
-            logger.debug("extractSecureParam(String data=" + 
+            logger.debug("extractSecureParam(String data=" +
                     data + ") - start");
         }
 
         String parm = "";
-        
+
         if (isValidSecureParam(data)) {
             parm = data.substring(0, data.indexOf(SEC_PARM_TOKENIZER_CHAR));
         }
-        
+
 
         if (logger.isDebugEnabled()) {
             logger.debug("extractSecureParam(String) - end - return value=" + parm);
         }
         return parm;
     }
-    
+
     private static boolean isTimestampedParamString(String[] vals) {
         if (logger.isDebugEnabled()) {
-            logger.debug("isTimestampedParamString(String[] vals=" + 
+            logger.debug("isTimestampedParamString(String[] vals=" +
                     vals + ") - start");
         }
 
         boolean returnboolean = vals.length == 3;
         if (logger.isDebugEnabled()) {
-            logger.debug("isTimestampedParamString(String[]) - end - return value=" + 
+            logger.debug("isTimestampedParamString(String[]) - end - return value=" +
                     returnboolean);
         }
         return returnboolean;
     }
-    
+
     private static boolean isNonTimestampedParamString(String[] vals) {
         if (logger.isDebugEnabled()) {
             logger.debug("isNonTimestampedParamString(String[] vals=" + vals + ") - start");
@@ -278,15 +278,15 @@ public class SessionManager extends BaseManager {
 
         boolean returnboolean = vals.length == 2;
         if (logger.isDebugEnabled()) {
-            logger.debug("isNonTimestampedParamString(String[]) - end - return value=" + 
+            logger.debug("isNonTimestampedParamString(String[]) - end - return value=" +
                     returnboolean);
         }
         return returnboolean;
     }
-    
+
     private static boolean isValidTimestampedParamString(String[] vals) {
         if (logger.isDebugEnabled()) {
-            logger.debug("isValidTimestampedParamString(String[] vals=" + 
+            logger.debug("isValidTimestampedParamString(String[] vals=" +
                     vals + ") - start");
         }
 
@@ -309,10 +309,10 @@ public class SessionManager extends BaseManager {
         }
         return false;
     }
-    
+
     private static boolean isValidNonTimestampedParamString(String[] vals) {
         if (logger.isDebugEnabled()) {
-            logger.debug("isValidNonTimestampedParamString(String[] vals=" + 
+            logger.debug("isValidNonTimestampedParamString(String[] vals=" +
                     vals + ") - start");
         }
 
@@ -331,25 +331,25 @@ public class SessionManager extends BaseManager {
         }
         return false;
     }
-    
+
     /**
      * Verifies that the specified string is a valid pxt session key.
-     * 
+     *
      * @param key The session key to be validated
-     * 
+     *
      * @return <code>true</code> if the key is valid. Note that <code>null</code> is
      * acceptable input and will result in <code>false</code> being returned.
      */
     public static boolean isPxtSessionKeyValid(String key) {
         String[] data = StringUtils.split(key, 'x');
-    
+
         if (data != null && data.length == 2) {
             String recomputedkey = generateSessionKey(data[0]);
             logger.debug("recomputed [" + recomputedkey +
                       "] cookiekey [" + data[1] + "]");
             return recomputedkey.equals(data[1]);
         }
-    
+
         return false;
     }
 
@@ -363,43 +363,43 @@ public class SessionManager extends BaseManager {
         if (key == null || key.equals("")) {
             throw new InvalidSessionIdException("Session key cannot be empty null.");
         }
-        
+
         //Get the id
         String[] keyParts = StringUtils.split(key, 'x');
-    
+
         //make sure the id is numeric and can be made into a Long
         if (!StringUtils.isNumeric(keyParts[0])) {
-            throw new InvalidSessionIdException("Session id: " + keyParts[0] + 
+            throw new InvalidSessionIdException("Session id: " + keyParts[0] +
                           " is not valid. Session ids must be numeric.");
         }
-        
+
         //Load the session
         Long sessionId = new Long(keyParts[0]);
         WebSession session = WebSessionFactory.lookupById(sessionId);
-        
+
         //Make sure we found a session
         if (session == null) {
             throw new LookupException("Could not find session with id: " + sessionId);
         }
-        
+
         //Verify the key
         if (!isPxtSessionKeyValid(key)) {
             throw new InvalidSessionIdException("Session id: " + sessionId +
                            " is not valid.");
         }
-        
+
         //If we made it this far, the key was ok and the sesion valid.
         return session;
     }
-    
+
     /**
      * Removes all the sessions of a user. This action is useful
      * especially when we disable/deactivate a user. We donot want
-     * a deactivated user's sessions to be alive..  
+     * a deactivated user's sessions to be alive..
      * @param user the user whose sessions are to be purged.
      */
     public static void purgeUserSessions(User user) {
         WebSessionFactory.purgeUserSessions(user);
-    }    
+    }
 }
 

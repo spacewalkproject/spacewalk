@@ -28,9 +28,9 @@ import java.util.ArrayList;
 public class FilePreservationListsCommandTest extends BaseKickstartCommandTestCase {
 
     public void testCommand() {
-        FilePreservationListsCommand cmd = 
+        FilePreservationListsCommand cmd =
             new FilePreservationListsCommand(ksdata.getId(), user);
-        
+
         FileList list1 = KickstartDataTest.createFileList1(user.getOrg());
         FileList list2 = KickstartDataTest.createFileList2(user.getOrg());
         FileList list3 = KickstartDataTest.createFileList3(user.getOrg());

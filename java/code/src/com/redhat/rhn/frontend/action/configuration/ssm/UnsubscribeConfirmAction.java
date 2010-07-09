@@ -34,11 +34,11 @@ public class UnsubscribeConfirmAction extends BaseListAction {
         User user = rctxIn.getLoggedInUser();
         return ConfigurationManager.getInstance().ssmSystemListForChannels(user, pcIn);
     }
-    
+
     protected void processPageControl(PageControl pcIn) {
         pcIn.setFilter(true);
         pcIn.setFilterColumn("name");
     }
-    
+
 
 }

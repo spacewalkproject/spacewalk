@@ -58,7 +58,7 @@ public class MockConnection extends CobblerConnection {
      * @param userIn user
      * @param passIn password
      */
-    public MockConnection(String urlIn, 
+    public MockConnection(String urlIn,
             String userIn, String passIn) {
         super();
         url = urlIn;
@@ -75,7 +75,7 @@ public class MockConnection extends CobblerConnection {
         token = tokenIn;
         url = urlIn;
     }
-    
+
 
     /**
      * Mock constructors for Cobbler connection
@@ -93,26 +93,26 @@ public class MockConnection extends CobblerConnection {
     // we'll add more useful constructs in the future..
     // log.debug("called: " + name + " args: " + args);
 
-    
-       
+
+
     if ("token_check".equals(name) || "update".equals(name)) {
         return true;
     }
     if ("login".equals(name)) {
         return random();
     }
-    
+
     if (name.startsWith("modify_") && "ksmeta".equals(args[1])) {
         args[1] = "ks_meta";
     }
-    
+
     //profiles:
     if ("get_profiles".equals(name)) {
         return profiles;
     }
     else if ("find_profile".equals(name)) {
         return find((Map)args[0], profiles);
-    }    
+    }
     else if (name.equals("modify_profile")) {
         log.debug("PROFILE: Modify  w/ handle" + args[0] + ", set " + args[1] +
                 "to " + args[2]);
@@ -265,7 +265,7 @@ public class MockConnection extends CobblerConnection {
        return null;
    }
 
-   
+
    private List<Map<String, Object>> find(Map <String, Object> criteria, List<Map> maps) {
        List<Map<String, Object>> ret = new LinkedList<Map<String, Object>>();
        for (Map map : maps) {
@@ -274,45 +274,45 @@ public class MockConnection extends CobblerConnection {
                if (!criteria.get(key).equals(map.get(key))) {
                    break;
                }
-               matched++;    
+               matched++;
            }
            if (matched == criteria.size()) {
                ret.add(map);
            }
        }
        return ret;
-   }   
+   }
 
    private String random() {
        return RandomStringUtils.randomAlphabetic(10);
    }
-    
+
     /**
      * {@inheritDoc}
      */
-    public Object invokeTokenMethod(String procedureName, 
+    public Object invokeTokenMethod(String procedureName,
                                     Object... args) {
         List<Object> params = new LinkedList<Object>(Arrays.asList(args));
         params.add(token);
         return invokeMethod(procedureName, params.toArray());
     }
-    
+
     /**
      * updates the token
      * @param tokenIn the cobbler auth token
      */
     public void setToken(String tokenIn) {
         token = tokenIn;
-    }    
+    }
 
     /**
-     * @return returns the cobbler url.. 
+     * @return returns the cobbler url..
      */
     @Override
     public String getUrl() {
         return url + "/cobbler_api";
     }
-    
+
 
     public static void clear() {
         profiles = new ArrayList<Map>();

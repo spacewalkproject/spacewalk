@@ -2,8 +2,8 @@
 
 <mode name="kickstarts_for_org" class="com.redhat.rhn.frontend.dto.kickstart.KickstartDto">
   <query params="org_id">
-  SELECT KS.id, KS.org_id, KS.label, KS.is_org_default, 
-         KS.active,  KSD.kstree_id, KT.label as tree_label,KS.cobbler_id, 
+  SELECT KS.id, KS.org_id, KS.label, KS.is_org_default,
+         KS.active,  KSD.kstree_id, KT.label as tree_label,KS.cobbler_id,
          KS.ks_type as kickstart_type
     FROM rhnKickstartDefaults KSD, rhnKSData KS, rhnKickstartableTree KT
    WHERE KS.org_id = :org_id
@@ -21,18 +21,18 @@
   ORDER BY KT.label
   </query>
 </mode>
-    
+
 <mode name="kickstarts_channels_for_org" class="com.redhat.rhn.frontend.dto.kickstart.KickstartChannelDto">
   <query params="org_id,prim_arch_id,sec_arch_id">
   SELECT DISTINCT KS.id, KS.org_id, KS.label,
          KS.active,  KSD.kstree_id,KS.cobbler_id ,KT.label as tree_label,
-         c.label as channel_label, 
+         c.label as channel_label,
          KS.ks_type as kickstart_type
     FROM rhnKickstartDefaults KSD
     	 inner join rhnKSData KS on KSD.kickstart_id = KS.id
     	 inner join rhnKickstartableTree KT on KSD.kstree_id = KT.id
     	 left join rhnKickstartVirtualizationType KVT on KVT.id = KSD.virtualization_type
-    	 inner join rhnChannel C on KT.channel_id = C.id 
+	 inner join rhnChannel C on KT.channel_id = C.id
    WHERE KS.org_id = :org_id
      AND KS.active = 'Y'
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
@@ -40,7 +40,7 @@
           OR KVT.label IS NULL)
      AND KS.cobbler_id IS NOT NULL
 ORDER BY KS.label, KS.id
-  </query>    
+  </query>
 </mode>
 
 <mode name="virtual_kickstarts_channels_for_org" class="com.redhat.rhn.frontend.dto.kickstart.KickstartChannelDto">
@@ -59,14 +59,14 @@ ORDER BY KS.label, KS.id
      AND KVT.label not in ('none','para_host')
      AND KS.cobbler_id IS NOT NULL
 ORDER BY KS.label, KS.id
-  </query>    
+  </query>
 </mode>
 
 <mode name="scripts_for_kickstart" class="com.redhat.rhn.frontend.dto.kickstart.ScriptDto">
   <query params="kickstart_id">
   SELECT KS.id, KS.script_type, KS.chroot, KS.interpreter
     FROM rhnKickstartScript KS
-  WHERE KS.kickstart_id = :kickstart_id   
+  WHERE KS.kickstart_id = :kickstart_id
   </query>
 </mode>
 
@@ -94,18 +94,18 @@ ORDER BY KSIPR.min
   </query>
 </mode>
 
-<mode name="systems_currently_kickstarted_for_org" 
+<mode name="systems_currently_kickstarted_for_org"
      class="com.redhat.rhn.frontend.dto.kickstart.KickstartOverviewSystemsDto">
   <query params="org_id">
-  SELECT KSD.label, 
+  SELECT KSD.label,
          KSST.description,
          KSS.old_server_id,
-         KSS.new_server_id, 
+         KSS.new_server_id,
          KSS.client_ip,
          (SELECT MAX(time)
             FROM rhnKickstartSessionHistory KSH
            WHERE KSH.kickstart_session_id = KSS.id) AS last_modified
-    FROM rhnksdata KSD, rhnkickstartsession KSS, 
+    FROM rhnksdata KSD, rhnkickstartsession KSS,
          rhnkickstartabletree KSTR, rhnkickstartsessionstate KSST
    WHERE KSS.org_id = :org_id
      AND KSTR.id = KSS.kstree_id
@@ -118,15 +118,15 @@ ORDER BY KSIPR.min
 <mode name="systems_scheduled_tobe_kickstarted_for_org"
      class="com.redhat.rhn.frontend.dto.kickstart.KickstartOverviewSystemsDto">
   <query params="org_id">
-  SELECT KSD.label, 
+  SELECT KSD.label,
          KSST.description,
          KSS.old_server_id,
-         KSS.new_server_id, 
+         KSS.new_server_id,
          KSS.client_ip,
          (SELECT MAX(time)
             FROM rhnKickstartSessionHistory KSH
            WHERE KSH.kickstart_session_id = KSS.id) AS last_modified
-    FROM rhnksdata KSD, rhnkickstartsession KSS, 
+    FROM rhnksdata KSD, rhnkickstartsession KSS,
          rhnkickstartabletree KSTR, rhnkickstartsessionstate KSST
    WHERE KSS.org_id = :org_id
      AND KSTR.id = KSS.kstree_id
@@ -134,11 +134,11 @@ ORDER BY KSIPR.min
      AND KSS.state_id = KSST.id
      AND KSST.label = 'created'
      and ( KSS.client_ip is not null or KSS.old_server_id is not null)
-     order by last_modified desc 
+     order by last_modified desc
   </query>
 </mode>
 
-<mode name="kickstart_summary_for_org" 
+<mode name="kickstart_summary_for_org"
      class="com.redhat.rhn.frontend.dto.kickstart.KickstartOverviewSummaryDto">
   <query params="org_id">
   SELECT IT.id, IT.label, IT.name, count(KS.id) AS number_of_profiles
@@ -291,16 +291,16 @@ ORDER BY KTZ.name
            (user_id, label, element, element_two)
     VALUES (:user_id, :label, :element, :element_two)
   </query>
-</write-mode>          
+</write-mode>
 
 <write-mode name="delete_set_for_label">
   <query params="user_id, label">
-    DELETE 
+    DELETE
       FROM rhnSet
      WHERE user_id = :user_id
        AND label = :label
   </query>
-</write-mode>          
+</write-mode>
 
 <write-mode name="update_current_alerts_date_completed">
   <query>
@@ -345,7 +345,7 @@ SELECT max_members, current_members FROM rhnServerGroup sg, rhnServerGroupType s
   <query params="old_key, new_key">
   	update rhnActivationKey set token = :new_key where token = :old_key
   </query>
-</write-mode>    
+</write-mode>
 
 </datasource_modes>
 

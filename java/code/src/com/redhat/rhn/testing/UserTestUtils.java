@@ -45,7 +45,7 @@ public class UserTestUtils extends Assert {
     private UserTestUtils() { }
 
     public static final String TEST_PASSWORD = "password";
-    
+
     /**
      * Creates a new Org with the given orgName.
      * The current time is appended to the given orgName.
@@ -103,7 +103,7 @@ public class UserTestUtils extends Assert {
         SatClusterFactory.saveSatNode(node);
         usr.getOrg().getMonitoringScouts().add(scout);
     }
-    
+
     /**
      * Creates a new User in the specified org
      * @param userName Name of user.
@@ -113,7 +113,7 @@ public class UserTestUtils extends Assert {
     public static User createUser(String userName, Long orgId) {
         return createUserInOrg(userName, orgId, true);
     }
-    
+
     private static User createUserInOrg(String userName, Long orgId, boolean randomLogin) {
         User usr = createUserInternal(userName, randomLogin);
         Address addr1 = createTestAddress(usr);
@@ -124,7 +124,7 @@ public class UserTestUtils extends Assert {
         return usr;
     }
 
-    
+
     private static User createUserInternal(String userName, boolean randomLogin) {
         User usr = UserFactory.createUser();
         if (randomLogin) {
@@ -143,7 +143,7 @@ public class UserTestUtils extends Assert {
 
         return usr;
     }
-     
+
     private static User createUserInternal(String userName) {
         return createUserInternal(userName, true);
     }
@@ -171,7 +171,7 @@ public class UserTestUtils extends Assert {
         return retval;
     }
 
-    
+
     /**
      * Useful for legacy tests that arent multi-org aware.
      * @return New Sat Admin User from org_id = 1
@@ -182,7 +182,7 @@ public class UserTestUtils extends Assert {
         retval.addRole(RoleFactory.SAT_ADMIN);
         UserFactory.save(retval);
         return retval;
-    }    
+    }
 
     /**
      * Creates a new User and Org with the given userName and orgName.
@@ -269,9 +269,9 @@ public class UserTestUtils extends Assert {
         assertFalse("User must not be org_admin", act);
         assertEquals("User sees no servers", 0, servers);
     }
-    
+
     /**
-     * Simple method to add a Role to a User.  Will 
+     * Simple method to add a Role to a User.  Will
      * make sure the User's org has the role too
      * @param user to add Role to
      * @param r Role to add.
@@ -281,32 +281,32 @@ public class UserTestUtils extends Assert {
         o.addRole(r);
         user.addRole(r);
     }
- 
+
     /**
      * Add provisioning to an org
      * @param orgIn to add to
-     * @throws Exception foo 
+     * @throws Exception foo
      */
     public static void addManagement(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements(); 
+        Set ents = orgIn.getEntitlements();
         ents.add(OrgFactory.getEntitlementEnterprise());
-        EntitlementServerGroup sg = 
-            ServerGroupTestUtils.createEntitled(orgIn, 
+        EntitlementServerGroup sg =
+            ServerGroupTestUtils.createEntitled(orgIn,
                     ServerConstants.getServerGroupTypeEnterpriseEntitled());
         incrementSgMaxMembers(sg);
     }
 
-    
+
     /**
      * Add provisioning to an org
      * @param orgIn to add to
-     * @throws Exception foo 
+     * @throws Exception foo
      */
     public static void addProvisioning(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements(); 
+        Set ents = orgIn.getEntitlements();
         ents.add(OrgFactory.getEntitlementProvisioning());
-        EntitlementServerGroup sg = 
-            ServerGroupTestUtils.createEntitled(orgIn, 
+        EntitlementServerGroup sg =
+            ServerGroupTestUtils.createEntitled(orgIn,
                     ServerConstants.getServerGroupTypeProvisioningEntitled());
         incrementSgMaxMembers(sg);
     }
@@ -319,7 +319,7 @@ public class UserTestUtils extends Assert {
     public static void incrementSgMaxMembers(EntitlementServerGroup sg) {
         if (sg.getMaxMembers() != null) {
             sg.setMaxMembers(new Long(sg.getMaxMembers().longValue() + 10L));
-        } 
+        }
         else {
             sg.setMaxMembers(new Long(10L));
         }
@@ -331,10 +331,10 @@ public class UserTestUtils extends Assert {
      * @throws Exception foo
      */
     public static void addMonitoring(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements(); 
+        Set ents = orgIn.getEntitlements();
         ents.add(OrgFactory.getEntitlementMonitoring());
-        EntitlementServerGroup sg = 
-            ServerGroupTestUtils.createEntitled(orgIn, 
+        EntitlementServerGroup sg =
+            ServerGroupTestUtils.createEntitled(orgIn,
                     ServerConstants.getServerGroupTypeMonitoringEntitled());
         incrementSgMaxMembers(sg);
     }
@@ -345,11 +345,11 @@ public class UserTestUtils extends Assert {
      * @throws Exception foo
      */
     public static void addVirtualization(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements(); 
+        Set ents = orgIn.getEntitlements();
         ents.add(OrgFactory.getEntitlementVirtualization());
-        
-        EntitlementServerGroup sg = 
-            ServerGroupTestUtils.createEntitled(orgIn, 
+
+        EntitlementServerGroup sg =
+            ServerGroupTestUtils.createEntitled(orgIn,
                     ServerConstants.getServerGroupTypeVirtualizationEntitled());
         incrementSgMaxMembers(sg);
         TestUtils.saveAndFlush(sg);
@@ -361,17 +361,17 @@ public class UserTestUtils extends Assert {
      * @throws Exception foo
      */
     public static void addVirtualizationPlatform(Org orgIn) throws Exception {
-        Set ents = orgIn.getEntitlements(); 
+        Set ents = orgIn.getEntitlements();
         ents.add(OrgFactory.getEntitlementVirtualizationPlatform());
-        
-        EntitlementServerGroup sg = 
-            ServerGroupTestUtils.createEntitled(orgIn, 
+
+        EntitlementServerGroup sg =
+            ServerGroupTestUtils.createEntitled(orgIn,
                     ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled());
         incrementSgMaxMembers(sg);
         TestUtils.saveAndFlush(sg);
 
     }
-    
+
     /**
      * Create a new user 'testUser' and 'testOrg'
      * @return User created
@@ -386,17 +386,17 @@ public class UserTestUtils extends Assert {
      * @return User who is Org_ADMIN
      */
     public static User ensureOrgAdminExists(Org orgIn) {
-        User retval = UserFactory.findRandomOrgAdmin(orgIn); 
-        if (retval == null) { 
+        User retval = UserFactory.findRandomOrgAdmin(orgIn);
+        if (retval == null) {
             retval = createUserInternal("testUser");
-            retval = UserFactory.saveNewUser(retval, 
+            retval = UserFactory.saveNewUser(retval,
                     createTestAddress(retval), orgIn.getId());
             retval.addRole(RoleFactory.ORG_ADMIN);
             UserFactory.save(retval);
         }
         return retval;
     }
-    /** 
+    /**
      * Make sure a user with the passed in *exact* login exists within the org
      * @param login to ensure exists
      * @return User new if not already there

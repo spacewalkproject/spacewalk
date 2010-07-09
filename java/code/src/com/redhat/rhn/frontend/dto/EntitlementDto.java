@@ -24,10 +24,10 @@ import org.apache.commons.lang.builder.CompareToBuilder;
  * @version $Rev$
  */
 public class EntitlementDto implements Comparable {
-    
+
     private Entitlement entitlement;
     private Long availbleEntitlements;
-    
+
     /**
      * Constructor
      * @param entIn to set
@@ -37,28 +37,28 @@ public class EntitlementDto implements Comparable {
         this.entitlement = entIn;
         this.availbleEntitlements = availEnts;
     }
-    
+
     /**
      * @return Returns the availbleEntitlements.
      */
     public Long getAvailbleEntitlements() {
         return availbleEntitlements;
     }
-    
+
     /**
      * @param availbleEntitlementsIn The availbleEntitlements to set.
      */
     public void setAvailbleEntitlements(Long availbleEntitlementsIn) {
         this.availbleEntitlements = availbleEntitlementsIn;
     }
-    
+
     /**
      * @return Returns the entitlement.
      */
     public Entitlement getEntitlement() {
         return entitlement;
     }
-    
+
     /**
      * @param entitlementIn The entitlement to set.
      */

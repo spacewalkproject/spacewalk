@@ -28,7 +28,7 @@ import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 public class KickstartSessionUpdateCommand {
 
     private KickstartSession sess;
-    
+
     /**
      * Constructor
      * @param sessionId of KickstartSession
@@ -45,7 +45,7 @@ public class KickstartSessionUpdateCommand {
         KickstartFactory.saveKickstartSession(this.sess);
         return null;
     }
-    
+
     /**
      * Set the state of the session.
      * @param stateIn to update the KickstartSession to
@@ -53,7 +53,7 @@ public class KickstartSessionUpdateCommand {
     public void setSessionState(KickstartSessionState stateIn) {
         this.sess.setState(stateIn);
     }
-    
+
     /**
      * Set the client IP that is kickstarting.
      * @param clientIpIn to set.
@@ -70,7 +70,7 @@ public class KickstartSessionUpdateCommand {
         this.sess.setVirtualizationType(typeIn);
     }
 
-    /** 
+    /**
      * Get the KickstartData associated with this command.
      * @return KickstartData object
      */
@@ -79,13 +79,13 @@ public class KickstartSessionUpdateCommand {
     }
 
     /**
-     * Get the KickstartSession 
+     * Get the KickstartSession
      * @return KickstartSession associated with this command.
      */
     public KickstartSession getKickstartSession() {
         return this.sess;
     }
-     
+
 
 
 }

@@ -23,18 +23,18 @@ import java.util.Map;
 
 /**
  * @author mmccune
- * 
+ *
  */
 public class IntegrationServiceTest extends BaseTestCaseWithUser {
 
     public void testAuth() throws Exception {
         String login = "test-login-iservice";
-        Map tokens = (Map) TestUtils.getPrivateField(IntegrationService.get(), 
+        Map tokens = (Map) TestUtils.getPrivateField(IntegrationService.get(),
             "randomTokenStore");
         tokens.clear();
         assertNotNull(IntegrationService.get().
                 getAuthToken(login));
-        tokens = (Map) TestUtils.getPrivateField(IntegrationService.get(), 
+        tokens = (Map) TestUtils.getPrivateField(IntegrationService.get(),
             "randomTokenStore");
         assertNotNull(tokens);
         // Here we do re-implement the guts of what IntegrationService is doing
@@ -43,9 +43,9 @@ public class IntegrationServiceTest extends BaseTestCaseWithUser {
         // callers of this API since its not important to a user.
         String hashedRandom = (String) tokens.get(login);
         String encodedRandom = SessionSwap.encodeData(hashedRandom);
-        assertTrue(IntegrationService.get().checkRandomToken(login, 
+        assertTrue(IntegrationService.get().checkRandomToken(login,
                 encodedRandom));
-        
+
         // Check that a subsequent check of the token is still valid
         assertNotNull(IntegrationService.get().getAuthToken(login));
     }

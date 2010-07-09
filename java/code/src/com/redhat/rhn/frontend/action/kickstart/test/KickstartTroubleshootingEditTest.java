@@ -24,7 +24,7 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class KickstartTroubleshootingEditTest extends BaseKickstartEditTestCase {
-    
+
     public void testSetupExecute() throws Exception {
         setRequestPathInfo("/kickstart/TroubleshootingEdit");
         actionPerform();
@@ -42,7 +42,7 @@ public class KickstartTroubleshootingEditTest extends BaseKickstartEditTestCase 
         this.ksdata = (KickstartData) TestUtils.reload(this.ksdata);
 
         assertEquals("grub", this.ksdata.getBootloaderType());
-    }   
+    }
 
     public void testSubmitAdvanced() throws Exception {
         addDispatchCall(KickstartTroubleshootingEditAction.UPDATE_METHOD);

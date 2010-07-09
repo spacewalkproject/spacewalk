@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.config.ConfigFileName" 
+	<class name="com.redhat.rhn.domain.config.ConfigFileName"
            table="rhnConfigFileName"
            mutable="false" >
         <cache usage="read-only"/>
@@ -17,7 +17,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	</class>
 
     <query name="ConfigFileName.findByPath">
-        <![CDATA[from com.redhat.rhn.domain.config.ConfigFileName as c 
+        <![CDATA[from com.redhat.rhn.domain.config.ConfigFileName as c
                 where c.path = :path]]>
     </query>
 

@@ -23,7 +23,7 @@ public class CommonConstants {
 
     private CommonConstants() {
     }
-    
+
     /**
      * Get constant for virtualization_platform (limited)
      * @return VirtSubscriptionLevel for virt-limited
@@ -32,7 +32,7 @@ public class CommonConstants {
         return CommonFactory.
             lookupVirtSubscriptionLevel("virtualization_free");
     }
-    
+
     /**
      * Get constant for virtualization_platform_free
      * @return VirtSubscriptionLevel for platform
@@ -41,5 +41,5 @@ public class CommonConstants {
         return CommonFactory.
             lookupVirtSubscriptionLevel("virtualization_platform_free");
     }
-    
+
 }

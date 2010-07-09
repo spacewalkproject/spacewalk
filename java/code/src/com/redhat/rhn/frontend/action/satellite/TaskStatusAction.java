@@ -70,7 +70,7 @@ public class TaskStatusAction extends RhnAction {
             }
         }
 
-        
+
         request.setAttribute(CURRENT_DB_TIME, LocalizationService.getInstance().formatDate(
                                         TaskManager.getCurrentDBTime()));
         request.setAttribute("list", toDisplay);

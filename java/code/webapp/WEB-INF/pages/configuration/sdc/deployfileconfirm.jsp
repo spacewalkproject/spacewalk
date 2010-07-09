@@ -23,7 +23,7 @@
     </p>
   </div>
 
-<html:form method="post" 
+<html:form method="post"
 		action="/systems/details/configuration/DeployFileConfirmSubmit.do?sid=${system.id}">
     <c:set var="button" value="sdcdeployconfirm.jsp.schedule" />
     <%@ include file="/WEB-INF/pages/common/fragments/configuration/sdc/configfile_confirm.jspf" %>

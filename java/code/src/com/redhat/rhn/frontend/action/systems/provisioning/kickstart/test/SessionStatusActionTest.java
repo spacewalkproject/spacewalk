@@ -21,7 +21,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
  * @version $Rev: 1 $
  */
 public class SessionStatusActionTest extends BaseSessionTestCase {
-    
+
     public void testExecute() throws Exception {
         setRequestPathInfo("/systems/details/kickstart/SessionStatus");
         actionPerform();

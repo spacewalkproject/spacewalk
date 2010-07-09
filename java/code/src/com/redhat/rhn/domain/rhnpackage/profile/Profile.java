@@ -30,7 +30,7 @@ import java.util.Set;
  * @version $Rev$
  */
 public class Profile extends BaseDomainHelper implements Identifiable {
-    
+
     private Long id;
     private String name;
     private String description;
@@ -39,14 +39,14 @@ public class Profile extends BaseDomainHelper implements Identifiable {
     private Channel baseChannel;
     private ProfileType profileType;
     private Set packageEntries;
-    
+
 
     /**
      * Default constructor
      */
     public Profile() {
     }
-    
+
     /**
      * Constructs a Profile of the given type.
      * @param type Type of profile desired.
@@ -61,98 +61,98 @@ public class Profile extends BaseDomainHelper implements Identifiable {
     public Channel getBaseChannel() {
         return baseChannel;
     }
-    
+
     /**
      * @param b The baseChannel to set.
      */
     public void setBaseChannel(Channel b) {
         this.baseChannel = b;
     }
-    
+
     /**
      * @return Returns the description.
      */
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * @param d The description to set.
      */
     public void setDescription(String d) {
         this.description = d;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the info.
      */
     public String getInfo() {
         return info;
     }
-    
+
     /**
      * @param i The info to set.
      */
     public void setInfo(String i) {
         this.info = i;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
     public void setName(String n) {
         this.name = n;
     }
-    
+
     /**
      * @return Returns the org.
      */
     public Org getOrg() {
         return org;
     }
-    
+
     /**
      * @param o The org to set.
      */
     public void setOrg(Org o) {
         this.org = o;
     }
-    
+
     /**
      * @return Returns the profileType.
      */
     public ProfileType getProfileType() {
         return profileType;
     }
-    
+
     /**
      * @param p The profileType to set.
      */
     public void setProfileType(ProfileType p) {
         this.profileType = p;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -192,7 +192,7 @@ public class Profile extends BaseDomainHelper implements Identifiable {
         return new ToStringBuilder(this).append("id", id).append("name", name).toString();
     }
 
-    
+
     /**
      * @return Returns the packageEntries.
      */
@@ -200,7 +200,7 @@ public class Profile extends BaseDomainHelper implements Identifiable {
         return packageEntries;
     }
 
-    
+
     /**
      * @param packageEntriesIn The packageEntries to set.
      */

@@ -36,17 +36,17 @@ import java.util.Map;
  * MonitoringFactory - the singleton class used to fetch and store
  * com.redhat.rhn.domain.monitoring.ServerProbe objects from the
  * database.
- * @version $Rev: 51602 $ 
+ * @version $Rev: 51602 $
  */
 public class MonitoringFactory extends HibernateFactory {
 
     private static MonitoringFactory singleton = new MonitoringFactory();
     private static Logger log = Logger.getLogger(MonitoringFactory.class);
-    
+
     private MonitoringFactory() {
         super();
     }
-    
+
     /**
      * Get the Logger for the derived class so log messages
      * show up on the correct class
@@ -54,7 +54,7 @@ public class MonitoringFactory extends HibernateFactory {
     protected Logger getLogger() {
         return log;
     }
-    
+
 
     /**
      * Remove a ServerProbe from the DB
@@ -70,7 +70,7 @@ public class MonitoringFactory extends HibernateFactory {
         }
 
         // remove relevant entries for probe from time_series table
-        WriteMode m = ModeFactory.getWriteMode("Monitoring_queries", 
+        WriteMode m = ModeFactory.getWriteMode("Monitoring_queries",
                     "delete_time_series_for_probe");
         Map params = new HashMap();
         params.put("probe_id", probeIn.getId());
@@ -86,7 +86,7 @@ public class MonitoringFactory extends HibernateFactory {
      * @return return the ServerProbe if found
      */
     public static Probe lookupProbeByIdAndOrg(Long probeId, Org org) {
-     
+
         Map params = new HashMap();
         params.put("pid", probeId);
         params.put("orgId", org.getId());
@@ -94,7 +94,7 @@ public class MonitoringFactory extends HibernateFactory {
                                        "Probe.findByIdandOrgId", params);
     }
 
-    /** 
+    /**
      * Create a new ProbeSuite
      * @param userIn who is creating the ProbeSuite
      * @return newly created ProbeSuite
@@ -105,9 +105,9 @@ public class MonitoringFactory extends HibernateFactory {
         suite.setLastUpdateDate(new Date());
         suite.setLastUpdateUser(userIn.getLogin());
         return suite;
-        
+
     }
-    
+
     /**
      * Lookup a ProbeSuite by its ID as well as the Org owning the Suite.
      * @param psId of the ProbeSuite
@@ -123,14 +123,14 @@ public class MonitoringFactory extends HibernateFactory {
         params.put("orgId", orgIn.getId());
         return (ProbeSuite) singleton.lookupObjectByNamedQuery(
                                        "ProbeSuite.findByIdandOrgId", params);
-        
+
     }
-    
-    /** 
-     * Save a ProbeSuite to the DB.   
-     * 
+
+    /**
+     * Save a ProbeSuite to the DB.
+     *
      * @param probeSuiteIn ProbeSuite to
-     * @param userIn User who is saving the suite.  
+     * @param userIn User who is saving the suite.
      */
     public static void saveProbeSuite(ProbeSuite probeSuiteIn, User userIn) {
         probeSuiteIn.setLastUpdateUser(userIn.getLogin());
@@ -141,9 +141,9 @@ public class MonitoringFactory extends HibernateFactory {
             p.setLastUpdateDate(new Date());
         }
         singleton.saveObject(probeSuiteIn);
-        
+
     }
-    
+
     /**
      * Delete a probeSuite - deletes all the child probes and probes a
      * assigned to systems.
@@ -181,16 +181,16 @@ public class MonitoringFactory extends HibernateFactory {
         return (Command)
             singleton.lookupObjectByNamedQuery("Command.findByName", params, true);
     }
-    
+
     // Util to lookup the probetypes
     static ProbeType lookupProbeType(String type) {
         Map params = new HashMap();
         params.put("type", type);
-        return (ProbeType) 
+        return (ProbeType)
             singleton.lookupObjectByNamedQuery("ProbeType.findByType", params, true);
-        
+
     }
-    /** 
+    /**
      * Commit a ServerProbe to the DB
      * @param pIn probe to be saved
      * @param userIn User who is committing the ServerProbe
@@ -220,7 +220,7 @@ public class MonitoringFactory extends HibernateFactory {
         }
         return null;
     }
-    
+
     private static List unmodifiableListFromQuery(String query) {
         List l = singleton.listObjectsByNamedQuery(query, null);
         return Collections.unmodifiableList(l);

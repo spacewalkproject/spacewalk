@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.redhat.rhn.domain.monitoring.satcluster.SatCluster" 
+	<class name="com.redhat.rhn.domain.monitoring.satcluster.SatCluster"
 		table="rhn_sat_cluster" >
 		<id name="id" type="long" column="recid">
 			<meta attribute="scope-set">protected</meta>
@@ -11,46 +11,46 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="property">commandTarget</param>
             </generator>
 		</id>
-		<property name="targetType" column="target_type" not-null="true" 
+		<property name="targetType" column="target_type" not-null="true"
 			type="string" length="10" />
-		<property name="description" column="description" not-null="true" 
+		<property name="description" column="description" not-null="true"
 			type="string" length="255" />
-		<property name="lastUpdateUser" column="last_update_user" type="string" 
+		<property name="lastUpdateUser" column="last_update_user" type="string"
 			length="40" />
-		<property name="lastUpdateDate" column="last_update_date" 
+		<property name="lastUpdateDate" column="last_update_date"
 			type="timestamp" />
-		<property name="publicKey" column="public_key" type="string" 
+		<property name="publicKey" column="public_key" type="string"
 			length="2000" />
 		<property name="vip" column="vip" type="string" length="15" />
-		<property name="deployed" column="deployed" not-null="true" 
+		<property name="deployed" column="deployed" not-null="true"
 			type="string" length="1" />
-		<property name="pemPublicKey" column="pem_public_key" type="string" 
+		<property name="pemPublicKey" column="pem_public_key" type="string"
 			length="2000" />
-		<property name="pemPublicKeyHash" column="pem_public_key_hash" 
+		<property name="pemPublicKeyHash" column="pem_public_key_hash"
 			type="string" length="20" />
-		<many-to-one name="physicalLocation" 
-			class="com.redhat.rhn.domain.monitoring.satcluster.PhysicalLocation" 
+		<many-to-one name="physicalLocation"
+			class="com.redhat.rhn.domain.monitoring.satcluster.PhysicalLocation"
 			outer-join="false" cascade="save-update" not-null="true" >
 			<column name="physical_location_id" />
 		</many-to-one>
         <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
             column="customer_id" cascade="none"/>
-        <many-to-one name="commandTarget" 
+        <many-to-one name="commandTarget"
         	class="com.redhat.rhn.domain.monitoring.satcluster.CommandTarget"
             column="recid" insert="false" update="false" cascade="all"/>
-            
+
 	</class>
 	
 	<query name="SatCluster.findByID">
         <![CDATA[from com.redhat.rhn.domain.monitoring.satcluster.SatCluster as sc
 		         where sc.id = :satClusterID]]>
     </query>
-    
+
     	<query name="SatCluster.findAll">
         <![CDATA[from com.redhat.rhn.domain.monitoring.satcluster.SatCluster as sc
 		         ]]>
     </query>
-    
+
 
 	
 </hibernate-mapping>

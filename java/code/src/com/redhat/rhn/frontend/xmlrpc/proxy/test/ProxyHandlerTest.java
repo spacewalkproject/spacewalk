@@ -28,8 +28,8 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
 public class ProxyHandlerTest extends RhnBaseTestCase {
-    
-    
+
+
     public void testDeactivateProxyWithReload() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         user.addRole(RoleFactory.ORG_ADMIN);
@@ -48,29 +48,29 @@ public class ProxyHandlerTest extends RhnBaseTestCase {
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled(),
                 ServerFactoryTest.TYPE_SERVER_NORMAL);
-        
+
         SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
-        
-        
+
+
         ClientCertificate cert = SystemManager.createClientCertificate(server);
         cert.validate(server.getSecret());
 
         int rc = ph.activateProxy(cert.toString(), "5.0");
         assertEquals(1, rc);
 
-        
+
     }
-    
+
     public void testDeactivateProxy() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled(),
                 ServerFactoryTest.TYPE_SERVER_PROXY);
-        
+
         // TODO: need to actually create a valid proxy server, the
         // above doesn't come close to creating a REAL server.
-        
+
         ClientCertificate cert = SystemManager.createClientCertificate(server);
         cert.validate(server.getSecret());
 
@@ -78,7 +78,7 @@ public class ProxyHandlerTest extends RhnBaseTestCase {
         int rc = ph.deactivateProxy(cert.toString());
         assertEquals(1, rc);
     }
-    
+
     public void aTestWithExistingProxy() throws Exception {
         Server server = ServerFactory.lookupById(new Long(1005012107));
         ClientCertificate cert = SystemManager.createClientCertificate(server);
@@ -87,7 +87,7 @@ public class ProxyHandlerTest extends RhnBaseTestCase {
         int rc = ph.deactivateProxy(cert.toString());
         assertEquals(1, rc);
     }
-    
+
     public void testLameTest() {
         assertNotNull(new ProxyHandler());
     }

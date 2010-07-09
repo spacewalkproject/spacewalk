@@ -29,7 +29,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * ActivationKeySerializer
  * @version $Rev$
  *
- * @xmlrpc.doc 
+ * @xmlrpc.doc
  *   #struct("activation key")
  *     #prop("string", "key")
  *     #prop("string", "description")

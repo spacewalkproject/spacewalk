@@ -30,13 +30,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 
+ *
  * PreservationListDeletionAction - for deleting FileList objects
  * @version $Rev$
  */
-public class PreservationListDeleteAction extends 
+public class PreservationListDeleteAction extends
                                     BaseSetOperateOnSelectedItemsAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -44,7 +44,7 @@ public class PreservationListDeleteAction extends
                                     HttpServletRequest request,
                                     RhnSetElement elementIn,
                                     User userIn) {
-        FileList fl = CommonFactory.lookupFileList(elementIn.getElement(), 
+        FileList fl = CommonFactory.lookupFileList(elementIn.getElement(),
                                                    userIn.getOrg());
         if (fl != null) {
             CommonFactory.removeFileList(fl);
@@ -56,7 +56,7 @@ public class PreservationListDeleteAction extends
      * {@inheritDoc}
      */
     protected void processMethodKeys(Map map) {
-        map.put("preservation_list.jsp.deletelist", "operateOnSelectedSet"); 
+        map.put("preservation_list.jsp.deletelist", "operateOnSelectedSet");
     }
 
     /**
@@ -65,19 +65,19 @@ public class PreservationListDeleteAction extends
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.FILE_LISTS;
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         return KickstartLister.getInstance().preservationListsInOrg(
                                                         user.getOrg(), null);
     }
-    
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
+
+    protected void processParamMap(ActionForm formIn,
+                                   HttpServletRequest request,
                                    Map params) {
         // no op
     }

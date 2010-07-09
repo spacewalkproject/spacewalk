@@ -29,14 +29,14 @@ public class EssentialChannelDto extends BaseDto {
     private String label;
     private boolean isCustom;
     private String release;
-    
+
     /**
      * Constructor
      */
     public EssentialChannelDto() {
         super();
     }
-    
+
     /**
      * Constructor
      * @param c Channel
@@ -46,7 +46,7 @@ public class EssentialChannelDto extends BaseDto {
         setName(c.getName());
         setLabel(c.getLabel());
     }
-    
+
     /**
      * get release
      * @return the release
@@ -72,7 +72,7 @@ public class EssentialChannelDto extends BaseDto {
     }
 
     /**
-     * 
+     *
      * @return True is channel is a custom channel.
      */
     public boolean isCustom() {
@@ -94,7 +94,7 @@ public class EssentialChannelDto extends BaseDto {
     public void setIsCustom(Long in) {
         isCustom = in.intValue() == 1;
     }
-    
+
     /**
      * Get the label
      * @return Channel label to set.
@@ -134,7 +134,7 @@ public class EssentialChannelDto extends BaseDto {
 
 
     /**
-     * 
+     *
      * @return the owner ID.
      */
     public Long getOwnerId() {

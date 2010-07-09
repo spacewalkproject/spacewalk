@@ -23,14 +23,14 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class NoSuchKickstartTreeException extends FaultException {
-    
+
     /**
      * Constructor
      * @param treeLabel the kickstart tree label
      */
     public NoSuchKickstartTreeException(String treeLabel) {
         super(2752, "invalidKickstartTreeLabel" , LocalizationService.getInstance().
-                getMessage("api.kickstart.nosuchkickstarttreelabel", 
+                getMessage("api.kickstart.nosuchkickstarttreelabel",
                         new Object [] {treeLabel}));
     }
 

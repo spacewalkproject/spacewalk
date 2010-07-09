@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletResponse;
  * PackagePushSetupAction
  */
 public class PackagePushSetupAction extends RhnListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -54,14 +54,14 @@ public class PackagePushSetupAction extends RhnListAction {
 
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
-        
+
         PageControl pc = new PageControl();
         pc.setFilterColumn("earliest");
-        
+
         Long eid = rctx.getRequiredParam("eid");
         Errata e = ErrataManager.lookupErrata(eid, user);
-        
-        /* If the errata is unpublished, we 
+
+        /* If the errata is unpublished, we
          * don't need to do a package push
          */
         if (!e.isPublished()) {
@@ -70,13 +70,13 @@ public class PackagePushSetupAction extends RhnListAction {
         }
 
         clampListBounds(pc, request, user);
-        
+
         RhnSet targetChannels = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user);
-        
+
         Set set = targetChannels.getElements();
-        
+
         Iterator i = set.iterator();
-        
+
         RhnSet packageSet = RhnSetDecl.PACKAGES_TO_PUSH.get(user);
 
         if (!rctx.isSubmitted()) {
@@ -89,7 +89,7 @@ public class PackagePushSetupAction extends RhnListAction {
          * the errata that are newer than the version of the channel into
          * the channel */
         while (i.hasNext()) {
-            
+
             if (set.isEmpty()) {
                 mapping.findForward("finished");
             }
@@ -98,12 +98,12 @@ public class PackagePushSetupAction extends RhnListAction {
             Long cid = element.getElement();
             DataResult dr = PackageManager.
                             possiblePackagesForPushingIntoChannel(cid, eid, pc);
-            
+
             i.remove();
-            
+
             Channel c = ChannelManager.lookupByIdAndUser(cid, user);
             if (!dr.isEmpty()) {
-                request.setAttribute("pageList", dr); 
+                request.setAttribute("pageList", dr);
                 request.setAttribute("cid", cid);
                 request.setAttribute("set", packageSet);
                 request.setAttribute("advisory", e.getAdvisory());
@@ -111,9 +111,9 @@ public class PackagePushSetupAction extends RhnListAction {
                 return mapping.findForward("default");
             }
         }
-        
+
         request.setAttribute("eid", eid);
         return mapping.findForward("finished");
     }
-    
+
 }

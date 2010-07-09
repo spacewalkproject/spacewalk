@@ -76,19 +76,19 @@ import java.util.Set;
  * ActionFactory - the singleton class used to fetch and store
  * com.redhat.rhn.domain.action.Action objects from the
  * database.
- * @version $Rev$ 
+ * @version $Rev$
  */
 public class ActionFactory extends HibernateFactory {
 
     private static ActionFactory singleton = new ActionFactory();
     private static Logger log = Logger.getLogger(ActionFactory.class);
     private static Set actionArchTypes;
-    
+
     private ActionFactory() {
         super();
         setupActionArchTypes();
     }
-    
+
     private void setupActionArchTypes() {
         synchronized (this) {
             Session session = null;
@@ -97,7 +97,7 @@ public class ActionFactory extends HibernateFactory {
                 List types = session.getNamedQuery("ActionArchType.loadAll")
                                                //Retrieve from cache if there
                                                .setCacheable(true).list();
-                
+
                 actionArchTypes = new HashSet();
                 Iterator i = types.iterator();
                 while (i.hasNext()) {
@@ -107,12 +107,12 @@ public class ActionFactory extends HibernateFactory {
             }
             catch (HibernateException he) {
                 log.error("Error loading ActionArchTypes from DB", he);
-                throw new 
+                throw new
                     HibernateRuntimeException("Error loading ActionArchTypes from db");
             }
         }
     }
-    
+
     /**
      * Removes an action from all its associated systems
      * @param actionId action to remove
@@ -134,7 +134,7 @@ public class ActionFactory extends HibernateFactory {
         }
         return failed;
     }
-    
+
     /**
      * Remove an action for an rhnset of system ids with the given label
      * @param actionId the action to remove
@@ -142,9 +142,9 @@ public class ActionFactory extends HibernateFactory {
      * @param user the user witht he set
      * @return the number of failed systems to remove an action for.
      */
-    public static int removeActionForSystemSet(Number actionId, 
+    public static int removeActionForSystemSet(Number actionId,
             String setLabel, User user) {
-        
+
         RhnSet set = RhnSetManager.findByLabel(user.getId(), setLabel, null);
         Set<Long> ids = set.getElementValues();
         int failed = 0;
@@ -158,17 +158,17 @@ public class ActionFactory extends HibernateFactory {
         }
         return failed;
     }
-    
+
     private  static void removeActionForSystem(Number actionId, Number sid) {
-        CallableMode mode = 
+        CallableMode mode =
             ModeFactory.getCallableMode("System_queries", "delete_action_for_system");
         Map params = new HashMap();
         params.put("action_id", actionId);
         params.put("server_id",  sid);
         mode.execute(params, new HashMap());
     }
-    
-    
+
+
     /**
      * Get the Logger for the derived class so log messages
      * show up on the correct class
@@ -176,7 +176,7 @@ public class ActionFactory extends HibernateFactory {
     protected Logger getLogger() {
         return log;
     }
-    
+
     /**
      * Creates a ServerAction and adds it to an Action
      * @param sid The server id
@@ -186,7 +186,7 @@ public class ActionFactory extends HibernateFactory {
         addServerToAction(ServerFactory.lookupByIdAndOrg(sid,
                 parent.getOrg()), parent);
     }
-    
+
     /**
      * Creates a ServerAction and adds it to an Action
      * @param server The server
@@ -202,7 +202,7 @@ public class ActionFactory extends HibernateFactory {
         sa.setRemainingTries(new Long(5)); //arbitrary number from perl
         parent.addServerAction(sa);
     }
-    
+
     /**
      * Create a ConfigRevisionAction for the given server and add it to the parent action.
      * @param revision The config revision to add to the action.
@@ -218,12 +218,12 @@ public class ActionFactory extends HibernateFactory {
         cra.setServer(server);
         parent.addConfigRevisionAction(cra);
     }
-    
+
     /**
      * Creates a ScriptActionDetails which contains an arbitrary script to be
      * run by a ScriptRunAction.
      * @param username Username of script
-     * @param groupname Group script runs as 
+     * @param groupname Group script runs as
      * @param script Script contents
      * @param timeout script timeout
      * @return ScriptActionDetails containing script to be run by ScriptRunAction
@@ -243,7 +243,7 @@ public class ActionFactory extends HibernateFactory {
                     IllegalArgumentException(
                             "This VM or environment doesn't support UTF-8");
         }
-        
+
         return sad;
     }
 
@@ -254,14 +254,14 @@ public class ActionFactory extends HibernateFactory {
      */
     public static boolean doesServerHaveKickstartScheduled(Long serverId) {
         Session session = HibernateFactory.getSession();
-        Query query = 
+        Query query =
             session.getNamedQuery("ServerAction.findPendingKickstartsForServer");
         query.setParameter("serverId", serverId);
         query.setParameter("label", "kickstart.initiate");
         List retval = query.list();
         return (retval != null && retval.size() > 0);
     }
-    
+
     /**
      * Create a new Action from scratch.
      * @param typeIn the type of Action we want to create
@@ -270,7 +270,7 @@ public class ActionFactory extends HibernateFactory {
     public static Action createAction(ActionType typeIn) {
         return createAction(typeIn, new Date());
     }
-    
+
     /**
      * Create a new Action from scratch
      * with the given earliest execution.
@@ -280,9 +280,9 @@ public class ActionFactory extends HibernateFactory {
      */
     public static Action createAction(ActionType typeIn, Date earliest) {
         Action retval;
-        if (typeIn.equals(TYPE_ERRATA)) { 
+        if (typeIn.equals(TYPE_ERRATA)) {
             retval = new ErrataAction();
-        } 
+        }
         else if (typeIn.equals(TYPE_SCRIPT_RUN)) {
             retval = new ScriptRunAction();
         }
@@ -290,7 +290,7 @@ public class ActionFactory extends HibernateFactory {
                 typeIn.equals(TYPE_CONFIGFILES_DEPLOY) ||
                 typeIn.equals(TYPE_CONFIGFILES_VERIFY)) {
             retval = new ConfigAction();
-        } 
+        }
         else if (typeIn.equals(TYPE_CONFIGFILES_UPLOAD)) {
             retval = new ConfigUploadAction();
         }
@@ -318,7 +318,7 @@ public class ActionFactory extends HibernateFactory {
         else if (typeIn.equals(TYPE_KICKSTART_INITIATE_GUEST)) {
             retval = new KickstartInitiateGuestAction();
         }
-        else if (typeIn.equals(TYPE_DAEMON_CONFIG)) { 
+        else if (typeIn.equals(TYPE_DAEMON_CONFIG)) {
             retval = new DaemonConfigAction();
         }
         else if (typeIn.equals(TYPE_SOLARISPKGS_PATCHREMOVE)) {
@@ -383,7 +383,7 @@ public class ActionFactory extends HibernateFactory {
 
     /**
      * Lookup an Action by the id, assuming that it is in the same Org as
-     * the user doing the search.  This method ensures security around the 
+     * the user doing the search.  This method ensures security around the
      * Action.
      * @param user the user doing the search
      * @param id of the Action to search for
@@ -396,7 +396,7 @@ public class ActionFactory extends HibernateFactory {
         return (Action)singleton.lookupObjectByNamedQuery(
                                         "Action.findByIdandOrgId", params);
     }
-    
+
 
     /**
      * Lookup the total server action count for an action
@@ -411,17 +411,17 @@ public class ActionFactory extends HibernateFactory {
         return (Integer)singleton.lookupObjectByNamedQuery(
                                         "Action.getServerActionCount", params);
     }
-    
-    
+
+
     /**
-     * Lookup the number of server actions for a particular action that have 
+     * Lookup the number of server actions for a particular action that have
      *      a certain status
      * @param org the org to look
      * @param status the status you want
      * @param action the action id
      * @return the count
      */
-    public static Integer getServerActionCountByStatus(Org org, Action action, 
+    public static Integer getServerActionCountByStatus(Org org, Action action,
             ActionStatus status) {
         Map params = new HashMap();
         params.put("aid", action.getId());
@@ -429,20 +429,20 @@ public class ActionFactory extends HibernateFactory {
         return (Integer)singleton.lookupObjectByNamedQuery(
                                         "Action.getServerActionCountByStatus", params);
     }
-    
-    
+
+
     /**
      * Lookup the last completed Action on a Server
      *  given the user, action type and server.
-     * This is useful especially in cases where we want to 
+     * This is useful especially in cases where we want to
      * find the last deployed config action ...
-     *  
+     *
      * @param user the user doing the search (needed for permssion checking)
      * @param type the action type of the action to be queried.
      * @param server the server who's latest completed action is desired.
      * @return the Action found or null if none exists
      */
-    public static Action lookupLastCompletedAction(User user, 
+    public static Action lookupLastCompletedAction(User user,
                                             ActionType type,
                                             Server server) {
         Map params = new HashMap();
@@ -453,8 +453,8 @@ public class ActionFactory extends HibernateFactory {
                          "Action.findLastActionByServerIdAndActionTypeIdAndUserId",
                              params);
     }
-        
-    
+
+
     /**
      * Lookup a Action by their id
      * @param id the id to search for
@@ -475,7 +475,7 @@ public class ActionFactory extends HibernateFactory {
     public static ActionType lookupActionTypeByLabel(String label) {
         Map params = new HashMap();
         params.put("label", label);
-        return (ActionType) 
+        return (ActionType)
             singleton.lookupObjectByNamedQuery("ActionType.findByLabel", params, true);
     }
 
@@ -487,35 +487,35 @@ public class ActionFactory extends HibernateFactory {
     private static ActionStatus lookupActionStatusByName(String name) {
         Map params = new HashMap();
         params.put("name", name);
-        return (ActionStatus) 
+        return (ActionStatus)
             singleton.lookupObjectByNamedQuery("ActionStatus.findByName", params, true);
 
     }
-    
+
     /**
-     * Helper method to get a ConfigRevisionActionResult by 
+     * Helper method to get a ConfigRevisionActionResult by
      *  Action Config Revision Id
      * @param actionConfigRevisionId the id of the ActionConfigRevision
      *                  for whom we want to lookup the result
      * @return The ConfigRevisionActionResult corresponding to the revison ID.
      */
-    public static ConfigRevisionActionResult 
+    public static ConfigRevisionActionResult
                     lookupConfigActionResult(Long actionConfigRevisionId) {
         Map params = new HashMap();
         params.put("id", actionConfigRevisionId);
-        return (ConfigRevisionActionResult) 
+        return (ConfigRevisionActionResult)
             singleton.lookupObjectByNamedQuery("ConfigRevisionActionResult.findById",
-                                                                    params, true);        
-    }    
+                                                                    params, true);
+    }
 
     /**
-     * Helper method to get a ConfigRevisionAction by 
+     * Helper method to get a ConfigRevisionAction by
      *  Action Config Revision Id
      * @param id the id of the ActionConfigRevision
      *                  for whom we want to lookup the result
      * @return The ConfigRevisionAction corresponding to the revison ID.
      */
-    public static ConfigRevisionAction 
+    public static ConfigRevisionAction
                     lookupConfigRevisionAction(Long id) {
 
         Session session = HibernateFactory.getSession();
@@ -523,7 +523,7 @@ public class ActionFactory extends HibernateFactory {
             get(ConfigRevisionAction.class, id);
         return c;
     }
-    
+
     /**
      * Insert or Update a Action.
      * @param actionIn Action to be stored in database.
@@ -531,7 +531,7 @@ public class ActionFactory extends HibernateFactory {
     public static void save(Action actionIn) {
         /**
          * If we are trying to commit a package action, make sure
-         * the packageEvr stored proc is called first so that 
+         * the packageEvr stored proc is called first so that
          * the foreign key constraint holds.
          */
         if (actionIn.getActionType().equals(TYPE_PACKAGES_AUTOUPDATE) ||
@@ -541,9 +541,9 @@ public class ActionFactory extends HibernateFactory {
             actionIn.getActionType().equals(TYPE_PACKAGES_RUNTRANSACTION) ||
             actionIn.getActionType().equals(TYPE_PACKAGES_UPDATE) ||
             actionIn.getActionType().equals(TYPE_PACKAGES_VERIFY)) {
-            
+
             PackageAction action = (PackageAction) actionIn;
-            Set details = action.getDetails();           
+            Set details = action.getDetails();
             Iterator ditr = details.iterator();
             while (ditr.hasNext()) {
                 PackageActionDetails detail = (PackageActionDetails) ditr.next();
@@ -559,7 +559,7 @@ public class ActionFactory extends HibernateFactory {
         }
         singleton.saveObject(actionIn);
     }
-    
+
     /**
      * Remove a Action from the DB
      * @param actionIn Action to be removed from database.
@@ -569,38 +569,38 @@ public class ActionFactory extends HibernateFactory {
     }
 
     /**
-     * Check the ActionType against the ActionArchType to see 
-     * 
+     * Check the ActionType against the ActionArchType to see
+     *
      * @param actionCheck the Action we want to see if the type matches against
      * @param actionStyle the String type we want to check
-     * @return boolean if the passed in Action matches the actionStyle from 
+     * @return boolean if the passed in Action matches the actionStyle from
      *         the set of ActionArchTypes
      */
     public static boolean checkActionArchType(Action actionCheck, String actionStyle) {
         Iterator i = actionArchTypes.iterator();
         while (i.hasNext()) {
             ActionArchType at = (ActionArchType) i.next();
-            if (at.getActionType().equals(actionCheck.getActionType()) && 
+            if (at.getActionType().equals(actionCheck.getActionType()) &&
                     at.getActionStyle().equals(actionStyle)) {
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     /**
-     * Recursively query the hierarchy of actions dependent on a given 
+     * Recursively query the hierarchy of actions dependent on a given
      * parent. While recursive, only one query is executed per level in
      * the hierarchy, and action hierarchies tend to not be more than
      * two levels deep.
-     *  
-     * @param parentAction Parent action. 
+     *
+     * @param parentAction Parent action.
      * @return Set of actions dependent on the given parent.
      */
     public static Set lookupDependentActions(Action parentAction) {
         Session session = HibernateFactory.getSession();
-        
+
         Set returnSet = new HashSet();
         List actionsAtHierarchyLevel = new LinkedList();
         actionsAtHierarchyLevel.add(parentAction.getId());
@@ -617,18 +617,18 @@ public class ActionFactory extends HibernateFactory {
             }
         }
         while (actionsAtHierarchyLevel.size() > 0);
-        
+
         return returnSet;
     }
-    
+
     /**
      * Delete the server actions associated with the given set of parent actions.
      * @param parentActions Set of parent actions.
      */
     public static void deleteServerActionsByParent(Set parentActions) {
         Session session = HibernateFactory.getSession();
-        
-        Query serverActionsToDelete = 
+
+        Query serverActionsToDelete =
             session.getNamedQuery("ServerAction.deleteByParentActions");
         serverActionsToDelete.setParameterList("actions", parentActions);
         serverActionsToDelete.executeUpdate();
@@ -646,7 +646,7 @@ public class ActionFactory extends HibernateFactory {
         return (List) singleton.listObjectsByNamedQuery(
                                         "Action.findByServerAndOrgId", params);
     }
-    
+
     /**
      * Lookup a List of ServerAction objects for a given Server.
      * @param serverIn you want to limit the list of Actions to
@@ -658,7 +658,7 @@ public class ActionFactory extends HibernateFactory {
         return (List) singleton.listObjectsByNamedQuery(
                                         "ServerAction.findByServer", params);
     }
-    
+
     /**
      * Reschedule All Failed Server Actions associated with an action
      * @param action the action who's server actions you are rescheduling
@@ -667,330 +667,330 @@ public class ActionFactory extends HibernateFactory {
     public static void rescheduleFailedServerActions(Action action, Long tries) {
         singleton.getSession().getNamedQuery("Action.rescheduleFailedActions")
                 .setParameter("action", action)
-                .setParameter("tries", tries)                
+                .setParameter("tries", tries)
                 .setParameter("failed", ActionFactory.STATUS_FAILED)
                 .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
     }
-    
+
     /**
      * Reschedule All Server Actions associated with an action
      * @param action the action who's server actions you are rescheduling
      * @param tries the number of tries to set (should be set to 5)
-     */    
+     */
     public static void rescheduleAllServerActions(Action action, Long tries) {
         singleton.getSession().getNamedQuery("Action.rescheduleAllActions")
                 .setParameter("action", action)
                 .setParameter("tries", tries)
                 .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
     }
-    
-    
+
+
     /**
     * The constant representing the Action Status QUEUED
     */
-    public static final ActionStatus STATUS_QUEUED = 
+    public static final ActionStatus STATUS_QUEUED =
             lookupActionStatusByName("Queued");
     /**
     * The constant representing the Action Status COMPLETED
     */
-    public static final ActionStatus STATUS_COMPLETED = 
+    public static final ActionStatus STATUS_COMPLETED =
             lookupActionStatusByName("Completed");
-    
+
     /**
     * The constant representing the Action Status FAILED
     */
-    public static final ActionStatus STATUS_FAILED = 
+    public static final ActionStatus STATUS_FAILED =
             lookupActionStatusByName("Failed");
 
     /**
      * The constant representing Package Refresh List action.  [ID:1]
      */
-    public static final ActionType TYPE_PACKAGES_REFRESH_LIST = 
+    public static final ActionType TYPE_PACKAGES_REFRESH_LIST =
             lookupActionTypeByLabel("packages.refresh_list");
 
     /**
      * The constant representing Hardware Refreshlist action.  [ID:2]
      */
-    public static final ActionType TYPE_HARDWARE_REFRESH_LIST = 
+    public static final ActionType TYPE_HARDWARE_REFRESH_LIST =
             lookupActionTypeByLabel("hardware.refresh_list");
 
     /**
      * The constant representing Package Update action.  [ID:3]
      */
-    public static final ActionType TYPE_PACKAGES_UPDATE = 
+    public static final ActionType TYPE_PACKAGES_UPDATE =
             lookupActionTypeByLabel("packages.update");
 
     /**
      * The constant representing Package Remove action.  [ID:4]
      */
-    public static final ActionType TYPE_PACKAGES_REMOVE = 
+    public static final ActionType TYPE_PACKAGES_REMOVE =
             lookupActionTypeByLabel("packages.remove");
-    
+
     /**
      * The constant representing Errata action.  [ID:5]
      */
-    public static final ActionType TYPE_ERRATA = 
+    public static final ActionType TYPE_ERRATA =
             lookupActionTypeByLabel("errata.update");
-    
+
     /**
      * The constant representing RHN Get server up2date config action. [ID:6]
      */
-    public static final ActionType TYPE_UP2DATE_CONFIG_GET = 
+    public static final ActionType TYPE_UP2DATE_CONFIG_GET =
             lookupActionTypeByLabel("up2date_config.get");
 
     /**
      * The constant representing RHN Update server up2date config action.  [ID:7]
      */
-    public static final ActionType TYPE_UP2DATE_CONFIG_UPDATE = 
+    public static final ActionType TYPE_UP2DATE_CONFIG_UPDATE =
             lookupActionTypeByLabel("up2date_config.update");
-    
+
     /**
      * The constant representing Package Delta action.  [ID:8]
      */
-    public static final ActionType TYPE_PACKAGES_DELTA = 
+    public static final ActionType TYPE_PACKAGES_DELTA =
             lookupActionTypeByLabel("packages.delta");
 
     /**
      * The constant representing Reboot action.  [ID:9]
      */
-    public static final ActionType TYPE_REBOOT = 
+    public static final ActionType TYPE_REBOOT =
             lookupActionTypeByLabel("reboot.reboot");
-    
+
     /**
      * The constant representing Rollback Config action.  [ID:10]
      */
-    public static final ActionType TYPE_ROLLBACK_CONFIG = 
+    public static final ActionType TYPE_ROLLBACK_CONFIG =
             lookupActionTypeByLabel("rollback.config");
 
     /**
      * The constant representing "Refresh server-side transaction list"  [ID:11]
      */
-    public static final ActionType TYPE_ROLLBACK_LISTTRANSACTIONS = 
+    public static final ActionType TYPE_ROLLBACK_LISTTRANSACTIONS =
             lookupActionTypeByLabel("rollback.listTransactions");
 
     /**
      * The constant representing "Automatic package installation".  [ID:13]
      */
-    public static final ActionType TYPE_PACKAGES_AUTOUPDATE = 
+    public static final ActionType TYPE_PACKAGES_AUTOUPDATE =
             lookupActionTypeByLabel("packages.autoupdate");
 
     /**
      * The constant representing "Package Synchronization".  [ID:14]
      */
-    public static final ActionType TYPE_PACKAGES_RUNTRANSACTION = 
+    public static final ActionType TYPE_PACKAGES_RUNTRANSACTION =
             lookupActionTypeByLabel("packages.runTransaction");
-        
-    
+
+
     /**
      * The constant representing "Import config file data from system".  [ID:15]
      */
-    public static final ActionType TYPE_CONFIGFILES_UPLOAD = 
+    public static final ActionType TYPE_CONFIGFILES_UPLOAD =
             lookupActionTypeByLabel("configfiles.upload");
 
     /**
      * The constant representing "Deploy config files to system".  [ID:16]
      */
-    public static final ActionType TYPE_CONFIGFILES_DEPLOY = 
+    public static final ActionType TYPE_CONFIGFILES_DEPLOY =
             lookupActionTypeByLabel("configfiles.deploy");
 
     /**
      * The constant representing "Verify deployed config files" [ID:17]
      */
-    public static final ActionType TYPE_CONFIGFILES_VERIFY = 
+    public static final ActionType TYPE_CONFIGFILES_VERIFY =
             lookupActionTypeByLabel("configfiles.verify");
 
     /**
-     * The constant representing 
+     * The constant representing
      * "Show differences between profiled config files and deployed config files"  [ID:18]
      */
-    public static final ActionType TYPE_CONFIGFILES_DIFF = 
+    public static final ActionType TYPE_CONFIGFILES_DIFF =
             lookupActionTypeByLabel("configfiles.diff");
-    
+
     /**
      * The constant representing "Initiate a kickstart".  [ID:19]
      */
-    public static final ActionType TYPE_KICKSTART_INITIATE = 
+    public static final ActionType TYPE_KICKSTART_INITIATE =
             lookupActionTypeByLabel("kickstart.initiate");
-    
+
 
     /**
      * The constant representing "Initiate a kickstart for a guest".
      */
-    public static final ActionType TYPE_KICKSTART_INITIATE_GUEST = 
+    public static final ActionType TYPE_KICKSTART_INITIATE_GUEST =
             lookupActionTypeByLabel("kickstart_guest.initiate");
-    
+
     /**
      * The constant representing "Schedule a package sync for kickstarts".  [ID:20]
      */
-    public static final ActionType TYPE_KICKSTART_SCHEDULE_SYNC = 
+    public static final ActionType TYPE_KICKSTART_SCHEDULE_SYNC =
             lookupActionTypeByLabel("kickstart.schedule_sync");
-    
+
     /**
      * The constant representing "Schedule a package install for activation key".  [ID:21]
      */
-    public static final ActionType TYPE_ACTIVATION_SCHEDULE_PKG_INSTALL = 
+    public static final ActionType TYPE_ACTIVATION_SCHEDULE_PKG_INSTALL =
             lookupActionTypeByLabel("activation.schedule_pkg_install");
 
     /**
      * The constant representing "Schedule a config deploy for activation key"  [ID:22]
      */
-    public static final ActionType TYPE_ACTIVATION_SCHEDULE_DEPLOY = 
+    public static final ActionType TYPE_ACTIVATION_SCHEDULE_DEPLOY =
             lookupActionTypeByLabel("activation.schedule_deploy");
 
     /**
-     * The constant representing 
+     * The constant representing
      * "Upload config file data based upon mtime to server" [ID:23]
      */
-    public static final ActionType TYPE_CONFIGFILES_MTIME_UPLOAD = 
+    public static final ActionType TYPE_CONFIGFILES_MTIME_UPLOAD =
             lookupActionTypeByLabel("configfiles.mtime_upload");
 
     /**
      * The constant representing "Solaris Package Install" [ID:24]
      */
-    public static final ActionType TYPE_SOLARISPKGS_INSTALL = 
+    public static final ActionType TYPE_SOLARISPKGS_INSTALL =
             lookupActionTypeByLabel("solarispkgs.install");
 
     /**
      * The constant representing "Solaris Package Removal". [ID:25]
      */
-    public static final ActionType TYPE_SOLARISPKGS_REMOVE = 
+    public static final ActionType TYPE_SOLARISPKGS_REMOVE =
             lookupActionTypeByLabel("solarispkgs.remove");
 
     /**
      * The constant representing "Solaris Patch Install" [ID:26]
      */
-    public static final ActionType TYPE_SOLARISPKGS_PATCHINSTALL = 
+    public static final ActionType TYPE_SOLARISPKGS_PATCHINSTALL =
             lookupActionTypeByLabel("solarispkgs.patchInstall");
 
     /**
      * The constant representing "Solaris Patch Removal" [ID:27]
      */
-    public static final ActionType TYPE_SOLARISPKGS_PATCHREMOVE = 
+    public static final ActionType TYPE_SOLARISPKGS_PATCHREMOVE =
             lookupActionTypeByLabel("solarispkgs.patchRemove");
 
     /**
      * The constant representing "Solaris Patch Cluster Install" [ID:28]
      */
-    public static final ActionType TYPE_SOLARISPKGS_PATCHCLUSTERINSTALL = 
+    public static final ActionType TYPE_SOLARISPKGS_PATCHCLUSTERINSTALL =
             lookupActionTypeByLabel("solarispkgs.patchClusterInstall");
 
     /**
      * The constant representing "Solaris Patch Cluster Removal" [ID:29]
      */
-    public static final ActionType TYPE_SOLARISPKGS_PATCHCLUSTERREMOVE = 
+    public static final ActionType TYPE_SOLARISPKGS_PATCHCLUSTERREMOVE =
             lookupActionTypeByLabel("solarispkgs.patchClusterRemove");
 
     /**
      * The constant representing "Run an arbitrary script".  [ID:30]
      */
-    public static final ActionType TYPE_SCRIPT_RUN = 
+    public static final ActionType TYPE_SCRIPT_RUN =
             lookupActionTypeByLabel("script.run");
 
     /**
      * The constant representing "Solaris Package List Refresh". [ID:31]
      */
-    public static final ActionType TYPE_SOLARISPKGS_REFRESH_LIST = 
+    public static final ActionType TYPE_SOLARISPKGS_REFRESH_LIST =
             lookupActionTypeByLabel("solarispkgs.refresh_list");
-    
+
     /**
      * The constant representing "RHN Daemon Configuration".  [ID:32]
      */
-    public static final ActionType TYPE_DAEMON_CONFIG = 
+    public static final ActionType TYPE_DAEMON_CONFIG =
             lookupActionTypeByLabel("rhnsd.configure");
-    
+
     /**
      * The constant representing "Verify deployed packages"  [ID:33]
      */
-    public static final ActionType TYPE_PACKAGES_VERIFY = 
+    public static final ActionType TYPE_PACKAGES_VERIFY =
             lookupActionTypeByLabel("packages.verify");
 
     /**
      * The constant representing "Allows for rhn-applet use with an PRODUCTNAME"  [ID:34]
      */
-    public static final ActionType TYPE_RHN_APPLET_USE_SATELLITE = 
+    public static final ActionType TYPE_RHN_APPLET_USE_SATELLITE =
             lookupActionTypeByLabel("rhn_applet.use_satellite");
 
     /**
      * The constant representing "Rollback a transaction".  [ID:197542]
      */
-    public static final ActionType TYPE_ROLLBACK_ROLLBACK = 
+    public static final ActionType TYPE_ROLLBACK_ROLLBACK =
             lookupActionTypeByLabel("rollback.rollback");
 
     /**
      * The constant representing "Shuts down a Xen domain."  [ID:36]
      */
-    public static final ActionType TYPE_VIRTUALIZATION_SHUTDOWN = 
+    public static final ActionType TYPE_VIRTUALIZATION_SHUTDOWN =
             lookupActionTypeByLabel("virt.shutdown");
 
     /**
      * The constant representing "Starts up a Xen domain."  [ID:37]
      */
-    public static final ActionType TYPE_VIRTUALIZATION_START = 
+    public static final ActionType TYPE_VIRTUALIZATION_START =
             lookupActionTypeByLabel("virt.start");
 
     /**
      * The constant representing "Suspends a Xen domain."  [ID:38]
      */
-    public static final ActionType TYPE_VIRTUALIZATION_SUSPEND = 
+    public static final ActionType TYPE_VIRTUALIZATION_SUSPEND =
             lookupActionTypeByLabel("virt.suspend");
-    
+
     /**
      * The constant representing "Resumes a Xen domain."  [ID:39]
      */
-    public static final ActionType TYPE_VIRTUALIZATION_RESUME = 
+    public static final ActionType TYPE_VIRTUALIZATION_RESUME =
             lookupActionTypeByLabel("virt.resume");
 
     /**
      * The constant representing "Reboots a Xen domain."  [ID:40]
      */
-    public static final ActionType TYPE_VIRTUALIZATION_REBOOT = 
+    public static final ActionType TYPE_VIRTUALIZATION_REBOOT =
             lookupActionTypeByLabel("virt.reboot");
-    
+
     /**
      * The constant representing "Destroys a Xen Domain."  [ID:41]
      */
-    public static final ActionType TYPE_VIRTUALIZATION_DESTROY = 
+    public static final ActionType TYPE_VIRTUALIZATION_DESTROY =
             lookupActionTypeByLabel("virt.destroy");
 
     /**
      * The constant representing "Sets the maximum memory usage for a Xen domain." [ID:42]
      */
-    public static final ActionType TYPE_VIRTUALIZATION_SET_MEMORY = 
+    public static final ActionType TYPE_VIRTUALIZATION_SET_MEMORY =
             lookupActionTypeByLabel("virt.setMemory");
 
     /**
      * The constant representing "Sets the Vcpu usage for a Xen domain." [ID:48]
      */
-    public static final ActionType TYPE_VIRTUALIZATION_SET_VCPUS = 
+    public static final ActionType TYPE_VIRTUALIZATION_SET_VCPUS =
             lookupActionTypeByLabel("virt.setVCPUs");
 
     /**
      * The constant representing "Sets when the poller should run."  [ID:43]
      */
-    public static final ActionType TYPE_VIRTUALIZATION_SCHEDULE_POLLER = 
+    public static final ActionType TYPE_VIRTUALIZATION_SCHEDULE_POLLER =
             lookupActionTypeByLabel("virt.schedulePoller");
 
     /**
      * The constant representing "Schedule a package install of host specific
      * functionality."  [ID:44]
      */
-    public static final ActionType TYPE_VIRTUALIZATION_HOST_PACKAGE_INSTALL = 
-            lookupActionTypeByLabel("kickstart_host.schedule_virt_host_pkg_install"); 
+    public static final ActionType TYPE_VIRTUALIZATION_HOST_PACKAGE_INSTALL =
+            lookupActionTypeByLabel("kickstart_host.schedule_virt_host_pkg_install");
 
     /**
      * The constant representing "Schedule a package install of guest specific
      * functionality."  [ID:45]
      */
-    public static final ActionType TYPE_VIRTUALIZATION_GUEST_PACKAGE_INSTALL = 
+    public static final ActionType TYPE_VIRTUALIZATION_GUEST_PACKAGE_INSTALL =
             lookupActionTypeByLabel("kickstart_guest.schedule_virt_guest_pkg_install");
-    
+
     /**
-     * The constant representing "Subscribes a server to the RHN Tools channel 
+     * The constant representing "Subscribes a server to the RHN Tools channel
      * associated with its base channel." [ID:46]
      */
     public static final ActionType TYPE_VIRTIZATION_HOST_SUBSCRIBE_TO_TOOLS_CHANNEL =
             lookupActionTypeByLabel("kickstart_host.add_tools_channel");
-    
+
     /**
      * The constant represting "Subscribes a virtualization guest to the RHN Tools channel
      * associated with its base channel." [ID: 47]
@@ -1000,6 +1000,6 @@ public class ActionFactory extends HibernateFactory {
 
     public static final String TXN_OPERATION_INSERT = "insert";
     public static final String TXN_OPERATION_DELETE = "delete";
-    
+
 }
 

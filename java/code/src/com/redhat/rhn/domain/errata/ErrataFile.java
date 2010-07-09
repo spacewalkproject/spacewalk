@@ -22,95 +22,95 @@ import java.util.Set;
 
 /**
  * ErrataFile
- * 
+ *
  * @version $Rev: $
  */
 public interface ErrataFile {
-    
+
     /**
      * Id
      * @param idIn id
      */
     void setId(Long idIn);
-    
+
     /**
      * Id
      * @return id
      */
     Long getId();
-    
+
     /**
      * File type
      * @param ft file type
      */
     void setFileType(ErrataFileType ft);
-    
+
     /**
      * File type
      * @return file type
      */
     ErrataFileType getFileType();
-    
+
     /**
      * MD5 checksum
      * @param cs checksums
      */
     void setChecksum(Checksum cs);
-    
+
     /**
      * MD5 checksum
      * @return checksum
      */
     Checksum getChecksum();
-    
+
     /**
      * File name
      * @param name file name
      */
     void setFileName(String name);
-    
+
     /**
      * File name
      * @return file name
      */
     String getFileName();
-    
+
     /**
      * Owning errata
      * @param errata owning errata
      */
     void setErrata(Errata errata);
-    
+
     /**
      * Owning errata
      * @return owning errata
      */
     Errata getErrata();
-    
+
     /**
-     * Created 
+     * Created
      * @param createdIn created
      */
     void setCreated(Date createdIn);
-    
+
     /**
      * Created
      * @return created
      */
     Date getCreated();
-    
+
     /**
      * Modified
      * @param mod modified
      */
     void setModified(Date mod);
-    
+
     /**
      * Modified
      * @return modified
      */
     Date getModified();
-    
+
     /**
      * @return Returns the packages for this errata file.
      */
@@ -121,7 +121,7 @@ public interface ErrataFile {
      */
     void setPackages(Set packagesIn);
 
-    
+
     /**
      * Add a Package to the ErrataFile
      * @param p package to add

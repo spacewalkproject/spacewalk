@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * The results of operations on the DataSource layer.
  * @param <T> the type of the objects to be used in this list.
- * @version $Rev$ 
+ * @version $Rev$
  */
 public class DataResult<T> extends ArrayList<T> implements List<T> {
 
@@ -43,10 +43,10 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
     private String filterData;
     private boolean filter;
     private Map elabParams;
-    
+
     /**
      * Create a new DataResult object
-     * @param dr The Mode that created this DataResult 
+     * @param dr The Mode that created this DataResult
      */
     protected DataResult(DataResult dr) {
         super(dr);
@@ -62,7 +62,7 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
 
     /**
      * Create a new DataResult object
-     * @param m The Mode that created this DataResult 
+     * @param m The Mode that created this DataResult
      */
     protected DataResult(Mode m) {
         super();
@@ -71,17 +71,17 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
 
     /**
      * Create a new DataResult object
-     * @param l The list to add 
-     * @param m The Mode that created this DataResult 
+     * @param l The list to add
+     * @param m The Mode that created this DataResult
      */
     protected DataResult(Collection l, Mode m) {
         super(l);
         mode = (SelectMode)m;
     }
-    
-    /** 
+
+    /**
      * Create a DataResult with a simple Collection
-     * and null the Mode.  Useful for creating DataResults of 
+     * and null the Mode.  Useful for creating DataResults of
      * short lists Hibernate Objects
      * @param l Collection of Objects you want in the Result
      */
@@ -91,7 +91,7 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
         start = 1;
         end = l.size();
     }
-    
+
     /**
      * Get the mode associated with this DataResult.
      * @return Mode used by this DataResult.
@@ -126,9 +126,9 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
         dr.filter = this.hasFilter();
         return dr;
     }
-    
+
     /**
-     * Performs the function as <code>subList()</code> except it 
+     * Performs the function as <code>subList()</code> except it
      * returns a DataResult object. This should be refactored at some point
      * @param fromIndex start
      * @param toIndex end
@@ -145,7 +145,7 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
      */
     public void elaborate(Map values) {
         elabParams = values;
-        if (mode != null) { 
+        if (mode != null) {
             mode.elaborate(this, values);
         }
     }
@@ -156,23 +156,23 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
     public void elaborate() {
         if (mode != null) {
             if (getElaborationParams() == null) {
-                mode.elaborate(this, Collections.EMPTY_MAP);    
+                mode.elaborate(this, Collections.EMPTY_MAP);
             }
             else {
                 mode.elaborate(this, getElaborationParams());
             }
-            
+
         }
-    }    
+    }
     /**
-     * 
+     *
      * @return An elaborator object that could be used for elaboration later in
      *                          cycle.
      */
     public Elaborator getElaborator() {
-       return new ModeElaborator(mode, elabParams); 
+       return new ModeElaborator(mode, elabParams);
     }
-    
+
     /**
      * Return the parameters that were passed into the last call to elaborate()
      * @return Map of elaboration values
@@ -180,19 +180,19 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
     public Map getElaborationParams() {
         return elabParams;
     }
-    
+
     /**
      * Set the parameters that will be used to elaborate the query
      * Note that we make this public because we can't guarantee that
      * elaborate(Map) will be called from the outside in every case where
      * we need them.
      * @param values name/value pairs used to elaborate the query
-     * 
+     *
      */
     public void setElaborationParams(Map values) {
         elabParams = values;
     }
-    
+
     /**
      * Get the total number of entries in this list
      * @return Returns the totalSize.
@@ -200,7 +200,7 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
     public int getTotalSize() {
         return totalSize;
     }
-    
+
     /**
      * Set the total number of entries in this list
      * @param ts The totalSize to set.
@@ -216,31 +216,31 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
     public int getStart() {
         return start;
     }
-    
-    /** 
-     * Provide a start value.  
+
+    /**
+     * Provide a start value.
      * @param startIn we want to set.
      */
     public void setStart(int startIn) {
         this.start = startIn;
     }
-    
+
     /**
      * Get the index of the list element in the list
      * @return the index of the last element of the list
      */
     public int getEnd() {
         return end;
-    }    
+    }
 
     /**
-     * Set the End value. 
+     * Set the End value.
      * @param endIn that we want to set.
      */
     public void setEnd(int endIn) {
         this.end = endIn;
     }
-    
+
     /**
      * Get the index
      * @return A CharacterMap containing the index for the list
@@ -300,6 +300,6 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
         return "{Start: " + start + " End: " + end + " Total: " + totalSize +
                super.toString() + "}";
     }
-    
+
 
 }

@@ -26,7 +26,7 @@ import org.hibernate.Transaction;
  * {@link #execute}method takes care of beginning and committing a transaction,
  * and of rolling it back if an error happens within the business logic. The
  * business logic should be implemented by overiding the {@link #run} method.
- * 
+ *
  * @version $Rev$
  */
 public abstract class Worker {

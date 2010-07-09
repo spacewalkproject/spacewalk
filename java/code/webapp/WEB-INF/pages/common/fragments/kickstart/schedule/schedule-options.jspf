@@ -17,7 +17,7 @@
           	<c:set var="byAsap" value=""/>
           	</c:otherwise>
           </c:choose>
-          
+
           <table width="50%">
             <tr>
               <td><input type="radio" name="scheduleAsap" value="true" id="scheduleAsap" ${byAsap} /><bean:message key="kickstart.schedule.heading3.option1.jsp" /></td>
@@ -28,6 +28,6 @@
                     <jsp:param name="widget" value="date"/>
                   </jsp:include>
               </td>
-            </tr>     
+            </tr>
           </table>
           <hr />

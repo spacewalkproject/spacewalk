@@ -9,7 +9,7 @@
                name="${channel.displayName}"
                type="${channel.configChannelType.label}" />
 </c:set>
-<bean:message key="deployglobal.jspf.note" 
+<bean:message key="deployglobal.jspf.note"
 	arg0="${revision.revision}"
 	arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${revision.id}"
 	arg2="${beanarg}" />
@@ -34,17 +34,17 @@
 					</c:when>
 					<c:otherwise>
 						<c:if test="${current.outrankedCount == 1}">
-							<bean:message key="globaldeploy.jsp.outranked-number" 
+							<bean:message key="globaldeploy.jsp.outranked-number"
 								arg0="${current.outrankedCount}"
 								arg1="/rhn/systems/details/configuration/RankChannels.do?sid=${current.id}"/><br />
 						</c:if>
 						<c:if test="${current.outrankedCount > 1}">
-							<bean:message key="globaldeploy.jsp.outranked-numbers" 
+							<bean:message key="globaldeploy.jsp.outranked-numbers"
 								arg0="${current.outrankedCount}"
 								arg1="/rhn/systems/details/configuration/RankChannels.do?sid=${current.id}"/><br />
 						</c:if>
 						<c:if test="${current.overrideCount > 0}">
-							<bean:message key="globaldeploy.jsp.override-number" 
+							<bean:message key="globaldeploy.jsp.override-number"
 								arg0="${current.overrideCount}"
 								arg1="/rhn/systems/details/configuration/ViewModifyLocalPaths.do?sid=${current.id}"/>
 						</c:if>
@@ -55,7 +55,7 @@
 	</rhn:list>
 	<br/>
 	
-	<div class="small-text">*  <bean:message key="deployglobal.jspf.not_deployable" 	 
+	<div class="small-text">*  <bean:message key="deployglobal.jspf.not_deployable"
 	           		arg0="/rhn/configuration/system/TargetSystems.do"
 	            		arg1="${rhn:localize('targetsystems.jsp.toolbar')}"
 	            		arg2="${rhn:localize('targetsystems.jsp.enable')}"/>
@@ -69,7 +69,7 @@
 	       One for a normal user, one for a config admin, and one for
 	       an org admin.
 	   --%>
-	  
+
 	  <c:set var="tipbeanarg" scope="request">
 	      <a href="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}">
 	        ${channel.displayName}

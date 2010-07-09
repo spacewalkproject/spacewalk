@@ -30,7 +30,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  *
  * @xmlrpc.doc
- * 
+ *
  * #struct("kickstartable tree")
  *   #prop("int", "id")
  *   #prop("string", "label")
@@ -49,15 +49,15 @@ public class KickstartTreeSerializer implements XmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
-     * @throws IOException 
+     * @throws IOException
      */
     public void serialize(Object value, Writer output,
                           XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
-        
+
         KickstartableTree tree = (KickstartableTree)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
-        
+
         helper.add("id", tree.getId());
         helper.add("label", tree.getLabel());
         helper.add("base_path", tree.getBasePath());

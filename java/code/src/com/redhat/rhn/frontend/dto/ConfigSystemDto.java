@@ -24,12 +24,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 
+ *
  * ConfigSystemDto
  * @version $Rev$
  */
 public class ConfigSystemDto extends BaseDto {
-    
+
     private Long id;
     private String name;
     private Long channelId;
@@ -45,7 +45,7 @@ public class ConfigSystemDto extends BaseDto {
     private Integer errorCode;
     private boolean rhnTools;
     private Date modified;
-    
+
     //when dealing with single revisions for systems
     private Integer configRevision;
     private Long configRevisionId;
@@ -53,16 +53,16 @@ public class ConfigSystemDto extends BaseDto {
     private Long configChannelId;
     private String configChannelType;
     private String configChannelName;
-    
+
     //these three ints will be chosen from the following static integers
     private int rhncfg;
     private int rhncfgActions;
     private int rhncfgClient;
-    
-    public static final int INSTALLED = 0; 
+
+    public static final int INSTALLED = 0;
     public static final int PENDING = 1;
     public static final int NEEDED = 2;
-    
+
     /**
      * Parses the query-returned character into a discernable static integer.
      * @param queryRetval
@@ -79,7 +79,7 @@ public class ConfigSystemDto extends BaseDto {
             return NEEDED;
         }
     }
-    
+
     /**
      * @param rhncfgIn The rhncfg to set.
      */
@@ -95,15 +95,15 @@ public class ConfigSystemDto extends BaseDto {
         rhncfgActions = decideStatus(rhncfgActionsIn);
     }
 
-    
+
     /**
      * @param rhncfgClientIn The rhncfgClient to set.
      */
     public void setRhncfgClient(String rhncfgClientIn) {
         rhncfgClient = decideStatus(rhncfgClientIn);
     }
-    
-    
+
+
     /**
      * @return Returns the rhncfg.
      */
@@ -111,7 +111,7 @@ public class ConfigSystemDto extends BaseDto {
         return rhncfg;
     }
 
-    
+
     /**
      * @return Returns the rhncfgActions.
      */
@@ -119,7 +119,7 @@ public class ConfigSystemDto extends BaseDto {
         return rhncfgActions;
     }
 
-    
+
     /**
      * @return Returns the rhncfgClient.
      */
@@ -130,7 +130,7 @@ public class ConfigSystemDto extends BaseDto {
 
 
 
-    
+
     /**
      * Whether the system is subscribed to an rhn-tools channel
      * @return Returns the rhnTools.
@@ -142,7 +142,7 @@ public class ConfigSystemDto extends BaseDto {
 
 
 
-    
+
     /**
      * @param rhnToolsIn The rhnTools to set.
      */
@@ -167,7 +167,7 @@ public class ConfigSystemDto extends BaseDto {
 
 
 
-    
+
     /**
      * @param errorCodeIn The errorCode to set.
      */
@@ -185,7 +185,7 @@ public class ConfigSystemDto extends BaseDto {
     }
 
 
-    
+
     /**
      * @param resultsIn The results to set.
      */
@@ -201,7 +201,7 @@ public class ConfigSystemDto extends BaseDto {
         return provisioning;
     }
 
-    
+
     /**
      * @param provisioningIn The provisioning to set. Y if true, N if false.
      */
@@ -213,7 +213,7 @@ public class ConfigSystemDto extends BaseDto {
             provisioning = false;
         }
     }
-    
+
     /**
      * @return Returns the capable.
      */
@@ -221,7 +221,7 @@ public class ConfigSystemDto extends BaseDto {
         return capable;
     }
 
-    
+
     /**
      * @param capableIn The capable to set. Y if true, N if false.
      */
@@ -240,104 +240,104 @@ public class ConfigSystemDto extends BaseDto {
     public Long getChannelId() {
         return channelId;
     }
-    
+
     /**
      * @param channelIdIn The channelId to set.
      */
     public void setChannelId(Long channelIdIn) {
         channelId = channelIdIn;
     }
-    
+
     /**
      * @return Returns the configChannelCount.
      */
     public Integer getConfigChannelCount() {
         return configChannelCount;
     }
-    
+
     /**
      * @param configChannelCountIn The configChannelCount to set.
      */
     public void setConfigChannelCount(Integer configChannelCountIn) {
         configChannelCount = configChannelCountIn;
     }
-    
+
     /**
      * @return Returns the globalFileCount.
      */
     public Integer getGlobalFileCount() {
         return globalFileCount;
     }
-    
+
     /**
      * @param globalFileCountIn The globalFileCount to set.
      */
     public void setGlobalFileCount(Integer globalFileCountIn) {
         globalFileCount = globalFileCountIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * @return Returns the localFileCount.
      */
     public Integer getLocalFileCount() {
         return localFileCount;
     }
-    
+
     /**
      * @param localFileCountIn The localFileCount to set.
      */
     public void setLocalFileCount(Integer localFileCountIn) {
         localFileCount = localFileCountIn;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */
     public void setName(String nameIn) {
         name = nameIn;
     }
-    
+
     /**
      * @return Returns the overriddenCount.
      */
     public Integer getOverriddenCount() {
         return overriddenCount;
     }
-    
+
     /**
      * @param overriddenCountIn The overriddenCount to set.
      */
     public void setOverriddenCount(Integer overriddenCountIn) {
         overriddenCount = overriddenCountIn;
     }
-    
+
     /**
      * Gives a localized display explaining what is necessary
      * for this system to have the configuration management
      * client capabilities.  Used on the TargetSystems page
      * in configuration management.
-     * @return A localized display for required actions in 
+     * @return A localized display for required actions in
      * order for a system to become configuration enabled
      */
     public String getRequiredActionsDisplay() {
@@ -351,41 +351,41 @@ public class ConfigSystemDto extends BaseDto {
         displayHelper(actions, rhncfg != NEEDED, ls, "installcfg");
         displayHelper(actions, rhncfgActions != NEEDED, ls, "installcfgactions");
         displayHelper(actions, rhncfgClient != NEEDED, ls, "installcfgclient");
-        
+
         /* make sure to check that there actually is a pending action somewhere.
          * if there system is in such a state that they don't have the capability, but
-         * they have all the requirements for capability, then make sure that we 
+         * they have all the requirements for capability, then make sure that we
          * don't tell them that configuration management is pending
          */
-        if (actions.size() == 0 && (rhncfg == PENDING || 
+        if (actions.size() == 0 && (rhncfg == PENDING ||
                 rhncfgActions == PENDING || rhncfgClient == PENDING)) {
             return ls.getMessage("targetsystems.jsp.pending");
         }
         return StringUtil.join("<br />", actions);
     }
-    
+
     private void displayHelper(List list, boolean decider,
             LocalizationService ls, String resource) {
         if (!decider) {
             list.add(ls.getMessage("targetsystems.jsp." + resource));
         }
     }
-    
+
     /**
      * Whether the actions to enable configuration management were a success for this
      * system.
      * @return Whether enabling was a success.
      */
     public boolean isSuccess() {
-        if (errorCode == null || 
+        if (errorCode == null ||
                 errorCode.intValue() != ConfigurationManager.ENABLE_SUCCESS) {
             return false;
         }
         return true;
     }
-    
+
     /**
-     * @return A localized string for the error or success of 
+     * @return A localized string for the error or success of
      *         enabling configuration management.
      */
     public String getErrorDisplay() {
@@ -393,7 +393,7 @@ public class ConfigSystemDto extends BaseDto {
             return "";
         }
         LocalizationService ls = LocalizationService.getInstance();
-        
+
         switch (errorCode.intValue()) {
             case ConfigurationManager.ENABLE_SUCCESS:
                 return ls.getMessage("summary.jsp.noerror");
@@ -409,7 +409,7 @@ public class ConfigSystemDto extends BaseDto {
                 return "";
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -417,7 +417,7 @@ public class ConfigSystemDto extends BaseDto {
         return !capable;
     }
 
-    
+
     /**
      * @return Returns the configChannelId.
      */
@@ -425,7 +425,7 @@ public class ConfigSystemDto extends BaseDto {
         return configChannelId;
     }
 
-    
+
     /**
      * @param configChannelIdIn The configChannelId to set.
      */
@@ -433,7 +433,7 @@ public class ConfigSystemDto extends BaseDto {
         configChannelId = configChannelIdIn;
     }
 
-    
+
     /**
      * @return Returns the configChannelName.
      */
@@ -441,7 +441,7 @@ public class ConfigSystemDto extends BaseDto {
         return configChannelName;
     }
 
-    
+
     /**
      * @param configChannelNameIn The configChannelName to set.
      */
@@ -449,7 +449,7 @@ public class ConfigSystemDto extends BaseDto {
         configChannelName = configChannelNameIn;
     }
 
-    
+
     /**
      * @return Returns the configChannelType.
      */
@@ -457,7 +457,7 @@ public class ConfigSystemDto extends BaseDto {
         return configChannelType;
     }
 
-    
+
     /**
      * @param configChannelTypeIn The configChannelType to set.
      */
@@ -465,7 +465,7 @@ public class ConfigSystemDto extends BaseDto {
         configChannelType = configChannelTypeIn;
     }
 
-    
+
     /**
      * @return Returns the configFileId.
      */
@@ -473,7 +473,7 @@ public class ConfigSystemDto extends BaseDto {
         return configFileId;
     }
 
-    
+
     /**
      * @param configFileIdIn The configFileId to set.
      */
@@ -481,7 +481,7 @@ public class ConfigSystemDto extends BaseDto {
         configFileId = configFileIdIn;
     }
 
-    
+
     /**
      * @return Returns the configRevision.
      */
@@ -489,7 +489,7 @@ public class ConfigSystemDto extends BaseDto {
         return configRevision;
     }
 
-    
+
     /**
      * @param configRevisionIn The configRevision to set.
      */
@@ -497,7 +497,7 @@ public class ConfigSystemDto extends BaseDto {
         configRevision = configRevisionIn;
     }
 
-    
+
     /**
      * @return Returns the configRevisionId.
      */
@@ -505,7 +505,7 @@ public class ConfigSystemDto extends BaseDto {
         return configRevisionId;
     }
 
-    
+
     /**
      * @param configRevisionIdIn The configRevisionId to set.
      */
@@ -513,7 +513,7 @@ public class ConfigSystemDto extends BaseDto {
         configRevisionId = configRevisionIdIn;
     }
 
-    
+
     /**
      * @return Returns the configFileCount.
      */
@@ -521,14 +521,14 @@ public class ConfigSystemDto extends BaseDto {
         return configFileCount;
     }
 
-    
+
     /**
      * @param configFileCountIn The configFileCount to set.
      */
     public void setConfigFileCount(Integer configFileCountIn) {
         configFileCount = configFileCountIn;
     }
-    
+
     /**
      * @return A localized version of the channel name.
      */
@@ -538,7 +538,7 @@ public class ConfigSystemDto extends BaseDto {
     }
 
     /**
-     * @return the number of files outranked by higher-priority channels 
+     * @return the number of files outranked by higher-priority channels
      */
     public Integer getOutrankedCount() {
         return outrankedCount;

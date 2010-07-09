@@ -56,7 +56,7 @@ public class ScheduleRemoteCommand extends RhnAction {
     public static final String MODE_REMOVAL = "remove";
     public static final String MODE_UPGRADE = "upgrade";
     public static final String MODE_INSTALL = "install";
-    
+
     private static Logger log = Logger.getLogger(ScheduleRemoteCommand.class);
 
     /**
@@ -64,9 +64,9 @@ public class ScheduleRemoteCommand extends RhnAction {
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         ActionForward forward = null;
         DynaActionForm f = (DynaActionForm)form;
         RequestContext requestContext = new RequestContext(request);
@@ -74,13 +74,13 @@ public class ScheduleRemoteCommand extends RhnAction {
         User user = requestContext.getLoggedInUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         request.setAttribute("system", server);
-        
+
         DynaActionForm dynaForm = (DynaActionForm) form;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
-       
+
         request.setAttribute("date", picker);
-        
+
         if (!isSubmitted(f)) {
             setup(request, f);
             forward =  strutsDelegate.forwardParams(mapping.findForward("default"),
@@ -89,16 +89,16 @@ public class ScheduleRemoteCommand extends RhnAction {
         else {
             ActionMessages msgs = processForm(user, server, f, request);
             strutsDelegate.saveMessages(request, msgs);
-    
+
             String mode = (String) f.get("mode");
             forward = strutsDelegate.forwardParams(
                     mapping.findForward(getForward(mode)),
                     request.getParameterMap());
         }
-        
+
         return forward;
     }
-    
+
     private String getForward(String mode) {
         if (MODE_INSTALL.equals(mode)) {
             return "install";
@@ -110,7 +110,7 @@ public class ScheduleRemoteCommand extends RhnAction {
             return "upgrade";
         }
     }
-    
+
     private void showRemoteCommandMsg(ActionMessages msgs, boolean before, String mode) {
         if (before) {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
@@ -121,11 +121,11 @@ public class ScheduleRemoteCommand extends RhnAction {
                     new ActionMessage("message.remotecommandafter." + mode));
         }
     }
-    
+
     private void showMessages(ActionMessages msgs, Action action,
             Server server, int pkgcnt, String mode) {
         String key = null;
-        
+
         if (MODE_INSTALL.equals(mode)) {
             key = "message.packageinstall";
         }
@@ -135,7 +135,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         else { // must be upgrade
             key = "message.packageupgrade";
         }
-        
+
         /**
          * If there was only one action archived, display the "action" archived
          * message, else display the "actions" archived message.
@@ -151,7 +151,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         }
         else {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage(key + "s", 
+                     new ActionMessage(key + "s",
                              LocalizationService.getInstance()
                              .formatNumber(new Integer(pkgcnt)),
                          action.getId().toString(),
@@ -159,7 +159,7 @@ public class ScheduleRemoteCommand extends RhnAction {
                          server.getName()));
         }
     }
-    
+
     private PackageAction schedulePackageAction(User user, Server server,
             List<Map<String, Long>> pkgs, String mode, Date earliest) {
         if (MODE_INSTALL.equals(mode)) {
@@ -172,7 +172,7 @@ public class ScheduleRemoteCommand extends RhnAction {
             return ActionManager.schedulePackageUpgrade(user, server, pkgs, earliest);
         }
     }
-    
+
     private ActionMessages processForm(User user, Server server,
                             DynaActionForm f, HttpServletRequest request) {
         if (log.isDebugEnabled()) {
@@ -180,7 +180,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         }
 
         ActionMessages msgs = new ActionMessages();
-        
+
         Boolean submitted = (Boolean) f.get("submitted");
         String runBefore = (String) f.get("run_script");
         String username = (String) f.get("username");
@@ -189,7 +189,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         String script = (String) f.get("script");
         String sessionSetLabel = (String) f.get("session_set_label");
         String mode = (String) f.get("mode");
-        
+
         if (log.isDebugEnabled()) {
             log.debug("submitted [" + submitted + "]");
             log.debug("runBefore [" + runBefore + "]");
@@ -199,11 +199,11 @@ public class ScheduleRemoteCommand extends RhnAction {
             log.debug("script [" + script + "]");
             log.debug("mode [" + mode + "]");
         }
-        
+
         //The earliest time to perform the action.
-        Date earliest = getStrutsDelegate().readDatePicker(f, "date", 
+        Date earliest = getStrutsDelegate().readDatePicker(f, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
-        
+
         if (BEFORE.equals(runBefore)) {
             ScriptActionDetails sad =
                 ActionManager.createScript(username, group, timeout, script);
@@ -241,33 +241,33 @@ public class ScheduleRemoteCommand extends RhnAction {
         packs = toList(set);
         return packs;
     }
-    
-    
+
+
     private void setup(HttpServletRequest request, DynaActionForm form) {
         if (log.isDebugEnabled()) {
             log.debug("Setting up form with default values.");
         }
-        
+
         form.set("run_script", "before");
         form.set("username", "root");
         form.set("group", "root");
         form.set("timeout", new Long(600));
         form.set("script", "#!/bin/sh");
         form.set("mode", request.getParameter("mode"));
-        getStrutsDelegate().prepopulateDatePicker(request, 
+        getStrutsDelegate().prepopulateDatePicker(request,
                             form, "date", DatePicker.YEAR_RANGE_POSITIVE);
         Date date = getStrutsDelegate().readDatePicker(
                 form, "date", DatePicker.YEAR_RANGE_POSITIVE);
-        
-        request.setAttribute("scheduledDate", 
+
+        request.setAttribute("scheduledDate",
                 LocalizationService.getInstance().formatDate(date));
     }
-    
+
     private List<Map<String, Long>> toList(Set<String> set) {
         List<Map<String, Long>> pkgs = new LinkedList<Map<String, Long>>();
         for (String key : set) {
-            pkgs.add(PackageListItem.parse(key).getKeyMap());    
+            pkgs.add(PackageListItem.parse(key).getKeyMap());
         }
         return pkgs;
-    }    
+    }
 }

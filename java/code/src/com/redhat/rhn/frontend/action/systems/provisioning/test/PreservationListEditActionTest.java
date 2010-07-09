@@ -29,7 +29,7 @@ import com.redhat.rhn.testing.UserTestUtils;
  * @version $Rev: 1 $
  */
 public class PreservationListEditActionTest extends RhnMockStrutsTestCase {
-        
+
     public void testEditExecute() throws Exception {
         UserTestUtils.addProvisioning(user.getOrg());
         FileList list = FileListTest.createTestFileList(user.getOrg());
@@ -48,7 +48,7 @@ public class PreservationListEditActionTest extends RhnMockStrutsTestCase {
         assertNotNull(getRequest().
                 getAttribute(BasePreservationListEditAction.FILE_LIST));
     }
-        
+
     public void testCreateSubmit() throws Exception {
         UserTestUtils.addProvisioning(user.getOrg());
         executeCreate(Boolean.TRUE);
@@ -74,8 +74,8 @@ public class PreservationListEditActionTest extends RhnMockStrutsTestCase {
             assertEquals(testLabel, fl.getLabel());
         }
     }
-    
-    
-    
+
+
+
 }
 

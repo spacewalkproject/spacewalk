@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.kickstart.KickstartScript" 
+    <class name="com.redhat.rhn.domain.kickstart.KickstartScript"
         table="rhnKickstartScript" >
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -17,11 +17,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="raw" column="raw_script" not-null="true" type="yes_no" />
         <property name="interpreter" column="interpreter"  type="string" length="80" />
         <property name="dataBlob" column="data"  type="blob" />
-        <property name="created" column="created" not-null="true" 
+        <property name="created" column="created" not-null="true"
         	type="timestamp" insert="false" update="false"/>
-        <property name="modified" column="modified" not-null="true" 
+        <property name="modified" column="modified" not-null="true"
         	type="timestamp" insert="false" update="false"/>
-        
+
         <many-to-one name="ksdata"
                      class="com.redhat.rhn.domain.kickstart.KickstartData"
                      column="kickstart_id" />

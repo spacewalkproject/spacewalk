@@ -4,7 +4,7 @@
 
     <rhn:list pageList="${requestScope.pageList}"
             noDataText="sdcconfigfiles.jsp.noFiles">
-              
+
       <rhn:listdisplay set="${requestScope.set}"
                        button="${button}"
                        filterBy="sdcconfigfiles.jsp.filename">

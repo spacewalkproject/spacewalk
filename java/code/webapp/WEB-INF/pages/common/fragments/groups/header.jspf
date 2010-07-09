@@ -9,12 +9,12 @@
 	<div class="toolbar">
 		<span class="toolbar">
 			<a href="/network/systems/ssm/work_with_group.pxt?sgid=${systemgroup.id}&pxt_trap=rhn:work_with_group_cb">
-     			<img src="/img/work_with_group.gif" alt="<bean:message key="toolbar.work.with.group"/>" 
+			<img src="/img/work_with_group.gif" alt="<bean:message key="toolbar.work.with.group"/>"
      			title="<bean:message key="toolbar.work.with.group"/>" />
      			<bean:message key="toolbar.work.with.group"/>
      		</a>
      	    <a href="/network/systems/groups/delete_confirm.pxt?sgid=${systemgroup.id}">	
-				<img src="/img/action-del.gif" alt="<bean:message key="toolbar.delete.systemgroup"/>" 
+				<img src="/img/action-del.gif" alt="<bean:message key="toolbar.delete.systemgroup"/>"
 				title="<bean:message key="toolbar.delete.systemgroup"/>" />
 				<bean:message key="toolbar.delete.systemgroup"/>
 			</a>			
@@ -23,7 +23,7 @@
 	</div>
 	
 	<img src="/img/rhn-icon-system_group.gif" alt="system groups" />
- 
+
 	<c:if test="${empty systemgroup}">
 		<decorator:getProperty property="meta.name" />
 	</c:if>

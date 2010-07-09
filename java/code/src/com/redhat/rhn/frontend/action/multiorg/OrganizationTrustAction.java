@@ -42,18 +42,18 @@ public class OrganizationTrustAction extends RhnAction {
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-        
-        RequestContext requestContext = new RequestContext(request);        
+
+        RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
         String name = user.getOrg().getName();
         String orgid = user.getOrg().getId().toString();
         DataList<TrustedOrgDto> result = OrgManager.trustedOrgs(user);
-                        
+
         request.setAttribute("orgName", name);
         request.setAttribute("orgId", orgid);
-        request.setAttribute(ListTagHelper.PAGE_LIST, result);       
+        request.setAttribute(ListTagHelper.PAGE_LIST, result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-                
+
         return mapping.findForward("default");
     }
 

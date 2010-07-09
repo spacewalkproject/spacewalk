@@ -31,11 +31,11 @@ public class ContactGroupMember implements Serializable {
     private Method contactMethod;
     private String lastUpdateUser;
     private Date lastUpdateDate;
-    
+
     // NOT USED
     private Long memberContactGroupId;
-    
-    /** 
+
+    /**
      * Getter for contactGroup
      * @return ContactGroup to get
     */
@@ -43,15 +43,15 @@ public class ContactGroupMember implements Serializable {
         return this.contactGroup;
     }
 
-    /** 
-     * Setter for contactGroupId 
+    /**
+     * Setter for contactGroupId
      * @param contactGroupIn to set
     */
     public void setContactGroup(ContactGroup contactGroupIn) {
         this.contactGroup = contactGroupIn;
     }
 
-    
+
     /**
      * @return Returns the contactMethod.
      */
@@ -59,7 +59,7 @@ public class ContactGroupMember implements Serializable {
         return this.contactMethod;
     }
 
-    
+
     /**
      * @param contactMethodIn The contactMethod to set.
      */
@@ -67,64 +67,64 @@ public class ContactGroupMember implements Serializable {
         this.contactMethod = contactMethodIn;
     }
 
-    /** 
-     * Getter for orderNumber 
+    /**
+     * Getter for orderNumber
      * @return Long to get
     */
     public Long getOrderNumber() {
         return this.orderNumber;
     }
 
-    /** 
-     * Setter for orderNumber 
+    /**
+     * Setter for orderNumber
      * @param orderNumberIn to set
     */
     public void setOrderNumber(Long orderNumberIn) {
         this.orderNumber = orderNumberIn;
     }
 
-    /** 
-     * Getter for lastUpdateUser 
+    /**
+     * Getter for lastUpdateUser
      * @return String to get
     */
     public String getLastUpdateUser() {
         return this.lastUpdateUser;
     }
 
-    /** 
-     * Setter for lastUpdateUser 
+    /**
+     * Setter for lastUpdateUser
      * @param lastUpdateUserIn to set
     */
     public void setLastUpdateUser(String lastUpdateUserIn) {
         this.lastUpdateUser = lastUpdateUserIn;
     }
 
-    /** 
-     * Getter for lastUpdateDate 
+    /**
+     * Getter for lastUpdateDate
      * @return Date to get
     */
     public Date getLastUpdateDate() {
         return this.lastUpdateDate;
     }
 
-    /** 
-     * Setter for lastUpdateDate 
+    /**
+     * Setter for lastUpdateDate
      * @param lastUpdateDateIn to set
     */
     public void setLastUpdateDate(Date lastUpdateDateIn) {
         this.lastUpdateDate = lastUpdateDateIn;
     }
 
-    /** 
-     * Getter for memberContactGroupId 
+    /**
+     * Getter for memberContactGroupId
      * @return Long to get
     */
     private Long getMemberContactGroupId() {
         return this.memberContactGroupId;
     }
 
-    /** 
-     * Setter for memberContactGroupId 
+    /**
+     * Setter for memberContactGroupId
      * @param memberContactGroupIdIn to set
     */
     private void setMemberContactGroupId(Long memberContactGroupIdIn) {

@@ -1,6 +1,6 @@
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 
-<schema targetNamespace="http://rhn.redhat.com" 
+<schema targetNamespace="http://rhn.redhat.com"
 	xmlns="http://www.w3.org/1999/XMLSchema" xmlns:rhn="http://rhn.redhat.com">
 	<attribute name="firstNames">
 		<simpleType baseType="string">
@@ -34,12 +34,12 @@
 		</simpleType>
 	</attribute>
   <attribute name="state">
-    <simpleType baseType="string"> 
+    <simpleType baseType="string">
 	  <requiredIf field="country" value="US"/>
 	  <requiredIf field="country" value="CA"/>
-      <minLength value="1" /> 
-      <maxLength value="45" /> 
-    </simpleType> 
+      <minLength value="1" />
+      <maxLength value="45" />
+    </simpleType>
   </attribute>
 	<attribute name="zip">
 		<simpleType baseType="string">

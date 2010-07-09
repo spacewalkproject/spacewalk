@@ -25,8 +25,8 @@ import java.util.List;
  */
 public interface Expandable {
     /**
-     * Expands and returns the children 
-     * List needs to be either Identifiable or Selectable 
+     * Expands and returns the children
+     * List needs to be either Identifiable or Selectable
      * @return the child object
      */
     List expand();

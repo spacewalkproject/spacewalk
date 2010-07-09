@@ -29,11 +29,11 @@ import com.redhat.rhn.manager.system.ServerGroupManager;
  * @version $Rev$
  */
 public class ServerGroupTestUtils {
-    
+
     private ServerGroupTestUtils() {
     }
-    
-    
+
+
     public static final String NAME = "ManagedGroup";
     public static final String DESCRIPTION = "User Managed Group ";
 
@@ -45,7 +45,7 @@ public class ServerGroupTestUtils {
      * @throws Exception if error
      */
     public static EntitlementServerGroup createEntitled(Org org) throws Exception {
-        return ServerGroupTestUtils.createEntitled(org, 
+        return ServerGroupTestUtils.createEntitled(org,
                              ServerConstants.getServerGroupTypeUpdateEntitled());
     }
 
@@ -65,13 +65,13 @@ public class ServerGroupTestUtils {
     /**
      * Create a ManagedServerGroup ( a group of servers )
      * @param user to own
-     * @return ManagedServerGroup created 
+     * @return ManagedServerGroup created
      * @throws Exception if failure
      */
     public static ManagedServerGroup createManaged(User user) throws Exception {
         ServerGroupTest.checkSysGroupAdminRole(user);
         return (ManagedServerGroup) ServerGroupManager.getInstance().
-                                        create(user, NAME + TestUtils.randomString(), 
+                                        create(user, NAME + TestUtils.randomString(),
                                                     DESCRIPTION);
     }
 }

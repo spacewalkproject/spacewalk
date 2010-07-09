@@ -28,34 +28,34 @@ public class BaseHandlerTestCase extends RhnBaseTestCase {
      * regular - retgular user
      * adminKey/regularKey - session keys for respective users
      */
-    
-    protected User admin; 
+
+    protected User admin;
     protected User regular;
     protected String adminKey;
     protected String regularKey;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         admin = UserTestUtils.createUserInOrgOne();
         admin.addRole(RoleFactory.ORG_ADMIN);
         TestUtils.saveAndFlush(admin);
-        
+
         regular = UserTestUtils.createUser("testUser2", admin.getOrg().getId());
         regular.removeRole(RoleFactory.ORG_ADMIN);
-        
+
         assertTrue(admin.hasRole(RoleFactory.ORG_ADMIN));
         assertTrue(!regular.hasRole(RoleFactory.ORG_ADMIN));
-        
+
         //setup session keys
         adminKey = XmlRpcTestUtils.getSessionKey(admin);
         regularKey = XmlRpcTestUtils.getSessionKey(regular);
-        
+
         //make sure the test org has the channel admin role
         Org org = admin.getOrg();
         org.addRole(RoleFactory.CHANNEL_ADMIN);
         org.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
     }
-    
+
     protected void addRole(User user, Role role) {
         user.getOrg().addRole(role);
         user.addRole(role);

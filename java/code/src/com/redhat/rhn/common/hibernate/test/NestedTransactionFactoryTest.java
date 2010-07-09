@@ -31,7 +31,7 @@ public class NestedTransactionFactoryTest extends RhnBaseTestCase {
 
     private static final long EXP_TIME = 60 * 60 * 1000;
 
-    
+
     public void aTestNesting() throws HibernateException {
         //System.out.println("XXX BEGIN testNesting");
         Session session = HibernateFactory.getSession();
@@ -40,7 +40,7 @@ public class NestedTransactionFactoryTest extends RhnBaseTestCase {
             session.beginTransaction();
             //System.out.println("XXX END testNesting, fail");
             fail("Created nested transaction, which is verboten");
-        } 
+        }
         catch (TransactionException e) {
             // Expected
             //System.out.println("XXX expected transaction");
@@ -52,14 +52,14 @@ public class NestedTransactionFactoryTest extends RhnBaseTestCase {
         WebSession s = createWebSession();
         HibernateFactory.rollbackTransaction();
         HibernateFactory.closeSession();
-        
+
         assertNotExists(s);
     }
 
     public void testCommit() throws HibernateException {
         WebSession s = createWebSession();
         HibernateFactory.commitTransaction();
-        
+
         assertExists(s);
     }
 
@@ -67,10 +67,10 @@ public class NestedTransactionFactoryTest extends RhnBaseTestCase {
         WebSession s1 = createWebSession();
         HibernateFactory.rollbackTransaction();
         HibernateFactory.closeSession();
-        
+
         WebSession s2 = createWebSession();
         HibernateFactory.commitTransaction();
-        
+
         assertNotExists(s1);
         assertExists(s2);
     }
@@ -79,11 +79,11 @@ public class NestedTransactionFactoryTest extends RhnBaseTestCase {
         WebSession s1 = createWebSession();
         HibernateFactory.commitTransaction();
         HibernateFactory.closeSession();
-        
+
         WebSession s2 = createWebSession();
         HibernateFactory.rollbackTransaction();
         HibernateFactory.closeSession();
-        
+
         assertExists(s1);
         assertNotExists(s2);
     }

@@ -28,11 +28,11 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
  * @version $Rev$
  */
 public class FileListEditCommandTest extends BaseTestCaseWithUser {
-    
+
     private BaseFileListEditCommand cmd;
 
     public void setupKey(BaseFileListEditCommand cmdIn) throws Exception {
-        this.cmd = cmdIn; 
+        this.cmd = cmdIn;
         assertNotNull(cmd.getFileList().getOrg());
         cmd.setLabel("Test label");
         cmd.store();
@@ -40,7 +40,7 @@ public class FileListEditCommandTest extends BaseTestCaseWithUser {
 
     public void testBaseFileListEditCommand() throws Exception {
         setupKey(new CreateFileListCommand(user));
-        int version = 1; 
+        int version = 1;
         String baseStr = "Test10.";
         String files = "";
         String fileList = "Test10.1\nTest10.2\nTest10.3\nTest10.4" +
@@ -51,33 +51,33 @@ public class FileListEditCommandTest extends BaseTestCaseWithUser {
         cmd.updateFiles(files);
 
         assertTrue(cmd.getFileListString().equals("Test10.1"));
-                
+
 
         files =  cmd.getFileListString() + "\n" + baseStr + version++;
         cmd.updateFiles(files);
 
         assertTrue(cmd.getFileListString().equals("Test10.1\nTest10.2"));
-        
+
         while (version < 11) {
             files += "\n" + baseStr + version++;
 
         }
-        
+
         cmd.updateFiles(files);
         assertTrue(cmd.getFileListString().equals(fileList));
     }
-    
-    
+
+
     public void testCreateCommand() throws Exception {
         setupKey(new CreateFileListCommand(user));
         FileList list = cmd.getFileList();
-          
+
         String files = "1\n2\n3\n4\n5\n6\n7\n8";
         cmd.updateFiles(files);
-        
+
         ConfigFileName f = (ConfigFileName) cmd.getFileList().getFileNames()
                                                .iterator().next();
-       
+
         assertEquals("1", f.getPath());
         assertEquals(8, cmd.getFileList().getFileNames().size());
         list = (FileList) reload(list);
@@ -86,7 +86,7 @@ public class FileListEditCommandTest extends BaseTestCaseWithUser {
         assertEquals(files, cmd.getFileListString());
     }
 
-    
+
     public void testEdit() throws Exception {
         FileList list = FileListTest.createTestFileList(user.getOrg());
         CommonFactory.saveFileList(list);
@@ -94,9 +94,9 @@ public class FileListEditCommandTest extends BaseTestCaseWithUser {
         setupKey(new EditFileListCommand(user, list.getId()));
         assertNotNull(cmd.getFileList());
         assertNull(cmd.store());
-        
+
     }
-    
+
 
 }
 

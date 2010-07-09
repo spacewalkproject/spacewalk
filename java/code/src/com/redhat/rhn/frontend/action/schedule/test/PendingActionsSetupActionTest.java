@@ -42,7 +42,7 @@ public class PendingActionsSetupActionTest extends RhnMockStrutsTestCase {
 
 
 
-    
+
     public void testPerformExecute() throws Exception {
 
 

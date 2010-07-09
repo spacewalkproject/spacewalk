@@ -28,7 +28,7 @@ import org.apache.struts.action.DynaActionForm;
  * @version $Rev: 1 $
  */
 public class BootstrapConfigActionTest extends RhnMockStrutsTestCase {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -37,7 +37,7 @@ public class BootstrapConfigActionTest extends RhnMockStrutsTestCase {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
         user.addRole(RoleFactory.SAT_ADMIN);
         Config.get().setString("web.com.redhat.rhn.frontend." +
-                "action.satellite.BootstrapConfigAction.command", 
+                "action.satellite.BootstrapConfigAction.command",
                 TestConfigureBootstrapCommand.class.getName());
     }
 
@@ -51,33 +51,33 @@ public class BootstrapConfigActionTest extends RhnMockStrutsTestCase {
         setRequestPathInfo("/admin/config/BootstrapConfig");
         actionPerform();
         DynaActionForm form = (DynaActionForm) getActionForm();
-        assertEquals(expectedHostname, 
+        assertEquals(expectedHostname,
                 form.getString(BootstrapConfigAction.HOSTNAME));
-        assertEquals(BootstrapConfigAction.DEFAULT_CERT_PATH, 
+        assertEquals(BootstrapConfigAction.DEFAULT_CERT_PATH,
                 form.getString(BootstrapConfigAction.SSL_CERT));
-        assertEquals(Boolean.TRUE, 
+        assertEquals(Boolean.TRUE,
                 form.get(BootstrapConfigAction.ENABLE_SSL));
-        assertEquals(Boolean.TRUE, 
+        assertEquals(Boolean.TRUE,
                 form.get(BootstrapConfigAction.ENABLE_GPG));
-        assertEquals(Boolean.TRUE, 
+        assertEquals(Boolean.TRUE,
                 form.get(BootstrapConfigAction.ALLOW_CONFIG_ACTIONS));
-        assertEquals(Boolean.TRUE, 
+        assertEquals(Boolean.TRUE,
                 form.get(BootstrapConfigAction.ALLOW_REMOTE_COMMANDS));
         assertEquals("", form.getString(BootstrapConfigAction.HTTP_PROXY));
         assertEquals("", form.getString(BootstrapConfigAction.HTTP_PROXY_USERNAME));
         assertEquals("", form.getString(BootstrapConfigAction.HTTP_PROXY_PASSWORD));
-        
-        
+
+
     }
-    
+
     public void testSubmitExecute() throws Exception {
-        
+
         String expectedHostname = Config.get().getString(ConfigDefaults.JABBER_SERVER);
         if (expectedHostname == null) {
             expectedHostname = "localhost";
             Config.get().setString(ConfigDefaults.JABBER_SERVER, expectedHostname);
         }
-        
+
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(BootstrapConfigAction.HOSTNAME, "localhost");
         setRequestPathInfo("/admin/config/BootstrapConfig");

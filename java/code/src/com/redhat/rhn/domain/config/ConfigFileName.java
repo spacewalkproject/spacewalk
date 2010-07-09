@@ -27,38 +27,38 @@ public class ConfigFileName extends BaseDomainHelper {
 
     private Long id;
     private String path;
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * @return Long to get
     */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * @param idIn to set
     */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for path 
+    /**
+     * Getter for path
      * @return String to get
     */
     public String getPath() {
         return this.path;
     }
 
-    /** 
-     * Setter for path 
+    /**
+     * Setter for path
      * @param pathIn to set
     */
     public void setPath(String pathIn) {
         this.path = pathIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */

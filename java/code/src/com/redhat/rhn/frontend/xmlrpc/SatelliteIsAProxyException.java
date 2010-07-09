@@ -37,7 +37,7 @@ public class SatelliteIsAProxyException extends FaultException  {
      * Constructor
      */
     public SatelliteIsAProxyException() {
-        super(1027 , "satelliteIsProxy" , 
+        super(1027 , "satelliteIsProxy" ,
                 "system is already an active Proxy Server");
         // begin member variable initialization
     }
@@ -45,13 +45,13 @@ public class SatelliteIsAProxyException extends FaultException  {
         /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public SatelliteIsAProxyException(Throwable cause) {
-        super(1027 , "satelliteIsProxy" , 
-                "system is already an active Proxy Server", 
+        super(1027 , "satelliteIsProxy" ,
+                "system is already an active Proxy Server",
                 cause);
         // begin member variable initialization
     }

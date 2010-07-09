@@ -35,14 +35,14 @@
 
     <rl:list
              styleclass="list"
-             styleId="multiorg-entitlement-listview"             
+             styleId="multiorg-entitlement-listview"
              alphabarcolumn="orgName"
              emptykey="softwareEntitlementSubs.noOrgsFound">
             <rl:decorator name="PageSizeDecorator"/>
         <rl:column
-            filterattr="orgName" 
+            filterattr="orgName"
             sortattr="orgName"
-            headerkey="softwareEntitlementSubs.column.orgName" 
+            headerkey="softwareEntitlementSubs.column.orgName"
             styleclass="first-column">
             <a href="/rhn/admin/multiorg/OrgDetails.do?oid=${current.org.id}" tabindex="-1">
                 ${current.orgName}
@@ -62,20 +62,20 @@
             </c:choose>
 		</rl:column>
 
-        <rl:column  
+        <rl:column
             headerkey="Regular Proposed Total">
 	       	<c:choose>
 	       		<c:when test = "${current.maxPossibleAllocation == 0}">
 	       			<bean:message key="No Entitlements Available"/>
 	       		</c:when>
 	       		<c:otherwise>
-                    <div id="id${current.key}">                  
-                    <html:text property="${current.key}" size="10" value="${requestScope.orgs[current.key]}"                               
-                               onkeydown="return blockEnter(event)" 
+                    <div id="id${current.key}">
+                    <html:text property="${current.key}" size="10" value="${requestScope.orgs[current.key]}"
+                               onkeydown="return blockEnter(event)"
                                />
                     <br/>
                     <div class="small-text" id="id${current.key}-tooltip">
-                        <bean:message key="softwareEntitlementSubs.possibleValues" 
+                        <bean:message key="softwareEntitlementSubs.possibleValues"
                             arg0="0"
                             arg1="${current.maxMembers + satelliteOrgOverview.freeMembers}"/>
                     </div>
@@ -98,7 +98,7 @@
 	            </c:choose>
 			</rl:column>
 			
-	        <rl:column  
+	        <rl:column
 	            headerkey="Flex Proposed Total">
 		       	<c:choose>
 		       		<c:when test = "${current.maxPossibleFlexAllocation == 0}">
@@ -106,12 +106,12 @@
 		       		</c:when>
 		       		<c:otherwise>
 	                    <div id="id${current.flexKey}">
-	                    <html:text property="${current.flexKey}" size="10" value="${requestScope.orgs[current.flexKey]}"                               
-	                               onkeydown="return blockEnter(event)" 
+	                    <html:text property="${current.flexKey}" size="10" value="${requestScope.orgs[current.flexKey]}"
+	                               onkeydown="return blockEnter(event)"
 	                               />
 	                    <br/>
 	                    <div class="small-text" id="id${current.flexKey}-tooltip">
-	                        <bean:message key="softwareEntitlementSubs.possibleValues" 
+	                        <bean:message key="softwareEntitlementSubs.possibleValues"
 	                            arg0="0"
 	                            arg1="${current.maxFlex + satelliteOrgOverview.freeFlex}"/>
 	                    </div>
@@ -121,8 +121,8 @@
 	        </rl:column>
 		</c:if>
 
-        <rl:column  
-            headerkey="emptyspace.jsp" 
+        <rl:column
+            headerkey="emptyspace.jsp"
             styleclass="last-column"
             >
             <c:if test = "${current.maxPossibleAllocation > 0 || current.maxPossibleFlexAllocation > 0}">
@@ -130,7 +130,7 @@
                         <bean:message key="softwareEntitlementSubs.submit"/>
                     </html:submit>
             </c:if>
-            
+
         </rl:column>
 
     </rl:list>
@@ -146,7 +146,7 @@
             <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.total"/>:</strong>
         </th>
         <td>
-            ${maxMem}         
+            ${maxMem}
             <p/>
             <rhn:tooltip key="softwareEntitlementSubs.systemWideCounts.totaltip"/>
              </span>
@@ -157,8 +157,8 @@
             <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.entUsage"/>:</strong>
         </th>
         <td>
-            <bean:message key="softwareEntitlementSubs.systemWideCounts.entUsageData" 
-                  arg0="${curMem}" arg1="${maxMem}" arg2="${entRatio}" /> 
+            <bean:message key="softwareEntitlementSubs.systemWideCounts.entUsageData"
+                  arg0="${curMem}" arg1="${maxMem}" arg2="${entRatio}" />
         </td>
     </tr>
     <tr>
@@ -166,10 +166,10 @@
             <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.orgUsage"/>:</strong>
         </th>
         <td>
-        <bean:message key="softwareEntitlementSubs.systemWideCounts.orgUsageData" 
-                  arg0="${entitledOrgs}" arg1="${orgCount}" arg2="${orgRatio}" />             
+        <bean:message key="softwareEntitlementSubs.systemWideCounts.orgUsageData"
+                  arg0="${entitledOrgs}" arg1="${orgCount}" arg2="${orgRatio}" />
         </td>
-    </tr>    
+    </tr>
 </table>
 </c:if>
 <c:if test="${not empty requestScope.flexAvailable}">
@@ -181,19 +181,19 @@
             <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.total"/>:</strong>
         </th>
         <td>
-            ${maxFlex}         
+            ${maxFlex}
             <p/>
             <rhn:tooltip key="softwareEntitlementSubs.systemWideCounts.totaltip"/>
         </td>
-    </tr>    
-    
+    </tr>
+
 	<tr>
         <th>
             <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.entUsage"/>:</strong>
         </th>
         <td>
-            <bean:message key="softwareEntitlementSubs.systemWideCounts.entUsageData" 
-                  arg0="${curFlex}" arg1="${maxFlex}" arg2="${flexEntRatio}" /> 
+            <bean:message key="softwareEntitlementSubs.systemWideCounts.entUsageData"
+                  arg0="${curFlex}" arg1="${maxFlex}" arg2="${flexEntRatio}" />
         </td>
     </tr>
     <tr>
@@ -201,10 +201,10 @@
             <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.orgUsage"/>:</strong>
         </th>
         <td>
-        <bean:message key="softwareEntitlementSubs.systemWideCounts.orgUsageData" 
-                  arg0="${flexEntitledOrgs}" arg1="${orgCount}" arg2="${flexOrgRatio}" />             
+        <bean:message key="softwareEntitlementSubs.systemWideCounts.orgUsageData"
+                  arg0="${flexEntitledOrgs}" arg1="${orgCount}" arg2="${flexOrgRatio}" />
         </td>
-    </tr>    
+    </tr>
 </table>
 
 </c:if>

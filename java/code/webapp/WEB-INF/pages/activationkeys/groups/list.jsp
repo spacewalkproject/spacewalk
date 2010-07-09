@@ -8,10 +8,10 @@
 
 <c:set var="summary"><bean:message key="activation-key.groups.jsp.summary"
 					arg0="${rhn:localize('activation-key.groups.jsp.remove')}"/></c:set>
-				 
+
 <c:import url="/WEB-INF/pages/common/fragments/activationkeys/groups.jspf">
 	<c:param name = "title_key" value="activation-key.groups.jsp.title"/>
 	<c:param name = "summary" value="${summary}"/>
 	<c:param name = "action_key" value="activation-key.groups.jsp.remove"/>
 	<c:param name = "empty_message" value="${msg}"/>
-</c:import> 
+</c:import>

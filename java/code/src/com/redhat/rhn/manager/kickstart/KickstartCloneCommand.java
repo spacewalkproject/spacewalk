@@ -27,9 +27,9 @@ import org.cobbler.Profile;
 public class KickstartCloneCommand extends BaseKickstartCommand {
 
     private KickstartData clonedKickstart;
-    private String newLabel; 
-    
-    
+    private String newLabel;
+
+
     /**
      * Construct a KickstartCloneCommand
      * @param ksidIn id of KickstartData that wants to be cloned
@@ -43,9 +43,9 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
 
     /**
      * Execute the clone or copy of the KickstartData associated with this command.
-     * 
+     *
      * Call getClonedKickstart() to get the new object created.
-     * 
+     *
      * @return ValidatorError if there was a problem
      */
     public ValidatorError store() {
@@ -57,22 +57,22 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
         clonedKickstart = this.ksdata.deepCopy(user, newLabel);
         KickstartWizardHelper helperCmd = new KickstartWizardHelper(user);
         helperCmd.store(clonedKickstart);
-        
+
         Profile original = ksdata.getCobblerObject(user);
         Profile cloned = clonedKickstart.getCobblerObject(user);
         cloned.setKsMeta(original.getKsMeta());
-        
+
         cloned.setVirtRam(((Integer) original.getVirtRam()));
         cloned.setVirtCpus(original.getVirtCpus());
         cloned.setVirtFileSize(((Integer) original.getVirtFileSize()));
         cloned.setVirtBridge(original.getVirtBridge());
         cloned.setVirtPath(original.getVirtBridge());
         cloned.save();
-        
+
         return null;
     }
 
-    
+
     /**
      * @return the clonedKickstart
      */
@@ -80,7 +80,7 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
         return clonedKickstart;
     }
 
-    
+
     /**
      * @return the newLabel
      */
@@ -88,5 +88,5 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
         return newLabel;
     }
 
-    
+
 }

@@ -45,13 +45,13 @@ import java.util.LinkedList;
 
 /**
  * Provides frequently used data for scheduling a kickstart
- * 
+ *
  * @version $Rev $
  */
 public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
-    
+
     private static Logger log = Logger.getLogger(ProvisionVirtualInstanceCommand.class);
-    
+
     private String guestName;
     private Long memoryAllocation;
     private Long virtualCpus;
@@ -70,19 +70,19 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         super(selectedServer, null, (KickstartData)null, userIn, null, null);
         this.setPackagesToInstall(new LinkedList());
     }
-    
+
     /**
-     * Constructor to be used when you want to call the store() 
+     * Constructor to be used when you want to call the store()
      * method.
-     * 
+     *
      * @param selectedServer server to kickstart
      * @param ksid id of the KickstartData we are using
      * @param userIn user performing the kickstart
      * @param scheduleDateIn Date to schedule the KS.
-     * @param kickstartServerNameIn the name of the server who is kickstarting 
-     *                              this machine 
+     * @param kickstartServerNameIn the name of the server who is kickstarting
+     *                              this machine
      */
-    public ProvisionVirtualInstanceCommand(Long selectedServer, Long ksid, 
+    public ProvisionVirtualInstanceCommand(Long selectedServer, Long ksid,
             User userIn, Date scheduleDateIn, String kickstartServerNameIn) {
 
         // We'll pass in the host server here, since the host server is the
@@ -93,32 +93,32 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     }
 
     /**
-     * Constructor to be used when you want to call the store() 
+     * Constructor to be used when you want to call the store()
      * method.
-     * 
+     *
      * @param selectedServer server to kickstart
      * @param ksData the KickstartData we are using
      * @param userIn user performing the kickstart
      * @param scheduleDateIn Date to schedule the KS.
-     * @param kickstartServerNameIn the name of the server who is kickstarting 
-     *                              this machine 
+     * @param kickstartServerNameIn the name of the server who is kickstarting
+     *                              this machine
      */
-    public ProvisionVirtualInstanceCommand(Long selectedServer, 
-                                KickstartData ksData, 
+    public ProvisionVirtualInstanceCommand(Long selectedServer,
+                                KickstartData ksData,
             User userIn, Date scheduleDateIn, String kickstartServerNameIn) {
 
         // We'll pass in the host server here, since the host server is the
         // only one that exists.
 
         super(selectedServer, null, ksData, userIn, scheduleDateIn, kickstartServerNameIn);
-    }    
+    }
 
     /**
      * Creates the Kickstart Sechdule command that works with a cobbler  only
      *  kickstart where the host and the target may or may *not* be
      * the same system.  If the target system does not yet exist, selectedTargetServer
      * should be null.  To be used when you want to call the store() method.
-     * 
+     *
      * @param selectedServer server to host the kickstart
      * @param label cobbler only profile label.
      * @param userIn user performing the kickstart
@@ -128,19 +128,19 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      */
     public static ProvisionVirtualInstanceCommand createCobblerScheduleCommand(
                                             Long selectedServer,
-                                            String label, 
-                                            User userIn, 
-                                            Date scheduleDateIn, 
+                                            String label,
+                                            User userIn,
+                                            Date scheduleDateIn,
                                             String kickstartServerNameIn) {
-        
-        ProvisionVirtualInstanceCommand cmd = new 
+
+        ProvisionVirtualInstanceCommand cmd = new
                                         ProvisionVirtualInstanceCommand(selectedServer,
                      (KickstartData)null,  userIn, scheduleDateIn, kickstartServerNameIn);
         cmd.cobblerProfileLabel = label;
         cmd.cobblerOnly =  true;
         return cmd;
-        
-    }    
+
+    }
     /**
      * @param prereqAction the prerequisite for this action
      *
@@ -154,22 +154,22 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     }
 
     protected SelectMode getMode() {
-        return ModeFactory.getMode("General_queries", 
+        return ModeFactory.getMode("General_queries",
                                    "virtual_kickstarts_channels_for_org");
     }
 
-    
+
     @Override
-    protected CobblerSystemCreateCommand getCobblerSystemCreateCommand(User userIn, 
+    protected CobblerSystemCreateCommand getCobblerSystemCreateCommand(User userIn,
             Server serverIn, KickstartData ksdataIn, String mediaPath, String tokenList) {
         return new CobblerVirtualSystemCommand(userIn, serverIn,
                 ksdataIn, mediaPath, tokenList, guestName);
     }
-    
+
     @Override
-    protected CobblerSystemCreateCommand getCobblerSystemCreateCommand(User userIn, 
+    protected CobblerSystemCreateCommand getCobblerSystemCreateCommand(User userIn,
             Server serverIn, String cobblerProfileLabelIn) {
-        return new CobblerVirtualSystemCommand(userIn, 
+        return new CobblerVirtualSystemCommand(userIn,
                 serverIn, cobblerProfileLabelIn);
     }
 
@@ -179,7 +179,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      * @return Returns the KickstartGuestAction
      */
     public Action scheduleKickstartAction(Action prereqAction) {
-    
+
         KickstartSession ksSession = getKickstartSession();
         Long sessionId = (ksSession != null) ? ksSession.getId() : null;
         //TODO -- It feels a little dirty to pass in this & this.getExtraOptions,
@@ -190,7 +190,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         ksSession.setAction(ksAction);
         ksAction.setPrerequisite(prereqAction);
         ActionFactory.save(ksAction);
-    
+
         return (Action) ksAction;
     }
 
@@ -202,7 +202,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     protected ValidatorError validateUp2dateVersion() {
         return null;
     }
- 
+
     /**
      * @return Returns the guestName
      */
@@ -266,9 +266,9 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     public void setLocalStorageSize(Long localStorageIn) {
         this.localStorage = localStorageIn;
     }
-    
+
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public DataResult<? extends KickstartDto> getKickstartProfiles() {
@@ -290,7 +290,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         return result;
     }
 
-    
+
     /**
      * @return Returns the filePath.
      */
@@ -298,7 +298,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         return filePath;
     }
 
-    
+
     /**
      * @param filePathIn The filePath to set.
      */
@@ -310,7 +310,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         }
     }
 
-    
+
     /**
      * @return Returns the virtBridge.
      */
@@ -318,20 +318,20 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         return virtBridge;
     }
 
-    
+
     /**
      * @param virtBridgeIn The virtBridge to set.
      */
     public void setVirtBridge(String virtBridgeIn) {
         this.virtBridge = virtBridgeIn;
     }
-    
+
     /**
      * Method to set up the default virt path where the guset will be stored
      * based on the guest name.
      * @param name the name of the guest
      * @param type virtualization type to determine the virt paths
-     *             its different for xen/kvm 
+     *             its different for xen/kvm
      * @return the virt path.
      */
     public static String makeDefaultVirtPath(String name,

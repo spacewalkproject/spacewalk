@@ -23,20 +23,20 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev$
  */
 public class ArchTypeTest extends RhnBaseTestCase {
-    
+
     public void testArchType() throws Exception {
-        
+
         Long testid = new Long(1);
         String query = "ArchType.findById";
-        
+
         ArchType at1 = (ArchType) TestUtils.lookupFromCacheById(testid, query);
         assertNotNull(at1);
         assertEquals(at1.getId(), testid);
-        
+
         ArchType at2 = (ArchType) TestUtils.lookupFromCacheById(at1.getId(), query);
         assertEquals(at1.getLabel(), at2.getLabel());
-        
+
         ArchType at3 = (ArchType) TestUtils.lookupFromCacheById(at1.getId(), query);
     }
- 
+
 }

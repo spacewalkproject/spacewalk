@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.server.Location" 
+    <class name="com.redhat.rhn.domain.server.Location"
         table="rhnServerLocation" >
         <id name="id" type="long" column="ID">
             <meta attribute="scope-set">protected</meta>
@@ -11,7 +11,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">rhn_server_loc_id_seq</param>
             </generator>
         </id>
-        <many-to-one name="server" class="com.redhat.rhn.domain.server.Server" 
+        <many-to-one name="server" class="com.redhat.rhn.domain.server.Server"
             column="server_id"/>
         <property name="machine" column="MACHINE"  type="string" length="64" />
         <property name="rack" column="RACK"  type="string" length="64" />
@@ -25,7 +25,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="created" column="CREATED" not-null="true" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="MODIFIED" not-null="true" type="timestamp" insert="false" update="false"/>
     </class>
-    
+
     <query name="Location.findById">
         <![CDATA[from com.redhat.rhn.domain.server.Location as l where l.id = :id]]>
     </query>

@@ -22,21 +22,21 @@ import java.util.List;
 
 /**
  * ConfigDefaults is the place to store application specific Config settings
- * and convenience methods.  
- * 
+ * and convenience methods.
+ *
  * @version $Rev$
  */
 public class ConfigDefaults {
-    
+
     private static ConfigDefaults instance = new ConfigDefaults();
-    
+
     public static final String SPACEWALK = "Spacewalk";
     //
     // Names of the configuration parameters
     //
 
     public static final String SSL_AVAILABLE = "ssl_available";
-    
+
     //TODO: was private.  Made public for AccessTest
     public static final String WEB_SATELLITE = "web.satellite";
 
@@ -67,7 +67,7 @@ public class ConfigDefaults {
                             = "errata_cache_compute_threshold";
 
     public static final String DOWNLOAD_URL_LIFETIME = "download_url_lifetime";
-    
+
     public static final String NON_EXPIRABLE_PACKAGE_URLS = "non_expirable_package_urls";
 
     public static final String WEB_IS_MONITORING_SCOUT = "web.is_monitoring_scout";
@@ -85,21 +85,21 @@ public class ConfigDefaults {
     public static final String OVAL_MOUNT_POINT = "web.oval_mount_point";
 
     public static final String KICKSTART_HOST = "kickstart_host";
- 
+
     public static final String CONFIG_REVISION_MAX_SIZE = "web.maximum_config_file_size";
 
     public static final String WEB_EXCLUDED_COUNTRIES = "web.excluded_countries";
-    
+
     public static final String DISCONNECTED = "disconnected";
-    
+
     public static final String DEFAULT_SAT_PARENT = "satellite.rhn.redhat.com";
 
     public static final String TINY_URL_TIMEOUT = "server.satellite.tiny_url_timeout";
-    
+
     public static final String FORCE_UNENTITLEMENT = "web.force_unentitlement";
 
     public static final String PRODUCT_NAME = "web.product_name";
-    
+
     public static final String COBBLER_AUTOMATED_USER = "web.taskomatic_cobbler_user";
 
     public static final String DOC_REFERENCE_GUIDE = "docs.reference_guide";
@@ -111,33 +111,33 @@ public class ConfigDefaults {
     public static final String DOC_PROXY_RELEASE_NOTES = "docs.proxy_release_notes";
 
     public static final String WEB_SUBSCRIBE_PROXY_CHANNEL = "web.subscribe_proxy_channel";
-    
+
     public static final String TAKE_SNAPSHOTS = "enable_snapshots";
 
     /**
      * The default maximum size for config revisions,  (128 K)
      */
     public static final int DEFAULT_CONFIG_REVISION_MAX_SIZE = 131072;
-    
+
     public static final String REPOMD_PATH_PREFIX = "taskomatic.repomd_path_prefix";
-    
+
     public static final String REPOMD_CACHE_MOUNT_POINT = "repomd_cache_mount_point";
 
-    
+
     public static final String DEFAULT_KICKSTART_PACKAGE_NAME = "spacewalk-koan";
     public static final String KICKSTART_PACKAGE_NAME = "kickstart_package";
-    
+
     public static final String MOUNT_POINT = "mount_point";
     public static final String KICKSTART_MOUNT_POINT = "kickstart_mount_point";
-    
+
     public static final String PAGE_SIZES = "web.page_sizes";
     public static final String DEFAULT_PAGE_SIZE = "web.default_page_size";
 
-    public static final String KICKSTART_COBBLER_DIR = "kickstart.cobbler.dir"; 
+    public static final String KICKSTART_COBBLER_DIR = "kickstart.cobbler.dir";
     public static final String COBBLER_SNIPPETS_DIR = "cobbler.snippets.dir";
     private static final String DEFAULT_COBBLER_SNIPPET_DIR = "/var/lib/cobbler/snippets";
     private static final String COBBLER_NAME_SEPARATOR = "cobbler.name.separator";
-    
+
     public static final String KVM_VIRT_PATH_DIR = "kickstart.virt_storage_path_kvm";
     public static final String XEN_VIRT_PATH_DIR = "kickstart.virt_storage_path_xen";
     private static final String DEFAULT_XEN_VIRT_PATH = "/var/lib/xen/images";
@@ -152,7 +152,7 @@ public class ConfigDefaults {
     public static final String SPACEWALK_REPOSYNC_LOG_PATH = "spacewalk_reposync_logpath";
     public static final String NON_REFERER_URLS = "non_referer_urls";
     public static final String USE_DB_REPODATA = "user_db_repodata";
-    public static final String CONFIG_MACRO_ARGUMENT_REGEX = "config_macro_argument_regex"; 
+    public static final String CONFIG_MACRO_ARGUMENT_REGEX = "config_macro_argument_regex";
 
     public static final String DB_BACKEND = "db_backend";
     public static final String DB_BACKEND_ORACLE = "oracle";
@@ -160,15 +160,15 @@ public class ConfigDefaults {
 
     private ConfigDefaults() {
     }
-    
+
     /**
      * Get instance of ConfigDefaults.
      * @return ConfigDefaults instance.
      */
-    public static ConfigDefaults get() { 
+    public static ConfigDefaults get() {
         return instance;
     }
-    
+
     /**
      * Return the kickstart mount point directory
      * Note the mount point is guaranteed to have a
@@ -185,30 +185,30 @@ public class ConfigDefaults {
         }
         return mount;
     }
-    
-    
+
+
     /**
      * Returns the default kickstart package name
      * @return the default kickstart package name
      */
     public String getKickstartPackageName() {
         return StringUtils.defaultIfEmpty(Config.get().getString(KICKSTART_PACKAGE_NAME),
-                DEFAULT_KICKSTART_PACKAGE_NAME).trim();        
+                DEFAULT_KICKSTART_PACKAGE_NAME).trim();
     }
-    
+
     /**
      * Get the user string for use with authorization between Spacewalk
      * and Cobbler if there is no actual user in context.
-     * 
+     *
      * @return String from our config
      */
     public String getCobblerAutomatedUser() {
         return Config.get().getString(COBBLER_AUTOMATED_USER, "taskomatic_user");
     }
-    
+
     /**
      * Returns all the available page sizes.
-     * Note this is only meant to check 
+     * Note this is only meant to check
      * if the web.page_sizes config entry is set
      * you might want to use PageSizeDecorator.getPageSizes instead.
      * @see com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator
@@ -221,7 +221,7 @@ public class ConfigDefaults {
 
     /**
      * Returns the default page size config entry.
-     * Note this is only meant to check 
+     * Note this is only meant to check
      * if the web.default_page_size config entry is set
      * you might want to use PageSizeDecorator.getDefaultPageSize instead.
      * @see com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator
@@ -233,31 +233,31 @@ public class ConfigDefaults {
     }
 
     /**
-     * Returns the directory which hosts all the 
-     * cobbler kickstart .cfg files.. 
+     * Returns the directory which hosts all the
+     * cobbler kickstart .cfg files..
      * All the .cfg files that have been generated
-     * by spacewalk will be either at 
+     * by spacewalk will be either at
      * ${kickstart.cobbler.dir}/wizard or
-     * ${kickstart.cobbler.dir}/upload  
+     * ${kickstart.cobbler.dir}/upload
      * @return the dir which has the kickstarts
      */
     public String getKickstartConfigDir() {
         return Config.get().getString(KICKSTART_COBBLER_DIR, "/var/lib/rhn/kickstarts/");
     }
-    
+
     /**
-     * Returns the directory which hosts all the 
-     * org specific cobbler snippets files.. 
+     * Returns the directory which hosts all the
+     * org specific cobbler snippets files..
      * All the snippet files that have been generated
      * by spacewalk will be at
-     * /var/lib/cobbler/snippets 
+     * /var/lib/cobbler/snippets
      *
      * @return the dir which has the kickstarts cobbler snippets
      */
     public String getCobblerSnippetsDir() {
         return Config.get().getString(COBBLER_SNIPPETS_DIR, DEFAULT_COBBLER_SNIPPET_DIR);
     }
-    
+
     /**
      * Returns the base directory where the virt artifacts will be stored.
      * This information is used while setting up system records and so on..
@@ -277,7 +277,7 @@ public class ConfigDefaults {
     public String getDefaultXenVirtBridge() {
         return Config.get().getString(VIRT_BRIDGE, "xenbr0");
     }
-    
+
     /**
      * Returns the default value for the xen virt bridge
      * @return  the value for virt bridge.
@@ -286,7 +286,7 @@ public class ConfigDefaults {
         return Config.get().getString(VIRT_BRIDGE, "virbr0");
     }
 
-    
+
     /**
      * Returns the default virt disk size in GBs
      * @return the virt disk size
@@ -302,14 +302,14 @@ public class ConfigDefaults {
     public int getDefaultVirtMemorySize() {
         return Config.get().getInt(VIRT_MEM, 512);
     }
-    
+
     /**
      * Returns the default number of virt cpus
      * @return the number of virt cpus
      */
     public int getDefaultVirtCpus() {
         return Config.get().getInt(VIRT_CPU, 1);
-    }    
+    }
 
 
     /**
@@ -338,9 +338,9 @@ public class ConfigDefaults {
     public boolean isSSLAvailable() {
         return Config.get().getBoolean(SSL_AVAILABLE);
     }
-    
+
     /**
-     * 
+     *
      * @return if we should force unentitlement of systems
      * when setting entitlements below current usage for multiorg
      */
@@ -363,7 +363,7 @@ public class ConfigDefaults {
     public String getHostname() {
         return Config.get().getString(JABBER_SERVER);
     }
-    
+
     /**
      * Returns the URL for the search server, if not defined returns
      * http://localhost:2828/RPC2
@@ -377,7 +377,7 @@ public class ConfigDefaults {
     }
 
     /**
-     * Get the URL to the cobbler server 
+     * Get the URL to the cobbler server
      * @return http url
      */
     public String getCobblerServerUrl() {
@@ -385,8 +385,8 @@ public class ConfigDefaults {
         int cobblerServerPort = Config.get().getInt("cobbler.port", 80);
         return "http://" + cobblerServer + ":" + cobblerServerPort;
     }
-    
-    
+
+
     /**
      * Get just the cobbler hostname
      * @return the cobbler hostname
@@ -394,7 +394,7 @@ public class ConfigDefaults {
     public String getCobblerHost() {
         return Config.get().getString("cobbler.host", "localhost");
     }
-    
+
     /**
      * get the text to print at the top of a kickstart template
      * @return the header
@@ -402,8 +402,8 @@ public class ConfigDefaults {
     public String getKickstartTemplateHeader() {
         return Config.get().getString("kickstart.header", "#errorCatcher ListErrors");
     }
-    
-    
+
+
     /**
      * Returns the default network interface for a kickstart profile
      * @return the network interface
@@ -438,7 +438,7 @@ public class ConfigDefaults {
         }
         return false;
     }
-    
+
     /**
      * Return true if you are to use/save repodata into the DB
      * @return true or false
@@ -449,7 +449,7 @@ public class ConfigDefaults {
         }
         return Config.get().getBoolean(USE_DB_REPODATA);
     }
-        
+
     /**
      * Get the seperator to use when creating cobbler namse
      *  defaults to ':'

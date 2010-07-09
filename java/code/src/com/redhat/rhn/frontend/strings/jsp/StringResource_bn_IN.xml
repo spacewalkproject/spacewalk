@@ -1793,19 +1793,19 @@
 			<trans-unit id="disableself.jsp.message">
 				<source>You may deactivate your @@PRODUCT_NAME@@ account below. &lt;b&gt;This will remove your ability
 to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
-				<target>নিম্নলিখিত স্থানে আপনি আপনার @@PRODUCT_NAME@@ অ্যাকাউন্ট নিষ্ক্রিয় করতে সক্ষম হবেন। &lt;b&gt;এর ফলে 
+				<target>নিম্নলিখিত স্থানে আপনি আপনার @@PRODUCT_NAME@@ অ্যাকাউন্ট নিষ্ক্রিয় করতে সক্ষম হবেন। &lt;b&gt;এর ফলে
 আপনি @@PRODUCT_NAME@@-এ লগ-ইন করা যাবে না।&lt;/b&gt;</target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message2">
 				<source>Once your account is deactivated, you will need to contact your organization's
 @@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
-				<target>আপনার অ্যাকাউন্ট নিষ্ক্রিয় করা হলে তা পুনরায় সক্রিয় করার জন্য আপনার প্রতিষ্ঠানের 
+				<target>আপনার অ্যাকাউন্ট নিষ্ক্রিয় করা হলে তা পুনরায় সক্রিয় করার জন্য আপনার প্রতিষ্ঠানের
 @@PRODUCT_NAME@@ প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের সাথে যোগাযোগ করুন।</target>
 			</trans-unit>
 			<trans-unit id="disableselfconfirm.jsp.warning">
 				<source>You will be logged out immediately after pressing the 'Deactivate Account'
 button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
-				<target>নীচে উপস্থিত 'অ্যাকাউন্ট নিষ্ক্রিয়করণ' বাটন টেপা হলে আপনাকে 
+				<target>নীচে উপস্থিত 'অ্যাকাউন্ট নিষ্ক্রিয়করণ' বাটন টেপা হলে আপনাকে
 তৎক্ষনাৎ‌ লগ-আউট করা হবে এবং আপনি &lt;b&gt;পুনরায় লগ-ইন করতে সক্ষম হবেন না&lt;/b&gt;।</target>
 			</trans-unit>
 			<trans-unit id="disableselfconfirm.jsp.warning_question">
@@ -6469,7 +6469,7 @@ administrator. The organizations on one @@PRODUCT_NAME@@ with multiple organizat
 function similarly to the organizations on multiple @@PRODUCT_NAME@@s with one
 organization.</source>
 				<target>@@PRODUCT_NAME@@-র সাহায্যে পরিচালিত সিস্টেম, সিস্টেম সংকলন, সফ্টওয়্যার চ্যানেল,
-সাবস্ক্রিপশন ও এনটাইটেলমেন্ট, kickstart প্রোফাইল, অ্যাক্টিভেশন-কি, 
+সাবস্ক্রিপশন ও এনটাইটেলমেন্ট, kickstart প্রোফাইল, অ্যাক্টিভেশন-কি,
 কনফিগারেশন চ্যানেল ও ফাইল প্রভৃতি সর্ধরনের সামগ্রীর
 মধ্যে সীমারেখা নির্ধারণের জন্য প্রতিষ্ঠান ব্যবহার করা হয়। প্রতিটি প্রতিষ্ঠান অন্তত একজন প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটর
 দ্বারা পরিচালিত হয় এবং সম্পূর্ণ @@PRODUCT_NAME@@ একজন @@PRODUCT_NAME@@ অ্যাডমিনিস্ট্রেটর দ্বারা পরিচালিত
@@ -6493,11 +6493,11 @@ the following tabs in the left navigation menu:</source>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
 				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
-provided by each entitlement. On a per-entitlement basis, 
-you can allocate entitlements for any particular entitlement across all 
+provided by each entitlement. On a per-entitlement basis,
+you can allocate entitlements for any particular entitlement across all
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>@@PRODUCT_NAME@@-র মধ্যে উপস্থিত সাবস্ক্রিপশন পরিচালনা করুন। উপরন্তু, প্রতিটি এনটাইটেলমেন্ট দ্বারা উপলব্ধ ব্যবহারাধিকার
-প্রদর্শন করা যাবে। প্রতিটি এনটাইটেলমেন্টের উপর ভিত্তি করে, 
+প্রদর্শন করা যাবে। প্রতিটি এনটাইটেলমেন্টের উপর ভিত্তি করে,
 @@PRODUCT_NAME@@-র মধ্যে উপস্থিত সমস্ত প্রতিষ্ঠানের জন্য কোনো সুনির্দিষ্ট এনটাইটেলমেন্ট,
 এই স্থানে বরাদ্দ করা যাবে।</target>
 			</trans-unit>
@@ -6811,9 +6811,9 @@ Please note that some manual configuration of these scripts may still be require
 				<target>ভেরিয়েবল আপডেট করুন</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
         			You would then use $name within the profile to substitute in the value.</source>
-				<target>kickstart ভেরিয়েবল ব্যবহার করে kickstart প্রোফাইলের মধ্যে মান পরিবর্তন করা যাবে।  নতুন ভেরিয়েবল ধার্য করার জন্য 'নাম=মান' বিন্যাসে নিম্নলিখিত বাক্স প্রয়োজনীয় তথ্য সংযোজন করুন।  
+				<target>kickstart ভেরিয়েবল ব্যবহার করে kickstart প্রোফাইলের মধ্যে মান পরিবর্তন করা যাবে।  নতুন ভেরিয়েবল ধার্য করার জন্য 'নাম=মান' বিন্যাসে নিম্নলিখিত বাক্স প্রয়োজনীয় তথ্য সংযোজন করুন।
         			প্রোফাইলের মধ্যে $name প্রয়োগ করে সংশ্লিষ্ট মান স্থাপন করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
@@ -7154,12 +7154,12 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; Virtualization Type পরিবর্তন করা হলে kickstart প্রোফাইলের বুট-লোডার ও
-             পার্টিশন সংক্রান্ত বিকল্প পরিবর্তনের প্রয়োজন দেখা দিতে পারে। এর ফলে ব্যবহারকারী দ্বারা স্থাপিত স্বনির্ধারিত বৈশিষ্ট্যগুলি মুছে যেতে পারে। 
-            নতুন বৈশিষ্ট্যগুলি যাচাই করার জন্য অনুগ্র করে &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;পার্টিশন বিন্যাস&lt;/a&gt; 
+             পার্টিশন সংক্রান্ত বিকল্প পরিবর্তনের প্রয়োজন দেখা দিতে পারে। এর ফলে ব্যবহারকারী দ্বারা স্থাপিত স্বনির্ধারিত বৈশিষ্ট্যগুলি মুছে যেতে পারে।
+            নতুন বৈশিষ্ট্যগুলি যাচাই করার জন্য অনুগ্র করে &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;পার্টিশন বিন্যাস&lt;/a&gt;
             শীর্ষক ট্যাবটি দেখুন।</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -7654,11 +7654,11 @@ kickstart pre scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linu
 You can also edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, esystem registration to @@PRODUCT_NAME@@).
 Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to
 the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
-				<target>চিহ্নিত kickstart-র প্রি-স্ক্রিপ্ট ও পোস্ট-স্ক্রিপ্ট অংশ আপনি নীচে পরিবর্তন করতে পারবেন। সিস্টেমের দ্বারা kickstart ফাইল পড়ার পরে প্রথমে প্রি-স্ক্রিপ্ট অংশ নির্বাহিত হয়। 
-  এই সময়ে নেটওয়ার্ক ব্যবহার করার জন্য IP ঠিকানা ব্যবহার করা আবশ্যক (name পরিসেবা এই সময়ে কনফিগার করা হয় না)। Kickstart প্রি-স্ক্রিপ্ট সম্পর্কে জানতে 
+				<target>চিহ্নিত kickstart-র প্রি-স্ক্রিপ্ট ও পোস্ট-স্ক্রিপ্ট অংশ আপনি নীচে পরিবর্তন করতে পারবেন। সিস্টেমের দ্বারা kickstart ফাইল পড়ার পরে প্রথমে প্রি-স্ক্রিপ্ট অংশ নির্বাহিত হয়।
+  এই সময়ে নেটওয়ার্ক ব্যবহার করার জন্য IP ঠিকানা ব্যবহার করা আবশ্যক (name পরিসেবা এই সময়ে কনফিগার করা হয় না)। Kickstart প্রি-স্ক্রিপ্ট সম্পর্কে জানতে
 &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt; পড়ুন।
 &lt;br/&gt;&lt;br/&gt;
-চিহ্নিত kickstart-র পোস্ট-স্ক্রিপ্ট অংশ আপনি নীচে পরিবর্তন করতে পারবেন। @@PRODUCT_NAME@@ সংক্রান্ত কমান্ডগুলি প্রথমে নির্বাহিত হবে (উদাহরণস্বরূপ esystem registration to @@PRODUCT_NAME@@)।  
+চিহ্নিত kickstart-র পোস্ট-স্ক্রিপ্ট অংশ আপনি নীচে পরিবর্তন করতে পারবেন। @@PRODUCT_NAME@@ সংক্রান্ত কমান্ডগুলি প্রথমে নির্বাহিত হবে (উদাহরণস্বরূপ esystem registration to @@PRODUCT_NAME@@)।
 এর পরে, নন-chroot পোস্ট-স্ক্রিপ্ট অংশ চালিত হবে এবং সর্বশেষ পোস্ট-স্ক্রিপ্ট অংশ নির্বাহিত হবে। Kickstart-র পোস্ট-স্ক্রিপ্ট অংশ সম্বন্ধে অধিক জানতে অনুগ্রহ করে
 &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide&lt;/strong&gt; পড়ুন।</target>
 			</trans-unit>
@@ -11912,7 +11912,7 @@ Base Channel chosen on the
 				<target>আপনি @@PRODUCT_NAME@@-এ নিবন্ধিত কোনো সিস্টেমের প্যাকেজ প্রোফাইল
 অনুযায়ী সিস্টেম kickstart করার উদ্দেশ্য নিম্নলিখিত স্থানে প্যাকেজ
 প্রোফাইল নির্বাচন করতে পারবেন।  &lt;strong&gt;উল্লেখ্য&lt;/strong&gt;: এই তালিকায়
-শুধুমাত্র &lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;অপারেটিং সিস্টেম&lt;/a&gt; পৃষ্ঠায় নির্বাচিত বেস চ্যানেল অনুযায়ী নির্মিত প্যাকেজ প্রোফাইল 
+শুধুমাত্র &lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;অপারেটিং সিস্টেম&lt;/a&gt; পৃষ্ঠায় নির্বাচিত বেস চ্যানেল অনুযায়ী নির্মিত প্যাকেজ প্রোফাইল
 প্রদর্শিত হবে।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.packageprofiles.jsp.tip">
@@ -11921,9 +11921,9 @@ Make sure you subscribe systems to the appropriate software channels during kick
 so they have access to the packages in the package profile you sync them to.  Visit
 the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Keys&lt;/a&gt;
  tab to subscribe systems to software channels during kickstart.&lt;/span&gt;</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;উপদেশ:&lt;/strong&gt; 
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;উপদেশ:&lt;/strong&gt;
 Kickstart করার সময় অনুগ্রহ করে সিস্টেমগুলিকে যথাযত সফ্টওয়্যার চ্যানেলে সাবস্ক্রাইব করা আবশ্যক
-যার ফলে সুসংগতিরর উদ্দেশ্যে চিহ্নিত প্যাকেজ প্রোফাইলের প্যাকেজগুলি সিস্টেমগুলির দ্বারা ব্যবহার করা সম্ভব হবে।  Kickstart করার সময় সফ্টওয়্যার চ্যানেলে 
+যার ফলে সুসংগতিরর উদ্দেশ্যে চিহ্নিত প্যাকেজ প্রোফাইলের প্যাকেজগুলি সিস্টেমগুলির দ্বারা ব্যবহার করা সম্ভব হবে।  Kickstart করার সময় সফ্টওয়্যার চ্যানেলে
 সিস্টেম সাবস্ক্রাইব করার জন্য &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;অ্যাক্টিভেশন-কি&lt;/a&gt;
  নামক ট্যাব দেখুন।&lt;/span&gt;</target>
 			</trans-unit>
@@ -12406,13 +12406,13 @@ need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
 performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;</source>
 				<target> &lt;strong&gt; কোনো Kickstart RPM পাওয়া যায়নি।  প্রতিটি ঊর্ধ্বস্থ চ্যানেলের ক্ষেত্রে
 এই RPM গুলি @@PRODUCT_NAME@@ Tools চ্যানেলের মধ্যে উপস্থিত থাকে।  Kickstart
-করার পূর্বে অথবা নতুন kickstart ডিস্ট্রিবিউশন নির্মাণের আগে @@PRODUCT_NAME@@ Tools 
+করার পূর্বে অথবা নতুন kickstart ডিস্ট্রিবিউশন নির্মাণের আগে @@PRODUCT_NAME@@ Tools
 চ্যানেলের জন্য satellite sync করার প্রয়োজন দেখা দিতে পারে।&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
-				<source> 
+				<source>
  &lt;strong&gt;No applicable installer generations found for selected base channel.&lt;/strong&gt;</source>
-				<target> 
+				<target>
  &lt;strong&gt;নির্বাচিত বেস চ্যানেলের জন্য প্রযোজ্য ইনস্টলার জেনারেশন সনাক্ত করা যায়নি।&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.toolbar">
@@ -13109,10 +13109,10 @@ advantages of a registered account. We strive to maintain 100% uptime
 for your @@PRODUCT_NAME@@ service, but must also periodically perform maintenance
 tasks to upgrade functionality, fix reported bugs, and improve
 performance.</source>
-				<target>@@PRODUCT_NAME@@-এ আপনার প্রবেশাধিকার ও নিবন্ধিত অ্যাকাউন্টের 
-সুযোগ সুবিধা উপলব্ধ করাই আমাদের সর্বাধিক গুরুত্বপূর্ণ দ্বায়িত্ব। @@PRODUCT_NAME@@ পরিসেবা 
-প্রতিনিয়ত ১০০% সময় আমরা বহাল রাখার প্রচেষ্টা করে থাকি কিন্তু মাঝে মধ্যে 
-বাগ সংশোধন, উন্নয়ণ কর্ম ও কর্মক্ষমতা বৃদ্ধি প্রভৃতির জন্য রক্ষণাবেক্ষণ কর্ম 
+				<target>@@PRODUCT_NAME@@-এ আপনার প্রবেশাধিকার ও নিবন্ধিত অ্যাকাউন্টের
+সুযোগ সুবিধা উপলব্ধ করাই আমাদের সর্বাধিক গুরুত্বপূর্ণ দ্বায়িত্ব। @@PRODUCT_NAME@@ পরিসেবা
+প্রতিনিয়ত ১০০% সময় আমরা বহাল রাখার প্রচেষ্টা করে থাকি কিন্তু মাঝে মধ্যে
+বাগ সংশোধন, উন্নয়ণ কর্ম ও কর্মক্ষমতা বৃদ্ধি প্রভৃতির জন্য রক্ষণাবেক্ষণ কর্ম
 করা প্রয়োজন হয়ে পড়ে।</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.scheduled-header">
@@ -13126,11 +13126,11 @@ necessarily use every one of these windows to perform maintenance, we recommend 
 enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
 Red Hat will always attempt to inform at least one week in advance through the email outage
 list (see below) about this scheduled downtime whenever possible.</source>
-				<target>Red Hat-র পক্ষ থেকে @@PRODUCT_NAME@@ রক্ষণাবেক্ষণের জন্য প্রতি মঙ্গলবার 
-রাত ৯টা-ভোর ৩টে, পূর্ব যুক্তরাষ্ট্র সময় (রাত ১টা-সকাল ৭টা UTC) ধার্য করা হয়েছে। সাধারণত প্রতি 
-মঙ্গলবার রক্ষণাবেক্ষণ কর্ম না করা হলেও Red Hat-র পক্ষ থেকে আপনার @@PRODUCT_NAME@@ ব্যবস্থা এই সময়ে ব্যবহার না করার 
-জন্য আপনার প্রতিষ্ঠানের কর্মধারা নির্ধারণ করার বিশেষ অনুরোধ জানানো হচ্ছে। 
-Red Hat-র পক্ষ থেকে সর্বদা পূর্বনির্ধারিত কর্ম-অবকাশ সম্পর্কে অন্তত এক সপ্তাহ 
+				<target>Red Hat-র পক্ষ থেকে @@PRODUCT_NAME@@ রক্ষণাবেক্ষণের জন্য প্রতি মঙ্গলবার
+রাত ৯টা-ভোর ৩টে, পূর্ব যুক্তরাষ্ট্র সময় (রাত ১টা-সকাল ৭টা UTC) ধার্য করা হয়েছে। সাধারণত প্রতি
+মঙ্গলবার রক্ষণাবেক্ষণ কর্ম না করা হলেও Red Hat-র পক্ষ থেকে আপনার @@PRODUCT_NAME@@ ব্যবস্থা এই সময়ে ব্যবহার না করার
+জন্য আপনার প্রতিষ্ঠানের কর্মধারা নির্ধারণ করার বিশেষ অনুরোধ জানানো হচ্ছে।
+Red Hat-র পক্ষ থেকে সর্বদা পূর্বনির্ধারিত কর্ম-অবকাশ সম্পর্কে অন্তত এক সপ্তাহ
 পূর্বে ই-মেইল আউটেজ লিস্টের (নীচে দেখুন) মাধ্যমে সূচনা প্রদানের প্রচেষ্টা করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.unscheduled-header">
@@ -13143,8 +13143,8 @@ Network will attempt notification, again through the email outage list
 (see below), at least 12 hours or as soon as possible in advance of
 unscheduled maintenance.</source>
 				<target>অনির্ধারিত রক্ষণাবেক্ষণ কর্মের জন্য কর্ম-অবকাশ সাধারণত না ঘটলেও, সম্ভাব্য। Red Hat
-Network দ্বারা ই-মেইল আউট-এজ লিস্টের (নীচে দেখুন) মাধ্যমে 
-অন্তত ১২ ঘন্টা অথবা যথাসম্ভব পূর্বে অনির্ধারিত রক্ষণাবেক্ষণ কর্ম সম্পর্কে 
+Network দ্বারা ই-মেইল আউট-এজ লিস্টের (নীচে দেখুন) মাধ্যমে
+অন্তত ১২ ঘন্টা অথবা যথাসম্ভব পূর্বে অনির্ধারিত রক্ষণাবেক্ষণ কর্ম সম্পর্কে
 সূচনা প্রদান করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.emergency-header">
@@ -13315,12 +13315,12 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.description">
 				<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.  
+	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
 	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
     (&lt;a href="{1}"&gt;more information&lt;/a&gt;)</source>
 				<target>
-	অনুগ্রহ করে {0}-র &lt;strong&gt;সাম্প্রতিকতম রিলিজ&lt;/strong&gt;-র ISO ইমেজ প্রাপ্ত করার জন্য নীচে দেখুন।  
-	ইনস্টল করার জন্য নির্ধারিত {0}-র সংস্করণের উপর ভিত্তি করে সম্ভবত এই ডিস্কগুলির সুনির্দিষ্ট অংশ প্রয়োজন হবে। 
+	অনুগ্রহ করে {0}-র &lt;strong&gt;সাম্প্রতিকতম রিলিজ&lt;/strong&gt;-র ISO ইমেজ প্রাপ্ত করার জন্য নীচে দেখুন।
+	ইনস্টল করার জন্য নির্ধারিত {0}-র সংস্করণের উপর ভিত্তি করে সম্ভবত এই ডিস্কগুলির সুনির্দিষ্ট অংশ প্রয়োজন হবে।
     (&lt;a href="{1}"&gt;অধিক তথ্য&lt;/a&gt;)</target>
 			</trans-unit>
 			<trans-unit id="isodownload.header.iso">
@@ -13345,11 +13345,11 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.latest.note">
 				<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.  
+&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
-&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; {0} ইনস্টল করার জন্য একটি ইনস্টলেশন সংখ্যা আবশ্যক।  
+&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; {0} ইনস্টল করার জন্য একটি ইনস্টলেশন সংখ্যা আবশ্যক।
 &lt;a href="{1}"&gt;ইনস্টলেশন সংখ্যা সম্পর্কে জানেন কি?&lt;/a&gt;
 &lt;a href="{2}"&gt;প্রয়োজনীয় ইনস্টলেশন সংখ্যা অনুসন্ধান করতে হবে কি?&lt;/a&gt;</target>
 			</trans-unit>
@@ -13359,7 +13359,7 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 			</trans-unit>
 			<trans-unit id="isodownload.rest.description">
 				<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.  
+Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
 Note that only one set of ISO images is necessary to install any particular release of {0}.</source>
 				<target>
 {0}-র &lt;strong&gt;পূর্ববর্তী সংস্করণ&lt;/strong&gt;-র ISO ইমেজের সম্পূর্ণ সংকলন নীচে প্রাপ্ত করুন।
@@ -13888,13 +13888,13 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between 
+            The systems listed below will be affected by removing the trust relationship between
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
 				<target>
-            &lt;b&gt;{0}&lt;/b&gt; ও &lt;b&gt;{1}&lt;/b&gt; প্রতিষ্ঠানের মধ্যে বিশ্বাসের সম্পর্ক বাতিল করা হলে 
-            নিম্নলিখিত সিস্টেমগুলি প্রভাবিত হবে ও 
+            &lt;b&gt;{0}&lt;/b&gt; ও &lt;b&gt;{1}&lt;/b&gt; প্রতিষ্ঠানের মধ্যে বিশ্বাসের সম্পর্ক বাতিল করা হলে
+            নিম্নলিখিত সিস্টেমগুলি প্রভাবিত হবে ও
             বিরূপ প্রতিক্রিয়া সৃষ্টি হতে পারে।  উদাহরণস্বরূপ, বিশ্বস্ত সম্পর্কের ফলে উপলব্ধ সামগ্রীগুলির জন্য
             নিরাপত্তা বিষয়ক আপডেটগুলি এই সিস্টেমগুলি দ্বারা প্রাপ্ত না হতে পারে।</target>
 			</trans-unit>
@@ -14893,28 +14893,28 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt; 
+        &lt;p/&gt;
         Channel summary is also required.</source>
 				<target>এই পৃষ্ঠায় সফ্টওয়্যার চ্যানেল নির্মাণ অথবা সম্পাদনা করুন।
-        &lt;p/&gt; 
+        &lt;p/&gt;
         উর্ধ্বতন চ্যানেলের ক্ষেত্রে 'শূণ্য' ধার্য করা হলে, চ্যানেলটি বেস চ্যানেল রূপে চিহ্নিত হবে।
         অন্যথা, চ্যানেলটি নির্ধারিত ঊর্ধ্বতন চ্যানেলের চাইল্ড চ্যানেল রূপে ধার্য করা হবে।
-        &lt;p/&gt; 
+        &lt;p/&gt;
         চ্যানেলের নাম ও লেবেল উল্লেখ করা আবশ্যক। দুটির ক্ষেত্রেই অন্তত ৬-টি অক্ষর
         ব্যবহার করা আবশ্যক। লেবেলের প্রারম্ভ একটি অক্ষর থাকার আবশ্যক ও শুধুমাত্র
         ছোট হরফের অক্ষর, হাইফেন ('-'), বিন্দু ('.'), আন্ডার-স্কোর ('_'), ও
-        সংখ্যা ব্যবহার করা যাবে। চ্যানেলের নামের মধ্যে শূণ্যস্থান ও ফরওয়ার্ড স্ল্যাশ ('/') চিহ্নও ব্যবহার 
+        সংখ্যা ব্যবহার করা যাবে। চ্যানেলের নামের মধ্যে শূণ্যস্থান ও ফরওয়ার্ড স্ল্যাশ ('/') চিহ্নও ব্যবহার
         করা যাবে।
-        &lt;p/&gt; 
+        &lt;p/&gt;
         চ্যানেলের সার-সংক্ষেপ উল্লেখ করাও আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">

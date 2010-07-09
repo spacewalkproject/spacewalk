@@ -29,7 +29,7 @@ import java.util.Date;
 
 /**
  * SystemDetailsCommand
- * 
+ *
  * @version $Rev $
  */
 public class SystemDetailsCommand extends BaseKickstartCommand {
@@ -44,17 +44,17 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
 
     /**
      * constructor
-     * Construct a command with a KSdata provided. 
+     * Construct a command with a KSdata provided.
      * @param data the kickstart data
      * @param userIn Logged in User
      */
     public SystemDetailsCommand(KickstartData data, User userIn) {
         super(data, userIn);
     }
-    
+
     /**
-     * Sets the se linux mode of the kick start profile.. 
-     * @param mode the selinux mode enforcing/permissive/disabled 
+     * Sets the se linux mode of the kick start profile..
+     * @param mode the selinux mode enforcing/permissive/disabled
      */
     public void setMode(SELinuxMode mode) {
         KickstartCommand cmd = new KickstartCommand();
@@ -65,7 +65,7 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
         ksdata.removeCommand(KickstartData.SELINUX_MODE_COMMAND, false);
         ksdata.getCommands().add(cmd);
     }
-    
+
     /**
      * Updates the root password in the network profile.
      * @param rootPw the new password
@@ -88,11 +88,11 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
             }
         }
     }
- 
+
     private  void validatePasswordChange(String rootPw, String rootPwConfirm) {
-        ValidatorResult vr = new ValidatorResult(); 
+        ValidatorResult vr = new ValidatorResult();
         int passwdMin = 1;
-        if (rootPw == null || rootPw.length() == 0 || rootPwConfirm == null || 
+        if (rootPw == null || rootPw.length() == 0 || rootPwConfirm == null ||
                 rootPwConfirm.length()  == 0) {
             vr.addError("kickstart.systemdetails.passwords.jsp.minerror");
         }
@@ -104,12 +104,12 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
         }
         if (!vr.isEmpty()) {
             throw new ValidatorException(vr);
-        }        
+        }
     }
-    
+
     /**
      * Enables config management flag in this profile
-     * @param enable true to enable config management, false to disable config mgmt  
+     * @param enable true to enable config management, false to disable config mgmt
      */
     public void enableConfigManagement(boolean enable) {
         KickstartDefaults defaults = ksdata.getKickstartDefaults();
@@ -119,10 +119,10 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
         }
         defaults.setCfgManagementFlag(enable);
     }
-    
+
     /**
      * Enables/Disables the ability to do remote commands in this profile
-     * @param enable true to enable,  false to diable remote commands.  
+     * @param enable true to enable,  false to diable remote commands.
      */
     public void enableRemoteCommands(boolean enable) {
         KickstartDefaults defaults = ksdata.getKickstartDefaults();
@@ -130,9 +130,9 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
             defaults = new KickstartDefaults();
             defaults.setCreated(new Date());
         }
-        defaults.setRemoteCommandFlag(enable);        
+        defaults.setRemoteCommandFlag(enable);
     }
-    
+
     /**
      * Sets the registration type of the kickstart data
      * @param registrationType the registration type
@@ -141,11 +141,11 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
         RegistrationType tp = RegistrationType.findDefault(registrationType, null);
         if (tp == null) {
             String msg = "Invalid registration type must be one of ['%s', '%s', '%s']";
-            throw new ValidatorException(String.format(msg, 
+            throw new ValidatorException(String.format(msg,
                                 RegistrationType.REACTIVATION.getType(),
                                 RegistrationType.DELETION.getType(),
                                 RegistrationType.NONE.getType()));
-        }        
+        }
         ksdata.setRegistrationType(tp, user);
-    }    
+    }
 }

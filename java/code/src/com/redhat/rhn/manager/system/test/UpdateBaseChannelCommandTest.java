@@ -35,28 +35,28 @@ import java.util.Set;
  */
 public class UpdateBaseChannelCommandTest extends BaseTestCaseWithUser {
     public void testChannelPreservation() throws Exception {
-        ProductName pn = ChannelFactoryTest.createProductName();        
+        ProductName pn = ChannelFactoryTest.createProductName();
         Channel parent = ChannelFactoryTest.createBaseChannel(user);
         Channel child = ChannelFactoryTest.createTestChannel(user);
-        
+
         child.setParentChannel(parent);
         child.setProductName(pn);
-        
+
         TestUtils.saveAndFlush(child);
         TestUtils.saveAndFlush(parent);
-        
+
         Channel parent1 = ChannelFactoryTest.createBaseChannel(user);
         Channel child1 = ChannelFactoryTest.createTestChannel(user);
-        
+
         child1.setParentChannel(parent1);
         child1.setProductName(pn);
-        
+
         TestUtils.saveAndFlush(child1);
         TestUtils.saveAndFlush(parent1);
 
-        Server s = ServerFactoryTest.createTestServer(user, true, 
+        Server s = ServerFactoryTest.createTestServer(user, true,
                     ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        
+
         s.addChannel(parent);
         s.addChannel(child);
         ServerFactory.save(s);
@@ -67,16 +67,16 @@ public class UpdateBaseChannelCommandTest extends BaseTestCaseWithUser {
         TestUtils.flushAndEvict(child);
 
         s = (Server) TestUtils.reload(s);
-        
+
         Set <Channel> channels = new HashSet<Channel>();
         channels.add(parent);
         channels.add(child);
         assertEquals(channels, s.getChannels());
-        
-        UpdateBaseChannelCommand cmd = new UpdateBaseChannelCommand(user, 
+
+        UpdateBaseChannelCommand cmd = new UpdateBaseChannelCommand(user,
                                                             s, parent1.getId());
         cmd.store();
-        
+
         channels.clear();
         channels.add(parent1);
         channels.add(child1);

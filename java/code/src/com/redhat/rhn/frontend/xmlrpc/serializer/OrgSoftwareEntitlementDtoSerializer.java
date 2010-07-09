@@ -31,7 +31,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  *
  * @xmlrpc.doc
- * #struct("entitlement usage") 
+ * #struct("entitlement usage")
  *   #prop("int", "org_id")
  *   #prop("string", "org_name")
  *   #prop("int", "allocated")
@@ -63,18 +63,18 @@ public class OrgSoftwareEntitlementDtoSerializer implements XmlRpcCustomSerializ
         if (dto.getMaxMembers() != null) {
             total = dto.getMaxMembers();
         }
-        
+
         helper.add("allocated", total);
         if (OrgFactory.getSatelliteOrg().getId().equals(dto.getOrg().getId())) {
-            helper.add("unallocated", total - dto.getCurrentMembers());    
+            helper.add("unallocated", total - dto.getCurrentMembers());
         }
         else {
             helper.add("unallocated", dto.getMaxPossibleAllocation() - total);
         }
-        
+
         helper.add("used", dto.getCurrentMembers());
         helper.add("free", total - dto.getCurrentMembers());
-        
+
         helper.writeTo(output);
 
     }

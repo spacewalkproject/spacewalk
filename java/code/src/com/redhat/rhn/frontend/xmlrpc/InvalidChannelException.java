@@ -44,15 +44,15 @@ public class InvalidChannelException extends FaultException  {
         /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public InvalidChannelException(Throwable cause) {
         super(-211 , "invalidChannel" , "Invalid channel" , cause);
         // begin member variable initialization
     }
-    
+
     /**
      * Constructor with message.
      * @param message exception message.

@@ -11,8 +11,8 @@
     <span class="toolbar">
       <a href="TreeCreate.do"><img src="/img/action-add.gif" alt="<bean:message key="kickstart.kickstartable_distro_create_new.jsp" />" title="<bean:message key="kickstart.kickstartable_distro_create_new.jsp" />" /><bean:message key="kickstart.kickstartable_distro_create_new.jsp" /></a>
      </span>
-   </div><img alt="<bean:message key="kickstarts.alt.img"/>" src="/img/rhn-kickstart_profile.gif" />  
-  <bean:message key="kickstart.kickstartable_distributions.jsp" />    
+   </div><img alt="<bean:message key="kickstarts.alt.img"/>" src="/img/rhn-kickstart_profile.gif" />
+  <bean:message key="kickstart.kickstartable_distributions.jsp" />
 </div>
 
 
@@ -22,18 +22,18 @@
   </p>
   <div>
       <rl:listset name="ksDistros">
-      	<rl:list emptykey="kickstart.distributions.jsp.nolists" 
+	<rl:list emptykey="kickstart.distributions.jsp.nolists"
       			alphabarcolumn="label">      			
       		<rl:decorator name="PageSizeDecorator"/>
-          	<rl:column 
-          		bound="false" 
-          		headerkey="kickstart.jsp.label" 
-          		sortattr="label" 
+		<rl:column
+			bound="false"
+			headerkey="kickstart.jsp.label"
+			sortattr="label"
           		defaultsort="asc"
           		filterattr="label"
           		styleclass="first-column">
           		            <a href="/rhn/kickstart/TreeEdit.do?kstid=${current.id}">${current.label}</a>
-      		</rl:column>  	      
+		</rl:column>
       		<rl:column bound="false" headerkey="softwareedit.jsp.basechannel"  sortattr="channel">
 				${current.channel.name}
       		</rl:column>

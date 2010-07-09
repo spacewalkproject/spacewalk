@@ -35,10 +35,10 @@ public class DiffSystemsAction extends BaseListAction {
     protected DataResult getDataResult(RequestContext rctxIn, PageControl pc) {
         User user = rctxIn.getLoggedInUser();
         Long cfnid = rctxIn.getRequiredParam("cfnid");
-        
+
         return ConfigurationManager.getInstance().listSystemsForFileName(user, cfnid, pc);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -47,7 +47,7 @@ public class DiffSystemsAction extends BaseListAction {
         ConfigFileName name = ConfigurationFactory.lookupConfigFileNameById(cfnid);
         rctxIn.getRequest().setAttribute("filepath", name.getPath());
     }
-    
+
     protected void processPageControl(PageControl pcIn) {
         pcIn.setFilter(true);
         pcIn.setFilterColumn("name");

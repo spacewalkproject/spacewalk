@@ -20,7 +20,7 @@ import org.jmock.cglib.MockObjectTestCase;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 
+ *
  * RhnJmockBaseTestCase - Add a bit of cleanup logic to the MockObjectTestCase
  * @version $Rev$
  */
@@ -49,7 +49,7 @@ public abstract class RhnJmockBaseTestCase extends MockObjectTestCase {
         mreq.expects(atLeastOnce()).method("getParameter").
             with(eq(name)).will(returnValue(value));
     }
-    /** 
+    /**
      * Util for turning of the spew from the l10n service for
      * test cases that make calls with dummy string IDs.
      */
@@ -57,7 +57,7 @@ public abstract class RhnJmockBaseTestCase extends MockObjectTestCase {
         RhnBaseTestCase.disableLocalizationServiceLogging();
     }
 
-    /** 
+    /**
      * Util for turning on the spew from the l10n service for
      * test cases that make calls with dummy string IDs.
      */

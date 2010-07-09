@@ -26,19 +26,19 @@ import java.util.Date;
  * @version $Rev$
  */
 public class CertificateManager extends BaseManager {
-    
+
     private static CertificateManager instance = new CertificateManager();
-    
+
     public static final int GRACE_PERIOD_IN_DAYS = 7;
-    private static final long MILLISECONDS_IN_DAY =  86400000;    
+    private static final long MILLISECONDS_IN_DAY =  86400000;
 
     /**
      * Default constructor
      */
     public CertificateManager() {
-    
+
     }
-    
+
     /**
      * Get the instance of the SatelliteManager
      * @return SatelliteManager instance
@@ -56,7 +56,7 @@ public class CertificateManager extends BaseManager {
         Date now = Calendar.getInstance().getTime();
         return now.after(getGracePeriodEndDate());
     }
-    
+
     /**
      * Return whether the satellite certificate is in a grace period or not.
      * False will be returned if the grace period is over or if it has not
@@ -68,7 +68,7 @@ public class CertificateManager extends BaseManager {
         return now.after(getGracePeriodBeginDate()) &&
                now.before(getGracePeriodEndDate());
     }
-    
+
     protected Date getGracePeriodBeginDate() {
         SatelliteCertificate sc = CertificateFactory.lookupNewestCertificate();
         Calendar cal = Calendar.getInstance();
@@ -80,14 +80,14 @@ public class CertificateManager extends BaseManager {
         cal.set(Calendar.AM_PM, Calendar.AM);
         return cal.getTime();
     }
-    
+
     /**
      * @return Date that represent the end of the satellite's certificate's grace period
      */
     public Date getGracePeriodEndDate() {
         SatelliteCertificate sc = CertificateFactory.lookupNewestCertificate();
         Calendar cal = Calendar.getInstance();
-        cal.setTime(sc.getExpires());        
+        cal.setTime(sc.getExpires());
         cal.set(Calendar.HOUR, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
@@ -100,7 +100,7 @@ public class CertificateManager extends BaseManager {
     /**
      * @return the number of the days left before the Sat certificate will expire.
      *                   (including the  grace period)
-     *          
+     *
      */
     public long getDaysLeftBeforeCertExpiration() {
         long endTime = getGracePeriodEndDate().getTime();

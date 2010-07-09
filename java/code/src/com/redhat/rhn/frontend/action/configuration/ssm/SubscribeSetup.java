@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class SubscribeSetup extends RhnListAction {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -48,31 +48,31 @@ public class SubscribeSetup extends RhnListAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         PageControl pc = new PageControl();
         clampListBounds(pc, request, user);
         pc.setFilter(true);
         pc.setFilterColumn("name");
-        
+
         DataResult dr = getDataResult(user, pc);
         request.setAttribute(RequestContext.PAGE_LIST, dr);
-        
+
         if (!isSubmitted((DynaActionForm) formIn)) {
             getSetDecl().clear(user);
         }
-        
+
         RhnSet set = getSetDecl().get(user);
         request.setAttribute("set", set);
         request.setAttribute("newset", trackSet(set, request));
-        
+
         Map params = request.getParameterMap();
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
-    
+
     private RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_CHANNELS_RANKING;
     }

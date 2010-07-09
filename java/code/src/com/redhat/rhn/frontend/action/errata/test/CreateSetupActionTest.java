@@ -25,13 +25,13 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 public class CreateSetupActionTest extends RhnBaseTestCase {
 
     public void testExecute() throws Exception {
-        
+
         CreateSetupAction action = new CreateSetupAction();
         ActionHelper sah = new ActionHelper();
-        
+
         sah.setUpAction(action);
         sah.executeAction();
-        
+
         assertNotNull(sah.getRequest().getAttribute("advisoryTypes"));
         assertNotNull(sah.getForm().get("advisoryRelease"));
     }

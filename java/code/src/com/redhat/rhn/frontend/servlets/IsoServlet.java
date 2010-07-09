@@ -27,13 +27,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet which streams ISO files. Should be mapped to "*.iso"
- * 
+ *
  * @version $Rev $
  */
 public class IsoServlet extends HttpServlet {
-    
+
     private int chunkSize = -1;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -52,8 +52,8 @@ public class IsoServlet extends HttpServlet {
 
     /**
      * {@inheritDoc}
-     */    
-    protected void doGet(HttpServletRequest request, 
+     */
+    protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         InputStream in = new FileInputStream("/test-iso" + request.getServletPath());
         byte[] chunk = new byte[this.chunkSize];

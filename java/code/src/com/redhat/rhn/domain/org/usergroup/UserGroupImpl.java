@@ -24,7 +24,7 @@ import com.redhat.rhn.domain.role.Role;
  * @version $Rev: 789 $
  */
 public class UserGroupImpl extends BaseDomainHelper implements UserGroup {
-    
+
     private Long id;
     private String name;
     private String description;
@@ -32,113 +32,113 @@ public class UserGroupImpl extends BaseDomainHelper implements UserGroup {
     private Long orgId;
     private Role role;
 
-    /** 
-     * Getter for id 
+    /**
+     * Getter for id
      * {@inheritDoc}
      */
     public Long getId() {
         return this.id;
     }
 
-    /** 
-     * Setter for id 
+    /**
+     * Setter for id
      * {@inheritDoc}
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
 
-    /** 
-     * Getter for name 
+    /**
+     * Getter for name
      * {@inheritDoc}
      */
     public String getName() {
         return this.name;
     }
 
-    /** 
+    /**
      * Setter for name
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
 
-    /** 
-     * Getter for description 
+    /**
+     * Getter for description
      * {@inheritDoc}
      */
     public String getDescription() {
         return this.description;
     }
 
-    /** 
-     * Setter for description 
+    /**
+     * Setter for description
      * {@inheritDoc}
      */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
 
-    /** 
-     * Getter for currentMembers 
+    /**
+     * Getter for currentMembers
      * {@inheritDoc}
      */
     public Long getCurrentMembers() {
         return this.currentMembers;
     }
 
-    /** 
-     * Setter for currentMembers 
+    /**
+     * Setter for currentMembers
      * {@inheritDoc}
      */
     public void setCurrentMembers(Long currentMembersIn) {
         this.currentMembers = currentMembersIn;
     }
 
-    /** 
-     * Getter for groupType 
+    /**
+     * Getter for groupType
      * {@inheritDoc}
      */
     public Role getRole() {
         return role;
     }
 
-    /** 
-     * Setter for groupType 
+    /**
+     * Setter for groupType
      * {@inheritDoc}
      */
     public void setRole(Role roleIn) {
         role = roleIn;
     }
 
-    /** 
-     * Getter for orgId 
+    /**
+     * Getter for orgId
      * {@inheritDoc}
      */
     public Long getOrgId() {
         return this.orgId;
     }
 
-    /** 
-     * Setter for orgId 
+    /**
+     * Setter for orgId
      * {@inheritDoc}
      */
     public void setOrgId(Long orgIdIn) {
         this.orgId = orgIdIn;
     }
-    
-    /** 
-     * {@inheritDoc} 
+
+    /**
+     * {@inheritDoc}
      */
     public boolean isAssociatedRole(Role rin) {
         return (rin.equals(role));
     }
-    
-    /** 
-     * {@inheritDoc} 
+
+    /**
+     * {@inheritDoc}
      */
-    public String toString() { 
+    public String toString() {
         return "ID: " + id + " name: " + name +
                   " desc: " + description + " orgid: " + orgId;
     }

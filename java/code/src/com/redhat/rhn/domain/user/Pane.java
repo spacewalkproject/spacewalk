@@ -36,39 +36,39 @@ public class Pane {
     public static final String INACTIVE_SYSTEMS = "inactive-systems";
     public static final String PENDING_ACTIONS = "pending-actions";
     public static final String RECENTLY_REGISTERED_SYSTEMS = "recently-registered-systems";
-    
+
     public static final String[] ALL_PANES = {TASKS, CRITICAL_SYSTEMS, CRITICAL_PROBES,
         WARNING_PROBES, SYSTEM_GROUPS, LATEST_ERRATA, INACTIVE_SYSTEMS,
         PENDING_ACTIONS, RECENTLY_REGISTERED_SYSTEMS};
     /**
      * Maps to RHNINFOPANE.LABEL
-     * This is more of a label prefix 
-     * than an actual text value. 
+     * This is more of a label prefix
+     * than an actual text value.
      * preferences.${label}.name and preferences.${label}.description get used
      * while displaying the check boxes in Preferences page.
      */
     private String label;
-    
+
     /**
      * Maps to RHNINFOPANE.ID
-     */    
+     */
     private Long id;
-    
+
     /**
      * Maps to RHNINFOPANE.ACL
      * This field holds the conditions
      * as to whether pane should be Accessible Or Not...
      * This uses the same format as the User ACLs...
-     */    
+     */
     private String acl;
 
     /**
-     * Returns a Dummy Instance of the Pane object, populating only 
+     * Returns a Dummy Instance of the Pane object, populating only
      * the id column. This is useful for when the Pane object is
-     * used in a compare. If you see the equal's method, you notice 
+     * used in a compare. If you see the equal's method, you notice
      * that 2 Panes are considered equal if their id's are equal.
-     * So if I have a set of panes and want to retrieve the correct 
-     * one, I can say something like panes.get(Pane.makeKey(Long.valueOf(10))); 
+     * So if I have a set of panes and want to retrieve the correct
+     * one, I can say something like panes.get(Pane.makeKey(Long.valueOf(10)));
      * @param id the Id value of the desired pane.
      * @return a new instance of the Pane object with the give ID.
      */
@@ -79,8 +79,8 @@ public class Pane {
     }
 
     /**
-     * Retrieves id which is the primary key. 
-     * Maps to RHNINFOPANE.ID 
+     * Retrieves id which is the primary key.
+     * Maps to RHNINFOPANE.ID
      * @return id of the Pane
      */
     public Long getId() {
@@ -90,7 +90,7 @@ public class Pane {
     /**
      * Sets the ID. Note this is only to be used by hibernate
      * because this serves as a primary key identifier for this object.
-     * Thats the reason its made private. 
+     * Thats the reason its made private.
      * @param anId the ID value to be set.
      */
     private void setId(Long anId) {
@@ -98,19 +98,19 @@ public class Pane {
     }
 
     /**
-     * Retrieves the  Label prefix. 
-     * see the description of field 'label' for more information. 
+     * Retrieves the  Label prefix.
+     * see the description of field 'label' for more information.
      * @return the  Label prefix
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * Retrieves the key that should be used by the LocalizationService
      * to retrieve the 'Name' value. Something like
      * localizationService.get(pane.getNameKey())
-     * @return key in the format preferences.${label}.name 
+     * @return key in the format preferences.${label}.name
      */
 
     public String getNameKey() {
@@ -121,7 +121,7 @@ public class Pane {
      * Retrieves the key that should be used by the LocalizationService
      * to retrieve the 'Description' value. Something like
      * localizationService.get(pane.getDescriptionKey())
-     * @return key in the format preferences.${label}.description 
+     * @return key in the format preferences.${label}.description
      */
     public String getDescriptionKey() {
         return "preferences." + getLabel() + ".description";
@@ -132,9 +132,9 @@ public class Pane {
     }
 
     /**
-     * Retrieves the ACL values- set of conditions that determine whether the 
-     * given pane should be visible to the user or not.. 
-     * see the field description for more info. 
+     * Retrieves the ACL values- set of conditions that determine whether the
+     * given pane should be visible to the user or not..
+     * see the field description for more info.
      * @return a string in the ACL format or null if none exists for the pane.
      */
     public String getAcl() {
@@ -146,13 +146,13 @@ public class Pane {
     }
 
     /**
-     * This method determines if the given pane should be 
+     * This method determines if the given pane should be
      * viewable to the current user
      * @param user the logged in user.
      * @return true if the pane is to be accessible.
      */
     public boolean isValidFor(User user) {
-        return AclManager.hasAcl(getAcl(), user, 
+        return AclManager.hasAcl(getAcl(), user,
                 "com.redhat.rhn.common.security.acl.MonitoringAclHandler",
                         null);
     }
@@ -165,7 +165,7 @@ public class Pane {
 
     /**
      * {@inheritDoc}
-     * One important thing to note though is 
+     * One important thing to note though is
      * that only the Pane id is used  to differentiate between 2 Panes
      */
     public boolean equals(Object obj) {

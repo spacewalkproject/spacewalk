@@ -43,9 +43,9 @@ public class DumpFilter implements Filter {
             ServletResponse resp,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         if (log.isDebugEnabled()) {
-        // handle request        
+        // handle request
         HttpServletRequest request = (HttpServletRequest) req;
             log.debug("Entered doFilter() ===================================");
             log.debug("AuthType: " + request.getAuthType());
@@ -73,9 +73,9 @@ public class DumpFilter implements Filter {
             logAttributes(request);
             log.debug("Calling chain.doFilter() -----------------------------");
         }
-        
+
         chain.doFilter(req, resp);
-        
+
         if (log.isDebugEnabled()) {
             log.debug("Returned from chain.doFilter() -----------------------");
             log.debug("Handle Response, not much to print");
@@ -83,7 +83,7 @@ public class DumpFilter implements Filter {
             log.debug("Leaving doFilter() ===================================");
         }
     }
-    
+
     /** {@inheritDoc} */
     public void destroy() {
         // nop
@@ -93,18 +93,18 @@ public class DumpFilter implements Filter {
     public void init(FilterConfig filterConfig) {
         // nop
     }
-    
+
     private void logCookies(Cookie[] cookies) {
         if (cookies == null) {
             log.debug("There are NO cookies to log");
             return;
         }
-        
+
         for (int i = 0; i < cookies.length; i++) {
             log.debug(ReflectionToStringBuilder.toString(cookies[i]));
         }
     }
-    
+
     private void logHeaders(HttpServletRequest req) {
         Enumeration items = req.getHeaderNames();
         while (items.hasMoreElements()) {
@@ -112,16 +112,16 @@ public class DumpFilter implements Filter {
             Enumeration hdrs = req.getHeaders(name);
             while (hdrs.hasMoreElements()) {
                 log.debug("Header: name [" + name + "] value [" +
-                        (String) hdrs.nextElement() + "]");    
+                        (String) hdrs.nextElement() + "]");
             }
-            
+
         }
     }
-    
+
     private void logSession(HttpSession session) {
         log.debug(ReflectionToStringBuilder.toString(session));
     }
-    
+
     private void logParameters(HttpServletRequest req) {
         Enumeration items = req.getParameterNames();
         while (items.hasMoreElements()) {
@@ -133,7 +133,7 @@ public class DumpFilter implements Filter {
             }
         }
     }
-    
+
     private void logAttributes(HttpServletRequest req) {
         Enumeration items = req.getAttributeNames();
         while (items.hasMoreElements()) {
@@ -142,7 +142,7 @@ public class DumpFilter implements Filter {
             if (obj != null) {
                 log.debug("Attribute: name [" + name + "] value [" +
                     ReflectionToStringBuilder.toString(obj) + "]");
-            } 
+            }
             else {
                 log.debug("Attribute: name [" + name + "] value [null]");
             }

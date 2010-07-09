@@ -33,21 +33,21 @@ import java.util.List;
  */
 public class SnippetHandler extends BaseHandler {
 
-    
+
     private void verifyKSAdmin(User user) {
         if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionCheckFailureException(RoleFactory.CONFIG_ADMIN);
         }
     }
-    
+
     /**
      * list all cobbler snippets for a user.  Includes default and custom snippets
      * @param sessionKey The sessionKey containing the logged in user
      * @return List of cobbler snippet objects
-     * 
+     *
      * @xmlrpc.doc List all cobbler snippets for the logged in user
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *          #array()
      *            $SnippetSerializer
      *          #array_end()
@@ -57,16 +57,16 @@ public class SnippetHandler extends BaseHandler {
         verifyKSAdmin(loggedInUser);
         return CobblerSnippetLister.getInstance().list(loggedInUser);
     }
-    
+
     /**
-     * list custom cobbler snippets for a user.  
+     * list custom cobbler snippets for a user.
      * @param sessionKey The sessionKey containing the logged in user
      * @return List of cobbler snippet objects
-     * 
+     *
      * @xmlrpc.doc List only custom snippets for the logged in user.
      *    These snipppets are editable.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *          #array()
      *            $SnippetSerializer
      *          #array_end()
@@ -78,14 +78,14 @@ public class SnippetHandler extends BaseHandler {
     }
 
     /**
-     * list all pre-made default cobbler snippets for a user. 
+     * list all pre-made default cobbler snippets for a user.
      * @param sessionKey The sessionKey containing the logged in user
      * @return List of cobbler snippet objects
-     * 
+     *
      * @xmlrpc.doc List only pre-made default snippets for the logged in user.
      *    These snipppets are not editable.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *          #array()
      *            $SnippetSerializer
      *          #array_end()
@@ -95,49 +95,49 @@ public class SnippetHandler extends BaseHandler {
         verifyKSAdmin(loggedInUser);
         return CobblerSnippetLister.getInstance().listDefault(loggedInUser);
     }
- 
-    
+
+
     /**
      * Create or update a snippet.  If the snippet doesn't exist it will be created.
      * @param sessionKey the session key
      * @param name name of the snippet
      * @param contents the contents of the snippet
      * @return  the snippet
-     * 
-     * @xmlrpc.doc Will create a snippet with the given name and contents if it 
+     *
+     * @xmlrpc.doc Will create a snippet with the given name and contents if it
      *      doesn't exist. If it does exist, the existing snippet will be updated.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "name")
      * @xmlrpc.param #param("string", "contents")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *            $SnippetSerializer
      */
     public CobblerSnippet createOrUpdate(String sessionKey, String name, String contents) {
         User loggedInUser = getLoggedInUser(sessionKey);
         verifyKSAdmin(loggedInUser);
-        CobblerSnippet snip = CobblerSnippet.loadEditableIfExists(name, 
+        CobblerSnippet snip = CobblerSnippet.loadEditableIfExists(name,
                 loggedInUser.getOrg());
-        return CobblerSnippet.createOrUpdate(snip == null, name, contents, 
+        return CobblerSnippet.createOrUpdate(snip == null, name, contents,
                 loggedInUser.getOrg());
     }
-    
+
     /**
-     * Delete a snippet.  
+     * Delete a snippet.
      * @param sessionKey the session key
      * @param name the name of the snippet
      * @return 1 for success 0 for not
-     * 
-     * @xmlrpc.doc Delete the specified snippet.  
+     *
+     * @xmlrpc.doc Delete the specified snippet.
      *      If the snippet is not found, 0 is returned.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "name")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *            #return_int_success()
      */
     public int delete(String sessionKey, String name) {
         User loggedInUser = getLoggedInUser(sessionKey);
         verifyKSAdmin(loggedInUser);
-        CobblerSnippet snip = CobblerSnippet.loadEditableIfExists(name, 
+        CobblerSnippet snip = CobblerSnippet.loadEditableIfExists(name,
                 loggedInUser.getOrg());
         if (snip != null) {
             snip.delete();
@@ -145,6 +145,6 @@ public class SnippetHandler extends BaseHandler {
         }
         return 0;
     }
-    
-    
+
+
 }

@@ -29,15 +29,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Driver for the threaded errata cache update queue 
+ * Driver for the threaded errata cache update queue
  * @version $Rev$
  */
 public class ErrataCacheDriver implements QueueDriver {
-    
-    private static final Logger LOG = Logger.getLogger(ErrataCacheTask.class);    
+
+    private static final Logger LOG = Logger.getLogger(ErrataCacheTask.class);
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean canContinue() {
@@ -45,7 +45,7 @@ public class ErrataCacheDriver implements QueueDriver {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public List getCandidates() {
@@ -62,7 +62,7 @@ public class ErrataCacheDriver implements QueueDriver {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Logger getLogger() {
@@ -70,7 +70,7 @@ public class ErrataCacheDriver implements QueueDriver {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public int getMaxWorkers() {
@@ -78,7 +78,7 @@ public class ErrataCacheDriver implements QueueDriver {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public QueueWorker makeWorker(Object workItem) {

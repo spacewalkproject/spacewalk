@@ -26,7 +26,7 @@ public class LoginExpiredSatTestCase extends RhnMockStrutsTestCase {
 
     public void testExpiredSatCert() throws Exception {
         CertificateManagerTest.expireSatelliteCertificate();
-        
+
         setRequestPathInfo("/LoginSubmit");
         actionPerform();
         verifyActionMessage("satellite.expired");

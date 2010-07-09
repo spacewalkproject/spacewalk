@@ -25,14 +25,14 @@ import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
 
     private PreferencesLocaleHandler handler = new PreferencesLocaleHandler();
-    
+
     public void testListTimeZone() {
         Object[] tzs = handler.listTimeZones();
         assertNotNull(tzs);
         assertTrue("TimeZone list is empty", tzs.length != 0);
         assertEquals(RhnTimeZone.class, tzs[0].getClass());
     }
-    
+
     public void testSetTimeZoneInvalidId() {
         try {
             handler.setTimeZone(adminKey, admin.getLogin(), 0);
@@ -42,7 +42,7 @@ public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
             // expected exception
         }
     }
-    
+
     public void testSetTimeZone() {
         Object[] tzs = handler.listTimeZones();
         assertNotNull(tzs);
@@ -51,12 +51,12 @@ public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
 
         assertEquals(1,
            handler.setTimeZone(adminKey, admin.getLogin(), tz.getTimeZoneId()));
-        
+
         RhnTimeZone usersTz = admin.getTimeZone();
         assertNotNull(usersTz);
         assertEquals(tz.getTimeZoneId(), usersTz.getTimeZoneId());
     }
-    
+
     public void testListLocales() {
         Object[] o = handler.listLocales();
         assertNotNull(o);
@@ -64,7 +64,7 @@ public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
         assertNotNull(locales);
         assertEquals(locales.length, o.length);
     }
-    
+
     public void testSetLocaleInvalidLocale() {
         try {
             handler.setLocale(adminKey, admin.getLogin(), "rd_NK");
@@ -73,7 +73,7 @@ public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
         catch (InvalidLocaleCodeException ilce) {
             // expected exception
         }
-        
+
         try {
             handler.setLocale(adminKey, admin.getLogin(), null);
             fail("null should be an invalid locale");
@@ -82,12 +82,12 @@ public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
             // expected exception
         }
     }
-    
+
     public void testSetLocale() {
         String l = admin.getPreferredLocale();
         assertNull(l);
         System.out.println(l);
         handler.setLocale(adminKey, admin.getLogin(), "en_US");
-        assertEquals("en_US", admin.getPreferredLocale());        
+        assertEquals("en_US", admin.getPreferredLocale());
     }
 }

@@ -41,9 +41,9 @@ public class InstallPatchSetSetupAction extends RhnAction {
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         Long sid = requestContext.getRequiredParam("sid");
         Long pid = requestContext.getRequiredParam("pid");
 

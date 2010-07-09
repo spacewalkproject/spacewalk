@@ -49,17 +49,17 @@ public class ServletUtils {
             String requestUri =
                 (String)req.getAttribute("javax.servlet.forward.request_uri");
             if (StringUtils.isBlank(requestUri)) {
-                requestUri = new URL(req.getRequestURL().toString()).getPath();    
+                requestUri = new URL(req.getRequestURL().toString()).getPath();
             }
             return requestUri;
         }
         catch (Exception e) {
             throw new IllegalArgumentException("Unable to parse url: " +
                                                req.getRequestURL());
-        }        
+        }
     }
 
-    /** 
+    /**
      * Create a URL with parameters tacked on.  Used in redirects and
      * programmatic URL creation with parameters.  Handles URL encoding of
      * incoming keys and values as well.
@@ -76,9 +76,9 @@ public class ServletUtils {
         if (params == null) {
             return ret.toString();
         }
-        
+
         Iterator i = params.entrySet().iterator();
-        while (i.hasNext()) {        
+        while (i.hasNext()) {
             Map.Entry me = (Map.Entry)i.next();
             Object[] values;
 
@@ -92,7 +92,7 @@ public class ServletUtils {
                 for (int x = 0; x < paramValues.length; x++) {
                     encodedValues[x] = StringUtil.urlEncode(paramValues[x].toString());
                 }
-                
+
                 values = encodedValues;
             }
             else if (me.getValue() instanceof List) {
@@ -103,7 +103,7 @@ public class ServletUtils {
                     encodedValues[x] = StringUtil.urlEncode(String.valueOf(o));
                     x++;
                 }
-                
+
                 values = encodedValues;
             }
             else {
@@ -121,7 +121,7 @@ public class ServletUtils {
                         ret.append("&");
                     }
                     firstPass = false;
-                    
+
                     String key = (String)me.getKey();
                     key = StringUtil.urlEncode(key);
 
@@ -134,50 +134,50 @@ public class ServletUtils {
 
         return ret.toString();
     }
-    
+
     /**
      * Creates a encoded URL query string with the parameters from the given request. If the
      * request is a GET, then the returned query string will simply consist of the query
      * string from the request. If the request is a POST, the returned query string will
      * consist of the form variables.
-     * 
+     *
      * <br/><br/>
-     * 
+     *
      * <strong>Note</strong>: This method does not support multi-value parameters.
-     * 
+     *
      * @param request The request for which the query string will be generated.
-     * 
+     *
      * @return An encoded URL query string with the parameters from the given request.
      */
     public static String requestParamsToQueryString(ServletRequest request) {
-        
+
         StringBuffer queryString = new StringBuffer();
-        
+
         String paramName = null;
         String paramValue = null;
-        
+
         Enumeration paramNames = request.getParameterNames();
-        
+
         while (paramNames.hasMoreElements()) {
             paramName = (String)paramNames.nextElement();
             paramValue = request.getParameter(paramName);
-            
+
             queryString.append(encode(paramName)).append("=").append(encode(paramValue))
                     .append("&");
         }
-        
+
         if (endsWith(queryString, '&')) {
             queryString.deleteCharAt(queryString.length() - 1);
         }
-        
+
         return queryString.toString();
     }
-    
+
     /**
      * Encodes the specified string with a UTF-8 encoding.
-     * 
+     *
      * @param string The String to encode.
-     * 
+     *
      * @return The encoded String.
      */
     public static String encode(String string) {
@@ -188,12 +188,12 @@ public class ServletUtils {
             throw new RhnRuntimeException(e);
         }
     }
-    
+
     private static boolean endsWith(StringBuffer buffer, char c) {
         if (buffer.length() == 0) {
             return false;
         }
-        
+
         return buffer.charAt(buffer.length() - 1) == c;
     }
 }

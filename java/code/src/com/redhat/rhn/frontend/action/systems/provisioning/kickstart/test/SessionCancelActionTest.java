@@ -22,14 +22,14 @@ import com.redhat.rhn.frontend.struts.RhnAction;
  * @version $Rev: 1 $
  */
 public class SessionCancelActionTest extends BaseSessionTestCase {
-    
+
     public void testExecute() throws Exception {
         setRequestPathInfo("/systems/details/kickstart/SessionCancel");
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.SYSTEM));
         assertNotNull(request.getAttribute(RequestContext.KICKSTART_SESSION));
     }
-    
+
     public void testExecuteSubmit() {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         setRequestPathInfo("/systems/details/kickstart/SessionCancel");

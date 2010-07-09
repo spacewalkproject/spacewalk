@@ -717,7 +717,7 @@
 			<trans-unit id="user.deleteadmin">
 				<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
 				<target>ਤੁਸੀਂ &lt;strong&gt;ਹੋਰ&lt;/strong&gt; ਸੰਸਥਾ ਪਰਬੰਧਕ ਨੂੰ ਹਟਾ ਨਹੀਂ
-ਸਕਦੇ। ਇਹਨਾਂ ਦੇ ਖਾਤੇ ਹਟਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਕਿਰਪਾ ਕਰਕੇ 
+ਸਕਦੇ। ਇਹਨਾਂ ਦੇ ਖਾਤੇ ਹਟਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਕਿਰਪਾ ਕਰਕੇ
 ਇਸ ਉਪਭੋਗੀ ਤੋਂ 'ਸੰਸਥਾ ਪਰਬੰਧਕ' ਰੋਲ ਹਟਾਓ।</target>
 			</trans-unit>
 			<trans-unit id="Users/Servers">
@@ -1225,7 +1225,7 @@ available for this kickstart profile to function properly.
 &lt;ul&gt;
 &lt;li&gt;
 ਕੀ ਇਸ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਦੇ ਅਧਾਰ ਚੈਨਲ ਲਈ 'rhn-tools' ਅਧੀਨ ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਤੁਹਾਡੇ
-ਸੰਗਠਨ ਨੂੰ ਉਪਲੱਬਧ ਹੈ? ਜੇ ਨਹੀਂ, ਤਾਂ ਤੁਹਾਨੂੰ ਆਪਣੇ @@PRODUCT_NAME@@ ਪਰਬੰਧਕ ਤੋਂ 
+ਸੰਗਠਨ ਨੂੰ ਉਪਲੱਬਧ ਹੈ? ਜੇ ਨਹੀਂ, ਤਾਂ ਤੁਹਾਨੂੰ ਆਪਣੇ @@PRODUCT_NAME@@ ਪਰਬੰਧਕ ਤੋਂ
 'rhn-tools' ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਲਈ ਇੰਟਾਈਟਲਮੈਂਟ ਬੇਨਤੀ ਭੇਜਣੀ ਪਵੇਗੀ।
 &lt;/li&gt;
 &lt;li&gt;
@@ -1923,7 +1923,7 @@ available for this kickstart profile to function properly.
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
 				<target>ਤੁਸੀਂ &lt;strong&gt;ਹੋਰ&lt;/strong&gt; ਸੰਸਥਾ ਪਰਬੰਧਕ ਨੂੰ ਅਯੋਗ ਨਹੀਂ
-ਕਰ ਸਕਦੇ। ਇਹਨਾਂ ਦੇ ਖਾਤੇ ਅਯੋਗ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਕਿਰਪਾ ਕਰਕੇ 
+ਕਰ ਸਕਦੇ। ਇਹਨਾਂ ਦੇ ਖਾਤੇ ਅਯੋਗ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਕਿਰਪਾ ਕਰਕੇ
 ਇਸ ਉਪਭੋਗੀ ਤੋਂ 'ਸੰਸਥਾ ਪਰਬੰਧਕ' ਰੋਲ ਹਟਾਓ।</target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.userdisabled">
@@ -5240,16 +5240,16 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to 
-syncronize kickstart distributions from Spacewalk to Cobbler.  These 
-errors must be corrected for the distributions to be available for 
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
 kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
@@ -5257,16 +5257,16 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
 ਹੇਠਾਂ ਗਲਤੀਆਂ ਦੀ ਸੂਚੀ ਦਿੱਤੀ ਗਈ ਹੈ ਜੋ Spacewalk ਦੁਆਰਾ ਕਿੱਕਸਟਾਰਟ ਡਿਸਟਰੀਬਿਊਸ਼ਨਾਂ
-ਨੂੰ Spacewalk ਤੋਂ ਕਿੱਕਸਟਾਰਟ ਨਾਲ ਸਮਕਾਲੀ ਕਰਨ ਦੌਰਾਨ ਇਕੱਠੀ ਕੀਤੀ ਗਈ ਸੀ।  ਇਹ 
-ਗਲਤੀਆਂ ਠੀਕ ਕਰਨੀ ਜਰੂਰੀ ਹਨ ਤਾਂ ਜੋ ਕਿੱਕਸਟਾਰਟ ਸਿਸਟਮ ਕਿੱਕਸਟਾਰਟ ਡਿਸਟਰੀਬਿਊਸ਼ਨ 
-ਦੀ Spacewalk ਤੋਂ ਕਿੱਕਸਟਾਰਟ ਵੱਲ ਫੇਲ ਹੋਈ ਸਮਕਾਲਤਾ ਲਈ 
+ਨੂੰ Spacewalk ਤੋਂ ਕਿੱਕਸਟਾਰਟ ਨਾਲ ਸਮਕਾਲੀ ਕਰਨ ਦੌਰਾਨ ਇਕੱਠੀ ਕੀਤੀ ਗਈ ਸੀ।  ਇਹ
+ਗਲਤੀਆਂ ਠੀਕ ਕਰਨੀ ਜਰੂਰੀ ਹਨ ਤਾਂ ਜੋ ਕਿੱਕਸਟਾਰਟ ਸਿਸਟਮ ਕਿੱਕਸਟਾਰਟ ਡਿਸਟਰੀਬਿਊਸ਼ਨ
+ਦੀ Spacewalk ਤੋਂ ਕਿੱਕਸਟਾਰਟ ਵੱਲ ਫੇਲ ਹੋਈ ਸਮਕਾਲਤਾ ਲਈ
 ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਉਪਲੱਬਧ ਹੋ:
 
 {0}
 
 ਗਲਤੀ ਵੇਰਵਾ ਵੇਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਜਾਂਚ ਕਰੋ:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/rhn/rhn_taskomatic_daemon.log and
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

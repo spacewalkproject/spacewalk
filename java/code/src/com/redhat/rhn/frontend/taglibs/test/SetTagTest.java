@@ -29,7 +29,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @version $Rev: 1743 $
  */
 public class SetTagTest extends RhnBaseTestCase {
-    
+
     public void testCopyConstructor() {
         SetTag ct = new SetTag();
         ct.setHeader("header");
@@ -38,11 +38,11 @@ public class SetTagTest extends RhnBaseTestCase {
         ct.setUrl("http://www.hostname.com");
         ct.setWidth("10%");
         ct.setValue("42");
-       
+
         SetTag copy = new SetTag(ct);
         assertEquals(ct, copy);
     }
-    
+
     public void testEquals() {
         SetTag ct = new SetTag();
         ct.setHeader("header");
@@ -50,8 +50,8 @@ public class SetTagTest extends RhnBaseTestCase {
         ct.setCssClass("first-column");
         ct.setUrl("http://www.hostname.com");
         ct.setWidth("10%");
-        ct.setValue("42");      
-        
+        ct.setValue("42");
+
         SetTag ct1 = new SetTag();
         ct1.setHeader("header");
         ct1.setStyle("10");
@@ -59,20 +59,20 @@ public class SetTagTest extends RhnBaseTestCase {
         ct1.setUrl("http://www.hostname.com");
         ct1.setWidth("10%");
         ct1.setValue("42");
-        
+
         assertTrue(ct.equals(ct1));
         assertTrue(ct1.equals(ct));
-        
+
         ct1.setUrl(null);
         assertTrue(ct.equals(ct1));
         assertTrue(ct1.equals(ct));
     }
-    
+
     public void testSettersGetters() {
         SetTag ct = new SetTag();
-        ct.setValue("42");     
-        
-        assertEquals("42", ct.getValue());        
+        ct.setValue("42");
+
+        assertEquals("42", ct.getValue());
         assertNull(ct.getParent());
     }
 
@@ -83,6 +83,6 @@ public class SetTagTest extends RhnBaseTestCase {
         t.setParent(ldt);
         TagTestHelper tth = new TagTestHelper(t);
         tth.assertDoStartTag(TagSupport.SKIP_BODY);
-        
+
     }
 }

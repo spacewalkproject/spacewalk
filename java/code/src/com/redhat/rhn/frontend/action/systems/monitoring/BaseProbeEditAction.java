@@ -31,12 +31,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Base class for actions that edit individual probes
- * 
+ *
  * @version $Rev: 53910 $
  */
 public abstract class BaseProbeEditAction extends BaseProbeAction {
 
-    
+
     /** {@inheritDoc} */
     public final ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest req, HttpServletResponse resp) {
@@ -45,14 +45,14 @@ public abstract class BaseProbeEditAction extends BaseProbeAction {
         RequestContext rctx = new RequestContext(req);
         Probe probe = rctx.lookupProbe();
         User user = rctx.getCurrentUser();
-        
+
         if (isSubmitted(form)) {
             ModifyProbeCommand cmd = new ModifyProbeCommand(user, probe);
             if (editProbe(cmd, form, req)) {
                 createSuccessMessage(req, "probeedit.probesaved", probe.getDescription());
                 HashMap params = new HashMap();
                 addSuccessParams(rctx, params, cmd.getProbe());
-                return getStrutsDelegate().forwardParams(mapping.findForward("success"), 
+                return getStrutsDelegate().forwardParams(mapping.findForward("success"),
                         params);
             }
         }
@@ -74,7 +74,7 @@ public abstract class BaseProbeEditAction extends BaseProbeAction {
         return mapping.findForward("default");
     }
 
-    protected abstract void addSuccessParams(RequestContext rctx, HashMap params, 
+    protected abstract void addSuccessParams(RequestContext rctx, HashMap params,
             Probe probe);
 
     /**

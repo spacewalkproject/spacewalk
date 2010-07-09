@@ -23,32 +23,32 @@ public class ProbeType {
 
     private String probeType;
     private String typeDescription;
-    /** 
-     * Getter for probeType 
+    /**
+     * Getter for probeType
      * @return String to get
     */
     public String getProbeType() {
         return this.probeType;
     }
 
-    /** 
-     * Setter for probeType 
+    /**
+     * Setter for probeType
      * @param probeTypeIn to set
     */
     public void setProbeType(String probeTypeIn) {
         this.probeType = probeTypeIn;
     }
 
-    /** 
-     * Getter for typeDescription 
+    /**
+     * Getter for typeDescription
      * @return String to get
     */
     public String getTypeDescription() {
         return this.typeDescription;
     }
 
-    /** 
-     * Setter for typeDescription 
+    /**
+     * Setter for typeDescription
      * @param typeDescriptionIn to set
     */
     public void setTypeDescription(String typeDescriptionIn) {

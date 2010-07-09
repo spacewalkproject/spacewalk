@@ -52,11 +52,11 @@ public class SystemSearchAction extends RhnSetAction {
         Boolean invertResults = (Boolean) daForm
                                           .get(SystemSearchSetupAction.INVERT_RESULTS);
         String whereToSearch = daForm.getString(SystemSearchSetupAction.WHERE_TO_SEARCH);
-        return SystemManager.systemSearch(user, 
-                                          searchString, 
-                                          viewMode, 
-                                          invertResults, 
-                                          whereToSearch, 
+        return SystemManager.systemSearch(user,
+                                          searchString,
+                                          viewMode,
+                                          invertResults,
+                                          whereToSearch,
                                           null);
     }
 
@@ -67,13 +67,13 @@ public class SystemSearchAction extends RhnSetAction {
             Map params) {
         DynaActionForm daForm = (DynaActionForm) form;
         params.put(RhnAction.SUBMITTED, daForm.get(RhnAction.SUBMITTED));
-        params.put(SystemSearchSetupAction.SEARCH_STRING, 
+        params.put(SystemSearchSetupAction.SEARCH_STRING,
                    daForm.get(SystemSearchSetupAction.SEARCH_STRING));
-        params.put(SystemSearchSetupAction.INVERT_RESULTS, 
+        params.put(SystemSearchSetupAction.INVERT_RESULTS,
                    daForm.get(SystemSearchSetupAction.INVERT_RESULTS));
-        params.put(SystemSearchSetupAction.WHERE_TO_SEARCH, 
+        params.put(SystemSearchSetupAction.WHERE_TO_SEARCH,
                    daForm.get(SystemSearchSetupAction.WHERE_TO_SEARCH));
-        params.put(SystemSearchSetupAction.VIEW_MODE, 
+        params.put(SystemSearchSetupAction.VIEW_MODE,
                    daForm.get(SystemSearchSetupAction.VIEW_MODE));
     }
 

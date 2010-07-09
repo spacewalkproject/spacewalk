@@ -31,16 +31,16 @@ import java.util.Map;
 public class PackagesHandlerTest extends BaseHandlerTestCase {
 
     private PackagesHandler handler = new PackagesHandler();
-    
+
     public void testGetDetails() throws Exception {
 
         Package pkg = PackageTest.createTestPackage(admin.getOrg());
         assertNotNull(pkg.getOrg().getId());
-        
+
         Map details = handler.getDetails(adminKey, new Integer(pkg.getId().intValue()));
         assertNotNull(details);
         assertTrue(details.containsKey("name"));
-        
+
         try {
             handler.getDetails(adminKey, new Integer(-213344));
             fail("handler.getDetails didn't throw FaultException for non-existant package");
@@ -49,97 +49,97 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
             //success
         }
     }
-    
+
     public void testListChangeLog() throws Exception {
         // TODO: GET THIS WORKING
         // if (Config.get().isSatellite()) {
         if (true) {
             return;
         }
-        
+
         Package pkg = PackageTest.createTestPackage(admin.getOrg());
         assertNotNull(pkg.getOrg().getId());
-        
-        Object[] changelog = handler.listChangelog(adminKey, 
+
+        Object[] changelog = handler.listChangelog(adminKey,
                                                    new Integer(pkg.getId().intValue()));
-        
+
         assertEquals(pkg.getChangeLog().size(), changelog.length);
-        
+
         ChangeLogEntry change1 = ChangeLogEntryTest.
             createTestChangeLogEntry(pkg, new Date());
         pkg.addChangeLogEntry(change1);
-        
+
         changelog = handler.listChangelog(adminKey, new Integer(pkg.getId().intValue()));
-        
+
         assertEquals(pkg.getChangeLog().size(), changelog.length);
     }
-    
+
     public void testListFiles() throws Exception {
         User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
         Package pkg = PackageTest.createTestPackage(user.getOrg());
-        
-        Object[] files = handler.listFiles(adminKey, 
+
+        Object[] files = handler.listFiles(adminKey,
                 new Integer(pkg.getId().intValue()));
-        
+
         // PackageTest.populateTestPackage populates a test package with 2 associated files
         assertEquals(2, files.length);
-        
-                               
+
+
         //TODO: Once we work out the mappings between packages -> files -> capabilities
-        //we should do some more exhaustive testing of this method. 
+        //we should do some more exhaustive testing of this method.
     }
- 
+
     public void testListProvidingErrata() throws Exception {
         User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
         Package pkg = PackageTest.createTestPackage(user.getOrg());
-        
-        Object[] result = handler.listProvidingErrata(adminKey, 
+
+        Object[] result = handler.listProvidingErrata(adminKey,
                                                       new Integer(pkg.getId().intValue()));
-        assertEquals(0, result.length);        
+        assertEquals(0, result.length);
     }
-    
+
     public void testListProvidingChannels() throws Exception {
         User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
         Package pkg = PackageTest.createTestPackage(user.getOrg());
-        
+
         Object[] result = handler.listProvidingChannels(adminKey,
                                                        new Integer(pkg.getId().intValue()));
         //test package shouldn't be "provided" by any channel yet
         assertEquals(0, result.length);
     }
-    
+
     public void testListDependencies() throws Exception {
-      //TODO: Once we work out the mappings between packages -> dependencies  
-      //      we should do some more exhaustive testing of this method. 
+      //TODO: Once we work out the mappings between packages -> dependencies
+      //      we should do some more exhaustive testing of this method.
       User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
       Package pkg = PackageTest.createTestPackage(user.getOrg());
-      
+
       Object[] result = handler.listDependencies(adminKey,
                                                      new Integer(pkg.getId().intValue()));
       //test package shouldn't have any deps yet
       assertEquals(0, result.length);
     }
-    
+
     public void testRemovePackage() throws Exception {
         User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
         Package pkg = PackageTest.createTestPackage(user.getOrg());
         handler.removePackage(adminKey, new Integer(pkg.getId().intValue()));
     }
-    
-    
+
+
     public void testFindByNevra() throws Exception {
         Package p = PackageTest.createTestPackage(admin.getOrg());
-        
-        List<Package> newP = handler.findByNvrea(adminKey, p.getPackageName().getName(), 
-                p.getPackageEvr().getVersion(), p.getPackageEvr().getRelease(), 
+
+        List<Package> newP = handler.findByNvrea(adminKey, p.getPackageName().getName(),
+                p.getPackageEvr().getVersion(), p.getPackageEvr().getRelease(),
                 p.getPackageEvr().getEpoch(), p.getPackageArch().getLabel());
         assertTrue(newP.size() == 1);
         assertEquals(p, newP.get(0));
-        newP = handler.findByNvrea(adminKey, p.getPackageName().getName(), 
-                p.getPackageEvr().getVersion(), p.getPackageEvr().getRelease(), 
+        newP = handler.findByNvrea(adminKey, p.getPackageName().getName(),
+                p.getPackageEvr().getVersion(), p.getPackageEvr().getRelease(),
                 "", p.getPackageArch().getLabel());
         assertTrue(newP.size() == 1);
         assertEquals(p, newP.get(0));
     }
-    
+
 }

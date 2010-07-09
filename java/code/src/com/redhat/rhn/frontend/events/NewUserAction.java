@@ -55,29 +55,29 @@ public class NewUserAction extends BaseMailAction implements MessageAction {
         super.execute(msg);
         NewUserEvent evt = (NewUserEvent) msg;
         Mail mail = getMail();
-        
+
         Map map = new HashMap();
         map.put("login", evt.getUser().getLogin());
         map.put("email-address", evt.getUser().getEmail());
-        
+
         //set url and account info for email to accountOwner
         //url.append();
         String accountInfo = StringUtil.replaceTags(OrgFactory
                 .EMAIL_ACCOUNT_INFO.getValue(), map);
-        
+
         //gather information for the email to accountOwner
         Object[] subjectArgs = new Object[4];
         subjectArgs[0] = evt.getUser().getLogin();
         subjectArgs[1] = evt.getUser().getLastName();
         subjectArgs[2] = evt.getUser().getFirstNames();
         subjectArgs[3] = evt.getUser().getEmail();
-        
+
         Object[] bodyArgs = new Object[3];
         bodyArgs[0] = accountInfo;
         bodyArgs[1] = evt.getUrl() + "rhn/users/ActiveList.do";
         bodyArgs[2] = OrgFactory.EMAIL_FOOTER.getValue();
-        
-        //Get the admin details(email) from the event message 
+
+        //Get the admin details(email) from the event message
         //and set in recipients to send the mail
         mail.setRecipients(getEmails(evt));
         mail.setSubject(LocalizationService.getInstance().
@@ -102,8 +102,8 @@ public class NewUserAction extends BaseMailAction implements MessageAction {
         }
         return adminEmails;
     }
-    
-    
+
+
     protected String getSubject(BaseEvent evtIn) {
         if (logger.isDebugEnabled()) {
             logger.debug("getSubject(User userIn=" + evtIn.getUser() + ") - start");

@@ -24,27 +24,27 @@ public class TableData {
     public void setColumnName(List cn) {
         columnName = cn;
     }
-    
+
     public void setColumnId(List ci) {
         columnId = ci;
     }
-    
+
     public void setTableName(String tn) {
         tableName = tn;
     }
-    
+
     public List getColumnName() {
         return columnName;
     }
-    
+
     public List getColumnId() {
         return columnId;
     }
-    
+
     public String getTableName() {
         return tableName;
     }
-    
+
     public String toString() {
         return "name: " + tableName + " Columns: " + columnName + " ids: " + columnId;
     }

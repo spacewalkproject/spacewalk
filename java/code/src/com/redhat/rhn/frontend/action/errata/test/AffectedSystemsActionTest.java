@@ -40,48 +40,48 @@ import org.jmock.cglib.MockObjectTestCase;
  * @version $Rev$
  */
 public class AffectedSystemsActionTest extends MockObjectTestCase {
-    
+
     public void testApply() throws Exception {
         AffectedSystemsAction action = new AffectedSystemsAction();
         ActionForward forward = new ActionForward("test", "path", true);
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
-        
+
         //No systems selected
         Mock mapping = mock(ActionMapping.class, "mapping");
         mapping.expects(once())
                .method("findForward")
                .with(eq("default"))
                .will(returnValue(forward));
-        
+
         request.setupAddParameter("items_selected", (String[])null);
         request.setupAddParameter("items_on_page", (String[])null);
         addPagination(request);
         request.setupAddParameter("filter_string", "");
         request.setupAddParameter("eid", "12345");
-        
-        ActionForward sameForward = action.applyErrata((ActionMapping)mapping.proxy(), 
+
+        ActionForward sameForward = action.applyErrata((ActionMapping)mapping.proxy(),
                 form, request, response);
         assertEquals("path?lower=10&eid=12345", sameForward.getPath());
         mapping.verify();
-        
+
         //With systems selected
         mapping.expects(once())
                .method("findForward")
                .with(eq("confirm"))
                .will(returnValue(forward));
-        
+
         request.setupAddParameter("items_selected", "123456");
         request.setupAddParameter("items_on_page", (String[])null);
         request.setupAddParameter("eid", "54321");
-        
-        sameForward = action.applyErrata((ActionMapping)mapping.proxy(), 
+
+        sameForward = action.applyErrata((ActionMapping)mapping.proxy(),
                 form, request, response);
         assertEquals("path?eid=54321", sameForward.getPath());
         mapping.verify();
     }
-    
+
     private void addPagination(RhnMockHttpServletRequest r) {
         r.setupAddParameter("First", "someValue");
         r.setupAddParameter("first_lower", "10");
@@ -93,31 +93,31 @@ public class AffectedSystemsActionTest extends MockObjectTestCase {
         r.setupAddParameter("last_lower", "20");
         r.setupAddParameter("lower", "10");
     }
-    
+
     public void testSelectAll() throws Exception {
         AffectedSystemsAction action = new AffectedSystemsAction();
         ActionHelper ah = new ActionHelper();
         ah.setUpAction(action);
         ah.setupProcessPagination();
-        
+
         User user = ah.getUser();
         user.addRole(RoleFactory.ORG_ADMIN);
-        
+
         Errata errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
-        
+
         for (int i = 0; i < 4; i++) {
             Server server = ServerFactoryTest.createTestServer(user, true);
             ErrataFactoryTest.updateNeedsErrataCache(
                     ((Package)errata.getPackages().iterator().next()).getId(),
                     server.getId(), errata.getId());
         }
-        
+
         ah.getRequest().setupAddParameter("eid", errata.getId().toString());
         ah.getRequest().setupAddParameter("eid", errata.getId().toString()); //stupid mock
         ah.getRequest().setupAddParameter("items_on_page", (String[])null);
         ah.getRequest().setupAddParameter("items_selected", (String[])null);
         ah.executeAction("selectall");
-        
+
         RhnSetActionTest.verifyRhnSetData(ah.getUser().getId(),
                 SetLabels.AFFECTED_SYSTEMS_LIST, 4);
     }

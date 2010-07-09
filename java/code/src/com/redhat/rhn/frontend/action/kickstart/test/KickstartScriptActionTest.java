@@ -28,17 +28,17 @@ import org.apache.commons.lang.RandomStringUtils;
  * @version $Rev: 1 $
  */
 public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
-    
+
     public void testExecute() throws Exception {
         // Lets zero out the scripts
         ksdata = clearScripts(ksdata);
         assertEquals(0, ksdata.getScripts().size());
-        addRequestParameter(KickstartScriptCreateAction.SUBMITTED, 
+        addRequestParameter(KickstartScriptCreateAction.SUBMITTED,
                 Boolean.FALSE.toString());
         setRequestPathInfo("/kickstart/KickstartScriptCreate");
         actionPerform();
         assertEquals(0, ksdata.getScripts().size());
-        verifyFormValue(KickstartScriptCreateAction.TYPE, 
+        verifyFormValue(KickstartScriptCreateAction.TYPE,
                 KickstartScript.TYPE_PRE);
         assertNotNull(request.getAttribute(KickstartScriptCreateAction.TYPES));
     }
@@ -48,43 +48,43 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
         // Lets zero out the scripts
         ksdata = clearScripts(ksdata);
         String language = "/usr/bin/perl";
-        addRequestParameter(KickstartScriptCreateAction.CONTENTS, 
+        addRequestParameter(KickstartScriptCreateAction.CONTENTS,
                 contents);
-        addRequestParameter(KickstartScriptCreateAction.LANGUAGE, 
+        addRequestParameter(KickstartScriptCreateAction.LANGUAGE,
                 language);
-        addRequestParameter(KickstartScriptCreateAction.TYPE, 
+        addRequestParameter(KickstartScriptCreateAction.TYPE,
                 KickstartScript.TYPE_POST);
-        addRequestParameter(KickstartScriptCreateAction.SUBMITTED, 
+        addRequestParameter(KickstartScriptCreateAction.SUBMITTED,
                 Boolean.TRUE.toString());
-        addRequestParameter(KickstartScriptCreateAction.TEMPLATE, 
+        addRequestParameter(KickstartScriptCreateAction.TEMPLATE,
                 Boolean.TRUE.toString());
         setRequestPathInfo("/kickstart/KickstartScriptCreate");
         actionPerform();
         String[] keys = {"kickstart.script.toolarge"};
         verifyActionErrors(keys);
-        
+
         contents = RandomStringUtils.randomAscii(50000);
-        addRequestParameter(KickstartScriptCreateAction.CONTENTS, 
+        addRequestParameter(KickstartScriptCreateAction.CONTENTS,
                 contents);
         actionPerform();
         String[] successkeys = {"kickstart.script.success"};
         verifyActionMessages(successkeys);
     }
-    
+
     public void testExecuteSubmit() throws Exception {
         // Lets zero out the scripts
         ksdata = clearScripts(ksdata);
 
-        
+
         String contents = "some script value";
         String language = "/usr/bin/perl";
-        addRequestParameter(KickstartScriptCreateAction.CONTENTS, 
+        addRequestParameter(KickstartScriptCreateAction.CONTENTS,
                 contents);
-        addRequestParameter(KickstartScriptCreateAction.LANGUAGE, 
+        addRequestParameter(KickstartScriptCreateAction.LANGUAGE,
                 language);
-        addRequestParameter(KickstartScriptCreateAction.TYPE, 
+        addRequestParameter(KickstartScriptCreateAction.TYPE,
                 KickstartScript.TYPE_POST);
-        addRequestParameter(KickstartScriptCreateAction.SUBMITTED, 
+        addRequestParameter(KickstartScriptCreateAction.SUBMITTED,
                 Boolean.TRUE.toString());
         setRequestPathInfo("/kickstart/KickstartScriptCreate");
         actionPerform();
@@ -100,29 +100,29 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
 
     public void testEditExecute() throws Exception {
         assertEquals(5, ksdata.getScripts().size());
-        addRequestParameter(KickstartScriptCreateAction.SUBMITTED, 
+        addRequestParameter(KickstartScriptCreateAction.SUBMITTED,
                 Boolean.FALSE.toString());
         KickstartScript kss = (KickstartScript) ksdata.getScripts().iterator().next();
         addRequestParameter(RequestContext.KICKSTART_SCRIPT_ID, kss.getId().toString());
         setRequestPathInfo("/kickstart/KickstartScriptEdit");
         actionPerform();
         assertEquals(5, ksdata.getScripts().size());
-        verifyFormValue(KickstartScriptCreateAction.TYPE, 
+        verifyFormValue(KickstartScriptCreateAction.TYPE,
                 kss.getScriptType());
         assertNotNull(request.getAttribute(KickstartScriptCreateAction.TYPES));
         assertNotNull(request.getAttribute(RequestContext.KICKSTART_SCRIPT_ID));
     }
-    
+
     public void testEditExecuteSubmit() throws Exception {
         String contents = "some script value " + TestUtils.randomString();
         String language = "/usr/bin/perl";
-        addRequestParameter(KickstartScriptCreateAction.CONTENTS, 
+        addRequestParameter(KickstartScriptCreateAction.CONTENTS,
                 contents);
-        addRequestParameter(KickstartScriptCreateAction.LANGUAGE, 
+        addRequestParameter(KickstartScriptCreateAction.LANGUAGE,
                 language);
-        addRequestParameter(KickstartScriptCreateAction.TYPE, 
+        addRequestParameter(KickstartScriptCreateAction.TYPE,
                 KickstartScript.TYPE_POST);
-        addRequestParameter(KickstartScriptCreateAction.SUBMITTED, 
+        addRequestParameter(KickstartScriptCreateAction.SUBMITTED,
                 Boolean.TRUE.toString());
         KickstartScript kss = (KickstartScript) ksdata.getScripts().iterator().next();
         addRequestParameter(RequestContext.KICKSTART_SCRIPT_ID, kss.getId().toString());
@@ -137,7 +137,7 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
         assertEquals(KickstartScript.TYPE_POST, ks.getScriptType());
         verifyForward("success");
     }
-    
+
     private static KickstartData clearScripts(KickstartData ksdataIn) {
         // Lets zero out the scripts
         ksdataIn.getScripts().clear();
@@ -146,6 +146,6 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
         return ksdataIn;
     }
 
-    
+
 }
 

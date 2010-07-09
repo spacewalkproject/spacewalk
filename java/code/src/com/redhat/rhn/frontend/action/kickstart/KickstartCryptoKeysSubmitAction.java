@@ -36,13 +36,13 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev: 1 $
  */
 public class KickstartCryptoKeysSubmitAction extends BaseKickstartListSubmitAction {
-    
+
     public static final String UPDATE_METHOD = "kickstart.cryptokeys.jsp.submit";
 
     /**
      * {@inheritDoc}
      */
-    protected void operateOnRemovedElements(List elements, 
+    protected void operateOnRemovedElements(List elements,
             HttpServletRequest request) {
         RequestContext rctx = new RequestContext(request);
         KickstartCryptoKeyCommand cmd = new KickstartCryptoKeyCommand(
@@ -53,13 +53,13 @@ public class KickstartCryptoKeysSubmitAction extends BaseKickstartListSubmitActi
         }
         cmd.removeKeysById(ids);
         cmd.store();
-        
+
     }
 
     /**
      * {@inheritDoc}
      */
-    protected void operateOnAddedElements(List elements, 
+    protected void operateOnAddedElements(List elements,
             HttpServletRequest request) {
         RequestContext rctx = new RequestContext(request);
         KickstartCryptoKeyCommand cmd = new KickstartCryptoKeyCommand(
@@ -73,15 +73,15 @@ public class KickstartCryptoKeysSubmitAction extends BaseKickstartListSubmitActi
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.GPGSSL_KEYS;
     }
 
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
+    protected DataResult getDataResult(User user,
+                                       ActionForm formIn,
                                        HttpServletRequest request) {
         RequestContext rctx = new RequestContext(request);
         return KickstartLister.getInstance().
@@ -89,14 +89,14 @@ public class KickstartCryptoKeysSubmitAction extends BaseKickstartListSubmitActi
     }
 
     protected void processMethodKeys(Map map) {
-        map.put(UPDATE_METHOD, "operateOnDiff");        
+        map.put(UPDATE_METHOD, "operateOnDiff");
     }
 
     protected Iterator getCurrentItemsIterator(RequestContext ctx) {
         KickstartCryptoKeyCommand cmd = new KickstartCryptoKeyCommand(
                 ctx.getRequiredParam(RequestContext.KICKSTART_ID), ctx.getCurrentUser());
         return cmd.getCryptoKeys().iterator();
-        
+
     }
 
 }

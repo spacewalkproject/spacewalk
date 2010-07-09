@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<rhn-navi-tree label="snippet_tabs" invisible="1" formvar="aid" title-depth="1" 
+<rhn-navi-tree label="snippet_tabs" invisible="1" formvar="aid" title-depth="1"
     acl_mixins="com.redhat.rhn.common.security.acl.action.ActionAclHandler">
   <rhn-tab name="cobbler.nav.default">
     <rhn-tab-url>/rhn/kickstart/cobbler/DefaultSnippetList.do</rhn-tab-url>

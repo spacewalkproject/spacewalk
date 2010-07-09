@@ -26,7 +26,7 @@ import com.redhat.rhn.manager.kickstart.KickstartPackageProfileCommand;
  * @version $Rev$
  */
 public class KickstartPackageProfileCommandTest extends BaseKickstartCommandTestCase {
-    
+
     public void testProfileCommand() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         KickstartData k = KickstartDataTest.createKickstartWithProfile(user);
@@ -36,10 +36,10 @@ public class KickstartPackageProfileCommandTest extends BaseKickstartCommandTest
         k = (KickstartData) reload(k);
         assertNull(k.getKickstartDefaults().getProfile());
         flushAndEvict(k);
-        
-        KickstartPackageProfileCommand cmd = new 
+
+        KickstartPackageProfileCommand cmd = new
             KickstartPackageProfileCommand(k.getId(), user);
-        
+
         cmd.setProfile(p);
         cmd.store();
         k = (KickstartData) reload(k);

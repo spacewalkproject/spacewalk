@@ -20,11 +20,11 @@ import java.util.Date;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
- * 
+ *
  * @version $Rev: 1846 $
  */
 public class ActionedSystem extends SystemOverview {
-    
+
     private Date displayDate;
     private String baseChannel;
     private String message;
@@ -54,15 +54,15 @@ public class ActionedSystem extends SystemOverview {
      */
     public Date getDate() {
         return displayDate;
-    }    
-    
+    }
+
     /**
      * @param displayDateIn The displayDate to set.
      */
     public void setDisplayDate(Date displayDateIn) {
         this.displayDate = displayDateIn;
     }
-    
+
     /**
      * @return Returns the message.
      */
@@ -75,10 +75,10 @@ public class ActionedSystem extends SystemOverview {
     public void setMessage(String messageIn) {
         this.message = messageIn;
     }
-    
+
     /**
      * We need to override the selectable from system overview query/dto.
-     * @return Whether or not this system is selectable, always true. 
+     * @return Whether or not this system is selectable, always true.
      */
     public boolean isSelectable() {
         return true;

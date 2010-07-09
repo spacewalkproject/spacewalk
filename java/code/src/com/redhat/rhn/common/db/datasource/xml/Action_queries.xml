@@ -64,12 +64,12 @@ SELECT UAO.id,
 <mode name="recently_scheduled_action_list"
       class="com.redhat.rhn.frontend.dto.ScheduledAction">
   <query params="user_id, org_id, age">
-select 
-    distinct a.id as id, 
-   a.earliest_action as earliest, 
+select
+    distinct a.id as id,
+   a.earliest_action as earliest,
     at.name as type_name,
     nvl(a.name, at.name) as action_name,
-    a.scheduler as scheduler, 
+    a.scheduler as scheduler,
     sa.status as action_status_id
 from
     rhnServerAction sa,
@@ -79,7 +79,7 @@ where
     a.org_id = :org_id
     and sa.action_id = a.id
     and a.action_type = at.id
-    and exists (select 1 
+    and exists (select 1
                     from rhnUserServerPerms usp
                     where usp.user_id = :user_id
                     and usp.server_id = sa.server_id)
@@ -99,7 +99,7 @@ SELECT  DISTINCT UAO.id as ID,
         UAO.scheduler,
         WC.login AS SCHEDULER_NAME,
       	 UAO.action_status,
-       	UAO.tally        
+	UAO.tally
   FROM  rhnUserActionOverview UAO, rhnAction A, web_contact WC
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
@@ -297,7 +297,7 @@ SELECT  1
 <write-mode name="insert_server_actions">
   <query params="parent_id, status_id, tries">
 INSERT INTO rhnServerAction (server_id, action_id, status, REMAINING_TRIES)
- select  s.id as server_id, :parent_id as action_id, 
+ select  s.id as server_id, :parent_id as action_id,
  		:status_id as status, :tries as REMAINING_TRIES
  	from rhnServer s
  	where s.id in (%s)

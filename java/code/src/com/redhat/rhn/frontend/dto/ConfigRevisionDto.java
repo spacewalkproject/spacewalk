@@ -19,7 +19,7 @@ import com.redhat.rhn.common.util.StringUtil;
 import java.util.Date;
 
 /**
- * ConfigRevisionDto - Basic data about a config revision from rhnConfigRevision 
+ * ConfigRevisionDto - Basic data about a config revision from rhnConfigRevision
  * and rhnConfigContent
  * @version $Rev$
  */
@@ -29,84 +29,84 @@ public class ConfigRevisionDto extends BaseDto {
     private Date created;
     private Date modified;
     private Long fileSize;
-    
+
     /**
      * @return Returns the created.
      */
     public Date getCreated() {
         return created;
     }
-    
+
     /**
      * @param createdIn The created to set.
      */
     public void setCreated(Date createdIn) {
         created = createdIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         id = idIn;
     }
-    
+
     /**
      * @return Returns the modified.
      */
     public Date getModified() {
         return modified;
     }
-    
+
     /**
      * @param modifiedIn The modified to set.
      */
     public void setModified(Date modifiedIn) {
         modified = modifiedIn;
     }
-    
+
     /**
      * @return Returns the revisionNumber.
      */
     public Integer getRevisionNumber() {
         return revisionNumber;
     }
-    
+
     /**
      * @param revisionNumberIn The revisionNumber to set.
      */
     public void setRevisionNumber(Integer revisionNumberIn) {
         revisionNumber = revisionNumberIn;
     }
-    
+
     /**
      * @return Returns the size.
      */
     public Long getFileSize() {
         return fileSize;
     }
-    
+
     /**
      * @param fileSizeIn The fileSize to set.
      */
     public void setFileSize(Long fileSizeIn) {
         fileSize = fileSizeIn;
     }
-    
+
     /**
      * @return A localized display of the file size of this revision
      */
     public String getSizeDisplay() {
         return StringUtil.displayFileSize(fileSize.longValue());
     }
-    
+
     /**
      * @return A localized display of the time this revision was created relative
      *         to now.  Using friendly time display.

@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.user.Pane" 
+    <class name="com.redhat.rhn.domain.user.Pane"
            table="RHNINFOPANE">
       <meta attribute="scope-set">private</meta>
       <id name="id" type="long" column="id">
@@ -12,17 +12,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
           <param name="sequence">RHN_INFO_PANE_ID_SEQ</param>
         </generator>
       </id>
-      <property name="label" 
-                column="label" 
-                type="string" 
-                not-null="true" 
+      <property name="label"
+                column="label"
+                type="string"
+                not-null="true"
                 length="64"
                 update="false"
                 insert="false"/>
-      <property name="acl" 
+      <property name="acl"
                 column="acl"
                 type="string"
-                length="4000" 
+                length="4000"
                 update="false"
                 insert="false"
                 not-null="false"/>

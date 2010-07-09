@@ -49,7 +49,7 @@ public abstract class BaseMode implements Mode {
         return "[ Name = " + getName() +
                "  query = " + query.toString();
     }
-    
+
     /**
      * Returns the arity of the mode
      * @return number of parameters the mode accepts

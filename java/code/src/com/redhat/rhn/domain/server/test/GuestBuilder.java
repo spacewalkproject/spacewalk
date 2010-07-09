@@ -28,7 +28,7 @@ import org.hibernate.Session;
 /**
  * GuestBuilder is a class based on the GoF Builder pattern that constructs
  * VirtualInstance guests.
- * 
+ *
  * @version $Rev$
  */
 public class GuestBuilder {
@@ -49,9 +49,9 @@ public class GuestBuilder {
      * <code>build</code> successive times will simply return
      * <code>null</code>. One of the <i>create</i> methods must be called
      * before every invocation of this method.
-     * 
+     *
      * @return The built virtual instance
-     * 
+     *
      * @throws GuestBuilderException if the guest is not registered and has no
      * host.
      */
@@ -97,9 +97,9 @@ public class GuestBuilder {
      * Creates a guest with a random uuid. An unregistered guest has no guest
      * system associated with it. Note that a host must be specified for the
      * unregistered guest under construction prior to calling {@link #build()}.
-     * 
+     *
      * @param host A physical, host system
-     * 
+     *
      * @return This builder
      */
     public GuestBuilder createUnregisteredGuest() {
@@ -112,9 +112,9 @@ public class GuestBuilder {
     /**
      * Creates a guest with a random uuid and an associated registered virtual
      * system. The guest has no host.
-     * 
+     *
      * @return This builder
-     * 
+     *
      * @throws Exception if an error occurs
      */
     public GuestBuilder createGuest() throws Exception {
@@ -130,7 +130,7 @@ public class GuestBuilder {
      * to the database. This will also result in the hibernate session being
      * flushed, and the guest and its guest and host systems will be evicted
      * from the session.
-     * 
+     *
      * @return This builder
      */
     public GuestBuilder withPersistence() {
@@ -149,9 +149,9 @@ public class GuestBuilder {
     /**
      * Creates the host for the guest under construction. The host will have a
      * management entitlement. It will not have any virtualization entitlements.
-     * 
+     *
      * @return This builder
-     * 
+     *
      * @throws Exception if an error occurs.
      */
     public GuestBuilder withNonVirtHost() throws Exception {
@@ -164,9 +164,9 @@ public class GuestBuilder {
     /**
      * Creates the host for the guest under construction. The host will have a
      * Virtualization Host entitlement.
-     * 
+     *
      * @return This builder
-     * 
+     *
      * @throws Exception if an error occurs.
      */
     public GuestBuilder withVirtHost() throws Exception {
@@ -175,25 +175,25 @@ public class GuestBuilder {
 
         return withHost(groupType);
     }
-    
+
     /**
      * Creates a host for the guest under construction. The host will be created in a
      * different org than the one the guest belongs to. The host will not have any
      * virtualization entitlements.
-     * 
+     *
      * @return This builder
-     * 
+     *
      * @throws Exception if an error occurs
      */
     public GuestBuilder withNonVirtHostInAnotherOrg() throws Exception {
         ServerGroupType groupType = ServerConstants
                 .getServerGroupTypeEnterpriseEntitled();
-        
+
         withHostInAnotherOrg(groupType);
-        
-        return this;    
+
+        return this;
     }
-    
+
     public GuestBuilder withVirtHostInAnotherOrg() throws Exception {
         ServerGroupType groupType = ServerConstants
                 .getServerGroupTypeVirtualizationEntitled();
@@ -202,22 +202,22 @@ public class GuestBuilder {
 
         return this;
     }
-    
+
     private void withHostInAnotherOrg(ServerGroupType groupType) throws Exception {
         Long orgId = UserTestUtils.createOrg("another-org-" + TestUtils.randomString());
         User otherUser = UserTestUtils.createUser("another-user" + TestUtils.randomString(),
                 orgId);
         Server host = ServerFactoryTest.createTestServer(otherUser, true, groupType);
-        
+
         guest.setHostSystem(host);
     }
 
     /**
      * Creates the host for the guest under construction. The host will have a
      * Virtualization Platform entitlement.
-     * 
+     *
      * @return This builder
-     * 
+     *
      * @throws Exception if an error occurs
      */
     public GuestBuilder withVirtPlatformHost() throws Exception {
@@ -226,7 +226,7 @@ public class GuestBuilder {
 
         return withHost(groupType);
     }
-    
+
     public GuestBuilder asParaVirtGuest() {
         guest.setType(guestDAO.getParaVirtType());
         return this;

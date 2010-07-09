@@ -33,9 +33,9 @@ import java.util.Map;
  * @version $Rev$
  */
 public class EntitlementQueueDriver implements QueueDriver {
-    
+
     private static final Logger LOG = Logger.getLogger(EntitlementQueueDriver.class);
-    
+
     /**
      * {@inheritDoc}
      */
@@ -45,16 +45,16 @@ public class EntitlementQueueDriver implements QueueDriver {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public boolean canContinue() {
         return true;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public int getMaxWorkers() {
-        return Config.get().getInt("taskomatic.rapid_repoll_workers", 3);        
+        return Config.get().getInt("taskomatic.rapid_repoll_workers", 3);
     }
 
     /**
@@ -75,10 +75,10 @@ public class EntitlementQueueDriver implements QueueDriver {
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public QueueWorker makeWorker(Object workItem) {
         Long orgId = (Long) workItem;
-        return new EntitlementWorker(orgId, LOG);        
+        return new EntitlementWorker(orgId, LOG);
     }
 
 }

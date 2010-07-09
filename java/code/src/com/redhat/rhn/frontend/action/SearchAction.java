@@ -42,29 +42,29 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class SearchAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
-                                  HttpServletResponse response) 
+                                  HttpServletResponse response)
                                   throws BadParameterException {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
+
         User user = requestContext.getLoggedInUser();
         DynaActionForm daForm = (DynaActionForm) formIn;
-        
+
         if (isSubmitted(daForm)) {
             String searchString = daForm.getString("search_string");
             String searchType = daForm.getString("search_type");
-            
+
             if (searchType == null) {
                 return mapping.findForward("default");
             }
-            else if (searchType.equals("systems") && 
+            else if (searchType.equals("systems") &&
                     (user.getOrg().getEntitlements().contains(
-                            OrgFactory.getEntitlementSwMgrPersonal()) || 
+                            OrgFactory.getEntitlementSwMgrPersonal()) ||
                     user.getOrg().getEntitlements().contains(
                             OrgFactory.getEntitlementEnterprise()))) {
                 HashMap attributes = new HashMap();
@@ -73,9 +73,9 @@ public class SearchAction extends RhnAction {
                 attributes.put(SystemSearchSetupAction.VIEW_MODE,
                                "systemsearch_name_and_description");
                 attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
-                performRedirect("/systems/Search.do", 
-                                request.getContextPath(), 
-                                response, 
+                performRedirect("/systems/Search.do",
+                                request.getContextPath(),
+                                response,
                                 attributes);
 
                 return null;
@@ -88,11 +88,11 @@ public class SearchAction extends RhnAction {
                 attributes.put("errata_type_bug", Boolean.TRUE);
                 attributes.put("errata_type_security", Boolean.TRUE);
                 attributes.put("errata_type_enhancement", Boolean.TRUE);
-                performRedirect("/errata/Search.do", 
+                performRedirect("/errata/Search.do",
                                 request.getContextPath(),
-                                response, 
+                                response,
                                 attributes);
-                
+
                 return null;
             }
             else if (searchType.equals("packages")) {
@@ -100,7 +100,7 @@ public class SearchAction extends RhnAction {
                 attributes.put("view_mode", "search_name_and_summary");
                 attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
                 attributes.put(PackageSearchAction.WHERE_CRITERIA, "architecture");
-                
+
                 // select all the arches to make a better search
                 List<String> defaultArches = new ArrayList<String>();
                 defaultArches.add("channel-ia32");
@@ -111,12 +111,12 @@ public class SearchAction extends RhnAction {
                 defaultArches.add("channel-ppc");
                 defaultArches.add("channel-sparc-sun-solaris");
                 defaultArches.add("channel-i386-sun-solaris");
-                
+
                 attributes.put("channel_arch", defaultArches);
-                
-                performRedirect("/channels/software/Search.do", 
-                                request.getContextPath(), 
-                                response, 
+
+                performRedirect("/channels/software/Search.do",
+                                request.getContextPath(),
+                                response,
                                 attributes);
 
                 return null;
@@ -125,11 +125,11 @@ public class SearchAction extends RhnAction {
                 HashMap attributes = new HashMap();
                 attributes.put("view_mode", "search_content_title");
                 attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
-                performRedirect("/help/Search.do", 
+                performRedirect("/help/Search.do",
                                 request.getContextPath(),
-                                response, 
+                                response,
                                 attributes);
-                
+
                 return null;
             }
             else {
@@ -137,13 +137,13 @@ public class SearchAction extends RhnAction {
             }
         }
         else {
-            return mapping.findForward("error"); 
+            return mapping.findForward("error");
         }
     }
-    
-    protected void performRedirect(String url, 
+
+    protected void performRedirect(String url,
                                    String contextPath,
-                                   HttpServletResponse response, 
+                                   HttpServletResponse response,
                                    Map attributes) {
         try {
             response.sendRedirect(

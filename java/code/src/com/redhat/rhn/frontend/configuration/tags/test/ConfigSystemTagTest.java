@@ -39,42 +39,42 @@ public class ConfigSystemTagTest extends RhnBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         ConfigSystemTag tag = new ConfigSystemTag();
-        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest(); 
-        TagTestHelper tth = TagTestUtils.setupTagTest(tag, 
+        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
+        TagTestHelper tth = TagTestUtils.setupTagTest(tag,
                                         new URL("http://localhost"),
                                         request);
-        tag.setPageContext(tth.getPageContext());        
-    }   
-    
+        tag.setPageContext(tth.getPageContext());
+    }
+
     /** Test tag output for files
      */
     public void testSystem() throws Exception {
 
         String alt = ConfigSystemTag.SYSTEM_ALT_KEY;
         String imgName = ConfigSystemTag.SYSTEM_LIST_ICON;
-        
+
         execTest(0, "bar", false, alt, imgName);
     }
-    
+
     public void execTest(int id, String name, boolean nolink,
               String altKey, String imgName)  throws Exception {
         ConfigSystemTag tag = new ConfigSystemTag();
-        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest(); 
-        TagTestHelper tth = TagTestUtils.setupTagTest(tag, 
+        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
+        TagTestHelper tth = TagTestUtils.setupTagTest(tag,
                                         new URL("http://localhost"),
                                         request);
         tag.setPageContext(tth.getPageContext());
         if (id >= 0) {
-            tag.setId(String.valueOf(id));    
+            tag.setId(String.valueOf(id));
         }
-        
+
         tag.setName(name);
         tag.setNolink(String.valueOf(nolink));
-        
+
         // ok let's test the tag
         tth.assertDoStartTag(Tag.SKIP_BODY);
         tth.assertDoEndTag(Tag.SKIP_BODY);
-        
+
         RhnMockJspWriter rout = (RhnMockJspWriter) tth.getPageContext().getOut();
 
         assertTrue(rout.toString().indexOf(name) > -1);
@@ -90,23 +90,23 @@ public class ConfigSystemTagTest extends RhnBaseTestCase {
         else {
             assertFalse(rout.toString().startsWith("<a href"));
         }
-        
+
     }
-    
+
     public void testFunctions() {
-        checkFunctions(ConfigSystemTag.SYSTEM_HEADER_ICON, 
+        checkFunctions(ConfigSystemTag.SYSTEM_HEADER_ICON,
                                   ConfigSystemTag.SYSTEM_ALT_KEY,
                             "system");
         //also checking case sensititvity
-        checkFunctions(ConfigSystemTag.SYSTEM_HEADER_ICON, 
+        checkFunctions(ConfigSystemTag.SYSTEM_HEADER_ICON,
                             ConfigSystemTag.SYSTEM_ALT_KEY,
                               "sYsTem");
-        
+
         String url = ConfigSystemTag.makeConfigSystemUrl("" + 1);
         assertTrue(url.indexOf("sid=1") > -1);
         assertTrue(url.startsWith(ConfigSystemTag.SYSTEM_URL));
    }
-    
+
     private void checkFunctions(String icon, String altKey, String type) {
         assertEquals(altKey, ConfigSystemTag.getAltKeyFor());
         assertEquals(icon, ConfigSystemTag.getHeaderIconFor());

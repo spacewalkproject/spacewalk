@@ -19,12 +19,12 @@
 </div>
 
     <rl:listset name="compareListSet">
-    
+
 	    <rl:list dataset="pageList"
-            width="100%"        
+            width="100%"
             name="compareList"
             emptykey="compare.jsp.nodifferences">
-            
+
             <rl:decorator name="SelectableDecorator"/>
             <rl:selectablecolumn value="${current.selectionKey}"
 	 			selected="${current.selected}"
@@ -42,16 +42,16 @@
             <rl:column headerkey="compare.jsp.thissystem" bound="false">
                 ${current.system.evr}
             </rl:column>
-            
+
             <rl:column headertext="${requestScope.systemname}" bound="false">
                 ${current.other.evr}
             </rl:column>
-                        
+
             <rl:column headerkey="compare.jsp.difference" bound="false">
                 ${current.comparison}
             </rl:column>
         </rl:list>
-        
+
         <c:if test="${not empty requestScope.pageList}">
             <rhn:require acl="system_feature(ftr_delta_action)"
                 mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
@@ -67,16 +67,16 @@
                 mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
                 <div align="left">
                     <hr />
-                    <strong><bean:message key="compare.jsp.noprovisioning" 
+                    <strong><bean:message key="compare.jsp.noprovisioning"
                         arg0="${system.name}" arg1="${param.sid}"/></strong>
                 </div>
             </rhn:require>
         </c:if>
-      
+
         <html:hidden property="sid" value="${param.sid}" />
         <html:hidden property="sid_1" value="${param.sid_1}" />
-        
+
     </rl:listset>
-    
+
 </body>
 </html>

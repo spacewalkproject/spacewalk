@@ -24,33 +24,33 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DiffTest extends RhnBaseTestCase {
-    
+
     public void testDiff() {
         String[] testOld = {"one", "two", "three", "four"};
         String[] testNew = {"one", "too", "three", "for"};
         Class[] testTypes = {MatchHunk.class, ChangeHunk.class,
                              MatchHunk.class, ChangeHunk.class};
         checkDiff(testOld, testNew, testTypes);
-        
+
         String[] testOld1 = {"one", "two", "three", "four"};
         String[] testNew1 = {"one", "two", "too", "three", "four", "for"};
         Class[] testTypes1 = {MatchHunk.class, InsertHunk.class,
                               MatchHunk.class, InsertHunk.class};
         checkDiff(testOld1, testNew1, testTypes1);
-        
+
         String[] testOld2 = {"one", "two", "three", "four"};
         String[] testNew2 = {"one", "for"};
         Class[] testTypes2 = {MatchHunk.class, ChangeHunk.class};
         checkDiff(testOld2, testNew2, testTypes2);
     }
-    
+
     public void testEmptyFiles() {
         String[] testOld = new String[0];
         String[] testNew = new String[0];
         Class[] testType = new Class[0];
         checkDiff(testOld, testNew, testType);
     }
-    
+
     private void checkDiff(String[] oldFile, String[] newFile, Class[] types) {
         Diff diff = new Diff(oldFile, newFile);
         List hunks = diff.diffFiles();

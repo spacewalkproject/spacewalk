@@ -29,7 +29,7 @@ import org.apache.commons.lang.StringUtils;
 public abstract class BaseHandler implements AclHandler {
 
     /**
-     * 
+     *
      */
     public BaseHandler() {
         super();
@@ -41,19 +41,19 @@ public abstract class BaseHandler implements AclHandler {
                 Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
         return retval;
     }
-    
-    
+
+
     /**
      * returns true if satellite, false if spacewalk
      * @param ctx Our current context, containing a crid or cfid.
      * @param params nothing
-     * @return true if satellite, false if spacewalk 
+     * @return true if satellite, false if spacewalk
      */
     public boolean aclIsSatellite(Object ctx, String[] params) {
         return !ConfigDefaults.get().isSpacewalk();
     }
-    
-    
+
+
     /**
      * Returns a Long object from the given object.  We expect
      * a String[] or String as the input all others return null;
@@ -62,7 +62,7 @@ public abstract class BaseHandler implements AclHandler {
      */
     public Long getAsLong(Object o) {
         Long ret = null;
-    
+
         if (o != null) {
             if (o instanceof String[]) {
                 String[] s = (String[])o;
@@ -80,7 +80,7 @@ public abstract class BaseHandler implements AclHandler {
                 ret = (Long) o;
             }
         }
-    
+
         return ret;
     }
 }

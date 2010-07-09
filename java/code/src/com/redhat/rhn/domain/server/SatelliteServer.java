@@ -26,7 +26,7 @@ import java.sql.Blob;
  * @version $Rev$
  */
 public class SatelliteServer extends Server {
-    private Blob certBlob;    
+    private Blob certBlob;
     private String product;
     private String owner;
     // these are dates but are stored as strings. if we need to perform some
@@ -41,7 +41,7 @@ public class SatelliteServer extends Server {
     public SatelliteServer() {
         super();
     }
-    
+
     /**
      * @return Returns the cert.
      */
@@ -52,7 +52,7 @@ public class SatelliteServer extends Server {
         }
         return null;
     }
-    
+
     /**
      * @param aCert The cert to set.
      */
@@ -68,9 +68,9 @@ public class SatelliteServer extends Server {
                           "This VM or environment probably " +
                           "doesn't support UTF-8 \n Cert:\n" + aCert + "\n");
       }
-     
+
     }
-    
+
     /**
      * @return Returns the expiration.
      */
@@ -119,28 +119,28 @@ public class SatelliteServer extends Server {
     public String getProduct() {
         return product;
     }
-    
+
     /**
      * @param aProduct The product to set.
      */
     public void setProduct(String aProduct) {
         product = aProduct;
     }
-    
+
     /**
      * @return Returns the version.
      */
     public PackageEvr getVersion() {
         return version;
     }
-    
+
     /**
      * @param theVersion The version to set.
      */
     public void setVersion(PackageEvr theVersion) {
         version = theVersion;
     }
-    
+
     /**
      * Sets the satellite version.
      * @param v Version
@@ -148,7 +148,7 @@ public class SatelliteServer extends Server {
     public void setVersion(String v) {
         setVersion(PackageEvrFactory.createPackageEvr(null, v, "1"));
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -156,7 +156,7 @@ public class SatelliteServer extends Server {
         return true;
     }
 
-    
+
     /**
      * @return the certBlob
      */
@@ -164,7 +164,7 @@ public class SatelliteServer extends Server {
         return certBlob;
     }
 
-    
+
     /**
      * @param blob the certBlob to set
      */

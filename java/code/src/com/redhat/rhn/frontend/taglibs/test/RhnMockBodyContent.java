@@ -25,7 +25,7 @@ import com.mockobjects.servlet.MockBodyContent;
 public class RhnMockBodyContent extends MockBodyContent {
 
     private String text;
-    
+
     /**
      * Constructor - takes a string object to
      * set the text to.
@@ -34,14 +34,14 @@ public class RhnMockBodyContent extends MockBodyContent {
     public RhnMockBodyContent(String textIn) {
         setString(textIn);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String getString() {
         return text;
     }
-    
+
     /**
      * Convienience method to allow you to
      * set the text.

@@ -38,19 +38,19 @@ public class NoteTest extends RhnBaseTestCase {
     public void testEquals() throws Exception {
         Note note1 = createTestNote();
         Note note2 = new Note();
-        
+
         assertFalse(note1.equals(note2));
         assertFalse(note1.equals(new Date()));
-        
+
         Session session = HibernateFactory.getSession();
         note2 = (Note) session.getNamedQuery("Note.findById")
                                   .setLong("id", note1.getId().longValue())
                                   .uniqueResult();
         assertEquals(note1, note2);
-        
+
         TestUtils.removeObject(note1);
     }
-    
+
     /**
      * Helper method to create a test Note
      * @return A new Note.
@@ -58,18 +58,18 @@ public class NoteTest extends RhnBaseTestCase {
      */
     public static Note createTestNote() throws Exception {
         Note note = new Note();
-        
+
         User user = UserTestUtils.createUser("testuser",
                                     UserTestUtils.createOrg("testorg"));
         note.setCreator(user);
         note.setServer(ServerFactoryTest.createTestServer(user));
         note.setSubject("RHN-JAVA Unit tests are good");
         note.setNote("I will write them always.");
-        
+
         assertNull(note.getId());
         TestUtils.saveAndFlush(note);
         assertNotNull(note.getId());
-        
+
         return note;
     }
 }

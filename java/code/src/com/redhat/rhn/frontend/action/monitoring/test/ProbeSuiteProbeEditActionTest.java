@@ -40,12 +40,12 @@ import java.util.List;
  * @version $Rev: 53047 $
  */
 public class ProbeSuiteProbeEditActionTest extends RhnBaseTestCase {
-    
+
     private User user;
     private TemplateProbe probe;
     private ProbeSuiteProbeEditAction action;
     private ProbeSuite probeSuite;
-    
+
     protected void setUp() throws Exception {
         super.setUp();
         user = UserTestUtils.createUserInOrgOne();
@@ -58,7 +58,7 @@ public class ProbeSuiteProbeEditActionTest extends RhnBaseTestCase {
         probeSuite = (ProbeSuite) reload(probeSuite);
         action = new ProbeSuiteProbeEditAction();
     }
-    
+
     protected void tearDown() throws Exception {
         user = null;
         probe = null;
@@ -78,9 +78,9 @@ public class ProbeSuiteProbeEditActionTest extends RhnBaseTestCase {
         assertNotNull(ah.getRequest().getAttribute("paramValueList"));
         List pvalues = (List) ah.getRequest().getAttribute("paramValueList");
         assertTrue(pvalues.size() > 0);
-        
+
     }
-    
+
     public void testSubmitExecute() throws Exception {
 
         ActionHelper ah = createActionHelper("success");
@@ -89,11 +89,11 @@ public class ProbeSuiteProbeEditActionTest extends RhnBaseTestCase {
         ah.getForm().set("notification", new Boolean(true));
         Long intv = new Long(probe.getCheckIntervalMinutes().longValue());
         ah.getForm().set("check_interval_min", intv);
-        ah.getForm().set("notification_interval_min", 
+        ah.getForm().set("notification_interval_min",
                 probe.getNotificationIntervalMinutes());
-        
+
         MonitoringTestUtils.setupParamValues(ah, probe.getCommand(), 3);
-        
+
         ActionForward af = ah.executeAction();
         assertEquals("success", af.getName());
 

@@ -29,42 +29,42 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ConfigUploadAction extends Action {
-    
+
     private Set rhnActionConfigChannel;
     private Set rhnActionConfigFileName;
-    
+
     /**
      * @return Returns the rhnActionConfigChannel.
      */
     public Set getRhnActionConfigChannel() {
         return rhnActionConfigChannel;
     }
-    
+
     /**
      * @param rhnActionConfigChannelIn The rhnActionConfigChannel to set.
      */
     public void setRhnActionConfigChannel(Set rhnActionConfigChannelIn) {
         rhnActionConfigChannel = rhnActionConfigChannelIn;
     }
-    
+
     /**
      * @return Returns the rhnActionConfigFileName.
      */
     public Set getRhnActionConfigFileName() {
         return rhnActionConfigFileName;
     }
-    
+
     /**
      * @param rhnActionConfigFileNameIn The rhnActionConfigFileName to set.
      */
     public void setRhnActionConfigFileName(Set rhnActionConfigFileNameIn) {
         rhnActionConfigFileName = rhnActionConfigFileNameIn;
     }
-    
+
     /**
      * Adds a config channel associated with the given server to the upload action.
-     * For config upload actions, for every server action there must exist one and 
-     * only one config channel. 
+     * For config upload actions, for every server action there must exist one and
+     * only one config channel.
      * @param channel The config channel to which to upload files.
      * @param server The server from which to upload files.
      */
@@ -80,7 +80,7 @@ public class ConfigUploadAction extends Action {
         newCA.setParentAction(this);
         rhnActionConfigChannel.add(newCA);
     }
-    
+
     /**
      * Adds a config file name to the upload action for the given server.
      * @param fileName The config file name to upload.
@@ -98,7 +98,7 @@ public class ConfigUploadAction extends Action {
         newFNA.setParentAction(this);
         rhnActionConfigFileName.add(newFNA);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -108,5 +108,5 @@ public class ConfigUploadAction extends Action {
         }
         return formatter;
     }
-    
+
 }

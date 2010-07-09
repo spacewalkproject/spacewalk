@@ -31,77 +31,77 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 public class CreateRedirectURITest extends MockObjectTestCase {
-    
+
     private Mock mockRequest;
-    
+
     /**
-     * 
+     *
      * @param name TestCase name
      */
     public CreateRedirectURITest(String name) {
         super(name);
     }
-    
+
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         mockRequest = mock(HttpServletRequest.class);
-        
+
         mockRequest.stubs().method("getParameterNames").will(returnValue(
                 new Vector().elements()));
         mockRequest.stubs().method("getRequestURI").will(returnValue("/YourRhn.do"));
     }
-    
+
     private HttpServletRequest getMockRequest() {
         return (HttpServletRequest)mockRequest.proxy();
     }
 
     /**
-     * 
+     *
      */
     public final void testExecuteWhenRequestHasNoParams() throws Exception {
         mockRequest.stubs().method("getParameterNames").will(
                 returnValue(new Vector().elements()));
-        
+
         CreateRedirectURI command = new CreateRedirectURI();
         String redirectUrl = command.execute(getMockRequest());
-        
+
         assertEquals("/YourRhn.do?", redirectUrl);
     }
-    
+
     /**
-     * 
+     *
      */
     public final void testExecuteWhenRequestHasParams() throws Exception {
         String paramName = "foo";
         String paramValue = "param value = bar#$%!";
-        
+
         String expected = "/YourRhn.do?foo=" + URLEncoder.encode(paramValue, "UTF-8") + "&";
-        
+
         Vector paramNames = new Vector();
         paramNames.add(paramName);
-        
+
         mockRequest.stubs().method("getParameterNames").will(
                 returnValue(paramNames.elements()));
         mockRequest.stubs().method("getParameter").with(eq(paramName)).will(
                 returnValue(paramValue));
-        
+
         CreateRedirectURI command = new CreateRedirectURI();
         String redirectURI = command.execute(getMockRequest());
-        
+
         assertEquals(expected, redirectURI);
     }
-    
+
     public final void testExecuteWhenRedirectURIExceedsMaxLength() throws Exception {
-        String url = StringUtils.rightPad("/YourRhn.do", 
+        String url = StringUtils.rightPad("/YourRhn.do",
                 (int)CreateRedirectURI.MAX_URL_LENGTH + 1, "x");
-        
+
         mockRequest.stubs().method("getRequestURI").will(returnValue(url));
-        
+
         CreateRedirectURI command = new CreateRedirectURI();
         String redirectUrl = command.execute(getMockRequest());
-        
+
         assertEquals(LoginAction.DEFAULT_URL_BOUNCE, redirectUrl);
     }
-    
+
 }

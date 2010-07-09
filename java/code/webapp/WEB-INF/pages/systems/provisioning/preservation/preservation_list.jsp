@@ -14,13 +14,13 @@
 
 <div>
     <bean:message key="preservation_list.jsp.summary"/>
-</div>   
+</div>
     <form method="post" name="rhn_list" action="PreservationListDeleteSubmit.do">
-      <rhn:list pageList="${requestScope.pageList}" noDataText="preservation_list.jsp.nokeys">          
-         
+      <rhn:list pageList="${requestScope.pageList}" noDataText="preservation_list.jsp.nokeys">
+
       <%@ include file="/WEB-INF/pages/common/fragments/systems/file_listdisplay.jspf" %>
-      
-      </rhn:list>     
+
+      </rhn:list>
     </form>
 	
 </body>

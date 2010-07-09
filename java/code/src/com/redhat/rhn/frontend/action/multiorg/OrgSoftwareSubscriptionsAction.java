@@ -52,19 +52,19 @@ import javax.servlet.http.HttpServletResponse;
 public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listable {
     private static final String SUBSCRIPTIONS = "subscriptions";
     private static Logger log = Logger.getLogger(OrgSoftwareSubscriptionsAction.class);
-    
+
     private static String makeLabel(HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
         Long oid = ctx.getParamAsLong(RequestContext.ORG_ID);
         return "OrgSoftwareSubscriptions" + oid;
     }
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-    
+
         RequestContext ctx = new RequestContext(request);
         Long oid = ctx.getParamAsLong(RequestContext.ORG_ID);
         Org org = OrgFactory.lookupById(oid);
@@ -74,16 +74,16 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
         params.put(RequestContext.ORG_ID, oid);
         ListHelper helper = new ListHelper(this, request, params);
         helper.execute();
-        
+
         if (!ctx.isSubmitted()) {
             Map<String, String> subsMap = new HashMap<String, String>();
             List <OrgChannelFamily> subs = helper.getDataSet();
             for (OrgChannelFamily sub : subs) {
                 if (sub.getMaxAvailable() > 0) {
-                    subsMap.put(sub.getKey(), sub.getMaxMembers().toString());    
+                    subsMap.put(sub.getKey(), sub.getMaxMembers().toString());
                 }
                 if (sub.getMaxAvailableFlex() > 0) {
-                    subsMap.put(sub.getFlexKey(), sub.getMaxFlex().toString());    
+                    subsMap.put(sub.getFlexKey(), sub.getMaxFlex().toString());
                 }
             }
             request.getSession().setAttribute(makeLabel(request), subsMap);
@@ -97,23 +97,23 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
                 }
             }
         }
-        request.setAttribute(SUBSCRIPTIONS, 
+        request.setAttribute(SUBSCRIPTIONS,
                     request.getSession().getAttribute(makeLabel(request)));
 
-        ActionForward retval = 
+        ActionForward retval =
             mapping.findForward("default");
-        
+
         if (ctx.wasDispatched("orgdetails.jsp.submit")) {
             ActionErrors ae =  updateSubscriptions(org, request);
-            if (ae != null && ae.size() > 0) {                
+            if (ae != null && ae.size() > 0) {
                 getStrutsDelegate().saveMessages(request, ae);
-                retval = getStrutsDelegate().forwardParam(mapping.findForward("error"), 
+                retval = getStrutsDelegate().forwardParam(mapping.findForward("error"),
                         "oid", oid.toString());
-                
+
             }
             else {
                 createSuccessMessage(request, "org.entitlements.syssoft.success", null);
-                retval = getStrutsDelegate().forwardParam(mapping.findForward("success"), 
+                retval = getStrutsDelegate().forwardParam(mapping.findForward("success"),
                         "oid", oid.toString());
                 request.getSession().removeAttribute(makeLabel(request));
             }
@@ -123,35 +123,35 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
 
 
 
-    private ActionErrors updateSubscriptions(Org org, HttpServletRequest request) {        
+    private ActionErrors updateSubscriptions(Org org, HttpServletRequest request) {
         if (org.getId().equals(OrgFactory.getSatelliteOrg().getId())) {
             return RhnValidationHelper.validatorErrorToActionErrors(
                     new ValidatorError("org.entitlements.system.defaultorg"));
         }
 
         ActionErrors errors = new ActionErrors();
-        
+
         Map <String, String> subsMap = (Map <String, String>)
                                 request.getAttribute(SUBSCRIPTIONS);
-        
+
         List <ChannelOverview> entitlements = ChannelManager.entitlements(
                 OrgFactory.getSatelliteOrg().getId(), null);
 
         for (ChannelOverview co : entitlements) {
             ChannelFamily cfm = ChannelFamilyFactory.lookupById(co.getId().longValue());
-            
+
             String regCountKey = OrgChannelFamily.makeKey(co.getId());
             try {
-                Long regCount = subsMap.containsKey(regCountKey) ? 
+                Long regCount = subsMap.containsKey(regCountKey) ?
                         processCount(subsMap.get(regCountKey), errors, cfm) : 0;
                 if (regCount != null) {
                     String flexCountKey = OrgChannelFamily.makeFlexKey(co.getId());
-                    Long flex = subsMap.containsKey(flexCountKey) ? 
+                    Long flex = subsMap.containsKey(flexCountKey) ?
                             processCount(subsMap.get(flexCountKey), errors, cfm) : 0;
-                                    
+
                     if (flex != null && regCount != null) {
-                        UpdateOrgSoftwareEntitlementsCommand cmd = 
-                            new UpdateOrgSoftwareEntitlementsCommand(cfm.getLabel(), org, 
+                        UpdateOrgSoftwareEntitlementsCommand cmd =
+                            new UpdateOrgSoftwareEntitlementsCommand(cfm.getLabel(), org,
                                     regCount, flex);
                         ValidatorError ve = cmd.store();
                         if (ve != null) {
@@ -165,14 +165,14 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
                 errors.add(RhnValidationHelper.validatorErrorToActionErrors(
                                            ve.getResult().getErrors().get(0)));
             }
-        }        
+        }
         return errors;
     }
-    
-    
+
+
     private Long processCount(String count, ActionErrors errors, ChannelFamily cfm) {
         if (!StringUtils.isBlank(count)) {
-            // check for invalid number format                
+            // check for invalid number format
             try {
                 return Long.parseLong(count.trim());
             }
@@ -180,7 +180,7 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
                 ValidatorException.raiseException("orgsoftwaresubs.invalid", cfm.getName());
             }
         }
-        
+
         return null;
     }
 
@@ -188,11 +188,11 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
      * {@inheritDoc}
      */
     public List getResult(RequestContext contextIn) {
-        Org org = (Org)contextIn.getRequest().getAttribute("org"); 
+        Org org = (Org)contextIn.getRequest().getAttribute("org");
         List<OrgChannelFamily> subs =  ChannelManager.
                 listChannelFamilySubscriptionsFor(org);
         return subs;
     }
-    
-    
+
+
 }

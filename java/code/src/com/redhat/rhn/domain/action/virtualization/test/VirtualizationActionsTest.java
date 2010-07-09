@@ -24,9 +24,9 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
 public class VirtualizationActionsTest extends BaseTestCaseWithUser {
 
     public void testPackageInstall() throws Exception {
-        Action a1 = ActionFactoryTest.createAction(user, 
+        Action a1 = ActionFactoryTest.createAction(user,
                 ActionFactory.TYPE_VIRTUALIZATION_GUEST_PACKAGE_INSTALL);
-        
+
         flushAndEvict(a1);
         Long id = a1.getId();
         Action a = ActionFactory.lookupById(id);
@@ -34,7 +34,7 @@ public class VirtualizationActionsTest extends BaseTestCaseWithUser {
         assertNotNull(a);
         assertTrue(a instanceof VirtualizationGuestPackageInstall);
 
-        Action a2 = ActionFactoryTest.createAction(user, 
+        Action a2 = ActionFactoryTest.createAction(user,
                 ActionFactory.TYPE_VIRTUALIZATION_HOST_PACKAGE_INSTALL);
         flushAndEvict(a2);
         id = a2.getId();
@@ -42,6 +42,6 @@ public class VirtualizationActionsTest extends BaseTestCaseWithUser {
         a = ActionFactory.lookupById(id);
         assertNotNull(a);
         assertTrue(a instanceof VirtualizationHostPackageInstall);
-        
+
     }
 }

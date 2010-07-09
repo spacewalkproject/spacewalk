@@ -35,23 +35,23 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 53528 $
  */
 public abstract class BaseProbeSuiteEditAction extends RhnAction {
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest req, HttpServletResponse resp) {
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext requestContext = new RequestContext(req);
         ProbeSuite suite = getProbeSuite(requestContext);
-        
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
+
         String forwardName = "default";
         if (isSubmitted(form)) {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
                     this, form);
             if (!errors.isEmpty()) {
                 strutsDelegate.saveMessages(req, errors);
-            } 
+            }
             else {
                 suite.setDescription(form.getString("description"));
                 suite.setSuiteName(form.getString("suite_name"));
@@ -60,25 +60,25 @@ public abstract class BaseProbeSuiteEditAction extends RhnAction {
                 createSuccessMessage(req, getSuccessKey(), suite.getSuiteName());
                 forwardName = "saved";
             }
-        } 
+        }
         req.setAttribute("probeSuite", suite);
         form.set("description", suite.getDescription());
         form.set("suite_name", suite.getSuiteName());
         if (suite.getId() != null) {
             return strutsDelegate.forwardParam(mapping.findForward(forwardName),
                     RequestContext.SUITE_ID, suite.getId().toString());
-        } 
+        }
         else {
             return mapping.findForward(forwardName);
         }
     }
-    
+
     /**
      * Key for the success message
      * @return String key
      */
     public abstract String getSuccessKey();
-    
+
     /**
      * Get the ProbeSuite either new or existing
      * @param ctx RequestContext

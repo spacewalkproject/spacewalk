@@ -56,17 +56,17 @@ import java.util.Set;
  * within this server.
  */
 public class PackagesHandler extends BaseHandler {
-    
+
     private static Logger logger = Logger.getLogger(PackagesHandler.class);
-    
+
     /**
      * Get Details - Retrieves the details for a given package
      * @param sessionKey The sessionKey for the logged in user
      * @param pid The id of the package you're looking for
      * @return Returns a Map containing the details of the package
-     * @throws FaultException A FaultException is thrown if the errata corresponding to 
+     * @throws FaultException A FaultException is thrown if the errata corresponding to
      * pid cannot be found.
-     * 
+     *
      * @xmlrpc.doc Retrieve details for the package with the ID.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "packageId")
@@ -102,22 +102,22 @@ public class PackagesHandler extends BaseHandler {
         Package pkg = lookupPackage(loggedInUser, pid);
 
         Map returnMap = PackageHelper.packageToMap(pkg, loggedInUser);
-        
+
         return returnMap;
     }
-    
+
     /**
      * List of Channels that provide a given package
      * @param sessionKey The sessionKey for the logged in user
      * @param pid The id of the package in question
      * @return Returns an array of maps representing a channel
-     * @throws FaultException A FaultException is thrown if the errata corresponding to 
+     * @throws FaultException A FaultException is thrown if the errata corresponding to
      * pid cannot be found.
-     * 
+     *
      * @xmlrpc.doc List the channels that provide the a package.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "packageId")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      * #array()
      *   #struct("channel")
      *     #prop("string", "label")
@@ -126,25 +126,25 @@ public class PackagesHandler extends BaseHandler {
      *   #struct_end()
      * #array_end()
      */
-    public Object[] listProvidingChannels(String sessionKey, Integer pid) 
+    public Object[] listProvidingChannels(String sessionKey, Integer pid)
             throws FaultException {
         //Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
-        
-        DataResult dr = PackageManager.orgPackageChannels(loggedInUser.getOrg().getId(), 
+
+        DataResult dr = PackageManager.orgPackageChannels(loggedInUser.getOrg().getId(),
                                                          pkg.getId());
         return dr.toArray();
     }
-    
+
     /**
      * List of Errata that provide the given package.
      * @param sessionKey The sessionKey for the logged in user
      * @param pid The id of the package in question
      * @return Returns an array of maps representing an erratum
-     * @throws FaultException A FaultException is thrown if the errata corresponding to 
+     * @throws FaultException A FaultException is thrown if the errata corresponding to
      * pid cannot be found.
-     * 
+     *
      * @xmlrpc.doc List the errata providing the a package.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "packageId")
@@ -160,26 +160,26 @@ public class PackagesHandler extends BaseHandler {
      *   #struct_end()
      * #array_end()
      */
-    public Object[] listProvidingErrata(String sessionKey, Integer pid) 
+    public Object[] listProvidingErrata(String sessionKey, Integer pid)
             throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
-        
-        DataResult dr = PackageManager.providingErrata(loggedInUser.getOrg().getId(), 
+
+        DataResult dr = PackageManager.providingErrata(loggedInUser.getOrg().getId(),
                                                        pkg.getId());
 
         return dr.toArray();
     }
-    
+
     /**
      * Get a list of files associated with a package
      * @param sessionKey The sessionKey for the logged in user
      * @param pid The id of the package you're looking for
      * @return Returns an Array of maps representing a file
-     * @throws FaultException A FaultException is thrown if the errata corresponding to 
+     * @throws FaultException A FaultException is thrown if the errata corresponding to
      * pid cannot be found.
-     * 
+     *
      * @xmlrpc.doc List the files associated with a package.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "packageId")
@@ -200,9 +200,9 @@ public class PackagesHandler extends BaseHandler {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
-        
+
         DataResult dr = PackageManager.packageFiles(pkg.getId());
-        
+
         List returnList = new ArrayList();
 
         /*
@@ -211,7 +211,7 @@ public class PackagesHandler extends BaseHandler {
         for (Iterator itr = dr.iterator(); itr.hasNext();) {
             Map file = (Map) itr.next();
             Map row = new HashMap();
-            
+
             // Default items (mtime and file_size cannot be null)
             row.put("path", StringUtils.defaultString((String) file.get("name")));
             row.put("last_modified_date", file.get("mtime"));
@@ -220,7 +220,7 @@ public class PackagesHandler extends BaseHandler {
             row.put("checksum", StringUtils.defaultString((String) file.get("checksum")));
             row.put("checksum_type", StringUtils.defaultString(
                                     (String) file.get("checksumtype")));
-            
+
             // Determine the file_type
             if (file.get("checksum") != null) {
                 row.put("type", "file");
@@ -233,25 +233,25 @@ public class PackagesHandler extends BaseHandler {
                     row.put("type", "directory");
                 }
             }
-            
+
             returnList.add(row);
         }
-        
+
         return returnList.toArray();
     }
-    
+
     /**
      * Gets the change log for a given package
      * @param sessionKey The sessionKey for the logged in user
      * @param pid The id of the package you're looking for
      * @return Returns an array of maps representing the changelog
-     * @throws FaultException A FaultException is thrown if the errata corresponding to 
+     * @throws FaultException A FaultException is thrown if the errata corresponding to
      * pid cannot be found.
-     * 
+     *
      * @xmlrpc.doc List the change log for a package.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "packageId")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype
      *   #array()
      *      #struct("changelog entry")
      *        #prop("string", "author")
@@ -264,12 +264,12 @@ public class PackagesHandler extends BaseHandler {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
-        
+
         //changes is a set containing the ChangeLogEntry objects for the package
         Set changes = pkg.getChangeLog();
         //returnList is the list we will be returning to the user
         List returnList = new ArrayList();
-        
+
         /*
          * Loop through the changes and convert the ChangeLogEntry objects to a map and add
          * to the returnList.
@@ -278,18 +278,18 @@ public class PackagesHandler extends BaseHandler {
             ChangeLogEntry entry = (ChangeLogEntry) itr.next();
             returnList.add(convertEntryToMap(entry));
         }
-        
+
         return returnList.toArray();
     }
-    
+
     /**
      * List dependencies for a given package.
      * @param sessionKey The sessionKey for the logged in user
      * @param pid The package id for the package in question
      * @return Returns an array of maps representing a dependency
-     * @throws FaultException A FaultException is thrown if the errata corresponding to 
+     * @throws FaultException A FaultException is thrown if the errata corresponding to
      * pid cannot be found.
-     * 
+     *
      * @xmlrpc.doc List the dependencies for a package.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "packageId")
@@ -315,20 +315,20 @@ public class PackagesHandler extends BaseHandler {
 
         // The list we'll eventually return
         List returnList = new ArrayList();
-        
+
         /*
-         * Loop through each of the types of dependencies and create a map representing the 
+         * Loop through each of the types of dependencies and create a map representing the
          * dependency to add to the returnList
          */
         for (int i = 0; i < PackageManager.DEPENDENCY_TYPES.length; i++) {
-            String depType = PackageManager.DEPENDENCY_TYPES[i]; 
+            String depType = PackageManager.DEPENDENCY_TYPES[i];
             DataResult dr = getDependencies(depType, pkg);
 
             // In the off chance we get null back, we should skip the next loop
             if (dr == null || dr.isEmpty()) {
                 continue;
             }
-            
+
             /*
              * Loop through each item in the dependencies data result, adding each row
              * to the returnList
@@ -340,10 +340,10 @@ public class PackagesHandler extends BaseHandler {
                 String name = (String) map.get("name");
                 String version = (String) map.get("version");
                 Long sense = (Long) map.get("sense");
-                
+
                 row.put("dependency", StringUtils.defaultString(name));
                 row.put("dependency_type", depType);
-                
+
                 // If the version for this dep isn't null, we need to calculate the modifier
                 String depmod = " ";
                 if (version != null) {
@@ -354,7 +354,7 @@ public class PackagesHandler extends BaseHandler {
                 returnList.add(row);
             }
         }
-        
+
         return returnList.toArray();
     }
 
@@ -364,7 +364,7 @@ public class PackagesHandler extends BaseHandler {
      * @param pid package id
      * @throws FaultException something bad happens
      * @return 1 on success.
-     * 
+     *
      * @xmlrpc.doc Remove a package from the satellite.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "packageId")
@@ -399,7 +399,7 @@ public class PackagesHandler extends BaseHandler {
         }
 
         return 1;
-    }    
+    }
 
     /**
      * Private helper method to get a DataResult object for a given dependency type
@@ -423,7 +423,7 @@ public class PackagesHandler extends BaseHandler {
         }
         return null;
     }
-    
+
     /**
      * Private helper method to figure out the dependency modifier. I honestly have no clue
      * why the bitwise ANDs work or what the sense field in the db really means. This was
@@ -434,7 +434,7 @@ public class PackagesHandler extends BaseHandler {
      */
     private String getDependencyModifier(Long sense, String version) {
         StringBuffer depmod = new StringBuffer();
-        
+
         if (sense != null) { //how ironic ;)
             int senseIntVal = sense.intValue();
             //Bitwise AND with 4 --> '>'
@@ -453,15 +453,15 @@ public class PackagesHandler extends BaseHandler {
             depmod.append(" ");
             depmod.append(version);
         }
-        else { 
+        else {
             //Robin thinks that this represents a "anything but this version" scenario.
             depmod.append("-");
             depmod.append(version);
         }
-        
+
         return depmod.toString();
     }
-    
+
     /**
      * Private helper method to convert a ChangeLogEntry to a Map.
      * @param entry The ChangeLogEntry in question.
@@ -469,42 +469,42 @@ public class PackagesHandler extends BaseHandler {
      */
     private Map convertEntryToMap(ChangeLogEntry entry) {
         Map map = new HashMap();
-        
-        map.put("author", 
+
+        map.put("author",
                 StringUtils.defaultString(entry.getName()));
-        map.put("text", 
+        map.put("text",
                 StringUtils.defaultString(entry.getText()));
         String entryDate = " ";
         if (entry.getTime() != null) {
             entryDate = entry.getTime().toString();
         }
         map.put("date", entryDate);
-        
+
         return map;
     }
-    
+
     /**
      * @param user The logged in user
      * @param pid The id for the package
      * @return Returns the package or a fault exception
-     * @throws FaultException Occurs when the package is not found 
+     * @throws FaultException Occurs when the package is not found
      */
     private Package lookupPackage(User user, Integer pid) throws FaultException {
         Package pkg = PackageManager.lookupByIdAndUser(new Long(pid.longValue()), user);
-        
+
         /*
          * PackageManager.lookupByIdAndUser() could return null, so we need to check
          * and throw a no_such_package exception if the package was not found.
          */
         if (pkg == null) {
-            throw new FaultException(-208, "no_such_package", 
+            throw new FaultException(-208, "no_such_package",
                     "The package '" + pid + "' cannot be found.");
         }
-        
+
         return pkg;
-    }    
-    
-    
+    }
+
+
     /**
      * Lookup the details for packages with the given name, version,
      * release, architecture label, and (optionally) epoch.
@@ -514,21 +514,21 @@ public class PackagesHandler extends BaseHandler {
      * @param release release of the package to search for
      * @param epoch if set to something other than an empty string (""), strict
      *          matching will be used and the epoch string must be correct.  If set
-     *          to an empty string, if the epoch is null or there is only one NEVRA 
+     *          to an empty string, if the epoch is null or there is only one NEVRA
      *          combination, it will be returned.  (Empty string is recommended.)
      * @param archLabel the arch to search for
      * @return the Package object requested
-     * 
+     *
      * @xmlrpc.doc Lookup the details for packages with the given name, version,
      *          release, architecture label, and (optionally) epoch.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "name")
      * @xmlrpc.param #param("string", "version")
      * @xmlrpc.param #param("string", "release")
-     * @xmlrpc.param #param_desc("string", "epoch", 
-     *          "If set to something other than empty string, 
+     * @xmlrpc.param #param_desc("string", "epoch",
+     *          "If set to something other than empty string,
      *          strict matching will be used and the epoch string must be correct.
-     *          If set to an empty string, if the epoch is null or there is only one 
+     *          If set to an empty string, if the epoch is null or there is only one
      *          NVRA combination, it will be returned.  (Empty string is recommended.)")
      * @xmlrpc.param #param("string", "archLabel")
      * @xmlrpc.returntype
@@ -536,53 +536,53 @@ public class PackagesHandler extends BaseHandler {
      *     $PackageSerializer
      *   #array_end()
      */
-    public List<Package> findByNvrea(String sessionKey, String name, String version, 
+    public List<Package> findByNvrea(String sessionKey, String name, String version,
             String release, String epoch, String archLabel) {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         PackageArch arch = PackageFactory.lookupPackageArchByLabel(archLabel);
-        
+
         if (arch == null) {
              throw new InvalidPackageArchException(archLabel);
         }
         if (epoch.equals("")) {
             epoch = null;
         }
-        List<Package> pkgs = PackageFactory.lookupByNevra(loggedInUser.getOrg(), 
+        List<Package> pkgs = PackageFactory.lookupByNevra(loggedInUser.getOrg(),
                 name, version, release, epoch, arch);
         return pkgs;
     }
-    
+
     /**
      * get a package's download url
      * @param sessionKey the key
      * @param pid the package id
      * @return the url
-     * 
-     * @xmlrpc.doc Retrieve the url that can be used to download a package.  
+     *
+     * @xmlrpc.doc Retrieve the url that can be used to download a package.
      *      This will expire after a certain time period.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "package_id")
      * @xmlrpc.returntype
      *  string - the download url
-     * 
+     *
      */
     public String getPackageUrl(String sessionKey, Integer pid) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
         return RhnXmlRpcServer.getProtocol() + "://" +
-            RhnXmlRpcServer.getServerName() + 
+            RhnXmlRpcServer.getServerName() +
             DownloadManager.getPackageDownloadPath(pkg, loggedInUser);
     }
-    
-    
+
+
     /**
      * download a binary package
      * @param sessionKey the session key
      * @param pid the package id
      * @return  a byte array of the package
-     * @throws IOException if there is an exception 
- 
+     * @throws IOException if there is an exception
+
      * @xmlrpc.doc Retrieve the package file associated with a package.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "package_id")
@@ -592,15 +592,15 @@ public class PackagesHandler extends BaseHandler {
     public byte[] getPackage(String sessionKey, Integer pid) throws IOException {
         User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
-        String path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" +  
+        String path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" +
             pkg.getPath();
         File file = new File(path);
-        
+
         if (file.length() > Integer.MAX_VALUE) {
             throw new IOException(LocalizationService.getInstance().getMessage(
                     "api.package.download.toolarge"));
         }
-        
+
         byte[] toReturn = new byte[(int) file.length()];
         BufferedInputStream br = new BufferedInputStream(new FileInputStream(file));
         if (br.read(toReturn) != file.length()) {
@@ -608,5 +608,5 @@ public class PackagesHandler extends BaseHandler {
         }
         return toReturn;
     }
-    
+
 }

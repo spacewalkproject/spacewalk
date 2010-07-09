@@ -8,7 +8,7 @@
 
 <mode name="system_latest_all_available_packages">
   <query params="sid">
-SELECT  
+SELECT
         pn.name AS name,
         full_list.id AS id,
         NVL(full_list.evr.version, ' ') AS version,
@@ -118,7 +118,7 @@ ORDER BY UPPER(C.name)
 
 <write-mode name="cleanup_package_conflicts">
   <query params="pid">
-    DELETE from 
+    DELETE from
     rhnPackageConflicts
     where package_id = :pid
   </query>
@@ -153,7 +153,7 @@ WHERE id IN
 
 <write-mode name="cleanup_package_changelogs">
   <query params="pid">
-    DELETE from 
+    DELETE from
     rhnPackageChangelog
     where package_id = :pid
   </query>
@@ -231,8 +231,8 @@ WHERE PC.name = :cap_name
   AND (
     (P.org_id = :org_id AND EXISTS (
         SELECT 1
-        FROM rhnChannelPackage CP 
-            WHERE CP.channel_id = :channel_id 
+        FROM rhnChannelPackage CP
+            WHERE CP.channel_id = :channel_id
                 AND CP.package_id = P.id))
     OR EXISTS (
           SELECT  1
@@ -320,13 +320,13 @@ SELECT P.id AS ID,
        P.summary,
        PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS nvrea,
        PP.name AS provider
-  FROM rhnPackage P inner join 
+  FROM rhnPackage P inner join
   	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-       rhnPackageName PN on P.name_id = PN.id inner join 
+       rhnPackageName PN on P.name_id = PN.id inner join
        rhnPackageEVR PE on P.evr_id = PE.id  inner join
        rhnChannelPackage CP on P.id = CP.package_id left join
        rhnPackageKeyAssociation assoc on assoc.package_id = P.id left join
-       rhnPackageKey KEY on KEY.id = assoc.key_id left join 
+       rhnPackageKey KEY on KEY.id = assoc.key_id left join
        rhnPackageProvider PP on key.provider_id = PP.id  left join
        rhnPackageKeyType KEYT on KEY.key_type_id = KEYT.id
  WHERE CP.channel_id = :cid and
@@ -337,7 +337,7 @@ SELECT P.id AS ID,
 <!-- used by ChannelSoftwareHandler -->
 <mode name="latest_packages_in_channel_api">
     <query params="cid">
-SELECT DISTINCT 
+SELECT DISTINCT
                 CNP.package_id as id,
                 PN.name as name,
                 NVL(PE.version, ' ') as version,
@@ -393,7 +393,7 @@ SELECT  PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
         PE.id AS EVR_ID,
         PA.label as arch,
         SP.installtime as installTime
-  FROM  rhnPackageName PN 
+  FROM  rhnPackageName PN
   			INNER JOIN rhnServerPackage SP on SP.name_id = PN.id
   			INNER JOIN rhnPackageEVR PE on SP.evr_id = PE.id
   			LEFT JOIN rhnPackageArch PA on SP.PACKAGE_ARCH_ID  = PA.id
@@ -511,8 +511,8 @@ ORDER BY  UPPER(NVREA)
 
 <mode name="packages_available_to_errata" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="org_id, eid">
-SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
-           || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+SELECT DISTINCT P.id id, PN.name || '-' || PE.version
+           || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
            || '-' || PA.label PACKAGE_NVRE
     FROM rhnPackageName PN,
          rhnPackageEVR PE,
@@ -538,7 +538,7 @@ ORDER BY UPPER(PACKAGE_NVRE)
   <query params="org_id, eid">
   SELECT DISTINCT P.id ID,
                   PN.name || '-' || PE.version || '-' || PE.release
-                    || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+                    || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
                     || '-' || PA.label PACKAGE_NVRE
     FROM rhnPackageName PN,
          rhnPackageEVR PE,
@@ -600,7 +600,7 @@ ORDER BY UPPER(PACKAGE_NVRE)
   <elaborator name="package_channels" />
 </mode>
 
-<query name="package_channels" params="org_id" 
+<query name="package_channels" params="org_id"
      multiple="t"
      class="com.redhat.rhn.frontend.dto.PackageOverview">
 SELECT CP.package_id id, C.name package_channels
@@ -739,7 +739,7 @@ SELECT  COUNT(pn.id) AS COUNT
 ORDER BY  UPPER(PN.name)
   </query>
 </mode>
-   
+
 <mode name="system_upgradable_package_list" class="com.redhat.rhn.frontend.dto.UpgradablePackageListItem">
   <query params="sid">
 SELECT  PN.id AS id,
@@ -770,7 +770,7 @@ SELECT  PN.id AS id,
  WHERE  latest.name_id = PN.id
    AND  SP.server_id = :sid
    AND  SP.name_id = PN.id
-   AND  (SP.package_arch_id IS NULL OR SP.package_arch_id = 
+   AND  (SP.package_arch_id IS NULL OR SP.package_arch_id =
                  -- If the server has more than one package of this name installed
                  -- Then group by arch, otherwise just use whever is there
    	             NVL2(
@@ -782,7 +782,7 @@ SELECT  PN.id AS id,
                         ),
                         latest.arch_id,
                         SP.package_arch_id)
-                        
+
    	)
 ORDER BY  UPPER(PN.name)
   </query>
@@ -931,7 +931,7 @@ ORDER BY UPPER(NVRE)
   </query>
   <elaborator params="sid" multiple="t">
       SELECT PN.id,
-             TO_CHAR(SA.completion_time, 'YYYY-MM-DD HH:MI:SS') AS TIMESTAMP,             
+             TO_CHAR(SA.completion_time, 'YYYY-MM-DD HH:MI:SS') AS TIMESTAMP,
              ACS.name AS ACTION_STATUS
       FROM   rhnActionStatus ACS,
              rhnActionPackage AP,
@@ -965,7 +965,7 @@ SELECT PN.id || '|' || PE.id AS ID_COMBO,
               and P.name_id = PN.id
                 and P.evr_id = PE.id
                 and RSP.patch_type = spt.id),
-                'unknown') as PATCH_TYPE                  
+                'unknown') as PATCH_TYPE
     FROM  rhnPackageName PN, rhnPackageEVR PE, rhnSet S
    WHERE  S.label = :set_label
      AND  S.user_id = :user_id
@@ -1001,7 +1001,7 @@ ORDER BY UPPER(NVRE)
   <query params="sid">
 SELECT  pn.name AS NAME,
         pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS ID_COMBO, 
+        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS ID_COMBO,
         full_list.id,
         full_list.PATCH_TYPE
   FROM  (
@@ -1038,7 +1038,7 @@ ORDER BY  UPPER(NVRE)
 SELECT DISTINCT PN.name AS NAME,
        PN.name || '-' || PE.evr.as_vre_simple() AS ELAB_NVRE,
        PN.id || '|' || PE.id AS ELAB_ID_COMBO,
-       SPP.patch_id as ID       
+       SPP.patch_id as ID
   FROM rhnPackage P,
        rhnPackageName PN,
        rhnPackageEVR PE,
@@ -1085,7 +1085,7 @@ SELECT  pn.name AS NAME,
        ) full_list,
        rhnPackageName pn
      INNER JOIN rhnPackage PKG ON pkg.name_id = pn.id
-     INNER JOIN rhnPackageArch PA ON pa.id = pkg.package_arch_id     
+     INNER JOIN rhnPackageArch PA ON pa.id = pkg.package_arch_id
  WHERE  full_list.name_id = pn.id
    AND  full_list.name_id NOT IN (SELECT SP.name_id FROM rhnServerPackage SP WHERE SP.server_id = :sid)
 ORDER BY  UPPER(pn.name)
@@ -1188,7 +1188,7 @@ SELECT  P.id AS id,
         rhnServerPackage SP,
         (
          SELECT  SOP.package_name_id name_id, MAX(peD.evr) evr,
-                 SOP.server_id server_id, SOP.errata_id errata_id, 
+                 SOP.server_id server_id, SOP.errata_id errata_id,
                  SOP.errata_advisory errata_advisory
            FROM  rhnPackageEVR PED, rhnServerOutdatedPackages SOP
           WHERE  SOP.server_id = :sid
@@ -1209,7 +1209,7 @@ SELECT  P.id AS id,
 
 <mode name="all_packages_in_channel_after" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="cid, start_date_str">
-SELECT 
+SELECT
        P.id AS id,
        PN.name as name,
        NVL(PE.version, ' ') as version,
@@ -1232,8 +1232,8 @@ ORDER BY UPPER(name)
 
 <mode name="all_packages_in_channel_between" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="cid, start_date_str, end_date_str">
-    
-SELECT 
+
+SELECT
        P.id AS id,
        PN.name as name,
        NVL(PE.version, ' ') as version,
@@ -1279,7 +1279,7 @@ ORDER BY UPPER(name)
 
 <mode name="all_packages_in_channel_after_by_date">
   <query params="cid, start_date_str">
-SELECT 
+SELECT
        P.id AS id,
        PN.name as name,
        NVL(PE.version, ' ') as version,
@@ -1302,8 +1302,8 @@ ORDER BY last_modified
 
 <mode name="all_packages_in_channel_between_by_date">
   <query params="cid, start_date_str, end_date_str">
-    
-SELECT 
+
+SELECT
        P.id AS id,
        PN.name as name,
        NVL(PE.version, ' ') as version,
@@ -1326,7 +1326,7 @@ ORDER BY last_modified
 
 <mode name="all_packages_in_channel_by_date">
   <query params="cid">
-SELECT 
+SELECT
        P.id AS id,
        PN.name as name,
        NVL(PE.version, ' ') as version,
@@ -1347,17 +1347,17 @@ ORDER BY last_modified
 
 <mode name="possible_packages_for_pushing_into_channel" class="com.redhat.rhn.frontend.dto.PackageComparison">
   <query params="cid, eid">
-SELECT P1.id, 
+SELECT P1.id,
        PN.name,
        PE2.evr.as_vre_simple() || '.' || PA2.label AS current_nvrea,
        PE1.evr.as_vre_simple() || '.' || PA1.label AS new_nvrea
 FROM rhnPackage P1,
      rhnPackageEVR PE1,
      rhnPackageArch PA1,
-     rhnChannelNewestPackage CNP, 
+     rhnChannelNewestPackage CNP,
      rhnPackageEVR PE2,
      rhnPackageArch PA2,
-     rhnPackageName PN, 
+     rhnPackageName PN,
      rhnErrataPackage EP
 WHERE EP.errata_id = :eid
   AND P1.id = EP.package_id
@@ -1373,7 +1373,7 @@ WHERE EP.errata_id = :eid
   </query>
 </mode>
 
-  
+
 <mode name="packages_in_errata_not_in_channel" class="com.redhat.rhn.frontend.dto.PackageComparison">
   <query params="cid, eid">
 SELECT P.id,
@@ -1395,15 +1395,15 @@ WHERE EP.errata_id = :eid
   AND pac.channel_arch_id = c.channel_arch_id
   AND pac.package_arch_id = p.package_arch_id
   AND C.id = :cid
-  AND P.id NOT IN (select package_id from rhnChannelPackage 
+  AND P.id NOT IN (select package_id from rhnChannelPackage
                     where CHANNEL_ID = :cid)
   AND P.ID NOT IN (
     SELECT P1.id
     FROM rhnPackage P1,
-         rhnPackageEVR PE1, 
-         rhnChannelNewestPackage CNP, 
-         rhnPackageEVR PE2, 
-         rhnPackageName PN, 
+         rhnPackageEVR PE1,
+         rhnChannelNewestPackage CNP,
+         rhnPackageEVR PE2,
+         rhnPackageName PN,
          rhnErrataPackage EP
     WHERE EP.errata_id = :eid
       AND P1.id = EP.package_id
@@ -1414,7 +1414,7 @@ WHERE EP.errata_id = :eid
       AND PE2.id = CNP.evr_id
       AND PN.id = P1.name_id
       AND rpm.vercmp(PE1.epoch, PE1.version, PE1.release, PE2.epoch, PE2.version, PE2.release) != 0)
-  </query>        
+  </query>
 </mode>
 
 <mode name="server_packages_needing_update">
@@ -1435,7 +1435,7 @@ SELECT P.id, PE.epoch, PE.version, PE.release
       VALUES (:path, sysdate)
   </query>
 </write-mode>
-                  
+
 <!-- Schedules the deletion of all packages found in the given RhnSet. The set must
      contain the package ID in the "element" of the set. -->
 <write-mode name="schedule_pkg_for_delete_from_set">
@@ -1448,7 +1448,7 @@ SELECT P.id, PE.epoch, PE.version, PE.release
       )
   </query>
 </write-mode>
-   
+
 <!-- Deletes packages found in the given RhnSet. The set must contain the package ID in
      the "element" of the set. -->
 <write-mode name="delete_packages_from_set">
@@ -1466,7 +1466,7 @@ SELECT P.id, PE.epoch, PE.version, PE.release
   <query params="cid, set_label, user_id">
     INSERT ALL INTO rhnChannelPackage(channel_id, package_id) VALUES (:cid, pid)
     select element  as pid
-    from rhnSet S 
+    from rhnSet S
     	where S.user_id = :user_id and
     			S.label = :set_label
   </query>
@@ -1636,26 +1636,26 @@ ORDER BY UPPER(NVRE)
 <mode name="packages_for_channel_from_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="cid, scid">
 SELECT distinct P.id AS ID,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA       
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
   	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-  	   rhnPackageName PN on P.name_id = PN.id inner join 
-  	   rhnPackageEVR PE on P.evr_id = PE.id inner join 
-       rhnChannelPackage CP on CP.package_id = P.id  inner join       
+	   rhnPackageName PN on P.name_id = PN.id inner join
+	   rhnPackageEVR PE on P.evr_id = PE.id inner join
+       rhnChannelPackage CP on CP.package_id = P.id  inner join
        rhnChannelPackageArchCompat CPAC on CPAC.package_arch_id = P.package_arch_id inner join
        rhnChannelArch CA2 on CPAC.channel_arch_id = CA2.id inner join
        rhnChannel C2 on C2.channel_arch_id = CA2.id
  WHERE  CP.channel_id = :scid and
- 		C2.id = :cid  and 
+		C2.id = :cid  and
  		not exists (	
- 			select P.id 
+			select P.id
             from rhnChannelPackage CP2 inner join
              rhnPackage P2 on CP2.package_id = P2.id
  			where CP2.channel_id = :cid and
  				P2.name_id = PN.id and
  				P2.evr_id = PE.id and
  				P2.package_arch_id = PA.id
- 		) 
+		)
   </query>
     <elaborator name="package_details" />
 </mode>
@@ -1663,14 +1663,14 @@ SELECT distinct P.id AS ID,
 <mode name="custom_packages_for_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="cid, org_id">
 SELECT distinct P.id AS ID,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA       
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
   	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-  	   rhnPackageName PN on P.name_id = PN.id inner join 
-  	   rhnPackageEVR PE on P.evr_id = PE.id 
+	   rhnPackageName PN on P.name_id = PN.id inner join
+	   rhnPackageEVR PE on P.evr_id = PE.id
  WHERE  P.org_id = :org_id and
  		not exists (	
- 			select P.id 
+			select P.id
             from rhnChannelPackage CP2 inner join
              rhnPackage P2 on CP2.package_id = P2.id
  			where CP2.channel_id = :cid and
@@ -1686,16 +1686,16 @@ SELECT distinct P.id AS ID,
 <mode name="orphan_packages_for_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="cid, org_id">
 SELECT distinct P.id AS ID,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA       
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
   FROM rhnPackage P inner join
   	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
-  	   rhnPackageName PN on P.name_id = PN.id inner join 
+	   rhnPackageName PN on P.name_id = PN.id inner join
   	   rhnPackageEVR PE on P.evr_id = PE.id left join
   	   rhnChannelPackage CP on P.id = CP.package_id
  WHERE  (P.org_id = :org_id) and
  		CP.channel_id is null and
  		not exists (	
- 			select P.id 
+			select P.id
             from rhnChannelPackage CP2 inner join
              rhnPackage P2 on CP2.package_id = P2.id
  			where CP2.channel_id = :cid and
@@ -1771,7 +1771,7 @@ SELECT distinct P.id AS ID,
                 (SELECT element
                    FROM rhnSet s
                   WHERE s.label = :set_label)
-      
+
   </query>
 </write-mode>
 
@@ -1852,7 +1852,7 @@ SELECT P.id
 ORDER BY P.package_arch_id DESC
   </query>
 </mode>
-   
+
 <!-- Deletes sources of all packages found in the given RhnSet. The set must
      contain the package ID in the "element" of the set. -->
 <write-mode name="delete_package_sources_from_set">
@@ -1865,7 +1865,7 @@ ORDER BY P.package_arch_id DESC
                 AND s.label = :set_label
              )
    </query>
-   
+
 </write-mode>
 
 <!-- Returns the set of channels that any of the packages in the given set belong to.
@@ -1881,7 +1881,7 @@ ORDER BY P.package_arch_id DESC
 
 <write-mode name="insert_primary_xml">
    <query params="pid, xml">
-	update rhnPackageRepodata  
+	update rhnPackageRepodata
 		set primary_xml = :xml
 	where package_id = :pid
    </query>
@@ -1889,25 +1889,25 @@ ORDER BY P.package_arch_id DESC
 
 <write-mode name="insert_filelist_xml">
    <query params="pid, xml">
-	update rhnPackageRepodata  
-		set filelist = :xml 
+	update rhnPackageRepodata
+		set filelist = :xml
 	where package_id = :pid
    </query>
 </write-mode>
 
 <write-mode name="insert_other_xml">
    <query params="pid, xml">
-	update rhnPackageRepodata  
-		set other = :xml 
+	update rhnPackageRepodata
+		set other = :xml
 	where package_id = :pid
    </query>
 </write-mode>
 
 <write-mode name="create_repo_entrys">
    <query params="cid">
-	insert into rhnPackageRepodata (package_id) 
+	insert into rhnPackageRepodata (package_id)
 		(select cp.package_id as id from rhnChannelPackage cp left join rhnPackageRepoData rd on cp.package_id = rd.package_id
-			where cp.channel_id = :cid 
+			where cp.channel_id = :cid
 			  and rd.package_id is null)
    </query>
 </write-mode>
@@ -1915,11 +1915,11 @@ ORDER BY P.package_arch_id DESC
 
 <mode name="lookup_repodata" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="pid">
-SELECT 
+SELECT
      P.package_id AS id, p.primary_xml as primary_xml, p.other as other_xml, p.filelist as filelist_xml
     from rhnPackageRepoData p
-     where p.package_id = :pid   
+     where p.package_id = :pid
   </query>
 </mode>
-   
+
 </datasource_modes>

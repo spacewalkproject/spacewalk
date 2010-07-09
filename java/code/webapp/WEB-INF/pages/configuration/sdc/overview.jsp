@@ -34,7 +34,7 @@
 					${requestScope.localFiles}
 				 <br/>
 		    </td>
-		  </tr>  
+		  </tr>
 		  <tr>
 		    <th><bean:message key="sdc.config.sandbox.files" />:</th>
 			    <td>${requestScope.sandboxFiles}</td>
@@ -42,7 +42,7 @@
 		  <tr>
 		    <th><bean:message key="sdc.config.central-channel.subscriptions"/>:</th>
 		    <td>${requestScope.globalConfigChannels}.&nbsp;[<a href="/rhn/systems/details/configuration/SubscriptionsSetup.do?sid=${param.sid}"><bean:message key="sdc.config.subscribe_to_channels"/></a>]</td>
-		  </tr>  
+		  </tr>
 		</table>
 		<!-- Adding recent events -->
 		<h2><bean:message key="sdc.config.header.recent-events"/></h2>
@@ -53,7 +53,7 @@
 		
 		    <td><c:if test="${requestScope.deploymentTimeMessage}">
 			    ${requestScope.deploymentTimeMessage}
-		        <br /><br />		    
+		        <br /><br />
 		    </c:if>
 		        ${requestScope.deploymentDetailsMessage}
 		    </td>
@@ -85,8 +85,8 @@
 				      <th><bean:message key="sdc.config.deploy.files"/></th>
 				    </tr>
 			    </thead>
-			    
-			    
+
+
 			    <tr class="list-row-odd">
 			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.deploy.managed-files"
                            arg0 ="/rhn/systems/details/configuration/DeployFileConfirm.do?selectall=true&sid=${param.sid}" />
@@ -111,7 +111,7 @@
 			    </tr>
 			    </thead>
 			    <tr class="list-row-odd">
-			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.compare.managed-files" 
+			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.compare.managed-files"
 			      		arg0="/rhn/systems/details/configuration/DiffFileConfirm.do?selectall=true&sid=${param.sid}"/></td>
 				  <td class="last-column"></td>
 			    </tr>
@@ -140,15 +140,15 @@
 			      <td class="last-column"></td>
 			    </tr>
 				<rhn:require mixins="com.redhat.rhn.common.security.acl.SystemAclHandler"
-													 acl="client_capable(configfiles.upload)">				    			    
+													 acl="client_capable(configfiles.upload)">
 			    <tr class="list-row-odd">
-			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.import-all-files" 
+			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.import-all-files"
 					      arg0 = "/rhn/systems/details/configuration/addfiles/ImportFileConfirm.do?selectall=true&sid=${param.sid}"/></td>
 			      <td class="last-column"></td>
-			    </tr>    
+			    </tr>
 
 			    <tr class="list-row-odd">
-			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.import-selected-files" 
+			      <td class="first-column"><img src="/img/rhn-bullet.gif"/>&nbsp;<bean:message key="sdc.config.add-create.import-selected-files"
 			 	      	arg0="/rhn/systems/details/configuration/addfiles/ImportFile.do?sid=${param.sid}"/></td>
 				  <td class="last-column"></td>
 			    </tr>
@@ -157,7 +157,7 @@
 	      </c:when>
 	      <c:otherwise>
 	            <p><bean:message key="system.sdc.missing.config_deploy1"/></p>
-	            <p><bean:message key="system.sdc.missing.config_deploy2" 
+	            <p><bean:message key="system.sdc.missing.config_deploy2"
 	            		arg0="/rhn/configuration/system/TargetSystems.do"
 	            		arg1="${rhn:localize('targetsystems.jsp.toolbar')}"
 	            		arg2="${rhn:localize('targetsystems.jsp.enable')}"/></p>	            		

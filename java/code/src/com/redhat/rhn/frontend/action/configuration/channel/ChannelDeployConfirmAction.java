@@ -49,21 +49,21 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ChannelDeployConfirmAction extends RhnAction {
-    
+
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         RequestContext ctx = new RequestContext(request);
         User user = ctx.getLoggedInUser();
-        
+
         ConfigChannel cc = setupLists(request, user);
         request.setAttribute("parentUrl", request.getRequestURI() + "?ccid=" + cc.getId());
 
         DynaActionForm dForm = (DynaActionForm)form;
-        
+
         if (isSubmitted(dForm) && request.getParameter("dispatch") != null) {
             if (doScheduleDeploy(request, dForm)) {
                 ConfigActionHelper.clearRhnSets(user);
@@ -78,7 +78,7 @@ public class ChannelDeployConfirmAction extends RhnAction {
        }
     }
 
-    private ActionForward prepareToLeave(ActionMapping mapping, HttpServletRequest req, 
+    private ActionForward prepareToLeave(ActionMapping mapping, HttpServletRequest req,
             ConfigChannel cc, DynaActionForm dForm, String forwardLabel) {
         DatePicker picker = getStrutsDelegate().
             prepopulateDatePicker(req, dForm, "date", DatePicker.YEAR_RANGE_POSITIVE);
@@ -93,13 +93,13 @@ public class ChannelDeployConfirmAction extends RhnAction {
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
 
         DataResult files = ConfigurationManager.getInstance().
-            listCurrentFiles(user, cc, null, 
+            listCurrentFiles(user, cc, null,
                     RhnSetDecl.CONFIG_CHANNEL_DEPLOY_REVISIONS.getLabel());
         DataList list = new DataList(files);
         list.setMode(files.getMode());
         list.setElaboratorParams(files.getElaborationParams());
         request.setAttribute("selectedFiles", list);
-        
+
         DataResult systems = ConfigurationManager.getInstance().
             listSystemInfoForChannel(user, cc, null, true);
         //systems.elaborate(systems.getElaborationParams());
@@ -107,21 +107,21 @@ public class ChannelDeployConfirmAction extends RhnAction {
         list.setMode(systems.getMode());
         list.setElaboratorParams(systems.getElaborationParams());
         request.setAttribute("selectedSystems", list);
-        
+
         ActionErrors errs = new ActionErrors();
         if (files.getTotalSize() == 0) {
             // Error - you have to have files selcted
-            errs.add(ActionMessages.GLOBAL_MESSAGE, 
+            errs.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("deployconfirm.jsp.zeroFiles"));
         }
-        
+
         if (systems.getTotalSize() == 0) {
             // Error - you have to have systems selcted
-            errs.add(ActionMessages.GLOBAL_MESSAGE, 
+            errs.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("deployconfirm.jsp.zeroSystems"));
         }
         saveMessages(request, errs);
-        
+
         return cc;
     }
 
@@ -131,10 +131,10 @@ public class ChannelDeployConfirmAction extends RhnAction {
         ConfigActionHelper.processParamMap(cc, m);
         return m;
     }
-    
+
     private boolean doScheduleDeploy(HttpServletRequest req, DynaActionForm form) {
         User usr = new RequestContext(req).getLoggedInUser();
-        
+
         RhnSet files = RhnSetDecl.CONFIG_CHANNEL_DEPLOY_REVISIONS.get(usr);
         if (files.size() == 0) {
             // Error - you have to have files selcted
@@ -142,7 +142,7 @@ public class ChannelDeployConfirmAction extends RhnAction {
             return false;
         }
         Set fileIds = buildIds(files);
-        
+
         RhnSet systems = RhnSetDecl.CONFIG_CHANNEL_DEPLOY_SYSTEMS.get(usr);
         if (systems.size() == 0) {
             // Error - you have to have systems selcted
@@ -150,15 +150,15 @@ public class ChannelDeployConfirmAction extends RhnAction {
             return false;
         }
         Set systemIds = buildIds(systems);
-        Date datePicked = getStrutsDelegate().readDatePicker(form, "date", 
+        Date datePicked = getStrutsDelegate().readDatePicker(form, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
-        
+
         Map m = ConfigurationManager.getInstance().
             deployFiles(usr, fileIds, systemIds, datePicked);
-        
+
         Long successes = m.get("success") == null ? new Long(0) : (Long)m.get("success");
         Long overrides = m.get("override") == null ? new Long(0) : (Long)m.get("override");
-        
+
         ActionMessages msgs = new ActionMessages();
         if (successes.longValue() == 1) {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
@@ -168,7 +168,7 @@ public class ChannelDeployConfirmAction extends RhnAction {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("deployconfirm.jsp.successes", successes));
         }
-        
+
         if (overrides.longValue() == 1) {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("deployconfirm.jsp.override", overrides));
@@ -182,7 +182,7 @@ public class ChannelDeployConfirmAction extends RhnAction {
 
         return true;
     }
-    
+
     private Set buildIds(RhnSet revisions) {
         Set s = new HashSet();
         for (Iterator itr = revisions.getElements().iterator(); itr.hasNext();) {

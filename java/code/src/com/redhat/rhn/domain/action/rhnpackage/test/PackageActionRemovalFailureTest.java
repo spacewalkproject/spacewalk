@@ -42,7 +42,7 @@ import org.hibernate.Session;
 public class PackageActionRemovalFailureTest extends RhnBaseTestCase {
 
     public void testPackageActionRemovalFailure() throws Exception {
-        User usr = UserTestUtils.createUser("testUser", 
+        User usr = UserTestUtils.createUser("testUser",
                                             UserTestUtils.createOrg("testOrg"));
         PackageAction pkgaction = (PackageAction) ActionFactoryTest.createAction(
                                          usr, ActionFactory.TYPE_PACKAGES_VERIFY);
@@ -50,7 +50,7 @@ public class PackageActionRemovalFailureTest extends RhnBaseTestCase {
         PackageName name = PackageNameTest.createTestPackageName();
         PackageEvr evr = PackageEvrFactoryTest.createTestPackageEvr();
         PackageCapability cap = PackageCapabilityTest.createTestCapability();
-        
+
         PackageActionRemovalFailure failure = new PackageActionRemovalFailure();
         failure.setServer(server);
         failure.setAction(pkgaction);
@@ -59,19 +59,19 @@ public class PackageActionRemovalFailureTest extends RhnBaseTestCase {
         failure.setCapability(cap);
         failure.setFlags(new Long(1));
         failure.setSense(new Long(1));
-        
+
         TestUtils.saveAndFlush(failure);
-        
+
         PackageActionRemovalFailure failure2 = lookupByKey(server, pkgaction, name);
         assertNotNull(failure2);
         assertEquals(failure, failure2);
     }
-    
+
     /**
      * Helper method to lookup a PackageActionRemovalFailure
      * by Server, PackageAction, and PackageName.
      */
-    private PackageActionRemovalFailure lookupByKey(Server s, 
+    private PackageActionRemovalFailure lookupByKey(Server s,
                                                    Action a,
                                                    PackageName n) throws Exception {
         Session session = HibernateFactory.getSession();

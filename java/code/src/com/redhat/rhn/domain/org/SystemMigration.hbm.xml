@@ -12,16 +12,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
           <key-many-to-one name="fromOrg"
                      column="org_id_from"
                      class="com.redhat.rhn.domain.org.OrgImpl" />
-          <key-many-to-one name="server" 
+          <key-many-to-one name="server"
                     class="com.redhat.rhn.domain.server.Server"
                     column="server_id" />
-          <key-property name="migrated" 
+          <key-property name="migrated"
                     column="migrated"
                     type="timestamp" />
         </composite-id>
-        
+
     </class>
-    
+
     <query name="SystemMigration.lookupByToOrg">
         <![CDATA[from com.redhat.rhn.domain.org.SystemMigration as sm
                                                  where sm.toOrg = :toOrg
@@ -39,5 +39,5 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                                  where sm.server = :server
                                               order by sm.migrated desc]]>
     </query>
-    
+
 </hibernate-mapping>

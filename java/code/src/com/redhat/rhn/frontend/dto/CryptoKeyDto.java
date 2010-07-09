@@ -25,14 +25,14 @@ public class CryptoKeyDto extends BaseDto {
     private Long orgId;
     private String label;
     private String description;
-    
+
     /**
      * {@inheritDoc}
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
@@ -40,7 +40,7 @@ public class CryptoKeyDto extends BaseDto {
         this.id = idIn;
     }
 
-    
+
     /**
      * @return the description
      */
@@ -48,7 +48,7 @@ public class CryptoKeyDto extends BaseDto {
         return description;
     }
 
-    
+
     /**
      * @param descriptionIn The description to set.
      */
@@ -56,7 +56,7 @@ public class CryptoKeyDto extends BaseDto {
         this.description = descriptionIn;
     }
 
-    
+
     /**
      * @return the label
      */
@@ -64,7 +64,7 @@ public class CryptoKeyDto extends BaseDto {
         return label;
     }
 
-    
+
     /**
      * @param labelIn The label to set.
      */
@@ -72,7 +72,7 @@ public class CryptoKeyDto extends BaseDto {
         this.label = labelIn;
     }
 
-    
+
     /**
      * @return the orgId
      */
@@ -80,7 +80,7 @@ public class CryptoKeyDto extends BaseDto {
         return orgId;
     }
 
-    
+
     /**
      * @param orgIdIn The orgId to set.
      */

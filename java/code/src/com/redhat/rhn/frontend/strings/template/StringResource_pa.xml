@@ -294,7 +294,7 @@ http://www.redhat.com/support/
 
 ਆਪਣੇ ਖਾਤਾ ਪਰਬੰਧਕ (ਸੰਗਠਨ ਪਰਬੰਧਕ) ਨੂੰ ਦੱਸੋ: ਨਵੇਂ ਉਪਭੋਗੀ ਦੁਆਰਾ ਮੈਂਬਰੀ
 ਵਰਤਣ ਤੋਂ ਪਹਿਲਾਂ, ਉਹਨਾਂ ਨੂੰ ਤੁਹਾਡੇ ਖਾਤਿਆਂ ਵਾਲੀ ਮੈਂਬਰੀ ਵੇਖਣ ਲਈ ਮਨਜੂਰੀ ਦੇਣੀ
-ਜਰੂਰੀ ਹੈ।  ਇਸ ਲਈ ਤੁਹਾਡੇ ਖਾਤੇ ਉੱਪਰ ਉਪਭੋਗੀ ਪਰਬੰਧਨ 
+ਜਰੂਰੀ ਹੈ।  ਇਸ ਲਈ ਤੁਹਾਡੇ ਖਾਤੇ ਉੱਪਰ ਉਪਭੋਗੀ ਪਰਬੰਧਨ
 ਇੰਟਾਈਟਲਮੈਂਟ ਦੀ ਜਰੂਰਤ ਹੈ।  ਜੋ ਲੋੜ ਪਵੇ ਤਾਂ, ਕਿਰਪਾ ਕਰਕੇ ਉੱਪਰ ਦਿੱਤਾ ਸੰਬੰਧ ਵੇਖੋ
 ਅਤੇ ਇਸ ਵਿਸ਼ੇਸ਼ਤਾ ਲਈ ਆਪਣੇ ਅਸਲੀ Red Hat ਗਾਹਕ ਸੇਵਾ ਜਿੰਮੇਵਾਰ
 ਨਾਲ ਸੰਪਰਕ ਕਰੋ।
@@ -360,7 +360,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 ਇਹ ਹੋਣ ਦੇ ਕਈ ਕਾਰਨ ਹੋ ਸਕਦੇ ਹਨ:
 
 1) ਤੁਸੀਂ ਹੁਣੇ ਇੱਕ ਸਿਸਟਮ ਮੁੜ-ਇੰਸਟਾਲ ਕੀਤਾ ਹੋ ਸਕਦਾ ਹੈ ਅਤੇ ਉਸ ਨੂੰ ਇੱਕ ਮੌਜੂਦਾ, ਸਰਗਰਮ
-   ਮੈਂਬਰੀ ਨਾਲ ਸਬੰਧਿਤ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਹੋ ਸਕਦੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਯਕੀਨੀ ਬਣਾਓ ਕਿ 
+   ਮੈਂਬਰੀ ਨਾਲ ਸਬੰਧਿਤ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਹੋ ਸਕਦੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਯਕੀਨੀ ਬਣਾਓ ਕਿ
    @@PRODUCT_NAME@@ ਤੋਂ ਮੌਜੂਦਾ ਸਿਸਟਮ ਪਰੋਫਾਇਲ ਹਟਾ ਦਿੱਤਾ ਹੈ
 
 2) ਤੁਹਾਡੇ ਵਲੋਂ @@PRODUCT_NAME@@ ਨਾਲ ਜੁੜੇ ਸਿਸਟਮਾਂ ਦੀ ਗਿਣਤੀ ਤੁਹਾਡੇ ਖਾਤੇ ਨਾਲ
@@ -625,7 +625,7 @@ deactivated.
 Please note that this is a final notice.  If you do not click through
 this URL within the next 2 days, your Red Hat login will deactivated.
 
-To confirm your email address, please visit the following URL: 
+To confirm your email address, please visit the following URL:
 
 {0}
 
@@ -670,9 +670,9 @@ Thank you for using @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems 
+has expired on your local satellite {0}. After {1} day(s) the systems
 management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information 
+Please contact your regional Red Hat Customer  Service Representative for information
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
@@ -681,9 +681,9 @@ Thank you for using @@PRODUCT_NAME@@.
 ਪਿਆਰੇ @@PRODUCT_NAME@@ ਉਪਭੋਗੀ,
 
 ਇਹ ਈ-ਮੇਲ ਤੁਹਾਨੂੰ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਾਰਟੀਫਿਕੇਟ ਦੀ ਮਿਆਦ ਬਾਰੇ ਭੇਜੀ ਗਈ ਹੈ ਕਿ
-ਇਹ ਤੁਹਾਡੇ ਲੋਕਲ ਸੈਟੇਲਾਈਟ {0} ਉੱਪਰ ਪੁੱਗ ਗਈ ਹੈ। {1} ਦਿਨ ਬਾਅਦ ਸਿਸਟਮ 
-ਪਰਬੰਧਨ ਸੇਵਾਵਾਂ ਜੋ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਰਵਰ ਦੁਆਰਾ ਦਿੱਤੀਆਂ ਸਨ ਰੁਕ ਜਾਣਗੀਆਂ। 
-ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਅਸਲੀ Red Hat ਗਾਹਕ ਸੇਵਾ ਪ੍ਰਤੀਨਿਧੀ ਨਾਲ ਸੰਪਰਕ ਕਰੋ ਕਿ 
+ਇਹ ਤੁਹਾਡੇ ਲੋਕਲ ਸੈਟੇਲਾਈਟ {0} ਉੱਪਰ ਪੁੱਗ ਗਈ ਹੈ। {1} ਦਿਨ ਬਾਅਦ ਸਿਸਟਮ
+ਪਰਬੰਧਨ ਸੇਵਾਵਾਂ ਜੋ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਰਵਰ ਦੁਆਰਾ ਦਿੱਤੀਆਂ ਸਨ ਰੁਕ ਜਾਣਗੀਆਂ।
+ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਅਸਲੀ Red Hat ਗਾਹਕ ਸੇਵਾ ਪ੍ਰਤੀਨਿਧੀ ਨਾਲ ਸੰਪਰਕ ਕਰੋ ਕਿ
 ਸੈਟੇਲਾਈਟ ਸਾਰਟੀਫਿਕੇਟ ਕਿਵੇਂ ਮੁੜ ਨਵਾਂ ਕਰਨਾ ਹੈ।
 
 @@PRODUCT_NAME@@ ਵਰਤਣ ਲਈ ਧੰਨਵਾਦ।
@@ -698,8 +698,8 @@ Thank you for using @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible 
-until your certificate is renewed. Please contact your regional Red Hat 
+has expired on your local satellite {0}. The system management services will be inaccessible
+until your certificate is renewed. Please contact your regional Red Hat
 Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
@@ -709,9 +709,9 @@ Thank you for using @@PRODUCT_NAME@@.
 ਪਿਆਰੇ @@PRODUCT_NAME@@ ਉਪਭੋਗੀ,
 
 ਇਹ ਈ-ਮੇਲ ਤੁਹਾਨੂੰ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਾਰਟੀਫਿਕੇਟ ਦੀ ਮਿਆਦ ਬਾਰੇ ਭੇਜੀ ਗਈ ਹੈ ਕਿ
-ਇਹ ਤੁਹਾਡੇ ਲੋਕਲ ਸੈਟੇਲਾਈਟ {0} ਉੱਪਰ ਪੁੱਗ ਗਈ ਹੈ। {1} ਦਿਨ ਬਾਅਦ ਸਿਸਟਮ 
-ਪਰਬੰਧਨ ਸੇਵਾਵਾਂ ਜੋ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਰਵਰ ਦੁਆਰਾ ਦਿੱਤੀਆਂ ਸਨ ਰੁਕ ਜਾਣਗੀਆਂ। 
-ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਅਸਲੀ Red Hat ਗਾਹਕ ਸੇਵਾ ਪ੍ਰਤੀਨਿਧੀ ਨਾਲ ਸੰਪਰਕ ਕਰੋ ਕਿ 
+ਇਹ ਤੁਹਾਡੇ ਲੋਕਲ ਸੈਟੇਲਾਈਟ {0} ਉੱਪਰ ਪੁੱਗ ਗਈ ਹੈ। {1} ਦਿਨ ਬਾਅਦ ਸਿਸਟਮ
+ਪਰਬੰਧਨ ਸੇਵਾਵਾਂ ਜੋ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਰਵਰ ਦੁਆਰਾ ਦਿੱਤੀਆਂ ਸਨ ਰੁਕ ਜਾਣਗੀਆਂ।
+ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਅਸਲੀ Red Hat ਗਾਹਕ ਸੇਵਾ ਪ੍ਰਤੀਨਿਧੀ ਨਾਲ ਸੰਪਰਕ ਕਰੋ ਕਿ
 ਸੈਟੇਲਾਈਟ ਸਾਰਟੀਫਿਕੇਟ ਕਿਵੇਂ ਮੁੜ ਨਵਾਂ ਕਰਨਾ ਹੈ।
 
 @@PRODUCT_NAME@@ ਵਰਤਣ ਲਈ ਧੰਨਵਾਦ।

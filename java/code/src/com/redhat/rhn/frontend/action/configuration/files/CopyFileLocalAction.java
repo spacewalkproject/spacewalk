@@ -35,7 +35,7 @@ public class CopyFileLocalAction extends BaseCopyConfigFileAction {
         User user = rctxIn.getLoggedInUser();
         ConfigFile file = ConfigActionHelper.getFile(rctxIn.getRequest());
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        return cm.listSystemsForFileCopy(user, file.getConfigFileName().getId(), 
+        return cm.listSystemsForFileCopy(user, file.getConfigFileName().getId(),
                 ConfigChannelType.local(), pcIn);
     }
 
@@ -45,11 +45,11 @@ public class CopyFileLocalAction extends BaseCopyConfigFileAction {
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_SYSTEMS;
     }
-    
+
     protected String getLabel() {
         return ConfigChannelType.local().getLabel();
     }
-    
+
     protected String getType() {
         return BaseCopyConfigFileAction.LOCAL_TYPE;
     }

@@ -21,7 +21,7 @@ package com.redhat.rhn.common.db.datasource;
 import com.redhat.rhn.common.RhnRuntimeException;
 
 /**
- * Thrown if the column to map driving query results to elaborator results can't be 
+ * Thrown if the column to map driving query results to elaborator results can't be
  * found in either the driving query or the elaborator.
  * <p>
 
@@ -47,8 +47,8 @@ public class MapColumnNotFoundException extends RhnRuntimeException  {
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public MapColumnNotFoundException(String message ,   Throwable cause) {

@@ -55,20 +55,20 @@ import com.redhat.rhn.manager.system.SystemManager;
  * @version $Rev$
  */
 abstract class FormDispatcher extends RhnAction {
-    
+
     static final String AFFECTED_SYSTEMS = "affectedSystems";
-    
+
     /**
      * ${@inheritDoc}
      */
     public ActionForward execute(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        
+
         RequestContext context = new RequestContext(request);
-        
+
         if (context.hasParam(RequestContext.DISPATCH)) {
             return commitAction(mapping, form, request, response);
         }
@@ -80,29 +80,29 @@ abstract class FormDispatcher extends RhnAction {
         }
         return setupAction(mapping, form, request, response);
     }
-    
+
     protected abstract ActionForward setupAction(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception;
-    
+
     protected abstract ActionForward confirmAction(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception;
-    
+
     protected abstract ActionForward commitAction(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception;
-    
+
     protected abstract ActionForward affectedSystemsAction(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception;
 }
 
@@ -120,11 +120,11 @@ public class TrustAction extends FormDispatcher {
      * ${@inheritDoc}
      */
     protected ActionForward setupAction(
-        ActionMapping mapping, 
+        ActionMapping mapping,
         ActionForm form,
-        HttpServletRequest request, 
+        HttpServletRequest request,
         HttpServletResponse response) throws Exception {
-        
+
         RequestContext context = new RequestContext(request);
         RhnListSetHelper helper = new RhnListSetHelper(request);
         User user = context.getLoggedInUser();
@@ -154,7 +154,7 @@ public class TrustAction extends FormDispatcher {
         request.setAttribute("org", theOrg);
         request.setAttribute(DATA_SET, dataSet);
         request.setAttribute(
-            ListTagHelper.PARENT_URL, 
+            ListTagHelper.PARENT_URL,
             request.getRequestURI() + "?oid=" + oid);
 
         ListTagHelper.bindSetDeclTo(LIST_NAME, RHNSET, request);
@@ -175,7 +175,7 @@ public class TrustAction extends FormDispatcher {
         List<Org> list = new ArrayList<Org>();
         Set<Org> myTrusted = theOrg.getTrustedOrgs();
         for (OrgTrust trust : getOrgs(theOrg)) {
-            if (set.contains(trust.getId().longValue()) && 
+            if (set.contains(trust.getId().longValue()) &&
                 !myTrusted.contains(trust.getOrg())) {
                 list.add(trust.getOrg());
             }
@@ -194,14 +194,14 @@ public class TrustAction extends FormDispatcher {
         }
         return list;
     }
-    
+
     @SuppressWarnings("unchecked")
     protected ActionForward confirmAction(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        
+
         RequestContext context = new RequestContext(request);
         RhnListSetHelper helper = new RhnListSetHelper(request);
         User user = context.getLoggedInUser();
@@ -209,9 +209,9 @@ public class TrustAction extends FormDispatcher {
         Long oid = context.getParamAsLong(RequestContext.ORG_ID);
         Org theOrg = OrgFactory.lookupById(oid);
         helper.updateSet(set, LIST_NAME);
-        List<OrgTrust> removed = new ArrayList<OrgTrust>();        
+        List<OrgTrust> removed = new ArrayList<OrgTrust>();
         for (Org org : getRemoved(theOrg, set)) {
-            DataResult<Map> dr = 
+            DataResult<Map> dr =
                 SystemManager.subscribedInOrgTrust(theOrg.getId(), org.getId());
             if (dr.size() == 0) {
                 continue;
@@ -222,25 +222,25 @@ public class TrustAction extends FormDispatcher {
                 trust.getSubscribed().add(sid);
             }
             removed.add(trust);
-        }        
+        }
         if (removed.size() == 0) {
             return commitAction(mapping, form, request, response);
         }
         request.setAttribute("org", theOrg);
         request.setAttribute("removed", removed);
         request.setAttribute(
-                ListTagHelper.PARENT_URL, 
+                ListTagHelper.PARENT_URL,
                 request.getRequestURI() + "?oid=" + oid);
         return mapping.findForward("confirm");
     }
-    
+
     @SuppressWarnings("unchecked")
     protected ActionForward commitAction(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        
+
         RequestContext context = new RequestContext(request);
         RhnListSetHelper helper = new RhnListSetHelper(request);
         User user = context.getLoggedInUser();
@@ -248,11 +248,11 @@ public class TrustAction extends FormDispatcher {
         Long oid = context.getParamAsLong(RequestContext.ORG_ID);
         Org theOrg = OrgFactory.lookupById(oid);
         helper.updateSet(set, LIST_NAME);
-        
+
         for (Org added : getAdded(theOrg, set)) {
             theOrg.addTrust(added);
         }
-        
+
         User orgUser = UserFactory.findRandomOrgAdmin(theOrg);
         for (Org removed : getRemoved(theOrg, set)) {
             User orgAdmin = UserFactory.findRandomOrgAdmin(removed);
@@ -260,7 +260,7 @@ public class TrustAction extends FormDispatcher {
                 SystemManager.subscribedInOrgTrust(theOrg.getId(), removed.getId());
 
               for (Map item : dr) {
-                Long sid = (Long)item.get("id");       
+                Long sid = (Long)item.get("id");
                 Server s = ServerFactory.lookupById(sid);
                 Long cid = (Long)item.get("cid");
                 Channel channel = ChannelFactory.lookupById(cid);
@@ -285,7 +285,7 @@ public class TrustAction extends FormDispatcher {
             }
             theOrg.removeTrust(removed);
         }
-        
+
         OrgFactory.save(theOrg);
         createSuccessMessage(request, "org.trust.updated", theOrg.getName());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
@@ -295,14 +295,14 @@ public class TrustAction extends FormDispatcher {
         ActionForward success = mapping.findForward("success");
         return strutsDelegate.forwardParams(success, params);
     }
-        
+
     @SuppressWarnings("unchecked")
     protected ActionForward affectedSystemsAction(
-            ActionMapping mapping, 
+            ActionMapping mapping,
             ActionForm form,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        
+
         Long userorg =
             Long.valueOf(request.getParameter(RequestContext.ORG_ID));
         Org usrOrg = OrgFactory.lookupById(userorg);
@@ -328,7 +328,7 @@ public class TrustAction extends FormDispatcher {
         request.setAttribute("sysA", sysA);
         request.setAttribute("sysB", sysB);
         request.setAttribute(
-                ListTagHelper.PARENT_URL, 
+                ListTagHelper.PARENT_URL,
                 request.getRequestURI() + "?oid=" + orgA);
         return mapping.findForward("affectedsystems");
     }

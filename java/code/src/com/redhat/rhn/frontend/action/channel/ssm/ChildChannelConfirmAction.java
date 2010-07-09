@@ -51,9 +51,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class ChildChannelConfirmAction extends RhnAction implements Listable {
-    
+
     private final Log log = LogFactory.getLog(this.getClass());
-    
+
     /**
      * {@inheritDoc}
      */
@@ -63,38 +63,38 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
             HttpServletResponse response) {
 
         long overallStart;
-        
+
         overallStart = System.currentTimeMillis();
 
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
         DynaActionForm daForm = (DynaActionForm)form;
-        
+
         // First, find the channels the user chose to operate on, as stored
         // in an RhnSet by ChildChannelAction
         List<Channel> chanSubList = new ArrayList<Channel>();
         List<Channel> chanUnsubList = new ArrayList<Channel>();
-        
+
         findChannelsFromSet(user, chanSubList, chanUnsubList);
-        
-        
+
+
         chanSubList = filterChannels(chanSubList, user);
         Map<Long, ChannelActionDAO> sysSubList = ChannelManager.filterChildSubscriptions(
                 RhnSetDecl.SYSTEMS.getLabel(),  chanSubList, chanUnsubList, user);
-        
-        //If we are going to go over our subscription limit, 
+
+        //If we are going to go over our subscription limit,
         //    we need to not try to subscribe as many
         Map<Long, ChannelActionDAO> subs =
             SsmManager.verifyChildEntitlements(user, sysSubList, chanSubList);
-        
+
         List list = new ArrayList();
         list.addAll(subs.values());
         request.setAttribute("data", list);
 
-        
+
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
-        
+
         ActionForward result;
         if (isSubmitted(daForm)) {
 
@@ -110,7 +110,7 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
             SsmChangeChannelSubscriptionsEvent event =
                 new SsmChangeChannelSubscriptionsEvent(user, subs.values(), operationId);
             MessageQueue.publish(event);
-            
+
             result = mapping.findForward("success");
         }
         else {
@@ -118,12 +118,12 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
         }
 
         log.debug("Overall time to run: " + (System.currentTimeMillis() - overallStart));
-        
+
         return result;
     }
 
-    
-    
+
+
     protected List<Channel> filterChannels(Collection<Channel> chans, User user) {
         List<Channel> newChannels = new ArrayList<Channel>();
         for (Channel c : chans) {
@@ -132,7 +132,7 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
                 continue;
             }
             // Verify the user roles, caching the role for the channel
-            Boolean hasAcceptableRole = 
+            Boolean hasAcceptableRole =
                     ChannelManager.verifyChannelSubscribe(user, c.getId());
             if (hasAcceptableRole) {
                 newChannels.add(c);
@@ -140,7 +140,7 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
         }
         return newChannels;
     }
-    
+
     //
     // Build the list of channels we're going to unsubscribe systems from - per system,
     // we only unsubscribe if the system currently IS subscribed...
@@ -150,7 +150,7 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
     //     If system-subscribed-to-channel:
     //       Channel chanel = getChannel(id)
     //       allowed-unsubs.get(system).add(channel)
-    // Extract the list of subscribe and unsubscribed channels from the RhNSet that 
+    // Extract the list of subscribe and unsubscribed channels from the RhNSet that
     // was saved from the child-list page
     protected void findChannelsFromSet(User u, List<Channel> subs, List<Channel> unsubs) {
         RhnSet cset = RhnSetDecl.SSM_CHANNEL_LIST.get(u);
@@ -170,7 +170,7 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
 
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public List getResult(RequestContext context) {

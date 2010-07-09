@@ -24,7 +24,7 @@
                     arg0="${beanarg}" />
     </p>
   </div>
-  
+
 <form method="post" name="rhn_list" action="/rhn/systems/ssm/config/ChannelSystems.do?ccid=${param.ccid}">
   <rhn:list pageList="${requestScope.pageList}"
             noDataText="ssmchannelsystems.jsp.noSystems">
@@ -35,7 +35,7 @@
              alt="<bean:message key='system.common.systemAlt' />" />
         ${current.name}
       </rhn:column>
-      
+
       <rhn:column header="ssmchannelsystems.jsp.files">
         <c:choose>
           <c:when test="${current.configFileCount == 1}">
@@ -48,7 +48,7 @@
       </rhn:column>
     </rhn:listdisplay>
   </rhn:list>
-</form>  
-  
+</form>
+
 </body>
 </html>

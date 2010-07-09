@@ -31,18 +31,18 @@ import org.apache.struts.action.DynaActionForm;
  * @version $Rev: 1 $
  */
 public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
-    
+
     private Server s;
-    
+
     public void setUp() throws Exception {
         super.setUp();
         setRequestPathInfo("/systems/Search");
         user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         s = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        
+
     }
-    
+
     /**
      * This test tests multiple search results. The system search page, if
      * only one result is found, will forward you directly to that
@@ -65,7 +65,7 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(SystemSearchSetupAction.SEARCH_STRING, "redhat");
         addRequestParameter(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
-        addRequestParameter(SystemSearchSetupAction.VIEW_MODE, 
+        addRequestParameter(SystemSearchSetupAction.VIEW_MODE,
         "systemsearch_name_and_description");
         actionPerform();
         verifyForward("default");
@@ -76,9 +76,9 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getAttribute(SystemSearchSetupAction.WHERE_TO_SEARCH));
         assertNotNull(request.getAttribute(SystemSearchSetupAction.SEARCH_STRING));
     }
-    
+
     /**
-     * This test is the case where only one system is found. It verfies 
+     * This test is the case where only one system is found. It verfies
      * that the user is redirected to that system's SDC page.
      * @throws Exception
      */
@@ -93,7 +93,7 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(SystemSearchSetupAction.SEARCH_STRING, s.getName());
         addRequestParameter(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
-        addRequestParameter(SystemSearchSetupAction.VIEW_MODE, 
+        addRequestParameter(SystemSearchSetupAction.VIEW_MODE,
         "systemsearch_name_and_description");
         actionPerform();
         System.err.println("getMockResponse() = " + getMockResponse());
@@ -101,11 +101,11 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
                 getMockResponse().getStatusCode());
         assertTrue(getMockResponse().getStatusCode() == 302);
     }
-    
+
     public void testQueryWithoutResults() throws Exception {
         return;
     }
-    
+
     /**
      * This test verfies that if a bad view mode is passed in by the user,
      * the system search handles and catches any underlying exceptions
@@ -117,33 +117,33 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(SystemSearchSetupAction.SEARCH_STRING, s.getName());
         addRequestParameter(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
-        addRequestParameter(SystemSearchSetupAction.VIEW_MODE, 
+        addRequestParameter(SystemSearchSetupAction.VIEW_MODE,
         "all_your_systems_are_belong_to_us");
-        actionPerform(); 
+        actionPerform();
     }
-    
+
     public void testNoSubmit() throws Exception {
         actionPerform();
         DynaActionForm formIn = (DynaActionForm) getActionForm();
         assertNotNull(formIn.get(SystemSearchSetupAction.WHERE_TO_SEARCH));
         assertNotNull(request.getAttribute(SystemSearchSetupAction.VIEW_MODE));
     }
-    
+
     public void testAlphaSubmitForNumericField() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(SystemSearchSetupAction.SEARCH_STRING, "abc");
         addRequestParameter(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
-        addRequestParameter(SystemSearchSetupAction.VIEW_MODE, 
+        addRequestParameter(SystemSearchSetupAction.VIEW_MODE,
                             "systemsearch_cpu_mhz_lt");
         actionPerform();
         verifyActionErrors(new String[] { "systemsearch.errors.numeric" });
     }
-    
+
     public void testSmallAlphaSubmitForNumericField() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(SystemSearchSetupAction.SEARCH_STRING, "a");
         addRequestParameter(SystemSearchSetupAction.WHERE_TO_SEARCH, "all");
-        addRequestParameter(SystemSearchSetupAction.VIEW_MODE, 
+        addRequestParameter(SystemSearchSetupAction.VIEW_MODE,
                             "systemsearch_cpu_mhz_lt");
         actionPerform();
         verifyActionErrors(new String[] {"systemsearch.errors.numeric"});

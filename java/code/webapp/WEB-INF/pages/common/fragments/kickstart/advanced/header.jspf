@@ -5,11 +5,11 @@
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
                imgAlt="system.common.kickstartAlt"
                deletionUrl="/rhn/kickstart/KickstartDeleteAdvanced.do?ksid=${ksdata.id}"
-               deletionType="kickstart"  
+               deletionType="kickstart"
                cloneUrl="/rhn/kickstart/KickstartCloneAdvanced.do?ksid=${ksdata.id}"
                cloneType="kickstart">
   <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.label)}"/>
 </rhn:toolbar>
-<rhn:dialogmenu mindepth="0" maxdepth="1" 
-	definition="/WEB-INF/nav/kickstart_raw_mode.xml" 
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+	definition="/WEB-INF/nav/kickstart_raw_mode.xml"
 	renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

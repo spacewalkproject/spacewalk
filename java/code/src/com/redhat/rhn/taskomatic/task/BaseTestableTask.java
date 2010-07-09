@@ -19,11 +19,11 @@ import org.quartz.JobExecutionException;
 
 /**
  * Base class for all Taskomatic tasks
- * 
+ *
  * @version $Rev $
  */
 public abstract class BaseTestableTask implements TestableTask {
-    
+
     /**
      * {@inheritDoc}
      */

@@ -66,22 +66,22 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
         GUEST_ACTIONS.put(
                 localization.getMessage("virtualguestslist.jsp.restartsystem"), "restart");
         GUEST_ACTIONS.put(
-                localization.getMessage("virtualguestslist.jsp.shutdownsystem"), 
+                localization.getMessage("virtualguestslist.jsp.shutdownsystem"),
                 "shutdown");
         GUEST_ACTIONS.put(
                 localization.getMessage("virtualguestslist.jsp.deletesystem"), "delete");
-        
+
         GUEST_SETTING_ACTIONS.put(
                 localization.getMessage("virtualguestslist.jsp.setguestvcpus"), "setVcpu");
         GUEST_SETTING_ACTIONS.put(
-                localization.getMessage("virtualguestslist.jsp.setguestmemory"), 
+                localization.getMessage("virtualguestslist.jsp.setguestmemory"),
                 "setMemory");
     }
 
     /**
      * Called when the Apply Action button is pressed, determines the path
      * of execution based on the action options dropdown.
-     * 
+     *
      * @param mapping ActionMapping
      * @param formIn ActionForm
      * @param request ServletRequest
@@ -92,11 +92,11 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
                                          ActionForm formIn,
                                          HttpServletRequest request,
                                          HttpServletResponse response) {
-        String guestAction = request.getParameter("guestAction"); 
-        String actionToTake = (String)GUEST_ACTIONS.get(guestAction); 
+        String guestAction = request.getParameter("guestAction");
+        String actionToTake = (String)GUEST_ACTIONS.get(guestAction);
         return virtualAction(mapping, formIn, request, response, actionToTake);
     }
-    
+
     /**
      * Apply requested settings change to the selected guests.
      * @param mapping ActionMapping
@@ -110,11 +110,11 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
         String guestSettingToModify = request.getParameter("guestSettingToModify");
-        String actionToTake = (String)GUEST_SETTING_ACTIONS.get(guestSettingToModify); 
-        
+        String actionToTake = (String)GUEST_SETTING_ACTIONS.get(guestSettingToModify);
+
         return virtualAction(mapping, formIn, request, response, actionToTake);
     }
-    
+
     /**
      * Performs the virtual action
      * @param mapping ActionMapping
@@ -133,20 +133,20 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
         params = makeParamMap(formIn, request);
-        ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, 
+        ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this,
                 (DynaActionForm)formIn);
         if (!errors.isEmpty()) {
             strutsDelegate.saveMessages(request, errors);
             return strutsDelegate.forwardParams(mapping.findForward("default"), params);
         }
-        
+
         RhnSet set = updateSet(request);
         //if they chose no systems, return to the same page with a message
         if (set.isEmpty()) {
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("virtualsystems.none"));
-            
+
             strutsDelegate.saveMessages(request, msg);
             return strutsDelegate.forwardParams(mapping.findForward("default"), params);
         }
@@ -159,7 +159,7 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
         if (guestSettingValue != null) {
             params.put("guestSettingValue", guestSettingValue);
         }
-        
+
         List<ValidatorError> validationErrors = new LinkedList<ValidatorError>();
         List<ValidatorWarning> validationWarnings = new LinkedList<ValidatorWarning>();
         if (dispatchAction.equals("setVcpu")) {
@@ -178,9 +178,9 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
             while (it.hasNext()) {
                 RhnSetElement element = (RhnSetElement)it.next();
                 virtInstanceIds.add(element.getElement());
-                
+
             }
-            
+
             ValidatorResult result = SystemManager.validateGuestMemorySetting(
                     virtInstanceIds, Integer.parseInt(guestSettingValue));
             validationErrors.addAll(result.getErrors());
@@ -197,7 +197,7 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
         return strutsDelegate.forwardParams(mapping.findForward("confirm"), params);
     }
 
-    protected DataResult getDataResult(User user, ActionForm form, 
+    protected DataResult getDataResult(User user, ActionForm form,
             HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
         Long sid = ctx.getRequiredParam(RequestContext.SID);
@@ -210,13 +210,13 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
 
         return dr;
     }
-    
+
     protected void processMethodKeys(Map map) {
         map.put("virtualguestslist.jsp.applyaction", "applyAction");
         map.put("virtualguestslist.jsp.applychanges", "applySettings");
     }
-    
-    protected void processParamMap(ActionForm formIn, 
+
+    protected void processParamMap(ActionForm formIn,
             HttpServletRequest request, Map params) {
         RequestContext ctx = new RequestContext(request);
         Long sid = ctx.getRequiredParam(RequestContext.SID);

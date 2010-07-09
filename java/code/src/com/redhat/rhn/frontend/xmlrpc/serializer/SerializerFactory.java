@@ -29,24 +29,24 @@ import redstone.xmlrpc.XmlRpcCustomSerializer;
 
 public class SerializerFactory {
     private List<XmlRpcCustomSerializer> serializers;
-    
+
     private static final String INTERFACE_NAME =
         "redstone.xmlrpc.XmlRpcCustomSerializer";
-    
+
     /** private constructor */
     public SerializerFactory() {
         serializers = new ArrayList<XmlRpcCustomSerializer>();
         initialize();
     }
-    
+
     /**
-     * 
+     *
      * @return a list of serializers.
      */
     public List getSerializers() {
         return serializers;
     }
-    
+
     private void initialize() {
         String[] excludes = new String[1];
         excludes[0] = "Test";
@@ -63,7 +63,7 @@ public class SerializerFactory {
             }
         }
     }
-    
+
     private boolean doesClassImplement(Class clazz, String interfaceName) {
         Class[] interfaces = clazz.getInterfaces();
         boolean found = false;

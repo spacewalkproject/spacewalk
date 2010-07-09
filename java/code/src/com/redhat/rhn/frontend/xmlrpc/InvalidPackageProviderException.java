@@ -38,13 +38,13 @@ public class InvalidPackageProviderException extends FaultException  {
      * Constructor
      * @param label the arch label
      * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
+     * by the Throwable.getCause() method). (A null value is
+     * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     public InvalidPackageProviderException(String label, Throwable cause) {
         super(2349, "invalidPackageProvider" , LocalizationService.getInstance().
-                getMessage("api.package.provider.invalidProvider", 
+                getMessage("api.package.provider.invalidProvider",
                         new Object [] {label}) , cause);
     }
 

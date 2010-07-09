@@ -40,23 +40,23 @@ public class SoftwareEntitlementDetailsAction extends RhnAction {
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         RequestContext requestContext = new RequestContext(request);
-        
-        Long cfid = requestContext.getRequiredParam("cfid");                
+
+        Long cfid = requestContext.getRequiredParam("cfid");
 
         ChannelFamily channelFamily = ChannelFamilyFactory.lookupById(
                 cfid);
-        
+
         List<Channel> channelsPageList = new LinkedList<Channel>(
                 channelFamily.getChannels());
-        
+
         request.setAttribute("entitlementName", channelFamily.getName());
         request.setAttribute("pageList", channelsPageList);
         request.setAttribute("parentUrl", request.getRequestURI());
-        
+
         return mapping.findForward("default");
     }
 }
