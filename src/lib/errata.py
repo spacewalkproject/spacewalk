@@ -188,7 +188,6 @@ def do_errata_details(self, args):
         add_separator = True
 
         print 'Name:       %s' % errata
-        print
         print 'Product:    %s' % details.get('product')
         print 'Type:       %s' % details.get('type')
         print 'Issue Date: %s' % details.get('issue_date')
