@@ -60,7 +60,7 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
         ksession = (KickstartSession)
             session.load(KickstartSession.class, ksession.getId());
         KickstartCleanup j = new KickstartCleanup();
-        j.execute(null, true);
+        j.execute(null);
         session.clear();
         ksession = (KickstartSession)
             session.load(KickstartSession.class, ksession.getId());
@@ -79,7 +79,7 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
         ksession = (KickstartSession)
             session.load(KickstartSession.class, ksession.getId());
         KickstartCleanup j = new KickstartCleanup();
-        j.execute(null, true);
+        j.execute(null);
         session.clear();
         ksession = (KickstartSession)
             session.load(KickstartSession.class, ksession.getId());

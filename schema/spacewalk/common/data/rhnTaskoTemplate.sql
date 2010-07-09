@@ -112,4 +112,11 @@ INSERT INTO rhnTaskoTemplate (id, bunch_id, task_id, ordering, start_if)
                         0,
                         '');
 
+INSERT INTO rhnTaskoTemplate (id, bunch_id, task_id, ordering, start_if)
+             VALUES (rhn_tasko_template_id_seq.nextval,
+                        (SELECT id FROM rhnTaskoBunch WHERE name='kickstart-cleanup-bunch'),
+                        (SELECT id FROM rhnTaskoTask WHERE name='kickstart-cleanup'),
+                        0,
+                        '');
+
 commit;

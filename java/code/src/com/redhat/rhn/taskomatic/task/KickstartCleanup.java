@@ -35,16 +35,14 @@ import java.util.Map;
  * @version $Rev $
  */
 
-public class KickstartCleanup extends SingleThreadedTestableTask {
+public class KickstartCleanup extends RhnJavaJob {
 
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "kickstart_session_check";
 
-    private static Logger logger = Logger.getLogger(KickstartCleanup.class);
-
-    private boolean inTest;
+    private Logger logger = getLogger(KickstartCleanup.class);
 
     /**
      * Primarily a convenience method to make testing easier
@@ -53,16 +51,11 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
      *
      * @throws JobExecutionException Indicates somes sort of fatal error
      */
-    public void execute(JobExecutionContext ctx,
-            boolean testMode) throws JobExecutionException {
+    public void execute(JobExecutionContext ctx) throws JobExecutionException {
         try {
             SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                     TaskConstants.TASK_QUERY_KSCLEANUP_FIND_CANDIDATES);
-            this.inTest = testMode;
             DataResult dr = select.execute(Collections.EMPTY_MAP);
-            if (this.inTest) {
-                assert (dr.size() > 0);
-            }
             if (logger.isDebugEnabled()) {
                 logger.debug("Found " + dr.size() + " entries to process");
             }
@@ -72,9 +65,6 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
             }
 
             Long failedStateId = findFailedStateId();
-            if (this.inTest) {
-                assert (failedStateId != null);
-            }
             if (failedStateId == null) {
                 logger.warn("Failed kickstart state id not found");
                 return;
@@ -109,14 +99,8 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
         Long actionId = (Long) row.get("action_id");
         Long oldServerId = (Long) row.get("old_server_id");
         Long newServerId = (Long) row.get("new_server_id");
-        if (this.inTest) {
-            assert (sessionId != null);
-        }
         if (actionId != null) {
             actionId = findTopmostParentAction(actionId);
-            if (this.inTest) {
-                assert (actionId != null);
-            }
             if (oldServerId != null) {
                 unlinkAction(actionId, oldServerId);
             }
