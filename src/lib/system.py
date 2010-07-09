@@ -599,38 +599,32 @@ def do_system_removepackage(self, args):
 
     package_list = args
 
-
-    # make sure this is cached so we can get the package IDs
-    self.generate_package_cache()
-
     # get all matching package names
+    logging.debug('Finding matching packages') 
     matching_packages = \
-        filter_results(self.all_package_longnames, package_list)
+        filter_results(self.get_package_names(True), package_list)
 
     jobs = {}
     packages_by_id = {}
-    for package in matching_packages:
-        logging.debug('Finding systems with %s' % package)
+    for package_name in matching_packages:
+        logging.debug('Finding systems with %s' % package_name)
 
-        package_id = self.all_package_longnames[package]
-
-        # keep a list of id:name pairs to print later
-        if package_id not in packages_by_id:
-            packages_by_id[package_id] = package
+        package_id = self.get_package_id(package_name)
 
         installed_systems = \
-            self.client.system.listSystemsWithPackage(self.session, 
-                                                      package_id)
+            self.client.system.listSystemsWithPackage(self.session, package_id)
+
+        installed_systems = [ s.get('name') for s in installed_systems ]
        
-        for s in installed_systems:
-            # don't remove from systems we didn't select
-            if s.get('name') not in systems: continue
+        # each system has a list of packages to remove so that only one
+        # API call needs to be made to schedule all the package removals
+        # for each system 
+        for system in systems:
+            if system in installed_systems:
+                if system not in jobs:
+                    jobs[system] = []
 
-            name = s.get('name')
-            if name not in jobs:
-                jobs[name] = []
-
-            jobs[name].append(package_id)
+                jobs[system].append(package_id)
 
     spacer = False
     for system in jobs:
@@ -638,7 +632,7 @@ def do_system_removepackage(self, args):
 
         print '%s:' % system
         for package in jobs[system]:
-            print packages_by_id[package]
+            print self.get_package_name(package)
 
         spacer = True
    

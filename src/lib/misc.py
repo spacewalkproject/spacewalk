@@ -383,8 +383,9 @@ def generate_errata_cache(self, force=False):
 
 
 def clear_package_cache(self):
-    self.all_package_shortnames = {}
-    self.all_package_longnames = {}
+    self.all_packages_short = {}
+    self.all_packages = {}
+    self.all_packages_by_id = {}
     self.package_cache_expire = datetime.now()
 
 def generate_package_cache(self, force=False):
@@ -402,24 +403,32 @@ def generate_package_cache(self, force=False):
             self.client.channel.software.listAllPackages(self.session, c)
 
         for p in packages:
-            if not p.get('name') in self.all_package_shortnames:
-                self.all_package_shortnames[p.get('name')] = ''
+            if not p.get('name') in self.all_packages_short:
+                self.all_packages_short[p.get('name')] = ''
 
             longname = build_package_names(p)
 
-            if not longname in self.all_package_longnames:
-                self.all_package_longnames[longname] = p.get('id')
+            if not longname in self.all_packages:
+                self.all_packages[longname] = p.get('id')
+   
+    # keep a reverse dictionary so we can lookup package names by ID 
+    self.all_packages_by_id = \
+        dict( (v, k) for k, v in self.all_packages.iteritems() )
 
     self.package_cache_expire = \
         datetime.now() + timedelta(seconds=self.PACKAGE_CACHE_TTL)
 
     # store the cache to disk to speed things up
     save_cache(self.packages_short_cache_file,
-                    self.all_package_shortnames, 
+                    self.all_packages_short, 
                     self.package_cache_expire)
     
     save_cache(self.packages_long_cache_file, 
-                    self.all_package_longnames, 
+                    self.all_packages, 
+                    self.package_cache_expire)
+
+    save_cache(self.packages_by_id_cache_file, 
+                    self.all_packages_by_id, 
                     self.package_cache_expire)
 
 
@@ -428,19 +437,23 @@ def get_package_names(self, longnames=False):
     self.generate_package_cache()
 
     if longnames:
-        return self.all_package_longnames.keys()
+        return self.all_packages.keys()
     else:
-        return self.all_package_shortnames
+        return self.all_packages_short
 
 
 def get_package_id(self, name):
-    if name in self.all_package_longnames:
-        return self.all_package_longnames[name]
+    try:
+        return self.all_packages[name]
+    except IndexError:
+        return
 
 
 def get_package_name(self, package_id):
-    revdic = dict( (v, k) for k, v in self.all_package_longnames.iteritems() )
-    return revdic[package_id]
+    try:
+        return self.all_packages_by_id[package_id]
+    except IndexError:
+        return
 
 
 def clear_system_cache(self):

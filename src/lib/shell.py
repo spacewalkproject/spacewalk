@@ -121,6 +121,8 @@ Type: 'help' for a list of commands
         self.system_cache_file = os.path.join(conf_dir, 'systems')
         self.errata_cache_file = os.path.join(conf_dir, 'errata')
         self.packages_long_cache_file = os.path.join(conf_dir, 'packages_long')
+        self.packages_by_id_cache_file = \
+            os.path.join(conf_dir, 'packages_by_id')
         self.packages_short_cache_file = \
             os.path.join(conf_dir, 'packages_short')
 
@@ -135,13 +137,17 @@ Type: 'help' for a list of commands
         (self.all_errata, self.errata_cache_expire) = \
             load_cache(self.errata_cache_file)
       
-        # load self.all_package_shortnames from disk 
-        (self.all_package_shortnames, self.package_cache_expire) = \
+        # load self.all_packages_short from disk 
+        (self.all_packages_short, self.package_cache_expire) = \
             load_cache(self.packages_short_cache_file)
         
-        # load self.all_package_longnames from disk 
-        (self.all_package_longnames, self.package_cache_expire) = \
+        # load self.all_packages from disk 
+        (self.all_packages, self.package_cache_expire) = \
             load_cache(self.packages_long_cache_file)
+
+        # load self.all_packages_by_id from disk 
+        (self.all_packages_by_id, self.package_cache_expire) = \
+            load_cache(self.packages_by_id_cache_file)
         
         self.session_file = os.path.join(conf_dir, 'session')
         self.history_file = os.path.join(conf_dir, 'history')

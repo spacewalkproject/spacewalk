@@ -44,9 +44,9 @@ def do_package_details(self, args):
         if add_separator: print self.SEPARATOR
         add_separator = True
 
-        if package in self.all_package_longnames:
-            package_id = self.all_package_longnames[package]
-        else:
+        package_id = self.get_package_id(package)
+
+        if not package_id:
             logging.warning('%s is not a valid package' % package)
             continue
 
@@ -113,7 +113,7 @@ def do_package_search(self, args, doreturn = False):
         # the APIs for searching; this is done because the fuzzy
         # search on the server gives a lot of garbage back
         self.generate_package_cache()
-        packages = filter_results(self.all_package_longnames.keys(),
+        packages = filter_results(self.get_package_names(True),
                                   [ args ], search = True)
 
     if doreturn:
