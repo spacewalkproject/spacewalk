@@ -559,7 +559,7 @@ is
                     and cfm.channel_family_id = family_id_in
                 order by sc.modified desc
                 )
-            where rownum <= quantity_in;                
+            where rownum <= quantity_in;
 
         -- Virtual servers from a certain family belonging to a speicifc
         -- host that are consuming physical system slots over the limit.
@@ -578,7 +578,17 @@ is
                     and sg.group_type = group_type_in
                 order by sgm.modified desc
                 )
-            where rownum <= quantity_in;                
+            where rownum <= quantity_in;
+        -- Get the orgs of Virtual guests
+        -- Since they may belong to different orgs
+        cursor virt_guest_orgs  is
+                select  distinct (s.org_id)
+                from rhnServer s
+                    inner join  rhnVirtualInstance vi on vi.virtual_system_id = s.id
+                where
+                    vi.host_system_id = server_id_in 
+                    and s.org_id <> (select s1.org_id from rhnServer s1 where s1.id = vi.host_system_id) ;
+
 
         org_id_val number;
         max_members_val number;
@@ -611,14 +621,14 @@ is
                 UPDATE rhnServerChannel sc set sc.is_fve = 'Y'
                 where sc.server_id in (
                        select virtual_system_id from (
-                            select rownum, vi.virtual_system_id,  max_members
+                            select rownum, vi.virtual_system_id,  sfc.max_members - sfc.current_members as free_slots
                             from rhnServerFveCapable sfc
                                 inner join rhnVirtualInstance vi on vi.virtual_system_id = sfc.server_id
                             where vi.host_system_id = server_id_in
                                   and sfc.channel_family_id = family.channel_family_id
                               order by vi.modified desc
                           )
-                        where rownum <=  max_members
+                        where rownum <=  free_slots
                 );
             else
             -- if the host_server has virt
@@ -687,6 +697,13 @@ is
             -- what's the difference of doing this vs the unavoidable set_family_count above?
             rhn_channel.update_family_counts(family.channel_family_id,
                                              org_id_val);
+
+            -- It is possible that the guests belong  to a different org than the host
+            -- so we are going to update the family counts in the guests orgs also
+            for org in virt_guest_orgs loop
+                    rhn_channel.update_family_counts(family.channel_family_id,
+                                             org.org_id);
+            end loop;
         end loop;
 
         for a_group_type in group_types loop
