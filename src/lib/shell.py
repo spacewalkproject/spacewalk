@@ -49,7 +49,7 @@ class SpacewalkShell(Cmd):
     PACKAGE_CACHE_TTL = 3600
     ERRATA_CACHE_TTL = 3600
 
-    SEPARATOR = '\n--------------------\n'
+    SEPARATOR = '\n' + '#' * 30 + '\n'
 
     ENTITLEMENTS = ['provisioning_entitled',
                     'enterprise_entitled',
