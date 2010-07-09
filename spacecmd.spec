@@ -24,25 +24,25 @@ spacecmd is a command-line interface to Spacewalk and Satellite servers
 # nothing to build
 
 %install
-rm -rf %{buildroot}
+%{__rm} -rf %{buildroot}
 
-mkdir -p %{buildroot}/%{_bindir}
-install -m0755 src/bin/spacecmd %{buildroot}/%{_bindir}/
+%{__mkdir_p} %{buildroot}/%{_bindir}
+%{__install} -m0755 src/bin/spacecmd %{buildroot}/%{_bindir}/
 
-mkdir -p %{buildroot}/%{_sysconfdir}/bash_completion.d
-install -m0644 src/misc/spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_completion.d/spacecmd
+%{__mkdir_p} %{buildroot}/%{_sysconfdir}/bash_completion.d
+%{__install} -m0644 src/misc/spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_completion.d/spacecmd
 
-mkdir -p %{buildroot}/%{rhnroot}/spacecmd
-install -m0644 src/lib/*.py %{buildroot}/%{rhnroot}/spacecmd/
+%{__mkdir_p} %{buildroot}/%{rhnroot}/spacecmd
+%{__install} -m0644 src/lib/*.py %{buildroot}/%{rhnroot}/spacecmd/
 
-mkdir -p %{buildroot}/%{_mandir}/man1
-gzip -c src/doc/spacecmd.1 > %{buildroot}/%{_mandir}/man1/spacecmd.1.gz
+%{__mkdir_p} %{buildroot}/%{_mandir}/man1
+%{__gzip} -c src/doc/spacecmd.1 > %{buildroot}/%{_mandir}/man1/spacecmd.1.gz
 
 touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
-chmod 0644 %{buildroot}/%{rhnroot}/spacecmd/__init__.py
+%{__chmod} 0644 %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 
 %clean
-rm -rf %{buildroot}
+%{__rm} -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
