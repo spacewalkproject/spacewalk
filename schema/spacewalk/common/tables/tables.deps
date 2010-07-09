@@ -244,7 +244,6 @@ rhn_contact_methods            :: web_contact rhn_method_types rhn_pager_types \
                                   rhn_sat_cluster rhn_schedules rhn_time_zone_names \
                                   rhn_notification_formats rhnTimezone rhnUserInfo
 rhn_host_check_suites          :: rhn_check_suites rhn_host_probe 
-views/rhn_host_monitoring      :: rhn_server_monitoring_info rhn_interface_monitoring
 rhn_host_probe                 :: rhnServer rhn_probe rhn_sat_cluster 
 rhn_interface_monitoring       :: rhnServerNetInterface
 rhn_ll_netsaint                :: rhn_sat_cluster 
