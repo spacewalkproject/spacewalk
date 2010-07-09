@@ -191,40 +191,61 @@ def parse_time_input(userinput = ''):
     if userinput == '' or re.match('now', userinput, re.I):
         timestamp = datetime.now()
 
-    # handle YYYMMDD times
+    # handle YYYMMDDHHMM times
     if not timestamp:
-        match = re.match('^(\d{4})(\d{2})(\d{2})$', userinput)
-
+        match = re.match('^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?$', userinput)
+       
         if match:
-            timestamp = time.strptime('%s%s%s' % (match.group(1),
-                                                  match.group(2),
-                                                  match.group(3)),
-                                      '%Y%m%d')
-
-            # 2.5 has a nice little datetime.strptime() function...
-            timestamp = datetime(*(timestamp)[0:7])
- 
+            format = '%Y%m%d'
+    
+            if len(match.groups()) == 3:
+                # YYYYMMDD
+                timestamp = time.strptime('%s%s%s' % (match.group(1),
+                                                      match.group(2),
+                                                      match.group(3)),
+                                          format)
+            if len(match.groups()) == 4:
+                # YYYYMMDDHH
+                format += '%H'
+    
+                timestamp = time.strptime('%s%s%s%s' % (match.group(1),
+                                                        match.group(2),
+                                                        match.group(3),
+                                                        match.group(4)),
+                                          format)
+            elif len(match.groups()) == 5:
+                # YYYYMMDDHHMM
+                format += '%H%M'
+    
+                timestamp = time.strptime('%s%s%s%s%s' % (match.group(1),
+                                                          match.group(2),
+                                                          match.group(3),
+                                                          match.group(4),
+                                                          match.group(5)),
+                                          format)
+    
+            if timestamp:
+                # 2.5 has a nice little datetime.strptime() function...
+                timestamp = datetime(*(timestamp)[0:7])
+     
     # handle time differences (e.g., +1m, +2h) 
     if not timestamp:
         match = re.search('^\+?(\d+)(s|m|h|d)$', userinput, re.I)
 
-        if not match or len(match.groups()) != 2:
-            logging.error('Invalid time provided')
-            return
+        if match and len(match.groups()) == 2:
+            number = int(match.group(1))
+            unit = match.group(2)
 
-        number = int(match.group(1))
-        unit = match.group(2)
+            if re.match('s', unit, re.I):
+                delta = timedelta(seconds=number)
+            elif re.match('m', unit, re.I):
+                delta = timedelta(minutes=number)
+            elif re.match('h', unit, re.I):
+                delta = timedelta(hours=number)
+            elif re.match('d', unit, re.I):
+                delta = timedelta(days=number)
 
-        if re.match('s', unit, re.I):
-            delta = timedelta(seconds=number)
-        elif re.match('m', unit, re.I):
-            delta = timedelta(minutes=number)
-        elif re.match('h', unit, re.I):
-            delta = timedelta(hours=number)
-        elif re.match('d', unit, re.I):
-            delta = timedelta(days=number)
-
-        timestamp = datetime.now() + delta
+            timestamp = datetime.now() + delta
 
     if timestamp:
         return xmlrpclib.DateTime(timestamp.timetuple())
