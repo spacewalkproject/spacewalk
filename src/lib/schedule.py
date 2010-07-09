@@ -20,7 +20,70 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+from operator import itemgetter
 from spacecmd.utils import *
+
+#XXX: list*Actions needs to return a struct with the number of
+#     completed/failed/pending systems so we don't need to make
+#     additional API calls to get those numbers
+def print_schedule_summary(self, type, args):
+    args = parse_arguments(args)
+
+    if len(args) > 0:
+        begin_date = parse_time_input(args[0])
+        logging.debug('Begin Date: %s' % begin_date)
+    else:
+        begin_date = None
+
+    if len(args) > 1:
+        end_date = parse_time_input(args[1])
+        logging.debug('End Date:   %s' % end_date)
+    else:
+        end_date = None
+
+    if type == 'pending':
+        actions = self.client.schedule.listInProgressActions(self.session)
+    elif type == 'completed':
+        actions = self.client.schedule.listCompletedActions(self.session)
+    elif type == 'failed':
+        actions = self.client.schedule.listFailedActions(self.session)
+    elif type == 'archived':
+        actions = self.client.schedule.listArchivedActions(self.session)
+    elif type == 'all':
+        actions = self.client.schedule.listAllActions(self.session)
+    else:
+        return
+
+    if not len(actions): return
+
+    print 'ID      Date                 C    F    P     Type'
+    print '--      ----                ---  ---  ---    ----'
+
+    for action in sorted(actions, key=itemgetter('id'), reverse = True):
+        if begin_date:
+            if action.get('earliest') < begin_date: continue
+
+        if end_date:
+            if action.get('earliest') > end_date: continue            
+
+        pending = self.client.schedule.listInProgressSystems(self.session,
+                                                             action.get('id'))
+
+        completed = self.client.schedule.listCompletedSystems(self.session,
+                                                              action.get('id'))
+
+        failed = self.client.schedule.listFailedSystems(self.session,
+                                                        action.get('id'))
+
+        print '%s  %s   %s  %s  %s    %s' % \
+              (str(action.get('id')).ljust(6),
+               format_time(action.get('earliest').value),
+               str(len(completed)).rjust(3),
+               str(len(failed)).rjust(3),
+               str(len(pending)).rjust(3),
+               wrap(action.get('type'), 30)[0])
+
+####################
 
 def help_schedule_cancel(self):
     print 'schedule_cancel: Cancel a scheduled action'
@@ -240,129 +303,55 @@ def do_schedule_getoutput(self, args):
 
 def help_schedule_listpending(self):
     print 'schedule_listpending: List pending actions'
-    print 'usage: schedule_listpending [LIMIT]'
+    print 'usage: schedule_listpending [BEGINDATE] [ENDDATE]'
+    print
+    print self.TIME_OPTS
 
-def do_schedule_listpending(self, args, doreturn=False):
-    actions = self.client.schedule.listInProgressActions(self.session)
-
-    if not len(actions): return
-
-    if doreturn:
-        return [str(a.get('id')) for a in actions]
-    else:
-        try:
-            limit = int(args[0])
-        except:
-            limit = len(actions)
-
-        add_separator = False
-
-        for i in range(0, limit):
-            if add_separator: print self.SEPARATOR
-            add_separator = True
-
-            systems = self.client.schedule.listInProgressSystems(\
-                          self.session, actions[i].get('id'))
-
-            print_action_summary(actions[i], systems)
-
+def do_schedule_listpending(self, args):
+    return self.print_schedule_summary('pending', args)
+    
 ####################
 
 def help_schedule_listcompleted(self):
     print 'schedule_listcompleted: List completed actions'
-    print 'usage: schedule_listcompleted [LIMIT]'
+    print 'usage: schedule_listcompleted [BEGINDATE] [ENDDATE]'
+    print
+    print self.TIME_OPTS
 
-def do_schedule_listcompleted(self, args, doreturn=False):
-    actions = self.client.schedule.listCompletedActions(self.session)
-
-    if not len(actions): return
-
-    if doreturn:
-        return [str(a.get('id')) for a in actions]
-    else:
-        try:
-            limit = int(args[0])
-        except:
-            limit = len(actions)
-
-        add_separator = False
-
-        for i in range(0, limit):
-            if add_separator: print self.SEPARATOR
-            add_separator = True
-
-            systems = self.client.schedule.listCompletedSystems(\
-                          self.session, actions[i].get('id'))
-
-            print_action_summary(actions[i], systems)
+def do_schedule_listcompleted(self, args):
+    return self.print_schedule_summary('completed', args)
 
 ####################
 
 def help_schedule_listfailed(self):
     print 'schedule_listfailed: List failed actions'
-    print 'usage: schedule_listfailed [LIMIT]'
+    print 'usage: schedule_listfailed [BEGINDATE] [ENDDATE]'
+    print
+    print self.TIME_OPTS
 
-def do_schedule_listfailed(self, args, doreturn=False):
-    actions = self.client.schedule.listFailedActions(self.session)
-
-    if not len(actions): return
-
-    if doreturn:
-        return [str(a.get('id')) for a in actions]
-    else:
-        try:
-            limit = int(args[0])
-        except:
-            limit = len(actions)
-
-        add_separator = False
-
-        for i in range(0, limit):
-            if add_separator: print self.SEPARATOR
-            add_separator = True
-
-            systems = self.client.schedule.listFailedSystems(\
-                          self.session, actions[i].get('id'))
-
-            print_action_summary(actions[i], systems)
+def do_schedule_listfailed(self, args):
+    return self.print_schedule_summary('failed', args)
 
 ####################
 
 def help_schedule_listarchived(self):
     print 'schedule_listarchived: List archived actions'
-    print 'usage: schedule_listarchived [LIMIT]'
+    print 'usage: schedule_listarchived [BEGINDATE] [ENDDATE]'
+    print
+    print self.TIME_OPTS
 
-def do_schedule_listarchived(self, args, doreturn=False):
-    actions = self.client.schedule.listArchivedActions(self.session)
+def do_schedule_listarchived(self, args):
+    return self.print_schedule_summary('archived', args)
 
-    if not len(actions): return
+####################
 
-    if doreturn:
-        return [str(a.get('id')) for a in actions]
-    else:
-        try:
-            limit = int(args[0])
-        except:
-            limit = len(actions)
+def help_schedule_list(self):
+    print 'schedule_list: List all actions'
+    print 'usage: schedule_list [BEGINDATE] [ENDDATE]'
+    print
+    print self.TIME_OPTS
 
-        add_separator = False
-
-        for i in range(0, limit):
-            if add_separator: print self.SEPARATOR
-            add_separator = True
-
-            completed = \
-                self.client.schedule.listCompletedSystems(self.session,
-                                                   actions[i].get('id'))
-            failed = \
-                self.client.schedule.listFailedSystems(self.session,
-                                                       actions[i].get('id'))
-            pending = \
-                self.client.schedule.listInProgressSystems(self.session,
-                                                   actions[i].get('id'))
-
-            all_systems = completed + failed + pending
-
-            print_action_summary(actions[i], all_systems)
+def do_schedule_list(self, args):
+    return self.print_schedule_summary('all', args)
 
 # vim:ts=4:expandtab:
