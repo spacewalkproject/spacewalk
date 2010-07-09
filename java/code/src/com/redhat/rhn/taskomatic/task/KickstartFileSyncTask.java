@@ -38,7 +38,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *   and saves it back to disk.
  * @version $Rev$
  */
-public class KickstartFileSyncTask extends SingleThreadedTestableTask {
+public class KickstartFileSyncTask extends RhnJavaJob {
 
     private static final AtomicLong LAST_UPDATED = new AtomicLong();
     private long WARN_COUNT;
@@ -48,7 +48,7 @@ public class KickstartFileSyncTask extends SingleThreadedTestableTask {
      */
     public static final String DISPLAY_NAME = "sync_from_cobbler";
 
-    private static Logger log = Logger.getLogger(KickstartFileSyncTask.class);
+    private Logger log = getLogger(KickstartFileSyncTask.class);
 
     /**
      * Default constructor
@@ -60,9 +60,7 @@ public class KickstartFileSyncTask extends SingleThreadedTestableTask {
     /**
      * {@inheritDoc}
      */
-    public void execute(JobExecutionContext ctxIn, boolean testContextIn)
-        throws JobExecutionException {
-
+    public void execute(JobExecutionContext ctxIn) throws JobExecutionException {
 
         CobblerConnection cc = CobblerXMLRPCHelper.getConnection(
                 Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER));
@@ -80,9 +78,5 @@ public class KickstartFileSyncTask extends SingleThreadedTestableTask {
                 }
             }
         }
-
     }
-
-
-
 }
