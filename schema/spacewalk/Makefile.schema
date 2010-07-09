@@ -11,10 +11,10 @@ POST_FILES := $(addsuffix .sql,$(basename $(PRE_FILES)))
 
 all : $(POST_FILES) oracle postgres
 
-oracle postgres : FORCE
+oracle postgres :
 	$(MAKE) -C $@ -f Makefile
 
-clean : FORCE
+clean :
 	echo rm -f $(POST_FILES)
 
 %.sql : %.pre
@@ -26,5 +26,4 @@ clean : FORCE
 		echo ; \
 	} > $@
 
-FORCE:
-
+.PHONY: oracle postgres clean
