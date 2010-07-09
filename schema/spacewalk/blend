@@ -519,7 +519,10 @@ def generate(path, reader, writer, output, directories):
             ln += 1
     writer.write(sorted, out)
     out.close() 
-    
+    errnum = 0
+    if (len(overrides)+len(unused)+len(unfound) > 0): errnum = 1
+    return errnum
+
 def usage():
     s = []
     s.append('Usage blend: [OPTIONS] directory ...')
@@ -580,7 +583,8 @@ def main(argv):
                     continue
                 raise Exception('style "%s" not valid' % arg)
         writer.aggregated = aggregated
-        generate(path, reader, writer, output, args)          
+        errnum = generate(path, reader, writer, output, args)
+        sys.exit(errnum)
     except GetoptError, e:
         print e
         usage()
