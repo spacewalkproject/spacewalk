@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.21
+Version: 1.1.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 09 2010 Justin Sherrill <jsherril@redhat.com> 1.1.22-1
+- 576139 - fixing issue where auto-application of errata would be triggered
+  before the new repodata was generated. (jsherril@redhat.com)
+
 * Thu Jul 08 2010 Shannon Hughes <shughes@redhat.com> 1.1.21-1
 - removing log5j until we get fedora approval; removed velocity since its in
   tempjars; adding new versions of quartz for cron taskomatic scheduler
