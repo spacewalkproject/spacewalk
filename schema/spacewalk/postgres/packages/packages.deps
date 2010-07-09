@@ -22,7 +22,7 @@ rhn_cache.pkb           :: rhnUserServerPerms rhnUserServerPermsDupes \
                            rhnUserServerGroupPerms rhnUserGroupType \
                            rhnUserGroupMembers rhnServerGroup rhnUserGroup
 rhn_channel.pkb         :: rhnChannel rhn_exception.pks rhnServer rhnServerChannel \
-                           rhnChannelFamilyPermissions rhn_set.pks queue_server \
+                           rhnChannelFamilyPermissions queue_server \
                            rhnChannelFamilyMembers rhnChannelFamilyServers \
                            rhnChannelNewestPackage rhnChannelNewestPackageView \
                            rhnPublicChannelFamily rhnOrgChannelFamilyPermissions \

@@ -33,7 +33,7 @@ delete_server                   :: rhn_channel.pks rhn_config.pks \
                                    rhnKickstartSession rhnActionConfigChannel \
                                    rhnActionConfigRevision rhnClientCapability \
                                    rhnActionPackageRemovalFailure rhnCpu \
-                                   rhnChannelFamilyLicenseConsent rhnDevice \
+                                   rhnDevice \
                                    rhnProxyInfo rhnRam rhnRegToken \
                                    rhnSNPServerQueue rhnSatelliteChannelFamily \
                                    rhnSatelliteInfo rhnServerAction \
