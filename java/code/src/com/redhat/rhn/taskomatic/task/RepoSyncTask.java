@@ -22,13 +22,10 @@ import com.redhat.rhn.domain.task.Task;
 import com.redhat.rhn.domain.task.TaskFactory;
 
 import org.apache.log4j.Logger;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -39,14 +36,14 @@ import java.util.List;
  *  
  * @version $Rev$
  */
-public class RepoSyncTask implements Job {
+public class RepoSyncTask extends RhnExtCmdJob {
         
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "repo_sync";
 
-    private static Logger log = Logger.getLogger(RepoSyncTask.class);
+    private Logger log = getLogger(RepoSyncTask.class);
     
     /**
      * Default constructor
@@ -80,22 +77,8 @@ public class RepoSyncTask implements Job {
                 continue;
             }
             TaskFactory.removeTask(task);
-            
-            try {
-                Process p = Runtime.getRuntime().exec(
-                        getSyncCommand(src).toArray(new String[0]));
-                src.setLastSynced(new Date());
-                int chr = p.getInputStream().read();
-                while (chr != -1) {
-                    chr = p.getInputStream().read();
-                    
-                }
-                
-            }
-            catch (IOException e) {
-                log.fatal(e.getMessage());
-                e.printStackTrace();
-            }
+
+            executeExtCmd(getSyncCommand(src).toArray(new String[0]));
         }
     }
     
