@@ -228,11 +228,7 @@ def help_system_runscript(self):
     print
     print self.HELP_SYSTEM_OPTS
     print
-    print 'Start Time Examples:'
-    print 'now          -> right now!'
-    print '15m          -> 15 minutes from now'
-    print '1d           -> 1 day from now'
-    print '201007041000 -> July 4, 2010 10:00am'
+    print self.TIME_OPTS
 
 def complete_system_runscript(self, text, line, beg, end):
     return self.tab_complete_systems(text)
@@ -1823,7 +1819,7 @@ def do_system_createpackageprofile(self, args):
 
 def help_system_listevents(self):
     print 'system_listevents: List the event history for a system'
-    print 'usage: system_listevents <SYSTEMS> [LIMIT]'
+    print 'usage: system_listevents <SYSTEMS>'
     print
     print self.HELP_SYSTEM_OPTS
 
@@ -1836,16 +1832,6 @@ def do_system_listevents(self, args):
     if not len(args):
         self.help_system_listevents()
         return
-
-    # allow a limit to be passed as the last argument so that only
-    # that number of events is listed
-    limit = 0
-    if len(args) > 1:
-        try:
-            limit = int(args[len(args) - 1])
-            args.pop()
-        except:
-            pass
 
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
@@ -1865,22 +1851,13 @@ def do_system_listevents(self, args):
         if len(systems) > 1:
             print 'System: %s' % system
 
-        events = self.client.system.getEventHistory(self.session,
-                                                    system_id)
-        count = 0
+        events = self.client.system.getEventHistory(self.session, system_id)
+
         for e in events:
             print
             print 'Summary:   %s' % e.get('summary')
             print 'Completed: %s' % format_time(e.get('completed').value)
-
-            if e.get('details'):
-                print 'Details'
-                print '-------'
-                print e.get('details')
-
-            if limit:
-                count += 1
-                if count >= limit: break
+            print 'Details:   %s' % e.get('details')
 
 ####################
 
