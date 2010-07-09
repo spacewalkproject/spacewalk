@@ -212,10 +212,6 @@ def do_schedule_getoutput(self, args):
     if not len(args):
         self.help_schedule_getoutput()
         return
-    elif len(args) > 1:
-        systems = args[1:]
-    else:
-        systems = []
 
     try:
         action_id = int(args[0])
@@ -238,6 +234,7 @@ def do_schedule_getoutput(self, args):
             if add_separator: print self.SEPARATOR
             add_separator = True
 
+            #print 'System:      %s' % r.get('system')
             print 'System:      %s' % 'UNKNOWN'
             print 'Start Time:  %s' % r.get('startDate')
             print 'Stop Time:   %s' % r.get('stopDate')
@@ -247,60 +244,25 @@ def do_schedule_getoutput(self, args):
             print '------'
             print r.get('output')
     else:
-        add_separator = False
-
         completed = self.client.schedule.listCompletedSystems(self.session,
                                                               action_id)
 
         failed = self.client.schedule.listFailedSystems(self.session,
                                                         action_id)
 
+        add_separator = False
+
         #XXX: Bugzilla 608868
         for action in completed + failed:
             if add_separator: print self.SEPARATOR
             add_separator = True
 
-            print_action_output(action)
-
-#        completed = self.client.schedule.listCompletedSystems(self.session, id)
-#
-#        if len(completed):
-#            print
-#            print 'Completed Systems:'
-#
-#            add_separator = False
-#            for r in completed:
-#                if add_separator:
-#                    print self.SEPARATOR
-#
-#                add_separator = True
-#
-#                print 'System:      %s' % r.get('server_name')
-#                print 'Completed:   %s' % re.sub('T', ' ',
-#                                                 r.get('timestamp').value)
-#
-#                print
-#                print r.get('message')
-#
-#        failed = self.client.schedule.listFailedSystems(self.session, id)
-#
-#        if len(failed):
-#            print
-#            print 'Failed Systems:'
-#
-#            add_separator = False
-#            for r in failed:
-#                if add_separator:
-#                    print self.SEPARATOR
-#
-#                add_separator = True
-#
-#                print 'System:      %s' % r.get('server_name')
-#                print 'Completed:   %s' % re.sub('T', ' ',
-#                                                 r.get('timestamp').value)
-#
-#                print
-#                print r.get('message')
+            print 'System:    %s' % action.get('server_name')
+            print 'Completed: %s' % action.get('timestamp')
+            print
+            print 'Output'
+            print '------'
+            print action.get('message')
 
 ####################
 
