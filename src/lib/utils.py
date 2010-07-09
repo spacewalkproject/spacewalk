@@ -343,16 +343,6 @@ def print_errata_list(errata):
             print_errata_summary(e)
 
 
-#XXX: Bugzilla 608868
-def print_action_output(action):
-    print 'System:    %s' % action.get('server_name')
-    print 'Completed: %s' % action.get('timestamp')
-    print
-    print 'Output'
-    print '------'
-    print action.get('message')
-    
-
 def config_channel_order(all_channels=[], new_channels=[]):
     while True:
         print 'Current Selections'
