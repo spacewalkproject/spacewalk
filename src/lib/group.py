@@ -190,9 +190,7 @@ def do_group_listsystems(self, args, doreturn=False):
     group = args[0]
 
     try:
-        systems = self.client.systemgroup.listSystems(self.session,
-                                                      group)
-
+        systems = self.client.systemgroup.listSystems(self.session, group)
         systems = [s.get('profile_name') for s in systems]
     except:
         logging.warning('%s is not a valid group' % group)
