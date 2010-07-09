@@ -36,11 +36,17 @@ def do_package_details(self, args):
         self.help_package_details()
         return
 
+    packages = []
+    for package in args:
+        packages.extend(self.do_package_search(' '.join(args), True))
+
+    if not len(packages):
+        logging.warning('No packages found')
+        return
+
     add_separator = False
 
-    self.generate_package_cache()
-
-    for package in args:
+    for package in packages:
         if add_separator: print self.SEPARATOR
         add_separator = True
 
@@ -55,24 +61,27 @@ def do_package_details(self, args):
         channels = \
             self.client.packages.listProvidingChannels(self.session, package_id)
 
+        installed_systems = \
+            self.client.system.listSystemsWithPackage(self.session, package_id)
+
         print 'Name:    %s' % details.get('name')
         print 'Version: %s' % details.get('version')
         print 'Release: %s' % details.get('release')
         print 'Epoch:   %s' % details.get('epoch')
         print 'Arch:    %s' % details.get('arch_label')
-
-        print
-        print 'Description: '
-        print '\n'.join(wrap(details.get('description')))
-
         print
         print 'File:    %s' % details.get('file')
         print 'Size:    %s' % details.get('size')
         print 'MD5:     %s' % details.get('md5sum')
-
+        print 
+        print 'Installed Systems: %i' % len(installed_systems)
         print
-        print 'Available From'
-        print '--------------'
+        print 'Description'
+        print '-----------'
+        print '\n'.join(wrap(details.get('description')))
+        print
+        print 'Available From Channels'
+        print '-----------------------'
         print '\n'.join(sorted([c.get('label') for c in channels]))
 
 ####################
