@@ -4,9 +4,10 @@
 <mode name="errataqueue_find_candidates">
   <query>
 SELECT eq.errata_id, E.org_id, EQ.channel_id
-  FROM rhnErrataQueue EQ,
-       rhnErrata E
-   WHERE E.id = EQ.errata_id
+  FROM rhnErrataQueue EQ inner join
+       rhnErrata E on E.id = EQ.errata_id inner join
+       rhnChannel C on C.id = EQ.channel_id
+   WHERE C.label not in (  	select channel_label from rhnRepoRegenQueue)
 ORDER BY next_action DESC
   </query>
 </mode>
