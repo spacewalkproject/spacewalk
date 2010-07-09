@@ -1844,7 +1844,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
             }
         }
 
-        ErrataManager.publishErrataToChannel(toChannel, getErrataIds(diffErrata), user);       
+        ErrataManager.publishErrataToChannel(toChannel, getErrataIds(diffErrata), user);
 
         for (Errata errata : diffErrata) {
             for (Iterator iter = errata.getPackages().iterator(); iter.hasNext();) {
