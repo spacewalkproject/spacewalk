@@ -259,6 +259,8 @@ Type: 'help' for a list of commands
                     raise Exception
             except IndexError:
                 pass
+            except ValueError:
+                pass
 
         # attempt to match the beginning of the string with a history item
         if not history_match:
