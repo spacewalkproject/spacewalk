@@ -54,7 +54,7 @@ def do_configchannel_listsystems(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        self.help_configchannel_listsystems(self)
+        self.help_configchannel_listsystems()
         return
 
     systems = \
@@ -79,7 +79,7 @@ def do_configchannel_listfiles(self, args, doreturn=False):
     args = parse_arguments(args)
 
     if not len(args):
-        self.help_configchannel_listfiles(self)
+        self.help_configchannel_listfiles()
         return []
 
     for channel in args:
@@ -116,7 +116,7 @@ def do_configchannel_filedetails(self, args):
     args = parse_arguments(args)
 
     if len(args) < 2:
-        self.help_configchannel_filedetails(self)
+        self.help_configchannel_filedetails()
         return
 
     add_separator = False
@@ -174,7 +174,7 @@ def do_configchannel_details(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        self.help_configchannel_details(self)
+        self.help_configchannel_details()
         return
 
     add_separator = False
@@ -242,7 +242,7 @@ def do_configchannel_delete(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        self.help_configchannel_delete(self)
+        self.help_configchannel_delete()
         return
 
     channels = args
@@ -263,29 +263,56 @@ def do_configchannel_addfile(self, args, path=''):
     args = parse_arguments(args)
 
     if len(args) != 1:
-        self.help_configchannel_addfile(self)
+        self.help_configchannel_addfile()
         return
 
     channel = args[0]
-   
+
+    # defaults   
+    owner = 'root'
+    group = 'root'
+    mode = '644'
+    contents = ''
+
     while path == '':
         path = prompt_user('Path:')
-    
+
+    # check if this file already exists
+    try:
+        fileinfo = self.client.configchannel.lookupFileInfo(self.session,
+                                                            channel,
+                                                            [ path ])
+    except:
+        fileinfo = None
+
+    # use existing values if available
+    if fileinfo:
+        for info in fileinfo:
+            if info.get('path') == path:
+                owner = info.get('owner')
+                group = info.get('group')
+                mode = info.get('permissions_mode')
+                contents = info.get('contents')
+
     userinput = prompt_user('Directory [y/N]:')
     if re.match('y', userinput, re.I):
         directory = True
     else:
         directory = False
 
-    owner = prompt_user('Owner [root]:')
-    group = prompt_user('Group [root]:')
-    mode  = prompt_user('Permissions [644]:')
+    owner_input = prompt_user('Owner [%s]:' % owner)
+    group_input = prompt_user('Group [%s]:' % group)
+    mode_input  = prompt_user('Permissions [%s]:' % mode)
     
-    # defaults
-    if not owner: owner = 'root'
-    if not group: group = 'root'
-    if not mode:  mode  = '644'
-    contents = ''
+    if owner_input:
+        owner = owner_input
+
+    if group_input: 
+        group = group_input
+
+    if mode_input:
+        mode = mode_input
+
     binary = False
 
     if not directory:
@@ -298,7 +325,6 @@ def do_configchannel_addfile(self, args, path=''):
         if re.match('b', objecttype, re.I):
             binary = True
 
-            contents = ''
             while contents == '':
                 filename = prompt_user('File:')
 
@@ -312,24 +338,10 @@ def do_configchannel_addfile(self, args, path=''):
         else:
             binary = False
 
-            template = ''
-            try:
-                channel_files = \
-                    self.client.configchannel.listFiles(self.session, 
-                                                        channel)
-
-                for f in channel_files:
-                    if path == f.get('path'):
-                        file_details = \
-                            self.client.configchannel.lookupFileInfo( \
-                                                              self.session,
-                                                              channel,
-                                                              [ path ])
-
-                        template = file_details[0].get('contents')
-                        break
-            except:
-                logging.warning('Could not retrieve existing contents')
+            if contents:
+                template = contents
+            else:
+                template = ''
 
             contents = editor(template = template, delete = True)
 
@@ -382,7 +394,7 @@ def do_configchannel_updatefile(self, args):
     args = parse_arguments(args)
     
     if len(args) != 2:
-        self.help_configchannel_updatefile(self)
+        self.help_configchannel_updatefile()
         return
 
     return self.do_configchannel_addfile(args[0], path=args[1])
@@ -409,7 +421,7 @@ def do_configchannel_removefiles(self, args):
     args = parse_arguments(args)
     
     if len(args) < 2:
-        self.help_configchannel_removefiles(self)
+        self.help_configchannel_removefiles()
         return
 
     channel = args.pop(0)
