@@ -161,6 +161,12 @@ MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, S
         <module name="MethodParamPad">
             <property name="allowLineBreaks" value="true"/>
         </module>
+        <module name="GenericIllegalRegexp">
+            <!-- \s matches whitespace character, $ matches end of line. -->
+            <property name="format" value="\s+$"/>
+            <property name="message" value="Line has trailing spaces."/>
+        </module>
+
 
 
         <!-- Modifier Checks                                    -->
