@@ -104,6 +104,7 @@ Requires: oracle-instantclient-sqlplus >= 10.2.0
 Requires: spacewalk-java-oracle
 Requires: perl(DBD::Oracle)
 Requires: cx_Oracle
+Requires: spacewalk-backend-sql-oracle
 
 %description oracle
 Spacewalk is a systems management application that will
@@ -121,6 +122,7 @@ Conflicts: spacewalk-oracle
 Requires: spacewalk-java-postgresql
 Requires: perl(DBD::Pg)
 Requires: python-pgsql
+Requires: spacewalk-backend-sql-postgresql
 
 %description postgresql
 Spacewalk is a systems management application that will 
