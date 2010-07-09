@@ -85,6 +85,25 @@ group:GROUP
 channel:CHANNEL
 '''
 
+    TIME_OPTS = '''Dates can be any of the following:
+Explicit Dates:
+Dates can be expressed as explicit date strings in the YYYYMMDD[HHMM]
+format.  The year, month and day are required, while the hours and
+minutes are not; the hours and minutes will default to 0000 if no
+values are provided.
+
+Deltas:
+Dates can be expressed as delta values.  For example, '2h' would
+mean 2 hours in the future.  You can also use negative values to
+express times in the past (e.g., -7d would be one week ago).
+
+Units:
+s -> seconds
+m -> minutes
+h -> hours
+d -> days
+'''
+
     intro = '''
 Welcome to spacecmd, a command-line interface to Spacewalk.
 
