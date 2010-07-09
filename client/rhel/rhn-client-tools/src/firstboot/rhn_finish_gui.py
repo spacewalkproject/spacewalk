@@ -43,7 +43,7 @@ class moduleClass(Module):
         self.title = _("Finish Updates Setup")
 
     def needsNetwork(self):
-        return True
+        return False
 
     def apply(self, interface, testing=False):
         if testing:
