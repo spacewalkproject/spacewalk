@@ -686,7 +686,8 @@ def do_system_upgradepackage(self, args):
     else:
         systems = self.expand_systems(args.pop(0))
 
-    jobs = []
+    # make a dictionary of each system and the package IDs to install
+    jobs = {}
     for system in sorted(systems):
         system_id = self.get_system_id(system)
         if not system_id: return
@@ -696,31 +697,50 @@ def do_system_upgradepackage(self, args):
                                                             system_id)
 
         if len(packages):
-            package_ids = [p.get('to_package_id') for p in packages]
-            jobs.append( (system, system_id, package_ids) )
+            package_ids = [ p.get('to_package_id') for p in packages ]
+            jobs[system] = package_ids
         else:
             logging.warning('No upgrades available for %s' % system)
 
-    if len(jobs):
-        self.do_system_listupgrades(' '.join(systems))
-        if not self.user_confirm(): return
-    else:
-        return
+    if not len(jobs): return
+
+    add_separator = False
+
+    for system in jobs:
+        if add_separator: print self.SEPARATOR
+        add_separator = True
+
+        print system
+        print '-' * len(system)
+
+        # build a temporary list so we can sort by package name
+        package_names = []
+        for package in jobs[system]:
+            name = self.get_package_name(package)
+        
+            if name:
+                package_names.append(name)
+            else:
+                logging.error("Couldn't get name for package %i" % package)
+
+        print '\n'.join(sorted(package_names))
+
+    if not self.user_confirm('Upgrade these packages [y/N]:'): return
+
+    action_time = parse_time_input('now')
 
     scheduled = 0
-    action_time = parse_time_input('now')
-    for job in jobs:
-        (system, system_id, package_ids) = job
+    for system in jobs:
+        system_id = self.get_system_id(system)
 
         try:
-            action_id = self.client.system.schedulePackageInstall(self.session,
-                                                                  system_id,
-                                                                  package_ids,
-                                                                  action_time)
+            self.client.system.schedulePackageInstall(self.session,
+                                                      system_id,
+                                                      jobs[system],
+                                                      action_time)
         
-            logging.info('Action ID: %i' % action_id)
             scheduled += 1
-        except:
+        except Exception, e:
             logging.error('Failed to schedule %s' % system)
 
     print 'Scheduled %i system(s)' % scheduled
@@ -759,30 +779,21 @@ def do_system_listupgrades(self, args):
             self.client.system.listLatestUpgradablePackages(self.session,
                                                             system_id)
 
+        if not len(packages):
+            logging.warning('No upgrades available for %s' % system)
+            continue
+
         if add_separator: print self.SEPARATOR
         add_separator = True
 
         if len(systems) > 1:
-            print 'System: %s' % system
-            print
+            print system
+            print '-' * len(system)
 
-        count = 0
         for package in sorted(packages, key=itemgetter('name')):
-            if count > 0: print
-            count += 1
-
-            old = {'name'    : package.get('name'),
-                   'version' : package.get('from_version'),
-                   'release' : package.get('from_release'),
-                   'epoch'   : package.get('from_epoch')}
-
-            new = {'name'    : package.get('name'),
-                   'version' : package.get('to_version'),
-                   'release' : package.get('to_release'),
-                   'epoch'   : package.get('to_epoch')}
-
-            print 'From: %s' % build_package_names(old)
-            print 'To:   %s' % build_package_names(new)
+            # listLatestUpgradablePackages doesn't give us the arch,
+            # so use the package ID to get that information
+            print self.get_package_name(package.get('to_package_id'))
 
 ####################
 
