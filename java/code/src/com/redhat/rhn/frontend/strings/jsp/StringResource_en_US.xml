@@ -9346,6 +9346,13 @@ Please note that some manual configuration of these scripts may still be require
       </trans-unit>
 
 
+<!-- Catalina stuff -->
+
+        <trans-unit id="catalina.jsp.show">
+          <source>catalina.out</source>
+        </trans-unit>
+
+
 <!-- Cobbler stuff -->
 
       <group>

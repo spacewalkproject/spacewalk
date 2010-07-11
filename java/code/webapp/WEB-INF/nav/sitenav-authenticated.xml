@@ -289,6 +289,9 @@
     <rhn-tab name="Task Engine Status" acl="user_role(satellite_admin)" url="/rhn/admin/TaskStatus.do">
     </rhn-tab>
 
+    <rhn-tab name="Show Tomcat Logs" acl="user_role(satellite_admin)" url="/rhn/admin/Catalina.do">
+    </rhn-tab>
+
   </rhn-tab>
   <rhn-tab name="Help" url="/rhn/help/index.do" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
     <rhn-tab-directory>/rhn/help</rhn-tab-directory>

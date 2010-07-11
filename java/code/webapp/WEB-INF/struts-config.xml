@@ -4350,6 +4350,16 @@
 
     </action>
 
+    <action path="/admin/Catalina"
+        scope="request"
+        input="/WEB-INF/pages/admin/catalina.jsp"
+        type="com.redhat.rhn.frontend.action.satellite.CatalinaAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/catalina.jsp"/>
+    </action>
+
     <action path="/YourRhnClips"
         scope="request"
         input="/WEB-INF/pages/common/fragments/yourrhn/yourrhnclips.jsp"
