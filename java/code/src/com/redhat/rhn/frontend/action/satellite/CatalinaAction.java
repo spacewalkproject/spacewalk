@@ -43,9 +43,9 @@ public class CatalinaAction extends RhnAction {
                                 HttpServletResponse response) {
        RequestContext ctx = new RequestContext(request);
 
-       String catalina_home = System.getenv("CATALINA_HOME");
+       String catalina = System.getenv("CATALINA_HOME");
 
-       Matcher m = Pattern.compile("/tomcat[0-9]$").matcher(catalina_home);
+       Matcher m = Pattern.compile("/tomcat[0-9]$").matcher(catalina);
        m.find();
 
        request.setAttribute("contents",
