@@ -40,8 +40,6 @@ public class CatalinaAction extends RhnAction {
                                 HttpServletResponse response) {
        RequestContext ctx = new RequestContext(request);
 
-       System.out.println(System.getProperty("CATALINA_HOME"));
-
        request.setAttribute("contents",
                FileUtils.readStringFromFile("/var/log/tomcat5/catalina.out"));
 
