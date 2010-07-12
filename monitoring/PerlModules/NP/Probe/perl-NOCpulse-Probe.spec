@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.184.1
+Version:      1.184.2
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -146,6 +146,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/NOCpulse::Probe::Shell::SQLPlus*
 
 %changelog
+* Mon Jul 12 2010 Miroslav Suchý <msuchy@redhat.com> 1.184.2-1
+- move test/TestOracle.pm to -Oracle subpackage (msuchy@redhat.com)
+
 * Mon Jul 12 2010 Miroslav Suchý <msuchy@redhat.com> 1.184.1-1
 - code cleanup - attribute provided is not used anywhere (msuchy@redhat.com)
 - split from perl-NOCpulse-Probe new subpackage perl-NOCpulse-Probe-Oracle,
