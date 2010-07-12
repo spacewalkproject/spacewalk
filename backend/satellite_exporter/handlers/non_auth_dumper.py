@@ -19,7 +19,7 @@ Non-authenticated dumper
 import os
 import xmlrpclib
 
-from common import log_debug, log_error, rhnFault, CFG
+from common import log_debug, log_error, rhnFault, CFG, UserDictCase
 from server import rhnSQL, rhnLib
 from server.rhnHandler import rhnHandler
 from server.importlib.backendLib import localtime
