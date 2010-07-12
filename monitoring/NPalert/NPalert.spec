@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.12
+Version:      1.126.13
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -129,6 +129,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Jul 12 2010 Miroslav Suchý <msuchy@redhat.com> 1.126.13-1
+- break dependency of NPalert on perl(NOCpulse::Probe::DataSource::Oracle)
+  (msuchy@redhat.com)
+
 * Mon Jul 12 2010 Miroslav Suchý <msuchy@redhat.com> 1.126.12-1
 - remove dependency on DBD::Oracle (msuchy@redhat.com)
 
