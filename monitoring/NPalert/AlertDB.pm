@@ -9,7 +9,6 @@ use Class::MethodMaker
 
 use Data::Dumper;    # for debugging
 use DBI;
-use DBD::Oracle;
 use NOCpulse::Config;
 
 use NOCpulse::Log::Logger;

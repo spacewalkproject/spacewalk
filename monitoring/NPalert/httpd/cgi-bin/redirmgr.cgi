@@ -95,7 +95,6 @@ The ACK redirect rule is currently not implemented.
 use strict;
 use CGI;
 use DBI;
-use DBD::Oracle;
 use NOCpulse::Config;
 use NOCpulse::Notif::NotificationDB;
 
