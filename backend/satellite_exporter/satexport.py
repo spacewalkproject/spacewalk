@@ -240,12 +240,9 @@ class ApacheServer(BaseApacheServer):
 class FunctionRetrievalError(Exception):
     pass
 
-from server import apacheServer
-class HandlerWrap(apacheServer.HandlerWrap):
-    def get_handler_factory(self, req):
-        return ApacheServer
 
-### Instantiate external entry points:
-headerParserHandler = HandlerWrap("headerParserHandler")
-handler             = HandlerWrap("handler")
-cleanupHandler      = HandlerWrap("cleanupHandler")
+apache_server = ApacheServer()
+HeaderParserHandler = apache_server.headerParserHandler
+Handler = apache_server.handler
+CleanupHandler = apache_server.cleanupHandler
+
