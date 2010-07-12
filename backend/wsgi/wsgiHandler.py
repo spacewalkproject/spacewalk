@@ -37,7 +37,7 @@ def handle(environ, start_response, server, component_type, type="server.apacheS
     req.set_option("RHNComponentType", component_type)
     req.set_option("RootDir", "/usr/share/rhn")
 
-    parseServ = get_handle(type, "headerParserHandler", init=1)
+    parseServ = get_handle(type, "HeaderParserHandler", init=1)
     ret = parseServ(req)
 
     if len(req.output) > 0:
@@ -45,7 +45,7 @@ def handle(environ, start_response, server, component_type, type="server.apacheS
             req.send_http_header(status=ret)
         return req.output
 
-    appServ = get_handle(type, "handler")
+    appServ = get_handle(type, "Handler")
     ret = appServ(req)
 
     if not ret:
@@ -55,15 +55,15 @@ def handle(environ, start_response, server, component_type, type="server.apacheS
         req.send_http_header(status=ret)
 
     #exporter doesn't have a logHandler
-    if type != 'exporter':
-        logServ = get_handle(type, "logHandler")
+    if type != 'satellite_exporter.satexport':
+        logServ = get_handle(type, "LogHandler")
         logServ(req)
-    cleanServ = get_handle(type, "cleanupHandler")
+    cleanServ = get_handle(type, "CleanupHandler")
     cleanServ(req)
 
     return req.output
 
 def get_handle(type, name, init=0):
-    handler_module = __import__(type, globals(), locals(), ['HandlerWrap'])
-    return handler_module.HandlerWrap(name, init)
+    handler_module = __import__(type, globals(), locals(), [type.split('.')[-1]])
+    return getattr(handler_module, name)
 

@@ -24,7 +24,8 @@ from common import apache
 from common import rhnApache, rhnTB
 from common import rhnFault, rhnException, rhnFlags
 from common import log_debug, log_error
-from common import CFG
+from common import CFG, initCFG, initLOG
+
 
 # local module imports
 import rhnSQL
@@ -60,6 +61,17 @@ class apacheHandler(apacheSession):
     ###
 
     def headerParserHandler(self, req):
+
+        ##We need to init CFG and Logging
+        options = req.get_options()
+        # if we are initializing out of a <Location> handler don't
+        # freak out
+        if not options.has_key("RHNComponentType"):
+            # clearly nothing to do
+            return apache.OK
+        initCFG(options["RHNComponentType"])
+        initLOG(CFG.LOG_FILE, CFG.DEBUG)
+
         """ parse the request, init database and figure out what can we call """
         log_debug(2, req.the_request)
         # call method from inherited class
