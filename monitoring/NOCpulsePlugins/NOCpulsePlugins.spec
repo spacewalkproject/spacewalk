@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version:      2.208.10
+Version:      2.209.1
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plug-ins
 URL:          https://fedorahosted.org/spacewalk
@@ -88,6 +88,17 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Jul 12 2010 Miroslav Suchý <msuchy@redhat.com> 2.209.1-1
+- rename status to rhn-probe-status (msuchy@redhat.com)
+- rename catalog to rhn-catalog (msuchy@redhat.com)
+- fix spelling error (msuchy@redhat.com)
+- fix rpmlint warning (msuchy@redhat.com)
+- fix spelling error (msuchy@redhat.com)
+- put status and catalog to /usr/bin rather then to /var/lib/nocpulse/libexec
+  and setting up symlink (msuchy@redhat.com)
+- preserve timestamp and set correct attributes for files (msuchy@redhat.com)
+- split package NOCpulsePlugins to NOCpulsePlugins-Oracle, which contain Oracle
+  only probes (msuchy@redhat.com)
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 2.208.10-1
 - 502595 - use ip instead of hostname
 
