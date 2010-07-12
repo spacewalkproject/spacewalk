@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.13
+Version:        1.1.14
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Jul 12 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.14-1
+- rhn_channel depends on rhnChannelFamilyServerFve
+
 * Fri Jul 09 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.13-1
 - fixed schema dependencies
 * Thu Jul 08 2010 Justin Sherrill <jsherril@redhat.com> 1.1.12-1
