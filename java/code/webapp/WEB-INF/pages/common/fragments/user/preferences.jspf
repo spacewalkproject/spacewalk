@@ -22,10 +22,8 @@
 <p><bean:message key="preferences.jsp.startpagedesc"/></p>
 
 <c:forEach items="${userPrefForm.map.possiblePanes}" var="item">
-    <html:multibox property="selectedPanes" disabled="${item.disabled}">
-      ${item.value}
-    </html:multibox>
-    ${item.label}
+    <html:multibox property="selectedPanes" value="${item.value}" disabled="${item.disabled}" styleId="type_${item.value}"/>
+	<label for="type_${item.value}"><c:out value="${item.label}" /></label>
     <br />
 </c:forEach>
 

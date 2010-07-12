@@ -50,17 +50,13 @@ function reloadForm(ctl) {
                   <rhn:required-field key="softwareedit.jsp.child_channels"/>:</th>
               <td>
                   <c:choose>
-                    <c:when test="${nochildchannels == null}">
+                    <c:when test="${empty nochildchannels}">
                       <c:forEach items="${avail_child_channels}" var="child">
-                       <c:choose>
-                        <c:when test="${not empty stored_child_channels[child.id]}">
-                            <input name="child_channels" value="${child.id}" checked=1 type="checkbox">${child.label}<br>
-                        </c:when>
-                        <c:otherwise>
-                            <input name="child_channels" value="${child.id}" type="checkbox">${child.label}<br>
-                        </c:otherwise>
-                       </c:choose>
-                      </c:forEach>
+						   <input name="child_channels" value="${child.id}" type="checkbox" id="${child.id}"
+                      		<c:if test="${not empty stored_child_channels[child.id]}">checked=1</c:if>
+                      		/>
+                       <label for="${child.id}">${child.label}</label><br/>
+					</c:forEach>
                     </c:when>
                     <c:otherwise>
                       <br><b><bean:message key="softwareedit.jsp.nochildchannels" /></b><br>
@@ -107,10 +103,9 @@ function reloadForm(ctl) {
             <td>
 			
       <c:forEach items="${kickstartSoftwareForm.map.possibleRepos}" var="item">
-    		<html:multibox property="selectedRepos" disabled="${item.disabled}">
-    	  		${item.value}
-    		</html:multibox>
-    		${item.label}
+    		<html:multibox property="selectedRepos" disabled="${item.disabled}"
+    						value = "${item.value}" styleId="type_${item.value}"/>
+			<label for="type_${item.value}"><c:out value="${item.label}"/></label>
     		<br />
     	</c:forEach>
     <br/><rhn:tooltip key="softwareedit.jsp.repos-tooltip"/>

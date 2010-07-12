@@ -4658,7 +4658,7 @@
     <action path="/activationkeys/Edit"
     	name="activationKeyForm"
         scope="request"
-        input="/WEB-INF/pages/activationkeys/details.jsp"
+        input="/WEB-INF/pages/activationkeys/edit.jsp"
 		type="com.redhat.rhn.frontend.action.token.ActivationKeyDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="edit">

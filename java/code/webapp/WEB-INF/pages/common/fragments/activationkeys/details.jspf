@@ -81,10 +81,8 @@
         </th>
         <td>
     <c:forEach items="${possibleEntitlements}" var="item">
-	    <html:multibox property="selectedEntitlements" disabled="${item.disabled}" styleId="${item.value}">
-	      <label for="${item.value}"><c:out value="${item.value}"/></label>
-	    </html:multibox>
-    <c:out value="${item.label}"/>
+	    <html:multibox property="selectedEntitlements" disabled="${item.disabled}" styleId="${item.value}" value="${item.value}"/>
+    <label for="${item.value}"><c:out value="${item.label}"/></label>
     	<br />
 	</c:forEach>
 
