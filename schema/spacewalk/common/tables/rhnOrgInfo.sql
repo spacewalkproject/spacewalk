@@ -19,10 +19,9 @@ CREATE TABLE rhnOrgInfo
     org_id              NUMBER NOT NULL
                             CONSTRAINT rhn_orginfo_oid_fk
                                 REFERENCES web_customer (id),
-    default_group_type  NUMBER
-                            DEFAULT (2) NOT NULL
-                            CONSTRAINT rhn_orginfo_dgt_fk
-                                REFERENCES rhnServerGroupType (id),
+    staging_content     VARCHAR2(1) NOT NULL
+                            CONSTRAINT rhn_orginfo_staging_content_ck
+                                CHECK (staging_content in ( 'Y' , 'N' )),
     created             DATE
                             DEFAULT (sysdate) NOT NULL,
     modified            DATE
