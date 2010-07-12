@@ -234,8 +234,12 @@ def do_schedule_getoutput(self, args):
             if add_separator: print self.SEPARATOR
             add_separator = True
 
-            #print 'System:      %s' % r.get('system')
-            print 'System:      %s' % 'UNKNOWN'
+            if r.get('serverId'):
+                system = self.get_system_name(r.get('serverId'))
+            else:
+                system = 'UNKNOWN'
+
+            print 'System:      %s' % system
             print 'Start Time:  %s' % r.get('startDate')
             print 'Stop Time:   %s' % r.get('stopDate')
             print 'Return Code: %i' % r.get('returnCode')
