@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.0.4
+Version: 1.0.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -629,6 +629,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Jul 12 2010 Justin Sherrill <jsherril@redhat.com> 1.0.5-1
+- 613585 - fixing inter satellite sync and removing HandlerWrap
+  (jsherril@redhat.com)
+- fixed HandlerWrap class implementation from commit
+  356bddff66b3f7c50ff06f7062d8d111c3f189ff (michael.mraka@redhat.com)
+
 * Thu Apr 22 2010 Shannon Hughes <shughes@redhat.com> 1.0.4-1
 - networkRetries is set in /etc/sysconfig/rhn/up2date and not in rhn.conf
   (msuchy@redhat.com)
