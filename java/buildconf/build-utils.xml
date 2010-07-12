@@ -69,8 +69,6 @@ Running @{banner} ...
         <sysproperty key="java.awt.headless" value="true" />
         <sysproperty key="log4j.threshold" value="${log4j.threshold}" />
         <sysproperty key="rhn.config.dir" value="${rhn.config.dir}" />
-        <env key="ORACLE_HOME" value="/opt/oracle" />
-        <env key="LD_LIBRARY_PATH" path="/opt/oracle/lib:/usr/lib" />
         <jvmarg value="-ea" />
         <jvmarg line="@{debug}" />
         <classpath refid="@{classpathid}" />

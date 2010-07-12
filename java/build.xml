@@ -700,8 +700,6 @@ delete from rhnChannel where label like 'ChannelLabel%';
     <java fork="true"
           classname="com.redhat.rhn.scripts.ExplainPlanGenerator"
           failonerror="true" >
-          <env key="ORACLE_HOME" value="/opt/oracle" />
-          <env key="LD_LIBRARY_PATH" value="/opt/oracle/lib" />
           <classpath>
               <pathelement path="${build.dir}/classes" />
               <path refid="alljars"/>

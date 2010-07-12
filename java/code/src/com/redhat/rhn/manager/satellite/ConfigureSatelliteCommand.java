@@ -252,7 +252,6 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         // Write the scout shared key to cluster.ini
         Map optionMap = new HashMap();
         optionMap.put("LocalConfig.0.dbd", "Oracle");
-        optionMap.put("LocalConfig.0.orahome", "/opt/oracle");
         optionMap.put("LocalConfig.0.dbname",
                 MonitoringConfigFactory.getDatabaseName());
         optionMap.put("LocalConfig.0.username",
