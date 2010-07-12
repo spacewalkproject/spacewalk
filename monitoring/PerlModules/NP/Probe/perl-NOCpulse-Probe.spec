@@ -111,7 +111,17 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/VirtualMemoryOutput.pm
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/WQLQuery.pm
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/WindowsCommand.pm
-%{perl_vendorlib}/NOCpulse/Probe/DataSource/test*
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestInetSocket.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestNetstatOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestPsOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestSNMP.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestSQLPlusQuery.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestSQLServer.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestSwapOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestUnixCommand.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestUnixHelpers.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestVirtualMemoryOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestWindowsCommand.pm
 %{perl_vendorlib}/NOCpulse/Probe/*.pm
 %{perl_vendorlib}/NOCpulse/Probe/SNMP*
 %{perl_vendorlib}/NOCpulse/Probe/Shell*
@@ -132,6 +142,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/Probe/Shell/SQLPlus.pm
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/CannedOracle.pm
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/Oracle.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestOracle.pm
 %{_mandir}/man3/NOCpulse::Probe::Shell::SQLPlus*
 
 %changelog
