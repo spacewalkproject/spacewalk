@@ -8,7 +8,6 @@ use Date::Format;
 
 use NOCpulse::Config;
 use NOCpulse::Probe::DataSource::AbstractDatabase qw(:constants);
-use NOCpulse::Probe::DataSource::Oracle;
 use NOCpulse::Probe::Error;
 
 use base qw(NOCpulse::Probe::DataSource::AbstractDatabase);
