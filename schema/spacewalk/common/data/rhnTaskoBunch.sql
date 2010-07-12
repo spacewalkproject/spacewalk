@@ -57,6 +57,6 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'kickstart-cleanup-bunch', 'Cleans up stale Kickstarts', '', sysdate);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'errata-mailer-bunch', 'Cleans up stale Kickstarts', '', sysdate);
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'errata-mailer-bunch', 'Emails errata info', '', sysdate);
 
 commit;
