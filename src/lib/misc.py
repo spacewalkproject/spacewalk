@@ -522,6 +522,15 @@ def get_system_id(self, name):
         return 0
 
 
+def get_system_name(self, system_id):
+    self.generate_system_cache()
+
+    try:
+        return self.all_systems[system_id]
+    except KeyError:
+        return
+
+
 def expand_errata(self, args):
     if not isinstance(args, list):
         args = args.split()
