@@ -11,10 +11,20 @@ use NOCpulse::Probe::DataSource::AbstractDatabase qw(:constants);
 use NOCpulse::Probe::DataSource::Oracle;
 use NOCpulse::Probe::Error;
 
-use base qw(NOCpulse::Probe::DataSource::Oracle);
+use base qw(NOCpulse::Probe::DataSource::AbstractDatabase);
+use Class::MethodMaker
+  get_set =>
+  [qw(
+      use_tnsnames
+      ORACLE_HOME
+     )],
+  new_with_init => 'new',
+  ;
 
 use NOCpulse::Log::Logger;
 my $Log = NOCpulse::Log::Logger->new(__PACKAGE__);
+
+use constant ORA_TABLE_NOT_FOUND => 942;
 
 my $cfg = new NOCpulse::Config;
 
@@ -27,6 +37,18 @@ my %INIT_ARGS = (
                  ora_password => $cfg->get('cf_db',  'notification_password'),
                  use_tnsnames => 1,
                 );
+
+my %field_map =
+  (
+   ora_host     => 'host',
+   ora_port     => 'port',
+   ora_user     => 'username',
+   ora_password => 'password',
+   ora_sid      => 'database',
+   timeout      => 'timeout_seconds',
+   ORACLE_HOME  => 'ORACLE_HOME',
+   use_tnsnames => 'use_tnsnames',
+  );
 
 # Constants
 
@@ -43,12 +65,44 @@ sub init {
   my $self = shift;
   my %args = (%INIT_ARGS, @_);
 
-  $self->SUPER::init(%args);
+  $self->SUPER::init(\%field_map, %args);
   $self->timeout_seconds(60);
   $self->pre_init_details();
 
   return $self;
 } ## end sub init
+
+sub connect {
+  my ($self, %paramHash) = @_;
+  my $cfg = new NOCpulse::Config;
+  $ENV{'ORACLE_HOME'} = $cfg->get('oracle', 'ora_home');
+  my $DBD     = $cfg->get('cf_db', 'dbd');
+  my $DBNAME  = $cfg->get('cf_db', 'name');
+  my $DBUNAME = $cfg->get('cf_db', 'notification_username');
+  my $DBPASS  = $cfg->get('cf_db', 'notification_password');
+
+  my $PrintError = $paramHash{PrintError} || 0;
+  my $RaiseError = $paramHash{RaiseError} || 0;
+  my $AutoCommit = $paramHash{AutoCommit} || 0;
+
+  # Disconnect prior session, if exists
+  if ($self->dbh) {
+    $self->disconnect;
+  }
+
+  # Open a connection to the DB
+  my $dbh = DBI->connect("DBI:$DBD:$DBNAME", $DBUNAME, $DBPASS,
+                 { RaiseError => $RaiseError, AutoCommit => $AutoCommit });
+
+  return $self->dbh;
+}
+
+sub execute {
+    my ($self, $sql, $tables_used_arr, $fetch_one, @bind_vars) = @_;
+
+    return $self->SUPER::execute($sql, ORA_TABLE_NOT_FOUND,
+                                 $tables_used_arr, $fetch_one, @bind_vars);
+}
 
 ###################
 # RECORD CREATION #
