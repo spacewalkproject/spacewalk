@@ -52,6 +52,7 @@ public class ScriptResultSerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         ScriptResult scriptResult = (ScriptResult)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        helper.add("serverId", scriptResult.getServerId());
         helper.add("startDate", scriptResult.getStartDate());
         helper.add("stopDate", scriptResult.getStopDate());
         helper.add("returnCode", scriptResult.getReturnCode());
