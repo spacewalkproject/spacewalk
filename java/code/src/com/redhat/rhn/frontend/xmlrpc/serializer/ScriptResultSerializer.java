@@ -31,6 +31,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *
  * @xmlrpc.doc
  *  #struct("script result")
+ *      #prop_desc("int", "serverId", "ID of the server the script runs on.")
  *      #prop_desc("dateTime.iso8601", "startDate", "Time script began execution.")
  *      #prop_desc("dateTime.iso8601", "stopDate", "Time script stopped execution.")
  *      #prop_desc("int", "returnCode", "Script execution return code.")
