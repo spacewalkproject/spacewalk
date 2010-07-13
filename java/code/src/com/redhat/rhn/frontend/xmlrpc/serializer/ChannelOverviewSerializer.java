@@ -36,6 +36,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop("int", "used_slots")
  *   #prop("int", "free_slots")
  *   #prop("int", "total_slots")
+ *   #prop("int", "used_flex")
+ *   #prop("int", "free_flex")
+ *   #prop("int", "total_flex")
  * #struct_end()
  */
 public class ChannelOverviewSerializer implements XmlRpcCustomSerializer {
@@ -65,14 +68,28 @@ public class ChannelOverviewSerializer implements XmlRpcCustomSerializer {
 
         Long max = group.getMaxMembers();
         if (max == null) {
-            helper.add("total_slots", new Integer(0));
-            helper.add("free_slots",  new Integer(0));
+            helper.add("total_slots", 0L);
+            helper.add("free_slots",  0L);
         }
         else {
             helper.add("total_slots", max);
             helper.add("free_slots",  new Long(group.getMaxMembers().longValue() -
                     group.getCurrentMembers().longValue()));
         }
+
+        Long flexMax =  group.getMaxMembers();
+        if (flexMax == null) {
+            helper.add("free_flex", 0L);
+            helper.add("total_flex", 0L);
+            helper.add("used_flex", 0L);
+        }
+        else {
+            helper.add("free_flex", group.getFreeFlex());
+            helper.add("used_flex", group.getCurrentFlex());
+            helper.add("total_flex", flexMax);
+        }
+
+
 
         helper.writeTo(output);
     }

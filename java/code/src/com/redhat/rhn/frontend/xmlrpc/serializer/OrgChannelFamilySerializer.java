@@ -37,6 +37,10 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop("int", "unallocated")
  *   #prop("int", "free")
  *   #prop("int", "used")
+ *   #prop("int", "allocated_flex")
+ *   #prop("int", "unallocated_flex")
+ *   #prop("int", "free_flex")
+ *   #prop("int", "used_flex")
  * #struct_end()
  */
 public class OrgChannelFamilySerializer implements XmlRpcCustomSerializer {
@@ -65,6 +69,15 @@ public class OrgChannelFamilySerializer implements XmlRpcCustomSerializer {
                                     dto.getCurrentMembers());
         helper.add("used", dto.getCurrentMembers());
         helper.add("free", dto.getMaxMembers() - dto.getCurrentMembers());
+
+        helper.add("allocated_flex", dto.getMaxFlex());
+        helper.add("unallocated_flex", dto.getSatelliteMaxFlex() -
+                                    dto.getSatelliteCurrentFlex() +
+                                    dto.getCurrentFlex());
+        helper.add("used_flex", dto.getCurrentFlex());
+        helper.add("free_flex", dto.getMaxFlex() - dto.getCurrentFlex());
+
+
         helper.writeTo(output);
     }
 
