@@ -32,7 +32,9 @@ public class TrustSet implements Set<Org> {
     private final Set<Org> trusted;
 
     /**
-     * {@inheritDoc}
+     * Constructor
+     * @param orgIn the org who is  trusted
+     * @param trustedIn the set of orgs the org is trusted in
      */
     public TrustSet(Org orgIn, Set<Org> trustedIn) {
         org = orgIn;
