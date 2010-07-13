@@ -18,7 +18,7 @@ Non-authenticated dumper
 
 import os
 import xmlrpclib
-import gzip
+import gzip, tempfile
 from common import log_debug, log_error, rhnFault, CFG, UserDictCase, rhnCache
 from common import rhnLib as rhnLib_common
 from server import rhnSQL, rhnLib
