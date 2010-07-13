@@ -79,6 +79,7 @@ public class OrgImpl extends BaseDomainHelper implements Org {
     private Set customDataKeys;
     private Set<Org> trustedOrgs;
     private Token token;
+    private boolean stagingContentEnabled;
 
     private OrgQuota orgQuota;
 
@@ -259,7 +260,7 @@ public class OrgImpl extends BaseDomainHelper implements Org {
         if (!hasRole(newRole)) {
             // Create a new UserGroup based on the Role specified
             UserGroup newGroup = UserGroupFactory
-                    .createUserGroup(this, newRole);
+            .createUserGroup(this, newRole);
             usergroups.add(newGroup);
         }
     }
@@ -433,7 +434,7 @@ public class OrgImpl extends BaseDomainHelper implements Org {
         outParams.put("result", new Integer(Types.NUMERIC));
 
         CallableMode m = ModeFactory.getCallableMode("Org_queries",
-                "is_org_paid");
+        "is_org_paid");
         Map row = m.execute(inParams, outParams);
 
         if (((Long) row.get("result")).longValue() == 1) {
@@ -447,9 +448,9 @@ public class OrgImpl extends BaseDomainHelper implements Org {
     public int numActiveOrgAdmins() {
         Session session = HibernateFactory.getSession();
         List list = session.getNamedQuery("Org.numOfOrgAdmins")
-                .setParameter("org_id", this.getId())
-                // Retrieve from cache if there
-                .list();
+        .setParameter("org_id", this.getId())
+        // Retrieve from cache if there
+        .list();
         if (list != null) {
             return list.size();
         }
@@ -561,7 +562,7 @@ public class OrgImpl extends BaseDomainHelper implements Org {
 
             // Filter out the update entitlement for satellite:
             if (sgt.isBase() && !sgt.getLabel().equals(
-                EntitlementManager.UPDATE.getLabel())) {
+                    EntitlementManager.UPDATE.getLabel())) {
                 baseEntitlements.add(EntitlementManager.getByName(sgt
                         .getLabel()));
             }
@@ -593,6 +594,7 @@ public class OrgImpl extends BaseDomainHelper implements Org {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toString() {
         return new ToStringBuilder(this).append("id", this.getId()).append(
                 "name", this.getName()).toString();
@@ -616,7 +618,7 @@ public class OrgImpl extends BaseDomainHelper implements Org {
      * {@inheritDoc}
      */
     public Set<Org> getTrustedOrgs() {
-        return (Set<Org>) new TrustSet(this, trustedOrgs);
+        return new TrustSet(this, trustedOrgs);
     }
 
     /**
@@ -639,6 +641,21 @@ public class OrgImpl extends BaseDomainHelper implements Org {
             OrgImpl impl = (OrgImpl) org;
             impl.trustedOrgs.remove(this);
         }
+    }
+
+    /**
+     * @return Returns the stageContentEnabled.
+     */
+    public boolean isStagingContentEnabled() {
+        return stagingContentEnabled;
+    }
+
+
+    /**
+     * @param stageContentEnabledIn The stageContentEnabled to set.
+     */
+    public void setStagingContentEnabled(boolean stageContentEnabledIn) {
+        stagingContentEnabled = stageContentEnabledIn;
     }
 
     /**

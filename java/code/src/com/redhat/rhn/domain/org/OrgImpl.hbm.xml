@@ -16,6 +16,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="oracleCustomerNumber" column="oracle_customer_number" type="int" />
         <property name="customerType" column="customer_type" type="string" />
         <property name="created" type="timestamp" insert="false" update="false" />
+        <property name="stagingContentEnabled" column="staging_content_enabled" type="yes_no" not-null="true" default="N"/>
         <property name="creditApplicationCompleted" column="credit_application_completed" type="string" length="1" />
         <property name="modified" type="timestamp" insert="false" update="false" />
 
