@@ -94,6 +94,19 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         assertEquals(changedName, org2.getName());
     }
 
+    public void testStagingContent() throws Exception {
+        Org org1 = createTestOrg();
+        boolean staging = org1.isStagingContentEnabled();
+        Long id = org1.getId();
+        org1.setStagingContentEnabled(!staging);
+        OrgFactory.save(org1);
+        assertEquals(!staging, org1.isStagingContentEnabled());
+        flushAndEvict(org1);
+        Org org2 = OrgFactory.lookupById(id);
+        assertEquals(!staging, org2.isStagingContentEnabled());
+    }
+
+
     private Org createTestOrg() throws Exception {
         Org org1 = OrgFactory.createOrg();
         org1.setName("org created by OrgFactory test: " + TestUtils.randomString());
