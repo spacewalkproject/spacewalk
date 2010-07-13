@@ -273,7 +273,6 @@ set client_min_messages = error;
 \i tables/rhnOrgEntitlementType.sql
 \i tables/rhnOrgEntitlements.sql
 \i tables/rhnOrgErrataCacheQueue.sql
-\i tables/rhnOrgInfo.sql
 \i tables/rhnPackageChangelog.sql
 \i tables/rhnPackageConflicts.sql
 \i tables/rhnTransactionOperation.sql

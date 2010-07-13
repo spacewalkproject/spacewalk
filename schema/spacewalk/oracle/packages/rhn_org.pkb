@@ -104,7 +104,6 @@ IS
         delete from rhnChannel where org_id = org_id_in;
         delete from rhnDailySummaryQueue where org_id = org_id_in;
         delete from rhnOrgQuota where org_id = org_id_in;
-        delete from rhnOrgInfo where org_id = org_id_in;
         delete from rhnFileList where org_id = org_id_in;
         delete from rhnServerGroup where org_id = org_id_in;
         delete from rhn_check_suites where customer_id = org_id_in;

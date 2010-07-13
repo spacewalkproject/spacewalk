@@ -116,7 +116,6 @@ rhnMonitor                     :: rhnServer rhnMonitorGranularity
 rhnOrgChannelSettings          :: web_customer rhnChannel rhnOrgChannelSettingsType
 rhnOrgEntitlements             :: rhnOrgEntitlementType
 rhnOrgErrataCacheQueue         :: web_customer
-rhnOrgInfo                     :: rhnServerGroupType
 rhnOrgQuota                    :: web_customer
 rhnPackage                     :: rhnPackageName rhnPackageEVR rhnPackageArch \
                                   rhnPackageGroup rhnSourceRPM web_customer \
