@@ -44,15 +44,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
     </trans-unit>
 
-    <trans-unit id="Spacewalk Demo Entitled Servers">
-<source>Demo</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-    </trans-unit>
-
-
-
     <trans-unit id="Spacewalk Management Entitled Servers">
 <source>Management</source>
         <context-group name="ctx">

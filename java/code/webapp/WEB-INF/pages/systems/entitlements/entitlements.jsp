@@ -121,13 +121,6 @@
                   <th><bean:message key="Spacewalk Management Entitled Servers"/>:</th>
             	  <td>${requestScope.managementCountsMessage}</td>
 	    	</tr>
-            <c:if test="${requestScope.showDemoCountsMessage}">
-                <tr>
-                      <th><bean:message key="Spacewalk Demo Entitled Servers"/>:</th>
-                      <td>${requestScope.demoCountsMessage} (<bean:message key="systementitlements.jsp.demo_information" arg0="/rhn/help/demo-entitlements-message.jsp"/>)</td>
-                </tr>
-            </c:if>
-
        </table>
 
 

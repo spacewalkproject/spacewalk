@@ -11,7 +11,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="kickstart_id"/>
           <key-many-to-one name="org"
                      column="org_id"
-                     class="com.redhat.rhn.domain.org.OrgImpl" />
+                     class="com.redhat.rhn.domain.org.Org" />
           <key-property name="min" column="min" type="long" />
           <key-property name="max" column="max" type="long" />
         </composite-id>

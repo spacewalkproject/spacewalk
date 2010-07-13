@@ -20,7 +20,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="modified" column="modified" type="date"
 			insert="false" update="false" />
 		<many-to-one name="org" column="org_id"
-			class="com.redhat.rhn.domain.org.OrgImpl" outer-join="true"
+			class="com.redhat.rhn.domain.org.Org" outer-join="true"
 			not-null="true" insert="false" update="false" />
 	</class>
 </hibernate-mapping>

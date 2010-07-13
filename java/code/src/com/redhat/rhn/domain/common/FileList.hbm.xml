@@ -20,7 +20,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" column="modified"
         	not-null="true" type="timestamp" insert="false" update="false"/>
         	
-        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
+        <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
             column="org_id"/>
 
         <bag name="fileNames" table="rhnFileListMembers" cascade="save-update"

@@ -38,7 +38,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
-        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
+        <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
             column="org_id"/>
         <set name="bugs" lazy="true" inverse="true" order-by="BUG_ID asc"
             cascade="all">

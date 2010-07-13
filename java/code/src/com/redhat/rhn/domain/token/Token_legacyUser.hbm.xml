@@ -15,7 +15,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="deployConfigs" column="deploy_configs" type="yes_no"/>
         <property name="usageLimit" column="usage_limit" type="long"/>
 
-        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
+        <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
             column="org_id"/>
 
         <many-to-one name="creator"

@@ -98,7 +98,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			<many-to-many column="CAPABILITY_NAME_ID" class="com.redhat.rhn.domain.server.Capability"/>
 		</set>
 
-        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
+        <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
             column="org_id" lazy="proxy"/>
 
         <many-to-one name="creator" class="com.redhat.rhn.domain.user.legacy.UserImpl"

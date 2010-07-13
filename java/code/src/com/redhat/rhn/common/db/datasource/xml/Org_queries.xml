@@ -155,18 +155,6 @@ AND      sg.org_id != 1
   </query>
 </mode>
 
-<callable-mode name="oai_customer_sync">
-  <query params="org_id">
-    { call XXRH_OAI_WRAPPER.sync_customer(:org_id) }
-  </query>
-</callable-mode>
-
-<callable-mode name="is_org_paid">
-   <query params="org_id, result">
-      {:result = call rhn_bel.is_org_paid(:org_id)}
-   </query>
-</callable-mode>
-
 <callable-mode name="delete_organization">
   <query params="org_id">
      {call rhn_org.delete_org(:org_id)}

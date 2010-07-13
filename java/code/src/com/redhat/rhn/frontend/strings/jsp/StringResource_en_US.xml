@@ -6094,13 +6094,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
     </trans-unit>
-
-     <trans-unit id="demo-entitlements.jsp.about.info">
-         <source> The Demo entitlement is a free system entitlement that was granted with each new @@PRODUCT_NAME@@ (RHN) account. The Demo system entitlement is only intended to be used when subscribing an Red Hat Linux (end of life) system to RHN.  Red Hat Linux maintenance and errata support ended April 30, 2004. Red Hat no longer grants Demo system entitlements to new RHN accounts.&lt;p&gt; The Demo Entitlement can not be used with Red Hat Enterprise Linux will be removed at a later date.  Inactive systems associated with the Demo entitlements will be unentitled. An inactive system is a system that uses a Demo entitlement but has not checked in the past 30 days.&lt;/p&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     </trans-unit>
 	<group>
 	    <context-group name="ctx">
 		    <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>

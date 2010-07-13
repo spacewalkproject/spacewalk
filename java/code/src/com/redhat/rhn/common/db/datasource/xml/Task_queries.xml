@@ -250,14 +250,6 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
    </query>
 </callable-mode>
 
-<mode name="users_to_be_notified">
-  <query>
-SELECT WCN.id, WCN.org_id, WCN.contact_email_address, WC.name, WC.oracle_customer_number
-  FROM web_customer WC, web_customer_notification WCN
- WHERE WC.id = WCN.org_id
-  </query>
-</mode>
-
 <write-mode name="remove_user_from_wcn">
   <query params="user_id">
 DELETE

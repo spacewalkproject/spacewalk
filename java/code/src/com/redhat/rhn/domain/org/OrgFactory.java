@@ -34,12 +34,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
- /**
-  * A small wrapper around hibernate files to remove some of the complexities
-  * of writing to hibernate.
-  * @version $Rev$
+/**
+ * A small wrapper around hibernate files to remove some of the complexities
+ * of writing to hibernate.
+ * @version $Rev$
  */
- public class OrgFactory extends HibernateFactory {
+public class OrgFactory extends HibernateFactory {
 
 
     private static OrgFactory singleton = new OrgFactory();
@@ -50,10 +50,11 @@ import java.util.Map;
     }
 
     /**
-    * Get the Logger for the derived class so log messages
-    * show up on the correct class
-    * @return Logger to use
-    */
+     * Get the Logger for the derived class so log messages
+     * show up on the correct class
+     * @return Logger to use
+     */
+    @Override
     protected Logger getLogger() {
         return log;
     }
@@ -63,22 +64,9 @@ import java.util.Map;
      * @return Org to be used.
      */
     public static Org createOrg() {
-        Org retval = new OrgImpl();
-        retval.setCustomerType("B");
+        Org retval = new Org();
         return retval;
 
-    }
-
-    /**
-     * Delete the org. This should only be used when
-     * the org passed in has just been created (via CreateNewUser).
-     *
-     * @param org the org to delete
-     */
-    public static void removeOrg(Org org) {
-        if (!org.isPayingCustomer()) {
-            singleton.removeObject(org);
-        }
     }
 
     /**
@@ -105,8 +93,8 @@ import java.util.Map;
     public static Org lookupByName(String name) {
         Session session = HibernateFactory.getSession();
         return  (Org) session.getNamedQuery("Org.findByName")
-                                    .setString("name", name)
-                                    .uniqueResult();
+        .setString("name", name)
+        .uniqueResult();
     }
 
     /**
@@ -119,9 +107,9 @@ import java.util.Map;
         Session session = null;
         session = HibernateFactory.getSession();
         return (ServerGroup) session.getNamedQuery("ServerGroup.lookupByIdAndOrg")
-                                 .setLong("id", id.longValue())
-                                 .setEntity("org", org)
-                                 .uniqueResult();
+        .setLong("id", id.longValue())
+        .setEntity("org", org)
+        .uniqueResult();
     }
 
     /**
@@ -134,18 +122,18 @@ import java.util.Map;
         Session session = HibernateFactory.getSession();
 
         return (CustomDataKey) session.getNamedQuery("CustomDataKey.findByLabelAndOrg")
-                                       .setString("label", label)
-                                       .setEntity("org", org)
-                                       //Retrieve from cache if there
-                                       .setCacheable(true)
-                                       .uniqueResult();
+        .setString("label", label)
+        .setEntity("org", org)
+        //Retrieve from cache if there
+        .setCacheable(true)
+        .uniqueResult();
     }
 
     /**
-    * Get the OrgEntitlementType represented by the passed in label
-    * @param label label to lookup Entitlement by
-    * @return OrgEntitlementType that was found, null if not.
-    */
+     * Get the OrgEntitlementType represented by the passed in label
+     * @param label label to lookup Entitlement by
+     * @return OrgEntitlementType that was found, null if not.
+     */
     public static OrgEntitlementType lookupEntitlementByLabel(String label) {
         if (label.equals("sw_mgr_personal")) {
             return getEntitlementSwMgrPersonal();
@@ -154,11 +142,11 @@ import java.util.Map;
         //hack around this for now...
         Session session = HibernateFactory.getSession();
         return (OrgEntitlementType) session.
-                getNamedQuery("OrgEntitlementType.findByLabel")
-                .setString("label", label)
-                //Retrieve from cache if there
-                .setCacheable(true)
-                .uniqueResult();
+        getNamedQuery("OrgEntitlementType.findByLabel")
+        .setString("label", label)
+        //Retrieve from cache if there
+        .setCacheable(true)
+        .uniqueResult();
     }
 
     /**
@@ -179,7 +167,7 @@ import java.util.Map;
 
     private static Org saveNewOrg(Org org) {
         CallableMode m = ModeFactory.getCallableMode("General_queries",
-                                                     "create_org");
+        "create_org");
 
         Map inParams = new HashMap();
         Map outParams = new HashMap();
@@ -205,7 +193,7 @@ import java.util.Map;
         OrgQuota quota = new OrgQuota();
         quota.setTotal(new Long(1024L * 1024L * 1024L * 16L));
         quota.setOrg(retval);
-        ((OrgImpl) retval).setOrgQuota(quota);
+        (retval).setOrgQuota(quota);
         singleton.saveObject(quota);
         // Save the object since we may have in memory items to write\
         singleton.saveInternal(retval);
@@ -241,7 +229,7 @@ import java.util.Map;
      */
     public static Org lookupById(Long id) {
         Session session = HibernateFactory.getSession();
-        Org u = (Org)session.get(OrgImpl.class, id);
+        Org u = (Org)session.get(Org.class, id);
         return u;
     }
 
@@ -253,8 +241,8 @@ import java.util.Map;
     public static Long getActiveUsers(Org orgIn) {
         Session session = HibernateFactory.getSession();
         return  (Long) session.getNamedQuery("Org.numOfActiveUsers")
-                                    .setLong("org_id", orgIn.getId().longValue())
-                                    .uniqueResult();
+        .setLong("org_id", orgIn.getId().longValue())
+        .uniqueResult();
 
     }
 
@@ -266,8 +254,8 @@ import java.util.Map;
     public static Long getActiveSystems(Org orgIn) {
         Session session = HibernateFactory.getSession();
         return  (Long) session.getNamedQuery("Org.numOfSystems")
-                                    .setLong("org_id", orgIn.getId().longValue())
-                                    .uniqueResult();
+        .setLong("org_id", orgIn.getId().longValue())
+        .uniqueResult();
     }
 
     /**
@@ -278,8 +266,8 @@ import java.util.Map;
     public static Long getServerGroups(Org orgIn) {
         Session session = HibernateFactory.getSession();
         return  (Long) session.getNamedQuery("Org.numOfServerGroups")
-                                    .setLong("org_id", orgIn.getId().longValue())
-                                    .uniqueResult();
+        .setLong("org_id", orgIn.getId().longValue())
+        .uniqueResult();
     }
 
     /**
@@ -290,8 +278,8 @@ import java.util.Map;
     public static Long getConfigChannels(Org orgIn) {
         Session session = HibernateFactory.getSession();
         return  (Long) session.getNamedQuery("Org.numOfConfigChannels")
-                                    .setLong("org_id", orgIn.getId().longValue())
-                                    .uniqueResult();
+        .setLong("org_id", orgIn.getId().longValue())
+        .uniqueResult();
     }
 
     /**
@@ -322,74 +310,74 @@ import java.util.Map;
         DataList kickstarts = DataList.getDataList(m, params, Collections.EMPTY_MAP);
         return new Long(kickstarts.size());
     }
-     /**
-      * Lookup a Template String by label
-      * @param label to search for
-      * @return the Template found
-      */
-     public static TemplateString lookupTemplateByLabel(String label) {
-         Session session = HibernateFactory.getSession();
-         return (TemplateString) session.getNamedQuery("TemplateString.findByLabel")
-                                        .setString("label", label)
-                                        //Retrieve from cache if there
-                                        .setCacheable(true)
-                                        .uniqueResult();
-     }
+    /**
+     * Lookup a Template String by label
+     * @param label to search for
+     * @return the Template found
+     */
+    public static TemplateString lookupTemplateByLabel(String label) {
+        Session session = HibernateFactory.getSession();
+        return (TemplateString) session.getNamedQuery("TemplateString.findByLabel")
+        .setString("label", label)
+        //Retrieve from cache if there
+        .setCacheable(true)
+        .uniqueResult();
+    }
 
-     public static final TemplateString EMAIL_FOOTER =
-         lookupTemplateByLabel("email_footer");
-     public static final TemplateString EMAIL_ACCOUNT_INFO =
-         lookupTemplateByLabel("email_account_info");
+    public static final TemplateString EMAIL_FOOTER =
+        lookupTemplateByLabel("email_footer");
+    public static final TemplateString EMAIL_ACCOUNT_INFO =
+        lookupTemplateByLabel("email_account_info");
 
-     /**
-      * Get the default organization.
-      *
-      * Currently looks up the org with ID 1.
-      *
-      * @return Default organization
-      */
-     public static Org getSatelliteOrg() {
-         return lookupById(new Long(1));
-     }
+    /**
+     * Get the default organization.
+     *
+     * Currently looks up the org with ID 1.
+     *
+     * @return Default organization
+     */
+    public static Org getSatelliteOrg() {
+        return lookupById(new Long(1));
+    }
 
-     /**
-      * Get entitlement for provisioning
-      * @return OrgEntitlementType
-      */
-     public static OrgEntitlementType getEntitlementProvisioning() {
-         return lookupEntitlementByLabel("rhn_provisioning");
-     }
+    /**
+     * Get entitlement for provisioning
+     * @return OrgEntitlementType
+     */
+    public static OrgEntitlementType getEntitlementProvisioning() {
+        return lookupEntitlementByLabel("rhn_provisioning");
+    }
 
-     /**
-      * Get entitlement for sw_mgr_enterprise - aka MANAGEMENT
-      * @return OrgEntitlementType
-      */
-     public static OrgEntitlementType getEntitlementEnterprise() {
-         return lookupEntitlementByLabel("sw_mgr_enterprise");
-     }
+    /**
+     * Get entitlement for sw_mgr_enterprise - aka MANAGEMENT
+     * @return OrgEntitlementType
+     */
+    public static OrgEntitlementType getEntitlementEnterprise() {
+        return lookupEntitlementByLabel("sw_mgr_enterprise");
+    }
 
-     /**
-      * Get entitlement for rhn_monitor
-      * @return OrgEntitlementType
-      */
-     public static OrgEntitlementType getEntitlementMonitoring() {
-         return lookupEntitlementByLabel("rhn_monitor");
-     }
+    /**
+     * Get entitlement for rhn_monitor
+     * @return OrgEntitlementType
+     */
+    public static OrgEntitlementType getEntitlementMonitoring() {
+        return lookupEntitlementByLabel("rhn_monitor");
+    }
 
-     /**
-      * Get entitlement for sw_mgr_personal - aka UPDATE
-      * @return OrgEntitlementType
-      */
-     public static OrgEntitlementType getEntitlementSwMgrPersonal() {
-         return new OrgEntitlementType(
-                 "sw_mgr_personal",
-                     new Long(-1));
-     }
+    /**
+     * Get entitlement for sw_mgr_personal - aka UPDATE
+     * @return OrgEntitlementType
+     */
+    public static OrgEntitlementType getEntitlementSwMgrPersonal() {
+        return new OrgEntitlementType(
+                "sw_mgr_personal",
+                new Long(-1));
+    }
 
-     /**
-      * Get entitlement for rhn_virtualization
-      * @return OrgEntitlementType
-      */
+    /**
+     * Get entitlement for rhn_virtualization
+     * @return OrgEntitlementType
+     */
     public static OrgEntitlementType getEntitlementVirtualization() {
         return lookupEntitlementByLabel("rhn_virtualization");
     }
@@ -398,113 +386,113 @@ import java.util.Map;
      * Get entitlement for rhn_virtualization_platform
      * @return OrgEntitlementType
      */
-   public static OrgEntitlementType getEntitlementVirtualizationPlatform() {
-       return lookupEntitlementByLabel("rhn_virtualization_platform");
-   }
+    public static OrgEntitlementType getEntitlementVirtualizationPlatform() {
+        return lookupEntitlementByLabel("rhn_virtualization_platform");
+    }
 
-   /**
-    * Lookup orgs with servers with access to any channel that's a part of the given
-    * family.
-    * @param channelFamily Channel family to search for.
-    * @return List of orgs.
-    */
-   public static List<Org> lookupOrgsUsingChannelFamily(
-           ChannelFamily channelFamily) {
-       Map<String, Object> params = new HashMap<String, Object>();
-       params.put("cf", channelFamily);
-       return (List<Org>)singleton.listObjectsByNamedQuery(
-               "Org.findOrgsWithSystemsInChannelFamily", params);
-   }
+    /**
+     * Lookup orgs with servers with access to any channel that's a part of the given
+     * family.
+     * @param channelFamily Channel family to search for.
+     * @return List of orgs.
+     */
+    public static List<Org> lookupOrgsUsingChannelFamily(
+            ChannelFamily channelFamily) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("cf", channelFamily);
+        return singleton.listObjectsByNamedQuery(
+                "Org.findOrgsWithSystemsInChannelFamily", params);
+    }
 
-   /**
-    *
-    * @return Total number of orgs.
-    */
-   public static Long getTotalOrgCount() {
-       Map<String, Object> params = new HashMap<String, Object>();
+    /**
+     *
+     * @return Total number of orgs.
+     */
+    public static Long getTotalOrgCount() {
+        Map<String, Object> params = new HashMap<String, Object>();
 
-       return (Long)singleton.lookupObjectByNamedQuery(
-               "Org.numOfOrgs", params);
-   }
+        return (Long)singleton.lookupObjectByNamedQuery(
+                "Org.numOfOrgs", params);
+    }
 
-   /**
-    *  @param org Our org
-    *  @param trustedOrg the org we trust
-    *  @return Formated created String for Trusted Org
-    */
-   public static String getTrustedSince(Long org, Long trustedOrg) {
-       Map<String, Object> params = new HashMap<String, Object>();
-       params.put("org_id", org);
-       params.put("trusted_org_id", trustedOrg);
-       Date date = (Date)singleton.lookupObjectByNamedQuery(
-           "Org.getTrustedSince", params);
-       return LocalizationService.getInstance().formatDate(date);
-   }
+    /**
+     *  @param org Our org
+     *  @param trustedOrg the org we trust
+     *  @return Formated created String for Trusted Org
+     */
+    public static String getTrustedSince(Long org, Long trustedOrg) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_id", org);
+        params.put("trusted_org_id", trustedOrg);
+        Date date = (Date)singleton.lookupObjectByNamedQuery(
+                "Org.getTrustedSince", params);
+        return LocalizationService.getInstance().formatDate(date);
+    }
 
-   /**
-    * @param orgTo Org to caclulate system migrations to
-    * @param orgFrom Org to caclulate system migrations from
-    * @return number of systems migrated to orgIn
-    */
-   public static Long getMigratedSystems(Long orgTo, Long orgFrom) {
-       Map<String, Object> params = new HashMap<String, Object>();
-       params.put("org_to_id", orgTo);
-       params.put("org_from_id", orgFrom);
-       Long systems  = (Long)singleton.lookupObjectByNamedQuery(
-           "Org.getMigratedSystems", params);
-       return systems;
-       }
+    /**
+     * @param orgTo Org to caclulate system migrations to
+     * @param orgFrom Org to caclulate system migrations from
+     * @return number of systems migrated to orgIn
+     */
+    public static Long getMigratedSystems(Long orgTo, Long orgFrom) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_to_id", orgTo);
+        params.put("org_from_id", orgFrom);
+        Long systems  = (Long)singleton.lookupObjectByNamedQuery(
+                "Org.getMigratedSystems", params);
+        return systems;
+    }
 
-   /**
-    * @param orgId Org to caclulate systems
-    * @param trustId Org to calculate channel sharing to
-    * @return number of systems migrated to orgIn
-    */
-   public static Long getSharedChannels(Long orgId, Long trustId) {
-       Map<String, Object> params = new HashMap<String, Object>();
-       params.put("org_id", orgId);
-       params.put("org_trust_id", trustId);
-       Long systems  = (Long)singleton.lookupObjectByNamedQuery(
-           "Org.getSharedChannels", params);
-       return systems;
-       }
+    /**
+     * @param orgId Org to caclulate systems
+     * @param trustId Org to calculate channel sharing to
+     * @return number of systems migrated to orgIn
+     */
+    public static Long getSharedChannels(Long orgId, Long trustId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_id", orgId);
+        params.put("org_trust_id", trustId);
+        Long systems  = (Long)singleton.lookupObjectByNamedQuery(
+                "Org.getSharedChannels", params);
+        return systems;
+    }
 
-   /**
-    * @param orgId Org sharing
-    * @param trustId subscribing systems to orgId channels
-    * @return number of systems trustId has subscribed to orgId channels
-    */
-   public static Long getSharedSubscribedSys(Long orgId, Long trustId) {
-       Map<String, Object> params = new HashMap<String, Object>();
-       params.put("org_id", orgId);
-       params.put("org_trust_id", trustId);
-       Long systems  = (Long)singleton.lookupObjectByNamedQuery(
-           "Org.getSharedSubscribedSys", params);
-       return systems;
-       }
+    /**
+     * @param orgId Org sharing
+     * @param trustId subscribing systems to orgId channels
+     * @return number of systems trustId has subscribed to orgId channels
+     */
+    public static Long getSharedSubscribedSys(Long orgId, Long trustId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_id", orgId);
+        params.put("org_trust_id", trustId);
+        Long systems  = (Long)singleton.lookupObjectByNamedQuery(
+                "Org.getSharedSubscribedSys", params);
+        return systems;
+    }
 
-   /**
-    * @param orgIn Org to caclulate system migrations to
-    * @return number of systems migrated to orgIn
-    */
-   public static Long getSysMigrationsTo(Long orgIn) {
-       Map<String, Object> params = new HashMap<String, Object>();
-       params.put("org_id", orgIn);
-       Long systems  = (Long)singleton.lookupObjectByNamedQuery(
-            "Org.getSysMigrationTo", params);
-       return systems;
-   }
+    /**
+     * @param orgIn Org to caclulate system migrations to
+     * @return number of systems migrated to orgIn
+     */
+    public static Long getSysMigrationsTo(Long orgIn) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_id", orgIn);
+        Long systems  = (Long)singleton.lookupObjectByNamedQuery(
+                "Org.getSysMigrationTo", params);
+        return systems;
+    }
 
 
-   /**
-    * Lookup all orgs on the satellite.
-    * @return List of orgs.
-    */
-   public static List<Org> lookupAllOrgs() {
-       Map<String, Object> params = new HashMap<String, Object>();
-       return (List<Org>)singleton.listObjectsByNamedQuery(
-               "Org.findAll", params);
-   }
+    /**
+     * Lookup all orgs on the satellite.
+     * @return List of orgs.
+     */
+    public static List<Org> lookupAllOrgs() {
+        Map<String, Object> params = new HashMap<String, Object>();
+        return singleton.listObjectsByNamedQuery(
+                "Org.findAll", params);
+    }
 
 }
 

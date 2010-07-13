@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.org.OrgImpl"
+    <class name="com.redhat.rhn.domain.org.Org"
            table="WEB_CUSTOMER">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -12,12 +12,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             </generator>
         </id>
         <property name="name" type="string" />
-        <property name="oracleCustomerId" type="int" column="oracle_customer_id" />
-        <property name="oracleCustomerNumber" column="oracle_customer_number" type="int" />
-        <property name="customerType" column="customer_type" type="string" />
+        <property name="stagingContentEnabled" column="staging_content_enabled" type="yes_no" not-null="true"/>
         <property name="created" type="timestamp" insert="false" update="false" />
-        <property name="stagingContentEnabled" column="staging_content_enabled" type="yes_no" not-null="true" default="N"/>
-        <property name="creditApplicationCompleted" column="credit_application_completed" type="string" length="1" />
         <property name="modified" type="timestamp" insert="false" update="false" />
 
         <set table="rhnUserGroup" lazy="true" cascade="all" name="userGroups" >
@@ -60,7 +56,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <set name="trustedOrgs" access="field" table="rhnTrustedOrgs" outer-join="true" cascade="all" lazy="true">
           <key column="org_id" />
-          <many-to-many column="org_trust_id" outer-join="true" class="com.redhat.rhn.domain.org.OrgImpl" />
+          <many-to-many column="org_trust_id" outer-join="true" class="com.redhat.rhn.domain.org.Org" />
         </set>
 
         <join table="rhnRegTokenOrgDefault" optional="true">
@@ -71,11 +67,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
     <query name="Org.findByName">
-        <![CDATA[from com.redhat.rhn.domain.org.OrgImpl as o where o.name = :name]]>
+        <![CDATA[from com.redhat.rhn.domain.org.Org as o where o.name = :name]]>
     </query>
 
     <query name="Org.findAll">
-        <![CDATA[from com.redhat.rhn.domain.org.OrgImpl as o]]>
+        <![CDATA[from com.redhat.rhn.domain.org.Org as o]]>
     </query>
 
     <sql-query name="Org.accessibleChannels">
@@ -175,7 +171,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
     <query name="Org.findOrgsWithSystemsInChannelFamily"><![CDATA[
         select o from
-            com.redhat.rhn.domain.org.OrgImpl as o
+            com.redhat.rhn.domain.org.Org as o
             where exists (
                 from com.redhat.rhn.domain.server.Server s where
                     s.org = o and exists (

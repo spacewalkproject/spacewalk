@@ -16,7 +16,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         insert="false" update="false"/>
     <property name="modified" column="modified" type="timestamp"
         insert="false" update="false"/>
-     <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
+     <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
             column="org_id"/>
      <many-to-one name="name" class="com.redhat.rhn.domain.server.SnapshotTagName"
             column="name_id" cascade="all"/>

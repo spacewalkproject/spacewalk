@@ -7,7 +7,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         table="rhnTaskQueue">
         <composite-id unsaved-value="any">
             <key-many-to-one name="org"
-                class="com.redhat.rhn.domain.org.OrgImpl"
+                class="com.redhat.rhn.domain.org.Org"
                 column="org_id" />
             <key-property name="name" type="string" column="task_name" length="64"/>
 			<key-property name="data" column="task_data" type="long"/>

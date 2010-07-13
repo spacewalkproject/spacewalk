@@ -13,7 +13,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </id>
         <property name="targetType" column="target_type" not-null="true"
         	type="string" length="10" />
-        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
+        <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
             column="customer_id"/>
 
     </class>

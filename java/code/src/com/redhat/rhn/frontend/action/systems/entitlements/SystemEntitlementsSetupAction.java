@@ -64,9 +64,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
     public static final String ADDON_ENTITLEMENTS = "addOnEntitlements";
     public static final String ADDON_ENTITLEMENT = "addOnEntitlement";
 
-    public static final String DEMO_COUNTS_MESSAGE = "demoCountsMessage";
-    public static final String SHOW_DEMO_COUNTS_MESSAGE = "showDemoCountsMessage";
-
     public static final String UPDATE_COUNTS_MESSAGE = "updateCountsMessage";
     public static final String MANAGEMENT_COUNTS_MESSAGE = "managementCountsMessage";
     public static final String PROVISION_COUNTS_MESSAGE = "provisioningCountsMessage";
@@ -80,6 +77,7 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.SYSTEM_ENTITLEMENTS;
     }
@@ -87,6 +85,7 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected DataResult getDataResult(User user, PageControl pc, ActionForm formIn) {
         return SystemManager.getSystemEntitlements(user, pc);
     }
@@ -94,10 +93,11 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ActionForward execute(ActionMapping mapping,
-                                    ActionForm formIn,
-                                    HttpServletRequest request,
-                                    HttpServletResponse response) {
+            ActionForm formIn,
+            HttpServletRequest request,
+            HttpServletResponse response) {
 
         ActionForward forward = super.execute(mapping, formIn, request, response);
         RequestContext rctx = new RequestContext(request);
@@ -107,9 +107,6 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         if (request.getAttribute(SHOW_NO_SYSTEMS) == null) {
             log.debug("adding show commands ..");
             request.setAttribute(SHOW_COMMANDS, Boolean.TRUE);
-        }
-        if (user.getOrg().isDemoEntitled()) {
-            request.setAttribute(SHOW_DEMO_COUNTS_MESSAGE, Boolean.TRUE);
         }
 
         List addOnEntitlements = new ArrayList();
@@ -136,15 +133,15 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
 
         if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementEnterprise())) {
             setIfSlotsAvailable(SHOW_MANAGEMENT_ASPECTS,
-                                    request, user,
-                                    EntitlementManager.MANAGEMENT);
+                    request, user,
+                    EntitlementManager.MANAGEMENT);
 
 
 
             if (user.getOrg().hasEntitlement(OrgFactory.getEntitlementMonitoring()) &&
                     hasMonitoringAcl(user, request)) {
                 addOnEntitlements.add(lvl10n("monitoring_entitled",
-                            EntitlementManager.MONITORING_ENTITLED));
+                        EntitlementManager.MONITORING_ENTITLED));
                 request.setAttribute(SHOW_MONITORING, Boolean.TRUE);
                 request.setAttribute(SHOW_ADDON_ASPECTS, Boolean.TRUE);
             }
@@ -163,13 +160,13 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
             request.setAttribute(ADDON_ENTITLEMENTS, addOnEntitlements);
             DynaActionForm form = (DynaActionForm)formIn;
             form.set(ADDON_ENTITLEMENT,
-                       ((LabelValueBean) addOnEntitlements.get(0)).getValue());
+                    ((LabelValueBean) addOnEntitlements.get(0)).getValue());
         }
         setupCounts(request, user);
 
         setIfSlotsAvailable(SHOW_UPDATE_ASPECTS,
-                                    request, user,
-                                    EntitlementManager.UPDATE);
+                request, user,
+                EntitlementManager.UPDATE);
 
 
         setupCounts(request, user);
@@ -184,21 +181,21 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
      * @param user
      */
     private void setIfSlotsAvailable(String aspectName,
-                                     HttpServletRequest request,
-                                     User user,
-                                     Entitlement ent) {
+            HttpServletRequest request,
+            User user,
+            Entitlement ent) {
         EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(ent,
-                                                            user.getOrg());
+                user.getOrg());
         if (sg != null) {
             if (sg.getMaxMembers() == null) {
                 request.setAttribute(aspectName, Boolean.TRUE);
             }
             else {
-                 long available = sg.getMaxMembers().longValue() -
-                 sg.getCurrentMembers().longValue();
-                 if (available > 0) {
-                     request.setAttribute(aspectName, Boolean.TRUE);
-                 }
+                long available = sg.getMaxMembers().longValue() -
+                sg.getCurrentMembers().longValue();
+                if (available > 0) {
+                    request.setAttribute(aspectName, Boolean.TRUE);
+                }
             }
 
 
@@ -210,9 +207,9 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
 
     private boolean hasMonitoringAcl(User user, HttpServletRequest request) {
         return  (request.getAttribute(SHOW_MONITORING) != null) ||
-                (AclManager.hasAcl("show_monitoring();", user,
-                       "com.redhat.rhn.common.security.acl.MonitoringAclHandler",
-                        null));
+        (AclManager.hasAcl("show_monitoring();", user,
+                "com.redhat.rhn.common.security.acl.MonitoringAclHandler",
+                null));
     }
 
 
@@ -222,8 +219,8 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
                 MANAGEMENT_COUNTS_MESSAGE);
 
         setupCountsMessage(request, user,
-                    EntitlementManager.PROVISIONING,
-                    PROVISION_COUNTS_MESSAGE);
+                EntitlementManager.PROVISIONING,
+                PROVISION_COUNTS_MESSAGE);
 
         setupCountsMessage(request, user, EntitlementManager.VIRTUALIZATION,
                 VIRTUALIZATION_COUNTS_MESSAGE);
@@ -238,40 +235,19 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         }
 
         setupCountsMessage(request, user,
-                            EntitlementManager.UPDATE,
-                            UPDATE_COUNTS_MESSAGE);
-        if (user.getOrg().isDemoEntitled()) {
-            setupDemoCountsMessage(request, user);
-        }
-    }
-
-    private void setupDemoCountsMessage(HttpServletRequest request,
-                                        User user) {
-        long total = 1, current = 0, available = 0;
-        EntitlementServerGroup sg = ServerGroupFactory.
-                                        lookupEntitled(EntitlementManager.UPDATE,
-                                                                  user.getOrg());
-        if (sg != null) {
-            if (sg.getCurrentMembers() != null &&
-                    sg.getCurrentMembers().longValue() > 0) {
-                current = 1;
-            }
-        }
-
-        available = total - current;
-        String message = getEntitlementsCountsMessage(total, current, available);
-        request.setAttribute(DEMO_COUNTS_MESSAGE, message);
+                EntitlementManager.UPDATE,
+                UPDATE_COUNTS_MESSAGE);
     }
 
     private void setupCountsMessage(HttpServletRequest request,
-                                    User user,
-                                    Entitlement ent,
-                                    String requestId) {
+            User user,
+            Entitlement ent,
+            String requestId) {
 
         long total = 0, current = 0, available = 0;
 
         EntitlementServerGroup sg = ServerGroupFactory.lookupEntitled(ent,
-                                                                user.getOrg());
+                user.getOrg());
         if (sg != null) {
 
             if (sg.getMaxMembers() == null) {
@@ -282,8 +258,8 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
                     "systementitlements.jsp.entitlement_counts_message_unlimited";
 
                 String message = service.getMessage(unlimitedKey,
-                                                    new Object[] {
-                                                    String.valueOf(current)});
+                        new Object[] {
+                        String.valueOf(current)});
                 request.setAttribute(requestId, message);
                 return;
             }
@@ -319,9 +295,9 @@ public class SystemEntitlementsSetupAction extends BaseSystemListSetupAction {
         }
         LocalizationService service  = LocalizationService.getInstance();
         String message = service.getMessage(countsMessage,
-                                            new Object[] {String.valueOf(current),
-                                                        String.valueOf(available),
-                                                        String.valueOf(total)});
+                new Object[] {String.valueOf(current),
+                String.valueOf(available),
+                String.valueOf(total)});
         return message;
     }
 }

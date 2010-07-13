@@ -38,7 +38,7 @@ import java.util.Set;
  */
 public class ChannelHandlerTest extends BaseHandlerTestCase {
 
-    private ChannelHandler handler = new ChannelHandler();
+    private final ChannelHandler handler = new ChannelHandler();
 
     public void testListSoftwareChannels() throws Exception {
 
@@ -222,10 +222,9 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
     }
 
     private Org createOrg() throws Exception {
-        String random = TestUtils.randomString();
+        TestUtils.randomString();
         Org org = OrgFactory.createOrg();
         org.setName("org created by OrgFactory test: " + TestUtils.randomString());
-        org.setCustomerType("B");
         org = OrgFactory.save(org);
         assertTrue(org.getId().longValue() > 0);
         return org;

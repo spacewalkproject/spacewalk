@@ -23,7 +23,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			insert="false" update="false" />
 
 		<many-to-one name="org" cascade="none"
-			class="com.redhat.rhn.domain.org.OrgImpl" column="org_id" />
+			class="com.redhat.rhn.domain.org.Org" column="org_id" />
 
 		<set name="channels" lazy="true" table="rhnChannelFamilyMembers"
 			cascade="save-update" inverse="true">

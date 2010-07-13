@@ -53,7 +53,7 @@ public class UserTestUtils extends Assert {
      * @return long The Org id.
      */
     public static Long createOrg(String orgName) {
-           return createNewOrgFull(orgName).getId();
+        return createNewOrgFull(orgName).getId();
     }
 
     /**
@@ -65,7 +65,6 @@ public class UserTestUtils extends Assert {
     public static Org createNewOrgFull(String orgName) {
         Org org1 = OrgFactory.createOrg();
         org1.setName(orgName + TestUtils.randomString());
-        org1.setCustomerType("B");
         org1 = OrgFactory.save(org1);
         assertTrue(org1.getId().longValue() > 0);
         return org1;
@@ -137,7 +136,7 @@ public class UserTestUtils extends Assert {
         usr.setFirstNames("userName" + TestUtils.randomString());
         usr.setLastName("userName" + TestUtils.randomString());
         String prefix = (String) LocalizationService.getInstance().
-                            availablePrefixes().toArray()[0];
+        availablePrefixes().toArray()[0];
         usr.setPrefix(prefix);
         usr.setEmail("redhatJavaTest@redhat.com");
 

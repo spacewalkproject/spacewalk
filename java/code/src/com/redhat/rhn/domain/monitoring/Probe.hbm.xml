@@ -39,7 +39,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <column name="probe_type"/>
         </many-to-one>
         <many-to-one name="org" column="customer_id"
-            class="com.redhat.rhn.domain.org.OrgImpl"
+            class="com.redhat.rhn.domain.org.Org"
             not-null="true" access="field"/>
         <many-to-one name="command"
             class="com.redhat.rhn.domain.monitoring.command.Command"

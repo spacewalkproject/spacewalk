@@ -35,7 +35,6 @@ sub register_acl_handlers {
   $acl->register_handler(global_config => \&global_config_acl_test);
   $acl->register_handler(org_role => \&org_role_acl_test);
   $acl->register_handler(org_entitlement => \&org_entitlement_acl_test);
-  $acl->register_handler(org_is_paying_customer => \&org_is_paying_customer_acl_test);
   $acl->register_handler(system_entitled => \&system_entitled_acl_test);
   $acl->register_handler(system_locked => \&system_locked_acl_test);
   $acl->register_handler(system_feature => \&system_feature_acl_test);
@@ -101,14 +100,6 @@ sub org_entitlement_acl_test {
   die "org_entitlement_acl_test called with no \$pxt->user authenticated" unless $pxt->user;
 
   return $pxt->user->org->has_entitlement($ent) ? 1 : 0;
-}
-
-sub org_is_paying_customer_acl_test {
-  my $pxt = shift;
-
-  die "org_is_paying_customer_acl_test called with no \$pxt->user authenticated" unless $pxt->user;
-
-  return $pxt->user->org->is_paying_customer() ? 1 : 0;
 }
 
 sub show_monitoring {

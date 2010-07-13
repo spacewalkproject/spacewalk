@@ -19,7 +19,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		
 		<many-to-one
             name="org"
-            class="com.redhat.rhn.domain.org.OrgImpl"
+            class="com.redhat.rhn.domain.org.Org"
             column="org_id"/>
 		<many-to-one name="configChannelType"
 			class="com.redhat.rhn.domain.config.ConfigChannelType"

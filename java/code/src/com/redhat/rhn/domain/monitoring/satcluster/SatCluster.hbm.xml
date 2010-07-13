@@ -33,7 +33,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			outer-join="false" cascade="save-update" not-null="true" >
 			<column name="physical_location_id" />
 		</many-to-one>
-        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
+        <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
             column="customer_id" cascade="none"/>
         <many-to-one name="commandTarget"
         	class="com.redhat.rhn.domain.monitoring.satcluster.CommandTarget"

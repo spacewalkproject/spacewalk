@@ -10,7 +10,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				class="com.redhat.rhn.domain.channel.ChannelFamily"
 				column="CHANNEL_FAMILY_ID" />
 			<key-many-to-one name="org"
-				class="com.redhat.rhn.domain.org.OrgImpl" column="ORG_ID" />
+				class="com.redhat.rhn.domain.org.Org" column="ORG_ID" />
 		</composite-id>
 		<property name="maxMembers" column="MAX_MEMBERS" type="long" />
 		<property name="currentMembers" column="CURRENT_MEMBERS"

@@ -20,7 +20,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="lastUpdateDate" column="last_update_date"
 			not-null="true" type="timestamp" />
 		<many-to-one name="org" column="customer_id"
-			class="com.redhat.rhn.domain.org.OrgImpl"
+			class="com.redhat.rhn.domain.org.Org"
 			not-null="true" />
 		<set name="probes" table="rhn_check_suite_probe" cascade="all" lazy="true">
 			<key column="check_suite_id"/>

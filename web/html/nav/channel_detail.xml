@@ -28,6 +28,6 @@
   <rhn-tab name="Target Systems" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_for_channel" acl="channel_subscribable()">
     <rhn-tab-url>/network/software/channels/target_systems.pxt</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Downloads" acl="org_is_paying_customer(); channel_has_downloads()" url="/rhn/software/channel/downloads/Download.do" />
+  <rhn-tab name="Downloads" acl="channel_has_downloads()" url="/rhn/software/channel/downloads/Download.do" />
 </rhn-navi-tree>
 

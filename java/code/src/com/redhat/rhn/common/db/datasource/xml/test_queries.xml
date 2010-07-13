@@ -407,12 +407,6 @@ DELETE FROM rhnDailySummaryQueue
     </query>
 </write-mode>
 
-<write-mode name="update_demo_stop_date">
-    <query params="days_to_add">
-    update rhnDemoEntitlementStopDate set STOP_DATE = sysdate + :days_to_add   where id = 1
-    </query>
-</write-mode>
-
 <write-mode name="add_to_client_capabilities">
     <query params="sid, capability, version">
 insert into rhnClientCapability (server_id, capability_name_id, version)

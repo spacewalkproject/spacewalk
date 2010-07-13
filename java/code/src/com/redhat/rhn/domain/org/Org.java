@@ -15,18 +15,43 @@
 
 package com.redhat.rhn.domain.org;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
+import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.usergroup.UserGroup;
+import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.ServerGroup;
+import com.redhat.rhn.domain.server.ServerGroupFactory;
+import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -34,140 +59,113 @@ import java.util.Set;
  * web_customer
  * @version $Rev:67468 $
  */
-public interface Org {
+public class Org extends BaseDomainHelper {
 
-    // /** Static entitlement necessary for comparison within package */
-    // OrgEntitlementType ENTITLEMENT_SW_MGR_PERSONAL2 = new OrgEntitlementType(
-    // "sw_mgr_personal",
-    // new Long(-1));
-    // /** Static entitlement, mainly used to check on Management entitlements.
-    // */
-    // OrgEntitlementType ENTITLEMENT_ENTERPRISE2 = OrgFactory.
-    // lookupEntitlementByLabel("sw_mgr_enterprise");
-    //
-    //
-    // /** Static entitlement, mainly used to check on Monitoring entitlements.
-    // */
-    // OrgEntitlementType ENTITLEMENT_MONTIORING2 = OrgFactory.
-    // lookupEntitlementByLabel("rhn_monitor");
-    //
-    // /** Static entitlement, mainly used to check on provisioning
-    // entitlements. */
-    // OrgEntitlementType ENTITLEMENT_PROVISIONING2 = OrgFactory.
-    // lookupEntitlementByLabel("rhn_provisioning");
+    private static final String USER_ID_KEY = "user_id";
+    private static final String ORG_ID_KEY = "org_id";
+
+    protected static Logger log = Logger.getLogger(Org.class);
+
+    private Long id;
+    private String name;
+    private Set usergroups;
+    private Set entitlements;
+    private Set ownedChannels;
+    private Set customDataKeys;
+    private Set<Org> trustedOrgs;
+    private Token token;
+    private boolean stagingContentEnabled;
+
+    private OrgQuota orgQuota;
+
+    private Set monitoringScouts;
+    private Set contactGroups;
+
+    /**
+     * Construct new Org
+     */
+    protected Org() {
+        usergroups = new HashSet();
+        entitlements = new HashSet();
+    }
 
     /**
      * @return Returns the customDataKeys.
      */
-    Set getCustomDataKeys();
+    public Set getCustomDataKeys() {
+        return this.customDataKeys;
+    }
 
     /**
      * @param customDataKeysIn The customDataKeys to set.
      */
-    void setCustomDataKeys(Set customDataKeysIn);
+    public void setCustomDataKeys(Set customDataKeysIn) {
+        this.customDataKeys = customDataKeysIn;
+    }
+
+    /**
+     * Convenience method that checks the set of customDataKeys for a custom
+     * data key with the given label.
+     * @param label The label to check for.
+     * @return Returns true if the corresponding custom data key exists, false
+     * otherwise.
+     */
+    public boolean hasCustomDataKey(String label) {
+        // Check for null
+        if (label == null) {
+            return false;
+        }
+        // Loop through the custom data keys and check for the label
+        for (Iterator itr = customDataKeys.iterator(); itr.hasNext();) {
+            CustomDataKey key = (CustomDataKey) itr.next();
+            if (label.equals(key.getLabel())) {
+                // Found it! no need to check anything else.
+                return true;
+            }
+        }
+        // Org doesn't have a key defined with this label.
+        return false;
+    }
 
     /**
      * @param keyIn The CustomDataKey to add to the customDataKeys set for this
      * org.
      */
-    void addCustomDataKey(CustomDataKey keyIn);
-
-    /**
-     * @param label The label to check for
-     * @return Returns true if the corresponding custom data key exists, false
-     * otherwise.
-     */
-    boolean hasCustomDataKey(String label);
+    public void addCustomDataKey(CustomDataKey keyIn) {
+        customDataKeys.add(keyIn);
+    }
 
     /**
      * Gets the current value of id
-     * @return Long the current value
+     * @return long the current value
      */
-    Long getId();
+    public Long getId() {
+        return this.id;
+    }
+
+    /**
+     * Sets the value of id to new value
+     * @param idIn New value for id
+     */
+    protected void setId(Long idIn) {
+        this.id = idIn;
+    }
 
     /**
      * Gets the current value of name
      * @return String the current value
      */
-    String getName();
+    public String getName() {
+        return this.name;
+    }
 
     /**
      * Sets the value of name to new value
      * @param nameIn New value for name
      */
-    void setName(String nameIn);
-
-    /**
-     * Gets the current value of oracleCustomerId
-     * @return Integer the current value
-     */
-    Integer getOracleCustomerId();
-
-    /**
-     * Sets the value of oracleCustomerId to new value
-     * @param oracleIn New value for oracleCustomerId
-     */
-    void setOracleCustomerId(Integer oracleIn);
-
-    /**
-     * Gets the current value of oracleCustomerNumber
-     * @return int the current value
-     */
-    Integer getOracleCustomerNumber();
-
-    /**
-     * Sets the value of oracleCustomerNumber to new value
-     * @param oracleIn New value for oracleCustomerNumber
-     */
-    void setOracleCustomerNumber(Integer oracleIn);
-
-    /**
-     * Gets the current value of customerType
-     * @return String the current value
-     */
-    String getCustomerType();
-
-    /**
-     * Sets the value of customerType to new value
-     * @param customerTypeIn New value for customerType
-     */
-    void setCustomerType(String customerTypeIn);
-
-    /**
-     * Gets the current value of created
-     * @return Date the current value
-     */
-    Date getCreated();
-
-    /**
-     * Sets the value of created to new value
-     * @param createdIn New value for created
-     */
-    void setCreated(Date createdIn);
-
-    /**
-     * Gets the current value of creditApplicationCompleted
-     * @return String the current value
-     */
-    String getCreditApplicationCompleted();
-
-    /**
-     * Sets the value of creditApplicationCompleted to new value
-     * @param credIn New value for creditApplicationCompleted
-     */
-    void setCreditApplicationCompleted(String credIn);
-
-    /**
-     * Gets the current value of modified
-     * @return Date the current value
-     */
-    Date getModified();
-
-    /**
-     * Sets the value of modified to new value
-     * @param modifiedIn New value for modified
-     */
-    void setModified(Date modifiedIn);
+    public void setName(String nameIn) {
+        this.name = nameIn;
+    }
 
     /**
      * Gets the roles assigned to this Org. The Map returned from this method
@@ -176,60 +174,175 @@ public interface Org {
      * rule that roles are not changeable during runtime.
      * @return Set of Roles associated with this Org
      */
-    Set<Role> getRoles();
+    public Set<Role> getRoles() {
+        Set orgRoles = new HashSet();
+        for (Iterator i = usergroups.iterator(); i.hasNext();) {
+            UserGroup ug = (UserGroup) i.next();
+            orgRoles.add(ug.getRole());
+        }
+        return Collections.unmodifiableSet(orgRoles);
+    }
 
     /**
      * Does the Org have the specified role
-     * @param roleLabel the Role.label to check
+     * @param role the Role to check
      * @return boolean if the Org has Role
      */
-    boolean hasRole(Role roleLabel);
+    public boolean hasRole(Role role) {
+        return getRoles().contains(role);
+    }
 
-    /**
-     * Get the Org's UserGroup ID for the specified Role
-     * @param roleLabel the Role.label to translate to a UserGroup.ID
-     * @return the UserGroup if found, otherwise null.
-     */
-    UserGroup getUserGroup(Role roleLabel);
 
     /**
      * Add a Role to the Org.
-     * @param roleLabel the role label we want to add to this Org
+     * @param newRole the role label we want to add to this Org
      */
-    void addRole(Role roleLabel);
+    public void addRole(Role newRole) {
+        // Don't create and add a new group if the Org already has the
+        // specified role.
+        if (!hasRole(newRole)) {
+            // Create a new UserGroup based on the Role specified
+            UserGroup newGroup = UserGroupFactory
+            .createUserGroup(this, newRole);
+            usergroups.add(newGroup);
+        }
+    }
+
+
+    /**
+     * Get the Org's UserGroup ID for the specified Role
+     * @param roleIn the Role.label to translate to a UserGroup.ID
+     * @return the UserGroup if found, otherwise null.
+     */
+    public UserGroup getUserGroup(Role roleIn) {
+        for (Iterator i = usergroups.iterator(); i.hasNext();) {
+            UserGroup ug = (UserGroup) i.next();
+            if (ug.getRole().equals(roleIn)) {
+                return ug;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get UserGroups for this Org. This is used internally within this package
+     * to map Roles to UserGroups
+     * @return userGroup array
+     */
+    public Set getUserGroups() {
+        return usergroups;
+    }
+
+    /**
+     * Set UserGroups for this Org. This is used internally within this package
+     * to map Roles to UserGroups
+     * @param ugIn the new array
+     */
+    public void setUserGroups(Set ugIn) {
+        usergroups = ugIn;
+    }
 
     /**
      * Set entitlements for this Org
      * @param entsIn new Set of Entitlements to update
      */
-    void setEntitlements(Set entsIn);
+    public void setEntitlements(Set entsIn) {
+        entitlements = entsIn;
+    }
 
     /**
      * Get entitlements for this Org
      * @return Set of entitlements for this Org
      */
-    Set getEntitlements();
-
-    /**
-     * Does this org have the requested entitlement
-     * @param ent Entitlement to check
-     * @return boolean if or not the org has the Ent
-     */
-    boolean hasEntitlement(OrgEntitlementType ent);
+    public Set getEntitlements() {
+        return entitlements;
+    }
 
     /**
      * Get the set of EntitlementServerGroups that this Org is a member of.
      *
      * @return List of ServerGroup classes
      */
-    List<EntitlementServerGroup> getEntitledServerGroups();
+    public List<EntitlementServerGroup> getEntitledServerGroups() {
+        return ServerGroupFactory.listEntitlementGroups(this);
+    }
 
     /**
      * Get the set of ManagedServerGroups that this Org is a member of.
      *
      * @return List of ServerGroup classes
      */
-    List<ManagedServerGroup> getManagedServerGroups();
+    public List<ManagedServerGroup> getManagedServerGroups() {
+        return ServerGroupFactory.listManagedGroups(this);
+    }
+
+    /**
+     * Adds a new channel to the orgs set of channels
+     * @param channelIn The Channel to add
+     */
+    public void addOwnedChannel(Channel channelIn) {
+        if (this.ownedChannels == null) {
+            this.ownedChannels = new HashSet();
+        }
+        channelIn.setOrg(this);
+        this.ownedChannels.add(channelIn);
+    }
+
+    /**
+     * Set the channels for this org.
+     * @param channelsIn The channels for this org
+     */
+    public void setOwnedChannels(Set channelsIn) {
+        this.ownedChannels = channelsIn;
+    }
+
+    /**
+     * Get the set of channels associated with this org.
+     * @return Returns the set of channels for this org.
+     */
+    public Set getOwnedChannels() {
+        return ownedChannels;
+    }
+
+    /**
+     * Get the list of channels accessible for this org.
+     * @return List of channels public or owned by this org.
+     */
+    public List getAccessibleChannels() {
+        return ChannelManager.getChannelsAccessibleByOrg(this.id);
+    }
+
+    /**
+     * Does this org have the requested entitlement
+     * @param ent Entitlement to check
+     * @return boolean if or not the org has the Ent
+     */
+    public boolean hasEntitlement(OrgEntitlementType ent) {
+        if (!OrgFactory.isValidEntitlement(ent)) {
+            throw new IllegalArgumentException("Invalid Entitlement specified");
+        }
+        // This is really bogus, but sw_mgr_personal isn't stored in the DB.
+        // The rule is that if you don't have the sw_mgr_enterprise entitlement,
+        // then you have the sw_mgr_personal one. So add that logic here.
+
+        if (ent.equals(OrgFactory.getEntitlementSwMgrPersonal())) {
+            if (!entitlements.contains(OrgFactory.getEntitlementEnterprise())) {
+                return true;
+            }
+        }
+        return entitlements.contains(ent);
+    }
+
+    private void manipulateChannelPerms(String modeName, Long uid, Long cid,
+            String roleLabel) {
+        WriteMode mode = ModeFactory.getWriteMode("Org_queries", modeName);
+        Map params = new HashMap();
+        params.put(USER_ID_KEY, uid);
+        params.put("cid", cid);
+        params.put("role_label", roleLabel);
+
+        mode.executeUpdate(params);
+    }
 
     /**
      * TODO: get rid of Role label and pass in the class Reset channel
@@ -238,7 +351,9 @@ public interface Org {
      * @param cid Channel ID
      * @param roleLabel label of Role to reset
      */
-    void resetChannelPermissions(Long uid, Long cid, String roleLabel);
+    public void resetChannelPermissions(Long uid, Long cid, String roleLabel) {
+        manipulateChannelPerms("reset_channel_permissions", uid, cid, roleLabel);
+    }
 
     /**
      * TODO: get rid of Role label and pass in the class Remove all channel
@@ -247,46 +362,119 @@ public interface Org {
      * @param cid Channel ID
      * @param roleLabel label of Role to reset
      */
-    void removeChannelPermissions(Long uid, Long cid, String roleLabel);
+    public void removeChannelPermissions(Long uid, Long cid, String roleLabel) {
+        manipulateChannelPerms("remove_channel_permissions", uid, cid,
+                roleLabel);
+    }
 
     /**
-     * Returns true if the Org is a paying customer, or false if it's a demo
-     * account.
-     * @return true if the Org is a paying customer, or false if it's a demo
-     * account.
+     * Set the OrgQuota.
+     * @param quotaIn the new quota to set.
      */
-    boolean isPayingCustomer();
+    public void setOrgQuota(OrgQuota quotaIn) {
+        this.orgQuota = quotaIn;
+    }
+
+    /**
+     * Get the OrgQuota
+     * @return OrgQuota object
+     */
+    public OrgQuota getOrgQuota() {
+        return this.orgQuota;
+    }
 
     /**
      * Add a Quota to this Org
      * @param totalIn the total size of the quota
      */
-    void addOrgQuota(Long totalIn);
-
-    /**
-     * Get the quota object associated with this org.
-     * @return an OrgQuota object.
-     */
-    OrgQuota getOrgQuota();
+    public void addOrgQuota(Long totalIn) {
+        if (orgQuota == null) {
+            orgQuota = new OrgQuota();
+            orgQuota.setCreated(new Date());
+            orgQuota.setModified(new Date());
+            orgQuota.setOrg(this);
+            orgQuota.setBonus(new Long(0));
+            orgQuota.setUsed(new Long(0));
+        }
+        orgQuota.setTotal(totalIn);
+    }
 
     /**
      * Get the value of the OrgQuota's TOTAL allowed
      * @return Long value of the Org's Quota total - null if there isnt one
      */
-    Long getQuotaTotal();
+    public Long getQuotaTotal() {
+        if (orgQuota == null) {
+            return null;
+        }
+        return orgQuota.getTotal();
+    }
 
     /**
      * Gets the number of active org admins in this org.
      * @return Returns the number of active org admins in this org.
      */
-    int numActiveOrgAdmins();
+    public int numActiveOrgAdmins() {
+        Session session = HibernateFactory.getSession();
+        List list = session.getNamedQuery("Org.numOfOrgAdmins")
+        .setParameter("org_id", this.getId())
+        // Retrieve from cache if there
+        .list();
+        if (list != null) {
+            return list.size();
+        }
+        return 0;
+    }
 
     /**
      * Gets the list of active org admins (com.redhat.rhn.domain.user.User
      * objects) in this org.
      * @return Returns the set of active org admins in this org.
      */
-    List <User> getActiveOrgAdmins();
+    public List<User> getActiveOrgAdmins() {
+        SelectMode m = ModeFactory.getMode("User_queries", "active_org_admins");
+        Map params = new HashMap();
+        params.put(ORG_ID_KEY, this.getId());
+        DataResult dr = m.execute(params);
+        if (dr == null) {
+            return null;
+        }
+        return getUsers(dr);
+    }
+
+    /**
+     * Gets the list of com.redhat.rhn.domain.user.User objects taking in
+     * DataResult. Do we need to make this public?
+     * @param dataresult the dataresult object containing the results of a query
+     * @return Returns the userList
+     */
+    private List<User> getUsers(DataResult dataresult) {
+        List userList = new ArrayList();
+        Collection userIds = getListFromResult(dataresult, USER_ID_KEY);
+
+        if (!userIds.isEmpty()) {
+            userList = UserFactory.lookupByIds(userIds);
+        }
+        return userList;
+    }
+
+    /**
+     * Gets the list user ids(Long) taking in DataResult and the key Do we need
+     * to make this public?
+     * @param dataresult the dataresult object containing the results of a query
+     * @param key the key for fetching the value
+     * @return Returns the userIds
+     */
+    private List getListFromResult(DataResult dataresult, String key) {
+        List userIds = new ArrayList();
+        Iterator iter = dataresult.iterator();
+        while (iter.hasNext()) {
+            // convert these to Longs
+            Long bd = (Long) ((HashMap) iter.next()).get(key);
+            userIds.add(bd);
+        }
+        return userIds;
+    }
 
     /**
      * Gets the com.redhat.rhn.domain.monitoring.satcluster.SatClusters
@@ -294,93 +482,195 @@ public interface Org {
      * Sat.
      * @return Set of SatClusters (Monitoring Scouts) associated with Org
      */
-    Set getMonitoringScouts();
+    public Set getMonitoringScouts() {
+        return monitoringScouts;
+    }
+
+    /**
+     * Sets the monitoring Scouts for this Org.
+     * @param monitoringScoutsIn the new set of Monitoring scouts
+     */
+    public void setMonitoringScouts(Set monitoringScoutsIn) {
+        this.monitoringScouts = monitoringScoutsIn;
+    }
 
     /**
      * Get the Set of com.redhat.rhn.domain.monitoring.notification.ContactGroup
      * objects associated with this Org.
      * @return Set of ContactGroups
      */
-    Set getContactGroups();
+    public Set getContactGroups() {
+        return contactGroups;
+    }
 
     /**
-     * Adds a new channel to the orgs set of channels
-     * @param channelIn The Channel to add
+     * @param contactGroupsIn The contactGroups to set.
      */
-    void addOwnedChannel(Channel channelIn);
-
-    /**
-     * Set the channels for this org.
-     * @param channelsIn The channels for this org
-     */
-    void setOwnedChannels(Set channelsIn);
-
-    /**
-     * Get the set of channels associated with this org.
-     * @return Returns the set of channels for this org.
-     */
-    Set getOwnedChannels();
-
-    /**
-     * Get the list of channels accessible for this org.
-     * @return List of channels public or owned by this org.
-     */
-    List getAccessibleChannels();
+    protected void setContactGroups(Set contactGroupsIn) {
+        this.contactGroups = contactGroupsIn;
+    }
 
     /**
      * Returns the channelFamilies.
      * @return the channelFamilies.
      */
-    ChannelFamily getPrivateChannelFamily();
-
-    /**
-     * Returns if the given org has a demo entitlement
-     * @return true if entitled, false if not.
-     */
-    boolean isDemoEntitled();
+    public ChannelFamily getPrivateChannelFamily() {
+        return ChannelFamilyFactory.lookupOrCreatePrivateFamily(this);
+    }
 
     /**
      * Set of Entitlements that can be a BaseEntitlement available to the Org
      * @return Set of Entitlements
      */
-    Set<Entitlement> getValidBaseEntitlementsForOrg();
+    public Set<Entitlement> getValidBaseEntitlementsForOrg() {
+        Set<Entitlement> baseEntitlements = new HashSet();
+
+        Iterator i = getEntitledServerGroups().iterator();
+
+        while (i.hasNext()) {
+            ServerGroupType sgt = ((ServerGroup) i.next()).getGroupType();
+
+            // Filter out the update entitlement for satellite:
+            if (sgt.isBase() && !sgt.getLabel().equals(
+                    EntitlementManager.UPDATE.getLabel())) {
+                baseEntitlements.add(EntitlementManager.getByName(sgt
+                        .getLabel()));
+            }
+        }
+
+        return baseEntitlements;
+    }
 
     /**
      * Set of Entitlements that can be an add-on entitlement available to the
      * Org
      * @return Set of Entitlements
      */
-    Set<Entitlement> getValidAddOnEntitlementsForOrg();
+    public Set<Entitlement> getValidAddOnEntitlementsForOrg() {
+        Set<Entitlement> addonEntitlements = new HashSet();
+
+        Iterator i = getEntitledServerGroups().iterator();
+
+        while (i.hasNext()) {
+            ServerGroupType sgt = ((ServerGroup) i.next()).getGroupType();
+
+            if (!sgt.isBase()) {
+                addonEntitlements.add(EntitlementManager.getByName(sgt
+                        .getLabel()));
+            }
+        }
+
+        return addonEntitlements;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append("id", this.getId()).append(
+                "name", this.getName()).toString();
+    }
 
     /**
      * Returns the default registration token for this organization.
      * @return default token, null if none exists.
      */
-    Token getToken();
+    public Token getToken() {
+        return this.token;
+    }
 
     /**
      * Sets the default registration token for this organization.
      * @param tokenIn Default token.
      */
-    void setToken(Token tokenIn);
+    public void setToken(Token tokenIn) {
+        this.token = tokenIn;
+    }
 
     /**
      * Gets the list of trusted orgs.
      * @return A set of trusted orgs.
      */
-    Set<Org> getTrustedOrgs();
+    public Set<Org> getTrustedOrgs() {
+        return new TrustSet(this, trustedOrgs);
+    }
 
     /**
      * Add a (bidirectional) trust relationship. This is really only used by the
      * TrustSet.
      * @param org A "trusted" organization to add.
      */
-    void addTrust(Org org);
+    public void addTrust(Org org) {
+        trustedOrgs.add(org);
+        if (org instanceof Org) {
+            Org impl = org;
+            impl.trustedOrgs.add(this);
+        }
+    }
 
     /**
      * Remove a (bidirectional) trust relationship. This is really only used by
      * the TrustSet.
      * @param org A "trusted" organization to be removed.
      */
-    void removeTrust(Org org);
+    public void removeTrust(Org org) {
+        trustedOrgs.remove(org);
+        if (org instanceof Org) {
+            Org impl = org;
+            impl.trustedOrgs.remove(this);
+        }
+    }
+
+    /**
+     * @return Returns the stageContentEnabled.
+     */
+    public boolean isStagingContentEnabled() {
+        return stagingContentEnabled;
+    }
+
+
+    /**
+     * @param stageContentEnabledIn The stageContentEnabled to set.
+     */
+    public void setStagingContentEnabled(boolean stageContentEnabledIn) {
+        stagingContentEnabled = stageContentEnabledIn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Org other = (Org) obj;
+        if (getId() == null) {
+            if (other.getId() != null) {
+                return false;
+            }
+        }
+        else if (!getId().equals(other.getId())) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        return result;
+    }
 }

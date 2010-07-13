@@ -6,7 +6,6 @@ PerlModule PXT::ApacheAuth
 PerlAuthenHandler PXT::ApacheAuth
 
 <Files downloads.pxt>
-  require acl org_is_paying_customer()
 </Files>
 
 <Files subscribers.pxt>

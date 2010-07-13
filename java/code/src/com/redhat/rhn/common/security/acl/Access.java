@@ -126,7 +126,7 @@ public class Access extends BaseHandler implements AclHandler {
         String label = params[0];
 
         SelectMode m = ModeFactory.getMode("Org_queries",
-            "has_channel_family_entitlement");
+        "has_channel_family_entitlement");
         Map queryParams = new HashMap();
         queryParams.put("label", label);
         queryParams.put("org_id", user.getOrg().getId());
@@ -162,55 +162,35 @@ public class Access extends BaseHandler implements AclHandler {
         return SystemManager.serverHasVirtuaizationEntitlement(sid, user.getOrg());
     }
 
-   /**
-    * Check if a system has a management entitlement
-    * @param ctx Context map to pass in.
-    * @param params Parameters to use to fetch from context.
-    * @return True if system has management entitlement, false otherwise.
-    */
-   public boolean aclSystemHasManagementEntitlement(Object ctx, String[] params) {
-       Map map = (Map) ctx;
-       Long sid = getAsLong(map.get("sid"));
-       User user = (User) map.get("user");
-       Server server = SystemManager.lookupByIdAndUser(sid, user);
-       if (server == null) {
-           return false;
-       }
-       return server.hasEntitlement(EntitlementManager.MANAGEMENT);
-   }
-
-   /**
-    * Check if a system has a management entitlement
-    * @param ctx Context map to pass in.
-    * @param params Parameters to use to fetch from context.
-    * @return True if system has management entitlement, false otherwise.
-    */
-   public boolean aclSystemIsInSSM(Object ctx, String[] params) {
-       Map map = (Map) ctx;
-       Long sid = getAsLong(map.get("sid"));
-       User user = (User) map.get("user");
-       RhnSet set = RhnSetDecl.SYSTEMS.get(user);
-       return set.contains(sid);
-   }
-
+    /**
+     * Check if a system has a management entitlement
+     * @param ctx Context map to pass in.
+     * @param params Parameters to use to fetch from context.
+     * @return True if system has management entitlement, false otherwise.
+     */
+    public boolean aclSystemHasManagementEntitlement(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        Long sid = getAsLong(map.get("sid"));
+        User user = (User) map.get("user");
+        Server server = SystemManager.lookupByIdAndUser(sid, user);
+        if (server == null) {
+            return false;
+        }
+        return server.hasEntitlement(EntitlementManager.MANAGEMENT);
+    }
 
     /**
-     * Checks if this user is a paying customer.
-     * Requires a User in the Context object.
-     * @param ctx Context Map to pass in
-     * @param params Parameters to use to fetch from Context.  Not used
-     * for this method.
-     * @return true if access is granted, false otherwise
+     * Check if a system has a management entitlement
+     * @param ctx Context map to pass in.
+     * @param params Parameters to use to fetch from context.
+     * @return True if system has management entitlement, false otherwise.
      */
-    public boolean aclOrgIsPayingCustomer(Object ctx, String[] params) {
+    public boolean aclSystemIsInSSM(Object ctx, String[] params) {
         Map map = (Map) ctx;
-        User user = (User)map.get("user");
-        if (user != null) {
-            Org org = user.getOrg();
-            return org.isPayingCustomer();
-        }
-
-        return false;
+        Long sid = getAsLong(map.get("sid"));
+        User user = (User) map.get("user");
+        RhnSet set = RhnSetDecl.SYSTEMS.get(user);
+        return set.contains(sid);
     }
 
     /**
@@ -304,7 +284,7 @@ public class Access extends BaseHandler implements AclHandler {
 
         //Get EVRs for each proxy server in this org
         SelectMode m = ModeFactory.getMode("System_queries",
-                "org_proxy_servers_evr");
+        "org_proxy_servers_evr");
         Map queryParams = new HashMap();
         queryParams.put("org_id", user.getOrg().getId());
         Iterator i = m.execute(queryParams).iterator();
@@ -370,11 +350,11 @@ public class Access extends BaseHandler implements AclHandler {
         User user = (User) map.get("user");
 
         try {
-          if (user != null) {
-              Channel chan = ChannelManager.lookupByIdAndUser(
-                      Long.parseLong(params[0]), user);
-              return chan != null;
-          }
+            if (user != null) {
+                Channel chan = ChannelManager.lookupByIdAndUser(
+                        Long.parseLong(params[0]), user);
+                return chan != null;
+            }
         }
         catch (Exception e) {
             return false;

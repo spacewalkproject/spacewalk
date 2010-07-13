@@ -33,7 +33,7 @@ use Date::Parse;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
-my @org_fields = qw/ID NAME ORACLE_CUSTOMER_ID ORACLE_CUSTOMER_NUMBER CUSTOMER_TYPE CREATED MODIFIED/;
+my @org_fields = qw/ID NAME CREATED MODIFIED/;
 
 my @skip_cert_channels = qw/%%-beta%% %%-staging%% rhn-satellite%%/;
 
@@ -41,25 +41,17 @@ my $o = new RHN::DB::TableClass("web_customer", "O", "", @org_fields);
 
 sub lookup {
   my $class = shift;
-  my %params = validate(@_, { id => 0, customer_number => 0, customer_name => 0 });
+  my %params = validate(@_, { id => 0 });
 
   my $query;
   my $value;
 
-  if ($params{customer_number}) {
-    $query = $o->select_query("O.ORACLE_CUSTOMER_NUMBER = ?");
-    $value = $params{customer_number};
-  }
-  elsif ($params{customer_id}) {
-    $query = $o->select_query("O.ORACLE_CUSTOMER_ID = ?");
-    $value = $params{customer_id};
-  }
-  elsif ($params{id}) {
+ if ($params{id}) {
     $query = $o->select_query("O.ID = ?");
     $value = $params{id};
   }
   else {
-    Carp::croak "must use -id, -customer_number, or -customer_id in lookup";
+    Carp::croak "must use -id in lookup";
   }
 
   my $dbh = RHN::DB->connect;
@@ -544,14 +536,6 @@ EOQ
 
   return $count;
 
-}
-
-# this should become the cannonical answer to "is this person a paying customer of RHN?"
-sub is_paying_customer {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  return $dbh->call_function("rhn_bel.is_org_paid", $self->id);
 }
 
 # generalized slot name function; also caches for better performance

@@ -20,7 +20,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <many-to-one name="org"
                      column="org_id"
-                     class="com.redhat.rhn.domain.org.OrgImpl"
+                     class="com.redhat.rhn.domain.org.Org"
                      not-null="true" />
         <many-to-one
             name="type"

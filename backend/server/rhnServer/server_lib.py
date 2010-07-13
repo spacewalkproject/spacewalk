@@ -261,52 +261,7 @@ def throttle(server):
     if not os.path.exists(throttlefile):
         # We don't throttle anybody
         return
-
-    # from this point on, normal throttle
-    h = rhnSQL.prepare("select rhn_bel.is_org_paid(:org_id) as paid, sysdate from dual")
-    h.execute(org_id = server['org_id'])
-    row = h.fetchone_dict()
-    if row['paid'] == 1:
-        # Paying customer
-        return
-
-    # Ok, it's a free slot ...
-
-    # Compare time of creation with current time.
-    # If not beyond the grace-period, don't throttle.
-    # creation date
-    creationTime = dbiDate2timestamp(server['created'])
-    systemTime = dbiDate2timestamp(row['sysdate'])
-
-    # do the diff
-    timediff = (systemTime - creationTime) / 3600.0 # 3600 seconds == 1 hour
-
-    # keep this grace period logic around for legacy_* orgs...
-    log_debug(3, "Server creation time difference: %sH (grace_period: %sH)" 
-                 % (timediff, CFG.THROTTLE_GRACE_PERIOD))
-    if timediff <= CFG.THROTTLE_GRACE_PERIOD:
-        # still in the grace-period, don't throttle.
-        return
-
-    # Read the throttling file
-    f = open(throttlefile)
-    row = f.readline()
-    if not row:
-        percent = 0
-    else:
-        percent = int(string.strip(row))
-        if percent < 0:
-            percent = 0
-
-    # the itsy-bitsy throttling algorithm
-    minutes = int(time.time() / 60)
-    if (minutes + int(server_id)) % 100 < percent:
-        log_debug(3, "Free server %s SUCCEEDED" % server_id)
-        return
-
-    log_error("Server %s throttled" % server_id)
-    raise rhnFault(51, "Demo service for server %s limited due to high load"
-        % server_id, explain=0)
+    return 
 
 def join_rhn(org_id):
     # Stub

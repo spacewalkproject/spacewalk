@@ -44,7 +44,6 @@ class User:
         self.customer = rhnSQL.Row("web_customer", "id")
         self.customer["name"] = username
         self.customer["password"] = password
-        self.customer["customer_type"] = "B"
         # web_user_personal_info
         self.__init_info()
         # web_user_contact_permission
@@ -596,7 +595,7 @@ def __new_user_db(username, password, email, org_id, org_password):
     if org_id and org_password: # check out this org
         h = rhnSQL.prepare("""
         select id, password from web_customer
-        where oracle_customer_number = :org_id
+        where id = :org_id
         """)
         h.execute(org_id=str(org_id))
         data = h.fetchone_dict()

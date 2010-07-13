@@ -15,8 +15,6 @@
 
 package com.redhat.rhn.domain.org.test;
 
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -25,11 +23,9 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgEntitlementType;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.test.ServerGroupTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.Token;
@@ -37,15 +33,12 @@ import com.redhat.rhn.domain.token.TokenFactory;
 import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -84,39 +77,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         assertTrue(user.hasRole(RoleFactory.CHANNEL_ADMIN));
     }
 
-    /**
-     * Delays the demo stop date to sysdate + daysToAdd
-     * @param daysToAdd Number of days to add to the sysdate
-     */
-    private void delayDemoStopDate(int daysToAdd) {
-        WriteMode m = ModeFactory.getWriteMode("test_queries",
-                "update_demo_stop_date");
-        Map params = new HashMap();
-        params.put("days_to_add", new Integer(daysToAdd));
-        assertEquals(m.executeUpdate(params), 1);
-    }
-
-    public void testDemoEntitlements() throws Exception {
-
-        User user = UserTestUtils.findNewUser("testuser", "testorg");
-        Org org = user.getOrg();
-
-        assertFalse(org.isDemoEntitled());
-        return;
-    }
-
-    public void testIsPayingCustomer() throws Exception {
-        Org org = UserTestUtils.findNewOrg("testorg");
-        assertNotNull(org);
-
-        // Test valid paying customer
-        EntitlementServerGroup valid = ServerGroupTestUtils.createEntitled(org);
-        valid.setMaxMembers(new Long(10));
-        ServerGroupFactory.save(valid);
-        assertFalse(org.getEntitledServerGroups().isEmpty());
-        assertTrue(org.isPayingCustomer());
-    }
-
     public void testLookupById() throws Exception {
         Org org1 = UserTestUtils.findNewOrg("testOrg");
         assertNotNull(org1);
@@ -137,7 +97,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
     private Org createTestOrg() throws Exception {
         Org org1 = OrgFactory.createOrg();
         org1.setName("org created by OrgFactory test: " + TestUtils.randomString());
-        org1.setCustomerType("B");
         // build the channels set
         Channel channel1 = ChannelFactoryTest.createTestChannel();
         flushAndEvict(channel1);
@@ -162,7 +121,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser", "testOrg", true);
         Org orig = user.getOrg();
         orig.setName("org created by OrgFactory test: " + TestUtils.randomString());
-        orig.setCustomerType("B");
         // build the channels set
         Channel channel1 = ChannelFactoryTest.createTestChannel();
         flushAndEvict(channel1);
@@ -218,7 +176,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         Org org1 = UserTestUtils.findNewOrg("testOrg");
         Set entitlements = org1.getEntitlements();
         OrgEntitlementType oet = OrgFactory
-                .lookupEntitlementByLabel("sw_mgr_enterprise");
+        .lookupEntitlementByLabel("sw_mgr_enterprise");
         entitlements.add(oet);
         org1.setEntitlements(entitlements);
         org1 = OrgFactory.save(org1);
@@ -241,7 +199,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
     public void testHasEntitlementFalse() throws Exception {
         Org org1 = OrgFactory.createOrg();
         OrgEntitlementType oet = OrgFactory
-                .lookupEntitlementByLabel("sw_mgr_enterprise");
+        .lookupEntitlementByLabel("sw_mgr_enterprise");
         assertFalse(org1.hasEntitlement(oet));
     }
 
@@ -273,7 +231,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         assertTrue(org1.getEntitledServerGroups().size() > 0);
         boolean contains = false;
         for (Iterator itr = org1.getEntitledServerGroups().iterator(); itr
-                .hasNext();) {
+        .hasNext();) {
             ServerGroup group = (ServerGroup) itr.next();
             assertNotNull(group);
             if (ServerConstants.getServerGroupTypeUpdateEntitled().equals(
@@ -351,7 +309,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
 
     public void testLookupOrgsWithServersInFamily() throws Exception {
         Server s = ServerTestUtils.createTestSystem();
-        Channel chan = (Channel) s.getChannels().iterator().next();
+        Channel chan = s.getChannels().iterator().next();
         ChannelFamily family = chan.getChannelFamily();
 
         List<Org> orgs = OrgFactory.lookupOrgsUsingChannelFamily(family);

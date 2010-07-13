@@ -45,7 +45,7 @@ import java.util.Map;
  */
 public class UpdateErrataCacheCommand extends BaseTransactionCommand {
     private static Logger log = Logger
-            .getLogger(UpdateErrataCacheCommand.class);
+    .getLogger(UpdateErrataCacheCommand.class);
 
     /**
      * Default constructor
@@ -70,7 +70,7 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
 
         if (log.isDebugEnabled()) {
             log.debug("Number of servers [" + count +
-                      "] threshold [" + threshold + "]");
+                    "] threshold [" + threshold + "]");
         }
 
         if (count == 0 || count >= threshold) {
@@ -225,7 +225,7 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
             log.debug("Packages: " + pkgs);
         }
 
-        List eRows = new ArrayList();
+        new ArrayList();
         List pAdded = new ArrayList();
 
 
@@ -287,9 +287,8 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
         Map changes = internalUpdateErrataCacheForServer(serverId);
         log.debug("Scheduling auto errata updates for server [" + serverId + "]");
         if (SystemManager.serverHasFeature(serverId, "ftr_auto_errata_updates") &&
-                org.isPayingCustomer() &&
-                (server.getAutoUpdate() != null &&
-                 server.getAutoUpdate().equalsIgnoreCase("y"))) {
+                server.getAutoUpdate() != null &&
+                server.getAutoUpdate().equalsIgnoreCase("y")) {
             scheduleAutoUpdates(serverId, org, changes);
         }
         else {
@@ -308,9 +307,9 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
             ErrataCacheDto ecd = (ErrataCacheDto) iter.next();
             Errata errata = ErrataManager.lookupPublishedErrata(ecd.getErrataId());
             ErrataAction errataAction =
-                    ActionManager.createErrataAction(org, errata);
-                ActionManager.addServerToAction(sid, errataAction);
-                ActionManager.storeAction(errataAction);
+                ActionManager.createErrataAction(org, errata);
+            ActionManager.addServerToAction(sid, errataAction);
+            ActionManager.storeAction(errataAction);
         }
         log.debug("Scheduling complete");
 

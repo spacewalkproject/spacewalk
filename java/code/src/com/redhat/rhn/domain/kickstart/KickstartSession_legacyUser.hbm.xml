@@ -40,7 +40,7 @@
             cascade="save-update" column="kstree_id"/>
 
         <many-to-one name="org" column="org_id"
-            class="com.redhat.rhn.domain.org.OrgImpl" outer-join="true"
+            class="com.redhat.rhn.domain.org.Org" outer-join="true"
             not-null="true"/>
 
         <many-to-one name="user" column="scheduler" cascade="save-update"

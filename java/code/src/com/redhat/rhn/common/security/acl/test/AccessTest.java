@@ -50,6 +50,7 @@ public class AccessTest extends RhnBaseTestCase {
 
     private Acl acl;
 
+    @Override
     public void setUp() {
         acl = new Acl();
         acl.registerHandler(new Access());
@@ -177,7 +178,7 @@ public class AccessTest extends RhnBaseTestCase {
 
     public void testOrgEntitlementAclTrue() {
         Map context = new HashMap();
-        User user = (User)UserFactory.createUser();
+        User user = UserFactory.createUser();
         Org org = OrgFactory.createOrg();
         user.setOrg(org);
         context.put("user", user);
@@ -187,7 +188,7 @@ public class AccessTest extends RhnBaseTestCase {
 
     public void testOrgEntitlementAclFalse() {
         Map context = new HashMap();
-        User user = (User)UserFactory.createUser();
+        User user = UserFactory.createUser();
         Org org = OrgFactory.createOrg();
         user.setOrg(org);
         context.put("user", user);
@@ -198,18 +199,6 @@ public class AccessTest extends RhnBaseTestCase {
     public void testNeedsFirstUser() {
         boolean rc = acl.evalAcl(new HashMap(), "need_first_user()");
         assertFalse(rc);
-    }
-
-    public void testOrgIsPayingCustomer() {
-        Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        assertNotNull(user.getOrg());
-        context.put("user", user);
-        //org.isPayingCustomer has already been tested... test here to make sure that
-        //the acl evaluates to the same thing as org.isPayingCustomer
-        boolean result = acl.evalAcl(context, "org_is_paying_customer()");
-        boolean resultFromOrg = user.getOrg().isPayingCustomer();
-        assertEquals(result, resultFromOrg);
     }
 
     public void testSystemFeature() throws Exception {
@@ -234,12 +223,12 @@ public class AccessTest extends RhnBaseTestCase {
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         context.put("sid", new String[] {s.getId().toString()});
         context.put("user", user);
-         assertTrue(acl.evalAcl(context, "system_has_management_entitlement()"));
+        assertTrue(acl.evalAcl(context, "system_has_management_entitlement()"));
 
-         s = ServerFactoryTest.createUnentitledTestServer(user, true,
-                         ServerFactoryTest.TYPE_SERVER_NORMAL, new Date());
-         context.put("sid", new String[] {s.getId().toString()});
-         assertFalse(acl.evalAcl(context, "system_has_management_entitlement()"));
+        s = ServerFactoryTest.createUnentitledTestServer(user, true,
+                ServerFactoryTest.TYPE_SERVER_NORMAL, new Date());
+        context.put("sid", new String[] {s.getId().toString()});
+        assertFalse(acl.evalAcl(context, "system_has_management_entitlement()"));
 
 
     }
@@ -257,7 +246,7 @@ public class AccessTest extends RhnBaseTestCase {
         PackageEvr evr = PackageEvrFactory.createPackageEvr(null, "3.6", "2");
 
         WriteMode m = ModeFactory.
-                getWriteMode("test_queries", "make_server_proxy");
+        getWriteMode("test_queries", "make_server_proxy");
         Map params = new HashMap();
         params.put("server_id", server.getId());
         params.put("evr_id", evr.getId());
@@ -323,25 +312,27 @@ public class AccessTest extends RhnBaseTestCase {
     }
 
     /**
-    * Override the methods in User that talk to the database
-    */
+     * Override the methods in User that talk to the database
+     */
     class MockUser extends UserImpl {
-        private Set mockRoles;
+        private final Set mockRoles;
 
         public MockUser() {
             mockRoles = new HashSet();
         }
 
         /**
-        * This is the key method that needs to be overriden
-        * There is a check in User that looks up the Org
-        * that isn't necessary for this Unit Test
-        */
+         * This is the key method that needs to be overriden
+         * There is a check in User that looks up the Org
+         * that isn't necessary for this Unit Test
+         */
+        @Override
         public void addRole(Role label) {
             mockRoles.add(label);
         }
 
         /** @see com.redhat.rhn.domain.user.User#hasRole */
+        @Override
         public boolean hasRole(Role label) {
             return mockRoles.contains(label);
         }
