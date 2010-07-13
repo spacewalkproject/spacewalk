@@ -31,6 +31,9 @@ CREATE TABLE web_customer
                                       CONSTRAINT web_customer_type_list
                                           CHECK (customer_type in ( 'B' , 'P' )),
     credit_application_completed  VARCHAR2(1),
+    staging_content_enabled       VARCHAR2(1) NOT NULL
+                                     CONSTRAINT rhn_orginfo_staging_content_ck
+                                          CHECK (staging_content in ( 'Y' , 'N' )),
     created                       DATE
                                       DEFAULT (sysdate) NOT NULL,
     modified                      DATE
