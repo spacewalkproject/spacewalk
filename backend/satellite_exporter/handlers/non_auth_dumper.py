@@ -19,7 +19,8 @@ Non-authenticated dumper
 import os
 import xmlrpclib
 import gzip
-from common import log_debug, log_error, rhnFault, CFG, UserDictCase
+from common import log_debug, log_error, rhnFault, CFG, UserDictCase, rhnCache
+from common import rhnLib as rhnLib_common
 from server import rhnSQL, rhnLib
 from server.rhnHandler import rhnHandler
 from server.importlib.backendLib import localtime
@@ -310,8 +311,8 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         log_debug(2, channel_label)
         channels = self._validate_channels(channel_labels=[channel_label])
         channel_obj = channels[channel_label]
-        db_last_modified = int(rhnLib.timestamp(channel_obj['last_modified']))
-        last_modified = int(rhnLib.timestamp(last_modified))
+        db_last_modified = int(rhnLib_common.timestamp(channel_obj['last_modified']))
+        last_modified = int(rhnLib_common.timestamp(last_modified))
         log_debug(3, "last modified", last_modified, "db last modified",
             db_last_modified)
         if last_modified != db_last_modified:
