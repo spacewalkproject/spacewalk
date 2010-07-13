@@ -43,6 +43,7 @@ import javax.servlet.http.HttpServletResponse;
 public class OrgDetailsAction extends RhnAction {
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
@@ -71,11 +72,11 @@ public class OrgDetailsAction extends RhnAction {
     }
 
     private void setupFormValues(HttpServletRequest request,
-                                   DynaActionForm daForm) {
+            DynaActionForm daForm) {
 
         RequestContext requestContext = new RequestContext(request);
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
-        Org org = OrgFactory.lookupById(oid);
+        Org org = requestContext.lookupAndBindOrg();
         OrgDto dto = OrgManager.toDetailsDto(org);
 
         daForm.set("submitted", Boolean.TRUE);
@@ -136,7 +137,7 @@ public class OrgDetailsAction extends RhnAction {
 
         if (currOrg.getName().equals(orgName)) {
             getStrutsDelegate().saveMessage("message.org_name_not_updated",
-                                        new String[] {"orgName"}, request);
+                    new String[] {"orgName"}, request);
             retval = false;
         }
         else {

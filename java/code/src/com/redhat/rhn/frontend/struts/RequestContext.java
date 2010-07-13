@@ -23,6 +23,9 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.monitoring.Probe;
 import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.session.WebSession;
@@ -98,6 +101,7 @@ public class RequestContext {
     // Request Attributes go here:
     public static final String ACTIVATION_KEY = "activationkey";
     public static final String KICKSTART = "ksdata";
+    public static final String ORG = "org";
     public static final String SYSTEM = "system";
     public static final String SERVER_GROUP = "systemgroup";
     public static final String KICKSTART_SESSION = "ksession";
@@ -114,7 +118,7 @@ public class RequestContext {
     public static final String POST = "POST";
 
 
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
     private User               currentUser;
 
     /**
@@ -200,7 +204,7 @@ public class RequestContext {
      */
     // TODO Write unit tests for lookupProbeSuite()
     public ProbeSuite lookupProbeSuite()
-        throws BadParameterException, IllegalArgumentException {
+    throws BadParameterException, IllegalArgumentException {
         Long suiteId = getRequiredParam(SUITE_ID);
         ProbeSuite retval = MonitoringManager.getInstance().lookupProbeSuite(
                 suiteId, getCurrentUser());
@@ -220,7 +224,7 @@ public class RequestContext {
      * the request can be found
      */
     public Errata lookupErratum()
-        throws BadParameterException, IllegalArgumentException {
+    throws BadParameterException, IllegalArgumentException {
         Long errataId = getRequiredParam(ERRATA_ID);
         Errata retval = ErrataManager.lookupErrata(errataId, getCurrentUser());
         assertObjectFound(retval, errataId, ERRATA_ID, "erratum");
@@ -240,7 +244,7 @@ public class RequestContext {
      */
     // TODO Write unit tests for lookupServer()
     public Server lookupServer()
-        throws BadParameterException, IllegalArgumentException {
+    throws BadParameterException, IllegalArgumentException {
         Long serverId = getRequiredParam(SID);
         Server retval = SystemManager.lookupByIdAndUser(serverId,
                 getCurrentUser());
@@ -262,7 +266,7 @@ public class RequestContext {
      */
     // TODO Write unit tests for lookupServer()
     public Server lookupAndBindServer()
-        throws BadParameterException, IllegalArgumentException {
+    throws BadParameterException, IllegalArgumentException {
         if (request.getAttribute(SYSTEM) == null) {
             request.setAttribute(SYSTEM, lookupServer());
         }
@@ -285,12 +289,39 @@ public class RequestContext {
         if (request.getAttribute(ACTIVATION_KEY) == null) {
             Long id = getRequiredParam(TOKEN_ID);
             ActivationKey key = ActivationKeyFactory.lookupByToken(
-                                                        TokenFactory.lookup(id,
-                                                        getLoggedInUser().getOrg()));
+                    TokenFactory.lookup(id,
+                            getLoggedInUser().getOrg()));
             request.setAttribute(ACTIVATION_KEY, key);
         }
         return (ActivationKey) request.getAttribute(ACTIVATION_KEY);
     }
+
+
+
+    /**
+     * Return the Org with the ID given by the request's {@link #TOKEN_ID}
+     * parameter. Puts the Orgin the request attributes.
+     * @return the  Org with the ID given by the request's {@link #TOKEN_ID}
+     * parameter
+     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request
+     * does not contain the required parameter, or if the parameter can not be converted
+     * to a <code>Long</code>
+     * @throws IllegalArgumentException if no  Org with the ID given in the
+     * request can be found
+     */
+    public Org lookupAndBindOrg() {
+        if (request.getAttribute(ORG) == null) {
+            Long id = getRequiredParam(ORG_ID);
+            Org org =  null;
+            if (getLoggedInUser().hasRole(RoleFactory.SAT_ADMIN)) {
+                org = OrgFactory.lookupById(id);
+            }
+            assertObjectFound(org, id, ORG_ID, "Org");
+            request.setAttribute(ORG, org);
+        }
+        return (Org) request.getAttribute(ORG);
+    }
+
 
     /**
      * Return the KickstartData with the ID given by the request's {@link #KICKSTART_ID}
@@ -307,8 +338,8 @@ public class RequestContext {
         if (request.getAttribute(KICKSTART) == null) {
             Long id = getRequiredParam(KICKSTART_ID);
             KickstartData data = KickstartFactory.
-                            lookupKickstartDataByIdAndOrg(getLoggedInUser().getOrg(),
-                                                        id);
+            lookupKickstartDataByIdAndOrg(getLoggedInUser().getOrg(),
+                    id);
             assertObjectFound(data, id, KICKSTART_ID, "Kickstart Data");
             request.setAttribute(KICKSTART, data);
         }
@@ -384,7 +415,7 @@ public class RequestContext {
         String param = request.getParameter(paramName);
         if (required && param == null) {
             throw new BadParameterException("Required parameter [" +
-                paramName + "] is null");
+                    paramName + "] is null");
         }
 
         return param;
@@ -451,7 +482,7 @@ public class RequestContext {
             // " is required and must be a Long, but was '" + p +"'");
             // That one day has finally arrived! And the coders rejoiced.
             throw new BadParameterException("The parameter " + paramName +
-                    " is required.");
+            " is required.");
         }
         return result;
     }
@@ -467,7 +498,7 @@ public class RequestContext {
         String p = request.getParameter(paramName);
         if (StringUtils.isBlank(p)) {
             throw new BadParameterException("The parameter " + paramName +
-                    " is required.");
+            " is required.");
         }
         return p;
     }
@@ -641,7 +672,7 @@ public class RequestContext {
             if (index >= 0) {
                 Map parammap = new HashMap();
                 String[] params = StringUtils.split(request.getQueryString(),
-                        '&');
+                '&');
                 // Convert the parameters into a map so we can
                 // easily replace the value and reformat the query string.
                 for (int i = 0; i < params.length; i++) {
