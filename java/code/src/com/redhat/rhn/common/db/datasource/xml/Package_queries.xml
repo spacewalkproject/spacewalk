@@ -1647,14 +1647,10 @@ SELECT distinct P.id AS ID,
        rhnChannel C2 on C2.channel_arch_id = CA2.id
  WHERE  CP.channel_id = :scid and
 		C2.id = :cid  and
- 		not exists (	
-			select P.id
-            from rhnChannelPackage CP2 inner join
-             rhnPackage P2 on CP2.package_id = P2.id
- 			where CP2.channel_id = :cid and
- 				P2.name_id = PN.id and
- 				P2.evr_id = PE.id and
- 				P2.package_arch_id = PA.id
+		P.id not in (
+			select CP2.package_id
+            from rhnChannelPackage CP2
+			where CP2.channel_id = :cid
 		)
   </query>
     <elaborator name="package_details" />
