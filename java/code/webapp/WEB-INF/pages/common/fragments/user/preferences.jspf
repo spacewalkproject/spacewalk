@@ -23,7 +23,7 @@
 
 <c:forEach items="${userPrefForm.map.possiblePanes}" var="item">
     <html:multibox property="selectedPanes" value="${item.value}" disabled="${item.disabled}" styleId="type_${item.value}"/>
-	<label for="type_${item.value}"><c:out value="${item.label}" /></label>
+	<label for="type_${item.value}">${item.label}</label>
     <br />
 </c:forEach>
 
