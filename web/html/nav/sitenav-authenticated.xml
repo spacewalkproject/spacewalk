@@ -183,6 +183,7 @@
         <rhn-tab-url>/rhn/admin/multiorg/OrgSystemSubscriptions.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/OrgCreate.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/admin/multiorg/OrgConfigDetails.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Subscriptions" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/SoftwareEntitlements.do">
       <rhn-tab name="Software Channel Entitlements" acl="user_role(satellite_admin)">

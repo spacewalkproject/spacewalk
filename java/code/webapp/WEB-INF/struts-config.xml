@@ -4435,6 +4435,19 @@
                path="/WEB-INF/pages/admin/multiorg/orgdetails.jsp" />
     </action>
 
+    <action path="/admin/multiorg/OrgConfigDetails"
+        scope="request"
+        input="/WEB-INF/pages/admin/multiorg/configuration.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.OrgConfigAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="acls" value="user_role(satellite_admin)"/>
+      <forward name="default" path="/WEB-INF/pages/admin/multiorg/configuration.jsp" />
+      <forward name="success"
+               path="/admin/multiorg/OrgDetails.do" redirect="true" />
+      <forward name="error"
+               path="/WEB-INF/pages/admin/multiorg/configuration.jsp" />
+    </action>
+
     <action path="/multiorg/channels/OrgList"
         scope="request"
         input="/WEB-INF/pages/multiorg/channels/orglist.jsp"

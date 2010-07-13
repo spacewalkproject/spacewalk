@@ -234,6 +234,7 @@
   <rhn-tab name="Admin" url="/rhn/admin/multiorg/Organizations.do" active-image="tab-tools-selected.gif" inactive-image="tab-tools.gif" acl="user_role(satellite_admin)">
     <rhn-tab name="Organizations" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/Organizations.do">
         <rhn-tab-url>/rhn/admin/multiorg/OrgDetails.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/admin/multiorg/OrgConfigDetails.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/OrgUsers.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/DeleteOrg.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/OrgSystemSubscriptions.do</rhn-tab-url>

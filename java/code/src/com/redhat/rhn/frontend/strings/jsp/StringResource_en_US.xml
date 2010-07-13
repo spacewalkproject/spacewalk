@@ -4327,13 +4327,19 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="org-config.staging-content.jsp">
+<source>Enable Staging Contents</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
+        </context-group>
+      </trans-unit>      
       <trans-unit id="org.id.jsp">
 <source>Organization ID</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="org.actkeys.jsp">
+ <trans-unit id="org.actkeys.jsp">
 <source>Activation Keys</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>

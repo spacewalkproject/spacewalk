@@ -9,4 +9,5 @@
       <rhn-tab name="Software Channel Entitlements" url="/rhn/admin/multiorg/OrgSoftwareSubscriptions.do" />
   </rhn-tab>
   <rhn-tab name="Trusts" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/OrgTrusts.do"/>
+  <rhn-tab name="Configuration" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/OrgConfigDetails.do"/>
 </rhn-navi-tree>
