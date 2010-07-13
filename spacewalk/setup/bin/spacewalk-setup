@@ -109,6 +109,9 @@ setup_monitoring(\%opts, \%answers);
 print Spacewalk::Setup::loc("* Configuring apache SSL virtual host.\n");
 setup_ssl_vhost(\%opts, \%answers);
 
+print Spacewalk::Setup::loc("* Configuring tomcat.\n");
+setup_tomcat(\%opts, \%answers);
+
 print Spacewalk::Setup::loc("* Configuring jabberd.\n");
 setup_jabberd(\%opts, \%answers);
 
@@ -489,6 +492,60 @@ sub setup_ssl_vhost {
     open FILE, ">$sslconf_path" or die "Error opening [$sslconf_path]: $!\n";
     chmod 0644, $sslconf_path;
     print FILE $pre . $vhost . $post;
+    close FILE;
+  }
+
+  return;
+}
+
+sub setup_tomcat {
+  my $opts = shift;
+  my $answers = shift;
+
+  my ($tomcatconf_content_orig, $tomcatconf_content);
+  my $which_tomcat = qx{rpm -q --requires spacewalk-java};
+  my ($tomcatX) = ($which_tomcat =~ m/\b(tomcat\d)\b/m);
+  my $tomcatconf = "/etc/$tomcatX/$tomcatX.conf";
+
+  die "$tomcatconf does not exist.\n" unless (-f $tomcatconf);
+
+  {
+    open FILE, $tomcatconf or die "Error opening [$tomcatconf]: $!\n";
+    local $/ = undef;
+    $tomcatconf_content = <FILE>;
+    $tomcatconf_content_orig = $tomcatconf_content;
+    close FILE;
+  }
+
+  for my $file (glob Spacewalk::Setup::SHARED_DIR . '/tomcatX.conf.[0-9]') {
+    open FILE, $file or die "Error reading [$file]: $!\n";
+    my $regexp = <FILE>;
+    chomp $regexp;
+
+    my $content;
+    {
+	  local $/ = undef;
+	  $content = <FILE>;
+	}
+	close FILE;
+    $tomcatconf_content =~ s!$regexp!$content!gm or $tomcatconf_content .= $content;
+  }
+
+  if ($tomcatconf_content ne $tomcatconf_content_orig) {
+    my $done = 0;
+    while (not $done) {
+      system("cp", "--backup=numbered", $tomcatconf, "$tomcatconf-swsave");
+      if ( $? >> 8 ) {
+        print Spacewalk::Setup::loc("An error ocurred while attempting to back up your original $tomcatX.conf\n");
+        $done = syscall_retry;
+      } else {
+        print Spacewalk::Setup::loc("** $tomcatconf has been backed up to $tomcatX.conf-swsave\n");
+        $done = 1;
+      }
+    }
+    open FILE, ">$tomcatconf" or die "Error opening [$tomcatconf]: $!\n";
+    chmod 0644, $tomcatconf;
+    print FILE $tomcatconf_content;
     close FILE;
   }
 
