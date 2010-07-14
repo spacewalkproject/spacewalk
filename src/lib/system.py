@@ -1081,21 +1081,48 @@ def do_system_delete(self, args):
         self.help_system_delete()
         return
 
+    system_ids = []
+
     # use the systems listed in the SSM
     if re.match('ssm', args[0], re.I):
         systems = self.ssm.keys()
     else:
+        # check for system IDs
+        for item in args:
+            try:
+                system_id = int(item)
+                system_ids.append(system_id)
+            except ValueError:
+                pass
+
+        # don't try to expand IDs below
+        for system_id in system_ids:
+            if system_id in args:
+                args.remove(system_id)
+
         systems = self.expand_systems(args)
 
-    system_ids = []
-    for system in sorted(systems):
+    # get the system ID for each system
+    for system in systems:
         system_id = self.get_system_id(system)
+        print system_id
         if not system_id: return
 
         system_ids.append(system_id)
 
-    # provide a summary to the user
-    self.do_system_details('', True)
+    if not len(system_ids):
+        logging.warning('No systems to delete')
+        return
+
+    # make the column the right size
+    colsize = max_length([ self.get_system_name(s) for s in system_ids ])
+    print '%s  System ID' % 'Profile'.ljust(colsize)
+    print '%s  ---------' % ('-' * colsize)
+
+    # print a summary for the user
+    for system_id in system_ids:
+        print '%s  %i' % \
+              (self.get_system_name(system_id).ljust(colsize), system_id)
 
     if not self.user_confirm('Delete these systems [y/N]:'):
         return
