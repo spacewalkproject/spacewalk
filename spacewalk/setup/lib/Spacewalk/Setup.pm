@@ -1510,6 +1510,20 @@ sub generate_server_pem {
 	return $content;
 }
 
+sub backup_file {
+    my $dir = shift;
+    my $file = shift;
+    my $backup_suffix = shift || '-swsave';
+
+    system("cp", "--backup=numbered", "$dir/$file", "$dir/$file$backup_suffix");
+
+    if ( $? >> 8 ) {
+        die loc("An error ocurred while attempting to back up your original $file\n");
+    } else {
+        print loc("** $dir/$file has been backed up to $file$backup_suffix\n");
+    }
+}
+
 
 =head1 DESCRIPTION
 

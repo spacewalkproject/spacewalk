@@ -401,25 +401,6 @@ sub default_cert_expiration {
 }
 
 
-sub syscall_retry {
-  my $localAnswer;
-  Spacewalk::Setup::ask(
-      -noninteractive => $opts{"non-interactive"},
-      -question => "Setup can (t)ry again, (i)gnore the error and continue, or (q)uit running",
-      -test => sub { my $text = shift;
-               return $text =~ /^[TtIiQq]/ },
-      -answer => \$localAnswer
-  );
-  if ( $localAnswer =~ /^[Ii]/ ) {
-      Spacewalk::Setup::loc("Ignoring error and continuing\n");
-      return 1;
-  } elsif ( $localAnswer =~ /^[Qq]/ ) {
-      die("Ending run at user's request");
-  }
-  return 0;
-}
-
-
 sub setup_ssl_vhost {
   my $opts = shift;
   my $answers = shift;
@@ -441,7 +422,9 @@ sub setup_ssl_vhost {
   }
 
   my ($sslconf_content, $original_sslconf_content, $pre, $vhost, $post);
-  my $sslconf_path = '/etc/httpd/conf.d/ssl.conf';
+  my $sslconf_dir = '/etc/httpd/conf.d';
+  my $sslconf     = 'ssl.conf';
+  my $sslconf_path = "$sslconf_dir/$sslconf";
   local *FILE;
 
   die "$sslconf_path does not exist.\n" unless (-f $sslconf_path);
@@ -478,17 +461,8 @@ sub setup_ssl_vhost {
   $sslconf_content = $pre . $vhost . $post;
 
   if ($sslconf_content ne $original_sslconf_content) {
-    my $done = 0;
-    while (not $done) {
-      system("cp", "--backup=numbered", $sslconf_path, "$sslconf_path-swsave");
-      if ( $? >> 8 ) {
-        print Spacewalk::Setup::loc("An error ocurred while attempting to back up your original ssl.conf\n");
-        $done = syscall_retry;
-      } else {
-        print Spacewalk::Setup::loc("** /etc/httpd/conf.d/ssl.conf has been backed up to ssl.conf-swsave\n");
-        $done = 1;
-      }
-    }
+    Spacewalk::Setup::backup_file($sslconf_dir, $sslconf);
+
     open FILE, ">$sslconf_path" or die "Error opening [$sslconf_path]: $!\n";
     chmod 0644, $sslconf_path;
     print FILE $pre . $vhost . $post;
@@ -535,18 +509,8 @@ sub setup_tomcat {
   }
 
   if ($tomcatconf_content ne $tomcatconf_content_orig) {
-    my $done = 0;
-    while (not $done) {
-      system("cp", "--backup=numbered", "$tomcatdir/$tomcatconf",
-                                        "$tomcatdir/$tomcatconf-swsave");
-      if ( $? >> 8 ) {
-        print Spacewalk::Setup::loc("An error ocurred while attempting to back up your original $tomcatconf\n");
-        $done = syscall_retry;
-      } else {
-        print Spacewalk::Setup::loc("** $tomcatdir/$tomcatconf has been backed up to $tomcatconf-swsave\n");
-        $done = 1;
-      }
-    }
+    Spacewalk::Setup::backup_file($tomcatdir, $tomcatconf);
+
     open FILE, ">$tomcatdir/$tomcatconf"
       or die "Error opening [$tomcatdir/$tomcatconf]: $!\n";
     chmod 0644, "$tomcatdir/$tomcatconf";
@@ -566,18 +530,8 @@ sub setup_tomcat {
     my $serverxml_content = qx{/usr/bin/xsltproc $template $tomcatdir/$serverxml};
     die "There was an error running xsltproc\n" if $?;
     if ($serverxml_content ne $serverxml_content_orig) {
-      my $done = 0;
-      while (not $done) {
-        system("cp", "--backup=numbered", "$tomcatdir/$serverxml",
-                                          "$tomcatdir/$serverxml-swsave");
-        if ( $? >> 8 ) {
-          print Spacewalk::Setup::loc("An error ocurred while attempting to back up your original $serverxml\n");
-          $done = syscall_retry;
-        } else {
-          print Spacewalk::Setup::loc("** $tomcatdir/$serverxml has been backed up to $serverxml-swsave\n");
-          $done = 1;
-        }
-      }
+      Spacewalk::Setup::backup_file($tomcatdir, $serverxml);
+
       open FILE, ">$tomcatdir/$serverxml"
         or die "Error opening [$tomcatdir/$serverxml]: $!\n";
       chmod 0644, "$tomcatdir/$serverxml";
