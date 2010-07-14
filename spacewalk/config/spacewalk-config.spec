@@ -40,7 +40,6 @@ mv etc $RPM_BUILD_ROOT/
 mv var $RPM_BUILD_ROOT/
 
 tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
-     --exclude=etc/tomcat5 \
      | tar -C $RPM_BUILD_ROOT -xvf -
 
 echo "" > $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/rhn.conf
@@ -57,7 +56,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%{prepdir}%{_sysconfdir}/tomcat5
 %attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/satidmap.pl
 %attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/startup.pl
 %config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
