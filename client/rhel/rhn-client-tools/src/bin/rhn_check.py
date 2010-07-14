@@ -71,6 +71,9 @@ class CheckCli(rhncli.RhnCli):
         self.__run_remote_actions()
         CheckCli.__run_local_actions()
 
+        if not self.server.capabilities.hasCapability('staging_content', 1) and cfg['stagingContent'] != 0:
+             self.__check_future_actions()
+
         sys.exit(0)
 
     def __get_action(self, status_report):
@@ -106,6 +109,51 @@ class CheckCli(rhncli.RhnCli):
             print "ERROR: SSL errors detected"
             print "%s" % e
             sys.exit(-1)
+
+    def __query_future_actions(self, time_window):
+        try:
+            actions = self.server.queue.get_future_actions(up2dateAuth.getSystemId(),
+                time_window)
+            return actions
+        except rpclib.Fault, f:
+            if f.faultCode == -31:
+                raise up2dateErrors.InsuffMgmntEntsError(f.faultString)
+            else:
+                print "Could not retrieve action item from server %s" % self.server
+                print "Error code: %d%s" % (f.faultCode, f.faultString)
+            sys.exit(-1)
+        # XXX: what if no SSL in socket?
+        except socket.sslerror:
+            print "ERROR: SSL handshake to %s failed" % self.server
+            print """
+            This could signal that you are *NOT* talking to a server
+            whose certificate was signed by a Certificate Authority
+            listed in the %s file or that the
+            RHNS-CA-CERT file is invalid.""" % self.rhns_ca_cert
+            sys.exit(-1)
+        except socket.error:
+            print "Could not retrieve action from %s.\n"\
+                  "Possible networking problem?" % str(self.server)
+            sys.exit(-1)
+        except up2dateErrors.ServerCapabilityError, e:
+            print e
+            sys.exit(1)
+        except SSL.Error, e:
+            print "ERROR: SSL errors detected"
+            print "%s" % e
+            sys.exit(-1)
+
+    def __fetch_future_action(self, action):
+        """ Fetch one specific action from rhnParent """
+        # TODO
+        pass
+
+    def __check_future_actions(self):
+        """ Retrieve scheduled actions and cache them if possible """
+        time_window = cfg['stagingContentWindow'] or 24;
+        actions = self.__query_future_actions(time_window)
+        for action in actions:
+            self.__fetch_future_action(action)
 
     def __run_remote_actions(self):
         # the list of caps the client needs

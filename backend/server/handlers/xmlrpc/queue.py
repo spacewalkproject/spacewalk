@@ -39,6 +39,7 @@ class Queue(rhnHandler):
         """ Add a list of functions we are willing to server out. """
         rhnHandler.__init__(self)
         self.functions.append('get')
+        self.functions.append('get_future_actions')
         self.functions.append('length')
         self.functions.append('submit')
 
@@ -185,6 +186,12 @@ class Queue(rhnHandler):
 
             self._invalidate_child_actions(action_id)
 
+    def get_future_actions(self, system_id, time_window):
+        """ return actions which are scheduled within next /time_window/ hours """
+        self.auth_system(system_id)
+        log_debug(3, "Checking for future actions within %d hours" % time_window)
+        ## TODO
+
     _query_queue_get = rhnSQL.Statement("""
                     select sa.action_id id, a.version, 
                            sa.remaining_tries, at.label method,
@@ -208,7 +215,6 @@ class Queue(rhnHandler):
                       order by a.earliest_action, a.prerequisite nulls first, a.id
     """)
 
-                
     # Probably we need to figure out if we really need to split these two.
     def get(self, system_id, version = 1, status = {}):
         # Authenticate the system certificate
