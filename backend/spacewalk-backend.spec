@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.1.32
+Version: 1.1.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -683,6 +683,19 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Jul 14 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.33-1
+- define new parameter dry_run for all actions (msuchy@redhat.com)
+- basic framework for prefetching content from spacewalk (msuchy@redhat.com)
+- 604094 - fixing issue where package profile sync would not be scheduled if
+  associated with a kickstart profile (jsherril@redhat.com)
+- code cleanup - remove unused function schedule_virt_pkg_install
+  (msuchy@redhat.com)
+- Cleaned up web_customer, rhnPaidOrgs, and rhnDemoOrgs inaddition to moving
+  OrgImpl- Org. These are unused tables/views/columns.. Added upgrade scripts
+  accordingly (paji@redhat.com)
+- adding missing import for inter-satellite-sync (jsherril@redhat.com)
+- fixing import errors for inter-satellite sync (jsherril@redhat.com)
+
 * Mon Jul 12 2010 Justin Sherrill <jsherril@redhat.com> 1.1.32-1
 - fixing missing import (jsherril@redhat.com)
 
