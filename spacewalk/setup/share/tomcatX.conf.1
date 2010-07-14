@@ -1,4 +1,2 @@
-^JAVA_OPTS="-ea -Xms256m -Xmx256m -Djava.awt.headless=true -Dorg.xml.sax.driver=org.apache.xerces.parsers.SAXParser -XX:MaxNewSize=256 -XX:-UseConcMarkSweepGC"\n
-
-# Spacewalk server adjustment
+^JAVA_OPTS="(\$JAVA_OPTS )?-ea -Xms256m -Xmx256m -Djava.awt.headless=true -Dorg.xml.sax.driver=org.apache.xerces.parsers.SAXParser -XX:MaxNewSize=256 -XX:-UseConcMarkSweepGC"\n
 JAVA_OPTS="$JAVA_OPTS -ea -Xms256m -Xmx256m -Djava.awt.headless=true -Dorg.xml.sax.driver=org.apache.xerces.parsers.SAXParser -XX:MaxNewSize=256 -XX:-UseConcMarkSweepGC"
