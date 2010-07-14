@@ -23,6 +23,7 @@
 from operator import itemgetter
 from xml.parsers.expat import ExpatError
 from spacecmd.utils import *
+import sys
 
 def manipulate_child_channels(self, args, remove=False):
     args = parse_arguments(args)
@@ -1385,6 +1386,148 @@ def do_system_removecustomvalues(self, args):
         self.client.system.deleteCustomValues(self.session,
                                               system_id,
                                               keys)
+
+####################
+
+def help_system_addnote(self):
+    print 'system_addnote: Set a note for a system'
+    print 'usage: system_addnote '
+    print
+    print self.HELP_SYSTEM_OPTS
+
+def complete_system_addnote(self, text, line, beg, end):
+    return self.tab_complete_systems(text)
+
+def do_system_addnote(self, args):
+    args = parse_arguments(args)
+
+    if len(args) < 1:
+        self.help_system_addnote()
+        return
+
+    # use the systems listed in the SSM
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+    else:
+        systems = self.expand_systems(args)
+
+    # get note text
+    subject_length = 0 
+    while not subject_length:
+        subject = raw_input("Subject of the note: ")
+        subject_length = len(subject)
+
+    body_length = 0 
+    while not body_length:
+        print "Please type the body of the note. Finish by pressing CTRL-D: "
+        body = sys.stdin.read()
+        body_length = len(body)
+   
+    for system in systems:
+        system_id = self.get_system_id(system)
+        if not system_id: continue
+
+        self.client.system.addNote(self.session, system_id, subject, body)
+
+####################
+
+def help_system_delnote(self):
+    print 'system_delnote: Delete a note for a system'
+    print 'usage: system_delnote  '
+    print
+    print 'To find a note\'s id, list a system\'s notes; the id is the number'
+    print 'in front of the subject.'
+    print
+
+def complete_system_delnote(self, text, line, beg, end):
+    return self.tab_complete_systems(text)
+
+def do_system_delnote(self, args):
+    args = parse_arguments(args)
+
+    if len(args) < 2:
+        self.help_system_delnote()
+        return
+
+    system_id = self.get_system_id(args[0])
+    note_id = int(args[1])
+
+    # deleteNote does not throw an exception when the note is not found!
+    self.client.system.deleteNote(self.session, system_id, note_id)
+
+####################
+
+def help_system_delnotes(self):
+    print 'system_delnotes: Delete all notes for a system'
+    print 'usage: system_delnotes '
+    print
+
+def complete_system_delnotes(self, text, line, beg, end):
+    return self.tab_complete_systems(text)
+
+def do_system_delnotes(self, args):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_system_listnotes()
+        return
+
+    # use the systems listed in the SSM
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+    else:
+        systems = self.expand_systems(args)
+
+    for system in systems:
+        system_id = self.get_system_id(system)
+        if not system_id: continue
+
+        self.client.system.deleteNotes(self.session, system_id)
+
+####################
+
+def help_system_listnotes(self):
+    print 'system_listnotes: List the available notes for a system'
+    print 'usage: system_listnotes '
+    print
+    print self.HELP_SYSTEM_OPTS
+
+def complete_system_listnotes(self, text, line, beg, end):
+    return self.tab_complete_systems(text)
+
+def do_system_listnotes(self, args):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_system_listnotes()
+        return
+
+    # use the systems listed in the SSM
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+    else:
+        systems = self.expand_systems(args)
+
+    add_separator = False
+
+    for system in systems:
+        if add_separator: print self.SEPARATOR
+        add_separator = True
+
+        if len(systems) > 1:
+            print 'System: %s' % system
+            print
+
+        system_id = self.get_system_id(system)
+        if not system_id: continue
+
+        notes = self.client.system.listNotes(self.session,
+                                                    system_id)
+
+        for n in notes:
+            print '%d. %s (%s)' % (n['id'], n['subject'], n['creator'])
+            print n['note']
+       print
 
 ####################
 
