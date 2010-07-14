@@ -419,4 +419,14 @@ def list_locales():
 
     return zones
 
+
+# find the longest string in a list
+def max_length(items):
+    max_size = 1
+    for item in items:
+        if len(item) > max_size:
+            max_size = len(item)
+
+    return max_size
+
 # vim:ts=4:expandtab:
