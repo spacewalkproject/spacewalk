@@ -309,7 +309,7 @@ def print_errata_list(errata):
             rhsa.append(erratum)
         elif re.match('bug fix', erratum.get('advisory_type'), re.I):
             rhba.append(erratum)
-        elif re.match('enhancement', erratum.get('advisory_type'), re.I):
+        elif re.match('product enhancement', erratum.get('advisory_type'), re.I):
             rhea.append(erratum)
         else:
             logging.warning('%s is an unknown errata type' % (
