@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.1.6
+Version:        1.1.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Wed Jul 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.7-1
+- tomcat config files should be modified not replaced
+
 * Fri Jul 09 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.6-1
 - add example of answers.txt file (msuchy@redhat.com)
 
