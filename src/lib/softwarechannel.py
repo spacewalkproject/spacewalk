@@ -226,7 +226,9 @@ def do_softwarechannel_details(self, args):
 def help_softwarechannel_listerrata(self):
     print 'softwarechannel_listerrata: List the errata associated with a'
     print '                            software channel'
-    print 'usage: softwarechannel_listerrata CHANNEL ...'
+    print '                            You can provide optional from and to'
+    print '                            parameters'
+    print 'usage: softwarechannel_listerrata CHANNEL ... [from=yyyymmdd [to=yyyymmdd]]'
 
 def complete_softwarechannel_listerrata(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
@@ -238,7 +240,17 @@ def do_softwarechannel_listerrata(self, args):
         self.do_help_softwarechannel_listerrata()
         return
 
-    channels = args
+    begin_date = None
+    end_date = None
+    # iterate over args and alter a copy of it (channels)
+    channels = args[:]
+    for arg in args:
+        if arg[:5] == 'from=':
+            begin_date = arg[5:]
+            channels.remove(arg)
+        elif arg[:3] == 'to=':
+            end_date = arg[3:]
+            channels.remove(arg)
 
     add_separator = False
 
@@ -247,7 +259,15 @@ def do_softwarechannel_listerrata(self, args):
             print 'Channel: %s' % channel
             print
 
-        errata = self.client.channel.software.listErrata(self.session,
+        if begin_date and end_date:
+                errata = self.client.channel.software.listErrata(self.session,
+                                         channel, parse_time_input(begin_date),
+                                                  parse_time_input(end_date))
+        elif begin_date:
+                errata = self.client.channel.software.listErrata(self.session,
+                                         channel, parse_time_input(begin_date))
+        else:
+            errata = self.client.channel.software.listErrata(self.session,
                                                          channel)
 
         print_errata_list(errata)
