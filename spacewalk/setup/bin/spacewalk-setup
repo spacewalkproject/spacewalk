@@ -559,10 +559,10 @@ sub setup_tomcat {
     local *FILE;
     open FILE, "$tomcatdir/$serverxml"
       or die "Error opening $tomcatdir/$serverxml: $!\n";
-    my $serverxml_content_orig = <F>;
+    my $serverxml_content_orig = <FILE>;
     close FILE;
 
-    my $template = Spacewalk::Setup::SHARED_DIR . "$serverxml.xsl";
+    my $template = Spacewalk::Setup::SHARED_DIR . "/$serverxml.xsl";
     my $serverxml_content = qx{/usr/bin/xsltproc $template $tomcatdir/$serverxml};
     die "There was an error running xsltproc\n" if $?;
     if ($serverxml_content ne $serverxml_content_orig) {
@@ -577,6 +577,7 @@ sub setup_tomcat {
           print Spacewalk::Setup::loc("** $tomcatdir/$serverxml has been backed up to $serverxml-swsave\n");
           $done = 1;
         }
+      }
       open FILE, ">$tomcatdir/$serverxml"
         or die "Error opening [$tomcatdir/$serverxml]: $!\n";
       chmod 0644, "$tomcatdir/$serverxml";
