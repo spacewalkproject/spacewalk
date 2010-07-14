@@ -350,7 +350,7 @@ def remove_last_history_item(self):
 
 
 def clear_errata_cache(self):
-    self.all_errata = []
+    self.all_errata = {}
     self.errata_cache_expire = datetime.now()
 
 def generate_errata_cache(self, force=False):
