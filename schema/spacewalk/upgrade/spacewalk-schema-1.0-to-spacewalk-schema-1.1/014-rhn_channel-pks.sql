@@ -94,16 +94,6 @@ IS
 
     FUNCTION available_fve_chan_subs(channel_id_in IN NUMBER, org_id_in IN NUMBER) RETURN NUMBER;
 
-    PROCEDURE entitle_customer(customer_id_in in number,
-                               channel_family_id_in in number,
-                               quantity_in in number,
-                               fve_quantity_in in number);
-
-    PROCEDURE set_family_maxmembers(customer_id_in in number,
-                                    channel_family_id_in in number,
-                                    quantity_in in number,
-                                    fve_quantity_in in number);
-
     PROCEDURE unsubscribe_server_from_family(server_id_in in number, channel_family_id_in in number);
 
     PROCEDURE delete_server_channels(server_id_in in number);

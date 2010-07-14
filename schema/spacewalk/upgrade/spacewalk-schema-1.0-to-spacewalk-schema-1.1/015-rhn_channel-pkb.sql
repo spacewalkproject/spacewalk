@@ -66,7 +66,6 @@ IS
         consenting_user         NUMBER;
         allowed                 number := 0;
         is_fve                  CHAR(1) := 'N';
-
     BEGIN
         if user_id_in is not null then
             allowed := rhn_channel.user_role_check(channel_id_in, user_id_in, 'subscribe');
@@ -281,9 +280,12 @@ IS
     RETURN NUMBER
     IS
         CURSOR vi_entries IS
-            SELECT *
-              FROM rhnVirtualInstance
-             WHERE virtual_system_id = server_id_in;
+            SELECT 1
+              FROM rhnVirtualInstance vi
+             WHERE vi.virtual_system_id = server_id_in
+             and not exists(select server_id from rhnServerChannel sc where 
+                            sc.server_id = vi.virtual_system_id 
+                            and  sc.is_fve='Y');
         vi_count NUMBER;
 
     BEGIN
@@ -747,102 +749,6 @@ IS
 
         RETURN rhn_channel.available_fve_family_subs( channel_family_id_val, org_id_in);
     END available_fve_chan_subs;
-
-    -- *******************************************************************
-    -- PROCEDURE: entitle_customer
-    -- Creates a chan fam bucket, or sets max_members for an existing bucket
-    -- Called by: rhn_ep.poll_customer_internal
-    -- Calls: set_family_maxmembers + update_family_counts if the row
-    --        already exists, else it creates it in rhnPrivateChannelFamily.
-    -- *******************************************************************
-    procedure entitle_customer(customer_id_in in number, 
-                               channel_family_id_in in number, 
-                               quantity_in in number,
-                               fve_quantity_in in number)
-    is
-                cursor permissions is
-                        select  1
-                        from    rhnPrivateChannelFamily pcf
-                        where   pcf.org_id = customer_id_in
-                                and     pcf.channel_family_id = channel_family_id_in; 
-    begin
-                for perm in permissions loop
-			            set_family_maxmembers(
-		                customer_id_in,
-		                channel_family_id_in,
-		                quantity_in,
-		                fve_quantity_in
-		            );
-
-                        rhn_channel.update_family_counts(
-                                channel_family_id_in,
-                                customer_id_in
-                        );
-                        return;
-                end loop;
-        
-                insert into rhnPrivateChannelFamily pcf (
-                                channel_family_id, org_id, max_members, current_members,
-									fve_max_members, fve_current_members
-                        ) values (
-                                channel_family_id_in, customer_id_in, quantity_in, 0,
-								fve_quantity_in, 0
-                        );
-    end;
-
-    -- *******************************************************************
-    -- PROCEDURE: set_family_maxmembers
-    -- Prunes an existing channel family bucket by unsubscribing the
-    --   necessary servers and sets max_members.
-    -- Called by: rhn_channel.entitle_customer
-    -- Calls: unsubscribe_server_from_family
-    -- *******************************************************************
-    procedure set_family_maxmembers(customer_id_in in number, 
-                                    channel_family_id_in in number, 
-                                    quantity_in in number,
-                                    fve_quantity_in in number)
-    is
-        cursor phy_servers is
-            select server_id from (
-                select rownum row_number, server_id, modified from (
-                    select rcfsp.server_id,
-                           rcfsp.modified
-                      from rhnChannelFamilyServerPhysical rcfsp
-                     where rcfsp.customer_id = customer_id_in
-                       and rcfsp.channel_family_id = channel_family_id_in
-                     order by modified
-                 )
-                 where rownum > quantity_in
-            );
-        cursor fve_servers is
-            select server_id from (
-                select rownum row_number, server_id, modified from (
-                    select rcfsp.server_id,
-                           rcfsp.modified
-                      from rhnChannelFamilyServerFve rcfsp
-                     where rcfsp.customer_id = customer_id_in
-                       and rcfsp.channel_family_id = channel_family_id_in
-                     order by modified
-                 )
-                 where rownum > fve_quantity_in
-            );
-    begin
-        for phy_server in phy_servers loop
-            rhn_channel.unsubscribe_server_from_family(phy_server.server_id,
-                                                       channel_family_id_in);
-        end loop;
-
-        for fve_server in fve_servers loop
-            rhn_channel.unsubscribe_server_from_family(fve_server.server_id,
-                                                       channel_family_id_in);
-        end loop;
-
-        update rhnPrivateChannelFamily pcf
-           set pcf.max_members = quantity_in,
-               pcf.fve_max_members = fve_quantity_in
-         where pcf.org_id = customer_id_in
-           and pcf.channel_family_id = channel_family_id_in;
-    end;
 
     procedure unsubscribe_server_from_family(server_id_in in number, 
                                              channel_family_id_in in number)
