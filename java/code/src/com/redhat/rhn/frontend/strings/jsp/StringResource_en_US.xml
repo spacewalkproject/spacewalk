@@ -5741,6 +5741,70 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       </trans-unit>
 
+      <trans-unit id="systemcurrency.jsp.header">
+<source>System Currency Report</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
+          <context context-type="sourcefile">/rhn/YourRhn.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="systemcurrency.jsp.view">
+<source>View systems with a score of at least: </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="systemcurrency.jsp.critical">
+<source>Security (Critical)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="systemcurrency.jsp.important">
+<source>Security (Important)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="systemcurrency.jsp.moderate">
+<source>Security (Moderate)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="systemcurrency.jsp.low">
+<source>Security (Low)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="systemcurrency.jsp.bug">
+<source>Bugfixes</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="systemcurrency.jsp.enhancement">
+<source>Enhancements</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="systemcurrency.jsp.score">
+<source>System<br/>Score</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="grouplist.jsp.header">
 <source>System Groups</source>
         <context-group name="ctx">
@@ -8609,6 +8673,7 @@ organization management tools if you choose to remove this role from your login.
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/errata/manage/CloneErrata.do</context>
             <context context-type="sourcefile">/rhn/systems/Registered.do</context>
+            <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
         </context-group>
       </trans-unit>
 

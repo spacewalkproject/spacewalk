@@ -423,6 +423,33 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   <elaborator name="is_virtual_host" />
 </mode>
 
+<mode name="system_currency" class="com.redhat.rhn.frontend.dto.SystemCurrency">
+    <query params="uid">
+        SELECT DISTINCT s1.id, s1.name,
+            nvl((select count(distinct e.id) from
+                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID
+                and E.ID = SNC.ERRATA_ID and substr(E.synopsis, 1, 1) = 'C' and S1.name = S.name group by S.name), 0) critical,
+            nvl((select count(distinct e.id) from
+                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID and E.ID = SNC.ERRATA_ID and
+                substr(E.synopsis, 1, 1) = 'I' and S1.name = S.name group by S.name), 0) important,
+            nvl((select count(distinct e.id) from
+                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID and E.ID = SNC.ERRATA_ID and
+                substr(E.synopsis, 1, 1) = 'M' and S1.name = S.name group by S.name), 0) moderate,
+            nvl((select count(distinct e.id) from
+                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID and E.ID = SNC.ERRATA_ID and
+                substr(E.synopsis, 1, 1) = 'L' and S1.name = S.name group by S.name), 0) low,
+            nvl((select count(distinct e.id) from
+                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID and E.ID = SNC.ERRATA_ID and
+                E.advisory_type = 'Bug Fix Advisory'  and S1.name = S.name group by S.name), 0) bug,
+            nvl((select count(distinct e.id) from
+                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID and E.ID = SNC.ERRATA_ID and
+                E.advisory_type = 'Product Enhancement Advisory' and S1.name = S.name group by S.name), 0) enhancement
+        from   rhnServer S1, rhnUserServerPerms USP1
+        where  s1.id = USP1.server_id and USP1.USER_ID = :uid
+        order by s1.name
+    </query>
+</mode>
+
 <mode name="most_critical_systems" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="available_to_user_with_errata" />
   <elaborator name="system_overview_most_critical" />

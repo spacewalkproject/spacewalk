@@ -312,6 +312,19 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Returns list of all systems and their errata type counts
+     * @param user Currently logged in user.
+     * @param pc PageControl
+     * @return list of SystemOverviews.
+     */
+    public static DataResult systemCurrencyList(User user, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("System_queries", "system_currency");
+        Map params = new HashMap();
+        params.put("uid", user.getId());
+        return m.execute(params);
+    }
+
+    /**
      * Returns list of all systems visible to user.
      *    This is meant to be fast and only gets the id, name, and last checkin
      * @param user Currently logged in user.

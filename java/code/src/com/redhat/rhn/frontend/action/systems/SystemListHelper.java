@@ -20,6 +20,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.dto.SystemCurrency;
 import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -155,6 +156,35 @@ public class SystemListHelper {
             img.setAttribute("title", message);
             img.setAttribute("alt", message);
         }
+
+        url.addBody(img);
+        String statusDisplay;
+
+        if (makeLinks) {
+            statusDisplay = url.render();
+        }
+        else {
+            statusDisplay = img.render();
+        }
+        next.setStatusDisplay(statusDisplay);
+
+    }
+
+    /**
+     * Sets up the HTML tags (image and potentially link) by computing the status from the
+     * SystemCurrency DTO.
+     *
+     * @param user      used to calc some entitlement info
+     * @param next      row used to populate html tags
+     * @param makeLinks indicates if the icons should be rendered as links to other pages
+     */
+    public static void setSystemStatusDisplay(User user, SystemCurrency next,
+                                              boolean makeLinks) {
+
+        String message;
+        HtmlTag url = new HtmlTag("a");
+        HtmlTag img = new HtmlTag("img");
+        LocalizationService ls = LocalizationService.getInstance();
 
         url.addBody(img);
         String statusDisplay;

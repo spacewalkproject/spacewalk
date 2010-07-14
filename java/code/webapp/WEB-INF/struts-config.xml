@@ -937,6 +937,11 @@
                <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
+    <form-bean name="systemCurrencyForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+               <form-property name="submitted" type="java.lang.Boolean"/>
+    </form-bean>
+
 
     <!--END ConfigChannel forms -->
 
@@ -2554,6 +2559,15 @@
         type="com.redhat.rhn.frontend.action.systems.RegisteredSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/registeredlist.jsp"/>
+    </action>
+
+    <action path="/systems/SystemCurrency"
+        scope="request"
+        name="systemCurrencyForm"
+        input="/WEB-INF/pages/systems/systemcurrency.jsp"
+        type="com.redhat.rhn.frontend.action.systems.SystemCurrencyAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/systemcurrency.jsp"/>
     </action>
 
     <action path="/systems/ProxyList"

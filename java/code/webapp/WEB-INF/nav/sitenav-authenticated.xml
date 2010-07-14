@@ -48,6 +48,7 @@
           <rhn-tab-url>/rhn/systems/DuplicateMacAddress.do</rhn-tab-url>
           <rhn-tab-url>/rhn/systems/DuplicateSystemsCompare.do</rhn-tab-url>
       </rhn-tab>
+      <rhn-tab name="System Currency" url="/rhn/systems/SystemCurrency.do"/>
     </rhn-tab>
     <rhn-tab name="System Groups" acl="org_entitlement(sw_mgr_enterprise)">
      <rhn-tab-directory>/rhn/groups</rhn-tab-directory>

@@ -138,6 +138,13 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 
+      <trans-unit id="System Currency">
+<source>System Currency</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+
 
       <trans-unit id="system.nav.outofdate">
 <source>Out of Date</source>
