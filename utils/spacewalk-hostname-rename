@@ -83,7 +83,7 @@ function print_status {
 }
 
 function check_input_ip {
-   IPS=`echo $(/sbin/ip a | awk  'BEGIN {FS=" ";RS="/"}; /inet / && ! /127.0./ {print $6}')`
+   IPS=`echo $(/sbin/ip a | awk  'BEGIN {FS=" ";RS="/"}; /inet / && ! /127.0./ {print $NF}')`
    for ip in $IPS
    do
        if [ "$1" == "$ip" ]
