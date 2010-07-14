@@ -581,14 +581,7 @@ def expand_systems(self, args):
             else:
                 logging.warning('No systems subscribed to %s' % item)
         else:
-            try:
-                # determine the system name if passed an ID
-                system_id = int(item)
-                name = self.client.system.getName(self.session, system_id)
-                item = name.get('name')
-            except ValueError:
-                pass
-
+            # just a system name
             systems.append(item)
     
     matches = filter_results(self.get_system_names(), systems)
