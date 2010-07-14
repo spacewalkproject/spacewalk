@@ -661,6 +661,27 @@ def terminate_kickstart_sessions(server_id):
     return history
 
 
+# Fetches the package profile from the kickstart profile (Not the session)
+def get_kickstart_profile_package_profile(kickstart_session_id):
+    h = rhnSQL.prepare("""
+        select pn.name, pe.version, pe.release, pe.epoch, pa.label
+          from rhnKickstartSession ks,
+               rhnKickstartDefaults kd,
+               rhnServerProfilePackage spp,
+               rhnPackageName pn,
+               rhnPackageEVR pe,
+               rhnPackageArch pa
+         where ks.id = :kickstart_session_id
+           and kd.server_profile_id = spp.server_profile_id
+           and spp.name_id = pn.id
+           and spp.evr_id = pe.id
+           and spp.package_arch_id = pa.id
+           and kd.kickstart_id = ks.kickstart_id
+    """)
+    h.execute(kickstart_session_id=kickstart_session_id)
+    return _packages_from_cursor(h)
+
+
 # Fetches the package profile from the kickstart session
 def get_kisckstart_session_package_profile(kickstart_session_id):
     h = rhnSQL.prepare("""

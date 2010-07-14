@@ -76,6 +76,10 @@ def schedule_sync(server_id, action_id):
     deploy_configs = (row['deploy_configs'] == 'Y')
     
     ks_package_profile = server_kickstart.get_kisckstart_session_package_profile(kickstart_session_id)
+    #if the session doesn't have a pkg profile, try from the ks profile itself
+    if not ks_package_profile:
+        ks_package_profile = server_kickstart.get_kickstart_profile_package_profile(kickstart_session_id)
+
     if not ks_package_profile:
         log_debug(4, "No kickstart package profile")
         # No profile to bring this system to
