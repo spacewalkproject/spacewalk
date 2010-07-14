@@ -505,12 +505,15 @@ sub setup_tomcat {
   my ($tomcatconf_content_orig, $tomcatconf_content);
   my $which_tomcat = qx{rpm -q --requires spacewalk-java};
   my ($tomcatX) = ($which_tomcat =~ m/\b(tomcat\d)\b/m);
-  my $tomcatconf = "/etc/$tomcatX/$tomcatX.conf";
+  my $tomcatdir  = "/etc/$tomcatX";
+  my $tomcatconf = "$tomcatX.conf";
+  my $serverxml = "server.xml";
 
-  die "$tomcatconf does not exist.\n" unless (-f $tomcatconf);
+  die "$tomcatdir/$tomcatconf does not exist.\n" unless (-f "$tomcatdir/$tomcatconf");
 
   {
-    open FILE, $tomcatconf or die "Error opening [$tomcatconf]: $!\n";
+    open FILE, "$tomcatdir/$tomcatconf"
+      or die "Error opening [$tomcatdir/$tomcatconf]: $!\n";
     local $/ = undef;
     $tomcatconf_content = <FILE>;
     $tomcatconf_content_orig = $tomcatconf_content;
@@ -524,29 +527,62 @@ sub setup_tomcat {
 
     my $content;
     {
-	  local $/ = undef;
-	  $content = <FILE>;
-	}
-	close FILE;
+      local $/ = undef;
+      $content = <FILE>;
+    }
+    close FILE;
     $tomcatconf_content =~ s!$regexp!$content!gm or $tomcatconf_content .= $content;
   }
 
   if ($tomcatconf_content ne $tomcatconf_content_orig) {
     my $done = 0;
     while (not $done) {
-      system("cp", "--backup=numbered", $tomcatconf, "$tomcatconf-swsave");
+      system("cp", "--backup=numbered", "$tomcatdir/$tomcatconf",
+                                        "$tomcatdir/$tomcatconf-swsave");
       if ( $? >> 8 ) {
-        print Spacewalk::Setup::loc("An error ocurred while attempting to back up your original $tomcatX.conf\n");
+        print Spacewalk::Setup::loc("An error ocurred while attempting to back up your original $tomcatconf\n");
         $done = syscall_retry;
       } else {
-        print Spacewalk::Setup::loc("** $tomcatconf has been backed up to $tomcatX.conf-swsave\n");
+        print Spacewalk::Setup::loc("** $tomcatdir/$tomcatconf has been backed up to $tomcatconf-swsave\n");
         $done = 1;
       }
     }
-    open FILE, ">$tomcatconf" or die "Error opening [$tomcatconf]: $!\n";
-    chmod 0644, $tomcatconf;
+    open FILE, ">$tomcatdir/$tomcatconf"
+      or die "Error opening [$tomcatdir/$tomcatconf]: $!\n";
+    chmod 0644, "$tomcatdir/$tomcatconf";
     print FILE $tomcatconf_content;
     close FILE;
+  }
+
+  {
+    local $/ = undef;
+    local *FILE;
+    open FILE, "$tomcatdir/$serverxml"
+      or die "Error opening $tomcatdir/$serverxml: $!\n";
+    my $serverxml_content_orig = <F>;
+    close FILE;
+
+    my $template = Spacewalk::Setup::SHARED_DIR . "$serverxml.xsl";
+    my $serverxml_content = qx{/usr/bin/xsltproc $template $tomcatdir/$serverxml};
+    die "There was an error running xsltproc\n" if $?;
+    if ($serverxml_content ne $serverxml_content_orig) {
+      my $done = 0;
+      while (not $done) {
+        system("cp", "--backup=numbered", "$tomcatdir/$serverxml",
+                                          "$tomcatdir/$serverxml-swsave");
+        if ( $? >> 8 ) {
+          print Spacewalk::Setup::loc("An error ocurred while attempting to back up your original $serverxml\n");
+          $done = syscall_retry;
+        } else {
+          print Spacewalk::Setup::loc("** $tomcatdir/$serverxml has been backed up to $serverxml-swsave\n");
+          $done = 1;
+        }
+      open FILE, ">$tomcatdir/$serverxml"
+        or die "Error opening [$tomcatdir/$serverxml]: $!\n";
+      chmod 0644, "$tomcatdir/$serverxml";
+      print FILE $serverxml_content;
+      close FILE;
+    }
   }
 
   return;
