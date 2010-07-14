@@ -20,7 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
-import logging, os, pickle, re, readline, time, xmlrpclib
+import logging, os, pickle, re, readline, sys, time, xmlrpclib
 from datetime import datetime, timedelta
 from tempfile import mkstemp
 from textwrap import wrap
@@ -158,10 +158,14 @@ def editor(template = '', delete = False):
             return ([], '')
 
 
-def prompt_user(prompt, noblank = False):
+def prompt_user(prompt, noblank = False, multiline = False):
     try:
         while True:
-            userinput = raw_input('%s ' % prompt)
+            if multiline:
+                print prompt
+                userinput = sys.stdin.read()
+            else:
+                userinput = raw_input('%s ' % prompt)
             if noblank:
                 if userinput != '':
                     break
