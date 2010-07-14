@@ -22,7 +22,7 @@ from server.rhnLib import InvalidAction
 __rhnexport__ = ['update']
 
 # returns a list of errata scheduled for this action
-def update(serverId, actionId):
+def update(serverId, actionId, dry_run=0):
     log_debug(3)
     statement = """
         select errata_id

@@ -39,7 +39,7 @@ _query_initiate_guest = rhnSQL.Statement("""
        and ksdef.virtualization_type = kvt.id       
 """)
 
-def schedule_virt_guest_pkg_install(server_id, action_id):
+def schedule_virt_guest_pkg_install(server_id, action_id, dry_run=0):
     """
         ShadowAction that schedules a package installation action for the
         rhn-virtualization-guest package.
@@ -60,7 +60,10 @@ def schedule_virt_guest_pkg_install(server_id, action_id):
 
     try:
         install_scheduler = PackageInstallScheduler(server_id, action_id, rhn_v12n_package)
-        install_scheduler.schedule_package_install()
+        if (!dry_run):
+            install_scheduler.schedule_package_install()
+        else:
+            log_debug(4, "dry run requested")
     except NoActionInfo, nai:
         raise InvalidAction(str(nai))
     except PackageNotFound, pnf:
@@ -71,7 +74,7 @@ def schedule_virt_guest_pkg_install(server_id, action_id):
     log_debug(3, "Completed scheduling install of rhn-virtualization-guest!")
     raise ShadowAction("Scheduled installation of RHN Virtualization Guest packages.")
 
-def initiate(server_id, action_id):
+def initiate(server_id, action_id, dry_run=0):
     log_debug(3)
     h = rhnSQL.prepare(_query_initiate_guest)
     h.execute(action_id=action_id)
@@ -99,6 +102,10 @@ def initiate(server_id, action_id):
     return (kickstart_host, cobbler_system_name, virt_type, ks_session_id, name,
                 mem_kb, vcpus, disk_gb, virt_bridge, disk_path, append_string)
 
-def add_tools_channel(server_id, action_id):
-    subscribe_to_tools_channel(server_id)
+def add_tools_channel(server_id, action_id, dry_run=0):
+    log_debug(3)
+    if (!dry_run):
+        subscribe_to_tools_channel(server_id)
+    else:
+        log_debug(4, "dry run requested")
     raise ShadowAction("Subscribed guest to tools channel.")

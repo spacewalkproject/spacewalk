@@ -29,6 +29,6 @@ __rhnexport__ = ['use_satellite']
 #
 # effectively, a noop serverside until the scheduled action
 # runs.
-def use_satellite(serverId, actionId):
+def use_satellite(serverId, actionId, dry_run=0):
     log_debug(3)
     return None

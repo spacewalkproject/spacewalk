@@ -67,8 +67,8 @@ _query_remove = rhnSQL.Statement("""
        and ap.package_arch_id = pa.id (+)
 """)
 
-def install(server_id, action_id):
-    log_debug(3)
+def install(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
 
     h = rhnSQL.prepare(_query_install)
     h.execute(server_id=server_id, action_id=action_id)
@@ -99,8 +99,8 @@ def install(server_id, action_id):
         ret.append(entry)
     return ret
 
-def remove(server_id, action_id):
-    log_debug(3)
+def remove(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
 
     h = rhnSQL.prepare(_query_remove)
     h.execute(action_id=action_id)
@@ -122,7 +122,7 @@ patchClusterInstall = install
 
 patchClusterRemove = remove
 
-def refresh_list(serverId, actionId):
+def refresh_list(serverId, actionId, dry_run=0):
     """ Call the equivalent of up2date -p.
     
         I.e. update the list of a client's installed packages known by

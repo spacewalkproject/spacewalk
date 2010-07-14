@@ -21,6 +21,6 @@ from common import log_debug
 # the "exposed" functions
 __rhnexport__ = ['reboot']
 
-def reboot(serverId, actionId):
+def reboot(serverId, actionId, dry_run=0):
     log_debug(3)
     return None

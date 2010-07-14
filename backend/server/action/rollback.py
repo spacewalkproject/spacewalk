@@ -23,17 +23,17 @@ from server.rhnLib import InvalidAction
 # the "exposed" functions
 __rhnexport__ = ['config', 'listTransactions', 'rollback']
 
-def config(serverId, actionId):
+def config(serverId, actionId, dry_run=0):
     log_debug(3)
     # XXX Not working
     return 1
 
-def listTransactions(serverId, actionId):
+def listTransactions(serverId, actionId, dry_run=0):
     log_debug(3)
     return None
     
-def rollback(serverId, actionId):
-    log_debug(3)
+def rollback(serverId, actionId, dry_run=0):
+    log_debug(3, dry_run)
     h = rhnSQL.prepare("""
         select 
             rt1.rpm_trans_id from_rpm_trans_id,

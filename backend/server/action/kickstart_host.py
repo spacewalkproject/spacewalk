@@ -25,11 +25,14 @@ from server.rhnChannel import subscribe_to_tools_channel
 
 __rhnexport__ = ['schedule_virt_host_pkg_install', 'add_tools_channel']
 
-def add_tools_channel(server_id, action_id):
-    subscribe_to_tools_channel(server_id)
+def add_tools_channel(server_id, action_id, dry_run=0):
+    if (!dry_run):
+        subscribe_to_tools_channel(server_id)
+    else:
+        log_debug(4, "dry run requested")
     raise ShadowAction("Subscribed server to tools channel.")
 
-def schedule_virt_host_pkg_install(server_id, action_id):
+def schedule_virt_host_pkg_install(server_id, action_id, dry_run=0):
     """
         ShadowAction that schedules a package installation action for the
         rhn-virtualization-host and osad packages.
@@ -57,10 +60,12 @@ def schedule_virt_host_pkg_install(server_id, action_id):
 
     try:
         rhn_v12n_install_scheduler = PackageInstallScheduler(server_id, action_id, rhn_v12n_package)
-        rhn_v12n_install_scheduler.schedule_package_install()
-
         messaging_package = PackageInstallScheduler(server_id, action_id, messaging_package)
-        messaging_package.schedule_package_install()
+        if (!dry_run):
+            rhn_v12n_install_scheduler.schedule_package_install()
+            messaging_package.schedule_package_install()
+        else:
+            log_debug(4, "dry run requested")
     except NoActionInfo, nai:
         raise InvalidAction(str(nai))
     except PackageNotFound, pnf:

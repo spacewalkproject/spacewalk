@@ -45,8 +45,8 @@ _query_action_verify_packages = rhnSQL.Statement("""
        and ap.name_id = pn.id
        and ap.package_arch_id = pa.id (+)
 """)
-def verify(serverId, actionId):
-    log_debug(3)
+def verify(serverId, actionId, dry_run=0):
+    log_debug(3, dry_run)
     h = rhnSQL.prepare(_query_action_verify_packages)
     h.execute(actionid=actionId)
     tmppackages = h.fetchall_dict()
@@ -68,8 +68,8 @@ def verify(serverId, actionId):
     return packages
 
 
-def handle_action(serverId, actionId, packagesIn):
-    log_debug(3, serverId, actionId)
+def handle_action(serverId, actionId, packagesIn, dry_run=0):
+    log_debug(3, serverId, actionId, dry_run)
 
     client_caps = rhnCapability.get_client_capabilities()
     log_debug(3,"Client Capabilities", client_caps)
@@ -101,20 +101,20 @@ def handle_action(serverId, actionId, packagesIn):
     return packages
 
 
-def remove(serverId, actionId):
+def remove(serverId, actionId, dry_run=0):
     h = rhnSQL.prepare(_packageStatement_remove)
     h.execute(serverid=serverId, actionid=actionId)
     tmppackages = h.fetchall_dict()
-    return handle_action(serverId, actionId, tmppackages)
+    return handle_action(serverId, actionId, tmppackages, dry_run)
 
-def update(serverId, actionId):
+def update(serverId, actionId, dry_run=0):
     h = rhnSQL.prepare(_packageStatement_update)
     h.execute(serverid=serverId, actionid=actionId)
     tmppackages = h.fetchall_dict()
-    return handle_action(serverId, actionId, tmppackages)
+    return handle_action(serverId, actionId, tmppackages, dry_run)
 
 
-def refresh_list(serverId, actionId):
+def refresh_list(serverId, actionId, dry_run=0):
     """ Call the equivalent of up2date -p.
     
         I.e. update the list of a client's installed packages known by
@@ -123,8 +123,8 @@ def refresh_list(serverId, actionId):
     log_debug(3)
     return None
 
-def runTransaction(server_id, action_id):
-    log_debug(3, server_id, action_id)
+def runTransaction(server_id, action_id, dry_run=0):
+    log_debug(3, server_id, action_id, dry_run)
 
     # Fetch package_delta_id
     h = rhnSQL.prepare("""

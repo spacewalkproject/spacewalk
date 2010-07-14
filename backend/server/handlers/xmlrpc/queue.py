@@ -70,7 +70,7 @@ class Queue(rhnHandler):
         # all good
         return {'id': actionId, 'version': 1, 'action': xml}
 
-    def __getV2(self, action):
+    def __getV2(self, action, dry_run=0):
         """ Fetches queued actions for the clients version 2+. """
         log_debug(3, self.server_id)
         # Get the root dir of this install
@@ -86,7 +86,7 @@ class Queue(rhnHandler):
             raise EmptyAction("Could not get a valid method for %s" % (
                 action['method'],))
         # Call the method
-        result = method(self.server_id, action['id'])
+        result = method(self.server_id, action['id'], dry_run)
         if result is None:
             # None are mapped to the empty list
             result = ()
@@ -186,11 +186,32 @@ class Queue(rhnHandler):
 
             self._invalidate_child_actions(action_id)
 
+    _query_queue_future = rhnSQL.Statement("""
+                    select sa.action_id id, a.version,
+                           sa.remaining_tries, at.label method,
+                           at.unlocked_only,
+                           a.prerequisite
+                      from rhnServerAction sa,
+                           rhnAction a,
+                           rhnActionType at
+                     where sa.server_id = :server_id
+                       and sa.action_id = a.id
+                       and a.action_type = at.id
+                       and sa.status in (0, 1) -- Queued or picked up
+                       and a.earliest_action <= sysdate + (:time_window/24)  -- Check earliest_action
+                      order by a.earliest_action, a.prerequisite nulls first, a.id
+    """)
+
     def get_future_actions(self, system_id, time_window):
         """ return actions which are scheduled within next /time_window/ hours """
         self.auth_system(system_id)
         log_debug(3, "Checking for future actions within %d hours" % time_window)
-        ## TODO
+        h = rhnSQL.prepare(self._query_queue_future)
+        h.execute(server_id=self.server_id, time_window=time_window)
+        result = []
+        while action = h.fetchone_dict():
+            result.append(self.__getV2(action, dry_run=1))
+        return result
 
     _query_queue_get = rhnSQL.Statement("""
                     select sa.action_id id, a.version, 

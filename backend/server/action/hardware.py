@@ -18,6 +18,6 @@ from common import log_debug
 
 __rhnexport__ = ['refresh_list']
 
-def refresh_list(serverId, actionId):
+def refresh_list(serverId, actionId, dry_run=0):
     log_debug(3)
     return None

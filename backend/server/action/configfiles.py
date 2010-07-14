@@ -49,7 +49,7 @@ _query_mtime_upload_paths = rhnSQL.Statement("""
      where action_id = :action_id
 """)
 
-def mtime_upload(server_id, action_id):
+def mtime_upload(server_id, action_id, dry_run=0):
     log_debug(3)
 
     data = {}
@@ -90,7 +90,7 @@ def mtime_upload(server_id, action_id):
     return action_id, data
 
 
-def upload(server_id, action_id):
+def upload(server_id, action_id, dry_run=0):
     log_debug(3)
     h = rhnSQL.prepare(_query_upload_files)
     h.execute(action_id=action_id, server_id=server_id)
@@ -98,15 +98,15 @@ def upload(server_id, action_id):
 
     return action_id, files
 
-def deploy(server_id, action_id):
+def deploy(server_id, action_id, dry_run=0):
     log_debug(3)
     return _get_files(server_id, action_id)
 
-def verify(server_id, action_id):
+def verify(server_id, action_id, dry_run=0):
     log_debug(3)
     return _get_files(server_id, action_id)
 
-def diff(server_id, action_id):
+def diff(server_id, action_id, dry_run=0):
     log_debug(3)
     return _get_files(server_id, action_id)
 

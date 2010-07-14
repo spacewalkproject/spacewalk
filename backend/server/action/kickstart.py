@@ -40,7 +40,7 @@ _query_file_list_initiate= rhnSQL.Statement("""
        and ak.action_id = :action_id
 """)
 
-def initiate(server_id, action_id):
+def initiate(server_id, action_id, dry_run=0):
     log_debug(3)
     h = rhnSQL.prepare(_query_initiate)
     h.execute(action_id=action_id)
@@ -64,8 +64,11 @@ def initiate(server_id, action_id):
     
     return (kickstart_host, boot_image, append_string, static_device, system_record, files)
 
-def schedule_sync(server_id, action_id):
+def schedule_sync(server_id, action_id, dry_run=0):
     log_debug(3, server_id, action_id)
+    if dry_run:
+        raise ShadowAction("dry run requested - skipping")
+
     kickstart_session_id = server_kickstart.get_kickstart_session_id(server_id, 
         action_id)
     

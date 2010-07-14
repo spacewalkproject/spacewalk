@@ -28,8 +28,8 @@ _query_action_script = rhnSQL.Statement("""
      where action_id = :action_id
 """)
 
-def run(server_id, action_id):
-    log_debug(3)
+def run(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
 
     data = {}
 

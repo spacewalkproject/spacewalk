@@ -28,8 +28,8 @@ _query_lookup_interval = rhnSQL.Statement("""
      where action_id = :action_id
 """)
 
-def configure(serverId, actionId):
-    log_debug(3)
+def configure(serverId, actionId, dry_run=0):
+    log_debug(3, dry_run)
     h = rhnSQL.prepare(_query_lookup_interval)
     h.execute(action_id=actionId)
     row = h.fetchone_dict()

@@ -138,8 +138,8 @@ def _get_uuid(query_str, action_id):
     return uuid
 
 #Returns an empty tuple, since the virt.refresh action has no params.
-def refresh(server_id, action_id):
-    log_debug(3)
+def refresh(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
 
     prepared_query = rhnSQL.prepare(_query_refresh)
     prepared_query.execute(action_id=action_id)
@@ -155,8 +155,8 @@ def refresh(server_id, action_id):
     return ()
 
 #Returns a uuid
-def start(server_id, action_id):
-    log_debug(3)
+def start(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
     try:
         uuid = _get_uuid(_query_start, action_id)
     except NoRowFoundException:
@@ -166,8 +166,8 @@ def start(server_id, action_id):
     return (uuid,)
 
 #Returns a uuid.
-def shutdown(server_id, action_id):
-    log_debug(3)
+def shutdown(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
     try:
         uuid = _get_uuid(_query_shutdown, action_id)
     except NoRowFoundException:
@@ -177,8 +177,8 @@ def shutdown(server_id, action_id):
     return (uuid,)
 
 #Returns a uuid.
-def suspend(server_id, action_id):
-    log_debug(3)
+def suspend(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
     try:
         uuid = _get_uuid(_query_suspend, action_id)
     except NoRowFoundException:
@@ -189,8 +189,8 @@ def suspend(server_id, action_id):
 
 
 #Returns a uuid.
-def resume(server_id, action_id):
-    log_debug(3)
+def resume(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
     try:
         uuid = _get_uuid(_query_resume, action_id)
     except NoRowFoundException:
@@ -200,8 +200,8 @@ def resume(server_id, action_id):
     return (uuid,)
 
 #Returns a uuid.
-def reboot(server_id, action_id):
-    log_debug(3)
+def reboot(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
     try:
         uuid = _get_uuid(_query_reboot, action_id)
     except NoRowFoundException:
@@ -211,8 +211,8 @@ def reboot(server_id, action_id):
     return (uuid,)
 
 #Returns a uuid.
-def destroy(server_id, action_id):
-    log_debug(3)
+def destroy(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
     try:
         uuid = _get_uuid(_query_destroy, action_id)
     except NoRowFoundException:
@@ -222,8 +222,8 @@ def destroy(server_id, action_id):
     return (uuid,)
 
 #Returns a uuid and the amount of memory to allocate to the domain.
-def setMemory(server_id, action_id):
-    log_debug(3)
+def setMemory(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
 
     prepared_query = rhnSQL.prepare(_query_setMemory)
     prepared_query.execute(action_id=action_id)
@@ -244,8 +244,8 @@ def setMemory(server_id, action_id):
     return (uuid, memory)
 
 #Returns a uuid and the amount of VCPUs to allocate to the domain.
-def setVCPUs(server_id, action_id):
-    log_debug(3)
+def setVCPUs(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
 
     prepared_query = rhnSQL.prepare(_query_getVCPUs)
     prepared_query.execute(action_id=action_id)
@@ -258,8 +258,8 @@ def setVCPUs(server_id, action_id):
 
 
 #Returns the minute, hour, dom, month, and dow to call schedulePoller with.
-def schedulePoller(server_id, action_id):
-    log_debug(3)
+def schedulePoller(server_id, action_id, dry_run=0):
+    log_debug(3, dry_run)
 
     prepared_query = rhnSQL.prepare(_query_schedulePoller)
     prepared_query.execute(action_id=action_id)
