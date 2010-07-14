@@ -110,16 +110,3 @@ def schedule_sync(server_id, action_id):
         kickstart_session_id, installs, removes)
 
     raise ShadowAction("Package sync scheduled")
-
-def schedule_virt_pkg_install(server_id, action_id):
-    log_debug(3, server_id, action_id)
-    kickstart_session_id = server_kickstart.get_kickstart_session_id(server_id, 
-        action_id)
-    
-    if kickstart_session_id is None:
-        raise InvalidAction("Could not find kickstart session ID")
-
-    row = server_kickstart.get_kickstart_session_info(kickstart_session_id, server_id)
-    
-    # TODO: The rest of this...
-
