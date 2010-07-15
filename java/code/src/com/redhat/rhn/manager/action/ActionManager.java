@@ -1279,29 +1279,37 @@ public class ActionManager extends BaseManager {
             ActionFactory.TYPE_PACKAGES_VERIFY, earliest, srvr);
     }
     /**
-     * Schedules one or more package installation actions for the given server.
-     * Note: package upgrade = package install
+     * Schedules a script action for the given servers
      * @param scheduler User scheduling the action.
-     * @param srvr Server for which the action affects.
+     * @param servers Servers for which the action affects.
      * @param script The set of packages to be removed.
      * @param name Name of Script action.
      * @param earliest Earliest occurrence of the script.
      * @return Currently scheduled ScriptRunAction
      */
     public static ScriptRunAction scheduleScriptRun(User scheduler,
-            Server srvr, String name, ScriptActionDetails script, Date earliest) {
+            List servers, String name, ScriptActionDetails script, Date earliest) {
 
-        if (!SystemManager.clientCapable(srvr.getId(), "script.run")) {
-            throw new MissingCapabilityException("script.run", srvr);
+        // server IDs to schedule
+        Set serverIds = new HashSet();
+
+        for (Iterator sysIter = servers.iterator(); sysIter.hasNext();) {
+            Server srvr = (Server) sysIter.next();
+
+            if (!SystemManager.clientCapable(srvr.getId(), "script.run")) {
+                throw new MissingCapabilityException("script.run", srvr);
+            }
+
+            if (!SystemManager.hasEntitlement(srvr.getId(), EntitlementManager.PROVISIONING)) {
+                throw new MissingEntitlementException(
+                        EntitlementManager.PROVISIONING.getHumanReadableLabel());
+            }
+
+            serverIds.add(srvr.getId());
         }
 
-        if (!SystemManager.hasEntitlement(srvr.getId(), EntitlementManager.PROVISIONING)) {
-            throw new MissingEntitlementException(
-                    EntitlementManager.PROVISIONING.getHumanReadableLabel());
-        }
-
-        ScriptRunAction sra = (ScriptRunAction) scheduleAction(scheduler, srvr,
-                ActionFactory.TYPE_SCRIPT_RUN, name, earliest);
+        ScriptRunAction sra = (ScriptRunAction) scheduleAction(scheduler,
+                ActionFactory.TYPE_SCRIPT_RUN, name, earliest, serverIds);
         sra.setScriptActionDetails(script);
         ActionFactory.save(sra);
         return sra;

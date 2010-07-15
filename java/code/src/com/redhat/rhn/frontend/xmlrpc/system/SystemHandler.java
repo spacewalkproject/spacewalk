@@ -3006,6 +3006,71 @@ public class SystemHandler extends BaseHandler {
      * Schedule a script to run.
      *
      * @param sessionKey User's session key.
+     * @param serverIds IDs of the servers to run the script on.
+     * @param username User to run script as.
+     * @param groupname Group to run script as.
+     * @param timeout Seconds to allow the script to run before timing out.
+     * @param script Contents of the script to run.
+     * @param earliest Earliest the script can run.
+     * @return ID of the new script action.
+     *
+     * @xmlrpc.doc Schedule a script to run.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverIds") - IDs of the servers to run the script on.
+     * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
+     * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
+     * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
+     *                                      before timing out.")
+     * @xmlrpc.param #param_desc("string", "script", "Contents of the script to run.")
+     * @xmlrpc.param #param_desc("dateTime.iso8601", "earliestOccurrence",
+     *                  "Earliest the script can run.")
+     * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
+     * results with system.getScriptResults.
+     */
+    public Integer scheduleScriptRun(String sessionKey, List systemIds, String username,
+            String groupname, Integer timeout, String script, Date earliest) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        ScriptActionDetails scriptDetails = ActionManager.createScript(username, groupname,
+                new Long(timeout.longValue()), script);
+        ScriptAction action = null;
+
+        List servers = new ArrayList();
+
+        for (Iterator sysIter = systemIds.iterator(); sysIter.hasNext();) {
+            Integer sidAsInt = (Integer) sysIter.next();
+            Long sid = new Long(sidAsInt.longValue());
+            Server server = null;
+
+            try {
+                server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
+                        loggedInUser);
+                servers.add(server);
+            }
+            catch (LookupException e) {
+                throw new NoSuchSystemException();
+            }
+        }
+
+        try {
+            action = ActionManager.scheduleScriptRun(loggedInUser, servers,
+                    null, scriptDetails, earliest);
+        }
+        catch (MissingCapabilityException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException();
+        }
+        catch (MissingEntitlementException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
+        }
+
+        return new Integer(action.getId().intValue());
+    }
+
+    /**
+     * Schedule a script to run.
+     *
+     * @param sessionKey User's session key.
      * @param sid ID of the server to run the script on.
      * @param username User to run script as.
      * @param groupname Group to run script as.
@@ -3030,31 +3095,11 @@ public class SystemHandler extends BaseHandler {
     public Integer scheduleScriptRun(String sessionKey, Integer sid, String username,
             String groupname, Integer timeout, String script, Date earliest) {
 
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = null;
-        try {
-            server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
-                    loggedInUser);
-        }
-        catch (LookupException e) {
-            throw new NoSuchSystemException();
-        }
+        List systemIds = new ArrayList();
+        systemIds.add(sid);
 
-        ScriptActionDetails scriptDetails = ActionManager.createScript(username, groupname,
-                new Long(timeout.longValue()), script);
-        ScriptAction action = null;
-        try {
-            action = ActionManager.scheduleScriptRun(loggedInUser, server,
-                    null, scriptDetails, earliest);
-        }
-        catch (MissingCapabilityException e) {
-            throw new com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException();
-        }
-        catch (MissingEntitlementException e) {
-            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
-        }
-
-        return new Integer(action.getId().intValue());
+        return scheduleScriptRun(sessionKey, systemIds, username, groupname, timeout,
+	                         script, earliest);
     }
 
     /**

@@ -542,11 +542,14 @@ public class ActionManagerTest extends RhnBaseTestCase {
         SystemManagerTest.giveCapability(srvr.getId(), "script.run", new Long(1));
         assertNotNull(srvr);
 
+        List servers = new ArrayList();
+        servers.add(srvr);
+
         ScriptActionDetails sad = ActionFactory.createScriptActionDetails(
                 "root", "root", new Long(10), "#!/bin/csh\necho hello");
         assertNotNull(sad);
         ScriptRunAction sra = ActionManager.scheduleScriptRun(
-                user, srvr, "Run script test", sad, new Date());
+                user, servers, "Run script test", sad, new Date());
         assertNotNull(sra);
         assertNotNull(sra.getId());
         ScriptRunAction pa1 = (ScriptRunAction)

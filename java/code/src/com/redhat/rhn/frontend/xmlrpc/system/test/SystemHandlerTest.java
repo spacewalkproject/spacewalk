@@ -1354,8 +1354,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server server = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         SystemManagerTest.giveCapability(server.getId(), "script.run", new Long(1));
+
+        List serverIds = new ArrayList();
+        serverIds.add(server.getId().intValue());
+
         Integer actionId = handler.scheduleScriptRun(adminKey,
-                new Integer(server.getId().intValue()), "root", "root",
+                serverIds, "root", "root",
                 new Integer(600), "", new Date());
 
         ScriptRunAction newAction = (ScriptRunAction)ActionManager.lookupAction(
@@ -1372,9 +1376,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testScheduleScriptMissingCapability() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
 
+        List serverIds = new ArrayList();
+        serverIds.add(server.getId().intValue());
+
         try {
             handler.scheduleScriptRun(adminKey,
-                    new Integer(server.getId().intValue()), "root", "root",
+                    serverIds, "root", "root",
                     new Integer(600), "", new Date());
             fail();
         }
@@ -1386,9 +1393,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testScheduleScriptAsUnentitledUser() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
 
+        List serverIds = new ArrayList();
+        serverIds.add(server.getId().intValue());
+
         try {
             handler.scheduleScriptRun(regularKey,
-                    new Integer(server.getId().intValue()), "root", "root",
+                    serverIds, "root", "root",
                     new Integer(600), "", new Date());
             fail();
         }
@@ -1401,9 +1411,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         SystemManagerTest.giveCapability(server.getId(), "script.run", new Long(1));
 
+        List serverIds = new ArrayList();
+        serverIds.add(server.getId().intValue());
+
         try {
             handler.scheduleScriptRun(adminKey,
-                    new Integer(server.getId().intValue()), "root", "root",
+                    serverIds, "root", "root",
                     new Integer(600), "", new Date());
             fail();
         }
@@ -1413,8 +1426,11 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testScheduleScriptNoSuchServer() throws Exception {
+        List serverIds = new ArrayList();
+        serverIds.add(new Integer(-1));
+
         try {
-            handler.scheduleScriptRun(adminKey, new Integer(-1), "root", "root",
+            handler.scheduleScriptRun(adminKey, serverIds, "root", "root",
                     new Integer(600), "", new Date());
             fail();
         }
@@ -1430,8 +1446,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server server = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         SystemManagerTest.giveCapability(server.getId(), "script.run", new Long(1));
+
+        List serverIds = new ArrayList();
+        serverIds.add(server.getId().intValue());
+
         Integer actionId = handler.scheduleScriptRun(adminKey,
-                new Integer(server.getId().intValue()), "root", "root",
+                serverIds, "root", "root",
                 new Integer(600), "", new Date());
 
         ScriptRunAction newAction = (ScriptRunAction)ActionManager.lookupAction(

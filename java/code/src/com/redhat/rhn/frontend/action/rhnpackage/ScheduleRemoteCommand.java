@@ -38,6 +38,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -179,6 +180,10 @@ public class ScheduleRemoteCommand extends RhnAction {
             log.debug("Processing form.");
         }
 
+        // scheduleScriptRun takes a list of servers
+        List servers = new ArrayList();
+        servers.add(server);
+
         ActionMessages msgs = new ActionMessages();
 
         Boolean submitted = (Boolean) f.get("submitted");
@@ -207,7 +212,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         if (BEFORE.equals(runBefore)) {
             ScriptActionDetails sad =
                 ActionManager.createScript(username, group, timeout, script);
-            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, server,
+            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, servers,
                 "", sad, earliest);
             List<Map<String, Long>> packs = getPackages(user, request, sessionSetLabel);
             int numPackages = packs.size();
@@ -223,7 +228,7 @@ public class ScheduleRemoteCommand extends RhnAction {
             PackageAction pa = schedulePackageAction(user, server, packs, mode, earliest);
             ScriptActionDetails sad =
                 ActionManager.createScript(username, group, timeout, script);
-            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, server,
+            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, servers,
                 "", sad, earliest);
             sra.setPrerequisite(pa);
             ActionManager.storeAction(sra);
