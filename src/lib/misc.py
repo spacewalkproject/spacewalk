@@ -144,12 +144,11 @@ def do_login(self, args):
 
     # check the API to verify connectivity
     try:
-        logging.debug('Checking the API version')
         api_version = self.client.api.getVersion()
-    except:
-        logging.error('API version check failed')
+        logging.debug('Server API Version = %s' % api_version)
+    except Exception, e:
         self.client = None
-        return
+        raise e
 
     # ensure the server is recent enough
     if api_version < self.MINIMUM_API_VERSION:
@@ -642,6 +641,5 @@ def user_confirm(self, prompt='Is this ok [y/N]:'):
         return True
     else:
         return False
-
 
 # vim:ts=4:expandtab:
