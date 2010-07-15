@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.24
+Version: 1.1.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,7 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 15 2010 Justin Sherrill <jsherril@redhat.com> 1.1.25-1
 * Thu Jul 15 2010 Justin Sherrill <jsherril@redhat.com> 1.1.24-1
 - moving temp jars to ivy, and adding needed slf4j jars for quartz unit tests
   (jsherril@redhat.com)
