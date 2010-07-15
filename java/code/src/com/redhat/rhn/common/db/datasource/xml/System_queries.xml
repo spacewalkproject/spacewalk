@@ -425,28 +425,25 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
 
 <mode name="system_currency" class="com.redhat.rhn.frontend.dto.SystemCurrency">
     <query params="uid">
-        SELECT DISTINCT s1.id, s1.name,
-            nvl((select count(distinct e.id) from
-                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID
-                and E.ID = SNC.ERRATA_ID and substr(E.synopsis, 1, 1) = 'C' and S1.name = S.name group by S.name), 0) critical,
-            nvl((select count(distinct e.id) from
-                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID and E.ID = SNC.ERRATA_ID and
-                substr(E.synopsis, 1, 1) = 'I' and S1.name = S.name group by S.name), 0) important,
-            nvl((select count(distinct e.id) from
-                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID and E.ID = SNC.ERRATA_ID and
-                substr(E.synopsis, 1, 1) = 'M' and S1.name = S.name group by S.name), 0) moderate,
-            nvl((select count(distinct e.id) from
-                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID and E.ID = SNC.ERRATA_ID and
-                substr(E.synopsis, 1, 1) = 'L' and S1.name = S.name group by S.name), 0) low,
-            nvl((select count(distinct e.id) from
-                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID and E.ID = SNC.ERRATA_ID and
-                E.advisory_type = 'Bug Fix Advisory'  and S1.name = S.name group by S.name), 0) bug,
-            nvl((select count(distinct e.id) from
-                rhnErrata E, rhnServerNeededCache SNC, rhnServer S where S.ID = SNC.SERVER_ID and E.ID = SNC.ERRATA_ID and
-                E.advisory_type = 'Product Enhancement Advisory' and S1.name = S.name group by S.name), 0) enhancement
-        from   rhnServer S1, rhnUserServerPerms USP1
-        where  s1.id = USP1.server_id and USP1.USER_ID = :uid
-        order by s1.name
+        SELECT s1.id,
+               s1.name,
+               sum(case when substr(errata.synopsis, 1, 1) = 'C' then 1 else 0 end) critical,
+               sum(case when substr(errata.synopsis, 1, 1) = 'I' then 1 else 0 end) important,
+               sum(case when substr(errata.synopsis, 1, 1) = 'M' then 1 else 0 end) moderate,
+               sum(case when substr(errata.synopsis, 1, 1) = 'L' then 1 else 0 end) low,
+               sum(case when errata.advisory_type = 'Bug Fix Advisory' then 1 else 0 end) bug,
+               sum(case when errata.advisory_type = 'Product Enhancement Advisory' then 1 else 0 end) enhancement
+         FROM rhnServer S1
+         JOIN rhnUserServerPerms USP1
+           ON S1.id = USP1.server_id
+         LEFT join (select distinct E.id, SNC.server_id, E.synopsis, E.advisory_type
+                      from rhnErrata E
+                      join rhnServerNeededCache SNC
+                        on E.id = SNC.errata_id) ERRATA
+           ON S1.id = errata.server_id
+        WHERE USP1.user_id = :uid
+        GROUP by s1.id, s1.name
+        ORDER by s1.name;
     </query>
 </mode>
 
