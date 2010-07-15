@@ -60,7 +60,7 @@ def schedule_virt_guest_pkg_install(server_id, action_id, dry_run=0):
 
     try:
         install_scheduler = PackageInstallScheduler(server_id, action_id, rhn_v12n_package)
-        if (!dry_run):
+        if (not dry_run):
             install_scheduler.schedule_package_install()
         else:
             log_debug(4, "dry run requested")
@@ -104,7 +104,7 @@ def initiate(server_id, action_id, dry_run=0):
 
 def add_tools_channel(server_id, action_id, dry_run=0):
     log_debug(3)
-    if (!dry_run):
+    if (not dry_run):
         subscribe_to_tools_channel(server_id)
     else:
         log_debug(4, "dry run requested")

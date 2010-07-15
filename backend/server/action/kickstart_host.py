@@ -26,7 +26,7 @@ from server.rhnChannel import subscribe_to_tools_channel
 __rhnexport__ = ['schedule_virt_host_pkg_install', 'add_tools_channel']
 
 def add_tools_channel(server_id, action_id, dry_run=0):
-    if (!dry_run):
+    if (not dry_run):
         subscribe_to_tools_channel(server_id)
     else:
         log_debug(4, "dry run requested")
@@ -61,7 +61,7 @@ def schedule_virt_host_pkg_install(server_id, action_id, dry_run=0):
     try:
         rhn_v12n_install_scheduler = PackageInstallScheduler(server_id, action_id, rhn_v12n_package)
         messaging_package = PackageInstallScheduler(server_id, action_id, messaging_package)
-        if (!dry_run):
+        if (not dry_run):
             rhn_v12n_install_scheduler.schedule_package_install()
             messaging_package.schedule_package_install()
         else:

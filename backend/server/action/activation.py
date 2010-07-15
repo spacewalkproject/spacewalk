@@ -57,7 +57,7 @@ def schedule_deploy(server_id, action_id, dry_run=0):
         prerequisite=new_action_id,
         )
 
-    if (!dry_run):
+    if (not dry_run):
         h = rhnSQL.prepare(_query_copy_revs_from_shadow_action)
         h.execute(action_id=action_id, new_action_id=new_action_id_2,
             server_id=server_id)
@@ -81,7 +81,7 @@ def schedule_pkg_install(server_id, action_id, dry_run=0):
         org_id=s.server['org_id'],
         )
 
-    if (!dry_run):
+    if (not dry_run):
         h = rhnSQL.prepare(_query_copy_pkgs_from_shadow_action)
         h.execute(action_id=action_id, new_action_id=new_action_id)
     else:
