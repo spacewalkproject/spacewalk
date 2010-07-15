@@ -3006,7 +3006,7 @@ public class SystemHandler extends BaseHandler {
      * Schedule a script to run.
      *
      * @param sessionKey User's session key.
-     * @param serverIds IDs of the servers to run the script on.
+     * @param systemIds IDs of the servers to run the script on.
      * @param username User to run script as.
      * @param groupname Group to run script as.
      * @param timeout Seconds to allow the script to run before timing out.
@@ -3016,7 +3016,8 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.doc Schedule a script to run.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #array_single("int", "serverIds") - IDs of the servers to run the script on.
+     * @xmlrpc.param #array_single("int", "systemIds") - IDs of the servers to run
+     * the script on.
      * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
      * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
      * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
@@ -3099,7 +3100,7 @@ public class SystemHandler extends BaseHandler {
         systemIds.add(sid);
 
         return scheduleScriptRun(sessionKey, systemIds, username, groupname, timeout,
-	                         script, earliest);
+                script, earliest);
     }
 
     /**

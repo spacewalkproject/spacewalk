@@ -1300,7 +1300,8 @@ public class ActionManager extends BaseManager {
                 throw new MissingCapabilityException("script.run", srvr);
             }
 
-            if (!SystemManager.hasEntitlement(srvr.getId(), EntitlementManager.PROVISIONING)) {
+            if (!SystemManager.hasEntitlement(srvr.getId(),
+                        EntitlementManager.PROVISIONING)) {
                 throw new MissingEntitlementException(
                         EntitlementManager.PROVISIONING.getHumanReadableLabel());
             }
