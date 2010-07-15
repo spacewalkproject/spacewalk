@@ -160,7 +160,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             request.setAttribute("channel_name", form.getString("name"));
             request.setAttribute("channel_arch", form.get("arch_name"));
             request.setAttribute("channel_arch_label", form.get("arch"));
-            request.setAttribute("checksum_label", form.get("checksum"));
+            request.setAttribute("checksum", form.get("checksum"));
             addErrors(request, errors);
             prepDropdowns(new RequestContext(request));
             return getStrutsDelegate().forwardParams(

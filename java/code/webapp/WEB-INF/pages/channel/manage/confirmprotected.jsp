@@ -67,6 +67,7 @@
    <input type="hidden" name="arch" value="${arch}" />
    <input type="hidden" name="arch_name" value="${arch_name}" />
    <input type="hidden" name="summary" value="${summary}" />
+   <input type="hidden" name="checksum" value="${checksum}" />
    <input type="hidden" name="description" value="${description}" />
    <input type="hidden" name="maintainer_name" value="${maintainer_name}" />
    <input type="hidden" name="maintainer_email" value="${maintainer_email}" />
