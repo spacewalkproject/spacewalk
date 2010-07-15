@@ -144,16 +144,16 @@ def do_login(self, args):
 
     # check the API to verify connectivity
     try:
-        api_version = self.client.api.getVersion()
-        logging.debug('Server API Version = %s' % api_version)
+        self.api_version = self.client.api.getVersion()
+        logging.debug('Server API Version = %s' % self.api_version)
     except Exception, e:
         self.client = None
         raise e
 
     # ensure the server is recent enough
-    if api_version < self.MINIMUM_API_VERSION:
+    if self.api_version < self.MINIMUM_API_VERSION:
         logging.error('API (%s) is too old (>= %s required)'
-                      % (api_version, self.MINIMUM_API_VERSION))
+                      % (self.api_version, self.MINIMUM_API_VERSION))
 
         self.client = None
         return
