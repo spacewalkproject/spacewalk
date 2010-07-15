@@ -37,7 +37,6 @@ import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
@@ -1348,12 +1347,9 @@ public class ErrataManager extends BaseManager {
     */
    public static void applyErrataHelper(User loggedInUser, Long sid, List errataIds,
            Date earliestOccurrence) {
-       Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
-               loggedInUser);
-       // check whether the whole errata list applicable to the system
-       checkApplicableErrata(loggedInUser, errataIds, sid);
-       // apply it
-       applyErrata(loggedInUser, errataIds, earliestOccurrence, sid);
+       List<Long> systemIds = new ArrayList();
+       systemIds.add(sid);
+       applyErrataHelper(loggedInUser, systemIds, errataIds, earliestOccurrence);
    }
 
    /**
@@ -1370,10 +1366,9 @@ public class ErrataManager extends BaseManager {
        for (Long sid : systemIds) {
            checkApplicableErrata(loggedInUser, errataIds, sid);
        }
+
        // at this point all errata is applicable to all systems, so let's apply
-       for (Long sid : systemIds) {
-           applyErrata(loggedInUser, errataIds, earliestOccurrence, sid);
-       }
+       applyErrata(loggedInUser, errataIds, earliestOccurrence, systemIds);
    }
 
    private static void checkApplicableErrata(User loggedInUser, List<Integer> errataIds,
@@ -1398,7 +1393,7 @@ public class ErrataManager extends BaseManager {
    }
 
     private static void applyErrata(User loggedInUser, List errataIds,
-            Date earliestOccurrence, Long serverId) {
+            Date earliestOccurrence, List<Long> serverIds) {
         for (Iterator it = errataIds.iterator(); it.hasNext();) {
             Integer currentId = (Integer)it.next();
             Errata errata = ErrataManager.lookupErrata(currentId.longValue(),
@@ -1407,7 +1402,11 @@ public class ErrataManager extends BaseManager {
             if (earliestOccurrence != null) {
                 update.setEarliestAction(earliestOccurrence);
             }
-            ActionManager.addServerToAction(serverId, update);
+
+            for (Long serverId : serverIds) {
+                ActionManager.addServerToAction(serverId, update);
+            }
+
             ActionManager.storeAction(update);
         }
     }

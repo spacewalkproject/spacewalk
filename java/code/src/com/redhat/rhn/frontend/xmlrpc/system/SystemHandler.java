@@ -2550,6 +2550,53 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
+     * Schedules an action to apply errata updates to multiple systems.
+     * @param sessionKey The user's session key.
+     * @param serverIds List of server IDs to apply the errata to (as Integers)
+     * @param errataIds List of errata IDs to apply (as Integers)
+     * @return 1 if successful, exception thrown otherwise
+     *
+     * @xmlrpc.doc Schedules an action to apply errata updates to multiple systems.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array_single("int", "errataId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int scheduleApplyErrata(String sessionKey, List serverIds, List errataIds) {
+        return scheduleApplyErrata(sessionKey, serverIds, errataIds, null);
+    }
+
+    /**
+     * Schedules an action to apply errata updates to multiple systems at a specified time.
+     * @param sessionKey The user's session key.
+     * @param serverIds List of server IDs to apply the errata to (as Integers)
+     * @param errataIds List of errata IDs to apply (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the errata update
+     * @return 1 if successful, exception thrown otherwise
+     *
+     * @xmlrpc.doc Schedules an action to apply errata updates to multiple systems at a
+     * given date/time.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array_single("int", "errataId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int scheduleApplyErrata(String sessionKey, List serverIds, List errataIds,
+            Date earliestOccurrence) {
+
+        // we need long values to pass to ErrataManager.applyErrataHelper
+        List<Long> longServerIds = new ArrayList();
+        for (Iterator it = serverIds.iterator(); it.hasNext();) {
+            longServerIds.add(new Long((Integer) it.next()));
+        }
+
+        ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey),
+                                        longServerIds, errataIds, earliestOccurrence);
+        return 1;
+    }
+
+    /**
      * Schedules an action to apply errata updates to a system.
      * @param sessionKey The user's session key.
      * @param sid ID of the server
@@ -2585,9 +2632,10 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds) {
-        ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey), sid.longValue(),
-                errataIds, null);
-        return 1;
+        List serverIds = new ArrayList();
+        serverIds.add(sid);
+
+        return scheduleApplyErrata(sessionKey, serverIds, errataIds);
     }
 
     /**
@@ -2608,9 +2656,10 @@ public class SystemHandler extends BaseHandler {
      */
     public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds,
             Date earliestOccurrence) {
-        ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey),
-                sid.longValue(), errataIds, earliestOccurrence);
-        return 1;
+        List serverIds = new ArrayList();
+        serverIds.add(sid);
+
+        return scheduleApplyErrata(sessionKey, serverIds, errataIds, earliestOccurrence);
     }
 
     /**

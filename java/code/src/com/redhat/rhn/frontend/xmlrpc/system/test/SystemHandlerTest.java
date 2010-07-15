@@ -1505,6 +1505,10 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
     public void testApplyIrrelevantErrata() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
+
+        List serverIds = new ArrayList();
+        serverIds.add(new Integer(server.getId().intValue()));
+
         Errata irrelevantErrata = ErrataFactoryTest.createTestPublishedErrata(
                 admin.getOrg().getId());
         assertEquals(0, SystemManager.relevantErrata(admin, server.getId()).size());
@@ -1519,8 +1523,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
             // expected
         }
         try {
-            handler.scheduleApplyErrata(adminKey, new Integer(server.getId().intValue()),
-                    errataIds);
+            handler.scheduleApplyErrata(adminKey, serverIds, errataIds);
             fail();
         }
         catch (InvalidErrataException e) {
