@@ -221,7 +221,6 @@ def do_schedule_getoutput(self, args):
 
     script_results = None
     try:
-        #XXX: Bugzilla 584869
         script_results = \
             self.client.system.getScriptResults(self.session, action_id)
     except:
