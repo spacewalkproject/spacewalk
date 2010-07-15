@@ -209,7 +209,12 @@ class Queue(rhnHandler):
         h = rhnSQL.prepare(self._query_queue_future)
         h.execute(server_id=self.server_id, time_window=time_window)
         result = []
-        while action = h.fetchone_dict():
+        while 1:
+            action = h.fetchone_dict() or []
+
+            if not action:
+                break
+
             result.append(self.__getV2(action, dry_run=1))
         return result
 
