@@ -128,48 +128,15 @@ Type: 'help' for a list of commands
         self.options = options
 
         userinfo = getpwuid(os.getuid())
-        conf_dir = os.path.join(userinfo[5], '.spacecmd')
+        self.conf_dir = os.path.join(userinfo[5], '.spacecmd')
 
         try:
-            if not os.path.isdir(conf_dir):
-                os.mkdir(conf_dir, 0700)
+            if not os.path.isdir(self.conf_dir):
+                os.mkdir(self.conf_dir, 0700)
         except OSError:
-            logging.error('Could not create directory %s' % conf_dir) 
-
-        self.ssm_cache_file = os.path.join(conf_dir, 'ssm')
-        self.system_cache_file = os.path.join(conf_dir, 'systems')
-        self.errata_cache_file = os.path.join(conf_dir, 'errata')
-        self.packages_long_cache_file = os.path.join(conf_dir, 'packages_long')
-        self.packages_by_id_cache_file = \
-            os.path.join(conf_dir, 'packages_by_id')
-        self.packages_short_cache_file = \
-            os.path.join(conf_dir, 'packages_short')
-
-        # load self.ssm from disk
-        (self.ssm, ignore) = load_cache(self.ssm_cache_file)
+            logging.error('Could not create directory %s' % self.conf_dir) 
         
-        # load self.all_systems from disk
-        (self.all_systems, self.system_cache_expire) = \
-            load_cache(self.system_cache_file)
-
-        # load self.all_errata from disk
-        (self.all_errata, self.errata_cache_expire) = \
-            load_cache(self.errata_cache_file)
-      
-        # load self.all_packages_short from disk 
-        (self.all_packages_short, self.package_cache_expire) = \
-            load_cache(self.packages_short_cache_file)
-        
-        # load self.all_packages from disk 
-        (self.all_packages, self.package_cache_expire) = \
-            load_cache(self.packages_long_cache_file)
-
-        # load self.all_packages_by_id from disk 
-        (self.all_packages_by_id, self.package_cache_expire) = \
-            load_cache(self.packages_by_id_cache_file)
-        
-        self.session_file = os.path.join(conf_dir, 'session')
-        self.history_file = os.path.join(conf_dir, 'history')
+        self.history_file = os.path.join(self.conf_dir, 'history')
 
         try:
             # don't split on hyphens or colons during tab completion

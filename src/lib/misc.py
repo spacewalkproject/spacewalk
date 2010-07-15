@@ -158,6 +158,9 @@ def do_login(self, args):
         self.client = None
         return
 
+    # store the session file in the server's own directory
+    self.session_file = os.path.join(self.conf_dir, server, 'session')
+
     # retrieve a cached session
     if not self.options.nocache:
         if os.path.isfile(self.session_file):
@@ -168,15 +171,15 @@ def do_login(self, args):
                 for line in sessionfile:
                     parts = line.split(':')
 
-                    # only use cached credentials for this server
-                    if parts[0] == server:
-                        # if a username was passed, make sure it matches
-                        if len(username):
-                            if parts[1] == username:
-                                self.session = parts[2]
-                        else:
-                            username = parts[1]
-                            self.session = parts[2]
+                    # if a username was passed, make sure it matches
+                    if len(username):
+                        if parts[0] == username:
+                            self.session = parts[1]
+                    else:
+                        # get the username from the cache if one
+                        # wasn't passed by the user
+                        username = parts[0]
+                        self.session = parts[1]
 
                 sessionfile.close()
             except IOError:
@@ -246,9 +249,7 @@ def do_login(self, args):
                         lines.remove(line)
 
                 # add the new cache to the file
-                lines.append('%s:%s:%s\n' % (server, 
-                                             username, 
-                                             self.session))
+                lines.append('%s:%s\n' % (username, self.session))
 
                 # write the new cache file out
                 sessionfile = open(self.session_file, 'w')
@@ -257,8 +258,8 @@ def do_login(self, args):
             except IOError:
                 logging.error('Could not write cache file')
 
-    # disable caching of subsequent logins
-    self.options.nocache = True
+    # load the system/package/errata caches
+    self.load_caches(server)
 
     # keep track of who we are and who we're connected to
     self.username = username
@@ -279,9 +280,7 @@ def do_logout(self, args):
     self.session = ''
     self.username = ''
     self.server = ''
-    self.clear_system_cache()
-    self.clear_package_cache()
-    self.clear_errata_cache()
+    self.do_clear_caches('')
 
 ####################
 
@@ -377,8 +376,9 @@ def generate_errata_cache(self, force=False):
         datetime.now() + timedelta(self.ERRATA_CACHE_TTL)
 
     # store the cache to disk to speed things up
-    save_cache(self.errata_cache_file, self.all_errata, 
-                    self.errata_cache_expire)
+    save_cache(self.errata_cache_file, 
+               self.all_errata, 
+               self.errata_cache_expire)
 
 
 def clear_package_cache(self):
@@ -419,16 +419,16 @@ def generate_package_cache(self, force=False):
 
     # store the cache to disk to speed things up
     save_cache(self.packages_short_cache_file,
-                    self.all_packages_short, 
-                    self.package_cache_expire)
+               self.all_packages_short, 
+               self.package_cache_expire)
     
     save_cache(self.packages_long_cache_file, 
-                    self.all_packages, 
-                    self.package_cache_expire)
+               self.all_packages, 
+               self.package_cache_expire)
 
     save_cache(self.packages_by_id_cache_file, 
-                    self.all_packages_by_id, 
-                    self.package_cache_expire)
+               self.all_packages_by_id, 
+               self.package_cache_expire)
 
 
 # create a global list of all available package names
@@ -481,8 +481,52 @@ def generate_system_cache(self, force=False):
         datetime.now() + timedelta(seconds=self.SYSTEM_CACHE_TTL)
 
     # store the cache to disk to speed things up
-    save_cache(self.system_cache_file, self.all_systems, 
-                    self.system_cache_expire)
+    save_cache(self.system_cache_file, 
+               self.all_systems, 
+               self.system_cache_expire)
+
+
+def load_caches(self, server):
+    conf_dir = os.path.join(self.conf_dir, server)
+
+    try:
+        if not os.path.isdir(conf_dir):
+            os.mkdir(conf_dir, 0700)
+    except OSError:
+        logging.error('Could not create directory %s' % conf_dir)
+        return
+
+    self.ssm_cache_file = os.path.join(conf_dir, 'ssm')
+    self.system_cache_file = os.path.join(conf_dir, 'systems')
+    self.errata_cache_file = os.path.join(conf_dir, 'errata')
+    self.packages_long_cache_file = os.path.join(conf_dir, 'packages_long')
+    self.packages_by_id_cache_file = \
+        os.path.join(conf_dir, 'packages_by_id')
+    self.packages_short_cache_file = \
+        os.path.join(conf_dir, 'packages_short')
+
+    # load self.ssm from disk
+    (self.ssm, ignore) = load_cache(self.ssm_cache_file)
+
+    # load self.all_systems from disk
+    (self.all_systems, self.system_cache_expire) = \
+        load_cache(self.system_cache_file)
+
+    # load self.all_errata from disk
+    (self.all_errata, self.errata_cache_expire) = \
+        load_cache(self.errata_cache_file)
+
+    # load self.all_packages_short from disk 
+    (self.all_packages_short, self.package_cache_expire) = \
+        load_cache(self.packages_short_cache_file)
+
+    # load self.all_packages from disk 
+    (self.all_packages, self.package_cache_expire) = \
+        load_cache(self.packages_long_cache_file)
+
+    # load self.all_packages_by_id from disk 
+    (self.all_packages_by_id, self.package_cache_expire) = \
+        load_cache(self.packages_by_id_cache_file)
 
 
 def get_system_names(self):
