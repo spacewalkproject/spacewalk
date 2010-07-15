@@ -20,7 +20,7 @@
 
 import sys
 import os
-
+import xmlrpclib
 import rpm
 
 from optparse import Option
