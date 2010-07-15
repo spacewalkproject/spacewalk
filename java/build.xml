@@ -37,6 +37,7 @@
          allows adding jar files for quick testing of tools
          that do not have RPMs yet.
      -->
+    <mkdir dir="${rhn-home}/buildconf/tempjars" />
     <copy toDir="${build.lib.dir}" overwrite="true">
       <fileset dir="${rhn-home}/buildconf/tempjars">
           <include name="**/*.jar" />
@@ -853,6 +854,7 @@ delete from rhnChannel where label like 'ChannelLabel%';
              failonerror="false"
              overwrite="true" />
 
+    <mkdir dir="${rhn-home}/buildconf/tempjars" />
     <copy toDir="${prefix}${webapp-dir}/rhn/WEB-INF/lib" overwrite="true">
       <fileset dir="${rhn-home}/buildconf/tempjars">
         <include name="**/*.jar" />
@@ -900,6 +902,7 @@ delete from rhnChannel where label like 'ChannelLabel%';
                    dir="${build.lib.dir}" />
     <jpackage-deps jars="${install.run.jar.dependencies}"
                    dir="${run-external.lib.dir}"/>
+    <mkdir dir="${rhn-home}/buildconf/tempjars" />                   
     <copy toDir="${build.lib.dir}" overwrite="true">
       <fileset dir="${rhn-home}/buildconf/tempjars">
           <include name="**/*.jar" />
