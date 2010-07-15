@@ -56,7 +56,7 @@
              mailapi smtp jdom jpam 
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
-             jfreechart taglibs-core logdriver quartz
+             jfreechart taglibs-core logdriver quartz dwr slf4j-api slf4j-log4j12
              commons-fileupload commons-io concurrent velocity " />
 
   <property name="test.jar.dependencies"
