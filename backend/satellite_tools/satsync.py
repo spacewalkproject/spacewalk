@@ -2090,11 +2090,11 @@ def _verifyPkgRepMountPoint():
         sys.exit(16)
 
     if not os.path.exists(fileutils.cleanupAbsPath(CFG.MOUNT_POINT)):
-        log(-1, "ERROR: server.mount_point not set in the configuration file")
+        log(-1, "ERROR: server.mount_point %s do not exist" % fileutils.cleanupAbsPath(CFG.MOUNT_POINT))
         sys.exit(26)
 
     if not os.path.exists(fileutils.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR)):
-        log(-1, "ERROR: server.mount_point not set in the configuration file")
+        log(-1, "ERROR: path under server.mount_point (%s)  do not exist" % fileutils.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR))
         sys.exit(26)
 
 def _validate_package_org(batch):
