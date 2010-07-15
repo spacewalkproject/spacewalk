@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.1.10
+Version: 1.1.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -280,6 +280,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Jul 15 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.11-1
+- 614389 - add missing import (msuchy@redhat.com)
+- basic framework for prefetching content from spacewalk (msuchy@redhat.com)
+
 * Fri Jul 09 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.10-1
 - 604106 - finish page should be loaded even without network
   (msuchy@redhat.com)
