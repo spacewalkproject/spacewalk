@@ -136,11 +136,11 @@ def do_login(self, args):
         logging.warning('No server specified')
         return
 
-    serverurl = '%s://%s/rpc/api' % (proto, server)
+    server_url = '%s://%s/rpc/api' % (proto, server)
 
     # connect to the server
-    logging.debug('Connecting to %s' % (serverurl))
-    self.client = xmlrpclib.Server(serverurl)
+    logging.debug('Connecting to %s' % (server_url))
+    self.client = xmlrpclib.Server(server_url)
 
     # check the API to verify connectivity
     try:
@@ -263,7 +263,7 @@ def do_login(self, args):
     self.username = username
     self.server = server
 
-    logging.info('Connected to %s as %s' % (serverurl, username))
+    logging.info('Connected to %s as %s' % (server_url, username))
 
 ####################
 
