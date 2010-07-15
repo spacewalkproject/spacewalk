@@ -43,7 +43,6 @@ Requires(pre): %{name} = %{version}-%{release}
 Obsoletes: rhns-sql < 5.3.0
 Provides: rhns-sql = 1:%{version}-%{release}
 Requires: %{name}-sql-virtual = %{version}-%{release}
-Requires: %{name}-sql-postgresql = %{version}-%{release}
 
 %description sql
 This package contains the basic code that provides SQL connectivity for
