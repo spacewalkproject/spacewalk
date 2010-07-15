@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.22
+Version: 1.1.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,44 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 15 2010 Tomas Lestach <tlestach@redhat.com> 1.1.23-1
+- [PATCH] allow multiple systems to be scheduled for an erratum via the API
+  (aron@redhat.com)
+- checkstyle fixes (tlestach@redhat.com)
+- [PATCH] alter system.scheduleRunScript API call to schedule multiple systems
+  (aron@redhat.com)
+- removed dead file not used anywhere (michael.mraka@redhat.com)
+- oracle client has been removed from /opt/oracle ages ago
+  (michael.mraka@redhat.com)
+- Add system currency report (colin.coe@gmail.com)
+- Added API to list flex guests and eligible flex guests (paji@redhat.com)
+- Added a Configuration page to Orgs to handle maintenance windows
+  (paji@redhat.com)
+- Added the lookupAndBind org to RequestContext so it could be used in various
+  actions (paji@redhat.com)
+- added a simple test to check for stagin content (paji@redhat.com)
+- adding flex guest support for some of the org-entitlement apis
+  (jsherril@redhat.com)
+- making Channel package add page much faster (jsherril@redhat.com)
+- Cleaned up web_customer, rhnPaidOrgs, and rhnDemoOrgs inaddition to moving
+  OrgImpl- Org. These are unused tables/views/columns.. Added upgrade scripts
+  accordingly (paji@redhat.com)
+- fixed a goof up on preferences jspf that didn;t escape content
+  (paji@redhat.com)
+- fixed a comment typo (paji@redhat.com)
+- Added an extra column mapping to OrgImpl object (paji@redhat.com)
+- updating api doc for system.getScriptResults (adding serverId)
+  (tlestach@redhat.com)
+- add serverId to structure returned by system.getScriptResults() API call
+  (aparsons@redhat.com)
+- Corrected a couple of jsp pages where 'label for' was not used
+  (paji@redhat.com)
+- Fix checkstyle errors (colin.coe@gmail.com)
+- Use correct tomcat version (colin.coe@gmail.com)
+- Remove println used in testing (colin.coe@gmail.com)
+- Display calina.out in admin tab, part 2 (colin.coe@gmail.com)
+- Display calina.out in admin tab (colin.coe@gmail.com)
+
 * Fri Jul 09 2010 Justin Sherrill <jsherril@redhat.com> 1.1.22-1
 - 576139 - fixing issue where auto-application of errata would be triggered
   before the new repodata was generated. (jsherril@redhat.com)
