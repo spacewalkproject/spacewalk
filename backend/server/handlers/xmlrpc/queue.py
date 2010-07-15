@@ -185,6 +185,20 @@ class Queue(rhnHandler):
             action_id, prereq_action_id = row['action_id'], row['prerequisite']
 
             self._invalidate_child_actions(action_id)
+    _query_future_enabled = rhnSQL.Statement("""
+        select staging_content_enabled
+          from web_customer wc,
+               rhnServer s
+         where s.org_id = wc.id
+               s.id = :server_id
+    """)
+
+    def _future_actions_enabled(self):
+        """ Returns true if staging content is enabled for this system """
+        h = rhnSQL.prepare(self._query_future_enabled)
+        h.execute(server_id=self.server_id)
+        row = h.fetchone_dict()
+        return row["staging_content_enabled"] == "Y"
 
     _query_queue_future = rhnSQL.Statement("""
                     select sa.action_id id, a.version,
@@ -206,16 +220,14 @@ class Queue(rhnHandler):
         """ return actions which are scheduled within next /time_window/ hours """
         self.auth_system(system_id)
         log_debug(3, "Checking for future actions within %d hours" % time_window)
-        h = rhnSQL.prepare(self._query_queue_future)
-        h.execute(server_id=self.server_id, time_window=time_window)
         result = []
-        while 1:
-            action = h.fetchone_dict() or []
-
-            if not action:
-                break
-
-            result.append(self.__getV2(action, dry_run=1))
+        if self._future_actions_enabled():
+            h = rhnSQL.prepare(self._query_queue_future)
+            h.execute(server_id=self.server_id, time_window=time_window)
+            action = h.fetchone_dict()
+            while action:
+                result.append(self.__getV2(action, dry_run=1))
+                action = h.fetchone_dict()
         return result
 
     _query_queue_get = rhnSQL.Statement("""
