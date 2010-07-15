@@ -162,40 +162,39 @@ def do_login(self, args):
     self.session_file = os.path.join(self.conf_dir, server, 'session')
 
     # retrieve a cached session
-    if not self.options.nocache:
-        if os.path.isfile(self.session_file):
-            try:
-                sessionfile = open(self.session_file, 'r')
-               
-                # read the session (format = server:username:session)
-                for line in sessionfile:
-                    parts = line.split(':')
+    if os.path.isfile(self.session_file):
+        try:
+            sessionfile = open(self.session_file, 'r')
+           
+            # read the session (format = server:username:session)
+            for line in sessionfile:
+                parts = line.split(':')
 
-                    # if a username was passed, make sure it matches
-                    if len(username):
-                        if parts[0] == username:
-                            self.session = parts[1]
-                    else:
-                        # get the username from the cache if one
-                        # wasn't passed by the user
-                        username = parts[0]
+                # if a username was passed, make sure it matches
+                if len(username):
+                    if parts[0] == username:
                         self.session = parts[1]
+                else:
+                    # get the username from the cache if one
+                    # wasn't passed by the user
+                    username = parts[0]
+                    self.session = parts[1]
 
-                sessionfile.close()
-            except IOError:
-                logging.error('Could not read %s' % self.session_file)
+            sessionfile.close()
+        except IOError:
+            logging.error('Could not read %s' % self.session_file)
 
-        # check the cached credentials by doing an API call
-        if self.session:
-            try:
-                logging.info('Using cached credentials from %s' %
-                             self.session_file)
+    # check the cached credentials by doing an API call
+    if self.session:
+        try:
+            logging.info('Using cached credentials from %s' %
+                         self.session_file)
 
-                self.client.user.listUsers(self.session)
-            except:
-                logging.debug('Cached credentials are invalid')
-                username = ''
-                self.session = ''
+            self.client.user.listUsers(self.session)
+        except:
+            logging.debug('Cached credentials are invalid')
+            username = ''
+            self.session = ''
 
     # attempt to login if we don't have a valid session yet
     if not len(self.session):
@@ -228,35 +227,34 @@ def do_login(self, args):
             return
 
         # write the session string to a file
-        if not self.options.nocache:
-            lines = []
+        lines = []
 
-            try:
-                # read the cached sessions
-                if os.path.isfile(self.session_file):
-                    try:
-                        sessionfile = open(self.session_file, 'r')
-                        lines = sessionfile.readlines()
-                        sessionfile.close()
-                    except IOError:
-                        pass
+        try:
+            # read the cached sessions
+            if os.path.isfile(self.session_file):
+                try:
+                    sessionfile = open(self.session_file, 'r')
+                    lines = sessionfile.readlines()
+                    sessionfile.close()
+                except IOError:
+                    pass
 
-                # find and remove an existing cache for this server
-                for line in lines:
-                    parts = line.split(':')
+            # find and remove an existing cache for this server
+            for line in lines:
+                parts = line.split(':')
 
-                    if re.match('%s:' % server, parts[0], re.I):
-                        lines.remove(line)
+                if re.match('%s:' % server, parts[0], re.I):
+                    lines.remove(line)
 
-                # add the new cache to the file
-                lines.append('%s:%s\n' % (username, self.session))
+            # add the new cache to the file
+            lines.append('%s:%s\n' % (username, self.session))
 
-                # write the new cache file out
-                sessionfile = open(self.session_file, 'w')
-                sessionfile.writelines(lines)
-                sessionfile.close()
-            except IOError:
-                logging.error('Could not write cache file')
+            # write the new cache file out
+            sessionfile = open(self.session_file, 'w')
+            sessionfile.writelines(lines)
+            sessionfile.close()
+        except IOError:
+            logging.error('Could not write cache file')
 
     # load the system/package/errata caches
     self.load_caches(server)

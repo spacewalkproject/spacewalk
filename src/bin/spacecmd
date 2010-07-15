@@ -37,8 +37,6 @@ if __name__ == '__main__':
                help='use this password to connect to the server'),
         Option('-s', '--server', action='store',
                help='connect to this server [default: localhost]'),
-        Option('--nocache', action='store_true',
-                help='do not create a username/password cache'),
         Option('--nossl', action='store_true',
                help='use HTTP instead of HTTPS'),
         Option('--nohistory', action='store_true',
