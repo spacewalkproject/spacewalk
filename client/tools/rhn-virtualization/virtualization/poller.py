@@ -155,7 +155,7 @@ def poll_through_vdsm():
         #trim uuid
         uuid = domain['vmId'].lower().replace('-', '')
         # Map the VDSM status to libvirt for server compatibility
-        status = "Unknown"
+        status = 'nostate'
         if VIRT_VDSM_STATUS_MAP.has_key(domain['status']):
             status = VIRT_VDSM_STATUS_MAP[domain['status']]
         # This is gonna be fully virt as its managed by VDSM
