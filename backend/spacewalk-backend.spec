@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.1.33
+Version: 1.1.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jul 15 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.34-1
+- fix requires for spacewalk-backend-sql
+- 614667 - provide better error message
+
 * Wed Jul 14 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.33-1
 - define new parameter dry_run for all actions (msuchy@redhat.com)
 - basic framework for prefetching content from spacewalk (msuchy@redhat.com)
