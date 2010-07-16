@@ -187,8 +187,8 @@ def do_login(self, args):
     # check the cached credentials by doing an API call
     if self.session:
         try:
-            logging.info('Using cached credentials from %s' %
-                         self.session_file)
+            logging.debug('Using cached credentials from %s' %
+                          self.session_file)
 
             self.client.user.listUsers(self.session)
         except:

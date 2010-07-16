@@ -348,7 +348,7 @@ def do_system_runscript(self, args):
                 logging.debug(detail)
                 logging.error('Failed to schedule %s' % system)
 
-    print 'Scheduled: %i system(s)' % scheduled
+    logging.info('Scheduled: %i system(s)' % scheduled)
 
     # don't delete a pre-existing script that the user provided
     if not keep_script_file:
@@ -534,7 +534,7 @@ def do_system_installpackage(self, args):
                     break
 
             if not found_package:
-                logging.info('%s is not installable on %s' % (package, system))
+                logging.warning('%s is not installable on %s' % (package, system))
                 continue
 
         if len(package_ids):
@@ -578,7 +578,7 @@ def do_system_installpackage(self, args):
         except:
             logging.error('Failed to schedule %s' % system)
 
-    print 'Scheduled %i system(s)' % scheduled
+    logging.info('Scheduled %i system(s)' % scheduled)
 
 ####################
 
@@ -674,7 +674,7 @@ def do_system_removepackage(self, args):
         except:
             logging.error('Failed to schedule %s' % system)
 
-    print 'Scheduled %i system(s)' % scheduled
+    logging.info('Scheduled %i system(s)' % scheduled)
 
 ####################
 
@@ -769,7 +769,7 @@ def do_system_upgradepackage(self, args):
         except Exception, e:
             logging.error('Failed to schedule %s' % system)
 
-    print 'Scheduled %i system(s)' % scheduled
+    logging.info('Scheduled %i system(s)' % scheduled)
 
 ####################
 
@@ -1087,7 +1087,7 @@ def do_system_deployconfigfiles(self, args):
                                         system_ids, 
                                         action_time)
 
-    print 'Scheduled deployment for %i system(s)' % len(system_ids)
+    logging.info('Scheduled deployment for %i system(s)' % len(system_ids))
 
 ####################
 

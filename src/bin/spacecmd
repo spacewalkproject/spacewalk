@@ -45,8 +45,6 @@ if __name__ == '__main__':
                help='answer yes for all questions'),
         Option('-q', '--quiet', action='store_true',
                help='print only error messages'),
-        Option('-v', '--verbose', action='store_true',
-               help='print informational messages'),
         Option('-d', '--debug', action='store_true',
                help='print debug messages'),
     ]
@@ -70,7 +68,7 @@ if __name__ == '__main__':
         config = SafeConfigParser()
         config.read(conf_file)    
 
-        boolean_opts = [ 'verbose', 'nossl', 'debug' ]
+        boolean_opts = [ 'nossl', 'debug' ]
         string_opts = [ 'server', 'username', 'password' ]
 
         for key in boolean_opts:
@@ -107,12 +105,10 @@ if __name__ == '__main__':
     # reset the log level after parsing the config file
     if options.debug:
         level = logging.DEBUG
-    elif options.verbose:
-        level = logging.INFO
     elif options.quiet:
         level = logging.ERROR
     else:
-        level = logging.WARNING
+        level = logging.INFO
 
     logging.basicConfig(level=level, format='%(levelname)s: %(message)s')
 

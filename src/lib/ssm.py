@@ -72,10 +72,10 @@ def do_ssm_add(self, args):
             continue
         else:
             self.ssm[system] = self.get_system_id(system)
-            logging.info('Added %s' % system)
+            logging.debug('Added %s' % system)
 
     if len(self.ssm):
-        print 'Systems Selected: %i' % len(self.ssm)
+        logging.info('Systems Selected: %i' % len(self.ssm))
     
     # save the SSM for use between sessions
     save_cache(self.ssm_cache_file, self.ssm)
@@ -113,14 +113,14 @@ def do_ssm_intersect(self, args):
     tmp_ssm = []
     for system in systems:
         if system in self.ssm:
-            logging.info('%s is in both groups: leaving in SSM' % system)
+            logging.debug('%s is in both groups: leaving in SSM' % system)
             tmp_ssm.append(system)
 
     # set self.ssm to tmp_ssm, which now holds the intersection
     self.ssm = tmp_ssm
 
     if len(self.ssm):
-        print 'Systems Selected: %i' % len(self.ssm)
+        logging.info('Systems Selected: %i' % len(self.ssm))
 
 ####################
 
@@ -151,10 +151,10 @@ def do_ssm_remove(self, args):
     for system in systems:
         # double-check for existance in case of duplicate names
         if system in self.ssm:
-            logging.info('Removed %s' % system)
+            logging.debug('Removed %s' % system)
             del self.ssm[system]
 
-    print 'Systems Selected: %i' % len(self.ssm)
+    logging.info('Systems Selected: %i' % len(self.ssm))
 
     # save the SSM for use between sessions
     save_cache(self.ssm_cache_file, self.ssm)
@@ -172,7 +172,7 @@ def do_ssm_list(self, args):
 
     if len(systems):
         print '\n'.join(systems)
-        print 'Systems Selected: %i' % len(systems)
+        logging.info('Systems Selected: %i' % len(systems))
 
 ####################
 

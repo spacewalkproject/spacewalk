@@ -147,7 +147,7 @@ def do_errata_apply(self, args, only_systems=[]):
                         break
 
             if not len(errata_to_apply):
-                logging.info('No errata to schedule for %s' % system)
+                logging.warning('No errata to schedule for %s' % system)
                 continue
 
             # this results in one action per erratum for each server
@@ -155,7 +155,8 @@ def do_errata_apply(self, args, only_systems=[]):
                                                    system_id,
                                                    errata_to_apply)
 
-            print 'Scheduled %i errata for %s' % (len(errata_to_apply), system)
+            logging.info('Scheduled %i errata for %s' % \
+                         (len(errata_to_apply), system))
 
 ####################
 

@@ -587,8 +587,7 @@ def do_activationkey_create(self, args):
                                                entitlements,
                                                default)
 
-    print
-    print 'Created activation key %s' % new_key
+    logging.info('Created activation key %s' % new_key)
 
 ####################
 
@@ -778,7 +777,7 @@ def do_activationkey_enableconfigdeployment(self, args):
         return
 
     for key in args:
-        logging.info('Enabling config file deployment for %s' % key)
+        logging.debug('Enabling config file deployment for %s' % key)
         self.client.activationkey.enableConfigDeployment(self.session, key)
 
 ####################
@@ -800,7 +799,7 @@ def do_activationkey_disableconfigdeployment(self, args):
         return
 
     for key in args:
-        logging.info('Disabling config file deployment for %s' % key)
+        logging.debug('Disabling config file deployment for %s' % key)
         self.client.activationkey.disableConfigDeployment(self.session, key)
 
 ####################
