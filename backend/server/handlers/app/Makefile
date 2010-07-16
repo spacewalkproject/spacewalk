@@ -5,7 +5,7 @@
 TOP	= ../../..
 SUBDIR	= server/handlers/app
 
-FILES	= __init__ packages rhn_mpm channel comps
+FILES	= __init__ packages channel comps
 
 include $(TOP)/Makefile.defs
 
