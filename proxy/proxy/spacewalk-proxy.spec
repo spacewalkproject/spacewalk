@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.1.2
+Version: 1.1.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -318,6 +318,9 @@ fi
 
 
 %changelog
+* Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.3-1
+- oracle client has been removed from /opt/oracle ages ago
+
 * Tue Jun 29 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.2-1
 - 609040 - if we request checksum of file, do not sent Range http header
 
