@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.26
+Version: 1.1.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.27-1
+- fixed typo in system_currency query
+- Added a convert to flex api call and misc improvements on unit tests
+
 * Thu Jul 15 2010 Justin Sherrill <jsherril@redhat.com> 1.1.26-1
 - adding a couple of temp jars back for build system builds
   (jsherril@redhat.com)
