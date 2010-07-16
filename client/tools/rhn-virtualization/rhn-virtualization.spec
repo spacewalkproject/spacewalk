@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.12
+Version:        5.4.13
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -140,6 +140,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 5.4.13-1
+- 591609 - 'Unknown' is not a valid virt. guest state
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 5.4.12-1
 - Removing usused imports from rhn-virtualization/actions/virt.
 
