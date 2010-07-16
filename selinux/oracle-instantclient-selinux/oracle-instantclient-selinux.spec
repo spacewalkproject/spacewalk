@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
 Version:	10.2
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
@@ -111,6 +111,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 
 %changelog
+* Fri Jul 16 2010 Michael Mraka <michael.mraka@redhat.com> 10.2-18
+- fixed libsqlplusic.so on 32bit
+- libocijdbc10 is used by jdbc:oci
+
 * Thu Nov 26 2009 Jan Pazdziora 10.2-17
 - On 64bit platform, the libsqlplusic.so needs textrel_shlib_t
 
