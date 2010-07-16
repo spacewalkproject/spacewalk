@@ -126,6 +126,13 @@ class Packages:
     def get_packages(self):
         return map(lambda a: a.nvrea, filter(lambda a: a.status != 2, self.__p.values()))
 
+    def __expand_installtime(installtime):
+        """ Simulating the ternary operator, one liner is ugly """
+        if installtime:
+            return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(installtime))
+        else:
+            return None
+
     # save the package list
     def save_packages_byid(self, sysid, schedule=1):
         log_debug(3, sysid, "Errata cache to run:", schedule, 
@@ -175,8 +182,8 @@ class Packages:
                 'r'     : map(lambda a: a.r, alist),
                 'e'     : map(lambda a: a.e, alist),
                 'a'     : map(lambda a: a.a, alist),
-                'instime' : map(lambda a: time.strftime('%Y-%m-%d %H:%M:%S',
-                                   time.localtime(a.installtime)), alist),
+                'instime' : map(lambda a: self.__expand_installtime(a.installtime),
+                                   alist),
             }
             try:
                 h.execute_bulk(package_data)
