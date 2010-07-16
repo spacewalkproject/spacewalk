@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.1.4
+Version:        1.1.5
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -166,6 +166,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.5-1
+- only spacewalk-oracle should requires newly splitted packages with Oracle
+  probes
+
 * Fri Jul 09 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.4-1
 - create virtual package spacewalk-backend-sql-virtual (msuchy@redhat.com)
 
