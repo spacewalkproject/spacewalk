@@ -204,20 +204,6 @@ def _extract_array_fields(header, tag_maps):
         result.append(dict)
     return result
 
-def _replace_null(obj):
-    if obj is None:
-        return ''
-    if isinstance(obj, ListType):
-        return map(_replace_null, obj)
-    if isinstance(obj, TupleType):
-        return tuple(_replace_null(list(obj)))
-    if isinstance(obj, DictType):
-        dict = {}
-        for k, v in obj.items():
-            dict[_replace_null(k)] = _replace_null(v)
-        return dict
-    return obj
-
 
 def gmtime(timestamp):
     ttuple = time.gmtime(timestamp)
