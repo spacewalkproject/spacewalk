@@ -257,6 +257,7 @@ Type: 'help' for a list of commands
             return ''
 
 
+    # update the prompt with the SSM size
     def postcmd(self, stop, line):
         self.prompt = re.sub('##', str(len(self.ssm)), self.prompt_template)
 
