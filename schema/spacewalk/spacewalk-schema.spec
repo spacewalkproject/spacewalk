@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.15
+Version:        1.1.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.16-1
+- remove dropped objects from postgresql
+- 532423 - device name can be longer than 16 chars
+
 * Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.15-1
 - made the rhnc_channel upgrade script use the latest sutff
 - cleaned up web_customer, rhnPaidOrgs and rhnDemoOrgs
