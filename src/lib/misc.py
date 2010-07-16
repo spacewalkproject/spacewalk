@@ -348,6 +348,8 @@ def remove_last_history_item(self):
 def clear_errata_cache(self):
     self.all_errata = {}
     self.errata_cache_expire = datetime.now()
+    self.save_errata_cache()
+
 
 def generate_errata_cache(self, force=False):
     if not force and datetime.now() < self.errata_cache_expire:
@@ -373,7 +375,10 @@ def generate_errata_cache(self, force=False):
     self.errata_cache_expire = \
         datetime.now() + timedelta(self.ERRATA_CACHE_TTL)
 
-    # store the cache to disk to speed things up
+    self.save_errata_cache()
+
+
+def save_errata_cache():
     save_cache(self.errata_cache_file, 
                self.all_errata, 
                self.errata_cache_expire)
@@ -384,6 +389,8 @@ def clear_package_cache(self):
     self.all_packages = {}
     self.all_packages_by_id = {}
     self.package_cache_expire = datetime.now()
+    self.save_package_caches()
+
 
 def generate_package_cache(self, force=False):
     if not force and datetime.now() < self.package_cache_expire:
@@ -415,6 +422,10 @@ def generate_package_cache(self, force=False):
     self.package_cache_expire = \
         datetime.now() + timedelta(seconds=self.PACKAGE_CACHE_TTL)
 
+    self.save_package_caches()
+
+
+def save_package_caches():
     # store the cache to disk to speed things up
     save_cache(self.packages_short_cache_file,
                self.all_packages_short, 
@@ -460,6 +471,7 @@ def get_package_name(self, package_id):
 def clear_system_cache(self):
     self.all_systems = {}
     self.system_cache_expire = datetime.now()
+    self.save_system_cache()
 
 
 def generate_system_cache(self, force=False):
@@ -478,7 +490,10 @@ def generate_system_cache(self, force=False):
     self.system_cache_expire = \
         datetime.now() + timedelta(seconds=self.SYSTEM_CACHE_TTL)
 
-    # store the cache to disk to speed things up
+    self.save_system_cache()
+
+
+def save_system_cache():
     save_cache(self.system_cache_file, 
                self.all_systems, 
                self.system_cache_expire)
