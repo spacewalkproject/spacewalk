@@ -75,7 +75,7 @@ def do_ssm_add(self, args):
             logging.debug('Added %s' % system)
 
     if len(self.ssm):
-        logging.info('Systems Selected: %i' % len(self.ssm))
+        logging.debug('Systems Selected: %i' % len(self.ssm))
     
     # save the SSM for use between sessions
     save_cache(self.ssm_cache_file, self.ssm)
@@ -120,7 +120,7 @@ def do_ssm_intersect(self, args):
     self.ssm = tmp_ssm
 
     if len(self.ssm):
-        logging.info('Systems Selected: %i' % len(self.ssm))
+        logging.debug('Systems Selected: %i' % len(self.ssm))
 
 ####################
 
@@ -154,7 +154,7 @@ def do_ssm_remove(self, args):
             logging.debug('Removed %s' % system)
             del self.ssm[system]
 
-    logging.info('Systems Selected: %i' % len(self.ssm))
+    logging.debug('Systems Selected: %i' % len(self.ssm))
 
     # save the SSM for use between sessions
     save_cache(self.ssm_cache_file, self.ssm)
@@ -172,7 +172,7 @@ def do_ssm_list(self, args):
 
     if len(systems):
         print '\n'.join(systems)
-        logging.info('Systems Selected: %i' % len(systems))
+        logging.debug('Systems Selected: %i' % len(systems))
 
 ####################
 

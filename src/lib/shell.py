@@ -23,7 +23,7 @@
 __author__  = 'Aron Parsons <aron@redhat.com>'
 __license__ = 'GPL'
 
-import atexit, logging, os, readline, sys
+import atexit, logging, os, readline, re, sys
 from cmd import Cmd
 from pwd import getpwuid
 from spacecmd.utils import *
@@ -114,7 +114,7 @@ Type: 'help' for a list of commands
     cmdqueue = []
     completekey = 'tab'
     stdout = sys.stdout
-    prompt = 'spacecmd> '
+    prompt_template = 'spacecmd {SSM:##}> '
 
     # do nothing on an empty line
     emptyline = lambda self: None
@@ -123,6 +123,9 @@ Type: 'help' for a list of commands
         self.session = ''
         self.username = ''
         self.server = ''
+        self.ssm = {}
+
+        self.postcmd(False, '')
 
         # make the options available everywhere
         self.options = options
@@ -252,5 +255,9 @@ Type: 'help' for a list of commands
         else:
             logging.warning('%s: event not found' % command)
             return ''
+
+
+    def postcmd(self, stop, line):
+        self.prompt = re.sub('##', str(len(self.ssm)), self.prompt_template)
 
 # vim:ts=4:expandtab:
