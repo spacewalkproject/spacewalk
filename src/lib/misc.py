@@ -351,6 +351,21 @@ def clear_errata_cache(self):
     self.save_errata_cache()
 
 
+def get_errata_names(self):
+    return sorted( [ e.get('advisory_name') for e in self.all_errata ] )
+
+
+def get_erratum_id(self, name):
+    if name in self.all_errata:
+        return self.all_errata[name]['id']
+
+
+def get_erratum_name(self, erratum_id):
+    for erratum in self.all_errata:
+        if self.all_errata[erratum]['id'] == erratum_id:
+            return erratum
+
+
 def generate_errata_cache(self, force=False):
     if not force and datetime.now() < self.errata_cache_expire:
         return
@@ -368,8 +383,9 @@ def generate_errata_cache(self, force=False):
         for erratum in errata:
             if erratum.get('advisory_name') not in self.all_errata: 
                 self.all_errata[erratum.get('advisory_name')] = \
-                    { 'type' : erratum.get('advisory_type'),
-                      'date' : erratum.get('date'),
+                    { 'id'       : erratum.get('id'),
+                      'type'     : erratum.get('advisory_type'),
+                      'date'     : erratum.get('date'),
                       'synopsis' : erratum.get('advisory_synopsis') }
 
     self.errata_cache_expire = \
