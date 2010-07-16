@@ -144,7 +144,7 @@ def do_login(self, args):
 
     # check the API to verify connectivity
     try:
-        self.api_version = float(self.client.api.getVersion())
+        self.api_version = self.client.api.getVersion()
         logging.debug('Server API Version = %s' % self.api_version)
     except Exception, e:
         self.client = None
@@ -698,5 +698,22 @@ def user_confirm(self, prompt='Is this ok [y/N]:'):
         return True
     else:
         return False
+
+
+# check if the available API is recent enough
+def check_api_version(self, want):
+    want_parts = [ int(i) for i in want.split('.') ]
+    have_parts = [ int(i) for i in self.api_version.split('.') ]
+
+    if len(have_parts) == 2 and len(want_parts) == 2:
+        if have_parts[0] == want_parts[0]:
+            # compare minor versions if majors are the same
+            return have_parts[1] >= want_parts[1]
+        else:
+            # only compare major versions if they differ
+            return have_parts[0] >= want_parts[0]
+    else:
+        # compare the whole value
+        return float(self.api_version) >= float(want)
 
 # vim:ts=4:expandtab:

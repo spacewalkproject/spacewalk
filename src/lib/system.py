@@ -252,18 +252,27 @@ def do_system_runscript(self, args):
 
     user    = prompt_user('User [root]:')
     group   = prompt_user('Group [root]:')
-    timeout = prompt_user('Timeout (in seconds) [600]:')
-    timestamp    = prompt_user('Start Time [now]:')
-    script_file  = prompt_user('Script File [create]:')
 
     # defaults
     if not user:        user        = 'root'
     if not group:       group       = 'root'
-    if not timeout:     timeout     = 600
 
-    # convert the time input to xmlrpclib.DateTime
+    try:
+        timeout = prompt_user('Timeout (in seconds) [600]:')
+        if timeout:
+            timeout = int(timeout)
+        else:
+            timeout = 600
+    except ValueError:
+        logging.error('Invalid timeout')
+        return
+
+    timestamp    = prompt_user('Start Time [now]:')
     timestamp = parse_time_input(timestamp)
 
+    script_file  = prompt_user('Script File [create]:')
+
+    # read the script provided by the user
     if script_file:
         keep_script_file = True
 
@@ -277,11 +286,9 @@ def do_system_runscript(self, args):
             logging.error('Could not read %s' % script_file)
             return
     else:
+        # have the user write their script
+        (script, script_file) = editor('#!/bin/bash')
         keep_script_file = False
-
-        # have the user put the script into that file
-        # put 'hostname' in automatically until the API is fixed
-        (script, script_file) = editor('#!/bin/bash\n\nhostname\n')
 
     if not script:
         logging.error('No script provided')
@@ -302,29 +309,48 @@ def do_system_runscript(self, args):
     if not self.user_confirm(): return
 
     scheduled = 0
-    for system in systems:
-        system_id = self.get_system_id(system)
-        if not system_id: return
 
-        # the current API forces us to schedule each system individually
-        # XXX: Bugzilla 584867
-        try:
-            action_id = self.client.system.scheduleScriptRun(self.session,
-                                                             system_id,
-                                                             user,
-                                                             group,
-                                                             timeout,
-                                                             script,
-                                                             timestamp)
+    if self.check_api_version('10.11'):
+        logging.debug('Scheduling all systems for the same action')
+
+        # schedule all systems for the same action
+        system_ids = [ self.get_system_id(s) for s in systems ]
+
+        action_id = self.client.system.scheduleScriptRun(self.session,
+                                                         system_ids,
+                                                         user,
+                                                         group,
+                                                         timeout,
+                                                         script,
+                                                         timestamp)
+
+        logging.info('Action ID: %i' % action_id)
+        scheduled = len(system_ids)
+    else:
+        # older versions of the API require each system to be
+        # scheduled individually
+        for system in systems:
+            system_id = self.get_system_id(system)
+            if not system_id: return
+
+            try:
+                action_id = self.client.system.scheduleScriptRun(self.session,
+                                                                 system_id,
+                                                                 user,
+                                                                 group,
+                                                                 timeout,
+                                                                 script,
+                                                                 timestamp)
         
-            logging.info('Action ID: %i' % action_id)
-            scheduled += 1
-        except Exception, detail:
-            logging.debug(detail)
-            logging.error('Failed to schedule %s' % system)
+                logging.info('Action ID: %i' % action_id)
+                scheduled += 1
+            except Exception, detail:
+                logging.debug(detail)
+                logging.error('Failed to schedule %s' % system)
 
     print 'Scheduled: %i system(s)' % scheduled
 
+    # don't delete a pre-existing script that the user provided
     if not keep_script_file:
         try:
             os.remove(script_file)
