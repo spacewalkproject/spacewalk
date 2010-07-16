@@ -37,7 +37,7 @@ SELinux support for Oracle Instant Client sqlplus.
 
 %build
 
-%define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so
+%define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so libocijdbc10.so
 
 %install
 rm -rf $RPM_BUILD_ROOT
