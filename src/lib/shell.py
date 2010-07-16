@@ -45,9 +45,9 @@ class SpacewalkShell(Cmd):
     HISTORY_LENGTH = 1024
 
     # life of caches in seconds
-    SYSTEM_CACHE_TTL = 300
-    PACKAGE_CACHE_TTL = 3600
-    ERRATA_CACHE_TTL = 3600
+    SYSTEM_CACHE_TTL = 3600
+    PACKAGE_CACHE_TTL = 86400
+    ERRATA_CACHE_TTL = 86400
 
     SEPARATOR = '\n' + '#' * 30 + '\n'
 
