@@ -144,7 +144,7 @@ def do_login(self, args):
 
     # check the API to verify connectivity
     try:
-        self.api_version = self.client.api.getVersion()
+        self.api_version = float(self.client.api.getVersion())
         logging.debug('Server API Version = %s' % self.api_version)
     except Exception, e:
         self.client = None
