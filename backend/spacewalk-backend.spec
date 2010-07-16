@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.1.37
+Version: 1.1.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jul 16 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.38-1
+- fix build error (msuchy@redhat.com)
+- 615298 - if rpm install time is None, do not pass it to time.localtime
+  (msuchy@redhat.com)
+
 * Fri Jul 16 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.37-1
 - removed handlers/app/rhn_mpm
 
