@@ -2216,8 +2216,8 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testEligibleFlexGuests() throws Exception {
         User user = newUser();
         String userKey = XmlRpcTestUtils.getSessionKey(user);
-        VirtualizationEntitlementsManagerTest.
-        setupEligibleFlexGuestTests(true, user.getOrg(), user);
+        VirtualizationEntitlementsManagerTest.setupEligibleFlexGuestTests(true,
+                user.getOrg(), user, 5, 5, 1);
         assertTrue(handler.listEligibleFlexGuests(userKey).size() > 0);
     }
 
