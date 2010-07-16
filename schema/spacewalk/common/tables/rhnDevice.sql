@@ -26,7 +26,7 @@ CREATE TABLE rhnDevice
     class        VARCHAR2(16),
     bus          VARCHAR2(16),
     detached     NUMBER,
-    device       VARCHAR2(16),
+    device       VARCHAR2(256),
     driver       VARCHAR2(256),
     description  VARCHAR2(256),
     pcitype      NUMBER
