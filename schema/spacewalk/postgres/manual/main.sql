@@ -538,7 +538,6 @@ create schema spacewalk;
 -- \i views/common/rhnChannelPackageOverview.sql
 \i views/common/rhnChannelPermissions.sql
 \i views/common/rhnChannelTreeView.sql
--- \i views/common/rhnDemoOrgs.sql
 \i views/common/rhnEntitledServers.sql
 -- \i views/common/rhnHistoryView_refresh.sql
 -- \i views/common/rhnHistoryView_packages.sql
@@ -547,7 +546,6 @@ create schema spacewalk;
 \i views/common/rhnHWDevice.sql
 -- \i views/common/rhnOrgErrata.sql
 -- \i views/common/rhnOrgPackageOverview.sql
--- \i views/common/rhnPaidOrgs.sql
 \i views/common/rhnWebContactDisabled.sql
 -- \i views/common/rhnPrivateErrataMail.sql
 \i views/common/rhnServerEntitlementPhysical.sql

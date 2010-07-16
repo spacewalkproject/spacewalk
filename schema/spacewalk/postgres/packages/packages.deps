@@ -15,9 +15,6 @@
 
 path = . tables views procs
 
-rhn_bel.pkb             :: rhnEmailAddressState rhnEmailAddress \
-                           rhn_exception.pks rhnChannelFamilyPermissions \
-                           rhnServerGroup rhnPaidOrgs
 rhn_cache.pkb           :: rhnUserServerPerms rhnUserServerPermsDupes \
                            rhnUserServerGroupPerms rhnUserGroupType \
                            rhnUserGroupMembers rhnServerGroup rhnUserGroup
