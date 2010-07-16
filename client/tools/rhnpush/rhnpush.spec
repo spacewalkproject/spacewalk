@@ -5,7 +5,7 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.3
+Version:       5.5.4
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Fri Jul 16 2010 Michael Mraka <michael.mraka@redhat.com> 5.5.4-1
+- removed dead code
+
 * Thu Jul 08 2010 Justin Sherrill <jsherril@redhat.com> 5.5.3-1
 - set default server for rhnpush to localhost instead of 
   rhn.redhat.com (jsherril@redhat.com)
