@@ -378,7 +378,7 @@ def generate_errata_cache(self, force=False):
     self.save_errata_cache()
 
 
-def save_errata_cache():
+def save_errata_cache(self):
     save_cache(self.errata_cache_file, 
                self.all_errata, 
                self.errata_cache_expire)
@@ -425,7 +425,7 @@ def generate_package_cache(self, force=False):
     self.save_package_caches()
 
 
-def save_package_caches():
+def save_package_caches(self):
     # store the cache to disk to speed things up
     save_cache(self.packages_short_cache_file,
                self.all_packages_short, 
@@ -493,7 +493,7 @@ def generate_system_cache(self, force=False):
     self.save_system_cache()
 
 
-def save_system_cache():
+def save_system_cache(self):
     save_cache(self.system_cache_file, 
                self.all_systems, 
                self.system_cache_expire)
