@@ -119,15 +119,17 @@ sub tablespace_datafiles {
 
   my $sth = $dbh->prepare(<<EOS);
 select file_name FILENAME, status STATUS, bytes BYTES,
-       'DATAFILE' filetype
+       'DATAFILE' filetype,
+       to_number(regexp_substr(file_name, '[0-9]+\.')) FILENUMBER
   from dba_data_files
   where tablespace_name = :ts
 union
 select file_name FILENAME, status STATUS, bytes BYTES,
-       'TEMPFILE' filetype
+       'TEMPFILE' filetype,
+       to_number(regexp_substr(file_name, '[0-9]+\.')) FILENUMBER
   from dba_temp_files
   where tablespace_name = :ts
-order by filename
+order by filenumber nulls first
 EOS
   $sth->execute_h(ts => $ts);
   return $sth->fullfetch_hashref;
