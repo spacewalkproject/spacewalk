@@ -40,6 +40,8 @@ import com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetVcpusAction;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.ChannelFamily;
+import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.NoBaseChannelFoundException;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.errata.Errata;
@@ -4506,5 +4508,47 @@ public class SystemHandler extends BaseHandler {
         getInstance().listEligibleFlexGuests(user);
     }
 
+    /**
+     * Creates a cobbler system record
+     * @param sessionKey session
+     * @param serverId the host system id
+     * @param ksLabel identifies the kickstart profile
+     *
+     * @return int - 1 on success, exception thrown otherwise.
+     *
+     * @xmlrpc.doc Creates a cobbler system record with the specified kickstart label
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "ksLabel")
+     * @xmlrpc.returntype int - #return_int_success()
+     */
+
+    /**
+     * Converts the given list of systems to use the flex entitlement.
+     * @param sessionKey session
+     * @param serverIds list of server ids whom
+     *      you want to get converted to flex entitlement
+     * @param channelFamilyLabel the channel family label of the channel
+     * @return the total the number of systems that were converted to use flex entitlement.
+     *
+     * @xmlrpc.doc Converts the given list of systems for a given channel family
+     *   to use the flex entitlement.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #param("string", "channelFamilyLabel")
+     * @xmlrpc.returntype int - the total the number of systems
+     *                  that were converted to use flex entitlement.
+     */
+    public int convertToFlexEntitlement(String sessionKey,
+                List serverIds, String channelFamilyLabel) {
+        User user = getLoggedInUser(sessionKey);
+        ChannelFamily cf = ChannelFamilyFactory.lookupByLabel(
+                                    channelFamilyLabel, null);
+        if (cf == null) {
+            throw new InvalidEntitlementException();
+        }
+        return VirtualizationEntitlementsManager.getInstance().
+                            convertToFlex(serverIds, cf.getId(), user);
+    }
 
 }

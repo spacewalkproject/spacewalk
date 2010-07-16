@@ -1711,7 +1711,8 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 <mode name="flex_guests">
   <query params="user_id, checkin_threshold ">
     select
-    cf.name cf_name,
+    cf.label as cf_label,
+    cf.name as cf_name,
     cf.id as cf_id,
     s.id as system_id,
     s.name as system_name,
@@ -1736,7 +1737,8 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 <mode name="eligible_flex_guests">
   <query params="user_id, checkin_threshold ">
     select
-    cf.name cf_name,
+    cf.label as cf_label,
+    cf.name as cf_name,
     cf.id as cf_id,
     s.id as system_id,
     s.name as system_name,

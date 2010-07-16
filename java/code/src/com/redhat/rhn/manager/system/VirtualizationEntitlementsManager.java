@@ -14,14 +14,17 @@
  */
 package com.redhat.rhn.manager.system;
 
+import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.domain.common.ExceptionMessage;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,7 +37,7 @@ import java.util.Map;
  */
 public class VirtualizationEntitlementsManager {
     private static final VirtualizationEntitlementsManager INSTANCE =
-                                    new VirtualizationEntitlementsManager();
+        new VirtualizationEntitlementsManager();
     /**
      * Initializes the manager.
      */
@@ -87,13 +90,13 @@ public class VirtualizationEntitlementsManager {
      * @see com.redhat.rhn.domain.server.GuestAndNonVirtHostView
      */
     public List findGuestsWithoutHostsByOrg(Org org) {
-       List guestsWithoutHosts = new LinkedList();
-       guestsWithoutHosts.addAll(VirtualInstanceFactory.getInstance().
-                                           findGuestsWithNonVirtHostByOrg(org));
-       guestsWithoutHosts.addAll(VirtualInstanceFactory.getInstance().
-                                               findGuestsWithoutAHostByOrg(org));
+        List guestsWithoutHosts = new LinkedList();
+        guestsWithoutHosts.addAll(VirtualInstanceFactory.getInstance().
+                findGuestsWithNonVirtHostByOrg(org));
+        guestsWithoutHosts.addAll(VirtualInstanceFactory.getInstance().
+                findGuestsWithoutAHostByOrg(org));
 
-       return guestsWithoutHosts;
+        return guestsWithoutHosts;
     }
 
     /**
@@ -123,9 +126,9 @@ public class VirtualizationEntitlementsManager {
      * @param channelFamilyId the channel family id
      * @param user the user object
      */
-    public void convertToFlex(Long systemId,
-                        Long channelFamilyId,
-                        User user) {
+    private void convertToFlex(Long systemId,
+            Long channelFamilyId,
+            User user) {
         SystemManager.ensureAvailableToUser(user, systemId);
         Map in = new HashMap();
         in.put("sid", systemId);
@@ -133,5 +136,39 @@ public class VirtualizationEntitlementsManager {
         CallableMode m = ModeFactory.getCallableMode(
                 "Channel_queries", "convert_to_flex");
         m.execute(in, new HashMap());
+    }
+
+    /**
+     * Converts a a given list of servers to Flex.
+     * The conversion is stopped if "not_enough_slots"
+     * message shows up from the stored procedure.
+     * The return value shows how many systems successfully converted to flex
+     * @param systemIds list of system ids
+     * @param channelFamilyId the channel family id
+     * @param user the user
+     * @return the number of successful converts
+     */
+    public int convertToFlex(List<Long> systemIds,
+            Long channelFamilyId,
+            User user) {
+        int success = 0;
+        for (Long sid : systemIds) {
+            try {
+                convertToFlex(sid, channelFamilyId, user);
+                success++;
+            }
+            catch (WrappedSQLException sq) {
+                SQLException ex = (SQLException) sq.getCause();
+                if (ex != null) {
+                    ExceptionMessage m = ExceptionMessage.lookup(ex.getErrorCode());
+                    if (m != null && "not_enough_flex_entitlements".equals(m.getLabel())) {
+                        break;
+                    }
+                }
+                throw sq;
+            }
+        }
+        return success;
+
     }
 }

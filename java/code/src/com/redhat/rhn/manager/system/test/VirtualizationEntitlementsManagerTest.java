@@ -45,6 +45,7 @@ import com.redhat.rhn.testing.UserTestUtils;
 import org.apache.commons.lang.RandomStringUtils;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -149,6 +150,32 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
         assertEquals(guestsToCreate, l.get(0).expand().size());
     }
 
+    public void testConvertToFlex() throws Exception {
+        Org org = UserTestUtils.createNewOrgFull(RandomStringUtils.randomAlphabetic(10));
+        User user = UserTestUtils.createUser(RandomStringUtils.randomAlphabetic(10),
+                org.getId());
+        user.addRole(RoleFactory.ORG_ADMIN);
+        UserFactory.save(user);
+        int guestsToCreate = setupEligibleFlexGuestTests(true, org, user, 5, 5, 1);
+
+        List<ChannelFamilySystemGroup> l = VirtualizationEntitlementsManager.
+                                        getInstance().listEligibleFlexGuests(user);
+        assertTrue(!l.isEmpty());
+        assertEquals(1, l.size());
+        assertEquals(guestsToCreate, l.get(0).expand().size());
+        ChannelFamilySystemGroup group = l.get(0);
+        List<Long> sids = new LinkedList<Long>();
+        for (ChannelFamilySystem cfs : group.expand().subList(0, 2)) {
+            sids.add(cfs.getId());
+        }
+        assertEquals(1, VirtualizationEntitlementsManager.getInstance().
+                convertToFlex(sids, group.getId(), user));
+        HibernateFactory.getSession().clear();
+        l = VirtualizationEntitlementsManager.getInstance().listFlexGuests(user);
+        assertTrue(!l.isEmpty());
+        assertEquals(1, l.size());
+        assertEquals(1, l.get(0).expand().size());
+    }
 
 
     public void testNonVirtHostEligibleFlexGuests() throws Exception {
@@ -160,14 +187,13 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
     }
 
 
-
     private void executeEligibleGuestTests(boolean isOrphaned) throws Exception {
         Org org = UserTestUtils.createNewOrgFull(RandomStringUtils.randomAlphabetic(10));
         User user = UserTestUtils.createUser(RandomStringUtils.randomAlphabetic(10),
                 org.getId());
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
-        int guestsToCreate = setupEligibleFlexGuestTests(isOrphaned, org, user);
+        int guestsToCreate = setupEligibleFlexGuestTests(isOrphaned, org, user, 6, 6, 6);
 
         List<ChannelFamilySystemGroup> l = VirtualizationEntitlementsManager.
         getInstance().listEligibleFlexGuests(user);
@@ -178,10 +204,7 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
 
 
     public static int setupEligibleFlexGuestTests(boolean isOrphaned, Org org,
-            User user) throws Exception {
-        int guestsToCreate = 6;
-        long flexEnts = guestsToCreate;
-        long ents = guestsToCreate;
+            User user, int guestsToCreate, int ents, int flexEnts) throws Exception {
         long sysEnts = guestsToCreate; //+ 1 for host
         if (!isOrphaned) {
             ents++;
@@ -194,14 +217,14 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
 
         ChannelFamily rhelFamily = ChannelFamilyFactoryTest.createTestChannelFamily(
                 UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg()),
-                ents, flexEnts);
+                Long.valueOf(ents), Long.valueOf(flexEnts));
         assertEquals(Long.valueOf(flexEnts),
                 rhelFamily.getMaxFlex(OrgFactory.getSatelliteOrg()));
 
         //No flex initially
         UpdateOrgSoftwareEntitlementsCommand cmd2 = new
         UpdateOrgSoftwareEntitlementsCommand(rhelFamily.getLabel(),
-                org, ents, 0L);
+                org, Long.valueOf(ents), 0L);
         assertNull(cmd2.store());
         rhelFamily = setupGuests(org, user, guestsToCreate, 0, rhelFamily, !isOrphaned);
 
@@ -221,7 +244,7 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
         //Now Uodate the rhenChannelFamily's flex entitlements
 
         cmd2 = new UpdateOrgSoftwareEntitlementsCommand(rhelFamily.getLabel(),
-                org, ents, flexEnts);
+                org, Long.valueOf(ents), Long.valueOf(flexEnts));
         assertNull(cmd2.store());
         HibernateFactory.getSession().clear();
 

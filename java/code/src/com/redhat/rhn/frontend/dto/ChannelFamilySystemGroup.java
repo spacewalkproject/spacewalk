@@ -28,9 +28,10 @@ import java.util.List;
  */
 public class ChannelFamilySystemGroup implements Identifiable, Expandable {
 
+    private String label;
     private String name;
     private Long id;
-    private List<ChannelFamilySystem> systems = new LinkedList<ChannelFamilySystem>();
+    private final List<ChannelFamilySystem> systems = new LinkedList<ChannelFamilySystem>();
     private Long currentMembers;
     private Long maxMembers;
 
@@ -98,6 +99,20 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
         name = nameIn;
     }
 
+    /**
+     * @return Returns the label.
+     */
+    public String getLabel() {
+        return label;
+    }
+
+
+    /**
+     * @param labelIn The label to set.
+     */
+    public void setLabel(String labelIn) {
+        label = labelIn;
+    }
 
     /**
      * @param idIn The id to set.

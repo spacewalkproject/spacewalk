@@ -25,9 +25,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +45,7 @@ public class EligibleFlexGuestAction extends RhnAction implements Listable {
      *
      * {@inheritDoc}
      */
+    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
@@ -62,19 +64,30 @@ public class EligibleFlexGuestAction extends RhnAction implements Listable {
 
     private ActionForward handleConfirm(ListSessionSetHelper helper, RequestContext context,
             ActionMapping mapping) {
-        Set <Long> serverIds = new HashSet<Long>();
+        int serversConverted = 0;
+        Map<Long, List<Long>> familyGroups = new HashMap<Long, List<Long>>();
+
         for (String selectionKey : helper.getSet()) {
             Long sid = ChannelFamilySystem.parseServerId(selectionKey);
             Long cfid = ChannelFamilySystem.parseChannelFamilyId(selectionKey);
-            VirtualizationEntitlementsManager.getInstance().convertToFlex(sid, cfid,
-                                                               context.getLoggedInUser());
-            serverIds.add(sid);
+            if (!familyGroups.containsKey(cfid)) {
+                familyGroups.put(cfid, new LinkedList<Long>());
+            }
+            familyGroups.get(cfid).add(sid);
         }
+
+        for (Long cfid : familyGroups.keySet()) {
+            List<Long> sids = familyGroups.get(cfid);
+
+            serversConverted += VirtualizationEntitlementsManager.
+                    getInstance().convertToFlex(sids, cfid, context.getLoggedInUser());
+        }
+
         helper.destroy();
 
         getStrutsDelegate().saveMessage("eligible.flexguest.systems.confirm.message",
-                                    new String [] { String.valueOf(serverIds.size())},
-                                context.getRequest());
+                new String [] { String.valueOf(serversConverted)},
+                context.getRequest());
         return  mapping.findForward("success");
     }
 

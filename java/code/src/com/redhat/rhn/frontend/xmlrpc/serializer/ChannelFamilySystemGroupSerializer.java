@@ -32,8 +32,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  * @xmlrpc.doc
  *      #struct("channel family system group")
- *          #prop("string", "name")
  *          #prop("int", "id")
+ *          #prop("string", "label")
+ *          #prop("string", "name")
  *          #array_single("int", "systems")
  *      #struct_end()
  */
@@ -52,8 +53,9 @@ public class ChannelFamilySystemGroupSerializer implements XmlRpcCustomSerialize
 
 
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
-        helper.add("name", group.getName());
         helper.add("id", group.getId());
+        helper.add("label", group.getLabel());
+        helper.add("name", group.getName());
 
         List<Long> ids = new ArrayList<Long>(group.expand().size());
         for (ChannelFamilySystem cfs : group.expand()) {

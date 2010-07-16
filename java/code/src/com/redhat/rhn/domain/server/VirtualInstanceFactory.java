@@ -57,6 +57,7 @@ public class VirtualInstanceFactory extends HibernateFactory {
         Object executeInSession(Session session);
     }
 
+    @Override
     protected Logger getLogger() {
         return log;
     }
@@ -350,6 +351,7 @@ public class VirtualInstanceFactory extends HibernateFactory {
         for (Map<String, Object> row : result) {
             Long cfId = (Long)row.get("cf_id");
             String cfName = (String) row.get("cf_name");
+            String cfLabel = (String) row.get("cf_label");
             Long systemId = (Long) row.get("system_id");
             String systemName = (String) row.get("system_name");
             Long inactive = (Long) row.get("inactive");
@@ -365,9 +367,9 @@ public class VirtualInstanceFactory extends HibernateFactory {
             }
             cfg.setId(cfId);
             cfg.setName(cfName);
+            cfg.setLabel(cfLabel);
             cfg.setCurrentMembers(currentMembers);
             cfg.setMaxMembers(maxMembers);
-
             ChannelFamilySystem ov = new ChannelFamilySystem();
             ov.setId(systemId);
             ov.setName(systemName);
