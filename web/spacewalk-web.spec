@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.4
+Version: 1.1.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.5-1
+- added a configuration page to orgs to handle maintenance windows
+- cleaned up web_customer, rhnPaidOrgs and rhnDemoOrgs
+
 * Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.4-1
 - channel nav support for repository mapping (shughes@redhat.com)
 - Added flex magic to ChannelFamily -> Orgs page (paji@redhat.com)
