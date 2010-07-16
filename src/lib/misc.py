@@ -537,6 +537,9 @@ def load_caches(self, server):
     # load self.ssm from disk
     (self.ssm, ignore) = load_cache(self.ssm_cache_file)
 
+    # update the prompt now that we loaded the SSM
+    self.postcmd(False, '')
+
     # load self.all_systems from disk
     (self.all_systems, self.system_cache_expire) = \
         load_cache(self.system_cache_file)
