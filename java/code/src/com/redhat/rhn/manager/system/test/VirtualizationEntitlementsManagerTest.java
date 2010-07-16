@@ -85,7 +85,6 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
         Long hostId = host.getId();
         assertNotNull(host);
         SystemManager.entitleServer(host, EntitlementManager.VIRTUALIZATION);
-        HibernateFactory.getSession().clear();
 
         l = VirtualizationEntitlementsManager.getInstance().
         listFlexGuests(user);
@@ -95,7 +94,6 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
         //NOW do the opposite remove the  virt ent
         //and ensure the guests are consuming flex
         SystemManager.removeServerEntitlement(hostId, EntitlementManager.VIRTUALIZATION);
-        HibernateFactory.getSession().clear();
         l = VirtualizationEntitlementsManager.getInstance().
         listFlexGuests(user);
         assertTrue(!l.isEmpty());
