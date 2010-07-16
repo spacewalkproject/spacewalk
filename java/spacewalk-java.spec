@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.0.6
+Version: 1.0.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 16 2010 Justin Sherrill <jsherril@redhat.com> 1.0.7-1
+- fixing un-escaped dollar sign in %post script that deals with rewriting
+  /etc/sysconfig/rhn/up2date (jsherril@redhat.com)
+
 * Tue Jul 06 2010 Justin Sherrill <jsherril@redhat.com> 1.0.6-1
 - 608811 - fixing issue where virt guest creation would not create the guests
   to use a virtual bridge. (jsherril@redhat.com)
