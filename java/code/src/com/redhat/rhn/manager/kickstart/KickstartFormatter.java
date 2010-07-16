@@ -176,9 +176,9 @@ public class KickstartFormatter {
                                    "#end if" + NEWLINE;
 
     private boolean seenNoChroot = false;
-    private KickstartData ksdata;
-    private String ksHost;
-    private User user;
+    private final KickstartData ksdata;
+    private final String ksHost;
+    private final User user;
     private KickstartSession session;
 
     /**
@@ -493,7 +493,7 @@ public class KickstartFormatter {
             Collections.sort(l);
             Iterator<KickstartScript> i = l.iterator();
             while (i.hasNext()) {
-                KickstartScript kss = (KickstartScript) i.next();
+                KickstartScript kss = i.next();
                 // render either pre or chroot posts
                 if (kss.getScriptType().equals(typeIn)) {
                     if (typeIn.equals(KickstartScript.TYPE_PRE) ||
@@ -685,7 +685,7 @@ public class KickstartFormatter {
                      "/|' -i /etc/sysconfig/rhn/rhn_register" + NEWLINE);
         }
         // both rhel 2 and rhel3/4 need the following
-        retval.append("perl -npe 's|^(\\s*serverURL\\s*=\\s*[^:]+://)[^/]*/|${1}" +
+        retval.append("perl -npe 's|^(\\s*serverURL\\s*=\\s*[^:]+://)[^/]*/|\\${1}" +
                 up2datehost +
                 "/|' -i /etc/sysconfig/rhn/up2date" + NEWLINE);
 
