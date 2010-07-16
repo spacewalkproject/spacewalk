@@ -443,7 +443,7 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
            ON S1.id = errata.server_id
         WHERE USP1.user_id = :uid
         GROUP by s1.id, s1.name
-        ORDER by s1.name;
+        ORDER by s1.name
     </query>
 </mode>
 
