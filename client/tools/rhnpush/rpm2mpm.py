@@ -218,16 +218,6 @@ def _replace_null(obj):
         return dict
     return obj
 
-def _encode(package):
-    stream = cStringIO.StringIO()
-    data = xmlrpclib.dumps((_replace_null(package), ))
-    f = gzip.GzipFile(None, "wb", 9, stream)
-    f.write('<?xml version="1.0"?>\n')
-    f.write(data)
-    f.close()
-    stream.seek(0, 0)
-    return stream.getvalue()
-    
 
 def gmtime(timestamp):
     ttuple = time.gmtime(timestamp)
