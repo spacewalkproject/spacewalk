@@ -24,7 +24,7 @@ import xmlrpclib
 from spacecmd.utils import *
 
 def help_errata_list(self):
-    print 'errata_list: List all errata' 
+    print 'errata_list: List all errata'
     print 'usage: errata_list'
 
 def do_errata_list(self, args, doreturn=False):
@@ -39,7 +39,7 @@ def do_errata_list(self, args, doreturn=False):
 ####################
 
 def help_errata_apply(self):
-    print 'errata_apply: Apply an erratum to all affected systems' 
+    print 'errata_apply: Apply an erratum to all affected systems'
     print 'usage: errata_apply ERRATA|search:XXX ...'
 
 def complete_errata_apply(self, text, line, beg, end):
@@ -64,8 +64,8 @@ def do_errata_apply(self, args, only_systems=[]):
             # get the systems affected by each errata
             affected_systems = \
                 self.client.errata.listAffectedSystems(self.session, erratum)
-           
-            # build a list of systems that we will schedule errata for 
+
+            # build a list of systems that we will schedule errata for
             for system in affected_systems:
                 # prevent duplicates in the system list
                 if system.get('name') not in systems:
@@ -79,18 +79,18 @@ def do_errata_apply(self, args, only_systems=[]):
         except:
             logging.debug('%s does not affect any systems' % erratum)
             continue
-      
-        # make a summary list to show the user 
+
+        # make a summary list to show the user
         if count > 0:
-            summary.append('%s        %s' % (erratum.ljust(15), 
+            summary.append('%s        %s' % (erratum.ljust(15),
                                              str(count).rjust(3)))
         else:
             logging.debug('%s does not affect any systems' % erratum)
-   
-    if not len(systems): 
+
+    if not len(systems):
         logging.warning('No errata to apply')
         return
-    
+
     # a summary of which errata we're going to apply
     print 'Errata             Systems'
     print '--------------     -------'
@@ -98,32 +98,65 @@ def do_errata_apply(self, args, only_systems=[]):
 
     if not self.user_confirm('Apply these errata [y/N]:'): return
 
-    for system in systems:
-        system_id = self.get_system_id(system)
+    # if the API supports it, try to schedule multiple systems for one erratum
+    # in order to reduce the number of actions scheduled
+    if self.check_api_version('10.11'):
+        to_apply = {}
 
-        # only schedule unscheduled errata
-        system_errata = self.client.system.getUnscheduledErrata(self.session, 
-                                                                system_id)
+        for system in systems:
+            system_id = self.get_system_id(system)
 
-        # if an errata specified for installation is unscheduled for
-        # this system, add it to the list to schedule
-        errata_to_apply = []
-        for erratum in errata_list:
-            for e in system_errata:
-                if erratum == e.get('advisory_name'):
-                    errata_to_apply.append(e.get('id'))
-                    break
-   
-        if not len(errata_to_apply):
-            logging.info('No errata to schedule for %s' % system)
-            continue
- 
-        self.client.system.scheduleApplyErrata(self.session,
-                                               system_id,
-                                               errata_to_apply)
+            # only attempt to schedule unscheduled errata
+            system_errata = self.client.system.getUnscheduledErrata(self.session,
+                                                                    system_id)
 
-        print 'Scheduled %i errata for %s' % (len(errata_to_apply), system)
- 
+            # make a list of systems for each erratum
+            for erratum in system_errata:
+                erratum_id = erratum.get('id')
+
+                if erratum.get('advisory_name') in errata_list:
+                    if erratum_id not in to_apply:
+                        to_apply[erratum_id] = []
+
+                    to_apply[erratum_id].append(system_id)
+
+        # apply the errata
+        for erratum in to_apply:
+            self.client.system.scheduleApplyErrata(self.session,
+                                                   to_apply[erratum],
+                                                   [ erratum ])
+
+            logging.info('Scheduled %i system(s) for %s' % \
+                         (len(to_apply[erratum]),
+                          self.get_erratum_name(erratum)))
+    else:
+        for system in systems:
+            system_id = self.get_system_id(system)
+
+            # only schedule unscheduled errata
+            system_errata = self.client.system.getUnscheduledErrata(self.session,
+                                                                    system_id)
+
+            # if an errata specified for installation is unscheduled for
+            # this system, add it to the list to schedule
+            errata_to_apply = []
+            for erratum in errata_list:
+                for e in system_errata:
+                    if erratum == e.get('advisory_name'):
+                        errata_to_apply.append(e.get('id'))
+                        break
+
+            if not len(errata_to_apply):
+                logging.info('No errata to schedule for %s' % system)
+                continue
+
+            # this results in one action per erratum for each server
+            self.client.system.scheduleApplyErrata(self.session,
+                                                   system_id,
+                                                   errata_to_apply)
+
+            print 'Scheduled %i errata for %s' % (len(errata_to_apply), system)
+
 ####################
 
 def help_errata_listaffectedsystems(self):
@@ -154,7 +187,7 @@ def do_errata_listaffectedsystems(self, args):
 
             print '%s:' % erratum
             print '\n'.join(sorted([ s.get('name') for s in systems ]))
-    
+
 ####################
 
 def help_errata_details(self):
@@ -182,11 +215,11 @@ def do_errata_details(self, args):
 
             packages = self.client.errata.listPackages(self.session, erratum)
 
-            systems = self.client.errata.listAffectedSystems(self.session, 
+            systems = self.client.errata.listAffectedSystems(self.session,
                                                              erratum)
 
             channels = \
-                self.client.errata.applicableToChannels(self.session, erratum) 
+                self.client.errata.applicableToChannels(self.session, erratum)
         except:
             logging.warning('%s is not a valid erratum' % erratum)
             continue
@@ -262,7 +295,7 @@ def do_errata_search(self, args, doreturn=False):
 
         #XXX: Bugzilla 584855
         if re.match('CVE', query, re.I):
-            errata = self.client.errata.findByCve(self.session, 
+            errata = self.client.errata.findByCve(self.session,
                                                   query.upper())
         else:
             self.generate_errata_cache()
