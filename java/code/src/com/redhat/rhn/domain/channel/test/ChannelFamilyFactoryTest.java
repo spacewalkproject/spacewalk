@@ -111,14 +111,23 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
     }
 
     public static ChannelFamily createTestChannelFamily(User user,
-                                        Long ents, Long flexEnts) throws Exception {
-        Org org = user.getOrg();
+            Long ents, Long flexEnts) throws Exception {
+        return createTestChannelFamily(user, ents, flexEnts, false);
+    }
+
+    public static ChannelFamily createBaseTestChannelFamily(User user,
+            Long ents, Long flexEnts) throws Exception {
+        return createTestChannelFamily(user, ents, flexEnts, true);
+    }
+
+    public static ChannelFamily createTestChannelFamily(User user,
+                    Long ents, Long flexEnts, boolean nullOrg) throws Exception {
         String label = "ChannelFamilyLabel" + TestUtils.randomString();
         String name = "ChannelFamilyName" + TestUtils.randomString();
         String productUrl = "http://www.example.com";
 
         ChannelFamily cfam = new ChannelFamily();
-        cfam.setOrg(org);
+        cfam.setOrg(nullOrg ? null : user.getOrg());
         cfam.setLabel(label);
         cfam.setName(name);
         cfam.setProductUrl(productUrl);

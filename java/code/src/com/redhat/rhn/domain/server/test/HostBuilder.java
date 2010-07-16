@@ -27,10 +27,12 @@ import com.redhat.rhn.testing.TestUtils;
 
 import org.hibernate.Session;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 
@@ -143,7 +145,7 @@ public class HostBuilder {
      * @throws Exception if an error occurs
      */
     public HostBuilder withGuests(int numberOfGuests) throws Exception {
-        createGuests(numberOfGuests, true);
+        createGuests(owner, numberOfGuests, true);
         return this;
     }
 
@@ -158,11 +160,31 @@ public class HostBuilder {
      * @throws Exception if an error occurs
      */
     public HostBuilder withUnregisteredGuests(int numberOfGuests) throws Exception {
-        createGuests(numberOfGuests, false);
+        createGuests(owner, numberOfGuests, false);
         return this;
     }
-
-    private  List<VirtualInstance> createGuests(int numberOfGuests,
+    
+    /**
+     * Creates the specified number of guests for the host under construction. Each guest
+     * will be registered and therefore have an associated system.
+     * 
+     * @param guests a map of users to the number of guests to create owned by that user.
+     *              This is useful when you want the guests to be in orgs different to
+     *               what the host .
+     * 
+     * @return This builder
+     * @throws Exception if an error occurs
+     */
+    
+    public  HostBuilder withGuests(Map<User, Integer> guests, 
+                                boolean register) throws Exception {
+        for (User u : guests.keySet()) {
+            createGuests(u, guests.get(u), register);
+        }
+        return this;
+    }
+    
+    private  List<VirtualInstance> createGuests(User user, int numberOfGuests, 
                                                 boolean register) throws Exception {
         VirtualInstance virtualInstance = null;
         Server guest = null;
@@ -173,7 +195,7 @@ public class HostBuilder {
             virtualInstance.setUuid(TestUtils.randomString());
 
             if (register) {
-                guest = ServerFactoryTest.createUnentitledTestServer(owner, true,
+                guest = ServerFactoryTest.createUnentitledTestServer(user, true,
                         ServerFactoryTest.TYPE_SERVER_NORMAL, new Date());
                 RhnBaseTestCase.assertNotNull(guest);
                 virtualInstance.setGuestSystem(guest);
@@ -188,7 +210,7 @@ public class HostBuilder {
     }
 
     public List<VirtualInstance> withOrphanedGuests(int numberOfGuests) throws Exception {
-        return createGuests(numberOfGuests, true);
+        return createGuests(owner, numberOfGuests, true);
     }
 
 }

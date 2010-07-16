@@ -118,7 +118,7 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
         }
 
 
-        ChannelFamily rhelFamily = ChannelFamilyFactoryTest.createTestChannelFamily(
+        ChannelFamily rhelFamily = ChannelFamilyFactoryTest.createBaseTestChannelFamily(
                 UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg()),
                 ents, flexEnts);
         assertEquals(Long.valueOf(flexEnts),
@@ -213,7 +213,7 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
                 EntitlementManager.MANAGEMENT, org, sysEnts);
         assertNull(cmd1.store());
 
-        ChannelFamily rhelFamily = ChannelFamilyFactoryTest.createTestChannelFamily(
+        ChannelFamily rhelFamily = ChannelFamilyFactoryTest.createBaseTestChannelFamily(
                 UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg()),
                 Long.valueOf(ents), Long.valueOf(flexEnts));
         assertEquals(Long.valueOf(flexEnts),

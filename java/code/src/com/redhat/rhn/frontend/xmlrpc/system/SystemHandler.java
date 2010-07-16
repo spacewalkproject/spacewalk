@@ -4543,7 +4543,7 @@ public class SystemHandler extends BaseHandler {
                 List serverIds, String channelFamilyLabel) {
         User user = getLoggedInUser(sessionKey);
         ChannelFamily cf = ChannelFamilyFactory.lookupByLabel(
-                                    channelFamilyLabel, null);
+                                    channelFamilyLabel, user.getOrg());
         if (cf == null) {
             throw new InvalidEntitlementException();
         }
