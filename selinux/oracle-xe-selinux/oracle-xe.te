@@ -32,3 +32,6 @@ allow oracle_db_t initrc_t:fifo_file { read ioctl };
 
 allow oracle_db_t self:process ptrace;
 
+term_dontaudit_use_console(oracle_db_t)
+term_dontaudit_use_console(oracle_tnslsnr_t)
+
