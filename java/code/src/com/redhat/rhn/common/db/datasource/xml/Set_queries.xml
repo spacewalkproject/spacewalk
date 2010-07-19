@@ -164,7 +164,7 @@ SELECT  user_id, label, element, element_two, element_three
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
       AND S.label = :label
-      AND NOT EXISTS (SELECT 1 FROM rhnUserAvailableChannels UAC
+      AND NOT EXISTS (SELECT 1 FROM rhnUserChannel UAC
                        WHERE UAC.user_id = S.user_id
                          AND UAC.channel_id = S.element)
   </query>

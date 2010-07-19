@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.channel.ssm;
 
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
@@ -27,6 +28,7 @@ import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.ssm.SsmManager;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 
@@ -95,6 +97,14 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
 
+        RhnSet subSet = RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.get(user);
+        subSet.clear();
+        RhnSetManager.store(subSet);
+
+        RhnSet unSubSet = RhnSetDecl.SSM_CHANNEL_UNSUBSCRIBE.get(user);
+        unSubSet.clear();
+        RhnSetManager.store(unSubSet);
+
         ActionForward result;
         if (isSubmitted(daForm)) {
 
@@ -157,7 +167,7 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
         Iterator itr = cset.getElements().iterator();
         while (itr.hasNext()) {
             RhnSetElement rse = (RhnSetElement)itr.next();
-            Channel c = ChannelManager.lookupByIdAndUser(rse.getElement(), u);
+            Channel c = ChannelFactory.lookupById(rse.getElement());
             if (rse.getElementTwo().equals(ChannelActionDAO.SUBSCRIBE)) {
                 subs.add(c);
             }
