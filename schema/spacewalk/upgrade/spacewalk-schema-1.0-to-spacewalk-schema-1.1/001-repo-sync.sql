@@ -11,6 +11,7 @@ ALTER TABLE rhnContentSource
     RENAME CONSTRAINT rhn_ccs_type_fk to rhn_cs_type_fk;
 ALTER TABLE rhnContentSource
     RENAME CONSTRAINT rhn_ccs_id_pk to rhn_cs_id_pk;
+alter index rhn_ccs_id_pk rename to rhn_cs_id_pk;
 
 -- create new table for mapping channels and repos
 CREATE TABLE rhnChannelContentSource
