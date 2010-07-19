@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.14
+Version:      1.126.15
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -129,6 +129,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Jul 19 2010 Miroslav Suchý <msuchy@redhat.com> 1.126.15-1
+- $self->dbh is method from MethodMaker and not attribute (msuchy@redhat.com)
+
 * Mon Jul 12 2010 Miroslav Suchý <msuchy@redhat.com> 1.126.14-1
 - remove unused module (msuchy@redhat.com)
 
