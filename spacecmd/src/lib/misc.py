@@ -159,12 +159,12 @@ def do_login(self, args):
         return
 
     # store the session file in the server's own directory
-    self.session_file = os.path.join(self.conf_dir, server, 'session')
+    session_file = os.path.join(self.conf_dir, server, 'session')
 
     # retrieve a cached session
-    if os.path.isfile(self.session_file):
+    if os.path.isfile(session_file):
         try:
-            sessionfile = open(self.session_file, 'r')
+            sessionfile = open(session_file, 'r')
            
             # read the session (format = server:username:session)
             for line in sessionfile:
@@ -182,13 +182,13 @@ def do_login(self, args):
 
             sessionfile.close()
         except IOError:
-            logging.error('Could not read %s' % self.session_file)
+            logging.error('Could not read %s' % session_file)
 
     # check the cached credentials by doing an API call
     if self.session:
         try:
             logging.debug('Using cached credentials from %s' %
-                          self.session_file)
+                          session_file)
 
             self.client.user.listUsers(self.session)
         except:
@@ -237,7 +237,7 @@ def do_login(self, args):
             line = '%s:%s\n' % (username, self.session)
 
             # write the new cache file out
-            sessionfile = open(self.session_file, 'w')
+            sessionfile = open(session_file, 'w')
             sessionfile.write(line)
             sessionfile.close()
         except IOError:
