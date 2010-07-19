@@ -90,8 +90,8 @@ sub connect {
   }
 
   # Open a connection to the DB
-  my $dbh = DBI->connect("DBI:$DBD:$DBNAME", $DBUNAME, $DBPASS,
-                 { RaiseError => $RaiseError, AutoCommit => $AutoCommit });
+  $self->dbh(DBI->connect("DBI:$DBD:$DBNAME", $DBUNAME, $DBPASS,
+                 { RaiseError => $RaiseError, AutoCommit => $AutoCommit }));
 
   return $self->dbh;
 }
