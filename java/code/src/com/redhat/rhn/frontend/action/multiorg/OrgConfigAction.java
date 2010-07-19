@@ -21,6 +21,8 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +44,10 @@ public class OrgConfigAction extends RhnAction {
         if (ctx.isSubmitted()) {
             org.setStagingContentEnabled(request.
                     getParameter("staging_content_enabled") != null);
+            ActionMessages msg = new ActionMessages();
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("message.org_name_updated", org.getName()));
+            getStrutsDelegate().saveMessages(request, msg);
             return getStrutsDelegate().forwardParam(mapping.findForward("success"),
                     RequestContext.ORG_ID,
                     org.getId().toString());

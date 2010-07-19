@@ -4457,7 +4457,7 @@
       <set-property property="acls" value="user_role(satellite_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/multiorg/configuration.jsp" />
       <forward name="success"
-               path="/admin/multiorg/OrgDetails.do" redirect="true" />
+               path="/admin/multiorg/OrgConfigDetails.do" redirect="true" />
       <forward name="error"
                path="/WEB-INF/pages/admin/multiorg/configuration.jsp" />
     </action>
