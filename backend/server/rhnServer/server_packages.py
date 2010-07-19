@@ -126,7 +126,7 @@ class Packages:
     def get_packages(self):
         return map(lambda a: a.nvrea, filter(lambda a: a.status != 2, self.__p.values()))
 
-    def __expand_installtime(installtime):
+    def __expand_installtime(self, installtime):
         """ Simulating the ternary operator, one liner is ugly """
         if installtime:
             return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(installtime))
