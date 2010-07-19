@@ -35,6 +35,21 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   <elaborator name="system_overview" />
 </mode>
 
+<mode name="find_by_name" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="user_id, name">
+  SELECT  DISTINCT S.id,
+                   S.name
+    FROM  rhnServer S,
+    rhnUserServerPerms USP
+   WHERE  USP.user_id = :user_id
+     AND USP.server_id  = S.id
+     AND USP.user_id = :user_id
+     and S.name = :name
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+
 <!-- system_feature(ftr_kickstart); not is_solaris() -->
 <mode name="ssm_kickstartable" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id">

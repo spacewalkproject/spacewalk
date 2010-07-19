@@ -165,7 +165,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest = ((VirtualInstance) host.getGuests().iterator().next()).
+        Server guest = (host.getGuests().iterator().next()).
             getGuestSystem();
         Long sid = guest.getId();
 
@@ -188,7 +188,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest = ((VirtualInstance) host.getGuests().iterator().next()).
+        Server guest = (host.getGuests().iterator().next()).
             getGuestSystem();
         Long sid = guest.getId();
 
@@ -450,7 +450,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         UserTestUtils.addVirtualization(user.getOrg());
 
         Server guest =
-            ((VirtualInstance) host.getGuests().iterator().next()).getGuestSystem();
+            (host.getGuests().iterator().next()).getGuestSystem();
         guest.addChannel(ChannelTestUtils.createBaseChannel(user));
         ServerTestUtils.addVirtualization(user, guest);
 
@@ -479,8 +479,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertEquals("system.entitle.noslots", ve.getKey());
 
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest = ((VirtualInstance)
-                host.getGuests().iterator().next()).getGuestSystem();
+        Server guest = (host.getGuests().iterator().next()).getGuestSystem();
 
         EntitlementServerGroup pgroup = ServerGroupFactory.lookupEntitled(
                                                 EntitlementManager.PROVISIONING,
@@ -931,7 +930,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     public void testVcpuSettingExceeds32() throws Exception {
         Server host = setupHostWithGuests(1);
-        VirtualInstance vi = (VirtualInstance)host.getGuests().iterator().next();
+        VirtualInstance vi = host.getGuests().iterator().next();
 
         // Currently 32 is the maximum supported number of vcpus on both 32 and 64-bit
         // systems:
@@ -944,7 +943,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     public void testVcpuSettingExceedsPhysicalCpus() throws Exception {
         Server host = setupHostWithGuests(1);
-        VirtualInstance vi = (VirtualInstance)host.getGuests().iterator().next();
+        VirtualInstance vi = host.getGuests().iterator().next();
 
         // Warning should result from attempting to set vcpus greater than the
         // physical hosts cpus:
@@ -961,7 +960,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     // what the guest was booted with, it will require a reboot to take effect.
     public void testVcpuIncreaseWarning() throws Exception {
         Server host = setupHostWithGuests(1);
-        VirtualInstance vi = (VirtualInstance)host.getGuests().iterator().next();
+        VirtualInstance vi = host.getGuests().iterator().next();
 
         ValidatorResult result = SystemManager.validateVcpuSetting(vi.getId(), 3);
         assertEquals(0, result.getErrors().size());
@@ -976,7 +975,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         Server host = setupHostWithGuests(1);
 
         List guestIds = new LinkedList();
-        VirtualInstance vi = (VirtualInstance)host.getGuests().iterator().next();
+        VirtualInstance vi = host.getGuests().iterator().next();
         guestIds.add(vi.getId());
 
         ValidatorResult result = SystemManager.validateGuestMemorySetting(guestIds,
@@ -1350,6 +1349,15 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
         SystemOverview m = (dr.iterator().next());
         assertNotNull(m.getName());
+    }
+
+    public void testFindByName() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        Server s = ServerFactoryTest.createTestServer(user, true);
+        List<SystemOverview> list = SystemManager.listSystemsByName(user, s.getName());
+        assertTrue(list.size() == 1);
+        assertEquals(list.get(0).getId(), s.getId());
+
     }
 
 }
