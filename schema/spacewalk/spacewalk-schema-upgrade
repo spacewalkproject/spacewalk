@@ -197,6 +197,7 @@ EOF
 		$f_in = <FILE>;
 		}
 		close FILE;
+		$f_in =~ s!^--.*\n!!gm;
 		$f_in =~ s!\[\[.*?\]\]|__.*?__!$default_tablespace!g;
 		$in .= <<EOF;
 set echo on
