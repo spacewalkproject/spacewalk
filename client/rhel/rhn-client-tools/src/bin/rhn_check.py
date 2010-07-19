@@ -32,7 +32,7 @@ from up2date_client import rpcServer
 from up2date_client import config
 from up2date_client import clientCaps
 from up2date_client import capabilities
-from up2date_client import rhncli
+from up2date_client import rhncli, rhnserver
 
 from rhn import rhnLockfile
 from rhn import rpclib
@@ -71,7 +71,8 @@ class CheckCli(rhncli.RhnCli):
         self.__run_remote_actions()
         CheckCli.__run_local_actions()
 
-        if not self.server.capabilities.hasCapability('staging_content', 1) and cfg['stagingContent'] != 0:
+        s = rhnserver.RhnServer()
+        if not s.capabilities.hasCapability('staging_content', 1) and cfg['stagingContent'] != 0:
              self.__check_future_actions()
 
         sys.exit(0)
