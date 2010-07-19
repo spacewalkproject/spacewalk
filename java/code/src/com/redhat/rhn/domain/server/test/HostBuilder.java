@@ -27,7 +27,6 @@ import com.redhat.rhn.testing.TestUtils;
 
 import org.hibernate.Session;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -163,28 +162,28 @@ public class HostBuilder {
         createGuests(owner, numberOfGuests, false);
         return this;
     }
-    
+
     /**
      * Creates the specified number of guests for the host under construction. Each guest
      * will be registered and therefore have an associated system.
-     * 
+     *
      * @param guests a map of users to the number of guests to create owned by that user.
      *              This is useful when you want the guests to be in orgs different to
      *               what the host .
-     * 
+     *
      * @return This builder
      * @throws Exception if an error occurs
      */
-    
-    public  HostBuilder withGuests(Map<User, Integer> guests, 
+
+    public  HostBuilder withGuests(Map<User, Integer> guests,
                                 boolean register) throws Exception {
         for (User u : guests.keySet()) {
             createGuests(u, guests.get(u), register);
         }
         return this;
     }
-    
-    private  List<VirtualInstance> createGuests(User user, int numberOfGuests, 
+
+    private  List<VirtualInstance> createGuests(User user, int numberOfGuests,
                                                 boolean register) throws Exception {
         VirtualInstance virtualInstance = null;
         Server guest = null;

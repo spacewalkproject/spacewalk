@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 /**
  * MonitoringConfigFactory - the singleton class used to fetch and store
