@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.17
+Version:        1.1.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Jul 19 2010 Jan Pazdziora 1.1.18-1
+- add missing upgrade for package too
+- Remove lines starting with SQL comment, to match what blend does when
+  generating main.sql.
+- It is necessary to rename the underlying index, not just the constraint.
+- The rhn_ccs_uq was never a constraint -- it was a unique index.
+
 * Mon Jul 19 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.17-1
 - fix schema repopulation error
 
