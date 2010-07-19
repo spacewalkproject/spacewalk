@@ -1,8 +1,8 @@
 %define rhnroot %{_datadir}/rhn
 
 Name:        spacecmd
-Version:     0.4.2
-Release:     2%{?dist}
+Version:     0.5.0
+Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
 Group:       Applications/System
@@ -54,7 +54,8 @@ touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
-* Mon Jul 19 2010 Aron Parsons <aparsons@redhat.com> - 0.4.2-2
+* Mon Jul 19 2010 Aron Parsons <aparsons@redhat.com> 0.5.0-1
+- version bump
 - update the URL to point at fedorahosted.org
 
 * Fri Jul 09 2010 Aron Parsons <aparsons@redhat.com> 0.4.2-1
