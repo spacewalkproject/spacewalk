@@ -190,7 +190,7 @@ class Queue(rhnHandler):
           from web_customer wc,
                rhnServer s
          where s.org_id = wc.id
-               s.id = :server_id
+           and s.id = :server_id
     """)
 
     def _future_actions_enabled(self):
