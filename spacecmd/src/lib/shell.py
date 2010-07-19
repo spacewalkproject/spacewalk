@@ -20,9 +20,6 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
-__author__  = 'Aron Parsons <aron@redhat.com>'
-__license__ = 'GPL'
-
 import atexit, logging, os, readline, re, sys
 from cmd import Cmd
 from pwd import getpwuid
@@ -40,69 +37,8 @@ class SpacewalkShell(Cmd):
     for module in __module_list:
         exec 'from %s import *' % module
 
-    MINIMUM_API_VERSION = 10.8
-
+    # maximum length of history file
     HISTORY_LENGTH = 1024
-
-    # life of caches in seconds
-    SYSTEM_CACHE_TTL = 3600
-    PACKAGE_CACHE_TTL = 86400
-    ERRATA_CACHE_TTL = 86400
-
-    SEPARATOR = '\n' + '#' * 30 + '\n'
-
-    ENTITLEMENTS = ['provisioning_entitled',
-                    'enterprise_entitled',
-                    'monitoring_entitled',
-                    'virtualization_host',
-                    'virtualization_host_platform']
-
-    ARCH_LABELS = ['ia32', 'ia64', 'x86_64', 'ppc',
-                   'i386-sun-solaris', 'sparc-sun-solaris']
-
-    VIRT_TYPES = ['none', 'para_host', 'qemu', 'xenfv', 'xenpv']
-
-    KICKSTART_OPTIONS = ['autostep', 'interactive', 'install', 'upgrade', 
-                         'text', 'network', 'cdrom', 'harddrive', 'nfs', 
-                         'url', 'lang', 'langsupport keyboard', 'mouse', 
-                         'device', 'deviceprobe', 'zerombr', 'clearpart', 
-                         'bootloader', 'timezone', 'auth', 'rootpw', 'selinux',
-                         'reboot', 'firewall', 'xconfig', 'skipx', 'key', 
-                         'ignoredisk', 'autopart', 'cmdline', 'firstboot', 
-                         'graphical', 'iscsi', 'iscsiname', 'logging', 
-                         'monitor', 'multipath', 'poweroff', 'halt', 'service',
-                         'shutdown', 'user', 'vnc', 'zfcp']
-    
-    SYSTEM_SEARCH_FIELDS = ['id', 'name', 'ip', 'hostname', 
-                            'device', 'vendor', 'driver']
-    
-    # list of system selection options for the help output
-    HELP_SYSTEM_OPTS = '''<SYSTEMS> can be any of the following:
-name
-ssm (see 'help ssm')
-search:QUERY (see 'help system_search')
-group:GROUP
-channel:CHANNEL
-'''
-
-    TIME_OPTS = '''Dates can be any of the following:
-Explicit Dates:
-Dates can be expressed as explicit date strings in the YYYYMMDD[HHMM]
-format.  The year, month and day are required, while the hours and
-minutes are not; the hours and minutes will default to 0000 if no
-values are provided.
-
-Deltas:
-Dates can be expressed as delta values.  For example, '2h' would
-mean 2 hours in the future.  You can also use negative values to
-express times in the past (e.g., -7d would be one week ago).
-
-Units:
-s -> seconds
-m -> minutes
-h -> hours
-d -> days
-'''
 
     intro = '''
 Welcome to spacecmd, a command-line interface to Spacewalk.

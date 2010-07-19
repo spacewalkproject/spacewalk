@@ -25,6 +25,19 @@ from operator import itemgetter
 from urllib2 import urlopen, HTTPError
 from spacecmd.utils import *
 
+KICKSTART_OPTIONS = ['autostep', 'interactive', 'install', 'upgrade',
+                     'text', 'network', 'cdrom', 'harddrive', 'nfs',
+                     'url', 'lang', 'langsupport keyboard', 'mouse',
+                     'device', 'deviceprobe', 'zerombr', 'clearpart',
+                     'bootloader', 'timezone', 'auth', 'rootpw', 'selinux',
+                     'reboot', 'firewall', 'xconfig', 'skipx', 'key',
+                     'ignoredisk', 'autopart', 'cmdline', 'firstboot',
+                     'graphical', 'iscsi', 'iscsiname', 'logging',
+                     'monitor', 'multipath', 'poweroff', 'halt', 'service',
+                     'shutdown', 'user', 'vnc', 'zfcp']
+
+VIRT_TYPES = ['none', 'para_host', 'qemu', 'xenfv', 'xenpv']
+
 def help_kickstart_list(self):
     print 'kickstart_list: List the available Kickstart profiles'
     print 'usage: kickstart_list'
