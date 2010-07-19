@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.1.8
+Version:        1.1.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Mon Jul 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.9-1
+- fixed tomcat5.conf pattern
+
 * Wed Jul 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.8-1
 - let jdbc use network service name
 
