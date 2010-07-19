@@ -72,7 +72,7 @@ class CheckCli(rhncli.RhnCli):
         CheckCli.__run_local_actions()
 
         s = rhnserver.RhnServer()
-        if not s.capabilities.hasCapability('staging_content', 1) and cfg['stagingContent'] != 0:
+        if s.capabilities.hasCapability('staging_content', 1) and cfg['stagingContent'] != 0:
              self.__check_future_actions()
 
         sys.exit(0)
