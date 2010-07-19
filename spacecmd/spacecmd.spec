@@ -1,7 +1,7 @@
 %define rhnroot %{_datadir}/rhn
 
 Name:        spacecmd
-Version:     0.5.0
+Version:     0.5.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -54,6 +54,9 @@ touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Jul 19 2010 Aron Parsons <aparsons@redhat.com> 0.5.1-1
+- new package built with tito
+
 * Mon Jul 19 2010 Aron Parsons <aparsons@redhat.com> 0.5.0-1
 - new package built with tito
 * Mon Jul 19 2010 Aron Parsons <aparsons@redhat.com> 0.5.0-1
