@@ -198,6 +198,7 @@ class Queue(rhnHandler):
         h = rhnSQL.prepare(self._query_future_enabled)
         h.execute(server_id=self.server_id)
         row = h.fetchone_dict()
+        log_debug(4, row["staging_content_enabled"])
         return row["staging_content_enabled"] == "Y"
 
     _query_queue_future = rhnSQL.Statement("""
@@ -226,6 +227,7 @@ class Queue(rhnHandler):
             h.execute(server_id=self.server_id, time_window=time_window)
             action = h.fetchone_dict()
             while action:
+                log_debug(5, action)
                 result.append(self.__getV2(action, dry_run=1))
                 action = h.fetchone_dict()
         return result
