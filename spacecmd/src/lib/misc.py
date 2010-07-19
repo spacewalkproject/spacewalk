@@ -227,6 +227,12 @@ def do_login(self, args):
             return
 
         try:
+            # make sure ~/.spacecmd/<server> exists
+            conf_dir = os.path.join(self.conf_dir, server)
+
+            if not os.path.isdir(conf_dir):
+                os.mkdir(conf_dir, 0700)
+
             # add the new cache to the file
             line = '%s:%s\n' % (username, self.session)
 
