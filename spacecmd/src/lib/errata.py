@@ -1,0 +1,327 @@
+#
+# Licensed under the GNU General Public License Version 3
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+# Copyright 2010 Aron Parsons <aron@redhat.com>
+#
+
+# NOTE: the 'self' variable is an instance of SpacewalkShell
+
+import xmlrpclib
+from spacecmd.utils import *
+
+def help_errata_list(self):
+    print 'errata_list: List all errata'
+    print 'usage: errata_list'
+
+def do_errata_list(self, args, doreturn=False):
+    self.generate_errata_cache()
+
+    if doreturn:
+        return self.all_errata.keys()
+    else:
+        if len(self.all_errata.keys()):
+            print '\n'.join(sorted(self.all_errata.keys()))
+
+####################
+
+def help_errata_apply(self):
+    print 'errata_apply: Apply an erratum to all affected systems'
+    print 'usage: errata_apply ERRATA|search:XXX ...'
+
+def complete_errata_apply(self, text, line, beg, end):
+    return self.tab_complete_errata(text)
+
+def do_errata_apply(self, args, only_systems=[]):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_errata_apply()
+        return
+
+    # allow globbing and searching via arguments
+    errata_list = self.expand_errata(args)
+
+    systems = []
+    summary = []
+    for erratum in errata_list:
+        count = 0
+
+        try:
+            # get the systems affected by each errata
+            affected_systems = \
+                self.client.errata.listAffectedSystems(self.session, erratum)
+
+            # build a list of systems that we will schedule errata for
+            for system in affected_systems:
+                # prevent duplicates in the system list
+                if system.get('name') not in systems:
+
+                    # filter if we were passed a list of systems
+                    if not len(only_systems) or \
+                       system.get('name') in only_systems:
+
+                        systems.append(system.get('name'))
+                        count += 1
+        except:
+            logging.debug('%s does not affect any systems' % erratum)
+            continue
+
+        # make a summary list to show the user
+        if count > 0:
+            summary.append('%s        %s' % (erratum.ljust(15),
+                                             str(count).rjust(3)))
+        else:
+            logging.debug('%s does not affect any systems' % erratum)
+
+    if not len(systems):
+        logging.warning('No errata to apply')
+        return
+
+    # a summary of which errata we're going to apply
+    print 'Errata             Systems'
+    print '--------------     -------'
+    print '\n'.join(sorted(summary))
+
+    if not self.user_confirm('Apply these errata [y/N]:'): return
+
+    # if the API supports it, try to schedule multiple systems for one erratum
+    # in order to reduce the number of actions scheduled
+    if self.check_api_version('10.11'):
+        to_apply = {}
+
+        for system in systems:
+            system_id = self.get_system_id(system)
+
+            # only attempt to schedule unscheduled errata
+            system_errata = self.client.system.getUnscheduledErrata(self.session,
+                                                                    system_id)
+
+            # make a list of systems for each erratum
+            for erratum in system_errata:
+                erratum_id = erratum.get('id')
+
+                if erratum.get('advisory_name') in errata_list:
+                    if erratum_id not in to_apply:
+                        to_apply[erratum_id] = []
+
+                    to_apply[erratum_id].append(system_id)
+
+        # apply the errata
+        for erratum in to_apply:
+            self.client.system.scheduleApplyErrata(self.session,
+                                                   to_apply[erratum],
+                                                   [ erratum ])
+
+            logging.info('Scheduled %i system(s) for %s' % \
+                         (len(to_apply[erratum]),
+                          self.get_erratum_name(erratum)))
+    else:
+        for system in systems:
+            system_id = self.get_system_id(system)
+
+            # only schedule unscheduled errata
+            system_errata = self.client.system.getUnscheduledErrata(self.session,
+                                                                    system_id)
+
+            # if an errata specified for installation is unscheduled for
+            # this system, add it to the list to schedule
+            errata_to_apply = []
+            for erratum in errata_list:
+                for e in system_errata:
+                    if erratum == e.get('advisory_name'):
+                        errata_to_apply.append(e.get('id'))
+                        break
+
+            if not len(errata_to_apply):
+                logging.warning('No errata to schedule for %s' % system)
+                continue
+
+            # this results in one action per erratum for each server
+            self.client.system.scheduleApplyErrata(self.session,
+                                                   system_id,
+                                                   errata_to_apply)
+
+            logging.info('Scheduled %i errata for %s' % \
+                         (len(errata_to_apply), system))
+
+####################
+
+def help_errata_listaffectedsystems(self):
+    print 'errata_listaffectedsystems: List of systems affected by an erratum'
+    print 'usage: errata_listaffectedsystems ERRATA|search:XXX ...'
+
+def complete_errata_listaffectedsystems(self, text, line, beg, end):
+    return self.tab_complete_errata(text)
+
+def do_errata_listaffectedsystems(self, args):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_errata_listaffectedsystems()
+        return
+
+    # allow globbing and searching via arguments
+    errata_list = self.expand_errata(args)
+
+    add_separator = False
+
+    for erratum in errata_list:
+        systems = self.client.errata.listAffectedSystems(self.session, erratum)
+
+        if len(systems):
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print '%s:' % erratum
+            print '\n'.join(sorted([ s.get('name') for s in systems ]))
+
+####################
+
+def help_errata_details(self):
+    print 'errata_details: Show the details of an erratum'
+    print 'usage: errata_details ERRATA|search:XXX ...'
+
+def complete_errata_details(self, text, line, beg, end):
+    return self.tab_complete_errata(text)
+
+def do_errata_details(self, args):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_errata_details()
+        return
+
+    # allow globbing and searching via arguments
+    errata_list = self.expand_errata(args)
+
+    add_separator = False
+
+    for erratum in errata_list:
+        try:
+            details = self.client.errata.getDetails(self.session, erratum)
+
+            packages = self.client.errata.listPackages(self.session, erratum)
+
+            systems = self.client.errata.listAffectedSystems(self.session,
+                                                             erratum)
+
+            channels = \
+                self.client.errata.applicableToChannels(self.session, erratum)
+        except:
+            logging.warning('%s is not a valid erratum' % erratum)
+            continue
+
+        if add_separator: print self.SEPARATOR
+        add_separator = True
+
+        print 'Name:       %s' % erratum
+        print 'Product:    %s' % details.get('product')
+        print 'Type:       %s' % details.get('type')
+        print 'Issue Date: %s' % details.get('issue_date')
+        print
+        print 'Topic'
+        print '-----'
+        print '\n'.join(wrap(details.get('topic')))
+        print
+        print 'Description'
+        print '-----------'
+        print '\n'.join(wrap(details.get('description')))
+
+        if details.get('notes'):
+            print
+            print 'Notes'
+            print '-----'
+            print '\n'.join(wrap(details.get('notes')))
+
+        print
+        print 'Solution'
+        print '--------'
+        print '\n'.join(wrap(details.get('solution')))
+        print
+        print 'References'
+        print '----------'
+        print '\n'.join(wrap(details.get('references')))
+        print
+        print 'Affected Channels'
+        print '-----------------'
+        print '\n'.join(sorted([c.get('label') for c in channels]))
+        print
+        print 'Affected Systems'
+        print '----------------'
+        print str(len(systems))
+        print
+        print 'Affected Packages'
+        print '-----------------'
+        print '\n'.join(sorted(build_package_names(packages)))
+
+
+####################
+
+def help_errata_search(self):
+    print 'errata_search: List errata that meet the given criteria'
+    print 'usage: errata_search CVE|RHSA|RHBA|RHEA|CLA ...'
+    print
+    print 'Example:'
+    print '> errata_search CVE-2009:1674'
+    print '> errata_search RHSA-2009:1674'
+
+def complete_errata_search(self, text, line, beg, end):
+    return tab_completer(self.do_errata_list('', True), text)
+
+def do_errata_search(self, args, doreturn=False):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_errata_search()
+        return
+
+    add_separator = False
+
+    for query in args:
+        errata = []
+
+        #XXX: Bugzilla 584855
+        if re.match('CVE', query, re.I):
+            errata = self.client.errata.findByCve(self.session,
+                                                  query.upper())
+        else:
+            self.generate_errata_cache()
+
+            for name in self.all_errata.keys():
+                if re.search(query, name, re.I) or \
+                   re.search(query, self.all_errata[name]['synopsis'], re.I):
+
+                    match = self.all_errata[name]
+
+                    # build a structure to pass to print_errata_summary()
+                    errata.append( {'advisory_name'     : name,
+                                    'advisory_type'     : match['type'],
+                                    'advisory_synopsis' : match['synopsis'],
+                                    'date'              : match['date'] } )
+
+        if add_separator: print self.SEPARATOR
+        add_separator = True
+
+        if len(errata):
+            if doreturn:
+                return [ erratum['advisory_name'] for erratum in errata ]
+            else:
+                map(print_errata_summary, sorted(errata, reverse=True))
+        else:
+            return []
+
+# vim:ts=4:expandtab:

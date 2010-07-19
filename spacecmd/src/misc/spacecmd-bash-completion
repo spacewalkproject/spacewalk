@@ -1,0 +1,18 @@
+_spacecmd()
+{
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts=`for i in $(spacecmd help | tail -n +4 | head -n -5 ); do echo $i; done`
+
+        if [[ ${cur} == * ]]; then
+            if [[ ${#COMP_WORDS[@]} -gt 2 ]]; then
+                return 0
+            else
+                COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+                return 0
+            fi
+        fi
+}
+complete -F _spacecmd spacecmd

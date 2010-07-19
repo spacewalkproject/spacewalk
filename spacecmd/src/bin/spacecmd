@@ -1,0 +1,174 @@
+#!/usr/bin/python
+#
+# Licensed under the GNU General Public License Version 3
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+# Copyright 2010 Aron Parsons <aron@redhat.com>
+#
+
+""" spacecmd - a command line interface to Spacewalk """
+
+import logging, os, re, sys, xmlrpclib
+from ConfigParser import SafeConfigParser, NoOptionError
+from optparse import Option, OptionParser
+from pwd import getpwuid
+
+sys.path.append('/usr/share/rhn')
+from spacecmd.shell import SpacewalkShell
+    
+if __name__ == '__main__':
+    optionsTable = [
+        Option('-u', '--username', action='store',
+               help='use this username to connect to the server'),
+        Option('-p', '--password', action='store',
+               help='use this password to connect to the server'),
+        Option('-s', '--server', action='store',
+               help='connect to this server [default: localhost]'),
+        Option('--nossl', action='store_true',
+               help='use HTTP instead of HTTPS'),
+        Option('--nohistory', action='store_true',
+                help='do not store command history'),
+        Option('-y', '--yes', action='store_true',
+               help='answer yes for all questions'),
+        Option('-q', '--quiet', action='store_true',
+               help='print only error messages'),
+        Option('-d', '--debug', action='store_true',
+               help='print debug messages'),
+    ]
+
+    usage = 'usage: %prog [options] [command]'
+
+    parser = OptionParser(option_list=optionsTable, usage=usage)
+    (options, args) = parser.parse_args()
+    
+    # enable debugging as early as possible
+    if options.debug:
+        level = logging.DEBUG
+
+    # files are loaded from ~/.spacecmd/
+    userinfo = getpwuid(os.getuid())
+    conf_dir = os.path.join(userinfo[5], '.spacecmd')
+    conf_file = os.path.join(conf_dir, 'config')
+
+    # load options from a configuration file
+    if os.path.isfile(conf_file):
+        config = SafeConfigParser()
+        config.read(conf_file)    
+
+        boolean_opts = [ 'nossl', 'debug' ]
+        string_opts = [ 'server', 'username', 'password' ]
+
+        for key in boolean_opts:
+            if not options.__dict__[key]:
+                try:
+                    options.__dict__[key] = config.getboolean('spacecmd', key)
+                except NoOptionError:
+                    pass
+
+        for key in string_opts:
+            if not options.__dict__[key]:
+                try:
+                    options.__dict__[key] = config.get('spacecmd', key)
+                except NoOptionError:
+                    pass
+    else:
+        try:
+            # create ~/.spacecmd
+            if not os.path.isdir(conf_dir):
+                logging.debug('Creating %s' % conf_dir)
+                os.mkdir(conf_dir, 0700)
+           
+            # create a template configuration file 
+            handle = open(conf_file, 'w')
+            handle.write('[spacecmd]\n')
+            handle.close()
+        except IOError:
+            logging.error('Could not create %s' % conf_file)
+
+    # set the default server to localhost
+    if not options.server:
+        options.server = 'localhost'
+
+    # reset the log level after parsing the config file
+    if options.debug:
+        level = logging.DEBUG
+    elif options.quiet:
+        level = logging.ERROR
+    else:
+        level = logging.INFO
+
+    logging.basicConfig(level=level, format='%(levelname)s: %(message)s')
+
+    # create an instance of the shell
+    shell = SpacewalkShell(options)
+
+    if len(args):
+        # run a single command from the command line
+        try:
+            # run the command
+            shell.onecmd(shell.precmd(' '.join(args)))
+        except KeyboardInterrupt:
+            print
+            print 'User Interrupt'
+        except Exception, detail:
+            # get the relevant part of a XML-RPC fault
+            if isinstance(detail, xmlrpclib.Fault):
+                detail = detail.faultString
+
+            if logging.getLogger().getEffectiveLevel() == logging.DEBUG:
+                # print the traceback when debugging
+                logging.exception(detail)
+            else:
+                logging.error(detail)
+
+            sys.exit(1)
+    else:
+        need_login = True
+
+        # stay in the interactive shell forever
+        while True:
+            # use try..finally to overcome 2.4's lack of try..except..finally
+            try:
+                try:
+                    # we need to be logged in for tab completion to work
+                    if need_login and not shell.session:
+                        need_login = False
+                        shell.do_login('')
+
+                    shell.cmdloop()
+                except KeyboardInterrupt:
+                    print
+                except SystemExit:
+                    sys.exit(0)
+                except Exception, detail:
+                    # get the relevant part of a XML-RPC fault
+                    if isinstance(detail, xmlrpclib.Fault):
+                        detail = detail.faultString
+
+                        # the session expired
+                        if re.search('Could not find session', detail, re.I):
+                            shell.session = ''
+
+                    if logging.getLogger().getEffectiveLevel() == logging.DEBUG:
+                        # print the traceback when debugging
+                        logging.exception(detail)
+                    else:
+                        logging.error(detail)
+            finally:
+                # don't print the intro again
+                shell.intro = ''
+
+# vim:ts=4:expandtab:
