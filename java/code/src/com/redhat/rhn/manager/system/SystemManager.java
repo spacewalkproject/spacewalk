@@ -2172,7 +2172,7 @@ public class SystemManager extends BaseManager {
 
         // Grab the host from the first guest in the list:
         Long firstGuestId = (Long)guestIds.get(0);
-        Server host = ((VirtualInstance)viFactory.lookupById(firstGuestId)).
+        Server host = (viFactory.lookupById(firstGuestId)).
                                                                 getHostSystem();
 
         int proposedMemoryKb = proposedMemory * 1024;
@@ -2683,6 +2683,23 @@ public class SystemManager extends BaseManager {
         retval.setElaborationParams(Collections.EMPTY_MAP);
         return retval;
     }
+
+    /**
+     * Find a system by it's name (must be an exact string match)
+     * @param user  the user doing the search
+     * @param name the name of the system
+     * @return the SystemOverview objects with the matching name
+     */
+    public static List<SystemOverview> listSystemsByName(User user,
+            String name) {
+            SelectMode mode = ModeFactory.getMode("System_queries", "find_by_name");
+            Map params = new HashMap();
+            params.put("user_id", user.getId());
+            params.put("name", name);
+            Map elabParams = new HashMap();
+            return makeDataResult(params, elabParams, null, mode);
+    }
+
 
     private static DataResult<SystemOverview> listDuplicates(User user,
                                             String query, String key) {

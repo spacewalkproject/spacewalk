@@ -2258,14 +2258,7 @@ public class SystemHandler extends BaseHandler {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         List<SystemOverview> dr = UserManager.visibleSystemsAsDto(loggedInUser);
-        List returnList = new ArrayList();
-
-        for (SystemOverview system : dr) {
-            if (system.getName().equals(name)) {
-                returnList.add(system);
-            }
-        }
-        return returnList;
+        return SystemManager.listSystemsByName(loggedInUser, name);
     }
 
     /**

@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.1.11
+Version: 1.1.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -280,6 +280,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Jul 19 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.12-1
+- we want to pre-cache if server *has* staging ability (msuchy@redhat.com)
+- use correct rhnserver class (msuchy@redhat.com)
+- l10n: Updates to Swedish (sv) translation (goeran@fedoraproject.org)
+
 * Thu Jul 15 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.11-1
 - 614389 - add missing import (msuchy@redhat.com)
 - basic framework for prefetching content from spacewalk (msuchy@redhat.com)
