@@ -6,9 +6,9 @@ Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
 Group:       Applications/System
-License:     GPL
+License:     GPLv3+
 URL:         https://fedorahosted.org/spacewalk/wiki/spacecmd
-Source:      %{name}-%{version}.tar.gz
+Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
@@ -57,6 +57,7 @@ touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 * Mon Jul 19 2010 Aron Parsons <aparsons@redhat.com> 0.5.0-1
 - version bump
 - update the URL to point at fedorahosted.org
+- fixes from rpmlint
 
 * Fri Jul 09 2010 Aron Parsons <aparsons@redhat.com> 0.4.2-1
 - fixed an unhandled exception when doing a history lookup (aparsons@redhat.com)
