@@ -55,6 +55,8 @@ touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 
 %changelog
 * Mon Jul 19 2010 Aron Parsons <aparsons@redhat.com> 0.5.0-1
+- new package built with tito
+* Mon Jul 19 2010 Aron Parsons <aparsons@redhat.com> 0.5.0-1
 - version bump
 - update the URL to point at fedorahosted.org
 - fixes from rpmlint
