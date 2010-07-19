@@ -102,23 +102,8 @@ public class MonitoringConfigFactory extends HibernateFactory {
      * @return String db name
      */
     public static String getDatabaseName() {
-        String url = Config.get().getString("hibernate.connection.url");
-
-        // jdbc:oracle.jdbc.driver.OracleDriver:oracle:thin:
-        // @sputnik.sfbay.redhat.com:1521:rhnsat
-        StringTokenizer st = new StringTokenizer(url, ":");
-        String dbName = null;
-        // We want the last token so we just loop
-        // through and its left with the last when
-        // its done.
-        while (st.hasMoreTokens()) {
-            dbName = st.nextToken();
-        }
-        // This must be hard coded to english since the
-        // monitoring backend isn't localized
-
+        String dbName = Config.get().getString("db_name");
         return dbName.toUpperCase(Locale.ENGLISH);
-
     }
 
 
@@ -127,7 +112,7 @@ public class MonitoringConfigFactory extends HibernateFactory {
      * @return String username
      */
     public static String getDatabaseUsername() {
-        return Config.get().getString("hibernate.connection.username");
+        return Config.get().getString("db_user");
     }
 
 
@@ -136,7 +121,7 @@ public class MonitoringConfigFactory extends HibernateFactory {
      * @return String password
      */
     public static String getDatabasePassword() {
-        return Config.get().getString("hibernate.connection.password");
+        return Config.get().getString("db_password");
     }
 
 }
