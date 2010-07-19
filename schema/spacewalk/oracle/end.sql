@@ -22,7 +22,8 @@ begin
   select count(*)
     into invalid_objects
     from user_objects
-   where status <> 'VALID';
+   where status <> 'VALID' and
+         (object_name, object_type) not in (select object_name, type from recyclebin);
  if invalid_objects > 0 then
     RAISE_APPLICATION_ERROR(-20001, 'SCHEMA POPULATION ENDS WITH INVALD OBJECTS');
  end if;
