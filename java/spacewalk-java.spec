@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.29
+Version: 1.1.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 19 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.30-1
+- use db_* options from rhn.conf to retrieve database connection info
+- Added unit tests for SystemHandlerTest.convertToFlex
+- unit test fix
+- fixing un-escaped dollar sign in %post script that deals with rewriting
+  /etc/sysconfig/rhn/up2date
+
 * Fri Jul 16 2010 Justin Sherrill <jsherril@redhat.com> 1.1.29-1
 - fixing compile breakage (jsherril@redhat.com)
 
