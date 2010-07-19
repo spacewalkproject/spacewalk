@@ -226,32 +226,13 @@ def do_login(self, args):
             logging.error('Invalid credentials')
             return
 
-        # write the session string to a file
-        lines = []
-
         try:
-            # read the cached sessions
-            if os.path.isfile(self.session_file):
-                try:
-                    sessionfile = open(self.session_file, 'r')
-                    lines = sessionfile.readlines()
-                    sessionfile.close()
-                except IOError:
-                    pass
-
-            # find and remove an existing cache for this server
-            for line in lines:
-                parts = line.split(':')
-
-                if re.match('%s:' % server, parts[0], re.I):
-                    lines.remove(line)
-
             # add the new cache to the file
-            lines.append('%s:%s\n' % (username, self.session))
+            line = '%s:%s\n' % (username, self.session)
 
             # write the new cache file out
             sessionfile = open(self.session_file, 'w')
-            sessionfile.writelines(lines)
+            sessionfile.write(line)
             sessionfile.close()
         except IOError:
             logging.error('Could not write cache file')
