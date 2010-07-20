@@ -19,7 +19,6 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
-import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
@@ -35,7 +34,6 @@ import com.redhat.rhn.manager.kickstart.KickstartLocaleCommand;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -384,8 +382,14 @@ public class SystemDetailsHandler extends BaseHandler {
         KickstartPartitionCommand command = new KickstartPartitionCommand(ksid,
                                                                           user);
         String[] partitions = command.populatePartitions().split("\\r?\\n");
+        ArrayList list = new ArrayList<String>();
+        for (String part : partitions) {
+            if (!part.isEmpty()) {
+                list.add(part);
+            }
+        }
 
-        return new ArrayList<String>(Arrays.asList(partitions));
+        return list;
     }
 
 
