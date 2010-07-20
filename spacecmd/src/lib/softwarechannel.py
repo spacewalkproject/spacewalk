@@ -565,7 +565,6 @@ def do_softwarechannel_adderratabydate(self, args):
 
 ####################
 
-#XXX: there is no API call to remove an erratum, so this is a permanent change
 def help_softwarechannel_adderrata(self):
     print 'softwarechannel_adderrata: Add errata from one channel ' + \
           'into another channel'
