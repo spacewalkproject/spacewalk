@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.32
+Version: 1.1.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 20 2010 Justin Sherrill <jsherril@redhat.com> 1.1.33-1
+- Initial set of changes to show the 'files' include info on dirs and symlinks
+  (paji@redhat.com)
+- Making spacewalk-java build correctly for fedora 13 (jsherril@redhat.com)
 * Tue Jul 20 2010 Justin Sherrill <jsherril@redhat.com> 1.1.32-1
 - fixing java build scripts to use objectweb-asm library if it exists versus
   the normal asm (jsherril@redhat.com)
