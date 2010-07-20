@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.1.12
+Version: 1.1.13
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -280,6 +280,12 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Jul 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.13-1
+- add parameter cache_only to all client actions (msuchy@redhat.com)
+- simplify code (msuchy@redhat.com)
+- put parser of action xml to separate function (msuchy@redhat.com)
+- l10n: Updates to Italian (it) translation (fvalen@fedoraproject.org)
+
 * Mon Jul 19 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.12-1
 - we want to pre-cache if server *has* staging ability (msuchy@redhat.com)
 - use correct rhnserver class (msuchy@redhat.com)
