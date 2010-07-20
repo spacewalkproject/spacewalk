@@ -5,7 +5,7 @@ Name: rhn-kickstart
 Group: System Environment/Kernel
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 5.4.2
+Version: 5.4.3
 Release: 1%{?dist}
 BuildArch: noarch
 BuildRequires: python
@@ -107,6 +107,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jul 20 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.3-1
+- add parameter cache_only to all client actions (msuchy@redhat.com)
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 5.4.2-1
 - updated copyrights
 
