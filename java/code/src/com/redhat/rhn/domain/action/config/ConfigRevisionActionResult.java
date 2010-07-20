@@ -17,8 +17,6 @@ package com.redhat.rhn.domain.action.config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.BaseDomainHelper;
 
-import java.sql.Blob;
-
 /**
  * ConfigRevisionAction - Class representation of the table rhnActionConfigRevision.
  *
@@ -28,7 +26,8 @@ public class ConfigRevisionActionResult extends BaseDomainHelper {
 
     private Long actionConfigRevisionId;
     private ConfigRevisionAction configRevisionAction;
-    private Blob resultBlob;
+    private byte[] result;
+
     /**
      * Getter for actionConfigRevisionId
      * @return Long to get
@@ -50,23 +49,16 @@ public class ConfigRevisionActionResult extends BaseDomainHelper {
      * @return Blob to get
     */
     public byte[] getResult() {
-        return  HibernateFactory.blobToByteArray(resultBlob);
+        return  result;
     }
 
-   /**
-     * Let Hibernate get the result blob, used only by Hibernate.
-     * @return Returns the result.
-     */
-    private Blob getResultBlob() {
-        return resultBlob;
-    }
 
     /**
-     * Let Hibernate set the result Blob contents, used only by Hibernate.
-     * @param blob The result to set.
+     * set the result
+     * @param resultIn the result
      */
-    public void setResultBlob(Blob blob) {
-        this.resultBlob = blob;
+    public void setResult(byte[] resultIn) {
+        this.result = resultIn;
     }
 
    /**

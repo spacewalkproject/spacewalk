@@ -14,7 +14,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
 		<property name="username" type="string" column="username" />
 		<property name="groupname" type="string" column="groupname" />
-		<property name="scriptBlob" type="blob" column="script"/>
+		<property name="script" type="binary" column="script"/>
 		<property name="timeout" type="long" column="timeout" />
 		<property name="created" type="timestamp" insert="false" update="false" />
         <property name="modified" type="timestamp" insert="false" update="false" />

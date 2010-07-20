@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.domain.rhnpackage;
 
-import java.sql.Blob;
 import java.util.Date;
 import java.util.Set;
 
@@ -28,19 +27,19 @@ public class PatchSet extends Package {
     private Date created;
     private Date modified;
     private Set<Patch> members;
-    private Blob readme;
+    private byte[] readme;
 
     /**
      * @return Returns the readme.
      */
-    public Blob getReadme() {
+    public byte[] getReadme() {
         return readme;
     }
 
     /**
      * @param readmeIn The readme to set.
      */
-    public void setReadme(Blob readmeIn) {
+    public void setReadme(byte[] readmeIn) {
         this.readme = readmeIn;
     }
 

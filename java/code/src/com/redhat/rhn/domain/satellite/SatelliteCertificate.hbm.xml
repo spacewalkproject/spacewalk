@@ -9,7 +9,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <meta attribute="scope-set">protected</meta>
         </id>
         <property name="label" column="LABEL" not-null="true" type="string" length="64" />
-        <property name="certBlob" column="CERT" not-null="true" type="blob" />
+        <property name="cert" column="CERT" not-null="true" type="binary" />
         <property name="issued" column="ISSUED"  type="timestamp" insert="false" update="false"/>
         <property name="expires" column="EXPIRES"  type="timestamp" insert="false" update="false"/>
         <property name="created" column="CREATED" not-null="true" type="timestamp" insert="false" update="false"/>

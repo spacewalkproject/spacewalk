@@ -14,11 +14,6 @@
  */
 package com.redhat.rhn.domain.satellite;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-
-import org.hibernate.Hibernate;
-
-import java.sql.Blob;
 import java.util.Date;
 
 /**
@@ -80,27 +75,6 @@ public class SatelliteCertificate {
     */
     public void setCert(byte[] certIn) {
         this.cert = certIn;
-    }
-
-    /**
-     * Let Hibernate get the cert blob, used only by Hibernate.
-     * @return Returns the cert blob.
-     */
-    private Blob getCertBlob() {
-        if (this.cert == null) {
-            return null;
-        }
-        else {
-            return Hibernate.createBlob(this.cert);
-        }
-    }
-
-    /**
-     * Let Hibernate set the cert Blob contents, used only by Hibernate.
-     * @param certIn The cert to set.
-     */
-    private void setCertBlob(Blob certIn) {
-        this.cert = HibernateFactory.blobToByteArray(certIn);
     }
 
     /**

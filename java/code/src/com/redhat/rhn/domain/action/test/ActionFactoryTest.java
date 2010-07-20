@@ -53,8 +53,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.hibernate.Hibernate;
-
 import java.util.Date;
 import java.util.Iterator;
 
@@ -99,7 +97,7 @@ public class ActionFactoryTest extends RhnBaseTestCase {
             next.setStatus(ActionFactory.STATUS_COMPLETED);
         }
         ActionFactory.save(a);
-        ConfigRevisionAction cra = (ConfigRevisionAction) a.
+        ConfigRevisionAction cra = a.
                                                         getConfigRevisionActions().
                                                             iterator().next();
         Server server = cra.getServer();
@@ -264,7 +262,7 @@ public class ActionFactoryTest extends RhnBaseTestCase {
         cresult.setCreated(new Date());
         cresult.setModified(new Date());
         byte [] text = "Differed In Foo ".getBytes("UTF-8");
-        cresult.setResultBlob(Hibernate.createBlob(text));
+        cresult.setResult(text);
         cresult.setConfigRevisionAction(crad);
         crad.setConfigRevisionActionResult(cresult);
         // Create ConfigRevision

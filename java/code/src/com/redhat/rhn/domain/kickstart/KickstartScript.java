@@ -16,7 +16,6 @@ package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 
-import java.sql.Blob;
 import java.util.Date;
 
 /**
@@ -33,7 +32,6 @@ public class KickstartScript implements Comparable<KickstartScript> {
     private String scriptType;
     private String chroot;
     private String interpreter;
-    private Blob dataBlob;
     private byte[] data;
     private Date created;
     private Date modified;
@@ -133,22 +131,6 @@ public class KickstartScript implements Comparable<KickstartScript> {
     }
 
     /**
-     * Let Hibernate get the data blob, used only by Hibernate.
-     * @return Returns the pre blob.
-     */
-    private Blob getDataBlob() {
-        return HibernateFactory.byteArrayToBlob(this.data);
-    }
-
-    /**
-     * Let Hibernate set the data Blob contents, used only by Hibernate.
-     * @param dataBlobIn The script to set.
-     */
-    private void setDataBlob(Blob dataBlobIn) {
-        this.data = HibernateFactory.blobToByteArray(dataBlobIn);
-    }
-
-    /**
      * Get the String version of the pre contents
      * @return String version of the pre contents
      */
@@ -229,7 +211,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
     public KickstartScript deepCopy(KickstartData ksDataIn) {
         KickstartScript cloned = new KickstartScript();
         cloned.setChroot(this.getChroot());
-        cloned.setDataBlob(this.getDataBlob());
+        cloned.setData(this.getData());
         cloned.setInterpreter(this.getInterpreter());
         cloned.setKsdata(ksDataIn);
         cloned.setPosition(this.getPosition());

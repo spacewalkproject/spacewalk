@@ -20,7 +20,6 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.util.Date;
 
 /**
@@ -34,7 +33,7 @@ public class ScriptResult implements Serializable {
     private Date startDate;
     private Date stopDate;
     private Long returnCode;
-    private Blob outputBlob;
+    private byte[] output;
 
     private ScriptActionDetails parentScriptActionDetails;
 
@@ -163,23 +162,15 @@ public class ScriptResult implements Serializable {
      * @return Returns the output.
      */
     public byte[] getOutput() {
-        return HibernateFactory.blobToByteArray(outputBlob);
+        return output;
     }
 
     /**
-     * Let Hibernate get the output blob. (used only by Hibernate)
-     * @return Returns the script.
+     * set the output
+     * @param outputIn the output
      */
-    private Blob getOutputBlob() {
-        return outputBlob;
-    }
-
-    /**
-     * Let Hibernate set the output blob contents. (used only by Hibernate)
-     * @param outputBlob The script to set.
-     */
-    private void setOutputBlob(Blob outputBlobIn) {
-        this.outputBlob = outputBlobIn;
+    public void setOutput(byte[] outputIn) {
+        this.output = outputIn;
     }
 
     /**

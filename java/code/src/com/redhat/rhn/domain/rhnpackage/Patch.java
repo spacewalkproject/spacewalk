@@ -16,7 +16,6 @@ package com.redhat.rhn.domain.rhnpackage;
 
 import com.redhat.rhn.domain.solaris.PatchType;
 
-import java.sql.Blob;
 import java.util.Date;
 import java.util.Set;
 
@@ -34,19 +33,19 @@ public class Patch extends com.redhat.rhn.domain.rhnpackage.Package {
     private Date modified;
     private String patchInfo;
     private Set<PatchSet> patchSets;
-    private Blob readme;
+    private byte[] readme;
 
     /**
      * @return Returns the readme.
      */
-    public Blob getReadme() {
+    public byte[] getReadme() {
         return readme;
     }
 
     /**
      * @param readmeIn The readme to set.
      */
-    public void setReadme(Blob readmeIn) {
+    public void setReadme(byte[] readmeIn) {
         this.readme = readmeIn;
     }
 

@@ -14,15 +14,12 @@
  */
 package com.redhat.rhn.domain.kickstart.crypto;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.org.Org;
 
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.Hibernate;
 
 import java.io.UnsupportedEncodingException;
-import java.sql.Blob;
 
 /**
  * CryptoKey - Class representation of the table rhnCryptoKey.
@@ -69,28 +66,6 @@ public class CryptoKey implements Identifiable {
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
     }
-
-    /**
-     * Getter for key
-     * @return Blob to get
-    */
-    private Blob getKeyBlob() {
-        if (this.key == null) {
-            return null;
-        }
-        else {
-            return Hibernate.createBlob(this.key);
-        }
-    }
-
-    /**
-     * Setter for key
-     * @param keyIn to set
-    */
-    private void setKeyBlob(Blob keyIn) {
-        this.key = HibernateFactory.blobToByteArray(keyIn);
-    }
-
 
     /**
      * @return Returns the cryptoKeyType.

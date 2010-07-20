@@ -12,7 +12,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             </generator>
         </id>
         <property name="description" column="description" not-null="true" type="string" length="1024" />
-        <property name="keyBlob" column="key"  type="blob" />
+        <property name="key" column="key"  type="binary" />
 
         <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
             column="org_id"/>

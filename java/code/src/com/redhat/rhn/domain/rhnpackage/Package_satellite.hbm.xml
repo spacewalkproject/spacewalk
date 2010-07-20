@@ -143,7 +143,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   <property name="solarisRelease"      type="string" column="solaris_release"/>
                   <property name="sunosRelease"      type="string" column="sunos_release"/>
                   <property name="patchInfo"      type="string" column="patchinfo"/>
-                  <property name="readme" column="readme" type="blob" lazy="true" />
+                  <property name="readme" column="readme" type="binary" lazy="true" />
 		        <many-to-one name="patchType"
 		                     class="com.redhat.rhn.domain.solaris.PatchType"
 		                     column="patch_type"
@@ -162,7 +162,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <joined-subclass name="com.redhat.rhn.domain.rhnpackage.PatchSet" table="rhnSolarisPatchSet">
 		  <key column="package_id"/>
                   <property name="setDate"     type="date" column="set_date"/>
-                  <property name="readme" column="readme" type="blob" lazy="true" />
+                  <property name="readme" column="readme" type="binary" lazy="true" />
 			        <set name="members" lazy="true" table="rhnSolarisPatchMembers" cascade="all">
 			            <key column="patch_set_id"/>
 			            <many-to-many class="com.redhat.rhn.domain.rhnpackage.Patch"

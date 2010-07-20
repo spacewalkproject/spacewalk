@@ -12,7 +12,7 @@
 		<property name="startDate" type="timestamp" column="start_date"/>
 		<property name="stopDate" type="timestamp" column="stop_date"/>
 		<property name="returnCode" type="long" column="return_code"/>
-		<property name="outputBlob" type="blob" column="output" lazy="true"/>
+		<property name="output" type="binary" column="output" lazy="true"/>
 		<many-to-one name="parentScriptActionDetails" column="action_script_id"
 			class="com.redhat.rhn.domain.action.script.ScriptActionDetails"
 			outer-join="true" not-null="true" insert="false" update="false" />

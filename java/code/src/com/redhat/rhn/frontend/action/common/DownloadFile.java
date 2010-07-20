@@ -14,32 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.common;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.DownloadAction;
-
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.SessionSwap;
@@ -66,6 +40,32 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.download.UnknownDownloadTypeException;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.actions.DownloadAction;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * ChannelPackagesAction
@@ -360,16 +360,14 @@ public class DownloadFile extends DownloadAction {
                 Patch patch = (Patch) PackageFactory.lookupByIdAndOrg(fileId,
                         user.getOrg());
                 response.addHeader("Content-Length", patch.getPackageSize() + "");
-                return getStreamForText(patch.getReadme().getBytes(1L,
-                        (int) patch.getReadme().length()));
+                return getStreamForText(patch.getReadme());
 
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_SET_README)) {
                 PatchSet patch = (PatchSet) PackageFactory.lookupByIdAndOrg(fileId,
                         user.getOrg());
                 response.addHeader("Content-Length", patch.getPackageSize() + "");
-                return getStreamForText(patch.getReadme().getBytes(1L,
-                        (int) patch.getReadme().length()));
+                return getStreamForText(patch.getReadme());
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
                 Channel c = ChannelFactory.lookupById(fileId);

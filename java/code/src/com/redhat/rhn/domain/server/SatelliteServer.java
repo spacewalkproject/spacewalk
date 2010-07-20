@@ -14,19 +14,15 @@
  */
 package com.redhat.rhn.domain.server;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
-
-import java.io.UnsupportedEncodingException;
-import java.sql.Blob;
 
 /**
  * SatelliteServer
  * @version $Rev$
  */
 public class SatelliteServer extends Server {
-    private Blob certBlob;
+    private byte[] cert;
     private String product;
     private String owner;
     // these are dates but are stored as strings. if we need to perform some
@@ -45,31 +41,35 @@ public class SatelliteServer extends Server {
     /**
      * @return Returns the cert.
      */
-    public String getCert() {
-        if (certBlob != null) {
-            return HibernateFactory.getByteArrayContents(
-                    HibernateFactory.blobToByteArray(certBlob));
+    public String getCertString() {
+        if (cert != null) {
+            return new String(cert);
         }
         return null;
+    }
+
+    /**
+     * Get the cert
+     * @return the cert
+     */
+    public byte[] getCert() {
+        return cert;
     }
 
     /**
      * @param aCert The cert to set.
      */
     public void setCert(String aCert) {
-      try {
-        certBlob =  HibernateFactory.byteArrayToBlob(
-                                          aCert.getBytes("utf-8"));
-      }
-      catch (UnsupportedEncodingException e) {
-          throw new
-          IllegalArgumentException(
-                  "Could not encode the given cert in 'UTF - 8' format. " +
-                          "This VM or environment probably " +
-                          "doesn't support UTF-8 \n Cert:\n" + aCert + "\n");
-      }
-
+        cert = aCert.getBytes();
     }
+
+    /**
+     * @param aCert The cert to set.
+     */
+    public void setCert(byte[] aCert) {
+        cert = aCert;
+    }
+
 
     /**
      * @return Returns the expiration.
@@ -154,21 +154,5 @@ public class SatelliteServer extends Server {
      */
     public boolean isSatellite() {
         return true;
-    }
-
-
-    /**
-     * @return the certBlob
-     */
-    public Blob getCertBlob() {
-        return certBlob;
-    }
-
-
-    /**
-     * @param blob the certBlob to set
-     */
-    public void setCertBlob(Blob blob) {
-        this.certBlob = blob;
     }
 }

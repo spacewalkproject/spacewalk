@@ -13,7 +13,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				<param name="property">configRevisionAction</param>
 			</generator>
 		</id>
-		<property name="resultBlob" column="result" type="blob" lazy="true" />
+		<property name="result" column="result" type="binary" lazy="true" />
 		<property name="created" column="created" type="timestamp" />
 		<property name="modified" column="modified" type="timestamp" />
 		<many-to-one name="configRevisionAction"

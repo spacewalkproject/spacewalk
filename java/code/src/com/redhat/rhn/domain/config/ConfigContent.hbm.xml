@@ -11,7 +11,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				<param name="sequence">rhn_confcontent_id_seq</param>
 			</generator>
 		</id>
-		<property name="contentsBlob" column="contents" type="blob" />
+		<property name="contents" column="contents" type="binary" />
 		<property name="fileSize" column="file_size" type="long" />
 		<property name="binary" column="is_binary" type="yes_no" />
 		<property name="created" column="created" type="timestamp" />

@@ -16,7 +16,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="chroot" column="chroot" not-null="true" type="string" length="1" />
         <property name="raw" column="raw_script" not-null="true" type="yes_no" />
         <property name="interpreter" column="interpreter"  type="string" length="80" />
-        <property name="dataBlob" column="data"  type="blob" />
+        <property name="data" column="data"  type="binary" />
         <property name="created" column="created" not-null="true"
         	type="timestamp" insert="false" update="false"/>
         <property name="modified" column="modified" not-null="true"

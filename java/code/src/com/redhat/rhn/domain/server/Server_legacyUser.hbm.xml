@@ -172,7 +172,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <joined-subclass name="com.redhat.rhn.domain.server.SatelliteServer"
             table="rhnSatelliteInfo">
             <key column="server_id"/>
-            <property name="certBlob" type="blob" column="cert" lazy="true"/>
+            <property name="cert" type="binary" column="cert" lazy="true"/>
             <property name="product" />
             <property name="owner" />
             <property name="issued" column="issued_string" />

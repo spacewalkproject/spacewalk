@@ -17,9 +17,6 @@ package com.redhat.rhn.domain.action.script;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.action.ActionChild;
 
-import org.hibernate.Hibernate;
-
-import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -132,27 +129,6 @@ public class ScriptActionDetails extends ActionChild {
      */
     public void setScript(byte[] scriptIn) {
         this.script = scriptIn;
-    }
-
-    /**
-     * Let Hibernate get the script blob, used only by Hibernate.
-     * @return Returns the script.
-     */
-    private Blob getScriptBlob() {
-        if (this.script == null) {
-            return null;
-        }
-        else {
-            return Hibernate.createBlob(this.script);
-        }
-    }
-
-    /**
-     * Let Hibernate set the Script Blob contents, used only by Hibernate.
-     * @param scriptBlob The script to set.
-     */
-    private void setScriptBlob(Blob scriptBlob) {
-        this.script = HibernateFactory.blobToByteArray(scriptBlob);
     }
 
     /**

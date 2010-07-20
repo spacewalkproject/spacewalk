@@ -14,11 +14,8 @@
  */
 package com.redhat.rhn.domain.config;
 
-import com.redhat.rhn.domain.common.Checksum;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.BaseDomainHelper;
-
-import java.sql.Blob;
+import com.redhat.rhn.domain.common.Checksum;
 
 /**
  * ConfigContent - Class representation of the table rhnConfigContent.
@@ -30,7 +27,7 @@ public class ConfigContent extends BaseDomainHelper {
     private Long fileSize;
     private Checksum checksum;
     private boolean isBinary;
-    private Blob contentsBlob;
+    private byte[] contents;
     /**
      * protected constructor.
      * Use the ConfigurationFactory to get new ConfigContents
@@ -60,39 +57,25 @@ public class ConfigContent extends BaseDomainHelper {
      * @return byte array to get
     */
     public byte[] getContents() {
-        return HibernateFactory.blobToByteArray(getContentsBlob());
+        return contents;
     }
 
     /**
-     * Setter for contents
-     * @param contentsIn to set
-    */
+     * set the contents
+     * @param contentsIn the contents
+     */
     public void setContents(byte[] contentsIn) {
-        setContentsBlob(HibernateFactory.byteArrayToBlob(contentsIn));
+        contents = contentsIn;
     }
 
-    /**
-     * Let Hibernate get the contents blob, used only by Hibernate.
-     * @return Returns the script.
-     */
-    protected Blob getContentsBlob() {
-        return contentsBlob;
-    }
 
-    /**
-     * Let Hibernate set the Content Blob contents, used only by Hibernate.
-     * @param blob The script to set.
-     */
-    protected void setContentsBlob(Blob blob) {
-        contentsBlob = blob;
-    }
 
     /**
      * Get the String version of the Contents content
      * @return String version of the Contents content
      */
     public String getContentsString() {
-        return HibernateFactory.blobToString(getContentsBlob());
+        return new String(contents);
     }
 
 
