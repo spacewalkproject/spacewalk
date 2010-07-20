@@ -1,4 +1,4 @@
-# translation of it.po to 
+# translation of rhn-client-tools.po to
 # translation of it.po to
 # translation of it.po to
 # translation of it.po to
@@ -23,7 +23,7 @@
 # translation of it.po to
 # translation of it.po to
 # translation of it.po to
-# translation of it.po to Italian
+# translation of it.po to
 # Copyright (C) Red Hat, Inc 2001
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
 # Valentina Besi <valentina@redhat.it>, 2001.
@@ -32,16 +32,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: it\n"
+"Project-Id-Version: rhn-client-tools\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-07 13:34+0200\n"
-"PO-Revision-Date: 2007-02-01 02:01+0100\n"
+"PO-Revision-Date: 2010-07-20 11:26+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -69,12 +69,11 @@ msgstr "Fine impostazione aggiornamenti software"
 
 #: ../src/up2date_client/gui.py:301
 msgid "_Exit"
-msgstr ""
+msgstr "_Esci"
 
 #: ../src/up2date_client/gui.py:302
-#, fuzzy
 msgid "Software updates setup unsuccessful"
-msgstr "Impostazione aggiornamento software non riuscito"
+msgstr "Impostazione aggiornamenti software non riuscito"
 
 #: ../src/up2date_client/gui.py:312
 msgid "You must run rhn_register as root."
@@ -91,8 +90,7 @@ msgstr "Errore nella lettura delle informazioni della cpu:"
 
 #: ../src/up2date_client/hardware.py:662
 msgid "Error reading system memory information:"
-msgstr ""
-"Errore nella lettura delle informazioni riguardanti la memoria del sistema:"
+msgstr "Errore nella lettura delle informazioni riguardanti la memoria del sistema:"
 
 #: ../src/up2date_client/hardware.py:672
 msgid "Error reading networking information:"
@@ -128,7 +126,7 @@ msgstr "Finestra di dialogo"
 
 #: ../src/up2date_client/rhnChannel.py:97
 msgid "Unable to Locate SystemId"
-msgstr ""
+msgstr "Impossibile trovare SystemId"
 
 #: ../src/up2date_client/rhnChannel.py:114
 msgid "This system may not be updated until it is associated with a channel."
@@ -166,16 +164,13 @@ msgid "An unexpected OS error occurred: %s\n"
 msgstr "Si è verificato un errore dell'OS inatteso: %s\n"
 
 #: ../src/up2date_client/rhncli.py:83
-#, fuzzy
 msgid "A connection was attempted with a malformed URI.\n"
-msgstr ""
-"È stato eseguito un tentativo di collegamento con un URI non corretto.\n"
+msgstr "È stato eseguito un tentativo di collegamento con un URI malformato.\n"
 
 #: ../src/up2date_client/rhncli.py:85
-#, fuzzy, python-format
+#, python-format
 msgid "A connection was attempted with a malformed URI: %s.\n"
-msgstr ""
-"È stato eseguito un tentativo di collegamento con un URI non corretto: %s.\n"
+msgstr "È stato eseguito un tentativo di collegamento con un URI malformato: %s.\n"
 
 #: ../src/up2date_client/rhncli.py:87
 #, python-format
@@ -212,19 +207,18 @@ msgstr "Bisogna essere un utente root per eseguire %s"
 
 #: ../src/up2date_client/rhncli.py:142 ../src/up2date_client/rhncli.py:177
 msgid "Unable to open gui. Try `up2date --nox`"
-msgstr ""
-"Non è possibile lanciare l'interfaccia grafica. Utilizzare `up2date --nox`"
+msgstr "Non è possibile lanciare l'interfaccia grafica. Utilizzare `up2date --nox`"
 
 #: ../src/up2date_client/rhncli.py:184
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%%prog (Red Hat Network Client Tools) %s\n"
 "Copyright (C) 1999--2010 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
 "%%prog (Red Hat Network Client Tools) %s\n"
-"Copyright (C) 1999-2006 Red Hat, Inc.\n"
-"Licenza in base ai termini della GPL."
+"Copyright (C) 1999--2010 Red Hat, Inc.\n"
+"Licenza in base ai termini della GPLv2."
 
 #: ../src/up2date_client/rhncli.py:204
 msgid "An error has occurred:"
@@ -235,9 +229,8 @@ msgid "See /var/log/up2date for more information"
 msgstr "Vedi /var/log/up2date per ulteriori informazioni"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-#, fuzzy
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "Copyright Â© 2006  Red Hat, Inc. Tutti i diritti riservati."
+msgstr "Copyright © 2006--2010 Red Hat, Inc. Tutti i diritti riservati."
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:16
@@ -370,23 +363,20 @@ msgid "Software update setup unsuccessful"
 msgstr "Impostazione aggiornamento software non riuscito"
 
 #: ../src/up2date_client/rhnreg_constants.py:60
-#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
-"Siete sicuri di non voler collegare il vostro sistema a Red Hat Network? "
-"Così facendo non potrete usufruire dei benefici offerti dalla sottoscrizione "
-"a Red Hat Enterprise Linux:"
+"Siete sicuri di non voler collegare il sistema a Red Hat Network? "
+"Così facendo non potrete usufruire dei benefici offerti dalla sottoscrizione a Red Hat Enterprise Linux:\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:62
-#, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Network.\n"
 msgstr ""
-"<b>Non</b> sarete in grado di usufruire dei vantaggi offerti da queste "
-"sottoscrizioni se non collegate prima il vostro sistema a Red Hat Network."
+"Non sarete in grado di usufruire dei vantaggi offerti da queste "
+"sottoscrizioni se non collegate prima il vostro sistema a Red Hat Network.\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:65
 msgid "I'll register later."
@@ -448,13 +438,12 @@ msgstr ""
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:82
-#, fuzzy
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"<small>Suggerimento: Avete dimenticato il vostro nome utente o password? "
-"Ricercateli su https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+"Suggerimento: Hai dimenticato il nome utente o password? Consultare https://rhn.redhat.com/rhn/sales/"
+"LoginInfo.do"
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "*Email Address:"
@@ -561,8 +550,8 @@ msgstr ""
 "ricevere alcun aggiornamento o supporto per il prodotto in questione. Se "
 "desiderate invece ricevere gli aggiornamenti desiderati, vi preghiamo di "
 "eseguire un login sull'interfaccia web di satellite, e sottoscrivere il "
-"sistema ai canali software appropriati. Consultate il Kbase article 11313 per "
-"maggiori informazioni. (http://kbase.redhat.com/faq/docs/DOC-11313)"
+"sistema ai canali software appropriati. Consultate il Kbase article 11313 "
+"per maggiori informazioni. (http://kbase.redhat.com/faq/docs/DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:129
 msgid ""
@@ -811,7 +800,7 @@ msgstr ""
 "server più recente."
 
 #: ../src/up2date_client/rhnreg_constants.py:229
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -824,7 +813,7 @@ msgid ""
 msgstr ""
 "<b><span size=\"16000\">File Incompatibile del Certificato</span></b>\n"
 "\n"
-"Il certificato fornito, <b>%s</b>, non risulta compatibile con il server del "
+"Il certificato fornito, <b>%s</b>, non risulta compatibile con il server di "
 "Red Hat Network su <b>%s</b>. Vi consigliamo di controllare la validità del "
 "file del certificato. Siete sicuri di aver fornito un certificato corretto, "
 "e che il file del certificato non è stato corrotto?\n"
@@ -838,6 +827,10 @@ msgid ""
 " The certificate is expired. Please ensure you have the correct  certificate "
 "and your system time is correct."
 msgstr ""
+"<b><span size=\"12000\">File del certificato incompatibile</span></b>\n"
+"\n"
+" Il certificato è scaduto. Assicurarsi di avere il certificato e l'ora del sistema "
+"corretti."
 
 #: ../src/up2date_client/rhnreg_constants.py:241
 msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
@@ -873,12 +866,15 @@ msgid ""
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
+"\n"
+" Suggerimento: Le versioni minori con un '*' sono attualmente supportate da Red Hat.\n"
+"\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:260
 msgid ""
 "Warning:You will not be able to limit this system to minor release that is "
 "older than the recent minor release if you select this option.\n"
-msgstr ""
+msgstr "Avvertimento: Se questa opzione viene selezionata non sarà possibile limitare questo sistema ad una versione minore più vecchia di quella recente.\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:265
 #, python-format
@@ -889,6 +885,11 @@ msgid ""
 "(you will be able to move to a newer release.)\n"
 "Are you sure you Would like to Continue?"
 msgstr ""
+"Il sistema verrà sottoscritto al canale software\n"
+"di base %s. Non sarai in grado di modificare questo\n"
+"sistema ad una versione precedente\n"
+"(è possibile selezionare una versione più recente.)\n"
+"Sei sicuro di voler continuare?"
 
 #. Navigation
 #: ../src/up2date_client/rhnreg_constants.py:274
@@ -938,9 +939,8 @@ msgid "Notice"
 msgstr "Avviso"
 
 #: ../src/up2date_client/rhnregGui.py:261
-#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr "Si è verificato un errore durante la popolazione del profilo."
+msgstr "Si è verificato un errore durante l'applicazione della selezione fatta."
 
 #: ../src/up2date_client/rhnregGui.py:287
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -949,13 +949,10 @@ msgstr ""
 "http."
 
 #: ../src/up2date_client/rhnregGui.py:300
-#, fuzzy
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Red Hat Network server."
-msgstr ""
-"<b>Non</b> sarete in grado di usufruire dei vantaggi offerti da queste "
-"sottoscrizioni se non collegate prima il vostro sistema a Red Hat Network."
+msgstr "Non sarà possibile registrare questo sistema senza contattare un server di Red Hat Network."
 
 #: ../src/up2date_client/rhnregGui.py:325
 #, python-format
@@ -965,8 +962,7 @@ msgstr "Impossibile contattare Red Hat Network (%s)."
 #: ../src/up2date_client/rhnregGui.py:327
 #: ../src/up2date_client/rhnregGui.py:340
 msgid "Make sure the network connection on this system is operational."
-msgstr ""
-"Assicurtevi che il collegamento di rete su questo sistema sia operativo."
+msgstr "Assicurtevi che il collegamento di rete su questo sistema sia operativo."
 
 #: ../src/up2date_client/rhnregGui.py:329
 msgid ""
@@ -1002,18 +998,16 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:353
 msgid "You may be running a client that is incompatible with the server."
-msgstr ""
-"Molto probabilmente state eseguendo un client incompatibile con il server."
+msgstr "Molto probabilmente state eseguendo un client incompatibile con il server."
 
 #: ../src/up2date_client/rhnregGui.py:396
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
 msgstr ""
-"Vi preghiamo di inserire le vostre informazioni di login per il %s Red Hat "
-"Network Satellite:\n"
-"\n"
+"Inserire le informazioni sull'account per il <b>%s</b> Red Hat Network "
+"Satellite:"
 
 #: ../src/up2date_client/rhnregGui.py:445
 msgid "You must enter a login."
@@ -1024,9 +1018,8 @@ msgid "You must enter a password."
 msgstr "Occorre inserire una password."
 
 #: ../src/up2date_client/rhnregGui.py:465
-#, fuzzy
 msgid "There was an error while logging in."
-msgstr "Si è verificato un problema durante il log in."
+msgstr "Si è verificato un errore durante la registrazione."
 
 #: ../src/up2date_client/rhnregGui.py:489
 msgid ""
@@ -1037,9 +1030,8 @@ msgstr ""
 "Il messaggio è:\n"
 
 #: ../src/up2date_client/rhnregGui.py:631
-#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr "Si è verificato un errore durante la popolazione del profilo."
+msgstr "Si è verificato un errore durante la raccolta delle informazioni per il profilo."
 
 #: ../src/up2date_client/rhnregGui.py:652
 msgid "Error running hardware profile"
@@ -1054,9 +1046,8 @@ msgid "You must choose a name for this profile."
 msgstr "Occorre assegnare un nome al profilo."
 
 #: ../src/up2date_client/rhnregGui.py:714
-#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr "Si è verificato un errore durante la popolazione del profilo."
+msgstr "Si è verificato un errore durante la creazione del profilo."
 
 #: ../src/up2date_client/rhnregGui.py:725
 msgid "Sending your profile information to Red Hat Network.  Please wait."
@@ -1093,8 +1084,7 @@ msgstr "Problema di scrittura dell'ID del sistema sul disco."
 
 #: ../src/up2date_client/rhnregGui.py:795
 msgid "There was a problem registering this system."
-msgstr ""
-"Si è verificato un problema durante la registrazione di questo sistema."
+msgstr "Si è verificato un problema durante la registrazione di questo sistema."
 
 #: ../src/up2date_client/rhnregGui.py:808
 msgid "Sending hardware information"
@@ -1134,9 +1124,8 @@ msgid "Problem registering personal information"
 msgstr "Problema di registrazione delle informazioni personali"
 
 #: ../src/up2date_client/rhnregGui.py:940
-#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr "Si è verificato un errore durante la popolazione del profilo."
+msgstr "Si è verificato un errore durante l'installazione del certificato."
 
 #: ../src/up2date_client/rhnregGui.py:966
 msgid "You must select a certificate."
@@ -1155,8 +1144,7 @@ msgstr ""
 #. TODO Provide better messages
 #: ../src/up2date_client/rhnregGui.py:1006
 msgid "Something went wrong while installing the new certificate:\n"
-msgstr ""
-"Si è verificato un errore durante l'installazione del nuovo certificato:\n"
+msgstr "Si è verificato un errore durante l'installazione del nuovo certificato:\n"
 
 #: ../src/up2date_client/rhnregGui.py:1058
 #: ../src/up2date_client/rhnregGui.py:1059
@@ -1165,9 +1153,8 @@ msgid "unknown"
 msgstr "sconosciuto"
 
 #: ../src/up2date_client/rhnregGui.py:1138
-#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr "Si è verificato un errore durante la popolazione del profilo."
+msgstr "Si è verificato un errore durante l'acquisizione dell'elenco di hardware."
 
 #: ../src/up2date_client/rhnregGui.py:1150 ../src/up2date_client/tui.py:631
 #, python-format
@@ -1180,10 +1167,8 @@ msgid "%s MB"
 msgstr "%s MB"
 
 #: ../src/up2date_client/rhnregGui.py:1198
-#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr ""
-"C'è stato un errore irreversibile durante l'installazione del pacchetto:\n"
+msgstr "Si è verificato un errore durante la creazione dell'elenco dei pacchetti."
 
 #: ../src/up2date_client/rhnregGui.py:1213
 msgid "Package"
@@ -1233,13 +1218,12 @@ msgid "Warning: unable to enable rhnsd with chkconfig"
 msgstr "Avvertenza: impossibile attivare rhnsd con chkconfig"
 
 #: ../src/up2date_client/rhnreg.py:65
-#, fuzzy
 msgid "Warning: unable to run rhn_check"
-msgstr "Avvertenza: impossibile attivare rhnsd con chkconfig"
+msgstr "Avvertenza: impossibile eseguire rhn_check"
 
 #: ../src/up2date_client/rpcServer.py:47
 msgid "Error: Server Unavailable. Please try later."
-msgstr ""
+msgstr "Errore: Server Non disponibile. Riprovare più tardi."
 
 #: ../src/up2date_client/rpcServer.py:171
 msgid "ERROR: can not find RHNS CA file"
@@ -1262,57 +1246,50 @@ msgid "System software updates already set up"
 msgstr "Aggiornamenti software del sistema già impostati"
 
 #: ../src/up2date_client/tui.py:115
-#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr "(_L)Posizione di Red Hat Network:"
+msgstr "Posizione di Red Hat Network:"
 
 #: ../src/up2date_client/tui.py:117
-#, fuzzy
 msgid "System ID:"
-msgstr ""
-"\n"
-"ID del sistema: "
+msgstr "ID del sistema: "
 
 #: ../src/up2date_client/tui.py:371
 msgid "The server indicated an error:\n"
 msgstr "Il server ha riportato un errore:\n"
 
 #: ../src/up2date_client/tui.py:375
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr ""
-"Si è verificato un errore di comunicazione con il server di registrazione. "
-"Il messaggio è:\n"
+msgstr "Si è verificato un errore di comunicazione con il server di registrazione:\n"
 
 #: ../src/up2date_client/tui.py:434
 msgid "Select Operating System Release"
-msgstr ""
+msgstr "Selezionare versione sistema operativo"
 
 #: ../src/up2date_client/tui.py:438
 msgid "Operating System version:"
-msgstr ""
+msgstr "Versione sistema operativo:"
 
 #: ../src/up2date_client/tui.py:440
 msgid "Limited Updates Only"
-msgstr ""
+msgstr "Solo aggiornamenti limitati"
 
 #: ../src/up2date_client/tui.py:452
 msgid " Minor Release: "
-msgstr ""
+msgstr " Versione minore:"
 
 #: ../src/up2date_client/tui.py:467
 msgid "All available updates"
-msgstr ""
+msgstr "Tutti gli aggiornamenti disponibili"
 
 #: ../src/up2date_client/tui.py:520
 msgid "Confirm operating system release selection"
-msgstr ""
+msgstr "Confermare la selezione della versione del sistema operativo"
 
 #: ../src/up2date_client/tui.py:528
 msgid ""
 "Your system will be subscribed to the base software channel to receive all "
 "available updates."
-msgstr ""
+msgstr "Il sistema sarà sottoscritto al canale software di base per ricevere tutti gli aggiornamenti disponibili."
 
 #: ../src/up2date_client/tui.py:572
 msgid "Register a System Profile - Hardware"
@@ -1387,8 +1364,7 @@ msgstr ""
 
 #: ../src/up2date_client/tui.py:694
 msgid "Include RPM packages installed on this system in my System Profile"
-msgstr ""
-"Includere i pacchetti RPM installati sul sistema nel profilo di sistema"
+msgstr "Includere i pacchetti RPM installati sul sistema nel profilo di sistema"
 
 #: ../src/up2date_client/tui.py:698
 msgid "You may deselect individual packages by unchecking them below."
@@ -1431,8 +1407,7 @@ msgid "You specified an invalid protocol."
 msgstr "Avete specificato un protocollo non valido."
 
 #: ../src/up2date_client/tui.py:1106
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgid "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> tra elementi  |  <Spazio> seleziona  |  <F12> schermata "
 "successiva"
@@ -1451,8 +1426,7 @@ msgstr "errore RPM. Il messaggio è:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:50
 msgid "There was a fatal error installing the package:\n"
-msgstr ""
-"C'è stato un errore irreversibile durante l'installazione del pacchetto:\n"
+msgstr "C'è stato un errore irreversibile durante l'installazione del pacchetto:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:63
 msgid "Password error. The message was:\n"
@@ -1504,18 +1478,15 @@ msgstr "Errore di ritardo dal server. Il messaggio è:\n"
 #: ../src/up2date_client/up2dateErrors.py:204
 #, python-format
 msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-msgstr ""
-"Impossibile rimuovere il pacchetto \"%s\". Si trovava su RemoveSkipList"
+msgstr "Impossibile rimuovere il pacchetto \"%s\". Si trovava su RemoveSkipList"
 
 #: ../src/up2date_client/up2dateErrors.py:227
 msgid "GPG is not installed properly."
 msgstr "GPG non è installato correttamente."
 
 #: ../src/up2date_client/up2dateErrors.py:237
-msgid ""
-"GPG keyring does not include the Red Hat, Inc. public package-signing key"
-msgstr ""
-"La chiave GPG non include la chiave di signature pubblica di Red Hat, Inc."
+msgid "GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgstr "La chiave GPG non include la chiave di signature pubblica di Red Hat, Inc."
 
 #: ../src/up2date_client/up2dateErrors.py:249
 #, python-format
@@ -1574,6 +1545,22 @@ msgid ""
 "retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
+"\n"
+"    L'organizzazione non ha un numero sufficiente di entitlement di Gestione per "
+"registrare questo sistema\n"
+"    con il Red Hat Network. Notificare questo errore all'amministratore "
+"dell'organizzazione.\n"
+"    Sarà possibile registrare questo sistema solo se l'organizzazione rende disponibile o acquista entitlement aggiuntivi\n"
+"    Gli entitlement aggiuntivi possono essere acquistati dall'amministratore "
+"dell'organizzazione eseguendo un log in nel Red Hat Network\n"
+"visitando la pagina 'Gestione sottoscrizioni' nella sezione 'Il tuo RHN di RHN.\n"
+"    \n"
+"    Una causa comune per questo codice d'errore è l'impostazione errata di una\n"
+"    chiave di attivazione la quale viene impostata come default universale. "
+"Se una chiave di attivazione è stata\n"
+"    impostata per un account come default universale, sarà possibile "
+"disabilitare la suddetta chiave\n"
+"    evitando cosi la necessità di acquisire un entitlement di Gestione."
 
 #: ../src/firstboot/rhn_choose_server_gui.py:40 ../data/rh_register.glade.h:43
 msgid "Choose Server"
@@ -1610,8 +1597,7 @@ msgid "There was a communication error with the server: %s"
 msgstr "Si è verificato un errore di comunicazione con il server: %s"
 
 #: ../src/firstboot/rhn_login_gui.py:106
-msgid ""
-"Would you like to try changing the network configuration and trying again?"
+msgid "Would you like to try changing the network configuration and trying again?"
 msgstr "Si desidera modificare le impostazioni di rete e tentare ancora?"
 
 #: ../src/firstboot/rhn_provide_certificate_gui.py:40
@@ -1683,14 +1669,12 @@ msgid "Specify an activation key"
 msgstr "Specificare una chiave di attivazione"
 
 #: ../src/bin/rhnreg_ks.py:58
-msgid ""
-"Subscribe this system to the EUS channel tied to the system's redhat-release"
-msgstr ""
+msgid "Subscribe this system to the EUS channel tied to the system's redhat-release"
+msgstr "Sottoscrivere questo sistema al canale EUS collegato al redhat-release del sistema"
 
 #: ../src/bin/rhnreg_ks.py:60
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "Leggere le informazioni di contatto da stdin "
+msgstr "[Deprecato] Leggere le informazioni di contatto da stdin"
 
 #: ../src/bin/rhnreg_ks.py:62
 msgid "Do not probe or upload any hardware info"
@@ -1727,19 +1711,18 @@ msgid ""
 "Usage of --use-eus-channel option with --activationkey is not supported. "
 "Please use username and password instead."
 msgstr ""
+"L'uso dell'opzione --use-eus-channel con --activationkey non è supportato. "
+"Usare invece il nome utente e la password."
 
 #: ../src/bin/rhnreg_ks.py:122
-#, fuzzy
 msgid "The server you are registering against does not support EUS."
-msgstr ""
-"Il server utilizzato per la registrazione non supporta la versione di questo "
-"client."
+msgstr "Il server utilizzato per la registrazione non supporta EUS."
 
 #: ../src/bin/rhnreg_ks.py:152
 msgid ""
 "Warning: --contactinfo option has been deprecated. Please login to the "
 "server web user Interface and update your contactinfo. "
-msgstr ""
+msgstr "Avvertenza: l'opzione --contactinfo è stata deprecata. Eseguire il log in sulla interfaccia utente web del server ed aggiornare il contactinfo. "
 
 #: ../src/bin/rhnreg_ks.py:192
 msgid ""
@@ -1771,22 +1754,23 @@ msgstr "Registrazione per aggiornamenti software in corso"
 
 #: ../data/gui.glade.h:7
 msgid "Select operating system release"
-msgstr ""
+msgstr "Selezionare la versione del sistema operativo"
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "Avanzare Dialog"
 
 #: ../data/rh_register.glade.h:1
-#, fuzzy
 msgid ""
 "\n"
 "Are you sure you would like to continue?"
-msgstr "Siete sicuri di voler continuare?"
+msgstr ""
+"\n"
+"Sei sicuro di voler continuare?"
 
 #: ../data/rh_register.glade.h:3
 msgid "       "
-msgstr ""
+msgstr "       "
 
 #: ../data/rh_register.glade.h:4
 msgid "<b>Compliance:</b>"
@@ -1833,14 +1817,14 @@ msgstr ""
 msgid ""
 "<b>Tip:</b> Minor releases with a '*' are currently fully supported by Red "
 "Hat."
-msgstr ""
+msgstr "<b>Suggerimento:</b> Le versioni minori con un '*' sono attualmente completamente supportate da Red Hat."
 
 #: ../data/rh_register.glade.h:14
 msgid ""
 "<b>Warning:</b> You will <b>not</b> be able to limit this system to a minor "
 "release that is older than the most recent minor release if you select this "
 "option."
-msgstr ""
+msgstr "<b>Avvertenza:</b> <b>Non</b> sarà possibile limitare questo sistema ad una versione minore più vecchia della versione minore più recente se si seleziona questa opzione."
 
 #: ../data/rh_register.glade.h:15
 msgid ""
@@ -1854,7 +1838,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:16
 msgid "<b>Your system was registered for updates during installation.</b>"
-msgstr ""
+msgstr "<b>Il sistema è stato registrato per ricevere gli aggiornamenti durante l'installazione.</b>"
 
 #: ../data/rh_register.glade.h:17
 msgid ""
@@ -1862,18 +1846,18 @@ msgid ""
 "if kept updated, will always be equivalent to the latest available minor "
 "release of Red Hat Enterprise Linux 5.  It will be registered to the main "
 "'Red Hat Enterprise Linux 5' software channel."
-msgstr ""
+msgstr "<b> Tutti gli _Aggiornamenti disponibili</b> verranno forniti a questo sistema.  Il suddetto sistema, se tenuto aggiornato, sarà sempre equivalente all'ultimissima versione minore disponibile di Red Hat Enterprise Linux 5.  Esso verrà registrato sul canale software 'Red Hat Enterprise Linux 5' principale."
 
 #: ../data/rh_register.glade.h:18
 msgid ""
 "<b>_Limited updates</b> will be provided to this system to maintain "
 "compatibility with the following eligible Red Hat Enterprise Linux minor "
 "release software channel:"
-msgstr ""
+msgstr "<b>Aggiornamenti _Limitati</b> verranno forniti a questo sistema per mantenere la compatibilità con il seguente canale software della versione minore di Red Hat Enterprise Linux eleggibile:"
 
 #: ../data/rh_register.glade.h:19
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
-msgstr ""
+msgstr "<big><b>Non sarà possibile la selezione di versioni precedenti</b></big>"
 
 #: ../data/rh_register.glade.h:20
 msgid "<big><b>Profile Data</b></big>"
@@ -1896,13 +1880,10 @@ msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
 msgstr "<small><b>Esempio</b>: XXXX-XXXX-XXXX-XXXX</small>"
 
 #: ../data/rh_register.glade.h:25
-#, fuzzy
 msgid ""
 "<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
 "privacy_statement.html.</small>"
-msgstr ""
-"Suggerimento: La vostra privacy è per noi molto importante: http://www."
-"redhat.com/legal/privacy_statement.html"
+msgstr "<small><b>Suggerimento:</b> La vostra privacy è per Red Hat molto importante: http://www.redhat.com/legal/privacy_statement.html.</small>"
 
 #: ../data/rh_register.glade.h:26
 msgid ""
@@ -1940,8 +1921,7 @@ msgstr ""
 "sistema e Red Hat Network (inclusi il vostro login e password)."
 
 #: ../data/rh_register.glade.h:34
-msgid ""
-"Activate a previously purchased subscription you have not yet activated."
+msgid "Activate a previously purchased subscription you have not yet activated."
 msgstr ""
 "Attivare una sottoscrizione precedentemente acquistata ma non ancora "
 "attivata."
@@ -1976,13 +1956,12 @@ msgid "Certificate _Location:"
 msgstr "Posizione (_L)certificato"
 
 #: ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Choose Channel"
-msgstr "Seleziona organizzazione"
+msgstr "Seleziona canale"
 
 #: ../data/rh_register.glade.h:44
 msgid "Confirm operation system release selection"
-msgstr ""
+msgstr "Confermare la selezione della versione del sistema operativo"
 
 #: ../data/rh_register.glade.h:46
 msgid "Create profile"
@@ -2196,8 +2175,7 @@ msgstr "Perchè registrarsi"
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
-msgstr ""
-"Desiderate registrare il vostro sistema ora? <b>(Fortemente consigliato.)</b>"
+msgstr "Desiderate registrare il vostro sistema ora? <b>(Fortemente consigliato.)</b>"
 
 #: ../data/rh_register.glade.h:93
 msgid ""
@@ -2276,7 +2254,6 @@ msgstr ""
 "applicazione degli aggiornamenti se disponibili:"
 
 #: ../data/rh_register.glade.h:104
-#, fuzzy
 msgid ""
 "Your system is ready to receive the software updates that will keep it "
 "secure and supported.\n"
@@ -2286,12 +2263,12 @@ msgid ""
 "circled below.) Clicking on this icon, when available, will guide you "
 "through applying any updates that are available:"
 msgstr ""
-"Il vostro sistema è pronto a ricevere aggiornamenti software i quali lo "
+"Il vostro sistema è pronto a ricevere gli aggiornamenti software i quali lo "
 "renderanno sicuro e supportato.\n"
 "\n"
-"Sarete informati sulla disponibilità degli aggiornamenti software, quando "
-"apparirà una icona del pacchetto all'interno dell'area di notifica del "
-"vostro desktop (generalmente nell'angolo in alto sulla destra.) Facendo clic "
+"Sarete informati sulla disponibilità di aggiornamenti software, quando "
+"apparirà una icona nell'area di notifica del vostro desktop (generalmente "
+"nell'angolo in alto sulla destra.) Facendo clic "
 "su questa icona, se presente, verrete guidati attraverso il processo di "
 "applicazione degli aggiornamenti se disponibili:"
 
@@ -2300,7 +2277,7 @@ msgid ""
 "Your system will be subscribed to the base software channel.  You will not "
 "be able to move this system to an earlier minor release channel if you "
 "continue (you will be able to move to a later release.)"
-msgstr ""
+msgstr "Il sistema verrà sottoscritto al canale software di base.  Non sarà possibile usare un canale della versione minore precedente se si desidera continuare (sarà possibile usare una versione più recente.)"
 
 #: ../data/rh_register.glade.h:108
 msgid ""
@@ -2325,7 +2302,7 @@ msgstr "_Login:"
 
 #: ../data/rh_register.glade.h:112
 msgid "_Minor release:"
-msgstr ""
+msgstr "Versione _Minore:"
 
 #: ../data/rh_register.glade.h:113
 msgid "_No thanks, I'll connect later."
@@ -2341,7 +2318,7 @@ msgstr "_No, preferisco registrarmi più tardi."
 
 #: ../data/rh_register.glade.h:116
 msgid "_Operating system version:"
-msgstr ""
+msgstr "Versione Sistema _Operativo:"
 
 #: ../data/rh_register.glade.h:117
 msgid "_Password:"
@@ -2396,1297 +2373,14 @@ msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• Il vostro Red Hat Network o login di Red Hat Network Satellite"
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "numero_registrazione"
+msgstr "Registrazione RHN"
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
-msgstr ""
+msgstr "Registrazione per aggiornamenti software da Spacewalk/Satellite/Red Hat Network"
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Registrazione a Red Hat Network"
+msgstr "Registrazione a Spacewalk/Satellite/Red Hat Network."
 
-#~ msgid "_Exit software update setup"
-#~ msgstr "(_E)Abbandona impostazione aggiornamenti software"
-
-#~ msgid "software updates setup unsuccessful"
-#~ msgstr "Impostazione aggiornamenti software non riuscito"
-
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr ""
-#~ "Se non siete in possesso di un login di Red Hat, qui potete crearne uno."
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "Fase 1: Rivedere la dichiarazione sulla privacy di Red Hat"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Ricontrollare i termini e le condizioni di Red Hat Network"
-
-#~ msgid ""
-#~ "Are you sure you don't want to connect your system to Red Hat Network? "
-#~ "You'll miss out on the benefits of a Red Hat Enterprise Linux "
-#~ "subscription:\n"
-#~ "\n"
-#~ "Security & Updates:\n"
-#~ "Receive the latest software updates, including security updates, keeping "
-#~ "this Red Hat Enterprise Linux system updated and secure.\n"
-#~ "\n"
-#~ "Downloads & Upgrades:\n"
-#~ "Download installation images for Red Hat Enterprise Linux releases, "
-#~ "including new releases.\n"
-#~ "\n"
-#~ "Support:\n"
-#~ "Access to the technical support experts at Red Hat or Red Hat's partners "
-#~ "for help with any issues you might encounter with this system.\n"
-#~ "\n"
-#~ "Compliance:\n"
-#~ "Stay in compliance with your subscription agreement and manage "
-#~ "subscriptions for systems connected to your account at http://rhn.redhat."
-#~ "com/.\n"
-#~ "\n"
-#~ "You will not be able to take advantage of these subscription privileges "
-#~ "without connecting your system to Red Hat Network.\n"
-#~ "\n"
-#~ "Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-#~ "privacy_statement.html"
-#~ msgstr ""
-#~ "Siete sicuri di non voler collegare il vostro sistema a Red Hat Network? "
-#~ "Così facendo non sarete in grado di usufruire dei vantaggi offerti dalle "
-#~ "sottoscrizioni\n"
-#~ "di Red Hat Enterprise Linux:\n"
-#~ "Security & Aggiornamenti:\n"
-#~ "Ricevete gli ultimissimi aggiornamenti software, incluso gli "
-#~ "aggiornamenti software, in modo da mantenere il vostro sistema Red Hat "
-#~ "Enterprise Linux sicuro ed aggiornato.\n"
-#~ "\n"
-#~ "Download & Aggiornamenti:\n"
-#~ "Scaricate le immagini d'installazione per le release di Red Hat "
-#~ "Enterprise Linux, incluso le nuove release.\n"
-#~ "\n"
-#~ "Supporto:\n"
-#~ "Usufruite del supporto tecnico offerto dagli esperti di Red Hat e dai "
-#~ "suoi partner, per l'assistenza su qualsiasi problema incontrato con "
-#~ "questo sistema.\n"
-#~ "\n"
-#~ "Conformità:\n"
-#~ "Seguite il vostro agreement e gestite le sottoscrizioni per i sistemi "
-#~ "collegati al vostro account tramite http://rhn.redhat.com/.\n"
-#~ "\n"
-#~ "Non sarete in grado di usufruire dei vantaggi di queste sottoscrizioni se "
-#~ "prima non collegherete il vostro sistema a Red Hat Network.\n"
-#~ "\n"
-#~ "Suggerimento: Per Red Hat la vostra privacy è molto importante: http://"
-#~ "www.redhat.com/legal/privacy_statement.html"
-
-#~ msgid "No thanks.  I'll connect later."
-#~ msgstr "No grazie.  Mi collegherò più in avanti."
-
-#~ msgid "Create a New Login ..."
-#~ msgstr "Crea un nuovo Login ..."
-
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr ""
-#~ "Le due password inserite non corrispondono. Si prega di ridigitare le "
-#~ "password."
-
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "Crea un nuovo login di Red Hat."
-
-#~ msgid ""
-#~ "Fill in the form below to create a new Red Hat login for use with Red Hat "
-#~ "Network (http://rhn.redhat.com/).  Required information is marked with a "
-#~ "'*':"
-#~ msgstr ""
-#~ "Completate il modulo sotto riportato per creare un nuovo login di Red Hat "
-#~ "per un utilizzo di Red Hat Network (http://rhn.redhat.com/).. Le "
-#~ "informazioni contrassegnate con un '*' sono obbligatorie:"
-
-#~ msgid "*Desired Login:"
-#~ msgstr "*Login desiderato:"
-
-#~ msgid "Examples: user@domain.com"
-#~ msgstr "Esempi: user@domain.com"
-
-#~ msgid "*Desired Password:"
-#~ msgstr "*Password desiderata:"
-
-#~ msgid "*Confirm Password:"
-#~ msgstr "* Conferma password:"
-
-#~ msgid "Tip: Leave blank if not with a company."
-#~ msgstr ""
-#~ "Suggerimento: Lasciare vuoto se non siete associati con una compagnia."
-
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr ""
-#~ "Suggerimento: La vostra privacy è per noi molto importante. Consultate la "
-#~ "nostra policy sulla privacy su: http://"
-
-#~ msgid "Please enter your first name."
-#~ msgstr "Inserire il vostro nome."
-
-#~ msgid "Please enter your last name."
-#~ msgstr "Inserire il vostro cognome."
-
-#~ msgid "Please enter your email address."
-#~ msgstr "Inserite il vostro indirizzo e-mail."
-
-#~ msgid "Please enter a valid email address."
-#~ msgstr "Inserite un indirizzo e-mail valido."
-
-#~ msgid "Please enter your country."
-#~ msgstr "Inserite la vostra nazione. "
-
-#~ msgid "Please enter a longer login."
-#~ msgstr "Inserite un login più lungo."
-
-#~ msgid "Please enter a longer password."
-#~ msgstr "Inserite una password più lunga."
-
-#~ msgid "Please enter a shorter password."
-#~ msgstr "Inserite una password più corta."
-
-#~ msgid ""
-#~ "It appears this system has attempted to register to the Red Hat Network.\n"
-#~ "The system may already be set up for software updates.\n"
-#~ "\n"
-#~ "Are you sure you would like to continue?"
-#~ msgstr ""
-#~ "Sembra che questo sistema abbia cercato di registrarsi al Red Hat "
-#~ "Network.\n"
-#~ "Il suddetto sistema può essere già stato impostato per ricevere "
-#~ "aggiornamenti software.\n"
-#~ "\n"
-#~ "Siete sicuri di voler continuare?"
-
-#~ msgid "Select Organization"
-#~ msgstr "Seleziona Organizzazione"
-
-#~ msgid ""
-#~ "Your login, %s, is associated with multiple organizations.  You will need "
-#~ "to select an organization to connect this system to."
-#~ msgstr ""
-#~ "Il vostro login, %s, è associato ad organizzazioni multiple. È necessario "
-#~ "selezionare una sola organizzazione alla quale registrare questo sistema."
-
-#~ msgid "Organization:"
-#~ msgstr "Organizzazione:"
-
-#~ msgid "You must select an organization."
-#~ msgstr "È necessario selezionare una organizzazione."
-
-#~ msgid "Access a subscription"
-#~ msgstr "Accedi una sottoscrizione"
-
-#~ msgid ""
-#~ "You have no active subscriptions available in your account.  You will "
-#~ "need to do one of the following to create an active subscription in your "
-#~ "account before this system can connect to Red Hat Network:"
-#~ msgstr ""
-#~ "Non sono presenti sottoscrizioni attive all'interno del vostro account.  "
-#~ "Per creare una sottoscrizione attiva sarà necessario eseguire una delle "
-#~ "seguenti fasi nel vostro account, prima che questo sistema sia in grado "
-#~ "di collegarsi al Red Hat Network:"
-
-#~ msgid "Activate a new subscription with an installation number:"
-#~ msgstr ""
-#~ "Attivate una nuova sottoscrizione tramite un numero d'installazione:"
-
-#~ msgid ""
-#~ "You have already activated this installation number during this "
-#~ "registration."
-#~ msgstr ""
-#~ "Il numero d'installazione è stato da voi già attivato durante questa "
-#~ "registrazione."
-
-#~ msgid "Installation Number:"
-#~ msgstr "Numero di registrazione:"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "Esempio: XXXX-XXXX-XXXX-XXXX-XXXX"
-
-#~ msgid ""
-#~ "Congratulations, you have successfully completed software updates set up "
-#~ "for this system.\n"
-#~ "\n"
-#~ "Your system is now ready to receive the software updates that will keep "
-#~ "it secure and supported.\n"
-#~ "\n"
-#~ "You'll know when software updates are available when a package icon "
-#~ "appears in the notification area of you desktop (usually in the upper-"
-#~ "right corner.) Clicking on this icon, when available, will guide you "
-#~ "through applying any updates that are available."
-#~ msgstr ""
-#~ "Congratulazioni, avete completato l'impostazione degli aggiornamenti "
-#~ "software per questo sistema.\n"
-#~ "\n"
-#~ "Il vostro sistema è pronto a ricevere aggiornamenti software traverso i "
-#~ "quali risulterà sicuro e supportato.\n"
-#~ "\n"
-#~ "Sarete informati sulla disponibilità degli aggiornamenti software, quando "
-#~ "apparirà una icona del pacchetto all'interno dell'area di notifica del "
-#~ "vostro desktop (generalmente nell'angolo in alto sulla destra.) Facendo "
-#~ "clic su questa icona, se presente, verrete guidati attraverso il processo "
-#~ "di applicazione degli aggiornamenti se disponibili."
-
-#~ msgid "Subscriptions Activated:"
-#~ msgstr "Sottoscrizioni attivate:"
-
-#~ msgid ""
-#~ "A subscription-activating installation number was found on disk, but we "
-#~ "were not able to activate it (An unknown error occurred.) We used "
-#~ "existing active subscription slots available in the rhn account instead. "
-#~ "You may wish to contact Red Hat customer service regarding this issue: "
-#~ "http://www.redhat.com/apps/support/"
-#~ msgstr ""
-#~ "È stato rilevato sul disco un numero d'installazione per l'attivazione "
-#~ "della sottoscrizione, il quale non risulta essere attivabile (si è "
-#~ "verificato un errore sconosciuto.) Sono stati utilizzati alloggiamenti "
-#~ "per sottoscrizioni attive esistenti, e disponibili all'interno "
-#~ "dell'account rhn. A tale scopo potete contattare il servizio clienti di "
-#~ "Red Hat su: http://www.redhat.com/apps/support/"
-
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr ""
-#~ "È stato rilevato sul disco un numero d'installazione, purtroppo non siamo"
-
-#~ msgid ""
-#~ "The installation number you have provided (%s) is invalid.\n"
-#~ "\n"
-#~ "Please check the number and try again or try another option listed on the "
-#~ "'Access a Subscription' screen."
-#~ msgstr ""
-#~ "Il numero d'installazione da voi fornito (%s) non risulta valido.\n"
-#~ "\n"
-#~ "Si prega di controllare il numero e di provare un'altra opzione presente "
-#~ "sulla schermata 'Accesso ad una sottoscrizione'."
-
-#~ msgid ""
-#~ "The installation number you provided is valid but was already activated "
-#~ "and the subscriptions have already been used by systems in your "
-#~ "organization or is not usable for this system.\n"
-#~ "\n"
-#~ "Please try a different number or try another option listed on the 'Access "
-#~ "a Subscription' screen."
-#~ msgstr ""
-#~ "Il numero d'installazione da voi fornito risulta valido ma è stato "
-#~ "precedentemente attivato, e le sottoscrizioni sono state già utilizzate "
-#~ "dai sistemi presenti nella vostra organizzazione, oppure esso non può "
-#~ "essere più utilizzato per questo sistema.\n"
-#~ "\n"
-#~ "Si prega di provare un numero diverso oppure un'altra opzione presente "
-#~ "sulla schermata 'Accesso ad una sottoscrizione'."
-
-#~ msgid ""
-#~ "The installation number you provided does not have subscriptions "
-#~ "associated with it.\n"
-#~ "\n"
-#~ "Please try a different number or try another option listed in the 'Access "
-#~ "a Subscription' screen."
-#~ msgstr ""
-#~ "Il numero d'installazione da voi fornito non possiede sottoscrizioni ad "
-#~ "esso associate.\n"
-#~ "\n"
-#~ "Si prega di provare un numero diverso oppure un'altra opzione presente "
-#~ "sulla schermata 'Accesso ad una sottoscrizione'."
-
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Si è verificato un problema durante il log in:\n"
-#~ "%s"
-
-#~ msgid "There was problem logging in."
-#~ msgstr "Si è verificato un problema durante il log in."
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "Si è verificato un errore durante la popolazione del profilo."
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "È necessario inserire un numero d'installazione."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Si è verificato un errore di comunicazione con Red Hat Network."
-
-#~ msgid "This installation number has already been activated."
-#~ msgstr "Il numero d'installazione è già stato attivato."
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "Si è verificato un errore durante la popolazione del profilo."
-
-#~ msgid "Unable to access the server. Please check your network settings."
-#~ msgstr ""
-#~ "Impossibile accedere al server. Vi preghiamo di controllare le "
-#~ "impostazioni del vostro server."
-
-#~ msgid ""
-#~ "The server you are attempting to register against does not support this "
-#~ "version of the client."
-#~ msgstr ""
-#~ "Il server utilizzato per la registrazione non supporta la versione di "
-#~ "questo client."
-
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "È necessario inserire un numero d'installazione in grado di"
-
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "Problema nella registrazione del nome di login:\n"
-
-#~ msgid "Problem registering login name."
-#~ msgstr "Problema nella registrazione del nome di login."
-
-#~ msgid ", quantity:"
-#~ msgstr ", quantità:"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Posizione del Red Hat Network: "
-
-#~ msgid ""
-#~ "\n"
-#~ "RHN Login: "
-#~ msgstr ""
-#~ "\n"
-#~ "Login di RHN: "
-
-#~ msgid "Access Subscription"
-#~ msgstr "Accedi sottoscrizione"
-
-#~ msgid "Choose Organization"
-#~ msgstr "Seleziona organizzazione"
-
-#~ msgid "Choose an organization to use with this username"
-#~ msgstr "Seleziona una organizzazione da utilizzare con questo nome utente"
-
-#~ msgid "Specify an email address"
-#~ msgstr "Specificare un indirizzo email"
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "Specificare un numero di sottoscrizione da utilizzare"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "Informazioni importanti per la registrazione"
-
-#~ msgid "Registration information"
-#~ msgstr "Informazioni di registrazione"
-
-#~ msgid "Select organization"
-#~ msgstr "Seleziona organizzazione"
-
-#~ msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
-#~ msgstr ""
-#~ "<small><b>Suggerimento:</b> La vostra privacy è per noi molto importante."
-#~ "</small>"
-
-#~ msgid "Privacy Statement"
-#~ msgstr "Dichiarazione sulla privacy"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Dichiarazione sulla privacy di Red Hat"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your account is associated with multiple <b>organizations</b>. You will "
-#~ "need to select an organization to register this system to."
-#~ msgstr ""
-#~ "Il vostro account è associato ad <b>organizzazioni</b> multiple. È "
-#~ "necessario selezionare una sola organizzazione alla quale registrare "
-#~ "questo sistema."
-
-#~ msgid "_Organization:"
-#~ msgstr "_Organizzazione:"
-
-#~ msgid ""
-#~ "were not able to activate it (An unknown error occurred.) We used "
-#~ "existing "
-#~ msgstr ""
-#~ "stati in grado di attivarlo (Si è verificato un errore sconosciuto.) Per "
-#~ "questo motivo abbiamo utilizzato "
-
-#~ msgid ""
-#~ "active subscription slots available in the rhn account instead. You may "
-#~ "wish "
-#~ msgstr ""
-#~ "gli slot di sottoscrizioni attive già esistenti all'interno dell'account "
-#~ "rhn. È consigliato contattare "
-
-#~ msgid "to contact Red Hat customer service regarding this issue: "
-#~ msgstr "il servizio clienti di Red Hat per risolvere questo problema:"
-
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "attivare le sottoscrizioni nel vostro account."
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "Sono permessi solo https e http."
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "Errore nella lettura delle informazioni hardware:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "Errore nella lettura delle informazioni DMI:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "Password e account utente non validi\n"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "Inserire un nome utente."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "Occorre inserire e verificare la password."
-
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Problema nella registrazione del login:\n"
-#~ "%s"
-
-#~ msgid "Problem registering login."
-#~ msgstr "Problema nella registrazione del login."
-
-#~ msgid "United States"
-#~ msgstr "Stati Uniti"
-
-#~ msgid "Canada"
-#~ msgstr "Canada"
-
-#~ msgid "Login Information:"
-#~ msgstr "Informazioni per il log in:"
-
-#~ msgid "Account Information:"
-#~ msgstr "Informazioni account:"
-
-#~ msgid "*First Name:"
-#~ msgstr "*Nome:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*Cognome:"
-
-#~ msgid "*Company Name:"
-#~ msgstr "*Nome azienda:"
-
-#~ msgid "Street Address:"
-#~ msgstr "Indirizzo:"
-
-#~ msgid "City:"
-#~ msgstr "Città:"
-
-#~ msgid "State/Province:"
-#~ msgstr "Stato/Provincia:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "CAP:"
-
-#~ msgid "*Country:"
-#~ msgstr "*Paese:"
-
-#~ msgid "  Address 2:"
-#~ msgstr "  Indirizzo 2:"
-
-#~ msgid "  Address:"
-#~ msgstr "  Indirizzo:"
-
-#~ msgid "  C_ity:"
-#~ msgstr "  C_ittà:"
-
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "Nome Co_mpagnia:"
-
-#~ msgid "  _State/Province:"
-#~ msgstr "  _Stato/Provincia:"
-
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "  _CAP:"
-
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "* C_onferma password:   "
-
-#~ msgid "* Co_untry:"
-#~ msgstr "* N_azione:"
-
-#~ msgid "* Desired _Login:"
-#~ msgstr "* _Login desiderato:"
-
-#~ msgid "* Desired _Password:"
-#~ msgstr "* _Password desiderata:"
-
-#~ msgid "* Last _Name:"
-#~ msgstr "*_Cognome:"
-
-#~ msgid "* _Email Address: "
-#~ msgstr "* Indirizzo _E-mail:"
-
-#~ msgid "* _First Name:"
-#~ msgstr "*_Nome:"
-
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "<b>Informazioni account:</b>"
-
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "<b>Informazioni per il log in:</b>"
-
-#~ msgid "<small><b>Examples:</b> user@domain.com</small>"
-#~ msgstr "<small><b>Esempio:</b> user@domain.com</small>"
-
-#~ msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
-#~ msgstr ""
-#~ "<small><b>Suggerimento:</b> Lasciare vuoto se non siete associati con una "
-#~ "compagnia.</small>"
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afghanistan"
-
-#~ msgid "Albania"
-#~ msgstr "Albania"
-
-#~ msgid "Algeria"
-#~ msgstr "Algeria"
-
-#~ msgid "American Samoa"
-#~ msgstr "Samoa Americana"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Anguilla"
-
-#~ msgid "Antarctica"
-#~ msgstr "Antartica"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "Antigua e Barbuda"
-
-#~ msgid "Argentina"
-#~ msgstr "Argentina"
-
-#~ msgid "Armenia"
-#~ msgstr "Armenia"
-
-#~ msgid "Aruba"
-#~ msgstr "Aruba"
-
-#~ msgid "Australia"
-#~ msgstr "Australia"
-
-#~ msgid "Austria"
-#~ msgstr "Austria"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbaijan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahamas"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahrain"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladesh"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Bielarussia"
-
-#~ msgid "Belgium"
-#~ msgstr "Belgio"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benin"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermuda"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhutan"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolivia"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "Bosnia Herzegovina"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Bouvet Island"
-
-#~ msgid "Brazil"
-#~ msgstr "Brasile"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "British Indian Ocean Territory"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunei Darussalam"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgaria"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#~ msgid "C_reate new login"
-#~ msgstr "C_rea un nuovo Login"
-
-#~ msgid "Cambodia"
-#~ msgstr "Cambogia"
-
-#~ msgid "Cameroon"
-#~ msgstr "Cameroon"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Capo Verde"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Isole di Cayman"
-
-#~ msgid "Central African Republic"
-#~ msgstr "Repubblica Centro-Africana"
-
-#~ msgid "Chad"
-#~ msgstr "Ciad"
-
-#~ msgid "Chile"
-#~ msgstr "Cile"
-
-#~ msgid "China"
-#~ msgstr "Cina"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Christmas Island"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Cocos (Keeling) Islands"
-
-#~ msgid "Colombia"
-#~ msgstr "Colombia"
-
-#~ msgid "Comoros"
-#~ msgstr "Isole Comoros"
-
-#~ msgid "Congo"
-#~ msgstr "Congo"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Isole Cook"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Costa Rica"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "Costa D'Avorio"
-
-#~ msgid "Create a _New Login"
-#~ msgstr "Crea un _nuovo Login"
-
-#~ msgid "Create a new Red Hat Network login"
-#~ msgstr "Crea un nuovo login di Red Hat Network"
-
-#~ msgid "Croatia"
-#~ msgstr "Croazia"
-
-#~ msgid "Cuba"
-#~ msgstr "Cuba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Cipro"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Repubblica Ceca"
-
-#~ msgid "Denmark"
-#~ msgstr "Danimarca"
-
-#~ msgid "Djibouti"
-#~ msgstr "Gibuti"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominica"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "Repubblica Dominicana"
-
-#~ msgid "East Timor"
-#~ msgstr "Timor Est"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ecuador"
-
-#~ msgid "Egypt"
-#~ msgstr "Egitto"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Guinea Equatoriale"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Estonia"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Etiopia"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Isole Falkland"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Faroe Islands"
-
-#~ msgid "Fiji"
-#~ msgstr "Fiji"
-
-#~ msgid ""
-#~ "Fill in the form below to create a new Red Hat login. Required "
-#~ "information is marked with a '*':"
-#~ msgstr ""
-#~ "Completate il modulo sotto riportato per creare un nuovo login di Red "
-#~ "Hat. Le informazioni contrassegnate con un '*' sono obbligatorie:"
-
-#~ msgid "Finland"
-#~ msgstr "Finlandia"
-
-#~ msgid "France"
-#~ msgstr "Francia"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "Francia, Metropolitana"
-
-#~ msgid "French Guiana"
-#~ msgstr "Guiana Francese"
-
-#~ msgid "French Polynesia"
-#~ msgstr "Polynesia Francese"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "Territori Francesi del Sud"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabon"
-
-#~ msgid "Gambia"
-#~ msgstr "Gambia"
-
-#~ msgid "Georgia"
-#~ msgstr "Georgia"
-
-#~ msgid "Germany"
-#~ msgstr "Germania"
-
-#~ msgid "Ghana"
-#~ msgstr "Ghana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Gibilterra"
-
-#~ msgid "Greece"
-#~ msgstr "Grecia"
-
-#~ msgid "Greenland"
-#~ msgstr "Groenlandia"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Guadeloupe"
-
-#~ msgid "Guam"
-#~ msgstr "Guam"
-
-#~ msgid "Guatemala"
-#~ msgstr "Guatemala"
-
-#~ msgid "Guinea"
-#~ msgstr "Guinea"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Guinea-Bissau"
-
-#~ msgid "Guyana"
-#~ msgstr "Guyana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haiti"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "Heard Island e McDonald Islands"
-
-#~ msgid "Honduras"
-#~ msgstr "Honduras"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Ungheria"
-
-#~ msgid "Iceland"
-#~ msgstr "Islanda"
-
-#~ msgid "India"
-#~ msgstr "India"
-
-#~ msgid "Indonesia"
-#~ msgstr "Indonesia"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "Iran "
-
-#~ msgid "Iraq"
-#~ msgstr "Iraq"
-
-#~ msgid "Ireland"
-#~ msgstr "Irlanda"
-
-#~ msgid "Israel"
-#~ msgstr "Israele"
-
-#~ msgid "Italy"
-#~ msgstr "Italia"
-
-#~ msgid "Jamaica"
-#~ msgstr "Giamaica"
-
-#~ msgid "Japan"
-#~ msgstr "Giappone"
-
-#~ msgid "Jordan"
-#~ msgstr "Giordania"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazakhstan"
-
-#~ msgid "Kenya"
-#~ msgstr "Kenya"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "Repubblica Democratica di Korea"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "Repubblica di Korea"
-
-#~ msgid "Kuwait"
-#~ msgstr "Kuwait"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kyrgyzstan"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "Laos"
-
-#~ msgid "Latin America"
-#~ msgstr "America Latina"
-
-#~ msgid "Latvia"
-#~ msgstr "Lettonia"
-
-#~ msgid "Lebanon"
-#~ msgstr "Libano"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesotho"
-
-#~ msgid "Liberia"
-#~ msgstr "Liberia"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "Libia"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Liechtenstein"
-
-#~ msgid "Lithuania"
-#~ msgstr "Lituania"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Lussemburgo"
-
-#~ msgid "Macau"
-#~ msgstr "Macao"
-
-#~ msgid "Macedonia"
-#~ msgstr "Macedonia"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagascar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Malesia"
-
-#~ msgid "Maldives"
-#~ msgstr "Maldive"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Isole Marshall"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinica"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mauritania"
-
-#~ msgid "Mauritius"
-#~ msgstr "Mauritius"
-
-#~ msgid "Mayotte"
-#~ msgstr "Mayotte"
-
-#~ msgid "Mexico"
-#~ msgstr "Messico"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "Micronesia (Stati Federati di)"
-
-#~ msgid "Moldova"
-#~ msgstr "Moldova"
-
-#~ msgid "Monaco"
-#~ msgstr "Monaco"
-
-#~ msgid "Mongolia"
-#~ msgstr "Mongolia"
-
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Marocco"
-
-#~ msgid "Mozambique"
-#~ msgstr "Mozambico"
-
-#~ msgid "Myanmar"
-#~ msgstr "Myanmar"
-
-#~ msgid "Namibia"
-#~ msgstr "Namibia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nauru"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepal"
-
-#~ msgid "Netherlands"
-#~ msgstr "Olanda"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Antille Olandesi"
-
-#~ msgid "New Caledonia"
-#~ msgstr "Nuova Caledonia"
-
-#~ msgid "New Zealand"
-#~ msgstr "Nuova Zelanda"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nicaragua"
-
-#~ msgid "Niger"
-#~ msgstr "Niger"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nigeria"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Norfolk Island"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Northern Mariana Islands"
-
-#~ msgid "Norway"
-#~ msgstr "Norvegia"
-
-#~ msgid "Oman"
-#~ msgstr "Oman"
-
-#~ msgid "Pakistan"
-#~ msgstr "Pakistan"
-
-#~ msgid "Palau"
-#~ msgstr "Palau"
-
-#~ msgid "Panama"
-#~ msgstr "Panama"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papua Nuova Guinea"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paraguay"
-
-#~ msgid "Peru"
-#~ msgstr "Peru"
-
-#~ msgid "Philippines"
-#~ msgstr "Filippine"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairn"
-
-#~ msgid "Poland"
-#~ msgstr "Polonia"
-
-#~ msgid "Portugal"
-#~ msgstr "Portogallo"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Porto Rico"
-
-#~ msgid "Qatar"
-#~ msgstr "Qatar"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr ""
-#~ "Le password ed i login di Red Hat devono contenere almeno 5 caratteri "
-#~ "alfanumerici"
-
-#~ msgid "Reunion"
-#~ msgstr "Reunion"
-
-#~ msgid "Romania"
-#~ msgstr "Romania"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Federazione Russa"
-
-#~ msgid "Rwanda"
-#~ msgstr "Ruanda"
-
-#~ msgid "Saint Helena"
-#~ msgstr "Saint Elena"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "Saint Kitts e Nevis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Saint Lucia"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "Saint Pierre e Miquelon    "
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "Saint Vincent e Grenadines"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "Sao Tome e Principe"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Arabia Saudita"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychelles"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapore"
-
-#~ msgid "Slovakia"
-#~ msgstr "Slovacchia"
-
-#~ msgid "Slovenia"
-#~ msgstr "Slovenia"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Isole Salomone"
-
-#~ msgid "Somalia"
-#~ msgstr "Somalia"
-
-#~ msgid "South Africa"
-#~ msgstr "Sud Africa"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "South Georgia e South Sandwich Island"
-
-#~ msgid "Spain"
-#~ msgstr "Spagna"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Sri Lanka"
-
-#~ msgid "Sudan"
-#~ msgstr "Sudan"
-
-#~ msgid "Suriname"
-#~ msgstr "Suriname"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "Svalbard e Jan Mayen Islands"
-
-#~ msgid "Swaziland"
-#~ msgstr "Swaziland"
-
-#~ msgid "Sweden"
-#~ msgstr "Svezia"
-
-#~ msgid "Switzerland"
-#~ msgstr "Svizzera"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "Siria"
-
-#~ msgid "Taiwan"
-#~ msgstr "Taiwan"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tajikistan"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "Tanzania"
-
-#~ msgid "Thailand"
-#~ msgstr "Thailandia"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tokelau"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "Trinidad e Tobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tunisia"
-
-#~ msgid "Turkey"
-#~ msgstr "Turchia"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Turkmenistan"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "Turks e Caicos Islands"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Tuvalu"
-
-#~ msgid "Uganda"
-#~ msgstr "Uganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Ucraina"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "Arabia Saudita"
-
-#~ msgid "United Kingdom"
-#~ msgstr "Regno Unito"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "Isole Americane del Pacifico"
-
-#~ msgid "Uruguay"
-#~ msgstr "Uruguay"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Uzbekistan"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Vanuatu"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "Cittá del Vaticano"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venezuela"
-
-#~ msgid "Viet Nam"
-#~ msgstr "Viet Nam"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "Isole Vergini (Britanniche)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Isole Vergini (Americane)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "Wallis e Futuna"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Sahara Occidentale"
-
-#~ msgid "Yemen"
-#~ msgstr "Yemen"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "Yugoslavia"
-
-#~ msgid "Zaire"
-#~ msgstr "Zaire"
-
-#~ msgid "Zambia"
-#~ msgstr "Zambia"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
