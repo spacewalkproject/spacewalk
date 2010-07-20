@@ -547,4 +547,28 @@ public class ConfigChannelHandler extends BaseHandler {
         return 1;
 
     }
+
+    /**
+     * List the systems subscribed to a configuration channel
+     * @param sessionKey the session key
+     * @param channelLabel the label of the config channel
+     * @return a list of dto's holding this info.
+     *
+     * @xmlrpc.doc Return a list of systems subscribed to a configuration channel
+     * @xmlrpc.param  #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel",
+     *                          "label of config channel to list subscribed systems.")
+     * @xmlrpc.returntype
+     * #array()
+     * $ConfigSystemDtoSerializer
+     * #array_end()
+     */
+    public List<ConfigSystemDto> listSubscribedSystems(String sessionKey, String channelLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
+        ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
+                                                          channelLabel);
+        ConfigurationManager cm = ConfigurationManager.getInstance();
+        return cm.listChannelSystems(loggedInUser, channel, null);
+    }
 }
