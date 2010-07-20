@@ -127,7 +127,8 @@ def do_package_search(self, args, doreturn = False):
     if doreturn:
         return packages
     else:
-        print '\n'.join(sorted(packages))
+        if len(packages):
+            print '\n'.join(sorted(packages))
 
 ####################
 
