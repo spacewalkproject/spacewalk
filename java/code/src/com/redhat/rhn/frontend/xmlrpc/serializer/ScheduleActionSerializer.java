@@ -37,6 +37,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop_desc("string", "scheduler", "The user that scheduled the action.")
  *   #prop_desc($date, "earliest", "The earliest date and time the action
  *   will be performed")
+ *   #prop_desc("int", "completedSystems", "Number of systems that completed the action.")
+ *   #prop_desc("int", "failedSystems", "Number of systems that failed the action.")
+ *   #prop_desc("int", "inProgressSystems", "Number of systems that are in progress.")
  * #struct_end()
  */
 public class ScheduleActionSerializer implements XmlRpcCustomSerializer {
@@ -59,6 +62,9 @@ public class ScheduleActionSerializer implements XmlRpcCustomSerializer {
         helper.add("type", action.getTypeName());
         helper.add("scheduler", action.getSchedulerName());
         helper.add("earliest", action.getEarliestDate());
+        helper.add("completedSystems", action.getCompletedSystems());
+        helper.add("failedSystems", action.getFailedSystems());
+        helper.add("inProgressSystems", action.getInProgressSystems());
 
         helper.writeTo(output);
     }

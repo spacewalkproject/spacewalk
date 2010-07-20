@@ -51,6 +51,9 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     private long pickedUp;
     private long completed;
     private long failed;
+    private long inProgressSystems;
+    private long completedSystems;
+    private long failedSystems;
     private long tally;
     private String ageString;
     private String userName;
@@ -188,6 +191,54 @@ public class ScheduledAction extends BaseDto implements RowCallback {
      */
     public long getInProgress() {
         return (pickedUp + queued);
+    }
+
+    /**
+     * Sets the number of completed systems.
+     * @param systems the number of systems that have completed the action
+     */
+    public void setCompletedSystems(Long systems) {
+        completedSystems = systems;
+    }
+
+    /**
+     * Sets the number of failed systems.
+     * @param systems the number of systems that have failed the action
+     */
+    public void setFailedSystems(Long systems) {
+        failedSystems = systems;
+    }
+
+    /**
+     * Sets the number of systems which are in progress.
+     * @param systems the number of systems that haven't completed the action
+     */
+    public void setInProgressSystems(Long systems) {
+        inProgressSystems = systems;
+    }
+
+    /**
+     * Returns the number of completed systems.
+     * @return the number of completed systems.
+     */
+    public long getCompletedSystems() {
+        return completedSystems;
+    }
+
+    /**
+     * Returns the number of failed systems.
+     * @return the number of failed systems.
+     */
+    public long getFailedSystems() {
+        return failedSystems;
+    }
+
+    /**
+     * Returns the number of systems which are in progress.
+     * @return the number of systems which are in progress.
+     */
+    public long getInProgressSystems() {
+        return inProgressSystems;
     }
 
     /**
