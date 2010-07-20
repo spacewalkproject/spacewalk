@@ -135,7 +135,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
      * @return String version of the pre contents
      */
     public String getDataContents() {
-        return HibernateFactory.getByteArrayContents(this.data);
+        return HibernateFactory.getByteArrayContents(this.getData());
     }
 
     /**
@@ -191,6 +191,9 @@ public class KickstartScript implements Comparable<KickstartScript> {
      * @return the data
      */
     public byte[] getData() {
+        if (data == null) {
+            return new byte[0];
+        }
         return data;
     }
 
