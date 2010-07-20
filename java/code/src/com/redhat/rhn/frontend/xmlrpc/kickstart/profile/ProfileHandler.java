@@ -50,6 +50,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
+import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 
 import org.cobbler.Profile;
@@ -379,6 +380,24 @@ public class ProfileHandler extends BaseHandler {
         return form.getFileData();
     }
 
+    /**
+     * returns the Cobbler-rendered kickstart file
+     * @param sessionKey key
+     * @param ksLabel the label to download
+     * @return the kickstart file
+     *
+     * @xmlrpc.doc Downloads the Cobbler-rendered Kickstart file.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
+     * kickstart to download.")
+     * @xmlrpc.returntype string - The contents of the kickstart file.
+     */
+    public String downloadRenderedKickstart(String sessionKey, String ksLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+        KickstartManager manager = KickstartManager.getInstance();
+        return manager.renderKickstart(ksData);
+    }
 
     /**
      * Get advanced options for existing kickstart profile.
