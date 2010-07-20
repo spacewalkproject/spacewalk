@@ -1811,7 +1811,7 @@ ORDER BY SCC.position ASC
   </query>
   <elaborator params="sid">
 SELECT  CC.id, CC.label,
-       NVL( (
+       COALESCE( (
              SELECT COUNT(CF.id)
                FROM rhnConfigFile CF
                INNER JOIN rhnConfigRevision CR ON CR.id = CF.latest_config_revision_id
@@ -1820,7 +1820,7 @@ SELECT  CC.id, CC.label,
                 AND CF.latest_config_revision_id IS NOT NULL
                 AND CFT.LABEL = 'file'
             ), 0) AS files_only_count,
-       NVL( (
+       COALESCE( (
              SELECT COUNT(CF.id)
                FROM rhnConfigFile CF
                INNER JOIN rhnConfigRevision CR ON CR.id = CF.latest_config_revision_id
@@ -1829,7 +1829,7 @@ SELECT  CC.id, CC.label,
                 AND CF.latest_config_revision_id IS NOT NULL
                 AND CFT.LABEL = 'symlink'
             ), 0) AS symlinks_only_count,
-       NVL( (
+       COALESCE( (
              SELECT COUNT(CF.id)
                FROM rhnConfigFile CF
                INNER JOIN rhnConfigRevision CR ON CR.id = CF.latest_config_revision_id
@@ -1842,7 +1842,7 @@ SELECT  CC.id, CC.label,
             FROM rhnConfigFile CF, rhnConfigFileName CFN
            WHERE CF.config_channel_id = CC.id
              AND CF.config_file_name_id = CFN.id
-             AND CC.id = ( SELECT  NVL( ( SELECT  CC.id
+             AND CC.id = ( SELECT  COALESCE( ( SELECT  CC.id
                                             FROM  rhnConfigChannel CC, rhnConfigChannelType CCT,
                                                   rhnServerConfigChannel SCCX, rhnConfigFile CF
                                            WHERE  SCCX.server_id = :sid
@@ -1852,7 +1852,7 @@ SELECT  CC.id, CC.label,
                                              AND  CC.confchan_type_id = CCT.id
                                              AND  CCT.label = 'local_override' ) ,
                                         ( SELECT  SCCX.config_channel_id
-                                            FROM  rhnServerConfigChannel SCCX, rhnConfigFile CF
+         	                                   FROM  rhnServerConfigChannel SCCX, rhnConfigFile CF
                                            WHERE  CF.config_file_name_id = CFNX.id
                                              AND  CF.config_channel_id = SCCX.config_channel_id
                                              AND  SCCX.server_id = :sid
