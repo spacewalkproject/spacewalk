@@ -370,19 +370,19 @@ def do_kickstart_details(self, args):
 
 ####################
 
-def help_kickstart_getfile(self):
-    print 'kickstart_getfile: Show the contents of a Kickstart profile'
+def help_kickstart_getcontents(self):
+    print 'kickstart_getcontents: Show the contents of a Kickstart profile'
     print '                   as they would be presented to a client'
-    print 'usage: kickstart_getfile LABEL'
+    print 'usage: kickstart_getcontents LABEL'
 
-def complete_kickstart_getfile(self, text, line, beg, end):
+def complete_kickstart_getcontents(self, text, line, beg, end):
     return tab_completer(self.do_kickstart_list('', True), text)
 
-def do_kickstart_getfile(self, args):
+def do_kickstart_getcontents(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        self.help_kickstart_getfile()
+        self.help_kickstart_getcontents()
         return
 
     profile = args[0]
