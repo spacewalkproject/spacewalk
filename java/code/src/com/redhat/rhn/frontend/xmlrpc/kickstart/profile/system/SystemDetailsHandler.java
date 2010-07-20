@@ -35,6 +35,7 @@ import com.redhat.rhn.manager.kickstart.KickstartLocaleCommand;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -379,22 +380,12 @@ public class SystemDetailsHandler extends BaseHandler {
     public List<String> getPartitioningScheme(String sessionKey, String ksLabel) {
         User user = getLoggedInUser(sessionKey);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        List<String> list = new ArrayList<String>();
-        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata
-                .getPartitions()) {
-            String s = "partition " + cmd.getArguments();
-            list.add(s);
-        }
-        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata
-                .getVolgroups()) {
-            String s = "volgroup " + cmd.getArguments();
-            list.add(s);
-        }
-        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata.getLogvols()) {
-            String s = "logvol " + cmd.getArguments();
-            list.add(s);
-        }
-        return list;
+        Long ksid = ksdata.getId();
+        KickstartPartitionCommand command = new KickstartPartitionCommand(ksid,
+                                                                          user);
+        String[] partitions = command.populatePartitions().split("\\r?\\n");
+
+        return new ArrayList<String>(Arrays.asList(partitions));
     }
 
 
