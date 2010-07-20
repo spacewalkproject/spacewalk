@@ -2257,7 +2257,6 @@ public class SystemHandler extends BaseHandler {
     public List<SystemOverview> getId(String sessionKey, String name) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
-        List<SystemOverview> dr = UserManager.visibleSystemsAsDto(loggedInUser);
         return SystemManager.listSystemsByName(loggedInUser, name);
     }
 
