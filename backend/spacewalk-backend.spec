@@ -348,7 +348,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/common/rhnTranslate.py*
 %{rhnroot}/common/UserDictCase.py*
 %{rhnroot}/common/RPC_Base.py*
-%dir %{_var}/log/rhn
+%attr(770,root,apache) %dir %{_var}/log/rhn
 # config files
 %attr(755,root,apache) %dir %{rhnconf}/default
 %attr(644,root,apache) %{rhnconf}/default/rhn.conf
