@@ -255,7 +255,6 @@ def do_schedule_getoutput(self, args):
 
         add_separator = False
 
-        #XXX: Bugzilla 608868
         for action in completed + failed:
             if add_separator: print self.SEPARATOR
             add_separator = True

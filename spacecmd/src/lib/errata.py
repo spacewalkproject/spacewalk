@@ -294,7 +294,6 @@ def do_errata_search(self, args, doreturn=False):
     for query in args:
         errata = []
 
-        #XXX: Bugzilla 584855
         if re.match('CVE', query, re.I):
             errata = self.client.errata.findByCve(self.session,
                                                   query.upper())

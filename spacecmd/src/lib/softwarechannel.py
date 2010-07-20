@@ -513,7 +513,6 @@ def do_softwarechannel_removepackages(self, args):
 
 ####################
 
-#XXX: Bugzilla 609684
 def help_softwarechannel_adderratabydate(self):
     print 'softwarechannel_adderratabydate: Add errata from one channel ' + \
           'into another channel based on a date range'
