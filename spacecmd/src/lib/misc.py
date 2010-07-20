@@ -20,6 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+import readline
 from getpass import getpass
 from spacecmd.utils import *
 
@@ -409,8 +410,8 @@ def generate_errata_cache(self, force=False):
     if not force and datetime.now() < self.errata_cache_expire:
         return
 
-    if logging.getLogger().getEffectiveLevel() == logging.DEBUG: print
-    logging.debug('Regenerating internal errata cache')
+    # tell the user what's going on
+    self.replace_line_buffer('** Generating errata cache **')
 
     channels = self.client.channel.listSoftwareChannels(self.session)
     channels = [c.get('label') for c in channels]
@@ -432,6 +433,9 @@ def generate_errata_cache(self, force=False):
 
     self.save_errata_cache()
 
+    # restore the original line buffer
+    self.replace_line_buffer()
+
 
 def save_errata_cache(self):
     save_cache(self.errata_cache_file, 
@@ -451,8 +455,8 @@ def generate_package_cache(self, force=False):
     if not force and datetime.now() < self.package_cache_expire:
         return
 
-    if logging.getLogger().getEffectiveLevel() == logging.DEBUG: print
-    logging.debug('Regenerating internal package cache')
+    # tell the user what's going on
+    self.replace_line_buffer('** Generating package cache **')
 
     channels = self.client.channel.listSoftwareChannels(self.session)
     channels = [c.get('label') for c in channels]
@@ -478,6 +482,9 @@ def generate_package_cache(self, force=False):
         datetime.now() + timedelta(seconds=self.PACKAGE_CACHE_TTL)
 
     self.save_package_caches()
+
+    # restore the original line buffer
+    self.replace_line_buffer()
 
 
 def save_package_caches(self):
@@ -533,8 +540,8 @@ def generate_system_cache(self, force=False):
     if not force and datetime.now() < self.system_cache_expire:
         return
 
-    if logging.getLogger().getEffectiveLevel() == logging.DEBUG: print
-    logging.debug('Regenerating internal system cache')
+    # tell the user what's going on
+    self.replace_line_buffer('** Generating system cache **')
 
     systems = self.client.system.listSystems(self.session)
 
@@ -546,6 +553,9 @@ def generate_system_cache(self, force=False):
         datetime.now() + timedelta(seconds=self.SYSTEM_CACHE_TTL)
 
     self.save_system_cache()
+
+    # restore the original line buffer
+    self.replace_line_buffer()
 
 
 def save_system_cache(self):
@@ -773,5 +783,29 @@ def check_api_version(self, want):
     else:
         # compare the whole value
         return float(self.api_version) >= float(want)
+
+
+# replace the current line buffer
+def replace_line_buffer(self, msg = None):
+    # restore the old buffer if we weren't given a new line
+    if not msg:
+        msg = readline.get_line_buffer()
+
+    # don't print a prompt if there wasn't one to begin with
+    if len(readline.get_line_buffer()):
+        new_line = '%s%s' % (self.prompt, msg)
+    else:
+        new_line = '%s' % msg
+
+    # clear the current line
+    self.stdout.write('\r'.ljust(len(self.current_line) + 1))
+    self.stdout.flush()
+
+    # write the new line
+    self.stdout.write('\r%s' % new_line)
+    self.stdout.flush()
+
+    # keep track of what is displayed so we can clear it later
+    self.current_line = new_line
 
 # vim:ts=4:expandtab:

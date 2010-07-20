@@ -51,6 +51,7 @@ Type: 'help' for a list of commands
     completekey = 'tab'
     stdout = sys.stdout
     prompt_template = 'spacecmd {SSM:##}> '
+    current_line = ''
 
     # do nothing on an empty line
     emptyline = lambda self: None
