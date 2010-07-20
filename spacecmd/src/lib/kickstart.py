@@ -255,7 +255,6 @@ def do_kickstart_details(self, args):
         self.client.kickstart.profile.system.checkRemoteCommands(\
             self.session, label)
 
-    #XXX: Bugzilla 584860
     partitions = \
         self.client.kickstart.profile.system.getPartitioningScheme(\
             self.session, label)
