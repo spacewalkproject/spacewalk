@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
+import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
+
 import org.apache.log4j.Logger;
 
 
@@ -23,7 +25,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class RhnJavaJob implements RhnJob {
 
-    private Logger log = null;
+    protected Logger log = null;
     private RhnJobAppender appender = null;
 
     public Logger getLogger(Class clazz) {
@@ -52,5 +54,13 @@ public abstract class RhnJavaJob implements RhnJob {
     public void appendExceptionToLogError(Exception e) {
         log.error(e.getMessage());
         log.error(e.getCause());
+    }
+
+    protected void executeExtCmd(String[] args) {
+        SystemCommandExecutor ce = new SystemCommandExecutor();
+        ce.execute(args);
+
+        log.info(ce.getLastCommandOutput());
+        log.error(ce.getLastCommandErrorMessage());
     }
 }
