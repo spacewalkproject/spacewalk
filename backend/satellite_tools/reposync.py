@@ -23,6 +23,7 @@ from spacewalk.common.rhn_mpm import InvalidPackageError
 from server.importlib.importLib import IncompletePackage
 from server.importlib.backendOracle import OracleBackend
 from server.importlib.packageImport import ChannelPackageSubscription
+from server import taskomatic
 
 
 default_log_location = '/var/log/rhn/reposync/'
