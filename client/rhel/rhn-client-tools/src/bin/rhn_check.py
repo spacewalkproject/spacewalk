@@ -186,6 +186,16 @@ class CheckCli(rhncli.RhnCli):
             print e
             sys.exit(1)
  
+    def __parse_action_data(self, action):
+        """ Parse action data and returns (method, params) """
+        data = action['action']
+        parser, decoder = rpclib.getparser()
+        parser.feed(data)
+        parser.close()
+        params = decoder.close()
+        method = decoder.getmethodname()
+        return (method, params)
+
     def submit_response(self, action_id, status, message, data):
         """ Submit a response for an action_id. """
 
@@ -220,19 +230,11 @@ class CheckCli(rhncli.RhnCli):
             
         version = action['version']
         action_id = action['id']
-        data = action['action']
 
         log.log_debug("handle_action actionid = %s, version = %s" % (
             action_id, version))
             
-        # Decipher the data
-        parser, decoder = rpclib.getparser()
-        parser.feed(data)
-        parser.close()
-        params = decoder.close()
-        method = decoder.getmethodname()
-        data = {}
-
+        (method, params) = self.__parse_action_data(action)
         (status, message, data) = CheckCli.__run_action(method, params)
 
         log.log_debug("Sending back response", (status, message, data))
