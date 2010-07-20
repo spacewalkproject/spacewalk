@@ -24,8 +24,6 @@ def __getErrataInfo(errata_id):
     return s.errata.getErrataInfo(up2dateAuth.getSystemId(), errata_id)
 
 def update(errataidlist, cache_only=None):
-    if cache_only:
-        return (0, "no-ops for caching", {})
     packagelist = []
 
     if type(errataidlist) not in [type([]), type(())]:
@@ -73,7 +71,7 @@ def update(errataidlist, cache_only=None):
 		"No packages from that errata are available", 
 		data)
  
-    return packages.update(packagelist)
+    return packages.update(packagelist, cache_only)
    
 
 def main():
