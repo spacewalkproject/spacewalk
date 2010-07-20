@@ -22,7 +22,10 @@ log = up2dateLog.initLog()
 # action version we understand
 ACTION_VERSION = 2 
 
-def reboot(test=None):
+def reboot(test=None, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
+
     if cfg['noReboot']:
         return (38, "Up2date is configured not to allow reboots", {})
     

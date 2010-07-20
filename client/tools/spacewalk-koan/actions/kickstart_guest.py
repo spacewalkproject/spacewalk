@@ -39,7 +39,9 @@ __rhnexport__ = [
 # Public Interface
 ###############################################################################
 
-def initiate(kickstart_host, cobbler_system_name, virt_type, ks_session_id, name, mem_kb, vcpus, disk_gb, virt_bridge, disk_path, extra_append):
+def initiate(kickstart_host, cobbler_system_name, virt_type, ks_session_id, name, mem_kb, vcpus, disk_gb, virt_bridge, disk_path, extra_append, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     error_code = 0
     status_message = 'Guest kickstart initiated successfully.'
     error_messages = {}

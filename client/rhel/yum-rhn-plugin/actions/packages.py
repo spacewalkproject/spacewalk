@@ -281,8 +281,10 @@ def _yum_package_tup(package_tup):
         pkginfo = '%s-%s:%s-%s.%s' % (n, e, v, r, a)
     return (pkginfo,)
 
-def remove(package_list):
+def remove(package_list, cache_only=None):
     """We have been told that we should remove packages"""
+    if cache_only:
+        return (0, "no-ops for caching", {})
 
     if type(package_list) != type([]):
         return (13, "Invalid arguments passed to function", {})
@@ -293,9 +295,11 @@ def remove(package_list):
     
     return _runTransaction(transaction_data)
 
-def update(package_list):        
+def update(package_list, cache_only=None):
     """We have been told that we should retrieve/install packages"""
- 
+    if cache_only:
+        return (0, "no-ops for caching", {})
+
     if type(package_list) != type([]):
         return (13, "Invalid arguments passed to function", {})
 
@@ -337,13 +341,15 @@ def _runTransaction(transaction_data):
     command = RunTransactionCommand(transaction_data)
     return _run_yum_action(command)
 
-def runTransaction(transaction_data):
+def runTransaction(transaction_data, cache_only=None):
     """ Run a transaction on a group of packages. 
         This was historicaly meant as generic call, but
         is only called for rollback. 
         Therefore we change all actions "i" (install) to 
         "r" (rollback) where we will not check dependencies and obsoletes.
     """
+    if cache_only:
+        return (0, "no-ops for caching", {})
     for index, data in enumerate(transaction_data['packages']):
         if data[1] == 'i':
             transaction_data['packages'][index][1] = 'r'
@@ -354,9 +360,11 @@ class FullUpdateCommand:
     def execute(self, yum_base):
         yum_base.update()
 
-def fullUpdate(force=0):
+def fullUpdate(force=0, cache_only=None):
     """ Update all packages on the system. """
     #TODO: force doesn't mean anything for yum.
+    if cache_only:
+        return (0, "no-ops for caching", {})
 
     command = FullUpdateCommand()
     return _run_yum_action(command)
@@ -430,11 +438,14 @@ def _run_yum_action(command):
 
 # The following functions are the same as the old up2date ones.
 
-def checkNeedUpdate(rhnsd=None):
+def checkNeedUpdate(rhnsd=None, cache_only=None):
     """ Check if the locally installed package list changed, if
         needed the list is updated on the server
         In case of error avoid pushing data to stay safe
     """
+    if cache_only:
+        return (0, "no-ops for caching", {})
+
     data = {}
     dbpath = "/var/lib/rpm"
     cfg = config.initUp2dateConfig()
@@ -467,8 +478,10 @@ def checkNeedUpdate(rhnsd=None):
     # from rhnsd
     return refresh_list(rhnsd=1)
    
-def refresh_list(rhnsd=None):
+def refresh_list(rhnsd=None, cache_only=None):
     """ push again the list of rpm packages to the server """
+    if cache_only:
+        return (0, "no-ops for caching", {})
     log.log_debug("Called refresh_rpmlist")
 
     ret = None
@@ -498,8 +511,10 @@ def touch_time_stamp():
         return (0, "unable to set the time stamp on the time stamp file %s"
                 % LAST_UPDATE_FILE, {})
 
-def verify(packages):
+def verify(packages, cache_only=None):
     log.log_debug("Called packages.verify")
+    if cache_only:
+        return (0, "no-ops for caching", {})
 
     data = {}
     data['name'] = "packages.verify"
@@ -516,8 +531,10 @@ def verify(packages):
 
     return (0, "packages verified", data)
 
-def verifyAll():
+def verifyAll(cache_only=None):
     log.log_debug("Called packages.verifyAll")
+    if cache_only:
+        return (0, "no-ops for caching", {})
 
     data = {}
     data['name'] = "packages.verifyAll"

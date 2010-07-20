@@ -18,7 +18,10 @@ __rhnexport__ = [
     'refresh_list' ]
 
 # resync hardware information with the server profile
-def refresh_list():
+def refresh_list(cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
+
     # read all hardware in
     hardwareList = hardware.Hardware()
 

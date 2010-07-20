@@ -71,7 +71,9 @@ def _create_script_file(script, uid=None, gid=None):
     return script_path
 
 
-def run(action_id, params):
+def run(action_id, params, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
 
     action_type = 'script.run'
     if not _local_permission_check(action_type):

@@ -13,7 +13,7 @@ __rhnexport__ = [
     'configure',
 ]
 
-def __configRhnsd(interval):
+def __configRhnsd(interval, cache_only=None):
     rhnsdconfig = "/etc/sysconfig/rhn/rhnsd"
     fd = open(rhnsdconfig, "r")
     lines = fd.readlines()
@@ -38,7 +38,9 @@ def __configRhnsd(interval):
     fd.close()
 
 
-def configure(interval=None, restart=None):
+def configure(interval=None, restart=None, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     msg = ""
     if interval:
         try:

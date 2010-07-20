@@ -154,7 +154,7 @@ class CheckCli(rhncli.RhnCli):
         time_window = cfg['stagingContentWindow'] or 24;
         actions = self.__query_future_actions(time_window)
         for action in actions:
-            self.__fetch_future_action(action)
+            self.handle_action(action, cache_only=1)
 
     def __run_remote_actions(self):
         # the list of caps the client needs
@@ -224,14 +224,14 @@ class CheckCli(rhncli.RhnCli):
             sys.exit(-1)                
         return ret
  
-    def handle_action(self, action):
+    def handle_action(self, action, cache_only=None):
         """ Wrapper handler for the action we're asked to do. """
         log.log_debug("handle_action", action)
         log.log_debug("handle_action actionid = %s, version = %s" % (
             action['id'], action['version']))
             
         (method, params) = self.__parse_action_data(action)
-        (status, message, data) = CheckCli.__run_action(method, params)
+        (status, message, data) = CheckCli.__run_action(method, params, {'cache_only': cache_only})
 
         log.log_debug("Sending back response", (status, message, data))
         return self.submit_response(action['id'], status, message, data)
@@ -316,18 +316,18 @@ class CheckCli(rhncli.RhnCli):
             log.log_debug("local action status: ", (status, message, data))
 
     @staticmethod
-    def __do_call(method, params):
-        log.log_debug("do_call", method, params)
+    def __do_call(method, params, kwargs=None):
+        log.log_debug("do_call", method, params, kwargs)
 
         method = getMethod.getMethod(method, "/usr/share/rhn/", "actions")
-        retval = method(*params)
+        retval = method(*params, **kwargs)
     
         return retval
 
     @staticmethod
-    def __run_action(method, params):
+    def __run_action(method, params, kwargs=None):
         try:
-            (status, message, data) = CheckCli.__do_call(method, params)   
+            (status, message, data) = CheckCli.__do_call(method, params, kwargs)
         except getMethod.GetMethodException:
             log.log_debug("Attempt to call an unsupported action", method,
                 params)

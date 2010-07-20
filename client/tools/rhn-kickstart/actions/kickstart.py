@@ -25,6 +25,8 @@ __rhnexport__ = [
     'initiate',
 ]
 
-def initiate(base, extra_append, static_device="", preserve_files=[]):
+def initiate(base, extra_append, static_device="", preserve_files=[],cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     return kickstart.initiate(base, extra_append=extra_append,
         static_device=static_device, preserve_files=preserve_files)

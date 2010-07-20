@@ -38,7 +38,9 @@ __rhnexport__ = [
 # Public Interface
 ###############################################################################
 
-def initiate(ks_session_id, name, mem_kb, vcpus, disk_gb, extra_append):
+def initiate(ks_session_id, name, mem_kb, vcpus, disk_gb, extra_append, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     error_code = 0
     status_message = 'Guest kickstart initiated successfully.'
     error_messages = {}

@@ -128,8 +128,10 @@ def format_result(result, files):
 ##            'info': {'now': 1071722611.0, 'import_contents': 'N', 'start_date': 1071290580.0, 'end_date': ''},
 ##            'search': ['/home/bretm/'],
 ##            }
-def mtime_upload(action_id, params):
-    
+def mtime_upload(action_id, params, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
+
     action_type = 'configfiles.mtime_upload'
     if not _local_permission_check(action_type):
         log_to_file(0, "permissions error: " + str(action_type))
@@ -167,8 +169,10 @@ def mtime_upload(action_id, params):
     return formatted_result
 
 
-def upload(action_id, params):
-    
+def upload(action_id, params, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
+
     action_type = 'configfiles.upload'
     if not _local_permission_check(action_type):
         log_to_file(0, "permissions error: " + str(action_type))
@@ -187,7 +191,9 @@ def upload(action_id, params):
     return formatted_result
 
 
-def deploy(params, topdir=None):
+def deploy(params, topdir=None, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
 
     action_type = 'configfiles.deploy'
     if not _local_permission_check(action_type):
@@ -297,7 +303,10 @@ def deploy(params, topdir=None):
     return 0, "Files successfully deployed", extras
 
 
-def diff(params):
+def diff(params, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
+
     action_type = 'configfiles.diff'
     if not _local_permission_check(action_type):
         log_to_file(0, "permissions error: " + str(action_type))

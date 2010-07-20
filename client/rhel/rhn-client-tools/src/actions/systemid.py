@@ -12,8 +12,10 @@ __rhnexport__ = [
     'disable',
 ]
 
-def disable(messageText):
+def disable(messageText, cache_only=None):
     """We have been told that we should disable the systemid"""
+    if cache_only:
+        return (0, "no-ops for caching", {})
 
     disableFilePath = "/etc/sysconfig/rhn/disable"
     # open and shut off

@@ -23,7 +23,9 @@ def __getErrataInfo(errata_id):
     s = rhnserver.RhnServer()
     return s.errata.getErrataInfo(up2dateAuth.getSystemId(), errata_id)
 
-def update(errataidlist):
+def update(errataidlist, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     packagelist = []
 
     if type(errataidlist) not in [type([]), type(())]:

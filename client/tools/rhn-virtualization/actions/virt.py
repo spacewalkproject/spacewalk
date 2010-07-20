@@ -33,70 +33,90 @@ __rhnexport__ = [
 # Refreshes the virtualization info for this host and any subdomains on the
 # server.
 #
-def refresh():
+def refresh(cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     try:
         support.refresh()
     except errors.VirtualizationException, ve:
         return (1, str(ve), {})
     return (0, "Virtualization Info refreshed.", {})
 
-def shutdown(uuid):
+def shutdown(uuid, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     try:
         support.shutdown(uuid)
     except errors.VirtualizationException, ve:
         return (1, str(ve), {})
     return (0, "Domain %s shutdown." % str(uuid), {})
 
-def start(uuid):
+def start(uuid, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     try:
         support.start(uuid)
     except errors.VirtualizationException, ve:
         return (1, str(ve), {})
     return (0, "Domain %s started." % str(uuid), {})
 
-def suspend(uuid):
+def suspend(uuid, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     try:
         support.suspend(uuid)
     except errors.VirtualizationException, ve:
         return (1, str(ve), {})
     return (0, "Domain %s suspended." % str(uuid), {})
 
-def resume(uuid):
+def resume(uuid, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     try:
         support.resume(uuid)
     except errors.VirtualizationException, ve:
         return (1, str(ve), {})
     return (0, "Domain %s resumed." % str(uuid), {})
 
-def reboot(uuid):
+def reboot(uuid, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     try:
         support.reboot(uuid)
     except errors.VirtualizationException, ve:
         return (1, str(ve), {})
     return (0, "Domain %s rebooted." % str(uuid), {})
 
-def destroy(uuid):
+def destroy(uuid, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     try:
         support.destroy(uuid)
     except errors.VirtualizationException, ve:
         return (1, str(ve), {})
     return (0, "Domain %s destroyed." % str(uuid), {})
 
-def setMemory(uuid, memory):
+def setMemory(uuid, memory, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     try:
         support.setMemory(uuid, memory)
     except errors.VirtualizationException, ve:
         return (1, str(ve), {})
     return (0, "Memory set to %s on %s." % (str(memory), str(uuid)), {})
 
-def setVCPUs(uuid, vcpus):
+def setVCPUs(uuid, vcpus, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     try:
         support.setVCPUs(uuid, vcpus)
     except errors.VirtualizationException, ve:
         return (1, str(ve), {})
     return (0, "VCPUs set to %s on %s." % (str(vcpus), str(uuid)), {})
 
-def schedulePoller(minute, hour, dom, month, dow):
+def schedulePoller(minute, hour, dom, month, dow, cache_only=None):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     ret_val = support.schedulePoller(minute, hour, dom, month, dow)
     return (ret_val[0], ret_val[1], {})
 
