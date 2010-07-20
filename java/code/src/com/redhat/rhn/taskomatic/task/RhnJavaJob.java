@@ -36,10 +36,16 @@ public abstract class RhnJavaJob implements RhnJob {
     }
 
     public String getLogOutput() {
-         return appender.getOutputContent();
+        if (appender == null) {
+            return null;
+        }
+        return appender.getOutputContent();
     }
 
     public String getLogError() {
+        if (appender == null) {
+            return null;
+        }
         return appender.getErrorContent();
     }
 
