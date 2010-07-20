@@ -156,9 +156,19 @@ public class TaskoXmlRpcHandler {
         return scheduleDate;
     }
 
+    public Date scheduleSingleSatBunchRun(String bunchName, Map params, Date start)
+        throws NoSuchBunchTaskException, InvalidParamException {
+        return scheduleSingleBunchRun(null, bunchName, params, start);
+    }
+
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, Map params)
             throws NoSuchBunchTaskException, InvalidParamException {
         return scheduleSingleBunchRun(orgId, bunchName, params, new Date());
+    }
+
+    public Date scheduleSingleSatBunchRun(String bunchName, Map params)
+        throws NoSuchBunchTaskException, InvalidParamException {
+        return scheduleSingleBunchRun(null, bunchName, params, new Date());
     }
 
     private String getUniqueSingleJobLabel(Integer orgId, String bunchName)
