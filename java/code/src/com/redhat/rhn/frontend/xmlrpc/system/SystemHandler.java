@@ -4497,7 +4497,7 @@ public class SystemHandler extends BaseHandler {
     public List listEligibleFlexGuests(String sessionKey) {
         User user = getLoggedInUser(sessionKey);
         return VirtualizationEntitlementsManager.
-        getInstance().listEligibleFlexGuests(user);
+                    getInstance().listEligibleFlexGuests(user);
     }
 
     /**

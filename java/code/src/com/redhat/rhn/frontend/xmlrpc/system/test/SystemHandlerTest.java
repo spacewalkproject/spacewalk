@@ -30,7 +30,6 @@ import com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetVcpusAction;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.errata.Errata;
@@ -41,7 +40,6 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.org.test.CustomDataKeyTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -74,8 +72,6 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.dto.ChannelFamilySystem;
-import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.HistoryEvent;
 import com.redhat.rhn.frontend.dto.OperationDetailsDto;
@@ -100,7 +96,6 @@ import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.UndefinedCustomFieldsException;
 import com.redhat.rhn.frontend.xmlrpc.system.SystemHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
-import com.redhat.rhn.frontend.xmlrpc.test.XmlRpcTestUtils;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -110,9 +105,7 @@ import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
-import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
-import com.redhat.rhn.manager.system.test.VirtualizationEntitlementsManagerTest;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
@@ -120,7 +113,6 @@ import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -141,7 +133,7 @@ import java.util.Set;
  */
 public class SystemHandlerTest extends BaseHandlerTestCase {
 
-    private final SystemHandler handler = new SystemHandler();
+    private SystemHandler handler = new SystemHandler();
 
     public void testGetNetworkDevices() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
@@ -2211,48 +2203,4 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(proxy2.getName(), ((ServerPath) results[1]).getHostname());
     }
 
-    public void testFlexGuests() throws Exception {
-        User user = newUser();
-        String userKey = XmlRpcTestUtils.getSessionKey(user);
-        VirtualizationEntitlementsManagerTest.setupFlexGuestTest(user, false);
-        assertTrue(handler.listFlexGuests(userKey).size() > 0);
-    }
-
-    public void testEligibleFlexGuests() throws Exception {
-        User user = newUser();
-        String userKey = XmlRpcTestUtils.getSessionKey(user);
-        VirtualizationEntitlementsManagerTest.
-            setupEligibleFlexGuestTests(true, user.getOrg(), user, 6, 6, 6);
-        assertTrue(handler.listEligibleFlexGuests(userKey).size() > 0);
-    }
-
-    public void testConvertToFlex() throws Exception {
-        User user = newUser();
-        String userKey = XmlRpcTestUtils.getSessionKey(user);
-        VirtualizationEntitlementsManagerTest.
-            setupEligibleFlexGuestTests(true, user.getOrg(), user, 5, 5, 1);
-        List<ChannelFamilySystemGroup> l = VirtualizationEntitlementsManager.
-                                        getInstance().listEligibleFlexGuests(user);
-
-        ChannelFamilySystemGroup group = l.get(0);
-        assertNotNull(group.getLabel());
-        assertNotNull(ChannelFamilyFactory.lookupByLabel(group.getLabel(),
-                                OrgFactory.getSatelliteOrg()));
-        List<Long> sids = new LinkedList<Long>();
-        for (ChannelFamilySystem cfs : group.expand().subList(0, 2)) {
-            sids.add(cfs.getId());
-        }
-        assertEquals(1,
-                handler.convertToFlexEntitlement(userKey, sids, group.getLabel()));
-    }
-
-
-    private User newUser() throws Exception {
-        Org org = UserTestUtils.createNewOrgFull(RandomStringUtils.randomAlphabetic(10));
-        User user = UserTestUtils.createUser(RandomStringUtils.randomAlphabetic(10),
-                org.getId());
-        user.addRole(RoleFactory.ORG_ADMIN);
-        TestUtils.saveAndFlush(user);
-        return user;
-    }
 }
