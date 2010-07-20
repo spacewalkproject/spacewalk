@@ -35,5 +35,21 @@ for my $c (sort keys %{ $files{common} }) {
 	}
 }
 
+for my $c (sort keys %{ $files{oracle} }) {
+	next unless $c =~ /\.sql$/;
+	if (exists $files{postgres}{$c}) {
+		print "Oracle file [$c] is also in postgres (ignoring for now)\n";
+		# $error = 1;
+	}
+}
+
+for my $c (sort keys %{ $files{postgres} }) {
+	next unless $c =~ /\.sql$/;
+	if (exists $files{oracle}{$c}) {
+		print "Postgres file [$c] is also in oracle (ignoring for now)\n";
+		# $error = 1;
+	}
+}
+
 exit $error;
 
