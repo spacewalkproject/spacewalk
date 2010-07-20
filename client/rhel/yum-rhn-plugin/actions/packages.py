@@ -367,11 +367,8 @@ class FullUpdateCommand:
 def fullUpdate(force=0, cache_only=None):
     """ Update all packages on the system. """
     #TODO: force doesn't mean anything for yum.
-    if cache_only:
-        return (0, "no-ops for caching", {})
-
     command = FullUpdateCommand()
-    return _run_yum_action(command)
+    return _run_yum_action(command, cache_only)
 
 def _run_yum_action(command, cache_only=None):
     """
