@@ -60,6 +60,7 @@ class YumAction(yum.YumBase):
         yum.YumBase.__init__(self)
         cfg = config.initUp2dateConfig()
         self.doConfigSetup(debuglevel=cfg["debug"])
+        self.cache_only = None
 
         self.doTsSetup()
         self.doRpmDBSetup()
@@ -100,6 +101,9 @@ class YumAction(yum.YumBase):
             # We are configured to only download packages, so
             # skip rest of transaction work and return now.
             log.log_debug('Configured to "retrieveOnly" so skipping package install')
+            return 0
+        if self.cache_only:
+            log.log_debug('Just pre-caching packages, skipping package install')
             return 0
 
         # Check GPG signatures
@@ -307,7 +311,7 @@ def update(package_list, cache_only=None):
   
     transaction_data = __make_transaction(package_list, 'i')
    
-    return _runTransaction(transaction_data)
+    return _runTransaction(transaction_data, cache_only)
 
 def __make_transaction(package_list, action):
     """
@@ -336,10 +340,10 @@ class RunTransactionCommand:
     def execute(self, yum_base):
         yum_base.add_transaction_data(self.transaction_data)
 
-def _runTransaction(transaction_data):
+def _runTransaction(transaction_data, cache_only=None):
     """ Run a tranaction on a group of packages. """
     command = RunTransactionCommand(transaction_data)
-    return _run_yum_action(command)
+    return _run_yum_action(command, cache_only)
 
 def runTransaction(transaction_data, cache_only=None):
     """ Run a transaction on a group of packages. 
@@ -369,7 +373,7 @@ def fullUpdate(force=0, cache_only=None):
     command = FullUpdateCommand()
     return _run_yum_action(command)
 
-def _run_yum_action(command):
+def _run_yum_action(command, cache_only=None):
     """
     Do something with yum.
 
@@ -402,6 +406,7 @@ def _run_yum_action(command):
                 raise yum.Errors.YumBaseError, resultmsgs
                 
             log.log_debug("Dependencies Resolved")
+            yum_base.cache_only=cache_only
             yum_base.doTransaction()
     
         finally:
