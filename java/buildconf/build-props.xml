@@ -91,9 +91,8 @@
     </else>
   </if>
 
-
   <property name="run.jar.dependencies"
-      value="antlr ${asm} cglib c3p0 commons-discovery dom4j ehcache jaf jta
+      value="antlr asm cglib c3p0 commons-discovery dom4j ehcache jaf jta
              ojdbc14 oscache sitemesh taglibs-standard xalan-j2 xerces-j2
              xml-commons-apis ${common.jar.dependencies}" />
 
