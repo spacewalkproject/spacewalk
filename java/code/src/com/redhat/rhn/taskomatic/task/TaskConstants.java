@@ -50,38 +50,17 @@ public class TaskConstants {
     public static final String TASK_QUERY_SESSION_CLEANUP = 
         "taskomatic_session_cleanup";
     
-    public static final String TASK_QUERY_NOCHANNEL_FIND_ORGS =
-        "nochannelcheck_find_orgs";
-    
-    public static final String TASK_QUERY_USER_DELETION_FIND_CANDIDATES = 
-        "userdeletion_find_candidates";
-    
-    public static final String TASK_QUERY_USER_DELETION_DELETE_USER = 
-        "userdeletion_delete_user";
-    
-    public static final String TASK_QUERY_USER_DELETION_DEL_QUEUE_ENTRY = 
-        "userdeletion_remove_queue_entry";
-
     public static final String TASK_QUERY_ERRATA_QUEUE_FIND_CANDIDATES = 
         "errataqueue_find_candidates";
     
     public static final String TASK_QUERY_ERRATA_QUEUE_ENQUEUE_SAT_ERRATA = 
         "errataqueue_enqueue_sat_errata";
     
-    public static final String TASK_QUERY_ERRATA_QUEUE_ENQUEUE_NON_SAT_ERRATA = 
-        "errataqueue_enqueue_non_sat_errata";
-    
     public static final String TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA_NOTIFICATION = 
         "errataqueue_dequeue_errata_notification";
     
     public static final String TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA = 
         "errataqueue_dequeue_errata";
-    
-    public static final String TASK_QUERY_ERRATA_QUEUE_MARK_ERRATA_IN_PROGRESS = 
-        "errataqueue_mark_errata_in_progress";
-    
-    public static final String TASK_QUERY_ERRATA_QUEUE_CLEAR_ERRATA_IN_PROGRESS = 
-        "errataqueue_clear_errata_in_progress";
     
     public static final String TASK_QUERY_REPOMD_DEQUEUE = 
         "repomd_dequeue";
@@ -93,9 +72,6 @@ public class TaskConstants {
     
     public static final String TASK_QUERY_REPOMOD_CLEAR_IN_PROGRESS = 
         "repomd_clear_in_progress";
-    
-    public static final String TASK_QUERY_ERRATA_QUEUE_FETCH_DESC = 
-        "errataqueue_fetch_errata_description";
     
     public static final String TASK_QUERY_ERRATA_QUEUE_FIND_AUTOUPDATE_SERVERS = 
         "errataqueue_find_autoupdate_servers";
@@ -144,12 +120,6 @@ public class TaskConstants {
     public static final String TASK_QUERY_ERRATAMAILER_MARK_ERRATA_DONE = 
         "erratamailer_mark_errata_done";
     
-    public static final String TASK_QUERY_EMAILENGINE_FIND_USERS =
-        "emailengine_find_users";
-
-    public static final String TASK_QUERY_REPOMD_GENERATOR_CHANNELS =
-        "repomdgenerator_all_channels";
-
     public static final String TASK_QUERY_REPOMD_GENERATOR_CHANNEL_PACKAGES =
         "repomdgenerator_channel_packages";
 
