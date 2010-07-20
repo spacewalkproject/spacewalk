@@ -9,7 +9,7 @@
 PRE_FILES  := $(shell find . -name \*.pre)
 POST_FILES := $(addsuffix .sql,$(basename $(PRE_FILES)))
 
-all : $(POST_FILES) oracle postgres
+all : sanity-check $(POST_FILES) oracle postgres
 
 oracle postgres :
 	$(MAKE) -C $@ -f Makefile
@@ -26,4 +26,7 @@ clean :
 		echo ; \
 	} > $@
 
-.PHONY: oracle postgres clean
+sanity-check :
+	perl schema-source-sanity-check.pl
+
+.PHONY: oracle postgres clean sanity-check
