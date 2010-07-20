@@ -563,7 +563,8 @@ public class ConfigChannelHandler extends BaseHandler {
      * $ConfigSystemDtoSerializer
      * #array_end()
      */
-    public List<ConfigSystemDto> listSubscribedSystems(String sessionKey, String channelLabel) {
+    public List<ConfigSystemDto> listSubscribedSystems(String sessionKey,
+            String channelLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
