@@ -378,32 +378,30 @@ def help_kickstart_getfile(self):
 def complete_kickstart_getfile(self, text, line, beg, end):
     return tab_completer(self.do_kickstart_list('', True), text)
 
-def do_kickstart_getfile(self, args, doreturn=False):
+def do_kickstart_getfile(self, args):
     args = parse_arguments(args)
 
-    url = 'http://%s/ks/cfg/label/%s' % (self.server, args[0])
-
-    try:
-        if re.match('localhost', self.server, re.I):
-            for p in ['http_proxy', 'HTTP_PROXY']:
-                if len(os.environ[p]):
-                    logging.debug('Disabling HTTP proxy')
-                    os.environ[p] = ''
-
-        logging.debug('Retrieving %s' % url)
-        response = urlopen(url)
-        kickstart = response.read()
-    except HTTPError:
-        logging.error('Could not retrieve the Kickstart file')
+    if not len(args):
+        self.help_kickstart_getfile()
         return
 
-    # XXX: Bugzilla 584864
-    # the value returned here is uninterpreted by Cobbler
-    # which makes it useless
-    #kickstart = \
-    #    self.client.kickstart.profile.downloadKickstart(self.session,
-    #                                                    args[0],
-    #                                                    self.server)
+    profile = args[0]
+
+    if self.check_api_version('10.11'):
+        kickstart = self.client.kickstart.profile.downloadRenderedKickstart(\
+                                                       self.session, profile)
+    else:
+        # old versions of th API don't return a rendered Kickstart,
+        # so grab it in a hacky way
+        url = 'http://%s/ks/cfg/label/%s' % (self.server, profile)
+
+        try:
+            logging.debug('Retrieving %s' % url)
+            response = urlopen(url)
+            kickstart = response.read()
+        except HTTPError:
+            logging.error('Could not retrieve the Kickstart file')
+            return
 
     print kickstart
 
