@@ -41,10 +41,8 @@ public class RhnJobAppender extends AppenderSkeleton {
 
     @Override
     protected void append(LoggingEvent event) {
-        if (Level.INFO.isGreaterOrEqual(event.getLevel())) {
-            outputBuffer.append(logEvent(event));
-        }
-        else {
+        outputBuffer.append(logEvent(event));
+        if (!Level.INFO.isGreaterOrEqual(event.getLevel())) {
             errorBuffer.append(logEvent(event));
         }
     }
