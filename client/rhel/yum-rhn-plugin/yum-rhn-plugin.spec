@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.1.3
+Version: 1.1.4
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Jul 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.4-1
+- download scheduled package installation in advance (msuchy@redhat.com)
+- add parameter cache_only to all client actions (msuchy@redhat.com)
+
 * Mon Jun 14 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.3-1
 - 598323 - yumex do not set version (msuchy@redhat.com)
 - l10n: Updates to Chinese (China) (zh_CN) translation
