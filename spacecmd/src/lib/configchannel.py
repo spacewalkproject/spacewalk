@@ -314,37 +314,13 @@ def do_configchannel_addfile(self, args, path=''):
     if mode_input:
         mode = mode_input
 
-    binary = False
-
     if not directory:
-        objecttype = 'text'
-
-        #XXX: Bugzilla 606982
-        # Satellite doesn't pick up on the base64 encoded string
-        #type = prompt_user('Text or binary [T/b]:')
-        
-        if re.match('b', objecttype, re.I):
-            binary = True
-
-            while contents == '':
-                filename = prompt_user('File:')
-
-                try:
-                    handle = open(filename, 'rb')
-                    contents = handle.read().encode('base64')
-                    handle.close()
-                except IOError:
-                    contents = ''
-                    logging.warning('Could not read %s' % filename)
+        if contents:
+            template = contents
         else:
-            binary = False
+            template = ''
 
-            if contents:
-                template = contents
-            else:
-                template = ''
-
-            contents = editor(template = template, delete = True)
+        contents = editor(template = template, delete = True)
 
     file_info = { 'contents'    : ''.join(contents),
                   'owner'       : owner,
@@ -358,13 +334,10 @@ def do_configchannel_addfile(self, args, path=''):
     print 'Mode:        %s' % file_info['permissions']
 
     if not directory:
-        if binary:
-            print 'Binary File: %s' % binary
-        else:
-            print
-            print 'Contents'
-            print '--------'
-            print file_info['contents']
+        print
+        print 'Contents'
+        print '--------'
+        print file_info['contents']
 
     if self.user_confirm():
         self.client.configchannel.createOrUpdatePath(self.session,
