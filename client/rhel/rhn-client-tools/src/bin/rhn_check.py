@@ -227,18 +227,14 @@ class CheckCli(rhncli.RhnCli):
     def handle_action(self, action):
         """ Wrapper handler for the action we're asked to do. """
         log.log_debug("handle_action", action)
-            
-        version = action['version']
-        action_id = action['id']
-
         log.log_debug("handle_action actionid = %s, version = %s" % (
-            action_id, version))
+            action['id'], action['version']))
             
         (method, params) = self.__parse_action_data(action)
         (status, message, data) = CheckCli.__run_action(method, params)
 
         log.log_debug("Sending back response", (status, message, data))
-        return self.submit_response(action_id, status, message, data)
+        return self.submit_response(action['id'], status, message, data)
 
 
     def is_valid_action(self, action):
