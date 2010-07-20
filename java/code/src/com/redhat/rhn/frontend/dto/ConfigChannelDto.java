@@ -167,6 +167,15 @@ public class ConfigChannelDto extends BaseDto {
         return fileCount;
     }
 
+
+    /**
+     * Makes a nice looking file counts message
+     * @return the file description
+     */
+    public String getFileCountsMessage() {
+        return getFilesAndDirsDisplayString();
+    }
+
     /**
      * @param fileCountIn The fileCount to set.
      */
@@ -177,6 +186,7 @@ public class ConfigChannelDto extends BaseDto {
     /**
      * @return Returns the id.
      */
+    @Override
     public Long getId() {
         return id;
     }
@@ -413,7 +423,7 @@ public class ConfigChannelDto extends BaseDto {
             symlinks = symlinksOnlyCount.intValue();
         }
         ConfigFileCount count = ConfigFileCount.create(files, dirs, symlinks);
-        return ConfigActionHelper.makeFileCountsMessage(count, null);
+        return ConfigActionHelper.makeFileCountsMessage(count, null, false, false);
     }
 
     /**

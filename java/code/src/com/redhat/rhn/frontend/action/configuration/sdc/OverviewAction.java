@@ -97,6 +97,7 @@ public class OverviewAction extends RhnAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ActionForward execute(ActionMapping mapping,
                                     ActionForm formIn,
                                     HttpServletRequest request,
@@ -155,7 +156,7 @@ public class OverviewAction extends RhnAction {
             url = ADD_FILES_URL + "?sid=" + server.getId();
         }
         context.getRequest().setAttribute(key,
-                        ConfigActionHelper.makeFileCountsMessage(info, url));
+                        ConfigActionHelper.makeFileCountsMessage(info, url, true));
     }
 
 
@@ -241,7 +242,7 @@ public class OverviewAction extends RhnAction {
             Object [] params = new Object[2];
 
             params[0] = ConfigActionHelper.makeFileCountsMessage(total,
-                                                                null, true);
+                                                                null, true, true);
             params[1] = ACTION_DETAILS_URL +
                                 "?hid=" + ca.getId() + "&sid=" + server.getId();
             String messageKey;

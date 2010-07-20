@@ -41,12 +41,7 @@
       <rhn:column header="globalconfiglist.jsp.files"
                   url="/rhn/configuration/ChannelFiles.do?ccid=${current.id}"
                   renderUrl="${current.fileCount > 0}">
-        <c:if test="${current.fileCount == 1}">
-          <bean:message key="config.common.onefile" />
-        </c:if>
-        <c:if test="${current.fileCount != 1}">
-          <bean:message key="config.common.numfiles" arg0="${current.fileCount}"/>
-        </c:if>
+          <c:out value="${current.fileCountsMessage}"/>        
       </rhn:column>
 
       <rhn:column header="globalconfiglist.jsp.systems"

@@ -259,11 +259,13 @@ public abstract class ConfigActionHelper {
      * @param count the ConfigFileCount object,
      *          that stores info on the number of files and directories
      * @param url the url to wrap the messages if so desired
+     * @param includeAddUrlForEmpty include "Add" section for empty
      * @return the properly formatted File & Directories helper messages ..
      */
     public static String makeFileCountsMessage(ConfigFileCount count,
-                                               String url) {
-        return makeFileCountsMessage(count, url, false);
+                                               String url,
+                                               boolean includeAddUrlForEmpty) {
+        return makeFileCountsMessage(count, url, false, includeAddUrlForEmpty);
     }
 
     /**
@@ -284,11 +286,13 @@ public abstract class ConfigActionHelper {
      *                              return "0 files and 1 directory and 0 symlinks"
      *                         else
      *                              return "1 directory"
+     * @param includeAddUrlForEmpty include "Add" section for empty
      * @return the properly formatted File & Directories helper messages ..
      */
     public static String makeFileCountsMessage(ConfigFileCount count,
                                                String url,
-                                               boolean includeEmptyFilesAndDirs) {
+                                               boolean includeEmptyFilesAndDirs,
+                                               boolean includeAddUrlForEmpty) {
         long fileCount = count.getFiles(), dirCount = count.getDirectories(),
                 symlinkCount = count.getSymlinks();
         int fileSuffix = getSuffix(fileCount);
@@ -300,7 +304,7 @@ public abstract class ConfigActionHelper {
                 "_symlinks_" + symlinkSuffix;
 
         if (fileSuffix == NONE && dirSuffix == NONE && symlinkSuffix == NONE) {
-            if (url != null) {
+            if (includeAddUrlForEmpty && url != null) {
                 key += "_url";
                 return service.getMessage(key, new Object[] {url});
             }

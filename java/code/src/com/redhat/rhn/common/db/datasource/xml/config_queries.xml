@@ -1811,9 +1811,33 @@ ORDER BY SCC.position ASC
   </query>
   <elaborator params="sid">
 SELECT  CC.id, CC.label,
-        ( SELECT count(CF.id)
-            FROM rhnConfigFile CF
-           WHERE CF.config_channel_id = CC.id ) AS file_count,
+       NVL( (
+             SELECT COUNT(CF.id)
+               FROM rhnConfigFile CF
+               INNER JOIN rhnConfigRevision CR ON CR.id = CF.latest_config_revision_id
+               INNER JOIN rhnConfigFileType CFT ON CFT.ID = CR.CONFIG_FILE_TYPE_ID
+              WHERE CF.config_channel_id = CC.id
+                AND CF.latest_config_revision_id IS NOT NULL
+                AND CFT.LABEL = 'file'
+            ), 0) AS files_only_count,
+       NVL( (
+             SELECT COUNT(CF.id)
+               FROM rhnConfigFile CF
+               INNER JOIN rhnConfigRevision CR ON CR.id = CF.latest_config_revision_id
+               INNER JOIN rhnConfigFileType CFT ON CFT.ID = CR.CONFIG_FILE_TYPE_ID
+              WHERE CF.config_channel_id = CC.id
+                AND CF.latest_config_revision_id IS NOT NULL
+                AND CFT.LABEL = 'symlink'
+            ), 0) AS symlinks_only_count,
+       NVL( (
+             SELECT COUNT(CF.id)
+               FROM rhnConfigFile CF
+               INNER JOIN rhnConfigRevision CR ON CR.id = CF.latest_config_revision_id
+               INNER JOIN rhnConfigFileType CFT ON CFT.ID = CR.CONFIG_FILE_TYPE_ID
+              WHERE CF.config_channel_id = CC.id
+                AND CF.latest_config_revision_id IS NOT NULL
+                AND CFT.LABEL = 'directory'
+            ), 0) AS dirs_only_count,
         ( SELECT count(CF.id)
             FROM rhnConfigFile CF, rhnConfigFileName CFN
            WHERE CF.config_channel_id = CC.id
