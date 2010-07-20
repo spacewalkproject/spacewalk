@@ -47,9 +47,9 @@ def complete_configchannel_listsystems(self, text, line, beg, end):
     return tab_completer(self.do_configchannel_list('', True), text)
 
 def do_configchannel_listsystems(self, args):
-    #XXX: Bugzilla 584852
-    print 'configchannel.listSubscribedSystems is not implemented'
-    return
+    if not self.check_api_version('10.11'):
+        logging.warning("This version of the API doesn't support this method")
+        return
 
     args = parse_arguments(args)
 
@@ -57,9 +57,10 @@ def do_configchannel_listsystems(self, args):
         self.help_configchannel_listsystems()
         return
 
-    systems = \
-        self.client.configchannel.listSubscribedSystems(self.session,
-                                                        args[0])
+    channel = args[0]
+
+    systems = self.client.configchannel.listSubscribedSystems(self.session,
+                                                              channel)
 
     systems = sorted([s.get('name') for s in systems])
 
