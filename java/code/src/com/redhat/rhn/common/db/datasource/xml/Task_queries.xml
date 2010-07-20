@@ -114,24 +114,6 @@ SELECT DISTINCT
    </query>
 </write-mode>
 
-<write-mode name="errataqueue_enqueue_non_sat_errata">
-   <query params="errata_id,minutes">
-INSERT
-  INTO rhnErrataNotificationQueue
-       (errata_id, org_id, next_action)
-SELECT DISTINCT
-       :errata_id, CFP.org_id, sysdate + :minutes / 1440
-  FROM rhnPrivateChannelFamily CFP,
-       rhnChannelFamilyMembers CFM,
-       rhnChannelErrata CE
- WHERE CE.errata_id = :errata_id
-   AND CFM.channel_id = CE.channel_id
-   AND CFM.channel_family_id = CFP.channel_family_id
-   AND CFP.org_id IS NOT NULL
-   </query>
-</write-mode>
-
-
 <write-mode name="errataqueue_dequeue_errata_notification">
    <query params="errata_id">
       DELETE FROM rhnErrataNotificationQueue WHERE errata_id = :errata_id
@@ -245,22 +227,6 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
    </query>
 </callable-mode>
 
-<mode name="users_to_be_notified">
-  <query>
-SELECT WCN.id, WCN.org_id, WCN.contact_email_address, WC.name, WC.oracle_customer_number
-  FROM web_customer WC, web_customer_notification WCN
- WHERE WC.id = WCN.org_id
-  </query>
-</mode>
-
-<write-mode name="remove_user_from_wcn">
-  <query params="user_id">
-DELETE 
-  FROM web_customer_notification
- WHERE id = :user_id
-  </query>
-</write-mode>
-
 <callable-mode name="taskomatic_session_cleanup">
    <query params="bound, commit_interval, batch_size, sessions_deleted">
       {call pxt_session_cleanup(:bound, :commit_interval, :batch_size, :sessions_deleted)}
@@ -276,34 +242,6 @@ DELETE
 <write-mode name="pkgcleanup_reset_queue">
    <query params="">
      DELETE FROM rhnPackageFileDeleteQueue
-   </query>
-</write-mode>
-
-<mode name="nochannelcheck_find_orgs">
-   <query params="">
-     SELECT DISTINCT S.id, S.org_id, S.name
-       FROM rhnServer S
-         WHERE S.created > SYSDATE - 1
-             AND (SELECT COUNT(1) FROM rhnServer S2 WHERE S2.org_id = S.org_id) >= 1
-	         AND NOT EXISTS (SELECT 1 FROM rhnServerChannel SC WHERE SC.server_id = S.id)
-   </query>
-</mode> 
-
-<mode name="userdeletion_find_candidates">
-   <query params="">
-      SELECT user_id FROM rhnUserDeletionQueue ORDER BY created
-   </query>
-</mode>
-
-<callable-mode name="userdeletion_delete_user">
-   <query params="user_id">
-      {call rhn_org.delete_user(:user_id)}
-   </query>
-</callable-mode>
-
-<write-mode name="userdeletion_remove_queue_entry">
-   <query params="user_id">
-      DELETE FROM rhnUserDeletionQueue WHERE user_id = :user_id
    </query>
 </write-mode>
 
@@ -368,24 +306,6 @@ SELECT COUNT(*) as queued FROM rhnDailySummaryQueue WHERE org_id = :org_id
 INSERT INTO rhnDailySummaryQueue (org_id) VALUES (:org_id)
   </query>
 </write-mode>
-
-<callable-mode name="entitlement_queue_pending">
-  <query>
-{:total = call rhn_ep.entitlement_queue_pending}
-  </query>
-</callable-mode>
-
-<callable-mode name="process_queue_batch">
-  <query params="duration, batch">
-{:done = call rhn_ep.process_queue_batch(:duration, :batch)}
-  </query>
-</callable-mode>
-
-<callable-mode name="entitle_org_direct">
-  <query params="org_id">
-{call rhn_ep.poll_customer_internal(:org_id)}
-  </query>
-</callable-mode>
 
 <callable-mode name="remove_sandbox_file">
   <query params="id">
@@ -516,22 +436,6 @@ FROM
      AND SC.channel_id = C.id
      AND C.parent_channel IS NULL
    ORDER BY 3,4,2
-   </query>
-</mode>
-
-<mode name="repomdgenerator_all_channels">
-   <query params="">
-  SELECT C.id, C.label,
-        CASE
-            WHEN org_id is NOT NULL then -1
-            WHEN label LIKE 'rhel%' then 1
-            WHEN label LIKE 'redhat%' then 1
-            WHEN label LIKE 'jbapp%' then 1
-            ELSE 0
-            END AS rank,
-        C.last_modified
-    FROM rhnChannel C
-    ORDER by 3 DESC, 4 DESC
    </query>
 </mode>
 
