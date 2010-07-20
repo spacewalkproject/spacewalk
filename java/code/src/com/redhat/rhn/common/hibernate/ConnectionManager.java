@@ -148,6 +148,11 @@ class ConnectionManager {
             LOG.info("Adding hibernate properties to hibernate Configuration");
             Properties hibProperties = Config.get().getNamespaceProperties(
                     "hibernate");
+            hibProperties.put("hibernate.connection.username",
+                        Config.get().getString("db_user"));
+            hibProperties.put("hibernate.connection.password",
+                        Config.get().getString("db_password"));
+
             config.addProperties(hibProperties);
             // Force the use of our txn factory
             if (config.getProperty(Environment.TRANSACTION_STRATEGY) != null) {

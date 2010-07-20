@@ -454,8 +454,6 @@ def parse_line(line):
         """
         converTable = {'proxy.http_proxy_username': str,
                        'proxy.http_proxy_password': str,
-                       'hibernate.connection.username': str,
-                       'hibernate.connection.password': str,
                        'osa-dispatcher.jabber_username': str,
                        'osa-dispatcher.jabber_password': str,
                        'server.satellite.http_proxy_username': str,
