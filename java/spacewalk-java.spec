@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.30
+Version: 1.1.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,22 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 20 2010 Tomas Lestach <tlestach@redhat.com> 1.1.31-1
+- checkstyle fix (tlestach@redhat.com)
+- 584860 - do not return empty partition strings (tlestach@redhat.com)
+- 584860 - kickstart.profile.system.getPartitioningScheme does not return
+  include statements (aparsons@redhat.com)
+- 584864 - added API method kickstart.profile.downloadRenderedKickstart
+  (aparsons@redhat.com)
+- 584852 - added API configchannel.listSubscribedSystems (aparsons@redhat.com)
+- Added a nice org updated message for the org config page (paji@redhat.com)
+- 599612 - making the SSM able to subscripe systems to shared channels
+  (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- making kickstarts not fail if multiple of the same NVREA are in the same
+  channel (jsherril@redhat.com)
+- 600502 - speeding up system.getId() api call (jsherril@redhat.com)
+
 * Mon Jul 19 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.30-1
 - use db_* options from rhn.conf to retrieve database connection info
 - Added unit tests for SystemHandlerTest.convertToFlex
