@@ -25,10 +25,6 @@
              classname="org.apache.jasper.JspC"
              classpathref="buildjars"/>
 
-    <!-- =================== Ant Contrib Tasks ======================= -->
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties"
-             classpathref="buildjars"/>
-
     <!-- ant-contrib 1.0 has this commented out :( -->
     <taskdef name="for"
              classname="net.sf.antcontrib.logic.For"

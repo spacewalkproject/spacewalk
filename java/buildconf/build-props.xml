@@ -69,13 +69,31 @@
       <available file="/usr/share/java/ant/ant-contrib.jar"/>
   </condition>
 
+
+    <!-- =================== Ant Contrib Tasks ======================= -->
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"
+                         classpath="${ant-contrib.path}"/>
+
+
   <property name="build.jar.dependencies"
       value="ant ant-junit ${ant-contrib.path} antlr
       ${common.jar.dependencies} tanukiwrapper jasper5-compiler jasper5-runtime
        concurrent" />
 
+
+  <if>
+    <available file="/usr/share/java/objectweb-asm" />
+    <then>
+       <property name="asm" value="objectweb-asm/asm" />
+    </then>
+    <else>
+       <property name="asm" value="asm" />
+    </else>
+  </if>
+
+
   <property name="run.jar.dependencies"
-      value="antlr asm cglib c3p0 commons-discovery dom4j ehcache jaf jta
+      value="antlr ${asm} cglib c3p0 commons-discovery dom4j ehcache jaf jta
              ojdbc14 oscache sitemesh taglibs-standard xalan-j2 xerces-j2
              xml-commons-apis ${common.jar.dependencies}" />
 
@@ -90,7 +108,7 @@
       ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
-      value="antlr asm cglib c3p0 commons-discovery dom4j ehcache jaf jta
+      value="antlr ${asm} cglib c3p0 commons-discovery dom4j ehcache jaf jta
              oscache sitemesh taglibs-standard xalan-j2 xerces-j2
              xml-commons-apis ${install.common.jar.dependencies}" />
 
@@ -105,7 +123,7 @@
              commons-fileupload concurrent " />
 
   <property name="dist.jar.dependencies"
-      value="antlr asm bcel c3p0 cglib
+      value="antlr ${asm} bcel c3p0 cglib
              commons-collections commons-beanutils commons-cli commons-codec
              commons-digester commons-discovery commons-el
              commons-fileupload commons-io commons-lang commons-logging

@@ -4,6 +4,7 @@
   Spacewalk build file, please indent 2 spaces. NO TABS!
 -->
 <project name="RHN" default="all" basedir=".">
+
   <import file="buildconf/build-props.xml" />
   <import file="buildconf/build-taskdefs.xml" />
   <import file="buildconf/build-utils.xml" />
