@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -12,10 +12,6 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
---
---
---
--- EXCLUDE: production
 --
 -- This creates an org with ID of 1, and errors if there already is one
 --
@@ -146,6 +142,7 @@ begin
 		'Satellite Administrators for Org ' || name_in || ' (1)',
 		NULL, ug_type, 1
 	);
+
 
 	-- if they need more than 16GB, they'll call us and we'll whip
 	-- out a "can be null" patch, which we should do for next
