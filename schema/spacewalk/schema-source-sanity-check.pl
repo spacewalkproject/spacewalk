@@ -4,8 +4,11 @@ use strict;
 use warnings FATAL => 'all';
 
 use File::Find ();
+use Getopt::Long ();
 
 my %files;
+my $show_ignored = 0;
+Getopt::Long::GetOptions('I' => \$show_ignored) or exit 9;
 
 for my $dir (qw( common oracle postgres )) {
 	File::Find::find(sub {
@@ -38,7 +41,7 @@ for my $c (sort keys %{ $files{common} }) {
 for my $c (sort keys %{ $files{oracle} }) {
 	next unless $c =~ /\.sql$/;
 	if (exists $files{postgres}{$c}) {
-		print "Oracle file [$c] is also in postgres (ignoring for now)\n";
+		print "Oracle file [$c] is also in postgres (ignoring for now)\n" if $show_ignored;
 		# $error = 1;
 	}
 }
@@ -46,7 +49,7 @@ for my $c (sort keys %{ $files{oracle} }) {
 for my $c (sort keys %{ $files{postgres} }) {
 	next unless $c =~ /\.sql$/;
 	if (exists $files{oracle}{$c}) {
-		print "Postgres file [$c] is also in oracle (ignoring for now)\n";
+		print "Postgres file [$c] is also in oracle (ignoring for now)\n" if $show_ignored;
 		# $error = 1;
 	}
 }
