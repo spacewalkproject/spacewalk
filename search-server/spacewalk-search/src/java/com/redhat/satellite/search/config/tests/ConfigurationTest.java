@@ -39,7 +39,7 @@ public class ConfigurationTest extends TestCase {
         builder.append("search.index_work_dir=/tmp/search-server-test\n");
         builder.append("search.rpc_port=2828\n");
         builder.append("search.list=item1,item2, item3\n");
-        builder.append("hibernate.connection.username=rhnsat\n");
+        builder.append("db_user=rhnsat\n");
         builder.append("search.rpc_handlers=");
         builder.append(
              "index:com.redhat.satellite.search.rpc.handlers.IndexHandler\n\n");
@@ -99,7 +99,7 @@ public class ConfigurationTest extends TestCase {
     }
     
     public void testTranslation() {
-        assertNull(config.getString("hibernate.connection.username"));
+        assertNull(config.getString("db_user"));
         assertEquals("rhnsat", config.getString("search.connection.username"));
     }
     

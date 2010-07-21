@@ -994,27 +994,23 @@ sub populate_initial_configs {
     }
 
     # Define some db specific settings:
-    my ($hibernate_dialect, $hibernate_driver, $hibernate_url, $default_db);
+    my ($hibernate_dialect, $hibernate_driver, $hibernate_driver_proto, $default_db);
     if ($answers->{'db-backend'} eq 'oracle') {
         $hibernate_dialect = "org.hibernate.dialect.Oracle9iDialect";
         $hibernate_driver = "oracle.jdbc.driver.OracleDriver";
-        $hibernate_url = "jdbc:oracle:oci:@" . $answers->{"db-sid"};
+        $hibernate_driver_proto = "jdbc:oracle:oci";
         $default_db = sprintf('%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
     } elsif ($answers->{'db-backend'} eq 'postgresql') {
         $hibernate_dialect = "org.hibernate.dialect.PostgreSQLDialect";
         $hibernate_driver = "org.postgresql.Driver";
-        $hibernate_url = "jdbc:postgresql:";
+        $hibernate_driver_proto = "jdbc:postgresql";
         $default_db = "$answers->{'db-user'}/$answers->{'db-password'}\@dbname=$answers->{'db-name'}";
         if (defined $answers->{"db-host"} and $answers->{"db-host"} ne '') {
-            $hibernate_url .= '//' . $answers->{"db-host"};
             $default_db .= ";host=$answers->{'db-host'}";
             if (defined $answers->{"db-port"} and $answers->{"db-port"} ne '') {
-                $hibernate_url .= ':' . $answers->{"db-port"};
                 $default_db .= ";port=$answers->{'db-port'}";
             }
-            $hibernate_url .= "/";
         }
-        $hibernate_url .= $answers->{"db-name"};
     }
 
   my %config_opts =
@@ -1038,7 +1034,7 @@ sub populate_initial_configs {
      db_port => $answers->{'db-port'},
      hibernate_dialect => $hibernate_dialect,
      hibernate_driver => $hibernate_driver,
-     hibernate_url => $hibernate_url,
+     hibernate_driver_proto => $hibernate_driver_proto,
      traceback_mail => $answers->{'admin-email'},
      jabberDOThostname => $answers->{hostname},
      osadispatcherDOTusername => 'rhn-dispatcher-sat',
