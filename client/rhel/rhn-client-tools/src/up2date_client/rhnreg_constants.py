@@ -303,9 +303,9 @@ CHANNEL_PAGE_WARNING = _("Warning:You will not be able to limit this"
  
 CONFIRM_OS_WARNING      = _("Your system will be subscribed to %s \n"
                             "base software channel. You will not be\n"
-                            "able to move this system to an earlier\n"
-                            "(you will be able to move to a newer release.)\n"
-                            "Are you sure you Would like to Continue?")
+                            "able to move this system to an earlier release\n"
+                            "(you will be able to move to a newer release).\n"
+                            "Are you sure you would like to continue?")
 
 
 
