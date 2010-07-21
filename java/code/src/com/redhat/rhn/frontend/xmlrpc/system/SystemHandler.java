@@ -1038,6 +1038,69 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
+     * Get the latest available version of a package for each system
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param systemIds The IDs of the systems in question
+     * @return Returns an a map with the latest available package for each system
+     * @throws FaultException A FaultException is thrown if the server corresponding to
+     * sid cannot be found.
+     *
+     * @xmlrpc.doc Get the latest available version of a package for each system
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #param("string", "packageName")
+     * @xmlrpc.returntype #struct("systems")
+     *      #prop("int", "serverId")
+     *      #struct("latest package")
+     *          #prop("int", "id")
+     *          #prop("string", "name")
+     *          #prop("string", "version")
+     *          #prop("string", "release")
+     *          #prop("string", "epoch")
+     *          #prop("string", "arch")
+     *      #struct_end()
+     */
+    public Map listLatestAvailablePackage(String sessionKey, List<Integer> systemIds, String name)
+    throws FaultException {
+        // Get the logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        Map results = new HashMap();
+
+        for (Integer sid : systemIds) {
+            // get the package name ID
+            Map pkgEvr = PackageManager.lookupEvrIdByPackageName(sid.longValue(), name);
+
+            if (pkgEvr != null) {
+                // find the latest package available to each system
+                Package pkg = PackageManager.guestimatePackageBySystem(sid.longValue(),
+                                        (Long) pkgEvr.get("name_id"), (Long) pkgEvr.get("evr_id"),
+                                         null, loggedInUser.getOrg());
+
+                // build the hash to return
+                if (pkg != null) {
+                    HashMap pkgMap = new HashMap();
+                    pkgMap.put("id", pkg.getId());
+                    pkgMap.put("name", pkg.getPackageName().getName());
+                    pkgMap.put("version", pkg.getPackageEvr().getVersion());
+                    pkgMap.put("release", pkg.getPackageEvr().getRelease());
+                    pkgMap.put("arch", pkg.getPackageArch().getLabel());
+
+                    if (pkg.getPackageEvr().getEpoch() != null) {
+                        pkgMap.put("epoch", pkg.getPackageEvr().getEpoch());
+                    } else {
+                        pkgMap.put("epoch", "");
+                    }
+
+                    results.put(sid, pkgMap);
+                }
+            }
+        }
+
+        return results;
+    }
+
+    /**
      * Gets the entitlements for a given server.
      * @param sessionKey The sessionKey containing the logged in user
      * @param sid The id for the system in question
