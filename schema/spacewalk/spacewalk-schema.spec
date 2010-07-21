@@ -12,6 +12,7 @@ BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  chameleon
+BuildRequires:  perl(Digest::SHA1)
 
 Obsoletes:      rhn-satellite-schema <= 5.1.0
 
