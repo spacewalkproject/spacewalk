@@ -316,7 +316,7 @@ class CheckCli(rhncli.RhnCli):
             log.log_debug("local action status: ", (status, message, data))
 
     @staticmethod
-    def __do_call(method, params, kwargs=None):
+    def __do_call(method, params, kwargs={}):
         log.log_debug("do_call", method, params, kwargs)
 
         method = getMethod.getMethod(method, "/usr/share/rhn/", "actions")
@@ -325,7 +325,7 @@ class CheckCli(rhncli.RhnCli):
         return retval
 
     @staticmethod
-    def __run_action(method, params, kwargs=None):
+    def __run_action(method, params, kwargs={}):
         try:
             (status, message, data) = CheckCli.__do_call(method, params, kwargs)
         except getMethod.GetMethodException:
