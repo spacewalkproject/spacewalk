@@ -1049,25 +1049,32 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #array_single("int", "serverId")
      * @xmlrpc.param #param("string", "packageName")
-     * @xmlrpc.returntype #struct("systems")
-     *      #prop("int", "serverId")
-     *      #struct("latest package")
+     * @xmlrpc.returntype
+     *      #array()
+     *        #prop_desc("int", "id", "server ID")
+     *        #prop_desc("string", "name", "server name")
+     *        #struct("package")
      *          #prop("int", "id")
      *          #prop("string", "name")
      *          #prop("string", "version")
      *          #prop("string", "release")
      *          #prop("string", "epoch")
      *          #prop("string", "arch")
-     *      #struct_end()
+     *      #array_end()
+     *
      */
-    public Map listLatestAvailablePackage(String sessionKey, List<Integer> systemIds, String name)
+    public List listLatestAvailablePackage(String sessionKey, List<Integer> systemIds, String name)
     throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
 
-        Map results = new HashMap();
+        List list = new ArrayList();
 
         for (Integer sid : systemIds) {
+            Server server = lookupServer(loggedInUser, sid);
+
+            Map systemMap = new HashMap();
+
             // get the package name ID
             Map pkgEvr = PackageManager.lookupEvrIdByPackageName(sid.longValue(), name);
 
@@ -1092,12 +1099,16 @@ public class SystemHandler extends BaseHandler {
                         pkgMap.put("epoch", "");
                     }
 
-                    results.put(sid, pkgMap);
+                    systemMap.put("id", sid);
+                    systemMap.put("name", server.getName());
+                    systemMap.put("package", pkgMap);
+
+                    list.add(systemMap);
                 }
             }
         }
 
-        return results;
+        return list;
     }
 
     /**
