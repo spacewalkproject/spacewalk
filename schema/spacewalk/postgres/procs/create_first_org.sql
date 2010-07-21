@@ -1,3 +1,4 @@
+-- oracle equivalent source sha1 2284fa9b4b21f4537781ec647db6c856415efc9b
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -29,12 +30,9 @@ declare
 	group_val		numeric;
 begin
 	insert into web_customer (
-		id, name,
-		oracle_customer_id, oracle_customer_number,
-		customer_type
+		id, name
 	) values (
-		1, name_in,
-		1, 1, 'B'
+		1, name_in
 	);
 
 	select nextval( 'rhn_user_group_id_seq' ) into group_val from dual;

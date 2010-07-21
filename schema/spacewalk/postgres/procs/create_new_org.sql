@@ -1,5 +1,6 @@
+-- oracle equivalent source sha1 9a93bedcf318008a701b88e86380a8d3cf353819
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -11,10 +12,6 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
--- $Id: create_new_org.sql 118829 2007-08-03 00:04:50Z mmccune $
---
 --
 
 create or replace function create_new_org
@@ -35,12 +32,9 @@ begin
         select nextval('web_customer_id_seq') into new_org_id;
 
         insert into web_customer (
-                id, name,
-                oracle_customer_id, oracle_customer_number,
-                customer_type
+                id, name
         ) values (
-                new_org_id, name_in,
-                new_org_id, new_org_id, 'B'
+                new_org_id, name_in
         );
 
         select nextval('rhn_user_group_id_seq') into group_val;
