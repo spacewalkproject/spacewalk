@@ -229,6 +229,7 @@ make -f Makefile.rhn-client-tools test
 %{_mandir}/man8/rhnreg_ks.8*
 %{_mandir}/man8/rhn_register.8*
 %{_mandir}/man8/spacewalk-channel.8*
+%{_mandir}/man8/rhn-channel.8*
 
 %config(noreplace) %{_sysconfdir}/security/console.apps/rhn_register
 %config(noreplace) %{_sysconfdir}/pam.d/rhn_register
