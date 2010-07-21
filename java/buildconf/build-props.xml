@@ -72,7 +72,7 @@
 
     <!-- =================== Ant Contrib Tasks ======================= -->
     <taskdef resource="net/sf/antcontrib/antcontrib.properties"
-                         classpath="${ant-contrib.path}"/>
+                         classpath="/usr/share/java/${ant-contrib.path}.jar"/>
 
 
   <property name="build.jar.dependencies"
