@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.18
+Version:        1.1.19
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Jul 21 2010 Jan Pazdziora 1.1.19-1
+- If PostgreSQL source specifies SHA1 of Oracle source equivalent, we need to
+  verify it.
+- Match PostgreSQL create_first_org and create_new_org changes to Oracle
+  versions from commit 10c8a7dbca8a825639979f5dcb701472dd6b1d55.
+- Add 2010 copyright for commit 10c8a7dbca8a825639979f5dcb701472dd6b1d55.
+- Remove the EXCLUDE: production, to make the diff against
+  oracle/procs/create_first_org.sql smaller.
+- Check that Oracle source files have counterparts in PostgreSQL and vice versa
+  (ignoring results for now).
+- Add basic sanity checking of the consistency of the schema sources.
+- schema/spacewalk/postgres/manual/* is not used anywhere, removing.
+  (jpazdziora@redhat.com)
+
 * Mon Jul 19 2010 Jan Pazdziora 1.1.18-1
 - add missing upgrade for package too
 - Remove lines starting with SQL comment, to match what blend does when
