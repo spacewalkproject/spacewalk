@@ -161,9 +161,9 @@ class ConnectionManager {
             } else {
                 String dbHost = Config.get().getString("db_host");
                 String dbPort = Config.get().getString("db_port");
-                if (dbHost != null and dbHost.length() > 0) {
+                if (dbHost != null && dbHost.length() > 0) {
                     connectionUrl += "//" + dbHost;
-                    if (dbPort != null and dbPort.length() > 0) {
+                    if (dbPort != null && dbPort.length() > 0) {
                         connectionUrl += ":" + dbPort;
                     }
                     connectionUrl += "/";
