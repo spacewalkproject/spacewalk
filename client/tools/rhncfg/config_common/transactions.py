@@ -256,10 +256,10 @@ class DeployTransaction:
 
         log_debug(3, "deploying transaction")
  
-	# 0. handle any dirs we need to create first
-	#    a) if the dir exists, then just change the mode and owners, 
-	#	else create it and then make sure the mode and owners are correct.
-	#    b) if there are files, then continue
+        # 0. handle any dirs we need to create first
+        #    a) if the dir exists, then just change the mode and owners, 
+        #	else create it and then make sure the mode and owners are correct.
+        #    b) if there are files, then continue
         # 1. write new version (tmp)
         #    a)  if anything breaks, remove all tmp versions and error out
         # 2. rename old version to backup
