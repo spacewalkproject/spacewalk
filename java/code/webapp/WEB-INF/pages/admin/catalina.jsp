@@ -13,7 +13,7 @@ editAreaLoader.init({
         id : "contents"
         ,allow_toggle: true
         ,allow_resize: "both"
-        ,is_editable: false
+        ,display: "later"
         ,toolbar: "search, go_to_line, |, help"
 });
 </script>
