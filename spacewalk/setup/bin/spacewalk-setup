@@ -996,7 +996,7 @@ sub populate_initial_configs {
     # Define some db specific settings:
     my ($hibernate_dialect, $hibernate_driver, $hibernate_driver_proto, $default_db);
     if ($answers->{'db-backend'} eq 'oracle') {
-        $hibernate_dialect = "org.hibernate.dialect.Oracle9iDialect";
+        $hibernate_dialect = "org.hibernate.dialect.Oracle10gDialect";
         $hibernate_driver = "oracle.jdbc.driver.OracleDriver";
         $hibernate_driver_proto = "jdbc:oracle:oci";
         $default_db = sprintf('%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
