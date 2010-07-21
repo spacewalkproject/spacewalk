@@ -65,6 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
 make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     MANDIR=%{_mandir}
+mkdir -p $RPM_BUILD_ROOT/%{_sharedstatedir}/rhncfg/backups
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -72,6 +73,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{rhnroot}/config_common
+%{_sharedstatedir}/rhncfg/backups
 %doc LICENSE PYTHON-LICENSES.txt
 
 %files client
