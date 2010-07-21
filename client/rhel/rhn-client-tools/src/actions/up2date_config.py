@@ -20,8 +20,10 @@ __rhnexport__ = [
     'get']
 
 argVerbose = 0
-def update(configdict):
+def update(configdict, cache_only=None):
     """Invoke this to change the ondisk configuration of up2date"""
+    if cache_only:
+        return (0, "no-ops for caching", {})
     if argVerbose > 1:
         print "called update_up2date_config"
 
@@ -48,8 +50,10 @@ def update(configdict):
 
     return (0, "config updated", {})
 
-def get():
+def get(cache_only=None):
     """Reterieve the current configuration of up2date"""
+    if cache_only:
+        return (0, "no-ops for caching", {})
     if argVerbose > 1:
         print "called get_up2date_config"
 
@@ -59,7 +63,9 @@ def get():
     return (0, "configuration retrived", {'data' : ret})
 
 
-def rpmmacros(macroName, macroValue):
+def rpmmacros(macroName, macroValue, cache_only):
+    if cache_only:
+        return (0, "no-ops for caching", {})
     writeUp2dateMacro(macroName, macroValue)
     return (0, "%s set to %s" % (macroName, macroValue), {})
 
