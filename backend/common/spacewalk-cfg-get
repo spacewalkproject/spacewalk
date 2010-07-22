@@ -28,7 +28,22 @@ if do_list:
     cfg.show()
 else:
     val = cfg.get(key)
-    if isinstance(val, list):
+    # default_db is a special 'virtual' key
+    if key == 'default_db':
+        if cfg.get('db_backend') == 'oracle':
+            default_db = "%s/%s@%s" % (
+                cfg.get('db_user'), cfg.get('db_password'), cfg.get('db_name'))
+        elif cfg.get('db_backend') == 'postgresql':
+            default_db = "%s/%s@db_name=%s" % (
+                cfg.get('db_user'), cfg.get('db_password'), cfg.get('db_name'))
+            db_host = cfg.get('db_host')
+            if db_host:
+                default_db += ";host=%s" % db_host
+            db_port = cfg.get('db_port')
+            if db_port:
+                default_db += ";port=%s" % db_port
+        print default_db
+    elif isinstance(val, list):
         for i in val:
             print i
     else:
