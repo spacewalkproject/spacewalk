@@ -557,7 +557,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/config
 %{rhnroot}/server/handlers/config/*
-%attr(644,root,apache) %{rhnconf}/default/rhn_server_config-management.conf
+%attr(644,root,apache) %{rhnconf}/default/rhn_server_config_management.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-config-management.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files
 
@@ -566,7 +566,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/config_mgmt
 %{rhnroot}/server/handlers/config_mgmt/*
-%attr(644,root,apache) %{rhnconf}/default/rhn_server_config-management-tool.conf
+%attr(644,root,apache) %{rhnconf}/default/rhn_server_config_management_tool.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-config-management-tool.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files-tool
 
@@ -594,7 +594,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/upload_server/handlers/__init__.py*
 %{rhnroot}/upload_server/handlers/package_push
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_upload.conf
-%attr(644,root,apache) %{rhnconf}/default/rhn_server_upload_package-push.conf
+%attr(644,root,apache) %{rhnconf}/default/rhn_server_upload_package_push.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-package-push-server
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-package-push.conf
 
