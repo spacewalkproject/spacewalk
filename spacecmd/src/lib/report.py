@@ -237,6 +237,6 @@ def do_report_kernels(self, args):
         print '%s  ------' % ('------'.ljust(system_max_size))
 
         for system in sorted(report):
-            print '%s  %s' % (system.ljust(system_max_size), kernel)
+            print '%s  %s' % (system.ljust(system_max_size), report[system])
 
 # vim:ts=4:expandtab:
