@@ -14,6 +14,11 @@
 # in this software or its documentation.
 #
 
+if [ $EUID -ne 0 ]; then
+   echo -e "This script must be run as root!\n"
+   exit 1
+fi
+
 
 if [ -x /etc/init.d/oracle ]; then
    DB_SERVICE="oracle"
