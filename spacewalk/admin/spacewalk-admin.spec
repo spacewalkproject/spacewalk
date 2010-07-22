@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.1.3
+Version: 1.1.4
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Thu Jul 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.4-1
+- 536989 - exit cleanly when run by non-root
+
 * Thu Jun 24 2010 Jan Pazdziora 1.1.3-1
 - To allow database population to create at least some database schema, do not
   stop on error for now.
