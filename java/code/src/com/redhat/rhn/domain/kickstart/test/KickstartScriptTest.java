@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
+import com.redhat.rhn.testing.TestUtils;
 
 import org.apache.commons.lang.RandomStringUtils;
 
@@ -56,7 +57,7 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
         ksdata = (KickstartData) reload(ksdata);
         assertNotNull(ksdata.getScripts());
         assertEquals(5, ksdata.getScripts().size());
-        KickstartScript ks2 = (KickstartScript) ksdata.getScripts().iterator().next();
+        KickstartScript ks2 = ksdata.getScripts().iterator().next();
 
         assertNotNull(ks2.getDataContents());
 
@@ -88,17 +89,24 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
 
         // Create 2 scripts, one with data, one without.
         KickstartScript script = createPost(ksdata);
+        script.setPosition(1L);
         KickstartScript scriptEmpty = createPost(ksdata);
         script.setData(largeString.getBytes("UTF-8"));
+
         // Make sure we are setting the blob to be an empty byte
         // array.  The bug happens when one script is empty.
         scriptEmpty.setData(new byte[0]);
+        scriptEmpty.setPosition(2L);
         ksdata.addScript(script);
         ksdata.addScript(scriptEmpty);
+        TestUtils.saveAndFlush(script);
+        TestUtils.saveAndFlush(scriptEmpty);
+
         KickstartFactory.saveKickstartData(ksdata);
         ksdata = (KickstartData) reload(ksdata);
         Iterator i = ksdata.getScripts().iterator();
         boolean found = false;
+        assertTrue(ksdata.getScripts().size() == 2);
         while (i.hasNext()) {
             KickstartScript loaded = (KickstartScript) i.next();
             if (loaded.getDataContents().equals(largeString)) {
