@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_probe
 (
-    recid                          NUMBER(12) NOT NULL
+    recid                          NUMBER NOT NULL
                                        CONSTRAINT rhn_probe_recid_pk PRIMARY KEY
                                        USING INDEX TABLESPACE [[8m_tbs]],
     probe_type                     VARCHAR2(15) NOT NULL,
