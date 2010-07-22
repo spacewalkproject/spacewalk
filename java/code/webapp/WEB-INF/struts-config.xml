@@ -976,6 +976,12 @@
       <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
+    <form-bean name="systemMigrateForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="sid" type="java.lang.Long"/>
+      <form-property name="to_org" type="java.lang.String"/>
+      <form-property name="submitted" type="java.lang.Boolean"/>
+    </form-bean>
 
     <form-bean name="targetSystemsForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
@@ -3018,6 +3024,20 @@
                       path="/WEB-INF/pages/systems/sdc/details.jsp" />
      </action>
 
+     <action path="/systems/details/SystemMigrate"
+             name="systemMigrateForm"
+             scope="request"
+             parameter="dispatch"
+             validate="false"
+             input="/WEB-INF/pages/systems/sdc/migrate.jsp"
+             type="com.redhat.rhn.frontend.action.systems.sdc.SystemMigrateAction">
+             <forward name="default"
+                      path="/WEB-INF/pages/systems/sdc/migrate.jsp" />
+             <forward name="success"
+                      path="/systems/SystemList.do" redirect="true" />
+             <forward name="error"
+                      path="/systems/details/Overview.do" />
+     </action>
 
     <action path="/systems/details/SystemChannels"
         name="systemChannelsForm"

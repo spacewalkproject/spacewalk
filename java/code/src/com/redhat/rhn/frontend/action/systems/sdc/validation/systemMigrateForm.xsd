@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<schema targetNamespace="http://rhn.redhat.com"
+                 xmlns="http://www.w3.org/1999/XMLSchema" xmlns:rhn="http://rhn.redhat.com">
+                 <attribute name="sid">
+                                  <simpleType baseType="long">
+                                    <minLength value="10"/>
+                                    <maxLength value="10"/>
+                                    <isRequired value="true"/>
+                                  </simpleType>
+                 </attribute>
+                 <attribute name="to_org">
+                                  <simpleType baseType="string">
+                                    <isRequired value="true"/>
+                                  </simpleType>
+                 </attribute>
+</schema>

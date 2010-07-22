@@ -18791,6 +18791,41 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             </context-group>
          </trans-unit>
 
+         <trans-unit id="sdc.details.migrate.header">
+            <source>Migrate System Between Organisations</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemMigrate.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.migrate.org">
+            <source>Organisation Name</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemMigrate.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.migrate.notrustedorgs">
+            <source>No trusted oranisations</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemMigrate.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.migrate.migrate">
+            <source>Migrate System</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemMigrate.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.migrate.success">
+            <source>System successfully migrated</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemMigrate.do</context>
+            </context-group>
+         </trans-unit>
+
          <!-- SDC Details Edit Page strings -->
          <trans-unit id="sdc.details.edit.header">
             <source>Edit System Details</source>

@@ -692,6 +692,12 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Migrate">
+<source>Migrate</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Packages">
 <source>Packages</source>
         <context-group name="ctx">
@@ -1516,6 +1522,18 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       <trans-unit id="message.perms_updated">
+      <trans-unit id="sid">
+<source>System ID</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SystemMigrate</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="to_org">
+<source>Destination Organisation</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SystemMigrate</context>
+        </context-group>
+      </trans-unit>
 <source>Permissions Updated</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
@@ -7768,6 +7786,34 @@ Follow this url to see the full list of inactive systems:
 <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
+        </context-group>
+      </trans-unit>
+
+          <trans-unit id="system.migrate.user_no_perms">
+<source>This user lacks the required permissions to migrate this system.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SystemMigrate.do</context>
+        </context-group>
+      </trans-unit>
+
+          <trans-unit id="system.migrate.org_not_trusted">
+<source>Systems can only be migrated between trusted organisations.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SystemMigrate.do</context>
+        </context-group>
+      </trans-unit>
+
+          <trans-unit id="system.migrate.no_trusted_orgs">
+<source>This organisation has no trusts defined with other organisations, or no other organisations are defined.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SystemMigrate.do</context>
+        </context-group>
+      </trans-unit>
+
+          <trans-unit id="system.migrate.no_org_specified">
+<source>An organisation must be specified</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/SystemMigrate.do</context>
         </context-group>
       </trans-unit>
 

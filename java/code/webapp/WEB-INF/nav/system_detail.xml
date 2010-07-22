@@ -17,6 +17,7 @@
       <rhn-tab-url>/network/systems/details/hardware.pxt</rhn-tab-url>
       <rhn-tab-url>/network/systems/hardware_list_refresh_confirm.pxt</rhn-tab-url>
     </rhn-tab>
+    <rhn-tab name="Migrate" acl="user_role(org_admin)" url="/rhn/systems/details/SystemMigrate.do" />
     <rhn-tab name="Notes">
       <rhn-tab-url>/network/systems/details/notes/notes_list.pxt</rhn-tab-url>
       <rhn-tab-url>/network/systems/details/notes/edit.pxt</rhn-tab-url>
