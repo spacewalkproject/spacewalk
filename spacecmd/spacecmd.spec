@@ -1,4 +1,4 @@
-%define rhnroot %{_datadir}/rhn
+%global rhnroot %{_datadir}/rhn
 
 Name:        spacecmd
 Version:     0.5.1
@@ -12,7 +12,7 @@ Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
-Requires:    python >= 2.4
+Requires:    python
 
 %description
 spacecmd is a command-line interface to Spacewalk and Satellite servers
@@ -47,8 +47,9 @@ touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 %files
 %defattr(-,root,root,-)
 %{_bindir}/spacecmd
-%dir %{rhnroot}/spacecmd
-%{rhnroot}/spacecmd/*
+%dir %{rhnroot}
+%{rhnroot}/spacecmd/
+%dir %{_sysconfdir}/bash_completion.d
 %{_sysconfdir}/bash_completion.d/spacecmd
 %doc src/doc/README src/doc/COPYING
 %doc %{_mandir}/man1/spacecmd.1.gz
