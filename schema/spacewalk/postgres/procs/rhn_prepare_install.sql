@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -26,7 +26,7 @@ rhn_prepare_install
     command_instance_id in out rhn_command_queue_instances.recid%type,
     install_command     in rhn_command_queue_instances.command_id%type
 )
-returns numeric
+returns smallint
 as $$
 declare
     /* ignore this command if it has not been run after five minutes */
