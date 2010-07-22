@@ -156,12 +156,16 @@ class ConnectionManager {
             String connectionUrl =
                         Config.get().getString("hibernate.connection.driver_proto") + ":";
             String dbName = Config.get().getString("db_name");
-            if (ConfigDefaults.get().isOracle()) {
+            String dbHost = Config.get().getString("db_host");
+            String dbPort = Config.get().getString("db_port");
+
+            if (ConfigDefaults.get().isOracle() && connectionUrl.contains("thin")) {
+                connectionUrl += "@" + dbHost + ":" + dbPort + ":" + dbName;
+            }
+            else if (ConfigDefaults.get().isOracle()) {
                 connectionUrl += "@" + dbName;
             }
             else {
-                String dbHost = Config.get().getString("db_host");
-                String dbPort = Config.get().getString("db_port");
                 if (dbHost != null && dbHost.length() > 0) {
                     connectionUrl += "//" + dbHost;
                     if (dbPort != null && dbPort.length() > 0) {
@@ -171,6 +175,7 @@ class ConnectionManager {
                 }
                 connectionUrl += dbName;
             }
+            LOG.fatal(connectionUrl);
             hibProperties.put("hibernate.connection.url", connectionUrl);
 
             config.addProperties(hibProperties);
