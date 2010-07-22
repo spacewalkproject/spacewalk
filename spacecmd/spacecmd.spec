@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.5.1
+Version:     0.5.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -59,6 +59,32 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Jul 22 2010 Aron Parsons <aparsons@redhat.com> 0.5.2-1
+- move python files in site-packages (aparsons@redhat.com)
+- fixes to spacecmd.spec per Fedora package review (aparsons@redhat.com)
+- fixed report_kernels not grabbing the correct value for each system (thanks
+  to James Tanner) (aparsons@redhat.com)
+- don't print an empty line if there are no results from package_search
+  (aparsons@redhat.com)
+- temporarily update the command prompt to tell the user when caches are being
+  generated (aparsons@redhat.com)
+- rename kickstart_getfile to kickstart_getcontents (aron@redhat.com)
+- remove a false statement (aron@redhat.com)
+- remove references to closed Bugzillas (aron@redhat.com)
+- remove unused binary file support from configchannel_addfile
+  (aron@redhat.com)
+- update kickstart_getfile to use the new
+  kickstart.profile.downloadRenderedKickstart method (aron@redhat.com)
+- remove reference to 584860 since it has been fixed in spacewalk
+  (aron@redhat.com)
+- implemented configchannel_listsystems (aron@redhat.com)
+- moved global variables out of shell.py and into more appropriate locations
+  (aron@redhat.com)
+- session_file didn't need to be global (aron@redhat.com)
+- make sure ~/.spacecmd/<server> exists before writing the session cache
+  (aron@redhat.com)
+- only store one session in the cache (aron@redhat.com)
+
 * Mon Jul 19 2010 Aron Parsons <aparsons@redhat.com> 0.5.1-1
 - new package built with tito
 
