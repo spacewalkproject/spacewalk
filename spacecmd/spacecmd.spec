@@ -1,4 +1,7 @@
-%global rhnroot %{_datadir}/rhn
+%if ! (0%{?fedora} > 12 || 0%{?rhel} > 5)
+%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
+%endif
 
 Name:        spacecmd
 Version:     0.5.1
@@ -13,6 +16,8 @@ BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
 Requires:    python
+
+BuildRequires: python-devel
 
 %description
 spacecmd is a command-line interface to Spacewalk and Satellite servers
@@ -32,14 +37,14 @@ spacecmd is a command-line interface to Spacewalk and Satellite servers
 %{__mkdir_p} %{buildroot}/%{_sysconfdir}/bash_completion.d
 %{__install} -m0644 src/misc/spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_completion.d/spacecmd
 
-%{__mkdir_p} %{buildroot}/%{rhnroot}/spacecmd
-%{__install} -m0644 src/lib/*.py %{buildroot}/%{rhnroot}/spacecmd/
+%{__mkdir_p} %{buildroot}/%{python_sitelib}/spacecmd
+%{__install} -m0644 src/lib/*.py %{buildroot}/%{python_sitelib}/spacecmd/
 
 %{__mkdir_p} %{buildroot}/%{_mandir}/man1
 %{__gzip} -c src/doc/spacecmd.1 > %{buildroot}/%{_mandir}/man1/spacecmd.1.gz
 
-touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
-%{__chmod} 0644 %{buildroot}/%{rhnroot}/spacecmd/__init__.py
+touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
+%{__chmod} 0644 %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 
 %clean
 %{__rm} -rf %{buildroot}
@@ -47,8 +52,7 @@ touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 %files
 %defattr(-,root,root,-)
 %{_bindir}/spacecmd
-%dir %{rhnroot}
-%{rhnroot}/spacecmd/
+%{python_sitelib}/spacecmd/
 %dir %{_sysconfdir}/bash_completion.d
 %{_sysconfdir}/bash_completion.d/spacecmd
 %doc src/doc/README src/doc/COPYING

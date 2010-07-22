@@ -25,8 +25,6 @@ import logging, os, re, sys, xmlrpclib
 from ConfigParser import SafeConfigParser, NoOptionError
 from optparse import Option, OptionParser
 from pwd import getpwuid
-
-sys.path.append('/usr/share/rhn')
 from spacecmd.shell import SpacewalkShell
     
 if __name__ == '__main__':
