@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.hibernate;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.finder.FinderFactory;
 
 import org.apache.log4j.Logger;
@@ -152,6 +153,24 @@ class ConnectionManager {
                         Config.get().getString("db_user"));
             hibProperties.put("hibernate.connection.password",
                         Config.get().getString("db_password"));
+            String connectionUrl =
+                        Config.get().getString("hibernate.connection.driver_proto") + ":";
+            String dbName = Config.get().getString("db_name");
+            if (ConfigDefaults.get().isOracle()) {
+                connectionUrl += "@" + dbName;
+            } else {
+                String dbHost = Config.get().getString("db_host");
+                String dbPort = Config.get().getString("db_port");
+                if (dbHost != null and dbHost.length() > 0) {
+                    connectionUrl += "//" + dbHost;
+                    if (dbPort != null and dbPort.length() > 0) {
+                        connectionUrl += ":" + dbPort;
+                    }
+                    connectionUrl += "/";
+                }
+                connectionUrl += dbName;
+            }
+            hibProperties.put("hibernate.connection.url", connectionUrl);
 
             config.addProperties(hibProperties);
             // Force the use of our txn factory
