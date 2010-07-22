@@ -23,7 +23,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-import com.redhat.rhn.frontend.xmlrpc.org.trusts.OrgTrustHandler;
 import com.redhat.rhn.manager.org.MigrationManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -37,7 +36,6 @@ import org.apache.struts.action.DynaActionForm;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,8 +50,6 @@ public class SystemMigrateAction extends RhnAction {
 
     public static final String SID = "sid";
     public static final String ORG = "to_org";
-
-    private OrgTrustHandler handler = new OrgTrustHandler();
 
 
     /** {@inheritDoc} */
@@ -172,7 +168,8 @@ public class SystemMigrateAction extends RhnAction {
         List<Server> serverList = new ArrayList<Server>();
         serverList.add(s);
 
-        List<Long> serversMigrated = MigrationManager.migrateServers(user, toOrg, serverList);
+        List<Long> serversMigrated = MigrationManager.migrateServers(user,
+                toOrg, serverList);
 
         Iterator it = serversMigrated.iterator();
         Long value = (Long)it.next();

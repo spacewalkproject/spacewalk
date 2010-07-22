@@ -158,7 +158,8 @@ class ConnectionManager {
             String dbName = Config.get().getString("db_name");
             if (ConfigDefaults.get().isOracle()) {
                 connectionUrl += "@" + dbName;
-            } else {
+            }
+            else {
                 String dbHost = Config.get().getString("db_host");
                 String dbPort = Config.get().getString("db_port");
                 if (dbHost != null && dbHost.length() > 0) {
