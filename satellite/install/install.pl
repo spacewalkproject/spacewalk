@@ -169,8 +169,8 @@ sub do_precondition_checks {
       and not correct_system_version(%version_info)) {
     print loc(<<EOQ);
 This version of RHN Satellite runs only on:
-   Red Hat Enterprise Linux 4 AS
    Red Hat Enterprise Linux 5 Server
+   Red Hat Enterprise Linux 6 Server
 
 Installation interrupted.
 EOQ
@@ -245,7 +245,7 @@ EOH
 sub correct_system_version {
   my %version_info = @_;
 
-  return 1 if grep { $version_info{version} eq $_ } qw/4AS 5Server/;
+  return 1 if grep { $version_info{version} eq $_ } qw/5Server 6Server/;
 }
 
 sub have_semodule {
