@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.1.6
+Version: 1.1.7
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -100,6 +100,9 @@ EOF
 
 
 %changelog
+* Fri Jul 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.7-1
+- renamed db_sid to SID db_name to be consistent with PostgreSQL
+
 * Fri Jul 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.6-1
 - renamed db_sid to SID db_name to be consistent with PostgreSQL
 
