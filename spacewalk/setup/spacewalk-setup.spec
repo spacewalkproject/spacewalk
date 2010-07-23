@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.1.9
+Version:        1.1.10
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Fri Jul 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.10-1
+- unified database connection information
+
 * Mon Jul 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.9-1
 - fixed tomcat5.conf pattern
 
