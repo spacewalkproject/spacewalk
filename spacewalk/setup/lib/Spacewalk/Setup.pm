@@ -950,7 +950,7 @@ sub oracle_setup_embedded_db {
     } else {
         $answers->{'db-user'} = 'rhnsat' if not defined $answers->{'db-user'};
         $answers->{'db-password'} = 'rhnsat' if not defined $answers->{'db-password'};
-        $answers->{'db-sid'} = 'rhnsat' if not defined $answers->{'db-sid'};
+        $answers->{'db-name'} = 'rhnsat' if not defined $answers->{'db-name'};
         $answers->{'db-host'} = 'localhost';
         $answers->{'db-port'} = 1521;
         $answers->{'db-protocol'} = 'TCP';
@@ -980,7 +980,7 @@ EOQ
                    -err_code => 15,
                    -system_opts => ['/sbin/runuser', 'oracle', '-c',
                                     SHARED_DIR . '/oracle/' . $upgrade_script .
-                                    " --db $answers->{'db-sid'}" .
+                                    " --db $answers->{'db-name'}" .
                                     " --user $answers->{'db-user'}"]);
 
         system_or_exit(['service', 'oracle', 'restart'], 41,
@@ -1031,7 +1031,7 @@ EOQ
 		-log_file_size => DB_INSTALL_LOG_SIZE,
 		-err_message => "Could not install database.\n",
 		-err_code => 15,
-		-system_opts => [ SHARED_DIR . "/oracle/install-db.sh", "--db", $answers->{'db-sid'},
+		-system_opts => [ SHARED_DIR . "/oracle/install-db.sh", "--db", $answers->{'db-name'},
                         "--user", $answers->{'db-user'}, "--password", $answers->{'db-password'}]);
 
     print loc("** Database: Installation complete.\n");
@@ -1056,7 +1056,7 @@ sub oracle_setup_db_connection {
 
         system_or_exit([ "/usr/bin/rhn-config-tnsnames.pl",
             "--target=/etc/tnsnames.ora",
-            "--sid=" . $answers->{'db-sid'},
+            "--sid=" . $answers->{'db-name'},
             "--address=$address" ],
             18,
             "Could not update tnsnames.ora");
@@ -1073,7 +1073,7 @@ sub oracle_setup_db_connection {
                 exit 19;
             }
 
-            delete @{$answers}{qw/db-protocol db-host db-port db-user db-sid db-password/};
+            delete @{$answers}{qw/db-protocol db-host db-port db-user db-name db-password/};
         }
         else {
             $connected = 1;
@@ -1299,14 +1299,14 @@ sub oracle_populate_db {
     my $logfile = DB_POP_LOG_FILE;
 
 #    my @opts = ('/usr/bin/rhn-populate-database.pl',
-#        sprintf('--dsn=%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
+#        sprintf('--dsn=%s/%s@%s', @{$answers}{qw/db-user db-password db-name/}),
 #        "--schema-deploy-file=$sat_schema_deploy",
 #        '--nofork',
 #    );
     my @opts = ('/usr/bin/rhn-populate-database.pl',
         sprintf('--user=%s', @{$answers}{'db-user'}),
         sprintf('--password=%s', @{$answers}{'db-password'}),
-        sprintf('--database=%s', @{$answers}{'db-sid'}),
+        sprintf('--database=%s', @{$answers}{'db-name'}),
         sprintf('--host=%s', @{$answers}{'db-host'}),
         sprintf("--schema-deploy-file=$sat_schema_deploy"),
         sprintf('--nofork'),
@@ -1381,7 +1381,7 @@ sub get_dbh {
 
         my $backend = $answers->{'db-backend'};
         if ($backend eq 'oracle') {
-                my $dbh = DBI->connect("dbi:Oracle:$answers->{'db-sid'}",
+                my $dbh = DBI->connect("dbi:Oracle:$answers->{'db-name'}",
                         $answers->{'db-user'},
                         $answers->{'db-password'},
                         $dbh_attributes);

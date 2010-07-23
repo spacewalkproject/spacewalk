@@ -1020,7 +1020,7 @@ sub populate_initial_configs {
      db_backend => $answers->{'db-backend'},
      db_user => $answers->{'db-user'},
      db_password => $answers->{'db-password'},
-     db_sid => $answers->{'db-sid'},
+     db_name => $answers->{'db-name'},
      db_host => $answers->{'db-host'},
      db_port => $answers->{'db-port'},
      hibernate_dialect => $hibernate_dialect,
@@ -1034,7 +1034,7 @@ sub populate_initial_configs {
      serverDOTnls_lang => 'english.' . $charset,
      server_secret_key => generate_secret(),
      webDOTssl_available => $opts->{'skip-ssl-cert-generation'} ? 0 : 1,
-     monitoringDOTdbname => $answers->{'db-sid'},
+     monitoringDOTdbname => $answers->{'db-name'},
      monitoringDOTusername => $answers->{'db-user'},
      monitoringDOTpassword => $answers->{'db-password'},
      monitoringDOTsmonDOTaddr => '127.0.0.1',
@@ -1174,7 +1174,7 @@ sub setup_monitoring {
      RHN_ADMIN_EMAIL => $answers->{'admin-email'},
      MAIL_MX => $answers->{'mail-mx'} || 'localhost',
      MDOM => $answers->{mdom} || $answers->{hostname},
-     RHN_DB_NAME => $answers->{'db-sid'},
+     RHN_DB_NAME => $answers->{'db-name'},
      RHN_DB_USERNAME => $answers->{'db-user'},
      RHN_DB_PASSWD => $answers->{'db-password'},
      RHN_DB_TABLE_OWNER => $answers->{'db-user'},
@@ -1186,7 +1186,7 @@ sub setup_monitoring {
   # DB connection params not yet written to rhn.conf, must specify them manually:
   my $connection_string =
     RHN::DB->get_dbi_connection_string($answers->{'db-backend'},
-      $answers->{'db-host'}, $answers->{'db-port'}, $answers->{'db-sid'});
+      $answers->{'db-host'}, $answers->{'db-port'}, $answers->{'db-name'});
   RHN::DB->add_alias($connection_string, $answers->{'db-user'},
     $answers->{'db-password'}, { } );
   RHN::DB->set_default_connection($connection_string);
