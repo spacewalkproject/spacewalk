@@ -333,7 +333,27 @@ class RHNOptions:
         """
         self.__check()
         if not self.__configs[self.__component].has_key(key):
-            raise AttributeError(key)
+            if key == 'DEFAULT_DB':
+                # this is a special virtual key for backward compatibility
+                if self.__configs[self.__component]['db_backend'] == 'oracle':
+                    default_db = "%s/%s@%s" % (
+                        self.__configs[self.__component]['db_user'],
+                        self.__configs[self.__component]['db_password'],
+                        self.__configs[self.__component]['db_name'])
+                else:
+                    default_db = "%s/%s@db_name=%s" % (
+                        self.__configs[self.__component]['db_user'],
+                        self.__configs[self.__component]['db_password'],
+                        self.__configs[self.__component]['db_name'])
+                    db_host = self.__configs[self.__component]['db_host']
+                    if db_host:
+                        default_db += ";host=%s" % db_host
+                    db_port = self.__configs[self.__component]['db_port']
+                    if db_port:
+                        default_db += ";port=%s" % db_port
+                return default_db
+            else:
+                raise AttributeError(key)
         return self.__configs[self.__component][key]
     __getitem__ = __getattr__
 
