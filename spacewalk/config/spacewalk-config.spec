@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.1.4
+Version: 1.1.5
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -100,6 +100,12 @@ EOF
 
 
 %changelog
+* Fri Jul 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.5-1
+- default_db has been obsoleted
+- hibernate.connection.url is now created dynamicaly from db_* variables
+- let's use unified db_{user,password} instead of hibernate.connection.*
+- 596112 - restrict /server-status to 127.0.0.1
+
 * Wed Jul 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.4-1
 - tomcat files have been removed
 
