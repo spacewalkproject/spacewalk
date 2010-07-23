@@ -74,17 +74,17 @@ class ClientRepository(repository.RPC_Repository):
         if result.has_key('missing'):
             return None
 
-	dirs_created = None
+        dirs_created = None
 
         # Older servers will not return directories; if filetype is missing,
         # assume file
-	if result.get('filetype') == 'directory':
-	    if os.path.isfile(result['path']):
-		raise cfg_exceptions.DirectoryEntryIsFile(result['path'])
-	    else:	
-	    	auto_delete = 0
-	    	temp_file = result['path']
-	else:
+        if result.get('filetype') == 'directory':
+            if os.path.isfile(result['path']):
+                raise cfg_exceptions.DirectoryEntryIsFile(result['path'])
+            else:
+                auto_delete = 0
+                temp_file = result['path']
+        else:
             f = file_utils.FileProcessor()
             temp_file, dirs_created = f.process(result, directory=dest_directory)
 
