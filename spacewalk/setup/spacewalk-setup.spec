@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.1.10
+Version:        1.1.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Fri Jul 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.11-1
+- renamed db_sid to SID db_name to be consistent with PostgreSQL
+
 * Fri Jul 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.10-1
 - unified database connection information
 
