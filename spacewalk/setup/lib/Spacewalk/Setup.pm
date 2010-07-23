@@ -670,7 +670,7 @@ sub oracle_get_database_answers {
         -noninteractive => $opts->{"non-interactive"},
         -question => "DB SID",
         -test => qr/\S+/,
-        -answer => \$answers->{'db-sid'});
+        -answer => \$answers->{'db-name'});
 
     ask(
         -noninteractive => $opts->{"non-interactive"},
