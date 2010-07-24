@@ -16,6 +16,8 @@ package com.redhat.rhn.taskomatic;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.taskomatic.task.RhnJob;
+import com.redhat.rhn.taskomatic.task.RhnQueueJob;
 
 import org.apache.log4j.Logger;
 import org.quartz.Job;
@@ -42,6 +44,16 @@ public class TaskoJob implements Job {
 
     public TaskoJob(Long scheduleIdIn) {
         setScheduleId(scheduleIdIn);
+    }
+
+    private boolean isTaskSingleThreaded(TaskoTask task) {
+        try {
+            RhnQueueJob job =  (RhnQueueJob) Class.forName(task.getTaskClass()).newInstance();
+        }
+        catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     private boolean isTaskRunning(TaskoTask task) {
@@ -81,37 +93,68 @@ public class TaskoJob implements Job {
         }
 
         log.info(schedule.getJobLabel() + ":" + " bunch " + schedule.getBunch().getName() +
-                " started");
+                " STARTED");
 
         for (TaskoTemplate template : schedule.getBunch().getTemplates()) {
-            if ((previousRun == null) ||
+            if ((previousRun == null) ||    // first run
+                    (template.getStartIf() == null) ||  // do not care
                     (previousRun.getStatus().equals(template.getStartIf()))) {
                 TaskoTask task = template.getTask();
 
                 Object lock = locks.get(task.getName());
                 synchronized (lock) {
-                    while (!isTaskThreadAvailable(task)) {
-                        log.debug(schedule.getJobLabel() + ":" + " task " +
-                                task.getName() +
-                                " all allowed threads running ... WAITING");
-                        try {
-                            lock.wait();
+                    if (isTaskSingleThreaded(task)) {
+                        if (isTaskRunning(task)) {
                             log.debug(schedule.getJobLabel() + ":" + " task " +
-                                    task.getName() + " ... AWAKE");
+                                    task.getName() + " already running ... LEAVING");
+                            previousRun = null;
+                            continue;
                         }
-                        catch (InterruptedException e) {
-                            // ok
+                    }
+                    else{
+                        while (!isTaskThreadAvailable(task)) {
+                            try {
+                                log.debug(schedule.getJobLabel() + ":" + " task " +
+                                        task.getName() +
+                                        " all allowed threads running ... WAITING");
+                                lock.wait();
+                                log.debug(schedule.getJobLabel() + ":" + " task " +
+                                        task.getName() + " ... AWAKE");
+                            }
+                            catch (InterruptedException e) {
+                                // ok
+                            }
                         }
                     }
                     markTaskRunning(task);
                 }
                 log.debug(schedule.getJobLabel() + ":" + " task " + task.getName() +
-                        " STARTED");
+                        " started");
                 TaskoRun taskRun = new TaskoRun(schedule.getOrgId(), template, scheduleId);
                 TaskoFactory.save(taskRun);
-                taskRun.execute(context);
+                TaskoFactory.commitTransaction();
+
+                Class jobClass = null;
+                RhnJob job = null;
+                try {
+                    jobClass = Class.forName(template.getTask().getTaskClass());
+                    job = (RhnJob) jobClass.newInstance();
+                }
+                catch (Exception e) {
+                    String errorLog = e.getMessage() + '\n' + e.getCause() + '\n';
+                    taskRun.appendToErrorLog(errorLog);
+                    taskRun.saveStatus(TaskoRun.STATUS_FAILED);
+                    return;
+                }
+
+                job.execute(context, taskRun);
+                // rollback everything, what the application changed and didn't committed
+                if (TaskoFactory.getSession().getTransaction().isActive()) {
+                    TaskoFactory.rollbackTransaction();
+                }
+
                 log.debug(task.getName() +
-                        " (" + schedule.getJobLabel() + ") ... " + taskRun.getStatus());
+                        " (" + schedule.getJobLabel() + ") ... " + taskRun.getStatus().toLowerCase());
                 previousRun = taskRun;
                 synchronized (lock) {
                     unmarkTaskRunning(task);
@@ -126,7 +169,7 @@ public class TaskoJob implements Job {
         }
         HibernateFactory.closeSession();
         log.info(schedule.getJobLabel() + ":" + " bunch " + schedule.getBunch().getName() +
-                " finished");
+                " FINISHED");
     }
 
     /**
