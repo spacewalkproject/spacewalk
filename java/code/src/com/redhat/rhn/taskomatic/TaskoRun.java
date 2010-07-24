@@ -14,12 +14,7 @@
  */
 package com.redhat.rhn.taskomatic;
 
-import com.redhat.rhn.taskomatic.task.RhnJob;
-
 import org.apache.log4j.Logger;
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -34,7 +29,7 @@ import java.util.Date;
  * TaskoRun
  * @version $Rev$
  */
-public class TaskoRun implements Job {
+public class TaskoRun {
 
     private static Logger log = Logger.getLogger(TaskoTask.class);
 
@@ -73,77 +68,38 @@ public class TaskoRun implements Job {
     }
 
     public void start() {
+        setStdOutputPath(buildStdOutputLogPath());
+        setStdErrorPath(buildStdErrorLogPath());
+        deleteLogFileIfExists(stdOutputPath);
+        deleteLogFileIfExists(stdErrorPath);
         setStartTime(new Date());
         saveStatus(STATUS_RUNNING);
     }
 
-    public void finished(RhnJob job) {
+    public void finished() {
         setEndTime(new Date());
-        String out = job.getLogOutput();
-        if (new File(getStdLogDirName()).isDirectory()) {
-            if ((out != null) && (!out.isEmpty())) {
-                saveStdOutputLog(out);
-            }
-            else {
-                setStdOutputPath("");
-            }
-            String err = job.getLogError();
-            if ((err != null) && (!err.isEmpty())) {
-                saveErrorLog(err);
-            }
-            else {
-                setStdErrorPath("");
-            }
+        updateLogPaths();
+    }
+
+    private void updateLogPaths() {
+        if (!logPresent(stdOutputPath)) {
+            stdOutputPath = null;
         }
-        else {
-            log.warn("Logging disabled. No directory " + getStdLogDirName());
+        if (!logPresent(stdErrorPath)) {
+            stdErrorPath = null;
         }
+        TaskoFactory.save(this);
     }
 
-    public void execute(JobExecutionContext context)
-        throws JobExecutionException {
-            start();
-            Class jobClass = null;
-            RhnJob job = null;
-            try {
-                jobClass = Class.forName(template.getTask().getTaskClass());
-                job = (RhnJob) jobClass.newInstance();
-            }
-            catch (Exception e) {
-                String errorLog = e.getMessage() + '\n' + e.getCause() + '\n';
-                saveErrorLog(errorLog);
-                saveStatus(STATUS_FAILED);
-                return;
-            }
-
-            try {
-                TaskoFactory.commitTransaction();
-                job.execute(context);
-                // rollback everything, what the application changed and didn't committed
-                if (TaskoFactory.getSession().getTransaction().isActive()) {
-                    TaskoFactory.rollbackTransaction();
-                }
-                saveStatus(STATUS_FINISHED);
-            }
-            catch (Exception e) {
-                job.appendExceptionToLogError(e);
-                saveStatus(STATUS_FAILED);
-            }
-            finished(job);
-            TaskoFactory.commitTransaction();
+    private void appendToStdOutputLog(String out) {
+        appendLogToFile(getStdOutputPath(), out);
     }
 
-    private void saveStdOutputLog(String out) {
-        setStdOutputPath(buildStdOutputLogPath());
-        saveLogToFile(getStdOutputPath(), out);
+    public void appendToErrorLog(String errorLog) {
+        appendLogToFile(getStdErrorPath(), errorLog);
     }
 
-    private void saveErrorLog(String errorLog) {
-        setStdErrorPath(buildStdErrorLogPath());
-        saveLogToFile(getStdErrorPath(), errorLog);
-    }
-
-    private void saveStatus(String statusIn) {
+    public void saveStatus(String statusIn) {
         setStatus(statusIn);
         TaskoFactory.save(this);
     }
@@ -173,11 +129,11 @@ public class TaskoRun implements Job {
         }
     }
 
-    private String buildStdOutputLogPath() {
+    public String buildStdOutputLogPath() {
         return getStdLogDirName() + getStdLogFileName() + "_out";
     }
 
-    private String buildStdErrorLogPath() {
+    public String buildStdErrorLogPath() {
         return getStdLogDirName() + getStdLogFileName() + "_err";
     }
 
@@ -198,9 +154,20 @@ public class TaskoRun implements Job {
             "_" + getId();
     }
 
-    private void saveLogToFile(String fileName, String logContent) {
+    private void deleteLogFileIfExists(String fileName) {
+        if (logPresent(fileName)) {
+            new File(fileName).delete();
+        }
+    }
+
+    private boolean logPresent(String fileName) {
+        File log = new File(fileName);
+        return log.length() > 0;
+    }
+
+    private void appendLogToFile(String fileName, String logContent) {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
+            BufferedWriter out = new BufferedWriter(new FileWriter(fileName, true));
             out.write(logContent);
             out.close();
         }
