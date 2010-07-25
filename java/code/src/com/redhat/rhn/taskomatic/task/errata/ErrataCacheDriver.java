@@ -17,7 +17,6 @@ package com.redhat.rhn.taskomatic.task.errata;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.task.Task;
 import com.redhat.rhn.domain.task.TaskFactory;
-import com.redhat.rhn.taskomatic.task.ErrataCacheTask;
 import com.redhat.rhn.taskomatic.task.threaded.QueueDriver;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 
@@ -34,7 +33,7 @@ import java.util.Map;
  */
 public class ErrataCacheDriver implements QueueDriver {
 
-    private static final Logger LOG = Logger.getLogger(ErrataCacheTask.class);
+    private Logger logger = null;
 
     /**
      *
@@ -66,7 +65,15 @@ public class ErrataCacheDriver implements QueueDriver {
      * {@inheritDoc}
      */
     public Logger getLogger() {
-        return LOG;
+        return logger;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    public void setLogger(Logger loggerIn) {
+        logger = loggerIn;
     }
 
     /**
@@ -83,7 +90,6 @@ public class ErrataCacheDriver implements QueueDriver {
      */
     public QueueWorker makeWorker(Object workItem) {
         Map item = (Map) workItem;
-        return new ErrataCacheWorker(item, LOG);
+        return new ErrataCacheWorker(item, logger);
     }
-
 }

@@ -45,7 +45,7 @@ public class ErrataQueueTest extends BaseTestCaseWithUser {
             }
 
         };
-        eq.execute(null, true);
+        eq.execute(null);
         // Just a simple test to make sure we get here without
         // exceptions.  Better than nothin'
         assertTrue(true);

@@ -14,49 +14,38 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.taskomatic.task.errata.ErrataQueueDriver;
-import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
-import com.redhat.rhn.taskomatic.task.threaded.TaskQueueFactory;
 
 import org.apache.log4j.Logger;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 /**
  * Manages the pending errata queue
  *
  * @version $Rev $
  */
-public class ErrataQueue extends SingleThreadedTestableTask {
+public class ErrataQueue extends RhnQueueJob {
 
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "errata_queue";
+    public static Logger log = null;
 
-    private static final Logger LOG = Logger.getLogger(ErrataQueue.class);
-
-    /**
-     * {@inheritDoc}
-     */
-    public void execute(JobExecutionContext ctx, boolean testContext)
-            throws JobExecutionException {
-        TaskQueueFactory factory = TaskQueueFactory.get();
-        TaskQueue queue = factory.getQueue("errata_queue");
-        if (queue == null) {
-            try {
-                queue = factory.createQueue("errata_queue", ErrataQueueDriver.class);
-            }
-            catch (Exception e) {
-                LOG.error(e);
-                return;
-            }
+    @Override
+    protected Logger getLogger() {
+        if (log == null) {
+            log = Logger.getLogger(ErrataQueue.class);
         }
-        int maxWorkItems = Config.get().getInt("taskomatic.errata_queue_max_work_items", 2);
-        if (queue.getQueueSize() < maxWorkItems) {
-            queue.run();
-        }
+        return log;
     }
 
+    @Override
+    protected String getQueueName() {
+        return DISPLAY_NAME;
+    }
+
+    @Override
+    protected Class getDriverClass() {
+        return ErrataQueueDriver.class;
+    }
 }
