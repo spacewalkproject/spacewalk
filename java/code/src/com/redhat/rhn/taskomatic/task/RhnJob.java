@@ -14,7 +14,8 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import org.apache.log4j.Logger;
+import com.redhat.rhn.taskomatic.TaskoRun;
+
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -22,14 +23,11 @@ import org.quartz.JobExecutionException;
 
 public abstract interface RhnJob extends Job {
 
-    void execute(JobExecutionContext context)
+    final public String DEFAULT_LOGGING_LAYOUT = "%d [%t] %-5p %c %x - %m%n";
+    void execute(JobExecutionContext context, TaskoRun taskRun)
         throws JobExecutionException;
 
-    Logger getLogger(Class clazz);
-
-    String getLogOutput();
-
-    String getLogError();
+    // abstract Logger getLogger();
 
     void appendExceptionToLogError(Exception e);
 }

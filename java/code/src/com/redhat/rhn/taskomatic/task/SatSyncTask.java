@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -23,9 +22,7 @@ import org.quartz.JobExecutionException;
  * SatSyncTask
  * @version $Rev$
  */
-public class SatSyncTask extends RhnExtCmdJob {
-
-    private Logger log = getLogger(SatSyncTask.class);
+public class SatSyncTask extends RhnJavaJob {
 
     /**
      * {@inheritDoc}

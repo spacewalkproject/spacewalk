@@ -20,7 +20,6 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -42,8 +41,6 @@ public class KickstartCleanup extends RhnJavaJob {
      */
     public static final String DISPLAY_NAME = "kickstart_session_check";
 
-    private Logger logger = getLogger(KickstartCleanup.class);
-
     /**
      * Primarily a convenience method to make testing easier
      * @param ctx Quartz job runtime environment
@@ -56,8 +53,8 @@ public class KickstartCleanup extends RhnJavaJob {
             SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                     TaskConstants.TASK_QUERY_KSCLEANUP_FIND_CANDIDATES);
             DataResult dr = select.execute(Collections.EMPTY_MAP);
-            if (logger.isDebugEnabled()) {
-                logger.debug("Found " + dr.size() + " entries to process");
+            if (log.isDebugEnabled()) {
+                log.debug("Found " + dr.size() + " entries to process");
             }
             // Bail early if no candidates
             if (dr.size() == 0) {
@@ -66,7 +63,7 @@ public class KickstartCleanup extends RhnJavaJob {
 
             Long failedStateId = findFailedStateId();
             if (failedStateId == null) {
-                logger.warn("Failed kickstart state id not found");
+                log.warn("Failed kickstart state id not found");
                 return;
             }
             for (Iterator iter = dr.iterator(); iter.hasNext();) {
@@ -75,7 +72,7 @@ public class KickstartCleanup extends RhnJavaJob {
             }
         }
         catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
             throw new JobExecutionException(e);
         }
     }
@@ -93,8 +90,8 @@ public class KickstartCleanup extends RhnJavaJob {
 
     private void processRow(Long failedStateId, Map row) {
         Long sessionId = (Long) row.get("id");
-        if (logger.isInfoEnabled()) {
-            logger.info("Processing stalled kickstart session " + sessionId.longValue());
+        if (log.isInfoEnabled()) {
+            log.info("Processing stalled kickstart session " + sessionId.longValue());
         }
         Long actionId = (Long) row.get("action_id");
         Long oldServerId = (Long) row.get("old_server_id");
@@ -134,15 +131,15 @@ public class KickstartCleanup extends RhnJavaJob {
                 TaskConstants.TASK_QUERY_KSCLEANUP_FIND_PREREQ_ACTION);
         Map params = new HashMap();
         params.put("action_id", startingAction);
-        if (logger.isDebugEnabled()) {
-            logger.debug("StartingAction: " + startingAction);
+        if (log.isDebugEnabled()) {
+            log.debug("StartingAction: " + startingAction);
         }
 
         Long retval = startingAction;
         Long preqid = startingAction;
         DataResult dr = select.execute(params);
-        if (logger.isDebugEnabled()) {
-            logger.debug("dr: " + dr);
+        if (log.isDebugEnabled()) {
+            log.debug("dr: " + dr);
         }
 
         while (dr.size() > 0 && preqid != null) {
@@ -154,9 +151,9 @@ public class KickstartCleanup extends RhnJavaJob {
                 dr = select.execute(params);
             }
         }
-        if (logger.isDebugEnabled()) {
-            logger.debug("preqid: " + preqid);
-            logger.debug("Returning: " + retval);
+        if (log.isDebugEnabled()) {
+            log.debug("preqid: " + preqid);
+            log.debug("Returning: " + retval);
         }
 
         return retval;

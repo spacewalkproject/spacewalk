@@ -18,7 +18,6 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -33,14 +32,12 @@ import java.util.Map;
  * @version $Rev$
  */
 public class SessionCleanup extends RhnJavaJob {
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
-     */    
+     */
     public static final String DISPLAY_NAME = "session_cleanup";
-    
-    private Logger log = getLogger(SessionCleanup.class);
-    
+
     /**
      * {@inheritDoc}
      */
@@ -49,24 +46,24 @@ public class SessionCleanup extends RhnJavaJob {
         Config c = Config.get();
         Map inParams = new HashMap();
         Map outParams = new HashMap();
-        
+
         //retrieves info from user preferences
         long window = c.getInt("web.session_database_lifetime");
         int batchSize = c.getInt("web.session_delete_batch_size");
         int commitInterval = c.getInt("web.session_delete_commit_interval");
-        
+
         // 100000 is an arbitrary value
         if (batchSize > 100000 || batchSize <= 0) {
             batchSize = 50000;
             log.warn("session_delete_batch_size out of range, using default of 50000");
         }
-        
+
         //1000 is yet another arbitrary value
         if (commitInterval > 1000 || commitInterval <= 0) {
             commitInterval = 100;
             log.warn("session_delete_commit interval out of range, using default of 100");
         }
-        
+
         long bound = (System.currentTimeMillis() / 1000) - (2 * window);
 
         log.info("session_cleanup: starting delete of stale sessions");
@@ -80,24 +77,24 @@ public class SessionCleanup extends RhnJavaJob {
         inParams.put("bound", new Long(bound));
         inParams.put("commit_interval", new Integer(commitInterval));
         inParams.put("batch_size", new Integer(batchSize));
-        
+
         //output parameter of the proc
         outParams.put("sessions_deleted", new Integer(Types.NUMERIC));
 
         CallableMode m = ModeFactory.getCallableMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_SESSION_CLEANUP);
         if (log.isDebugEnabled()) {
-            log.debug("Calling CallableMode " + TaskConstants.MODE_NAME + "::" + 
+            log.debug("Calling CallableMode " + TaskConstants.MODE_NAME + "::" +
                     TaskConstants.TASK_QUERY_SESSION_CLEANUP);
         }
         Map row = m.execute(inParams, outParams);
         if (log.isDebugEnabled()) {
-            log.debug("CallableMode " + TaskConstants.MODE_NAME + "::" + 
+            log.debug("CallableMode " + TaskConstants.MODE_NAME + "::" +
                     TaskConstants.TASK_QUERY_SESSION_CLEANUP + " returned");
-        }            
+        }
         //retrieves and logs number of sessions deleted
-        log.debug("session: cleanup " + row.get("sessions_deleted") + 
-                 " stale sessions deleted\n");            
+        log.debug("session: cleanup " + row.get("sessions_deleted") +
+                 " stale sessions deleted\n");
     }
 
 }

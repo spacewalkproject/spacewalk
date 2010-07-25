@@ -26,7 +26,6 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -44,8 +43,6 @@ public class CompareConfigFilesTask extends RhnJavaJob {
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "compare_config_files";
-
-    private Logger log = getLogger(CompareConfigFilesTask.class);
 
     /**
      * Default constructor

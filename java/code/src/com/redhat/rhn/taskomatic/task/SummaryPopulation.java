@@ -22,7 +22,6 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.frontend.dto.OrgIdWrapper;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -39,24 +38,22 @@ import java.util.Set;
  * @version $Rev$
  */
 public class SummaryPopulation extends RhnJavaJob {
-    
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
-     */    
+     */
     public static final String DISPLAY_NAME = "summary_populator";
-    
-    private Logger log = getLogger(SummaryPopulation.class);
-    
+
     /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext ctx) throws JobExecutionException {
-        
+
         try {
             // don't want duplicates otherwise we risk violating the
             // RHN_DSQUEUE_OID_UQ unique constraint on org_id
             Set orgSet = new LinkedHashSet();
-            
+
             log.debug("Finding orgs with awol servers");
             List orgs = awolServerOrgs();
             orgSet.addAll(orgs);
@@ -70,11 +67,11 @@ public class SummaryPopulation extends RhnJavaJob {
                 }
                 log.debug("Found  " + orgCount + " awol servers");
             }
-            
+
             log.debug("Finding orgs w/ recent action activity");
             orgSet.addAll(orgsWithRecentActions());
             log.debug("Done finding orgs w/ recent action activity");
-            
+
             log.debug("Enqueing orgs");
             for (Iterator itr = orgSet.iterator(); itr.hasNext();) {
                 OrgIdWrapper bdw = (OrgIdWrapper) itr.next();
@@ -88,11 +85,11 @@ public class SummaryPopulation extends RhnJavaJob {
             throw new JobExecutionException(e);
         }
     }
-    
+
     private List awolServerOrgs() {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_SUMMARYPOP_AWOL_SERVER_IN_ORGS);
-        
+
         Map params = new HashMap();
         int checkin = Config.get().getInt(ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD);
         if (log.isDebugEnabled()) {
@@ -101,13 +98,13 @@ public class SummaryPopulation extends RhnJavaJob {
         params.put("checkin_threshold", new Integer(checkin));
         return m.execute(params);
     }
-    
+
     private List orgsWithRecentActions() {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_SUMMARYPOP_ORGS_RECENT_ACTIONS);
         return m.execute();
     }
-    
+
     private int enqueueOrg(Long orgId) {
         Map params = new HashMap();
         params.put("org_id", orgId);
@@ -116,7 +113,7 @@ public class SummaryPopulation extends RhnJavaJob {
         WriteMode m = ModeFactory.getWriteMode(
                 TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_INSERT_SUMMARY_QUEUE);
-        
+
         try {
             DataResult result = select.execute(params);
             Map row = (Map) result.get(0);
