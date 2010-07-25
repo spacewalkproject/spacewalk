@@ -19,6 +19,9 @@ import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
 import EDU.oswego.cs.dl.util.concurrent.PooledExecutor;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.taskomatic.TaskoFactory;
+import com.redhat.rhn.taskomatic.TaskoRun;
+import com.redhat.rhn.taskomatic.task.RhnQueueJob;
 
 import java.util.List;
 
@@ -27,15 +30,17 @@ import java.util.List;
  * tasks need to process a number of work items in parallel.
  * @version $Rev$
  */
-public class TaskQueue implements Runnable {
-    
+public class TaskQueue {
+
     private QueueDriver queueDriver;
     private Channel workers = new LinkedQueue();
     private PooledExecutor executor = null;
     private int executingWorkers = 0;
     private int queueSize = 0;
     private byte[] emptyQueueWait = new byte[0];
-    
+    private boolean taskQueueDone = true;
+    private TaskoRun queueRun = null;
+
     /**
      * Store the QueueDriver instance used when run() is called
      * @param driver to be used as the current QueueDriver
@@ -43,7 +48,7 @@ public class TaskQueue implements Runnable {
     public void setQueueDriver(QueueDriver driver) {
         queueDriver = driver;
     }
-    
+
     /**
      * Get the current QueueDriver
      * @return current QueueDriver
@@ -51,7 +56,7 @@ public class TaskQueue implements Runnable {
     public QueueDriver getQueueDriver() {
         return queueDriver;
     }
-    
+
     /**
      * Callback all workers should call when starting
      * to process work
@@ -59,7 +64,7 @@ public class TaskQueue implements Runnable {
     public synchronized void workerStarting() {
         executingWorkers++;
     }
-    
+
     /**
      * Callback all workers should call when
      * finished with their work item
@@ -77,19 +82,22 @@ public class TaskQueue implements Runnable {
             synchronized (emptyQueueWait) {
                 emptyQueueWait.notifyAll();
             }
+            synchronized (this) {
+                taskQueueDone = true;
+            }
         }
     }
-    
+
     /**
      * Returns the number of currently executing workers
-     * This should never be more than the thread pool's 
+     * This should never be more than the thread pool's
      * maximum size
      * @return number of currently executing workers
      */
     public int getExecutingWorkerCount() {
         return executingWorkers;
     }
-    
+
     /**
      * Returns the number of workers pending
      * @return number of workers pending
@@ -97,22 +105,28 @@ public class TaskQueue implements Runnable {
     public int getQueueSize() {
         return queueSize;
     }
-    
+
     /**
      * {@inheritDoc}
+     * @param runIn
+     * @param jobIn
      */
-    public void run() {
+    public void run(RhnQueueJob jobIn) {
         setupQueue();
         List candidates = queueDriver.getCandidates();
         queueSize = candidates.size();
+        queueDriver.getLogger().info("In the queue: " + queueSize);
         while (candidates.size() > 0 && queueDriver.canContinue()) {
-            Object candidate = (Object) candidates.remove(0);
+            Object candidate = candidates.remove(0);
             QueueWorker worker = queueDriver.makeWorker(candidate);
             worker.setParentQueue(this);
             try {
                 queueDriver.getLogger().debug("Putting worker");
                 workers.put(worker);
                 queueDriver.getLogger().debug("Put worker");
+                synchronized (this) {
+                    taskQueueDone = false;
+                }
             }
             catch (InterruptedException e) {
                 queueDriver.getLogger().error(e);
@@ -122,8 +136,16 @@ public class TaskQueue implements Runnable {
                 return;
             }
         }
+        if (isTaskQueueDone()) {
+            // everything done
+            queueDriver.getLogger().debug("Finishing run "+ queueRun.getId());
+            queueRun.finished();
+            queueRun.saveStatus(TaskoRun.STATUS_FINISHED);
+            TaskoFactory.commitTransaction();
+            changeRun(null);
+        }
     }
-    
+
     /**
      * Waits indefinitely until the queue has emptied of all workers
      * @throws InterruptedException the wait is interrupted
@@ -133,7 +155,7 @@ public class TaskQueue implements Runnable {
             emptyQueueWait.wait();
         }
     }
-    
+
     void shutdown() {
         executor.shutdownNow();
         while (!executor.isTerminatedAfterShutdown()) {
@@ -144,9 +166,9 @@ public class TaskQueue implements Runnable {
                 queueDriver.getLogger().error(e);
                 return;
             }
-        }  
+        }
     }
-    
+
     private void setupQueue() {
         if (executor != null) {
             executor.shutdownAfterProcessingCurrentlyQueuedTasks();
@@ -155,9 +177,25 @@ public class TaskQueue implements Runnable {
         int maxPoolSize = queueDriver.getMaxWorkers();
         executor = new PooledExecutor(workers);
         executor.setThreadFactory(new TaskThreadFactory());
-        executor.setKeepAliveTime(5000);        
+        executor.setKeepAliveTime(5000);
         executor.setMinimumPoolSize(1);
         executor.setMaximumPoolSize(maxPoolSize);
         executor.createThreads(maxPoolSize);
+    }
+
+    public boolean changeRun(TaskoRun runIn) {
+        if (runIn == null) {
+            queueRun = null;
+            return true;
+        }
+        else if (queueRun == null) {
+            queueRun = runIn;
+            return true;
+        }
+        return false;
+    }
+
+    private synchronized boolean isTaskQueueDone() {
+        return taskQueueDone;
     }
 }
