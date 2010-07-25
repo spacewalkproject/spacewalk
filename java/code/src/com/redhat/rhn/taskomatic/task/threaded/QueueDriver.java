@@ -25,6 +25,12 @@ import java.util.List;
 public interface QueueDriver {
 
     /**
+     * Set the logger to use for all logging operations
+     * @return void
+     */
+    void setLogger(Logger loggerIn);
+
+    /**
      * The logger to use for all logging operations
      * @return log4j Logger
      */

@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.taskomatic.task.threaded;
 
+import org.apache.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -58,16 +60,19 @@ public class TaskQueueFactory {
      * then that instance is returned instead.
      * @param name queue name
      * @param driverClass class to use as the queue driver
+     * @param loggerIn queue logger
      * @return queue instance
      * @throws Exception error occurred during queue creation
      */
-    public TaskQueue createQueue(String name, Class driverClass) throws Exception {
+    public TaskQueue createQueue(String name, Class driverClass, Logger loggerIn) throws Exception {
         TaskQueue retval = null;
         synchronized (queues) {
             retval = (TaskQueue) queues.get(name);
             if (retval == null) {
                 retval = new TaskQueue();
-                retval.setQueueDriver((QueueDriver) driverClass.newInstance());
+                QueueDriver driver = (QueueDriver) driverClass.newInstance();
+                driver.setLogger(loggerIn);
+                retval.setQueueDriver(driver);
                 queues.put(name, retval);
             }
         }

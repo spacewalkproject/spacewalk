@@ -19,6 +19,9 @@ import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
 import EDU.oswego.cs.dl.util.concurrent.PooledExecutor;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.taskomatic.TaskoFactory;
+import com.redhat.rhn.taskomatic.TaskoRun;
+import com.redhat.rhn.taskomatic.task.RhnQueueJob;
 
 import java.util.List;
 
@@ -27,7 +30,7 @@ import java.util.List;
  * tasks need to process a number of work items in parallel.
  * @version $Rev$
  */
-public class TaskQueue implements Runnable {
+public class TaskQueue {
 
     private QueueDriver queueDriver;
     private Channel workers = new LinkedQueue();
@@ -35,6 +38,8 @@ public class TaskQueue implements Runnable {
     private int executingWorkers = 0;
     private int queueSize = 0;
     private byte[] emptyQueueWait = new byte[0];
+    private boolean taskQueueDone = true;
+    private TaskoRun queueRun = null;
 
     /**
      * Store the QueueDriver instance used when run() is called
@@ -77,6 +82,9 @@ public class TaskQueue implements Runnable {
             synchronized (emptyQueueWait) {
                 emptyQueueWait.notifyAll();
             }
+            synchronized (this) {
+                taskQueueDone = true;
+            }
         }
     }
 
@@ -100,19 +108,25 @@ public class TaskQueue implements Runnable {
 
     /**
      * {@inheritDoc}
+     * @param runIn
+     * @param jobIn
      */
-    public void run() {
+    public void run(RhnQueueJob jobIn) {
         setupQueue();
         List candidates = queueDriver.getCandidates();
         queueSize = candidates.size();
+        queueDriver.getLogger().info("In the queue: " + queueSize);
         while (candidates.size() > 0 && queueDriver.canContinue()) {
-            Object candidate = (Object) candidates.remove(0);
+            Object candidate = candidates.remove(0);
             QueueWorker worker = queueDriver.makeWorker(candidate);
             worker.setParentQueue(this);
             try {
                 queueDriver.getLogger().debug("Putting worker");
                 workers.put(worker);
                 queueDriver.getLogger().debug("Put worker");
+                synchronized (this) {
+                    taskQueueDone = false;
+                }
             }
             catch (InterruptedException e) {
                 queueDriver.getLogger().error(e);
@@ -121,6 +135,14 @@ public class TaskQueue implements Runnable {
                 HibernateFactory.getSession();
                 return;
             }
+        }
+        if (isTaskQueueDone()) {
+            // everything done
+            queueDriver.getLogger().debug("Finishing run "+ queueRun.getId());
+            queueRun.finished();
+            queueRun.saveStatus(TaskoRun.STATUS_FINISHED);
+            TaskoFactory.commitTransaction();
+            changeRun(null);
         }
     }
 
@@ -159,5 +181,21 @@ public class TaskQueue implements Runnable {
         executor.setMinimumPoolSize(1);
         executor.setMaximumPoolSize(maxPoolSize);
         executor.createThreads(maxPoolSize);
+    }
+
+    public boolean changeRun(TaskoRun runIn) {
+        if (runIn == null) {
+            queueRun = null;
+            return true;
+        }
+        else if (queueRun == null) {
+            queueRun = runIn;
+            return true;
+        }
+        return false;
+    }
+
+    private synchronized boolean isTaskQueueDone() {
+        return taskQueueDone;
     }
 }
