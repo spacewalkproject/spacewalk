@@ -18,7 +18,6 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -38,8 +37,6 @@ public class SessionCleanup extends RhnJavaJob {
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "session_cleanup";
-
-    private Logger log = getLogger(SessionCleanup.class);
 
     /**
      * {@inheritDoc}

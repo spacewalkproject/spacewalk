@@ -19,7 +19,6 @@ import com.redhat.rhn.taskomatic.TaskoFactory;
 import com.redhat.rhn.taskomatic.TaskoRun;
 import com.redhat.rhn.taskomatic.TaskoSchedule;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -33,7 +32,7 @@ import java.util.List;
  * @version $Rev$
  */
 public class ClearLogHistory extends RhnJavaJob {
-    private Logger log = getLogger(ClearLogHistory.class);
+
     /**
      * {@inheritDoc}
      * @throws InvalidParamException

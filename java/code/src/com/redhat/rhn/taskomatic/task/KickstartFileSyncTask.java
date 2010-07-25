@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
-import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 import org.cobbler.Profile;
 import org.quartz.JobExecutionContext;
@@ -47,8 +46,6 @@ public class KickstartFileSyncTask extends RhnJavaJob {
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "sync_from_cobbler";
-
-    private Logger log = getLogger(KickstartFileSyncTask.class);
 
     /**
      * Default constructor

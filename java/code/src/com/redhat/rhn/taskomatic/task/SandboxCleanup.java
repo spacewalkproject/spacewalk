@@ -19,7 +19,6 @@ import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -38,8 +37,6 @@ public class SandboxCleanup extends RhnJavaJob {
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "sandbox_cleanup";
-
-    private Logger log = getLogger(SandboxCleanup.class);
 
     /**
      * {@inheritDoc}

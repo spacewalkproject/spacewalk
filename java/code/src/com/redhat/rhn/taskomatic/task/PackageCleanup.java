@@ -20,7 +20,6 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -43,8 +42,6 @@ public class PackageCleanup extends RhnJavaJob {
      */
     public static final String DISPLAY_NAME = "package_cleanup";
 
-    private Logger logger = getLogger(PackageCleanup.class);
-
     /**
      * {@inheritDoc}
      */
@@ -57,20 +54,20 @@ public class PackageCleanup extends RhnJavaJob {
 
             // Bail if no work to do
             if (candidates == null || candidates.size() == 0) {
-                if (logger.isDebugEnabled()) {
-                    logger.debug("No orphaned packages found");
+                if (log.isDebugEnabled()) {
+                    log.debug("No orphaned packages found");
                 }
             }
-            else if (logger.isDebugEnabled()) {
-                logger.debug("Found " + candidates.size() + " orphaned pacakges");
+            else if (log.isDebugEnabled()) {
+                log.debug("Found " + candidates.size() + " orphaned pacakges");
             }
 
             // Delete them from the filesystem
             for (Iterator iter = candidates.iterator(); iter.hasNext();) {
                 Map row = (Map) iter.next();
                 String path = (String) row.get("path");
-                if (logger.isDebugEnabled()) {
-                    logger.debug("Deleting package " + path);
+                if (log.isDebugEnabled()) {
+                    log.debug("Deleting package " + path);
                 }
                 if (path == null) {
                     continue;
@@ -82,7 +79,7 @@ public class PackageCleanup extends RhnJavaJob {
             resetQueue();
         }
         catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
             throw new JobExecutionException(e);
         }
     }
@@ -97,8 +94,8 @@ public class PackageCleanup extends RhnJavaJob {
         File f = new File(pkgDir, path);
         if (f.exists() && f.canWrite() && !f.isDirectory()) {
             f.delete();
-            if (logger.isDebugEnabled()) {
-                logger.debug("Deleting " + f.getAbsoluteFile());
+            if (log.isDebugEnabled()) {
+                log.debug("Deleting " + f.getAbsoluteFile());
             }
 
             // Remove parents but only within path, and keep two top directories
@@ -116,7 +113,7 @@ public class PackageCleanup extends RhnJavaJob {
             while (parent != null && parent.delete());
         }
         else {
-            logger.error(f.getAbsoluteFile() + " not found");
+            log.error(f.getAbsoluteFile() + " not found");
         }
     }
 

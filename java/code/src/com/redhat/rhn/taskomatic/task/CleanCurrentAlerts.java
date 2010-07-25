@@ -17,7 +17,6 @@ package com.redhat.rhn.taskomatic.task;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -34,8 +33,6 @@ public class CleanCurrentAlerts extends RhnJavaJob {
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "clean_current_alerts";
-
-    private Logger log = getLogger(CleanCurrentAlerts.class);
 
     /**
      * {@inheritDoc}

@@ -17,7 +17,6 @@ package com.redhat.rhn.taskomatic.task;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -37,25 +36,23 @@ public class SynchProbeState extends RhnJavaJob {
      */
     public static final String DISPLAY_NAME = "synch_probe_state";
 
-    private Logger logger = getLogger(SynchProbeState.class);
-
     /**
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext context)  throws JobExecutionException {
         try {
-            if (logger.isDebugEnabled()) {
-                logger.debug("Starting probe state sync");
+            if (log.isDebugEnabled()) {
+                log.debug("Starting probe state sync");
             }
             CallableMode proc = ModeFactory.getCallableMode(TaskConstants.MODE_NAME,
                     TaskConstants.TASK_QUERY_SYNCHPROBESTATE_PROC);
             proc.execute(Collections.EMPTY_MAP, new HashMap());
-            if (logger.isDebugEnabled()) {
-                logger.debug("Probe state sync completed");
+            if (log.isDebugEnabled()) {
+                log.debug("Probe state sync completed");
             }
         }
         catch (Exception e) {
-            logger.error("Error during probe state sync", e);
+            log.error("Error during probe state sync", e);
             throw new JobExecutionException(e);
         }
     }

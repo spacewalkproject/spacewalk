@@ -14,9 +14,17 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
+import com.redhat.rhn.taskomatic.TaskoRun;
 
+import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
+import java.io.IOException;
 
 
 /**
@@ -25,35 +33,48 @@ import org.apache.log4j.Logger;
  */
 public abstract class RhnJavaJob implements RhnJob {
 
-    protected Logger log = null;
-    private RhnJobAppender appender = null;
+    protected Logger log = Logger.getLogger(getClass());
 
-    public Logger getLogger(Class clazz) {
-        if (log == null) {
-            log = Logger.getLogger(clazz);
-            appender = new RhnJobAppender();
-            log.addAppender(appender);
-        }
+    protected Logger getLogger() {
         return log;
     }
 
-    public String getLogOutput() {
-        if (appender == null) {
-            return null;
+    void enableLogging(TaskoRun run) {
+        PatternLayout pattern = new PatternLayout(DEFAULT_LOGGING_LAYOUT);
+        try {
+            getLogger().removeAllAppenders();
+            FileAppender appender = new FileAppender(pattern, run.buildStdOutputLogPath());
+            getLogger().addAppender(appender);
         }
-        return appender.getOutputContent();
-    }
-
-    public String getLogError() {
-        if (appender == null) {
-            return null;
+        catch (IOException e) {
+            getLogger().warn("Logging to file disabled");
+            e.printStackTrace();
         }
-        return appender.getErrorContent();
     }
 
     public void appendExceptionToLogError(Exception e) {
         log.error(e.getMessage());
         log.error(e.getCause());
+    }
+
+    public void execute(JobExecutionContext context, TaskoRun run)
+        throws JobExecutionException {
+        enableLogging(run);
+        run.start();
+        HibernateFactory.commitTransaction();
+        try {
+            execute(context);
+            run.saveStatus(TaskoRun.STATUS_FINISHED);
+        }
+        catch (Exception e) {
+            if (HibernateFactory.getSession().getTransaction().isActive()) {
+                HibernateFactory.rollbackTransaction();
+            }
+            appendExceptionToLogError(e);
+            run.saveStatus(TaskoRun.STATUS_FAILED);
+        }
+        run.finished();
+        HibernateFactory.commitTransaction();
     }
 
     protected void executeExtCmd(String[] args) {

@@ -31,7 +31,6 @@ import com.redhat.rhn.frontend.dto.ReportingUser;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.StopWatch;
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -64,7 +63,6 @@ public class DailySummary extends RhnJavaJob {
 
 
     private Mail mail;
-    private Logger log = getLogger(DailySummary.class);
 
     /**
      * Default constructor

@@ -22,7 +22,6 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -47,8 +46,6 @@ public class CobblerSyncTask extends RhnJavaJob {
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "sync_from_cobbler";
-
-    private Logger log = getLogger(CobblerSyncTask.class);
 
     /**
      * Default constructor

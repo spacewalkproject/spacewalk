@@ -23,7 +23,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.manager.satellite.CertificateManager;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -32,8 +31,6 @@ import org.quartz.JobExecutionException;
  * @version $Rev$
  */
 public class SatelliteCertificateCheck extends RhnJavaJob {
-
-    private Logger log = getLogger(SatelliteCertificateCheck.class);
 
     public static final String DISPLAY_NAME = "satcert_check";
 
