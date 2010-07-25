@@ -18,7 +18,6 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.taskomatic.task.ErrataQueue;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 import com.redhat.rhn.taskomatic.task.threaded.QueueDriver;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
@@ -37,11 +36,11 @@ import java.util.Map;
  */
 public class ErrataQueueDriver implements QueueDriver {
 
-    private static final Logger LOG = Logger.getLogger(ErrataQueue.class);    
-    
+    private Logger logger = null;
+
     /**
      * {@inheritDoc}
-     */    
+     */
     public boolean canContinue() {
         return true;
     }
@@ -67,26 +66,33 @@ public class ErrataQueueDriver implements QueueDriver {
             HibernateFactory.closeSession();
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    public Logger getLogger() {
-        return LOG;
+    public void setLogger(Logger loggerIn) {
+        logger = loggerIn;
     }
 
     /**
      * {@inheritDoc}
-     */    
+     */
+    public Logger getLogger() {
+        return logger;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public int getMaxWorkers() {
         return Config.get().getInt("taskomatic.errata_queue_workers", 2);
     }
 
     /**
      * {@inheritDoc}
-     */    
+     */
     public QueueWorker makeWorker(Object workItem) {
-        return new ErrataQueueWorker((Map) workItem, LOG);
+        return new ErrataQueueWorker((Map) workItem, logger);
     }
 
 }

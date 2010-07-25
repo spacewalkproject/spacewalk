@@ -24,10 +24,10 @@ import java.util.List;
 import java.util.Map;
 
 public class ErrataQueueTest extends BaseTestCaseWithUser {
-    
+
     // We can run this now that mmccune made ErrataQueue perform OK.
     public void testErrataQueue() throws Exception {
-        
+
         ErrataQueue eq = new ErrataQueue() {
 
             // Override this so we only process one errata.
@@ -43,10 +43,10 @@ public class ErrataQueueTest extends BaseTestCaseWithUser {
                 System.out.println("Returning one test errata.");
                 return retval;
             }
-            
+
         };
-        eq.execute(null, true);
-        // Just a simple test to make sure we get here without 
+        eq.execute(null);
+        // Just a simple test to make sure we get here without
         // exceptions.  Better than nothin'
         assertTrue(true);
     }

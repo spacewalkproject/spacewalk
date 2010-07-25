@@ -17,7 +17,6 @@ package com.redhat.rhn.taskomatic.task.errata;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.task.Task;
 import com.redhat.rhn.domain.task.TaskFactory;
-import com.redhat.rhn.taskomatic.task.ErrataCacheTask;
 import com.redhat.rhn.taskomatic.task.threaded.QueueDriver;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 
@@ -29,15 +28,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Driver for the threaded errata cache update queue 
+ * Driver for the threaded errata cache update queue
  * @version $Rev$
  */
 public class ErrataCacheDriver implements QueueDriver {
-    
-    private static final Logger LOG = Logger.getLogger(ErrataCacheTask.class);    
+
+    private Logger logger = null;
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public boolean canContinue() {
@@ -45,7 +44,7 @@ public class ErrataCacheDriver implements QueueDriver {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public List getCandidates() {
@@ -62,15 +61,23 @@ public class ErrataCacheDriver implements QueueDriver {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Logger getLogger() {
-        return LOG;
+        return logger;
     }
 
     /**
-     * 
+     * {@inheritDoc}
+     */
+
+    public void setLogger(Logger loggerIn) {
+        logger = loggerIn;
+    }
+
+    /**
+     *
      * {@inheritDoc}
      */
     public int getMaxWorkers() {
@@ -78,12 +85,11 @@ public class ErrataCacheDriver implements QueueDriver {
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public QueueWorker makeWorker(Object workItem) {
         Map item = (Map) workItem;
-        return new ErrataCacheWorker(item, LOG);
+        return new ErrataCacheWorker(item, logger);
     }
-
 }

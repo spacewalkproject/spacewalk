@@ -45,24 +45,24 @@ import java.util.Map;
  * @version $Rev$
  */
 class ErrataQueueWorker implements QueueWorker {
-    
+
     private Logger logger;
     private Long errataId;
     private Long channelId;
     private Long orgId;
     private TaskQueue parentQueue;
-    
+
     ErrataQueueWorker(Map row, Logger parentLogger) {
         channelId = (Long) row.get("channel_id");
         errataId = (Long) row.get("errata_id");
         orgId = (Long) row.get("org_id");
         logger = parentLogger;
     }
-    
+
     public void run() {
         try {
             parentQueue.workerStarting();
-            dequeueErrata(); 
+            dequeueErrata();
             ActionStatus queuedStatus = lookupQueuedStatus();
             try {
                 Errata errata = loadErrata();
@@ -72,7 +72,7 @@ class ErrataQueueWorker implements QueueWorker {
                             "skipping ErrataQueue. (" + errataId + ", " + channelId + ")");
                 }
                 else {
-                    scheduleAutoUpdates(errata, queuedStatus, channel);    
+                    scheduleAutoUpdates(errata, queuedStatus, channel);
                 }
             }
             catch (Exception e) {
@@ -80,24 +80,24 @@ class ErrataQueueWorker implements QueueWorker {
                 return;
             }
             if (logger.isDebugEnabled()) {
-                logger.debug("Scheduling autoupdate actions for errata " + 
+                logger.debug("Scheduling autoupdate actions for errata " +
                         errataId.longValue());
             }
             if (logger.isDebugEnabled()) {
-                logger.debug("Processing errata queue for " + 
+                logger.debug("Processing errata queue for " +
                         errataId.longValue());
             }
-            
+
             WriteMode deqNotif = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                     TaskConstants.TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA_NOTIFICATION);
             Map deqNotifParams = new HashMap();
             deqNotifParams.put("errata_id", errataId);
             int notifDeleted = deqNotif.executeUpdate(deqNotifParams);
             if (logger.isDebugEnabled()) {
-                logger.debug("deleted " + notifDeleted + 
+                logger.debug("deleted " + notifDeleted +
                         " rows from the rhnErrataNotificationQueue table");
             }
-            
+
             WriteMode marker = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATA_QUEUE_ENQUEUE_SAT_ERRATA);
             Map params = new HashMap();
@@ -106,7 +106,7 @@ class ErrataQueueWorker implements QueueWorker {
             params.put("channel_id", channelId);
             int rowsUpdated = marker.executeUpdate(params);
             if (logger.isDebugEnabled()) {
-                logger.debug("inserted " + rowsUpdated + 
+                logger.debug("inserted " + rowsUpdated +
                     " rows into the rhnErrataNotificationQueue table");
             }
             HibernateFactory.commitTransaction();
@@ -120,8 +120,8 @@ class ErrataQueueWorker implements QueueWorker {
             HibernateFactory.closeSession();
         }
     }
-    
-    
+
+
     private void dequeueErrata() {
         WriteMode deqErrata = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA);
@@ -129,17 +129,17 @@ class ErrataQueueWorker implements QueueWorker {
         dqeParams.put("errata_id", errataId);
         int eqDeleted = deqErrata.executeUpdate(dqeParams);
         if (logger.isDebugEnabled()) {
-            logger.debug("deleted " + eqDeleted + 
+            logger.debug("deleted " + eqDeleted +
                     " rows from the rhnErrataQueue table");
-        }                    
+        }
         HibernateFactory.commitTransaction();
         HibernateFactory.closeSession();
     }
-    
+
     private Errata loadErrata() throws Exception {
         return ErrataFactory.lookupById(new Long(errataId.longValue()));
     }
-    
+
     protected List findCandidates() throws Exception {
         SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATA_QUEUE_FIND_CANDIDATES);
@@ -147,10 +147,10 @@ class ErrataQueueWorker implements QueueWorker {
         params.put("threshold", new Integer(1));
         return select.execute(params);
     }
-        
-    private void scheduleAutoUpdates(Errata errata, 
+
+    private void scheduleAutoUpdates(Errata errata,
                 ActionStatus queuedStatus, Channel chan) throws Exception {
-        logger.debug("Scheduling auto updates for " + errata.getAdvisoryName() + "(" + 
+        logger.debug("Scheduling auto updates for " + errata.getAdvisoryName() + "(" +
                 errata.getId() + ")");
         String desc = errata.getAdvisory() + " - " + errata.getSynopsis();
         HibernateFactory.getSession();
@@ -163,19 +163,19 @@ class ErrataQueueWorker implements QueueWorker {
             List results = select.execute(params);
             if (results == null || results.size() == 0) {
                 if (logger.isDebugEnabled()) {
-                    logger.debug("No autoupdate servers found for errata " + 
+                    logger.debug("No autoupdate servers found for errata " +
                             errata.getId());
                 }
                 return;
             }
             else if (logger.isDebugEnabled()) {
-                logger.debug("Found " + results.size() + " autoupdate servers for " + 
+                logger.debug("Found " + results.size() + " autoupdate servers for " +
                         "errata " + errata.getId());
             }
-            
+
             // I think this nifty little loop accurately models what the perl
             // code is doing
-            
+
             Org org = null;
             for (Iterator iter = results.iterator(); iter.hasNext();) {
                 Map row = (Map) iter.next();
@@ -189,12 +189,12 @@ class ErrataQueueWorker implements QueueWorker {
                     org = OrgFactory.lookupById(orgId);
                 }
                 Long convertedServerId = new Long(serverId.longValue());
-                // Only schedule an Auto Update if the server supports the 
+                // Only schedule an Auto Update if the server supports the
                 // feature.  We originally calculated this in the driving
                 // query but it wasn't performant.
                 if (logger.isDebugEnabled()) {
                     logger.debug("Scheduling auto update for Errata: " +
-                            errata.getId() + ", Server: " + convertedServerId + 
+                            errata.getId() + ", Server: " + convertedServerId +
                             ", Org: " + convertedOrgId);
                 }
                 ErrataAction errataAction = ActionManager.
@@ -208,12 +208,12 @@ class ErrataQueueWorker implements QueueWorker {
             HibernateFactory.closeSession();
         }
         else {
-            logger.error("No advisory or synopsis found for errata " + 
+            logger.error("No advisory or synopsis found for errata " +
                     errata.getId());
         }
-        
+
     }
-    
+
     private ActionStatus lookupQueuedStatus() {
         ActionStatus queuedStatus = ActionFactory.STATUS_QUEUED;
         if (queuedStatus != null) {
@@ -223,7 +223,7 @@ class ErrataQueueWorker implements QueueWorker {
             logger.error("Couldn't locate \"queued\" action status");
             return null;
         }
-        
+
     }
 
     public void setParentQueue(TaskQueue queue) {
