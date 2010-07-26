@@ -62,4 +62,7 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'errata-cache-bunch', 'Performs errata cache recalc for a given server or channel', '', sysdate);
 
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'channel-repodata-bunch', 'Generates channel repodata', '', sysdate);
+
 commit;

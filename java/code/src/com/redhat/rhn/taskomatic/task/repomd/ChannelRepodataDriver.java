@@ -19,7 +19,6 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.taskomatic.task.ChannelRepodata;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 import com.redhat.rhn.taskomatic.task.threaded.QueueDriver;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
@@ -33,32 +32,32 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 
+ *
  * @version $Rev $
- * 
+ *
  */
 public class ChannelRepodataDriver implements QueueDriver {
 
-    private static final Logger LOG = Logger.getLogger(ChannelRepodata.class);
+    private Logger logger = null;
 
     /**
-     * default Constructor
+     * {@inheritDoc}
      */
-    public ChannelRepodataDriver() {
-        LOG.info("ChannelRepodataDriver()--resetting orphanned rhnRepoRegenQueue entries");
+    public void initialize() {
+        logger.info("ChannelRepodataDriver()--resetting orphanned rhnRepoRegenQueue entries");
         WriteMode resetChannelRepodata = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMOD_CLEAR_IN_PROGRESS);
         try {
             int eqReset = resetChannelRepodata.executeUpdate(new HashMap());
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Reset " + eqReset +
+            if (logger.isDebugEnabled()) {
+                logger.debug("Reset " + eqReset +
                         " rows from the rhnRepoRegenQueue table in progress by " +
                         "setting next_action to sysdate");
             }
             HibernateFactory.commitTransaction();
         }
         catch (Exception e) {
-            LOG.error("Error resetting rhnRepoRegenQueue.next_action", e);
+            logger.error("Error resetting rhnRepoRegenQueue.next_action", e);
             HibernateFactory.rollbackTransaction();
         }
         finally {
@@ -100,7 +99,15 @@ public class ChannelRepodataDriver implements QueueDriver {
      * @return Returns Logger
      */
     public Logger getLogger() {
-        return LOG;
+        return logger;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+
+    public void setLogger(Logger loggerIn) {
+        logger = loggerIn;
     }
 
     /**
@@ -117,5 +124,4 @@ public class ChannelRepodataDriver implements QueueDriver {
     public QueueWorker makeWorker(Object workItem) {
         return new ChannelRepodataWorker((Map) workItem, getLogger());
     }
-
 }
