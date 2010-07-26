@@ -16,6 +16,7 @@ package com.redhat.rhn.taskomatic.task.repomd;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -82,8 +83,10 @@ public class RepositoryWriter {
         Date fileModifiedDate = new Date(theFile.lastModified());
         // the file Modified date should be getting set when the file
         // is moved into the correct location.
-        log.info("File Modified Date:" + fileModifiedDate);
-        log.info("Channel Modified Date:" + channel.getLastModified());
+        log.info("File Modified Date:" + LocalizationService.getInstance().
+                formatCustomDate(fileModifiedDate));
+        log.info("Channel Modified Date:" + LocalizationService.getInstance().
+                formatCustomDate(channel.getLastModified()));
         return !fileModifiedDate.equals(channel.getLastModified());
     }
     /**
@@ -118,7 +121,7 @@ public class RepositoryWriter {
             // Get compatible checksumType
             this.checksumtype = channel.getChecksumTypeLabel();
 
-            log.info("Checksum Type Value" + this.checksumtype);
+            log.info("Checksum Type Value: " + this.checksumtype);
 
             // java.security.MessageDigest recognizes:
             // MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512
@@ -206,7 +209,7 @@ public class RepositoryWriter {
 
             log.info("Starting updateinfo generation for '" +
                     channel.getLabel() + '"');
-            log.info("Checksum Type Value for generate updateinfo" +
+            log.info("Checksum Type Value for generate updateinfo " +
                     this.checksumtype);
             RepomdIndexData updateinfoData = generateUpdateinfo(channel,
                     prefix, checksumAlgo);
