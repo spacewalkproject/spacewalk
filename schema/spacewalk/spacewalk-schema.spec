@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.19
+Version:        1.1.20
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Jul 26 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.20-1
+- 618219 - update family counts only once per family
+
 * Wed Jul 21 2010 Jan Pazdziora 1.1.19-1
 - If PostgreSQL source specifies SHA1 of Oracle source equivalent, we need to
   verify it.
