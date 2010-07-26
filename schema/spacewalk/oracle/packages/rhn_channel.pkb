@@ -427,12 +427,27 @@ IS
                         rhnChannelFamilyMembers cfm
                 where   s.id = server_id_in
                         and s.id = sc.server_id
-                        and sc.channel_id = cfm.channel_id;
+                        and sc.channel_id = cfm.channel_id
+                order by cfm.channel_family_id;
+        last_channel_family_id rhnChannelFamilyMembers.channel_family_id%type := -1;
+        last_channel_org_id    rhnServer.org_id%type := -1;
     BEGIN
         for channel in server_channels(server_id_in)
         loop
-                unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server, update_family_countsYN);
+                unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server, 0);
+                if update_family_countsYN
+                    and channel.channel_family_id != last_channel_family_id then
+                    -- update family counts only once
+                    -- after all channels with same family has been fetched
+                    update_family_counts(last_channel_family_id, last_channel_org_id);
+                    last_channel_family_id := channel.channel_family_id;
+                    last_channel_org_id    := channel.org_id;
+                end if;
         end loop channel;
+        if update_family_countsYN and last_channel_family_id != -1 then
+            -- update the last family fetched
+            update_family_counts(last_channel_family_id, channel.org_id);
+        end if;
     END clear_subscriptions;
 
     PROCEDURE unsubscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, unsubscribe_children_in number := 0,
