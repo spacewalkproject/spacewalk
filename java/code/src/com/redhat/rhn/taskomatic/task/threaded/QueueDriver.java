@@ -62,4 +62,9 @@ public interface QueueDriver {
      * @return true if processing can continue, otherwise false
      */
     boolean canContinue();
+
+    /**
+     * Actions that has to be executed, when queue is created
+     */
+    void initialize();
 }

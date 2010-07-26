@@ -72,6 +72,7 @@ public class TaskQueueFactory {
                 retval = new TaskQueue();
                 QueueDriver driver = (QueueDriver) driverClass.newInstance();
                 driver.setLogger(loggerIn);
+                driver.initialize();
                 retval.setQueueDriver(driver);
                 queues.put(name, retval);
             }

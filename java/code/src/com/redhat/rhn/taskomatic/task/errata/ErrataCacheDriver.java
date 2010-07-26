@@ -92,4 +92,12 @@ public class ErrataCacheDriver implements QueueDriver {
         Map item = (Map) workItem;
         return new ErrataCacheWorker(item, logger);
     }
+
+    /**
+    *
+    * {@inheritDoc}
+    */
+    public void initialize() {
+        // empty
+    }
 }
