@@ -22,7 +22,7 @@ import urllib
 import socket
 import re
 
-from types import ListType, TupleType
+from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
 
 from UserDictCase import UserDictCase
 
@@ -314,6 +314,32 @@ class Server:
         if not self._handler:
             self._handler = "/RPC2"
 
+    def _strip_characters(self, *args):
+        """ Strip characters, which are not allowed according:
+            http://www.w3.org/TR/2006/REC-xml-20060816/#charsets
+            From spec:
+            Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]  /* any Unicode character, excluding the surrogate blocks, FFFE, and FFFF. */
+        """
+        regexp = r'[\x00-\x09]|[\x0b-\x0c]|[\x0e-\x1f][\ud800-\udfff]|\ufffe|\uffff'
+        result=[]
+        for item in args:
+            item_type = type(item)
+            if item_type == StringType or item_type == UnicodeType:
+                item = re.sub(regexp, '', item)
+            elif item_type == TupleType:
+                item = tuple(map(self._strip_characters, item))
+            elif item_type == ListType:
+                item = map(self._strip_characters, item)
+            elif item_type == DictType or item_type == DictionaryType:
+                item = dict([(self._strip_characters(name, val)) for name, val in item.iteritems()])
+            # else: some object - should take care of himself
+            #        numbers - are safe
+            result.append(item)
+        if len(result) == 1:
+            return result[0]
+        else:
+            return tuple(result)
+
     def _request(self, methodname, params):
         """ Call a method on the remote server 
             we can handle redirections. """
@@ -350,7 +376,7 @@ class Server:
                 if self.send_handler:
                     self._transport.add_header('X-RHN-Path', self.send_handler)
 
-            request = self._req_body(params, methodname)
+            request = self._req_body(self._strip_characters(params), methodname)
 
             try:
                 response = self._transport.request(self._host, \
