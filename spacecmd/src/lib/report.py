@@ -119,16 +119,19 @@ def do_report_ungroupedsystems(self, args):
 
 def help_report_errata(self):
     print 'report_errata: List all errata and how many systems they affect'
-    print 'usage: report_errata'
+    print 'usage: report_errata [ERRATA|search:XXX ...]'
 
 #XXX: performance is terrible due to all the API calls
 def do_report_errata(self, args):
-    self.generate_errata_cache()
+    args = parse_arguments(args)
+
+    errata_list = self.expand_errata(args)
 
     report = {}
-    for erratum in self.all_errata:
-        affected = self.client.errata.listAffectedSystems(self.session,
-                                                          erratum)
+    for erratum in errata_list:
+        logging.debug('Getting affected systems for %s' % erratum)
+
+        affected = self.client.errata.listAffectedSystems(self.session, erratum)
 
         num_affected = len(affected)
         if num_affected:
@@ -144,7 +147,7 @@ def do_report_errata(self, args):
         print '%s  # Systems' % ('Errata'.ljust(max_size))
         print '%s  ---------' % ('------'.ljust(max_size))
         for erratum in sorted(report):
-            print '%s     %s' % \
+            print '%s        %s' % \
                   (erratum.ljust(max_size), str(report[erratum]).rjust(3))
 
 ####################
