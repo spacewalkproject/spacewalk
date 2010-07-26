@@ -87,7 +87,10 @@
 	  <property name="visible">True</property>
 	  <property name="label" translatable="yes">This system will &lt;b&gt;not&lt;/b&gt; be able to successfully receive software updates, including security updates, from Red Hat without connecting to a Red Hat Network server.
 
-To keep your system updated, secure, and supported, please register this system at your earliest convenience. You may access this registration tool by running &lt;b&gt;Software Updater&lt;/b&gt; in the &lt;b&gt;Applications &gt; System Tools&lt;/b&gt; menu.</property>
+To keep your system updated, secure, and supported, please register this system at your earliest convenience.
+
+You may access RHN registration tool by running &lt;b&gt;RHN Registration&lt;/b&gt; in the &lt;b&gt;System &gt; Administration&lt;/b&gt; menu.
+You may access software update tool by running &lt;b&gt;Software Update&lt;/b&gt; in the &lt;b&gt;System &gt; Administration&lt;/b&gt; menu.</property>
 	  <property name="use_underline">False</property>
 	  <property name="use_markup">True</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -3440,7 +3443,8 @@ A security certificate, using SSL technology, is necessary to ensure that data c
 	      <property name="visible">True</property>
 	      <property name="label" translatable="yes" context="yes">You won't be able to receive software updates, including security updates, for this system.
 
-To keep your system updated, secure, and supported, please connect this system to RHN at your earliest convenience. You may access this software updates setup tool at any time by running Software Updater in the Applications &gt; System Tools menu.</property>
+You may access RHN registration tool by running &lt;b&gt;RHN Registration&lt;/b&gt; in the &lt;b&gt;System &gt; Administration&lt;/b&gt; menu.
+You may access software update tool by running &lt;b&gt;Software Update&lt;/b&gt; in the &lt;b&gt;System &gt; Administration&lt;/b&gt; menu.</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">True</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
