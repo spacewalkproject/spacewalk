@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.5.2
+Version:     0.5.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Jul 26 2010 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
+- 616120 - remove python requires (msuchy@redhat.com)
+- 616120 - add -p to install, to preserve timestamps (msuchy@redhat.com)
+
 * Thu Jul 22 2010 Aron Parsons <aparsons@redhat.com> 0.5.2-1
 - move python files in site-packages (aparsons@redhat.com)
 - fixes to spacecmd.spec per Fedora package review (aparsons@redhat.com)
