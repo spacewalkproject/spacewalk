@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.35
+Version: 1.1.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 26 2010 Tomas Lestach <tlestach@redhat.com> 1.1.36-1
+- alter the return type of system.listLatestAvailablePackage
+  (aparsons@redhat.com)
+- added new API call system.listLatestAvailablePackage that will list the
+  latest available version of a package for each system in the list
+  (aparsons@redhat.com)
+- add counts for the number of completed/failed/inprogress systems to the
+  ScheduledAction DTO and schedule.list*Actions API calls (aparsons@redhat.com)
+- added new API call schedule.rescheduleActions (aparsons@redhat.com)
+
 * Fri Jul 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.35-1
 - fixing new connection stuff to allow for the thin client
 - Add system migration to webUI
