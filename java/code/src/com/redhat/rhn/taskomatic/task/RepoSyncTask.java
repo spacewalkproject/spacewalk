@@ -21,7 +21,6 @@ import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.task.Task;
 import com.redhat.rhn.domain.task.TaskFactory;
 
-import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -33,32 +32,30 @@ import java.util.List;
  * Repo Sync
  *  Used for syncing repos (like yum repos) to a channel
  *  This really just calls a python script
- *  
+ *
  * @version $Rev$
  */
-public class RepoSyncTask extends RhnExtCmdJob {
-        
+public class RepoSyncTask extends RhnJavaJob {
+
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "repo_sync";
 
-    private Logger log = getLogger(RepoSyncTask.class);
-    
     /**
      * Default constructor
      */
     public RepoSyncTask() {
     }
- 
+
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
-        
+
         for (Task task : TaskFactory.listTasks(DISPLAY_NAME)) {
             //workaround in case task is null (which can happen)
 
@@ -68,7 +65,7 @@ public class RepoSyncTask extends RhnExtCmdJob {
             }
             ContentSource src = ChannelFactory.lookupContentSource(task.getData());
             if (log.isInfoEnabled()) {
-                log.info("Syncing repo " + src.getSourceUrl() + " to channel " + 
+                log.info("Syncing repo " + src.getSourceUrl() + " to channel " +
                         src.getChannel().getLabel());
             }
             if (src == null) {
@@ -81,7 +78,7 @@ public class RepoSyncTask extends RhnExtCmdJob {
             executeExtCmd(getSyncCommand(src).toArray(new String[0]));
         }
     }
-    
+
     private static List<String> getSyncCommand(ContentSource src) {
         List<String> cmd = new ArrayList<String>();
         cmd.add(Config.get().getString(ConfigDefaults.SPACEWALK_REPOSYNC_PATH,
@@ -97,6 +94,4 @@ public class RepoSyncTask extends RhnExtCmdJob {
         cmd.add("--quiet");
         return cmd;
     }
-    
-
 }
