@@ -29,8 +29,8 @@ import com.redhat.rhn.domain.errata.impl.PublishedErrata;
 import com.redhat.rhn.domain.org.OrgFactory;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -56,8 +56,6 @@ public class ErrataMailer extends RhnJavaJob {
      */
     public static final String DISPLAY_NAME = "errata_engine";
 
-    private Logger logger = getLogger(ErrataMailer.class);
-
     /**
      * {@inheritDoc}
      */
@@ -67,13 +65,13 @@ public class ErrataMailer extends RhnJavaJob {
         try {
             List results = getErrataToProcess();
             if (results == null || results.size() == 0) {
-                if (logger.isDebugEnabled()) {
-                    logger.debug("No errata found...exiting");
+                if (log.isDebugEnabled()) {
+                    log.debug("No errata found...exiting");
                 }
             }
             else {
-                if (logger.isDebugEnabled()) {
-                    logger.debug("Queued up " + results.size() + " errata");
+                if (log.isDebugEnabled()) {
+                    log.debug("=== Queued up " + results.size() + " errata");
                 }
                 Map erratas = new HashMap();
                 WriteMode cleanUp = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
@@ -85,32 +83,33 @@ public class ErrataMailer extends RhnJavaJob {
                     Long channelId = (Long) row.get("channel_id");
                     markErrataDone(errataId, orgId, channelId);
                     if (!hasProcessedErrata(orgId, errataId, erratas)) {
-                        if (logger.isDebugEnabled()) {
-                            logger.debug("Processing errata " + errataId +
+                        if (log.isDebugEnabled()) {
+                            log.debug("Processing errata " + errataId +
                                     " for org " + orgId);
                         }
                         try {
                             sendEmails(errataId, orgId, channelId);
-                            if (logger.isDebugEnabled()) {
-                                logger.debug("Finished errata " + errataId +
+                            if (log.isDebugEnabled()) {
+                                log.debug("Finished errata " + errataId +
                                         " for org " + orgId);
                             }
                         }
                         catch (JavaMailException e) {
-                            logger.error("Error sending mail", e);
+                            log.error("Error sending mail", e);
                         }
                         try {
                             cleanUp.executeUpdate(Collections.EMPTY_MAP);
+                            HibernateFactory.commitTransaction();
                         }
                         catch (Exception e) {
-                            logger.error("Error cleaning up ErrataMailer queue", e);
+                            log.error("Error cleaning up ErrataMailer queue", e);
                         }
                     }
                 }
             }
         }
         catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
             throw new JobExecutionException(e);
         }
         finally {
@@ -120,7 +119,7 @@ public class ErrataMailer extends RhnJavaJob {
                 cleanUp.executeUpdate(Collections.EMPTY_MAP);
             }
             catch (Exception e) {
-                logger.error("Error cleaning up ErrataMailer queue", e);
+                log.error("Error cleaning up ErrataMailer queue", e);
             }
         }
 
@@ -155,6 +154,7 @@ public class ErrataMailer extends RhnJavaJob {
 
     private void markErrataDone(Long errataId, Long orgId, Long channelId)
                                                             throws Exception {
+        Transaction tx = HibernateFactory.getSession().beginTransaction();
         WriteMode marker = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_MARK_ERRATA_DONE);
         Map params = new HashMap();
@@ -162,9 +162,11 @@ public class ErrataMailer extends RhnJavaJob {
         params.put("errata_id", errataId);
         params.put("channel_id", channelId);
         int rowsUpdated = marker.executeUpdate(params);
-        if (logger.isDebugEnabled()) {
-            logger.debug("Marked " + rowsUpdated + " rows complete");
+        if (log.isDebugEnabled()) {
+            log.debug("Marked " + rowsUpdated + " rows complete");
+            log.debug("errata_id = " + errataId + " AND channel_id = " + channelId + " AND org_id = " + orgId);
         }
+        tx.commit();
     }
 
     private void sendEmails(Long errataId, Long orgId, Long channelId) throws Exception {
@@ -174,15 +176,15 @@ public class ErrataMailer extends RhnJavaJob {
         populateWorkQueue(errataId, orgId, channelId);
         List users = findTargetUsers();
         if (users == null || users.size() == 0) {
-            if (logger.isDebugEnabled()) {
-                logger.debug("No target users found for errata " + errata.getId() +
+            if (log.isDebugEnabled()) {
+                log.debug("No target users found for errata " + errata.getId() +
                         "...skipping");
             }
             return;
         }
         else {
-            if (logger.isDebugEnabled()) {
-                logger.debug("Found " + String.valueOf(users.size()) + " target users");
+            if (log.isDebugEnabled()) {
+                log.debug("Found " + String.valueOf(users.size()) + " target users");
             }
         }
 
@@ -206,7 +208,7 @@ public class ErrataMailer extends RhnJavaJob {
             subject.append(errata.getAdvisory()).append(" - ");
             subject.append(errata.getSynopsis());
             mail.setSubject(subject.toString());
-            TaskHelper.sendMail(mail, logger);
+            TaskHelper.sendMail(mail, log);
         }
     }
 
@@ -233,9 +235,10 @@ public class ErrataMailer extends RhnJavaJob {
         params.put("org_id", orgId);
         params.put("channel_id", channelId);
         int workItemsFound = queueWriter.executeUpdate(params);
-        if (logger.isDebugEnabled()) {
-            logger.debug("Queuing " + workItemsFound +  " rows of work");
+        if (log.isDebugEnabled()) {
+            log.debug("Queuing " + workItemsFound +  " rows of work");
         }
+        HibernateFactory.commitTransaction();
     }
 
     private String formatEmail(String login,
