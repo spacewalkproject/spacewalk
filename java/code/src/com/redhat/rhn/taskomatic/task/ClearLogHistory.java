@@ -19,6 +19,7 @@ import com.redhat.rhn.taskomatic.TaskoFactory;
 import com.redhat.rhn.taskomatic.TaskoRun;
 import com.redhat.rhn.taskomatic.TaskoSchedule;
 
+import org.hibernate.Transaction;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -59,6 +60,7 @@ public class ClearLogHistory extends RhnJavaJob {
 
         log.info("Clearing log history older than: " +
                 LocalizationService.getInstance().formatCustomDate(limitTime));
+        Transaction tx = TaskoFactory.getSession().beginTransaction();
         // loop accross all the orgs
         List<TaskoRun> runList = TaskoFactory.listRunsOlderThan(limitTime);
         for (TaskoRun run : runList) {
@@ -75,5 +77,6 @@ public class ClearLogHistory extends RhnJavaJob {
                 TaskoFactory.delete(schedule);
             }
         }
+        tx.commit();
     }
 }
