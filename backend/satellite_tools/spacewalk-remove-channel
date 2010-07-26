@@ -92,12 +92,12 @@ def main():
 
     dict_label, dict_parents = __listChannels()
     if options.list:
-        lbls = []
-        for c in dict_label.keys():
-            lbls.append(c)
-        lbls.sort()
-        for c in lbls:
-            print c
+        keys = dict_parents.keys()
+        keys.sort()
+        for c in keys:
+           print c
+           for sub in dict_parents[c]:
+               print "\t" + sub
         return
 
 
@@ -106,6 +106,7 @@ def main():
     for channel in options.channel:
         channels[channel] = None
 
+    child_test_fail = False
     for channel in channels.keys():
         if not dict_label.has_key(channel):
             print "Unknown channel %s" % channel
@@ -115,12 +116,20 @@ def main():
         if not dict_parents.has_key(channel):
             continue
         # this channel is a parent channel?
+        children = []
         for subch in dict_parents[channel]:
             if not channels.has_key(subch):
-                print "Error: cannot remove channel %s: subchannel %s exists" %(
-                    channel, subch)
-                return -1
-                
+                child_test_fail = True
+                children.append(subch)
+        if children:
+            print "Error: cannot remove channel %s: subchannel(s) exist: " %(
+                channel)
+            for child in children:
+                print "\t\t\t" + child
+               
+    if child_test_fail:
+        return -1
+ 
     if __serverCheck(channels.keys(), options.unsubscribe):
         return -1
 
@@ -253,7 +262,9 @@ def __listChannels():
     sql = """
         select c1.label, c2.label parent_channel 
         from rhnChannel c1, rhnChannel c2
-        where c1.parent_channel = c2.id (+)
+        where c1.parent_channel = c2.id (+) and
+              (C1.org_id is null or C2.org_id is null)
+        order by c2.label desc, c1.label asc
     """
     h = rhnSQL.prepare(sql)
     h.execute()
@@ -265,9 +276,10 @@ def __listChannels():
             break
         parent_channel = row['parent_channel']
         labels[row['label']] = parent_channel
+        if not parent_channel:
+            parents[row['label']] = []
+
         if parent_channel:
-            if not parents.has_key(parent_channel):
-                parents[parent_channel] = []
             parents[parent_channel].append(row['label'])
         
     return labels, parents
