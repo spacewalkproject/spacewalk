@@ -109,6 +109,4 @@ public class RepoSyncTask implements Job {
         cmd.add("--quiet");
         return cmd;
     }
-
-
 }
