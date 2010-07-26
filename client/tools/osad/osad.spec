@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.36
+Version: 5.9.37
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -247,6 +247,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Mon Jul 26 2010 Milan Zazrivec <mzazrivec@redhat.com> 5.9.37-1
+- 618300 - default_db is no longer needed
+
 * Tue Jul 20 2010 Milan Zazrivec <mzazrivec@redhat.com> 5.9.36-1
 - make osa-dispatcher start after jabberd
 
