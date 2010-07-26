@@ -95,4 +95,11 @@ public class ErrataQueueDriver implements QueueDriver {
         return new ErrataQueueWorker((Map) workItem, logger);
     }
 
+    /**
+    *
+    * {@inheritDoc}
+    */
+    public void initialize() {
+        // empty
+    }
 }
