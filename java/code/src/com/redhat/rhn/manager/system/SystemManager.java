@@ -230,7 +230,13 @@ public class SystemManager extends BaseManager {
                                            Map.class);
         Map params = new HashMap();
         params.put("sid", sid);
-        return m.execute(params);
+        DataResult<Map> pkgs =  m.execute(params);
+        for (Map pkg : pkgs) {
+            if (pkg.get("arch") == null) {
+                pkg.put("arch", LocalizationService.getInstance().getMessage("Unknown"));
+            }
+        }
+        return pkgs;
     }
 
     /**

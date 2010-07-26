@@ -1284,14 +1284,14 @@ ORDER BY UPPER(S.name)
 SELECT PN.name,
        PE.version,
        PE.release,
-       NVL(PE.epoch, ' ') as epoch,
+       coalesce(PE.epoch, ' ') as epoch,
        PA.name as arch,
        SP.installtime
-  FROM rhnPackageName PN, rhnPackageEVR PE, rhnServerPackage SP, rhnPackageArch PA
+  FROM rhnServerPackage SP inner join
+       rhnPackageName PN on PN.id = SP.name_id inner join
+       rhnPackageEVR PE on PE.id = SP.evr_id left join
+       rhnPackageArch PA on SP.package_arch_id = PA.id
  WHERE SP.server_id = :sid
-   AND PN.id = SP.name_id
-   AND PE.id = SP.evr_id
-   AND PA.id = SP.package_arch_id
 ORDER BY PN.name, PE.evr
   </query>
 </mode>
