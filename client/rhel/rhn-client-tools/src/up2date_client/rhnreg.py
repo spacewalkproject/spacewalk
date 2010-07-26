@@ -539,6 +539,28 @@ class ActivationResult:
         """Returns a dict- the key/value pairs are label/quantity."""
         return self._systemSlots
 
+def _encode_characters(*args):
+        """ All the data we gathered from dmi, bios, gudev are in latin-1,
+            we need to convert characters beyond ord(127) - e.g \xae to unicode.
+        """
+        result=[]
+        for item in args:
+            item_type = type(item)
+            if item_type == StringType or item_type == UnicodeType:
+                item = unicode(item, 'latin-1')
+            elif item_type == TupleType:
+                item = tuple(map(_encode_characters, item))
+            elif item_type == ListType:
+                item = map(_encode_characters, item)
+            elif item_type == DictType or item_type == DictionaryType:
+                item = dict([(_encode_characters(name, val)) for name, val in item.iteritems()])
+            # else: numbers - are safe
+            result.append(item)
+        if len(result) == 1:
+            return result[0]
+        else:
+            return tuple(result)
+
 def _activate_hardware(login, password):
 
     # Read the asset code from the hardware.
@@ -547,6 +569,7 @@ def _activate_hardware(login, password):
     hw_activation_code = None
     try:
         hardwareInfo = hardware.get_hal_system_and_smbios()
+        hardwareInfo = _encode_characters(hardwareInfo)
     except:
         log.log_me("There was an error while reading the hardware "
                    "info from the bios. Traceback:\n")
