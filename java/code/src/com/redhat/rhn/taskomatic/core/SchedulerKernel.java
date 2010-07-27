@@ -22,17 +22,12 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.taskomatic.TaskoXmlRpcServer;
 
 import org.apache.log4j.Logger;
-import org.quartz.CronTrigger;
-import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
-import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
 import java.net.UnknownHostException;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -40,7 +35,7 @@ import java.util.Properties;
  * @version $Rev$
  */
 public class SchedulerKernel {
-    
+
     private static Logger log = Logger.getLogger(SchedulerKernel.class);
     private byte[] shutdownLock = new byte[0];
     private static SchedulerFactory factory = null;
@@ -51,7 +46,7 @@ public class SchedulerKernel {
     private String dataSourcePrefix = "org.quartz.dataSource";
     private String defaultDataSource = "rhnDs";
 
-    
+
     /**
      * Kernel main driver behind Taskomatic
      * @throws InstantiationException thrown if this.scheduler can't be initialized.
@@ -82,7 +77,7 @@ public class SchedulerKernel {
             SchedulerKernel.factory = new StdSchedulerFactory(props);
             SchedulerKernel.scheduler = SchedulerKernel.factory.getScheduler();
             SchedulerKernel.scheduler.setJobFactory(new RhnJobFactory());
-            
+
             // Setup TriggerListener chain
             this.chainedTriggerListener = new ChainedListener();
             this.chainedTriggerListener.addListener(new TaskEnvironmentListener());
@@ -107,7 +102,7 @@ public class SchedulerKernel {
     public static Scheduler getScheduler() {
         return SchedulerKernel.scheduler;
     }
-    
+
     /**
      * Starts Taskomatic
      * This method does not return until the this.scheduler is shutdown
@@ -135,7 +130,7 @@ public class SchedulerKernel {
             throw new TaskomaticException(e.getMessage(), e);
         }
     }
-    
+
     /**
      * Initiates the shutdown process. Needs to happen in a
      * separate thread to prevent Quartz scheduler errors.
@@ -156,8 +151,7 @@ public class SchedulerKernel {
      */
     protected void shutdown() {
         try {
-            this.scheduler.standby();            
-            deleteAllJobs();
+            this.scheduler.standby();
             this.scheduler.shutdown();
         }
         catch (SchedulerException e) {
@@ -165,50 +159,16 @@ public class SchedulerKernel {
             e.printStackTrace();
         }
         finally {
-            MessageQueue.stopMessaging();            
-            HibernateFactory.closeSessionFactory();            
+            MessageQueue.stopMessaging();
+            HibernateFactory.closeSessionFactory();
             // Wake up thread waiting in startup() so it can exit
             synchronized (this.shutdownLock) {
                 this.shutdownLock.notify();
             }
         }
     }
-    
-    
-    private void scheduleJobs(Map pendingJobs) throws ConfigException {
-       // No jobs to schedule
-       // This would be quite odd, but it could happen
-        if (pendingJobs == null || pendingJobs.size() == 0) {
-            log.error("No tasks scheduled");
-            throw new ConfigException("No tasks scheduled");
-        }
-        try {
-            for (Iterator iter = pendingJobs.keySet().iterator(); iter.hasNext();) {
-                String suffix = (String) iter.next();
-                String[] data = (String[]) pendingJobs.get(suffix);
-                String jobImpl = data[0];
-                String crontab = data[1];
-                String jobName = jobImpl + "-" + suffix;
-                JobDetail detail = new JobDetail(jobName, 
-                        TaskomaticConstants.TASK_GROUP, 
-                        this.getClass().getClassLoader().loadClass(jobImpl));
-                Trigger trigger = null;
-                trigger = new CronTrigger(jobImpl, 
-                        TaskomaticConstants.TASK_GROUP, crontab);
-                trigger.setMisfireInstruction(CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING);
-                trigger.addTriggerListener(this.chainedTriggerListener.getName());
-                this.scheduler.scheduleJob(detail, trigger);
-                if (log.isDebugEnabled()) {
-                    log.debug("Scheduled " + detail.getFullName());
-                }
-            }
-        }
-        catch (Throwable t) {
-            log.error(t.getMessage(), t);
-            throw new ConfigException(t.getMessage(), t);
-        }
-    }
-    
+
+
     private void deleteAllJobs() {
         boolean done = false;
         while (!done) {

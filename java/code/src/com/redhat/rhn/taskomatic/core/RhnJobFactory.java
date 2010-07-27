@@ -15,7 +15,6 @@
 package com.redhat.rhn.taskomatic.core;
 
 import com.redhat.rhn.taskomatic.TaskoJob;
-import com.redhat.rhn.taskomatic.TaskoSchedule;
 
 import org.quartz.Job;
 import org.quartz.SchedulerException;
@@ -26,7 +25,7 @@ import org.quartz.spi.TriggerFiredBundle;
 /**
  * A custom Quartz JobFactory implementation which insures that
  * only one instance of a job class is every instantiated.
- * 
+ *
  * @version $Rev: 75283 $
  */
 public class RhnJobFactory implements JobFactory {
@@ -34,7 +33,6 @@ public class RhnJobFactory implements JobFactory {
      * {@inheritDoc}
      */
     public synchronized Job newJob(TriggerFiredBundle trigger) throws SchedulerException {
-        TaskoSchedule schedule = null;
         Long scheduleId = trigger.getJobDetail().getJobDataMap().getLong("schedule_id");
 
         return new TaskoJob(scheduleId);
