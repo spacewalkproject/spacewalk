@@ -151,10 +151,6 @@ def do_schedule_reschedule(self, args):
     failed_actions = self.client.schedule.listFailedActions(self.session)
     failed_actions = [ a.get('id') for a in failed_actions ]
 
-    if not len(failed_actions):
-        logging.warning('No failed actions to reschedule')
-        return
-
     to_reschedule = []
 
     # reschedule all failed actions
@@ -174,6 +170,10 @@ def do_schedule_reschedule(self, args):
             except ValueError:
                 logging.warning('%s is not a valid ID' % str(a))
                 continue
+
+    if not len(to_reschedule):
+        logging.warning('No failed actions to reschedule')
+        return
 
     self.client.schedule.rescheduleActions(self.session, to_reschedule, True)
 
