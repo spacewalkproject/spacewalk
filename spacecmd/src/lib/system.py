@@ -24,6 +24,52 @@ from operator import itemgetter
 from xml.parsers.expat import ExpatError
 from spacecmd.utils import *
 
+__PKG_COMPARISONS = { 0 : 'Same',
+                      1 : 'Only here',
+                      2 : 'Newer here',
+                      3 : 'Only there',
+                      4 : 'Newer there' }
+
+def print_package_comparison(self, results):
+        max_name  = max_length( map(itemgetter('package_name'), results) )
+
+        # sometimes 'this_system' or 'other_system' can be None
+        tmp_this = []
+        tmp_other = []
+        for item in results:
+            tmp_this.append(str(item.get('this_system')))
+            tmp_other.append(str(item.get('other_system')))
+
+        max_this  = max_length(tmp_this)
+        max_other = max_length(tmp_other)
+
+        max_comparison = 11
+
+        # print headers
+        print '%s  %s  %s  %s' % (
+                'Package'.ljust(max_name),
+                'This System'.ljust(max_this),
+                'Other System'.ljust(max_other),
+                'Difference'.ljust(max_comparison))
+
+        print '%s  %s  %s  %s' % (
+                '-' * max_name,
+                '-' * max_this,
+                '-' * max_other,
+                '-' * max_comparison)
+
+        for item in results:
+            # don't show packages that are the same
+            if item.get('comparison') == 0: continue
+
+            print '%s  %s  %s  %s' % (
+                  item.get('package_name').ljust(max_name),
+                  str(item.get('this_system')).ljust(max_this),
+                  str(item.get('other_system')).ljust(max_other),
+                  __PKG_COMPARISONS[item.get('comparison')])
+
+####################
+
 def manipulate_child_channels(self, args, remove=False):
     args = parse_arguments(args)
 
@@ -2212,5 +2258,114 @@ def do_system_removeentitlement(self, args):
                                               system_id,
                                               [entitlement])
 
+####################
+
+def help_system_createpackageprofile(self):
+    print 'system_createpackageprofile: Create a package profile'
+    print 'usage: system_createpackageprofile SYSTEM'
+
+def complete_system_createpackageprofile(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) == 2:
+        return self.tab_complete_systems(text)
+
+def do_system_createpackageprofile(self, args):
+    args = parse_arguments(args)
+
+    if len(args) != 1:
+        self.help_system_createpackageprofile()
+        return
+
+    system_id = self.get_system_id(args[0])
+    if not system_id:
+        logging.error('Invalid system')
+        return
+
+    label = prompt_user('Profile Label:', noblank = True)
+    description = prompt_user('Description:', multiline = True)
+
+    results = self.client.system.createPackageProfile(self.session,
+                                                      system_id,
+                                                      label,
+                                                      description)
+
+####################
+
+def help_system_comparepackageprofile(self):
+    print 'system_comparepackageprofile: Compare a system against a ' + \
+          'package profile'
+    print 'usage: system_comparepackageprofile <SYSTEMS> PROFILE'
+    print
+    print self.HELP_SYSTEM_OPTS
+
+def complete_system_comparepackageprofile(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) == 2:
+        return self.tab_complete_systems(text)
+    elif len(parts) > 2:
+        return self.tab_complete_systems(\
+                   self.do_system_listpackageprofiles('', True), text)
+
+def do_system_comparepackageprofile(self, args):
+    args = parse_arguments(args)
+
+    if len(args) < 2:
+        self.help_system_comparepackageprofile()
+        return
+
+    # use the systems listed in the SSM
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+        args.pop(0)
+    else:
+        systems = self.expand_systems(args[:-1])
+
+    profile = args[-1]
+
+    add_separator = False
+
+    for system in systems:
+        system_id = self.get_system_id(system)
+        if not system_id: continue
+
+        results = self.client.system.comparePackageProfile(self.session,
+                                                           system_id,
+                                                           profile)
+
+        if add_separator: print self.SEPARATOR
+        add_separator = True
+
+        print '%s:' % system
+        self.print_package_comparison(results)
+
+####################
+
+def help_system_comparepackages(self):
+    print 'system_comparepackages: Compare the packages between two systems'
+    print 'usage: system_comparepackages SOME_SYSTEM ANOTHER_SYSTEM'
+
+def complete_system_comparepackages(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) < 3:
+        return self.tab_complete_systems(text)
+
+def do_system_comparepackages(self, args):
+    args = parse_arguments(args)
+
+    if len(args) != 2:
+        self.help_system_comparepackages()
+        return
+
+    this_system = self.get_system_id(args[0])
+    other_system = self.get_system_id(args[1])
+
+    results = self.client.system.comparePackages(self.session,
+                                                 this_system,
+                                                 other_system)
+
+    self.print_package_comparison(results)
 
 # vim:ts=4:expandtab:
