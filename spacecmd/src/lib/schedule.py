@@ -50,7 +50,17 @@ def print_schedule_summary(self, type, args):
     elif type == 'archived':
         actions = self.client.schedule.listArchivedActions(self.session)
     elif type == 'all':
-        actions = self.client.schedule.listAllActions(self.session)
+        # get actions in all states except archived
+        in_progress = self.client.schedule.listInProgressActions(self.session)
+        completed = self.client.schedule.listCompletedActions(self.session)
+        failed = self.client.schedule.listFailedActions(self.session)
+
+        actions = []
+        added = []
+        for action in in_progress + completed + failed:
+            if action.get('id') not in added:
+                actions.append(action)
+                added.append(action.get('id'))
     else:
         return
 
