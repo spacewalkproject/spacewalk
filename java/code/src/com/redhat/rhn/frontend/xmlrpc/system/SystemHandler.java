@@ -1041,6 +1041,7 @@ public class SystemHandler extends BaseHandler {
      * Get the latest available version of a package for each system
      * @param sessionKey The sessionKey containing the logged in user
      * @param systemIds The IDs of the systems in question
+     * @param name the package name
      * @return Returns an a map with the latest available package for each system
      * @throws FaultException A FaultException is thrown if the server corresponding to
      * sid cannot be found.
@@ -1063,8 +1064,8 @@ public class SystemHandler extends BaseHandler {
      *      #array_end()
      *
      */
-    public List listLatestAvailablePackage(String sessionKey, List<Integer> systemIds, String name)
-    throws FaultException {
+    public List listLatestAvailablePackage(String sessionKey, List<Integer> systemIds,
+            String name) throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
 
@@ -1081,7 +1082,7 @@ public class SystemHandler extends BaseHandler {
             if (pkgEvr != null) {
                 // find the latest package available to each system
                 Package pkg = PackageManager.guestimatePackageBySystem(sid.longValue(),
-                                        (Long) pkgEvr.get("name_id"), (Long) pkgEvr.get("evr_id"),
+                              (Long) pkgEvr.get("name_id"), (Long) pkgEvr.get("evr_id"),
                                          null, loggedInUser.getOrg());
 
                 // build the hash to return
@@ -1095,7 +1096,8 @@ public class SystemHandler extends BaseHandler {
 
                     if (pkg.getPackageEvr().getEpoch() != null) {
                         pkgMap.put("epoch", pkg.getPackageEvr().getEpoch());
-                    } else {
+                    }
+                    else {
                         pkgMap.put("epoch", "");
                     }
 
