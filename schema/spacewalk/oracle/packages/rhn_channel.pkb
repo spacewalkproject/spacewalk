@@ -439,7 +439,9 @@ IS
                     and channel.channel_family_id != last_channel_family_id then
                     -- update family counts only once
                     -- after all channels with same family has been fetched
-                    update_family_counts(last_channel_family_id, last_channel_org_id);
+                    if last_channel_family_id != -1 then
+                        update_family_counts(last_channel_family_id, last_channel_org_id);
+                    end if;
                     last_channel_family_id := channel.channel_family_id;
                     last_channel_org_id    := channel.org_id;
                 end if;
