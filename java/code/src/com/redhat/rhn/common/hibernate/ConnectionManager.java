@@ -175,7 +175,6 @@ class ConnectionManager {
                 }
                 connectionUrl += dbName;
             }
-            LOG.fatal(connectionUrl);
             hibProperties.put("hibernate.connection.url", connectionUrl);
 
             config.addProperties(hibProperties);
