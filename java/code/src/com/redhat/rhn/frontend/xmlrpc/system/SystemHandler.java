@@ -3637,6 +3637,49 @@ public class SystemHandler extends BaseHandler {
         return 1;
     }
 
+    /**
+     * Lists the package profiles in this organization
+     *
+     * @param sessionKey User's session key.
+     * @return 1 on success
+     *
+     * @xmlrpc.doc List the package profiles in this organization
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype
+     *  #array()
+     *      $ProfileOverviewDtoSerializer
+     *  #array_end()
+     */
+    public Object[] listPackageProfiles(String sessionKey) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        DataResult profiles = ProfileManager.listProfileOverviews(
+                                             loggedInUser.getOrg().getId());
+
+        return profiles.toArray();
+    }
+
+    /**
+     * Delete a package profile
+     *
+     * @param sessionKey User's session key.
+     * @param profileId The package profile ID to delete.
+     * @return 1 on success
+     *
+     * @xmlrpc.doc Delete a package profile
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "profileId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deletePackageProfile(String sessionKey, Integer profileId) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        // make sure the user can access this profile
+        Profile profile = ProfileManager.lookupByIdAndOrg(profileId.longValue(),
+                                                          loggedInUser.getOrg());
+
+        return ProfileManager.deleteProfile(profile);
+    }
 
     /**
      * Creates a new stored Package Profile
