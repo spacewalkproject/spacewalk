@@ -307,6 +307,45 @@ def do_errata_details(self, args):
         print '-----------------'
         print '\n'.join(sorted(build_package_names(packages)))
 
+####################
+
+def help_errata_delete(self):
+    print 'errata_delete: Delete an erratum'
+    print 'usage: errata_delete ERRATA|search:XXX ...'
+
+def complete_errata_delete(self, text, line, beg, end):
+    return self.tab_complete_errata(text)
+
+def do_errata_delete(self, args):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_errata_delete()
+        return
+
+    # allow globbing and searching via arguments
+    errata = self.expand_errata(args)
+
+    if not len(errata):
+        logging.warning('No errata to delete')
+        return
+
+    print 'Erratum            Channels'
+    print '-------            --------'
+
+    # tell the user how many channels each erratum affects
+    for erratum in sorted(errata):
+        channels = self.client.errata.applicableToChannels(self.session, erratum)
+        print '%s    %s' % (erratum.ljust(20), str(len(channels)).rjust(3))
+
+    if not self.user_confirm('Delete these errata [y/N]:'): return
+
+    for erratum in errata:
+        self.client.errata.delete(self.session, erratum)
+
+    logging.info('Deleted %i errata' % len(errata))
+
+    self.generate_errata_cache(True)
 
 ####################
 
