@@ -599,7 +599,18 @@ def read_file(file):
     reads a text config file and returns its lines in a list
     """
     try:
-        return open(file, 'rb').readlines()
+        lines = open(file, 'rb').readlines()
+        new_lines = []
+        combined = ''
+        for line in lines:
+            #if the line isn't part of a multiline, lets add it
+            if line.find('\\\n') < 0:
+                combined = combined + line
+                new_lines.append(combined)
+                combined = ''
+            else:
+                combined = combined + line.replace('\\\n', ' ') 
+        return new_lines
     except (IOError, OSError), e:
         raise ConfigParserError("Can not read config file", file, e.args[1])
 
