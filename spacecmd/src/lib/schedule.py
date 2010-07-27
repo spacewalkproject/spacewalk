@@ -66,22 +66,35 @@ def print_schedule_summary(self, type, args):
         if end_date:
             if action.get('earliest') > end_date: continue            
 
-        pending = self.client.schedule.listInProgressSystems(self.session,
-                                                             action.get('id'))
+        if self.check_api_version('10.11'):
+            print '%s  %s   %s  %s  %s    %s' % \
+                  (str(action.get('id')).ljust(6),
+                   action.get('earliest'),
+                   str(action.get('completedSystems')).rjust(3),
+                   str(action.get('failedSystems')).rjust(3),
+                   str(action.get('inProgressSystems')).rjust(3),
+                   action.get('name'))
+        else:
+            # Satellite 5.3 compatibility
+            in_progress = \
+                self.client.schedule.listInProgressSystems(self.session,
+                                                           action.get('id'))
 
-        completed = self.client.schedule.listCompletedSystems(self.session,
-                                                              action.get('id'))
+            completed = \
+                self.client.schedule.listCompletedSystems(self.session,
+                                                          action.get('id'))
 
-        failed = self.client.schedule.listFailedSystems(self.session,
-                                                        action.get('id'))
+            failed = \
+                self.client.schedule.listFailedSystems(self.session,
+                                                       action.get('id'))
 
-        print '%s  %s   %s  %s  %s    %s' % \
-              (str(action.get('id')).ljust(6),
-               action.get('earliest'),
-               str(len(completed)).rjust(3),
-               str(len(failed)).rjust(3),
-               str(len(pending)).rjust(3),
-               action.get('name'))
+            print '%s  %s   %s  %s  %s    %s' % \
+                  (str(action.get('id')).ljust(6),
+                   action.get('earliest'),
+                   str(len(completed)).rjust(3),
+                   str(len(failed)).rjust(3),
+                   str(len(in_progress)).rjust(3),
+                   action.get('name'))
 
 ####################
 
