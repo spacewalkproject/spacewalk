@@ -64,7 +64,7 @@ def manipulate_child_channels(self, args, remove=False):
         if not system_id: continue
 
         child_channels = \
-            self.client.system.listSubscribedChildChannels(self.session, 
+            self.client.system.listSubscribedChildChannels(self.session,
                                                            system_id)
 
         child_channels = [c.get('label') for c in child_channels]
@@ -94,6 +94,79 @@ def do_system_list(self, args, doreturn=False):
     else:
         if len(self.get_system_names()):
             print '\n'.join(sorted(self.get_system_names()))
+
+####################
+
+def help_system_listduplicates(self):
+    print 'system_listduplicates: List duplicate system profiles'
+    print 'usage: system_listduplicates'
+
+def do_system_listduplicates(self, args):
+    dupes_by_ip = self.client.system.listDuplicatesByIp(self.session)
+    dupes_by_mac = self.client.system.listDuplicatesByMac(self.session)
+    dupes_by_hostname = \
+        self.client.system.listDuplicatesByHostname(self.session)
+
+    add_separator = False
+
+    dupes_by_profile = []
+    for system in self.get_system_names():
+        if self.get_system_names().count(system) > 1:
+            if system not in dupes_by_profile:
+                dupes_by_profile.append(system)
+
+    if len(dupes_by_profile):
+        add_separator = True
+
+        print 'Duplicate Profile Names'
+        print '-----------------------'
+        print '\n'.join(sorted(dupes_by_profile))
+
+    if self.check_api_version('10.11'):
+        if len(dupes_by_ip):
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print 'Duplicate IP Addresses'
+            print '----------------------'
+
+            for item in dupes_by_ip:
+                print
+                print '%s:' % item.get('ip')
+
+                for system in sorted(item.get('systems'),
+                                     key=itemgetter('systemName')):
+                    print system.get('systemName')
+
+        if len(dupes_by_mac):
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print 'Duplicate MAC Addresses'
+            print '-----------------------'
+
+            for item in dupes_by_mac:
+                print
+                print '%s:' % item.get('mac').upper()
+
+                for system in sorted(item.get('systems'),
+                                     key=itemgetter('systemName')):
+                    print system.get('systemName')
+
+        if len(dupes_by_hostname):
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print 'Duplicate Hostnames'
+            print '-------------------'
+
+            for item in dupes_by_hostname:
+                print
+                print '%s:' % item.get('hostname')
+
+                for system in sorted(item.get('systems'),
+                                     key=itemgetter('systemName')):
+                    print system.get('systemName')
 
 ####################
 
@@ -216,7 +289,7 @@ def do_system_search(self, args, doreturn=False):
                 if key == 'name':
                     print s[0]
                 else:
-                    print '%s  %s' % (s[0].ljust(max_size), 
+                    print '%s  %s' % (s[0].ljust(max_size),
                                       str(s[1]).strip())
 
 ####################
@@ -341,7 +414,7 @@ def do_system_runscript(self, args):
                                                                  timeout,
                                                                  script,
                                                                  timestamp)
-        
+
                 logging.info('Action ID: %i' % action_id)
                 scheduled += 1
             except Exception, detail:
@@ -633,7 +706,7 @@ def do_system_removepackage(self, args):
     package_list = args
 
     # get all matching package names
-    logging.debug('Finding matching packages') 
+    logging.debug('Finding matching packages')
     matching_packages = \
         filter_results(self.get_package_names(True), package_list)
 
@@ -648,10 +721,10 @@ def do_system_removepackage(self, args):
             self.client.system.listSystemsWithPackage(self.session, package_id)
 
         installed_systems = [ s.get('name') for s in installed_systems ]
-       
+
         # each system has a list of packages to remove so that only one
         # API call needs to be made to schedule all the package removals
-        # for each system 
+        # for each system
         for system in systems:
             if system in installed_systems:
                 if system not in jobs:
@@ -670,8 +743,8 @@ def do_system_removepackage(self, args):
             print self.get_package_name(package)
 
         spacer = True
-   
-    if not len(jobs): return 
+
+    if not len(jobs): return
     if not self.user_confirm('Remove these packages [y/N]:'): return
 
     action_time = parse_time_input('now')
@@ -761,7 +834,7 @@ def do_system_upgradepackage(self, args):
         package_names = []
         for package in jobs[system]:
             name = self.get_package_name(package)
-        
+
             if name:
                 package_names.append(name)
             else:
@@ -782,7 +855,7 @@ def do_system_upgradepackage(self, args):
                                                       system_id,
                                                       jobs[system],
                                                       action_time)
-        
+
             scheduled += 1
         except Exception, e:
             logging.error('Failed to schedule %s' % system)
@@ -942,7 +1015,7 @@ def complete_system_addconfigchannels(self, text, line, beg, end):
     if len(parts) == 2:
         return self.tab_complete_systems(text)
     elif len(parts) > 2:
-        return tab_completer(self.do_configchannel_list('', True), 
+        return tab_completer(self.do_configchannel_list('', True),
                                   text)
 
 def do_system_addconfigchannels(self, args):
@@ -967,11 +1040,11 @@ def do_system_addconfigchannels(self, args):
     else:
         location = True
 
-    system_ids = [ self.get_system_id(s) for s in systems ] 
+    system_ids = [ self.get_system_id(s) for s in systems ]
 
-    self.client.system.config.addChannels(self.session, 
-                                          system_ids, 
-                                          channels, 
+    self.client.system.config.addChannels(self.session,
+                                          system_ids,
+                                          channels,
                                           location)
 
 ####################
@@ -989,7 +1062,7 @@ def complete_system_removeconfigchannels(self, text, line, beg, end):
     if len(parts) == 2:
         return self.tab_complete_systems(text)
     elif len(parts) > 2:
-        return tab_completer(self.do_configchannel_list('', True), 
+        return tab_completer(self.do_configchannel_list('', True),
                                   text)
 
 def do_system_removeconfigchannels(self, args):
@@ -1004,13 +1077,13 @@ def do_system_removeconfigchannels(self, args):
         systems = self.ssm.keys()
     else:
         systems = self.expand_systems(args.pop(0))
-    
-    channels = args
-    
-    system_ids = [ self.get_system_id(s) for s in systems ] 
 
-    self.client.system.config.removeChannels(self.session, 
-                                             system_ids, 
+    channels = args
+
+    system_ids = [ self.get_system_id(s) for s in systems ]
+
+    self.client.system.config.removeChannels(self.session,
+                                             system_ids,
                                              channels)
 
 ####################
@@ -1041,7 +1114,7 @@ def do_system_setconfigchannelorder(self, args):
     # get the current configuration channels from the first system
     # in the list
     system_id = self.get_system_id(systems[0])
-    new_channels = self.client.system.config.listChannels(self.session, 
+    new_channels = self.client.system.config.listChannels(self.session,
                                                           system_id)
     new_channels = [ c.get('label') for c in new_channels ]
 
@@ -1055,12 +1128,12 @@ def do_system_setconfigchannelorder(self, args):
     for i in range(len(new_channels)):
         print '[%i] %s' % (i + 1, new_channels[i])
 
-    if not self.user_confirm(): return        
+    if not self.user_confirm(): return
 
-    system_ids = [ self.get_system_id(s) for s in systems ] 
-    
-    self.client.system.config.setChannels(self.session, 
-                                          system_ids, 
+    system_ids = [ self.get_system_id(s) for s in systems ]
+
+    self.client.system.config.setChannels(self.session,
+                                          system_ids,
                                           new_channels)
 
 ####################
@@ -1089,20 +1162,20 @@ def do_system_deployconfigfiles(self, args):
         systems = self.expand_systems(args)
 
     if not len(systems): return
-    
+
     print 'Systems'
     print '-------'
     print '\n'.join(sorted(systems))
 
     message = 'Deploy ALL configuration files to these systems [y/N]:'
     if not self.user_confirm(message): return
-    
-    system_ids = [ self.get_system_id(s) for s in systems ] 
-        
+
+    system_ids = [ self.get_system_id(s) for s in systems ]
+
     action_time = parse_time_input('now')
 
-    self.client.system.config.deployAll(self.session, 
-                                        system_ids, 
+    self.client.system.config.deployAll(self.session,
+                                        system_ids,
                                         action_time)
 
     logging.info('Scheduled deployment for %i system(s)' % len(system_ids))
@@ -1335,7 +1408,7 @@ def complete_system_addcustomvalue(self, text, line, beg, end):
     if len(line.split(' ')) == 2:
         return self.tab_complete_systems(text)
     elif len(line.split(' ')) == 3:
-        return tab_completer(self.do_custominfo_listkeys('', True), 
+        return tab_completer(self.do_custominfo_listkeys('', True),
                                   text)
 
 def do_system_addcustomvalue(self, args):
@@ -1350,7 +1423,7 @@ def do_system_addcustomvalue(self, args):
         systems = self.ssm.keys()
     else:
         systems = self.expand_systems(args)
-   
+
     key   = args[1]
     value = ' '.join(args[2:])
 
@@ -1376,7 +1449,7 @@ def complete_system_updatecustomvalue(self, text, line, beg, end):
     if len(parts) == 2:
         return self.tab_complete_systems(text)
     elif len(parts) == 3:
-        return tab_completer(self.do_custominfo_listkeys('', True), 
+        return tab_completer(self.do_custominfo_listkeys('', True),
                                   text)
 
 def do_system_updatecustomvalue(self, args):
@@ -1402,7 +1475,7 @@ def complete_system_removecustomvalues(self, text, line, beg, end):
     if len(parts) == 2:
         return self.tab_complete_systems(text)
     elif len(parts) == 3:
-        return tab_completer(self.do_custominfo_listkeys('', True), 
+        return tab_completer(self.do_custominfo_listkeys('', True),
                                   text)
 
 def do_system_removecustomvalues(self, args):
@@ -1417,7 +1490,7 @@ def do_system_removecustomvalues(self, args):
         systems = self.ssm.keys()
     else:
         systems = self.expand_systems(args)
-   
+
     keys = args[1:]
 
     if not self.user_confirm('Delete these values [y/N]:'): return
@@ -1458,7 +1531,7 @@ def do_system_addnote(self, args):
 
     message = 'Note Body (ctrl-D to finish):'
     body = prompt_user(message, noblank = True, multiline = True)
-   
+
     for system in systems:
         system_id = self.get_system_id(system)
         if not system_id: continue
@@ -1509,7 +1582,7 @@ def do_system_deletenotes(self, args):
                 except ValueError:
                     logging.warning('%s is not a valid note ID' % note_id)
                     continue
-            
+
                 # deleteNote does not throw an exception
                 self.client.system.deleteNote(self.session, system_id, note_id)
 
@@ -1602,7 +1675,7 @@ def do_system_setbasechannel(self, args):
         print 'System:           %s' % system
         print 'Old Base Channel: %s' % old.get('label')
         print 'New Base Channel: %s' % new_channel
-         
+
     if not self.user_confirm(): return
 
     for system in systems:
@@ -1955,14 +2028,14 @@ def do_system_createpackageprofile(self, args):
 
     system = args[0]
     label = ' '.join(args[1:])
-    
+
     description = prompt_user('Description:')
 
     system_id = self.get_system_id(system)
     if not system_id: return
 
-    self.client.system.createPackageProfile(self.session, 
-                                            system_id, 
+    self.client.system.createPackageProfile(self.session,
+                                            system_id,
                                             label,
                                             description)
 
@@ -1989,7 +2062,7 @@ def do_system_listevents(self, args):
         systems = self.ssm.keys()
     else:
         systems = self.expand_systems(args)
-    
+
     add_separator = False
 
     for system in sorted(systems):
@@ -2080,18 +2153,18 @@ def do_system_addentitlements(self, args):
         if re.match(entitlement, e, re.I):
             entitlement = e
             break
-   
+
     # use the systems applyed in the SSM
     if re.match('ssm', args[0], re.I):
         systems = self.ssm.keys()
     else:
         systems = self.expand_systems(args)
 
-    for system in systems: 
+    for system in systems:
         system_id = self.get_system_id(system)
         if not system_id: continue
 
-        self.client.system.addEntitlements(self.session, 
+        self.client.system.addEntitlements(self.session,
                                            system_id,
                                            [entitlement])
 
@@ -2124,18 +2197,18 @@ def do_system_removeentitlement(self, args):
         if re.match(entitlement, e, re.I):
             entitlement = e
             break
-   
+
     # use the systems applyed in the SSM
     if re.match('ssm', args[0], re.I):
         systems = self.ssm.keys()
     else:
         systems = self.expand_systems(args)
 
-    for system in systems: 
+    for system in systems:
         system_id = self.get_system_id(system)
         if not system_id: continue
 
-        self.client.system.removeEntitlements(self.session, 
+        self.client.system.removeEntitlements(self.session,
                                               system_id,
                                               [entitlement])
 
