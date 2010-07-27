@@ -130,6 +130,57 @@ def do_schedule_cancel(self, args):
 
 ####################
 
+def help_schedule_reschedule(self):
+    print 'schedule_reschedule: Reschedule failed actions'
+    print 'usage: schedule_reschedule ID|* ...'
+
+def complete_schedule_reschedule(self, text, line, beg, end):
+    try:
+        actions = self.client.schedule.listFailedActions(self.session)
+        return tab_completer([ str(a.get('id')) for a in actions ], text)
+    except Exception:
+        return []
+
+def do_schedule_reschedule(self, args):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_schedule_reschedule()
+        return
+
+    failed_actions = self.client.schedule.listFailedActions(self.session)
+    failed_actions = [ a.get('id') for a in failed_actions ]
+
+    if not len(failed_actions):
+        logging.warning('No failed actions to reschedule')
+        return
+
+    to_reschedule = []
+
+    # reschedule all failed actions
+    if '.*' in args:
+        if not self.user_confirm('Reschedule all failed actions [y/N]:'): return
+        to_reschedule = failed_actions
+    else:
+        # use the list of action IDs passed in
+        for a in args:
+            try:
+                action_id = int(a)
+
+                if action_id in failed_actions:
+                    to_reschedule.append(action_id)
+                else:
+                    logging.warning('%i is not a failed action' % action_id)
+            except ValueError:
+                logging.warning('%s is not a valid ID' % str(a))
+                continue
+
+    self.client.schedule.rescheduleActions(self.session, to_reschedule, True)
+
+    print 'Rescheduled %i action(s)' % len(to_reschedule)
+
+####################
+
 def help_schedule_details(self):
     print 'schedule_details: Show the details of a scheduled action'
     print 'usage: schedule_details ID'
