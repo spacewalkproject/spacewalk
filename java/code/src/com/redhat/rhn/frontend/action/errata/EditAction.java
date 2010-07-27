@@ -19,6 +19,8 @@ import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.errata.Keyword;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
@@ -208,6 +210,9 @@ public class EditAction extends LookupDispatchAction {
 
         //Clear all the keywords and bugs we have, and then add the ones on page
         if (e.getKeywords() != null) {
+            for (Keyword key : e.getKeywords()) {
+                ErrataFactory.remove(key);
+            }
             e.getKeywords().clear();
         }
         if (e.getBugs() != null) {

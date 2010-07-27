@@ -750,7 +750,7 @@ public class ErrataFactory extends HibernateFactory {
 
         try {
             session = HibernateFactory.getSession();
-            retval = (List) session.
+            retval = session.
                               getNamedQuery("UnpublishedClonedErrata.findByOriginal")
                               .setParameter("original", original)
                               .setParameter("org", org).list();
@@ -779,7 +779,7 @@ public class ErrataFactory extends HibernateFactory {
 
         try {
             session = HibernateFactory.getSession();
-            retval = (List) session.getNamedQuery("PublishedClonedErrata.findByOriginal")
+            retval = session.getNamedQuery("PublishedClonedErrata.findByOriginal")
                 .setParameter("original", original)
                 .setParameter("org", org).list();
         }
@@ -808,6 +808,15 @@ public class ErrataFactory extends HibernateFactory {
     }
 
     /**
+     * Delete a Keyword
+     * @param deleteme Keyword to delete
+     */
+    public static void remove(Keyword deleteme) {
+        singleton.removeObject(deleteme);
+    }
+
+
+    /**
      * Remove a file.
      * @param deleteme ErrataFile to delete
      */
@@ -825,7 +834,7 @@ public class ErrataFactory extends HibernateFactory {
      */
     public static List lookupByChannelSorted(Org org, Channel channel) {
 
-        return (List) HibernateFactory.getSession().
+        return HibernateFactory.getSession().
         getNamedQuery("PublishedErrata.lookupSortedByChannel")
             .setParameter("org", org)
             .setParameter("channel", channel)
@@ -845,7 +854,7 @@ public class ErrataFactory extends HibernateFactory {
     public static List<Errata> lookupByChannelBetweenDates(Org org, Channel channel,
             String startDate, String endDate) {
 
-        return (List) HibernateFactory.getSession().
+        return HibernateFactory.getSession().
         getNamedQuery("PublishedErrata.lookupByChannelBetweenDates")
             .setParameter("org", org)
             .setParameter("channel", channel)

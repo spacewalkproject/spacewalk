@@ -310,7 +310,7 @@ public interface Errata {
     /**
      * @return Returns the keywords.
      */
-    Set getKeywords();
+    Set<Keyword> getKeywords();
 
     /**
      * @param k The keywords to set.
