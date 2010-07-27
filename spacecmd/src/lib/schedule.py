@@ -92,7 +92,7 @@ def help_schedule_cancel(self):
 def complete_schedule_cancel(self, text, line, beg, end):
     try:
         actions = self.client.schedule.listInProgressActions(self.session)
-        return tab_completer([ a.get('id') for a in actions ], text)
+        return tab_completer([ str(a.get('id')) for a in actions ], text)
     except:
         return []
 
