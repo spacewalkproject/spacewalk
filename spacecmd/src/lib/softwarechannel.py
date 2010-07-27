@@ -158,7 +158,7 @@ def do_softwarechannel_listpackages(self, args, doreturn=False):
 
 def help_softwarechannel_details(self):
     print 'softwarechannel_details: Show the details of a software channel'
-    print 'usage: softwarechannel_details CHANNEL ...'
+    print 'usage: softwarechannel_details <CHANNEL ...>'
 
 def complete_softwarechannel_details(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
@@ -229,9 +229,7 @@ def do_softwarechannel_details(self, args):
 def help_softwarechannel_listerrata(self):
     print 'softwarechannel_listerrata: List the errata associated with a'
     print '                            software channel'
-    print '                            You can provide optional from and to'
-    print '                            parameters'
-    print 'usage: softwarechannel_listerrata CHANNEL ... [from=yyyymmdd [to=yyyymmdd]]'
+    print 'usage: softwarechannel_listerrata <CHANNEL ...> [from=yyyymmdd [to=yyyymmdd]]'
 
 def complete_softwarechannel_listerrata(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
@@ -240,11 +238,12 @@ def do_softwarechannel_listerrata(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        self.do_help_softwarechannel_listerrata()
+        self.help_softwarechannel_listerrata()
         return
 
     begin_date = None
     end_date = None
+
     # iterate over args and alter a copy of it (channels)
     channels = args[:]
     for arg in args:
@@ -282,7 +281,7 @@ def do_softwarechannel_listerrata(self, args):
 
 def help_softwarechannel_delete(self):
     print 'softwarechannel_delete: Delete a software channel'
-    print 'usage: softwarechannel_delete CHANNEL ...'
+    print 'usage: softwarechannel_delete <CHANNEL ...>'
 
 def complete_softwarechannel_delete(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
