@@ -512,33 +512,47 @@ def do_system_installpackage(self, args):
 
     packages_to_install = args
 
-    jobs = []
+    # get the ID for each system
+    system_ids = []
     for system in sorted(systems):
-        logging.debug('Getting installable packages for %s' % system)
-
         system_id = self.get_system_id(system)
         if not system_id: continue
+        system_ids.append(system_id)
 
-        # find the correct package IDs for each system
-        avail_packages = self.client.system.listLatestInstallablePackages(\
-                             self.session, system_id)
+    jobs = {}
 
-        package_ids = []
+    if self.check_api_version('10.11'):
         for package in packages_to_install:
-            found_package = False
+            logging.debug('Finding the latest version of %s' % package)
 
-            for p in avail_packages:
-                if package == p.get('name'):
-                    found_package = True
-                    package_ids.append(p.get('id'))
-                    break
+            avail_packages = \
+                self.client.system.listLatestAvailablePackage(self.session,
+                                                              system_ids,
+                                                              package)
 
-            if not found_package:
-                logging.warning('%s is not installable on %s' % (package, system))
-                continue
+            for system in avail_packages:
+                system_id = system.get('id')
+                if system_id not in jobs:
+                    jobs[system_id] = []
 
-        if len(package_ids):
-            jobs.append((system, system_id, package_ids))
+                # add this package to the system's queue
+                jobs[system_id].append(system.get('package').get('id'))
+    else:
+        #XXX: Satellite 5.3 compatibility
+        for system_id in system_ids:
+            logging.debug('Getting available packages for %s' % \
+                          self.get_system_name(system_id))
+
+            avail_packages = \
+                self.client.system.listLatestInstallablePackages(self.session,
+                                                                 system_id)
+
+            for package in avail_packages:
+                if package.get('name') in packages_to_install:
+                    if system_id not in jobs:
+                        jobs[system_id] = []
+
+                    jobs[system_id].append(package.get('id'))
 
     if not len(jobs):
         logging.warning('No packages to install')
@@ -546,37 +560,41 @@ def do_system_installpackage(self, args):
 
     add_separator = False
 
-    for job in jobs:
-        (system, system_id, package_ids) = job
-
+    warnings = []
+    for system_id in jobs:
         if add_separator: print self.SEPARATOR
         add_separator = True
 
-        print '%s:' % system
-        for package_id in package_ids:
+        # warn the user if the request can not be 100% fulfilled
+        if len(jobs[system_id]) != len(packages_to_install):
+            # stash the warnings and show at the end so the user can see them
+            warnings.append(system_id)
+
+        print '%s:' % self.get_system_name(system_id)
+        for package_id in jobs[system_id]:
             print self.get_package_name(package_id)
 
-    print
-    print 'Systems: %i' % len(jobs)
+    # show the warnings to the user
+    if len(warnings): print
+    for system_id in warnings:
+        logging.warning('%s does not have access to all requested packages' % \
+                        self.get_system_name(system_id))
 
-    if not self.user_confirm(): return
+    if not self.user_confirm('Install these packages [y/N]:'): return
 
     scheduled = 0
-    for job in jobs:
-        (system, system_id, package_ids) = job
-
+    for system_id in jobs:
         action_time = parse_time_input('now')
 
         try:
-            action_id = self.client.system.schedulePackageInstall(self.session,
-                                                                  system_id,
-                                                                  package_ids,
-                                                                  action_time)
+            self.client.system.schedulePackageInstall(self.session,
+                                                      system_id,
+                                                      jobs[system_id],
+                                                      action_time)
 
-            logging.info('Action ID: %i' % action_id)
             scheduled += 1
         except:
-            logging.error('Failed to schedule %s' % system)
+            logging.error('Failed to schedule %s' % self.get_system_name(system_id))
 
     logging.info('Scheduled %i system(s)' % scheduled)
 
