@@ -191,6 +191,39 @@ def do_errata_listaffectedsystems(self, args):
 
 ####################
 
+def help_errata_listcves(self):
+    print 'errata_listcves: List of CVEs addressed by an erratum'
+    print 'usage: errata_listcves ERRATA|search:XXX ...'
+
+def complete_errata_listcves(self, text, line, beg, end):
+    return self.tab_complete_errata(text)
+
+def do_errata_listcves(self, args):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_errata_listcves()
+        return
+
+    # allow globbing and searching via arguments
+    errata_list = self.expand_errata(args)
+
+    add_separator = False
+
+    for erratum in errata_list:
+        cves = self.client.errata.listCves(self.session, erratum)
+
+        if len(cves):
+            if len(errata_list) > 1:
+                if add_separator: print self.SEPARATOR
+                add_separator = True
+
+                print '%s:' % erratum
+
+            print '\n'.join(sorted(cves))
+
+####################
+
 def help_errata_details(self):
     print 'errata_details: Show the details of an erratum'
     print 'usage: errata_details ERRATA|search:XXX ...'
