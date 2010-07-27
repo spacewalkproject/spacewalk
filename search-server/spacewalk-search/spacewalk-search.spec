@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.2
+Version: 1.1.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -112,6 +112,12 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Tue Jul 27 2010 Jan Pazdziora 1.1.3-1
+- hibernate.connection.url is now created dynamicaly from db_* variables
+  (michael.mraka@redhat.com)
+- code optimization (michael.mraka@redhat.com)
+- updated the ivy repo url for search server (shughes@redhat.com)
+
 * Mon Jun 21 2010 Jan Pazdziora 1.1.2-1
 - 576953 - fixing errata search case sensitivity and not searching on partial
   cve name (jsherril@redhat.com)
