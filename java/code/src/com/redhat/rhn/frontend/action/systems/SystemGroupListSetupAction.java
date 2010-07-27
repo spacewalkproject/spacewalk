@@ -127,36 +127,35 @@ public class SystemGroupListSetupAction extends RhnAction {
             return mapping.findForward("default");
         }
 
-        Iterator groups = groupSet.getElements().iterator();
-        List firstList = new ArrayList();
-        List secondList = new ArrayList();
+       // Iterator groups = groupSet.getElements().iterator();
+        List<Long> firstList = new ArrayList<Long>();
+        List<Long> secondList = new ArrayList<Long>();
 
         //for the first group, add all the systems to firstList
-        Long sgid = ((RhnSetElement)groups.next()).getElement();
-        Iterator systems = SystemManager.systemsInGroup(sgid, null).iterator();
-        while (systems.hasNext()) {
-            Long id = new Long(((SystemOverview)systems.next()).getId().longValue());
+        Long sgid = groupSet.getElementValues().iterator().next();
+        groupSet.removeElement(sgid);
+
+        for (SystemOverview system : SystemManager.systemsInGroup(sgid, null)) {
+            Long id = system.getId();
             firstList.add(id);
         }
 
         //for every subsequent group, remove systems that aren't in the intersection
-        while (groups.hasNext()) { //for every group
-            Long groupId = ((RhnSetElement)groups.next()).getElement();
-            Iterator systemList = SystemManager.systemsInGroup(groupId, null).iterator();
+        for (Long groupId : groupSet.getElementValues()) { //for every group
 
-            while (systemList.hasNext()) { //for every system in each group
-                Long id = new Long(((SystemOverview)systemList.next()).getId()
-                                                              .longValue());
+          //for every system in each group
+            for (SystemOverview sys : SystemManager.systemsInGroup(groupId, null)) {
+                Long id = sys.getId();
                 secondList.add(id);
             }
 
             firstList = listIntersection(firstList, secondList);
+            secondList = new ArrayList<Long>();
         }
 
         //add all the systems to the set
-        Iterator i = firstList.iterator();
-        while (i.hasNext()) {
-            systemSet.addElement((Long)i.next());
+        for (Long i : firstList) {
+            systemSet.addElement(i);
         }
         RhnSetManager.store(systemSet);
 
@@ -179,15 +178,12 @@ public class SystemGroupListSetupAction extends RhnAction {
     }
 
 
-    private List listIntersection(List one, List two) {
+    private List listIntersection(List<Long> one, List<Long> two) {
 
-        List retval = new ArrayList();
-        Iterator i = one.iterator();
-
-        while (i.hasNext()) {
-            Long next = (Long)i.next();
-            if (two.contains(next)) {
-                retval.add(next);
+        List<Long> retval = new ArrayList<Long>();
+        for (Long i : one) {
+            if (two.contains(i)) {
+                retval.add(i);
             }
         }
 
