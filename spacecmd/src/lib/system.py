@@ -2260,6 +2260,56 @@ def do_system_removeentitlement(self, args):
 
 ####################
 
+def help_system_listpackageprofiles(self):
+    print 'system_listpackageprofiles: List all package profiles'
+    print 'usage: system_listpackageprofiles'
+
+def do_system_listpackageprofiles(self, args, doreturn=False):
+    profiles = self.client.system.listPackageProfiles(self.session)
+    profiles = [ p.get('name') for p in profiles ]
+
+    if doreturn:
+        return profiles
+    else:
+        if len(profiles):
+            print '\n'.join(sorted(profiles))
+
+####################
+
+def help_system_deletepackageprofile(self):
+    print 'system_deletepackageprofile: Delete a package profile'
+    print 'usage: system_deletepackageprofile PROFILE'
+def complete_system_deletepackageprofile(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) == 2:
+        return self.tab_complete_systems(\
+                   self.do_system_listpackageprofiles('', True), text)
+
+def do_system_deletepackageprofile(self, args):
+    if not len(args):
+        self.help_system_deletepackageprofile()
+        return
+
+    label = args
+
+    if not self.user_confirm('Delete this profile [y/N]:'): return
+
+    all_profiles = self.client.system.listPackageProfiles(self.session)
+
+    profile_id = 0
+    for profile in all_profiles:
+        if label == profile.get('name'):
+            profile_id = profile.get('id')
+
+    if not profile_id:
+        logging.warning('%s is not a valid profile' % label)
+        return
+
+    self.client.system.deletePackageProfile(self.session, profile_id)
+
+####################
+
 def help_system_createpackageprofile(self):
     print 'system_createpackageprofile: Create a package profile'
     print 'usage: system_createpackageprofile SYSTEM'
