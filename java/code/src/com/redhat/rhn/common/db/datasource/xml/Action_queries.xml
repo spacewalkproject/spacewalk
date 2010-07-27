@@ -118,9 +118,9 @@ SELECT  DISTINCT UAO.id AS ID,
         (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
         UAO.scheduler,
         WC.login AS SCHEDULER_NAME,
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id = 2) AS "COMPLETED_SYSTEMS",
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id = 3) AS "FAILED_SYSTEMS"
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 2) AS "COMPLETED_SYSTEMS",
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 3) AS "FAILED_SYSTEMS"
   FROM  rhnUserActionOverview UAO, web_contact WC
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
@@ -166,9 +166,9 @@ SELECT  DISTINCT UAO.id AS ID,
         (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
         UAO.scheduler,
         WC.login AS SCHEDULER_NAME,
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id = 2) AS "COMPLETED_SYSTEMS",
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id = 3) AS "FAILED_SYSTEMS"
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 2) AS "COMPLETED_SYSTEMS",
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 3) AS "FAILED_SYSTEMS"
   FROM  rhnUserActionOverview UAO, web_contact WC
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
@@ -189,9 +189,9 @@ SELECT  DISTINCT UAO.id AS ID,
         (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
         UAO.scheduler,
         WC.login AS SCHEDULER_NAME,
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id = 2) AS "COMPLETED_SYSTEMS",
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id = 3) AS "FAILED_SYSTEMS"
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 2) AS "COMPLETED_SYSTEMS",
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 3) AS "FAILED_SYSTEMS"
   FROM  rhnUserActionOverview UAO, web_contact WC
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
@@ -214,9 +214,9 @@ SELECT  DISTINCT UAO.id AS ID,
         (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
         UAO.scheduler,
         WC.login AS SCHEDULER_NAME,
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id = 2) AS "COMPLETED_SYSTEMS",
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id = 3) AS "FAILED_SYSTEMS"
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 2) AS "COMPLETED_SYSTEMS",
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 3) AS "FAILED_SYSTEMS"
   FROM  rhnUserActionOverview UAO, web_contact WC
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
@@ -239,9 +239,9 @@ SELECT  DISTINCT UAO.id AS ID,
         UAO.type_name,
         (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
         WC.login AS SCHEDULER_NAME,
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id = 2) AS "COMPLETED_SYSTEMS",
-        (SELECT COUNT(server_id) FROM rhnServerAction SA WHERE SA.action_id = UAO.id AND UAO.action_status_id = 3) AS "FAILED_SYSTEMS"
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 2) AS "COMPLETED_SYSTEMS",
+        (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 3) AS "FAILED_SYSTEMS"
   FROM  rhnUserActionOverview UAO, web_contact WC
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
