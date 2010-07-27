@@ -264,6 +264,7 @@ public class ScheduleHandler extends BaseHandler {
      * Reschedule all actions in the given list.
      * @param sessionKey The sessionkey for the session containing the logged in user.
      * @param actionIds The list of ids for actions to reschedule.
+     * @param onlyFailed only reschedule failed actions
      * @return Returns a list of actions with details
      * @throws FaultException A FaultException is thrown if one of the actions provided
      * is invalid.
@@ -275,8 +276,8 @@ public class ScheduleHandler extends BaseHandler {
      *               "True to only reschedule failed actions, False to reschedule all")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int rescheduleActions(String sessionKey, List<Integer> actionIds, boolean onlyFailed)
-        throws FaultException {
+    public int rescheduleActions(String sessionKey, List<Integer> actionIds,
+            boolean onlyFailed) throws FaultException {
 
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
