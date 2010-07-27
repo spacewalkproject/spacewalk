@@ -638,6 +638,9 @@ def do_softwarechannel_adderrata(self, args):
                                              dest_channel,
                                              package_ids)
 
+    # regenerate the errata cache since we just cloned errata
+    self.generate_errata_cache(True)
+
 ####################
 
 def help_softwarechannel_regenerateneededcache(self):
