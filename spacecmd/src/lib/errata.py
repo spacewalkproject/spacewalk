@@ -252,6 +252,8 @@ def do_errata_details(self, args):
             systems = self.client.errata.listAffectedSystems(self.session,
                                                              erratum)
 
+            cves = self.client.errata.listCves(self.session, erratum)
+
             channels = \
                 self.client.errata.applicableToChannels(self.session, erratum)
         except:
@@ -280,6 +282,10 @@ def do_errata_details(self, args):
             print '-----'
             print '\n'.join(wrap(details.get('notes')))
 
+        print
+        print 'CVEs'
+        print '----'
+        print '\n'.join(sorted(cves))
         print
         print 'Solution'
         print '--------'
