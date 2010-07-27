@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.20
+Version:        1.1.21
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Jul 27 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.21-1
+- 618219 - more fixes
+
 * Mon Jul 26 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.20-1
 - 618219 - update family counts only once per family
 
