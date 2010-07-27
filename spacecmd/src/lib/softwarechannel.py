@@ -593,7 +593,6 @@ def do_softwarechannel_adderrata(self, args):
     source_errata = self.client.channel.software.listErrata(self.session,
                                                             source_channel)
 
-    # only use errata available in the source channel
     errata = filter_results([ e.get('advisory_name') for e in source_errata ],
                             errata_wanted)
 
@@ -631,9 +630,8 @@ def do_softwarechannel_adderrata(self, args):
     if not self.user_confirm('Add these errata and packages [y/N]:'): return
 
     # add the errata to the destination channel
-    for erratum in errata:
-        logging.debug('Publishing %s to %s' % (erratum, dest_channel))
-        self.client.errata.publish(self.session, erratum, [ dest_channel ])
+    logging.debug('Cloning errata into %s' % dest_channel)
+    self.client.errata.clone(self.session, dest_channel, errata)
 
     # add the affected packages to the channel
     logging.debug('Adding required packages to %s' % dest_channel)
