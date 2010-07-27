@@ -48,7 +48,8 @@ public class TaskoJob implements Job {
 
     private boolean isTaskSingleThreaded(TaskoTask task) {
         try {
-            RhnQueueJob job =  (RhnQueueJob) Class.forName(task.getTaskClass()).newInstance();
+            RhnQueueJob job =  (RhnQueueJob)
+                Class.forName(task.getTaskClass()).newInstance();
         }
         catch (Exception e) {
             return false;
@@ -111,7 +112,7 @@ public class TaskoJob implements Job {
                             continue;
                         }
                     }
-                    else{
+                    else {
                         while (!isTaskThreadAvailable(task)) {
                             try {
                                 log.debug(schedule.getJobLabel() + ":" + " task " +
@@ -153,8 +154,8 @@ public class TaskoJob implements Job {
                     TaskoFactory.rollbackTransaction();
                 }
 
-                log.debug(task.getName() +
-                        " (" + schedule.getJobLabel() + ") ... " + taskRun.getStatus().toLowerCase());
+                log.debug(task.getName() + " (" + schedule.getJobLabel() + ") ... " +
+                        taskRun.getStatus().toLowerCase());
                 previousRun = taskRun;
                 synchronized (lock) {
                     unmarkTaskRunning(task);

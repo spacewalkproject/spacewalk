@@ -161,8 +161,8 @@ public class TaskoRun {
     }
 
     private boolean logPresent(String fileName) {
-        File log = new File(fileName);
-        return log.length() > 0;
+        File logFile = new File(fileName);
+        return logFile.length() > 0;
     }
 
     private void appendLogToFile(String fileName, String logContent) {

@@ -138,7 +138,7 @@ public class TaskQueue {
         }
         if (isTaskQueueDone()) {
             // everything done
-            queueDriver.getLogger().debug("Finishing run "+ queueRun.getId());
+            queueDriver.getLogger().debug("Finishing run " + queueRun.getId());
             queueRun.finished();
             queueRun.saveStatus(TaskoRun.STATUS_FINISHED);
             TaskoFactory.commitTransaction();

@@ -23,7 +23,7 @@ import org.quartz.JobExecutionException;
 
 public abstract interface RhnJob extends Job {
 
-    final public String DEFAULT_LOGGING_LAYOUT = "%d [%t] %-5p %c %x - %m%n";
+    String DEFAULT_LOGGING_LAYOUT = "%d [%t] %-5p %c %x - %m%n";
     void execute(JobExecutionContext context, TaskoRun taskRun)
         throws JobExecutionException;
 

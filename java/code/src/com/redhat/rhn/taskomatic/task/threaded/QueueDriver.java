@@ -26,7 +26,7 @@ public interface QueueDriver {
 
     /**
      * Set the logger to use for all logging operations
-     * @return void
+     * @param loggerIn logger to be set
      */
     void setLogger(Logger loggerIn);
 

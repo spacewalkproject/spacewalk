@@ -29,7 +29,7 @@ public class ErrataQueue extends RhnQueueJob {
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "errata_queue";
-    public static Logger log = null;
+    private static Logger log = null;
 
     @Override
     protected Logger getLogger() {
