@@ -435,7 +435,7 @@ IS
         for channel in server_channels(server_id_in)
         loop
                 unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server, 0);
-                if update_family_countsYN
+                if update_family_countsYN > 0
                     and channel.channel_family_id != last_channel_family_id then
                     -- update family counts only once
                     -- after all channels with same family has been fetched
@@ -444,7 +444,7 @@ IS
                     last_channel_org_id    := channel.org_id;
                 end if;
         end loop channel;
-        if update_family_countsYN and last_channel_family_id != -1 then
+        if update_family_countsYN > 0 and last_channel_family_id != -1 then
             -- update the last family fetched
             update_family_counts(last_channel_family_id, channel.org_id);
         end if;
