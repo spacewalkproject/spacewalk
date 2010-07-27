@@ -162,7 +162,6 @@ public class ErrataMailer extends RhnJavaJob {
         int rowsUpdated = marker.executeUpdate(params);
         if (log.isDebugEnabled()) {
             log.debug("Marked " + rowsUpdated + " rows complete");
-            log.debug("errata_id = " + errataId + " AND channel_id = " + channelId + " AND org_id = " + orgId);
         }
         HibernateFactory.commitTransaction();
         HibernateFactory.closeSession();

@@ -44,7 +44,6 @@ public class KickstartCleanup extends RhnJavaJob {
     /**
      * Primarily a convenience method to make testing easier
      * @param ctx Quartz job runtime environment
-     * @param testMode Enables task results validation
      *
      * @throws JobExecutionException Indicates somes sort of fatal error
      */

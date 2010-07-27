@@ -44,7 +44,7 @@ public class ChannelRepodataDriver implements QueueDriver {
      * {@inheritDoc}
      */
     public void initialize() {
-        logger.info("ChannelRepodataDriver()--resetting orphanned rhnRepoRegenQueue entries");
+        logger.info("resetting orphanned rhnRepoRegenQueue entries");
         WriteMode resetChannelRepodata = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMOD_CLEAR_IN_PROGRESS);
         try {

@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
 public class ChannelRepodata extends RhnQueueJob {
 
     public static final String DISPLAY_NAME = "channel_repodata";
-    public static Logger log = null;
+    private static Logger log = null;
 
     protected Logger getLogger() {
         if (log == null) {

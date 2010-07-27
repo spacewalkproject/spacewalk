@@ -40,9 +40,9 @@ import java.io.IOException;
 public abstract class RhnQueueJob implements RhnJob {
 
     private TaskoRun jobRun = null;
-    boolean queueEmpty = true;
+    private boolean queueEmpty = true;
 
-    abstract protected Logger getLogger();
+    protected abstract Logger getLogger();
 
     public void appendExceptionToLogError(Exception e) {
         getLogger().error(e.getMessage());
@@ -54,7 +54,8 @@ public abstract class RhnQueueJob implements RhnJob {
             new PatternLayout(DEFAULT_LOGGING_LAYOUT);
         try {
             getLogger().removeAllAppenders();
-            FileAppender appender = new FileAppender(pattern, jobRun.buildStdOutputLogPath());
+            FileAppender appender = new FileAppender(pattern,
+                    jobRun.buildStdOutputLogPath());
             getLogger().addAppender(appender);
         }
         catch (IOException e) {
@@ -71,7 +72,8 @@ public abstract class RhnQueueJob implements RhnJob {
         setJobRun(runIn);
         try {
             execute(ctx);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (HibernateFactory.getSession().getTransaction().isActive()) {
                 HibernateFactory.rollbackTransaction();
             }
@@ -101,9 +103,10 @@ public abstract class RhnQueueJob implements RhnJob {
         if (queue.changeRun(jobRun)) {
             jobRun.start();
             logToNewFile();
-            getLogger().debug("Starting run "+ jobRun.getId());
+            getLogger().debug("Starting run " + jobRun.getId());
         }
-        int maxWorkItems = Config.get().getInt("taskomatic." + queueName + "_max_work_items", 3);
+        int maxWorkItems = Config.get().getInt("taskomatic." + queueName +
+                "_max_work_items", 3);
         if (queue.getQueueSize() < maxWorkItems) {
             queue.run(this);
         }
