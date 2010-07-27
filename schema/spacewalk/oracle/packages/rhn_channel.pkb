@@ -446,7 +446,7 @@ IS
         end loop channel;
         if update_family_countsYN > 0 and last_channel_family_id != -1 then
             -- update the last family fetched
-            update_family_counts(last_channel_family_id, channel.org_id);
+            update_family_counts(last_channel_family_id, last_channel_org_id);
         end if;
     END clear_subscriptions;
 
