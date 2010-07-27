@@ -22,17 +22,12 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.taskomatic.TaskoXmlRpcServer;
 
 import org.apache.log4j.Logger;
-import org.quartz.CronTrigger;
-import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
-import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
 import java.net.UnknownHostException;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -157,7 +152,6 @@ public class SchedulerKernel {
     protected void shutdown() {
         try {
             this.scheduler.standby();
-            deleteAllJobs();
             this.scheduler.shutdown();
         }
         catch (SchedulerException e) {
@@ -174,40 +168,6 @@ public class SchedulerKernel {
         }
     }
 
-
-    private void scheduleJobs(Map pendingJobs) throws ConfigException {
-       // No jobs to schedule
-       // This would be quite odd, but it could happen
-        if (pendingJobs == null || pendingJobs.size() == 0) {
-            log.error("No tasks scheduled");
-            throw new ConfigException("No tasks scheduled");
-        }
-        try {
-            for (Iterator iter = pendingJobs.keySet().iterator(); iter.hasNext();) {
-                String suffix = (String) iter.next();
-                String[] data = (String[]) pendingJobs.get(suffix);
-                String jobImpl = data[0];
-                String crontab = data[1];
-                String jobName = jobImpl + "-" + suffix;
-                JobDetail detail = new JobDetail(jobName,
-                        TaskomaticConstants.TASK_GROUP,
-                        this.getClass().getClassLoader().loadClass(jobImpl));
-                Trigger trigger = null;
-                trigger = new CronTrigger(jobImpl,
-                        TaskomaticConstants.TASK_GROUP, crontab);
-                trigger.setMisfireInstruction(CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING);
-                trigger.addTriggerListener(this.chainedTriggerListener.getName());
-                this.scheduler.scheduleJob(detail, trigger);
-                if (log.isDebugEnabled()) {
-                    log.debug("Scheduled " + detail.getFullName());
-                }
-            }
-        }
-        catch (Throwable t) {
-            log.error(t.getMessage(), t);
-            throw new ConfigException(t.getMessage(), t);
-        }
-    }
 
     private void deleteAllJobs() {
         boolean done = false;
