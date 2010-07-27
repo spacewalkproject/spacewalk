@@ -371,8 +371,6 @@ public class KickstartFactory extends HibernateFactory {
                     KickstartUrlHelper.COBBLER_SERVER_VARIABLE, ksdataIn, ksession);
             fileData = formatter.getFileData();
         }
-        // Escape the dollar signs
-        fileData = StringUtils.replace(fileData, "$(", "\\$(");
         Profile p = Profile.lookupById(CobblerXMLRPCHelper.getAutomatedConnection(),
                                                     ksdataIn.getCobblerId());
         if (p != null && p.getKsMeta() != null) {
@@ -1031,7 +1029,7 @@ public class KickstartFactory extends HibernateFactory {
     public static List<KickstartableTree> listUnsyncedKickstartTrees() {
         String query = "KickstartableTree.getUnsyncedKickstartTrees";
         Session session = HibernateFactory.getSession();
-        return (List<KickstartableTree>) session.getNamedQuery(query).list();
+        return session.getNamedQuery(query).list();
     }
 
     /**
