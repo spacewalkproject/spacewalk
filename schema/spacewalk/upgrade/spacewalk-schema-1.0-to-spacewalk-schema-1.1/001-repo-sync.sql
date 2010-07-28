@@ -3,9 +3,10 @@ ALTER table rhnChannelContentSource rename to rhnContentSource;
 
 -- remove unique index; prepare for rhnChannelContentSource uq
 drop index rhn_ccs_uq;
-ALTER TABLE rhnContentSource
-    ADD CONSTRAINT rhn_cs_uq UNIQUE (id, type_id, source_url)
-    USING INDEX TABLESPACE [[4m_tbs]];
+create unique index rhn_cs_uq
+	on rhnContentSource(id, type_id, source_url)
+	tablespace [[64k_tbs]]
+  ;
 -- rename constraints
 ALTER TABLE rhnContentSource
     RENAME CONSTRAINT rhn_ccs_type_fk to rhn_cs_type_fk;
