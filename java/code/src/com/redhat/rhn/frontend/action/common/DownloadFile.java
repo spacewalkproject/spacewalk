@@ -161,6 +161,11 @@ public class DownloadFile extends DownloadAction {
         }
 
         String[] split = url.split("/");
+        if (split.length < 3) {
+            return null;
+        }
+
+
         int labelPos = 2;
         if (split[2].equals("org")) {
             ret.put("orgId",  split[3]);
@@ -194,6 +199,12 @@ public class DownloadFile extends DownloadAction {
         }
 
         Map<String, String> map = DownloadFile.parseDistUrl(url);
+
+        if (map == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return mapping.findForward("error");
+        }
+
         String path = map.get("path");
         String label = map.get("label");
         Long orgId = null;
