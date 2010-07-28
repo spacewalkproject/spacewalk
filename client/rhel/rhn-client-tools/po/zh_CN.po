@@ -298,7 +298,8 @@ msgstr "联系红帽或红帽合作伙伴的技术支持专家来帮助您解决
 msgid ""
 "Stay in compliance with your subscription agreement and manage subscriptions "
 "for systems connected to your account at http://rhn.redhat.com/."
-msgstr "遵循您的订阅协议并管理连接到您在 http://rhn.redhat.com 上的帐号的系统订阅。"
+msgstr ""
+"遵循您的订阅协议并管理连接到您在 http://rhn.redhat.com 上的帐号的系统订阅。"
 
 #: ../src/up2date_client/rhnreg_constants.py:54
 msgid ""
@@ -320,7 +321,9 @@ msgstr "软件更新设置不成功"
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
-msgstr "您确认不希望将您的系统连接到红帽网络吗？您将无法获得红帽企业 Linux 订阅所提供的：\n"
+msgstr ""
+"您确认不希望将您的系统连接到红帽网络吗？您将无法获得红帽企业 Linux 订阅所提供"
+"的：\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:62
 msgid ""
@@ -387,7 +390,9 @@ msgstr ""
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
-msgstr "窍门：忘记您的登录或者密码？请访问 Visit: https://rhn.redhat.com/rhn/sales/LoginInfo.do"
+msgstr ""
+"窍门：忘记您的登录或者密码？请访问 Visit: https://rhn.redhat.com/rhn/sales/"
+"LoginInfo.do"
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "*Email Address:"
@@ -412,8 +417,8 @@ msgid ""
 msgstr ""
 "我们已经完成了为系统侧写收集信息的过程。\n"
 "\n"
-"点 \"下一步\" 来把这个系统侧写发送到红帽网络。点 \"取消\" 则不会有任何信"
-"息被发送。您可以以后通过在命令行中输入 `rhn_register` 来运行注册程序。"
+"点 \"下一步\" 来把这个系统侧写发送到红帽网络。点 \"取消\" 则不会有任何信息被"
+"发送。您可以以后通过在命令行中输入 `rhn_register` 来运行注册程序。"
 
 #: ../src/up2date_client/rhnreg_constants.py:98
 msgid ""
@@ -489,8 +494,8 @@ msgid ""
 msgstr ""
 "警告：如果有在这个系统上安装的产品没有在以上列出，您将无法接收到那些产品的更"
 "新和支持。如果您想为那些产品接收更新，请访问 http://rhn.redhat.com/，并把这个"
-"系统订阅到可以提供那些产品的更新的软件频道。更多详情，请参阅 Kbase 的第11313号"
-"信息。(http://kbase.redhat.com/faq/docs/DOC-11313)"
+"系统订阅到可以提供那些产品的更新的软件频道。更多详情，请参阅 Kbase 的第11313"
+"号信息。(http://kbase.redhat.com/faq/docs/DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:140
 msgid ""
@@ -518,8 +523,8 @@ msgstr ""
 "一个不活跃的系统释放一个权利。\n"
 "(2) 通过 http://www.redhat.com/store/ 购买新的权利。\n"
 "(3) 在 http://www.redhat.com/now/ 上激活一个新的安装码。一旦您的帐号中有了有"
-"效的激活订阅，您可以通过 RHN 网站界面来查看这个系统的侧写，并通过 软件 > "
-"软件频道 标签页来把这个系统订阅到软件频道。"
+"效的激活订阅，您可以通过 RHN 网站界面来查看这个系统的侧写，并通过 软件 > 软件"
+"频道 标签页来把这个系统订阅到软件频道。"
 
 #: ../src/up2date_client/rhnreg_constants.py:155
 msgid "RHN service level:"
@@ -556,7 +561,8 @@ msgstr "管理模块：自动更新、系统组群、系统访问权限、软件
 msgid ""
 "Provisioning module: bare-metal provisioning, existing state provisioning, "
 "rollbacks, configuration management"
-msgstr "Provision 模块：全新系统 provision、已存在状态 provision、系统恢复、配置管理"
+msgstr ""
+"Provision 模块：全新系统 provision、已存在状态 provision、系统恢复、配置管理"
 
 #: ../src/up2date_client/rhnreg_constants.py:169
 msgid ""
@@ -615,8 +621,8 @@ msgstr ""
 "一个不活跃的系统释放一个权利。\n"
 "(2) 通过 http://www.redhat.com/store/ 购买新的权利。\n"
 "(3) 在 http://www.redhat.com/now/ 上激活一个新的安装码。一旦您的帐号中有了有"
-"效的激活订阅，您可以通过 RHN 网站界面来查看这个系统的侧写，并通过 软件 > "
-"软件频道 标签页来把这个系统订阅到软件频道。"
+"效的激活订阅，您可以通过 RHN 网站界面来查看这个系统的侧写，并通过 软件 > 软件"
+"频道 标签页来把这个系统订阅到软件频道。"
 
 #: ../src/up2date_client/rhnreg_constants.py:200
 #, python-format
@@ -696,8 +702,9 @@ msgid ""
 msgstr ""
 "<b><span size=\"16000\">不兼容的证书文件</span></b>\n"
 "\n"
-"您所提供的证书 <b>%s</b> 与 <b>%s</b> 中的红帽网络服务器不兼容。您可能希望确认您提供了有效的证书文件。您确定您所提"
-"供的证书是正确的，并且证书文件没有被破坏吗？\n"
+"您所提供的证书 <b>%s</b> 与 <b>%s</b> 中的红帽网络服务器不兼容。您可能希望确"
+"认您提供了有效的证书文件。您确定您所提供的证书是正确的，并且证书文件没有被破"
+"坏吗？\n"
 "\n"
 "请尝试使用一个不同的证书文件。"
 
@@ -748,7 +755,9 @@ msgstr ""
 msgid ""
 "Warning:You will not be able to limit this system to minor release that is "
 "older than the recent minor release if you select this option.\n"
-msgstr "警告：如果您选择这个选择，您将无法将这个系统限定为比最近次要版本旧的次要版本。\n"
+msgstr ""
+"警告：如果您选择这个选择，您将无法将这个系统限定为比最近次要版本旧的次要版"
+"本。\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:265
 #, python-format
@@ -1257,7 +1266,8 @@ msgid "You specified an invalid protocol."
 msgstr "您指定了一个无效的协议。"
 
 #: ../src/up2date_client/tui.py:1106
-msgid "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr "  <Tab>/<Alt-Tab> 在元素间切换  |  <Space> 选择  |  <F12> 下一屏幕"
 
 #: ../src/up2date_client/tui.py:1200
@@ -1331,7 +1341,8 @@ msgid "GPG is not installed properly."
 msgstr "GPG 没有被正确安装。"
 
 #: ../src/up2date_client/up2dateErrors.py:237
-msgid "GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgid ""
+"GPG keyring does not include the Red Hat, Inc. public package-signing key"
 msgstr "GPG 钥匙圈不包括 Red Hat, Inc. 软件包签名公钥"
 
 #: ../src/up2date_client/up2dateErrors.py:249
@@ -1425,7 +1436,8 @@ msgid "There was a communication error with the server: %s"
 msgstr "在与服务器联络时出现错误：%s"
 
 #: ../src/firstboot/rhn_login_gui.py:106
-msgid "Would you like to try changing the network configuration and trying again?"
+msgid ""
+"Would you like to try changing the network configuration and trying again?"
 msgstr "你是否希望更改网络设置,然后重试一次?"
 
 #: ../src/firstboot/rhn_provide_certificate_gui.py:40
@@ -1495,7 +1507,8 @@ msgid "Specify an activation key"
 msgstr "指定一个激活码"
 
 #: ../src/bin/rhnreg_ks.py:58
-msgid "Subscribe this system to the EUS channel tied to the system's redhat-release"
+msgid ""
+"Subscribe this system to the EUS channel tied to the system's redhat-release"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
@@ -1534,7 +1547,9 @@ msgstr "该系统已经注册了。使用 --force 来超越"
 msgid ""
 "Usage of --use-eus-channel option with --activationkey is not supported. "
 "Please use username and password instead."
-msgstr "不支持在 --activationkey 中使用 --use-eus-channel 选项。请使用 username 和 password。"
+msgstr ""
+"不支持在 --activationkey 中使用 --use-eus-channel 选项。请使用 username 和 "
+"password。"
 
 #: ../src/bin/rhnreg_ks.py:122
 msgid "The server you are registering against does not support EUS."
@@ -1544,7 +1559,9 @@ msgstr "您订阅的服务器不支持 EUS。"
 msgid ""
 "Warning: --contactinfo option has been deprecated. Please login to the "
 "server web user Interface and update your contactinfo. "
-msgstr "警告：--contactinfo 选项已经过时。请登录到服务器网页用户界面并更新您的联络信息。"
+msgstr ""
+"警告：--contactinfo 选项已经过时。请登录到服务器网页用户界面并更新您的联络信"
+"息。"
 
 #: ../src/bin/rhnreg_ks.py:192
 msgid ""
@@ -1641,7 +1658,9 @@ msgid ""
 "<b>Warning:</b> You will <b>not</b> be able to limit this system to a minor "
 "release that is older than the most recent minor release if you select this "
 "option."
-msgstr "<b>警告：如果您选择这个选项，</b>您将<b>无法</b>将这个系统限制为比最新次要版本旧的次要版本。"
+msgstr ""
+"<b>警告：如果您选择这个选项，</b>您将<b>无法</b>将这个系统限制为比最新次要版"
+"本旧的次要版本。"
 
 #: ../data/rh_register.glade.h:15
 msgid ""
@@ -1662,7 +1681,10 @@ msgid ""
 "if kept updated, will always be equivalent to the latest available minor "
 "release of Red Hat Enterprise Linux 5.  It will be registered to the main "
 "'Red Hat Enterprise Linux 5' software channel."
-msgstr "经为这个系统提供<b>所有可用更新（_A）</b>。如果一直更新则这个系统将总是等同于红帽企业版 Linux 5 的最新可用次要版本。要将其在主要‘红帽就企业版 Linux 5’软件频道中注册。"
+msgstr ""
+"经为这个系统提供<b>所有可用更新（_A）</b>。如果一直更新则这个系统将总是等同于"
+"红帽企业版 Linux 5 的最新可用次要版本。要将其在主要‘红帽就企业版 Linux 5’软件"
+"频道中注册。"
 
 #: ../data/rh_register.glade.h:18
 msgid ""
@@ -1706,7 +1728,8 @@ msgstr "红帽尊重您的隐私权：http://www.redhat.com/legal/privacy_statem
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
-msgstr "<small>忘记了您的用户名或口令？联系您的 Satellite <i>机构管理员</i>。</small>"
+msgstr ""
+"<small>忘记了您的用户名或口令？联系您的 Satellite <i>机构管理员</i>。</small>"
 
 #: ../data/rh_register.glade.h:27
 msgid ""
@@ -1732,7 +1755,8 @@ msgstr ""
 "和口令）的安全。"
 
 #: ../data/rh_register.glade.h:34
-msgid "Activate a previously purchased subscription you have not yet activated."
+msgid ""
+"Activate a previously purchased subscription you have not yet activated."
 msgstr "激活一个您以前购买的、但还没有激活的订阅。"
 
 #: ../data/rh_register.glade.h:35
@@ -1881,7 +1905,8 @@ msgstr "代理服务器用户名(_U)："
 msgid ""
 "Purchase an additional Red Hat Enterprise Linux subscription at http://www."
 "redhat.com/store/."
-msgstr "购买一个额外的红帽企业 Linux 订阅（通过 http://www.redhat.com/store/）。"
+msgstr ""
+"购买一个额外的红帽企业 Linux 订阅（通过 http://www.redhat.com/store/）。"
 
 #: ../data/rh_register.glade.h:72
 msgid ""
@@ -2155,4 +2180,3 @@ msgstr ""
 #, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "在 Red Hat 网络上注册"
-

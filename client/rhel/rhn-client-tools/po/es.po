@@ -77,7 +77,8 @@ msgstr "Error al leer la información de la red:"
 
 #: ../src/up2date_client/hardware.py:693
 msgid "Error reading install method information:"
-msgstr "Error durante la lectura de la información sobre el método de instalación:"
+msgstr ""
+"Error durante la lectura de la información sobre el método de instalación:"
 
 #: ../src/up2date_client/hardware.py:701
 msgid "Error reading network interface information:"
@@ -109,7 +110,8 @@ msgstr "No se pudo Locate Systemld"
 
 #: ../src/up2date_client/rhnChannel.py:114
 msgid "This system may not be updated until it is associated with a channel."
-msgstr "Este sistema no podrá ser actualizado hasta que esté asociado a un canal."
+msgstr ""
+"Este sistema no podrá ser actualizado hasta que esté asociado a un canal."
 
 #: ../src/up2date_client/rhncli.py:47
 msgid "Show additional output"
@@ -121,7 +123,8 @@ msgstr "Especifique el proxy http a usar"
 
 #: ../src/up2date_client/rhncli.py:51
 msgid "Specify a username to use with an authenticated http proxy"
-msgstr "Especifique un nombre de usuario para usar con un proxy http autenticado"
+msgstr ""
+"Especifique un nombre de usuario para usar con un proxy http autenticado"
 
 #: ../src/up2date_client/rhncli.py:53
 msgid "Specify a password to use with an authenticated http proxy"
@@ -342,16 +345,16 @@ msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
-"¿Está seguro de no querer conectar su sistema a Red Hat Network? Perderá "
-"los beneficios de una suscripción de Red Hat Enterprise Linux:\n"
+"¿Está seguro de no querer conectar su sistema a Red Hat Network? Perderá los "
+"beneficios de una suscripción de Red Hat Enterprise Linux:\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:62
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Network.\n"
 msgstr ""
-"No podrá aprovechar las ventajas de estos privilegios de "
-"suscripción si no conecta su sistema a Red Hat Network.\n"
+"No podrá aprovechar las ventajas de estos privilegios de suscripción si no "
+"conecta su sistema a Red Hat Network.\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:65
 msgid "I'll register later."
@@ -407,8 +410,8 @@ msgid ""
 "com/):\n"
 "\n"
 msgstr ""
-"Por favor ingrese su información de cuenta para Red Hat Network (http://"
-"rhn.redhat.com)\n"
+"Por favor ingrese su información de cuenta para Red Hat Network (http://rhn."
+"redhat.com)\n"
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:82
@@ -416,8 +419,8 @@ msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"Consejo: ¿Olvidó su nombre de cuenta o contraseña? Vaya a "
-"https://rhn.redhat.com/rhn/sales/LoginInfo.do"
+"Consejo: ¿Olvidó su nombre de cuenta o contraseña? Vaya a https://rhn.redhat."
+"com/rhn/sales/LoginInfo.do"
 
 #: ../src/up2date_client/rhnreg_constants.py:84
 msgid "*Email Address:"
@@ -444,9 +447,10 @@ msgid ""
 msgstr ""
 "Ya se ha completado la información para el Perfil del Sistema.\n"
 "\n"
-"Presione \"Siguiente\" para enviar este Perfil del Sistema a Red Hat Network. Haga clic en \"Cancelar\" para no enviar ninguna información. Puede "
-"ejecutar el programa de registro más tarde, tecleando `rhn_register` en "
-"la línea de comando."
+"Presione \"Siguiente\" para enviar este Perfil del Sistema a Red Hat "
+"Network. Haga clic en \"Cancelar\" para no enviar ninguna información. Puede "
+"ejecutar el programa de registro más tarde, tecleando `rhn_register` en la "
+"línea de comando."
 
 #: ../src/up2date_client/rhnreg_constants.py:98
 msgid ""
@@ -461,8 +465,8 @@ msgstr ""
 "Puede ejecutar 'yum update' desde la línea de comandos de este sistema para "
 "obtener las últimas actualizaciones desde Red Hat Network. Necesitará "
 "ejecutar este comando periódicamente para obtener las últimas "
-"actualizaciones. Alternativamente, puede configurar el sistema para recibir automáticamente"
-" actualizaciones de software. (también conocidas como "
+"actualizaciones. Alternativamente, puede configurar el sistema para recibir "
+"automáticamente actualizaciones de software. (también conocidas como "
 "'actualizaciones automáticas de erratas') a través de la interfaz web de Red "
 "Hat Network. (Las instrucciones sobre este tema están en el capítulo 6 del "
 "manual de referencia de RHN, disponibles desde el botón 'Ayuda' en la "
@@ -516,12 +520,13 @@ msgid ""
 "get updates for that product. See Kbase article 11313 for more details. "
 "(http://kbase.redhat.com/faq/docs/DOC-11313)"
 msgstr ""
-"Advertencia: si algún producto instalado en este sistema no aparece en la lista a "
-"continuación, no recibirá actualizaciones o asistencia para ese producto. Si "
-"desea recibir actualizaciones para el producto, por favor inicie una sesión "
-"en la interfaz web de su satélite y suscriba este sistema a canales de "
-"software apropiados al producto. Consulte el artículo Kbase 11313 para obtener mayor "
-"información. (http://kbase.redhat.com/faq/docs/DOC-11313)"
+"Advertencia: si algún producto instalado en este sistema no aparece en la "
+"lista a continuación, no recibirá actualizaciones o asistencia para ese "
+"producto. Si desea recibir actualizaciones para el producto, por favor "
+"inicie una sesión en la interfaz web de su satélite y suscriba este sistema "
+"a canales de software apropiados al producto. Consulte el artículo Kbase "
+"11313 para obtener mayor información. (http://kbase.redhat.com/faq/docs/DOC-"
+"11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:129
 msgid ""
@@ -532,12 +537,12 @@ msgid ""
 "for that product. See Kbase article 11313 for more details. (http://kbase."
 "redhat.com/faq/docs/DOC-11313)"
 msgstr ""
-"Advertencia: si un producto instalado en este sistema no aparece en la lista a "
-"continuación, no recibirá actualizaciones o asistencia para ese producto. Si "
-"desea recibir actualizaciones para el producto, por favor visite http://rhn."
-"redhat.com/ y suscriba este sistema al canal de software apropiado. Consulte "
-"el artículo Kbase 11313 para obtener mayor información. (http://kbase.redhat."
-"com/faq/docs/DOC-11313)"
+"Advertencia: si un producto instalado en este sistema no aparece en la lista "
+"a continuación, no recibirá actualizaciones o asistencia para ese producto. "
+"Si desea recibir actualizaciones para el producto, por favor visite http://"
+"rhn.redhat.com/ y suscriba este sistema al canal de software apropiado. "
+"Consulte el artículo Kbase 11313 para obtener mayor información. (http://"
+"kbase.redhat.com/faq/docs/DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:140
 msgid ""
@@ -628,7 +633,8 @@ msgid ""
 "performance email notifications, graphs of system performance"
 msgstr ""
 "Módulo de monitorización: sondeos de rendimiento de sistema predefinidos y "
-"personalizados, notificaciones por correo-e del rendimiento del sistema y gráficos de rendimiento del sistema, "
+"personalizados, notificaciones por correo-e del rendimiento del sistema y "
+"gráficos de rendimiento del sistema, "
 
 #: ../src/up2date_client/rhnreg_constants.py:173
 msgid ""
@@ -778,9 +784,9 @@ msgstr ""
 "<b><span size=\"16000\">Archivo de certificado incompatible</span></b>\n"
 "\n"
 "El certificado que proporcionó, <b>%s</b>, no es compatible con el servidor "
-"Red Hat Network en <b>%s</b>. Revise si el "
-"archivo de certificado proporcionado es válido. ¿Está seguro de haber proporcionado un "
-"certificado correcto y que el archivo del certificado no esté dañado?\n"
+"Red Hat Network en <b>%s</b>. Revise si el archivo de certificado "
+"proporcionado es válido. ¿Está seguro de haber proporcionado un certificado "
+"correcto y que el archivo del certificado no esté dañado?\n"
 "\n"
 "Por favor intente nuevamente con un archivo de certificado diferente."
 
@@ -793,11 +799,13 @@ msgid ""
 msgstr ""
 "<b><span size=\"12000\">Archivo de certificado incompatible</span></b>\n"
 "\n"
-" El certificado expiró. Por favor verifique si tiene el certificado correcto y su tiempo de sistema es correcto."
+" El certificado expiró. Por favor verifique si tiene el certificado correcto "
+"y su tiempo de sistema es correcto."
 
 #: ../src/up2date_client/rhnreg_constants.py:241
 msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
-msgstr "Por favor verifique el valor de sslCACert en /etc/sysconfig/rhn/up2date"
+msgstr ""
+"Por favor verifique el valor de sslCACert en /etc/sysconfig/rhn/up2date"
 
 #: ../src/up2date_client/rhnreg_constants.py:244
 msgid ""
@@ -827,14 +835,17 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-" Consejo: Los lanzamientos menores con un '*' están soportados actualmente por Red Hat.\n"
+" Consejo: Los lanzamientos menores con un '*' están soportados actualmente "
+"por Red Hat.\n"
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:260
 msgid ""
 "Warning:You will not be able to limit this system to minor release that is "
 "older than the recent minor release if you select this option.\n"
-msgstr "Advertencia: Si selecciona esta opción, no podrá limitar este sistema a un lanzamiento menor anterior al lanzamiento menor reciente.\n"
+msgstr ""
+"Advertencia: Si selecciona esta opción, no podrá limitar este sistema a un "
+"lanzamiento menor anterior al lanzamiento menor reciente.\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:265
 #, python-format
@@ -910,7 +921,9 @@ msgstr "Especificó un protocolo no válido. Solo https y http son permitidos."
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Red Hat Network server."
-msgstr "No podrá registrar este sistema  si no contacta al servidor de Red Hat Network."
+msgstr ""
+"No podrá registrar este sistema  si no contacta al servidor de Red Hat "
+"Network."
 
 #: ../src/up2date_client/rhnregGui.py:325
 #, python-format
@@ -951,8 +964,7 @@ msgstr "Se produjo un error al conectarse con Red Hat Network."
 #: ../src/up2date_client/rhnregGui.py:351
 msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr ""
-"El servidor está temporalmente fuera de servicio. Puede intentarlo "
-"más tarde."
+"El servidor está temporalmente fuera de servicio. Puede intentarlo más tarde."
 
 #: ../src/up2date_client/rhnregGui.py:353
 msgid "You may be running a client that is incompatible with the server."
@@ -983,7 +995,8 @@ msgstr "Se presentó un error durante el registro."
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
-msgstr "Se produjo un error conectando al servidor de registros. El mensaje era:\n"
+msgstr ""
+"Se produjo un error conectando al servidor de registros. El mensaje era:\n"
 
 #: ../src/up2date_client/rhnregGui.py:631
 msgid "There was an error while assembling information for the profile."
@@ -1245,7 +1258,9 @@ msgstr "Confirmar selección de lanzamiento de sistema operativo"
 msgid ""
 "Your system will be subscribed to the base software channel to receive all "
 "available updates."
-msgstr "Su sistema estará suscrito al canal de software de base para recibir todas las actualizaciones disponibles."
+msgstr ""
+"Su sistema estará suscrito al canal de software de base para recibir todas "
+"las actualizaciones disponibles."
 
 #: ../src/up2date_client/tui.py:572
 msgid "Register a System Profile - Hardware"
@@ -1320,7 +1335,8 @@ msgstr ""
 
 #: ../src/up2date_client/tui.py:694
 msgid "Include RPM packages installed on this system in my System Profile"
-msgstr "Incluir paquetes RPM instalados en este sistema en mi Perfil de Sistema"
+msgstr ""
+"Incluir paquetes RPM instalados en este sistema en mi Perfil de Sistema"
 
 #: ../src/up2date_client/tui.py:698
 msgid "You may deselect individual packages by unchecking them below."
@@ -1363,7 +1379,8 @@ msgid "You specified an invalid protocol."
 msgstr "Especificó un protocolo inválido."
 
 #: ../src/up2date_client/tui.py:1106
-msgid "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> entre elementos | <Espacio> selecciona  |  <F12> pantalla "
 "siguiente"
@@ -1434,14 +1451,16 @@ msgstr "Error de retardo del servidor. El mensaje fue:\n"
 #: ../src/up2date_client/up2dateErrors.py:204
 #, python-format
 msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-msgstr "No se puede eliminar el paquete \"%s\". Está en la lista de borrados a omitir"
+msgstr ""
+"No se puede eliminar el paquete \"%s\". Está en la lista de borrados a omitir"
 
 #: ../src/up2date_client/up2dateErrors.py:227
 msgid "GPG is not installed properly."
 msgstr "No se ha instalado GPG de forma adecuada."
 
 #: ../src/up2date_client/up2dateErrors.py:237
-msgid "GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgid ""
+"GPG keyring does not include the Red Hat, Inc. public package-signing key"
 msgstr ""
 "El llavero GPG no incluye la clave pública para firma de paquetes de Red "
 "Hat, Inc."
@@ -1504,18 +1523,24 @@ msgid ""
 "    requiring a Management entitlement."
 msgstr ""
 "\n"
-"    Su organización no tiene suficientes derechos administrativos para registrar este\n"
-"    sistema a Red Hat Network. Por favor informe al administrador de su organización sobre "
-"este error. \n"
-"    Debe registrar este sistema después de que su organización libere los derechos "
-"existentes \n"
-"    o derechos de compra adicionales. Los derechos adicionales pueden ser adquiridos por el administrador de su organización\n"
+"    Su organización no tiene suficientes derechos administrativos para "
+"registrar este\n"
+"    sistema a Red Hat Network. Por favor informe al administrador de su "
+"organización sobre este error. \n"
+"    Debe registrar este sistema después de que su organización libere los "
+"derechos existentes \n"
+"    o derechos de compra adicionales. Los derechos adicionales pueden ser "
+"adquiridos por el administrador de su organización\n"
 "    ingresando a Red Hat Network y visitando\n"
-"    la página de 'Administración de suscripción' en 'Su sección RHN' de RHN.\n"
+"    la página de 'Administración de suscripción' en 'Su sección RHN' de "
+"RHN.\n"
 "    \n"
-"    Una causa común de este código de error se debe a haber configurado equivocadamente una\n"
-"    llave de activación establecida como universal predeterminada. Si la llave de activación está establecida\n"
-"    en la cuenta como universal predeterminada, puede desactivarla y volver a intentar para evitar\n"
+"    Una causa común de este código de error se debe a haber configurado "
+"equivocadamente una\n"
+"    llave de activación establecida como universal predeterminada. Si la "
+"llave de activación está establecida\n"
+"    en la cuenta como universal predeterminada, puede desactivarla y volver "
+"a intentar para evitar\n"
 "    que se le solicite un derecho administrativo."
 
 #: ../src/firstboot/rhn_choose_server_gui.py:40 ../data/rh_register.glade.h:43
@@ -1553,7 +1578,8 @@ msgid "There was a communication error with the server: %s"
 msgstr "Se produjo un error en la comunicación con el servidor: %s"
 
 #: ../src/firstboot/rhn_login_gui.py:106
-msgid "Would you like to try changing the network configuration and trying again?"
+msgid ""
+"Would you like to try changing the network configuration and trying again?"
 msgstr "¿Quiere probar cambiar la configuración de la red y reintentar?"
 
 #: ../src/firstboot/rhn_provide_certificate_gui.py:40
@@ -1625,14 +1651,17 @@ msgid "Specify an activation key"
 msgstr "Especifique una llave de activación"
 
 #: ../src/bin/rhnreg_ks.py:58
-msgid "Subscribe this system to the EUS channel tied to the system's redhat-release"
-msgstr "Suscriba este sistema al canal EUS ligado al lanzamiento de redhat del sistema"
+msgid ""
+"Subscribe this system to the EUS channel tied to the system's redhat-release"
+msgstr ""
+"Suscriba este sistema al canal EUS ligado al lanzamiento de redhat del "
+"sistema"
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid "[Deprecated] Read contact info from stdin"
 msgstr ""
-"[Descontinuado] Lea la información de contacto desde stdin"
-"Leer la información de contacto desde stdin "
+"[Descontinuado] Lea la información de contacto desde stdinLeer la "
+"información de contacto desde stdin "
 
 #: ../src/bin/rhnreg_ks.py:62
 msgid "Do not probe or upload any hardware info"
@@ -1656,7 +1685,8 @@ msgstr "Registre el sistema incluso si ya ha sido registrado"
 
 #: ../src/bin/rhnreg_ks.py:80
 msgid "A username and password are required to register a system."
-msgstr "Se necesita un nombre de usuario y una contraseña para registrar un sistema."
+msgstr ""
+"Se necesita un nombre de usuario y una contraseña para registrar un sistema."
 
 #: ../src/bin/rhnreg_ks.py:85
 msgid "This system is already registered. Use --force to override"
@@ -1678,7 +1708,10 @@ msgstr "El servidor al cual está intentando registrarse no soporta EUS."
 msgid ""
 "Warning: --contactinfo option has been deprecated. Please login to the "
 "server web user Interface and update your contactinfo. "
-msgstr "Advertencia: la opción --contactinfo ha sido depreciada. Por favor ingrese a la interfaz de usuario de servidor de web y actualice su información de contacto."
+msgstr ""
+"Advertencia: la opción --contactinfo ha sido depreciada. Por favor ingrese a "
+"la interfaz de usuario de servidor de web y actualice su información de "
+"contacto."
 
 #: ../src/bin/rhnreg_ks.py:192
 msgid ""
@@ -1773,15 +1806,18 @@ msgid ""
 "<b>Tip:</b> Minor releases with a '*' are currently fully supported by Red "
 "Hat."
 msgstr ""
-"<b>Consejo:</b> Actualmente, los lanzamientos menores con un '*' son soportados totalmente por Red "
-"Hat."
+"<b>Consejo:</b> Actualmente, los lanzamientos menores con un '*' son "
+"soportados totalmente por Red Hat."
 
 #: ../data/rh_register.glade.h:14
 msgid ""
 "<b>Warning:</b> You will <b>not</b> be able to limit this system to a minor "
 "release that is older than the most recent minor release if you select this "
 "option."
-msgstr "<b>Advertencia: Al seleccionar esta opción </b> usted <b>no</b> podrá limitar este sistema a un lanzamiento que es anterior al lanzamiento menor más reciente."
+msgstr ""
+"<b>Advertencia: Al seleccionar esta opción </b> usted <b>no</b> podrá "
+"limitar este sistema a un lanzamiento que es anterior al lanzamiento menor "
+"más reciente."
 
 #: ../data/rh_register.glade.h:15
 msgid ""
@@ -1795,7 +1831,9 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:16
 msgid "<b>Your system was registered for updates during installation.</b>"
-msgstr "<b>Su sistema fue registrado para obtener actualizaciones durante la instalación.</b>"
+msgstr ""
+"<b>Su sistema fue registrado para obtener actualizaciones durante la "
+"instalación.</b>"
 
 #: ../data/rh_register.glade.h:17
 msgid ""
@@ -1803,18 +1841,26 @@ msgid ""
 "if kept updated, will always be equivalent to the latest available minor "
 "release of Red Hat Enterprise Linux 5.  It will be registered to the main "
 "'Red Hat Enterprise Linux 5' software channel."
-msgstr "<b>Todas las _actualizaciones disponibles</b> serán provistas a este sistema. Si se mantiene actualizado, este sistema, siempre será equivalente al lanzamiento menor más reciente de Red Hat Enterprise Linux 5. Siempre estará registrado al canal de software de 'Red Hat Enterprise Linux 5'."
+msgstr ""
+"<b>Todas las _actualizaciones disponibles</b> serán provistas a este "
+"sistema. Si se mantiene actualizado, este sistema, siempre será equivalente "
+"al lanzamiento menor más reciente de Red Hat Enterprise Linux 5. Siempre "
+"estará registrado al canal de software de 'Red Hat Enterprise Linux 5'."
 
 #: ../data/rh_register.glade.h:18
 msgid ""
 "<b>_Limited updates</b> will be provided to this system to maintain "
 "compatibility with the following eligible Red Hat Enterprise Linux minor "
 "release software channel:"
-msgstr "<b>Actualizaciones _limitadas</b> serán proporcionadas a este sistema para mantener compatibilidad con el siguiente lanzamiento menor de canal de software de Red Hat Enterprise Linux:"
+msgstr ""
+"<b>Actualizaciones _limitadas</b> serán proporcionadas a este sistema para "
+"mantener compatibilidad con el siguiente lanzamiento menor de canal de "
+"software de Red Hat Enterprise Linux:"
 
 #: ../data/rh_register.glade.h:19
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
-msgstr "<big><b>El desplazamiento a lanzamientos anteriores no será posible</b></big>"
+msgstr ""
+"<big><b>El desplazamiento a lanzamientos anteriores no será posible</b></big>"
 
 #: ../data/rh_register.glade.h:20
 msgid "<big><b>Profile Data</b></big>"
@@ -1841,8 +1887,8 @@ msgid ""
 "<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
 "privacy_statement.html.</small>"
 msgstr ""
-"<small><b>Consejo:</b> Red Hat valora su privacidad: http://www.redhat.com/legal/"
-"privacy_statement.html.</small>"
+"<small><b>Consejo:</b> Red Hat valora su privacidad: http://www.redhat.com/"
+"legal/privacy_statement.html.</small>"
 
 #: ../data/rh_register.glade.h:26
 msgid ""
@@ -1878,8 +1924,10 @@ msgstr ""
 "(incluyendo su login y contraseña) sean seguros."
 
 #: ../data/rh_register.glade.h:34
-msgid "Activate a previously purchased subscription you have not yet activated."
-msgstr "Activar una suscripción comprada previamente y que no haya sido activada."
+msgid ""
+"Activate a previously purchased subscription you have not yet activated."
+msgstr ""
+"Activar una suscripción comprada previamente y que no haya sido activada."
 
 #: ../data/rh_register.glade.h:35
 msgid "Advanced Network Configuration"
@@ -1960,8 +2008,8 @@ msgid ""
 "below:"
 msgstr ""
 "Tengo acceso a un <b>Red Hat Network Satellite</b> o <b>Red Hat Network "
-"Proxy</b>. Me gustaría recibir actualizaciones del Satélite o Proxy "
-"dado a continuación:"
+"Proxy</b>. Me gustaría recibir actualizaciones del Satélite o Proxy dado a "
+"continuación:"
 
 #: ../data/rh_register.glade.h:56
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
@@ -1976,8 +2024,8 @@ msgid ""
 "I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
 "access to a Red Hat Network Satellite or Proxy.)"
 msgstr ""
-"Me gustaría recibir actualizaciones desde <b>Red Hat Network</b>. (No "
-"tengo acceso a Red Hat Network Satellite o Proxy.)"
+"Me gustaría recibir actualizaciones desde <b>Red Hat Network</b>. (No tengo "
+"acceso a Red Hat Network Satellite o Proxy.)"
 
 #: ../data/rh_register.glade.h:59
 msgid "IP Address:"
@@ -2126,7 +2174,8 @@ msgstr "¿Para qué registrarse?"
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
-msgstr "¿Le gustaría registrar su sistema ahora? <b>(Altamente recomendado).</b>"
+msgstr ""
+"¿Le gustaría registrar su sistema ahora? <b>(Altamente recomendado).</b>"
 
 #: ../data/rh_register.glade.h:93
 msgid ""
@@ -2182,7 +2231,8 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:100
 msgid "Your system is not setup for software updates."
-msgstr "Su sistema no ha sido configurado para recibir actualizaciones de software."
+msgstr ""
+"Su sistema no ha sido configurado para recibir actualizaciones de software."
 
 #: ../data/rh_register.glade.h:101
 msgid ""
@@ -2225,7 +2275,10 @@ msgid ""
 "Your system will be subscribed to the base software channel.  You will not "
 "be able to move this system to an earlier minor release channel if you "
 "continue (you will be able to move to a later release.)"
-msgstr "Su sistema será suscrito al canal de software de base. No podrá desplazar este sistema a un canal de lanzamiento menor anterior si continúa (podrá desplazarse a un lanzamiento posterior.)"
+msgstr ""
+"Su sistema será suscrito al canal de software de base. No podrá desplazar "
+"este sistema a un canal de lanzamiento menor anterior si continúa (podrá "
+"desplazarse a un lanzamiento posterior.)"
 
 #: ../data/rh_register.glade.h:108
 msgid ""
@@ -2330,4 +2383,3 @@ msgstr "Registro a Spacewalk/Satellite/Red Hat Network."
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Registrarse a Spacewalk/Satellite/Red Hat Network."
-
