@@ -1984,36 +1984,6 @@ def do_system_applyerrata(self, args):
 
 ####################
 
-def help_system_createpackageprofile(self):
-    print 'system_createpackageprofile: Create a profile of ' + \
-          'the packages installed on this system'
-    print 'usage: system_createpackageprofile SYSTEM PROFILENAME'
-
-def complete_system_createpackageprofile(self, text, line, beg, end):
-    return tab_completer(self.get_system_names(), text)
-
-def do_system_createpackageprofile(self, args):
-    args = parse_arguments(args)
-
-    if len(args) < 2:
-        self.help_system_createpackageprofile()
-        return
-
-    system = args[0]
-    label = ' '.join(args[1:])
-
-    description = prompt_user('Description:')
-
-    system_id = self.get_system_id(system)
-    if not system_id: return
-
-    self.client.system.createPackageProfile(self.session,
-                                            system_id,
-                                            label,
-                                            description)
-
-####################
-
 def help_system_listevents(self):
     print 'system_listevents: List the event history for a system'
     print 'usage: system_listevents <SYSTEMS>'
@@ -2266,6 +2236,8 @@ def do_system_createpackageprofile(self, args):
                                                       system_id,
                                                       label,
                                                       description)
+
+    logging.info("Created package profile '%s'" % label)
 
 ####################
 
