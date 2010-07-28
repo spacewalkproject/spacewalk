@@ -473,7 +473,7 @@ public class ListTag extends BodyTagSupport {
             ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
                     ListTagUtil.makeParentIsAnElementLabel(uniqueName), parentIsElement));
             setupFilterUI();
-            if (filter != null && !isEmpty()) {
+            if (filter != null && manip.getUnfilteredDataSize() !=  0) {
                 ListTagUtil.renderFilterUI(pageContext, filter,
                             getUniqueName(), width, columnCount,
                             searchParent, searchChild);
