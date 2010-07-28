@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.3
+Version: 1.1.4
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -112,6 +112,10 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Wed Jul 28 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.4-1
+- build ConnectionURL from db_* values in rhn.conf
+- set java.library.path for search to be able to find oci library
+
 * Tue Jul 27 2010 Jan Pazdziora 1.1.3-1
 - hibernate.connection.url is now created dynamicaly from db_* variables
   (michael.mraka@redhat.com)
