@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.21
+Version:        1.1.22
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Jul 28 2010 Jan Pazdziora 1.1.22-1
+- The rhnContentSource.sql defines unique index and not constraint, we should
+  do the same in schema upgrade scripts.
+- Upgrade script for the number(12) -> number changes.
+- The return of rhn_prepare_install has to stay smallint.
+- Losen the NUMBER(12) to NUMBER, to have foreign keys happy on PostgreSQL,
+  while avoiding ORA-01440.
+- Revert "Revert "Revert "Fix numeric/smallint incompatible types in
+  PostgreSQL."""
+- Use the current rhn_channel.pkb in schema upgrade scripts as well.
+
 * Tue Jul 27 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.21-1
 - 618219 - more fixes
 
