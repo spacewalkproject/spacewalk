@@ -20,6 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+import shlex
 from spacecmd.utils import *
 
 def help_user_delete(self):
@@ -243,12 +244,13 @@ def help_user_addgroup(self):
     print 'usage: user_addgroup USER <GROUP ...>'
 
 def complete_user_addgroup(self, text, line, beg, end):
-    parts = line.split(' ')
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
     
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
-        return tab_completer(self.do_group_list('', True), text)
+        return tab_completer(self.do_group_list('', True), parts[-1])
 
 def do_user_addgroup(self, args):
     args = parse_arguments(args)
@@ -272,12 +274,13 @@ def help_user_adddefaultgroup(self):
     print 'usage: user_adddefaultgroup USER <GROUP ...>'
 
 def complete_user_adddefaultgroup(self, text, line, beg, end):
-    parts = line.split(' ')
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
     
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
-        return tab_completer(self.do_group_list('', True), text)
+        return tab_completer(self.do_group_list('', True), parts[-1])
 
 def do_user_adddefaultgroup(self, args):
     args = parse_arguments(args)
@@ -300,7 +303,8 @@ def help_user_removegroup(self):
     print 'usage: user_removegroup USER <GROUP ...>'
 
 def complete_user_removegroup(self, text, line, beg, end):
-    parts = line.split(' ')
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
     
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -308,7 +312,7 @@ def complete_user_removegroup(self, text, line, beg, end):
         # only list the groups currently assigned to this user
         groups = self.client.user.listAssignedSystemGroups(self.session, 
                                                            parts[1])
-        return tab_completer([ g.get('name') for g in groups ], text)
+        return tab_completer([ g.get('name') for g in groups ], parts[-1])
 
 def do_user_removegroup(self, args):
     args = parse_arguments(args)
@@ -333,7 +337,8 @@ def help_user_removedefaultgroup(self):
     print 'usage: user_removedefaultgroup USER <GROUP ...>'
 
 def complete_user_removedefaultgroup(self, text, line, beg, end):
-    parts = line.split(' ')
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
     
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
@@ -341,7 +346,7 @@ def complete_user_removedefaultgroup(self, text, line, beg, end):
         # only list the groups currently assigned to this user
         groups = self.client.user.listDefaultSystemGroups(self.session, 
                                                           parts[1])
-        return tab_completer([ g.get('name') for g in groups ], text)
+        return tab_completer([ g.get('name') for g in groups ], parts[-1])
 
 def do_user_removedefaultgroup(self, args):
     args = parse_arguments(args)

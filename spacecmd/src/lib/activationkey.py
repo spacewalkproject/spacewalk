@@ -20,7 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
-import re
+import re, shlex
 from spacecmd.utils import *
 
 def help_activationkey_addpackages(self):
@@ -86,13 +86,13 @@ def help_activationkey_addgroups(self):
     print 'usage: activationkey_addgroups KEY <GROUP ...>'
 
 def complete_activationkey_addgroups(self, text, line, beg, end):
-    parts = line.split(' ')
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
 
     if len(parts) == 2:
-        return tab_completer(self.do_activationkey_list('', True), 
-                                  text)
+        return tab_completer(self.do_activationkey_list('', True), text)
     elif len(parts) > 2:
-        return tab_completer(self.do_group_list('', True), text)
+        return tab_completer(self.do_group_list('', True), parts[-1])
 
 def do_activationkey_addgroups(self, args):
     args = parse_arguments(args)
@@ -117,14 +117,14 @@ def help_activationkey_removegroups(self):
     print 'usage: activationkey_removegroups KEY <GROUP ...>'
 
 def complete_activationkey_removegroups(self, text, line, beg, end):
-    parts = line.split(' ')
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
 
     if len(parts) == 2:
-        return tab_completer(self.do_activationkey_list('', True), 
-                                  text)
+        return tab_completer(self.do_activationkey_list('', True), text)
     elif len(parts) > 2:
         key_details = self.client.activationkey.getDetails(self.session, 
-                                                           parts[1])
+                                                           parts[-1])
 
         groups = []
         for group in key_details.get('server_group_ids'):
