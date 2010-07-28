@@ -19,6 +19,7 @@ import urlparse
 import rhnreg_constants
 import hardware
 from rhnPackageInfo import convertPackagesFromHashToList
+from types import ListType, TupleType, StringType, UnicodeType, DictType, DictionaryType
 
 try:
     from rhn import rpclib
@@ -438,7 +439,7 @@ def server_supports_eus():
 
 def sendHardware(systemId, hardwareList):
     s = rhnserver.RhnServer()
-    s.registration.add_hw_profile(systemId, hardwareList)
+    s.registration.add_hw_profile(systemId, _encode_characters(hardwareList))
    
 def sendPackages(systemId, packageList):
     s = rhnserver.RhnServer()
