@@ -349,6 +349,43 @@ def do_errata_delete(self, args):
 
 ####################
 
+def help_errata_publish(self):
+    print 'errata_publish: Publish an erratum to a channel'
+    print 'usage: errata_publish ERRATA|search:XXX <CHANNEL ...>'
+
+def complete_errata_publish(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) == 2:
+        return self.tab_complete_errata(text)
+    elif len(parts) > 2:
+        return tab_completer(self.do_softwarechannel_list('', True), text)
+
+def do_errata_publish(self, args):
+    args = parse_arguments(args)
+
+    if len(args) < 2:
+        self.help_errata_publish()
+        return
+
+    # allow globbing and searching via arguments
+    errata = self.expand_errata(args[0])
+
+    channels = args[1:]
+
+    if not len(errata):
+        logging.warning('No errata to publish')
+        return
+
+    print '\n'.join(sorted(errata))
+
+    if not self.user_confirm('Publish these errata [y/N]:'): return
+
+    for erratum in errata:
+        self.client.errata.publish(self.session, erratum, channels)
+
+####################
+
 def help_errata_search(self):
     print 'errata_search: List errata that meet the given criteria'
     print 'usage: errata_search CVE|RHSA|RHBA|RHEA|CLA ...'
