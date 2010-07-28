@@ -512,131 +512,89 @@ def do_softwarechannel_removepackages(self, args):
 
 ####################
 
-def help_softwarechannel_adderratabydate(self):
-    print 'softwarechannel_adderratabydate: Add errata from one channel ' + \
-          'into another channel based on a date range'
-    print 'usage: softwarechannel_adderratabydate SOURCE DEST BEGINDATE ENDDATE'
-
-def complete_softwarechannel_adderratabydate(self, text, line, beg, end):
-    parts = line.split(' ')
-
-    if len(parts) <= 3:
-        return tab_completer(self.do_softwarechannel_list('', True), 
-                                  text)
-
-def do_softwarechannel_adderratabydate(self, args):
-    args = parse_arguments(args)
-
-    if len(args) != 4:
-        self.help_softwarechannel_adderratabydate()
-        return
-
-    source_channel = args[0]
-    dest_channel = args[1]
-    begin_date = args[2]
-    end_date = args[3]
-
-    if not re.match('\d{8}', begin_date):
-        logging.error('%s is an invalid date' % begin_date)
-        return
-
-    if not re.match('\d{8}', end_date):
-        logging.error('%s is an invalid date' % end_date)
-        return
-
-    # get the errata that are in the given date range
-    logging.debug('Retrieving list of errata from source channel') 
-    errata = \
-        self.client.channel.software.listErrata(self.session,
-                                                source_channel,
-                                                parse_time_input(begin_date),
-                                                parse_time_input(end_date))
-
-    if not len(errata):
-        logging.warning('No errata found between the given dates')
-        return
-
-    # call adderrata with the list of errata from the date range
-    return self.do_softwarechannel_adderrata('%s %s %s' % (
-                                             source_channel, 
-                                             dest_channel, 
-                ' '.join([ e.get('advisory_name') for e in errata ])))
-
-####################
-
 def help_softwarechannel_adderrata(self):
     print 'softwarechannel_adderrata: Add errata from one channel ' + \
           'into another channel'
-    print 'usage: softwarechannel_adderrata SOURCE DEST <ERRATA:search:XXX ...>'
+    print 'usage: softwarechannel_adderrata SOURCE DEST [BEGINDATE] [ENDDATE]'
 
 def complete_softwarechannel_adderrata(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) <= 3:
         return tab_completer(self.do_softwarechannel_list('', True), text)
-    elif len(parts) > 3:
-        return self.tab_complete_errata(text)
 
 def do_softwarechannel_adderrata(self, args):
     args = parse_arguments(args)
 
-    if len(args) < 3:
+    if len(args) < 2:
         self.help_softwarechannel_adderrata()
         return
 
     source_channel = args[0]
     dest_channel = args[1]
-    errata_wanted = self.expand_errata(args[2:])
 
-    logging.debug('Retrieving the list of errata from source channel') 
-    source_errata = self.client.channel.software.listErrata(self.session,
-                                                            source_channel)
+    if len(args) >= 3:
+        begin_date = parse_time_input(args[2])
+        if not begin_date: return
+    else:
+        begin_date = None
 
-    errata = filter_results([ e.get('advisory_name') for e in source_errata ],
-                            errata_wanted)
+    if len(args) == 4:
+        end_date = parse_time_input(args[3])
+        if not end_date: return
+    else:
+        end_date = parse_time_input('now')
 
-    # get the packages that resolve these errata so we can add them
-    # to the channel afterwards
-    package_ids = []
-    for erratum in errata:
-        logging.debug('Retrieving packages for errata %s' % erratum)
+    logging.debug('Retrieving the list of errata from %s' % source_channel)
 
-        # get the packages affected by this errata
-        packages = self.client.errata.listPackages(self.session, erratum)
+    if begin_date:
+        source_errata = self.client.channel.software.listErrata(self.session,
+                                                                source_channel,
+                                                                begin_date,
+                                                                end_date)
+    else:
+        source_errata = self.client.channel.software.listErrata(self.session,
+                                                                source_channel)
 
-        # only add packages that exist in the source channel
-        for package in packages:
-            if source_channel in package.get('providing_channels'):
-                package_ids.append(package.get('id'))
+    logging.debug('Retrieving the list of errata from %s' % dest_channel)
+    dest_errata = self.client.channel.software.listErrata(self.session,
+                                                          dest_channel)
 
-    if not len(errata):
-        logging.warning('No errata to add')
+    dest_errata_names = [ e.get('advisory_name') for e in dest_errata ]
+
+    # generate a list of errata likely to be merged by the API call
+    likely = []
+    for erratum in source_errata:
+        if erratum.get('advisory_name') not in dest_errata_names:
+            likely.append(erratum)
+
+    if len(likely):
+        print_errata_list(likely)
+    else:
+        logging.warning('No errata to add to the channel')
         return
 
-    print 'Errata'
-    print '------'
-    print '\n'.join(sorted(errata))
-
     print
-    print 'Packages'
-    print '--------'
-    print '\n'.join(sorted([ self.get_package_name(p) for p in package_ids ]))
+    print 'Total Errata: %i' % len(likely)
 
-    print
-    print 'Total Errata:   %s' % str(len(errata)).rjust(3)
-    print 'Total Packages: %s' % str(len(package_ids)).rjust(3)
-
-    if not self.user_confirm('Add these errata and packages [y/N]:'): return
+    if not self.user_confirm('Add these errata [y/N]:'): return
 
     # add the errata to the destination channel
-    logging.debug('Cloning errata into %s' % dest_channel)
-    self.client.errata.clone(self.session, dest_channel, errata)
+    logging.debug('Adding errata to %s' % dest_channel)
 
-    # add the affected packages to the channel
-    logging.debug('Adding required packages to %s' % dest_channel)
-    self.client.channel.software.addPackages(self.session,
-                                             dest_channel,
-                                             package_ids)
+    if begin_date:
+        added = self.client.channel.software.mergeErrata(self.session,
+                                                         source_channel,
+                                                         dest_channel,
+                                                         begin_date,
+                                                         end_date)
+    else:
+        added = self.client.channel.software.mergeErrata(self.session,
+                                                         source_channel,
+                                                         dest_channel)
+
+    logging.info('The following errata were added to the channel:')
+    print_errata_list(added)
 
     # regenerate the errata cache since we just cloned errata
     self.generate_errata_cache(True)
