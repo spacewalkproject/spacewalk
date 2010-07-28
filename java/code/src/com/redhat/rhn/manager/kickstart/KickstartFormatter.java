@@ -96,9 +96,9 @@ public class KickstartFormatter {
         NEWLINE + "echo >> /etc/motd" + NEWLINE + NEWLINE +
         "# end of generated kickstart file";
     private static final String BEGINRHN = "%post --logfile " +
-		"/mnt/sysimage/root/ks-rhn-post.log" + NEWLINE +
-    "# --Begin " + Config.get().getString("web.product_name") +
-    " command section--\n";
+       "/mnt/sysimage/root/ks-rhn-post.log" + NEWLINE +
+       "# --Begin " + Config.get().getString("web.product_name") +
+       " command section--\n";
     private static final String SAVE_KS_CFG = "cp `awk '{ if ($1 ~ /%include/) " +
         "{print $2}}' /tmp/ks.cfg` /tmp/ks.cfg /mnt/sysimage/root";
 
