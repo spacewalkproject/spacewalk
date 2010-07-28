@@ -60,6 +60,12 @@ public class DatabaseManager {
             reader = new FileReader(configPath);
         }
         Properties overrides = config.getNamespaceProperties("search");
+
+        String[] options = {"db_name", "db_password", "db_user"};
+        for (String option : options) {
+            overrides.setProperty(option, config.getString(option));
+        }
+
         client = SqlMapClientBuilder.buildSqlMapClient(reader, overrides);
     }
 

@@ -34,9 +34,7 @@ public class HibernateToSearchTranslator implements KeyTranslator {
      * {@inheritDoc}
      */
     public boolean shouldTranslate(String key) {
-        return (key.equals("hibernate.connection.username") || 
-                key.equals("hibernate.connection.password") ||
-                key.equals("hibernate.connection.driver_class") ||
-                key.equals("hibernate.connection.url"));
+        return (key.equals("hibernate.connection.driver_class") ||
+                key.equals("hibernate.connection.driver_proto"));
     }
 }
