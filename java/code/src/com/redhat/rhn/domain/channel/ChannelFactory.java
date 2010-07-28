@@ -673,9 +673,8 @@ public class ChannelFactory extends HibernateFactory {
     public static List getChannelPackageWithErrata(Channel chan, Collection<Long> eids) {
         Map params = new HashMap();
         params.put("cid", chan.getId());
-        params.put("eids", eids);
         return singleton.listObjectsByNamedQuery(
-                "Channel.packageInChannelAndErrata", params);
+                "Channel.packageInChannelAndErrata", params, eids, "eids");
 
     }
 
