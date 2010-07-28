@@ -245,7 +245,7 @@ def do_login(self, args):
 
             self.client.user.listUsers(self.session)
         except:
-            logging.debug('Cached credentials are invalid')
+            logging.warning('Cached credentials are invalid')
             username = ''
             self.session = ''
 
