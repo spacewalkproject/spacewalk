@@ -249,11 +249,6 @@ def help_report_duplicates(self):
     print 'usage: report_duplicates'
 
 def do_report_duplicates(self, args):
-    dupes_by_ip = self.client.system.listDuplicatesByIp(self.session)
-    dupes_by_mac = self.client.system.listDuplicatesByMac(self.session)
-    dupes_by_hostname = \
-        self.client.system.listDuplicatesByHostname(self.session)
-
     add_separator = False
 
     dupes_by_profile = []
@@ -270,6 +265,11 @@ def do_report_duplicates(self, args):
         print '\n'.join(sorted(dupes_by_profile))
 
     if self.check_api_version('10.11'):
+        dupes_by_ip = self.client.system.listDuplicatesByIp(self.session)
+        dupes_by_mac = self.client.system.listDuplicatesByMac(self.session)
+        dupes_by_hostname = \
+            self.client.system.listDuplicatesByHostname(self.session)
+
         if len(dupes_by_ip):
             if add_separator: print self.SEPARATOR
             add_separator = True
