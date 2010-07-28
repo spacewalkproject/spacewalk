@@ -74,6 +74,10 @@ public class ErrataFactory extends HibernateFactory {
     public static final String ERRATA_TYPE_ENHANCEMENT = "Product Enhancement Advisory";
     public static final String ERRATA_TYPE_SECURITY = "Security Advisory";
 
+    public static final String ERRATA_TYPE_SECURITY_CRIT = "Security Advisory (Critical)";
+    public static final String ERRATA_TYPE_SECURITY_IMP = "Security Advisory (Important)";
+    public static final String ERRATA_TYPE_SECURITY_MOD = "Security Advisory (Moderate)";
+    public static final String ERRATA_TYPE_SECURITY_LOW = "Security Advisory (Low)";
 
     private ErrataFactory() {
         super();
@@ -626,6 +630,30 @@ public class ErrataFactory extends HibernateFactory {
             session = HibernateFactory.getSession();
             retval = session.getNamedQuery("PublishedErrata.findByAdvisoryType")
                                            .setString("type", advisoryType)
+                                           //Retrieve from cache if there
+                                           .setCacheable(true).list();
+        }
+        catch (HibernateException he) {
+            log.error("Error loading ActionArchTypes from DB", he);
+            throw new
+                HibernateRuntimeException("Error loading ActionArchTypes from db");
+        }
+        return retval;
+    }
+
+    /*
+     * Lookup a Security Errata by the synopsis string
+     * @param synopsis to search for
+     * @return the Errata found
+     */
+    public static List lookupErratasBySynopsis(String synopsis) {
+        Session session = null;
+        List retval = null;
+        try {
+            session = HibernateFactory.getSession();
+            retval = session.getNamedQuery("PublishedErrata.findSecurityBySynopsis")
+                                           .setString("type", ERRATA_TYPE_SECURITY)
+                                           .setString("synopsis", synopsis)
                                            //Retrieve from cache if there
                                            .setCacheable(true).list();
         }

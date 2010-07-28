@@ -738,6 +738,15 @@ public class ErrataManager extends BaseManager {
     }
 
     /**
+     * Lookup all Security Errata by synopsis
+     * @param synopsis the synopsis to use to query the set of Errata
+     * @return List of Errata found
+     */
+    public static List lookupErrataBySynopsis(String synopsis) {
+        return ErrataFactory.lookupErratasBySynopsis(synopsis);
+    }
+
+    /**
      * Looks up published errata by errata id
      * @param id errata id
      * @return Errata if found, otherwise null
@@ -892,6 +901,25 @@ public class ErrataManager extends BaseManager {
         advTypes.add(ls.getMessage("errata.create.productenhancementadvisory",
                      LocalizationService.DEFAULT_LOCALE));
         advTypes.add(ls.getMessage("errata.create.securityadvisory",
+                     LocalizationService.DEFAULT_LOCALE));
+        return advTypes;
+    }
+
+    /**
+     * Returns a list of advisory types available for an errata
+     * (exclusive to System Currency page)
+     * @return advisory types
+     */
+    public static List<String> currencyAdvisoryTypes() {
+        List<String> advTypes = new ArrayList<String>();
+        LocalizationService ls = LocalizationService.getInstance();
+        advTypes.add(ls.getMessage("errata.create.securityadvisory.crit",
+                     LocalizationService.DEFAULT_LOCALE));
+        advTypes.add(ls.getMessage("errata.create.securityadvisory.imp",
+                     LocalizationService.DEFAULT_LOCALE));
+        advTypes.add(ls.getMessage("errata.create.securityadvisory.mod",
+                     LocalizationService.DEFAULT_LOCALE));
+        advTypes.add(ls.getMessage("errata.create.securityadvisory.low",
                      LocalizationService.DEFAULT_LOCALE));
         return advTypes;
     }

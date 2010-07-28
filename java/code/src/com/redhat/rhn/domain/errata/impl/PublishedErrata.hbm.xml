@@ -85,6 +85,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                 where e.advisoryType = :type]]>
     </query>
+    <query name="PublishedErrata.findSecurityBySynopsis">
+        <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
+                where e.advisoryType = :type
+                and   substr(e.synopsis, 1, 1) = :synopsis]]>
+    </query>
     <query name="PublishedErrata.findById">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                 where e.id = :id]]>

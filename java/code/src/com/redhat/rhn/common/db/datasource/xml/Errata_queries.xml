@@ -214,6 +214,26 @@ ORDER BY E.update_date DESC, E.id
   </query>
 </mode>
 
+<mode name="security_relevant_to_system_by_synopsis" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+  <query params="user_id, sid, type, synopsis">
+SELECT DISTINCT E.id, E.update_date,
+                        E.synopsis AS ADVISORY_SYNOPSIS,
+            E.advisory_name AS ADVISORY_NAME,
+            E.advisory_type AS ADVISORY_TYPE,
+                        :sid as ASSOCIATED_SYSTEM
+  FROM rhnErrata E,
+       rhnServerNeededErrataCache SNEC
+ WHERE EXISTS (SELECT server_id FROM rhnUserServerPerms USP
+                               WHERE USP.user_id = :user_id
+                                 AND USP.server_id = :sid)
+   AND SNEC.server_id = :sid
+   AND SNEC.errata_id = E.id
+   AND E.advisory_type = :type
+   AND substr(E.synopsis, 1, 1) = :synopsis
+ORDER BY E.update_date DESC, E.id
+  </query>
+</mode>
+
 <mode name="relevant_to_system_sorted_by_priority">
   <query params="user_id, sid">
 SELECT E.synopsis AS ERRATA_SYNOPSIS, E.advisory_type

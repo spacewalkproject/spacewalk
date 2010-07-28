@@ -55,18 +55,20 @@
 		           sortattr="created"
 		           defaultsort="desc">
                            <c:choose>
-                               <c:when test="${current.critical >= 10}">
-                               <font color="red">
-                               </c:when>
-                               <c:when test="${current.critical >= 5}">
-                               <font color="orange">
-                               </c:when>
+                             <c:when test="${current.critical > 0}">
+                               <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.crit')}">${current.critical}</a>
+                             </c:when>
+                             <c:otherwise>
+                               ${current.critical}
+                             </c:otherwise>
                            </c:choose>
-			       ${current.critical}
                            <c:choose>
-                               <c:when test="${current.critical >= 5}">
-                               </font>
-                               </c:when>
+                             <c:when test="${current.critical >= 10}">
+                               <img height="10%" width="10%" src="/img/icon_crit_update.gif"/>
+                             </c:when>
+                             <c:when test="${current.critical >= 5}">
+                               <img height="10%" width="10%" src="/img/rhn-icon-warning.gif"/>
+                             </c:when>
                            </c:choose>
 		</rl:column>
 		<!-- Important Errata Column -->
@@ -76,18 +78,20 @@
 		           sortattr="created"
 		           defaultsort="desc">
                            <c:choose>
-                               <c:when test="${current.important >= 15}">
-                               <font color="red">
-                               </c:when>
-                               <c:when test="${current.important >= 10}">
-                               <font color="orange">
-                               </c:when>
-                           </c:choose>
+                             <c:when test="${current.important > 0}">
+                               <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.imp')}">${current.important}</a>
+                             </c:when>
+                             <c:otherwise>
                                ${current.important}
+                             </c:otherwise>
+                           </c:choose>
                            <c:choose>
-                               <c:when test="${current.important >= 10}">
-                               </font>
-                               </c:when>
+                             <c:when test="${current.important >= 15}">
+                               <img height="10%" width="10%" src="/img/icon_crit_update.gif"/>
+                             </c:when>
+                             <c:when test="${current.important >= 10}">
+                               <img height="10%" width="10%" src="/img/rhn-icon-warning.gif"/>
+                             </c:when>
                            </c:choose>
 		</rl:column>
 		<!-- Moderate Errata Column -->
@@ -97,18 +101,20 @@
 		           sortattr="created"
 		           defaultsort="desc">
                            <c:choose>
-                               <c:when test="${current.moderate >= 20}">
-                               <font color="red">
-                               </c:when>
-                               <c:when test="${current.moderate >= 15}">
-                               <font color="orange">
-                               </c:when>
-                           </c:choose>
+                             <c:when test="${current.moderate > 0}">
+                               <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.mod')}">${current.moderate}</a>
+                             </c:when>
+                             <c:otherwise>
                                ${current.moderate}
+                             </c:otherwise>
+                           </c:choose>
                            <c:choose>
-                               <c:when test="${current.moderate >= 15}">
-                               </font>
-                               </c:when>
+                             <c:when test="${current.moderate >= 20}">
+                               <img height="10%" width="10%" src="/img/icon_crit_update.gif"/>
+                             </c:when>
+                             <c:when test="${current.moderate >= 15}">
+                               <img height="10%" width="10%" src="/img/rhn-icon-warning.gif"/>
+                             </c:when>
                            </c:choose>
 		</rl:column>
 		<!-- Low Errata Column -->
@@ -118,18 +124,20 @@
 		           sortattr="created"
 		           defaultsort="desc">
                            <c:choose>
-                               <c:when test="${current.low >= 25}">
-                               <font color="red">
-                               </c:when>
-                               <c:when test="${current.low >= 20}">
-                               <font color="orange">
-                               </c:when>
+                             <c:when test="${current.low > 0}">
+                               <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.securityadvisory.low')}">${current.low}</a>
+                             </c:when>
+                             <c:otherwise>
+                               ${current.low}
+                             </c:otherwise>
                            </c:choose>
-			      ${current.low}
                            <c:choose>
-                               <c:when test="${current.low >= 20}">
-                               </font>
-                               </c:when>
+                             <c:when test="${current.low >= 25}">
+                               <img height="10%" width="10%" src="/img/icon_crit_update.gif"/>
+                             </c:when>
+                             <c:when test="${current.low >= 20}">
+                               <img height="10%" width="10%" src="/img/rhn-icon-warning.gif"/>
+                             </c:when>
                            </c:choose>
 		</rl:column>
 		<!-- Bugfix Errata Column -->
@@ -138,7 +146,14 @@
 		           headerkey="systemcurrency.jsp.bug"
 		           sortattr="created"
 		           defaultsort="desc">
-			  ${current.bug}
+                           <c:choose>
+                             <c:when test="${current.bug > 0}">
+                               <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.bugfixadvisory')}">${current.bug}</a>
+                             </c:when>
+                             <c:otherwise>
+                               ${current.bug}
+                             </c:otherwise>
+                           </c:choose>
 		</rl:column>
 		<!-- Enhancement Errata Column -->
 		<rl:column sortable="true"
@@ -146,7 +161,14 @@
 		           headerkey="systemcurrency.jsp.enhancement"
 		           sortattr="created"
 		           defaultsort="desc">
-			  ${current.enhancement}
+                           <c:choose>
+                             <c:when test="${current.enhancement > 0}">
+                               <a href="/rhn/systems/details/ErrataList.do?sid=${current.id}&type=${rhn:localize('errata.create.productenhancementadvisory')}">${current.enhancement}</a>
+                             </c:when>
+                             <c:otherwise>
+                               ${current.enhancement}
+                             </c:otherwise>
+                           </c:choose>
 		</rl:column>
 		<!-- Score Column -->
 		<rl:column sortable="true"

@@ -59,6 +59,12 @@ public class ErrataSetupAction extends RhnAction implements Listable {
     public static final String BUGFIX = "errata.create.bugfixadvisory";
     public static final String ENHANCE = "errata.create.productenhancementadvisory";
 
+    // Used by System Currency page
+    public static final String SECUR_CRIT = "errata.create.securityadvisory.crit";
+    public static final String SECUR_IMP = "errata.create.securityadvisory.imp";
+    public static final String SECUR_MOD = "errata.create.securityadvisory.mod";
+    public static final String SECUR_LOW = "errata.create.securityadvisory.low";
+
     public static final String SELECTOR = "type";
 
 
@@ -239,10 +245,13 @@ public class ErrataSetupAction extends RhnAction implements Listable {
          User user = context.getLoggedInUser();
          Long sid = context.getRequiredParam("sid");
          String type = context.getParam(SELECTOR, false);
+         String synopsis = "";
+         Boolean currency = false;
 
          LocalizationService ls = LocalizationService.getInstance();
 
          List<String> typeList = new ArrayList<String>();
+         String eType = new String();
 
          if (ls.getMessage(BUGFIX).equals(type)) {
              typeList.add(ErrataFactory.ERRATA_TYPE_BUG);
@@ -257,13 +266,37 @@ public class ErrataSetupAction extends RhnAction implements Listable {
              typeList.add(ErrataFactory.ERRATA_TYPE_BUG);
              typeList.add(ErrataFactory.ERRATA_TYPE_ENHANCEMENT);
          }
-         else {
+         else if (ls.getMessage(SECUR_CRIT).equals(type)) {
+             eType = ErrataFactory.ERRATA_TYPE_SECURITY;
+             synopsis = "C";
+             currency = true;
+         }
+         else if (ls.getMessage(SECUR_IMP).equals(type)) {
+             eType = ErrataFactory.ERRATA_TYPE_SECURITY;
+             synopsis = "I";
+             currency = true;
+         }
+         else if (ls.getMessage(SECUR_MOD).equals(type)) {
+             eType = ErrataFactory.ERRATA_TYPE_SECURITY;
+             synopsis = "M";
+             currency = true;
+         }
+         else if (ls.getMessage(SECUR_LOW).equals(type)) {
+             eType = ErrataFactory.ERRATA_TYPE_SECURITY;
+             synopsis = "L";
+             currency = true;
+         }
+         else { // ALL
              typeList.add(ErrataFactory.ERRATA_TYPE_BUG);
              typeList.add(ErrataFactory.ERRATA_TYPE_ENHANCEMENT);
              typeList.add(ErrataFactory.ERRATA_TYPE_SECURITY);
          }
 
-        return SystemManager.relevantErrata(user, sid, typeList);
+        if (currency) {
+            return SystemManager.relevantCurrencyErrata(user, sid, eType, synopsis);
+        } else {
+            return SystemManager.relevantErrata(user, sid, typeList);
+        }
     }
 
 }

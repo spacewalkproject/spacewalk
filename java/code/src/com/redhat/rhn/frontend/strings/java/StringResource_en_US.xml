@@ -2650,6 +2650,34 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
 
+      <trans-unit id="errata.create.securityadvisory.crit">
+<source>Security Advisory (Critical)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Create.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="errata.create.securityadvisory.imp">
+<source>Security Advisory (Important)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Create.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="errata.create.securityadvisory.mod">
+<source>Security Advisory (Moderate)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Create.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="errata.create.securityadvisory.low">
+<source>Security Advisory (Low)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Create.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="errata.search.could_not_execute_query">
 <source>Could not execute query: {0}</source>
         <context-group name="ctx">

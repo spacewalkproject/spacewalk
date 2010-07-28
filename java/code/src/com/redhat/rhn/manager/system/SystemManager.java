@@ -791,6 +791,33 @@ public class SystemManager extends BaseManager {
         return dr;
     }
 
+    /**
+     * Returns a list of errata relevant to a system
+     * @param user The user
+     * @param sid System Id
+     * @param types of errata types (strings) to include
+     * @return a list of ErrataOverviews
+     */
+    public static DataResult<ErrataOverview> relevantCurrencyErrata(User user,
+                                               Long sid, String type,
+                                               String synopsis) {
+        SelectMode m = ModeFactory.getMode("Errata_queries",
+                 "security_relevant_to_system_by_synopsis");
+
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sid", sid);
+        params.put("type", type);
+        params.put("synopsis", synopsis);
+
+        Map elabParams = new HashMap();
+        elabParams.put("sid", sid);
+        elabParams.put("user_id", user.getId());
+
+        DataResult<ErrataOverview> dr =  m.execute(params);
+        dr.setElaborationParams(elabParams);
+        return dr;
+    }
 
     /**
      * Returns a list of errata relevant to a system by type
