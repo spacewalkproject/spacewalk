@@ -1196,7 +1196,6 @@ def do_system_delete(self, args):
     # get the system ID for each system
     for system in systems:
         system_id = self.get_system_id(system)
-        print system_id
         if not system_id: return
 
         system_ids.append(system_id)
