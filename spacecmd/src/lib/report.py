@@ -242,4 +242,77 @@ def do_report_kernels(self, args):
         for system in sorted(report):
             print '%s  %s' % (system.ljust(system_max_size), report[system])
 
+####################
+
+def help_report_duplicates(self):
+    print 'report_duplicates: List duplicate system profiles'
+    print 'usage: report_duplicates'
+
+def do_report_duplicates(self, args):
+    dupes_by_ip = self.client.system.listDuplicatesByIp(self.session)
+    dupes_by_mac = self.client.system.listDuplicatesByMac(self.session)
+    dupes_by_hostname = \
+        self.client.system.listDuplicatesByHostname(self.session)
+
+    add_separator = False
+
+    dupes_by_profile = []
+    for system in self.get_system_names():
+        if self.get_system_names().count(system) > 1:
+            if system not in dupes_by_profile:
+                dupes_by_profile.append(system)
+
+    if len(dupes_by_profile):
+        add_separator = True
+
+        print 'Duplicate Profile Names'
+        print '-----------------------'
+        print '\n'.join(sorted(dupes_by_profile))
+
+    if self.check_api_version('10.11'):
+        if len(dupes_by_ip):
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print 'Duplicate IP Addresses'
+            print '----------------------'
+
+            for item in dupes_by_ip:
+                print
+                print '%s:' % item.get('ip')
+
+                for system in sorted(item.get('systems'),
+                                     key=itemgetter('systemName')):
+                    print system.get('systemName')
+
+        if len(dupes_by_mac):
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print 'Duplicate MAC Addresses'
+            print '-----------------------'
+
+            for item in dupes_by_mac:
+                print
+                print '%s:' % item.get('mac').upper()
+
+                for system in sorted(item.get('systems'),
+                                     key=itemgetter('systemName')):
+                    print system.get('systemName')
+
+        if len(dupes_by_hostname):
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print 'Duplicate Hostnames'
+            print '-------------------'
+
+            for item in dupes_by_hostname:
+                print
+                print '%s:' % item.get('hostname')
+
+                for system in sorted(item.get('systems'),
+                                     key=itemgetter('systemName')):
+                    print system.get('systemName')
+
 # vim:ts=4:expandtab:
