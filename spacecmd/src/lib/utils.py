@@ -20,7 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
-import logging, os, pickle, re, readline, sys, time, xmlrpclib
+import logging, os, pickle, re, readline, shlex, sys, time, xmlrpclib
 from datetime import datetime, timedelta
 from tempfile import mkstemp
 from textwrap import wrap
@@ -29,7 +29,7 @@ __EDITORS = ['vim', 'vi', 'nano', 'emacs']
 
 def parse_arguments(args):
     try:
-        parts = args.split()
+        parts = shlex.split(args)
 
         # allow simple globbing
         parts = [re.sub('\*', '.*', a) for a in parts]
