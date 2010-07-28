@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.5.3
+Version:     0.5.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,39 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Jul 28 2010 Aron Parsons <aparsons@redhat.com> 0.5.4-1
+- simplified softwarechannel_adderrata (aparsons@redhat.com)
+- added new function errata_publish (aparsons@redhat.com)
+- support quoting of package profile names in tab completion
+  (aparsons@redhat.com)
+- remove old instance of system_createpackageprofile (aparsons@redhat.com)
+- only call the system.listDuplicates* functions if the API supports it
+  (aparsons@redhat.com)
+- support quoting of group names (aparsons@redhat.com)
+- support quoting of arguments (aparsons@redhat.com)
+- change the log level for warning that cached credentials are invalid
+  (aparsons@redhat.com)
+- added new functions system_deletepackageprofile and
+  system_listpackageprofiles (aparsons@redhat.com)
+- added new functions to create and compare package profiles
+  (aparsons@redhat.com)
+- added new function system_listduplicates (aparsons@redhat.com)
+- regenerate the errata cache after cloning errata (aparsons@redhat.com)
+- added new function errata_delete (aparsons@redhat.com)
+- list CVEs in errata_details (aparsons@redhat.com)
+- added new function errata_listcves (aparsons@redhat.com)
+- make system_installpackage use the new API system.listLatestAvailablePackage
+  (aparsons@redhat.com)
+- don't include archived actions in the default call of schedule_list
+  (aparsons@redhat.com)
+- significant improvement to the performance of schedule_list* functions
+  (aparsons@redhat.com)
+- changed where an empty list is checked for in schedule_reschedule
+  (aparsons@redhat.com)
+- fixed tab completion in schedule_cancel (aparsons@redhat.com)
+- added function schedule_reschedule (aparsons@redhat.com)
+- allow filtering in report_errata (aparsons@redhat.com)
+
 * Mon Jul 26 2010 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
 - 616120 - remove python requires (msuchy@redhat.com)
 - 616120 - add -p to install, to preserve timestamps (msuchy@redhat.com)
