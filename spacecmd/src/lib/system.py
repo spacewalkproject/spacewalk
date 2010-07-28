@@ -20,6 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+import shlex
 from operator import itemgetter
 from xml.parsers.expat import ExpatError
 from spacecmd.utils import *
@@ -2176,8 +2177,10 @@ def do_system_listpackageprofiles(self, args, doreturn=False):
 def help_system_deletepackageprofile(self):
     print 'system_deletepackageprofile: Delete a package profile'
     print 'usage: system_deletepackageprofile PROFILE'
+
 def complete_system_deletepackageprofile(self, text, line, beg, end):
-    parts = line.split(' ')
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
 
     if len(parts) == 2:
         return self.tab_complete_systems(\
@@ -2249,13 +2252,14 @@ def help_system_comparepackageprofile(self):
     print self.HELP_SYSTEM_OPTS
 
 def complete_system_comparepackageprofile(self, text, line, beg, end):
-    parts = line.split(' ')
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
 
     if len(parts) == 2:
         return self.tab_complete_systems(text)
     elif len(parts) > 2:
         return self.tab_complete_systems(\
-                   self.do_system_listpackageprofiles('', True), text)
+                   self.do_system_listpackageprofiles('', True), parts[-1])
 
 def do_system_comparepackageprofile(self, args):
     args = parse_arguments(args)
