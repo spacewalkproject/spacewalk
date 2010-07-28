@@ -95,14 +95,16 @@ public class KickstartFormatter {
         " kickstart on \\$(date +'%Y-%m-%d')\" >> /etc/motd" +
         NEWLINE + "echo >> /etc/motd" + NEWLINE + NEWLINE +
         "# end of generated kickstart file";
-    private static final String BEGINRHN = "%post" + NEWLINE +
-    "( # Log %post errors \n # --Begin " + Config.get().getString("web.product_name") +
+    private static final String BEGINRHN = "%post --logfile " +
+		"/mnt/sysimage/root/ks-rhn-post.log" + NEWLINE +
+    "# --Begin " + Config.get().getString("web.product_name") +
     " command section--\n";
     private static final String SAVE_KS_CFG = "cp `awk '{ if ($1 ~ /%include/) " +
         "{print $2}}' /tmp/ks.cfg` /tmp/ks.cfg /mnt/sysimage/root";
-    private static final String END_POST = ") >> /root/ks-post.log 2>&1\n";
-    private static final String END_PRE = ") >> /tmp/ks-pre.log 2>&1\n";
-    private static final String  BEGIN_PRE_POST_LOG = "(" + NEWLINE;
+
+    private static final String  POST_LOG = " --logfile /mnt/sysimage/root/ks-post.log";
+    private static final String  PRE_LOG = " --logfile /tmp/ks-pre.log";
+
     private static final String ENDRHN_NONCHROOT =
         ") >> /mnt/sysimage/root/ks-post.log 2>&1\n";
     private static final String KSTREE =
@@ -147,7 +149,7 @@ public class KickstartFormatter {
         "cp -fa /tmp/ks-tree-shadow/* /mnt/sysimage/tmp/ks-tree-copy" + NEWLINE +
         "fi" + NEWLINE +
         "cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf" + NEWLINE +
-        "cp -f /tmp/ks-pre.log /mnt/sysimage/root/" + NEWLINE;
+        "cp -f /tmp/ks-pre.log* /mnt/sysimage/root/" + NEWLINE;
     private static final String RHN_TRACE = "set -x" + NEWLINE;
     private static final String XMLRPC_HOST =
         Config.get().getString(ConfigDefaults.KICKSTART_HOST, "xmlrpc.rhn.redhat.com");
@@ -249,12 +251,14 @@ public class KickstartFormatter {
         }
 
         buf.append(getRhnPost());
-        buf.append(MOTD_FOOTER);
         buf.append(NEWLINE);
         buf.append(getPrePost(KickstartScript.TYPE_POST));
         buf.append(NEWLINE);
+        buf.append("%post"); //new %post for last kernel stuff
         addCobblerSnippet(buf, "post_install_kernel_options");
         addCobblerSnippet(buf, "koan_environment");
+        buf.append(MOTD_FOOTER);
+        buf.append(NEWLINE);
         buf.append("$kickstart_done");
         buf.append(NEWLINE);
         String retval = buf.toString();
@@ -505,28 +509,22 @@ public class KickstartFormatter {
                         }
                         if (!StringUtils.isBlank(kss.getInterpreter())) {
                             retval.append("%" + typeIn + SPACE + INTERPRETER_OPT + SPACE +
-                                    kss.getInterpreter() + NEWLINE);
+                                    kss.getInterpreter());
                         }
                         else {
-                            retval.append("%" + typeIn + NEWLINE);
+                            retval.append("%" + typeIn);
                         }
                         if (typeIn.equals(KickstartScript.TYPE_POST) &&
                                 ksdata.getPostLog()) {
-                            retval.append(BEGIN_PRE_POST_LOG);
+                            retval.append(POST_LOG + "." + kss.getPosition());
                         }
-                        if (typeIn.equals(KickstartScript.TYPE_PRE) &&
+                        else if (typeIn.equals(KickstartScript.TYPE_PRE) &&
                                 ksdata.getPreLog()) {
-                            retval.append(BEGIN_PRE_POST_LOG);
+                            retval.append(PRE_LOG + "." + kss.getPosition());
                         }
+                        retval.append(NEWLINE);
+
                         retval.append(kss.getDataContents() + NEWLINE);
-                        if (typeIn.equals(KickstartScript.TYPE_POST) &&
-                                ksdata.getPostLog()) {
-                            retval.append(END_POST);
-                        }
-                        if (typeIn.equals(KickstartScript.TYPE_PRE) &&
-                                ksdata.getPreLog()) {
-                            retval.append(END_PRE);
-                        }
                         if (kss.getRaw()) {
                             retval.append(RAW_END + NEWLINE);
                         }
@@ -561,7 +559,7 @@ public class KickstartFormatter {
                                 NOCHROOT + NEWLINE);
                     }
                     if (ksdata.getNonChrootPost() && !seenNoChroot) {
-                        retval.append(BEGIN_PRE_POST_LOG + RHN_TRACE);
+                        retval.append(POST_LOG + NEWLINE + RHN_TRACE);
                     }
                     if (!seenNoChroot) {
                         retval.append(RHN_NOCHROOT);
@@ -584,7 +582,7 @@ public class KickstartFormatter {
         if (!seenNoChroot) {
             retval.append("%" + KickstartScript.TYPE_POST + SPACE + NOCHROOT + NEWLINE);
             if (ksdata.getNonChrootPost()) {
-                retval.append(BEGIN_PRE_POST_LOG + RHN_TRACE);
+                retval.append(POST_LOG + NEWLINE + RHN_TRACE);
             }
             retval.append(RHN_NOCHROOT);
             if (this.ksdata.getKsCfg()) {
@@ -723,7 +721,6 @@ public class KickstartFormatter {
         retval.append(RHNCHECK + NEWLINE);
 
         retval.append(NEWLINE);
-        retval.append(END_POST);
         addCobblerSnippet(retval, "post_install_network_config");
         return retval.toString();
     }
