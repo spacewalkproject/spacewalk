@@ -92,7 +92,7 @@ public class KickstartFormatter {
     private static final String COMMENT = "#" + NEWLINE;
     private static final String MOTD_FOOTER = "# MOTD" + NEWLINE + "echo >> /etc/motd" +
         NEWLINE + "echo \"" + Config.get().getString("web.product_name") +
-        " kickstart on $(date +'%Y-%m-%d')\" >> /etc/motd" +
+        " kickstart on \\$(date +'%Y-%m-%d')\" >> /etc/motd" +
         NEWLINE + "echo >> /etc/motd" + NEWLINE + NEWLINE +
         "# end of generated kickstart file";
     private static final String BEGINRHN = "%post" + NEWLINE +
