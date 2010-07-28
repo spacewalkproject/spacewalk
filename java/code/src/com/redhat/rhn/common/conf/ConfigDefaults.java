@@ -157,6 +157,8 @@ public class ConfigDefaults {
     public static final String DB_BACKEND = "db_backend";
     public static final String DB_BACKEND_ORACLE = "oracle";
 
+    public static final String LOOKUP_EXCEPT_SEND_EMAIL = "lookup_exception_email";
+
 
     private ConfigDefaults() {
     }

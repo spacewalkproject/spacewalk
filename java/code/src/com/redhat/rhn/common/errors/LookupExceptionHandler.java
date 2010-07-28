@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.common.errors;
 
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.user.User;
@@ -40,21 +42,23 @@ public class LookupExceptionHandler extends ExceptionHandler {
      */
     protected void logException(Exception ex) {
         Logger log = Logger.getLogger(LookupExceptionHandler.class);
-        log.error("Hibernate LookupException", ex);
         exception = (LookupException) ex;
+        log.warn(exception.getMessage());
     }
 
     protected void storeException(HttpServletRequest request, String property,
                                   ActionMessage msg, ActionForward forward, String scope) {
-        TraceBackEvent evt = new TraceBackEvent();
-        RequestContext requestContext = new RequestContext(request);
-        User usr = requestContext.getLoggedInUser();
-        evt.setUser(usr);
-        evt.setRequest(request);
-        evt.setException(exception);
-        MessageQueue.publish(evt);
-
+        if (Config.get().getBoolean(ConfigDefaults.LOOKUP_EXCEPT_SEND_EMAIL)) {
+            TraceBackEvent evt = new TraceBackEvent();
+            RequestContext requestContext = new RequestContext(request);
+            User usr = requestContext.getLoggedInUser();
+            evt.setUser(usr);
+            evt.setRequest(request);
+            evt.setException(exception);
+            MessageQueue.publish(evt);
+        }
         request.setAttribute("error", exception);
+
     }
 
 }
