@@ -610,7 +610,7 @@ def get_smbios():
             'smbios.system.uuid': dmi_system_uuid(),
             'smbios.bios.vendor': dmi_vendor(),
             'smbios.system.serial': get_dmi_data('/dmidecode/SystemInfo/SerialNumber'),
-            'smbios.system.manufacturer': get_dmi_data('/dmidecode/BaseBoardInfo/Manufacturer'),
+            'smbios.system.manufacturer': get_dmi_data('/dmidecode/SystemInfo/Manufacturer'),
             'smbios.system.product': get_dmi_data('/dmidecode/SystemInfo/ProductName'),
             'smbios.system.skunumber': get_dmi_data('/dmidecode/SystemInfo/SKUnumber'),
             'smbios.system.family': get_dmi_data('/dmidecode/SystemInfo/Family'),
