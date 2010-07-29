@@ -34,10 +34,12 @@ class Handler(handler_base.HandlerBase):
         
         print "DoF %*s   %s" % (maxlen, label, "File")
         for file in files:
-	    # checking to see if the filetype is in the 'file' entry,
-	    # and if it is and that type is '1', it is a file
-	    if (len(file) < 3) or file[2] == 1:
-            	print "F %*s     %s" % (maxlen, file[0], file[1])
-       	    else: 
-		# the filetype is a directory
-		print "D %*s     %s" % (maxlen, file[0], file[1]) 
+            # checking to see if the filetype is in the 'file' entry,
+            # and if it is and that type is '1', it is a file
+            if (len(file) < 3) or file[2] == 1:
+                print "F %*s     %s" % (maxlen, file[0], file[1])
+            elif file[2] == 2 : 
+                # the filetype is a directory
+                print "D %*s     %s" % (maxlen, file[0], file[1])
+            else:
+                print "S %*s     %s" % (maxlen, file[0], file[1])

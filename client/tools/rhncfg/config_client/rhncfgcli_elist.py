@@ -93,7 +93,6 @@ class Handler(handler_base.HandlerBase):
 
             # Get the file info
             finfo = r.get_file_info(file[1])[1]
-
             # Get the file length
             if finfo['encoding'] == 'base64':
                 fsize = len(base64.decodestring(finfo['file_contents']))
@@ -101,6 +100,6 @@ class Handler(handler_base.HandlerBase):
                 # * indicates raw 'unencoded' size
                 fsize = '*' + str(len(finfo['file_contents']))
 
-            permstr = self.ostr_to_sym(finfo['filemode'], finfo['filetype'])
+            permstr = finfo['filetype'] != 'symlink' and self.ostr_to_sym(finfo['filemode'], finfo['filetype']) or ''
             print "%10s %8s %-8s %10s %+3s    %*s    %s" % (permstr, finfo['username'], finfo['groupname'], fsize, finfo['revision'], maxlen, file[0], file[1])
 
