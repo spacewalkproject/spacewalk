@@ -294,7 +294,8 @@ public class ErrataSetupAction extends RhnAction implements Listable {
 
         if (currency) {
             return SystemManager.relevantCurrencyErrata(user, sid, eType, synopsis);
-        } else {
+        }
+        else {
             return SystemManager.relevantErrata(user, sid, typeList);
         }
     }

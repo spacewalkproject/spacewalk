@@ -641,7 +641,7 @@ public class ErrataFactory extends HibernateFactory {
         return retval;
     }
 
-    /*
+    /**
      * Lookup a Security Errata by the synopsis string
      * @param synopsis to search for
      * @return the Errata found

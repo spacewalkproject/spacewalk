@@ -795,7 +795,8 @@ public class SystemManager extends BaseManager {
      * Returns a list of errata relevant to a system
      * @param user The user
      * @param sid System Id
-     * @param types of errata types (strings) to include
+     * @param type of errata to include
+     * @param synopsis to filter by
      * @return a list of ErrataOverviews
      */
     public static DataResult<ErrataOverview> relevantCurrencyErrata(User user,
