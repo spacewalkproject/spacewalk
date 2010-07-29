@@ -31,6 +31,7 @@ Requires: quartz
 Requires: redstone-xmlrpc
 #Requires: picocontainer
 Requires: tanukiwrapper
+Requires: simple-core
 Obsoletes: rhn-search < 5.3.0
 BuildRequires: ant
 #BuildRequires: apache-ibatis-sqlmap
@@ -47,6 +48,7 @@ BuildRequires: quartz
 BuildRequires: redstone-xmlrpc
 #BuildRequires: picocontainer
 BuildRequires: tanukiwrapper
+BuildRequires: simple-core
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
