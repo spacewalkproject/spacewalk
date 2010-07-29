@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.23
+Version: 5.9.24
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -99,6 +99,15 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jul 29 2010 Partha Aji <paji@redhat.com> 5.9.24-1
+- Made the diff in operation rhncfg client work with symlinks (paji@redhat.com)
+- Config Management schema update + ui + symlinks (paji@redhat.com)
+- Config Client changes to get symlinks to work (paji@redhat.com)
+- code style - whitespace expansion (msuchy@redhat.com)
+- code style - expand tabs to space (msuchy@redhat.com)
+- let declare that we own directory where rhncfg put backup files
+  (msuchy@redhat.com)
+
 * Tue Jul 20 2010 Miroslav Suchý <msuchy@redhat.com> 5.9.23-1
 - add parameter cache_only to all client actions (msuchy@redhat.com)
 
