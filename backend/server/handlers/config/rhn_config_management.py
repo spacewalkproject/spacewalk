@@ -113,6 +113,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     """)
 
     def client_list_files(self, systemid, config_channel=None):
+        """ Return array of files (its path), which we manage on that system. """
         log_debug(1)
         self.auth_system(systemid)
 
@@ -150,6 +151,15 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         return result
         
     def client_get_file(self, systemid, filename):
+        """ Returns requested config file.
+            If file do not exist or system is not subscribed to, then we return.
+            {'missing' : 1}
+            Otherwise dictionary is returned. It should contains keys:
+            path, config_channel, file_contents, checksum_type, checksum, delim_start
+            delim_end, revision, username, groupname, filemode, encoding, filetype and
+            selinux_ctx.
+            See server/configFilesHandler.py:format_file_results
+        """
         self.auth_system(systemid)
         server_id = self.server.getid()
 

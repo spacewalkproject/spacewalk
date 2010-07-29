@@ -214,6 +214,8 @@ class Queue(rhnHandler):
                        and a.action_type = at.id
                        and sa.status in (0, 1) -- Queued or picked up
                        and a.earliest_action <= sysdate + (:time_window/24)  -- Check earliest_action
+                       and at.label in ('packages.update', 'errata.update',
+                            'packages.runTransaction', 'packages.fullUpdate')
                       order by a.earliest_action, a.prerequisite nulls first, a.id
     """)
 
