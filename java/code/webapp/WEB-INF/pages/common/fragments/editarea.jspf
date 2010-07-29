@@ -3,7 +3,6 @@
 <script language="javascript" type="text/javascript">
 editAreaLoader.init({
         id : "contents"
-        ,start_highlight: true
         ,allow_toggle: true
         ,allow_resize: "both"
         ,word_wrap: true
