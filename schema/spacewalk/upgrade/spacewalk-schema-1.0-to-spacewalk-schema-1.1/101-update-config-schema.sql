@@ -43,7 +43,7 @@ BEGIN
   END LOOP;
   commit;
 END;
-
+/
 
 alter table rhnConfigContent modify delim_start   not null;
 alter table rhnConfigContent modify delim_end     not null;

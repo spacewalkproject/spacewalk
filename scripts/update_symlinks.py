@@ -71,10 +71,12 @@ def main():
             where 
             cr.CONFIG_FILE_TYPE_ID in (select id from rhnConfigFileType where label='symlink')"""
     h = rhnSQL.prepare(q)
-    if h.execute() == 0:
-        return 
+    h.execute()
+    results = h.fetchall_dict()
+    if not results:
+        return
     contents = []
-    for row in h.fetchall_dict():
+    for row in results:
         contents.append( dict(revision_id = row["rev_id"],
                     file_id = row ["file_id"],
                    info_id = row ["info_id"],
