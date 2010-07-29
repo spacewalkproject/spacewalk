@@ -18,7 +18,11 @@ if (not -e $config_file) {
 my %options;
 Spacewalk::Setup::read_config($config_file, \%options);
 if (not defined $options{default_db}) {
-	die "Config file [$config_file] does not seem to have database connection string (default_db) set.\n";
+	if (defined $options{'db_name'} and defined $options{'db_user'} and defined $options{'db_password'}) {
+		$options{default_db} = "$options{'db_user'}/$options{'db_password'}\@$options{'db_name'}";
+	} else {
+		die "Config file [$config_file] does not seem to have database connection string (default_db) set.\n";
+	}
 }
 
 my $test = run_query(\%options, "select 1, 2 from dual;");
