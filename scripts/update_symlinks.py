@@ -19,13 +19,16 @@
 # $Id$
 
 """
-Test module for blob updates.
-To create the table for this test run:
+This script is meant to be used by spacewalk users upgrading from  1.0 to 1.1. 
+The schema storing the symlinks target path was updated between spacewalk 1.0 to 1.1 
+from a blob in rhnConfigContent to symlink_target_filename_id in rhnConfigInfo.
 
-drop table test_blob_update;
+This script extracts symlink paths that were previously stored as blobs in rhnConfigContent
+and then creates an entry in rhnConfigFileName with that path and sets the 
+rhnConfigInfo.symlink_target_filename_id.
 
-create table test_blob_update 
-    (id1 int not null, id2 int, val1 blob, val2 blob, nval int not null);
+It acquires the database information from rhn.conf
+
 """
 
 import sys
@@ -37,7 +40,7 @@ from server.importlib.backendLib import Table, DBblob, DBint, TableUpdate, \
 from pprint import pprint
 from os.path import isabs
 
-def setupDb():
+def setup_db():
     initCFG('server.satellite')
     db_backend = CFG.DB_BACKEND
     db_host = CFG.DB_HOST
@@ -49,7 +52,9 @@ def setupDb():
                         username=db_user, password=db_password, database=database)
 
 def main():
-    setupDb()
+    setup_db()
+    print "================="
+    print "Updating Symbolic Links"
     q = """select cr.id as rev_id, 
                     ccon.id as content_id,
                     ccon.contents,
@@ -74,6 +79,8 @@ def main():
     h.execute()
     results = h.fetchall_dict()
     if not results:
+        print "Update completed."
+        print "================="
         return
     contents = []
     for row in results:
@@ -98,6 +105,13 @@ def main():
 
     update_cr = """ update rhnConfigRevision set config_content_id = null where id = :revision_id"""
     delete_content = """ delete from rhnConfigContent where id = :content_id"""
+    format = """
+    Path: [%(path)s]
+    Symbolic link:[%(symlink_target)s]
+    Update URL: https://<FQDN>/rhn/configuration/file/FileDetails.do?cfid=%(file_id)d&crid=%(revision_id)d
+    Organization Id : [%(org_id)d]
+    Organization Name : [%(org_name)s]
+    """    
     bad_items = list()
     for item in contents:
         if item['symlink_target'] is None:
@@ -110,23 +124,20 @@ def main():
             rhnSQL.prepare(update_query).execute(**item)
         rhnSQL.prepare(update_cr).execute(**item)
         rhnSQL.prepare(delete_content).execute(**item)
+        print format % item
 
     rhnSQL.commit()
     rhnSQL.closeDB()
-
+    print "%d rows updated." % len(contents)
+    print "Update completed"
+    print "================="
     msg = """ 
     The following symbolic link paths are either null or not absolute or above 1024 characters in length. 
     While entries have been added in the DB, the values have to be updated for them in the Web UI. 
     Please go to the provided url, logging in as a user with config admin/org admin role in the specified organization 
     and update the target path value accordingly.
     """
-    format = """
-    Path: [%(path)s]
-    Symbolic link:[%(symlink_target)s]
-    Update URL: https://<FQDN>/rhn/configuration/file/FileDetails.do?cfid=%(file_id)d&crid=%(revision_id)d
-    Organization Id : [%(org_id)d]
-    Organization Name : [%(org_name)s]
-    """
+
     if bad_items:
         print msg
         for item in bad_items:
