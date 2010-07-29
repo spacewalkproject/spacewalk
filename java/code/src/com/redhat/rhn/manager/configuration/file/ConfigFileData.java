@@ -45,6 +45,7 @@ public abstract class ConfigFileData {
     private static long serialVersionUID = -2162768922109257186L;
     private static final String VALIDATION_XSD =
         "/com/redhat/rhn/frontend/action/configuration/validation/configFileForm.xsd";
+
     private String path;
     private String owner;
     private String group;
@@ -206,7 +207,7 @@ public abstract class ConfigFileData {
         ConfigInfo info = ConfigurationFactory.lookupOrInsertConfigInfo(
                             getOwner(), getGroup(),
                             Long.valueOf(getPermissions()),
-                            getSelinuxCtx());
+                            getSelinuxCtx(), null);
         return info;
     }
 
@@ -233,7 +234,6 @@ public abstract class ConfigFileData {
     private void validateData(boolean onCreate) throws ValidatorException {
 
         ValidatorResult msgs = new ValidatorResult();
-
         // Validate user/uid
         if (!ConfigurationValidation.validateUserOrGroup(getOwner()) &&
             !ConfigurationValidation.validateUGID(getOwner())) {
@@ -251,6 +251,40 @@ public abstract class ConfigFileData {
             msgs.addError(error("mode-invalid"));
         }
 
+        if (isFile()) {
+            if (!StringUtils.isBlank(getMacroStart())) {
+                // Validate macro-start
+                if (getMacroStart().indexOf('%') != -1) {
+                    msgs.addError(error("start-delim-percent"));
+                }
+            }
+
+            // Validate macro-end
+            if (!StringUtils.isBlank(getMacroEnd())) {
+                if (getMacroEnd().indexOf('%') != -1) {
+                    msgs.addError(error("end-delim-percent"));
+                }
+            }
+
+            if (getContentSize() > ConfigFile.getMaxFileSize()) {
+                msgs.addError("error.configtoolarge",
+                        StringUtil.displayFileSize(ConfigFile.getMaxFileSize(), false));
+            }
+            validateContents(msgs, onCreate);
+        }
+
+        ValidatorError ve = validateSELinux();
+        if (ve != null) {
+            msgs.addError(ve);
+        }
+
+
+        if (!msgs.isEmpty()) {
+            throw new ValidatorException(msgs);
+        }
+    }
+
+    protected ValidatorError validateSELinux() {
         String sens = "s\\d+";
         String cats = "c\\d+(\\.c\\d+)?";
         String mlsregex = sens + "(:" + cats + "(," + cats + ")*)?";
@@ -263,32 +297,9 @@ public abstract class ConfigFileData {
                 "(:" + mlsregex + // low
                 "(\\-" + mlsregex + // high
                 ")?)?)?)?$")) {
-            msgs.addError(new ValidatorError("Invalid SELinux context"));
+            return new ValidatorError("config-file-form.error.selinux-invalid");
         }
-
-        if (!StringUtils.isBlank(getMacroStart())) {
-            // Validate macro-start
-            if (getMacroStart().indexOf('%') != -1) {
-                msgs.addError(error("start-delim-percent"));
-            }
-        }
-
-        // Validate macro-end
-        if (!StringUtils.isBlank(getMacroEnd())) {
-            if (getMacroEnd().indexOf('%') != -1) {
-                msgs.addError(error("end-delim-percent"));
-            }
-        }
-
-        if (getContentSize() > ConfigFile.getMaxFileSize()) {
-            msgs.addError("error.configtoolarge",
-                    StringUtil.displayFileSize(ConfigFile.getMaxFileSize(), false));
-        }
-        validateContents(msgs, onCreate);
-
-        if (!msgs.isEmpty()) {
-            throw new ValidatorException(msgs);
-        }
+        return null;
     }
 
     protected abstract void validateContents(ValidatorResult result,
@@ -312,8 +323,8 @@ public abstract class ConfigFileData {
      *
      * @return true if the data in this Calass is a directory
      */
-    public boolean isDirectory() {
-        return ConfigFileType.dir().equals(getType());
+    public boolean isFile() {
+        return ConfigFileType.file().equals(getType());
     }
 
     /**
@@ -325,6 +336,7 @@ public abstract class ConfigFileData {
         if (onCreate) {
             validatePath();
         }
+
         // Struts-validation errors?  Bug out if so
         ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
                                             makeValidationMap(), null,
@@ -355,28 +367,16 @@ public abstract class ConfigFileData {
      * while matching values against xsds..
      * @return a map with key = ConfigFIleForms keys, & value = ConfigFIleData values..
      */
-    private Map makeValidationMap() {
+    protected Map makeValidationMap() {
         Map map = new HashMap();
         map.put(ConfigFileForm.REV_UID, getOwner());
         map.put(ConfigFileForm.REV_GID, getGroup());
         map.put(ConfigFileForm.REV_PERMS, getPermissions());
         map.put(ConfigFileForm.REV_SELINUX_CTX, getSelinuxCtx());
+        map.put(ConfigFileForm.REV_SYMLINK_TARGET_PATH, getSelinuxCtx());
         map.put(ConfigFileForm.REV_MACROSTART, getMacroStart());
         map.put(ConfigFileForm.REV_MACROEND, getMacroEnd());
         return map;
-    }
-
-    /**
-     * Basically hook point to update the relevant in this data file
-     * with the content provided in the revision param. This is mainly
-     * used to update things like BinaryFiles/Directories where we want
-     * the contents of the previosu version copied over to the new content ...
-     * @param rev thr revision to copy stuff from..
-     */
-    public void processRevisedContentFrom(ConfigRevision rev) {
-        copyRevisedContentFrom(rev);
-        setMacroStart(rev.getDelimStart());
-        setMacroEnd(rev.getDelimEnd());
     }
 
     /**
@@ -386,11 +386,12 @@ public abstract class ConfigFileData {
      * the contents of the previous version copied over to the new content ...
      * @param rev the revision to copy stuff from..
      */
-    protected abstract void copyRevisedContentFrom(ConfigRevision rev);
+    public abstract void processRevisedContentFrom(ConfigRevision rev);
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("Path", getPath()).

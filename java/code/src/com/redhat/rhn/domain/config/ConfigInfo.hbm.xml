@@ -15,15 +15,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="groupname" column="groupname" type="string" length="32"
 			/>
 		<property name="filemode" column="filemode" type="long" />
-		<property name="created" column="created" type="timestamp" />
-		<property name="modified" column="modified" type="timestamp" />
+        <property name="created" column="created" type="timestamp"
+            insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp"
+            insert="false" update="false"/>
 		<property name="selinuxCtx" column="selinux_ctx" type="string" length="64" />
+		<many-to-one name="targetFileName"
+			class="com.redhat.rhn.domain.config.ConfigFileName"
+			column="SYMLINK_TARGET_FILENAME_ID" cascade="none" />		
 	</class>
-	
-	<query name="ConfigInfo.findWithoutId">
-        <![CDATA[from com.redhat.rhn.domain.config.ConfigInfo as c
-                where c.username = :username
-                  and c.groupname = :groupname
-                  and c.filemode = :filemode]]>
-    </query>
 </hibernate-mapping>

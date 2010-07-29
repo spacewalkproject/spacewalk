@@ -169,9 +169,8 @@ class Repository:
         file_contents = None
         if os.path.islink(local_path):
             params['config_file_type_id'] = 3
+            params['symlink'] = os.readlink(local_path) 
             load_contents = 0
-            file_contents = os.readlink(local_path)
-            self._add_content(file_contents, params)
         elif os.path.isdir(local_path):
             params['config_file_type_id'] = 2
             load_contents = 0

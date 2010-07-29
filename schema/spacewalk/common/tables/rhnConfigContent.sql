@@ -28,6 +28,8 @@ CREATE TABLE rhnConfigContent
                    DEFAULT ('N') NOT NULL
                    CONSTRAINT rhn_confcontent_isbin_ck
                        CHECK (is_binary in ( 'Y' , 'N' )),
+    delim_start          VARCHAR2(16),
+    delim_end            VARCHAR2(16),
     created    DATE
                    DEFAULT (sysdate) NOT NULL,
     modified   DATE

@@ -2,6 +2,25 @@
 <%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
 	<html:hidden property="submitted" value="true"/>
 	<html:hidden property="binary"/>
+	<script type="text/javascript">
+		function toggleElement(row) {
+		if (row.style.display == '') {
+			 row.style.display = 'none';
+		}
+		else {
+		 row.style.display = '';
+		 }
+	}
+
+
+	function pageToggleRows(linkId, ids){
+		for (var i = 0 ; i < ids.length; i++) {
+			toggleElement(document.getElementById(ids[i]));
+		}
+		toggleElement(document.getElementById(linkId + 'Show'));
+		toggleElement(document.getElementById(linkId + 'Hide'));
+	}
+	</script>
 	<table class="details">
 		<tr>
 			<th><bean:message key="addfiles.jsp.type-name" /></th>
@@ -14,23 +33,39 @@
 			<html:radio property="filetype" value="symlink" styleId="symlink_radio" /><bean:message
 				key="addfiles.jsp.type.symlink" /><br />
 			<script type="text/javascript">
-				function enableAllInputs(event) {
-					$('cffUid').readOnly = "";
-					$('cffGid').readOnly = "";
-					$('cffPermissions').readOnly = "";
-					$('cffMacroStart').readOnly = "";
-					$('cffMacroEnd').readOnly = "";
-				}
-
-				Event.observe('file_radio', 'focus', enableAllInputs);
-				Event.observe('dir_radio', 'focus', enableAllInputs);
-				Event.observe('symlink_radio', 'focus', function(event) {
-					$('cffUid').readOnly = "readonly";
-					$('cffGid').readOnly = "readonly";
-					$('cffPermissions').readOnly = "readonly";
-					$('cffMacroStart').readOnly = "readonly";
-					$('cffMacroEnd').readOnly = "readonly";
+				Event.observe('symlink_radio', 'focus', function(event){
+					$('cffUid').disabled = true;
+					$('cffGid').disabled = true;
+					$('cffPermissions').disabled = true;
+					$('cffMacroStart').disabled = true;
+					$('cffMacroEnd').disabled = true;
+					$('targetPath').disabled = false;
+					$('contentsRow').style.display = 'none';
+					$('hiddenContentsRow').style.display = '';
+					
 				});
+
+				Event.observe('file_radio', 'focus', function(event){
+					$('cffUid').disabled = false;
+					$('cffGid').disabled = false;
+					$('cffPermissions').disabled = false;
+					$('cffMacroStart').disabled = false;
+					$('cffMacroEnd').disabled = false;
+					$('targetPath').disabled = true;
+					$('contentsRow').style.display = '';
+					$('hiddenContentsRow').style.display = 'none';
+				});
+				
+				Event.observe('dir_radio', 'focus', function(event){
+					$('cffUid').disabled = false;
+					$('cffGid').disabled = false;
+					$('cffPermissions').disabled = false;
+					$('cffMacroStart').disabled = false;
+					$('cffMacroEnd').disabled = false;
+					$('targetPath').disabled = true;
+					$('contentsRow').style.display = 'none';
+					$('hiddenContentsRow').style.display = '';
+				});				
 			</script>
 			<span class="small-text"><bean:message key="filedetails.jsp.tip.symlink" /></span>
 			</td>
@@ -40,16 +75,20 @@
 			<td><html:text name="configFileForm" property="cffPath" size="30"/></td>
 		</tr>
 		<tr>
+			<th><bean:message key="filedetails.properties.jspf.targetpath" /></th>
+			<td><html:text name="configFileForm" property="targetPath" disabled = "${configFileForm.map.filetype != 'symlink'}" styleId="targetPath" size="30"/></td>
+		</tr>
+		<tr>
 			<th><bean:message key="filedetails.properties.jspf.ownership" /></th>
 			<td>
 			<table>
 				<tr>
 					<td><bean:message key="filedetails.properties.jspf.uid" /></td>
-					<td><html:text property="cffUid" size="6" styleId="cffUid" /></td>
+					<td><html:text property="cffUid" size="6" styleId="cffUid" disabled = "${configFileForm.map.filetype == 'symlink'}"/></td>
 				</tr>
 				<tr>
 					<td><bean:message key="filedetails.properties.jspf.gid" /></td>
-					<td><html:text property="cffGid" size="6" styleId="cffGid" /></td>
+					<td><html:text property="cffGid" size="6" styleId="cffGid" disabled = "${configFileForm.map.filetype == 'symlink'}"/></td>
 				</tr>
 				<tr>
 					<td colspan="2"><span class="small-text"><bean:message
@@ -60,7 +99,7 @@
 		</tr>
 		<tr>
 			<th><bean:message key="filedetails.properties.jspf.permissions" /></th>
-			<td><html:text property="cffPermissions" maxlength="4" size="4" styleId="cffPermissions" /><br />
+			<td><html:text property="cffPermissions" maxlength="4" size="4" styleId="cffPermissions" disabled = "${configFileForm.map.filetype == 'symlink'}"/><br />
 			<span class="small-text"><bean:message
 				key="filedetails.jsp.tip.permissions" /></span></td>
 		</tr>
@@ -73,21 +112,33 @@
 			<th><bean:message key="filedetails.add_details.jspf.macro" /></th>
 			<td nowrap="nowrap">
 			  <bean:message key="filedetails.add_details.jspf.macro.start" />
-			  <html:text property="cffMacroStart" size="3" styleId="cffMacroStart" />
+			  <html:text property="cffMacroStart" size="3" styleId="cffMacroStart" disabled = "${configFileForm.map.filetype == 'symlink'}" />
               <bean:message key="filedetails.add_details.jspf.macro.end" />
-              <html:text property="cffMacroEnd" size="3" styleId="cffMacroEnd" /><br />
+              <html:text property="cffMacroEnd" size="3" styleId="cffMacroEnd" disabled = "${configFileForm.map.filetype == 'symlink'}" /><br />
               <span class="small-text">
                 <bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/index.jsp" />
               </span>
             </td>
 		</tr>
-		<tr>
+		<tr id = "contentsRow"
+			<c:if test="${configFileForm.map.filetype == 'symlink'}"> style="display:none"</c:if>
+		>
 		  <th><bean:message key="addfiles.create.jspf.content-name" /></th>
 		  <td>
 		  	<html:textarea property="contents" rows="20" cols="80" styleId="contents"/><br />
 			<span class="small-text"><bean:message key="filedetails.jsp.tip.edit"/></span>
 		  </td>
 		</tr>
+		<tr id = "hiddenContentsRow" 
+			<c:if test="${configFileForm.map.filetype != 'symlink'}"> style="display:none"</c:if>
+			>
+		  <th><bean:message key="addfiles.create.jspf.content-name" /></th>
+		  <td>
+		  	<textarea name="dumb" cols="80" rows="20" disabled="true"></textarea><br />
+			<span class="small-text"><bean:message key="filedetails.jsp.tip.edit"/></span>
+		  </td>
+		</tr>		
+		
 	</table>
 	<hr />
 	<div align="right"><html:submit>

@@ -23,7 +23,7 @@
 	  <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/properties.jspf"%>
 	</div>
 	
-	<c:if test="${!revision.directory}">
+	<c:if test="${revision.file}">
 	  <div class="details-full">
 	    <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/add_details.jspf"%>
 	  </div>
@@ -46,7 +46,7 @@
 	
 <rhn:require acl="config_channel_editable()"
              mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-  <c:if test="${!revision.directory}">
+  <c:if test="${revision.file}">
 	<%@ include file="/WEB-INF/pages/common/fragments/configuration/files/upload.jspf" %>
   </c:if>
 </rhn:require>

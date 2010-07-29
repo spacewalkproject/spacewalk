@@ -51,9 +51,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop_desc("boolean", "binary", "true/false , Present for files only.")
  *   #prop_desc("string", "md5", "File's md5 signature. Present for files only.")
  *   #prop_desc("string", "macro-start-delimiter",
- *          "Macro start delimiter for a config file. Present for files only.")
+ *          "Macro start delimiter for a config file. Present for text files only.")
  *   #prop_desc("string", "macro-end-delimiter",
- *          "Macro end delimiter for a config file. Present for files only.")
+ *          "Macro end delimiter for a config file. Present for text files only.")
  * #struct_end()
  */
 public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
@@ -108,10 +108,10 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
             }
             else {
                 helper.add(BINARY, Boolean.TRUE);
+                helper.add(MACRO_START, rev.getConfigContent().getDelimStart());
+                helper.add(MACRO_END, rev.getConfigContent().getDelimEnd());
             }
             helper.add("md5", rev.getConfigContent().getChecksum().getChecksum());
-            helper.add(MACRO_START, rev.getDelimStart());
-            helper.add(MACRO_END, rev.getDelimEnd());
         }
         else if (rev.isSymlink()) {
             helper.add(CONTENTS, rev.getConfigContent().getContentsString());

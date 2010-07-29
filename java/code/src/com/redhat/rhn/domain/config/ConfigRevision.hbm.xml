@@ -9,10 +9,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			<generator class="assigned" />
 		</id>
 		<property name="revision" column="revision" type="long" />
-		<property name="delimStart" column="delim_start" type="string"
-			length="16" />
-		<property name="delimEnd" column="delim_end" type="string" length="16"
-			/>
 		<property name="created" column="created" type="timestamp" />
 		<property name="modified" column="modified" type="timestamp" />
 		<property name="changedById" column="changed_by_id" type="long" />

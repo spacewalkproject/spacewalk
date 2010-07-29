@@ -228,7 +228,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                                 String perms, boolean isDir, ConfigChannel cc,
                                 String macroStart, String macroEnd, String selinuxCtx) {
             assertEquals(path, rev.getConfigFile().getConfigFileName().getPath());
-            assertEquals(contents, rev.getConfigContent().getContentsString());
+
             assertEquals(group, rev.getConfigInfo().getGroupname());
             assertEquals(owner, rev.getConfigInfo().getUsername());
             assertEquals(perms, String.valueOf(rev.getConfigInfo().getFilemode()));
@@ -237,9 +237,11 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                 assertEquals(ConfigFileType.dir(), rev.getConfigFileType());
             }
             else {
-                assertEquals(ConfigFileType.file(), rev.getConfigFileType());
-                assertEquals(macroStart, rev.getDelimStart());
-                assertEquals(macroEnd, rev.getDelimEnd());
+                if (ConfigFileType.file().equals(rev.getConfigFileType())) {
+                    assertEquals(contents, rev.getConfigContent().getContentsString());
+                    assertEquals(macroStart, rev.getConfigContent().getDelimStart());
+                    assertEquals(macroEnd, rev.getConfigContent().getDelimEnd());
+                }
             }
             assertEquals(cc,
                         rev.getConfigFile().getConfigChannel());

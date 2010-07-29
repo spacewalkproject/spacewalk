@@ -27,6 +27,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -54,6 +55,7 @@ public class ConfigurationFactory extends HibernateFactory {
         super();
     }
 
+    @Override
     protected Logger getLogger() {
         return log;
     }
@@ -207,9 +209,12 @@ public class ConfigurationFactory extends HibernateFactory {
         CallableMode m = ModeFactory.getCallableMode("config_queries",
                             "create_new_config_revision");
 
-        //We need to save the content first so that we have an id for
-        // the stored procedure.
-        singleton.saveObject(revision.getConfigContent());
+
+        if (revision.isFile()) {
+            //We need to save the content first so that we have an id for
+            // the stored procedure.
+            singleton.saveObject(revision.getConfigContent());
+        }
         //We do not have to save the ConfigInfo, because the info should always already be
         // in the database.  If this is not the case, please read the documentation for
         // lookupOrInsertConfigInfo(String, String, Long) and correct the problem.
@@ -219,10 +224,13 @@ public class ConfigurationFactory extends HibernateFactory {
 
         inParams.put("revision_in", revision.getRevision());
         inParams.put("config_file_id_in", revision.getConfigFile().getId());
-        inParams.put("config_content_id_in", revision.getConfigContent().getId());
+        if (revision.isFile()) {
+            inParams.put("config_content_id_in", revision.getConfigContent().getId());
+        }
+        else {
+            inParams.put("config_content_id_in", null);
+        }
         inParams.put("config_info_id_in", revision.getConfigInfo().getId());
-        inParams.put("delim_start_in", revision.getDelimStart());
-        inParams.put("delim_end_in", revision.getDelimEnd());
         inParams.put("config_file_type_id", new Long(
                             revision.getConfigFileType().getId()));
 
@@ -299,11 +307,17 @@ public class ConfigurationFactory extends HibernateFactory {
             //ConfigInfos have a unique constraint for their four data fields.
             //The config info object associated with this revision may have been
             //changed, so we need to carefully not update the database record.
+
+            String targetPath = revision.getConfigInfo().getTargetFileName() == null ?
+                                    null :
+                                   revision.getConfigInfo().getTargetFileName().getPath();
+
             ConfigInfo info = lookupOrInsertConfigInfo(
                     revision.getConfigInfo().getUsername(),
                     revision.getConfigInfo().getGroupname(),
                     revision.getConfigInfo().getFilemode(),
-                    revision.getConfigInfo().getSelinuxCtx());
+                    revision.getConfigInfo().getSelinuxCtx(),
+                    targetPath);
             //if the object did not change, we now have two hibernate objects
             //with the same identifier.  Evict one so that hibernate doesn't get mad.
             getSession().evict(revision.getConfigInfo());
@@ -479,11 +493,14 @@ public class ConfigurationFactory extends HibernateFactory {
      * @param groupname The linux groupname associated with a file
      * @param filemode The three digit file mode (ex: 655)
      * @param selinuxCtx The SELinux context
+     * @param symlinkTargetPath a target path for symlink or null for a non symlink path
      * @return The ConfigInfo found or inserted.
      */
     public static ConfigInfo lookupOrInsertConfigInfo(String username,
-            String groupname, Long filemode, String selinuxCtx) {
-        Long id = lookupConfigInfo(username, groupname, filemode, selinuxCtx);
+            String groupname, Long filemode, String selinuxCtx,
+            String symlinkTargetPath) {
+        Long id = lookupConfigInfo(username, groupname,
+                                filemode, selinuxCtx, symlinkTargetPath);
         return lookupConfigInfoById(id);
     }
 
@@ -497,7 +514,8 @@ public class ConfigurationFactory extends HibernateFactory {
      * @return The id of the found config info
      */
     private static Long lookupConfigInfo(String user, String group,
-            Long filemode, String selinuxCtx) {
+            Long filemode, String selinuxCtx,
+            String symlinkTargetPath) {
         CallableMode m = ModeFactory.getCallableMode("config_queries",
             "lookup_config_info");
 
@@ -508,6 +526,14 @@ public class ConfigurationFactory extends HibernateFactory {
         inParams.put("groupname_in", group);
         inParams.put("filemode_in", filemode);
         inParams.put("selinuxCtx_in", selinuxCtx);
+        if (!StringUtils.isBlank(symlinkTargetPath)) {
+            ConfigFileName fn = lookupOrInsertConfigFileName(symlinkTargetPath);
+            inParams.put("symlink_target_file_in", fn.getId());
+        }
+        else {
+            inParams.put("symlink_target_file_in", null);
+        }
+
         outParams.put("info_id", new Integer(Types.NUMERIC));
 
         Map out = m.execute(inParams, outParams);
@@ -706,10 +732,17 @@ public class ConfigurationFactory extends HibernateFactory {
         revision.setChangedById(usr.getId());
 
         //Steps 2-4
-        if (!revision.isDirectory()) {
+        if (revision.isFile()) {
+            String delimStart = null;
+            String delimEnd = null;
+            if (!revision.getConfigContent().isBinary()) {
+                delimStart = revision.getConfigContent().getDelimStart();
+                delimEnd = revision.getConfigContent().getDelimEnd();
+            }
             revision.setConfigContent(
                     createNewContentFromStream(stream, size,
-                            revision.getConfigContent().isBinary()));
+                            revision.getConfigContent().isBinary(),
+                                delimStart, delimEnd));
         }
 
         //Step 5
@@ -729,10 +762,13 @@ public class ConfigurationFactory extends HibernateFactory {
      * @param size number of bytes to read
      * @param isBinary true if the content is to be treated as binary (which means we
      * won't expand macros, morph EOL, or let you edit it from the web UI)
+     * @param delimStart start delimeter or null for binary
+     * @param delimEnd end delimeter or null for binary
      * @return filled-in ConfigContent
      */
     public static ConfigContent createNewContentFromStream(
-            InputStream stream, Long size, boolean isBinary) {
+            InputStream stream, Long size, boolean isBinary,
+            String delimStart, String delimEnd) {
         ConfigContent content = ConfigurationFactory.newConfigContent();
         content.setCreated(new Date());
         content.setModified(new Date());
@@ -761,6 +797,10 @@ public class ConfigurationFactory extends HibernateFactory {
         Checksum newChecksum = ChecksumFactory.safeCreate(MD5Crypt.md5Hex(foo), "md5");
         content.setChecksum(newChecksum);
         content.setBinary(isBinary);
+        if (!isBinary) {
+            content.setDelimEnd(delimEnd);
+            content.setDelimStart(delimStart);
+        }
         return content;
     }
 

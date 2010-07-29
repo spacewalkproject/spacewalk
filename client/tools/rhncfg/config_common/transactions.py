@@ -104,34 +104,35 @@ class DeployTransaction:
         self.deployment_cb = cb
 
     def _chown_chmod_chcon(self, temp_file_path, dest_path, file_info, strict_ownership=1):
-        uid = file_info.get('uid')
-        if uid is None:
-            if file_info.has_key('username'):            
-                # determine uid
-
-                try:
-                    user_record = pwd.getpwnam(file_info['username'])
-                except Exception, e:
-                    raise cfg_exceptions.UserNotFound(file_info['username'])
-        
-                uid = user_record[2]
-            else:
-                #default to root (3.2 sats)
-                uid = 0
-
-        gid = file_info.get('gid')
-        if gid is None:
-            if file_info.has_key('groupname'):
-                # determine gid
-                try:
-                    group_record = grp.getgrnam(file_info['groupname'])
-                except Exception, e:
-                    raise cfg_exceptions.GroupNotFound(file_info['groupname'])
-
-                gid = group_record[2]
-            else:
-                #default to root (3.2 sats)
-                gid = 0
+        if file_info['filetype'] != 'symlink':
+            uid = file_info.get('uid')
+            if uid is None:
+                if file_info.has_key('username'):            
+                    # determine uid
+    
+                    try:
+                        user_record = pwd.getpwnam(file_info['username'])
+                    except Exception, e:
+                        raise cfg_exceptions.UserNotFound(file_info['username'])
+            
+                    uid = user_record[2]
+                else:
+                    #default to root (3.2 sats)
+                    uid = 0
+    
+            gid = file_info.get('gid')
+            if gid is None:
+                if file_info.has_key('groupname'):
+                    # determine gid
+                    try:
+                        group_record = grp.getgrnam(file_info['groupname'])
+                    except Exception, e:
+                        raise cfg_exceptions.GroupNotFound(file_info['groupname'])
+    
+                    gid = group_record[2]
+                else:
+                    #default to root (3.2 sats)
+                    gid = 0
 
         try:
             if file_info['filetype'] != 'symlink':

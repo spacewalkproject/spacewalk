@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<schema targetNamespace="http://rhn.redhat.com"
+	xmlns="http://www.w3.org/1999/XMLSchema" xmlns:rhn="http://rhn.redhat.com">
+	<attribute name="cffSELinuxCtx">
+		<simpleType baseType="string">
+			<maxLength value="64" />
+		</simpleType>
+	</attribute>
+</schema>

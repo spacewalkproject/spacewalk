@@ -72,7 +72,7 @@ public class DirectoryData extends ConfigFileData {
      * {@inheritDoc}
      */
     @Override
-    protected void copyRevisedContentFrom(ConfigRevision current) {
+    public void processRevisedContentFrom(ConfigRevision current) {
         // NO -OP because directory has NO content!
     }
 }

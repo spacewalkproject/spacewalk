@@ -495,7 +495,7 @@ SELECT CF.id,
 	   CF.latest_config_revision_id,
        CFN.path,
 	   CR.revision AS latest_config_revision,
-       CCon.modified,
+       coalesce(CCon.modified, CR.modified) as modified,
        CFT.label as type
   FROM rhnConfigContent CCon,
        rhnConfigFileName CFN,
@@ -506,7 +506,7 @@ SELECT CF.id,
    AND CF.config_channel_id = :ccid
    AND CFN.id = CF.config_file_name_id
    AND CR.config_file_id = CF.id
-   AND CR.config_content_id = CCon.id
+   AND CR.config_content_id = CCon.id (+)
    AND CF.latest_config_revision_id = CR.id
    AND CR.config_file_type_id = CFT.id
 ORDER BY CFN.path
@@ -518,10 +518,10 @@ ORDER BY CFN.path
 SELECT CF.id,
 	   CF.latest_config_revision_id,
        CFN.path,
-	   CR.revision AS latest_config_revision,
-       CCon.modified,
+       CR.revision AS latest_config_revision,
+       coalesce(CCon.modified, CR.modified) as modified,
 	   CFT.label as type
-  FROM rhnConfigContent CCon,
+       FROM rhnConfigContent CCon,
        rhnConfigFileName CFN,
        rhnConfigFile CF,
        rhnConfigRevision CR,
@@ -534,7 +534,7 @@ SELECT CF.id,
    AND CF.config_channel_id = :ccid
    AND CFN.id = CF.config_file_name_id
    AND CR.config_file_id = CF.id
-   AND CR.config_content_id = CCon.id
+   AND CR.config_content_id = CCon.id (+)
    AND CF.latest_config_revision_id = CR.id
    AND CFT.id = CR.config_file_type_id
 ORDER BY CFN.path
@@ -546,24 +546,24 @@ ORDER BY CFN.path
 SELECT CR.id,
        CR.created,
        CR.revision AS revision_number,
-       CCon.file_size
+       coalesce(CCon.file_size,0) as file_size
   FROM rhnConfigContent CCon,
 	   rhnConfigRevision CR
  WHERE rhn_config_channel.get_user_file_access(:cfid, :user_id) = 1
    AND CR.config_file_id = :cfid
-   AND CR.config_content_id = CCon.id
+   AND CR.config_content_id = CCon.id(+)
 ORDER BY CR.revision DESC
   </query>
 </mode>
 
 <mode name="configfile_revisions_size">
 	<query params="cfid, user_id">
-SELECT SUM(CCon.file_size) AS total_file_size
+SELECT SUM(coalesce(CCon.file_size, 0)) AS total_file_size
 FROM rhnConfigContent CCon,
 	 rhnConfigRevision CR
 WHERE rhn_config_channel.get_user_file_access(:cfid, :user_id) = 1
    AND CR.config_file_id = :cfid
-   AND CR.config_content_id = CCon.id
+   AND CR.config_content_id = CCon.id(+)
 	</query>
 </mode>
 
@@ -726,7 +726,7 @@ SELECT DISTINCT CF.id AS id,
        CFT.label AS type,
        CCT.label AS config_channel_type,
        CC.name AS CONFIG_CHANNEL_NAME,
-       SUM(CCon.file_size) AS total_file_size
+       SUM(Coalesce(CCon.file_size,0)) AS total_file_size
   FROM rhnConfigContent CCon,
        rhnConfigChannelType CCT,
        rhnConfigRevision CR,
@@ -742,7 +742,7 @@ SELECT DISTINCT CF.id AS id,
    AND LCR.id = CF.latest_config_revision_id
    AND LCR.config_file_type_id = CFT.id
    AND CR.config_file_id = CF.id
-   AND CCon.id = CR.config_content_id
+   AND CCon.id = CR.config_content_id(+)
    AND CC.confchan_type_id = CCT.id
 GROUP BY CF.id, CFN.path, CC.name, CC.label, CFT.label, CCT.label, CC.id, CF.latest_config_revision_id, LCR.revision
 ORDER BY total_file_size DESC
@@ -942,7 +942,7 @@ SELECT COUNT(CF.id) AS num_files
 	
 <mode name="files_by_date"  class="com.redhat.rhn.frontend.dto.ConfigFileDto">
   <query params="ccid, user_id">
-SELECT CR.id, CFN.path, CCon.modified
+SELECT CR.id, CFN.path, coalesce(CCon.modified, CR.modified) as modified
   FROM rhnConfigContent CCon,
        rhnConfigFileName CFN,
        rhnConfigFile CF,
@@ -952,16 +952,16 @@ SELECT CR.id, CFN.path, CCon.modified
    AND CF.config_channel_id = CC.id
    AND CFN.id = CF.config_file_name_id
    AND CR.config_file_id = CF.id
-   AND CR.config_content_id = CCon.id
+   AND CR.config_content_id = CCon.id(+)
    AND CF.latest_config_revision_id = CR.id
    AND rhn_config_channel.get_user_file_access(CF.id, :user_id) = 1
-ORDER BY CCon.modified DESC
+ORDER BY modified DESC
   </query>
 </mode>
 
 <callable-mode name="lookup_config_info">
-  <query params="username_in, groupname_in, filemode_in, selinuxCtx_in">
-      {:info_id = call lookup_config_info( :username_in, :groupname_in, :filemode_in, :selinuxCtx_in )}
+  <query params="username_in, groupname_in, filemode_in, selinuxCtx_in, symlink_target_file_in">
+      {:info_id = call lookup_config_info( :username_in, :groupname_in, :filemode_in, :selinuxCtx_in, :symlink_target_file_in)}
   </query>
 </callable-mode>
 
@@ -1050,7 +1050,7 @@ ORDER BY  CFN.path
 SELECT  CF.id, CR.modified,
         CR.revision AS latest_config_revision,
         CR.id AS latest_config_revision_id,
-        CCon.file_size AS latest_revision_size,
+        coalesce(CCon.file_size,0) AS latest_revision_size,
         CFT.label AS type
   FROM  rhnConfigFile CF, rhnConfigRevision CR,
         rhnConfigContent CCon, rhnConfigFileName CFN,
@@ -1058,7 +1058,7 @@ SELECT  CF.id, CR.modified,
  WHERE  CF.id IN (%s)
    AND  CF.config_file_name_id = CFN.id
    AND  CF.latest_config_revision_id = CR.id
-   AND  CR.config_content_id = CCon.id
+   AND  CR.config_content_id = CCon.id(+)
    AND  CR.config_file_type_id = CFT.id
   </elaborator>
 </mode>
@@ -2260,8 +2260,8 @@ ORDER BY UPPER(CFN.path)
 </callable-mode>
 
 <callable-mode name="create_new_config_revision">
-  <query params="revision_in, config_file_id_in, config_content_id_in, config_info_id_in,  delim_start_in, delim_end_in, config_file_type_id">
-      {:configRevisionId = call rhn_config.insert_revision( :revision_in, :config_file_id_in, :config_content_id_in, :config_info_id_in, :delim_start_in, :delim_end_in, :config_file_type_id)}
+  <query params="revision_in, config_file_id_in, config_content_id_in, config_info_id_in, config_file_type_id">
+      {:configRevisionId = call rhn_config.insert_revision( :revision_in, :config_file_id_in, :config_content_id_in, :config_info_id_in, :config_file_type_id)}
   </query>
 </callable-mode>
 

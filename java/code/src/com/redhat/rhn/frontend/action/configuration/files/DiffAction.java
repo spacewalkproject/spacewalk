@@ -15,7 +15,9 @@
 package com.redhat.rhn.frontend.action.configuration.files;
 
 import com.redhat.rhn.common.filediff.Diff;
+import com.redhat.rhn.domain.config.ConfigContent;
 import com.redhat.rhn.domain.config.ConfigFile;
+import com.redhat.rhn.domain.config.ConfigFileName;
 import com.redhat.rhn.domain.config.ConfigInfo;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.user.User;
@@ -25,6 +27,7 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -41,6 +44,7 @@ public class DiffAction extends RhnAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -60,11 +64,17 @@ public class DiffAction extends RhnAction {
             .lookupConfigRevision(user, ocrid);
 
         //Only do the diff if both files are text files.
-        if (!revision.isDirectory() && !revision.getConfigContent().isBinary() &&
-                !other.isDirectory() && !other.getConfigContent().isBinary()) {
+        if (revision.isFile() && !revision.getConfigContent().isBinary() &&
+                other.isFile() && !other.getConfigContent().isBinary()) {
             request.setAttribute("showdiff", "true");
             request.setAttribute("diff",
                     performFileDiff(revision, other, view.equals("changed")));
+            ConfigContent revContent = revision.getConfigContent();
+            ConfigContent otherContent = other.getConfigContent();
+            if (!revContent.getDelimStart().equals(otherContent.getDelimStart()) ||
+                    !revContent.getDelimEnd().equals(otherContent.getDelimEnd())) {
+                request.setAttribute("diffdelim", "true");
+            }
         }
 
         //Set attributes so we can display basic file information.
@@ -94,28 +104,42 @@ public class DiffAction extends RhnAction {
             HttpServletRequest request) {
         ConfigInfo info = revision.getConfigInfo();
         ConfigInfo oinfo = other.getConfigInfo();
+        if (!revision.isSymlink()) {
+            //The following pieces are differences between revisions that are
+            //not in the file content.  We only show these if they are different.
+            if (!info.getFilemode().equals(oinfo.getFilemode())) {
+                request.setAttribute("diffmode", "true");
+            }
+            if (!info.getUsername().equals(oinfo.getUsername())) {
+                request.setAttribute("diffuser", "true");
+            }
+            if (!info.getGroupname().equals(oinfo.getGroupname())) {
+                request.setAttribute("diffgroup", "true");
+            }
+        }
+        else if (other.isSymlink()) {
+            ConfigFileName target = info.getTargetFileName();
+            ConfigFileName otarget = oinfo.getTargetFileName();
+            if ((target == null  && otarget != null) ||
+                   (target != null  && otarget == null) ||
+                   !otarget.equals(target)) {
+                request.setAttribute("difftargetpath", "true");
+            }
+        }
 
-        //The following pieces are differences between revisions that are
-        //not in the file content.  We only show these if they are different.
-        if (!info.getFilemode().equals(oinfo.getFilemode())) {
-            request.setAttribute("diffmode", "true");
-        }
-        if (!info.getUsername().equals(oinfo.getUsername())) {
-            request.setAttribute("diffuser", "true");
-        }
-        if (!info.getGroupname().equals(oinfo.getGroupname())) {
-            request.setAttribute("diffgroup", "true");
-        }
-        if (!revision.getDelimStart().equals(other.getDelimStart()) ||
-                !revision.getDelimEnd().equals(other.getDelimEnd())) {
-            request.setAttribute("diffdelim", "true");
-        }
         if (!revision.getConfigFileType().getLabel()
                 .equals(other.getConfigFileType().getLabel()) ||
-                revision.getConfigContent().isBinary() !=
-                    other.getConfigContent().isBinary()) {
+                (revision.isFile() && revision.getConfigContent().isBinary() !=
+                    other.getConfigContent().isBinary())) {
             request.setAttribute("difftype", "true");
         }
+
+        String selinux = StringUtils.defaultString(info.getSelinuxCtx());
+        String otherSelinux = StringUtils.defaultString(oinfo.getSelinuxCtx());
+        if (!selinux.equals(otherSelinux)) {
+            request.setAttribute("diffselinux", "true");
+        }
+
     }
 
 }

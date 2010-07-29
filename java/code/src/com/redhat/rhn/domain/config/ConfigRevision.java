@@ -28,9 +28,6 @@ public class ConfigRevision extends BaseDomainHelper {
 
     private Long id;
     private Long revision;
-    private String delimStart;
-    private String delimEnd;
-
     private ConfigFile configFile;
     private ConfigContent configContent;
     private ConfigInfo configInfo;
@@ -77,38 +74,6 @@ public class ConfigRevision extends BaseDomainHelper {
     */
     public void setRevision(Long revisionIn) {
         this.revision = revisionIn;
-    }
-
-    /**
-     * Getter for delimStart
-     * @return String to get
-    */
-    public String getDelimStart() {
-        return this.delimStart;
-    }
-
-    /**
-     * Setter for delimStart
-     * @param delimStartIn to set
-    */
-    public void setDelimStart(String delimStartIn) {
-        this.delimStart = delimStartIn;
-    }
-
-    /**
-     * Getter for delimEnd
-     * @return String to get
-    */
-    public String getDelimEnd() {
-        return this.delimEnd;
-    }
-
-    /**
-     * Setter for delimEnd
-     * @param delimEndIn to set
-    */
-    public void setDelimEnd(String delimEndIn) {
-        this.delimEnd = delimEndIn;
     }
 
     /**
@@ -188,8 +153,6 @@ public class ConfigRevision extends BaseDomainHelper {
         retval.setConfigFile(getConfigFile());
         retval.setConfigInfo(getConfigInfo());
         retval.setConfigFileType(getConfigFileType());
-        retval.setDelimEnd(getDelimEnd());
-        retval.setDelimStart(getDelimStart());
         retval.setCreated(new Date());
         retval.setModified(new Date());
         retval.setRevision(getRevision());

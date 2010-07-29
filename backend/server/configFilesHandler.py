@@ -134,36 +134,48 @@ class ConfigFilesHandler(rhnHandler):
     def _check_user_role(self):
         pass
 
+    def _is_file(self, file):
+        return str(file['config_file_type_id']) == '1'
+
+    def _is_link(self, file):
+        return str(file['config_file_type_id']) == '3'
+
     def _push_file(self, config_channel_id, file):
         if not file:
             # Nothing to do
             return {}
 
-	# Check for full path on the file
-	path = file.get('path')
-	if not (path[0] == os.sep):
-	    raise ConfigFilePathIncomplete(file)
+        # Check for full path on the file
+        path = file.get('path')
+        if not (path[0] == os.sep):
+	        raise ConfigFilePathIncomplete(file)
 
+        if not file.has_key('config_file_type_id'):
+           log_debug(4, "Client does not support config directories, so set file_type_id to 1")
+           file['config_file_type_id'] = '1'
         # Check if delimiters are present
-        if not (file.get('delim_start') and file.get('delim_end')):
+        if self._is_file(file) and \
+                    not (file.get('delim_start') and file.get('delim_end')):
             # Need delimiters
             raise ConfigFileMissingDelimError(file)
 
         if not (file.get('user') and file.get('group') and 
-                file.get('mode')):
+                file.get('mode')) and not self._is_link(file) :
             raise ConfigFileMissingInfoError(file)
 
         # Oracle doesn't like certain binding variables
-        file['username'] = file['user']
-        file['groupname'] = file['group']
-        file['file_mode'] = file['mode']
-        if not file.has_key('selinux_ctx'):
-            file['selinux_ctx'] = ''
-
+        file['username'] = file.get('user','')
+        file['groupname'] = file.get('group','')
+        file['file_mode'] = file.get('mode','')
+        file['selinux_ctx'] = file.get('selinux_ctx','')
         result = {}
         
         try:
-            self._push_contents(file)
+
+            if self._is_file(file):
+                self._push_contents(file)
+            elif self._is_link(file):
+                file['symlink'] = file.get('symlink') or ''
         except ConfigFileTooLargeError:
             result['file_too_large'] = 1
 
@@ -221,7 +233,7 @@ class ConfigFilesHandler(rhnHandler):
         return result
 
     _query_content_lookup = rhnSQL.Statement("""
-        select cc.id, cv.checksum_type, cv.checksum, file_size, contents, is_binary
+        select cc.id, cv.checksum_type, cv.checksum, file_size, contents, is_binary, delim_start, delim_end
           from rhnConfigContent cc, rhnChecksumView cv
          where cv.checksum = :checksum
            and cv.checksum_type = :checksum_type
@@ -231,16 +243,16 @@ class ConfigFilesHandler(rhnHandler):
 
     _query_insert_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
-               (id, checksum_id, file_size, contents, is_binary)
+               (id, checksum_id, file_size, contents, is_binary, delim_start, delim_end)
         values (:config_content_id, lookup_checksum(:checksum_type, :checksum),
-                :file_size, empty_blob(), :is_binary)
+                :file_size, empty_blob(), :is_binary, :delim_start, :delim_end)
     """)
 
     _query_insert_null_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
-               (id, checksum_id, file_size, contents, is_binary)
+               (id, checksum_id, file_size, contents, is_binary, delim_start, delim_end)
         values (:config_content_id, lookup_checksum(:checksum_type, :checksum),
-                :file_size, NULL, :is_binary)
+                :file_size, NULL, :is_binary, :delim_start, :delim_end)
     """)
 
     _query_get_content_row = rhnSQL.Statement("""
@@ -325,8 +337,13 @@ class ConfigFilesHandler(rhnHandler):
             lob = row['contents']
             lob.write(file_contents)
 
-    _query_lookup_config_info = rhnSQL.Statement("""
-        select lookup_config_info(:username, :groupname, :file_mode, :selinux_ctx) id
+    _query_lookup_symlink_config_info = rhnSQL.Statement("""
+        select lookup_config_info(null, null, null, :selinux_ctx, lookup_config_filename(:symlink)) id
+          from dual
+    """)
+
+    _query_lookup_non_symlink_config_info = rhnSQL.Statement("""
+        select lookup_config_info(:username, :groupname, :file_mode, :selinux_ctx, null) id
           from dual
     """)
 
@@ -338,8 +355,12 @@ class ConfigFilesHandler(rhnHandler):
     """)
 
     def _push_config_file(self, file):
+        config_info_query = self._query_lookup_non_symlink_config_info
+        if self._is_link(file) and file.get("symlink"):
+            config_info_query = self._query_lookup_symlink_config_info
+
         # Look up the config info first
-        h = rhnSQL.prepare(self._query_lookup_config_info)
+        h = rhnSQL.prepare(config_info_query)
         apply(h.execute, (), file)
         row = h.fetchone_dict()
         if not row:
@@ -368,7 +389,7 @@ class ConfigFilesHandler(rhnHandler):
 
     _query_lookup_revision = rhnSQL.Statement("""
         select id, revision, config_content_id, config_info_id, 
-               delim_start, delim_end, config_file_type_id
+               config_file_type_id
           from rhnConfigRevision
          where config_file_id = :config_file_id
          order by revision desc
@@ -383,15 +404,14 @@ class ConfigFilesHandler(rhnHandler):
         if row:
             # Is it the same revision as this one?
 
-            fields = ['config_content_id', 'config_info_id', 'delim_start',
-                'delim_end', 'config_file_type_id']
+            fields = ['config_content_id', 'config_info_id', 'config_file_type_id']
 	    
 	    if not file.has_key('config_file_type_id'):
 	        log_debug(4, "Client does not support config directories, so set file_type_id to 1")
 		file['config_file_type_id'] = '1'
 
             for f in fields:
-                if file[f] != row[f]:
+                if file.get(f) != row.get(f):
                     break
             else: # for
                 # All fields are equal
@@ -430,10 +450,8 @@ class ConfigFilesHandler(rhnHandler):
             rhnSQL.types.NUMBER())
         file['config_revision_id'] = insert_call(file['revision'],
                                                  file['config_file_id'],
-                                                 file['config_content_id'],
+                                                 file.get('config_content_id',''),
                                                  file['config_info_id'],
-                                                 file['delim_start'],
-                                                 file['delim_end'],
        						 file['config_file_type_id']) 
 
     _query_update_revision_add_author = rhnSQL.Statement("""
@@ -473,9 +491,9 @@ class ConfigFilesHandler(rhnHandler):
         return rhnSQL.Sequence('rhn_confchan_id_seq').next()
 
 def format_file_results(row, server=None):
-
     encoding = ''
-    contents = rhnSQL.read_lob(row['file_contents'])
+    contents = None 
+    contents = rhnSQL.read_lob(row['file_contents']) or ''
 
     if server and (row['is_binary'] == 'N') and contents:
 
@@ -494,16 +512,17 @@ def format_file_results(row, server=None):
     return {
         'path'          : row['path'],
         'config_channel': row['config_channel'],
-        'file_contents' : contents or '',
-        'checksum_type' : row['checksum_type'],
-        'checksum'      : row['checksum'],
-        'delim_start'   : row['delim_start'],
-        'delim_end'     : row['delim_end'],
-        'revision'      : row['revision'],
-        'username'      : row['username'],
-        'groupname'     : row['groupname'],
-        'filemode'      : row['filemode'],
-        'encoding'      : encoding,
+        'file_contents' : contents,
+        'symlink' : row['symlink'] or '', 
+        'checksum_type' : row['checksum_type'] or '',
+        'checksum'      : row['checksum'] or '',
+        'delim_start'   : row['delim_start'] or '',
+        'delim_end'     : row['delim_end'] or '',
+        'revision'      : row['revision'] or '',
+        'username'      : row['username'] or '',
+        'groupname'     : row['groupname'] or '',
+        'filemode'      : row['filemode'] or '',
+        'encoding'      : encoding or '',
         'filetype'      : row['label'],
         'selinux_ctx'   : row['selinux_ctx'] or '',
     }

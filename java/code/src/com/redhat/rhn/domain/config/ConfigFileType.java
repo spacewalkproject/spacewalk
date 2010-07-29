@@ -213,6 +213,7 @@ public class ConfigFileType implements Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toString() {
         return new ToStringBuilder(this).append("id", getId()).toString();
     }
@@ -220,6 +221,7 @@ public class ConfigFileType implements Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean equals(Object other) {
         if (!(other instanceof ConfigFileType)) {
             return false;
@@ -231,8 +233,22 @@ public class ConfigFileType implements Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int hashCode() {
         return new HashCodeBuilder().append(getId()).toHashCode();
+    }
+
+    /**
+     * @return The i18n message key for the type
+     */
+    public String getMessageKey() {
+        if (dir().equals(this)) {
+            return "addfiles.jsp.type.directory";
+        }
+        else if (symlink().equals(this)) {
+            return "addfiles.jsp.type.symlink";
+        }
+        return "addfiles.jsp.type.text";
     }
 
 }

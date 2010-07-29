@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.configuration;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
@@ -21,6 +22,7 @@ import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigContent;
 import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigFileState;
+import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.user.User;
@@ -111,14 +113,6 @@ public class ConfigFileBuilder {
     }
 
 
-    private ConfigRevision makeNewRevision(User user, ConfigFileData form,
-            ConfigFile cf, boolean onCreate, Long revNum) {
-        ConfigRevision rev = makeNewRevision(user, form, cf, onCreate);
-        rev.setRevision(revNum);
-        ConfigurationFactory.saveNewConfigRevision(rev);
-        return rev;
-    }
-
     /**
      * Creates a new New config revision of a config file using the passed in data.
      * @param user the logged in user
@@ -135,9 +129,19 @@ public class ConfigFileBuilder {
 
         if (onCreate) {
             revision = ConfigurationFactory.newConfigRevision();
-            ConfigContent content = ConfigurationFactory
-                    .createNewContentFromStream(form.getContentStream(),
-                            form.getContentSize(), form.isBinary());
+            ConfigContent content = null;
+            if (ConfigFileType.file().equals(form.getType())) {
+                String delimStart = null;
+                String delimEnd = null;
+                if (!form.isBinary()) {
+                    delimStart = form.getMacroStart();
+                    delimEnd = form.getMacroEnd();
+                }
+                content = ConfigurationFactory.createNewContentFromStream(
+                            form.getContentStream(),
+                        form.getContentSize(), form.isBinary(),
+                        delimStart, delimEnd);
+            }
             revision.setConfigContent(content);
             revision.setChangedById(user.getId());
         }
@@ -145,13 +149,13 @@ public class ConfigFileBuilder {
             revision = manager.createNewRevision(
                     user, form.getContentStream(), cf,
                         form.getContentSize());
-            revision.getConfigContent().setBinary(form.isBinary());
+            if (revision.isFile()) {
+                revision.getConfigContent().setBinary(form.isBinary());
+            }
         }
         revision.setConfigInfo(form.extractInfo());
         revision.setConfigFileType(form.getType());
         revision.setConfigFile(cf);
-        revision.setDelimStart(form.getMacroStart());
-        revision.setDelimEnd(form.getMacroEnd());
         if (!StringUtils.isEmpty(form.getRevNumber())) {
             revision.setRevision(Long.parseLong(form.getRevNumber()));
         }
@@ -176,40 +180,36 @@ public class ConfigFileBuilder {
     public ConfigRevision update(ConfigFileData form,
                             User user, ConfigFile file)
                                         throws ValidatorException {
+        form.validatePath();
         ValidatorResult result;
-        if (form.isDirectory() && !file.getLatestConfigRevision().isDirectory()) {
+        if (!form.getType().equals(file.getLatestConfigRevision().getConfigFileType())) {
+
+            LocalizationService ls = LocalizationService.getInstance();
+            String fromType = ls.getMessage(file.getLatestConfigRevision().
+                                                    getConfigFileType().getMessageKey());
+            String toType =  ls.getMessage(form.getType().getMessageKey());
+            ValidatorException.raiseException("error.config-cannot-change-type",
+                                                form.getPath(), fromType, toType);
+        }
+
+        try {
+           Long l = Long.parseLong(form.getRevNumber());
+           if (l.longValue() <= file.getLatestConfigRevision().getRevision()) {
+               result = new ValidatorResult();
+               result.addError(new ValidatorError("error.config.revnum.too-old",
+                       form.getPath()));
+               throw new ValidatorException(result);
+           }
+        }
+        catch (NumberFormatException nfe) {
             result = new ValidatorResult();
-            result.addError(new ValidatorError("error.config-cannot-change-file2dir",
-                                                        form.getPath()));
+            result.addError(new ValidatorError("error.config.revnum.invalid",
+                    form.getPath()));
             throw new ValidatorException(result);
         }
-        else if (!form.isDirectory() && file.getLatestConfigRevision().isDirectory()) {
-            result = new ValidatorResult();
-            result.addError(new ValidatorError("error.config-cannot-change-dir2file",
-                                                        form.getPath()));
-            throw new ValidatorException(result);
-        }
-        else {
-            try {
-               Long l = Long.parseLong(form.getRevNumber());
-               if (l.longValue() <= file.getLatestConfigRevision().getRevision()) {
-                   result = new ValidatorResult();
-                   result.addError(new ValidatorError("error.config.revnum.too-old",
-                           form.getPath()));
-                   throw new ValidatorException(result);
-               }
-            }
-            catch (NumberFormatException nfe) {
-                result = new ValidatorResult();
-                result.addError(new ValidatorError("error.config.revnum.invalid",
-                        form.getPath()));
-                throw new ValidatorException(result);
-            }
 
 
-            form.validate(false);
-        }
-
+        form.validate(false);
         return makeNewRevision(user, form, file, false);
     }
 

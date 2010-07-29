@@ -6712,6 +6712,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
 
+      <trans-unit id="error.config-cannot-change-type">
+        <source>Error creating configuration file revision: ({0}) is a '{1}', but you are attempting to change it to a '{2}'. If you want to change its file type, you'll need to delete ({0}) and re-add it as a '{2}' rather than a '{1}'.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
+        </context-group>
+      </trans-unit>
 
       <trans-unit id="error.config-not-specified">
         <source>Error creating Configuration File Revision:  Upload file not found.</source>

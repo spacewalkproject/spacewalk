@@ -220,7 +220,6 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
                             adminKey, cc.getLabel(), path, isDir, data);
 
         assertEquals(path, rev.getConfigFile().getConfigFileName().getPath());
-        assertEquals(contents, rev.getConfigContent().getContentsString());
         assertEquals(group, rev.getConfigInfo().getGroupname());
         assertEquals(owner, rev.getConfigInfo().getUsername());
         assertEquals(perms, String.valueOf(rev.getConfigInfo().getFilemode()));
@@ -228,10 +227,10 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         if (isDir) {
             assertEquals(ConfigFileType.dir(), rev.getConfigFileType());
         }
-        else {
-            assertEquals(ConfigFileType.file(), rev.getConfigFileType());
-            assertEquals(start, rev.getDelimStart());
-            assertEquals(end, rev.getDelimEnd());
+        else if (ConfigFileType.file().equals(rev.getConfigFileType())) {
+                assertEquals(contents, rev.getConfigContent().getContentsString());
+                assertEquals(start, rev.getConfigContent().getDelimStart());
+                assertEquals(end, rev.getConfigContent().getDelimEnd());
         }
         assertEquals(cc, rev.getConfigFile().getConfigChannel());
 

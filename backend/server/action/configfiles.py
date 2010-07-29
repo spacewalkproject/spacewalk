@@ -117,14 +117,18 @@ _query_get_files = rhnSQL.Statement("""
            ccont.is_binary is_binary,
            c.checksum_type,
            c.checksum,
-           cr.delim_start,
-           cr.delim_end,
+           ccont.delim_start,
+           ccont.delim_end,
            cr.revision,
            ci.username,
            ci.groupname,
            ci.filemode,
-	   cft.label,
-	   ci.selinux_ctx
+	       cft.label,
+	       ci.selinux_ctx,
+           case 
+                when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
+                else ''
+            end as symlink	       
       from 
            rhnConfigFileState cfs,
            rhnConfigContent ccont,
@@ -145,15 +149,14 @@ _query_get_files = rhnSQL.Statement("""
        and cf.config_channel_id = cc.id
        and cf.state_id = cfs.id
        and cfs.label = 'alive'
-       and cr.config_content_id = ccont.id
+       and cr.config_content_id = ccont.id (+)
        and cr.config_file_type_id = cft.id
-       and ccont.checksum_id = c.id
+       and ccont.checksum_id = c.id(+)
 """)
 
 def _get_files(server_id, action_id):
     h = rhnSQL.prepare(_query_get_files)
     h.execute(action_id=action_id, server_id=server_id)
-
     server = rhnServer.search(server_id)
     server = var_interp_prep(server)
     

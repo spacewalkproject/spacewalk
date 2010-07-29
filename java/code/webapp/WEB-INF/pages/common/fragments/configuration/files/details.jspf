@@ -114,7 +114,7 @@
                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
   <th> <bean:message key="filedetails.details.jspf.revnum"/> </th>
   <td>
-	<html:text property="revnum" size="4" value="${revnum}"/>
+	<html:text property="revnum" size="4"/>
   </td>
   </rhn:require>
 </tr>

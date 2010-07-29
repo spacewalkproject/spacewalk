@@ -26,11 +26,9 @@ CREATE TABLE rhnConfigRevision
     config_content_id    NUMBER NOT NULL
                              CONSTRAINT rhn_confrevision_ccid_fk
                                  REFERENCES rhnConfigContent (id),
-    config_info_id       NUMBER NOT NULL
+    config_info_id       NUMBER
                              CONSTRAINT rhn_confrevision_ciid_fk
                                  REFERENCES rhnConfigInfo (id),
-    delim_start          VARCHAR2(16) NOT NULL,
-    delim_end            VARCHAR2(16) NOT NULL,
     created              DATE
                              DEFAULT (sysdate) NOT NULL,
     modified             DATE

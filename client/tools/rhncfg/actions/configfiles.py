@@ -317,9 +317,10 @@ def diff(params, cache_only=None):
     fp = file_utils.FileProcessor()
     missing_files = []
     diffs = {}
+    exists = hasattr(os.path, 'lexists') and os.path.lexists or os.path.exists
     for file in files:
         path = file['path']
-        if not os.path.exists(path):
+        if not exists(path):
             missing_files.append(path)
             continue
         if os.path.isdir(path):

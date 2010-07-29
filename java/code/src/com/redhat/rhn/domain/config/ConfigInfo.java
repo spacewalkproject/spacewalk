@@ -27,6 +27,7 @@ public class ConfigInfo extends BaseDomainHelper {
     private String groupname;
     private Long filemode;
     private String selinuxCtx;
+    private ConfigFileName targetFileName;
 
     /**
      * protected constructor
@@ -114,5 +115,19 @@ public class ConfigInfo extends BaseDomainHelper {
     */
     public void setSelinuxCtx(String ctxIn) {
         this.selinuxCtx = ctxIn;
+    }
+
+    /**
+     * @param targetFileNameIn The targetFileName to set.
+     */
+    public void setTargetFileName(ConfigFileName targetFileNameIn) {
+        this.targetFileName = targetFileNameIn;
+    }
+
+    /**
+     * @return Returns the targetFileName.
+     */
+    public ConfigFileName getTargetFileName() {
+        return targetFileName;
     }
 }

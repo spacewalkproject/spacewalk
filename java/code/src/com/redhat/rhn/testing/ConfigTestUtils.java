@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.testing;
 
+import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelType;
 import com.redhat.rhn.domain.config.ConfigContent;
@@ -23,7 +24,6 @@ import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigInfo;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
-import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
@@ -205,8 +205,6 @@ public class ConfigTestUtils extends Assert {
         cr.setCreated(new Date());
         cr.setModified(new Date());
         cr.setConfigContent(content);
-        cr.setDelimStart("{@");
-        cr.setDelimEnd("@}");
         cr.setConfigFile(file);
         cr.setConfigInfo(info);
         cr.setConfigFileType(type);
@@ -286,6 +284,9 @@ public class ConfigTestUtils extends Assert {
         cc.setBinary(isBinary);
         cc.setCreated(new Date());
         cc.setModified(new Date());
+        cc.setDelimStart("{@");
+        cc.setDelimEnd("@}");
+
         return cc;
     }
 
@@ -308,7 +309,8 @@ public class ConfigTestUtils extends Assert {
      * @return The newly created ConfigInfo.
      */
     public static ConfigInfo createConfigInfo(String user, String group, Long fileMode) {
-        return ConfigurationFactory.lookupOrInsertConfigInfo(user, group, fileMode, "");
+        return ConfigurationFactory.lookupOrInsertConfigInfo(user, group,
+                                                            fileMode, "", null);
     }
 
     /**

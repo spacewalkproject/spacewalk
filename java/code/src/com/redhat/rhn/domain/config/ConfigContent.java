@@ -28,6 +28,8 @@ public class ConfigContent extends BaseDomainHelper {
     private Checksum checksum;
     private boolean isBinary;
     private byte[] contents;
+    private String delimStart;
+    private String delimEnd;
     /**
      * protected constructor.
      * Use the ConfigurationFactory to get new ConfigContents
@@ -127,4 +129,35 @@ public class ConfigContent extends BaseDomainHelper {
         this.isBinary = isBinaryIn;
     }
 
+    /**
+     * Getter for delimStart
+     * @return String to get
+    */
+    public String getDelimStart() {
+        return this.delimStart;
+    }
+
+    /**
+     * Setter for delimStart
+     * @param delimStartIn to set
+    */
+    public void setDelimStart(String delimStartIn) {
+        this.delimStart = delimStartIn;
+    }
+
+    /**
+     * Getter for delimEnd
+     * @return String to get
+    */
+    public String getDelimEnd() {
+        return this.delimEnd;
+    }
+
+    /**
+     * Setter for delimEnd
+     * @param delimEndIn to set
+    */
+    public void setDelimEnd(String delimEndIn) {
+        this.delimEnd = delimEndIn;
+    }
 }

@@ -14515,6 +14515,14 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      </trans-unit>
+	<trans-unit id="config-file-form.error.selinux-invalid">
+<source>Invalid values set for SElinux Context.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     </trans-unit>
+     
+     
 	<trans-unit id="config-file-form.error.start-delim-percent">
 <source>Start delimiter may not contain the '%' character.</source>
         <context-group name="ctx">
@@ -14828,6 +14836,12 @@ _Download /etc/sysconfig/rhn/up2date_ (Revision 7, 96 bytes)
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      </trans-unit>
+	<trans-unit id="filedetails.properties.jspf.targetpath">
+<source>Symbolic Link Target Filename/Path &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     </trans-unit>     
 	<trans-unit id="filedetails.properties.jspf.ownership">
 <source>Ownership:</source>
         <context-group name="ctx">
@@ -15685,6 +15699,12 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="diff.jsp.groupname">
           <source>Group:</source>
         </trans-unit>
+        <trans-unit id="diff.jsp.selinux">
+          <source>SE Linux Context:</source>
+        </trans-unit>
+        <trans-unit id="diff.jsp.targetpath">
+          <source>Target Path:</source>
+        </trans-unit>                
         <trans-unit id="diff.jsp.startDelim">
           <source>Start Delimiter:</source>
         </trans-unit>

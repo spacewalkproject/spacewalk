@@ -32,6 +32,7 @@ import com.redhat.rhn.manager.configuration.ConfigurationValidation;
 import com.redhat.rhn.manager.configuration.file.BinaryFileData;
 import com.redhat.rhn.manager.configuration.file.ConfigFileData;
 import com.redhat.rhn.manager.configuration.file.DirectoryData;
+import com.redhat.rhn.manager.configuration.file.SymlinkData;
 import com.redhat.rhn.manager.configuration.file.TextFileData;
 
 import org.apache.struts.upload.FormFile;
@@ -54,6 +55,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
     private static final long serialVersionUID = -2162768922109257186L;
     // configFileForm elements
     public static final String REV_PATH         = "cffPath";
+    public static final String REV_SYMLINK_TARGET_PATH = "targetPath";
     public static final String REV_UID          = "cffUid";
     public static final String REV_GID          = "cffGid";
     public static final String REV_PERMS        = "cffPermissions";
@@ -159,27 +161,38 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
         User u = requestContext.getLoggedInUser();
 
         set(ConfigFileForm.REV_PATH, cr.getConfigFile().getConfigFileName().getPath());
+        if (cr.isSymlink() && cr.getConfigInfo().getTargetFileName() != null) {
+            set(ConfigFileForm.REV_SYMLINK_TARGET_PATH,
+                    cr.getConfigInfo().getTargetFileName().getPath());
+        }
+
+        set(REV_NUMBER, String.valueOf(
+                cr.getConfigFile().getLatestConfigRevision().getRevision() + 1));
+
         Long mode = cr.getConfigInfo().getFilemode();
-        String modeStr = new DecimalFormat("000").format(mode.longValue());
+
+        String modeStr = mode == null ? "" :
+            new DecimalFormat("000").format(mode.longValue());
         set(ConfigFileForm.REV_PERMS, modeStr);
         set(ConfigFileForm.REV_SELINUX_CTX, cr.getConfigInfo().getSelinuxCtx());
         set(ConfigFileForm.REV_UID, cr.getConfigInfo().getUsername());
         set(ConfigFileForm.REV_GID, cr.getConfigInfo().getGroupname());
-        set(ConfigFileForm.REV_BINARY, new Boolean(cr.getConfigContent().isBinary()));
         set("submitted", Boolean.TRUE);
-
-        if (!cr.getConfigContent().isBinary() && !cr.isDirectory()) {
-            set(ConfigFileForm.REV_CONTENTS, cr.getConfigContent().getContentsString());
+        if (cr.isFile()) {
+            set(ConfigFileForm.REV_BINARY, cr.getConfigContent().isBinary());
+            if (!cr.getConfigContent().isBinary() && !cr.isDirectory()) {
+                set(ConfigFileForm.REV_CONTENTS, cr.getConfigContent().getContentsString());
+            }
+            Boolean toolarge = cr.getConfigContent().getFileSize().
+                                                longValue() > MAX_EDITABLE_SIZE;
+            request.setAttribute(REV_TOOLARGE, toolarge);
         }
-
         ConfigActionHelper.setupRequestAttributes(requestContext, cr.getConfigFile(), cr);
 
-        request.setAttribute(REV_DISPLAYABLE, new Boolean(canDisplayContent(cr)));
-        request.setAttribute(REV_EDITABLE, new Boolean(canEditContent(u, cr)));
+        request.setAttribute(REV_DISPLAYABLE, canDisplayContent(cr));
+        request.setAttribute(REV_EDITABLE, canEditContent(u, cr));
 
-        Boolean toolarge = new Boolean(
-                cr.getConfigContent().getFileSize().longValue() > MAX_EDITABLE_SIZE);
-        request.setAttribute(REV_TOOLARGE, toolarge);
+
     }
 
     /**
@@ -191,7 +204,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
      * @return true IFF the above conditions are true
      */
     protected boolean canDisplayContent(ConfigRevision cr) {
-        return (!cr.isDirectory() &&
+        return (cr.isFile() &&
                 !cr.getConfigContent().isBinary() &&
                 cr.getConfigContent().getFileSize().longValue() < MAX_EDITABLE_SIZE);
     }
@@ -221,6 +234,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
      * but the rest MUST be scrubbed
      * {@inheritDoc}
      */
+    @Override
     protected boolean isScrubbable(String name, Object value) {
         if (REV_CONTENTS.equals(name) ||
             REV_MACROSTART.equals(name) ||
@@ -283,6 +297,9 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
         if (isDirectory()) {
             data = new DirectoryData();
         }
+        else if (ConfigFileType.symlink().equals(extractFileType())) {
+            data = new SymlinkData(getString(REV_SYMLINK_TARGET_PATH));
+        }
         else if (isBinary()) {
             if (isUpload()) {
                 FormFile file = (FormFile) get(REV_UPLOAD);
@@ -333,7 +350,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
     public ConfigFileData toRevisedData(ConfigRevision rev) {
         ConfigFileData data = toData();
         boolean toBeBinary = (Boolean)get(REV_BINARY) == null ?
-                rev.getConfigContent().isBinary() :
+                rev.isFile() && rev.getConfigContent().isBinary() :
                  isBinary();
         if (!canDisplayContent(rev) || toBeBinary) {
             data.processRevisedContentFrom(rev);

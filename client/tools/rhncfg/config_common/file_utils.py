@@ -37,6 +37,20 @@ class FileProcessor:
         pass
 
     def process(self, file_struct, directory=None, strict_ownership=1):
+        # Older servers will not return directories; if filetype is missing,
+        # assume file
+    	if file_struct.get('filetype') == 'directory':
+                return directory, []
+
+        if file_struct.get('filetype') == 'symlink':
+            if not file_struct.has_key('symlink'):
+                raise Exception, "Missing key symlink"
+
+            (dirname, filename) = os.path.split(file_struct['path'])
+            temppath = ".rhn-cfg-tmp_%s_%s_%.8f" % (filename, os.getpid(), time.time())
+            os.symlink(file_struct['symlink'], temppath)
+            return temppath, []
+
         for k in self.file_struct_fields.keys():
             if not file_struct.has_key(k):
                 # XXX
@@ -56,30 +70,20 @@ class FileProcessor:
         delim_end = file_struct['delim_end']
 
         fh = None        
-        # Older servers will not return directories; if filetype is missing,
-        # assume file
-	if file_struct.get('filetype') == 'directory':
-            return directory, []
 
-        if file_struct.get('filetype') == 'symlink':
-            (dirname, filename) = os.path.split(file_struct['path'])
-            temppath = ".rhn-cfg-tmp_%s_%s_%.8f" % (filename, os.getpid(), time.time())
-            os.symlink(contents, temppath)
-            return temppath, []
+        (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
+                                  directory=directory)
+
+        try:
+            fh.write(contents)
+        except Exception:
+            if fh:
+                fh.close()  # don't leak fds...
+            raise
         else:
-            (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
-                                      directory=directory)
+            fh.close()
 
-            try:
-                fh.write(contents)
-            except Exception:
-                if fh:
-                    fh.close()  # don't leak fds...
-                raise
-            else:
-                fh.close()
-
-            return fullpath, dirs_created
+        return fullpath, dirs_created
 
 
     def diff(self, file_struct):
@@ -95,7 +99,7 @@ class FileProcessor:
             cur_sectx = ''
         if file_struct.has_key('selinux_ctx'):
             if cur_sectx != file_struct['selinux_ctx']:
-                sectx_result = "SELinux contexts differ!  Current: %s, expected: %s\n" % (cur_sectx, file_struct['selinux_ctx'])
+                sectx_result = "SELinux contexts differ:  actual: [%s], expected: [%s]\n" % (cur_sectx, file_struct['selinux_ctx'])
 
         if file_struct['filetype'] == 'symlink':
             try:
@@ -104,7 +108,7 @@ class FileProcessor:
                 if curlink == newlink:
                     result = ''
                 else:
-                    result = "Link targets differ"
+                    result = "Link targets differ: actual: [%s], expected: [%s]\n" % (curlink, newlink)
             except OSError, e:
                 if e.errno == 22:
                     result = "Deployed symlink is no longer a symlink!"

@@ -4,6 +4,14 @@
   <th><bean:message key="filedetails.properties.jspf.path" /></th>
   <td><bean:write name="configFileForm" property="cffPath"/></td>
 </tr>
+<c:choose>
+<c:when test="${revision.symlink}">
+<tr>
+	<th><bean:message key="filedetails.properties.jspf.targetpath" /></th>
+	<td><html:text name="configFileForm" property="targetPath" size="30"/></td>
+</tr>
+</c:when>
+<c:otherwise>
 <tr>
   <th><bean:message key="filedetails.properties.jspf.ownership" /></th>
   <td>
@@ -53,6 +61,9 @@
     <span class="small-text"><bean:message key="filedetails.jsp.tip.permissions" /></span>
   </td>
 </tr>
+</c:otherwise>
+</c:choose>
+
 <tr>
   <th>SELinux context</th>
   <td>

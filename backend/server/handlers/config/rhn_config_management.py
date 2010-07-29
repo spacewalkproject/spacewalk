@@ -172,7 +172,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                ccont.is_binary is_binary,
                c.checksum_type,
                c.checksum,
-               cr.delim_start, cr.delim_end,
+               ccont.delim_start, ccont.delim_end,
                cr.revision,
                cf.modified,
                ci.username,
@@ -180,7 +180,11 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                ci.filemode,
 	       cft.label,
 	       cct.priority,
-	       ci.selinux_ctx
+	       ci.selinux_ctx,
+           case 
+                when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
+                else ''
+            end as symlink
           from rhnConfigChannel cc,
                rhnConfigInfo ci,
                rhnConfigRevision cr,
@@ -197,10 +201,10 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cr.config_file_id = cf.id
            and cr.config_info_id = ci.id
            and cf.latest_config_revision_id = cr.id
-           and cr.config_content_id = ccont.id
+           and cr.config_content_id = ccont.id (+)
 	   and cr.config_file_type_id = cft.id
 	   and cct.id = cc.confchan_type_id
-           and ccont.checksum_id = c.id
+           and ccont.checksum_id = c.id (+)
          order by cct.priority, scc.position 
     """)
 

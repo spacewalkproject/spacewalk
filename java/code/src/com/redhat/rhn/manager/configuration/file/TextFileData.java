@@ -96,6 +96,7 @@ public class TextFileData extends ConfigFileData {
      * {@inheritDoc}
      */
 
+    @Override
     public boolean isBinary() {
         return false;
     }
@@ -125,8 +126,10 @@ public class TextFileData extends ConfigFileData {
      * {@inheritDoc}
      */
     @Override
-    protected void copyRevisedContentFrom(ConfigRevision rev) {
+    public void processRevisedContentFrom(ConfigRevision rev) {
        setContents(rev.getConfigContent().getContentsString());
+       setMacroStart(rev.getConfigContent().getDelimStart());
+       setMacroEnd(rev.getConfigContent().getDelimEnd());
     }
 
     /**

@@ -14,8 +14,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="contents" column="contents" type="binary" />
 		<property name="fileSize" column="file_size" type="long" />
 		<property name="binary" column="is_binary" type="yes_no" />
-		<property name="created" column="created" type="timestamp" />
-		<property name="modified" column="modified" type="timestamp" />
+        <property name="created" column="created" type="timestamp"
+            insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp"
+            insert="false" update="false"/>
+		<property name="delimStart" column="delim_start" type="string"
+			length="16" />
+		<property name="delimEnd" column="delim_end" type="string" length="16"
+			/>		
 		<many-to-one name="checksum" class="com.redhat.rhn.domain.common.Checksum"
             column="checksum_id" />
 	</class>

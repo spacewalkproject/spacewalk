@@ -42,6 +42,8 @@ public class BinaryFileData extends ConfigFileData {
         setType(ConfigFileType.file());
         setContents(data);
         setContentSize(size);
+        setMacroStart(null);
+        setMacroEnd(null);
     }
     /**
      * @return the contents
@@ -110,7 +112,7 @@ public class BinaryFileData extends ConfigFileData {
      * {@inheritDoc}
      */
     @Override
-    protected void copyRevisedContentFrom(ConfigRevision rev) {
+    public void processRevisedContentFrom(ConfigRevision rev) {
         setContents(new ByteArrayInputStream(rev.
                             getConfigContent().getContents()));
         setContentSize(rev.getConfigContent().getFileSize());

@@ -1,13 +1,11 @@
+<c:if test="${not empty revision.configContent}">
 <h2><bean:message key="filedetails.add_details.jspf.header2" /></h2>
 <table class="details">
-<tr>
-  <th><bean:message key="filedetails.add_details.jspf.size-name" /></th>
-  <td><bean:message key="filedetails.add_details.jspf.size" arg0="${revbytes}" arg1="${totalbytes}" /></td>
-</tr>
 <tr>
   <th><bean:message key="filedetails.add_details.jspf.md5" /></th>
   <td>${revision.configContent.checksum}</td>
 </tr>
+
 <c:if test="${!revision.configContent.binary && !revision.directory}">
 <tr>
   <th><bean:message key="filedetails.add_details.jspf.macro" /></th>
@@ -15,22 +13,22 @@
     <bean:message key="filedetails.add_details.jspf.macro.start" />
     <rhn:require acl="config_channel_editable(${channel.id})"
                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-        <html:text property="cffMacroStart" value="${revision.delimStart}" size="3"/>
+        <html:text property="cffMacroStart" value="${revision.configContent.delimStart}" size="3"/>
     </rhn:require>
     <rhn:require acl="not config_channel_editable(${channel.id})"
                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-        <c:out value="${revision.delimStart}" />
+        <c:out value="${revision.configContent.delimStart}" />
     </rhn:require>
 
     <bean:message key="filedetails.add_details.jspf.macro.end" />
 
     <rhn:require acl="config_channel_editable(${channel.id})"
                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-        <html:text property="cffMacroEnd" value="${revision.delimEnd}" size="3"/>
+        <html:text property="cffMacroEnd" value="${revision.configContent.delimEnd}" size="3"/>
     </rhn:require>
     <rhn:require acl="not config_channel_editable(${channel.id})"
                  mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-        <c:out value="${revision.delimEnd}" />
+        <c:out value="${revision.configContent.delimEnd}" />
     </rhn:require>
     <br />
 
@@ -38,3 +36,5 @@
 </tr>
 </c:if>
 </table>
+</c:if>
+

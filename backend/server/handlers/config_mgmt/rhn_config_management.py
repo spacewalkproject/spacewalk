@@ -253,14 +253,18 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                ccont.is_binary,
                c.checksum_type,
                c.checksum,
-               cr.delim_start, cr.delim_end,
+               ccont.delim_start, ccont.delim_end,
                cr.revision,
                cf.modified,
                ci.username,
                ci.groupname,
                ci.filemode,
 	       cft.label,
-	       ci.selinux_ctx
+	       ci.selinux_ctx,
+           case 
+                when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
+                else ''
+            end as symlink
           from rhnConfigChannel cc,
                rhnConfigInfo ci,
                rhnConfigRevision cr,
@@ -275,9 +279,9 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cr.config_file_id = cf.id
            and cr.config_info_id = ci.id
            and cf.latest_config_revision_id = cr.id
-           and cr.config_content_id = ccont.id
+           and cr.config_content_id = ccont.id(+)
 	   and cr.config_file_type_id = cft.id
-           and ccont.checksum_id = c.id
+           and ccont.checksum_id = c.id(+)
     """)
     _query_get_file_revision = rhnSQL.Statement("""
         select :path path,
@@ -286,14 +290,18 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                ccont.is_binary,
                c.checksum_type,
                c.checksum,
-               cr.delim_start, cr.delim_end,
+               ccont.delim_start, ccont.delim_end,
                cr.revision,
                cf.modified,
                ci.username,
                ci.groupname,
                ci.filemode,
 	       cft.label,
-	       ci.selinux_ctx
+	       ci.selinux_ctx,
+           case 
+                when cft.label='symlink' then (select path from rhnConfigFileName where id = ci.SYMLINK_TARGET_FILENAME_ID)
+                else ''
+            end as symlink
           from rhnConfigChannel cc,
                rhnConfigInfo ci,
                rhnConfigRevision cr,
@@ -308,9 +316,9 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cr.config_file_id = cf.id
            and cr.config_info_id = ci.id
            and cr.revision = :revision
-           and cr.config_content_id = ccont.id
+           and cr.config_content_id = ccont.id(+)
            and cr.config_file_type_id = cft.id
-           and ccont.checksum_id = c.id
+           and ccont.checksum_id = c.id(+)
 
     """)
 
@@ -462,7 +470,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             raise rhnFault(4011, "File %s (revision %s) does not exist "
                 "in channel %s" % (path, revision_src, config_channel_src), 
                 explain=0)
-        if fsrc['is_binary'] == 'Y':
+        if fsrc['label'] == 'file' and fsrc['is_binary'] == 'Y':
             raise rhnFault(4004, "File %s (revision %s) seems to contain "
                 "binary data" % (path, revision_src),
                 explain=0)
@@ -488,7 +496,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             raise rhnFault(4011, "File %s (revision %s) does not exist "
                 "in channel %s" % (path, revision_dst, config_channel_dst), 
                 explain=0)
-        if fdst['is_binary'] == 'Y':
+        if fdst['label'] == 'file' and fdst['is_binary'] == 'Y':
             raise rhnFault(4004, "File %s (revision %s) seems to contain "
                 "binary data" % (path, revision_dst),
                 explain=0)
