@@ -1,8 +1,27 @@
-alter table rhnConfigInfo add SYMLINK_TARGET_FILE_NAME_ID NUMBER
+--
+-- Copyright (c) 2008 Red Hat, Inc.
+--
+-- This software is licensed to you under the GNU General Public License,
+-- version 2 (GPLv2). There is NO WARRANTY for this software, express or
+-- implied, including the implied warranties of MERCHANTABILITY or FITNESS
+-- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+-- along with this software; if not, see
+-- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+--
+-- Red Hat trademarks are not licensed under GPLv2. No permission is
+-- granted to use or replicate Red Hat trademarks that are incorporated
+-- in this software or its documentation.
+--
+
+alter table rhnConfigInfo add SYMLINK_TARGET_FILENAME_ID NUMBER
                 CONSTRAINT rhn_confinfo_symlink_fk
                     REFERENCES rhnConfigFileName (id);
-                    
-                    
+alter table rhnConfigInfo modify username  NULL;
+alter table rhnConfigInfo modify groupname  NULL;
+alter table rhnConfigInfo modify filemode  NULL;
+drop index rhn_confinfo_ugf_uq;
+CREATE UNIQUE INDEX rhn_confinfo_ugf_uq
+    ON rhnConfigInfo (username, groupname, filemode, selinux_ctx, symlink_target_filename_id);
 
 
 alter table rhnConfigContent     add delim_start    VARCHAR2(16);
