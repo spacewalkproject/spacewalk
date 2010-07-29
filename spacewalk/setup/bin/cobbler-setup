@@ -77,6 +77,7 @@ def main():
     answers['redhat_management_server'] = answers['server']
     answers['redhat_management_type'] = 'site'
     answers['authn_module'] = 'authn_spacewalk'
+    answers['pxe_just_once'] = '1'
     gen_template(SETTINGS_TEMPLATE, answers, TEMP_SETTINGS)
     gen_template(MODULES_TEMPLATE, answers, TEMP_MODULES)
     copy(TEMP_SETTINGS, SETTINGS)
