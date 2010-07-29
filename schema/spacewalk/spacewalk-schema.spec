@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.23
+Version:        1.1.24
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Jul 29 2010 Partha Aji <paji@redhat.com> 1.1.24-1
+- fixing a few things with the new config changes for symlinks
+  (jsherril@redhat.com)
+- renamed a couple of upgrade files .. (paji@redhat.com)
+- Fixed a small glitch in the upgrade script.. The column name had an extra _
+  (paji@redhat.com)
+- Config Management schema update + ui + symlinks (paji@redhat.com)
+
 * Thu Jul 29 2010 Jan Pazdziora 1.1.23-1
 - The default_db is gone, we need to set the string up for sqlplus to work.
 
