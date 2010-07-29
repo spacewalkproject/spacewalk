@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.22
+Version:        1.1.23
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Jul 29 2010 Jan Pazdziora 1.1.23-1
+- The default_db is gone, we need to set the string up for sqlplus to work.
+
 * Wed Jul 28 2010 Jan Pazdziora 1.1.22-1
 - The rhnContentSource.sql defines unique index and not constraint, we should
   do the same in schema upgrade scripts.
