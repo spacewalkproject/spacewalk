@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.1.13
+Version:        1.1.14
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,10 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Thu Jul 29 2010 Justin Sherrill <jsherril@redhat.com> 1.1.14-1
+- 531719 - making pxe_just_once set to 1 by default on a spacewalk install
+  (jsherril@redhat.com)
+
 * Fri Jul 23 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.13-1
 - db-sid is now db-name
 
