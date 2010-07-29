@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.1.42
+Version: 1.1.43
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jul 29 2010 Partha Aji <paji@redhat.com> 1.1.43-1
+- Config Management schema update + ui + symlinks (paji@redhat.com)
+- send only actions which we are able to cache (msuchy@redhat.com)
+- add comment to function (msuchy@redhat.com)
+- 577868 - adding proper handling of multiline key/value values
+  (jsherril@redhat.com)
+- 582646 - making spacewalk-remove-channel communicate better about what child
+  channels a channel has (jsherril@redhat.com)
+
 * Fri Jul 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.42-1
 - unified database connection information
 - rename rhn_server_*.conf files
