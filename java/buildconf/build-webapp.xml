@@ -178,6 +178,7 @@
     <symlink link="/var/www/html/img" resource="${git.home}/branding/img"/>
     <symlink link="/var/www/html/templates" resource="${git.home}/branding/templates"/>
     <symlink link="/var/www/html/nav/styles" resource="${git.home}/branding/styles"/>
+    <symlink link="/var/www/html/pub" resource="/var/www/html.old/pub"/>
   </target>
 
   <target name="uninstall-web"
@@ -191,6 +192,7 @@
     <symlink action="delete" link="/var/www/html/css"/>
     <symlink action="delete" link="/var/www/html/templates"/>
     <symlink action="delete" link="/var/www/html/nav/styles"/>
+    <symlink action="delete" link="/var/www/html/pub"/>
     <symlink action="delete" link="/var/www/html"/>
     <move file="/var/www/html.old" tofile="/var/www/html" failonerror="false"/>
   </target>
