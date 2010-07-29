@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.36
+Version: 1.1.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,46 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 29 2010 Partha Aji <paji@redhat.com> 1.1.37-1
+- Config Management schema update + ui + symlinks (paji@redhat.com)
+- 603133 - fixing issue where system within a group that were unentitled would
+  still factor into whether the group would show up with an exclamation point
+  (jsherril@redhat.com)
+- Symlink /var/www/html/pub in devel environment (coec@spacey.coesta.com)
+- Fix checkstyle errors (coec@spacey.coesta.com)
+- 563797 - changing behavior of lookup exceptions to print a smaller error as
+  well as not send an email by default (jsherril@redhat.com)
+- 533190 - fixing issue where deleting more than 1000 errata would throw a
+  database error (jsherril@redhat.com)
+- 514426 - changing list tag behavior to show fliter box even if the user has
+  filtered something and got no results (jsherril@redhat.com)
+- 595524 - changing improper accesses to /ks/dist to return a file not found
+  (jsherril@redhat.com)
+- getting rid of tabs (jsherril@redhat.com)
+- 591863 - making pre and post logging work for scripts that are not bash
+  scripts (jsherril@redhat.com)
+- fixing missing escaped command that broke kickstart rendering
+  (jsherril@redhat.com)
+- System currency phase 2 (coec@spacey.coesta.com)
+- Fix 'Duplicate message key found in XML Resource file' message
+  (coec@spacey.coesta.com)
+- added new API functions system.listPackageProfiles and
+  system.deletePackageProfile (aparsons@redhat.com)
+- fixed the system counts in the *_action_list queries (aparsons@redhat.com)
+- 580086 - cleaning up some code related with system group intersection and
+  fixing one possible cause of not calculating the intersection correctly
+  (jsherril@redhat.com)
+- checkstyle fixes (jsherril@redhat.com)
+- checkstyle fixes (jsherril@redhat.com)
+- 582085 - fixing issue where renaming an errata with keywords would fail
+  (jsherril@redhat.com)
+- 582995 - fixing the automatic escaping of dollar signs within a raw kickstart
+  (jsherril@redhat.com)
+- removing mistakenly included debug message (jsherril@redhat.com)
+- 616267 - fixing issue where system.listPackages api call would return nothing
+  if the client had not uploaded the arch for the installed packages (older
+  rhel 4 clients) (jsherril@redhat.com)
+
 * Mon Jul 26 2010 Tomas Lestach <tlestach@redhat.com> 1.1.36-1
 - alter the return type of system.listLatestAvailablePackage
   (aparsons@redhat.com)
