@@ -29,8 +29,10 @@
                           1, 'Product Enhancement Advisory') as type_value
                        from rhnErrata E inner join
                             rhnServerNeededCache SNPC on E.id = SNPC.errata_id inner join
-                            rhnServerGroupMembers SGM on SGM.server_id = SNPC.server_id
-                       where sgm.server_group_id = G.id) as MOST_SEVERE_ERRATA
+                            rhnServerGroupMembers SGM on SGM.server_id = SNPC.server_id inner join
+                            rhnServerFeaturesView SFV on SGM.server_id = SFV.server_id
+                       where sgm.server_group_id = G.id
+                         AND SFV.label = 'ftr_system_grouping') as MOST_SEVERE_ERRATA
  FROM   rhnServerGroup G, rhnUserManagedServerGroups UMSG
  WHERE   G.ORG_ID = :org_id
    AND   UMSG.user_id = :user_id
