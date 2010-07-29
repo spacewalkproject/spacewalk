@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.0.7
+Version: 1.0.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 29 2010 Justin Sherrill <jsherril@redhat.com> 1.0.8-1
+- making the editarea not highlight by default (jsherril@redhat.com)
+
 * Fri Jul 16 2010 Justin Sherrill <jsherril@redhat.com> 1.0.7-1
 - fixing un-escaped dollar sign in %post script that deals with rewriting
   /etc/sysconfig/rhn/up2date (jsherril@redhat.com)
