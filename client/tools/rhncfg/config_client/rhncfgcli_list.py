@@ -32,7 +32,7 @@ class Handler(handler_base.HandlerBase):
         maxlen = max(map(lambda s: len(s[0]), files))
         maxlen = max(maxlen, len(label)) + 2
         
-        print "DoF %*s   %s" % (maxlen, label, "File")
+        print "DoFoS %*s   %s" % (maxlen, label, "File")
         for file in files:
             # checking to see if the filetype is in the 'file' entry,
             # and if it is and that type is '1', it is a file

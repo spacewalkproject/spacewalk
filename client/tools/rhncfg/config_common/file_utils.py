@@ -14,6 +14,7 @@
 #
 
 import os
+import os.path
 import time
 import tempfile
 import base64
@@ -103,12 +104,12 @@ class FileProcessor:
 
         if file_struct['filetype'] == 'symlink':
             try:
-                curlink = os.readlink(path)
-                newlink = os.readlink(temp_file)
+                curlink = os.path.abspath(os.readlink(path))
+                newlink = os.path.abspath(os.readlink(temp_file))
                 if curlink == newlink:
                     result = ''
                 else:
-                    result = "Link targets differ: actual: [%s], expected: [%s]\n" % (curlink, newlink)
+                    result = "Link targets differ for [%s]: actual: [%s], expected: [%s]\n" % (path, curlink, newlink)
             except OSError, e:
                 if e.errno == 22:
                     result = "Deployed symlink is no longer a symlink!"
