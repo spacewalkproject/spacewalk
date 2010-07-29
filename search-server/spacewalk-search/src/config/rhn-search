@@ -75,7 +75,7 @@ unlock() {
 }
 
 removeindex() {
-    JAVA_LIBRARY_PATH='-Djava.library.path=/usr/lib/oracle/10.2.0.4/client/lib:/usr/lib/oracle/10.2.0.4/client/lib64'
+    JAVA_LIBRARY_PATH='-Djava.library.path=/usr/lib/oracle/10.2.0.4/client/lib:/usr/lib/oracle/10.2.0.4/client64/lib'
     SEARCH_CLASS_PATH=`build-classpath-directory /usr/share/rhn/search/lib /usr/share/java/ojdbc14.jar`
     CLASSPATH=${SEARCH_CLASS_PATH} java $JAVA_LIBRARY_PATH com.redhat.satellite.search.DeleteIndexes
 }
