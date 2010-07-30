@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.4
+Version: 1.1.5
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -114,6 +114,11 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Fri Jul 30 2010 Tomas Lestach <tlestach@redhat.com> 1.1.5-1
+- adding slf4j jar runtime dependencies (tlestach@redhat.com)
+- correct the path to oci (mzazrivec@redhat.com)
+- changes due to simple-core gets packaged separatelly (tlestach@redhat.com)
+
 * Wed Jul 28 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.4-1
 - build ConnectionURL from db_* values in rhn.conf
 - set java.library.path for search to be able to find oci library
