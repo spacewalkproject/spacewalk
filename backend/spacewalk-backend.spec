@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.1.43
+Version: 1.1.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jul 30 2010 Jan Pazdziora 1.1.44-1
+- It is dbname without underscore for PostgreSQL.
+- 619699 - do not blow out if we get unicode string (msuchy@redhat.com)
+
 * Thu Jul 29 2010 Partha Aji <paji@redhat.com> 1.1.43-1
 - Config Management schema update + ui + symlinks (paji@redhat.com)
 - send only actions which we are able to cache (msuchy@redhat.com)
