@@ -1,8 +1,14 @@
 %post --interpreter /usr/bin/python
 import xmlrpclib
+import os
 import os.path
 system_id = "/root/systemid.old"
 try:
+
+    new_keys = "$redhat_management_key"
+    for key in new_keys.split(','):
+        if key.startswith('re-'):
+            os.exit(0)
     if os.path.exists(system_id):
         client =  xmlrpclib.Server("http://$http_server/rpc/api")
         key = client.system.obtain_reactivation_key(open(system_id).read())
