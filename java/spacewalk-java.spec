@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.37
+Version: 1.1.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -331,6 +331,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 30 2010 Justin Sherrill <jsherril@redhat.com> 1.1.38-1
+- taking a stab at alternating between asm.jar and objectweb-asm/asm.jar to
+  handle errors with taskomatic on fedora13 (jsherril@redhat.com)
+
 * Thu Jul 29 2010 Partha Aji <paji@redhat.com> 1.1.37-1
 - Config Management schema update + ui + symlinks (paji@redhat.com)
 - 603133 - fixing issue where system within a group that were unentitled would
