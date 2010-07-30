@@ -16,6 +16,9 @@ blacklist=jabberd-selinux
 disttag = .fc13
 blacklist=jabberd-selinux
 
+[satellite-5.4-rhel-5-candidate]
+blacklist = python-hwdata spacewalk-proxy-html spacecmd spacewalk spacewalk-repo
+
 [cvs]
 cvsroot = :gserver:cvs.devel.redhat.com:/cvs/dist
-branches = SATELLITE-5_4-RHEL-5 SATELLITE-5_4-RHEL-6
+branches = SATELLITE-5_4-RHEL-5
