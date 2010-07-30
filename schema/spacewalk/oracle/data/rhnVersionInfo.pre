@@ -1,5 +1,5 @@
 --
--- this populates rhnVersionInfo.  It needs to be run through cpp
+-- this populates rhnVersionInfo.  It needs to be run through sed
 -- during build.  see Makefile.schema
 --
 

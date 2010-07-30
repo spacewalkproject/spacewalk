@@ -18,13 +18,7 @@ clean :
 	echo rm -f $(POST_FILES)
 
 %.sql : %.pre
-	@{ \
-		cpp -D SCHEMA_NAME=\'$(SCHEMA)\' \
-		-D SCHEMA_VERSION=\'$(VERSION)\' \
-		-D SCHEMA_RELEASE=\'$(RELEASE)\' \
-		-P -o - $< ; \
-		echo ; \
-	} > $@
+	sed -e "s!SCHEMA_NAME!'$(SCHEMA)'!g" -e "s!SCHEMA_VERSION!'$(VERSION)'!g" -e "s!SCHEMA_RELEASE!'$(RELEASE)'!" $< > $@
 
 sanity-check :
 	perl schema-source-sanity-check.pl
