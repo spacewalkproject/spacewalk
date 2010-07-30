@@ -341,7 +341,7 @@ class RHNOptions:
                         self.__configs[self.__component]['db_password'],
                         self.__configs[self.__component]['db_name'])
                 else:
-                    default_db = "%s/%s@db_name=%s" % (
+                    default_db = "%s/%s@dbname=%s" % (
                         self.__configs[self.__component]['db_user'],
                         self.__configs[self.__component]['db_password'],
                         self.__configs[self.__component]['db_name'])
