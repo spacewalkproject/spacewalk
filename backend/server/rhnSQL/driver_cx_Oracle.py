@@ -86,7 +86,7 @@ class Cursor(sql_base.Cursor):
         return cursor
 
     def _execute_wrapper(self, function, *p, **kw):
-        params =  ','.join(["%s: %s" % (str(key), str(value)) for key, value \
+        params =  ','.join(["%s: %s" % (repr(key), repr(value)) for key, value \
                 in kw.items()])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
                 % (self.sql, params))
