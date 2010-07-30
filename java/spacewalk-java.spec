@@ -258,9 +258,9 @@ touch $RPM_BUILD_ROOT/%{_var}/spacewalk/systemlogs/audit-review.log
 
 
 %if  0%{?rhel} && 0%{?rhel} < 6
-ln -s -f %{_javadir}/asm/asm.jar  %{_datadir}/lib/spacewalk-asm.jar
+ln -s -f %{_javadir}/asm/asm.jar  %{_datadir}/rhn/lib/spacewalk-asm.jar
 %else
-ln -s -f %{_javadir}/objectweb-asm/asm.jar  %{_datadir}/lib/spacewalk-asm.jar
+ln -s -f %{_javadir}/objectweb-asm/asm.jar  %{_datadir}/rhn/lib/spacewalk-asm.jar
 %endif
 
 
@@ -305,7 +305,7 @@ fi
 %files -n spacewalk-taskomatic
 %attr(755, root, root) %{_initrddir}/taskomatic
 %attr(755, root, root) %{_bindir}/taskomaticd
-%attr(755, root, root) %{_datadir}/lib/spacewalk-asm.jar
+%attr(755, root, root) %{_datadir}/rhn/lib/spacewalk-asm.jar
 
 
 %files config
