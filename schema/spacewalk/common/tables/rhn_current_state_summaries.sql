@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_current_state_summaries
 (
-    customer_id  NUMBER(12)_ NOT NULL,
+    customer_id  NUMBER(12) NOT NULL,
     template_id  VARCHAR2(10) NOT NULL,
     state        VARCHAR2(20) NOT NULL,
     state_count  NUMBER(9),
