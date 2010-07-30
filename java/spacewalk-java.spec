@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.38
+Version: 1.1.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -331,6 +331,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 30 2010 Justin Sherrill <jsherril@redhat.com> 1.1.39-1
+- few more changes for asm vs objectweb-asm detection (jsherril@redhat.com)
+
 * Fri Jul 30 2010 Justin Sherrill <jsherril@redhat.com> 1.1.38-1
 - taking a stab at alternating between asm.jar and objectweb-asm/asm.jar to
   handle errors with taskomatic on fedora13 (jsherril@redhat.com)
