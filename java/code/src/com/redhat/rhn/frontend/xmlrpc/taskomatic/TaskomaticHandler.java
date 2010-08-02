@@ -31,7 +31,8 @@ import redstone.xmlrpc.XmlRpcFault;
 
 
 /**
- * TaskoHandler
+ * TaskoHandler - translates all the taskomatic API calls to the internal
+ * taskomatic xmlrpc handler
  * @version $Rev$
  */
 public class TaskomaticHandler extends BaseHandler {
@@ -40,6 +41,9 @@ public class TaskomaticHandler extends BaseHandler {
     private XmlRpcClient client;
     private static Logger log = Logger.getLogger(TaskomaticHandler.class);
 
+    /**
+     * default constructor
+     */
     public TaskomaticHandler() {
         try {
             client = new XmlRpcClient(ConfigDefaults.get().getTaskoServerUrl(), false);
@@ -49,6 +53,13 @@ public class TaskomaticHandler extends BaseHandler {
         }
     }
 
+    /**
+     * translates any taskomatic API call to the internal taskomatic xmlrpc hanlder
+     * @param methodCalled method to be forwarded
+     * @param arguments list of argumets to be translated
+     * @return forwarded result of the internal xmlrpc API
+     * @throws XmlRpcFault in case of any exception
+     */
     public Object invoke(String methodCalled, List arguments) throws XmlRpcFault {
         List params = new ArrayList(arguments);
         String sessionKey = (String) params.remove(0);
