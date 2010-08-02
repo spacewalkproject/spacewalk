@@ -38,10 +38,10 @@ import java.util.Properties;
  * @version $Rev$
  */
 class ConnectionManager {
-    
+
     private static final Logger LOG = Logger.getLogger(ConnectionManager.class);
-    private static final String[] PACKAGE_NAMES = {"com.redhat.rhn.domain", "com.redhat.rhn.taskomatic"};
-    
+    private static final String[] PACKAGE_NAMES = {"com.redhat.rhn.domain"};
+
     private List configurators = new LinkedList();
     private SessionFactory sessionFactory;
     private ThreadLocal SESSION_TLS = new ThreadLocal() {
@@ -51,8 +51,14 @@ class ConnectionManager {
             return result;
         }
     };
+    private String[] packageNames =  PACKAGE_NAMES;
 
-    
+    /**
+     * enable possibility to load hbm.xml files from different path
+     */
+    void setAlternatePackageNames(String[] packageNamesIn) {
+        packageNames = packageNamesIn;
+    }
 
     /**
      * Register a class with HibernateFactory, to give the registered class a
@@ -66,7 +72,7 @@ class ConnectionManager {
         // so it isn't a real race condition.
         configurators.add(c);
     }
-    
+
     public boolean isTransactionPending() {
         boolean retval = false;
         SessionInfo info = threadSessionInfo();
@@ -75,7 +81,7 @@ class ConnectionManager {
         }
         return retval;
     }
-    
+
     public ClassMetadata getMetadata(Object target) {
         ClassMetadata retval = null;
         if (target != null) {
@@ -88,7 +94,7 @@ class ConnectionManager {
         }
         return retval;
     }
-    
+
     /**
      * Close the sessionFactory
      */
@@ -103,15 +109,15 @@ class ConnectionManager {
             sessionFactory = null;
         }
     }
-    
+
     public boolean isClosed() {
         return sessionFactory == null;
     }
-    
+
     public boolean isInitialized() {
         return sessionFactory != null;
     }
-    
+
     public synchronized void initialize() {
         if (isInitialized()) {
             return;
@@ -130,15 +136,15 @@ class ConnectionManager {
         }
 
         List hbms = new LinkedList();
-    
-        for (int i = 0; i < PACKAGE_NAMES.length; i++) {
-            hbms.addAll(FinderFactory.getFinder(PACKAGE_NAMES[i]).find(
+
+        for (int i = 0; i < packageNames.length; i++) {
+            hbms.addAll(FinderFactory.getFinder(packageNames[i]).find(
                     "hbm.xml"));
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Found: " + hbms);
             }
         }
-    
+
         try {
             Configuration config = new Configuration();
             /*
@@ -156,7 +162,7 @@ class ConnectionManager {
                         " can not be set in a configuration file;" +
                         " it is set to a fixed value by the code");
             }
-    
+
             for (Iterator i = hbms.iterator(); i.hasNext();) {
                 String hbmFile = (String) i.next();
                 if (LOG.isDebugEnabled()) {
@@ -237,7 +243,7 @@ class ConnectionManager {
         }
         return getInternalSession();
     }
-    
+
     private Session getInternalSession() {
         SessionInfo info = threadSessionInfo();
         if (info == null ||
@@ -255,9 +261,9 @@ class ConnectionManager {
             }
             SESSION_TLS.set(info);
         }
-    
+
         return info.getSession();
-        
+
     }
 
     /**
@@ -283,7 +289,7 @@ class ConnectionManager {
         catch (HibernateException e) {
             LOG.error(e);
         }
-        finally {        
+        finally {
             if (session != null) {
                 try {
                     if (session.isOpen()) {
@@ -304,5 +310,5 @@ class ConnectionManager {
                 SESSION_TLS.set(null);
             }
         }
-    }    
+    }
 }

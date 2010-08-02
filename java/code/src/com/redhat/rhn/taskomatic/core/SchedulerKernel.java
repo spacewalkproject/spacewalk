@@ -36,6 +36,7 @@ import java.util.Properties;
  */
 public class SchedulerKernel {
 
+    private static final String[] TASKOMATIC_PACKAGE_NAMES = {"com.redhat.rhn.taskomatic"};
     private static Logger log = Logger.getLogger(SchedulerKernel.class);
     private byte[] shutdownLock = new byte[0];
     private static SchedulerFactory factory = null;
@@ -109,7 +110,7 @@ public class SchedulerKernel {
      * @throws TaskomaticException error occurred during Quartz or Hibernate startup
      */
     public void startup() throws TaskomaticException {
-        HibernateFactory.createSessionFactory();
+        HibernateFactory.createSessionFactory(TASKOMATIC_PACKAGE_NAMES);
         if (!HibernateFactory.isInitialized()) {
             throw new TaskomaticException("HibernateFactory failed to initialize");
         }
