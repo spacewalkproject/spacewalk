@@ -41,7 +41,7 @@ import java.util.Properties;
 class ConnectionManager {
 
     private static final Logger LOG = Logger.getLogger(ConnectionManager.class);
-    private static final String[] PACKAGE_NAMES = {"com.redhat.rhn.domain", "com.redhat.rhn.taskomatic"};
+    private static final String[] PACKAGE_NAMES = {"com.redhat.rhn.domain"};
 
     private List configurators = new LinkedList();
     private SessionFactory sessionFactory;
@@ -52,8 +52,14 @@ class ConnectionManager {
             return result;
         }
     };
+    private String[] packageNames =  PACKAGE_NAMES;
 
-
+    /**
+     * enable possibility to load hbm.xml files from different path
+     */
+    void setAlternatePackageNames(String[] packageNamesIn) {
+        packageNames = packageNamesIn;
+    }
 
     /**
      * Register a class with HibernateFactory, to give the registered class a
@@ -132,8 +138,8 @@ class ConnectionManager {
 
         List hbms = new LinkedList();
 
-        for (int i = 0; i < PACKAGE_NAMES.length; i++) {
-            hbms.addAll(FinderFactory.getFinder(PACKAGE_NAMES[i]).find(
+        for (int i = 0; i < packageNames.length; i++) {
+            hbms.addAll(FinderFactory.getFinder(packageNames[i]).find(
                     "hbm.xml"));
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Found: " + hbms);

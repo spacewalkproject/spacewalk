@@ -95,6 +95,16 @@ public abstract class HibernateFactory {
     }
 
     /**
+     * Create a SessionFactory, loading the hbm.xml files from alternate
+     * location
+     * @param alternateLocation Alternate location for hbm.xml files
+     */
+    public static void createSessionFactory(String[] alternateLocation) {
+        connectionManager.setAlternatePackageNames(alternateLocation);
+        connectionManager.initialize();
+    }
+
+    /**
      * Get the Logger for the derived class so log messages show up on the
      * correct class
      * @return Logger for this class.
