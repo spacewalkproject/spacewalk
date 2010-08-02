@@ -20,14 +20,27 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-
+/**
+ * RhnJob
+ * @version $Rev$
+ */
 public abstract interface RhnJob extends Job {
 
     String DEFAULT_LOGGING_LAYOUT = "%d [%t] %-5p %c %x - %m%n";
+
+    /**
+     * execute method to be called
+     * @param context job context
+     * @param taskRun associated run
+     * @throws JobExecutionException thrown in case of any runtime exception
+     */
     void execute(JobExecutionContext context, TaskoRun taskRun)
         throws JobExecutionException;
 
-    // abstract Logger getLogger();
-
+    /**
+     * appends an exception message to log error
+     * useful in case job failed to start
+     * @param e exception
+     */
     void appendExceptionToLogError(Exception e);
 }
