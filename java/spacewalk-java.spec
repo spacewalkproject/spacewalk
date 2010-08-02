@@ -257,7 +257,7 @@ ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT/%{realcobsnippetsdir}/spacewalk
 touch $RPM_BUILD_ROOT/%{_var}/spacewalk/systemlogs/audit-review.log
 
 
-%if  0%{?rhel} && 0%{?rhel} < 6
+%if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
 ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT/%{_datadir}/rhn/lib/spacewalk-asm.jar
 %else
 ln -s -f %{_javadir}/objectweb-asm/asm.jar  $RPM_BUILD_ROOT/%{_datadir}/rhn/lib/spacewalk-asm.jar
