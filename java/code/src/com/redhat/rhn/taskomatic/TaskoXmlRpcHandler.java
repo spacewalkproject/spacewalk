@@ -27,20 +27,54 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ *
+ * TaskoXmlRpcHandler
+ * @version $Rev$
+ */
 public class TaskoXmlRpcHandler {
 
+    /**
+     * dummy call
+     * @param orgId organization id
+     * @return 1
+     */
     public int one(Integer orgId) {
         return 1;
     }
 
+    /**
+     * lists all available organizational bunches
+     * @param orgId organization id
+     * @return list of bunches
+     */
     public List<TaskoBunch> listBunches(Integer orgId) {
         return TaskoFactory.listOrgBunches();
     }
 
+    /**
+     * lists all available satellite bunches
+     * @return list of bunches
+     */
     public List<TaskoBunch> listSatBunches() {
         return TaskoFactory.listSatBunches();
     }
 
+    /**
+     * start scheduling a organizational bunch
+     * @param orgId organization id
+     * @param bunchName bunch name
+     * @param jobLabel job name
+     * @param startTime schedule from
+     * @param endTime schedule till
+     * @param cronExpression cron expression
+     * @param params job parameters
+     * @return date of the first schedule
+     * @throws NoSuchBunchTaskException thrown if bunch name not known
+     * @throws InvalidParamException thrown if job name already in use,
+     * invalid cron expression, ...
+     */
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             Date startTime, Date endTime, String cronExpression, Map params)
             throws NoSuchBunchTaskException, InvalidParamException {
@@ -64,6 +98,19 @@ public class TaskoXmlRpcHandler {
         return scheduleDate;
     }
 
+    /**
+     * start scheduling a satellite bunch
+     * @param bunchName bunch name
+     * @param jobLabel job name
+     * @param startTime schedule from
+     * @param endTime scchedule till
+     * @param cronExpression crom expression
+     * @param params job parameters
+     * @return date of the first schedule
+     * @throws NoSuchBunchTaskException thrown if bunch name not known
+     * @throws InvalidParamException thrown if job name already in use,
+     * invalid cron expression, ...
+     */
     public Date scheduleSatBunch(String bunchName, String jobLabel,
             Date startTime, Date endTime, String cronExpression, Map params)
     throws NoSuchBunchTaskException, InvalidParamException {
@@ -71,6 +118,18 @@ public class TaskoXmlRpcHandler {
                 cronExpression, params);
     }
 
+    /**
+     * start scheduling a organizational bunch
+     * @param orgId organization id
+     * @param bunchName bunch name
+     * @param jobLabel job name
+     * @param cronExpression crom expression
+     * @param params job parameters
+     * @return date of the first schedule
+     * @throws NoSuchBunchTaskException thrown if bunch name not known
+     * @throws InvalidParamException thrown if job name already in use,
+     * invalid cron expression, ...
+     */
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             String cronExpression, Map params)
             throws NoSuchBunchTaskException, InvalidParamException {
@@ -78,6 +137,17 @@ public class TaskoXmlRpcHandler {
                 cronExpression, params);
     }
 
+    /**
+     * start scheduling a satellite bunch
+     * @param bunchName bunch name
+     * @param jobLabel job name
+     * @param cronExpression crom expression
+     * @param params job paramters
+     * @return date of the first schedule
+     * @throws NoSuchBunchTaskException thrown if bunch name not known
+     * @throws InvalidParamException thrown if job name already in use,
+     * invalid cron expression, ...
+     */
     public Date scheduleSatBunch(String bunchName, String jobLabel,
             String cronExpression, Map params)
             throws NoSuchBunchTaskException, InvalidParamException {
@@ -99,6 +169,13 @@ public class TaskoXmlRpcHandler {
         return bunch;
     }
 
+    /**
+     * stop scheduling an organizational bunch
+     * @param orgId organization id
+     * @param jobLabel job name
+     * @return 1 if successful
+     * @throws InvalidParamException thrown if job name not known
+     */
     public Integer unscheduleBunch(Integer orgId, String jobLabel)
         throws InvalidParamException {
         List<TaskoSchedule> scheduleList =
@@ -126,10 +203,26 @@ public class TaskoXmlRpcHandler {
         return 1;
     }
 
+    /**
+     * stop scheduling a satellite bunch
+     * @param jobLabel job name
+     * @return 1 if successful
+     * @throws InvalidParamException thrown if jobLabel not known
+     */
     public Integer unscheduleSatBunch(String jobLabel) throws InvalidParamException {
         return unscheduleBunch(null, jobLabel);
     }
 
+    /**
+     * schedule a one time organizational bunch
+     * @param orgId organization id
+     * @param bunchName bunch name
+     * @param params job parameters
+     * @param start schedule time
+     * @return date of the schedule
+     * @throws NoSuchBunchTaskException thrown if bunch name not known
+     * @throws InvalidParamException shall not be thrown
+     */
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, Map params,
             Date start)
             throws NoSuchBunchTaskException,
@@ -156,16 +249,42 @@ public class TaskoXmlRpcHandler {
         return scheduleDate;
     }
 
+    /**
+     * schedule a one time satellite bunch
+     * @param bunchName bunch name
+     * @param params job parameters
+     * @param start schedule time
+     * @return date of the schedule
+     * @throws NoSuchBunchTaskException thrown if bunch name not known
+     * @throws InvalidParamException shall not be thrown
+     */
     public Date scheduleSingleSatBunchRun(String bunchName, Map params, Date start)
         throws NoSuchBunchTaskException, InvalidParamException {
         return scheduleSingleBunchRun(null, bunchName, params, start);
     }
 
+    /**
+     * schedule a one time organizational bunch asap
+     * @param orgId organization id
+     * @param bunchName bunch name
+     * @param params job parameters
+     * @return date of the schedule
+     * @throws NoSuchBunchTaskException thrown if bunch name not known
+     * @throws InvalidParamException shall not be thrown
+     */
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, Map params)
             throws NoSuchBunchTaskException, InvalidParamException {
         return scheduleSingleBunchRun(orgId, bunchName, params, new Date());
     }
 
+    /**
+     * schedule a one time satellite bunch asap
+     * @param bunchName bunch name
+     * @param params job parameters
+     * @return date of the schedule
+     * @throws NoSuchBunchTaskException thrown if bunch name not known
+     * @throws InvalidParamException shall not be thrown
+     */
     public Date scheduleSingleSatBunchRun(String bunchName, Map params)
         throws NoSuchBunchTaskException, InvalidParamException {
         return scheduleSingleBunchRun(null, bunchName, params, new Date());
@@ -245,47 +364,110 @@ public class TaskoXmlRpcHandler {
         return bunch;
     }
 
+    /**
+     * lists all organizational schedules
+     * @param orgId organization id
+     * @return list of schedules
+     */
     public List<TaskoSchedule> listAllSchedules(Integer orgId) {
         return TaskoFactory.listSchedulesByOrg(orgId);
     }
 
+    /**
+     * lists all satellite schedules
+     * @return list of schedules
+     */
     public List<TaskoSchedule> listAllSatSchedules() {
         return listAllSchedules(null);
     }
 
+    /**
+     * lists all active organizational schedules
+     * @param orgId organizational id
+     * @return list of schedules
+     */
     public List<TaskoSchedule> listActiveSchedules(Integer orgId) {
         return TaskoFactory.listActiveSchedulesByOrg(orgId);
     }
 
+    /**
+     * lists all active satellite schedules
+     * @return list of schedules
+     */
     public List<TaskoSchedule> listActiveSatSchedules() {
         return listActiveSchedules(null);
     }
 
+    /**
+     * lists all organizational runs of a give schedule
+     * @param orgId organizational id
+     * @param scheduleId schedule id
+     * @return list of runs
+     */
     public List<TaskoRun> listScheduleRuns(Integer orgId, Integer scheduleId) {
         return TaskoFactory.listRunsByOrgAndSchedule(orgId, scheduleId);
     }
 
+    /**
+     * lists all satellite runs of a give schedule
+     * @param scheduleId schedule id
+     * @return list of runs
+     */
     public List<TaskoRun> listScheduleSatRuns(Integer scheduleId) {
         return listScheduleRuns(null, scheduleId);
     }
 
+    /**
+     * get last specified number of bytes of the organizational run std output log
+     * whole log is returned if nBytes is negative
+     * @param orgId organization id
+     * @param runId run id
+     * @param nBytes number of bytes
+     * @return last n bytes of a run log
+     * @throws InvalidParamException thrown if run id not known
+     */
     public String getRunStdOutputLog(Integer orgId, Long runId, Long nBytes)
         throws InvalidParamException {
         TaskoRun run = TaskoFactory.lookupRunByOrgAndId(orgId, runId);
         return run.getTailOfStdOutput(nBytes);
     }
 
+    /**
+     * get last specified number of bytes of the satellite run std output log
+     * whole log is returned if nBytes is negative
+     * @param runId run id
+     * @param nBytes number of bytes
+     * @return last n bytes of a run log
+     * @throws InvalidParamException thrown if run id not known
+     */
     public String getSatRunStdOutputLog(Long runId, Long nBytes)
     throws InvalidParamException {
         return getRunStdOutputLog(null, runId, nBytes);
     }
 
+    /**
+     * get last specified number of bytes of the organizational run std error log
+     * whole log is returned if nBytes is negative
+     * @param orgId organization id
+     * @param runId run id
+     * @param nBytes number of bytes
+     * @return last n bytes of a run log
+     * @throws InvalidParamException thrown if run id not known
+     */
     public String getRunStdErrorLog(Integer orgId, Long runId, Long nBytes)
         throws InvalidParamException {
         TaskoRun run = TaskoFactory.lookupRunByOrgAndId(orgId, runId);
         return run.getTailOfStdError(nBytes);
     }
 
+    /**
+     * get last specified number of bytes of the satellite run std error log
+     * whole log is returned if nBytes is negative
+     * @param runId run id
+     * @param nBytes number of bytes
+     * @return last n bytes of a run log
+     * @throws InvalidParamException thrown if run id not known
+     */
     public String getSatRunStdErrorLog(Long runId, Long nBytes)
     throws InvalidParamException {
         return getRunStdErrorLog(null, runId, nBytes);
