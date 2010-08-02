@@ -426,7 +426,7 @@ public class TaskoXmlRpcHandler {
      * @return last n bytes of a run log
      * @throws InvalidParamException thrown if run id not known
      */
-    public String getRunStdOutputLog(Integer orgId, Long runId, Long nBytes)
+    public String getRunStdOutputLog(Integer orgId, Integer runId, Integer nBytes)
         throws InvalidParamException {
         TaskoRun run = TaskoFactory.lookupRunByOrgAndId(orgId, runId);
         return run.getTailOfStdOutput(nBytes);
@@ -440,7 +440,7 @@ public class TaskoXmlRpcHandler {
      * @return last n bytes of a run log
      * @throws InvalidParamException thrown if run id not known
      */
-    public String getSatRunStdOutputLog(Long runId, Long nBytes)
+    public String getSatRunStdOutputLog(Integer runId, Integer nBytes)
     throws InvalidParamException {
         return getRunStdOutputLog(null, runId, nBytes);
     }
@@ -454,7 +454,7 @@ public class TaskoXmlRpcHandler {
      * @return last n bytes of a run log
      * @throws InvalidParamException thrown if run id not known
      */
-    public String getRunStdErrorLog(Integer orgId, Long runId, Long nBytes)
+    public String getRunStdErrorLog(Integer orgId, Integer runId, Integer nBytes)
         throws InvalidParamException {
         TaskoRun run = TaskoFactory.lookupRunByOrgAndId(orgId, runId);
         return run.getTailOfStdError(nBytes);
@@ -468,7 +468,7 @@ public class TaskoXmlRpcHandler {
      * @return last n bytes of a run log
      * @throws InvalidParamException thrown if run id not known
      */
-    public String getSatRunStdErrorLog(Long runId, Long nBytes)
+    public String getSatRunStdErrorLog(Integer runId, Integer nBytes)
     throws InvalidParamException {
         return getRunStdErrorLog(null, runId, nBytes);
     }

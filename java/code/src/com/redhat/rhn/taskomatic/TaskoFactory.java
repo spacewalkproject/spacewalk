@@ -321,10 +321,10 @@ public class TaskoFactory extends HibernateFactory {
      * @return run
      * @throws InvalidParamException thrown in case of wrong runId
      */
-    public static TaskoRun lookupRunByOrgAndId(Integer orgId, Long runId)
+    public static TaskoRun lookupRunByOrgAndId(Integer orgId, Integer runId)
         throws InvalidParamException {
-        TaskoRun run = lookupRunById(runId);
-        if ((run == null) || (!run.getOrgId().equals(orgId))) {
+        TaskoRun run = lookupRunById(runId.longValue());
+        if ((run == null) || (run.getOrgId() != orgId)) {
             throw new InvalidParamException("No such run id");
         }
         return run;

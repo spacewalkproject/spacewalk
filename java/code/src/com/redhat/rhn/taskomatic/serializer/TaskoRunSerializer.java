@@ -54,6 +54,12 @@ public class TaskoRunSerializer implements XmlRpcCustomSerializer {
         helper.add("start_time", run.getStartTime());
         helper.add("end_time", run.getEndTime());
         helper.add("status", run.getStatus());
+        if (run.getStdOutputPath() != null) {
+            helper.add("stdOutputPath", run.getStdOutputPath());
+        }
+        if (run.getStdErrorPath() != null) {
+            helper.add("stdErrorPath", run.getStdErrorPath());
+        }
 
         helper.writeTo(output);
     }

@@ -48,7 +48,13 @@ public class TaskoSchedule {
 
 
     /**
-     * default constructor
+     * default constructor required by hibernate
+     */
+    public TaskoSchedule() {
+    }
+
+    /**
+     * constructor
      * schedule is always associated with organization, bunch, job name, job parameter,
      * time period when active and cron expression, how often is shall get scheduled
      * @param orgIdIn organization id

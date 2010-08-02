@@ -52,7 +52,13 @@ public class TaskoRun {
     private Date modified;
 
     /**
-     * default constructor
+     * default constructor required by hibernate
+     */
+    public TaskoRun() {
+    }
+
+    /**
+     * constructor
      * run is always associated with organization, template and schedule
      * @param orgIdIn organization id
      * @param templateIn template id
@@ -126,7 +132,7 @@ public class TaskoRun {
      * @param nBytes number of bytes
      * @return last bytes of the output log
      */
-    public String getTailOfStdOutput(Long nBytes) {
+    public String getTailOfStdOutput(Integer nBytes) {
         return getTailOfFile(getStdOutputPath(), nBytes);
     }
 
@@ -135,16 +141,22 @@ public class TaskoRun {
      * @param nBytes number of bytes
      * @return last bytes of the error log
      */
-    public String getTailOfStdError(Long nBytes) {
+    public String getTailOfStdError(Integer nBytes) {
         return getTailOfFile(getStdErrorPath(), nBytes);
     }
 
-    private String getTailOfFile(String fileName, Long nBytes) {
+    private String getTailOfFile(String fileName, Integer nBytes) {
         RandomAccessFile file;
         try {
             file = new RandomAccessFile(fileName, "r");
-            file.seek(file.length() - nBytes);
-            String tail = file.readLine();
+            if (nBytes >= 0) {
+                file.seek(file.length() - nBytes);
+            }
+            String tail = "";
+            String line;
+            while ((line = file.readLine()) != null) {
+                tail += line + "\n";
+            }
             file.close();
             return tail;
         }
