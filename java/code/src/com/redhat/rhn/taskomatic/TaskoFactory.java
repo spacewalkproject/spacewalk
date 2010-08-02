@@ -38,6 +38,9 @@ public class TaskoFactory extends HibernateFactory {
     private static TaskoFactory singleton = new TaskoFactory();
     private static Logger log = Logger.getLogger(TaskoFactory.class);
 
+    /**
+     * default constructor
+     */
     TaskoFactory() {
         super();
     }
@@ -46,6 +49,11 @@ public class TaskoFactory extends HibernateFactory {
         return log;
     }
 
+    /**
+     * lookup a organization bunch by name
+     * @param bunchName bunch name
+     * @return bunch
+     */
     public static TaskoBunch lookupOrgBunchByName(String bunchName) {
         Map params = new HashMap();
         params.put("name", bunchName);
@@ -53,6 +61,11 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoBunch.lookupOrgBunchByName", params);
     }
 
+    /**
+     * lookup a satellite bunch by name
+     * @param bunchName bunch name
+     * @return bunch
+     */
     public static TaskoBunch lookupSatBunchByName(String bunchName) {
         Map params = new HashMap();
         params.put("name", bunchName);
@@ -60,6 +73,12 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoBunch.lookupSatBunchByName", params);
     }
 
+    /**
+     * lookup template by bunch id and position
+     * @param bunchId id of the bunch
+     * @param order position
+     * @return template
+     */
     public static TaskoTemplate lookupTemplateByBunchAndOrder(Long bunchId, Long order) {
         Map params = new HashMap();
         params.put("bunch_id", bunchId);
@@ -68,50 +87,70 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoTemplate.lookupByBunchAndOrder", params);
     }
 
+    /**
+     * list all available organizational bunches
+     * @return list of bunches
+     */
     public static List<TaskoBunch> listOrgBunches() {
         return (List) singleton.listObjectsByNamedQuery(
                                        "TaskoBunch.listOrgBunches", null);
     }
 
+    /**
+     * list all available satellite bunches
+     * @return list of bunches
+     */
     public static List<TaskoBunch> listSatBunches() {
         return (List) singleton.listObjectsByNamedQuery(
                                        "TaskoBunch.listSatBunches", null);
     }
 
+    /**
+     * hibernate save run
+     * @param taskoRun run to save
+     */
     public static void save(TaskoRun taskoRun) {
         singleton.saveObject(taskoRun);
     }
 
+    /**
+     * hibernate delete run
+     * @param taskoRun run to delete
+     */
     public static void delete(TaskoRun taskoRun) {
         singleton.removeObject(taskoRun);
     }
 
+    /**
+     * hibernate delete schedule
+     * @param taskoSchedule schadule to delete
+     */
     public static void delete(TaskoSchedule taskoSchedule) {
         singleton.removeObject(taskoSchedule);
     }
 
-    public static void save(TaskoTemplate taskoTemplate) {
-        singleton.saveObject(taskoTemplate);
-    }
-
+    /**
+     * hibernate save schedule
+     * @param taskoSchedule schedule to save
+     */
     public static void save(TaskoSchedule taskoSchedule) {
         singleton.saveObject(taskoSchedule);
     }
 
-    public static void sleep(long millis) {
-        try {
-            Thread.sleep(millis);
-        }
-        catch (InterruptedException e) {
-            log.warn("InterruptedException");
-        }
-    }
-
+    /**
+     * lists all available tasks
+     * @return list of tasks
+     */
     public static List<TaskoTask> listTasks() {
         return (List<TaskoTask>) singleton.listObjectsByNamedQuery(
                                        "TaskoTask.listTasks", new HashMap());
     }
 
+    /**
+     * lists runs older than given date
+     * @param limitTime date of interest
+     * @return list of runs
+     */
     public static List<TaskoRun> listRunsOlderThan(Date limitTime) {
         Map params = new HashMap();
         params.put("limit_time", limitTime);
@@ -119,37 +158,10 @@ public class TaskoFactory extends HibernateFactory {
                 "TaskoRun.listOlderThan", params);
     }
 
-    public static List<TaskoRun> listOrgRunsOlderThan(Integer orgId, Date limitTime) {
-        Map params = new HashMap();
-        params.put("org_id", orgId);
-        params.put("limit_time", limitTime);
-        return (List<TaskoRun>) singleton.listObjectsByNamedQuery(
-                "TaskoRun.listOrgRunsOlderThan", params);
-    }
-
-    public static void clearOrgRunHistory(Integer orgId, Date limitTime)
-        throws InvalidParamException {
-        if (limitTime == null) {
-            throw new InvalidParamException("Invalid limit date");
-        }
-        List<TaskoRun> runList = listOrgRunsOlderThan(orgId, limitTime);
-        for (TaskoRun run : runList) {
-            // delete history of runs
-            TaskoFactory.deleteLogFiles(run);
-            TaskoFactory.delete(run);
-        }
-
-        // delete outdated schedules
-        List<TaskoSchedule> scheduleList = listSchedulesByOrg(orgId);
-        for (TaskoSchedule schedule : scheduleList) {
-            Date endTime = schedule.getActiveTill();
-            if ((endTime != null) && (endTime.before(limitTime)) &&
-                    TaskoFactory.listRunsBySchedule(schedule.getId()).isEmpty()) {
-                TaskoFactory.delete(schedule);
-            }
-        }
-    }
-
+    /**
+     * delete log files associated with given run
+     * @param run run to delete logs
+     */
     public static void deleteLogFiles(TaskoRun run) {
         String out = run.getStdOutputPath();
         if ((out != null) && (!out.isEmpty())) {
@@ -171,6 +183,11 @@ public class TaskoFactory extends HibernateFactory {
         return false;
     }
 
+    /**
+     * lists active schedules for a given org
+     * @param orgId organization id
+     * @return list of active schedules
+     */
     public static List<TaskoSchedule> listActiveSchedulesByOrg(Integer orgId) {
         Map params = new HashMap();
         params.put("timestamp", new Date());    // use server time, not DB time
@@ -185,6 +202,12 @@ public class TaskoFactory extends HibernateFactory {
         }
     }
 
+    /**
+     * lists active schedules of given name for a given org
+     * @param orgId organization id
+     * @param jobLabel unique job name
+     * @return list of active schedules
+     */
     public static List<TaskoSchedule> listActiveSchedulesByOrgAndLabel(Integer orgId,
             String jobLabel) {
         Map params = new HashMap();
@@ -201,6 +224,11 @@ public class TaskoFactory extends HibernateFactory {
         }
     }
 
+    /**
+     * lookup schedule by id
+     * @param scheduleId schedule id
+     * @return schedule
+     */
     public static TaskoSchedule lookupScheduleById(Long scheduleId) {
         Map params = new HashMap();
         params.put("schedule_id", scheduleId);
@@ -208,6 +236,11 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoSchedule.lookupById", params);
     }
 
+    /**
+     * lists all schedules for an org
+     * @param orgId organizational id
+     * @return list of all schedules
+     */
     public static List<TaskoSchedule> listSchedulesByOrg(Integer orgId) {
         Map params = new HashMap();
         params.put("org_id", orgId);
@@ -215,6 +248,11 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoSchedule.listByOrg", params);
     }
 
+    /**
+     * list all runs associated with a schedule
+     * @param scheduleId schedule id
+     * @return list of runs
+     */
     public static List<TaskoRun> listRunsBySchedule(Long scheduleId) {
         Map params = new HashMap();
         params.put("schedule_id", scheduleId);
@@ -222,6 +260,11 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoRun.listBySchedule", params);
     }
 
+    /**
+     * list schedules older than given date
+     * @param limitTime time of interest
+     * @return list of schedules
+     */
     public static List<TaskoSchedule> listSchedulesOlderThan(Date limitTime) {
         Map params = new HashMap();
         params.put("limit_time", limitTime);
@@ -229,6 +272,12 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoSchedule.listOlderThan", params);
     }
 
+    /**
+     * lists organizational schedules by bunch
+     * @param orgId organization id
+     * @param bunch type of schedules
+     * @return list of schedules
+     */
     public static List<TaskoSchedule> listSchedulesByOrgAndBunch(Integer orgId,
             TaskoBunch bunch) {
         Map params = new HashMap();
@@ -238,6 +287,12 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoSchedule.listByOrgAndBunch", params);
     }
 
+    /**
+     * lists organizational schedules by name
+     * @param orgId organization id
+     * @param jobLabel unique job name
+     * @return list of schedules
+     */
     public static List<TaskoSchedule> listSchedulesByOrgAndLabel(Integer orgId,
             String jobLabel) {
         Map params = new HashMap();
@@ -247,6 +302,11 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoSchedule.listByOrgAndLabel", params);
     }
 
+    /**
+     * lookup run by id
+     * @param runId run id
+     * @return run
+     */
     public static TaskoRun lookupRunById(Long runId) {
         Map params = new HashMap();
         params.put("run_id", runId);
@@ -254,7 +314,14 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoRun.lookupById", params);
     }
 
-    public static TaskoRun getRunByOrgAndId(Integer orgId, Long runId)
+    /**
+     * lookup organizational run by id
+     * @param orgId organizational id
+     * @param runId run id
+     * @return run
+     * @throws InvalidParamException thrown in case of wrong runId
+     */
+    public static TaskoRun lookupRunByOrgAndId(Integer orgId, Long runId)
         throws InvalidParamException {
         TaskoRun run = lookupRunById(runId);
         if ((run == null) || (!run.getOrgId().equals(orgId))) {
@@ -263,16 +330,13 @@ public class TaskoFactory extends HibernateFactory {
         return run;
     }
 
-    public static TaskoSchedule getScheduleByOrgAndId(Integer orgId,
-            Long scheduleId) throws InvalidParamException {
-        TaskoSchedule schedule = lookupScheduleById(scheduleId);
-        if ((schedule == null) || (!schedule.getOrgId().equals(orgId))) {
-            throw new InvalidParamException("No such schedule id");
-        }
-        return schedule;
-    }
-
-    public static List<TaskoRun> getRunsByOrgAndSchedule(Integer orgId,
+    /**
+     * lists organizational runs by schedule
+     * @param orgId organization id
+     * @param scheduleId schedule id
+     * @return list of runs
+     */
+    public static List<TaskoRun> listRunsByOrgAndSchedule(Integer orgId,
             Integer scheduleId) {
         List<TaskoRun> runs = listRunsBySchedule(scheduleId.longValue());
         // verify it belongs to the right org
@@ -284,6 +348,11 @@ public class TaskoFactory extends HibernateFactory {
         return runs;
     }
 
+    /**
+     * unschedule quartz trigger
+     * just for sanity purposes
+     * @param trigger trigger to unschedule
+     */
     public static void unscheduleTrigger(Trigger trigger) {
         try {
             log.warn("Removing trigger " + trigger.getGroup() + "." + trigger.getName());

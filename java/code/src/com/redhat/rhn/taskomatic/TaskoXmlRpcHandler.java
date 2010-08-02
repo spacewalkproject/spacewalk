@@ -245,16 +245,6 @@ public class TaskoXmlRpcHandler {
         return bunch;
     }
 
-    public int clearRunHistory(Integer orgId, Date limitTime) throws InvalidParamException {
-        TaskoFactory.clearOrgRunHistory(orgId, limitTime);
-        return 1;
-    }
-
-    public int clearSatRunHistory(Date limitTime) throws InvalidParamException {
-        TaskoFactory.clearOrgRunHistory(null, limitTime);
-        return 1;
-    }
-
     public List<TaskoSchedule> listAllSchedules(Integer orgId) {
         return TaskoFactory.listSchedulesByOrg(orgId);
     }
@@ -272,7 +262,7 @@ public class TaskoXmlRpcHandler {
     }
 
     public List<TaskoRun> listScheduleRuns(Integer orgId, Integer scheduleId) {
-        return TaskoFactory.getRunsByOrgAndSchedule(orgId, scheduleId);
+        return TaskoFactory.listRunsByOrgAndSchedule(orgId, scheduleId);
     }
 
     public List<TaskoRun> listScheduleSatRuns(Integer scheduleId) {
@@ -281,7 +271,7 @@ public class TaskoXmlRpcHandler {
 
     public String getRunStdOutputLog(Integer orgId, Long runId, Long nBytes)
         throws InvalidParamException {
-        TaskoRun run = TaskoFactory.getRunByOrgAndId(orgId, runId);
+        TaskoRun run = TaskoFactory.lookupRunByOrgAndId(orgId, runId);
         return run.getTailOfStdOutput(nBytes);
     }
 
@@ -292,7 +282,7 @@ public class TaskoXmlRpcHandler {
 
     public String getRunStdErrorLog(Integer orgId, Long runId, Long nBytes)
         throws InvalidParamException {
-        TaskoRun run = TaskoFactory.getRunByOrgAndId(orgId, runId);
+        TaskoRun run = TaskoFactory.lookupRunByOrgAndId(orgId, runId);
         return run.getTailOfStdError(nBytes);
     }
 
