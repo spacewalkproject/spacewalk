@@ -52,11 +52,17 @@ public abstract class RhnJavaJob implements RhnJob {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void appendExceptionToLogError(Exception e) {
         log.error(e.getMessage());
         log.error(e.getCause());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void execute(JobExecutionContext context, TaskoRun run)
         throws JobExecutionException {
         enableLogging(run);
