@@ -100,6 +100,10 @@ public class SchedulerKernel {
         }
     }
 
+    /**
+     * returns scheduler
+     * @return scheduler
+     */
     public static Scheduler getScheduler() {
         return SchedulerKernel.scheduler;
     }
