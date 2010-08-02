@@ -86,12 +86,12 @@ class Handler(handler_base.HandlerBase):
                 if not utils.startswith(f, topdir):
                     die(8, "--topdir %s specified, but file `%s' doesn't comply"
                         % (topdir, f))
-                if os.path.isdir(f):
+                if os.path.isdir(f) and not os.path.islink(f):
                     die(8, "Cannot diff %s; it is a directory" % f)
                 files_to_diff.append((f, f[len(topdir):]))
         else:
             for f in files:
-                if os.path.isdir(f):
+                if os.path.isdir(f) and not os.path.islink(f):
                     die(8, "Cannot diff %s; it is a directory" % f)
                 files_to_diff.append((f, f))
 
@@ -108,7 +108,16 @@ class Handler(handler_base.HandlerBase):
         except cfg_exceptions.RepositoryFileMissingError:
             die(2, "Error: no such file %s (revision %s) in config channel %s"
                 % (path, revision, channel))
-
+        if os.path.islink(local_file) and info['filetype'] != 'symlink' :
+             die(8, "Cannot diff %s; the file on the system is a symbolic link while the file in the channel is not. " % local_file)
+        if  info['filetype'] != 'symlink' and not os.path.islink(local_file) :
+             die(8, "Cannot diff %s; the file on the system is not a symbolic link while the file in the channel is. " % local_file)             
+        if info['filetype'] == 'symlink':
+            src_link = info['symlink']
+            dest_link = os.readlink(local_file)
+            if src_link != os.readlink(local_file):
+                return "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' \n " % (path,src_link, path, dest_link) 
+            return ""    
         # Test -u option to diff
         diffcmd = "/usr/bin/diff -u"
         pipe = os.popen("%s %s %s 2>/dev/null" % (diffcmd, temp_file, local_file))

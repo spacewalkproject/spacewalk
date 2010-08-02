@@ -93,6 +93,9 @@ class Handler(handler_base.HandlerBase):
                 #5/11/05 wregglej - 157066 dirs_created now gets passed into add_preprocessed.
                 dep_trans.add_preprocessed(f, temp_file, info, dirs_created, strict_ownership=0)
                 continue
+            elif info.get('filetype') == 'symlink':
+                print "%s -> %s" % (info['path'], info['symlink'])
+                continue            
             elif info.get('filetype') == 'directory':
                 print "%s is a directory entry, nothing to get" % info['path']
                 continue
