@@ -27,7 +27,12 @@ import java.sql.Blob;
 import java.util.Date;
 import java.util.Map;
 
-
+/**
+ * a schedule represents a concrete bunch, that is scheduled with specified parameters,
+ * in specified time period with some periodicity
+ * TaskoSchedule
+ * @version $Rev$
+ */
 public class TaskoSchedule {
 
     private Long id;
@@ -41,9 +46,19 @@ public class TaskoSchedule {
     private Date created;
     private Date modified;
 
-    public TaskoSchedule() {
-    }
 
+    /**
+     * default constructor
+     * schedule is always associated with organization, bunch, job name, job parameter,
+     * time period when active and cron expression, how often is shall get scheduled
+     * @param orgIdIn organization id
+     * @param bunchIn bunch id
+     * @param jobLabelIn job name
+     * @param dataIn job parameter
+     * @param activeFromIn scheduled from
+     * @param activeTillIn scheduled till
+     * @param cronExprIn cron expression
+     */
     public TaskoSchedule(Integer orgIdIn, TaskoBunch bunchIn, String jobLabelIn,
             Map dataIn, Date activeFromIn, Date activeTillIn, String cronExprIn) {
         setOrgId(orgIdIn);
@@ -66,6 +81,9 @@ public class TaskoSchedule {
         }
     }
 
+    /**
+     * unschedule this particular schedule
+     */
     public void unschedule() {
         setActiveTill(new Date());
     }
@@ -106,10 +124,18 @@ public class TaskoSchedule {
         return (Map) obj;
     }
 
+    /**
+     * set job parameters
+     * @param dataMap job paramters
+     */
     public void setDataMap(Map dataMap) {
         data = serializeMap(dataMap);
     }
 
+    /**
+     * get job parameters
+     * @return job paramters
+     */
     public Map getDataMap() {
         return getDataMapFromBlob(getData());
     }
