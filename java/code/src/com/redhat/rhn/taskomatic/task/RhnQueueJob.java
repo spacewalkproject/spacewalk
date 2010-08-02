@@ -44,12 +44,15 @@ public abstract class RhnQueueJob implements RhnJob {
 
     protected abstract Logger getLogger();
 
+    /**
+     * {@inheritDoc}
+     */
     public void appendExceptionToLogError(Exception e) {
         getLogger().error(e.getMessage());
         getLogger().error(e.getCause());
     }
 
-    void logToNewFile() {
+    private void logToNewFile() {
         PatternLayout pattern =
             new PatternLayout(DEFAULT_LOGGING_LAYOUT);
         try {
