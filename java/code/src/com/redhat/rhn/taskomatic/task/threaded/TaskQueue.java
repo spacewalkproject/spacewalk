@@ -183,6 +183,15 @@ public class TaskQueue {
         executor.createThreads(maxPoolSize);
     }
 
+    /**
+     * - while there're workers in the queue,
+     * they will be executed as within the same run
+     * to get stored all the logs together
+     * - otherwise we would lose the logs,
+     * because worker execution get managed automatically by the queue
+     * @param runIn associated run
+     * @return whether run was changed
+     */
     public boolean changeRun(TaskoRun runIn) {
         if (runIn == null) {
             queueRun = null;
