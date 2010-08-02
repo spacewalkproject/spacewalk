@@ -31,20 +31,13 @@ class Handler(handler_base.HandlerBase):
         # output.  also gets rid of /tmp/@blah in diff output.        
         label = dst
     
-        if type == 'directory':
-            #dst is a directory, so just tell the user we're skipping the entry
-            print "Entry \'%s\' is a directory, skipping" % dst
-        elif type == 'symlink':
+        if type == 'symlink':
             #dst is a symlink, so just tell the user we're skipping the entry
             srclink = os.path.abspath(os.readlink(src))
             destlink = os.path.abspath(os.readlink(dst))
-            if srclink == destlink:
-                print "No change between the symbolic links '%s' " % dst
-            else:
-                print "Symbolic link targets are different."
-                print "Channel: '%s' -> '%s'   System: '%s' -> '%s' " % (dst,srclink, dst, destlink) 
-                
-    	else:
+            if srclink != destlink:
+                print "Symbolic links differ. Channel: '%s' -> '%s'   System: '%s' -> '%s' " % (dst,srclink, dst, destlink) 
+    	elif type == 'file':
             # if file isn't present, compare to /dev/null so we see the
             # whole thing in the diff        
             if not os.access(dst, os.R_OK):

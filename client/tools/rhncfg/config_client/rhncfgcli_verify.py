@@ -169,95 +169,104 @@ class Handler(handler_base.HandlerBase):
         selinux_report = "%s|%s"
 
         src, dst, file, type, info = args[:5]
+        owner_status = ""
+        group_status = ""
+        perm_status = ""
+        selinux_status = ""
         
         status = []
         stat_err = 0
-
-        #Stat the destination file
-        try:
-            dst_stat = os.lstat(dst)
-        except:
-            stat_err = 1
-
-        src_user = info['username']
-        if not stat_err:
-            #check for owner differences
-            dst_uid = dst_stat[stat.ST_UID]
+        if type != 'symlink':
+            #Stat the destination file
             try:
-                dst_user = pwd.getpwuid(dst_uid)[0]
-            except KeyError:
-                # Orphan UID with no name,return unknown
-                dst_user = "unknown(UID %d)" % (dst_uid,)
-        else:
-            dst_user = "missing"
-        
-        #owner_status gets displayed with the verbose option.
-        if src_user == dst_user:
-            owner_status = ""
-        else:
-            owner_status = owner_report % (src_user, dst_user)
-            status.append('user')
-
-        src_group = info['groupname']
-        if not stat_err:
-            #check for group differences
-            dst_gid = dst_stat[stat.ST_GID]
-            try:
-                dst_group = grp.getgrgid(dst_gid)[0]
-            except KeyError:
-                # Orphan GID with no name,return unknown
-                dst_group = "unknown(GID %d)" % (dst_gid,)
-        else:
-            dst_group = "missing"
-
-        #group_status gets displayed with the verbose option.
-        if src_group == dst_group:
-            group_status = ""
-        else:
-            group_status = group_report % (src_group, dst_group)
-            status.append('group')
-        
-        #check for permissions differences
-        src_perm = str(info['filemode'])
-        if not stat_err:
-            #The mode returned by stat is decimal, but won't match the value in file_info unless it's octal.
-            #Unfortunately, the mode in file_info looks like the octal value of the mode, except it's in decimal.
-            #The solution I came up with is to convert them both into strings, rip off the leading '0' from the
-            #mode returned by stat, use the resulting strings. It sucks, but it seems to work (for now).
-            dst_perm = str(oct(stat.S_IMODE(dst_stat[stat.ST_MODE])))
-        else:
-            dst_perm = "missing"
-
-        #rip off the leading '0' from the mode returned by stat()
-        if dst_perm[0] == '0':
-            dst_perm = dst_perm[1:]
-        
-        #perm_status gets displayed with the verbose option.
-        if src_perm == dst_perm:
-            perm_status = ""
-        else:
-            perm_status = perm_report % (src_perm, dst_perm)
-            status.append('mode')
+                dst_stat = os.lstat(dst)
+            except:
+                stat_err = 1
+    
+            src_user = info['username']
+            if not stat_err:
+                #check for owner differences
+                dst_uid = dst_stat[stat.ST_UID]
+                try:
+                    dst_user = pwd.getpwuid(dst_uid)[0]
+                except KeyError:
+                    # Orphan UID with no name,return unknown
+                    dst_user = "unknown(UID %d)" % (dst_uid,)
+            else:
+                dst_user = "missing"
+            
+            #owner_status gets displayed with the verbose option.
+            if src_user == dst_user:
+                owner_status = ""
+            else:
+                owner_status = owner_report % (src_user, dst_user)
+                status.append('user')
+    
+            src_group = info['groupname']
+            if not stat_err:
+                #check for group differences
+                dst_gid = dst_stat[stat.ST_GID]
+                try:
+                    dst_group = grp.getgrgid(dst_gid)[0]
+                except KeyError:
+                    # Orphan GID with no name,return unknown
+                    dst_group = "unknown(GID %d)" % (dst_gid,)
+            else:
+                dst_group = "missing"
+    
+            #group_status gets displayed with the verbose option.
+            if src_group == dst_group:
+                group_status = ""
+            else:
+                group_status = group_report % (src_group, dst_group)
+                status.append('group')
+            
+            #check for permissions differences
+            src_perm = str(info['filemode'])
+            if not stat_err:
+                #The mode returned by stat is decimal, but won't match the value in file_info unless it's octal.
+                #Unfortunately, the mode in file_info looks like the octal value of the mode, except it's in decimal.
+                #The solution I came up with is to convert them both into strings, rip off the leading '0' from the
+                #mode returned by stat, use the resulting strings. It sucks, but it seems to work (for now).
+                dst_perm = str(oct(stat.S_IMODE(dst_stat[stat.ST_MODE])))
+            else:
+                dst_perm = "missing"
+    
+            #rip off the leading '0' from the mode returned by stat()
+            if dst_perm[0] == '0':
+                dst_perm = dst_perm[1:]
+            
+            #perm_status gets displayed with the verbose option.
+            if src_perm == dst_perm:
+                perm_status = ""
+            else:
+                perm_status = perm_report % (src_perm, dst_perm)
+                status.append('mode')
 
         # compare selinux contexts
         src_selinux = info['selinux_ctx']
-        if not stat_err:
-            dst_selinux = lgetfilecon(dst)[1]
-            if dst_selinux == None:
-                dst_selinux = ""
-        else:
-            dst_selinux = "missing"
-
-        if src_selinux == dst_selinux:
-            selinux_status = ""
-        else:
-            selinux_status = selinux_report % (src_selinux, dst_selinux)
-            status.append('selinux')
+        if src_selinux:
+            if not stat_err:
+                dst_selinux = lgetfilecon(dst)[1]
+                if dst_selinux == None:
+                    dst_selinux = ""
+            else:
+                dst_selinux = "missing"
+    
+            if src_selinux == dst_selinux:
+                selinux_status = ""
+            else:
+                selinux_status = selinux_report % (src_selinux, dst_selinux)
+                status.append('selinux')
 
         #figure out the ultimate value of status.
         if stat_err:
             status = ["missing"]
-
+        elif type == 'symlink':
+            if not os.path.islink(file):
+                status = ["missing"]
+            elif os.readlink(file) != info['symlink']:
+                status.append('target-link-modified')
         elif type == 'directory':
             if not os.path.isdir(file):
                 status = ["missing"]

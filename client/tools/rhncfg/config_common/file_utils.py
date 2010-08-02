@@ -98,7 +98,7 @@ class FileProcessor:
         cur_sectx = lgetfilecon(path)[1]
         if cur_sectx == None:
             cur_sectx = ''
-        if file_struct.has_key('selinux_ctx'):
+        if file_struct.has_key('selinux_ctx') and file_struct['selinux_ctx']:
             if cur_sectx != file_struct['selinux_ctx']:
                 sectx_result = "SELinux contexts differ:  actual: [%s], expected: [%s]\n" % (cur_sectx, file_struct['selinux_ctx'])
 

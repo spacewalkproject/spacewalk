@@ -101,5 +101,6 @@ class Handler(handler_base.HandlerBase):
                 fsize = '*' + str(len(finfo['file_contents']))
 
             permstr = finfo['filetype'] != 'symlink' and self.ostr_to_sym(finfo['filemode'], finfo['filetype']) or ''
-            print "%10s %8s %-8s %10s %+3s    %*s    %s" % (permstr, finfo['username'], finfo['groupname'], fsize, finfo['revision'], maxlen, file[0], file[1])
+            dest = finfo['filetype'] != 'symlink' and file[1] or "%s -> %s" % (file[1], finfo['symlink']) 
+            print "%10s %8s %-8s %10s %+3s    %*s    %s" % (permstr, finfo['username'], finfo['groupname'], fsize, finfo['revision'], maxlen, file[0], dest)
 
