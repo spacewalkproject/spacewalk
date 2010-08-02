@@ -34,7 +34,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
         <query name="TaskoRun.lookupById">
-            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE id = :id]]>
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE id = :run_id]]>
         </query>
 
         <query name="TaskoRun.listBySchedule">
