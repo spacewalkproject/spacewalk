@@ -15,6 +15,10 @@
 package com.redhat.rhn.taskomatic;
 
 
+/**
+ * InvalidParamException
+ * @version $Rev$
+ */
 public class InvalidParamException extends Exception {
 
     /**
@@ -22,6 +26,10 @@ public class InvalidParamException extends Exception {
      */
     private static final long serialVersionUID = -3100819288563720249L;
 
+    /**
+     * default constructor
+     * @param message exception message
+     */
     public InvalidParamException(String message) {
         super(message);
     }

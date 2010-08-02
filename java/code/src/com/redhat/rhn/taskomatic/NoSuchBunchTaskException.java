@@ -26,6 +26,10 @@ public class NoSuchBunchTaskException extends Exception {
      */
     private static final long serialVersionUID = -1611165320092152311L;
 
+    /**
+     * default constructor
+     * @param message exception message
+     */
     public NoSuchBunchTaskException(String message) {
         super(message);
     }
