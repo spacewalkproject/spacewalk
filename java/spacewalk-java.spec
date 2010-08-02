@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.41
+Version: 1.1.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -331,6 +331,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 02 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.42-1
+- point taskomatic to slf4j jars
+
 * Fri Jul 30 2010 Justin Sherrill <jsherril@redhat.com> 1.1.41-1
 - 619381 - fixing issue where reprovisioning a system would cause registration
   to fail in the %post section resulting in the system not being registered at
