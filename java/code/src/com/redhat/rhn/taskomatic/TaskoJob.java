@@ -27,6 +27,12 @@ import org.quartz.JobExecutionException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ *
+ * TaskoJob
+ * @version $Rev$
+ */
 public class TaskoJob implements Job {
 
     private static Logger log = Logger.getLogger(TaskoJob.class);
@@ -42,6 +48,11 @@ public class TaskoJob implements Job {
         }
     }
 
+    /**
+     * default constructor
+     * job is always associated with a schedule
+     * @param scheduleIdIn schedule id
+     */
     public TaskoJob(Long scheduleIdIn) {
         setScheduleId(scheduleIdIn);
     }
@@ -174,6 +185,7 @@ public class TaskoJob implements Job {
     }
 
     /**
+     * setter for scheduleId
      * @param scheduleIdIn The scheduleId to set.
      */
     public void setScheduleId(Long scheduleIdIn) {
@@ -181,6 +193,7 @@ public class TaskoJob implements Job {
     }
 
     /**
+     * getter for scheduleId
      * @return Returns the scheduleId.
      */
     public Long getScheduleId() {
