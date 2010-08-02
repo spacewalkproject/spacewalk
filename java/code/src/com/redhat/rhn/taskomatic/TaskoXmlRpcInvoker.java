@@ -48,6 +48,9 @@ public class TaskoXmlRpcInvoker implements ProtocolHandler {
         server = xmlrpcServer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void handle(Request request, Response response) {
         String uri = request.getURI();
         InetAddress ip = request.getInetAddress();
