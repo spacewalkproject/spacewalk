@@ -51,9 +51,13 @@ public class TaskoRun {
     private Date created;
     private Date modified;
 
-    public TaskoRun() {
-    }
-
+    /**
+     * default constructor
+     * run is always associated with organization, template and schedule
+     * @param orgIdIn organization id
+     * @param templateIn template id
+     * @param scheduleIdIn schedule id
+     */
     public TaskoRun(Integer orgIdIn, TaskoTemplate templateIn, Long scheduleIdIn) {
         setOrgId(orgIdIn);
         setTemplate(templateIn);
@@ -67,6 +71,10 @@ public class TaskoRun {
         saveStatus(STATUS_READY_TO_RUN);
     }
 
+    /**
+     * run start method
+     * has to be called right before job execution
+     */
     public void start() {
         setStdOutputPath(buildStdOutputLogPath());
         setStdErrorPath(buildStdErrorLogPath());
@@ -76,6 +84,10 @@ public class TaskoRun {
         saveStatus(STATUS_RUNNING);
     }
 
+    /**
+     * run finish method
+     * has to be called right after job execution
+     */
     public void finished() {
         setEndTime(new Date());
         updateLogPaths();
@@ -91,23 +103,38 @@ public class TaskoRun {
         TaskoFactory.save(this);
     }
 
-    private void appendToStdOutputLog(String out) {
-        appendLogToFile(getStdOutputPath(), out);
-    }
-
+    /**
+     * appends a string to error log
+     * usefull for exception logging when the run doesn't get executed at all
+     * @param errorLog error message to append
+     */
     public void appendToErrorLog(String errorLog) {
         appendLogToFile(getStdErrorPath(), errorLog);
     }
 
+    /**
+     * sets run status
+     * @param statusIn status to set
+     */
     public void saveStatus(String statusIn) {
         setStatus(statusIn);
         TaskoFactory.save(this);
     }
 
+    /**
+     * returns last nBytes bytes of the std output log
+     * @param nBytes number of bytes
+     * @return last bytes of the output log
+     */
     public String getTailOfStdOutput(Long nBytes) {
         return getTailOfFile(getStdOutputPath(), nBytes);
     }
 
+    /**
+     * returns last nBytes bytes of the std error log
+     * @param nBytes number of bytes
+     * @return last bytes of the error log
+     */
     public String getTailOfStdError(Long nBytes) {
         return getTailOfFile(getStdErrorPath(), nBytes);
     }
@@ -129,10 +156,18 @@ public class TaskoRun {
         }
     }
 
+    /**
+     * builds path to std output log file
+     * @return path
+     */
     public String buildStdOutputLogPath() {
         return getStdLogDirName() + getStdLogFileName() + "_out";
     }
 
+    /**
+     * builds path to std error log file
+     * @return path
+     */
     public String buildStdErrorLogPath() {
         return getStdLogDirName() + getStdLogFileName() + "_err";
     }
@@ -183,7 +218,6 @@ public class TaskoRun {
         return id;
     }
 
-
     /**
      * @param idIn The id to set.
      */
@@ -191,14 +225,12 @@ public class TaskoRun {
         this.id = idIn;
     }
 
-
     /**
      * @return Returns the templateId.
      */
     public TaskoTemplate getTemplate() {
         return template;
     }
-
 
     /**
      * @param templateId The templateId to set.
@@ -223,14 +255,12 @@ public class TaskoRun {
         this.startTime = startTimeIn;
     }
 
-
     /**
      * @return Returns the endTime.
      */
     public Date getEndTime() {
         return endTime;
     }
-
 
     /**
      * @param endTimeIn The endTime to set.
@@ -239,14 +269,12 @@ public class TaskoRun {
         this.endTime = endTimeIn;
     }
 
-
     /**
      * @return Returns the stdOutputPath.
      */
     public String getStdOutputPath() {
         return stdOutputPath;
     }
-
 
     /**
      * @param stdOutputPathIn The stdOutputPath to set.
@@ -255,14 +283,12 @@ public class TaskoRun {
         this.stdOutputPath = stdOutputPathIn;
     }
 
-
     /**
      * @return Returns the stdErrorPath.
      */
     public String getStdErrorPath() {
         return stdErrorPath;
     }
-
 
     /**
      * @param stdErrorPathIn The stdErrorPath to set.
@@ -271,14 +297,12 @@ public class TaskoRun {
         this.stdErrorPath = stdErrorPathIn;
     }
 
-
     /**
      * @return Returns the status.
      */
     public String getStatus() {
         return status;
     }
-
 
     /**
      * @param statusIn The status to set.
@@ -287,14 +311,12 @@ public class TaskoRun {
         this.status = statusIn;
     }
 
-
     /**
      * @return Returns the created.
      */
     public Date getCreated() {
         return created;
     }
-
 
     /**
      * @param createdIn The created to set.
@@ -303,14 +325,12 @@ public class TaskoRun {
         this.created = createdIn;
     }
 
-
     /**
      * @return Returns the modified.
      */
     public Date getModified() {
         return modified;
     }
-
 
     /**
      * @param modifiedIn The modified to set.
@@ -319,14 +339,12 @@ public class TaskoRun {
         this.modified = modifiedIn;
     }
 
-
     /**
      * @return Returns the orgId.
      */
     public Integer getOrgId() {
         return orgId;
     }
-
 
     /**
      * @param orgIdIn The orgId to set.
