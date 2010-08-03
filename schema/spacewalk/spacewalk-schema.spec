@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.24
+Version:        1.1.25
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Aug 03 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.25-1
+- Do not depend on cpp when sed works just as well
+- The slash is not needed as it causes the create index command to be run for
+  the second time, during raw db population
+- Underscore is not valid syntax during raw db population
+- Empty line in the create table command causes error during raw db population
+
 * Thu Jul 29 2010 Partha Aji <paji@redhat.com> 1.1.24-1
 - fixing a few things with the new config changes for symlinks
   (jsherril@redhat.com)
