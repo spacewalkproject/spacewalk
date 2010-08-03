@@ -322,6 +322,8 @@ maximum membership exceeded"),
      4013: _("File already uploaded to configuration channel"),
      4014: _("File size exceeds remaining quota space"),
      4015: _("Full path of file must be specified"),
+     4016: _("Invalid revision number"),
+     4017: _("Cannot compare files of different file type"),
 
      # 5000 - 5099: entitlement mapper errors
      5000: _("The speicified item is not present in the input"),

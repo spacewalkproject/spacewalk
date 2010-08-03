@@ -466,8 +466,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         config_channel_src = dict['config_channel_src']
         revision_src = dict.get('revision_src')
         if revision_src and not revision_src.isdigit():
-            raise rhnFault(4011, "File %s (revision %s) does not exist "
-                "in channel %s" % (path, revision_src, config_channel_src), 
+            raise rhnFault(4016, "Invalid revision number '%s' specified for path %s "
+                "in channel %s" % (revision_src, path, config_channel_src), 
                 explain=0)
 
         fsrc = self._get_file(config_channel_src, path, revision=revision_src)
@@ -496,8 +496,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             config_channel_dst = config_channel_src
         revision_dst = dict.get('revision_dst')
         if revision_dst and not revision_dst.isdigit():
-            raise rhnFault(4011, "File %s (revision %s) does not exist "
-                "in channel %s" % (path, revision_dst, config_channel_dst),
+            raise rhnFault(4016, "Invalid revision number '%s' specified for path %s "
+                "in channel %s" % (revision_dst, path, config_channel_dst), 
                 explain=0)
         # revision_dst may be None, in which case we diff with HEAD
         fdst = self._get_file(config_channel_dst, path, revision=revision_dst)
@@ -517,6 +517,27 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         os.close(fd)
         del fc_lob
 
+        if fsrc['label'] != fdst['label']:
+            raise rhnFault(4017, "Path %s  is a %s"+ \
+                                " in channel %s while it is a %s in channel %s"\
+                                % (path, fsrc['label'], \
+                                    config_channel_src, fdst['label'], config_channel_dst),
+                explain=0)
+        template = "--- %s\t%s\tconfig channel: %s\trevision: %s target: %s \n"
+
+        if fsrc['label'] == 'symlink':
+            if  fsrc["symlink"] != fdst['symlink']:
+                first_row = template % (
+                    path, f_date(fsrc['modified']), config_channel_src,
+                    fsrc['revision'], fsrc["symlink"],
+                )
+                second_row = template % (
+                    path, f_date(fdst['modified']), config_channel_dst,
+                    fdst['revision'], fdst["symlink"],
+                )
+                return first_row +  second_row
+            return ""
+
         pipe = os.popen("/usr/bin/diff -u %s %s" % (filename_src,
             filename_dst))
         first_row = pipe.readline()
@@ -533,6 +554,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             return second_row + pipe.read()
 
         template = "--- %s\t%s\tconfig channel: %s\trevision: %s\n"
+
         first_row = template % (
             path, f_date(fsrc['modified']), config_channel_src, 
             fsrc['revision'],
