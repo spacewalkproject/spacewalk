@@ -53,4 +53,5 @@ class Handler(handler_base.HandlerBase):
                 dest_file = utils.join_path(topdir, ns, file_path)
                 print "Deploying %s -> %s" % (file_path, dest_file)
                 utils.copyfile_p(temp_file, dest_file)
-                utils.set_file_info(dest_file, info)
+                if info['filetype'] != 'symlink':
+                    utils.set_file_info(dest_file, info)

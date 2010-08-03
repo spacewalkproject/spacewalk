@@ -111,12 +111,13 @@ class Handler(handler_base.HandlerBase):
                     log_error(e)
 
     
-def is_file(dirname, basename):
-    return os.path.isfile(os.path.join(dirname, basename))
+def is_file_or_link(dirname, basename):
+    return os.path.isfile(os.path.join(dirname, basename)) or \
+                        os.path.islink(os.path.join(dirname, basename))
 
 def list_files_recursive(d):
     def visitfunc(arg, dirname, names):
-        arg.append((dirname, filter(lambda x, d=dirname: is_file(d, x),
+        arg.append((dirname, filter(lambda x, d=dirname: is_file_or_link(d, x),
             names)))
 
     file_list = []

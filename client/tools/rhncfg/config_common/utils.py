@@ -81,10 +81,15 @@ def copyfile_p(src, dst):
             raise
 
     if os.path.isdir(src):
-	if not os.path.exists(dst):
-	    os.mkdir(dst)
+        if not os.path.exists(dst):
+            os.mkdir(dst)
+    elif os.path.islink(src):
+        exists = hasattr(os.path, "lexists") and os.path.lexists or os.path.exists
+        if exists(dst):
+            os.remove(dst)
+        os.symlink(os.readlink(src), dst)
     else:
-        shutil.copyfile(src, dst)    
+        shutil.copyfile(src, dst)
 
 def mkdir_p(path, mode=None):
     """
