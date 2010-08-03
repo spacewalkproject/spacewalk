@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.server;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 
@@ -43,7 +44,7 @@ public class SatelliteServer extends Server {
      */
     public String getCertString() {
         if (cert != null) {
-            return new String(cert);
+            return HibernateFactory.getByteArrayContents(cert);
         }
         return null;
     }
@@ -60,7 +61,7 @@ public class SatelliteServer extends Server {
      * @param aCert The cert to set.
      */
     public void setCert(String aCert) {
-        cert = aCert.getBytes();
+        cert = HibernateFactory.stringToByteArray(aCert);
     }
 
     /**
@@ -152,6 +153,7 @@ public class SatelliteServer extends Server {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isSatellite() {
         return true;
     }

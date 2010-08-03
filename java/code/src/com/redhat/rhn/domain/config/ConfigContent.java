@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.config;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.common.Checksum;
 
@@ -77,7 +78,7 @@ public class ConfigContent extends BaseDomainHelper {
      * @return String version of the Contents content
      */
     public String getContentsString() {
-        return new String(contents);
+        return HibernateFactory.getByteArrayContents(getContents());
     }
 
 

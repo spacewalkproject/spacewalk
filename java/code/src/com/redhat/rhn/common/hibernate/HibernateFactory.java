@@ -490,7 +490,7 @@ public abstract class HibernateFactory {
      */
     public static String getByteArrayContents(byte[] barr) {
 
-        String retval = null;
+        String retval = "";
 
         if (barr != null) {
             try {
@@ -527,18 +527,18 @@ public abstract class HibernateFactory {
     }
 
     /**
-     * Convert a String to a Blob object.  Guards against
+     * Convert a String to a byte[] object.  Guards against
      * null arrays and 0 length arrays.
      * @param data string to convert to a Blob
      * @return Blob if data[] is non-null and length > 0, null otherwise
      */
-    public static Blob stringToBlob(String data) {
+    public static byte[] stringToByteArray(String data) {
         if (StringUtils.isEmpty(data)) {
             return null;
         }
 
         try {
-            return byteArrayToBlob(data.getBytes("UTF-8"));
+            return data.getBytes("UTF-8");
         }
         catch (UnsupportedEncodingException e) {
             throw new RuntimeException("Illegal Argument: " +
@@ -546,7 +546,6 @@ public abstract class HibernateFactory {
                                              data, e);
         }
     }
-
 
     /**
      * Initialize the underlying db layer

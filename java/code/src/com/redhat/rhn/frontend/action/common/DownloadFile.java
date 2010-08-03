@@ -91,6 +91,7 @@ public class DownloadFile extends DownloadAction {
     private static final String CHANNEL = "cid";
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
@@ -589,7 +590,7 @@ public class DownloadFile extends DownloadAction {
             if (!f.exists()) {
                 log.error("manualServeChecksum :: File not found: " + diskPath);
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
-                return getStreamForText("".getBytes());
+                return getStreamForText(new byte[0]);
             }
             checksum = MD5Sum.getFileMD5Sum(f);
         }
