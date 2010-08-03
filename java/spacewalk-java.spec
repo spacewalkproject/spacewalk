@@ -32,8 +32,8 @@ Group: Applications/Internet
 Requires: bcel
 Requires: c3p0
 Requires: hibernate3 >= 0:3.2.4
-Requires: java >= 0:1.6.0
-Requires: java-devel >= 0:1.6.0
+Requires: java >= 1:1.6.0
+Requires: java-devel >= 1:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-cli
