@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.44
+Version: 1.1.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -331,6 +331,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 03 2010 Partha Aji <paji@redhat.com> 1.1.45-1
+- Fixed byte[] -> string conversion bugs that were created during the
+  blob->binary commit (paji@redhat.com)
+
 * Tue Aug 03 2010 Shannon Hughes <shughes@redhat.com> 1.1.44-1
 - we need to use epoch of 1 for 1.6.0 and greater according to fedora java package rules (shughes@redhat.com)
 
