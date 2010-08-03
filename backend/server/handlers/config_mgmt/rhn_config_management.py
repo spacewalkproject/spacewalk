@@ -19,7 +19,7 @@
 
 import os
 from common import rhnFault, log_debug
-
+import tempfile
 from server import rhnSQL, configFilesHandler
 
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
@@ -464,7 +464,12 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         path = dict['path']
 
         config_channel_src = dict['config_channel_src']
-        revision_src = dict['revision_src']
+        revision_src = dict.get('revision_src')
+        if revision_src and not revision_src.isdigit():
+            raise rhnFault(4011, "File %s (revision %s) does not exist "
+                "in channel %s" % (path, revision_src, config_channel_src), 
+                explain=0)
+
         fsrc = self._get_file(config_channel_src, path, revision=revision_src)
         if not fsrc:
             raise rhnFault(4011, "File %s (revision %s) does not exist "
@@ -481,7 +486,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         # Empty files or directories may have NULL instead of lobs
         fd, filename_src = tempfile.mkstemp(prefix = '/tmp/rhncfg-')
-        fc_lob = fsrc['file_contents']
+        fc_lob = fsrc.get('file_contents')
         if fc_lob:
             os.write(fd, rhnSQL.read_lob(fc_lob))
         os.close(fd)
@@ -490,6 +495,10 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         if config_channel_dst is None:
             config_channel_dst = config_channel_src
         revision_dst = dict.get('revision_dst')
+        if revision_dst and not revision_dst.isdigit():
+            raise rhnFault(4011, "File %s (revision %s) does not exist "
+                "in channel %s" % (path, revision_dst, config_channel_dst),
+                explain=0)
         # revision_dst may be None, in which case we diff with HEAD
         fdst = self._get_file(config_channel_dst, path, revision=revision_dst)
         if not fdst:
@@ -502,7 +511,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                 explain=0)
         
         fd, filename_dst = tempfile.mkstemp(prefix = '/tmp/rhncfg-')
-        fc_lob = fdst['file_contents']
+        fc_lob = fdst.get('file_contents')
         if fc_lob:
             os.write(fd, rhnSQL.read_lob(fc_lob))
         os.close(fd)
