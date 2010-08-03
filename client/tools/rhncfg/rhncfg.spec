@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.25
+Version: 5.9.26
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -99,6 +99,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Aug 03 2010 Partha Aji <paji@redhat.com> 5.9.26-1
+- Made the upload_channel and download_channel calls deal with symlinks
+  (paji@redhat.com)
+
 * Mon Aug 02 2010 Partha Aji <paji@redhat.com> 5.9.25-1
 - Added diff and get functionaliity for rhncfg-manager (paji@redhat.com)
 - Changes to rhncfg verify and diff to get symlinks working (paji@redhat.com)
