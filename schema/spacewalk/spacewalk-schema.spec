@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.25
+Version:        1.1.26
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Aug 03 2010 Jan Pazdziora 1.1.26-1
+- Chameleon does not support the NULL clause, fix source.
+
 * Tue Aug 03 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.25-1
 - Do not depend on cpp when sed works just as well
 - The slash is not needed as it causes the create index command to be run for
