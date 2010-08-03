@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,9 +19,9 @@ CREATE TABLE rhnConfigInfo
     id           NUMBER NOT NULL
                      CONSTRAINT rhn_confinfo_id_pk PRIMARY KEY
                      USING INDEX TABLESPACE [[2m_tbs]],
-    username     VARCHAR2(32)  NULL,
-    groupname    VARCHAR2(32)  NULL,
-    filemode     NUMBER  NULL,
+    username     VARCHAR2(32),
+    groupname    VARCHAR2(32),
+    filemode     NUMBER,
     symlink_target_filename_id NUMBER
                     CONSTRAINT rhn_confinfo_symlink_fk
                         REFERENCES rhnConfigFileName (id),    
