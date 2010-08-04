@@ -548,7 +548,7 @@ def _encode_characters(*args):
         for item in args:
             item_type = type(item)
             if item_type == StringType or item_type == UnicodeType:
-                item = unicode(item, 'latin-1')
+                item = unicode(item, 'utf-8')
             elif item_type == TupleType:
                 item = tuple(map(_encode_characters, item))
             elif item_type == ListType:
