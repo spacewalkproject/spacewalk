@@ -18994,6 +18994,153 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             </context-group>
          </trans-unit>
 
+         <trans-unit id="sdc.details.hardware.header">
+            <source>Refresh Hardware List</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.refresh">
+            <source>The following list represents the detectable hardware on this system. If this list is incomplete, you may press the button below to schedule a hardware list refresh for this system.</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.schedule">
+            <source>Schedule Hardware Refresh</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.arch">
+            <source>Arch:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.vendor">
+            <source>Vendor:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.stepping">
+            <source>Stepping:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.family">
+            <source>Family:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.cache">
+            <source>Cache:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.memory">
+            <source>Memory:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.swap">
+            <source>Swap:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.general">
+            <source>General</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.dmi">
+            <source>DMI Info</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.dmi_system">
+            <source>System:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.dmi_bios">
+            <source>Bios:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.dmi_asset_tag">
+            <source>Asset Tag:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.dmi_board">
+            <source>Board:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.dmi_product">
+            <source>Product:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.dmi_vendor">
+            <source>Vendor:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.networking">
+            <source>Networking</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.network_hostname">
+            <source>Hostname:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.network_ip_addr">
+            <source>IP Address:</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
          <trans-unit id="methods.jsp.nomethods">
             <source>No notification methods configured.</source>
             <context-group name="ctx">

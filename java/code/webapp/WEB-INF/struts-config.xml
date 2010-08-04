@@ -943,6 +943,11 @@
                <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
+    <form-bean name="systemHardwareForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+               <form-property name="sid" type="java.lang.Long"/>
+               <form-property name="submitted" type="java.lang.Boolean"/>
+    </form-bean>
 
     <!--END ConfigChannel forms -->
 
@@ -2566,6 +2571,17 @@
         type="com.redhat.rhn.frontend.action.systems.RegisteredSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/registeredlist.jsp"/>
+    </action>
+
+    <action path="/systems/details/SystemHardware"
+        scope="request"
+        name="systemHardwareForm"
+        input="/WEB-INF/pages/systems/sdc/hardware.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SystemHardwareAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/hardware.jsp"/>
+        <forward name="success"
+                 path="/systems/details/SystemHardware.do" redirect="true"/>
     </action>
 
     <action path="/systems/SystemCurrency"

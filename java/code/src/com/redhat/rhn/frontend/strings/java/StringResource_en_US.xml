@@ -1539,6 +1539,12 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="message.refeshScheduled">
+<source>You have successfully scheduled a hardware profile refresh for {0}.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="prefix">
 <source>Prefix</source>
         <context-group name="ctx">

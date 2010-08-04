@@ -14,8 +14,7 @@
     </rhn-tab>
     <rhn-tab name="Reactivation" url="/network/systems/details/activation.pxt" acl="system_feature(ftr_agent_smith)"/>
     <rhn-tab name="Hardware">
-      <rhn-tab-url>/network/systems/details/hardware.pxt</rhn-tab-url>
-      <rhn-tab-url>/network/systems/hardware_list_refresh_confirm.pxt</rhn-tab-url>
+      <rhn-tab-url>/rhn/systems/details/SystemHardware.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Migrate" acl="user_role(org_admin)" url="/rhn/systems/details/SystemMigrate.do" />
     <rhn-tab name="Notes">
