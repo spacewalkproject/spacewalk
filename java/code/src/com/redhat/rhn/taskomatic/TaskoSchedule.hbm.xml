@@ -44,12 +44,24 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id]]>
         </query>
 
+        <query name="TaskoSchedule.listInSat">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId is null]]>
+        </query>
+
         <query name="TaskoSchedule.listByOrgAndLabel">
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id AND jobLabel = :job_label]]>
         </query>
 
+        <query name="TaskoSchedule.listInSatByLabel">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId is null AND jobLabel = :job_label]]>
+        </query>
+
         <query name="TaskoSchedule.listByOrgAndBunch">
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id AND bunch.id = :bunch_id]]>
+        </query>
+
+        <query name="TaskoSchedule.listInSatByBunch">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId is null AND bunch.id = :bunch_id]]>
         </query>
 
         <query name="TaskoSchedule.listActiveByOrg">

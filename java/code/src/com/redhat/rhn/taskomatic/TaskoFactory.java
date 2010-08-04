@@ -16,11 +16,8 @@ package com.redhat.rhn.taskomatic;
 
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.taskomatic.core.SchedulerKernel;
 
 import org.apache.log4j.Logger;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
 
 import java.io.File;
 import java.util.Date;
@@ -243,9 +240,15 @@ public class TaskoFactory extends HibernateFactory {
      */
     public static List<TaskoSchedule> listSchedulesByOrg(Integer orgId) {
         Map params = new HashMap();
-        params.put("org_id", orgId);
-        return singleton.listObjectsByNamedQuery(
+        if (orgId == null) {
+            return singleton.listObjectsByNamedQuery(
+                                       "TaskoSchedule.listInSat", params);
+        }
+        else {
+            params.put("org_id", orgId);
+            return singleton.listObjectsByNamedQuery(
                                        "TaskoSchedule.listByOrg", params);
+        }
     }
 
     /**
@@ -281,10 +284,16 @@ public class TaskoFactory extends HibernateFactory {
     public static List<TaskoSchedule> listSchedulesByOrgAndBunch(Integer orgId,
             TaskoBunch bunch) {
         Map params = new HashMap();
-        params.put("org_id", orgId);
         params.put("bunch_id", bunch.getId());
-        return singleton.listObjectsByNamedQuery(
+        if (orgId == null) {
+            return singleton.listObjectsByNamedQuery(
+                                       "TaskoSchedule.listInSatByBunch", params);
+        }
+        else {
+            params.put("org_id", orgId);
+            return singleton.listObjectsByNamedQuery(
                                        "TaskoSchedule.listByOrgAndBunch", params);
+        }
     }
 
     /**
@@ -296,10 +305,16 @@ public class TaskoFactory extends HibernateFactory {
     public static List<TaskoSchedule> listSchedulesByOrgAndLabel(Integer orgId,
             String jobLabel) {
         Map params = new HashMap();
-        params.put("org_id", orgId);
         params.put("job_label", jobLabel);
-        return singleton.listObjectsByNamedQuery(
+        if (orgId == null) {
+            return singleton.listObjectsByNamedQuery(
+                                       "TaskoSchedule.listInSatByLabel", params);
+        }
+        else {
+            params.put("org_id", orgId);
+            return singleton.listObjectsByNamedQuery(
                                        "TaskoSchedule.listByOrgAndLabel", params);
+        }
     }
 
     /**
@@ -346,21 +361,5 @@ public class TaskoFactory extends HibernateFactory {
             }
         }
         return runs;
-    }
-
-    /**
-     * unschedule quartz trigger
-     * just for sanity purposes
-     * @param trigger trigger to unschedule
-     */
-    public static void unscheduleTrigger(Trigger trigger) {
-        try {
-            log.warn("Removing trigger " + trigger.getGroup() + "." + trigger.getName());
-            SchedulerKernel.getScheduler().unscheduleJob(trigger.getName(),
-                    trigger.getGroup());
-        }
-        catch (SchedulerException e) {
-            // be silent
-        }
     }
 }
