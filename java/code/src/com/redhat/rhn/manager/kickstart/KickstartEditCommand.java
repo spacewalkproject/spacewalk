@@ -214,7 +214,13 @@ public class KickstartEditCommand extends BaseKickstartCommand {
             }
         }
 
-        if (tree != null) {
+        if (tree == null) {
+            ValidatorError ve = new ValidatorError("kickstart.software.notree");
+            logger.debug("updateKickstartableTree(Long, String, " +
+                    "String, Long) - end - return value=" + ve);
+            return ve;
+        }
+        else if (!tree.equals(ksdata.getTree())) {
 
             this.ksdata.getKickstartDefaults().setKstree(tree);
             if (!ksdata.isRawData() && !StringUtils.isBlank(url)) {
@@ -230,12 +236,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
             }
             return null;
         }
-        else {
-            ValidatorError ve = new ValidatorError("kickstart.software.notree");
-            logger.debug("updateKickstartableTree(Long, String, " +
-                    "String, Long) - end - return value=" + ve);
-            return ve;
-        }
+        return null;
 
     }
 
