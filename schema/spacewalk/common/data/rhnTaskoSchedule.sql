@@ -39,11 +39,6 @@ INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
         (SELECT id FROM rhnTaskoBunch WHERE name='repo-sync-bunch'),
         sysdate, '0 * * * * ?');
 
-INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
-    VALUES(rhn_tasko_schedule_id_seq.nextval, 'repo-sync-default',
-        (SELECT id FROM rhnTaskoBunch WHERE name='repo-sync-bunch'),
-        sysdate, '0 * * * * ?');
-
 -- Every 10 minutes
 
 INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
