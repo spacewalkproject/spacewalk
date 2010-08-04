@@ -19,6 +19,9 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.conf.ConfigException;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.MessageQueue;
+import com.redhat.rhn.taskomatic.TaskoFactory;
+import com.redhat.rhn.taskomatic.TaskoQuartzHelper;
+import com.redhat.rhn.taskomatic.TaskoSchedule;
 import com.redhat.rhn.taskomatic.TaskoXmlRpcServer;
 
 import org.apache.log4j.Logger;
@@ -28,6 +31,8 @@ import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
 
 import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -122,6 +127,7 @@ public class SchedulerKernel {
         MessageQueue.configureDefaultActions();
         try {
             this.scheduler.start();
+            initializeAllSatSchedules();
             synchronized (this.shutdownLock) {
                 try {
                     this.shutdownLock.wait();
@@ -174,25 +180,23 @@ public class SchedulerKernel {
     }
 
 
-    private void deleteAllJobs() {
-        boolean done = false;
-        while (!done) {
-            try {
-                String[] groups = this.scheduler.getJobGroupNames();
-                if (groups == null || groups.length == 0) {
-                    done = true;
-                }
-                else {
-                    String group = groups[0];
-                    String[] jobs = this.scheduler.getJobNames(group);
-                    for (int x = jobs.length - 1; x > -1; x--) {
-                        this.scheduler.deleteJob(jobs[x], group);
-                    }
+    /**
+     * load DB schedule configuration
+     */
+    public void initializeAllSatSchedules() {
+        List jobNames;
+        try {
+            jobNames = Arrays.asList(
+                    this.scheduler.getJobNames(TaskoQuartzHelper.getGroupName(null)));
+            for (TaskoSchedule schedule : TaskoFactory.listSchedulesByOrg(null)) {
+                if (!jobNames.contains(schedule.getJobLabel())) {
+                    TaskoQuartzHelper.createJob(schedule);
                 }
             }
-            catch (SchedulerException e) {
-                done = true;
-            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return;
         }
     }
 }
