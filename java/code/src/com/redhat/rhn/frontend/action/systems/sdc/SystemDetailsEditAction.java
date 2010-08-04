@@ -174,7 +174,7 @@ public class SystemDetailsEditAction extends RhnAction {
         if (s.getBaseEntitlement() != null) {
 
             if (Boolean.TRUE.equals(daForm.get(AUTO_UPDATE)) &&
-                !s.getAutoUpdate().equals("Y")) {
+                s.getAutoUpdate().equals("N")) {
                 // only set it if it has changed
                 s.setAutoUpdate("Y");
 
@@ -182,7 +182,7 @@ public class SystemDetailsEditAction extends RhnAction {
                 createSuccessMessage(request,
                        "sdc.details.edit.propertieschangedupdate", s.getName());
             }
-            else {
+            else if (daForm.get(AUTO_UPDATE) == null) {
                 s.setAutoUpdate("N");
             }
 
