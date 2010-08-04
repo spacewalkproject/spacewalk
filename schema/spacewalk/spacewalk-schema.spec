@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.26
+Version:        1.1.27
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Aug 04 2010 Partha Aji <paji@redhat.com> 1.1.27-1
+- Fixed a couple of schema bloopers on config stuff (paji@redhat.com)
+
 * Tue Aug 03 2010 Jan Pazdziora 1.1.26-1
 - Chameleon does not support the NULL clause, fix source.
 
