@@ -27,10 +27,13 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.metadata.ClassMetadata;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 
 /**
@@ -52,13 +55,15 @@ class ConnectionManager {
             return result;
         }
     };
-    private String[] packageNames =  PACKAGE_NAMES;
+    private Set packageNames = new HashSet<String>(Arrays.asList(PACKAGE_NAMES));
 
     /**
      * enable possibility to load hbm.xml files from different path
      */
-    void setAlternatePackageNames(String[] packageNamesIn) {
-        packageNames = packageNamesIn;
+    void setAdditionalPackageNames(String[] packageNamesIn) {
+        for (String pn : packageNamesIn) {
+            packageNames.add(pn);
+        }
     }
 
     /**
@@ -138,9 +143,9 @@ class ConnectionManager {
 
         List hbms = new LinkedList();
 
-        for (int i = 0; i < packageNames.length; i++) {
-            hbms.addAll(FinderFactory.getFinder(packageNames[i]).find(
-                    "hbm.xml"));
+        for (Iterator iter = packageNames.iterator(); iter.hasNext();) {
+            String pn = (String) iter.next();
+            hbms.addAll(FinderFactory.getFinder(pn).find("hbm.xml"));
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Found: " + hbms);
             }
