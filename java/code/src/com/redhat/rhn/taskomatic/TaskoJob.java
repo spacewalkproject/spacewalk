@@ -100,7 +100,7 @@ public class TaskoJob implements Job {
         if (schedule == null) {
             // means, that schedule was deleted (in the DB), but quartz still schedules it
             log.error("No such schedule with id  " + scheduleId);
-            TaskoFactory.unscheduleTrigger(context.getTrigger());
+            TaskoQuartzHelper.unscheduleTrigger(context.getTrigger());
             return;
         }
 

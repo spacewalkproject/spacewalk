@@ -16,13 +16,9 @@ package com.redhat.rhn.taskomatic;
 
 import com.redhat.rhn.taskomatic.core.SchedulerKernel;
 
-import org.quartz.CronTrigger;
-import org.quartz.JobDetail;
 import org.quartz.SchedulerException;
-import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +87,7 @@ public class TaskoXmlRpcHandler {
                 startTime, endTime, cronExpression);
         TaskoFactory.save(schedule);
         // create job
-        Date scheduleDate =  createJob(schedule);
+        Date scheduleDate = TaskoQuartzHelper.createJob(schedule);
         if (scheduleDate == null) {
             TaskoFactory.delete(schedule);
         }
@@ -160,10 +156,10 @@ public class TaskoXmlRpcHandler {
         throws NoSuchBunchTaskException, InvalidParamException, SchedulerException {
         TaskoBunch bunch = checkBunchName(orgId, bunchName);
         if (!TaskoFactory.listActiveSchedulesByOrgAndLabel(orgId, jobLabel).isEmpty() ||
-                (SchedulerKernel.getScheduler().getTrigger(jobLabel, getGroupName(orgId)) !=
-                null)) {
-            String[] triggerNames =
-                SchedulerKernel.getScheduler().getTriggerNames(getGroupName(orgId));
+                (SchedulerKernel.getScheduler().getTrigger(jobLabel,
+                        TaskoQuartzHelper.getGroupName(orgId)) != null)) {
+            String[] triggerNames = SchedulerKernel.getScheduler().
+                getTriggerNames(TaskoQuartzHelper.getGroupName(orgId));
             throw new InvalidParamException("jobLabel already in use");
         }
         return bunch;
@@ -178,12 +174,13 @@ public class TaskoXmlRpcHandler {
      */
     public Integer unscheduleBunch(Integer orgId, String jobLabel)
         throws InvalidParamException {
+        // one or none shall be returned
         List<TaskoSchedule> scheduleList =
             TaskoFactory.listActiveSchedulesByOrgAndLabel(orgId, jobLabel);
         Trigger trigger;
         try {
             trigger = SchedulerKernel.getScheduler().getTrigger(jobLabel,
-                    getGroupName(orgId));
+                    TaskoQuartzHelper.getGroupName(orgId));
         }
         catch (SchedulerException e) {
             trigger = null;
@@ -198,7 +195,7 @@ public class TaskoXmlRpcHandler {
             schedule.unschedule();
         }
         if (trigger != null) {
-            return destroyJob(orgId, jobLabel);
+            return TaskoQuartzHelper.destroyJob(orgId, jobLabel);
         }
         return 1;
     }
@@ -242,7 +239,7 @@ public class TaskoXmlRpcHandler {
                 start, null, "");
         TaskoFactory.save(schedule);
         // create job
-        Date scheduleDate = createJob(schedule);
+        Date scheduleDate = TaskoQuartzHelper.createJob(schedule);
         if (scheduleDate == null) {
             TaskoFactory.delete(schedule);
         }
@@ -297,56 +294,10 @@ public class TaskoXmlRpcHandler {
         while (!TaskoFactory.listSchedulesByOrgAndLabel(orgId,
                 jobLabel + count.toString()).isEmpty() ||
                 (SchedulerKernel.getScheduler().getTrigger(jobLabel + count.toString(),
-                        getGroupName(orgId)) != null)) {
+                        TaskoQuartzHelper.getGroupName(orgId)) != null)) {
             count++;
         }
         return jobLabel + count.toString();
-    }
-
-    private Date createJob(TaskoSchedule schedule) throws InvalidParamException {
-        // create trigger
-        Trigger trigger = null;
-        if (schedule.getCronExpr().isEmpty()) {
-            trigger = new SimpleTrigger(schedule.getJobLabel(),
-                    getGroupName(schedule.getOrgId()), 1, 1);
-            trigger.setEndTime(new Date());
-        }
-        else {
-            try {
-                trigger = new CronTrigger(schedule.getJobLabel(),
-                        getGroupName(schedule.getOrgId()), schedule.getCronExpr());
-                trigger.setStartTime(schedule.getActiveFrom());
-                trigger.setEndTime(schedule.getActiveTill());
-            }
-            catch (ParseException e) {
-                throw new InvalidParamException("Invalid cron expression");
-            }
-
-        }
-        // create job
-        JobDetail jobDetail = new JobDetail(schedule.getJobLabel(),
-                getGroupName(schedule.getOrgId()), TaskoJob.class);
-        // set job params
-        jobDetail.getJobDataMap().putAll(schedule.getDataMap());
-        jobDetail.getJobDataMap().put("schedule_id", schedule.getId());
-
-        // schedule job
-        try {
-            return SchedulerKernel.getScheduler().scheduleJob(jobDetail, trigger);
-        }
-        catch (SchedulerException e) {
-            return null;
-        }
-    }
-
-    private Integer destroyJob(Integer orgId, String jobLabel) {
-        try {
-            SchedulerKernel.getScheduler().unscheduleJob(jobLabel, getGroupName(orgId));
-            return 1;
-        }
-        catch (SchedulerException e) {
-            return null;
-        }
     }
 
     private TaskoBunch checkBunchName(Integer orgId, String bunchName)
@@ -471,12 +422,5 @@ public class TaskoXmlRpcHandler {
     public String getSatRunStdErrorLog(Integer runId, Integer nBytes)
     throws InvalidParamException {
         return getRunStdErrorLog(null, runId, nBytes);
-    }
-
-    private String getGroupName(Integer orgId) {
-        if (orgId == null) {
-            return null;
-        }
-        return orgId.toString();
     }
 }
