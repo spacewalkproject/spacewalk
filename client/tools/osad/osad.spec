@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.37
+Version: 5.9.38
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -247,6 +247,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Wed Aug 04 2010 Jan Pazdziora 5.9.38-1
+- Allow osa-dispatcher to talk to PostgreSQL.
+
 * Mon Jul 26 2010 Milan Zazrivec <mzazrivec@redhat.com> 5.9.37-1
 - 618300 - default_db is no longer needed
 
