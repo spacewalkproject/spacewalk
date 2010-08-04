@@ -97,10 +97,10 @@ public abstract class HibernateFactory {
     /**
      * Create a SessionFactory, loading the hbm.xml files from alternate
      * location
-     * @param alternateLocation Alternate location for hbm.xml files
+     * @param additionalLocation Alternate location for hbm.xml files
      */
-    public static void createSessionFactory(String[] alternateLocation) {
-        connectionManager.setAlternatePackageNames(alternateLocation);
+    public static void createSessionFactory(String[] additionalLocation) {
+        connectionManager.setAdditionalPackageNames(additionalLocation);
         connectionManager.initialize();
     }
 
