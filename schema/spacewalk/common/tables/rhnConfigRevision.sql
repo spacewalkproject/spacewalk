@@ -23,10 +23,10 @@ CREATE TABLE rhnConfigRevision
     config_file_id       NUMBER NOT NULL
                              CONSTRAINT rhn_confrevision_cfid_fk
                                  REFERENCES rhnConfigFile (id),
-    config_content_id    NUMBER NOT NULL
+    config_content_id    NUMBER 
                              CONSTRAINT rhn_confrevision_ccid_fk
                                  REFERENCES rhnConfigContent (id),
-    config_info_id       NUMBER
+    config_info_id       NUMBER NOT NULL
                              CONSTRAINT rhn_confrevision_ciid_fk
                                  REFERENCES rhnConfigInfo (id),
     created              DATE
