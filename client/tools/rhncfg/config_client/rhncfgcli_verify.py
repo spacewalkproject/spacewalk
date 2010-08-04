@@ -244,20 +244,21 @@ class Handler(handler_base.HandlerBase):
                 status.append('mode')
 
         # compare selinux contexts
-        src_selinux = info['selinux_ctx']
-        if src_selinux:
-            if not stat_err:
-                dst_selinux = lgetfilecon(dst)[1]
-                if dst_selinux == None:
-                    dst_selinux = ""
-            else:
-                dst_selinux = "missing"
+        if info.has_key('selinux_ctx'):
+            src_selinux = info['selinux_ctx']
+            if src_selinux:
+                if not stat_err:
+                    dst_selinux = lgetfilecon(dst)[1]
+                    if dst_selinux == None:
+                        dst_selinux = ""
+                else:
+                    dst_selinux = "missing"
     
-            if src_selinux == dst_selinux:
-                selinux_status = ""
-            else:
-                selinux_status = selinux_report % (src_selinux, dst_selinux)
-                status.append('selinux')
+                if src_selinux == dst_selinux:
+                    selinux_status = ""
+                else:
+                    selinux_status = selinux_report % (src_selinux, dst_selinux)
+                    status.append('selinux')
 
         #figure out the ultimate value of status.
         if stat_err:
