@@ -146,26 +146,29 @@ public class TaskoRun {
     }
 
     private String getTailOfFile(String fileName, Integer nBytes) {
-        RandomAccessFile file;
-        try {
-            file = new RandomAccessFile(fileName, "r");
-            if (nBytes >= 0) {
-                file.seek(file.length() - nBytes);
+        if (fileName != null) {
+            RandomAccessFile file;
+            try {
+                file = new RandomAccessFile(fileName, "r");
+                if (nBytes >= 0) {
+                    file.seek(file.length() - nBytes);
+                }
+                String tail = "";
+                String line;
+                while ((line = file.readLine()) != null) {
+                    tail += line + "\n";
+                }
+                file.close();
+                return tail;
             }
-            String tail = "";
-            String line;
-            while ((line = file.readLine()) != null) {
-                tail += line + "\n";
+            catch (FileNotFoundException e) {
+                // return "";
             }
-            file.close();
-            return tail;
+            catch (IOException e) {
+                // return "";
+            }
         }
-        catch (FileNotFoundException e) {
-            return "";
-        }
-        catch (IOException e) {
-            return "";
-        }
+        return "";
     }
 
     /**
