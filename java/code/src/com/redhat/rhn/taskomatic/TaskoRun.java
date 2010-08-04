@@ -195,13 +195,12 @@ public class TaskoRun {
         else {
             dirName += "org" + orgId;
         }
-        dirName += "/";
+        dirName += "/" + template.getBunch().getName() + "/";
         return dirName;
     }
 
     private String getStdLogFileName() {
-        return template.getBunch().getName() + "_" + template.getTask().getName() +
-            "_" + getId();
+        return template.getTask().getName() + "_" + getId();
     }
 
     private void deleteLogFileIfExists(String fileName) {
