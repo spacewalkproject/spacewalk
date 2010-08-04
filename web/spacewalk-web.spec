@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.6
+Version: 1.1.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Aug 04 2010 Jan Pazdziora 1.1.7-1
+- Add system migration to webUI (colin.coe@gmail.com)
+
 * Fri Jul 16 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.6-1
 - 581812 - fixed file ordering
 
