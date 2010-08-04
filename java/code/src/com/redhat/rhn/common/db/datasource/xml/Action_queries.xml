@@ -121,12 +121,12 @@ SELECT  DISTINCT UAO.id AS ID,
         (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
         (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 2) AS "COMPLETED_SYSTEMS",
         (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 3) AS "FAILED_SYSTEMS"
-  FROM  rhnUserActionOverview UAO, web_contact WC
+  FROM  rhnUserActionOverview UAO left join
+        web_contact WC on UAO.scheduler = WC.id
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
    AND  UAO.action_status_id IN (0,1)
    AND  UAO.archived = 0
-   AND  WC.id = UAO.scheduler
 ORDER BY EARLIEST DESC
   </query>
   <elaborator name="action_list_elab" />
@@ -169,10 +169,10 @@ SELECT  DISTINCT UAO.id AS ID,
         (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
         (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 2) AS "COMPLETED_SYSTEMS",
         (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 3) AS "FAILED_SYSTEMS"
-  FROM  rhnUserActionOverview UAO, web_contact WC
+  FROM  rhnUserActionOverview UAO left join
+        web_contact WC on UAO.scheduler = WC.id
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
-   AND  WC.id = UAO.scheduler
 ORDER BY EARLIEST DESC
   </query>
 
@@ -192,12 +192,12 @@ SELECT  DISTINCT UAO.id AS ID,
         (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status IN (0,1)) AS "IN_PROGRESS_SYSTEMS",
         (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 2) AS "COMPLETED_SYSTEMS",
         (SELECT COUNT(server_id) FROM rhnServerAction WHERE action_id = UAO.id AND status = 3) AS "FAILED_SYSTEMS"
-  FROM  rhnUserActionOverview UAO, web_contact WC
+  FROM  rhnUserActionOverview UAO left join
+        web_contact WC on UAO.scheduler = WC.id
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
    AND  UAO.action_status_id = 2
    AND  UAO.archived = 0
-   AND  WC.id = UAO.scheduler
 ORDER BY EARLIEST DESC
   </query>
 
