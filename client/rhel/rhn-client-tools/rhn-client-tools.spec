@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.1.13
+Version: 1.1.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -281,6 +281,22 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Aug 05 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.14-1
+- 618267 - all data in F12+ should be in unicode, lets decode it
+- 619098 - take manufacturer from system group
+- 618267 - add missing import and foo
+- update .po files
+- Revert "update .po files"
+- 618267 - encode latin-1 characters to unicode
+- 617425 - add missing 'the's
+- 617425 - point the user to the correct menu item
+- add man page for rhn-channel as alias for spacewalk-channel
+- default for kwargs should be {}
+- update .po files
+- 616371 - typo fix
+- add parameter cache_only to up2date_config.* actions
+- enable caching for action errata.update
+
 * Tue Jul 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.13-1
 - add parameter cache_only to all client actions (msuchy@redhat.com)
 - simplify code (msuchy@redhat.com)
