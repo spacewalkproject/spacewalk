@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.5.4
+Version:     0.5.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Aug 05 2010 Milan Zazrivec <mzazrivec@redhat.com> 0.5.5-1
+- added a missing hyphen in the spacecmd man page
+
 * Wed Jul 28 2010 Aron Parsons <aparsons@redhat.com> 0.5.4-1
 - simplified softwarechannel_adderrata (aparsons@redhat.com)
 - added new function errata_publish (aparsons@redhat.com)
