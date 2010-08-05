@@ -2,7 +2,6 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- header.jsp -->
 
 <rhn:require acl="user_authenticated()">
@@ -71,7 +70,7 @@
           <rhn:setdisplay user="${requestScope.session.user}"/>
         </span>
         <a class="button" href="/network/systems/ssm/index.pxt">
-	Manage
+        <bean:message key="manage"/>
         </a>
         <%--
           -- Make sure we set the return_url variable correctly here. This will make is to
@@ -86,7 +85,7 @@
           </c:otherwise>
         </c:choose>
         <a class="button" href="/rhn/systems/Overview.do?empty_set=true&amp;return_url=${rhn:urlEncode(rurl)}">
-	Clear
+        <bean:message key="clear"/>
         </a>
       </rhn:require>
       </div>

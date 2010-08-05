@@ -1164,6 +1164,20 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
   </trans-unit>
   </group>
 
+<!-- Main nav -->
+  <group>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Title bar</context>
+    </context-group>  
+  <trans-unit id="manage">
+    <source>Manage</source>
+  </trans-unit>
+  <trans-unit id="clear">
+    <source>Clear</source>
+  </trans-unit>
+  
+  </group>
+
 
     </body>
   </file>
