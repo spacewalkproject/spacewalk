@@ -36,7 +36,7 @@
 
         <rl:column headerkey="ssm.operations.viewlog.description" bound="false"
                    sortattr="description" sortable="true" styleclass="first-column">
-            <a href="/rhn/ssm/ViewLogDetails.do?oid=${current.id}"><c:out value="${current.description}"/></a>
+            <a href="/rhn/ssm/ViewLogDetails.do?oid=${current.id}"><c:out value="${current.translatedDescription}"/></a>
         </rl:column>
 
         <rl:column headerkey="ssm.operations.viewlog.status" bound="false">

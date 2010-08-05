@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
@@ -49,10 +48,8 @@ public class SsmRemovePackagesAction extends AbstractDatabaseAction {
         SsmRemovePackagesEvent event = (SsmRemovePackagesEvent) msg;
         User user = UserFactory.lookupById(event.getUserId());
 
-        LocalizationService ls = LocalizationService.getInstance();
-        String operationMessage = ls.getMessage("ssm.package.remove.operationname");
-        long operationId = SsmOperationManager.createOperation(user, operationMessage,
-            RhnSetDecl.SYSTEMS.getLabel());
+        long operationId = SsmOperationManager.createOperation(user,
+                "ssm.package.remove.operationname", RhnSetDecl.SYSTEMS.getLabel());
 
         try {
             scheduleDeletes(event, user);

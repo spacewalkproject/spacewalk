@@ -14,25 +14,25 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import com.redhat.rhn.common.messaging.EventMessage;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.manager.ssm.SsmOperationManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.system.SystemManager;
-import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.frontend.dto.PackageListItem;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Schedules package verifications on systems in the SSM.
@@ -48,10 +48,8 @@ public class SsmVerifyPackagesAction extends AbstractDatabaseAction {
         User user = UserFactory.lookupById(event.getUserId());
 
         // Log the action has been created
-        LocalizationService ls = LocalizationService.getInstance();
-        String operationMessage = ls.getMessage("ssm.package.verify.operationname");
         long operationId =
-            SsmOperationManager.createOperation(user, operationMessage,
+            SsmOperationManager.createOperation(user, "ssm.package.verify.operationname",
                 RhnSetDecl.SYSTEMS.getLabel());
 
         try {

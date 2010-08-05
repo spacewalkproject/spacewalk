@@ -109,7 +109,7 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
         if (isSubmitted(daForm)) {
 
             long operationId = SsmOperationManager.createOperation(user,
-                    "Channel Subscription Updates", null);
+                    "ssm.subscription.operation.label", null);
 
             SsmOperationManager.associateServersWithOperation(operationId, user.getId(),
                 RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.getLabel());

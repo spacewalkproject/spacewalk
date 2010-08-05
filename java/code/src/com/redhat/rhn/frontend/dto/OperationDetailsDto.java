@@ -55,6 +55,20 @@ public class OperationDetailsDto {
     }
 
     /**
+     * @return Returns the description.
+     */
+    public String getTranslatedDescription() {
+        LocalizationService ls = LocalizationService.getInstance();
+        if (ls.hasMessage(getDescription())) {
+            return ls.getMessage(getDescription());
+        }
+        else {
+            return description;
+        }
+    }
+
+
+    /**
      * @param descriptionIn The description to set.
      */
     public void setDescription(String descriptionIn) {

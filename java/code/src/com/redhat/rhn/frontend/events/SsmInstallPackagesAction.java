@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
@@ -49,11 +48,9 @@ public class SsmInstallPackagesAction extends AbstractDatabaseAction {
         User user = UserFactory.lookupById(event.getUserId());
 
         // Log the action has been created
-        LocalizationService ls = LocalizationService.getInstance();
-        String operationMessage = ls.getMessage("ssm.package.install.operationname");
         long operationId =
             SsmOperationManager.createOperation(user,
-                operationMessage, RhnSetDecl.SYSTEMS.getLabel());
+                    "ssm.package.install.operationname", RhnSetDecl.SYSTEMS.getLabel());
 
         try {
             scheduleInstalls(event, user);

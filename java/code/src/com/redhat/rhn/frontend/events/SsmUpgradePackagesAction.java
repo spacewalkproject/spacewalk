@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
@@ -62,10 +61,9 @@ public class SsmUpgradePackagesAction extends AbstractDatabaseAction {
            jdobies, Aug 12, 2009
          */
 
-        LocalizationService ls = LocalizationService.getInstance();
-        String operationMessage = ls.getMessage("ssm.package.upgrade.operationname");
-        long operationId = SsmOperationManager.createOperation(user, operationMessage,
-            RhnSetDecl.SYSTEMS.getLabel());
+
+        long operationId = SsmOperationManager.createOperation(user,
+                "ssm.package.upgrade.operationname", RhnSetDecl.SYSTEMS.getLabel());
 
         // Explicitly call handle transactions here so the operation creation above
         // is persisted before the potentially long running logic below
