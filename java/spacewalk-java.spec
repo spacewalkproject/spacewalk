@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.46
+Version: 1.1.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -331,6 +331,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 05 2010 Partha Aji <paji@redhat.com> 1.1.47-1
+- 621520 - Fixed a bug where the 'clear' box ignored extra request parameters
+  (paji@redhat.com)
+- Fixed a couple of dup queries to use having (paji@redhat.com)
+- making the editarea not highlight by default (jsherril@redhat.com)
+- 616041 - fixing issue where deploying config files for multiple servers
+  scheduled multiple actions instead of one (jsherril@redhat.com)
+- 596831 - fixing issue where non-internationalized strings were stored and
+  displayed for the SSM operations pages (jsherril@redhat.com)
+
 * Thu Aug 05 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.46-1
 - 616785 - fixing issue where selecting "update Properties" on the system
   details edit page would set "Auto Update Errata" to no, even if it had been
