@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.taglibs;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.StringUtil;
 
 
 /**
@@ -87,4 +88,15 @@ public class RhnTagFunctions {
         }
         return service.getMessage(messageId);
     }
+
+    /**
+     * Encode a urlEncode a param
+     *
+     * @param param to be url encoded
+     * @return url encoded param
+     */
+    public static String urlEncode(String param) {
+        return StringUtil.urlEncode(param);
+    }
+
 }

@@ -687,4 +687,9 @@
         <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
         <function-signature>java.lang.String getConfig(java.lang.String)</function-signature>
     </function>
+    <function>
+        <name>urlEncode</name>
+        <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
+        <function-signature>java.lang.String urlEncode(java.lang.String)</function-signature>
+    </function>    
 </taglib>

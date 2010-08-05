@@ -2,7 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- header.jsp -->
 
 <rhn:require acl="user_authenticated()">
@@ -85,7 +85,7 @@
             <c:set var="rurl" value="${pageContext.request.requestURI}" />
           </c:otherwise>
         </c:choose>
-        <a class="button" href="/rhn/systems/Overview.do?empty_set=true&amp;return_url=<c:out escapeXml="true" value="${rurl}"/>">
+        <a class="button" href="/rhn/systems/Overview.do?empty_set=true&amp;return_url=${rhn:urlEncode(rurl)}">
 	Clear
         </a>
       </rhn:require>
