@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.45
+Version: 1.1.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -331,6 +331,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 05 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.46-1
+- 616785 - fixing issue where selecting "update Properties" on the system
+  details edit page would set "Auto Update Errata" to no, even if it had been
+  previously set to yes
+- 601058 - fixing issue where hitting update on the kickstart operating system
+  tab would overwrite the custom url
+- 575981 - fixing issue where non-user scheduled actions wouldnt show up in the
+  scheduled list
+- convert hardware.pxt to Java
+
 * Tue Aug 03 2010 Partha Aji <paji@redhat.com> 1.1.45-1
 - Fixed byte[] -> string conversion bugs that were created during the
   blob->binary commit (paji@redhat.com)
