@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.25
+Version: 2.5.26
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -54,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Thu Aug 05 2010 Milan Zazrivec <mzazrivec@redhat.com> 2.5.26-1
+- 618267 - do not allow control characters in xmlrpc communication
+
 * Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 2.5.25-1
 - 595837 - write nice error in case of "connection reset by peer" and xmlrpc
   protocol error (msuchy@redhat.com)
