@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -9,15 +9,14 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 #
 
-COMMON = ../../common
-FLAGS  = STYLE=oracle COMMON=../$(COMMON)
+COMMON = ../../common/data
 
 common :
-	@mkdir -p common
-	@cp $(COMMON)/Makefile common
-	@$(MAKE) -C common $(FLAGS) $(MAKEOVERRIDES)
+	rm -rf common
+	mkdir common
+	cp -p $(COMMON)/* common
 
 clean :
-	@rm -rf common
+	rm -rf common
 
 .PHONY : common clean
