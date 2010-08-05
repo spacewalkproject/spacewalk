@@ -367,6 +367,66 @@ public class ActionManager extends BaseManager {
                 ActionFactory.TYPE_CONFIGFILES_DIFF, new Date());
     }
 
+
+
+
+    /**
+     *
+     * Create a Config Action.
+     * @param user The user scheduling the action.
+     * @param serverConfigMap A map of server ids -> Collections of revision ids
+     * @param type The type of config action
+     * @param earliest The earliest time this action could execute.
+     * @return The created config action
+     */
+    public static Action createConfigActionForServers(User user,
+            Map<Long, Collection<Long>> serverConfigMap, ActionType type, Date earliest) {
+
+        //create the action
+        ConfigAction a = (ConfigAction)ActionFactory.createAction(type, earliest);
+        a.setName(a.getActionType().getName());
+        a.setOrg(user.getOrg());
+        a.setSchedulerUser(user);
+
+        ActionFactory.save(a);
+        ActionFactory.getSession().flush();
+
+
+        for (Long sid : serverConfigMap.keySet()) {
+            if (ActionFactory.TYPE_CONFIGFILES_DEPLOY.equals(type) &&
+                    !SystemManager.clientCapable(sid,
+                                 SystemManager.CAP_CONFIGFILES_DEPLOY)) {
+                 throw new MissingCapabilityException(SystemManager.CAP_CONFIGFILES_DEPLOY,
+                         ServerFactory.lookupById(sid));
+            }
+            ActionFactory.addServerToAction(sid, a);
+            //now that we made a server action, we must make config revision actions
+            //which depend on the server as well.
+            for (Long revId : serverConfigMap.get(sid)) {
+                  WriteMode m = ModeFactory.getWriteMode("Action_queries",
+                          "add_config_rev_to_action");
+                  Map params = new HashMap();
+                  params.put("sid", sid);
+                  params.put("aid", a.getId());
+                  params.put("crid", revId);
+                  m.executeUpdate(params);
+            }
+        }
+        if (a.getServerActions().size() < 1) {
+            return null;
+        }
+        ActionFactory.save(a);
+        ActionFactory.getSession().refresh(a);
+        return a;
+    }
+
+
+
+
+
+
+
+
     /**
      * Create a Config Action.
      * @param user The user scheduling the action.
@@ -434,6 +494,7 @@ public class ActionManager extends BaseManager {
      */
     public static Action createConfigAction(User user, Collection<Long> revisions,
             Collection<Long> serverIds, ActionType type, Date earliest) {
+
         List <Server> servers = SystemManager.hydrateServerFromIds(serverIds, user);
         return createConfigActionForServers(user, revisions, servers, type, earliest);
     }

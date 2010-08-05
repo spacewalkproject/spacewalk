@@ -19,7 +19,6 @@ import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
 import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -36,9 +35,10 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -121,38 +121,27 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
         DataResult<ConfigSystemDto> systems = cm.listSystemsForConfigAction(user, null,
                 type.getLabel());
         RhnSet fileNames = RhnSetDecl.CONFIG_FILE_NAMES.get(user);
-        int successes = 0;
+        int successes = systems.size();
 
         Date earliest = getEarliestAction(form);
 
-        //go through all of the selected systems
+
+        Map<Long, Collection<Long>> serverConfigMap =
+            new HashMap<Long, Collection<Long>>();
         for (ConfigSystemDto system : systems) {
-            //the current system
             Long sid = system.getId();
-
-            //create the two sets needed for the action
-            Set<Long> servers = new HashSet<Long>();
-            servers.add(sid);
             Set<Long> revisions = new HashSet<Long>();
-
-            //go through all of the selected file names
-            Iterator<RhnSetElement> nameItty = fileNames.getElements().iterator();
-            while (nameItty.hasNext()) {
-                Long cfnid = nameItty.next().getElement();
+            for (Long cfnid : fileNames.getElementValues()) {
                 Long crid = cm.getDeployableRevisionForFileName(cfnid, sid);
-
                 //add to the set if this system has a deployable revision of this
                 //file name
                 if (crid != null) {
                     revisions.add(crid);
                 }
             }
-            //created the action.  One action per server.
-            if (revisions.size() > 0 && ActionManager
-                    .createConfigAction(user, revisions, servers, type, earliest) != null) {
-                successes++;
-            }
+            serverConfigMap.put(sid, revisions);
         }
+        ActionManager.createConfigActionForServers(user, serverConfigMap, type, earliest);
 
         //create the message
         if (successes > 0) {
