@@ -14,55 +14,55 @@
 --
 
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'daily-status-bunch', 'Sends daily report', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'daily-status-bunch', 'Sends daily report', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sat-sync', 'sat-sync description', 'Y', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sat-sync', 'sat-sync description', 'Y');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'clear-tasko-log-history', 'Clears taskomatic run log history', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'clear-tasko-log-history', 'Clears taskomatic run log history', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'cobbler-sync-bunch', 'Applies any cobbler configuration changes', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'cobbler-sync-bunch', 'Applies any cobbler configuration changes', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'compare-configs-bunch', 'Schedules a comparison of config files on all systems', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'compare-configs-bunch', 'Schedules a comparison of config files on all systems', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'clean-alerts-bunch', 'Clears current monitoring alerts', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'clean-alerts-bunch', 'Clears current monitoring alerts', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sync-probe-bunch', 'Calls the synch probe state proc', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sync-probe-bunch', 'Calls the synch probe state proc', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'session-cleanup-bunch', 'Deletes expired rows from the PXTSessions table to keep it from growing too large', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'session-cleanup-bunch', 'Deletes expired rows from the PXTSessions table to keep it from growing too large', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'cert-check-bunch', 'Satellite certificate check', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'cert-check-bunch', 'Satellite certificate check', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sandbox-cleanup-bunch', 'Clean up sandbox', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sandbox-cleanup-bunch', 'Clean up sandbox', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'repo-sync-bunch', 'Used for syncing repos to a channel', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'repo-sync-bunch', 'Used for syncing repos to a channel', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'package-cleanup-bunch', 'Cleans up orphaned packages', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'package-cleanup-bunch', 'Cleans up orphaned packages', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'kickstartfile-sync-bunch', 'Syncs kickstart profiles that were generated using the wizard', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'kickstartfile-sync-bunch', 'Syncs kickstart profiles that were generated using the wizard', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'kickstart-cleanup-bunch', 'Cleans up stale Kickstarts', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'kickstart-cleanup-bunch', 'Cleans up stale Kickstarts', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'errata-queue-bunch', 'Processes errata', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'errata-queue-bunch', 'Processes errata', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'errata-cache-bunch', 'Performs errata cache recalc for a given server or channel', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'errata-cache-bunch', 'Performs errata cache recalc for a given server or channel', '');
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'channel-repodata-bunch', 'Generates channel repodata', '', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'channel-repodata-bunch', 'Generates channel repodata', '');
 
 commit;

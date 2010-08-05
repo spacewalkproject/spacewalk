@@ -15,8 +15,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <property name="name" type="string" column="name" unique="true"/>
         <property name="description" type="string" column="description"/>
-        <property name="activeFrom" type="date" column="active_from"/>
-        <property name="activeTill" type="date" column="active_till"/>
         <property name="orgBunch" type="string" column="org_bunch"/>
 
         <property name="created" column="created" type="timestamp"

@@ -21,8 +21,6 @@ CREATE TABLE rhnTaskoBunch
     name        VARCHAR2(80) NOT NULL
                     CONSTRAINT tasko_bunch_name_uq UNIQUE,
     description VARCHAR2(200),
-    active_from DATE NOT NULL,
-    active_till DATE,
     org_bunch   VARCHAR2(1),
     created     DATE
                     DEFAULT (sysdate) NOT NULL,

@@ -27,8 +27,6 @@ public class TaskoBunch {
     private Long id;
     private String name;
     private String description;
-    private Date activeFrom;
-    private Date activeTill;
     private String orgBunch;
     private List<TaskoTemplate> templates = new ArrayList();
     private Date created;
@@ -60,34 +58,6 @@ public class TaskoBunch {
      */
     public void setName(String nameIn) {
         this.name = nameIn;
-    }
-
-    /**
-     * @return Returns the activeFrom.
-     */
-    public Date getActiveFrom() {
-        return activeFrom;
-    }
-
-    /**
-     * @param activeFromIn The activeFrom to set.
-     */
-    public void setActiveFrom(Date activeFromIn) {
-        this.activeFrom = activeFromIn;
-    }
-
-    /**
-     * @return Returns the activeTill.
-     */
-    public Date getActiveTill() {
-        return activeTill;
-    }
-
-    /**
-     * @param activeTillIn The activeTill to set.
-     */
-    public void setActiveTill(Date activeTillIn) {
-        this.activeTill = activeTillIn;
     }
 
     /**
