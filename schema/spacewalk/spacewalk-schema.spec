@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.28
+Version:        1.1.29
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Aug 05 2010 Jan Pazdziora 1.1.29-1
+- Be strict about chameleon exit code again.
+- Do not invoke chameleon for Oracle sources.
+
 * Thu Aug 05 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.28-1
 - 576222 - modify rhn_kstree_mod_trig behavior
 
