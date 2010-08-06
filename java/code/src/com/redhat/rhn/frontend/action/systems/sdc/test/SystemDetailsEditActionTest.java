@@ -272,6 +272,6 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
             assertFalse("does have: " + e, s.hasEntitlement(e));
         }
 
-        assertTrue(s.getAutoUpdate().equals("N"));
+        assertTrue(s.getAutoUpdate().equals("Y"));
     }
 }
