@@ -19,7 +19,7 @@
 
 import sys
 import re
-import pgsql
+import psycopg2
 import hashlib
 
 import sql_base
@@ -165,8 +165,8 @@ class Database(sql_base.Database):
 
     def connect(self, reconnect=1):
         try:
-            self.dbh = pgsql.connect(self.database, self.username,
-                    self.password, self.host, self.port)
+            self.dbh = psycopg2.connect(database=self.database, user=self.username,
+                    password=self.password, host=self.host, port=self.port)
         except Exception, e:
             if reconnect:
                 # Try one more time:
@@ -259,7 +259,7 @@ class Cursor(sql_base.Cursor):
 
         try:
             retval = apply(function, p, kw)
-        except pgsql.ProgrammingError, e:
+        except psycopg2.ProgrammingError, e:
             # TODO: Constructor for this exception expects a first arg of db,
             # and yet the Oracle driver passes it an errno? Suspect it's not
             # even used.

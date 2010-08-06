@@ -61,7 +61,7 @@ modules.
 %package sql-postgresql
 Summary: Postgresql backend for Spacewalk
 Group: Applications/Internet
-Requires: python-pgsql
+Requires: python-psycopg2
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-postgresql
