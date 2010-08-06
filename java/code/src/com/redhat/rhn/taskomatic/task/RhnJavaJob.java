@@ -19,6 +19,7 @@ import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 import com.redhat.rhn.taskomatic.TaskoRun;
 
 import org.apache.log4j.FileAppender;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.quartz.JobExecutionContext;
@@ -43,8 +44,12 @@ public abstract class RhnJavaJob implements RhnJob {
         PatternLayout pattern = new PatternLayout(DEFAULT_LOGGING_LAYOUT);
         try {
             getLogger().removeAllAppenders();
-            FileAppender appender = new FileAppender(pattern, run.buildStdOutputLogPath());
-            getLogger().addAppender(appender);
+            FileAppender outLogAppender = new FileAppender(pattern, run.buildStdOutputLogPath());
+            outLogAppender.setThreshold(Level.INFO);
+            getLogger().addAppender(outLogAppender);
+            FileAppender errLogAppender = new FileAppender(pattern, run.buildStdErrorLogPath());
+            errLogAppender.setThreshold(Level.ERROR);
+            getLogger().addAppender(errLogAppender);
         }
         catch (IOException e) {
             getLogger().warn("Logging to file disabled");
