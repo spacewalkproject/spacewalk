@@ -74,6 +74,7 @@ sub execute {
     #BZ 164820: IP addresses with leading zeros in any octets need
     #to be fixed so http(s) request work correctly
     my $host = $self->ip;
+    $host =~ s/ +//g;
     my @octets = split(/\./, $host);
     foreach my $octet (@octets) {
         $octet =~ s/^0*//;
