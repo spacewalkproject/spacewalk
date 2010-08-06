@@ -165,7 +165,11 @@ class Database(sql_base.Database):
 
     def connect(self, reconnect=1):
         try:
-            self.dbh = psycopg2.connect(database=self.database, user=self.username,
+            if self.host is None:
+                self.dbh = psycopg2.connect(database=self.database, user=self.username,
+                    password=self.password)
+            else:
+                self.dbh = psycopg2.connect(database=self.database, user=self.username,
                     password=self.password, host=self.host, port=self.port)
         except Exception, e:
             if reconnect:
