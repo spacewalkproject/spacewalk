@@ -23,7 +23,7 @@ CREATE TABLE rhnServerNetwork
                    CONSTRAINT rhn_servernetwork_sid_fk
                        REFERENCES rhnServer (id),
     hostname   VARCHAR2(128),
-    ipaddr     CHAR(16),
+    ipaddr     VARCHAR(16),
     created    DATE
                    DEFAULT (sysdate) NOT NULL,
     modified   DATE
