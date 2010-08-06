@@ -19,6 +19,19 @@ imgAlt="users.jsp.imgAlt">
 <bean:message key="sys_entitlements.description"/>
 <p/>
 
+<c:choose>
+	<c:when test = "${orgCount > 1}">
+		<c:set var = "countstyle" value= ""/>
+		<c:set var = "usagestyle" value = "last-column"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var = "countstyle" value= "last-column"/>
+		<c:set var = "usagestyle" value = ""/>
+	</c:otherwise>
+</c:choose>
+
+
+
 <rl:listset name="entitlementSet">
     <rl:list dataset="pageList"
              width="100%"
@@ -39,15 +52,23 @@ imgAlt="users.jsp.imgAlt">
         </rl:column>
         <rl:column bound="false"
             sortable="false"
-            headerkey="sys_entitlements.available">
+            headerkey="sys_entitlements.available" styleclass="${countstyle}">
             ${current.available}
         </rl:column>
         <c:if test="${orgCount > 1}">
         <rl:column bound="false"
             sortable="false"
             headertext="${rhn:localize('sys_entitlements.usage')} <br/> (${rhn:localize('Used/Allotted')})**"
+            styleclass="${usagestyle}"
             >
-            <bean:message key="sys_entitlements.usagedata" arg0="${current.used}" arg1="${current.allocated}" arg2="${current.ratio}"/>
+            <c:choose>
+            <c:when test="${empty current.allocated or current.allocated == 0}">
+				<bean:message key="None Allocated"/>
+            </c:when>
+			<c:otherwise>
+				<bean:message key="sys_entitlements.usagedata" arg0="${current.used}" arg1="${current.allocated}" arg2="${current.ratio}"/>
+			</c:otherwise>
+            </c:choose>
         </rl:column>
         </c:if>
 
