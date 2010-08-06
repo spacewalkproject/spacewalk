@@ -45,7 +45,8 @@ imgAlt="users.jsp.imgAlt">
         <c:if test="${orgCount > 1}">
         <rl:column bound="false"
             sortable="false"
-            headerkey="sys_entitlements.usage">
+            headertext="${rhn:localize('sys_entitlements.usage')} <br/> (${rhn:localize('Used/Allotted')})**"
+            >
             <bean:message key="sys_entitlements.usagedata" arg0="${current.used}" arg1="${current.allocated}" arg2="${current.ratio}"/>
         </rl:column>
         </c:if>
@@ -53,9 +54,8 @@ imgAlt="users.jsp.imgAlt">
     </rl:list>
 </rl:listset>
 <p/>
-   <span class="small-text">
-      <bean:message key="sys_entitlements.tip"/>
-   </span>
+<rhn:tooltip typeKey="Tip">*-<bean:message key = "sys_entitlements.tip"/></rhn:tooltip>
+<rhn:tooltip typeKey="Tip">**-<bean:message key = "Used/Allotted.tip"/></rhn:tooltip>
 </body>
 </html>
 
