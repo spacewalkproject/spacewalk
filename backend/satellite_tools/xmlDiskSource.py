@@ -262,6 +262,14 @@ class KickstartFileDiskSource(KickstartDataDiskSource):
             createPath(dirname, logging=0)
         return path
 
+class InfoDiskSource(DiskSource):
+    filename = 'info.xml'
+    subdir = ''
+
+    def _getFile(self, create=0):
+        dirname = self._getDir(create)
+        return os.path.join(dirname, self.filename)
+
 if __name__ == '__main__':
     # TEST CODE
     s = ChannelDiskSource("/tmp")

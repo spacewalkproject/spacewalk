@@ -30,7 +30,8 @@ class ActionDeps:
             'blacklists'                : ['arches'],
             'short'                     : ['channels'],
             'arches'                    : ['arches-extra'],
-            'arches-extra'              : [''], 
+            'arches-extra'              : [''],
+            'info'                      : [''],
         }
         
         #self.step_hierarchy lists the export steps in the order they need to be run.
@@ -45,6 +46,7 @@ class ActionDeps:
             'packages',
             'errata',
             'kickstarts',
+            'info'
         ]
         self.options = options
         self.action_dict = { 'blacklists' : 0 }
