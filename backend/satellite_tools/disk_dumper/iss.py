@@ -20,12 +20,11 @@ import time
 import gzip
 import dumper
 import cStringIO
-import re
 from common import CFG, initCFG, rhnMail, Traceback
 from server import rhnSQL
 from server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
 from satellite_tools.exporter import xmlWriter
-from satellite_tools import xmlDiskSource, diskImportLib, progress_bar, constants
+from satellite_tools import xmlDiskSource, diskImportLib, progress_bar
 from satellite_tools.syncLib import initEMAIL_LOG, dumpEMAIL_LOG, log2email, log2stderr, log2stdout, log
 from iss_ui import UI
 from iss_actions import ActionDeps
@@ -76,7 +75,6 @@ class FileMapper:
                             'kickstart_files'   :   xmlDiskSource.KickstartFileDiskSource(self.mp),
                             'binary_rpms'       :   xmlDiskSource.BinaryRPMDiskSource(self.mp),
                             'comps'             :   xmlDiskSource.ChannelCompsDiskSource(self.mp),
-                            'info'              :   xmlDiskSource.InfoDiskSource(self.mp),
                        }
 
     #This will make sure that all of the directories leading up to the 
@@ -143,9 +141,6 @@ class FileMapper:
         self.filemap['kickstart_files'].setID(ks_label)
         self.filemap['kickstart_files'].set_relative_path(relative_path)
         return self.setup_file(self.filemap['kickstart_files']._getFile())
-
-    def getInfoFile(self):
-        return self.setup_file(self.filemap['info']._getFile())
 
 """ This class subclasses the XML_Dumper class. It overrides
  the _get_xml_writer method and adds a set_stream method,
@@ -869,49 +864,6 @@ e.__class__.__name__), tbout.getvalue())
             Traceback(mail=0, ostream=tbout, with_locals=1)
             raise ISSError("%s caught in dump_rpms." % e.__class__.__name__, tbout.getvalue())
 
-    def __format_date_to_xml(self, date):
-	""" Takes date in format YYYYMMDDHH24MISS and retun xml structure
-        <date><year>YY</year>....<second>SS</second></date>
-        """
-        m = re.match(r"(....)(..)(..)(..)(..)(..)", date)
-        return """       <date>
-        <year>%s</year>
-        <month>%s</month>
-        <day>%s</day>
-        <hour>%s</hour>
-        <minute>%s</minute>
-        <second>%s</second>
-        </date>""" % m.groups()
-
-    def dump_info(self):
-	""" Write metainfo about dump """
-        log2stdout(2, "Exporting metainfo...")
-
-        export_type = 'full'
-        export_dates = ''
-        if (self.start_date):
-	    export_type = 'incremental'
-            export_dates = """
-   <start-date>
-%s
-   </start-date>
-   <end-date>
-%s
-   </end-date>""" % ( self.__format_date_to_xml(self.start_date),
-                                  self.__format_date_to_xml(self.end_date) )
-
-        result = """<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE info PUBLIC "-//Red Hat//info.xml DTD 1.0//EN" "http://spacewalk.redhat.com/documentation/dtd/info.xml.dtd">
-<rhn-satellite generation="%s" version="%s">
-<export type="%s">%s
-</export>
-</rhn-satellite>""" % (CFG.SAT_CERT_GENERATION, constants.PROTOCOL_VERSION, export_type, export_dates)
-        a=self.fm.getInfoFile()
-        f = open(self.fm.getInfoFile(), 'w')
-        f.write(result)
-        f.close
-        log2stdout(2, "Done !")
-
 def get_report():
     body = dumpEMAIL_LOG()
     return body        
@@ -1041,7 +993,6 @@ class ExporterMain:
                                     'kickstarts'            :   {'dump' : [self.dumper.dump_kickstart_data, 
                                                                            self.dumper.dump_kickstart_files]},
                                     'rpms'                  :   {'dump' : self.dumper.dump_rpms},
-                                    'info'                  :   {'dump' : self.dumper.dump_info},
                                  }
             else:
                 print "The output directory is not a directory"
@@ -1143,8 +1094,6 @@ class ExporterMain:
                                 action = 'channel_families'
                             if action == 'kickstarts':
                                 action = 'kickstart_trees'
-                            if action == 'info':
-                                action = ''
                             os_data_dir = os.path.join(self.outputdir, action)
                             if os.path.exists(os_data_dir):
                                 for fpath, dirs, files in \
