@@ -19,7 +19,6 @@ import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
 import EDU.oswego.cs.dl.util.concurrent.PooledExecutor;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.taskomatic.TaskoFactory;
 import com.redhat.rhn.taskomatic.TaskoRun;
 import com.redhat.rhn.taskomatic.task.RhnQueueJob;
 
@@ -82,9 +81,7 @@ public class TaskQueue {
             synchronized (emptyQueueWait) {
                 emptyQueueWait.notifyAll();
             }
-            synchronized (this) {
-                taskQueueDone = true;
-            }
+            taskQueueDone = true;
         }
     }
 
@@ -124,9 +121,7 @@ public class TaskQueue {
                 queueDriver.getLogger().debug("Putting worker");
                 workers.put(worker);
                 queueDriver.getLogger().debug("Put worker");
-                synchronized (this) {
-                    taskQueueDone = false;
-                }
+                unsetTaskQueueDone();
             }
             catch (InterruptedException e) {
                 queueDriver.getLogger().error(e);
@@ -141,7 +136,8 @@ public class TaskQueue {
             queueDriver.getLogger().debug("Finishing run " + queueRun.getId());
             queueRun.finished();
             queueRun.saveStatus(TaskoRun.STATUS_FINISHED);
-            TaskoFactory.commitTransaction();
+            HibernateFactory.commitTransaction();
+            HibernateFactory.closeSession();
             changeRun(null);
         }
     }
@@ -206,5 +202,9 @@ public class TaskQueue {
 
     private synchronized boolean isTaskQueueDone() {
         return taskQueueDone;
+    }
+
+    private synchronized void unsetTaskQueueDone() {
+        taskQueueDone = false;
     }
 }
