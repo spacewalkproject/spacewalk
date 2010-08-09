@@ -16,6 +16,7 @@ package com.redhat.rhn.taskomatic.task.repomd;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
@@ -100,6 +101,7 @@ public class RepositoryWriter {
         String prefix = mountPoint + File.separator + pathPrefix +
         File.separator + channel.getLabel() + File.separator;
 
+        HibernateFactory.getSession().refresh(channel);
         if (channel.getChannelArch().getArchType().getLabel().equalsIgnoreCase("deb")) {
             log.info("Generating new DEB repository for channel " + channel.getLabel());
             generateDebRepository(channel, prefix);
