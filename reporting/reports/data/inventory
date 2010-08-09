@@ -61,10 +61,14 @@ sql:
 		(
 		select rhnserverarch.name from rhnserverarch where rhnserver.server_arch_id = rhnserverarch.id
 		) as architecture,
-		(
+		concat_list_clob('; ', cursor(
 			(
 			select sum(nrcpu) || ' CPUs' from rhncpu where rhnserver.id = rhncpu.server_id
-			) || network_data.col
+			union all
+			select name||' '||ip_addr||'/'||netmask||' '||hw_addr val
+        		from rhnservernetinterface
+        		where rhnserver.id = rhnservernetinterface.server_id
+			)), 1
 		) as hardware
 	from rhnserver,
 		(
@@ -94,20 +98,7 @@ sql:
 		select host_system_id, virtual_system_id
 		from rhnvirtualinstance
 		where host_system_id is not null
-		) virtual_data,
-		(
-		select server_id, max(sys_connect_by_path(val, '; ')) col
-		from (
-			select server_id,
-				name||' '||ip_addr||'/'||netmask||' '||hw_addr val,
-				row_number() over (partition by server_id order by name, rowid) rn
-			from rhnservernetinterface
-		)
-		start with rn = 1
-		connect by prior rn = rn - 1
-			and prior server_id = server_id
-		group by server_id
-		) network_data
+		) virtual_data
 	where rhnserver.id = rhnservernetwork.server_id (+)
 		and rhnserver.id = rhnserverchannel.server_id (+)
 		and rhnserverchannel.channel_id = rhnchannel.id (+)
@@ -116,7 +107,6 @@ sql:
 		and rhnserver.id = entitlement_data.server_id (+)
 		and rhnserver.id = group_data.server_id (+)
 		and rhnserver.id = virtual_data.virtual_system_id (+)
-		and rhnserver.id = network_data.server_id (+)
 	order by server_id, rhnchannel.parent_channel nulls first, rhnchannel.id,
 		rhnconfigchannel.id, entitlement_data.server_group_id, group_data.server_group_id,
 		virtual_data.host_system_id
