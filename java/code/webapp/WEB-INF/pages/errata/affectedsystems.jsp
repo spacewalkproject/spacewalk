@@ -93,6 +93,7 @@
 			exportColumns="name, status, channelLabels, entitlementLevel"
 			header="${errata.advisoryName} - ${errata.advisoryType}" />
 			
+			<rhn:submitted/>
 	</rl:listset>
 
 </body>
