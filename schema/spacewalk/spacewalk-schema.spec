@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.29
+Version:        1.1.30
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Aug 09 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.30-1
+- 601984 - use clob for the concatting operation, to overcome the varchar
+  length limit. (jpazdziora@redhat.com)
+- 530519 - change ipaddr column from CHAR(16) to VARCHAR(16)
+  (msuchy@redhat.com)
+
 * Thu Aug 05 2010 Jan Pazdziora 1.1.29-1
 - Be strict about chameleon exit code again.
 - Do not invoke chameleon for Oracle sources.
