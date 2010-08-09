@@ -1630,12 +1630,12 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 		 rhnUserServerPerms USP on S.id = USP.server_id inner join
 		 rhnServerNetInterface NI on NI.server_id = S.id inner join
           	 rhnServerInfo si on si.server_id = S.id inner join
-		 ( Select NI2.ip_addr, count(NI2.server_id) as syscount
+		 ( Select NI2.ip_addr, count(distinct NI2.server_id) as syscount
 			from rhnServerNetInterface NI2 inner join
           	 		rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
 			where USP2.user_id = :uid and
 				NI2.ip_addr not in(%s) and NI2.name not like 'vnet%' and NI2.name not like 'virbr%'
-          	 	group by NI2.ip_addr having count(NI2.server_id) > 1) SUMM on SUMM.ip_addr = NI.ip_addr
+				group by NI2.ip_addr having count(distinct NI2.server_id) > 1) SUMM on SUMM.ip_addr = NI.ip_addr
         where USP.user_id = :uid
     </query>
 </mode>
@@ -1662,12 +1662,12 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 		 rhnUserServerPerms USP on S.id = USP.server_id inner join
 		 rhnServerNetInterface NI on NI.server_id = S.id inner join
           	 rhnServerInfo si on si.server_id = S.id inner join
-		 ( Select NI2.hw_addr, count(NI2.server_id) as syscount
+		 ( Select NI2.hw_addr, count(distinct NI2.server_id) as syscount
 			from rhnServerNetInterface NI2 inner join
           	 		rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
 			where USP2.user_id = :uid and
           	 		NI2.hw_addr not in (%s)
-          	 	group by NI2.hw_addr having count(NI2.server_id) > 1) SUMM on SUMM.hw_addr = NI.hw_addr
+			group by NI2.hw_addr having count(distinct NI2.server_id) > 1) SUMM on SUMM.hw_addr = NI.hw_addr
         where USP.user_id = :uid
     </query>
 </mode>
