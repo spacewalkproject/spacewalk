@@ -20,7 +20,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.16%{?obtag}%{?dist}%{?repo}
+Release:         23.17%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -208,6 +208,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Mon Aug 09 2010 Jan Pazdziora 0.1-23.17
+- 621912 - Requires of -base is better than -targeted.
+
 * Mon Aug 09 2010 Jan Pazdziora 0.1-23.16
 - 621912 - ensure selinux-policy-targeted is upgraded before we install the
   oracle-nofcontext-selinux.
