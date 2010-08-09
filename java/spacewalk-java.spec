@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.47
+Version: 1.1.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -331,6 +331,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 09 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.48-1
+- Massaged the sys ents page a little more (paji@redhat.com)
+- Added some tool tips on the Multi Org System Entitlements page
+  (paji@redhat.com)
+- fixing unit test that was written incorrectly to start with
+  (jsherril@redhat.com)
+- I18nized Manage and Clear (paji@redhat.com)
+
 * Thu Aug 05 2010 Partha Aji <paji@redhat.com> 1.1.47-1
 - 621520 - Fixed a bug where the 'clear' box ignored extra request parameters
   (paji@redhat.com)
