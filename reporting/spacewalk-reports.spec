@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.1
+Version: 1.1.2
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Mon Aug 09 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.2-1
+- 601984 - use clob for the concatting operation, to overcome the varchar
+  length limit. (jpazdziora@redhat.com)
+
 * Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.1-1
 - bumping spec files to future 1.1 packages
 
