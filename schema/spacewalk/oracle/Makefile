@@ -38,7 +38,7 @@ SQLUSER := spacewalk/spacewalk@xe
 endif
 
 STYLE   := oracle
-DIRS    := class types tables procs packages views triggers data synonyms
+DIRS    := class types tables procs packages views triggers data synonyms quartz/tables quartz/data
 BLEND   := ../blend -as $(STYLE)
 REPLTBS := sed -re "s/\[\[[^]]+\]\]/$(TBS)/g"
 MKFILES := $(shell find . -mindepth 2 -maxdepth 2 -name Makefile)
