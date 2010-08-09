@@ -955,9 +955,6 @@ class ExporterMain:
             sys.stdout.write("--dir not included!\n")
             sys.exit(0)
 
-        end_date = None
-        start_date = None
-
         if self.options.end_date and not self.options.start_date:
             sys.stderr.write("--end-date must be used with --start-date.")
             sys.exit(1)
