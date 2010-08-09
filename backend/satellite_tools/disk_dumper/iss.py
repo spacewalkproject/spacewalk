@@ -956,14 +956,14 @@ class ExporterMain:
             sys.exit(0)
 
         end_date = None
-	start_date = None
+        start_date = None
 
-	if self.options.end_date and not self.options.start_date:
-	    sys.stderr.write("--end-date must be used with --start-date.")
-	    sys.exit(1)
+        if self.options.end_date and not self.options.start_date:
+            sys.stderr.write("--end-date must be used with --start-date.")
+            sys.exit(1)
 
         if self.options.start_date:
-	    if self.options.end_date is None:
+            if self.options.end_date is None:
                 self.end_date = time.strftime("%Y%m%d%H%M%S")
             else:
                 self.end_date = self.options.end_date
@@ -971,10 +971,9 @@ class ExporterMain:
             self.start_date = self.options.start_date
             print "start date limit: %s" % self.start_date
             print "end date limit: %s" % self.end_date
-	    # set the limits to pick right queries in dumper
-	    dumper.LOWER_LIMIT = self.start_date
-	    dumper.UPPER_LIMIT = self.end_date
-
+            # set the limits to pick right queries in dumper
+            dumper.LOWER_LIMIT = self.start_date
+            dumper.UPPER_LIMIT = self.end_date
         else:
             self.start_date = None
             self.end_date = None
