@@ -122,6 +122,7 @@ public class ChannelRepodataWorker implements QueueWorker {
         }
         finally {
             parentQueue.workerDone();
+            HibernateFactory.closeSession();
         }
     }
 
@@ -219,5 +220,4 @@ public class ChannelRepodataWorker implements QueueWorker {
             HibernateFactory.closeSession();
         }
     }
-
 }

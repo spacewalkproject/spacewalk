@@ -144,7 +144,8 @@ public class TaskoJob implements Job {
                         " started");
                 TaskoRun taskRun = new TaskoRun(schedule.getOrgId(), template, scheduleId);
                 TaskoFactory.save(taskRun);
-                TaskoFactory.commitTransaction();
+                HibernateFactory.commitTransaction();
+                HibernateFactory.closeSession();
 
                 Class jobClass = null;
                 RhnJob job = null;
@@ -156,6 +157,8 @@ public class TaskoJob implements Job {
                     String errorLog = e.getMessage() + '\n' + e.getCause() + '\n';
                     taskRun.appendToErrorLog(errorLog);
                     taskRun.saveStatus(TaskoRun.STATUS_FAILED);
+                    HibernateFactory.commitTransaction();
+                    HibernateFactory.closeSession();
                     return;
                 }
 
@@ -163,6 +166,7 @@ public class TaskoJob implements Job {
                 // rollback everything, what the application changed and didn't committed
                 if (TaskoFactory.getSession().getTransaction().isActive()) {
                     TaskoFactory.rollbackTransaction();
+                    HibernateFactory.closeSession();
                 }
 
                 log.debug(task.getName() + " (" + schedule.getJobLabel() + ") ... " +

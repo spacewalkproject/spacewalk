@@ -81,18 +81,13 @@ public class ChannelRepodataDriver implements QueueDriver {
 
         Map params = new HashMap();
         List<Object> retval = new LinkedList<Object>();
-        try {
-            List results = select.execute(params);
-            if (results != null) {
-                for (Iterator iter = results.iterator(); iter.hasNext();) {
-                    retval.add(iter.next());
-                }
+        List results = select.execute(params);
+        if (results != null) {
+            for (Iterator iter = results.iterator(); iter.hasNext();) {
+                retval.add(iter.next());
             }
-            return retval;
         }
-        finally {
-            HibernateFactory.closeSession();
-        }
+        return retval;
     }
 
     /**

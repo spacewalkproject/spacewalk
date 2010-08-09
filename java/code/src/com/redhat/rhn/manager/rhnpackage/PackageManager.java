@@ -1320,9 +1320,18 @@ public class PackageManager extends BaseManager {
     public static void createRepoEntrys(Long cid) {
         Map params = new HashMap();
         params.put("cid", cid);
-        WriteMode writeMode = ModeFactory.getWriteMode("Package_queries",
+        try {
+            WriteMode writeMode = ModeFactory.getWriteMode("Package_queries",
                 "create_repo_entrys");
-        writeMode.executeUpdate(params);
+            writeMode.executeUpdate(params);
+            HibernateFactory.commitTransaction();
+        }
+        catch (Exception e) {
+            HibernateFactory.rollbackTransaction();
+        }
+        finally {
+            HibernateFactory.closeSession();
+        }
     }
 
     private static void updateRepoEntry(Long packageId, String xml, String type) {

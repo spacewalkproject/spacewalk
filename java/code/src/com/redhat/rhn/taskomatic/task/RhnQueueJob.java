@@ -79,11 +79,13 @@ public abstract class RhnQueueJob implements RhnJob {
         catch (Exception e) {
             if (HibernateFactory.getSession().getTransaction().isActive()) {
                 HibernateFactory.rollbackTransaction();
+                HibernateFactory.closeSession();
             }
             appendExceptionToLogError(e);
             jobRun.saveStatus(TaskoRun.STATUS_FAILED);
         }
         HibernateFactory.commitTransaction();
+        HibernateFactory.closeSession();
     }
 
     /**
@@ -105,6 +107,8 @@ public abstract class RhnQueueJob implements RhnJob {
         }
         if (queue.changeRun(jobRun)) {
             jobRun.start();
+            HibernateFactory.commitTransaction();
+            HibernateFactory.closeSession();
             logToNewFile();
             getLogger().debug("Starting run " + jobRun.getId());
         }
