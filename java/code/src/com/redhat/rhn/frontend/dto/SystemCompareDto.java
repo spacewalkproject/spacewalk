@@ -229,9 +229,15 @@ public class SystemCompareDto {
         List<String> ids = new LinkedList<String>();
         Map <String, String> idMap = new HashMap<String, String>();
         for (Server s : servers) {
-            ids.add(s.getBaseChannel().getName());
-            idMap.put(s.getBaseChannel().getName(),
-                    s.getBaseChannel().getId().toString());
+            if (s.getBaseChannel() != null) {
+                ids.add(s.getBaseChannel().getName());
+                idMap.put(s.getBaseChannel().getName(),
+                        s.getBaseChannel().getId().toString());
+            }
+            else {
+                ids.add("");
+            }
+
         }
         return compare(ids, idMap);
     }
@@ -329,12 +335,16 @@ public class SystemCompareDto {
         List<List> ret = new LinkedList<List>();
         for (Server system : servers) {
             List keys = new LinkedList();
-            if (!system.getBaseChannel().isCustom()) {
+
+            if (system.getBaseChannel() != null && !system.getBaseChannel().isCustom()) {
                 keys.add(system.getBaseChannel().getChannelFamily().getName());
             }
-            for (Channel channel : system.getChildChannels()) {
-                if (!channel.isCustom()) {
-                    keys.add(channel.getChannelFamily().getName());
+
+            if (system.getChildChannels() != null) {
+                for (Channel channel : system.getChildChannels()) {
+                    if (!channel.isCustom()) {
+                        keys.add(channel.getChannelFamily().getName());
+                    }
                 }
             }
             ret.add(keys);
