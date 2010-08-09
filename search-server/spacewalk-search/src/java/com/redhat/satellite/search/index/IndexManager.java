@@ -22,11 +22,10 @@ import com.redhat.satellite.search.index.ngram.NGramQueryParser;
 import com.redhat.satellite.search.rpc.handlers.IndexHandler;
 
 import org.apache.hadoop.fs.FileSystem;
-
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.PerFieldAnalyzerWrapper;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
@@ -42,31 +41,29 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
-
 import org.apache.nutch.analysis.AnalyzerFactory;
 import org.apache.nutch.searcher.FetchedSegments;
 import org.apache.nutch.searcher.HitDetails;
 import org.apache.nutch.searcher.Summary;
-
 import org.apache.nutch.util.NutchConfiguration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Indexing workhorse class
- * 
+ *
  * @version $Rev$
  */
 public class IndexManager {
-    
+
     private static Logger log = Logger.getLogger(IndexManager.class);
     private String indexWorkDir;
     private int maxHits;
@@ -85,7 +82,7 @@ public class IndexManager {
     private Map<String, FetchedSegments> docSegments;
     /**
      * Constructor
-     * 
+     *
      * @param config application config
      */
     public IndexManager(Configuration config) {
@@ -118,16 +115,16 @@ public class IndexManager {
     public String getIndexWorkDir() {
         return indexWorkDir;
     }
-    
+
     /**
      * Query a index
-     * 
+     *
      * @param indexName name of the index
      * @param query search query
      * @param lang language
      * @return list of hits
      * @throws IndexingException if there is a problem indexing the content.
-     * @throws QueryParseException 
+     * @throws QueryParseException
      */
     public List<Result> search(String indexName, String query, String lang)
             throws IndexingException, QueryParseException {
@@ -207,9 +204,47 @@ public class IndexManager {
         return retval;
     }
 
+
+    /**
+     * Create an empty index if it exists
+     *
+     * @param indexName index to use
+     * @param lang language.
+     * @throws IndexingException something went wrong adding the document
+     */
+    public void createIndex(String indexName, String lang)
+        throws IndexingException {
+
+        try {
+            IndexWriter writer = getIndexWriter(indexName, lang);
+            try {
+                writer.flush();
+            }
+            finally {
+                try {
+                    writer.close();
+                }
+                finally {
+                    // unlock it if it is locked.
+                    unlockIndex(indexName);
+                }
+            }
+        }
+        catch (CorruptIndexException e) {
+            throw new IndexingException(e);
+        }
+        catch (LockObtainFailedException e) {
+            throw new IndexingException(e);
+        }
+        catch (IOException e) {
+            throw new IndexingException(e);
+        }
+    }
+
+
     /**
      * Adds a document to an index
-     * 
+     *
      * @param indexName index to use
      * @param doc Document to be indexed.
      * @param lang language.
@@ -289,7 +324,7 @@ public class IndexManager {
 
     /**
      * Remove a document from an index
-     * 
+     *
      * @param indexName index to use
      * @param uniqueField field name which represents this data's unique id
      * @param objectId unique document id
@@ -335,7 +370,7 @@ public class IndexManager {
             IndexReader.unlock(dir);
         }
     }
-    
+
     private IndexWriter getIndexWriter(String name, String lang)
             throws CorruptIndexException, LockObtainFailedException,
             IOException {
@@ -347,7 +382,7 @@ public class IndexManager {
         writer.setUseCompoundFile(true);
         return writer;
     }
-    
+
     private IndexReader getIndexReader(String indexName, String locale)
             throws CorruptIndexException, IOException {
         String path = "";
@@ -380,7 +415,7 @@ public class IndexManager {
         IndexSearcher retval = new IndexSearcher(path);
         return retval;
     }
-    
+
     private QueryParser getQueryParser(String indexName, String lang,
             boolean isFineGrained) {
         if (log.isDebugEnabled()) {
@@ -391,14 +426,14 @@ public class IndexManager {
         Analyzer analyzer = getAnalyzer(indexName, lang);
         if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
             qp = new QueryParser("content", analyzer);
-        } 
+        }
         else {
             qp = new NGramQueryParser("name", analyzer, isFineGrained);
         }
         qp.setDateResolution(DateTools.Resolution.MINUTE);
         return qp;
     }
-    
+
 
     private Analyzer getAnalyzer(String indexName, String lang) {
         if (log.isDebugEnabled()) {
@@ -406,7 +441,7 @@ public class IndexManager {
         }
         if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
             return getDocAnalyzer(lang);
-        } 
+        }
         else if (indexName.compareTo(BuilderFactory.SERVER_TYPE) == 0) {
             return getServerAnalyzer();
         }
@@ -422,10 +457,10 @@ public class IndexManager {
         else {
             log.debug(indexName + " using getDefaultAnalyzer()");
             return getDefaultAnalyzer();
-        } 
+        }
     }
-    
-    private List<Result> processHits(String indexName, Hits hits, Set<Term> queryTerms, 
+
+    private List<Result> processHits(String indexName, Hits hits, Set<Term> queryTerms,
             String query, String lang)
         throws IOException {
         List<Result> retval = new ArrayList<Result>();
@@ -469,7 +504,7 @@ public class IndexManager {
                 MatchingField match = new MatchingField(query, doc, queryTerms);
                 pr.setMatchingField(match.getFieldName());
                 pr.setMatchingFieldValue(match.getFieldValue());
-                log.info("hit[" + x + "] matchingField is being set to: <" + 
+                log.info("hit[" + x + "] matchingField is being set to: <" +
                     pr.getMatchingField() + "> based on passed in query field.  " +
                     "matchingFieldValue = " + pr.getMatchingFieldValue());
             }
@@ -567,16 +602,16 @@ public class IndexManager {
         }
         return true;
     }
-    
+
     /**
      * Removes any documents which are not related to the passed in Set of good value
-     * @param ids Set of ids of all known/good values 
+     * @param ids Set of ids of all known/good values
      * @param indexName index name to operate on
-     * @param uniqField the name of the field in the Document to uniquely identify 
+     * @param uniqField the name of the field in the Document to uniquely identify
      * this record
      * @return the number of documents deleted
      */
-    public int deleteRecordsNotInList(Set<String> ids, String indexName, 
+    public int deleteRecordsNotInList(Set<String> ids, String indexName,
             String uniqField) {
         int count = 0;
         IndexReader reader = null;
@@ -589,8 +624,8 @@ public class IndexManager {
                     String uniqId = doc.getField(uniqField).stringValue();
                     if (!ids.contains(uniqId)) {
                         log.info(indexName + ":" + uniqField  + ":  <" + uniqId +
-                                "> not found in list of current/good values " + 
-                                "assuming this has been deleted from Database and we " + 
+                                "> not found in list of current/good values " +
+                                "assuming this has been deleted from Database and we " +
                                 "should remove it.");
                         removeFromIndex(indexName, uniqField, uniqId);
                         count++;
@@ -670,7 +705,7 @@ public class IndexManager {
                 analyzer);
         return analyzer;
     }
-    
+
     private Analyzer getServerAnalyzer() {
         PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
                 NGramAnalyzer(min_ngram, max_ngram));
@@ -684,7 +719,7 @@ public class IndexManager {
 
         return analyzer;
     }
-    
+
     private Analyzer getSnapshotTagAnalyzer() {
         PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
                 NGramAnalyzer(min_ngram, max_ngram));
@@ -697,7 +732,7 @@ public class IndexManager {
         analyzer.addAnalyzer("modified", new KeywordAnalyzer());
         return analyzer;
     }
-    
+
     private Analyzer getHardwareDeviceAnalyzer() {
         PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
                 NGramAnalyzer(min_ngram, max_ngram));
@@ -706,7 +741,7 @@ public class IndexManager {
         analyzer.addAnalyzer("pciType", new KeywordAnalyzer());
         return analyzer;
     }
-    
+
     private Analyzer getServerCustomInfoAnalyzer() {
         PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
                 NGramAnalyzer(min_ngram, max_ngram));
@@ -718,9 +753,9 @@ public class IndexManager {
         analyzer.addAnalyzer("lastModifiedBy", new KeywordAnalyzer());
         return analyzer;
     }
-    
+
     private Analyzer getDefaultAnalyzer() {
-        PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new 
+        PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
                 NGramAnalyzer(min_ngram, max_ngram));
         analyzer.addAnalyzer("id", new KeywordAnalyzer());
         analyzer.addAnalyzer("arch", new KeywordAnalyzer());

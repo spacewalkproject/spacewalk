@@ -32,7 +32,6 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.sql.SQLException;
-
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -62,6 +61,9 @@ public abstract class GenericIndexTask implements Job {
             (IndexManager)jobData.get("indexManager");
 
         try {
+            //try to create the index first incase we never actually
+            //   have any records (BZ 537502)
+            indexManager.createIndex(getIndexName(), lang);
             List<GenericRecord> data = getRecords(databaseManager);
             int count = 0;
             log.info(super.getClass().toString() + "found [" +
@@ -78,11 +80,11 @@ public abstract class GenericIndexTask implements Job {
                 }
             }
             //
-            // Check to see if any records have been deleted from database, so 
+            // Check to see if any records have been deleted from database, so
             // we should delete from our indexes.
             //
             int numDel = handleDeletedRecords(databaseManager, indexManager);
-            log.info("Deleted " + numDel + " records from index <" + 
+            log.info("Deleted " + numDel + " records from index <" +
                     getIndexName() + ">");
         }
         catch (SQLException e) {
@@ -196,10 +198,10 @@ public abstract class GenericIndexTask implements Job {
     /**
      * Will determine if any records have been deleted from the DB, then will
      * delete those records from the lucene index.
-     * @return number of deleted records 
+     * @return number of deleted records
      */
-    protected int handleDeletedRecords(DatabaseManager databaseManager, 
-            IndexManager indexManager) 
+    protected int handleDeletedRecords(DatabaseManager databaseManager,
+            IndexManager indexManager)
         throws SQLException {
         List<Long> ids = null;
         Query<Long> query = null;
@@ -278,7 +280,7 @@ public abstract class GenericIndexTask implements Job {
      * @return name of query which will show the date this task last ran
      */
     protected abstract String getQueryLastIndexDate();
-    
+
     /**
      * @return name of the query which will return all current ids.
      */
