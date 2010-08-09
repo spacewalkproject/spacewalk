@@ -200,6 +200,14 @@ public class TaskQueue {
         return false;
     }
 
+    /**
+     * returns queue run
+     * @return queue log run
+     */
+    public TaskoRun getQueueRun() {
+        return queueRun;
+    }
+
     private synchronized boolean isTaskQueueDone() {
         return taskQueueDone;
     }

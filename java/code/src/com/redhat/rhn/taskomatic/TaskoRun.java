@@ -37,6 +37,7 @@ public class TaskoRun {
     public static final String STATUS_RUNNING = "RUNNING";
     public static final String STATUS_FINISHED = "FINISHED";
     public static final String STATUS_FAILED = "FAILED";
+    public static final String STATUS_SKIPPED = "SKIPPED";
     private static final String STD_LOG_PREFIX = "/var/spacewalk/systemlogs/tasko/";
 
     private Long id;
@@ -110,11 +111,34 @@ public class TaskoRun {
     }
 
     /**
+     * if task execution will be skipped (used for queue tasks)
+     */
+    public void skipped() {
+        setEndTime(new Date());
+        setStatus(STATUS_SKIPPED);
+    }
+
+    /**
+     * appends a string to output log
+     * usefull to log something if the run didn't start at all
+     * @param outputLog error message to append
+     */
+    public void appendToOutputLog(String outputLog) {
+        if (getStdOutputPath() == null) {
+            setStdOutputPath(buildStdOutputLogPath());
+        }
+        appendLogToFile(getStdOutputPath(), outputLog);
+    }
+
+    /**
      * appends a string to error log
      * usefull for exception logging when the run doesn't get executed at all
      * @param errorLog error message to append
      */
     public void appendToErrorLog(String errorLog) {
+        if (getStdErrorPath() == null) {
+            setStdErrorPath(buildStdErrorLogPath());
+        }
         appendLogToFile(getStdErrorPath(), errorLog);
     }
 

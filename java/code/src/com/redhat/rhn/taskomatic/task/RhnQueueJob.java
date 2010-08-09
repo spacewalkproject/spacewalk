@@ -112,6 +112,15 @@ public abstract class RhnQueueJob implements RhnJob {
             logToNewFile();
             getLogger().debug("Starting run " + jobRun.getId());
         }
+        else {
+            // close current run
+            TaskoRun run = (TaskoRun) HibernateFactory.reload(jobRun);
+            run.appendToOutputLog("Check run " + queue.getQueueRun().getId() +
+                    " for logged information.");
+            run.skipped();
+            HibernateFactory.commitTransaction();
+            HibernateFactory.closeSession();
+        }
         int maxWorkItems = Config.get().getInt("taskomatic." + queueName +
                 "_max_work_items", 3);
         if (queue.getQueueSize() < maxWorkItems) {
