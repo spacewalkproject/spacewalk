@@ -33,9 +33,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 
+ *
  * @version $Rev $
- * 
+ *
  */
 public class ChannelRepodataWorker implements QueueWorker {
 
@@ -47,7 +47,7 @@ public class ChannelRepodataWorker implements QueueWorker {
     private List queueEntries;
 
     /**
-     * 
+     *
      * @param workItem work item map
      * @param parentLogger repomd logger
      */
@@ -55,7 +55,7 @@ public class ChannelRepodataWorker implements QueueWorker {
         logger = parentLogger;
         String prefixPath = Config.get().getString(ConfigDefaults.REPOMD_PATH_PREFIX,
                 "rhn/repodata");
-        String mountPoint = 
+        String mountPoint =
             Config.get().getString(ConfigDefaults.REPOMD_CACHE_MOUNT_POINT, "/pub");
         channelLabelToProcess = (String) workItem.get("channel_label");
         repoWriter = new RepositoryWriter(prefixPath, mountPoint);
@@ -81,9 +81,9 @@ public class ChannelRepodataWorker implements QueueWorker {
             if (!isChannelLabelAlreadyInProcess()) {
                 markInProgress();
                 populateQueueEntryDetails();
-                
-                
-                
+
+
+
                 Channel channelToProcess = ChannelFactory
                         .lookupByLabel(channelLabelToProcess);
                 // if the channelExists in the db still
@@ -122,6 +122,7 @@ public class ChannelRepodataWorker implements QueueWorker {
         }
         finally {
             parentQueue.workerDone();
+            HibernateFactory.closeSession();
         }
     }
 
@@ -137,7 +138,7 @@ public class ChannelRepodataWorker implements QueueWorker {
     }
 
     /**
-     * 
+     *
      * @return Returns the progress status of the channel
      */
     private boolean isChannelLabelAlreadyInProcess() {
@@ -149,7 +150,7 @@ public class ChannelRepodataWorker implements QueueWorker {
     }
 
     /**
-     * 
+     *
      * @param entryToCheck
      * @return Returns a boolean to force or not
      */
@@ -219,5 +220,4 @@ public class ChannelRepodataWorker implements QueueWorker {
             HibernateFactory.closeSession();
         }
     }
-
 }

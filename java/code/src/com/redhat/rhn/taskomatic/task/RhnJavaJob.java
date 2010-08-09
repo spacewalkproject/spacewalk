@@ -73,6 +73,7 @@ public abstract class RhnJavaJob implements RhnJob {
         enableLogging(run);
         run.start();
         HibernateFactory.commitTransaction();
+        HibernateFactory.closeSession();
         try {
             execute(context);
             run.saveStatus(TaskoRun.STATUS_FINISHED);
@@ -80,12 +81,14 @@ public abstract class RhnJavaJob implements RhnJob {
         catch (Exception e) {
             if (HibernateFactory.getSession().getTransaction().isActive()) {
                 HibernateFactory.rollbackTransaction();
+                HibernateFactory.closeSession();
             }
             appendExceptionToLogError(e);
             run.saveStatus(TaskoRun.STATUS_FAILED);
         }
         run.finished();
         HibernateFactory.commitTransaction();
+        HibernateFactory.closeSession();
     }
 
     protected void executeExtCmd(String[] args) {
