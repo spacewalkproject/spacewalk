@@ -33,6 +33,7 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartSessionState;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
+import com.redhat.rhn.domain.kickstart.RegistrationType;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
@@ -685,17 +686,17 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 .getCfgManagementFlag()
                 .booleanValue();
 
-        // Create a new activation key for the target system.
+        RegistrationType regType = getKsdata().getRegistrationType(user);
 
+            // Create a new activation key for the target system.
         createKickstartActivationKey(this.user,
-                                     this.ksdata,
-                                     getTargetServer(),
-                                     this.kickstartSession,
-                                     toolsChannel,
-                                     cfgMgmtFlag,
-                                     1L,
-                                     note);
-
+                this.ksdata,
+                RegistrationType.NONE.equals(regType) ? null : getTargetServer(),
+                this.kickstartSession,
+                toolsChannel,
+                cfgMgmtFlag,
+                1L,
+                note);
         this.createdProfile = processProfileType(this.profileType);
         log.debug("** profile created: " + createdProfile);
     }
@@ -758,13 +759,12 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             server = this.getProxyHost();
         }
         KickstartAction ksAction =
-            (KickstartAction)
-                ActionManager.scheduleKickstartAction(fileList,
-                                                      this.getUser(),
-                                                      this.getHostServer(),
-                                                      this.getScheduleDate(),
-                                                      this.getExtraOptions(),
-                                                      server);
+            ActionManager.scheduleKickstartAction(fileList,
+                                              this.getUser(),
+                                              this.getHostServer(),
+                                              this.getScheduleDate(),
+                                              this.getExtraOptions(),
+                                              server);
 
         if (prereqAction != null) {
             ksAction.setPrerequisite(prereqAction);
@@ -1129,9 +1129,9 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 Map row = (Map) result.get(0);
                 log.debug("    Found the package: " + row);
                 Map pkgToInstall = new HashMap();
-                pkgToInstall.put("name_id", (Long) row.get("name_id"));
-                pkgToInstall.put("evr_id", (Long) row.get("evr_id"));
-                pkgToInstall.put("arch_id", (Long) row.get("package_arch_id"));
+                pkgToInstall.put("name_id", row.get("name_id"));
+                pkgToInstall.put("evr_id", row.get("evr_id"));
+                pkgToInstall.put("arch_id", row.get("package_arch_id"));
                 this.packagesToInstall.add(pkgToInstall);
                 log.debug("    packagesToInstall: " + packagesToInstall);
 
@@ -1400,6 +1400,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     /**
      * @return Returns the user.
      */
+    @Override
     public User getUser() {
         return user;
     }
