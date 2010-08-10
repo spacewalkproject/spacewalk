@@ -223,6 +223,9 @@ rhnSsmOperationServer          :: rhnSsmOperation
 rhnSurveyQuestionResponse      :: rhnSurveyQuestion
 rhnSurveyQuestion              :: rhnSurvey
 rhnTag                         :: rhnTagName web_customer
+rhnTaskoRun                    :: rhnTaskoTemplate rhnTaskoSchedule
+rhnTaskoSchedule               :: rhnTaskoBunch
+rhnTaskoTemplate               :: rhnTaskoBunch rhnTaskoTask
 rhnTransaction                 :: rhnServer
 rhnTransactionElement          :: rhnTransactionPackage rhnTransaction
 rhnTransactionPackage          :: rhnTransactionOperation rhnPackageArch \
