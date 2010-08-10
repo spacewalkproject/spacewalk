@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacewalk.yum-rhn-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:28+0200\n"
+"POT-Creation-Date: 2010-08-10 11:49+0200\n"
 "PO-Revision-Date: 2010-06-10 12:08+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Wei Liu\n"
@@ -33,7 +33,9 @@ msgstr "RHN 支持将被禁用。"
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr "*备注* 以下没有列出红帽网络程序库。您必须以根用户身份运行这个命令方可进入 RHN 程序库。"
+msgstr ""
+"*备注* 以下没有列出红帽网络程序库。您必须以根用户身份运行这个命令方可进入 "
+"RHN 程序库。"
 
 #: ../rhnplugin.py:95
 msgid "There was an error parsing the RHN proxy settings."
@@ -60,7 +62,8 @@ msgid "This system is not subscribed to any channels."
 msgstr "这个系统没有订阅到任何频道。"
 
 #: ../rhnplugin.py:139
-msgid "This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgid ""
+"This system may not be a registered to RHN. SystemId could not be acquired.\n"
 msgstr "这个系统可能没有在 RHN 注册。无法获得 SystemId。\n"
 
 #: ../rhnplugin.py:213
@@ -82,4 +85,3 @@ msgstr "请在客户端中以根用户身份运行 rhn_register"
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "缺少 RHN: %s 所要求的登录信息"
-

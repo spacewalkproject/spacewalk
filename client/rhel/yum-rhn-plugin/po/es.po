@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacewalk.yum-rhn-plugin.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:28+0200\n"
+"POT-Creation-Date: 2010-08-10 11:49+0200\n"
 "PO-Revision-Date: 2010-06-01 10:00+1000\n"
 "Last-Translator: Gladys Guerrero  <gguerrer@redhat.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -30,7 +30,9 @@ msgstr "El soporte de RHN será desactivado."
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr "*Nota* Los repositorios de Red Hat Network no aparecen en la lista de abajo. Ejecute el comando como root para acceder a los repositorios de RHN."
+msgstr ""
+"*Nota* Los repositorios de Red Hat Network no aparecen en la lista de abajo. "
+"Ejecute el comando como root para acceder a los repositorios de RHN."
 
 #: ../rhnplugin.py:95
 msgid "There was an error parsing the RHN proxy settings."
@@ -57,8 +59,10 @@ msgid "This system is not subscribed to any channels."
 msgstr "Este sistema no está suscrito a ningún canal."
 
 #: ../rhnplugin.py:139
-msgid "This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr "Este sistema puede no estar registrado a RHN. Systemld no se pudo adquirir.\n"
+msgid ""
+"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr ""
+"Este sistema puede no estar registrado a RHN. Systemld no se pudo adquirir.\n"
 
 #: ../rhnplugin.py:213
 msgid "Package profile information could not be sent."
@@ -79,4 +83,3 @@ msgstr "Por favor ejecute rhn_register como root en este cliente"
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Falta la información de ingreso requerida para RHN: %s"
-

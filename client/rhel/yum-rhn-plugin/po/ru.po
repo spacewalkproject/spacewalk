@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:28+0200\n"
+"POT-Creation-Date: 2010-08-10 11:49+0200\n"
 "PO-Revision-Date: 2010-05-14 09:01\n"
 "Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
@@ -16,7 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../rhnplugin.py:47
 msgid "There was an error communicating with RHN."
@@ -31,7 +32,9 @@ msgstr "Поддержка RHN будет отключена."
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr "*Примечание* Этот список не содержит репозитории Red Hat Network. Чтобы получить к ним доступ, выполните эту команду в режиме root."
+msgstr ""
+"*Примечание* Этот список не содержит репозитории Red Hat Network. Чтобы "
+"получить к ним доступ, выполните эту команду в режиме root."
 
 #: ../rhnplugin.py:95
 msgid "There was an error parsing the RHN proxy settings."
@@ -58,8 +61,11 @@ msgid "This system is not subscribed to any channels."
 msgstr "Эта система не подписана на каналы."
 
 #: ../rhnplugin.py:139
-msgid "This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr "Возможно, эта система не зарегистрирована в RHN. Не удалось получить SystemID.\n"
+msgid ""
+"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr ""
+"Возможно, эта система не зарегистрирована в RHN. Не удалось получить "
+"SystemID.\n"
 
 #: ../rhnplugin.py:213
 msgid "Package profile information could not be sent."
@@ -80,4 +86,3 @@ msgstr "Выполните rhn_register в режиме root на этом кл�
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Отсутствует необходимая информация для входа в RHN: %s"
-
