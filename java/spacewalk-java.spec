@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -331,6 +331,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 10 2010 Partha Aji <paji@redhat.com> 1.2.1-1
+- 622715 - Fixed dups profile bug where unentitled systems were being wrongly
+  reported as entitled (paji@redhat.com)
+- 620463 - Fixed a KS bug (paji@redhat.com)
+- fixing issue where "guests consuming regular entitlement page" would show
+  guests that were recieving free entitlements because their host had a virt
+  entitlement (jsherril@redhat.com)
+- bumping package versions for 1.2 (mzazrivec@redhat.com)
+
 * Tue Aug 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.50-1
 - 621528 - Fixed dupes sys compare page to deal with unentitled systems
 
