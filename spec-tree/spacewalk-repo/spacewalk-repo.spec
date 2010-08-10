@@ -70,6 +70,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %config %{_sysconfdir}/yum.repos.d/spacewalk.repo
+%config %{_sysconfdir}/yum.repos.d/spacewalk-source.repo
 
 %files -n spacewalk-client-repo
 %defattr(-,root,root,-)
