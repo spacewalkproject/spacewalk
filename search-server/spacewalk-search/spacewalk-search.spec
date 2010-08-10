@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.5
+Version: 1.1.6
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -114,6 +114,10 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Tue Aug 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.6-1
+- 537502 - fixing issue where searching for something that had no results would
+  return an error saying index needed to be generated (jsherril@redhat.com)
+
 * Fri Jul 30 2010 Tomas Lestach <tlestach@redhat.com> 1.1.5-1
 - adding slf4j jar runtime dependencies (tlestach@redhat.com)
 - correct the path to oci (mzazrivec@redhat.com)
