@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
 
 %changelog
+* Tue Aug 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1-2
+- add spacewalk-source.repo to .spec
+
 * Tue Aug 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1-1
 - prepare for 1.1
 - Define yum repo for source rpms
