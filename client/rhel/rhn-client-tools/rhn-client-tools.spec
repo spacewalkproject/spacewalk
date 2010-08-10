@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.1.14
+Version: 1.1.15
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -281,6 +281,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Aug 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.15-1
+- update .po and .pot files for rhn-client-tools (msuchy@redhat.com)
+
 * Thu Aug 05 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.14-1
 - 618267 - all data in F12+ should be in unicode, lets decode it
 - 619098 - take manufacturer from system group
