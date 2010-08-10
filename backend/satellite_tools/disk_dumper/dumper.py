@@ -17,6 +17,7 @@ import time
 import gzip
 import string
 import tempfile
+import re
 from types import ListType
 from cStringIO import StringIO
 
@@ -229,14 +230,14 @@ class XML_Dumper:
         self.close()
         return 0
 
-    def dump_channels(self, channel_labels=None):
+    def dump_channels(self, channel_labels=None, start_date=None, end_date=None):
         log_debug(2)
         #channels = self._validate_channels(channel_labels=channel_labels)
 
         writer = self._get_xml_writer()
 
         dumper = SatelliteDumper(writer, 
-            ChannelsDumper(writer, channels=channel_labels)) #channels=channels.values()))
+            ChannelsDumper(writer, channel_labels, start_date, end_date))
         dumper.dump()
         writer.flush()
         log_debug(4, "OK")
@@ -729,11 +730,60 @@ class ChannelsDumper(exportLib.ChannelsDumper):
            and c.checksum_type_id = ct.id (+)
     """)
 
+    def __init__(self, writer, channels=[], start_date=None, end_date=None):
+        exportLib.ChannelsDumper.__init__(self, writer, channels)
+        self.start_date = start_date
+        self.end_date = end_date
+
+    def __format_date(self, writer, date):
+	""" Takes date in format YYYYMMDDHH24MISS and write it to writer in format:
+        <date><year>YY</year>....<second>SS</second></date>
+        """
+        m = re.match(r"(....)(..)(..)(..)(..)(..)", date)
+        writer.open_tag('date')
+        writer.open_tag('year')
+        writer.stream.write(m.group(1))
+        writer.close_tag('year')
+        writer.open_tag('month')
+        writer.stream.write(m.group(2))
+        writer.close_tag('month')
+        writer.open_tag('day')
+        writer.stream.write(m.group(3))
+        writer.close_tag('day')
+        writer.open_tag('hour')
+        writer.stream.write(m.group(4))
+        writer.close_tag('hour')
+        writer.open_tag('minute')
+        writer.stream.write(m.group(5))
+        writer.close_tag('minute')
+        writer.open_tag('second')
+        writer.stream.write(m.group(6))
+        writer.close_tag('second')
+        writer.close_tag('date')
+
     def dump_subelement(self, data):
         log_debug(6, data)
         #return exportLib.ChannelsDumper.dump_subelement(self, data)
         c = _ChannelsDumper(self._writer, data)
         c.dump()
+        if self.start_date:
+            export_type = 'incremental'
+        else:
+            export_type = 'full'
+        self._writer.open_tag('export',  attributes={'type': export_type})
+	if self.start_date:
+            self._writer.open_tag('start-date')
+            self.__format_date(self._writer, self.start_date)
+            self._writer.close_tag('start-date')
+        if self.end_date:
+            end_date = self.end_date
+        else:
+            end_date = time.strftime("%Y%m%d%H%M%S")
+        self._writer.open_tag('end-date')
+        self.__format_date(self._writer, end_date)
+        self._writer.close_tag('end-date')
+
+        self._writer.close_tag('export')
 
     def set_iterator(self):
         if not self._channels:
