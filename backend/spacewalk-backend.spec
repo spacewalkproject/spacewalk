@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.1.47
+Version: 1.1.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Aug 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.48-1
+- Revert "591050 - add meta information to dump" (msuchy@redhat.com)
+
 * Tue Aug 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.47-1
 - l10n: Updates to German (de) translation (ttrinks@fedoraproject.org)
 - 591050 - add meta information to dump (msuchy@redhat.com)
