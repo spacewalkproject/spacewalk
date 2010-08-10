@@ -312,15 +312,21 @@ public class SystemCompareDto {
         List<List> ret = new LinkedList<List>();
         for (Server system : servers) {
             List keys = new LinkedList();
+            if (!system.getEntitlements().isEmpty()) {
+                if (system.getAddOnEntitlements().isEmpty()) {
+                    keys.add(EntitlementManager.MANAGEMENT.getHumanReadableTypeLabel());
+                }
+                else {
+                    for (Entitlement ent :  system.getAddOnEntitlements()) {
+                        keys.add(ent.getHumanReadableLabel());
+                    }
 
-            if (system.getAddOnEntitlements().isEmpty()) {
-                keys.add(EntitlementManager.MANAGEMENT.getHumanReadableTypeLabel());
-            }
-            else {
-                for (Entitlement ent :  system.getAddOnEntitlements()) {
-                    keys.add(ent.getHumanReadableLabel());
                 }
 
+            }
+            else {
+                LocalizationService ls = LocalizationService.getInstance();
+                keys.add(ls.getMessage("Unentitled"));
             }
             ret.add(keys);
         }
