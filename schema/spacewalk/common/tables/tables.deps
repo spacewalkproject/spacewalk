@@ -202,6 +202,9 @@ rhnSolarisPatchPackages        :: rhnPackage rhnPackageNEVRA
 rhnSolarisPatchSetMembers      :: rhnPackage rhnSolarisPatchSet
 rhnSsmOperationServer          :: rhnSsmOperation
 rhnTag                         :: rhnTagName web_customer
+rhnTaskoRun                    :: rhnTaskoTemplate rhnTaskoSchedule
+rhnTaskoSchedule               :: rhnTaskoBunch
+rhnTaskoTemplate               :: rhnTaskoBunch rhnTaskoTask
 rhnTransaction                 :: rhnServer
 rhnTransactionElement          :: rhnTransactionPackage rhnTransaction
 rhnTransactionPackage          :: rhnTransactionOperation rhnPackageArch \
