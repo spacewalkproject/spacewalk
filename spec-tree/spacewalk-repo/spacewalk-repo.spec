@@ -76,6 +76,10 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
 
 %changelog
+* Tue Aug 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1-1
+- prepare for 1.1
+- Define yum repo for source rpms
+
 * Thu Feb 11 2010 Michael Mraka <michael.mraka@redhat.com> 0.9-1
 - pointed to Spacewalk 0.9 repo
 
