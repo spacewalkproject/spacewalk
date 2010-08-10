@@ -1769,16 +1769,8 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
   where sc.is_fve = 'N'
   		AND USP.user_id = :user_id
   		AND (vi.host_system_id is null OR
-            exists (
-		    select sg.id from rhnServerGroupMembers sgm
-  		            inner join rhnServerGroup sg on sgm.server_group_id = sg.id
-                    inner join rhnServerGroupType sgt on sgt.id = sg.group_type
-  		            inner join rhnServer s2 on s2.id = sgm.server_id
-                where
-                s2.org_id = s.org_id
-                and s2.id = vi.host_system_id
-                and sgt.label not in ('virtualization_host' ,'virtualization_host_platform') )
-  		    )
+		    0 = (select
+            rhn_channel.can_server_consume_virt_channl(s.id, cf.id) from dual ))
   </query>
 </mode>
 </datasource_modes>
