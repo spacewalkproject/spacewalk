@@ -181,6 +181,9 @@ class Database(sql_base.Database):
     def cursor(self):
         return Cursor(dbh=self.dbh)
 
+    def _read_lob(self, lob):
+        return str(lob)
+
 
 
 class Cursor(sql_base.Cursor):
