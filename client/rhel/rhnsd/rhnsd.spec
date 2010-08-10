@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.9.4
+Version: 4.9.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -63,6 +63,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Aug 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 4.9.5-1
+- update .po and .pot files for rhnsd (msuchy@redhat.com)
+
 * Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 4.9.4-1
 - l10n: Updates to Czech (cs) translation (msuchy@fedoraproject.org)
 - cleanup - removing translation file, which does not match any language code
