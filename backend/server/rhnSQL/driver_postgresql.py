@@ -30,14 +30,12 @@ from common import log_debug, log_error
 from common import UserDictCase
 from const import POSTGRESQL
 
-NAMED_PARAM_REGEX = re.compile("(\W)(:\w+)")
-
 def convert_named_query_params(query):
     """ 
     Convert a query with named parameters (i.e. :id, :name, etc) into one
-    that uses $1 .. $n positional parameters instead.
+    that uses %(id)s, %(name)s parameters instead.
 
-    python-pgsql requires parameters to be in this form, so to keep our 
+    python-psycopg2 requires parameters to be in this form, so to keep our
     existing queries intact we'll convert them when provided to the 
     postgresql driver.
 
@@ -48,53 +46,9 @@ def convert_named_query_params(query):
         - number of arguments found and replaced
     """
     log_debug(3, "Converting query for PostgreSQL: %s" % query)
-    pattern = NAMED_PARAM_REGEX
-
-    # List with index counter and the running param to index hash:
-    index_data = [1, {}]
-    f = create_replacer_function(index_data)
-
-    new_query = pattern.sub(f, query)
+    new_query = re.sub(r'(\W):(\w+)', r'\1%(\2)s', query)
     log_debug(3, "New query: %s" % new_query)
-    return (new_query, index_data[1], index_data[0] - 1)
-
-def create_replacer_function(index_data):
-    """ 
-    Wrapper to allow us to pass extra args to the pattern.sub() replacer
-    function. Avoids the use of lambda above.
-
-    Extra args include an index representing which arg we're on ($1, $2, etc)
-    and a hash of parameter name to all the positions it's used in.
-
-    index_data = [counter, {"name" => [1, 3], "id" => [2]}]
-    """
-    def param_replacer(match, index_data=index_data):
-        """ 
-        Helper function for replacing named query params in a string.
-
-        Intended to be passed to sub, but only indirectly via another lambda 
-        function, which must exist to pass us additional arguments as the
-        call to sub would only provide us with a match object. (we need the
-        positional index of the argument as well)
-
-        index_data is a list with two elements, the first is a counter 
-        representing the next argument number to be used. (increments $1 to $2, 
-        etc) The second is a hash of parameter name to it's new index number.
-        """
-        matched_param = match.group(2)[1:]
-
-        counter = index_data[0] # don't increment this var directly
-        param_index = index_data[1]
-
-        # if the index doesn't yet have this parameter, add it and hash to an
-        # empty list:
-        if not param_index.has_key(matched_param):
-            param_index[matched_param] = []
-        param_index[matched_param].append(counter)
-        index_data[0] = index_data[0] + 1
-        return "%s$%s" % (match.group(1), counter)
-    return param_replacer
-
+    return new_query
 
 
 class Procedure(sql_base.Procedure):
@@ -118,9 +72,9 @@ class Procedure(sql_base.Procedure):
         i = 1
         for arg in args:
             if len(positional_args) == 0:
-                positional_args = "$1"
+                positional_args = "%s"
             else:
-                positional_args = positional_args + ", $%i" % i
+                positional_args = positional_args + ", %s"
             i += 1
         query = "SELECT %s(%s)" % (self.name, positional_args)
 
@@ -134,7 +88,7 @@ class Procedure(sql_base.Procedure):
                 new_args.append(arg)
 
         # TODO: pgsql.Cursor returned here, what to do with it?
-        results = self.cursor.execute(query, *new_args)
+        results = self.cursor.execute(query, new_args)
 
         return None
 
@@ -241,8 +195,7 @@ class Cursor(sql_base.Cursor):
         temp_sql = ""
         if self.sql is not None:
             temp_sql = self.sql
-        (self.sql, self.param_indicies, self.param_count) = \
-                convert_named_query_params(temp_sql)
+        self.sql = convert_named_query_params(temp_sql)
 
     def _prepare_sql(self):
         cursor = self.dbh.cursor()
@@ -274,34 +227,10 @@ class Cursor(sql_base.Cursor):
         """
         PostgreSQL specific execution of the query.
         """
-        positional_args = self._get_positional_args(kwargs)
-
-        self._real_cursor.execute(self.sql, positional_args)
+        params = UserDictCase(kwargs)
+        self._real_cursor.execute(self.sql, params)
         self.description = self._real_cursor.description
         return self._real_cursor.rowcount
-
-    def _get_positional_args(self, kwargs):
-        """
-        Return a list of positional args based on the incoming keyword args.
-        (and the information we gathered when preparing the query)
-        """
-        params = UserDictCase(kwargs)
-        #    TODO: is this needed? params[k] = adjust_type(_p[k])
-
-        # Assemble position list of arguments for python-pgsql:
-        positional_args = []
-        for i in range(self.param_count):
-            positional_args.append(None)
-
-        for key in self.param_indicies.keys():
-            if not params.has_key(key):
-                raise sql_base.SQLError(1008, 'Not all variables bound', key)
-
-            positions_used = self.param_indicies[key]
-            for p in positions_used:
-                positional_args[p - 1] = params[key]
-
-        return positional_args
 
     def _executemany(self, *args, **kwargs):
         if not kwargs:
@@ -322,13 +251,7 @@ class Cursor(sql_base.Cursor):
                 all_kwargs[i][key] = val
                 i = i + 1
 
-        # Assemble final array of all params for each execution of the query:
-        final_args = []
-        for params in all_kwargs:
-            positional_args = self._get_positional_args(params)
-            final_args.append(positional_args)
-
-        self._real_cursor.executemany(self.sql, final_args)
+        self._real_cursor.executemany(self.sql, all_kwargs)
         self.description = self._real_cursor.description
         rowcount = self._real_cursor.rowcount
         return rowcount
