@@ -7,38 +7,39 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:29+0200\n"
+"POT-Creation-Date: 2010-08-10 11:48+0200\n"
 "PO-Revision-Date: 2010-06-15 08:04\n"
+"Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"Last-Translator: Yulia <ypoyarko@redhat.com>\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../server/rhnSQL/sql_lib.py:81 ../server/handlers/xmlrpc/up2date.py:540
+#: ../server/rhnSQL/sql_lib.py:80 ../server/handlers/xmlrpc/up2date.py:540
 #, python-format
 msgid "Invalid value for %s in package tuple: %s (%s)"
 msgstr ""
 
-#: ../server/rhnSQL/sql_lib.py:93 ../server/handlers/xmlrpc/up2date.py:552
+#: ../server/rhnSQL/sql_lib.py:92 ../server/handlers/xmlrpc/up2date.py:552
 #, python-format
 msgid "Invalid package parameter %s (%s)"
 msgstr ""
 
-#: ../server/rhnPackage.py:41 ../server/rhnPackage.py:76
-#: ../server/rhnPackage.py:90 ../server/rhnPackage.py:159
-#: ../server/rhnPackage.py:163 ../server/rhnPackage.py:192
-#: ../server/rhnPackage.py:197 ../server/rhnPackage.py:285
-#: ../server/rhnPackage.py:351
+#: ../server/rhnPackage.py:42 ../server/rhnPackage.py:77
+#: ../server/rhnPackage.py:91 ../server/rhnPackage.py:160
+#: ../server/rhnPackage.py:164 ../server/rhnPackage.py:193
+#: ../server/rhnPackage.py:198 ../server/rhnPackage.py:286
+#: ../server/rhnPackage.py:352
 #, python-format
 msgid "Invalid RPM package %s requested"
 msgstr ""
 
-#: ../server/rhnPackage.py:95 ../server/rhnPackage.py:169
-#: ../server/rhnPackage.py:203 ../server/rhnPackage.py:291
-#: ../server/rhnPackage.py:357
+#: ../server/rhnPackage.py:96 ../server/rhnPackage.py:170
+#: ../server/rhnPackage.py:204 ../server/rhnPackage.py:292
+#: ../server/rhnPackage.py:358
 msgid "Package not found"
 msgstr "Пакет не найден"
 
@@ -82,11 +83,6 @@ msgstr ""
 msgid "Invalid URI %s"
 msgstr "Недопустимый URI %s"
 
-#. ignore ORA-20277: (product_no_service)
-#: ../server/rhnServer/server_lib.py:66
-msgid "Attempt to register a system failed"
-msgstr "Не удалось зарегистрировать систему"
-
 #: ../server/rhnServer/server_token.py:84
 #, python-format
 msgid "Token `%s' has more than one base channel assigned"
@@ -107,7 +103,8 @@ msgid "Maximum usage count of %s reached"
 msgstr ""
 
 #: ../server/rhnServer/server_token.py:648
-msgid "Registration failed: RHN Software Management service entitlements exhausted"
+msgid ""
+"Registration failed: RHN Software Management service entitlements exhausted"
 msgstr "Ошибка регистрации: недостаточно полномочий управления RHN"
 
 #: ../server/rhnServer/server_token.py:762
@@ -140,80 +137,80 @@ msgstr ""
 msgid "Architecture `%s' is not supported"
 msgstr "Архитектура «%s» не поддерживается"
 
-#: ../server/rhnUser.py:382 ../server/rhnUser.py:385
+#: ../server/rhnUser.py:381 ../server/rhnUser.py:384
 msgid "Invalid username/password combination"
 msgstr "Неверная комбинация имени и пароля"
 
 #. nope, not reserved either
-#: ../server/rhnUser.py:543
+#: ../server/rhnUser.py:542
 #, python-format
 msgid "Username `%s' has not been reserved"
 msgstr ""
 
 #. New accounts have to specify an e-mail address
-#: ../server/rhnUser.py:549
+#: ../server/rhnUser.py:548
 msgid "E-mail address not specified"
 msgstr "Не указан электронный адрес"
 
 #. wrong organization
 #. Invalid org password
-#: ../server/rhnUser.py:604 ../server/rhnUser.py:608
+#: ../server/rhnUser.py:603 ../server/rhnUser.py:607
 msgid "Invalid Organization Credentials"
 msgstr ""
 
-#: ../server/rhnUser.py:614
+#: ../server/rhnUser.py:613
 #, python-format
 msgid "User `%s' not a member of organization %s"
 msgstr "Пользователь «%s» не входит в состав организации %s"
 
-#: ../server/rhnUser.py:642
+#: ../server/rhnUser.py:641
 #, python-format
 msgid "username should be at least %d characters"
 msgstr "имя пользователя должно содержать не меньше %d символов"
 
-#: ../server/rhnUser.py:645
+#: ../server/rhnUser.py:644
 #, python-format
 msgid "username should be less than %d characters"
 msgstr "имя пользователя должно содержать не больше %d символов"
 
-#: ../server/rhnUser.py:656
+#: ../server/rhnUser.py:655
 #, python-format
 msgid "username = `%s', invalid character `%s'"
 msgstr "имя пользователя &mdash; «%s», недопустимый символ &mdash; «%s»"
 
-#: ../server/rhnUser.py:674
+#: ../server/rhnUser.py:673
 #, python-format
 msgid "Please limit your e-mail address to %s chars"
 msgstr ""
 
-#: ../server/rhnUser.py:693
+#: ../server/rhnUser.py:692
 #, python-format
 msgid ""
 "A user with the supplied e-mail address (%s)\n"
 "    is already registered with Red Hat Network"
 msgstr ""
 
-#: ../server/rhnUser.py:762
+#: ../server/rhnUser.py:761
 #, python-format
 msgid "password must be at least %d characters"
 msgstr "пароль должен содержать не меньше %d символов"
 
-#: ../server/rhnUser.py:765
+#: ../server/rhnUser.py:764
 #, python-format
 msgid "Password must be shorter than %d characters"
 msgstr "пароль должен содержать не больше %d символов"
 
-#: ../server/rhnUser.py:783
+#: ../server/rhnUser.py:782
 #, python-format
 msgid "password contains character `%s'"
 msgstr "пароль содержит символ «%s»"
 
-#: ../server/rhnUser.py:790
+#: ../server/rhnUser.py:789
 #, python-format
 msgid "username should be at least %d characters long"
 msgstr "имя пользователя должно содержать не меньше %d символов"
 
-#: ../server/rhnUser.py:801
+#: ../server/rhnUser.py:800
 #, python-format
 msgid "Cannot register usernames ending with %s"
 msgstr "Не удалось зарегистрировать имена, заканчивающиеся на %s"
@@ -338,19 +335,19 @@ msgstr ""
 msgid "This server ID no longer exists"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:169
+#: ../server/handlers/xmlrpc/registration.py:206
 msgid "Required data missing"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:173
+#: ../server/handlers/xmlrpc/registration.py:210
 msgid "Required members missing"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:182
+#: ../server/handlers/xmlrpc/registration.py:219
 msgid "Attempt to register a system to an invalid username"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:190
+#: ../server/handlers/xmlrpc/registration.py:227
 #, python-format
 msgid ""
 "\n"
@@ -358,34 +355,34 @@ msgid ""
 "                   Please contact your Org administrator for more help."
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:854
+#: ../server/handlers/xmlrpc/registration.py:887
 msgid "Invalid system release version requested"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:1042
+#: ../server/handlers/xmlrpc/registration.py:1075
 msgid "Red Hat Network Welcome Message"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:1052
+#: ../server/handlers/xmlrpc/registration.py:1085
 msgid "Red Hat Network Privacy Statement"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:1073
+#: ../server/handlers/xmlrpc/registration.py:1106
 msgid "Expected a dictionary as a product argument"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:1105
-#: ../server/handlers/xmlrpc/registration.py:1163
+#: ../server/handlers/xmlrpc/registration.py:1138
+#: ../server/handlers/xmlrpc/registration.py:1196
 #, python-format
 msgid "Not a valid Country: %s"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:1386
+#: ../server/handlers/xmlrpc/registration.py:1419
 #, python-format
 msgid "Insufficient subscription permissions for release, arch (%s, %s)"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:1403
+#: ../server/handlers/xmlrpc/registration.py:1436
 #, python-format
 msgid "Invalid value '%s' for %s (%s)"
 msgstr ""
@@ -400,12 +397,12 @@ msgstr ""
 msgid "Expected a package, not: %s"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/queue.py:353
+#: ../server/handlers/xmlrpc/queue.py:401
 #, python-format
 msgid "Invalid action value type %s (%s)"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/queue.py:378
+#: ../server/handlers/xmlrpc/queue.py:426
 #, python-format
 msgid "Action %s does not belong to server %s"
 msgstr ""
@@ -427,22 +424,23 @@ msgstr ""
 msgid "Invalid value %s (%s)"
 msgstr ""
 
-#: ../server/importlib/userAuth.py:90 ../server/importlib/userAuth.py:94
+#: ../server/importlib/userAuth.py:89 ../server/importlib/userAuth.py:93
 msgid "You are not authorized to manage packages in the null org"
 msgstr ""
 
-#: ../server/importlib/userAuth.py:101
+#: ../server/importlib/userAuth.py:100
 #, python-format
 msgid "You are not allowed to manage packages in the %s org"
 msgstr ""
 
-#: ../server/importlib/userAuth.py:119
+#: ../server/importlib/userAuth.py:118
 msgid "You are not allowed to perform administrative tasks"
 msgstr ""
 
-#: ../server/importlib/userAuth.py:146
+#: ../server/importlib/userAuth.py:145
 #, python-format
-msgid "You are not allowed to manage channel %s, or that channel does not exist"
+msgid ""
+"You are not allowed to manage channel %s, or that channel does not exist"
 msgstr ""
 
 #: ../common/rhnException.py:43
@@ -821,7 +819,8 @@ msgid "Unable to entitle system"
 msgstr ""
 
 #: ../common/rhnException.py:201
-msgid "Registration token unable to entitle system: maximum membership exceeded"
+msgid ""
+"Registration token unable to entitle system: maximum membership exceeded"
 msgstr ""
 
 #. 100-109: e-mail and uuid related faults
@@ -1144,28 +1143,36 @@ msgstr ""
 msgid "Full path of file must be specified"
 msgstr "Необходимо указать абсолютный путь к файлу"
 
+#: ../common/rhnException.py:325
+msgid "Invalid revision number"
+msgstr ""
+
+#: ../common/rhnException.py:326
+msgid "Cannot compare files of different file type"
+msgstr ""
+
 #. 5000 - 5099: entitlement mapper errors
-#: ../common/rhnException.py:327
+#: ../common/rhnException.py:329
 msgid "The speicified item is not present in the input"
 msgstr ""
 
-#: ../common/rhnException.py:328
+#: ../common/rhnException.py:330
 msgid "Invalid item code"
 msgstr ""
 
-#: ../common/rhnException.py:329
+#: ../common/rhnException.py:331
 msgid "Invalid user role"
 msgstr "Недопустимая роль пользователя"
 
-#: ../common/rhnException.py:330
+#: ../common/rhnException.py:332
 msgid "Invalid server group"
 msgstr "Недопустимая группа серверов"
 
-#: ../common/rhnException.py:331
+#: ../common/rhnException.py:333
 msgid "Invalid channel family"
 msgstr ""
 
-#: ../common/rhnException.py:375
+#: ../common/rhnException.py:377
 msgid ""
 "\n"
 "     An error has occurred while processing your request. If this problem\n"
@@ -1175,7 +1182,7 @@ msgid ""
 "     details on how to reproduce this problem.\n"
 msgstr ""
 
-#: ../common/rhnException.py:429
+#: ../common/rhnException.py:431
 #, python-format
 msgid ""
 "Error Message:\n"
@@ -1184,18 +1191,20 @@ msgstr ""
 "Сообщение:\n"
 "    %s\n"
 
-#: ../common/rhnException.py:431
+#: ../common/rhnException.py:433
 #, python-format
 msgid "Error Class Code: %s\n"
 msgstr ""
 
-#: ../common/rhnException.py:433
+#: ../common/rhnException.py:435
 #, python-format
 msgid "Error Class Info: %s\n"
 msgstr ""
 
-#: ../common/rhnException.py:436
+#: ../common/rhnException.py:438
 #, python-format
 msgid "Explanation: %s"
 msgstr ""
 
+#~ msgid "Attempt to register a system failed"
+#~ msgstr "Не удалось зарегистрировать систему"

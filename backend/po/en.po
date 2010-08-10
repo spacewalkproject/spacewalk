@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RHN 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:29+0200\n"
+"POT-Creation-Date: 2010-08-10 11:48+0200\n"
 "PO-Revision-Date: 2000-08-08 16:51-0400\n"
 "Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
 "Language-Team: English <rhns-i18n@redhat.com>\n"
@@ -14,28 +14,28 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../server/rhnSQL/sql_lib.py:81 ../server/handlers/xmlrpc/up2date.py:540
+#: ../server/rhnSQL/sql_lib.py:80 ../server/handlers/xmlrpc/up2date.py:540
 #, python-format
 msgid "Invalid value for %s in package tuple: %s (%s)"
 msgstr ""
 
-#: ../server/rhnSQL/sql_lib.py:93 ../server/handlers/xmlrpc/up2date.py:552
+#: ../server/rhnSQL/sql_lib.py:92 ../server/handlers/xmlrpc/up2date.py:552
 #, python-format
 msgid "Invalid package parameter %s (%s)"
 msgstr ""
 
-#: ../server/rhnPackage.py:41 ../server/rhnPackage.py:76
-#: ../server/rhnPackage.py:90 ../server/rhnPackage.py:159
-#: ../server/rhnPackage.py:163 ../server/rhnPackage.py:192
-#: ../server/rhnPackage.py:197 ../server/rhnPackage.py:285
-#: ../server/rhnPackage.py:351
+#: ../server/rhnPackage.py:42 ../server/rhnPackage.py:77
+#: ../server/rhnPackage.py:91 ../server/rhnPackage.py:160
+#: ../server/rhnPackage.py:164 ../server/rhnPackage.py:193
+#: ../server/rhnPackage.py:198 ../server/rhnPackage.py:286
+#: ../server/rhnPackage.py:352
 #, fuzzy, python-format
 msgid "Invalid RPM package %s requested"
 msgstr "Invalid system release version requested"
 
-#: ../server/rhnPackage.py:95 ../server/rhnPackage.py:169
-#: ../server/rhnPackage.py:203 ../server/rhnPackage.py:291
-#: ../server/rhnPackage.py:357
+#: ../server/rhnPackage.py:96 ../server/rhnPackage.py:170
+#: ../server/rhnPackage.py:204 ../server/rhnPackage.py:292
+#: ../server/rhnPackage.py:358
 msgid "Package not found"
 msgstr ""
 
@@ -75,11 +75,6 @@ msgstr ""
 #: ../server/apacheRequest.py:556
 #, python-format
 msgid "Invalid URI %s"
-msgstr ""
-
-#. ignore ORA-20277: (product_no_service)
-#: ../server/rhnServer/server_lib.py:66
-msgid "Attempt to register a system failed"
 msgstr ""
 
 #: ../server/rhnServer/server_token.py:84
@@ -136,80 +131,80 @@ msgstr ""
 msgid "Architecture `%s' is not supported"
 msgstr ""
 
-#: ../server/rhnUser.py:382 ../server/rhnUser.py:385
+#: ../server/rhnUser.py:381 ../server/rhnUser.py:384
 msgid "Invalid username/password combination"
 msgstr ""
 
 #. nope, not reserved either
-#: ../server/rhnUser.py:543
+#: ../server/rhnUser.py:542
 #, python-format
 msgid "Username `%s' has not been reserved"
 msgstr ""
 
 #. New accounts have to specify an e-mail address
-#: ../server/rhnUser.py:549
+#: ../server/rhnUser.py:548
 msgid "E-mail address not specified"
 msgstr ""
 
 #. wrong organization
 #. Invalid org password
-#: ../server/rhnUser.py:604 ../server/rhnUser.py:608
+#: ../server/rhnUser.py:603 ../server/rhnUser.py:607
 msgid "Invalid Organization Credentials"
 msgstr ""
 
-#: ../server/rhnUser.py:614
+#: ../server/rhnUser.py:613
 #, python-format
 msgid "User `%s' not a member of organization %s"
 msgstr ""
 
-#: ../server/rhnUser.py:642
+#: ../server/rhnUser.py:641
 #, python-format
 msgid "username should be at least %d characters"
 msgstr ""
 
-#: ../server/rhnUser.py:645
+#: ../server/rhnUser.py:644
 #, python-format
 msgid "username should be less than %d characters"
 msgstr ""
 
-#: ../server/rhnUser.py:656
+#: ../server/rhnUser.py:655
 #, python-format
 msgid "username = `%s', invalid character `%s'"
 msgstr ""
 
-#: ../server/rhnUser.py:674
+#: ../server/rhnUser.py:673
 #, python-format
 msgid "Please limit your e-mail address to %s chars"
 msgstr ""
 
-#: ../server/rhnUser.py:693
+#: ../server/rhnUser.py:692
 #, python-format
 msgid ""
 "A user with the supplied e-mail address (%s)\n"
 "    is already registered with Red Hat Network"
 msgstr ""
 
-#: ../server/rhnUser.py:762
+#: ../server/rhnUser.py:761
 #, python-format
 msgid "password must be at least %d characters"
 msgstr ""
 
-#: ../server/rhnUser.py:765
+#: ../server/rhnUser.py:764
 #, python-format
 msgid "Password must be shorter than %d characters"
 msgstr ""
 
-#: ../server/rhnUser.py:783
+#: ../server/rhnUser.py:782
 #, python-format
 msgid "password contains character `%s'"
 msgstr ""
 
-#: ../server/rhnUser.py:790
+#: ../server/rhnUser.py:789
 #, python-format
 msgid "username should be at least %d characters long"
 msgstr ""
 
-#: ../server/rhnUser.py:801
+#: ../server/rhnUser.py:800
 #, python-format
 msgid "Cannot register usernames ending with %s"
 msgstr ""
@@ -334,19 +329,19 @@ msgstr ""
 msgid "This server ID no longer exists"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:169
+#: ../server/handlers/xmlrpc/registration.py:206
 msgid "Required data missing"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:173
+#: ../server/handlers/xmlrpc/registration.py:210
 msgid "Required members missing"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:182
+#: ../server/handlers/xmlrpc/registration.py:219
 msgid "Attempt to register a system to an invalid username"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:190
+#: ../server/handlers/xmlrpc/registration.py:227
 #, python-format
 msgid ""
 "\n"
@@ -354,11 +349,11 @@ msgid ""
 "                   Please contact your Org administrator for more help."
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:854
+#: ../server/handlers/xmlrpc/registration.py:887
 msgid "Invalid system release version requested"
 msgstr "Invalid system release version requested"
 
-#: ../server/handlers/xmlrpc/registration.py:1042
+#: ../server/handlers/xmlrpc/registration.py:1075
 msgid "Red Hat Network Welcome Message"
 msgstr ""
 "Now for the first time ever, information, updates, and services\n"
@@ -385,7 +380,7 @@ msgstr ""
 "Click on the \"Next\" button to register now, or click \"Cancel\"\n"
 "to banish this program forever."
 
-#: ../server/handlers/xmlrpc/registration.py:1052
+#: ../server/handlers/xmlrpc/registration.py:1085
 msgid "Red Hat Network Privacy Statement"
 msgstr ""
 " We think our customers understand better than anyone else how Red\n"
@@ -600,22 +595,22 @@ msgstr ""
 " If we do make changes, the revised Privacy Statement will be posted\n"
 " on this site."
 
-#: ../server/handlers/xmlrpc/registration.py:1073
+#: ../server/handlers/xmlrpc/registration.py:1106
 msgid "Expected a dictionary as a product argument"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:1105
-#: ../server/handlers/xmlrpc/registration.py:1163
+#: ../server/handlers/xmlrpc/registration.py:1138
+#: ../server/handlers/xmlrpc/registration.py:1196
 #, python-format
 msgid "Not a valid Country: %s"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:1386
+#: ../server/handlers/xmlrpc/registration.py:1419
 #, python-format
 msgid "Insufficient subscription permissions for release, arch (%s, %s)"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/registration.py:1403
+#: ../server/handlers/xmlrpc/registration.py:1436
 #, python-format
 msgid "Invalid value '%s' for %s (%s)"
 msgstr ""
@@ -630,12 +625,12 @@ msgstr ""
 msgid "Expected a package, not: %s"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/queue.py:353
+#: ../server/handlers/xmlrpc/queue.py:401
 #, python-format
 msgid "Invalid action value type %s (%s)"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/queue.py:378
+#: ../server/handlers/xmlrpc/queue.py:426
 #, python-format
 msgid "Action %s does not belong to server %s"
 msgstr ""
@@ -657,20 +652,20 @@ msgstr ""
 msgid "Invalid value %s (%s)"
 msgstr ""
 
-#: ../server/importlib/userAuth.py:90 ../server/importlib/userAuth.py:94
+#: ../server/importlib/userAuth.py:89 ../server/importlib/userAuth.py:93
 msgid "You are not authorized to manage packages in the null org"
 msgstr ""
 
-#: ../server/importlib/userAuth.py:101
+#: ../server/importlib/userAuth.py:100
 #, python-format
 msgid "You are not allowed to manage packages in the %s org"
 msgstr ""
 
-#: ../server/importlib/userAuth.py:119
+#: ../server/importlib/userAuth.py:118
 msgid "You are not allowed to perform administrative tasks"
 msgstr ""
 
-#: ../server/importlib/userAuth.py:146
+#: ../server/importlib/userAuth.py:145
 #, python-format
 msgid ""
 "You are not allowed to manage channel %s, or that channel does not exist"
@@ -1378,29 +1373,38 @@ msgstr ""
 msgid "Full path of file must be specified"
 msgstr ""
 
+#: ../common/rhnException.py:325
+#, fuzzy
+msgid "Invalid revision number"
+msgstr "Invalid system release version requested"
+
+#: ../common/rhnException.py:326
+msgid "Cannot compare files of different file type"
+msgstr ""
+
 #. 5000 - 5099: entitlement mapper errors
-#: ../common/rhnException.py:327
+#: ../common/rhnException.py:329
 msgid "The speicified item is not present in the input"
 msgstr ""
 
-#: ../common/rhnException.py:328
+#: ../common/rhnException.py:330
 #, fuzzy
 msgid "Invalid item code"
 msgstr "Invalid system release version requested"
 
-#: ../common/rhnException.py:329
+#: ../common/rhnException.py:331
 msgid "Invalid user role"
 msgstr ""
 
-#: ../common/rhnException.py:330
+#: ../common/rhnException.py:332
 msgid "Invalid server group"
 msgstr ""
 
-#: ../common/rhnException.py:331
+#: ../common/rhnException.py:333
 msgid "Invalid channel family"
 msgstr ""
 
-#: ../common/rhnException.py:375
+#: ../common/rhnException.py:377
 msgid ""
 "\n"
 "     An error has occurred while processing your request. If this problem\n"
@@ -1410,28 +1414,24 @@ msgid ""
 "     details on how to reproduce this problem.\n"
 msgstr ""
 
-#: ../common/rhnException.py:429
+#: ../common/rhnException.py:431
 #, python-format
 msgid ""
 "Error Message:\n"
 "    %s\n"
 msgstr ""
 
-#: ../common/rhnException.py:431
+#: ../common/rhnException.py:433
 #, python-format
 msgid "Error Class Code: %s\n"
 msgstr ""
 
-#: ../common/rhnException.py:433
+#: ../common/rhnException.py:435
 #, python-format
 msgid "Error Class Info: %s\n"
 msgstr ""
 
-#: ../common/rhnException.py:436
+#: ../common/rhnException.py:438
 #, python-format
 msgid "Explanation: %s"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Invalid system registration token"
-#~ msgstr "Invalid system release version requested"
