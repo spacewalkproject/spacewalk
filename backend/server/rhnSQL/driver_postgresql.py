@@ -158,8 +158,11 @@ class Database(sql_base.Database):
             s = hashlib.new('sha1')
             s.update(sql)
             sha1 = s.hexdigest()
-            c = self.prepare("create function rhn_asdf_%s (%s) returns void as $%s$%s$%s$ language plpgsql" % ( sha1, ','.join(params), sha1, sql, sha1 ))
-            c.execute()
+            c = self.prepare("select 1 from information_schema.routines where routine_name = 'rhn_asdf_' || :sha1");
+            c.execute(sha1=sha1)
+            if not c.fetchone():
+                c = self.prepare("create function rhn_asdf_%s (%s) returns void as $%s$%s$%s$ language plpgsql" % ( sha1, ','.join(params), sha1, sql, sha1 ))
+                c.execute()
             sql = "select rhn_asdf_%s()" % sha1
         return Cursor(dbh=self.dbh, sql=sql, force=force)
 
