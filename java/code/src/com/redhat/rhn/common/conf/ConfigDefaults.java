@@ -161,6 +161,7 @@ public class ConfigDefaults {
     public static final String DB_NAME = "db_name";
     public static final String DB_HOST = "db_host";
     public static final String DB_PORT = "db_port";
+    public static final String DB_PROTO = "hibernate.connection.driver_proto";
 
     public static final String LOOKUP_EXCEPT_SEND_EMAIL = "lookup_exception_email";
 

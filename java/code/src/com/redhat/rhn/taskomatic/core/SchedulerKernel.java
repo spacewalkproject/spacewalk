@@ -60,11 +60,10 @@ public class SchedulerKernel {
      */
     public SchedulerKernel() throws InstantiationException, UnknownHostException {
         Properties props = Config.get().getNamespaceProperties("org.quartz");
-        String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
-        String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
         String dbName = Config.get().getString(ConfigDefaults.DB_NAME);
         String dbUser = Config.get().getString(ConfigDefaults.DB_USER);
         String dbPass = Config.get().getString(ConfigDefaults.DB_PASSWORD);
+        String dbProto = Config.get().getString(ConfigDefaults.DB_PROTO);
         props.setProperty(dataSourceConfigPath, defaultDataSource);
         String ds = dataSourcePrefix + "." + defaultDataSource;
         props.setProperty(ds + ".user", dbUser);
@@ -75,8 +74,15 @@ public class SchedulerKernel {
             props.setProperty("org.quartz.jobStore.driverDelegateClass",
                     "org.quartz.impl.jdbcjobstore.oracle.OracleDelegate");
             props.setProperty(ds + ".driver", "oracle.jdbc.driver.OracleDriver");
-            props.setProperty(ds + ".URL", "jdbc:oracle:thin:@" +
-                    dbHost + ":" + dbPort + ":" + dbName);
+
+            String dbUrl = dbProto + ":@";
+            if (dbProto.contains("thin")) {
+                String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
+                String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
+                dbUrl += dbHost + ":" + dbPort + ":";
+            }
+            dbUrl += dbName;
+            props.setProperty(ds + ".URL", dbUrl);
         }
 
         try {
