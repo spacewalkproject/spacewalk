@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -166,6 +166,12 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Wed Aug 11 2010 Jan Pazdziora 1.2.1-1
+- The dependency of python-psycopg2 (which replaced python-pgsql) is in
+  spacewalk-backend-sql-postgresql, no need to have it in spacewalk-postgresql
+  directly.
+- bumping package versions for 1.2 (mzazrivec@redhat.com)
+
 * Fri Jul 23 2010 Jan Pazdziora 1.1.6-1
 - To populate the database, we need psql.
 
