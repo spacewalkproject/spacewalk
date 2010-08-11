@@ -68,10 +68,13 @@ CATALOGS = $(GMOFILES)
 	  && rm -f $$file && $(GMSGFMT) --statistics -o $$file $<
 
 
-all: all-yes
+all: all-yes desktop
 
 all-yes: $(CATALOGS)
 all-no:
+
+desktop:
+	intltool-merge -d . ../rhn_register.desktop.in ../rhn_register.desktop
 
 # Note: Target 'all' must not depend on target '$(srcdir)/$(PACKAGE).pot',
 # otherwise packages like GCC can not be built if only parts of the source
@@ -168,8 +171,6 @@ update-po: Makefile POTFILES.in $(PACKAGE).pot
 	  fi; \
 	done
 	$(MAKE) update-gmo
-	cd $(top_srcdir) \
-	intltool-merge -d po rhn_register.desktop.in rhn_register.desktop
 
 update-gmo: Makefile $(GMOFILES)
 	@:
