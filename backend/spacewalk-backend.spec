@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.1
+Version: 1.2.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,18 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Aug 11 2010 Jan Pazdziora 1.2.2-1
+- Check if the function used for the anonymous block already exists -- do not
+  attempt to create it again.
+- Quote percent char to avoid it from being considered as a placeholder by
+  psycopg2.
+- With PostgreSQL, the lob value that we get is already a read-only buffer;
+  let's stringify it.
+- Change the syntax in backend to match python-psycopg2.
+- If host is none (we are using the Unix domain socket), we should not pass the
+  host parameter at all.
+- Replace pgsql by psycopg2 which should give us live upstream again.
+
 * Wed Aug 11 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.1-1
 - 614345 - fixed ISS server component name
 - 591050 - add meta information to dump
