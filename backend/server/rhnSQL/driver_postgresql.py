@@ -46,7 +46,7 @@ def convert_named_query_params(query):
         - number of arguments found and replaced
     """
     log_debug(3, "Converting query for PostgreSQL: %s" % query)
-    new_query = re.sub(r'(\W):(\w+)', r'\1%(\2)s', query)
+    new_query = re.sub(r'(\W):(\w+)', r'\1%(\2)s', query.replace('%', '%%'))
     log_debug(3, "New query: %s" % new_query)
     return new_query
 
