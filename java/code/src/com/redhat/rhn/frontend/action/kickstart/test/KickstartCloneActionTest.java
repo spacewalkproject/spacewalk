@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.kickstart.test;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.frontend.action.kickstart.BaseKickstartEditAction;
-import com.redhat.rhn.frontend.struts.FormActionContstants;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -34,7 +33,7 @@ public class KickstartCloneActionTest extends BaseKickstartEditTestCase {
 
     public void testExecuteSubmit() throws Exception {
         addRequestParameter(BaseKickstartEditAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(FormActionContstants.LABEL,
+        addRequestParameter(RequestContext.LABEL,
                 "KickstartCloneActionTestLabel" + TestUtils.randomString());
         setRequestPathInfo("/kickstart/KickstartClone");
         actionPerform();

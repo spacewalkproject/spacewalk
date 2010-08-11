@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.struts.FormActionContstants;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
@@ -47,6 +46,7 @@ import javax.servlet.http.HttpServletResponse;
 public class KickstartCloneAction extends RhnAction {
 
     /** {@inheritDoc} */
+    @Override
     public final ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
@@ -58,7 +58,7 @@ public class KickstartCloneAction extends RhnAction {
 
         KickstartCloneCommand cmd =
             new KickstartCloneCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
-                ctx.getCurrentUser(), form.getString(FormActionContstants.LABEL));
+                ctx.getCurrentUser(), form.getString(RequestContext.LABEL));
 
         request.setAttribute(RequestContext.KICKSTART, cmd.getKickstartData());
 
@@ -100,7 +100,7 @@ public class KickstartCloneAction extends RhnAction {
             }
         }
 
-        form.set(FormActionContstants.LABEL, cmd.getNewLabel());
+        form.set(RequestContext.LABEL, cmd.getNewLabel());
         return mapping.findForward("default");
     }
 
