@@ -28,6 +28,7 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.Scrubber;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import java.util.List;
@@ -88,6 +89,7 @@ public class ActivationKey extends BaseDomainHelper {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toString() {
         return this.key;
     }
@@ -426,5 +428,16 @@ public class ActivationKey extends BaseDomainHelper {
      */
     public static String makePrefix(Org org) {
         return org.getId() + "-";
+    }
+
+    /**
+     * Helper method to return a santized activation key name
+     * @param org the org information to make the prefix
+     * @param key the activation key to be sanitized
+     * @return the sanitized + formatted key
+     */
+    public static String sanitize(Org org,  String key) {
+        return makePrefix(org) +
+                    Scrubber.scrub(key.trim().replace(" ", ""));
     }
 }

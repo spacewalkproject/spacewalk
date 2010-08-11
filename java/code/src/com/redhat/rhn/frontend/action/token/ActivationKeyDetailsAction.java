@@ -79,6 +79,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
 
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
@@ -218,7 +219,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
         if (StringUtils.isBlank(newKey)) {
             newKey = ActivationKeyFactory.generateKey();
         }
-        newKey = ActivationKey.makePrefix(key.getOrg()) + newKey;
+        newKey = ActivationKey.sanitize(key.getOrg(), newKey);
         String enteredKey = form.getString(KEY);
         if (!enteredKey.equals(key.getKey()) && !newKey.equals(key.getKey())) {
             manager.changeKey(newKey, key, user);
@@ -255,7 +256,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
         for (ServerGroupType type : key.getEntitlements()) {
             entitlements.add(type.getLabel());
         }
-        form.set(SELECTED_ENTS, (String[]) entitlements.toArray(new String[0]));
+        form.set(SELECTED_ENTS, entitlements.toArray(new String[0]));
 
         if (key.getEntitlements().contains(ServerConstants.
                         getServerGroupTypeProvisioningEntitled())) {

@@ -38,6 +38,7 @@ import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.Scrubber;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.MultipleChannelsWithPackageException;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -214,7 +215,7 @@ public class ActivationKeyManager {
             Channel baseChannel) {
 
         if (description != null) {
-            target.setNote(description);
+            target.setNote((String)Scrubber.scrub(description));
         }
 
         target.setBaseChannel(baseChannel);
@@ -428,7 +429,6 @@ public class ActivationKeyManager {
      * @param user TODO
      */
     public void changeKey(String newKey, ActivationKey key, User user) {
-        newKey = newKey.trim().replace(" ", "");
         String oldKey = key.getKey();
         if (!newKey.equals(key.getKey())) {
             ActivationKeyFactory.validateKeyName(newKey);

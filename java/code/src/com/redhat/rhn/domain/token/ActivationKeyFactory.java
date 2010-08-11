@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.Scrubber;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -89,6 +90,8 @@ public class ActivationKeyFactory extends HibernateFactory {
         return createNewKey(user, null, "", note, new Long(0), null, false);
     }
 
+
+
     /**
      * Creates and fills out a new Activation Key (Including generating a key/token).
      * Sets deployConfigs to false, disabled to 0, and usage limit to null.
@@ -117,8 +120,7 @@ public class ActivationKeyFactory extends HibernateFactory {
             validateKeyName(key.trim().replace(" ", ""));
         }
 
-        keyToUse = ActivationKey.makePrefix(user.getOrg()) +
-                                            keyToUse.trim().replace(" ", "");
+        keyToUse = ActivationKey.sanitize(user.getOrg(), keyToUse);
 
         if (server != null) {
             keyToUse = "re-" + keyToUse;
@@ -132,7 +134,7 @@ public class ActivationKeyFactory extends HibernateFactory {
         if (StringUtils.isBlank(note)) {
             note = DEFAULT_DESCRIPTION;
         }
-        newKey.setNote(note);
+        newKey.setNote((String)Scrubber.scrub(note));
         newKey.getToken().setDeployConfigs(false); // Don't deploy configs by default
         newKey.setDisabled(new Long(0)); // Enable by default
         newKey.setUsageLimit(usageLimit);
@@ -213,6 +215,7 @@ public class ActivationKeyFactory extends HibernateFactory {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected Logger getLogger() {
         return log;
     }

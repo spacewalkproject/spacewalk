@@ -16,11 +16,9 @@ package com.redhat.rhn.frontend.struts;
 
 import org.apache.struts.action.DynaActionForm;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A DynaActionForm which knows how to scrub its input for malicious content.
@@ -46,7 +44,7 @@ public class ScrubbingDynaActionForm extends DynaActionForm {
             String name = (String) iter.next();
             Object value = dynaValues.get(name);
             if (isScrubbable(name, value)) {
-                value = scrub(value);
+                value = Scrubber.scrub(value);
                 if (value == null) {
                     dynaValues.remove(name);
                 }
@@ -58,71 +56,7 @@ public class ScrubbingDynaActionForm extends DynaActionForm {
     }
 
     protected boolean isScrubbable(String name, Object value) {
-        boolean retval = false;
-        if (value != null &&
-                (value instanceof String ||
-                 value instanceof Collection ||
-                 value.getClass().isArray())) {
-            retval = true;
-        }
-        return retval;
+        return Scrubber.canScrub(value);
     }
 
-    protected Object scrub(Object value) {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof String) {
-            return scrubString((String) value);
-        }
-        else if (value instanceof Map) {
-            return scrubMap((Map) value);
-        }
-        else if (value instanceof List) {
-            return scrubList((List) value);
-        }
-        else if (value.getClass().isArray()) {
-            return scrubArray((Object[]) value);
-        }
-        else {
-            return value;
-        }
-    }
-
-    protected Object scrubList(List value) {
-        List retval = new LinkedList();
-        for (Iterator iter = value.iterator(); iter.hasNext();) {
-            retval.add(scrub(iter.next()));
-        }
-        return retval;
-    }
-
-    protected Object scrubMap(Map value) {
-        if (value == null || value.size() == 0) {
-            return value;
-        }
-        for (Iterator iter = value.keySet().iterator(); iter.hasNext();) {
-            Object k = iter.next();
-            Object v = scrub(value.get(k));
-            value.put(k, v);
-        }
-        return value;
-    }
-
-    protected Object scrubArray(Object[] value) {
-        Object[] v = (Object[]) value;
-        if (v.length > 0) {
-            for (int x = 0; x < v.length; x++) {
-                v[x] = scrub(v[x]);
-            }
-        }
-        return value;
-    }
-
-    protected Object scrubString(String value) {
-        for (int x = 0; x < PROHIBITED_INPUT.length; x++) {
-            value = value.replaceAll(PROHIBITED_INPUT[x], "");
-        }
-        return value;
-    }
 }
