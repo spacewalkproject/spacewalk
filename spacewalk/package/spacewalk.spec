@@ -123,7 +123,6 @@ Conflicts: spacewalk-oracle
 
 Requires: spacewalk-java-postgresql
 Requires: perl(DBD::Pg)
-Requires: python-pgsql
 Requires: spacewalk-backend-sql-postgresql
 Requires: /usr/bin/psql
 
