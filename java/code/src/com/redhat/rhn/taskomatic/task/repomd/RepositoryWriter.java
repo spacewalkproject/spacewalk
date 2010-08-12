@@ -101,7 +101,9 @@ public class RepositoryWriter {
         String prefix = mountPoint + File.separator + pathPrefix +
         File.separator + channel.getLabel() + File.separator;
 
-        HibernateFactory.getSession().refresh(channel);
+        // we closed the session, so we need to reload the object
+        channel = (Channel) HibernateFactory.getSession().get(channel.getClass(),
+                channel.getId());
         if (channel.getChannelArch().getArchType().getLabel().equalsIgnoreCase("deb")) {
             log.info("Generating new DEB repository for channel " + channel.getLabel());
             generateDebRepository(channel, prefix);
