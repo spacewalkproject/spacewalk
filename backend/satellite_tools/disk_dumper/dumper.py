@@ -863,8 +863,12 @@ class _ChannelsDumper(exportLib._ChannelDumper):
           from rhnPackage rp, rhnChannelPackage rcp
          where rcp.channel_id = :channel_id
          and rcp.package_id = rp.id
-         and rp.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-         and rp.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+         and (rcp.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+              or rp.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+	     )
+         and (rcp.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+              or rp.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+	     )
      """)
 
     # Things that can be overwriten in subclasses
@@ -886,8 +890,12 @@ class _ChannelsDumper(exportLib._ChannelDumper):
           from rhnChannelErrata ce, rhnErrata e
          where ce.channel_id = :channel_id
            and ce.errata_id = e.id
-           and e.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-           and e.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+           and (ce.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+                or e.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+	       )
+           and (ce.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+                or e.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+	       )
     """)
 
     def _get_errata_ids(self):
@@ -907,8 +915,10 @@ class _ChannelsDumper(exportLib._ChannelDumper):
         select kt.label
           from rhnKickstartableTree kt
          where  kt.channel_id = :channel_id
-           and  kt.last_modified >= TO_DATE(:lower_limit, 'YYYYMMDDHH24MISS')
-           and  kt.last_modified <= TO_DATE(:upper_limit, 'YYYYMMDDHH24MISS')
+           and  (kt.last_modified >= TO_DATE(:lower_limit, 'YYYYMMDDHH24MISS')
+                 or kt.modified >= TO_DATE(:lower_limit, 'YYYYMMDDHH24MISS'))
+           and  (kt.last_modified <= TO_DATE(:upper_limit, 'YYYYMMDDHH24MISS')
+                 or kt.modified <= TO_DATE(:upper_limit, 'YYYYMMDDHH24MISS'))
            and  kt.org_id is null
     """)
 
