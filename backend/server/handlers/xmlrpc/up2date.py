@@ -425,12 +425,12 @@ class Up2date(rhnHandler):
 
     # --- PRIVATE METHODS ---
 
-    def __solveDep(self, system_id, deps, action, clientVersion):
+    def __solveDep_prepare(self, system_id, deps, action, clientVersion):
         """ Response for clients:
                 version 1: list
                 version 2: hash
         """
-        log_debug(5, system_id, deps, action, clientVersion)
+        log_debug(7, system_id, deps, action, clientVersion)
         faultString = _("Invalid value %s (%s)")
         if type(deps) not in (ListType, TupleType):
             log_error("Invalid argument type", type(deps))
@@ -447,13 +447,22 @@ class Up2date(rhnHandler):
         # Authenticate the system certificate
         server = self.auth_system(system_id)
         log_debug(1, self.server_id, action, "items: %d" % len(deps))
-        # Solve dependencies
-        result = rhnDependency.solve_dependencies(self.server_id,
-                                                  deps, clientVersion)
-
         # Stuff the action in the headers:
         transport = rhnFlags.get('outputTransportOptions')
         transport['X-RHN-Action'] = action
+        return deps
+
+    def __solveDep(self, system_id, deps, action, clientVersion):
+        """ Response for clients:
+                version 1: list
+                version 2: hash
+        """
+        log_debug(5, system_id, deps, action, clientVersion)
+        result = self.__solveDep_prepare(system_id, deps, action, clientVersion)
+        if result:
+           # Solve dependencies
+           result = rhnDependency.solve_dependencies(self.server_id,
+                                                  result, clientVersion)
         return result
 
     def __solveDep_arch(self, system_id, deps, action, clientVersion):
@@ -462,29 +471,11 @@ class Up2date(rhnHandler):
                 version 2: hash
         """
         log_debug(5, system_id, deps, action, clientVersion)
-        faultString = _("Invalid value %s (%s)")
-        if type(deps) not in (ListType, TupleType):
-            log_error("Invalid argument type", type(deps))
-            raise rhnFault(30, faultString % (deps, type(deps)))
-        for dep in deps:
-            if type(dep) is not StringType:
-                log_error("Invalid dependency member", type(dep))
-                raise rhnFault(30, faultString % (dep, type(dep)))
-        # Ignore empty strings
-        deps = filter(len, deps)
-        # anything left to do?
-        if not deps:
-            return []
-        # Authenticate the system certificate
-        server = self.auth_system(system_id)
-        log_debug(1, self.server_id, action, "items: %d" % len(deps))
-        # Solve dependencies
-        result = rhnDependency.solve_dependencies_arch(self.server_id,
-                                                  deps, clientVersion)
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = action
+        result = self.__solveDep_prepare(system_id, deps, action, clientVersion)
+        if result:
+            # Solve dependencies
+            result = rhnDependency.solve_dependencies_arch(self.server_id,
+                                                  result, clientVersion)
         return result
 
 
@@ -494,29 +485,11 @@ class Up2date(rhnHandler):
                 version 2: hash
         """
         log_debug(5, system_id, deps, action, clientVersion)
-        faultString = _("Invalid value %s (%s)")
-        if type(deps) not in (ListType, TupleType):
-            log_error("Invalid argument type", type(deps))
-            raise rhnFault(30, faultString % (deps, type(deps)))
-        for dep in deps:
-            if type(dep) is not StringType:
-                log_error("Invalid dependency member", type(dep))
-                raise rhnFault(30, faultString % (dep, type(dep)))
-        # Ignore empty strings
-        deps = filter(len, deps)
-        # anything left to do?
-        if not deps:
-            return []
-        # Authenticate the system certificate
-        server = self.auth_system(system_id)
-        log_debug(1, self.server_id, action, "items: %d" % len(deps))
-        # Solve dependencies
-        result = rhnDependency.solve_dependencies_with_limits(self.server_id,
+        result = self.__solveDep_prepare(system_id, deps, action, clientVersion)
+        if result:
+            # Solve dependencies
+            result = rhnDependency.solve_dependencies_with_limits(self.server_id,
                                                   deps, clientVersion, all, limit_operator, limit)
-
-        # Stuff the action in the headers:
-        transport = rhnFlags.get('outputTransportOptions')
-        transport['X-RHN-Action'] = action
         return result
 
 def check_package_spec(package):
