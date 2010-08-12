@@ -102,9 +102,11 @@ public class TaskoRun {
 
     private void updateLogPaths() {
         if (!logPresent(stdOutputPath)) {
+            deleteLogFileIfExists(stdOutputPath);
             stdOutputPath = null;
         }
         if (!logPresent(stdErrorPath)) {
+            deleteLogFileIfExists(stdErrorPath);
             stdErrorPath = null;
         }
         TaskoFactory.save(this);
@@ -228,9 +230,7 @@ public class TaskoRun {
     }
 
     private void deleteLogFileIfExists(String fileName) {
-        if (logPresent(fileName)) {
-            new File(fileName).delete();
-        }
+        new File(fileName).delete();
     }
 
     private boolean logPresent(String fileName) {
