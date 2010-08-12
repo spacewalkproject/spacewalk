@@ -512,23 +512,23 @@ class Packages(RPC_Base):
             if pkg_info['epoch'] != '':
                 pkg_epoch = pkg_info['epoch']
            
+            query_args = {
+                'pkg_name':     pkg_info['name'],
+                'pkg_epoch':    pkg_epoch,
+                'pkg_version':  pkg_info['version'],
+                'pkg_rel':      pkg_info['release'],
+                'pkg_arch':     pkg_info['arch'],
+                'orgid ':       org_id,
+                    }
+
             if checksum_exists:
-                h.execute(pkg_name=pkg_info['name'],
-                          pkg_epoch=pkg_epoch,
-                          pkg_version=pkg_info['version'],
-                          pkg_rel=pkg_info['release'],
-                          pkg_arch=pkg_info['arch'],
-                          orgid = org_id,
-                          checksum_type = pkg_info['checksum_type'],
-                          checksum = pkg_info['checksum'])
-            else:
-                h.execute(pkg_name=pkg_info['name'],
-                          pkg_epoch=pkg_epoch,
-                          pkg_version=pkg_info['version'],
-                          pkg_rel=pkg_info['release'],
-                          pkg_arch=pkg_info['arch'],
-                          orgid = org_id )
+                query_args.update({
+                    'checksum_type':    pkg_info['checksum_type'],
+                    'checksum':         pkg_info['checksum'],
+                })
                 
+            h.execute(**query_args)
+
             row = h.fetchone_dict()
             if not row:
 		row_list[pkg] = ''
