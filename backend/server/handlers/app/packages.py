@@ -500,14 +500,6 @@ class Packages(RPC_Base):
         for pkg in pkg_infos.keys():
 
             pkg_info = pkg_infos[pkg] 
-            _checksum_sql_filter = ""
-            if pkg_info.has_key('checksum') and CFG.ENABLE_NVREA:
-                checksum_exists = 1
-                _checksum_sql_filter = """and c.checksum = :checksum
-                                          and c.checksum_type = :checksum_type"""
-            
-            h = rhnSQL.prepare(self._get_pkg_info_query % _checksum_sql_filter)
-
             pkg_epoch = None
             if pkg_info['epoch'] != '':
                 pkg_epoch = pkg_info['epoch']
@@ -521,12 +513,17 @@ class Packages(RPC_Base):
                 'orgid ':       org_id,
                     }
 
-            if checksum_exists:
+            _checksum_sql_filter = ""
+            if pkg_info.has_key('checksum') and CFG.ENABLE_NVREA:
+                _checksum_sql_filter = """and c.checksum = :checksum
+                                          and c.checksum_type = :checksum_type"""
                 query_args.update({
                     'checksum_type':    pkg_info['checksum_type'],
                     'checksum':         pkg_info['checksum'],
                 })
                 
+            h = rhnSQL.prepare(self._get_pkg_info_query % _checksum_sql_filter)
+
             h.execute(**query_args)
 
             row = h.fetchone_dict()
