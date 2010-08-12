@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
+import com.redhat.rhn.frontend.struts.Scrubber;
 import com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm;
 
 import java.util.Iterator;
@@ -40,8 +41,7 @@ public class ChannelNameForm extends ScrubbingDynaActionForm {
             String name = (String) iter.next();
             Object value = dynaValues.get(name);
             if (isScrubbable(name, value)) {
-
-                value = scrub(value);
+                value = Scrubber.scrub(value);
 
                 if (value == null) {
                     dynaValues.remove(name);

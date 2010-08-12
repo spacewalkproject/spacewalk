@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import com.redhat.rhn.frontend.struts.Scrubber;
 import com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm;
 
 import java.util.Iterator;
@@ -43,7 +44,7 @@ public class KickstartPartitionForm extends ScrubbingDynaActionForm {
             Object value = dynaValues.get(name);
             if (isScrubbable(name, value)) {
 
-                value = scrub(value);
+                value = Scrubber.scrub(value);
 
                 if (value == null) {
                     dynaValues.remove(name);

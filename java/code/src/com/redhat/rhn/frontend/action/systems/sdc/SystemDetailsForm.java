@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
+import com.redhat.rhn.frontend.struts.Scrubber;
 import com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -48,7 +49,7 @@ public class SystemDetailsForm extends ScrubbingDynaActionForm {
                      value = scrubSpecialString((String) value);
                 }
                 else {
-                    value = scrub(value);
+                    value = Scrubber.scrub(value);
                 }
                 if (value == null) {
                     dynaValues.remove(name);
