@@ -523,30 +523,30 @@ class Packages(RPC_Base):
                 })
                 
             h = rhnSQL.prepare(self._get_pkg_info_query % _checksum_sql_filter)
+            row_list[pkg] = self._get_package_checksum(h, query_args)
 
-            h.execute(**query_args)
+        return row_list
 
-            row = h.fetchone_dict()
-            if not row:
-		row_list[pkg] = ''
-		continue
-            
-            if row.has_key('path'):    
-                filePath = os.path.join(CFG.MOUNT_POINT, row['path'])
-                if os.access(filePath, os.R_OK):
-                    if row.has_key('checksum'):
-                        row_list[pkg] = (row['checksum_type'], row['checksum'])
-                    else:
-                        row_list[pkg] = 'on-disk'
+    def _get_package_checksum(self, h, query_args):
+        h.execute(**query_args)
+        row = h.fetchone_dict()
+        if not row:
+	    ret = ''
+        elif row.has_key('path'):
+            filePath = os.path.join(CFG.MOUNT_POINT, row['path'])
+            if os.access(filePath, os.R_OK):
+                if row.has_key('checksum'):
+                    ret = (row['checksum_type'], row['checksum'])
                 else:
-                    # Package not found on the filesystem
-                    log_error("Package not found", filePath)
-                    row_list[pkg] = ''
+                    ret = 'on-disk'
             else:
-                log_error("Package path null for package", filePath)
-                row_list[pkg] = ''    
-                    
-        return row_list                
+                # Package not found on the filesystem
+                log_error("Package not found", filePath)
+                ret = ''
+        else:
+            log_error("Package path null for package", filePath)
+            ret = ''
+        return ret
 
     def _MD5sum2Checksum_info(self, info):
         log_debug(5)
@@ -651,29 +651,8 @@ class Packages(RPC_Base):
         h = rhnSQL.prepare(statement)
         row_list = {}
         for pkg in pkg_infos.keys():
-
-            h.execute(name=pkg, orgid = org_id )
-            
-            row = h.fetchone_dict()
-            if not row:
-		row_list[pkg] = ''
-		continue
-            
-            if row.has_key('path'):    
-                filePath = os.path.join(CFG.MOUNT_POINT, row['path'])
-                if os.access(filePath, os.R_OK):
-                    if row.has_key('checksum'):
-                        row_list[pkg] = (row['checksum_type'], row['checksum'])
-                    else:
-                        row_list[pkg] = 'on-disk'
-                else:
-                    # Package not found on the filesystem
-                    log_error("Package not found", filePath)
-                    row_list[pkg] = ''
-            else:
-                log_error("Package path null for package", filePath)
-                row_list[pkg] = ''    
-                    
+            row_list[pkg] = self._get_package_checksum(h,
+                                        {'name':pkg, 'orgid': org_id})
         return row_list
         
 def auth(login, password):
