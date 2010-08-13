@@ -27,6 +27,7 @@ BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
 Requires(pre): httpd
+Requires: httpd
 # we don't really want to require this redhat-release, so we protect
 # against installations on other releases using conflicts...
 Obsoletes: rhns-common < 5.3.0
@@ -42,6 +43,7 @@ This package includes the common code required by all servers/proxies.
 Summary: Core functions providing SQL connectivity for the RHN backend modules
 Group: Applications/Internet
 Requires(pre): %{name} = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
 Obsoletes: rhns-sql < 5.3.0
 Provides: rhns-sql = 1:%{version}-%{release}
 Requires: %{name}-sql-virtual = %{version}-%{release}
@@ -74,6 +76,7 @@ backend modules.
 Summary: Basic code that provides RHN Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
+Requires: %{name}-sql = %{version}-%{release}
 Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = 1:%{version}-%{release}
