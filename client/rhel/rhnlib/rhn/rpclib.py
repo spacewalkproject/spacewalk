@@ -320,7 +320,7 @@ class Server:
             From spec:
             Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]  /* any Unicode character, excluding the surrogate blocks, FFFE, and FFFF. */
         """
-        regexp = r'[\x00-\x09]|[\x0b-\x0c]|[\x0e-\x1f][\ud800-\udfff]|\ufffe|\uffff'
+        regexp = r'[\x00-\x09]|[\x0b-\x0c]|[\x0e-\x1f]'
         result=[]
         for item in args:
             item_type = type(item)
