@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.2
+Version: 1.2.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -685,6 +685,21 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Aug 13 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.3-1
+- 612581 - move all python libraries to standard python path
+  (msuchy@redhat.com)
+- 612581 - for every Requires(pre) add pure Requires (msuchy@redhat.com)
+- 612581 - removing notes (msuchy@redhat.com)
+- 612581 -  use %{__python} macro rather then direct call of python
+  (msuchy@redhat.com)
+- 612581 - use %global instead of %define (msuchy@redhat.com)
+- 612581 - use macro only for F12/RHEL-5 (msuchy@redhat.com)
+- 612581 - use BR python2-devel rather then python-devel (msuchy@redhat.com)
+- 589524 - select packages, erratas and kickstart trees according to import
+  date (michael.mraka@redhat.com)
+- Revert "589524 - select packages, erratas and kickstart trees according to
+  import date" (michael.mraka@redhat.com)
+
 * Wed Aug 11 2010 Jan Pazdziora 1.2.2-1
 - Check if the function used for the anonymous block already exists -- do not
   attempt to create it again.
