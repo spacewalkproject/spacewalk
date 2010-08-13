@@ -2,7 +2,9 @@
 %define rhnconf %{_sysconfdir}/rhn
 %define httpdconf %{rhnconf}/satellite-httpd/conf
 %define apacheconfd %{_sysconfdir}/httpd/conf.d
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%if 0%{?fedora} < 13 && 0%{?rhel} < 6
+%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%endif
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
