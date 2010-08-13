@@ -72,8 +72,8 @@ public abstract class RhnJavaJob implements RhnJob {
      */
     public void execute(JobExecutionContext context, TaskoRun run)
         throws JobExecutionException {
-        enableLogging(run);
         run.start();
+        enableLogging(run);
         HibernateFactory.commitTransaction();
         HibernateFactory.closeSession();
         try {
