@@ -1,0 +1,28 @@
+
+synopsis:
+
+	Channel report
+
+description:
+
+	List of channels in the server with number of packages
+	in each channel.
+
+columns:
+
+	label		Channel label
+	name		Channel name
+	num_of_packages	Number of packages in the channel
+
+multival_columns:
+
+	label
+
+sql:
+
+	select rhnchannel.label, rhnchannel.name, count(rhnchannelpackage.channel_id) num_of_packages
+	from rhnchannel, rhnchannelpackage
+	where rhnchannel.id = rhnchannelpackage.channel_id (+)
+	group by rhnchannel.id, rhnchannel.label, rhnchannel.name
+	order by rhnchannel.label
+
