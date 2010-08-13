@@ -173,7 +173,7 @@ This package contains listener for the Server XML dumper.
 %package libs
 Summary: Spacewalk server and client tools libraries
 Group: Applications/Internet
-BuildRequires: python-devel
+BuildRequires: python2-devel
 Requires: python-hashlib
 
 %description libs
