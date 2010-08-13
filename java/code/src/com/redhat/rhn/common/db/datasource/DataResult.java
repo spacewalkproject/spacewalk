@@ -301,5 +301,16 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
                super.toString() + "}";
     }
 
-
+    /**
+     * override addAll to update also the private attributes
+     * @param c collection to add
+     * @return if data resule was changed
+     */
+    public boolean addAll(Collection c) {
+        boolean changed = super.addAll(c);
+        totalSize += c.size();
+        end += c.size();
+        start = totalSize - end;
+        return changed;
+    }
 }

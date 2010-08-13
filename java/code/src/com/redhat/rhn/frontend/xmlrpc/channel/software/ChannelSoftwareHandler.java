@@ -29,7 +29,6 @@ import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
-import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -1764,8 +1763,24 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new PermissionCheckFailureException();
         }
 
+        Set<Errata> diffErrata = new HashSet(mergeFrom.getErratas());
+
+        // find errata that we do not need to merge
+        List<Errata> same = ErrataManager.listSamePublishedInChannels(
+                loggedInUser, mergeFrom, mergeTo);
+
+        List<Errata> brothers = ErrataManager.listPublishedBrothersInChannels(
+                loggedInUser, mergeFrom, mergeTo);
+
+        List<Errata> clones = ErrataManager.listPublishedClonesInChannels(
+                loggedInUser, mergeFrom, mergeTo);
+        // and remove them
+        diffErrata.removeAll(same);
+        diffErrata.removeAll(brothers);
+        diffErrata.removeAll(clones);
+
         Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, mergeFrom.getErratas(), mergeTo);
+            mergeErrataToChannel(loggedInUser, diffErrata, mergeTo);
 
         return mergedErrata.toArray();
     }
@@ -1809,50 +1824,40 @@ public class ChannelSoftwareHandler extends BaseHandler {
         List<Errata> fromErrata = ErrataFactory.lookupByChannelBetweenDates(
                 loggedInUser.getOrg(), mergeFrom, startDate, endDate);
 
+        Set<Errata> diffErrata = new HashSet(fromErrata);
+        // find errata that we do not need to merge
+        List<Errata> same = ErrataManager.listSamePublishedInChannels(
+                loggedInUser, mergeFrom, mergeTo);
+        List<Errata> brothers = ErrataManager.listPublishedBrothersInChannels(
+                loggedInUser, mergeFrom, mergeTo);
+        List<Errata> clones = ErrataManager.listPublishedClonesInChannels(
+                loggedInUser, mergeFrom, mergeTo);
+        // and remove them
+        diffErrata.removeAll(same);
+        diffErrata.removeAll(brothers);
+        diffErrata.removeAll(clones);
+
         Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, new HashSet<Errata>(fromErrata), mergeTo);
+            mergeErrataToChannel(loggedInUser, diffErrata, mergeTo);
 
         return mergedErrata.toArray();
     }
 
-    private Set<Errata> mergeErrataToChannel(User user, Set<Errata> fromErrata,
+    private Set<Errata> mergeErrataToChannel(User user, Set<Errata> diffErrata,
                                                                 Channel toChannel) {
-        Set<Errata> toErrata = toChannel.getErratas();
-        Set<Errata> diffErrata = new HashSet(fromErrata);
         List<Long> cids = new ArrayList<Long>();
         cids.add(toChannel.getId());
 
-        for (Iterator iter = fromErrata.iterator(); iter.hasNext();) {
-            Errata errata = (Errata) iter.next();
-            if (toErrata.contains(errata)) {
-                // remove errata already in channel
-                diffErrata.remove(errata);
-            }
-            else if (errata.isCloned()) {
-                Errata origErrata = ((PublishedClonedErrata) errata).getOriginal();
-                if (cloneInSet(user, origErrata, toErrata)) {
-                    // remove errata those brothers already in channel
-                    // (different clones of the same original)
-                    diffErrata.remove(errata);
-                }
-            }
-            else {
-                if (cloneInSet(user, errata, toErrata)) {
-                    // remove errata those clones already in channel
-                    diffErrata.remove(errata);
-                }
-            }
-        }
+        Set<Long> errataIds = getErrataIds(diffErrata);
 
-        ErrataManager.publishErrataToChannel(toChannel, getErrataIds(diffErrata), user);
+        ErrataManager.publishErrataToChannelAsync(toChannel, errataIds, user);
 
-        for (Errata errata : diffErrata) {
-            for (Iterator iter = errata.getPackages().iterator(); iter.hasNext();) {
-                Package pkg = (Package) iter.next();
-                toChannel.addPackage(pkg, user);
-            }
-        }
-        ChannelFactory.save(toChannel);
+        List errataPkgs = ErrataFactory.listErrataChannelPackages(errataIds);
+        List currentChannelPkgs = ChannelFactory.getPackageIds(toChannel.getId());
+        errataPkgs.removeAll(currentChannelPkgs);
+
+        ChannelManager.addPackages(toChannel, errataPkgs, user);
+
         ChannelManager.refreshWithNewestPackages(toChannel, "api");
 
         for (Errata e : diffErrata) {
@@ -1869,26 +1874,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
         return ids;
     }
-
-    private Boolean cloneInSet(User user, Errata original, Set<Errata> set) {
-        List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
-                user, original);
-        int numOfClones = clones.size();
-        clones.removeAll(set);
-        return (clones.size() != numOfClones);
-    }
-
-    /*
-     public Object[] listErrata(String sessionKey, String channelLabel,
-            String startDate, String endDate) throws NoSuchChannelException {
-
-        //Get Logged in user
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
-
-        List errata = ChannelManager.listErrata(channel, startDate, endDate);
-        return errata.toArray();
-     */
 
     /**
      * Merge a channel's packages into another channel.

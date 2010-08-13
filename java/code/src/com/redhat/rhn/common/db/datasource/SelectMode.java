@@ -129,7 +129,17 @@ public class SelectMode extends BaseMode {
      * @return DataResult containing results from query.
      */
     public DataResult execute(Map parameters, List inClause) {
-        return getQuery().execute(parameters, inClause, this);
+        int subStart = 0;
+        DataResult toReturn = new DataResult(this);
+        while (subStart < inClause.size()) {
+            int subLength = subStart + CachedStatement.BATCH_SIZE >= inClause.size() ?
+                    inClause.size() - subStart  : CachedStatement.BATCH_SIZE;
+            List subClause = inClause.subList(subStart, subStart + subLength);
+            DataResult subDr = getQuery().execute(parameters, subClause, this);
+            toReturn.addAll(subDr);
+            subStart += subLength;
+        }
+        return toReturn;
     }
 
     /**

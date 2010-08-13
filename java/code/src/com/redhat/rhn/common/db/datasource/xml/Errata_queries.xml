@@ -1142,6 +1142,15 @@ ORDER BY C.name, EF.filename DESC
   </query>
 </mode>
 
+<mode name="packageids_associated_to_errata"
+    class="com.redhat.rhn.frontend.dto.ErrataPackageFile">
+    <query params="">
+    SELECT package_id
+    FROM rhnErrataPackage
+    WHERE errata_id in (%s)
+    </query>
+</mode>
+
 <mode name="available_to_org">
   <query params="eid, org_id">
 SELECT  1

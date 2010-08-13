@@ -2621,10 +2621,10 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
-     * Remove packages from a channel very quickly
+     * Adds packages to a channel
      * @param chan the channel
      * @param packageIds list of package ids
-     * @param user the user doing the removing
+     * @param user the user adding packages
      */
     public static void addPackages(Channel chan, List<Long> packageIds, User user) {
 
@@ -2646,14 +2646,8 @@ public class ChannelManager extends BaseManager {
 
         WriteMode m = ModeFactory.getWriteMode("Channel_queries", "add_channel_packages");
         m.executeUpdate(params, packageIds);
-    /*    for (Long pid : packageIds) {
-            params.put("pid", pid);
-            m.executeUpdate(params);
-        }*/
-
 
         HibernateFactory.getSession().refresh(chan);
-
     }
 
 

@@ -103,6 +103,31 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                  where e.advisoryName = :advisory]]>
     </query>
+    <query name="PublishedErrata.findSameInChannels">
+        <![CDATA[
+        from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
+        where :channel_from in elements(e.channels)
+        and :channel_to in elements(e.channels)]]>
+    </query>
+    <query name="PublishedClonedErrata.findBrothersInChannel">
+        <![CDATA[
+        select e_from
+        from com.redhat.rhn.domain.errata.impl.PublishedClonedErrata as e_from,
+        com.redhat.rhn.domain.errata.impl.PublishedClonedErrata as e_to
+        where :channel_from in elements(e_from.channels)
+        and e_from.original = e_to.original
+        and :channel_to in elements(e_to.channels)]]>
+    </query>
+    <query name="PublishedErrata.findClonesInChannel">
+        <![CDATA[
+        select e
+        from com.redhat.rhn.domain.errata.impl.PublishedErrata as e,
+        com.redhat.rhn.domain.errata.impl.PublishedClonedErrata as c
+        where :channel_from in elements(e.channels)
+        and c.original = e
+        and :channel_to in elements(c.channels)
+    ]]>
+    </query>
     <query name="PublishedClonedErrata.findByOriginal">
     	<![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedClonedErrata as c
   	         where c.original = :original

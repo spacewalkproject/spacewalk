@@ -112,6 +112,23 @@ public class ErrataFactory extends HibernateFactory {
     }
 
     /**
+     * List the package ids that are associated with an errata
+     * @param errataIds list of errata ids
+     * @return List of package ids
+     */
+    public static List<Long> listErrataChannelPackages(Set<Long> errataIds) {
+        SelectMode m = ModeFactory.getMode("Errata_queries",
+                "packageids_associated_to_errata");
+        DataResult<ErrataPackageFile> dr = m.execute(new HashMap(),
+                new ArrayList(errataIds));
+        Set toReturn = new HashSet<Long>();
+        for (ErrataPackageFile file : dr) {
+            toReturn.add(file.getPackageId());
+        }
+        return new ArrayList(toReturn);
+    }
+
+    /**
      * Tries to locate errata based on either the errataum's id or the
      * CVE/CAN identifier string.
      * @param identifier erratum id or CVE/CAN id string
@@ -818,6 +835,82 @@ public class ErrataFactory extends HibernateFactory {
         return retval;
     }
 
+    /**
+     * Lists errata present in both channels
+     * @param org orgaznization
+     * @param channelFrom channel1
+     * @param channelTo channel2
+     * @return list of errata
+     */
+    public static List listSamePublishedInChannels(Org org, Channel channelFrom,
+            Channel channelTo) {
+        Session session = null;
+        List retval = null;
+
+        try {
+            session = HibernateFactory.getSession();
+            retval = session.getNamedQuery("PublishedErrata.findSameInChannels")
+                .setParameter("channel_from", channelFrom)
+                .setParameter("channel_to", channelTo).list();
+        }
+        catch (HibernateException e) {
+            throw new
+                HibernateRuntimeException("Error looking up errata by original errata");
+        }
+        return retval;
+    }
+
+    /**
+     * Lists errata from channelFrom, that are cloned from the same original
+     * as errata in channelTo
+     * @param org orgaznization
+     * @param channelFrom channel1
+     * @param channelTo channel2
+     * @return list of errata
+     */
+    public static List listPublishedBrothersInChannels(Org org, Channel channelFrom,
+            Channel channelTo) {
+        Session session = null;
+        List retval = null;
+
+        try {
+            session = HibernateFactory.getSession();
+            retval = session.getNamedQuery("PublishedClonedErrata.findBrothersInChannel")
+                .setParameter("channel_from", channelFrom)
+                .setParameter("channel_to", channelTo).list();
+        }
+        catch (HibernateException e) {
+            throw new
+                HibernateRuntimeException("Error looking up errata by original errata");
+        }
+        return retval;
+    }
+
+    /**
+     * Lists errata from channelFrom, that have clones in channelTo
+     * @param org orgaznization
+     * @param channelFrom channel1
+     * @param channelTo channel2
+     * @return list of errata
+     */
+    public static List listPublishedClonesInChannels(Org org, Channel channelFrom,
+            Channel channelTo) {
+        Session session = null;
+        List retval = null;
+
+        try {
+            session = HibernateFactory.getSession();
+            retval = session.getNamedQuery("PublishedErrata.findClonesInChannel")
+                .setParameter("channel_from", channelFrom)
+                .setParameter("channel_to", channelTo)
+                .list();
+        }
+        catch (HibernateException e) {
+            throw new
+                HibernateRuntimeException("Error looking up errata by original errata");
+        }
+        return retval;
+    }
 
     /**
      * Insert or Update a Errata.

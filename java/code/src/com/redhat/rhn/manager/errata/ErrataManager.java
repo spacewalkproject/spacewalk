@@ -1085,7 +1085,45 @@ public class ErrataManager extends BaseManager {
         return ErrataFactory.lookupPublishedByOriginal(user.getOrg(), original);
     }
 
+    /**
+     * Lists errata present in both channels
+     * @param user user
+     * @param channelFrom channel1
+     * @param channelTo channel2
+     * @return list of errata
+     */
+    public static List listSamePublishedInChannels(User user,
+            Channel channelFrom, Channel channelTo) {
+        return ErrataFactory.listSamePublishedInChannels(user.getOrg(),
+                channelFrom, channelTo);
+    }
 
+    /**
+     * Lists errata from channelFrom, that are cloned from the same original
+     * as errata in channelTo
+     * @param user user
+     * @param channelFrom channel1
+     * @param channelTo channel2
+     * @return list of errata
+     */
+    public static List listPublishedBrothersInChannels(User user,
+            Channel channelFrom, Channel channelTo) {
+        return ErrataFactory.listPublishedBrothersInChannels(user.getOrg(),
+                channelFrom, channelTo);
+    }
+
+    /**
+     * Lists errata from channelFrom, that have clones in channelTo
+     * @param user user
+     * @param channelFrom channel1
+     * @param channelTo channel2
+     * @return list of errata
+     */
+    public static List listPublishedClonesInChannels(User user,
+            Channel channelFrom, Channel channelTo) {
+        return ErrataFactory.listPublishedClonesInChannels(user.getOrg(),
+                channelFrom, channelTo);
+    }
 
     /**
      * Lookup packages that are associated with errata in the RhnSet "errata_list"

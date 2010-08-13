@@ -475,7 +475,6 @@ public class Channel extends BaseDomainHelper implements Comparable {
         ChannelManager.addPackages(this, list, user);
     }
 
-
     /**
      * Removes a single package from the channel
      * @param user the user doing the remove
