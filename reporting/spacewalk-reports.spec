@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Fri Aug 13 2010 Jan Pazdziora 1.2.1-1
+- Sort the list of reports to make it easier to read it.
+- 623941 - add the channels report which lists channel and number of packages
+  in each channel.
+- 623941 - add the errata-list-all report which lists all reports in the
+  Spacewalk, not just those that affect some systems.
+- bumping package versions for 1.2 (mzazrivec@redhat.com)
+
 * Mon Aug 09 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.2-1
 - 601984 - use clob for the concatting operation, to overcome the varchar
   length limit. (jpazdziora@redhat.com)
