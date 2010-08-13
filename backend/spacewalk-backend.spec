@@ -317,7 +317,7 @@ fi
     
 # Generate a secret key if old one is not present
 if [ -f %{rhnconf}/rhnSecret.py ]; then
-    secret_key=$(PYTHONPATH=%{rhnconf} python -c \
+    secret_key=$(PYTHONPATH=%{rhnconf} %{__python} -c \
         "from rhnSecret import SECRET_KEY; print SECRET_KEY")
 else
     secret_key=$(dd if=/dev/urandom bs=1024 count=1 2>/dev/null | sha1sum - | 
