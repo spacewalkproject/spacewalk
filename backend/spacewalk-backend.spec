@@ -267,7 +267,6 @@ Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 
 %description xml-export-libs
 Libraries required by various exporting tools
-XXX To be determined if the proper location is under backend
 
 %prep
 %setup -q
