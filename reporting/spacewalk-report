@@ -172,7 +172,7 @@ if __name__ == '__main__':
 			if outrow != None:
 				writer.writerow(outrow)
 		else:
-			for report_name in reports.available_reports():
+			for report_name in sorted(reports.available_reports()):
 				if options.info:
 					synopsis = ''
 					try:
