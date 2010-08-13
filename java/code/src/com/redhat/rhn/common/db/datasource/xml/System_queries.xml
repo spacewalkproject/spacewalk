@@ -1773,5 +1773,42 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
             rhn_channel.can_server_consume_virt_channl(s.id, cf.id) from dual ))
   </query>
 </mode>
+
+<mode name="server_notes">
+  <query params="sid">
+    select
+      id,
+      server_id,
+      subject,
+      note,
+      modified
+    from
+      rhnServerNotes
+    where server_id = :sid
+  </query>
+</mode>
+
+<mode name="note_by_id_and_server">
+  <query params="nid,sid">
+    select
+      id,
+      server_id,
+      subject,
+      note,
+      creator,
+      TO_CHAR(created, 'YYYY-MM-DD') as created,
+      TO_CHAR(modified, 'YYYY-MM-DD') as modified
+    from
+      rhnServerNotes
+    where server_id = :sid and id = :nid
+  </query>
+</mode>
+
+<write-mode name="delete_note">
+  <query params="id,server_id">
+delete from rhnServerNotes where id = :id and server_id = :server_id
+  </query>
+</write-mode>
+
 </datasource_modes>
 

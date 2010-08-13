@@ -80,6 +80,8 @@ import org.hibernate.Session;
 
 import java.sql.Date;
 import java.sql.Types;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -300,6 +302,18 @@ public class SystemManager extends BaseManager {
         params.put("sid", server.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
+        return m.execute(params);
+    }
+
+     /**
+     * Returns list of all notes for a system.
+     * @param s The server in question
+     * @return list of SystemNotes.
+     */
+    public static DataResult systemNotes(Server s) {
+        SelectMode m = ModeFactory.getMode("System_queries", "server_notes");
+        Map params = new HashMap();
+        params.put("sid", s.getId());
         return m.execute(params);
     }
 
@@ -2857,6 +2871,32 @@ public class SystemManager extends BaseManager {
                                                             String hostName) {
         return listDuplicates(user, "duplicate_system_ids_hostname_key",
                 hostName);
+    }
+
+    /**
+     * Return a note by ID and Server ID
+     * @param user User to use to do the lookups
+     * @param nid note ID
+     * @param sid server ID
+     * @return Note object
+     */
+    public static Note lookupNoteByIdAndSystem(User user, Long nid, Long sid) {
+        SelectMode m = ModeFactory.getMode("System_queries", "note_by_id_and_server");
+        Note n = new Note();
+        Map params = new HashMap();
+        params.put("nid", nid);
+        params.put("sid", sid);
+        DataResult<Map> dr = m.execute(params);
+        for (Map map : dr) {
+            DateFormat df = new SimpleDateFormat("yy/MM/dd");
+            n.setCreator(UserManager.lookupUser(user, (Long)map.get("creator")));
+            n.setId((Long)map.get("id"));
+            n.setServer(lookupByIdAndUser((Long)map.get("server_id"), user));
+            n.setSubject((String)map.get("subject"));
+            n.setNote((String)map.get("note"));
+            n.setModified(Date.valueOf((String)map.get("modified")));
+        }
+        return n;
     }
 
 }

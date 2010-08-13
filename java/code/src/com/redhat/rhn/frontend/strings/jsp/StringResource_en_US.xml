@@ -19141,6 +19141,134 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             </context-group>
          </trans-unit>
 
+         <trans-unit id="sdc.details.notes.message">
+            <source>The following notes are associated with this system.</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.notes.header">
+            <source>System Notes</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.notes.nonotes">
+            <source>No Notes.</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.notes.subject">
+            <source>Subject</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.notes.details">
+            <source>Details</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.notes.updated">
+            <source>Updated</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.notes.delete.header">
+            <source>Confirm System Note Deletion</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/DeleteNote.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.notes.delete">
+            <source>Delete note</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/DeleteNote.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.notes.delete.confirm">
+            <source>Are you certain you wish to delete this system note?</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/DeleteNote.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="toolbar.create.note">
+            <source>create new note</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="toolbar.delete.note">
+            <source>delete note</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="edit_note.jsp.update">
+           <source>Update</source>
+           <context-group name="ctx">
+             <context context-type="sourcefile">/rhn/channels/manage/EditNote.do</context>
+           </context-group>
+         </trans-unit>
+
+         <trans-unit id="edit_note.jsp.create">
+           <source>Create</source>
+           <context-group name="ctx">
+             <context context-type="sourcefile">/rhn/channels/manage/EditNote.do</context>
+           </context-group>
+         </trans-unit>
+
+         <trans-unit id="message.noteupdated">
+           <source>Note updated</source>
+           <context-group name="ctx">
+             <context context-type="sourcefile">/rhn/channels/manage/EditNote.do</context>
+           </context-group>
+         </trans-unit>
+
+         <trans-unit id="message.notecreated">
+           <source>New note created</source>
+           <context-group name="ctx">
+             <context context-type="sourcefile">/rhn/channels/manage/EditNote.do</context>
+           </context-group>
+         </trans-unit>
+
+         <trans-unit id="message.notedeleted">
+           <source>Note deleted</source>
+           <context-group name="ctx">
+             <context context-type="sourcefile">/rhn/channels/manage/DeleteNote.do</context>
+           </context-group>
+         </trans-unit>
+
+         <!-- It seems hackish to need this -->
+         <trans-unit id="note">
+            <source>note</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/EditNote.do</context>
+            </context-group>
+         </trans-unit>
+
+         <!-- It seems hackish to need this -->
+         <trans-unit id="subject">
+            <source>subject</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/EditNote.do</context>
+            </context-group>
+         </trans-unit>
+
          <trans-unit id="methods.jsp.nomethods">
             <source>No notification methods configured.</source>
             <context-group name="ctx">

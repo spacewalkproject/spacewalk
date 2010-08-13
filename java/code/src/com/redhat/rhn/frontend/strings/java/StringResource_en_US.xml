@@ -1521,6 +1521,24 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="edit.note.subjecttoolong">
+<source>Subject too long (80 character maximum)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/EditNote</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit.note.subjecttooshort">
+<source>Subject must not be empty</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/EditNote</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit.note.notetoolong">
+<source>Note details must be 4000 characters or less</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/EditNote</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="sid">
 <source>System ID</source>
         <context-group name="ctx">

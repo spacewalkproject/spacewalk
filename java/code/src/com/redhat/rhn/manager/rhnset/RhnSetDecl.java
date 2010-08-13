@@ -501,6 +501,9 @@ public class RhnSetDecl {
         return make("package_clone_list" + chan.getId(), SetCleanup.NOOP);
     }
 
+    public static final RhnSetDecl SYSTEM_NOTES = make("systems_notes",
+            SetCleanup.NOOP);
+
     /**
      * Generates a new set name based on an existing set and one or more variables.
      *

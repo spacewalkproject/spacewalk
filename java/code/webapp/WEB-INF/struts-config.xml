@@ -1035,6 +1035,22 @@
       <form-property name="cid" type="java.lang.Long" />
       <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
+
+    <form-bean name="editNoteForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="subject" type="java.lang.String" />
+      <form-property name="note" type="java.lang.String" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
+    <form-bean name="deleteNoteForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="sid" type="java.lang.Long" />
+      <form-property name="subject" type="java.lang.String" />
+      <form-property name="note" type="java.lang.String" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
   </form-beans>
 
   <global-exceptions>
@@ -2975,6 +2991,45 @@
 		<forward name="confirmed"
                   path="/systems/details/ErrataList.do"
                   redirect="true"/>
+    </action>
+
+    <action path="/systems/details/Notes"
+        name="submittedForm"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/notes.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.NoteListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/notes.jsp"/>
+    </action>
+
+    <action path="/systems/details/EditNote"
+        name="editNoteForm"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/note_edit.jsp"
+        parameter="dispatch"
+        validate="false"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SystemNoteEditAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/note_edit.jsp"/>
+        <forward name="error"
+                 path="/WEB-INF/pages/systems/sdc/note_edit.jsp"/>
+        <forward name="success"
+                 path="/systems/details/Notes.do" redirect="true"/>
+    </action>
+
+    <action path="/systems/details/DeleteNote"
+        name="deleteNoteForm"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/note_delete.jsp"
+        parameter="dispatch"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SystemNoteDeleteAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/note_delete.jsp"/>
+        <forward name="success"
+                 path="/systems/details/Notes.do" redirect="true"/>
     </action>
 
     <!--System Details SSM Configuration -->
