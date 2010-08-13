@@ -1,0 +1,33 @@
+
+synopsis:
+
+	List of all erratas
+
+description:
+
+	List of all erratas, together with basic info about the errata.
+	Also see errata-list to output only applicable erratas, and
+	errata-systems report to get list of systems that are affected.
+
+columns:
+
+	advisory	Advisory / errata identifier
+	type		Advisory type (Enhancement, Bug Fix, Security)
+	cve		List of CVE names (Common Vulnerabilities and Exposures Identifiers) addressed by the errata
+	synopsis	Synopsis of the errata
+
+multival_columns:
+
+	advisory
+	cve : cve
+
+sql:
+
+	select rhnErrata.advisory_name as advisory,
+		rhnErrata.advisory_type as type,
+		rhnCVE.name as cve,
+		rhnErrata.synopsis
+	from rhnErrata, rhnErrataCVE, rhnCVE
+	where rhnErrata.id = rhnErrataCVE.errata_id (+)
+		and rhnErrataCVE.cve_id = rhnCVE.id (+)
+	order by rhnErrata.advisory_name, rhnErrata.id, rhnCVE.name
