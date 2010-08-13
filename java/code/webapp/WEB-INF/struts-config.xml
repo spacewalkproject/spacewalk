@@ -1214,7 +1214,7 @@
         type="com.redhat.rhn.frontend.action.user.UserEditSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/userdetails.jsp" />
     </action>
 
@@ -1225,7 +1225,7 @@
         type="com.redhat.rhn.frontend.action.user.AdminUserEditAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="success" path="/users/UserDetails.do"
                redirect="true" />
       <!-- noaccess forward is used when a user takes roles away from himself and then
@@ -1459,7 +1459,7 @@
         type="com.redhat.rhn.frontend.action.user.EnabledListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/activelist.jsp" />
     </action>
 
@@ -1469,7 +1469,7 @@
         type="com.redhat.rhn.frontend.action.user.DisabledListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/disabledlist.jsp" />
 	  <forward name="enable" path="/users/EnableConfirm.do" redirect="true" />
     </action>
@@ -1481,7 +1481,7 @@
          className="com.redhat.rhn.frontend.struts.RhnActionMapping"
          parameter="dispatch">
        <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
        <forward name="default" path="/users/DisabledList.do" redirect="true" />
        <forward name="enable" path="/users/EnableConfirm.do" redirect="true" />
      </action>
@@ -1492,7 +1492,7 @@
         type="com.redhat.rhn.frontend.action.user.EnableConfirmSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/userconfirm.jsp" />
       <forward name="enabled" path="/users/ActiveList.do" redirect="true" />
     </action>
@@ -1504,7 +1504,7 @@
         type="com.redhat.rhn.frontend.action.user.ChannelPermsSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/channelperms.jsp" />
     </action>
 
@@ -1515,7 +1515,7 @@
         type="com.redhat.rhn.frontend.action.user.ChannelPermsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="subscribe" path="/users/ChannelPerms.do" redirect="true" />
       <forward name="manage" path="/users/ChannelManagementPerms.do" redirect="true" />
     </action>
@@ -1527,7 +1527,7 @@
         type="com.redhat.rhn.frontend.action.user.ChannelManagementPermsSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/channelmanagementperms.jsp" />
     </action>
 
@@ -1537,7 +1537,7 @@
         type="com.redhat.rhn.frontend.action.user.VisibleSystemsListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/systemsadmined.jsp" />
     </action>
 
@@ -1548,7 +1548,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/users/SystemsAdmined.do" redirect="true"/>
     </action>
 
@@ -1558,7 +1558,7 @@
         type="com.redhat.rhn.frontend.action.user.DeleteUserSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/deleteuser.jsp"/>
     </action>
 
@@ -1568,7 +1568,7 @@
          type="com.redhat.rhn.frontend.action.user.DeleteUserAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
        <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
        <forward name="success" path="/users/ActiveList.do" redirect="true"/>
        <forward name="failure" path="/users/UserDetails.do" redirect="false"/>
      </action>
@@ -1579,7 +1579,7 @@
         type="com.redhat.rhn.frontend.action.user.DisableUserSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/disableuser.jsp"/>
     </action>
 
@@ -1589,7 +1589,7 @@
          type="com.redhat.rhn.frontend.action.user.DisableUserAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
        <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
        <forward name="success" path="/users/ActiveList.do" redirect="true"/>
        <forward name="failure" path="/users/UserDetails.do" redirect="false"/>
      </action>

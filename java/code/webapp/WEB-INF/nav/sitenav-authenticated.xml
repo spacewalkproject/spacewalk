@@ -202,12 +202,12 @@
     <rhn-tab name="Completed Actions" url="/rhn/schedule/CompletedActions.do"/>
     <rhn-tab name="Archived Actions" url="/rhn/schedule/ArchivedActions.do"/>
   </rhn-tab>
-  <rhn-tab name="Users" url="/rhn/users/ActiveList.do" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)" active-image="tab-users-selected.gif" inactive-image="tab-users.gif">
-    <rhn-tab name="User List" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)" url="/rhn/users/ActiveList.do">
+  <rhn-tab name="Users" url="/rhn/users/ActiveList.do" acl="user_role(org_admin)" active-image="tab-users-selected.gif" inactive-image="tab-users.gif">
+    <rhn-tab name="User List" acl="user_role(org_admin)" url="/rhn/users/ActiveList.do">
       <rhn-tab-directory>/rhn/users</rhn-tab-directory>
-      <rhn-tab name="users.nav.active" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)" url="/rhn/users/ActiveList.do"/>
-      <rhn-tab name="users.nav.disabled" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)" url="/rhn/users/DisabledList.do"/>
-      <rhn-tab name="users.nav.all" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)" url="/rhn/users/UserList.do"/>
+      <rhn-tab name="users.nav.active" acl="user_role(org_admin)" url="/rhn/users/ActiveList.do"/>
+      <rhn-tab name="users.nav.disabled" acl="user_role(org_admin)" url="/rhn/users/DisabledList.do"/>
+      <rhn-tab name="users.nav.all" acl="user_role(org_admin)" url="/rhn/users/UserList.do"/>
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Monitoring" url="/rhn/monitoring/ProbeList.do" active-image="tab-monitoring-selected.gif" inactive-image="tab-monitoring.gif" acl="show_monitoring()">
