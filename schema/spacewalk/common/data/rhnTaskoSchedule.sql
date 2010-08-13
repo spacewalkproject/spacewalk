@@ -93,3 +93,8 @@ INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
     VALUES(rhn_tasko_schedule_id_seq.nextval, 'compare-configs-default',
         (SELECT id FROM rhnTaskoBunch WHERE name='compare-configs-bunch'),
         sysdate, '0 0 23 ? * *');
+
+INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
+    VALUES(rhn_tasko_schedule_id_seq.nextval, 'satcert-check-default',
+        (SELECT id FROM rhnTaskoBunch WHERE name='satcert-check-bunch'),
+        sysdate, '0 0 23 ? * *');
