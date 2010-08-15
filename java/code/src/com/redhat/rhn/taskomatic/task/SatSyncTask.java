@@ -17,6 +17,9 @@ package com.redhat.rhn.taskomatic.task;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * SatSyncTask
@@ -28,11 +31,22 @@ public class SatSyncTask extends RhnJavaJob {
      * {@inheritDoc}
      */
     public void execute(JobExecutionContext ctx) throws JobExecutionException {
-        String[] args = new String[3];
-        args[0] = "/usr/bin/sudo";
-        args[1] = "satellite-sync";
-        args[2] = "-l";
+        List<String> cmd = new ArrayList<String>();
+        String list = (String) ctx.getJobDetail().getJobDataMap().get("list");
+        String channel = (String) ctx.getJobDetail().getJobDataMap().get("channel");
 
+        cmd.add("/usr/bin/sudo");
+        cmd.add("satellite-sync");
+
+        if (list != null) {
+            cmd.add("--list-channels");
+        }
+        else if (channel != null) {
+            cmd.add("-c");
+            cmd.add(channel);
+        }
+
+        String[] args = cmd.toArray(new String[cmd.size()]);
         executeExtCmd(args);
     }
 }
