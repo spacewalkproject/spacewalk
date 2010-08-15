@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.3
+Version: 1.2.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -332,6 +332,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sun Aug 15 2010 Tomas Lestach <tlestach@redhat.com> 1.2.4-1
+- taskomatic enhancements (tlestach@redhat.com)
+- 620149 - Restore Users tab for Org Admins (colin.coe@gmail.com)
+- System Notes pages PXT to java (colin.coe@gmail.com)
+
 * Thu Aug 12 2010 Justin Sherrill <jsherril@redhat.com> 1.2.3-1
 - fixing compile errors (jsherril@redhat.com)
 
