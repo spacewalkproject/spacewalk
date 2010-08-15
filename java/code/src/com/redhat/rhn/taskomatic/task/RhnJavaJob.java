@@ -97,7 +97,13 @@ public abstract class RhnJavaJob implements RhnJob {
         SystemCommandExecutor ce = new SystemCommandExecutor();
         ce.execute(args);
 
-        log.info(ce.getLastCommandOutput());
-        log.error(ce.getLastCommandErrorMessage());
+        String cmdOutput = ce.getLastCommandOutput();
+        String cmdError = ce.getLastCommandErrorMessage();
+        if (cmdOutput != "") {
+            log.info(cmdOutput);
+        }
+        if (cmdError.length() > 0 ) {
+            log.error(cmdError);
+        }
     }
 }
