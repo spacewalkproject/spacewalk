@@ -102,7 +102,7 @@ public abstract class RhnJavaJob implements RhnJob {
         if (cmdOutput != "") {
             log.info(cmdOutput);
         }
-        if (cmdError.length() > 0 ) {
+        if (cmdError.length() > 0) {
             log.error(cmdError);
         }
     }
