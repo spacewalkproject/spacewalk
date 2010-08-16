@@ -1,0 +1,36 @@
+
+synopsis:
+
+	Packages in channels
+
+description:
+
+	List of packages in channels in the server.
+
+columns:
+
+	channel_label		Channel label
+	channel_name		Channel name
+	name		Name of package
+	version		Version of package
+	release		Release of package
+	epoch		Epoch of package (if available)
+	arch		Architecture of the package
+	full_package_name	Full package name
+
+sql:
+
+	select rhnchannel.label channel_label, rhnchannel.name channel_name,
+		rhnpackagename.name,
+		rhnpackageevr.version, rhnpackageevr.release, rhnpackageevr.epoch,
+		rhnpackagearch.label arch,
+		case when rhnpackageevr.epoch is not null then rhnpackageevr.epoch || ':' end || 
+		rhnpackagename.name || '-' || rhnpackageevr.version || '-' || rhnpackageevr.release || '.' || rhnpackagearch.label full_package_name
+	from rhnchannel, rhnchannelpackage, rhnpackage, rhnpackagename, rhnpackageevr, rhnpackagearch
+	where rhnchannel.id = rhnchannelpackage.channel_id
+		and rhnchannelpackage.package_id = rhnpackage.id
+		and rhnpackage.name_id = rhnpackagename.id
+		and rhnpackage.evr_id = rhnpackageevr.id
+		and rhnpackage.package_arch_id = rhnpackagearch.id
+	order by rhnchannel.label, rhnpackagename.name, rhnpackageevr.version, rhnpackageevr.release, rhnpackageevr.epoch, rhnpackagearch.label
+
