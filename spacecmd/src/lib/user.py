@@ -21,7 +21,44 @@
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
 import shlex
+from getpass import getpass
 from spacecmd.utils import *
+
+def help_user_create(self):
+    print 'user_create: Create a user'
+    print 'usage: user_create'
+
+def do_user_create(self, args):
+    username = prompt_user('Username:', noblank = True)
+    first_name = prompt_user('First Name:', noblank = True)
+    last_name = prompt_user('Last Name:', noblank = True)
+    email = prompt_user('Email:', noblank = True)
+    pam = self.user_confirm('PAM Authentication [y/N]:', 
+                            nospacer = True, 
+                            integer = True)
+
+    password = ''
+    while password == '':
+        print
+        password1 = getpass('Password: ')
+        password2 = getpass('Repeat Password: ')
+
+        if password1 == password2:
+            password = password1
+        elif password1 == '':
+            logging.warning('Password must be at least 5 characters')
+        else:
+            logging.warning("Passwords don't match") 
+
+    self.client.user.create(self.session,
+                            username,
+                            password,
+                            first_name,
+                            last_name,
+                            email,
+                            pam)
+
+####################
 
 def help_user_delete(self):
     print 'user_delete: Delete a user'
