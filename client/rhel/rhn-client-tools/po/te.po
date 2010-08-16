@@ -12,20 +12,25 @@
 # translation of te.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
-# Sree Ganesh <sthottem@redhat.com>, 2006, 2007.
 #
+# Sree Ganesh <sthottem@redhat.com>, 2006, 2007.
+# Krishna Babu K <kkrothap@redhat.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 11:49+0200\n"
-"PO-Revision-Date: 2007-02-01 11:05+0530\n"
-"Last-Translator: Sree Ganesh <sthottem@redhat.com>\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
+"PO-Revision-Date: 2010-07-30 13:27+0530\n"
+"Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+"\n"
+"\n"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -39,30 +44,29 @@ msgstr "కక్షిదారు %sకి మద్దతివ్వటా�
 msgid "%s was not found"
 msgstr "%s కనుగొనబడలేదు"
 
-#: ../src/up2date_client/gui.py:305
+#: ../src/up2date_client/gui.py:298
 msgid "_Finish"
 msgstr "ముగించు (_F)"
 
 #. Finish Window
-#: ../src/up2date_client/gui.py:306
-#: ../src/up2date_client/rhnreg_constants.py:136
+#: ../src/up2date_client/gui.py:299
+#: ../src/up2date_client/rhnreg_constants.py:97
 msgid "Finish setting up software updates"
 msgstr "సాఫ్టువేరు నవీకరణలను అమర్చటం ముగించు"
 
-#: ../src/up2date_client/gui.py:308
+#: ../src/up2date_client/gui.py:301
 msgid "_Exit"
-msgstr ""
+msgstr "నిష్క్రమించు (_E)"
 
-#: ../src/up2date_client/gui.py:309
-#, fuzzy
+#: ../src/up2date_client/gui.py:302
 msgid "Software updates setup unsuccessful"
 msgstr "సాఫ్టువేరు నవీకరణల అమర్పు విజయవంతంకాలేదు"
 
-#: ../src/up2date_client/gui.py:319
+#: ../src/up2date_client/gui.py:312
 msgid "You must run rhn_register as root."
 msgstr "మీరు తప్పక rhn నమోదును రూటుగా ఉపయోగించాలి. (_r)"
 
-#: ../src/up2date_client/gui.py:343
+#: ../src/up2date_client/gui.py:336
 #, python-format
 msgid "There was some sort of I/O error: %s"
 msgstr "అక్కడ  కొంత I/O దోషం ఉంది: %s"
@@ -92,12 +96,24 @@ msgid "Error:"
 msgstr "దోషం:"
 
 #: ../src/up2date_client/messageWindow.py:101
+msgid "Warning:"
+msgstr "హెచ్చరిక:"
+
+#: ../src/up2date_client/messageWindow.py:108
+msgid "OK dialog:"
+msgstr "సరే డైలాగ్:"
+
+#: ../src/up2date_client/messageWindow.py:116
 msgid "Yes/No dialog:"
 msgstr "అవును/కాదు డైలాగ్:"
 
+#: ../src/up2date_client/messageWindow.py:123
+msgid "Question dialog:"
+msgstr "ప్రశ్నార్ధక డైలాగ్:"
+
 #: ../src/up2date_client/rhnChannel.py:97
 msgid "Unable to Locate SystemId"
-msgstr ""
+msgstr "SystemIdను గుర్తించలేక పోయింది"
 
 #: ../src/up2date_client/rhnChannel.py:114
 msgid "This system may not be updated until it is associated with a channel."
@@ -133,14 +149,13 @@ msgid "An unexpected OS error occurred: %s\n"
 msgstr "ఒక ఊహించని OS దోషం సంభవించింది: %s\n"
 
 #: ../src/up2date_client/rhncli.py:83
-#, fuzzy
 msgid "A connection was attempted with a malformed URI.\n"
-msgstr "అనుసంధానం malformed URIతో ప్రయత్నించిం.\n"
+msgstr "ఒక అనుసంధానము తప్పుగారూపొందిన URI చేత ప్రయత్నించబడింది.\n"
 
 #: ../src/up2date_client/rhncli.py:85
-#, fuzzy, python-format
+#, python-format
 msgid "A connection was attempted with a malformed URI: %s.\n"
-msgstr "ఒక వైకల్య URIతో సంబంధం చేయబడింది: %s.\n"
+msgstr "ఒక అనుసంధానము తప్పుగారూపొందిన URIతో ప్రయత్నించబడింది: %s.\n"
 
 #: ../src/up2date_client/rhncli.py:87
 #, python-format
@@ -160,48 +175,47 @@ msgstr ""
 "ఈ దోషాలకు సామాన్య కారణం కంప్యూటరు సమయం సరిగా లేకపోవటం. ఈ కంప్యూటరులో సరిగా ఉందో లేదో "
 "సరిచూసుకోండి.\n"
 
-#: ../src/up2date_client/rhncli.py:98
+#: ../src/up2date_client/rhncli.py:95
 #, python-format
 msgid "There was a SSL crypto error: %s\n"
 msgstr "ఒక SSL crypto దోషం: %s\n"
 
-#: ../src/up2date_client/rhncli.py:102
+#: ../src/up2date_client/rhncli.py:99
 #, python-format
 msgid "There was an authentication error: %s\n"
 msgstr "ఒక వాస్తవిక దోషం ఉంది: %s\n"
 
-#: ../src/up2date_client/rhncli.py:118
+#: ../src/up2date_client/rhncli.py:112
 #, python-format
 msgid "You must be root to run %s"
 msgstr "మీరు %s ఉపయోగించటానికి తప్పక రూటులో ఉండాలి"
 
-#: ../src/up2date_client/rhncli.py:148 ../src/up2date_client/rhncli.py:183
+#: ../src/up2date_client/rhncli.py:142 ../src/up2date_client/rhncli.py:177
 msgid "Unable to open gui. Try `up2date --nox`"
 msgstr "గుయ్ తెరవటానికి కుదరదు. `up2date --nox` ప్రయత్నించు"
 
-#: ../src/up2date_client/rhncli.py:190
-#, fuzzy, python-format
+#: ../src/up2date_client/rhncli.py:184
+#, python-format
 msgid ""
 "%%prog (Red Hat Network Client Tools) %s\n"
 "Copyright (C) 1999--2010 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
 "%%prog (Red Hat నెట్వర్కు కక్షిదారు ఉపకరణాలు) %s\n"
-"కాపీహక్కు (C) 1999-2006 Red Hat, Inc.\n"
-"GPL కింద లైసెన్సు కలిగిఉంది."
+"కాపీరైట్ (C) 1999-2010 Red Hat, Inc.\n"
+"GPLv2 నిభందనల కింద లైసెన్సు కలిగిఉంది."
 
-#: ../src/up2date_client/rhncli.py:210
+#: ../src/up2date_client/rhncli.py:204
 msgid "An error has occurred:"
 msgstr "ఒక దోషం సంభవించింది"
 
-#: ../src/up2date_client/rhncli.py:218
+#: ../src/up2date_client/rhncli.py:212
 msgid "See /var/log/up2date for more information"
 msgstr "అధిక సమాచారం కోసం /var/log/up2date చూడు"
 
 #: ../src/up2date_client/rhnreg_constants.py:13
-#, fuzzy
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
-msgstr "కాపీహక్కు Â© 2006  Red Hat, Inc. అన్ని హక్కులూ కేటాయించబడ్డాయి."
+msgstr "కాపీరైట్ © 2006--2010  Red Hat, Inc. అన్ని హక్కులూ కేటాయించబడ్డాయి."
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:16
@@ -245,7 +259,7 @@ msgstr ""
 "\n"
 
 #. Why Register Window
-#: ../src/up2date_client/rhnreg_constants.py:36 ../data/rh_register.glade.h:94
+#: ../src/up2date_client/rhnreg_constants.py:36 ../data/rh_register.glade.h:91
 msgid "Why Should I Connect to RHN? ..."
 msgstr "నేను ఎందుకని RHNకి అనుసంధించబడాలి? ..."
 
@@ -327,22 +341,20 @@ msgid "Software update setup unsuccessful"
 msgstr "సాఫ్టువేరు నవీకరణల అమర్పు విజయవంతంకాలేదు"
 
 #: ../src/up2date_client/rhnreg_constants.py:60
-#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
 msgstr ""
 "మీరు నిజంగా మీ కంప్యూటరుని Red Hat Networkకి అనుసంధించ దలచుకోలేదా? మీరు Red Hat "
-"Enterprise Linux సబ్ స్క్రిప్షన్ లాభాలను జారవిడుచుకుంటారు:"
+"Enterprise Linux సబ్ స్క్రిప్షన్ లాభాలను జారవిడుచుకుంటారు:\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:62
-#, fuzzy
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Network.\n"
 msgstr ""
-"మీరు <b>లేరు</b> మీ కంప్యూటరును Red Hat Networkకి అనుసంధించకుండా ఈ సబ్ స్క్రిప్షన్ "
-"విశేషాధికారాలను పొందలేరు."
+"మీరు మీ కంప్యూటరును Red Hat Networkకి అనుసంధించకుండా ఈ సబ్ స్క్రిప్షన్ విశేషాధికారాలను "
+"పొందలేరు.\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:65
 msgid "I'll register later."
@@ -367,7 +379,7 @@ msgid "Red Hat Login:"
 msgstr "Red Hat ప్రవేశం:"
 
 #: ../src/up2date_client/rhnreg_constants.py:72
-#: ../src/up2date_client/tui.py:121
+#: ../src/up2date_client/tui.py:116
 msgid "Login:"
 msgstr "ప్రవేశం:"
 
@@ -389,90 +401,8 @@ msgstr "దయచేసి వేరే కావలసిన ప్రవేశ
 msgid "Please enter and verify a password."
 msgstr "దయచేసి ప్రవేశించండి మరియూ మీ అనుమతిపదాన్ని సరిచూసుకోండి"
 
-#. OS Release Window
-#: ../src/up2date_client/rhnreg_constants.py:80
-msgid "Select Operating System Release"
-msgstr ""
-
-#: ../src/up2date_client/rhnreg_constants.py:81
-msgid "Operating System version:"
-msgstr ""
-
-#: ../src/up2date_client/rhnreg_constants.py:82
-msgid " Minor Release: "
-msgstr ""
-
-#: ../src/up2date_client/rhnreg_constants.py:83
-msgid "Limited Updates Only"
-msgstr ""
-
-#: ../src/up2date_client/rhnreg_constants.py:84
-msgid "All available updates"
-msgstr ""
-
-#: ../src/up2date_client/rhnreg_constants.py:85
-msgid "Confirm operating system release selection"
-msgstr ""
-
-#: ../src/up2date_client/rhnreg_constants.py:86
-msgid ""
-"Your system will be subscribed to the base software channel to receive all "
-"available updates."
-msgstr ""
-
-#. Hardware Window
-#: ../src/up2date_client/rhnreg_constants.py:91
-msgid "Register a System Profile - Hardware"
-msgstr "ఒక కంప్యూటరు రూపాన్ని నమోదుచేయి - హార్డువేరు"
-
-#: ../src/up2date_client/rhnreg_constants.py:92
-msgid ""
-"A Profile Name is a descriptive name that you choose to identify this System "
-"Profile on the Red Hat Network web pages. Optionally, include a computer "
-"serial or identification number."
-msgstr ""
-"ప్రొఫయిల్ పేరు ఒక వర్ణనాత్మక నామం అది మీరు ఈ కంప్యూటరు ప్రొఫైలును Red Hat Network వెబ్ పుటలో "
-"గుర్తించటానికి వాడతారు. ఐచ్ఛికంగా, ఒక కంప్యూటరు క్రమాన్ని లేదా గుర్తింపుంఖ్యని కలిగి ఉంటుంది."
-
-#: ../src/up2date_client/rhnreg_constants.py:96
-msgid ""
-"Additional hardware information including PCI devices, disk sizes and mount "
-"points will be included in the profile."
-msgstr ""
-"అదనపు హార్డువేరు సమాచారం PCI సాధనాలతో కూడి, డిస్కు పరిమాణాలు మరియూ మౌంటు కేంద్రాలు ఈ ఆకృతిలో "
-"చేర్చబడాతాయి."
-
-#: ../src/up2date_client/rhnreg_constants.py:99
-msgid "Include the following information about hardware and network:"
-msgstr "హార్డువేరు మరియూ నెట్వర్కు గురించిన కింది సమాచారంతో:"
-
-#. Packages Window
-#: ../src/up2date_client/rhnreg_constants.py:103
-msgid "Register a System Profile - Packages"
-msgstr "ఒక కంప్యూటరు ఆకృతి - ప్యాకేజీలను నమోదుచేయి"
-
-#: ../src/up2date_client/rhnreg_constants.py:104
-msgid ""
-"RPM information is important to determine what updated software packages are "
-"relevant to this system."
-msgstr ""
-"RPM సమాచారం ఈ కంప్యూటరుకి ఏ నవీకరించబడ్డ సాఫ్టువేరు ప్యాకేజీలు సంబంధించబడ్డవో నిర్ణయించటానికి "
-"ముఖ్యమైనవి."
-
-#: ../src/up2date_client/rhnreg_constants.py:107
-msgid "Include RPM packages installed on this system in my System Profile"
-msgstr "RPM ప్యాకేజీలను ఈ కంప్యూటరులోని కంప్యూటరు రూపులో సంస్థాపించబడ్డ వాటితోసహా"
-
-#: ../src/up2date_client/rhnreg_constants.py:109
-msgid "You may deselect individual packages by unchecking them below."
-msgstr "మీరు విలువలేని ప్యాకేజీలను కింద పరిశీలించకుండా ఎన్నుకుని ఉంటారు."
-
-#: ../src/up2date_client/rhnreg_constants.py:111
-msgid "Building Package List"
-msgstr "ప్యాకేజీ జాబితాను నిర్మిస్తోంది"
-
 #. Product Window
-#: ../src/up2date_client/rhnreg_constants.py:114
+#: ../src/up2date_client/rhnreg_constants.py:80
 msgid ""
 "Please enter your login information for Red Hat Network (http://rhn.redhat."
 "com/):\n"
@@ -481,40 +411,28 @@ msgstr ""
 "దయచేసి మీ ప్రవేశ సమాచారాన్ని Red Hat Network (http://rhn.redhat.com/) కోసం ఇవ్వండి:\n"
 "\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:116
-#, fuzzy
+#: ../src/up2date_client/rhnreg_constants.py:82
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
 "LoginInfo.do"
 msgstr ""
-"<small>సూచన: మీ ప్రవేశం లేదా అనుమతిపదాన్ని మర్చిపోయారా? దాన్ని \n"
-"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>లో చూడం"
+"చిట్కా: మీ లాగిన్ లేదా సంకేతపదమును మర్చిపోయారా? దర్శించండి: https://rhn.redhat.com/rhn/sales/"
+"LoginInfo.do"
 
-#: ../src/up2date_client/rhnreg_constants.py:118
+#: ../src/up2date_client/rhnreg_constants.py:84
 msgid "*Email Address:"
 msgstr "*ఈటపా చిరునామా:"
 
-#: ../src/up2date_client/rhnreg_constants.py:120
-#: ../data/rh_register.glade.h:83
-msgid "System software updates already set up"
-msgstr "కంప్యూరు సాఫ్టువేరు నవీకరణలు ఇప్పటికే అమర్చబడ్డాయి"
-
-#: ../src/up2date_client/rhnreg_constants.py:121
-#: ../data/rh_register.glade.h:61
+#: ../src/up2date_client/rhnreg_constants.py:86 ../data/rh_register.glade.h:61
 msgid "It appears this system has already been set up for software updates:"
 msgstr "కంప్యూటరు సాఫ్టువేరు నవీకరణలకోసం ఇప్పటికే అమర్చబడి ఉండవచ్చు:"
 
-#: ../src/up2date_client/rhnreg_constants.py:122
-#: ../data/rh_register.glade.h:38
+#: ../src/up2date_client/rhnreg_constants.py:87 ../data/rh_register.glade.h:38
 msgid "Are you sure you would like to continue?"
 msgstr "మీరు నిజంగా కొనసాగించాలనుకుంటున్నారా?"
 
 #. Send Window
-#: ../src/up2date_client/rhnreg_constants.py:125
-msgid "Send Profile Information to Red Hat Network"
-msgstr "రూప సమాచారాన్ని Red Hat నెట్వర్కుకి పంపు"
-
-#: ../src/up2date_client/rhnreg_constants.py:126
+#: ../src/up2date_client/rhnreg_constants.py:90
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -528,12 +446,7 @@ msgstr ""
 "పంపకుండా ఉండటానికి \"రద్దు\"ను నొక్కండి.  మీరు కమాండు లైనులో `rhn_register`ను టైపుచేయటం "
 "ద్వారా నమోదు పరిక్రమాన్ని ఉపయోగించవ."
 
-#. Sending Window
-#: ../src/up2date_client/rhnreg_constants.py:133
-msgid "Sending Profile to Red Hat Network"
-msgstr "రూపాన్ని Red Hat నెట్వర్కుకి పంపుతోంది"
-
-#: ../src/up2date_client/rhnreg_constants.py:137
+#: ../src/up2date_client/rhnreg_constants.py:98
 msgid ""
 "You may now run 'yum update' from this system's command line to get the "
 "latest software updates from Red Hat Network. You will need to run this "
@@ -551,16 +464,16 @@ msgstr ""
 "అంతర్ముఖంలో ప్రధాన 'సహాయం' కీ ద్వారా అందుబాటులో ఉంది .)"
 
 #. Review Window
-#: ../src/up2date_client/rhnreg_constants.py:148 ../data/gui.glade.h:6
+#: ../src/up2date_client/rhnreg_constants.py:109 ../data/gui.glade.h:6
 msgid "Review system subscription details"
 msgstr "కంప్యూటరు సబ్ స్క్రిప్షన్ వివరాలను పరిశీలించు"
 
-#: ../src/up2date_client/rhnreg_constants.py:149
+#: ../src/up2date_client/rhnreg_constants.py:110
 #: ../data/rh_register.glade.h:67
 msgid "Please review the subscription details below:"
 msgstr "దయచేసి కింది సబ్ స్క్రిప్షన్ వివరాలను పరిశీలించు:"
 
-#: ../src/up2date_client/rhnreg_constants.py:150
+#: ../src/up2date_client/rhnreg_constants.py:111
 #, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
@@ -569,23 +482,23 @@ msgstr ""
 "సంస్థాపక సంఖ్య %s కంప్యూటరు యొక్క సంస్థాపక అనుసంధానం Red Hat Networkకి చేస్తున్నప్పుడు "
 "క్రియాశీలంగా చేయబడింది."
 
-#: ../src/up2date_client/rhnreg_constants.py:152
+#: ../src/up2date_client/rhnreg_constants.py:113
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
 msgstr "Subscriptionలు కింది Red Hat ఉత్పత్తులు/సేవలకోసం క్రియాశీలంచేయడుతున్నా:"
 
-#: ../src/up2date_client/rhnreg_constants.py:154
+#: ../src/up2date_client/rhnreg_constants.py:115
 msgid "Software channel subscriptions:"
 msgstr "సాఫ్టువేరు చానల్ సబ్ స్క్రిప్షన్లు:"
 
-#: ../src/up2date_client/rhnreg_constants.py:155
+#: ../src/up2date_client/rhnreg_constants.py:116
 msgid ""
 "This system will receive updates from the following Red Hat Network software "
 "channels:"
 msgstr "ఈ కంప్యూటరు కింది Red Hat Network చానళ్లనుండీ నవీకరణలను స్వీకరిస్తుంది "
 
-#: ../src/up2date_client/rhnreg_constants.py:157
+#: ../src/up2date_client/rhnreg_constants.py:118
 msgid ""
 "Warning: If an installed product on this system is not listed above, you "
 "will not receive updates or support for that product. If you would like to "
@@ -600,7 +513,7 @@ msgstr ""
 "subscribe చేయండి. ఎక్కువ వివరాలకు Kbase article 11313ను చూడండి. (http://kbase."
 "redhat.com/faq/docs/DOC-11313)"
 
-#: ../src/up2date_client/rhnreg_constants.py:168
+#: ../src/up2date_client/rhnreg_constants.py:129
 msgid ""
 "Warning: If an installed product on this system is not listed above, you "
 "will not receive updates or support for that product. If you would like to "
@@ -615,7 +528,7 @@ msgstr ""
 "చేయండి. ఎక్కువ వివరాలకోసమ్ Kbase article 11313ను చూడండి. (http://kbase.redhat.com/"
 "faq/docs/DOC-11313)"
 
-#: ../src/up2date_client/rhnreg_constants.py:179
+#: ../src/up2date_client/rhnreg_constants.py:140
 msgid ""
 "You were unable to be subscribed to the following software channels because "
 "there were insufficient subscriptions available in your account:"
@@ -623,7 +536,7 @@ msgstr ""
 "మీరు ఈ కింది సాఫ్టువేరు చానళ్లకు subscrib అవ్వటానికి కుదరదు ఎందుకంటే మీ ఖాతాలో తగినన్ని "
 "subscriptionలను కలిగిలేరు:"
 
-#: ../src/up2date_client/rhnreg_constants.py:183
+#: ../src/up2date_client/rhnreg_constants.py:144
 msgid ""
 "This system was unable to subscribe to any software channels. Your system "
 "will not receive any software updates to keep it secure and supported. There "
@@ -648,11 +561,11 @@ msgstr ""
 "చేయగలుగుతారు మరియూ ఈ కంప్యూటరు సాఫ్టువేరు చానళ్లను software > software channels tab "
 "ద్వారా subscribe చేయండి."
 
-#: ../src/up2date_client/rhnreg_constants.py:194
+#: ../src/up2date_client/rhnreg_constants.py:155
 msgid "RHN service level:"
 msgstr "RHN సేవల స్థాయి:"
 
-#: ../src/up2date_client/rhnreg_constants.py:195
+#: ../src/up2date_client/rhnreg_constants.py:156
 msgid ""
 "Depending on what RHN modules are associated with a system, you'll enjoy "
 "different benefits of Red Hat Network. The following are the RHN modules "
@@ -661,7 +574,7 @@ msgstr ""
 "కంప్యూటరుతో కూదుకుని ఉన్న RHN గుణకాల మీద ఆధారపడి, మీరు Red Hat Network యొక్క వివిధ "
 "ప్రయోజనాలను పొందగలుగుతారు. కిందివి ఈ కంప్యూటరుతో కూడి ఉన్న RHN గుణకా:"
 
-#: ../src/up2date_client/rhnreg_constants.py:199
+#: ../src/up2date_client/rhnreg_constants.py:160
 msgid ""
 "This system was unable to be associated with the following RHN module(s) "
 "because there were insufficient subscriptions available in your account:"
@@ -669,13 +582,13 @@ msgstr ""
 "ఈ కంప్యూటరు ఈ కింది RHN గుణకం(లు)తో కూడి ఉండటానికి వీలుకాదు ఎందుకంటే మీ ఖాతాలో చాలినన్ని "
 "subscriptionలు అందుబాటులోలేవు:"
 
-#: ../src/up2date_client/rhnreg_constants.py:202
+#: ../src/up2date_client/rhnreg_constants.py:163
 msgid ""
 "Update module: per-system updates, email errata notifications, errata "
 "information"
 msgstr "గుణకాన్ని నవీకరించు: ముందలి కంప్యూటరు నవీకరణలు, ఈటపా errata సూచన, errata సమాచారం"
 
-#: ../src/up2date_client/rhnreg_constants.py:204
+#: ../src/up2date_client/rhnreg_constants.py:165
 msgid ""
 "Management module: automatic updates, systems grouping, systems permissions, "
 "system package profiling"
@@ -683,7 +596,7 @@ msgstr ""
 "నిర్వహణా గుణకం: స్వయంచాలక నవీకరణలు, కంప్యూటరు సమూహీకరణ, కంప్యూటర్ల అనుమతులు, కంప్యూటరు "
 "ప్యాకేజీ ప్రొఫైలింగ్"
 
-#: ../src/up2date_client/rhnreg_constants.py:206
+#: ../src/up2date_client/rhnreg_constants.py:167
 msgid ""
 "Provisioning module: bare-metal provisioning, existing state provisioning, "
 "rollbacks, configuration management"
@@ -691,7 +604,7 @@ msgstr ""
 "Provisioning గుణకం: bare-metal provisioning, ఉన్న state provisioning, "
 "rollbacks, ఆకృతీకరణ నిర్వహణ"
 
-#: ../src/up2date_client/rhnreg_constants.py:208
+#: ../src/up2date_client/rhnreg_constants.py:169
 msgid ""
 "Monitoring module: pre-defined and custom system performance probes, system "
 "performance email notifications, graphs of system performance"
@@ -699,13 +612,13 @@ msgstr ""
 "Monitoring గుణకం: ముందే నిర్వచించబడిన మరియూ వినియోగ విధాన ఇబ్బందులు, కంప్యూటరు పనితనం ఈటపా "
 "సూచనలు, కంప్యూటరు పనితనం చిత్రాలు"
 
-#: ../src/up2date_client/rhnreg_constants.py:212
+#: ../src/up2date_client/rhnreg_constants.py:173
 msgid ""
 "Virtualization module: software updates for a limited number of virtual "
 "guests on this system."
 msgstr "వాస్తవీకరణ గుణకాలు: ఈ కంప్యూటరులో పరిమితికల వాస్తవిక ఆతిధేయులకు సాఫ్టువేరు నవీకరణలు."
 
-#: ../src/up2date_client/rhnreg_constants.py:215
+#: ../src/up2date_client/rhnreg_constants.py:176
 msgid ""
 "Virtualization Platform module: software updates for an unlimited number "
 "virtual guests of this system, access to additional software channels for "
@@ -714,7 +627,7 @@ msgstr ""
 "వాస్తవీకరణ ప్లాట్ ఫాం గుణకం: ఈ కంప్యూటరులో అపరిమిత సభ్యులకు సాఫ్టువేరు నవీకరణలు, ఈ కంప్యూటరు "
 "కోసం అదనపు సాఫ్టువేరు చానళ్లను అందుబాటులో ఉంచుతోంది."
 
-#: ../src/up2date_client/rhnreg_constants.py:219
+#: ../src/up2date_client/rhnreg_constants.py:180
 msgid ""
 "<b>Warning:</b> Any guest systems you create on this system and register to "
 "RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
@@ -729,7 +642,7 @@ msgstr ""
 "కంప్యూటరుకి RHN యొక్క వెబ్ అంతర్ముఖంలో మీరు వాస్తవిక ఆతిధేయాలను కోరుకో పోతే అదనపు సబ్ స్క్రిప్షన్లకు "
 "అప్లై చేయండి."
 
-#: ../src/up2date_client/rhnreg_constants.py:227
+#: ../src/up2date_client/rhnreg_constants.py:188
 msgid ""
 "This system was unable to be associated with any RHN service level modules. "
 "This system will not receive any software updates to keep it secure and "
@@ -755,7 +668,7 @@ msgstr ""
 "చేయగలుగుతారు మరియూ ఈ కంప్యూటరు సాఫ్టువేరు చానళ్లను software > software channels tab "
 "ద్వారా subscribe చేయండి."
 
-#: ../src/up2date_client/rhnreg_constants.py:239
+#: ../src/up2date_client/rhnreg_constants.py:200
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
@@ -778,15 +691,15 @@ msgstr ""
 "సార్వజనిక సిద్ధ క్రియాశీల కీ: %s"
 
 #. Error Messages.
-#: ../src/up2date_client/rhnreg_constants.py:251
+#: ../src/up2date_client/rhnreg_constants.py:212
 msgid "Fatal Error"
 msgstr "పెద్ద దోషం"
 
-#: ../src/up2date_client/rhnreg_constants.py:252
+#: ../src/up2date_client/rhnreg_constants.py:213
 msgid "Warning"
 msgstr "హెచ్చరిక"
 
-#: ../src/up2date_client/rhnreg_constants.py:253
+#: ../src/up2date_client/rhnreg_constants.py:214
 #, python-format
 msgid ""
 "We can't contact the Red Hat Network Server.\n"
@@ -808,12 +721,12 @@ msgstr ""
 "\n"
 "ఈ కంప్యూటరుRed Hatనుండీ Red Hat Network సర్వరుతో అనుసంధించకుండా నవీకరణలను పొందలే"
 
-#: ../src/up2date_client/rhnreg_constants.py:260
+#: ../src/up2date_client/rhnreg_constants.py:221
 #, python-format
 msgid "Architecture: %s, OS Release: %s, OS Version: %s"
 msgstr "నిర్మాణం: %s, OS విడుదల: %s, OS ప్రతి: %s"
 
-#: ../src/up2date_client/rhnreg_constants.py:262
+#: ../src/up2date_client/rhnreg_constants.py:223
 msgid ""
 "This server doesn't support functionality needed by this version of the "
 "software update setup client. Please try again with a newer server."
@@ -821,8 +734,8 @@ msgstr ""
 "ఈ సర్వరు ఈ సాఫ్టువేరు నవీకరణ అమర్పు కక్షిదారుని చేత అవసరమైన క్రియాశీలతకి మద్దతివ్వదు. దయచేసి కొత్త "
 "సర్వరుతో ప్రయత్నించండి."
 
-#: ../src/up2date_client/rhnreg_constants.py:268
-#, fuzzy, python-format
+#: ../src/up2date_client/rhnreg_constants.py:229
+#, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -836,24 +749,28 @@ msgstr ""
 "<b><span size=\"16000\">పొందికలేని ధృవీకృత ఫైలు</span></b>\n"
 "\n"
 "మీరు సమకూర్చిన ధృవీకరణ పత్రం, <b>%s</b>,  Red Hat Network సర్వరుతో <b>%s</b> యందు "
-"పొందికలేనిదిగా ఉంది.మీరు మీరు సమకూర్చిన ధృవీకృత ఫైలును రెండుసార్లు-శోధించవచ్చు. మీరు నిజంగా సరైన "
-"ధృవీకరణను సమకూర్చుతున్నారా, మరియూ ఆ ధృవీకరణ ఫైలు చెడిపోయి ఉండకూడదు?\n"
+"పొందికలేనిదిగా ఉంది.మీరు సరైన ధృవీకృత ఫైలును  సమకూర్చినారో లేదో వొకటికి-రెండుసార్లు సరిచూసుకొనండి. మీరు "
+"ఖచ్చితంగా సరైన ధృవీకరణపత్రమును సమకూర్చినారని, మరియూ ఆ ధృవీకరణ ఫైలు పాడవలేదని చెప్పగలరా?\n"
 "\n"
 "దయచేసి వేరే ధృవీకరణ ఫైలుతో ప్రయత్నించండి."
 
-#: ../src/up2date_client/rhnreg_constants.py:276
+#: ../src/up2date_client/rhnreg_constants.py:237
 msgid ""
 "<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
 "\n"
 " The certificate is expired. Please ensure you have the correct  certificate "
 "and your system time is correct."
 msgstr ""
+"<b><span size=\"12000\">సారూప్యంలేని ధృవీకరణ పత్రము</span></b>\n"
+"\n"
+" ధృవీకరణపత్రము కాలము చెల్లినది. దయచేసి మీరు సరైన ధృవీకరణపత్రము కలిగివుండునట్లు మరియు మీ సిస్టమ్ "
+"సమయం సరిగా వుండునట్లు చూచుకొనుము."
 
-#: ../src/up2date_client/rhnreg_constants.py:280
+#: ../src/up2date_client/rhnreg_constants.py:241
 msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
 msgstr "దయచేసి sslCACert యొక్క విలువను /etc/sysconfig/rhn/up2dateలో సరిచూడండి"
 
-#: ../src/up2date_client/rhnreg_constants.py:283
+#: ../src/up2date_client/rhnreg_constants.py:244
 msgid ""
 "Problem registering system.\n"
 "\n"
@@ -872,97 +789,110 @@ msgstr ""
 "Red Hat Knowledgebase Article #7924 at http://kbase.redhat.com/faq/"
 "FAQ_61_7924.shtm లో చూడవచ్చు "
 
-#: ../src/up2date_client/rhnreg_constants.py:296
+#: ../src/up2date_client/rhnreg_constants.py:257
 msgid ""
 "\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
+"\n"
+" చిట్కా: '*' తో చిన్న విడుదలలు ప్రస్తుతం Red Hat చేత మద్దతించబడుచున్నవి.\n"
+"\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:299
+#: ../src/up2date_client/rhnreg_constants.py:260
 msgid ""
 "Warning:You will not be able to limit this system to minor release that is "
 "older than the recent minor release if you select this option.\n"
 msgstr ""
+"హెచ్చరిక: మీరు ఈ ఐచ్చికమును యెంచుకొనినట్లైతే  యిటీవలి చిన్న విడుదల కన్నా చిన్నదైన విడుదలకు మీరు మీ "
+"సిస్టమ్‌ను పరిమితం చేయలేరు.\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:304
-#, python-format
+#: ../src/up2date_client/rhnreg_constants.py:265
+#, fuzzy, python-format
 msgid ""
 "Your system will be subscribed to %s \n"
 "base software channel. You will not be\n"
-"able to move this system to an earlier release\n"
-"(you will be able to move to a newer release).\n"
-"Are you sure you would like to continue?"
+"able to move this system to an earlier\n"
+"(you will be able to move to a newer release.)\n"
+"Are you sure you Would like to Continue?"
 msgstr ""
+"మీ సిస్టమ్ %s ప్రాధమిక సాఫ్టువేర్ చానల్‌కు సబ్‌స్క్రైబ్ \n"
+"అగును. మీరు ఈ సిస్టమ్‌ను మునుపటి విడుదలకు కదల్చ లేరు\n"
+"(మీరు కొత్త విడుదలకు కదల్చగలరు.)\n"
+"మీరు ఖచ్చితంగా కొనసాగాలని అనుకొనుచున్నారా?"
 
 #. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:313
+#: ../src/up2date_client/rhnreg_constants.py:274
 #: ../src/up2date_client/tui.py:371
 msgid "OK"
 msgstr "సరే"
 
-#: ../src/up2date_client/rhnreg_constants.py:314
+#: ../src/up2date_client/rhnreg_constants.py:275
 #: ../src/up2date_client/tui.py:371
 msgid "Error"
 msgstr "దోషం"
 
-#: ../src/up2date_client/rhnreg_constants.py:315
+#: ../src/up2date_client/rhnreg_constants.py:276
 msgid "Next"
 msgstr "తరువాత"
 
-#: ../src/up2date_client/rhnreg_constants.py:316
+#: ../src/up2date_client/rhnreg_constants.py:277
 msgid "Back"
 msgstr "వెనుక"
 
-#: ../src/up2date_client/rhnreg_constants.py:317
+#: ../src/up2date_client/rhnreg_constants.py:278
 msgid "Cancel"
 msgstr "రద్దు"
 
-#: ../src/up2date_client/rhnreg_constants.py:318
+#: ../src/up2date_client/rhnreg_constants.py:279
 msgid "No, Cancel"
 msgstr "కాదు, రద్దు"
 
-#: ../src/up2date_client/rhnreg_constants.py:319
+#: ../src/up2date_client/rhnreg_constants.py:280
 msgid "Yes, Continue"
 msgstr "అవును, కొనసాగించు"
 
-#: ../src/up2date_client/rhnreg_constants.py:320
+#: ../src/up2date_client/rhnreg_constants.py:281
 msgid "Press <space> to deselect the option."
 msgstr "ఐచ్ఛికాన్ని ఎన్నుకోకపోవటానికి <space>ని నొక్కండి."
 
 #: ../src/up2date_client/rhnregGui.py:113
+msgid "Automatic Subscription Activation"
+msgstr "స్వయంచాలక సబ్ స్క్రిప్షన్"
+
+#: ../src/up2date_client/rhnregGui.py:125
+msgid "Subscription Activation"
+msgstr "సబ్ స్క్రిప్షన్ క్రియాశీలత"
+
+#: ../src/up2date_client/rhnregGui.py:136
 msgid "Notice"
 msgstr "గమనించు"
 
-#: ../src/up2date_client/rhnregGui.py:238
-#, fuzzy
+#: ../src/up2date_client/rhnregGui.py:261
 msgid "There was an error while applying your choice."
-msgstr "ఆ రూపాన్ని ప్రసన్నం చేయటంలో ఒక దోషం."
+msgstr "మీ యిచ్చాన్ని ఆపాదించుటకు వొక దోషము యెదురైంది."
 
-#: ../src/up2date_client/rhnregGui.py:264
+#: ../src/up2date_client/rhnregGui.py:287
 msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr "మీరు విలువలేని చట్టాన్ని తెలిపారు. కేవలం https మరియూ http మాత్రమే అనుమతించబడతాయి."
 
-#: ../src/up2date_client/rhnregGui.py:277
-#, fuzzy
+#: ../src/up2date_client/rhnregGui.py:300
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Red Hat Network server."
-msgstr ""
-"మీరు <b>లేరు</b> మీ కంప్యూటరును Red Hat Networkకి అనుసంధించకుండా ఈ సబ్ స్క్రిప్షన్ "
-"విశేషాధికారాలను పొందలేరు."
+msgstr "మీరు Red Hat నెట్వర్కు సేవికను సంప్రదించకుండా ఈ సిస్టమ్‌ను నమోదు చేయలేరు."
 
-#: ../src/up2date_client/rhnregGui.py:302
+#: ../src/up2date_client/rhnregGui.py:325
 #, python-format
 msgid "We could not contact Red Hat Network (%s)."
 msgstr "మేము Red Hat Networkని సంప్రదించలేదు (%s)."
 
-#: ../src/up2date_client/rhnregGui.py:304
-#: ../src/up2date_client/rhnregGui.py:317
+#: ../src/up2date_client/rhnregGui.py:327
+#: ../src/up2date_client/rhnregGui.py:340
 msgid "Make sure the network connection on this system is operational."
 msgstr "ఈ కంప్యూటరులో నెట్వర్కు అనుసంధానం.క్రియాశీలమైందోకాదో నిర్ధారించుకోండి."
 
-#: ../src/up2date_client/rhnregGui.py:306
+#: ../src/up2date_client/rhnregGui.py:329
 msgid ""
 "Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
 "can enter a Satellite or Proxy location instead."
@@ -970,12 +900,12 @@ msgstr ""
 "మీ ఉద్దేశం Red Hat Network శాటిలైటు లేదా ప్రోక్సిని నమోదుచేయటమా? అదే ఐతే, మీరు ఒక శాటిలైటును లేదా "
 "ప్రోక్సి స్థానంను ప్రవేశపెట్టండి."
 
-#: ../src/up2date_client/rhnregGui.py:312
+#: ../src/up2date_client/rhnregGui.py:335
 #, python-format
 msgid "We could not contact the Satellite or Proxy at '%s.'"
 msgstr "'%s.' యందలి శాటిలైట్ లేదా ప్రోక్సిని సంప్రదించలేదు"
 
-#: ../src/up2date_client/rhnregGui.py:314
+#: ../src/up2date_client/rhnregGui.py:337
 #, python-format
 msgid ""
 "Double-check the location - is '%s' correct? If not, you can correct it and "
@@ -983,84 +913,79 @@ msgid ""
 msgstr ""
 "ఆ స్థానం - '%s' సరైనదో కాదో రెండుసార్లు-పరిశీలించు? కాక పోతే, మీరు దాన్ని సరిచేసి మళ్లీ ప్రయత్నించండి."
 
-#: ../src/up2date_client/rhnregGui.py:327
+#: ../src/up2date_client/rhnregGui.py:350
 msgid "There was an error communicating with Red Hat Network."
 msgstr "Red Hat నెట్వర్కుతో సంప్రదిస్తున్నప్పుడు ఒక దోషం ఉంది."
 
-#: ../src/up2date_client/rhnregGui.py:328
+#: ../src/up2date_client/rhnregGui.py:351
 msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr "సర్వరు ఔటేజ్ స్థితిలో ఉండవచ్చు. తర్వాత అనుసంధించటానికి ప్రయత్నించండి."
 
-#: ../src/up2date_client/rhnregGui.py:330
+#: ../src/up2date_client/rhnregGui.py:353
 msgid "You may be running a client that is incompatible with the server."
 msgstr "మీరు సర్వరుతీ అనురూపతలేని కక్షిదారుని ఉపయోగిస్తూ ఉండవచ్చు."
 
-#: ../src/up2date_client/rhnregGui.py:373
-#, fuzzy, python-format
+#: ../src/up2date_client/rhnregGui.py:396
+#, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr ""
-"దయచేసి మీ ప్రవేశ సమాచారాన్ని %s Red Hat Network Satellite కోసం ఇవ్వండి:\n"
-"\n"
+msgstr "<b>%s</b> Red Hat నెట్వర్కు శాటిలైట్ కొరకు మీ ఖాతా సమాచారమును ప్రవేశపెట్టండి:"
 
-#: ../src/up2date_client/rhnregGui.py:422
+#: ../src/up2date_client/rhnregGui.py:445
 msgid "You must enter a login."
 msgstr "మీరు తప్పక ఒక ప్రవేశా ఇవ్వాలి."
 
-#: ../src/up2date_client/rhnregGui.py:428
+#: ../src/up2date_client/rhnregGui.py:451
 msgid "You must enter a password."
 msgstr "మీరు తప్పక ఒక అనుమతిపదాన్ని ప్రవేశపెట్టాలి."
 
-#: ../src/up2date_client/rhnregGui.py:442
-#, fuzzy
+#: ../src/up2date_client/rhnregGui.py:465
 msgid "There was an error while logging in."
-msgstr "ప్రవేశించటంలో దోషం."
+msgstr "లాగిన్ అగుటలో అక్కడ వొక దోషము వుంది."
 
-#: ../src/up2date_client/rhnregGui.py:467
+#: ../src/up2date_client/rhnregGui.py:489
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
 msgstr "నమోదు సర్వరుతో సంప్రదిస్తున్నప్పటి దోషం.  ఆ సమాచారం:\n"
 
-#: ../src/up2date_client/rhnregGui.py:609
-#, fuzzy
+#: ../src/up2date_client/rhnregGui.py:631
 msgid "There was an error while assembling information for the profile."
-msgstr "ఆ రూపాన్ని ప్రసన్నం చేయటంలో ఒక దోషం."
+msgstr "ప్రొఫైల్ కొరకు సమాచారమును సమీకరించుటలో అక్కడ వొక దోషము వుంది."
 
-#: ../src/up2date_client/rhnregGui.py:630
+#: ../src/up2date_client/rhnregGui.py:652
 msgid "Error running hardware profile"
 msgstr "హార్డువేరు రూపం ఉపయోగించటంలో దోషం నడుస్తోంది"
 
-#: ../src/up2date_client/rhnregGui.py:657
+#: ../src/up2date_client/rhnregGui.py:679
 msgid "There was an error while populating the profile."
 msgstr "ఆ రూపాన్ని ప్రసన్నం చేయటంలో ఒక దోషం."
 
-#: ../src/up2date_client/rhnregGui.py:677
+#: ../src/up2date_client/rhnregGui.py:699
 msgid "You must choose a name for this profile."
 msgstr "మీరు తప్పక ఈ రూపానికి ఒక పేరును ఎన్నుకోవాలి."
 
-#: ../src/up2date_client/rhnregGui.py:692
-#, fuzzy
+#: ../src/up2date_client/rhnregGui.py:714
 msgid "There was an error while creating the profile."
-msgstr "ఆ రూపాన్ని ప్రసన్నం చేయటంలో ఒక దోషం."
+msgstr "ప్రొఫైల్‌ను సృష్టించుటలో అక్కడు వొక దోషము వుంది."
 
-#: ../src/up2date_client/rhnregGui.py:703
+#: ../src/up2date_client/rhnregGui.py:725
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "మీ రూప సమాచారాన్ని Red Hat నెట్వర్కుక్కి పంపుతోంది.  దయచేసి వేచిఉండండి."
 
-#: ../src/up2date_client/rhnregGui.py:722
+#: ../src/up2date_client/rhnregGui.py:744
 msgid "Registering System"
 msgstr "కంప్యూటరును నమోదుచేస్తోంది"
 
-#: ../src/up2date_client/rhnregGui.py:736
-#: ../src/up2date_client/rhnregGui.py:740
-#: ../src/up2date_client/rhnregGui.py:744 ../src/up2date_client/tui.py:825
-#: ../src/up2date_client/tui.py:828 ../src/up2date_client/tui.py:831
+#: ../src/up2date_client/rhnregGui.py:758
+#: ../src/up2date_client/rhnregGui.py:762
+#: ../src/up2date_client/rhnregGui.py:766 ../src/up2date_client/tui.py:835
+#: ../src/up2date_client/tui.py:838 ../src/up2date_client/tui.py:841
 msgid "Problem registering system:\n"
 msgstr "సమస్య నమోదు విధానం:\n"
 
-#: ../src/up2date_client/rhnregGui.py:747
+#: ../src/up2date_client/rhnregGui.py:769
 #, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
@@ -1068,23 +993,23 @@ msgid ""
 msgstr ""
 "సమకుర్చిన సంస్థాపక సంఖ్య [ %s ] విలువైనది కాదు. దయచేసి ముందలి స్క్రీనుకి వెళ్లి దాన్ని స్థిరపరచండి."
 
-#: ../src/up2date_client/rhnregGui.py:757 ../src/up2date_client/tui.py:837
+#: ../src/up2date_client/rhnregGui.py:779 ../src/up2date_client/tui.py:847
 msgid "Problem registering system."
 msgstr "సమస్యని నమోదుచేసే విధానం"
 
-#: ../src/up2date_client/rhnregGui.py:767 ../src/up2date_client/tui.py:842
+#: ../src/up2date_client/rhnregGui.py:789 ../src/up2date_client/tui.py:852
 msgid "Problem writing out system id to disk."
 msgstr "సమస్యని రాసే విధానం id నుండీ డిస్కుకి."
 
-#: ../src/up2date_client/rhnregGui.py:773
+#: ../src/up2date_client/rhnregGui.py:795
 msgid "There was a problem registering this system."
 msgstr "ఈ విధానాన్ని నమోదు చేయటంలో ఒక ఇబ్బంది ఉంది"
 
-#: ../src/up2date_client/rhnregGui.py:786
+#: ../src/up2date_client/rhnregGui.py:808
 msgid "Sending hardware information"
 msgstr "హార్డువేరు సమాచారాన్ని పంపుతోం:"
 
-#: ../src/up2date_client/rhnregGui.py:791
+#: ../src/up2date_client/rhnregGui.py:813
 msgid "Problem sending hardware information."
 msgstr "దోషాన్ని చదివే హార్డువేరు సమాచారం:"
 
@@ -1097,87 +1022,84 @@ msgstr "దోషాన్ని చదివే హార్డువేరు 
 #. #            for pkg in packageList:
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
-#: ../src/up2date_client/rhnregGui.py:815
+#: ../src/up2date_client/rhnregGui.py:837
 msgid "Sending package information"
 msgstr "ప్యాకేజీ సమాచారాన్ని పంపుతోంది"
 
-#: ../src/up2date_client/rhnregGui.py:820
+#: ../src/up2date_client/rhnregGui.py:842
 msgid "Problem sending package information."
 msgstr "ప్యాకేజీ సమాచారాన్ని పంపటంలో ఇబ్బంది."
 
-#: ../src/up2date_client/rhnregGui.py:854
-#: ../src/up2date_client/rhnregGui.py:871 ../src/up2date_client/tui.py:856
-#: ../src/up2date_client/tui.py:870
+#: ../src/up2date_client/rhnregGui.py:876
+#: ../src/up2date_client/rhnregGui.py:893 ../src/up2date_client/tui.py:866
+#: ../src/up2date_client/tui.py:880
 msgid "Problem registering personal information:\n"
 msgstr "సమస్య సమోదు చేస్తున్న వ్యక్తిగత సమాచారం:\n"
 
-#: ../src/up2date_client/rhnregGui.py:859
-#: ../src/up2date_client/rhnregGui.py:876 ../src/up2date_client/tui.py:862
-#: ../src/up2date_client/tui.py:874
+#: ../src/up2date_client/rhnregGui.py:881
+#: ../src/up2date_client/rhnregGui.py:898 ../src/up2date_client/tui.py:872
+#: ../src/up2date_client/tui.py:884
 msgid "Problem registering personal information"
 msgstr "సమస్య సమోదు చేస్తున్న వ్యక్తిగత సమాచారం"
 
-#: ../src/up2date_client/rhnregGui.py:918
-#, fuzzy
+#: ../src/up2date_client/rhnregGui.py:940
 msgid "There was an error while installing the certificate."
-msgstr "ఆ రూపాన్ని ప్రసన్నం చేయటంలో ఒక దోషం."
+msgstr "ధృవీకరణపత్రమును సంస్థాపించుటలో అక్కడ వొక దోషము వుంది."
 
-#: ../src/up2date_client/rhnregGui.py:944
+#: ../src/up2date_client/rhnregGui.py:966
 msgid "You must select a certificate."
 msgstr "మీరు తప్పక ఒక దృవీకరణ పత్రాన్ని ఎన్నికోవాలి."
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
-#: ../src/up2date_client/rhnregGui.py:977
+#: ../src/up2date_client/rhnregGui.py:999
 msgid ""
 "There was an SSL error. This could be because the file you picked was not a "
 "certificate file."
 msgstr "అక్కడ ఒక SSL దోషం ఉంది. ఇది మీరు తీసుకున్న ఫైలు ధృవీకృత ఫైలు కాకపోవటంవల్ల."
 
 #. TODO Provide better messages
-#: ../src/up2date_client/rhnregGui.py:984
+#: ../src/up2date_client/rhnregGui.py:1006
 msgid "Something went wrong while installing the new certificate:\n"
 msgstr "కొత్త ధృవీకరణని సంస్థాపించుతున్నప్పుడు కొంత తప్పయ్యింది:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1036
-#: ../src/up2date_client/rhnregGui.py:1037
-#: ../src/up2date_client/rhnregGui.py:1038
+#: ../src/up2date_client/rhnregGui.py:1058
+#: ../src/up2date_client/rhnregGui.py:1059
+#: ../src/up2date_client/rhnregGui.py:1060
 msgid "unknown"
 msgstr "తెలియని"
 
-#: ../src/up2date_client/rhnregGui.py:1116
-#, fuzzy
+#: ../src/up2date_client/rhnregGui.py:1138
 msgid "There was an error getting the list of hardware."
-msgstr "ఆ రూపాన్ని ప్రసన్నం చేయటంలో ఒక దోషం."
+msgstr "హార్డువేరు యొక్క జాబితాను పొందుటలో అక్కడ వొక దోషము వుంది."
 
-#: ../src/up2date_client/rhnregGui.py:1128 ../src/up2date_client/tui.py:625
+#: ../src/up2date_client/rhnregGui.py:1150 ../src/up2date_client/tui.py:631
 #, python-format
 msgid "%d MHz"
 msgstr "%d MHz"
 
-#: ../src/up2date_client/rhnregGui.py:1132
+#: ../src/up2date_client/rhnregGui.py:1154
 #, python-format
 msgid "%s MB"
 msgstr "%s MB"
 
-#: ../src/up2date_client/rhnregGui.py:1176
-#, fuzzy
+#: ../src/up2date_client/rhnregGui.py:1198
 msgid "There was an error building the list of packages."
-msgstr "ఈ ప్యాకేజీలను సంస్థాపించటంలో పెద్ద దోషం:\n"
+msgstr "ప్యాకేజీల యొక్క జాబితాను నిర్మించుటలో అక్కడ వొక దోషము వుంది."
 
-#: ../src/up2date_client/rhnregGui.py:1191
+#: ../src/up2date_client/rhnregGui.py:1213
 msgid "Package"
 msgstr "ప్యాకేజీ"
 
-#: ../src/up2date_client/rhnregGui.py:1196
+#: ../src/up2date_client/rhnregGui.py:1218
 msgid "Arch"
 msgstr "Arch"
 
-#: ../src/up2date_client/rhnregGui.py:1203
+#: ../src/up2date_client/rhnregGui.py:1225
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr "మీ కంప్యూటరులో RPM ప్యాకేజీల జాబితా.సంస్థాపించబడుతోంది  దయచేసి వేచిఉండండి."
 
-#: ../src/up2date_client/rhnregGui.py:1234
+#: ../src/up2date_client/rhnregGui.py:1256
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
@@ -1185,7 +1107,7 @@ msgstr ""
 "మీ ఆకృతీకరణను లోడ్ చేయటంలో ఒక దోషం ఉంది.  దాన్ని నిర్ధారించుకోండి\n"
 "మీరు /etc/sysconfig/rhnని చదవగలుగుతారు."
 
-#: ../src/up2date_client/rhnregGui.py:1276
+#: ../src/up2date_client/rhnregGui.py:1298
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
@@ -1194,7 +1116,7 @@ msgstr ""
 "మీ ఆకృతిని భద్రపరచటంలో ఒక దోషం. దాన్ని నిర్ధారించండి\n"
 "మీ సొంతంగా %s."
 
-#: ../src/up2date_client/rhnregGui.py:1305
+#: ../src/up2date_client/rhnregGui.py:1327
 #, python-format
 msgid ""
 "This error shouldn't have happened. If you'd like to help us improve this "
@@ -1205,23 +1127,27 @@ msgstr ""
 "ugzilla.redhat.com లో ఫైల్ చేయండి. '%s' యొక్క సంభంధిత భాగాలతో ఫైలు చేయటం చాలా ఉపకరిస్తుంది. "
 "ధన్యవాదాలు!"
 
-#: ../src/up2date_client/rhnreg.py:56
+#: ../src/up2date_client/rhnreg.py:55
 msgid "Warning: unable to enable rhnsd with chkconfig"
 msgstr "హెచ్చరిక: chkconfigతో rhnsdని సాధ్యంచేయటం కుదరదు"
 
+#: ../src/up2date_client/rhnreg.py:65
+msgid "Warning: unable to run rhn_check"
+msgstr "హెచ్చరిక: rhn_checkను నడుపలేక పోయింది"
+
 #: ../src/up2date_client/rpcServer.py:47
 msgid "Error: Server Unavailable. Please try later."
-msgstr ""
+msgstr "దోషము: సేవిక అందుబాటులో లేదు. దయచేసి తరువాత ప్రయత్నించుము."
 
-#: ../src/up2date_client/rpcServer.py:167
+#: ../src/up2date_client/rpcServer.py:171
 msgid "ERROR: can not find RHNS CA file"
 msgstr "దోషం: RHNS CA ఫైలు కనుగొనబడలేదు"
 
-#: ../src/up2date_client/rpcServer.py:203
+#: ../src/up2date_client/rpcServer.py:207
 msgid "Connection aborted by the user"
 msgstr "వినియోగదారుని చేత అనుసంధానం నిష్ఫలం చేయబడింది"
 
-#: ../src/up2date_client/rpcServer.py:248
+#: ../src/up2date_client/rpcServer.py:252
 msgid "Server has refused connection due to high load"
 msgstr "సర్వరు అధిక భారంవల్ల అనుసంధించటానికి తిరస్కరిస్తోంది"
 
@@ -1229,130 +1155,286 @@ msgstr "సర్వరు అధిక భారంవల్ల అనుసం
 msgid "Getting list of packages installed on the system"
 msgstr "కంప్యూటరులో సంస్థాపించబడ్డ ప్యాకేజీల జాబితాను పొందుతోంది"
 
-#: ../src/up2date_client/tui.py:120
-#, fuzzy
-msgid "Red Hat Network Location:"
-msgstr "Red Hat Network స్థానం: (_L)"
+#: ../src/up2date_client/tui.py:112 ../data/rh_register.glade.h:83
+msgid "System software updates already set up"
+msgstr "కంప్యూరు సాఫ్టువేరు నవీకరణలు ఇప్పటికే అమర్చబడ్డాయి"
 
-#: ../src/up2date_client/tui.py:122
-#, fuzzy
+#: ../src/up2date_client/tui.py:115
+msgid "Red Hat Network Location:"
+msgstr "Red Hat Network స్థానం:"
+
+#: ../src/up2date_client/tui.py:117
 msgid "System ID:"
-msgstr ""
-"\n"
-"కంప్యూటరు ID: "
+msgstr "సిస్టమ్ ID:"
 
 #: ../src/up2date_client/tui.py:371
 msgid "The server indicated an error:\n"
 msgstr "ఈ సర్వరు ఒక దోషాన్ని సూచిస్తోంది:\n"
 
 #: ../src/up2date_client/tui.py:375
-#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr "నమోదు సర్వరుతో సంప్రదిస్తున్నప్పటి దోషం.  ఆ సమాచారం:\n"
+msgstr "నమోదీకరణ సేవికతో సంప్రదించుటలో అక్కడ వొక దోషము వుంది:\n"
+
+#: ../src/up2date_client/tui.py:434
+msgid "Select Operating System Release"
+msgstr "ఆపరేటింగ్ సిస్టమ్ విడుదలను యెంపికచేయుము"
+
+#: ../src/up2date_client/tui.py:438
+msgid "Operating System version:"
+msgstr "ఆపరేటింగ్ సిస్టమ్ వర్షన్:"
+
+#: ../src/up2date_client/tui.py:440
+msgid "Limited Updates Only"
+msgstr "పరిమిత నవీకరణలు మాత్రమే"
+
+#: ../src/up2date_client/tui.py:452
+msgid " Minor Release: "
+msgstr " చిన్న విడుదల: "
+
+#: ../src/up2date_client/tui.py:467
+msgid "All available updates"
+msgstr "అందుబాటులో వున్న అన్ని నవీకరణలు"
+
+#: ../src/up2date_client/tui.py:520
+msgid "Confirm operating system release selection"
+msgstr "ఆపరేటింగ్ సిస్టమ్ విడుదల విభాగాన్ని ఖాయపరచుము"
+
+#: ../src/up2date_client/tui.py:528
+msgid ""
+"Your system will be subscribed to the base software channel to receive all "
+"available updates."
+msgstr ""
+"మీ సిస్టమ్ అందుబాటులోని అన్ని నవీకరణలను పొందుటకు ప్రాధమిక సాఫ్టువేర్ చానల్‌కు సబ్‌స్క్రైబ్ చేయబడును."
+
+#: ../src/up2date_client/tui.py:572
+msgid "Register a System Profile - Hardware"
+msgstr "ఒక కంప్యూటరు రూపాన్ని నమోదుచేయి - హార్డువేరు"
 
 #: ../src/up2date_client/tui.py:575
+msgid ""
+"A Profile Name is a descriptive name that you choose to identify this System "
+"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"serial or identification number."
+msgstr ""
+"ప్రొఫయిల్ పేరు ఒక వర్ణనాత్మక నామం అది మీరు ఈ కంప్యూటరు ప్రొఫైలును Red Hat Network వెబ్ పుటలో "
+"గుర్తించటానికి వాడతారు. ఐచ్ఛికంగా, ఒక కంప్యూటరు క్రమాన్ని లేదా గుర్తింపుంఖ్యని కలిగి ఉంటుంది."
+
+#: ../src/up2date_client/tui.py:581
 msgid "Profile name:"
 msgstr "రూపం పేరు:"
 
-#: ../src/up2date_client/tui.py:597 ../src/up2date_client/tui.py:598
+#: ../src/up2date_client/tui.py:590 ../src/up2date_client/tui.py:592
+msgid "Include the following information about hardware and network:"
+msgstr "హార్డువేరు మరియూ నెట్వర్కు గురించిన కింది సమాచారంతో:"
+
+#: ../src/up2date_client/tui.py:603 ../src/up2date_client/tui.py:604
 msgid "Version: "
 msgstr "ప్రతి: "
 
-#: ../src/up2date_client/tui.py:604
+#: ../src/up2date_client/tui.py:610
 msgid "CPU model: "
 msgstr "CPU మాదిరి: "
 
-#: ../src/up2date_client/tui.py:610
+#: ../src/up2date_client/tui.py:616
 msgid "Hostname: "
 msgstr "ఆతిధేయనామం: "
 
-#: ../src/up2date_client/tui.py:621
+#: ../src/up2date_client/tui.py:627
 msgid "CPU speed: "
 msgstr "CPU వేగం: "
 
-#: ../src/up2date_client/tui.py:627
+#: ../src/up2date_client/tui.py:633
 msgid "IP Address: "
 msgstr "IP చిరునామా: "
 
-#: ../src/up2date_client/tui.py:633
+#: ../src/up2date_client/tui.py:639
 msgid "Memory: "
 msgstr "మెమోరీ: "
 
-#: ../src/up2date_client/tui.py:637
+#: ../src/up2date_client/tui.py:643
 #, python-format
 msgid "%s megabytes"
 msgstr "%s మెగాబైట్లు"
 
-#: ../src/up2date_client/tui.py:884
+#: ../src/up2date_client/tui.py:648
+msgid ""
+"Additional hardware information including PCI devices, disk sizes and mount "
+"points will be included in the profile."
+msgstr ""
+"అదనపు హార్డువేరు సమాచారం PCI సాధనాలతో కూడి, డిస్కు పరిమాణాలు మరియూ మౌంటు కేంద్రాలు ఈ ఆకృతిలో "
+"చేర్చబడాతాయి."
+
+#: ../src/up2date_client/tui.py:685
+msgid "Register a System Profile - Packages"
+msgstr "ఒక కంప్యూటరు ఆకృతి - ప్యాకేజీలను నమోదుచేయి"
+
+#: ../src/up2date_client/tui.py:690
+msgid ""
+"RPM information is important to determine what updated software packages are "
+"relevant to this system."
+msgstr ""
+"RPM సమాచారం ఈ కంప్యూటరుకి ఏ నవీకరించబడ్డ సాఫ్టువేరు ప్యాకేజీలు సంబంధించబడ్డవో నిర్ణయించటానికి "
+"ముఖ్యమైనవి."
+
+#: ../src/up2date_client/tui.py:694
+msgid "Include RPM packages installed on this system in my System Profile"
+msgstr "RPM ప్యాకేజీలను ఈ కంప్యూటరులోని కంప్యూటరు రూపులో సంస్థాపించబడ్డ వాటితోసహా"
+
+#: ../src/up2date_client/tui.py:698
+msgid "You may deselect individual packages by unchecking them below."
+msgstr "మీరు విలువలేని ప్యాకేజీలను కింద పరిశీలించకుండా ఎన్నుకుని ఉంటారు."
+
+#: ../src/up2date_client/tui.py:707
+msgid "Building Package List"
+msgstr "ప్యాకేజీ జాబితాను నిర్మిస్తోంది"
+
+#: ../src/up2date_client/tui.py:768
+msgid "Send Profile Information to Red Hat Network"
+msgstr "రూప సమాచారాన్ని Red Hat నెట్వర్కుకి పంపు"
+
+#: ../src/up2date_client/tui.py:805
+msgid "Sending Profile to Red Hat Network"
+msgstr "రూపాన్ని Red Hat నెట్వర్కుకి పంపుతోంది"
+
+#: ../src/up2date_client/tui.py:894
 msgid "Problem sending hardware profile:\n"
 msgstr "సమస్యను హార్డువేరు రూపానికి పంపుతోంది:\n"
 
-#: ../src/up2date_client/tui.py:888
+#: ../src/up2date_client/tui.py:898
 msgid "Problem sending hardware profile."
 msgstr "హార్డువేరు రూపాన్ని పంపటంలో ఇబ్బంది."
 
-#: ../src/up2date_client/tui.py:897
+#: ../src/up2date_client/tui.py:907
 msgid "Problem sending package list:\n"
 msgstr "ప్యాకేజీ జాబితాను పంపటంలో ఇబ్బంది:\n"
 
-#: ../src/up2date_client/tui.py:900
+#: ../src/up2date_client/tui.py:910
 msgid "Problem sending package list."
 msgstr "ప్యాకేజీ జాబితాను పంపటంలో ఇబ్బంది."
 
-#: ../src/up2date_client/tui.py:943
+#: ../src/up2date_client/tui.py:953
 msgid "Finish"
 msgstr "ముగించు"
 
-#: ../src/up2date_client/tui.py:1057
+#: ../src/up2date_client/tui.py:1067
 msgid "You specified an invalid protocol."
 msgstr "మీరు విలువలేని చట్టాన్ని తెలిపారు."
 
-#: ../src/up2date_client/tui.py:1096
+#: ../src/up2date_client/tui.py:1106
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr "  <Tab>/<Alt-Tab> మూలకాల మధ్య  |  <Space> selects  |  <F12> next screen"
 
-#: ../src/up2date_client/tui.py:1190
+#: ../src/up2date_client/tui.py:1200
 msgid "You must run the RHN registration program as root."
 msgstr "మీరు తప్పక RHN నమోదు పరిక్రమాన్ని రూటుగా ప్రయోగించాలి."
 
-#: ../src/up2date_client/up2dateErrors.py:29
+#: ../src/up2date_client/up2dateErrors.py:31
+msgid "Disk error.  The message was:\n"
+msgstr "డిస్కు దోషం.  ఈ సమాచారం:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:39
 msgid "RPM error.  The message was:\n"
 msgstr "RPM దోషం.  ఈ సమాచారం:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:41
+#: ../src/up2date_client/up2dateErrors.py:50
+msgid "There was a fatal error installing the package:\n"
+msgstr "ఈ ప్యాకేజీలను సంస్థాపించటంలో పెద్ద దోషం:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:63
 msgid "Password error. The message was:\n"
 msgstr "అనుమతిపద దోషం. ఆ సమాచారం:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:54
+#: ../src/up2date_client/up2dateErrors.py:74
+msgid "RPM package conflict error.  The message was:\n"
+msgstr "RPM ప్యాకేజీ విభేదక దోషం.  ఆ సమాచారం:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:86
+msgid "RPM file conflict error. The message was:\n"
+msgstr "RPM ఫైలు విభేదక దోషం. ఆ సమాచారం:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:100
 msgid "RPM dependency error. The message was:\n"
 msgstr "RPM ఆధారభూత దోషం. ఆ సమాచారం:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:63
+#: ../src/up2date_client/up2dateErrors.py:114
+msgid "RPM  error. The message was:\n"
+msgstr "RPM  దోషం. ఆ సమాచారం:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:127
+#: ../src/up2date_client/up2dateErrors.py:140
+msgid "RPM dependency error.  The message was:\n"
+msgstr "RPM ఆధార దోషం.  ఆ సమాచారం:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:151
+msgid "Package Skip List error.  The message was:\n"
+msgstr "ప్యాకేజీ దాటివేత దోషం.  ఆ సమాచారం:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:164
+msgid "File Skip List or config file overwrite error. The message was:\n"
+msgstr "ఫైలు దాటివేత దోషం లేదా ఆకృతి ఫైలును తిరిగ రాత దోషం. ఆ సమాచారం:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:174
 msgid "Error communicating with server. The message was:\n"
 msgstr "సర్వరుతో దోష సంబంధం. ఆ సమాచారం:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:74
+#: ../src/up2date_client/up2dateErrors.py:185
 msgid "File Not Found: \n"
 msgstr "ఫైలు కనుగొనబడలేదు: \n"
 
-#: ../src/up2date_client/up2dateErrors.py:85
+#: ../src/up2date_client/up2dateErrors.py:196
 msgid "Delay error from server.  The message was:\n"
 msgstr "సర్వరునుండీ ఆలస్య దోషం.  ఆ సమాచారం:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:131
+#: ../src/up2date_client/up2dateErrors.py:204
+#, python-format
+msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
+msgstr "ఈ \"%s\" ప్యాకేజీని తొలిగించకు. ఇది తొలగించే స్కిప్ జాబితాలో ఉంది"
+
+#: ../src/up2date_client/up2dateErrors.py:227
+msgid "GPG is not installed properly."
+msgstr "GPG సరిగా సంస్థాపించబడలేదు."
+
+#: ../src/up2date_client/up2dateErrors.py:237
+msgid ""
+"GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgstr "GPG keyring Red Hatలో చేరదు, Inc. public ప్యాకేజీ-signing కీ"
+
+#: ../src/up2date_client/up2dateErrors.py:249
+#, python-format
+msgid ""
+"The package %s failed its gpg signature verification. This means the package "
+"is corrupt."
+msgstr "%s ప్యాకేజీ దాని gpg సిగ్నేచర్ తనిఖీలో విఫలమైంది. అంటే ఆ ప్యాకేజీ చెడిపోయిందని అర్ధం."
+
+#: ../src/up2date_client/up2dateErrors.py:263
+#, python-format
+msgid "Package %s does not have a GPG signature.\n"
+msgstr "ప్యాకేజీ %s GPG సిగ్నేచరుని కలిగిలేదు.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:276
+#, python-format
+msgid "Package %s has a untrusted GPG signature.\n"
+msgstr "%s ప్యాకేజీ అవిశ్వాస GPG సిగ్నేచరును కలిగిఉంది.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:289
+#, python-format
+msgid "Package %s has a unknown GPG signature.\n"
+msgstr "%s ప్యాకేజీ తెలియని GPG సిగ్నేచరుని కలిగిఉంది.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:339
 msgid "Error validating data at server:\n"
 msgstr "సర్వరులోని దోష క్రమబద్ధీకరణ సమాచారం:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:142
+#: ../src/up2date_client/up2dateErrors.py:350
 msgid "The installation number is invalid"
 msgstr "ఈ సంస్థాప సంఖ్య సరైనదికాదు"
 
-#: ../src/up2date_client/up2dateErrors.py:149
+#: ../src/up2date_client/up2dateErrors.py:357
 msgid "Error parsing the oemInfo file at field:\n"
 msgstr "క్షేత్రంలో oemInfo ఫైలుని నిరూపించటంలో దోషం:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:277
+#: ../src/up2date_client/up2dateErrors.py:546
 msgid ""
 "\n"
 "    Your organization does not have enough Management entitlements to "
@@ -1373,59 +1455,80 @@ msgid ""
 "retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
+"\n"
+"    ఈ సిస్టమ్‌ను Red Hat నెట్వర్కుతో నమోదు చేయుటకు మీ సంస్థ నిర్వహణ పరంగా తగినన్నిహక్కు కలిపించే "
+"విధానాలను(మెనేజ్‌మెంట్ యెన్‌టైటిల్మెంట్స్)\n"
+"    కలిగిలేదు. మీ సంస్థ నిర్వహణాధికారికి ఈ దోషము గురించి తెలియపరచండి.\n"
+"    మీ సంస్థ వున్న యెన్‌టైటిల్మెంట్సును ఖాళీ చేసిన తర్వాత లేదా అదనపు వాటిని కొన్న తర్వాత గానిమీరు\n"
+"    ఈ సిస్టమ్‌ను నమోదు చేయలేరు. అదనపు యెన్‌టైటిల్మెంట్సు మీ సంస్థ నిర్వహణాధికారిచేRed Hat నెట్వర్కు\n"
+"    నందు లాగిన్ అవ్వుట ద్వారాగాని లేదా RHN యొక్క 'మీ RHN' నందలి 'సబ్‌స్క్రిప్షన్ మేనేజ్‌మెంట్'\n"
+"    పేజీను దర్శించుట ద్వారాగాని కొనుగోలు చేయవచ్చును.\n"
+"    \n"
+"    క్రియాశీలపరచు కీను యూనివర్శల్ డీఫాల్టుగా తప్పుగా అమర్చుట అనునది ఈ దోషపు కోడ్‌నకు\n"
+"    కారణం కావచ్చును. ఒకవేళ క్రియాశీలపు కీ అనునదిఖాతాపై\n"
+"    యూనివర్శల్ డీఫాల్టుగా అమర్చబడితే, మీరు ఈ కీను అచేతనము చేయవచ్చును మరియుఅవసరమైన మేనేజ్‌మెంట్ "
+"యెన్‌టైటిల్మెంట్‌ను\n"
+"    తప్పించుటకు పనఃప్రయత్నించవచ్చును."
 
-#: ../src/firstboot/rhn_choose_server_gui.py:42
-#: ../src/firstboot/rhn_choose_server_gui.py:43 ../data/rh_register.glade.h:43
+#: ../src/firstboot/rhn_choose_server_gui.py:40 ../data/rh_register.glade.h:43
 msgid "Choose Server"
 msgstr "సర్వరును ఎన్నుకో"
 
-#: ../src/firstboot/rhn_choose_server_gui.py:54
-#: ../src/firstboot/rhn_login_gui.py:42 ../src/firstboot/rhn_login_gui.py:43
-msgid "Red Hat Login"
-msgstr "Red Hat ప్రవేశం"
+#: ../src/firstboot/rhn_choose_server_gui.py:42
+#, fuzzy
+msgid "Choose a Red Hat Network server"
+msgstr "Red Hat Network సర్వరును సంప్రదించటానికి ప్రయత్నిస్తోంది."
 
-#: ../src/firstboot/rhn_choose_server_gui.py:59
-#: ../src/firstboot/rhn_provide_certificate_gui.py:41
-#: ../src/firstboot/rhn_provide_certificate_gui.py:42
-msgid "Provide Certificate"
-msgstr "ధృవీకరణను సమకూర్చు"
-
-#: ../src/firstboot/rhn_create_profile_gui.py:42
-#: ../src/firstboot/rhn_create_profile_gui.py:43
+#: ../src/firstboot/rhn_create_profile_gui.py:48
 msgid "Create Profile"
 msgstr "రూపాన్ని సృష్టించు"
 
-#. the user doesn't want to provide a cert right now
-#. TODO write a message to disk like the other cases? need to decide
-#. how we want to do error handling in general.
-#: ../src/firstboot/rhn_create_profile_gui.py:58
-#: ../src/firstboot/rhn_finish_gui.py:42 ../src/firstboot/rhn_finish_gui.py:43
-#: ../src/firstboot/rhn_login_gui.py:57
-#: ../src/firstboot/rhn_provide_certificate_gui.py:57
-#: ../src/firstboot/rhn_start_gui.py:55
+#: ../src/firstboot/rhn_create_profile_gui.py:50
+#: ../src/firstboot/rhn_finish_gui.py:41 ../src/firstboot/rhn_review_gui.py:40
+#, fuzzy
+msgid "Connect to Red Hat Network"
+msgstr "Red Hat నెట్వర్కుకి ఎందుకు అనుసంధించబడాలి?"
+
+#: ../src/firstboot/rhn_finish_gui.py:39
 msgid "Finish Updates Setup"
 msgstr "నవీకరణల అమర్పును ముగించు"
 
-#: ../src/firstboot/rhn_create_profile_gui.py:87
-#: ../src/firstboot/rhn_login_gui.py:92
+#: ../src/firstboot/rhn_login_gui.py:54
+msgid "Red Hat Login"
+msgstr "Red Hat ప్రవేశం"
+
+#: ../src/firstboot/rhn_login_gui.py:56 ../src/firstboot/rhn_start_gui.py:41
 #, fuzzy
-msgid "There was a communication error with the server:"
-msgstr "సర్వరుతో సంబంధంపర దోషం ఉంది: %s"
+msgid "Register with Red Hat Network"
+msgstr "Spacewalk/Satellite/Red Hat Network కు నమోదుకండి."
 
-#: ../src/firstboot/rhn_create_profile_gui.py:89
-#: ../src/firstboot/rhn_login_gui.py:94
+#: ../src/firstboot/rhn_login_gui.py:105
+#, fuzzy, python-format
+msgid "There was a communication error with the server: %s"
+msgstr "సర్వరును సంప్రదించుటలో అక్కడ వొక దోషము వుంది:"
+
+#: ../src/firstboot/rhn_login_gui.py:106
 #, fuzzy
-msgid "Would you like to go back and try again?"
-msgstr "మీరు నెట్వర్కు ఆకృతీకరణను మార్చి మళ్లీ ప్రయత్నించాలనుకుంటున్నారా?"
+msgid ""
+"Would you like to try changing the network configuration and trying again?"
+msgstr "వెనకకు వెళ్ళి తిరిగి ప్రయత్నించుటకు మీరు యిష్టపడతారా?"
 
-#: ../src/firstboot/rhn_register.py:29 ../src/firstboot/rhn_register.py:30
-#: ../src/firstboot/rhn_start_gui.py:43 ../src/firstboot/rhn_start_gui.py:44
-msgid "Set Up Software Updates"
-msgstr "సాఫ్టువేర్ నవీకరణలను అమర్చు"
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+msgid "Provide Certificate"
+msgstr "ధృవీకరణను సమకూర్చు"
 
-#: ../src/firstboot/rhn_review_gui.py:41 ../src/firstboot/rhn_review_gui.py:42
+#: ../src/firstboot/rhn_provide_certificate_gui.py:42
+#, fuzzy
+msgid "Provide a certificate for this Red Hat Network server"
+msgstr "Red Hat Network సర్వరును సంప్రదించటానికి ప్రయత్నిస్తోంది."
+
+#: ../src/firstboot/rhn_review_gui.py:38
 msgid "Review Subscription"
 msgstr "సబ్ స్క్రిప్షన్ను సమీక్షించు"
+
+#: ../src/firstboot/rhn_start_gui.py:39
+msgid "Set Up Software Updates"
+msgstr "సాఫ్టువేర్ నవీకరణలను అమర్చు"
 
 #: ../src/bin/rhn-profile-sync.py:34
 msgid ""
@@ -1481,12 +1584,11 @@ msgstr "ఒక క్రియాశీల కీని తెల్పండి
 #: ../src/bin/rhnreg_ks.py:58
 msgid ""
 "Subscribe this system to the EUS channel tied to the system's redhat-release"
-msgstr ""
+msgstr "సిస్టమ్ యొక్క redhat-విడుదలకు కట్టిన EUS చానల్‌కు ఈ సిస్టమ్‌ను సబ్‌స్క్రైబ్ చేయుము"
 
 #: ../src/bin/rhnreg_ks.py:60
-#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr "stdin కోసం సంప్రదింపు సమాచారాన్ని చదవండి"
+msgstr "[తొలగించిన] stdin నుండి సంప్రదింపు సమాచారాన్ని చదవండి"
 
 #: ../src/bin/rhnreg_ks.py:62
 msgid "Do not probe or upload any hardware info"
@@ -1521,17 +1623,20 @@ msgid ""
 "Usage of --use-eus-channel option with --activationkey is not supported. "
 "Please use username and password instead."
 msgstr ""
+"--activationkey తో --use-eus-channel ఐచ్చికాన్ని వుపయోగించుట మద్దతించబడదు. బదులుగా దయచేసి "
+"వినియోగదారినామము మరియు సంకేతపదమును వుపయోగించుము."
 
 #: ../src/bin/rhnreg_ks.py:122
-#, fuzzy
 msgid "The server you are registering against does not support EUS."
-msgstr "దీనికి వ్యతికేకంగా మీరు నమోదు చేయటానికి ప్రయత్నిస్తున్న సర్వరు ఈ కక్షిదారుని ప్రతికి మద్దతివ్వదు "
+msgstr "మీరు నమోదు చేయటానికి ప్రయత్నిస్తున్న సర్వరు EUSను మద్దతివ్వదు "
 
 #: ../src/bin/rhnreg_ks.py:152
 msgid ""
 "Warning: --contactinfo option has been deprecated. Please login to the "
 "server web user Interface and update your contactinfo. "
 msgstr ""
+"హెచ్చరిక: --contactinfo ఐచ్చికము తొలగించబడింది. దయచేసి సేవిక వెబ్ వినియోగదారి యింటర్ఫేస్‌నకు లాగిన్ "
+"అవ్వుము మరియు మీ సంప్రదింపుసమాచారాన్ని నవీకరించుము."
 
 #: ../src/bin/rhnreg_ks.py:192
 msgid ""
@@ -1563,22 +1668,23 @@ msgstr "సాప్టువేరు నవీకణల కోసం నమో
 
 #: ../data/gui.glade.h:7
 msgid "Select operating system release"
-msgstr ""
+msgstr "ఆపరేటింగ్ సిస్టమ్ విడుదలను యెంపికచేయుము"
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
 msgstr "అభివృద్ధి సంభాషణ"
 
 #: ../data/rh_register.glade.h:1
-#, fuzzy
 msgid ""
 "\n"
 "Are you sure you would like to continue?"
-msgstr "మీరు నిజంగా కొనసాగించాలనుకుంటున్నారా?"
+msgstr ""
+"\n"
+"మీరు నిజంగా కొనసాగించుటకు యిష్టపడతారా?"
 
 #: ../data/rh_register.glade.h:3
 msgid "       "
-msgstr ""
+msgstr "       "
 
 #: ../data/rh_register.glade.h:4
 msgid "<b>Compliance:</b>"
@@ -1624,7 +1730,7 @@ msgstr ""
 msgid ""
 "<b>Tip:</b> Minor releases with a '*' are currently fully supported by Red "
 "Hat."
-msgstr ""
+msgstr "<b>చిట్కా:</b> '*' తోటి చిన్న విడుదలలు ప్రస్తుతం Red Hat ద్వారా పూర్తిగా మద్దతించబడును."
 
 #: ../data/rh_register.glade.h:14
 msgid ""
@@ -1632,6 +1738,8 @@ msgid ""
 "release that is older than the most recent minor release if you select this "
 "option."
 msgstr ""
+"<b>హెచ్చరిక:</b> మీరు ఈ ఐచ్చికమును యెంచుకొనినట్లైతే  యిటీవలి చిన్న విడుదల కన్నా చిన్నదైన విడుదలకు "
+"మీరు మీ సిస్టమ్‌ను పరిమితం <b>చేయలేరు.</b>"
 
 #: ../data/rh_register.glade.h:15
 msgid ""
@@ -1644,7 +1752,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:16
 msgid "<b>Your system was registered for updates during installation.</b>"
-msgstr ""
+msgstr "<b>సంస్థాపనా సమయమందు మీ సిస్టమ్ నవీకరణల కొరకు నమోదు చేయబడినది.</b>"
 
 #: ../data/rh_register.glade.h:17
 msgid ""
@@ -1653,6 +1761,10 @@ msgid ""
 "release of Red Hat Enterprise Linux 5.  It will be registered to the main "
 "'Red Hat Enterprise Linux 5' software channel."
 msgstr ""
+"<b>(_A) అన్ని అందుబాటులోని నవీకరణలు</b> ఈ సిస్టమ్‌కు అందివ్వబడును.  ఈ సిస్టమ్, నవీకరించుటకు "
+"వుంచబడితే, అది యెల్లప్పుడు Red Hat Enterprise Linux 5 యొక్క యిటీవలి అందుబాటులోని చిన్న "
+"విడుదలకు సమానంగా వుంచబడును.  అది ముఖ్య 'Red Hat Enterprise Linux 5' సాఫ్టువేర్ చానల్‌కు "
+"నమోదు కాబడును."
 
 #: ../data/rh_register.glade.h:18
 msgid ""
@@ -1660,10 +1772,12 @@ msgid ""
 "compatibility with the following eligible Red Hat Enterprise Linux minor "
 "release software channel:"
 msgstr ""
+"<b>(_L) పరిమిత నవీకరణలు</b> అనునవి కింది యోగ్యమైన Red Hat Enterprise Linux చిన్న విడుదల "
+"సాఫ్టువేర్ చానల్‌తో సారూప్యత కొరకు అందివ్వబడును:"
 
 #: ../data/rh_register.glade.h:19
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
-msgstr ""
+msgstr "<big><b>ముందలి విడుదలలకు కదులుట సాధ్యంకాదు</b></big>"
 
 #: ../data/rh_register.glade.h:20
 msgid "<big><b>Profile Data</b></big>"
@@ -1686,13 +1800,12 @@ msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
 msgstr "<small><b>ఉదాహరణ</b>: XXXX-XXXX-XXXX-XXXX</small>"
 
 #: ../data/rh_register.glade.h:25
-#, fuzzy
 msgid ""
 "<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
 "privacy_statement.html.</small>"
 msgstr ""
-"సూచన: Red Hat విలువలు మీ గోప్యత: http://www.redhat.com/legal/privacy_statement."
-"html"
+"<small><b>చిట్కా:</b> Red Hat మీ గోప్యతను గౌరవించును: http://www.redhat.com/legal/"
+"privacy_statement.html.</small>"
 
 #: ../data/rh_register.glade.h:26
 msgid ""
@@ -1760,13 +1873,12 @@ msgid "Certificate _Location:"
 msgstr "దృవీకరణ స్థానం: (_L)"
 
 #: ../data/rh_register.glade.h:42
-#, fuzzy
 msgid "Choose Channel"
-msgstr "నిర్వహణని ఎన్నుకో"
+msgstr "చానల్‌ను యెంపికచేసుకొనుము"
 
 #: ../data/rh_register.glade.h:44
 msgid "Confirm operation system release selection"
-msgstr ""
+msgstr "ఆపరేషన్ సిస్టమ్ విడుదల యెంపికను ఖాయపరచుము"
 
 #: ../data/rh_register.glade.h:46
 msgid "Create profile"
@@ -1826,7 +1938,7 @@ msgid ""
 "I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
 "access to a Red Hat Network Satellite or Proxy.)"
 msgstr ""
-"నేను <b>Red Hat Network నుండీ సాఫ్టువేర్ నవీకరణలను పొందాలనుకోవటం లేదు. (నేను Red Hat "
+"నేను <b>Red Hat Network</b> నుండీ సాఫ్టువేర్ నవీకరణలను పొందాలనుకోవటం లేదు. (నేను Red Hat "
 "Network Satellite or Proxy వినియోగాన్ని కలిగిలేను.)"
 
 #: ../data/rh_register.glade.h:59
@@ -1944,39 +2056,40 @@ msgid ""
 "Red Hat Network server.\n"
 "\n"
 "To keep your system updated, secure, and supported, please register this "
-"system at your earliest convenience.\n"
-"\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"in the <b>System > Administration</b> menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"system at your earliest convenience. You may access this registration tool "
+"by running <b>Software Updater</b> in the <b>Applications > System Tools</b> "
+"menu."
 msgstr ""
-"కంప్యూటరు <b>కూడదు</b> సాఫ్టువేరు అనువర్తనాలను, రక్షణ నవీకరణలతో సహా, Red Hat నుండీ Red "
-"Hat Network సర్వరుకు అనుసంధించబడకుండా విజయవంతంగా తీసుకోలేదు.\n"
+"ఈ సిస్టమ్ Red Hat Network సర్వరుకు అనుసంధించబడకుండా Red Hat నుండీ సాఫ్టువేరు నవీకరణలను, "
+"రక్షణ నవీకరణలతో సహా, వేటిని సమర్ధవంతంగా పొంద<b>లేదు</b>.\n"
 "\n"
-"మీ కంప్యూటరు నవీకరణలను ఉంచటానికి, రక్షణ, మరియూ మద్దతుకు, మీ ముందలి సౌలభ్యంకోసం ఈ విధానంతో "
-"నమోదుకండి. మీరు ఈ నమోదు ఉపకరణ సాధనాన్ని <b>Software Updater</b> in the "
-"<b>Applications > కంప్యూటరు ఉపకరణాల</b> జాబితాతో ఉపయోగించటం ద్వారా పొందగలరు."
+"మీ సిస్టమ్‌ నవీకరించబడుతూ, సురక్షితంగా, మరియు మద్దతించబడుతూ వుంచుట కొరకు, దయచేసి దానిని త్వరలో మీ "
+"వీలునిబట్టి నమోదుచేయండి.\n"
+"\n"
+"మీరు <b>సిస్టమ్ > నిర్వహణ</b> మెనూనందలి <b>RHN నమోదీకరణ</b> నడుపుట ద్వారా RHN నమోదీకరణ "
+"సాధనమును యాక్సెస్ చేయవచ్చును.\n"
+"మీరు <b>సిస్టమ్ > నిర్వహణ</b> మెనూనందలి <b>సాఫ్టువేర్ నవీకరణ</b> ను నడుపుట ద్వారా సాఫ్టువేర్ "
+"నవీకరణ సాధనమును యాక్సెస్ చేయవచ్చును."
 
-#: ../data/rh_register.glade.h:91
+#: ../data/rh_register.glade.h:88
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "HTTP Proxyతో ప్రామాణీకరణ: (_t)"
 
-#: ../data/rh_register.glade.h:92
+#: ../data/rh_register.glade.h:89
 msgid "V_iew Package Profile ..."
 msgstr "దృశ్య ప్యాకేజ్ ప్రొఫైల్ ... (_i)"
 
-#: ../data/rh_register.glade.h:93
+#: ../data/rh_register.glade.h:90
 msgid "Why Register"
 msgstr "నమోదు ఎందుకు"
 
-#: ../data/rh_register.glade.h:95
+#: ../data/rh_register.glade.h:92
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
 msgstr "మీరు మీ విధానాన్ని ఇప్పుడు నమోదు చేయాలనుకుంటున్నారా? <b>(బలంగా ధృఢపరుస్తున్నారా.)</b>"
 
-#: ../data/rh_register.glade.h:96
+#: ../data/rh_register.glade.h:93
 msgid ""
 "You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
 "com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
@@ -1986,7 +2099,7 @@ msgstr ""
 "<b>Red Hat Network Satellite</b> లేదా <b>Red Hat Network Proxy</b> లకు సాఫ్టువేరు "
 "నవీకరణలను పొందటానికి అనుసంధించి ఉంటారు."
 
-#: ../data/rh_register.glade.h:97
+#: ../data/rh_register.glade.h:94
 msgid ""
 "You will <b>not</b> be able to take advantage of these subscriptions "
 "privileges without connecting your system to Red Hat Network."
@@ -1994,24 +2107,25 @@ msgstr ""
 "మీరు <b>లేరు</b> మీ కంప్యూటరును Red Hat Networkకి అనుసంధించకుండా ఈ సబ్ స్క్రిప్షన్ "
 "విశేషాధికారాలను పొందలేరు."
 
-#: ../data/rh_register.glade.h:98
+#: ../data/rh_register.glade.h:95
 #, fuzzy
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"in the <b>System > Administration</b> menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"To keep your system updated, secure, and supported, please connect this "
+"system to RHN at your earliest convenience. You may access this software "
+"updates setup tool at any time by running Software Updater in the "
+"Applications > System Tools menu."
 msgstr ""
-"మీరు సాఫ్టువేరు నవీకరణలను పొందలేక పోవచ్చు, రక్షణ నవీకరణలతో సహా.\n"
+"మీరు సాఫ్టువేరు నవీకరణలను, రక్షణ నవీకరణలతో సహా, యీ సిస్టమ్ కొరకు పొందలేక పోవచ్చు.\n"
 "\n"
-"మీ కంప్యూటరు నవీకరణలను ఉంచటానికి, రక్షణ, మరియూ మద్దతుకి, ఈ విధానాన్ని మీ ముందలి సౌలభ్యాల యందు "
-"RHNకి అనుసంధించండి. మీరు ఈ నమోదు టూలుని ఏ సమయంలోనైనా అనువర్తనాలలో సాఫ్టువేర్ నవీకరణలను ఉపయోగించి "
-"> కంప్యూటరు ఉపకరణాల జాబితాలో పొందవచ్చు."
+"మీరు <b>సిస్టమ్ > నిర్వహణ</b> మెనూనందలి <b>RHN నమోదీకరణ</b> నడుపుట ద్వారా RHN నమోదీకరణ "
+"సాధనమును యాక్సెస్ చేయవచ్చును.\n"
+"మీరు <b>సిస్టమ్ > నిర్వహణ</b> మెనూనందలి <b>సాఫ్టువేర్ నవీకరణ</b> ను నడుపుట ద్వారా సాఫ్టువేర్ "
+"నవీకరణ సాధనమును యాక్సెస్ చేయవచ్చును."
 
-#: ../data/rh_register.glade.h:102
+#: ../data/rh_register.glade.h:98
 msgid ""
 "You'll need to send us a profile of what packages and hardware are installed "
 "on your system so we can determine what updates are available."
@@ -2019,7 +2133,7 @@ msgstr ""
 "మీరు మీ కంప్యూటరులో ఏ ప్యాకేజీలు మరియూ హార్డువేరూ సంస్థాపించబడిందో వాటిగురించిన సమాచారాన్ని పంపవలసి ఉంది "
 "అప్పుడు మేము ఏ నవీకరణలు అందుబాటులో ఉన్నాయో నిర్ధారించగలుగుతాం."
 
-#: ../data/rh_register.glade.h:103
+#: ../data/rh_register.glade.h:99
 msgid ""
 "You'll want to choose a name for this system so you'll be able to identify "
 "it in the Red Hat Network interface."
@@ -2027,11 +2141,11 @@ msgstr ""
 "మీరు ఈ విధానం కోసం ఒక పేరును ఎన్నుకో దలచారా మీరు దాన్ని Red Hat Network అంతర్ముఖీనతలో "
 "గుర్తించగలుగుతారు."
 
-#: ../data/rh_register.glade.h:104
+#: ../data/rh_register.glade.h:100
 msgid "Your system is not setup for software updates."
 msgstr "మీ కంప్యూటరు సాఫ్టువేరు నవీకరణలకోసం అమర్చబడి లేదు."
 
-#: ../data/rh_register.glade.h:105
+#: ../data/rh_register.glade.h:101
 msgid ""
 "Your system is now ready to receive the software updates that will keep it "
 "secure and supported.\n"
@@ -2048,8 +2162,7 @@ msgstr ""
 "ప్యాకేజీ రూపు కనిపిస్తుందో (సాధారణంగా పై-కుడి మూల, కింద గుర్తించబడింది.) ఈ రూపుమీద క్లిక్  "
 "చేయటంద్వారా, అందుబాటులో ఉన్నప్పుదు, ఏ అనువర్తనాలైనా అందుబాటులో ఉన్నప్పుడు మీకు గైడ్ చేస్తుంది:"
 
-#: ../data/rh_register.glade.h:108
-#, fuzzy
+#: ../data/rh_register.glade.h:104
 msgid ""
 "Your system is ready to receive the software updates that will keep it "
 "secure and supported.\n"
@@ -2066,14 +2179,16 @@ msgstr ""
 "ప్యాకేజీ రూపు కనిపిస్తుందో (సాధారణంగా పై-కుడి మూల, కింద గుర్తించబడింది.) ఈ రూపుమీద క్లిక్  "
 "చేయటంద్వారా, అందుబాటులో ఉన్నప్పుదు, ఏ అనువర్తనాలైనా అందుబాటులో ఉన్నప్పుడు మీకు గైడ్ చేస్తుంది:"
 
-#: ../data/rh_register.glade.h:111
+#: ../data/rh_register.glade.h:107
 msgid ""
 "Your system will be subscribed to the base software channel.  You will not "
 "be able to move this system to an earlier minor release channel if you "
 "continue (you will be able to move to a later release.)"
 msgstr ""
+"మీ సిస్టమ్ాప్రాధమిక సాఫ్టువేర్ చానల్‌కు సబ్‌స్క్రైబ్ అగును.  మీరు కొనసాగించితే ఈ సిస్టమ్‌ను మునుపటి చిన్న "
+"విడుదలకు కదల్చ లేరు (మీరు తరువాతి విడుదలకు కదల్చగలగుతారు.)"
 
-#: ../data/rh_register.glade.h:112
+#: ../data/rh_register.glade.h:108
 msgid ""
 "Your system will need to access a subscription. This will allow you to keep "
 "your system updated, secure, and supported."
@@ -2081,1398 +2196,98 @@ msgstr ""
 "మీకంప్యూటరు subscriptionని ఉపయోగించవలసి ఉంది. ఇది మిమ్మల్ని మీకంప్యూటరు యొక్క నవీకరణలు, రక్షణ, "
 "మరియూ మద్దతులను ఉంచటానికి అనుమతిసస్తుం."
 
-#: ../data/rh_register.glade.h:113
+#: ../data/rh_register.glade.h:109
 msgid "_Activate a subscription now..."
 msgstr "ఇప్పుడు ఒక చందాని క్రియాశీలం చేయి"
 
-#: ../data/rh_register.glade.h:114
+#: ../data/rh_register.glade.h:110
 msgid "_Close"
 msgstr "మూయి (_C)"
 
-#: ../data/rh_register.glade.h:115
+#: ../data/rh_register.glade.h:111
 msgid "_Login:"
 msgstr "ప్రవేశం:"
 
-#: ../data/rh_register.glade.h:116
+#: ../data/rh_register.glade.h:112
 msgid "_Minor release:"
-msgstr ""
+msgstr "చిన్న విడుదల (_M):"
 
-#: ../data/rh_register.glade.h:117
+#: ../data/rh_register.glade.h:113
 msgid "_No thanks, I'll connect later."
 msgstr "వద్దు ధన్యవాదా.  నేను తరువాత నమోదు చేస్తాను."
 
-#: ../data/rh_register.glade.h:118
+#: ../data/rh_register.glade.h:114
 msgid "_No, Cancel"
 msgstr "రద్దు చేయవద్దు (_N)"
 
-#: ../data/rh_register.glade.h:119
+#: ../data/rh_register.glade.h:115
 msgid "_No, I prefer to register at a later time."
 msgstr "వద్దు, నేను తరువాత నమోదు చేయటానికి ఇష్టపడతాను. (_N)"
 
-#: ../data/rh_register.glade.h:120
+#: ../data/rh_register.glade.h:116
 msgid "_Operating system version:"
-msgstr ""
+msgstr "ఆపరేటింగ్ సిస్టమ్ వర్షన్ (_O):"
 
-#: ../data/rh_register.glade.h:121
+#: ../data/rh_register.glade.h:117
 msgid "_Password:"
 msgstr "అనుమతిపదం: (_P)"
 
-#: ../data/rh_register.glade.h:122
+#: ../data/rh_register.glade.h:118
 msgid "_Proxy Location:"
 msgstr "Proxy స్థానం: (_P)"
 
-#: ../data/rh_register.glade.h:123
+#: ../data/rh_register.glade.h:119
 msgid "_Take me back to the registration"
 msgstr "నన్ను తిరిగి నమోదుకు తీసుకుని వెళ్లు (_T)"
 
-#: ../data/rh_register.glade.h:124
+#: ../data/rh_register.glade.h:120
 msgid "_Take me back to the setup process."
 msgstr "నన్ను తిరిగి అమర్పు విధానానికి తీసుకుని వెళ్లు. (_T)"
 
-#: ../data/rh_register.glade.h:125
+#: ../data/rh_register.glade.h:121
 msgid "_View Hardware Profile ..."
 msgstr "హార్డువేరు ఆకృతి దృశ్యం ... (_V)"
 
-#: ../data/rh_register.glade.h:126
+#: ../data/rh_register.glade.h:122
 msgid "_Why Should I Connect to RHN? ..."
 msgstr "నేను ఎందుకని RHNకి అనుసంధించబడాలి? ..."
 
-#: ../data/rh_register.glade.h:127
+#: ../data/rh_register.glade.h:123
 msgid "_Yes, Continue"
 msgstr "అవును, కొనసాగించు (_Y)"
 
-#: ../data/rh_register.glade.h:128
+#: ../data/rh_register.glade.h:124
 msgid "_Yes, I'd like to register now."
 msgstr "అవును, నేను ఇప్పుడు నమోదు చేయదలచుకోలేదు. (_Y)"
 
-#: ../data/rh_register.glade.h:129
+#: ../data/rh_register.glade.h:125
 msgid "label"
 msgstr "లేబులు"
 
-#: ../data/rh_register.glade.h:130
+#: ../data/rh_register.glade.h:126
 msgid "•"
 msgstr "•"
 
-#: ../data/rh_register.glade.h:131
+#: ../data/rh_register.glade.h:127
 msgid "• A name for your system's Red Hat Network profile"
 msgstr "• మీ కంప్యూటరు యొక్క  Red Hat Network ఆకృతికి పేరు"
 
-#: ../data/rh_register.glade.h:132
+#: ../data/rh_register.glade.h:128
 msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr "• మీ Red Hat Network సాటిలైటుకి (ఐచ్ఛిక) చిరునామా"
 
-#: ../data/rh_register.glade.h:133
+#: ../data/rh_register.glade.h:129
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• మీ Red Hat Network లేదా Red Hat Network శాటిలైటు ప్రవేశం "
 
 #: ../rhn_register.desktop.in.h:1
-#, fuzzy
 msgid "RHN Registration"
-msgstr "నమోదు_సంఖ్య (_n)"
+msgstr "RHN నమోదీకరణ"
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
-msgstr ""
+msgstr "సాఫ్టువేర్ నవీకరణల కొరకు Spacewalk/Satellite/Red Hat Network నుండి నమోదుకండి"
 
 #: ../rhn_register.desktop.in.h:3
-#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr "Red Hat నెట్వర్కుతో నమోదు చేయి"
-
-#~ msgid "Warning:"
-#~ msgstr "హెచ్చరిక:"
-
-#~ msgid "OK dialog:"
-#~ msgstr "సరే డైలాగ్:"
-
-#~ msgid "Question dialog:"
-#~ msgstr "ప్రశ్నార్ధక డైలాగ్:"
-
-#~ msgid "Automatic Subscription Activation"
-#~ msgstr "స్వయంచాలక సబ్ స్క్రిప్షన్"
-
-#~ msgid "Subscription Activation"
-#~ msgstr "సబ్ స్క్రిప్షన్ క్రియాశీలత"
-
-#, fuzzy
-#~ msgid "Warning: unable to run rhn_check"
-#~ msgstr "హెచ్చరిక: chkconfigతో rhnsdని సాధ్యంచేయటం కుదరదు"
-
-#~ msgid "Disk error.  The message was:\n"
-#~ msgstr "డిస్కు దోషం.  ఈ సమాచారం:\n"
-
-#~ msgid "There was a fatal error installing the package:\n"
-#~ msgstr "ఈ ప్యాకేజీలను సంస్థాపించటంలో పెద్ద దోషం:\n"
-
-#~ msgid "RPM package conflict error.  The message was:\n"
-#~ msgstr "RPM ప్యాకేజీ విభేదక దోషం.  ఆ సమాచారం:\n"
-
-#~ msgid "RPM file conflict error. The message was:\n"
-#~ msgstr "RPM ఫైలు విభేదక దోషం. ఆ సమాచారం:\n"
-
-#~ msgid "RPM  error. The message was:\n"
-#~ msgstr "RPM  దోషం. ఆ సమాచారం:\n"
-
-#~ msgid "RPM dependency error.  The message was:\n"
-#~ msgstr "RPM ఆధార దోషం.  ఆ సమాచారం:\n"
-
-#~ msgid "Package Skip List error.  The message was:\n"
-#~ msgstr "ప్యాకేజీ దాటివేత దోషం.  ఆ సమాచారం:\n"
-
-#~ msgid "File Skip List or config file overwrite error. The message was:\n"
-#~ msgstr "ఫైలు దాటివేత దోషం లేదా ఆకృతి ఫైలును తిరిగ రాత దోషం. ఆ సమాచారం:\n"
-
-#~ msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
-#~ msgstr "ఈ \"%s\" ప్యాకేజీని తొలిగించకు. ఇది తొలగించే స్కిప్ జాబితాలో ఉంది"
-
-#~ msgid "GPG is not installed properly."
-#~ msgstr "GPG సరిగా సంస్థాపించబడలేదు."
-
-#~ msgid ""
-#~ "GPG keyring does not include the Red Hat, Inc. public package-signing key"
-#~ msgstr "GPG keyring Red Hatలో చేరదు, Inc. public ప్యాకేజీ-signing కీ"
-
-#~ msgid ""
-#~ "The package %s failed its gpg signature verification. This means the "
-#~ "package is corrupt."
-#~ msgstr "%s ప్యాకేజీ దాని gpg సిగ్నేచర్ తనిఖీలో విఫలమైంది. అంటే ఆ ప్యాకేజీ చెడిపోయిందని అర్ధం."
-
-#~ msgid "Package %s does not have a GPG signature.\n"
-#~ msgstr "ప్యాకేజీ %s GPG సిగ్నేచరుని కలిగిలేదు.\n"
-
-#~ msgid "Package %s has a untrusted GPG signature.\n"
-#~ msgstr "%s ప్యాకేజీ అవిశ్వాస GPG సిగ్నేచరును కలిగిఉంది.\n"
-
-#~ msgid "Package %s has a unknown GPG signature.\n"
-#~ msgstr "%s ప్యాకేజీ తెలియని GPG సిగ్నేచరుని కలిగిఉంది.\n"
-
-#~ msgid "Choose a Red Hat Network server"
-#~ msgstr "ఒక Red Hat నెట్వర్కు సర్వరును ఎన్నుకో"
-
-#~ msgid "Connect to Red Hat Network"
-#~ msgstr "Red Hat నెట్వర్కుకి అనుసంధించు"
-
-#~ msgid "Register with Red Hat Network"
-#~ msgstr "Red Hat నెట్వర్కుతో నమోదు చేయి"
-
-#~ msgid "Provide a certificate for this Red Hat Network server"
-#~ msgstr "ఈ Red Hat నెట్వర్కు సర్వరుకోసం ధృవీకరణను సమకూర్చు"
-
-#~ msgid "_Exit software update setup"
-#~ msgstr "సాఫ్టువేరు నవీకరణలను బయటకు తీసుకురా"
-
-#~ msgid "software updates setup unsuccessful"
-#~ msgstr "సాఫ్టువేరు నవీకరణల అమర్పు విజయవంతంకాలేదు"
-
-#~ msgid ""
-#~ "If you do not have a Red Hat Login, this assistant will allow you to "
-#~ "create one."
-#~ msgstr "మీరు Red Hat ప్రవేశం కలిగి లేకపోతే,ఈ సహాయత ప్రవేశాన్ని సృష్టించటంలో సహకరిస్తుంది."
-
-#~ msgid "Step 1: Review the Red Hat Privacy Statement"
-#~ msgstr "స్టెప్ 1: Red Hat ప్రైవసీ ప్రకటనను పరిశీలించు"
-
-#~ msgid "Review the Red Hat Network Terms And Conditions"
-#~ msgstr "Red Hat నెట్వర్కు షరతులు మరియూ నిబంధనలను పరిశీలించు"
-
-#~ msgid ""
-#~ "Are you sure you don't want to connect your system to Red Hat Network? "
-#~ "You'll miss out on the benefits of a Red Hat Enterprise Linux "
-#~ "subscription:\n"
-#~ "\n"
-#~ "Security & Updates:\n"
-#~ "Receive the latest software updates, including security updates, keeping "
-#~ "this Red Hat Enterprise Linux system updated and secure.\n"
-#~ "\n"
-#~ "Downloads & Upgrades:\n"
-#~ "Download installation images for Red Hat Enterprise Linux releases, "
-#~ "including new releases.\n"
-#~ "\n"
-#~ "Support:\n"
-#~ "Access to the technical support experts at Red Hat or Red Hat's partners "
-#~ "for help with any issues you might encounter with this system.\n"
-#~ "\n"
-#~ "Compliance:\n"
-#~ "Stay in compliance with your subscription agreement and manage "
-#~ "subscriptions for systems connected to your account at http://rhn.redhat."
-#~ "com/.\n"
-#~ "\n"
-#~ "You will not be able to take advantage of these subscription privileges "
-#~ "without connecting your system to Red Hat Network.\n"
-#~ "\n"
-#~ "Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-#~ "privacy_statement.html"
-#~ msgstr "అ"
-
-#~ msgid "No thanks.  I'll connect later."
-#~ msgstr "No thanks.  నేను తరువాత నమోదు చేస్తాను."
-
-#~ msgid "Create a New Login ..."
-#~ msgstr "కొత్త ప్రవేశాన్ని సృష్టించు ..."
-
-#~ msgid ""
-#~ "The two passwords you entered don't match.  Please re-type your passwords."
-#~ msgstr "మీరిచ్చిన రెండు అనుమతిపదాలూ సరిపోలలేదు.  దయచేసి మీ అనుమతిపదాలని తిరిగి-ముద్రించండి."
-
-#~ msgid "Create a new Red Hat login"
-#~ msgstr "కొత్త Red Hat ప్రవేశాన్ని ఇష్టించు"
-
-#~ msgid ""
-#~ "Fill in the form below to create a new Red Hat login for use with Red Hat "
-#~ "Network (http://rhn.redhat.com/).  Required information is marked with a "
-#~ "'*':"
-#~ msgstr ""
-#~ "కొత్త Red Hat ప్రవేశాన్ని Red Hat Network (http://rhn.redhat.com/)తో వినియోగంకోసం "
-#~ "సృష్టించటానికి కింది పత్రాన్ని నింపండి .  కావలసిన సమాచారం '*' గుర్తుతో గుర్తించబడింది:"
-
-#~ msgid "*Desired Login:"
-#~ msgstr "*వాంఛి తప్రవేశం:"
-
-#~ msgid "Examples: user@domain.com"
-#~ msgstr "ఉదాహరణలు: user@domain.com"
-
-#~ msgid "*Desired Password:"
-#~ msgstr "*వాంఛిత అనుమతిపదం:"
-
-#~ msgid "*Confirm Password:"
-#~ msgstr "*అనుమతిపద నిర్ధారణ:"
-
-#~ msgid "Tip: Leave blank if not with a company."
-#~ msgstr "సూచన: మీరు ఏ కంపెనీకీ చెందని వారైతే ఖాళీగా వదిలేయండి."
-
-#~ msgid ""
-#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-#~ msgstr "సూచన: Red Hat విలువలు మీ గోప్యత.  మా గోప్యతా విధానాన్ని : http:// యందు చూడండి"
-
-#~ msgid "Please enter your first name."
-#~ msgstr "మీ మొదటి పేరును ఇవ్వండి."
-
-#~ msgid "Please enter your last name."
-#~ msgstr "మీ చివరి పేరును ఇవ్వండి."
-
-#~ msgid "Please enter your email address."
-#~ msgstr "మీ ఈటపా చిరునామాని ఇవ్వండి."
-
-#~ msgid "Please enter a valid email address."
-#~ msgstr "దయచేసి ఒక విలువైన ఈటపా చిరునామాని ఇవ్వండి."
-
-#~ msgid "Please enter your country."
-#~ msgstr "దయచేసి మీ ప్రాంతం పేరును ఇవ్వండి."
-
-#~ msgid "Please enter a longer login."
-#~ msgstr "దయచేసి ఒక పెద్ద ప్రవేశాన్ని ఇవ్వండి."
-
-#~ msgid "Please enter a longer password."
-#~ msgstr "దయచేసి ఒక పెద్ద అనుమతిపదాన్ని ఇవ్వండి."
-
-#~ msgid "Please enter a shorter password."
-#~ msgstr "దయచేసి ఒక చిన్న అనుమతిపదాన్ని ఇవ్వండి."
-
-#~ msgid ""
-#~ "It appears this system has attempted to register to the Red Hat Network.\n"
-#~ "The system may already be set up for software updates.\n"
-#~ "\n"
-#~ "Are you sure you would like to continue?"
-#~ msgstr ""
-#~ "ఈ కంప్యూటరు Red Hat Network నమోదు కోసం ప్రయత్నించినట్లుంది.\n"
-#~ "ఈ కంప్యూటరు సాఫ్టువేరు నవీకరణలకోసం ఇప్పటికే అమర్చిబడినట్లుంది.\n"
-#~ "\n"
-#~ "మీరు నిజంగా కొనసాగించాలనుకుంటున్నారా?"
-
-#~ msgid "Select Organization"
-#~ msgstr "నిర్వహణను ఎన్నుకోండి"
-
-#~ msgid ""
-#~ "Your login, %s, is associated with multiple organizations.  You will need "
-#~ "to select an organization to connect this system to."
-#~ msgstr ""
-#~ "మీ ప్రవేశం, %s, నిర్వహణా బాహుళ్యాలతో కూడి ఉంది.  ఈ విధనంతో సంప్రదించటానికి మీరు ఒక సంస్థని "
-#~ "సంప్రదించవలసి ఉంది."
-
-#~ msgid "Organization:"
-#~ msgstr "నిర్వహణ:"
-
-#~ msgid "You must select an organization."
-#~ msgstr "మీరు తప్పక ఒక సంస్థని ఎన్నుకోవాలి."
-
-#~ msgid "Access a subscription"
-#~ msgstr "ఒక చందాకి అనుమతించు"
-
-#~ msgid ""
-#~ "You have no active subscriptions available in your account.  You will "
-#~ "need to do one of the following to create an active subscription in your "
-#~ "account before this system can connect to Red Hat Network:"
-#~ msgstr ""
-#~ "మీరు మీ ఖాతాలో క్రియాశీల subscriptionలను కలిగి లేరు.  మీరు ఈ కంప్యూటరు Red Hat Networkకి "
-#~ "అనుసంధించబడటానికి ముందుగా కింది కిందివాటిలో ఏదైనా ఒకదాన్ని ఒక కొత్త క్రియాశీల subscription కోసం "
-#~ "చేయవలసి ఉంది:"
-
-#~ msgid "Activate a new subscription with an installation number:"
-#~ msgstr "కొత్త సబ్ స్క్రిప్షన్ను సంస్థాపక సంఖ్యతీ క్రియాశీలంగా చేయి:"
-
-#~ msgid ""
-#~ "You have already activated this installation number during this "
-#~ "registration."
-#~ msgstr "మీరు ఈ నమోదప్పుడు ఈ సంస్థాపక సంఖ్యను క్రియాశీలంగా చేశారు."
-
-#~ msgid "Installation Number:"
-#~ msgstr "సంస్థాపక సంఖ్య:"
-
-#, fuzzy
-#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
-#~ msgstr "ఉదాహరణ: XXXX-XXXX-XXXX-XXXX-XXXX"
-
-#~ msgid ""
-#~ "Congratulations, you have successfully completed software updates set up "
-#~ "for this system.\n"
-#~ "\n"
-#~ "Your system is now ready to receive the software updates that will keep "
-#~ "it secure and supported.\n"
-#~ "\n"
-#~ "You'll know when software updates are available when a package icon "
-#~ "appears in the notification area of you desktop (usually in the upper-"
-#~ "right corner.) Clicking on this icon, when available, will guide you "
-#~ "through applying any updates that are available."
-#~ msgstr ""
-#~ "మీ కంప్యూటరు ఇప్పుడు రక్షణ మరియూ మద్దతు నవీకరణలకు చెందిన సాఫ్టువేరును గ్రహించటానికి సిద్ధంగా "
-#~ "ఉంది.\n"
-#~ "\n"
-#~ "మీరు ఎప్పుడు సాఫ్టువేరు అనువర్తనాలు అందుబాటులో ఉంటాయో డెస్కుటాప్ యొక్క సూచక ప్రాంతంలో ఎప్పుడు "
-#~ "ప్యాకేజీ రూపు కనిపిస్తుందో (సాధారణంగా పై-కుడి మూల, కింద గుర్తించబడింది.) ఈ రూపుమీద క్లిక్  "
-#~ "చేయటంద్వారా, అందుబాటులో ఉన్నప్పుదు, ఏ అనువర్తనాలైనా అందుబాటులో ఉన్నప్పుడు మీకు గైడ్ చేస్తుంది:"
-
-#~ msgid "Subscriptions Activated:"
-#~ msgstr "సబ్ స్క్రిప్షన్ క్రియాశీలం చేయబడింది:"
-
-#~ msgid ""
-#~ "A subscription-activating installation number was found on disk, but we "
-#~ "were not able to activate it (An unknown error occurred.) We used "
-#~ "existing active subscription slots available in the rhn account instead. "
-#~ "You may wish to contact Red Hat customer service regarding this issue: "
-#~ "http://www.redhat.com/apps/support/"
-#~ msgstr ""
-#~ "subscription-activating సంస్థాపన సంఖ్య డిస్కు కనుగొనబడింది, కానీ మేము దాన్ని క్రియాశీలం "
-#~ "చేయలేము (తెలియని దోషం సంభవించింది.) మేము దానికి బదులు rhn ఖాతాలో ఉన్న క్రియాశీల సబ్ స్క్రిప్షన్ను "
-#~ "స్లాట్లను ఉపయోగించాము. మీరు ఈ విషయంలో Red Hat వినియోగదారుని సేవావిభాగాన్ని సంప్రదించవచ్చు: http://"
-#~ "www.redhat.com/apps/support/"
-
-#~ msgid "A installation number was found on disk, but we "
-#~ msgstr "ఒక సంస్థాపక సంఖ్య డిస్కులో కనుగొనబడింది, కానీ మేము "
-
-#~ msgid ""
-#~ "The installation number you have provided (%s) is invalid.\n"
-#~ "\n"
-#~ "Please check the number and try again or try another option listed on the "
-#~ "'Access a Subscription' screen."
-#~ msgstr ""
-#~ "మీరు సమకూర్చిన సంస్థాపక సంఖ్య (%s) సరైనదికాదు.\n"
-#~ "\n"
-#~ "దయచేసి ఆ సంఖ్యను పరిశీలించండి మరియూ మళ్లీ ప్రయత్నించండి లేదా 'Access a Subscription' "
-#~ "స్క్రీను ఐచ్ఛికానికి ప్రయత్నించండి."
-
-#~ msgid ""
-#~ "The installation number you provided is valid but was already activated "
-#~ "and the subscriptions have already been used by systems in your "
-#~ "organization or is not usable for this system.\n"
-#~ "\n"
-#~ "Please try a different number or try another option listed on the 'Access "
-#~ "a Subscription' screen."
-#~ msgstr ""
-#~ "మీరిచ్చిన సంస్థాపక సంఖ్య విలువైనదే కానీ ఇప్పటికే క్రియాశీలం చేయబడింది మరియూ subscriptionలు ఇప్పటికే "
-#~ "మీ నిర్వహణలో కంప్యూటర్లచేత ఉపయోగించబడుతున్నట్లున్నాయి లేదా కంప్యూటరుకోసం వినియోగించదగ్గవి "
-#~ "కాకపోవచ్చు.\n"
-#~ "\n"
-#~ "దయచేసి వేరే సంఖ్య కోసం ప్రయత్నించండి లేదా 'Access a Subscription' స్క్రీనులో ఉన్న వేరే "
-#~ "ఐచ్ఛికానికి ప్రయత్నించండి."
-
-#~ msgid ""
-#~ "The installation number you provided does not have subscriptions "
-#~ "associated with it.\n"
-#~ "\n"
-#~ "Please try a different number or try another option listed in the 'Access "
-#~ "a Subscription' screen."
-#~ msgstr ""
-#~ "మీరు సమకూర్చిన సంస్థాపక సంఖ్య దానితో కూడి ఉన్న subscriptionలను కలిగి లేదు.\n"
-#~ "\n"
-#~ "దయచేసి వేరే సంఖ్య కోసం ప్రయత్నించండి లేదా 'Access a Subscription' స్క్రీనులో ఉన్న వేరే "
-#~ "ఐచ్చికానికి ప్రయత్నించండి."
-
-#~ msgid ""
-#~ "There was a problem logging in:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "ప్రవేశించటంలో దోషం:\n"
-#~ "%s"
-
-#~ msgid "There was problem logging in."
-#~ msgstr "ప్రవేశించటంలో దోషం."
-
-#, fuzzy
-#~ msgid "There was an error while getting the list of organizations."
-#~ msgstr "ఆ రూపాన్ని ప్రసన్నం చేయటంలో ఒక దోషం."
-
-#, fuzzy
-#~ msgid "You must enter an installation number."
-#~ msgstr "మీరు తప్పక ఒక సంస్థాప సంఖ్యను ప్రవేశపెట్టాలి."
-
-#, fuzzy
-#~ msgid "There was an error activating your number."
-#~ msgstr "Red Hat నెట్వర్కుతో సంప్రదిస్తున్నప్పుడు ఒక దోషం ఉంది."
-
-#~ msgid "This installation number has already been activated."
-#~ msgstr "ఈ సంస్థాపక సంఖ్య ఇప్పటికే క్రియాశీలంగా ఉంది."
-
-#, fuzzy
-#~ msgid "There was an error retrieving the privacy statement."
-#~ msgstr "ఆ రూపాన్ని ప్రసన్నం చేయటంలో ఒక దోషం."
-
-#~ msgid "Unable to access the server. Please check your network settings."
-#~ msgstr "సర్వరును ఉపయోగించటం కుదరదు. దయచేసి మీ నెట్వర్కు అమర్పులను వెతకండి."
-
-#~ msgid ""
-#~ "The server you are attempting to register against does not support this "
-#~ "version of the client."
-#~ msgstr ""
-#~ "దీనికి వ్యతికేకంగా మీరు నమోదు చేయటానికి ప్రయత్నిస్తున్న సర్వరు ఈ కక్షిదారుని ప్రతికి మద్దతివ్వదు "
-
-#~ msgid "You must enter an Installation Number that "
-#~ msgstr "మీరు తప్పక ఒక సంస్థాపక సంఖ్యను ప్రవేశ పెట్టాలి అది"
-
-#~ msgid "Problem registering login name:\n"
-#~ msgstr "ప్రవేశ పేరును నమోదుచేయటంలో ఇబ్బంది:\n"
-
-#~ msgid "Problem registering login name."
-#~ msgstr "ప్రవేశ పేరు నమోదులో సమస్య."
-
-#~ msgid ", quantity:"
-#~ msgstr ", పరిమాణం:"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat Network Location: "
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Red Hat నెట్వర్కు స్థానం: "
-
-#~ msgid ""
-#~ "\n"
-#~ "RHN Login: "
-#~ msgstr ""
-#~ "\n"
-#~ "RHN ప్రవేశం: "
-
-#~ msgid "Access Subscription"
-#~ msgstr "అందుబాటు సబ్ స్క్రిప్షన్లు"
-
-#~ msgid "Choose Organization"
-#~ msgstr "నిర్వహణని ఎన్నుకో"
-
-#~ msgid "Choose an organization to use with this username"
-#~ msgstr "ఈ వినియోగదారుని పేరుతో ఉపయోగించటానికి ఒక నిర్వహణని ఎన్నుకో"
-
-#~ msgid "Specify an email address"
-#~ msgstr "ఒక ఈటపా చిరునామాని తెల్పండి"
-
-#, fuzzy
-#~ msgid "Specify a installation number to use"
-#~ msgstr "ఒక సబ్ స్క్రిప్షను సంఖ్యను వినియోగానికి తెల్పండి"
-
-#~ msgid "Important Registration Info"
-#~ msgstr "ముఖ్యమైన నమోదు సమాచారం"
-
-#~ msgid "Registration information"
-#~ msgstr "నమో సమాచారం:"
-
-#~ msgid "Select organization"
-#~ msgstr "నిర్వహణను ఎన్నుకోండి"
-
-#~ msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
-#~ msgstr "<small><b>సూచన:</b> Red Hat విలువలు మీ గోప్యత.</small>"
-
-#~ msgid "Privacy Statement"
-#~ msgstr "ప్రైవసీ ప్రకటన"
-
-#~ msgid "Red Hat Privacy Statement"
-#~ msgstr "Red Hat ప్రైవసీ ప్రకటన"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your account is associated with multiple <b>organizations</b>. You will "
-#~ "need to select an organization to register this system to."
-#~ msgstr ""
-#~ "మీఖాతా బహుళ <b>సంస్థలతో</b>కూడుకుని ఉంది. మీరు ఒక సంస్థని ఈ విధానాన్ని అనుసంధించటానికి "
-#~ "ఎన్నుకోవలసి ఉంది."
-
-#~ msgid "_Organization:"
-#~ msgstr "సంస్థ: (_O)"
-
-#~ msgid ""
-#~ "were not able to activate it (An unknown error occurred.) We used "
-#~ "existing "
-#~ msgstr "దాన్ని క్రియాశీలం చేయలేము (ఒక తెలియని దోషం సంభవిస్తోంది.) మేము ఉన్న "
-
-#~ msgid ""
-#~ "active subscription slots available in the rhn account instead. You may "
-#~ "wish "
-#~ msgstr "క్రియాశీల సబ్ స్క్రిప్షన్ స్లాట్లు rhn ఖాతాలో అందుబాటులో ఉన్నాయి. మీరు"
-
-#~ msgid "to contact Red Hat customer service regarding this issue: "
-#~ msgstr "Red Hat వినియోగదారుల సేవలని ఈ విషయమై సందించవచ్చు: "
-
-#~ msgid "http://www.redhat.com/apps/support/"
-#~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "activates subscriptions in your account."
-#~ msgstr "మీ ఖాతాలో సబ్ స్క్రిప్షన్లను క్రియాశీలం చేస్తాయి."
-
-#~ msgid "Only https and http are allowed."
-#~ msgstr "కేవలం https మరియూ http మాత్రమే అనుమతించబడ్డాయి."
-
-#~ msgid "Error reading hardware information:"
-#~ msgstr "దోషాన్ని చదివే హార్డువేరు సమాచారం:"
-
-#~ msgid "Error reading DMI information:"
-#~ msgstr "దోషాన్ని చదివే DMI సమాచారం:"
-
-#~ msgid "That user account and password is not valid\n"
-#~ msgstr "ఆ వినియోగదారుని ఖాతా మరియూ అనుమతిపదం విలువైనవికావు\n"
-
-#~ msgid "You must enter a user name."
-#~ msgstr "మీరు తప్పక ఒక వినియోగదారుని పేరును ఇవ్వాలి."
-
-#~ msgid "You must enter and verify a password."
-#~ msgstr "మీరు తప్పక ఒక అనుమతిపదాన్ని ఇచ్చి సరిచూసుకోవాలి."
-
-#~ msgid ""
-#~ "Problem registering login:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "ప్రవేశ నమోదులో సమస్య:\n"
-#~ "%s"
-
-#~ msgid "Problem registering login."
-#~ msgstr "ప్రవేశ నమోదులో సమస్య."
-
-#~ msgid "United States"
-#~ msgstr "సంయుక్త రాష్ట్రాలు"
-
-#~ msgid "Canada"
-#~ msgstr "కెనడా"
-
-#~ msgid "Login Information:"
-#~ msgstr "పప్రవేశ సమాచారం:"
-
-#~ msgid "Account Information:"
-#~ msgstr "ఖాతా సమాచారం:"
-
-#~ msgid "*First Name:"
-#~ msgstr "*మొదటి పేరు:"
-
-#~ msgid "*Last Name:"
-#~ msgstr "*చివరి పేరు:"
-
-#~ msgid "*Company Name:"
-#~ msgstr "*కంపెనీ పేరు:"
-
-#~ msgid "Street Address:"
-#~ msgstr "వీధి చిరునామా:"
-
-#~ msgid "City:"
-#~ msgstr "నగరం:"
-
-#~ msgid "State/Province:"
-#~ msgstr "రాష్ట్రం/పరిధి:"
-
-#~ msgid "Zip/Post Code:"
-#~ msgstr "జిప్/పోస్టు కోడ్:"
-
-#~ msgid "*Country:"
-#~ msgstr "*ప్రాంతం:"
-
-#~ msgid "  Address 2:"
-#~ msgstr "  చిరునామా 2:"
-
-#~ msgid "  Address:"
-#~ msgstr "  చిరునామా:"
-
-#~ msgid "  C_ity:"
-#~ msgstr "  నగరం: (_C)"
-
-#~ msgid "  Co_mpany Name:"
-#~ msgstr "  కంపెనీ పేరు: (_m)"
-
-#~ msgid "  _State/Province:"
-#~ msgstr "  రాష్ట్రం/ప్రాంతం: (_S)"
-
-#~ msgid "  _Zip/Postal code:"
-#~ msgstr "  జిప్/తపాలా కోడ్: (_Z)"
-
-#~ msgid "* C_onfirm password:  "
-#~ msgstr "* అనుమతిపదాన్ని నిర్ధారించు:  (_C)"
-
-#~ msgid "* Co_untry:"
-#~ msgstr "* ప్రాంతం: (_u)"
-
-#~ msgid "* Desired _Login:"
-#~ msgstr "* ప్రవేశ నిర్ణయం: (_L)"
-
-#~ msgid "* Desired _Password:"
-#~ msgstr "* కావలసిన అనుమతిపదం: (_P)"
-
-#~ msgid "* Last _Name:"
-#~ msgstr "* చివరి పేరు: (_N)"
-
-#~ msgid "* _Email Address: "
-#~ msgstr "* ఈటపా చిరునామా: "
-
-#~ msgid "* _First Name:"
-#~ msgstr "* మొదటి పేరు: (_F)"
-
-#~ msgid "<b>Account Information:</b>"
-#~ msgstr "<b>ఖాతా సమాచారం:</b>"
-
-#~ msgid "<b>Login Information:</b>"
-#~ msgstr "<b>ప్రవేశ సమాచారం:</b>"
-
-#~ msgid "<small><b>Examples:</b> user@domain.com</small>"
-#~ msgstr "<small><b>ఉదాహరణ:</b> user@domain.com</small>"
-
-#~ msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
-#~ msgstr "<small><b>సూచన:</b> కంపెనీతో లేకపోతే ఖాళీని వదలం.</small>"
-
-#~ msgid "Afghanistan"
-#~ msgstr "ఆఫ్ఘనిస్థాన్"
-
-#~ msgid "Albania"
-#~ msgstr "అల్బేనియా"
-
-#~ msgid "Algeria"
-#~ msgstr "అల్జేరియా"
-
-#~ msgid "American Samoa"
-#~ msgstr "అమెరికన్ సమోఆ"
-
-#~ msgid "Andorra"
-#~ msgstr "అండోరా"
-
-#~ msgid "Angola"
-#~ msgstr "అంగోలా"
-
-#~ msgid "Anguilla"
-#~ msgstr "అంగుల్లా"
-
-#~ msgid "Antarctica"
-#~ msgstr "అంటార్కిటికా"
-
-#~ msgid "Antigua and Barbuda"
-#~ msgstr "ఆంటీగుఆ మరియూ బర్బుడా"
-
-#~ msgid "Argentina"
-#~ msgstr "అర్జెంటైనా"
-
-#~ msgid "Armenia"
-#~ msgstr "అర్మేనియా"
-
-#~ msgid "Aruba"
-#~ msgstr "అరుబ"
-
-#~ msgid "Australia"
-#~ msgstr "ఆస్ట్రేలియా"
-
-#~ msgid "Austria"
-#~ msgstr "ఆస్ట్రియా"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "అజెర్బజన్"
-
-#~ msgid "Bahamas"
-#~ msgstr "బహ్మస్"
-
-#~ msgid "Bahrain"
-#~ msgstr "బహ్రెయిన్"
-
-#~ msgid "Bangladesh"
-#~ msgstr "బంగ్లాదేశ్"
-
-#~ msgid "Barbados"
-#~ msgstr "బర్బొడాస్"
-
-#~ msgid "Belarus"
-#~ msgstr "బెలరూస్"
-
-#~ msgid "Belgium"
-#~ msgstr "బెల్జియం"
-
-#~ msgid "Belize"
-#~ msgstr "బెల్జీ"
-
-#~ msgid "Benin"
-#~ msgstr "బెనిన్"
-
-#~ msgid "Bermuda"
-#~ msgstr "బెర్ముడా"
-
-#~ msgid "Bhutan"
-#~ msgstr "భూటాన్"
-
-#~ msgid "Bolivia"
-#~ msgstr "బొలీవియా"
-
-#~ msgid "Bosnia and Herzegovina"
-#~ msgstr "బోస్నియా మరియూ హర్జీగోవిన"
-
-#~ msgid "Botswana"
-#~ msgstr "బూస్ట్వానా"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "బౌవెట్ ఐస్లాండ్"
-
-#~ msgid "Brazil"
-#~ msgstr "బ్రైజిల్"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "బ్రిటీషు ఇండియన్ సముద్ర ప్రాదేశిక ప్రాంతం"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "బ్రునేయ్ దారూస్సలాం"
-
-#~ msgid "Bulgaria"
-#~ msgstr "బల్గేరియా"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "బుర్కిన ఫసో"
-
-#~ msgid "Burundi"
-#~ msgstr "బురుండి"
-
-#~ msgid "C_reate new login"
-#~ msgstr "కొత్త ప్రవేశాన్ని సృష్టించు"
-
-#~ msgid "Cambodia"
-#~ msgstr "కంబోడియా"
-
-#~ msgid "Cameroon"
-#~ msgstr "కమెరోన్"
-
-#~ msgid "Cape Verde"
-#~ msgstr "కేప్ వెర్డె"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "సైమన్ ఐస్లాండ్"
-
-#~ msgid "Central African Republic"
-#~ msgstr "కేంద్రీయ ఆఫ్రికా గణతంత్రం"
-
-#~ msgid "Chad"
-#~ msgstr "చాడ్"
-
-#~ msgid "Chile"
-#~ msgstr "చైలే"
-
-#~ msgid "China"
-#~ msgstr "చైనా"
-
-#~ msgid "Christmas Island"
-#~ msgstr "క్రిస్మస్ ఐస్లాంద్"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "కోకోస్ (కీలింగ్) ఇస్లాండ్సు"
-
-#~ msgid "Colombia"
-#~ msgstr "కొలంబియా"
-
-#~ msgid "Comoros"
-#~ msgstr "కొమోరోస్"
-
-#~ msgid "Congo"
-#~ msgstr "కాంగో"
-
-#~ msgid "Cook Islands"
-#~ msgstr "కోక్ ఐశ్లాండ్స్"
-
-#~ msgid "Costa Rica"
-#~ msgstr "కోస్ట రిక"
-
-#~ msgid "Cote d'Ivoire"
-#~ msgstr "Cote d'Ivoire"
-
-#~ msgid "Create a _New Login"
-#~ msgstr "కొత్త ప్రవేశాన్ని సృష్టించు"
-
-#~ msgid "Create a new Red Hat Network login"
-#~ msgstr "కొత్త Red Hat నెట్వర్కింగు ప్రవేశాన్ని సృష్టించు"
-
-#~ msgid "Croatia"
-#~ msgstr "క్రొయ్ టియా"
-
-#~ msgid "Cuba"
-#~ msgstr "క్యూబా"
-
-#~ msgid "Cyprus"
-#~ msgstr "సైప్రూస్"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Czech గణతంత్రం"
-
-#~ msgid "Denmark"
-#~ msgstr "డెన్మార్కు"
-
-#~ msgid "Djibouti"
-#~ msgstr "డిజిబౌటి"
-
-#~ msgid "Dominica"
-#~ msgstr "డొమినిక"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "డొమినికా గణతంత్రం"
-
-#~ msgid "East Timor"
-#~ msgstr "తూర్పు తిమోర్"
-
-#~ msgid "Ecuador"
-#~ msgstr "యూడోర్"
-
-#~ msgid "Egypt"
-#~ msgstr "ఈజిప్టు"
-
-#~ msgid "El Salvador"
-#~ msgstr "El సల్వడోర్"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "ఈక్విటోరియల్ గుయినేయ"
-
-#~ msgid "Eritrea"
-#~ msgstr "ఎరిత్రియా"
-
-#~ msgid "Estonia"
-#~ msgstr "ఈస్టోనియా"
-
-#~ msgid "Ethiopia"
-#~ msgstr "ఇథోపియా"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "ప్లాక్లాండ్ ఐస్లాండ్ (మాల్వీనాస్)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "ఫరోయ్ ఐస్లాండ్స్"
-
-#~ msgid "Fiji"
-#~ msgstr "ఫిజి"
-
-#~ msgid ""
-#~ "Fill in the form below to create a new Red Hat login. Required "
-#~ "information is marked with a '*':"
-#~ msgstr ""
-#~ "కొత్త Red Hat ప్రవేశాన్ని సృష్టించటానికి కింది పత్రాన్ని నింపండి. కావలసిన సమాచారం '*' తో "
-#~ "గుర్తించబడింది:"
-
-#~ msgid "Finland"
-#~ msgstr "ఫిన్లాండ్"
-
-#~ msgid "France"
-#~ msgstr "ఫ్రాన్స్"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "ఫ్రాన్సు మెట్రోపోల్టియన్"
-
-#~ msgid "French Guiana"
-#~ msgstr "ఫ్రెంచ్ గుయాన"
-
-#~ msgid "French Polynesia"
-#~ msgstr "ఫ్రెంచ్ పొలినేసియ"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "ఫ్రెంచ్ దక్షిణ ప్రాంతం"
-
-#~ msgid "Gabon"
-#~ msgstr "గబోన్"
-
-#~ msgid "Gambia"
-#~ msgstr "గాంబియా"
-
-#~ msgid "Georgia"
-#~ msgstr "గియోర్గియా"
-
-#~ msgid "Germany"
-#~ msgstr "జర్మనీ"
-
-#~ msgid "Ghana"
-#~ msgstr "ఘనా"
-
-#~ msgid "Gibraltar"
-#~ msgstr "జిబ్రాల్టర్"
-
-#~ msgid "Greece"
-#~ msgstr "గ్రీస్"
-
-#~ msgid "Greenland"
-#~ msgstr "గ్రీన్లాండ్"
-
-#~ msgid "Grenada"
-#~ msgstr "గ్రెన్డా"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "గుడెల్ఫే"
-
-#~ msgid "Guam"
-#~ msgstr "గూం"
-
-#~ msgid "Guatemala"
-#~ msgstr "గుటెమల"
-
-#~ msgid "Guinea"
-#~ msgstr "గునేయ"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "గునేయ-బిస్సు"
-
-#~ msgid "Guyana"
-#~ msgstr "గుయానా"
-
-#~ msgid "Haiti"
-#~ msgstr "హైటి"
-
-#~ msgid "Heard Island and McDonald Islands"
-#~ msgstr "హియర్డ ఐస్లాండ్ మరియూ మెగ్డోనాల్డు ఐస్లాండ్"
-
-#~ msgid "Honduras"
-#~ msgstr "హండుర్సా"
-
-#~ msgid "Hong Kong"
-#~ msgstr "హాంకాంగ్"
-
-#~ msgid "Hungary"
-#~ msgstr "హంగేరీ"
-
-#~ msgid "Iceland"
-#~ msgstr "ఐస్లాండ్"
-
-#~ msgid "India"
-#~ msgstr "ఇండియా"
-
-#~ msgid "Indonesia"
-#~ msgstr "ఇండోనేషియా"
-
-#~ msgid "Iran (Islamic Republic of)"
-#~ msgstr "ఇరాన్ (ఇస్లామిక్ గణంత్రం)"
-
-#~ msgid "Iraq"
-#~ msgstr "ఇరాక్"
-
-#~ msgid "Ireland"
-#~ msgstr "ఐర్లాండ్"
-
-#~ msgid "Israel"
-#~ msgstr "ఇజ్రాయేల్"
-
-#~ msgid "Italy"
-#~ msgstr "ఇటలీ"
-
-#~ msgid "Jamaica"
-#~ msgstr "జమైకా"
-
-#~ msgid "Japan"
-#~ msgstr "జపాన్"
-
-#~ msgid "Jordan"
-#~ msgstr "జార్డాన్"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "ఖజకిస్థాన్"
-
-#~ msgid "Kenya"
-#~ msgstr "కెన్యా"
-
-#~ msgid "Kiribati"
-#~ msgstr "కిరిబటి"
-
-#~ msgid "Korea, Democratic People's Republic of"
-#~ msgstr "కొరియా, ప్రజాస్వామ్య గణతంత్రం"
-
-#~ msgid "Korea, Republic of"
-#~ msgstr "కొరియా గణతంత్రం"
-
-#~ msgid "Kuwait"
-#~ msgstr "కొవైట్"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "క్యిర్గిస్థాన్"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "లావో ప్రజల ప్రజాస్వామ్య గణతంత్రం"
-
-#~ msgid "Latin America"
-#~ msgstr "లాటిన్ అమెరికా"
-
-#~ msgid "Latvia"
-#~ msgstr "లాత్వియా"
-
-#~ msgid "Lebanon"
-#~ msgstr "లెబనాన్"
-
-#~ msgid "Lesotho"
-#~ msgstr "లెసోథో"
-
-#~ msgid "Liberia"
-#~ msgstr "లైబేరియా"
-
-#~ msgid "Libyan Arab Jamahiriya"
-#~ msgstr "లిబియా అర్బ్ జమైరియా"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "లిచెటెన్స్టీన్"
-
-#~ msgid "Lithuania"
-#~ msgstr "లుధియానా"
-
-#~ msgid "Luxembourg"
-#~ msgstr "లుక్సేంబర్గు"
-
-#~ msgid "Macau"
-#~ msgstr "మాచు"
-
-#~ msgid "Macedonia"
-#~ msgstr "మెక్డోనియా"
-
-#~ msgid "Madagascar"
-#~ msgstr "మడగాస్కర్"
-
-#~ msgid "Malawi"
-#~ msgstr "మాలావుయ్"
-
-#~ msgid "Malaysia"
-#~ msgstr "మలేషియా"
-
-#~ msgid "Maldives"
-#~ msgstr "మాళ్దీవులు"
-
-#~ msgid "Mali"
-#~ msgstr "మలి"
-
-#~ msgid "Malta"
-#~ msgstr "మల్టా"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "మార్షల్ ఐస్లాండ్"
-
-#~ msgid "Martinique"
-#~ msgstr "మార్టీనిక్యూ"
-
-#~ msgid "Mauritania"
-#~ msgstr "మౌరిటానియ"
-
-#~ msgid "Mauritius"
-#~ msgstr "మౌరిటిస్"
-
-#~ msgid "Mayotte"
-#~ msgstr "మయోట్టే"
-
-#~ msgid "Mexico"
-#~ msgstr "మెక్సికో"
-
-#~ msgid "Micronesia (Federated States of)"
-#~ msgstr "మిక్రోనేషియా (ప్రజాస్వామిక రాష్టం యొక్క)"
-
-#~ msgid "Moldova"
-#~ msgstr "మోల్డోవా"
-
-#~ msgid "Monaco"
-#~ msgstr "మోనాకో"
-
-#~ msgid "Mongolia"
-#~ msgstr "మంగోలియా"
-
-#~ msgid "Montserrat"
-#~ msgstr "మోన్ట్సెరాట్"
-
-#~ msgid "Morocco"
-#~ msgstr "మోరోకో"
-
-#~ msgid "Mozambique"
-#~ msgstr "మోజంబిక్యూ"
-
-#~ msgid "Myanmar"
-#~ msgstr "మయమన్నార్"
-
-#~ msgid "Namibia"
-#~ msgstr "నమీబియా"
-
-#~ msgid "Nauru"
-#~ msgstr "నౌరు"
-
-#~ msgid "Nepal"
-#~ msgstr "నేపాల్"
-
-#~ msgid "Netherlands"
-#~ msgstr "నెదర్లాండ్"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "నెదర్లాంద్ ఏంటిలీస్"
-
-#~ msgid "New Caledonia"
-#~ msgstr "న్యూ కెలెడోనియా"
-
-#~ msgid "New Zealand"
-#~ msgstr "న్యూజిలాండ్"
-
-#~ msgid "Nicaragua"
-#~ msgstr "నికరగుఆ"
-
-#~ msgid "Niger"
-#~ msgstr "నిగేర్"
-
-#~ msgid "Nigeria"
-#~ msgstr "నిగేరియా"
-
-#~ msgid "Niue"
-#~ msgstr "నియూ"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "నార్ఫోక్ ఐస్లాండ్"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "ఉత్తర మరియానా ఐస్లాండ్"
-
-#~ msgid "Norway"
-#~ msgstr "నార్వే"
-
-#~ msgid "Oman"
-#~ msgstr "ఓమన్"
-
-#~ msgid "Pakistan"
-#~ msgstr "పాకిస్థాన్"
-
-#~ msgid "Palau"
-#~ msgstr "పాలూ"
-
-#~ msgid "Panama"
-#~ msgstr "పనామా"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "పపువా న్యూ జీనియా"
-
-#~ msgid "Paraguay"
-#~ msgstr "పగుయే"
-
-#~ msgid "Peru"
-#~ msgstr "పేరూ"
-
-#~ msgid "Philippines"
-#~ msgstr "ఫిలిఫైన్స్"
-
-#~ msgid "Pitcairn"
-#~ msgstr "పిట్క్రెయిన్"
-
-#~ msgid "Poland"
-#~ msgstr "పోలాండ్"
-
-#~ msgid "Portugal"
-#~ msgstr "పోర్చుగల్"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "పూయెర్టో రికో"
-
-#~ msgid "Qatar"
-#~ msgstr "క్వాటర్"
-
-#~ msgid ""
-#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-#~ msgstr ""
-#~ "Red Hat ప్రవేశాలు మరియూ అనుమతిపదాలు తప్పక కనీసం 5 ఆల్ఫాన్యూమరిక్ అక్షరాలను కలిగి ఉండాలి"
-
-#~ msgid "Reunion"
-#~ msgstr "రేయూనియా"
-
-#~ msgid "Romania"
-#~ msgstr "రొమేనియా"
-
-#~ msgid "Russian Federation"
-#~ msgstr "రష్యన్ ఫెడరేషన్"
-
-#~ msgid "Rwanda"
-#~ msgstr "రవండా"
-
-#~ msgid "Saint Helena"
-#~ msgstr "సైంట్ హెలేనా"
-
-#~ msgid "Saint Kitts and Nevis"
-#~ msgstr "సైన్టు కిట్ట్సు మరియూ నేవిసు"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "సెయింట్ లుకియా"
-
-#~ msgid "Saint Pierre and Miquelon    "
-#~ msgstr "సెయింట్ పైయ్యీర్ మరియూ మైక్యూలోన్...."
-
-#~ msgid "Saint Vincent and the Grenadines"
-#~ msgstr "సెయింట్ విన్సెంట్ మరియూ గ్రీండినేస్"
-
-#~ msgid "Samoa"
-#~ msgstr "సమోఆ"
-
-#~ msgid "San Marino"
-#~ msgstr "శాన్ మరినో"
-
-#~ msgid "Sao Tome and Principe"
-#~ msgstr "సాఓ టోమో మరియూ ప్రిస్సిపే"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "సౌదీ అరేబియా"
-
-#~ msgid "Senegal"
-#~ msgstr "సెనెగల్"
-
-#~ msgid "Seychelles"
-#~ msgstr "సైచెల్లేస్"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "సైయ్యె లియోనే"
-
-#~ msgid "Singapore"
-#~ msgstr "సింగపూర్"
-
-#~ msgid "Slovakia"
-#~ msgstr "స్లోవేకియా"
-
-#~ msgid "Slovenia"
-#~ msgstr "స్లోవేనియా"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "సొలొమోన్ ఐస్లాండ్"
-
-#~ msgid "Somalia"
-#~ msgstr "సొమేలియా"
-
-#~ msgid "South Africa"
-#~ msgstr "దక్షిణ ఆఫ్రికా"
-
-#~ msgid "South Georgia and the South Sandwich Island"
-#~ msgstr "దక్షిణ జొయోర్జియా మరియూ దక్షిణ సాండ్విచ్ ఐస్లాండ్"
-
-#~ msgid "Spain"
-#~ msgstr "స్ఫైయిన్"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "శ్రీలంక"
-
-#~ msgid "Sudan"
-#~ msgstr "సూడాన్"
-
-#~ msgid "Suriname"
-#~ msgstr "సూరినామే"
-
-#~ msgid "Svalbard and Jan Mayen Islands"
-#~ msgstr "స్వాల్బర్డు మరియూ మయేన్ ఐస్లాండ్సు"
-
-#~ msgid "Swaziland"
-#~ msgstr "స్వాజిలాండ్"
-
-#~ msgid "Sweden"
-#~ msgstr "స్వీడన్"
-
-#~ msgid "Switzerland"
-#~ msgstr "స్విజర్లాండ్"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "స్వరియన్ అరబ్ గణతంత్రం"
-
-#~ msgid "Taiwan"
-#~ msgstr "తైవాన్"
-
-#~ msgid "Tajikistan"
-#~ msgstr "తజకిస్థాన్"
-
-#~ msgid "Tanzania, United Republic of"
-#~ msgstr "టాంజేనియా, సంయుక్త గణతంత్రం యొక్క"
-
-#~ msgid "Thailand"
-#~ msgstr "థాయిలాండ్"
-
-#~ msgid "Togo"
-#~ msgstr "టోగో"
-
-#~ msgid "Tokelau"
-#~ msgstr "టొకేలూ"
-
-#~ msgid "Tonga"
-#~ msgstr "టోంగా"
-
-#~ msgid "Trinidad and Tobago"
-#~ msgstr "ట్రినిడాడ్ మరియూ టోబాగో"
-
-#~ msgid "Tunisia"
-#~ msgstr "టునిసియా"
-
-#~ msgid "Turkey"
-#~ msgstr "టర్కీ"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "టర్క్మేనిస్తాన్"
-
-#~ msgid "Turks and Caicos Islands"
-#~ msgstr "టర్క్సు మరియూ కైచో ఐస్లాండ్సు"
-
-#~ msgid "Tuvalu"
-#~ msgstr "టువాలూ"
-
-#~ msgid "Uganda"
-#~ msgstr "ఉగండా"
-
-#~ msgid "Ukraine"
-#~ msgstr "ఉక్రైన్"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "యునైటెడ్ అరబ్ ఎమిరేట్సు"
-
-#~ msgid "United Kingdom"
-#~ msgstr "యునైటేడ్ కింగ్డం"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "యునైటెడ్ స్టేట్సు ప్రాధమిక ఐస్లాండ్ బాహ్యరేఖ"
-
-#~ msgid "Uruguay"
-#~ msgstr "ఉరుగుయే"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "ఉజ్బెకిస్థాన్"
-
-#~ msgid "Vanuatu"
-#~ msgstr "వనుట్యూర్"
-
-#~ msgid "Vatican City State (Holy See)"
-#~ msgstr "వాటికన్ నగర రాష్ట్రం (హోలీ సీ)"
-
-#~ msgid "Venezuela"
-#~ msgstr "వెనీజులా"
-
-#~ msgid "Viet Nam"
-#~ msgstr "వియత్నాం"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "విర్జీన్ ఐస్లాండ్సు (బ్రిటీష్)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "విర్జీన్ ఐస్లాండ్సు (యు ఎస్)"
-
-#~ msgid "Wallis and Futuna Islands"
-#~ msgstr "వెల్లీస్ మరియూ ఫూటున. ఐస్లాండ్సు"
-
-#~ msgid "Western Sahara"
-#~ msgstr "పశ్చిమ సహారా"
-
-#~ msgid "Yemen"
-#~ msgstr "యెమేన్"
-
-#~ msgid "Yugoslavia"
-#~ msgstr "యుగోస్లావియా"
-
-#~ msgid "Zaire"
-#~ msgstr "జైరే"
-
-#~ msgid "Zambia"
-#~ msgstr "జాంబియా"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "జింబాంబ్వే"
+msgstr "Spacewalk/Satellite/Red Hat Network కు నమోదుకండి."
