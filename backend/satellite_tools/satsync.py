@@ -432,8 +432,6 @@ class Syncer:
                     '   url: %s' % url,
                     '   debug/output level: %s' % CFG.DEBUG])
             self.xmlWireServer.setServerHandler(isIss=is_iss)
-
-        if not self.mountpoint:
             # check and fetch systemid (NOTE: systemid kept in memory... may or may not
             # be better to do it this way).
             if os.path.exists(self._systemidPath) and os.access(self._systemidPath, os.R_OK):
