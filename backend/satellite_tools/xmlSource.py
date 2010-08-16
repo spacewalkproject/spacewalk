@@ -912,8 +912,7 @@ def _normalizeSubelements(objtype, subelements):
         if isinstance(subelement, Node):
             if subelement.name == 'rhn-null':
                 return None
-
-            raise Exception("Expected a scalar, got back an element")
+            raise Exception("Expected a scalar, got back an element '%s'" % subelement.name)
 
         if objtype is types.StringType:
             return _stringify(subelement)
