@@ -109,7 +109,6 @@ public class TaskoRun {
             deleteLogFileIfExists(stdErrorPath);
             stdErrorPath = null;
         }
-        TaskoFactory.save(this);
     }
 
     /**
@@ -150,7 +149,6 @@ public class TaskoRun {
      */
     public void saveStatus(String statusIn) {
         setStatus(statusIn);
-        TaskoFactory.save(this);
     }
 
     /**
