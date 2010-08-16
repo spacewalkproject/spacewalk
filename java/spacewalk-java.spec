@@ -58,6 +58,7 @@ Requires: tomcat6
 %endif
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
+Requires: simple-core
 Requires: sitemesh
 Requires: stringtree-json
 Requires: spacewalk-java-config
@@ -109,6 +110,7 @@ BuildRequires: jta
 BuildRequires: redstone-xmlrpc
 BuildRequires: oscache
 BuildRequires: quartz
+BuildRequires: simple-core
 BuildRequires: stringtree-json
 BuildRequires: struts
 BuildRequires: sitemesh
@@ -194,6 +196,7 @@ Requires: concurrent
 Requires: quartz
 Requires: quartz-oracle
 Requires: cobbler >= 1.6.3
+Obsoletes: simple-core
 Obsoletes: taskomatic < 5.3.0
 Obsoletes: taskomatic-sat < 5.3.0
 Provides: taskomatic = %{version}-%{release}
