@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.4
+Version: 1.2.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -335,6 +335,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 16 2010 Tomas Lestach <tlestach@redhat.com> 1.2.5-1
+- fix ErrataQueueTest unit test (tlestach@redhat.com)
+- do not print stacktrace, when logging disabled (tlestach@redhat.com)
+- do not use TaskoFactory inside of the start() and finish() methods
+  (tlestach@redhat.com)
+- load errata after closing session to be used later on (tlestach@redhat.com)
+- add simple-core dependecies (tlestach@redhat.com)
+- chekstyle fix (tlestach@redhat.com)
+
 * Sun Aug 15 2010 Tomas Lestach <tlestach@redhat.com> 1.2.4-1
 - taskomatic enhancements (tlestach@redhat.com)
 - 620149 - Restore Users tab for Org Admins (colin.coe@gmail.com)
