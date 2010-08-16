@@ -757,7 +757,7 @@ def list_child_channels(self, system=None, parent=None, subscribed=False):
     return [ c.get('label') for c in channels ]
 
 
-def user_confirm(self, prompt = 'Is this ok [y/N]:', nospacer = False):
+def user_confirm(self, prompt = 'Is this ok [y/N]:', nospacer = False, integer = False):
     if self.options.yes: return True
 
     if nospacer:
@@ -766,9 +766,15 @@ def user_confirm(self, prompt = 'Is this ok [y/N]:', nospacer = False):
         answer = prompt_user('\n%s' % prompt)
 
     if re.match('y', answer, re.I):
-        return True
+        if integer:
+            return 1
+        else:
+            return True
     else:
-        return False
+        if integer:
+            return 0
+        else:
+            return False
 
 
 # check if the available API is recent enough
