@@ -168,9 +168,9 @@ public class ErrataMailer extends RhnJavaJob {
     }
 
     private void sendEmails(Long errataId, Long orgId, Long channelId) throws Exception {
+        populateWorkQueue(errataId, orgId, channelId);
         Errata errata = (Errata) HibernateFactory.getSession().load(PublishedErrata.class,
                 new Long(errataId.longValue()));
-        populateWorkQueue(errataId, orgId, channelId);
         List users = findTargetUsers();
         if (users == null || users.size() == 0) {
             if (log.isDebugEnabled()) {
