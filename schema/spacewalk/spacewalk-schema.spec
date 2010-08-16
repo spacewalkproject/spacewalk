@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.30
+Version:        1.1.31
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Aug 16 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.31-1
+- fixed rhnServerPackage upgrade
+
 * Mon Aug 09 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.30-1
 - 601984 - use clob for the concatting operation, to overcome the varchar
   length limit. (jpazdziora@redhat.com)
