@@ -15,6 +15,10 @@
 package com.redhat.rhn.taskomatic.task.test;
 
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.taskomatic.TaskoBunch;
+import com.redhat.rhn.taskomatic.TaskoRun;
+import com.redhat.rhn.taskomatic.TaskoTask;
+import com.redhat.rhn.taskomatic.TaskoTemplate;
 import com.redhat.rhn.taskomatic.task.ErrataQueue;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 
@@ -45,7 +49,13 @@ public class ErrataQueueTest extends BaseTestCaseWithUser {
             }
 
         };
-        eq.execute(null);
+
+        TaskoTemplate template = new TaskoTemplate();
+        template.setTask(new TaskoTask());
+        template.setBunch(new TaskoBunch());
+        TaskoRun run = new TaskoRun(null, template, new Long(1));
+        run.setId(new Long(1));
+        eq.execute(null, run);
         // Just a simple test to make sure we get here without
         // exceptions.  Better than nothin'
         assertTrue(true);
