@@ -93,9 +93,12 @@ class Node:
 
 # Base class we use as a SAX parsing handler
 class BaseDispatchHandler(ContentHandler, ErrorHandler):
-    # We expect the meaningful data to be on the third level. 
-    # The root element defines what the export contains, while the collection
-    # element defines what this collection contains
+    """ Base class we use as a SAX parsing handler
+
+        We expect the meaningful data to be on the third level.
+        The root element defines what the export contains, while the collection
+        element defines what this collection contains
+    """
     rootElement = None # non-static
     __stream = None
     container_dispatch = {}
