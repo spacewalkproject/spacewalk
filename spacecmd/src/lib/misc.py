@@ -757,10 +757,13 @@ def list_child_channels(self, system=None, parent=None, subscribed=False):
     return [ c.get('label') for c in channels ]
 
 
-def user_confirm(self, prompt='Is this ok [y/N]:'):
+def user_confirm(self, prompt = 'Is this ok [y/N]:', nospacer = False):
     if self.options.yes: return True
 
-    answer = prompt_user('\n%s' % prompt)
+    if nospacer:
+        answer = prompt_user('%s' % prompt)
+    else:
+        answer = prompt_user('\n%s' % prompt)
 
     if re.match('y', answer, re.I):
         return True
