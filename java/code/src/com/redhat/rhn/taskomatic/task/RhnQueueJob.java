@@ -63,7 +63,6 @@ public abstract class RhnQueueJob implements RhnJob {
         }
         catch (IOException e) {
             getLogger().warn("Logging to file disabled");
-            e.printStackTrace();
         }
     }
 
