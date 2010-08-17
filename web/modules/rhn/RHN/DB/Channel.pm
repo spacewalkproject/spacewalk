@@ -1024,31 +1024,6 @@ EOQ
   return;
 }
 
-sub package_by_filename_in_tree {
-  my $self = shift;
-  my $filename = shift;
-
-  die "Invalid filename: contains naughty bits" if $filename =~ m(/);
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT P.id, P.path
-  FROM rhnPackage P,
-       rhnChannelPackage CP,
-       rhnChannel C
- WHERE (C.id = :cid OR C.parent_channel = :cid)
-   AND CP.channel_id = C.id
-   AND CP.package_id = P.id
-   AND P.path LIKE :pathlike
-EOQ
-
-  $sth->execute_h(cid => $self->id, pathlike => "%/$filename");
-  my ($pid, $path) = $sth->fetchrow;
-
-  $sth->finish();
-  return ($pid, $path);
-}
-
 sub packaging_type {
   my $class_or_self = shift;
 
