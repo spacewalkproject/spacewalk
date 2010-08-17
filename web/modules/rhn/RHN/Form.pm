@@ -19,6 +19,7 @@ use strict;
 
 use RHN::Exception qw/throw/;
 use RHN::Form::Widget;
+use RHN::SessionSwap ();
 
 my @valid_fields = qw/name label action method widgets enctype/;
 
