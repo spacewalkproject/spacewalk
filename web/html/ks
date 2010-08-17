@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf8"?>
-<pxt-passthrough>
-  <pxt-use class="Sniglets::Kickstart" />
-  <rhn-kickstart-handler />
-</pxt-passthrough>
