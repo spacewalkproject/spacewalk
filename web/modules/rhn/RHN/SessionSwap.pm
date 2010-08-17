@@ -51,23 +51,6 @@ sub encode_data {
   return join("x", $in, $class->generate_swap_key($in));
 }
 
-sub extract_data {
-  my $class = shift;
-  my $in = shift;
-
-  die "extract_data called on undefined value" unless defined $in;
-
-  my ($data) = split /x/, $in, 2;
-  my @atoms = split /:/, $data;
-
-  if ($in eq $class->encode_data(@atoms)) {
-    return @atoms;
-  }
-  else {
-    die "Data tampered with: $in does not pass checksum test";
-  }
-}
-
 sub rhn_hmac_data {
   my $class = shift;
   my $hmac_data = join("\0", @_);
