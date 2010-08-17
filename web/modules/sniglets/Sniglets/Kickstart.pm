@@ -38,29 +38,12 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-kickstart-handler' => \&kickstart_handler);
   $pxt->register_tag('rhn-kickstart-tinyurl' => \&tiny_url_handler);
 }
 
 sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
-}
-
-sub kickstart_handler {
-  my $pxt = shift;
-
-  my $path_info = File::Spec->canonpath($pxt->path_info);
-  $path_info =~ s(^/)();
-
-  my ($subsys, $path) = split m(/), $path_info, 2;
-
-  if ($subsys eq 'dist') {
-    return dist_handler($pxt, $path);
-  }
-  else {
-    die "argh, no idea how to handle subsys $subsys"
-  }
 }
 
 sub dist_handler {
