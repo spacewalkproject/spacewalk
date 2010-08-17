@@ -21,6 +21,9 @@ insert into rhnErrataFileType ( id, label )
 	values ( rhn_erratafile_type_id_seq.nextval, 'SRPM' );
 insert into rhnErrataFileType ( id, label )
 	values ( rhn_erratafile_type_id_seq.nextval, 'IMG' );
+insert into rhnErrataFileType ( id, label )
+	values ( rhn_erratafile_type_id_seq.nextval, 'OVAL' );
+
 
 --
 -- Revision 1.1  2003/03/11 00:37:16  pjones
