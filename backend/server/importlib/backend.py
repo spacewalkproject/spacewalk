@@ -1296,7 +1296,7 @@ class Backend:
                 modified_packages[0].append(package.id)
 
                 if not channelId in needing_reporegen:
-                    needing_reporegen.append(cid)
+                    needing_reporegen.append(channelId)
 
                 # Package was added to this channel
                 addHash(hash, dict)
