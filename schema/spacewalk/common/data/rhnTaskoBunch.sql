@@ -18,7 +18,7 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'daily-status-bunch', 'Sends daily report', '');
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sat-sync', 'sat-sync description', 'Y');
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sat-sync-bunch', 'Runs satellite-sync\nParameters: list parameter lists channels\nchannel parameter specifies channel to be synced\nwithout parameter runs satellite-sync without parameters', 'Y');
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'clear-taskologs-bunch', 'Clears taskomatic run log history', '');
