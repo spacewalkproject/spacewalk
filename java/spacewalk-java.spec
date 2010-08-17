@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.5
+Version: 1.2.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -335,6 +335,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 17 2010 Tomas Lestach <tlestach@redhat.com> 1.2.6-1
+- rename, update and schedule ClearLogHistory (tlestach@redhat.com)
+- email support (tlestach@redhat.com)
+- Fix missing functionality on System Hardware page (colin.coe@gmail.com)
+
 * Mon Aug 16 2010 Tomas Lestach <tlestach@redhat.com> 1.2.5-1
 - fix ErrataQueueTest unit test (tlestach@redhat.com)
 - do not print stacktrace, when logging disabled (tlestach@redhat.com)
