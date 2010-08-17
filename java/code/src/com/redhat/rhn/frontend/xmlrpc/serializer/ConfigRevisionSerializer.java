@@ -39,15 +39,20 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *                  #item("symlink")
  *              #options_end()
  *   #prop_desc("string", "path","File Path")
+ *   #prop_desc("string", "target_path","Symbolic link Target File Path.
+ *                              Present for Symbolic links only.")
  *   #prop_desc("string", "channel","Channel Name")
  *   #prop_desc("string", "contents","File contents for text files only.")
  *   #prop_desc("int", "revision","File Revision")
  *   #prop_desc($date, "creation","Creation Date")
  *   #prop_desc($date, "modified","Last Modified Date")
- *   #prop_desc("string", "owner","File Owner")
- *   #prop_desc("string", "group","File Group")
- *   #prop_desc("int", "permissions","File Permissions (Deprecated)")
- *   #prop_desc("string", "permissions_mode", "File Permissions")
+ *   #prop_desc("string", "owner","File Owner. Present for files or directories only.")
+ *   #prop_desc("string", "group","File Group. Present for files or directories only.")
+ *   #prop_desc("int", "permissions","File Permissions (Deprecated).
+ *                                  Present for files or directories only.")
+ *   #prop_desc("string", "permissions_mode", "File Permissions.
+ *                                      Present for files or directories only.")
+ *   #prop_desc("string", "selinux_ctx", "SE inux Context.")
  *   #prop_desc("boolean", "binary", "true/false , Present for files only.")
  *   #prop_desc("string", "md5", "File's md5 signature. Present for files only.")
  *   #prop_desc("string", "macro-start-delimiter",
@@ -60,6 +65,7 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
 
     public static final String CONTENTS = "contents";
     public static final String PATH = "path";
+    public static final String TARGET_PATH = "target_path";
     public static final String OWNER = "owner";
     public static final String GROUP = "group";
     public static final String SELINUX_CTX = "selinux_ctx";
@@ -69,6 +75,7 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
     public static final String MACRO_END = "macro-end-delimiter";
     public static final String BINARY = "binary";
     public static final String TYPE = "type";
+    public static final String REVISION = "revision";
 
 
     /**
@@ -91,15 +98,18 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
         }
 
         helper.add(PATH, rev.getConfigFile().getConfigFileName().getPath());
-        helper.add("revision", rev.getRevision());
+        helper.add(REVISION, rev.getRevision());
         helper.add("creation", rev.getCreated());
         helper.add("modified", rev.getModified());
         helper.add(SELINUX_CTX, rev.getConfigInfo().getSelinuxCtx());
-        helper.add(OWNER, rev.getConfigInfo().getUsername());
-        helper.add(GROUP, rev.getConfigInfo().getGroupname());
-        helper.add(PERMISSIONS, rev.getConfigInfo().getFilemode());
-        helper.add(PERMISSIONS_MODE, new DecimalFormat("000").format(
-            rev.getConfigInfo().getFilemode().longValue()));
+        if (!rev.isSymlink()) {
+            helper.add(OWNER, rev.getConfigInfo().getUsername());
+            helper.add(GROUP, rev.getConfigInfo().getGroupname());
+            helper.add(PERMISSIONS, rev.getConfigInfo().getFilemode());
+            helper.add(PERMISSIONS_MODE, new DecimalFormat("000").format(
+                rev.getConfigInfo().getFilemode().longValue()));
+
+        }
 
         if (rev.isFile()) {
             if (!rev.getConfigContent().isBinary()) {
@@ -114,7 +124,7 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
             helper.add("md5", rev.getConfigContent().getChecksum().getChecksum());
         }
         else if (rev.isSymlink()) {
-            helper.add(CONTENTS, rev.getConfigContent().getContentsString());
+            helper.add(TARGET_PATH, rev.getConfigInfo().getTargetFileName().getPath());
         }
         helper.add("channel", rev.getConfigFile().getConfigChannel().getName());
         helper.writeTo(output);

@@ -18,6 +18,7 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelType;
+import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigRevisionSerializer;
@@ -26,6 +27,7 @@ import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.configuration.file.BinaryFileData;
 import com.redhat.rhn.manager.configuration.file.ConfigFileData;
 import com.redhat.rhn.manager.configuration.file.DirectoryData;
+import com.redhat.rhn.manager.configuration.file.SymlinkData;
 import com.redhat.rhn.manager.configuration.file.TextFileData;
 
 import org.apache.commons.lang.StringUtils;
@@ -89,23 +91,26 @@ public class XmlRpcConfigChannelHelper {
      * @param loggedInUser logged in user
      * @param channel  the config channel who holds the file.
      * @param path the path of the given text file.
-     * @param isDir true if this is a directory path, false if its to be a file path
+     * @param type the config file type
      * @param data a map containing properties pertaining to the given path..
      * for directory paths - 'data' will hold values for ->
-     *  owner, group, permissions
+     *  owner, group, permissions, revision, selinux_ctx
      * for file paths -  'data' will hold values for->
-     *  contents, owner, group, permissions, macro-start-delimiter, macro-end-delimiter
+     *  contents, owner, group, permissions, selinux_ctx
+     *      macro-start-delimiter, macro-end-delimiter, revision
+     * for symlinks paths -  'data' will hold values for->
+     *  target_path, revision, selinux_ctx
      * @return returns the new created or updated config revision..
      */
 
     public ConfigRevision createOrUpdatePath(User loggedInUser,
                                          ConfigChannel channel,
                                          String path,
-                                         boolean isDir,
+                                         ConfigFileType type,
                                          Map<String, Object> data) {
         ConfigFileData form;
 
-        if (!isDir) {
+        if (ConfigFileType.file().equals(type)) {
             if (data.get(ConfigRevisionSerializer.CONTENTS) instanceof String) {
                 String content = (String)data.get(ConfigRevisionSerializer.CONTENTS);
                 form = new TextFileData();
@@ -131,18 +136,25 @@ public class XmlRpcConfigChannelHelper {
                 form.setMacroEnd(stopDelim);
             }
         }
+        else if (ConfigFileType.symlink().equals(type)) {
+            form = new SymlinkData((String)data.get(ConfigRevisionSerializer.TARGET_PATH));
+        }
         else {
             form = new DirectoryData();
         }
 
         form.setPath(path);
-        form.setOwner((String)data.get(ConfigRevisionSerializer.OWNER));
-        form.setGroup((String)data.get(ConfigRevisionSerializer.GROUP));
-        form.setPermissions((String)data.get(ConfigRevisionSerializer.PERMISSIONS));
+
+        if (!ConfigFileType.symlink().equals(type)) {
+            form.setOwner((String)data.get(ConfigRevisionSerializer.OWNER));
+            form.setGroup((String)data.get(ConfigRevisionSerializer.GROUP));
+            form.setPermissions((String)data.get(ConfigRevisionSerializer.PERMISSIONS));
+        }
         String selinux = (String)data.get(ConfigRevisionSerializer.SELINUX_CTX);
         form.setSelinuxCtx(selinux == null ? "" : selinux);
-
-
+        if (data.containsKey(ConfigRevisionSerializer.REVISION)) {
+            form.setRevNumber(String.valueOf(data.get(ConfigRevisionSerializer.REVISION)));
+        }
 
         ConfigFileBuilder helper = ConfigFileBuilder.getInstance();
         try {

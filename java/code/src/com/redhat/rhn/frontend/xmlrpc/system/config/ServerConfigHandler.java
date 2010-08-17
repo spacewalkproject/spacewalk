@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
 import com.redhat.rhn.domain.config.ConfigChannelType;
 import com.redhat.rhn.domain.config.ConfigFile;
+import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -27,6 +28,7 @@ import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.configchannel.XmlRpcConfigChannelHelper;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigFileNameDtoSerializer;
+import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigRevisionSerializer;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
@@ -143,7 +145,7 @@ public class ServerConfigHandler extends BaseHandler {
      *              to accept the default. (ignored if working with a directory)")
      *      #prop_desc("string","selinux_ctx",
      *                   "SeLinux context (optional)")
-     *
+     *      #prop_desc("int", "revision", "next revision number, auto increment for null")
      *  #struct_end()
      * @xmlrpc.param #param("int","commitToLocal")
      *      #options()
@@ -164,13 +166,16 @@ public class ServerConfigHandler extends BaseHandler {
 
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
-        validKeys.add("contents");
-        validKeys.add("owner");
-        validKeys.add("group");
-        validKeys.add("permissions");
-        validKeys.add("selinux_ctx");
-        validKeys.add("macro-start-delimiter");
-        validKeys.add("macro-end-delimiter");
+        validKeys.add(ConfigRevisionSerializer.CONTENTS);
+        validKeys.add(ConfigRevisionSerializer.OWNER);
+        validKeys.add(ConfigRevisionSerializer.GROUP);
+        validKeys.add(ConfigRevisionSerializer.PERMISSIONS);
+        validKeys.add(ConfigRevisionSerializer.REVISION);
+        validKeys.add(ConfigRevisionSerializer.SELINUX_CTX);
+        if (!isDir) {
+            validKeys.add(ConfigRevisionSerializer.MACRO_START);
+            validKeys.add(ConfigRevisionSerializer.MACRO_END);
+        }
         validateMap(validKeys, data);
 
         User user = getLoggedInUser(sessionKey);
@@ -184,7 +189,74 @@ public class ServerConfigHandler extends BaseHandler {
             channel = server.getSandboxOverride();
         }
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
-        return configHelper.createOrUpdatePath(user, channel, path, isDir, data);
+        return configHelper.createOrUpdatePath(user, channel, path,
+                        isDir ? ConfigFileType.dir() : ConfigFileType.file(), data);
+    }
+
+
+    /**
+     * Creates a NEW symbolic link with the given path or updates an existing path
+     * with the given target_path in a given server.
+     * @param sessionKey User's session key.
+     * @param sid the server id.
+     * @param path the path of the given text file.
+     * @param data a map containing properties pertaining to the given path..
+     * 'data' will hold values for ->
+     *      target_paths, selinux_ctx
+     * @param commitToLocal true if we want to commit the file to
+     * the server's local channel false if we want to commit it to sandbox.
+     * @return returns the new created or updated config revision..
+     * @since 10.2
+     *
+     * @xmlrpc.doc Create a new symbolic link with the given path, or
+     * update an existing path.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int","serverId")
+     * @xmlrpc.param #param_desc("string","path",
+     *                          "the configuration file/directory path")
+     * @xmlrpc.param
+     *  #struct("path info")
+     *      #prop_desc("string","target_path",
+     *              "The target path for the symbolic link")
+     *      #prop_desc("string", "selinux_ctx", "SELinux Security context (optional)")
+     *      #prop_desc("int", "revision", "next revision number, auto increment for null")
+     *  #struct_end()
+     * @xmlrpc.param #param("int","commitToLocal")
+     *      #options()
+     *          #item_desc ("1", "to commit configuration files
+     *              to the system's local override configuration channel")
+     *          #item_desc ("0", "to commit configuration files
+     *              to the system's sandbox configuration channel")
+     *      #options_end()
+     * @xmlrpc.returntype
+     *              $ConfigRevisionSerializer
+     */
+    public ConfigRevision createOrUpdateSymlink(String sessionKey,
+                                            Integer sid,
+                                            String path,
+                                            Map<String, Object> data,
+                                            boolean commitToLocal) {
+
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add(ConfigRevisionSerializer.TARGET_PATH);
+        validKeys.add(ConfigRevisionSerializer.SELINUX_CTX);
+        validKeys.add(ConfigRevisionSerializer.REVISION);
+        validateMap(validKeys, data);
+
+        User user = getLoggedInUser(sessionKey);
+        XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
+        Server server = sysHelper.lookupServer(user, sid);
+        ConfigChannel channel;
+        if (commitToLocal) {
+            channel = server.getLocalOverride();
+        }
+        else {
+            channel = server.getSandboxOverride();
+        }
+        XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
+        return configHelper.createOrUpdatePath(user, channel, path,
+                                                ConfigFileType.symlink(), data);
     }
 
     /**

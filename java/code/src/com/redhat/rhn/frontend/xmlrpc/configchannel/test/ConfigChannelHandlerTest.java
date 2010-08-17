@@ -239,6 +239,26 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         return rev;
     }
 
+
+    private ConfigRevision createSymlinkRevision(String path, String targetPath,
+            ConfigChannel cc, String selinuxCtx)
+                        throws ValidatorException {
+        Map <String, Object> data = new HashMap<String, Object>();
+        data.put(ConfigRevisionSerializer.TARGET_PATH, targetPath);
+        data.put(ConfigRevisionSerializer.SELINUX_CTX, selinuxCtx);
+        ConfigRevision rev = handler.createOrUpdateSymlink(adminKey,
+                                                cc.getLabel(), path, data);
+        assertEquals(path, rev.getConfigFile().getConfigFileName().getPath());
+        assertEquals(ConfigFileType.symlink(), rev.getConfigFileType());
+        assertEquals(targetPath, rev.getConfigInfo().getTargetFileName());
+        assertEquals(selinuxCtx, rev.getConfigInfo().getSelinuxCtx());
+        assertEquals(cc, rev.getConfigFile().getConfigChannel());
+
+        assertRevNotChanged(rev, cc);
+
+        return rev;
+    }
+
     private void assertRev(ConfigRevision rev, String path, ConfigChannel cc) {
         List<String> paths = new ArrayList<String>(1);
         paths.add(path);
@@ -291,6 +311,9 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
                 "owner" + TestUtils.randomString(),
                 "744",
                 true, cc, "unconfined_u:object_r:tmp_t");
+
+        createSymlinkRevision(path + TestUtils.randomString(),
+                path + TestUtils.randomString(), cc, "root:root");
     }
 
     public void testListFiles() {

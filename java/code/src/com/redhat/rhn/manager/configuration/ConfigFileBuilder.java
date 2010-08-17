@@ -193,13 +193,19 @@ public class ConfigFileBuilder {
         }
 
         try {
-           Long l = Long.parseLong(form.getRevNumber());
-           if (l.longValue() <= file.getLatestConfigRevision().getRevision()) {
-               result = new ValidatorResult();
-               result.addError(new ValidatorError("error.config.revnum.too-old",
-                       form.getPath()));
-               throw new ValidatorException(result);
-           }
+            if (!StringUtils.isBlank(form.getRevNumber())) {
+                Long l = Long.parseLong(form.getRevNumber());
+                if (l.longValue() <= file.getLatestConfigRevision().getRevision()) {
+                    result = new ValidatorResult();
+                    result.addError(new ValidatorError("error.config.revnum.too-old",
+                            form.getPath()));
+                    throw new ValidatorException(result);
+                }
+            }
+            else {
+                form.setRevNumber(String.valueOf(
+                        file.getLatestConfigRevision().getRevision() + 1));
+            }
         }
         catch (NumberFormatException nfe) {
             result = new ValidatorResult();

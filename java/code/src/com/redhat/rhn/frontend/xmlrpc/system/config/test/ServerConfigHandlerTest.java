@@ -223,6 +223,32 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
             return rev;
     }
 
+
+
+    private ConfigRevision createSymlinkRevision(String path, String targetPath,
+            Server server, boolean commitToLocal, String selinuxCtx)
+                        throws ValidatorException {
+        Map <String, Object> data = new HashMap<String, Object>();
+        data.put(ConfigRevisionSerializer.TARGET_PATH, targetPath);
+        data.put(ConfigRevisionSerializer.SELINUX_CTX, selinuxCtx);
+        ConfigRevision rev = handler.createOrUpdateSymlink(adminKey,
+                    server.getId().intValue(), path, data, commitToLocal);
+        ConfigChannel cc = commitToLocal ? server.getLocalOverride() :
+            server.getSandboxOverride();
+
+        assertRevNotChanged(rev, server, commitToLocal);
+
+        assertEquals(path, rev.getConfigFile().getConfigFileName().getPath());
+        assertEquals(ConfigFileType.symlink(), rev.getConfigFileType());
+        assertEquals(targetPath, rev.getConfigInfo().getTargetFileName());
+        assertEquals(selinuxCtx, rev.getConfigInfo().getSelinuxCtx());
+        assertEquals(cc, rev.getConfigFile().getConfigChannel());
+
+        assertRevNotChanged(rev, server, commitToLocal);
+
+        return rev;
+    }
+
     private void assertRev(ConfigRevision rev, String path, String contents,
                                     String group, String owner,
                                 String perms, boolean isDir, ConfigChannel cc,
@@ -317,6 +343,9 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                 "owner" + TestUtils.randomString(),
                 "744",
                 true, srv1, false, "unconfined_u:object_r:tmp_t");
+        createSymlinkRevision(path + TestUtils.randomString(),
+                path + TestUtils.randomString(), srv1, false, "root:root");
+
     }
 
     public void testListFiles() throws Exception {

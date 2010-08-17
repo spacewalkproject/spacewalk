@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelType;
 import com.redhat.rhn.domain.config.ConfigFile;
+import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -29,6 +30,7 @@ import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigRevisionSerializer;
 import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.configuration.ConfigChannelCreationHelper;
@@ -255,6 +257,7 @@ public class ConfigChannelHandler extends BaseHandler {
      *      #prop_desc("string", "macro-end-delimiter",
      *              "Config file macro end delimiter. Use null or
      *  empty string to accept the default. (ignored if working with a directory)")
+     *      #prop_desc("int", "revision", "next revision number, auto increment for null")
      *
      *  #struct_end()
      * @xmlrpc.returntype
@@ -268,23 +271,77 @@ public class ConfigChannelHandler extends BaseHandler {
 
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
-        validKeys.add("contents");
-        validKeys.add("owner");
-        validKeys.add("group");
-        validKeys.add("permissions");
-        validKeys.add("selinux_ctx");
-        validKeys.add("macro-start-delimiter");
-        validKeys.add("macro-end-delimiter");
+        validKeys.add(ConfigRevisionSerializer.CONTENTS);
+        validKeys.add(ConfigRevisionSerializer.OWNER);
+        validKeys.add(ConfigRevisionSerializer.GROUP);
+        validKeys.add(ConfigRevisionSerializer.PERMISSIONS);
+        validKeys.add(ConfigRevisionSerializer.REVISION);
+        validKeys.add(ConfigRevisionSerializer.SELINUX_CTX);
+        if (!isDir) {
+            validKeys.add(ConfigRevisionSerializer.MACRO_START);
+            validKeys.add(ConfigRevisionSerializer.MACRO_END);
+        }
         validateMap(validKeys, data);
 
-        if (data.get("selinux_ctx") == null) {
-            data.put("selinux_ctx", "");
+        if (data.get(ConfigRevisionSerializer.SELINUX_CTX) == null) {
+            data.put(ConfigRevisionSerializer.SELINUX_CTX, "");
         }
 
         User user = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper helper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel channel = helper.lookupGlobal(user, channelLabel);
-        return helper.createOrUpdatePath(user, channel, path, isDir, data);
+        return helper.createOrUpdatePath(user, channel, path,
+                            isDir ? ConfigFileType.dir() : ConfigFileType.file(), data);
+    }
+
+
+    /**
+     * Creates a NEW symbolic link with the given path or updates an existing path
+     * with the given target_path in a given channel.
+     * @param sessionKey User's session key.
+     * @param channelLabel the label of the config channel.
+     * @param path the path of the given text file.
+     * @param data a map containing properties pertaining to the given path..
+     * 'data' will hold values for ->
+     *      target_paths, selinux_ctx
+     * @return returns the new created or updated config revision..
+     * @since 10.2
+     *
+     * @xmlrpc.doc Create a new symbolic link with the given path, or
+     * update an existing path.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "configChannelLabel")
+     * @xmlrpc.param #param("string", "path")
+     * @xmlrpc.param
+     *  #struct("path info")
+     *      #prop_desc("string","target_path",
+     *              "The target path for the symbolic link")
+     *      #prop_desc("string", "selinux_ctx", "SELinux Security context (optional)")
+     *      #prop_desc("int", "revision", "next revision number, auto increment for null")
+     *  #struct_end()
+     * @xmlrpc.returntype
+     * $ConfigRevisionSerializer
+     */
+    public ConfigRevision createOrUpdateSymlink(String sessionKey,
+                                                String channelLabel,
+                                                String path,
+                                                Map<String, Object> data) {
+
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add(ConfigRevisionSerializer.TARGET_PATH);
+        validKeys.add(ConfigRevisionSerializer.REVISION);
+        validKeys.add(ConfigRevisionSerializer.SELINUX_CTX);
+        validateMap(validKeys, data);
+        if (data.get(ConfigRevisionSerializer.SELINUX_CTX) == null) {
+            data.put(ConfigRevisionSerializer.SELINUX_CTX, "");
+        }
+
+        User user = getLoggedInUser(sessionKey);
+        XmlRpcConfigChannelHelper helper = XmlRpcConfigChannelHelper.getInstance();
+        ConfigChannel channel = helper.lookupGlobal(user, channelLabel);
+        return helper.createOrUpdatePath(user, channel, path,
+                                    ConfigFileType.symlink(), data);
     }
 
 
@@ -531,7 +588,7 @@ public class ConfigChannelHandler extends BaseHandler {
                 null);
         List<Server> servers = new ArrayList<Server>();
         for (ConfigSystemDto m : dtos) {
-            Server s = SystemManager.lookupByIdAndUser((Long) m.getId(), loggedInUser);
+            Server s = SystemManager.lookupByIdAndUser(m.getId(), loggedInUser);
             if (s != null) {
                 servers.add(s);
             }

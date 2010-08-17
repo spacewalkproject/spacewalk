@@ -35,6 +35,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *              #options()
  *                  #item("file")
  *                  #item("directory")
+ *                  #item("symlink")
  *              #options_end()
  *   #prop_desc("string", "path","File Path")
  *   #prop_desc($date, "last_modified","Last Modified Date")
