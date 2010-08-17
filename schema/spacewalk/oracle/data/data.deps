@@ -17,6 +17,8 @@ path = tables procs
 
 rhnArchTypeActions         :: data/rhnArchType data/rhnActionType
 rhnKickstartTimezone       :: data/rhnKSInstallType
+rhnTaskoSchedule           :: rhnTaskoBunch
+rhnTaskoTemplate           :: rhnTaskoBunch rhnTaskoTask
 rhnTemplateString          :: data/rhnTemplateCategory
 rhnBlacklistObsoletes      :: lookup_functions
 rhn_schedule_days          :: data/rhn_schedules
