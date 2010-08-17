@@ -37,6 +37,7 @@ rhnSGTypeBaseAddonCompat         :: data/rhnServerGroupType
 rhnSGTypeVirtSubLevel            :: lookup_virt_sub_level \
                                     data/rhnServerGroupType \
                                     data/rhnVirtSubLevel
+rhnTaskoSchedule                 :: rhnTaskoBunch
 rhnTaskoTemplate                 :: rhnTaskoBunch \
                                     rhnTaskoTask
 rhn_command                      :: data/rhn_command_groups \
