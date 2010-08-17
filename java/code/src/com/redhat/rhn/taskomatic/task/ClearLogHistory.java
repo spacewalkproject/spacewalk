@@ -14,12 +14,12 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.taskomatic.TaskoFactory;
 import com.redhat.rhn.taskomatic.TaskoRun;
 import com.redhat.rhn.taskomatic.TaskoSchedule;
 
-import org.hibernate.Transaction;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -34,6 +34,7 @@ import java.util.List;
  */
 public class ClearLogHistory extends RhnJavaJob {
 
+    private static final Integer DEFAULT_DAYS_VALUE = 7;
     /**
      * {@inheritDoc}
      * @throws InvalidParamException
@@ -42,13 +43,15 @@ public class ClearLogHistory extends RhnJavaJob {
         throws JobExecutionException {
         Integer days = null;
         try {
-            days = context.getJobDetail().getJobDataMap().getInt("days");
+            days = Integer.parseInt(
+                    (String) context.getJobDetail().getJobDataMap().get("days"));
         }
         catch (java.lang.ClassCastException cce) {
-            // do nothing, days stays unset
-        }
-        if (days == null) {
             throw new JobExecutionException("Invalid argument: days");
+        }
+        // if no value given, use default
+        if (days == null) {
+            days = DEFAULT_DAYS_VALUE;
         }
         Calendar now = Calendar.getInstance();
         now.add(Calendar.DATE, -days);
@@ -60,7 +63,7 @@ public class ClearLogHistory extends RhnJavaJob {
 
         log.info("Clearing log history older than: " +
                 LocalizationService.getInstance().formatCustomDate(limitTime));
-        Transaction tx = TaskoFactory.getSession().beginTransaction();
+        HibernateFactory.getSession();
         // loop accross all the orgs
         List<TaskoRun> runList = TaskoFactory.listRunsOlderThan(limitTime);
         for (TaskoRun run : runList) {
@@ -77,6 +80,7 @@ public class ClearLogHistory extends RhnJavaJob {
                 TaskoFactory.delete(schedule);
             }
         }
-        tx.commit();
+        HibernateFactory.commitTransaction();
+        HibernateFactory.closeSession();
     }
 }

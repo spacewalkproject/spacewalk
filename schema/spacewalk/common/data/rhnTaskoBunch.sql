@@ -21,7 +21,7 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'sat-sync', 'sat-sync description', 'Y');
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'clear-tasko-log-history', 'Clears taskomatic run log history', '');
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'clear-taskologs-bunch', 'Clears taskomatic run log history', '');
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'cobbler-sync-bunch', 'Applies any cobbler configuration changes', '');
