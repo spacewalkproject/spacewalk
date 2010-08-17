@@ -44,11 +44,9 @@
 	</rhn:require>
 </html:form>
 	
-<rhn:require acl="config_channel_editable()"
+<rhn:require acl="is_file();config_channel_editable()"
              mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
-  <c:if test="${revision.file}">
 	<%@ include file="/WEB-INF/pages/common/fragments/configuration/files/upload.jspf" %>
-  </c:if>
 </rhn:require>
 </body>
 </html>

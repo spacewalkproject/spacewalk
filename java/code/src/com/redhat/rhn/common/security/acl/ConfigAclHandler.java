@@ -37,12 +37,12 @@ public class ConfigAclHandler extends BaseHandler implements AclHandler {
      * Tell whether a file is a directory.
      * @param ctx Our current context, containing a crid or cfid.
      * @param params The parameters containing a config revision id or nothing.
-     * @return whether the found revision is a directory.
+     * @return whether the found revision is a file.
      */
-    public boolean aclFileIsDirectory(Object ctx, String[] params) {
+    public boolean aclIsFile(Object ctx, String[] params) {
         ConfigRevision revision = getRevision((Map) ctx, params);
         //return whether or not this errata is published
-        return revision.isDirectory();
+        return revision.isFile();
     }
 
     /**

@@ -31,7 +31,7 @@
 			</a>
       	</rhn:column>
       	
-      	<rhn:require acl="not file_is_directory()"
+      	<rhn:require acl="is_file()"
       	             mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
           <rhn:column header="manage.jsp.size">
       	    ${current.sizeDisplay}
@@ -45,7 +45,7 @@
     </rhn:list>
 </form>
 
-<rhn:require acl="not file_is_directory();config_channel_editable(${channel.id})"
+<rhn:require acl="is_file();config_channel_editable(${channel.id})"
              mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
 <a name="upload" />
 <h2><bean:message key="manage.jsp.upload"/></h2>
