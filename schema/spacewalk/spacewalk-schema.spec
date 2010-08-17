@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.1
+Version:        1.2.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Aug 17 2010 Justin Sherrill <jsherril@redhat.com> 1.2.2-1
+- 619337 - adding trigger to update last_modified date on channel table if the
+  checksum of a package changes (jsherril@redhat.com)
+- upgrade script for truncateCacheQueue (michael.mraka@redhat.com)
+- truncateCacheQueue removed from schema deps (michael.mraka@redhat.com)
+- truncateCacheQueue isn't called anywhere (michael.mraka@redhat.com)
+
 * Tue Aug 17 2010 Tomas Lestach <tlestach@redhat.com> 1.2.1-1
 - taskomatic schema changes (tlestach@redhat.com)
 - new type of errata file: 'OVAL' (mzazrivec@redhat.com)
