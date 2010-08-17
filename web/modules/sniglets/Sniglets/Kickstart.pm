@@ -60,14 +60,6 @@ sub tiny_url_handler {
 }
 
 
-sub manual_404 {
-  my $pxt = shift;
-
-  $pxt->status(404);
-
-  return $pxt->include("/errors/404.pxt");
-}
-
 # In the event of a HEAD request for a file, we just compute the
 # checksum and place it in the outgoing HTTP headers for the proxy's
 # consumption.
