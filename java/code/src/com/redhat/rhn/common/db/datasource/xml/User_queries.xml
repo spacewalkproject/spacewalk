@@ -16,6 +16,23 @@ SELECT ugm.user_id
     </query>
 </mode>
 
+<mode name="active_org_admin_emails">
+    <query params="org_id">
+SELECT wupi.email
+    FROM web_user_personal_info wupi,
+     rhnUserGroupMembers ugm
+    WHERE ugm.user_group_id = (SELECT id
+                                 FROM rhnUserGroup
+                                WHERE org_id = :org_id
+                                  AND group_type = (SELECT id FROM
+          rhnUserGroupType WHERE label = 'org_admin'))
+      AND exists (select wc.id
+                    from rhnwebcontactenabled wc
+                   where wc.id = ugm.user_id)
+      AND wupi.web_user_id = ugm.user_id
+    </query>
+</mode>
+
 <mode name="active_sat_admins">
     <query params="">
 SELECT ugm.user_id

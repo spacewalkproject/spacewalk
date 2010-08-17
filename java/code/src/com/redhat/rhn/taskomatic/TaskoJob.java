@@ -18,6 +18,7 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.taskomatic.task.RhnJob;
 import com.redhat.rhn.taskomatic.task.RhnQueueJob;
+import com.redhat.rhn.taskomatic.task.TaskHelper;
 
 import org.apache.log4j.Logger;
 import org.quartz.Job;
@@ -38,6 +39,7 @@ public class TaskoJob implements Job {
     private static Logger log = Logger.getLogger(TaskoJob.class);
     private static Map<String, Integer> tasks = new HashMap<String, Integer>();
     private static Map<String, Object> locks = new HashMap<String, Object>();
+    private static Map<String, Object> lastStatus = new HashMap<String, Object>();
 
     private Long scheduleId;
 
@@ -45,6 +47,7 @@ public class TaskoJob implements Job {
         for (TaskoTask task : TaskoFactory.listTasks()) {
             tasks.put(task.getName(), 0);
             locks.put(task.getName(), new Object());
+            lastStatus.put(task.getName(), TaskoRun.STATUS_FINISHED);
         }
     }
 
@@ -171,6 +174,21 @@ public class TaskoJob implements Job {
 
                 log.debug(task.getName() + " (" + schedule.getJobLabel() + ") ... " +
                         taskRun.getStatus().toLowerCase());
+                if (taskRun.getStatus() != lastStatus.get(task.getName())) {
+                    String email = "Taskomatic bunch " + schedule.getBunch().getName() +
+                    " was scheduled to run within the " + schedule.getJobLabel() + " schedule.\n\n" +
+                    "Subtask " + task.getName();
+                    if (taskRun.getStatus() == TaskoRun.STATUS_FAILED) {
+                        email += " failed.\n\n";
+                        email += "For more information check " + taskRun.getStdErrorPath() + ".";
+                    }
+                    else {
+                        email += " finished successfuly and is back to normal.";
+                    }
+                    log.info("Sending e-mail ... " + task.getName());
+                    TaskHelper.sendTaskoEmail(taskRun.getOrgId(), email);
+                    lastStatus.put(task.getName(), taskRun.getStatus());
+                }
                 previousRun = taskRun;
                 synchronized (lock) {
                     unmarkTaskRunning(task);

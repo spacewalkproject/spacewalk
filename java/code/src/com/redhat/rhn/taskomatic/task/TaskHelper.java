@@ -15,7 +15,9 @@
 package com.redhat.rhn.taskomatic.task;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.Mail;
@@ -28,6 +30,7 @@ import org.apache.log4j.Logger;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -101,6 +104,62 @@ public class TaskHelper {
             logger.error(t);
         }
 
+    }
+
+    /**
+     * Send an information about task run failure/success
+     * @param orgId organization id
+     * @param messageBody to send.
+     */
+    public static void sendTaskoEmail(Integer orgId, String messageBody) {
+        Config c = Config.get();
+        LocalizationService ls = LocalizationService.getInstance();
+        String[] recipients = null;
+        if (orgId != null) {
+            List<String> emails = getActiveOrgAdminEmails(orgId);
+            recipients = emails.toArray(new String[emails.size()]);
+        }
+        if (recipients == null) {
+            if (c.getString("web.traceback_mail").equals("")) {
+                recipients = new String[1];
+                recipients[0] = "root@localhost";
+            }
+            else {
+                recipients = c.getStringArray("web.traceback_mail");
+            }
+        }
+        SmtpMail mail = new SmtpMail();
+        mail.setRecipients(recipients);
+        StringBuffer subject = new StringBuffer();
+        subject.append(ls.getMessage("taskomatic notif subject", Locale.getDefault()));
+        try {
+            subject.append(" from " + InetAddress.getLocalHost().getHostName());
+        }
+        catch (Throwable t) {
+            // nothing
+        }
+        mail.setSubject(subject.toString());
+        mail.setBody(messageBody);
+        sendMail(mail, null);
+    }
+
+    /**
+     * Gets the list of active org admins in given org.
+     * @return Returns the set of active org admins in given org.
+     */
+    private static List<String> getActiveOrgAdminEmails(Integer orgId) {
+        SelectMode m = ModeFactory.getMode("User_queries", "active_org_admin_emails");
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+        DataResult<Map> dr = m.execute(params);
+        List toReturn = new ArrayList<String>();
+        if (dr != null) {
+            for (Map item : dr) {
+                toReturn.add(item.get("email"));
+            }
+        }
+
+        return toReturn;
     }
 
     /**
