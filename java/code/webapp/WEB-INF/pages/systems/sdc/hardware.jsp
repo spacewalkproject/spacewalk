@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
@@ -20,7 +21,7 @@
     </html:form>
  
     <h2><bean:message key="sdc.details.hardware.general"/></h2>
-    (COUNT) ${cpu_model} ${cpu_mhz} MHZ
+    (${cpu_count}) ${cpu_model} (${cpu_mhz} MHZ)
     <table class="details">
       <tr>
         <th>
@@ -151,6 +152,228 @@
         </td>
       </tr>
     </table>
+    <br/>
+    <table class="list compare-list" width="90%" cellspacing="0">
+      <thead>
+      <tr>
+	<th>Interface</th>
+	<th>IP Address</th>
+	<th>Netmask</th>
+	<th>Broadcast</th>
+	<th>Hardware Address</th>
+	<th>Driver Module</th>
+      </tr>
+      </thead>
+      <c:forEach items="${network_interfaces}" var="current" varStatus="loop">
+        <c:choose>
+          <c:when test ="${loop.count % 2 == 0}">
+            <c:set var ="style_class" value="list-row-even"/>
+          </c:when>
+          <c:otherwise>
+            <c:set var ="style_class" value="list-row-odd"/>
+          </c:otherwise>
+        </c:choose>
+        <tr class="${style_class}">
+          <td>${current.name}</td>
+          <td>${current.ip}</td>
+          <td>${current.netmask}</td>
+          <td>${current.broadcast}</td>
+          <td>${current.hwaddr}</td>
+          <td>${current.module}</td>
+        </tr>
+      </c:forEach>
+    </table>
+
+    <h2><bean:message key="sdc.details.hardware.storage"/></h2>
+    <table class="list" width="90%" cellspacing="0">
+      <thead>
+      <tr>
+        <th width="40%">Description</th>
+        <th width="10%">Bus</th>
+        <th width="25%">Device</th>
+        <th width="25%">Physical</th>
+      </tr>
+      </thead>
+      <tbody>
+      <c:forEach items="${storageDevices}" var="current" varStatus="loop">
+        <c:choose>
+          <c:when test ="${loop.count % 2 == 0}">
+            <c:set var ="style_class" value="list-row-even"/>
+          </c:when>
+          <c:otherwise>
+            <c:set var ="style_class" value="list-row-odd"/>
+          </c:otherwise>
+        </c:choose>
+        <tr class="${style_class}">
+          <td>${current.description}</td>
+          <td>${current.bus}</td>
+          <td>${current.device}</td>
+          <td>${loop.count - 1}</td>
+        </tr>
+      </c:forEach>
+      </tbody>
+    </table>
+
+    <c:if test="${not empty videoDevices}">
+    <h2><bean:message key="sdc.details.hardware.video"/></h2>
+    <table class="list" width="90%" cellspacing="0">
+      <thead>
+      <tr>
+        <th width="40%">Description</th>
+        <th width="10%">Bus</th>
+        <th width="10%">Vendor</th>
+        <th width="40%">Driver</th>
+      </tr>
+      </thead>
+      <tbody>
+      <c:forEach items="${videoDevices}" var="current" varStatus="loop">
+        <c:choose>
+          <c:when test ="${loop.count % 2 == 0}">
+            <c:set var ="style_class" value="list-row-even"/>
+          </c:when>
+          <c:otherwise>
+            <c:set var ="style_class" value="list-row-odd"/>
+          </c:otherwise>
+        </c:choose>
+        <tr class="${style_class}">
+          <td>${current.description}</td>
+          <td>${current.bus}</td>
+          <td>${current.vendor}</td>
+          <td>${current.driver}</td>
+        </tr>
+      </c:forEach>
+      </tbody>
+    </table>
+    </c:if>
+
+    <c:if test="${not empty audioDevices}">
+    <h2><bean:message key="sdc.details.hardware.audio"/></h2>
+    <table class="list" width="90%" cellspacing="0">
+      <thead>
+      <tr>
+        <th width="40%">Description</th>
+        <th width="10%">Bus</th>
+        <th width="10%">Vendor</th>
+        <th width="40%">Driver</th>
+      </tr>
+      </thead>
+      <tbody>
+      <c:forEach items="${audioDevices}" var="current" varStatus="loop">
+        <c:choose>
+          <c:when test ="${loop.count % 2 == 0}">
+            <c:set var ="style_class" value="list-row-even"/>
+          </c:when>
+          <c:otherwise>
+            <c:set var ="style_class" value="list-row-odd"/>
+          </c:otherwise>
+        </c:choose>
+        <tr class="${style_class}">
+          <td>${current.description}</td>
+          <td>${current.bus}</td>
+          <td>${current.vendor}</td>
+          <td>${current.driver}</td>
+        </tr>
+      </c:forEach>
+      </tbody>
+    </table>
+    </c:if>
+
+    <c:if test="${not empty usbDevices}">
+    <h2><bean:message key="sdc.details.hardware.usb"/></h2>
+    <table class="list" width="90%" cellspacing="0">
+      <thead>
+      <tr>
+        <th width="40%">Description</th>
+        <th width="10%">Bus</th>
+        <th width="25%">Vendor</th>
+        <th width="25%">Driver</th>
+      </tr>
+      </thead>
+      <tbody>
+      <c:forEach items="${usbDevices}" var="current" varStatus="loop">
+        <c:choose>
+          <c:when test ="${loop.count % 2 == 0}">
+            <c:set var ="style_class" value="list-row-even"/>
+          </c:when>
+          <c:otherwise>
+            <c:set var ="style_class" value="list-row-odd"/>
+          </c:otherwise>
+        </c:choose>
+        <tr class="${style_class}">
+          <td>${current.description}</td>
+          <td>${current.bus}</td>
+          <td>${current.vendor}</td>
+          <td>${current.driver}</td>
+        </tr>
+      </c:forEach>
+      </tbody>
+    </table>
+    </c:if>
+
+    <c:if test="${not empty captureDevices}">
+    <h2><bean:message key="sdc.details.hardware.capture"/></h2>
+    <table class="list" width="90%" cellspacing="0">
+      <thead>
+      <tr>
+        <th width="40%">Description</th>
+        <th width="10%">Bus</th>
+        <th width="25%">Vendor</th>
+        <th width="25%">Driver</th>
+      </tr>
+      </thead>
+      <tbody>
+      <c:forEach items="${miscDevices}" var="current" varStatus="loop">
+        <c:choose>
+          <c:when test ="${loop.count % 2 == 0}">
+            <c:set var ="style_class" value="list-row-even"/>
+          </c:when>
+          <c:otherwise>
+            <c:set var ="style_class" value="list-row-odd"/>
+          </c:otherwise>
+        </c:choose>
+        <tr class="${style_class}">
+          <td class="${style_class}">Loop: ${loop} : ${current.description}</td>
+          <td class="${style_class}">${current.bus}</td>
+          <td class="${style_class}">${current.vendor}</td>
+          <td class="${style_class}">${current.driver}</td>
+        </tr>
+      </c:forEach>
+      </tbody>
+    </table>
+    </c:if>
+
+    <c:if test="${not empty miscDevices}">
+    <h2><bean:message key="sdc.details.hardware.misc"/></h2>
+    <table class="list" width="90%" cellspacing="0">
+      <thead>
+      <tr>
+        <th width="40%">Description</th>
+        <th width="10%">Bus</th>
+        <th width="25%">Vendor</th>
+        <th width="25%">Driver</th>
+      </tr>
+      </thead>
+      <tbody>
+      <c:forEach items="${miscDevices}" var="current" varStatus="loop">
+        <c:choose>
+          <c:when test ="${loop.count % 2 == 0}">
+            <c:set var ="style_class" value="list-row-even"/>
+          </c:when>
+          <c:otherwise>
+            <c:set var ="style_class" value="list-row-odd"/>
+          </c:otherwise>
+        </c:choose>
+        <tr class="${style_class}">
+          <td>${current.description}</td>
+          <td>${current.bus}</td>
+          <td>${current.vendor}</td>
+          <td>${current.driver}</td>
+        </tr>
+      </c:forEach>
+      </tbody>
+    </table>
+    </c:if>
+
   </body>
 </html:html>
 

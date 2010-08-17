@@ -19134,6 +19134,41 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             </context-group>
          </trans-unit>
 
+         <trans-unit id="sdc.details.hardware.storage">
+            <source>Storage</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.audio">
+            <source>Audio</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.video">
+            <source>Video</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.usb">
+            <source>USB</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.hardware.misc">
+            <source>Misc</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
+            </context-group>
+         </trans-unit>
+
          <trans-unit id="sdc.details.hardware.network_ip_addr">
             <source>IP Address:</source>
             <context-group name="ctx">

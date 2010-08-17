@@ -706,7 +706,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * Returns the set of devices attached to this server.
      * @return Returns the list of devices attached to this server.
      */
-    public Set getDevices() {
+    public Set<Device> getDevices() {
         return devices;
     }
     /**
@@ -715,6 +715,20 @@ public class Server extends BaseDomainHelper implements Identifiable {
      */
     protected void setDevices(Set devicesIn) {
         devices = devicesIn;
+    }
+
+    /**
+     * Get the Device with the given description (i.e. eth0)
+     * @param dev the device name (i.e. sda)
+     * @return the Device, otherwise null
+     */
+    public Device getDevice(String dev) {
+        for (Device d : getDevices()) {
+            if ((d.getDevice() != null) && (d.getDevice().equals(dev))) {
+                return d;
+            }
+        }
+        return null;
     }
 
     /**
