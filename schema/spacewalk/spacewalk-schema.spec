@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Aug 17 2010 Tomas Lestach <tlestach@redhat.com> 1.2.1-1
+- taskomatic schema changes (tlestach@redhat.com)
+- new type of errata file: 'OVAL' (mzazrivec@redhat.com)
+- fixed 1.1 schema upgrade (michael.mraka@redhat.com)
+- Define lookup_checksum in PostgreSQL, needed for satellite-sync.
+  (jpazdziora@redhat.com)
+- 571608 - fixing schema issue that allowed multiple entries in
+  rhnKickstartPackage with the same package name for the same kickstart id
+  (jsherril@redhat.com)
+- 601626 - adding server-channel arch mapping to support ppc64
+  (jsherril@redhat.com)
+- bumping package versions for 1.2 (mzazrivec@redhat.com)
+
 * Mon Aug 09 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.30-1
 - 601984 - use clob for the concatting operation, to overcome the varchar
   length limit. (jpazdziora@redhat.com)
