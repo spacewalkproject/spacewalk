@@ -1254,6 +1254,7 @@ class Backend:
             from rhnChannelPackage 
             where package_id = :package_id"""
         affected_channels = {}
+        needing_reporegen = []
         statement = self.dbmodule.prepare(sql)
         for package in packages:
             if package.ignored:
@@ -1272,15 +1273,17 @@ class Backend:
 
             for channelId in package['channels'].keys():
                 # Build the channel-package list
-                if channel_packages.has_key(channelId):
-                    cp = channel_packages[channelId]
-                else:
-                    channel_packages[channelId] = cp = {}
-                cp[package.id] = None
+                if not channel_packages.has_key(channelId):
+                    channel_packages[channelId] = {}
 
                 if channels.has_key(channelId):
-                    # Already subscribed
+                    # Already subscribed, which means the package was probably
+                    # updated with new content and the checksum changed
+                    for cid in channels.keys():
+                        if not cid in needing_reporegen:
+                            needing_reporegen.append(cid)
                     continue
+
                 dict = {
                     'package_id' : package.id,
                     'channel_id' : channelId,
@@ -1290,8 +1293,12 @@ class Backend:
                     affected_channels[channelId] = modified_packages
                 else:
                     modified_packages = affected_channels[channelId]
-                # Package was added to this channel
                 modified_packages[0].append(package.id)
+
+                if not channelId in needing_reporegen:
+                    needing_reporegen.append(cid)
+
+                # Package was added to this channel
                 addHash(hash, dict)
 
         # Packages we'd have to delete
@@ -1326,11 +1333,10 @@ class Backend:
                             modified_packages = affected_channels[channel_id]
                         # Package was deletef from this channel
                         modified_packages[1].append(package_id)
-
         self.__doDeleteTable('rhnChannelPackage', extra_cp)
         self.__doInsertTable('rhnChannelPackage', hash)
         # This function returns the channels that were affected
-        return affected_channels
+        return (affected_channels, needing_reporegen)
 
     def update_newest_package_cache(self, caller, affected_channels):
         # affected_channels is a hash keyed on the channel id, and with a
