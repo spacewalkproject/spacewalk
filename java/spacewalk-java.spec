@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.6
+Version: 1.2.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -335,6 +335,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 17 2010 Partha Aji <paji@redhat.com> 1.2.7-1
+- Added API calls to create/update symlinks (paji@redhat.com)
+- Fixed the manage config file page to not show 'upload' for symlinks
+  (paji@redhat.com)
+
 * Tue Aug 17 2010 Tomas Lestach <tlestach@redhat.com> 1.2.6-1
 - rename, update and schedule ClearLogHistory (tlestach@redhat.com)
 - email support (tlestach@redhat.com)
