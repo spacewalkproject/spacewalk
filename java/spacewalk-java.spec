@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.10
+Version: 1.2.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -335,6 +335,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 18 2010 Partha Aji <paji@redhat.com> 1.2.11-1
+- 623683-Fixed a dupes bug where config channels were not getting shown..
+  (paji@redhat.com)
+
 * Wed Aug 18 2010 Tomas Lestach <tlestach@redhat.com> 1.2.10-1
 - requires simple-core instead of obsolete (tlestach@redhat.com)
 
