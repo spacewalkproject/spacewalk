@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.1
+Version: 1.2.2
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Wed Aug 18 2010 Jan Pazdziora 1.2.2-1
+- 623941, 578292 - add report channel-packages which provides full list
+  of packages in channels.
+- 623941, 578292 - update the report column names to be more descriptive.
+
 * Fri Aug 13 2010 Jan Pazdziora 1.2.1-1
 - Sort the list of reports to make it easier to read it.
 - 623941 - add the channels report which lists channel and number of packages
