@@ -4,10 +4,8 @@
     class="com.redhat.rhn.frontend.dto.ErrataCacheDto">
     <query params="server_id">
 select snpc.server_id, snpc.errata_id, snpc.package_id
-  from rhnServerNeededCache snpc,
-       rhnpackage p
+  from rhnServerNeededCache snpc
  where server_id = :server_id
-   and p.id = package_id
     </query>
   </mode>
 
