@@ -103,7 +103,6 @@ lookup_virt_sub_level           :: rhnVirtSubLevel
 new_user_postop                 :: web_contact rhnUserGroupType rhnUserGroup \
                                    rhnUserGroupMembers
 pxt_session_cleanup             :: PXTSessions
-queue_errata                    :: rhnSNPErrataQueue
 queue_server                    :: rhnServerNeededPackageCache rhnTaskQueue \
                                    rhnServerNeededPackageView rhnServer \
                                    rhnServerNeededErrataCache rhnServerNeededView
