@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.9
+Version: 1.2.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -335,6 +335,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 18 2010 Tomas Lestach <tlestach@redhat.com> 1.2.10-1
+- requires simple-core instead of obsolete (tlestach@redhat.com)
+
 * Wed Aug 18 2010 Tomas Lestach <tlestach@redhat.com> 1.2.9-1
 - status has to be saved (tlestach@redhat.com)
 - fix check if a run belong to a certain org (tlestach@redhat.com)
