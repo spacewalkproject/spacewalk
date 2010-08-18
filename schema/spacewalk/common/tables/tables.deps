@@ -194,7 +194,6 @@ rhnSnapshotConfigRevision      :: rhnSnapshot rhnConfigRevision
 rhnSnapshotPackage             :: rhnSnapshot
 rhnSnapshotServerGroup         :: rhnServerGroup rhnSnapshot
 rhnSnapshotTag                 :: rhnSnapshot rhnTag
-rhnSNPErrataQueue              :: rhnErrata
 rhnSNPServerQueue              :: rhnServer
 rhnSolarisPackage              :: rhnPackage
 rhnSolarisPatch                :: rhnPackage rhnSolarisPatchType
