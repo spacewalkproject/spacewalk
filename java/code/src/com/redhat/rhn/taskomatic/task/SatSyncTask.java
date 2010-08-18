@@ -35,8 +35,7 @@ public class SatSyncTask extends RhnJavaJob {
         String list = (String) ctx.getJobDetail().getJobDataMap().get("list");
         String channel = (String) ctx.getJobDetail().getJobDataMap().get("channel");
 
-        cmd.add("/usr/bin/sudo");
-        cmd.add("satellite-sync");
+        cmd.add("/usr/bin/satellite-sync");
 
         if (list != null) {
             cmd.add("--list-channels");
