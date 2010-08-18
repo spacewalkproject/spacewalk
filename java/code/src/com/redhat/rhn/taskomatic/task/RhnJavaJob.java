@@ -99,10 +99,10 @@ public abstract class RhnJavaJob implements RhnJob {
 
         String cmdOutput = ce.getLastCommandOutput();
         String cmdError = ce.getLastCommandErrorMessage();
-        if (cmdOutput != "") {
+        if (!"".equals(cmdOutput)) {
             log.info(cmdOutput);
         }
-        if (cmdError.length() > 0) {
+        if (!"".equals(cmdError)) {
             log.error(cmdError);
         }
     }
