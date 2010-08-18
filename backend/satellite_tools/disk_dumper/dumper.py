@@ -735,55 +735,11 @@ class ChannelsDumper(exportLib.ChannelsDumper):
         self.start_date = start_date
         self.end_date = end_date
 
-    def __format_date(self, writer, date):
-	""" Takes date in format YYYYMMDDHH24MISS and write it to writer in format:
-        <date><year>YY</year>....<second>SS</second></date>
-        """
-        m = re.match(r"(....)(..)(..)(..)(..)(..)", date)
-        writer.open_tag('date')
-        writer.open_tag('year')
-        writer.stream.write(m.group(1))
-        writer.close_tag('year')
-        writer.open_tag('month')
-        writer.stream.write(m.group(2))
-        writer.close_tag('month')
-        writer.open_tag('day')
-        writer.stream.write(m.group(3))
-        writer.close_tag('day')
-        writer.open_tag('hour')
-        writer.stream.write(m.group(4))
-        writer.close_tag('hour')
-        writer.open_tag('minute')
-        writer.stream.write(m.group(5))
-        writer.close_tag('minute')
-        writer.open_tag('second')
-        writer.stream.write(m.group(6))
-        writer.close_tag('second')
-        writer.close_tag('date')
-
     def dump_subelement(self, data):
         log_debug(6, data)
         #return exportLib.ChannelsDumper.dump_subelement(self, data)
-        c = _ChannelsDumper(self._writer, data)
+        c = _ChannelsDumper(self._writer, data, self.start_date, self.end_date)
         c.dump()
-        if self.start_date:
-            export_type = 'incremental'
-        else:
-            export_type = 'full'
-        self._writer.open_tag('export',  attributes={'type': export_type})
-	if self.start_date:
-            self._writer.open_tag('start-date')
-            self.__format_date(self._writer, self.start_date)
-            self._writer.close_tag('start-date')
-        if self.end_date:
-            end_date = self.end_date
-        else:
-            end_date = time.strftime("%Y%m%d%H%M%S")
-        self._writer.open_tag('end-date')
-        self.__format_date(self._writer, end_date)
-        self._writer.close_tag('end-date')
-
-        self._writer.close_tag('export')
 
     def set_iterator(self):
         if not self._channels:
@@ -795,6 +751,11 @@ class ChannelsDumper(exportLib.ChannelsDumper):
 
 class _ChannelsDumper(exportLib._ChannelDumper):
     tag_name = 'rhn-channel'
+
+    def __init__(self, writer, row, start_date=None, end_date=None):
+        exportLib._ChannelDumper.__init__(self, writer, row)
+        self.start_date = start_date
+        self.end_date = end_date
 
     def set_iterator(self):
         channel_id = self._row['id']
@@ -850,6 +811,7 @@ class _ChannelsDumper(exportLib._ChannelDumper):
             h.execute(channel_id=channel_id)
         arr.append(exportLib.ChannelErrataDumper(self._writer, h))
 
+        arr.append(exportLib.ExportTypeDumper(self._writer, self.start_date, self.end_date))
         return exportLib.ArrayIterator(arr)
 
     _query_get_package_ids = rhnSQL.Statement("""

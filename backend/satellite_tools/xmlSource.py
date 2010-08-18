@@ -317,7 +317,7 @@ class BaseItem:
                         # White space around an element - skip
                         continue
                     # Ambiguity: don't know which attribute to initialize
-                    raise Exception("Ambiguity")
+                    raise Exception("Ambiguity %s" % keys)
                 # Init the only attribute we know of
                 obj[keys[0]] = element
                 continue
@@ -328,7 +328,6 @@ class BaseItem:
             if name in self.tagMap:
                 # Have to map this element
                 name = self.tagMap[name]
-
             value = _normalizeSubelements(obj.attributeTypes.get(name),
                 element.subelements)
             obj[name] = value
@@ -949,8 +948,8 @@ def _normalizeSubelements(objtype, subelements):
             # Item processor not found
             continue
         if not isinstance(item, expectedType):
-            raise Exception("Expected type %s, got back %s" % (expectedType,
-                type(item)))
+            raise Exception("Expected type %s, got back %s %s" % (expectedType,
+                type(item), item))
         result.append(item)
 
     return result

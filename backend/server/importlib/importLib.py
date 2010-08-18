@@ -221,6 +221,9 @@ class Channel(Information):
         'errata'            : [StringType],
         'errata_timestamps' : [ChannelErratum],
         'kickstartable_trees'   : [StringType],
+        'export-type'        : StringType,
+        'export-end-date'    : StringType,
+        'export-start-date'  : StringType,
     }
 
 

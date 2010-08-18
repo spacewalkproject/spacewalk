@@ -134,6 +134,32 @@ class BaseRowDumper(BaseDumper):
 
 ####
 
+class ExportTypeDumper(BaseDumper):
+    def __init__(self, writer, start_date=None, end_date=None):
+        if start_date:
+            self.type = 'incremental'
+        else:
+            self.type = 'full'
+        self.start_date = start_date
+        if end_date:
+            self.end_date = end_date
+        else:
+            self.end_date = time.strftime("%Y%m%d%H%M%S")
+        BaseDumper.__init__(self, writer)
+
+    def dump(self):
+        self._writer.open_tag('export-type')
+        self._writer.stream.write(self.type)
+        self._writer.close_tag('export-type')
+        if self.start_date:
+            self._writer.open_tag('export-start-date')
+            self._writer.stream.write(self.start_date)
+            self._writer.close_tag('export-start-date')
+        if self.end_date:
+            self._writer.open_tag('export-end-date')
+            self._writer.stream.write(self.end_date)
+            self._writer.close_tag('export-end-date')
+
 class SatelliteDumper(BaseDumper):
     tag_name = 'rhn-satellite'
 

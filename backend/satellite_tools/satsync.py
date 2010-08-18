@@ -26,7 +26,11 @@ import time
 import types
 import exceptions
 import cStringIO
+import locale
 from optparse import Option, OptionParser
+
+import gettext
+_ = gettext.gettext
 
 # __rhn imports__
 from common import CFG, initCFG, initLOG, Traceback, rhnMail, \
@@ -151,6 +155,10 @@ class Runner:
         # let's time the whole process
         timeStart = time.time()
 
+        try:
+            locale.setlocale(locale.LC_ALL,  locale.getdefaultlocale())
+        except locale.Error: # unsupported locale setting - just ignore it
+            pass
         actionDict, channels = processCommandline()
 
         #5/24/05 wregglej - 156079 turn off an step's dependent steps if it's turned off.
@@ -459,7 +467,6 @@ class Syncer:
         """
 
         log(1, ["", "Retrieving / parsing %s data" % step_name])
-
         # get XML stream
         stream = None
         if self.mountpoint:
@@ -701,6 +708,31 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         log(1, "Channel data complete")
 
+    def _formatDateTime(self, datestring):
+        """ Format the date time using your locale settings. This assume that your setlocale has been alread called. """
+        return time.strftime (locale.nl_langinfo(locale.D_T_FMT), time.strptime(datestring, '%Y%m%d%H%M%S'))
+
+    def _formatChannelExportType(self, channel):
+        """returns pretty formated text with type of channel export"""
+        if 'export-type' not in channel or channel['export-type'] is None:
+            return ''
+        else:
+             export_type = channel['export-type']
+        if 'export-start-date' in channel and channel['export-start-date'] is not None:
+             start_date = channel['export-start-date']
+        else:
+             start_date = ''
+        if 'export-end-date' in channel and channel['export-end-date'] is not None:
+             end_date = channel['export-end-date']
+        else:
+             end_date = ''
+        if end_date and not start_date:
+             return _("%10s import from %s") % (export_type, self._formatDateTime(end_date))
+        elif end_date and start_date:
+             return _("%10s import from %s - %s") % (export_type, self._formatDateTime(start_date), self._formatDateTime(end_date))
+        else:
+             return _("%10s") % export_type
+
     def _printChannelTree(self, doEOSYN=1, doTyposYN=1):
         "pretty prints a tree of channel information"
 
@@ -718,7 +750,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         pc_labels = self._channel_collection.get_parent_channel_labels()
 
         t_format = '   %s:'
-        p_format = '      %s %-40s %4s'
+        p_format = '      %s %-40s %4s %s'
         log(1, t_format % 'base-channels')
         # Relevant parent channels
         for plabel in pc_labels:
@@ -735,7 +767,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 status = 'p'
             else:
                 status = '.'
-            log(1, p_format % (status, plabel, pkgs_count))
+            log(1, p_format % (status, plabel, pkgs_count, self._formatChannelExportType(channel_object)))
 
         # Relevant parent channels
         for plabel in pc_labels:
@@ -765,7 +797,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     status = 'p'
                 else:
                     status = '.'
-                log(1, p_format % (status, clabel, pkgs_count))
+                log(1, p_format % (status, clabel, pkgs_count, self._formatChannelExportType(channel_object)))
         log(2, '')
 
         if doEOSYN and ch_end_of_service:
