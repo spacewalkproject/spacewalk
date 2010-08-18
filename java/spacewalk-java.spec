@@ -189,6 +189,7 @@ Requires: oscache
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: tanukiwrapper
+Requires: simple-core
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: spacewalk-java-jdbc
@@ -196,7 +197,6 @@ Requires: concurrent
 Requires: quartz
 Requires: quartz-oracle
 Requires: cobbler >= 1.6.3
-Obsoletes: simple-core
 Obsoletes: taskomatic < 5.3.0
 Obsoletes: taskomatic-sat < 5.3.0
 Provides: taskomatic = %{version}-%{release}
