@@ -313,7 +313,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * the server.
      */
     public int getConfigChannelCount() {
-        return configChannels.size();
+        return getConfigChannelsHibernate().size();
     }
 
     private void ensureConfigManageable() {
@@ -1477,6 +1477,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean equals(final Object other) {
         if (other == null || !(other instanceof Server)) {
             return false;
@@ -1501,6 +1502,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int hashCode() {
         return new HashCodeBuilder().append(id).append(digitalServerId).append(os)
                                     .append(release).append(name).append(description)
@@ -1514,6 +1516,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE).append(
                 "id", id).append("org", org).append("name", name).append(
@@ -1523,6 +1526,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @return Returns the created.
      */
+    @Override
     public Date getCreated() {
         return created;
     }
@@ -1530,6 +1534,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @param createdIn The created to set.
      */
+    @Override
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }

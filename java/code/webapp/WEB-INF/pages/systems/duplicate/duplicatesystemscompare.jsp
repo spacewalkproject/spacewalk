@@ -182,7 +182,7 @@
 	</tr>
 	<tr class="list-row-odd"  id="configChannelsRow">
 		<c:set var ="key" value="org.config.channels.jsp"/>
-		<c:set var ="items_list" value="${requestScope.systems.childChannels}"/>
+		<c:set var ="items_list" value="${requestScope.systems.configChannels}"/>
 		<c:set var ="href" value="/rhn/configuration/ChannelOverview.do?ccid="/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>

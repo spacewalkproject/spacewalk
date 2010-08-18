@@ -272,14 +272,16 @@ public class SystemCompareDto {
         Map <String, String> idMap = new HashMap<String, String>();
         for (Server system : servers) {
             List keys = new LinkedList();
-            Collection<ConfigChannel> channels = system.getConfigChannels();
-            if (channels != null) {
-                for (ConfigChannel channel : channels) {
-                    keys.add(channel.getName());
-                    idMap.put(channel.getName(), channel.getId().toString());
+            if (system.getConfigChannelCount() > 0) {
+                Collection<ConfigChannel> channels = system.getConfigChannels();
+                if (channels != null) {
+                    for (ConfigChannel channel : channels) {
+                        keys.add(channel.getName());
+                        idMap.put(channel.getName(), channel.getId().toString());
+                    }
                 }
-
             }
+
             ret.add(keys);
         }
         return compareList(ret, idMap);
