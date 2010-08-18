@@ -19,6 +19,8 @@ import com.redhat.rhn.taskomatic.TaskoSchedule;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
 
 import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
@@ -54,7 +56,11 @@ public class TaskoScheduleSerializer implements XmlRpcCustomSerializer {
         helper.add("active_from", schedule.getActiveFrom());
         helper.add("active_till", schedule.getActiveTill());
         helper.add("cron_expr", schedule.getCronExpr());
-        helper.add("data_map", schedule.getDataMap());
+        Map dataMap = schedule.getDataMap();
+        if (dataMap == null) {
+            dataMap = new HashMap();
+        }
+        helper.add("data_map", dataMap);
 
         helper.writeTo(output);
     }
