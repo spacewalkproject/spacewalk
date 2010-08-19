@@ -22436,6 +22436,28 @@ given channel.</source>
 	<trans-unit id="duplicate-ip.jsp.inactive.header">
 		<source>A system profile is inactive if its system has not checked in for:</source>
 	</trans-unit>
+	<trans-unit id="schedule.header">
+		<source>Select a schedule:</source>
+	</trans-unit>
+	<trans-unit id="schedule.disabled">
+		<source>Disable Schedule</source>
+	</trans-unit>
+	<trans-unit id="schedule.daily">
+		<source>Daily</source>
+	</trans-unit>
+	<trans-unit id="schedule.monthly">
+		<source>Monthly</source>
+	</trans-unit>
+	<trans-unit id="schedule.cron">
+		<source>Custom Cron format</source>
+	</trans-unit>
+	<trans-unit id="schedule.weekly">
+		<source>Weekly</source>
+	</trans-unit>
+	<trans-unit id="schedule.button">
+		<source>Schedule</source>
+	</trans-unit>
+
   </body>
   </file>
 </xliff>

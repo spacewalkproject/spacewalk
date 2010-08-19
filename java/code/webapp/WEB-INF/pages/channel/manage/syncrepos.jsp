@@ -47,6 +47,17 @@
 	</div>
 		<rhn:submitted/>
 
+
+
+      <jsp:include page="/WEB-INF/pages/common/fragments/repeat-task-picker.jspf">
+        <jsp:param name="widget" value="date"/>
+      </jsp:include>
+
+	<div align="right">
+				<input type="submit" name="dispatch"
+						value="<bean:message key="schedule.button"/>" />
+	</div>
+
 </rl:listset>
 
 </body>

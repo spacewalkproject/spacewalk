@@ -14,17 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
+import com.redhat.rhn.common.util.RecurringEventPicker;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
@@ -36,6 +26,18 @@ import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.taskomatic.task.RepoSyncTask;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -64,6 +66,12 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
         params.put(RequestContext.CID, chan.getId().toString());
 
         ListHelper helper = new ListHelper(this, request, params);
+
+
+
+        RecurringEventPicker picker = RecurringEventPicker.prepopulatePicker(
+                request, "date", null);
+        Logger.getLogger(this.getClass()).error(picker.getCronEntry());
 
         helper.execute();
 
