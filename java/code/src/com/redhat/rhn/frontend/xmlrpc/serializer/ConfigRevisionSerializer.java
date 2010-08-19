@@ -52,7 +52,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *                                  Present for files or directories only.")
  *   #prop_desc("string", "permissions_mode", "File Permissions.
  *                                      Present for files or directories only.")
- *   #prop_desc("string", "selinux_ctx", "SE inux Context.")
+ *   #prop_desc("string", "selinux_ctx", "SELinux Context.")
  *   #prop_desc("boolean", "binary", "true/false , Present for files only.")
  *   #prop_desc("string", "md5", "File's md5 signature. Present for files only.")
  *   #prop_desc("string", "macro-start-delimiter",
