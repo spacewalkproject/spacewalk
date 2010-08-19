@@ -431,6 +431,7 @@ class Syncer:
                                                     self.sslYN, self.xml_dump_version)
             if CFG.ISS_PARENT:
                 sync_parent = CFG.ISS_PARENT
+                self.systemid = 'N/A'   # systemid is not used in ISS auth process
                 is_iss = 1
             else:
                 sync_parent = CFG.RHN_PARENT
@@ -441,12 +442,15 @@ class Syncer:
                     _('   url: %s') % url,
                     _('   debug/output level: %s') % CFG.DEBUG])
             self.xmlWireServer.setServerHandler(isIss=is_iss)
-            # check and fetch systemid (NOTE: systemid kept in memory... may or may not
-            # be better to do it this way).
-            if os.path.exists(self._systemidPath) and os.access(self._systemidPath, os.R_OK):
-                self.systemid = open(self._systemidPath, 'rb').read()
-            else:
-                raise RhnSyncException, _('ERROR: this server must be registered with RHN.')
+
+            if not self.systemid:
+                # check and fetch systemid (NOTE: systemid kept in memory... may or may not
+                # be better to do it this way).
+                if (os.path.exists(self._systemidPath)
+                    and os.access(self._systemidPath, os.R_OK)):
+                    self.systemid = open(self._systemidPath, 'rb').read()
+                else:
+                    raise RhnSyncException, _('ERROR: this server must be registered with RHN.')
             # authorization check of the satellite
             auth = xmlWireSource.AuthWireSource(self.systemid, self.sslYN,
                                                 self.xml_dump_version)
