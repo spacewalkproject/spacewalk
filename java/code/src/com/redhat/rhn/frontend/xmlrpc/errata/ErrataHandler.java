@@ -44,7 +44,6 @@ import com.redhat.rhn.frontend.xmlrpc.NoChannelsSelectedException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.packages.PackageHelper;
-import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -1149,8 +1148,7 @@ public class ErrataHandler extends BaseHandler {
      * @param org the org of the user
      * @return a List of channel objects
      */
-    private List verifyChannelList(List channelsLabels, User user)
-                                                throws InvalidChannelRoleException {
+    private List verifyChannelList(List channelsLabels, User user) {
         if (channelsLabels.size() == 0) {
             throw new NoChannelsSelectedException();
         }
@@ -1162,10 +1160,10 @@ public class ErrataHandler extends BaseHandler {
             if (channel == null) {
                 throw new InvalidChannelLabelException();
             }
-            else {
-                ChannelManager.verifyChannelAdmin(user, channel.getId());
-                resolvedList.add(channel);
+            if (!UserManager.verifyChannelAdmin(user, channel)) {
+                throw new PermissionCheckFailureException();
             }
+            resolvedList.add(channel);
         }
         return resolvedList;
     }
