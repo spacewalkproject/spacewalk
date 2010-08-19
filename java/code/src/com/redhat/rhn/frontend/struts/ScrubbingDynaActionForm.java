@@ -14,11 +14,15 @@
  */
 package com.redhat.rhn.frontend.struts;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.DynaActionForm;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A DynaActionForm which knows how to scrub its input for malicious content.
@@ -27,8 +31,10 @@ import java.util.List;
 public class ScrubbingDynaActionForm extends DynaActionForm {
 
     private static final long serialVersionUID = 7679506300113360100L;
+    private static final String NO_SCRUB = "no_scrub";
+    private static final String NO_PAREN_SCRUB = "no_paren_scrub";
 
-    public static final String[] PROHIBITED_INPUT = {"<", ">", "\\(", "\\)", "\\{", "\\}"};
+    private static final String[] SPECIAL_PROHIBITED_INPUT = {"<", ">", "\\{", "\\}"};
 
     /** constructor */
     public ScrubbingDynaActionForm() {
@@ -40,11 +46,35 @@ public class ScrubbingDynaActionForm extends DynaActionForm {
      */
     public void scrub() {
         List keys = new LinkedList(dynaValues.keySet());
+
+        Set<String> noScrub = new HashSet<String>();
+        Set<String> noParenScrub = new HashSet<String>();
+
+        if (dynaValues.containsKey(NO_SCRUB)) {
+            for (String item : StringUtils.split(
+                    (String)dynaValues.get(NO_SCRUB), ",")) {
+                noScrub.add(item.trim());
+            }
+        }
+
+        if (dynaValues.containsKey(NO_PAREN_SCRUB)) {
+            for (String item : StringUtils.split(
+                    (String)dynaValues.get(NO_PAREN_SCRUB), ",")) {
+                noParenScrub.add(item.trim());
+            }
+        }
+
         for (Iterator iter = keys.iterator(); iter.hasNext();) {
             String name = (String) iter.next();
             Object value = dynaValues.get(name);
-            if (isScrubbable(name, value)) {
-                value = Scrubber.scrub(value);
+            if (isScrubbable(name, value, noScrub)) {
+                if (noParenScrub.contains(name)) {
+                    value = Scrubber.scrub(value, SPECIAL_PROHIBITED_INPUT);
+                }
+                else {
+                    value = Scrubber.scrub(value);
+                }
+
                 if (value == null) {
                     dynaValues.remove(name);
                 }
@@ -55,7 +85,27 @@ public class ScrubbingDynaActionForm extends DynaActionForm {
         }
     }
 
+    protected boolean isScrubbable(String name, Object value, Set<String> noScrub) {
+        if (name.equals(NO_SCRUB) || NO_PAREN_SCRUB.equals(name) ||
+                                               noScrub.contains(name)) {
+            return false;
+        }
+        return Scrubber.canScrub(value);
+    }
+
     protected boolean isScrubbable(String name, Object value) {
+        if (name.equals(NO_SCRUB) || NO_PAREN_SCRUB.equals(name)) {
+            return false;
+        }
+
+        if (dynaValues.containsKey(NO_SCRUB)) {
+            String [] noScrubList = StringUtils.split(
+                            (String)dynaValues.get(NO_SCRUB), ",");
+            if (!ArrayUtils.contains(noScrubList, name)) {
+                return Scrubber.canScrub(value);
+            }
+            return false;
+        }
         return Scrubber.canScrub(value);
     }
 

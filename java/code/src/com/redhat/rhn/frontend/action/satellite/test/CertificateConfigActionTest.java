@@ -16,7 +16,7 @@ package com.redhat.rhn.frontend.action.satellite.test;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.frontend.action.satellite.CertificateConfigForm;
+import com.redhat.rhn.frontend.action.satellite.CertificateConfigAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
@@ -29,6 +29,7 @@ import org.apache.struts.action.DynaActionForm;
  */
 public class CertificateConfigActionTest extends RhnMockStrutsTestCase {
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
@@ -48,11 +49,11 @@ public class CertificateConfigActionTest extends RhnMockStrutsTestCase {
 
         String certString = "some cert text" + TestUtils.randomString();
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(CertificateConfigForm.CERT_TEXT, certString);
+        addRequestParameter(CertificateConfigAction.CERT_TEXT, certString);
         actionPerform();
 
         DynaActionForm form = (DynaActionForm) getActionForm();
-        assertEquals(form.get(CertificateConfigForm.CERT_TEXT), certString);
+        assertEquals(form.get(CertificateConfigAction.CERT_TEXT), certString);
         verifyActionMessages(new String[]{"certificate.config.success"});
     }
 
@@ -60,12 +61,12 @@ public class CertificateConfigActionTest extends RhnMockStrutsTestCase {
 
         String certString = "some cert text" + TestUtils.randomString();
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(CertificateConfigForm.CERT_TEXT, certString);
+        addRequestParameter(CertificateConfigAction.CERT_TEXT, certString);
         addRequestParameter("ignoreMismatch", "true");
         actionPerform();
 
         DynaActionForm form = (DynaActionForm) getActionForm();
-        assertEquals(form.get(CertificateConfigForm.CERT_TEXT), certString);
+        assertEquals(form.get(CertificateConfigAction.CERT_TEXT), certString);
         verifyActionMessages(new String[]{"certificate.config.success"});
     }
 

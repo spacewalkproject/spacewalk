@@ -37,8 +37,11 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public class CertificateConfigAction extends BaseConfigAction {
+    public static final String CERT_TEXT = "cert_text";
+    public static final String CERT_FILE = "cert_file";
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
@@ -52,12 +55,11 @@ public class CertificateConfigAction extends BaseConfigAction {
         if (isSubmitted(form)) {
             ConfigureCertificateCommand cmd = (ConfigureCertificateCommand)
                 getCommand(requestContext.getCurrentUser());
-            String certString = strutsDelegate.getFormFileString(form,
-                                                CertificateConfigForm.CERT_FILE);
+            String certString = strutsDelegate.getFormFileString(form, CERT_FILE);
             // If we didn't get it from the File, we need to
             // get it from the pasted in form val.
             if (StringUtils.isEmpty(certString)) {
-                certString = form.getString(CertificateConfigForm.CERT_TEXT);
+                certString = form.getString(CERT_TEXT);
             }
 
             if (StringUtils.isEmpty(certString)) {
@@ -86,6 +88,7 @@ public class CertificateConfigAction extends BaseConfigAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected String getCommandClassName() {
         return Config.get().getString("web.com.redhat.rhn.frontend." +
            "action.satellite.CertificateConfigAction.command",

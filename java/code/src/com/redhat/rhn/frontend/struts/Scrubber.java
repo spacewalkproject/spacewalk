@@ -27,16 +27,17 @@ import java.util.Map;
  */
 public class Scrubber {
     public static final String[] PROHIBITED_INPUT = {"<", ">", "\\(", "\\)", "\\{", "\\}"};
-    private static final Scrubber INSTANCE = new Scrubber();
+    private final String [] prohibitedInput;
 
-    private Scrubber() {
+    private Scrubber(String [] input) {
+        prohibitedInput = input;
     }
 
     /**
      * @return an instance of scrubber
      */
-    private static Scrubber getInstance() {
-        return INSTANCE;
+    private static Scrubber getInstance(String [] input) {
+        return new Scrubber(input);
     }
 
     /**
@@ -63,9 +64,21 @@ public class Scrubber {
      * @return the scrubbed value
      */
     public static Object scrub(Object value) {
-        return getInstance().doScrub(value);
+        return getInstance(PROHIBITED_INPUT).doScrub(value);
     }
 
+
+    /**
+     * Given an input String/Map/List/Array
+     * this method will scrub the input
+     *  and return the scrubber output
+     * @param value the value to be scrubbed
+     * @param prohibitedInput the list of prohbited inputs to be scrubbed
+     * @return the scrubbed value
+     */
+    public static Object scrub(Object value, String ... prohibitedInput) {
+        return getInstance(prohibitedInput).doScrub(value);
+    }
     private Object doScrub(Object value) {
         if (!canScrub(value)) {
             return value;
@@ -122,8 +135,8 @@ public class Scrubber {
     }
 
     private Object scrubString(String value) {
-        for (int x = 0; x < PROHIBITED_INPUT.length; x++) {
-            value = value.replaceAll(PROHIBITED_INPUT[x], "");
+        for (int x = 0; x < prohibitedInput.length; x++) {
+            value = value.replaceAll(prohibitedInput[x], "");
         }
         return value;
     }

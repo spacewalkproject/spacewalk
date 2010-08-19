@@ -34,7 +34,7 @@
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
         <form-bean name="createSatelliteForm"
-            type="com.redhat.rhn.frontend.struts.PasswordForm">
+            type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="account_type" type="java.lang.String"/>
             <form-property name="address1" type="java.lang.String"/>
             <form-property name="address2" type="java.lang.String"/>
@@ -59,9 +59,11 @@
             <form-property name="title" type="java.lang.String"/>
             <form-property name="zip" type="java.lang.String"/>
             <form-property name="usepam" type="java.lang.Boolean"/>
+            <form-property name="no_scrub" type="java.lang.String"
+            				 initial="desiredpassword, desiredpasswordConfirm"/>
         </form-bean>
         <form-bean name="userCreateForm"
-            type="com.redhat.rhn.frontend.struts.PasswordForm">
+            type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="account_type" type="java.lang.String"/>
             <form-property name="address1" type="java.lang.String"/>
             <form-property name="address2" type="java.lang.String"/>
@@ -86,9 +88,11 @@
             <form-property name="title" type="java.lang.String"/>
             <form-property name="zip" type="java.lang.String"/>
             <form-property name="usepam" type="java.lang.Boolean"/>
+            <form-property name="no_scrub" type="java.lang.String" 
+            				initial="desiredpassword, desiredpasswordConfirm"/>
         </form-bean>
         <form-bean name="userDetailsForm"
-            type="com.redhat.rhn.frontend.struts.PasswordForm">
+            type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="uid" type="java.lang.Long"/>
             <form-property name="firstNames" type="java.lang.String"/>
             <form-property name="lastName" type="java.lang.String"/>
@@ -101,6 +105,7 @@
             <form-property name="selectedRoles" type="java.lang.String[]"/>
             <form-property name="usersRoles" type="java.lang.String[]"/>
             <form-property name="usepam" type="java.lang.Boolean"/>
+            <form-property name="no_scrub" type="java.lang.String" initial="desiredpassword, desiredpasswordConfirm"/>
         </form-bean>
         <form-bean name="orgCreateForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -114,6 +119,8 @@
             <form-property name="lastName" type="java.lang.String"/>
             <form-property name="usepam" type="java.lang.Boolean"/>
             <form-property name="submitted" type="java.lang.Boolean" />
+            <form-property name="no_scrub" type="java.lang.String" 
+            				initial="desiredpassword, desiredpasswordConfirm"/>            
         </form-bean>
         <form-bean name="orgDetailsForm"
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -378,7 +385,7 @@
         </form-bean>
 
         <form-bean name="scheduleRemoteCmdForm"
-                   type="com.redhat.rhn.frontend.struts.CommandForm">
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="run_script" type="java.lang.String"/>
             <form-property name="username" type="java.lang.String"/>
             <form-property name="group" type="java.lang.String"/>
@@ -395,6 +402,9 @@
             <form-property name="date_hour"  type="java.lang.Integer"/>
             <form-property name="date_minute"  type="java.lang.Integer"/>
             <form-property name="date_am_pm"  type="java.lang.Integer"/>
+			<form-property name="no_scrub" type="java.lang.String"
+            				 initial="run_script, script"/>            
+            
         </form-bean>
 
         <form-bean name="errataPublishForm"
@@ -507,8 +517,10 @@
             <form-property name="web|enable_solaris_support"  type="java.lang.Boolean"/>
             <form-property name="disconnected"  type="java.lang.Boolean"/>
             <form-property name="web|is_monitoring_backend"  type="java.lang.Boolean"/>
-
             <form-property name="submitted"  type="java.lang.Boolean"/>
+            <form-property name="no_scrub" type="java.lang.String"
+						initial="server|satellite|http_proxy_password, server|satellite|http_proxy_password_confirm"/>
+            
         </form-bean>
 
         <form-bean name="certificateConfigForm"
@@ -516,6 +528,8 @@
             <form-property name="cert_file"  type="org.apache.struts.upload.FormFile"/>
             <form-property name="cert_text"  type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
+			<form-property name="no_scrub" type="java.lang.String"
+						initial="cert_text"/>            
         </form-bean>
 
         <form-bean name="bootstrapConfigForm"
@@ -530,6 +544,8 @@
             <form-property name="http-proxy-username"  type="java.lang.String"/>
             <form-property name="http-proxy-password"  type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
+            <form-property name="no_scrub" type="java.lang.String"
+						initial="http-proxy-password"/>
         </form-bean>
 
         <form-bean name="restartForm"
@@ -544,6 +560,7 @@
             <form-property name="type"  type="java.lang.String"/>
             <form-property name="contents"  type="org.apache.struts.upload.FormFile"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
+            <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
         </form-bean>
 
 		<form-bean name="cryptoKeyDeleteForm"
@@ -629,7 +646,7 @@
         </form-bean>
 
         <form-bean name="kickstartSystemDetailsForm"
-                  type="com.redhat.rhn.frontend.struts.PasswordForm">
+                  type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="ksid" type="java.lang.Long" />
             <form-property name="kickstart" type="com.redhat.rhn.domain.kickstart.KickstartData" />
             <form-property name="selinuxMode" type="java.lang.String" />
@@ -639,16 +656,20 @@
             <form-property name="rootPassword" type="java.lang.String" />
             <form-property name="rootPasswordConfirm" type="java.lang.String" />
             <form-property name="submitted" type="java.lang.Boolean" />
+            <form-property name="no_scrub" type="java.lang.String"
+						initial="rootPassword, rootPasswordConfirm"/>
+            
         </form-bean>
 
         <form-bean name="kickstartScriptForm"
-                   type="org.apache.struts.action.DynaActionForm">
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="language" type="java.lang.String" />
             <form-property name="contents" type="java.lang.String" />
             <form-property name="type" type="java.lang.String" />
             <form-property name="nochroot" type="java.lang.Boolean" />
             <form-property name="template" type="java.lang.Boolean" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
+            <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
         </form-bean>
 
         <form-bean name="kickstartPackages"
@@ -675,9 +696,10 @@
   </form-bean>
 
         <form-bean name="kickstartPartitionForm"
-                   type="com.redhat.rhn.frontend.action.kickstart.KickstartPartitionForm">
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="partitions" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
+            <form-property name="no_paren_scrub"  type="java.lang.String" initial="partitions"/>
         </form-bean>
 
       <form-bean name="kickstartVariableForm"
@@ -694,7 +716,7 @@
         </form-bean>
 
         <form-bean name="kickstartFileForm"
-                   type="com.redhat.rhn.frontend.struts.ContentsForm">
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="kickstartLabel" type="java.lang.String" />
             <form-property name="kstrees" type="java.util.List" />
             <form-property name="kstreeId" type="java.lang.Long" />
@@ -712,10 +734,11 @@
  			<form-property name="virt_cpus"  type="java.lang.Integer"/>
  			<form-property name="virt_disk_size"  type="java.lang.Integer"/>
 			<form-property name="virt_bridge" type="java.lang.String"/>
+			<form-property name="no_scrub" type="java.lang.String" initial="contents"/>
         </form-bean>
 
         <form-bean name="kickstartCreateWizardForm"
-                   type="com.redhat.rhn.frontend.struts.PasswordForm">
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="wizardStep" type="java.lang.String" />
             <form-property name="prevStep" type="java.lang.String" />
             <form-property name="nextStep" type="java.lang.String" />
@@ -734,7 +757,9 @@
 	    	<form-property name="virtualizationTypeLabel" type="java.lang.String" />
 	    	<form-property name="isRaw" type="java.lang.Boolean" />
 	    	<form-property name="rawData" type="java.lang.String" />
-			<form-property name="cffUpload"      type="org.apache.struts.upload.FormFile" />	    	
+			<form-property name="cffUpload"      type="org.apache.struts.upload.FormFile" />
+            <form-property name="no_scrub" type="java.lang.String"
+						initial="rootPassword, rootPasswordConfirm"/>
         </form-bean>
 
         <form-bean name="kickstartScheduleWizardForm"
@@ -826,10 +851,11 @@
         </form-bean>
 
         <form-bean name="cobblerSnippetsForm"
-                   type="com.redhat.rhn.frontend.struts.ContentsForm">
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="name" type="java.lang.String" />
             <form-property name="oldName" type="java.lang.String" />
             <form-property name="contents" type="java.lang.String" />
+            <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
         </form-bean>
 
         <form-bean name="systemEntitlementsForm"
@@ -850,7 +876,7 @@
 		</form-bean>
 		
         <form-bean name="channelEditForm"
-                   type="com.redhat.rhn.frontend.action.channel.manage.ChannelNameForm">
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="submitted" type="java.lang.Boolean" />
             <form-property name="dispatch" type="java.lang.String" />
             <form-property name="deny" type="java.lang.String" />
@@ -875,6 +901,7 @@
             <form-property name="gpg_key_id" type="java.lang.String" />
             <form-property name="gpg_key_fingerprint" type="java.lang.String" />
             <form-property name="checksum" type="java.lang.String" />
+            <form-property name="no_paren_scrub" type="java.lang.String" initial="name, support_policy, summary, description, maintainer_phone, maintainer_name"/>
         </form-bean>
 
        <form-bean name="channelDeleteForm"
@@ -910,6 +937,8 @@
 	  <form-property name="revnum"         type="java.lang.String" />
 	  <form-property name="binary"         type="java.lang.Boolean" />
       <form-property name="submitted"      type="java.lang.Boolean"/>
+      <form-property name="no_scrub" type="java.lang.String" initial="contents"/>
+      
     </form-bean>
 
     <form-bean name="virtualGuestsForm"
@@ -931,7 +960,8 @@
             <form-property name="rankedValues" type="java.lang.String"/>
 
     </form-bean>
-
+    <!--END ConfigChannel forms -->
+    
     <form-bean name="recentlyRegisteredSystemsForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
                <form-property name="threshold" type="java.lang.String"/>
@@ -949,10 +979,8 @@
                <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
-    <!--END ConfigChannel forms -->
-
     <form-bean name="systemDetailsForm"
-               type="com.redhat.rhn.frontend.action.systems.sdc.SystemDetailsForm">
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
       <form-property name="system_name" type="java.lang.String"/>
       <form-property name="base_entitlement" type="java.lang.String"/>
       <form-property name="submitted" type="java.lang.Boolean"/>
@@ -972,6 +1000,7 @@
       <form-property name="building" type="java.lang.String"/>
       <form-property name="room" type="java.lang.String"/>
       <form-property name="rack" type="java.lang.String"/>
+      <form-property name="no_paren_scrub" type="java.lang.String" initial="system_name, description, address1, address2, city, room, rack"/>
     </form-bean>
 
     <form-bean name="systemChannelsForm"
