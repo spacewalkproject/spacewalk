@@ -52,7 +52,7 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'sandbox-cleanup-bunch', 'Clean up sandbox', '');
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'repo-sync-bunch', 'Used for syncing repos to a channel', '');
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'repo-sync-bunch', 'Used for syncing repos to a channel', 'Y');
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'package-cleanup-bunch', 'Cleans up orphaned packages', '');
