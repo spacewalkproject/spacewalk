@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.6
+Version: 1.2.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Aug 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.7-1
+- 623699 - systemid is not mandatory for ISS
+- 624732 - use original config file names
+- localization of satellite-sync
+- 591050 - satellite sync report type of disk dump
+
 * Tue Aug 17 2010 Justin Sherrill <jsherril@redhat.com> 1.2.6-1
 - fixing small mistake where the wrong variable name was 
   used (jsherril@redhat.com)
