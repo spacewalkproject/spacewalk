@@ -1,12 +1,12 @@
-spacecmd - a command line interface to Spacewalk
+spacecmd - a command line interface to Spacewalk and Satellite servers
 
 Author:   Aron Parsons <aron@redhat.com>
-Homepage: http://github.com/aparsons/spacecmd
-License:  GPL
+Homepage: https://fedorahosted.org/spacewalk/wiki/spacecmd
 
 # Requirements
 - >= python-2.4
-- >= Satellite 5.3 (v10.8 of the API)
+- a Spacewalk or Satellite server with an API version
+  of 10.8 or higher
 
 # Highlights
 - view and manage nearly every aspect of Satellite
