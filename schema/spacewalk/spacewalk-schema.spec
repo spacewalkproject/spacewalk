@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.2
+Version:        1.2.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Aug 19 2010 Tomas Lestach <tlestach@redhat.com> 1.2.3-1
+- move RepoSyncTask from satellite to organization level (tlestach@redhat.com)
+- update description for bunches with arguments (tlestach@redhat.com)
+
 * Tue Aug 17 2010 Justin Sherrill <jsherril@redhat.com> 1.2.2-1
 - 619337 - adding trigger to update last_modified date on channel table if the
   checksum of a package changes (jsherril@redhat.com)
