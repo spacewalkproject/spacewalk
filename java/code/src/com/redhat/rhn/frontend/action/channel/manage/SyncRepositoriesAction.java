@@ -67,21 +67,26 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
         ListHelper helper = new ListHelper(this, request, params);
 
 
-/*
         RecurringEventPicker picker = RecurringEventPicker.prepopulatePicker(
                 request, "date", null);
-        Logger.getLogger(this.getClass()).error(picker.getCronEntry());
-*/
         helper.execute();
 
         if (context.isSubmitted()) {
-
-            TaskFactory.createTask(user.getOrg(),
-                    RepoSyncTask.DISPLAY_NAME, chan.getId());
-
             StrutsDelegate strutsDelegate = getStrutsDelegate();
             createSuccessMessage(request, "message.syncscheduled",
                     chan.getName());
+
+            if (context.wasDispatched("repos.jsp.channel.repos")) {
+                TaskFactory.createTask(user.getOrg(),
+                        RepoSyncTask.DISPLAY_NAME, chan.getId());
+
+            }
+            else if (context.wasDispatched("schedule.button")) {
+
+                String cronFormat = picker.getCronEntry();
+
+
+            }
 
             return strutsDelegate.forwardParams
             (mapping.findForward("success"), params);
