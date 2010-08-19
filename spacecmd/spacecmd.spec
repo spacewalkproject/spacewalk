@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.5.5
+Version:     0.5.6
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,15 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Aug 19 2010 Aron Parsons <aparsons@redhat.com> 0.5.6-1
+- updated documentation to point bug reports at Bugzilla
+  (aparsons@redhat.com)
+- added new function user_create (aparsons@redhat.com)
+- added a parameter to return integers from user_confirm()
+  (aparsons@redhat.com)
+- add parameter to not print a blank line on user confirmations
+  (aparsons@redhat.com)
+
 * Thu Aug 05 2010 Milan Zazrivec <mzazrivec@redhat.com> 0.5.5-1
 - added a missing hyphen in the spacecmd man page
 
