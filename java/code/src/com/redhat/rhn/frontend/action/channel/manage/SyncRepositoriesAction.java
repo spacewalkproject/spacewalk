@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
-import com.redhat.rhn.common.util.RecurringEventPicker;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
@@ -27,7 +26,6 @@ import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.taskomatic.task.RepoSyncTask;
 
-import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -50,6 +48,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
    *
    * {@inheritDoc}
    */
+    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
@@ -68,11 +67,11 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
         ListHelper helper = new ListHelper(this, request, params);
 
 
-
+/*
         RecurringEventPicker picker = RecurringEventPicker.prepopulatePicker(
                 request, "date", null);
         Logger.getLogger(this.getClass()).error(picker.getCronEntry());
-
+*/
         helper.execute();
 
         if (context.isSubmitted()) {
