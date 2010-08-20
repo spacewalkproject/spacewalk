@@ -188,10 +188,12 @@ def doCall(method, *args, **kwargs):
     ret = None
 
     attempt_count = 1
-    if cfg["networkRetries"] <= 0:
+    try:
+        attempts = int(cfg["networkRetries"])
+    except ValueError:
         attempts = 1
-    else:
-        attempts = cfg["networkRetries"]
+    if attempts <= 0:
+        attempts = 1
 
     while 1:
         failure = 0
