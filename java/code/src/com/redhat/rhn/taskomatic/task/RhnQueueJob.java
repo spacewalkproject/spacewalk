@@ -114,8 +114,8 @@ public abstract class RhnQueueJob implements RhnJob {
         else {
             // close current run
             TaskoRun run = (TaskoRun) HibernateFactory.reload(jobRun);
-            run.appendToOutputLog("Check run " + queue.getQueueRun().getId() +
-                    " for logged information.");
+            run.appendToOutputLog("Run with id " + queue.getQueueRun().getId() +
+                    " handles the whole task queue.");
             run.skipped();
             HibernateFactory.commitTransaction();
             HibernateFactory.closeSession();
