@@ -38,7 +38,7 @@ public class TaskoRun {
     public static final String STATUS_FINISHED = "FINISHED";
     public static final String STATUS_FAILED = "FAILED";
     public static final String STATUS_SKIPPED = "SKIPPED";
-    private static final String STD_LOG_PREFIX = "/var/spacewalk/systemlogs/tasko/";
+    private static final String STD_LOG_PREFIX = "/var/lib/rhn/tasko/";
 
     private Long id;
     private Integer orgId;
