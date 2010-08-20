@@ -43,7 +43,7 @@
 	<div align="right">
 	  <hr />
 		<input type="submit" name="dispatch"
-				value="<bean:message key="Sync"/>" />
+				value="<bean:message key="repos.jsp.button-sync"/>" />
 	</div>
 		<rhn:submitted/>
 

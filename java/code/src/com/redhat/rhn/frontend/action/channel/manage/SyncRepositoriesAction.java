@@ -14,29 +14,36 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.RecurringEventPicker;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
-import com.redhat.rhn.domain.task.TaskFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-import com.redhat.rhn.taskomatic.task.RepoSyncTask;
+import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import redstone.xmlrpc.XmlRpcClient;
+import redstone.xmlrpc.XmlRpcException;
+import redstone.xmlrpc.XmlRpcFault;
 
 /**
  *
@@ -74,19 +81,69 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
 
         if (context.isSubmitted()) {
             StrutsDelegate strutsDelegate = getStrutsDelegate();
-            createSuccessMessage(request, "message.syncscheduled",
-                    chan.getName());
 
-            if (context.wasDispatched("repos.jsp.channel.repos")) {
-                TaskFactory.createTask(user.getOrg(),
-                        RepoSyncTask.DISPLAY_NAME, chan.getId());
-
+            // check user permissions first
+            if (!UserManager.verifyChannelAdmin(user, chan)) {
+                createErrorMessage(request,
+                        "frontend.actions.channels.manager.add.permsfailure", null);
+                return mapping.findForward("default");
             }
-            else if (context.wasDispatched("schedule.button")) {
 
-                String cronFormat = picker.getCronEntry();
+            try {
+                XmlRpcClient taskomatic = new XmlRpcClient(
+                        ConfigDefaults.get().getTaskoServerUrl(), false);
 
+                if (context.wasDispatched("repos.jsp.button-sync")) {
+                    // schedule one time repo sync
+                    List args = new ArrayList();
+                    args.add(user.getOrg().getId());
+                    args.add("repo-sync-bunch");
+                    Map scheduleParams = new HashMap();
+                    scheduleParams.put("channel_id", chan.getId().toString());
+                    args.add(scheduleParams);
 
+                    try {
+                        taskomatic.invoke("tasko.scheduleSingleBunchRun", args);
+                        createSuccessMessage(request, "message.syncscheduled",
+                                chan.getName());
+                    }
+                    catch (XmlRpcException e) {
+                        createErrorMessage(request, "repos.jsp.message.taskoaccess", null);
+                    }
+                    catch (XmlRpcFault e) {
+                        createErrorMessage(request,
+                                "repos.jsp.message.schedulefailed", null);
+                        e.printStackTrace();
+                    }
+                }
+                else if (context.wasDispatched("schedule.button")) {
+                    // schedule periodic errata
+                    List args = new ArrayList();
+                    args.add(user.getOrg().getId());
+                    args.add("repo-sync-bunch");
+                    args.add("repo-sync-" + user.getOrg().getId() + "-" + cid);
+                    args.add(picker.getCronEntry());
+                    Map scheduleParams = new HashMap();
+                    scheduleParams.put("channel_id", chan.getId().toString());
+                    args.add(scheduleParams);
+
+                    try {
+                        Date date = (Date) taskomatic.invoke("tasko.scheduleBunch", args);
+                        createSuccessMessage(request, "message.syncscheduled",
+                                chan.getName());
+                    }
+                    catch (XmlRpcException e) {
+                        createErrorMessage(request, "repos.jsp.message.taskoaccess", null);
+                    }
+                    catch (XmlRpcFault e) {
+                        createErrorMessage(request,
+                                "repos.jsp.message.schedulefailed", null);
+                        e.printStackTrace();
+                    }
+                }
+            }
+            catch (MalformedURLException e) {
+                createErrorMessage(request, "repos.jsp.message.taskoaccess", null);
             }
 
             return strutsDelegate.forwardParams

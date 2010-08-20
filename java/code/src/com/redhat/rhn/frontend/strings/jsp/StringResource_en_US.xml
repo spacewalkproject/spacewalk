@@ -9468,6 +9468,18 @@ Please note that some manual configuration of these scripts may still be require
         <trans-unit id="repos.jsp.lastsync">
           <source>Last Synced</source>
         </trans-unit>
+        <trans-unit id="repos.jsp.button-sync">
+          <source>Sync</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.message.taskoconfig">
+          <source>Taskomatic configuration seems to be malformed. Fix it and scheudule task again.</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.message.taskoaccess">
+          <source>Taskomatic not accessible. Restart it and set up repo sync again.</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.message.schedulefailed">
+          <source>Schedule of Repo Sync failed. Check logs for more information.</source>
+        </trans-unit>
         <trans-unit id="toolbar.create.repos">
           <source>create new repository</source>
           <context-group name="ctx">
