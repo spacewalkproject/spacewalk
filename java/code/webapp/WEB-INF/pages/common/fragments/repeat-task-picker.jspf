@@ -1,0 +1,66 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+
+
+<c:set value="${requestScope[param.widget]}" var="picker"/>
+
+<bean:message key="schedule.header"/><br/><br/>
+
+
+
+<input type="radio" name="${picker.name}_status" value="disabled" 
+		<c:if test="${picker.status == 'disabled'}">checked="true"</c:if> />  
+	<bean:message key="schedule.disabled"/>
+<br/>
+
+<input type="radio" name="${picker.name}_status" value="daily" <c:if test="${picker.status == 'daily'}">checked="true"</c:if> />
+	 <bean:message key="schedule.daily"/>: 
+
+      <jsp:include page="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf">
+        <jsp:param name="timename" value="daily"/>
+      </jsp:include>
+
+	<br/>
+
+<input type="radio" name="${picker.name}_status" value="weekly" <c:if test="${picker.status == 'weekly'}">checked="true"</c:if> />  
+	<bean:message key="schedule.weekly"/>:
+	
+		<select name='${picker.name}_day_week' size="1">
+			<c:forEach var="day" items="${picker.dayNames}">
+			  <option <c:if test="${day eq picker.dayOfWeek}">selected="selected"</c:if> value='${day}'>${day}</option>
+			</c:forEach>
+		</select>
+	
+      <jsp:include page="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf">
+        <jsp:param name="timename" value="weekly"/>
+      </jsp:include>	
+      
+
+      
+	<br/>
+
+<input type="radio" name="${picker.name}_status" value="monthly" <c:if test="${picker.status == 'monthly'}">checked="true"</c:if> />
+	<bean:message key="schedule.monthly"/>: 
+	
+	<select name='${picker.name}_day_month' size="1">
+			<c:forEach var="day" begin="1" end="28">
+			  <option <c:if test="${day eq picker.dayOfMonth}">selected="selected"</c:if> value='${day}'>${day}</option>
+			</c:forEach>
+		</select>   
+	
+      <jsp:include page="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf">
+        <jsp:param name="timename" value="monthly"/>
+      </jsp:include>
+      
+   
+      
+	<br/>
+	
+
+<input type="radio" name="${picker.name}_status" value="cron" <c:if test="${picker.status == 'cron'}">checked="true"</c:if> />
+	 <bean:message key="schedule.cron"/>: 
+	<input type="text" size="20" name="${picker.name}_cron" value="${picker.cronEntry}">
+
+
