@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.5.6
+Version:     0.5.7
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,11 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Aug 20 2010 Aron Parsons <aparsons@redhat.com> 0.5.7-1
+- simplify checks for debug mode (aparsons@redhat.com)
+- enable verbose mode for xmlrpclib when debugging is enabled
+  (aparsons@redhat.com)
+
 * Thu Aug 19 2010 Aron Parsons <aparsons@redhat.com> 0.5.6-1
 - updated documentation to point bug reports at Bugzilla
   (aparsons@redhat.com)
