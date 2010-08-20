@@ -126,7 +126,7 @@ if __name__ == '__main__':
             if isinstance(detail, xmlrpclib.Fault):
                 detail = detail.faultString
 
-            if logging.getLogger().getEffectiveLevel() == logging.DEBUG:
+            if options.debug:
                 # print the traceback when debugging
                 logging.exception(detail)
             else:
@@ -160,7 +160,7 @@ if __name__ == '__main__':
                         if re.search('Could not find session', detail, re.I):
                             shell.session = ''
 
-                    if logging.getLogger().getEffectiveLevel() == logging.DEBUG:
+                    if options.debug:
                         # print the traceback when debugging
                         logging.exception(detail)
                     else:
