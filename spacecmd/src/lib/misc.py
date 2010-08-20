@@ -193,7 +193,7 @@ def do_login(self, args):
 
     # connect to the server
     logging.debug('Connecting to %s' % (server_url))
-    self.client = xmlrpclib.Server(server_url)
+    self.client = xmlrpclib.Server(server_url, verbose = self.options.debug)
 
     # check the API to verify connectivity
     try:
