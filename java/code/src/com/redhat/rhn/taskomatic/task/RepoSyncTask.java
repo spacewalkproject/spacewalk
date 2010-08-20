@@ -25,8 +25,7 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.task.Task;
-import com.redhat.rhn.domain.task.TaskFactory;
+
 
 
 /**
@@ -50,27 +49,27 @@ public class RepoSyncTask extends RhnJavaJob {
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
 
-        for (Task task : TaskFactory.listTasks(DISPLAY_NAME)) {
-            //workaround in case task is null (which can happen)
-
-            if (task == null || task.getData() == null) {
-                TaskFactory.removeTask(task);
-                continue;
-            }
-            Channel c = ChannelFactory.lookupById(task.getData());
-            if (log.isInfoEnabled() && c != null) {
-                log.info("Syncing repos for channel: " + c.getName());
-            }
-            if (c == null) {
-                log.error("Channel could not be found: " + task.getData());
-                TaskFactory.removeTask(task);
-                continue;
-            }
-            TaskFactory.removeTask(task);
-
-            executeExtCmd(getSyncCommand(c).toArray(new String[0]));
-            c.setLastSynced(new Date());
+        String channelIdString = (String)
+                    context.getJobDetail().getJobDataMap().get("channel_id");
+        Long channelId;
+        try {
+            channelId = Long.parseLong(channelIdString);
         }
+        catch (Exception e) {
+            throw new JobExecutionException("No valid channel_id given.");
+        }
+
+        Channel c = ChannelFactory.lookupById(channelId);
+        if (c == null) {
+            throw new JobExecutionException("No such channel with channel_id " + channelId);
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("Syncing repos for channel: " + c.getName());
+        }
+
+        executeExtCmd(getSyncCommand(c).toArray(new String[0]));
+        c.setLastSynced(new Date());
     }
 
     private static List<String> getSyncCommand(Channel c) {
@@ -80,8 +79,6 @@ public class RepoSyncTask extends RhnJavaJob {
         cmd.add("--channel");
         cmd.add(c.getLabel());
         cmd.add("--type");
-        cmd.add(ChannelFactory.CONTENT_SOURCE_TYPE_YUM.getLabel());
-        cmd.add("--quiet");
         return cmd;
     }
 }
