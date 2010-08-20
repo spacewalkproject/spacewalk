@@ -16,8 +16,12 @@ package com.redhat.rhn.common.util;
 
 import com.redhat.rhn.frontend.context.Context;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -63,27 +67,44 @@ public class RecurringEventPicker {
      */
     public static final String USE_DATE = "use_date";
 
-    //
-    // Names of the subfields for the date picker
-    //
 
-    public static final String MONTH = "month";
-    public static final String DAY = "day";
-    public static final String HOUR = "hour";
-    public static final String MINUTE = "minute";
-    public static final String AM_PM = "am_pm";
 
-    public static final String STATUS_DISABLED = "disabled";
+    private static final String MONTH = "month";
+    private static final String DAY = "day";
+    private static final String HOUR = "hour";
+    private static final String MINUTE = "minute";
 
+    private static final String STATUS_DISABLED = "disabled";
+
+
+    //Daily defines
     // 0 %d %d * * *
-    public static final String STATUS_DAILY = "daily";
+    private static final String STATUS_DAILY = "daily";
+    private static final String DAILY_REGEX = "0 \\d \\d * * *";
+    private static final String DAILY_HOUR = "_daily_hour";
+    private static final String DAILY_MINUTE = "_daily_minute";
 
+
+    //Weekly defines
     // 0 %d %d * * %d
-    public static final String STATUS_WEEKLY = "weekly";
+    private static final String STATUS_WEEKLY = "weekly";
+    private static final String WEEKLY_REGEX = "0 \\d \\d * * \\d";
+    private static final String WEEKLY_HOUR = "_weekly_hour";
+    private static final String WEEKLY_MINUTE = "_weekly_minute";
+    private static final String WEEKLY_DAY_OF_WEEK = "_day_week";
 
+    //Monthly Defines
     // 0 %d %d %d * *
-    public static final String STATUS_MONTHLY = "monthly";
-    public static final String STATUS_CRON = "cron";
+    private static final String STATUS_MONTHLY = "monthly";
+    private static final String MONTHLY_REGEX = "0 \\d \\d \\d * *";
+    private static final String MONTHLY_HOUR = "_monthly_hour";
+    private static final String MONTHLY_MINUTE = "_monthly_minute";
+    private static final String MONTHLY_DAY_OF_MONTH = "_day_month";
+
+
+    private static final String STATUS_CRON = "cron";
+
+    private static final String WHITE_SPACE = "\\s+";
 
     private static final Integer[] DAY_NUMBERS = {Calendar.SUNDAY, Calendar.MONDAY,
                                                 Calendar.TUESDAY, Calendar.WEDNESDAY,
@@ -106,8 +127,7 @@ public class RecurringEventPicker {
     private String name;
     private String status;
     private String cronEntry;
-    private String dayOfWeek;
-    private String dayOfMonth;
+
 
 
     /**
@@ -164,9 +184,47 @@ public class RecurringEventPicker {
         String tmpStatus = request.getParameter(name + "_status");
         if (tmpStatus  != null) {
             p.setStatus(tmpStatus);
-            if (tmpStatus.equals(STATUS_CRON)) {
-                p.setCronEntry(request.getParameter(name + "_cron"));
+            if (tmpStatus.equals(STATUS_DAILY)) {
+                String hour = request.getParameter(name + DAILY_HOUR);
+                String minute = request.getParameter(name + DAILY_MINUTE);
+                p.setCronEntry(buildCron(minute, hour, null, null));
+
             }
+            else if (tmpStatus.equals(STATUS_WEEKLY)) {
+                String hour = request.getParameter(name + WEEKLY_HOUR);
+                String minute = request.getParameter(name + WEEKLY_MINUTE);
+                String day = request.getParameter(name + WEEKLY_DAY_OF_WEEK);
+                p.setCronEntry(buildCron(minute, hour, null, day));
+            }
+            else if (tmpStatus.equals(STATUS_MONTHLY)) {
+                String hour = request.getParameter(name + MONTHLY_HOUR);
+                String minute = request.getParameter(name + MONTHLY_MINUTE);
+                String day = request.getParameter(name + MONTHLY_DAY_OF_MONTH);
+                p.setCronEntry(buildCron(minute, hour, day, null));
+            }
+            else if (tmpStatus.equals(STATUS_CRON)) {
+                p.setCronEntry(cronEntry);
+            }
+        }
+        else if (cronEntry != null) {
+            if (cronEntry.split(WHITE_SPACE).length < 6) {
+                //The Cron Entry is too short
+                return null;
+            }
+
+            if (matches(cronEntry, DAILY_REGEX)) {
+                p.setStatus(STATUS_DAILY);
+            }
+            else if (matches(cronEntry, WEEKLY_REGEX)) {
+                p.setStatus(STATUS_WEEKLY);
+            }
+            else if (matches(cronEntry, MONTHLY_REGEX)) {
+                p.setStatus(STATUS_MONTHLY);
+            }
+            else {
+                p.setStatus(STATUS_CRON);
+            }
+            p.setCronEntry(cronEntry);
         }
 
 
@@ -174,6 +232,29 @@ public class RecurringEventPicker {
     }
 
 
+    private static String buildCron(String minute, String hour,
+                                String dayOfMonth, String dayOfWeek) {
+        if (minute == null) {
+            minute = "*";
+        }
+        if (hour == null) {
+            hour = "*";
+        }
+        if (dayOfMonth == null) {
+            dayOfMonth = "*";
+        }
+        if (dayOfWeek == null) {
+            dayOfWeek = "*";
+        }
+        String[] items = {"*", minute, hour, dayOfMonth, "*", dayOfWeek};
+        return StringUtils.join(items, " ");
+    }
+
+    private static boolean matches(String cronEntry, String pattern) {
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(cronEntry);
+        return m.matches();
+    }
 
     /**
      * @return Returns the status.
@@ -190,14 +271,12 @@ public class RecurringEventPicker {
         status = statusIn;
     }
 
-
     /**
      * @return Returns the cronEntry.
      */
     public String getCronEntry() {
         return cronEntry;
     }
-
 
     /**
      * @param cronEntryIn The cronEntry to set.
@@ -211,32 +290,54 @@ public class RecurringEventPicker {
      * @return Returns the day.
      */
     public String getDayOfWeek() {
-        return dayOfWeek;
+        return getCronValue(5);
     }
-
-
-    /**
-     * @param dayIn The day to set.
-     */
-    public void setDayOfWeek(String dayIn) {
-        dayOfWeek = dayIn;
-    }
-
 
     /**
      * @return Returns the dayOfMonth.
      */
     public String getDayOfMonth() {
-        return dayOfMonth;
+        return getCronValue(3);
+    }
+
+    /**
+     * @return Returns the dayOfMonth String.
+     */
+    public String getDayOfWeekString() {
+        String num = getCronValue(5);
+        if (num == null || !StringUtils.isNumeric(num) ||
+                getDayNames().length - 1 < Integer.parseInt(num)) {
+            return null;
+        }
+        else {
+            return getDayNames()[Integer.parseInt(num)];
+        }
     }
 
 
     /**
-     * @param dayOfMonthIn The dayOfMonth to set.
+     * Get the hour of the day
+     * @return the hour
      */
-    public void setDayOfMonth(String dayOfMonthIn) {
-        dayOfMonth = dayOfMonthIn;
+    public String getHour() {
+        return getCronValue(2);
     }
 
+    /**
+     * Get the minute of the hour
+     * @return the minute
+     */
+    public String getMinute() {
+        return getCronValue(1);
+    }
+
+    private String getCronValue(int slot) {
+        if (getCronEntry() == null) {
+            return null;
+        }
+        else {
+            return getCronEntry().split(WHITE_SPACE)[slot];
+        }
+    }
 
 }

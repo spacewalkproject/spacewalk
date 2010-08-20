@@ -29,7 +29,7 @@
 	
 		<select name='${picker.name}_day_week' size="1">
 			<c:forEach var="day" items="${picker.dayNames}">
-			  <option <c:if test="${day eq picker.dayOfWeek}">selected="selected"</c:if> value='${day}'>${day}</option>
+			  <option <c:if test="${day eq picker.dayOfWeekString}">selected="selected"</c:if> value='${day}'>${day}</option>
 			</c:forEach>
 		</select>
 	

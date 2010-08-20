@@ -6667,7 +6667,6 @@
         type="com.redhat.rhn.frontend.action.channel.manage.SyncRepositoriesAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/syncrepos.jsp" />
-      <forward name="success" path="/channels/manage/Edit.do" redirect="true" />
    </action>
 
    <action path="/channels/manage/Manage"

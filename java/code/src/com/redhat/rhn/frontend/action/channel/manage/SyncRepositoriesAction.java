@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
-import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.RecurringEventPicker;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -26,13 +25,13 @@ import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.taskomatic.TaskomaticApi;
+import com.redhat.rhn.taskomatic.TaskomaticApiException;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -40,10 +39,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import redstone.xmlrpc.XmlRpcClient;
-import redstone.xmlrpc.XmlRpcException;
-import redstone.xmlrpc.XmlRpcFault;
 
 /**
  *
@@ -69,6 +64,9 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
         Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
         request.setAttribute("channel_name", chan.getName());
 
+        TaskomaticApi taskomatic = new TaskomaticApi();
+        String oldCronExpr = taskomatic.getChannelRepoSchedule(chan, user);
+
         Map params = new HashMap();
         params.put(RequestContext.CID, chan.getId().toString());
 
@@ -76,7 +74,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
 
 
         RecurringEventPicker picker = RecurringEventPicker.prepopulatePicker(
-                request, "date", null);
+                request, "date", oldCronExpr);
         helper.execute();
 
         if (context.isSubmitted()) {
@@ -90,68 +88,31 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
             }
 
             try {
-                XmlRpcClient taskomatic = new XmlRpcClient(
-                        ConfigDefaults.get().getTaskoServerUrl(), false);
-
                 if (context.wasDispatched("repos.jsp.button-sync")) {
                     // schedule one time repo sync
-                    List args = new ArrayList();
-                    args.add(user.getOrg().getId());
-                    args.add("repo-sync-bunch");
-                    Map scheduleParams = new HashMap();
-                    scheduleParams.put("channel_id", chan.getId().toString());
-                    args.add(scheduleParams);
+                    taskomatic.scheduleSingleRepoSync(chan, user);
 
-                    try {
-                        taskomatic.invoke("tasko.scheduleSingleBunchRun", args);
-                        createSuccessMessage(request, "message.syncscheduled",
-                                chan.getName());
-                    }
-                    catch (XmlRpcException e) {
-                        createErrorMessage(request, "repos.jsp.message.taskoaccess", null);
-                    }
-                    catch (XmlRpcFault e) {
-                        createErrorMessage(request,
-                                "repos.jsp.message.schedulefailed", null);
-                        e.printStackTrace();
-                    }
                 }
                 else if (context.wasDispatched("schedule.button")) {
-                    // schedule periodic errata
-                    List args = new ArrayList();
-                    args.add(user.getOrg().getId());
-                    args.add("repo-sync-bunch");
-                    args.add("repo-sync-" + user.getOrg().getId() + "-" + cid);
-                    args.add(picker.getCronEntry());
-                    Map scheduleParams = new HashMap();
-                    scheduleParams.put("channel_id", chan.getId().toString());
-                    args.add(scheduleParams);
-
-                    try {
-                        Date date = (Date) taskomatic.invoke("tasko.scheduleBunch", args);
-                        createSuccessMessage(request, "message.syncscheduled",
-                                chan.getName());
-                    }
-                    catch (XmlRpcException e) {
-                        createErrorMessage(request, "repos.jsp.message.taskoaccess", null);
-                    }
-                    catch (XmlRpcFault e) {
-                        createErrorMessage(request,
-                                "repos.jsp.message.schedulefailed", null);
-                        e.printStackTrace();
-                    }
+                    Date date = taskomatic.scheduleRepoSync(chan, user,
+                            picker.getCronEntry());
                 }
             }
-            catch (MalformedURLException e) {
-                createErrorMessage(request, "repos.jsp.message.taskoaccess", null);
+            catch (TaskomaticApiException e) {
+                createErrorMessage(request,
+                        "repos.jsp.message.schedulefailed", null);
+                e.printStackTrace();
             }
+            createSuccessMessage(request, "message.syncscheduled",
+                    chan.getName());
 
-            return strutsDelegate.forwardParams
-            (mapping.findForward("success"), params);
         }
 
         return mapping.findForward("default");
     }
+
+
+
 
         /**
          *
