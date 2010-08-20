@@ -222,6 +222,45 @@ public class TaskoFactory extends HibernateFactory {
     }
 
     /**
+     * lists active schedule of the given bunch
+     * @param orgId organization id
+     * @param bunchName bunch name
+     * @return list of schedules
+     * @throws NoSuchBunchTaskException in case of unknown bunch name
+     */
+    public static List<TaskoSchedule> listActiveSchedulesByOrgAndBunch(Integer orgId,
+            String bunchName) throws NoSuchBunchTaskException {
+        TaskoBunch bunch = lookupBunchByOrgAndName(orgId, bunchName);
+        Map params = new HashMap();
+        params.put("timestamp", new Date());    // use server time, not DB time
+        params.put("bunch_id", bunch.getId());
+        if (orgId == null) {
+            return (List<TaskoSchedule>) singleton.listObjectsByNamedQuery(
+                    "TaskoSchedule.listActiveInSatByBunch", params);
+        }
+        else {
+            params.put("org_id", orgId);
+            return (List<TaskoSchedule>) singleton.listObjectsByNamedQuery(
+                       "TaskoSchedule.listActiveByOrgAndBunch", params);
+        }
+    }
+
+    private static TaskoBunch lookupBunchByOrgAndName(Integer orgId, String bunchName)
+        throws NoSuchBunchTaskException {
+        TaskoBunch bunch = null;
+        if (orgId == null) {
+            bunch = lookupSatBunchByName(bunchName);
+        }
+        else {
+            bunch = lookupOrgBunchByName(bunchName);
+        }
+        if (bunch == null) {
+            throw new NoSuchBunchTaskException(bunchName);
+        }
+        return bunch;
+    }
+
+    /**
      * lookup schedule by id
      * @param scheduleId schedule id
      * @return schedule

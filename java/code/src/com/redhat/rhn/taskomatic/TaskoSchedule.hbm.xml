@@ -56,8 +56,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId is null AND jobLabel = :job_label]]>
         </query>
 
+        <query name="TaskoSchedule.listActiveByOrgAndBunch">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id AND bunch_id = :bunch_id AND (activeFrom < :timestamp AND (activeTill is null OR :timestamp < activeTill))]]>
+        </query>
+
         <query name="TaskoSchedule.listByOrgAndBunch">
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id AND bunch.id = :bunch_id]]>
+        </query>
+
+        <query name="TaskoSchedule.listActiveInSatByBunch">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId is null AND bunch_id = :bunch_id AND activeFrom < :timestamp AND (activeTill is null OR :timestamp < activeTill)]]>
         </query>
 
         <query name="TaskoSchedule.listInSatByBunch">

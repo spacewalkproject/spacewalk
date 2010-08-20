@@ -350,6 +350,29 @@ public class TaskoXmlRpcHandler {
     }
 
     /**
+     * lists all active organizational schedules associated with given bunch
+     * @param orgId organizational id
+     * @param bunchName taskomatic bunch name
+     * @return list of schedules
+     * @throws NoSuchBunchTaskException in case of unknown org bunch name
+     */
+    public List<TaskoSchedule> listActiveSchedulesByBunch(Integer orgId, String bunchName)
+    throws NoSuchBunchTaskException {
+        return TaskoFactory.listActiveSchedulesByOrgAndBunch(orgId, bunchName);
+    }
+
+    /**
+     * lists all active satellite schedules associated with given bunch
+     * @param bunchName taskomatic bunch name
+     * @return list of schedules
+     * @throws NoSuchBunchTaskException in case of unknown sat bunch name
+     */
+    public List<TaskoSchedule> listActiveSatSchedulesByBunch(String bunchName)
+    throws NoSuchBunchTaskException {
+        return TaskoFactory.listActiveSchedulesByOrgAndBunch(null, bunchName);
+    }
+
+    /**
      * lists all organizational runs of a give schedule
      * @param orgId organizational id
      * @param scheduleId schedule id
