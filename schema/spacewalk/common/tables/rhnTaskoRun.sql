@@ -23,7 +23,8 @@ CREATE TABLE rhnTaskoRun
                         REFERENCES rhnTaskoTemplate (id),
     schedule_id     NUMBER NOT NULL
                         CONSTRAINT rhn_tasko_run_schedule_fk
-                        REFERENCES rhnTaskoSchedule (id),
+                        REFERENCES rhnTaskoSchedule (id)
+                        ON DELETE CASCADE,
     org_id          NUMBER,
     start_time      DATE,
     end_time        DATE,
