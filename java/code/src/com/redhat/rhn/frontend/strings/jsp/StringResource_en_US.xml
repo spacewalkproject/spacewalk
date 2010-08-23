@@ -9469,7 +9469,7 @@ Please note that some manual configuration of these scripts may still be require
           <source>Last Synced</source>
         </trans-unit>
         <trans-unit id="repos.jsp.button-sync">
-          <source>Sync</source>
+          <source>Sync Now</source>
         </trans-unit>
         <trans-unit id="repos.jsp.message.taskoconfig">
           <source>Taskomatic configuration seems to be malformed. Fix it and scheudule task again.</source>
@@ -22468,6 +22468,15 @@ given channel.</source>
 	</trans-unit>
 	<trans-unit id="schedule.button">
 		<source>Schedule</source>
+	</trans-unit>
+	<trans-unit id="schedule.weekly.every">
+		<source>Every</source>
+	</trans-unit>
+	<trans-unit id="schedule.weekly.at">
+		<source>at</source>
+	</trans-unit>
+	<trans-unit id="schedule.monthly.day">
+		<source>Day</source>
 	</trans-unit>
 
   </body>

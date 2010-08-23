@@ -8642,6 +8642,14 @@ tree will not be usable for kickstarting.
      <trans-unit id="errata.delete.msg">
         <source>Successfully deleted {0} errata.</source>
      </trans-unit>
+     <trans-unit id="message.syncschedule.disabled">
+        <source>Schedule has been disabled</source>
+     </trans-unit>
+     <trans-unit id="repos.jsp.message.invalidcron">
+        <source>Invalid schedule entry: {0}</source>
+     </trans-unit>
+
+
     </body>
   </file>
 </xliff>

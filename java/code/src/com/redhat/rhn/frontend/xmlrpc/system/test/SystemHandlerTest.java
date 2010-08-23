@@ -126,6 +126,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * SystemHandlerTest
@@ -2201,6 +2203,18 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         assertEquals(proxy2.getId(), ((ServerPath) results[1]).getId());
         assertEquals(proxy2.getName(), ((ServerPath) results[1]).getHostname());
+    }
+
+
+    public void testTest() throws Exception {
+        String pattern = "0 \\d+ \\d+ \\? \\* \\*";
+        String str = "0 0 23 ? * *";
+
+
+
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(str);
+        assertTrue(m.matches());
     }
 
 }

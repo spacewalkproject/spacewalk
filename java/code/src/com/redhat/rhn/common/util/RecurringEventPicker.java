@@ -26,36 +26,22 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * A bean to support date picking in the UI. To add a date picker to a form,
- * add inputs for the year, day, month etc. to the form, and name them with
- * a common prefix; to support a date picker with name <code>date</code>, you would add
- * inputs with names <code>date_year, date_month, date_day,
- * date_hour, date_minute, and date_am_pm</code> to the form. All this form
- * variables need to be declared as type <code>java.util.Integer</code>
+ * The RecurringEventPicker
  *
- * <p>
- * In your Struts action, you can initialize the form fields with
+ * to use this simply add this to your jsp:
  *
- * <pre>
- *   Date d = ...;
- *   DynaActionForm dynaForm = ...;
- *   DatePicker p = new DatePicker("date", timeZone, locale, yearDirection);
- *   p.setDate(d);
- *   p.writeForm(dynaForm.getMap());
- * </pre>
+ *     <jsp:include page="/WEB-INF/pages/common/fragments/repeat-task-picker.jspf">
+ *       <jsp:param name="widget" value="date"/>
+ *     </jsp:include>
  *
- * <p>
- * Once the form is submitted, you can extract the date with
  *
- * <pre>
- *   DynaActionForm dynaForm = ...;
- *   DatePicker p = new DatePicker("date", timeZone, locale, yearDirection);
- *   p.readForm(dynaForm.getMap());
- *   Date result = p.getDate();
- *   if ( result == null ) {
- *     ... tell user that date was incorrect ...
- *   }
- * </pre>
+ *     Then in your action, simply do:
+ *
+ *       RecurringEventPicker picker = RecurringEventPicker.prepopulatePicker(
+ *               request, "date", oldCronExpr);
+ *       call picker.getCronExpr() to get the given cron expression (if submitted)
+ *       call picker.isDisabled() to see if it is disabled or not
+ *
  *
  * @version $Rev$
  */
@@ -80,7 +66,7 @@ public class RecurringEventPicker {
     //Daily defines
     // 0 %d %d * * *
     private static final String STATUS_DAILY = "daily";
-    private static final String DAILY_REGEX = "0 \\d \\d * * *";
+    private static final String DAILY_REGEX = "0 +\\d+ +\\d+ +\\? +\\* +\\*";
     private static final String DAILY_HOUR = "_daily_hour";
     private static final String DAILY_MINUTE = "_daily_minute";
 
@@ -88,7 +74,7 @@ public class RecurringEventPicker {
     //Weekly defines
     // 0 %d %d * * %d
     private static final String STATUS_WEEKLY = "weekly";
-    private static final String WEEKLY_REGEX = "0 \\d \\d * * \\d";
+    private static final String WEEKLY_REGEX = "0 +\\d+ +\\d+ +\\? +\\* +\\d";
     private static final String WEEKLY_HOUR = "_weekly_hour";
     private static final String WEEKLY_MINUTE = "_weekly_minute";
     private static final String WEEKLY_DAY_OF_WEEK = "_day_week";
@@ -96,13 +82,15 @@ public class RecurringEventPicker {
     //Monthly Defines
     // 0 %d %d %d * *
     private static final String STATUS_MONTHLY = "monthly";
-    private static final String MONTHLY_REGEX = "0 \\d \\d \\d * *";
+    private static final String MONTHLY_REGEX = "0 +\\d+ +\\d+ +\\d+ +\\* +\\?";
     private static final String MONTHLY_HOUR = "_monthly_hour";
     private static final String MONTHLY_MINUTE = "_monthly_minute";
     private static final String MONTHLY_DAY_OF_MONTH = "_day_month";
 
 
     private static final String STATUS_CRON = "cron";
+    private static final String CRON_ENTRY = "_cron";
+
 
     private static final String WHITE_SPACE = "\\s+";
 
@@ -187,23 +175,26 @@ public class RecurringEventPicker {
             if (tmpStatus.equals(STATUS_DAILY)) {
                 String hour = request.getParameter(name + DAILY_HOUR);
                 String minute = request.getParameter(name + DAILY_MINUTE);
-                p.setCronEntry(buildCron(minute, hour, null, null));
+                p.setCronEntry(buildCron(minute, hour, null, null, STATUS_DAILY));
 
             }
             else if (tmpStatus.equals(STATUS_WEEKLY)) {
                 String hour = request.getParameter(name + WEEKLY_HOUR);
                 String minute = request.getParameter(name + WEEKLY_MINUTE);
                 String day = request.getParameter(name + WEEKLY_DAY_OF_WEEK);
-                p.setCronEntry(buildCron(minute, hour, null, day));
+                p.setCronEntry(buildCron(minute, hour, null, day, STATUS_WEEKLY));
             }
             else if (tmpStatus.equals(STATUS_MONTHLY)) {
                 String hour = request.getParameter(name + MONTHLY_HOUR);
                 String minute = request.getParameter(name + MONTHLY_MINUTE);
                 String day = request.getParameter(name + MONTHLY_DAY_OF_MONTH);
-                p.setCronEntry(buildCron(minute, hour, day, null));
+                p.setCronEntry(buildCron(minute, hour, day, null, STATUS_MONTHLY));
             }
             else if (tmpStatus.equals(STATUS_CRON)) {
-                p.setCronEntry(cronEntry);
+                p.setCronEntry(request.getParameter(name + CRON_ENTRY));
+            }
+            else if (tmpStatus.equals(STATUS_DISABLED)) {
+                p.setStatus(STATUS_DISABLED);
             }
         }
         else if (cronEntry != null) {
@@ -233,21 +224,26 @@ public class RecurringEventPicker {
 
 
     private static String buildCron(String minute, String hour,
-                                String dayOfMonth, String dayOfWeek) {
-        if (minute == null) {
-            minute = "*";
+                                String dayOfMonth, String dayOfWeek, String type) {
+
+        if (type == STATUS_DAILY) {
+            //0 %d %d ? * *
+            String[] items = {"0", minute, hour, "?", "*", "*"};
+            return StringUtils.join(items, " ");
         }
-        if (hour == null) {
-            hour = "*";
+        else if (type == STATUS_WEEKLY) {
+            //0 %d %d ? * %d
+            String[] items = {"0", minute, hour, "?", "*", dayOfWeek};
+            return StringUtils.join(items, " ");
         }
-        if (dayOfMonth == null) {
-            dayOfMonth = "*";
+        else if (type == STATUS_MONTHLY) {
+            //0 %d %d %d * ?
+            String[] items = {"0", minute, hour, dayOfMonth, "*", "?"};
+            return StringUtils.join(items, " ");
         }
-        if (dayOfWeek == null) {
-            dayOfWeek = "*";
+        else {
+            return "";
         }
-        String[] items = {"*", minute, hour, dayOfMonth, "*", dayOfWeek};
-        return StringUtils.join(items, " ");
     }
 
     private static boolean matches(String cronEntry, String pattern) {
@@ -301,16 +297,31 @@ public class RecurringEventPicker {
     }
 
     /**
+     * @return Returns the dayOfMonth.
+     */
+    public Long getDayOfMonthLong() {
+        String st  = getCronValue(3);
+        if (StringUtils.isNumeric(st)) {
+            return Long.parseLong(st);
+        }
+        else {
+            return -1L;
+        }
+    }
+
+
+    /**
      * @return Returns the dayOfMonth String.
      */
     public String getDayOfWeekString() {
         String num = getCronValue(5);
         if (num == null || !StringUtils.isNumeric(num) ||
-                getDayNames().length - 1 < Integer.parseInt(num)) {
+                getDayNames().length  < Integer.parseInt(num) ||
+                Integer.parseInt(num) < 1) {
             return null;
         }
         else {
-            return getDayNames()[Integer.parseInt(num)];
+            return getDayNames()[Integer.parseInt(num) - 1];
         }
     }
 
@@ -324,12 +335,42 @@ public class RecurringEventPicker {
     }
 
     /**
+     * Get the hour of the day
+     * @return the hour
+     */
+    public Long getHourLong() {
+        String st  = getCronValue(2);
+        if (StringUtils.isNumeric(st)) {
+            return Long.parseLong(st);
+        }
+        else {
+            return -1L;
+        }
+    }
+
+
+    /**
      * Get the minute of the hour
      * @return the minute
      */
     public String getMinute() {
         return getCronValue(1);
     }
+
+    /**
+     * Get the hour of the day
+     * @return the hour
+     */
+    public Long getMinuteLong() {
+        String st  = getCronValue(1);
+        if (StringUtils.isNumeric(st)) {
+            return Long.parseLong(st);
+        }
+        else {
+            return -1L;
+        }
+    }
+
 
     private String getCronValue(int slot) {
         if (getCronEntry() == null) {
@@ -338,6 +379,14 @@ public class RecurringEventPicker {
         else {
             return getCronEntry().split(WHITE_SPACE)[slot];
         }
+    }
+
+    /**
+     * is the picker disabled.
+     * @return if it is disabled or not
+     */
+    public boolean isDisabled() {
+        return status.equals(STATUS_DISABLED);
     }
 
 }

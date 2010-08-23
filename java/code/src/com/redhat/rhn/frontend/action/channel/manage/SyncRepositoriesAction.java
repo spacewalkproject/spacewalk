@@ -71,11 +71,10 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
         params.put(RequestContext.CID, chan.getId().toString());
 
         ListHelper helper = new ListHelper(this, request, params);
-
-
+        helper.execute();
         RecurringEventPicker picker = RecurringEventPicker.prepopulatePicker(
                 request, "date", oldCronExpr);
-        helper.execute();
+
 
         if (context.isSubmitted()) {
             StrutsDelegate strutsDelegate = getStrutsDelegate();
@@ -87,25 +86,45 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
                 return mapping.findForward("default");
             }
 
+
             try {
                 if (context.wasDispatched("repos.jsp.button-sync")) {
                     // schedule one time repo sync
                     taskomatic.scheduleSingleRepoSync(chan, user);
+                    createSuccessMessage(request, "message.syncscheduled",
+                            chan.getName());
 
                 }
                 else if (context.wasDispatched("schedule.button")) {
-                    Date date = taskomatic.scheduleRepoSync(chan, user,
-                            picker.getCronEntry());
+                    if (picker.isDisabled() && oldCronExpr != null) {
+                        taskomatic.unscheduleRepoSync(chan, user);
+                        createSuccessMessage(request, "message.syncschedule.disabled",
+                                chan.getName());
+                    }
+                    else if (picker.getCronEntry() != null) {
+                        Date date = taskomatic.scheduleRepoSync(chan, user,
+                                picker.getCronEntry());
+                        createSuccessMessage(request, "message.syncscheduled",
+                                chan.getName());
+                    }
                 }
             }
             catch (TaskomaticApiException e) {
-                createErrorMessage(request,
-                        "repos.jsp.message.schedulefailed", null);
-                e.printStackTrace();
+                if (e.getMessage().contains("InvalidParamException")) {
+                    createErrorMessage(request,
+                            "repos.jsp.message.invalidcron", picker.getCronEntry());
+                }
+                else {
+                    createErrorMessage(request,
+                            "repos.jsp.message.schedulefailed", null);
+                }
+                return mapping.findForward("default");
             }
-            createSuccessMessage(request, "message.syncscheduled",
-                    chan.getName());
 
+            Map forwardParams = new HashMap();
+            forwardParams.put("cid", chan.getId());
+            return getStrutsDelegate().forwardParams(mapping.findForward("success"),
+                    forwardParams);
         }
 
         return mapping.findForward("default");

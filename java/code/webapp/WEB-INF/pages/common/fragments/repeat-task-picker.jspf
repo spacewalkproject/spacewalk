@@ -18,24 +18,25 @@
 <input type="radio" name="${picker.name}_status" value="daily" <c:if test="${picker.status == 'daily'}">checked="true"</c:if> />
 	 <bean:message key="schedule.daily"/>: 
 
-      <jsp:include page="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf">
-        <jsp:param name="timename" value="daily"/>
-      </jsp:include>
+	  <c:set var="timeName" value="daily" />
+      <%@ include file="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf" %>
 
 	<br/>
 
 <input type="radio" name="${picker.name}_status" value="weekly" <c:if test="${picker.status == 'weekly'}">checked="true"</c:if> />  
 	<bean:message key="schedule.weekly"/>:
-	
+		<bean:message key="schedule.weekly.every"/>
 		<select name='${picker.name}_day_week' size="1">
-			<c:forEach var="day" items="${picker.dayNames}">
-			  <option <c:if test="${day eq picker.dayOfWeekString}">selected="selected"</c:if> value='${day}'>${day}</option>
+			<c:forEach var="day" begin="0" end="6">
+			  <option <c:if test="${picker.dayNames[day] eq picker.dayOfWeekString}">selected="selected"</c:if> value='${day+1}'>${picker.dayNames[day]}</option>
 			</c:forEach>
 		</select>
-	
-      <jsp:include page="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf">
-        <jsp:param name="timename" value="weekly"/>
-      </jsp:include>	
+
+	  <bean:message key="schedule.weekly.at"/>
+
+	  <c:set var="timeName" value="weekly" />
+      <%@ include file="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf" %>
+
       
 
       
@@ -44,15 +45,16 @@
 <input type="radio" name="${picker.name}_status" value="monthly" <c:if test="${picker.status == 'monthly'}">checked="true"</c:if> />
 	<bean:message key="schedule.monthly"/>: 
 	
+		  <bean:message key="schedule.monthly.day"/>
+
 	<select name='${picker.name}_day_month' size="1">
 			<c:forEach var="day" begin="1" end="28">
-			  <option <c:if test="${day eq picker.dayOfMonth}">selected="selected"</c:if> value='${day}'>${day}</option>
+			  <option <c:if test="${picker.dayOfMonthLong == day}">selected="selected"</c:if> value='${day}'>${day}</option>
 			</c:forEach>
 		</select>   
-	
-      <jsp:include page="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf">
-        <jsp:param name="timename" value="monthly"/>
-      </jsp:include>
+		  <bean:message key="schedule.weekly.at"/>
+	  <c:set var="timeName" value="monthly" />
+      <%@ include file="/WEB-INF/pages/common/fragments/hour-minute-picker.jspf" %>
       
    
       

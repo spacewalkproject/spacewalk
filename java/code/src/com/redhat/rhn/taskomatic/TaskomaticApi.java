@@ -88,11 +88,49 @@ public class TaskomaticApi {
      */
     public Date scheduleRepoSync(Channel chan, User user, String cron)
                                         throws TaskomaticApiException {
-        Map scheduleParams = new HashMap();
-        scheduleParams.put("channel_id", chan.getId().toString());
-        return (Date) invoke("tasko.scheduleBunch", user.getOrg().getId(),
-                "repo-sync-bunch", createRepoChannelBunchName(chan, user), cron,
-                scheduleParams);
+        String taskName = createRepoChannelBunchName(chan, user);
+
+        Map task = findScheduleByName(taskName, user);
+        if (task == null) {
+            Map scheduleParams = new HashMap();
+            scheduleParams.put("channel_id", chan.getId().toString());
+            return (Date) invoke("tasko.scheduleBunch", user.getOrg().getId(),
+                    "repo-sync-bunch", taskName , cron,
+                    scheduleParams);
+        }
+        else {
+            invoke("tasko.updateSchedule", user.getOrg().getId(), taskName, cron);
+            return null;
+        }
+
+
+    }
+
+
+    /**
+     * Unchedule a reposync task
+     * @param chan the channel
+     * @param user the user
+     */
+    public void unscheduleRepoSync(Channel chan, User user) {
+        unscheduleTask(createRepoChannelBunchName(chan, user), user);
+    }
+
+    private void unscheduleTask(String name, User user) {
+        invoke("tasko.unscheduleBunch", user.getOrg().getId(), name);
+    }
+
+
+
+    private Map findScheduleByName(String name, User user) {
+        List<Map> bunches = (List<Map>) invoke("tasko.listActiveSchedules",
+                user.getOrg().getId());
+        for (Map bunch : bunches) {
+            if (bunch.get("job_label").equals(name)) {
+                return bunch;
+            }
+         }
+        return null;
     }
 
     /**
@@ -103,27 +141,12 @@ public class TaskomaticApi {
      */
     public String getChannelRepoSchedule(Channel chan, User user) {
         String bunchName = createRepoChannelBunchName(chan, user);
-        List<Map> bunches = (List<Map>) invoke("tasko.listBunches", user.getOrg().getId());
-        boolean found = false;
-        for (Map bunch : bunches) {
-           if (bunch.get("name").equals(bunchName)) {
-               found = true;
-           }
-        }
-
-        if (!found) {
-            return null;
-        }
-
-        List<Map> obj = (List<Map> ) invoke("tasko.listActiveSchedulesByBunch",
-                user.getOrg().getId(), bunchName);
-
-
-        if (obj.isEmpty()) {
+        Map task = findScheduleByName(bunchName, user);
+        if (task == null) {
             return null;
         }
         else {
-            return (String) obj.get(0).get("cron_expr");
+            return (String) task.get("cron_expr");
         }
     }
 
