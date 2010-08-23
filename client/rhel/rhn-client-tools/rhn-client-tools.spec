@@ -58,7 +58,7 @@ system to receive software updates from Red Hat Network or Spacewalk.
 Summary: Check for RHN actions
 Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
-Requires: yum-rhn-plugin >= 0.5.3-30
+Requires: yum-rhn-plugin >= 1.1.2-1
 
 %description -n rhn-check
 rhn-check polls a Red Hat Network or Spacewalk server to find and execute 
