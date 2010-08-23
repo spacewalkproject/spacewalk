@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.2.1
+Version: 1.2.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Aug 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.2-1
+- 625778 - require newer yum-rhn-plugin
+
 * Thu Aug 12 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.2.1-1
 - update .po and .pot files for yum-rhn-plugin (msuchy@redhat.com)
 
