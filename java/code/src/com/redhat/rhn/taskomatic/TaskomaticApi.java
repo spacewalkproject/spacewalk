@@ -74,7 +74,7 @@ public class TaskomaticApi {
                 "repo-sync-bunch", scheduleParams);
     }
 
-    private String createRepoChannelBunchName(Channel chan, User user) {
+    private String createRepoSyncScheduleName(Channel chan, User user) {
         return "repo-sync-" + user.getOrg().getId() + "-" + chan.getId();
     }
 
@@ -88,16 +88,16 @@ public class TaskomaticApi {
      */
     public Date scheduleRepoSync(Channel chan, User user, String cron)
                                         throws TaskomaticApiException {
-        String taskName = createRepoChannelBunchName(chan, user);
+        String jobLabel = createRepoSyncScheduleName(chan, user);
 
-        Map task = findScheduleByName(taskName, user);
+        Map task = findScheduleByBunchAndLabel("repo-sync-bunch", jobLabel, user);
         if (task != null) {
-            unscheduleRepoSync(chan, user);
+            unscheduleTask(jobLabel, user);
         }
         Map scheduleParams = new HashMap();
         scheduleParams.put("channel_id", chan.getId().toString());
         return (Date) invoke("tasko.scheduleBunch", user.getOrg().getId(),
-                "repo-sync-bunch", taskName , cron,
+                "repo-sync-bunch", jobLabel , cron,
                 scheduleParams);
     }
 
@@ -108,21 +108,21 @@ public class TaskomaticApi {
      * @param user the user
      */
     public void unscheduleRepoSync(Channel chan, User user) {
-        unscheduleTask(createRepoChannelBunchName(chan, user), user);
+        unscheduleTask(createRepoSyncScheduleName(chan, user), user);
     }
 
-    private void unscheduleTask(String name, User user) {
-        invoke("tasko.unscheduleBunch", user.getOrg().getId(), name);
+    private void unscheduleTask(String jobLabel, User user) {
+        invoke("tasko.unscheduleBunch", user.getOrg().getId(), jobLabel);
     }
 
 
 
-    private Map findScheduleByName(String name, User user) {
-        List<Map> bunches = (List<Map>) invoke("tasko.listActiveSchedules",
-                user.getOrg().getId());
-        for (Map bunch : bunches) {
-            if (bunch.get("job_label").equals(name)) {
-                return bunch;
+    private Map findScheduleByBunchAndLabel(String bunchName, String jobLabel, User user) {
+        List<Map> schedules = (List<Map>) invoke("tasko.listActiveSchedulesByBunch",
+                user.getOrg().getId(), bunchName);
+        for (Map schedule : schedules) {
+            if (schedule.get("job_label").equals(jobLabel)) {
+                return schedule;
             }
          }
         return null;
@@ -134,9 +134,9 @@ public class TaskomaticApi {
      * @param user the user
      * @return the Cron format
      */
-    public String getChannelRepoSchedule(Channel chan, User user) {
-        String bunchName = createRepoChannelBunchName(chan, user);
-        Map task = findScheduleByName(bunchName, user);
+    public String getRepoSyncSchedule(Channel chan, User user) {
+        String jobLabel = createRepoSyncScheduleName(chan, user);
+        Map task = findScheduleByBunchAndLabel("repo-sync-bunch", jobLabel, user);
         if (task == null) {
             return null;
         }

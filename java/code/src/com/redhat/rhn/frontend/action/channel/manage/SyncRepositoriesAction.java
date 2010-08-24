@@ -65,7 +65,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
         request.setAttribute("channel_name", chan.getName());
 
         TaskomaticApi taskomatic = new TaskomaticApi();
-        String oldCronExpr = taskomatic.getChannelRepoSchedule(chan, user);
+        String oldCronExpr = taskomatic.getRepoSyncSchedule(chan, user);
 
         Map params = new HashMap();
         params.put(RequestContext.CID, chan.getId().toString());
