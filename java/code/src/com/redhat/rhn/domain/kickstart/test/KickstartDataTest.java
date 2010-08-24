@@ -487,15 +487,6 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
 
         createCobblerObjects(k);
-
-        KickstartCommandName raidName = lookupByLabel("raids");
-        assertNotNull(raidName);
-        KickstartCommandName partitionName = lookupByLabel("partitions");
-        assertNotNull(partitionName);
-        KickstartCommandName logvolName = lookupByLabel("logvols");
-        assertNotNull(logvolName);
-        KickstartCommandName volgroupsName = lookupByLabel("volgroups");
-        assertNotNull(volgroupsName);
         KickstartCommandName optionName = lookupByLabel("url");
         assertNotNull(optionName);
         KickstartCommandName rootName = lookupByLabel("rootpw");
@@ -506,49 +497,16 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
         Date created = new Date();
         Date modified = new Date();
+        String partSwap1 = "part swap --size=1000 --grow --maxsize=2000";
+        String partSwap2 = "part swap --size=1500 --grow --maxsize=2000";
+        String raidSwap1 = "raid swap --fstype swap --level 0 --device 1 raid.05 raid.06 raid.07 raid.08";
+        String logVol = "logvol swap --fstype swap --name=lvswap --vgname=Volume00 --size=2048";
+        String volGroup = "volgroup myvg pv.01";
+        k.setPartitionData(partSwap1 + "\n" +
+                                partSwap2 + "\n" +
+                                raidSwap1 + "\n" +
+                                logVol + "\n" + volGroup);
 
-        KickstartCommand partition = new KickstartCommand();
-        partition.setCommandName(partitionName);
-        partition.setArguments("swap --size=1000 --grow --maxsize=2000");
-        partition.setKickstartData(k);
-        partition.setCreated(created);
-        partition.setModified(modified);
-        k.addPartition(partition);
-
-        //easier to test multiple swap loads here
-        KickstartCommand partition2 = new KickstartCommand();
-        partition2.setCommandName(partitionName);
-        partition2.setArguments("swap --size=1500 --grow --maxsize=2000");
-        partition2.setKickstartData(k);
-        partition2.setCreated(created);
-        partition2.setModified(modified);
-        k.addPartition(partition2);
-
-        KickstartCommand raid = new KickstartCommand();
-        raid.setCommandName(raidName);
-        raid.setArguments
-        ("swap --fstype swap --level 0 --device 1 raid.05 raid.06 raid.07 raid.08");
-        raid.setKickstartData(k);
-        raid.setCreated(created);
-        raid.setModified(modified);
-        k.addRaid(raid);
-
-        KickstartCommand logvol = new KickstartCommand();
-        logvol.setCommandName(logvolName);
-        logvol.setArguments
-        ("swap --fstype swap --name=lvswap --vgname=Volume00 --size=2048");
-        logvol.setKickstartData(k);
-        logvol.setCreated(created);
-        logvol.setModified(modified);
-        k.addLogVol(logvol);
-
-        KickstartCommand volgroups = new KickstartCommand();
-        volgroups.setCommandName(volgroupsName);
-        volgroups.setArguments("volgroup myvg pv.01");
-        volgroups.setKickstartData(k);
-        volgroups.setCreated(created);
-        volgroups.setModified(modified);
-        k.addVolGroup(volgroups);
 
         KickstartCommand option = new KickstartCommand();
         option.setCommandName(optionName);
@@ -645,11 +603,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
         KickstartData k2 = lookupById(user.getOrg(), ksid);
         assertNotNull(k2);
-
-        assertEquals(2, k2.getPartitions().size());
-        assertEquals(1, k2.getRaids().size());
-        assertEquals(1, k2.getVolgroups().size());
-        assertEquals(1, k2.getLogvols().size());
+        assertEquals(5, k2.getPartitionData().split("\\n").length);
         assertEquals(2, k2.getOptions().size()); // url and command from k creation
     }
 
@@ -679,6 +633,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
         // Test the basic fields
         assertEquals(k.getComments(), cloned.getComments());
+        assertEquals(k.getPartitionData(), cloned.getPartitionData());
         assertEquals(k.getBootloaderType(), cloned.getBootloaderType());
         assertEquals(k.getInstallType(), cloned.getInstallType());
         assertEquals(k.getKernelParams(), cloned.getKernelParams());
@@ -692,18 +647,14 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         verifySet(cloned.getCommands(),  k.getCommands(), KickstartCommand.class);
         verifySet(cloned.getCryptoKeys(), k.getCryptoKeys(), CryptoKey.class);
         verifySet(cloned.getDefaultRegTokens(), k.getDefaultRegTokens(), Token.class);
-
-        verifySet(cloned.getLogvols(), k.getLogvols(), KickstartCommand.class);
         verifySet(cloned.getKsPackages(), k.getKsPackages(), KickstartPackage.class);
         verifySet(cloned.getPreserveFileLists(), k.getPreserveFileLists(), FileList.class);
-        verifySet(cloned.getRaids(), k.getRaids(), KickstartCommand.class);
-        verifySet(cloned.getVolgroups(), k.getVolgroups(), KickstartCommand.class);
         verifySet(cloned.getScripts(), k.getScripts(), KickstartScript.class);
         // We don't clone IP ranges.
         // verifySet(cloned.getIps(), k.getIps(), KickstartIpRange.class);
 
-        KickstartScript ksscloned = (KickstartScript) cloned.getScripts().iterator().next();
-        KickstartScript kss = (KickstartScript) k.getScripts().iterator().next();
+        KickstartScript ksscloned = cloned.getScripts().iterator().next();
+        KickstartScript kss = k.getScripts().iterator().next();
         assertEquals(ksscloned.getDataContents(), kss.getDataContents());
 
     }

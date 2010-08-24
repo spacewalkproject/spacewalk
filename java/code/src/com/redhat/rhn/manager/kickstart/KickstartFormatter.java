@@ -68,20 +68,6 @@ public class KickstartFormatter {
     private static final String RAW_END = "#end raw";
     private static final String NEWLINE = "\n";
     private static final String SPACE = " ";
-    private static final String WHITESPACE = "\\s";
-    private static final String SWAP = "swap";
-    private static final String PART = "part";
-    private static final String PARTITIONS = "partitions";
-    private static final String CUSTOM_PARTITION = "custom_partition";
-    private static final String RAID = "raid";
-    private static final String RAIDS = "raids";
-    private static final String VOLGROUP = "volgroup";
-    private static final String VOLGROUPS = "volgroups";
-    private static final String LOGVOLS = "logvols";
-    private static final String LOGVOL = "logvol";
-    private static final String INCLUDE = "include";
-    private static final String PARTREGEX = "partitions|raids|volgroups|logvols|include|" +
-                                            "custom_partition";
     private static final String DEPS = "--resolvedeps";
     private static final String PACKAGES = "%packages";
     private static final String INTERPRETER_OPT = "--interpreter";
@@ -304,10 +290,7 @@ public class KickstartFormatter {
             String cname = command.getCommandName().getName();
             log.debug("getCommands name: " + cname);
 
-            if (cname.matches(PARTREGEX)) {
-                commands.append(handlePart(cname, command.getArguments()));
-            }
-            else if (cname.matches("rootpw")) {
+            if (cname.matches("rootpw")) {
                 commands.append(cname + SPACE + ISCRYPTED +
                         command.getArguments() + NEWLINE);
             }
@@ -347,7 +330,7 @@ public class KickstartFormatter {
                       child.getLabel(), helper.getKickstartChildRepoUrl(child) + NEWLINE));
             }
         }
-
+        commands.append(ksdata.getPartitionData() + NEWLINE);
         return commands.toString();
     }
 
@@ -411,45 +394,6 @@ public class KickstartFormatter {
         }
         log.debug("returning url: " + argVal);
         return argVal;
-    }
-
-    /**
-     *
-     * @param cnameIn kickstart command coming in
-     * @param argIn kickstart command args coming in
-     * @return string representing the partition info for ks file
-     */
-    private String handlePart(String cnameIn, String argIn) {
-        String token = new String(argIn);
-        String[] tokens = token.split(WHITESPACE);
-        String retval = "";
-        if (tokens.length == 0) {
-            return retval;
-        }
-
-        if (tokens[0].startsWith(SWAP)) {
-            tokens[0] = SWAP;
-        }
-
-        if (cnameIn.equals(PARTITIONS)) {
-            retval = PART + SPACE + StringUtils.join(tokens, SPACE) + NEWLINE;
-        }
-        else if (cnameIn.equals(RAIDS)) {
-            retval = RAID + SPACE + StringUtils.join(tokens, SPACE) + NEWLINE;
-        }
-        else if (cnameIn.equals(VOLGROUPS)) {
-            retval = VOLGROUP + SPACE + StringUtils.join(tokens, SPACE) + NEWLINE;
-        }
-        else if (cnameIn.equals(LOGVOLS)) {
-            retval = LOGVOL + SPACE + StringUtils.join(tokens, SPACE) + NEWLINE;
-        }
-        else if (cnameIn.equals(INCLUDE)) {
-            retval = "%" + INCLUDE + SPACE + StringUtils.join(tokens, SPACE) + NEWLINE;
-        }
-        else if (cnameIn.equals(CUSTOM_PARTITION)) {
-            retval = StringUtils.join(tokens, SPACE) + NEWLINE;
-        }
-        return retval;
     }
 
     /**

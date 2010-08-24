@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.domain.kickstart.builder;
 
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -66,14 +68,17 @@ public class KickstartBuilder {
     // in our database. This map will be used to convert to the supported version.
     private static Map<String, String> optionAliases;
     private static Set<String> installationTypes;
+    private static Set<String> partitionCommands = new HashSet<String>();
     static {
         optionAliases = new HashMap<String, String>();
         optionAliases.put("authconfig", "auth");
-        optionAliases.put("logvol", "logvols");
-        optionAliases.put("partition", "partitions");
-        optionAliases.put("part", "partitions");
-        optionAliases.put("raid", "raids");
-        optionAliases.put("volgroup", "volgroups");
+
+        partitionCommands.add("logvol");
+        partitionCommands.add("partition");
+        partitionCommands.add("part");
+        partitionCommands.add("raid");
+        partitionCommands.add("volgroup");
+        partitionCommands.add("%include");
 
         installationTypes = new HashSet<String>();
         installationTypes.add("nfs");
@@ -104,7 +109,7 @@ public class KickstartBuilder {
      */
     public void buildCommands(KickstartData ksData, List<String> lines,
             KickstartableTree tree, String kickstartHost) {
-
+        StringBuilder partitionBuf = new StringBuilder();
         // Grab a list of all the available command names:
         List<KickstartCommandName> availableOptions = KickstartFactory
                 .lookupAllKickstartCommandNames(ksData);
@@ -129,9 +134,13 @@ public class KickstartBuilder {
                 restOfLine = currentLine.substring(firstSpaceIndex).trim();
                 firstWord = currentLine.substring(0, firstSpaceIndex).trim();
             }
+            if (partitionCommands.contains(firstWord)) {
+                partitionBuf.append(currentLine).append("\n");
+                continue;
+            }
 
             if (optionAliases.containsKey(firstWord)) {
-                firstWord = (String)optionAliases.get(firstWord);
+                firstWord = optionAliases.get(firstWord);
             }
 
             // Some possible values do not seem to be valid command names, (authconfig has
@@ -153,7 +162,7 @@ public class KickstartBuilder {
             }
 
             KickstartCommand kc = new KickstartCommand();
-            KickstartCommandName cn = (KickstartCommandName) commandNames
+            KickstartCommandName cn = commandNames
                     .get(firstWord);
             kc.setCommandName(cn);
             kc.setKickstartData(ksData);
@@ -188,7 +197,7 @@ public class KickstartBuilder {
             commandOptions.add(kc);
 
         }
-
+        ksData.setPartitionData(partitionBuf.toString());
         ksData.getCommands().addAll(commandOptions);
         KickstartFactory.saveKickstartData(ksData);
     }
@@ -205,7 +214,7 @@ public class KickstartBuilder {
         }
 
         // Make sure the first line starts with %packages for sanity:
-        if (!((String)lines.get(0)).startsWith("%packages")) {
+        if (!(lines.get(0)).startsWith("%packages")) {
             throw new KickstartParsingException("Packages section didn't start with " +
                 "%packages tag.");
         }
@@ -213,7 +222,7 @@ public class KickstartBuilder {
         Set<KickstartPackage> ksPackagesSet = new TreeSet<KickstartPackage>();
         Long pos = new Long(0);
         for (Iterator<String> it = lines.iterator(); it.hasNext();) {
-            String currentLine = (String)it.next();
+            String currentLine = it.next();
             if (currentLine.startsWith("#") || currentLine.startsWith("%packages") ||
                     currentLine.equals("")) {
                 continue;
@@ -353,7 +362,6 @@ public class KickstartBuilder {
         if (ksdata.getKsPackages() == null) {
             ksdata.setKsPackages(new TreeSet<KickstartPackage>());
         }
-
         buildCommands(ksdata, parser.getOptionLines(), tree, kickstartHost);
         buildPackages(ksdata, parser.getPackageLines());
         buildPreScripts(ksdata, parser.getPreScriptLines());
@@ -616,7 +624,11 @@ public class KickstartBuilder {
      */
     public static void setPartitionScheme(KickstartWizardHelper cmd, KickstartData ksdata) {
 
-        if (ksdata.getChannel().getChannelArch().getName().equals(IA64)) {
+        String configData = Config.get().getString(ConfigDefaults.KS_PARTITION_DEFAULT);
+        if (!StringUtils.isBlank(configData)) {
+            ksdata.setPartitionData(configData);
+        }
+        else if (ksdata.getChannel().getChannelArch().getName().equals(IA64)) {
             setItaniumParitionScheme(cmd, ksdata);
         }
         else if (ksdata.getChannel().getChannelArch().getName().equals(PPC)) {
@@ -626,39 +638,29 @@ public class KickstartBuilder {
             String virtType = ksdata.getKickstartDefaults().
                 getVirtualizationType().getLabel();
             if (virtType.equals(KickstartVirtualizationType.XEN_PARAVIRT)) {
-                cmd.createCommand("partitions", "pv.00 --size=0 --grow --ondisk=xvda",
-                        ksdata);
-                cmd.createCommand("partitions",
-                        "/boot --fstype ext3 --size=100 --ondisk=xvda",
-                        ksdata);
-                cmd.createCommand("volgroups", "VolGroup00 --pesize=32768 pv.00", ksdata);
-                cmd.createCommand("logvols",
-                        "/ --fstype ext3 --name=LogVol00 --vgname=VolGroup00" +
-                        " --size=1024 --grow",
-                        ksdata);
-                cmd.createCommand("logvols",
-                        "swap --fstype swap --name=LogVol01 --vgname=VolGroup00" +
-                        " --size=272 --grow --maxsize=544",
-                        ksdata);
+                String data = "part /boot --fstype ext3 --size=100 --ondisk=xvda\n" +
+                             "part pv.00 --size=0 --grow --ondisk=xvda \n" +
+                              "volgroup VolGroup00 --pesize=32768 pv.00\n" +
+                              "logvol / --fstype ext3 --name=LogVol00 " +
+                                  "--vgname=VolGroup00 --size=1024 --grow\n" +
+                              "logvol swap --fstype swap --name=LogVol01 " +
+                               "--vgname=VolGroup00 --size=272 --grow --maxsize=544";
+                ksdata.setPartitionData(data);
+
             }
             else if (!ksdata.isLegacyKickstart()) {
-                cmd.createCommand("partitions", "/boot --fstype=ext3 --size=200",
-                        ksdata);
-                cmd.createCommand("partitions", "swap --size=1000   --maxsize=2000",
-                        ksdata);
-                cmd.createCommand("partitions", "pv.01 --size=1000 --grow",
-                        ksdata);
-                cmd.createCommand("volgroups", "myvg pv.01", ksdata);
-                cmd.createCommand("logvols",
-                        "/ --vgname=myvg --name=rootvol --size=1000 --grow", ksdata);
+                String data = "part /boot --fstype=ext3 --size=200 \n" +
+                               "part pv.01 --size=1000 --grow \n" +
+                               "part swap --size=1000   --maxsize=2000 \n" +
+                                "volgroup myvg pv.01 \n" +
+                                "logvol / --vgname=myvg --name=rootvol --size=1000 --grow";
+                ksdata.setPartitionData(data);
             }
             else {
-                cmd.createCommand("partitions", "/boot --fstype=ext3 --size=200",
-                        ksdata);
-                cmd.createCommand("partitions", "swap --size=1000 --grow --maxsize=2000",
-                        ksdata);
-                cmd.createCommand("partitions", "/ --fstype=ext3 --size=700 --grow",
-                        ksdata);
+                String data = "part /boot --fstype=ext3 --size=200 \n" +
+                "part pv.01 --size=1000 --grow \n" +
+                "part swap --size=1000   --maxsize=2000";
+                ksdata.setPartitionData(data);
             }
         }
     }
@@ -666,23 +668,18 @@ public class KickstartBuilder {
     private static void setItaniumParitionScheme(KickstartWizardHelper cmd,
             KickstartData ksdata) {
         if (!ksdata.isLegacyKickstart()) {
-            cmd.createCommand("partitions", "/boot/efi --fstype=vfat --size=100",
-                    ksdata);
-            cmd.createCommand("partitions", "swap --size=1000 --grow --maxsize=2000",
-                    ksdata);
-            cmd.createCommand("partitions", "pv.01 --fstype=ext3 --size=700 --grow",
-                    ksdata);
-            cmd.createCommand("volgroups", "myvg pv.01", ksdata);
-            cmd.createCommand("logvols",
-                    "/ --vgname=myvg --name=rootvol --size=1000 --grow", ksdata);
+            String data = "part /boot/efi --fstype=vfat --size=100 \n" +
+                            "part swap --size=1000 --grow --maxsize=2000\n" +
+                            "part pv.01 --fstype=ext3 --size=700 --grow\n" +
+                            "volgroup myvg pv.01\n" +
+                            "logvol --vgname=myvg --name=rootvol --size=1000 --grow";
+            ksdata.setPartitionData(data);
         }
         else {
-            cmd.createCommand("partitions",  "swap --size=1000 --grow --maxsize=2000",
-                    ksdata);
-            cmd.createCommand("partitions", "/ --fstype=ext3 --size=700 --grow",
-                    ksdata);
-            cmd.createCommand("partitions", "/boot/efi --fstype=vfat --size=100",
-                    ksdata);
+            String data = "part /boot/efi --fstype=vfat --size=100 \n" +
+            "part swap --size=1000 --grow --maxsize=2000\n" +
+            "part pv.01 --fstype=ext3 --size=700 --grow";
+            ksdata.setPartitionData(data);
         }
     }
 
@@ -690,22 +687,20 @@ public class KickstartBuilder {
             KickstartData ksdata) {
         log.debug("Adding PPC specific partition info:");
         if (!ksdata.isLegacyKickstart()) {
-            cmd.createCommand("partitions", "/boot --fstype=ext3 --size=200", ksdata);
-            cmd.createCommand("partitions", "prepboot --fstype \"PPC PReP Boot\" --size=4",
-                    ksdata);
-            cmd.createCommand("partitions", "swap --size=1000   --maxsize=2000", ksdata);
-            cmd.createCommand("partitions", "pv.01 --size=1000 --grow", ksdata);
-            cmd.createCommand("volgroups", "myvg pv.01", ksdata);
-            cmd.createCommand("logvols",
-                    "/ --vgname=myvg --name=rootvol --size=1000 --grow", ksdata);
+            String data = "part /boot --fstype=ext3 --size=200\n" +
+                "part prepboot --fstype \"PPC PReP Boot\" --size=4\n" +
+                "part swap --size=1000   --maxsize=2000 \n" +
+                "part pv.01 --size=1000 --grow \n" +
+                 "volgroup myvg pv.01 \n" +
+                 "logvol / --vgname=myvg --name=rootvol --size=1000 --grow";
+            ksdata.setPartitionData(data);
         }
         else {
-            cmd.createCommand("partitions", "/boot --fstype=ext3 --size=200", ksdata);
-            cmd.createCommand("partitions", "prepboot --fstype \"PPC PReP Boot\" --size=4",
-                    ksdata);
-            cmd.createCommand("partitions", "swap --size=1000 --grow --maxsize=2000",
-                    ksdata);
-            cmd.createCommand("partitions", "/ --fstype=ext3 --size=700 --grow", ksdata);
+            String data = "part /boot --fstype=ext3 --size=200\n" +
+            "part prepboot --fstype \"PPC PReP Boot\" --size=4\n" +
+            "part swap --size=1000   --maxsize=2000 \n" +
+            "part / --fstype=ext3 --size=700 --grow";
+            ksdata.setPartitionData(data);
         }
 
     }

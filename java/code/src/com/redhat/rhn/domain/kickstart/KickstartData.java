@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.FileList;
@@ -73,7 +74,7 @@ public class KickstartData {
     private Boolean nonChrootPost;
     private Boolean verboseUp2date;
     private String cobblerId;
-
+    private byte[] partitionData;
     private Set cryptoKeys;
     private Set childChannels;
     private Set defaultRegTokens;
@@ -613,79 +614,6 @@ public class KickstartData {
     }
 
 
-
-    /**
-     * Getter for commandPartion
-     * @return Returns commandPartions
-     */
-    public Set getPartitions() {
-        return getCommandSubset("partitions");
-    }
-
-    /**
-     * Adds a Partition Command object to partitions.
-     * @param p partition to add
-     */
-    public void addPartition(KickstartCommand p) {
-        this.commands.add(p);
-    }
-
-    /**
-     * Getter for commandIncludes
-     * @return Returns commandIncludes
-     */
-    public Set getIncludes() {
-        return getCommandSubset("include");
-    }
-
-    /**
-     * Getter for commandVolGroups
-     * @return Returns commandVolGroups
-     */
-    public Set getVolgroups() {
-        return getCommandSubset("volgroups");
-    }
-
-    /**
-     * Adds a include KickstartCommand volgroup object to volgroups.
-     * @param v Include to add
-     */
-    public void addVolGroup(KickstartCommand v) {
-        this.commands.add(v);
-    }
-
-    /**
-     * Getter for commandLogVols
-     * @return Returns commandLogVols
-     */
-    public Set getLogvols() {
-        return getCommandSubset("logvols");
-    }
-
-    /**
-     * Adds a logvol KickstartCommand object to logvols.
-     * @param l logvol to add
-     */
-    public void addLogVol(KickstartCommand l) {
-        this.commands.add(l);
-    }
-
-    /**
-     * Getter for command raids
-     * @return Returns Kickstartcommand raids
-     */
-    public Set getRaids() {
-        return getCommandSubset("raids");
-    }
-
-    /**
-     * Adds a raid KickstartCommand object to raids.
-     * @param r raid to add
-     */
-    public void addRaid(KickstartCommand r) {
-        this.commands.add(r);
-    }
-
     /**
      * @return Returns the repos.
      */
@@ -736,35 +664,11 @@ public class KickstartData {
     }
 
     /**
-     * @return Returns the customOptions.
-     */
-    public SortedSet getCustomPartitionOptions() {
-        return new TreeSet(getCommandSubset("custom_partition"));
-    }
-
-
-    /**
      * remove old custom options and replace with new
      * @param customIn to replace old with.
      */
     public void setCustomOptions(Collection<KickstartCommand> customIn) {
         replaceSet(this.getCustomOptions(), customIn);
-    }
-
-    /**
-     * remove old custom partition options and replace with new
-     * @param customIn to replace old with.
-     */
-    public void setCustomPartitionOptions(Collection<KickstartCommand> customIn) {
-        replaceSet(this.getCustomPartitionOptions(), customIn);
-    }
-
-    /**
-     * remove old partitions and replace with new
-     * @param partitionsIn to replace old with.
-     */
-    public void setPartitions(Collection<KickstartCommand> partitionsIn) {
-        replaceSet(this.getPartitions(), partitionsIn);
     }
 
 
@@ -774,38 +678,6 @@ public class KickstartData {
      */
     public void setOptions(Collection<KickstartCommand> optionsIn) {
         replaceSet(this.getOptions(), optionsIn);
-    }
-
-    /**
-     * remove old includes and replace with new
-     * @param includesIn to replace old with.
-     */
-    public void setIncludes(Collection<KickstartCommand> includesIn) {
-        replaceSet(this.getIncludes(), includesIn);
-    }
-
-    /**
-     * remove old raids and replace with new
-     * @param raidsIn to replace old with.
-     */
-    public void setRaids(Collection<KickstartCommand> raidsIn) {
-        replaceSet(this.getRaids(), raidsIn);
-    }
-
-    /**
-     * remove logvols and replace
-     * @param logvolsIn to replace old with.
-     */
-    public void setLogvols(Collection<KickstartCommand> logvolsIn) {
-        replaceSet(this.getLogvols(), logvolsIn);
-    }
-
-    /**
-     * remove old options and replace with new
-     * @param volgroupsIn to replace old with.
-     */
-    public void setVolgroups(Collection<KickstartCommand> volgroupsIn) {
-        replaceSet(this.getVolgroups(), volgroupsIn);
     }
 
     private void replaceSet(Collection<KickstartCommand> oldSet,
@@ -1217,6 +1089,7 @@ public class KickstartData {
 
     protected void updateCloneDetails(KickstartData cloned, User user,
                                     String newLabel) {
+
         cloned.setLabel(newLabel);
         cloned.setActive(this.isActive());
         cloned.setPostLog(this.getPostLog());
@@ -1227,7 +1100,7 @@ public class KickstartData {
         cloned.setVerboseUp2date(this.getVerboseUp2date());
         cloned.setOrg(this.getOrg());
         cloned.setChildChannels(new HashSet(this.getChildChannels()));
-
+        cloned.setPartitionData(getPartitionData());
         if (this.getCommands() != null) {
             Iterator i = this.getCommands().iterator();
             while (i.hasNext()) {
@@ -1612,5 +1485,37 @@ public class KickstartData {
      */
     public boolean isValid() {
         return !StringUtils.isBlank(getCobblerId()) && getTree().isValid();
+    }
+
+
+    /**
+     * @return Returns the partitionData.
+     */
+    protected byte[] getPartitionDataBinary() {
+        return partitionData;
+    }
+
+
+    /**
+     * @param partitionDataIn The partitionData to set.
+     */
+    protected void setPartitionDataBinary(byte[] partitionDataIn) {
+        partitionData = partitionDataIn;
+    }
+
+    /**
+     * Get the partition data as string
+     * @return partition data as string
+     */
+    public String getPartitionData() {
+        return HibernateFactory.getByteArrayContents(getPartitionDataBinary());
+    }
+
+    /**
+     * Set the partition data
+     * @param data the partition info
+     */
+    public void setPartitionData(String data) {
+        setPartitionDataBinary(HibernateFactory.stringToByteArray(data));
     }
 }

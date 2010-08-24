@@ -34,9 +34,11 @@ import com.redhat.rhn.manager.kickstart.KickstartLocaleCommand;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
 
-import java.util.ArrayList;
+import org.apache.commons.lang.StringUtils;
+
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -378,17 +380,12 @@ public class SystemDetailsHandler extends BaseHandler {
     public List<String> getPartitioningScheme(String sessionKey, String ksLabel) {
         User user = getLoggedInUser(sessionKey);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        Long ksid = ksdata.getId();
-        KickstartPartitionCommand command = new KickstartPartitionCommand(ksid,
-                                                                          user);
-        String[] partitions = command.populatePartitions().split("\\r?\\n");
-        ArrayList list = new ArrayList<String>();
-        for (String part : partitions) {
-            if (!part.isEmpty()) {
-                list.add(part);
+        List<String> list = new LinkedList<String>();
+        for (String str : ksdata.getPartitionData().split("\\r?\\n")) {
+            if (!StringUtils.isBlank(str)) {
+                list.add(str);
             }
         }
-
         return list;
     }
 

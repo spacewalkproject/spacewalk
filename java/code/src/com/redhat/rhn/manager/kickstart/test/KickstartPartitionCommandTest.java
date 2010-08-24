@@ -29,7 +29,7 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
 
     public void testKickstartPartitionCommand() throws Exception {
         KickstartData k = KickstartDataTest.createKickstartWithChannel(user.getOrg());
-        assertEquals(0, k.getPartitions().size());
+        assertEquals(null, k.getPartitionData());
         KickstartFactory.saveKickstartData(k);
 
         KickstartPartitionCommand cmd = new KickstartPartitionCommand(k.getId(), user);
@@ -41,11 +41,11 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
             "logvol / --vgname=myvg --name=rootvol --size=1000 --grow\n";
 
         assertNull(cmd.parsePartitions(partitions));
-        String parts = cmd.populatePartitions();
-        assertNotNull(parts);
+
+        assertNotNull(k.getPartitionData());
         assertNotNull(cmd);
         assertNull(cmd.store());
-        assertEquals(3, k.getPartitions().size());
+        assertEquals(partitions.split("\\n"), k.getPartitionData().split("\\n"));
 
     }
 
@@ -64,9 +64,10 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
         assertNull(cmd.parsePartitions(partitions));
         assertNull(cmd.store());
         k = (KickstartData) reload(k);
-        assertTrue(cmd.populatePartitions().
+        assertNotNull(k.getPartitionData());
+        assertTrue(k.getPartitionData().
                 indexOf("partition swap.02 --size=8888 --ondisk=sda") >= 0);
-        assertTrue(k.getPartitions().size() > 0);
+
 
     }
 

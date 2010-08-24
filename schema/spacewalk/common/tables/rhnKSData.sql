@@ -50,6 +50,7 @@ CREATE TABLE rhnKSData
     pre             BLOB,
     post            BLOB,
     nochroot_post   BLOB,
+    partiton_data   BLOB,
     static_device   VARCHAR2(32),
     kernel_params   VARCHAR2(128),
     verboseup2date  CHAR(1)

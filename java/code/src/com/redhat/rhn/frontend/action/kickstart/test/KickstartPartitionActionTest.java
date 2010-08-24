@@ -31,6 +31,7 @@ import org.apache.struts.action.DynaActionForm;
 public class KickstartPartitionActionTest extends RhnMockStrutsTestCase {
     private KickstartData ksdata;
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
 
@@ -50,10 +51,9 @@ public class KickstartPartitionActionTest extends RhnMockStrutsTestCase {
 
     public void testCleanSubmit() throws Exception {
 
-        String data = "partition swap --size=1000 --grow --maxsize=3000\n" +
+        String data = "part swap --size=1000 --grow --maxsize=3000\n" +
         "logvol swap --fstype swap --name=lvswap --vgname=Volume00 --size=2048\n" +
-        "volgroup myvg pv.01\n" +
-        "raid swap --fstype swap --level 0 --device 1 raid.05 raid.06 raid.07 raid.08";
+        "volgroup myvg --fstype swap --level 0 --device 1 raid.05 raid.06 raid.07 raid.08";
         setRequestPathInfo("/kickstart/KickstartPartitionEdit");
         addRequestParameter(KickstartPartitionEditAction.SUBMITTED,
                 Boolean.TRUE.toString());
@@ -61,22 +61,20 @@ public class KickstartPartitionActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         DynaActionForm form = (DynaActionForm) getActionForm();
         String formval = (String)form.get(KickstartPartitionEditAction.PARTITIONS);
-
+        assertNotNull(formval);
         assertTrue(formval.length() > 0);
-        assertTrue(ksdata.getRaids().size() > 0);
-        assertTrue(ksdata.getVolgroups().size() > 0);
-        assertTrue(ksdata.getLogvols().size() > 0);
-        assertTrue(ksdata.getPartitions().size() > 0);
-        assertEquals(0, ksdata.getIncludes().size());
-
+        assertEquals(data, formval);
         String[] keys = {"kickstart.partition.success"};
         verifyActionMessages(keys);
+        assertNotNull(ksdata.getPartitionData());
+        assertEquals(data, ksdata.getPartitionData());
+
     }
 
     public void testDuplicateMountPoint() throws Exception {
 
-        String data = "partition /boot --size=1000 --grow --maxsize=3000\n" +
-        "partition /boot --size=2000 --grow --maxsize=3000\n" +
+        String data = "part /boot --size=1000 --grow --maxsize=3000\n" +
+        "part /boot --size=2000 --grow --maxsize=3000\n" +
         "volgroup myvg pv.01\n" +
         "raid swap --fstype swap --level 0 --device 1 raid.05 raid.06 raid.07 raid.08";
         setRequestPathInfo("/kickstart/KickstartPartitionEdit");
@@ -95,7 +93,7 @@ public class KickstartPartitionActionTest extends RhnMockStrutsTestCase {
 
     public void testMultipleSwapsSubmit() throws Exception {
 
-        String data = "partition swap --size=1000 --grow --maxsize=3000\n" +
+        String data = "part swap --size=1000 --grow --maxsize=3000\n" +
         "partition swap --fstype swap --name=lvswap --vgname=Volume00 --size=2048\n" +
         "raid swap --fstype swap --level 0 --device 1 raid.05 raid.06 raid.07 raid.08";
         setRequestPathInfo("/kickstart/KickstartPartitionEdit");
@@ -107,11 +105,9 @@ public class KickstartPartitionActionTest extends RhnMockStrutsTestCase {
         String formval = (String)form.get(KickstartPartitionEditAction.PARTITIONS);
 
         assertTrue(formval.length() > 0);
-        assertTrue(ksdata.getRaids().size() > 0);
-        assertTrue(ksdata.getPartitions().size() > 0);
-        assertEquals(0, ksdata.getLogvols().size());
-        assertEquals(0, ksdata.getIncludes().size());
-        assertEquals(0, ksdata.getVolgroups().size());
+        assertEquals(data, formval);
+        assertNotNull(ksdata.getPartitionData());
+        assertEquals(data, ksdata.getPartitionData());
 
         String[] keys = {"kickstart.partition.success"};
         verifyActionMessages(keys);

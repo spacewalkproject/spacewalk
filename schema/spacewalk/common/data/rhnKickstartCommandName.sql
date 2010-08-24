@@ -26,9 +26,6 @@ insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, requi
 values (rhn_kscommandname_id_seq.nextval, 'driverdisk', 'Y', 18, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'include', 'Y', 23, 'N');
-
-insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
 values (rhn_kscommandname_id_seq.nextval, 'nfs', 'Y', 10, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
@@ -89,9 +86,6 @@ insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, requi
 values (rhn_kscommandname_id_seq.nextval, 'xconfig', 'Y', 32, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'partitions', 'Y', 21, 'N');
-
-insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
 values (rhn_kscommandname_id_seq.nextval, 'rootpw', 'Y', 29, 'Y');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
@@ -99,15 +93,6 @@ values (rhn_kscommandname_id_seq.nextval, 'firewall', 'Y', 31, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
 values (rhn_kscommandname_id_seq.nextval, 'skipx', 'N', 32, 'N');
-
-insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'volgroups', 'Y', 24, 'N');
-
-insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'logvols', 'Y', 25, 'N');
-
-insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'raids', 'Y', 22, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
 values (rhn_kscommandname_id_seq.nextval, 'cdrom', 'N', 8, 'N');
@@ -177,9 +162,5 @@ values (rhn_kscommandname_id_seq.nextval, 'zfcp', 'Y', 51, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
 values (rhn_kscommandname_id_seq.nextval, 'custom', 'Y', 52, 'N');
-
-insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'custom_partition', 'Y', 53, 'N');
-
 
 commit;

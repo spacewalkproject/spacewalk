@@ -35,6 +35,7 @@ public class KickstartPartitionEditAction extends BaseKickstartEditAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected ValidatorError processFormValues(HttpServletRequest request,
             DynaActionForm form,
             BaseKickstartCommand cmdIn) {
@@ -42,6 +43,7 @@ public class KickstartPartitionEditAction extends BaseKickstartEditAction {
         return cmd.parsePartitions(form.getString(PARTITIONS));
     }
 
+    @Override
     protected String getSuccessKey() {
         return "kickstart.partition.success";
     }
@@ -49,15 +51,16 @@ public class KickstartPartitionEditAction extends BaseKickstartEditAction {
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void setupFormValues(RequestContext ctx,
             DynaActionForm form, BaseKickstartCommand cmdIn) {
-        KickstartPartitionCommand cmd = (KickstartPartitionCommand) cmdIn;
-        form.set(PARTITIONS, cmd.populatePartitions());
+        form.set(PARTITIONS, ctx.lookupAndBindKickstartData().getPartitionData());
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     protected BaseKickstartCommand getCommand(RequestContext ctx) {
         return new KickstartPartitionCommand(
                 ctx.getRequiredParam(RequestContext.KICKSTART_ID),

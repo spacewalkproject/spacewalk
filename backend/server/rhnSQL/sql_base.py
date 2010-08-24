@@ -24,7 +24,7 @@
 #
 
 import string
-
+import sys
 import sql_types
 import types
 

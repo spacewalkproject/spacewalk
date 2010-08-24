@@ -165,6 +165,7 @@ public class ConfigDefaults {
 
     public static final String LOOKUP_EXCEPT_SEND_EMAIL = "lookup_exception_email";
 
+    public static final String KS_PARTITION_DEFAULT = "kickstart.partition.default";
 
     private ConfigDefaults() {
     }
@@ -487,5 +488,4 @@ public class ConfigDefaults {
     public boolean isOracle() {
         return DB_BACKEND_ORACLE.equals(Config.get().getString(DB_BACKEND));
     }
-
 }
