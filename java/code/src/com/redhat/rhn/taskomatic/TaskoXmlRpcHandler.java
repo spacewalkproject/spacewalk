@@ -95,23 +95,6 @@ public class TaskoXmlRpcHandler {
     }
 
     /**
-     * Update a schedule for a task
-     * @param orgId the org id
-     * @param jobLabel the job label
-     * @param cronExp the cron expression
-     * @return Not really sure..
-     */
-    public Date updateSchedule(Integer orgId, String jobLabel, String cronExp) {
-        List<TaskoSchedule> tasks = TaskoFactory.listActiveSchedulesByOrgAndLabel(orgId,
-                jobLabel);
-        for (TaskoSchedule sched : tasks) {
-            sched.setCronExpr(cronExp);
-        }
-        return new Date();
-    }
-
-
-    /**
      * start scheduling a satellite bunch
      * @param bunchName bunch name
      * @param jobLabel job name
