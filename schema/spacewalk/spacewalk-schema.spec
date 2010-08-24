@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.3
+Version:        1.2.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Aug 24 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.2.4-1
+- remove unnecessary comments from resulting schema
+- do not schedule repo-sync-bunch by default, sice it is an org task
+- add on delete constraint to rhnTaskoRun
+
 * Thu Aug 19 2010 Tomas Lestach <tlestach@redhat.com> 1.2.3-1
 - move RepoSyncTask from satellite to organization level (tlestach@redhat.com)
 - update description for bunches with arguments (tlestach@redhat.com)
