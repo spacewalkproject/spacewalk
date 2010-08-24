@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.4
+Version:        1.2.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Aug 24 2010 Partha Aji <paji@redhat.com> 1.2.5-1
+- Added a number next to the upgrade script to indicate the execution pt..
+  (paji@redhat.com)
+- 593896 - Moved Kickstart Parition UI logic (paji@redhat.com)
+
 * Tue Aug 24 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.2.4-1
 - remove unnecessary comments from resulting schema
 - do not schedule repo-sync-bunch by default, sice it is an org task
