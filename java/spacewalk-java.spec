@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.13
+Version: 1.2.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -335,6 +335,32 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 24 2010 Partha Aji <paji@redhat.com> 1.2.14-1
+- 593896 - Moved Kickstart Parition UI logic (paji@redhat.com)
+- remove updateSchedule method (tlestach@redhat.com)
+- rename mathod names to match taskomatic terms (tlestach@redhat.com)
+- reschedule = unschedule + schedule (tlestach@redhat.com)
+- fix just log formatting (tlestach@redhat.com)
+- do not email when tasko job get skipped (tlestach@redhat.com)
+- adding the rest of the recurring event picker to the reposync stuff
+  (jsherril@redhat.com)
+- more work on reposync/taskomatic UI (jsherril@redhat.com)
+- fixing path for chrooted post script log file (jsherril@redhat.com)
+- introduce interface to get active schedules by bunch name
+  (tlestach@redhat.com)
+- change log info for skipped queue tasks (tlestach@redhat.com)
+- change path for taskomatic logs (tlestach@redhat.com)
+- enable repo sync schedule from web ui (tlestach@redhat.com)
+- rewrite RepoSyncTask (tlestach@redhat.com)
+- adding missing import (tlestach@redhat.com)
+- checking in some missing files (jsherril@redhat.com)
+- making the sync repos page do different things depending on the button
+  (jsherril@redhat.com)
+- Fixed a compile error (paji@redhat.com)
+- Removed a bunch of duplicate dynaforms to use no_scrub and no_paren_scrub
+  (paji@redhat.com)
+- adding early draft of recurring event picker (jsherril@redhat.com)
+
 * Thu Aug 19 2010 Tomas Lestach <tlestach@redhat.com> 1.2.13-1
 - Fix typo (joshua.roys@gtri.gatech.edu)
 - 601656 - fix user permission check for errata.create call
