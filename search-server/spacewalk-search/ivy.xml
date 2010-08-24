@@ -10,7 +10,7 @@
         <dependency org="redhat" name="redstone-xmlrpc-client" rev="1.1_20071120" />
         <dependency org="redhat" name="ibatis" rev="2.3.0.677" />
         <dependency org="redhat" name="ojdbc14" rev="1.10" />
-        <dependency org="redhat" name="quartz" rev="1.5.1" />
+        <dependency org="redhat" name="quartz" rev="1.8.1" />
         <dependency org="redhat" name="picocontainer" rev="1.3" />
         <dependency org="redhat" name="tanukiwrapper" rev="3.1.2" />
         <dependency org="redhat" name="log4j" rev="1.2.8" />
