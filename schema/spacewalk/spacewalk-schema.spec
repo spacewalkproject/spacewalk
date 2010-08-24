@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.5
+Version:        1.2.6
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Aug 24 2010 Partha Aji <paji@redhat.com> 1.2.6-1
+- removing stray semicolon (jsherril@redhat.com)
+
 * Tue Aug 24 2010 Partha Aji <paji@redhat.com> 1.2.5-1
 - Added a number next to the upgrade script to indicate the execution pt..
   (paji@redhat.com)
