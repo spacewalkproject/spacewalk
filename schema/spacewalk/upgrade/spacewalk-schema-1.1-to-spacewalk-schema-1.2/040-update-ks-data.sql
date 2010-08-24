@@ -13,4 +13,4 @@
 -- in this software or its documentation.
 --
 
-alter table rhnKsData add partition_data blob;;
+alter table rhnKsData add partition_data blob;
