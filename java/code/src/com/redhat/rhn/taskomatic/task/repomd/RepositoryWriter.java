@@ -232,9 +232,9 @@ public class RepositoryWriter {
                 groupsData.setType(checksumLabel);
             }
 
-            log.info("Primary xml's type" + primaryData.getType());
-            log.info("filelists xml's type" + filelistsData.getType());
-            log.info("other xml's type" + otherData.getType());
+            log.info("Primary xml's type: " + primaryData.getType());
+            log.info("filelists xml's type: " + filelistsData.getType());
+            log.info("other xml's type: " + otherData.getType());
 
             FileWriter indexFile;
 
