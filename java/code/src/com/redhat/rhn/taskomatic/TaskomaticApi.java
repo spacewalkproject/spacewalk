@@ -91,19 +91,14 @@ public class TaskomaticApi {
         String taskName = createRepoChannelBunchName(chan, user);
 
         Map task = findScheduleByName(taskName, user);
-        if (task == null) {
-            Map scheduleParams = new HashMap();
-            scheduleParams.put("channel_id", chan.getId().toString());
-            return (Date) invoke("tasko.scheduleBunch", user.getOrg().getId(),
-                    "repo-sync-bunch", taskName , cron,
-                    scheduleParams);
+        if (task != null) {
+            unscheduleRepoSync(chan, user);
         }
-        else {
-            invoke("tasko.updateSchedule", user.getOrg().getId(), taskName, cron);
-            return null;
-        }
-
-
+        Map scheduleParams = new HashMap();
+        scheduleParams.put("channel_id", chan.getId().toString());
+        return (Date) invoke("tasko.scheduleBunch", user.getOrg().getId(),
+                "repo-sync-bunch", taskName , cron,
+                scheduleParams);
     }
 
 
