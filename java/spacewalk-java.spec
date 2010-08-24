@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.14
+Version: 1.2.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -335,6 +335,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 24 2010 Partha Aji <paji@redhat.com> 1.2.15-1
+- checkstyle error fix (jsherril@redhat.com)
+- Making repo sync screen display an error if taskomatic isnt up, and disable
+  the buttons (jsherril@redhat.com)
+- removing serializer entry for removed serializer (jsherril@redhat.com)
+
 * Tue Aug 24 2010 Partha Aji <paji@redhat.com> 1.2.14-1
 - 593896 - Moved Kickstart Parition UI logic (paji@redhat.com)
 - remove updateSchedule method (tlestach@redhat.com)
