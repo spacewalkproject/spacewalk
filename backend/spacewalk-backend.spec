@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.7
+Version: 1.2.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Aug 24 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.8-1
+- fixed update_errata_cache_by_channel job for channels in NULL org
+
 * Thu Aug 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.7-1
 - 623699 - systemid is not mandatory for ISS
 - 624732 - use original config file names
