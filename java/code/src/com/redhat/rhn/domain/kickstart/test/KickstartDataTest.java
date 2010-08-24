@@ -499,8 +499,10 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         Date modified = new Date();
         String partSwap1 = "part swap --size=1000 --grow --maxsize=2000";
         String partSwap2 = "part swap --size=1500 --grow --maxsize=2000";
-        String raidSwap1 = "raid swap --fstype swap --level 0 --device 1 raid.05 raid.06 raid.07 raid.08";
-        String logVol = "logvol swap --fstype swap --name=lvswap --vgname=Volume00 --size=2048";
+        String raidSwap1 = "raid swap --fstype swap --level 0 --device 1 raid.05 " +
+            "raid.06 raid.07 raid.08";
+        String logVol = "logvol swap --fstype swap --name=lvswap --vgname=Volume00 " +
+            "--size=2048";
         String volGroup = "volgroup myvg pv.01";
         k.setPartitionData(partSwap1 + "\n" +
                                 partSwap2 + "\n" +
