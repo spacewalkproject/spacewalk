@@ -63,15 +63,34 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
         long cid = context.getRequiredParam("cid");
         Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
         request.setAttribute("channel_name", chan.getName());
+        request.setAttribute("cid",  chan.getId());
 
-        TaskomaticApi taskomatic = new TaskomaticApi();
-        String oldCronExpr = taskomatic.getRepoSyncSchedule(chan, user);
 
         Map params = new HashMap();
         params.put(RequestContext.CID, chan.getId().toString());
 
         ListHelper helper = new ListHelper(this, request, params);
         helper.execute();
+
+
+        TaskomaticApi taskomatic = new TaskomaticApi();
+        String oldCronExpr;
+        try {
+            oldCronExpr = taskomatic.getRepoSyncSchedule(chan, user);
+        }
+        catch (TaskomaticApiException except) {
+            params.put("inactive", true);
+            request.setAttribute("inactive", true);
+            createErrorMessage(request,
+                    "repos.jsp.message.taskomaticdown", null);
+            return mapping.findForward("default");
+
+        }
+
+
+
+
+
         RecurringEventPicker picker = RecurringEventPicker.prepopulatePicker(
                 request, "date", oldCronExpr);
 

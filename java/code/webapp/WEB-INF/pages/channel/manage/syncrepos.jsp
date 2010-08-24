@@ -43,7 +43,7 @@
 	<div align="right">
 	  <hr />
 		<input type="submit" name="dispatch"
-				value="<bean:message key="repos.jsp.button-sync"/>" />
+				value="<bean:message key="repos.jsp.button-sync"/>"    <c:if test="${inactive}">disabled="disabled"</c:if>/>
 	</div>
 		<rhn:submitted/>
 
@@ -54,7 +54,7 @@
       </jsp:include>
 
 	<div align="right">
-				<input type="submit" name="dispatch"
+				<input type="submit" name="dispatch" <c:if test="${inactive}">disabled="disabled"</c:if>
 						value="<bean:message key="schedule.button"/>" />
 	</div>
 

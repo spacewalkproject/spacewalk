@@ -9480,6 +9480,9 @@ Please note that some manual configuration of these scripts may still be require
         <trans-unit id="repos.jsp.message.schedulefailed">
           <source>Schedule of Repo Sync failed. Check logs for more information.</source>
         </trans-unit>
+       <trans-unit id="repos.jsp.message.taskomaticdown">
+          <source>The scheduling service appears down.  Please contact your Satellite administrator.</source>
+        </trans-unit>        
         <trans-unit id="toolbar.create.repos">
           <source>create new repository</source>
           <context-group name="ctx">
