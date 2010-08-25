@@ -524,7 +524,7 @@
         </form-bean>
 
         <form-bean name="certificateConfigForm"
-          type="com.redhat.rhn.frontend.action.satellite.CertificateConfigForm">
+        		type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="cert_file"  type="org.apache.struts.upload.FormFile"/>
             <form-property name="cert_text"  type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
