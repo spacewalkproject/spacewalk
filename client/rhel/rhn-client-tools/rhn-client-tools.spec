@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.2.2
+Version: 1.2.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -281,6 +281,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Aug 25 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.3-1
+- 626822 - don't submit action result in cache only mode
+
 * Tue Aug 24 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.2-1
 - 625778 - require newer yum-rhn-plugin
 - 554693 - networkRetries should be positive number
