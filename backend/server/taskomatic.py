@@ -4,7 +4,6 @@ Module for taskomatic related functions (inserting into queues, etc)
 """
 
 from server import rhnSQL
-from common import CFG
 
 class RepodataQueueEntry(object):
 
@@ -49,20 +48,10 @@ def add_to_repodata_queue(channel, client, reason, force=False,
     queue = RepodataQueue()
     queue.add(entry)
 
-def add_to_repodata_queue_ids(affected_channel_ids, batch, caller):
-    labels = []
-    h = rhnSQL.prepare("""
-          select label from rhnChannel where id = :cid""")
-    for cid in affected_channel_ids:
-        h.execute(cid=cid)
-        row = h.fetchone_dict()
-        labels.append(row['label'])
-    add_to_repodata_queue_for_channel_package_subscription(labels, batch, caller)
-
-
 # XXX not the best place for this...
 def add_to_repodata_queue_for_channel_package_subscription(affected_channels,
         batch, caller):
+
         tmpreason = []
         for package in batch:
             tmpreason.append(package.short_str())
