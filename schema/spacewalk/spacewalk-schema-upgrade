@@ -55,7 +55,7 @@ if ($schema_versions->[0][0] ne 'rhn-satellite-schema'
 my $start_schema = join '-', @{ $schema_versions->[0] };
 (my $start_schema_norm = $start_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)*$!$1!;
 
-my $my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/schema-override 2> /dev/null`;
+my $my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/oracle/schema-override 2> /dev/null`;
 if ($?) { # the directory does not exists or is not owned by any rpm
 	$my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/oracle/main.sql`;
 }
