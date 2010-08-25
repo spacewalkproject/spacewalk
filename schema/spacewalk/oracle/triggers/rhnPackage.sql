@@ -40,6 +40,11 @@ begin
               where id in (select channel_id
                               from rhnChannelPackage
                               where package_id = :new.id);
+            insert into rhnRepoRegenQueue (id, CHANNEL_LABEL, REASON)
+                   (select rhn_repo_regen_queue_id_seq.nextval, C.label, 'checksum modification'
+                    from rhnChannel C inner join
+                         rhnChannelPackage CP on CP.channel_id = C.id
+                    where CP.package_id = :new.id);
         end if;
 
 end;
