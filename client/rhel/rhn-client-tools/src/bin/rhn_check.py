@@ -232,9 +232,11 @@ class CheckCli(rhncli.RhnCli):
             
         (method, params) = self.__parse_action_data(action)
         (status, message, data) = CheckCli.__run_action(method, params, {'cache_only': cache_only})
-
-        log.log_debug("Sending back response", (status, message, data))
-        return self.submit_response(action['id'], status, message, data)
+        ret = 0
+        if not cache_only:
+            log.log_debug("Sending back response", (status, message, data))
+            ret = self.submit_response(action['id'], status, message, data)
+        return ret
 
 
     def is_valid_action(self, action):
