@@ -45,6 +45,7 @@ begin
                     from rhnChannel C inner join
                          rhnChannelPackage CP on CP.channel_id = C.id
                     where CP.package_id = :new.id);
+            delete from rhnPackageRepodata where package_id = :new.id;
         end if;
 
 end;
