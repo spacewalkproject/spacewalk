@@ -308,7 +308,7 @@ public class KickstartData {
     /**
      * @return the cryptoKeys
      */
-    public Set getCryptoKeys() {
+    public Set<CryptoKey> getCryptoKeys() {
         return cryptoKeys;
     }
 

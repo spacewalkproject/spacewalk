@@ -35,8 +35,6 @@ import com.redhat.rhn.testing.TestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.DynaActionForm;
 
-import java.util.Iterator;
-
 public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
 
     private String label;
@@ -295,14 +293,7 @@ public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
 
         boolean correctswap = false;
         boolean correctrepos = false;
-        Iterator i = ksdata.getCommands().iterator();
-        while (i.hasNext()) {
-            KickstartCommand cmd = (KickstartCommand) i.next();
-            if (cmd.getCommandName().getName().equals("partitions")) {
-                if (cmd.getArguments().startsWith("swap")) {
-                    correctswap = true;
-                }
-            }
+        for (KickstartCommand cmd : ksdata.getCommands()) {
             if (cmd.getCommandName().getName().equals("repo")) {
                 RepoInfo repo = RepoInfo.parse(cmd);
                 assertNotNull(repo);
@@ -312,7 +303,7 @@ public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
 
             }
         }
-        assertTrue(correctswap);
+
         assertTrue(correctrepos);
 
 
@@ -327,13 +318,10 @@ public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
                                                 .equals("America/New_York"));
         assertTrue(ksdata.getCommand("auth").getArguments()
                                             .equals("--enablemd5 --enableshadow"));
-
         // Test the keys associated with the profile.
         assertNotNull(ksdata.getCryptoKeys());
         assertTrue(ksdata.getCryptoKeys().size() > 0);
-        i = ksdata.getCryptoKeys().iterator();
-        while (i.hasNext()) {
-            CryptoKey key = (CryptoKey) i.next();
+        for (CryptoKey key : ksdata.getCryptoKeys()) {
             assertFalse(key.getCryptoKeyType().
                     equals(KickstartFactory.KEY_TYPE_GPG));
         }
