@@ -12,7 +12,6 @@
   </h2>
   <html:form method="post" action="/systems/details/SystemChannels.do?sid=${system.id}">
     <html:hidden property="submitted" value="true"/>
-    <table class="details">
       <div class="page-summary">
         <p>
           <bean:message key="sdc.channels.edit.summary"/>
@@ -144,7 +143,6 @@
           </span>
         </div>
       </rhn:require>
-    </table>
   </html:form>
 </body>
 </html:html>
