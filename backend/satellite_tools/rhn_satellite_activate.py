@@ -215,7 +215,10 @@ def activateSatellite_local(options):
     except satCerts.CertVersionMismatchError, e:
         raise RHNCertLocalActivationException(
             'RHN Entitlement Certificate cannot be imported - ' + str(e) \
-            + '\nPlease rerun with --ignore-version-mismatch if you want to override this test.')
+            + '\nIf you are trying to upgrade the Satellite server, please see the upgrade documentation ' + \
+            'located here /etc/sysconfig/rhn/satellite-upgrade/README  (as part of the rhn-upgrade package).  ' + \
+            'WARNING: If you want to skip this check, please use --ignore-version-mismatch, but doing so may cause issues ' + \
+            '(including malfunction of the Satellite software).  Only skip the test if instructed to do so by a support technician.')
     except satCerts.NoFreeEntitlementsError, e:
         sys.stderr.write(e.message + '\n')
         sys.exit(1)
