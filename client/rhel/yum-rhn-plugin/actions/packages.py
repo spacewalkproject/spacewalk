@@ -301,9 +301,6 @@ def remove(package_list, cache_only=None):
 
 def update(package_list, cache_only=None):
     """We have been told that we should retrieve/install packages"""
-    if cache_only:
-        return (0, "no-ops for caching", {})
-
     if type(package_list) != type([]):
         return (13, "Invalid arguments passed to function", {})
 
