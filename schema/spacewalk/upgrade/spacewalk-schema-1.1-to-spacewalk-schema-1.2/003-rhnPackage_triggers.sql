@@ -8,10 +8,10 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
---
+-- 
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation.
+-- in this software or its documentation. 
 --
 
 create or replace trigger
@@ -29,7 +29,7 @@ begin
 	-- might want to use this to keep webdev in sync.
 	if :new.last_modified = :old.last_modified then
 		:new.last_modified := sysdate;
-	end if;
+	end if;       
 	:new.modified := sysdate;
 
         -- bz 619337 if we are updating the checksum, we need to
@@ -40,6 +40,12 @@ begin
               where id in (select channel_id
                               from rhnChannelPackage
                               where package_id = :new.id);
+            insert into rhnRepoRegenQueue (id, CHANNEL_LABEL, REASON)
+                   (select rhn_repo_regen_queue_id_seq.nextval, C.label, 'checksum modification'
+                    from rhnChannel C inner join
+                         rhnChannelPackage CP on CP.channel_id = C.id
+                    where CP.package_id = :new.id);
+            delete from rhnPackageRepodata where package_id = :new.id;
         end if;
 
 end;
