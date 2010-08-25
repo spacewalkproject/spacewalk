@@ -15,18 +15,17 @@
 
 package com.redhat.satellite.search.db;
 
-import com.redhat.satellite.search.config.Configuration;
-
-import com.ibatis.sqlmap.client.SqlMapClient;
-import com.ibatis.sqlmap.client.SqlMapClientBuilder;
-import com.ibatis.sqlmap.client.SqlMapSession;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Properties;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+import com.ibatis.sqlmap.client.SqlMapSession;
+import com.redhat.satellite.search.config.Configuration;
 
 /**
  * Manages DB activity - connections, running queries, etc
@@ -37,7 +36,7 @@ public class DatabaseManager {
     private SqlMapClient client = null;
 
     /**
-     * Constructor 
+     * Constructor
      * @param config
      * @throws IOException
      */
@@ -61,7 +60,8 @@ public class DatabaseManager {
         }
         Properties overrides = config.getNamespaceProperties("search");
 
-        String[] options = {"db_name", "db_password", "db_user"};
+        String[] options = {"db_name", "db_password", "db_user",
+        							"db_host", "db_port", "db_name"};
         for (String option : options) {
             overrides.setProperty(option, config.getString(option));
         }
@@ -79,7 +79,7 @@ public class DatabaseManager {
         SqlMapSession session = client.openSession();
         return new Query<T>(session, name);
     }
-    
+
     /**
      * Open a named write (insert, update, delete) query
      * @param name of query
@@ -89,7 +89,7 @@ public class DatabaseManager {
         SqlMapSession session = client.openSession();
         return new WriteQuery(session, name);
     }
-    
+
     /**
      * Opens a direct DB connection
      * @return connection object
