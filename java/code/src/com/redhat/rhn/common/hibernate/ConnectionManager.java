@@ -44,7 +44,8 @@ import java.util.Set;
 class ConnectionManager {
 
     private static final Logger LOG = Logger.getLogger(ConnectionManager.class);
-    private static final String[] PACKAGE_NAMES = {"com.redhat.rhn.domain"};
+    private static final String[] PACKAGE_NAMES = {"com.redhat.rhn.domain",
+        "com.redhat.rhn.taskomatic"};
 
     private List configurators = new LinkedList();
     private SessionFactory sessionFactory;

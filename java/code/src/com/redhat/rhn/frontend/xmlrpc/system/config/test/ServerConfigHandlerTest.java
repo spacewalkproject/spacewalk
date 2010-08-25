@@ -240,7 +240,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
 
         assertEquals(path, rev.getConfigFile().getConfigFileName().getPath());
         assertEquals(ConfigFileType.symlink(), rev.getConfigFileType());
-        assertEquals(targetPath, rev.getConfigInfo().getTargetFileName());
+        assertEquals(targetPath, rev.getConfigInfo().getTargetFileName().getPath());
         assertEquals(selinuxCtx, rev.getConfigInfo().getSelinuxCtx());
         assertEquals(cc, rev.getConfigFile().getConfigChannel());
 

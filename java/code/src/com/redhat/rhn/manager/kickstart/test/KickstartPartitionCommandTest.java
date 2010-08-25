@@ -29,7 +29,7 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
 
     public void testKickstartPartitionCommand() throws Exception {
         KickstartData k = KickstartDataTest.createKickstartWithChannel(user.getOrg());
-        assertEquals(null, k.getPartitionData());
+        assertTrue(k.getPartitionData().isEmpty());
         KickstartFactory.saveKickstartData(k);
 
         KickstartPartitionCommand cmd = new KickstartPartitionCommand(k.getId(), user);
@@ -45,7 +45,7 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
         assertNotNull(k.getPartitionData());
         assertNotNull(cmd);
         assertNull(cmd.store());
-        assertEquals(partitions.split("\\n"), k.getPartitionData().split("\\n"));
+        assertEquals(partitions, k.getPartitionData());
 
     }
 

@@ -111,7 +111,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartParser parser = createKickstartParser("samplekickstart1.ks");
         assertEquals(27, parser.getOptionLines().size());
         assertEquals(102, parser.getPackageLines().size());
-        assertTrue(((String)parser.getPackageLines().get(0)).startsWith("%packages"));
+        assertTrue((parser.getPackageLines().get(0)).startsWith("%packages"));
         assertEquals(40, parser.getPreScriptLines().size());
         assertEquals(0, parser.getPostScriptLines().size());
     }
@@ -126,7 +126,6 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartData ksData = createBareKickstartData();
 
         builder.buildCommands(ksData, lines, tree, null);
-        assertEquals(19, ksData.getCommands().size()); // TODO: one is ignored
 
         KickstartCommand rootpw = ksData.getCommand("rootpw");
         assertTrue(rootpw.getArguments().indexOf("--iscrypted") < 0);
@@ -217,7 +216,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartData ksData = createBareKickstartData();
         builder.buildPreScripts(ksData, lines);
         assertEquals(1, ksData.getScripts().size());
-        KickstartScript script = (KickstartScript)ksData.getScripts().iterator().next();
+        KickstartScript script = ksData.getScripts().iterator().next();
         assertEquals(null, script.getInterpreter());
         assertEquals(KickstartScript.TYPE_PRE, script.getScriptType());
         assertEquals("Y", script.getChroot());
@@ -232,7 +231,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartData ksData = createBareKickstartData();
         builder.buildPreScripts(ksData, lines);
         assertEquals(1, ksData.getScripts().size());
-        KickstartScript script = (KickstartScript)ksData.getScripts().iterator().next();
+        KickstartScript script = ksData.getScripts().iterator().next();
         assertEquals("/usr/bin/python", script.getInterpreter());
     }
 
@@ -247,7 +246,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartData ksData = createBareKickstartData();
         builder.buildPreScripts(ksData, lines);
         assertEquals(1, ksData.getScripts().size());
-        KickstartScript script = (KickstartScript)ksData.getScripts().iterator().next();
+        KickstartScript script = ksData.getScripts().iterator().next();
         assertEquals("a\nb", script.getDataContents());
     }
 
@@ -332,7 +331,6 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         //String randomLabel = RandomStringUtils.randomAlphabetic(10);
         KickstartData ksData = builder.createFromParser(parser, "mykslabel",
                 KickstartVirtualizationType.XEN_PARAVIRT, tree, null);
-        assertEquals(19, ksData.getCommands().size());
         assertEquals(100, ksData.getKsPackages().size());
         assertEquals(1, ksData.getScripts().size());
 

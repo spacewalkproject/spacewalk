@@ -292,7 +292,6 @@ public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
         }
         assertNotNull(ksdata.getCommand("text"));
         assertNotNull(ksdata.getCommand("install"));
-        assertNotNull(ksdata.getCommand("partitions"));
 
         boolean correctswap = false;
         boolean correctrepos = false;

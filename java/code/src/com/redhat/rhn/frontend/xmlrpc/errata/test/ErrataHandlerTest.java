@@ -100,7 +100,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         Map<String, Object> details = new HashMap<String, Object>();
         details.put("synopsis", "synopsis-1");
         details.put("advisory_name", "advisory-1");
-        details.put("advisory_release", (Integer) 123);
+        details.put("advisory_release", 123);
         details.put("advisory_type", "Security Advisory");
         details.put("product", "product text");
         details.put("topic", "topic text");
@@ -162,7 +162,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         assertTrue(foundBug2);
 
         boolean foundKeyword1 = false, foundKeyword2 = false;
-        for (Keyword keyword : (Set<Keyword>) errata.getKeywords()) {
+        for (Keyword keyword : errata.getKeywords()) {
             if (keyword.getKeyword().equals("keyword1")) {
                 foundKeyword1 = true;
             }
@@ -380,6 +380,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
     public void testCreate() throws Exception {
 
         Channel channel = ChannelFactoryTest.createBaseChannel(admin);
+        channel.setOrg(admin.getOrg());
 
         Map errataInfo = new HashMap();
 
@@ -468,7 +469,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
 
     public void testAdvisoryReleaseAboveMax() throws Exception {
         Channel channel = ChannelFactoryTest.createBaseChannel(admin);
-
+        channel.setOrg(admin.getOrg());
         Map errataInfo = new HashMap();
 
         String advisoryName = TestUtils.randomString();
@@ -495,7 +496,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
 
     public void testAdvisoryReleaseAtMax() throws Exception {
         Channel channel = ChannelFactoryTest.createBaseChannel(admin);
-
+        channel.setOrg(admin.getOrg());
         Map errataInfo = new HashMap();
 
         String advisoryName = TestUtils.randomString();
@@ -521,6 +522,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         Errata unpublished = ErrataFactoryTest.createTestUnpublishedErrata(
                 admin.getOrg().getId());
         Channel channel = ChannelFactoryTest.createBaseChannel(admin);
+        channel.setOrg(admin.getOrg());
         ArrayList channels = new ArrayList();
         channels.add(channel.getLabel());
         Errata published = handler.publish(adminKey, unpublished.getAdvisoryName(),
