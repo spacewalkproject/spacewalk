@@ -482,7 +482,7 @@ sub setup_tomcat {
   my $tomcatdir  = "/etc/$tomcatX";
   my $tomcatconf = "$tomcatX.conf";
   my $serverxml = "server.xml";
-
+  my $webxml = "web.xml";
   die "$tomcatdir/$tomcatconf does not exist.\n" unless (-f "$tomcatdir/$tomcatconf");
 
   {
@@ -540,6 +540,13 @@ sub setup_tomcat {
     }
   }
 
+  $web_patch = Spacewalk::Setup::SHARED_DIR."/web.xml.patch";
+  $command = "patch --directory=$tomcatdir --forward -p1 --input=$web_patch";
+  system($command." --dry-run");
+  if (not $?){
+      Spacewalk::Setup::backup_file($tomcatdir, $webxml);
+      system($command);
+  }
   return;
 }
 
