@@ -174,8 +174,9 @@ public class TaskoJob implements Job {
 
                 log.debug(task.getName() + " (" + schedule.getJobLabel() + ") ... " +
                         taskRun.getStatus().toLowerCase());
-                if ((taskRun.getStatus() != TaskoRun.STATUS_SKIPPED) &&
-                (taskRun.getStatus() != lastStatus.get(task.getName()))) {
+                if (((taskRun.getStatus() == TaskoRun.STATUS_FINISHED) ||
+                        (taskRun.getStatus() == TaskoRun.STATUS_FAILED)) &&
+                     (taskRun.getStatus() != lastStatus.get(task.getName()))) {
                     String email = "Taskomatic bunch " + schedule.getBunch().getName() +
                     " was scheduled to run within the " + schedule.getJobLabel() +
                     " schedule.\n\n" + "Subtask " + task.getName();
