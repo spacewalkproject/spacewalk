@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.15
+Version: 1.2.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -335,6 +335,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 26 2010 Tomas Lestach <tlestach@redhat.com> 1.2.16-1
+- 591291 - faster handling of mergeErrata API call (tlestach@redhat.com)
+- fix ErrataQueueTest unit test (tlestach@redhat.com)
+- 580939 - fixing invalid html with alter channels page (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- Fixed struts form bloopered entry (paji@redhat.com)
+- making taskoamtic api handler be ignored by the api doc generation
+  (jsherril@redhat.com)
+- a bunch of unit test fixes (jsherril@redhat.com)
+
 * Tue Aug 24 2010 Partha Aji <paji@redhat.com> 1.2.15-1
 - checkstyle error fix (jsherril@redhat.com)
 - Making repo sync screen display an error if taskomatic isnt up, and disable
