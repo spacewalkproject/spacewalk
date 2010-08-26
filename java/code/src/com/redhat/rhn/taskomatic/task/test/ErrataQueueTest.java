@@ -15,12 +15,16 @@
 package com.redhat.rhn.taskomatic.task.test;
 
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.domain.task.TaskFactory;
 import com.redhat.rhn.taskomatic.TaskoBunch;
+import com.redhat.rhn.taskomatic.TaskoFactory;
 import com.redhat.rhn.taskomatic.TaskoRun;
 import com.redhat.rhn.taskomatic.TaskoTask;
 import com.redhat.rhn.taskomatic.TaskoTemplate;
 import com.redhat.rhn.taskomatic.task.ErrataQueue;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
+
+import org.apache.commons.lang.RandomStringUtils;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -50,14 +54,29 @@ public class ErrataQueueTest extends BaseTestCaseWithUser {
 
         };
 
+        String suffix = RandomStringUtils.randomAlphanumeric(5);
+        TaskoBunch bunch = new TaskoBunch();
         TaskoTemplate template = new TaskoTemplate();
-        template.setTask(new TaskoTask());
-        template.setBunch(new TaskoBunch());
+        TaskoTask task = new TaskoTask();
+        bunch.setName("testBunchName_" + suffix);
+        task.setName("testTaskName_" + suffix);
+        task.setTaskClass(ErrataQueue.class.toString());
+        template.setTask(task);
+        template.setOrdering(0L);
+        template.setBunch(bunch);
+        TaskoFactory.save(template.getBunch());
+        TaskoFactory.save(template.getTask());
+        TaskoFactory.save(template);
         TaskoRun run = new TaskoRun(null, template, new Long(1));
-        run.setId(new Long(1));
         eq.execute(null, run);
         // Just a simple test to make sure we get here without
         // exceptions.  Better than nothin'
         assertTrue(true);
+        TaskoFactory.delete(run);
+        TaskoFactory.delete(template);
+        TaskoFactory.delete(template.getBunch());
+        TaskoFactory.delete(template.getTask());
+        TaskoFactory.commitTransaction();
+        TaskFactory.closeSession();
     }
 }

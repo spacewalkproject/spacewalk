@@ -120,7 +120,7 @@ public class TaskoFactory extends HibernateFactory {
 
     /**
      * hibernate delete schedule
-     * @param taskoSchedule schadule to delete
+     * @param taskoSchedule schedule to delete
      */
     public static void delete(TaskoSchedule taskoSchedule) {
         singleton.removeObject(taskoSchedule);
@@ -132,6 +132,54 @@ public class TaskoFactory extends HibernateFactory {
      */
     public static void save(TaskoSchedule taskoSchedule) {
         singleton.saveObject(taskoSchedule);
+    }
+
+    /**
+     * hibernate save template
+     * @param taskoTemplate run to save
+     */
+    public static void save(TaskoTemplate taskoTemplate) {
+        singleton.saveObject(taskoTemplate);
+    }
+
+    /**
+     * hibernate delete template
+     * @param taskoTemplate run to delete
+     */
+    public static void delete(TaskoTemplate taskoTemplate) {
+        singleton.removeObject(taskoTemplate);
+    }
+
+    /**
+     * hibernate save bunch
+     * @param taskoBunch run to save
+     */
+    public static void save(TaskoBunch taskoBunch) {
+        singleton.saveObject(taskoBunch);
+    }
+
+    /**
+     * hibernate delete bunch
+     * @param taskoBunch run to delete
+     */
+    public static void delete(TaskoBunch taskoBunch) {
+        singleton.removeObject(taskoBunch);
+    }
+
+    /**
+     * hibernate save task
+     * @param taskoTask run to save
+     */
+    public static void save(TaskoTask taskoTask) {
+        singleton.saveObject(taskoTask);
+    }
+
+    /**
+     * hibernate delete task
+     * @param taskoTask run to delete
+     */
+    public static void delete(TaskoTask taskoTask) {
+        singleton.removeObject(taskoTask);
     }
 
     /**
