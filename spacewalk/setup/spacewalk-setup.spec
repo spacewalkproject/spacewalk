@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Thu Aug 26 2010 Jan Pazdziora 1.2.1-1
+- As we never fork now, the --nofork is obsolete, removing.
+
 * Thu Jul 29 2010 Justin Sherrill <jsherril@redhat.com> 1.1.14-1
 - 531719 - making pxe_just_once set to 1 by default on a spacewalk install
   (jsherril@redhat.com)
