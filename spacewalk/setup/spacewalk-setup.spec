@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.2
+Version:        1.2.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -103,6 +103,11 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Thu Aug 26 2010 Justin Sherrill <jsherril@redhat.com> 1.2.3-1
+- making patch command silent (jsherril@redhat.com)
+- 533527 - having spacewalk-setup patch the web.xml for tomcat to turn off
+  development mode (jsherril@redhat.com)
+
 * Thu Aug 26 2010 Justin Sherrill <jsherril@redhat.com> 1.2.2-1
 - 533527 - having spacewalk-setup patch the web.xml for tomcat to turn off
   development mode (jsherril@redhat.com)
