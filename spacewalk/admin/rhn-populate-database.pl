@@ -105,6 +105,7 @@ if ($postgresql) {
 	$ENV{PGPASSWORD} = $password;
 } else {
 	print "*** Installing Oracle schema from [$schema_deploy_file].\n";
+	chdir('/');
 	@command = ( 'sqlplus', "$user/$password\@$database", "\@$schema_deploy_file" );
 }
 
