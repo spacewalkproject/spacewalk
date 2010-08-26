@@ -87,18 +87,6 @@ if (defined $log_file and -e $log_file) {
   }
 }
 
-my $pid;
-
-unless ($nofork) {
-  $pid = fork();
-}
-
-# The parent process will exit so the child can do the work without
-# blocking the web UI.
-if ($pid) {
-  exit 0;
-}
-
 if ($clear_db) {
   RHN::SatInstall->clear_db();
 }
@@ -120,6 +108,8 @@ if ($postgresql) {
 	print "*** Installing Oracle schema from [$schema_deploy_file].\n";
 	@command = ( 'sqlplus', "$user/$password\@$database", "\@$schema_deploy_file" );
 }
+
+my $pid;
 
 if (defined $log_file) {
 	local *LOGFILE;
