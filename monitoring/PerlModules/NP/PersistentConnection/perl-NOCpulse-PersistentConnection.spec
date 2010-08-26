@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-PersistentConnection
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.5.4
+Version:      1.5.5
 Release:      1%{?dist}
 Summary:      Persistent HTTP connection over SSL
 URL:          https://fedorahosted.org/spacewalk
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Thu Aug 26 2010 Shannon Hughes <shughes@redhat.com> 1.5.5-1
+- 
+
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.5.4-1
 - BR perl(ExtUtils::MakeMaker)
 
