@@ -540,8 +540,8 @@ sub setup_tomcat {
     }
   }
 
-  $web_patch = Spacewalk::Setup::SHARED_DIR."/web.xml.patch";
-  $command = "patch --silent --directory=$tomcatdir --forward -p1 --input=$web_patch";
+  my $web_patch = Spacewalk::Setup::SHARED_DIR."/web.xml.patch";
+  my $command = "patch --silent --directory=$tomcatdir --forward -p1 --input=$web_patch";
   system($command." --dry-run");
   if (not $?){
       Spacewalk::Setup::backup_file($tomcatdir, $webxml);
