@@ -1,0 +1,12 @@
+--- a/web.xml
++++ b/web.xml
+@@ -220,6 +220,10 @@
+             <param-name>xpoweredBy</param-name>
+             <param-value>false</param-value>
+         </init-param>
++        <init-param>
++            <param-name>development</param-name>
++            <param-value>false</param-value>
++        </init-param>
+         <load-on-startup>3</load-on-startup>
+     </servlet>
