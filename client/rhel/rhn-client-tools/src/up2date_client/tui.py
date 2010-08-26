@@ -454,7 +454,7 @@ class OSReleaseWindow:
 	                         width = self.size[0]-10)
         toplevel.add(self.channelList, 0, 3)
 
-        for key, value in self.available_channels['channels'].items():
+        for key, value in sorted(self.available_channels['channels'].items(), key=lambda a:a[0]):
             if key in self.available_channels['receiving_updates']:
                 value = value + "*"
             self.channelList.append(" " + value, key)
