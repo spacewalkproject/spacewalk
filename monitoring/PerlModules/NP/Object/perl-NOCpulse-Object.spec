@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Object
-Version:      1.26.11
+Version:      1.26.12
 Release:      1%{?dist}
 Summary:      NOCpulse Object abstraction for Perl
 URL:          https://fedorahosted.org/spacewalk
@@ -51,6 +51,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Aug 26 2010 Shannon Hughes <shughes@redhat.com> 1.26.12-1
+- Automatic commit of package [perl-NOCpulse-Object] release [1.26.11-1].
+  (shughes@redhat.com)
+
 * Thu Aug 26 2010 Shannon Hughes <shughes@redhat.com> 1.26.11-1
 -
 
