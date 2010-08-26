@@ -57,11 +57,6 @@ if ($help
   die $usage;
 }
 
-if (not $postgresql) {
-    my $ORACLE_HOME = qx{dbhome '*'};
-    $ENV{PATH} .= ":$ORACLE_HOME/bin";
-}
-
 our $lockfile = '/var/lock/subsys/rhn-satellite-db-population';
 if (-e $lockfile) {
   warn "lock file $lockfile present...database population already in progress\n";
