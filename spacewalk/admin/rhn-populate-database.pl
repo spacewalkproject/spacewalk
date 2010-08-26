@@ -31,7 +31,7 @@ use Symbol qw(gensym);
 
 my $usage = "usage: $0 [ --host=<databaseHost> [ --port=<port> ] ] --database=<databaseName> \\\n"
   . " --user=<username> --password=<password> --schema-deploy-file=<filename> \\\n"
-  . " [ --log=<logfile> ] [ --clear-db ] [ --nofork ] [ --postgresql ] [ --help ]\n";
+  . " [ --log=<logfile> ] [ --clear-db ] [ --postgresql ] [ --help ]\n";
 
 my $user = '';
 my $password = '';
@@ -42,7 +42,6 @@ my $port = '';
 my $schema_deploy_file = '';
 my $log_file;
 my $clear_db = 0;
-my $nofork = 0;
 my $postgresql = 0;
 my $help = '';
 
@@ -50,7 +49,7 @@ GetOptions("host=s" => \$host, "port=s" => \$port,
     "user=s" => \$user, "password=s" => \$password,
     "database=s" => \$database, "schema-deploy-file=s" => \$schema_deploy_file,
     "log=s" => \$log_file, "help" => \$help, "clear-db" => \$clear_db, 
-    "postgresql" => \$postgresql, nofork => \$nofork);
+    "postgresql" => \$postgresql);
 
 if ($help
     or not ($user and $password and $database and $schema_deploy_file)) {

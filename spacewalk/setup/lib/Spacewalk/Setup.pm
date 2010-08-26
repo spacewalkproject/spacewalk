@@ -824,7 +824,6 @@ sub postgresql_populate_db {
         sprintf('--host=%s', @{$answers}{'db-host'}),
         sprintf('--port=%s', @{$answers}{'db-port'}),
         sprintf("--schema-deploy-file=$sat_schema_deploy"),
-        sprintf('--nofork'),
         sprintf('--postgresql'),
     );
 
@@ -1309,7 +1308,6 @@ sub oracle_populate_db {
         sprintf('--database=%s', @{$answers}{'db-name'}),
         sprintf('--host=%s', @{$answers}{'db-host'}),
         sprintf("--schema-deploy-file=$sat_schema_deploy"),
-        sprintf('--nofork'),
     );
 
 
