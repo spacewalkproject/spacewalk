@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.6
+Version:        1.2.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Aug 26 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.7-1
+- 593896 - schema upgrade script rewritten to pl/sql
+- 591291 - rewrite rhnChannelNewestPackageView
+- 619337 - making it so that if a packages checksum changes, the channel it is
+  will have its repodata regenerated
+- location of schema overrides (for oracle) has changed
+- 627149 - adding upgrade script for rpm installation dates
+
 * Tue Aug 24 2010 Partha Aji <paji@redhat.com> 1.2.6-1
 - removing stray semicolon (jsherril@redhat.com)
 
