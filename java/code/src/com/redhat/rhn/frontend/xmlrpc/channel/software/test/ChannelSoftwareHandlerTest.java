@@ -926,9 +926,6 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         mergeResult = handler.mergeErrata(adminKey, mergeFrom.getLabel(),
                 mergeTo.getLabel(), "2006-09-30", "2007-10-30");
         assertEquals(mergeResult.length, 0);
-
-        toList = handler.listErrata(adminKey, mergeTo.getLabel());
-        assertEquals(toList.size(), fromList.size());
     }
 
 
