@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.2.1
+Version: 1.2.2
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -60,6 +60,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Thu Aug 26 2010 Jan Pazdziora 1.2.2-1
+- 626420 - chdir to root to stop sqlplus from searching the mounted devices.
+- As we never fork now, the --nofork is obsolete, removing.
+- We do not call the schema population from WebUI, no forking.
+- The dbhome is not needed as we are using the InstantClient sqlplus.
+
 * Tue Aug 24 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.2.1-1
 - make schema overrides work with new main.sql structure
 
