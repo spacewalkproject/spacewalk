@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.7
+Version:        1.2.8
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Aug 27 2010 Tomas Lestach <tlestach@redhat.com> 1.2.8-1
+- fix errata-cache-bunch template (tlestach@redhat.com)
+
 * Thu Aug 26 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.7-1
 - 593896 - schema upgrade script rewritten to pl/sql
 - 591291 - rewrite rhnChannelNewestPackageView
