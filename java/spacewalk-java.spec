@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.16
+Version: 1.2.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -335,6 +335,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 27 2010 Tomas Lestach <tlestach@redhat.com> 1.2.17-1
+- add repo type to the RepoSyncTask (tlestach@redhat.com)
+- fix user email notification (tlestach@redhat.com)
+- fix ChannelSoftwareHandlerTest.testMergeErrataByDate test
+  (tlestach@redhat.com)
+- 484895 - Stop the release link giving a 404 (colin.coe@gmail.com)
+
 * Thu Aug 26 2010 Tomas Lestach <tlestach@redhat.com> 1.2.16-1
 - 591291 - faster handling of mergeErrata API call (tlestach@redhat.com)
 - fix ErrataQueueTest unit test (tlestach@redhat.com)
