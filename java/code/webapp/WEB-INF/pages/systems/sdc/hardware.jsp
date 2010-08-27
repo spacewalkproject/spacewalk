@@ -82,7 +82,7 @@
     <c:if test="${empty dmi_asset_tag}" var="no_asset_tag"/>
     <c:if test="${empty dmi_board}"     var="no_board"/>
 
-    <c:if test="${not (no_vendor or no_bios or no_system or no_product or no_asset_tag or no_board)}">
+    <c:if test="${!(empty dmi_vendor and empty dmi_bios and empty dmi_system and empty dmi_product and empty dmi_asset_tag and empty dmi_board)}">
       <h2><bean:message key="sdc.details.hardware.dmi"/></h2>
       <table class="details">
         <tr>
@@ -175,15 +175,44 @@
         </c:choose>
         <tr class="${style_class}">
           <td>${current.name}</td>
-          <td>${current.ip}</td>
-          <td>${current.netmask}</td>
-          <td>${current.broadcast}</td>
-          <td>${current.hwaddr}</td>
+          <c:choose>
+            <c:when test="${empty current.ip}">
+              <td><span class="no-details">(unknown)</span></td>
+            </c:when>
+            <c:otherwise>
+              <td>${current.ip}</td>
+            </c:otherwise>
+          </c:choose>
+          <c:choose>
+            <c:when test="${empty current.netmask}">
+              <td><span class="no-details">(unknown)</span></td>
+            </c:when>
+            <c:otherwise>
+              <td>${current.netmask}</td>
+            </c:otherwise>
+          </c:choose>
+          <c:choose>
+            <c:when test="${empty current.broadcast}">
+              <td><span class="no-details">(unknown)</span></td>
+            </c:when>
+            <c:otherwise>
+              <td>${current.broadcast}</td>
+            </c:otherwise>
+          </c:choose>
+          <c:choose>
+            <c:when test="${empty current.hwaddr}">
+              <td><span class="no-details">(unknown)</span></td>
+            </c:when>
+            <c:otherwise>
+              <td>${current.hwaddr}</td>
+            </c:otherwise>
+          </c:choose>
           <td>${current.module}</td>
         </tr>
       </c:forEach>
     </table>
 
+    <c:if test="${not empty videoDevices}">
     <h2><bean:message key="sdc.details.hardware.storage"/></h2>
     <table class="list" width="90%" cellspacing="0">
       <thead>
@@ -213,6 +242,7 @@
       </c:forEach>
       </tbody>
     </table>
+    </c:if>
 
     <c:if test="${not empty videoDevices}">
     <h2><bean:message key="sdc.details.hardware.video"/></h2>

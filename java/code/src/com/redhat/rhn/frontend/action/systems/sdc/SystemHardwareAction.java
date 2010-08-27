@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.server.CPU;
 import com.redhat.rhn.domain.server.Device;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -102,10 +103,26 @@ public class SystemHardwareAction extends RhnAction {
         request.setAttribute("system_ram", server.getRam());
         request.setAttribute("system_swap", server.getSwap());
 
+        StringBuffer dmiBios = new StringBuffer(); 
+        if (server.getDmi().getBios() != null) {
+            if (server.getDmi().getBios().getVendor() != null &&
+                    server.getDmi().getBios().getVendor() != "") {
+                dmiBios.append(server.getDmi().getBios().getVendor() + " ");
+            }
+            if (server.getDmi().getBios().getVersion() != null &&
+                    server.getDmi().getBios().getVersion() != "") {
+                dmiBios.append(server.getDmi().getBios().getVersion() + " ");
+            }
+            if (server.getDmi().getBios().getRelease() != null &&
+                    server.getDmi().getBios().getRelease() != "") {
+                dmiBios.append(server.getDmi().getBios().getRelease());
+            }
+        }
+
         request.setAttribute("dmi_vendor", server.getDmi().getVendor());
         request.setAttribute("dmi_system", server.getDmi().getSystem());
         request.setAttribute("dmi_product", server.getDmi().getProduct());
-        request.setAttribute("dmi_bios", server.getDmi().getBios());
+        request.setAttribute("dmi_bios", dmiBios.toString());
         request.setAttribute("dmi_asset_tag", server.getDmi().getAsset());
         request.setAttribute("dmi_board", server.getDmi().getBoard());
 
@@ -132,12 +149,7 @@ public class SystemHardwareAction extends RhnAction {
         }
         request.setAttribute("network_interfaces", nicList2);
 
-        List<String> deviceList = new ArrayList();
-        for (Device d : server.getDevices()) {
-            deviceList.add(d.getDescription());
-        }
-        Collections.sort(deviceList);
-
+//        List<Device> hdd = new ArrayList();
         List<String> hdd = new ArrayList();
         List miscDevices = new ArrayList();
         List videoDevices = new ArrayList();
@@ -150,10 +162,12 @@ public class SystemHardwareAction extends RhnAction {
             String desc = null;
             String vendor = null;
 
-            StringTokenizer st = new StringTokenizer(d.getDescription(), "|");
-            vendor = st.nextToken();
-            if (st.hasMoreTokens()) {
-                desc = st.nextToken();
+            if (d.getDescription() != null) {
+                StringTokenizer st = new StringTokenizer(d.getDescription(), "|");
+                vendor = st.nextToken();
+                if (st.hasMoreTokens()) {
+                    desc = st.nextToken();
+                }
             }
 
             if (desc != null) {
@@ -168,11 +182,8 @@ public class SystemHardwareAction extends RhnAction {
             device.put("device", d.getDevice());
             device.put("driver", d.getDriver());
             device.put("pcitype", d.getPcitype().toString());
-            if ((d.getDeviceClass().equals("HD")) ||
-                    (d.getDeviceClass().equals("FLOPPY"))) {
-                if (d.getDevice() != null) {
-                    hdd.add(d.getDevice());
-                }
+            if ((d.getDeviceClass().equals("HD")) || (d.getDeviceClass().equals("FLOPPY"))) {
+                continue;
             }
             else if (d.getDeviceClass().equals("VIDEO")) {
                 videoDevices.add(device);
@@ -193,17 +204,30 @@ public class SystemHardwareAction extends RhnAction {
             }
         }
 
-        Collections.sort(hdd);
+//        Collections.sort(hdd);
+//        List storageDevices = new ArrayList();
+//        for (Device hd : hdd) {
+//System.out.println("2 - Found storage device: " + hd);
+//            Device d = server.getDevice(hd);
+//            Map device = new HashMap();
+//            device.put("description", d.getDescription());
+//            device.put("device", d.getDevice());
+//            device.put("bus", d.getBus());
+//            storageDevices.add(device);
+//        }
+
+//        Collections.sort(hdd);
+        List<Device> values = ServerFactory.lookupStorageDevicesByServer(server);
         List storageDevices = new ArrayList();
-        for (String hd : hdd) {
-            Device d = server.getDevice(hd);
+        for (Device hd : values) {
+            Device d = hd;
             Map device = new HashMap();
             device.put("description", d.getDescription());
             device.put("device", d.getDevice());
             device.put("bus", d.getBus());
             storageDevices.add(device);
         }
-
+System.out.println("storageDevices.size() = " + storageDevices.size());
         request.setAttribute("storageDevices", storageDevices);
         request.setAttribute("videoDevices", videoDevices);
         request.setAttribute("audioDevices", audioDevices);

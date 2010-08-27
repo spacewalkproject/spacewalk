@@ -118,6 +118,18 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup all storage Devices associated with the server.
+     * @param sid The server ID for the values you would like to lookup
+     * @return List of devices
+     */
+    public static List<Device> lookupStorageDevicesByServer(Server s) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("server", s);
+        return (List<Device>) singleton.listObjectsByNamedQuery(
+                "Device.findStorageByServer", params);
+    }
+
+    /**
      * Get the Logger for the derived class so log messages show up on the
      * correct class
      */
