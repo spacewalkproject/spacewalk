@@ -1144,10 +1144,13 @@ ORDER BY C.name, EF.filename DESC
 
 <mode name="packageids_associated_to_errata"
     class="com.redhat.rhn.frontend.dto.ErrataPackageFile">
-    <query params="">
-    SELECT package_id
-    FROM rhnErrataPackage
-    WHERE errata_id in (%s)
+    <query params="channel_id">
+    SELECT ep.package_id
+    FROM rhnErrataPackage ep,
+        rhnChannelPackage cp
+    WHERE ep.package_id = cp.package_id
+    AND cp.channel_id = :channel_id
+    AND ep.errata_id in (%s)
     </query>
 </mode>
 

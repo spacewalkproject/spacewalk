@@ -1780,7 +1780,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         diffErrata.removeAll(clones);
 
         Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, diffErrata, mergeTo);
+            mergeErrataToChannel(loggedInUser, diffErrata, mergeTo, mergeFrom);
 
         return mergedErrata.toArray();
     }
@@ -1838,13 +1838,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
         diffErrata.removeAll(clones);
 
         Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, diffErrata, mergeTo);
+            mergeErrataToChannel(loggedInUser, diffErrata, mergeTo, mergeFrom);
 
         return mergedErrata.toArray();
     }
 
     private Set<Errata> mergeErrataToChannel(User user, Set<Errata> diffErrata,
-                                                                Channel toChannel) {
+            Channel toChannel, Channel fromChannel) {
         List<Long> cids = new ArrayList<Long>();
         cids.add(toChannel.getId());
 
@@ -1852,7 +1852,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         ErrataManager.publishErrataToChannelAsync(toChannel, errataIds, user);
 
-        List errataPkgs = ErrataFactory.listErrataChannelPackages(errataIds);
+        List errataPkgs = ErrataFactory.listErrataChannelPackages(fromChannel.getId(),
+                errataIds);
         List currentChannelPkgs = ChannelFactory.getPackageIds(toChannel.getId());
         errataPkgs.removeAll(currentChannelPkgs);
 
