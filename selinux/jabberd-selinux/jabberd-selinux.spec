@@ -6,7 +6,7 @@
 %global modulename jabber
 
 Name:           jabberd-selinux
-Version:        1.4.8
+Version:        1.4.9
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -107,6 +107,9 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Aug 27 2010 Shannon Hughes <shughes@redhat.com> 1.4.9-1
+- bump version 
+
 * Fri Jan 29 2010 Jan Pazdziora 1.4.8-1
 - Do not hide any error messages produced by semanage port -a.
 
