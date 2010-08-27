@@ -35,7 +35,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <query name="Device.findStorageByServer">
         <![CDATA[from com.redhat.rhn.domain.server.Device as t 
-                where t.server = :server and (t.deviceClass = 'HD' or t.deviceClass = 'FLOPPY') 
+                where t.server = :server and t.deviceClass = 'HD' 
                 order by t.device]]>
     </query>
 

@@ -119,7 +119,7 @@ public class ServerFactory extends HibernateFactory {
 
     /**
      * Lookup all storage Devices associated with the server.
-     * @param sid The server ID for the values you would like to lookup
+     * @param s The server for the values you would like to lookup
      * @return List of devices
      */
     public static List<Device> lookupStorageDevicesByServer(Server s) {

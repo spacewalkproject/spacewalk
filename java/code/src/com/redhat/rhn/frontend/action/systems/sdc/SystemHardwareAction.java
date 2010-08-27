@@ -103,7 +103,7 @@ public class SystemHardwareAction extends RhnAction {
         request.setAttribute("system_ram", server.getRam());
         request.setAttribute("system_swap", server.getSwap());
 
-        StringBuffer dmiBios = new StringBuffer(); 
+        StringBuffer dmiBios = new StringBuffer();
         if (server.getDmi().getBios() != null) {
             if (server.getDmi().getBios().getVendor() != null &&
                     server.getDmi().getBios().getVendor() != "") {
@@ -149,7 +149,6 @@ public class SystemHardwareAction extends RhnAction {
         }
         request.setAttribute("network_interfaces", nicList2);
 
-//        List<Device> hdd = new ArrayList();
         List<String> hdd = new ArrayList();
         List miscDevices = new ArrayList();
         List videoDevices = new ArrayList();
@@ -182,7 +181,7 @@ public class SystemHardwareAction extends RhnAction {
             device.put("device", d.getDevice());
             device.put("driver", d.getDriver());
             device.put("pcitype", d.getPcitype().toString());
-            if ((d.getDeviceClass().equals("HD")) || (d.getDeviceClass().equals("FLOPPY"))) {
+            if (d.getDeviceClass().equals("HD")) {
                 continue;
             }
             else if (d.getDeviceClass().equals("VIDEO")) {
@@ -204,22 +203,8 @@ public class SystemHardwareAction extends RhnAction {
             }
         }
 
-//        Collections.sort(hdd);
-//        List storageDevices = new ArrayList();
-//        for (Device hd : hdd) {
-//System.out.println("2 - Found storage device: " + hd);
-//            Device d = server.getDevice(hd);
-//            Map device = new HashMap();
-//            device.put("description", d.getDescription());
-//            device.put("device", d.getDevice());
-//            device.put("bus", d.getBus());
-//            storageDevices.add(device);
-//        }
-
-//        Collections.sort(hdd);
-        List<Device> values = ServerFactory.lookupStorageDevicesByServer(server);
         List storageDevices = new ArrayList();
-        for (Device hd : values) {
+        for (Device hd : (List<Device>)ServerFactory.lookupStorageDevicesByServer(server)) {
             Device d = hd;
             Map device = new HashMap();
             device.put("description", d.getDescription());
@@ -227,7 +212,7 @@ public class SystemHardwareAction extends RhnAction {
             device.put("bus", d.getBus());
             storageDevices.add(device);
         }
-System.out.println("storageDevices.size() = " + storageDevices.size());
+
         request.setAttribute("storageDevices", storageDevices);
         request.setAttribute("videoDevices", videoDevices);
         request.setAttribute("audioDevices", audioDevices);
