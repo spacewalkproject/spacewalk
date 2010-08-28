@@ -44,6 +44,8 @@ import javax.servlet.http.HttpServletResponse;
 public class EditPackagesAction extends RhnAction {
 
     private static final String PACKAGE_LIST = "packageList";
+    private static final String NO_BASE = "noBase";
+    private static final String IGNORE_MISSING = "ignoreMissing";
 
     /**
      * {@inheritDoc}
@@ -128,11 +130,17 @@ public class EditPackagesAction extends RhnAction {
             }
             form.set(PACKAGE_LIST, buf.toString());
         }
+
+        form.set(NO_BASE, ksdata.getNoBase());
+        form.set(IGNORE_MISSING, ksdata.getIgnoreMissing());
         form.set("submitted", Boolean.TRUE);
     }
 
     private void transferEdits(KickstartData ksdata, DynaActionForm form,
             RequestContext ctx) {
+
+        ksdata.setNoBase(Boolean.TRUE.equals(form.get(NO_BASE)));
+        ksdata.setIgnoreMissing(Boolean.TRUE.equals(form.get(IGNORE_MISSING)));
 
         // first clear the kickstart packages set
         ksdata.clearKsPackages();
@@ -140,16 +148,37 @@ public class EditPackagesAction extends RhnAction {
 
         String newPackages = form.getString(PACKAGE_LIST);
         if (newPackages != null && newPackages.length() > 0) {
+            Boolean first = new Boolean(true);
             for (StringTokenizer strtok = new StringTokenizer(newPackages, "\n");
                     strtok.hasMoreTokens();) {
-                String pkg = strtok.nextToken();
+
+                // This is a hack but I can't think of a better way to do it
+                String pkg = null;
+                if (first && (!ksdata.getNoBase())) {
+                    pkg = "@ Base";
+                    PackageName pn = PackageFactory.lookupOrCreatePackageByName(pkg);
+                    KickstartPackage kp = new KickstartPackage(ksdata, pn);
+                    if (KickstartFactory.lookupKsPackageByKsDataAndPackageName(
+                                                            ksdata, pn).isEmpty()) {
+                        ksdata.addKsPackage(kp);
+                    }
+                }
+                first = false;
+
+                pkg = strtok.nextToken();
                 pkg = pkg.trim();
                 if (pkg.length() == 0) {
                     continue;
                 }
-                PackageName pn = PackageFactory.lookupOrCreatePackageByName(pkg);
-                KickstartPackage kp = new KickstartPackage(ksdata, pn);
 
+                // if noBase is checked and the current package is @base, ignore it
+                PackageName pn = PackageFactory.lookupOrCreatePackageByName(pkg);
+                if ((pn.getName().toLowerCase().replaceAll("\\s", "")
+                        .equals("@base")) && (ksdata.getNoBase())) {
+                    continue;
+                }
+
+                KickstartPackage kp = new KickstartPackage(ksdata, pn);
                 if (KickstartFactory.lookupKsPackageByKsDataAndPackageName(
                                                         ksdata, pn).isEmpty()) {
                     ksdata.addKsPackage(kp);

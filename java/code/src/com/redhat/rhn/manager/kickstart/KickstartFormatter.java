@@ -69,6 +69,8 @@ public class KickstartFormatter {
     private static final String NEWLINE = "\n";
     private static final String SPACE = " ";
     private static final String DEPS = "--resolvedeps";
+    private static final String NO_BASE = "--nobase";
+    private static final String IGNORE_MISSING = "--ignoremissing";
     private static final String PACKAGES = "%packages";
     private static final String INTERPRETER_OPT = "--interpreter";
     private static final String NOCHROOT = "--nochroot";
@@ -403,6 +405,13 @@ public class KickstartFormatter {
     private String getPackageOptions() {
         // if kstree is > 2.1 then add the resolve deps, ignore other deps
         String opts = this.ksdata.isRhel2() || this.ksdata.isRhel5OrGreater() ? "" : DEPS;
+
+        if (this.ksdata.getIgnoreMissing()) {
+            opts = opts + SPACE + IGNORE_MISSING;
+        }
+        if (this.ksdata.getNoBase()) {
+            opts = opts + SPACE + NO_BASE;
+        }
         return PACKAGES + SPACE + opts + NEWLINE;
     }
 

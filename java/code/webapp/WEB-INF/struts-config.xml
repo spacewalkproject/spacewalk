@@ -676,6 +676,8 @@
                    type="org.apache.struts.action.DynaActionForm">
             <form-property name="ksid" type="java.lang.Long" />
             <form-property name="packageList" type="java.lang.String" />
+            <form-property name="noBase" type="java.lang.Boolean" />
+            <form-property name="ignoreMissing" type="java.lang.Boolean" />
             <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
 

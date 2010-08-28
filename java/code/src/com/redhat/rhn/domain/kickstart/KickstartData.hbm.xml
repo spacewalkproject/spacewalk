@@ -32,6 +32,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="isOrgDefault" column="is_org_default" not-null="true" type="yes_no" />
         <property name="kernelParams" column="kernel_params"  type="string" length="128" />
         <property name="nonChrootPost" column="nonchrootpost" not-null="false" type="yes_no" />
+        <property name="noBase" column="no_base" not-null="false" type="yes_no" />
+        <property name="ignoreMissing" column="ignore_missing" not-null="false" type="yes_no" />
         <property name="verboseUp2date" column="verboseup2date" not-null="false" type="yes_no" />
 		<property name="partitionDataBinary" column="partition_data"  type="binary" />        
         <property name="cobblerId" column="cobbler_id"  type="string" length="64" />

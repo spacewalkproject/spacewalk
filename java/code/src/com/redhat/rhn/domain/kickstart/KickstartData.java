@@ -84,6 +84,8 @@ public class KickstartData {
     private Set ips;          // rhnKickstartIpRange
     private Set<KickstartScript> scripts;      // rhnKickstartScript
     private KickstartDefaults kickstartDefaults;
+    private boolean noBase;
+    private boolean ignoreMissing;
 
     private static final Pattern URL_REGEX =
         Pattern.compile("--url\\s*(\\S+)", Pattern.CASE_INSENSITIVE);
@@ -120,6 +122,8 @@ public class KickstartData {
         nonChrootPost = new Boolean(false);
         childChannels = new HashSet();
         kickstartType = TYPE_WIZARD;
+        noBase = new Boolean(false);
+        ignoreMissing = new Boolean(false);
     }
 
     /**
@@ -1408,6 +1412,34 @@ public class KickstartData {
      */
     protected void setKickstartType(String kickstartTypeIn) {
         this.kickstartType = kickstartTypeIn;
+    }
+
+    /**
+     * @return Returns true if the base package group should be left off
+     */
+    public boolean getNoBase() {
+        return noBase;
+    }
+
+    /**
+     * @param noBaseIn the noBase to set
+     */
+    public void setNoBase(Boolean noBaseIn) {
+       this.noBase = noBaseIn;
+    }
+
+    /**
+     * @return Returns true if we should ignore missing packages
+     */
+    public boolean getIgnoreMissing() {
+        return ignoreMissing;
+    }
+
+    /**
+     * @param ignoreMissingIn the ignoreMissing to set
+     */
+    public void setIgnoreMissing(Boolean ignoreMissingIn) {
+       this.ignoreMissing = ignoreMissingIn;
     }
 
     /**

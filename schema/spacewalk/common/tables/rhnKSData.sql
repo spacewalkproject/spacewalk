@@ -61,6 +61,14 @@ CREATE TABLE rhnKSData
                         DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_ks_nonchroot_post_ck
                             CHECK (nonchrootpost in ( 'Y' , 'N' )),
+    no_base         CHAR(1)
+                        DEFAULT ('N') NOT NULL
+                        CONSTRAINT rhn_ks_nobase_ck
+                            CHECK (no_base in ( 'Y' , 'N' )),
+    ignore_missing  CHAR(1)
+                        DEFAULT ('N') NOT NULL
+                        CONSTRAINT rhn_ks_ignore_missing_ck
+                            CHECK (ignore_missing in ( 'Y' , 'N' )),
     created         DATE
                         DEFAULT (sysdate) NOT NULL,
     modified        DATE

@@ -11470,6 +11470,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context context-type="sourcefile">/rhn/kickstart/KickstartPackagesEdit.do</context>
       </context-group>
     </trans-unit>
+
+    <trans-unit id="kickstart.edit.pkgs.jsp.nobase">
+      <source>Don't install @Base package group</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/kickstart/KickstartPackagesEdit.do</context>
+      </context-group>
+    </trans-unit>
+
+    <trans-unit id="kickstart.edit.pkgs.jsp.ignoremissing">
+      <source>Ignore missing packages</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/kickstart/KickstartPackagesEdit.do</context>
+      </context-group>
+    </trans-unit>
     <!-- Cobbler Snippet Entries -->
     <group>
         <context-group name="ctx">
