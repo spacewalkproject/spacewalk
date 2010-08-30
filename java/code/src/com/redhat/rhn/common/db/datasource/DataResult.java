@@ -306,10 +306,10 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
      * @param c collection to add
      * @return if data resule was changed
      */
-    public boolean addAll(Collection c) {
-        boolean changed = super.addAll(c);
-        totalSize += c.size();
-        end += c.size();
+    public boolean addDataResult(DataResult dr) {
+        boolean changed = super.addAll(dr);
+        totalSize += dr.size();
+        end += dr.size();
         start = totalSize - end;
         return changed;
     }

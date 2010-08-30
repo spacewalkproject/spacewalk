@@ -136,7 +136,7 @@ public class SelectMode extends BaseMode {
                     inClause.size() - subStart  : CachedStatement.BATCH_SIZE;
             List subClause = inClause.subList(subStart, subStart + subLength);
             DataResult subDr = getQuery().execute(parameters, subClause, this);
-            toReturn.addAll(subDr);
+            toReturn.addDataResult(subDr);
             subStart += subLength;
         }
         return toReturn;
