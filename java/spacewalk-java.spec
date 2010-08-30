@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.17
+Version: 1.2.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -335,6 +335,23 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 30 2010 Partha Aji <paji@redhat.com> 1.2.18-1
+- 628100 - fix for Activation Keys - Config channels issue (paji@redhat.com)
+- cleaned up KickstartData object a bit (paji@redhat.com)
+- 591291 - list errata packages only associated to the given channel
+  (tlestach@redhat.com)
+- checkstyle fix (tlestach@redhat.com)
+- 627149 - do not return installtime via xmlrpc when not defined
+  (tlestach@redhat.com)
+- better create a separate method than override an existing in this case
+  (tlestach@redhat.com)
+- do not log if queue is empty for queue tasks (tlestach@redhat.com)
+- 529232 - add 'no base' and 'ignore missing' options to kickstart
+  (coec@war.coesta.com)
+- Removed unnecessary NVLs from a config query (paji@redhat.com)
+- 624377 - restore original functionality and information (coec@war.coesta.com)
+- Fix hardware page (colin.coe@gmail.com)
+
 * Fri Aug 27 2010 Tomas Lestach <tlestach@redhat.com> 1.2.17-1
 - add repo type to the RepoSyncTask (tlestach@redhat.com)
 - fix user email notification (tlestach@redhat.com)
