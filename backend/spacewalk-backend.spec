@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.8
+Version: 1.2.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Aug 30 2010 Justin Sherrill <jsherril@redhat.com> 1.2.9-1
+- 626749 - fixing spacewalk-repo-sync to ignore source packages
+  (jsherril@redhat.com)
+- adding missing commit to make repo generation after reposync work again
+  (jsherril@redhat.com)
+- 579588 - adding a more stern warning message to activating a ceertificate of
+  a different version (jsherril@redhat.com)
+- 593896 - Moved Kickstart Parition UI logic (paji@redhat.com)
+
 * Tue Aug 24 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.8-1
 - fixed update_errata_cache_by_channel job for channels in NULL org
 
