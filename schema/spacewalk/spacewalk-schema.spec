@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.8
+Version:        1.2.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Aug 30 2010 Partha Aji <paji@redhat.com> 1.2.9-1
+- Fixed a typo in the column name in rhnKsdata table (paji@redhat.com)
+- 627149 - do not return installtime via xmlrpc when not defined
+  (tlestach@redhat.com)
+- 529232 - add 'no base' and 'ignore missing' options to kickstart
+  (coec@war.coesta.com)
+
 * Fri Aug 27 2010 Tomas Lestach <tlestach@redhat.com> 1.2.8-1
 - fix errata-cache-bunch template (tlestach@redhat.com)
 
