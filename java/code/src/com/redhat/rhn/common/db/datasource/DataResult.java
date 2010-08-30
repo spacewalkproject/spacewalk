@@ -303,7 +303,7 @@ public class DataResult<T> extends ArrayList<T> implements List<T> {
 
     /**
      * override addAll to update also the private attributes
-     * @param c collection to add
+     * @param dr data result to add
      * @return if data resule was changed
      */
     public boolean addDataResult(DataResult dr) {
