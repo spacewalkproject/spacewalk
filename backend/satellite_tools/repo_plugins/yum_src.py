@@ -58,6 +58,8 @@ class ContentSource:
         list = sack.returnPackages()
         to_return = []
         for pack in list:
+            if pack.arch == 'src':
+                continue
             new_pack = ContentPackage()
             new_pack.setNVREA(pack.name, pack.version, pack.release, 
                               pack.epoch, pack.arch)
