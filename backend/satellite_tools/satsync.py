@@ -809,14 +809,14 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             log(1, t_format % _('end-of-service'))
             status = _('e')
             for chn in ch_end_of_service:
-                log(1, p_format % (status, chn, ''))
+                log(1, p_format % (status, chn, '', ''))
             log(2, '')
 
         if doTyposYN and ch_typos:
             log(1, _('   typos:'))
             status = _('?')
             for chn in ch_typos:
-                log(1, p_format % (status, chn, ''))
+                log(1, p_format % (status, chn, '', ''))
             log(2, '')
         log(1, '')
 
