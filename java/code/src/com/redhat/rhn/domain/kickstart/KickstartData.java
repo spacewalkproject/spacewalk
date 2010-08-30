@@ -115,15 +115,15 @@ public class KickstartData {
         commands = new HashSet<KickstartCommand>();
         ips = new HashSet();
         scripts = new HashSet<KickstartScript>();
-        postLog = new Boolean(false);
-        preLog = new Boolean(false);
-        ksCfg = new Boolean(false);
-        verboseUp2date = new Boolean(false);
-        nonChrootPost = new Boolean(false);
+        postLog = false;
+        preLog = false;
+        ksCfg = false;
+        verboseUp2date = false;
+        nonChrootPost = false;
         childChannels = new HashSet();
         kickstartType = TYPE_WIZARD;
-        noBase = new Boolean(false);
-        ignoreMissing = new Boolean(false);
+        noBase = false;
+        ignoreMissing = false;
     }
 
     /**
