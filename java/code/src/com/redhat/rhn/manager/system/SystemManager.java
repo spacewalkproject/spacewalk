@@ -237,6 +237,9 @@ public class SystemManager extends BaseManager {
             if (pkg.get("arch") == null) {
                 pkg.put("arch", LocalizationService.getInstance().getMessage("Unknown"));
             }
+            if (pkg.get("installtime") == null) {
+                pkg.remove("installtime");
+            }
         }
         return pkgs;
     }

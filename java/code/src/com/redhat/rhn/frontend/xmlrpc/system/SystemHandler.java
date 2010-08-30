@@ -1195,7 +1195,7 @@ public class SystemHandler extends BaseHandler {
      *                 #prop("string", "release")
      *                 #prop("string", "epoch")
      *                 #prop("string", "arch")
-     *                 #prop("string", "installtime")
+     *                 #prop_desc("date", "installtime", "returned only if known")
      *          #struct_end()
      *      #array_end()
      */
