@@ -33,6 +33,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -238,6 +239,7 @@ public class Token implements Identifiable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean equals(final Object other) {
         if (!(other instanceof Token)) {
             return false;
@@ -258,6 +260,7 @@ public class Token implements Identifiable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int hashCode() {
         return new HashCodeBuilder().append(getId())
                                     .append(getDisabled())
@@ -471,6 +474,11 @@ public class Token implements Identifiable {
      */
     protected void setConfigChannels(List cfgChannels) {
         this.configChannels = cfgChannels;
+        for (Iterator itr = configChannels.iterator(); itr.hasNext();) {
+            if (itr.next() == null) {
+                itr.remove();
+            }
+        }
     }
 
     /**
