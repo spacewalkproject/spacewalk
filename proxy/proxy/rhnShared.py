@@ -329,7 +329,7 @@ class SharedHandler:
                # mod_wsgi modifies incoming headers so we have to transform them back
                k = k.replace('_','-')
             if not (string.lower(k)[:2] == 'x-' or
-                    string.lower(k) in ['content-length', 'user-agent', 'content-type']):
+                    string.lower(k) in ['range', 'content-length', 'user-agent', 'content-type']):
                 # filter out header we don't want to send
                 continue
             if type(vals) not in (ListType, TupleType):
