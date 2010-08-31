@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.2.5
+Version: 1.2.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -281,6 +281,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Aug 31 2010 Jan Pazdziora 1.2.6-1
+- 603028 - when checking package architecture during errata update, allow
+  transition to and from noarch.
+
 * Tue Aug 31 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.5-1
 - 621135 - report resonable cpuinfo in s390(x)
 
