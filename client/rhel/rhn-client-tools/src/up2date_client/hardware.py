@@ -272,6 +272,28 @@ def read_cpuinfo():
             hwdict['speed'] = int(round(float(mhz_speed)) - 1)
         except ValueError:
             hwdict['speed'] = -1
+         
+    elif uname in ['s390', 's390x']:
+        tmpdict = {}
+        for cpu in string.split(cpulist, "\n"):
+            vals = string.split(cpu, ": ")
+            if len(vals) != 2:
+                continue
+            tmpdict[vals[0].strip()] = vals[1].strip()
+
+        hwdict['platform']      = uname
+        hwdict['type']          = get_entry(tmpdict,'vendor_id')
+        hwdict['model']         = uname
+        hwdict['count']         = get_entry(tmpdict, '# processors')
+        hwdict['bogomips']      = get_entry(tmpdict, 'bogomips per cpu')
+        hwdict['model_number']  = ""
+        hwdict['model_ver']     = ""
+        hwdict['model_rev']     = ""
+        hwdict['cache']         = ""
+        hwdict['other']         = get_entry(tmpdict, 'features')
+        hwdict['speed']         = 0
+
+        
     else:
         # XXX: expand me. Be nice to others
         hwdict['platform']      = uname
