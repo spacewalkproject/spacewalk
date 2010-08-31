@@ -13,6 +13,7 @@
   <xsl:element name="Connector">
     <xsl:copy-of select="@*" />
     <xsl:attribute name="URIEncoding">UTF-8</xsl:attribute>
+    <xsl:attribute name="address">127.0.0.1</xsl:attribute>
   </xsl:element>
 </xsl:template>
 
