@@ -60,7 +60,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/startup.pl
 %config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-www.conf
-%config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/workers.properties
 %config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
 %config(noreplace) %{_var}/lib/cobbler/kickstarts/spacewalk-sample.ks
 %config(noreplace) %{_var}/lib/cobbler/snippets/spacewalk_file_preservation
