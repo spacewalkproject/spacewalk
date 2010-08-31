@@ -49,6 +49,10 @@ def update(errataidlist, cache_only=None):
         for p in packagelist:
 	    if current_packages_with_arch.has_key(p[0]+p[4]):
 	        u[p[0]+p[4]] = p
+	    elif current_packages_with_arch.has_key(p[0]+"noarch"):
+	        u[p[0]+p[4]] = p
+	    elif p[4] == "noarch" and current_packages.has_key(p[0]):
+	        u[p[0]] = p
     else:
         # 5.2 and older sats + hosted dont send arch
         for p in packagelist:
