@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.19
+Version: 1.2.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -335,6 +335,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 31 2010 Partha Aji <paji@redhat.com> 1.2.20-1
+- 628097 - Removed kickstart partition validation logic (paji@redhat.com)
+
 * Tue Aug 31 2010 Tomas Lestach <tlestach@redhat.com> 1.2.19-1
 - 626741 - do not allow two repos with same label or repository url
   (tlestach@redhat.com)
