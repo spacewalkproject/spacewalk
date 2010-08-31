@@ -40,7 +40,7 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
             "volgroup myvg pv.01\n" +
             "logvol / --vgname=myvg --name=rootvol --size=1000 --grow\n";
 
-        assertNull(cmd.parsePartitions(partitions));
+        assertNull(cmd.setPartitionData(partitions));
 
         assertNotNull(k.getPartitionData());
         assertNotNull(cmd);
@@ -61,7 +61,7 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
             "volgroup myvg pv.01\n" +
             "logvol / --vgname=myvg --name=rootvol --size=2112 --grow\n";
 
-        assertNull(cmd.parsePartitions(partitions));
+        assertNull(cmd.setPartitionData(partitions));
         assertNull(cmd.store());
         k = (KickstartData) reload(k);
         assertNotNull(k.getPartitionData());

@@ -353,7 +353,7 @@ public class SystemDetailsHandler extends BaseHandler {
             sb.append(s);
             sb.append('\n');
         }
-        ValidatorError err = command.parsePartitions(sb.toString());
+        ValidatorError err = command.setPartitionData(sb.toString());
         if (err != null) {
             throw new FaultException(-4, "PartitioningSchemeInvalid", err
                     .toString());

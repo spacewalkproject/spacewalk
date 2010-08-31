@@ -40,7 +40,7 @@ public class KickstartPartitionEditAction extends BaseKickstartEditAction {
             DynaActionForm form,
             BaseKickstartCommand cmdIn) {
         KickstartPartitionCommand cmd = (KickstartPartitionCommand) cmdIn;
-        return cmd.parsePartitions(form.getString(PARTITIONS));
+        return cmd.setPartitionData(form.getString(PARTITIONS));
     }
 
     @Override

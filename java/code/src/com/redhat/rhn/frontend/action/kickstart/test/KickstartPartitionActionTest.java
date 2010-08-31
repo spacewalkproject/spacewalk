@@ -71,26 +71,6 @@ public class KickstartPartitionActionTest extends RhnMockStrutsTestCase {
 
     }
 
-    public void testDuplicateMountPoint() throws Exception {
-
-        String data = "part /boot --size=1000 --grow --maxsize=3000\n" +
-        "part /boot --size=2000 --grow --maxsize=3000\n" +
-        "volgroup myvg pv.01\n" +
-        "raid swap --fstype swap --level 0 --device 1 raid.05 raid.06 raid.07 raid.08";
-        setRequestPathInfo("/kickstart/KickstartPartitionEdit");
-        addRequestParameter(KickstartPartitionEditAction.SUBMITTED,
-                Boolean.TRUE.toString());
-        addRequestParameter(KickstartPartitionEditAction.PARTITIONS, data);
-        actionPerform();
-        DynaActionForm form = (DynaActionForm) getActionForm();
-        String formval = (String)form.get(KickstartPartitionEditAction.PARTITIONS);
-
-        assertTrue(formval.length() > 0);
-
-        String[] keys = {"kickstart.partition.duplicate"};
-        verifyActionErrors(keys);
-    }
-
     public void testMultipleSwapsSubmit() throws Exception {
 
         String data = "part swap --size=1000 --grow --maxsize=3000\n" +
