@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -318,6 +318,11 @@ fi
 
 
 %changelog
+* Tue Aug 31 2010 Justin Sherrill <jsherril@redhat.com> 1.2.1-1
+- 629102 - Adding range to the allowed header list for proxy
+  (jsherril@redhat.com)
+- bumping package versions for 1.2 (mzazrivec@redhat.com)
+
 * Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.3-1
 - oracle client has been removed from /opt/oracle ages ago
 
