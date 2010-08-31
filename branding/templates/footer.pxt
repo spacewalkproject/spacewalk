@@ -6,7 +6,7 @@
   <div id="footer">
     Copyright &#169; 2002-10 Red Hat, Inc. All rights reserved. <a href="https://www.redhat.com/legal/privacy_statement.html">Privacy statement</a> : <a href="http://www.redhat.com/legal/legal_statement.html">Legal statement</a> : <a href="http://www.redhat.com/">redhat.com</a>
     <div style="color: black">
-      Spacewalk release <a href="/rhn/help/release-notes/satellite/index.jsp"><pxt-config var="version" /></a>
+      Spacewalk release <a href="/rhn/help/dispatcher/release_notes"><pxt-config var="version" /></a>
     </div>
     <p><rhn-bugzilla-link /></p>
   </div>
