@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -12,25 +12,28 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
-package com.redhat.rhn.manager.channel.repo;
+package com.redhat.rhn.frontend.xmlrpc.channel.repo;
 
-import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.FaultException;
+
 
 /**
- * CreateRepoCommand - Command to create a repo
- * @version $Rev: 119601 $
+ * InvalidRepoUrlException
+ * @version $Rev$
  */
-public class EditRepoCommand extends BaseRepoCommand {
+public class InvalidRepoUrlException extends FaultException {
 
     /**
-     *
-     * @param currentUser logged in user
-     * @param repoId id of content source object
+     * Comment for <code>serialVersionUID</code>
      */
-    public EditRepoCommand(User currentUser, Long repoId) {
-        super();
-        this.setOrg(currentUser.getOrg());
-        this.repo = ChannelFactory.lookupContentSource(repoId, currentUser.getOrg());
+    private static final long serialVersionUID = 7189002795067633123L;
+
+    /**
+     * Constructor
+     * @param repoUrl Repository url already in use
+     */
+    public InvalidRepoUrlException(String repoUrl) {
+        super(1, "Repo url already defined", "edit.channel.repo.repourlinuse",
+                new Object[] {repoUrl});
     }
 }

@@ -44,7 +44,7 @@ public class RepoDeleteAction extends RhnAction {
         EditRepoCommand cmd = new EditRepoCommand(context.getLoggedInUser(),
                 context.getParamAsLong("id"));
 
-        ContentSource src = cmd.getNewRepo();
+        ContentSource src = cmd.getRepo();
 
         request.setAttribute(RepoDetailsAction.LABEL, src.getLabel());
         request.setAttribute(RepoDetailsAction.URL, src.getSourceUrl());
@@ -54,7 +54,7 @@ public class RepoDeleteAction extends RhnAction {
             try {
                 ChannelFactory.remove(src);
                 createSuccessMessage(request,
-                            "repos.delete.success", cmd.getLabel());
+                            "repos.delete.success", src.getLabel());
                 return mapping.findForward("success");
             }
             catch (ValidatorException ve) {

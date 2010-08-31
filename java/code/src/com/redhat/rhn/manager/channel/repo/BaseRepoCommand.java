@@ -14,13 +14,14 @@
  */
 package com.redhat.rhn.manager.channel.repo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoLabelException;
+import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoUrlException;
 
 /**
  * CreateRepoCommand - Command to create a repo
@@ -91,39 +92,38 @@ public class BaseRepoCommand {
 
     /**
      * Check for errors and store Org to db.
-     * @return ValidatorError[] array if there are errors
+     * @throws InvalidRepoUrlException in case repo wih given url already exists
+     * in the org
+     * @throws InvalidRepoLabelException in case repo witch given label already exists
+     * in the org
      */
-    public ValidatorError[] store() {
-        ValidatorError[] errorst = validate();
-        if (errorst != null && errorst.length > 0) {
-            return errorst;
-        }
-        else {
-            // Create repo
+    public void store() throws InvalidRepoUrlException, InvalidRepoLabelException {
+        repo.setOrg(org);
+        repo.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
+
+        if (!this.label.equals(repo.getLabel())) {
+            if (!ChannelFactory.lookupContentSourceByOrgAndLabel(org, label).isEmpty()) {
+                throw new InvalidRepoLabelException(label);
+            }
             repo.setLabel(this.label);
-            repo.setSourceUrl(this.url);
-            repo.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
-            ChannelFactory.save(repo);
         }
-        return null;
+
+        if (!this.url.equals(repo.getSourceUrl())) {
+            if (!ChannelFactory.lookupContentSourceByOrgAndRepo(org,
+                    ChannelFactory.CONTENT_SOURCE_TYPE_YUM, url).isEmpty()) {
+                throw new InvalidRepoUrlException(url);
+            }
+            repo.setSourceUrl(this.url);
+        }
+
+        ChannelFactory.save(repo);
     }
 
     /**
-     * Get the newly created org.
-     * @return Org that was stored to DB
+     * Get the repo
+     * @return repo
      */
-    public ContentSource getNewRepo() {
+    public ContentSource getRepo() {
         return this.repo;
     }
-
-    /**
-     * Validates the repo object.
-     * @return an Object array of ValidatorErrors.
-     */
-    public ValidatorError[] validate() {
-        errors = new ArrayList(); //clear validation errors
-        return (ValidatorError[]) errors.toArray(new ValidatorError[0]);
-    }
-
-
 }

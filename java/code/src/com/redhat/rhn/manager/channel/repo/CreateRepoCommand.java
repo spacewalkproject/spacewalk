@@ -28,9 +28,8 @@ public class CreateRepoCommand extends BaseRepoCommand {
      * @param orgIn org for repo
      */
     public CreateRepoCommand(Org orgIn) {
-     super();
-     this.repo = ChannelFactory.createRepo();
-     this.repo.setOrg(orgIn);
- }
-
+        super();
+        this.setOrg(orgIn);
+        this.repo = ChannelFactory.createRepo();
+    }
 }

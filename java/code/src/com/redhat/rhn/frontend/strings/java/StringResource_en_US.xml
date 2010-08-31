@@ -8578,6 +8578,12 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="channel.edit.repo.updated">
         <source>{0} repository information was successfully updated</source>
      </trans-unit>
+     <trans-unit id="edit.channel.repo.repolabelinuse">
+        <source>The repository label '{0}' is already in use, please choose a different label</source>
+     </trans-unit>
+     <trans-unit id="edit.channel.repo.repourlinuse">
+        <source>There's already a defined repository with given url, please reuse it.</source>
+     </trans-unit>
      <trans-unit id="ssm.provision.scheduled">
         <source>Successfully scheduled {0} system(s) for provisioning.</source>
      </trans-unit>

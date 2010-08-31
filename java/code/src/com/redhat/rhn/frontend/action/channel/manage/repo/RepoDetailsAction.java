@@ -20,9 +20,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -33,6 +36,8 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoLabelException;
+import com.redhat.rhn.frontend.xmlrpc.channel.repo.InvalidRepoUrlException;
 import com.redhat.rhn.manager.channel.repo.BaseRepoCommand;
 import com.redhat.rhn.manager.channel.repo.CreateRepoCommand;
 import com.redhat.rhn.manager.channel.repo.EditRepoCommand;
@@ -74,20 +79,29 @@ public class RepoDetailsAction extends RhnAction {
             }
             else {
                 try {
-                    ContentSource repo = submit(request, form);
-                    if (isCreateMode(request)) {
-                        createSuccessMessage(request,
-                                "repos.jsp.create.success", repo.getLabel());
+                    ActionErrors errors = new ActionErrors();
+                    ContentSource repo = submit(request, errors, form);
+                    if (!errors.isEmpty()) {
+                        addErrors(request, errors);
+                        return getStrutsDelegate().forwardParams(
+                                mapping.findForward("default"),
+                                new HashMap());
                     }
                     else {
-                        createSuccessMessage(request,
-                                "repos.jsp.update.success", repo.getLabel());
-                    }
-
-                    request.removeAttribute(CREATE_MODE);
-                    setupRepo(request, form, repo);
-                    return getStrutsDelegate().forwardParam(mapping.findForward("success"),
-                                        "id", repo.getId().toString());
+                        if (isCreateMode(request)) {
+                            createSuccessMessage(request,
+                                    "repos.jsp.create.success", repo.getLabel());
+                        }
+                        else {
+                            createSuccessMessage(request,
+                                    "repos.jsp.update.success", repo.getLabel());
+                        }
+                        request.removeAttribute(CREATE_MODE);
+                        setupRepo(request, form, repo);
+                        return getStrutsDelegate().forwardParam(
+                                mapping.findForward("success"), "id",
+                                repo.getId().toString());
+                   }
                 }
                 catch (ValidatorException ve) {
                     getStrutsDelegate().saveMessages(request, ve.getResult());
@@ -117,7 +131,7 @@ public class RepoDetailsAction extends RhnAction {
         RequestContext context = new RequestContext(request);
         EditRepoCommand cmd = new EditRepoCommand(context.getLoggedInUser(),
                 context.getParamAsLong("id"));
-        setupRepo(request, form, cmd.getNewRepo());
+        setupRepo(request, form, cmd.getRepo());
     }
 
     private void setupRepo(HttpServletRequest request, DynaActionForm form,
@@ -138,7 +152,8 @@ public class RepoDetailsAction extends RhnAction {
         request.setAttribute(REPO, repo);
     }
 
-    private ContentSource submit(HttpServletRequest request, DynaActionForm form) {
+    private ContentSource submit(HttpServletRequest request, ActionErrors errors,
+            DynaActionForm form) {
         RequestContext context = new RequestContext(request);
         String url = form.getString(URL);
         String label = form.getString(LABEL);
@@ -154,8 +169,19 @@ public class RepoDetailsAction extends RhnAction {
 
         repoCmd.setLabel(label);
         repoCmd.setUrl(url);
-        repoCmd.store();
 
-        return repoCmd.getNewRepo();
+        try {
+            repoCmd.store();
+        }
+        catch (InvalidRepoUrlException e) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "edit.channel.repo.repourlinuse", null));
+        }
+        catch (InvalidRepoLabelException e) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "edit.channel.repo.repolabelinuse", repoCmd.getLabel()));
+        }
+
+        return repoCmd.getRepo();
     }
 }

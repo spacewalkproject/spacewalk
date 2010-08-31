@@ -158,6 +158,37 @@ public class ChannelFactory extends HibernateFactory {
                 "ContentSource.findByOrgandChannel", params);
     }
 
+    /**
+     * Lookup a content source by org and label
+     * @param org the org to lookup
+     * @param label repo label
+     * @return the ContentSource(s)
+     */
+    public static List<ContentSource> lookupContentSourceByOrgAndLabel(Org org,
+            String label) {
+        Map params = new HashMap();
+        params.put("org", org);
+        params.put("label", label);
+        return singleton.listObjectsByNamedQuery(
+                "ContentSource.findByOrgAndLabel", params);
+    }
+
+    /**
+     * Lookup a content source by org and repo
+     * @param org the org to lookup
+     * @param repoType repo type
+     * @param repoUrl repo url
+     * @return the ContentSource(s)
+     */
+    public static List<ContentSource> lookupContentSourceByOrgAndRepo(Org org,
+            ContentSourceType repoType, String repoUrl) {
+        Map params = new HashMap();
+        params.put("org", org);
+        params.put("type_id", repoType.getId());
+        params.put("url", repoUrl);
+        return singleton.listObjectsByNamedQuery(
+                "ContentSource.findByOrgAndRepo", params);
+    }
 
     /**
      * lookup content source by id and org
