@@ -1918,4 +1918,17 @@ SELECT
   </query>
 </mode>
 
+<mode name="lookup_release_package_evr_id">
+  <query params="sid">
+select distinct p.evr_id as id
+        from 
+                   rhnPackageProvides pp 
+        inner join rhnPackageCapability pc on pc.id= pp.CAPABILITY_ID 
+        inner join rhnPackage p on p.id = pp.package_id
+        inner join rhnServerPackage sp on sp.name_id = p.name_id and sp.evr_id = p.evr_id
+    where pc.name='redhat-release' and sp.server_id= :sid
+  </query>
+</mode>
+
+
 </datasource_modes>

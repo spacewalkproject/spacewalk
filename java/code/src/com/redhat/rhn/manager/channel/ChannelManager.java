@@ -14,26 +14,6 @@
  */
 package com.redhat.rhn.manager.channel;
 
-import java.io.File;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.CallableMode;
@@ -65,6 +45,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -87,10 +68,31 @@ import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.org.OrgManager;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import java.io.File;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * ChannelManager
@@ -1236,6 +1238,7 @@ public class ChannelManager extends BaseManager {
      * @param end end date
      * @return the errata applicable to a channel
      */
+    @Deprecated
     public static DataResult listErrataForDates(Channel channel, String start, String end) {
         String mode = "relevant_to_channel_deprecated";
         Map params = new HashMap();
@@ -2041,10 +2044,10 @@ public class ChannelManager extends BaseManager {
         log.debug("listBaseChannelsForSystem()");
 
         List<EssentialChannelDto> channelDtos = new LinkedList<EssentialChannelDto>();
-
-        if (s.getReleasePackage() != null && s.getReleasePackage().getEvr() != null) {
-            String rhelVersion = s.getReleasePackage().getEvr().getVersion();
-            String rhelRelease = s.getReleasePackage().getEvr().getRelease();
+        PackageEvr releaseEvr = PackageManager.lookupReleasePackageEvrFor(s);
+        if (releaseEvr != null) {
+            String rhelVersion = releaseEvr.getVersion();
+            String rhelRelease = releaseEvr.getRelease();
             String serverArch = s.getServerArch().getLabel();
 
             // If the system has the default base channel, that channel will not have
@@ -2379,7 +2382,7 @@ public class ChannelManager extends BaseManager {
             return null;
         }
         Collections.sort(dr, new EusReleaseComparator(rhelVersion));
-        return (EssentialChannelDto) dr.get(dr.size() - 1);
+        return dr.get(dr.size() - 1);
     }
 
     /**
@@ -2696,7 +2699,7 @@ public class ChannelManager extends BaseManager {
 
         SelectMode mode = ModeFactory.getMode(
                 "Channel_queries", "channel_errata_packages");
-        return (List<PackageDto>) mode.execute(params);
+        return mode.execute(params);
     }
 
     /**
@@ -2710,7 +2713,7 @@ public class ChannelManager extends BaseManager {
 
         SelectMode mode = ModeFactory.getMode(
                 "Channel_queries", "cloned_original_id");
-        List<Map> list = (List) mode.execute(params);
+        List<Map> list = mode.execute(params);
         if (!list.isEmpty()) {
             Map map = list.get(0);
             return (Long) map.get("id");

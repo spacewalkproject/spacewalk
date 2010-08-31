@@ -33,7 +33,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -1706,15 +1705,6 @@ public class Server extends BaseDomainHelper implements Identifiable {
      */
     public void setPackages(Set packagesIn) {
         this.packages = packagesIn;
-    }
-
-    /**
-     * Returns the "Release" package associated to this server
-     * This has useful information like the Rhel release, and evr
-     * @return the Redhat release Installed Package
-     */
-    public InstalledPackage getReleasePackage() {
-        return PackageManager.lookupReleasePackageFor(this);
     }
 
     /**

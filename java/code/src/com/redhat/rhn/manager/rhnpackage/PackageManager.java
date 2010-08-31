@@ -28,11 +28,12 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageEvr;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageComparison;
@@ -64,8 +65,6 @@ import java.util.Set;
  * @version $Rev$
  */
 public class PackageManager extends BaseManager {
-
-    private static final String REDHAT_RELEASE_PACKAGE = "redhat-release";
     private static Logger log = Logger.getLogger(PackageManager.class);
     public static final String RHNCFG = "rhncfg";
     public static final String RHNCFG_CLIENT = "rhncfg-client";
@@ -863,14 +862,23 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Given a server this method returns the redhat-release package.
+     * Given a server this method returns the redhat-release package evr info.
      * This package is a marker package and holds information like
-     * the rhel release and can be futher queried to get the evr information.
      * @param server the server object who has to be queried
-     * @return the redhat release package or null if the package can't be found..
+     * @return the redhat release package evr or null if the package can't be found..
      */
-    public static InstalledPackage lookupReleasePackageFor(Server server) {
-        return PackageFactory.lookupByNameAndServer(REDHAT_RELEASE_PACKAGE, server);
+    public static PackageEvr lookupReleasePackageEvrFor(Server server) {
+        Map params = new HashMap();
+        params.put("sid", server.getId());
+        SelectMode m = ModeFactory.getMode("Package_queries",
+                                "lookup_release_package_evr_id");
+         DataResult<Map<String, Long>> ret = m.execute(params);
+         if (ret.isEmpty()) {
+             return null;
+         }
+
+         Long evrId = ret.get(0).get("id");
+         return PackageEvrFactory.lookupPackageEvrById(evrId);
     }
 
     /**
