@@ -106,7 +106,7 @@ fi
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
   # Relabel oracle-xe-univ's files
-  rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
+  rpm -ql oracle-xe-univ | while read i ; do [ -e $i ] && echo $i ; done | xargs -n 100 /sbin/restorecon -Rivv
   # Fix up additional directories, not owned by oracle-xe-univ
   /sbin/restorecon -Rivv %extra_restorecon
 fi
@@ -125,7 +125,7 @@ if [ $1 -eq 0 ]; then
   /usr/sbin/semanage port -d -t oracle_port_t -p tcp 9055 || :
 
   # Clean up oracle-xe-univ's files
-  rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
+  rpm -ql oracle-xe-univ | while read i ; do [ -e $i ] && echo $i ; done | xargs -n 100 /sbin/restorecon -Rivv
 
   # Clean up additional directories, not owned by oracle-xe-univ
   /sbin/restorecon -Rivv %extra_restorecon
