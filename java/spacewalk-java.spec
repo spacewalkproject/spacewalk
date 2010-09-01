@@ -179,6 +179,7 @@ Requires: java-devel >= 0:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
+Requires: jakarta-commons-dbcp
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jcommon
