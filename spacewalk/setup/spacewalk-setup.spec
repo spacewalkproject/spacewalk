@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.4
+Version:        1.2.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -103,6 +103,10 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Wed Sep 01 2010 Jan Pazdziora 1.2.5-1
+- 594513 - only listen on localhost (connectors at 8080 and 8009).
+- 531719 - fixing cobbler setup to set pxe_just_once (jsherril@redhat.com)
+
 * Thu Aug 26 2010 Justin Sherrill <jsherril@redhat.com> 1.2.4-1
 - small fix for broken perl code (jsherril@redhat.com)
 
