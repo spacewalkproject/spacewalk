@@ -462,7 +462,7 @@ class Packages(RPC_Base):
 
         if is_source:
             ret = self._getSourcePackageChecksum(org_id, pkg_infos)
-        else
+        else:
             ret = self._getPackageChecksum(org_id, pkg_infos)
         return ret
 
@@ -587,7 +587,7 @@ class Packages(RPC_Base):
                     self.getSourcePackageChecksum(username, password, info))
 
     def getSourcePackageChecksumBySession(self, session_string, info):
-        return getPackageChecksumBySession(self, session_string, info, source = 1)
+        return getPackageChecksumBySession(self, session_string, info, is_source = 1)
 
     def getSourcePackageMD5sumBySession(self, session_string, info):
         log_debug(3)
