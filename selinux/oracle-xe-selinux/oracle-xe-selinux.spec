@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         17%{?dist}
+Release:         18%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -139,6 +139,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Sep 01 2010 Jan Pazdziora 10.2-18
+- 629232 - only restorecon files that exist.
+
 * Mon Jul 19 2010 Jan Pazdziora 10.2-17
 - 615901 - dontaudit Oracle XE's access to /dev/console.
 
