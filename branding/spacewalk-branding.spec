@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.2.0
+Version:    1.2.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -80,6 +80,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
+- 567885 - "Spacewalk release 0.9" leads to 404 (coec@war.coesta.com)
+
 * Mon May 31 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.2-1
 - Adding the correct checkstyle for inactive systems
 - Added the dupe compare css and javascript magic
