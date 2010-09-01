@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -115,6 +115,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
+- 628640 - turn the wrapper into java_t upon runtime, it calls java anyway.
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
 - bumping spec files to 1.1 packages
 - Move systemlogs directory out of /var/satellite (joshua.roys@gtri.gatech.edu)
