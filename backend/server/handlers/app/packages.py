@@ -436,7 +436,7 @@ class Packages(RPC_Base):
         return self._Checksum2MD5sum_list(
                     self.getPackageChecksum(username, password, info))
 
-    def getPackageChecksumBySession(self, session_string, info):
+    def getPackageChecksumBySession(self, session_string, info, is_source = 0):
         log_debug(3)
 
         pkg_infos = info.get('packages')
@@ -456,7 +456,11 @@ class Packages(RPC_Base):
         except rhnSession.ExpiredSessionError:
             raise rhnFault(34)
 
-        return self._getPackageChecksum(org_id, pkg_infos)
+        if is_source:
+            ret = self._getSourcePackageChecksum(org_id, pkg_infos)
+        else
+            ret = self._getPackageChecksum(org_id, pkg_infos)
+        return ret
 
     def getPackageMD5sumBySession(self, session_string, info):
         log_debug(3)
@@ -597,27 +601,8 @@ class Packages(RPC_Base):
                     self.getSourcePackageChecksum(username, password, info))
 
     def getSourcePackageChecksumBySession(self, session_string, info):
-        log_debug(3)
+        return getPackageChecksumBySession(self, session_string, info, source = 1)
 
-        pkg_infos = info.get('packages')
-        channels = info.get('channels', [])
-        force = info.get('force', 0)
-        orgid = info.get('org_id')
-        
-        try:
-            if orgid == 'null':
-                null_org=1
-            else:
-                null_org=None
-            org_id, force = rhnPackageUpload.authenticate_session(
-                    session_string, channels=channels, null_org=null_org, force=force)
-        except rhnSession.InvalidSessionError:
-            raise rhnFault(33)
-        except rhnSession.ExpiredSessionError:
-            raise rhnFault(34)
-
-        return self._getSourcePackageChecksum(org_id, pkg_infos)
-    
     def getSourcePackageMD5sumBySession(self, session_string, info):
         log_debug(3)
         self._MD5sum2Checksum_info(info)
