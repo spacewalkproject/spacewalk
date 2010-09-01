@@ -43,12 +43,19 @@ public class ClearLogHistory extends RhnJavaJob {
         throws JobExecutionException {
         Integer days = null;
         try {
-            days = Integer.parseInt(
-                    (String) context.getJobDetail().getJobDataMap().get("days"));
+            days = (Integer) context.getJobDetail().getJobDataMap().get("days");
+        } catch (java.lang.ClassCastException cce) {
+            String passedDays = (String) context.getJobDetail().getJobDataMap().get("days");
+            if (passedDays != null) {
+                try {
+                    days = Integer.parseInt(passedDays);
+                }
+                catch (NumberFormatException nfe) {
+                    throw new JobExecutionException("Invalid argument: days");
+                }
+            }
         }
-        catch (java.lang.ClassCastException cce) {
-            throw new JobExecutionException("Invalid argument: days");
-        }
+
         // if no value given, use default
         if (days == null) {
             days = DEFAULT_DAYS_VALUE;
@@ -75,7 +82,6 @@ public class ClearLogHistory extends RhnJavaJob {
         // delete outdated schedules
         List<TaskoSchedule> scheduleList = TaskoFactory.listSchedulesOlderThan(limitTime);
         for (TaskoSchedule schedule : scheduleList) {
-            Date endTime = schedule.getActiveTill();
             if (TaskoFactory.listRunsBySchedule(schedule.getId()).isEmpty()) {
                 TaskoFactory.delete(schedule);
             }
