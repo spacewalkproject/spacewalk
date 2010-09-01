@@ -200,7 +200,7 @@ if [ -f $RHN_CONFIG_PY ] ; then
     fi
 fi
 
-rm -rf $RHN_PKG_DIR/list
+rm -rf $RHN_PKG_DIR/list/*
 
 # Make sure the scriptlet returns with success
 exit 0
