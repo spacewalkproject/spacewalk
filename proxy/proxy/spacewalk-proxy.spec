@@ -227,8 +227,10 @@ fi > /dev/null 2>&1
 exit 0
 
 %preun broker
-# nuke the cache
-rm -rf %{_var}/cache/rhn/*
+if [ $1 -eq 0 ] ; then
+    # nuke the cache
+    rm -rf %{_var}/cache/rhn/*
+fi
 
 %preun
 if [ $1 = 0 ] ; then
