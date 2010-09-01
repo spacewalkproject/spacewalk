@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.help;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.common.validator.ValidatorWarning;
 import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.dto.HelpDocumentOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -62,6 +64,7 @@ public class DocSearchSetupAction extends RhnAction {
     private static final String OPT_CONTENT_TITLE = "search_content_title";
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest request, HttpServletResponse response) {
 
@@ -167,7 +170,7 @@ public class DocSearchSetupAction extends RhnAction {
         if (!StringUtils.isBlank(searchString)) {
             List results = performSearch(ctx.getWebSession().getId(),
                                          searchString,
-                                         viewmode);
+                                         viewmode, request);
             log.debug("GET search: " + results);
             request.setAttribute("pageList",
                     results != null ? results : Collections.EMPTY_LIST);
@@ -178,7 +181,7 @@ public class DocSearchSetupAction extends RhnAction {
     }
 
     private List performSearch(Long sessionId, String searchString,
-                               String mode)
+                               String mode, HttpServletRequest request)
         throws XmlRpcFault, MalformedURLException {
 
         log.debug("Performing doc search");
@@ -204,7 +207,29 @@ public class DocSearchSetupAction extends RhnAction {
             searchFreeForm = true;
         }
         args.add(searchFreeForm);
-        List results = (List)client.invoke("index.search", args);
+        List results = Collections.EMPTY_LIST;
+        try {
+            results = (List)client.invoke("index.search", args);
+        }
+        catch (XmlRpcFault e) {
+            if (e.getErrorCode() == 200) {
+                //This is most likely a language error
+                //so lets try the search the default language
+                //removing the 'lang' from the args
+                args.remove(args.size() - 2);
+                results = (List)client.invoke("index.search", args);
+
+                List<ValidatorWarning> warnings = new LinkedList<ValidatorWarning>();
+                warnings.add(new ValidatorWarning
+                        ("packages.search.index_files_missing_for_docs"));
+
+                getStrutsDelegate().saveMessages(request, Collections.EMPTY_LIST, warnings);
+
+            }
+            else {
+                throw e;
+            }
+        }
 
         if (log.isDebugEnabled()) {
             log.debug("results = [" + results + "]");

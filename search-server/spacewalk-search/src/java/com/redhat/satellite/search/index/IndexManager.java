@@ -15,12 +15,18 @@
 
 package com.redhat.satellite.search.index;
 
-import com.redhat.satellite.search.config.Configuration;
-import com.redhat.satellite.search.index.builder.BuilderFactory;
-import com.redhat.satellite.search.index.ngram.NGramAnalyzer;
-import com.redhat.satellite.search.index.ngram.NGramQueryParser;
-import com.redhat.satellite.search.rpc.handlers.IndexHandler;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
@@ -47,15 +53,11 @@ import org.apache.nutch.searcher.HitDetails;
 import org.apache.nutch.searcher.Summary;
 import org.apache.nutch.util.NutchConfiguration;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.redhat.satellite.search.config.Configuration;
+import com.redhat.satellite.search.index.builder.BuilderFactory;
+import com.redhat.satellite.search.index.ngram.NGramAnalyzer;
+import com.redhat.satellite.search.index.ngram.NGramQueryParser;
+import com.redhat.satellite.search.rpc.handlers.IndexHandler;
 
 /**
  * Indexing workhorse class
@@ -78,7 +80,8 @@ public class IndexManager {
     private AnalyzerFactory nutchAnalyzerFactory;
     // Name conflict with our Configuration class and Hadoop's
     private org.apache.hadoop.conf.Configuration nutchConf;
-    private Map<String, String> docLocaleLookUp = new HashMap<String, String>();
+    private Map<String, String> docLocaleLookUp = new TreeMap<String, String>
+    												(String.CASE_INSENSITIVE_ORDER);
     private Map<String, FetchedSegments> docSegments;
     /**
      * Constructor
@@ -677,14 +680,22 @@ public class IndexManager {
     }
 
     private String getDocIndexPath(String lang) throws IOException {
-        if (docLocaleLookUp.containsKey(lang)) {
-            return BuilderFactory.DOCS_TYPE + File.separator +
-                docLocaleLookUp.get(lang);
+        String l = lookupLocale(lang);
+        if (!StringUtils.isBlank(l)) {
+            return BuilderFactory.DOCS_TYPE + File.separator + l;
         }
         log.error("Unable to find docs index dir for language " + lang);
         throw new IOException("Unable to find docs index dir for language: " + lang);
     }
 
+    private String lookupLocale(String lang) {
+        String ret = docLocaleLookUp.get(lang.toLowerCase());
+        if (StringUtils.isBlank(ret)) {
+            Locale l = new Locale(lang);
+            ret = docLocaleLookUp.get(l.getLanguage().toLowerCase());
+        }
+        return ret;
+    }
 
     private Analyzer getDocAnalyzer(String lang) {
         /**
@@ -775,9 +786,9 @@ public class IndexManager {
             nutchConf = NutchConfiguration.create();
             nutchAnalyzerFactory = new AnalyzerFactory(nutchConf);
             FileSystem fs = FileSystem.get(nutchConf);
-            docSegments = new HashMap<String, FetchedSegments>();
+            docSegments = new TreeMap<String, FetchedSegments>
+            							(String.CASE_INSENSITIVE_ORDER);
             for (String key : docLocaleLookUp.keySet()) {
-                String lang = docLocaleLookUp.get(key);
                 String segmentsDir = indexWorkDir + File.separator +
                     getDocIndexPath(key) + File.separator + "segments";
                 FetchedSegments segments = new FetchedSegments(fs, segmentsDir, nutchConf);
@@ -841,9 +852,11 @@ public class IndexManager {
     }
 
     private void initDocLocaleLookup() {
-        docLocaleLookUp.put("bn_IN", "bn-IN");
+        docLocaleLookUp.put("bn", "bn-IN");
+        docLocaleLookUp.put("bn_in", "bn-IN");
         docLocaleLookUp.put("de", "de-DE");
-        docLocaleLookUp.put("en_US", "en-US");
+        docLocaleLookUp.put("en_us", "en-US");
+        docLocaleLookUp.put("en", "en-US");
         docLocaleLookUp.put("es", "es-ES");
         docLocaleLookUp.put("fr", "fr-FR");
         docLocaleLookUp.put("gu", "gu-IN");
@@ -852,11 +865,14 @@ public class IndexManager {
         docLocaleLookUp.put("ja", "ja-JP");
         docLocaleLookUp.put("ko", "ko-KR");
         docLocaleLookUp.put("pa", "pa-IN");
-        docLocaleLookUp.put("pt_BR", "pt-BR");
+        docLocaleLookUp.put("pt_br", "pt-BR");
+        docLocaleLookUp.put("pt", "pt-BR");
+        docLocaleLookUp.put("pt_pt", "pt-BR");
         docLocaleLookUp.put("ru", "ru-RU");
         docLocaleLookUp.put("ta", "ta-IN");
-        docLocaleLookUp.put("zh_CN", "zh-CN");
-        docLocaleLookUp.put("zh_TW", "zh-TW");
+        docLocaleLookUp.put("zh", "zh-CN");
+        docLocaleLookUp.put("zh_cn", "zh-CN");
+        docLocaleLookUp.put("zh_tw", "zh-TW");
         // Below exist in docs, but weren't available as a doc option from
         // satellite webui and they weren't available Locales on my machine
         // guessing at what they will look at.
