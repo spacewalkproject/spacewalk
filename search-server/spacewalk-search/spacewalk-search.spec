@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -114,6 +114,12 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
+- Updated rhn-search to include config.xml on the filesystem (paji@redhat.com)
+- Update the database manager to include connection configs (paji@redhat.com)
+- Fixed build.xml to not include config.xml in the build (paji@redhat.com)
+- fixing quartz ivy version for search server (jsherril@redhat.com)
+
 * Tue Aug 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.6-1
 - 537502 - fixing issue where searching for something that had no results would
   return an error saying index needed to be generated (jsherril@redhat.com)
