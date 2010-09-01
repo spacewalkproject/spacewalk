@@ -406,7 +406,7 @@ class Packages(RPC_Base):
 
         return 0
 
-    def getPackageChecksum(self, username, password, info):
+    def getPackageChecksum(self, username, password, info, is_source = 0):
         """ returns checksum info of available packages
             also does an existance check on the filesystem.
         """
@@ -425,7 +425,11 @@ class Packages(RPC_Base):
                                                           channels=channels,
                                                           null_org=null_org,
                                                           force=force)
-        return self._getPackageChecksum(org_id, pkg_infos)
+        if is_source:
+            ret = self._getSourcePackageChecksum(org_id, pkg_infos)
+        else:
+            ret = self._getPackageChecksum(org_id, pkg_infos)
+        return ret
 
     def getPackageMD5sum(self, username, password, info):
         """ bug#177762 gives md5sum info of available packages.
@@ -574,25 +578,7 @@ class Packages(RPC_Base):
         return row_list
 
     def getSourcePackageChecksum(self, username, password, info):
-        """ Uploads an RPM package """
-        log_debug(3)
-        
-        pkg_infos = info.get('packages')
-        channels = info.get('channels', [])
-        force = info.get('force', 0)
-        orgid = info.get('org_id')
-        
-        if orgid == 'null':
-            org_id, force = rhnPackageUpload.authenticate(username, password,
-                                                          channels=channels,
-                                                          null_org=1,
-                                                          force=force)
-        else:
-            org_id, force = rhnPackageUpload.authenticate(username, password,
-                                                          channels=channels,
-                                                          force=force)
-        
-        return self._getSourcePackageChecksum(org_id, pkg_infos)
+        return getPackageChecksum(self, username, password, info, is_source = 1)
 
     def getSourcePackageMD5sum(self, username, password, info):
         log_debug(3)
