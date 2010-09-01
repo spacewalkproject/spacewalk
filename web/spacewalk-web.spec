@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
+- 621479 - Fix missing duplicates menu (coec@war.coesta.com)
+- Revert "Remove hardware.pxt" (colin.coe@gmail.com)
+- Removal of unused code.
+- System Notes pages PXT to java (colin.coe@gmail.com)
+- bumping package versions for 1.2 (mzazrivec@redhat.com)
+
 * Thu Aug 05 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.8-1
 - Remove hardware.pxt
 - Convert hardware.pxt to Java
