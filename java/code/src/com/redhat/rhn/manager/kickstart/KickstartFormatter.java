@@ -102,11 +102,11 @@ public class KickstartFormatter {
     private static final String SAVE_KS_CFG = "cp `awk '{ if ($1 ~ /%include/) " +
         "{print $2}}' /tmp/ks.cfg` /tmp/ks.cfg /mnt/sysimage/root";
 
-    private static final String  POST_LOG = " --logfile /mnt/sysimage/root/ks-post.log";
+    private static final String  POST_LOG = " --logfile /root/ks-post.log";
+    private static final String  POST_LOG_NOCHROOT = " --logfile " +
+                    "/mnt/sysimage/root/ks-post.log";
     private static final String  PRE_LOG = " --logfile /tmp/ks-pre.log";
 
-    private static final String ENDRHN_NONCHROOT =
-        ") >> /mnt/sysimage/root/ks-post.log 2>&1\n";
     private static final String KSTREE =
         "# now copy from the ks-tree we saved in the non-chroot checkout" + NEWLINE +
         "cp -fav /tmp/ks-tree-copy/* /" + NEWLINE +
@@ -496,8 +496,8 @@ public class KickstartFormatter {
                 new LinkedList<KickstartScript>(this.ksdata.getScripts());
             Collections.sort(l);
             Iterator<KickstartScript> i = l.iterator();
-            while (i.hasNext()) {
-                KickstartScript kss = i.next();
+            for (KickstartScript kss : l) {
+
                 // render either pre or chroot posts
                 if (kss.getScriptType().equals(typeIn)) {
                     if (typeIn.equals(KickstartScript.TYPE_PRE) ||
@@ -516,6 +516,7 @@ public class KickstartFormatter {
                         }
                         if (typeIn.equals(KickstartScript.TYPE_POST) &&
                                 ksdata.getPostLog()) {
+
                             retval.append(POST_LOG + "." + kss.getPosition());
                         }
                         else if (typeIn.equals(KickstartScript.TYPE_PRE) &&
@@ -543,55 +544,38 @@ public class KickstartFormatter {
     private String getNoChroot() {
         StringBuffer retval = new StringBuffer();
         if (this.ksdata.getScripts() != null) {
-            Iterator i = this.ksdata.getScripts().iterator();
-            while (i.hasNext()) {
-                KickstartScript kss = (KickstartScript) i.next();
+            retval.append("%" + KickstartScript.TYPE_POST + SPACE +
+                    NOCHROOT + NEWLINE);
+            retval.append(RHN_NOCHROOT + NEWLINE);
+            if (this.ksdata.getKsCfg()) {
+                retval.append(SAVE_KS_CFG + NEWLINE);
+            }
+
+            for (KickstartScript kss : this.ksdata.getScripts()) {
                 if (kss.getScriptType().equals(KickstartScript.TYPE_POST) &&
                         kss.getChroot().equals("N")) {
                     // Put a blank line in between the scripts
                     retval.append(NEWLINE);
                     if (!StringUtils.isBlank(kss.getInterpreter())) {
                         retval.append("%" + KickstartScript.TYPE_POST + SPACE +
-                                NOCHROOT  + SPACE + kss.getInterpreter() + NEWLINE);
+                                NOCHROOT  + SPACE + INTERPRETER_OPT + SPACE +
+                                kss.getInterpreter());
                     }
                     else {
                         retval.append("%" + KickstartScript.TYPE_POST + SPACE +
-                                NOCHROOT + NEWLINE);
-                    }
-                    if (ksdata.getNonChrootPost() && !seenNoChroot) {
-                        retval.append(POST_LOG + NEWLINE + RHN_TRACE);
-                    }
-                    if (!seenNoChroot) {
-                        retval.append(RHN_NOCHROOT);
-                        seenNoChroot = true;
-                    }
-                    if (this.ksdata.getKsCfg()) {
-                        retval.append(SAVE_KS_CFG + NEWLINE);
-                    }
-                    retval.append(kss.getDataContents() + NEWLINE);
-//                    if (ksdata.getNonchrootPost() && !seenNoChroot) {
-                    if (ksdata.getNonChrootPost()) {
-                        retval.append(ENDRHN_NONCHROOT);
+                                NOCHROOT);
                     }
 
+                    if (ksdata.getNonChrootPost()) {
+                        retval.append(POST_LOG_NOCHROOT + "." + kss.getPosition() +
+                                NEWLINE + RHN_TRACE);
+                    }
+                    retval.append(NEWLINE);
+                    retval.append(kss.getDataContents() + NEWLINE);
                 }
             } // end iterator
         } // end if we have scripts to process
 
-        // user does not have a no chroot post, render no chroot rhn post separately
-        if (!seenNoChroot) {
-            retval.append("%" + KickstartScript.TYPE_POST + SPACE + NOCHROOT + NEWLINE);
-            if (ksdata.getNonChrootPost()) {
-                retval.append(POST_LOG + NEWLINE + RHN_TRACE);
-            }
-            retval.append(RHN_NOCHROOT);
-            if (this.ksdata.getKsCfg()) {
-                retval.append(SAVE_KS_CFG + NEWLINE);
-            }
-            if (ksdata.getNonChrootPost()) {
-                retval.append(ENDRHN_NONCHROOT);
-            }
-        }
 
         return retval.toString();
     }
