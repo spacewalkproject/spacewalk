@@ -37,14 +37,14 @@ public class ClearLogHistory extends RhnJavaJob {
     private static final Integer DEFAULT_DAYS_VALUE = 7;
     /**
      * {@inheritDoc}
-     * @throws InvalidParamException
      */
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
         Integer days = null;
         try {
             days = (Integer) context.getJobDetail().getJobDataMap().get("days");
-        } catch (java.lang.ClassCastException cce) {
+        }
+        catch (java.lang.ClassCastException cce) {
             String passedDays = (String) context.getJobDetail().getJobDataMap().get("days");
             if (passedDays != null) {
                 try {
