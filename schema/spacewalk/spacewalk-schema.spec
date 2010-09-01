@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.9
+Version:        1.2.10
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Sep 01 2010 Jan Pazdziora 1.2.10-1
+- 626741 - do not allow two repos with same label or repository url
+
 * Mon Aug 30 2010 Partha Aji <paji@redhat.com> 1.2.9-1
 - Fixed a typo in the column name in rhnKsdata table (paji@redhat.com)
 - 627149 - do not return installtime via xmlrpc when not defined
