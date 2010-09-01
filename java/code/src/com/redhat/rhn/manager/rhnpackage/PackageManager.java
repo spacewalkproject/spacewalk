@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.rhnpackage;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -24,10 +25,12 @@ import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.CompressionUtil;
 import com.redhat.rhn.common.util.RpmVersionComparator;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.DistChannelMap;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -1398,4 +1401,63 @@ public class PackageManager extends BaseManager {
         DataResult result = m.execute(params);
         return result;
     }
+
+    /**
+     * Find a debuginfo package for a given package
+     * @param user The User doing the search
+     * @param pack the package we need a debug info for
+     * @return The Package object that is debug info, or null if not found
+     */
+    public static Package findDebugInfo(User user, Package pack) {
+        PackageEvr evr = pack.getPackageEvr();
+        String name = pack.getPackageName().getName() + "-debuginfo";
+        List<Package> list =  PackageFactory.lookupByNevra(user.getOrg(),
+                name, evr.getVersion(), evr.getRelease(), null, pack.getPackageArch());
+        if (list.isEmpty()) {
+            return null;
+        }
+        else {
+            return list.get(0);
+        }
+    }
+
+
+    private static String getAssociatedRelease(Package pack) {
+        for (Channel chan : pack.getChannels()) {
+            for (DistChannelMap map : chan.getDistChannelMaps()) {
+                return map.getRelease();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Guess the package URL for a debugInfo rpm
+     * @param pack the package to guess a debugInfo rpm url for
+     * @return the url
+     */
+    public static String generateFtpDebugPath(Package pack) {
+
+        String release = getAssociatedRelease(pack);
+        if (release == null) {
+            return null;
+        }
+
+
+        PackageEvr evr = pack.getPackageEvr();
+        PackageArch arch = pack.getPackageArch();
+        String ftpMachine = Config.get().getString("ftp_server", "ftp.redhat.com");
+        String dbgFilename = pack.getPackageName().getName() +
+            "-debuginfo-" +
+            evr.getVersion() + "-" +
+            evr.getRelease() + "." +
+            arch.getLabel() + "." +
+            arch.getArchType().getLabel();
+
+        return "ftp://" + ftpMachine + "/pub/redhat/linux/enterprise/" +
+                    release + "/en/os/" +
+                    arch.getLabel() + "/Debuginfo/" + dbgFilename;
+    }
+
+
 }

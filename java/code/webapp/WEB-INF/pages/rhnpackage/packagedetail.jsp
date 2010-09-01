@@ -169,6 +169,9 @@
 	        <th><bean:message key="package.jsp.rpmversion"/>:</th>
 	        <td><c:out value="${pack.rpmVersion}" /> </td>
 	      </tr>
+
+
+
       </rhn:require>
 
       <tr>
@@ -202,6 +205,37 @@
         	</c:if>          	
       	</td>
      </tr>
+
+
+  <rhn:require acl="package_type_capable(rpm)"
+    mixins="com.redhat.rhn.common.security.acl.PackageAclHandler">
+
+	      <c:if test="${not isDebuginfo}" >
+		<tr>
+		  <th>
+				<bean:message key="debuginfo.header" />:
+		  </th>
+		  <td>
+
+				<c:if test="${debugUrl != null}">
+					<a href="${debugUrl}"><bean:message key="package.jsp.download"/></a>
+					<c:if test="${debugFtp}" >
+					    <br>
+						<span class="small-text">
+							<bean:message key="debuginfo.external" />
+						</span>
+					</c:if>
+				</c:if>
+				<c:if test="${debugUrl == null}">
+						<div style="font-weight: bold;">
+						<bean:message key="package.jsp.unavailable" />
+					</div>
+				</c:if>
+		  </td>
+		</tr>
+	      </c:if>
+   </rhn:require>
+
 
 
 </div>

@@ -89,6 +89,22 @@ public class PackageDetailsAction extends RhnAction {
                     request.setAttribute(PACKAGE_KEY,
                             pkg.getPackageKeys().iterator().next().getKey());
                 }
+                boolean isDebug = pkg.getPackageName().getName().contains("debuginfo");
+
+                request.setAttribute("isDebuginfo", isDebug);
+                if (!isDebug) {
+                    Package debugPkg = PackageManager.findDebugInfo(user, pkg);
+                    String ftpUrl = PackageManager.generateFtpDebugPath(pkg);
+                    if (debugPkg == null && ftpUrl != null) {
+                        request.setAttribute("debugUrl", ftpUrl);
+                        request.setAttribute("debugFtp", true);
+                    }
+                    else {
+                        request.setAttribute("debugUrl",
+                                DownloadManager.getPackageDownloadPath(debugPkg, user));
+                    }
+                }
+
             }
 
             if (DownloadManager.isFileAvailable(pkg.getPath())) {
