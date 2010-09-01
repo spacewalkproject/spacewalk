@@ -65,7 +65,7 @@ public class TaskoQuartzHelper {
     public static Date createJob(TaskoSchedule schedule) throws InvalidParamException {
         // create trigger
         Trigger trigger = null;
-        if (schedule.getCronExpr().isEmpty()) {
+        if ((schedule.getCronExpr() == null) || (schedule.getCronExpr().isEmpty())) {
             trigger = new SimpleTrigger(schedule.getJobLabel(),
                     getGroupName(schedule.getOrgId()), 1, 1);
             trigger.setEndTime(new Date());

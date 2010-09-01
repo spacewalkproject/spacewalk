@@ -236,7 +236,7 @@ public class TaskoXmlRpcHandler {
         // create schedule
         TaskoSchedule schedule = null;
         schedule = new TaskoSchedule(orgId, bunch, jobLabel, params,
-                start, null, "");
+                start, null, null);
         TaskoFactory.save(schedule);
         // create job
         Date scheduleDate = TaskoQuartzHelper.createJob(schedule);

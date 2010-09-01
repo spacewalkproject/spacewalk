@@ -78,7 +78,7 @@ public class TaskoSchedule {
         else {
             setActiveFrom(activeFromIn);
         }
-        if (cronExprIn.isEmpty()) {
+        if ((cronExprIn == null) || (cronExprIn.isEmpty())) {
             // set activeFrom for single runs
             setActiveTill(getActiveFrom());
         }

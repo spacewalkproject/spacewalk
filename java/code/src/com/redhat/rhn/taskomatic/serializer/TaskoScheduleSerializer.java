@@ -55,7 +55,9 @@ public class TaskoScheduleSerializer implements XmlRpcCustomSerializer {
         helper.add("bunch", schedule.getBunch().getName());
         helper.add("active_from", schedule.getActiveFrom());
         helper.add("active_till", schedule.getActiveTill());
-        helper.add("cron_expr", schedule.getCronExpr());
+        if (schedule.getCronExpr() != null) {
+            helper.add("cron_expr", schedule.getCronExpr());
+        }
         Map dataMap = schedule.getDataMap();
         if (dataMap == null) {
             dataMap = new HashMap();
