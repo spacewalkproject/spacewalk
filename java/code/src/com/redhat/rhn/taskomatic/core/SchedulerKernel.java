@@ -194,7 +194,7 @@ public class SchedulerKernel {
         try {
             jobNames = Arrays.asList(
                     this.scheduler.getJobNames(TaskoQuartzHelper.getGroupName(null)));
-            for (TaskoSchedule schedule : TaskoFactory.listSchedulesByOrg(null)) {
+            for (TaskoSchedule schedule : TaskoFactory.listActiveSchedulesByOrg(null)) {
                 if (!jobNames.contains(schedule.getJobLabel())) {
                     TaskoQuartzHelper.createJob(schedule);
                 }
