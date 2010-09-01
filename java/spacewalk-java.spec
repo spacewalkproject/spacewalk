@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.22
+Version: 1.2.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 01 2010 Partha Aji <paji@redhat.com> 1.2.23-1
+- 518664 - Made spacewalk search deal with other locales (paji@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- 616570 - adding support for looking up debuginfo rpms if they are located on
+  the satellite itself (jsherril@redhat.com)
+- fixing kickstart %post script logging to actually work and not break
+  kickstarts (jsherril@redhat.com)
+- fix ClearLogHistory (tlestach@redhat.com)
+
 * Wed Sep 01 2010 Tomas Lestach <tlestach@redhat.com> 1.2.22-1
 - 627905 - taskomatic requires jakarta-commons-dbcp (tlestach@redhat.com)
 
