@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -98,6 +98,15 @@ EOF
 
 
 %changelog
+* Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
+- As 00-spacewalk-mod_jk.conf which referenced workers.properties is gone,
+  remove it now as well.
+- The 00-spacewalk-mod_jk.conf is no more needed as all Spacewalks are now on
+  Apache 2.2+.
+- 573788 - ks handler is no longer needed
+- schedule SatelliteCertificateCheck (tlestach@redhat.com)
+- bumping package versions for 1.2 (mzazrivec@redhat.com)
+
 * Fri Jul 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.7-1
 - renamed db_sid to SID db_name to be consistent with PostgreSQL
 
