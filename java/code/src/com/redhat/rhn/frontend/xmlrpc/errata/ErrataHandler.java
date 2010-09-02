@@ -44,6 +44,7 @@ import com.redhat.rhn.frontend.xmlrpc.MissingErrataAttributeException;
 import com.redhat.rhn.frontend.xmlrpc.NoChannelsSelectedException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.frontend.xmlrpc.packages.PackageHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -646,15 +647,43 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "advisoryName")
      * @xmlrpc.returntype
-     *          $PackageDtoSerializer
+     *          #array()
+     *              #struct("package")
+     *                  #prop("int", "id")
+     *                  #prop("string", "name")
+     *                  #prop("string", "epoch")
+     *                  #prop("string", "version")
+     *                  #prop("string", "release")
+     *                  #prop("string", "arch_label")
+     *                  #prop_array("providing_channels", "string", "- Channel label
+     *                              providing this package.")
+     *                  #prop("string", "build_host")
+     *                  #prop("string", "description")
+     *                  #prop("string", "checksum")
+     *                  #prop("string", "vendor")
+     *                  #prop("string", "summary")
+     *                  #prop("string", "cookie")
+     *                  #prop("string", "license")
+     *                  #prop("string", "path")
+     *                  #prop("string", "build_date")
+     *                  #prop("string", "last_modified_date")
+     *                  #prop("string", "size")
+     *                  #prop("string", "payload_size")
+     *               #struct_end()
+     *           #array_end()
      */
-    public List<PackageDto> listPackages(String sessionKey, String advisoryName)
+    public List<Map> listPackages(String sessionKey, String advisoryName)
         throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
-        return PackageManager.listPackageDtosForErrata(errata);
+        List<Map> toRet = new ArrayList<Map>();
+        for (PackageDto dto : PackageManager.listPackageDtosForErrata(errata)) {
+            toRet.add(PackageHelper.packageToMap(dto, loggedInUser));
+        }
+        return toRet;
+
     }
 
     /**

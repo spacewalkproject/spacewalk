@@ -29,7 +29,6 @@ import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryReleaseException;
 import com.redhat.rhn.frontend.xmlrpc.errata.ErrataHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
@@ -250,14 +249,14 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         errata.addPackage(p);
         ErrataManager.storeErrata(errata);
 
-        List<PackageDto> pkgs = handler.listPackages(adminKey, errata.getAdvisory());
+        List<Map> pkgs = handler.listPackages(adminKey, errata.getAdvisory());
 
         assertNotNull(pkgs);
         assertEquals(errata.getPackages().size(), pkgs.size());
         assertTrue(pkgs.size() > 0);
         boolean found = false;
-        for (PackageDto pkg : pkgs) {
-            if (pkg.getId().equals(p.getId())) {
+        for (Map pkg : pkgs) {
+            if (pkg.get("id").equals(p.getId())) {
                 found = true;
             }
         }

@@ -54,6 +54,9 @@ public class PackageDto extends BaseDto {
     private Blob primaryXml;
     private Blob otherXml;
     private Blob filelistXml;
+    private String cookie;
+    private String file;
+
 
     // Pre-existing queries returning this as a string.
     private String lastModified;
@@ -502,5 +505,37 @@ public class PackageDto extends BaseDto {
      */
     private String transformXml(Blob blobIn) {
         return CompressionUtil.gzipDecompress(HibernateFactory.blobToByteArray(blobIn));
+    }
+
+
+    /**
+     * @return Returns the cookie.
+     */
+    public String getCookie() {
+        return cookie;
+    }
+
+
+    /**
+     * @param cookieIn The cookie to set.
+     */
+    public void setCookie(String cookieIn) {
+        cookie = cookieIn;
+    }
+
+
+    /**
+     * @return Returns the file.
+     */
+    public String getFile() {
+        return file;
+    }
+
+
+    /**
+     * @param fileIn The file to set.
+     */
+    public void setFile(String fileIn) {
+        file = fileIn;
     }
 }
