@@ -2,6 +2,8 @@
 --
 -- In your Quartz properties file, you'll need to set
 -- org.quartz.jobStore.driverDelegateClass = org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+-- MAKE SURE ANY QUARTZ UPGRADES ARE DONE IN A WAY - DROP ALL & CREATE ALL
+-- (our schema differ skips checking quartz constrains because of missing contraint names)
 
 CREATE TABLE qrtz_job_details
   (

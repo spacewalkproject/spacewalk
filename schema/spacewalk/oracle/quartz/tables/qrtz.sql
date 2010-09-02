@@ -7,6 +7,8 @@
 -- Many other users (including the primary author of Quartz) have had success
 -- runing in dedicated mode, so only consider the above as a hint ;-)
 --
+-- MAKE SURE ANY QUARTZ UPGRADES ARE DONE IN A WAY - DROP ALL & CREATE ALL
+-- (our schema differ skips checking quartz constrains because of missing contraint names)
 
 CREATE TABLE qrtz_job_details
   (
