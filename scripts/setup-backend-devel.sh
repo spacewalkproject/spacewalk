@@ -10,11 +10,13 @@ if [ ! -d /spacewalk ]; then
 fi
 
 cd /usr/share/rhn/
-DIRS="common satellite_exporter satellite_tools server spacewalk upload_server wsgi"
+DIRS="common satellite_exporter satellite_tools server upload_server wsgi"
 
 for dir in $DIRS; do
      python /spacewalk/scripts/link-tree.py /spacewalk/backend/$dir /usr/share/rhn/$dir
 done;
+SITE_PACKAGES=$(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")
+python /spacewalk/scripts/link-tree.py /spacewalk/backend/spacewalk $SITE_PACKAGES/spacewalk
 
 echo """
 
