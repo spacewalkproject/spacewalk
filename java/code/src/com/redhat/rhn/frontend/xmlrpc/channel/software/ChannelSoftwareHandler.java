@@ -1763,24 +1763,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new PermissionCheckFailureException();
         }
 
-        Set<Errata> diffErrata = new HashSet(mergeFrom.getErratas());
-
-        // find errata that we do not need to merge
-        List<Errata> same = ErrataManager.listSamePublishedInChannels(
-                loggedInUser, mergeFrom, mergeTo);
-
-        List<Errata> brothers = ErrataManager.listPublishedBrothersInChannels(
-                loggedInUser, mergeFrom, mergeTo);
-
-        List<Errata> clones = ErrataManager.listPublishedClonesInChannels(
-                loggedInUser, mergeFrom, mergeTo);
-        // and remove them
-        diffErrata.removeAll(same);
-        diffErrata.removeAll(brothers);
-        diffErrata.removeAll(clones);
-
         Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, diffErrata, mergeTo, mergeFrom);
+            mergeErrataToChannel(loggedInUser, new HashSet(mergeFrom.getErratas()),
+                    mergeTo, mergeFrom);
 
         return mergedErrata.toArray();
     }
@@ -1824,48 +1809,33 @@ public class ChannelSoftwareHandler extends BaseHandler {
         List<Errata> fromErrata = ErrataFactory.lookupByChannelBetweenDates(
                 loggedInUser.getOrg(), mergeFrom, startDate, endDate);
 
-        Set<Errata> diffErrata = new HashSet(fromErrata);
-        // find errata that we do not need to merge
-        List<Errata> same = ErrataManager.listSamePublishedInChannels(
-                loggedInUser, mergeFrom, mergeTo);
-        List<Errata> brothers = ErrataManager.listPublishedBrothersInChannels(
-                loggedInUser, mergeFrom, mergeTo);
-        List<Errata> clones = ErrataManager.listPublishedClonesInChannels(
-                loggedInUser, mergeFrom, mergeTo);
-        // and remove them
-        diffErrata.removeAll(same);
-        diffErrata.removeAll(brothers);
-        diffErrata.removeAll(clones);
-
         Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, diffErrata, mergeTo, mergeFrom);
+            mergeErrataToChannel(loggedInUser, new HashSet(fromErrata), mergeTo, mergeFrom);
 
         return mergedErrata.toArray();
     }
 
-    private Set<Errata> mergeErrataToChannel(User user, Set<Errata> diffErrata,
+    private Set<Errata> mergeErrataToChannel(User user, Set<Errata> errataToMerge,
             Channel toChannel, Channel fromChannel) {
-        List<Long> cids = new ArrayList<Long>();
-        cids.add(toChannel.getId());
 
-        Set<Long> errataIds = getErrataIds(diffErrata);
+        // find errata that we do not need to merge
+        List<Errata> same = ErrataManager.listSamePublishedInChannels(
+                user, fromChannel, toChannel);
+        List<Errata> brothers = ErrataManager.listPublishedBrothersInChannels(
+                user, fromChannel, toChannel);
+        List<Errata> clones = ErrataManager.listPublishedClonesInChannels(
+                user, fromChannel, toChannel);
+        // and remove them
+        errataToMerge.removeAll(same);
+        errataToMerge.removeAll(brothers);
+        errataToMerge.removeAll(clones);
 
-        ErrataManager.publishErrataToChannelAsync(toChannel, errataIds, user);
+        ErrataManager.publishErrataToChannelAsync(toChannel,
+                getErrataIds(errataToMerge), user);
 
-        List errataPkgs = ErrataFactory.listErrataChannelPackages(fromChannel.getId(),
-                errataIds);
-        List currentChannelPkgs = ChannelFactory.getPackageIds(toChannel.getId());
-        errataPkgs.removeAll(currentChannelPkgs);
+        // no need to regenerate errata cache, because we didn't touch any packages
 
-        ChannelManager.addPackages(toChannel, errataPkgs, user);
-
-        ChannelManager.refreshWithNewestPackages(toChannel, "api");
-
-        for (Errata e : diffErrata) {
-            ErrataCacheManager.insertCacheForChannelErrataAsync(cids, e);
-        }
-
-        return diffErrata;
+        return errataToMerge;
     }
 
     private Set<Long> getErrataIds(Set<Errata> errata) {
