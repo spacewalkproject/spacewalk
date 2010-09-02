@@ -220,6 +220,23 @@ $in .= <<EOF;
 spool $SCHEMA_UPGRADE_LOGDIR/$stamp-end.log append
 whenever sqlerror exit sql.sqlcode
 
+exec dbms_utility.compile_schema(user);
+
+-- check whether all objects are valid
+declare
+  invalid_objects number;
+begin
+  select count(*)
+    into invalid_objects
+    from user_objects
+   where status <> 'VALID' and
+         (object_name, object_type) not in (select object_name, type from recyclebin);
+ if invalid_objects > 0 then
+    RAISE_APPLICATION_ERROR(-20001, 'SCHEMA UPGRADE ENDS WITH INVALD OBJECTS');
+ end if;
+end;
+/
+
 insert into rhnVersionInfo
        ( label, name_id, evr_id, created, modified )
        values ('schema', lookup_package_name('$my_schema_name'),
