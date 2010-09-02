@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.10
+Version:        1.2.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Sep 02 2010 Jan Pazdziora 1.2.11-1
+- Reapply rhn_cache and rhn_org package and rhn_user package and package body,
+  to make for clean schema upgrades from 0.2.
+- After running the schema upgrade, recompile the PL/SQL objects and check that
+  there are no invalid objects left behind.
+- add upgrade hint for quartz tables (tlestach@redhat.com)
+
 * Wed Sep 01 2010 Jan Pazdziora 1.2.10-1
 - 626741 - do not allow two repos with same label or repository url
 
