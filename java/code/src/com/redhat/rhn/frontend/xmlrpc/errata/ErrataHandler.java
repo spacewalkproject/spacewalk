@@ -32,6 +32,7 @@ import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.CVE;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.DuplicateErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryReleaseException;
@@ -43,7 +44,6 @@ import com.redhat.rhn.frontend.xmlrpc.MissingErrataAttributeException;
 import com.redhat.rhn.frontend.xmlrpc.NoChannelsSelectedException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
-import com.redhat.rhn.frontend.xmlrpc.packages.PackageHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -646,55 +646,15 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "advisoryName")
      * @xmlrpc.returntype
-     *          #array()
-     *              #struct("package")
-     *                  #prop("int", "id")
-     *                  #prop("string", "name")
-     *                  #prop("string", "epoch")
-     *                  #prop("string", "version")
-     *                  #prop("string", "release")
-     *                  #prop("string", "arch_label")
-     *                  #prop_array("providing_channels", "string", "- Channel label
-     *                              providing this package.")
-     *                  #prop("string", "build_host")
-     *                  #prop("string", "description")
-     *                  #prop("string", "checksum")
-     *                  #prop("string", "vendor")
-     *                  #prop("string", "summary")
-     *                  #prop("string", "cookie")
-     *                  #prop("string", "license")
-     *                  #prop("string", "file")
-     *                  #prop("string", "path")
-     *                  #prop("string", "build_date")
-     *                  #prop("string", "last_modified_date")
-     *                  #prop("string", "size")
-     *                  #prop("string", "payload_size")
-     *               #struct_end()
-     *           #array_end()
+     *          $PackageDtoSerializer
      */
-    public Object[] listPackages(String sessionKey, String advisoryName)
+    public List<PackageDto> listPackages(String sessionKey, String advisoryName)
         throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
-        //The set of packages for this erratum
-        Set packages = errata.getPackages();
-
-        //Main List containing the maps
-        List returnList = new ArrayList();
-
-        /*
-         * Loop through the packages and add each one to the returnList array
-         */
-        for (Iterator itr = packages.iterator(); itr.hasNext();) {
-            Package pkg = (Package) itr.next();
-            // fill out a new row containing the package info map
-            Map pmap = PackageHelper.packageToMap(pkg, loggedInUser);
-            returnList.add(pmap);
-        }
-
-        return returnList.toArray();
+        return PackageManager.listPackageDtosForErrata(errata);
     }
 
     /**

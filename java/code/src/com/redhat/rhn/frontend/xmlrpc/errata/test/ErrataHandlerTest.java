@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryReleaseException;
 import com.redhat.rhn.frontend.xmlrpc.errata.ErrataHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
@@ -249,16 +250,14 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         errata.addPackage(p);
         ErrataManager.storeErrata(errata);
 
-        Object[] pkgs = handler.listPackages(adminKey, errata.getAdvisory());
+        List<PackageDto> pkgs = handler.listPackages(adminKey, errata.getAdvisory());
 
         assertNotNull(pkgs);
-        assertEquals(errata.getPackages().size(), pkgs.length);
-        assertTrue(pkgs.length > 0);
+        assertEquals(errata.getPackages().size(), pkgs.size());
+        assertTrue(pkgs.size() > 0);
         boolean found = false;
-        for (int i = 0; i < pkgs.length; i++) {
-            Map pkg = (Map) pkgs[i];
-            if (pkg.get("id").equals(p.getId())) {
-                assertEquals(p.getBuildHost(), pkg.get("build_host"));
+        for (PackageDto pkg : pkgs) {
+            if (pkg.getId().equals(p.getId())) {
                 found = true;
             }
         }
@@ -270,7 +269,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         ErrataManager.storeErrata(errata);
 
-        int initialNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).length;
+        int initialNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).size();
 
         Package pkg1 = PackageTest.createTestPackage(user.getOrg());
         Package pkg2 = PackageTest.createTestPackage(user.getOrg());
@@ -284,7 +283,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         // verify
         assertEquals(2, numPkgsAdded);
 
-        int resultNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).length;
+        int resultNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).size();
         assertEquals(initialNumPkgs + 2, resultNumPkgs);
 
         boolean found1 = false, found2 = false;
@@ -309,7 +308,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         errata.addPackage(pkg2);
         ErrataManager.storeErrata(errata);
 
-        int initialNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).length;
+        int initialNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).size();
 
         // execute
         List<Integer> pkgIds = new ArrayList<Integer>();
@@ -319,7 +318,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         // verify
         assertEquals(1, numPkgsRemoved);
 
-        int resultNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).length;
+        int resultNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).size();
         assertEquals(initialNumPkgs - 1, resultNumPkgs);
 
         boolean found1 = false, found2 = false;

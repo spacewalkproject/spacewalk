@@ -40,6 +40,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageComparison;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
@@ -1459,5 +1460,21 @@ public class PackageManager extends BaseManager {
                     arch.getLabel() + "/Debuginfo/" + dbgFilename;
     }
 
+
+    /**
+     * List package's for an errata.  This was mainly made for the errata xmlrpc handler
+     *     was created to be fast.
+     * @param errata the errata
+     * @return list of Packages
+     */
+    public static List<PackageDto> listPackageDtosForErrata(Errata errata) {
+
+        SelectMode m = ModeFactory.getMode("Package_queries", "package_dto_for_errata");
+        Map params = new HashMap();
+        params.put("eid", errata.getId());
+
+        DataResult result = m.execute(params);
+        return result;
+    }
 
 }
