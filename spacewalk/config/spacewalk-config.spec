@@ -89,13 +89,6 @@ if [ -f /etc/init.d/satellite-httpd ] ; then
 fi
 
 
-%post
-
-cat >> %{_sysconfdir}/sysconfig/httpd <<EOF
-export ORACLE_HOME=/opt/oracle
-export NLS_LANG=english.AL32UTF8
-EOF
-
 
 %changelog
 * Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
