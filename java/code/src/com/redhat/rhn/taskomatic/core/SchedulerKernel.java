@@ -196,6 +196,7 @@ public class SchedulerKernel {
                     this.scheduler.getJobNames(TaskoQuartzHelper.getGroupName(null)));
             for (TaskoSchedule schedule : TaskoFactory.listActiveSchedulesByOrg(null)) {
                 if (!jobNames.contains(schedule.getJobLabel())) {
+                    schedule.sanityCheckForPredefinedSchedules();
                     TaskoQuartzHelper.createJob(schedule);
                 }
             }

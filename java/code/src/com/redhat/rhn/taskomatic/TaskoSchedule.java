@@ -88,6 +88,20 @@ public class TaskoSchedule {
     }
 
     /**
+     * sanity check for predefined schedules
+     * (defined directly in the DB)
+     */
+    public void sanityCheckForPredefinedSchedules() {
+        if (getActiveTill() == null) {
+            if ((cronExpr == null) || (cronExpr.isEmpty())) {
+                // set activeTill for single runs
+                setActiveTill(new Date());
+                TaskoFactory.commitTransaction();
+            }
+        }
+    }
+
+    /**
      * unschedule this particular schedule
      */
     public void unschedule() {
