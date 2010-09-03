@@ -95,6 +95,12 @@ values
   (rhn_timezone_id_seq.nextval,
    'America/Chicago', 'United States (Central)');
 
+insert into rhnTimezone
+  (id, olson_name, display_name)
+values
+  (rhn_timezone_id_seq.nextval,
+   'America/Regina', 'Canada (Regina)');
+
 
 insert into rhnTimezone
   (id, olson_name, display_name)
