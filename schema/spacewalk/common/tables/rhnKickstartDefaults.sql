@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,11 +32,11 @@ CREATE TABLE rhnKickstartDefaults
     cfg_management_flag  CHAR(1)
                              DEFAULT ('Y') NOT NULL
                              CONSTRAINT rhn_ksd_cmf_ck
-                                 CHECK (cfg_management_flag in ( 'Y' , 'N' )),
+                                 CHECK (cfg_management_flag in ('Y','N')),
     remote_command_flag  CHAR(1)
                              DEFAULT ('N') NOT NULL
                              CONSTRAINT rhn_ksd_rmf_ck
-                                 CHECK (remote_command_flag in ( 'Y' , 'N' )),
+                                 CHECK (remote_command_flag in ('Y','N')),
     virtualization_type  NUMBER NOT NULL
                              CONSTRAINT rhn_ksd_kvt_fk
                                  REFERENCES rhnKickstartVirtualizationType (id)

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,7 +22,9 @@ CREATE TABLE rhnErrata
     advisory          VARCHAR2(37) NOT NULL,
     advisory_type     VARCHAR2(32) NOT NULL
                           CONSTRAINT rhn_errata_adv_type_ck
-                              CHECK (advisory_type in ( 'Bug Fix Advisory' , 'Product Enhancement Advisory' , 'Security Advisory' )),
+                              CHECK (advisory_type in ('Bug Fix Advisory',
+				                            'Product Enhancement Advisory',
+							    'Security Advisory')),
     advisory_name     VARCHAR2(32) NOT NULL,
     advisory_rel      NUMBER NOT NULL,
     product           VARCHAR2(64) NOT NULL,
@@ -42,7 +44,7 @@ CREATE TABLE rhnErrata
                               ON DELETE CASCADE,
     locally_modified  CHAR(1)
                           CONSTRAINT rhn_errata_lm_ck
-                              CHECK (locally_modified in ( 'Y' , 'N' )),
+                              CHECK (locally_modified in ('Y','N')),
     created           DATE
                           DEFAULT (sysdate) NOT NULL,
     modified          DATE

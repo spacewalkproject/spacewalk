@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,7 +37,7 @@ CREATE TABLE rhnAction
     archived         NUMBER
                          DEFAULT (0) NOT NULL
                          CONSTRAINT rhn_action_archived_ck
-                             CHECK (archived in ( 0 , 1 )),
+                             CHECK (archived in (0, 1)),
     prerequisite     NUMBER
                          CONSTRAINT rhn_action_prereq_fk
                              REFERENCES rhnAction (id)

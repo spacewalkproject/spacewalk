@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,7 +37,7 @@ CREATE TABLE rhnRegToken
     deploy_configs  CHAR(1)
                         DEFAULT ('Y') NOT NULL
                         CONSTRAINT rhn_reg_token_deployconfs_ck
-                            CHECK (deploy_configs in ( 'Y' , 'N' ))
+                            CHECK (deploy_configs in ('Y','N'))
 )
 ENABLE ROW MOVEMENT
 ;

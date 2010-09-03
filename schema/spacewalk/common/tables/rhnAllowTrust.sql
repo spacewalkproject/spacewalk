@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,11 +23,11 @@ CREATE TABLE rhnAllowTrust
     channel_flag    CHAR(1)
                         DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_allow_trust_channelflg_ck
-                            CHECK (channel_flag in ( 'N' , 'Y' )),
+                            CHECK (channel_flag in ('N','Y')),
     migration_flag  CHAR(1)
                         DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_allow_trust_migrflg_ck
-                            CHECK (migration_flag in ( 'N' , 'Y' )),
+                            CHECK (migration_flag in ('N','Y')),
     created         DATE
                         DEFAULT (sysdate) NOT NULL,
     modified        DATE

@@ -22,7 +22,7 @@ CREATE TABLE rhn_sat_cluster
     target_type           VARCHAR2(10)
                               DEFAULT ('cluster') NOT NULL
                               CONSTRAINT rhn_satcl_target_type_ck
-                                  CHECK (target_type in ( 'cluster' )),
+                                  CHECK (target_type in ('cluster')),
     customer_id           NUMBER(12) NOT NULL,
     description           VARCHAR2(255) NOT NULL,
     last_update_user      VARCHAR2(40),
@@ -33,7 +33,7 @@ CREATE TABLE rhn_sat_cluster
     deployed              CHAR(1)
                               DEFAULT ('0') NOT NULL
                               CONSTRAINT rhn_satcl_deployed_ck
-                                  CHECK (deployed in ( '0' , '1' )),
+                                  CHECK (deployed in ('0','1')),
     pem_public_key        VARCHAR2(2000),
     pem_public_key_hash   VARCHAR2(20)
 )

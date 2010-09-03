@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,7 +22,7 @@ CREATE TABLE rhn_check_suite_probe
     probe_type      VARCHAR2(12)
                         DEFAULT ('suite') NOT NULL
                         CONSTRAINT rhn_ckspb_probe_type_ck
-                            CHECK (probe_type = 'suite'),
+                            CHECK ( probe_type = 'suite' ),
     check_suite_id  NUMBER(12) NOT NULL
 )
 ENABLE ROW MOVEMENT

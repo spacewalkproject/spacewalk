@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -40,11 +40,11 @@ CREATE TABLE rhnServer
     auto_deliver        CHAR(1)
                             DEFAULT ('N') NOT NULL
                             CONSTRAINT rhn_server_deliver_ck
-                                CHECK (auto_deliver in ( 'Y' , 'N' )),
+                                CHECK (auto_deliver in ('Y', 'N')),
     auto_update         CHAR(1)
                             DEFAULT ('N') NOT NULL
                             CONSTRAINT rhn_server_update_ck
-                                CHECK (auto_update in ( 'Y' , 'N' )),
+                                CHECK (auto_update in ('Y', 'N')),
     running_kernel      VARCHAR2(64),
     last_boot           NUMBER
                             DEFAULT (0) NOT NULL,

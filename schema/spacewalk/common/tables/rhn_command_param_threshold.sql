@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,7 @@ CREATE TABLE rhn_command_param_threshold
     param_name           VARCHAR2(40) NOT NULL,
     param_type           VARCHAR2(10) NOT NULL
                              CONSTRAINT rhn_coptr_param_type_ck
-                                 CHECK (param_type = 'threshold'),
+                                 CHECK (param_type='threshold'),
     threshold_type_name  VARCHAR2(10) NOT NULL,
     threshold_metric_id  VARCHAR2(40) NOT NULL,
     last_update_user     VARCHAR2(40),

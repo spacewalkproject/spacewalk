@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,11 +24,11 @@ CREATE TABLE rhnKickstartScript
     position      NUMBER NOT NULL,
     script_type   VARCHAR2(4) NOT NULL
                       CONSTRAINT rhn_ksscript_st_ck
-                          CHECK (script_type in ( 'pre' , 'post' )),
+                          CHECK (script_type in ('pre','post')),
     chroot        CHAR(1)
                       DEFAULT ('Y') NOT NULL
                       CONSTRAINT rhn_ksscript_chroot_ck
-                          CHECK (chroot in ( 'Y' , 'N' )),
+                          CHECK (chroot in ('Y','N')),
     raw_script    CHAR(1)
                       DEFAULT ('Y') NOT NULL
                       CONSTRAINT rhn_ksscript_rawscript_ck

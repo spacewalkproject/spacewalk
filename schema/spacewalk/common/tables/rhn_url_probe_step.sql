@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,11 +27,11 @@ CREATE TABLE rhn_url_probe_step
     verify_links       CHAR(1)
                            DEFAULT (0) NOT NULL
                            CONSTRAINT rhn_urlps_ver_links_ck
-                               CHECK (verify_links in ( '0' , '1' )),
+                               CHECK (verify_links in ('0','1')),
     load_subsidiary    CHAR(1)
                            DEFAULT (0) NOT NULL
                            CONSTRAINT rhn_urlps_load_sub_ck
-                               CHECK (load_subsidiary in ( '0' , '1' )),
+                               CHECK (load_subsidiary in ('0','1')),
     pattern            VARCHAR2(255),
     vpattern           VARCHAR2(255),
     post_content       VARCHAR2(4000),
@@ -68,7 +68,7 @@ CREATE TABLE rhn_url_probe_step
     cookie_secure      CHAR(1)
                            DEFAULT (0) NOT NULL
                            CONSTRAINT rhn_urlps_cookie_sec_ck
-                               CHECK (cookie_secure in ( '0' , '1' )),
+                               CHECK (cookie_secure in ('0','1')),
     cookie_maxage      NUMBER(9)
 )
 ENABLE ROW MOVEMENT

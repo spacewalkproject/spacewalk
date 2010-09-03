@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,17 +31,17 @@ CREATE TABLE rhn_redirects
     recurring            NUMBER(12)
                              DEFAULT (0) NOT NULL
                              CONSTRAINT RHN_RDRCT_RECUR_VALID
-                                 CHECK (recurring in ( 0 , 1 )),
+                                 CHECK (recurring in (0, 1)),
     recurring_frequency  NUMBER(12)
                              DEFAULT (2)
                              CONSTRAINT RHN_RDRCT_RECUR_FREQ_VALID
-                                 CHECK (recurring_frequency in ( 2 , 3 , 6 )),
+                                 CHECK (recurring_frequency in (2,3,6)),
     recurring_duration   NUMBER(12)
                              DEFAULT (0),
     recurring_dur_type   NUMBER(12)
                              DEFAULT (12)
                              CONSTRAINT rhn_rdrct_rec_dtype_valid
-                                 CHECK (recurring_dur_type in ( 12 , 11 , 5 , 3 , 1 ))
+                                 CHECK ( recurring_dur_type in (12,11,5,3,1) )
 )
 ENABLE ROW MOVEMENT
 ;
@@ -65,7 +65,7 @@ CREATE SEQUENCE rhn_redirects_recid_seq;
 ALTER TABLE rhn_redirects
     ADD
     CONSTRAINT rhn_rdrct_start_lte_expir
-        CHECK (start_date <= expiration);
+        CHECK (start_date <= expiration );
 
 ALTER TABLE rhn_redirects
     ADD CONSTRAINT rhn_rdrct_cntct_contact_id_fk FOREIGN KEY (contact_id)

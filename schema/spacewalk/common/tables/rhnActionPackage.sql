@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -26,7 +26,7 @@ CREATE TABLE rhnActionPackage
     parameter        VARCHAR2(128)
                          DEFAULT ('upgrade') NOT NULL
                          CONSTRAINT rhn_act_p_param_ck
-                             CHECK (parameter IN ( 'upgrade' , 'install' , 'remove' , 'downgrade' )),
+                             CHECK (parameter IN ('upgrade', 'install', 'remove', 'downgrade')),
     name_id          NUMBER NOT NULL
                          CONSTRAINT rhn_act_p_name_fk
                              REFERENCES rhnPackageName (id),

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,12 +28,12 @@ CREATE TABLE rhnSavedSearch
     search_string   VARCHAR2(4000) NOT NULL,
     search_set      VARCHAR2(16) NOT NULL
                         CONSTRAINT rhn_savedsearch_sset_ck
-                            CHECK (search_set in ( 'all' , 'system_list' )),
+                            CHECK ( search_set in ('all','system_list')),
     search_field    VARCHAR2(128) NOT NULL,
     invert          CHAR
                         DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_savedsearch_invert_ck
-                            CHECK (invert in ( 'Y' , 'N' ))
+                            CHECK (invert in ('Y','N'))
 )
 ENABLE ROW MOVEMENT
 ;

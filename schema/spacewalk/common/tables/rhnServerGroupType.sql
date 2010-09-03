@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,11 +28,11 @@ CREATE TABLE rhnServerGroupType
     permanent  CHAR
                    DEFAULT ('Y') NOT NULL
                    CONSTRAINT rhn_servergrouptype_perm_ck
-                       CHECK (permanent in ( 'Y' , 'N' )),
+                       CHECK (permanent in ('Y','N')),
     is_base    CHAR
                    DEFAULT ('Y') NOT NULL
                    CONSTRAINT rhn_servergrouptype_isbase_ck
-                       CHECK (is_base in ( 'Y' , 'N' ))
+                       CHECK (is_base in ('Y','N'))
 )
 ENABLE ROW MOVEMENT
 ;

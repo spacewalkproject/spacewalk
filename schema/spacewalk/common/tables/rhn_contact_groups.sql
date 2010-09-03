@@ -26,7 +26,7 @@ CREATE TABLE rhn_contact_groups
     strategy_id             NUMBER(12) NOT NULL,
     ack_wait                NUMBER(4) NOT NULL
                                 CONSTRAINT rhn_cntgp_ack_wait_ck
-                                    CHECK (ack_wait < 20160),
+                                    CHECK ( ack_wait < 20160 ),
     rotate_first            CHAR(1) NOT NULL
                                 CONSTRAINT rhn_cntgp_rotate_f_ck
                                     CHECK (rotate_first in ('0','1')),

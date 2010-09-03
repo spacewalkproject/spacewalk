@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -26,10 +26,10 @@ CREATE TABLE rhn_strategies
     esc_crit          VARCHAR2(80),
     contact_strategy  VARCHAR2(32)
                           CONSTRAINT rhn_strat_cont_strat_ck
-                              CHECK (contact_strategy in ( 'Broadcast' , 'Escalate' )),
+                              CHECK (contact_strategy in ('Broadcast','Escalate')),
     ack_completed     VARCHAR2(32)
                           CONSTRAINT rhn_strat_ack_comp_ck
-                              CHECK (ack_completed in ( 'All' , 'One' , 'No' ))
+                              CHECK (ack_completed in ( 'All', 'One','No' ))
 )
 ENABLE ROW MOVEMENT
 ;

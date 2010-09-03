@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,31 +37,31 @@ CREATE TABLE rhnServerActionVerifyResult
                                    REFERENCES rhnPackageCapability (id),
     attribute              CHAR(1)
                                CONSTRAINT rhn_sactionvr_attr_ck
-                                   CHECK (attribute in ( 'c' , 'd' , 'g' , 'l' , 'r' )),
+                                   CHECK (attribute in ('c','d','g','l','r')),
     size_differs           CHAR(1) NOT NULL
                                CONSTRAINT rhn_sactionvr_size_ck
-                                   CHECK (size_differs in ( 'Y' , 'N' , '?' )),
+                                   CHECK (size_differs in ('Y','N','?')),
     mode_differs           CHAR(1) NOT NULL
                                CONSTRAINT rhn_sactionvr_mode_ck
-                                   CHECK (mode_differs in ( 'Y' , 'N' , '?' )),
+                                   CHECK (mode_differs in ('Y','N','?')),
     checksum_differs       CHAR(1) NOT NULL
                                CONSTRAINT rhn_sactionvr_chsum_ck
                                    CHECK (checksum_differs in ( 'Y' , 'N' , '?' )),
     devnum_differs         CHAR(1) NOT NULL
                                CONSTRAINT rhn_sactionvr_devnum_ck
-                                   CHECK (devnum_differs in ( 'Y' , 'N' , '?' )),
+                                   CHECK (devnum_differs in ('Y','N','?')),
     readlink_differs       CHAR(1) NOT NULL
                                CONSTRAINT rhn_sactionvr_readlink_ck
-                                   CHECK (readlink_differs in ( 'Y' , 'N' , '?' )),
+                                   CHECK (readlink_differs in ('Y','N','?')),
     uid_differs            CHAR(1) NOT NULL
                                CONSTRAINT rhn_sactionvr_uid_ck
-                                   CHECK (uid_differs in ( 'Y' , 'N' , '?' )),
+                                   CHECK (uid_differs in ('Y','N','?')),
     gid_differs            CHAR(1) NOT NULL
                                CONSTRAINT rhn_sactionvr_gid_ck
-                                   CHECK (gid_differs in ( 'Y' , 'N' , '?' )),
+                                   CHECK (gid_differs in ('Y','N','?')),
     mtime_differs          CHAR(1) NOT NULL
                                CONSTRAINT rhn_sactionvr_mtime_ck
-                                   CHECK (mtime_differs in ( 'Y' , 'N' , '?' )),
+                                   CHECK (mtime_differs in ('Y','N','?')),
     created                DATE
                                DEFAULT (sysdate) NOT NULL,
     modified               DATE

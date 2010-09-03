@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,19 +23,19 @@ CREATE TABLE web_user_contact_permission
     email        CHAR(1)
                      DEFAULT ('N')
                      CONSTRAINT wucp_email_ck
-                         CHECK (email in ( 'Y' , 'N' )),
+                         CHECK (email in ('Y','N')),
     mail         CHAR(1)
                      DEFAULT ('N')
                      CONSTRAINT wucp_mail_ck
-                         CHECK (mail in ( 'Y' , 'N' )),
+                         CHECK (mail in ('Y','N')),
     call         CHAR(1)
                      DEFAULT ('N')
                      CONSTRAINT wucp_call_ck
-                         CHECK (call in ( 'Y' , 'N' )),
+                         CHECK (call in ('Y','N')),
     fax          CHAR(1)
                      DEFAULT ('N')
                      CONSTRAINT wucp_fax_ck
-                         CHECK (fax in ( 'Y' , 'N' )),
+                         CHECK (fax in ('Y','N')),
     created      DATE
                      DEFAULT (sysdate) NOT NULL,
     modified     DATE

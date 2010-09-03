@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -25,7 +25,7 @@ CREATE TABLE rhn_sat_node
     target_type            VARCHAR2(10)
                                DEFAULT ('node') NOT NULL
                                CONSTRAINT rhn_satnd_target_type_ck
-                                   CHECK (target_type in ( 'node' )),
+                                   CHECK (target_type in ('node')),
     last_update_user       VARCHAR2(40),
     last_update_date       DATE,
     mac_address            VARCHAR2(17) NOT NULL,

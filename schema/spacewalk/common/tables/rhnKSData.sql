@@ -27,25 +27,25 @@ CREATE TABLE rhnKSData
     is_org_default  CHAR(1)
                         DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_ks_default_ck
-                            CHECK (is_org_default in ( 'Y' , 'N' )),
+                            CHECK (is_org_default in ('Y','N')),
     label           VARCHAR2(64) NOT NULL,
     comments        VARCHAR2(4000),
     active          CHAR(1)
                         DEFAULT ('Y') NOT NULL
                         CONSTRAINT rhn_ks_active_ck
-                            CHECK (active in ( 'Y' , 'N' )),
+                            CHECK (active in ('Y','N')),
     postLog         CHAR(1)
                         DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_ks_post_log_ck
-                            CHECK (postLog in ( 'Y' , 'N' )),
+                            CHECK (postLog in ('Y','N')),
     preLog          CHAR(1)
                         DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_ks_pre_log_ck
-                            CHECK (preLog in ( 'Y' , 'N' )),
+                            CHECK (preLog in ('Y','N')),
     kscfg           CHAR(1)
                         DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_ks_cfg_save_ck
-                            CHECK (kscfg in ( 'Y' , 'N' )),
+                            CHECK (kscfg in ('Y','N')),
     cobbler_id      VARCHAR2(64),
     pre             BLOB,
     post            BLOB,
@@ -56,11 +56,11 @@ CREATE TABLE rhnKSData
     verboseup2date  CHAR(1)
                         DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_ks_verbose_up2date_ck
-                            CHECK (verboseup2date in ( 'Y' , 'N' )),
+                            CHECK (verboseup2date in ('Y','N')),
     nonchrootpost   CHAR(1)
                         DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_ks_nonchroot_post_ck
-                            CHECK (nonchrootpost in ( 'Y' , 'N' )),
+                            CHECK (nonchrootpost in ('Y','N')),
     no_base         CHAR(1)
                         DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_ks_nobase_ck

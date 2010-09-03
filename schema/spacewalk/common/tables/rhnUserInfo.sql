@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -39,26 +39,26 @@ CREATE TABLE rhnUserInfo
     show_applied_errata     CHAR(1)
                                 DEFAULT ('N') NOT NULL
                                 CONSTRAINT rhn_user_info_sea_ck
-                                    CHECK (show_applied_errata in ( 'Y' , 'N' )),
+                                    CHECK (show_applied_errata in ('Y','N')),
     show_system_group_list  CHAR(1)
                                 DEFAULT ('N') NOT NULL
                                 CONSTRAINT rhn_user_info_ssgl_ck
-                                    CHECK (show_system_group_list in ( 'Y' , 'N' )),
+                                    CHECK (show_system_group_list in ('Y','N')),
     agreed_to_terms         CHAR(1)
                                 DEFAULT ('N') NOT NULL
                                 CONSTRAINT rhn_user_info_agreed_ck
-                                    CHECK (agreed_to_terms in ( 'Y' , 'N' )),
+                                    CHECK (agreed_to_terms in ('Y','N')),
     use_pam_authentication  CHAR(1)
                                 DEFAULT ('N') NOT NULL
                                 CONSTRAINT rhn_user_info_pam_ck
-                                    CHECK (use_pam_authentication in ( 'Y' , 'N' )),
+                                    CHECK (use_pam_authentication in ('Y','N')),
     last_logged_in          DATE,
     agreed_to_ws_terms      CHAR(1)
                                 CONSTRAINT rhn_user_info_ws_ck
-                                    CHECK (agreed_to_ws_terms is null or agreed_to_ws_terms in ( 'Y' , 'N' )),
+                                    CHECK (agreed_to_ws_terms is null or agreed_to_ws_terms in ('Y','N')),
     agreed_to_es_terms      CHAR(1)
                                 CONSTRAINT rhn_user_info_es_ck
-                                    CHECK (agreed_to_es_terms is null or agreed_to_es_terms in ( 'Y' , 'N' )),
+                                    CHECK (agreed_to_es_terms is null or agreed_to_es_terms in ('Y','N')),
     created                 DATE
                                 DEFAULT (sysdate) NOT NULL,
     modified                DATE

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -45,7 +45,7 @@ CREATE TABLE rhnChannel
     receiving_updates   CHAR(1)
                             DEFAULT ('Y') NOT NULL
                             CONSTRAINT rhn_channel_ru_ck
-                                CHECK (receiving_updates in ( 'Y' , 'N' )),
+                                CHECK (receiving_updates in ('Y', 'N')),
     last_modified       DATE
                             DEFAULT (sysdate) NOT NULL,
     last_synced         DATE,

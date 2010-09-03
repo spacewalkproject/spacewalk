@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -40,7 +40,7 @@ CREATE TABLE web_user_site_info
     is_po_box           CHAR(1)
                             DEFAULT ('0')
                             CONSTRAINT wusi_ipb_ck
-                                CHECK (is_po_box in ( '1' , '0' )),
+                                CHECK (is_po_box in ('1','0')),
     type                CHAR(1)
                             CONSTRAINT wusi_type_fk
                                 REFERENCES web_user_site_type (type),

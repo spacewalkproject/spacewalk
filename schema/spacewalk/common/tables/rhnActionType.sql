@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,11 +24,11 @@ CREATE TABLE rhnActionType
     trigger_snapshot  CHAR(1)
                           DEFAULT ('N') NOT NULL
                           CONSTRAINT rhn_action_type_trigsnap_ck
-                              CHECK (trigger_snapshot in ( 'Y' , 'N' )),
+                              CHECK (trigger_snapshot in ('Y','N')),
     unlocked_only     CHAR(1)
                           DEFAULT ('N') NOT NULL
                           CONSTRAINT rhn_action_type_unlck_ck
-                              CHECK (unlocked_only in ( 'Y' , 'N' ))
+                              CHECK (unlocked_only in ('Y','N'))
 )
 ENABLE ROW MOVEMENT
 ;

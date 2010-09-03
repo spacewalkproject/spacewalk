@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,18 +23,18 @@ CREATE TABLE rhn_url_probe
     multi_step                      CHAR(1)
                                         DEFAULT (0) NOT NULL
                                         CONSTRAINT rhn_urlpb_multi_step_ck
-                                            CHECK (multi_step in ( '0' , '1' )),
+                                            CHECK (multi_step in ('0','1')),
     run_on_scouts                   CHAR(1)
                                         DEFAULT ('1') NOT NULL
                                         CONSTRAINT rhn_urlpb_run_on_scouts_ck
-                                            CHECK (run_on_scouts in ( '0' , '1' )),
+                                            CHECK (run_on_scouts in ('0','1')),
     probe_id                        NUMBER(12) NOT NULL
                                         CONSTRAINT rhn_urlpb_probe_id_pk PRIMARY KEY
                                         USING INDEX TABLESPACE [[2m_tbs]],
     probe_type                      VARCHAR2(12)
                                         DEFAULT ('url') NOT NULL
                                         CONSTRAINT rhn_urlpb_probe_type_ck
-                                            CHECK (probe_type = 'url'),
+                                            CHECK (probe_type='url'),
     sat_cluster_id                  NUMBER(12),
     scout_warning_threshold_is_all  CHAR(1)
                                         DEFAULT ('1') NOT NULL,
