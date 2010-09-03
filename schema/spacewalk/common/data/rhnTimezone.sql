@@ -145,7 +145,13 @@ insert into rhnTimezone
   (id, olson_name, display_name)
 values
   (rhn_timezone_id_seq.nextval,
-   'Pacific/Wallis', 'New Zealand');
+   'Pacific/Wallis', 'New Zealand (Wallis)');
+
+insert into rhnTimezone
+  (id, olson_name, display_name)
+values
+  (rhn_timezone_id_seq.nextval,
+   'Pacific/Auckland', 'New Zealand (Auckland)');
 
 insert into rhnTimezone
   (id, olson_name, display_name)
