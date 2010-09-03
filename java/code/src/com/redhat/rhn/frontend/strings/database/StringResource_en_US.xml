@@ -182,14 +182,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
     </trans-unit>
 
     <trans-unit id="America/Chicago">
-<source>(GMT-0600) United States (Central Daylight Time)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="America/Regina">
-<source>(GMT-0600) United States (Central Standard Time)</source>
+<source>(GMT-0600) United States (Central)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>

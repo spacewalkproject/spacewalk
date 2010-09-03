@@ -93,7 +93,7 @@ insert into rhnTimezone
   (id, olson_name, display_name)
 values
   (rhn_timezone_id_seq.nextval,
-   'America/Chicago', 'United States (Central Daylight Time)');
+   'America/Chicago', 'United States (Central)');
 
 
 insert into rhnTimezone
@@ -108,14 +108,6 @@ insert into rhnTimezone
 values
   (rhn_timezone_id_seq.nextval,
    'America/Phoenix', 'United States (Arizona)');
-
-
-insert into rhnTimezone
-  (id, olson_name, display_name)
-values
-  (rhn_timezone_id_seq.nextval,
-   'America/Regina', 'United States(Central Standard Time)');
-
 
 insert into rhnTimezone
   (id, olson_name, display_name)
