@@ -464,6 +464,13 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
         if (this.keywords == null) {
             this.keywords = new HashSet();
         }
+        for (Keyword k : getKeywords()) {
+            if (k.getKeyword().equals(keywordIn)) {
+                return;
+            }
+        }
+
+
         /*
          * Bah... this stinks since a keyword is just a string, but we have to
          * set the created/modified fields in the db.
@@ -473,6 +480,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
         addKeyword(k);
         k.setErrata(this);
     }
+
 
     /**
      * Adds a keyword to the keywords set.
@@ -491,7 +499,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     /**
      * @return Returns the keywords.
      */
-    public Set getKeywords() {
+    public Set<Keyword> getKeywords() {
         return keywords;
     }
 
