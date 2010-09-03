@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.23
+Version: 1.2.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 03 2010 Tomas Lestach <tlestach@redhat.com> 1.2.24-1
+- 567178 - adding Pacific/Auckland time zone (tlestach@redhat.com)
+- 495973 - adding America/Regina time zone (tlestach@redhat.com)
+- 623447 - making errata.listPackages maintain api compatibility since it is to
+  be backported to 5.3 (jsherril@redhat.com)
+- 623447 - speeding up errata.listPackages api call (jsherril@redhat.com)
+- 591291 - do not touch packages in mergeErrata api call (tlestach@redhat.com)
+- make null checks for cron expressions (tlestach@redhat.com)
+- add sanity check for predefined tasks (tlestach@redhat.com)
+- check only active schedules when checking DB for initialization
+  (tlestach@redhat.com)
+
 * Wed Sep 01 2010 Partha Aji <paji@redhat.com> 1.2.23-1
 - 518664 - Made spacewalk search deal with other locales (paji@redhat.com)
 - checkstyle fix (jsherril@redhat.com)
