@@ -37,7 +37,6 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
@@ -380,11 +379,10 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     public void testBaseChannelsForSystemIncludesEus() throws Exception {
         Server s = ServerTestUtils.createTestSystem(user);
         String version = "5Server";
-        String release = "5.0.0";
+        String release = "5.0.0.9";
         s = ServerTestUtils.addRedhatReleasePackageToServer(user, s, version, release);
-
-        String release2 = "5.2.0";
-        String release3 = "5.3.0";
+        String release2 = "5.2.0.4";
+        String release3 = "5.3.0.3";
         // Create some base channels and corresponding entries in rhnReleaseChannelMap:
         Channel base1 = ChannelFactoryTest.createBaseChannel(user);
         Channel base2 = ChannelFactoryTest.createBaseChannel(user);
@@ -398,10 +396,10 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
                 ChannelManager.RHEL_PRODUCT_NAME, version, release2);
         ChannelManagerTest.createReleaseChannelMap(base2,
                 ChannelManager.RHEL_PRODUCT_NAME, version, release3);
+        HibernateFactory.getSession().flush();
 
         List<EssentialChannelDto> channels = ChannelManager.listBaseChannelsForSystem(
                 user, s);
-
         assertTrue(channels.size() >= 2);
     }
 
@@ -541,7 +539,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     public void testIsChannelFree() throws Exception {
 
         Server s = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest = ((VirtualInstance) s.getGuests().iterator().next()).getGuestSystem();
+        Server guest = (s.getGuests().iterator().next()).getGuestSystem();
         Channel b1 = ChannelTestUtils.createTestChannel(user);
         Channel b2 = ChannelTestUtils.createTestChannel(user);
         assertFalse(ChannelManager.isChannelFreeForSubscription(s, b1));

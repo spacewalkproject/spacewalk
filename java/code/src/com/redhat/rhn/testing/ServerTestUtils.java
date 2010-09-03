@@ -96,7 +96,7 @@ public class ServerTestUtils {
         throws Exception {
 
         InstalledPackage testInstPack = new InstalledPackage();
-        String epoch = "idontcare";
+        String epoch = "";
         PackageEvr evr = PackageEvrFactory.createPackageEvr(epoch, version, release);
         testInstPack.setEvr(evr);
 
