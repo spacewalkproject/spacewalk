@@ -39,5 +39,9 @@
 	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.WarningProbesRenderer" />
 	  	<include method="renderAsync" />	  	
 	  </create>
+	  <create creator="new" javascript="DWRItemSelector">
+	  	<param name="class" value="com.redhat.rhn.frontend.taglibs.DWRItemSelector" />
+	  	<include method="select" />	  	
+	  </create>	  
 	</allow>
 </dwr>

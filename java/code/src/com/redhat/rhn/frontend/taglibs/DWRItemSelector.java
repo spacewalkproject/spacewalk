@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -12,62 +12,55 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
-package com.redhat.rhn.frontend.action.rhnset;
+package com.redhat.rhn.frontend.taglibs;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
+import org.directwebremoting.WebContext;
+import org.directwebremoting.WebContextFactory;
 
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 /**
- * This action is for the Javascript found in check_all.js
- *
- * The idea is that when a checkbox is clicked, a request is made that
- * updates the set controlled by the page, and returns an xml chunk
- * that is then used by the javascript code to update the totals on
- * the page.  Currently works only for the system list {@link RhnSetDecl#SYSTEMS}.
- *
+ * DWRItemSelector
  * @version $Rev$
  */
-public class SetItemSelectionAction extends RhnAction {
-
+public class DWRItemSelector {
     public static final String JSON_HEADER = "X-JSON";
     public static final String IDS = "ids";
     public static final String CHECKED = "checked";
     public static final String SET_LABEL = "set_label";
 
-    /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
-            HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        Integer size = updateSetFromRequest(req);
+    /**
+     * Dwr Item selector updates the RHNset
+     * when its passed the setLabel, and ids to update
+     * @param setLabel the set label
+     * @param ids the ids to update
+     * @param on true if the items were to be added
+     * @return the selected
+     * @throws Exception on exceptions
+     */
+    public String select(String setLabel, String[] ids, boolean on) throws Exception {
+        WebContext ctx = WebContextFactory.get();
+        HttpServletRequest req = ctx.getHttpServletRequest();
+        Integer size = updateSetFromRequest(req, setLabel, ids, on);
         if (size == null) {
-            return null;
+            return "";
         }
-        String setLabel = req.getParameter(SET_LABEL);
-        writeResponse(resp, size, setLabel);
-
-        return null;
+        return getResponse(size, setLabel);
     }
 
     // Update the proper set based upon request parameters
-    private Integer updateSetFromRequest(HttpServletRequest req) throws Exception {
-        String setLabel = req.getParameter(SET_LABEL);
-        String[] which = req.getParameterValues(IDS);
-        String checked = req.getParameter(CHECKED);
-        boolean isOn = checked.equals("on");
-
+    private Integer updateSetFromRequest(HttpServletRequest req,
+            String setLabel, String[] which, boolean isOn) throws Exception {
         if (which == null) {
             return null;
         }
@@ -106,7 +99,7 @@ public class SetItemSelectionAction extends RhnAction {
 
 
     // Write an responseText with the current count from the set
-    private void writeResponse(HttpServletResponse resp, int setSize, String setLabel) {
+    private String getResponse(int setSize, String setLabel) {
         StringBuffer responseText = new StringBuffer();
         LocalizationService ls = LocalizationService.getInstance();
         if (RhnSetDecl.SYSTEMS.getLabel().equals(setLabel)) {
@@ -134,10 +127,6 @@ public class SetItemSelectionAction extends RhnAction {
         responseText.append("\"pagination\":\"").
                         append(paginationMessage).
                         append("\"");
-
-        resp.setContentType("application/json");
-        resp.addHeader("X-JSON",
-                        "({" + responseText.toString() + "})");
+        return  "({" + responseText.toString() + "})";
     }
-
 }

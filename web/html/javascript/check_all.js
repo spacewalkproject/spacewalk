@@ -176,66 +176,17 @@ function process_single_checkbox(cboxes, checkall) {
   }
 }
 
-
-
 function update_server_set(variable, set_label, checked, values) {
-  var url = "/rhn/SetItemSelected.do";
-  body = "set_label=" + set_label + "&";
-
-  if (checked) {
-    body = body + "checked=on";
-  }
-  else {
-    body = body + "checked=off";
-  }
-
-  for (var i = 0; i < values.length; i++) {
-    body =  body + "&" + variable + "=" + values[i];
-  }
-    
-  if (set_label == "system_list") {
-        new Ajax.Request(url, { method:'post',
-                              postBody:body,
-                              onSuccess:processSystemReqChange  }); 
-  }
-  else {
-        new Ajax.Request(url, { method:'post',
-                              postBody:body,
-                              onSuccess:processPagination  }); 
-  }
+    DWRItemSelector.select(set_label, values, checked,pageResponse);
 }
 
-function processSystemReqChange(req, doc) {
-
-      /*
-       * Originally we were using getElementsByName, but the span
-       * tag doesn't support a name attribute (according to XHTML standard)
-       * this causes IE not to find them.  Works fine in Firefox.
-       * So using the proper way method of getElementById.
-       */
- 
-
-      // find SSM system selected element
-      var hdr_selcnt = document.getElementById("header_selcount");
-
-     
-      // update the ssm header count (next to manage/clear buttons)
-      var new_text = document.createTextNode(doc.header);
-      hdr_selcnt.replaceChild(new_text, hdr_selcnt.firstChild);
-     processPagination(req, doc);
-}
-
-function processPagination(req, doc) {
-      // get the text we plan to show on top and bottom of listviews
-      var pgcnt =
-         document.createTextNode(doc.pagination);
-
-      // update page selcount above and below listview
-      // NOTE: couldn't get replaceChild to work, using nodeValue instead.
-      var top = document.getElementById("pagination_selcount_top");
-      top.firstChild.nodeValue = pgcnt.nodeValue;
-      var bottom = document.getElementById("pagination_selcount_bottom");
-      bottom.firstChild.nodeValue = pgcnt.nodeValue;
+function pageResponse(data) {
+    var resp = eval(data);
+    if (typeof(resp['header']) != 'undefined') {
+            dwr.util.setValue("header_selcount", resp.header);
+    }
+    dwr.util.setValue("pagination_selcount_top", resp.pagination);
+    dwr.util.setValue("pagination_selcount_bottom", resp.pagination);
 }
 
 function sortColumn(sortByWidget, sortByValue, sortDirWidget, sortDirValue) {
