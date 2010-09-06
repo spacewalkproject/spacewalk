@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.25
+Version: 1.2.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Sep 06 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.26-1
+- fixed imports
+
 * Mon Sep 06 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.25-1
 - 573630 - reuse pl/sql implementation of update_needed_cache in java
 - file attribute was removed from the wrong method in PackageHelper
