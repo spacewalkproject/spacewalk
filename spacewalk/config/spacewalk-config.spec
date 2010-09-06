@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.2.1
+Version: 1.2.2
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -91,6 +91,9 @@ fi
 
 
 %changelog
+* Mon Sep 06 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.2-1
+- removed unneeded oracle settings from httpd environment
+
 * Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
 - As 00-spacewalk-mod_jk.conf which referenced workers.properties is gone,
   remove it now as well.
