@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -25,50 +25,50 @@ insert into rhn_schedule_days(recid,schedule_id,ord,start_1,end_1,start_2,
 end_2,start_3,end_3,start_4,end_4,last_update_user,last_update_date) 
     values ( rhn_schedule_days_recid_seq.nextval,
       ( select recid from rhn_schedules where customer_id is null and description = '24x7' ),0,
-    to_date('08-SEP-2000 12:00:02 AM','DD-MON-YYYY HH:MI:SS AM'),
-    to_date('09-SEP-2000 12:00:00 AM','DD-MON-YYYY HH:MI:SS AM'),
+    to_date('2000-09-08 12:00:02 AM','YYYY-MM-DD HH:MI:SS AM'),
+    to_date('2000-09-09 12:00:00 AM','YYYY-MM-DD HH:MI:SS AM'),
     null,null,null,null,null,null,'system',null);
 insert into rhn_schedule_days(recid,schedule_id,ord,start_1,end_1,start_2,
 end_2,start_3,end_3,start_4,end_4,last_update_user,last_update_date) 
     values ( rhn_schedule_days_recid_seq.nextval,
       ( select recid from rhn_schedules where customer_id is null and description = '24x7' ),1,
-    to_date('08-SEP-2000 12:00:09 AM','DD-MON-YYYY HH:MI:SS AM'),
-    to_date('09-SEP-2000 12:00:00 AM','DD-MON-YYYY HH:MI:SS AM'),
+    to_date('2000-09-08 12:00:09 AM','YYYY-MM-DD HH:MI:SS AM'),
+    to_date('2000-09-09 12:00:00 AM','YYYY-MM-DD HH:MI:SS AM'),
     null,null,null,null,null,null,'system',null);
 insert into rhn_schedule_days(recid,schedule_id,ord,start_1,end_1,start_2,
 end_2,start_3,end_3,start_4,end_4,last_update_user,last_update_date) 
     values ( rhn_schedule_days_recid_seq.nextval,
       ( select recid from rhn_schedules where customer_id is null and description = '24x7' ),2,
-    to_date('08-SEP-2000 12:00:14 AM','DD-MON-YYYY HH:MI:SS AM'),
-    to_date('09-SEP-2000 12:00:00 AM','DD-MON-YYYY HH:MI:SS AM'),
+    to_date('2000-09-08 12:00:14 AM','YYYY-MM-DD HH:MI:SS AM'),
+    to_date('2000-09-09 12:00:00 AM','YYYY-MM-DD HH:MI:SS AM'),
     null,null,null,null,null,null,'system',null);
 insert into rhn_schedule_days(recid,schedule_id,ord,start_1,end_1,start_2,
 end_2,start_3,end_3,start_4,end_4,last_update_user,last_update_date) 
     values ( rhn_schedule_days_recid_seq.nextval,
       ( select recid from rhn_schedules where customer_id is null and description = '24x7' ),3,
-    to_date('08-SEP-2000 12:00:20 AM','DD-MON-YYYY HH:MI:SS AM'),
-    to_date('09-SEP-2000 12:00:00 AM','DD-MON-YYYY HH:MI:SS AM'),
+    to_date('2000-09-08 12:00:20 AM','YYYY-MM-DD HH:MI:SS AM'),
+    to_date('2000-09-09 12:00:00 AM','YYYY-MM-DD HH:MI:SS AM'),
     null,null,null,null,null,null,'system',null);
 insert into rhn_schedule_days(recid,schedule_id,ord,start_1,end_1,start_2,
 end_2,start_3,end_3,start_4,end_4,last_update_user,last_update_date) 
     values ( rhn_schedule_days_recid_seq.nextval,
       ( select recid from rhn_schedules where customer_id is null and description = '24x7' ),4,
-    to_date('08-SEP-2000 12:00:25 AM','DD-MON-YYYY HH:MI:SS AM'),
-    to_date('09-SEP-2000 12:00:00 AM','DD-MON-YYYY HH:MI:SS AM'),
+    to_date('2000-09-08 12:00:25 AM','YYYY-MM-DD HH:MI:SS AM'),
+    to_date('2000-09-09 12:00:00 AM','YYYY-MM-DD HH:MI:SS AM'),
     null,null,null,null,null,null,'system',null);
 insert into rhn_schedule_days(recid,schedule_id,ord,start_1,end_1,start_2,
 end_2,start_3,end_3,start_4,end_4,last_update_user,last_update_date) 
     values ( rhn_schedule_days_recid_seq.nextval,
       ( select recid from rhn_schedules where customer_id is null and description = '24x7' ),5,
-    to_date('08-SEP-2000 12:00:31 AM','DD-MON-YYYY HH:MI:SS AM'),
-    to_date('09-SEP-2000 12:00:00 AM','DD-MON-YYYY HH:MI:SS AM'),
+    to_date('2000-09-08 12:00:31 AM','YYYY-MM-DD HH:MI:SS AM'),
+    to_date('2000-09-09 12:00:00 AM','YYYY-MM-DD HH:MI:SS AM'),
     null,null,null,null,null,null,'system',null);
 insert into rhn_schedule_days(recid,schedule_id,ord,start_1,end_1,start_2,
 end_2,start_3,end_3,start_4,end_4,last_update_user,last_update_date) 
     values ( rhn_schedule_days_recid_seq.nextval,
       ( select recid from rhn_schedules where customer_id is null and description = '24x7' ),6,
-    to_date('08-SEP-2000 12:00:36 AM','DD-MON-YYYY HH:MI:SS AM'),
-    to_date('09-SEP-2000 12:00:00 AM','DD-MON-YYYY HH:MI:SS AM'),
+    to_date('2000-09-08 12:00:36 AM','YYYY-MM-DD HH:MI:SS AM'),
+    to_date('2000-09-09 12:00:00 AM','YYYY-MM-DD HH:MI:SS AM'),
     null,null,null,null,null,null,'system',null);
 commit;
 
