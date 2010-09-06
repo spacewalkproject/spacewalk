@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.11
+Version:        1.2.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Sep 06 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.12-1
+- 573630 - move update_needed_cache implementation to db
+- 585965 - rhnServerNeededView rewritten from scratch
+- converted dates to ISO format
+- 567178 - adding Pacific/Auckland time zone
+- 495973 - adding America/Regina time zone
+
 * Thu Sep 02 2010 Jan Pazdziora 1.2.11-1
 - Reapply rhn_cache and rhn_org package and rhn_user package and package body,
   to make for clean schema upgrades from 0.2.
