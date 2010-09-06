@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.9
+Version: 1.2.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Sep 06 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.10-1
+- 573630 - reused pl/sql implementation of update_needed_cache in python
+- fixing broken string substitiution (wrong number of arguments)
+
 * Mon Aug 30 2010 Justin Sherrill <jsherril@redhat.com> 1.2.9-1
 - 626749 - fixing spacewalk-repo-sync to ignore source packages
   (jsherril@redhat.com)
