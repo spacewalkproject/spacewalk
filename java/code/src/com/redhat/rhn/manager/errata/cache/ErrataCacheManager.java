@@ -111,17 +111,6 @@ public class ErrataCacheManager extends HibernateFactory {
     }
 
     /**
-     * Returns the new packages for the server id.
-     * @param sid Server Id.
-     * @return the new packages for the server id.
-     */
-    public static DataResult newPackages(Long sid) {
-        Map params = new HashMap();
-        params.put("server_id", sid);
-        return executeSelectMode("ErrataCache_queries", "new_packages", params);
-    }
-
-    /**
      * Inserts record into NeededPackage cache table
      * @param sid Server Id
      * @param errataId Errata Id

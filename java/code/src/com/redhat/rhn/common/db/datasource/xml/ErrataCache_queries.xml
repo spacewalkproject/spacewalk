@@ -21,14 +21,6 @@ select snpc.server_id, snpc.errata_id, snpc.package_id
     </query>
   </mode>
 
-<mode name="new_packages"
-    class="com.redhat.rhn.frontend.dto.ErrataCacheDto">
- <query params="server_id">
-select server_id, errata_id, package_id
-  from rhnServerNeededView
- where server_id = :server_id
-   </query>
-</mode>
 <write-mode name="delete_needed_package_cache">
   <query params="server_id, errata_id, package_id">
 DELETE FROM rhnServerNeededCache
