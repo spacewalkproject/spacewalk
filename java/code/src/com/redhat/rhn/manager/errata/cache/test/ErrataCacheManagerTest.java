@@ -91,18 +91,6 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         return oid;
     }
 
-    public void aTestNewPackages() {
-        DataResult dr = ErrataCacheManager.newPackages(
-                new Long(1000089925));
-
-        assertFalse(dr.isEmpty());
-
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
-            System.out.println(ecd.toString());
-        }
-    }
-
     public void testInsertNeededPackageCache() throws Exception {
 
         // create a lot of stuff to test this simple insert.
