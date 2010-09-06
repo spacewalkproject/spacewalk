@@ -225,7 +225,6 @@ public class ErrataMailer extends RhnJavaJob {
 
     private void populateWorkQueue(Long errataId, Long orgId, Long channelId)
             throws Exception {
-        HibernateFactory.getSession();
         WriteMode queueWriter = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_FILL_WORK_QUEUE);
         Map params = new HashMap();
@@ -236,8 +235,6 @@ public class ErrataMailer extends RhnJavaJob {
         if (log.isDebugEnabled()) {
             log.debug("Queuing " + workItemsFound +  " rows of work");
         }
-        HibernateFactory.commitTransaction();
-        HibernateFactory.closeSession();
     }
 
     private String formatEmail(String login,
