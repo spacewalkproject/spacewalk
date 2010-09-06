@@ -189,24 +189,6 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
 
     private Map internalUpdateErrataCacheForServer(Long serverId) {
 
-        /*
-         * get packages_needing_updates
-         * foreach item put entry in pseen hashmap
-         * get errata_needing_application
-         * foreach item in get newpackages
-         *    if not in pseen
-         *       add to padded
-         *    else
-         *       delete from p_seen
-         *       increment p_unchanged
-         *
-         * if there is anything in pseen
-         *    call delete_needed_package_cache
-         * if there is something in padded
-         *    call insert_needed_package_cache
-         *
-         */
-
         // let's avoid the dreaded nullpointer
         if (serverId == null) {
             return null;
@@ -216,9 +198,16 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
             log.debug("internalUpdateErrataCacheForServer - sid: " + serverId);
         }
 
-
-        DataResult newpkgs = ErrataCacheManager.newPackages(serverId);
         DataResult pkgs = ErrataCacheManager.packagesNeedingUpdates(serverId);
+
+        CallableMode m = ModeFactory.getCallableMode(
+                "System_queries", "update_needed_cache");
+        Map inParams = new HashMap();
+        inParams.put("server_id", serverId);
+
+        m.execute(inParams, new HashMap());
+
+        DataResult newpkgs = ErrataCacheManager.packagesNeedingUpdates(serverId);
 
         if (log.isDebugEnabled()) {
             log.debug("newpkgs: " + newpkgs);
@@ -229,6 +218,7 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
         List pAdded = new ArrayList();
 
 
+        // get list of new packages
         Iterator itr = null;
         for (itr = newpkgs.iterator(); itr.hasNext();) {
             ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
@@ -239,34 +229,6 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
             if (!pkgs.contains(ecd)) {
                 log.debug("pkgs doesn't contain current ecd");
                 pAdded.add(ecd);
-            }
-            else {
-                // remove the package we've already seen
-                log.debug("removing ecd.");
-                pkgs.remove(ecd);
-            }
-        }
-
-
-        // delete the needed package cache
-        if (!pkgs.isEmpty()) {
-            for (itr = pkgs.iterator(); itr.hasNext();) {
-                ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
-                log.debug("Deleting needed package cache.");
-                ErrataCacheManager.deleteNeededPackageCache(
-                        ecd.getServerId(), ecd.getErrataId(),
-                        ecd.getPackageId());
-            }
-        }
-
-        // reinsert the needed package cache
-        if (!pAdded.isEmpty()) {
-            for (itr = pAdded.iterator(); itr.hasNext();) {
-                log.debug("reinsert the needed package cache.");
-                ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
-                ErrataCacheManager.insertNeededPackageCache(
-                        ecd.getServerId(), ecd.getErrataId(),
-                        ecd.getPackageId());
             }
         }
 

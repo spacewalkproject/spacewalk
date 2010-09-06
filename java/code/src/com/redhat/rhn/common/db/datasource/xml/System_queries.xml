@@ -1369,6 +1369,12 @@ END;
   </query>
 </callable-mode>
 
+<callable-mode name="update_needed_cache">
+  <query params="server_id">
+      {call rhn_server.update_needed_cache(:server_id)}
+  </query>
+</callable-mode>
+
 <mode name="actions_count">
   <query params="server_id">
 SELECT count(distinct SA.action_id) as COUNT
