@@ -37,22 +37,22 @@ select s.org_id,
   from (select sc.server_id, np.name_id, np.package_arch_id, max(np.evr) max_evr
           from (-- list of newest packages in channels with EVR
                 select np_np.*, np_pe.evr
-                  from rhnchannelnewestpackage np_np
-                  join rhnpackageEVR np_pe
+                  from rhnChannelNewestPackage np_np
+                  join rhnPackageEVR np_pe
                     on np_pe.id = np_np.evr_id) np
           join (-- list of packages on the server with EVR
                 select sp_sp.server_id, sp_sp.name_id, sp_sp.package_arch_id, max(sp_pe.evr) as max_evr
-                  from rhnserverpackage sp_sp
-                  join rhnpackageEVR sp_pe
+                  from rhnServerPackage sp_sp
+                  join rhnPackageEVR sp_pe
                     on sp_pe.id = sp_sp.evr_id
                  group by sp_sp.server_id, sp_sp.name_id, sp_sp.package_arch_id) sp
             on -- at first - we want only newer (=higher EVR) packages than there are on the server
                sp.name_id = np.name_id and sp.max_evr < np.evr
           join -- secondly - packages must be upgrade compatible
-               rhnpackageupgradearchcompat puac
+               rhnPackageUpgradeArchCompat puac
             on puac.package_arch_id = sp.package_arch_id and puac.package_upgrade_arch_id = np.package_arch_id
           join -- thirdly - packages must be in channel where server is subscribed to
-               rhnserverchannel sc
+               rhnServerChannel sc
             on sc.server_id = sp.server_id and sc.channel_id = np.channel_id
         group by sc.server_id, np.name_id, np.package_arch_id
         ) neededpkg
@@ -64,7 +64,7 @@ select s.org_id,
                --
                , p_evr.release, p_evr.version, p_evr.epoch
           from rhnPackage p
-          join rhnpackageevr p_evr
+          join rhnPackageEVR p_evr
             on p_evr.id = p.evr_id) pkg
     on pkg.evr = neededpkg.max_evr
    and pkg.name_id = neededpkg.name_id
