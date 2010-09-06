@@ -124,6 +124,11 @@ is
 	function get_ip_address (
 		server_id_in in number
 	) return varchar2;
+
+        procedure update_needed_cache(
+                server_id_in in number
+        );
+
 end rhn_server;
 /
 SHOW ERRORS
