@@ -150,6 +150,3 @@ insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_i
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('amd64-deb'), LOOKUP_PACKAGE_ARCH('amd64-deb'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('amd64-deb'), sysdate, sysdate);
 
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('solaris'), sysdate, sysdate);
