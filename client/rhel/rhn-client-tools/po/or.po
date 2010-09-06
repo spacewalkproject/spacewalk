@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Subhransu Behera <sbehera@redhat.com>, 2006, 2007.
+# Subhransu Behera <sbehera@redhat.com>, 2006, 2007, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-08-10 11:49+0200\n"
-"PO-Revision-Date: 2007-02-01 11:40+0530\n"
-"Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
-"Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
+"PO-Revision-Date: 2010-09-06 19:29+0530\n"
+"Last-Translator: \n"
+"Language-Team: Oriya <oriya-it@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 "\n"
@@ -574,8 +574,7 @@ msgstr "ଦୟାକରି ସଦସ୍ଯତା ବିବରଣୀକୁ ତଳ
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr ""
-"Red Hat Network ସହିତ ତନ୍ତ୍ରର ପ୍ରାରମ୍ଭିକ ସଂଯୋଗ ସମୟରେ %s ସ୍ଥାପନ ସଂଖ୍ଯାକୁ ସକ୍ରିୟ କରାଯାଇଛି।"
+msgstr "Red Hat Network ସହିତ ତନ୍ତ୍ରର ପ୍ରାରମ୍ଭିକ ସଂଯୋଗ ସମୟରେ %s ସ୍ଥାପନ ସଂଖ୍ଯାକୁ ସକ୍ରିୟ କରାଯାଇଛି।"
 
 #: ../src/up2date_client/rhnreg_constants.py:152
 msgid ""
@@ -696,8 +695,7 @@ msgstr ""
 msgid ""
 "Provisioning module: bare-metal provisioning, existing state provisioning, "
 "rollbacks, configuration management"
-msgstr ""
-"ପ୍ରବନ୍ଧ ଏକକାଂଶ: ଖାଲି-ଧାତୁ ପ୍ରବନ୍ଧ, ଅବସ୍ଥିତ ଅବସ୍ଥା ପ୍ରବନ୍ଧ, ରୋଲ-ବ୍ଯାକ, ବିନ୍ଯାସ ପରିଚାଳନା"
+msgstr "ପ୍ରବନ୍ଧ ଏକକାଂଶ: ଖାଲି-ଧାତୁ ପ୍ରବନ୍ଧ, ଅବସ୍ଥିତ ଅବସ୍ଥା ପ୍ରବନ୍ଧ, ରୋଲ-ବ୍ଯାକ, ବିନ୍ଯାସ ପରିଚାଳନା"
 
 #: ../src/up2date_client/rhnreg_constants.py:208
 msgid ""
@@ -711,8 +709,7 @@ msgstr ""
 msgid ""
 "Virtualization module: software updates for a limited number of virtual "
 "guests on this system."
-msgstr ""
-"ଆଭାସୀକରଣ ଏକକାଂଶ: ଏହି ତନ୍ତ୍ରରେ ସୀମିତ ସଂଖ୍ଯକ ଆଭାସୀ ଅତିଥି ମାନଙ୍କ ପାଇଁ ସଫ୍ଟୱେର ଅଦ୍ଯତନ ଉପଲବ୍ଧ।"
+msgstr "ଆଭାସୀକରଣ ଏକକାଂଶ: ଏହି ତନ୍ତ୍ରରେ ସୀମିତ ସଂଖ୍ଯକ ଆଭାସୀ ଅତିଥି ମାନଙ୍କ ପାଇଁ ସଫ୍ଟୱେର ଅଦ୍ଯତନ ଉପଲବ୍ଧ।"
 
 #: ../src/up2date_client/rhnreg_constants.py:215
 msgid ""
@@ -1034,8 +1031,7 @@ msgstr "ଲଗଇନ କରିବା ସମୟରେ ସେଠାରେ ଗୋ�
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
-msgstr ""
-"ପଞ୍ଜୀକରଣ ସେବକ ସହିତ ସମ୍ବାଦ ବିନିମୟ କରିବା ସମୟରେ ସେଠାରେ ଗୋଟିଏ ତୃଟି ଘଟିଲା।  ସନ୍ଦେଶଟି ଥିଲା:\n"
+msgstr "ପଞ୍ଜୀକରଣ ସେବକ ସହିତ ସମ୍ବାଦ ବିନିମୟ କରିବା ସମୟରେ ସେଠାରେ ଗୋଟିଏ ତୃଟି ଘଟିଲା।  ସନ୍ଦେଶଟି ଥିଲା:\n"
 
 #: ../src/up2date_client/rhnregGui.py:609
 #, fuzzy
@@ -1192,8 +1188,7 @@ msgstr "ସ୍ଥାପତ୍ଯ"
 
 #: ../src/up2date_client/rhnregGui.py:1203
 msgid "Building a list of RPM packages installed on your system.  Please wait."
-msgstr ""
-"ଆପଣଙ୍କ ତନ୍ତ୍ରରେ RPM ପ୍ଯାକେଜ ମାନଙ୍କର ଗୋଟିଏ ତାଲିକାକୁ ନିର୍ମାଣ କରୁଅଛି।  ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ।"
+msgstr "ଆପଣଙ୍କ ତନ୍ତ୍ରରେ RPM ପ୍ଯାକେଜ ମାନଙ୍କର ଗୋଟିଏ ତାଲିକାକୁ ନିର୍ମାଣ କରୁଅଛି।  ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ।"
 
 #: ../src/up2date_client/rhnregGui.py:1234
 msgid ""
@@ -1266,8 +1261,7 @@ msgstr "ସେବକଟି ଗୋଟିଏ ତୃଟି ସୂଚୀତ କଲ�
 #: ../src/up2date_client/tui.py:375
 #, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr ""
-"ପଞ୍ଜୀକରଣ ସେବକ ସହିତ ସମ୍ବାଦ ବିନିମୟ କରିବା ସମୟରେ ସେଠାରେ ଗୋଟିଏ ତୃଟି ଘଟିଲା।  ସନ୍ଦେଶଟି ଥିଲା:\n"
+msgstr "ପଞ୍ଜୀକରଣ ସେବକ ସହିତ ସମ୍ବାଦ ବିନିମୟ କରିବା ସମୟରେ ସେଠାରେ ଗୋଟିଏ ତୃଟି ଘଟିଲା।  ସନ୍ଦେଶଟି ଥିଲା:\n"
 
 #: ../src/up2date_client/tui.py:575
 msgid "Profile name:"
@@ -1327,10 +1321,8 @@ msgid "You specified an invalid protocol."
 msgstr "ଆପଣ ଗୋଟିଏ ଅବୈଧ ପ୍ରୋଟୋକଲ ନିର୍ଦ୍ଦିଷ୍ଟ କରିଛନ୍ତି।"
 
 #: ../src/up2date_client/tui.py:1096
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> ବସ୍ତୁ ମାନଙ୍କ ମଧ୍ଯରେ  |  <Space> ବିକଳ୍ପ  |  <F12> ପରବର୍ତ୍ତୀ ପରଦା"
+msgid "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr "  <Tab>/<Alt-Tab> ବସ୍ତୁ ମାନଙ୍କ ମଧ୍ଯରେ  |  <Space> ବିକଳ୍ପ  |  <F12> ପରବର୍ତ୍ତୀ ପରଦା"
 
 #: ../src/up2date_client/tui.py:1190
 msgid "You must run the RHN registration program as root."
@@ -1500,8 +1492,7 @@ msgid "Specify an activation key"
 msgstr "ଗୋଟିଏ ସକ୍ରିୟଣ ଚାବି ନିର୍ଦ୍ଦିଷ୍ଟ କରନ୍ତୁ"
 
 #: ../src/bin/rhnreg_ks.py:58
-msgid ""
-"Subscribe this system to the EUS channel tied to the system's redhat-release"
+msgid "Subscribe this system to the EUS channel tied to the system's redhat-release"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:60
@@ -1749,8 +1740,7 @@ msgstr ""
 "ସୁରକ୍ଷିତ ପ୍ରମାଣପତ୍ର ଆବଶ୍ଯକ।"
 
 #: ../data/rh_register.glade.h:34
-msgid ""
-"Activate a previously purchased subscription you have not yet activated."
+msgid "Activate a previously purchased subscription you have not yet activated."
 msgstr "ପୂର୍ବରୁ କିଣିଥିବା ଗୋଟିଏ ସଦସ୍ଯତାକୁ ସକ୍ରିୟ କରନ୍ତୁ ଯାହାକୁ ଆପଣ ଏ ପର୍ଯ୍ଯନ୍ତ ସକ୍ରିୟ କରି ନାହାଁନ୍ତି।"
 
 #: ../data/rh_register.glade.h:35
@@ -1850,8 +1840,7 @@ msgstr "ମୁଁ ଗୋଟିଏ _HTTP ପ୍ରୋକ୍ସି ଜରିଆର
 msgid ""
 "I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
 "access to a Red Hat Network Satellite or Proxy.)"
-msgstr ""
-"ମୁଁ ତଳେ ଥିବା <b>Red Hat Network</b> ରୁ ସଫ୍ଟୱେର ଅଦ୍ଯତନ ମାନଙ୍କୁ ଗ୍ରହଣ କରିବା ପାଇଁ ଚାହିଁବି:"
+msgstr "ମୁଁ ତଳେ ଥିବା <b>Red Hat Network</b> ରୁ ସଫ୍ଟୱେର ଅଦ୍ଯତନ ମାନଙ୍କୁ ଗ୍ରହଣ କରିବା ପାଇଁ ଚାହିଁବି:"
 
 #: ../data/rh_register.glade.h:59
 msgid "IP Address:"
@@ -2129,7 +2118,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:117
 msgid "_No thanks, I'll connect later."
-msgstr "ନାଁ ଧନ୍ଯବାଦ।  ମୁଁ ପରେ ସଂଯୋଗ କରିବି।"
+msgstr "ନାଁ ଧନ୍ଯବାଦ।  ମୁଁ ପରେ ସଂଯୋଗ କରିବି। (_N)"
 
 #: ../data/rh_register.glade.h:118
 msgid "_No, Cancel"
