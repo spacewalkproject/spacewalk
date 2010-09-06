@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.24
+Version: 1.2.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Sep 06 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.25-1
+- 573630 - reuse pl/sql implementation of update_needed_cache in java
+- file attribute was removed from the wrong method in PackageHelper
+- 614918 - Made SSM Select Systems to work with I18n languages
+- 598845 - fixing issue where syncing errata would fail with a Hibernate
+  NonUniqueObjectException because keywords on errata were being duplicated
+  durign sync
+
 * Fri Sep 03 2010 Tomas Lestach <tlestach@redhat.com> 1.2.24-1
 - 567178 - adding Pacific/Auckland time zone (tlestach@redhat.com)
 - 495973 - adding America/Regina time zone (tlestach@redhat.com)
