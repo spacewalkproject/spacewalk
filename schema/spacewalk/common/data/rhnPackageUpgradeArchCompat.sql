@@ -16,6 +16,7 @@
 --
 
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386'), LOOKUP_PACKAGE_ARCH('i386'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('i386'), sysdate, sysdate);
@@ -76,84 +77,79 @@ insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_i
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('ppc64pseries'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('ppc64pseries'), LOOKUP_PACKAGE_ARCH('ppc64pseries'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('ppc64pseries'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('sparc-solaris'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('tar'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), sysdate, sysdate);
+
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('tar'), LOOKUP_PACKAGE_ARCH('tar'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('tar'), sysdate, sysdate);
+
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('ia32e'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('ia32e'), LOOKUP_PACKAGE_ARCH('ia32e'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('ia32e'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('amd64'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('amd64'), LOOKUP_PACKAGE_ARCH('amd64'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('amd64'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris'), LOOKUP_PACKAGE_ARCH('i386-solaris'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('i386-solaris'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('i386-solaris'), sysdate, sysdate);
+
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris-patch'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch'), sysdate, sysdate);
+
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch-cluster'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch-cluster'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('i386-solaris-patch-cluster'), sysdate, sysdate);
+
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('all-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-deb'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('i386-deb'), LOOKUP_PACKAGE_ARCH('i386-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('i386-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('alpha-deb'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('i386-deb'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('alpha-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('alpha-deb'), LOOKUP_PACKAGE_ARCH('alpha-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('alpha-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('ia64-deb'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('alpha-deb'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('ia64-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('ia64-deb'), LOOKUP_PACKAGE_ARCH('ia64-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('ia64-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-deb'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('ia64-deb'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('sparc-deb'), LOOKUP_PACKAGE_ARCH('sparc-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('sparc-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('src-deb'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('sparc-deb'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('src-deb'), LOOKUP_PACKAGE_ARCH('src-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('src-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('s390-deb'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('s390-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('s390-deb'), LOOKUP_PACKAGE_ARCH('s390-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('s390-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('powerpc-deb'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('s390-deb'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('powerpc-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('powerpc-deb'), LOOKUP_PACKAGE_ARCH('powerpc-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('powerpc-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('arm-deb'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('powerpc-deb'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('arm-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('arm-deb'), LOOKUP_PACKAGE_ARCH('arm-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('arm-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('mips-deb'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('arm-deb'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('mips-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('mips-deb'), LOOKUP_PACKAGE_ARCH('mips-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('mips-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('amd64-deb'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('mips-deb'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('amd64-deb'), LOOKUP_PACKAGE_ARCH('all-deb'), sysdate, sysdate);
 insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('amd64-deb'), LOOKUP_PACKAGE_ARCH('amd64-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('amd64-deb'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('solaris-patch'), LOOKUP_PACKAGE_ARCH('solaris-patch'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('solaris-patch'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('solaris-patch-cluster'), sysdate, sysdate);
-insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch'), LOOKUP_PACKAGE_ARCH('solaris-patch-cluster'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('all-deb'), LOOKUP_PACKAGE_ARCH('amd64-deb'), sysdate, sysdate);
+
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), sysdate, sysdate);
+insert into rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id, created, modified) values (LOOKUP_PACKAGE_ARCH('noarch-solaris'), LOOKUP_PACKAGE_ARCH('solaris'), sysdate, sysdate);
