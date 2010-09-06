@@ -58,6 +58,7 @@ rhnOrgPackageOverview            :: rhnPackageName rhnPackageEVR rhnPackageArch 
                                     rhn_package.pks
 rhnPrivateErrataMail             :: rhnServerPackage \
                                     rhnWebContactDisabled
+rhnPackageUpgradeArchCompat      :: rhnPackageArch
 rhnServerErrataTypeView          :: rhnErrata rhnServerNeededErrataCache
 rhnServerFeaturesView            :: rhnFeature rhnServerGroupTypeFeature \
                                     rhnServerGroupMembers rhnServerGroup 
@@ -100,8 +101,8 @@ rhnSharedChannelView             :: rhnChannel rhnChannelTrust rhnTrustedOrgs
 rhnSharedChannelTreeView         :: rhnSharedChannelView
 rhnUserActionOverview            :: rhnActionStatus rhnUserServerPerms rhnServerAction \
                                     rhnActionOverview 
-rhnServerNeededView              :: rhnPackage rhnServerPackageArchCompat \
+rhnServerNeededView              :: rhnPackage rhnChannelNewestPackage \
                                     rhnPackageEVR rhnServerPackage \
                                     rhnChannelPackage rhnServerChannel \
                                     rhnServer rhnErrataPackage \
-                                    rhnChannelErrata
+                                    rhnChannelErrata rhnPackageUpgradeArchCompat
