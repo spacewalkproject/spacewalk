@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.errata.cache;
 
+import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -395,27 +396,11 @@ public class ErrataCacheManager extends HibernateFactory {
     public static void updateErrataAndPackageCacheForChannel(Long cid) {
         // Clear em out
 
-        WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
-                "delete_needed_cache_by_channel");
+        CallableMode m = ModeFactory.getCallableMode("",
+                "update_needed_cache_for_channel");
         Map params = new HashMap();
         params.put("channel_id", cid);
-        int count = m.executeUpdate(params);
-        if (log.isDebugEnabled()) {
-            log.debug("updateErrataAndPackageCacheForChannel : " +
-                    "package_cache deleted: " + count);
-        }
-
-        // Insert into rhnServerNeededPackageCache
-        m = ModeFactory.getWriteMode("ErrataCache_queries",
-                "insert_needed_cache_by_channel");
-        params = new HashMap();
-        params.put("channel_id", cid);
-        count = m.executeUpdate(params);
-        if (log.isDebugEnabled()) {
-            log.debug("updateErrataAndPackageCacheForChannel : " +
-                    "package_cache inserted: " + count);
-        }
-
+        m.executeUpdate(params);
     }
 
     /**

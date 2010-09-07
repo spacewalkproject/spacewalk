@@ -98,6 +98,11 @@ DELETE FROM rhnOrgErrataCacheQueue WHERE org_id = :org_id
    </query>
 </write-mode>
 
+<callable-mode name="update_needed_cache_for_channel">
+  <query params="server_id">
+      {call rhn_channel.update_needed_cache(:channel_id)}
+  </query>
+</callable-mode>
 
 <write-mode name="delete_needed_cache_by_channel">
   <query params="channel_id">
