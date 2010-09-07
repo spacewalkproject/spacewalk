@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.51
+Version: 1.1.52
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -331,6 +331,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 07 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.52-1
+- fix for kickstart %post script logging
+
 * Fri Aug 20 2010 Justin Sherrill <jsherril@redhat.com> 1.1.51-1
 - fixing path for chrooted post script log file (jsherril@redhat.com)
 
