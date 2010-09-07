@@ -1,659 +1,1179 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
-	<file source-language="en-US" target-language="ko-KR" datatype="po" original="en-US/nav.xliff">
-		<body>
-			<trans-unit id="common.nav.overview">
-				<source>Overview</source>
-				<target>개요</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.overview">
-				<source>Overview</source>
-				<target>개요</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.overview">
-				<source>Overview</source>
-				<target>개요</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.overview">
-				<source>Overview</source>
-				<target>개요</target>
-			</trans-unit>
-			<trans-unit id="common.nav.systems">
-				<source>Systems</source>
-				<target>시스템</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.systems">
-				<source>Systems</source>
-				<target>시스템</target>
-			</trans-unit>
-			<trans-unit id="users.nav.all">
-				<source>All</source>
-				<target>전체</target>
-			</trans-unit>
-			<trans-unit id="system.nav.all">
-				<source>All</source>
-				<target>전체</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.status.all">
-				<source>All</source>
-				<target>전체</target>
-			</trans-unit>
-			<trans-unit id="users.nav.active">
-				<source>Active</source>
-				<target>활성</target>
-			</trans-unit>
-			<trans-unit id="users.nav.disabled">
-				<source>Deactivated</source>
-				<target>비활성화됨</target>
-			</trans-unit>
-			<trans-unit id="User">
-				<source>User</source>
-				<target>사용자</target>
-			</trans-unit>
-			<trans-unit id="action.nav.backout">
-				<source>Back Out Patches</source>
-				<target>패치 제거</target>
-			</trans-unit>
-			<trans-unit id="action.nav.install">
-				<source>Install Patches</source>
-				<target>패치 설치</target>
-			</trans-unit>
-			<trans-unit id="virtualization.entitlements">
-				<source>Virtualization Entitlements</source>
-				<target>가상화 인타이틀먼트</target>
-			</trans-unit>
-			<trans-unit id="guest.limited.hosts">
-				<source>Virtualization Hosts</source>
-				<target>가상화 호스트</target>
-			</trans-unit>
-			<trans-unit id="guest.unlimited.hosts">
-				<source>Virtualization Platform Hosts</source>
-				<target>가상화 플랫폼 호스트</target>
-			</trans-unit>
-			<trans-unit id="guests.without.hosts">
-				<source>Guests Without Hosts</source>
-				<target>호스트없는 게스트</target>
-			</trans-unit>
-			<trans-unit id="Virtualization">
-				<source>Virtualization</source>
-				<target>가상화</target>
-			</trans-unit>
-			<trans-unit id="Virtual Systems">
-				<source>Virtual Systems</source>
-				<target>가상 시스템</target>
-			</trans-unit>
-			<trans-unit id="system.nav.outofdate">
-				<source>Out of Date</source>
-				<target>업데이트되지 않은 시스템</target>
-			</trans-unit>
-			<trans-unit id="system.nav.unentitled">
-				<source>Unentitled</source>
-				<target>인타이틀먼트 해제</target>
-			</trans-unit>
-			<trans-unit id="system.nav.ungrouped">
-				<source>Ungrouped</source>
-				<target>그룹 해제</target>
-			</trans-unit>
-			<trans-unit id="system.nav.inactive">
-				<source>Inactive</source>
-				<target>비활성</target>
-			</trans-unit>
-			<trans-unit id="system.nav.proxy">
-				<source>Proxy</source>
-				<target>Proxy</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config">
-				<source>Configuration</source>
-				<target>설정</target>
-			</trans-unit>
-			<trans-unit id="config.nav.config">
-				<source>Configuration</source>
-				<target>설정</target>
-			</trans-unit>
-			<trans-unit id="Configuration">
-				<source>Configuration</source>
-				<target>설정</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config.deploy">
-				<source>Deploy Files</source>
-				<target>파일 디플로이</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.deploy">
-				<source>Deploy Files</source>
-				<target>파일 디플로이</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.deploy_files">
-				<source>Deploy Files</source>
-				<target>파일 디플로이</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.deploy_files">
-				<source>Deploy Files</source>
-				<target>파일 디플로이</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config.diff">
-				<source>Compare Files</source>
-				<target>파일 비교</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.compare_files">
-				<source>Compare Files</source>
-				<target>파일 비교</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.compare_files">
-				<source>Compare Files</source>
-				<target>파일 비교</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config.subscribe">
-				<source>Subscribe to Channels</source>
-				<target>채널에 등록</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.subscribe_channels">
-				<source>Subscribe to Channels</source>
-				<target>채널에 등록</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.subscribe_channels">
-				<source>Subscribe to Channels</source>
-				<target>채널에 등록</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config.unsubscribe">
-				<source>Unsubscribe from Channels</source>
-				<target>채널에서 등록 해제</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config.enable">
-				<source>Enable Configuration</source>
-				<target>설정 활성화</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.status">
-				<source>Status</source>
-				<target>상태 </target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.status.inprogress">
-				<source>In Progress</source>
-				<target>진행 중 </target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.status.completed">
-				<source>Completed</source>
-				<target>완료 </target>
-			</trans-unit>
-			<trans-unit id="channel.nav.relevant">
-				<source>Relevant channels</source>
-				<target>적절한 채널</target>
-			</trans-unit>
-			<trans-unit id="channel.nav.all">
-				<source>All Channels</source>
-				<target>모든 채널 </target>
-			</trans-unit>
-			<trans-unit id="channel.nav.shared">
-				<source>Shared Channels</source>
-				<target>공유 채널   </target>
-			</trans-unit>
-			<trans-unit id="channel.nav.redhat">
-				<source>Red Hat Channels</source>
-				<target>Red Hat 채널 </target>
-			</trans-unit>
-			<trans-unit id="channel.nav.popular">
-				<source>Popular Channels</source>
-				<target>많이 사용되는 채널 </target>
-			</trans-unit>
-			<trans-unit id="channel.nav.custom">
-				<source>My Channels</source>
-				<target>내 채널  </target>
-			</trans-unit>
-			<trans-unit id="channel.nav.retired">
-				<source>Retired channels</source>
-				<target>더이상 사용되지 않는 채널</target>
-			</trans-unit>
-			<trans-unit id="config.nav.managed">
-				<source>Managed Systems</source>
-				<target>관리 시스템</target>
-			</trans-unit>
-			<trans-unit id="config.nav.target">
-				<source>Target Systems</source>
-				<target>대상 시스템</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.systems.target">
-				<source>Target Systems</source>
-				<target>대상 시스템</target>
-			</trans-unit>
-			<trans-unit id="Target Systems">
-				<source>Target Systems</source>
-				<target>대상 시스템</target>
-			</trans-unit>
-			<trans-unit id="config.nav.channels">
-				<source>Configuration Channels</source>
-				<target>설정 채널</target>
-			</trans-unit>
-			<trans-unit id="config.nav.files">
-				<source>Configuration Files</source>
-				<target>설정 파일</target>
-			</trans-unit>
-			<trans-unit id="config.nav.quota">
-				<source>Quota for File Storage</source>
-				<target>파일 저장용 쿼터</target>
-			</trans-unit>
-			<trans-unit id="config.nav.globalfiles">
-				<source>Centrally Managed Files</source>
-				<target>중앙 관리 파일</target>
-			</trans-unit>
-			<trans-unit id="config.nav.localfiles">
-				<source>Locally Managed Files</source>
-				<target>로컬 관리 파일</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.list">
-				<source>List/Remove Files</source>
-				<target>파일 목록/삭제</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.add">
-				<source>Add Files</source>
-				<target>파일 추가</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.add.upload">
-				<source>Upload File</source>
-				<target>파일 업로드</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.add.import">
-				<source>Import Files</source>
-				<target>파일 가져오기</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.add.create">
-				<source>Create File</source>
-				<target>파일 생성</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.systems.subscribed">
-				<source>Subscribed Systems</source>
-				<target>등록된 시스템</target>
-			</trans-unit>
-			<trans-unit id="Subscribed Systems">
-				<source>Subscribed Systems</source>
-				<target>등록된 시스템</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.details">
-				<source>Details</source>
-				<target>상세 정보</target>
-			</trans-unit>
-			<trans-unit id="subdetails.details">
-				<source>Details</source>
-				<target>상세 정보</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.revisions">
-				<source>Manage Revisions</source>
-				<target>배포판 관리</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.deploy">
-				<source>Deploy File</source>
-				<target>파일 디플로이</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.copy">
-				<source>Copy File</source>
-				<target>파일 복사</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.copy.central">
-				<source>Copy To Centrally-Managed</source>
-				<target>중앙 관리 영역에 복사</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.copy.local">
-				<source>Copy To Locally-Managed</source>
-				<target>로컬 관리 영역에 복사</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.copy.sandbox">
-				<source>Copy To System Sandbox</source>
-				<target>시스템 Sandbox에 복사</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.compare">
-				<source>Compare File</source>
-				<target>파일 비교</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.compare.deployed">
-				<source>Deployed Files</source>
-				<target>디플로이된 파일</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.compare.revision">
-				<source>Other Revisions</source>
-				<target>기타 다른 배포판</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.compare.copy">
-				<source>Other Copies</source>
-				<target>기타 다른 복사본</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.compare.file">
-				<source>Other Files</source>
-				<target>기타 다른 파일</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.view_modify_files">
-				<source>View/Modify Files</source>
-				<target>파일 보기/수정</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.add_files">
-				<source>Add File</source>
-				<target>파일 추가</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.manage_channels">
-				<source>Manage Configuration Channels</source>
-				<target>설정 채널 관리</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.list_unsubscribe_channels">
-				<source>List/Unsubscribe from Channels</source>
-				<target>채널에서 나열/등록 해제</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.rank_channels">
-				<source>View/Modify Rankings</source>
-				<target>순위 보기/수정</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.centrally_managed_files">
-				<source>Centrally-Managed Files</source>
-				<target>중앙 관리 파일</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.locally_managed_files">
-				<source>Locally-Managed Files</source>
-				<target>로컬 관리 파일</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.sandbox_managed_files">
-				<source>Local Sandbox</source>
-				<target>로컬 Sandbox</target>
-			</trans-unit>
-			<trans-unit id="system.detail.nav.list">
-				<source>List</source>
-				<target>목록</target>
-			</trans-unit>
-			<trans-unit id="system.detail.nav.remove">
-				<source>List / Remove</source>
-				<target>목록 / 삭제</target>
-			</trans-unit>
-			<trans-unit id="List / Remove">
-				<source>List / Remove</source>
-				<target>목록 / 삭제</target>
-			</trans-unit>
-			<trans-unit id="system.detail.nav.remove">
-				<source>List / Remove</source>
-				<target>목록 / 삭제</target>
-			</trans-unit>
-			<trans-unit id="Add">
-				<source>Add</source>
-				<target>추가</target>
-			</trans-unit>
-			<trans-unit id="Verify">
-				<source>Verify</source>
-				<target>검증</target>
-			</trans-unit>
-			<trans-unit id="Snapshots">
-				<source>Snapshots</source>
-				<target>스냅샷</target>
-			</trans-unit>
-			<trans-unit id="Installation Guide">
-				<source>Installation Guide</source>
-				<target>설치 가이드  </target>
-			</trans-unit>
-			<trans-unit id="Software">
-				<source>Software</source>
-				<target>소프트웨어</target>
-			</trans-unit>
-			<trans-unit id="Provisioning">
-				<source>Provisioning</source>
-				<target>Provisioning</target>
-			</trans-unit>
-			<trans-unit id="Misc">
-				<source>Misc</source>
-				<target>기타</target>
-			</trans-unit>
-			<trans-unit id="Snapshot Tags">
-				<source>Snapshot Tags</source>
-				<target>스냅샷 태그</target>
-			</trans-unit>
-			<trans-unit id="Session Status">
-				<source>Session Status</source>
-				<target>세션 상태</target>
-			</trans-unit>
-			<trans-unit id="Session History">
-				<source>Session History</source>
-				<target>세션 기록</target>
-			</trans-unit>
-			<trans-unit id="Sandbox">
-				<source>Sandbox</source>
-				<target>Sandbox</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk">
-				<source>@@PRODUCT_NAME@@</source>
-				<target>@@PRODUCT_NAME@@</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Configuration">
-				<source>@@PRODUCT_NAME@@ Configuration</source>
-				<target>@@PRODUCT_NAME@@ 설정 </target>
-			</trans-unit>
-			<trans-unit id="Remote Command">
-				<source>Remote Command</source>
-				<target>원격 명령</target>
-			</trans-unit>
-			<trans-unit id="Reactivation">
-				<source>Reactivation</source>
-				<target>재활성</target>
-			</trans-unit>
-			<trans-unit id="Properties">
-				<source>Properties</source>
-				<target>등록 정보</target>
-			</trans-unit>
-			<trans-unit id="Pending">
-				<source>Pending</source>
-				<target>보류</target>
-			</trans-unit>
-			<trans-unit id="Patches">
-				<source>Patches</source>
-				<target>패치</target>
-			</trans-unit>
-			<trans-unit id="Patch Clusters">
-				<source>Patch Clusters</source>
-				<target>패치 클러스터</target>
-			</trans-unit>
-			<trans-unit id="Notes">
-				<source>Notes</source>
-				<target>알림</target>
-			</trans-unit>
-			<trans-unit id="Managed Files">
-				<source>Managed Files</source>
-				<target>관리된 파일</target>
-			</trans-unit>
-			<trans-unit id="List / Leave">
-				<source>List / Leave</source>
-				<target>목록 / 남김</target>
-			</trans-unit>
-			<trans-unit id="History">
-				<source>History</source>
-				<target>기록</target>
-			</trans-unit>
-			<trans-unit id="Hardware">
-				<source>Hardware</source>
-				<target>하드웨어</target>
-			</trans-unit>
-			<trans-unit id="Diff">
-				<source>Diff</source>
-				<target>비교</target>
-			</trans-unit>
-			<trans-unit id="Custom Info">
-				<source>Custom Info</source>
-				<target>고객 정보</target>
-			</trans-unit>
-			<trans-unit id="Config Files">
-				<source>Config Files</source>
-				<target>설정 파일</target>
-			</trans-unit>
-			<trans-unit id="Local Overrides">
-				<source>Local Overrides</source>
-				<target>지역 우위</target>
-			</trans-unit>
-			<trans-unit id="Outage Policy">
-				<source>Outage Policy</source>
-				<target>서비스 정지 정책</target>
-			</trans-unit>
-			<trans-unit id="Join">
-				<source>Join</source>
-				<target>참가</target>
-			</trans-unit>
-			<trans-unit id="Rollback">
-				<source>Rollback</source>
-				<target>롤백</target>
-			</trans-unit>
-			<trans-unit id="Supported">
-				<source>Supported</source>
-				<target>지원됨</target>
-			</trans-unit>
-			<trans-unit id="Retired">
-				<source>Retired</source>
-				<target>더이상 사용되지 않음</target>
-			</trans-unit>
-			<trans-unit id="Connection">
-				<source>Connection</source>
-				<target>연결</target>
-			</trans-unit>
-			<trans-unit id="Activation">
-				<source>Activation</source>
-				<target>활성</target>
-			</trans-unit>
-			<trans-unit id="Systems Using Proxy">
-				<source>Systems Using Proxy</source>
-				<target>Proxy를 사용하는 시스템</target>
-			</trans-unit>
-			<trans-unit id="Help Desk">
-				<source>Help Desk</source>
-				<target>Help Desk</target>
-			</trans-unit>
-			<trans-unit id="Kickstart Details">
-				<source>Kickstart Details</source>
-				<target>킥스타트 정보</target>
-			</trans-unit>
-			<trans-unit id="kickstart.tree.edit.nav">
-				<source>Edit</source>
-				<target>편집 </target>
-			</trans-unit>
-			<trans-unit id="kickstart.variable.nav">
-				<source>Variables</source>
-				<target>매개 변수 </target>
-			</trans-unit>
-			<trans-unit id="System Details">
-				<source>System Details</source>
-				<target>시스템 정보</target>
-			</trans-unit>
-			<trans-unit id="Scripts">
-				<source>Scripts</source>
-				<target>스크립트</target>
-			</trans-unit>
-			<trans-unit id="Kickstart File">
-				<source>Kickstart File</source>
-				<target>킥스타트 파일</target>
-			</trans-unit>
-			<trans-unit id="Operating System">
-				<source>Operating System</source>
-				<target>운영 체제</target>
-			</trans-unit>
-			<trans-unit id="Bare Metal Kickstart">
-				<source>Bare Metal Kickstart</source>
-				<target>베어 메탈(Bare Metal) 킥스타트</target>
-			</trans-unit>
-			<trans-unit id="Bare Metal">
-				<source>Bare Metal</source>
-				<target>베어 메탈(Bare Metal) </target>
-			</trans-unit>
-			<trans-unit id="Advanced Options">
-				<source>Advanced Options</source>
-				<target>고급 옵션</target>
-			</trans-unit>
-			<trans-unit id="Locale">
-				<source>Locale</source>
-				<target>로케일</target>
-			</trans-unit>
-			<trans-unit id="Partitioning">
-				<source>Partitioning</source>
-				<target>파티션하기</target>
-			</trans-unit>
-			<trans-unit id="GPG_SSL">
-				<source>GPG &amp; SSL</source>
-				<target>GPG &amp; SSL</target>
-			</trans-unit>
-			<trans-unit id="Troubleshooting">
-				<source>Troubleshooting</source>
-				<target>문제 해결</target>
-			</trans-unit>
-			<trans-unit id="Package Groups">
-				<source>Package Groups</source>
-				<target>패키지 그룹</target>
-			</trans-unit>
-			<trans-unit id="Package Profiles">
-				<source>Package Profiles</source>
-				<target>패키지 프로파일</target>
-			</trans-unit>
-			<trans-unit id="Expiration Dates &amp; Purchase History">
-				<source>Expiration Dates &amp; Purchase History</source>
-				<target>만료 날짜 &amp; 구매 기록</target>
-			</trans-unit>
-			<trans-unit id="Purchase or Renew">
-				<source>Purchase or Renew</source>
-				<target>구매 혹은 갱신</target>
-			</trans-unit>
-			<trans-unit id="Critical">
-				<source>Critical</source>
-				<target>치명적</target>
-			</trans-unit>
-			<trans-unit id="Unknown">
-				<source>Unknown</source>
-				<target>알 수 없는</target>
-			</trans-unit>
-			<trans-unit id="Recently Registered">
-				<source>Recently Registered</source>
-				<target>최근 등록  </target>
-			</trans-unit>
-			<trans-unit id="Admins">
-				<source>Admins</source>
-				<target>관리 </target>
-			</trans-unit>
-			<trans-unit id="Managers">
-				<source>Managers</source>
-				<target>관리자</target>
-			</trans-unit>
-			<trans-unit id="Subscribers">
-				<source>Subscribers</source>
-				<target>등록자</target>
-			</trans-unit>
-			<trans-unit id="Downloads">
-				<source>Downloads</source>
-				<target>다운로드</target>
-			</trans-unit>
-			<trans-unit id="License">
-				<source>License</source>
-				<target>라이센스</target>
-			</trans-unit>
-			<trans-unit id="Organizations">
-				<source>Organizations</source>
-				<target>조직  </target>
-			</trans-unit>
-			<trans-unit id="Trusts">
-				<source>Trusts</source>
-				<target>신뢰도 </target>
-			</trans-unit>
-			<trans-unit id="Channels Consumed">
-				<source>Channels Consumed</source>
-				<target>채널 사용 </target>
-			</trans-unit>
-			<trans-unit id="Channels Provided">
-				<source>Channels Provided</source>
-				<target>채널 제공 </target>
-			</trans-unit>
-			<trans-unit id="Subscriptions">
-				<source>Subscriptions</source>
-				<target>서브스크립션 </target>
-			</trans-unit>
-			<trans-unit id="Child Channels">
-				<source>Child Channels</source>
-				<target>자식 채널 </target>
-			</trans-unit>
-			<trans-unit id="Base Channels">
-				<source>Base Channels</source>
-				<target>기본 채널 </target>
-			</trans-unit>
-			<trans-unit id="Software Channel Entitlements">
-				<source>Software Channel Entitlements</source>
-				<target>소프트웨어 채널 인타이틀먼트  </target>
-			</trans-unit>
-			<trans-unit id="activation-keys.nav.activated_systems">
-				<source>Activated Systems</source>
-				<target>활성화된 시스템 </target>
-			</trans-unit>
-		</body>
-	</file>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" xmlns:xyz="urn:appInfo:Items" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" version="1.1">
+  <file source-language="en" datatype="plaintext" original="" target-language="ko">
+    <body>
+
+      <trans-unit id="common.nav.overview">
+<source>Overview</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>개요</target></trans-unit>
+
+      <trans-unit id="common.nav.systems">
+<source>Systems</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>시스템</target></trans-unit>
+
+      <trans-unit id="users.nav.all">
+<source>All</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Users Navigation Menu</context>
+        </context-group>
+      <target>전체</target></trans-unit>
+
+      <trans-unit id="users.nav.active">
+<source>Active</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Users Navigation Menu</context>
+        </context-group>
+      <target>활성</target></trans-unit>
+
+      <trans-unit id="users.nav.disabled">
+<source>Deactivated</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Users Navigation Menu</context>
+        </context-group>
+      <target>비활성화됨</target></trans-unit>
+
+      <trans-unit id="User">
+<source>User</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Users Navigation Menu</context>
+        </context-group>
+      <target>사용자</target></trans-unit>
+
+      <trans-unit id="action.nav.backout">
+<source>Back Out Patches</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Action Details Navigation Menu</context>
+        </context-group>
+      <target>패치 제거</target></trans-unit>
+
+      <trans-unit id="action.nav.install">
+<source>Install Patches</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Action Details Navigation Menu</context>
+        </context-group>
+      <target>패치 설치</target></trans-unit>
+
+      <trans-unit id="system.nav.all">
+<source>All</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>전체</target></trans-unit>
+
+      <trans-unit id="virtualization.entitlements">
+        <source>Virtualization Entitlements</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Subscription Management Menu</context>
+        </context-group>
+      <target>가상화 인타이틀먼트</target></trans-unit>
+
+      <trans-unit id="guest.limited.hosts">
+        <source>Virtualization Hosts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
+        </context-group>
+      <target>가상화 호스트</target></trans-unit>
+
+      <trans-unit id="guest.unlimited.hosts">
+        <source>Virtualization Platform Hosts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
+        </context-group>
+      <target>가상화 플랫폼 호스트</target></trans-unit>
+
+      <trans-unit id="guests.without.hosts">
+        <source>Guests Without Hosts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
+        </context-group>
+      <target>호스트없는 게스트</target></trans-unit>
+
+      <trans-unit id="Virtualization">
+<source>Virtualization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>가상화</target></trans-unit>
+      <trans-unit id="Virtual Systems">
+<source>Virtual Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>가상 시스템</target></trans-unit>
+      <trans-unit id="Duplicate Systems">
+<source>Duplicate Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="duplicate.systems.nav.ips">
+<source>Duplicate IP Address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Duplicate Systems Navigation Menu</context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="duplicate.systems.nav.mac_address">
+<source>Duplicate MAC Address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="duplicate.systems.nav.hostname">
+<source>Duplicate Hostname</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="System Currency">
+<source>System Currency</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target></target></trans-unit>
+
+
+      <trans-unit id="system.nav.outofdate">
+<source>Out of Date</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>업데이트되지 않은 시스템</target></trans-unit>
+
+      <trans-unit id="system.nav.unentitled">
+<source>Unentitled</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>인타이틀먼트 해제</target></trans-unit>
+
+      <trans-unit id="system.nav.ungrouped">
+<source>Ungrouped</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>그룹 해제</target></trans-unit>
+
+      <trans-unit id="system.nav.inactive">
+<source>Inactive</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>비활성</target></trans-unit>
+
+      <trans-unit id="system.nav.proxy">
+<source>Proxy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Proxy</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config">
+        <source>Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>설정</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config.deploy">
+        <source>Deploy Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>파일 디플로이</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config.diff">
+        <source>Compare Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>파일 비교</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config.subscribe">
+        <source>Subscribe to Channels</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>채널에 등록</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config.unsubscribe">
+        <source>Unsubscribe from Channels</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>채널에서 등록 해제</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config.enable">
+        <source>Enable Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>설정 활성화</target></trans-unit>
+
+      <trans-unit id="ssm.nav.status">
+         <source>Status</source>
+         <context-group name="ctx">
+            <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+         </context-group>
+      <target>상태 </target></trans-unit>
+
+      <trans-unit id="ssm.nav.status.inprogress">
+         <source>In Progress</source>
+         <context-group name="ctx">
+            <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+         </context-group>
+      <target>진행 중 </target></trans-unit>
+
+      <trans-unit id="ssm.nav.status.completed">
+         <source>Completed</source>
+         <context-group name="ctx">
+            <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+         </context-group>
+      <target>완료 </target></trans-unit>
+
+      <trans-unit id="ssm.nav.status.all">
+         <source>All</source>
+         <context-group name="ctx">
+            <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+         </context-group>
+      <target>전체</target></trans-unit>
+
+      <trans-unit id="channel.nav.relevant">
+<source>Relevant channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>적절한 채널</target></trans-unit>
+
+      <trans-unit id="channel.nav.all">
+<source>All Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>모든 채널 </target></trans-unit>
+
+      <trans-unit id="channel.nav.shared">
+<source>Shared Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>공유 채널   </target></trans-unit>
+
+      <trans-unit id="channel.nav.redhat">
+<source>Red Hat Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>Red Hat 채널 </target></trans-unit>
+
+      <trans-unit id="channel.nav.popular">
+<source>Popular Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>많이 사용되는 채널 </target></trans-unit>
+
+      <trans-unit id="channel.nav.custom">
+<source>My Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>내 채널  </target></trans-unit>
+
+      <trans-unit id="channel.nav.retired">
+<source>Retired Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="audit.nav.audit">
+<source>Audit</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Audit Navigation Menu</context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="config.nav.managed">
+<source>Managed Systems</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>관리 시스템</target></trans-unit>
+
+      <trans-unit id="config.nav.target">
+<source>Target Systems</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>대상 시스템</target></trans-unit>
+
+      <trans-unit id="config.nav.config">
+<source>Configuration</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>설정</target></trans-unit>
+
+      <trans-unit id="config.nav.channels">
+<source>Configuration Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>설정 채널</target></trans-unit>
+
+      <trans-unit id="config.nav.files">
+<source>Configuration Files</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>설정 파일</target></trans-unit>
+
+      <trans-unit id="config.nav.quota">
+<source>Quota for File Storage</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>파일 저장용 쿼터</target></trans-unit>
+
+      <trans-unit id="config.nav.globalfiles">
+<source>Centrally Managed Files</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>중앙 관리 파일</target></trans-unit>
+
+      <trans-unit id="config.nav.localfiles">
+<source>Locally Managed Files</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>로컬 관리 파일</target></trans-unit>
+
+    <!-- ConfigChannel details navigation -->
+	<trans-unit id="configchannel.nav.overview">
+<source>Overview</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>개요</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.list">
+<source>List/Remove Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
+        </context-group>
+	<target>파일 목록/삭제</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.add">
+<source>Add Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>파일 추가</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.add.upload">
+<source>Upload File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>파일 업로드</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.add.import">
+<source>Import Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>파일 가져오기</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.add.create">
+<source>Create File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>파일 생성</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.deploy">
+<source>Deploy Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>파일 디플로이</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.systems">
+<source>Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/channel/ChannelSystems.do</context>
+        </context-group>
+	<target>시스템</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.systems.subscribed">
+<source>Subscribed Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/channel/ChannelSystems.do</context>
+        </context-group>
+	<target>등록된 시스템</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.systems.target">
+<source>Target Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/channel/ChannelSystems.do</context>
+        </context-group>
+	<target>대상 시스템</target></trans-unit>
+	<!-- END config channel nav -->
+
+	<!-- config file nav -->
+	<trans-unit id="configfile.nav.details">
+<source>Details</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+	<target>상세 정보</target></trans-unit>
+	<trans-unit id="configfile.nav.revisions">
+<source>Manage Revisions</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileRevisions.do</context>
+        </context-group>
+	<target>배포판 관리</target></trans-unit>
+	<trans-unit id="configfile.nav.deploy">
+<source>Deploy File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileDeploy.do</context>
+        </context-group>
+	<target>파일 디플로이</target></trans-unit>
+	<trans-unit id="configfile.nav.copy">
+<source>Copy File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCopy.do</context>
+        </context-group>
+	<target>파일 복사</target></trans-unit>
+	<trans-unit id="configfile.nav.copy.central">
+<source>Copy To Centrally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCopy.do</context>
+        </context-group>
+	<target>중앙 관리 영역에 복사</target></trans-unit>
+	<trans-unit id="configfile.nav.copy.local">
+<source>Copy To Locally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCopy.do</context>
+        </context-group>
+	<target>로컬 관리 영역에 복사</target></trans-unit>
+	<trans-unit id="configfile.nav.copy.sandbox">
+<source>Copy To System Sandbox</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCopy.do</context>
+        </context-group>
+	<target>시스템 Sandbox에 복사</target></trans-unit>
+	<trans-unit id="configfile.nav.compare">
+<source>Compare File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCompare.do</context>
+        </context-group>
+	<target>파일 비교</target></trans-unit>
+	<trans-unit id="configfile.nav.compare.deployed">
+<source>Deployed Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCompare.do</context>
+        </context-group>
+	<target>디플로이된 파일</target></trans-unit>
+	<trans-unit id="configfile.nav.compare.revision">
+<source>Other Revisions</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCompare.do</context>
+        </context-group>
+	<target>기타 다른 배포판</target></trans-unit>
+	<trans-unit id="configfile.nav.compare.copy">
+<source>Other Copies</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCompare.do</context>
+        </context-group>
+	<target>기타 다른 복사본</target></trans-unit>
+	<trans-unit id="configfile.nav.compare.file">
+<source>Other Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCompare.do</context>
+        </context-group>
+    <target>기타 다른 파일</target></trans-unit>
+    <!-- SDC Config file navigation-->
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/configuration/Overview.do</context>
+        </context-group>
+
+        <trans-unit id="nav.sdc.config.overview">
+          <source>Overview</source>
+        <target>개요</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.view_modify_files">
+            <source>View/Modify Files</source>
+        <target>파일 보기/수정</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.add_files">
+            <source>Add File</source>
+        <target>파일 추가</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.deploy_files">
+            <source>Deploy Files</source>
+        <target>파일 디플로이</target></trans-unit>
+        <trans-unit id="nav.sdc.config.compare_files">
+            <source>Compare Files</source>
+        <target>파일 비교</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.manage_channels">
+            <source>Manage Configuration Channels</source>
+        <target>설정 채널 관리</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.list_unsubscribe_channels">
+            <source>List/Unsubscribe from Channels</source>
+        <target>채널에서 나열/등록 해제</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.subscribe_channels">
+            <source>Subscribe to Channels</source>
+        <target>채널에 등록</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.rank_channels">
+            <source>View/Modify Rankings</source>
+        <target>순위 보기/수정</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.centrally_managed_files">
+            <source>Centrally-Managed Files</source>
+        <target>중앙 관리 파일</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.locally_managed_files">
+            <source>Locally-Managed Files</source>
+        <target>로컬 관리 파일</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.sandbox_managed_files">
+            <source>Local Sandbox</source>
+        <target>로컬 Sandbox</target></trans-unit>
+
+      </group>
+
+
+
+	<!-- END config file nav -->
+
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Details Navigation Menu</context>
+        </context-group>
+
+        <trans-unit id="system.detail.nav.list">
+          <source>List</source>
+        <target>목록</target></trans-unit>
+
+        <trans-unit id="system.detail.nav.remove">
+          <source>List / Remove</source>
+        <target>목록 / 삭제</target></trans-unit>
+      </group>
+
+      <trans-unit id="Add">
+<source>Add</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>추가</target></trans-unit>
+
+      <trans-unit id="Verify">
+<source>Verify</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>검증</target></trans-unit>
+
+      <trans-unit id="Snapshots">
+<source>Snapshots</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>스냅샷</target></trans-unit>
+
+      <trans-unit id="Installation Guide">
+<source>Installation Guide</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>설치 가이드  </target></trans-unit>
+
+      <trans-unit id="Software">
+<source>Software</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>소프트웨어</target></trans-unit>
+
+      <trans-unit id="Provisioning">
+<source>Provisioning</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu (system details)</context>
+        </context-group>
+      <target>Provisioning</target></trans-unit>
+
+      <trans-unit id="Misc">
+<source>Misc</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>기타</target></trans-unit>
+
+      <trans-unit id="Snapshot Tags">
+<source>Snapshot Tags</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>스냅샷 태그</target></trans-unit>
+
+      <trans-unit id="Session Status">
+<source>Session Status</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>세션 상태</target></trans-unit>
+
+      <trans-unit id="Session History">
+<source>Session History</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>세션 기록</target></trans-unit>
+
+      <trans-unit id="Sandbox">
+<source>Sandbox</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Sandbox</target></trans-unit>
+
+      <trans-unit id="Spacewalk">
+<source>@@PRODUCT_NAME@@</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@</target></trans-unit>
+
+      <trans-unit id="Spacewalk Configuration">
+<source>@@PRODUCT_NAME@@ Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ 설정 </target></trans-unit>
+
+      <trans-unit id="Remote Command">
+<source>Remote Command</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>원격 명령</target></trans-unit>
+
+      <trans-unit id="Tag Systems">
+<source>Tag Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="Reactivation">
+<source>Reactivation</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>재활성</target></trans-unit>
+
+      <trans-unit id="Properties">
+<source>Properties</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>등록 정보</target></trans-unit>
+
+      <trans-unit id="Pending">
+<source>Pending</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>보류</target></trans-unit>
+
+      <trans-unit id="Patches">
+<source>Patches</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>패치</target></trans-unit>
+
+      <trans-unit id="Patch Clusters">
+<source>Patch Clusters</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>패치 클러스터</target></trans-unit>
+
+      <trans-unit id="Notes">
+<source>Notes</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>알림</target></trans-unit>
+
+      <trans-unit id="Managed Files">
+<source>Managed Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>관리된 파일</target></trans-unit>
+
+      <trans-unit id="List / Remove">
+<source>List / Remove</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>목록 / 삭제</target></trans-unit>
+
+      <trans-unit id="Add / Remove">
+<source>Add / Remove</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="List / Leave">
+<source>List / Leave</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>목록 / 남김</target></trans-unit>
+
+      <trans-unit id="History">
+<source>History</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>기록</target></trans-unit>
+
+      <trans-unit id="Hardware">
+<source>Hardware</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>하드웨어</target></trans-unit>
+
+      <trans-unit id="Diff">
+<source>Diff</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>비교</target></trans-unit>
+
+      <trans-unit id="Custom Info">
+<source>Custom Info</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>고객 정보</target></trans-unit>
+
+      <trans-unit id="Configuration">
+<source>Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>설정</target></trans-unit>
+
+      <trans-unit id="Config Files">
+<source>Config Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>설정 파일</target></trans-unit>
+
+      <trans-unit id="Local Overrides">
+<source>Local Overrides</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>지역 우위</target></trans-unit>
+
+      <trans-unit id="Outage Policy">
+<source>Outage Policy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>서비스 정지 정책</target></trans-unit>
+
+      <trans-unit id="Join">
+<source>Join</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>참가</target></trans-unit>
+
+      <trans-unit id="Rollback">
+<source>Rollback</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>롤백</target></trans-unit>
+
+      <trans-unit id="Supported">
+<source>Supported</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>지원됨</target></trans-unit>
+
+      <trans-unit id="Retired">
+<source>Retired</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>더이상 사용되지 않음</target></trans-unit>
+
+      <trans-unit id="Connection">
+<source>Connection</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>연결</target></trans-unit>
+
+      <trans-unit id="Activation">
+<source>Activation</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>활성</target></trans-unit>
+
+      <trans-unit id="Systems Using Proxy">
+<source>Systems Using Proxy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Proxy를 사용하는 시스템</target></trans-unit>
+
+      <trans-unit id="Help Desk">
+<source>Help Desk</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Help Desk</target></trans-unit>
+
+      <trans-unit id="Kickstart Details">
+<source>Kickstart Details</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>킥스타트 정보</target></trans-unit>
+
+    <trans-unit id="kickstart.tree.edit.nav">
+        <source>Edit</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    <target>편집 </target></trans-unit>
+
+    <trans-unit id="kickstart.variable.nav">
+        <source>Variables</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    <target>매개 변수 </target></trans-unit>
+
+                 <trans-unit id="System Details">
+<source>System Details</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>시스템 정보</target></trans-unit>
+
+      <trans-unit id="Scripts">
+<source>Scripts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>스크립트</target></trans-unit>
+
+	  <trans-unit id="Kickstart File">
+<source>Kickstart File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>킥스타트 파일</target></trans-unit>
+      <trans-unit id="Operating System">
+<source>Operating System</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>운영 체제</target></trans-unit>
+      <trans-unit id="Bare Metal Kickstart">
+<source>Bare Metal Kickstart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>베어 메탈(Bare Metal) 킥스타트</target></trans-unit>
+      <trans-unit id="Bare Metal">
+<source>Bare Metal</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Menu</context>
+        </context-group>
+      <target>베어 메탈(Bare Metal) </target></trans-unit>
+
+      <trans-unit id="Advanced Options">
+<source>Advanced Options</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>고급 옵션</target></trans-unit>
+
+  <trans-unit id="Locale">
+    <source>Locale</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart System Details Menu</context>
+    </context-group>
+  <target>로케일</target></trans-unit>
+
+  <trans-unit id="Partitioning">
+    <source>Partitioning</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart System Details Menu</context>
+    </context-group>
+  <target>파티션하기</target></trans-unit>
+
+  <trans-unit id="GPG_SSL">
+    <source>GPG &amp; SSL</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart System Details Menu</context>
+    </context-group>
+  <target>GPG &amp; SSL</target></trans-unit>
+
+  <trans-unit id="Troubleshooting">
+    <source>Troubleshooting</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart System Details Menu</context>
+    </context-group>
+  <target>문제 해결</target></trans-unit>
+
+  <trans-unit id="Package Groups">
+    <source>Package Groups</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart Software menu</context>
+    </context-group>
+  <target>패키지 그룹</target></trans-unit>
+
+  <trans-unit id="Package Profiles">
+    <source>Package Profiles</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart Software menu</context>
+    </context-group>
+  <target>패키지 프로파일</target></trans-unit>
+
+  <trans-unit id="Expiration Dates &amp; Purchase History">
+    <source>Expiration Dates &amp; Purchase History</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Overview left nav menu</context>
+    </context-group>
+  <target>만료 날짜 &amp; 구매 기록</target></trans-unit>
+
+  <trans-unit id="Purchase or Renew">
+    <source>Purchase or Renew</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Overview left nav menu</context>
+    </context-group>
+  <target>구매 혹은 갱신</target></trans-unit>
+
+  <trans-unit id="Critical">
+    <source>Critical</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/monitoring/ProbeList.do</context>
+    </context-group>
+  <target>치명적</target></trans-unit>
+
+  <trans-unit id="Unknown">
+    <source>Unknown</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/monitoring/ProbeList.do</context>
+    </context-group>
+  <target>알 수 없는</target></trans-unit>
+
+  <trans-unit id="Recently Registered">
+    <source>Recently Registered</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/systems/Registered.do</context>
+    </context-group>
+  <target>최근 등록  </target></trans-unit>
+
+  <trans-unit id="Target Systems">
+    <source>Target Systems</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>대상 시스템</target></trans-unit>
+
+  <trans-unit id="Admins">
+    <source>Admins</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/groups/*.do</context>
+    </context-group>
+  <target>관리 </target></trans-unit>
+
+  <trans-unit id="Subscribed Systems">
+    <source>Subscribed Systems</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>등록된 시스템</target></trans-unit>
+
+  <trans-unit id="Repositories">
+    <source>Repositories</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+    </context-group>
+  <target></target></trans-unit>
+
+  <trans-unit id="Managers">
+    <source>Managers</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>관리자</target></trans-unit>
+
+  <trans-unit id="Subscribers">
+    <source>Subscribers</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>등록자</target></trans-unit>
+
+  <trans-unit id="Downloads">
+    <source>Downloads</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>다운로드</target></trans-unit>
+
+  <trans-unit id="License">
+    <source>License</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>라이센스</target></trans-unit>
+
+  <trans-unit id="Sync">
+    <source>Sync</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/channels/manage/errata/SyncErrata.do</context>
+    </context-group>
+  <target></target></trans-unit>
+
+  <trans-unit id="Organizations">
+    <source>Organizations</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
+    </context-group>
+  <target>조직  </target></trans-unit>
+
+
+    <trans-unit id="Trusts">
+    <source>Trusts</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
+    </context-group>
+  <target>신뢰도 </target></trans-unit>
+
+    <trans-unit id="Channels Consumed">
+    <source>Channels Consumed</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/multiorg/OrgTrustDetails.do</context>
+    </context-group>
+  <target>채널 사용 </target></trans-unit>
+
+    <trans-unit id="Channels Provided">
+    <source>Channels Provided</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/multiorg/OrgTrustDetails.do</context>
+    </context-group>
+  <target>채널 제공 </target></trans-unit>
+
+  <trans-unit id="Subscriptions">
+    <source>Subscriptions</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/admin/multiorg/Subscriptions.do</context>
+    </context-group>
+  <target>서브스크립션 </target></trans-unit>
+
+
+  <trans-unit id="subdetails.details">
+    <source>Details</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
+    </context-group>
+  <target>상세 정보</target></trans-unit>
+
+
+  <!-- SSM NAV -->
+  <group>
+  <trans-unit id="Child Channels">
+    <source>Child Channels</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
+    </context-group>
+  <target>자식 채널 </target></trans-unit>
+
+  <trans-unit id="Chat">
+    <source>Chat</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/help/about.pxt</context>
+    </context-group>
+  <target></target></trans-unit>
+
+  <trans-unit id="Base Channels">
+    <source>Base Channels</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
+    </context-group>
+  <target>기본 채널 </target></trans-unit>
+  </group>
+
+<!-- Multiorg nav -->
+  <group>
+  <trans-unit id="Software Channel Entitlements">
+    <source>Software Channel Entitlements</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
+    </context-group>
+  <target>소프트웨어 채널 인타이틀먼트  </target></trans-unit>
+  </group>
+
+<!-- Activation Keys nav -->
+  <group>
+  <trans-unit id="activation-keys.nav.activated_systems">
+    <source>Activated Systems</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/activationkeys/Edit.do</context>
+    </context-group>
+  <target>활성화된 시스템 </target></trans-unit>
+  </group>
+
+<!-- Main nav -->
+  <group>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Title bar</context>
+    </context-group>
+  <trans-unit id="manage">
+    <source>Manage</source>
+  <target></target></trans-unit>
+  <trans-unit id="clear">
+    <source>Clear</source>
+  <target></target></trans-unit>
+
+  </group>
+
+
+    </body>
+  </file>
 </xliff>

@@ -1,58 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
-	<file source-language="en-US" target-language="zh-CN" datatype="po" original="en-US/template.xliff">
-		<body>
-			<trans-unit id="email.verify.subject">
-				<source>@@PRODUCT_NAME@@ login Email Verification</source>
-				<target>@@PRODUCT_NAME@@ 登录电子邮件验证</target>
-			</trans-unit>
-			<trans-unit id="email.verify.body">
-				<source>Dear @@PRODUCT_NAME@@ User,
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" xmlns:xyz="urn:appInfo:Items" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" version="1.1">
+  <file source-language="en" datatype="plaintext" original="" target-language="zh_CN">
+    <body>
+      <trans-unit id="email.verify.subject">
+<source>@@PRODUCT_NAME@@ login Email Verification</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ 登录电子邮件验证</target></trans-unit>
 
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
+<!-- New Account Email -->
+      <trans-unit id="email.newaccount.subject">
+<source>Your @@PRODUCT_NAME@@ Account is ready</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+        </context-group>
+      <target>您的 @@PRODUCT_NAME@@ 帐户已经准备好</target></trans-unit>
 
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-
-{2}</source>
-				<target>尊敬的 @@PRODUCT_NAME@@ 用户，
-
-这封电子邮件是用来验证您为您的红帽登录提供的电子邮件地址。
-您的红帽登录和您的一个激活的红帽订阅可为您提供
-通过 @@PRODUCT_NAME@@ 进行系统管理的能力。
-
-为了确保与您的红帽登录相关的帐号信息的安全，请点以下的
-链接来确认我们所记录的您的电子邮件地址是正确的。如果您没
-有确认您的电子邮件地址，您的红帽登录将最终被禁用。
-
-要确认您的电子邮件地址，请访问以下的 URL:
-
-{0}
-
-感谢您使用 @@PRODUCT_NAME@@。
-{1}
-
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.subject">
-				<source>Your @@PRODUCT_NAME@@ Account is ready</source>
-				<target>您的 @@PRODUCT_NAME@@ 帐户已经准备好</target>
-			</trans-unit>
-			<trans-unit id="email.newaccountbycreator.body">
-				<source>Hello,
+      <trans-unit id="email.newaccountbycreator.body">
+<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}. Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -68,7 +35,20 @@ Important: Please change your password upon logging in.
 
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>您好，
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny Password: mypass e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+              Important: Please ...
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>您好，
 
 已经由 {0} {1} 为您创建了红帽登录。您的
 红帽登录以及一个激活的红帽订阅为您在 @@PRODUCT_NAME@@ 提供
@@ -83,10 +63,10 @@ Thank you for using @@PRODUCT_NAME@@.
 重要信息：在登录后请改变您的密码。
 
 感谢您使用 @@PRODUCT_NAME@@。
-{6}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.body">
-				<source>Hello,
+{6}</target></trans-unit>
+
+    <trans-unit id="email.newaccount.body">
+<source>Hello,
 
 A Red Hat login has been created for you. Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -102,7 +82,20 @@ Important: Please change your password upon logging in.
 
 Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
-				<target>您好，
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny Password: mypass e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+              Important: Please ...
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>您好，
 
 已经为您创建了一个红帽登录。您的
 红帽登录以及一个激活的红帽订阅为您在 @@PRODUCT_NAME@@ 提供
@@ -117,10 +110,10 @@ Thank you for using @@PRODUCT_NAME@@.
 重要信息：在登录后请改变您的密码。
 
 感谢您使用 @@PRODUCT_NAME@@。
-{4}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.pam.body">
-				<source>Hello,
+{4}</target></trans-unit>
+
+      <trans-unit id="email.newaccount.pam.body">
+<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}.  Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -133,7 +126,20 @@ provides you with access to manage systems on @@PRODUCT_NAME@@.
 
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>您好，
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>您好，
 
 已经由 {0} {1} 为您创建了一个红帽登录。 您的
 红帽登录以及一个激活的红帽订阅为您在 @@PRODUCT_NAME@@ 提供
@@ -145,14 +151,20 @@ Thank you for using @@PRODUCT_NAME@@.
   {5}
 
 感谢您使用 @@PRODUCT_NAME@@。
-{6}</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.subject">
-				<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
-				<target>@@PRODUCT_NAME@@ 用户创建的： {0} ({1}, {2}, {3})</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.body">
-				<source>Hello,
+{6}</target></trans-unit>
+
+<!-- New User Email -->
+      <trans-unit id="email.newuser.subject">
+<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+      <context context-type="paramnotes">@@PRODUCT_NAME@@ User Created: dugb (Bordon, Duglas &lt;dugb@meko.com&gt;)</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ 用户创建的： {0} ({1}, {2}, {3})</target></trans-unit>
+
+      <trans-unit id="email.newuser.body">
+<source>Hello,
 
 A new user has been added to your account.
 
@@ -165,7 +177,19 @@ please visit:
 
 Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
-				<target>您好，
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+      <context context-type="paramnotes">
+          Account Information:
+              Your @@PRODUCT_NAME@@ login:         mdputter
+              Your @@PRODUCT_NAME@@ email address: mdputter@myhog.com
+              ...please visit:
+              https://rhn.redhat.com/rhn/users/ActiveList.do
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team</context>
+        </context-group>
+      <target>您好，
 
 已经在您的帐户中添加了一个新用户。
 
@@ -177,42 +201,62 @@ Thank you for using @@PRODUCT_NAME@@.
   {1}
 
 感谢您使用 @@PRODUCT_NAME@@。
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.user.deleted.subject">
-				<source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-				<target>@@PRODUCT_NAME@@ 帐户被取消激活：{0}</target>
-			</trans-unit>
-			<trans-unit id="email.user.deleted.body">
-				<source>
+{2}</target></trans-unit>
+      <trans-unit id="email.user.deleted.subject">
+         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
+      <target>@@PRODUCT_NAME@@ 帐户被取消激活：{0}</target></trans-unit>
+
+      <trans-unit id="email.user.deleted.body">
+         <source>
 The Red Hat login {0} has been deactivated in response to your request.
 
-Thank you for contacting Red Hat.</source>
-				<target>
-红帽登录 {0} 已经根据您的要求被取消激活。
+Thank you for contacting Red Hat.
+         </source>
+      <target>
+依据您的请求，红帽登录帐号 {0} 已经被取消激活了。
 
-非常感谢您联系红帽。</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.subject">
-				<source>Red Hat login creation request</source>
-				<target>红帽登录创建请求</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.footer">
-				<source>
+感谢您联系红帽。
+         </target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.subject">
+<source>Red Hat login creation request</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>红帽登录创建请求</target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.footer">
+<source>
 For additional information in German language, please visit our Website:
-{0}</source>
-				<target>
-如需更多关于德语的信息，请访问我们的网站：
-{0}</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.footer2">
-				<source>
-For French, click here: {0}</source>
-				<target>
-法语请点这里：{0}</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.body">
-				<source>
+{0}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+          <context context-type="paramnotes">
+          {0} - URL to German website
+          </context>
+        </context-group>
+      <target>
+关于德语的更多信息，请访问我们的网站：
+{0}
+</target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.footer2">
+<source>
+For French, click here: {0}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+          <context context-type="paramnotes">
+          {0} - URL to German website containing French and German text
+          </context>
+        </context-group>
+      <target>
+法语请点击这里：{0}
+</target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.body">
+<source>
 Dear Red Hat Customer,
 
 You were recently named on an order for new Red Hat subscriptions.  These
@@ -255,58 +299,73 @@ this feature.
 Thank you for choosing Red Hat.
 
 Sincerely,
-Red Hat Account Management Team</source>
-				<target>
-尊敬的红帽用户：
+Red Hat Account Management Team
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: PushedUsers.java</context>
+      <context context-type="paramnotes">
+          {0} - Customers name - Web_Customer.name - Michael Bowman
+          {1} - Account number - 012543
+          {2} - Creation url - http://blah/CreatePersonal.do?checksum=$1$a322349ade
+          {3} - Customer Server url - http://blah/about/contact/dir/#custservice
+          </context>
+        </context-group>
+      <target>
+尊敬的红帽客户，
 
-您当前购买了新的红帽订阅。这些
-订阅已经在以下帐号中有效：
+您新的红帽订阅订单正在处理，
+下面帐号的这些订阅现在可以使用了：
 
-  用户名：{0}
-  帐号名：{1}
+  客户名称：{0}
+  帐号：{1}
 
-您可以通过点下面的链接来为这个帐号创建一个新的红帽登录
-并获得访问您的订阅的权利：
+您可以点击下面的链接为这个帐号创建一个新的红帽登录帐号
+并获取对您的订阅的访问权限：
 
 {2}
 
-如果您并不是负责管理您所购买的红帽订阅服务的技术负责人，
-请把这个电子邮件转发给您机构中相应
-的人员。如果他们还没有红帽登录，他们可以通过以下链接来
-创建一个新的红帽登录。
+如果您不是使用所购买的红帽订阅的技术经理，
+请把这个邮件转发给您公司里对应的用户。
+如果他们还没有红帽登录帐号，则可以
+用下列链接来建立新的登录帐号。
 
-如果您已经有了一个登录并和以上的帐号相连，您
-将不需要这一步。您可以通过登录到以下网址来获得
-与一个存在的红帽登录相连的帐号：
+如果您已经拥有登录帐号并链接到了上面的帐号，
+那什么也不用做。通过登录到下面的页面，
+您可以找到链接到现有红帽帐号的帐号号码：
 
 http://www.redhat.com/support/
 
-如果您有一个红帽登录，而它并没有和这个邮件中列出的
-帐号相连，而您又希望使用这个帐号来管理这些
-订阅，红帽可以把它们转移到您希望的帐号中。请
-联系红帽客户服务人员。您可以在以下的
-链接中获得相应的联系信息：
+如果您已经拥有了链接到其他而非本邮件列出帐号的红帽登录帐号，
+并希望使用该帐号来管理这些订阅，
+红帽可以把它们转移到你指定的帐号里。
+请使用下面链接里的信息，
+联系红帽的地区客服代表：
 
 {3}
 
-帐号管理员（机构管理员）请注意：在一个新用户
-可以访问订阅前，您必须为他们配置适当的权利来使他们
-可以查看和管理您帐号中的订阅。这将需要您的帐号中有
-一个用户管理权利。如果您需要它，请联系红帽
-客户服务
-人员。
+帐号管理员（公司管理员）请注意：
+在新的用户可以访问订阅之前，您必须赋予他们查看和管理您帐号上的订阅的权限。
+这要求你的帐号具有用户管理员权利。
+如果需要，请根据上面的链接并联系
+红帽的地区客服代表来申请
+该功能。
 
-非常感谢您选择红帽。
+感谢您选择红帽。
+
+真诚地，
+红帽帐号管理团队
+</target></trans-unit>
 
 
-红帽帐号管理团队</target>
-			</trans-unit>
-			<trans-unit id="email.unchanneledsystem.subject">
-				<source>Your Red Hat system is not able to receive service</source>
-				<target>您的红帽系统不能接收服务</target>
-			</trans-unit>
-			<trans-unit id="email.unchanneledsystem.body">
-				<source>
+      <trans-unit id="email.unchanneledsystem.subject">
+<source>Your Red Hat system is not able to receive service</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>您的红帽系统不能接收服务</target></trans-unit>
+
+      <trans-unit id="email.unchanneledsystem.body">
+<source>
 Dear Red Hat Customer,
 
 The following system has been associated with your Red Hat login and
@@ -344,50 +403,62 @@ representative at:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Thank you for using @@PRODUCT_NAME@@.</source>
-				<target>
-尊敬的红帽用户，
+Thank you for using @@PRODUCT_NAME@@.
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: NoChannelCheck.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Server name Name - Server.name - highwind
+          </context>
+        </context-group>
+      <target>
+尊敬的红帽客户，
 
-昨天，以下系统已经与您的
-红帽登录和帐户关联。但它们还没有权利获得
-@@PRODUCT_NAME@@ 服务。
+下面的系统已经和您的红帽登录帐号以及帐号进行了关联，
+但没有访问 @@PRODUCT_NAME@@
+服务的权利。
 
 {0}
 
-出现这种情况可能有以下几个原因：
+这可能是下面几个原因造成的：
 
-1) 您最近重新安装了一个系统并试图将其与
-   一个现有的、已激活的订阅关联。请确定
-   您已经在 @@PRODUCT_NAME@@ 中
-   删除了您现有的系统侧写
+1) 你最近重新安装了系统并试图将其与
+   现有的已激活的订阅进行关联。请确保您已经
+   删除了 @@PRODUCT_NAME@@ 上现有系统配置。
 
-2) 您连接到 @@PRODUCT_NAME@@ 的系统数量已经超过了
-   与您帐户关联的激活的红帽订阅数量。
-   这可能是由于您的订阅已过期，或
-   您需要购买一个红帽订阅。
+2) 连接到 @@PRODUCT_NAME@@ 上的系统数目已经超过了
+   您帐号所关联的活动红帽订阅数目。
+   这可能是因为您的订阅已经过期或者
+   您需要购买红帽订阅。
 
-   要检查您的红帽订阅的过期时间，
+   要检查您现有的红帽订阅的过期日期，
    请访问：
 
    https://www.redhat.com/apps/support/
 
-   登录后点“查看”来管理您的订阅链接。
+   登录并点击『查看和管理您的订阅链接』。
 
-3) 您最近安装了一个红帽产品，但您的红帽
-   订阅号没有被成功激活。如果您希望重新
-   尝试激活您的订阅，请访问：
+3) 您最近安装了一个红帽产品但您的订阅
+   号码没有成功激活。如果您想再次尝试激活，
+   请访问：
 
    https://www.redhat.com/activate
 
-其它问题请联络红帽客户服务代表，
-网址为：
+如果您有其他问题，
+请联系红帽客户服务代表：
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-感谢您使用 @@PRODUCT_NAME@@。</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.summary">
-				<source>
+感谢您使用 @@PRODUCT_NAME@@。
+</target></trans-unit>
+
+<group>
+  <context-group name="ctx">
+    <context context-type="sourcefile">Taskomatic task: ErrataMailer.java</context>
+  </context-group>
+
+  <trans-unit id="email.errata.notification.body.summary">
+    <source>
 @@PRODUCT_NAME@@ has determined that the following advisory is applicable to
 one or more of the systems you have registered:
 
@@ -401,12 +472,25 @@ Summary:
 
 {4}{5}{6}
 {7}
-------------------------------------------------------------------------------</source>
-				<target>
-@@PRODUCT_NAME@@ 已经确认下面的公告适用于您已注册的
-一个或多个系统：
+------------------------------------------------------------------------------
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - Errata Details URL
+        {1} - errata advisory type
+        {2} - errata advisory
+        {3} - errata synopsis
+        {4} - errata topic
+        {5} - errata description
+        {6} - errata notes
+        {7} - errata refs
+      </context>
+    </context-group>
+  <target>
+@@PRODUCT_NAME@@ 已经决定了下列建议可适用于
+一个或多个您注册的系统：
 
-可以在以下位置找到勘误的完整信息：
+这个错误的完整信息可以在下列位置找到：
      {0}
 
 {1} - {2}
@@ -416,44 +500,52 @@ Summary:
 
 {4}{5}{6}
 {7}
-------------------------------------------------------------------------------    </target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.affectedheader">
-				<source>
+------------------------------------------------------------------------------
+    </target></trans-unit>
+  <trans-unit id="email.errata.notification.body.affectedheader">
+    <source>
 ---------------------
 Affected Systems List
 ---------------------
 This Errata Advisory may apply to the systems listed below. If you know that
 this errata does not apply to a system listed, it might be possible that the
 package profile for that server is out of date. In that case you should run
-'up2date -p' (RHEL 4 and below) or 'rhn-profile-sync' (RHEL 5 and above) as root on the system in question to refresh your software profile.</source>
-				<target>
+'up2date -p' (RHEL 4 and below) or 'rhn-profile-sync' (RHEL 5 and above) as root on the system in question to refresh your software profile.
+    </source>
+  <target>
 ---------------------
 受影响的系统列表
 ---------------------
-本勘误顾问可能适用于以下列出的系统。如果您知道
-本勘误不适用于列出的系统，这可能是因为
-该服务器的软件包侧写已经过期。在这种情况下您应该在受到质疑的系统中以根用户身份运行
-'up2date -p'（RHEL 4 或者之前的版本）或者'rhn-profile-sync'（RHEL 5 或者更新的版本）来刷新您的软件侧写。</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.onesystem">
-				<source>
+这个勘误建议可以应用到下面列表中的系统。如果您知道
+这个勘误不适用于这些系统，这可能是因为
+用于该服务器的软件包配置已经过期。此时您应该以根用户在这些系统里运行
+'up2date -p' (RHEL 4 及更低版本) 或 'rhn-profile-sync' (RHEL 5 及更高版本) 来刷新软件配置。
+    </target></trans-unit>
+  <trans-unit id="email.errata.notification.body.onesystem">
+    <source>
 There is 1 affected system registered in 'Overview' (only systems for
-which you have explicitly enabled Errata Alerts are shown).</source>
-				<target>
-有一个在“总览”中注册的系统受到影响（仅显示
-您已经显性地启用勘误警告的系统）。    </target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.numsystems">
-				<source>
+which you have explicitly enabled Errata Alerts are shown).
+    </source>
+  <target>
+『Overview』里有一个已注册的系统受到了影响
+（只显示已经显性启用勘误警告的系统）。
+    </target></trans-unit>
+  <trans-unit id="email.errata.notification.body.numsystems">
+    <source>
 There are {0} affected systems registered in 'Overview' (only systems for
-which you have explicitly enabled Errata Alerts are shown).</source>
-				<target>
-有 {0} 个在“总览”中注册的系统受到影响（仅显示
-您已经显性地启用勘误警告的系统）。    </target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.affected">
-				<source>
+which you have explicitly enabled Errata Alerts are shown).
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - system count
+      </context>
+    </context-group>
+  <target>
+『Overview』里有 {0} 个已注册的系统受到了影响
+（只显示已经显性启用勘误警告的系统）。
+    </target></trans-unit>
+  <trans-unit id="email.errata.notification.body.affected">
+    <source>
 Release    Arch       Profile Name
 ---------- ---------- ---------------------------------------------
 {0}
@@ -465,23 +557,30 @@ You may address the issues outlined in this advisory in two ways:
        errata update for it:
            {1}
 
-     - run the Update Agent on each affected server.</source>
-				<target>
-发布     构架       侧写名称
-------------------------------- ---------------------------------------------
+     - run the Update Agent on each affected server.
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - systems affected list
+        {1} - system list URL
+      </context>
+    </context-group>
+  <target>
+发行版本    Arch       配置名称
+---------- ---------- ---------------------------------------------
 {0}
 
-您可以用两个方法来概括本公告中列出的问题：
+你可以以两种方法解决本顾问里列出的问题：
 
-     - 在下列位置的列表里点击服务器名
-       来选择服务器，然后给它预定一个
+     - 通过点击下列位置下的可用列表里的名字选择您的服务器名称
+       然后为它调度
        勘误更新：
            {1}
 
-     - 在每台受影响的服务器中运行更新代理。</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.preferences">
-				<source>
+     - 在每个受影响的服务器上运行『更新代理』。
+    </target></trans-unit>
+  <trans-unit id="email.errata.notification.body.preferences">
+    <source>
 Changing Notification Preferences
 ---------------------------------
 To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
@@ -494,28 +593,41 @@ individual system from the "Systems List". From the individual system view
 click the "Details" tab.
 
 {1}
-{2}</source>
-				<target>
+{2}
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - account preferences URL
+        {1} - email footer
+        {2} - account info
+      </context>
+    </context-group>
+  <target>
 修改通知首选项
 ---------------------------------
-要启用/禁用您的全局勘误警告首选项，请登录到 @@PRODUCT_NAME@@
-并从 "总览" / "您的帐号" 导航至 "首选项" 标签。
+要启用/禁用您的全局勘误警告，请登录到 @@PRODUCT_NAME@@
+并从『Overview』/『Your Account』到『Preferences』标签页。
 
         URL: {0}
 
-您也可以通过从 "系统列表" 选择单个系统，
-从而逐系统地启用/禁用通知。从单个系统查看中，
-点击 "详情" 标签页。
+你也可以通过在『Systems List』里选择单个系统对每个系统启用/禁用通知。
+在单个系统视图里
+点击『Details』。
 
 {1}
-{2}    </target>
-			</trans-unit>
-			<trans-unit id="dailysummary.email.subject">
-				<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
-				<target>@@PRODUCT_NAME@@ 每日状态报告 {0}</target>
-			</trans-unit>
-			<trans-unit id="dailysummary.email.body">
-				<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
+{2}
+    </target></trans-unit>
+</group>
+
+      <trans-unit id="dailysummary.email.subject">
+<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic task: DailySummary.java</context>
+          <context context-type="paramnotes">{0} - current time in short format</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ 每日状态报告 {0}</target></trans-unit>
+      <trans-unit id="dailysummary.email.body">
+<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
 
 This email will be sent when any of the following apply:
 
@@ -534,30 +646,43 @@ https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 Thank you for using @@PRODUCT_NAME@@.
 {5}
-{6}</source>
-				<target>这是您的帐户 {0} 在 {1} 时的 @@PRODUCT_NAME@@ 状态报告。
+{6}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic task: DailySummary.java</context>
+          <context context-type="paramnotes">
+             {0} = login
+             {1} = datetime (now with timezone)
+             {2} = action message
+             {3} = awol message
+             {4} = hostname
+             {5} = emailFooter from template db
+             {6} = email account info from template db
+          </context>
+        </context-group>
+      <target>只是到 {1} 为止，您的帐号 {0} 的 @@PRODUCT_NAME@@ 状态报告。
 
-会在指定的系统出现以下任何情况时发送这封电子邮件：
+如果下列情况之一发生，这封电子邮件将被发送：
 
-1.  系统在 24 小时内没有与 @@PRODUCT_NAME@@ 连接。
-2.  系统注册了调度的行动。
+1. 系统在 24 小时内用 @@PRODUCT_NAME@@ 检入失败。
+2. 系统注册了已被调度的 action 活动。
 
 {2}
 {3}
-禁用这个电子邮件：
+禁用这封邮件：
 ----------------------
 
-要了解如何为系统禁用这个电子邮件：
+要学习如何禁用这封邮件：
 
 https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 
 感谢您使用 @@PRODUCT_NAME@@。
 {5}
-{6}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.body">
-				<source>
+{6}
+</target></trans-unit>
+      <trans-unit id="email.verification.notice.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
@@ -577,32 +702,46 @@ To confirm your email address, please visit the following URL:
 
 Thank you for using @@PRODUCT_NAME@@.
 {1}
-{2}</source>
-				<target>
+{2}
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Confirmation URL: https://rhn.redhat.com/
+          </context>
+        </context-group>
+      <target>
 尊敬的 @@PRODUCT_NAME@@ 用户，
 
-这封电子邮件是用来验证您为您的红帽登录提供的电子邮件地址
-的正确性。您的红帽登录和您的一个激活的红帽订阅将使您可以
-通过 @@PRODUCT_NAME@@ 来获得系统管理的能力。
+这封电子邮件将验证您为红帽登录帐号提供的电子邮件地址。
+您的红帽登录帐号，以及
+活动的红帽订阅，通过 @@PRODUCT_NAME@@ 为您提供了对
+系统的管理。
 
-为了确保与您的红帽登录相关的帐号信息的安全性，请点以下的
-链接来确认我们所记录的您的电子邮件地址是正确的。如果您没
-有确认您的电子邮件地址，您的红帽登录将最终被禁用。
+为了确保和您的红帽登录帐号关联的帐号信息的安全性，
+请点击下面的链接
+并验证是否提供了正确的电子邮件。如果您没有确认电子邮件地址，
+您的红帽登录帐号
+最终将会失效。
 
-要确认您的电子邮件地址，请访问以下的 URL:
+要确认您的电子邮件地址，请访问下列 URL:
 
 {0}
 
 感谢您使用 @@PRODUCT_NAME@@。
 {1}
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>红帽登录电子邮件验证</target>
-			</trans-unit>
-			<trans-unit id="email.verification.warning.body">
-				<source>
+{2}
+</target></trans-unit>
+
+      <trans-unit id="email.verification.notice.subject">
+<source>Red Hat login Email Verification</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>红帽登录电子邮件验证</target></trans-unit>
+
+      <trans-unit id="email.verification.warning.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
@@ -625,39 +764,58 @@ To confirm your email address, please visit the following URL:
 
 Thank you for using @@PRODUCT_NAME@@.
 {1}
-{2}</source>
-				<target>
+{2}
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Confirmation URL: https://rhn.redhat.com/
+         {1} - EmailFooter
+         {2} - EmailAccountInfo
+          </context>
+        </context-group>
+      <target>
 尊敬的 @@PRODUCT_NAME@@ 用户，
 
-这封电子邮件被用来验证您为您的红帽登录提供的电子邮件地址
-的正确性。您的红帽登录和您的一个激活的红帽订阅将使您可以
-通过 @@PRODUCT_NAME@@ 来获得系统管理的能力。
+这封电子邮件将验证您为红帽登录帐号提供的电子邮件地址。
+您的红帽登录帐号，以及
+活动的红帽订阅，通过 @@PRODUCT_NAME@@
+为您提供了对系统的管理。
 
-为了确保与您的红帽登录相关的帐号信息的安全性，请点以下的
-链接来确认我们所记录的您的电子邮件地址是正确的。如果您没
-有确认您的电子邮件地址，您的红帽登录将最终被禁用。
+为了确保和您的红帽登录帐号关联的帐号信息的安全性，
+请点击下面的链接
+并验证是否提供了正确的电子邮件。如果您没有确认电子邮件地址，
+您的红帽登录帐号
+最终将会失效。
 
-请注意这是最后的通知。如果您没有在
-未来的两天内点击这个 URL，您的红帽登录将会被禁用。
+请注意这是最后的通知。如果你没有在两天内点击
+这个 URL，您的红帽登录帐号将会失效。
 
-要确认您的电子邮件地址，请访问以下的 URL:
+要确认您的邮件地址，请访问下列 URL：
 
 {0}
 
 感谢您使用 @@PRODUCT_NAME@@。
 {1}
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.warning.subject">
-				<source>Red Hat Login Email Verification, Final Notice</source>
-				<target>红帽登录电子邮件验证，最后一次通知</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.graceperiod.subject">
-				<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
-				<target>红帽 @@PRODUCT_NAME@@ 服务器证书过期警告</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.graceperiod.body">
-				<source>
+{2}
+</target></trans-unit>
+
+      <trans-unit id="email.verification.warning.subject">
+<source>Red Hat Login Email Verification, Final Notice</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>红帽登录电子邮件验证，最后一次通知</target></trans-unit>
+
+      <trans-unit id="email.satellitecert.graceperiod.subject">
+<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      <target>红帽 @@PRODUCT_NAME@@ 服务器证书过期警告</target></trans-unit>
+
+      <trans-unit id="email.satellitecert.graceperiod.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
@@ -667,25 +825,37 @@ Please contact your regional Red Hat Customer  Service Representative for inform
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team</source>
-				<target>
+--the @@PRODUCT_NAME@@ Team
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+          <context context-type="paramnotes">
+          {0} - Hostname of the @@PRODUCT_NAME@@ Whose Cert has Expired: highwind.devel.redhat.com
+          {1} - Days Until satellite certificate expiration: 7
+          </context>
+        </context-group>
+      <target>
 尊敬的 @@PRODUCT_NAME@@ 用户，
 
-这是一封通知邮件，您的 @@PRODUCT_NAME@@ 证书
-已经在您本地的 @@PRODUCT_NAME@@ {0} 上过期。在 {1} 天后，由您的
-@@PRODUCT_NAME@@ 服务器所提供的系统管理服务将无法使用。
-请联系红帽的客户服务部门来获得如何更新
-您 @@PRODUCT_NAME@@ 证书的信息。
+这封邮件是通知您，您在本地 Satellite {0} 上的 @@PRODUCT_NAME@@ 证书
+已经过期。在 {1} 天后，您将无法再访问 @@PRODUCT_NAME@@ 服务器提供的
+系统管理服。
+关于如何更新您的 @@PRODUCT_NAME@@ 证书，
+请联系红帽客户服务的区域代表。
 
-非常感谢您使用 @@PRODUCT_NAME@@。
---@@PRODUCT_NAME@@ 团队</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.expired.subject">
-				<source>Red Hat satellite certificate expiration notice</source>
-				<target>红帽 satellite 证书过期通知</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.expired.body">
-				<source>
+感谢您使用 @@PRODUCT_NAME@@。
+--@@PRODUCT_NAME@@ 团队
+</target></trans-unit>
+
+      <trans-unit id="email.satellitecert.expired.subject">
+<source>Red Hat satellite certificate expiration notice</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      <target>红帽 satellite 证书过期通知</target></trans-unit>
+
+      <trans-unit id="email.satellitecert.expired.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
@@ -695,20 +865,24 @@ Customer Service Representative for information on how to renew your @@PRODUCT_N
 
 
 Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team</source>
-				<target>
+--the @@PRODUCT_NAME@@ Team
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+          <context context-type="paramnotes">{0} - Hostname of the @@PRODUCT_NAME@@ Whose Cert has Expired: highwind.devel.redhat.com </context>
+        </context-group>
+      <target>
 尊敬的 @@PRODUCT_NAME@@ 用户，
 
-这是一封通知邮件，您的 @@PRODUCT_NAME@@ 证书
-已经在您本地的 @@PRODUCT_NAME@@ {0} 中过期。在您更新您的
-证书前系统管理服务将无法使用。
-请联系红帽的客户服务部门来获得如何更新
-您的 @@PRODUCT_NAME@@ 证书的信息。
+这封电子邮件是为了通知您，您的 @@PRODUCT_NAME@@ 证书
+在本地的 Satellite {0} 上已经过期。系统管理服务将不可访问，
+直到您更新了证书。关于如何更新 @@PRODUCT_NAME@@ 证书，
+请联系红帽客户服务的区域代表。
 
 
-非常感谢您使用 @@PRODUCT_NAME@@。
---@@PRODUCT_NAME@@ 管理团队</target>
-			</trans-unit>
-		</body>
-	</file>
+感谢您使用 @@PRODUCT_NAME@@。
+--@@PRODUCT_NAME@@ 团队
+</target></trans-unit>
+    </body>
+  </file>
 </xliff>

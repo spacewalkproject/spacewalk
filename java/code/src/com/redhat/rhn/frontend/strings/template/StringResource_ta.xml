@@ -1,61 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
-	<file source-language="en-US" target-language="ta-IN" datatype="po" original="en-US/template.xliff">
-		<body>
-			<trans-unit id="email.verify.subject">
-				<source>@@PRODUCT_NAME@@ login Email Verification</source>
-				<target>@@PRODUCT_NAME@@ புகுபதிவு மின்னஞ்சல் உறுதிப்படுத்தல்</target>
-			</trans-unit>
-			<trans-unit id="email.verify.body">
-				<source>Dear @@PRODUCT_NAME@@ User,
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" xmlns:xyz="urn:appInfo:Items" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" version="1.1">
+  <file source-language="en" datatype="plaintext" original="" target-language="ta">
+    <body>
+      <trans-unit id="email.verify.subject">
+<source>@@PRODUCT_NAME@@ login Email Verification</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ புகுபதிவு மின்னஞ்சல் உறுதிப்படுத்தல்</target></trans-unit>
 
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
+<!-- New Account Email -->
+      <trans-unit id="email.newaccount.subject">
+<source>Your @@PRODUCT_NAME@@ Account is ready</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+        </context-group>
+      <target>உங்கள் @@PRODUCT_NAME@@ கணக்கு தயாராக உள்ளது</target></trans-unit>
 
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-
-{2}</source>
-				<target>@@PRODUCT_NAME@@ பயனர்களுக்கு,
-
-இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவிற்கு வழங்கப்பட்ட மின்னஞ்சல்
-முகவரியை சரிபார்க்க அனுப்பப்பட்டதாகும். உங்கள் Red Hat புகுபதிவானது,
-செயலிலுள்ள Red Hat சந்தாவுடன் இணைந்து, @@PRODUCT_NAME@@இன்
-வழியாக கணினி மேலாண்மை திறனை அணுக உதவுகிறது.
-
-Red Hat புகுபதிவில் பாதுகாப்பு கணக்கு விவரங்களை உறுதிபடுத்த,
-கீழே கொடுக்கப்பட்டுள்ள இணைப்பினை சொடுக்கி, நாங்கள் சரியான
-மின்னஞ்சல் முகவரியை உறுதிபடுத்தவும். நீங்கள் உங்கள் மின்னஞ்சல்
-முகவரியை உறுதிபடுத்தவில்லையெனில், உங்கள் Red Hat புகுபதிவு
-செயலிழக்கப்படும்.
-
-உங்கள் மின்னஞ்சல் முகவரியை உறுதிபடுத்த பின்வரும் URLஐ பார்க்கவும்:
-
-{0}
-
-@@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்காக நன்றி.
-{1}
-
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.subject">
-				<source>Your @@PRODUCT_NAME@@ Account is ready</source>
-				<target>உங்கள் @@PRODUCT_NAME@@ கணக்கு தயாராக உள்ளது</target>
-			</trans-unit>
-			<trans-unit id="email.newaccountbycreator.body">
-				<source>Hello,
+      <trans-unit id="email.newaccountbycreator.body">
+<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}. Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -71,7 +35,20 @@ Important: Please change your password upon logging in.
 
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>வணக்கம்,
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny Password: mypass e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+              Important: Please ...
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>வணக்கம்,
 
 {0} {1}ஆல் ஒரு Red Hat புகுபதிவு உங்களால் உருவாக்கப்பட்டது. செயலிலுள்ள
 Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat புகுபதிவானது,
@@ -86,10 +63,10 @@ Red Hat சந்தாவுடன் இணைந்த உங்கள் Red
 முக்கியமானது: பதிவு செய்த பின் கடவுச்சொல்லை மாற்றவும்.
 
 @@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்கு நன்றி.
-{6}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.body">
-				<source>Hello,
+{6}</target></trans-unit>
+
+    <trans-unit id="email.newaccount.body">
+<source>Hello,
 
 A Red Hat login has been created for you. Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -105,7 +82,20 @@ Important: Please change your password upon logging in.
 
 Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
-				<target>வணக்கம்,
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny Password: mypass e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+              Important: Please ...
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>வணக்கம்,
 
 ஒரு Red Hat புகுபதிவு உங்களால் உருவாக்கப்பட்டது. செயலிலுள்ள
 Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat பதிவானது,
@@ -120,10 +110,10 @@ Red Hat சந்தாவுடன் இணைந்த உங்கள் Red
 முக்கியமானது: பதிவு செய்த பின் கடவுச்சொல்லை மாற்றவும்.
 
 @@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்கு நன்றி.
-{4}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.pam.body">
-				<source>Hello,
+{4}</target></trans-unit>
+
+      <trans-unit id="email.newaccount.pam.body">
+<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}.  Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -136,7 +126,20 @@ provides you with access to manage systems on @@PRODUCT_NAME@@.
 
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>வணக்கம்,
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>வணக்கம்,
 
 {0} {1}ஆல் உங்களுக்கு Red Hat புகுபதிவு உருவாக்கப்பட்டது. செயலிலுள்ள
 Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat புகுபதிவானது,
@@ -148,14 +151,20 @@ Red Hat சந்தாவுடன் இணைந்த உங்கள் Red
   {5}
 
 @@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்கு நன்றி.
-{6}</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.subject">
-				<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
-				<target>@@PRODUCT_NAME@@ பயனர் உருவாக்கப்பட்டது: {0} ({1}, {2} &lt;{3}&gt;)</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.body">
-				<source>Hello,
+{6}</target></trans-unit>
+
+<!-- New User Email -->
+      <trans-unit id="email.newuser.subject">
+<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+      <context context-type="paramnotes">@@PRODUCT_NAME@@ User Created: dugb (Bordon, Duglas &lt;dugb@meko.com&gt;)</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ பயனர் உருவாக்கப்பட்டது: {0} ({1}, {2} &lt;{3}&gt;)</target></trans-unit>
+
+      <trans-unit id="email.newuser.body">
+<source>Hello,
 
 A new user has been added to your account.
 
@@ -168,7 +177,19 @@ please visit:
 
 Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
-				<target>வணக்கம்,
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+      <context context-type="paramnotes">
+          Account Information:
+              Your @@PRODUCT_NAME@@ login:         mdputter
+              Your @@PRODUCT_NAME@@ email address: mdputter@myhog.com
+              ...please visit:
+              https://rhn.redhat.com/rhn/users/ActiveList.do
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team</context>
+        </context-group>
+      <target>வணக்கம்,
 
 உங்கள் கணக்கில் ஒரு புதிய பயனர் சேர்க்கப்பட்டார்.
 
@@ -180,42 +201,53 @@ Thank you for using @@PRODUCT_NAME@@.
   {1}
 
 @@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்காக நன்றி.
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.user.deleted.subject">
-				<source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-				<target>@@PRODUCT_NAME@@ கணக்கு செயலிழக்கப்பட்டது: {0}</target>
-			</trans-unit>
-			<trans-unit id="email.user.deleted.body">
-				<source>
+{2}</target></trans-unit>
+      <trans-unit id="email.user.deleted.subject">
+         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
+      <target>@@PRODUCT_NAME@@ கணக்கு செயலிழக்கப்பட்டது: {0}</target></trans-unit>
+
+      <trans-unit id="email.user.deleted.body">
+         <source>
 The Red Hat login {0} has been deactivated in response to your request.
 
-Thank you for contacting Red Hat.</source>
-				<target>
-Red Hat புகுபதிவு {0} உங்கள் கோரிக்கையை ஏற்று செயலிழக்கப்படுகிறது.
+Thank you for contacting Red Hat.
+         </source>
+      <target></target></trans-unit>
 
-Red Hatஐ தொடர்பு கொண்டதற்கு நன்றி.</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.subject">
-				<source>Red Hat login creation request</source>
-				<target>Red Hat புகுபதிவு உருவாக்கும் கோரிக்கை</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.footer">
-				<source>
+      <trans-unit id="email.newuser.bala.subject">
+<source>Red Hat login creation request</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>Red Hat புகுபதிவு உருவாக்கும் கோரிக்கை</target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.footer">
+<source>
 For additional information in German language, please visit our Website:
-{0}</source>
-				<target>
-ஜெர்மன் மொழியை பற்றிய கூடுதல் தகவலுக்கு, எங்கள் இணைய தளத்தைப் பார்க்கவும்:
-{0}</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.footer2">
-				<source>
-For French, click here: {0}</source>
-				<target>
-பிரெஞ்சுக்கு, இங்கு சொடுக்கவும்: {0}</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.body">
-				<source>
+{0}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+          <context context-type="paramnotes">
+          {0} - URL to German website
+          </context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.footer2">
+<source>
+For French, click here: {0}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+          <context context-type="paramnotes">
+          {0} - URL to German website containing French and German text
+          </context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.body">
+<source>
 Dear Red Hat Customer,
 
 You were recently named on an order for new Red Hat subscriptions.  These
@@ -258,58 +290,29 @@ this feature.
 Thank you for choosing Red Hat.
 
 Sincerely,
-Red Hat Account Management Team</source>
-				<target>
-அன்பான Red Hat வாடிக்கையாளர்களே,
+Red Hat Account Management Team
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: PushedUsers.java</context>
+      <context context-type="paramnotes">
+          {0} - Customers name - Web_Customer.name - Michael Bowman
+          {1} - Account number - 012543
+          {2} - Creation url - http://blah/CreatePersonal.do?checksum=$1$a322349ade
+          {3} - Customer Server url - http://blah/about/contact/dir/#custservice
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-நீங்கள் சமீபத்தில் புதிய Red Hat சந்தாக்களுக்கு வேண்டியுள்ளீர்கள்.  இந்த
-சந்தாக்கள் இப்போது பின்வரும் கணக்கில் கிடைக்கிறது:
 
-  வாடிக்கையாளர் பெயர் : {0}
-  கணக்குப் பெயர்: {1}
+      <trans-unit id="email.unchanneledsystem.subject">
+<source>Your Red Hat system is not able to receive service</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>உங்கள் Red Hat கணினி சேவையை பெற இயலாது</target></trans-unit>
 
-இந்த கணக்கிற்கு புதிய Red Hat புதிய உள்அனுமதியை உருவாக்க கீழேயுள்ள இணைப்பினை சொடுக்கி
- உங்கள் சந்தா அணுகலை பெறவும்:
-
-{2}
-
-நீங்கள் Red Hat சந்தா சேவையை வாங்கி பயன்படுத்தும் தொழில்நுட்ப மேலாளராக இல்லாமல்இருந்தால்
-இந்த மின்னஞ்சலை உங்கள் நிறுவனத்திலுள்ள சரியான பயனருக்கு அனுப்பவும்.
-அவர்கள் ஏற்கனவே Red Hat உள்அனுமதியை கொண்டிருக்கவில்லை எனில் அவர்கள்
-பின்வரும் இணைப்பினை பயன்படுத்தி புதிய ஒன்றை உருவாக்க வேண்டும்.
-
-நீங்கள் ஏற்கனவே உள்அனுமதி பெற்று, மேலே உள்ள கணக்குடன் தொடர்புடையதாக
-இருந்தால் செயல் தேவைப்படுகிறது.  நீங்கள் ஏற்கனவே தொடர்புடைய Red Hat கணக்கு எண்ணை
- பின்வரும் பக்கத்தில் பதிவு செய்யும் போது காணலாம்:
-
-http://www.redhat.com/support/
-
-நீங்கள் ஏற்கனவே Red Hat புகுபதிவு பெற்று அது இந்த மின்னஞ்சலில் பட்டியலிடாத வேறு கணக்குடன்
-தொடர்புடையதாக இருந்தால், அந்த கணக்கினை பயன்படுத்தி இந்த
-சந்தாவினை மேலாண் செய்ய வேண்டும், Red Hat உங்களுக்கு விருப்பமான கணக்கிற்கு மாற்றும். எனவே
-பின்வரும் இணைப்பில் கொடுக்கப்பட்டுள்ள தகவல்களை பயன்படுத்தி உங்கள் மண்டல Red Hat
-வாடிக்கையாளர் சேவை பிரதிநிதியை அணுகவும்:
-
-{3}
-
-கணக்கு நிர்வாகிக்கான (அமைப்பு நிர்வாகி ) குறிப்பு: ஒரு புதிய பயனர்
-சந்தாக்களை பெறும் முன், நீங்கள் உங்கள் கணக்குகளின் சந்தாக்களை அவர்கள் பார்க்கவும் மேலாண்மை
-செய்யவும் அனுமதி அளிக்க வேண்டும்.  இது இந்த பயனர் நிர்வாக உரிமம்
-உங்கள் கணக்கில் உள்ளதை தேவைப்படுத்துகிறது.  தேவைப்பட்டால் மேலேயுள்ள இணைப்பினை
-பயன்படுத்தி உங்கள் Red Hat வாடிக்கையாளர் சேவை பிரதிநிதி தொடர்பு கொண்டு
-இந்த அம்சத்திற்கு கோரவும்.
-
-Red Hatஐ தேர்ந்தெடுத்தற்காக நன்றி.
-
-தங்கள் உண்மையுள்ள,
-Red Hat கணக்கு மேலாண்மை குழு</target>
-			</trans-unit>
-			<trans-unit id="email.unchanneledsystem.subject">
-				<source>Your Red Hat system is not able to receive service</source>
-				<target>உங்கள் Red Hat கணினி சேவையை பெற இயலாது</target>
-			</trans-unit>
-			<trans-unit id="email.unchanneledsystem.body">
-				<source>
+      <trans-unit id="email.unchanneledsystem.body">
+<source>
 Dear Red Hat Customer,
 
 The following system has been associated with your Red Hat login and
@@ -347,48 +350,23 @@ representative at:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Thank you for using @@PRODUCT_NAME@@.</source>
-				<target>
-அன்புள்ள Red Hat வாடிக்கையாளர்களே,
+Thank you for using @@PRODUCT_NAME@@.
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: NoChannelCheck.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Server name Name - Server.name - highwind
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-பின்வரும் கணினி உங்கள் Red Hat  புகுபதிவு மற்றும் கணக்குடன் முன் நாட்களில்
-தொடர்புடையதாக இருந்தது, ஆனால் @@PRODUCT_NAME@@ சேவைகளுடன்
-உரிமம் செய்ய முடியவில்லை.
+<group>
+  <context-group name="ctx">
+    <context context-type="sourcefile">Taskomatic task: ErrataMailer.java</context>
+  </context-group>
 
-{0}
-
-இது நிகழ பல்வேறு காரணங்கள் உள்ளன:
-
-1) நீங்கள் சமீபத்தில் ஒரு கணினியை மீண்டும் நிறுவி, அதனை ஏற்கனவே இருக்கும்
-   செயலிலுள்ள சந்தாவுடன் தொடர்புப்படுத்த முயலுகிறீர்கள். ஆனால் நீங்கள் ஏற்கனவே
-   இருக்கும் கணினி விவரக்குறிப்பினை @@PRODUCT_NAME@@இலிருந்து பின்வரும் விவரத்தின் படி அழித்து விட்டீர்களா என்பதை உறுதி செய்யவும்
-
-2) உங்கள் கணக்கில் தொடர்புடைய செயலிலுள்ள Red Hat சந்தாக்களையும்
-   தாண்டி @@PRODUCT_NAME@@இல் கணினிகள் இணைக்கப்பட்டுள்ளது  இதனால்
-   உங்கள் சந்தாக்கள் முடிந்திருக்கும் அல்லது நீங்கள்
-   Red Hat சந்தாவை வாங்க வேண்டும்.
-
-   ஏற்கனவே இருக்கும் உங்கள் Red Hat சந்தா முடியும் தேதியை     அறிய, பின்வரும் இணைய முகவரியை பார்க்கவும்:
-
-   https://www.redhat.com/apps/support/
-
-   பதிவு செய்து உங்கள் சந்தாக்களை பார்வையிட்டு மேலாண்மை செய்யவும் என்ற இணைப்பினை சொடுக்கவும்.
-
-3) நீங்கள் சமீபத்தில் Red Hat தயாரிப்பினை நிறுவியுள்ளீர்கள். மேலும் உங்கள் சந்தா
-   எண் வெற்றிகரமாக செயல்படுத்தப்படவில்லை. நீங்கள் உங்கள் சந்தாவினை செயல்படுத்த
-   வேண்டுமென்றால், பின்வரும் இணைய முகவரியில் பார்க்கவும்:
-
-   https://www.redhat.com/activate
-
-மேலும் உங்கள் கேள்விகளுக்கு, Red Hat வாடிக்கையாளர் சேவை
-பிரதிநிதியை அணுக
-
-http://www.redhat.com/about/contact/directory.html#custservice
-
-@@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்கு உங்களுக்கு நன்றி.</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.summary">
-				<source>
+  <trans-unit id="email.errata.notification.body.summary">
+    <source>
 @@PRODUCT_NAME@@ has determined that the following advisory is applicable to
 one or more of the systems you have registered:
 
@@ -402,59 +380,51 @@ Summary:
 
 {4}{5}{6}
 {7}
-------------------------------------------------------------------------------</source>
-				<target>
-@@PRODUCT_NAME@@ நீங்கள் பதிவு செய்த ஒன்று அல்லது அதற்கு மேற்பட்ட கணினிகளில்
-பின்வரும் அறிவுரையை வரையறுக்கிறது:
-
-இந்தப் பிழைத்திருத்தம் பற்றிய முழு தகவலும் பின்வரும் இடத்தில் உள்ளது:
-     {0}
-
-{1} - {2}
 ------------------------------------------------------------------------------
-சுருக்கம்:
-{3}
-
-{4}{5}{6}
-{7}
-------------------------------------------------------------------------------</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.affectedheader">
-				<source>
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - Errata Details URL
+        {1} - errata advisory type
+        {2} - errata advisory
+        {3} - errata synopsis
+        {4} - errata topic
+        {5} - errata description
+        {6} - errata notes
+        {7} - errata refs
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.affectedheader">
+    <source>
 ---------------------
 Affected Systems List
 ---------------------
 This Errata Advisory may apply to the systems listed below. If you know that
 this errata does not apply to a system listed, it might be possible that the
 package profile for that server is out of date. In that case you should run
-'up2date -p' (RHEL 4 and below) or 'rhn-profile-sync' (RHEL 5 and above) as root on the system in question to refresh your software profile.</source>
-				<target>
----------------------
-பாதிக்கப்பட்ட கணினிகள் பட்டியல்
----------------------
-இந்தப் பிழைத்திருத்த அறிவுரை கீழே பட்டியலிடப்பட்ட கணினிகளுக்கு பொருந்தும். இந்த
-பிழைத்திருத்தம் பட்டியலிடப்பட்ட கணினிக்கு பொருந்தவில்லை எனில் அந்த சேவையக
-தொகுப்பு விவரக்குறிப்பு முடிந்திருக்கும். இந்த நிலையில் நீங்கள்
-'up2date -p' (RHEL 4 மற்றும் அதற்கு கீழே) அல்லது 'rhn-profile-sync' (RHEL 5 அல்லது அதற்கு மேல்) ஐ  ரூட்டாக இயக்கி உங்கள் மென்பொருள் விவரக்குறிப்பை புதுப்பிக்க வேண்டும்.</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.onesystem">
-				<source>
+'up2date -p' (RHEL 4 and below) or 'rhn-profile-sync' (RHEL 5 and above) as root on the system in question to refresh your software profile.
+    </source>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.onesystem">
+    <source>
 There is 1 affected system registered in 'Overview' (only systems for
-which you have explicitly enabled Errata Alerts are shown).</source>
-				<target>
-1 பாதிக்கப்பட்ட கணினி 'கண்ணோட்டத்தில்' பதிவு செய்யப்பட்டுள்ளது (தனியாக பிழைத்திருத்த
-எச்சரிக்கைகள் உள்ள கணினிகளில் மட்டும்).</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.numsystems">
-				<source>
+which you have explicitly enabled Errata Alerts are shown).
+    </source>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.numsystems">
+    <source>
 There are {0} affected systems registered in 'Overview' (only systems for
-which you have explicitly enabled Errata Alerts are shown).</source>
-				<target>
-{0} பாதிக்கப்பட்ட கணினிகள் 'கண்ணோட்டத்தில்' பதிவு செய்யப்பட்டுள்ளது (தனியாக பிழைத்திருத்த
-எச்சரிக்கைகள் உள்ள கணினிகளில் மட்டும்).</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.affected">
-				<source>
+which you have explicitly enabled Errata Alerts are shown).
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - system count
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.affected">
+    <source>
 Release    Arch       Profile Name
 ---------- ---------- ---------------------------------------------
 {0}
@@ -466,23 +436,17 @@ You may address the issues outlined in this advisory in two ways:
        errata update for it:
            {1}
 
-     - run the Update Agent on each affected server.</source>
-				<target>
-வெளியீடு    கணினி       விவரக்குறிப்பு பெயர்
-------------------------------- ---------------------------------------------
-{0}
-
-நீங்கள் இந்த சிக்கலை இரு வழிகளில் இந்த அறிவுரைக்கு அறிக்கையிடலாம்:
-
-     - பின்வரும் இடத்தில் இருக்கும் பட்டியலிருந்து உங்கள் சேவையக பெயரை
-       சொடுக்கி தேர்ந்தெடுக்கவும், பின் அதற்கு ஒரு பிழைத்திருத்த
-       மேம்படுத்தலை திட்டமிடவும்:
-           {1}
-
-     - ஒவ்வொரு பாதிக்கப்பட்ட சேவையகத்திற்கும் மேம்படுத்தல் முகவரை இயக்கவும்.</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.preferences">
-				<source>
+     - run the Update Agent on each affected server.
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - systems affected list
+        {1} - system list URL
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.preferences">
+    <source>
 Changing Notification Preferences
 ---------------------------------
 To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
@@ -495,28 +459,27 @@ individual system from the "Systems List". From the individual system view
 click the "Details" tab.
 
 {1}
-{2}</source>
-				<target>
-அறிவிப்பு விருப்பங்களை மாற்றுதல்
----------------------------------
-உங்கள் பிழைத்திருத்த எச்சரிக்கை விருப்பங்களை முழுமையாக செயல்படுத்த/நீக்க @@PRODUCT_NAME@@ இல் புகுபதிவு செய்யவும்
-பின் "கண்ணோட்டம்" / "உங்கள் கணக்கு" இல் "விருப்பங்கள்" தத்தலுக்கு செல்லவும்.
+{2}
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - account preferences URL
+        {1} - email footer
+        {2} - account info
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+</group>
 
-        URL: {0}
-
-நீங்களும் ஒரு கணினி அடிப்படையில் ஒரு தனி கணினியை "கணினிகள் பட்டியல்"என்பதிலிருந்து
-தேர்ந்தெடுத்து அறிவிப்பை செயல்படுத்தவும்/நீக்கவும். தனிப்பட்ட கணினி பார்வையிலிருந்து
-"விவரங்கள்" தத்தலை சொடுக்கவும்.
-
-{1}
-{2}</target>
-			</trans-unit>
-			<trans-unit id="dailysummary.email.subject">
-				<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
-				<target>@@PRODUCT_NAME@@ {0} க்கு தினசரி அறிக்கை நிலை</target>
-			</trans-unit>
-			<trans-unit id="dailysummary.email.body">
-				<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
+      <trans-unit id="dailysummary.email.subject">
+<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic task: DailySummary.java</context>
+          <context context-type="paramnotes">{0} - current time in short format</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ {0} க்கு தினசரி அறிக்கை நிலை</target></trans-unit>
+      <trans-unit id="dailysummary.email.body">
+<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
 
 This email will be sent when any of the following apply:
 
@@ -535,30 +498,23 @@ https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 Thank you for using @@PRODUCT_NAME@@.
 {5}
-{6}</source>
-				<target>{0}, க்கும் {1} இது உங்கள் கணக்கிற்கான @@PRODUCT_NAME@@ நிலை அறிக்கை.
-
-குறிப்பிட்ட கணினிகளுக்குப் பின்வருவதில் ஏதாவது பொருந்தினால் இந்த மின்னஞ்சல் அனுப்பப்படும்:
-
-1.  24 மணிநேர சாளரத்தில் @@PRODUCT_NAME@@னுடன் கணினி இயக்க முடியவில்லை.
-2.  கணினி பதிவுகள் திட்டமிடப்பட்ட செயல் நிகழ்வு.
-
-{2}
-{3}
-இந்த மின்னஞ்சலை செயலிழக்கச்செய்கிறது:
-----------------------
-
-கணினிகளுக்கு இந்த மின்னஞ்சலை எவ்வாறு செயலிழக்க செய்ய வேண்டும் என்பதை கற்க:
-
-https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
-
-
-@@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்கு நன்றி.
-{5}
-{6}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.body">
-				<source>
+{6}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic task: DailySummary.java</context>
+          <context context-type="paramnotes">
+             {0} = login
+             {1} = datetime (now with timezone)
+             {2} = action message
+             {3} = awol message
+             {4} = hostname
+             {5} = emailFooter from template db
+             {6} = email account info from template db
+          </context>
+        </context-group>
+      <target></target></trans-unit>
+      <trans-unit id="email.verification.notice.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
@@ -578,35 +534,25 @@ To confirm your email address, please visit the following URL:
 
 Thank you for using @@PRODUCT_NAME@@.
 {1}
-{2}</source>
-				<target>
-அன்புள்ள @@PRODUCT_NAME@@ பயனர்கள்,
+{2}
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Confirmation URL: https://rhn.redhat.com/
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவுக்கு வழங்கப்பட்ட மின்னஞ்சல்
-முகவரியை சரிபார்க்க அனுப்பப்பட்டது. உங்கள் Red Hat
-அனுமதி செயலிலுள்ள Red Hat சந்தாவோடு கலந்து, @@PRODUCT_NAME@@
-வழியாக உங்களுக்கு கணினி மேலாண்மை அதிகாரத்தை கொடுக்கிறது.
+      <trans-unit id="email.verification.notice.subject">
+<source>Red Hat login Email Verification</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>Red Hat புகுபதிவு மின்னஞ்சல் உறுதிப்படுத்தல்</target></trans-unit>
 
-உங்கள் Red Hat புகுபதிவுக்கு உட்பட்ட கணக்கு விவரத்தின் பாதுகாப்பினை
-உறுதிபடுத்த, கீழேயுள்ள இணைப்பினை சொடுக்கி பார்க்கவும், மேலும்
-சரியான மின்னஞ்சல் முகவரி கொடுக்கப்பட்டிருக்கிறதா என்பதையும் உறுதிபடுத்தவும்.
-நீங்கள் உங்கள் மின்னஞ்சல் முகவரியை உறுதிபடுத்தவில்லை எனில் உங்கள் Red Hat புகுபதிவு
-செயலிழக்கப்படும்.
-
-உங்கள் மின்னஞ்சலை உறுதிப்படுத்த பின்வரும் URLஐ பார்க்கவும்:
-
-{0}
-
-@@PRODUCT_NAME@@இஐ பயன்படுத்தியதற்கு நன்றி.
-{1}
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>Red Hat புகுபதிவு மின்னஞ்சல் உறுதிப்படுத்தல்</target>
-			</trans-unit>
-			<trans-unit id="email.verification.warning.body">
-				<source>
+      <trans-unit id="email.verification.warning.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
@@ -629,42 +575,34 @@ To confirm your email address, please visit the following URL:
 
 Thank you for using @@PRODUCT_NAME@@.
 {1}
-{2}</source>
-				<target>
-அன்புள்ள @@PRODUCT_NAME@@ பயனர்கள்,
+{2}
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Confirmation URL: https://rhn.redhat.com/
+         {1} - EmailFooter
+         {2} - EmailAccountInfo
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவுக்கு வழங்கப்பட்ட மின்னஞ்சல்
-முகவரியை சரிபார்க்க அனுப்பப்பட்டது. உங்கள் Red Hat
-அனுமதி செயலிலுள்ள Red Hat சந்தாவோடு கலந்து, @@PRODUCT_NAME@@
-வழியாக உங்களுக்கு கணினி மேலாண்மை அதிகாரத்தை கொடுக்கிறது.
+      <trans-unit id="email.verification.warning.subject">
+<source>Red Hat Login Email Verification, Final Notice</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>Red Hat புகுபதிவு மின்னஞ்சல் உறுதிப்படுத்தல், இறுதி அறிவிப்பு</target></trans-unit>
 
-உங்கள் Red Hat புகுபதிவுக்கு உட்பட்ட கணக்கு விவரத்தின் பாதுகாப்பினை
-உறுதிபடுத்த, கீழேயுள்ள இணைப்பினை சொடுக்கி பார்க்கவும், மேலும்
-சரியான மின்னஞ்சல் முகவரி கொடுக்கப்பட்டிருக்கிறதா என்பதையும் உறுதிபடுத்தவும்.
-நீங்கள் உங்கள் மின்னஞ்சல் முகவரியை உறுதிபடுத்தவில்லை எனில் உங்கள் Red Hat புகுபதிவு
-செயலிழக்கப்படும்.
+      <trans-unit id="email.satellitecert.graceperiod.subject">
+<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      <target>Red Hat @@PRODUCT_NAME@@ சேவையக சான்றிதழ் முடிவுறும் எச்சரிக்கை</target></trans-unit>
 
-இது இறுதி அறிவிப்பு என்பதை குறித்துக்கொள்ளவும். நீங்கள் இந்த URL ஐ
-2 நாட்களுக்குள் சொடுக்கவில்லையெனில் உங்கள் Red Hat புகுபதிவு செயலிழக்கப்படும்.
-
-உங்கள் மின்னஞ்சலை உறுதிப்படுத்த பின்வரும் URLஐ பார்க்கவும்:
-
-{0}
-
-@@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்கு நன்றி.
-{1}
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.warning.subject">
-				<source>Red Hat Login Email Verification, Final Notice</source>
-				<target>Red Hat புகுபதிவு மின்னஞ்சல் உறுதிப்படுத்தல், இறுதி அறிவிப்பு</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.graceperiod.subject">
-				<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
-				<target>Red Hat @@PRODUCT_NAME@@ சேவையக சான்றிதழ் முடிவுறும் எச்சரிக்கை</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.graceperiod.body">
-				<source>
+      <trans-unit id="email.satellitecert.graceperiod.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
@@ -674,25 +612,26 @@ Please contact your regional Red Hat Customer  Service Representative for inform
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team</source>
-				<target>
-அன்புள்ள @@PRODUCT_NAME@@ பயனர்களே,
+--the @@PRODUCT_NAME@@ Team
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+          <context context-type="paramnotes">
+          {0} - Hostname of the @@PRODUCT_NAME@@ Whose Cert has Expired: highwind.devel.redhat.com
+          {1} - Days Until satellite certificate expiration: 7
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-இந்த மின்னஞ்சல் உங்கள் @@PRODUCT_NAME@@ சான்றிதழ் உங்கள் உள்ளமை
-சேட்டிலைட் {0}இல் முடிவுற்றது என்பதை தெரிவிக்க அனுப்பப்படுகிறது. {1} நாட்(கள்) கழித்து கணினிகள்
-மேலாண்மை சேவைகள் உங்கள் @@PRODUCT_NAME@@ சேவையகத்தில் வழங்கப்படுவதுஅணுக முடியாமல் போகும்.
-எனவே உங்கள் மண்டல Red Hat வாடிக்கையாளர் சேவை பிரதிநிதியைஅணுகி
-எவ்வாறு உங்கள் @@PRODUCT_NAME@@ சான்றிதழை புதுப்பிப்பது என கேட்கவும்.
+      <trans-unit id="email.satellitecert.expired.subject">
+<source>Red Hat satellite certificate expiration notice</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      <target>Red Hat சேட்டிலைட் சான்றிதழ் முடிவுறும் அறிவிப்பு</target></trans-unit>
 
-@@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்காக நன்றி.
--- @@PRODUCT_NAME@@ குழு</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.expired.subject">
-				<source>Red Hat satellite certificate expiration notice</source>
-				<target>Red Hat சேட்டிலைட் சான்றிதழ் முடிவுறும் அறிவிப்பு</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.expired.body">
-				<source>
+      <trans-unit id="email.satellitecert.expired.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
@@ -702,19 +641,13 @@ Customer Service Representative for information on how to renew your @@PRODUCT_N
 
 
 Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team</source>
-				<target>
-அன்புள்ள @@PRODUCT_NAME@@ பயனர்களே,
-
-இந்த மின்னஞ்சல் உங்கள் @@PRODUCT_NAME@@ சான்றிதழ் உங்கள் உள்ளமை
-சேட்டிலைட் {0}இல் முடிவுற்றது என்பதை தெரிவிக்க அனுப்பப்படுகிறது. உங்கள் சான்றிதழ்
-புதுப்பிக்கும் வரை கணினி மேலாண்மை சேவைகளை அணுக முடியாமல் போகும்.
-எனவே உங்கள் மண்டல Red Hat வாடிக்கையாளர் சேவை பிரதிநிதியைஅணுகி உங்கள் @@PRODUCT_NAME@@ சான்றிதழைப் புதுப்பித்து கொள்ளவும்.
-
-
-@@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்காக நன்றி.
--- @@PRODUCT_NAME@@ குழு</target>
-			</trans-unit>
-		</body>
-	</file>
+--the @@PRODUCT_NAME@@ Team
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+          <context context-type="paramnotes">{0} - Hostname of the @@PRODUCT_NAME@@ Whose Cert has Expired: highwind.devel.redhat.com </context>
+        </context-group>
+      <target></target></trans-unit>
+    </body>
+  </file>
 </xliff>

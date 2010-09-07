@@ -1,659 +1,1179 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
-	<file source-language="en-US" target-language="es-ES" datatype="po" original="en-US/nav.xliff">
-		<body>
-			<trans-unit id="common.nav.overview">
-				<source>Overview</source>
-				<target>Visión General</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.overview">
-				<source>Overview</source>
-				<target>Visión General</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.overview">
-				<source>Overview</source>
-				<target>Visión General</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.overview">
-				<source>Overview</source>
-				<target>Visión General</target>
-			</trans-unit>
-			<trans-unit id="common.nav.systems">
-				<source>Systems</source>
-				<target>Sistemas</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.systems">
-				<source>Systems</source>
-				<target>Sistemas</target>
-			</trans-unit>
-			<trans-unit id="users.nav.all">
-				<source>All</source>
-				<target>Todos</target>
-			</trans-unit>
-			<trans-unit id="system.nav.all">
-				<source>All</source>
-				<target>Todos</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.status.all">
-				<source>All</source>
-				<target>Todos</target>
-			</trans-unit>
-			<trans-unit id="users.nav.active">
-				<source>Active</source>
-				<target>Activos</target>
-			</trans-unit>
-			<trans-unit id="users.nav.disabled">
-				<source>Deactivated</source>
-				<target>Desactivados</target>
-			</trans-unit>
-			<trans-unit id="User">
-				<source>User</source>
-				<target>Usuario</target>
-			</trans-unit>
-			<trans-unit id="action.nav.backout">
-				<source>Back Out Patches</source>
-				<target>Revertir parches</target>
-			</trans-unit>
-			<trans-unit id="action.nav.install">
-				<source>Install Patches</source>
-				<target>Instalar parches</target>
-			</trans-unit>
-			<trans-unit id="virtualization.entitlements">
-				<source>Virtualization Entitlements</source>
-				<target>Derechos de virtualización</target>
-			</trans-unit>
-			<trans-unit id="guest.limited.hosts">
-				<source>Virtualization Hosts</source>
-				<target>Anfitrión de virtualización</target>
-			</trans-unit>
-			<trans-unit id="guest.unlimited.hosts">
-				<source>Virtualization Platform Hosts</source>
-				<target>Anfitrión de plataforma de virtualización</target>
-			</trans-unit>
-			<trans-unit id="guests.without.hosts">
-				<source>Guests Without Hosts</source>
-				<target>Huéspedes sin anfitriones</target>
-			</trans-unit>
-			<trans-unit id="Virtualization">
-				<source>Virtualization</source>
-				<target>Virtualización</target>
-			</trans-unit>
-			<trans-unit id="Virtual Systems">
-				<source>Virtual Systems</source>
-				<target>Sistemas virtuales</target>
-			</trans-unit>
-			<trans-unit id="system.nav.outofdate">
-				<source>Out of Date</source>
-				<target>Desactualizado</target>
-			</trans-unit>
-			<trans-unit id="system.nav.unentitled">
-				<source>Unentitled</source>
-				<target>Sin derechos</target>
-			</trans-unit>
-			<trans-unit id="system.nav.ungrouped">
-				<source>Ungrouped</source>
-				<target>Sin grupo</target>
-			</trans-unit>
-			<trans-unit id="system.nav.inactive">
-				<source>Inactive</source>
-				<target>Inactivo</target>
-			</trans-unit>
-			<trans-unit id="system.nav.proxy">
-				<source>Proxy</source>
-				<target>Proxy</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config">
-				<source>Configuration</source>
-				<target>Configuración</target>
-			</trans-unit>
-			<trans-unit id="config.nav.config">
-				<source>Configuration</source>
-				<target>Configuración</target>
-			</trans-unit>
-			<trans-unit id="Configuration">
-				<source>Configuration</source>
-				<target>Configuración</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config.deploy">
-				<source>Deploy Files</source>
-				<target>Implementar archivos</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.deploy">
-				<source>Deploy Files</source>
-				<target>Implementar archivos</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.deploy_files">
-				<source>Deploy Files</source>
-				<target>Implementar archivos</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.deploy_files">
-				<source>Deploy Files</source>
-				<target>Implementar archivos</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config.diff">
-				<source>Compare Files</source>
-				<target>Comparar archivos</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.compare_files">
-				<source>Compare Files</source>
-				<target>Comparar archivos</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.compare_files">
-				<source>Compare Files</source>
-				<target>Comparar archivos</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config.subscribe">
-				<source>Subscribe to Channels</source>
-				<target>Suscribir a canales</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.subscribe_channels">
-				<source>Subscribe to Channels</source>
-				<target>Suscribir a canales</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.subscribe_channels">
-				<source>Subscribe to Channels</source>
-				<target>Suscribir a canales</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config.unsubscribe">
-				<source>Unsubscribe from Channels</source>
-				<target>Eliminar suscripción de canales</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.config.enable">
-				<source>Enable Configuration</source>
-				<target>Activar configuración</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.status">
-				<source>Status</source>
-				<target>Estado</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.status.inprogress">
-				<source>In Progress</source>
-				<target>En progreso</target>
-			</trans-unit>
-			<trans-unit id="ssm.nav.status.completed">
-				<source>Completed</source>
-				<target>Completado</target>
-			</trans-unit>
-			<trans-unit id="channel.nav.relevant">
-				<source>Relevant channels</source>
-				<target>Canales relevantes</target>
-			</trans-unit>
-			<trans-unit id="channel.nav.all">
-				<source>All Channels</source>
-				<target>Todos los canales</target>
-			</trans-unit>
-			<trans-unit id="channel.nav.shared">
-				<source>Shared Channels</source>
-				<target>Canales compartidos</target>
-			</trans-unit>
-			<trans-unit id="channel.nav.redhat">
-				<source>Red Hat Channels</source>
-				<target>Canales de Red Hat</target>
-			</trans-unit>
-			<trans-unit id="channel.nav.popular">
-				<source>Popular Channels</source>
-				<target>Canales populares</target>
-			</trans-unit>
-			<trans-unit id="channel.nav.custom">
-				<source>My Channels</source>
-				<target>Mis canales</target>
-			</trans-unit>
-			<trans-unit id="channel.nav.retired">
-				<source>Retired channels</source>
-				<target>Canales jubilados</target>
-			</trans-unit>
-			<trans-unit id="config.nav.managed">
-				<source>Managed Systems</source>
-				<target>Sistemas administrados</target>
-			</trans-unit>
-			<trans-unit id="config.nav.target">
-				<source>Target Systems</source>
-				<target>Sistemas objetivos</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.systems.target">
-				<source>Target Systems</source>
-				<target>Sistemas objetivos</target>
-			</trans-unit>
-			<trans-unit id="Target Systems">
-				<source>Target Systems</source>
-				<target>Sistemas objetivos</target>
-			</trans-unit>
-			<trans-unit id="config.nav.channels">
-				<source>Configuration Channels</source>
-				<target>Canales de configuración</target>
-			</trans-unit>
-			<trans-unit id="config.nav.files">
-				<source>Configuration Files</source>
-				<target>Archivos de configuración</target>
-			</trans-unit>
-			<trans-unit id="config.nav.quota">
-				<source>Quota for File Storage</source>
-				<target>Cuota para almacenamiento de archivos</target>
-			</trans-unit>
-			<trans-unit id="config.nav.globalfiles">
-				<source>Centrally Managed Files</source>
-				<target>Archivos administrados centralmente</target>
-			</trans-unit>
-			<trans-unit id="config.nav.localfiles">
-				<source>Locally Managed Files</source>
-				<target>Archivos administrados localmente</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.list">
-				<source>List/Remove Files</source>
-				<target>Listar/Remover archivos</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.add">
-				<source>Add Files</source>
-				<target>Añadir archivos</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.add.upload">
-				<source>Upload File</source>
-				<target>Cargar archivo</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.add.import">
-				<source>Import Files</source>
-				<target>Importar archivos</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.add.create">
-				<source>Create File</source>
-				<target>Crear archivo</target>
-			</trans-unit>
-			<trans-unit id="configchannel.nav.systems.subscribed">
-				<source>Subscribed Systems</source>
-				<target>Sistemas suscritos</target>
-			</trans-unit>
-			<trans-unit id="Subscribed Systems">
-				<source>Subscribed Systems</source>
-				<target>Sistemas suscritos</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.details">
-				<source>Details</source>
-				<target>Información</target>
-			</trans-unit>
-			<trans-unit id="subdetails.details">
-				<source>Details</source>
-				<target>Información</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.revisions">
-				<source>Manage Revisions</source>
-				<target>Administrar revisiones</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.deploy">
-				<source>Deploy File</source>
-				<target>Implementar archivo</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.copy">
-				<source>Copy File</source>
-				<target>Copiar archivo</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.copy.central">
-				<source>Copy To Centrally-Managed</source>
-				<target>Copiar a centralmente administrado</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.copy.local">
-				<source>Copy To Locally-Managed</source>
-				<target>Copiar a localmente administrado</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.copy.sandbox">
-				<source>Copy To System Sandbox</source>
-				<target>Copiar a entorno de prueba del sistema</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.compare">
-				<source>Compare File</source>
-				<target>Comparar archivo</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.compare.deployed">
-				<source>Deployed Files</source>
-				<target>Archivos implementados</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.compare.revision">
-				<source>Other Revisions</source>
-				<target>Otras revisiones</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.compare.copy">
-				<source>Other Copies</source>
-				<target>Otras copias</target>
-			</trans-unit>
-			<trans-unit id="configfile.nav.compare.file">
-				<source>Other Files</source>
-				<target>Otros archivos</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.view_modify_files">
-				<source>View/Modify Files</source>
-				<target>Ver/Modificar archivos</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.add_files">
-				<source>Add File</source>
-				<target>Añadir archivos</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.manage_channels">
-				<source>Manage Configuration Channels</source>
-				<target>Administrar canales de configuración</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.list_unsubscribe_channels">
-				<source>List/Unsubscribe from Channels</source>
-				<target>Listar/eliminar suscripciones de canales</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.rank_channels">
-				<source>View/Modify Rankings</source>
-				<target>Ver/Modificar rangos</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.centrally_managed_files">
-				<source>Centrally-Managed Files</source>
-				<target>Archivos administrados centralmente</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.locally_managed_files">
-				<source>Locally-Managed Files</source>
-				<target>Archivos administrados localmente</target>
-			</trans-unit>
-			<trans-unit id="nav.sdc.config.sandbox_managed_files">
-				<source>Local Sandbox</source>
-				<target>Entorno de prueba local</target>
-			</trans-unit>
-			<trans-unit id="system.detail.nav.list">
-				<source>List</source>
-				<target>Listar</target>
-			</trans-unit>
-			<trans-unit id="system.detail.nav.remove">
-				<source>List / Remove</source>
-				<target>Listar / Remover</target>
-			</trans-unit>
-			<trans-unit id="List / Remove">
-				<source>List / Remove</source>
-				<target>Listar / Remover</target>
-			</trans-unit>
-			<trans-unit id="system.detail.nav.remove">
-				<source>List / Remove</source>
-				<target>Listar / Remover</target>
-			</trans-unit>
-			<trans-unit id="Add">
-				<source>Add</source>
-				<target>Añadir</target>
-			</trans-unit>
-			<trans-unit id="Verify">
-				<source>Verify</source>
-				<target>Verificar</target>
-			</trans-unit>
-			<trans-unit id="Snapshots">
-				<source>Snapshots</source>
-				<target>Instantánea</target>
-			</trans-unit>
-			<trans-unit id="Installation Guide">
-				<source>Installation Guide</source>
-				<target>Guía de instalación</target>
-			</trans-unit>
-			<trans-unit id="Software">
-				<source>Software</source>
-				<target>Software</target>
-			</trans-unit>
-			<trans-unit id="Provisioning">
-				<source>Provisioning</source>
-				<target>Aprovisionamiento</target>
-			</trans-unit>
-			<trans-unit id="Misc">
-				<source>Misc</source>
-				<target>Misc</target>
-			</trans-unit>
-			<trans-unit id="Snapshot Tags">
-				<source>Snapshot Tags</source>
-				<target>Etiquetas de instantáneas</target>
-			</trans-unit>
-			<trans-unit id="Session Status">
-				<source>Session Status</source>
-				<target>Estado de la sesión</target>
-			</trans-unit>
-			<trans-unit id="Session History">
-				<source>Session History</source>
-				<target>Historial de la sesión</target>
-			</trans-unit>
-			<trans-unit id="Sandbox">
-				<source>Sandbox</source>
-				<target>Entorno de prueba</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk">
-				<source>@@PRODUCT_NAME@@</source>
-				<target>@@PRODUCT_NAME@@</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Configuration">
-				<source>@@PRODUCT_NAME@@ Configuration</source>
-				<target>Configuración de @@PRODUCT_NAME@@</target>
-			</trans-unit>
-			<trans-unit id="Remote Command">
-				<source>Remote Command</source>
-				<target>Comando Remoto</target>
-			</trans-unit>
-			<trans-unit id="Reactivation">
-				<source>Reactivation</source>
-				<target>Reactivación</target>
-			</trans-unit>
-			<trans-unit id="Properties">
-				<source>Properties</source>
-				<target>Propiedades</target>
-			</trans-unit>
-			<trans-unit id="Pending">
-				<source>Pending</source>
-				<target>Pendiente</target>
-			</trans-unit>
-			<trans-unit id="Patches">
-				<source>Patches</source>
-				<target>Parches</target>
-			</trans-unit>
-			<trans-unit id="Patch Clusters">
-				<source>Patch Clusters</source>
-				<target>Racimo de parches</target>
-			</trans-unit>
-			<trans-unit id="Notes">
-				<source>Notes</source>
-				<target>Notas</target>
-			</trans-unit>
-			<trans-unit id="Managed Files">
-				<source>Managed Files</source>
-				<target>Archivos administrados</target>
-			</trans-unit>
-			<trans-unit id="List / Leave">
-				<source>List / Leave</source>
-				<target>Listar / Dejar</target>
-			</trans-unit>
-			<trans-unit id="History">
-				<source>History</source>
-				<target>Historial</target>
-			</trans-unit>
-			<trans-unit id="Hardware">
-				<source>Hardware</source>
-				<target>Hardware</target>
-			</trans-unit>
-			<trans-unit id="Diff">
-				<source>Diff</source>
-				<target>Dif</target>
-			</trans-unit>
-			<trans-unit id="Custom Info">
-				<source>Custom Info</source>
-				<target>Información personalizada</target>
-			</trans-unit>
-			<trans-unit id="Config Files">
-				<source>Config Files</source>
-				<target>Archivos de configuración</target>
-			</trans-unit>
-			<trans-unit id="Local Overrides">
-				<source>Local Overrides</source>
-				<target>Anulación local</target>
-			</trans-unit>
-			<trans-unit id="Outage Policy">
-				<source>Outage Policy</source>
-				<target>Política de racionamiento</target>
-			</trans-unit>
-			<trans-unit id="Join">
-				<source>Join</source>
-				<target>Ingresar</target>
-			</trans-unit>
-			<trans-unit id="Rollback">
-				<source>Rollback</source>
-				<target>Restaurar</target>
-			</trans-unit>
-			<trans-unit id="Supported">
-				<source>Supported</source>
-				<target>Soportado</target>
-			</trans-unit>
-			<trans-unit id="Retired">
-				<source>Retired</source>
-				<target>Jubilados</target>
-			</trans-unit>
-			<trans-unit id="Connection">
-				<source>Connection</source>
-				<target>Conexión</target>
-			</trans-unit>
-			<trans-unit id="Activation">
-				<source>Activation</source>
-				<target>Activación</target>
-			</trans-unit>
-			<trans-unit id="Systems Using Proxy">
-				<source>Systems Using Proxy</source>
-				<target>Sistemas usando Proxy</target>
-			</trans-unit>
-			<trans-unit id="Help Desk">
-				<source>Help Desk</source>
-				<target>Escritorio de ayuda</target>
-			</trans-unit>
-			<trans-unit id="Kickstart Details">
-				<source>Kickstart Details</source>
-				<target>Información de Kickstart</target>
-			</trans-unit>
-			<trans-unit id="kickstart.tree.edit.nav">
-				<source>Edit</source>
-				<target>Editar</target>
-			</trans-unit>
-			<trans-unit id="kickstart.variable.nav">
-				<source>Variables</source>
-				<target>Variables</target>
-			</trans-unit>
-			<trans-unit id="System Details">
-				<source>System Details</source>
-				<target>Información del sistema</target>
-			</trans-unit>
-			<trans-unit id="Scripts">
-				<source>Scripts</source>
-				<target>Scripts</target>
-			</trans-unit>
-			<trans-unit id="Kickstart File">
-				<source>Kickstart File</source>
-				<target>Archivo kickstart</target>
-			</trans-unit>
-			<trans-unit id="Operating System">
-				<source>Operating System</source>
-				<target>Sistema operativo</target>
-			</trans-unit>
-			<trans-unit id="Bare Metal Kickstart">
-				<source>Bare Metal Kickstart</source>
-				<target>Bare Metal Kickstart</target>
-			</trans-unit>
-			<trans-unit id="Bare Metal">
-				<source>Bare Metal</source>
-				<target>Bare Metal</target>
-			</trans-unit>
-			<trans-unit id="Advanced Options">
-				<source>Advanced Options</source>
-				<target>Opciones avanzadas</target>
-			</trans-unit>
-			<trans-unit id="Locale">
-				<source>Locale</source>
-				<target>Local</target>
-			</trans-unit>
-			<trans-unit id="Partitioning">
-				<source>Partitioning</source>
-				<target>Particiones</target>
-			</trans-unit>
-			<trans-unit id="GPG_SSL">
-				<source>GPG &amp; SSL</source>
-				<target>GPG y SSL</target>
-			</trans-unit>
-			<trans-unit id="Troubleshooting">
-				<source>Troubleshooting</source>
-				<target>Solución de errores</target>
-			</trans-unit>
-			<trans-unit id="Package Groups">
-				<source>Package Groups</source>
-				<target>Grupos de paquetes</target>
-			</trans-unit>
-			<trans-unit id="Package Profiles">
-				<source>Package Profiles</source>
-				<target>Perfiles de paquetes</target>
-			</trans-unit>
-			<trans-unit id="Expiration Dates &amp; Purchase History">
-				<source>Expiration Dates &amp; Purchase History</source>
-				<target>Fechas de vencimiento e Historial de adquisiciones</target>
-			</trans-unit>
-			<trans-unit id="Purchase or Renew">
-				<source>Purchase or Renew</source>
-				<target>Adquirir o renovar</target>
-			</trans-unit>
-			<trans-unit id="Critical">
-				<source>Critical</source>
-				<target>Crítico</target>
-			</trans-unit>
-			<trans-unit id="Unknown">
-				<source>Unknown</source>
-				<target>Desconocido</target>
-			</trans-unit>
-			<trans-unit id="Recently Registered">
-				<source>Recently Registered</source>
-				<target>Recientemente registrado</target>
-			</trans-unit>
-			<trans-unit id="Admins">
-				<source>Admins</source>
-				<target>Administrativos</target>
-			</trans-unit>
-			<trans-unit id="Managers">
-				<source>Managers</source>
-				<target>Administradores</target>
-			</trans-unit>
-			<trans-unit id="Subscribers">
-				<source>Subscribers</source>
-				<target>Subscriptores</target>
-			</trans-unit>
-			<trans-unit id="Downloads">
-				<source>Downloads</source>
-				<target>Descargas</target>
-			</trans-unit>
-			<trans-unit id="License">
-				<source>License</source>
-				<target>Licencia</target>
-			</trans-unit>
-			<trans-unit id="Organizations">
-				<source>Organizations</source>
-				<target>Organizaciones</target>
-			</trans-unit>
-			<trans-unit id="Trusts">
-				<source>Trusts</source>
-				<target>Confianzas</target>
-			</trans-unit>
-			<trans-unit id="Channels Consumed">
-				<source>Channels Consumed</source>
-				<target>Canales consumidos</target>
-			</trans-unit>
-			<trans-unit id="Channels Provided">
-				<source>Channels Provided</source>
-				<target>Canales proporcionados</target>
-			</trans-unit>
-			<trans-unit id="Subscriptions">
-				<source>Subscriptions</source>
-				<target>Suscripciones</target>
-			</trans-unit>
-			<trans-unit id="Child Channels">
-				<source>Child Channels</source>
-				<target>Canales hijos</target>
-			</trans-unit>
-			<trans-unit id="Base Channels">
-				<source>Base Channels</source>
-				<target>Canales base</target>
-			</trans-unit>
-			<trans-unit id="Software Channel Entitlements">
-				<source>Software Channel Entitlements</source>
-				<target>Derechos de canal de software</target>
-			</trans-unit>
-			<trans-unit id="activation-keys.nav.activated_systems">
-				<source>Activated Systems</source>
-				<target>Sistemas activados</target>
-			</trans-unit>
-		</body>
-	</file>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" xmlns:xyz="urn:appInfo:Items" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" version="1.1">
+  <file source-language="en" datatype="plaintext" original="" target-language="es">
+    <body>
+
+      <trans-unit id="common.nav.overview">
+<source>Overview</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>Visión General</target></trans-unit>
+
+      <trans-unit id="common.nav.systems">
+<source>Systems</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>Sistemas</target></trans-unit>
+
+      <trans-unit id="users.nav.all">
+<source>All</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Users Navigation Menu</context>
+        </context-group>
+      <target>Todos</target></trans-unit>
+
+      <trans-unit id="users.nav.active">
+<source>Active</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Users Navigation Menu</context>
+        </context-group>
+      <target>Activos</target></trans-unit>
+
+      <trans-unit id="users.nav.disabled">
+<source>Deactivated</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Users Navigation Menu</context>
+        </context-group>
+      <target>Desactivados</target></trans-unit>
+
+      <trans-unit id="User">
+<source>User</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Users Navigation Menu</context>
+        </context-group>
+      <target>Usuario</target></trans-unit>
+
+      <trans-unit id="action.nav.backout">
+<source>Back Out Patches</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Action Details Navigation Menu</context>
+        </context-group>
+      <target>Revertir parches</target></trans-unit>
+
+      <trans-unit id="action.nav.install">
+<source>Install Patches</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Action Details Navigation Menu</context>
+        </context-group>
+      <target>Instalar parches</target></trans-unit>
+
+      <trans-unit id="system.nav.all">
+<source>All</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Todos</target></trans-unit>
+
+      <trans-unit id="virtualization.entitlements">
+        <source>Virtualization Entitlements</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Subscription Management Menu</context>
+        </context-group>
+      <target>Derechos de virtualización</target></trans-unit>
+
+      <trans-unit id="guest.limited.hosts">
+        <source>Virtualization Hosts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
+        </context-group>
+      <target>Anfitrión de virtualización</target></trans-unit>
+
+      <trans-unit id="guest.unlimited.hosts">
+        <source>Virtualization Platform Hosts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
+        </context-group>
+      <target>Anfitrión de plataforma de virtualización</target></trans-unit>
+
+      <trans-unit id="guests.without.hosts">
+        <source>Guests Without Hosts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
+        </context-group>
+      <target>Huéspedes sin anfitriones</target></trans-unit>
+
+      <trans-unit id="Virtualization">
+<source>Virtualization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Virtualización</target></trans-unit>
+      <trans-unit id="Virtual Systems">
+<source>Virtual Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Sistemas virtuales</target></trans-unit>
+      <trans-unit id="Duplicate Systems">
+<source>Duplicate Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Duplicar sistemas</target></trans-unit>
+
+      <trans-unit id="duplicate.systems.nav.ips">
+<source>Duplicate IP Address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Duplicate Systems Navigation Menu</context>
+        </context-group>
+      <target>Duplicar dirección IP</target></trans-unit>
+
+      <trans-unit id="duplicate.systems.nav.mac_address">
+<source>Duplicate MAC Address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Duplicar dirección MAC</target></trans-unit>
+
+      <trans-unit id="duplicate.systems.nav.hostname">
+<source>Duplicate Hostname</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Duplicar nombre del host</target></trans-unit>
+
+      <trans-unit id="System Currency">
+<source>System Currency</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Moneda del sistema</target></trans-unit>
+
+
+      <trans-unit id="system.nav.outofdate">
+<source>Out of Date</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Desactualizado</target></trans-unit>
+
+      <trans-unit id="system.nav.unentitled">
+<source>Unentitled</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Sin derechos</target></trans-unit>
+
+      <trans-unit id="system.nav.ungrouped">
+<source>Ungrouped</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Sin grupo</target></trans-unit>
+
+      <trans-unit id="system.nav.inactive">
+<source>Inactive</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Inactivo</target></trans-unit>
+
+      <trans-unit id="system.nav.proxy">
+<source>Proxy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      <target>Proxy</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config">
+        <source>Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>Configuración</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config.deploy">
+        <source>Deploy Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>Implementar archivos</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config.diff">
+        <source>Compare Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>Comparar archivos</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config.subscribe">
+        <source>Subscribe to Channels</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>Suscribir a canales</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config.unsubscribe">
+        <source>Unsubscribe from Channels</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>Eliminar suscripción de canales</target></trans-unit>
+
+      <trans-unit id="ssm.nav.config.enable">
+        <source>Enable Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+        </context-group>
+      <target>Activar configuración</target></trans-unit>
+
+      <trans-unit id="ssm.nav.status">
+         <source>Status</source>
+         <context-group name="ctx">
+            <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+         </context-group>
+      <target>Estado</target></trans-unit>
+
+      <trans-unit id="ssm.nav.status.inprogress">
+         <source>In Progress</source>
+         <context-group name="ctx">
+            <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+         </context-group>
+      <target>En progreso</target></trans-unit>
+
+      <trans-unit id="ssm.nav.status.completed">
+         <source>Completed</source>
+         <context-group name="ctx">
+            <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+         </context-group>
+      <target>Completado</target></trans-unit>
+
+      <trans-unit id="ssm.nav.status.all">
+         <source>All</source>
+         <context-group name="ctx">
+            <context context-type="sourcefile">System Set Manager Navigation Menu</context>
+         </context-group>
+      <target>Todos</target></trans-unit>
+
+      <trans-unit id="channel.nav.relevant">
+<source>Relevant channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>Canales relevantes</target></trans-unit>
+
+      <trans-unit id="channel.nav.all">
+<source>All Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>Todos los canales</target></trans-unit>
+
+      <trans-unit id="channel.nav.shared">
+<source>Shared Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>Canales compartidos</target></trans-unit>
+
+      <trans-unit id="channel.nav.redhat">
+<source>Red Hat Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>Canales de Red Hat</target></trans-unit>
+
+      <trans-unit id="channel.nav.popular">
+<source>Popular Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>Canales populares</target></trans-unit>
+
+      <trans-unit id="channel.nav.custom">
+<source>My Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>Mis canales</target></trans-unit>
+
+      <trans-unit id="channel.nav.retired">
+<source>Retired Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      <target>Canales retirados</target></trans-unit>
+
+      <trans-unit id="audit.nav.audit">
+<source>Audit</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Audit Navigation Menu</context>
+        </context-group>
+      <target>Auditoría</target></trans-unit>
+
+      <trans-unit id="config.nav.managed">
+<source>Managed Systems</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>Sistemas administrados</target></trans-unit>
+
+      <trans-unit id="config.nav.target">
+<source>Target Systems</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>Sistemas objetivos</target></trans-unit>
+
+      <trans-unit id="config.nav.config">
+<source>Configuration</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>Configuración</target></trans-unit>
+
+      <trans-unit id="config.nav.channels">
+<source>Configuration Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>Canales de configuración</target></trans-unit>
+
+      <trans-unit id="config.nav.files">
+<source>Configuration Files</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>Archivos de configuración</target></trans-unit>
+
+      <trans-unit id="config.nav.quota">
+<source>Quota for File Storage</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>Cuota para almacenamiento de archivos</target></trans-unit>
+
+      <trans-unit id="config.nav.globalfiles">
+<source>Centrally Managed Files</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>Archivos administrados centralmente</target></trans-unit>
+
+      <trans-unit id="config.nav.localfiles">
+<source>Locally Managed Files</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+      <target>Archivos administrados localmente</target></trans-unit>
+
+    <!-- ConfigChannel details navigation -->
+	<trans-unit id="configchannel.nav.overview">
+<source>Overview</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>Visión General</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.list">
+<source>List/Remove Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
+        </context-group>
+	<target>Listar/Remover archivos</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.add">
+<source>Add Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>Añadir archivos</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.add.upload">
+<source>Upload File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>Cargar archivo</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.add.import">
+<source>Import Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>Importar archivos</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.add.create">
+<source>Create File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>Crear archivo</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.deploy">
+<source>Deploy Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+	<target>Implementar archivos</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.systems">
+<source>Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/channel/ChannelSystems.do</context>
+        </context-group>
+	<target>Sistemas</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.systems.subscribed">
+<source>Subscribed Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/channel/ChannelSystems.do</context>
+        </context-group>
+	<target>Sistemas suscritos</target></trans-unit>
+
+	<trans-unit id="configchannel.nav.systems.target">
+<source>Target Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/channel/ChannelSystems.do</context>
+        </context-group>
+	<target>Sistemas objetivos</target></trans-unit>
+	<!-- END config channel nav -->
+
+	<!-- config file nav -->
+	<trans-unit id="configfile.nav.details">
+<source>Details</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+	<target>Información</target></trans-unit>
+	<trans-unit id="configfile.nav.revisions">
+<source>Manage Revisions</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileRevisions.do</context>
+        </context-group>
+	<target>Administrar revisiones</target></trans-unit>
+	<trans-unit id="configfile.nav.deploy">
+<source>Deploy File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileDeploy.do</context>
+        </context-group>
+	<target>Implementar archivo</target></trans-unit>
+	<trans-unit id="configfile.nav.copy">
+<source>Copy File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCopy.do</context>
+        </context-group>
+	<target>Copiar archivo</target></trans-unit>
+	<trans-unit id="configfile.nav.copy.central">
+<source>Copy To Centrally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCopy.do</context>
+        </context-group>
+	<target>Copiar a centralmente administrado</target></trans-unit>
+	<trans-unit id="configfile.nav.copy.local">
+<source>Copy To Locally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCopy.do</context>
+        </context-group>
+	<target>Copiar a localmente administrado</target></trans-unit>
+	<trans-unit id="configfile.nav.copy.sandbox">
+<source>Copy To System Sandbox</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCopy.do</context>
+        </context-group>
+	<target>Copiar a entorno de prueba del sistema</target></trans-unit>
+	<trans-unit id="configfile.nav.compare">
+<source>Compare File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCompare.do</context>
+        </context-group>
+	<target>Comparar archivo</target></trans-unit>
+	<trans-unit id="configfile.nav.compare.deployed">
+<source>Deployed Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCompare.do</context>
+        </context-group>
+	<target>Archivos implementados</target></trans-unit>
+	<trans-unit id="configfile.nav.compare.revision">
+<source>Other Revisions</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCompare.do</context>
+        </context-group>
+	<target>Otras revisiones</target></trans-unit>
+	<trans-unit id="configfile.nav.compare.copy">
+<source>Other Copies</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCompare.do</context>
+        </context-group>
+	<target>Otras copias</target></trans-unit>
+	<trans-unit id="configfile.nav.compare.file">
+<source>Other Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/FileCompare.do</context>
+        </context-group>
+    <target>Otros archivos</target></trans-unit>
+    <!-- SDC Config file navigation-->
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/configuration/Overview.do</context>
+        </context-group>
+
+        <trans-unit id="nav.sdc.config.overview">
+          <source>Overview</source>
+        <target>Visión General</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.view_modify_files">
+            <source>View/Modify Files</source>
+        <target>Ver/Modificar archivos</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.add_files">
+            <source>Add File</source>
+        <target>Añadir archivos</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.deploy_files">
+            <source>Deploy Files</source>
+        <target>Implementar archivos</target></trans-unit>
+        <trans-unit id="nav.sdc.config.compare_files">
+            <source>Compare Files</source>
+        <target>Comparar archivos</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.manage_channels">
+            <source>Manage Configuration Channels</source>
+        <target>Administrar canales de configuración</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.list_unsubscribe_channels">
+            <source>List/Unsubscribe from Channels</source>
+        <target>Listar/eliminar suscripciones de canales</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.subscribe_channels">
+            <source>Subscribe to Channels</source>
+        <target>Suscribir a canales</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.rank_channels">
+            <source>View/Modify Rankings</source>
+        <target>Ver/Modificar rangos</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.centrally_managed_files">
+            <source>Centrally-Managed Files</source>
+        <target>Archivos administrados centralmente</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.locally_managed_files">
+            <source>Locally-Managed Files</source>
+        <target>Archivos administrados localmente</target></trans-unit>
+
+        <trans-unit id="nav.sdc.config.sandbox_managed_files">
+            <source>Local Sandbox</source>
+        <target>Entorno de prueba local</target></trans-unit>
+
+      </group>
+
+
+
+	<!-- END config file nav -->
+
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Details Navigation Menu</context>
+        </context-group>
+
+        <trans-unit id="system.detail.nav.list">
+          <source>List</source>
+        <target>Listar</target></trans-unit>
+
+        <trans-unit id="system.detail.nav.remove">
+          <source>List / Remove</source>
+        <target>Listar / Remover</target></trans-unit>
+      </group>
+
+      <trans-unit id="Add">
+<source>Add</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Añadir</target></trans-unit>
+
+      <trans-unit id="Verify">
+<source>Verify</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Verificar</target></trans-unit>
+
+      <trans-unit id="Snapshots">
+<source>Snapshots</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Instantánea</target></trans-unit>
+
+      <trans-unit id="Installation Guide">
+<source>Installation Guide</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Guía de instalación</target></trans-unit>
+
+      <trans-unit id="Software">
+<source>Software</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Software</target></trans-unit>
+
+      <trans-unit id="Provisioning">
+<source>Provisioning</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu (system details)</context>
+        </context-group>
+      <target>Aprovisionamiento</target></trans-unit>
+
+      <trans-unit id="Misc">
+<source>Misc</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Misc</target></trans-unit>
+
+      <trans-unit id="Snapshot Tags">
+<source>Snapshot Tags</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Etiquetas de instantáneas</target></trans-unit>
+
+      <trans-unit id="Session Status">
+<source>Session Status</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Estado de la sesión</target></trans-unit>
+
+      <trans-unit id="Session History">
+<source>Session History</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Historial de la sesión</target></trans-unit>
+
+      <trans-unit id="Sandbox">
+<source>Sandbox</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Entorno de prueba</target></trans-unit>
+
+      <trans-unit id="Spacewalk">
+<source>@@PRODUCT_NAME@@</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@</target></trans-unit>
+
+      <trans-unit id="Spacewalk Configuration">
+<source>@@PRODUCT_NAME@@ Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Configuración de @@PRODUCT_NAME@@</target></trans-unit>
+
+      <trans-unit id="Remote Command">
+<source>Remote Command</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Comando Remoto</target></trans-unit>
+
+      <trans-unit id="Tag Systems">
+<source>Tag Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Sistemas de etiquetas</target></trans-unit>
+
+      <trans-unit id="Reactivation">
+<source>Reactivation</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Reactivación</target></trans-unit>
+
+      <trans-unit id="Properties">
+<source>Properties</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Propiedades</target></trans-unit>
+
+      <trans-unit id="Pending">
+<source>Pending</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Pendiente</target></trans-unit>
+
+      <trans-unit id="Patches">
+<source>Patches</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Parches</target></trans-unit>
+
+      <trans-unit id="Patch Clusters">
+<source>Patch Clusters</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Racimo de parches</target></trans-unit>
+
+      <trans-unit id="Notes">
+<source>Notes</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Notas</target></trans-unit>
+
+      <trans-unit id="Managed Files">
+<source>Managed Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Archivos administrados</target></trans-unit>
+
+      <trans-unit id="List / Remove">
+<source>List / Remove</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Listar / Remover</target></trans-unit>
+
+      <trans-unit id="Add / Remove">
+<source>Add / Remove</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Agregar/Borrar</target></trans-unit>
+
+      <trans-unit id="List / Leave">
+<source>List / Leave</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Listar / Dejar</target></trans-unit>
+
+      <trans-unit id="History">
+<source>History</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Historial</target></trans-unit>
+
+      <trans-unit id="Hardware">
+<source>Hardware</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Hardware</target></trans-unit>
+
+      <trans-unit id="Diff">
+<source>Diff</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Dif</target></trans-unit>
+
+      <trans-unit id="Custom Info">
+<source>Custom Info</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Información personalizada</target></trans-unit>
+
+      <trans-unit id="Configuration">
+<source>Configuration</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Configuración</target></trans-unit>
+
+      <trans-unit id="Config Files">
+<source>Config Files</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Archivos de configuración</target></trans-unit>
+
+      <trans-unit id="Local Overrides">
+<source>Local Overrides</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Anulación local</target></trans-unit>
+
+      <trans-unit id="Outage Policy">
+<source>Outage Policy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Política de racionamiento</target></trans-unit>
+
+      <trans-unit id="Join">
+<source>Join</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Ingresar</target></trans-unit>
+
+      <trans-unit id="Rollback">
+<source>Rollback</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Restaurar</target></trans-unit>
+
+      <trans-unit id="Supported">
+<source>Supported</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Soportado</target></trans-unit>
+
+      <trans-unit id="Retired">
+<source>Retired</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Jubilados</target></trans-unit>
+
+      <trans-unit id="Connection">
+<source>Connection</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Conexión</target></trans-unit>
+
+      <trans-unit id="Activation">
+<source>Activation</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Activación</target></trans-unit>
+
+      <trans-unit id="Systems Using Proxy">
+<source>Systems Using Proxy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Sistemas usando Proxy</target></trans-unit>
+
+      <trans-unit id="Help Desk">
+<source>Help Desk</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      <target>Escritorio de ayuda</target></trans-unit>
+
+      <trans-unit id="Kickstart Details">
+<source>Kickstart Details</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>Información de Kickstart</target></trans-unit>
+
+    <trans-unit id="kickstart.tree.edit.nav">
+        <source>Edit</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    <target>Editar</target></trans-unit>
+
+    <trans-unit id="kickstart.variable.nav">
+        <source>Variables</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    <target>Variables</target></trans-unit>
+
+                 <trans-unit id="System Details">
+<source>System Details</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>Información del sistema</target></trans-unit>
+
+      <trans-unit id="Scripts">
+<source>Scripts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>Scripts</target></trans-unit>
+
+	  <trans-unit id="Kickstart File">
+<source>Kickstart File</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>Archivo kickstart</target></trans-unit>
+      <trans-unit id="Operating System">
+<source>Operating System</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>Sistema operativo</target></trans-unit>
+      <trans-unit id="Bare Metal Kickstart">
+<source>Bare Metal Kickstart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>Bare Metal Kickstart</target></trans-unit>
+      <trans-unit id="Bare Metal">
+<source>Bare Metal</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Menu</context>
+        </context-group>
+      <target>Bare Metal</target></trans-unit>
+
+      <trans-unit id="Advanced Options">
+<source>Advanced Options</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Details Menu</context>
+        </context-group>
+      <target>Opciones avanzadas</target></trans-unit>
+
+  <trans-unit id="Locale">
+    <source>Locale</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart System Details Menu</context>
+    </context-group>
+  <target>Local</target></trans-unit>
+
+  <trans-unit id="Partitioning">
+    <source>Partitioning</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart System Details Menu</context>
+    </context-group>
+  <target>Particiones</target></trans-unit>
+
+  <trans-unit id="GPG_SSL">
+    <source>GPG &amp; SSL</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart System Details Menu</context>
+    </context-group>
+  <target>GPG y SSL</target></trans-unit>
+
+  <trans-unit id="Troubleshooting">
+    <source>Troubleshooting</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart System Details Menu</context>
+    </context-group>
+  <target>Solución de errores</target></trans-unit>
+
+  <trans-unit id="Package Groups">
+    <source>Package Groups</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart Software menu</context>
+    </context-group>
+  <target>Grupos de paquetes</target></trans-unit>
+
+  <trans-unit id="Package Profiles">
+    <source>Package Profiles</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Kickstart Software menu</context>
+    </context-group>
+  <target>Perfiles de paquetes</target></trans-unit>
+
+  <trans-unit id="Expiration Dates &amp; Purchase History">
+    <source>Expiration Dates &amp; Purchase History</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Overview left nav menu</context>
+    </context-group>
+  <target>Fechas de vencimiento e Historial de adquisiciones</target></trans-unit>
+
+  <trans-unit id="Purchase or Renew">
+    <source>Purchase or Renew</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Overview left nav menu</context>
+    </context-group>
+  <target>Adquirir o renovar</target></trans-unit>
+
+  <trans-unit id="Critical">
+    <source>Critical</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/monitoring/ProbeList.do</context>
+    </context-group>
+  <target>Crítico</target></trans-unit>
+
+  <trans-unit id="Unknown">
+    <source>Unknown</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/monitoring/ProbeList.do</context>
+    </context-group>
+  <target>Desconocido</target></trans-unit>
+
+  <trans-unit id="Recently Registered">
+    <source>Recently Registered</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/systems/Registered.do</context>
+    </context-group>
+  <target>Recientemente registrado</target></trans-unit>
+
+  <trans-unit id="Target Systems">
+    <source>Target Systems</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>Sistemas objetivos</target></trans-unit>
+
+  <trans-unit id="Admins">
+    <source>Admins</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/groups/*.do</context>
+    </context-group>
+  <target>Administrativos</target></trans-unit>
+
+  <trans-unit id="Subscribed Systems">
+    <source>Subscribed Systems</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>Sistemas suscritos</target></trans-unit>
+
+  <trans-unit id="Repositories">
+    <source>Repositories</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+    </context-group>
+  <target>Repositorios</target></trans-unit>
+
+  <trans-unit id="Managers">
+    <source>Managers</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>Administradores</target></trans-unit>
+
+  <trans-unit id="Subscribers">
+    <source>Subscribers</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>Subscriptores</target></trans-unit>
+
+  <trans-unit id="Downloads">
+    <source>Downloads</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>Descargas</target></trans-unit>
+
+  <trans-unit id="License">
+    <source>License</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
+    </context-group>
+  <target>Licencia</target></trans-unit>
+
+  <trans-unit id="Sync">
+    <source>Sync</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/channels/manage/errata/SyncErrata.do</context>
+    </context-group>
+  <target>Sincronizar</target></trans-unit>
+
+  <trans-unit id="Organizations">
+    <source>Organizations</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
+    </context-group>
+  <target>Organizaciones</target></trans-unit>
+
+
+    <trans-unit id="Trusts">
+    <source>Trusts</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
+    </context-group>
+  <target>Confianzas</target></trans-unit>
+
+    <trans-unit id="Channels Consumed">
+    <source>Channels Consumed</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/multiorg/OrgTrustDetails.do</context>
+    </context-group>
+  <target>Canales consumidos</target></trans-unit>
+
+    <trans-unit id="Channels Provided">
+    <source>Channels Provided</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/multiorg/OrgTrustDetails.do</context>
+    </context-group>
+  <target>Canales proporcionados</target></trans-unit>
+
+  <trans-unit id="Subscriptions">
+    <source>Subscriptions</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/admin/multiorg/Subscriptions.do</context>
+    </context-group>
+  <target>Suscripciones</target></trans-unit>
+
+
+  <trans-unit id="subdetails.details">
+    <source>Details</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
+    </context-group>
+  <target>Información</target></trans-unit>
+
+
+  <!-- SSM NAV -->
+  <group>
+  <trans-unit id="Child Channels">
+    <source>Child Channels</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
+    </context-group>
+  <target>Canales hijos</target></trans-unit>
+
+  <trans-unit id="Chat">
+    <source>Chat</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/help/about.pxt</context>
+    </context-group>
+  <target>Discutir</target></trans-unit>
+
+  <trans-unit id="Base Channels">
+    <source>Base Channels</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
+    </context-group>
+  <target>Canales base</target></trans-unit>
+  </group>
+
+<!-- Multiorg nav -->
+  <group>
+  <trans-unit id="Software Channel Entitlements">
+    <source>Software Channel Entitlements</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
+    </context-group>
+  <target>Derechos de canal de software</target></trans-unit>
+  </group>
+
+<!-- Activation Keys nav -->
+  <group>
+  <trans-unit id="activation-keys.nav.activated_systems">
+    <source>Activated Systems</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/activationkeys/Edit.do</context>
+    </context-group>
+  <target>Sistemas activados</target></trans-unit>
+  </group>
+
+<!-- Main nav -->
+  <group>
+    <context-group name="ctx">
+      <context context-type="sourcefile">Title bar</context>
+    </context-group>
+  <trans-unit id="manage">
+    <source>Manage</source>
+  <target>Administrar</target></trans-unit>
+  <trans-unit id="clear">
+    <source>Clear</source>
+  <target>Borrar</target></trans-unit>
+
+  </group>
+
+
+    </body>
+  </file>
 </xliff>

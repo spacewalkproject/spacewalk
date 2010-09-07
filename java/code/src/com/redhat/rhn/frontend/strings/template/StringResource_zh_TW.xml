@@ -1,61 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
-	<file source-language="en-US" target-language="zh-TW" datatype="po" original="en-US/template.xliff">
-		<body>
-			<trans-unit id="email.verify.subject">
-				<source>@@PRODUCT_NAME@@ login Email Verification</source>
-				<target>@@PRODUCT_NAME@@ 登入電子郵件驗證</target>
-			</trans-unit>
-			<trans-unit id="email.verify.body">
-				<source>Dear @@PRODUCT_NAME@@ User,
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" xmlns:xyz="urn:appInfo:Items" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" version="1.1">
+  <file source-language="en" datatype="plaintext" original="" target-language="zh_TW">
+    <body>
+      <trans-unit id="email.verify.subject">
+<source>@@PRODUCT_NAME@@ login Email Verification</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ 登入電子郵件驗證</target></trans-unit>
 
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
+<!-- New Account Email -->
+      <trans-unit id="email.newaccount.subject">
+<source>Your @@PRODUCT_NAME@@ Account is ready</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+        </context-group>
+      <target>您的 @@PRODUCT_NAME@@ 帳號已經準備妥當</target></trans-unit>
 
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-
-{2}</source>
-				<target>@@PRODUCT_NAME@@ 用戶鈞鑒：
-
-這封電子郵件是用來驗證您為 Red Hat 登入帳號
-所提供的電子郵件地址。您的 Red Hat 登入帳號
-結合了啟用的 Red Hat 訂閱服務，能讓您透過
-@@PRODUCT_NAME@@，存取系統管理功能。
-
-要確保您 Red Hat 登入帳號的資訊
-安全性，請撥冗點選以下連結，確認您
-的電子郵件地址。如果無法確認您的
-電子郵件地址，那麼您的 Red Hat 登
-入帳號將會被停用。
-
-要確認您的電子郵件地址，請至以下網址：
-
-{0}
-
-感謝您使用 @@PRODUCT_NAME@@。
-{1}
-
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.subject">
-				<source>Your @@PRODUCT_NAME@@ Account is ready</source>
-				<target>您的 @@PRODUCT_NAME@@ 帳號已經準備妥當</target>
-			</trans-unit>
-			<trans-unit id="email.newaccountbycreator.body">
-				<source>Hello,
+      <trans-unit id="email.newaccountbycreator.body">
+<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}. Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -71,7 +35,20 @@ Important: Please change your password upon logging in.
 
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>您好。
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny Password: mypass e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+              Important: Please ...
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>您好。
 
 您的 Red Hat 登入帳號已經由 {0} {1} 為您建立完成。您的 Red
 Hat 登入帳號結合了啟用的 Red Hat 訂閱服務，能讓您透過 @@PRODUCT_NAME@@
@@ -86,10 +63,10 @@ Red Hat 登入帳號：{2}
 重要：請在登入後更改您的密碼。
 
 感謝您使用 @@PRODUCT_NAME@@。
-{6}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.body">
-				<source>Hello,
+{6}</target></trans-unit>
+
+    <trans-unit id="email.newaccount.body">
+<source>Hello,
 
 A Red Hat login has been created for you. Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -105,7 +82,20 @@ Important: Please change your password upon logging in.
 
 Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
-				<target>您好。
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny Password: mypass e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+              Important: Please ...
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>您好。
 
 您的 Red Hat 登入帳號已經建立完成。您的 Red
 Hat 登入帳號結合了啟用的 Red Hat 訂閱服務，能讓您透過 @@PRODUCT_NAME@@
@@ -120,10 +110,10 @@ Hat 登入帳號結合了啟用的 Red Hat 訂閱服務，能讓您透過 @@PROD
 重要：請在登入後更改您的密碼。
 
 感謝您使用 @@PRODUCT_NAME@@。
-{4}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.pam.body">
-				<source>Hello,
+{4}</target></trans-unit>
+
+      <trans-unit id="email.newaccount.pam.body">
+<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}.  Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -136,7 +126,20 @@ provides you with access to manage systems on @@PRODUCT_NAME@@.
 
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>您好。
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>您好。
 
 您的 Red Hat 登入帳號已經由 {0} {1} 為您建立完成。您的
 Red Hat 登入帳號結合了啟用中的 Red Hat 訂閱服務，能讓您透過
@@ -148,14 +151,20 @@ Red Hat 登入帳號結合了啟用中的 Red Hat 訂閱服務，能讓您透過
   {5}
 
 感謝您使用 @@PRODUCT_NAME@@。
-{6}</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.subject">
-				<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
-				<target>@@PRODUCT_NAME@@ 用戶已建立：{0} ({1}, {2} &lt;{3}&gt;)</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.body">
-				<source>Hello,
+{6}</target></trans-unit>
+
+<!-- New User Email -->
+      <trans-unit id="email.newuser.subject">
+<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+      <context context-type="paramnotes">@@PRODUCT_NAME@@ User Created: dugb (Bordon, Duglas &lt;dugb@meko.com&gt;)</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ 用戶已建立：{0} ({1}, {2} &lt;{3}&gt;)</target></trans-unit>
+
+      <trans-unit id="email.newuser.body">
+<source>Hello,
 
 A new user has been added to your account.
 
@@ -168,7 +177,19 @@ please visit:
 
 Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
-				<target>您好。
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+      <context context-type="paramnotes">
+          Account Information:
+              Your @@PRODUCT_NAME@@ login:         mdputter
+              Your @@PRODUCT_NAME@@ email address: mdputter@myhog.com
+              ...please visit:
+              https://rhn.redhat.com/rhn/users/ActiveList.do
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team</context>
+        </context-group>
+      <target>您好。
 
 新使用者已被加入至您的帳號。
 
@@ -180,42 +201,53 @@ Thank you for using @@PRODUCT_NAME@@.
   {1}
 
 感謝您使用 @@PRODUCT_NAME@@。
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.user.deleted.subject">
-				<source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-				<target>@@PRODUCT_NAME@@ 帳號已停用：{0}</target>
-			</trans-unit>
-			<trans-unit id="email.user.deleted.body">
-				<source>
+{2}</target></trans-unit>
+      <trans-unit id="email.user.deleted.subject">
+         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
+      <target>@@PRODUCT_NAME@@ 帳號已停用：{0}</target></trans-unit>
+
+      <trans-unit id="email.user.deleted.body">
+         <source>
 The Red Hat login {0} has been deactivated in response to your request.
 
-Thank you for contacting Red Hat.</source>
-				<target>
-Red Hat 登入帳號 {0} 已經根據您的要求，予以停用。
+Thank you for contacting Red Hat.
+         </source>
+      <target></target></trans-unit>
 
-感謝您聯絡 Red Hat。</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.subject">
-				<source>Red Hat login creation request</source>
-				<target>建立 Red Hat 登入帳號的需求</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.footer">
-				<source>
+      <trans-unit id="email.newuser.bala.subject">
+<source>Red Hat login creation request</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>建立 Red Hat 登入帳號的需求</target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.footer">
+<source>
 For additional information in German language, please visit our Website:
-{0}</source>
-				<target>
-欲知更多關於德文的詳細資料，請參閱我們的網站：
-{0}</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.footer2">
-				<source>
-For French, click here: {0}</source>
-				<target>
-法文請按此：{0}</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.body">
-				<source>
+{0}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+          <context context-type="paramnotes">
+          {0} - URL to German website
+          </context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.footer2">
+<source>
+For French, click here: {0}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+          <context context-type="paramnotes">
+          {0} - URL to German website containing French and German text
+          </context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.body">
+<source>
 Dear Red Hat Customer,
 
 You were recently named on an order for new Red Hat subscriptions.  These
@@ -258,56 +290,29 @@ this feature.
 Thank you for choosing Red Hat.
 
 Sincerely,
-Red Hat Account Management Team</source>
-				<target>
-Red Hat Network 用戶鈞鑒：
-
-您最近訂購了 Red Hat 訂閱服務。這些訂閱服務可在以下帳號找到：
-
-  用戶名稱：{0}
-  帳號號碼：{1}
-
-您可以點選以下連結，為這帳號建立新的 Red Hat 登入帳號，並存取您的
-訂閱服務：
-
-{2}
-
-如果您不是使用 Red Hat 訂閱服務的技術人員，
-請將這封電子郵件轉送給
-公司裡的相關人員。如果他們還沒有 Red Hat 的登入帳號，請依循以上連
-結，建立新的帳號。
-
-如果您已經有登入帳號，同時該帳號連結到以上帳號，那麼您不需要採取任
-何行動。您可以登入以下網頁，找到與現有 Red Hat 登入帳號相連結的帳
-號號碼：
-
-http://www.redhat.com/support/
-
-如果您已經有了連結到另一個帳號的 Red Hat 登入帳號，而非本電子郵件
-所列之，同時您又想使用這帳號來管理這些
-訂閱服務，Red Hat 可以將這
-些登入帳號轉移到您想要的帳號下。請使用以下網址所提供的聯絡資訊，聯
-絡您所在區域的 Red Hat 客戶服務代表：
-
-{3}
-
-帳號管理員（組織管理員）請注意：在新
-使用者可以存取訂閱服務之前，您
-必須賦予他們使用您的帳號，檢視、管理訂閱服務的權利。您的帳號需要有
-用戶管理權利。如果需要的話，請遵循以上連結的指示，聯絡您所在區域的
-Red Hat 客戶服務代表，索求這項功能。
-
-感謝您使用 Red Hat Network。
+Red Hat Account Management Team
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: PushedUsers.java</context>
+      <context context-type="paramnotes">
+          {0} - Customers name - Web_Customer.name - Michael Bowman
+          {1} - Account number - 012543
+          {2} - Creation url - http://blah/CreatePersonal.do?checksum=$1$a322349ade
+          {3} - Customer Server url - http://blah/about/contact/dir/#custservice
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
 
-Red Hat 帳號管理小組敬上</target>
-			</trans-unit>
-			<trans-unit id="email.unchanneledsystem.subject">
-				<source>Your Red Hat system is not able to receive service</source>
-				<target>您的 Red Hat 系統無法收到服務</target>
-			</trans-unit>
-			<trans-unit id="email.unchanneledsystem.body">
-				<source>
+      <trans-unit id="email.unchanneledsystem.subject">
+<source>Your Red Hat system is not able to receive service</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>您的 Red Hat 系統無法收到服務</target></trans-unit>
+
+      <trans-unit id="email.unchanneledsystem.body">
+<source>
 Dear Red Hat Customer,
 
 The following system has been associated with your Red Hat login and
@@ -345,49 +350,23 @@ representative at:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Thank you for using @@PRODUCT_NAME@@.</source>
-				<target>
-Red Hat 用戶鈞鑒：
+Thank you for using @@PRODUCT_NAME@@.
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: NoChannelCheck.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Server name Name - Server.name - highwind
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-過去幾天內，以下系統與您的 Red Hat 登入帳號有
-關聯，但無法被授予 @@PRODUCT_NAME@@
-服務的權利。
+<group>
+  <context-group name="ctx">
+    <context context-type="sourcefile">Taskomatic task: ErrataMailer.java</context>
+  </context-group>
 
-{0}
-
-有幾項原因可能引起此問題：
-
-1) 您最近重新安裝了系統，並試圖將這系統與現有、已啟動
-   的訂閱服務相關連。請確認您有從 @@PRODUCT_NAME@@ 中
-   刪除現有的系統設定檔。
-
-2) 您連接到 @@PRODUCT_NAME@@ 的系統數目超過了
-   您帳號所擁有的 Red Hat 訂閱
-   數。這可能是因為您的訂閱服務已經過期，或
-   您需要購買一份 Red Hat 訂閱服務。
-
-   要檢查您現有 Red Hat 訂閱
-   的有效期限，請至：
-
-   https://www.redhat.com/apps/support/
-
-   登入後請按下「檢視」，並管理您的訂閱連結。
-
-3) 您最近安裝了一項 Red Hat 產品，而您的訂閱
-   碼並未成功地啟動。如果您打算嘗試
-   重新啟動您的訂閱，請至以下網址：
-
-   https://www.redhat.com/activate
-
-如果您有其它疑問，請聯絡 Red Hat 客服
-人員：
-
-http://www.redhat.com/about/contact/directory.html#custservice
-
-感謝您使用 @@PRODUCT_NAME@@。</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.summary">
-				<source>
+  <trans-unit id="email.errata.notification.body.summary">
+    <source>
 @@PRODUCT_NAME@@ has determined that the following advisory is applicable to
 one or more of the systems you have registered:
 
@@ -401,59 +380,51 @@ Summary:
 
 {4}{5}{6}
 {7}
-------------------------------------------------------------------------------</source>
-				<target>
-@@PRODUCT_NAME@@ 判斷了下列建議能對應於
-一個或更多個您所註冊的系統：
-
-有關此勘誤的完整資訊能在下列位置上 發現：
-     {0}
-
-{1} - {2}
 ------------------------------------------------------------------------------
-摘要：
-{3}
-
-{4}{5}{6}
-{7}
-------------------------------------------------------------------------------</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.affectedheader">
-				<source>
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - Errata Details URL
+        {1} - errata advisory type
+        {2} - errata advisory
+        {3} - errata synopsis
+        {4} - errata topic
+        {5} - errata description
+        {6} - errata notes
+        {7} - errata refs
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.affectedheader">
+    <source>
 ---------------------
 Affected Systems List
 ---------------------
 This Errata Advisory may apply to the systems listed below. If you know that
 this errata does not apply to a system listed, it might be possible that the
 package profile for that server is out of date. In that case you should run
-'up2date -p' (RHEL 4 and below) or 'rhn-profile-sync' (RHEL 5 and above) as root on the system in question to refresh your software profile.</source>
-				<target>
----------------------
-受影響的系統清單
----------------------
-此勘誤建議能應用於下列所列出的系統。假如您知道
-此勘誤無法應用於列出的系統，也許是因為
-這個伺服器的套件設定檔已過期了。如真如此，您應在有問題的系統上
-以root 身份執行「up2date -p」（RHEL4 以下）或「rhn-profile-sync」（RHEL 5 以上），以便更新您的軟體設定檔。</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.onesystem">
-				<source>
+'up2date -p' (RHEL 4 and below) or 'rhn-profile-sync' (RHEL 5 and above) as root on the system in question to refresh your software profile.
+    </source>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.onesystem">
+    <source>
 There is 1 affected system registered in 'Overview' (only systems for
-which you have explicitly enabled Errata Alerts are shown).</source>
-				<target>
-有 1 個被影響的系統註冊於「總覽」之中（只有您明確地
-啟用勘誤警告的系統才會被顯示出）。</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.numsystems">
-				<source>
+which you have explicitly enabled Errata Alerts are shown).
+    </source>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.numsystems">
+    <source>
 There are {0} affected systems registered in 'Overview' (only systems for
-which you have explicitly enabled Errata Alerts are shown).</source>
-				<target>
-有 {0} 個被影響的系統註冊於「總覽」之中（只有您明確地
-啟用勘誤警告的系統才會被顯示出）。</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.affected">
-				<source>
+which you have explicitly enabled Errata Alerts are shown).
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - system count
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.affected">
+    <source>
 Release    Arch       Profile Name
 ---------- ---------- ---------------------------------------------
 {0}
@@ -465,23 +436,17 @@ You may address the issues outlined in this advisory in two ways:
        errata update for it:
            {1}
 
-     - run the Update Agent on each affected server.</source>
-				<target>
-發行版    架構       設定檔名稱
----------- ---------- ---------------------------------------------
-{0}
-
-您能夠使用兩種方法來找出此建議中所描述出的問題：
-
-     - 藉由從下列位置上的清單中點選伺服器的名稱
-       來選擇您的伺服器名稱，接著為它排程一個
-       勘誤更新：
-           {1}
-
-     - 請在各個受影響的伺服器上執行更新代理程式。</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.preferences">
-				<source>
+     - run the Update Agent on each affected server.
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - systems affected list
+        {1} - system list URL
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.preferences">
+    <source>
 Changing Notification Preferences
 ---------------------------------
 To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
@@ -494,28 +459,27 @@ individual system from the "Systems List". From the individual system view
 click the "Details" tab.
 
 {1}
-{2}</source>
-				<target>
-更改通知偏好設定
----------------------------------
-如要全域性地啟用/停用您的勘誤警告偏好設定，請登入 @@PRODUCT_NAME@@
-並由「總覽」/「您的帳號」瀏覽至「偏好設定」分頁。
+{2}
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - account preferences URL
+        {1} - email footer
+        {2} - account info
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+</group>
 
-        URL：{0}
-
-您也能夠藉由從「系統清單」中選擇個別的系統來
-啟用/停用基於單一系統的通知。從個別系統的畫面中
-按下「詳細資料」分頁。
-
-{1}
-{2}</target>
-			</trans-unit>
-			<trans-unit id="dailysummary.email.subject">
-				<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
-				<target>{0} 的 @@PRODUCT_NAME@@ 每日狀態報告</target>
-			</trans-unit>
-			<trans-unit id="dailysummary.email.body">
-				<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
+      <trans-unit id="dailysummary.email.subject">
+<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic task: DailySummary.java</context>
+          <context context-type="paramnotes">{0} - current time in short format</context>
+        </context-group>
+      <target>{0} 的 @@PRODUCT_NAME@@ 每日狀態報告</target></trans-unit>
+      <trans-unit id="dailysummary.email.body">
+<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
 
 This email will be sent when any of the following apply:
 
@@ -534,30 +498,23 @@ https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 Thank you for using @@PRODUCT_NAME@@.
 {5}
-{6}</source>
-				<target>這是您截至 {1} 為止，帳號 {0} 的 @@PRODUCT_NAME@@ 狀態報告。
-
-這封郵件會在任何特定系統符合以下條件時發出：
-
-1.  該系統在過去廿四小時內並未登入 @@PRODUCT_NAME@@。
-2.  該系統註冊了排程活動。
-
-{2}
-{3}
-要取消這封電子郵件：
-----------------------
-
-如要了解如何取消這封電子郵件：
-
-https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
-
-
-感謝您使用 @@PRODUCT_NAME@@。
-{5}
-{6}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.body">
-				<source>
+{6}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic task: DailySummary.java</context>
+          <context context-type="paramnotes">
+             {0} = login
+             {1} = datetime (now with timezone)
+             {2} = action message
+             {3} = awol message
+             {4} = hostname
+             {5} = emailFooter from template db
+             {6} = email account info from template db
+          </context>
+        </context-group>
+      <target></target></trans-unit>
+      <trans-unit id="email.verification.notice.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
@@ -577,35 +534,25 @@ To confirm your email address, please visit the following URL:
 
 Thank you for using @@PRODUCT_NAME@@.
 {1}
-{2}</source>
-				<target>
-@@PRODUCT_NAME@@ 用戶鈞鑒：
+{2}
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Confirmation URL: https://rhn.redhat.com/
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-這封電子郵件是用來驗證您
-為 Red Hat 登入帳號所提供的電子郵件地址。
-您的 Red Hat 登入帳號結合了已啟用的 Red Hat 訂閱服務，能讓您透過
-@@PRODUCT_NAME@@ 來存取系統管理功能。
+      <trans-unit id="email.verification.notice.subject">
+<source>Red Hat login Email Verification</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>Red Hat 登入電子郵件驗證</target></trans-unit>
 
-要確保您 Red Hat 登入帳號的資訊安全性，
-請撥冗點選以下連結，確認您的電子郵件地址。
-如果無法確認您的電子郵件地址，那麼您
-的 Red Hat 登入帳號將會
-被停用。
-
-要確認您的電子郵件地址，請至以下網址：
-
-{0}
-
-感謝您使用 @@PRODUCT_NAME@@。
-{1}
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>Red Hat 登入電子郵件驗證</target>
-			</trans-unit>
-			<trans-unit id="email.verification.warning.body">
-				<source>
+      <trans-unit id="email.verification.warning.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
@@ -628,42 +575,34 @@ To confirm your email address, please visit the following URL:
 
 Thank you for using @@PRODUCT_NAME@@.
 {1}
-{2}</source>
-				<target>
-@@PRODUCT_NAME@@ 用戶鈞鑒：
+{2}
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Confirmation URL: https://rhn.redhat.com/
+         {1} - EmailFooter
+         {2} - EmailAccountInfo
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-這封電子郵件是用來驗證您
-為 Red Hat 登入帳號所提供的電子郵件地址。
-您的 Red Hat 登入帳號結合了已啟用的 Red Hat 訂閱服務，能讓您透過
-@@PRODUCT_NAME@@ 來存取系統管理功能。
+      <trans-unit id="email.verification.warning.subject">
+<source>Red Hat Login Email Verification, Final Notice</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>Red Hat 登入電子郵件驗證，最後通知</target></trans-unit>
 
-要確保您 Red Hat 登入帳號的資訊安全性，請
-撥冗點選以下連結，確認您的電子郵件地址。
-如果無法確認您的電子郵件地址，那麼您
-的 Red Hat 登入帳號將會
-被停用。
+      <trans-unit id="email.satellitecert.graceperiod.subject">
+<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      <target>Red Hat @@PRODUCT_NAME@@ 伺服器認證過期警告</target></trans-unit>
 
-請注意這是最後通知。如果您不在兩天內點選以下網址，那麼您的 Red Hat
-登入帳號將會被停用。
-
-要確認您的電子郵件地址，請至以下網址：
-
-{0}
-
-感謝您使用 @@PRODUCT_NAME@@。
-{1}
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.warning.subject">
-				<source>Red Hat Login Email Verification, Final Notice</source>
-				<target>Red Hat 登入電子郵件驗證，最後通知</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.graceperiod.subject">
-				<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
-				<target>Red Hat @@PRODUCT_NAME@@ 伺服器認證過期警告</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.graceperiod.body">
-				<source>
+      <trans-unit id="email.satellitecert.graceperiod.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
@@ -673,25 +612,26 @@ Please contact your regional Red Hat Customer  Service Representative for inform
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team</source>
-				<target>
-@@PRODUCT_NAME@@ 用戶鈞鑒：
+--the @@PRODUCT_NAME@@ Team
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+          <context context-type="paramnotes">
+          {0} - Hostname of the @@PRODUCT_NAME@@ Whose Cert has Expired: highwind.devel.redhat.com
+          {1} - Days Until satellite certificate expiration: 7
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-我們藉此電子郵件通知您，您本地的 @@PRODUCT_NAME@@ 衛星伺服器 {0} 之認證已經過
-期。經過 {1} 天之後，您 @@PRODUCT_NAME@@ 伺服器所提供的系統
-管理服務將無法繼續使用。請聯絡您的 Red Hat 客服人員，以了解
-更新 @@PRODUCT_NAME@@ 的
-認證之方法。
+      <trans-unit id="email.satellitecert.expired.subject">
+<source>Red Hat satellite certificate expiration notice</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      <target>Red Hat 衛星伺服器認證的過期通知</target></trans-unit>
 
-感謝您使用 @@PRODUCT_NAME@@。
---@@PRODUCT_NAME@@ 小組敬上</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.expired.subject">
-				<source>Red Hat satellite certificate expiration notice</source>
-				<target>Red Hat 衛星伺服器認證的過期通知</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.expired.body">
-				<source>
+      <trans-unit id="email.satellitecert.expired.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
@@ -701,20 +641,13 @@ Customer Service Representative for information on how to renew your @@PRODUCT_N
 
 
 Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team</source>
-				<target>
-@@PRODUCT_NAME@@ 用戶鈞鑒：
-
-我們藉此電子郵件通知您，您本地衛星伺服器 {0} 上
-的 @@PRODUCT_NAME@@ 之認證已經過
-期。除非您更新認證，否則您將無法繼續使用系統管理服務。
-請聯絡您地區的 Red Hat 客服人員，以了解更新 @@PRODUCT_NAME@@
-的認證之方法。
-
-
-感謝您使用 @@PRODUCT_NAME@@。
---@@PRODUCT_NAME@@ 小組敬上</target>
-			</trans-unit>
-		</body>
-	</file>
+--the @@PRODUCT_NAME@@ Team
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+          <context context-type="paramnotes">{0} - Hostname of the @@PRODUCT_NAME@@ Whose Cert has Expired: highwind.devel.redhat.com </context>
+        </context-group>
+      <target></target></trans-unit>
+    </body>
+  </file>
 </xliff>

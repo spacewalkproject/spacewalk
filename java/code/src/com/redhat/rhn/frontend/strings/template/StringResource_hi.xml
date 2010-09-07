@@ -1,59 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
-	<file source-language="en-US" target-language="hi-IN" datatype="po" original="en-US/template.xliff">
-		<body>
-			<trans-unit id="email.verify.subject">
-				<source>@@PRODUCT_NAME@@ login Email Verification</source>
-				<target>@@PRODUCT_NAME@@ लॉगिन ईमेल सत्यापन</target>
-			</trans-unit>
-			<trans-unit id="email.verify.body">
-				<source>Dear @@PRODUCT_NAME@@ User,
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" xmlns:xyz="urn:appInfo:Items" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd" version="1.1">
+  <file source-language="en" datatype="plaintext" original="" target-language="hi">
+    <body>
+      <trans-unit id="email.verify.subject">
+<source>@@PRODUCT_NAME@@ login Email Verification</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ लॉगिन ईमेल सत्यापन</target></trans-unit>
 
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
+<!-- New Account Email -->
+      <trans-unit id="email.newaccount.subject">
+<source>Your @@PRODUCT_NAME@@ Account is ready</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+        </context-group>
+      <target>आपका @@PRODUCT_NAME@@ खाता तैयार है</target></trans-unit>
 
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-
-{2}</source>
-				<target>प्रिय @@PRODUCT_NAME@@ उपयोक्ता,
-
-यह ईमेल उस ईमेल पता को वैधीकृत करने के लिये भेजा रहा है
-जिसे आपने अपने Red Hat लॉगिन में दिया है. आपका Red Hat
-लॉगिन, एक सक्रिय Red Hat सदस्यता के साथ, आपको Red Hat
-Network से होकर सिस्टम प्रबंधन क्षमता में अभिगम देता है.
-
-आपके Red Hat लॉगिन से जुड़े खाता सूचना की सुरक्षा सुनिश्चित करने
-के लिये नीचे के लिंक पर क्लिक करने के लिये कृपया एक क्षण रूकें और
-जांचें कि हमारे पास सही ईमेल पता है. अगर आप ईमेल पता की संपुष्टि नहीं
- करते हैं, तो आपका Red Hat लॉगिन अंततः निष्क्रिय हो जायेगा
-अपना ईमेल पता सुनिश्चित करने के लिये, कृपया निम्न URL पर जायें:
-
-{0}
-
-Red Hat Network का उपयोग करने के लिये आपको धन्यवाद.
-{1}
-
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.subject">
-				<source>Your @@PRODUCT_NAME@@ Account is ready</source>
-				<target>आपका @@PRODUCT_NAME@@ खाता तैयार है</target>
-			</trans-unit>
-			<trans-unit id="email.newaccountbycreator.body">
-				<source>Hello,
+      <trans-unit id="email.newaccountbycreator.body">
+<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}. Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -69,7 +35,20 @@ Important: Please change your password upon logging in.
 
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>नमस्कार,
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny Password: mypass e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+              Important: Please ...
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>नमस्कार,
 
 {0} {1} के द्वारा आपके लिये Red Hat लॉगिन बनाया जा रहा है . आपका
 Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के साथ, आपको @@PRODUCT_NAME@@
@@ -84,10 +63,10 @@ Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के
 महत्वपूर्ण: लॉगिन पर अपना शब्दकूट बदलें.
 
 Red Hat Network के प्रयोग के लिये आपको धन्यवाद.
-{6}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.body">
-				<source>Hello,
+{6}</target></trans-unit>
+
+    <trans-unit id="email.newaccount.body">
+<source>Hello,
 
 A Red Hat login has been created for you. Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -103,7 +82,20 @@ Important: Please change your password upon logging in.
 
 Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
-				<target>नमस्कार,
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny Password: mypass e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+              Important: Please ...
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>नमस्कार,
 
 एक Red Hat लॉगिन आपके लिये बनाया जा रहा है . आपका
 Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के साथ, आपको @@PRODUCT_NAME@@
@@ -118,10 +110,10 @@ Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के
 महत्वपूर्ण: लॉगिन पर अपना शब्दकूट बदलें.
 
 Red Hat Network के प्रयोग के लिये आपको धन्यवाद.
-{4}</target>
-			</trans-unit>
-			<trans-unit id="email.newaccount.pam.body">
-				<source>Hello,
+{4}</target></trans-unit>
+
+      <trans-unit id="email.newaccount.pam.body">
+<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}.  Your
 Red Hat login, in combination with an active Red Hat subscription,
@@ -134,7 +126,20 @@ provides you with access to manage systems on @@PRODUCT_NAME@@.
 
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>नमस्कार,
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
+          <context context-type="paramnotes">
+              ...created for you by James Bond (admin).
+              where James = account creator's first names, Bond = account creator's last name, and
+              admin = account creator's login.
+              ...Red Hat login: kjohnny e-mail: kganong@redhat.com
+              https://rhn.redhat.com/
+
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team
+          </context>
+        </context-group>
+      <target>नमस्कार,
 
 एक Red Hat लॉगिन आपके लिये {0} {1}बनाया जा रहा है.  आपका
 Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के साथ,
@@ -146,14 +151,20 @@ Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के
   {5}
 
 Red Hat Network के प्रयोग के लिये आपको धन्यवाद.
-{6} </target>
-			</trans-unit>
-			<trans-unit id="email.newuser.subject">
-				<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
-				<target>@@PRODUCT_NAME@@ उपयोक्ता बनाया गया: {0} ({1}, {2} &lt;{3}&gt;)</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.body">
-				<source>Hello,
+{6} </target></trans-unit>
+
+<!-- New User Email -->
+      <trans-unit id="email.newuser.subject">
+<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+      <context context-type="paramnotes">@@PRODUCT_NAME@@ User Created: dugb (Bordon, Duglas &lt;dugb@meko.com&gt;)</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ उपयोक्ता बनाया गया: {0} ({1}, {2} &lt;{3}&gt;)</target></trans-unit>
+
+      <trans-unit id="email.newuser.body">
+<source>Hello,
 
 A new user has been added to your account.
 
@@ -166,7 +177,19 @@ please visit:
 
 Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
-				<target>नमस्कार
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
+      <context context-type="sourcefile">/users/ChangeEmail.do</context>
+      <context context-type="paramnotes">
+          Account Information:
+              Your @@PRODUCT_NAME@@ login:         mdputter
+              Your @@PRODUCT_NAME@@ email address: mdputter@myhog.com
+              ...please visit:
+              https://rhn.redhat.com/rhn/users/ActiveList.do
+              Thank you for using @@PRODUCT_NAME@@.
+              --the @@PRODUCT_NAME@@ Team</context>
+        </context-group>
+      <target>नमस्कार
 
 एक नया उपयोक्ता आपके खाते में जोड़ा जा रहा है.
 
@@ -175,42 +198,53 @@ Thank you for using @@PRODUCT_NAME@@.
 कृपया देखें:
   {1}
 @@PRODUCT_NAME@@ का उपयोग करने के लिये आपको धन्यवाद.
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.user.deleted.subject">
-				<source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-				<target>@@PRODUCT_NAME@@ खाता निष्क्रिय किया गया: {0}</target>
-			</trans-unit>
-			<trans-unit id="email.user.deleted.body">
-				<source>
+{2}</target></trans-unit>
+      <trans-unit id="email.user.deleted.subject">
+         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
+      <target>@@PRODUCT_NAME@@ खाता निष्क्रिय किया गया: {0}</target></trans-unit>
+
+      <trans-unit id="email.user.deleted.body">
+         <source>
 The Red Hat login {0} has been deactivated in response to your request.
 
-Thank you for contacting Red Hat.</source>
-				<target>
-Red Hat लॉगिन {0} आपके आग्रह की अनुक्रिया में निष्क्रिय किया जा रहा है.
+Thank you for contacting Red Hat.
+         </source>
+      <target></target></trans-unit>
 
-Red Hat से संपर्क के लिये धन्यवाद.</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.subject">
-				<source>Red Hat login creation request</source>
-				<target>Red Hat लॉगिन निर्माण आग्रह</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.footer">
-				<source>
+      <trans-unit id="email.newuser.bala.subject">
+<source>Red Hat login creation request</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>Red Hat लॉगिन निर्माण आग्रह</target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.footer">
+<source>
 For additional information in German language, please visit our Website:
-{0}</source>
-				<target>
-जर्मन भाषा में अतिरिक्त सूचना के लिये, हमारी वेबसाइट देखें:
-{0}</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.footer2">
-				<source>
-For French, click here: {0}</source>
-				<target>
-फ्रेंच के लिये, यहां क्लिक करें: {0}</target>
-			</trans-unit>
-			<trans-unit id="email.newuser.bala.body">
-				<source>
+{0}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+          <context context-type="paramnotes">
+          {0} - URL to German website
+          </context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.footer2">
+<source>
+For French, click here: {0}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+          <context context-type="paramnotes">
+          {0} - URL to German website containing French and German text
+          </context>
+        </context-group>
+      <target></target></trans-unit>
+
+      <trans-unit id="email.newuser.bala.body">
+<source>
 Dear Red Hat Customer,
 
 You were recently named on an order for new Red Hat subscriptions.  These
@@ -253,59 +287,29 @@ this feature.
 Thank you for choosing Red Hat.
 
 Sincerely,
-Red Hat Account Management Team</source>
-				<target>
-प्रिय Red Hat उपभोक्ता,
+Red Hat Account Management Team
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: PushedUsers.java</context>
+      <context context-type="paramnotes">
+          {0} - Customers name - Web_Customer.name - Michael Bowman
+          {1} - Account number - 012543
+          {2} - Creation url - http://blah/CreatePersonal.do?checksum=$1$a322349ade
+          {3} - Customer Server url - http://blah/about/contact/dir/#custservice
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-आपको हाल में नयी Red Hat सदस्यता के लिये नामित किया गया.  ये
-सदस्यता अब निम्न खाता में अब उपलब्ध है:
 
-  उपभोक्ता नाम : {0}
-  खाता संख्या: {1}
+      <trans-unit id="email.unchanneledsystem.subject">
+<source>Your Red Hat system is not able to receive service</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>आपका Red Hat सिस्टम सेवा प्राप्त करने में समर्थ नहीं है</target></trans-unit>
 
-आप नीचे के लिंक पर इस खाता के लिये नया Red Hat लॉगिन बनाने
-के लिये क्लिक कर सकते हैं
-और अपनी सदस्यता में अभिगम पा सकते हैं:
-
-{2}
-
-अगर आप तकनीकी प्रबंधक नहीं हैं जो खरीदे गये Red Hat सदस्यता का उपयोग करेगा
- कृपया इस ईमेल को उचित उपयोक्ता को अपने संगठन के अंदर
-भेजें.  अगर उनके पास पहले से Red Hat लॉगिन नहीं है, वह उपयोक्ता
-लिंक को एक नया बनाने के लिये अनुसरण कर सकता है.
-
-अगर आपके पास एक लॉगिन पहले से है और यह ऊपर के खाता से लिंक है, तब
-कोई कार्रवाई जरूरी नहीं है.  आप खाता संख्या पा सकते हैं मौजूदा Red
-Hat में निम्न पृष्ठ में लॉग करके:
-
-http://www.redhat.com/support/
-
-अगर आपके पास पहले से Red Hat लॉगिन है जो अलग खाता से जुड़ा है बजाय
-इस ईमेल पर सूचीबद्ध एक से, और इन सदस्यता को प्रबंधित करने के लिये खाता का प्रयोग करना चाहेगा
- Red Hat उसे आपके इच्छित खाता में भेज सकता है.  कृपया
-अपने क्षेत्रीय Red Hat उपभोक्ता सेवा प्रतिनिधि से संपर्क करें, इस लिंक पर दिये गये
-संपर्क के प्रयोग से:
-
-{3}
-
-खाता प्रबंधक के लिये नोट (संगठन प्रशासक): इससे पहले कि एक नया
-उपयोक्ता सदस्यता का अभिगम करे, आपको जरूर अपने खाता पर सदस्यता को
-देखने व प्रबंधित करने क्षमता देनी चाहिए.  यह जरूरी है कि एक उपयोक्ता प्रशासक
-एंटाइटेलमेंट आपके खाता पर मौजूद रहता है.  अगर जरूरी हो, कृपया ऊपर का लिंक का अनुसरण करें
-और अपने प्रांतीय Red Hat उपभोक्ता सेवा प्रतिनिधि से इस गुण के लिये
- निवेदन करें.
-
-Red Hat के चुनाव के लिये धन्यवाद.
-
-विश्वासी,
-Red Hat खाता प्रबंधन दल</target>
-			</trans-unit>
-			<trans-unit id="email.unchanneledsystem.subject">
-				<source>Your Red Hat system is not able to receive service</source>
-				<target>आपका Red Hat सिस्टम सेवा प्राप्त करने में समर्थ नहीं है</target>
-			</trans-unit>
-			<trans-unit id="email.unchanneledsystem.body">
-				<source>
+      <trans-unit id="email.unchanneledsystem.body">
+<source>
 Dear Red Hat Customer,
 
 The following system has been associated with your Red Hat login and
@@ -343,49 +347,23 @@ representative at:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Thank you for using @@PRODUCT_NAME@@.</source>
-				<target>
-प्रिय Red Hat उपभोक्ता,
+Thank you for using @@PRODUCT_NAME@@.
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: NoChannelCheck.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Server name Name - Server.name - highwind
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-निम्न सिस्टम आपके Red Hat लॉगिन और
-खाता से पहले से जुड़ा रहा है, लेकिन @@PRODUCT_NAME@@
-सेवा का एंटाइटटिल नहीं हो सका है.
+<group>
+  <context-group name="ctx">
+    <context context-type="sourcefile">Taskomatic task: ErrataMailer.java</context>
+  </context-group>
 
-{0}
-
-कई कारण हैं कि क्यों यह पैदा हो सकता है:
-
-1) आपने हाल में एक सिस्टम फिर अधिष्ठापित किया है और आप
-   मौजूदा सक्रिय सदस्यता के साथ सिस्टम जोड़ने का प्रयास कर रहे हैं. कृपया सुनिश्चित करें कि
-   आपने अपना मौजूदा सिस्टम प्रोफाइल @@PRODUCT_NAME@@ पर मिटा दिया है
-
-2) सिस्टम की संख्या जिसे आपने @@PRODUCT_NAME@@ से जोड़ा है वह
-   आपके खाता से जुड़े सक्रिय Red Hat सदस्यता से
-   ज्यादा है.  यह इसलिये कि आपकी सदस्यता खत्म हो चुकी है या
-   आपको Red Hat सदस्यता लेने की जरूरत है.
-
-   आपके मौजूदा Red Hat सदस्यता के समयातीत होने की तिथि
-   जानने के लिये कृपया देखें:
-
-   https://www.redhat.com/apps/support/
-
-   लॉगिन करें और दृश्य पर क्लिक करें और अपनी सदस्यता लिंक प्रबंधित करें.
-
-3) आपने हाल में एक Red Hat उत्पाद अधिष्ठापित किया है और आपकी
-   सदस्यता संख्या सफलतापूर्वक सक्रिय नहीं है. अगर आप प्रयास और अपने
-   सदस्यता को सक्रिय करना चाहते हैं तो यहां जायें:
-
-   https://www.redhat.com/activate
-
-अतिरिक्त प्रश्न के लिये, कृपया Red Hat उपभोक्ता सेवा
-प्रतिनिधि को यहां संपर्क करें:
-
-http://www.redhat.com/about/contact/directory.html#custservice
-
-@@PRODUCT_NAME@@ का प्रयोग करने के लिये धन्यवाद.</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.summary">
-				<source>
+  <trans-unit id="email.errata.notification.body.summary">
+    <source>
 @@PRODUCT_NAME@@ has determined that the following advisory is applicable to
 one or more of the systems you have registered:
 
@@ -399,59 +377,51 @@ Summary:
 
 {4}{5}{6}
 {7}
-------------------------------------------------------------------------------</source>
-				<target>
-@@PRODUCT_NAME@@ ने निर्धारित किया है कि निम्नलिखित सलाहकार
-सिस्टम के एक या अधिक सिस्टम में लागू किया है जिसे आपने पंजीकृत किया है:
-
-इस इरेटा के बारे में पूरी सूचना निम्न स्थान पर पायी जा सकती है:
-     {0}
-
-{1} - {2}
 ------------------------------------------------------------------------------
-सारांश:
-{3}
-
-{4}{5}{6}
-{7}
-------------------------------------------------------------------------------</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.affectedheader">
-				<source>
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - Errata Details URL
+        {1} - errata advisory type
+        {2} - errata advisory
+        {3} - errata synopsis
+        {4} - errata topic
+        {5} - errata description
+        {6} - errata notes
+        {7} - errata refs
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.affectedheader">
+    <source>
 ---------------------
 Affected Systems List
 ---------------------
 This Errata Advisory may apply to the systems listed below. If you know that
 this errata does not apply to a system listed, it might be possible that the
 package profile for that server is out of date. In that case you should run
-'up2date -p' (RHEL 4 and below) or 'rhn-profile-sync' (RHEL 5 and above) as root on the system in question to refresh your software profile.</source>
-				<target>
----------------------
-प्रभावित सिस्टम सूची
----------------------
-यह इरेटा सलाहकार नीचे सूचीबद्ध सिस्टम पर लागू हो सकता है. अगर आप यह जानते हैं
-यह इरेटा सूचीबद्ध सिस्टम पर नहीं लागू होता है, यह संभव है कि
-संकुल प्रोफाइल उस सर्वर के लिये पुराना हो गया है. उस स्थिति में आपको
-'up2date -p' (RHEL 4 और नीचे) या 'rhn-profile-sync' (RHEL 5 और ऊपर) को बतौर रूट सिस्टम पर चलाना चाहिए अपने सॉफ्टवेयर प्रोफाइल को ताजा करने के लिए.</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.onesystem">
-				<source>
+'up2date -p' (RHEL 4 and below) or 'rhn-profile-sync' (RHEL 5 and above) as root on the system in question to refresh your software profile.
+    </source>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.onesystem">
+    <source>
 There is 1 affected system registered in 'Overview' (only systems for
-which you have explicitly enabled Errata Alerts are shown).</source>
-				<target>
-1 प्रभावित सिस्टम 'सारांश' (सिर्फ सिस्टम
-जो आपने दिखाए इरेटा चेतावनी में सक्रिय किया है) में पंजीकृत है.</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.numsystems">
-				<source>
+which you have explicitly enabled Errata Alerts are shown).
+    </source>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.numsystems">
+    <source>
 There are {0} affected systems registered in 'Overview' (only systems for
-which you have explicitly enabled Errata Alerts are shown).</source>
-				<target>
-{0} प्रभावित सिस्टम 'सारांश' (सिर्फ सिस्टम
-जो आपने दिखाए हैं इरेटा चेतावनी में सक्रिय किया है) में पंजीकृत है.</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.affected">
-				<source>
+which you have explicitly enabled Errata Alerts are shown).
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - system count
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.affected">
+    <source>
 Release    Arch       Profile Name
 ---------- ---------- ---------------------------------------------
 {0}
@@ -463,23 +433,17 @@ You may address the issues outlined in this advisory in two ways:
        errata update for it:
            {1}
 
-     - run the Update Agent on each affected server.</source>
-				<target>
-Release    Arch       Profile Name
----------- ---------- ---------------------------------------------
-{0}
-
-आप इस मुद्दे को दो तरीके से बताए सलाहकारी में संबोधित कर सकते हैं:
-
-     - अपना सर्वर नाम चुनें इसके नाम पर सूची से क्लिक करके
-       निम्नलिखित स्थान पर उपलब्ध, और तब एक
-       इसके लिए इरेटा अद्यतन नियोजित करें:
-           {1}
-
-     - अद्यतन प्रतिनिधि को हर प्रभावित सर्वर पर चलाएं.</target>
-			</trans-unit>
-			<trans-unit id="email.errata.notification.body.preferences">
-				<source>
+     - run the Update Agent on each affected server.
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - systems affected list
+        {1} - system list URL
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+  <trans-unit id="email.errata.notification.body.preferences">
+    <source>
 Changing Notification Preferences
 ---------------------------------
 To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
@@ -492,28 +456,27 @@ individual system from the "Systems List". From the individual system view
 click the "Details" tab.
 
 {1}
-{2}</source>
-				<target>
-अधिसूचना वरीयता बदल रहा है
----------------------------------
-सर्वव्यापी रूप से अपनी इरेटा चेतावनी सक्रिय/निष्क्रिय करने के लिए कृपया @@PRODUCT_NAME@@
-में लॉगिन हों और "सारांश" / "आपका खाता" से "वरीयता" टैब में संचरित करें.
+{2}
+    </source>
+    <context-group name="ctx">
+      <context context-type="paramnotes">
+        {0} - account preferences URL
+        {1} - email footer
+        {2} - account info
+      </context>
+    </context-group>
+  <target></target></trans-unit>
+</group>
 
-        URL: {0}
-
-आप अधिसूचना को प्रति सिस्टम आधार पर  सक्रिय/निष्क्रिय कर सकते हैं
-एक निजी सिस्टम को "सिस्टम सूची" से चुनकर. निजी सिस्टम से
-"विवरण" टैब देखें.
-
-{1}
-{2}</target>
-			</trans-unit>
-			<trans-unit id="dailysummary.email.subject">
-				<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
-				<target>@@PRODUCT_NAME@@ दैनिक स्थिति रिपोर्ट {0} के लिये</target>
-			</trans-unit>
-			<trans-unit id="dailysummary.email.body">
-				<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
+      <trans-unit id="dailysummary.email.subject">
+<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic task: DailySummary.java</context>
+          <context context-type="paramnotes">{0} - current time in short format</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ दैनिक स्थिति रिपोर्ट {0} के लिये</target></trans-unit>
+      <trans-unit id="dailysummary.email.body">
+<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
 
 This email will be sent when any of the following apply:
 
@@ -532,30 +495,23 @@ https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 Thank you for using @@PRODUCT_NAME@@.
 {5}
-{6}</source>
-				<target>यह @@PRODUCT_NAME@@ स्थिति रिपोर्ट आपके खाता {0} के लिये है, {1} तक.
-
-यह ईमेल भेजा जायेगा जब इनमें से कोई निर्दिष्ट सिस्टम के लिये लागू होगा:
-
-1.  सिस्टम @@PRODUCT_NAME@@ के साथ चेकइन करने में विफल रहता है 24-घंटे विंडो के अंदर.
-2.  सिस्टम अनुसूचित क्रिया क्रियाकलाप पंजीकृत करता है.
-
-{2}
-{3}
-इस ईमेल को निष्क्रिय कर रहा है:
-----------------------
-
-इस सिस्टम के लिये इस ईमेल को निष्क्रिय करने के बारे में जानने के लिये:
-
-https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
-
-
-Red Hat Network का प्रयोग करने के लिये धन्यवाद.
-{5}
-{6}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.body">
-				<source>
+{6}
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic task: DailySummary.java</context>
+          <context context-type="paramnotes">
+             {0} = login
+             {1} = datetime (now with timezone)
+             {2} = action message
+             {3} = awol message
+             {4} = hostname
+             {5} = emailFooter from template db
+             {6} = email account info from template db
+          </context>
+        </context-group>
+      <target></target></trans-unit>
+      <trans-unit id="email.verification.notice.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
@@ -575,33 +531,25 @@ To confirm your email address, please visit the following URL:
 
 Thank you for using @@PRODUCT_NAME@@.
 {1}
-{2}</source>
-				<target>
-प्रिय @@PRODUCT_NAME@@ उपयोक्ता,
+{2}
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Confirmation URL: https://rhn.redhat.com/
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-यह ईमेल उस ईमेल पता को वैधीकृत करने के लिये भेजा रहा है जिसे आपने
-अपने Red Hat लॉगिन में दिया है. आपका Red Hat लॉगिन, एक सक्रिय Red Hat
-सदस्यता के साथ, आपको @@PRODUCT_NAME@@ से होकर सिस्टम प्रबंधन क्षमता में अभिगम देता है.
+      <trans-unit id="email.verification.notice.subject">
+<source>Red Hat login Email Verification</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>Red Hat लॉगिन ईमेल सत्यापन</target></trans-unit>
 
-आपके Red Hat लॉगिन से जुड़े खाता सूचना की सुरक्षा सुनिश्चित करने
-के लिये नीचे के लिंक पर क्लिक करने के लिये कृपया एक क्षण रूकें और
-जांचें कि हमारे पास सही ईमेल पता है. अगर आप ईमेल पता की संपुष्टि
- नहीं करते हैं, तो आपका Red Hat लॉगिन अंततः
-निष्क्रिय हो जायेगा.
-
-अपना ईमेल पता सुनिश्चित करने के लिये, कृपया निम्न URL पर जायें:
-
-{0}
-@@PRODUCT_NAME@@ का उपयोग करने के लिये आपको धन्यवाद.
-{1}
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>Red Hat लॉगिन ईमेल सत्यापन</target>
-			</trans-unit>
-			<trans-unit id="email.verification.warning.body">
-				<source>
+      <trans-unit id="email.verification.warning.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
@@ -624,41 +572,34 @@ To confirm your email address, please visit the following URL:
 
 Thank you for using @@PRODUCT_NAME@@.
 {1}
-{2}</source>
-				<target>
-प्रिय @@PRODUCT_NAME@@ उपयोक्ता,
+{2}
+</source>
+        <context-group name="ctx">
+         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
+                 <context context-type="paramnotes">
+                     {0} - Confirmation URL: https://rhn.redhat.com/
+         {1} - EmailFooter
+         {2} - EmailAccountInfo
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-यह ईमेल उस ईमेल पता को वैधीकृत करने के लिये भेजा रहा है
-जिसे आपने अपने Red Hat लॉगिन में दिया है. आपका Red Hat
-लॉगिन, एक सक्रिय Red Hat सदस्यता के साथ, आपको @@PRODUCT_NAME@@
-से होकर सिस्टम प्रबंधन क्षमता में अभिगम देता है.
+      <trans-unit id="email.verification.warning.subject">
+<source>Red Hat Login Email Verification, Final Notice</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic</context>
+        </context-group>
+      <target>Red Hat लॉगिन ईमेल सत्यापन, आखिरी सूचना</target></trans-unit>
 
-आपके Red Hat लॉगिन से जुड़े खाता सूचना की सुरक्षा सुनिश्चित
-करने के लिये नीचे के लिंक पर क्लिक करने के लिये कृपया एक
-क्षण रूकें और जांचें कि हमारे पास सही ईमेल पता है. अगर आप
-ईमेल पता की संपुष्टि नहीं करते हैं, तो आपका Red Hat लॉगिन
-अंततः निष्क्रिय हो जायेगा.
+      <trans-unit id="email.satellitecert.graceperiod.subject">
+<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      <target>Red Hat @@PRODUCT_NAME@@ सर्वर प्रमाणपत्र समय समाप्ति चेतावनी</target></trans-unit>
 
-नोट करें कि यह अंतिम सूचना है.  अगर आप इस
-URL के द्वारा 2 दिन के अंदर क्लिक नहीं करते हैं, आपका Red Hat लॉगिन निष्क्रिय हो जायेगा.
-
-अपना ईमेल पता सुनिश्चित करने के लिये, कृपया निम्न URL पर जायें:
-
-{0}
-@@PRODUCT_NAME@@ का उपयोग करने के लिये आपको धन्यवाद.
-{1}
-{2}</target>
-			</trans-unit>
-			<trans-unit id="email.verification.warning.subject">
-				<source>Red Hat Login Email Verification, Final Notice</source>
-				<target>Red Hat लॉगिन ईमेल सत्यापन, आखिरी सूचना</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.graceperiod.subject">
-				<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
-				<target>Red Hat @@PRODUCT_NAME@@ सर्वर प्रमाणपत्र समय समाप्ति चेतावनी</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.graceperiod.body">
-				<source>
+      <trans-unit id="email.satellitecert.graceperiod.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
@@ -668,25 +609,26 @@ Please contact your regional Red Hat Customer  Service Representative for inform
 on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team</source>
-				<target>
-प्रिय @@PRODUCT_NAME@@ उपयोक्ता,
+--the @@PRODUCT_NAME@@ Team
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+          <context context-type="paramnotes">
+          {0} - Hostname of the @@PRODUCT_NAME@@ Whose Cert has Expired: highwind.devel.redhat.com
+          {1} - Days Until satellite certificate expiration: 7
+          </context>
+        </context-group>
+      <target></target></trans-unit>
 
-यह ईमेल आपको यह सूचित करने के लिये भेजा जा रहा है कि आपका @@PRODUCT_NAME@@ प्रमाणपत्र का
-आपके स्थानीय सैटेलाइट {0} पर समय समाप्त हो गया है. {1} दिन के बाद सिस्टम प्रबंधन सेवा जो आपको @@PRODUCT_NAME@@ सर्वर के द्वारा दी जाती है अभिगम योग्य नहीं रह जाती है.
-कृपया अपने प्रादेशिक Red Hat
-उपभोक्ता सेवा प्रतिनिधि से सूचना के लिये संपर्क  करें कि कैसे आपेक सैटेलाइठ प्रमाणपत्र को फिर से नया किया जा सकता है.
+      <trans-unit id="email.satellitecert.expired.subject">
+<source>Red Hat satellite certificate expiration notice</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      <target>Red Hat सैटेलाइट प्रमाणपत्र समय समाप्ति सूचना</target></trans-unit>
 
-
-@@PRODUCT_NAME@@ का प्रयोग करने के लिये धन्यवाद.
---@@PRODUCT_NAME@@ टोली</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.expired.subject">
-				<source>Red Hat satellite certificate expiration notice</source>
-				<target>Red Hat सैटेलाइट प्रमाणपत्र समय समाप्ति सूचना</target>
-			</trans-unit>
-			<trans-unit id="email.satellitecert.expired.body">
-				<source>
+      <trans-unit id="email.satellitecert.expired.body">
+<source>
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
@@ -696,19 +638,13 @@ Customer Service Representative for information on how to renew your @@PRODUCT_N
 
 
 Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team</source>
-				<target>
-प्रिय @@PRODUCT_NAME@@ उपयोक्ता,
-
-यह ईमेल आपको यह सूचित करने के लिये भेजा जा रहा है कि आपका @@PRODUCT_NAME@@ प्रमाणपत्र का
-आपके स्थानीय सैटेलाइट {0} पर समय समाप्त हो गया है. सिस्टम प्रबंधन सेवा अभिगम
-योग्य नहीं होगी जबतक कि आपका प्रमाणपत्र फिर नया नहीं किया जाता है. कृपया अपने प्रादेशिक Red Hat
-उपभोक्ता सेवा प्रतिनिधि से सूचना के लिये संपर्क करें कि कैसे आपके @@PRODUCT_NAME@@ प्रमाणपत्र को फिर से नया किया जा सकता है.
-
-
-@@PRODUCT_NAME@@ को प्रयोग करने के लिये धन्यवाद.
---@@PRODUCT_NAME@@ टोली</target>
-			</trans-unit>
-		</body>
-	</file>
+--the @@PRODUCT_NAME@@ Team
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+          <context context-type="paramnotes">{0} - Hostname of the @@PRODUCT_NAME@@ Whose Cert has Expired: highwind.devel.redhat.com </context>
+        </context-group>
+      <target></target></trans-unit>
+    </body>
+  </file>
 </xliff>
