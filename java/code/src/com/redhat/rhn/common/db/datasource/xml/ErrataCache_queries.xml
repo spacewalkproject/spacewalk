@@ -104,58 +104,6 @@ DELETE FROM rhnOrgErrataCacheQueue WHERE org_id = :org_id
   </query>
 </callable-mode>
 
-<write-mode name="delete_needed_cache_by_channel">
-  <query params="channel_id">
-DELETE FROM rhnServerNeededCache EC
-WHERE EC.server_id in
-    (SELECT server_id from rhnServerChannel SC where SC.channel_id = :channel_id)
-  </query>
-</write-mode>
-
-
-<write-mode name="insert_needed_cache_by_channel">
-  <query params="channel_id">
-INSERT INTO rhnServerNeededCache
-        (server_id, package_id, errata_id)
-            (SELECT SNV.server_id, SNV.package_id, SNV.errata_id
-                FROM rhnServerNeededView SNV
-                WHERE SNV.server_id in (select SC.server_id from rhnServerChannel SC
-				where SC.channel_id = :channel_id ))
-  </query>
-</write-mode>
-
-<write-mode name="delete_outdated_cache_entries_by_packages">
-  <!-- deletes cahe entries that are outdated by an errata -->
-  <query params="channel_id">
-		DELETE FROM rhnServerNeededCache SNC2 where
-			(SNC2.server_id, SNC2.package_id) in
-		 (
-			select /*+ RULE */ distinct SNC.server_id, SNC.package_id
-			from
-			  rhnServerNeededCache  SNC,
-			  rhnServerChannel SC,
-			  rhnPackage NEWP,
-			  rhnPackage OLDP,
-			  rhnPackageEvr NEW_EVR,
-			  rhnPackageEvr OLD_EVR,
-			  rhnServerPackageArchCompat SPAC,
-			  rhnServer S
-			where
-			     SNC.server_id = SC.server_id
-			AND  S.id = SNC.server_id
-			AND  SC.channel_id = :channel_id
-			AND  NEWP.id in (%s)
-			AND  OLDP.id = SNC.package_id
-			AND  NEWP.name_id = OLDP.name_id
-			AND  NEWP.evr_id = NEW_EVR.id
-			AND  OLDP.evr_id = OLD_EVR.id
-			AND    spac.server_arch_id = s.server_arch_id
-			AND  OLD_EVR.evr &lt; NEW_EVR.evr
-			AND SNC.errata_id is null
-			)
-  </query>
-</write-mode>
-
 
 <write-mode name="insert_new_cache_entries_by_packages">
   <!-- -->
