@@ -56,6 +56,7 @@ public class RepositoryWriter {
     private static final String OTHER_FILE = "other.xml.gz.new";
     private static final String REPOMD_FILE = "repomd.xml.new";
     private static final String UPDATEINFO_FILE = "updateinfo.xml.gz.new";
+    private static final String NOREPO_FILE = "noyumrepo.txt";
 
     private Logger log = Logger.getLogger(RepositoryWriter.class);
     private String pathPrefix;
@@ -109,22 +110,26 @@ public class RepositoryWriter {
             generateDebRepository(channel, prefix);
         }
         else {
-            log.info("Generating new repository metatada for channel '" +
-                    channel.getLabel() + "' " + channel.getPackageCount() +
-                    " packages, " + channel.getErrataCount() + " updates");
-
             if (!new File(prefix).mkdirs() && !new File(prefix).exists()) {
                 throw new RepomdRuntimeException("Unable to create directory: " +
                         prefix);
             }
-
-            CompressingDigestOutputWriter primaryFile;
-            CompressingDigestOutputWriter filelistsFile;
-            CompressingDigestOutputWriter otherFile;
-
             // Get compatible checksumType
             this.checksumtype = channel.getChecksumTypeLabel();
-
+            if (checksumtype == null) {
+                log.warn("No repo will be generated for channel " + channel.getLabel());
+                deleteRepomdFiles(channel.getLabel(), false);
+                try {
+                    FileWriter norepo = new FileWriter(prefix + NOREPO_FILE);
+                    norepo.write("No repo will be generated for channel " + channel.getLabel() + ".\n");
+                    norepo.close();
+                }
+                catch (IOException e) {
+                    log.warn("Cannot create " + NOREPO_FILE + " file.");
+                }
+                return;
+            }
+            new File(prefix + NOREPO_FILE).delete();
             log.info("Checksum Type Value: " + this.checksumtype);
 
             // java.security.MessageDigest recognizes:
@@ -139,6 +144,14 @@ public class RepositoryWriter {
             if (checksumLabel.equals("sha1")) {
                 checksumLabel = "sha";
             }
+
+            log.info("Generating new repository metatada for channel '" +
+                    channel.getLabel() + "' " + channel.getPackageCount() +
+                    " packages, " + channel.getErrataCount() + " updates");
+
+            CompressingDigestOutputWriter primaryFile;
+            CompressingDigestOutputWriter filelistsFile;
+            CompressingDigestOutputWriter otherFile;
 
             try {
                 primaryFile = new CompressingDigestOutputWriter(
@@ -483,30 +496,36 @@ public class RepositoryWriter {
      * Deletes repomd files
      * @param channelLabelToProcess channel label
      */
-    public void deleteRepomdFiles(String channelLabelToProcess) {
+    public void deleteRepomdFiles(String channelLabelToProcess, boolean deleteDir) {
         log.info("Removing " + channelLabelToProcess);
-        String prefix = mountPoint + pathPrefix + File.separator +
+        String prefix = mountPoint + File.separator + pathPrefix + File.separator +
                 channelLabelToProcess;
         File primary = new File(prefix + File.separator + "primary.xml.gz");
         File filelists = new File(prefix + File.separator + "filelists.xml.gz");
         File other = new File(prefix + File.separator + "other.xml.gz");
         File repomd = new File(prefix + File.separator + "repomd.xml");
+        File updateinfo = new File(prefix + File.separator + "updateinfo.xml.gz");
+        File norepo = new File(prefix + File.separator + NOREPO_FILE);
         File theDirectory = new File(prefix);
 
         if (!primary.delete()) {
-            log.info("Couldn't remove " + prefix + PRIMARY_FILE);
+            log.info("Couldn't remove " + primary.getAbsolutePath());
         }
         if (!filelists.delete()) {
-            log.info("Couldn't remove " + prefix + FILELISTS_FILE);
+            log.info("Couldn't remove " + filelists.getAbsolutePath());
         }
         if (!other.delete()) {
-            log.info("Couldn't remove " + prefix + OTHER_FILE);
+            log.info("Couldn't remove " + other.getAbsolutePath());
         }
         if (!repomd.delete()) {
-            log.info("Couldn't remove " + prefix + REPOMD_FILE);
+            log.info("Couldn't remove " + repomd.getAbsolutePath());
         }
-        if (!theDirectory.delete()) {
-            log.info("Couldn't remove " + prefix);
+        updateinfo.delete();
+        norepo.delete();
+        if (deleteDir) {
+            if (!theDirectory.delete()) {
+                log.info("Couldn't remove " + prefix);
+            }
         }
     }
 

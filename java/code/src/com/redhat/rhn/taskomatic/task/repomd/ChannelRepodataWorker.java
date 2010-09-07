@@ -60,7 +60,7 @@ public class ChannelRepodataWorker implements QueueWorker {
         channelLabelToProcess = (String) workItem.get("channel_label");
         repoWriter = new RepositoryWriter(prefixPath, mountPoint);
         logger.info("Creating ChannelRepodataWorker with prefixPath(" + prefixPath +
-                "), mountPoint(" + mountPoint + ")" + "for channel_label (" +
+                "), mountPoint(" + mountPoint + ")" + " for channel_label (" +
                 channelLabelToProcess + ")");
     }
 
@@ -104,7 +104,7 @@ public class ChannelRepodataWorker implements QueueWorker {
                     }
                 }
                 else {
-                    repoWriter.deleteRepomdFiles(channelLabelToProcess);
+                    repoWriter.deleteRepomdFiles(channelLabelToProcess, true);
                 }
 
                 dequeueChannel();
