@@ -136,9 +136,11 @@ SELECT DISTINCT
   <query params="errata_id, channel_id">
 SELECT DISTINCT
        S.id AS server_id, S.org_id org_id
-  FROM rhnServer S inner join rhnServerChannel SC on S.id = SC.server_id
- WHERE SC.channel_id = :channel_id and
-			S.id in (SELECT SNV.server_id FROM rhnServerNeededView SNV where NVL(SNV.errata_id, 0) = :errata_id)
+  FROM rhnServer S
+  JOIN rhnServerNeededView SNV
+    on SNV.server_id = S.id
+ WHERE SNV.channel_id = :channel_id
+   AND SNV.errata_id = :errata_id
  AND EXISTS
    (SELECT 1 FROM rhnServerFeaturesView SFV WHERE
     SFV.server_id = S.id AND SFV.label = 'ftr_auto_errata_updates')
