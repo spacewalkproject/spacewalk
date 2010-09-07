@@ -74,7 +74,7 @@ CREATE TABLE rhnKSData
     modified        DATE
                         DEFAULT (sysdate) NOT NULL,
     CONSTRAINT rhn_ks_type_ck
-        CHECK (ks_type in ( 'wizard' , 'raw' ))
+        CHECK (ks_type in ('wizard','raw'))
 )
 ENABLE ROW MOVEMENT
 ;
