@@ -41,7 +41,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -117,16 +116,7 @@ public class RepositoryWriter {
             // Get compatible checksumType
             this.checksumtype = channel.getChecksumTypeLabel();
             if (checksumtype == null) {
-                log.warn("No repo will be generated for channel " + channel.getLabel());
-                deleteRepomdFiles(channel.getLabel(), false);
-                try {
-                    FileWriter norepo = new FileWriter(prefix + NOREPO_FILE);
-                    norepo.write("No repo will be generated for channel " + channel.getLabel() + ".\n");
-                    norepo.close();
-                }
-                catch (IOException e) {
-                    log.warn("Cannot create " + NOREPO_FILE + " file.");
-                }
+                generateBadRepo(channel, prefix);
                 return;
             }
             new File(prefix + NOREPO_FILE).delete();
@@ -187,9 +177,7 @@ public class RepositoryWriter {
             filelists.begin(channel);
             other.begin(channel);
 
-            Iterator iter = TaskManager.getChannelPackageDtoIterator(channel);
-            while (iter.hasNext()) {
-                PackageDto pkgDto = (PackageDto) iter.next();
+            for (PackageDto pkgDto : TaskManager.getChannelPackageDtos(channel)) {
                 primary.addPackage(pkgDto);
                 filelists.addPackage(pkgDto);
                 other.addPackage(pkgDto);
@@ -224,10 +212,8 @@ public class RepositoryWriter {
                     .getCompressedChecksum(), otherFile
                     .getUncompressedChecksum(), channel.getLastModified());
 
-            log.info("Starting updateinfo generation for '" +
-                    channel.getLabel() + '"');
-            log.info("Checksum Type Value for generate updateinfo " +
-                    this.checksumtype);
+            log.info("Starting updateinfo generation for '" + channel.getLabel() + '"');
+            log.info("Checksum Type Value for generate updateinfo " + this.checksumtype);
             RepomdIndexData updateinfoData = generateUpdateinfo(channel,
                     prefix, checksumAlgo);
 
@@ -258,9 +244,8 @@ public class RepositoryWriter {
                 throw new RepomdRuntimeException(e);
             }
 
-            RepomdIndexWriter index = new RepomdIndexWriter(indexFile,
-                    primaryData, filelistsData, otherData, updateinfoData,
-                    groupsData);
+            RepomdIndexWriter index = new RepomdIndexWriter(indexFile, primaryData,
+                    filelistsData, otherData, updateinfoData, groupsData);
 
             index.writeRepomdIndex();
 
@@ -281,14 +266,32 @@ public class RepositoryWriter {
     }
 
     /**
+     * Deletes existing repo and generates file stating that no repo was generated
+     * @param channel the channel to do this for
+     * @param prefix the directory prefix
+     */
+    private void generateBadRepo(Channel channel, String prefix) {
+        log.warn("No repo will be generated for channel " + channel.getLabel());
+        deleteRepomdFiles(channel.getLabel(), false);
+        try {
+            FileWriter norepo = new FileWriter(prefix + NOREPO_FILE);
+            norepo.write("No repo will be generated for channel " +
+                    channel.getLabel() + ".\n");
+            norepo.close();
+        }
+        catch (IOException e) {
+            log.warn("Cannot create " + NOREPO_FILE + " file.");
+        }
+        return;
+    }
+
+    /**
      * Create repository for APT
      * @param channel
      */
     private void generateDebRepository(Channel channel, String prefix) {
         DebPackageWriter writer = new DebPackageWriter(channel, prefix);
-        Iterator iter = TaskManager.getChannelPackageDtoIterator(channel);
-        while (iter.hasNext()) {
-            PackageDto pkgDto = (PackageDto) iter.next();
+        for (PackageDto pkgDto : TaskManager.getChannelPackageDtos(channel)) {
             writer.addPackage(pkgDto);
         }
         writer.generatePackagesGz();
@@ -495,6 +498,7 @@ public class RepositoryWriter {
     /**
      * Deletes repomd files
      * @param channelLabelToProcess channel label
+     * @param deleteDir directory to delete
      */
     public void deleteRepomdFiles(String channelLabelToProcess, boolean deleteDir) {
         log.info("Removing " + channelLabelToProcess);

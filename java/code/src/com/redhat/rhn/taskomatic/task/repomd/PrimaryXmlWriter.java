@@ -29,7 +29,6 @@ import org.xml.sax.SAXException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Writer;
-import java.util.Iterator;
 
 /**
  * Primary.xml writer class
@@ -62,9 +61,8 @@ public class PrimaryXmlWriter extends RepomdWriter {
     public String getPrimaryXml(Channel channel) throws Exception {
         begin(channel);
 
-        Iterator iter = TaskManager.getChannelPackageDtoIterator(channel);
-        while (iter.hasNext()) {
-            addPackage((PackageDto) iter.next());
+        for (PackageDto pkgDto : TaskManager.getChannelPackageDtos(channel)) {
+            addPackage(pkgDto);
         }
 
         end();

@@ -28,7 +28,6 @@ import org.xml.sax.SAXException;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.Iterator;
 
 /**
  *
@@ -56,9 +55,8 @@ public class FilelistsXmlWriter extends RepomdWriter {
     public String getFilelistsXml(Channel channel) throws Exception {
         begin(channel);
 
-        Iterator iter = TaskManager.getChannelPackageDtoIterator(channel);
-        while (iter.hasNext()) {
-            addPackage((PackageDto) iter.next());
+        for (PackageDto pkgDto : TaskManager.getChannelPackageDtos(channel)) {
+            addPackage(pkgDto);
         }
 
         end();
