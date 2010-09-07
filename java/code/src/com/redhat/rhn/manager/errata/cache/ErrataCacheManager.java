@@ -396,7 +396,7 @@ public class ErrataCacheManager extends HibernateFactory {
     public static void updateErrataAndPackageCacheForChannel(Long cid) {
         // Clear em out
 
-        CallableMode m = ModeFactory.getCallableMode("",
+        CallableMode m = ModeFactory.getCallableMode("ErrataCache_queries",
                 "update_needed_cache_for_channel");
         Map params = new HashMap();
         params.put("channel_id", cid);
