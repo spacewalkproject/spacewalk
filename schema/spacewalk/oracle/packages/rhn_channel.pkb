@@ -1195,6 +1195,25 @@ IS
       end loop;
    end update_channels_by_errata;
 
+   procedure update_needed_cache(channel_id_in in number)
+   is
+       pragma autonomous_transaction;
+                -- update of needed cache ican be commited on a per server basis
+                -- b/c failure of update for a server means nothing for the other servers
+   begin
+      -- we intentionaly do a loop here instead of one huge select
+      -- b/c we want to break update into smaller transaction to unblock other sessions
+      -- querying rhnServerNeededCache
+      for server in (
+                select sc.server_id as id
+                  from rhnServerChannel sc
+                 where sc.channel_id = channel_id_in
+      ) loop
+         rhn_server.update_needed_cache(server.id);
+         commit;
+      end loop;
+   end update_needed_cache;
+
 END rhn_channel;
 /
 SHOW ERRORS

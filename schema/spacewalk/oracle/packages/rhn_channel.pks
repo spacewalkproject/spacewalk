@@ -141,6 +141,9 @@ IS
 
     PRAGMA RESTRICT_REFERENCES(org_channel_setting, WNDS, RNPS, WNPS);
 
+    PROCEDURE update_needed_cache(channel_id_in in number);
+
+
 END rhn_channel;
 /
 SHOW ERRORS
