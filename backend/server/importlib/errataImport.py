@@ -85,6 +85,11 @@ class ErrataImport(GenericPackageImport):
                     self._processPackage(package)
                     nevrao = tuple(get_nevrao(package))
                     self.packages[nevrao] = package
+            # Oval errata files need to be removed from the import for now.
+            # This is to make sure non-oval capable satellites won't be importing
+            # the oval data from an oval-enabled dump.
+            elif f['file_type'] == 'OVAL':
+                erratum['files'].remove(f)
             #elif f['file_type'] == 'SRPM':
             #    # XXX misa: do something here
             #    pass
