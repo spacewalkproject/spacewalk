@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.27
+Version: 1.2.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 07 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.28-1
+- 573630 - reused pl/sql implementation of update_needed_cache in java
+- newPackages() is dead since update_needed_cache move to pl/sql
+- improved errataqueue_find_autoupdate_servers
+
 * Mon Sep 06 2010 Tomas Lestach <tlestach@redhat.com> 1.2.27-1
 - removing hibernate commit from the populateWorkQueue (tlestach@redhat.com)
 - fix query for errata mailer (tlestach@redhat.com)
