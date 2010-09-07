@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.15
+Version:        1.2.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Sep 07 2010 Jan Pazdziora 1.2.16-1
+- The schema upgrade scripts have to have suffix .sql.
+- Return the syntax of constraints to the state before Spacewalk 0.5.
+- The upgrade script from 0.5 to 0.6 created the constraint
+  rhn_ksscript_rawscript_ck without naming it, recreate properly now.
+- Also make sure the rhn_ks_type_ck constraint spelling matches the upgrade
+  script.
+- The upgrade script from 0.3 to 0.4 did not match the constraint definition in
+  0.4, fixing.
+- Also make sure the rhn_cntgp_rotate_f_ck constraint spelling matches the
+  upgrade script.
+- In the past, we have changed the rhn_cntgp_rotate_f_ck to use strings instead
+  of numbers; now adding the schema upgrade script.
+- Upon upgrade from Spacewalk 0.3 to 0.4, we have lost the
+  rhn_package_compat_check check, adding back.
+- rhn_server.pks upgrade have to go before rhn_channel.pkb
+  (michael.mraka@redhat.com)
+
 * Tue Sep 07 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.15-1
 - 573630 - implemented update_needed_cache for channel in pl/sql
 - fixed upgrade script for rhnPackageUpgradeArchCompat-data
