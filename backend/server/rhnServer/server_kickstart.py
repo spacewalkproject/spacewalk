@@ -419,7 +419,7 @@ def schedule_rhncfg_install(server_id, action_id, scheduler,
             packages_to_install.append(p['package_id'])
 
     if not packages_to_install:
-        # We already have these pacakges installed
+        # We already have these packages installed
         log_debug(4, "No packages needed to be installed")
         return action_id
         

@@ -59,7 +59,7 @@ public class PackageCleanup extends RhnJavaJob {
                 }
             }
             else if (log.isDebugEnabled()) {
-                log.debug("Found " + candidates.size() + " orphaned pacakges");
+                log.debug("Found " + candidates.size() + " orphaned packages");
             }
 
             // Delete them from the filesystem

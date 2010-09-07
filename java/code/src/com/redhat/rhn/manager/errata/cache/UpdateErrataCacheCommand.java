@@ -152,7 +152,7 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
      */
     public void updateErrataCacheForErrata(Long cid, Long eid, List<Long> pids) {
         log.info("Updating errata cache for servers in channel [" + cid + "] " +
-                "and pacakges [" + eid + "]");
+                "and packages [" + eid + "]");
         try {
             ErrataCacheManager.insertCacheForChannelPackages(cid, eid, pids);
         }
