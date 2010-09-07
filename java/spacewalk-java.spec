@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.28
+Version: 1.2.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 07 2010 Tomas Lestach <tlestach@redhat.com> 1.2.29-1
+- update method name to make the code compilable (tlestach@redhat.com)
+
 * Tue Sep 07 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.28-1
 - 573630 - reused pl/sql implementation of update_needed_cache in java
 - newPackages() is dead since update_needed_cache move to pl/sql
