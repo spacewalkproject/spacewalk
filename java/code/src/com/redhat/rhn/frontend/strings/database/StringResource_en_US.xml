@@ -188,6 +188,13 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
     </trans-unit>
 
+     <trans-unit id="America/Regina">
+    <source>(GMT-0600) Canada (Regina)</source>
+        <context-group name="ctx">
+              <context context-type="sourcefile">/rhn/account/UserDetails</context>
+            </context-group>
+        </trans-unit>
+
     <trans-unit id="America/Denver">
 <source>(GMT-0700) United States (Mountain)</source>
         <context-group name="ctx">
@@ -224,11 +231,18 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
     </trans-unit>
 
     <trans-unit id="Pacific/Wallis">
-<source>(GMT+1200) New Zealand</source>
+<source>(GMT+1200) New Zealand (Wallis)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
     </trans-unit>
+
+    <trans-unit id="Pacific/Auckland">
+      <source>(GMT+1200) New Zealand (Auckland)</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/account/UserDetails</context>
+         </context-group>
+     </trans-unit>
 
     <trans-unit id="Pacific/Norfolk">
 <source>(GMT+1130) Norfolk Island</source>

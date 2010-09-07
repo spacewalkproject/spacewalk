@@ -11463,6 +11463,19 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context context-type="sourcefile">/rhn/kickstart/KickstartPackagesEdit.do</context>
       </context-group>
     </trans-unit>
+    <trans-unit id="kickstart.edit.pkgs.jsp.nobase">
+      <source>Don't install @Base package group</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/kickstart/KickstartPackagesEdit.do</context>
+      </context-group>
+    </trans-unit>
+
+    <trans-unit id="kickstart.edit.pkgs.jsp.ignoremissing">
+      <source>Ignore missing packages</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/kickstart/KickstartPackagesEdit.do</context>
+      </context-group>
+    </trans-unit>
 
     <trans-unit id="kickstart.edit.pkgs.submit.jsp.label">
       <source>Update Packages</source>
@@ -22481,7 +22494,12 @@ given channel.</source>
 	<trans-unit id="schedule.monthly.day">
 		<source>Day</source>
 	</trans-unit>
-
+	<trans-unit id="debuginfo.header">
+	        <source>DebugInfo Package</source>
+	 </trans-unit>
+	 <trans-unit id="debuginfo.external">
+	   <source>Note:  A local debuginfo rpm could not be found.  The above links to an external FTP server and may not be valid.</source>
+	 </trans-unit>
   </body>
   </file>
 </xliff>
