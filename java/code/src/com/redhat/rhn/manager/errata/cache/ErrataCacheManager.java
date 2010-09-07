@@ -400,7 +400,7 @@ public class ErrataCacheManager extends HibernateFactory {
                 "update_needed_cache_for_channel");
         Map params = new HashMap();
         params.put("channel_id", cid);
-        m.executeUpdate(params);
+        m.execute(params, new HashMap());
     }
 
     /**
