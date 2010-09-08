@@ -26,6 +26,11 @@ from spacewalk.common import rhn_rpm
 from server import rhnSQL, rhnLib
 from server_lib import snapshot_server, check_entitlement
 
+UNCHANGED = 0
+ADDED     = 1
+DELETED   = 2
+UPDATED   = 3
+
 # A small class that helps us represent things about a
 # database package. In this structure "real" means that we have an
 # entry in the database for it.
@@ -57,19 +62,23 @@ class dbPackage:
         self.name_id = name_id
         self.evr_id = evr_id
         self.package_arch_id = package_arch_id
-        self.status = not real # 0 = unchanged, 1 = added, 2 = deleted
+        if real:
+            self.status = UNCHANGED
+        else:
+            self.status = ADDED
+
     def setval(self, value):
         self.status = value
     def add(self):
-        if self.status == 2: # deleted
-            if self.real: self.status = 0 # real entries remain unchanged
-            else:         self.status = 1 # others are added
+        if self.status == DELETED:
+            if self.real: self.status = UNCHANGED # real entries remain unchanged
+            else:         self.status = ADDED # others are added
         return
     def delete(self):
         if self.real:
-            self.status = 2
+            self.status = DELETED
         else:
-            self.status = 0 # we prefer unchanged for the non-real packages
+            self.status = UNCHANGED # we prefer unchanged for the non-real packages
         return
 
 ##### PACKAGES Routines
@@ -124,7 +133,7 @@ class Packages:
 
     # produce a list of packages
     def get_packages(self):
-        return map(lambda a: a.nvrea, filter(lambda a: a.status != 2, self.__p.values()))
+        return map(lambda a: a.nvrea, filter(lambda a: a.status != DELETED, self.__p.values()))
 
     def __expand_installtime(self, installtime):
         """ Simulating the ternary operator, one liner is ugly """
@@ -144,7 +153,7 @@ class Packages:
         commits = 0
         
         # get rid of the deleted packages
-        dlist = filter(lambda a: a.real and a.status == 2, self.__p.values())
+        dlist = filter(lambda a: a.real and a.status == DELETED, self.__p.values())
         if dlist:
             log_debug(4, sysid, len(dlist), "deleted packages")
             h = rhnSQL.prepare("""
@@ -165,7 +174,7 @@ class Packages:
             del dlist
         
         # And now add packages
-        alist = filter(lambda a: a.status == 1, self.__p.values())
+        alist = filter(lambda a: a.status == ADDED, self.__p.values())
         if alist:
             log_debug(4, sysid, len(alist), "added packages")
             h = rhnSQL.prepare("""
