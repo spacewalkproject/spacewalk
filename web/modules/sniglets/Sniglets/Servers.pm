@@ -244,7 +244,8 @@ sub proxy_entitlement_form {
 
     if (@possible_proxies) {
       $subs{proxy_message} = "You may activate this machine as an RHN Proxy. " .
-                             "The following versions are available for activation.";
+                             "The following versions are available for activation." .
+                             "<div class="site-alert">WebUI RHN Proxy installer is obsoleted since version 5.3. Please use command line installer from package spacewalk-proxy-installer.</div>";
 
       $subs{proxy_version_dropdown} = 
           PXT::HTML->select(-name => "proxy_version",
