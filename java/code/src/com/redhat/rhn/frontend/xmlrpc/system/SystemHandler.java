@@ -4395,7 +4395,13 @@ public class SystemHandler extends BaseHandler {
      * @param serverId        identifies the server
      * @return map of kickstart variables set for the specified server
      *
-     * @xmlrpc.doc Lists kickstart variables set for the specified server
+     * @xmlrpc.doc Lists kickstart variables set  in the system record
+     *  for the specified server.
+     *  Note: This call assumes that a system record exists in cobbler for the
+     *  given system and will raise an XMLRPC fault if that is not the case.
+     *  To create a system record please go to
+     *  System -> <Specified System> -> Provisioning ->
+     *  Select a Kickstart profile -> Create Cobbler System Record.
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
@@ -4449,7 +4455,13 @@ public class SystemHandler extends BaseHandler {
      * @param variables       list of system kickstart variables to set
      * @return int - 1 on success, exception thrown otherwise
      *
-     * @xmlrpc.doc Sets a list of kickstart variables for the specified server
+     * @xmlrpc.doc Sets a list of kickstart variables in the cobbler system record
+     * for the specified server.
+     *  Note: This call assumes that a system record exists in cobbler for the
+     *  given system and will raise an XMLRPC fault if that is not the case.
+     *  To create a system record please go to
+     *  System -> <Specified System> -> Provisioning ->
+     *  Select a Kickstart profile -> Create Cobbler System Record.
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
