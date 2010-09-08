@@ -43,6 +43,7 @@ sub register_acl_handlers {
   $acl->register_handler(org_channel_family => \&org_channel_family_acl_test);
   $acl->register_handler(formvar_exists => \&formvar_exists_acl_test);
   $acl->register_handler(show_monitoring => \&show_monitoring);
+  $acl->register_handler(is_satellite => \&is_satellite);
   $acl->register_handler(is_solaris => \&is_solaris_acl_test);
   $acl->register_handler(user_has_access_to_servergroup => \&user_has_access_to_servergroup_acl_test);
   $acl->register_handler(need_first_user => \&need_first_user);
@@ -110,6 +111,14 @@ sub show_monitoring {
   # if they have the monitoring entitlement as well as this instance
   # has monitoring turned on.
   return (check_monitoring($pxt->user) and $pxt->user->is('monitoring_admin')) ? 1 : 0;
+}
+
+sub is_satellite {
+  my $pxt = shift;
+
+  die "is_satellite called with no \$pxt->user authenticated" unless $pxt->user;
+
+  return (PXT::Config->get('product_name') eq 'Spacewalk') ? 0 : 1;
 }
 
 sub check_monitoring {

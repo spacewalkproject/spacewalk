@@ -168,7 +168,7 @@
       </rhn-tab>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Audit" url="/rhn/audit/Overview.do">
+  <rhn-tab name="Audit" url="/rhn/audit/Overview.do" acl="is_satellite()">
      <rhn-tab-directory>/rhn/audit</rhn-tab-directory>
      <rhn-tab name="Overview" url="/rhn/audit/Overview.do">
          <rhn-tab name="Reviews" url="/rhn/audit/Machine.do" />
