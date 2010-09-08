@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.dto.OrgProxyServer;
@@ -235,7 +236,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         KickstartScheduleCommand cmd = getKickstartScheduleCommand(sid, user);
 
         Server system = SystemManager.lookupByIdAndUser(sid, user);
-        if (system.isVirtualGuest()) {
+        if (system.isVirtualGuest() &&
+                VirtualInstanceFactory.getInstance().getParaVirtType().equals(
+                        system.getVirtualInstance().getType())) {
             ctx.getRequest().setAttribute(IS_VIRTUAL_GUEST,
                     Boolean.TRUE.toString());
 
