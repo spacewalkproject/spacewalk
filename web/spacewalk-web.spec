@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.1
+Version: 1.2.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Sep 08 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.2-1
+- 631847 - create 5.4 webUI installer
+- 614918 - Made SSM Select Systems to work with I18n languages
+  (paji@redhat.com)
+
 * Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
 - 621479 - Fix missing duplicates menu (coec@war.coesta.com)
 - Revert "Remove hardware.pxt" (colin.coe@gmail.com)
