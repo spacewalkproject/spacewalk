@@ -21,7 +21,11 @@
     </html:form>
  
     <h2><bean:message key="sdc.details.hardware.general"/></h2>
+
+    <c:if test="${cpu_mhz != null}" >
     (${cpu_count}) ${cpu_model} (${cpu_mhz} MHZ)
+    </c:if>
+
     <table class="details">
       <tr>
         <th>

@@ -18,15 +18,16 @@ import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.server.CPU;
 import com.redhat.rhn.domain.server.Device;
+import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -90,41 +91,43 @@ public class SystemHardwareAction extends RhnAction {
     private void setupForm(HttpServletRequest request, CPU cpu, Server server) {
 
         request.setAttribute("system", server);
+        if (cpu != null) {
+            request.setAttribute("cpu_model", cpu.getModel());
+            request.setAttribute("cpu_count", cpu.getNrCPU());
+            request.setAttribute("cpu_mhz", cpu.getMHz());
+            request.setAttribute("cpu_vendor", cpu.getVendor());
+            request.setAttribute("cpu_stepping", cpu.getStepping());
+            request.setAttribute("cpu_family", cpu.getFamily());
+            request.setAttribute("cpu_arch", server.getServerArch().getName());
+            request.setAttribute("cpu_cache", cpu.getCache());
+        }
 
-        request.setAttribute("cpu_model", cpu.getModel());
-        request.setAttribute("cpu_count", cpu.getNrCPU());
-        request.setAttribute("cpu_mhz", cpu.getMHz());
-        request.setAttribute("cpu_vendor", cpu.getVendor());
-        request.setAttribute("cpu_stepping", cpu.getStepping());
-        request.setAttribute("cpu_family", cpu.getFamily());
-        request.setAttribute("cpu_arch", server.getServerArch().getName());
-        request.setAttribute("cpu_cache", cpu.getCache());
 
         request.setAttribute("system_ram", server.getRam());
         request.setAttribute("system_swap", server.getSwap());
 
         StringBuffer dmiBios = new StringBuffer();
-        if (server.getDmi().getBios() != null) {
-            if (server.getDmi().getBios().getVendor() != null &&
-                    server.getDmi().getBios().getVendor() != "") {
-                dmiBios.append(server.getDmi().getBios().getVendor() + " ");
-            }
-            if (server.getDmi().getBios().getVersion() != null &&
-                    server.getDmi().getBios().getVersion() != "") {
-                dmiBios.append(server.getDmi().getBios().getVersion() + " ");
-            }
-            if (server.getDmi().getBios().getRelease() != null &&
-                    server.getDmi().getBios().getRelease() != "") {
-                dmiBios.append(server.getDmi().getBios().getRelease());
-            }
-        }
+        if (server.getDmi() != null) {
 
-        request.setAttribute("dmi_vendor", server.getDmi().getVendor());
-        request.setAttribute("dmi_system", server.getDmi().getSystem());
-        request.setAttribute("dmi_product", server.getDmi().getProduct());
-        request.setAttribute("dmi_bios", dmiBios.toString());
-        request.setAttribute("dmi_asset_tag", server.getDmi().getAsset());
-        request.setAttribute("dmi_board", server.getDmi().getBoard());
+            if (server.getDmi().getBios() != null) {
+                if (StringUtils.isEmpty(server.getDmi().getBios().getVendor())) {
+                    dmiBios.append(server.getDmi().getBios().getVendor() + " ");
+                }
+                if (StringUtils.isEmpty(server.getDmi().getBios().getVersion())) {
+                    dmiBios.append(server.getDmi().getBios().getVersion() + " ");
+                }
+                if (StringUtils.isEmpty(server.getDmi().getBios().getRelease())) {
+                    dmiBios.append(server.getDmi().getBios().getRelease());
+                }
+            }
+
+            request.setAttribute("dmi_vendor", server.getDmi().getVendor());
+            request.setAttribute("dmi_system", server.getDmi().getSystem());
+            request.setAttribute("dmi_product", server.getDmi().getProduct());
+            request.setAttribute("dmi_bios", dmiBios.toString());
+            request.setAttribute("dmi_asset_tag", server.getDmi().getAsset());
+            request.setAttribute("dmi_board", server.getDmi().getBoard());
+        }
 
         request.setAttribute("network_hostname", server.getHostname());
         request.setAttribute("network_ip_addr", server.getIpAddress());
@@ -204,7 +207,7 @@ public class SystemHardwareAction extends RhnAction {
         }
 
         List storageDevices = new ArrayList();
-        for (Device hd : (List<Device>)ServerFactory.lookupStorageDevicesByServer(server)) {
+        for (Device hd : ServerFactory.lookupStorageDevicesByServer(server)) {
             Device d = hd;
             Map device = new HashMap();
             device.put("description", d.getDescription());
