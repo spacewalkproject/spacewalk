@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.30
+Version: 1.2.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 08 2010 Partha Aji <paji@redhat.com> 1.2.31-1
+- 630877 - Improved the documentation on get/set Variables call
+  (paji@redhat.com)
+- 617044 - enabling reprovisioning for KVM and fully virt XEN guests
+  (jsherril@redhat.com)
+- xliff fixes for previous translations commit (enUS) (shughes@redhat.com)
+- checkstyle fixes,  hit 150 line limit on a method, got around it, but we
+  should either change the limit or refactor this method (jsherril@redhat.com)
+- fixing common typo pacakges -> packages (tlestach@redhat.com)
+- translated xliff string update (shughes@redhat.com)
+- handle repo generation when channel checksum not set (tlestach@redhat.com)
+
 * Tue Sep 07 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.30-1
 - fixed errataqueue_find_autoupdate_servers
 - removign srcjars from java
