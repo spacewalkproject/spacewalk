@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.3
+Version: 1.2.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Sep 08 2010 Shannon Hughes <shughes@redhat.com> 1.2.4-1
+- bug fixes for audit tab and proxy installer additions (shughes@redhat.com)
+
 * Wed Sep 08 2010 Shannon Hughes <shughes@redhat.com> 1.2.3-1
 - 589728 hide audit functionality for satellite product (shughes@redhat.com)
 
