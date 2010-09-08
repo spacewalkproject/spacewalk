@@ -404,10 +404,10 @@ def get_channels_for_package(pkg):
         return []
     return map(lambda c: c['label'], ret)
 
-def get_package_for_checksum(org_id, checksum_type, checksum):
+def get_path_for_checksum(org_id, checksum_type, checksum):
      statement = """
      select
-         p.id
+         p.path
      from
          rhnPackage p,
          rhnChecksumView c
@@ -421,7 +421,49 @@ def get_package_for_checksum(org_id, checksum_type, checksum):
      ret = h.fetchone_dict()
      if not ret:
          return None
-     return ret['id']
+     return ret['path']
+
+
+def get_path_for_package(pkg, channel_label):
+    log_debug(3, pkg)
+    pkg = map(str, pkg)
+    if pkg[3] == "":
+        epochStatement = "is null"
+    else:
+        epochStatement = "= :epoch"
+    statement = """
+    select
+            P.path
+    from
+            rhnChannel c,
+            rhnPackage p,
+            rhnPackageName pn,
+            rhnPackageEVR pe,
+            rhnPackageArch pa,
+            rhnChannelPackage cp
+    where
+                p.name_id = pn.id
+            and pn.name = :name
+            and p.evr_id = pe.id
+            and pe.version = :ver
+            and pe.release = :rel
+            and pe.epoch %s
+            and p.package_arch_id = pa.id
+            and pa.label = :arch
+            and p.id = cp.package_id
+            and cp.channel_id = c.id
+            and C.label = :label
+    """ % epochStatement
+    h = rhnSQL.prepare(statement)
+    if pkg[3] == '':
+        h.execute(name = pkg[0], ver = pkg[1], rel = pkg[2], arch = pkg[4], label = channel_label)
+    else:
+        h.execute(name = pkg[0], ver = pkg[1], rel = pkg[2], arch = pkg[4], epoch=pkg[3], label = channel_label)
+
+    ret = h.fetchone_dict()
+    if not ret:
+        return None
+    return ret['path']
 
 
 def _none2emptyString(foo):
@@ -448,4 +490,3 @@ if __name__ == '__main__':
     # not used currently
     print get_source_package_path_by_nvrea(1000463284, ['kernel-headers', '2.4.2', '2', '', 'i386'])
     print get_channels_for_package(['kernel', '2.4.9', '31', '', 'i386'])
-

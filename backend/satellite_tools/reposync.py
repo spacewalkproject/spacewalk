@@ -134,13 +134,40 @@ class RepoSync:
         to_download = []
         self.print_msg("Repo " + url + " has " + str(len(packages)) + " packages.")
         for pack in packages:
-                 if self.channel_label not in \
-                     rhnPackage.get_channels_for_package([pack.name, \
-                     pack.version, pack.release, pack.epoch, pack.arch]) and \
-                     self.channel_label not in \
-                     rhnPackage.get_channels_for_package([pack.name, \
-                     pack.version, pack.release, '', pack.arch]):
+                 # we have a few scenarios here:
+                 # 1.  package is not on the server (link and download)
+                 # 2.  package is in the server, but not in the channel (just link if we can)
+                 # 3.  package is in the server and channel, but not on the file system (just download)
+                 path = rhnPackage.get_path_for_package([pack.name, pack.version, pack.release, pack.epoch, pack.arch], self.channel_label)
+                 if not path:
+                     path = rhnPackage.get_path_for_package([pack.name, pack.version, pack.release, '', pack.arch], self.channel_label)
+
+                 if path:
+                     if os.path.exists(os.path.join(CFG.MOUNT_POINT, path)):
+                         continue
+                     else:
+                         to_download.append(pack)
+                         continue
+
+                 # we know that it's not in the channel, lets try to check the server by checksum!
+                 #for some repos (sha256), we can check to see if we have them by
+                 #  checksum and not bother downloading.  For older repos, we only
+                 #  have sha1, which satellite doesn't track
+                 # regardless we have to link the package
+                 to_link.append(pack)
+
+                 found = False
+                 for type,sum  in pack.checksums.items():
+                     if type == 'sha': #we use sha1 (instead of sha)
+                         type = 'sha1'
+                     path = rhnPackage.get_path_for_checksum(self.channel['org_id'],\
+                                type, sum)
+                     if path and os.path.exists(os.path.join(CFG.MOUNT_POINT, path)):
+                             found = True
+                             break
+                 if not found:
                      to_download.append(pack)
+
 
         if len(to_download) == 0:
             self.print_msg("No new packages to download.")
@@ -156,7 +183,8 @@ class RepoSync:
                           pack.getNVREA())
                     path = plug.get_package(pack)
                     self.upload_package(pack, path)
-                    self.associate_package(pack)
+                    if pack in to_link:
+                        self.associate_package(pack)
                 except KeyboardInterrupt:
                     raise
                 except Exception, e:
@@ -167,6 +195,20 @@ class RepoSync:
             finally:
                 if is_non_local_repo:
                     os.remove(path)
+
+        for (index, pack) in enumerate(to_link):
+            """Link each package that wasn't already linked in the previous step"""
+            try:
+                if pack not in to_download:
+                    self.associate_package(pack)
+            except KeyboardInterrupt:
+                raise
+            except Exception, e:
+                self.error_msg(e)
+                if self.fail:
+                    raise
+                continue
+
     
     def upload_package(self, package, path):
         temp_file = open(path, 'rb')
@@ -174,22 +216,18 @@ class RepoSync:
                 rhnPackageUpload.load_package(temp_file)
         package.checksum_type = header.checksum_type()
         package.checksum = getFileChecksum(package.checksum_type, file=temp_file)
-        pid =  rhnPackage.get_package_for_checksum(
-                                  self.channel['org_id'],
-                                  package.checksum_type, package.checksum)
 
-        if pid is None:
-            rel_package_path = rhnPackageUpload.relative_path_from_header(
-                    header, self.channel['org_id'],
-                    package.checksum_type, package.checksum)
-            package_path = os.path.join(CFG.MOUNT_POINT,
-                    rel_package_path)
-            package_dict, diff_level = rhnPackageUpload.push_package(header,
-                    payload_stream, package.checksum_type, package.checksum,
-                    force=False,
-                    header_start=header_start, header_end=header_end,
-                    relative_path=rel_package_path, 
-                    org_id=self.channel['org_id'])
+        rel_package_path = rhnPackageUpload.relative_path_from_header(
+                header, self.channel['org_id'],
+                package.checksum_type, package.checksum)
+        package_path = os.path.join(CFG.MOUNT_POINT,
+                rel_package_path)
+        package_dict, diff_level = rhnPackageUpload.push_package(header,
+                payload_stream, package.checksum_type, package.checksum,
+                force=False,
+                header_start=header_start, header_end=header_end,
+                relative_path=rel_package_path,
+                org_id=self.channel['org_id'])
         temp_file.close()
 
     def associate_package(self, pack):
