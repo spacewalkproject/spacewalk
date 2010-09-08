@@ -114,7 +114,11 @@ class Packages:
         if not self.__loaded:
             self.reload_packages_byid(sysid)        
         if self.__p.has_key(p.nvrea):
-            self.__p[p.nvrea].add()
+            if self.__p[p.nvrea].installtime != p.installtime:
+               self.__p[p.nvrea].installtime = p.installtime
+               self.__p[p.nvrea].status = UPDATED
+            else:
+               self.__p[p.nvrea].add()
             self.__changed = 1
             return 0
         self.__p[p.nvrea] = p
@@ -169,7 +173,7 @@ class Packages:
         commits = 0
         
         # get rid of the deleted packages
-        dlist = filter(lambda a: a.real and a.status == DELETED, self.__p.values())
+        dlist = filter(lambda a: a.real and a.status in (DELETED, UPDATED), self.__p.values())
         if dlist:
             log_debug(4, sysid, len(dlist), "deleted packages")
             h = rhnSQL.prepare("""
@@ -190,7 +194,7 @@ class Packages:
             del dlist
         
         # And now add packages
-        alist = filter(lambda a: a.status == ADDED, self.__p.values())
+        alist = filter(lambda a: a.status in (ADDED, UPDATED), self.__p.values())
         if alist:
             log_debug(4, sysid, len(alist), "added packages")
             h = rhnSQL.prepare("""
