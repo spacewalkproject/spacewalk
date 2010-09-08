@@ -138,9 +138,11 @@ class RepoSync:
                  # 1.  package is not on the server (link and download)
                  # 2.  package is in the server, but not in the channel (just link if we can)
                  # 3.  package is in the server and channel, but not on the file system (just download)
-                 path = rhnPackage.get_path_for_package([pack.name, pack.version, pack.release, pack.epoch, pack.arch], self.channel_label)
+                 path = rhnPackage.get_path_for_package([pack.name, pack.version, pack.release,\
+                        pack.epoch, pack.arch], self.channel_label)
                  if not path:
-                     path = rhnPackage.get_path_for_package([pack.name, pack.version, pack.release, '', pack.arch], self.channel_label)
+                     path = rhnPackage.get_path_for_package([pack.name, pack.version, pack.release,\
+                        '', pack.arch], self.channel_label)
 
                  if path:
                      if os.path.exists(os.path.join(CFG.MOUNT_POINT, path)):
