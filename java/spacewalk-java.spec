@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.33
+Version: 1.2.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 08 2010 Shannon Hughes <shughes@redhat.com> 1.2.34-1
+- bug fixes for audit tab and proxy installer additions (shughes@redhat.com)
+- 630876 - fixing ISE if viewing the hardware of a system registered with no
+  hardware (jsherril@redhat.com)
+
 * Wed Sep 08 2010 Shannon Hughes <shughes@redhat.com> 1.2.33-1
 - 589728 hide audit functionality for satellite product (shughes@redhat.com)
 
