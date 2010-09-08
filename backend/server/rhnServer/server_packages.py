@@ -81,6 +81,22 @@ class dbPackage:
             self.status = UNCHANGED # we prefer unchanged for the non-real packages
         return
 
+    def __str__(self):
+        return "server.rhnServer.dbPackage instance %s" % {
+                'n': self.n,
+                'v': self.v,
+                'r': self.r,
+                'e': self.e,
+                'a': self.a,
+                'installtime': self.installtime,
+                'real': self.real,
+                'name_id': self.name_id,
+                'evr_id': self.evr_id,
+                'package_arch_id': self.package_arch_id,
+                'status': self.status,
+        }
+    __repr__ = __str__
+
 ##### PACKAGES Routines
 class Packages:
     def __init__(self):
