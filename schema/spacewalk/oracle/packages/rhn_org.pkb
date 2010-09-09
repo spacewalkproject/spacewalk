@@ -232,21 +232,14 @@ IS
                 set        user_id = nvl(other_org_admin, other_user_id)
                 where    org_id = our_org_id
                     and user_id = user_id_in;
-            begin
-                delete from web_contact where id = user_id_in;
-            exception
-                when others then
-                    rhn_exception.raise_exception('cannot_delete_user');
-            end;
-        -- Just Delete the user
-        else
-            begin
-                delete from web_contact where id = user_id_in;
-            exception
-                when others then
-                    rhn_exception.raise_exception('cannot_delete_user');
-            end;
         end if;
+
+        begin
+            delete from web_contact where id = user_id_in;
+        exception
+            when others then
+                rhn_exception.raise_exception('cannot_delete_user');
+        end;
         return;
     end delete_user;
 
