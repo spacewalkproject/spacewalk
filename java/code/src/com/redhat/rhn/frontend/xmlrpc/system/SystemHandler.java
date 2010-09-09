@@ -2799,6 +2799,9 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         Dmi dmi = server.getDmi();
+        if (dmi == null) {
+            return new HashMap();
+        }
         return dmi;
     }
 
