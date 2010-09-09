@@ -121,15 +121,6 @@ IS
     end delete_org;
 
     procedure delete_user(user_id_in in number, deleting_org in number := 0) is
-        cursor is_admin is
-            select    1
-            from    rhnUserGroupType    ugt,
-                    rhnUserGroup        ug,
-                    rhnUserGroupMembers    ugm
-            where    ugm.user_id = user_id_in
-                and ugm.user_group_id = ug.id
-                and ug.group_type = ugt.id
-                and ugt.label = 'org_admin';
         cursor servergroups_needing_admins is
             select    usgp.server_group_id    server_group_id
             from    rhnUserServerGroupPerms    usgp
@@ -147,6 +138,7 @@ IS
         other_users        number;
         other_org_admin    number;
         other_user_id  number;
+        is_admin       number;
     begin
         select    wc.org_id
         into    our_org_id
@@ -169,7 +161,17 @@ IS
 
         -- now do org admin stuff
         if other_users != 0 then
-            for ignore in is_admin loop
+            -- is user admin?
+            select  count(1)
+             into   is_admin
+            from    rhnUserGroupType    ugt,
+                    rhnUserGroup        ug,
+                    rhnUserGroupMembers    ugm
+            where    ugm.user_id = user_id_in
+                and ugm.user_group_id = ug.id
+                and ug.group_type = ugt.id
+                and ugt.label = 'org_admin';
+            if is_admin > 0 then
                 begin
                     select    new_ugm.user_id
                     into    other_org_admin
@@ -197,7 +199,7 @@ IS
                     rhn_user.add_servergroup_perm(other_org_admin,
                         sg.server_group_id);
                 end loop;
-            end loop;
+            end if;
         end if;
 
         -- and now things for every user
