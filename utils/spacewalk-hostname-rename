@@ -239,7 +239,7 @@ function re-generate_server_ssl_certificate {
         else
             # offer hostname as ORG UNIT everytime
             read -e -p " Enter Organization Unit [$HOSTNAME] : "
-            SSL_ORGUNIT=${REPLY:-$SSL_ORGUNIT_OLD}
+            SSL_ORGUNIT=${REPLY:-$HOSTNAME}
         fi
         # EMAIL ADDRESS
         if [ -n "${CML_SSL_EMAIL+x}" ]
