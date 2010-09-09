@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <rhn-navi-tree label="ssm" invisible="1" title-depth="1">
-	<rhn-tab name="Overview" url="/network/systems/ssm/index.pxt" />
+	<rhn-tab name="Overview" url="/rhn/ssm/index.do" />
 	<rhn-tab name="Systems">
 		<rhn-tab-url>/network/systems/ssm/system_list.pxt</rhn-tab-url>
 	</rhn-tab>

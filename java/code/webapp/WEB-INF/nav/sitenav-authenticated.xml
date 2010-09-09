@@ -56,7 +56,7 @@
       <rhn-tab-directory>/network/systems/groups</rhn-tab-directory>
       <rhn-tab-url>/rhn/systems/SystemGroupList.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="System Set Manager" url="/network/systems/ssm/index.pxt" acl="org_entitlement(sw_mgr_enterprise)">
+    <rhn-tab name="System Set Manager" url="/rhn/ssm/index.do" acl="org_entitlement(sw_mgr_enterprise)">
       <rhn-tab-directory>/rhn/systems/ssm</rhn-tab-directory>
       <rhn-tab-directory>/rhn/ssm</rhn-tab-directory>
        <rhn-tab name="ssm.nav.status" url="/rhn/ssm/ViewAllLog.do" acl="org_entitlement(sw_mgr_enterprise)">
