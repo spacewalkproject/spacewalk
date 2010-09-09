@@ -69,13 +69,17 @@ while (@exception_queue) {
 	}
 }
 
-my $marker_re = qr/^-- Source: (.+?)$/;
+my $marker_re = qr/^-- Source: (.+?)$|^select '(.+?)' sql_file from dual;$/;
 my $line;
 
 my %exception_seen;
 while ($line = <SOURCE>) {
 	if ($line =~ $marker_re) {
 		my $filename = $1;
+		if (not defined $filename) {
+			$filename = $2;
+			$filename =~ s!^.+/([^/]+/[^/]+)$!$1!;
+		}
 		if (exists $exception_files{$filename}) {
 			open OVERRIDE, "$exception_dir/$filename" or die "Error reading file [$exception_dir/$filename]: $!\n";
 			$exception_seen{$filename}++;
