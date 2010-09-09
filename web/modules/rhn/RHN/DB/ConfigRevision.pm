@@ -169,15 +169,14 @@ sub commit {
   my $sth = $dbh->prepare(<<EOS);
 DECLARE
 BEGIN
-  :crid := rhn_config.insert_revision(:revision, :cfid, :ccid, :ciid, :delim_start, :delim_end, :filetype);
+  :crid := rhn_config.insert_revision(:revision, :cfid, :ccid, :ciid, :filetype);
 END;
 EOS
   my $crid;
 
   $self->revision($self->next_revision);
   $sth->execute_h(cfid => $self->config_file_id, ccid => $ccid, ciid => $ciid, crid => \$crid,
-		  revision => $self->revision, delim_start => $self->delim_start, delim_end => $self->delim_end,
-          filetype => $cftid);
+		  revision => $self->revision, filetype => $cftid);
 
   $dbh->do_h("UPDATE rhnConfigFile SET latest_config_revision_id = :crid WHERE id = :cfid",
 	     crid => $crid, cfid => $self->config_file_id);
