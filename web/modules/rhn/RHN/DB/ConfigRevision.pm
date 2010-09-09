@@ -157,7 +157,7 @@ sub commit {
   }
  
   my $dbh = RHN::DB->connect;
-  my $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode, $self->selinux_ctx);
+  my $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode, $self->selinux_ctx, undef);
   my $ccid = $self->config_content_id;
   my $cftid = getFileTypeId($self->filetype);
 
