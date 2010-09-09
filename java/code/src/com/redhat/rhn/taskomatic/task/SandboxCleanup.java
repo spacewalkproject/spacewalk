@@ -59,6 +59,12 @@ public class SandboxCleanup extends RhnJavaJob {
             ModeFactory.getCallableMode("Task_queries", removeQuery);
         List candidates = candidateMode.execute(candidateParams);
         if (candidates != null && candidates.size() > 0) {
+            if (removeQuery.contains("file")) {
+                log.info("Removing sandbox files: " + candidates.size());
+            }
+            else if (removeQuery.contains("channel")) {
+                log.info("Removing sandbox channels: " + candidates.size());
+            }
             Map params = new HashMap();
             Map out = new HashMap();
             for (Iterator iter = candidates.iterator(); iter.hasNext();) {
