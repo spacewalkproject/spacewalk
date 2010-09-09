@@ -66,7 +66,7 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         }
 
         ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
-        if (!ct.getLabel().equals(c.getChecksumTypeLabel()) && c.getPackageCount() > 0) {
+        if (checksumChanged(c.getChecksumTypeLabel(), ct) && c.getPackageCount() > 0) {
             // schedule repo re generation if the checksum type changed
             // and the channel has packages
             ChannelManager.queueChannelChange(c.getLabel(),
@@ -92,5 +92,12 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         ChannelFactory.save(c);
 
         return c;
+    }
+
+    private boolean checksumChanged(String label, ChecksumType ct) {
+        if (ct == null || ct.getLabel() == null) {
+            return label != null;
+        }
+        return !ct.getLabel().equals(label);
     }
 }

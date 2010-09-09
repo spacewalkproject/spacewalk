@@ -98,7 +98,7 @@
          <td class="small-form">
             <html:select property="checksum">
                 <html:options collection="checksums"
-                              property="label"
+                              property="value"
                               labelProperty="label" />
             </html:select><br/>
             <span class="small-text"><bean:message key="channel.edit.jsp.checksumtip"/></span>

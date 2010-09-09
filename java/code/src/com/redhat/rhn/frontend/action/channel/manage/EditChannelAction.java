@@ -38,6 +38,7 @@ import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.common.ChecksumType;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -642,8 +643,12 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         ctx.getRequest().setAttribute("channelArches", channelArches);
         // set the list of yum supported checksums
-        ctx.getRequest().setAttribute("checksums",
-                ChannelFactory.listYumSupportedChecksums());
+        List checksums = new ArrayList();
+        addOption(checksums, ls.getMessage("generic.jsp.none"), "");
+        for (ChecksumType chType : ChannelFactory.listYumSupportedChecksums()) {
+            addOption(checksums, chType.getLabel(), chType.getLabel());
+        }
+        ctx.getRequest().setAttribute("checksums", checksums);
 
     }
 
