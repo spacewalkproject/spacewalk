@@ -2819,6 +2819,9 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         CPU cpu = server.getCpu();
+        if (cpu == null) {
+            return new HashMap();
+        }
         return cpu;
     }
 
