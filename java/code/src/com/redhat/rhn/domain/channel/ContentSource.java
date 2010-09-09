@@ -14,17 +14,18 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.Identifiable;
+import com.redhat.rhn.domain.org.Org;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import com.redhat.rhn.domain.BaseDomainHelper;
-import com.redhat.rhn.domain.org.Org;
 
 /**
  * ContentSourceType
  * @version $Rev$
  */
-public class ContentSource extends BaseDomainHelper {
+public class ContentSource extends BaseDomainHelper implements Identifiable {
 
     private Long id;
     private Org org;
