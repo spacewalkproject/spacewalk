@@ -245,6 +245,9 @@ IS
         delete from rhn_redirects where contact_id = user_id_in;
         delete from rhnUserServerPerms where user_id = user_id_in;
                 delete from rhnAppInstallSession where user_id = user_id_in;
+        update rhnConfigRevision
+           set changed_by_id = NULL
+         where changed_by_id = user_id_in;
         if other_users != 0 then
             update        rhnRegToken
                 set        user_id = nvl(other_org_admin, other_user_id)
