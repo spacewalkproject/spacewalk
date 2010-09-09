@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.16
+Version:        1.2.17
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Sep 09 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.17-1
+- dead code cleanup
+- 538663 - unset references to to-be-deleted user in rhnConfigRevision
+
 * Tue Sep 07 2010 Jan Pazdziora 1.2.16-1
 - The schema upgrade scripts have to have suffix .sql.
 - Return the syntax of constraints to the state before Spacewalk 0.5.
