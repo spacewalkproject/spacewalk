@@ -103,9 +103,9 @@ sub create_config_contents {
   my $sth;
   $sth = $dbh->prepare(<<EOS);
 INSERT INTO rhnConfigContent
-  (id, checksum_id, file_size, contents)
+  (id, checksum_id, file_size, contents, delim_start, delim_end)
 VALUES
-  (rhn_confcontent_id_seq.nextval, lookup_checksum('md5', :md5sum), :file_size, :contents)
+  (rhn_confcontent_id_seq.nextval, lookup_checksum('md5', :md5sum), :file_size, :contents, '{|', '|}')
 RETURNING id INTO :ccid
 EOS
 
