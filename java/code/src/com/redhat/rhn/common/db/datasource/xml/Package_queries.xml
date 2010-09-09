@@ -184,11 +184,10 @@ WHERE id IN
 <mode name="providing_channels">
   <query params="pid, org_id">
 SELECT  C.id, C.name, C.label
-  FROM  rhnAvailableChannels AC, rhnChannel C, rhnChannelPackage CP
+  FROM  rhnChannel C, rhnChannelPackage CP
  WHERE  CP.package_id = :pid
    AND  CP.channel_id = C.id
-   AND  AC.org_id = :org_id
-   AND  C.id = AC.channel_id
+   AND  (C.org_id = :org_id OR C.org_id is null)
 ORDER BY UPPER(C.label)
   </query>
 </mode>
