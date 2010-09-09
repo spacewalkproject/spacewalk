@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.2.0
+Version:	1.2.1
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,13 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Sep 09 2010 Tomas Lestach <tlestach@redhat.com> 1.2.1-1
+- 599030 - check whether SSL certificate generation was successful
+  (tlestach@redhat.com)
+- use hostname as default value for organization unit (tlestach@redhat.com)
+- enable also VPN IP (tlestach@redhat.com)
+- bumping package versions for 1.2 (mzazrivec@redhat.com)
+
 * Mon May 17 2010 Tomas Lestach <tlestach@redhat.com> 1.1.5-1
 - changing package description (tlestach@redhat.com)
 - do not check /etc/hosts file for actual hostname (tlestach@redhat.com)
