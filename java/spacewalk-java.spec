@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.35
+Version: 1.2.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,24 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 09 2010 Partha Aji <paji@redhat.com> 1.2.36-1
+- 627874 - Quick fix to disable Macro Delims for Config Directories
+  (paji@redhat.com)
+- 629974 - fixing ISE on select all on the channel repos page
+  (jsherril@redhat.com)
+- 630595 - fixing issue where a taskomatic restart was required for distros to
+  be synced (jsherril@redhat.com)
+- widening text file upon user request (jsherril@redhat.com)
+- 623447 - improving speed of providing_channles call, which is only used
+  through the api, and so its ok to just use org id and not go through the
+  rhNAvailableChannels view which seems very slow for large satellites.  We
+  should improve this in the future (jsherril@redhat.com)
+- let sandbox task log when removing some files/channels (tlestach@redhat.com)
+- 570393 - return empty map as DMI in case no hardware info is available
+  (tlestach@redhat.com)
+- 570393 - return empty map as CPU in case no hardware info is available
+  (tlestach@redhat.com)
+
 * Thu Sep 09 2010 Tomas Lestach <tlestach@redhat.com> 1.2.35-1
 - add None as channel checksum type option on the webUI (tlestach@redhat.com)
 
