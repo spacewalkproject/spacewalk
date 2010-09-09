@@ -108,14 +108,17 @@ while ($line = <SOURCE>) {
 close(SOURCE);
 close(TARGET);
 
+my $error = 0;
 for (sort keys %exception_seen) {
 	if ($exception_seen{$_} > 1) {
 		warn "Schema source [$source] loaded override [$_] more than once.\n";
+		$error = 1;
 	}
 }
 for (sort keys %exception_files) {
 	if (not exists $exception_seen{$_}) {
 		warn "Schema source [$source] did not use override [$_].\n";
+		$error = 1;
 	}
 }
-exit 0;
+exit $error;
