@@ -541,13 +541,13 @@ class ActivationResult:
         return self._systemSlots
 
 def _encode_characters(*args):
-        """ All the data we gathered from dmi, bios, gudev are in latin-1,
+        """ All the data we gathered from dmi, bios, gudev are in utf-8,
             we need to convert characters beyond ord(127) - e.g \xae to unicode.
         """
         result=[]
         for item in args:
             item_type = type(item)
-            if item_type == StringType or item_type == UnicodeType:
+            if item_type == StringType:
                 item = unicode(item, 'utf-8')
             elif item_type == TupleType:
                 item = tuple(map(_encode_characters, item))
@@ -555,7 +555,7 @@ def _encode_characters(*args):
                 item = map(_encode_characters, item)
             elif item_type == DictType or item_type == DictionaryType:
                 item = dict([(_encode_characters(name, val)) for name, val in item.iteritems()])
-            # else: numbers - are safe
+            # else: numbers or UnicodeType - are safe
             result.append(item)
         if len(result) == 1:
             return result[0]
