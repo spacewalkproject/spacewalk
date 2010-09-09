@@ -282,6 +282,12 @@ function re-generate_server_ssl_certificate {
             --password="$SSL_CA_PASSWORD" \
             2>>$LOG | grep noarch.rpm`
 
+        if [ ! -n "$SSL_KEY_PAIR_RPM" ]
+        then
+            echo_err "Wrong SSL information provided. Check $LOG for more information." | tee -a $LOG
+            bye
+        fi
+
         if [ -n "$ACTUAL_SSL_KEY_PAIR_PACKAGE" ]
         then
             echo -n "Removing old SSL certificate ($ACTUAL_SSL_KEY_PAIR_PACKAGE) ... " | tee -a $LOG
