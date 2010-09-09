@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.2.2
+Version: 1.2.3
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -60,6 +60,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Thu Sep 09 2010 Jan Pazdziora 1.2.3-1
+- Add back support for old Spacewalk schema sources, needed for Satellite
+  schema upgrade testing.
+
 * Thu Aug 26 2010 Jan Pazdziora 1.2.2-1
 - 626420 - chdir to root to stop sqlplus from searching the mounted devices.
 - As we never fork now, the --nofork is obsolete, removing.
