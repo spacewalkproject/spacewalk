@@ -216,7 +216,6 @@ rhnUserInfoPane                :: rhnInfoPane web_contact
 rhnUserServerGroupPerms        :: web_contact rhnServerGroup
 rhnUserServerPerms             :: web_contact rhnServer
 rhnUserServerPrefs             :: web_contact rhnServer
-rhnUserMessage                 :: web_contact rhnMessage rhnUserMessageStatus
 rhnVersionInfo                 :: rhnPackageName rhnPackageEVR
 rhnVirtualInstance             :: rhnServer
 rhnVirtualInstanceInfo         :: rhnVirtualInstance rhnVirtualInstanceType \

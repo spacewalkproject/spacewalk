@@ -160,11 +160,6 @@ create or replace function delete_user(user_id_in in numeric, deleting_org in nu
                                                 and     sq_usgp.user_id != user_id_in
                                 );
                                 
-                messages cursor for
-                        select  message_id
-                        from    rhnUserMessage
-                        where   user_id = user_id_in;
-		
                 users                   numeric;
                 our_org_id              numeric;
                 other_users             numeric;
@@ -221,22 +216,6 @@ create or replace function delete_user(user_id_in in numeric, deleting_org in nu
                 end if;
 
                 -- and now things for every user
-		for message in messages loop
-                        delete
-                                from    rhnUserMessage
-                                where   user_id = user_id_in
-                                        and message_id = message.id;
-
-                                if exists(select  1
-                                from    rhnUserMessage
-                                where   message_id = message.id) then
-                                    delete
-                                        from    rhnMessage
-                                        where   id = message.id;
-                                end if;
-                end loop;
-
-                
                 delete from rhn_command_queue_sessions where contact_id = user_id_in;
                 delete from rhn_contact_groups
                 where recid in (

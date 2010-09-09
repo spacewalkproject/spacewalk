@@ -142,10 +142,6 @@ IS
                         and sq_usgp.server_group_id = usgp.server_group_id
                         and    sq_usgp.user_id != user_id_in
                 );
-        cursor messages is
-            select    message_id id
-            from    rhnUserMessage
-            where    user_id = user_id_in;
         users            number;
         our_org_id        number;
         other_users        number;
@@ -205,25 +201,6 @@ IS
         end if;
 
         -- and now things for every user
-        for message in messages loop
-            delete
-                from    rhnUserMessage
-                where    user_id = user_id_in
-                    and message_id = message.id;
-            begin
-                select    1
-                into    users
-                from    rhnUserMessage
-                where    message_id = message.id
-                    and rownum = 1;
-                delete
-                    from    rhnMessage
-                    where    id = message.id;
-            exception
-                when no_data_found then
-                    null;
-            end;
-        end loop;
         delete from rhn_command_queue_sessions where contact_id = user_id_in;
         delete from rhn_contact_groups
         where recid in (
