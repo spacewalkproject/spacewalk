@@ -17,7 +17,7 @@
 <pxt-formvar>
     <div class="page-content">
 <rhn-appinstall-start file="/applications/rhn-proxy/{formvar:version}/install-rhn-proxy.xml" fail_redir="/network/systems/details/proxy.pxt?sid={formvar:sid}">
-    <h2><img src="/img/rhn-icon-proxy.gif"/>Install RHN Proxy Server<rhn-help guide="proxy" href="../..{link}" /></h2>
+    <h2><img src="/img/rhn-icon-proxy.gif"/>Install RHN Proxy Server<rhn-help guide="proxy" href="{link}" /></h2>
       <p>
         Welcome to the {app_get_name} version {app_get_version} installer.
       </p>
