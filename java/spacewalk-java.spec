@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.36
+Version: 1.2.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 09 2010 Partha Aji <paji@redhat.com> 1.2.37-1
+- 625730 - Fixed the create config file/dir javascript to work with google
+  chrome (paji@redhat.com)
+
 * Thu Sep 09 2010 Partha Aji <paji@redhat.com> 1.2.36-1
 - 627874 - Quick fix to disable Macro Delims for Config Directories
   (paji@redhat.com)
