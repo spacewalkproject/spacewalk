@@ -33,7 +33,7 @@
 			<html:radio property="filetype" value="symlink" styleId="symlink_radio" /><bean:message
 				key="addfiles.jsp.type.symlink" /><br />
 			<script type="text/javascript">
-				Event.observe('symlink_radio', 'focus', function(event){
+				Event.observe('symlink_radio', 'click', function(event){
 					$('cffUid').disabled = true;
 					$('cffGid').disabled = true;
 					$('cffPermissions').disabled = true;
@@ -45,7 +45,7 @@
 					
 				});
 
-				Event.observe('file_radio', 'focus', function(event){
+				Event.observe('file_radio', 'click', function(event){
 					$('cffUid').disabled = false;
 					$('cffGid').disabled = false;
 					$('cffPermissions').disabled = false;
@@ -56,7 +56,7 @@
 					$('hiddenContentsRow').style.display = 'none';
 				});
 				
-				Event.observe('dir_radio', 'focus', function(event){
+				Event.observe('dir_radio', 'click', function(event){
 					$('cffUid').disabled = false;
 					$('cffGid').disabled = false;
 					$('cffPermissions').disabled = false;
