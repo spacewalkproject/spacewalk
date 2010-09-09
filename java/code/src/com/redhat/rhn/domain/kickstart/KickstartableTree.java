@@ -398,6 +398,15 @@ public class KickstartableTree extends BaseDomainHelper {
      */
     public boolean isValid() {
         return !StringUtils.isBlank(getCobblerId()) &&
-                    pathExists(getInitrdPath()) && pathExists(getKernelPath());
+                    isPathsValid();
     }
+
+    /**
+     * are the paths valid for kernel and initrd
+     * @return true if valid
+     */
+    public boolean isPathsValid() {
+        return pathExists(getInitrdPath()) && pathExists(getKernelPath());
+    }
+
 }

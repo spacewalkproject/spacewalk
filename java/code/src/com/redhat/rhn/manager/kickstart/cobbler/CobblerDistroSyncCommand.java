@@ -55,7 +55,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         Map<String, Distro> toReturn = new HashMap<String, Distro>();
         List<Distro> distros = Distro.list(CobblerXMLRPCHelper.getAutomatedConnection());
         for (Distro distro : distros) {
-            toReturn.put((String)distro.getUid(), distro);
+            toReturn.put(distro.getUid(), distro);
         }
         return toReturn;
     }
@@ -73,7 +73,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         String err;
         for (KickstartableTree tree : unSynced) {
 
-            if (!tree.isValid()) {
+            if (!tree.isPathsValid()) {
                 log.warn("Could not sync tree " + tree.getLabel());
                 continue;
             }
