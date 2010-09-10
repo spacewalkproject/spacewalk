@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.5
+Version: 1.2.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Sep 10 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.6-1
+- 630950 - fix ISE in proxy webUI installer
+
 * Thu Sep 09 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.5-1
 - 580080 - fix link to Proxy Guide
 
