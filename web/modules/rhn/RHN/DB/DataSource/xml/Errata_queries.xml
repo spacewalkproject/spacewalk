@@ -191,6 +191,10 @@ SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.advisory_type, E.synopsi
                     WHERE CE2.channel_id = :cid_2
 		      AND EC.original_id = CE.errata_id
 		      AND EC.id = CE2.errata_id)
+   AND NOT EXISTS  (select 1
+                  from  rhnChannelErrata CE3
+                 where CE3.channel_id = :cid_2
+                       AND CE3.errata_id = E.id)
 ORDER BY E.update_date, E.id
   </query>
   <elaborator name="errata_overview" />
