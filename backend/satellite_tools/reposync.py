@@ -80,10 +80,6 @@ class RepoSync:
         if not options.channel_label:
             quit = True
             self.error_msg("--channel must be specified")
-        if options.label:
-            self.error_msg("--label is obsoleted")
-        if options.mirror:
-            self.error_msg("--mirrorlist is obsoleted; mirrorlist is recognized automatically")
 
         self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
         self.log_msg(str(sys.argv))
@@ -116,10 +112,8 @@ class RepoSync:
         self.parser.add_option('-u', '--url', action='store', dest='url', help='The url to sync')
         self.parser.add_option('-c', '--channel', action='store', dest='channel_label', help='The label of the channel to sync packages to')
         self.parser.add_option('-t', '--type', action='store', dest='type', help='The type of repo, currently only "yum" is supported', default='yum')
-        self.parser.add_option('-l', '--label', action='store_true', dest='label', help='Ignored; for compatibility with old versions')
         self.parser.add_option('-f', '--fail', action='store_true', dest='fail', default=False , help="If a package import fails, fail the entire operation")
         self.parser.add_option('-q', '--quiet', action='store_true', dest='quiet', default=False, help="Print no output, still logs output")
-        self.parser.add_option('-m', '--mirrorlist', action='store_true', dest='mirror', default=False, help="Ignored; for compatibility with old versions. Mirrorlist is recognized automatically.")
         return self.parser.parse_args()
 
     def load_plugin(self):

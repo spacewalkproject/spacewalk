@@ -1,0 +1,120 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY RHNCHANRM "Spacewalk repository syncing tool" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-repo-sync</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 3.5.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-repo-sync</command></RefName>
+<RefPurpose>
+Syncs the content from yum repos into Spacewalk or Satellite channels.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spaceawlk-remove-channel</command>
+        <arg>options <replaceable>...</replaceable></arg>
+        <arg>-c<replaceable>CHANNEL_LABEL</replaceable></arg>
+        <arg>--channel=<replaceable>CHANNEL_LABEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+         <arg>-u<replaceable>URL</replaceable></arg>
+         <arg>--url=<replaceable>URL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-q</arg>
+        <arg>--quiet</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-f</arg>
+        <arg>--fail</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-t<replaceable>TYPE</replaceable></arg>
+        <arg>--type=<replaceable>TYPE</replaceable></arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+<para>
+    The <emphasis>spacewalk-repo-sync</emphasis> tool is used to sync packages from
+    external or local yum repositories. All the packages within the specified repository
+    will be added to the channel.
+</para>
+
+<para>
+    Any url supported by yum is supported by this utility, including mirror lists.
+    If the url is not supplied, the tool will look to see what repositories are associated
+    with the specified channel and use those.
+</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-c<replaceable>CHANNEL</replaceable>, --channel=<replaceable>CHANNEL</replaceable></term>
+        <listitem>
+            <para>The channel to sync the repository too.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-u<replaceable>URL</replaceable>, --url=<replaceable>URL</replaceable></term>
+        <listitem>
+            <para>The repository URL.  Any protocol supported by yum is supported including http://, nfs://, file://. (Optional)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-t<replaceable>TYPE</replaceable>, --type=<replaceable>TYPE</replaceable></term>
+        <listitem>
+            <para>The type of repository to sync.  Currently only yum is supported and is the default. (Optional)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-f, --fail</term>
+        <listitem>
+            <para>By default if an error occurs with a single package, the rest of the sync continues.  When using this option, the entire sync will terminate upon any error.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-q, --quiet</term>
+        <listitem>
+            <para>Do not print any output except for errors.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Examples</Title>
+<simplelist>
+        <member><command>spacewalk-repo-sync --channel=my-custom-channel</command></member>
+        <member><command>spacewalk-remove-channel --channel=my-custom-channel --url=http://example.com/yum-repo/</command></member>
+        <member><command>spacewalk-remove-channel --channel=my-custom-channel --url=file:///var/share/localrepo/</command></member>
+        <member><command>spacewalk-remove-channel --channel=my-custom-channel --url=http://example.com/mirrorlist.xml/</command></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Justin Sherrill <email>jsherril@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
+
+<!--
+vim: sw=4
+-->
