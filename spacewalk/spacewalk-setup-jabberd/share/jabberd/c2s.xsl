@@ -11,7 +11,7 @@
 <xsl:template match="/c2s/local/id">
   <xsl:copy>
     <xsl:attribute name="require-starttls">false</xsl:attribute>
-    <xsl:attribute name="pemfile">/etc/pki/spacewalk/jabberd/server.pem</xsl:attribute>
+    <xsl:attribute name="pemfile">@server_pem@</xsl:attribute>
     <xsl:attribute name="realm"></xsl:attribute>
     <xsl:attribute name="register-enable">true</xsl:attribute>
     <xsl:text>@hostname@</xsl:text>

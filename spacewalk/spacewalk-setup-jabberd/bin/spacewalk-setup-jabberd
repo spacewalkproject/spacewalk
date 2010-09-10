@@ -23,7 +23,15 @@ use warnings;
 my $verbose = 0;
 my $macros = '';
 my $help = 0;
-my %macros = ('hostname' => Sys::Hostname::hostname());
+my %macros = ('hostname' => Sys::Hostname::hostname(),
+              'server_pem' => '/etc/pki/spacewalk/jabberd/server.pem');
+
+# Try to guess correct path to jabberd's server.pem
+my $q = `rpm -qf /etc/jabberd/server.pem 2> /dev/null`;
+chomp $q;
+if ($q =~ /^rhn-(org-)?httpd-ssl-key-pair/) {
+	$macros{'server_pem'} = '/etc/jabberd/server.pem';
+}
 
 GetOptions("macros:s" => \$macros, "verbose" => \$verbose, "help" => \$help);
 
@@ -109,7 +117,7 @@ B<spacewalk-setup-jabberd>
 Specify macro names and corresponding macro values that will be used for
 substitution after document transformation. You can specify multiple
 macro:value pairs which you need to delimit by commas (example:
---macros hostname:host.domain.org,pemfile:/etc/pki/tls/certs/localhost.pem).
+--macros hostname:host.domain.org,server_pem:/etc/pki/spacewalk/jabberd/server.pem).
 
 =item B<--verbose>
 
