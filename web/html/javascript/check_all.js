@@ -32,10 +32,17 @@ function process_check_all(set_label, cbox_items, flag, ignorables_ids) {
     var ignorables = ids_to_elements(ignorables_ids);
     var cboxes = new Array();
     cboxes = cboxes.concat(ignorables); 
-    for (var i = 0 ; i < cbox_items.length; i++) {
-        cboxes.push(cbox_items[i]);
+    if (cbox_items.length) {
+        for (var i = 0 ; i < cbox_items.length; i++) {
+            cboxes.push(cbox_items[i]);
+        }
     }
- 
+    else {
+        //for a single element check box
+        //push the form element
+        cboxes.push(cbox_items);
+    }
+
     var boxes = process_group(set_label, cboxes, flag);
     var includes = new Array();
     for (var i = 0; i < boxes.length; i++) {
