@@ -194,8 +194,17 @@ public class BaseHandler implements XmlRpcInvocationHandler {
         }
         if (toReturn.isEmpty()) {
             //The caller didn't get the method name or number of parameters right
-            throw new XmlRpcFault(-1, "Could not find method " +
-                                          beanifiedMethod + " in class " + this.getClass());
+            String message = "Could not find method: " + beanifiedMethod +
+            " in class: " + this.getClass().getName() + " with params: [";
+            for (Iterator iter = params.iterator(); iter.hasNext(); ) {
+                Object param = iter.next();
+                message += (param.getClass().getName());
+                    if (iter.hasNext()) {
+                        message = message + ", ";
+                    }
+            }
+            message = message + "]";
+            throw new XmlRpcFault(-1, message);
         }
         return toReturn;
     }
