@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -58,6 +58,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Fri Sep 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.2.1-1
+- point c2s to server.pem contained in the rhn-org-* pkg
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
 - bumping spec files to 1.1 packages
 
