@@ -192,7 +192,7 @@ console() {
         fi
     else
         echo "$APP_LONG_NAME is already running."
-        exit 1
+        exit 0
     fi
 }
  
@@ -219,7 +219,7 @@ start() {
         fi
     else
         echo "$APP_LONG_NAME is already running."
-        exit 1
+        exit 0
     fi
 }
  
