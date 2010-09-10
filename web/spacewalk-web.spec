@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.6
+Version: 1.2.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Sep 10 2010 Partha Aji <paji@redhat.com> 1.2.7-1
+- 629606 - Fixed a list tag check box issue (paji@redhat.com)
+- 591899 - fixing error where cloning an already cloned channel would still
+  result in errata showing up on the clone tab when managing it
+  (jsherril@redhat.com)
+
 * Fri Sep 10 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.6-1
 - 630950 - fix ISE in proxy webUI installer
 
