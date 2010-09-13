@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.18
+Version:        1.2.19
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Sep 13 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.19-1
+- added upgrade script for rhnUserMessageType
+
 * Thu Sep 09 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.18-1
 - upgrade script for rhn_org.pkb
 
