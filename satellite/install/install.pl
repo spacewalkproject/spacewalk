@@ -710,114 +710,11 @@ EOF
 }
 
 
-sub get_arches_for_needed_rpms {
-  my $needed_rpms = shift;
-  my %arches;
-  for (keys %$needed_rpms) {
-    if (/\.(i\d86|x86_64|ia64|ppc64|s390|s390x)$/) {
-      $arches{$1} = 1;
-    } else {
-      $arches{''} = 1;
-    }
-  }
-  return sort { length($a) <=> length($b) or $a cmp $b } keys %arches;
-}
-
-sub up2date_command_for_arch {
-  my ($needed_rpms, $arch) = @_;
-  my $system_arch = `uname -i`;
-  chomp $system_arch;
-  if ($arch eq '') {
-    my @pkgs = sort grep { not /\./ } keys %$needed_rpms;
-    if (@pkgs) {
-      return ('up2date', "--arch=$system_arch", '--arch=noarch', '-i', @pkgs);
-    }
-  } else {
-    my @pkgs = sort map { s/\..*$//; $_ } grep { /\.$arch$/ } keys %$needed_rpms;
-    if (@pkgs) {
-      return ('up2date', '-i', "--arch=$arch", @pkgs);
-    }
-  }
-}
-
 sub print_yum_commands {
   my $needed_rpms = shift;
   if (keys %$needed_rpms) {
     print "\tyum install ", (join " ", sort keys %$needed_rpms), "\n";
   }
-}
-
-sub print_up2date_commands {
-  my $needed_rpms = shift;
-  my @arches = get_arches_for_needed_rpms($needed_rpms);
-  return if not @arches;
-
-  print loc(<<EOF);
-
-The following may be used to install needed packages on RHN-registered system:
-EOF
-  for my $arch (@arches) {
-    my @command = up2date_command_for_arch($needed_rpms, $arch);
-    if (@command) {
-      print "\t@command\n"
-    }
-  }
-}
-
-sub purge_needed_rpms {
-  my $needed_rpms = shift;
-  my $system_arch = `uname -i`;
-  chomp $system_arch;
-  my @anyarch_pkgs = grep { not /\./ } keys %$needed_rpms;
-  @anyarch_pkgs = map { ($_ . ".noarch", $_ . ".$system_arch") } @anyarch_pkgs;
-  my @somearch_pkgs = grep { /\./ } keys %$needed_rpms;
-  my @installed_needed_rpms = grep { not /\s/ }
-    map { chomp; $_ }
-    ( @anyarch_pkgs ? `rpm -q --qf '%{name}\n' @anyarch_pkgs` : () ),
-    ( @somearch_pkgs ? `rpm -q --qf '%{name}.%{arch}\n' @somearch_pkgs` : () );
-  for (@installed_needed_rpms) {
-    delete $needed_rpms->{$_};
-  }
-}
-
-sub system_debug_stdout {
-  local $| = 1;
-  my $logfile = Spacewalk::Setup::INSTALL_LOG_FILE;
-  local * LOG;
-  open LOG, '>>', Spacewalk::Setup::INSTALL_LOG_FILE or die "Failed to append logfile $logfile: $!\n";
-  local * PIPE;
-  open PIPE, "@_ 2>&1 |" or die "Feiled to run @_: $!\n";
-  while (<PIPE>) {
-    print LOG $_;
-    print;
-  }
-  close LOG;
-  close PIPE;
-  return $?;
-}
-
-sub rpm_import_gpg {
-  my $opts = shift;
-
-  my $check_up2date_l = `up2date -l 2>&1`;
-  if ($? and defined $check_up2date_l and $check_up2date_l =~ /(rpm\s+--import.+)/) {
-    my $rpm_import = $1;
-    if ($opts->{"skip-gpg-key-import"}) {
-      print loc("** up2date/rpm: Skipping gpg key import\n");
-      return 0;
-    }
-    print loc("** Running %s\n", $rpm_import);
-    system_debug_stdout($rpm_import);
-  }
-  return 1;
-}
-
-sub up2date_is_available {
-  print loc("** Checking if up2date is available ...\n");
-  if (grep /^bash-/, `up2date --showall 2>&1`) {
-    return 1;
-  }
-  return;
 }
 
 my $yum_available;
