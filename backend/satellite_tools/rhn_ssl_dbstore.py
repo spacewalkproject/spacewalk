@@ -71,14 +71,13 @@ def processCommandline():
                     username=db_user, password=db_password, database=db_name)
     except:
         sys.stderr.write("""\
-ERROR: there was a problem trying to initialize the database: %s
+ERROR: there was a problem trying to initialize the database:
 
-%s\n""" (values.db, fetchTraceback()))
+%s\n""" % fetchTraceback())
         sys.exit(11)
 
     if values.verbose:
         print 'Public CA SSL certificate:  %s' % values.ca_cert
-        print 'Database connection string: %s' % values.db
         
     return values
 
