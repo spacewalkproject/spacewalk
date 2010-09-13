@@ -100,7 +100,7 @@ print loc("* Applying updates.\n");
 install_updates_packages();
 
 print loc("* Installing RHN packages.\n");
-install_rhn_packages();
+install_rhn_packages(\%opts);
 
 
 my %satellite_rpms = map { m!^.+/(.+)-.+-.+$! and ( $1 => 1 ); }
@@ -738,9 +738,10 @@ sub install_updates_packages {
 }
 
 sub install_rhn_packages {
+  my $opts = shift;
   my @rpms = glob("Satellite/*.rpm");
 
-  if (is_embedded_db($opts)) {
+  if (Spacewalk::Setup::is_embedded_db($opts)) {
       push(@rpms, glob("EmbeddedDB/*.rpm"));
   }
   system_or_exit(['yum', 'localinstall', '-y', @rpms],
