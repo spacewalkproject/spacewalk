@@ -72,18 +72,6 @@ rhn_register(\%opts, \%answers, \%up2dateOptions, \%rhnOptions);
 Spacewalk::Setup::upgrade_stop_services(\%opts);
 remove_obsoleted_packages(\%opts);
 
-my $have_yum = ( -f '/usr/bin/yum' ? 1 : 0 );
-if ($have_yum) {
-    # If we have yum available but are on RHEL 4, stick with up2date:
-    # NOTE: Even if the system has no redhat-release (i.e. Fedora) this regex
-    # will simply not match.
-    my $redhat_release = `rpm -q --qf='%{VERSION}' redhat-release`;
-    if ($redhat_release =~ /^4.*/) {
-        $have_yum = 0;
-        print loc("Warning: Found yum on RHEL 4, using up2date instead.\n");
-    }
-}
-
 
 my $run_updater;
 if (defined $opts{'run-updater'}) {
@@ -102,15 +90,11 @@ if (defined $opts{'run-updater'}) {
 }
 
 my (%rpm_qa, $needed_rpms);
-if ($have_yum) {
-  @rpm_qa{ map { chomp ; $_; } `rpm -qa --qf '%{name}\n'` } = ();
-  print loc("* Checking for uninstalled prerequisites.\n");
-  $needed_rpms = check_required_rpms(\%opts, \%answers, $run_updater, \%rpm_qa);
-  $needed_rpms = {} if not defined $needed_rpms;
-} else {
-  print loc("* Installing required packages.\n");
-  install_required_rpms(\%opts, \%answers, $run_updater);
-}
+
+@rpm_qa{ map { chomp ; $_; } `rpm -qa --qf '%{name}\n'` } = ();
+print loc("* Checking for uninstalled prerequisites.\n");
+$needed_rpms = check_required_rpms(\%opts, \%answers, $run_updater, \%rpm_qa);
+$needed_rpms = {} if not defined $needed_rpms;
 
 print loc("* Applying updates.\n");
 install_updates_packages();
@@ -118,23 +102,22 @@ install_updates_packages();
 print loc("* Installing RHN packages.\n");
 install_rhn_packages();
 
-if ($have_yum) {
-  my %satellite_rpms = map { m!^.+/(.+)-.+-.+$! and ( $1 => 1 ); }
+
+my %satellite_rpms = map { m!^.+/(.+)-.+-.+$! and ( $1 => 1 ); }
     glob("Satellite/*.rpm EmbeddedDB/*.rpm");
-  my %current_rpm_qa =
+my %current_rpm_qa =
     map { ( $_ => 1 ) }
     grep { not exists $rpm_qa{$_} and not exists $satellite_rpms{$_} }
     map { chomp ; $_; } `rpm -qa --qf '%{name}\n'`;
-  my @extra_rpms = grep { not exists $needed_rpms->{$_} } sort keys %current_rpm_qa;
-  if (@extra_rpms) {
+my @extra_rpms = grep { not exists $needed_rpms->{$_} } sort keys %current_rpm_qa;
+if (@extra_rpms) {
     print loc("Warning: more packages were installed by yum than expected:\n");
     print map "\t$_\n", @extra_rpms;
-  }
-  my @not_installed_rpms = grep { not exists $current_rpm_qa{$_} } sort keys %$needed_rpms;
-  if (@not_installed_rpms) {
+}
+my @not_installed_rpms = grep { not exists $current_rpm_qa{$_} } sort keys %$needed_rpms;
+if (@not_installed_rpms) {
     print loc("Warning: yum did not install the following packages:\n");
     print map "\t$_\n", @not_installed_rpms;
-  }
 }
 
 # Call spacewalk-setup:
@@ -726,110 +709,6 @@ EOF
   return;
 }
 
-sub install_required_rpms {
-  my $opts = shift;
-  my $answers = shift;
-  my $run_updater = shift;
-
-  my $needed_rpms = get_required_rpms();
-
-  purge_needed_rpms($needed_rpms);
-  if (keys %$needed_rpms) {
-    my $package_list = join "\n\t", sort keys %$needed_rpms;
-    print loc(<<'EOF', $package_list);
-The following packages from Red Hat Enterprise Linux that are not part
-of the @base group have to be installed on this system for the installer
-and the Satellite to operate correctly:
-
-	%s
-
-EOF
-
-    if (defined $run_updater and not($run_updater)) {
-      print loc(<<'EOF');
-Please install the packages listed above and rerun the Satellite installer.
-EOF
-      print_up2date_commands($needed_rpms);
-      exit 6;
-    }
-    if (not(up2date_is_available())) {
-      print loc(<<'EOF');
-We will not try to install the packages now as this system appears not to be
-registered with RHN. Please install the packages listed above and rerun
-the Satellite installer.
-EOF
-      print_up2date_commands($needed_rpms);
-      exit 5;
-    }
-    if (not defined $run_updater) {
-      print loc(<<'EOF');
-We can try to install the needed packages now, by running up2date -i.
-EOF
-      ask(-question => loc('Do you want to run this command now [y/N]'),
-          -answer => \$run_updater,
-          -test => qr/^/,
-         );
-
-      if (not $run_updater =~ /^\s*y(es)?\s*$/i) {
-        print loc(<<'EOF');
-Very well, we won't install these packages now. Please rerun the installer
-once you have installed them. Thank you.
-EOF
-        print_up2date_commands($needed_rpms);
-        exit 2;
-      }
-    }
-
-    rpm_import_gpg($opts);
-
-    print loc(<<'EOF', Spacewalk::Setup::INSTALL_LOG_FILE);
-Installing packages. The log can be found in
-
-	%s
-
-You can tail -f in another terminal to see the progress.
-EOF
-
-    for my $arch (get_arches_for_needed_rpms($needed_rpms)) {
-      my $ret = 0;
-      my @command = up2date_command_for_arch($needed_rpms, $arch);
-      if (@command) {
-        print loc("Running %s\n", "@command");
-        $ret = system_debug(@command);
-      }
-      if ($ret) {
-        print loc(<<'EOF', Spacewalk::Setup::INSTALL_LOG_FILE);
-We've tried to run the up2date command but it looks like it failed. Please
-review the log file
-
-	%s
-
-and fix whatever the problem might be.
-EOF
-        exit 3;
-      }
-      purge_needed_rpms($needed_rpms);
-    }
-
-    purge_needed_rpms($needed_rpms);
-    if (keys %$needed_rpms) {
-      my $not_installed = join "\n\t", sort keys %$needed_rpms;
-      print loc(<<'EOF', $not_installed, Spacewalk::Setup::INSTALL_LOG_FILE);
-It looks like installation of packages failed. The following are still
-missing:
-
-	%s
-
-Please install them and rerun the Satellite installer. The log file
-
-	%s
-
-might also have some useful information.
-EOF
-      exit 4;
-    }
-  }
-}
 
 sub get_arches_for_needed_rpms {
   my $needed_rpms = shift;
@@ -962,26 +841,9 @@ sub install_updates_packages {
 }
 
 sub install_rhn_packages {
-  if ($have_yum) {
-    system_or_exit(['yum', 'localinstall', '-y', glob("Satellite/*.rpm EmbeddedDB/*.rpm")],
+  system_or_exit(['yum', 'localinstall', '-y', glob("Satellite/*.rpm EmbeddedDB/*.rpm")],
 		 26,
 		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
-  } else {
-    my @rpms = glob("Satellite/*.rpm EmbeddedDB/*.rpm");
-
-    # skip packages already installed or newer version already installed
-    for my $i (0..$#rpms) {
-        my $ret = system ("rpm -U --test --nodeps --quiet 2>/dev/null $rpms[$i]");
-        if ($ret != 0) {
-            delete($rpms[$i]);
-        }
-    }
-    if (@rpms) {
-       system_or_exit(['rpm', '-Uv', @rpms],
-		 26,
-		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
-    }
-  }
   return 1;
 }
 
