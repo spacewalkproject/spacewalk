@@ -117,7 +117,8 @@ def process_package_data():
 
         if not os.path.exists(full_path):
             skip_list.append(full_path)
-            Log.writeMessage("File not %s found" % (full_path))
+            if debug:
+                Log.writeMessage("File not %s found" % (full_path))
             continue
 
         try:
