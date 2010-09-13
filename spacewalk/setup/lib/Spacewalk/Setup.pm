@@ -108,6 +108,7 @@ sub parse_options {
 		    "run-updater:s",
             "run-cobbler",
             "enable-tftp:s",
+                    "external-db",
 		   );
 
   my $usage = loc("usage: %s %s\n",
@@ -193,7 +194,8 @@ sub load_answer_file {
 # an "EmbeddedDB" directory beneath the dir we're running from (i.e.
 # installing from ISO)
 sub is_embedded_db {
-  return ( -d 'EmbeddedDB' ? 1 : 0 );
+  my $opts = shift;
+  return (-d 'EmbeddedDB' and not defined($opts->{'external-db'}) ? 1 : 0 );
 }
 
 sub system_debug {
@@ -298,7 +300,7 @@ sub upgrade_stop_services {
                       'Could not stop the http service.');
       system_or_exit(['/sbin/service', 'taskomatic', 'stop'], 27,
                       'Could not stop the taskomatic service.');
-      if (is_embedded_db()) {
+      if (is_embedded_db($opts)) {
         system_or_exit(['/sbin/service', 'rhn-database', 'stop'], 31,
                         'Could not stop the rhn-database service.');
       }
@@ -902,7 +904,7 @@ sub oracle_setup_db {
 
     print loc("* Setting up Oracle environment.\n");
 
-    oracle_check_for_users_and_groups();
+    oracle_check_for_users_and_groups($opts);
 
     print loc("* Setting up database.\n");
     oracle_setup_embedded_db($opts, $answers);
@@ -913,7 +915,7 @@ sub oracle_setup_db {
 
 sub oracle_upgrade_start_db {
     my $opts = shift;
-    if (is_embedded_db()) {
+    if (is_embedded_db($opts)) {
         if ($opts->{'upgrade'}) {
             system_or_exit(['/sbin/service', 'oracle', 'start'], 19,
                 'Could not start the oracle database service.');
@@ -924,7 +926,8 @@ sub oracle_upgrade_start_db {
 }
 
 sub oracle_check_for_users_and_groups {
-    if (is_embedded_db()) {
+    my $opts = shift;
+    if (is_embedded_db($opts)) {
         my @required_users = qw/oracle/;
         my @required_groups = qw/oracle dba/;
 
@@ -944,7 +947,7 @@ sub oracle_setup_embedded_db {
     my $opts = shift;
     my $answers = shift;
 
-    if (not is_embedded_db()) {
+    if (not is_embedded_db($opts)) {
         return 0;
     } else {
         $answers->{'db-user'} = 'rhnsat' if not defined $answers->{'db-user'};
@@ -1068,7 +1071,7 @@ sub oracle_setup_db_connection {
         };
         if ($@) {
             print loc("Could not connect to the database.  Your connection information may be incorrect.  Error: %s\n", $@);
-            if (is_embedded_db() or $opts->{"non-interactive"}) {
+            if (is_embedded_db($opts) or $opts->{"non-interactive"}) {
                 exit 19;
             }
 

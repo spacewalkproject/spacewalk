@@ -738,7 +738,12 @@ sub install_updates_packages {
 }
 
 sub install_rhn_packages {
-  system_or_exit(['yum', 'localinstall', '-y', glob("Satellite/*.rpm EmbeddedDB/*.rpm")],
+  my @rpms = glob("Satellite/*.rpm");
+
+  if (is_embedded_db($opts)) {
+      push(@rpms, glob("EmbeddedDB/*.rpm"));
+  }
+  system_or_exit(['yum', 'localinstall', '-y', @rpms],
 		 26,
 		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
   return 1;
