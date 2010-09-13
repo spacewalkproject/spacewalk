@@ -10,6 +10,7 @@ License:        GPLv2
 # cd spec-tree/oracle-lib-compat
 # make srpm
 URL:            https://fedorahosted.org/spacewalk
+Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 
 %ifarch s390 s390x
@@ -41,6 +42,7 @@ Requires:       libstdc++.so.5%{?lib64}
 Compatibility package so that perl-DBD-Oracle will install.
 
 %prep
+%setup -q
 
 %build
 
@@ -65,6 +67,14 @@ ln -s ../../../lib/oracle/%{icversion}/client64 $RPM_BUILD_ROOT%{_libdir}/oracle
 mkdir -p $RPM_BUILD_ROOT/%{_javadir}
 ln -s ../../%{_lib}/oracle/%{icversion}/client/lib/ojdbc14.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
 
+%if 0%{?rhel} && 0%{?rhel} < 6
+%define tomcatname tomcat5
+%else
+%define tomcatname tomcat6
+%endif
+install -d $RPM_BUILD_ROOT%{_datadir}/%{tomcatname}/bin
+install tomcat-setenv.sh $RPM_BUILD_ROOT%{_datadir}/%{tomcatname}/bin/setenv.sh
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -76,6 +86,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %{_javadir}/ojdbc14.jar
+%{_datadir}/%{tomcatname}/bin/setenv.sh
 
 %post
 ldconfig
