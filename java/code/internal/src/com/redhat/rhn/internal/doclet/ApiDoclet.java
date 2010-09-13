@@ -109,7 +109,7 @@ public class ApiDoclet {
 
                         if (method.tags(DEPRECATED).length > 0) {
                             call.setDeprecated(true);
-                            call.setDeprecatedVersion(getFirst(
+                            call.setDeprecatedReason(getFirst(
                                     method.tags(DEPRECATED)).text());
                         }
 

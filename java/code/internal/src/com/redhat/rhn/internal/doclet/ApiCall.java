@@ -56,7 +56,7 @@ public class ApiCall implements Comparable<ApiCall> {
      * Gets the deprecated version
      * @return the deprecated version
      */
-    public String getDeprecatedVersion() {
+    public String getDeprecatedReason() {
         return deprecatedVersion;
     }
 
@@ -64,7 +64,7 @@ public class ApiCall implements Comparable<ApiCall> {
      * sets the deprecated version
      * @param deprecatedVersionIn  the version
      */
-    public void setDeprecatedVersion(String deprecatedVersionIn) {
+    public void setDeprecatedReason(String deprecatedVersionIn) {
         this.deprecatedVersion = deprecatedVersionIn;
     }
 

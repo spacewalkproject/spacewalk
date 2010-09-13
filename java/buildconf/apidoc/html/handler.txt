@@ -39,7 +39,7 @@ $call.doc
 
 
 #if($call.deprecated)
-Deprecated as of version - $call.deprecatedVersion <p />
+Deprecated - $call.deprecatedReason <p />
 #end
 
 
