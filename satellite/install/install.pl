@@ -524,10 +524,6 @@ sub empty {
   return ($text ? 0 : 1);
 }
 
-sub is_embedded_db {
-  return ( -d 'EmbeddedDB' ? 1 : 0 );
-}
-
 sub remove_obsoleted_packages {
   my $opts = shift;
   if ($opts->{'upgrade'}) {
