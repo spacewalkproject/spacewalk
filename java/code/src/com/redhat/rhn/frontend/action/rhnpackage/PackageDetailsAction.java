@@ -95,14 +95,15 @@ public class PackageDetailsAction extends RhnAction {
                 if (!isDebug) {
                     Package debugPkg = PackageManager.findDebugInfo(user, pkg);
                     String ftpUrl = PackageManager.generateFtpDebugPath(pkg);
-                    if (debugPkg == null && ftpUrl != null) {
-                        request.setAttribute("debugUrl", ftpUrl);
-                        request.setAttribute("debugFtp", true);
-                    }
-                    else {
+                    if (debugPkg != null) {
                         request.setAttribute("debugUrl",
                                 DownloadManager.getPackageDownloadPath(debugPkg, user));
                     }
+                    else if (ftpUrl != null) {
+                        request.setAttribute("debugUrl", ftpUrl);
+                        request.setAttribute("debugFtp", true);
+                    }
+
                 }
 
             }
