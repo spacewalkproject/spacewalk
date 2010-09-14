@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.2
+Version: 1.2.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -114,6 +114,10 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Tue Sep 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.3-1
+- don't fail if service is already running
+- removign srcjars from search
+
 * Wed Sep 01 2010 Partha Aji <paji@redhat.com> 1.2.2-1
 - 518664 - Made spacewalk search deal with other locales (paji@redhat.com)
 
