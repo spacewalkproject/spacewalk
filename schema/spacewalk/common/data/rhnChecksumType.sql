@@ -23,9 +23,8 @@ insert into rhnChecksumType (id, label, description) values
             (rhn_checksum_id_seq.nextval, 'sha1', 'SHA1sum' );
 insert into rhnChecksumType (id, label, description) values
             (rhn_checksum_id_seq.nextval, 'sha256', 'SHA256sum' );
--- bug 633263: yum can't use sha384 thus it's been disabled
---insert into rhnChecksumType (id, label, description) values
---            (rhn_checksum_id_seq.nextval, 'sha384', 'SHA384sum' );
+insert into rhnChecksumType (id, label, description) values
+            (rhn_checksum_id_seq.nextval, 'sha384', 'SHA384sum' );
 insert into rhnChecksumType (id, label, description) values
             (rhn_checksum_id_seq.nextval, 'sha512', 'SHA512sum' );
 
