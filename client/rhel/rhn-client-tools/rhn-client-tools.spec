@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.2.6
+Version: 1.2.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -281,6 +281,12 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Sep 14 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.7-1
+- 632203 - fix comment to corespond with code, decoding unicode to unicode
+  produce traceback (msuchy@redhat.com)
+- l10n: Updates to Oriya (or) translation (mgiri@fedoraproject.org)
+- l10n: Updates to Russian (ru) translation (ypoyarko@fedoraproject.org)
+
 * Tue Aug 31 2010 Jan Pazdziora 1.2.6-1
 - 603028 - when checking package architecture during errata update, allow
   transition to and from noarch.
