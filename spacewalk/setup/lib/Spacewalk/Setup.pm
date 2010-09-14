@@ -20,6 +20,10 @@ use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
 use Params::Validate qw(validate);
 Params::Validate::validation_options(strip_leading => "-");
 
+use RHN::SatInstall;
+use RHN::Utils;
+use RHN::DataSource::Simple;
+
 =head1 NAME
 
 Spacewalk::Setup, spacewalk-setup
@@ -1523,6 +1527,76 @@ sub backup_file {
     } else {
         print loc("** $dir/$file has been backed up to $file$backup_suffix\n");
     }
+}
+
+sub update_monitoring_scout {
+	# This routine fixes monitoring problem described in bug #511052
+	# Earlier Satellites (3.7) set rhn_sat_node.ip and rhn_sat_cluster.vip
+	# to '127.0.0.1' during installation / monitoring activation. These
+	# values need to be set to ip address of satellite for
+	# MonitoringAccessHandler.pm to operate properly.
+
+	my $opts = shift;
+	my $answers = shift;
+
+	return unless ($opts{'upgrade'});
+
+	my $org_id = RHN::SatInstall->get_satellite_org_id();
+	my $ds = new RHN::DataSource::Simple(-querybase => "scout_queries",
+		-mode => 'scouts_for_org');
+	my $data = $ds->execute_query(-org_id => $org_id);
+	my ($scout) = grep { not $_->{SERVER_ID} } @{$data};
+
+	return 0 unless $scout;
+
+	my ($ip, $vip) = ($scout->{IP}, $scout->{VIP});
+	my ($sn_id, $sc_id) = ($scout->{SAT_NODE_ID}, $scout->{ID});
+	my $ip_addr = RHN::Utils::find_ip_address($answers{'hostname'});
+
+	my $dbh = RHN::DB->connect;
+
+	# If IP address for satellite / spacewalk scout was set to 127.0.0.1, it needs to be updated
+	my $sql1 = q{
+		update rhn_sat_node
+			set ip = :ip,
+			last_update_user = 'upgrade',
+			last_update_date = sysdate
+		where ip = '127.0.0.1' and
+			recid = :recid
+	};
+	my $sql2 = q{
+		update rhn_sat_cluster
+			set vip = :vip,
+			last_update_user = 'upgrade',
+			last_update_date = sysdate
+		where vip = '127.0.0.1' and
+			recid = :recid
+	};
+
+	# If IP address for satellite / spacewalk scout was not set, it needs to be updated
+	my $sql3 = q{
+		update rhn_sat_node
+			set ip = :ip,
+			last_update_user = 'upgrade',
+			last_update_date = sysdate
+		where ip is null and
+			recid = :recid
+	};
+	my $sql4 = q{
+		update rhn_sat_cluster
+			set vip = :vip,
+			last_update_user = 'upgrade',
+			last_update_date = sysdate
+		where vip is null and
+			recid = :recid
+	};
+
+	$dbh->do_h($sql1, ip => $ip_addr, recid => $sn_id, );
+	$dbh->do_h($sql2, vip => $ip_addr,  recid   => $sc_id,);
+	$dbh->do_h($sql3, ip => $ip_addr, recid => $sn_id, );
+	$dbh->do_h($sql4, vip => $ip_addr,  recid   => $sc_id,);
+
+	$dbh->commit;
 }
 
 
