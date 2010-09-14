@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.20
+Version:        1.2.21
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Sep 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.21-1
+- reverted "633263 - removed sha384 from list of checksums"
+
 * Tue Sep 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.20-1
 - 633263 - removed sha384 from list of checksums
 
