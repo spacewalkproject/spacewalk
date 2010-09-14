@@ -24,6 +24,7 @@ _path = "/usr/share/rhn"
 if _path not in sys.path:
     sys.path.append(_path)
 
+from common import initCFG
 
 SERVER_RETURN = 0
 
@@ -84,6 +85,7 @@ class Runner:
             print "--db not specified"
             return 1
 
+        initCFG('server')
         rhnSQL.initDB(self.options.db)
 
         self._channels_hash = self._get_channels()
