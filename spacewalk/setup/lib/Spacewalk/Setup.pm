@@ -1599,6 +1599,22 @@ sub update_monitoring_scout {
 	$dbh->commit;
 }
 
+sub update_monitoring_ack_enqueuer {
+	my $opts = shift;
+	my $answers = shift;
+
+	return unless ($opts->{'upgrade'});
+
+	my $l = '/etc/smrsh/ack_enqueuer.pl';
+	my $t = '/usr/bin/ack_enqueuer.pl';
+
+	# '/opt/notification/scripts/ack_enqueuer.pl' was the old location
+	# '/usr/bin/ack_enqueuer.pl' is the new location
+	if (-l $l && readlink($l) eq '/opt/notification/scripts/ack_enqueuer.pl') {
+		unlink($l);
+		symlink($t, $l);
+	}
+}
 
 =head1 DESCRIPTION
 
