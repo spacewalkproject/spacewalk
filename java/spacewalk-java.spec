@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.39
+Version: 1.2.40
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 14 2010 Justin Sherrill <jsherril@redhat.com> 1.2.40-1
+- 630980 - fixing ise on package details page (jsherril@redhat.com)
+
 * Tue Sep 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.39-1
 - 632561 - two typos in string resource xml (en_US)
 - 580998 - making deprecatedVersion become deprecatedReason
