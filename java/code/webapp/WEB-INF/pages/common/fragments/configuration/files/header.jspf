@@ -25,6 +25,10 @@
                 arg3="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
 </c:set>
 
+<c:if test="${revision.symlink}">
+	<c:set var="fileImg" scope="request" value="/img/link-config.png" />
+	<c:set var="fileAlt" scope="request" value="config.common.symlinkAlt" />
+</c:if>
 
 <c:choose>
 	<c:when test="${!revision.directory}">

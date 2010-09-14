@@ -50,6 +50,7 @@ public class ConfigFileTag extends TagSupport {
 
     public static final String DIR_HEADER_ICON = "/img/folder-config.png";
     public static final String FILE_HEADER_ICON = "/img/file-config.png";
+    public static final String SYMLINK_HEADER_ICON = "/img/link-config.png";
 
 
     public static final String FILE_URL = "/rhn/configuration/file/FileDetails.do";
@@ -68,7 +69,8 @@ public class ConfigFileTag extends TagSupport {
      /**
       * {@inheritDoc}
       */
-     public int doEndTag() throws JspException {
+     @Override
+    public int doEndTag() throws JspException {
          if (nolink  || id == null) {
              writeIcon();
              ConfigTagHelper.write(StringEscapeUtils.escapeXml(path), pageContext);
@@ -92,7 +94,8 @@ public class ConfigFileTag extends TagSupport {
      /**
       * {@inheritDoc}
       */
-     public void release() {
+     @Override
+    public void release() {
          id = null;
          path = null;
          type = null;
@@ -105,7 +108,8 @@ public class ConfigFileTag extends TagSupport {
      /**
       * @param val the id to set
       */
-     public void setId(String val) {
+     @Override
+    public void setId(String val) {
          this.id = val;
      }
 
@@ -239,6 +243,10 @@ public class ConfigFileTag extends TagSupport {
                  "directory".equalsIgnoreCase(type) ||
                  "folder".equalsIgnoreCase(type)) {
              return DIR_HEADER_ICON;
+         }
+         else if ("symlink".equalsIgnoreCase(type) ||
+                 "link".equalsIgnoreCase(type)) {
+             return SYMLINK_HEADER_ICON;
          }
          return FILE_HEADER_ICON;
      }
