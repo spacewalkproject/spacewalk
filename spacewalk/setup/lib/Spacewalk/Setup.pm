@@ -1539,7 +1539,7 @@ sub update_monitoring_scout {
 	my $opts = shift;
 	my $answers = shift;
 
-	return unless ($opts{'upgrade'});
+	return unless ($opts->{'upgrade'});
 
 	my $org_id = RHN::SatInstall->get_satellite_org_id();
 	my $ds = new RHN::DataSource::Simple(-querybase => "scout_queries",
@@ -1551,7 +1551,7 @@ sub update_monitoring_scout {
 
 	my ($ip, $vip) = ($scout->{IP}, $scout->{VIP});
 	my ($sn_id, $sc_id) = ($scout->{SAT_NODE_ID}, $scout->{ID});
-	my $ip_addr = RHN::Utils::find_ip_address($answers{'hostname'});
+	my $ip_addr = RHN::Utils::find_ip_address($answers->{'hostname'});
 
 	my $dbh = RHN::DB->connect;
 
