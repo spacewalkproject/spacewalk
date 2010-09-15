@@ -374,7 +374,8 @@ public class KickstartEditCommand extends BaseKickstartCommand {
     public void updateRepos(String[] reposIn) {
         if (ksdata.isRhel5OrGreater()) {
 
-            Map<String, RepoInfo> repos = RepoInfo.getStandardRepos();
+            Map<String, RepoInfo> repos = RepoInfo.getStandardRepos(
+                    ksdata.getKickstartDefaults().getKstree());
             Set<RepoInfo> selected = new HashSet <RepoInfo>();
 
             for (int i = 0; i < reposIn.length; i++) {

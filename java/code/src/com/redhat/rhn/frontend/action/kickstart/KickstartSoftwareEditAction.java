@@ -223,7 +223,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         ValidatorError ve = cmd.updateKickstartableTree(
                 (Long) form.get(CHANNEL), cmdIn.getUser().getOrg().getId(),
                 (Long) form.get(TREE),
-                (String) form.getString(URL));
+                form.getString(URL));
 
         if (ve == null) {
             String [] repos = form.getStrings(SELECTED_REPOS);
@@ -254,11 +254,10 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
                 !tree.getInstallType().isRhel3() &&
                 !tree.getInstallType().isRhel4()) {
             List <LabelValueEnabledBean> repos = new LinkedList<LabelValueEnabledBean>();
-            for (String name : RepoInfo.getStandardRepos().keySet()) {
+            for (String name : RepoInfo.getStandardRepos(tree).keySet()) {
                 repos.add(lve(name, name, false));
             }
-            form.set(POSSIBLE_REPOS, (LabelValueEnabledBean[])
-                            repos.toArray(new LabelValueEnabledBean[0]));
+            form.set(POSSIBLE_REPOS, repos.toArray(new LabelValueEnabledBean[0]));
             Set<RepoInfo> selected = ksdata.getRepoInfos();
             String [] items = new String[selected.size()];
             int i = 0;

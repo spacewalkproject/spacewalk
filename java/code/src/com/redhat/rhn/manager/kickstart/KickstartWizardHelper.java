@@ -199,7 +199,7 @@ public class KickstartWizardHelper {
      * @param ksdata the data to which the repos have to be processed
      */
     public void processRepos(KickstartData ksdata) {
-        if (ksdata.isRhel5OrGreater()) {
+        if (ksdata.isRhel5()) {
             Set<RepoInfo> repos = ksdata.getRepoInfos();
             RepoInfo vt = RepoInfo.vt();
             if (!repos.contains(vt)) {

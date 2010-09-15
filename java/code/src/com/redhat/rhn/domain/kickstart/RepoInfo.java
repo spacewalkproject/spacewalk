@@ -15,11 +15,13 @@
 
 package com.redhat.rhn.domain.kickstart;
 
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -126,14 +128,20 @@ public class RepoInfo {
     /**
      * Returns all the 4 standard repos available to rhel 5
      * cluster, clusterstorage, workstation and VT
+     * @param tree the kickstartable tree
      * @return the standard repos..
      */
-    public static Map<String, RepoInfo> getStandardRepos() {
+    public static Map<String, RepoInfo> getStandardRepos(KickstartableTree  tree) {
         Map <String, RepoInfo> map = new LinkedHashMap<String, RepoInfo>();
-        addToMap(map, "Cluster");
-        addToMap(map, "ClusterStorage");
-        addToMap(map, "Workstation");
-        addToMap(map, "VT");
+        String[] repos = {"Cluster", "ClusterStorage", "HighAvailability",
+                        "LoadBalancer", "ResilientStorage", "VT", "Workstation"};
+
+        for (String repo : repos) {
+            File file = new File(StringUtil.addPath(tree.getAbsolutePath(), repo));
+            if (file.exists()) {
+                addToMap(map, repo);
+            }
+        }
         return map;
     }
 
