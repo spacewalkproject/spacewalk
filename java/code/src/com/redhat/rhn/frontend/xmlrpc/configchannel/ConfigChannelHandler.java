@@ -392,6 +392,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * @param sessionKey the session key
      * @param channelLabel the channel label
      * @param path path to examine.
+     * @param revision the revision to fetch
      * @return the specified config revision of the requested path.
      * @since 10.12
      *

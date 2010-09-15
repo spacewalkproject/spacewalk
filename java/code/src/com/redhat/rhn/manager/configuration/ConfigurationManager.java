@@ -1120,7 +1120,8 @@ public class ConfigurationManager extends BaseManager {
       * @param pc controller/elaborator for the list
       * @return List of revisions in dto format.
       */
-     public DataResult<ConfigRevisionDto> listRevisionsForFile(User user, ConfigFile file, PageControl pc) {
+     public DataResult<ConfigRevisionDto> listRevisionsForFile(User user,
+                                         ConfigFile file, PageControl pc) {
          Map params = new HashMap();
          params.put("cfid", file.getId());
          params.put("user_id", user.getId());
