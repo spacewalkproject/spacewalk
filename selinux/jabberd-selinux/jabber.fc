@@ -5,5 +5,4 @@
 
 /var/lib/jabberd(/.*)?		gen_context(system_u:object_r:jabberd_var_lib_t,s0)
 /var/log/jabberd(/.*)?		gen_context(system_u:object_r:jabberd_log_t,s0)
-/var/run/jabberd(/.*)?		gen_context(system_u:object_r:jabberd_var_run_t,s0)
 /etc/rc.d/init.d/jabberd	--	gen_context(system_u:object_r:jabber_script_exec_t,s0)

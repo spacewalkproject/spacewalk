@@ -81,7 +81,6 @@ fi
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
   rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
-  /sbin/restorecon -ri /var/run/jabberd || :
 fi
 
 %postun
@@ -97,7 +96,6 @@ if [ $1 -eq 0 ]; then
 fi
 
 rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
-/sbin/restorecon -ri /var/run/jabberd || :
 
 %files
 %defattr(-,root,root,0755)
