@@ -41,6 +41,12 @@ if [ ${#} -gt 0 ]; then
    done
 fi
 
+if [ -r "$(dbhome embedded)/dbs/spfilerhnsat.ora" ]; then
+	MAJOR_DB_UPGRADE=0
+else
+	MAJOR_DB_UPGRADE=1
+fi
+
 # set oracle environment to embedded server
 ORAENV_ASK=NO
 ORACLE_SID=embedded
@@ -59,6 +65,8 @@ export ORACLE_SID=$DB_NAME
 # If the record for satellite database exists, substitute it with new value.
 # Otherwise create a new record.
 if grep -q "^$ORACLE_SID:.*$" /etc/oratab; then
+	# We cannot do in-place edit, since we're running under oracle user and
+	# do not have write access to /etc
 	oratab=$(sed "s;^$ORACLE_SID:.*$;$ORACLE_SID:$ORACLE_HOME:Y;" /etc/oratab)
 	echo "$oratab" > /etc/oratab
 else
@@ -73,13 +81,13 @@ LISTENER_ORA=network/admin/listener.ora
 sed "s|\(ORACLE_HOME=.*\)|(ORACLE_HOME=$ORACLE_HOME)|" \
     $ORACLE_9I_HOME/$LISTENER_ORA >$ORACLE_HOME/$LISTENER_ORA
 
-
-# modify db init files
-cp -a $ORACLE_CONFIG_9I_DIR/* $ORACLE_CONFIG_DIR/
-UPGRADE_PFILE=$ORACLE_CONFIG_DIR/upgrade-init$ORACLE_SID.ora
-cat $ORACLE_ADMIN_DIR/init-params.ora  >$UPGRADE_PFILE
-grep --text -E -f - $ORACLE_CONFIG_9I_DIR/spfile$ORACLE_SID.ora \
-    >>$UPGRADE_PFILE <<EOPATTERNS
+# for 9i -> 10g upgrades, modify db init files
+if [ $MAJOR_DB_UPGRADE -gt 0 ]; then
+	cp -a $ORACLE_CONFIG_9I_DIR/* $ORACLE_CONFIG_DIR/
+	UPGRADE_PFILE=$ORACLE_CONFIG_DIR/upgrade-init$ORACLE_SID.ora
+	cat $ORACLE_ADMIN_DIR/init-params.ora  >$UPGRADE_PFILE
+	grep --text -E -f - $ORACLE_CONFIG_9I_DIR/spfile$ORACLE_SID.ora \
+	    >>$UPGRADE_PFILE <<EOPATTERNS
 audit_file_dest
 background_dump_dest
 control_files
@@ -89,11 +97,16 @@ db_name
 instance_name
 user_dump_dest
 EOPATTERNS
-echo "compatible=10.2.0.4.0" >>$UPGRADE_PFILE
+	echo "compatible=10.2.0.4.0" >>$UPGRADE_PFILE
+fi
 
+# upgrade the database
+if [ $MAJOR_DB_UPGRADE -gt 0 ]; then
+	UPGRADE_TMPL=$ORACLE_ADMIN_DIR/embedded-upgradedb.tmpl
+else
+	UPGRADE_TMPL=$ORACLE_ADMIN_DIR/embedded-upgradedb-10g.tmpl
+fi
 
-# upgrade database
-UPGRADE_TMPL=$ORACLE_ADMIN_DIR/embedded-upgradedb.tmpl
 m4 $UPGRADE_TMPL -I$ORACLE_ADMIN_DIR \
    --define RHNORA_DBNAME=$ORACLE_SID \
    --define RHNORA_LOG_PATH=/rhnsat/admin/rhnsat/logs \
@@ -102,4 +115,3 @@ m4 $UPGRADE_TMPL -I$ORACLE_ADMIN_DIR \
    | $ORACLE_HOME/bin/sqlplus /nolog
 
 set +x
-

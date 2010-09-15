@@ -969,9 +969,6 @@ sub oracle_setup_embedded_db {
 
 
     if ($opts->{'upgrade'}) {
-		my $upgrade_script = "upgrade-db-10g.sh";
-		need_oracle_9i_10g_upgrade() and $upgrade_script = "upgrade-db.sh";
-
         printf loc(<<EOQ, DB_UPGRADE_LOG_FILE);
 ** Database: Upgrading the database server to latest Oracle 10g:
 ** Database: This is a long process that is logged in:
@@ -983,7 +980,7 @@ EOQ
                    -err_message => "Could not upgrade database.\n",
                    -err_code => 15,
                    -system_opts => ['/sbin/runuser', 'oracle', '-c',
-                                    SHARED_DIR . '/oracle/' . $upgrade_script .
+                                    SHARED_DIR . '/oracle/upgrade-db.sh' .
                                     " --db $answers->{'db-name'}" .
                                     " --user $answers->{'db-user'}"]);
 
