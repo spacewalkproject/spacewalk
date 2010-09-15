@@ -30,10 +30,12 @@ import com.redhat.rhn.manager.configuration.file.DirectoryData;
 import com.redhat.rhn.manager.configuration.file.SymlinkData;
 import com.redhat.rhn.manager.configuration.file.TextFileData;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -113,12 +115,24 @@ public class XmlRpcConfigChannelHelper {
         if (ConfigFileType.file().equals(type)) {
             if (data.get(ConfigRevisionSerializer.CONTENTS) instanceof String) {
                 String content = (String)data.get(ConfigRevisionSerializer.CONTENTS);
+                if (data.containsKey(ConfigRevisionSerializer.CONTENTS_ENC64)) {
+                    try {
+                        content = new String(Base64.decodeBase64(content.getBytes("UTF-8")), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        String msg = "Following errors were encountered " +
+                            "when creating the config file.\n" + e.getMessage();
+                        throw new FaultException(1023, "ConfgFileError", msg);
+                    }
+                }
                 form = new TextFileData();
                 ((TextFileData)form).setContents(content);
             }
             else {
                 byte[] content = (byte[])data.get(ConfigRevisionSerializer.CONTENTS);
                 if (content != null) {
+                    if (data.containsKey(ConfigRevisionSerializer.CONTENTS_ENC64)) {
+                        content = Base64.decodeBase64(content);
+                    }
                     form = new BinaryFileData(new ByteArrayInputStream(content),
                                                                     content.length);
                 }

@@ -64,6 +64,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
 public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
 
     public static final String CONTENTS = "contents";
+    public static final String CONTENTS_ENC64 = "contents_enc64";
     public static final String PATH = "path";
     public static final String TARGET_PATH = "target_path";
     public static final String OWNER = "owner";

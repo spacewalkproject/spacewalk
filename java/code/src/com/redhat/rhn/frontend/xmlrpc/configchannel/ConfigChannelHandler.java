@@ -248,6 +248,7 @@ public class ConfigChannelHandler extends BaseHandler {
      *      #prop_desc("string","contents",
      *              "Contents of the file (text or base64 encoded if binary).
      *                   (ignored for directories)")
+     *      #prop_desc("boolean","contents_enc64", "Identifies base64 encoded content (default: disabled).")
      *      #prop_desc("string", "owner", "Owner of the file/directory.")
      *      #prop_desc("string", "group", "Group name of the file/directory.")
      *      #prop_desc("string", "permissions",
@@ -275,6 +276,7 @@ public class ConfigChannelHandler extends BaseHandler {
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
         validKeys.add(ConfigRevisionSerializer.CONTENTS);
+        validKeys.add(ConfigRevisionSerializer.CONTENTS_ENC64);
         validKeys.add(ConfigRevisionSerializer.OWNER);
         validKeys.add(ConfigRevisionSerializer.GROUP);
         validKeys.add(ConfigRevisionSerializer.PERMISSIONS);
