@@ -73,7 +73,10 @@ public class SchedulerKernel {
         if (ConfigDefaults.get().isOracle()) {
             props.setProperty("org.quartz.jobStore.driverDelegateClass",
                     "org.quartz.impl.jdbcjobstore.oracle.OracleDelegate");
-            props.setProperty(ds + ".driver", "oracle.jdbc.driver.OracleDriver");
+
+            String driver = Config.get().getString(ConfigDefaults.DB_CLASS,
+                    "oracle.jdbc.driver.OracleDriver");
+            props.setProperty(ds + ".driver", driver);
 
             String dbUrl = dbProto + ":@";
             if (dbProto.contains("thin")) {
