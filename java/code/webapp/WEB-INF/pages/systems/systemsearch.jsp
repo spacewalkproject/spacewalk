@@ -20,9 +20,9 @@
 <div class="search-choices">
 	<div class="search-choices-group">
 	<table class="details">
-		<tr><th><bean:message key="erratasearch.jsp.searchfor"/></th>
+		<tr><th><label for="searchfor"><bean:message key="erratasearch.jsp.searchfor"/></label></th>
 			<td>
-                <html:text property="search_string" name="search_string"
+                <html:text property="search_string" name="search_string" styleId="searchfor"
                            value="${search_string}" maxlength="36" />
                 <html:submit>
                    <bean:message key="button.search" />
@@ -30,9 +30,9 @@
 			</td>
   		</tr>
   		<tr>
-  			<th><bean:message key="systemsearch.jsp.fieldtosearch"/></th>
+			<th><label for="fieldtosearch"><bean:message key="systemsearch.jsp.fieldtosearch"/></label></th>
 			<td>
-				<select name="view_mode" >
+				<select name="view_mode" styleId="fieldtosearch">
 					<c:forEach items="${optGroupsKeys}" var="key">
 						<optgroup label="<bean:message key="${key}"/>">
 						<c:forEach items="${optGroupsMap[key]}" var="option">
@@ -55,19 +55,19 @@
         	<th><bean:message key="systemsearch.jsp.wheretosearch"/></th>
         	<td>
         	    <div style="text-align: left">
-        			<html:radio property="whereToSearch" value="all"/><bean:message key="systemsearch.jsp.searchallsystems"/>
+				<html:radio property="whereToSearch" value="all" styleId="whereToSearch-all"/><label for="whereToSearch-all"><bean:message key="systemsearch.jsp.searchallsystems"/></label>
         		</div>
         		<div style="text-align: left">
-        			<html:radio property="whereToSearch" value="system_list"/><bean:message key="systemsearch.jsp.searchSSM"/>
+				<html:radio property="whereToSearch" value="system_list" styleId="whereToSearch-system_list"/><label for="whereToSearch-system_list"><bean:message key="systemsearch.jsp.searchSSM"/></label>
         		</div>
         	</td>
         </tr>
 
         <tr>
-           <th><bean:message key="systemsearch.jsp.invertlabel"/></th>
+           <th><label for="invertlabel"><bean:message key="systemsearch.jsp.invertlabel"/></label></th>
            <td>
            	   <div style="text-align: left">
-           	   	<html:checkbox property="invert"><bean:message key="systemsearch.jsp.invertdescription"/></html:checkbox>
+			<html:checkbox property="invert" styleId="invertlabel"><label for="invertlabel"><bean:message key="systemsearch.jsp.invertdescription"/></label></html:checkbox>
            	   </div>
            </td>
         </tr>
