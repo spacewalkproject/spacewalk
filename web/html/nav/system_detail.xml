@@ -82,7 +82,7 @@
     
   </rhn-tab>
 
-  <rhn-tab name="Configuration" acl="system_feature(ftr_config)" url="/rhn/systems/details/configuration/Overview.do" node-id="selected_configfiles">
+  <rhn-tab name="Configuration" acl="system_feature(ftr_config)" url="/rhn/systems/details/configuration/Overview.do">
 
     <rhn-tab-directory>/rhn/systems/details/configuration</rhn-tab-directory>
 

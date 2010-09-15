@@ -31,7 +31,7 @@ our @ISA = qw/RHN::SimpleStruct/;
 our @core_fields = qw/id revision config_file_id config_content_id
 		      config_info_id delim_start delim_end created
 		      modified username groupname filemode latest_id latest path
-		      md5sum file_size org_id config_channel_id filetype selinux_ctx/;
+		      md5sum file_size org_id config_channel_id filetype selinux_ctx symlink_target_filename_id/;
 
 our @transient_fields = qw/__contents__ is_binary/;
 our @simple_struct_fields = (@core_fields, @transient_fields);
@@ -47,14 +47,18 @@ SELECT
        CI.username,
        CI.groupname,
        CI.filemode,
+       CI.selinux_ctx,
+       CI.symlink_target_filename_id,
        CFN.path,
        CC.org_id,
        CC.id config_channel_id,
        Csum.checksum md5sum,
-       CCon.file_size,
+       coalesce(CCon.file_size, 0),
        (SELECT CFt.latest_config_revision_id FROM rhnConfigFile CFt WHERE CFT.id = CR.config_file_id) LATEST_ID,
        CCon.is_binary,
-       CFT.name as filetype
+       CFT.name as filetype, 
+       CCon.delim_start,  
+       CCon.delim_end
   FROM rhnConfigInfo CI,
        rhnConfigFileName CFN,
        rhnConfigContent CCon,
@@ -67,10 +71,10 @@ SELECT
    AND CI.id = CR.config_info_id
    AND CF.id = CR.config_file_id
    AND CFN.id = CF.config_file_name_id
-   AND CCon.id = CR.config_content_id
+   AND CCon.id = CR.config_content_id (+)
    AND CC.id = CF.config_channel_id
    AND CFT.id = CR.config_file_type_id
-   AND CCon.checksum_id = Csum.id
+   AND CCon.checksum_id = Csum.id (+)
 EOS
   my $sth = $dbh->prepare($query);
   $sth->execute_h(id => $params{id});
@@ -95,7 +99,8 @@ EOS
 sub create_config_contents {
   my $class = shift;
   my $contents = shift;
-
+  my $delim_start = shift;
+  my $delim_end = shift;
   use Digest::MD5 qw/md5_hex/;
   my $md5sum = md5_hex($contents);
 
@@ -105,13 +110,13 @@ sub create_config_contents {
 INSERT INTO rhnConfigContent
   (id, checksum_id, file_size, contents, delim_start, delim_end)
 VALUES
-  (rhn_confcontent_id_seq.nextval, lookup_checksum('md5', :md5sum), :file_size, :contents, '{|', '|}')
+  (rhn_confcontent_id_seq.nextval, lookup_checksum('md5', :md5sum), :file_size, :contents, :delim_start, :delim_end)
 RETURNING id INTO :ccid
 EOS
 
   my $ccid;
   $sth->execute_h(ccid => \$ccid, md5sum => $md5sum, file_size => length($contents),
-		  contents => $dbh->encode_blob($contents, "contents"));
+		  contents => $dbh->encode_blob($contents, "contents"), delim_start => $delim_start, delim_end => $delim_end);
 
   $dbh->commit;
   return $ccid;
@@ -124,7 +129,7 @@ sub getFileTypeId {
     #make sure we're in lowercase
     $filetype =~ tr/A-Z/a-z/;
 
-    if ($filetype ne "file" and $filetype ne "directory") {
+    if ($filetype ne "file" and $filetype ne "directory" and $filetype ne "symlink") {
         #default to file for now...
         $filetype = "file";
     }
@@ -155,14 +160,22 @@ sub commit {
   if (defined $self->id) {
     die "Unable to commit a ConfigRevision with an existing ID; make a new revision";
   }
- 
+  my $ftype = $self->filetype || 'file';
   my $dbh = RHN::DB->connect;
-  my $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode, $self->selinux_ctx, undef);
+  my $ciid;
+  if ($ftype eq 'symlink') {
+      $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode, $self->selinux_ctx, $self->symlink_target_filename_id);
+  }
+  else {
+    $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode, $self->selinux_ctx, undef);
+  }
+  
   my $ccid = $self->config_content_id;
   my $cftid = getFileTypeId($self->filetype);
+;
 
-  if (defined $self->__contents__) {
-    $ccid = RHN::ConfigRevision->create_config_contents($self->__contents__);
+  if ($ftype eq 'file' and defined $self->__contents__)  {
+    $ccid = RHN::ConfigRevision->create_config_contents($self->__contents__, $self->delim_start, $self->delim_end);
     $self->config_content_id($ccid);
   }
 

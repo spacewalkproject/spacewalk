@@ -196,10 +196,6 @@ my %node_set = (system_package_list => 'removable_package_list',
                 remove_errata_packages => 'packages_to_remove',
                 add_errata_packages => 'packages_to_add',
 		clone_channel_errata => 'errata_clone_actions',
-		selected_configfiles => 'selected_configfiles',
-		selected_configfiles_ssm => 'selected_configfiles_ssm',
-		selected_configfilenames => 'selected_configfilenames',
-		selected_namespaces => 'selected_namespaces',
 		packages_for_system_sync => 'packages_for_system_sync',
 	       );
 
