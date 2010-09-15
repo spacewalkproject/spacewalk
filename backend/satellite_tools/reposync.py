@@ -104,8 +104,16 @@ class RepoSync:
         if self.regen:
             taskomatic.add_to_repodata_queue_for_channel_package_subscription(
                 [self.channel_label], [], "server.app.yumreposync")
-            rhnSQL.commit()
+        self.update_date()
+        rhnSQL.commit()        
         self.print_msg("Sync complete")
+
+
+    def update_date(self):
+        """ Updates the last sync time"""
+        h = rhnSQL.prepare( """update rhnChannel set LAST_SYNCED = sysdate
+                             where label = :channel""")
+        h.execute(channel=self.channel['label'])
 
     def process_args(self):
         self.parser = OptionParser()
