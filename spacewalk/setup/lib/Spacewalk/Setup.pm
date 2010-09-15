@@ -938,13 +938,6 @@ sub oracle_check_for_users_and_groups {
     }
 }
 
-sub need_oracle_9i_10g_upgrade {
-	my $orahome = qx{dbhome embedded};
-	chomp($orahome);
-	my $spfile = $orahome. "/dbs/spfilerhnsat.ora";
-	return (not -r $spfile);
-}
-
 sub oracle_setup_embedded_db {
     my $opts = shift;
     my $answers = shift;
