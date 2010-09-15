@@ -583,10 +583,7 @@ class UploadClass(uploadLib.UploadClass):
             raise UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"% package)
 
         try:
-            if self.ping_status == 200:
-                ret = self._push_package_v2(package, FileChecksumType, FileChecksum)
-            else:
-                ret = self._push_package_xmlrpc(package, h, packaging)
+            ret = self._push_package_v2(package, FileChecksumType, FileChecksum)
         except UploadError, e:
             ret, diff_level, pdict = e.args[:3]
             severities = {
@@ -658,45 +655,6 @@ class UploadClass(uploadLib.UploadClass):
             self.die(1, "Error pushing %s: %s (%s)" % (package, msgstr, status))
             
         return ret
-
-    def _push_package_xmlrpc(self, package, header, packaging):
-        self.warn(1, "Using XMLRPC")
-        if self.options.source:
-            ret = None
-        else:
-            ret = {}
-            for tag in ('name', 'version', 'release', 'epoch', 'arch'):
-                val = header[tag]
-                if val is None:
-                    val = ''
-                ret[tag] = val
-
-        bits = open(package, "r").read()
-        hash = {
-            'package'       : bits,
-            'channels'      : self.channels,
-            'packaging'     : packaging,
-        }
-        if self.orgId == '' or self.orgId > 0:
-            hash['orgId'] = self.orgId
-        if self.force:
-            hash['force'] = 4
-        
-        #2/3/06 wregglej 173287 Added check to see if we can use session tokens.
-        if self.new_sat_test():
-            #12/22/05 wregglej 173287 Changed the XMLRPC call to the session-based version.
-            retval = uploadLib.call(self.server.packages.uploadPackageBySession, self.session.getSessionString(), 
-                                    hash)
-        else:
-            retval = uploadLib.call(self.server.packages.uploadPackage, self.username, self.password, hash)
-
-        if retval == 0:
-            # OK
-            return ret
-        if type(retval) in (type(()), type([])) and len(retval) == 2:
-            (pdict, diffLevel) = retval
-            raise UploadError(ret, diffLevel, pdict)
-        return None
 
 class UploadError(Exception):
     pass
