@@ -43,6 +43,7 @@ import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
 import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
 import com.redhat.rhn.frontend.dto.ConfigGlobalDeployDto;
+import com.redhat.rhn.frontend.dto.ConfigRevisionDto;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
@@ -1119,7 +1120,7 @@ public class ConfigurationManager extends BaseManager {
       * @param pc controller/elaborator for the list
       * @return List of revisions in dto format.
       */
-     public DataResult listRevisionsForFile(User user, ConfigFile file, PageControl pc) {
+     public DataResult<ConfigRevisionDto> listRevisionsForFile(User user, ConfigFile file, PageControl pc) {
          Map params = new HashMap();
          params.put("cfid", file.getId());
          params.put("user_id", user.getId());

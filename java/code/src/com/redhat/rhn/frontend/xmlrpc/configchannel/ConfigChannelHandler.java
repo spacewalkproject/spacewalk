@@ -24,12 +24,15 @@ import com.redhat.rhn.domain.config.ConfigChannelType;
 import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
+import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
+import com.redhat.rhn.frontend.dto.ConfigRevisionDto;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchConfigRevisionException;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigRevisionSerializer;
 import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -382,6 +385,49 @@ public class ConfigChannelHandler extends BaseHandler {
         }
         return revisions;
     }
+
+
+    /**
+     * Given a path and revision number, return the revision
+     * @param sessionKey the session key
+     * @param channelLabel the channel label
+     * @param path path to examine.
+     * @return the specified config revision of the requested path.
+     * @since 10.12
+     *
+     * @xmlrpc.doc Given a path, revision number, and a channel, returns details about
+     * the latest revisions of the paths.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel",
+     *                          "label of config channel to lookup on")
+     * @xmlrpc.param #param_desc("string", "path",
+     *                          "path of file/directory")
+     * @xmlrpc.param #param_desc("int", "revsion",
+     *                          "The revision number.")
+     *
+     * @xmlrpc.returntype
+     * $ConfigRevisionSerializer
+     */
+    public ConfigRevision lookupFileInfo(String sessionKey,
+                                                String channelLabel,
+                                                String path,
+                                                Integer revision
+                                                ) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
+        ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
+                                                                channelLabel);
+        ConfigurationManager cm = ConfigurationManager.getInstance();
+        ConfigFile cf = cm.lookupConfigFile(loggedInUser, channel.getId(), path);
+        List<ConfigRevisionDto> revs = cm.listRevisionsForFile(loggedInUser, cf, null);
+        for (ConfigRevisionDto rev : revs) {
+            if (rev.getRevisionNumber().equals(revision)) {
+                return ConfigurationFactory.lookupConfigRevisionById(rev.getId());
+            }
+        }
+        throw new NoSuchConfigRevisionException();
+    }
+
 
     /**
      * List files in a given channel
