@@ -536,17 +536,27 @@ class UploadClass(uploadLib.UploadClass):
                 # computing checksum and other info is expensive process and session
                 # could have expired.Make sure its re-authenticated.
                 self.authenticate()
-                checksum_data = uploadLib.getPackageChecksumBySession(self.server, self.session.getSessionString(), info)
+                if uploadLib.exists_getPackageChecksumBySession(self.server):
+                    checksum_data = uploadLib.getPackageChecksumBySession(self.server, self.session.getSessionString(), info)
+                else:
+                    # old server only md5 capable
+                    checksum_data = uploadLib.getPackageMD5sumBySession(self.server, self.session.getSessionString(), info)
             else:
-                checksum_data = uploadLib.getPackageChecksum(self.server, self.username, self.password, info)
+                # even older server without session authentication
+                checksum_data = uploadLib.getPackageMD5sum(self.server, self.username, self.password, info)
         else:
             if self.new_sat_test():
                 # computing checksum and other info is expensive process and session
                 # could have expired.Make sure its re-authenticated.
                 self.authenticate()
-                checksum_data = uploadLib.getSourcePackageChecksumBySession(self.server, self.session.getSessionString(), info)
+                if uploadLib.exists_getPackageChecksumBySession(self.server):
+                    checksum_data = uploadLib.getSourcePackageChecksumBySession(self.server, self.session.getSessionString(), info)
+                else:
+                    # old server only md5 capable
+                    checksum_data = uploadLib.getSourcePackageMD5sumBySession(self.server, self.session.getSessionString(), info)
             else:
-                checksum_data = uploadLib.getSourcePackageChecksum(self.server, self.username, self.password, info)
+                # even older server without session authentication
+                checksum_data = uploadLib.getSourcePackageMD5sum(self.server, self.username, self.password, info)
                 
         return (checksum_data, pkg_hash, digest_hash)
 
