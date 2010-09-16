@@ -3074,6 +3074,18 @@
 		<forward name="confirm"
                  path="/ssm/ViewAllLog.do" redirect="true"/>
     </action>
+
+        <action path="/systems/ssm/HardwareRefresh"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/ssmhwrefresh.jsp"
+        type="com.redhat.rhn.frontend.action.systems.SSMUpdateHardwareProfileConfirm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/ssmhwrefresh.jsp"/>
+        <forward name="confirm"
+                 path="/ssm/ViewAllLog.do" redirect="true"/> -
+    </action>
+
     <!--System Details Configuration -->
      <action path="/systems/details/configuration/Overview"
          scope="request"

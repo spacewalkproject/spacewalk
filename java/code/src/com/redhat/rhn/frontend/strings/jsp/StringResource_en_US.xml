@@ -5373,6 +5373,24 @@ value for this entitlement, excluding the default organization's consumption.</s
       </trans-unit>
      </group>
 
+ <!-- SSM Hardware Refresh -->
+        <group>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/ssm/*wareRefresh.do pages</context>
+          </context-group>
+          <trans-unit id="ssm.hw.systems.header">
+            <source>Confirm Hardware Profiles Refresh</source>
+          </trans-unit>
+          <trans-unit id="ssm.hw.systems.summary">
+            <source>You will schedule a hardware profile update of the {0} you have selected.</source>
+          </trans-unit>
+          <trans-unit id="ssm.hw.systems.summary.empty">
+            <source>No systems are selected.</source>
+          </trans-unit>
+	  <trans-unit id="ssm.hw.systems.confirmbutton">
+            <source>Confirm refresh</source>
+          </trans-unit>
+        </group>
 
 <!-- == Systems == -->
       <trans-unit id="overview.jsp.header">
