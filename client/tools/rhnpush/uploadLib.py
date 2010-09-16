@@ -702,18 +702,18 @@ def exists_getPackageChecksumBySession(server):
     """ check whether server supports getPackageChecksumBySession function"""
     ret = True
     try:
-       raw_call(server.packages.getPackageChecksumBySession, '', {})
+        raw_call(server.packages.getPackageChecksumBySession, '', {})
     except rpclib.Fault, e:
         if e.faultCode == -33:
             # Fault -33: session token is invalid
-           # i.e. function exists but we supplied wrong data
-           pass
-       elif e.faultCode == -1:
-           # Fault -1: function invalid
-           ret = False
-       else:
-           # pass through anything else
-           raise
+            # i.e. function exists but we supplied wrong data
+            pass
+        elif e.faultCode == -1:
+            # Fault -1: function invalid
+            ret = False
+        else:
+            # pass through anything else
+            raise
     return ret
 
 # compare two package [n,v,r,e] tuples
