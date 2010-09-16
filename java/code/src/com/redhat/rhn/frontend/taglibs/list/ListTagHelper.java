@@ -272,14 +272,14 @@ public class ListTagHelper {
      * @return the id representing the object
      */
     public static String getObjectId(Object current) {
-        String id;
+        String id = null;
         if (current instanceof Selectable) {
             id = ((Selectable)current).getSelectionKey();
         }
         else if (current instanceof Identifiable) {
             id = String.valueOf(((Identifiable)current).getId());
         }
-        else {
+        if (id == null) {
             id = String.valueOf(current.hashCode());
         }
         return id;

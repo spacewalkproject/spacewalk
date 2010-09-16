@@ -749,15 +749,17 @@ public class ListTag extends BodyTagSupport {
             ListTagUtil.write(pageContext, " alphaResult");
         }
         ListTagUtil.write(pageContext, "\" ");
-        ListTagUtil.write(pageContext, "id=\"");
-        ListTagUtil.write(pageContext, getRowRenderer().getRowId(getUniqueName(),
-                                                                getCurrentObject()));
-        ListTagUtil.write(pageContext, "\" ");
-        String style = getRowRenderer().getRowStyle(getCurrentObject());
-        if (!StringUtils.isBlank(style)) {
-            ListTagUtil.write(pageContext, "style=\"");
-            ListTagUtil.write(pageContext, style);
+        if (getCurrentObject() != null) { //if we're rendering a non-item row (e.g. reflink)
+            ListTagUtil.write(pageContext, "id=\"");
+            ListTagUtil.write(pageContext, getRowRenderer().getRowId(getUniqueName(),
+                                                                    getCurrentObject()));
             ListTagUtil.write(pageContext, "\" ");
+            String style = getRowRenderer().getRowStyle(getCurrentObject());
+            if (!StringUtils.isBlank(style)) {
+                ListTagUtil.write(pageContext, "style=\"");
+                ListTagUtil.write(pageContext, style);
+                ListTagUtil.write(pageContext, "\" ");
+            }
         }
     }
 
