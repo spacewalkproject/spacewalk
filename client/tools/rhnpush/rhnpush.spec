@@ -5,7 +5,7 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.4
+Version:       5.5.5
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Thu Sep 16 2010 Michael Mraka <michael.mraka@redhat.com> 5.5.5-1
+- 600347 - added sat<540 compatibility functions
+
 * Fri Jul 16 2010 Michael Mraka <michael.mraka@redhat.com> 5.5.4-1
 - removed dead code
 
