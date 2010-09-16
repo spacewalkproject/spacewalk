@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.40
+Version: 1.2.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 16 2010 Lukas Zapletal 1.2.41-1
+- 595500 - added contents_enc64 param to createOrUpdatePath XMLAPI
+- making taskmoatic work with the rkbloom driver
+- 633535 - added RHEL 5 subrepos as well as stopped showing repos not valid for
+  a particular release
+- adding configchannel.lookupFileInfo() taking a revision id
+- implement <label> for form fields - systems/probes/edit.jsp
+- implement <label> for form fields - systems/systemsearch.jsp
+- 627920 - Added a larger config file icon for symlinks. Thanks to Joshua Roys.
+
 * Tue Sep 14 2010 Justin Sherrill <jsherril@redhat.com> 1.2.40-1
 - 630980 - fixing ise on package details page (jsherril@redhat.com)
 
