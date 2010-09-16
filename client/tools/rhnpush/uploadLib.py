@@ -691,6 +691,19 @@ def getPackageChecksum(server, username, password, info):
 def getSourcePackageChecksum(server, username, password, info):
     return call(server.packages.getSourcePackageChecksum, username, password, info)
 
+# for backward compatibility with satellite <5.4.0
+def getPackageMD5sumBySession(server, session_string, info):
+    return call(server.packages.getPackageMD5sumBySession, session_string, info)
+
+def getSourcePackageMD5sumBySession(server, session_string, info):
+    return call(server.packages.getSourcePackageMD5sumBySession, session_string, info)
+
+def getPackageMD5sum(server, username, password, info):
+    return call(server.packages.getPackageMD5sum, username, password, info)
+
+def getSourcePackageMD5sum(server, username, password, info):
+    return call(server.packages.getSourcePackageMD5sum, username, password, info)
+
 
 def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
     s = rpclib.Server(uri, proxy=proxy, username=username, password=password)
