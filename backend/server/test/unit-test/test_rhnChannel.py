@@ -156,14 +156,6 @@ class Tests(unittest.TestCase):
             self.failIf(c.exists())
         return entries
 
-    def test_delete_channels_1(self):
-        """Tests rhnChannel.delete_channels"""
-        entries = self.test_create_channels_1()
-        messages = rhnChannel.delete_channels(entries)
-        self.assertEqual(messages, [])
-        rhnSQL.commit()
-        return entries
-
     def test_delete_channel_families_1(self):
         """Tests rhnChannel.delete_channel_families"""
         entries = self.test_create_channel_families_1()

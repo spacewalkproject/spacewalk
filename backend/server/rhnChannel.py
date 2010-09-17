@@ -558,28 +558,6 @@ def create_channel_families(entries, update=0):
         c.load_from_dict(e)
         c.save(with_updates=update)
 
-def delete_channels(entries):
-    if not isinstance(entries, ListType):
-        raise InvalidEntryError(entries, "Not a list")
-    ret = []
-    for e in entries:
-        if not isinstance(e, DictType):
-            raise InvalidEntryError(e, "Entry is not a dictionary")
-
-        label = e.get('label')
-        if not label:
-            raise InvalidEntryError(e, "Missing required field label")
-
-        c = Channel()
-        c.load_by_label(label)
-        if not c.exists():
-            ret.append(label)
-            continue
-        msg = _delete_channel(c)
-        if msg is not None:
-            ret.append(msg)
-    return ret
-
 def delete_channel_families(entries):
     if not isinstance(entries, ListType):
         raise InvalidEntryError(entries, "Not a list")
