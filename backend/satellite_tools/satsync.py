@@ -1138,21 +1138,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 continue
             log(1, messages.warning_slow)
 
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=package_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(pids[:], nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                stream_loader.process(chunk)
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
+            self._processWithProgressBar(pids[:], package_count)
 
         h.close()
 
@@ -1314,21 +1300,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 continue
             log(1, _("   * WARNING: this may be a very slow process."))
 
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=package_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(pids[:], nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                stream_loader.process(chunk)
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
+            self._processWithProgressBar(pids[:], package_count)
 
         h.close()
 
@@ -1424,21 +1396,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if not kt_count:
                 continue
 
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=kt_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(ktids[:], nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                stream_loader.process(chunk)
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
+            self._processWithProgressBar(ktids[:], kt_count)
 
         h.close()
 
@@ -1695,21 +1653,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 log(2, _("    * no new relevant errata for this channel"))
                 continue
 
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=erratum_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(erratum_ids[:], nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                stream_loader.process(chunk)
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
+            self._processWithProgressBar(erratum_ids[:], erratum_count)
 
         h.close()
         # XXX This step should go away once the channel info contains the
@@ -1718,6 +1662,22 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         log(1, _("Downloading errata data complete"))
 
     # __private methods__
+    def _processWithProgressBar(self, batch, size):
+        pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
+                finalSize=size, finalBarLength=40, stream=sys.stdout)
+        if CFG.DEBUG > 2:
+            pb.redrawYN = 0
+        pb.printAll(1)
+
+        ss = SequenceServer(batch, nevermorethan=self._batch_size)
+        while not ss.doneYN():
+            chunk = ss.getChunk()
+            item_count = len(chunk)
+            stream_loader.process(chunk)
+            ss.clearChunk()
+            pb.addTo(item_count)
+            pb.printIncrement()
+        pb.printComplete()
 
     def import_packages(self, sources=0):
         if sources:
