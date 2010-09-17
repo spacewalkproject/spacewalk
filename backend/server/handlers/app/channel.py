@@ -495,11 +495,7 @@ class Channel(RPC_Base):
         return authobj.isChannelAdmin()
 
     def channelManagePermission(self, label, role, commit, username, password):
-        log_debug(3)
-        self._auth(username, password)
-        #probably there is better way to write this query
-        #but works for now.
-        h = rhnSQL.prepare("""
+        query = """
             insert into rhnChannelPermission
                (channel_id, role_id, user_id)
             (select c.id, cpr.id, wc.id
@@ -509,25 +505,11 @@ class Channel(RPC_Base):
                where wc.login    = :username 
                  and c.label     = :label
                  and cpr.label   = :role_label)
-        """)
-        try:
-            h.execute(username = username, label = label, role_label = role)
-        except rhnSQL.SQLError, e:
-            rhnSQL.rollback()
-            raise rhnFault(23, str(e.args[1]), explain=0 )
-        if commit:
-            rhnSQL.commit()
-        else:
-            rhnSQL.rollback()
-            return 1
-        return 0
-    
+        """
+        return self._channelPermission(label, role, commit, username, password, query)
+
     def revokeChannelPermission(self, label, role, commit, username, password):
-        log_debug(3)
-        self._auth(username, password)
-        #probably there is better way to write this query
-        #but works for now.
-        h = rhnSQL.prepare("""
+        query = """
             delete from rhnchannelpermission
               where (channel_id, role_id, user_id) in
              (select c.id, cpr.id, wc.id
@@ -537,7 +519,13 @@ class Channel(RPC_Base):
                where wc.login    = :username
                  and c.label     = :label
                  and cpr.label   = :role_label)
-        """)
+        """
+        return self._channelPermission(label, role, commit, username, password, query)
+
+    def _channelPermission(self, label, role, commit, username, password, query):
+        log_debug(3)
+        self._auth(username, password)
+        h = rhnSQL.prepare(query)
         try:
             h.execute(username = username, label = label, role_label = role)
         except rhnSQL.SQLError, e:
@@ -549,7 +537,7 @@ class Channel(RPC_Base):
             rhnSQL.rollback()
             return 1
         return 0
-        
+
 def removeNone(data):
     for key in data.keys():
         if data[key] is None:
