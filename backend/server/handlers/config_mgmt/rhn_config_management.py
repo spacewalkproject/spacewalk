@@ -448,7 +448,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         return self._get_maximum_file_size()
                 
-                
+
     def management_diff(self, dict):
         log_debug(1)
         session = dict.get('session')
@@ -465,58 +465,14 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         config_channel_src = dict['config_channel_src']
         revision_src = dict.get('revision_src')
-        if revision_src and not revision_src.isdigit():
-            raise rhnFault(4016, "Invalid revision number '%s' specified for path %s "
-                "in channel %s" % (revision_src, path, config_channel_src), 
-                explain=0)
-
-        fsrc = self._get_file(config_channel_src, path, revision=revision_src)
-        if not fsrc:
-            raise rhnFault(4011, "File %s (revision %s) does not exist "
-                "in channel %s" % (path, revision_src, config_channel_src), 
-                explain=0)
-        if fsrc['label'] == 'file' and fsrc['is_binary'] == 'Y':
-            raise rhnFault(4004, "File %s (revision %s) seems to contain "
-                "binary data" % (path, revision_src),
-                explain=0)
-
-        # We have to read the contents of the first file here, because the LOB
-        # object is tied to a cursor; if we re-execute the cursor, the LOB
-        # seems to be invalid (bug 151220)
-
-        # Empty files or directories may have NULL instead of lobs
-        fd, filename_src = tempfile.mkstemp(prefix = '/tmp/rhncfg-')
-        fc_lob = fsrc.get('file_contents')
-        if fc_lob:
-            os.write(fd, rhnSQL.read_lob(fc_lob))
-        os.close(fd)
+        fsrc = self._get_file_revision(config_channel_src, revision_src, path)
         
         config_channel_dst = dict.get('config_channel_dst')
         if config_channel_dst is None:
             config_channel_dst = config_channel_src
         revision_dst = dict.get('revision_dst')
-        if revision_dst and not revision_dst.isdigit():
-            raise rhnFault(4016, "Invalid revision number '%s' specified for path %s "
-                "in channel %s" % (revision_dst, path, config_channel_dst), 
-                explain=0)
-        # revision_dst may be None, in which case we diff with HEAD
-        fdst = self._get_file(config_channel_dst, path, revision=revision_dst)
-        if not fdst:
-            raise rhnFault(4011, "File %s (revision %s) does not exist "
-                "in channel %s" % (path, revision_dst, config_channel_dst), 
-                explain=0)
-        if fdst['label'] == 'file' and fdst['is_binary'] == 'Y':
-            raise rhnFault(4004, "File %s (revision %s) seems to contain "
-                "binary data" % (path, revision_dst),
-                explain=0)
+        fdst = self._get_file_revision(config_channel_dst, revision_dst, path)
         
-        fd, filename_dst = tempfile.mkstemp(prefix = '/tmp/rhncfg-')
-        fc_lob = fdst.get('file_contents')
-        if fc_lob:
-            os.write(fd, rhnSQL.read_lob(fc_lob))
-        os.close(fd)
-        del fc_lob
-
         if fsrc['label'] != fdst['label']:
             raise rhnFault(4017, "Path %s  is a %s"+ \
                                 " in channel %s while it is a %s in channel %s"\
@@ -538,8 +494,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                 return first_row +  second_row
             return ""
 
-        pipe = os.popen("/usr/bin/diff -u %s %s" % (filename_src,
-            filename_dst))
+        pipe = os.popen("/usr/bin/diff -u %s %s" % (fsrc['filename'],
+            fdst['filename']))
         first_row = pipe.readline()
         if not first_row:
             return ""
@@ -564,6 +520,35 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
             fdst['revision'],
         )
         return first_row + second_row + pipe.read()
+
+    def _get_file_revision(self, config_channel, revision, path):
+        if revision and not revision.isdigit():
+            raise rhnFault(4016, "Invalid revision number '%s' specified for path %s "
+                "in channel %s" % (revision, path, config_channel),
+                explain=0)
+
+        f = self._get_file(config_channel, path, revision=revision)
+        if not f:
+            raise rhnFault(4011, "File %s (revision %s) does not exist "
+                "in channel %s" % (path, revision, config_channel),
+                explain=0)
+        if f['label'] == 'file' and f['is_binary'] == 'Y':
+            raise rhnFault(4004, "File %s (revision %s) seems to contain "
+                "binary data" % (path, revision),
+                explain=0)
+
+        # We have to read the contents of the first file here, because the LOB
+        # object is tied to a cursor; if we re-execute the cursor, the LOB
+        # seems to be invalid (bug 151220)
+
+        # Empty files or directories may have NULL instead of lobs
+        fd, f['filename'] = tempfile.mkstemp(prefix = '/tmp/rhncfg-')
+        fc_lob = f.get('file_contents')
+        if fc_lob:
+            os.write(fd, rhnSQL.read_lob(fc_lob))
+        os.close(fd)
+        del fc_lob
+        return f
 
     # Helper functions
     _query_org_config_channels = rhnSQL.Statement("""
