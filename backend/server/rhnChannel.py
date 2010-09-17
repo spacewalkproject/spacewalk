@@ -558,29 +558,6 @@ def create_channel_families(entries, update=0):
         c.load_from_dict(e)
         c.save(with_updates=update)
 
-def _delete_channel(channel):
-    channel_id = channel.get_id()
-    tables = [
-        ['rhnDistChannelMap', 'channel_id'],
-        ['rhnChannelFamilyMembers', 'channel_id'],
-        ['rhnServerChannel', 'channel_id'],
-        ['rhnChannelNewestPackage', 'channel_id'],
-        ['rhnChannelPackage', 'channel_id'],
-        ['rhnChannel', 'id']
-    ]
-    for table_name, col in tables:
-        h = rhnSQL.prepare("delete from %s where %s = :channel_id" % 
-            (table_name, col))
-        try:
-            h.execute(channel_id=channel_id)
-        except rhnSQL.SQLError, e:
-            if e.args[0] != 2292:
-                raise
-            label = channel.get_label()
-            return("Unable to delete channel %s: child records found for "
-                "table %s, column %s" % (label, table_name, col))
-    return None
-
 
 def list_channel_families(pattern=None):
     if pattern:
