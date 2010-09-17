@@ -156,33 +156,6 @@ class Tests(unittest.TestCase):
             self.failIf(c.exists())
         return entries
 
-    def test_delete_channel_families_1(self):
-        """Tests rhnChannel.delete_channel_families"""
-        entries = self.test_create_channel_families_1()
-        messages = rhnChannel.delete_channel_families(entries)
-        self.assertEqual(messages, [])
-        rhnSQL.commit()
-        for entry in entries:
-            label = entry['label']
-            c = rhnChannel.ChannelFamily().load_by_label(label)
-            self.failIf(c.exists())
-        return entries
-
-    def test_delete_channel_families_2(self):
-        """Tests the removal of a channel family that has a child associated"""
-        c = self.test_new_channel_1()
-        cf_label = c.get_channel_families()[0]
-
-        vdict = {'label' : cf_label}
-        entries = [ vdict ]
-        messages = rhnChannel.delete_channel_families(entries)
-        self.assertNotEqual(messages, [])
-        rhnSQL.commit()
-        # Just to be sure
-        c = rhnChannel.ChannelFamily().load_by_label(cf_label)
-        self.failUnless(c.exists())
-        return entries
-
     def test_list_channel_families_1(self):
         """Tests rhnChannel.list_channel_families"""
         channel_families =  rhnChannel.list_channel_families()
