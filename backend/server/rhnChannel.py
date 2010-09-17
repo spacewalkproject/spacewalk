@@ -582,22 +582,6 @@ def _delete_channel(channel):
     return None
 
 
-_query_delete_channel_family = rhnSQL.Statement("""
-    delete from rhnChannelFamily where id = :channel_family_id
-""")
-def _delete_channel_family(channel_family):
-    channel_family_id = channel_family.get_id()
-    h = rhnSQL.prepare(_query_delete_channel_family)
-    try:
-        h.execute(channel_family_id=channel_family_id)
-    except rhnSQL.SQLError, e:
-        if e.args[0] != 2292:
-            raise
-        label = channel_family.get_label()
-        return "Unable to delete channel family %s: child records found" % label
-
-    return None
-
 def list_channel_families(pattern=None):
     if pattern:
         query = """
