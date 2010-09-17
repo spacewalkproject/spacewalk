@@ -315,15 +315,11 @@ class ActivationKey:
         return inserts, deletes
 
     def __getattr__(self, name):
-        if startswith(name, 'get_'):
+        if name.startswith('get_'):
             return CallableObj(name[4:], self._get)
-        if startswith(name, 'set_'):
+        if name.startswith('set_'):
             return CallableObj(name[4:], self._set)
         raise AttributeError(name)
-
-
-def startswith(s, prefix):
-    return s[:len(prefix)] == prefix
 
 
 class CallableObj:

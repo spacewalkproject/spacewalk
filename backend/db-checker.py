@@ -73,13 +73,10 @@ def main():
 
 def proper_module_name(module_name):
     suffix = '.py'
-    if endswith(module_name, suffix):
+    if module_name.endswith(suffix):
         module_name = module_name[:-len(suffix)]
 
     return string.replace(os.path.normpath(module_name), '/', '.')
-
-def endswith(s, suffix):
-    return (s[-len(suffix):] == suffix)
 
 _objs_seen = {}
 

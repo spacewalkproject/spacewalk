@@ -142,20 +142,15 @@ class RequestedChannels:
         return self
 
     def __getattr__(self, name):
-        if startswith(name, 'add'):
+        if name.startswith('add'):
             return Method(name[3:], self._add)
-        if startswith(name, 'get'):
+        if name.startswith('get'):
             return Method(name[3:], self._get)
-        if startswith(name, 'set'):
+        if name.startswith('set'):
             return Method(name[3:], self._set)
-        if startswith(name, 'reset'):
+        if name.startswith('reset'):
             return Method(name[5:], self._reset)
         raise AttributeError(name)
-
-def startswith(s, prefix):
-    if s[:len(prefix)] == prefix:
-        return 1
-    return 0
 
 class Method:
     def __init__(self, name, func):

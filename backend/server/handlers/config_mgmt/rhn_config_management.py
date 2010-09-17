@@ -544,12 +544,12 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         if not first_row:
             return ""
 
-        if not startswith(first_row, '---'):
+        if not first_row.startswith('---'):
             # Hmm, weird
             return first_row + pipe.read()
 
         second_row = pipe.readline()
-        if not startswith(second_row, '+++'):
+        if not second_row.startswith('+++'):
             # Hmm, weird
             return second_row + pipe.read()
 
@@ -591,9 +591,6 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
 
         raise rhnFault(4006, 
             "User is not a allowed to manage config files")
-
-def startswith(s, prefix):
-    return (s[:len(prefix)] == prefix)
 
 def f_date(dbiDate):
     return "%04d-%02d-%02d %02d:%02d:%02d" % (dbiDate.year, dbiDate.month, 
