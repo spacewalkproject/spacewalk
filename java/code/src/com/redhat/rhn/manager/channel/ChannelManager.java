@@ -2825,7 +2825,11 @@ public class ChannelManager extends BaseManager {
 
         File dir = new File(logPath);
         List<String> possibleList = new ArrayList<String>();
-        for (String file : dir.list()) {
+        String[] dirList = dir.list();
+        if (dirList == null) {
+            return null; // the log directory does not exist
+        }
+        for (String file : dirList) {
             if (file.contains(c.getLabel())) {
                 possibleList.add(file);
             }
