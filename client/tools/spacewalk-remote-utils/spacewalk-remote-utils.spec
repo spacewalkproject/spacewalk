@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.0.0
+Version:     1.0.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -51,6 +51,9 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacecwalk-create-channel.1.gz
 
 %changelog
+* Mon Sep 20 2010 Shannon Hughes <shughes@redhat.com> 1.0.1-1
+- new package built with tito
+
 * Fri Aug 20 2010 Justin Sherrill <jsherril@redhat.com> 1.0.0-0
 - Initial build.  (jlsherrill@redhat.com)
 
