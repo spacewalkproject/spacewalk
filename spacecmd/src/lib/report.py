@@ -20,6 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+from operator import itemgetter
 from spacecmd.utils import *
 
 def help_report_entitlements(self):
@@ -55,20 +56,28 @@ def help_report_inactivesystems(self):
 def do_report_inactivesystems(self, args):
     args = parse_arguments(args)
 
+    # allow the user to set a limit on the number of days
     if len(args) == 1:
         try:
             days = int(args[0])
         except ValueError:
-            days = 365
+            # default to a week when passed a bad argument
+            days = 7
 
         systems = self.client.system.listInactiveSystems(self.session, days)
     else:
+        # use the server's default period if no argument was passed
         systems = self.client.system.listInactiveSystems(self.session)
 
-    systems = [ s.get('name') for s in systems ]
-
     if len(systems):
-        print '\n'.join(sorted(systems))
+        max_size = max_length([ s.get('name') for s in systems ])
+
+        print '%s  %s' % ('System'.ljust(max_size), 'Last Checkin')
+        print ('-' * max_size) + '  ------------'
+
+        for s in sorted(systems, key=itemgetter('name')):
+            print '%s  %s' % (s.get('name').ljust(max_size),
+                              s.get('last_checkin'))
 
 ####################
 
@@ -79,11 +88,7 @@ def help_report_outofdatesystems(self):
 def do_report_outofdatesystems(self, args):
     systems = self.client.system.listOutOfDateSystems(self.session)
 
-    #XXX: max(list, key=len) in >2.5
-    max_size = 0
-    for system in systems:
-        size = len(system.get('name'))
-        if size > max_size: max_size = size
+    max_size = max_length([ s.get('name') for s in systems ])
 
     report = {}
     for system in systems:
