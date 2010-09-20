@@ -1,0 +1,227 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY RHNCHANRM "Spacewalk channel creation tool" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-create-channel</RefEntryTitle><manvolnum>1</manvolnum>
+<RefMiscInfo>Version 1.0.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-create-channel</command></RefName>
+<RefPurpose>
+A utility to create and manage channels at different update levels.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spaceawlk-create-channel</command>
+        <arg>options <replaceable>...</replaceable></arg>
+        <arg>-l<replaceable>USER</replaceable></arg>
+        <arg>--username=<replaceable>USER</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+         <arg>-p<replaceable>PASSWORD</replaceable></arg>
+         <arg>--password=<replaceable>PASSWORD</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-s<replaceable>SERVER</replaceable></arg>
+        <arg>--server=<replaceable>SERVER</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-v <replaceable>VERSION</replaceable></arg>
+        <arg>--version=<replaceable>VERSION</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-r <replaceable>RELEASE</replaceable></arg>
+        <arg>--release=<replaceable>RELEASE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-u <replaceable>UPDATE_LEVEL</replaceable></arg>
+        <arg>--update=<replaceable>UPDATE_LEVEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-a <replaceable>ARCH</replaceable></arg>
+        <arg>--arch=<replaceable>ARCH</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-e <replaceable>EXTRA</replaceable></arg>
+        <arg>--extra=<replaceable>EXTRA</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-d <replaceable>DEST_CHANNEL</replaceable></arg>
+        <arg>--destChannel=<replaceable>DEST_CHANNEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-c <replaceable>SOURCE_CHANNEL</replaceable></arg>
+        <arg>--sourceChannel=<replaceable>SOURCE_CHANNEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-p <replaceable>PARENT_CHANNEL</replaceable></arg>
+        <arg>--parent=<replaceable>PARENT_CHANNEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-K <replaceable>SKIPLIST</replaceable></arg>
+        <arg>--skiplist=<replaceable>SKIPLIST</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-L</arg>
+        <arg>--clone</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-D <replaceable>DATAFILE</replaceable></arg>
+        <arg>--data=<replaceable>DATAFILE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--nossl</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg>
+        <arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+<para>
+spacewalk-create-channel is a command line utility for creating channels 
+of different update levels on a Spacewalk or Satellite server.  For example,
+the script can create a channel with the exact package set of the Red Hat
+Enterprise Linux 5.3 release of all architectures for which it was released.
+It is written in python and utilizes the XML-RPC interface supplied by 
+the Spacewalk or Satellite server.  
+</para>
+
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-l<replaceable>USER</replaceable>, --user=<replaceable>USER</replaceable></term>
+        <listitem>
+            <para>The username to connect to the server.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-s<replaceable>SERVER</replaceable>, --server=<replaceable>SERVER</replaceable></term>
+        <listitem>
+            <para>The hostname or IP address of the Satellite or Spacewalk server to connect to.  Defaults to localhost.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-v<replaceable>VERSION</replaceable>, --version=<replaceable>VERSION</replaceable></term>
+        <listitem>
+            <para>The version of the channel to create (e.g. 5, 4, 3, 2.1).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-r<replaceable>RELEASE</replaceable>, --release=<replaceable>RELEASE</replaceable></term>
+        <listitem>
+            <para>The release of the channel to create (e.g. AS, ES, WS, Server, Client, Desktop).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-u<replaceable>UPDATE</replaceable>, --update=<replaceable>UPDATE</replaceable></term>
+        <listitem>
+            <para>The update level of a channel to create (e.g. i386, ia64, ppc, s390, s390x, x86_64).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-a<replaceable>ARCH</replaceable>, --arch=<replaceable>ARCH</replaceable></term>
+        <listitem>
+            <para>The arch of the channel to create (e.g. i386, ia64, ppc, s390, s390x, x86_64).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-e<replaceable>EXTRA</replaceable>, --extra=<replaceable>EXTRA</replaceable></term>
+        <listitem>
+            <para>The child channel/repo to use, e.g. Extras, Supplementary (Optional)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-d<replaceable>DEST_CHANNEL</replaceable>, --destChannel=<replaceable>DEST_CHANNEL</replaceable></term>
+        <listitem>
+            <para>The label of the destination channel.  This will be created if not present.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-N<replaceable>DEST_NAME</replaceable>, --name=<replaceable>DEST_NAME</replaceable></term>
+        <listitem>
+            <para>If the destination channel is created use DEST_NAME for it's name.  If not provided the label will be used. (Optional)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-c<replaceable>SOURCE_CHANNEL</replaceable>, --sourceChannel=<replaceable>SOURCE_CHANNEL</replaceable></term>
+        <listitem>
+            <para>The channel to pull packages from.  This is auto-detected if not provided.  (Optional).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-P<replaceable>PARENT_LABEL</replaceable>, --parent=<replaceable>PARENT_LABEL</replaceable></term>
+        <listitem>
+            <para>If destination channel does not exist, it will be created as a child of the specified parent.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-L, --clone</term>
+        <listitem>
+            <para>If destination does not exist, clone it from the source channel, before adding packages.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-K<replaceable>SKIPLIST</replaceable>, --skiplist=<replaceable>SKIPLIST</replaceable></term>
+        <listitem>
+            <para>Use the specified file of package names (one per line) to skip specified packages when copying from one channel to the destination. (Optional)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-D<replaceable>DATAFILE</replaceable>, --data=<replaceable>DATAFILE</replaceable></term>
+        <listitem>
+            <para>Path to a list of rpms to move to the destination channel, only used if version, release, update, and arch are not specified.(Optional)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--nossl</term>
+        <listitem>
+            <para>Disable SSL when connecting to the server.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Show the help.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Examples</Title>
+<simplelist>
+        <member>Creating a channel 'my-stable-channel' for RHEL 4 AS u3 i386: 
+		<command>create-channel-update  --user=admin --server=myserver.example.com --version=4 --update=u3 --release=AS --arch=i386   --destChannel=my-stable-channel</command>
+		<command>create-channel-update  -l admin -s myserver.example.com  -D /usr/share/rhn/channel-data/4-U3-AS-i386  -d my-stable-channel</command></member>
+        <member>Upgrade prevously created channel 'my-stable-channel' to RHEL 4 AS u4 i386:
+		<command>create-channel-update  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386   -d my-stable-channel</command></member>
+        <member>Add the extra's channel as a child channel of 'my-stable-channel':
+		<command>create-channel-update  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386 -e extras  -p my-stable-channel -d my-stable-extras</command></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Justin Sherrill <email>jsherril@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
+

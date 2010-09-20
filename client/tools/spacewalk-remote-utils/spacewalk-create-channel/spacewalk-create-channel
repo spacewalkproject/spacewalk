@@ -71,11 +71,6 @@ def get_args():
 def validate_options(options):
    error = False
 
-
-   if not options.server:
-      error = True
-      print "--server must be specified"
-
    if not options.user:
       error = True
       print "--user must be specified"
@@ -102,6 +97,10 @@ def validate_options(options):
 
    if error:
       sys.exit(1)
+
+   if not options.server:
+      server = "localhost"
+      print "No server specified, defaulting to localhost."
 
 def main():
 
