@@ -376,8 +376,12 @@ public class RecurringEventPicker {
         if (getCronEntry() == null) {
             return null;
         }
+        String[] array = getCronEntry().split(WHITE_SPACE);
+        if (slot >= array.length) {
+            return null;
+        }
         else {
-            return getCronEntry().split(WHITE_SPACE)[slot];
+            return array[slot];
         }
     }
 
