@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.2
+Version: 1.2.3
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Mon Sep 20 2010 Jan Pazdziora 1.2.3-1
+- 634961 - stop null/None values from being presented as "None".
+
 * Wed Aug 18 2010 Jan Pazdziora 1.2.2-1
 - 623941, 578292 - add report channel-packages which provides full list
   of packages in channels.
