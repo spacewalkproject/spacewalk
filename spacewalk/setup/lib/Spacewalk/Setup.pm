@@ -1534,43 +1534,43 @@ sub update_monitoring_scout {
 	my $dbh = get_dbh($answers);
 
 	# If IP address for satellite / spacewalk scout was set to 127.0.0.1, it needs to be updated
-	my $sql1 = qq/
+	my $sql1 = q{
 		update rhn_sat_node
-			set ip = '$ip_addr',
+			set ip = ?,
 			last_update_user = 'upgrade',
 			last_update_date = sysdate
 		where ip = '127.0.0.1' and
-			recid = 2/;
+			recid = 2};
 
-	my $sql2 = qq/
+	my $sql2 = q{
 		update rhn_sat_cluster
-			set vip = '$ip_addr',
+			set vip = ?,
 			last_update_user = 'upgrade',
 			last_update_date = sysdate
 		where vip = '127.0.0.1' and
-			recid = 1/;
+			recid = 1};
 
 	# If IP address for satellite / spacewalk scout was not set, it needs to be updated
-	my $sql3 = qq/
+	my $sql3 = q{
 		update rhn_sat_node
-			set ip = '$ip_addr',
+			set ip = ?,
 			last_update_user = 'upgrade',
 			last_update_date = sysdate
 		where ip is null and
-			recid = 2/;
+			recid = 2};
 
-	my $sql4 = qq/
+	my $sql4 = q{
 		update rhn_sat_cluster
-			set vip = '$ip_addr',
+			set vip = ?,
 			last_update_user = 'upgrade',
 			last_update_date = sysdate
 		where vip is null and
-			recid = 1/;
+			recid = 1};
 
-	$dbh->do($sql1);
-	$dbh->do($sql2);
-	$dbh->do($sql3);
-	$dbh->do($sql4);
+	$dbh->do($sql1, {}, ($ip_addr));
+	$dbh->do($sql2, {}, ($ip_addr));
+	$dbh->do($sql3, {}, ($ip_addr));
+	$dbh->do($sql4, {}, ($ip_addr));
 
 	$dbh->commit;
 	$dbh->disconnect;
