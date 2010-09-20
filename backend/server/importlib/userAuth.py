@@ -201,26 +201,7 @@ def getUserGroups(login, password):
         log_debug("user.check_password failed")
         raise rhnFault(2)
 
-    # Get the org id
-    org_id = user.contact['org_id']
-    user_id = user.getid()
-    h = rhnSQL.prepare("""
-        select ugt.label
-          from rhnUserGroupType ugt,
-               rhnUserGroup ug,
-               rhnUserGroupMembers ugm
-         where ugm.user_id = :user_id
-               and ugm.user_group_id = ug.id
-               and ug.group_type = ugt.id
-    """)
-    h.execute(user_id=user_id)
-    groups = []
-    while 1:
-        row = h.fetchone_dict()
-        if not row:
-            break
-        groups.append(row['label'])
-    return groups, org_id, user_id
+    return getUserGroupsFromUserInstance(user)
 
 
 def user_manages_channels(user_id):
