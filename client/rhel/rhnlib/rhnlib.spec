@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.26
+Version: 2.5.27
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -54,6 +54,11 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Mon Sep 20 2010 Miroslav Suchý <msuchy@redhat.com> 2.5.27-1
+- add copyright file - this is required by Debian policy
+- update GPLv2 license file
+- 618267 - simplify regexp
+
 * Thu Aug 05 2010 Milan Zazrivec <mzazrivec@redhat.com> 2.5.26-1
 - 618267 - do not allow control characters in xmlrpc communication
 
