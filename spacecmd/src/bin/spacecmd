@@ -43,8 +43,8 @@ if __name__ == '__main__':
                help='answer yes for all questions'),
         Option('-q', '--quiet', action='store_true',
                help='print only error messages'),
-        Option('-d', '--debug', action='store_true',
-               help='print debug messages'),
+        Option('-d', '--debug', action='count',
+               help='print debug messages (can be passed multiple times)'),
     ]
 
     usage = 'usage: %prog [options] [command]'
@@ -66,7 +66,7 @@ if __name__ == '__main__':
         config = SafeConfigParser()
         config.read(conf_file)    
 
-        boolean_opts = [ 'nossl', 'debug' ]
+        boolean_opts = [ 'nossl' ]
         string_opts = [ 'server', 'username', 'password' ]
 
         for key in boolean_opts:

@@ -191,9 +191,13 @@ def do_login(self, args):
 
     server_url = '%s://%s/rpc/api' % (proto, server)
 
+    verbose_xmlrpc = False
+    if self.options.debug > 1:
+        verbose_xmlrpc = True
+
     # connect to the server
     logging.debug('Connecting to %s' % (server_url))
-    self.client = xmlrpclib.Server(server_url, verbose = self.options.debug)
+    self.client = xmlrpclib.Server(server_url, verbose = verbose_xmlrpc)
 
     # check the API to verify connectivity
     try:
