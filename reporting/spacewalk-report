@@ -163,7 +163,12 @@ if __name__ == '__main__':
 							break
 
 				if outrow == None:
-					outrow = [ str(x) for x in row ]
+					outrow = []
+					for x in row:
+						if x is None:
+							outrow.append(None)
+						else:
+							outrow.append(str(x))
 					multival_dupes = {}
 
 				prevrow = row
