@@ -16,11 +16,10 @@ use IPC::Open3 qw(open3);
 use Pod::Usage qw(pod2usage);
 use POSIX ":sys_wait_h";
 use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
+use Socket;
 
 use Params::Validate qw(validate);
 Params::Validate::validation_options(strip_leading => "-");
-
-use RHN::Utils;
 
 =head1 NAME
 
@@ -1529,7 +1528,8 @@ sub update_monitoring_scout {
 
 	return unless ($opts->{'upgrade'});
 
-	my $ip_addr = RHN::Utils::find_ip_address($answers->{'hostname'});
+	my $host = gethostbyname($answers->{'hostname'});
+	my $ip_addr = inet_ntoa($host);
 
 	my $dbh = get_dbh($answers);
 
