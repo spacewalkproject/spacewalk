@@ -16,6 +16,7 @@ BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
 BuildRequires: python-devel
+BuildRequires: docbook-utils
 
 %description
 spacecmd is a command-line interface to Spacewalk and Satellite servers
