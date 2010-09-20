@@ -509,14 +509,16 @@ class Backend:
         for package in packages:
             exception = None
             for type, chksum  in package['checksums'].iteritems():
+                package['checksum_type'] = type
+                package['checksum']      = chksum
                 package['checksum_id']  = checksums[(type, chksum)]
                 try:
-                    self.__lookupObjectCollection([package], 'rhnPackage', ignore_missing)
+                    self.__lookupObjectCollection([package], 'rhnPackage')
                     exception = None
                     break
                 except InvalidPackageError, e:
                     exception = e
-            if exception:
+            if exception and not ignore_missing:
                 raise exception 
                     
 
