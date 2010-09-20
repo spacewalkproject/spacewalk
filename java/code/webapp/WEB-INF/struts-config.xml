@@ -3083,7 +3083,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/ssmhwrefresh.jsp"/>
         <forward name="confirm"
-                 path="/ssm/ViewAllLog.do" redirect="true"/> -
+                 path="/ssm/ViewAllLog.do" redirect="true"/>
     </action>
 
     <!--System Details Configuration -->
