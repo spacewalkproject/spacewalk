@@ -595,6 +595,12 @@ def do_softwarechannel_adderrata(self, args):
     errata = filter_results([ e.get('advisory_name') for e in source_errata ],
                             errata_wanted)
 
+    # keep the details for our matching errata so we can use them later
+    errata_details = []
+    for erratum in source_errata:
+        if erratum.get('advisory_name') in errata:
+            errata_details.append(erratum)
+
     # get the packages that resolve these errata so we can add them
     # to the channel afterwards
     package_ids = []
@@ -613,9 +619,8 @@ def do_softwarechannel_adderrata(self, args):
         logging.warning('No errata to add')
         return
 
-    print 'Errata'
-    print '------'
-    print '\n'.join(sorted(errata))
+    # show the user which errata will be added
+    print_errata_list(errata_details)
 
     print
     print 'Packages'
@@ -628,12 +633,15 @@ def do_softwarechannel_adderrata(self, args):
 
     if not self.user_confirm('Add these errata and packages [y/N]:'): return
 
-    # add the errata to the destination channel
-    logging.debug('Cloning errata into %s' % dest_channel)
-    self.client.errata.clone(self.session, dest_channel, errata)
+    # clone each erratum individually because the process is slow and it can
+    # lead to timeouts on the server
+    logging.info('Cloning errata into %s' % dest_channel)
+    for erratum in errata:
+        logging.debug('Cloning %s' % erratum)
+        self.client.errata.clone(self.session, dest_channel, [erratum])
 
     # add the affected packages to the channel
-    logging.debug('Adding required packages to %s' % dest_channel)
+    logging.info('Adding required packages to %s' % dest_channel)
     self.client.channel.software.addPackages(self.session,
                                              dest_channel,
                                              package_ids)
