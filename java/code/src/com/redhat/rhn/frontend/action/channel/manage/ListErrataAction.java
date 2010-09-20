@@ -58,10 +58,9 @@ public class ListErrataAction extends RhnListAction implements Listable {
 
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getCurrentUser();
-
-        PublishErrataHelper.checkPermissions(user);
-
         Long cid = Long.parseLong(request.getParameter(CID));
+        PublishErrataHelper.checkPermissions(user, cid);
+
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid,
                 requestContext.getCurrentUser());
         request.setAttribute("channel_name", currentChan.getName());

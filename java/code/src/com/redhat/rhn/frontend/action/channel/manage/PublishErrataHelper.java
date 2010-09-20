@@ -16,13 +16,13 @@ package com.redhat.rhn.frontend.action.channel.manage;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.Keyword;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
@@ -45,11 +45,11 @@ public class PublishErrataHelper {
      * Perform a check to see if the user can modify channels, throws an
      *          PermissionException if the user does not have permission
      * @param user the user to check
+     * @param cid TODO
      *
      */
-    public static void checkPermissions(User user) {
-        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN) &&
-                !user.hasRole(RoleFactory.ORG_ADMIN)) {
+    public static void checkPermissions(User user, Long cid) {
+        if (ChannelFactory.lookupByIdAndUser(cid, user) == null) {
             LocalizationService ls = LocalizationService.getInstance();
             throw new PermissionException(
                     ls.getMessage("frontend.actions.channels.manager.add.permsfailure"));
@@ -90,7 +90,7 @@ public class PublishErrataHelper {
         clone.setPackages(new HashSet(original.getPackages()));
 
 
-        for (Keyword k : (Set<Keyword>)original.getKeywords()) {
+        for (Keyword k : original.getKeywords()) {
             clone.addKeyword(k.getKeyword());
         }
 

@@ -64,7 +64,7 @@ public class PublishErrataAction extends RhnListAction {
         Long cid = Long.parseLong(request.getParameter(CID));
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid, user);
 
-        PublishErrataHelper.checkPermissions(user);
+        PublishErrataHelper.checkPermissions(user, cid);
 
         RhnSet  packageSet = RhnSetDecl.setForChannelPackages(currentChan).get(user);
         Set<Long> packageIds = packageSet.getElementValues();

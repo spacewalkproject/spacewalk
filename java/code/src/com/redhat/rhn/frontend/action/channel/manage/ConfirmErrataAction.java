@@ -77,7 +77,7 @@ public class ConfirmErrataAction extends RhnListAction {
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid, user);
         boolean packageAssoc = request.getParameter(CHECKED) != null;
 
-        PublishErrataHelper.checkPermissions(user);
+        PublishErrataHelper.checkPermissions(user, cid);
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("channel_name", currentChan.getName());
