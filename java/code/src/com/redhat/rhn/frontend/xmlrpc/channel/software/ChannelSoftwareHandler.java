@@ -529,10 +529,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      <li>string url</li>
      *      <li>string id</li>
      *      <li>string fingerprint</li>
-     * @param yumRepo a map consisting of
-     *      <li>string url</li>
-     *      <li>string label</li>
-     *      <li>boolean sync</li>
      * @return 1 if creation of channel succeeds.
      * @since 10.9
      * @throws PermissionCheckFailureException  thrown if user does not have
@@ -583,17 +579,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #prop_desc("string", "id", "GPG key ID")
      *          #prop_desc("string", "fingerprint", "GPG key Fingerprint")
      *      #struct_end()
-     * @xmlrpc.param
-     *      #struct("yumRepo")
-     *          #prop_desc("string", "url", "Associated Yum Repository URL")
-     *          #prop_desc("string", "label", "Associated Yum Repository Label")
-     *          #prop_desc("boolean", "sync", "Sync Yum Repository")
-     *      #struct_end()
      * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
      */
     public int create(String sessionKey, String label, String name,
             String summary, String archLabel, String parentLabel, String checksumType,
-            Map gpgKey, Map yumRepo)
+            Map gpgKey)
         throws PermissionCheckFailureException, InvalidChannelLabelException,
                InvalidChannelNameException, InvalidParentChannelException {
 
@@ -612,9 +602,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ccc.setGpgKeyUrl((String)gpgKey.get("url"));
         ccc.setGpgKeyId((String)gpgKey.get("id"));
         ccc.setGpgKeyFp((String)gpgKey.get("fingerprint"));
-        ccc.setYumUrl((String)yumRepo.get("url"));
-        ccc.setRepoLabel((String)yumRepo.get("label"));
-        ccc.setSyncRepo(BooleanUtils.toBoolean((Boolean) yumRepo.get("sync")));
 
         return (ccc.create() != null) ? 1 : 0;
     }
@@ -682,7 +669,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         return create(sessionKey, label, name,
                 summary, archLabel, parentLabel, checksumType,
-                new HashMap(), new HashMap());
+                new HashMap());
     }
 
     /**

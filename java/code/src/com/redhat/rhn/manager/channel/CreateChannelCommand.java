@@ -73,12 +73,6 @@ public class CreateChannelCommand {
     protected String maintainerPhone;
     protected String supportPolicy;
     protected String access = Channel.PRIVATE;
-    protected String yumUrl;
-    protected String repoLabel;
-    protected boolean syncRepo = false;
-
-
-
 
 
     /**
@@ -292,11 +286,6 @@ public class CreateChannelCommand {
         ChannelManager.queueChannelChange(c.getLabel(), "createchannel", "createchannel");
         ChannelFactory.refreshNewestPackageCache(c, WEB_CHANNEL_CREATED);
 
-        if (syncRepo && !c.getSources().isEmpty()) {
-            TaskFactory.createTask(user.getOrg(), RepoSyncTask.DISPLAY_NAME,
-                    c.getSources().iterator().next().getId());
-        }
-
         return c;
     }
 
@@ -350,12 +339,6 @@ public class CreateChannelCommand {
             throw new IllegalArgumentException(
                     "edit.channel.invalidchannelsummary");
         }
-
-        if (!StringUtils.isEmpty(yumUrl) && StringUtils.isEmpty(repoLabel)) {
-            throw new IllegalArgumentException(
-                "edit.channel.invalidrepolabel.missing");
-        }
-
     }
 
     protected void verifyChannelName(String cname) throws InvalidChannelNameException {
@@ -456,28 +439,6 @@ public class CreateChannelCommand {
                 !Pattern.compile(GPG_URL_REGEX).matcher(gpgKeyUrl).find()) {
             throw new InvalidGPGUrlException();
         }
-    }
-
-    /**
-     * @param yumUrlIn The yumUrl to set.
-     */
-    public void setYumUrl(String yumUrlIn) {
-        this.yumUrl = yumUrlIn;
-    }
-
-    /**
-     * @param repoLabelIn The repoLabel to set.
-     */
-    public void setRepoLabel(String repoLabelIn) {
-        this.repoLabel = repoLabelIn;
-    }
-
-
-    /**
-     * @param syncRepoIn The syncRepo to set.
-     */
-    public void setSyncRepo(boolean syncRepoIn) {
-        this.syncRepo = syncRepoIn;
     }
 
 }

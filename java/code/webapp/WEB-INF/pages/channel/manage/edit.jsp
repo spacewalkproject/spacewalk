@@ -96,7 +96,7 @@
             <label for="checksum"><bean:message key="channel.edit.jsp.checksum"/>:</label>
          </th>
          <td class="small-form">
-            <html:select property="checksum">
+            <html:select property="checksum" styleId="checksum">
                 <html:options collection="checksums"
                               property="value"
                               labelProperty="label" />

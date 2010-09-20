@@ -338,10 +338,6 @@ public class EditChannelAction extends RhnAction implements Listable {
         ucc.setMaintainerPhone((String)form.get("maintainer_phone"));
         ucc.setSupportPolicy((String)form.get("support_policy"));
         ucc.setAccess((String)form.get("org_sharing"));
-        ucc.setRepoLabel((String) form.getString("repo_label"));
-        if (form.get("sync_repo") != null) {
-            ucc.setSyncRepo((Boolean)form.get("sync_repo"));
-        }
 
         String parent = (String)form.get("parent");
         if (parent == null || parent.equals("")) {
@@ -413,9 +409,6 @@ public class EditChannelAction extends RhnAction implements Listable {
         ccc.setMaintainerPhone((String)form.get("maintainer_phone"));
         ccc.setSupportPolicy((String)form.get("support_policy"));
         ccc.setAccess((String)form.get("org_sharing"));
-        if (form.get("sync_repo") != null) {
-            ccc.setSyncRepo((Boolean)form.get("sync_repo"));
-        }
 
         String parent = (String)form.get("parent");
         if (parent == null || parent.equals("")) {
