@@ -99,7 +99,7 @@ def do_configchannel_listfiles(self, args, doreturn=False):
 def help_configchannel_filedetails(self):
     print 'configchannel_filedetails: Show the details of a file'
     print 'in a configuration channel'
-    print 'usage: configchannel_filedetails CHANNEL <FILE ...>'
+    print 'usage: configchannel_filedetails CHANNEL FILE [REVISION]'
 
 def complete_configchannel_filedetails(self, text, line, beg, end):
     parts = line.split(' ')
@@ -120,47 +120,60 @@ def do_configchannel_filedetails(self, args):
         self.help_configchannel_filedetails()
         return
 
-    add_separator = False
-
     channel = args[0]
-    filenames = args[1:]
+    filename = args[1]
+    revision = None
+
+    try:
+        revision = int(args[2])
+    except:
+        pass
 
     # the server return a null exception if an invalid file is passed
     valid_files = self.do_configchannel_listfiles(channel, True)
-    for f in filenames:
-        if not f in valid_files:
-            filenames.remove(f)
-            logging.warning('%s is not in this configuration channel' % f)
-            continue
+    if not filename in valid_files:
+        logging.warning('%s is not in this configuration channel' % filename)
+        return
 
-    files = self.client.configchannel.lookupFileInfo(self.session,
-                                                     channel,
-                                                     filenames)
+    if revision:
+        details = self.client.configchannel.lookupFileInfo(self.session,
+                                                           channel,
+                                                           filename,
+                                                           revision)
+    else:
+        results = self.client.configchannel.lookupFileInfo(self.session,
+                                                           channel,
+                                                           [ filename ])
 
-    for f in files:
-        if add_separator: print self.SEPARATOR
-        add_separator = True
+        # grab the first item since we only do one file
+        details = results[0]
 
-        print 'File:     %s' % f.get('path')
-        print 'Type:     %s' % f.get('type')
-        print 'Revision: %i' % f.get('revision')
-        print 'Created:  %s' % f.get('creation')
-        print 'Modified: %s' % f.get('modified')
+    print 'File:     %s' % details.get('path')
+    print 'Type:     %s' % details.get('type')
+    print 'Revision: %i' % details.get('revision')
+    print 'Created:  %s' % details.get('creation')
+    print 'Modified: %s' % details.get('modified')
 
+    if details.get('type') == 'symlink':
         print
-        print 'Owner:    %s' % f.get('owner')
-        print 'Group:    %s' % f.get('group')
-        print 'Mode:     %s' % f.get('permissions_mode')
+        print 'Target Path:     %s' % details.get('target_path')
+    else:
+        print
+        print 'Owner:           %s' % details.get('owner')
+        print 'Group:           %s' % details.get('group')
+        print 'Mode:            %s' % details.get('permissions_mode')
 
-        if f.get('type') == 'file':
-            print 'MD5:      %s' % f.get('md5')
-            print 'Binary:   %s' % f.get('binary')
+    print 'SELinux Context: %s' % details.get('selinux_ctx')
 
-            if not f.get('binary'):
-                print
-                print 'Contents'
-                print '--------'
-                print f.get('contents')
+    if details.get('type') == 'file':
+        print 'MD5:             %s' % details.get('md5')
+        print 'Binary:          %s' % details.get('binary')
+
+        if not details.get('binary'):
+            print
+            print 'Contents'
+            print '--------'
+            print details.get('contents')
 
 ####################
 
@@ -269,11 +282,14 @@ def do_configchannel_addfile(self, args, path=''):
 
     channel = args[0]
 
-    # defaults   
+    # defaults
     owner = 'root'
     group = 'root'
     mode = '644'
     contents = ''
+    target_path = ''
+    selinux_ctx = ''
+    symlink = False
 
     while path == '':
         path = prompt_user('Path:')
@@ -294,57 +310,104 @@ def do_configchannel_addfile(self, args, path=''):
                 group = info.get('group')
                 mode = info.get('permissions_mode')
                 contents = info.get('contents')
+                target_path = info.get('target_path')
+                selinux_ctx = info.get('selinux_ctx')
 
-    userinput = prompt_user('Directory [y/N]:')
-    if re.match('y', userinput, re.I):
-        directory = True
-    else:
-        directory = False
+                if info.get('type') == 'symlink':
+                    symlink = True
 
-    owner_input = prompt_user('Owner [%s]:' % owner)
-    group_input = prompt_user('Group [%s]:' % group)
-    mode_input  = prompt_user('Permissions [%s]:' % mode)
-    
-    if owner_input:
-        owner = owner_input
-
-    if group_input: 
-        group = group_input
-
-    if mode_input:
-        mode = mode_input
-
-    if not directory:
-        if contents:
-            template = contents
+    # if this is a new file, ask if it's a symlink
+    if not symlink:
+        userinput = prompt_user('Symlink [y/N]:')
+        if re.match('y', userinput, re.I):
+            symlink = True
         else:
-            template = ''
+            symlink = False
 
-        contents = editor(template = template, delete = True)
+    if symlink:
+        target_input = prompt_user('Target Path [%s]:' % target_path)
+        selinux_input = prompt_user('SELinux Context [%s]:' % selinux_ctx)
 
-    file_info = { 'contents'    : ''.join(contents),
-                  'owner'       : owner,
-                  'group'       : group,
-                  'permissions' : mode }
+        if target_input:
+            target_path = target_input
 
-    print 'File:        %s' % path
-    print 'Directory:   %s' % directory
-    print 'Owner:       %s' % file_info['owner']
-    print 'Group:       %s' % file_info['group']
-    print 'Mode:        %s' % file_info['permissions']
+        if selinux_input:
+            selinux_ctx = selinux_input
 
-    if not directory:
-        print
-        print 'Contents'
-        print '--------'
-        print file_info['contents']
+        file_info = { 'target_path' : target_path,
+                      'selinux_ctx' : selinux_ctx }
+
+        print 'File:            %s' % path
+        print 'Target Path:     %s' % target_path
+        print 'SELinux Context: %s' % selinux_ctx
+    else:
+        userinput = prompt_user('Directory [y/N]:')
+        if re.match('y', userinput, re.I):
+            directory = True
+        else:
+            directory = False
+
+        owner_input = prompt_user('Owner [%s]:' % owner)
+        group_input = prompt_user('Group [%s]:' % group)
+        mode_input  = prompt_user('Permissions [%s]:' % mode)
+        selinux_input = prompt_user('SELinux Context [%s]:' % selinux_ctx)
+
+        if owner_input:
+            owner = owner_input
+
+        if group_input:
+            group = group_input
+
+        if mode_input:
+            mode = mode_input
+
+        if selinux_input:
+            selinux_ctx = selinux_input
+
+        if not directory:
+            if contents:
+                template = contents
+            else:
+                template = ''
+
+            contents = editor(template = template, delete = True)
+
+        file_info = { 'contents'    : ''.join(contents),
+                      'owner'       : owner,
+                      'group'       : group,
+                      'selinux_ctx' : selinux_ctx,
+                      'permissions' : mode }
+
+        print 'File:            %s' % path
+        print 'Directory:       %s' % directory
+        print 'Owner:           %s' % file_info['owner']
+        print 'Group:           %s' % file_info['group']
+        print 'Mode:            %s' % file_info['permissions']
+        print 'SELinux Context: %s' % selinux_ctx
+
+        if not directory:
+            print
+            print 'Contents'
+            print '--------'
+            print file_info['contents']
+
+    # selinux_ctx can't be None
+    if not file_info['selinux_ctx']:
+        file_info['selinux_ctx'] = ''
 
     if self.user_confirm():
-        self.client.configchannel.createOrUpdatePath(self.session,
-                                                     channel,
-                                                     path,
-                                                     directory,
-                                                     file_info)
+        if symlink:
+            print file_info
+            self.client.configchannel.createOrUpdateSymlink(self.session,
+                                                            channel,
+                                                            path,
+                                                            file_info)
+        else:
+            self.client.configchannel.createOrUpdatePath(self.session,
+                                                         channel,
+                                                         path,
+                                                         directory,
+                                                         file_info)
 
 ####################
 
@@ -356,17 +419,17 @@ def complete_configchannel_updatefile(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(self.do_configchannel_list('', True), 
+        return tab_completer(self.do_configchannel_list('', True),
                                   text)
     elif len(parts) > 2:
         channel = parts[1]
         return tab_completer(self.do_configchannel_listfiles(channel,
-                                                                  True), 
+                                                                  True),
                                   text)
 
 def do_configchannel_updatefile(self, args):
     args = parse_arguments(args)
-    
+
     if len(args) != 2:
         self.help_configchannel_updatefile()
         return
@@ -383,17 +446,17 @@ def complete_configchannel_removefiles(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(self.do_configchannel_list('', True), 
+        return tab_completer(self.do_configchannel_list('', True),
                                   text)
     elif len(parts) > 2:
         channel = parts[1]
         return tab_completer(self.do_configchannel_listfiles(channel,
-                                                                  True), 
+                                                                  True),
                                   text)
 
 def do_configchannel_removefiles(self, args):
     args = parse_arguments(args)
-    
+
     if len(args) < 2:
         self.help_configchannel_removefiles()
         return
