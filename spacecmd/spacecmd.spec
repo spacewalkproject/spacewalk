@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.5.7
+Version:     0.6.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,25 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Sep 20 2010 Aron Parsons <aparsons@redhat.com> 0.6.1-1
+- support symlinks, selinux contexts and revisions in configchannel_*
+  (aparsons@redhat.com)
+- added new function softwarechannel_listallpackages
+  (aparsons@redhat.com)
+- avoid proxy timeouts when cloning errata by doing them individually
+  (aparsons@redhat.com)
+- allow --debug to be passed multiple times (aparsons@redhat.com)
+- revert to the old-style of errata merging due to bugzilla 591291
+  (aparsons@redhat.com)
+- cleanup column headers in report_outofdatesystems
+  (aparsons@redhat.com)
+- show the last checkin time in report_inactivesystems
+  (aparsons@redhat.com)
+- clarify what 'Original State' means when cloning a software channel
+  (aparsons@redhat.com)
+- remove prompts for summary/description when creating software
+  channels and just use the name (aparsons@redhat.com)
+
 * Fri Aug 20 2010 Aron Parsons <aparsons@redhat.com> 0.5.7-1
 - simplify checks for debug mode (aparsons@redhat.com)
 - enable verbose mode for xmlrpclib when debugging is enabled
