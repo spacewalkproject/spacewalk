@@ -318,7 +318,7 @@ def help_softwarechannel_create(self):
 def do_softwarechannel_create(self, args):
     name = prompt_user('Channel Name:', noblank = True)
     label = prompt_user('Channel Label:', noblank = True)
-    summary = prompt_user('Summary:', noblank = True)
+    summary = name
 
     print 'Base Channels'
     print '-------------'
@@ -364,8 +364,8 @@ def do_softwarechannel_clone(self, args):
 
     details['name'] = prompt_user('Channel Name:', noblank = True)
     details['label'] = prompt_user('Channel Label:', noblank = True)
-    details['summary'] = prompt_user('Summary:', noblank = True)
-    details['description'] = prompt_user('Description:')
+    details['summary'] = details['name']
+    details['description'] = details['name']
 
     print 'Base Channels:'
     print '\n'.join(sorted(self.list_base_channels()))
