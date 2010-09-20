@@ -101,8 +101,9 @@ def do_report_outofdatesystems(self, args):
         report[system.get('name')] = len(packages)
 
     if len(report):
-        print '%s  Packages' % ('System'.ljust(max_size))
-        print '%s  --------' % ('------'.ljust(max_size))
+        print '%s  %s' % ('System'.ljust(max_size), 'Packages')
+        print ('-' * max_size) + '  --------'
+
         for system in sorted(report):
             print '%s       %s' % \
                   (system.ljust(max_size), str(report[system]).rjust(3))
