@@ -156,6 +156,39 @@ def do_softwarechannel_listpackages(self, args, doreturn=False):
 
 ####################
 
+def help_softwarechannel_listallpackages(self):
+    print 'softwarechannel_listallpackages: List all packages in a channel'
+    print 'usage: softwarechannel_listallpackages CHANNEL'
+
+def complete_softwarechannel_listallpackages(self, text, line, beg, end):
+    if len(line.split(' ')) == 2:
+        return tab_completer(self.do_softwarechannel_list('', True),
+                                  text)
+    else:
+        return []
+
+def do_softwarechannel_listallpackages(self, args, doreturn=False):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_softwarechannel_listallpackages()
+        return
+
+    channel = args[0]
+
+    packages = self.client.channel.software.listAllPackages(self.session,
+                                                            channel)
+
+    packages = build_package_names(packages)
+
+    if doreturn:
+        return packages
+    else:
+        if len(packages):
+            print '\n'.join(sorted(packages))
+
+####################
+
 def help_softwarechannel_details(self):
     print 'softwarechannel_details: Show the details of a software channel'
     print 'usage: softwarechannel_details <CHANNEL ...>'
