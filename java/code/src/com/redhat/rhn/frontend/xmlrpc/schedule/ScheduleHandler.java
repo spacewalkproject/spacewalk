@@ -291,4 +291,35 @@ public class ScheduleHandler extends BaseHandler {
 
         return 1;
     }
+
+    /**
+     * Archive all actions in the given list.
+     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param actionIds The list of ids for actions to archive.
+     * @return Returns a integer 1 on success
+     * @throws FaultException A FaultException is thrown if one of the actions provided
+     * is invalid.
+     *
+     * @xmlrpc.doc Archive all actions in the given list.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #array_single("int", "action id")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int archiveActions(String sessionKey, List<Integer> actionIds)
+            throws FaultException {
+
+        // Get the logged in user
+        User user = getLoggedInUser(sessionKey);
+
+        for (Integer actionId : actionIds) {
+            Action action = ActionManager.lookupAction(user, new Long(actionId));
+            if (action != null) {
+                action.setArchived(new Long(1));
+            }
+        }
+        return 1;
+    }
+
 }
+
+
