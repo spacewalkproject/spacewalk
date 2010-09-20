@@ -117,8 +117,10 @@ public class XmlRpcConfigChannelHelper {
                 String content = (String)data.get(ConfigRevisionSerializer.CONTENTS);
                 if (data.containsKey(ConfigRevisionSerializer.CONTENTS_ENC64)) {
                     try {
-                        content = new String(Base64.decodeBase64(content.getBytes("UTF-8")), "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
+                        content = new String(Base64.decodeBase64(content.getBytes("UTF-8")),
+                                "UTF-8");
+                    }
+                    catch (UnsupportedEncodingException e) {
                         String msg = "Following errors were encountered " +
                             "when creating the config file.\n" + e.getMessage();
                         throw new FaultException(1023, "ConfgFileError", msg);
