@@ -1140,6 +1140,83 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
 
     /**
+     * Removes a given list of errata from the given channel.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel
+     * @param errataNames A list containing the advisory names of errata to remove
+     * @param removePackages Boolean to remove packages from the channel also
+     * @return Returns 1 if successfull, Exception otherwise
+     *   - The user is not a channel admin for the channel
+     *   - The channel is invalid
+     *   - The user doesn't have access to one of the channels in the list
+     *
+     * @xmlrpc.doc Removes a given list of errata from the given channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "target channel.")
+     * @xmlrpc.param #array_single("string", "advisoryName - name of an erratum to remove")
+     * @xmlrpc.param #param_desc("boolean", "removePackages", "True to remove packages from the channel")
+     * @xmlrpc.returntype  #return_int_success()
+     */
+    public int removeErrata(String sessionKey, String channelLabel, 
+            List errataNames, boolean removePackages) {
+
+        User user = getLoggedInUser(sessionKey);
+        channelAdminPermCheck(user);
+
+        Channel channel = lookupChannelByLabel(user, channelLabel);
+
+        if (! UserManager.verifyChannelAdmin(user, channel)) {
+            throw new PermissionCheckFailureException();
+        }
+
+        HashSet<Errata> errataToRemove = new HashSet();
+
+        for (Iterator itr = errataNames.iterator(); itr.hasNext();) {
+            Errata erratum = ErrataManager.lookupByAdvisory((String)itr.next());
+
+            if (erratum != null) {
+                errataToRemove.add(erratum);
+                ErrataManager.removeErratumFromChannel(erratum, channel, user);
+            }
+        }
+
+        // remove packages from the channel if requested
+        if (removePackages) {
+            List<Long> packagesToRemove = new ArrayList();
+
+            List<Long> channelPkgs = ChannelFactory.getPackageIds(channel.getId());
+
+            for (Errata erratum : errataToRemove) {
+                Set<Package> erratumPackageList = erratum.getPackages();
+
+                for (Package pkg : erratumPackageList) {
+                    // if the package is in the channel, remove it
+                    if (channelPkgs.contains(pkg.getId())) {
+                        packagesToRemove.add(pkg.getId());
+                    }
+                }
+            }
+
+            // remove the packages from the channel
+            ChannelManager.removePackages(channel, packagesToRemove, user);
+
+            // refresh the channel
+            ChannelManager.refreshWithNewestPackages(channel, "api");
+
+            // Mark the affected channel to have it's metadata evaluated, where necessary
+            // (RHEL5+, mostly)
+            ChannelManager.queueChannelChange(channel.getLabel(), "java::removeErrata",
+                                              user.getLogin());
+
+            List<Long> cids = new ArrayList();
+            cids.add(channel.getId());
+            ErrataCacheManager.insertCacheForChannelPackagesAsync(cids, packagesToRemove);
+        }
+
+        return 1;
+    }
+
+    /**
      * Removes a given list of packages from the given channel.
      * @param sessionKey The sessionKey containing the logged in user
      * @param channelLabel The label for the channel
