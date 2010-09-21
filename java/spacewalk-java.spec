@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.41
+Version: 1.2.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,26 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 21 2010 Aron Parsons <aparsons@redhat.com> 1.2.42-1
+- added new API call channel.software.removeErrata (aparsons@redhat.com)
+- 591291 - added new API calls channel.software.mergeErrataWithPackages
+  (aparsons@redhat.com)
+- added a new variation of channel.software.mergeErrata API call that allows
+  the user to pass in a list of advisory names (aparsons@redhat.com)
+- 630585 - about-chat now points to proper channel (branding)
+  (lzap+git@redhat.com)
+- 634834 - fixing ISE when putting in invalid day of week (jsherril@redhat.com)
+- 634910 - fixing permission denied error on manage channel errata that should
+  not have been denied (jsherril@redhat.com)
+- checkstyle fix for previous commit (lzap+git@redhat.com)
+- various checkstyle fixes for previous commit (lzap+git@redhat.com)
+- 634884 - managing repositories within channels through XMLRPC API disabled
+  (lzap+git@redhat.com)
+- fixed NPE when spacewalk_reposync_logpath is set to nonexisting dir
+  (lzap+git@redhat.com)
+- 633956 -fixing error popup on YourRhn when a warning or critical probe exists
+  (jsherril@redhat.com)
+
 * Thu Sep 16 2010 Lukas Zapletal 1.2.41-1
 - 595500 - added contents_enc64 param to createOrUpdatePath XMLAPI
 - making taskmoatic work with the rkbloom driver
