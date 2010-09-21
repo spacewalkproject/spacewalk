@@ -47,10 +47,13 @@
         <c:when test="${current.virtualSystemId == null}">
           <bean:message key="virtualguestslist.jsp.unregistered" />
         </c:when>
-        <c:otherwise>
+        <c:when test="${current.accessible}">
           <a href="/rhn/systems/details/Overview.do?sid=${current.virtualSystemId}">
             ${current.serverName}
           </a>
+        </c:when>        
+        <c:otherwise>
+${current.serverName}
         </c:otherwise>
       </c:choose>
     </rhn:column>
@@ -77,10 +80,13 @@
         <c:when test="${current.channelId == null}">
           <bean:message key="none.message"/>
         </c:when>
-        <c:otherwise>
-          <a href="/rhn/channels/ChannelDetail.do?cid=${current.channelId}">
+        <c:when test="${current.subscribable}">
+                    <a href="/rhn/channels/ChannelDetail.do?cid=${current.channelId}">
             ${current.channelLabels}
           </a>
+        </c:when>      
+        <c:otherwise>
+            ${current.channelLabels}
         </c:otherwise>
       </c:choose>
     </rhn:column>

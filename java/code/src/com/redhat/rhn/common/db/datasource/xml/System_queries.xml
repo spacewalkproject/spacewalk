@@ -834,6 +834,8 @@ SELECT PI.server_id ID, S.name,
 	 NVL(VIS.label, 'unknown') AS STATE_LABEL,
      NVL(VII.vcpus, 0) AS VCPUS,
      NVL(VII.memory_size_k, 0) AS MEMORY,
+     NVL(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
+	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable,
 	 1 AS selectable
     FROM rhnVirtualInstance VI,
 	 rhnVirtualInstanceInfo VII,
@@ -881,8 +883,9 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
 						and grp.group_type = type.id
 						and VI.virtual_system_id is null
 						and  ( type.label = 'virtualization_host' or type.label = 'virtualization_host_platform')
-       ) as virt_entitlement
-
+       ) as virt_entitlement,
+     NVL(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
+	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable       
      FROM rhnVirtualInstance VI,
  	 rhnVirtualInstanceInfo VII,
 	 rhnVirtualInstanceState VIS

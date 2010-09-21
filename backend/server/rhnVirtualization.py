@@ -379,23 +379,17 @@ class VirtualizationEventHandler:
             guest_id = system_id
 
             # Check to see if this uuid has already been registered to a
-            # host in the same org and is confirmed.
+            # host and is confirmed.
             check_sql = """
                 select 
                     vi.id,
                     vi.host_system_id,
                     vi.confirmed
                 from 
-                    rhnServer sguest,
-                    rhnServer shost,
                     rhnVirtualInstance vi
                 where 
                     vi.uuid = :uuid
                     and confirmed = 1
-                    and vi.host_system_id is not null
-                    and vi.host_system_id = shost.id
-                    and :system_id = sguest.id
-                    and shost.org_id = sguest.org_id
             """
 
             query = rhnSQL.prepare(check_sql)

@@ -38,8 +38,36 @@ public class VirtualSystemOverview extends SystemOverview
     private Long vcpus;
     private Long memory;
     private String virtEntitlement;
+    private boolean accessible;
+    private boolean subscribable;
 
+    /**
+     * @return Returns the accessible.
+     */
+    public boolean isAccessible() {
+        return accessible;
+    }
 
+    /**
+     * @param accessibleIn The accessible to set.
+     */
+    public void setAccessible(boolean accessibleIn) {
+        accessible = accessibleIn;
+    }
+
+    /**
+     * @return Returns the subscribable.
+     */
+    public boolean isSubscribable() {
+        return subscribable;
+    }
+
+    /**
+     * @param subscribableIn The subscribable to set.
+     */
+    public void setSubscribable(boolean subscribableIn) {
+        subscribable = subscribableIn;
+    }
     /**
      * @return Returns the system id.
      */
