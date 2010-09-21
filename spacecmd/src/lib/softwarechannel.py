@@ -44,7 +44,7 @@ def do_softwarechannel_getentitlements(self, args):
     channel = args[0]
 
     entitlements = \
-        self.client.channel.software.availableEntitlements(self.session, 
+        self.client.channel.software.availableEntitlements(self.session,
                                                            channel)
 
     print entitlements
@@ -129,7 +129,7 @@ def help_softwarechannel_listpackages(self):
 
 def complete_softwarechannel_listpackages(self, text, line, beg, end):
     if len(line.split(' ')) == 2:
-        return tab_completer(self.do_softwarechannel_list('', True), 
+        return tab_completer(self.do_softwarechannel_list('', True),
                                   text)
     else:
         return []
@@ -216,7 +216,7 @@ def do_softwarechannel_details(self, args):
             self.client.channel.software.listSubscribedSystems(\
                                           self.session, channel)
 
-        trees = self.client.kickstart.tree.list(self.session, 
+        trees = self.client.kickstart.tree.list(self.session,
                                                 channel)
 
         packages = \
@@ -425,7 +425,7 @@ def do_softwarechannel_clone(self, args):
     self.client.channel.software.clone(self.session,
                                        source,
                                        details,
-                                       orig_state) 
+                                       orig_state)
 
 ####################
 
@@ -437,7 +437,7 @@ def complete_softwarechannel_addpackages(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(self.do_softwarechannel_list('', True), 
+        return tab_completer(self.do_softwarechannel_list('', True),
                                   text)
     elif len(parts) > 2:
         return tab_completer(self.get_package_names(True), text)
@@ -471,9 +471,85 @@ def do_softwarechannel_addpackages(self, args):
 
     if not self.user_confirm('Add these packages [y/N]:'): return
 
-    self.client.channel.software.addPackages(self.session, 
-                                             channel, 
+    self.client.channel.software.addPackages(self.session,
+                                             channel,
                                              package_ids)
+
+####################
+
+def help_softwarechannel_removeerrata(self):
+    print 'softwarechannel_removeerrata: Remove errata from a ' + \
+          'software channel'
+    print 'usage: softwarechannel_removeerrata CHANNEL <ERRATA:search:XXX ...>'
+
+def complete_softwarechannel_removeerrata(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) == 2:
+        return tab_completer(self.do_softwarechannel_list('', True),
+                                  text)
+    elif len(parts) > 2:
+        return self.tab_complete_errata(text)
+
+def do_softwarechannel_removeerrata(self, args):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_softwarechannel_removeerrata()
+        return
+
+    channel = args[0]
+    errata_wanted = self.expand_errata(args[1:])
+
+    logging.debug('Retrieving the list of errata from source channel')
+    channel_errata = self.client.channel.software.listErrata(self.session,
+                                                             channel)
+
+    errata = filter_results([ e.get('advisory_name') for e in channel_errata ],
+                            errata_wanted)
+
+    # keep the details for our matching errata so we can use them later
+    errata_details = []
+    for erratum in channel_errata:
+        if erratum.get('advisory_name') in errata:
+            errata_details.append(erratum)
+
+    # get the packages that resolve these errata so we can add them
+    # to the channel afterwards
+    package_ids = []
+    for erratum in errata:
+        logging.debug('Retrieving packages for errata %s' % erratum)
+
+        # get the packages affected by this errata
+        packages = self.client.errata.listPackages(self.session, erratum)
+
+        # only add packages that exist in the source channel
+        for package in packages:
+            if channel in package.get('providing_channels'):
+                package_ids.append(package.get('id'))
+
+    if not len(errata_details):
+        logging.warning('No errata to remove')
+        return
+
+    print_errata_list(errata_details)
+
+    print
+    print 'Packages'
+    print '--------'
+    print '\n'.join(sorted([ self.get_package_name(p) for p in package_ids ]))
+
+    print
+    print 'Total Errata:   %s' % str(len(errata)).rjust(3)
+    print 'Total Packages: %s' % str(len(package_ids)).rjust(3)
+
+    if not self.user_confirm('Remove these errata [y/N]:'): return
+
+    # remove the errata and the packages they brought in
+    self.client.channel.software.removeErrata(self.session,
+                                              channel,
+                                              errata,
+                                              True)
 
 ####################
 
@@ -482,12 +558,12 @@ def help_softwarechannel_removepackages(self):
           'software channel'
     print 'usage: softwarechannel_removepackages CHANNEL <PACKAGE ...>'
 
-def complete_softwarechannel_removepackages(self, text, line, beg, 
+def complete_softwarechannel_removepackages(self, text, line, beg,
                                             end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(self.do_softwarechannel_list('', True), 
+        return tab_completer(self.do_softwarechannel_list('', True),
                                   text)
     elif len(parts) > 2:
         # only tab complete packages in the channel
@@ -539,8 +615,8 @@ def do_softwarechannel_removepackages(self, args):
 
     if not self.user_confirm('Remove these packages [y/N]:'): return
 
-    self.client.channel.software.removePackages(self.session, 
-                                                channel, 
+    self.client.channel.software.removePackages(self.session,
+                                                channel,
                                                 package_ids)
 
 ####################
@@ -600,7 +676,7 @@ def do_softwarechannel_adderratabydate(self, args):
 def help_softwarechannel_adderrata(self):
     print 'softwarechannel_adderrata: Add errata from one channel ' + \
           'into another channel'
-    print 'usage: softwarechannel_adderrata SOURCE DEST <ERRATA:search:XXX ...>'
+    print 'usage: softwarechannel_adderrata SOURCE DEST <ERRATA|search:XXX ...>'
 
 def complete_softwarechannel_adderrata(self, text, line, beg, end):
     parts = line.split(' ')
