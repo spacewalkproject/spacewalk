@@ -114,9 +114,6 @@ my %mon_config =
 
 RHN::SatInstall->update_monitoring_config(\%mon_config);
 
-print "Restarting satellite services\n";
-system("/usr/sbin/rhn-satellite", "restart");
-
 exit 0;
 
 sub find_scout_key {
