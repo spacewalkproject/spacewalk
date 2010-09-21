@@ -6884,6 +6884,12 @@
                  path="/help/Search.do" redirect="true"/>
     </action>
 
+      <action path="/help/Chat"
+              scope="request"
+              type="com.redhat.rhn.frontend.action.help.ChatAction">
+          <forward name="default" path="/WEB-INF/pages/help/chatindex.jsp"/>
+      </action>
+
     <action path="/help/index"
         scope="request"
         type="com.redhat.rhn.frontend.action.help.HelpAction">
