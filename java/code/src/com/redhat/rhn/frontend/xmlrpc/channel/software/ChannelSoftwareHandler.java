@@ -1739,6 +1739,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public Object[] mergeErrata(String sessionKey, String mergeFromLabel,
             String mergeToLabel) {
+        return mergeErrata(sessionKey, mergeFromLabel, mergeToLabel, false);
+    }
+
+    private Object[] mergeErrata(String sessionKey, String mergeFromLabel,
+            String mergeToLabel, boolean addPackages) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         channelAdminPermCheck(loggedInUser);
@@ -1752,7 +1757,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         Set<Errata> mergedErrata =
             mergeErrataToChannel(loggedInUser, new HashSet(mergeFrom.getErratas()),
-                    mergeTo, mergeFrom);
+                    mergeTo, mergeFrom, addPackages);
 
         return mergedErrata.toArray();
     }
@@ -1782,6 +1787,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public Object[] mergeErrata(String sessionKey, String mergeFromLabel,
             String mergeToLabel, String startDate, String endDate) {
+        return mergeErrata(sessionKey, mergeFromLabel, mergeToLabel, startDate, endDate, false);
+    }
+
+    private Object[] mergeErrata(String sessionKey, String mergeFromLabel,
+            String mergeToLabel, String startDate, String endDate, boolean addPackages) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         channelAdminPermCheck(loggedInUser);
@@ -1797,20 +1807,72 @@ public class ChannelSoftwareHandler extends BaseHandler {
                 loggedInUser.getOrg(), mergeFrom, startDate, endDate);
 
         Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, new HashSet(fromErrata), mergeTo, mergeFrom);
+            mergeErrataToChannel(loggedInUser, new HashSet(fromErrata), mergeTo, mergeFrom, addPackages);
 
         return mergedErrata.toArray();
     }
 
     /**
-     * Merge a list of errata from one channel into another channel
+     * Merge a channel's errata into another channel and adds the packages
+     * @param sessionKey session of the user
+     * @param mergeFromLabel the label of the channel to pull the errata from
+     * @param mergeToLabel the label of the channel to push errata into
+     * @return A list of errata that were merged.
+     *
+     * @xmlrpc.doc Merges all errata from one channel into another and adds the packages
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "mergeFromLabel", "the label of the
+     * channel to pull errata from")
+     * @xmlrpc.param #param_desc("string", "mergeToLabel", "the label to push the
+     * errata into")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $ErrataSerializer
+     *      #array_end()
+     */
+    public Object[] mergeErrataWithPackages(String sessionKey, String mergeFromLabel,
+            String mergeToLabel) {
+        return mergeErrata(sessionKey, mergeFromLabel, mergeToLabel, true);
+    }
+
+    /**
+     * Merge a channel's errata into another channel based upon a given start/end date and add the packages
+     * @param sessionKey session of the user
+     * @param mergeFromLabel the label of the channel to pull the errata from
+     * @param mergeToLabel the label of the channel to push errata into
+     * @param startDate begin date
+     * @param endDate end date
+     * @return A list of errata that were merged.
+     *
+     * @xmlrpc.doc Merges all errata from one channel into another based upon a
+     * given start/end date.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "mergeFromLabel", "the label of the
+     * channel to pull errata from")
+     * @xmlrpc.param #param_desc("string", "mergeToLabel", "the label to push the
+     * errata into")
+     * @xmlrpc.param #param("string", "startDate")
+     * @xmlrpc.param #param("string", "endDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $ErrataSerializer
+     *      #array_end()
+     */
+    public Object[] mergeErrataWithPackages(String sessionKey, String mergeFromLabel,
+            String mergeToLabel, String startDate, String endDate) {
+        return mergeErrata(sessionKey, mergeFromLabel, mergeToLabel, startDate, endDate, true);
+    }
+
+    /**
+     * Merge a list of errata from one channel into another channel and adds the packages
      * @param sessionKey session of the user
      * @param mergeFromLabel the label of the channel to pull the errata from
      * @param mergeToLabel the label of the channel to push errata into
      * @param errataNames the list of errata to merge
      * @return A list of errata that were merged.
      *
-     * @xmlrpc.doc Merges a list of errata from one channel into another
+     * @xmlrpc.doc Merges a list of errata from one channel into another and
+     *             adds the affected packages to the destination channel
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "mergeFromLabel", "the label of the
      * channel to pull errata from")
@@ -1823,7 +1885,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          $ErrataSerializer
      *      #array_end()
      */
-    public Object[] mergeErrata(String sessionKey, String mergeFromLabel,
+    public Object[] mergeErrataWithPackages(String sessionKey, String mergeFromLabel,
             String mergeToLabel, List errataNames) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -1852,13 +1914,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
 
         Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, errataToMerge, mergeTo, mergeFrom);
+            mergeErrataToChannel(loggedInUser, errataToMerge, mergeTo, mergeFrom, true);
 
         return mergedErrata.toArray();
     }
 
     private Set<Errata> mergeErrataToChannel(User user, Set<Errata> errataToMerge,
-            Channel toChannel, Channel fromChannel) {
+            Channel toChannel, Channel fromChannel, boolean addPackages) {
 
         // find errata that we do not need to merge
         List<Errata> same = ErrataManager.listSamePublishedInChannels(
@@ -1875,7 +1937,38 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ErrataManager.publishErrataToChannelAsync(toChannel,
                 getErrataIds(errataToMerge), user);
 
-        // no need to regenerate errata cache, because we didn't touch any packages
+        // add packages to the channel if requested
+        if (addPackages) {
+            List<Long> packagesToAdd = new ArrayList();
+
+            List<Long> fromChannelPkgs = ChannelFactory.getPackageIds(fromChannel.getId());
+
+            for (Errata erratum : errataToMerge) {
+                Set<Package> erratumPackageList = erratum.getPackages();
+
+                for (Package pkg : erratumPackageList) {
+                    // if the package is in the source channel, add it to the destination
+                    if (fromChannelPkgs.contains(pkg.getId())) {
+                        packagesToAdd.add(pkg.getId());
+                    }
+                }
+            }
+
+            // add the packages to the destination channel
+            ChannelManager.addPackages(toChannel, packagesToAdd, user);
+
+            // refresh the channel
+            ChannelManager.refreshWithNewestPackages(toChannel, "api");
+
+            // Mark the affected channel to have it's metadata evaluated, where necessary
+            // (RHEL5+, mostly)
+            ChannelManager.queueChannelChange(toChannel.getLabel(), "java::mergeErrataToChannel",
+                                              user.getLogin());
+
+            List<Long> cids = new ArrayList();
+            cids.add(toChannel.getId());
+            ErrataCacheManager.insertCacheForChannelPackagesAsync(cids, packagesToAdd);
+        }
 
         return errataToMerge;
     }
