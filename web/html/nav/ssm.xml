@@ -104,7 +104,7 @@
         </rhn-tab>
 
 	<rhn-tab name="Misc">
-		<rhn-tab-url>/network/systems/ssm/misc/index.pxt</rhn-tab-url>
+		<rhn-tab-url>/rhn/systems/ssm/misc/Index.do</rhn-tab-url>
 		<rhn-tab-url>/rhn/systems/ssm/HardwareRefresh.do</rhn-tab-url>
 		<rhn-tab-url>/network/systems/ssm/misc/pkg_prof_update_conf.pxt</rhn-tab-url>
 		<rhn-tab-url>/network/systems/ssm/misc/change_sys_pref_conf.pxt</rhn-tab-url>

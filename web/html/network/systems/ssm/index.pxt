@@ -115,9 +115,9 @@
                 <td>
 <p>
 Update <a
-		href="/network/systems/ssm/misc/index.pxt#profiles">hardware/package
+		href="/rhn/systems/ssm/misc/index.do#profiles">hardware/package
 		profiles</a> and <a
-		href="/network/systems/ssm/misc/index.pxt#sysprefs">system
+		href="/rhn/systems/ssm/misc/index.do#sysprefs">system
 		preferences</a>
 <br />
 <rhn-require acl="org_entitlement(rhn_provisioning)">
@@ -125,7 +125,7 @@ Update <a
 </rhn-require>
 
 <rhn-require acl="user_role(org_admin);org_entitlement(rhn_provisioning) or org_entitlement(rhn_monitor)">
-		<a href="/network/systems/ssm/misc/index.pxt#entitle">Add or Remove</a> Add-On Entitlements<br />
+		<a href="/rhn/systems/ssm/misc/index.do#entitle">Add or Remove</a> Add-On Entitlements<br />
 </rhn-require>
                 <a href="/rhn/systems/ssm/DeleteConfirm.do">Delete</a> /
                 <a href="/network/systems/ssm/misc/reboot_systems.pxt?pxt:trap=rhn:empty_set&amp;set_label=target_systems">Reboot</a>
