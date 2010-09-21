@@ -1020,6 +1020,14 @@
       <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
+    <form-bean name="ssmPreferencesForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="notify" type="java.lang.String"/>
+      <form-property name="summary" type="java.lang.String"/>
+      <form-property name="update" type="java.lang.String"/>
+      <form-property name="submitted" type="java.lang.Boolean"/>
+    </form-bean>
+
     <form-bean name="targetSystemsForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="use_date"  type="java.lang.Boolean"/>
@@ -3075,15 +3083,16 @@
                  path="/ssm/ViewAllLog.do" redirect="true"/>
     </action>
 
-        <action path="/systems/ssm/HardwareRefresh"
+        <action path="/systems/ssm/misc/HardwareRefresh"
         scope="request"
         input="/WEB-INF/pages/ssm/systems/ssmhwrefresh.jsp"
+        name="submittedForm"
         type="com.redhat.rhn.frontend.action.systems.SSMUpdateHardwareProfileConfirm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default"
                  path="/WEB-INF/pages/ssm/systems/ssmhwrefresh.jsp"/>
-        <forward name="confirm"
-                 path="/ssm/ViewAllLog.do" redirect="true"/>
+        <forward name="success"
+                 path="/systems/ssm/misc/Index.do" redirect="true"/>
     </action>
 
     <!--System Details Configuration -->
@@ -4413,6 +4422,17 @@
         <forward name="default"
                  path="/WEB-INF/pages/configuration/ssm/enablesummary.jsp"/>
     </action>
+
+        <action path="/systems/ssm/misc/Index"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/misc/index.jsp"
+        type="com.redhat.rhn.frontend.action.ssm.MiscIndexAction"
+        name="ssmPreferencesForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/misc/index.jsp" />
+    </action>
+
     <!-- ===== END SSM ===== -->
 
     <action path="/monitoring/config/notification/Methods"

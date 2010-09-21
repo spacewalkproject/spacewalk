@@ -27,11 +27,23 @@
       </c:otherwise>
     </c:choose>
 
+<%--
+    <html:form method="post" action="/systems/ssm/misc/HardwareRefresh.do">
+--%>
+    <html:form action="/systems/ssm/misc/HardwareRefresh.do">
+      <html:hidden property="submitted" value="true"/>
+        <div align="right">
+          <html:submit>
+            <bean:message key="ssm.hw.systems.confirmbutton"/>
+          </html:submit>
+        </div>
+    </html:form>
+<%--
     <div align="right">
       <hr />
-      <input type ="submit" name="dispatch" value="${rhn:localize('ssm.hw.systems.confirmbutton')}"/>
+      <input type="submit" name="dispatch" value="${rhn:localize('ssm.hw.systems.confirmbutton')}"/>
     </div>
-
+--%>
 
   </body>
 </html>

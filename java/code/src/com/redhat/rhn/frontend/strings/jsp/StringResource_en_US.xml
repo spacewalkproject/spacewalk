@@ -5483,7 +5483,7 @@ value for this entitlement, excluding the default organization's consumption.</s
  <!-- SSM Hardware Refresh -->
         <group>
           <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/ssm/*wareRefresh.do pages</context>
+            <context context-type="sourcefile">/rhn/systems/ssm/HardwareRefresh.do pages</context>
           </context-group>
           <trans-unit id="ssm.hw.systems.header">
             <source>Confirm Hardware Profiles Refresh</source>
@@ -5497,7 +5497,107 @@ value for this entitlement, excluding the default organization's consumption.</s
 	  <trans-unit id="ssm.hw.systems.confirmbutton">
             <source>Confirm refresh</source>
           </trans-unit>
+          <trans-unit id="ssm.hw.systems.confirmmessage">
+            <source>{0} hardware {1} will be refreshed.</source>
+          </trans-unit>
         </group>
+
+     <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/systems/ssm/misc/Index.do</context>
+       </context-group>
+
+       <trans-unit id="ssm.misc.index.profileupdates.header">
+         <source>System Profile Updates</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.profileupdates.summary">
+         <source>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on Spacewalk, you need to schedule a profile update.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.profileupdates.hardware">
+         <source>Update Hardware Profile</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.profileupdates.software">
+         <source>Update Software Profile</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.misc.index.csi.header">
+         <source>Custom System Information</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.csi.summary">
+         <source>You may set or remove values for custom information keys for selected systems.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.csi.set">
+         <source>Set a custom value for selected systems</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.csi.remove">
+         <source>Remove a custom value from selected systems</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.misc.index.reboot.header">
+         <source>Reboot Systems</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.reboot.summary">
+         <source>With Red Hat Enterprise Linux 3 or newer releases, Spacewalk allows you to remotely reboot your systems.</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.misc.index.lock.header">
+         <source>Lock Systems</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.lock.summary">
+         <source>Systems may be locked or unlocked.  Locking prevents changes from the Spacewalk website.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.lock.lock">
+         <source>Lock System Profiles</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.lock.unlock">
+         <source>Unlock System Profiles</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.misc.index.delete.header">
+         <source>Delete Systems</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.delete.summary">
+         <source>Deletes all selected system profiles.  All information about these systems will be removed.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.delete.delete">
+         <source>Delete System Profiles</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.misc.index.entitle.header">
+         <source>Add Or Remove Add-On Entitlements</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.entitle.summary">
+         <source>Please use the &lt;a href="/rhn/systems/SystemEntitlements.do"&gt;System Entitlements Page&lt;/a&gt; to manage your system's entitlement levels.</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.misc.index.syspref.header">
+         <source>System Preferences</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.syspref.summary">
+         <source>You may edit the preferences for all your selected systems here.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.syspref.notify">
+         <source>Receive Notifications of Updates/Errata</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.syspref.dailysummary">
+         <source>Include system in Daily Summary</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.syspref.update">
+         <source>Automatic application of relevant errata</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.syspref.preference">
+         <source>Preference</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.syspref.yes">
+         <source>Yes</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.syspref.no">
+         <source>No</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.syspref.nochange">
+         <source>No&#160;Change</source>
+       </trans-unit>
+     </group>
 
 <!-- == Systems == -->
       <trans-unit id="overview.jsp.header">

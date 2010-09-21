@@ -30,14 +30,17 @@ import com.redhat.rhn.manager.system.SystemManager;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
 
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 /**
  * SSMUpdateHardwareProfileConfirm
@@ -57,8 +60,10 @@ public class SSMUpdateHardwareProfileConfirm extends RhnAction implements Listab
         User user = context.getLoggedInUser();
         RhnSet set = RhnSetDecl.SYSTEMS.get(user);
         request.setAttribute("system_count", set.size());
+        DynaActionForm daForm = (DynaActionForm)formIn;
+        Map params = makeParamMap(request);
 
-        if (context.wasDispatched("ssm.hw.systems.confirmbutton")) {
+        if (isSubmitted(daForm)) {
             Iterator it = set.iterator();
             while (it.hasNext()) {
                 Long sid = ((RhnSetElement)it.next()).getElement();
@@ -67,12 +72,23 @@ public class SSMUpdateHardwareProfileConfirm extends RhnAction implements Listab
                 Action a = ActionManager.scheduleHardwareRefreshAction(user, server, now);
                 ActionFactory.save(a);
             }
-            getStrutsDelegate().saveMessage("ssm.hw.systems.confirmmessage",
-                                                    context.getRequest());
-            return mapping.findForward("confirm");
+            ActionMessages msg = new ActionMessages();
+            String profile_str = "profiles";
+            if (set.size() == 1) { 
+                profile_str = "profile";
+            }
+            msg.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("ssm.hw.systems.confirmmessage", set.size(), 
+                    profile_str));
+            getStrutsDelegate().saveMessages(request, msg);
+//            getStrutsDelegate().saveMessage("ssm.hw.systems.confirmmessage",
+//                                                    context.getRequest());
+            return getStrutsDelegate().forwardParams(
+                    mapping.findForward("success"), params);
         }
 
-        return mapping.findForward("default");
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward("default"), params);
     }
 
     /**
