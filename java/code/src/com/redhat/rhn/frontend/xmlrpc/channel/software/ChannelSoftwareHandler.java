@@ -1802,6 +1802,61 @@ public class ChannelSoftwareHandler extends BaseHandler {
         return mergedErrata.toArray();
     }
 
+    /**
+     * Merge a list of errata from one channel into another channel
+     * @param sessionKey session of the user
+     * @param mergeFromLabel the label of the channel to pull the errata from
+     * @param mergeToLabel the label of the channel to push errata into
+     * @param errataNames the list of errata to merge
+     * @return A list of errata that were merged.
+     *
+     * @xmlrpc.doc Merges a list of errata from one channel into another
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "mergeFromLabel", "the label of the
+     * channel to pull errata from")
+     * @xmlrpc.param #param_desc("string", "mergeToLabel", "the label to push the
+     * errata into")
+     * @xmlrpc.param
+     *      #array_single("string", " advisory - The advisory name of the errata to merge")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $ErrataSerializer
+     *      #array_end()
+     */
+    public Object[] mergeErrata(String sessionKey, String mergeFromLabel,
+            String mergeToLabel, List errataNames) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        channelAdminPermCheck(loggedInUser);
+
+        Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
+        Channel mergeTo = lookupChannelByLabel(loggedInUser, mergeToLabel);
+
+        if (!UserManager.verifyChannelAdmin(loggedInUser, mergeTo)) {
+            throw new PermissionCheckFailureException();
+        }
+
+        HashSet<Errata> sourceErrata = new HashSet(mergeFrom.getErratas());
+        HashSet<Errata> errataToMerge = new HashSet();
+
+        // make sure our errata exist in the "from" channel
+        for (Iterator itr = errataNames.iterator(); itr.hasNext();) {
+            Errata toMerge = ErrataManager.lookupByAdvisory((String)itr.next());
+
+            for (Errata erratum : sourceErrata) {
+                if (erratum.getAdvisoryName() == toMerge.getAdvisoryName()) {
+                    errataToMerge.add(toMerge);
+                    break;
+                }
+            }
+        }
+
+        Set<Errata> mergedErrata =
+            mergeErrataToChannel(loggedInUser, errataToMerge, mergeTo, mergeFrom);
+
+        return mergedErrata.toArray();
+    }
+
     private Set<Errata> mergeErrataToChannel(User user, Set<Errata> errataToMerge,
             Channel toChannel, Channel fromChannel) {
 
