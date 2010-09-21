@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.6.1
+Version:     0.6.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,11 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Sep 21 2010 Aron Parsons <aparsons@redhat.com> 0.6.2-1
+- added new function softwarechannel_removeerrata
+  (aparsons@redhat.com)
+- update softwarechannel_adderrata to use the new
+  mergeErratawithPackages API call (aparsons@redhat.com)
 * Mon Sep 20 2010 Aron Parsons <aparsons@redhat.com> 0.6.1-1
 - support symlinks, selinux contexts and revisions in configchannel_*
   (aparsons@redhat.com)
