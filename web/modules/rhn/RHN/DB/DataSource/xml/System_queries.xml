@@ -880,7 +880,6 @@ SELECT distinct S.id, S.name
    AND SC.channel_id = CFM.channel_id
    AND CFM.channel_family_id = :cfam_id
    AND    EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
-   AND NOT EXISTS (SELECT 1 FROM rhnVirtualInstance vi WHERE vi.VIRTUAL_SYSTEM_ID = S.id AND EXISTS ( SELECT 1 FROM rhnServerEntitlementView sev WHERE vi.HOST_SYSTEM_ID = sev.server_id AND sev.label IN ('virtualization_host', 'virtualization_host_platform')))
 ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
