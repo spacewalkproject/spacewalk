@@ -4405,7 +4405,7 @@ public class SystemHandler extends BaseHandler {
      *  for the specified server.
      *  Note: This call assumes that a system record exists in cobbler for the
      *  given system and will raise an XMLRPC fault if that is not the case.
-     *  To create a system record over xmlrpc use system.create_system_record
+     *  To create a system record over xmlrpc use system.createSystemRecord
      *
      *  To create a system record in the Web UI  please go to
      *  System -> <Specified System> -> Provisioning ->
@@ -4467,7 +4467,7 @@ public class SystemHandler extends BaseHandler {
      * for the specified server.
      *  Note: This call assumes that a system record exists in cobbler for the
      *  given system and will raise an XMLRPC fault if that is not the case.
-     *  To create a system record over xmlrpc use system.create_system_record
+     *  To create a system record over xmlrpc use system.createSystemRecord
      *
      *  To create a system record in the Web UI  please go to
      *  System -> <Specified System> -> Provisioning ->
