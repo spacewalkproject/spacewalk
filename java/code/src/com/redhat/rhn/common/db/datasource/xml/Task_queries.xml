@@ -376,8 +376,8 @@ ORDER BY next_action DESC
     SELECT urn.user_id, snv.server_id, snv.errata_id
     FROM rhnServerNeededCache snv inner join
          rhnUserReceiveNotifications urn  ON snv.server_id = urn.server_id
-         inner join rhnServer S on S.id = snv.server_id inner join
-         rhnServerChannel sc on sc.server_id = S.id
+         inner join
+         rhnServerChannel sc on sc.server_id = snv.server_id
     WHERE sc.channel_id = :channel_id
     AND snv.errata_id = :errata_id
     AND S.org_id = :org_id
