@@ -1912,20 +1912,15 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         if erratum['org_id'] is not None:
             erratum['org_id'] = OPTIONS.orgid or DEFAULT_ORG
 
-        # Now fix channels
         # Associate errata to only channels that are being synced
-        # Do this only if command line has channels specified.
+        # or are synced already
         channels = []
+        imported_channels = _getImportedChannels()
         if OPTIONS.channel:
-            for ch in erratum['channels']:
-                if ch['label'] in OPTIONS.channel:
-                    channels.append(ch)
-        else:
-            # Compare with already imported channels
-            imported_channels = _getImportedChannels()
-            for ch in erratum['channels']:
-                if ch['label'] in imported_channels:
-                    channels.append(ch)
+            imported_channels += OPTIONS.channel
+        for ch in erratum['channels']:
+            if ch['label'] in imported_channels
+                channels.append(ch)
         erratum['channels'] = channels
 
         # Now fix the files
