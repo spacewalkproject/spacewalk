@@ -133,10 +133,14 @@ sub command_report {
 
   my $class = __PACKAGE__;
   for my $ts (sort { $a->{NAME} cmp $b->{NAME} } Dobby::Reporting->tablespace_overview($d)) {
+    $ts->{FREE_BYTES} = $ts->{TOTAL_BYTES} - ($ts->{USED_BYTES} or 0) unless $ts->{FREE_BYTES};
+    $ts->{USED_BYTES} = $ts->{TOTAL_BYTES} - ($ts->{FREE_BYTES} or 0) unless $ts->{USED_BYTES};
     printf $fmt,
-      $ts->{NAME}, $class->size_scale($ts->{TOTAL_BYTES}),
-	$class->size_scale($ts->{TOTAL_BYTES} - $ts->{FREE_BYTES}), $class->size_scale($ts->{FREE_BYTES}),
-	  sprintf("%.0f", 100 * $ts->{PERCENT_USED});
+      $ts->{NAME},
+      $class->size_scale($ts->{TOTAL_BYTES}),
+      $class->size_scale($ts->{USED_BYTES}),
+      $class->size_scale($ts->{FREE_BYTES}),
+      sprintf("%.0f", 100 * ($ts->{USED_BYTES} / $ts->{TOTAL_BYTES}));
   }
 }
 

@@ -25,20 +25,33 @@ sub tablespace_overview {
   my $dbh = $dobby->sysdba_connect;
 
   my $query = <<EOQ;
-SELECT DT.tablespace_name NAME, DT.extent_management,
-       nvl(DFS.bytes,0) FREE_BYTES, nvl(DTS.bytes,0) TOTAL_BYTES,
-       nvl((DTS.bytes - DFS.bytes)/DTS.bytes,1) PERCENT_USED
+SELECT DT.tablespace_name NAME, DT.extent_management, DT.contents,
+       DFS.bytes FREE_BYTES,
+       DUS.bytes USED_BYTES,
+       nvl(DTS.bytes,0) TOTAL_BYTES
   FROM (SELECT tablespace_name,
                SUM(bytes) bytes
           FROM dba_free_space
          GROUP BY tablespace_name) DFS,
+	(SELECT u.tablespace,
+	       sum(u.blocks* p.value) bytes
+          FROM v\$tempseg_usage u,
+               v\$parameter p
+	 WHERE p.name = 'db_block_size'
+	 GROUP BY u.tablespace) DUS,
        (SELECT tablespace_name,
                SUM(bytes) bytes
           FROM dba_data_files
+         GROUP BY tablespace_name
+         UNION
+        SELECT tablespace_name,
+               SUM(bytes) bytes
+          FROM dba_temp_files
          GROUP BY tablespace_name) DTS,
        DBA_TABLESPACES DT
  WHERE  DFS.tablespace_name (+) = DTS.tablespace_name
    AND DTS.tablespace_name = DT.tablespace_name
+   AND DUS.tablespace (+) = DTS.tablespace_name
 ORDER BY DT.tablespace_name
 EOQ
 
