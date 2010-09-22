@@ -1200,17 +1200,12 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # First, determine what has to be downloaded
         sp_collection = sync_handlers.SourcePackageCollection()
         for channel, sps in self._channel_source_packages.items():
-            missing_sps[channel] = mp = []
-
+            missing_sps[channel] = []
             if not sps:
                 # Nothing to see here
                 continue
-
-            for (sp_id, timestamp) in sps:
-                # XXX Catch errors
-                if not sp_collection.has_package(sp_id, timestamp):
-                    mp.append(sp_id)
-
+            missing_sps[channel] = [sp_id for (sp_id, timestamp) in sps
+                                          if not sp_collection.has_package(sp_id, timestamp)]
         return missing_sps
 
     _query_compare_source_packages = """
@@ -1522,18 +1517,13 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         # First, determine what has to be downloaded
         errata_collection = sync_handlers.ErrataCollection()
         for channel, errata in self._channel_errata.items():
-            missing_errata[channel] = mp = []
-
+            missing_errata[channel] = []
             if not errata:
                 # Nothing to see here
                 continue
-
-            for (eid, timestamp, advisory_name) in errata:
-                # XXX Catch errors
-                if not errata_collection.has_erratum(eid, timestamp) or \
-                    self.forceAllErrata:
-                    mp.append(eid)
-
+            missing_errata[channel] = [eid for (eid, timestamp, advisory_name) in errata
+                                               if not errata_collection.has_erratum(eid, timestamp)
+                                                  or self.forceAllErrata]
         return missing_errata
 
     _query_get_db_errata = rhnSQL.Statement("""
