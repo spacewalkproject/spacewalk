@@ -66,11 +66,11 @@ public class MultiOrgEntitlementsDtoSerializer implements
         helper.add("allocated", dto.getAllocated());
         helper.add("unallocated", dto.getAvailable());
         helper.add("used", dto.getUsed());
-        helper.add("free", dto.getAllocated() - dto.getUsed());
+        helper.add("free", dto.getFree());
         helper.add("allocated_flex", dto.getAllocatedFlex());
         helper.add("unallocated_flex", dto.getAvailableFlex());
         helper.add("used_flex", dto.getUsedFlex());
-        helper.add("free_flex", dto.getAllocatedFlex() - dto.getUsedFlex());
+        helper.add("free_flex", dto.getFreeFlex());
 
         helper.writeTo(output);
     }

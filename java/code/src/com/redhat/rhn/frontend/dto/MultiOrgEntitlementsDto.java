@@ -93,6 +93,17 @@ public class MultiOrgEntitlementsDto extends BaseDto {
 
 
     /**
+     * @return the free
+     */
+    public Long getFree() {
+        if (getUsed() == null) {
+            getAllocated();
+        }
+
+        return getAllocated() - getUsed();
+    }
+
+    /**
      * @return the ratio of current: allocated
      */
     public BigDecimal getRatio() {
@@ -201,7 +212,7 @@ public class MultiOrgEntitlementsDto extends BaseDto {
      * @return the number of used slots.
      */
     public Long getAllocatedFlex() {
-        if (getTotal() == null || getAvailable() == null) {
+        if (getTotalFlex() == null || getAvailableFlex() == null) {
             return 0L;
         }
         return getTotalFlex() - getAvailableFlex();
@@ -219,4 +230,16 @@ public class MultiOrgEntitlementsDto extends BaseDto {
         }
         return BigDecimal.ZERO;
     }
+
+    /**
+     * @return the free flex
+     */
+    public Long getFreeFlex() {
+        if (getUsedFlex() == null) {
+            return getAllocatedFlex();
+        }
+
+        return getAllocatedFlex() - getUsedFlex();
+    }
+
 }
