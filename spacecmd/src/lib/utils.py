@@ -450,4 +450,13 @@ def max_length(items):
 
     return max_size
 
+
+# read in a file
+def read_file(filename):
+    handle = open(filename, 'r')
+    contents = handle.read()
+    handle.close()
+
+    return contents
+
 # vim:ts=4:expandtab:
