@@ -5,7 +5,7 @@
 %define modulename oracle-xe
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.18
+Version:         10.2.0.19
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -139,6 +139,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 10.2.0.19-1
+- switched to default VersionTagger
+
 * Wed Sep 01 2010 Jan Pazdziora 10.2-18
 - 629232 - only restorecon files that exist.
 
