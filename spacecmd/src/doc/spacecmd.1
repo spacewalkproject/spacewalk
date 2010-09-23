@@ -19,6 +19,19 @@ Run 'spacecmd help' to list the actions that are availble.
 
 Run 'spacecmd help <command>' to get help for a particular command.
 .fi
+.SH RUNNING SINGLE COMMANDS
+When running spacecmd non-interactively, you must take care to escape
+arguments passed to the spacecmd functions.  This involves putting a '--'
+before the command starts so that the arguments to the function are not
+treated as global arguments to spacecmd.  You must also escape any quotes
+that you pass to the functions so that the shell does not interpret them.
+.P
+.B Example:
+.nf
+spacecmd -s server1 -- softwarechannel_create -n \\'My Channel\\' \\
+                                              -l channel1 \\
+                                              -a x86_64
+.fi
 .SH OPTIONS
 .TP
 .B \-u USERNAME, \-\-username=USERNAME
