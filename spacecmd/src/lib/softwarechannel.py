@@ -21,6 +21,7 @@
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
 from operator import itemgetter
+from optparse import Option
 from spacecmd.utils import *
 
 ARCH_LABELS = ['ia32', 'ia64', 'x86_64', 'ppc',
@@ -346,73 +347,149 @@ def do_softwarechannel_delete(self, args):
 
 def help_softwarechannel_create(self):
     print 'softwarechannel_create: Create a software channel'
-    print 'usage: softwarechannel_create'
+    print '''usage: softwarechannel_create [options]
+
+options:
+  -n NAME
+  -l LABEL
+  -p PARENT_CHANNEL
+  -a ARCHITECTURE ['ia32', 'ia64', 'x86_64', 'ppc',
+                  'i386-sun-solaris', 'sparc-sun-solaris']'''
 
 def do_softwarechannel_create(self, args):
-    name = prompt_user('Channel Name:', noblank = True)
-    label = prompt_user('Channel Label:', noblank = True)
-    summary = name
+    options = [ Option('-n', '--name', action='store'),
+                Option('-l', '--label', action='store'),
+                Option('-p', '--parent-channel', action='store'),
+                Option('-a', '--arch', action='store') ]
 
-    print 'Base Channels'
-    print '-------------'
-    print '\n'.join(sorted(self.list_base_channels()))
-    print
+    (args, options) = parse_arguments(args, options)
 
-    parent = \
-        prompt_user('Select Parent [blank to create a base channel]:')
+    if is_interactive(options):
+        options.name = prompt_user('Channel Name:', noblank = True)
+        options.label = prompt_user('Channel Label:', noblank = True)
 
-    print
-    print 'Architecture'
-    print '------------'
-    print '\n'.join(sorted(self.ARCH_LABELS))
-    print
-    arch = prompt_user('Select:')
+        print 'Base Channels'
+        print '-------------'
+        print '\n'.join(sorted(self.list_base_channels()))
+        print
+
+        options.parent_channel = \
+            prompt_user('Select Parent [blank to create a base channel]:')
+
+        print
+        print 'Architecture'
+        print '------------'
+        print '\n'.join(sorted(self.ARCH_LABELS))
+        print
+        options.arch = prompt_user('Select:')
+    else:
+        if not options.name:
+            logging.error('A channel name is required')
+            return
+
+        if not options.label:
+            logging.error('A channel label is required')
+            return
+
+        if not options.arch:
+            logging.error('An architecture is required')
+            return
+
+        # default to make this a base channel
+        if not options.parent_channel:
+            options.parent_channel = ''
 
     self.client.channel.software.create(self.session,
-                                        label,
-                                        name,
-                                        summary,
-                                        'channel-%s' % arch,
-                                        parent)
+                                        options.label,
+                                        options.name,
+                                        options.name, # summary
+                                        'channel-%s' % options.arch,
+                                        options.parent_channel)
 
 ####################
 
 def help_softwarechannel_clone(self):
     print 'softwarechannel_clone: Clone a software channel'
-    print 'usage: softwarechannel_clone SOURCE'
+    print '''usage: softwarechannel_clone [options]
 
-def complete_softwarechannel_clone(self, text, line, beg, end):
-    return tab_completer(self.do_softwarechannel_list('', True), text)
+options:
+  -s SOURCE_CHANNEL
+  -n NAME
+  -l LABEL
+  -p PARENT_CHANNEL
+  --gpg-url GPG_URL
+  --gpg-id GPG_ID
+  --gpg-fingerprint GPG_FINGERPRINT
+  -o do not clone any errata'''
 
 def do_softwarechannel_clone(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-n', '--name', action='store'),
+                Option('-l', '--label', action='store'),
+                Option('-s', '--source-channel', action='store'),
+                Option('-p', '--parent-channel', action='store'),
+                Option('-o', '--original-state', action='store_true'),
+                Option('', '--gpg-url', action='store'),
+                Option('', '--gpg-id', action='store'),
+                Option('', '--gpg-fingerprint', action='store') ]
 
-    if not len(args):
-        self.help_softwarechannel_clone()
-        return
+    (args, options) = parse_arguments(args, options)
 
-    source = args[0]
+    if is_interactive(options):
+        print 'Source Channels:'
+        print '\n'.join(sorted(self.list_base_channels()))
+        print '\n'.join(sorted(self.list_child_channels()))
 
-    details = {}
+        options.source_channel =  prompt_user('Select source channel:',
+                                              noblank = True)
 
-    details['name'] = prompt_user('Channel Name:', noblank = True)
-    details['label'] = prompt_user('Channel Label:', noblank = True)
-    details['summary'] = details['name']
-    details['description'] = details['name']
+        options.name = prompt_user('Channel Name:', noblank = True)
+        options.label= prompt_user('Channel Label:', noblank = True)
 
-    print 'Base Channels:'
-    print '\n'.join(sorted(self.list_base_channels()))
-    print
+        print 'Base Channels:'
+        print '\n'.join(sorted(self.list_base_channels()))
+        print
 
-    details['parent_label'] = \
-        prompt_user('Select Parent [blank to create a base channel]:')
+        options.parent_channel = \
+            prompt_user('Select Parent [blank to create a base channel]:')
 
-    details['gpg_url'] = prompt_user('GPG URL:')
-    details['gpg_id'] = prompt_user('GPG ID:')
-    details['gpg_fingerprint'] = prompt_user('GPG Fingerprint:')
+        options.gpg_url = prompt_user('GPG URL:')
+        options.gpg_id = prompt_user('GPG ID:')
+        options.gpg_fingerprint = prompt_user('GPG Fingerprint:')
 
-    orig_state = self.user_confirm('Original State (No Errata) [y/N]:',
-                                   ignore_yes = True)
+        options.original_state = \
+            self.user_confirm('Original State (No Errata) [y/N]:',
+                              ignore_yes = True)
+    else:
+        if not options.source_channel:
+            logging.error('A source channel is required')
+            return
+
+        if not options.name:
+            logging.error('A channel name is required')
+            return
+
+        if not options.label:
+            logging.error('A channel label is required')
+            return
+
+        if not options.original_state:
+            options.original_state = False
+
+    details = { 'name' : options.name,
+                'label' : options.label,
+                'summary' : options.name }
+
+    if options.parent_channel:
+        details['parent_label'] = options.parent_channel
+
+    if options.gpg_id:
+        details['gpg_id'] = options.gpg_id
+
+    if options.gpg_url:
+        details['gpg_url'] = options.gpg_url
+
+    if options.gpg_fingerprint:
+        details['gpg_fingerprint'] = options.gpg_fingerprint
 
     # remove empty strings from the structure
     to_remove = []
@@ -424,9 +501,9 @@ def do_softwarechannel_clone(self, args):
         del details[key]
 
     self.client.channel.software.clone(self.session,
-                                       source,
+                                       options.source_channel,
                                        details,
-                                       orig_state)
+                                       options.original_state)
 
 ####################
 
