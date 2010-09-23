@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.6.2
+Version:     0.7.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,39 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Sep 23 2010 Aron Parsons <aparsons@redhat.com> 0.7.1-1
+- allow configchannel_create to be called non-interactively
+  (aparsons@redhat.com)
+- updated man page to explain how to run non-interactive commands
+  (aparsons@redhat.com)
+- allow softwarechannel_* functions to be called non-interactively
+  (aparsons@redhat.com)
+- allow system_* functions to be called non-interactively
+  (aparsons@redhat.com)
+- more fixes for ignorning the '-y' command-line option when it's not
+  applicable (aparsons@redhat.com)
+- allow user_* functions to be called non-interactively
+  (aparsons@redhat.com)
+- don't honor the '-y' command-line option when user_confirm isn't
+  used as a confirmation (aparsons@redhat.com)
+- allow snippet_* functions to be called non-interactively
+  (aparsons@redhat.com)
+- remove a comment about a fix that was committed ages ago
+  (aparsons@redhat.com)
+- allow kickstart_* functions to be called non-interactively
+  (aparsons@redhat.com)
+- allow distribution_* functions to be called non-interactively
+  (aparsons@redhat.com)
+- allow cryptokey_* functions to be called non-interactively
+  (aparsons@redhat.com)
+- added a function to read files (aparsons@redhat.com)
+- allow activationkey_* functions to be called non-interactively
+  (aparsons@redhat.com)
+- added function to test if the called function is interactive
+  (aparsons@redhat.com)
+- support for named arguments in utils.parse_arguments()
+  (aparsons@redhat.com)
+
 * Tue Sep 21 2010 Aron Parsons <aparsons@redhat.com> 0.6.2-1
 - added new function softwarechannel_removeerrata
   (aparsons@redhat.com)
