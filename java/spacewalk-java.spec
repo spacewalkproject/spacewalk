@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.42
+Version: 1.2.43
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 23 2010 Lukas Zapletal 1.2.43-1
+- 636740 - asterisks in package search fixed
+- 636120 - fixed an ISE in the org.listSystemEntitlements call to deal with null
+  Used/Allocated entitlements
+- 630877 - XMLRPC Documentation fix
+- 634230 - fixing slowness in email sending
+- 636587- Fixed a query showing the system counts in the Software Entitleements
+  page
+- 630585 - about-chat string correction
+- 634263 - Fix to allow guests to register across orgs + UI fixes for the
+  Virtual systems page
+
 * Tue Sep 21 2010 Aron Parsons <aparsons@redhat.com> 1.2.42-1
 - added new API call channel.software.removeErrata (aparsons@redhat.com)
 - 591291 - added new API calls channel.software.mergeErrataWithPackages
