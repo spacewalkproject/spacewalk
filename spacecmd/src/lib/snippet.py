@@ -20,6 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+from optparse import Option
 from spacecmd.utils import *
 
 def help_snippet_list(self):
@@ -82,32 +83,60 @@ def do_snippet_details(self, args):
 
 def help_snippet_create(self):
     print 'snippet_create: Create a Kickstart snippet'
-    print 'usage: snippet_create'
+    print '''usage: snippet_create [options]
 
-def do_snippet_create(self, args, name=''):
-    (args, options) = parse_arguments(args)
+options:
+  -n NAME
+  -f FILE'''
 
-    template = ''
-    if name:
-        snippets = self.client.kickstart.snippet.listCustom(self.session)
-        for s in snippets:
-            if s.get('name') == name:
-                template = s.get('contents')
-                break
+def do_snippet_create(self, args, update_name = ''):
+    options = [ Option('-n', '--name', action='store'),
+                Option('-f', '--file', action='store') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    if is_interactive(options):
+        # if update_name was passed, we're trying to update an existing snippet
+        if update_name:
+            options.name = update_name
+
+            snippets = self.client.kickstart.snippet.listCustom(self.session)
+            for s in snippets:
+                if s.get('name') == update_name:
+                    options.contents = s.get('contents')
+                    break
+
+        if not options.name:
+            options.name = prompt_user('Name:', noblank = True)
+
+        if self.user_confirm('Read an existing file [y/N]:', nospacer = True):
+            options.file = prompt_user('File:')
+        else:
+            if not options.contents: options.contents = ''
+
+            (options.contents, ignore) = editor(template = options.contents,
+                                                delete=True)
     else:
-        name = prompt_user('Name:', noblank = True)
+        if not options.name:
+            logging.error('A name is required for the snippet')
+            return
 
-    (contents, ignore) = editor(template = template, delete = True)
+        if not options.file:
+            logging.error('A file is required')
+            return
+
+    if options.file:
+        options.contents = read_file(options.file)
 
     print
     print 'Contents'
     print '--------'
-    print contents
+    print options.contents
 
     if self.user_confirm():
         self.client.kickstart.snippet.createOrUpdate(self.session,
-                                                     name,
-                                                     contents)
+                                                     options.name,
+                                                     options.contents)
 
 ####################
 
@@ -125,7 +154,7 @@ def do_snippet_update(self, args):
         self.help_snippet_update()
         return
 
-    return self.do_snippet_create('', name=args[0])
+    return self.do_snippet_create('', update_name = args[0])
 
 ####################
 
