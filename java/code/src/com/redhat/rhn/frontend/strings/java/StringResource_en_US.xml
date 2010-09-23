@@ -970,7 +970,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 		<trans-unit id="testMessage.html">
-		    <source>&lt;p&gt;You donot have enough entitlements for &lt;strong&gt; &lt;a href=&quot;http://www.redhat.com&quot;&gt;{0} systems&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</source>
+		    <source>&lt;p&gt;You do not have enough entitlements for &lt;strong&gt; &lt;a href=&quot;http://www.redhat.com&quot;&gt;{0} systems&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</source>
 	        <context-group name="ctx">
 	          <context context-type="sourcefile">Test Message - ignore</context>
 	        </context-group>
@@ -1553,7 +1553,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       <trans-unit id="to_org">
-<source>Destination Organisation</source>
+<source>Destination Organization</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemMigrate</context>
         </context-group>
@@ -6184,13 +6184,11 @@ user before attempting to deactivate their account.</source>
      </trans-unit>
 
     <trans-unit id="nocripterror">
-        <source>Please enable Javascript or use a Javascript enabled browsr before proceeding with this action.</source>
+        <source>Please enable Javascript or use a Javascript enabled browser before proceeding with this action.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/PreservationList.do</context>
         </context-group>
      </trans-unit>
-
-
 	
     <trans-unit id="root_confirm_passwds.mismatch">
         <source>The two passwords are not the same.</source>
@@ -7872,21 +7870,21 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
           <trans-unit id="system.migrate.org_not_trusted">
-<source>Systems can only be migrated between trusted organisations.</source>
+<source>Systems can only be migrated between trusted organizations.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemMigrate.do</context>
         </context-group>
       </trans-unit>
 
           <trans-unit id="system.migrate.no_trusted_orgs">
-<source>This organisation has no trusts defined with other organisations, or no other organisations are defined.</source>
+<source>This organization has no trusts defined with other organizations, or no other organizations are defined.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemMigrate.do</context>
         </context-group>
       </trans-unit>
 
           <trans-unit id="system.migrate.no_org_specified">
-<source>An organisation must be specified</source>
+<source>An organization must be specified</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemMigrate.do</context>
         </context-group>
@@ -7925,7 +7923,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
 	  <trans-unit id="system.runningkernel.unknown">
-          <source>Unkown</source>
+          <source>Unknown</source>
       </trans-unit>
 
 	  <trans-unit id="api.invalidargs">
@@ -8292,7 +8290,7 @@ Follow this url to see the full list of inactive systems:
      </trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.success">
-          <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
+          <source>Successfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
      </trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.clone">
@@ -8703,7 +8701,7 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="kickstart.cobbler.distro.syncfail">
         <source>
 The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
+synchronize kickstart distributions from Spacewalk to Cobbler.  These
 errors must be corrected for the distributions to be available for
 kickstarting systems:
 

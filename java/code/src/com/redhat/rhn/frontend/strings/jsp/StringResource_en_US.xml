@@ -563,7 +563,7 @@
       </trans-unit>
 
       <trans-unit id="badparam.jsp.summary">
-<source>We could not display the requested page because of a missing parameter.  This error could have occured several ways:</source>
+<source>We could not display the requested page because of a missing parameter.  This error could have occurred several ways:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Bad Parameter error page</context>
         </context-group>
@@ -1182,7 +1182,7 @@
 	</trans-unit>
 
 	<trans-unit id="preferences.entitlements-widget.description">
-         <source> Lists out the numbers of available entitlments per entitlement type.</source>
+         <source> Lists out the numbers of available entitlements per entitlement type.</source>
 		 <context-group name="ctx">
         	<context context-type="sourcefile">/rhn/users/UserPreferences</context>
 		 </context-group>
@@ -8094,7 +8094,7 @@ organization management tools if you choose to remove this role from your login.
       </trans-unit>
 
       <trans-unit id="schedulesync.jsp.profilesync">
-<source>Profile Syncrhonization</source>
+<source>Profile Synchronization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">NOTFILLEDOUT</context>
         </context-group>
@@ -9443,7 +9443,7 @@ Please note that some manual configuration of these scripts may still be require
   		  <source>Setup your @@PRODUCT_NAME@@ Cobbler settings below.</source>
 		</trans-unit>
 		<trans-unit id="cobbler.jsp.summary2">
-  		  <source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occured.</source>
+		  <source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occurred.</source>
 		</trans-unit>
 		<trans-unit id="cobbler.jsp.summary3">
   		  <source>For more information refer to the 'cobbler' man page.</source>
@@ -9473,7 +9473,7 @@ Please note that some manual configuration of these scripts may still be require
           <source>Sync Now</source>
         </trans-unit>
         <trans-unit id="repos.jsp.message.taskoconfig">
-          <source>Taskomatic configuration seems to be malformed. Fix it and scheudule task again.</source>
+          <source>Taskomatic configuration seems to be malformed. Fix it and schedule task again.</source>
         </trans-unit>
         <trans-unit id="repos.jsp.message.taskoaccess">
           <source>Taskomatic not accessible. Restart it and set up repo sync again.</source>
@@ -9788,7 +9788,7 @@ Please note that some manual configuration of these scripts may still be require
     </trans-unit>
 
     <trans-unit id="kickstartdetails.jsp.virt_disk_path.tip">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; You may specify a file path (/var/lib/xen/images/disk), a Volume Group (VolGroup00), or a partiion (/dev/sda5).  You can also specify multiple virtual disks by comma separating the filepaths, volume group, or partition (/dev/sdb1,/devsdc1).</source>
+        <source>&lt;strong&gt;Tip:&lt;/strong&gt; You may specify a file path (/var/lib/xen/images/disk), a Volume Group (VolGroup00), or a partition (/dev/sda5).  You can also specify multiple virtual disks by comma separating the filepaths, volume group, or partition (/dev/sdb1,/devsdc1).</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
@@ -9836,14 +9836,14 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
     <trans-unit id="kickstart.jsp.error.invalidvariable">
-        <source>You have specified an invalid variable: '{0}'.  Variables should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a new line.  For example: 'ip=192.168.0.1'</source>
+        <source>You have specified an invalid variable: '{0}'.  Variables should be name value pairs, separated by a '=' symbol, with each pair being separated by a new line.  For example: 'ip=192.168.0.1'</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
     </trans-unit>
 
     <trans-unit id="kickstart.jsp.error.invalidoption">
-        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
+        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, separated by a '=' symbol, with each pair being separated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
         <context-group name="ctx">
             <context context-type="sourcefile">Kickstart Details</context>
         </context-group>
@@ -11136,7 +11136,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
     <trans-unit id="softwareedit.jsp.tip">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; Changing the base channel will require you to reselect any child cannels that may be associated with this profile.</source>
+        <source>&lt;strong&gt;Tip:&lt;/strong&gt; Changing the base channel will require you to reselect any child channels that may be associated with this profile.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
@@ -13933,7 +13933,7 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
 <source>The files shown below will be deployed to the systems shown below.
 Choose a scheduled date, or "earliest possible", from the date-chooser below.
 Click the confirm button to schedule the deployment,
-or press your browser's back button to make modifications to your file and system slections.
+or press your browser's back button to make modifications to your file and system selections.
 
 Note that if a given system overrides a given file, or has it in that system's local configuration channel, the file will NOT be deployed.</source>
         <context-group name="ctx">
@@ -14098,7 +14098,7 @@ Note that if a given system overrides a given file, or has it in that system's l
       </trans-unit>
 
       <trans-unit id="deploysystems.jsp.warning">
-<source>&lt;strong&gt;Warning:&lt;/strong&gt; Please note that if any of the files you are attempting to deploy from the {0} configuration channel are overridden or outranked by a file with the same name on a higher-ranked channel any particular system is subscribed to, then the overridding / highest-ranking version of the file will be deployed to that system, rather than the version from the {0} configuration channel.</source>
+<source>&lt;strong&gt;Warning:&lt;/strong&gt; Please note that if any of the files you are attempting to deploy from the {0} configuration channel are overridden or outranked by a file with the same name on a higher-ranked channel any particular system is subscribed to, then the overriding / highest-ranking version of the file will be deployed to that system, rather than the version from the {0} configuration channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/</context>
           <context context-type="paramnotes"></context>
@@ -14781,7 +14781,7 @@ You can't edit this file because it is a binary file.
      </trans-unit>
 	<trans-unit id="filedetails.contents.jspf.binary-display">
 <source>
-This is a binary file, and canot be displayed.
+This is a binary file, and can not be displayed.
 </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
@@ -20077,7 +20077,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
       </trans-unit>
 
       <trans-unit id="physicalhosts.jsp.para2">
-<source>You may always delete the @@PRODUCT_NAME@@ system profie of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
+<source>You may always delete the @@PRODUCT_NAME@@ system profile of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
@@ -21682,7 +21682,7 @@ given channel.</source>
          <source>Create Custom Info Key</source>
        </trans-unit>
       <trans-unit id="system.jsp.customkey.createmsg">
-         <source>Define infomation about this key below.</source>
+         <source>Define information about this key below.</source>
        </trans-unit>
       <trans-unit id="system.jsp.customkey.createbutton">
          <source>Create Key</source>
@@ -21738,7 +21738,7 @@ given channel.</source>
       </trans-unit>
 
       <trans-unit id="baddownload.jsp.retry">
-			<source>Please revisit the page you recieved this url from to recieve a new one.</source>
+			<source>Please revisit the page you received this url from to receive a new one.</source>
       </trans-unit>
 
       <trans-unit id="package.jsp.alt">
@@ -22404,10 +22404,10 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.message">
 		<source>The following errata were cloned from errata that have since been updated.
-		   This page will allow you to syncronize your cloned errata to that of its original.</source>
+		   This page will allow you to synchronize your cloned errata to that of its original.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.note">
-		<source>Packages that were omitted as part of the origianl cloning process will be included here.</source>
+		<source>Packages that were omitted as part of the original cloning process will be included here.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.listempty">
 		<source>No out of date errata were found.</source>
@@ -22419,7 +22419,7 @@ given channel.</source>
 		<source>The following packages will be pushed to this channel as part of the errata sync process.  Please review this list and unselect any unwanted packages.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.complete">
-		<source>Sucessfully syncronized {0} errata and pushed {1} packages to channel {2}.</source>
+		<source>Successfully synchronized {0} errata and pushed {1} packages to channel {2}.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.repodata">
 		<source>Repo Cache Status</source>
