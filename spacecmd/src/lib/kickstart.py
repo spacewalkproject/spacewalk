@@ -1624,7 +1624,8 @@ def do_kickstart_addscript(self, args):
         options.interpreter = prompt_user('Interpreter [/bin/bash]:')
 
         # get the contents of the script
-        if self.user_confirm('Read an existing file [y/N]:', nospacer = True):
+        if self.user_confirm('Read an existing file [y/N]:',
+                             nospacer = True, ignore_yes = True):
             options.file = prompt_user('File:')
         else:
             (options.contents, ignore) = editor(delete=True)

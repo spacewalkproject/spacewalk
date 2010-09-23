@@ -109,7 +109,8 @@ def do_snippet_create(self, args, update_name = ''):
         if not options.name:
             options.name = prompt_user('Name:', noblank = True)
 
-        if self.user_confirm('Read an existing file [y/N]:', nospacer = True):
+        if self.user_confirm('Read an existing file [y/N]:',
+                             nospacer = True, ignore_yes = True):
             options.file = prompt_user('File:')
         else:
             if not options.contents: options.contents = ''

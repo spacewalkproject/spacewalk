@@ -607,10 +607,12 @@ def do_activationkey_create(self, args):
         for e in self.ENTITLEMENTS:
             if e == 'enterprise_entitled': continue
 
-            if self.user_confirm('%s Entitlement [y/N]:' % e):
+            if self.user_confirm('%s Entitlement [y/N]:' % e,
+                                 ignore_yes = True):
                 options.entitlements.append(e)
 
-        options.universal = self.user_confirm('Universal Default [y/N]:')
+        options.universal = self.user_confirm('Universal Default [y/N]:',
+                                              ignore_yes = True)
     else:
         if not options.name: options.name = ''
         if not options.description: options.description = ''

@@ -46,7 +46,8 @@ def do_cryptokey_create(self, args):
         while options.description == '':
             options.description = prompt_user('Description:')
        
-        if self.user_confirm('Read an existing file [y/N]:', nospacer = True):
+        if self.user_confirm('Read an existing file [y/N]:',
+                             nospacer = True, ignore_yes = True):
             options.file = prompt_user('File:')
         else:
             options.contents = editor(delete=True)

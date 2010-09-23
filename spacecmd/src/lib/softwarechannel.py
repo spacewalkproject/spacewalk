@@ -411,7 +411,8 @@ def do_softwarechannel_clone(self, args):
     details['gpg_id'] = prompt_user('GPG ID:')
     details['gpg_fingerprint'] = prompt_user('GPG Fingerprint:')
 
-    orig_state = self.user_confirm('Original State (No Errata) [y/N]:')
+    orig_state = self.user_confirm('Original State (No Errata) [y/N]:',
+                                   ignore_yes = True)
 
     # remove empty strings from the structure
     to_remove = []
