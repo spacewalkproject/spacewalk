@@ -1431,7 +1431,8 @@ SELECT P.id, PE.epoch, PE.version, PE.release
 <write-mode name="schedule_pkg_for_delete">
   <query params="path">
     INSERT INTO rhnPackageFileDeleteQueue
-      VALUES (:path, sysdate)
+      (select :path ,sysdate from dual  where not exists
+	(select path from rhnPackageFileDeleteQueue where path = :path))
   </query>
 </write-mode>
 
