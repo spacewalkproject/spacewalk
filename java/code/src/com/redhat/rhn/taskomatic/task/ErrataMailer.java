@@ -98,6 +98,7 @@ public class ErrataMailer extends RhnJavaJob {
                         try {
                             cleanUp.executeUpdate(Collections.EMPTY_MAP);
                             HibernateFactory.commitTransaction();
+                            HibernateFactory.closeSession();
                         }
                         catch (Exception e) {
                             log.error("Error cleaning up ErrataMailer queue", e);
@@ -163,8 +164,6 @@ public class ErrataMailer extends RhnJavaJob {
         if (log.isDebugEnabled()) {
             log.debug("Marked " + rowsUpdated + " rows complete");
         }
-        HibernateFactory.commitTransaction();
-        HibernateFactory.closeSession();
     }
 
     private void sendEmails(Long errataId, Long orgId, Long channelId) throws Exception {
