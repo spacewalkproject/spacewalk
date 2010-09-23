@@ -227,6 +227,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              $PackageDtoSerializer
      *      #array_end()
      */
+    @Deprecated
     public Object[] listAllPackages(String sessionKey, String channelLabel,
             String startDate, String endDate) throws NoSuchChannelException {
 
@@ -258,6 +259,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              $PackageDtoSerializer
      *      #array_end()
      */
+    @Deprecated
     public Object[] listAllPackages(String sessionKey, String channelLabel,
             String startDate) throws NoSuchChannelException {
         return listAllPackages(sessionKey, channelLabel, startDate, null);
@@ -296,6 +298,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
+    @Deprecated
     public Object[] listAllPackagesByDate(String sessionKey, String channelLabel,
             String startDate, String endDate) throws NoSuchChannelException {
 
@@ -336,6 +339,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
+    @Deprecated
     public Object[] listAllPackagesByDate(String sessionKey, String channelLabel,
             String startDate) throws NoSuchChannelException {
 
@@ -368,6 +372,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
+    @Deprecated
     public Object[] listAllPackagesByDate(String sessionKey, String channelLabel)
         throws NoSuchChannelException {
 
@@ -871,6 +876,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              subscribe the system to.")
      * @xmlrpc.returntype int - 1 on success, 0 otherwise
      */
+    @Deprecated
     public int setSystemChannels(String sessionKey, Integer sid, List channelLabels)
         throws FaultException {
         // Get Logged in user
@@ -1154,10 +1160,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "target channel.")
      * @xmlrpc.param #array_single("string", "advisoryName - name of an erratum to remove")
-     * @xmlrpc.param #param_desc("boolean", "removePackages", "True to remove packages from the channel")
+     * @xmlrpc.param #param_desc("boolean", "removePackages",
+     *                          "True to remove packages from the channel")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int removeErrata(String sessionKey, String channelLabel, 
+    public int removeErrata(String sessionKey, String channelLabel,
             List errataNames, boolean removePackages) {
 
         User user = getLoggedInUser(sessionKey);
@@ -1165,7 +1172,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         Channel channel = lookupChannelByLabel(user, channelLabel);
 
-        if (! UserManager.verifyChannelAdmin(user, channel)) {
+        if (!UserManager.verifyChannelAdmin(user, channel)) {
             throw new PermissionCheckFailureException();
         }
 
@@ -1398,7 +1405,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public List listErrata(String sessionKey, String channelLabel)
         throws NoSuchChannelException {
-        List<Map> list = (List<Map>) listErrata(sessionKey, channelLabel, "", "");
+        List<Map> list = listErrata(sessionKey, channelLabel, "", "");
         return list;
     }
 
@@ -1432,6 +1439,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
+    @Deprecated
     public List listErrata(String sessionKey, String channelLabel,
             String startDate) throws NoSuchChannelException {
 
@@ -1471,6 +1479,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
 
+    @Deprecated
     public List listErrata(String sessionKey, String channelLabel,
             String startDate, String endDate) throws NoSuchChannelException {
 
@@ -1635,6 +1644,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *                  the system to.")
      * @xmlrpc.returntype #return_int_success()
      */
+    @Deprecated
     public int subscribeSystem(String sessionKey, Integer sid, List labels) {
         User loggedInUser = getLoggedInUser(sessionKey);
 
@@ -1864,7 +1874,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public Object[] mergeErrata(String sessionKey, String mergeFromLabel,
             String mergeToLabel, String startDate, String endDate) {
-        return mergeErrata(sessionKey, mergeFromLabel, mergeToLabel, startDate, endDate, false);
+        return mergeErrata(sessionKey, mergeFromLabel, mergeToLabel,
+                                            startDate, endDate, false);
     }
 
     private Object[] mergeErrata(String sessionKey, String mergeFromLabel,
@@ -1884,7 +1895,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
                 loggedInUser.getOrg(), mergeFrom, startDate, endDate);
 
         Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, new HashSet(fromErrata), mergeTo, mergeFrom, addPackages);
+            mergeErrataToChannel(loggedInUser, new HashSet(fromErrata),
+                                            mergeTo, mergeFrom, addPackages);
 
         return mergedErrata.toArray();
     }
@@ -1913,7 +1925,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
 
     /**
-     * Merge a channel's errata into another channel based upon a given start/end date and add the packages
+     * Merge a channel's errata into another channel
+     * based upon a given start/end date and add the packages
      * @param sessionKey session of the user
      * @param mergeFromLabel the label of the channel to pull the errata from
      * @param mergeToLabel the label of the channel to push errata into
@@ -1937,7 +1950,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public Object[] mergeErrataWithPackages(String sessionKey, String mergeFromLabel,
             String mergeToLabel, String startDate, String endDate) {
-        return mergeErrata(sessionKey, mergeFromLabel, mergeToLabel, startDate, endDate, true);
+        return mergeErrata(sessionKey, mergeFromLabel,
+                                    mergeToLabel, startDate, endDate, true);
     }
 
     /**
@@ -2039,8 +2053,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
             // Mark the affected channel to have it's metadata evaluated, where necessary
             // (RHEL5+, mostly)
-            ChannelManager.queueChannelChange(toChannel.getLabel(), "java::mergeErrataToChannel",
-                                              user.getLogin());
+            ChannelManager.queueChannelChange(toChannel.getLabel(),
+                                        "java::mergeErrataToChannel", user.getLogin());
 
             List<Long> cids = new ArrayList();
             cids.add(toChannel.getId());
