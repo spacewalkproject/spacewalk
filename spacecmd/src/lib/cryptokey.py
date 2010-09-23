@@ -20,35 +20,66 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+from optparse import Option
 from spacecmd.utils import *
 
 def help_cryptokey_create(self):
     print 'cryptokey_create: Create a cryptographic key'
-    print 'usage: cryptokey_create'
+    print '''usage: cryptokey_create [options]
+
+options:
+  -t GPG or SSL
+  -d DESCRIPTION
+  -f KEY_FILE'''
 
 def do_cryptokey_create(self, args):
-    key_type = ''
-    while not re.match('GPG|SSL', key_type):
-        key_type = prompt_user('GPG or SSL [G/S]:')
+    options = [ Option('-t', '--type', action='store'),
+                Option('-d', '--description', action='store'),
+                Option('-f', '--file', action='store') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    if is_interactive(options):
+        options.type = prompt_user('GPG or SSL [G/S]:')
+
+        options.description = ''
+        while options.description == '':
+            options.description = prompt_user('Description:')
        
-        if re.match('G', key_type, re.I):
-            key_type = 'GPG'
-        elif re.match('S', key_type, re.I):
-            key_type = 'SSL'
+        if self.user_confirm('Read an existing file [y/N]:', nospacer = True):
+            options.file = prompt_user('File:')
         else:
-            logging.warning('Invalid key type')
-            key_type = '' 
+            options.contents = editor(delete=True)
+    else:
+        if not options.type:
+            logging.error('The key type is required')
+            return
 
-    description = ''
-    while description == '':
-        description = prompt_user('Description:')
+        if not options.description:
+            logging.error('A description is required')
+            return
 
-    content = editor(delete=True)
+        if not options.file:
+            logging.error('A file containing the key is required')
+            return
+
+    # read the file the user specified
+    if options.file:
+        options.contents = read_file(options.file)
+
+    # translate the key type to what the server expects
+    if re.match('G', options.type, re.I):
+        options.type = 'GPG'
+    elif re.match('S', options.type, re.I):
+        options.type = 'SSL'
+    else:
+        logging.error('Invalid key type')
+        return
 
     self.client.kickstart.keys.create(self.session,
-                                      description,
-                                      key_type,
-                                      content)
+                                      options.description,
+                                      options.type,
+                                      options.contents)
 
 ####################
 
