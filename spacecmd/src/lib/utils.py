@@ -43,6 +43,19 @@ def parse_arguments(args, options = []):
         return []
 
 
+# check if any named options were passed to the function, and if so,
+# declare that the function is non-interactive
+# note: because we do it this way, default options are not passed into
+# OptionParser, as it would make determining if any options were passed
+# too complex
+def is_interactive(options):
+    for key in options.__dict__:
+        if options.__dict__[key]:
+            return False
+
+    return True
+
+
 def load_cache(cachefile):
     data = {}
     expire = datetime.now()
