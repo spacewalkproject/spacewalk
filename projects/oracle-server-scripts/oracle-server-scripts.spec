@@ -8,8 +8,8 @@
 
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
-Version: 10.2.0
-Release: 32%{?dist}
+Version: 10.2.0.50
+Release: 1%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
 Source2: create-db.sh
