@@ -19,8 +19,8 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1
-Release:         23.18%{?obtag}%{?dist}%{?repo}
+Version:         0.1.23.18
+Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
