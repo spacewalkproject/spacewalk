@@ -23,9 +23,6 @@
 from operator import itemgetter
 from spacecmd.utils import *
 
-#XXX: list*Actions needs to return a struct with the number of
-#     completed/failed/pending systems so we don't need to make
-#     additional API calls to get those numbers
 def print_schedule_summary(self, type, args):
     (args, options) = parse_arguments(args)
 
