@@ -15,6 +15,9 @@
 --
 --
 --
+--
+-- Please note when adding new architectures also update the file
+-- StringResource_*.xml (search for rhnChannelArch.sql comment).
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
 (rhn_channel_arch_id_seq.nextval, 'channel-ia32', 'IA-32', lookup_arch_type('rpm'));

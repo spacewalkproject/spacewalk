@@ -8299,30 +8299,93 @@ Follow this url to see the full list of inactive systems:
        <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
           <source>You do not have sufficient permissions to perform this action.</source>
      <target>이 작업을 실행할 수 있는 권한이 없습니다. </target></trans-unit>
-	  <trans-unit id="IA-32">
-	    <source>IA-32</source>
-	  <target>IA-32</target></trans-unit>
-	  <trans-unit id="IA-64">
-	    <source>IA-64</source>
-	  <target>IA-64</target></trans-unit>
-	  <trans-unit id="s390">
-	    <source>s390</source>
-	  <target>s390</target></trans-unit>
-	  <trans-unit id="s390x">
-	    <source>s390x</source>
-	  <target>s390x</target></trans-unit>
-	  <trans-unit id="x86_64">
-	    <source>x86_64</source>
-	  <target>x86_64</target></trans-unit>
-	  <trans-unit id="PPC">
-	    <source>PPC</source>
-	  <target>PPC</target></trans-unit>
-	  <trans-unit id="Sparc Solaris">
-	    <source>Sparc Solaris</source>
-	  <target>Sparc Solaris</target></trans-unit>
-	  <trans-unit id="i386 Solaris">
-	    <source>i386 Solaris</source>
-	  <target>i386 Solaris</target></trans-unit>
+
+      <!-- The following resources need to be updated for each
+              schema change (see rhnChannelArch.sql) -->
+      <trans-unit id="IA-32">
+          <source>IA-32</source>
+		  <target>IA-32</target>
+      </trans-unit>
+      <trans-unit id="IA-32 Debian">
+          <source>IA-32 Debian</source>
+		  <target>IA-32 Debian</target>
+      </trans-unit>
+      <trans-unit id="IA-64">
+          <source>IA-64</source>
+		  <target>IA-64</target>
+      </trans-unit>
+      <trans-unit id="IA-64 Debian">
+          <source>IA-64 Debian</source>
+		  <target>IA-64 Debian</target>
+      </trans-unit>
+      <trans-unit id="Sparc">
+          <source>Sparc</source>
+		  <target>Sparc</target>
+      </trans-unit>
+      <trans-unit id="Sparc Debian">
+          <source>Sparc Debian</source>
+		  <target>Sparc Debian</target>
+      </trans-unit>
+      <trans-unit id="Alpha">
+          <source>Alpha</source>
+		  <target>Alpha</target>
+      </trans-unit>
+      <trans-unit id="Alpha Debian">
+          <source>Alpha Debian</source>
+		  <target>Alpha Debian</target>
+      </trans-unit>
+      <trans-unit id="s390">
+          <source>s390</source>
+		  <target>s390</target>
+      </trans-unit>
+      <trans-unit id="s390 Debian">
+          <source>s390 Debian</source>
+		  <target>s390 Debian</target>
+      </trans-unit>
+      <trans-unit id="s390x">
+          <source>s390x</source>
+		  <target>s390x</target>
+      </trans-unit>
+      <trans-unit id="iSeries">
+          <source>iSeries</source>
+		  <target>iSeries</target>
+      </trans-unit>
+      <trans-unit id="pSeries">
+          <source>pSeries</source>
+		  <target>pSeries</target>
+      </trans-unit>
+      <trans-unit id="x86_64">
+          <source>x86_64</source>
+		  <target>x86_64</target>
+      </trans-unit>
+      <trans-unit id="AMD64 Debian">
+          <source>AMD64 Debian</source>
+		  <target>AMD64 Debian</target>
+      </trans-unit>
+      <trans-unit id="PPC">
+          <source>PPC</source>
+		  <target>PPC</target>
+      </trans-unit>
+      <trans-unit id="PowerPC Debian">
+          <source>PowerPC Debian</source>
+		  <target>PowerPC Debian</target>
+      </trans-unit>
+      <trans-unit id="arm Debian">
+          <source>arm Debian</source>
+		  <target>arm Debian</target>
+      </trans-unit>
+      <trans-unit id="mips Debian">
+          <source>mips Debian</source>
+		  <target>mips Debian</target>
+      </trans-unit>
+      <trans-unit id="Sparc Solaris">
+          <source>Sparc Solaris</source>
+		  <target>Sparc Solaris</target>
+      </trans-unit>
+      <trans-unit id="i386 Solaris">
+          <source>i386 Solaris</source>
+		  <target>i386 Solaris</target>
+      </trans-unit>
 
 	  <trans-unit id="channel.manage.patchset.deleteconfirm">
 	    <source>{0} patch cluster(s) have been removed from this channel</source>
