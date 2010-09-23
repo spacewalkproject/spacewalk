@@ -1,6 +1,6 @@
 Name:           oracle-lib-compat
 Version:        10.2
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
 License:        GPLv2
@@ -97,6 +97,10 @@ find %{_prefix}/lib/oracle/%{icversion} \
         | xargs execstack -c
 
 %changelog
+* Thu Sep 23 2010 Jan Pazdziora 10.2-24
+- 623115 - file lookup using just the linker name (libldap.so) fails if
+  openldap-devel is not installed.
+
 * Mon Sep 13 2010 Jan Pazdziora 10.2-23
 - 623115 - force tomcat to use the stock openldap, overriding the ldap_*
   symbols in libclntsh.so*.
