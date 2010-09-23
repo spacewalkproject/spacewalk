@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.14
+Version: 1.2.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -687,6 +687,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.15-1
+- 634280 - errata should remain associated with already synced channels
+- 634263 - allow guests to register across orgs
+
 * Mon Sep 20 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.14-1
 - 627566 - update package checksum with value found in database
 - 629986 - updating channels last synced time from spacewalk-repo-sync
