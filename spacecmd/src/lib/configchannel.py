@@ -20,6 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+from optparse import Option
 from spacecmd.utils import *
 
 def help_configchannel_list(self):
@@ -217,31 +218,35 @@ def do_configchannel_details(self, args):
 
 def help_configchannel_create(self):
     print 'configchannel_create: Create a configuration channel'
-    print 'usage: configchannel_create [NAME] [DESCRIPTION]'
+    print '''usage: configchannel_create [options]
+
+options:
+  -n NAME
+  -d DESCRIPTION'''
 
 def do_configchannel_create(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-n', '--name', action='store'),
+                Option('-d', '--description', action='store') ]
 
-    if len(args) > 0:
-        name = args[0]
+    (args, options) = parse_arguments(args, options)
+
+    if is_interactive(options):
+        options.name = prompt_user('Name:', noblank = True)
+        options.description = prompt_user('Description:')
+
+        if options.description == '': options.description = options.name
     else:
-        name = ''
+        if not options.name:
+            logging.error('A name is required')
+            return
 
-    while name == '':
-        name = prompt_user('Name:')
-
-    if len(args) > 1:
-        description = ' '.join(args[1:])
-    else:
-        description = prompt_user('Description:')
-
-    if description == '':
-        description = name
+        if not options.description:
+            options.description = options.name
 
     self.client.configchannel.create(self.session,
-                                     name,
-                                     name,
-                                     description)
+                                     options.name,
+                                     options.name,
+                                     options.description)
 
 ####################
 
