@@ -14,7 +14,7 @@ Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 
 %ifarch s390 s390x
-%define icversion 10.2.0.2
+%define icversion 10.2.0.4
 %else
 %define icversion 10.2.0.4
 %endif
