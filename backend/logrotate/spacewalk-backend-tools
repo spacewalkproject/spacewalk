@@ -12,7 +12,7 @@
     size=10M
 }
 
-/var/log/rhn/reposync/reposync.log {
+/var/log/rhn/reposync/*.log {
     weekly
     rotate 5
     copytruncate
