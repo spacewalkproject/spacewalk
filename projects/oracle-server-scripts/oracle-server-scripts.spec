@@ -8,7 +8,7 @@
 
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
-Version: 10.2.0.50
+Version: 10.2.0.51
 Release: 1%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
@@ -99,6 +99,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 10.2.0.51-1
+- switched to default VersionTagger
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 10.2.0-32
 - 563902 - let's make default TEMP and UNDO 1GB
 
