@@ -20,55 +20,102 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+from optparse import Option
 from spacecmd.utils import *
 
 def help_distribution_create(self):
     print 'distribution_create: Create a Kickstart tree'
-    print 'usage: distribution_create'
+    print '''usage: distribution_create [options]
 
-def do_distribution_create(self, args):
-    name = prompt_user('Label:')
+options:
+  -n NAME
+  -d path to tree
+  -b base channel to associate with
+  -t install type [fedora|rhel_4/5/6|generic_rpm]'''
 
-    base_path = prompt_user('Path to Kickstart Tree:')
+def do_distribution_create(self, args, update = False):
+    options = [ Option('-n', '--name', action='store'),
+                Option('-p', '--path', action='store'),
+                Option('-b', '--base-channel', action='store'),
+                Option('-t', '--install-type', action='store') ]
 
-    base_channel = ''
-    while base_channel == '':
-        print
-        print 'Base Channels'
-        print '-------------'
-        print '\n'.join(sorted(self.list_base_channels()))
-        print
+    (args, options) = parse_arguments(args, options)
 
-        base_channel = prompt_user('Base Channel:')
+    # fill in the name of the distribution when updating
+    if update:
+        if len(args):
+            options.name = args[0]
+        elif not options.name:
+            logging.error('The name of the distribution is required')
+            return
 
-        if base_channel not in self.list_base_channels():
+    if is_interactive(options):
+        if not update:
+            options.name = prompt_user('Name:', noblank = True)
+
+        options.path = prompt_user('Path to Kickstart Tree:', noblank = True)
+
+        options.base_channel = ''
+        while options.base_channel == '':
+            print
+            print 'Base Channels'
+            print '-------------'
+            print '\n'.join(sorted(self.list_base_channels()))
+            print
+
+            options.base_channel = prompt_user('Base Channel:')
+
+        if options.base_channel not in self.list_base_channels():
             logging.warning('Invalid channel label')
-            base_channel = ''
+            options.base_channel = ''
 
-    install_types = \
-        self.client.kickstart.tree.listInstallTypes(self.session)
+        install_types = \
+            self.client.kickstart.tree.listInstallTypes(self.session)
    
-    install_types = [ t.get('label') for t in install_types ]
+        install_types = [ t.get('label') for t in install_types ]
  
-    install_type = ''
-    while install_type == '':
-        print
-        print 'Install Types'
-        print '-------------'
-        print '\n'.join(sorted(install_types))
-        print
+        options.install_type = ''
+        while options.install_type == '':
+            print
+            print 'Install Types'
+            print '-------------'
+            print '\n'.join(sorted(install_types))
+            print
 
-        install_type = prompt_user('Install Type:')
+            options.install_type = prompt_user('Install Type:')
 
-        if install_type not in install_types:
-            logging.warning('Invalid install type')
-            install_type = '' 
+            if options.install_type not in install_types:
+                logging.warning('Invalid install type')
+                options.install_type = ''
+    else:
+        if not options.name:
+            logging.error('A name is required')
+            return
 
-    self.client.kickstart.tree.create(self.session,
-                                      name,
-                                      base_path,
-                                      base_channel,
-                                      install_type)
+        if not options.path:
+            logging.error('A path is required')
+            return
+
+        if not options.base_channel:
+            logging.error('A base channel is required')
+            return
+
+        if not options.install_type:
+            logging.error('An install type is required')
+            return
+
+    if update:
+        self.client.kickstart.tree.update(self.session,
+                                          options.name,
+                                          options.path,
+                                          options.base_channel,
+                                          options.install_type)
+    else:
+        self.client.kickstart.tree.create(self.session,
+                                          options.name,
+                                          options.path,
+                                          options.base_channel,
+                                          options.install_type)
 
 ####################
 
@@ -173,7 +220,12 @@ def do_distribution_rename(self, args):
 
 def help_distribution_update(self):
     print 'distribution_update: Update the path of a Kickstart tree'
-    print 'usage: distribution_update LABEL'
+    print '''usage: distribution_update NAME [options]
+
+options:
+  -d path to tree
+  -b base channel to associate with
+  -t install type [fedora|rhel_4/5/6|generic_rpm]'''
 
 def complete_distribution_update(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
@@ -181,53 +233,6 @@ def complete_distribution_update(self, text, line, beg, end):
                                   text)
 
 def do_distribution_update(self, args):
-    (args, options) = parse_arguments(args)
-
-    if len(args) != 1:
-        self.help_distribution_update()
-        return
-
-    label = args[0]
-
-    base_path = prompt_user('Path to Kickstart Tree:')
-
-    base_channel = ''
-    while base_channel == '':
-        print
-        print 'Base Channels'
-        print '-------------'
-        print '\n'.join(sorted(self.list_base_channels()))
-        print
-
-        base_channel = prompt_user('Base Channel:')
-
-        if base_channel not in self.list_base_channels():
-            logging.warning('Invalid channel label')
-            base_channel = ''
-
-    install_types = \
-        self.client.kickstart.tree.listInstallTypes(self.session)
-   
-    install_types = [ t.get('label') for t in install_types ]
- 
-    install_type = ''
-    while install_type == '':
-        print
-        print 'Install Types'
-        print '-------------'
-        print '\n'.join(sorted(install_types))
-        print
-
-        install_type = prompt_user('Install Type:')
-
-        if install_type not in install_types:
-            logging.warning('Invalid install type')
-            install_type = '' 
-
-    self.client.kickstart.tree.update(self.session,
-                                      label,
-                                      base_path,
-                                      base_channel,
-                                      install_type)
+    return self.do_distribution_create(args, update = True)
 
 # vim:ts=4:expandtab:
