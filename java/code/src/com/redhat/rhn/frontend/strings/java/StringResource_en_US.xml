@@ -4250,6 +4250,13 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
 
+      <trans-unit id="BL">
+        <source>Saint Barthelemy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="BM">
         <source>Bermuda</source>
         <context-group name="ctx">
@@ -5047,6 +5054,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="ME">
         <source>Montenegro</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="MF">
+        <source>Saint Martin</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>

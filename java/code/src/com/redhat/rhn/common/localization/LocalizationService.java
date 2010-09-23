@@ -335,12 +335,38 @@ public class LocalizationService {
         return mess;
     }
 
+    // returns the first class/method that does not belong to this
+    // package (who calls this actually) - for debugging purposes
+    private StackTraceElement getCallingMethod() {
+        try {
+            throw new RuntimeException("Stacktrace Dummy Exception");
+        } catch (RuntimeException e) {
+            try {
+                final String prefix = this.getClass().getPackage().getName();
+                for (StackTraceElement element : e.getStackTrace() ){
+                    if (! element.getClassName().startsWith(prefix)) {
+                        return element;
+                    }
+                }
+            } catch (Throwable t) {
+                // dont break - return nothing rather than stop
+                return null;
+            }
+        }
+        return null;
+    }
+
     private String getMissingMessageString(String messageId) {
+        String caller = "";
+        StackTraceElement callerElement = getCallingMethod();
+        if (callerElement != null) {
+            caller = " called by " + callerElement;
+        }
         if (messageId == null) {
             messageId = "null";
         }
         String message = "*** ERROR: Message with id: [" + messageId +
-                "] not found.***";
+                "] not found.***" + caller;
         log.error(message);
         boolean exceptionMode = Config.get().getBoolean(
                 "web.l10n_missingmessage_exceptions");

@@ -18855,7 +18855,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
          </trans-unit>
 
          <trans-unit id="sdc.details.migrate.notrustedorgs">
-            <source>No trusted oranisations</source>
+            <source>No trusted organizations</source>
             <context-group name="ctx">
             <context context-type="sourcefile">/systems/details/SystemMigrate.do</context>
             </context-group>
