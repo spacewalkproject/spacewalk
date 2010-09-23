@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.43
+Version: 1.2.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.44-1
+- fixed erratamailer_fill_work_queue
+- resource spelling script and several typo corrections
+
 * Thu Sep 23 2010 Lukas Zapletal 1.2.43-1
 - 636740 - asterisks in package search fixed
 - 636120 - fixed an ISE in the org.listSystemEntitlements call to deal with null
