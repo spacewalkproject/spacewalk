@@ -22,6 +22,7 @@
 
 import shlex
 from operator import itemgetter
+from optparse import Option
 from xml.parsers.expat import ExpatError
 from spacecmd.utils import *
 
@@ -271,7 +272,14 @@ def do_system_search(self, args, doreturn=False):
 def help_system_runscript(self):
     print 'system_runscript: Schedule a script to run on the list of'
     print '                  systems provided'
-    print 'usage: system_runscript <SYSTEMS>'
+    print '''usage: system_runscript <SYSTEMS> [options]
+
+options:
+  -u USER
+  -g GROUP
+  -t TIMEOUT
+  -s START_TIME
+  -f FILE'''
     print
     print self.HELP_SYSTEM_OPTS
     print
@@ -281,7 +289,13 @@ def complete_system_runscript(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_runscript(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-u', '--user', action='store'),
+                Option('-g', '--group', action='store'),
+                Option('-t', '--timeout', action='store'),
+                Option('-s', '--start-time', action='store'),
+                Option('-f', '--file', action='store') ]
+
+    (args, options) = parse_arguments(args, options)
 
     if not len(args):
         self.help_system_runscript()
@@ -297,60 +311,64 @@ def do_system_runscript(self, args):
         logging.warning('No systems selected')
         return
 
-    user    = prompt_user('User [root]:')
-    group   = prompt_user('Group [root]:')
+    if is_interactive(options):
+        options.user  = prompt_user('User [root]:')
+        options.group = prompt_user('Group [root]:')
 
-    # defaults
-    if not user:        user        = 'root'
-    if not group:       group       = 'root'
-
-    try:
-        timeout = prompt_user('Timeout (in seconds) [600]:')
-        if timeout:
-            timeout = int(timeout)
-        else:
-            timeout = 600
-    except ValueError:
-        logging.error('Invalid timeout')
-        return
-
-    timestamp    = prompt_user('Start Time [now]:')
-    timestamp = parse_time_input(timestamp)
-
-    script_file  = prompt_user('Script File [create]:')
-
-    # read the script provided by the user
-    if script_file:
-        keep_script_file = True
-
-        script_file = os.path.abspath(script_file)
+        # defaults
+        if not options.user:  options.user  = 'root'
+        if not options.group: options.group = 'root'
 
         try:
-            handle = open(script_file, 'r')
-            script = handle.read()
-            handle.close()
-        except IOError:
-            logging.error('Could not read %s' % script_file)
+            options.timeout = prompt_user('Timeout (in seconds) [600]:')
+            if options.timeout:
+                options.timeout = int(options.timeout)
+            else:
+                options.timeout = 600
+        except ValueError:
+            logging.error('Invalid timeout')
+            return
+
+        options.start_time = prompt_user('Start Time [now]:')
+        options.start_time = parse_time_input(options.start_time)
+
+        script_file = prompt_user('Script File [create]:')
+
+        # read the script provided by the user
+        if script_file:
+            keep_script_file = True
+
+            options.script = read_file(os.path.abspath(script_file))
+        else:
+            # have the user write their script
+            (options.script, script_file) = editor('#!/bin/bash')
+            keep_script_file = False
+
+        if not options.script:
+            logging.error('No script provided')
             return
     else:
-        # have the user write their script
-        (script, script_file) = editor('#!/bin/bash')
-        keep_script_file = False
+        if not options.user: options.user = 'root'
+        if not options.group: options.group = 'root'
+        if not options.timeout: options.timeout = 600
+        if not options.start_time: options.start_time = parse_time_input('now')
 
-    if not script:
-        logging.error('No script provided')
-        return
+        if not options.file:
+            logging.error('A script file is required')
+            return
+
+        options.script = read_file(options.file)
 
     # display a summary
     print
-    print 'User:       %s' % user
-    print 'Group:      %s' % group
-    print 'Timeout:    %i seconds' % timeout
-    print 'Start Time: %s' % timestamp
+    print 'User:       %s' % options.user
+    print 'Group:      %s' % options.group
+    print 'Timeout:    %i seconds' % options.timeout
+    print 'Start Time: %s' % options.start_time
     print
     print 'Script Contents'
     print '---------------'
-    print script
+    print options.script
 
     # have the user confirm
     if not self.user_confirm(): return
@@ -365,11 +383,11 @@ def do_system_runscript(self, args):
 
         action_id = self.client.system.scheduleScriptRun(self.session,
                                                          system_ids,
-                                                         user,
-                                                         group,
-                                                         timeout,
-                                                         script,
-                                                         timestamp)
+                                                         options.user,
+                                                         options.group,
+                                                         options.timeout,
+                                                         options.script,
+                                                         options.start_time)
 
         logging.info('Action ID: %i' % action_id)
         scheduled = len(system_ids)
@@ -381,13 +399,14 @@ def do_system_runscript(self, args):
             if not system_id: return
 
             try:
-                action_id = self.client.system.scheduleScriptRun(self.session,
-                                                                 system_id,
-                                                                 user,
-                                                                 group,
-                                                                 timeout,
-                                                                 script,
-                                                                 timestamp)
+                action_id = \
+                    self.client.system.scheduleScriptRun(self.session,
+                                                         system_id,
+                                                         options.user,
+                                                         options.group,
+                                                         options.timeout,
+                                                         options.script,
+                                                         options.start_time)
 
                 logging.info('Action ID: %i' % action_id)
                 scheduled += 1
@@ -979,7 +998,11 @@ def do_system_listconfigchannels(self, args):
 
 def help_system_addconfigchannels(self):
     print 'system_addconfigchannels: Add config channels to a system'
-    print 'usage: system_addconfigchannels <SYSTEMS> <CHANNEL ...>'
+    print '''usage: system_addconfigchannels <SYSTEMS> <CHANNEL ...> [options]
+
+options:
+  -t add channels to the top of the list
+  -b add channels to the bottom of the list'''
     print
     print self.HELP_SYSTEM_OPTS
 
@@ -993,7 +1016,10 @@ def complete_system_addconfigchannels(self, text, line, beg, end):
                                   text)
 
 def do_system_addconfigchannels(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-t', '--top', action='store_true'),
+                Option('-b', '--bottom', action='store_true') ]
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 2:
         self.help_system_addconfigchannels()
@@ -1008,18 +1034,24 @@ def do_system_addconfigchannels(self, args):
 
     channels = args
 
-    answer = prompt_user('Add to top or bottom? [T/b]:')
-    if re.match('b', answer, re.I):
-        location = False
+    if is_interactive(options):
+        answer = prompt_user('Add to top or bottom? [T/b]:')
+        if re.match('b', answer, re.I):
+            options.top = False
+        else:
+            options.top = True
     else:
-        location = True
+        if options.bottom:
+            options.top = False
+        else:
+            options.top = True
 
     system_ids = [ self.get_system_id(s) for s in systems ]
 
     self.client.system.config.addChannels(self.session,
                                           system_ids,
                                           channels,
-                                          location)
+                                          options.top)
 
 ####################
 
@@ -1480,7 +1512,11 @@ def do_system_removecustomvalues(self, args):
 
 def help_system_addnote(self):
     print 'system_addnote: Set a note for a system'
-    print 'usage: system_addnote <SYSTEM>'
+    print '''usage: system_addnote <SYSTEM> [options]
+
+options:
+  -s SUBJECT
+  -b BODY'''
     print
     print self.HELP_SYSTEM_OPTS
 
@@ -1488,7 +1524,10 @@ def complete_system_addnote(self, text, line, beg, end):
     return self.tab_complete_systems(text)
 
 def do_system_addnote(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-s', '--subject', action='store'),
+                Option('-b', '--body', action='store') ]
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 1:
         self.help_system_addnote()
@@ -1500,16 +1539,28 @@ def do_system_addnote(self, args):
     else:
         systems = self.expand_systems(args)
 
-    subject = prompt_user('Subject of the Note:', noblank = True)
+    if is_interactive(options):
+        options.subject = prompt_user('Subject of the Note:', noblank = True)
 
-    message = 'Note Body (ctrl-D to finish):'
-    body = prompt_user(message, noblank = True, multiline = True)
+        message = 'Note Body (ctrl-D to finish):'
+        options.body = prompt_user(message, noblank = True, multiline = True)
+    else:
+        if not options.subject:
+            logging.error('A subject is required')
+            return
+
+        if not options.body:
+            logging.error('A body is required')
+            return
 
     for system in systems:
         system_id = self.get_system_id(system)
         if not system_id: continue
 
-        self.client.system.addNote(self.session, system_id, subject, body)
+        self.client.system.addNote(self.session,
+                                   system_id,
+                                   options.subject,
+                                   options.body)
 
 ####################
 
@@ -2211,7 +2262,11 @@ def do_system_deletepackageprofile(self, args):
 
 def help_system_createpackageprofile(self):
     print 'system_createpackageprofile: Create a package profile'
-    print 'usage: system_createpackageprofile SYSTEM'
+    print '''usage: system_createpackageprofile SYSTEM [options]
+
+options:
+  -n NAME
+  -d DESCRIPTION'''
 
 def complete_system_createpackageprofile(self, text, line, beg, end):
     parts = line.split(' ')
@@ -2220,7 +2275,10 @@ def complete_system_createpackageprofile(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
 def do_system_createpackageprofile(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-n', '--name', action='store'),
+                Option('-d', '--description', action='store') ]
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) != 1:
         self.help_system_createpackageprofile()
@@ -2231,15 +2289,24 @@ def do_system_createpackageprofile(self, args):
         logging.error('Invalid system')
         return
 
-    label = prompt_user('Profile Label:', noblank = True)
-    description = prompt_user('Description:', multiline = True)
+    if is_interactive(options):
+        options.name = prompt_user('Profile Label:', noblank = True)
+        options.description = prompt_user('Description:', multiline = True)
+    else:
+        if not options.name:
+            logging.error('A profile name is required')
+            return
+
+        if not options.description:
+            logging.error('A profile description is required')
+            return
 
     results = self.client.system.createPackageProfile(self.session,
                                                       system_id,
-                                                      label,
-                                                      description)
+                                                      options.name,
+                                                      options.description)
 
-    logging.info("Created package profile '%s'" % label)
+    logging.info("Created package profile '%s'" % options.name)
 
 ####################
 
