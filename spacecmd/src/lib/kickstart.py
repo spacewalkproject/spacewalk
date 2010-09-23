@@ -22,6 +22,7 @@
 
 from getpass import getpass
 from operator import itemgetter
+from optparse import Option
 from urllib2 import urlopen, HTTPError
 from spacecmd.utils import *
 
@@ -56,58 +57,82 @@ def do_kickstart_list(self, args, doreturn=False):
 
 def help_kickstart_create(self):
     print 'kickstart_create: Create a Kickstart profile'
-    print 'usage: kickstart_create [PROFILE]'
+    print '''usage: kickstart_create [options]
+
+options:
+  -n NAME
+  -d DISTRIBUTION
+  -p ROOT_PASSWORD
+  -v VIRT_TYPE ['none', 'para_host', 'qemu', 'xenfv', 'xenpv']'''
 
 def do_kickstart_create(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-n', '--name', action='store'),
+                Option('-d', '--distribution', action='store'),
+                Option('-v', '--virt-type', action='store'),
+                Option('-p', '--root-password', action='store') ]
 
-    if len(args):
-        name = args[0]
+    (args, options) = parse_arguments(args, options)
+
+    if is_interactive(options):
+        options.name = prompt_user('Name:', noblank = True)
+
+        print 'Virtualization Types'
+        print '--------------------'
+        print '\n'.join(sorted(self.VIRT_TYPES))
+        print
+
+        options.virt_type = prompt_user('Virtualization Type [none]:')
+        if options.virt_type == '' or options.virt_type not in self.VIRT_TYPES:
+            options.virt_type = 'none'
+
+        options.distribution = ''
+        while options.distribution == '':
+            trees = self.do_distribution_list('', True)
+            print
+            print 'Distributions'
+            print '-------------'
+            print '\n'.join(sorted(trees))
+            print
+
+            options.distribution = prompt_user('Select:')
+
+        options.root_password = ''
+        while options.root_password == '':
+            print
+            password1 = getpass('Root Password: ')
+            password2 = getpass('Repeat Password: ')
+
+            if password1 == password2:
+                root_options.password = password1
+            elif password1 == '':
+                logging.warning('Password must be at least 5 characters')
+            else:
+                logging.warning("Passwords don't match")
     else:
-        name = prompt_user('Name:', noblank = True)
+        if not options.name:
+            logging.error('The Kickstart name is required')
+            return
 
-    print 'Virtualization Types'
-    print '--------------------'
-    print '\n'.join(sorted(self.VIRT_TYPES))
-    print
+        if not options.distribution:
+            logging.error('The distribution is required')
+            return
 
-    virt = prompt_user('Virtualization Type [none]:')
-    if virt == '' or virt not in self.VIRT_TYPES:
-        virt = 'none'
+        if not options.virt_type:
+            options.virt_type = 'none'
 
-    tree = ''
-    while tree == '':
-        trees = self.do_distribution_list('', True)
-        print
-        print 'Distributions'
-        print '-------------'
-        print '\n'.join(sorted(trees))
-        print
-
-        tree = prompt_user('Select:')
-
-    password = ''
-    while password == '':
-        print
-        password1 = getpass('Root Password: ')
-        password2 = getpass('Repeat Password: ')
-
-        if password1 == password2:
-            password = password1
-        elif password1 == '':
-            logging.warning('Password must be at least 5 characters')
-        else:
-            logging.warning("Passwords don't match") 
+        if not options.root_password:
+            logging.error('A root password is required')
+            return
 
     # leave this blank to use the default server
     host = ''
 
     self.client.kickstart.createProfile(self.session,
-                                        name,
-                                        virt,
-                                        tree,
+                                        options.name,
+                                        options.virt_type,
+                                        options.distribution,
                                         host,
-                                        password) 
+                                        options.root_password)
 
 ####################
 
@@ -135,60 +160,75 @@ def do_kickstart_delete(self, args):
 
 def help_kickstart_import(self):
     print 'kickstart_import: Import a Kickstart profile from a file'
-    print 'usage: kickstart_import PROFILE FILE'
+    print '''usage: kickstart_import PROFILE [options]
+
+options:
+  -f FILE
+  -n NAME
+  -d DISTRIBUTION
+  -p ROOT_PASSWORD
+  -v VIRT_TYPE ['none', 'para_host', 'qemu', 'xenfv', 'xenpv']'''
 
 def do_kickstart_import(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-n', '--name', action='store'),
+                Option('-d', '--distribution', action='store'),
+                Option('-v', '--virt-type', action='store'),
+                Option('-p', '--root-password', action='store'),
+                Option('-f', '--file', action='store') ]
 
-    if not len(args):
-        self.help_kickstart_import()
-        return
+    (args, options) = parse_arguments(args, options)
 
-    name = args[0]
-    filename = args[1]
+    if is_interactive(options):
+        options.name = prompt_user('Name:', noblank = True)
+        options.file = prompt_user('File:', noblank = True)
 
-    print 'Virtualization Types'
-    print '--------------------'
-    print '\n'.join(sorted(self.VIRT_TYPES))
-    print
-
-    virt = prompt_user('Virtualization Type [none]:')
-    if virt == '' or virt not in self.VIRT_TYPES:
-        virt = 'none'
-
-    tree = ''
-    while tree == '':
-        trees = self.do_distribution_list('', True)
-        print
-        print 'Distributions'
-        print '-------------'
-        print '\n'.join(sorted(trees))
+        print 'Virtualization Types'
+        print '--------------------'
+        print '\n'.join(sorted(self.VIRT_TYPES))
         print
 
-        tree = prompt_user('Select:')
+        options.virt_type = prompt_user('Virtualization Type [none]:')
+        if options.virt_type == '' or options.virt_type not in self.VIRT_TYPES:
+            options.virt_type = 'none'
 
-    if not os.path.isfile(filename):
-        logging.error("Couldn't read %s" % filename)
-        return
+        options.distribution = ''
+        while options.distribution == '':
+            trees = self.do_distribution_list('', True)
+            print
+            print 'Distributions'
+            print '-------------'
+            print '\n'.join(sorted(trees))
+            print
 
-    contents = ''
-    try:
-        ksfile = open(filename, 'r')
-        contents = ksfile.read()
-        ksfile.close()
-    except IOError:
-        logging.error("Couldn't read %s" % filename)
-        return 
+            options.distribution = prompt_user('Select:')
+    else:
+        if not options.name:
+            logging.error('The Kickstart name is required')
+            return
+
+        if not options.distribution:
+            logging.error('The distribution is required')
+            return
+
+        if not options.file:
+            logging.error('A filename is required')
+            return
+
+        if not options.virt_type:
+            options.virt_type = 'none'
+
+    # read the contents of the Kickstart file
+    options.contents = read_file(options.file)
 
     # use the default server
     host = ''
 
     self.client.kickstart.importFile(self.session,
-                                     name,
-                                     virt,
-                                     tree,
+                                     options.name,
+                                     options.virt_type,
+                                     options.distribution,
                                      host,
-                                     contents)
+                                     options.contents)
 
 ####################
 
@@ -569,7 +609,7 @@ def complete_kickstart_addactivationkeys(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_kickstart_list('', True), text)
     elif len(parts) > 2:
-        return tab_completer(self.do_activationkey_list('', True), 
+        return tab_completer(self.do_activationkey_list('', True),
                                   text)
 
 def do_kickstart_addactivationkeys(self, args):
@@ -594,7 +634,7 @@ def help_kickstart_removeactivationkeys(self):
           'a Kickstart profile'
     print 'usage: kickstart_removeactivationkeys PROFILE <KEY ...>'
 
-def complete_kickstart_removeactivationkeys(self, text, line, beg, 
+def complete_kickstart_removeactivationkeys(self, text, line, beg,
                                             end):
     parts = line.split(' ')
 
@@ -633,7 +673,7 @@ def help_kickstart_enableconfigmanagement(self):
           'management on a Kickstart profile'
     print 'usage: kickstart_enableconfigmanagement PROFILE'
 
-def complete_kickstart_enableconfigmanagement(self, text, line, beg, 
+def complete_kickstart_enableconfigmanagement(self, text, line, beg,
                                               end):
     parts = line.split(' ')
 
@@ -659,7 +699,7 @@ def help_kickstart_disableconfigmanagement(self):
           'management on a Kickstart profile'
     print 'usage: kickstart_disableconfigmanagement PROFILE'
 
-def complete_kickstart_disableconfigmanagement(self, text, line, beg, 
+def complete_kickstart_disableconfigmanagement(self, text, line, beg,
                                                end):
     parts = line.split(' ')
 
@@ -685,7 +725,7 @@ def help_kickstart_enableremotecommands(self):
           'on a Kickstart profile'
     print 'usage: kickstart_enableremotecommands PROFILE'
 
-def complete_kickstart_enableremotecommands(self, text, line, beg, 
+def complete_kickstart_enableremotecommands(self, text, line, beg,
                                             end):
     parts = line.split(' ')
 
@@ -730,7 +770,7 @@ def do_kickstart_disableremotecommands(self, args):
                                                                profile)
 
 ####################
-    
+
 def help_kickstart_setlocale(self):
     print 'kickstart_setlocale: Set the locale for a Kickstart profile'
     print 'usage: kickstart_setlocale PROFILE LOCALE'
@@ -753,7 +793,7 @@ def do_kickstart_setlocale(self, args):
     profile = args[0]
     locale = args[1]
 
-    # always use UTC        
+    # always use UTC
     utc = True
 
     self.client.kickstart.profile.system.setLocale(self.session,
@@ -835,7 +875,7 @@ def do_kickstart_setpartitions(self, args):
                                                                lines)
 
 ####################
-    
+
 def help_kickstart_setdistribution(self):
     print 'kickstart_setdistribution: Set the distribution for a ' + \
           'Kickstart profile'
@@ -864,7 +904,7 @@ def do_kickstart_setdistribution(self, args):
                                                    distribution)
 
 ####################
-    
+
 def help_kickstart_enablelogging(self):
     print 'kickstart_enablelogging: Enable logging for a Kickstart profile'
     print 'usage: kickstart_enablelogging PROFILE'
@@ -883,14 +923,14 @@ def do_kickstart_enablelogging(self, args):
         return
 
     profile = args[0]
-   
+
     self.client.kickstart.profile.setLogging(self.session,
                                              profile,
                                              True,
                                              True)
 
 ####################
-    
+
 def help_kickstart_addvariable(self):
     print 'kickstart_addvariable: Add a variable to a Kickstart profile'
     print 'usage: kickstart_addvariable PROFILE KEY VALUE'
@@ -922,7 +962,7 @@ def do_kickstart_addvariable(self, args):
                                                variables)
 
 ####################
-    
+
 def help_kickstart_updatevariable(self):
     print 'kickstart_updatevariable: Update a variable in a Kickstart ' + \
           'profile'
@@ -954,7 +994,7 @@ def do_kickstart_updatevariable(self, args):
     return self.do_kickstart_addvariable(' '.join(args))
 
 ####################
-    
+
 def help_kickstart_removevariables(self):
     print 'kickstart_removevariables: Remove variables from a ' + \
           'Kickstart profile'
@@ -998,7 +1038,7 @@ def do_kickstart_removevariables(self, args):
                                                variables)
 
 ####################
-    
+
 def help_kickstart_listvariables(self):
     print 'kickstart_listvariables: List the variables of a Kickstart ' + \
           'profile'
@@ -1026,7 +1066,7 @@ def do_kickstart_listvariables(self, args):
         print '%s = %s' % (v, variables[v])
 
 ####################
-    
+
 def help_kickstart_addoption(self):
     print 'kickstart_addoption: Set an option for a Kickstart profile'
     print 'usage: kickstart_addoption PROFILE KEY [VALUE]'
@@ -1076,7 +1116,7 @@ def do_kickstart_addoption(self, args):
         return
 
 ####################
-    
+
 def help_kickstart_removeoptions(self):
     print 'kickstart_removeoptions: Remove options from a Kickstart profile'
     print 'usage: kickstart_removeoptions PROFILE <OPTION ...>'
@@ -1122,7 +1162,7 @@ def do_kickstart_removeoptions(self, args):
                                                      advanced)
 
 ####################
-    
+
 def help_kickstart_listoptions(self):
     print 'kickstart_listoptions: List the options of a Kickstart ' + \
           'profile'
@@ -1151,7 +1191,7 @@ def do_kickstart_listoptions(self, args):
             print '%s %s' % (o.get('name'), o.get('arguments'))
 
 ####################
-    
+
 def help_kickstart_listcustomoptions(self):
     print 'kickstart_listcustomoptions: List the custom options of a ' + \
           'Kickstart profile'
@@ -1180,7 +1220,7 @@ def do_kickstart_listcustomoptions(self, args):
             print o.get('arguments')
 
 ####################
-    
+
 def help_kickstart_setcustomoptions(self):
     print 'kickstart_setcustomoptions: Set custom options for a ' + \
           'Kickstart profile'
@@ -1213,7 +1253,7 @@ def do_kickstart_setcustomoptions(self, args):
     old_options = '\n'.join(old_options)
 
     # let the user edit the custom options
-    (new_options, ignore) = editor(template = old_options, 
+    (new_options, ignore) = editor(template = old_options,
                                         delete = True)
 
     new_options = new_options.split('\n')
@@ -1223,7 +1263,7 @@ def do_kickstart_setcustomoptions(self, args):
                                                    new_options)
 
 ####################
-    
+
 def help_kickstart_addchildchannels(self):
     print 'kickstart_addchildchannels: Add a child channels to a ' + \
           'Kickstart profile'
@@ -1252,7 +1292,7 @@ def complete_kickstart_addchildchannels(self, text, line, beg, end):
             parent_channel = base_channel.get('label')
         except:
             return []
-        
+
         return tab_completer(self.list_child_channels(\
                                   parent=parent_channel), text)
 
@@ -1270,19 +1310,19 @@ def do_kickstart_addchildchannels(self, args):
                                                               profile)
 
     channels.extend(new_channels)
-    
+
     self.client.kickstart.profile.setChildChannels(self.session,
                                                    profile,
                                                    channels)
 
 ####################
-    
+
 def help_kickstart_removechildchannels(self):
     print 'kickstart_removechildchannels: Remove child channels from ' + \
           'a Kickstart profile'
     print 'usage: kickstart_removechildchannels PROFILE <CHANNEL ...>'
 
-def complete_kickstart_removechildchannels(self, text, line, beg, 
+def complete_kickstart_removechildchannels(self, text, line, beg,
                                            end):
     parts = line.split(' ')
 
@@ -1314,7 +1354,7 @@ def do_kickstart_removechildchannels(self, args):
                                                    channels)
 
 ####################
-    
+
 def help_kickstart_listchildchannels(self):
     print 'kickstart_listchildchannels: List the child channels of a ' + \
           'Kickstart profile'
@@ -1357,7 +1397,7 @@ def complete_kickstart_addfilepreservations(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_kickstart_list('', True), text)
     elif len(parts) == 3:
-        return tab_completer(self.do_filepreservation_list('', True), 
+        return tab_completer(self.do_filepreservation_list('', True),
                                   text)
 
 def do_kickstart_addfilepreservations(self, args):
@@ -1381,7 +1421,7 @@ def help_kickstart_removefilepreservations(self):
           'preservations from a Kickstart profile'
     print 'usage: kickstart_removefilepreservations PROFILE <FILE ...>'
 
-def complete_kickstart_removefilepreservations(self, text, line, beg, 
+def complete_kickstart_removefilepreservations(self, text, line, beg,
                                                end):
     parts = line.split(' ')
 
@@ -1453,7 +1493,7 @@ def complete_kickstart_addpackages(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(self.do_kickstart_list('', True), text) 
+        return tab_completer(self.do_kickstart_list('', True), text)
     elif len(parts) > 2:
         return tab_completer(self.get_package_names(), text)
 
@@ -1481,7 +1521,7 @@ def complete_kickstart_removepackages(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(self.do_kickstart_list('', True), 
+        return tab_completer(self.do_kickstart_list('', True),
                                   text)
     elif len(parts) > 2:
         return tab_completer(self.do_kickstart_listpackages(\
@@ -1549,7 +1589,14 @@ def do_kickstart_listscripts(self, args):
 
 def help_kickstart_addscript(self):
     print 'kickstart_addscript: Add a script to a Kickstart profile'
-    print 'usage: kickstart_addscript PROFILE'
+    print '''usage: kickstart_addscript PROFILE [options]
+
+options:
+  -p PROFILE
+  -e EXECUTION_TIME ['pre', 'post']
+  -i INTERPRETER
+  -f FILE
+  -c execute in a chroot environment'''
 
 def complete_kickstart_addscript(self, text, line, beg, end):
     parts = line.split(' ')
@@ -1558,49 +1605,80 @@ def complete_kickstart_addscript(self, text, line, beg, end):
         return tab_completer(self.do_kickstart_list('', True), text)
 
 def do_kickstart_addscript(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-p', '--profile', action='store'),
+                Option('-e', '--execution-time', action='store'),
+                Option('-c', '--chroot', action='store_true'),
+                Option('-i', '--interpreter', action='store'),
+                Option('-f', '--file', action='store') ]
 
-    if not len(args):
-        self.help_kickstart_addscript()
-        return
+    (args, options) = parse_arguments(args, options)
 
-    profile = args[0]
+    if is_interactive(options):
+        if len(args):
+            options.profile = args[0]
+        else:
+            options.profile = prompt_user('Profile Name:', noblank = True)
 
-    script_type = prompt_user('Pre/Post Script [post]:')
-    chroot = prompt_user('Chrooted [Y/n]:')
-    interpreter = prompt_user('Interpreter [/bin/bash]:')
-    
-    # get the contents of the script
-    (contents, ignore) = editor(delete = True)
-    
-    # check user input
-    if interpreter == '': interpreter = '/bin/bash'
-    
-    if re.match('pre', script_type, re.I):
-        script_type = 'pre'
+        options.execution_time = prompt_user('Pre/Post Script [post]:')
+        options.chroot = prompt_user('Chrooted [Y/n]:')
+        options.interpreter = prompt_user('Interpreter [/bin/bash]:')
+
+        # get the contents of the script
+        if self.user_confirm('Read an existing file [y/N]:', nospacer = True):
+            options.file = prompt_user('File:')
+        else:
+            (options.contents, ignore) = editor(delete=True)
+
+        # check user input
+        if options.interpreter == '': options.interpreter = '/bin/bash'
+
+        if re.match('n', options.chroot, re.I):
+            options.chroot = False
+        else:
+            options.chroot = True
+
+        if re.match('pre', options.execution_time, re.I):
+            options.execution_time = 'pre'
+        else:
+            options.execution_time = 'post'
     else:
-        script_type = 'post'
+        if not options.profile:
+            logging.error('The Kickstart name is required')
+            return
 
-    if re.match('n', chroot, re.I):
-        chroot = False
-    else:
-        chroot = True
+        if not options.file:
+            logging.error('A filename is required')
+            return
+
+        if not options.execution_time:
+            logging.error('The execution time is required')
+            return
+
+        if not options.chroot:
+            options.chroot = True
+
+        if not options.interpreter:
+            options.interpreter = '/bin/bash'
+
+    if options.file:
+        options.contents = read_file(options.file)
 
     print
-    print 'Type:        %s' % script_type
-    print 'Chroot:      %s' % chroot
-    print 'Interpreter: %s' % interpreter
+    print 'Profile Name:   %s' % options.profile
+    print 'Execution Time: %s' % options.execution_time
+    print 'Chroot:         %s' % options.chroot
+    print 'Interpreter:    %s' % options.interpreter
     print 'Contents:'
-    print contents
+    print options.contents
 
     if not self.user_confirm(): return
 
     self.client.kickstart.profile.addScript(self.session,
-                                            profile,
-                                            contents,
-                                            interpreter,
-                                            script_type,
-                                            chroot)
+                                            options.profile,
+                                            options.contents,
+                                            options.interpreter,
+                                            options.execution_time,
+                                            options.chroot)
 
 ####################
 
@@ -1639,7 +1717,7 @@ def do_kickstart_removescript(self, args):
         while script_id == 0:
             print
             userinput = prompt_user('Script ID:', noblank = True)
-    
+
             try:
                 script_id = int(userinput)
             except ValueError:
