@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        10.2.0.24
+Version:        10.2.0.25
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
@@ -97,6 +97,10 @@ find %{_prefix}/lib/oracle/%{icversion} \
         | xargs execstack -c
 
 %changelog
+* Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 10.2.0.25-1
+- instantclient on s390(x) upgraded to 10.2.0.4
+- switched to default VersionTagger
+
 * Thu Sep 23 2010 Jan Pazdziora 10.2-24
 - 623115 - file lookup using just the linker name (libldap.so) fails if
   openldap-devel is not installed.
