@@ -22,41 +22,83 @@
 
 import shlex
 from getpass import getpass
+from optparse import Option
 from spacecmd.utils import *
 
 def help_user_create(self):
     print 'user_create: Create a user'
-    print 'usage: user_create'
+    print '''usage: user_create [options]
+
+options:
+  -u USERNAME
+  -f FIRST_NAME
+  -l LAST_NAME
+  -e EMAIL
+  -p PASSWORD
+  --pam enable PAM authentication'''
 
 def do_user_create(self, args):
-    username = prompt_user('Username:', noblank = True)
-    first_name = prompt_user('First Name:', noblank = True)
-    last_name = prompt_user('Last Name:', noblank = True)
-    email = prompt_user('Email:', noblank = True)
-    pam = self.user_confirm('PAM Authentication [y/N]:', 
-                            nospacer = True, 
-                            integer = True)
+    options = [ Option('-u', '--username', action='store'),
+                Option('-f', '--first-name', action='store'),
+                Option('-l', '--last-name', action='store'),
+                Option('-e', '--email', action='store'),
+                Option('-p', '--password', action='store'),
+                Option('', '--pam', action='store_true') ]
 
-    password = ''
-    while password == '':
-        print
-        password1 = getpass('Password: ')
-        password2 = getpass('Repeat Password: ')
+    (args, options) = parse_arguments(args, options)
 
-        if password1 == password2:
-            password = password1
-        elif password1 == '':
-            logging.warning('Password must be at least 5 characters')
-        else:
-            logging.warning("Passwords don't match") 
+    if is_interactive(options):
+        options.username = prompt_user('Username:', noblank = True)
+        options.first_name = prompt_user('First Name:', noblank = True)
+        options.last_name = prompt_user('Last Name:', noblank = True)
+        options.email = prompt_user('Email:', noblank = True)
+        options.pam = self.user_confirm('PAM Authentication [y/N]:',
+                                        nospacer = True,
+                                        integer = True,
+                                        ignore_yes = True)
+
+        options.password = ''
+        while options.password == '':
+            password1 = getpass('Password: ')
+            password2 = getpass('Repeat Password: ')
+
+            if password1 == password2:
+                options.password = password1
+            elif password1 == '':
+                logging.warning('Password must be at least 5 characters')
+            else:
+                logging.warning("Passwords don't match")
+    else:
+        if not options.username:
+            logging.error('A username is required')
+            return
+
+        if not options.first_name:
+            logging.error('A first name is required')
+            return
+
+        if not options.last_name:
+            logging.error('A last name is required')
+            return
+
+        if not options.email:
+            logging.error('An email address is required')
+            return
+
+        if not options.password:
+            logging.error('A password is required')
+            return
+
+        if not options.pam:
+            options.pam = 0
 
     self.client.user.create(self.session,
-                            username,
-                            password,
-                            first_name,
-                            last_name,
-                            email,
-                            pam)
+                            options.username,
+                            options.password,
+                            options.first_name,
+                            options.last_name,
+                            options.email,
+                            options.pam)
 
 ####################
 
