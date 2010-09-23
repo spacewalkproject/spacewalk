@@ -21,6 +21,7 @@
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
 import re, shlex
+from optparse import Option
 from spacecmd.utils import *
 
 def help_activationkey_addpackages(self):
@@ -447,7 +448,11 @@ def do_activationkey_listconfigchannels(self, args):
 def help_activationkey_addconfigchannels(self):
     print 'activationkey_addconfigchannels: Add config channels ' \
           'to an activation key'
-    print 'usage: activationkey_addconfigchannels KEY <CHANNEL ...>'
+    print '''usage: activationkey_addconfigchannels KEY <CHANNEL ...> [options]
+
+options:
+  -t add channels to the top of the list
+  -b add channels to the bottom of the list'''
 
 def complete_activationkey_addconfigchannels(self, text, line, beg, end):
     parts = line.split(' ')
@@ -458,7 +463,10 @@ def complete_activationkey_addconfigchannels(self, text, line, beg, end):
         return tab_completer(self.do_configchannel_list('', True), text)
 
 def do_activationkey_addconfigchannels(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-t', '--top', action='store_true'),
+                Option('-b', '--bottom', action='store_true') ]
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 2:
         self.help_activationkey_addconfigchannels()
@@ -467,16 +475,22 @@ def do_activationkey_addconfigchannels(self, args):
     key = [ args.pop(0) ]
     channels = args
 
-    answer = prompt_user('Add to top or bottom? [T/b]:')
-    if re.match('b', answer, re.I):
-        location = False
+    if is_interactive(options):
+        answer = prompt_user('Add to top or bottom? [T/b]:')
+        if re.match('b', answer, re.I):
+            options.top = False
+        else:
+            options.top = True
     else:
-        location = True
+        if options.bottom:
+            options.top = False
+        else:
+            options.top = True
 
     self.client.activationkey.addConfigChannels(self.session, 
                                                 key, 
                                                 channels, 
-                                                location)
+                                                options.top)
 
 ####################
 
@@ -557,35 +571,65 @@ def do_activationkey_setconfigchannelorder(self, args):
 
 def help_activationkey_create(self):
     print 'activationkey_create: Create an activation key'
-    print 'usage: activationkey_create'
+    print '''usage: activationkey_create [options]
+
+options:
+  -n NAME
+  -d DESCRIPTION
+  -b BASE_CHANNEL
+  -u set key as universal default
+  -e [provisioning_entitled,enterprise_entitled,monitoring_entitled,
+      virtualization_host,virtualization_host_platform]'''
 
 def do_activationkey_create(self, args):
-    name = prompt_user('Name (blank to autogenerate):')
-    description = prompt_user('Description [None]:')
+    options = [ Option('-n', '--name', action='store'),
+                Option('-d', '--description', action='store'),
+                Option('-b', '--base-channel', action='store'),
+                Option('-e', '--entitlements', action='store'),
+                Option('-u', '--universal', action='store_true') ]
 
-    print
-    print 'Base Channels'
-    print '-------------'
-    print '\n'.join(sorted(self.list_base_channels()))
-    print
+    (args, options) = parse_arguments(args, options)
 
-    base_channel = prompt_user('Base Channel (blank for default):')
+    if is_interactive(options):
+        options.name = prompt_user('Name (blank to autogenerate):')
+        options.description = prompt_user('Description [None]:')
 
-    entitlements = []
-    for e in self.ENTITLEMENTS:
-        if e == 'enterprise_entitled': continue
+        print
+        print 'Base Channels'
+        print '-------------'
+        print '\n'.join(sorted(self.list_base_channels()))
+        print
 
-        if self.user_confirm('%s Entitlement [y/N]:' % e):
-            entitlements.append(e)
+        options.base_channel = prompt_user('Base Channel (blank for default):')
 
-    default = self.user_confirm('Universal Default [y/N]:')
+        options.entitlements = []
+
+        for e in self.ENTITLEMENTS:
+            if e == 'enterprise_entitled': continue
+
+            if self.user_confirm('%s Entitlement [y/N]:' % e):
+                options.entitlements.append(e)
+
+        options.universal = self.user_confirm('Universal Default [y/N]:')
+    else:
+        if not options.name: options.name = ''
+        if not options.description: options.description = ''
+        if not options.base_channel: options.base_channel = ''
+        if not options.universal: options.universal = False
+        if options.entitlements:
+            options.entitlements = options.entitlements.split(',')
+
+            # remove empty strings from the list
+            options.entitlements.remove('')
+        else:
+            options.entitlements = []
 
     new_key = self.client.activationkey.create(self.session,
-                                               name,
-                                               description,
-                                               base_channel,
-                                               entitlements,
-                                               default)
+                                               options.name,
+                                               options.description,
+                                               options.base_channel,
+                                               options.entitlements,
+                                               options.universal)
 
     logging.info('Created activation key %s' % new_key)
 
