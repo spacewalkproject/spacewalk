@@ -27,7 +27,7 @@ from spacecmd.utils import *
 #     completed/failed/pending systems so we don't need to make
 #     additional API calls to get those numbers
 def print_schedule_summary(self, type, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if len(args) > 0:
         begin_date = parse_time_input(args[0])
@@ -120,7 +120,7 @@ def complete_schedule_cancel(self, text, line, beg, end):
         return []
 
 def do_schedule_cancel(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if not len(args):
         self.help_schedule_cancel()
@@ -165,7 +165,7 @@ def complete_schedule_reschedule(self, text, line, beg, end):
         return []
 
 def do_schedule_reschedule(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if not len(args):
         self.help_schedule_reschedule()
@@ -209,7 +209,7 @@ def help_schedule_details(self):
     print 'usage: schedule_details ID'
 
 def do_schedule_details(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if not len(args):
         self.help_schedule_details()
@@ -281,7 +281,7 @@ def help_schedule_getoutput(self):
     print 'usage: schedule_getoutput ID'
 
 def do_schedule_getoutput(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if not len(args):
         self.help_schedule_getoutput()

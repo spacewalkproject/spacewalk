@@ -51,7 +51,7 @@ def do_configchannel_listsystems(self, args):
         logging.warning("This version of the API doesn't support this method")
         return
 
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if not len(args):
         self.help_configchannel_listsystems()
@@ -77,7 +77,7 @@ def complete_configchannel_listfiles(self, text, line, beg, end):
     return tab_completer(self.do_configchannel_list('', True), text)
 
 def do_configchannel_listfiles(self, args, doreturn=False):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if not len(args):
         self.help_configchannel_listfiles()
@@ -114,7 +114,7 @@ def complete_configchannel_filedetails(self, text, line, beg, end):
         return []
 
 def do_configchannel_filedetails(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_configchannel_filedetails()
@@ -185,7 +185,7 @@ def complete_configchannel_details(self, text, line, beg, end):
     return tab_completer(self.do_configchannel_list('', True), text)
 
 def do_configchannel_details(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if not len(args):
         self.help_configchannel_details()
@@ -220,7 +220,7 @@ def help_configchannel_create(self):
     print 'usage: configchannel_create [NAME] [DESCRIPTION]'
 
 def do_configchannel_create(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if len(args) > 0:
         name = args[0]
@@ -253,7 +253,7 @@ def complete_configchannel_delete(self, text, line, beg, end):
     return tab_completer(self.do_configchannel_list('', True), text)
 
 def do_configchannel_delete(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if not len(args):
         self.help_configchannel_delete()
@@ -274,7 +274,7 @@ def complete_configchannel_addfile(self, text, line, beg, end):
     return tab_completer(self.do_configchannel_list('', True), text)
 
 def do_configchannel_addfile(self, args, path=''):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if len(args) != 1:
         self.help_configchannel_addfile()
@@ -428,7 +428,7 @@ def complete_configchannel_updatefile(self, text, line, beg, end):
                                   text)
 
 def do_configchannel_updatefile(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if len(args) != 2:
         self.help_configchannel_updatefile()
@@ -455,7 +455,7 @@ def complete_configchannel_removefiles(self, text, line, beg, end):
                                   text)
 
 def do_configchannel_removefiles(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if len(args) < 2:
         self.help_configchannel_removefiles()

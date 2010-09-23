@@ -47,7 +47,7 @@ def complete_snippet_details(self, text, line, beg, end):
                               text)
 
 def do_snippet_details(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if not len(args):
         self.help_snippet_details()
@@ -85,7 +85,7 @@ def help_snippet_create(self):
     print 'usage: snippet_create'
 
 def do_snippet_create(self, args, name=''):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     template = ''
     if name:
@@ -119,7 +119,7 @@ def complete_snippet_update(self, text, line, beg, end):
     return tab_completer(self.do_snippet_list('', True), text)
 
 def do_snippet_update(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
     
     if not len(args):
         self.help_snippet_update()
@@ -137,7 +137,7 @@ def complete_snippet_delete(self, text, line, beg, end):
     return tab_completer(self.do_snippet_list('', True), text)
 
 def do_snippet_delete(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
     
     if not len(args):
         self.help_snippet_delete()

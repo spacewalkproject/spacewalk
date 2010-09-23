@@ -54,7 +54,7 @@ def help_report_inactivesystems(self):
     print 'usage: report_inactivesystems [DAYS]'
 
 def do_report_inactivesystems(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     # allow the user to set a limit on the number of days
     if len(args) == 1:
@@ -129,7 +129,7 @@ def help_report_errata(self):
 
 #XXX: performance is terrible due to all the API calls
 def do_report_errata(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     errata_list = self.expand_errata(args)
 
@@ -165,7 +165,7 @@ def help_report_ipaddresses(self):
     print self.HELP_SYSTEM_OPTS
 
 def do_report_ipaddresses(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if len(args):
         # use the systems listed in the SSM
@@ -217,7 +217,7 @@ def help_report_kernels(self):
     print self.HELP_SYSTEM_OPTS
 
 def do_report_kernels(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     if len(args):
         # use the systems listed in the SSM

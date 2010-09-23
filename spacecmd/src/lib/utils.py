@@ -22,19 +22,23 @@
 
 import logging, os, pickle, re, readline, shlex, sys, time, xmlrpclib
 from datetime import datetime, timedelta
+from optparse import OptionParser
 from tempfile import mkstemp
 from textwrap import wrap
 
 __EDITORS = ['vim', 'vi', 'nano', 'emacs']
 
-def parse_arguments(args):
+def parse_arguments(args, options = []):
     try:
         parts = shlex.split(args)
 
         # allow simple globbing
         parts = [re.sub('\*', '.*', a) for a in parts]
 
-        return parts
+        parser = OptionParser(option_list = options)
+        (options, leftovers) = parser.parse_args(args = parts)
+
+        return leftovers, options
     except IndexError:
         return []
 

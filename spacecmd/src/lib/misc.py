@@ -162,7 +162,7 @@ def help_login(self):
     print 'usage: login [USERNAME] [SERVER]'
 
 def do_login(self, args):
-    args = parse_arguments(args)
+    (args, options) = parse_arguments(args)
 
     # logout before logging in again
     if len(self.session):

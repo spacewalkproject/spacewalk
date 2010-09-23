@@ -184,7 +184,6 @@ Type: 'help' for a list of commands
         # append the arguments to the substituted command
         if history_match:
             line += ' %s' % args
-            parse_arguments(line)
 
             readline.add_history(line)
             print line
