@@ -379,6 +379,8 @@ ORDER BY next_action DESC
         ON snv.server_id = urn.server_id
       JOIN rhnServerChannel sc
         ON sc.server_id = snv.server_id
+      JOIN rhnServer S
+        ON S.id = SC.server_id
      WHERE sc.channel_id = :channel_id
        AND snv.errata_id = :errata_id
        AND S.org_id = :org_id
