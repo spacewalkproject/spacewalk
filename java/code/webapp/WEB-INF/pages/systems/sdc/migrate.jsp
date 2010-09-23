@@ -18,8 +18,8 @@
         <td>
           <html:select property="to_org">
             <html:option value="">-- None --</html:option>
-            <c:forEach var="org" items="${orgs}">
-              <html:option value="${org.name}">${org.name}</html:option>
+            <c:forEach var="orgVar" items="${orgs}">
+              <html:option value="${orgVar.name}">${orgVar.name}</html:option>
             </c:forEach>
           </html:select>
         </td>
