@@ -541,7 +541,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-sat-dump-internal.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-iss-export
-%attr(644,root,apache) %{rhnconf}/default/rhn_server_satexport_internal.conf
 
 
 %files libs
