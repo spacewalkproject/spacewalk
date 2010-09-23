@@ -297,7 +297,7 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
     }
 
     public void testPlainText() {
-        String expected = "You donot have enough entitlements for" +
+        String expected = "You do not have enough entitlements for" +
                                     " 5 systems (http://www.redhat.com).";
         String actual = ls.getPlainText("testMessage.html", 5);
         assertEquals(expected, actual);

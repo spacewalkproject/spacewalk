@@ -113,9 +113,9 @@ public class XmlRpcServletTest extends MockObjectTestCase {
                "<methodResponse><fault><value><struct><member><name>" +
                "faultCode</name><value><int>-1</int></value></member>" +
                "<member><name>faultString</name><value><string>" +
-               "redstone.xmlrpc.XmlRpcFault: Could not find method add in class " +
-               "class com.redhat.rhn.frontend.xmlrpc.test.UnitTestHandler</string>" +
-               "</value></member></struct></value></fault>" +
+               "redstone.xmlrpc.XmlRpcFault: Could not find method: add in class: " +
+               "com.redhat.rhn.frontend.xmlrpc.test.UnitTestHandler with params: " +
+               "[java.lang.Integer]</string></value></member></struct></value></fault>" +
                "</methodResponse>");
     }
 
