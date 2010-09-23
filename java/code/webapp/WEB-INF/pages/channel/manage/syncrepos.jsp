@@ -21,7 +21,7 @@
 <input type="hidden" name="cid" value="${cid}" />
 
 	<rl:list
-			emptykey="repos.jsp.norepos"
+			emptykey="repos.jsp.channel.norepos"
 			alphabarcolumn="label"
 	 >
 

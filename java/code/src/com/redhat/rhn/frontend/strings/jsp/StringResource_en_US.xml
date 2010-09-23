@@ -9461,8 +9461,11 @@ Please note that some manual configuration of these scripts may still be require
           <source>note here</source>
         </trans-unit>
         <trans-unit id="repos.jsp.norepos">
-          <source>No repos in the db</source>
+          <source>No repositories currently exist.</source>
         </trans-unit>
+        <trans-unit id="repos.jsp.channel.norepos">
+          <source>No repositories are currently associated with this channel.</source>
+        </trans-unit>        
         <trans-unit id="repos.jsp.label">
           <source>Label</source>
         </trans-unit>
@@ -22488,7 +22491,7 @@ given channel.</source>
 		<source>Monthly</source>
 	</trans-unit>
 	<trans-unit id="schedule.cron">
-		<source>Custom Cron format</source>
+		<source>Custom Quartz format</source>
 	</trans-unit>
 	<trans-unit id="schedule.weekly">
 		<source>Weekly</source>
