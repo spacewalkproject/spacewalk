@@ -340,15 +340,17 @@ public class LocalizationService {
     private StackTraceElement getCallingMethod() {
         try {
             throw new RuntimeException("Stacktrace Dummy Exception");
-        } catch (RuntimeException e) {
+        }
+        catch (RuntimeException e) {
             try {
                 final String prefix = this.getClass().getPackage().getName();
-                for (StackTraceElement element : e.getStackTrace() ){
-                    if (! element.getClassName().startsWith(prefix)) {
+                for (StackTraceElement element : e.getStackTrace()) {
+                    if (!element.getClassName().startsWith(prefix)) {
                         return element;
                     }
                 }
-            } catch (Throwable t) {
+            }
+            catch (Throwable t) {
                 // dont break - return nothing rather than stop
                 return null;
             }
