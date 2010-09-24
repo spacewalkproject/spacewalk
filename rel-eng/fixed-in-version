@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#
+# list tags (package builds) which contain specified commit
+#
+
+
+COMMIT=$1
+
+GITROOT=$(pwd)/$(git rev-parse --show-cdup)
+CHANGED_FILES=$(git diff --name-only $COMMIT^..$COMMIT)
+
+# find out which packages changed files belong to
+for package in $GITROOT/rel-eng/packages/* ; do
+     prefix=$(cat $package | awk '{print $2}')
+     package_basename=$(basename $package)
+     if echo "$CHANGED_FILES" | grep -q "^$prefix" ; then
+         # the nearest tag of the package which contain commit
+         git describe --contains --match "$package_basename*" $COMMIT \
+                | sed 's/~.*$//'
+     fi
+done
+
