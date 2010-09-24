@@ -1,4 +1,7 @@
-/usr/bin/jabberd	--	gen_context(system_u:object_r:jabberd_exec_t,s0)
+/usr/bin/c2s	--	gen_context(system_u:object_r:jabberd_exec_t,s0)
+/usr/bin/router	--	gen_context(system_u:object_r:jabberd_exec_t,s0)
+/usr/bin/s2s	--	gen_context(system_u:object_r:jabberd_exec_t,s0)
+/usr/bin/sm	--	gen_context(system_u:object_r:jabberd_exec_t,s0)
 
 /var/lib/jabberd(/.*)?		gen_context(system_u:object_r:jabberd_var_lib_t,s0)
 /var/log/jabberd(/.*)?		gen_context(system_u:object_r:jabberd_log_t,s0)

@@ -6,7 +6,7 @@
 %global modulename jabber
 
 Name:           jabberd-selinux
-Version:        1.4.9
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -28,7 +28,7 @@ Requires:        selinux-policy >= 2.4.6-114
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
-Requires:       jabberd
+Requires:       jabberd >= 2.2.8
 
 %description
 SELinux policy module supporting jabberd.
