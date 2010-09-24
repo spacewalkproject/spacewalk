@@ -1,0 +1,29 @@
+TRANSLATION FILES SPELLING SCRIPT HOWTO
+
+Install required packages (Fedora):
+
+yum -y install aspell aspell-* libxslt translate-toolkit
+
+
+To check java resources:
+
+./check_java.sh en_US
+./check_java.sh en_US de [...]
+./check_java_ALL.sh
+
+
+To check gettext resources:
+
+./check_gettext.sh en_US
+./check_gettext.sh en_US de [...]
+./check_gettext_ALL.sh
+
+
+Ignore list:
+
+To add words to ignore list just append them to the end of the file and
+manually filter out typos. Its good idea to convert new words to lowercase
+but not all (CamelCase words should stay as is). You can easily convert
+to lowercase with vim (command 'gu').
+
+Make sure there is no blank line in the ignore file.

@@ -242,7 +242,6 @@ uninstall
 unix
 Unschedule
 unselect
-Unselect
 unselectall
 updatelist
 uptime
@@ -263,3 +262,9 @@ Entitler
 Isls
 prid
 selectall
+online
+Dialog
+hostname
+login
+username
+rhnregister

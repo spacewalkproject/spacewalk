@@ -20,4 +20,7 @@ zh_CN
 zh_TW
 )
 
-. ./check.sh
+for lang in "${langs[@]}"
+do
+	./check_java.sh "$lang"
+done
