@@ -128,14 +128,18 @@ A tool that exports satellite content into a directory in an XML format. That co
 		<term>--start-date=<replaceable>START_DATE</replaceable></term>
         <listitem>
             <para>The start date limit that the last modified dates are
-                  compared against. Must be in the format 'YYYYMMDDHH24MISS'.</para>
+                  compared against. Should be in the format 'YYYYMMDDHH24MISS'.
+                  If you did not enter hour, minute and/or second, then zero is
+                  assumed. I.e. date 20100101 is expanded to 20100101000000.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
 		<term>--end-date=<replaceable>END_DATE</replaceable></term>
         <listitem>
             <para>The end date limit that the last modified dates are
-                  compared against. Must be in the format 'YYYYMMDDHH24MISS'.</para>
+                  compared against. Must be in the format 'YYYYMMDDHH24MISS'.
+                  If you did not enter hour, minute and/or second, then zero is
+                  assumed. I.e. date 20100101 is expanded to 20100101000000.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

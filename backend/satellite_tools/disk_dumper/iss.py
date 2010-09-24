@@ -32,6 +32,9 @@ import shutil
 import iss_isos
 from spacewalk.common.checksum import getFileChecksum
 
+import gettext
+_ = gettext.gettext
+
 class ISSError(Exception):
     def __init__(self, msg, tb):
         self.msg = msg
@@ -959,13 +962,21 @@ class ExporterMain:
             sys.stderr.write("--end-date must be used with --start-date.")
             sys.exit(1)
 
+        if self.options.end_date and len(self.options.end_date) < 8:
+            sys.stdout.write(_("format of %s should be at least YYYYMMDD.\n") % '--end-date')
+            sys.exit(1)
+
+        if self.options.start_date and len(self.options.start_date) < 8:
+            sys.stdout.write(_("format of %s should be at least YYYYMMDD.\n") % '--start-date')
+            sys.exit(1)
+
         if self.options.start_date:
             if self.options.end_date is None:
                 self.end_date = time.strftime("%Y%m%d%H%M%S")
             else:
-                self.end_date = self.options.end_date
+                self.end_date = self.options.end_date.ljust(14, '0')
 
-            self.start_date = self.options.start_date
+            self.start_date = self.options.start_date.ljust(14, '0')
             print "start date limit: %s" % self.start_date
             print "end date limit: %s" % self.end_date
             # set the limits to pick right queries in dumper
