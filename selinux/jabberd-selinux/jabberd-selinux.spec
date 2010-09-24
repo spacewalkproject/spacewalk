@@ -6,7 +6,7 @@
 %global modulename jabber
 
 Name:           jabberd-selinux
-Version:        1.5.0
+Version:        1.5.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -105,6 +105,14 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Sep 24 2010 Jan Pazdziora 1.5.1-1
+- 627984 - Allow jabberd to read certificates.
+- 627984 - Allow jabberd to use Kerberos.
+- 627984 - There is no /var/run/jabberd no, pid files are in
+  /var/lib/jabberd/pid.
+- 627984 - jabberd 2.2.8 starts the four programs directly from the init
+  script.
+
 * Fri Aug 27 2010 Shannon Hughes <shughes@redhat.com> 1.4.9-1
 - bump version 
 
