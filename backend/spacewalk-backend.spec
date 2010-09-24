@@ -762,9 +762,9 @@ rm -f %{rhnconf}/rhnSecret.py*
   (msuchy@redhat.com)
 - 612581 - for every Requires(pre) add pure Requires (msuchy@redhat.com)
 - 612581 - removing notes (msuchy@redhat.com)
-- 612581 -  use %{__python} macro rather then direct call of python
+- 612581 -  use %%{__python} macro rather then direct call of python
   (msuchy@redhat.com)
-- 612581 - use %global instead of %define (msuchy@redhat.com)
+- 612581 - use %%global instead of %%define (msuchy@redhat.com)
 - 612581 - use macro only for F12/RHEL-5 (msuchy@redhat.com)
 - 612581 - use BR python2-devel rather then python-devel (msuchy@redhat.com)
 - 589524 - select packages, erratas and kickstart trees according to import
