@@ -74,7 +74,10 @@ for rpm in rpmlist[1]:
 pkgfileList = os.listdir( '%s/packages/' % str(os.path.abspath(__file__)).strip('koji-missing-builds.py'))
 pkgfileList.remove('.README')
 for item in pkgstoignore:
-    pkgfileList.remove(item)
+    try:
+        pkgfileList.remove(item)
+    except ValueError:
+        pass
 
 for pkg in pkgfileList:
     fd = open('%s/packages/%s' % (str(os.path.abspath(__file__)).strip('koji-missing-builds.py'), pkg))
