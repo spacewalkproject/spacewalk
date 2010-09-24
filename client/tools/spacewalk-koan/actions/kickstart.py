@@ -26,7 +26,7 @@ __rhnexport__ = [
     'initiate',
 ]
 
-def initiate(kickstart_host, base, extra_append, static_device="", system_record="", preserve_files=[]):
+def initiate(kickstart_host, base, extra_append, static_device="", system_record="", preserve_files=[], cache_only=False):
     log = up2dateLog.initLog() 
     log.log_me("initiating spacewalkkoan kickstart")
     return spacewalkkoan.initiate(kickstart_host, base, extra_append=extra_append,
