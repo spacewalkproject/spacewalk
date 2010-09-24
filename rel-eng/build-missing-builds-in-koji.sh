@@ -29,7 +29,8 @@ done | sort | uniq | \
 while read package ; do
     (
       echo Building package in path $package
-      cd $package && ${TITO_PATH}tito build $TITO_BUILD_ARG | \
+      cd $package && \
+          echo y | ${TITO_PATH}tito build $TITO_BUILD_ARG | \
           awk '/Wrote:.*tar.gz/ {print $2}' | \
           if [ "0$FEDORA_UPLOAD" -eq 1 ] ; then
               xargs -I packagepath scp packagepath fedorahosted.org:spacewalk
