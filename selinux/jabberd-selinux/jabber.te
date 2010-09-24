@@ -79,6 +79,7 @@ libs_use_shared_libs(jabberd_t)
 logging_send_syslog_msg(jabberd_t)
 
 miscfiles_read_localization(jabberd_t)
+miscfiles_read_certs(jabberd_t)
 
 sysnet_read_config(jabberd_t)
 
