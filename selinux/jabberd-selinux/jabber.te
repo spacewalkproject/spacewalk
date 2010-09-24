@@ -86,6 +86,10 @@ userdom_dontaudit_use_unpriv_user_fds(jabberd_t)
 userdom_dontaudit_search_sysadm_home_dirs(jabberd_t)
 
 optional_policy(`
+	kerberos_use(jabberd_t)
+')
+
+optional_policy(`
 	nis_use_ypbind(jabberd_t)
 ')
 
