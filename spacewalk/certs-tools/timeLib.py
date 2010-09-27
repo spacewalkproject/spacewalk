@@ -327,35 +327,6 @@ def _test():
         print e
 
 
-def _baroquenLog():
-    """
-    >>> import time
-    >>> nowtup = time.gmtime()
-    >>> nowstr =  time.strftime('%b %d %H:%M:%S %Y', nowtup)
-    >>> nowstr
-    'Jun 19 00:09:58 2004'
-    >>> nowsec = time.mktime(nowtup)-time.timezone
-    >>> time.gmtime(nowsec)
-    (2004, 6, 19, 0, 9, 58, 5, 171, 0)
-    >>> nowsec
-    1087603798.0
-    >>> nowtup, nowsec_ = time.gmtime(), time.time()
-    >>> nowstr =  time.strftime('%b %d %H:%M:%S %Y', nowtup)
-    >>> nowstr
-    'Jun 19 00:19:05 2004'
-    >>> nowsec = time.mktime(nowtup)-time.timezone
-    >>> nowsec
-    1087604345.0
-    >>> nowsec_
-    1087604345.4773369
-    >>> oneyear = nowsec+(356*24*60*60)
-    >>> tup = time.gmtime(oneyear)
-    >>> time.strftime('%b %d %H:%M:%S %Y', nowtup)
-    'Jun 19 00:19:05 2004'
-    >>> time.strftime('%b %d %H:%M:%S %Y', tup)
-    'Jun 10 00:19:05 2005'
-    """
-
 
 if __name__ == '__main__':
     _test()
