@@ -91,6 +91,9 @@ install -p -m 644 httpd/templates/*.html   $RPM_BUILD_ROOT%httpd_prefix/template
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/
 install -p -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/notification
 
+mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3
+/usr/bin/pod2man $RPM_BUILD_ROOT/%{_bindir}/monitor-queue | gzip > $RPM_BUILD_ROOT%{_mandir}/man3/monitor-queue.3pm.gz
+
 %post
 if [ $1 -eq 2 ]; then
   ls /opt/notification/config/generated/* 2>/dev/null | xargs -I file mv file %{_sysconfdir}/notification/generated
@@ -124,6 +127,7 @@ fi
 %attr (755,%notif_user,%notif_user) %dir %log_dir/ticketlog
 %attr(644,%notif_user,%notif_user) %{_sysconfdir}/notification/static/*
 %{_sysconfdir}/notification/stage/config/static
+%{_mandir}/man3/monitor-queue*
 
 %clean
 rm -rf $RPM_BUILD_ROOT

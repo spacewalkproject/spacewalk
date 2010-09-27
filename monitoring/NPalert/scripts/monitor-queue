@@ -7,8 +7,17 @@ use strict;
 use NOCpulse::Config;
 use NOCpulse::Gritch;
 use NOCpulse::NOCpulseini;
+use Pod::Usage;
+
+pod2usage(0) unless $ARGV[0];
 
 my $CFG=NOCpulse::Config->new;
+
+if (not $CFG) {
+        print "Error: /etc/NOCpulse.ini do not exist. Enable monitoring first.\n";
+        exit(1);
+}
+
 my $recipient=$CFG->get('notification','notif_emergency_email');
 
 my $queue_name=$ARGV[0];
@@ -45,3 +54,48 @@ if ($queue_size >= $CRITICAL_QUEUE_SIZE) {
   print "$body\n";
   $soapbox->gritch('Possible Notification Meltdown!!!',$body);
 }
+
+=pod
+
+=head1 NAME
+
+monitor-queue - monitor the queues from Spacewalk monitoring.
+
+=head1 SYNOPSIS
+
+monitor-queue QUEUE WARNING_QUEUE_SIZE CRITICAL_QUEUE_SIZE
+
+=head1 DESCRIPTION
+
+This script is called by cron to monitor the alert, acknowledgement, and request queues. 
+You should not execute it manually unless you know what are you doing. For standalone usage is intended
+executable queue_remote_check.pl
+
+This works independent from the notification system and uses SMTP to deliver warning messages.
+
+=head1 OPTIONS
+
+QUEUE
+        Name of notification queue. Should be ALERTS, ACKS or REQUESTS.
+
+WARNING_QUEUE_SIZE
+        Size of queue, which should produce warning. In cron we use 50.
+        Currently nothing happen, if queue reach this limit.
+
+CRITICAL_QUEUE_SIZE
+        Size of queue, which is critical. In cron we use 100.
+        If queue reach this limit, email is sent with subject
+        'Possible Notification Meltdown!!!'
+        Email address is taken from NOCpulse.ini, from section notification, variable notif_emergency_email.
+
+=head1 SEE ALSO
+
+queue_remote_check.pl(3)
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2010 Red Hat, Inc.
+Released under GNU General Public License, version 2 (GPLv2).
+
+=cut
+
