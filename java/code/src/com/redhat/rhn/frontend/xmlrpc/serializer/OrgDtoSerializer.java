@@ -72,7 +72,7 @@ public class OrgDtoSerializer implements XmlRpcCustomSerializer {
         add(helper, "systems", dto.getSystems());
         add(helper, "trusts", dto.getTrusts());
         add(helper, "activation_keys", dto.getActivationKeys());
-        add(helper, "system_groups", dto.getActivationKeys());
+        add(helper, "system_groups", dto.getServerGroups());
         add(helper, "kickstart_profiles", dto.getKickstartProfiles());
         add(helper, "configuration_channels", dto.getConfigChannels());
         helper.writeTo(output);
