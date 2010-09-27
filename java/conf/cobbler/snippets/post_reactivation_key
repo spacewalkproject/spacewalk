@@ -1,23 +1,26 @@
-%post --interpreter /usr/bin/python
+%post --nochroot --interpreter /usr/bin/python
 import xmlrpclib
+import shutil
 import os
 import os.path
-system_id = "/root/systemid.old"
+old_system_id = "/tmp/rhn/systemid"
+new_system_id = "/mnt/sysimage/root/systemid.old"
 try:
 
     new_keys = "$redhat_management_key"
     for key in new_keys.split(','):
         if key.startswith('re-'):
             os.exit(0)
-    if os.path.exists(system_id):
+    if os.path.exists(old_system_id):
         client =  xmlrpclib.Server("http://$http_server/rpc/api")
-        key = client.system.obtain_reactivation_key(open(system_id).read())
-        f = open("/tmp/key","w")
+        key = client.system.obtain_reactivation_key(open(old_system_id).read())
+        f = open("/mnt/sysimage/tmp/key","w")
         f.write(key)
         f.close()
+        shutil.copy(old_system_id, new_system_id)
 except:
     # xml rpc due to  a old/bad system id
     # we don't care about those
-    # we'll register those as new. 
+    # we'll register those as new.
     pass
 

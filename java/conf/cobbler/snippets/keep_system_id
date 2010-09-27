@@ -11,7 +11,7 @@ mkdir -p /tmp/rhn
 
 drives=$(list-harddrives | awk '{print $1}')
 for disk in $drives; do
-    DISKS="$DISKS $(fdisk -l /dev/$disk | awk '/^\/dev/{print $1}')"
+    DISKS="$DISKS $(fdisk -l /dev/$disk | grep -v "swap\|LVM\|Extended" | awk '/^\/dev/{print $1}')"
 done
 
 # Try to find the keys on ordinary partitions
@@ -64,14 +64,4 @@ if [ "$rhn_keys_found" = "no" ]; then
     done
 fi
 
-# Loop until the RHN rpm is installed
-if [ "$rhn_keys_found" = "yes" ]; then
-    while : ; do
-        sleep 10
-        if [ -d /mnt/sysimage/root ] ; then
-            cp -af /tmp/rhn/* /mnt/sysimage/root/systemid.old
-            break
-        fi
-    done &
-fi
 #end raw
