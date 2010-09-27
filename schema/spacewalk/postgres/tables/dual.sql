@@ -1,3 +1,5 @@
+-- oracle equivalent source none
+
 create table dual ( dummy char );
 
 insert into dual values ( 'X' );

@@ -49,34 +49,42 @@ for my $c (sort keys %{ $files{oracle} }) {
 
 for my $c (sort keys %{ $files{postgres} }) {
 	next unless $c =~ /\.sql$/;
-	if (not exists $files{oracle}{$c}) {
-		print "Postgres file [$c] is not in oracle (ignoring for now)\n" if $show_ignored;
-		# $error = 1;
-	} else {
-		local *FILE;
-		open FILE, "postgres/$c" or do {
-			print "Error reading postgres/$c: $!\n";
+	local *FILE;
+	open FILE, "postgres/$c" or do {
+		print "Error reading postgres/$c: $!\n";
+		$error = 1;
+		next;
+	};
+	my $first_line = <FILE>;
+	close FILE;
+	if ($first_line =~ /^-- oracle equivalent source (?:(none)|sha1 ([0-9a-f]{40}))$/) {
+		my $oracle_sha1 = $2;
+		if (defined $1 and $1 eq 'none') {
+			# the PostgreSQL source says there is no Oracle equivalent
+			if (exists $files{oracle}{$c}) {
+				print "PostgreSQL file [$c] claims it has no Oracle equivalent, but it exists\n";
+				$error = 1;
+			}
+			next;
+		}
+		open FILE, "oracle/$c" or do {
+			print "Error reading oracle/$c to verify SHA1: $!\n";
 			$error = 1;
 			next;
 		};
-		my $first_line = <FILE>;
+		my $sha1 = new Digest::SHA1;
+		$sha1->addfile(\*FILE);
+		my $sha1_hex = $sha1->hexdigest();
 		close FILE;
-		if ($first_line =~ /^-- oracle equivalent source sha1 ([0-9a-f]{40})$/) {
-			my $oracle_sha1 = $1;
-			open FILE, "oracle/$c" or do {
-				print "Error reading oracle/$c to verify SHA1: $!\n";
-				$error = 1;
-				next;
-			};
-			my $sha1 = new Digest::SHA1;
-			$sha1->addfile(\*FILE);
-			my $sha1_hex = $sha1->hexdigest();
-			close FILE;
-			if ($oracle_sha1 ne $sha1_hex) {
-				print "File postgres/$c says SHA1 of Oracle source should be [$oracle_sha1] but it is [$sha1_hex]\n";
-				$error = 1;
-			}
+		if ($oracle_sha1 ne $sha1_hex) {
+			print "File postgres/$c says SHA1 of Oracle source should be [$oracle_sha1] but it is [$sha1_hex]\n";
+			$error = 1;
 		}
+		next;
+	}
+	if (not exists $files{oracle}{$c}) {
+		print "Postgres file [$c] is not in oracle\n";
+		$error = 1;
 	}
 }
 
