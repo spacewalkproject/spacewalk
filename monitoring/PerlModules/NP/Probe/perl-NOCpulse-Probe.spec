@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.184.3
+Version:      1.184.4
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -146,6 +146,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/NOCpulse::Probe::Shell::SQLPlus*
 
 %changelog
+* Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.184.4-1
+- 636224 - fix typos in mange and output of --help
+
 * Fri Aug 06 2010 Miroslav Suchý <msuchy@redhat.com> 1.184.3-1
 - 530519 - strip spaces from ipaddr
 
