@@ -474,10 +474,5 @@ def patch_url(url, scheme='http', path=None):
     return urlparse.urlunparse((_scheme, netloc, _path, params, query,
         fragment))
 
-def validate_time(s):
-    if s is None:
-        return None
-    return rhnLib.timestamp(s)
-
 if __name__ == '__main__':
     sys.exit(main() or 0)
