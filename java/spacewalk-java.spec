@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.44
+Version: 1.2.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,24 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.45-1
+- Revert "591291 - added new API calls
+  channel.software.mergeErrataWithPackages" (aparsons@redhat.com)
+- fixing unit tests (jsherril@redhat.com)
+- fixing some strings associated with repo syncing (jsherril@redhat.com)
+- 636442 - fixing issue where calling packages.removePackage() api call could
+  result in a unique constraint exception (jsherril@redhat.com)
+- Fixed mroe checkstyle errors (paji@redhat.com)
+- Fixed a checkstyle error (paji@redhat.com)
+- 634230 - fixing issue where errata mailer would run continuously and never
+  mark the notification queue as being finished (jsherril@redhat.com)
+- 636610 - Small fix for the migration jsp bug (paji@redhat.com)
+- redundancy is the spice of life, adding back rhnServer to table joins since
+  its not so redundant.  Reverts 9f09cf8bb9854c9f8bc6f4e497a49abec3affee2
+  (jsherril@redhat.com)
+- 629971 - added two county codes, better Localizer error message
+  (lzap+git@redhat.com)
+
 * Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.44-1
 - fixed erratamailer_fill_work_queue
 - resource spelling script and several typo corrections
