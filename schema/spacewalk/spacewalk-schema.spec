@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.22
+Version:        1.2.23
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.23-1
+- Marked PostgreSQL schema sources that are PostgreSQL-specific.
+  (jpazdziora@redhat.com)
+- The adler32 function does not seem to be used, removing.
+  (jpazdziora@redhat.com)
+- 636740 - asterisks in package search fixed (lzap+git@redhat.com)
+
 * Mon Sep 20 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.22-1
 - removed sequence used for rhnUserMessageStatus ids
 
