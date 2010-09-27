@@ -93,6 +93,7 @@ install -p -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/
 
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3
 /usr/bin/pod2man $RPM_BUILD_ROOT/%{_bindir}/monitor-queue | gzip > $RPM_BUILD_ROOT%{_mandir}/man3/monitor-queue.3pm.gz
+/usr/bin/pod2man $RPM_BUILD_ROOT/%{_bindir}/queue_remote_check.pl | gzip > $RPM_BUILD_ROOT%{_mandir}/man3/queue_remote_check.pl.3pm.gz
 
 %post
 if [ $1 -eq 2 ]; then
@@ -128,6 +129,7 @@ fi
 %attr(644,%notif_user,%notif_user) %{_sysconfdir}/notification/static/*
 %{_sysconfdir}/notification/stage/config/static
 %{_mandir}/man3/monitor-queue*
+%{_mandir}/man3/queue_remote_check.pl*
 
 %clean
 rm -rf $RPM_BUILD_ROOT

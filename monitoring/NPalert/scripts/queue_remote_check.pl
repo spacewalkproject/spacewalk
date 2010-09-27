@@ -2,16 +2,16 @@
 
 use strict;
 use NOCpulse::Config;
+use Pod::Usage;
 
-  my $CFG=NOCpulse::Config->new;
+my $CFG=NOCpulse::Config->new;
 
   my $queue_name=$ARGV[0];
   my $WARNING_QUEUE_SIZE  = $ARGV[1];
   my $CRITICAL_QUEUE_SIZE = $ARGV[2];
 
   unless ($queue_name && $WARNING_QUEUE_SIZE && $CRITICAL_QUEUE_SIZE) {
-    &help;
-    exit(1);
+    pod2usage(1)
   }
 
   my $OK_EXIT = 0;
@@ -23,6 +23,10 @@ use NOCpulse::Config;
   my $queue = { ALERTS   => 'alert_queue_dir',
                 ACKS     => 'ack_queue_dir',
                 REQUESTS => 'request_queue_dir' };
+
+  if (not $CFG) {
+    bailout("Error: /etc/NOCpulse.ini do not exist\n");
+  }
 
 # Locate queue directory
   my $QUEUE_DIR = $CFG->get('notification', $queue->{$queue_name});
@@ -49,7 +53,41 @@ sub bailout {
   exit($UNKNOWN_EXIT);
 }
 
-sub help {
-  print "$0 [queue name (ALERTS|ACKS|REQUESTS)] [warning level] [critical level]\n";
-  print "This script is meant for use with the Command Center remote program check with data.  It tracks the number of unprocessed requests current on disk for the specified queue.\n"
-}
+=pod
+
+=head1 NAME
+
+queue_remote_check.pl - monitor the queues from Spacewalk monitoring.
+
+=head1 SYNOPSIS
+
+queue_remote_check.pl QUEUE WARNING_QUEUE_SIZE CRITICAL_QUEUE_SIZE
+
+=head1 DESCRIPTION
+
+This script is give you content of the alert, acknowledgement, and request queues.
+There exist version for running as cronjob: monitor-queue.
+
+=head1 OPTIONS
+
+QUEUE
+        Name of notification queue. Should be ALERTS, ACKS or REQUESTS.
+
+WARNING_QUEUE_SIZE
+        Size of queue, which should produce warning. In cron we use 50.
+        If queue reach this limit. Script exit with code 1.
+
+CRITICAL_QUEUE_SIZE
+        Size of queue, which is critical. In cron we use 100.
+        If queue reach this limit, script exit with code 2.
+
+=head1 SEE ALSO
+
+monitor-queue(3)
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2009--2010 Red Hat, Inc.
+Released under GNU General Public License, version 2 (GPLv2).
+
+=cut
