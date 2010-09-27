@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.2.1
+Version:    1.2.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -80,6 +80,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.2-1
+- 627920 - Added a larger config file icon for symlinks. Thanks to Joshua Roys
+  (paji@redhat.com)
+
 * Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
 - 567885 - "Spacewalk release 0.9" leads to 404 (coec@war.coesta.com)
 
