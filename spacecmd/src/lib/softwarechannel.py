@@ -821,18 +821,18 @@ def do_softwarechannel_adderrata(self, args):
     if not self.user_confirm('Add these errata and packages [y/N]:'): return
 
     if self.check_api_version('10.12'):
-        merged = \
-            self.client.channel.software.mergeErrataWithPackages(self.session,
-                                                                source_channel,
-                                                                dest_channel,
-                                                                errata)
+        merged = self.client.channel.software.mergeErrata(self.session,
+                                                          source_channel,
+                                                          dest_channel,
+                                                          errata)
 
         # show the user which errata were actually merged
-        print
-        print "Errata Merged"
-        print "-------------"
-        print
-        print_errata_list(merged)
+        if self.options.debug:
+            print
+            print "Errata Merged"
+            print "-------------"
+            print
+            print_errata_list(merged)
     else:
         # clone each erratum individually because the process is slow and it can
         # lead to timeouts on the server
@@ -840,11 +840,11 @@ def do_softwarechannel_adderrata(self, args):
             logging.debug('Cloning %s' % erratum)
             self.client.errata.clone(self.session, dest_channel, [erratum])
 
-        # add the affected packages to the channel
-        logging.info('Adding required packages to %s' % dest_channel)
-        self.client.channel.software.addPackages(self.session,
-                                                 dest_channel,
-                                                 package_ids)
+    # add the affected packages to the channel
+    logging.info('Adding required packages to %s' % dest_channel)
+    self.client.channel.software.addPackages(self.session,
+                                             dest_channel,
+                                             package_ids)
 
     # regenerate the errata cache since we just cloned errata
     self.generate_errata_cache(True)
