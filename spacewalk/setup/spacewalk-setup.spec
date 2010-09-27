@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.6
+Version:        1.2.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -102,6 +102,15 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.7-1
+- do not restart whole satellite when enabling monitoring
+  (mzazrivec@redhat.com)
+- use bind variables (mzazrivec@redhat.com)
+- don't use RHN::Utils in spacewalk-setup (mzazrivec@redhat.com)
+- need_oracle_9i_10g_upgrade is no longer needed (mzazrivec@redhat.com)
+- unify embedded database upgrades (mzazrivec@redhat.com)
+- use standard perl dbi in update_monitoring_scout (mzazrivec@redhat.com)
+
 * Tue Sep 14 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.2.6-1
 - re-link /etc/smrsh/ack_enqueuer.pl during upgrade
 - update monitoring scout setup directly by spacewalk-setup
