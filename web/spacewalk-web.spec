@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.7
+Version: 1.2.8
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,17 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.8-1
+- 636653 - Made the  Channel Family Subscribed Systems page show guest systems
+  also (paji@redhat.com)
+- make 'db-control report' report TEMP_TBS statistics (mzazrivec@redhat.com)
+- 630585 - about-chat now points to proper channel (branding)
+  (lzap+git@redhat.com)
+- Cleanedup old/proted/unused config queries and updated the one for snapshot
+  (paji@redhat.com)
+- adding configchannel.lookupFileInfo() taking a revision id
+  (jsherril@redhat.com)
+
 * Fri Sep 10 2010 Partha Aji <paji@redhat.com> 1.2.7-1
 - 629606 - Fixed a list tag check box issue (paji@redhat.com)
 - 591899 - fixing error where cloning an already cloned channel would still
