@@ -21,6 +21,7 @@ use PhysCluster;
 
 use Date::Manip;
 use Getopt::Long;
+use Pod::Usage;
 
 #set the defaults
 my $delete_unmatched = 1;
@@ -38,16 +39,8 @@ GetOptions(
         "keep-monitoring-data:s" => \$delta,
         "help" => \$help,
         );
+pod2usage(0) if $help;
 
-if ($help) {
-        print <<HELP;
-Usage:
-  monitoring-data-cleanup --no-delete-unmatched
-
-  monitoring-data-cleanup --keep-monitoring-data "1Y 6M"
-HELP
-        exit;
-}
 if ($dry_run) {
         print "Warning: Dry run active - no changes will be made.\n";
 }
@@ -159,21 +152,23 @@ monitoring-data-cleanup [OPTIONS]
 =head1 DESCRIPTION
 
 This script deletes data from monitoring probes older than given time frame.
-It can be useful to run from cron to periodicaly delete data which is not 
+It can be useful to run from cron to periodically delete data which is not 
 interesting for you.
 
-Additionaly - in Spacewalk 0.5 and older we did not deletes data when probe
+Additionally - in Spacewalk 0.5 and older we did not deletes data when probe
 has been deleted. And if you did not push scout configs you will be getting
 data for deleted probes too. This script will delete them too.
 
 =head1 OPTIONS
 
 --dry-run
-        No changes will be commited. All data will remain intact.
+        No changes will be committed. All data will remain intact.
 
 --delete-unmatched
+        Delete data from probes, which have been already deleted. This is default.
+
 --no-delete-unmatched
-        Delete data from probes, which have been already deleted. Default is to delete them.
+        Do not delete data from probes, which have been already deleted. Default is to delete them.
 
 --keep-monitoring-data DELTA
         Delete data older than DELTA. Recognized deltas are of the form:
