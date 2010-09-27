@@ -28,8 +28,3 @@ def mem_usage():
         dict[arr[0]] = arr[1]
     return dict['Name'], dict['VmSize'], dict['VmRSS'], dict['VmData']
 
-def _line_value(line):
-    arr = string.split(line, ':', 1)
-    if len(arr) == 1:
-        return None
-    return string.strip(arr[1])
