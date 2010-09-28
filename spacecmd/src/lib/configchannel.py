@@ -312,12 +312,22 @@ def do_configchannel_addfile(self, args, update_path=''):
         if len(args):
             options.channel = args[0]
         else:
-            print 'Configuration Channels'
-            print '----------------------'
-            print '\n'.join(sorted(self.do_configchannel_list('', True)))
-            print
+            while True:
+                print 'Configuration Channels'
+                print '----------------------'
+                print '\n'.join(sorted(self.do_configchannel_list('', True)))
+                print
 
-            options.channel = prompt_user('Select:', noblank = True)
+                options.channel = prompt_user('Select:', noblank = True)
+
+                # ensure the user enters a valid configuration channel
+                if options.channel in self.do_configchannel_list('', True):
+                    break
+                else:
+                    print
+                    logging.warning('%s is not a valid channel' % \
+                                    options.channel)
+                    print
 
         if update_path:
             options.path = update_path
