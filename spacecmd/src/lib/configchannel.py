@@ -149,7 +149,7 @@ def do_configchannel_filedetails(self, args):
         # grab the first item since we only do one file
         details = results[0]
 
-    print 'File:     %s' % details.get('path')
+    print 'Path:     %s' % details.get('path')
     print 'Type:     %s' % details.get('type')
     print 'Revision: %i' % details.get('revision')
     print 'Created:  %s' % details.get('creation')
@@ -273,145 +273,210 @@ def do_configchannel_delete(self, args):
 
 def help_configchannel_addfile(self):
     print 'configchannel_addfile: Create a configuration file'
-    print 'usage: configchannel_addfile CHANNEL'
+    print '''usage: configchannel_addfile [CHANNEL] [options]
+
+options:
+  -c CHANNEL
+  -p PATH
+  -o OWNER [default: root]
+  -g GROUP [default: root]
+  -m MODE [defualt: 0644]
+  -x SELINUX_CONTEXT
+  -d path is a directory
+  -s path is a symlink
+  -t SYMLINK_TARGET
+  -f local path to file contents'''
 
 def complete_configchannel_addfile(self, text, line, beg, end):
     return tab_completer(self.do_configchannel_list('', True), text)
 
-def do_configchannel_addfile(self, args, path=''):
-    (args, options) = parse_arguments(args)
+def do_configchannel_addfile(self, args, update_path=''):
+    options = [ Option('-c', '--channel', action='store'),
+                Option('-p', '--path', action='store'),
+                Option('-o', '--owner', action='store'),
+                Option('-g', '--group', action='store'),
+                Option('-m', '--mode', action='store'),
+                Option('-x', '--selinux-ctx', action='store'),
+                Option('-t', '--target-path', action='store'),
+                Option('-f', '--file', action='store'),
+                Option('-s', '--symlink', action='store_true'),
+                Option('-d', '--directory', action='store_true') ]
 
-    if len(args) != 1:
-        self.help_configchannel_addfile()
-        return
+    (args, options) = parse_arguments(args, options)
 
-    channel = args[0]
-
-    # defaults
-    owner = 'root'
-    group = 'root'
-    mode = '644'
+    # initialize here instead of multiple times below
     contents = ''
-    target_path = ''
-    selinux_ctx = ''
-    symlink = False
 
-    while path == '':
-        path = prompt_user('Path:')
-
-    # check if this file already exists
-    try:
-        fileinfo = self.client.configchannel.lookupFileInfo(self.session,
-                                                            channel,
-                                                            [ path ])
-    except:
-        fileinfo = None
-
-    # use existing values if available
-    if fileinfo:
-        for info in fileinfo:
-            if info.get('path') == path:
-                owner = info.get('owner')
-                group = info.get('group')
-                mode = info.get('permissions_mode')
-                contents = info.get('contents')
-                target_path = info.get('target_path')
-                selinux_ctx = info.get('selinux_ctx')
-
-                if info.get('type') == 'symlink':
-                    symlink = True
-
-    # if this is a new file, ask if it's a symlink
-    if not symlink:
-        userinput = prompt_user('Symlink [y/N]:')
-        if re.match('y', userinput, re.I):
-            symlink = True
+    if is_interactive(options):
+        # the channel name can be passed in
+        if len(args):
+            options.channel = args[0]
         else:
-            symlink = False
+            print 'Configuration Channels'
+            print '----------------------'
+            print '\n'.join(sorted(self.do_configchannel_list('', True)))
+            print
 
-    if symlink:
-        target_input = prompt_user('Target Path [%s]:' % target_path)
-        selinux_input = prompt_user('SELinux Context [%s]:' % selinux_ctx)
+            options.channel = prompt_user('Select:', noblank = True)
 
-        if target_input:
-            target_path = target_input
-
-        if selinux_input:
-            selinux_ctx = selinux_input
-
-        file_info = { 'target_path' : target_path,
-                      'selinux_ctx' : selinux_ctx }
-
-        print 'File:            %s' % path
-        print 'Target Path:     %s' % target_path
-        print 'SELinux Context: %s' % selinux_ctx
-    else:
-        userinput = prompt_user('Directory [y/N]:')
-        if re.match('y', userinput, re.I):
-            directory = True
+        if update_path:
+            options.path = update_path
         else:
-            directory = False
+            options.path = prompt_user('Path:', noblank = True)
 
-        owner_input = prompt_user('Owner [%s]:' % owner)
-        group_input = prompt_user('Group [%s]:' % group)
-        mode_input  = prompt_user('Permissions [%s]:' % mode)
-        selinux_input = prompt_user('SELinux Context [%s]:' % selinux_ctx)
+        # check if this file already exists
+        try:
+            fileinfo = \
+                self.client.configchannel.lookupFileInfo(self.session,
+                                                         options.channel,
+                                                         [ options.path ])
+        except:
+            fileinfo = None
 
-        if owner_input:
-            owner = owner_input
+        # use existing values if available
+        if fileinfo:
+            for info in fileinfo:
+                if info.get('path') == options.path:
+                    logging.debug('Found existing file in channel')
 
-        if group_input:
-            group = group_input
+                    options.owner = info.get('owner')
+                    options.group = info.get('group')
+                    options.mode = info.get('permissions_mode')
+                    options.target_path = info.get('target_path')
+                    options.selinux_ctx = info.get('selinux_ctx')
+                    contents = info.get('contents')
 
-        if mode_input:
-            mode = mode_input
+                    if info.get('type') == 'symlink':
+                        options.symlink = True
 
-        if selinux_input:
-            selinux_ctx = selinux_input
+        if not options.owner: options.owner = 'root'
+        if not options.group: options.group = 'root'
+        if not options.mode: options.mode = '0644'
 
-        if not directory:
-            if contents:
-                template = contents
+        # if this is a new file, ask if it's a symlink
+        if not options.symlink:
+            userinput = prompt_user('Symlink [y/N]:')
+            if re.match('y', userinput, re.I):
+                options.symlink = True
             else:
-                template = ''
+                options.symlink = False
 
-            contents = editor(template = template, delete = True)
+        if options.symlink:
+            target_input = prompt_user('Target Path:', noblank = True)
+            selinux_input = prompt_user('SELinux Context [none]:')
+
+            if target_input:
+                options.target_path = target_input
+
+            if selinux_input:
+                options.selinux_ctx = selinux_input
+        else:
+            userinput = prompt_user('Directory [y/N]:')
+            if re.match('y', userinput, re.I):
+                options.directory = True
+            else:
+                options.directory = False
+
+            owner_input = prompt_user('Owner [%s]:' % options.owner)
+            group_input = prompt_user('Group [%s]:' % options.group)
+            mode_input  = prompt_user('Mode [%s]:' % options.mode)
+            selinux_input = \
+                prompt_user('SELinux Context [%s]:' % options.selinux_ctx)
+
+            if owner_input:
+                options.owner = owner_input
+
+            if group_input:
+                options.group = group_input
+
+            if mode_input:
+                options.mode = mode_input
+
+            if selinux_input:
+                options.selinux_ctx = selinux_input
+
+            if not options.directory:
+                if self.user_confirm('Read an existing file [y/N]:',
+                                     nospacer = True, ignore_yes = True):
+                    options.file = prompt_user('File:')
+                    contents = read_file(options.file)
+                else:
+                    if contents:
+                        template = contents
+                    else:
+                        template = ''
+
+                    contents = editor(template = template, delete = True)
+    else:
+        if not options.path:
+            logging.error('The path is required')
+            return
+
+        if not options.symlink and not options.directory:
+            if options.file:
+                contents = read_file(options.file)
+            else:
+                logging.error('You must provide the file contents')
+                return
+
+        if options.symlink and not options.target_path:
+            logging.error('You must provide the target path for a symlink')
+            return
+
+    # selinux_ctx can't be None
+    if not options.selinux_ctx:
+        options.selinux_ctx = ''
+
+    # directory can't be None
+    if not options.directory:
+        options.directory = False
+
+    if options.symlink:
+        file_info = { 'target_path' : options.target_path,
+                      'selinux_ctx' : options.selinux_ctx }
+
+        print 'Path:            %s' % options.path
+        print 'Target Path:     %s' % file_info['target_path']
+        print 'SELinux Context: %s' % file_info['selinux_ctx']
+    else:
+        if not options.owner: options.owner = 'root'
+        if not options.group: options.group = 'root'
+        if not options.mode:
+            if options.directory:
+                options.mode = '0755'
+            else:
+                options.mode = '0644'
 
         file_info = { 'contents'    : ''.join(contents),
-                      'owner'       : owner,
-                      'group'       : group,
-                      'selinux_ctx' : selinux_ctx,
-                      'permissions' : mode }
+                      'owner'       : options.owner,
+                      'group'       : options.group,
+                      'selinux_ctx' : options.selinux_ctx,
+                      'permissions' : options.mode }
 
-        print 'File:            %s' % path
-        print 'Directory:       %s' % directory
+        print 'Path:            %s' % options.path
+        print 'Directory:       %s' % options.directory
         print 'Owner:           %s' % file_info['owner']
         print 'Group:           %s' % file_info['group']
         print 'Mode:            %s' % file_info['permissions']
-        print 'SELinux Context: %s' % selinux_ctx
+        print 'SELinux Context: %s' % file_info['selinux_ctx']
 
-        if not directory:
+        if not options.directory:
             print
             print 'Contents'
             print '--------'
             print file_info['contents']
 
-    # selinux_ctx can't be None
-    if not file_info['selinux_ctx']:
-        file_info['selinux_ctx'] = ''
-
     if self.user_confirm():
-        if symlink:
-            print file_info
+        if options.symlink:
             self.client.configchannel.createOrUpdateSymlink(self.session,
-                                                            channel,
-                                                            path,
+                                                            options.channel,
+                                                            options.path,
                                                             file_info)
         else:
             self.client.configchannel.createOrUpdatePath(self.session,
-                                                         channel,
-                                                         path,
-                                                         directory,
+                                                         options.channel,
+                                                         options.path,
+                                                         options.directory,
                                                          file_info)
 
 ####################
@@ -428,9 +493,8 @@ def complete_configchannel_updatefile(self, text, line, beg, end):
                                   text)
     elif len(parts) > 2:
         channel = parts[1]
-        return tab_completer(self.do_configchannel_listfiles(channel,
-                                                                  True),
-                                  text)
+        return tab_completer(self.do_configchannel_listfiles(channel, True),
+                             text)
 
 def do_configchannel_updatefile(self, args):
     (args, options) = parse_arguments(args)
@@ -439,7 +503,7 @@ def do_configchannel_updatefile(self, args):
         self.help_configchannel_updatefile()
         return
 
-    return self.do_configchannel_addfile(args[0], path=args[1])
+    return self.do_configchannel_addfile(args[0], update_path = args[1])
 
 ####################
 
