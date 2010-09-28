@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.7.1
+Version:     0.7.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,15 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Sep 28 2010 Aron Parsons <aparsons@redhat.com> 0.7.2-1
+- allow the user to provide a revision number in
+  configchannel_addfile (aparsons@redhat.com)
+- force the user to enter a valid channel name in
+  configchannel_addfile (aparsons@redhat.com)
+- allow configchannel_addfile to be run non-interactively
+  (aparsons@redhat.com)
+- don't use mergeErrataWithPackages API (aparsons@redhat.com)
+
 * Thu Sep 23 2010 Aron Parsons <aparsons@redhat.com> 0.7.1-1
 - allow configchannel_create to be called non-interactively
   (aparsons@redhat.com)
