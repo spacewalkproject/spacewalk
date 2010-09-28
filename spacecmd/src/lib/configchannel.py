@@ -300,6 +300,7 @@ def do_configchannel_addfile(self, args, update_path=''):
                 Option('-x', '--selinux-ctx', action='store'),
                 Option('-t', '--target-path', action='store'),
                 Option('-f', '--file', action='store'),
+                Option('-r', '--revision', action='store'),
                 Option('-s', '--symlink', action='store_true'),
                 Option('-d', '--directory', action='store_true') ]
 
