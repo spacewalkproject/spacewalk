@@ -5483,7 +5483,7 @@ value for this entitlement, excluding the default organization's consumption.</s
  <!-- SSM Hardware Refresh -->
         <group>
           <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/ssm/HardwareRefresh.do pages</context>
+            <context context-type="sourcefile">/rhn/systems/ssm/misc/HardwareRefresh.do</context>
           </context-group>
           <trans-unit id="ssm.hw.systems.header">
             <source>Confirm Hardware Profiles Refresh</source>
@@ -5494,11 +5494,33 @@ value for this entitlement, excluding the default organization's consumption.</s
           <trans-unit id="ssm.hw.systems.summary.empty">
             <source>No systems are selected.</source>
           </trans-unit>
-	  <trans-unit id="ssm.hw.systems.confirmbutton">
+          <trans-unit id="ssm.hw.systems.confirmbutton">
             <source>Confirm refresh</source>
           </trans-unit>
           <trans-unit id="ssm.hw.systems.confirmmessage">
             <source>{0} hardware {1} will be refreshed.</source>
+          </trans-unit>
+        </group>
+
+ <!-- SSM Software Refresh -->
+        <group>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/ssm/misc/SoftwareRefresh.do</context>
+          </context-group>
+          <trans-unit id="ssm.sw.systems.header">
+            <source>Confirm Package Profiles Refresh</source>
+          </trans-unit>
+          <trans-unit id="ssm.sw.systems.summary">
+            <source>You will schedule a package profile update of the {0} you have selected.</source>
+          </trans-unit>
+          <trans-unit id="ssm.sw.systems.summary.empty">
+            <source>No systems are selected.</source>
+          </trans-unit>
+          <trans-unit id="ssm.sw.systems.confirmbutton">
+            <source>Confirm refresh</source>
+          </trans-unit>
+          <trans-unit id="ssm.sw.systems.confirmmessage">
+            <source>{0} package {1} will be refreshed.</source>
           </trans-unit>
         </group>
 

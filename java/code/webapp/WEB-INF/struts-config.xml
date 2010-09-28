@@ -3095,6 +3095,18 @@
                  path="/systems/ssm/misc/Index.do" redirect="true"/>
     </action>
 
+        <action path="/systems/ssm/misc/SoftwareRefresh"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/ssmswrefresh.jsp"
+        name="submittedForm"
+        type="com.redhat.rhn.frontend.action.systems.SSMUpdateSoftwareProfileConfirm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/ssmswrefresh.jsp"/>
+        <forward name="success"
+                 path="/systems/ssm/misc/Index.do" redirect="true"/>
+    </action>
+
     <!--System Details Configuration -->
      <action path="/systems/details/configuration/Overview"
          scope="request"

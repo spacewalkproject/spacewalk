@@ -16,7 +16,7 @@
 </div>
 <ul>
   <li><a href="/rhn/systems/ssm/misc/HardwareRefresh.do"><bean:message key="ssm.misc.index.profileupdates.hardware"/></a></li>
-  <li><a href="/network/systems/ssm/misc/pkg_prof_update_conf.pxt"><bean:message key="ssm.misc.index.profileupdates.software"/></a></li>
+  <li><a href="/rhn/systems/ssm/misc/SoftwareRefresh.do"><bean:message key="ssm.misc.index.profileupdates.software"/></a></li>
 </ul>
 <br />
 
