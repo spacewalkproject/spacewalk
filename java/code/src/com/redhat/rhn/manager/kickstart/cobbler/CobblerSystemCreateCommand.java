@@ -156,7 +156,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             String uid = (String) sysmap.get("uid");
             SystemRecord rec;
             rec = SystemRecord.lookupById(CobblerXMLRPCHelper.getConnection(user),
-                    server.getCobblerId());
+                    uid);
             if (rec != null) {
                 return rec;
             }
