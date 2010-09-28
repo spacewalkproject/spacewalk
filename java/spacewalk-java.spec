@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.45
+Version: 1.2.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,19 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 28 2010 Shannon Hughes <shughes@redhat.com> 1.2.46-1
+- checkstyle fixes (shughes@redhat.com)
+- 636610 alternative set add due to ibm jvm issue (shughes@redhat.com)
+- fixing possible ISE where a cobbler system record already exists, but is not
+  associated to a system when re-provisioning is initiated
+  (jsherril@redhat.com)
+- fixing issue where kickstarts woudl not show up for provisioning if the
+  distro was created since the last tomcat restart (jsherril@redhat.com)
+- adding ext4 support for duplicate systems (jsherril@redhat.com)
+- 637696 - fixing issue where kickstart could hang, either because of a rhel
+  5.5 kernel panic, or because RHEL 6 does not allow pre-scripts to continue
+  running in the background (jsherril@redhat.com)
+
 * Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.45-1
 - Revert "591291 - added new API calls
   channel.software.mergeErrataWithPackages" (aparsons@redhat.com)
