@@ -7,6 +7,10 @@ rhn_keys_found=no
 insmod /lib/jbd.o
 insmod /lib/ext3.o
 
+if [ -f /lib/ext4.o ];
+    insmod /lib/ext4.o
+fi
+
 mkdir -p /tmp/rhn
 
 drives=$(list-harddrives | awk '{print $1}')
