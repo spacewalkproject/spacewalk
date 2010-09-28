@@ -184,7 +184,7 @@ public class SystemMigrateAction extends RhnAction {
     protected void setupPageAndFormValues(HttpServletRequest request,
             DynaActionForm daForm, User user, Server s, Org o, Integer trustedOrgCount) {
 
-        //ibm jdk had issues with adding set in constructor of ArrayList so we add separately
+        //ibm jvm has issues adding set in ArrayList constructor so add separately
         Set set = user.getOrg().getTrustedOrgs();
         List orgList = new ArrayList();
         orgList.add(set);
