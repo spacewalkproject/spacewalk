@@ -36,9 +36,11 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,15 +68,16 @@ public class SSMUpdateSoftwareProfileConfirm extends RhnAction implements Listab
 
         if (isSubmitted(daForm)) {
             Iterator it = set.iterator();
+            Set<Long> serverIds = new HashSet<Long>();
             while (it.hasNext()) {
                 Long sid = ((RhnSetElement)it.next()).getElement();
+                serverIds.add(sid);
                 Server server = SystemManager.lookupByIdAndUser(sid, user);
-                Date now = new Date();
-                PackageAction a = (PackageAction) ActionManager.schedulePackageAction(user,
-                        (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST,
-                        now, server);
-                ActionFactory.save(a);
             }
+            Date now = new Date();
+            PackageAction a = (PackageAction) ActionManager.schedulePackageAction(user,
+                    (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, now, serverIds);
+            ActionFactory.save(a);
             ActionMessages msg = new ActionMessages();
             String profile_str = "profiles";
             if (set.size() == 1) { 
