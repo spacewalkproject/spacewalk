@@ -278,6 +278,7 @@ def help_configchannel_addfile(self):
 options:
   -c CHANNEL
   -p PATH
+  -r REVISION
   -o OWNER [default: root]
   -g GROUP [default: root]
   -m MODE [defualt: 0644]
@@ -392,6 +393,7 @@ def do_configchannel_addfile(self, args, update_path=''):
             mode_input  = prompt_user('Mode [%s]:' % options.mode)
             selinux_input = \
                 prompt_user('SELinux Context [%s]:' % options.selinux_ctx)
+            revision_input  = prompt_user('Revision [next]:')
 
             if owner_input:
                 options.owner = owner_input
@@ -404,6 +406,12 @@ def do_configchannel_addfile(self, args, update_path=''):
 
             if selinux_input:
                 options.selinux_ctx = selinux_input
+
+            if revision_input:
+                try:
+                    options.revision = int(revision_input)
+                except:
+                    logging.warning('The revision must be an integer')
 
             if not options.directory:
                 if self.user_confirm('Read an existing file [y/N]:',
@@ -469,6 +477,11 @@ def do_configchannel_addfile(self, args, update_path=''):
         print 'Group:           %s' % file_info['group']
         print 'Mode:            %s' % file_info['permissions']
         print 'SELinux Context: %s' % file_info['selinux_ctx']
+
+        # only add the revision field if the user supplied it
+        if options.revision:
+            file_info['revision'] = options.revision
+            print 'Revision:        %i' % file_info['revision']
 
         if not options.directory:
             print
