@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     0.7.2
+Version:     0.7.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -57,6 +57,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Sep 28 2010 Aron Parsons <aparsons@redhat.com> 0.7.3-1
+- forgot to add the actual option for revision in
+  configchannel_addfile (aparsons@redhat.com)
 * Tue Sep 28 2010 Aron Parsons <aparsons@redhat.com> 0.7.2-1
 - allow the user to provide a revision number in
   configchannel_addfile (aparsons@redhat.com)
