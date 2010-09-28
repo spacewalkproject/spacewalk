@@ -14,6 +14,21 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -25,20 +40,6 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.org.MigrationManager;
 import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * SystemDetailsEditAction
@@ -183,7 +184,10 @@ public class SystemMigrateAction extends RhnAction {
     protected void setupPageAndFormValues(HttpServletRequest request,
             DynaActionForm daForm, User user, Server s, Org o, Integer trustedOrgCount) {
 
-        List orgList = new ArrayList(user.getOrg().getTrustedOrgs());
+        //ibm jdk had issues with adding set in constructor of ArrayList so we add separately
+        Set set = user.getOrg().getTrustedOrgs();
+        List orgList = new ArrayList();
+        orgList.add(set);
 
         request.setAttribute("trustedOrgCount", trustedOrgCount);
         request.setAttribute("system", s);
