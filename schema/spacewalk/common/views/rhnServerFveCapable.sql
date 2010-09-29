@@ -49,8 +49,7 @@ where sc.is_fve = 'N'
                  inner join rhnServerGroupType sgt on sgt.id = sg.group_type
                  inner join rhnServer s2 on s2.id = sgm.server_id
              where
-                 s2.org_id = s.org_id
-                 and s2.id = vi.host_system_id
+                 s2.id = vi.host_system_id
                  and sgt.label not in ('virtualization_host' ,'virtualization_host_platform') )
       );
 
