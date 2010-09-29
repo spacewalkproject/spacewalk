@@ -1728,6 +1728,7 @@ SELECT distinct P.id AS ID,
 		CP.channel_id = :cid
   </query>
     <elaborator name="package_details" />
+    <elaborator name="package_channels" />
 </mode>
 
 <!-- Runs the cache cleanup for all packages in an RhnSet. The package ID must be in

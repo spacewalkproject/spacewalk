@@ -988,7 +988,9 @@ public class PackageManager extends BaseManager {
                     "Package_queries", "custom_package_in_channel");
 
             DataResult dr = m.execute(params);
-            dr.setElaborationParams(new HashMap());
+            Map elabs = new HashMap();
+            elabs.put("org_id", orgId);
+            dr.setElaborationParams(elabs);
             return dr;
     }
 
