@@ -72,9 +72,10 @@ class Certificate:
                        "architecture", "system_id", "type" ]
     
     def __init__(self):
-        # init data
-        # normally we include in the attrs:
-        # username, os_release, os, arch, system_id and fields
+        """ init data
+            normally we include in the attrs:
+            username, os_release, os, arch, system_id and fields
+        """
         self.attrs = {}
         for k in Certificate.CheckSumFields:
             self.attrs[k] = None
@@ -82,11 +83,14 @@ class Certificate:
         self.__secret = None
         self.__checksum = None
         
-    # functions that make it look like a dictionary for easy access:
     def __getitem__(self, key):
+        """ function that make it look like a dictionary for easy access """
         return self.attrs.get(key)
-    # updates the values of the attributes list with new values    
+
     def __setitem__(self, name, value):
+        """ function that make it look like a dictionary for easy access
+            updates the values of the attributes list with new values
+        """
         self.attrs[name] = value
         if name in Certificate.CheckSumFields:
             if name not in self.__fields:           
@@ -95,14 +99,15 @@ class Certificate:
             if value is None:
                 self.attrs[name] = ""
         return 0        
-    # string format
+
     def __repr__(self):
+        """ string format """
         return "<Certificate instance>: Attrs: %s, Fields: %s, Secret: %s, Checksum: %s" % (
             self.attrs, self.__fields, self.__secret, self.__checksum)
     __str__ = __repr__
     
-    # convert to XML
     def certificate(self):
+        """ convert to XML """
         dump = self.attrs
         dump["checksum"] = self.__checksum
         dump["fields"] = self.__fields
@@ -114,8 +119,8 @@ class Certificate:
             raise
         return '<?xml version="1.0"?>\n%s' % x
     
-    # Update the checksum
     def compute_checksum(self, secret):
+        """ Update the checksum """
         log_debug(4, secret, self.attrs)
         csum = Checksum(secret)
         for f in self.__fields:
@@ -124,14 +129,14 @@ class Certificate:
         csum.feed(self.__fields)
         return str(csum)
         
-    # set the secret of the entry and recompute the checksum
     def set_secret(self, secret):
+        """ set the secret of the entry and recompute the checksum """
         log_debug(4, "secret", secret)
         self.__secret = secret
         self.__checksum = self.compute_checksum(secret)
         
-    # load data from a text certificate passed on by a client
     def reload(self, text):
+        """ load data from a text certificate passed on by a client """
         log_debug(4)
         text_id = string.strip(text)
         if not text_id:
@@ -170,9 +175,10 @@ class Certificate:
         # okay, the certificate is now loaded
         return 0
 
-    # compute the current checksum against a secret and check it against
-    # the current checksum
     def __validate_checksum(self, secret):
+        """ compute the current checksum against a secret and check it against
+            the current checksum
+        """
         csum = self.compute_checksum(secret)
         if not csum == self.__checksum:
             # fail, current checksum does not match
