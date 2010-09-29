@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.46
+Version: 1.2.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 29 2010 Shannon Hughes <shughes@redhat.com> 1.2.47-1
+- fix incorrect adding of trust set for system migrate (shughes@redhat.com)
+
 * Tue Sep 28 2010 Shannon Hughes <shughes@redhat.com> 1.2.46-1
 - checkstyle fixes (shughes@redhat.com)
 - 636610 alternative set add due to ibm jvm issue (shughes@redhat.com)
