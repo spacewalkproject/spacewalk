@@ -1561,7 +1561,7 @@ public class ActionManager extends BaseManager {
     }
 
     /**
-     * Schedule a KickstartAction against a system
+     * Schedule a scheduleRebootAction against a system
      * @param scheduler User scheduling the action.
      * @param srvr Server for which the action affects.
      * @param earliestAction Date run the Action
