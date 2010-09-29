@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems;
 
-import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -79,13 +78,13 @@ public class SSMUpdateSoftwareProfileConfirm extends RhnAction implements Listab
                     (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, now, serverIds);
             ActionFactory.save(a);
             ActionMessages msg = new ActionMessages();
-            String profile_str = "profiles";
-            if (set.size() == 1) { 
-                profile_str = "profile";
+            String profileStr = "profiles";
+            if (set.size() == 1) {
+                profileStr = "profile";
             }
             msg.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("ssm.sw.systems.confirmmessage", set.size(), 
-                    profile_str));
+                    new ActionMessage("ssm.sw.systems.confirmmessage", set.size(),
+                    profileStr));
             getStrutsDelegate().saveMessages(request, msg);
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("success"), params);

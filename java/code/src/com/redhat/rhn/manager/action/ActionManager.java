@@ -1587,6 +1587,20 @@ public class ActionManager extends BaseManager {
     }
 
     /**
+     * Schedule a scheduleHardwareRefreshAction against a system or systems
+     * @param scheduler User scheduling the action.
+     * @param earliestAction Date run the Action
+     * @param srvr Server(s) for which the action affects.
+     * @return Currently scheduled KickstartAction
+     */
+    public static Action scheduleHardwareRefreshAction(User scheduler, Date earliestAction,
+            Set<Long> serverIds) {
+        return scheduleAction(scheduler, ActionFactory.TYPE_HARDWARE_REFRESH_LIST,
+                ActionFactory.TYPE_HARDWARE_REFRESH_LIST.getName(), earliestAction,
+                serverIds);
+    }
+
+    /**
      * Schedules all Errata for the given system.
      * @param scheduler Person scheduling the action.
      * @param srvr Server whose errata is going to be scheduled.
