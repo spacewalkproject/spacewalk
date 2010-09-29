@@ -18,7 +18,6 @@ import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -35,9 +34,11 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,24 +66,30 @@ public class SSMUpdateHardwareProfileConfirm extends RhnAction implements Listab
 
         if (isSubmitted(daForm)) {
             Iterator it = set.iterator();
+            Set<Long> serverIds = new HashSet<Long>();
+//            Long serverIds[] = new Long[set.size()];
+//            Integer i = 0;
             while (it.hasNext()) {
                 Long sid = ((RhnSetElement)it.next()).getElement();
-                Server server = SystemManager.lookupByIdAndUser(sid, user);
-                Date now = new Date();
-                Action a = ActionManager.scheduleHardwareRefreshAction(user, server, now);
-                ActionFactory.save(a);
+                serverIds.add(sid);
+//                Server server = SystemManager.lookupByIdAndUser(sid, user);
+//                serverIds[i] = sid;
+//                i++;
             }
+            Date now = new Date();
+
+            Action a = ActionManager.scheduleHardwareRefreshAction(user, now, serverIds);
+            ActionFactory.save(a);
             ActionMessages msg = new ActionMessages();
-            String profile_str = "profiles";
-            if (set.size() == 1) { 
-                profile_str = "profile";
+            String profileStr = "profiles";
+            if (set.size() == 1) {
+                profileStr = "profile";
             }
             msg.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("ssm.hw.systems.confirmmessage", set.size(), 
-                    profile_str));
+                    new ActionMessage("ssm.hw.systems.confirmmessage", set.size(),
+                    profileStr));
             getStrutsDelegate().saveMessages(request, msg);
-//            getStrutsDelegate().saveMessage("ssm.hw.systems.confirmmessage",
-//                                                    context.getRequest());
+
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("success"), params);
         }
