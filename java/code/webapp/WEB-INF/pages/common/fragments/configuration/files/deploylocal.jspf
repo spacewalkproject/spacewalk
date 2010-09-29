@@ -1,3 +1,5 @@
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+
 <bean:message key="deploylocal.jspf.local" arg0="${revision.revision}"
 	arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&crid=${revision.id}"
 	arg2="${system}" arg3="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" />

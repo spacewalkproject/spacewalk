@@ -137,9 +137,8 @@
     <path refid="testjars" />
     <fileset dir="${build.lib.dir}">
       <include name="*.jar" />
-      <include name="log4j.properties" />
-      <include name="${build.dir}/classes/" />
     </fileset>
+	<pathelement location="${build.dir}/classes/"/>
   </path>
 
   <path id="alljars">

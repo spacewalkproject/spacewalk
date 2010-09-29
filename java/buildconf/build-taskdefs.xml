@@ -22,7 +22,7 @@
 
     <!-- =================== Jspc Tasks ======================= -->
     <taskdef name="jasper2"
-             classname="org.apache.jasper.JspC"
+             classname="com.redhat.rhn.internal.jasper2.JspfC"
              classpathref="buildjars"/>
 
     <!-- =================== Ant Contrib Tasks ======================= -->
