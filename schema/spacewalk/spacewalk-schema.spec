@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.23
+Version:        1.2.24
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Sep 30 2010 Tomas Lestach <tlestach@redhat.com> 1.2.24-1
+- 638893 - removing duplicate cert-check-bunch (tlestach@redhat.com)
+- Make schema-source-sanity-check.pl happy again. (jpazdziora@redhat.com)
+- Update copyright years. (jpazdziora@redhat.com)
+- Mark the Oracle source equivalents in our PostgreSQL source files.
+  (jpazdziora@redhat.com)
+- 634263 - adding upgrade for previous commit (jsherril@redhat.com)
+- 634263 - fixing issue where converting host from virt entitled to not, would
+  cause guests registered in other orgs to consume a regular entitelment even
+  when a flex was available (jsherril@redhat.com)
+
 * Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.23-1
 - Marked PostgreSQL schema sources that are PostgreSQL-specific.
   (jpazdziora@redhat.com)
