@@ -28,11 +28,6 @@ from spacewalk.satellite_tools import constants
 from spacewalk.satellite_tools.exporter import exportLib, xmlWriter
 from string_buffer import StringBuffer
 
-# globals
-
-LOWER_LIMIT = None
-
-UPPER_LIMIT = None
 
 # A wrapper class for a database statement
 class DatabaseStatement:
@@ -791,9 +786,9 @@ class _ChannelsDumper(exportLib._ChannelDumper):
         h = self._get_cursor_source_packages()
         arr.append(exportLib.ChannelSourcePackagesDumper(self._writer, h))
         # Errata information (with timestamps)
-        if LOWER_LIMIT:
+        if self.start_date:
             h = rhnSQL.prepare(self._query__get_errata_ids_by_limits)
-            h.execute(channel_id=channel_id, lower_limit=LOWER_LIMIT, upper_limit=UPPER_LIMIT)
+            h.execute(channel_id=channel_id, lower_limit=self.start_date, upper_limit=self.end_date)
         else:
             h = rhnSQL.prepare(self._query__get_errata_ids)
             h.execute(channel_id=channel_id)
@@ -824,10 +819,10 @@ class _ChannelsDumper(exportLib._ChannelDumper):
     # Things that can be overwriten in subclasses
     def _get_package_ids(self):
         channel_id = self._row['id']
-        if LOWER_LIMIT:
+        if self.start_date:
 	    print "Dumping Incremental Channel Packages"
             h = rhnSQL.prepare(self._query_get_package_ids_by_date_limits)
-            h.execute(channel_id=channel_id, lower_limit=LOWER_LIMIT, upper_limit=UPPER_LIMIT)
+            h.execute(channel_id=channel_id, lower_limit=self.start_date, upper_limit=self.end_date)
         else:
             print "Dumping Base Channel Packages"
             h = rhnSQL.prepare(self._query_get_package_ids)
@@ -850,10 +845,10 @@ class _ChannelsDumper(exportLib._ChannelDumper):
 
     def _get_errata_ids(self):
         channel_id = self._row['id']
-        if LOWER_LIMIT:
+        if self.start_date:
             #print "Errata Incremental"
             h = rhnSQL.prepare(self._query__get_errata_ids_by_limits)
-            h.execute(channel_id=channel_id, lower_limit=LOWER_LIMIT, upper_limit=UPPER_LIMIT)
+            h.execute(channel_id=channel_id, lower_limit=self.start_date, upper_limit=self.end_date)
             #print h.fetchall_dict()
         else:
 	    #print "Errata Base"
@@ -874,9 +869,9 @@ class _ChannelsDumper(exportLib._ChannelDumper):
 
     def _get_kickstartable_trees(self):
         channel_id = self._row['id']
-        if LOWER_LIMIT:
+        if self.start_date:
             h = rhnSQL.prepare(self._query_get_kickstartable_trees_by_limits)
-            h.execute(channel_id=channel_id, lower_limit=LOWER_LIMIT, upper_limit = UPPER_LIMIT)
+            h.execute(channel_id=channel_id, lower_limit=self.start_date, upper_limit = self.end_date)
         else: 
             h = rhnSQL.prepare(self._query_get_kickstartable_trees)
             h.execute(channel_id=channel_id)
