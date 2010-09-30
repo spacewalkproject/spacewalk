@@ -53,7 +53,7 @@ clean ::
 %.pyc : %.py
 	python -c "import compileall; compileall.compile_dir('$(CURDIR)')"
 %.pyo : %.py
-       python -OO -c "import compileall; compileall.compile_dir('$(CURDIR)')"
+	python -OO -c "import compileall; compileall.compile_dir('$(CURDIR)')"
 
 # useful macro
 descend-subdirs = @$(foreach d,$(SUBDIRS), $(MAKE) -C $(d) $@ || exit 1; )

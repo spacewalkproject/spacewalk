@@ -58,7 +58,7 @@ clean ::
 %.pyc : %.py
 	python -c "import compileall; compileall.compile_dir('$(CURDIR)')"
 %.pyo : %.py
-       python -OO -c "import compileall; compileall.compile_dir('$(CURDIR)')"
+	python -OO -c "import compileall; compileall.compile_dir('$(CURDIR)')"
 
 %.8 : %.sgml
 	[ -f /usr/bin/docbook2man ] && /usr/bin/docbook2man $< || true
