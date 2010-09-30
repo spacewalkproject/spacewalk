@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.0.2
+Version:     1.0.3
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Satellite or Spacewalk server remotely.
 
@@ -52,6 +52,10 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacecwalk-create-channel.1.gz
 
 %changelog
+* Thu Sep 30 2010 Justin Sherrill <jsherril@redhat.com> 1.0.3-1
+- updating spacewalk-remote-utils man page to remove left over bits from copied
+  spec (jsherril@redhat.com)
+
 * Mon Sep 20 2010 Shannon Hughes <shughes@redhat.com> 1.0.2-1
 - adding docbook-utils build require (shughes@redhat.com)
 
