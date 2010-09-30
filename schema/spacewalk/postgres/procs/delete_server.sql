@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 e16a211073e298ca515b54eb9c5eb51896463108
+-- -- oracle equivalent source sha1 e16a211073e298ca515b54eb9c5eb51896463108
 -- retrieved from ./1241139299/9d12c670ec75dda96634543d6082c6162eee0e97/schema/spacewalk/oracle/procs/delete_server.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
