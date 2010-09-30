@@ -327,7 +327,7 @@ def registerSystem(username = None, password = None,
         auth_dict["password"] = password
 
     if cfg['supportsSMBIOS']:
-        auth_dict["smbios"] = hardware.get_smbios()
+        auth_dict["smbios"] = _encode_characters(hardware.get_smbios())
     
     s = rhnserver.RhnServer()
     if packages == None:
@@ -398,7 +398,7 @@ def registerSystem2(username = None, password = None,
                        'channel']
 
     if cfg['supportsSMBIOS']:
-        other["smbios"] = hardware.get_smbios()
+        other["smbios"] = _encode_characters(hardware.get_smbios())
 
     s = rhnserver.RhnServer()
     
