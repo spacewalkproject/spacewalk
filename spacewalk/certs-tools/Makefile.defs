@@ -66,9 +66,9 @@ clean ::
 
 # default compile rules
 %.pyc : %.py
-	$(TOP)/compile.py $< $@
+	python -c "import compileall; compileall.compile_dir('$(CURDIR)')"
 %.pyo : %.py
-	python -OO $(TOP)/compile.py $< $@
+       python -OO -c "import compileall; compileall.compile_dir('$(CURDIR)')"
 
 # useful macro
 descend-subdirs = @$(foreach d,$(SUBDIRS), $(MAKE) -C $(d) $@ || exit 1; )
