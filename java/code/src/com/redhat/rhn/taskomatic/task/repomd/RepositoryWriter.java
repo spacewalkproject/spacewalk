@@ -104,15 +104,15 @@ public class RepositoryWriter {
         // we closed the session, so we need to reload the object
         channel = (Channel) HibernateFactory.getSession().get(channel.getClass(),
                 channel.getId());
+        if (!new File(prefix).mkdirs() && !new File(prefix).exists()) {
+            throw new RepomdRuntimeException("Unable to create directory: " +
+                    prefix);
+        }
         if (channel.getChannelArch().getArchType().getLabel().equalsIgnoreCase("deb")) {
             log.info("Generating new DEB repository for channel " + channel.getLabel());
             generateDebRepository(channel, prefix);
         }
         else {
-            if (!new File(prefix).mkdirs() && !new File(prefix).exists()) {
-                throw new RepomdRuntimeException("Unable to create directory: " +
-                        prefix);
-            }
             // Get compatible checksumType
             this.checksumtype = channel.getChecksumTypeLabel();
             if (checksumtype == null) {
