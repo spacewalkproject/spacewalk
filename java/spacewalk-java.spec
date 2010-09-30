@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.47
+Version: 1.2.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 30 2010 Lukas Zapletal 1.2.48-1
+- jspf pages are now precompiled too
+- deleted jpsf that was no longer in use
+- known error (628555) is solved by jspf precompilation
+
 * Wed Sep 29 2010 Shannon Hughes <shughes@redhat.com> 1.2.47-1
 - fix incorrect adding of trust set for system migrate (shughes@redhat.com)
 
