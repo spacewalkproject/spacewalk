@@ -547,7 +547,7 @@ Thank you for using @@PRODUCT_NAME@@.
       </trans-unit>
 
       <trans-unit id="email.satellitecert.graceperiod.subject">
-<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
+<source>@@PRODUCT_NAME@@ Certificate expiration warning</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
@@ -558,14 +558,8 @@ Thank you for using @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. After {1} day(s) the systems
-management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
-Please contact your regional Red Hat Customer  Service Representative for information
-on how to renew your @@PRODUCT_NAME@@ Certificate.
-
-Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team
-</source>
+has expired on your {0} server. After {1} day(s) the systems
+management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
           <context context-type="paramnotes">
@@ -576,7 +570,33 @@ Thank you for using @@PRODUCT_NAME@@.
       </trans-unit>
 
       <trans-unit id="email.satellitecert.expired.subject">
-<source>Red Hat satellite certificate expiration notice</source>
+<source>@@PRODUCT_NAME@@ Certificate expiration notice</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="email.satellitecert.spwbodyend">
+<source>
+
+
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="email.satellitecert.satbodyend">
+<source>
+Please contact your regional Red Hat Customer Service Representative for information
+on how to renew your @@PRODUCT_NAME@@ Certificate.
+
+
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team
+</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
@@ -587,14 +607,8 @@ Thank you for using @@PRODUCT_NAME@@.
 Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
-has expired on your local satellite {0}. The system management services will be inaccessible
-until your certificate is renewed. Please contact your regional Red Hat
-Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
-
-
-Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team
-</source>
+has expired on your {0} server. The system management services will be inaccessible
+until your certificate is renewed.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
           <context context-type="paramnotes">{0} - Hostname of the @@PRODUCT_NAME@@ Whose Cert has Expired: highwind.devel.redhat.com </context>
