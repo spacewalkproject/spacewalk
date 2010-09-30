@@ -1590,7 +1590,7 @@ public class ActionManager extends BaseManager {
      * Schedule a scheduleHardwareRefreshAction against a system or systems
      * @param scheduler User scheduling the action.
      * @param earliestAction Date run the Action
-     * @param srvr Server(s) for which the action affects.
+     * @param serverIds server ids meant for the action
      * @return Currently scheduled KickstartAction
      */
     public static Action scheduleHardwareRefreshAction(User scheduler, Date earliestAction,
