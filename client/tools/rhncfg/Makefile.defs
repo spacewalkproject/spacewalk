@@ -56,9 +56,10 @@ clean ::
 
 # default compile rules
 %.pyc : %.py
-	$(TOP)/compile.py $< $@
+	python -c "import compileall; compileall.compile_dir('$(CURDIR)')"
 %.pyo : %.py
-	python -OO $(TOP)/compile.py $< $@
+       python -OO -c "import compileall; compileall.compile_dir('$(CURDIR)')"
+
 %.8 : %.sgml
 	[ -f /usr/bin/docbook2man ] && /usr/bin/docbook2man $< || true
 

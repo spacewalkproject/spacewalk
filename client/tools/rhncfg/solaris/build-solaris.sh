@@ -58,7 +58,6 @@ perl -pi -e "s|os.path.join\(os.sep|os.path.join\('$DEST_PREFIX'|" \
     ./config_common/local_config.py
 
 perl -pi -e "s|^#!/usr/bin/python|#!$DEST_PREFIX/bin/python|" \
-    ./compile.py \
     ./config_client/rhncfg-client.py \
     ./config_management/rhncfg-manager.py
 
