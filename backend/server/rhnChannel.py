@@ -1667,67 +1667,6 @@ def __auth_user(server_id, username, password):
         raise rhnFault(37)
     return 1
 
-# list the obsoletes blacklist for a channel
-def get_obsoletes_blacklist(channel):
-    log_debug(3, channel)
-
-    # try the caching thing first
-    c_info = channel_info(channel)
-    if not c_info: # unknown channel
-        raise rhnFault(40, "could not find any data on channel '%s'" % channel)
-    cache_entry = "blacklist_obsoletes-%s" % channel
-    ret = rhnCache.get(cache_entry, c_info["last_modified"])
-    if ret: # we scored a cache hit
-        log_debug(4, "Scored cache hit", channel)
-        return ret
-
-    # Get the obsoleted packages
-    h = rhnSQL.prepare("""
-        select unique 
-            pnsrc.name src_name, 
-            bo.src_epoch,
-            bo.src_version,
-            bo.src_release,
-            cdst.label dst_channel,
-            pndst.name dst_name,
-            bo.dst_epoch,
-            bo.dst_version,
-            bo.dst_release
-        from 
-            rhnChannel csrc, rhnChannel cdst, 
-            rhnPackageName pnsrc, rhnPackageName pndst,
-            rhnBlacklistObsoletes bo
-        where bo.src_channel_id = csrc.id
-            and csrc.label = :channel
-            and bo.dst_channel_id = cdst.id (+)
-            and bo.src_name_id = pnsrc.id
-            and bo.dst_name_id = pndst.id
-        order by pnsrc.name, pndst.name
-    """)
-    h.execute(channel = str(channel))
-    result = []
-    keys = ['name', 'version', 'release', 'epoch']
-    while 1:
-        row = h.fetchone_dict()
-        if not row:
-            break
-        src = map(lambda k, row=row: row[k],
-            map(lambda k: "src_" + k, keys))
-        for i in [1, 2, 3]:
-            if src[i] is None:
-                src[i] = ''
-        dst = map(lambda k, row=row: row[k],
-            map(lambda k: "dst_" + k, keys))
-        for i in [1, 2, 3]:
-            if dst[i] is None:
-                dst[i] = ''
-        dst_channel = row['dst_channel'] or ''
-        result.append([src, dst, dst_channel])
-        
-    # we can cache this now
-    rhnCache.set(cache_entry, result, c_info["last_modified"])
-    return result
-
 
 # small wrapper around a PL/SQL function
 def _subscribe_sql(server_id, channel_id, commit = 1):
