@@ -6,7 +6,7 @@
 Name:        spacewalk-remote-utils
 Version:     1.0.2
 Release:     1%{?dist}
-Summary:     Command-line interface to Spacewalk and Satellite servers
+Summary:     Utilities to interact with a Satellite or Spacewalk server remotely.
 
 Group:       Applications/System
 License:     GPLv3+
@@ -19,7 +19,7 @@ BuildRequires: python-devel
 BuildRequires: docbook-utils
 
 %description
-spacecmd is a command-line interface to Spacewalk and Satellite servers
+Utilities to interact with a Satellite or Spacewalk server remotely over XMLRPC.
 
 %prep
 %setup -q
