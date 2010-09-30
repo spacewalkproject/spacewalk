@@ -197,6 +197,11 @@ class ChannelsDumper(BaseDumper):
 class _ChannelDumper(BaseRowDumper):
     tag_name = 'rhn-channel'
 
+    def __init__(self, writer, row, start_date=None, end_date=None):
+        BaseRowDumper.__init__(self, writer, row)
+        self.start_date = start_date
+        self.end_date = end_date
+
     def set_attributes(self):
         channel_id = self._row['id']
 
@@ -275,9 +280,15 @@ class _ChannelDumper(BaseRowDumper):
         h = self._get_cursor_source_packages()
         arr.append(ChannelSourcePackagesDumper(self._writer, h))
         # Errata information (with timestamps)
-        h = rhnSQL.prepare(self._query__get_errata_ids)
-        h.execute(channel_id=channel_id)
+        if self.start_date:
+            h = rhnSQL.prepare(self._query__get_errata_ids_by_limits)
+            h.execute(channel_id=channel_id, lower_limit=self.start_date, upper_limit=self.end_date)
+        else:
+            h = rhnSQL.prepare(self._query__get_errata_ids)
+            h.execute(channel_id=channel_id)
+
         arr.append(ChannelErrataDumper(self._writer, h))
+        arr.append(ExportTypeDumper(self._writer, self.start_date, self.end_date))
 
         return ArrayIterator(arr)
 
@@ -287,12 +298,29 @@ class _ChannelDumper(BaseRowDumper):
          where channel_id = :channel_id
     """)
 
+    _query_get_package_ids_by_date_limits = rhnSQL.Statement("""
+        select package_id
+          from rhnPackage rp, rhnChannelPackage rcp
+         where rcp.channel_id = :channel_id
+         and rcp.package_id = rp.id
+         and (rcp.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+              or rp.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+             )
+         and (rcp.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+              or rp.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+             )
+     """)
+
+
     # Things that can be overwriten in subclasses
     def _get_package_ids(self):
         channel_id = self._row['id']
-
-        h = rhnSQL.prepare(self._query_get_package_ids)
-        h.execute(channel_id=channel_id)
+        if self.start_date:
+            h = rhnSQL.prepare(self._query_get_package_ids_by_date_limits)
+            h.execute(channel_id=channel_id, lower_limit=self.start_date, upper_limit=self.end_date)
+        else:
+            h = rhnSQL.prepare(self._query_get_package_ids)
+            h.execute(channel_id=channel_id)
         return map(lambda x: x['package_id'], h.fetchall_dict() or [])
 
     _query_get_source_package_ids = rhnSQL.Statement("""
@@ -321,12 +349,30 @@ class _ChannelDumper(BaseRowDumper):
          where ce.channel_id = :channel_id
            and ce.errata_id = e.id
     """)
+
+    _query__get_errata_ids_by_limits = rhnSQL.Statement("""
+        select ce.errata_id, e.advisory_name,
+               TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified
+          from rhnChannelErrata ce, rhnErrata e
+         where ce.channel_id = :channel_id
+           and ce.errata_id = e.id
+           and (ce.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+                or e.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+               )
+           and (ce.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+                or e.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+               )
+    """)
+
     
     def _get_errata_ids(self):
         channel_id = self._row['id']
-
-        h = rhnSQL.prepare(self._query__get_errata_ids)
-        h.execute(channel_id=channel_id)
+        if self.start_date:
+            h = rhnSQL.prepare(self._query__get_errata_ids_by_limits)
+            h.execute(channel_id=channel_id, lower_limit=self.start_date, upper_limit=self.end_date)
+        else:
+            h = rhnSQL.prepare(self._query__get_errata_ids)
+            h.execute(channel_id=channel_id)
         return map(lambda x: x['errata_id'], h.fetchall_dict() or [])
 
     _query_get_kickstartable_trees = rhnSQL.Statement("""
@@ -336,11 +382,25 @@ class _ChannelDumper(BaseRowDumper):
            and org_id is null
     """)
 
+    _query_get_kickstartable_trees_by_limits = rhnSQL.Statement("""
+        select kt.label
+          from rhnKickstartableTree kt
+         where  kt.channel_id = :channel_id
+           and  (kt.last_modified >= TO_DATE(:lower_limit, 'YYYYMMDDHH24MISS')
+                 or kt.modified >= TO_DATE(:lower_limit, 'YYYYMMDDHH24MISS'))
+           and  (kt.last_modified <= TO_DATE(:upper_limit, 'YYYYMMDDHH24MISS')
+                 or kt.modified <= TO_DATE(:upper_limit, 'YYYYMMDDHH24MISS'))
+           and  kt.org_id is null
+    """)
+
     def _get_kickstartable_trees(self):
         channel_id = self._row['id']
-
-        h = rhnSQL.prepare(self._query_get_kickstartable_trees)
-        h.execute(channel_id=channel_id)
+        if self.start_date:
+            h = rhnSQL.prepare(self._query_get_kickstartable_trees_by_limits)
+            h.execute(channel_id=channel_id, lower_limit=self.start_date, upper_limit = self.end_date)
+        else:
+            h = rhnSQL.prepare(self._query_get_kickstartable_trees)
+            h.execute(channel_id=channel_id)
         ks_trees = map(lambda x: x['label'], h.fetchall_dict() or [])
         ks_trees.sort()
         return ks_trees
