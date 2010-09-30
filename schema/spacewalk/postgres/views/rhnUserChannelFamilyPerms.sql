@@ -1,7 +1,7 @@
 -- oracle equivalent source sha1 e0428e62a46d0974943981499bdf16c9f5471b8f
 -- retrieved from ./1235066623/21f37df477f4c9a372b85916798c9ad2ff734e58/schema/spacewalk/rhnsat/views/rhnUserChannelFamilyPerms.sql
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

@@ -1,7 +1,7 @@
 -- oracle equivalent source sha1 cae0ff459fa71cdd5cc195c59c70c6ee4090a42d
 -- retrieved from ./1241128047/984a347f2afbd47756e90584364799dd670b62db/schema/spacewalk/oracle/procs/queue_server.sql
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

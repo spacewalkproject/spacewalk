@@ -1,7 +1,7 @@
 -- oracle equivalent source sha1 942b2bf4eda45273311232fcaa5174f8bfc47123
 -- retrieved from ./1235013416/07c0bfbb6902a98d09f8a41896bd55900645af6b/schema/spacewalk/rhnsat/views/rhnUserTypeCommaView.sql
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

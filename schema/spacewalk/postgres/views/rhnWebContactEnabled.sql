@@ -1,7 +1,7 @@
 -- oracle equivalent source sha1 fb808d26c21beb950018ef40af165b6921f382f0
 -- retrieved from ./1235066623/21f37df477f4c9a372b85916798c9ad2ff734e58/schema/spacewalk/rhnsat/views/rhnWebContactEnabled.sql
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

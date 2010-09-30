@@ -1,7 +1,7 @@
 -- oracle equivalent source sha1 a67701be270afd89aa457bffa73e67220020b57e
 -- retrieved from ./1242148739/5b0d12b97e5fd08c735eda344779d685aebd6409/schema/spacewalk/oracle/tables/time_series.sql
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
