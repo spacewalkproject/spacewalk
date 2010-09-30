@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 8dfbb8448ca026263ca954a7955097cc07e0c9a5
+-- retrieved from ./1280312663/c1e5d91082adf7f8599a7b7429b11f995c7cf7e7/schema/spacewalk/oracle/procs/rhn_prepare_install.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --

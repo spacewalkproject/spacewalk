@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 eeb4ac31ed9937594bc047302e0745b5262942f1
+-- retrieved from ./1240273396/cea26e10fb65409287d4579c2409403b45e5e838/schema/spacewalk/oracle/data/rhn_notification_formats.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

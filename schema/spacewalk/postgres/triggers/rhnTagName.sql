@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 89e44ddb120ade475bac3cba05f09b49414d71d6
+-- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnTagName.sql
 create or replace function rhn_tn_mod_trig_fun() returns trigger as
 $$
 begin

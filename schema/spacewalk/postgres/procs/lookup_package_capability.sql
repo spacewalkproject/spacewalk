@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 2a9d6258e70469a6cb38bc5be57a865a3cc8e65b
+-- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_package_capability.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

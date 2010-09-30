@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 71be2b50bd6bdff9c65510eb06c5c16555ca37c7
+-- retrieved from ./1235066623/21f37df477f4c9a372b85916798c9ad2ff734e58/schema/spacewalk/rhnsat/views/rhnServerNeededPackageView.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 115e27c07d19ef2f87544c22ad3faa984551c5c6
+-- retrieved from ./1235117057/2510d6bed246794de798c9c9b00e8cd21d99a4dc/schema/spacewalk/rhnsat/views/rhnVisServerGroupOverview.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 ab0a8ae5ef575d50d3122865711ba5c81b3d6e07
+-- retrieved from ./1240273396/cea26e10fb65409287d4579c2409403b45e5e838/schema/spacewalk/oracle/data/rhnTemplateString.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

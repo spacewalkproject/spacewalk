@@ -1,4 +1,5 @@
 -- oracle equivalent source sha1 9a93bedcf318008a701b88e86380a8d3cf353819
+-- retrieved from ./1279712605/e7eb734c1a1ae108af13b6aa9040c8f20aee64c5/schema/spacewalk/oracle/procs/create_new_org.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --

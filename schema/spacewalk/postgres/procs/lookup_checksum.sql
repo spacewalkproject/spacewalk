@@ -1,4 +1,5 @@
 -- oracle equivalent source sha1 06adc1fe05d935d97f85b2a98610d6919b4b364e
+-- retrieved from ./1281711291/45292f62e808379159bb85d5e9671e6093c966b7/schema/spacewalk/oracle/procs/lookup_checksum.sql
 --
 -- Copyright (c) 2010 Red Hat, Inc.
 --

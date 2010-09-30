@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 feb81d92fe9de332b986c408e56c5580f134a05f
+-- retrieved from ./1283419612/063a73ab8941f6ebc7b009727444682db3e3994f/schema/spacewalk/oracle/quartz/tables/qrtz.sql
 -- Thanks to Patrick Lightbody for submitting this...
 --
 -- In your Quartz properties file, you'll need to set

@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 0f23a9637e54cf0141b6629baa286d23ed79f849
+-- retrieved from ./1241132947/9984c41fb98d15becf3c29432c19cd7a266dece4/schema/spacewalk/oracle/triggers/rhn_contact_methods.sql
 create or replace function rhn_cmeth_val_trig_fun() returns trigger as
 $$
 begin

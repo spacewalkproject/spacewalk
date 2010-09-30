@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 cf15e2c07c38e123ce7c7c8961e38f5bc95b7da2
+-- retrieved from ./1235561447/a7740e6945947b753ef3359998c3a103d464f765/schema/spacewalk/rhnsat/procs/is_user_applicant.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

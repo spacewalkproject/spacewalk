@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 cd22f41a0fbe568c25cb4a4071f9bf1bce6abb53
+-- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/rhnTransaction.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 5e066ec4afee03b340a9cb2636ae0a0f9e59114d
+-- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/rhnOrgQuota.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

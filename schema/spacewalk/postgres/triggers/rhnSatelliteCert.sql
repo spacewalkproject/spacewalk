@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 dbe15c8bb8f51d37c2bcaba77079c1536a03e99f
+-- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/rhnSatelliteCert.sql
 --
 -- Copyright (c) 2009 Red Hat, Inc.
 --

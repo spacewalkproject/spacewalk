@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 94f4cd46487dac4b437741158d015702313ac514
+-- retrieved from ./1283759318/52384ab2b0a886ec2415641a15223e5c9af004a9/schema/spacewalk/oracle/data/rhn_schedule_days.sql
 --
 -- Copyright (c) 2010 Red Hat, Inc.
 --

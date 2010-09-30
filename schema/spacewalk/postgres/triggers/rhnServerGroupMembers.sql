@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 64ebfb84ad43c32a63a496f72a01c77df70dfe98
+-- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/rhnServerGroupMembers.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

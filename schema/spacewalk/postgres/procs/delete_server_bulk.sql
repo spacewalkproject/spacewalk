@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 6ed9b49c15d481a26c6fe75f381205de0ff71c50
+-- retrieved from ./1235013416/07c0bfbb6902a98d09f8a41896bd55900645af6b/schema/spacewalk/rhnsat/procs/delete_server_bulk.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

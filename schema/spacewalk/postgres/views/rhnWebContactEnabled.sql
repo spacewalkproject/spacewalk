@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 fb808d26c21beb950018ef40af165b6921f382f0
+-- retrieved from ./1235066623/21f37df477f4c9a372b85916798c9ad2ff734e58/schema/spacewalk/rhnsat/views/rhnWebContactEnabled.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

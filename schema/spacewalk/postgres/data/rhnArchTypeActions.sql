@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 9c805a119503e99ea65ae807ca4f9aa8d1ea7903
+-- retrieved from ./1234436529/6ad563fe1fd97340b4d184efd0ba908a19ddd2cb/schema/spacewalk/rhnsat/tables/rhnArchTypeActions_data.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

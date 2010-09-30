@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 d6f9580f675b178e67b83bbd74032ad5f4277d7f
+-- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/procs/rhn_install_satellite.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

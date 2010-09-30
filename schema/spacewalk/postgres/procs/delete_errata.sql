@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 21bc8f72e16e20e6f82872f19143b8c43c937ba6
+-- retrieved from ./1235561447/a7740e6945947b753ef3359998c3a103d464f765/schema/spacewalk/rhnsat/procs/delete_errata.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

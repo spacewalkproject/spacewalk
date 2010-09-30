@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 a67701be270afd89aa457bffa73e67220020b57e
+-- retrieved from ./1242148739/5b0d12b97e5fd08c735eda344779d685aebd6409/schema/spacewalk/oracle/tables/time_series.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

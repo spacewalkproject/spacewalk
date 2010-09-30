@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 60702e902f24095fb5ba504e4532022b43309918
+-- retrieved from ./1241132947/9984c41fb98d15becf3c29432c19cd7a266dece4/schema/spacewalk/oracle/triggers/rhnKickstartSession.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

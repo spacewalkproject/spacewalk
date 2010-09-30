@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 928b3ff046cfaf3b0b7c89ffe4dea70527da4975
+-- retrieved from ./1241132947/9984c41fb98d15becf3c29432c19cd7a266dece4/schema/spacewalk/oracle/triggers/rhnChannel.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

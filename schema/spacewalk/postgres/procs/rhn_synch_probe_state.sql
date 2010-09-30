@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 93ccb88c450fb798388f87921d8e4dc456bfffd6
+-- retrieved from ./1241128047/984a347f2afbd47756e90584364799dd670b62db/schema/spacewalk/oracle/procs/rhn_synch_probe_state.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

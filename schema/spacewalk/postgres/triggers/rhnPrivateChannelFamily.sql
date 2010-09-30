@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 3c24c29e86ab45cf77a411446eb99b2452437942
+-- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/rhnPrivateChannelFamily.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

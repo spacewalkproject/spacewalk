@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 69e0205a1a9291fbadf81d6ebcabb5a9643f03c7
+-- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_snapshot_invalid_reason.sql
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --

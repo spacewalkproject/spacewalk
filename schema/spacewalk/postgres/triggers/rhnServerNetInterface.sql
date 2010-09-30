@@ -1,3 +1,5 @@
+-- oracle equivalent source sha1 d37db54a176f593bd9727921ed20d00d6cd95f4b
+-- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnServerNetInterface.sql
 create or replace function rhn_srv_net_iface_mod_trig_fun() returns trigger as
 $$
 begin
