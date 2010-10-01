@@ -15,8 +15,10 @@
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import java.io.File;
+import java.util.Date;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -44,7 +46,17 @@ public class DebRepositoryWriter extends RepositoryWriter {
     * @return repodata sanity
     */
     public boolean isChannelRepodataStale(Channel channel) {
-        return true;
+        File theFile = new File(mountPoint + File.separator + pathPrefix +
+                File.separator + channel.getLabel() + File.separator +
+                "Packages.gz");
+        Date fileModifiedDate = new Date(theFile.lastModified());
+        // the file Modified date should be getting set when the file
+        // is moved into the correct location.
+        log.info("File Modified Date:" + LocalizationService.getInstance().
+                formatCustomDate(fileModifiedDate));
+        log.info("Channel Modified Date:" + LocalizationService.getInstance().
+                formatCustomDate(channel.getLastModified()));
+        return !fileModifiedDate.equals(channel.getLastModified());
     }
 
     /**
