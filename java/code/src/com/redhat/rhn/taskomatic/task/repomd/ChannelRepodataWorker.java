@@ -27,6 +27,7 @@ import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
 
 import org.apache.log4j.Logger;
+import org.jfree.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,10 +59,20 @@ public class ChannelRepodataWorker implements QueueWorker {
         String mountPoint =
             Config.get().getString(ConfigDefaults.REPOMD_CACHE_MOUNT_POINT, "/pub");
         channelLabelToProcess = (String) workItem.get("channel_label");
-        repoWriter = new RepositoryWriter(prefixPath, mountPoint);
-        logger.info("Creating ChannelRepodataWorker with prefixPath(" + prefixPath +
-                "), mountPoint(" + mountPoint + ")" + " for channel_label (" +
-                channelLabelToProcess + ")");
+
+        // We need to find out whether to use Rpm or Debian repository
+        Channel channelToProcess = ChannelFactory.lookupByLabel(channelLabelToProcess);
+        // if the channelExists in the db still
+        if (channelToProcess != null && channelToProcess.getChannelArch()
+                .getArchType().getLabel().equalsIgnoreCase("deb")) {
+            repoWriter = new DebRepositoryWriter(prefixPath, mountPoint);
+        }
+        else {
+            repoWriter = new RpmRepositoryWriter(prefixPath, mountPoint);
+        }
+        logger.info("Creating ChannelRepodataWorker with prefixPath(" + prefixPath
+                + "), mountPoint(" + mountPoint + ")" + " for channel_label ("
+                + channelLabelToProcess + ")");
     }
 
     /**
