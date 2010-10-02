@@ -64,7 +64,7 @@ public abstract class RepositoryWriter {
    public abstract String getCompsFilePath(Channel channel);
 
    /**
-    * Deletes repomd files
+    * Deletes repository cache files
     * @param channelLabelToProcess channel label
     * @param deleteDir directory to delete
     */
@@ -72,28 +72,17 @@ public abstract class RepositoryWriter {
        log.info("Removing " + channelLabelToProcess);
        String prefix = mountPoint + File.separator + pathPrefix + File.separator +
                channelLabelToProcess;
-       File primary = new File(prefix + File.separator + "primary.xml.gz");
-       File filelists = new File(prefix + File.separator + "filelists.xml.gz");
-       File other = new File(prefix + File.separator + "other.xml.gz");
-       File repomd = new File(prefix + File.separator + "repomd.xml");
-       File updateinfo = new File(prefix + File.separator + "updateinfo.xml.gz");
-       File norepo = new File(prefix + File.separator + "noyumrepo.txt");
        File theDirectory = new File(prefix);
 
-       if (!primary.delete()) {
-           log.info("Couldn't remove " + primary.getAbsolutePath());
+       String[] children = theDirectory.list();
+       if (theDirectory.isDirectory() && children != null) {
+           for (int i = 0; i < children.length; i ++) {
+               File file = new File(prefix + File.separator + children[i]);
+               if (!file.delete()) {
+                   log.info("Couldn't remove " + file.getAbsolutePath());
+               }
+           }
        }
-       if (!filelists.delete()) {
-           log.info("Couldn't remove " + filelists.getAbsolutePath());
-       }
-       if (!other.delete()) {
-           log.info("Couldn't remove " + other.getAbsolutePath());
-       }
-       if (!repomd.delete()) {
-           log.info("Couldn't remove " + repomd.getAbsolutePath());
-       }
-       updateinfo.delete();
-       norepo.delete();
        if (deleteDir) {
            if (!theDirectory.delete()) {
                log.info("Couldn't remove " + prefix);
