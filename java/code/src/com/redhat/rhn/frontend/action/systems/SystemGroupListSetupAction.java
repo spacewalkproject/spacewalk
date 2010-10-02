@@ -165,13 +165,13 @@ public class SystemGroupListSetupAction extends RhnAction {
          * TODO: make this an ActionForward
          */
         try {
-            response.sendRedirect("/network/systems/ssm/system_list.pxt");
+            response.sendRedirect("/rhn/systems/ssm/ListSystems.do");
         }
         catch (IOException exc) {
             // This really shouldn't happen, but just in case, log and
             // return.
             LOG.error("IOException when trying to redirect to " +
-                    "/network/systems/ssm/system_list.pxt", exc);
+                    "/rhn/systems/ssm/ListSystems.do", exc);
         }
 
         return null;
@@ -237,13 +237,13 @@ public class SystemGroupListSetupAction extends RhnAction {
          * TODO: make this an ActionForward
          */
         try {
-            response.sendRedirect("/network/systems/ssm/system_list.pxt");
+            response.sendRedirect("/rhn/systems/ssm/ListSystems.do");
         }
         catch (IOException exc) {
             // This really shouldn't happen, but just in case, log and
             // return.
             LOG.error("IOException when trying to redirect to " +
-                    "/network/systems/ssm/system_list.pxt", exc);
+                    "/rhn/systems/ssm/ListSystems.do", exc);
         }
 
         return null;

@@ -3113,6 +3113,17 @@
                  path="/systems/ssm/misc/Index.do" redirect="true"/>
     </action>
 
+        <action path="/systems/ssm/ListSystems"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/list.jsp"
+        type="com.redhat.rhn.frontend.action.ssm.ListSystemsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/list.jsp"/>
+               <forward name="confirm"
+                 path="/systems/ssm/ListSystems.do" redirect="true"/>
+     </action>
+
         <action path="/systems/ssm/MigrateSystems"
         scope="request"
         input="/WEB-INF/pages/ssm/systems/ssmdeleteconfirm.jsp"

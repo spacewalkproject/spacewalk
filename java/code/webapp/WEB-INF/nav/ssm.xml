@@ -2,7 +2,8 @@
 <rhn-navi-tree label="ssm" invisible="1" title-depth="1">
 	<rhn-tab name="Overview" url="/rhn/ssm/index.do" />
 	<rhn-tab name="Systems">
-		<rhn-tab-url>/network/systems/ssm/system_list.pxt</rhn-tab-url>
+<!--		<rhn-tab-url>/network/systems/ssm/system_list.pxt</rhn-tab-url> -->
+		<rhn-tab-url>/rhn/systems/ssm/ListSystems.do</rhn-tab-url>
 	</rhn-tab>
 
 	<rhn-tab name="Errata"
