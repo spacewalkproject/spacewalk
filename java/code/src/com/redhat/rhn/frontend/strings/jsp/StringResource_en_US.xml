@@ -5460,6 +5460,22 @@ value for this entitlement, excluding the default organization's consumption.</s
        </trans-unit>
      </group>
 
+<!-- SSM System Migration -->
+     <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/systems/ssm/MigrateSystems.do</context>
+       </context-group>
+       <trans-unit id="ssm.migrate.systems.header">
+         <source>Migrate Systems</source>
+       </trans-unit>
+       <trans-unit id="ssm.migrate.systems.summary">
+         <source>Migrate the selected systems to the selected organisation.  If the operation is successful, the systems will no longer be visible in this organisation.</source>
+       </trans-unit>
+       <trans-unit id="ssm.migrate.systems.org">
+         <source>Target Organisation</source>
+       </trans-unit>
+     </group>
+
  <!-- SSM System  list-->
 	<group>
 		<context-group name="ctx">
@@ -5540,6 +5556,16 @@ value for this entitlement, excluding the default organization's consumption.</s
        </trans-unit>
        <trans-unit id="ssm.misc.index.profileupdates.software">
          <source>Update Software Profile</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.misc.index.migrate.header">
+         <source>Migrate Systems</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.migrate.summary">
+         <source>Migrate multiple systems from the current organistation to another (trusted) organisation in a single action.  The migrated systems will no longer be visible in the original organisation.</source>
+       </trans-unit>
+       <trans-unit id="ssm.misc.index.migrate.migrate">
+         <source>Migrate Systems to another organisation</source>
        </trans-unit>
 
        <trans-unit id="ssm.misc.index.csi.header">

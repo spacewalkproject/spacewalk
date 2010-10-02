@@ -20,6 +20,20 @@
 </ul>
 <br />
 
+<a id="migrate">&#160;</a>
+<h2><bean:message key="ssm.misc.index.migrate.header"/></h2>
+
+<div class="page-summary">
+<p><bean:message key="ssm.misc.index.migrate.summary"/></p>
+
+</div>
+
+<ul>
+  <li><a href="/rhn/systems/ssm/MigrateSystems.do"><bean:message key="ssm.misc.index.migrate.migrate"/></a></li>
+</ul>
+
+<br />
+
 <a id="profiles">&#160;</a>
 <h2><bean:message key="ssm.misc.index.csi.header"/></h2>
 <div class="page-summary">

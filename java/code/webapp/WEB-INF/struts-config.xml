@@ -1028,6 +1028,12 @@
       <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
 
+    <form-bean name="ssmMigrateForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="org" type="java.lang.String"/>
+      <form-property name="submitted" type="java.lang.Boolean"/>
+    </form-bean>
+
     <form-bean name="targetSystemsForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
       <form-property name="use_date"  type="java.lang.Boolean"/>
@@ -3106,6 +3112,18 @@
         <forward name="success"
                  path="/systems/ssm/misc/Index.do" redirect="true"/>
     </action>
+
+        <action path="/systems/ssm/MigrateSystems"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/ssmdeleteconfirm.jsp"
+        type="com.redhat.rhn.frontend.action.ssm.MigrateSystemsAction"
+        name="ssmMigrateForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/migrate.jsp"/>
+               <forward name="confirm"
+                 path="/systems/Overview.do" redirect="true"/>
+     </action>
 
     <!--System Details Configuration -->
      <action path="/systems/details/configuration/Overview"
