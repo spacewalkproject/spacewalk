@@ -5441,10 +5441,7 @@ value for this entitlement, excluding the default organization's consumption.</s
        </trans-unit>
 
        <trans-unit id="ssm.overview.misc.updateprofiles">
-         <source>Update &lt;a
-		href="/network/systems/ssm/misc/index.pxt#profiles"&gt;hardware/package
-		profiles&lt;/a&gt; and &lt;a href="/network/systems/ssm/misc/index.pxt#sysprefs"&gt;system
-		preferences&lt;/a&gt;</source>
+         <source>Update &lt;a href="/rhn/systems/ssm/misc/Index.do#profiles"&gt;hardware/package profiles&lt;/a&gt; and &lt;a href="/rhn/systems/ssm/misc/Index.do#sysprefs"&gt;system preferences&lt;/a&gt;</source>
        </trans-unit>
 
        <trans-unit id="ssm.overview.misc.customvalues">
@@ -5452,11 +5449,14 @@ value for this entitlement, excluding the default organization's consumption.</s
        </trans-unit>
 
        <trans-unit id="ssm.overview.misc.entitlements">
-         <source>&lt;a href="/network/systems/ssm/misc/index.pxt#entitle"&gt;Add or Remove&lt;/a&gt; Add-On Entitlements</source>
+         <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#entitle"&gt;Add or Remove&lt;/a&gt; Add-On Entitlements</source>
        </trans-unit>
 
        <trans-unit id="ssm.overview.misc.deletereboot">
          <source>&lt;a href="/rhn/systems/ssm/DeleteConfirm.do"&gt;Delete&lt;/a&gt; / &lt;a href="/network/systems/ssm/misc/reboot_systems.pxt?pxt:trap=rhn:empty_set&amp;set_label=target_systems"&gt;Reboot&lt;/a&gt; systems</source>
+       </trans-unit>
+       <trans-unit id="ssm.overview.misc.migrate">
+         <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrate&lt;/a&gt; systems to another organization</source>
        </trans-unit>
      </group>
 
