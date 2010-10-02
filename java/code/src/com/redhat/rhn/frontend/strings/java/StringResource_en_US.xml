@@ -8692,7 +8692,7 @@ Follow this url to see the full list of inactive systems:
         <source>Migrate Systems</source>
      </trans-unit>
      <trans-unit id="ssm.migrate.systems.orgnone">
-        <source>This organisation has no trusted organisations.  Systems can only be migrated between organisations with defined trusts.</source>
+        <source>This organization has no trusted organizations.  Systems can only be migrated between organizations with defined trusts.</source>
      </trans-unit>
      <trans-unit id="channel.manage.merge.finished">
         <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
