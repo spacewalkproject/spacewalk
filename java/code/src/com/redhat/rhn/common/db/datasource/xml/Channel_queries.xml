@@ -1251,6 +1251,18 @@ END;
     </query>
 </callable-mode>
 
+<mode name="activation_key_child_channels">
+  <query params="token_id, user_id">
+    SELECT DISTINCT c1.id as id,
+       (select name from rhnChannel C2 where c1.parent_channel = c2.id) parent,
+       c1.name as name,
+       NVL2((SELECT 1 FROM rhnRegTokenChannels WHERE token_id = :token_id AND channel_id = c1.id), 'selected', '') s
+    FROM rhnChannel c1 inner join rhnUserChannel UC on UC.channel_id = C1.id
+    AND c1.parent_channel IS NOT NULL
+    AND UC.user_id = :user_id
+    ORDER BY parent, name
+  </query>
+</mode>
 <callable-mode name="can_convert_to_flex">
   <query params="result, sid, cfid">
       {:result = call rhn_channel.convert_to_fve(:sid, :cfid)}

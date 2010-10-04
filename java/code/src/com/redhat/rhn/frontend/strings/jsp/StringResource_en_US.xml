@@ -12939,6 +12939,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
      <group>
        <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/activationkeys/childchannels/* pages</context>
+       </context-group>
+
+       <trans-unit id="activation-key.childchannels.jsp.summary">
+           <source>Any system registered using this activation key will be subscribed to the selected child channels.</source>
+       </trans-unit>
+
+       <trans-unit id="activation-key.childchannels.jsp.blurb">
+           <source>The following child channels of &lt;strong&gt;{0}&lt;/strong&gt; can be associated with this activation key.</source>
+       </trans-unit>
+    </group>
+
+     <group>
+       <context-group name="ctx">
            <context context-type="sourcefile">/rhn/activationkeys/configuration/* pages</context>
        </context-group>
 

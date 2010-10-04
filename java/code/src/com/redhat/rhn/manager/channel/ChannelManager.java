@@ -508,7 +508,7 @@ public class ChannelManager extends BaseManager {
 
     /**
      * Returns a list of ChannelTreeNodes that have orgId null
-     *      or has a prarent with org_id null
+     *      or has a parent with org_id null
      * @param user who we are requesting Red Hat channels for
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's

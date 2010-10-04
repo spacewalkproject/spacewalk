@@ -27,6 +27,12 @@
            <form-property name="packages" type="java.lang.String"/>
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
+       <form-bean name="activationKeyChildChannelForm"
+           type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+           <form-property name="channels" type="java.util.ArrayList"/>
+           <form-property name="childChannels" type="java.lang.String[]"/>
+           <form-property name="submitted" type="java.lang.Boolean"/>
+       </form-bean>
        <form-bean name="storedProfileForm"
            type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
            <form-property name="name" type="java.lang.String"/>
@@ -4910,6 +4916,20 @@
                  path="/WEB-INF/pages/activationkeys/delete.jsp"/>
         <forward name="success" redirect = "true"
                  path="/activationkeys/List.do"/>
+    </action>
+
+    <action path="/activationkeys/channels/ChildChannels"
+        name="activationKeyChildChannelForm"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/childchannels/listeditchannels.jsp"
+                type="com.redhat.rhn.frontend.action.token.ActivationKeyChildChannelsAction"
+                className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+                parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/childchannels/listeditchannels.jsp"/>
+        <forward name="success" redirect="true"
+                 path="/activationkeys/channels/ChildChannels.do"/>
     </action>
 
     <action path="/activationkeys/packages/Packages"
