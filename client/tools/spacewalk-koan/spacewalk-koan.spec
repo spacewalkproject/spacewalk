@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.2.8
+Version: 0.2.9
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.2.9-1
+- replaced local copy of compile.py with standard compileall module
+
 * Fri Sep 24 2010 Justin Sherrill <jsherril@redhat.com> 0.2.8-1
 - 637273 - fixing error with reprovisiong (unexpected keyword argument
   cache_only) (jsherril@redhat.com)
