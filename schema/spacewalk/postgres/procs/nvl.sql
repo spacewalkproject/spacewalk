@@ -1,3 +1,4 @@
+-- oracle equivalent source none
 --
 -- Copyright (c) 2010 Red Hat, Inc.
 --
