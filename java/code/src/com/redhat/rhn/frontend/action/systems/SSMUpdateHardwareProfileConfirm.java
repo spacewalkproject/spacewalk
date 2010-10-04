@@ -67,14 +67,9 @@ public class SSMUpdateHardwareProfileConfirm extends RhnAction implements Listab
         if (isSubmitted(daForm)) {
             Iterator it = set.iterator();
             Set<Long> serverIds = new HashSet<Long>();
-//            Long serverIds[] = new Long[set.size()];
-//            Integer i = 0;
             while (it.hasNext()) {
                 Long sid = ((RhnSetElement)it.next()).getElement();
                 serverIds.add(sid);
-//                Server server = SystemManager.lookupByIdAndUser(sid, user);
-//                serverIds[i] = sid;
-//                i++;
             }
             Date now = new Date();
 
