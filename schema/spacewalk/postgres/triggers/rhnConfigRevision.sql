@@ -1,4 +1,4 @@
--- -- oracle equivalent source sha1 d5186095aa52f20774e7d1d34a674600d0eef083
+-- oracle equivalent source sha1 8640dd69620977b6e347b937853647990cb1080c
 -- retrieved from ./1241132947/9984c41fb98d15becf3c29432c19cd7a266dece4/schema/spacewalk/oracle/triggers/rhnConfigRevision.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
@@ -58,6 +58,7 @@ begin
         where   cf.id = new.config_file_id
                         and cf.config_channel_id = cc.org_id
                         and cc.org_id = oq.org_id
+                        and new.config_file_type_id = (select id from rhnConfigFileType where label='file')
                         and new.config_content_id = content.id;
 
         if added > available then
@@ -107,6 +108,3 @@ rhn_confrevision_del_trig
 before delete on rhnConfigRevision
 for each row
 execute procedure rhn_confrevision_del_trig_fun();
-
-
-
