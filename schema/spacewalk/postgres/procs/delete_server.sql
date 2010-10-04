@@ -1,5 +1,6 @@
 -- -- oracle equivalent source sha1 e16a211073e298ca515b54eb9c5eb51896463108
 -- retrieved from ./1241139299/9d12c670ec75dda96634543d6082c6162eee0e97/schema/spacewalk/oracle/procs/delete_server.sql
+-- one difference from Oracle (see TODO)
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -150,7 +151,6 @@ begin
         delete from rhnActionConfigChannel where server_id = server_id_in;
         delete from rhnActionConfigRevision where server_id = server_id_in;
         delete from rhnActionPackageRemovalFailure where server_id = server_id_in;
-        delete from rhnChannelFamilyLicenseConsent where server_id = server_id_in;
         delete from rhnClientCapability where server_id = server_id_in;
         delete from rhnCpu where server_id = server_id_in;
         -- there's still a cascade here, because the constraint keeps the
@@ -231,6 +231,8 @@ begin
        FROM rhn_sat_node SN
       WHERE SN.server_id = server_id_in)
     );
+
+    -- delete from time_series TODO
 
         delete from rhn_check_probe where host_id = server_id_in;
         delete from rhn_host_probe where host_id = server_id_in;
