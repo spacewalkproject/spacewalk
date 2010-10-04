@@ -167,3 +167,6 @@ allow spacewalk_monitoring_t self:process setpgid;
 optional_policy(`
 	samba_stream_connect_winbind(spacewalk_monitoring_t)
 ')
+optional_policy(`
+	files_read_usr_files(spacewalk_monitoring_t)
+')
