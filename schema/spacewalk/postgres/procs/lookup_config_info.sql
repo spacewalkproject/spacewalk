@@ -21,7 +21,8 @@ lookup_config_info
     username_in     in varchar,
     groupname_in    in varchar,
     filemode_in     in numeric,
-    selinux_ctx_in  in varchar
+    selinux_ctx_in  in varchar,
+    symlink_target_id in numeric
 )
 returns numeric
 as
@@ -32,10 +33,15 @@ declare
     lookup_cursor cursor  for
         select id
           from rhnConfigInfo
-         where username = username_in
-           and groupname = groupname_in
-           and filemode = filemode_in
-           and nvl(selinux_ctx, ' ') = nvl(selinux_ctx_in, ' ');
+         where 1=1
+           and (username = username_in or (username is null and username_in is null))
+           and (groupname = groupname_in or (groupname is null and groupname_in is null))
+           and (filemode = filemode_in or (filemode is null and filemode_in is null))
+           and (selinux_ctx = selinux_ctx_in or
+               (selinux_ctx is null and selinux_ctx_in is null))
+           and (symlink_target_filename_id = symlink_target_id or
+               (symlink_target_filename_id is null and symlink_target_id is null))
+        ;
 begin
     for r in lookup_cursor loop
         return r.id;
@@ -43,8 +49,8 @@ begin
     -- If we got here, we don't have the id
     select nextval('rhn_confinfo_id_seq') into v_id;
     insert into rhnConfigInfo
-        (id, username, groupname, filemode, selinux_ctx)
-    values (v_id, username_in, groupname_in, filemode_in, selinux_ctx_in);
+        (id, username, groupname, filemode, selinux_ctx, symlink_target_filename_id)
+    values (v_id, username_in, groupname_in, filemode_in, selinux_ctx_in, symlink_target_id);
     return v_id;
 end;
 $$ language plpgsql;
