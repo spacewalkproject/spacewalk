@@ -4010,9 +4010,7 @@ public class SystemHandler extends BaseHandler {
         if (pack == null) {
             throw new InvalidPackageException(pid.toString());
         }
-        return SystemManager.listSystemsWithPackage(loggedInUser,
-                pack.getPackageName().getName() , pack.getPackageEvr().getVersion(),
-                pack.getPackageEvr().getRelease());
+        return SystemManager.listSystemsWithPackage(loggedInUser, pid.longValue());
     }
 
     /**

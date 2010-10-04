@@ -355,7 +355,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 
 <mode name="systems_with_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="org_id, pid, user_id">
-SELECT  S.ID
+SELECT  S.id, S.name
   FROM  rhnServerPackage SP, rhnPackage P, rhnServer S
  WHERE  S.org_id = :org_id
    AND  P.id = :pid
