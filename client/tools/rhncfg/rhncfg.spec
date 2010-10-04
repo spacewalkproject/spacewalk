@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.27
+Version: 5.9.28
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -99,6 +99,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.28-1
+- replaced local copy of compile.py with standard compileall module
+
 * Wed Aug 04 2010 Milan Zazrivec <mzazrivec@redhat.com> 5.9.27-1
 - 604615 - don't traceback if server does not send selinux_ctx
 
