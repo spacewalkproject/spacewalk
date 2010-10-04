@@ -51,10 +51,10 @@ public class ActivationKeyChildChannelsAction extends RhnAction {
     private static final String POSSIBLE_CHANNELS = "possibleChannels";
     private static final String SELECTED_CHANNEL = "selectedChannel";
 
-
-
-    /** { inheritDoc} */
-    @Override
+    /**
+     *
+     * {@inheritDoc}
+     */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
