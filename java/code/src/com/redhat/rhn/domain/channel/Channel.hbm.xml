@@ -163,11 +163,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 -->
     <sql-query name="Channel.findAllBaseChannels">
         <![CDATA[SELECT {c.*}
-                 FROM rhnChannel {c},
-                      rhnUserChannel uc,
-                      rhnChannelCloned c_1_
+                 FROM rhnUserChannel uc,
+                      rhnChannel {c} left outer join rhnChannelCloned c_1_
+                      ON c.id = c_1_.id
                  WHERE c.id = uc.channel_id
-                   AND c.id = c_1_.id (+)
                    AND uc.org_id = :org_id
                    AND uc.user_id = :user_id
                    AND uc.role = 'subscribe'
