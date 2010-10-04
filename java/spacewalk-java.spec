@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.48
+Version: 1.2.49
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -336,6 +336,25 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 04 2010 Justin Sherrill <jsherril@redhat.com> 1.2.49-1
+- 639999 - removing management entitlement requirment from a bunch of user
+  pages (jsherril@redhat.com)
+- 639134 - use proper function when searching package using id
+  (tlestach@redhat.com)
+- Port /network/account/activation_keys/child_channels.pxt
+  (coec@war.coesta.com)
+- Create cache directory for both rpm and deb channels. (slukasik@redhat.com)
+- Use US spelling of 'organisation' (coec@war.coesta.com)
+- Port /network/systems/ssm/system_list.pxt (coec@war.coesta.com)
+- SSM System migration (coec@war.coesta.com)
+- distinguish spacewalk and satellite email body, when certificate expires
+  (tlestach@redhat.com)
+- Hardware Refresh - Create only one action (coec@war.coesta.com)
+- Package Refresh - Create only one action (coec@war.coesta.com)
+- Port SSM Package Refresh Page (coec@war.coesta.com)
+- Port /network/systems/ssm/index.pxt (colin.coe@gmail.com)
+- Implement schedule.archiveActions (coec@war.coesta.com)
+
 * Thu Sep 30 2010 Lukas Zapletal 1.2.48-1
 - jspf pages are now precompiled too
 - deleted jpsf that was no longer in use
