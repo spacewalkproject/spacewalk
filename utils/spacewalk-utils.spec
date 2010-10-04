@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.2.1
+Version:	1.2.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.2-1
+- replaced local copy of compile.py with standard compileall module
+
 * Thu Sep 09 2010 Tomas Lestach <tlestach@redhat.com> 1.2.1-1
 - 599030 - check whether SSL certificate generation was successful
   (tlestach@redhat.com)
