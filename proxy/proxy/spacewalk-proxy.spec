@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.2.2
+Version: 1.2.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -320,6 +320,9 @@ fi
 
 
 %changelog
+* Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.3-1
+- replaced local copy of compile.py with standard compileall module
+
 * Wed Sep 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.2-1
 - 629330 - do not remove /var/cache/rhn/* during upgrade
 - 629330 - do not remove /var/spool/rhn-proxy/list itself, only its content
