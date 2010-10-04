@@ -85,18 +85,3 @@ begin
 end;
 /
 show errors
-
---
---
--- Revision 1.4  2004/01/07 20:49:12  pjones
--- bugzilla: none -- this needs to be done in application code
---
--- Revision 1.3  2004/01/05 20:35:41  pjones
--- bugzilla: 112553 -- fix the insert case for quota
---
--- Revision 1.2  2003/12/19 22:07:30  pjones
--- bugzilla: 112392 -- quota support for config files
---
--- Revision 1.1  2003/11/14 21:00:44  pjones
--- bugzilla: none -- snapshot invalid on config rev removal
---
