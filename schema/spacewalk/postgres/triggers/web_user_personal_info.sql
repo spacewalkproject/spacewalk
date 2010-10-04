@@ -1,4 +1,4 @@
--- -- oracle equivalent source sha1 50d71d29fcb58e20fdeb000046ab5d5a60ac5082
+-- oracle equivalent source sha1 57b352ea9792142fc34a3240b4d4a8ea57e740c1
 -- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/web_user_personal_info.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
@@ -19,16 +19,14 @@
 --
 -- triggers for web_user_personal_info
 
-create or replace function web_user_pi_timestamp_fun() returns trigger
-as
+create or replace function web_user_pi_timestamp_fun() returns trigger as
 $$
-
-BEGIN
+begin
   new.modified := current_timestamp;
 
-  RETURN new;
-END;
-$$ LANGUAGE PLPGSQL;
+  return new;
+end;
+$$ language plpgsql;
 
 
 create trigger
@@ -36,6 +34,3 @@ web_user_pi_timestamp
 BEFORE INSERT OR UPDATE ON web_user_personal_info
 FOR EACH ROW
 execute procedure web_user_pi_timestamp_fun();
-
-
-
