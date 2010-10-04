@@ -1200,7 +1200,7 @@
         type="com.redhat.rhn.frontend.action.user.CreateUserSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/user/create/usercreate.jsp" />
     </action>
 
@@ -1311,7 +1311,7 @@
         type="com.redhat.rhn.frontend.action.user.UserPrefSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/userpreferences.jsp" />
     </action>
 
@@ -1322,7 +1322,7 @@
         type="com.redhat.rhn.frontend.action.user.UserLocalePrefAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/localepreferences.jsp" />
       <forward name="display" path="/users/LocalePreferences.do" />
     </action>
@@ -1352,7 +1352,7 @@
         type="com.redhat.rhn.frontend.action.user.UserPrefAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="success" path="/users/UserPreferences.do"
                redirect="true" />
       <forward name="failure" path="/users/UserPreferences.do" />
@@ -1377,7 +1377,7 @@
         type="com.redhat.rhn.frontend.action.user.EditAddressSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/edit_address.jsp" />
     </action>
 
@@ -1398,7 +1398,7 @@
         type="com.redhat.rhn.frontend.action.user.EditAddressAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="success" path="/users/Addresses.do"
                redirect="true" />
       <forward name="failure" path="/users/EditAddress.do" />
@@ -1422,7 +1422,7 @@
         type="com.redhat.rhn.frontend.action.user.AssignedGroupsSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/assignedgroups.jsp" />
     </action>
 
@@ -1433,7 +1433,7 @@
         type="com.redhat.rhn.frontend.action.user.ChangeEmailSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/changeemail.jsp" />
     </action>
 
@@ -1444,7 +1444,7 @@
         type="com.redhat.rhn.frontend.action.user.ChangeEmailAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="updated" path="/users/ChangeEmail.do" redirect="true" />
       <forward name="failure" path="/users/ChangeEmail.do" />
     </action>
@@ -1472,7 +1472,7 @@
             type="com.redhat.rhn.frontend.action.user.AddressesAction"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/useraddresses.jsp" />
     </action>
 
@@ -1489,7 +1489,7 @@
         type="com.redhat.rhn.frontend.action.user.UserListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/userlist.jsp" />
     </action>
 
@@ -1500,7 +1500,7 @@
          className="com.redhat.rhn.frontend.struts.RhnActionMapping"
          parameter="dispatch">
        <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
        <forward name="default" path="/users/UserList.do" redirect="true" />
      </action>
 
@@ -1671,7 +1671,7 @@
         type="com.redhat.rhn.frontend.action.user.EnableUserSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/enableuser.jsp" />
     </action>
 
@@ -1681,7 +1681,7 @@
          type="com.redhat.rhn.frontend.action.user.EnableUserAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
        <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="user_role(org_admin)"/>
        <forward name="success" path="/users/ActiveList.do" redirect="true"/>
        <forward name="failure" path="/users/UserDetails.do" redirect="false"/>
      </action>
@@ -4742,7 +4742,7 @@
         type="com.redhat.rhn.frontend.action.multiorg.SatRoleConfirm"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="org_entitlement(sw_mgr_enterprise); user_role(satellite_admin)"/>
+                    value="user_role(satellite_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/multiorg/deletesatadmin.jsp" />
       <forward name="cancel" path="/admin/multiorg/Users.do" redirect="true" />
       <forward name="logout" path="/Logout.do" redirect="true" />
