@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.38
+Version: 5.9.39
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -247,6 +247,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 # $Id$
 %changelog
+* Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.39-1
+- replaced local copy of compile.py with standard compileall module
+
 * Wed Aug 04 2010 Jan Pazdziora 5.9.38-1
 - Allow osa-dispatcher to talk to PostgreSQL.
 
