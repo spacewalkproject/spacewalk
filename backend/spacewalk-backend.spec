@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.17
+Version: 1.2.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.18-1
+- replaced local copy of compile.py with standard compileall module
+- removed a lot of dead code
+- 637155 - pad --start-date, --end-date with zeros
+
 * Thu Sep 23 2010 Shannon Hughes <shughes@redhat.com> 1.2.17-1
 - modify reposync logrotate to include channel label log files
   (shughes@redhat.com)
