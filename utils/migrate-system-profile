@@ -33,6 +33,10 @@ def systemExit(code, msgs=None):
             sys.stderr.write(str(msg)+'\n')
     sys.exit(code)
 
+_LIBPATH = "/usr/share/rhn"
+# add to the path if need be
+if _LIBPATH not in sys.path:
+    sys.path.append(_LIBPATH)
 
 try:
     import os
