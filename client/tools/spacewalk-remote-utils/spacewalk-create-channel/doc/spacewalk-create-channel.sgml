@@ -208,14 +208,20 @@ the Spacewalk or Satellite server.
 
 <RefSect1><Title>Examples</Title>
         <para>Creating a channel 'my-stable-channel' for RHEL 4 AS u3 i386: 
-	  <command>spacewalk-create-channel</command>  --user=admin --server=myserver.example.com --version=4 --update=u3 --release=AS --arch=i386   --destChannel=my-stable-channel
- 	  <command>spacewalk-create-channel</command>  -l admin -s myserver.example.com  -D /usr/share/rhn/channel-data/4-U3-AS-i386  -d my-stable-channel
+          <simplelist>
+            <member><command>spacewalk-create-channel</command>  --user=admin --server=myserver.example.com --version=4 --update=u3 --release=AS --arch=i386   --destChannel=my-stable-channel</member>
+ 	    <member><command>spacewalk-create-channel</command>  -l admin -s myserver.example.com  -D /usr/share/rhn/channel-data/4-U3-AS-i386  -d my-stable-channel</member>
+          </simplelist>
         </para>
         <para>Upgrade previously created channel 'my-stable-channel' to RHEL 4 AS u4 i386:
-   	  <command>spacewalk-create-channel</command>  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386   -d my-stable-channel
+          <simplelist>
+       	    <member><command>spacewalk-create-channel</command>  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386   -d my-stable-channel</member>
+          </simplelist>
         </para>
         <para>Add the extra's channel as a child channel of 'my-stable-channel':
-	    <command>spacewalk-create-channel</command>  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386 -e extras  -p my-stable-channel -d my-stable-extras
+           <simplelist>
+	    <member><command>spacewalk-create-channel</command>  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386 -e extras  -p my-stable-channel -d my-stable-extras</member>
+           </simplelist>
         </para>
 </RefSect1>
 
