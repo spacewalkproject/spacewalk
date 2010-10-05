@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.49
+Version: 1.2.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -340,6 +340,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 05 2010 Jan Pazdziora 1.2.50-1
+- Replace Oracle outer join syntax with ANSI syntax for
+  Channel.findAllBaseChannels and Channel.findByIdAndUserId.
+- Use current_timestamp instead of the Oracle-specific sysdate in
+  request_repo_regen.
+- Avoid using rhn_repo_regen_queue_id_seq.nextval Oracle syntax in
+  request_repo_regen.
+- spacewalk-java.spec now check for spelling errors in build time.
+  (lzap+git@redhat.com)
+
 * Mon Oct 04 2010 Justin Sherrill <jsherril@redhat.com> 1.2.49-1
 - 639999 - removing management entitlement requirment from a bunch of user
   pages (jsherril@redhat.com)
