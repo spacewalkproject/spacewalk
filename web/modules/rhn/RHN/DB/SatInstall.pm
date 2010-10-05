@@ -37,17 +37,17 @@ sub test_db_schema {
 
   my $dbh = RHN::DB->connect;
 
-  my $sth = $dbh->prepare(<<EOQ);
+  return eval {
+  my $sth = $dbh->prepare(<<EOQ) or return;
 SELECT 1
-  FROM user_objects
- WHERE object_name = 'PXTSESSIONS'
+  FROM PXTSESSIONS
+ WHERE 1 = 0
 EOQ
 
-  $sth->execute;
-  my ($row) = $sth->fetchrow;
+  $sth->execute() or return;
   $sth->finish;
-
-  return $row ? 1 : 0;
+  return 1;
+  };
 }
 
 sub get_nls_database_parameters {
