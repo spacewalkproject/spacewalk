@@ -38,25 +38,13 @@ sub test_db_schema {
   my $dbh = RHN::DB->connect;
 
   my $sth = $dbh->prepare(<<EOQ);
-SELECT object_name
-  FROM user_objects
- WHERE NOT object_name = 'PLAN_TABLE'
-EOQ
-
-  $sth->execute;
-  my ($row) = $sth->fetchrow;
-  $sth->finish;
-
-  return 0 unless $row;
-
-  $sth = $dbh->prepare(<<EOQ);
 SELECT 1
   FROM user_objects
  WHERE object_name = 'PXTSESSIONS'
 EOQ
 
   $sth->execute;
-  ($row) = $sth->fetchrow;
+  my ($row) = $sth->fetchrow;
   $sth->finish;
 
   return $row ? 1 : 0;
