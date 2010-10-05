@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.8
+Version: 1.2.9
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,23 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Oct 05 2010 Jan Pazdziora 1.2.9-1
+- Force the field names to be uppercase since that is what the application
+  expects.
+- Use case instead of decode, it is more portable.
+- Mark aliases with AS. This is what PostgreSQL requires.
+- Instead of checking user_objects which is not portable, just attempt to
+  select from PXTSESSIONS directly.
+- We first check if there is some object not named PLAN_TABLE, and then if
+  there is some object named PXTSESSIONS. Just drop the first check.
+- Port /network/account/activation_keys/child_channels.pxt
+  (coec@war.coesta.com)
+- Port /network/systems/ssm/system_list.pxt (coec@war.coesta.com)
+- Port SSM Package Refresh Page (coec@war.coesta.com)
+- Simple fixes (coec@war.coesta.com)
+- Port /network/systems/ssm/index.pxt (colin.coe@gmail.com)
+- Port HW refresh page (colin.coe@gmail.com)
+
 * Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.8-1
 - 636653 - Made the  Channel Family Subscribed Systems page show guest systems
   also (paji@redhat.com)
