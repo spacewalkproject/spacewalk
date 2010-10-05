@@ -178,6 +178,7 @@ sub connect {
 							Taint => 0,
 							AutoCommit => 0,
 							private_rhndb_transaction_level => 0,
+							FetchHashKeyName => 'NAME_uc',
 						      });
 
   # this dbh is from a cache, which means disconnects fail
