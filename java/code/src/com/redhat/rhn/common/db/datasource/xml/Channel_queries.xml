@@ -89,7 +89,7 @@ INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (null,			-- the id is set by trigger on rhnRepoRegenQueue
-        :label, :client, :reason, 'N', 'N', sysdate, sysdate, sysdate)
+        :label, :client, :reason, 'N', 'N', current_timestamp, current_timestamp, current_timestamp)
   </query>
 </write-mode>
 
