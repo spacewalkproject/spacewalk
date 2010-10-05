@@ -133,7 +133,7 @@ def main():
       arch = options.arch
       extra = options.extra
       filename = getFileName(version,update, release, arch, extra)
-      fullpath = DATA_DIR + filename
+      fullpath = DATA_DIR_RHN + filename
    else:
       filename = os.path.basename(options.data)
       fullpath = options.data
@@ -223,7 +223,7 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
       clearChannel(newChannel, existing_packs, client, auth)  
    
    #strip new lines 
-   fileList = map(str.strip, open(DATA_DIR + filename).readlines())
+   fileList = map(str.strip, open(DATA_DIR_RHN + filename).readlines())
    fileList.sort()
    pack_num = 0
    skip_num = 0
