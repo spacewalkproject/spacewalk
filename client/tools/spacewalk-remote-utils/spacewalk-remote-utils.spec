@@ -37,7 +37,7 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %{__install} -p -m0644 spacewalk-create-channel/data/* %{buildroot}/%{_datadir}/rhn/channel-data/
 
 %{__mkdir_p} %{buildroot}/%{_mandir}/man1
-%{__gzip} -c ./spacewalk-create-channel/doc/spacewalk-create-channel.1 > %{buildroot}/%{_mandir}/man1/spacecwalk-create-channel.1.gz
+%{__gzip} -c ./spacewalk-create-channel/doc/spacewalk-create-channel.1 > %{buildroot}/%{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %clean
 %{__rm} -rf %{buildroot}
@@ -49,7 +49,7 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %{_datadir}/rhn/channel-data/
 
 %doc spacewalk-create-channel/doc/README spacewalk-create-channel/doc/COPYING
-%doc %{_mandir}/man1/spacecwalk-create-channel.1.gz
+%doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
 * Tue Oct 05 2010 Justin Sherrill <jsherril@redhat.com> 1.0.4-1
