@@ -36,8 +36,8 @@ then simply pass the  '--skiplist=skiplist.txt' option when running the command.
 	be copied to the channel except for those in the skip list.
 
 
-In addition to the script, you should find in this directory:
-data/   - Data files for all of the update releases.
+In addition to the script, you should find in this package:
+/etc/sysconfig/rhn/channel-data/   - Data files for all of the update releases.
 README  - This file
 
 

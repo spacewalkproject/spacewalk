@@ -211,7 +211,7 @@ the Spacewalk or Satellite server.
         <member>Creating a channel 'my-stable-channel' for RHEL 4 AS u3 i386: 
 		<command>create-channel-update  --user=admin --server=myserver.example.com --version=4 --update=u3 --release=AS --arch=i386   --destChannel=my-stable-channel</command>
 		<command>create-channel-update  -l admin -s myserver.example.com  -D /usr/share/rhn/channel-data/4-U3-AS-i386  -d my-stable-channel</command></member>
-        <member>Upgrade prevously created channel 'my-stable-channel' to RHEL 4 AS u4 i386:
+        <member>Upgrade previously created channel 'my-stable-channel' to RHEL 4 AS u4 i386:
 		<command>create-channel-update  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386   -d my-stable-channel</command></member>
         <member>Add the extra's channel as a child channel of 'my-stable-channel':
 		<command>create-channel-update  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386 -e extras  -p my-stable-channel -d my-stable-extras</command></member>
