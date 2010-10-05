@@ -19,7 +19,7 @@ from optparse import OptionParser
 
 
 DATA_DIR = "./data/"
-DATA_DIR_RHN = "/etc/sysconfig/rhn/channel-data/"
+DATA_DIR_RHN = "/usr/share/rhn/channel-data/"
 GATHER_DIR = "/mnt/engarchive2/released/"
 
 versions = ( "6", "5", "4", "3", "2.1" );
