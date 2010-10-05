@@ -88,7 +88,7 @@ DELETE
 INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
-VALUES (rhn_repo_regen_queue_id_seq.nextval,
+VALUES (null,			-- the id is set by trigger on rhnRepoRegenQueue
         :label, :client, :reason, 'N', 'N', sysdate, sysdate, sysdate)
   </query>
 </write-mode>
