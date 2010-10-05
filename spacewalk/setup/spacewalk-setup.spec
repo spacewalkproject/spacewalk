@@ -29,6 +29,11 @@ Requires:       PyYAML
 Requires:       /usr/bin/gpg
 Requires:       spacewalk-setup-jabberd
 
+# avoid people to install F13 packages on RHEL5 etc.
+%define os-release %(rpm -qf /etc/redhat/release --qf %{name}-%{version})
+Requires:       %{os-release}
+
+
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
 setup tasks, re-installation, and upgrades.
