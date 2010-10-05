@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.0.3
+Version:     1.0.4
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Satellite or Spacewalk server remotely.
 
@@ -52,6 +52,12 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacecwalk-create-channel.1.gz
 
 %changelog
+* Tue Oct 05 2010 Justin Sherrill <jsherril@redhat.com> 1.0.4-1
+- adding RHEL 6 data files for spacewalk-create-channel (jsherril@redhat.com)
+- adding initial support for RHEL 6 to spacewalk-create-channel
+  (jsherril@redhat.com)
+- updating readme for spacewalk-create-channel (jsherril@redhat.com)
+
 * Thu Sep 30 2010 Justin Sherrill <jsherril@redhat.com> 1.0.3-1
 - updating spacewalk-remote-utils man page to remove left over bits from copied
   spec (jsherril@redhat.com)
