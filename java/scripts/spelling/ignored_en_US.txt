@@ -30,7 +30,6 @@ initrd
 iSeries
 Javascript
 kickstart
-Kickstart
 kickstarted
 kickstarting
 kickstarts
@@ -268,3 +267,13 @@ hostname
 login
 username
 rhnregister
+Barthelemy
+ChildSubscriptions
+DeleteConfirm
+KickstartableSystems
+ListSystems
+PackageInstall
+PackageRemove
+PackageUpgrade
+PackageVerify
+sysprefs

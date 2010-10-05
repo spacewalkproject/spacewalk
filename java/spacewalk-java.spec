@@ -115,6 +115,8 @@ BuildRequires: stringtree-json
 BuildRequires: struts
 BuildRequires: sitemesh
 BuildRequires: postgresql-jdbc
+# the following line is for spell checking script
+BuildRequires: aspell aspell-en libxslt
 Obsoletes: rhn-java < 5.3.0
 Obsoletes: rhn-java-sat < 5.3.0
 Obsoletes: rhn-oracle-jdbc-tomcat5 <= 1.0
@@ -227,6 +229,10 @@ ant -Dprefix=$RPM_BUILD_ROOT install-tomcat6
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/
 install -m 755 conf/rhn6.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
 %endif
+
+# check spelling errors in all resources for English
+scripts/spelling/check_java.sh . en_US
+
 install -d -m 755 $RPM_BUILD_ROOT/%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn
@@ -261,13 +267,11 @@ install -d -m 755 $RPM_BUILD_ROOT/%{realcobsnippetsdir}
 ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT/%{realcobsnippetsdir}/spacewalk
 touch $RPM_BUILD_ROOT/%{_var}/spacewalk/systemlogs/audit-review.log
 
-
 %if (0%{?rhel} && 0%{?rhel} < 6) || (0%{?fedora} && 0%{?fedora} < 13)
 ln -s -f %{_javadir}/asm/asm.jar  $RPM_BUILD_ROOT/%{_datadir}/rhn/lib/spacewalk-asm.jar
 %else
 ln -s -f %{_javadir}/objectweb-asm/asm.jar  $RPM_BUILD_ROOT/%{_datadir}/rhn/lib/spacewalk-asm.jar
 %endif
-
 
 
 %clean

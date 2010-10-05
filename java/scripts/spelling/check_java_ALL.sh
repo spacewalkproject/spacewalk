@@ -22,5 +22,5 @@ zh_TW
 
 for lang in "${langs[@]}"
 do
-	./check_java.sh "$lang"
+	./check_java.sh ../.. "$lang"
 done
