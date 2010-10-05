@@ -127,7 +127,7 @@ sub channels_visible_to_org_with_parent {
   my $sth;
 #Only display if there is a parent channel available See Bug 432650
   $query = <<EOQ;
-SELECT  ACh.channel_name NAME, ACh.channel_id ID, ACh.channel_depth DEPTH, C.org_id CHANNEL_ORG_ID
+SELECT  ACh.channel_name as NAME, ACh.channel_id as ID, ACh.channel_depth as DEPTH, C.org_id as CHANNEL_ORG_ID
   FROM  rhnAvailableChannels ACh inner join 
   	rhnChannel C on C.id = ACh.channel_id  left outer join
   	rhnAvailableChannels ACh2 on C.parent_channel = ACh2.channel_id
