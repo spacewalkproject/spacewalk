@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.24
+Version:        1.2.25
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,27 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Oct 05 2010 Jan Pazdziora 1.2.25-1
+- Fixed PostgreSQL trigger rhn_channel_access_trig_fun.
+- Avoid using rhn_repo_regen_queue_id_seq.nextval Oracle syntax in
+  request_repo_regen.
+- postgres header comment cleanup (lzap+git@redhat.com)
+- old changelogs from Oracle sql script(s) removed (lzap+git@redhat.com)
+- Oracle-Postgres schema synchronization (lzap+git@redhat.com)
+- The nvl source is PostgreSQL-specific.
+- PostgreSQL NVL stored procedure (colin.coe@gmail.com)
+- updated rhnServerOverview.sql for Postgres (lzap+git@redhat.com)
+- oracle rhnServerOverview old revision log deletion (lzap+git@redhat.com)
+- added upgrade script for queue_errata, rhnSNPErrataQueue and
+  rhnSNPServerQueue removal (michael.mraka@redhat.com)
+- there were only deletes from rhnSNPServerQueue, no inserts/updates; thus
+  removing as a dead code (michael.mraka@redhat.com)
+- after queue_errata() removal rhnSNPErrataQueue not used anymore
+  (michael.mraka@redhat.com)
+- removing read queue_errata() from deps (michael.mraka@redhat.com)
+- queue_errata() not called anywhere; removing dead procedure
+  (michael.mraka@redhat.com)
+
 * Thu Sep 30 2010 Tomas Lestach <tlestach@redhat.com> 1.2.24-1
 - 638893 - removing duplicate cert-check-bunch (tlestach@redhat.com)
 - Make schema-source-sanity-check.pl happy again. (jpazdziora@redhat.com)
