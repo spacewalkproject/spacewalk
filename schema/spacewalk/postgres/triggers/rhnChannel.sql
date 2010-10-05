@@ -90,6 +90,7 @@ begin
    then
       delete from rhnChannelTrust where channel_id = old.id;
    end if;
+   return null;
 end;
 $$ language plpgsql;
 
