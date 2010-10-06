@@ -919,7 +919,7 @@ EOQ
 INSERT
   INTO rhnChannelCloned
        (original_id, id, created, modified)
-VALUES (:from_cid, :to_cid, sysdate, sysdate)
+VALUES (:from_cid, :to_cid, current_timestamp, current_timestamp)
 EOQ
 
   $sth = $dbh->prepare($query);
