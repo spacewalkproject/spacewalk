@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.51
+Version: 1.2.52
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -340,6 +340,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 06 2010 Jan Pazdziora 1.2.52-1
+- Use the global function evr_t_as_vre_simple instead of method .as_vre_simple;
+  this works on PostgreSQL as well.
+- Remove all from cache, not only rpm specific metadata. (slukasik@redhat.com)
+- Implement isChannelRepodataStale for debian channels. (slukasik@redhat.com)
+- Rpm and Deb metadata creation differs, moving to separate classes.
+  (slukasik@redhat.com)
+
 * Wed Oct 06 2010 Tomas Lestach <tlestach@redhat.com> 1.2.51-1
 - 640520 - removing old taskomatic static configuration (tlestach@redhat.com)
 
