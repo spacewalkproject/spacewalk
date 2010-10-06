@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.50
+Version: 1.2.51
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -340,6 +340,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 06 2010 Tomas Lestach <tlestach@redhat.com> 1.2.51-1
+- 640520 - removing old taskomatic static configuration (tlestach@redhat.com)
+
 * Tue Oct 05 2010 Jan Pazdziora 1.2.50-1
 - Replace Oracle outer join syntax with ANSI syntax for
   Channel.findAllBaseChannels and Channel.findByIdAndUserId.
