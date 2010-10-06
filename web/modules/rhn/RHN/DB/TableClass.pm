@@ -145,9 +145,12 @@ sub insert_query {
 
   return '' unless grep { exists $changed_fields{$_} } $self->column_names;
 
+  my $remove_alias = "$self->{alias}.";
   my $ret;
-  $ret .= "INSERT INTO $self->{name} $self->{alias}\n (";
-  $ret .= join(", ", grep { exists $changed_fields{$_} } $self->column_names);
+  $ret .= "INSERT INTO $self->{name}\n (";
+  $ret .= join(", ",
+    map { ($remove_alias eq substr($_, 0, length($remove_alias))) ? substr($_, length($remove_alias)) : $_ }
+    grep { exists $changed_fields{$_} } $self->column_names);
   $ret .= ") VALUES (";
   $ret .= join(", ", map { $self->type_to_placeholder($_) }
 	       grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
