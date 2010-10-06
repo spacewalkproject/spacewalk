@@ -675,7 +675,7 @@ def populate_channel_family_permissions(cert):
                                   (cert_max_flex - sum_max_flex)
             else:
 	        # lowering entitlements 
-	        purge_count = sum_max_mem, - cert_max_value
+	        purge_count = sum_max_mem - cert_max_value
 	        cfps[(cf_name, 1)][0] = max_members - purge_count
                 flex_purge_count = sum_max_flex - cert_max_flex
                 cfps[(cf_name, 1)][1] = max_flex - flex_purge_count 
