@@ -486,8 +486,14 @@ sub sequence_nextval {
   my $self = shift;
   my $sequence = shift;
 
-  my $sth = $self->prepare("SELECT $sequence.nextval FROM DUAL");
-  $sth->execute;
+  my $sth;
+  if ($self->{Driver}->{Name} eq 'Pg') {
+    $sth = $self->prepare('select nextval(?)');
+    $sth->execute($sequence);
+  } else {
+    $sth = $self->prepare("SELECT $sequence.nextval FROM DUAL");
+    $sth->execute;
+  }
 
   my ($ret) = $sth->fetchrow;
   $sth->finish;
