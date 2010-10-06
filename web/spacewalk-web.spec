@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.9
+Version: 1.2.10
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,26 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Oct 06 2010 Jan Pazdziora 1.2.10-1
+- Use current_timestamp instead of the Oracle-specific sysdate in
+  set_cloned_from.
+- To PostgreSQL, procedures are just functions, call them as such.
+- We do not seem to be using the inout parameter anywhere in our code, remove
+  the code to make porting to PostgreSQL easier.
+- Use current_timestamp instead of the Oracle-specific sysdate in
+  clone_channel_packages.
+- Since we have trigger which sets rhnRepoRegenQueue.id since
+  f2153167da508852183501f320c2e71c08a0441c, we can avoid .nextval.
+- As PostgreSQL does not support table aliases in inserts, remove them.
+- Make sequence_nextval method support PostgreSQL syntax.
+- Do not reconnect with every sequence_nextval -- the $self should be usable
+  object to call prepare on.
+- Use the utility sequence_nextval method instead of direct
+  rhn_channel_id_seq.nextval, to allow portable nextval operation.
+- For PostgreSQL, we just select function(params) instead of begin...end block.
+- 639449 - add package spacewalk-setup-jabberd to list of packages which should
+  be removed in Proxy WebUI installer (msuchy@redhat.com)
+
 * Tue Oct 05 2010 Jan Pazdziora 1.2.9-1
 - Force the field names to be uppercase since that is what the application
   expects.
