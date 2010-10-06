@@ -217,30 +217,21 @@ class Packages(RPC_Base):
         authobj.authzChannels(channelList)
 
         h = rhnSQL.prepare("""
-            select sr.name source_rpm
-              from rhnChannel c,
-                   rhnChannelNewestPackage cnp, 
-                   rhnPackage p,
-                   rhnSourceRPM sr
-             where cnp.channel_id = c.id
-               and c.label = :channel_label
-               and cnp.package_id = p.id
-               and p.source_rpm_id = sr.id
-            minus
-            select sr.name source_rpm
-              from rhnChannel c,
-                   rhnChannelNewestPackage cnp,
-                   rhnPackage p,
-                   rhnSourceRPM sr,
-                   rhnPackageSource ps
-             where cnp.channel_id = c.id
-               and c.label = :channel_label
-               and cnp.package_id = p.id
-               and p.source_rpm_id = sr.id
-               and p.source_rpm_id = ps.source_rpm_id
+            select distinct sr.name source_rpm
+              from rhnChannel c
+              join rhnChannelNewestPackage cnp
+                on cnp.channel_id = c.id
+              join rhnPackage p
+                on cnp.package_id = p.id
+              join rhnSourceRPM sr
+                on p.source_rpm_id = sr.id
+              left join rhnPackageSource ps
+                on p.source_rpm_id = ps.source_rpm_id
                and (p.org_id = ps.org_id or
                     (p.org_id is null and ps.org_id is null)
                    )
+             where c.label = :channel_label
+               and ps.source_rpm_id is null
         """)
         missing_packages = []
         for c in channelList:
