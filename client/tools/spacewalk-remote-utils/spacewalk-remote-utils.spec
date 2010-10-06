@@ -10,8 +10,8 @@ Summary:     Utilities to interact with a Satellite or Spacewalk server remotely
 
 Group:       Applications/System
 License:     GPLv3+
-URL:         https://fedorahosted.org/spacewalk/wiki/spacecmd
-Source:      %{name}-%{version}.tar.gz
+URL:         http://fedorahosted.org/spacewalk
+Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
