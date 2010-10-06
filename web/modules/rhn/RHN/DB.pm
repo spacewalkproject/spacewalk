@@ -486,8 +486,7 @@ sub sequence_nextval {
   my $self = shift;
   my $sequence = shift;
 
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("SELECT $sequence.nextval FROM DUAL");
+  my $sth = $self->prepare("SELECT $sequence.nextval FROM DUAL");
   $sth->execute;
 
   my ($ret) = $sth->fetchrow;
