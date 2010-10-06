@@ -999,7 +999,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
       last_modified_value := date_to_use;
 
       if last_modified_value <= channel_last_modified then
-          last_modified_value := last_modified_value + 1/86400;
+          last_modified_value := last_modified_value + interval '1 second';
       end if;
 
       update rhnChannel set last_modified = last_modified_value
