@@ -81,11 +81,8 @@ sub commit {
   if ($self->id == -1) {
     my $dbh = $transaction || RHN::DB->connect;
 
-    my $sth = $dbh->prepare("SELECT rhn_channel_id_seq.nextval FROM DUAL");
-    $sth->execute;
-    my ($id) = $sth->fetchrow;
-    die "No new channel id from seq rhn_channel_id_seq (possible error: " . $sth->errstr . ")" unless $id;
-    $sth->finish;
+    my $id = $dbh->sequence_nextval('rhn_channel_id_seq');
+    die "No new channel id from seq rhn_channel_id_seq" unless $id;
 
     $self->{":modified:"}->{id} = 1;
     $self->{__id__} = $id;
