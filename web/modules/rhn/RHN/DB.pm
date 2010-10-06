@@ -433,12 +433,7 @@ sub call_procedure {
 
   my $i = 0;
   foreach my $param (@params) {
-    if (ref $param eq 'SCALAR') {
-      $sth->bind_param_inout($placeholders[$i], $param, 4096);
-    }
-    else {
-      $sth->bind_param($placeholders[$i], $param);
-    }
+    $sth->bind_param($placeholders[$i], $param);
 
     $i++;
   }
