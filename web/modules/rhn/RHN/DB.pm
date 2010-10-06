@@ -420,6 +420,9 @@ sub ping {
 # some extension functions
 sub call_procedure {
   my $self = shift;
+  if ($self->{Driver}->{Name} eq 'Pg') {
+    return $self->call_function(@_);
+  }
   my $procname = shift;
   my @params = @_;
   my @placeholders = map { ":p$_" } 1 .. scalar @params;
