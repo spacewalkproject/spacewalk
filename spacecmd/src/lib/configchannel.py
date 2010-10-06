@@ -497,6 +497,13 @@ def do_configchannel_addfile(self, args, update_path=''):
                                                             options.path,
                                                             file_info)
         else:
+            # compatibility for Satellite 5.3
+            if not self.check_api_version('10.11'):
+                del file_info['selinux_ctx']
+
+                if file_info.has_key('revision'):
+                    del file_info['revision']
+
             self.client.configchannel.createOrUpdatePath(self.session,
                                                          options.channel,
                                                          options.path,
