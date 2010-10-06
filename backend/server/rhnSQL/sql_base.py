@@ -28,8 +28,6 @@ import sys
 import sql_types
 import types
 
-from common import log_debug
-
 def adjust_type(val):
     """ Adjust data types prior to calling execute(). """
     if type(val) in [types.IntType, types.FloatType]:
