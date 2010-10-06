@@ -23,7 +23,7 @@ from server import rhnChannel, taskomatic, rhnSQL
 from server.importlib.headerSource import createPackage
 from server.importlib.importLib import Collection
 from server.importlib.packageImport import packageImporter
-from server.importlib.backendOracle import OracleBackend
+from common import CFG
 from server.importlib.errataCache import schedule_errata_cache_update
 
 def uploadPackages(info, source=0, force=0, caller=None):
@@ -46,7 +46,13 @@ def uploadPackages(info, source=0, force=0, caller=None):
         p = __processPackage(package, org_id, channelList, source)
         batch.append(p)
 
-    backend = OracleBackend()
+    if CFG.DB_BACKEND == ORACLE:
+        from server.importlib.backendOracle import OracleBackend
+        backend = OracleBackend()
+    elif CFG.DB_BACKEND == POSTGRESQL:
+        from server.importlib.backendOracle import PostgresqlBackend
+        backend = PostgresqlBackend()
+
     backend.init()
     importer = packageImporter(batch, backend, source, caller=caller)
 
