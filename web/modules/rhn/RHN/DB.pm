@@ -452,22 +452,34 @@ sub call_function {
   my $self = shift;
   my $procname = shift;
   my @params = @_;
-  my @placeholders = map { ":p$_" } 1 .. scalar @params;
+  if ($self->{Driver}->{Name} eq 'Pg') {
+    my $q = "select $procname";
 
-  my $q = "BEGIN\n  :ret := $procname";
+    $q .= "(" . join(", ", map { '?' } @params ) . ")";
 
-  $q .= "(" . join(", ", @placeholders) . ");";
-  $q .= "\nEND;";
+    my $sth = $self->prepare($q);
+    $sth->execute(@params);
+    my ($ret) = $sth->fetchrow_array();
+    $sth->finish();
 
-  my $ret;
-  my $sth = $self->prepare($q);
-  $sth->bind_param_inout(":ret" => \$ret, 4096);
+    return $ret;
+  } else {
+    my @placeholders = map { ":p$_" } 1 .. scalar @params;
+    my $q = "BEGIN\n  :ret := $procname";
 
-  $sth->bind_param($placeholders[$_ - 1] => $params[$_ - 1]) foreach 1 .. scalar @params;
+    $q .= "(" . join(", ", @placeholders) . ");";
+    $q .= "\nEND;";
 
-  $sth->execute();
+    my $ret;
+    my $sth = $self->prepare($q);
+    $sth->bind_param_inout(":ret" => \$ret, 4096);
 
-  return $ret;
+    $sth->bind_param($placeholders[$_ - 1] => $params[$_ - 1]) foreach 1 .. scalar @params;
+
+    $sth->execute();
+
+    return $ret;
+  }
 }
 
 sub sequence_nextval {
