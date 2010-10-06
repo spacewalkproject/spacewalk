@@ -113,14 +113,10 @@ class Session:
 
             # Old session - clean it up
             h = rhnSQL.prepare("""
-                DECLARE
-                    PRAGMA AUTONOMOUS_TRANSACTION;
-                BEGIN
-                    delete from pxtSessions where id = :session_id;
-                    commit;
-                END;
+                    delete from pxtSessions where id = :session_id
             """)
             h.execute(session_id=self.session_id)
+            rhnSQL.commit();
 
         raise ExpiredSessionError("Session not found")
         
@@ -129,16 +125,12 @@ class Session:
         expires = int(time.time()) + self.duration
 
         h = rhnSQL.prepare("""
-            DECLARE
-                PRAGMA AUTONOMOUS_TRANSACTION;
-            BEGIN
                 insert into PXTSessions (id, web_user_id, expires, value)
-                values (:id, :web_user_id, :expires, :value);
-                commit;
-            END;
+                values (:id, :web_user_id, :expires, :value)
         """)
         h.execute(id=self.session_id, web_user_id=self.uid,
                   expires=expires, value='RHNAPP')
+        rhnSQL.commit();
         return self
 
 def load(session_string):
