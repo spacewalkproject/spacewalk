@@ -23,12 +23,12 @@ from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhn_rpm import get_header_byte_range
 
 from server import rhnSQL
-from server.importlib import importLib, userAuth, mpmSource, backendOracle, \
+from server.importlib import importLib, userAuth, mpmSource, \
     packageImport, errataCache
 from server.rhnLib import get_package_path, \
     get_package_path_without_package_name
 from server.rhnServer import server_packages
-
+from server.rhnSQL.const import ORACLE, POSTGRESQL
 
 def source_match(v1, v2):
     """ returns true if both parameters are true, false otherwise """
@@ -161,7 +161,12 @@ def push_package(header, payload_stream, checksum_type, checksum, org_id=None, f
     batch = importLib.Collection()
     batch.append(pkg)
 
-    backend = backendOracle.OracleBackend()
+    if CFG.DB_BACKEND == ORACLE:
+        from server.importlib.backendOracle import OracleBackend
+        backend = OracleBackend()
+    elif CFG.DB_BACKEND == POSTGRESQL:
+        from server.importlib.backendOracle import PostgresqlBackend
+        backend = PostgresqlBackend()
     backend.init()
 
     if force:
