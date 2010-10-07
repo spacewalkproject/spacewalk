@@ -109,7 +109,7 @@ my %current_rpm_qa =
     map { ( $_ => 1 ) }
     grep { not exists $rpm_qa{$_} and not exists $satellite_rpms{$_} }
     map { chomp ; $_; } `rpm -qa --qf '%{name}\n'`;
-my @extra_rpms = grep { not exists $needed_rpms->{$_} } sort keys %current_rpm_qa;
+my @extra_rpms = grep { $_ ne 'gpg-pubkey' } grep { not exists $needed_rpms->{$_} } sort keys %current_rpm_qa;
 if (@extra_rpms) {
     print loc("Warning: more packages were installed by yum than expected:\n");
     print map "\t$_\n", @extra_rpms;
