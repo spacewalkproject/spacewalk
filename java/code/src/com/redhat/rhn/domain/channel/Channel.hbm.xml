@@ -143,11 +143,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="Channel.findCustomBaseChannels">
     	<![CDATA[SELECT {c.*}
-    		       FROM rhnChannel {c},
-                        rhnUserChannel uc,
-                        rhnChannelCloned c_1_
-                  WHERE c.id = uc.channel_id
-                    AND c.id = c_1_.id (+)
+                FROM rhnUserChannel uc,
+                    rhnChannel {c} left outer join rhnChannelCloned c_1_
+                    ON c.id = c_1_.id
+                WHERE c.id = uc.channel_id
                     AND uc.user_id = :user_id
                     AND c.org_id is not null
                     AND uc.role = 'subscribe'
