@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.26
+Version:        1.2.27
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Oct 07 2010 Jan Pazdziora 1.2.27-1
+- Since the oracle/procs/lookup_config_info.sql was changed, we need to update
+  the SHA1 in the PostgreSQL source.
+
 * Thu Oct 07 2010 Jan Pazdziora 1.2.26-1
 - nvl removal for Oracle is not necessary, reverting (lzap+git@redhat.com)
 - upgrade script for 2a3a755ed052a0c3435a00d1e6c1c6c9c3ecc470
