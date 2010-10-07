@@ -772,16 +772,13 @@ SELECT  PN.id AS id,
    AND  (SP.package_arch_id IS NULL OR SP.package_arch_id =
                  -- If the server has more than one package of this name installed
                  -- Then group by arch, otherwise just use whever is there
-   	             NVL2(
-                     (select 1 from rhnServerPackage sp2
+                 CASE WHEN (select 1 from rhnServerPackage sp2
                                where
                                sp2.name_id = latest.name_id and
                                 sp2.server_id = :sid
                                 group by sp2.name_id having count(*) > 1
-                        ),
-                        latest.arch_id,
-                        SP.package_arch_id)
-
+                        ) IS NOT NULL THEN latest.arch_id
+                        ELSE SP.package_arch_id END
    	)
 ORDER BY  UPPER(PN.name)
   </query>
