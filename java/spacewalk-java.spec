@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.54
+Version: 1.2.55
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -338,6 +338,19 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 07 2010 Jan Pazdziora 1.2.55-1
+- Use current_timestamp instead of the Oracle-specific sysdate in
+  schedule_pkg_for_delete_from_set.
+- PostgreSQL NVL2 function (CASE WHERE) typo fix. (lzap+git@redhat.com)
+- Removed unnecessary rhn.jar Ant dependency in a unit test
+  (lzap+git@redhat.com)
+- Replace Oracle outer join syntax with ANSI syntax for
+  Channel.findCustomBaseChannels (lzap+git@redhat.com)
+- Need to make the select a subselect, to be able to use the column alias in
+  order by.
+- Use the global function evr_t_as_vre_simple in package_ids_in_set instead of
+  method .as_vre_simple; this works on PostgreSQL as well.
+
 * Thu Oct 07 2010 Tomas Lestach <tlestach@redhat.com> 1.2.54-1
 - 640520 - removing default/rhn_taskomatic.conf file (tlestach@redhat.com)
 
