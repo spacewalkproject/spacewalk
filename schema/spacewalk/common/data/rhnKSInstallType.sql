@@ -14,6 +14,11 @@
 --
 insert into rhnKSInstallType (id, label, name)
         values (rhn_ksinstalltype_id_seq.nextval,
+                'rhel_6','Red Hat Enterprise Linux 6'
+        );
+
+insert into rhnKSInstallType (id, label, name)
+        values (rhn_ksinstalltype_id_seq.nextval,
                 'rhel_5','Red Hat Enterprise Linux 5'
         );
 
@@ -41,5 +46,4 @@ insert into rhnKSInstallType (id, label, name)
         values (rhn_ksinstalltype_id_seq.nextval,
                 'generic_rpm','Generic RPM'
         );
-
 commit;
