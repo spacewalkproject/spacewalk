@@ -1652,7 +1652,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         log(1, _("Downloading errata data complete"))
 
     # __private methods__
-    def _processWithProgressBar(self, batch, size):
+    def _processWithProgressBar(self, batch, size, process_function=stream_loader.process):
         pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
                 finalSize=size, finalBarLength=40, stream=sys.stdout)
         if CFG.DEBUG > 2:
@@ -1663,7 +1663,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         while not ss.doneYN():
             chunk = ss.getChunk()
             item_count = len(chunk)
-            stream_loader.process(chunk)
+            process_function(chunk)
             ss.clearChunk()
             pb.addTo(item_count)
             pb.printIncrement()
@@ -1817,21 +1817,8 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             if not errata_count:
                 continue
 
-            pb = ProgressBar(prompt=_('Downloading:'), endTag=_(' - complete'),
-                finalSize=errata_count, finalBarLength=40, stream=sys.stdout)
-            if CFG.DEBUG > 2:
-                pb.redrawYN = 0
-            pb.printAll(1)
-
-            ss = SequenceServer(batch, nevermorethan=self._batch_size)
-            while not ss.doneYN():
-                chunk = ss.getChunk()
-                item_count = len(chunk)
-                sync_handlers.import_errata(chunk)
-                ss.clearChunk()
-                pb.addTo(item_count)
-                pb.printIncrement()
-            pb.printComplete()
+            self._processWithProgressBar(batch, errata_count,
+                                         sync_handlers.import_errata)
 
     def _fix_erratum(self, erratum):
         """ Replace the list of packages with references to short packages"""
