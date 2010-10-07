@@ -490,7 +490,7 @@ ORDER BY  UPPER(NVRE)
 
 <mode name="package_ids_in_set" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="set_label, user_id">
-  SELECT  P.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
+  SELECT  P.id AS ID, PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '.' || PA.label AS NVREA
     FROM  rhnPackage P,
           rhnPackageName PN,
           rhnPackageEVR PE,
