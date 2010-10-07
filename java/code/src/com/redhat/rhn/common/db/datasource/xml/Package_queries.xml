@@ -1440,7 +1440,7 @@ SELECT P.id, PE.epoch, PE.version, PE.release
 <write-mode name="schedule_pkg_for_delete_from_set">
   <query params="set_label">
     INSERT INTO rhnPackageFileDeleteQueue (path, created)
-      (SELECT p.path, sysdate
+      (SELECT p.path, current_timestamp
          FROM rhnPackage p, rhnSet s
         WHERE p.id = s.element
           AND s.label = :set_label
