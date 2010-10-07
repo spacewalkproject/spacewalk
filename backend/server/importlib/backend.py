@@ -95,8 +95,7 @@ class Backend:
         for name, version in capabilityHash.keys():
             ver = version
             if version is None or version == '':
-                # Oracle inserts nulls as empty strings better
-                ver = ''
+                ver = None
                 if not nullStatement:
                     nullStatement = self.dbmodule.prepare(sqlNull)
                 nullStatement.execute(name=name)
