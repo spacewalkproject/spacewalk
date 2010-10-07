@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.53
+Version: 1.2.54
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -338,6 +338,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 07 2010 Tomas Lestach <tlestach@redhat.com> 1.2.54-1
+- 640520 - removing default/rhn_taskomatic.conf file (tlestach@redhat.com)
+
 * Thu Oct 07 2010 Lukas Zapletal 1.2.53-1
 - 640926 - commons-logging library is now explicitly configured in Jasper2
 - PostgreSQL does not have NVL2 function and we have to use CASE WHERE.
