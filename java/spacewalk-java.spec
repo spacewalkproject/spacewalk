@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.52
+Version: 1.2.53
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -340,6 +340,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 07 2010 Lukas Zapletal 1.2.53-1
+- 640926 - commons-logging library is now explicitly configured in Jasper2
+- PostgreSQL does not have NVL2 function and we have to use CASE WHERE.
+
 * Wed Oct 06 2010 Jan Pazdziora 1.2.52-1
 - Use the global function evr_t_as_vre_simple instead of method .as_vre_simple;
   this works on PostgreSQL as well.
