@@ -622,7 +622,10 @@ def do_activationkey_create(self, args):
             options.entitlements = options.entitlements.split(',')
 
             # remove empty strings from the list
-            options.entitlements.remove('')
+            try:
+                options.entitlements.remove('')
+            except:
+                pass
         else:
             options.entitlements = []
 
