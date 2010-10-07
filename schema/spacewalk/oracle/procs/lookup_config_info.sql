@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008-2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,13 +32,11 @@ is
         select id
           from rhnConfigInfo
          where 1=1
-           and (username = username_in or (username is null and username_in is null))
-           and (groupname = groupname_in or (groupname is null and groupname_in is null))
-           and (filemode = filemode_in or (filemode is null and filemode_in is null))
-           and (selinux_ctx = selinux_ctx_in or
-               (selinux_ctx is null and selinux_ctx_in is null))
-           and (symlink_target_filename_id = symlink_target_id or
-               (symlink_target_filename_id is null and symlink_target_id is null))
+           and nvl(username, ' ') = nvl(username_in, ' ')
+           and nvl(groupname,' ') = nvl(groupname_in, ' ')
+           and nvl(filemode, -1) = nvl(filemode_in, -1)
+           and nvl(selinux_ctx, ' ') = nvl(selinux_ctx_in, ' ')
+           and nvl(symlink_target_filename_id, -1) = nvl(symlink_target_id, -1)
         ;
 begin
     for r in lookup_cursor loop
