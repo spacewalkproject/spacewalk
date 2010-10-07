@@ -31,9 +31,9 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.apache.tools.ant.filters.StringInputStream;
 import org.hibernate.Session;
 
+import java.io.ByteArrayInputStream;
 import java.util.Date;
 
 public class ConfigurationFactoryTest extends RhnBaseTestCase {
@@ -234,7 +234,8 @@ public class ConfigurationFactoryTest extends RhnBaseTestCase {
 
     public void testCreateNewRevisionFromStream() throws Exception {
         String startData = "this is some original data";
-        StringInputStream stream = new StringInputStream(startData);
+        StringBuffer StringBuffer1 = new StringBuffer(startData);
+        ByteArrayInputStream stream = new ByteArrayInputStream(StringBuffer1.toString().getBytes("UTF-8"));
         ConfigRevision cr = ConfigTestUtils.createConfigRevision(user.getOrg());
         ConfigRevision cr2 = ConfigurationFactory.createNewRevisionFromStream(
                 user, stream, new Long(startData.length()), cr.getConfigFile());
