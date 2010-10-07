@@ -645,12 +645,7 @@ def populate_channel_family_permissions(cert):
             cfps[(cf_name, org_id)] = max_tuple
             old_max_tuple = None
               
- 
-	if old_max_tuple and max_tuple and (max_members < old_max_tuple[0] or 
-                                    max_flex < old_max_tuple[1]):
-	    # The cert count is low, set the db with new values
-            cfps[(cf_name, org_id)] = max_tuple
-   
+
     sum_max_values = compute_sum_max_members(cfps)
     for (cf_name, org_id), (max_members, max_flex) in cfps.items():
         if org_id == 1:
@@ -670,13 +665,15 @@ def populate_channel_family_permissions(cert):
             if cert_max_value >= sum_max_mem:
                 cfps[(cf_name, 1)][0] = max_members + \
 		                  (cert_max_value - sum_max_mem)
+            else:
+                purge_count = sum_max_mem - cert_max_value
+                cfps[(cf_name, 1)][0] = max_members - purge_count
+
             if cert_max_flex >= sum_max_flex:
                 cfps[(cf_name, 1)][1] = max_flex +\
                                   (cert_max_flex - sum_max_flex)
             else:
-	        # lowering entitlements 
-	        purge_count = sum_max_mem - cert_max_value
-	        cfps[(cf_name, 1)][0] = max_members - purge_count
+                # lowering entitlements
                 flex_purge_count = sum_max_flex - cert_max_flex
                 cfps[(cf_name, 1)][1] = max_flex - flex_purge_count 
 
