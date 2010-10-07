@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.18
+Version: 1.2.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,16 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Oct 07 2010 Jan Pazdziora 1.2.19-1
+- We cannot insert empty string and depend on the database to convert it to
+  null for "is null" to work -- this will fail on PostgreSQL.
+- Fix the logic of the adjusted_port.
+- Load the appropriate backend and initialize it (rhnPackageUpload.py).
+- The AUTONOMOUS_TRANSACTION does not seem to be needed, plus it is not
+  supported in PostgreSQL; removing.
+- fixing stray comma (jsherril@redhat.com)
+- log_debug is not used in sql_base.py, removing the import.
+
 * Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.18-1
 - replaced local copy of compile.py with standard compileall module
 - removed a lot of dead code
