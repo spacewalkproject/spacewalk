@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.25
+Version:        1.2.26
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Oct 07 2010 Jan Pazdziora 1.2.26-1
+- nvl removal for Oracle is not necessary, reverting (lzap+git@redhat.com)
+- upgrade script for 2a3a755ed052a0c3435a00d1e6c1c6c9c3ecc470
+  (michael.mraka@redhat.com)
+- Avoid the integer arithmetics with timestamps in PostgreSQL.
+- Upgrade to Satellite 5.1 from older versions put newline to proxy.deactivate
+  record; we shall fix it now.
+
 * Tue Oct 05 2010 Jan Pazdziora 1.2.25-1
 - Fixed PostgreSQL trigger rhn_channel_access_trig_fun.
 - Avoid using rhn_repo_regen_queue_id_seq.nextval Oracle syntax in
