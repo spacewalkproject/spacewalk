@@ -451,10 +451,12 @@ class XML_Dumper:
         self.close()
         return 0
 
-    def dump_kickstartable_trees(self, kickstart_labels=None):
+    def dump_kickstartable_trees(self, kickstart_labels=None,
+                                       validate_kickstarts=False):
         log_debug(2)
-        #kickstarts = self._validate_kickstarts(
-        #    kickstart_labels=kickstart_labels)
+        if validate_kickstarts:
+            kickstarts = self._validate_kickstarts(
+                            kickstart_labels=kickstart_labels)
         
         
         writer = self._get_xml_writer()

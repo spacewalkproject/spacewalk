@@ -307,18 +307,8 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         return XML_Dumper.dump_errata(self, errata, verify_errata=True)
 
     def dump_kickstartable_trees(self, kickstart_labels=None):
-        log_debug(2)
-        kickstarts = self._validate_kickstarts(
-            kickstart_labels=kickstart_labels)
-
-        writer = self._get_xml_writer()
-        d = dumper.SatelliteDumper(writer,
-            dumper.KickstartableTreesDumper(writer, kickstarts=kickstarts))
-        d.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
+        return dumper.XML_Dumper.dump_kickstartable_trees(self, kickstart_labels,
+                                                        validate_kickstarts=True)
 
     def dump_product_names(self):
         log_debug(4)
