@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 2aa814e26dfd125deda2d69c25b9f252acf6a79d
+-- oracle equivalent source sha1 7b5ae0839f1ec7af7322305ef4e7413692c5bb40
 -- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/data/rhnKickstartTimezone.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
