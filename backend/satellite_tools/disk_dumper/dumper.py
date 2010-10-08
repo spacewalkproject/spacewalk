@@ -414,10 +414,9 @@ class XML_Dumper:
     def dump_errata(self, errata, verify_errata=False):
         log_debug(2)
 
-        h = self.get_errata_statement()
-
         errata_hash = {} 
         if verify_errata:
+            h = self.get_errata_statement()
             prefix = 'rhn-erratum-'
             for erratum in errata:
                 erratum = str(erratum)
