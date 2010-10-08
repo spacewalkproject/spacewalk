@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.29
+Version:        1.2.30
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Oct 08 2010 Lukas Zapletal 1.2.30-1
+- Added constriants on all varchar columns to check '' values (pg)
+- Fixed inserting of empty varchars instead of NULL
+
 * Fri Oct 08 2010 Tomas Lestach <tlestach@redhat.com> 1.2.29-1
 - substitute '' with null (oracle believes it's the same) (tlestach@redhat.com)
 
