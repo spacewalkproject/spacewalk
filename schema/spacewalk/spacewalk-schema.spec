@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.28
+Version:        1.2.29
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Oct 08 2010 Tomas Lestach <tlestach@redhat.com> 1.2.29-1
+- substitute '' with null (oracle believes it's the same) (tlestach@redhat.com)
+
 * Thu Oct 07 2010 Partha Aji <paji@redhat.com> 1.2.28-1
 - 641145: Updated kickstart timezone and install information needed for Rhel 6
   profiles (paji@redhat.com)
