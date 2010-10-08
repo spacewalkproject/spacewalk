@@ -372,13 +372,13 @@ class XML_Dumper:
         
     def _packages(self, packages, prefix, dump_class, sources=0,
                         verify_packages=False):
-        if sources:
-            h = self.get_source_packages_statement()
-        else:
-            h = self.get_packages_statement()
-        
         packages_hash = {}
         if verify_packages:
+            if sources:
+                h = self.get_source_packages_statement()
+            else:
+                h = self.get_packages_statement()
+
             for package in packages:
                 package = str(package)
                 if package[:len(prefix)] != prefix:
