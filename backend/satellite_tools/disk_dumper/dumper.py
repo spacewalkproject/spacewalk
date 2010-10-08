@@ -455,7 +455,7 @@ class XML_Dumper:
                                        validate_kickstarts=False):
         log_debug(2)
         if validate_kickstarts:
-            kickstarts = self._validate_kickstarts(
+            kickstart_labels = self._validate_kickstarts(
                             kickstart_labels=kickstart_labels)
         
         

@@ -297,7 +297,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def dump_channel_packages_short(self, channel_label, last_modified):
         return XML_Dumper.dump_channel_packages_short(
                         self, channel_label, last_modified, filepath=None,
-                        validate_channels=True send_headers=True, open_stream=False)
+                        validate_channels=True, send_headers=True, open_stream=False)
 
     def _packages(self, packages, prefix, dump_class, sources=0):
         return XML_Dumper._packages(self, packages, prefix, dump_class, sources,
