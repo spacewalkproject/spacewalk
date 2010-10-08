@@ -60,7 +60,7 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'bdb_dir', '/nocpulse/tsdb/bdb', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'daemon_log_config', '''local_queue'' => 1', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'daemon_log_file', '/var/log/nocpulse/TSDBLocalQueue/TSDBLocalQueue.log', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'handler_log_config', '', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'handler_log_config', NULL, 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'handler_log_file', '/var/log/nocpulse/TSDBLocalQueue/TSDBHandler.log', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'handler_rotate_size_kb', '250', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'local_queue_dir', '/var/log/nocpulse/TSDBLocalQueue', 'INTERNAL', 'system',sysdate);
