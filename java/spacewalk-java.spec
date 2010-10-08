@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.55
+Version: 1.2.56
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -337,6 +337,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 08 2010 Jan Pazdziora 1.2.56-1
+- PostgreSQL does not like to ORDER BY by something which is not in DISTINCT.
+- Since query Channel.findAllBaseChannels was replaced with sql-query, removing
+  the query.
+- The query visible_to_user_ids-back does not seem to be referenced from
+  anywhere, removing.
+- Moving the quartz-oracle Requires from spacewalk-taskomatic to spacewalk-
+  oracle.
+- Replace nvl with coalesce in user_permissions.
+- Removing unused import and fixed checkstyle. (slukasik@redhat.com)
+- Added missing javadoc (internal class) (lzap+git@redhat.com)
+
 * Thu Oct 07 2010 Jan Pazdziora 1.2.55-1
 - Use current_timestamp instead of the Oracle-specific sysdate in
   schedule_pkg_for_delete_from_set.
