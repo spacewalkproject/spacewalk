@@ -41,7 +41,7 @@ class MissingPackageError(Exception):
 class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def __init__(self, req):
         rhnHandler.__init__(self)
-        self.compress_level = 5
+        dumper.XML_Dumper.__init__(self)
         self.headers_out = UserDictCase()
         self._raw_stream = req
         self._raw_stream.content_type = 'application/octet-stream'
@@ -49,11 +49,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         self._headers_sent = 0
         self._is_closed = 0
         self._compressed_stream = None
-        # Redefine in subclasses
-        self._channel_family_query = """
-            select pcf.channel_family_id, to_number(null, null) quantity
-              from rhnPublicChannelFamily pcf
-        """
 
         # Don't check for abuse
         self.check_for_abuse = 0
