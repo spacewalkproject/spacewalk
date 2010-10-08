@@ -304,40 +304,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
                                           verify_packages=True)
 
     def dump_errata(self, errata):
-        log_debug(2)
-
-        h = self.get_errata_statement()
-
-        errata_hash = {}
-        prefix = 'rhn-erratum-'
-        for erratum in errata:
-            erratum = str(erratum)
-            if erratum[:len(prefix)] != prefix:
-                raise rhnFault(3004, "Wrong erratum name %s" % erratum)
-            errata_id = erratum[len(prefix):]
-            try:
-                errata_id = int(errata_id)
-            except ValueError:
-                raise rhnFault(3004, "Wrong erratum name %s" % erratum)
-            if errata_hash.has_key(errata_id):
-                # Already verified
-                continue
-            h.execute(errata_id=errata_id)
-            row = h.fetchone_dict()
-            if not row:
-                # XXX Silently ignore it?
-                raise rhnFault(3005, "No such erratum %s" % erratum)
-            # Saving the row, it's handy later when we create the iterator
-            errata_hash[errata_id] = row
-
-        writer = self._get_xml_writer()
-        d = dumper.SatelliteDumper(writer,
-            dumper.ErrataDumper(writer, errata_hash.values()))
-        d.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
+        return XML_Dumper.dump_errata(self, errata, verify_errata=True)
 
     def dump_kickstartable_trees(self, kickstart_labels=None):
         log_debug(2)

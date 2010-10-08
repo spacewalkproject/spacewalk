@@ -411,35 +411,37 @@ class XML_Dumper:
         self.close()
         return 0
 
-    def dump_errata(self, errata):
+    def dump_errata(self, errata, verify_errata=False):
         log_debug(2)
 
         h = self.get_errata_statement()
 
         errata_hash = {} 
-        for erratum in errata:
-            errata_hash[erratum['errata_id']] = erratum
+        if verify_errata:
+            prefix = 'rhn-erratum-'
+            for erratum in errata:
+                erratum = str(erratum)
+                if erratum[:len(prefix)] != prefix:
+                    raise rhnFault(3004, "Wrong erratum name %s" % erratum)
+                errata_id = erratum[len(prefix):]
+                try:
+                    errata_id = int(errata_id)
+                except ValueError:
+                    raise rhnFault(3004, "Wrong erratum name %s" % erratum)
+                if errata_hash.has_key(errata_id):
+                    # Already verified
+                    continue
+                h.execute(errata_id=errata_id)
+                row = h.fetchone_dict()
+                if not row:
+                    # XXX Silently ignore it?
+                    raise rhnFault(3005, "No such erratum %s" % erratum)
+                # Saving the row, it's handy later when we create the iterator
+                errata_hash[errata_id] = row
+        else:
+            for erratum in errata:
+                errata_hash[erratum['errata_id']] = erratum
 
-        prefix = 'rhn-erratum-'
-        #for erratum in errata:
-        #    erratum = str(erratum)
-        #    if erratum[:len(prefix)] != prefix:
-        #        raise rhnFault(3004, "Wrong erratum name %s" % erratum)
-        #    errata_id = erratum[len(prefix):]
-        #    try:
-        #        errata_id = int(errata_id)
-        #    except ValueError:
-        #        raise rhnFault(3004, "Wrong erratum name %s" % erratum)
-        #    if errata_hash.has_key(errata_id):
-        #        # Already verified
-        #        continue
-        #    h.execute(errata_id=errata_id)
-        #    row = h.fetchone_dict()
-        #    if not row:
-        #        # XXX Silently ignore it?
-        #        raise rhnFault(3005, "No such erratum %s" % erratum)
-        #    # Saving the row, it's handy later when we create the iterator
-        #    errata_hash[errata_id] = row
 
         writer = self._get_xml_writer()
         dumper = SatelliteDumper(writer, 
