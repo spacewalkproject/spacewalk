@@ -6,7 +6,6 @@ require {
 	type devpts_t;
 	type initrc_exec_t;
 	type nscd_var_run_t;
-	type oracle_port_t;
 	type smtp_port_t;
 	type httpd_sys_content_t;
 	type usr_t;
@@ -70,8 +69,6 @@ files_lock_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_lock_t, file)
 allow spacewalk_monitoring_t nscd_var_run_t:dir search;
 sysnet_dns_name_resolve(spacewalk_monitoring_t)
 corenet_udp_bind_generic_node(spacewalk_monitoring_t)
-
-allow spacewalk_monitoring_t oracle_port_t:tcp_socket name_connect;
 
 files_etc_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_conf_t, file)
 manage_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
@@ -169,4 +166,10 @@ optional_policy(`
 ')
 optional_policy(`
 	files_read_usr_files(spacewalk_monitoring_t)
+')
+optional_policy(`
+	gen_require(`
+		type oracle_port_t;
+	')
+	allow spacewalk_monitoring_t oracle_port_t:tcp_socket name_connect;
 ')
