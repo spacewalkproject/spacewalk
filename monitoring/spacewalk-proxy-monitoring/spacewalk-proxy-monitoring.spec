@@ -2,7 +2,7 @@
 Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
 Name:         spacewalk-proxy-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.2.0
+Version:      1.2.1
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -103,6 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 
 %changelog
+* Fri Oct 08 2010 Jan Pazdziora 1.2.1-1
+- Since the package SatConfig-dbsynch is gone, remove dependencies that were
+  requiring it.
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
 - bumping spec files to 1.1 packages
 
