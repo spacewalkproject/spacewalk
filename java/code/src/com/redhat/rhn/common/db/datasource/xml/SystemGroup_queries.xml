@@ -74,11 +74,13 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
 
 
 <query name="visible_to_user_ids" params="user_id">
+select * from (
 SELECT DISTINCT SG.id AS ID, SG.name AS NAME
   FROM rhnServerGroup SG, rhnUserManagedServerGroups UMSG
  WHERE UMSG.user_id = :user_id
    AND UMSG.server_group_id = SG.id
    AND SG.group_type IS NULL
+) x
 ORDER BY UPPER(NAME)
 </query>
 
