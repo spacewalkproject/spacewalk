@@ -4,7 +4,6 @@ require {
 	type var_log_t;
 	type spacewalk_log_t;
 	type httpd_sys_content_t;
-	type oracle_port_t;
 	type jabber_client_port_t;
 	type inaddr_any_node_t;
 	type postgresql_port_t;
@@ -62,7 +61,6 @@ corenet_udp_bind_generic_node(osa_dispatcher_t)
 
 sysnet_dns_name_resolve(osa_dispatcher_t)
 
-allow osa_dispatcher_t oracle_port_t:tcp_socket name_connect;
 allow osa_dispatcher_t jabber_client_port_t:tcp_socket name_connect;
 allow osa_dispatcher_t postgresql_port_t:tcp_socket name_connect;
 
@@ -84,3 +82,9 @@ optional_policy(`
 	')
 ')
 
+optional_policy(`
+	gen_require(`
+		type oracle_port_t;
+	')
+allow osa_dispatcher_t oracle_port_t:tcp_socket name_connect;
+')
