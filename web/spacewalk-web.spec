@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.10
+Version: 1.2.11
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Oct 08 2010 Jan Pazdziora 1.2.11-1
+- Move use DBD::Oracle to eval so that we do not get rpm dependencies
+  populated.
+
 * Wed Oct 06 2010 Jan Pazdziora 1.2.10-1
 - Use current_timestamp instead of the Oracle-specific sysdate in
   set_cloned_from.
