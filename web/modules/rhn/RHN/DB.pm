@@ -528,12 +528,12 @@ sub execute_h {
   $self->set_err("Odd number of params to execute_h") if @params % 2;
 
   while (my ($k, $v) = (splice @params, 0, 2, ())) {
-    use DBD::Oracle qw(:ora_types);
 
     my $attr = {};
     use Scalar::Util qw/blessed/;
 
     if (ref $v and blessed($v) and $v->isa("RHN::DB::Type::BLOB")) {
+      eval 'use DBD::Oracle qw(:ora_types)' or die $@;
       $attr->{ora_type} = ORA_BLOB;
       if (defined $v->{ora_field}) {
         $attr->{ora_field} = $v->{ora_field};
