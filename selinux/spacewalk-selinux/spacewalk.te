@@ -15,7 +15,6 @@ require {
 	type httpd_log_t;
 	type java_t;
 	type initrc_t;
-	type oracle_port_t;
 	type system_mail_t;
 	type nfs_t;
 }
@@ -44,8 +43,6 @@ domain_entry_file(initrc_t, spacewalk_initrc_exec_t)
 domain_auto_trans(java_t, spacewalk_initrc_exec_t, initrc_t)
 allow restorecon_t spacewalk_initrc_exec_t:file { relabelto getattr };
 
-allow httpd_t oracle_port_t:tcp_socket name_connect;
-
 filetrans_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t, file)
 manage_files_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t)
 
@@ -64,4 +61,11 @@ tunable_policy(`spacewalk_nfs_mountpoint',`
 	manage_lnk_files_pattern(httpd_t, nfs_t, nfs_t)
 	manage_dirs_pattern(httpd_t, nfs_t, nfs_t)
 	read_lnk_files_pattern(restorecon_t, nfs_t, nfs_t)
+')
+
+optional_policy(`
+	gen_require(`
+		type oracle_port_t;
+	')
+	allow httpd_t oracle_port_t:tcp_socket name_connect;
 ')
