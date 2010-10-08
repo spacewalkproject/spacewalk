@@ -9,11 +9,16 @@ URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires:     SatConfig-dbsynch
 Requires:     nocpulse-common
 Group:        Applications/Internet
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+# We have removed SatConfig-dbsynch from the release, by
+# Provides + Obsoletes we achieve removal of that package
+# during upgrades.
+Provides:     SatConfig-dbsynch = 1.3.3
+Obsoletes:    SatConfig-dbsynch < 1.3.3
 
 %description
 SatConfig-generator is the cgi mechanism by which Netsaint configuration files

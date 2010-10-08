@@ -55,7 +55,6 @@ Requires:       ProgAGoGo
 Requires:       SatConfig-bootstrap
 Requires:       SatConfig-bootstrap-server
 Requires:       SatConfig-cluster
-Requires:       SatConfig-dbsynch
 Requires:       SatConfig-general
 Requires:       SatConfig-generator
 Requires:       SatConfig-installer
