@@ -295,53 +295,9 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         return 0
 
     def dump_channel_packages_short(self, channel_label, last_modified):
-        log_debug(2, channel_label)
-        channels = self._validate_channels(channel_labels=[channel_label])
-        channel_obj = channels[channel_label]
-        db_last_modified = int(rhnLib_common.timestamp(channel_obj['last_modified']))
-        last_modified = int(rhnLib_common.timestamp(last_modified))
-        log_debug(3, "last modified", last_modified, "db last modified",
-            db_last_modified)
-        if last_modified != db_last_modified:
-            raise rhnFault(3013, "The requested channel version does not match"
-                " the upstream version", explain=0)
-        channel_id = channel_obj['channel_id']
-        key = "xml-channel-packages/rhn-channel-%d.data" % channel_id
-        # Try to get everything off of the cache
-        val = rhnCache.get(key, compressed=0, raw=1, modified=last_modified)
-        if val is None:
-            # Not generated yet
-            log_debug(4, "Cache MISS for %s (%s)" % (channel_label,
-                channel_id))
-            stream = self._cache_channel_packages_short(channel_id, key,
-                last_modified)
-        else:
-            log_debug(4, "Cache HIT for %s (%s)" % (channel_label,
-                channel_id))
-            temp_stream = tempfile.TemporaryFile()
-            temp_stream.write(val)
-            temp_stream.flush()
-            stream = self._normalize_compressed_stream(temp_stream)
-
-        # Copy the results to the output stream
-        # They shold be already compressed if they were requested to be
-        # compressed
-        buffer_size = 16384
-        # Send the HTTP headers - but don't init the compressed stream since
-        # we send the data ourselves
-        self._send_headers(init_compressed_stream=0)
-        while 1:
-            buff = stream.read(buffer_size)
-            if not buff:
-                break
-            try:
-                self._raw_stream.write(buff)
-            except IOError:
-                log_error("Client disconnected prematurely")
-                self.close()
-                raise dumper.ClosedConnectionError
-        # We're done
-        return 0
+        return XML_Dumper.dump_channel_packages_short(
+                        self, channel_label, last_modified, filepath=None,
+                        validate_channels=True send_headers=True, open_stream=False)
 
     def _packages(self, packages, prefix, dump_class, sources=0):
         if sources:

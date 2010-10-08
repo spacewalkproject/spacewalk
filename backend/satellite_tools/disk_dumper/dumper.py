@@ -238,11 +238,16 @@ class XML_Dumper:
         self.close()
         return 0
 
-    def dump_channel_packages_short(self, channel_label, last_modified, filepath=None):
+    def dump_channel_packages_short(self, channel_label, last_modified, filepath=None
+                                    validate_channels=False, send_headers=False,
+                                    open_stream=True):
         log_debug(2, channel_label)
-        channels = channel_label
-        #channels = self._validate_channels(channel_labels=[channel_label])
-        channel_obj = channels #channels[channel_label]
+        if validate_channels:
+            channels = self._validate_channels(channel_labels=[channel_label])
+            channel_obj = channels[channel_label]
+        else:
+            channels = channel_label
+            channel_obj = channels
         db_last_modified = int(rhnLib.timestamp(channel_obj['last_modified']))
         last_modified = int(rhnLib.timestamp(last_modified))
         log_debug(3, "last modified", last_modified, "db last modified",
@@ -277,15 +282,23 @@ class XML_Dumper:
         buffer_size = 16384
         # Send the HTTP headers - but don't init the compressed stream since
         # we send the data ourselves
-        #self._send_headers(init_compressed_stream=0)
-        self._raw_stream = open(key, "w")
+        if send_headers:
+            self._send_headers(init_compressed_stream=0)
+        if open_stream:
+            self._raw_stream = open(key, "w")
         while 1:
             buff = stream.read(buffer_size)
             if not buff:
                 break
-            self._raw_stream.write(buff)
+            try:
+                self._raw_stream.write(buff)
+            except IOError:
+                log_error("Client disconnected prematurely")
+                self.close()
+                raise ClosedConnectionError
         # We're done
-        self._raw_stream.close()
+        if open_stream:
+            self._raw_stream.close()
         return 0
 
     _query_get_channel_packages = rhnSQL.Statement("""
