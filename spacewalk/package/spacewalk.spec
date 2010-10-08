@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.2.1
+Version:        1.2.2
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -167,6 +167,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Fri Oct 08 2010 Jan Pazdziora 1.2.2-1
+- Moving the quartz-oracle Requires from spacewalk-taskomatic to spacewalk-
+  oracle.
+
 * Wed Aug 11 2010 Jan Pazdziora 1.2.1-1
 - The dependency of python-psycopg2 (which replaced python-pgsql) is in
   spacewalk-backend-sql-postgresql, no need to have it in spacewalk-postgresql
