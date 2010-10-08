@@ -290,16 +290,16 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         return 0
 
     def dump_channel_packages_short(self, channel_label, last_modified):
-        return XML_Dumper.dump_channel_packages_short(
+        return dumper.XML_Dumper.dump_channel_packages_short(
                         self, channel_label, last_modified, filepath=None,
                         validate_channels=True, send_headers=True, open_stream=False)
 
     def _packages(self, packages, prefix, dump_class, sources=0):
-        return XML_Dumper._packages(self, packages, prefix, dump_class, sources,
+        return dumper.XML_Dumper._packages(self, packages, prefix, dump_class, sources,
                                           verify_packages=True)
 
     def dump_errata(self, errata):
-        return XML_Dumper.dump_errata(self, errata, verify_errata=True)
+        return dumper.XML_Dumper.dump_errata(self, errata, verify_errata=True)
 
     def dump_kickstartable_trees(self, kickstart_labels=None):
         return dumper.XML_Dumper.dump_kickstartable_trees(self, kickstart_labels,
