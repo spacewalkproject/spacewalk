@@ -2,7 +2,7 @@
 %define install_prefix %{perl_vendorlib}/NOCpulse/SatConfig
 
 Name:         SatConfig-generator
-Version:      2.29.11
+Version:      2.29.12
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - Server
 URL:          https://fedorahosted.org/spacewalk
@@ -54,6 +54,10 @@ install -m 644 GenerateConfig.pm $RPM_BUILD_ROOT%{install_prefix}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Oct 08 2010 Jan Pazdziora 2.29.12-1
+- Since the package SatConfig-dbsynch is gone, remove dependencies that were
+  requiring it.
+
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.29.11-1
 - remove dead code (apachereg)
 
