@@ -61,10 +61,6 @@ class XML_Dumper:
              select cf.id channel_family_id, to_number(null, null) quantity
              from rhnChannelFamily cf
         """
-        #self._channel_family_query = """
-        #    select pcf.channel_family_id, to_number(null, null) quantity
-        #      from rhnPublicChannelFamily pcf
-        #"""
 
     def get_channel_families_statement(self):
         query = """
