@@ -76,7 +76,7 @@ public abstract class RepositoryWriter {
 
        String[] children = theDirectory.list();
        if (theDirectory.isDirectory() && children != null) {
-           for (int i = 0; i < children.length; i ++) {
+           for (int i = 0; i < children.length; i++) {
                File file = new File(prefix + File.separator + children[i]);
                if (!file.delete()) {
                    log.info("Couldn't remove " + file.getAbsolutePath());

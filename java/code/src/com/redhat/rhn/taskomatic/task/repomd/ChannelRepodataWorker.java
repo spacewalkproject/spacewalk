@@ -27,7 +27,6 @@ import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
 
 import org.apache.log4j.Logger;
-import org.jfree.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
@@ -70,9 +69,9 @@ public class ChannelRepodataWorker implements QueueWorker {
         else {
             repoWriter = new RpmRepositoryWriter(prefixPath, mountPoint);
         }
-        logger.info("Creating ChannelRepodataWorker with prefixPath(" + prefixPath
-                + "), mountPoint(" + mountPoint + ")" + " for channel_label ("
-                + channelLabelToProcess + ")");
+        logger.info("Creating ChannelRepodataWorker with prefixPath(" + prefixPath +
+                "), mountPoint(" + mountPoint + ")" + " for channel_label (" +
+                channelLabelToProcess + ")");
     }
 
     /**

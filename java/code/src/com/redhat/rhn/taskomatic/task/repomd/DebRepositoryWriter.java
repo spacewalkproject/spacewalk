@@ -61,7 +61,7 @@ public class DebRepositoryWriter extends RepositoryWriter {
 
     /**
      * Create repository for APT
-     * @param channel
+     * @param channel channel
      */
     public void writeRepomdFiles(Channel channel) {
         PackageManager.createRepoEntrys(channel.getId());
@@ -83,8 +83,16 @@ public class DebRepositoryWriter extends RepositoryWriter {
             writer.addPackage(pkgDto);
         }
         writer.generatePackagesGz();
-	}
+    }
 
+    /**
+     * TODO: This static comps paths should go away once
+     * we can get the paths directly from hosted through
+     * satellite-sync and only limit to supporting cloned,
+     * there are no comps files for debian.
+     * @param channel channel object
+     * @return compsPath comps file path
+     */
     public String getCompsFilePath(Channel channel) {
         return null;
     }
