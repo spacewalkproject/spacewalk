@@ -370,35 +370,38 @@ class XML_Dumper:
         return self._packages(packages, prefix='rhn-source-package-',
             dump_class=SourcePackagesDumper, sources=1)
         
-    def _packages(self, packages, prefix, dump_class, sources=0):
+    def _packages(self, packages, prefix, dump_class, sources=0,
+                        verify_packages=False):
         if sources:
             h = self.get_source_packages_statement()
         else:
             h = self.get_packages_statement()
         
         packages_hash = {}
-        for package in packages:
-            packages_hash[package['package_id']] = package
-        #packages_hash = {} 
-        #for package in packages:
-        #    package = str(package)
-        #    if package[:len(prefix)] != prefix:
-        #        raise rhnFault(3002, "Invalid package name %s" % package)
-        #    package_id = package[len(prefix):]
-        #    try:
-        #        package_id = int(package_id)
-        #    except ValueError:
-        #        raise rhnFault(3002, "Invalid package name %s" % package)
-        #    if packages_hash.has_key(package_id):
-        #        # Already verified
-        #        continue
-        #    h.execute(package_id=package_id)
-        #    row = h.fetchone_dict()
-        #    if not row:
-        #        # XXX Silently ignore it?
-        #        raise rhnFault(3003, "No such package %s" % package)
-        #    # Saving the row, it's handy later when we create the iterator
-        #    packages_hash[package_id] = row
+        if verify_packages:
+            for package in packages:
+                package = str(package)
+                if package[:len(prefix)] != prefix:
+                    raise rhnFault(3002, "Invalid package name %s" % package)
+                package_id = package[len(prefix):]
+                try:
+                    package_id = int(package_id)
+                except ValueError:
+                    raise rhnFault(3002, "Invalid package name %s" % package)
+                if packages_hash.has_key(package_id):
+                    # Already verified
+                    continue
+                h.execute(package_id=package_id)
+                row = h.fetchone_dict()
+                if not row:
+                    # XXX Silently ignore it?
+                    raise rhnFault(3003, "No such package %s" % package)
+                # Saving the row, it's handy later when we create the iterator
+                packages_hash[package_id] = row
+        else:
+            for package in packages:
+                packages_hash[package['package_id']] = package
+
         writer = self._get_xml_writer()
         dumper = SatelliteDumper(writer, 
             dump_class(writer, packages_hash.values()))

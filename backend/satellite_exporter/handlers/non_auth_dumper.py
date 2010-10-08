@@ -300,40 +300,8 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
                         validate_channels=True send_headers=True, open_stream=False)
 
     def _packages(self, packages, prefix, dump_class, sources=0):
-        if sources:
-            h = self.get_source_packages_statement()
-        else:
-            h = self.get_packages_statement()
-
-        packages_hash = {}
-        for package in packages:
-            package = str(package)
-            if package[:len(prefix)] != prefix:
-                raise rhnFault(3002, "Invalid package name %s" % package)
-            package_id = package[len(prefix):]
-            try:
-                package_id = int(package_id)
-            except ValueError:
-                raise rhnFault(3002, "Invalid package name %s" % package)
-            if packages_hash.has_key(package_id):
-                # Already verified
-                continue
-            h.execute(package_id=package_id)
-            row = h.fetchone_dict()
-            if not row:
-                # XXX Silently ignore it?
-                raise rhnFault(3003, "No such package %s" % package)
-            # Saving the row, it's handy later when we create the iterator
-            packages_hash[package_id] = row
-
-        writer = self._get_xml_writer()
-        d = dumper.SatelliteDumper(writer,
-            dump_class(writer, packages_hash.values()))
-        d.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
+        return XML_Dumper._packages(self, packages, prefix, dump_class, sources,
+                                          verify_packages=True)
 
     def dump_errata(self, errata):
         log_debug(2)
