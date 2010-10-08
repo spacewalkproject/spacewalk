@@ -55,7 +55,14 @@ sub get_dbi_connection_string {
         return "dbi:Oracle:$dbname";
     }
     elsif ($backend eq "postgresql") {
-        return "DBI:Pg:dbname=$dbname;host=$host;port=$port";
+        my $q = "dbi:Pg:dbname=$dbname";
+        if (defined $host and $host ne '') {
+            $q .= ";host=$host";
+            if (defined $port and $port ne '') {
+                $q .= ";port=$port";
+            }
+        }
+	return $q;
     }
 }
 
