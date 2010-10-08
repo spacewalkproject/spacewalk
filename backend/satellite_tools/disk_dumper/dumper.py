@@ -29,29 +29,6 @@ from spacewalk.satellite_tools.exporter import exportLib, xmlWriter
 from string_buffer import StringBuffer
 
 
-# A wrapper class for a database statement
-class DatabaseStatement:
-    def __init__(self, **kwparams):
-        self.statement = None
-        self.init_params = kwparams
-
-    def add_params(self, **kwparams):
-        self.init_params.update(kwparams)
-
-    def set_statement(self, statement):
-        self.statement = statement
-        return self
-
-    def execute(self, **kwparams):
-        kwparams.update(self.init_params)
-        return apply(self.statement.execute, (), kwparams)
-
-    def next(self):
-        return self.statement.fetchone_dict()
-
-    def __getattr__(self, name):
-        return getattr(self.statement, name)
-
 class XML_Dumper:
     def __init__(self):
         self.compress_level = 5
@@ -77,7 +54,7 @@ class XML_Dumper:
                    ) scf
              where scf.channel_family_id = cf.id
         """ % self._channel_family_query
-        return DatabaseStatement().set_statement(rhnSQL.prepare(query))
+        return rhnSQL.prepare(query)
 
     def get_channel_families_statement_new(self, cids):
         
@@ -90,7 +67,7 @@ class XML_Dumper:
               from rhnchannelfamily cf, rhnchannelfamilymembers cfm
               where cf.id = cfm.channel_family_id and cfm.channel_id in ( %(ch_ids)s )
         """
-        return DatabaseStatement().set_statement(rhnSQL.prepare(query % args))
+        return rhnSQL.prepare(query % args)
 
         
     def get_channels_statement(self):
@@ -105,7 +82,7 @@ class XML_Dumper:
              where scf.channel_family_id = cfm.channel_family_id
                and cfm.channel_id = c.id
         """ % self._channel_family_query
-        return DatabaseStatement().set_statement(rhnSQL.prepare(query))
+        return rhnSQL.prepare(query)
 
     def get_packages_statement(self):
         query = """
@@ -120,7 +97,7 @@ class XML_Dumper:
                and cp.package_id = :package_id
                and p.id = :package_id
         """ % self._channel_family_query
-        return DatabaseStatement().set_statement(rhnSQL.prepare(query))
+        return rhnSQL.prepare(query)
 
     def get_source_packages_statement(self):
         query = """
@@ -138,7 +115,7 @@ class XML_Dumper:
                      p.org_id = ps.org_id)
                and ps.id = :package_id
         """ % self._channel_family_query
-        return DatabaseStatement().set_statement(rhnSQL.prepare(query))
+        return rhnSQL.prepare(query)
 
     def get_errata_statement(self):
         query = """
@@ -153,7 +130,7 @@ class XML_Dumper:
                and ce.errata_id = :errata_id
                and e.id = :errata_id
         """ % self._channel_family_query
-        return DatabaseStatement().set_statement(rhnSQL.prepare(query))
+        return rhnSQL.prepare(query)
 
     def _get_xml_writer(self):
         return xmlWriter.XMLWriter(stream=StringBuffer(self))
