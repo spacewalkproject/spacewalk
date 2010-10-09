@@ -142,6 +142,15 @@ public class TaskConstants {
     public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_OBSOLETES =
         "repomdgenerator_capability_obsoletes";
 
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_RECOMMENDS =
+        "repomdgenerator_capability_recommends";
+
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_SUGGESTS =
+        "repomdgenerator_capability_suggests";
+
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_SUPPLEMENTS =
+        "repomdgenerator_capability_supplements";
+
     public static final String TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG =
         "repomdgenerator_package_changelog";
 

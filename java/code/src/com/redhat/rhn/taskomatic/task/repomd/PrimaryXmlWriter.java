@@ -42,6 +42,9 @@ public class PrimaryXmlWriter extends RepomdWriter {
     private PackageCapabilityIterator requiresIterator;
     private PackageCapabilityIterator conflictsIterator;
     private PackageCapabilityIterator obsoletesIterator;
+    private PackageCapabilityIterator recommendsIterator;
+    private PackageCapabilityIterator suggestsIterator;
+    private PackageCapabilityIterator supplementsIterator;
     private static Logger log = Logger.getLogger(PrimaryXmlWriter.class);
 
     /**
@@ -98,6 +101,12 @@ public class PrimaryXmlWriter extends RepomdWriter {
                 TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_CONFLICTS);
         obsoletesIterator = new PackageCapabilityIterator(channel,
                 TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_OBSOLETES);
+        recommendsIterator = new PackageCapabilityIterator(channel,
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_RECOMMENDS);
+        suggestsIterator = new PackageCapabilityIterator(channel,
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_SUGGESTS);
+        supplementsIterator = new PackageCapabilityIterator(channel,
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_SUPPLEMENTS);
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("xmlns", "http://linux.duke.edu/metadata/common");
         attr.addAttribute("xmlns:rpm", "http://linux.duke.edu/metadata/rpm");
@@ -259,7 +268,13 @@ public class PrimaryXmlWriter extends RepomdWriter {
                 "conflicts", localHandler);
         addPackageDepData(obsoletesIterator, pkgDto.getId().longValue(),
                 "obsoletes", localHandler);
-    }
+        addPackageDepData(recommendsIterator, pkgDto.getId().longValue(),
+                "recommends", localHandler);
+        addPackageDepData(suggestsIterator, pkgDto.getId().longValue(),
+                "suggests", localHandler);
+        addPackageDepData(supplementsIterator, pkgDto.getId().longValue(),
+                "supplements", localHandler);
+   }
 
     /**
      *
