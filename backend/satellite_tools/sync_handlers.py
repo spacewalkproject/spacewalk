@@ -93,7 +93,7 @@ class ChannelCollection:
             self._channels_hash = {}
             self._cache = syncCache.ChannelCache()
 
-    def add_channel(self, channel_object):
+    def add_item(self, channel_object):
         """Stores a channel in the collection"""
         channel_label = channel_object['label']
         channel_last_modified = channel_object['last_modified']
@@ -160,19 +160,26 @@ class ChannelCollection:
         self._shared_state.clear()
         self.__init__()
 
-class ChannelContainer(xmlSource.ChannelContainer):
+class SyncHandlerContainer:
+    collection = None
 
     def endItemCallback(self):
-        xmlSource.ChannelContainer.endItemCallback(self)
+        # reference to xmlSource superclass we redefines
+        xml_superclass = self.__class__.__bases__[1]
+        xml_superclass.endItemCallback(self)
         if not self.batch:
             return
-        c = ChannelCollection()
-        c.add_channel(self.batch[-1])
+        c = self.collection()
+        c.add_item(self.batch[-1])
         del self.batch[:]
 
     def endContainerCallback(self):
         # Not much to do here...
         pass
+
+class ChannelContainer(SyncHandlerContainer, xmlSource.ChannelContainer):
+    collection = ChannelCollection
+
 
 def get_channel_handler():
     handler = xmlSource.SatelliteDispatchHandler()
