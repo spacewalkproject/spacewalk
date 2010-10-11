@@ -476,100 +476,56 @@ class Dumper(dumper.XML_Dumper):
     #class that have the same name. They will set up the file for the dump, collect info
     #necessary for the dumps to take place, and then call the base class version of the 
     #method to do the actual dumping.
-    def dump_arches(self):
+    def _dump_simple(self, filename, dump_func, startmsg, endmsg, exceptmsg):
         try:
             print "\n"
-            log2stdout(1, "Exporting arches...")
+            log2stdout(1, startmsg)
             pb = progress_bar.ProgressBar(self.pb_label,
                                           self.pb_complete,
                                           1,
                                           self.pb_length,
                                           self.pb_char)
             pb.printAll(1)
-            self.set_filename(self.fm.getArchesFile())
-            dumper.XML_Dumper.dump_arches(self)
+            self.set_filename(filename)
+            dump_func(self)
     
             pb.addTo(1)
             pb.printIncrement()
             pb.printComplete()
-            log2stdout(4, "Arches exported to %s" % self.fm.getArchesFile())
+            log2stdout(4, endmsg % filename)
             
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_arches." % e.__class__.__name__, tbout.getvalue())
+            raise ISSError(exceptmsg % e.__class__.__name__, tbout.getvalue())
+
+    def dump_arches(self):
+        self._dump_simple(self.fm.getArchesFile(), dumper.XML_Dumper.dump_arches,
+                          "Exporting arches...",
+                          "Arches exported to %s",
+                          "%s caught in dump_arches.")
 
     #This dumps arches_extra
     def dump_server_group_type_server_arches(self):
-        try:
-            print "\n"
-            log2stdout(1, "Exporting arches extra...")
-            pb = progress_bar.ProgressBar(self.pb_label,
-                                          self.pb_complete,
-                                          1,
-                                          self.pb_length,
-                                          self.pb_char)
-            pb.printAll(1)
-    
-            self.set_filename(self.fm.getArchesExtraFile())
-            dumper.XML_Dumper.dump_server_group_type_server_arches(self)
-    
-            pb.addTo(1)
-            pb.printIncrement()
-            pb.printComplete()
-            log2stdout(4, "Arches Extra exported to %s" % self.fm.getArchesExtraFile())
-            
-        except Exception, e:
-            tbout = cStringIO.StringIO()
-            Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_server_group_type_server_arches." % e.__class__.__name__, tbout.getvalue())
+        self._dump_simple(self.fm.getArchesExtraFile(),
+                          dumper.XML_Dumper.dump_server_group_type_server_arches,
+                          "Exporting arches extra...",
+                          "Arches Extra exported to %s",
+                          "%s caught in dump_server_group_type_server_arches.")
 
     def dump_blacklist_obsoletes(self):
-        try:
-            print "\n"
-            log2stdout(1, "Exporting blacklists...")
-            pb = progress_bar.ProgressBar(self.pb_label,
-                                          self.pb_complete,
-                                          1,
-                                          self.pb_length,
-                                          self.pb_char)
-            pb.printAll(1)
-            
-            self.set_filename(self.fm.getBlacklistsFile())
-            dumper.XML_Dumper.dump_blacklist_obsoletes(self)
-            
-            pb.addTo(1)
-            pb.printIncrement()
-            pb.printComplete()
-            log2stderr(4, "Blacklists exported to %s" % self.fm.getBlacklistsFile())
-            
-        except Exception, e:
-            tbout = cStringIO.StringIO()
-            Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_blacklist_obsoletes." % e.__class__.__name__, tbout.getvalue())
+        self._dump_simple(self.fm.getBlacklistsFile(),
+                          dumper.XML_Dumper.dump_blacklist_obsoletes,
+                          "Exporting blacklists...",
+                          "Blacklists exported to %s",
+                          "%s caught in dump_blacklist_obsoletes.")
 
     def dump_channel_families(self):
-        try:
-            print "\n"
-            log2stdout(1, "Exporting channel families...")
-            pb = progress_bar.ProgressBar(self.pb_label,
-                                          self.pb_complete,
-                                          1,
-                                          self.pb_length,
-                                          self.pb_char)
-            pb.printAll(1) 
-            self.set_filename(self.fm.getChannelFamiliesFile())
-            dumper.XML_Dumper.dump_channel_families(self)
-
-            pb.addTo(1)
-            pb.printIncrement()
-            pb.printComplete()
-            log2stderr(4, "Channel Families exported to %s" % str(self.fm.getChannelFamiliesFile()))
-            
-        except Exception, e:
-            tbout = cStringIO.StringIO()
-            Traceback(mail=0, ostream=tbout, with_locals=1)
-            raise ISSError("%s caught in dump_channel_families." % e.__class__.__name__, tbout.getvalue())
+        self._dump_simple(self.fm.getChannelFamiliesFile(),
+                          dumper.XML_Dumper.dump_channel_families,
+                          "Exporting channel families...",
+                          "Channel Families exported to %s"
+                          "%s caught in dump_channel_families.")
 
     def dump_channels(self):
         try:
