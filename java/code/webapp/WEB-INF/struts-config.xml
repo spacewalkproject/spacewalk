@@ -3083,6 +3083,18 @@
                  path="/systems/details/Notes.do" redirect="true"/>
     </action>
 
+    <action path="/systems/details/DeleteConfirm"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/delete_confirm.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.SystemDeleteConfirmAction"
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/sdc/delete_confirm.jsp"/>
+        <forward name="success"
+                 path="/systems/Overview.do" redirect="true"/>
+    </action>
+
     <!--System Details SSM Configuration -->
         <action path="/systems/ssm/DeleteConfirm"
         scope="request"

@@ -26,7 +26,7 @@
   			 	|
 			</rhn:require>							
 						
-			<a href="/network/systems/details/delete_confirm.pxt?sid=${system.id}">
+			<a href="/rhn/systems/details/DeleteConfirm.do?sid=${system.id}">
 				<img src="/img/action-del.gif" alt="<bean:message key="toolbar.delete.system"/>" title="<bean:message key="toolbar.delete.system"/>" />
 				<bean:message key="toolbar.delete.system"/>
 			</a>			

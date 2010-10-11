@@ -19600,6 +19600,27 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
            </context-group>
          </trans-unit>
 
+         <trans-unit id="delete_confirm.jsp.header">
+           <source>Confirm System Profile Deletion</source>
+           <context-group name="ctx">
+             <context context-type="sourcefile">/rhn/systems/details/DeleteConfirm.do</context>
+           </context-group>
+         </trans-unit>
+
+         <trans-unit id="delete_confirm.jsp.summary">
+           <source>&lt;p&gt;This will delete this profile &lt;strong&gt;permanently&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;If you are uncertain about performing this action, please &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;review the details&lt;/a&gt; for this system.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Otherwise, confirm the immediate deletion of this system profile by clicking the button below.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+           <context-group name="ctx">
+             <context context-type="sourcefile">/rhn/systems/details/DeleteConfirm.do</context>
+           </context-group>
+         </trans-unit>
+
+         <trans-unit id="delete_confirm.jsp.button">
+           <source>Delete Profile</source>
+           <context-group name="ctx">
+             <context context-type="sourcefile">/rhn/systems/details/DeleteConfirm.do</context>
+           </context-group>
+         </trans-unit>
+
          <trans-unit id="message.noteupdated">
            <source>Note updated</source>
            <context-group name="ctx">
