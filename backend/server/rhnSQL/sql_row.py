@@ -94,19 +94,9 @@ class Row(UserDictCase):
 
     # load an entry
     def load(self, hashval):
-        h = self.db.prepare("select * from %s where %s = :hashval" % (self.table, self.hashname))
-        h.execute(hashval = hashval)
-        ret = h.fetchone_dict()
-        self.data = {}
-        if not ret:
-            self.real = 0
-            return 0
-        for k in ret.keys():
-            self.data[k] = (ret[k], 0)
-        self.real = 1
-        return 1
+        return load_sql(self, "%s = :hashval" % self.hashname, {'hashval': hashval})
     
-    # kind of the same as load, but we load it from a sql clause instead
+    # load from a sql clause
     def load_sql(self, sql, pdict = {}):
         h = self.db.prepare("select * from %s where %s" % (self.table, sql))
         apply(h.execute, (), pdict)
