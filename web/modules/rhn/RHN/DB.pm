@@ -62,7 +62,7 @@ sub get_dbi_connection_string {
                 $q .= ";port=$port";
             }
         }
-	return $q;
+        return $q;
     }
 }
 
