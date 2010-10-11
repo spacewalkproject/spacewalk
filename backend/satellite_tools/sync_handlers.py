@@ -285,19 +285,8 @@ class PackageCollection(ShortPackageCollection):
     def get_package_timestamp(self, package_id):
         raise NotImplementedError
 
-class PackageContainer(xmlSource.PackageContainer):
-
-    def endItemCallback(self):
-        xmlSource.PackageContainer.endItemCallback(self)
-        if not self.batch:
-            return
-        c = PackageCollection()
-        c.add_package(self.batch[-1])
-        del self.batch[:]
-
-    def endContainerCallback(self):
-        # Not much to do here...
-        pass
+class PackageContainer(SyncHandlerContainer, xmlSource.PackageContainer):
+    collection = PackageCollection
 
 def get_package_handler():
     handler = xmlSource.SatelliteDispatchHandler()
