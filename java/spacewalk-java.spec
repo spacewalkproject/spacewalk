@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.56
+Version: 1.2.57
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -337,6 +337,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 11 2010 Lukas Zapletal 1.2.57-1
+- Added Hibernate empty varchar interceptor
+- Fixed empty varchars during admin registration
+
 * Fri Oct 08 2010 Jan Pazdziora 1.2.56-1
 - PostgreSQL does not like to ORDER BY by something which is not in DISTINCT.
 - Since query Channel.findAllBaseChannels was replaced with sql-query, removing
