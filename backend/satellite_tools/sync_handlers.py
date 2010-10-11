@@ -403,19 +403,8 @@ class KickstartableTreesCollection(BaseCollection):
     def _get_item_timestamp(self, item):
         return None
 
-class KickstartableTreesContainer(xmlSource.KickstartableTreesContainer):
-
-    def endItemCallback(self):
-        xmlSource.KickstartableTreesContainer.endItemCallback(self)
-        if not self.batch:
-            return
-        c = KickstartableTreesCollection()
-        c.add_item(self.batch[-1])
-        del self.batch[:]
-
-    def endContainerCallback(self):
-        # Not much to do here...
-        pass
+class KickstartableTreesContainer(SyncHandlerContainer, xmlSource.KickstartableTreesContainer):
+    collection = KickstartableTreesCollection
 
 def get_kickstarts_handler():
     handler = xmlSource.SatelliteDispatchHandler()
