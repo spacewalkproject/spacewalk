@@ -211,6 +211,12 @@ class ConnectionManager {
                     c.addConfig(config);
                 }
             }
+            
+            // add empty varchar warning interceptor
+            EmptyVarcharInterceptor interceptor = new EmptyVarcharInterceptor();
+            interceptor.setAutoConvert(true);
+            config.setInterceptor(interceptor);
+            
             sessionFactory = config.buildSessionFactory();
         }
         catch (HibernateException e) {
