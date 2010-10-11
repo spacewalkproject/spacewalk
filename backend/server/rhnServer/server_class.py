@@ -73,7 +73,7 @@ class Server(ServerWrapper):
 
     _query_lookup_arch = rhnSQL.Statement("""
         select sa.id, 
-               decode(at.label, 'rpm', 1, 0) is_rpm_managed
+               case when at.label = 'rpm' then 1 else 0 end is_rpm_managed
           from rhnServerArch sa,
                rhnArchType at
          where sa.label = :archname
