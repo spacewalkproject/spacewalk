@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.7
+Version:        1.2.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,10 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Mon Oct 11 2010 Jan Pazdziora 1.2.8-1
+- Do not require perl-DBD-Pg in spacewalk-setup, save it for spacewalk-
+  postgresql.
+
 * Mon Sep 27 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.7-1
 - do not restart whole satellite when enabling monitoring
   (mzazrivec@redhat.com)
