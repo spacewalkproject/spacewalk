@@ -6879,6 +6879,18 @@
       </action>
 
 
+
+   <action path="/systems/customdata/DeleteCustomKey"
+        scope="request"
+        input="/WEB-INF/pages/systems/customkey/deletekey.jsp"
+        type="com.redhat.rhn.frontend.action.systems.customkey.DeleteCustomKeyAction"
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/systems/customkey/deletekey.jsp" />
+        <forward name="deleted" path="/systems/customdata/CustomDataList.do" redirect="true"/>
+      </action>
+
+
    <action path="/software/manage/packages/PackageList"
         scope="request"
         type="com.redhat.rhn.frontend.action.rhnpackage.CustomPackageListAction"

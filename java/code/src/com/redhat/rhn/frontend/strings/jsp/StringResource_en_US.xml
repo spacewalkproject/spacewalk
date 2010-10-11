@@ -13080,6 +13080,19 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </trans-unit>
     </group>
 
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/systems/customdata/DeleteKey.do</context>
+       </context-group>
+
+       <trans-unit id="system.jsp.customkey.deletetitle">
+         <source>Delete Custom Key</source>
+       </trans-unit>
+       <trans-unit id="system.jsp.customkey.deletemsg">
+         <source>Are you certain you want to delete this key? &lt;strong&gt;All systems' values for this key will be deleted as well.&lt;/strong&gt;</source>
+       </trans-unit>
+    </group>
+
      <!-- System Common -->
      <group>
        <context-group name="ctx">
