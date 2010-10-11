@@ -155,71 +155,33 @@ def refresh(server_id, action_id, dry_run=0):
     return ()
 
 #Returns a uuid
+def action(action_name, query, server_id, action_id, dry_run=0):
+    log_debug(3, action_name, dry_run)
+    try:
+        uuid = _get_uuid(query, action_id)
+    except NoRowFoundException:
+        raise InvalidAction("No %s actions found." % action_name.lower())
+    except NoUUIDException:
+        raise InvalidAction("%s action %s has no uuid associated with it." % (action_name, str(action_id)))
+    return (uuid,)
+
 def start(server_id, action_id, dry_run=0):
-    log_debug(3, dry_run)
-    try:
-        uuid = _get_uuid(_query_start, action_id)
-    except NoRowFoundException:
-        raise InvalidAction("No start actions found.")
-    except NoUUIDException:
-        raise InvalidAction("Start action %s has no uuid associated with it." % str(action_id))
-    return (uuid,)
+    return action("Start", _query_start, server_id, action_id, dry_run=0)
 
-#Returns a uuid.
 def shutdown(server_id, action_id, dry_run=0):
-    log_debug(3, dry_run)
-    try:
-        uuid = _get_uuid(_query_shutdown, action_id)
-    except NoRowFoundException:
-        raise InvalidAction("No shutdown actions found.")
-    except NoUUIDException:
-        raise InvalidAction("Shutdown action %s has no uuid associated with it." % str(action_id))
-    return (uuid,)
+    return action("Shutdown", _query_shutdown, server_id, action_id, dry_run=0)
 
-#Returns a uuid.
 def suspend(server_id, action_id, dry_run=0):
-    log_debug(3, dry_run)
-    try:
-        uuid = _get_uuid(_query_suspend, action_id)
-    except NoRowFoundException:
-        raise InvalidAction("No suspend actions found.")
-    except NoUUIDException:
-        raise InvalidAction("Suspend action %s has no uuid associated with it." % str(action_id))
-    return (uuid,)
+    return action("Suspend", _query_suspend, server_id, action_id, dry_run=0)
 
-
-#Returns a uuid.
 def resume(server_id, action_id, dry_run=0):
-    log_debug(3, dry_run)
-    try:
-        uuid = _get_uuid(_query_resume, action_id)
-    except NoRowFoundException:
-        raise InvalidAction("No resume actions found.")
-    except NoUUIDException:
-        raise InvalidAction("Resume action %s has no uuid associated with it." % str(action_id))
-    return (uuid,)
+    return action("Resume", _query_resume, server_id, action_id, dry_run=0)
 
-#Returns a uuid.
 def reboot(server_id, action_id, dry_run=0):
-    log_debug(3, dry_run)
-    try:
-        uuid = _get_uuid(_query_reboot, action_id)
-    except NoRowFoundException:
-        raise InvalidAction("No reboot actions found.")
-    except NoUUIDException:
-        raise InvalidAction("Reboot action %s has no uuid associated with it." % str(action_id))
-    return (uuid,)
+    return action("Reboot", _query_reboot, server_id, action_id, dry_run=0)
 
-#Returns a uuid.
 def destroy(server_id, action_id, dry_run=0):
-    log_debug(3, dry_run)
-    try:
-        uuid = _get_uuid(_query_destroy, action_id)
-    except NoRowFoundException:
-        raise InvalidAction("No destroy actions found.")
-    except NoUUIDException:
-        raise InvalidAction("Destroy action %s has no uuid associated with it." % str(action_id))
-    return (uuid,)
+    return action("Destroy", _query_destroy, server_id, action_id, dry_run=0)
 
 #Returns a uuid and the amount of memory to allocate to the domain.
 def setMemory(server_id, action_id, dry_run=0):
