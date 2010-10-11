@@ -25,6 +25,16 @@
 
     <h2>Conflicts</h2>
     <p>{package_conflicts}</p>
+
+    <h2>Recommends</h2>
+    <p>{package_recommends}</p>
+
+    <h2>Suggests</h2>
+    <p>{package_suggests}</p>
+
+    <h2>Supplements</h2>
+    <p>{package_supplements}</p>
+
 </rhn-package-dependencies>
 
   </grail-canvas-template>

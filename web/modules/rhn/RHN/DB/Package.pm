@@ -342,6 +342,87 @@ EOQ
   return @ret;
 }
 
+sub recommends {
+  my $self = shift;
+
+  my @ret;
+  my $dbh = RHN::DB->connect;
+  my $query;
+  my $sth;
+
+  $query = <<EOQ;
+SELECT  DISTINCT C.name, C.version, P.sense
+  FROM  rhnPackageCapability C, rhnPackageRecommends P
+ WHERE  P.package_id = ?
+   AND  P.capability_id = C.id
+ORDER BY UPPER(C.name), C.version
+EOQ
+
+  $sth = $dbh->prepare($query);
+  $sth->execute($self->id);
+
+  my @columns;
+  while(@columns = $sth->fetchrow) {
+    push @ret, [ @columns ];
+  }
+
+  return @ret;
+}
+
+sub suggests {
+  my $self = shift;
+
+  my @ret;
+  my $dbh = RHN::DB->connect;
+  my $query;
+  my $sth;
+
+  $query = <<EOQ;
+SELECT  DISTINCT C.name, C.version, P.sense
+  FROM  rhnPackageCapability C, rhnPackageSuggests P
+ WHERE  P.package_id = ?
+   AND  P.capability_id = C.id
+ORDER BY UPPER(C.name), C.version
+EOQ
+
+  $sth = $dbh->prepare($query);
+  $sth->execute($self->id);
+
+  my @columns;
+  while(@columns = $sth->fetchrow) {
+    push @ret, [ @columns ];
+  }
+
+  return @ret;
+}
+
+sub supplements {
+  my $self = shift;
+
+  my @ret;
+  my $dbh = RHN::DB->connect;
+  my $query;
+  my $sth;
+
+  $query = <<EOQ;
+SELECT  DISTINCT C.name, C.version, P.sense
+  FROM  rhnPackageCapability C, rhnPackageSupplements P
+ WHERE  P.package_id = ?
+   AND  P.capability_id = C.id
+ORDER BY UPPER(C.name), C.version
+EOQ
+
+  $sth = $dbh->prepare($query);
+  $sth->execute($self->id);
+
+  my @columns;
+  while(@columns = $sth->fetchrow) {
+    push @ret, [ @columns ];
+  }
+
+  return @ret;
+}
+
 # don't know what tables these next 2 will need to talk to...
 sub obsoletes {
   my $self = shift;
