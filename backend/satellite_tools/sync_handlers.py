@@ -354,7 +354,7 @@ class ErrataCollection:
     def _init_cache(self):
         self._cache = syncCache.ErratumCache()
 
-    def add_erratum(self, erratum):
+    def add_item(self, erratum):
         """Stores an erratum in the collection"""
         erratum_id = erratum['erratum_id']
         timestamp = _to_timestamp(erratum['last_modified'])
@@ -382,19 +382,8 @@ class ErrataCollection:
         self._shared_state.clear()
         self.__init__()
 
-class ErrataContainer(xmlSource.ErrataContainer):
-
-    def endItemCallback(self):
-        xmlSource.ErrataContainer.endItemCallback(self)
-        if not self.batch:
-            return
-        c = ErrataCollection()
-        c.add_erratum(self.batch[-1])
-        del self.batch[:]
-
-    def endContainerCallback(self):
-        # Not much to do here...
-        pass
+class ErrataContainer(SyncHandlerContainer, xmlSource.ErrataContainer):
+    collection = ErrataCollection
 
 def get_errata_handler():
     handler = xmlSource.SatelliteDispatchHandler()
