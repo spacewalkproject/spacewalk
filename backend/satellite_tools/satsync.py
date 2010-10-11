@@ -732,6 +732,16 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         else:
              return _("%10s") % export_type
 
+    def _printChannel(self, label, channel_object, format, is_imported):
+        assert channel_object is not None
+        all_pkgs = channel_object['all-packages'] or channel_object['packages']
+        pkgs_count = len(all_pkgs)
+        if is_imported:
+            status = _('p')
+        else:
+            status = _('.')
+        log(1, format % (status, label, pkgs_count, self._formatChannelExportType(channel_object)))
+
     def _printChannelTree(self, doEOSYN=1, doTyposYN=1):
         "pretty prints a tree of channel information"
 
@@ -759,14 +769,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             timestamp = self._channel_collection.get_channel_timestamp(plabel)
             channel_object = self._channel_collection.get_channel(plabel,
                 timestamp)
-            assert channel_object is not None
-            all_pkgs = channel_object['all-packages'] or channel_object['packages']
-            pkgs_count = len(all_pkgs)
-            if plabel in ch_requested_imported:
-                status = _('p')
-            else:
-                status = _('.')
-            log(1, p_format % (status, plabel, pkgs_count, self._formatChannelExportType(channel_object)))
+            self._printChannel(plabel, channel_object, p_format, (plabel in ch_requested_imported))
 
         # Relevant parent channels
         for plabel in pc_labels:
@@ -788,15 +791,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             for clabel, ctimestamp in chns:
                 channel_object = self._channel_collection.get_channel(clabel,
                     ctimestamp)
-                assert channel_object is not None
-                all_pkgs = channel_object['all-packages'] or channel_object['packages']
-                pkgs_count = len(all_pkgs)
-
-                if clabel in ch_requested_imported:
-                    status = _('p')
-                else:
-                    status = _('.')
-                log(1, p_format % (status, clabel, pkgs_count, self._formatChannelExportType(channel_object)))
+                self._printChannel(clabel, channel_object, p_format, (clabel in ch_requested_imported))
         log(2, '')
 
         if doEOSYN and ch_end_of_service:
