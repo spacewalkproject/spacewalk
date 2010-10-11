@@ -177,14 +177,17 @@ class SyncHandlerContainer:
         # Not much to do here...
         pass
 
+def get_sync_handler(container):
+    handler = xmlSource.SatelliteDispatchHandler()
+    handler.set_container(container)
+    return handler
+
 class ChannelContainer(SyncHandlerContainer, xmlSource.ChannelContainer):
     collection = ChannelCollection
 
 
 def get_channel_handler():
-    handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(ChannelContainer())
-    return handler
+    return get_sync_handler(ChannelContainer())
 
 def import_channels(channels, orgid=None):
     collection = ChannelCollection()
@@ -271,9 +274,7 @@ class ShortPackageContainer(SyncHandlerContainer, xmlSource.IncompletePackageCon
     collection = ShortPackageCollection
 
 def get_short_package_handler():
-    handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(ShortPackageContainer())
-    return handler
+    return get_sync_handler(ShortPackageContainer())
 
 
 class PackageCollection(ShortPackageCollection):
@@ -289,9 +290,7 @@ class PackageContainer(SyncHandlerContainer, xmlSource.PackageContainer):
     collection = PackageCollection
 
 def get_package_handler():
-    handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(PackageContainer())
-    return handler
+    return get_sync_handler(PackageContainer())
 
 
 # Singleton-like
@@ -305,9 +304,7 @@ class SourcePackageContainer(SyncHandlerContainer, xmlSource.SourcePackageContai
     collection = SourcePackageCollection
 
 def get_source_package_handler():
-    handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(SourcePackageContainer())
-    return handler
+    return get_sync_handler(SourcePackageContainer())
 
 # Singleton-like
 class ErrataCollection:
@@ -354,9 +351,7 @@ class ErrataContainer(SyncHandlerContainer, xmlSource.ErrataContainer):
     collection = ErrataCollection
 
 def get_errata_handler():
-    handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(ErrataContainer())
-    return handler
+    return get_sync_handler(ErrataContainer())
 
 
 class KickstartableTreesCollection(BaseCollection):
@@ -375,9 +370,7 @@ class KickstartableTreesContainer(SyncHandlerContainer, xmlSource.KickstartableT
     collection = KickstartableTreesCollection
 
 def get_kickstarts_handler():
-    handler = xmlSource.SatelliteDispatchHandler()
-    handler.set_container(KickstartableTreesContainer())
-    return handler
+    return get_sync_handler(KickstartableTreesContainer())
 
 def import_packages(batch, sources=0):
     importer = packageImport.PackageImport(batch, diskImportLib.get_backend(), sources)
