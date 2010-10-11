@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.11
+Version: 1.2.12
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,15 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Oct 11 2010 Jan Pazdziora 1.2.12-1
+- Fix indentation -- use spaces.
+- Fix the ORA_BLOB issue which prevents spacewalk-schema from starting.
+- 631847 - add keys for proxy 5.4 (msuchy@redhat.com)
+- If host or port is not specified, we do not want to put those empty strings
+  to the dbi:Pg: connect string.
+- Since we use RHN::DataSource::Simple in Sniglets::ListView::ProbeList, we
+  might just as well use it (I man, Perl use).
+
 * Fri Oct 08 2010 Jan Pazdziora 1.2.11-1
 - Move use DBD::Oracle to eval so that we do not get rpm dependencies
   populated.
