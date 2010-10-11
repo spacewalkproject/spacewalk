@@ -1799,7 +1799,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
 
             # update package path
             package['path'] = path
-            package_collection.add_package(package)
+            package_collection.add_item(package)
 
             errcode = self._verify_file(path, rhnLib.timestamp(timestamp), package_size,
                                                 checksum_type, checksum)

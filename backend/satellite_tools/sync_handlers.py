@@ -239,7 +239,7 @@ class ShortPackageCollection:
     def _init_cache(self):
         self._cache = syncCache.ShortPackageCache()
 
-    def add_package(self, package):
+    def add_item(self, package):
         """Stores a package in the collection"""
         package_id = package['package_id']
         timestamp = package['last_modified']
@@ -267,19 +267,8 @@ class ShortPackageCollection:
         self._shared_state.clear()
         self.__init__()
 
-class ShortPackageContainer(xmlSource.IncompletePackageContainer):
-
-    def endItemCallback(self):
-        xmlSource.IncompletePackageContainer.endItemCallback(self)
-        if not self.batch:
-            return
-        c = ShortPackageCollection()
-        c.add_package(self.batch[-1])
-        del self.batch[:]
-
-    def endContainerCallback(self):
-        # Not much to do here...
-        pass
+class ShortPackageContainer(SyncHandlerContainer, xmlSource.IncompletePackageContainer):
+    collection = ShortPackageCollection
 
 def get_short_package_handler():
     handler = xmlSource.SatelliteDispatchHandler()
