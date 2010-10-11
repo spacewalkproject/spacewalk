@@ -301,18 +301,8 @@ class SourcePackageCollection(ShortPackageCollection):
     def _init_cache(self):
         self._cache = syncCache.SourcePackageCache()
 
-class SourcePackageContainer(xmlSource.SourcePackageContainer):
-    def endItemCallback(self):
-        xmlSource.SourcePackageContainer.endItemCallback(self)
-        if not self.batch:
-            return
-        c = SourcePackageCollection()
-        c.add_package(self.batch[-1])
-        del self.batch[:]
-
-    def endContainerCallback(self):
-        # Not much to do here...
-        pass
+class SourcePackageContainer(SyncHandlerContainer, xmlSource.SourcePackageContainer):
+    collection = SourcePackageCollection
 
 def get_source_package_handler():
     handler = xmlSource.SatelliteDispatchHandler()
