@@ -36,7 +36,7 @@ CREATE UNIQUE INDEX rhn_ce_ce_uq
     ON rhnChannelErrata (channel_id, errata_id)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_ce_eid_cid_idx
-    ON rhnChannelErrata (errata_id, channel_id)
+CREATE INDEX rhn_ce_eid_idx
+    ON rhnChannelErrata (errata_id)
     TABLESPACE [[64k_tbs]];
 
