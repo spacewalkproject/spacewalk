@@ -1,4 +1,4 @@
--- -- oracle equivalent source sha1 e16a211073e298ca515b54eb9c5eb51896463108
+-- -- oracle equivalent source sha1 ca97aff46a0c477082e414f362a8b122aff0daf9
 -- one difference from Oracle (see TODO)
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
@@ -194,7 +194,6 @@ begin
         -- We may want to consider delete_snapshot() at some point, but
         --   I don't think we need to yet.
         delete from rhnSnapshot where server_id = server_id_in;
-        delete from rhnTransaction where server_id = server_id_in;
         delete from rhnUserServerPrefs where server_id = server_id_in;
         -- hrm, this one's interesting... we _probably_ should delete
         -- everything for the parent server_id when we delete the proxy,

@@ -49,7 +49,7 @@ delete_server                   :: rhn_channel.pks rhn_config.pks \
                                    rhnServerNeededPackageCache rhnServerNetwork \
                                    rhnServerNotes rhnServerPackage rhnSnapshot \
                                    rhnServerTokenRegs rhnSnapshotTag \
-                                   rhnTransaction rhnUserServerPrefs \
+                                   rhnUserServerPrefs \
                                    rhnServerPath rhnServerPath \
                                    rhn_check_probe rhn_interface_monitoring \
                                    rhnServerNetInterface rhn_host_probe \

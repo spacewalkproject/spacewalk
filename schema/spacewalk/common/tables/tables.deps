@@ -202,7 +202,6 @@ rhnTag                         :: rhnTagName web_customer
 rhnTaskoRun                    :: rhnTaskoTemplate rhnTaskoSchedule
 rhnTaskoSchedule               :: rhnTaskoBunch
 rhnTaskoTemplate               :: rhnTaskoBunch rhnTaskoTask
-rhnTransaction                 :: rhnServer
 rhnTransactionPackage          :: rhnTransactionOperation rhnPackageArch \
                                   rhnPackageEVR rhnPackageName
 rhnUserGroupMembers            :: web_contact rhnUserGroup
