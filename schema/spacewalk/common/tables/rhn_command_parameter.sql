@@ -49,19 +49,12 @@ CREATE UNIQUE INDEX rhn_cparm_cmd_id_param_name_uq
     ON rhn_command_parameter (command_id, param_name)
     TABLESPACE [[2m_tbs]];
 
-CREATE UNIQUE INDEX rhn_cparm_id_p_name_p_type_uq
-    ON rhn_command_parameter (command_id, param_name, param_type)
-    TABLESPACE [[2m_tbs]];
-
 CREATE UNIQUE INDEX rhn_cparm_cmd_id_field_orde_uq
     ON rhn_command_parameter (command_id, field_order)
     TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_command_parameter
     ADD CONSTRAINT rhn_cparm_id_parm_name_pk PRIMARY KEY (command_id, param_name);
-
-ALTER TABLE rhn_command_parameter
-    ADD CONSTRAINT rhn_cparm_id_p_name_p_type_uq UNIQUE (command_id, param_name, param_type);
 
 ALTER TABLE rhn_command_parameter
     ADD CONSTRAINT rhn_cparm_id_field_orde_uq UNIQUE (command_id, field_order);
