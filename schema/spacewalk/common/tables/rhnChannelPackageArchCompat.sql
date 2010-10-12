@@ -34,10 +34,6 @@ CREATE INDEX rhn_cp_ac_caid_paid
     ON rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_cp_ac_paid_caid
-    ON rhnChannelPackageArchCompat (package_arch_id, channel_arch_id)
-    TABLESPACE [[64k_tbs]];
-
 ALTER TABLE rhnChannelPackageArchCompat
     ADD CONSTRAINT rhn_cp_ac_caid_paid_uq UNIQUE (channel_arch_id, package_arch_id);
 
