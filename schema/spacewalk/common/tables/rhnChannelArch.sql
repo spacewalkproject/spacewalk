@@ -30,10 +30,6 @@ CREATE TABLE rhnChannelArch
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_carch_id_l_n_idx
-    ON rhnChannelArch (id, label, name)
-    TABLESPACE [[2m_tbs]];
-
 CREATE INDEX rhn_carch_l_id_n_idx
     ON rhnChannelArch (label, id, name)
     TABLESPACE [[2m_tbs]];
