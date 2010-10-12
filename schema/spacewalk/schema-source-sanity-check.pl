@@ -31,7 +31,7 @@ for my $dir (qw( common oracle postgres )) {
 my $error = 0;
 for my $c (sort keys %{ $files{common} }) {
 	for my $o (qw( oracle postgres )) {
-		next unless $o =~ /\.sql$/;
+		next unless $o =~ /\.(sql|pks|pkb)$/;
 		if (exists $files{$o}{$c}) {
 			print "Common file [$c] is also in $o\n";
 			$error = 1;
@@ -40,7 +40,7 @@ for my $c (sort keys %{ $files{common} }) {
 }
 
 for my $c (sort keys %{ $files{oracle} }) {
-	next unless $c =~ /\.sql$/;
+	next unless $c =~ /\.(sql|pks|pkb)$/;
 	if (not exists $files{postgres}{$c}) {
 		print "Oracle file [$c] is not in postgres (ignoring for now)\n" if $show_ignored;
 		# $error = 1;
@@ -48,7 +48,7 @@ for my $c (sort keys %{ $files{oracle} }) {
 }
 
 for my $c (sort keys %{ $files{postgres} }) {
-	next unless $c =~ /\.sql$/;
+	next unless $c =~ /\.(sql|pks|pkb)$/;
 	local *FILE;
 	open FILE, "postgres/$c" or do {
 		print "Error reading postgres/$c: $!\n";
