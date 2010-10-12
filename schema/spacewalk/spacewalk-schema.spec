@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.31
+Version:        1.2.32
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,42 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Oct 12 2010 Tomas Lestach <tlestach@redhat.com> 1.2.32-1
+- 630884 - send errata notifications after errata cache get's regenerated
+  (tlestach@redhat.com)
+- 642287 - schema upgrade script for rhnChannelNewestPackageView
+  (mzazrivec@redhat.com)
+- 642287 - restrict rhnChannelNewestPackageView to packages in channels
+  (mzazrivec@redhat.com)
+- The schema sanity checking now reports (but ignores) if the PostgreSQL
+  sources do not report SHA1 of the Oracle equivalent. (jpazdziora@redhat.com)
+- there were only deletes from rhnTransaction; removing
+  (michael.mraka@redhat.com)
+- rhnTransactionElement is not referenced anywhere; removing
+  (michael.mraka@redhat.com)
+- removing dead rhnActionTransactions table (michael.mraka@redhat.com)
+- We need to start processing .pks and .pkb files as well because we will want
+  to keep the procedural sources in sync too. (jpazdziora@redhat.com)
+- We currently do no have any useful content to put to postgres/start.sql, we
+  just silence the sanity checking script. (jpazdziora@redhat.com)
+- reviewed indexes for rhnActionErrataUpdate (michael.mraka@redhat.com)
+- reviewed indexes for rhnActionConfigRevision (michael.mraka@redhat.com)
+- reviewed indexes for rhnActionConfigFileName (michael.mraka@redhat.com)
+- The table rhnAllowTrust not used anywhere, removing. (jpazdziora@redhat.com)
+- The table rhnEntitlementLog not used anywhere, removing.
+  (jpazdziora@redhat.com)
+- The table rhnTextMessage not used anywhere, removing. (jpazdziora@redhat.com)
+- The table rhn_command_center_state and synonym command_center_state not used
+  anywhere, removing. (jpazdziora@redhat.com)
+- The table rhn_command_queue_execs_bk and synonym command_queue_execs_bk not
+  used anywhere, removing. (jpazdziora@redhat.com)
+- The table rhn_command_queue_instances_bk and synonym
+  command_queue_instances_bk not used anywhere, removing.
+  (jpazdziora@redhat.com)
+- The table rhn_schedule_days_norm and synonym schedule_days_norm not used
+  anywhere, removing. (jpazdziora@redhat.com)
+- reviewed indexes for rhnActionConfigChannel (michael.mraka@redhat.com)
+
 * Tue Oct 12 2010 Jan Pazdziora 1.2.31-1
 - 571608 - delete duplicate kickstart_id, package_name_id pairs
   (mzazrivec@redhat.com)
