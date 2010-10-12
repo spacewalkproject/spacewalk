@@ -34,10 +34,6 @@ CREATE INDEX rhn_sclpb_sat_cluster_id_idx
     ON rhn_sat_cluster_probe (sat_cluster_id)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_sclpb_pid_ptype_idx
-    ON rhn_sat_cluster_probe (probe_id, probe_type)
-    TABLESPACE [[2m_tbs]];
-
 ALTER TABLE rhn_sat_cluster_probe
     ADD CONSTRAINT rhn_sclpb_prb_recid_prb_typ_fk FOREIGN KEY (probe_id, probe_type)
     REFERENCES rhn_probe (recid, probe_type)
