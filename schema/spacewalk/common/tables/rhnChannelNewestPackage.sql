@@ -37,9 +37,6 @@ CREATE TABLE rhnChannelNewestPackage
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_cnp_cnep_idx
-    ON rhnChannelNewestPackage (channel_id, name_id, package_arch_id, evr_id, package_id)
-    TABLESPACE [[8m_tbs]];
 
 CREATE INDEX rhn_cnp_necp_idx
     ON rhnChannelNewestPackage (name_id, evr_id, channel_id, package_id)
