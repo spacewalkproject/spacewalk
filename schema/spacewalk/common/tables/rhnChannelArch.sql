@@ -30,15 +30,12 @@ CREATE TABLE rhnChannelArch
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_carch_l_id_n_idx
-    ON rhnChannelArch (label, id, name)
-    TABLESPACE [[2m_tbs]];
-
 CREATE SEQUENCE rhn_channel_arch_id_seq START WITH 500;
 
 ALTER TABLE rhnChannelArch
     ADD CONSTRAINT rhn_carch_id_pk PRIMARY KEY (id);
 
 ALTER TABLE rhnChannelArch
-    ADD CONSTRAINT rhn_carch_label_uq UNIQUE (label);
+    ADD CONSTRAINT rhn_carch_label_uq UNIQUE (label)
+    USING INDEX TABLESPACE [[2m_tbs]];
 
