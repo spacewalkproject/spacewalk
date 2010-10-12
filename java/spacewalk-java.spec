@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.57
+Version: 1.2.58
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -337,6 +337,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 12 2010 Tomas Lestach <tlestach@redhat.com> 1.2.58-1
+- 630884 - send email notification when errata get synced (tlestach@redhat.com)
+- Checkstyle fixes (colin.coe@gmail.com)
+- Port /network/systems/custominfo/delete.pxt (colin.coe@gmail.com)
+- Port /network/systems/details/delete_confirm.pxt (colin.coe@gmail.com)
+- Move the cobbler requirement to version 2.0.0. (jpazdziora@redhat.com)
+
 * Mon Oct 11 2010 Lukas Zapletal 1.2.57-1
 - Added Hibernate empty varchar interceptor
 - Fixed empty varchars during admin registration
