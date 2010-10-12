@@ -34,10 +34,6 @@ CREATE INDEX rhn_sndpb_sat_node_id_idx
     ON rhn_sat_node_probe (sat_node_id)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_sndpb_pid_ptype_idx
-    ON rhn_sat_node_probe (probe_id, probe_type)
-    TABLESPACE [[2m_tbs]];
-
 ALTER TABLE rhn_sat_node_probe
     ADD CONSTRAINT rhn_sndpb_pr_recid_pr_typ_fk FOREIGN KEY (probe_id, probe_type)
     REFERENCES rhn_probe (recid, probe_type)
