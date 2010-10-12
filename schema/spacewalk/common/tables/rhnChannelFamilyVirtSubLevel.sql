@@ -34,7 +34,7 @@ CREATE INDEX rhn_cfvsl_cfid_vslid_idx
     ON rhnChannelFamilyVirtSubLevel (channel_family_id, virt_sub_level_id)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_cfvsl_vslid_cfid_idx
-    ON rhnChannelFamilyVirtSubLevel (virt_sub_level_id, channel_family_id)
+CREATE INDEX rhn_cfvsl_vslid_idx
+    ON rhnChannelFamilyVirtSubLevel (virt_sub_level_id)
     TABLESPACE [[64k_tbs]];
 
