@@ -40,8 +40,8 @@ CREATE UNIQUE INDEX rhn_actioncf_name_asc_uq
     ON rhnActionConfigFileName (action_id, server_id, config_file_name_id)
     TABLESPACE [[2m_tbs]];
 
-CREATE UNIQUE INDEX rhn_actioncf_name_sac_uq
-    ON rhnActionConfigFileName (server_id, action_id, config_file_name_id)
+CREATE INDEX rhn_actioncf_name_sid_idx
+    ON rhnActionConfigFileName (server_id)
     TABLESPACE [[2m_tbs]];
 
 CREATE INDEX rhn_act_cnfg_fn_crid_idx
