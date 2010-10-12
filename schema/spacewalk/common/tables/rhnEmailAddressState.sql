@@ -31,15 +31,12 @@ CREATE INDEX rhn_eastate_id_label_idx
     ON rhnEmailAddressState (id, label)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_eastate_label_id_idx
-    ON rhnEmailAddressState (label, id)
-    TABLESPACE [[64k_tbs]];
-
 CREATE SEQUENCE rhn_eastate_id_seq;
 
 ALTER TABLE rhnEmailAddressState
     ADD CONSTRAINT rhn_eastate_id_pk PRIMARY KEY (id);
 
 ALTER TABLE rhnEmailAddressState
-    ADD CONSTRAINT rhn_eastate_label_uq UNIQUE (label);
+    ADD CONSTRAINT rhn_eastate_label_uq UNIQUE (label)
+    USING INDEX TABLESPACE [[64k_tbs]];
 
