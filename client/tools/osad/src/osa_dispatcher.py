@@ -234,7 +234,7 @@ class Runner(jabber_lib.Runner):
     _query_register_dispatcher = rhnSQL.Statement("""
         begin
             update rhnPushDispatcher
-               set last_checkin = sysdate,
+               set last_checkin = current_timestamp,
                    hostname = :hostname,
                    port = :port
              where jabber_id = :jabber_id;
@@ -242,7 +242,7 @@ class Runner(jabber_lib.Runner):
                 -- Have to insert the row
                 insert into rhnPushDispatcher 
                        (id, jabber_id, last_checkin, hostname, port)
-                values (rhn_pushdispatch_id_seq.nextval, :jabber_id, sysdate,
+                values (rhn_pushdispatch_id_seq.nextval, :jabber_id, current_timestamp,
                        :hostname, :port);
             end if;
         end;
