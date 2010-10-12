@@ -39,10 +39,6 @@ CREATE INDEX rhn_chkpb_sat_cluster_id_idx
     ON rhn_check_probe (sat_cluster_id)
     TABLESPACE [[4m_tbs]];
 
-CREATE UNIQUE INDEX rhn_chkpb_pid_ptype_uq_idx
-    ON rhn_check_probe (probe_id, probe_type)
-    TABLESPACE [[4m_tbs]];
-
 ALTER TABLE rhn_check_probe
     ADD CONSTRAINT rhn_chkpb_host_id_fk FOREIGN KEY (host_id)
     REFERENCES rhnServer (id);
