@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,11 +42,6 @@ ENABLE ROW MOVEMENT
 CREATE UNIQUE INDEX rhn_servergroup_oid_name_uq
     ON rhnServerGroup (org_id, name)
     TABLESPACE [[4m_tbs]];
-
-CREATE INDEX rhn_sg_id_oid_name_idx
-    ON rhnServerGroup (id, org_id, name)
-    TABLESPACE [[4m_tbs]]
-    NOLOGGING;
 
 CREATE INDEX rhn_sg_oid_id_name_idx
     ON rhnServerGroup (org_id, id, name)
