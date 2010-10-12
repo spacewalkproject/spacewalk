@@ -39,12 +39,12 @@ CREATE UNIQUE INDEX rhn_actioncc_aid_sid_uq
     ON rhnActionConfigChannel (action_id, server_id)
     TABLESPACE [[4m_tbs]];
 
-CREATE INDEX rhn_actioncc_sid_aid_ccid_idx
-    ON rhnActionConfigChannel (server_id, action_id, config_channel_id)
+CREATE INDEX rhn_actioncc_sid_idx
+    ON rhnActionConfigChannel (server_id)
     TABLESPACE [[4m_tbs]];
 
-CREATE INDEX rhn_act_cc_ccid_aid_sid_idx
-    ON rhnActionConfigChannel (config_channel_id, action_id, server_id)
+CREATE INDEX rhn_act_cc_ccid_idx
+    ON rhnActionConfigChannel (config_channel_id)
     TABLESPACE [[4m_tbs]];
 
 ALTER TABLE rhnActionConfigChannel
