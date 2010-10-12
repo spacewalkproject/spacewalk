@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.21
+Version: 1.2.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Oct 12 2010 Lukas Zapletal 1.2.22-1
+- Sysdate replaced with current_timestamp during client reg
+- Use e.pgerror instead of e.message for psycopg2.OperationalError.
+
 * Tue Oct 12 2010 Lukas Zapletal 1.2.21-1
 - Decode function replaced with case-when in backend
 
