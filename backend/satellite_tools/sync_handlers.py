@@ -686,8 +686,10 @@ def populate_channel_family_permissions(cert):
     batch = []
     for (cf_name, org_id), max_list  in cfps.items():
         if max_list is None:
-            continue
-        (max_members, max_flex) = max_list
+            max_members = None
+            max_flex = None
+        else:
+            (max_members, max_flex) = max_list
         cfperm = importLib.ChannelFamilyPermissions()
         batch.append(cfperm.populate({
             'channel_family'    : cf_name,
