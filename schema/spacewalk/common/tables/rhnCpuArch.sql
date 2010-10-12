@@ -31,15 +31,12 @@ CREATE INDEX rhn_cpuarch_id_l_n_idx
     ON rhnCpuArch (id, label, name)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_cpuarch_l_id_n_idx
-    ON rhnCpuArch (label, id, name)
-    TABLESPACE [[2m_tbs]];
-
 CREATE SEQUENCE rhn_cpu_arch_id_seq START WITH 200;
 
 ALTER TABLE rhnCpuArch
     ADD CONSTRAINT rhn_cpuarch_id_pk PRIMARY KEY (id);
 
 ALTER TABLE rhnCpuArch
-    ADD CONSTRAINT rhn_cpuarch_label_uq UNIQUE (label);
+    ADD CONSTRAINT rhn_cpuarch_label_uq UNIQUE (label)
+    USING INDEX TABLESPACE [[2m_tbs]];
 
