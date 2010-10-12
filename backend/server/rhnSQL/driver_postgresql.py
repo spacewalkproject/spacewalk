@@ -167,15 +167,20 @@ class Database(sql_base.Database):
             sql = "select rhn_asdf_%s()" % sha1
         return Cursor(dbh=self.dbh, sql=sql, force=force)
 
+    def transaction(self, name):
+        if not name:
+            raise rhnException("Can not set a transaction without a name", name)
+        return self.execute("savepoint %s" % name)
+
     def commit(self):
         self.dbh.commit()
 
     def rollback(self, name=None):
+        log_debug(3, self.name, args)
         if name:
-            # PostgreSQL doesn't support savepoints, raise exception:
-            # TODO: investigate this
-            raise SQLError("PostgreSQL unable to rollback to savepoint: %s" % name)
-        self.dbh.rollback()
+            return self.execute("rollback to %s" % name)
+        else:
+            return self.dbh.rollback()
 
     def procedure(self, name):
         c = self.dbh.cursor()
