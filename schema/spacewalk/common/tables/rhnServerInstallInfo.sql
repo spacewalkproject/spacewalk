@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,10 +32,6 @@ CREATE TABLE rhnServerInstallInfo
 )
 ENABLE ROW MOVEMENT
 ;
-
-CREATE INDEX rhn_s_inst_info_sid_im_idx
-    ON rhnServerInstallInfo (server_id, install_method)
-    TABLESPACE [[2m_tbs]];
 
 CREATE UNIQUE INDEX rhn_server_install_info_sid_uq
     ON rhnServerInstallInfo (server_id)
