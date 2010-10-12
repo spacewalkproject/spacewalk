@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -41,9 +41,4 @@ ALTER TABLE rhnChannelCloned
 
 ALTER TABLE rhnChannelCloned
     ADD CONSTRAINT rhn_channelclone_id_pk PRIMARY KEY (id);
-
-CREATE INDEX rhn_channelclone_tcid_fcid_idx
-    ON rhnChannelCloned (id, original_id)
-    TABLESPACE [[2m_tbs]];
-
 
