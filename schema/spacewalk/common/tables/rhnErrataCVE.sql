@@ -35,8 +35,8 @@ CREATE UNIQUE INDEX rhn_err_cve_eid_cid_uq
     ON rhnErrataCVE (errata_id, cve_id)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_err_cve_cid_eid_idx
-    ON rhnErrataCVE (cve_id, errata_id)
+CREATE INDEX rhn_err_cve_cid_idx
+    ON rhnErrataCVE (cve_id)
     TABLESPACE [[64k_tbs]]
     NOLOGGING;
 
