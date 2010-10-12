@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.8
+Version:        1.2.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Tue Oct 12 2010 Jan Pazdziora 1.2.9-1
+- Move the cobbler requirement to version 2.0.0.
+
 * Mon Oct 11 2010 Jan Pazdziora 1.2.8-1
 - Do not require perl-DBD-Pg in spacewalk-setup, save it for spacewalk-
   postgresql.
