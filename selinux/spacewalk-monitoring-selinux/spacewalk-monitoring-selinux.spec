@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.2.2
+Version:        1.2.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -142,6 +142,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Oct 12 2010 Jan Pazdziora 1.2.3-1
+- Make the Oracle part of the spacewalk-monitoring SELinux policy module
+  optional as well.
+
 * Fri Oct 08 2010 Jan Pazdziora 1.2.2-1
 - Since the package SatConfig-dbsynch is gone, remove dependencies that were
   requiring it.
