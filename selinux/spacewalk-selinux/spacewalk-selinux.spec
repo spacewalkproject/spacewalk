@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.2.1
+Version:        1.2.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,14 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Oct 12 2010 Jan Pazdziora 1.2.2-1
+- We cannot use oracle_sqlplus_log_t in .fc, in case we do not have the Oracle
+  modules loaded.
+- Move the oracle-instantclient*-selinux dependency to spacewalk-oracle, to
+  make it posible to install Spacewalk without Oracle SELinux modules.
+- Make the rule for access to oracle_port_t optional, for PostgreSQL
+  installations.
+
 * Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
 - 628640 - turn the wrapper into java_t upon runtime, it calls java anyway.
 
