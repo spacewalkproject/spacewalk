@@ -370,22 +370,6 @@ class Backend:
 
         return row['id']
 
-    def processBugzillaPaths(self, hash):
-        if not hash:
-            return
-        sql = """
-            select beehive_path, ftp_path
-            from rhnBeehivePathMap
-            where path = :path
-        """
-        h = self.dbmodule.prepare(sql)
-        for k in hash.keys():
-            h.execute(path=k)
-            row = h.fetchone_dict()
-            if not row:
-                continue
-            hash[k] = (row['ftp_path'], row['beehive_path'])
-                
     def processPathChannels(self, hash):
         if not hash:
             return
