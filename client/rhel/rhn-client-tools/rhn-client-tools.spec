@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.2.8
+Version: 1.2.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -281,6 +281,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Oct 12 2010 Jan Pazdziora 1.2.9-1
+- l10n: Updates to Panjabi (Punjabi) (pa) translation (jassy@fedoraproject.org)
+
 * Thu Sep 30 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.8-1
 - 638981 - encode smbios data before sending over xmlrpc (msuchy@redhat.com)
 - l10n: Updates to Russian (ru) translation (ypoyarko@fedoraproject.org)
