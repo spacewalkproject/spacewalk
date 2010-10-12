@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -77,18 +77,8 @@ CREATE INDEX rhn_package_oid_id_idx
     TABLESPACE [[64k_tbs]]
     NOLOGGING;
 
-CREATE INDEX rhn_package_id_nid_paid_idx
-    ON rhnPackage (id, name_id, package_arch_id)
-    TABLESPACE [[2m_tbs]]
-    NOLOGGING;
-
 CREATE INDEX rhn_package_nid_id_idx
     ON rhnPackage (name_id, id)
-    TABLESPACE [[2m_tbs]]
-    NOLOGGING;
-
-CREATE INDEX rhn_package_path_idx
-    ON rhnPackage(id, path)
     TABLESPACE [[2m_tbs]]
     NOLOGGING;
 
