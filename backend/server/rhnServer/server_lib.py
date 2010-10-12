@@ -179,7 +179,7 @@ def create_server_setup(server_id, org_id):
     # create the rhnServerInfo record
     h = rhnSQL.prepare("""
     insert into rhnServerInfo (server_id, checkin, checkin_counter)
-                       values (:server_id, sysdate, :checkin_counter)
+                       values (:server_id, current_timestamp, :checkin_counter)
     """)
     h.execute(server_id = server_id, checkin_counter = 0)
 
