@@ -203,7 +203,6 @@ rhnTaskoRun                    :: rhnTaskoTemplate rhnTaskoSchedule
 rhnTaskoSchedule               :: rhnTaskoBunch
 rhnTaskoTemplate               :: rhnTaskoBunch rhnTaskoTask
 rhnTransaction                 :: rhnServer
-rhnTransactionElement          :: rhnTransactionPackage rhnTransaction
 rhnTransactionPackage          :: rhnTransactionOperation rhnPackageArch \
                                   rhnPackageEVR rhnPackageName
 rhnUserGroupMembers            :: web_contact rhnUserGroup
