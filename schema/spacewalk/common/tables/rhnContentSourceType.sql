@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,13 +31,3 @@ rhnContentSourceType
 
 create sequence rhn_content_source_type_id_seq start with 500;
 
-create index rhn_ccst_id_l_idx
-	on rhnContentSourceType(id,label)
-	tablespace [[64k_tbs]]
-  ;
-
-
---
--- Revision 1.0  2002/11/13 21:50:21  jlsherrill
--- initial table add
---
