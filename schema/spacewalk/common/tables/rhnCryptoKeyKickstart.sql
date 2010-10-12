@@ -32,7 +32,7 @@ CREATE UNIQUE INDEX rhn_ckey_ks_uq
     ON rhnCryptoKeyKickstart (crypto_key_id, ksdata_id)
     TABLESPACE [[4m_tbs]];
 
-CREATE INDEX rhn_ckey_ks__ckuq
-    ON rhnCryptoKeyKickstart (ksdata_id, crypto_key_id)
+CREATE INDEX rhn_ckey_ks_idx
+    ON rhnCryptoKeyKickstart (ksdata_id)
     TABLESPACE [[4m_tbs]];
 
