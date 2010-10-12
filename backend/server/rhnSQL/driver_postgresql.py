@@ -132,7 +132,7 @@ class Database(sql_base.Database):
 
             # Failed reconnect, time to error out:
             raise apply(sql_base.SQLConnectError,
-                [self.database, -1, e.message])
+                [self.database, e.pgcode, e.pgerror, "Attempting Re-Connect to the database failed",])
 
     def is_connected_to(self, backend, host, port, username, password,
             database):
