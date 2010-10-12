@@ -370,26 +370,6 @@ class Backend:
 
         return row['id']
 
-    def processPathChannels(self, hash):
-        if not hash:
-            return
-        sql = """
-            select c.label channel, pcm.is_source
-            from rhnPathChannelMap pcm, rhnChannel c
-            where pcm.path = :path
-            and pcm.channel_id = c.id
-        """
-        h = self.dbmodule.prepare(sql)
-        for k in hash.keys():
-            h.execute(path=k)
-            channels = []
-            while 1:
-                row = h.fetchone_dict()
-                if not row:
-                    break
-                channels.append((row['channel'], row['is_source']))
-            hash[k] = channels
-    
     def lookupEVRs(self, evrHash):
         sql = "select LOOKUP_EVR(:epoch, :version, :release) id from dual"
         h = self.dbmodule.prepare(sql)
