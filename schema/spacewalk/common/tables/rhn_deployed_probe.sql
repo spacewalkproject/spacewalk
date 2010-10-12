@@ -43,10 +43,6 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_deployed_probe IS 'dprob  deployed_probe definitions';
 
-CREATE UNIQUE INDEX rhn_dprob_recid_probe_type_uq
-    ON rhn_deployed_probe (recid, probe_type)
-    TABLESPACE [[8m_tbs]];
-
 CREATE INDEX rhn_dprob_check_command_id_idx
     ON rhn_deployed_probe (command_id)
     TABLESPACE [[8m_tbs]];
@@ -58,7 +54,4 @@ CREATE INDEX rhn_dprob_customer_id_idx
 CREATE INDEX rhn_dprob_sat_cluster_id_idx
     ON rhn_deployed_probe (sat_cluster_id)
     TABLESPACE [[8m_tbs]];
-
-ALTER TABLE rhn_deployed_probe
-    ADD CONSTRAINT dprob_recid_probe_type_uq UNIQUE (recid, probe_type);
 
