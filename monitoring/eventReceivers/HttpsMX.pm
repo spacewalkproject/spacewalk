@@ -20,7 +20,8 @@ sub handler {
     
     my $err;
     if (Mail::Mailer::is_exe('sendmail')) {
-	my $msg = Mail::Send->new(Subject => $subject, To => $recip, From => $target_email);
+	my $msg = Mail::Send->new(Subject => $subject, To => $recip);
+	$msg->set('From', $target_email);
 	my $fh = $msg->open('sendmail');
 	print $fh $body;
 	$fh->close or $err= "couldn't send whole message: $!";
