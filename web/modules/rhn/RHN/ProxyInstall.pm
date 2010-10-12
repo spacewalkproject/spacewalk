@@ -77,6 +77,7 @@ sub generate_ssl_cert {
 			      country => 1,
 			      cert_expiration => 1,
 			      target_config_channel => 0,
+            version => 0,
 			    });
 
   my %ssl_cert_opts;
@@ -111,6 +112,7 @@ sub generate_ssl_cert {
 		"--hostname=" . $ssl_cert_opts{"-set-hostname"},
 		"--channel=" . $params{target_config_channel},
 		"--org-id=" . $params{session}->user->org_id,
+    "--version=" . $params{'version'},
 	       );
 
     foreach my $opt (@opts) {
@@ -192,6 +194,7 @@ sub extract_ssl_cert {
 			      tardata => 1,
 			      org_id => 1,
 			      hosted_is_parent => { default => 0 },
+            version => 0,
 			    });
 
   # must be a better way...for now, write .tar file to /tmp and hand
@@ -295,13 +298,17 @@ sub extract_ssl_cert {
   }
 
 # special cases...
+  my $jabber_user = 'jabberd';
+  if ($params{'version'} >= 5.4) {
+    $jabber_user = 'jabber';
+  }
   eval {
     # server_pem - for jabberd
     import_file(-path => '/etc/jabberd/server.pem',
 		-content => $server_pem,
 		-config_channel => $cc,
-		-username => 'jabberd',
-		-groupname => 'jabberd',
+		-username => $jabber_user,
+		-groupname => $jabber_user,
 		-mode => '600');
 
     if ($ca_cert) {

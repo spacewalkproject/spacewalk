@@ -526,6 +526,7 @@ Would you like to enable Monitoring Proxy functionality on this system?
         <country>${session.country}</country>
         <cert-expiration>${session.cert-expiration}</cert-expiration>
 	<target-config-channel>rhn_proxy_config_${system.id}</target-config-channel>
+	      <version>${app.version}</version>
       </method-call>
     </activity>
 

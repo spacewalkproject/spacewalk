@@ -31,16 +31,17 @@ use RHN::ProxyInstall;
 $ENV{PATH} = '/bin:/usr/bin';
 
 my $usage = "usage: $0 --ssl-dir=<ssl_directory> --hostname=<hostname> " .
-  "--channel=<target_config_channel> --org-id=<org_id> [ --help ]\n";
+  "--channel=<target_config_channel> --org-id=<org_id> --version=<version> [ --help ]\n";
 
 my $ssl_dir = '';
 my $hostname = '';
 my $channel = '';
+my $version = '';
 my $org_id;
 my $help;
 
 GetOptions("ssl-dir=s" => \$ssl_dir, "hostname=s" => \$hostname,
-	   "channel=s" => \$channel, "org-id=i" => \$org_id, "help" => \$help);
+	   "channel=s" => \$channel, "org-id=i" => \$org_id, "version=s" => \$version, "help" => \$help);
 
 if ($help or not ($ssl_dir and $hostname and $channel and $org_id)) {
   die $usage;
@@ -72,6 +73,7 @@ $tar->add_files(values %files_to_get);
 my ($ca_cert, $ca_rpm) = RHN::ProxyInstall->extract_ssl_cert(-target_config_channel => $channel,
 							     -tardata => $tar->write(),
 							     -org_id => $org_id,
+                   -version => $version,
 							    );
 
 print "$ca_cert\n$ca_rpm\n";
