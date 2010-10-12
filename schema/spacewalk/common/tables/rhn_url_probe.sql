@@ -50,9 +50,6 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_url_probe IS 'urlpb  url probe';
 
-CREATE INDEX rhn_url_probe_pid_ptype_idx
-    ON rhn_url_probe (probe_id, probe_type);
-
 ALTER TABLE rhn_url_probe
     ADD CONSTRAINT rhn_urlpb_probe_pr_id_pr_fk FOREIGN KEY (probe_id, probe_type)
     REFERENCES rhn_probe (recid, probe_type)
