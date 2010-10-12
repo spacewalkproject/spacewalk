@@ -34,6 +34,3 @@ ENABLE ROW MOVEMENT
 CREATE UNIQUE INDEX rhn_cd_ce_uq
     ON rhnChannelDownloads (channel_id, downloads_id);
 
-CREATE INDEX rhn_cd_did_cid_idx
-    ON rhnChannelDownloads (downloads_id, channel_id);
-
