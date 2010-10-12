@@ -32,7 +32,7 @@ CREATE INDEX rhn_act_eu_aid_eid_idx
     ON rhnActionErrataUpdate (action_id, errata_id)
     TABLESPACE [[8m_tbs]];
 
-CREATE INDEX rhn_act_eu_eid_aid_idx
-    ON rhnActionErrataUpdate (errata_id, action_id)
+CREATE INDEX rhn_act_eu_eid_idx
+    ON rhnActionErrataUpdate (errata_id)
     TABLESPACE [[8m_tbs]];
 
