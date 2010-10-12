@@ -39,10 +39,6 @@ CREATE INDEX rhn_hstpb_sat_cluster_id_idx
     ON rhn_host_probe (sat_cluster_id)
     TABLESPACE [[4m_tbs]];
 
-CREATE UNIQUE INDEX rhn_hstpb_pbid_ptype_idx
-    ON rhn_host_probe (probe_id, probe_type)
-    TABLESPACE [[4m_tbs]];
-
 CREATE SEQUENCE rhn_host_probes_recid_seq;
 
 ALTER TABLE rhn_host_probe
