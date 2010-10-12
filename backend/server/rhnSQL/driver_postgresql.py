@@ -62,7 +62,25 @@ class Procedure(sql_base.Procedure):
     """
 
     def __init__(self, name, cursor):
+        Function.__init__(self, name, cursor)
+
+    def __call__(self, *args):
+        result = self.__call__(self, args)
+        # we do not expect any result (this is procedure)
+        if len(nothing) == 1 and nothing[0] == '':
+            return None
+        else:
+            raise SQLError("Unexpected result returned by procedure %s: %s" % (self.name, str(result)))
+
+class Function(sql_base.Procedure):
+    """
+    Function implementation for PostgreSQL. As there is no support in the Python
+    driver we use direct SQL.
+    """
+
+    def __init__(self, name, cursor, ret_type):
         sql_base.Procedure.__init__(self, name, cursor)
+        self.ret_type = ret_type
 
     def __call__(self, *args):
         log_debug(2, self.name, args)
@@ -87,11 +105,8 @@ class Procedure(sql_base.Procedure):
             else:
                 new_args.append(arg)
 
-        # TODO: pgsql.Cursor returned here, what to do with it?
-        results = self.cursor.execute(query, new_args)
-
-        return None
-
+        # for now return just result (ret_type is ignored)
+        return self.cursor.execute(query, new_args)
 
 
 class Database(sql_base.Database):
@@ -186,6 +201,10 @@ class Database(sql_base.Database):
         c = self.dbh.cursor()
         # Pass the cursor in so we can close it after execute()
         return Procedure(name, c)
+
+    def _function(self, name, ret_type):
+        c = self.dbh.cursor()
+        return Function(name, c, ret_type)
 
     def cursor(self):
         return Cursor(dbh=self.dbh)
