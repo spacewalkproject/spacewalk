@@ -79,11 +79,6 @@ CREATE INDEX rhn_channel_org_idx
     TABLESPACE [[64k_tbs]]
     NOLOGGING;
 
-CREATE INDEX rhn_channel_url_id_idx
-    ON rhnChannel (label, id)
-    TABLESPACE [[64k_tbs]]
-    NOLOGGING;
-
 CREATE INDEX rhn_channel_parent_id_idx
     ON rhnChannel (parent_channel, id)
     TABLESPACE [[64k_tbs]]
