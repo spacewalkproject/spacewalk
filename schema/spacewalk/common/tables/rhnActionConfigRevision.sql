@@ -45,8 +45,8 @@ CREATE UNIQUE INDEX rhn_actioncr_aid_sid_crid_uq
     ON rhnActionConfigRevision (action_id, server_id, config_revision_id)
     TABLESPACE [[4m_tbs]];
 
-CREATE INDEX rhn_actioncr_sid_aid_idx
-    ON rhnActionConfigRevision (server_id, action_id)
+CREATE INDEX rhn_actioncr_sid_idx
+    ON rhnActionConfigRevision (server_id)
     TABLESPACE [[2m_tbs]];
 
 CREATE INDEX rhn_act_cr_crid_idx
