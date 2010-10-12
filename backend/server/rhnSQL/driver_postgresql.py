@@ -51,27 +51,6 @@ def convert_named_query_params(query):
     return new_query
 
 
-class Procedure(sql_base.Procedure):
-    """
-    PostgreSQL functions are somewhat different than stored procedures in
-    other databases. As a result the python-pgsql does not even implement
-    the Python DBI API callproc method.
-
-    To workaround this and keep rhnSQL database independent, we'll translate
-    any incoming requests to call a procedure into a PostgreSQL query.
-    """
-
-    def __init__(self, name, cursor):
-        Function.__init__(self, name, cursor)
-
-    def __call__(self, *args):
-        result = self.__call__(self, args)
-        # we do not expect any result (this is procedure)
-        if len(nothing) == 1 and nothing[0] == '':
-            return None
-        else:
-            raise SQLError("Unexpected result returned by procedure %s: %s" % (self.name, str(result)))
-
 class Function(sql_base.Procedure):
     """
     Function implementation for PostgreSQL. As there is no support in the Python
@@ -95,6 +74,7 @@ class Function(sql_base.Procedure):
                 positional_args = positional_args + ", %s"
             i += 1
         query = "SELECT %s(%s)" % (self.name, positional_args)
+        log_debug(2, query)
 
         # Ugh, unicode strings coming in here, PostgreSQL doesn't like
         # getting them as such:
@@ -106,7 +86,28 @@ class Function(sql_base.Procedure):
                 new_args.append(arg)
 
         # for now return just result (ret_type is ignored)
+        print query, new_args
         return self.cursor.execute(query, new_args)
+
+
+class Procedure(Function):
+    """
+    PostgreSQL functions are somewhat different than stored procedures in
+    other databases. As a result the python-pgsql does not even implement
+    the Python DBI API callproc method.
+
+    To workaround this and keep rhnSQL database independent, we'll translate
+    any incoming requests to call a procedure into a PostgreSQL query.
+    """
+
+    def __init__(self, name, cursor):
+        Function.__init__(self, name, cursor, None)
+
+    def __call__(self, *args):
+        result = Function.__call__(self, *args)
+        # we do not expect any result (this is procedure)
+        #if not (type(result) == 'tuple' and result[0] == ''):
+            #raise rhnSQL.SQLError("Unexpected result returned by procedure %s: %s" % (self.name, str(result)))
 
 
 class Database(sql_base.Database):
@@ -185,15 +186,16 @@ class Database(sql_base.Database):
     def transaction(self, name):
         if not name:
             raise rhnException("Can not set a transaction without a name", name)
-        return self.execute("savepoint %s" % name)
+        c = self.prepare("savepoint %s" % name)
+        return c.execute()
 
     def commit(self):
         self.dbh.commit()
 
     def rollback(self, name=None):
-        log_debug(3, self.name, args)
         if name:
-            return self.execute("rollback to %s" % name)
+            c = self.prepare("rollback to %s" % name)
+            return c.execute()
         else:
             return self.dbh.rollback()
 
