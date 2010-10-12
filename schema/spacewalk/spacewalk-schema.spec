@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.30
+Version:        1.2.31
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Oct 12 2010 Jan Pazdziora 1.2.31-1
+- 571608 - delete duplicate kickstart_id, package_name_id pairs
+  (mzazrivec@redhat.com)
+
 * Fri Oct 08 2010 Lukas Zapletal 1.2.30-1
 - Added constriants on all varchar columns to check '' values (pg)
 - Fixed inserting of empty varchars instead of NULL
