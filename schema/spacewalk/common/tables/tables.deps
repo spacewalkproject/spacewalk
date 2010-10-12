@@ -36,7 +36,6 @@ rhnActionPackageDelta          :: rhnPackageDelta
 rhnActionPackageOrder          :: rhnActionPackage
 rhnActionPackageRemovalFailure :: rhnServer rhnAction rhnPackageName \
                                   rhnPackageEVR rhnPackageCapability
-rhnActionTransactions          :: rhnAction rhnTransaction
 rhnActivationKey               :: rhnRegToken rhnKickstartSession
 rhnArchTypeActions             :: rhnArchType rhnActionType
 rhnAppInstallSession           :: rhnAppInstallInstance rhnChecksum
