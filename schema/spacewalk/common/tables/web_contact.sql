@@ -48,9 +48,5 @@ CREATE INDEX web_contact_oid_id
     ON web_contact (org_id, id)
     TABLESPACE [[web_index_tablespace_2]];
 
-CREATE INDEX web_contact_id_oid_cust_luc
-    ON web_contact (id, oracle_contact_id, org_id, login_uc)
-    TABLESPACE [[web_index_tablespace_2]];
-
 CREATE SEQUENCE web_contact_id_seq;
 
