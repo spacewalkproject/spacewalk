@@ -43,11 +43,6 @@ CREATE UNIQUE INDEX rhn_ug_oid_name_uq
     ON rhnUserGroup (org_id, name)
     TABLESPACE [[32m_tbs]];
 
-CREATE INDEX rhn_ug_id_name_org
-    ON rhnUserGroup (id, name, org_id)
-    TABLESPACE [[32m_tbs]]
-    NOLOGGING;
-
 CREATE INDEX rhn_ug_org_id_name_idx
     ON rhnUserGroup (org_id, id, name)
     TABLESPACE [[32m_tbs]]
