@@ -24,7 +24,7 @@ Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
-Requires:       cobbler >= 1.6.3
+Requires:       cobbler >= 2.0.0
 Requires:       PyYAML
 Requires:       /usr/bin/gpg
 Requires:       spacewalk-setup-jabberd

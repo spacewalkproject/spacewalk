@@ -66,7 +66,7 @@ Requires: spacewalk-java-lib
 Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
-Requires: cobbler >= 1.6.3
+Requires: cobbler >= 2.0.0
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1:1.6.0
@@ -198,7 +198,7 @@ Requires: spacewalk-java-lib
 Requires: spacewalk-java-jdbc
 Requires: concurrent
 Requires: quartz
-Requires: cobbler >= 1.6.3
+Requires: cobbler >= 2.0.0
 Obsoletes: taskomatic < 5.3.0
 Obsoletes: taskomatic-sat < 5.3.0
 Provides: taskomatic = %{version}-%{release}
