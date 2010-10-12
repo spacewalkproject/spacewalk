@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.19
+Version: 1.2.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Oct 12 2010 Jan Pazdziora 1.2.20-1
+- Load the appropriate backend and initialize it (twice).
+- Load the appropriate backend and initialize it.
+- 640526: Fixed a missed logic for entitlement  purging (paji@redhat.com)
+
 * Thu Oct 07 2010 Jan Pazdziora 1.2.19-1
 - We cannot insert empty string and depend on the database to convert it to
   null for "is null" to work -- this will fail on PostgreSQL.
