@@ -216,11 +216,11 @@ def token_server_groups(server_id, tokens_obj):
 
 _query_token_packages = rhnSQL.Statement("""
     select pn.id as name_id, pa.id as arch_id, pn.name
-      from rhnPackageName pn, rhnPackageArch pa, rhnRegTokenPackages rtp
-     where rtp.token_id = :token_id
-       and rtp.name_id = pn.id
-       and rtp.arch_id = pa.id(+)
-     order by upper(pn.name)
+    from rhnPackageName pn, rhnRegTokenPackages rtp
+        left outer join rhnPackageArch pa on rtp.arch_id = pa.id
+    where rtp.token_id = :token_id
+        and rtp.name_id = pn.id
+    order by upper(pn.name)
 """)
 _query_token_packages_insert = rhnSQL.Statement("""
     insert into rhnActionPackage (id, action_id, name_id, parameter)
