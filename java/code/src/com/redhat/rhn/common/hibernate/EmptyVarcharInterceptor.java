@@ -14,12 +14,9 @@
  */
 package com.redhat.rhn.common.hibernate;
 
-import com.sun.media.sound.AutoConnectSequencer;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.hibernate.EmptyInterceptor;
-import org.hibernate.Interceptor;
 import org.hibernate.type.StringType;
 import org.hibernate.type.Type;
 
@@ -48,8 +45,8 @@ public class EmptyVarcharInterceptor extends EmptyInterceptor {
             // type is string (VARCHAR) and state is empty string
             if ((types[i] instanceof StringType) && "".equals(state[i])) {
                 if (LOG.isEnabledFor(Priority.WARN)) {
-                    LOG.warn("Object " + entity.getClass().getCanonicalName()
-                            + " is setting empty string " + propertyNames[i]);
+                    LOG.warn("Object " + entity.getClass().getCanonicalName() +
+                            " is setting empty string " + propertyNames[i]);
                 }
                 if (autoConvert) {
                     state[i] = null;
@@ -79,8 +76,8 @@ public class EmptyVarcharInterceptor extends EmptyInterceptor {
         return autoConvert;
     }
 
-    public void setAutoConvert(boolean autoConvert) {
-        this.autoConvert = autoConvert;
+    public void setAutoConvert(boolean autoConvertIn) {
+        this.autoConvert = autoConvertIn;
     }
 
 }
