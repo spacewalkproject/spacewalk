@@ -494,9 +494,8 @@ public class DataSetManipulator {
         Set<Character> chars = new HashSet<Character>();
         int i = 0;
         for (Object inputRow : dataset) {
-            String value = (String)MethodUtil.callMethod(inputRow,
-                                                StringUtil.beanify("get " + alphaCol),
-                                                new Object[0]);
+            
+            String value = getAlphaValue(inputRow);
             if (!StringUtils.isBlank(value)) {
                 // Make sure that the alpha inputs are converted
                 // to uppercase
@@ -510,6 +509,19 @@ public class DataSetManipulator {
             i++;
         }
         return chars;
+    }
+
+    private String getAlphaValue(Object inputRow) {
+        String value;
+        if (inputRow instanceof Map) {
+            value = (String) ((Map) inputRow).get(alphaCol);
+        }
+        else {
+            value = (String)MethodUtil.callMethod(inputRow,
+                                            StringUtil.beanify("get " + alphaCol),
+                                            new Object[0]);
+        }
+        return value;
     }
 
     /**
@@ -533,13 +545,9 @@ public class DataSetManipulator {
             }
             char alpha = Character.toUpperCase(helper.
                                 getAlphaValue(uniqueName, request).charAt(0));
-
-
             int i = 0;
             for (Object inputRow : dataset) {
-                String value = (String)MethodUtil.callMethod(inputRow,
-                                                    StringUtil.beanify("get " + alphaCol),
-                                                    new Object[0]);
+                String value = getAlphaValue(inputRow);
                 if (!StringUtils.isBlank(value)) {
                     char val = value.charAt(0);
                     val = Character.toUpperCase(val);
