@@ -1848,37 +1848,3 @@ end rhn_entitlements;
 /
 show errors
 
---
---
--- Revision 1.56  2004/07/21 21:27:36  nhansen
--- bug 128196: use rhn_monitor instead of rhn_monitoring as the rhnOrgEntitlementType
---
--- Revision 1.55  2004/07/20 15:38:57  pjones
--- bugzilla: 128196 -- make entitling "monitoring" work.
---
--- Revision 1.54  2004/07/14 19:13:13  pjones
--- bugzilla: 126461 -- entitlement changes for new user roles
---
--- Revision 1.53  2004/07/02 19:18:20  pjones
--- bugzilla: 125937 -- use rhn_user to remove user roles
---
--- Revision 1.52  2004/05/26 19:45:48  pjones
--- bugzilla: 123639
--- 1) reformat "entitlement_grants_service"
--- 2) make the .pks and .pkb be in the same order.
--- 3) add "modify_org_service" (to be used instead of set_customer_SERVICELEVEL)
--- 4) add monitoring specific data.
---
--- Revision 1.51  2004/04/19 18:18:51  pjones
--- bugzilla: none -- misa's using set_family_count() to set null org entitlements
---
--- Revision 1.50  2004/04/14 00:09:24  pjones
--- bugzilla: 120761 -- split rhnChannelPermissions into two tables, eliminating
--- a frequent full table scan
---
--- Revision 1.49  2004/03/26 16:53:42  pjones
--- bugzilla: none -- make rhn_nonlinux give config_admin too on sat.
---
--- Revision 1.48  2004/03/25 22:29:56  pjones
--- bugzilla: none -- only create config_admin in set_customer_prov if we're
--- on a satellite
