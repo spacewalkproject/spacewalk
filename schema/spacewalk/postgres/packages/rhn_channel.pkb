@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -75,6 +75,17 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         VALUES (channel_family_id_val, user_id_in, server_id_in);
     END$$ language plpgsql;
 
+    create or replace function obtain_read_lock(channel_family_id_in in numeric, org_id_in in numeric)
+    returns void as $$
+    declare
+        read_lock date;
+    begin
+        select created into read_lock
+        from rhnPrivateChannelFamily
+        where channel_family_id = channel_family_id_in and org_id = org_id_in
+        for update;
+    end$$ language plpgsql;
+
     CREATE OR REPLACE FUNCTION subscribe_server(server_id_in IN NUMERIC, channel_id_in NUMERIC, immediate_in NUMERIC default 1, user_id_in in numeric default null, recalcfamily_in NUMERIC default 1) returns void
     AS $$
     declare
@@ -88,6 +99,8 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         consenting_user         NUMERIC;
         allowed                 numeric;
         current_members_val     numeric;
+        available_fve_subs      numeric;
+        is_fve_char             char(1) := 'N';
     BEGIN
         if user_id_in is not null then
             allowed := rhn_channel.user_role_check(channel_id_in, user_id_in, 'subscribe');
@@ -143,31 +156,25 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
           FROM rhnChannel
          WHERE id = channel_id_in;
          
-        select current_members 
-        into current_members_val
-        from rhnPrivateChannelFamily
-        where org_id = server_org_id_val and channel_family_id = channel_family_id_val
-        for update of rhnPrivateChannelFamily;
+        begin
+            perform obtain_read_lock(channel_family_id_val, server_org_id_val);
+        exception
+            when no_data_found then
+                perform rhn_exception.raise_exception('channel_family_no_subscriptions');
+        end;
 
         available_subscriptions := rhn_channel.available_family_subscriptions(channel_family_id_val, server_org_id_val);
         
         IF available_subscriptions IS NULL OR 
            available_subscriptions > 0 or
-           rhn_channel.can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 1
+           rhn_channel.can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 1 OR
+            (available_fve_subs > 0 AND rhn_channel.can_server_consume_fve(server_id_in) = 1)
         THEN
-        
-            IF rhn_channel.get_license_path(channel_id_in) IS NOT NULL
-            THEN
-                SELECT user_id INTO consenting_user
-                  FROM rhnChannelFamilyLicenseConsent
-                 WHERE channel_family_id = channel_family_id_val
-                   AND server_id = server_id_in;
+            if rhn_channel.can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 0
+                AND available_fve_subs > 0 AND rhn_channel.can_server_consume_fve(server_id_in) = 1 THEN
+                is_fve_char := 'Y';
+            end if;
 
-                IF NOT FOUND THEN
-                        perform rhn_exception.raise_exception('channel_subscribe_no_consent');
-                END IF;
-            END IF;
-        
             insert into rhnServerHistory (id,server_id,summary,details) (
                 select  nextval('rhn_event_id_seq'),
                         server_id_in,
@@ -177,7 +184,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 where   c.id = channel_id_in
             );
             UPDATE rhnServer SET channels_changed = current_timestamp WHERE id = server_id_in;
-            INSERT INTO rhnServerChannel (server_id, channel_id) VALUES (server_id_in, channel_id_in);
+            INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, is_fve_char);
 			IF recalcfamily_in > 0
 			THEN
                 perform rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
@@ -217,6 +224,24 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
       end if;
     end$$ language plpgsql;
 
+    create or replace function can_server_consume_fve(server_id_in in numeric) returns numeric
+    as $$
+    declare
+        vi_entries cursor for
+            SELECT 1
+              FROM rhnVirtualInstance vi
+             WHERE vi.virtual_system_id = server_id_in
+             and not exists(select server_id from rhnServerChannel sc where
+                            sc.server_id = vi.virtual_system_id
+                            and  sc.is_fve='Y');
+        vi_count numeric;
+
+    begin
+        FOR vi_entry IN VI_ENTRIES LOOP
+            return 1;
+        END LOOP;
+        RETURN 0;
+    end$$ language plpgsql;
 
     create or replace function guess_server_base(
         server_id_in in numeric
