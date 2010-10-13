@@ -132,7 +132,6 @@ rhnPackageSource               :: web_customer rhnSourceRPM rhnFile rhnPackageGr
                                   rhnChecksum
 rhnPackageSyncBlacklist        :: rhnPackageName web_customer
 rhnProduct                     :: rhnProductLine
-rhnProductChannel              :: rhnChannel rhnProduct
 rhnProxyInfo                   :: rhnServer
 rhnPushClient                  :: rhnServer rhnPushClientState
 rhnRam                         :: rhnServer
