@@ -128,7 +128,6 @@ rhnPackageObsoletes            :: rhnPackage rhnPackageCapability
 rhnPackageNEVRA                :: rhnPackageName rhnPackageEVR rhnPackageArch
 rhnPackageProvides             :: rhnPackage rhnPackageCapability
 rhnPackageRequires             :: rhnPackage rhnPackageCapability
-rhnPackageSenseMap             :: rhnPackageSense
 rhnPackageSource               :: web_customer rhnSourceRPM rhnFile rhnPackageGroup \
                                   rhnChecksum
 rhnPackageSyncBlacklist        :: rhnPackageName web_customer
