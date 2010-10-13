@@ -210,7 +210,7 @@ $$ language plpgsql;
         from_org_id_in in numeric,
         to_org_id_in in numeric,
         quantity_in in numeric,
-        flex_in in numeric,
+        flex_in in numeric
     ) returns void
 as $$
 BEGIN
