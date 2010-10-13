@@ -131,7 +131,6 @@ rhnPackageRequires             :: rhnPackage rhnPackageCapability
 rhnPackageSource               :: web_customer rhnSourceRPM rhnFile rhnPackageGroup \
                                   rhnChecksum
 rhnPackageSyncBlacklist        :: rhnPackageName web_customer
-rhnPathChannelMap              :: rhnChannel
 rhnProduct                     :: rhnProductLine
 rhnProductChannel              :: rhnChannel rhnProduct
 rhnProxyInfo                   :: rhnServer
