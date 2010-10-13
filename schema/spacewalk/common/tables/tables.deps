@@ -92,8 +92,6 @@ rhnErrataClonedTmp             :: rhnErrataTmp
 rhnErrataTmp                   :: web_customer
 rhnFile                        :: web_customer rhnChecksum
 rhnFileLocation                :: rhnFile
-rhnGrailComponents             :: rhnUserGroupType
-rhnGrailComponentChoices       :: web_contact
 rhnKSData                      :: web_customer
 rhnKickstartableTree           :: rhnChannel rhnKSTreeType web_customer \
                                   rhnKSInstallType
