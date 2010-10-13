@@ -72,4 +72,6 @@ optional_policy(`
 	')
 	allow httpd_t oracle_port_t:tcp_socket name_connect;
 	append_files_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_db_install_log_t);
+	read_files_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_db_install_log_t);
+	create_files_pattern(oracle_sqlplus_t, spacewalk_db_install_log_t, spacewalk_db_install_log_t);
 ')
