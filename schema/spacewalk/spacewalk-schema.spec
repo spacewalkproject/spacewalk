@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.33
+Version:        1.2.34
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Oct 13 2010 Jan Pazdziora 1.2.34-1
+- Apply necessary flex changes needed for rhn-satellite-activate.
+- Removing old changelog entries from rhn_entitlements.pkb source file.
+- Rewrite the use of find_compatible_sg to match the one in PostgreSQL sources
+  (no out parameter).
+- The function find_compatible_sg is only used from within rhn_entitlements, no
+  need to have it in the interface (.pks).
+- Removing prune_everything procedure as it no longer exists in the Oracle
+  sources either.
+- Removing old changelog entries from rhn_entitlements.pks source file.
+- Add the flex_in and update_family_countsYN to the PostgreSQL version of
+  rhn_entitlements.pks (no pkb yet).
+- The table rhn_interface_monitoring is not used anywhere (besides deleting
+  from it), removing.
+- reviewed indexes for rhnCryptoKeyKickstart (michael.mraka@redhat.com)
+- The view rhn_host_monitoring just selects from rhnServer, no need to depend
+  on three other objects.
+
 * Wed Oct 13 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.33-1
 - schema upgrades for deleted tables and indexes
 - reviewed and minimized number of indexes 
