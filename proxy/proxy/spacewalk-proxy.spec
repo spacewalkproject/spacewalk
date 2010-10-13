@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.2.6
+Version: 1.2.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -328,6 +328,10 @@ fi
 
 
 %changelog
+* Wed Oct 13 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.7-1
+- 640195 - do not produce warning if directory already exist
+  (msuchy@redhat.com)
+
 * Wed Oct 13 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.6-1
 - fix typo in macro (msuchy@redhat.com)
 
