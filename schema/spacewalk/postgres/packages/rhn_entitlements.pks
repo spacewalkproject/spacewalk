@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 3931df65784c19209421cbd2d70b318809dca0f5
+-- oracle equivalent source sha1 b190abdd45d28c181dee9ef0a5f38c6e43bcf9ef
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -72,17 +72,6 @@ $$ language plpgsql;
    create or replace function can_switch_base ( 
       server_id_in   in    integer, 
       type_label_in  in    varchar
-   )
-   returns numeric
-as $$
-BEGIN
-  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
-END;
-$$ language plpgsql;
-
-   create or replace function find_compatible_sg (
-      server_id_in in numeric,
-      type_label_in in varchar
    )
    returns numeric
 as $$
