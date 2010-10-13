@@ -109,7 +109,6 @@ rhnKSTreeFile                  :: rhnKickstartableTree rhnChannelErrata rhnErrat
                                   rhnChecksum
 rhnKickstartTimezone           :: rhnKSInstallType
 rhnMessage                     :: rhnMessageType rhnMessagePriority
-rhnMonitor                     :: rhnServer rhnMonitorGranularity
 rhnOrgChannelSettings          :: web_customer rhnChannel rhnOrgChannelSettingsType
 rhnOrgEntitlements             :: rhnOrgEntitlementType
 rhnOrgErrataCacheQueue         :: web_customer
