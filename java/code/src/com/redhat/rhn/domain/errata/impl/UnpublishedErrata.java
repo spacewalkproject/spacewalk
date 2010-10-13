@@ -53,11 +53,13 @@ public class UnpublishedErrata extends AbstractErrata {
      * @param keywordIn The keyword to add.
      */
     public void addKeyword(String keywordIn) {
-        // Create an Unpublished Keyword and add to the set
-        Keyword k = new UnpublishedKeyword();
-        k.setKeyword(keywordIn);
-        addKeyword(k);
-        k.setErrata(this);
+        if (!containsKeyword(keywordIn)) {
+            // Create an Unpublished Keyword and add to the set
+            Keyword k = new UnpublishedKeyword();
+            k.setKeyword(keywordIn);
+            addKeyword(k);
+            k.setErrata(this);
+        }
     }
 
     /*

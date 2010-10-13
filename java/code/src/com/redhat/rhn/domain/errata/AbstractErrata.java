@@ -497,6 +497,23 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     }
 
     /**
+     * Checks whether a keyword is already associated with an erratum.
+     * @param keywordIn The keyword to check.
+     */
+    public boolean containsKeyword(String keywordIn) {
+        if (this.keywords == null) {
+            return false;
+        }
+        for (Iterator i = this.keywords.iterator(); i.hasNext(); ) {
+            Keyword k = (Keyword) i.next();
+            if (k.getKeyword().equals(keywordIn)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @return Returns the keywords.
      */
     public Set<Keyword> getKeywords() {
