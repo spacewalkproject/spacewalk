@@ -194,7 +194,6 @@ begin
 	-- We may want to consider delete_snapshot() at some point, but
 	--   I don't think we need to yet.
 	delete from rhnSnapshot where server_id = server_id_in;
-	delete from rhnTransaction where server_id = server_id_in;
 	delete from rhnUserServerPrefs where server_id = server_id_in;
 	-- hrm, this one's interesting... we _probably_ should delete
 	-- everything for the parent server_id when we delete the proxy,
