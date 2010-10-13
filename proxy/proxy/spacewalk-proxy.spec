@@ -239,9 +239,9 @@ fi
 
 %posttrans common
 if [ -n "$1" ] ; then # anything but uninstall
-    mkdir {_var}/cache/rhn/proxy-auth
-    chown apache:root {_var}/cache/rhn/proxy-auth
-    restorecon {_var}/cache/rhn/proxy-auth
+    mkdir /var/cache/rhn/proxy-auth
+    chown apache:root /var/cache/rhn/proxy-auth
+    restorecon /var/cache/rhn/proxy-auth
 fi
 
 
