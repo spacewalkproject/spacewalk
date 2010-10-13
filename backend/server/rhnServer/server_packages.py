@@ -312,12 +312,8 @@ class Packages:
 # statistics regarding only rhnServerNeededPackageCache.
 def update_errata_cache(server_id):
     log_debug(2, "Updating the errata cache", server_id)
-    h = rhnSQL.prepare("""
-        begin
-            rhn_server.update_needed_cache(:server_id);
-        end;
-    """)
-    h.execute(server_id=server_id)
+    update_needed_cache = rhnSQL.Procedure("rhn_server.update_needed_cache")
+    update_needed_cache(server_id)
 
 def processPackageKeyAssociations(header, checksum_type, checksum):
     provider_sql = rhnSQL.prepare("""
