@@ -23,9 +23,8 @@ is
 
    function find_compatible_sg (
       server_id_in    in   number,
-      type_label_in   in   varchar2,
-      sgid_out        out  number
-   ) return boolean is
+      type_label_in   in   varchar2
+   ) return number is
 
       cursor servergroups is
          select sg.id            id
@@ -48,13 +47,11 @@ is
          
    begin
       for servergroup in servergroups loop
-         sgid_out := servergroup.id;
-         return true;      
+         return servergroup.id;
       end loop;
 
       --no servergroup found
-      sgid_out := 0;
-      return false;
+      return null;
    end find_compatible_sg;
 
 
@@ -217,7 +214,8 @@ is
       where label = type_label_in;
 
       if previous_ent.count = 0 then
-         if (is_base_in = 'Y' and find_compatible_sg (server_id_in, type_label_in, sgid)) then
+         sgid := find_compatible_sg (server_id_in, type_label_in);
+         if (is_base_in = 'Y' and sgid is not null) then
             -- rhn_server.insert_into_servergroup (server_id_in, sgid);
             return 1;
          else
@@ -254,7 +252,8 @@ is
          -- this for loop verifies the validity of the addon path
          for addon_servergroup in addon_servergroups  (previous_ent(i), type_label_in) loop
             -- find an appropriate sgid for the addon and entitle the server
-            if find_compatible_sg (server_id_in, type_label_in, sgid) then
+            sgid := find_compatible_sg (server_id_in, type_label_in);
+            if sgid is not null then
                -- rhn_server.insert_into_servergroup (server_id_in, sgid);
                return 1;
             else
@@ -290,11 +289,13 @@ is
 
       if type_label_in_is_base = 'N' then
          rhn_exception.raise_exception ( 'invalid_entitlement' );
-      elsif find_compatible_sg ( server_id_in, 
-                                                  type_label_in, sgid ) then
-         return 1;
       else
-         return 0;
+         sgid := find_compatible_sg ( server_id_in, type_label_in );
+         if sgid is not null then
+            return 1;
+         else
+            return 0;
+         end if;
       end if;
 
    end can_switch_base;
@@ -329,8 +330,8 @@ is
 
       if rhn_entitlements.can_entitle_server(server_id_in, 
                                              type_label_in) = 1 then
-         if find_compatible_sg (server_id_in, 
-                                                 type_label_in, sgid) then
+         sgid := find_compatible_sg (server_id_in, type_label_in);
+         if sgid is not null then
             insert into rhnServerHistory ( id, server_id, summary, details )
             values ( rhn_event_id_seq.nextval, server_id_in,
                      'added system entitlement ',
