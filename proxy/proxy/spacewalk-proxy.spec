@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.2.4
+Version: 1.2.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -328,6 +328,9 @@ fi
 
 
 %changelog
+* Wed Oct 13 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.5-1
+- 640195 - put upgrade script to %posttrans (msuchy@redhat.com)
+
 * Wed Oct 13 2010 Jan Pazdziora 1.2.4-1
 - bump up version of proxy (msuchy@redhat.com)
 
