@@ -94,9 +94,7 @@ rhnVisibleServerGroup            :: rhnServerGroup
 rhnVisibleServerGroupMembers     :: rhnServerGroup rhnServerGroupMembers
 rhnWebContactDisabled            :: rhnWebContactChangeLog rhnWebContactChangeState web_contact
 rhn_contact_monitoring           :: web_contact web_user_personal_info
-rhn_host_monitoring              :: rhnServer rhnServerNetInterface \
-                                    rhn_interface_monitoring \
-                                    rhn_server_monitoring_info
+rhn_host_monitoring              :: rhnServer
 rhnSharedChannelView             :: rhnChannel rhnChannelTrust rhnTrustedOrgs
 rhnSharedChannelTreeView         :: rhnSharedChannelView
 rhnUserActionOverview            :: rhnActionStatus rhnUserServerPerms rhnServerAction \
