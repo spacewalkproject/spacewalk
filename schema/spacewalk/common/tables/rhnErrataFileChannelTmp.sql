@@ -36,8 +36,8 @@ CREATE INDEX rhn_efilectmp_efid_cid_idx
     ON rhnErrataFileChannelTmp (errata_file_id, channel_id)
     TABLESPACE [[64k_tbs]];
 
-CREATE INDEX rhn_efilectmp_cid_efid_idx
-    ON rhnErrataFileChannelTmp (channel_id, errata_file_id)
+CREATE INDEX rhn_efilectmp_cid_idx
+    ON rhnErrataFileChannelTmp (channel_id)
     TABLESPACE [[64k_tbs]];
 
 ALTER TABLE rhnErrataFileChannelTmp
