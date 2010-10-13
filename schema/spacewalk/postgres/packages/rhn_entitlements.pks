@@ -246,7 +246,7 @@ $$ language plpgsql;
 		type_in in char,			-- 'U' or 'S'
 		group_type_in in numeric,	-- rhn[User|Server]GroupType.id
 		quantity_in in numeric,		-- quantity
-		update_family_countsYN in number default 1	-- call update_family_counts inside
+		update_family_countsYN in numeric default 1	-- call update_family_counts inside
     ) returns void
 as $$
 BEGIN
