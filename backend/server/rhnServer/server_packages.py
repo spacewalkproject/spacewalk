@@ -204,12 +204,18 @@ class Packages:
                 LOOKUP_PACKAGE_ARCH(:a), TO_DATE(:instime, 'YYYY-MM-DD HH24:MI:SS')
             )
             """)
+            # some fields are not allowed to contain empty string (varchar)
+            def lambdaae(a):
+                if a.e == '':
+                    return None
+                else:
+                    return a.e
             package_data = {
                 'sysid' : [sysid] * len(alist),
                 'n'     : map(lambda a: a.n, alist),
                 'v'     : map(lambda a: a.v, alist),
                 'r'     : map(lambda a: a.r, alist),
-                'e'     : map(lambda a: a.e, alist),
+                'e'     : map(lambdaae, alist),
                 'a'     : map(lambda a: a.a, alist),
                 'instime' : map(lambda a: self.__expand_installtime(a.installtime),
                                    alist),
