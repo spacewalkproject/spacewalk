@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.23
+Version: 1.2.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Oct 13 2010 Lukas Zapletal 1.2.24-1
+- Procedure call now general (update_needed_cache) in backend
+- Vn_constriant violation in Postgres (vn_rhnpackageevr_epoch)
+- Postgres reserved word fix 
+- Vn_constriant violation in Postgres 
+- Sysdate changed to current_timestamp 
+- ANSI syntax for outer join during system registration 
+- Debug log from postgresql backend driver removed 
+- Postgres python backend driver functions support 
+- Postgres savepoint support in backend code 
+
 * Wed Oct 13 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.23-1
 - speed up queries
 - deleted unused code
