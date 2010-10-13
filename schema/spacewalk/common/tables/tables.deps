@@ -145,7 +145,6 @@ rhnRepoRegenQueue              :: rhnSatelliteCert rhnSatelliteChannelFamily rhn
 
 rhnSatelliteInfo               :: rhnServer
 rhnSatelliteServerGroup        :: rhnServer rhnServerGroup
-rhnSavedSearch                 :: rhnSavedSearchType web_contact
 rhnServer                      :: rhnServerArch web_contact web_customer \
                                   rhnProvisionState
 rhnServerAction                :: rhnServer rhnAction rhnActionStatus
