@@ -214,7 +214,7 @@ def checkin(server_id, commit=1, check_for_abuse=1):
     log_debug(3, server_id)
     h = rhnSQL.prepare("""
     update rhnServerInfo
-    set checkin = sysdate, checkin_counter = checkin_counter + 1
+    set checkin = current_timestamp, checkin_counter = checkin_counter + 1
     where server_id = :server_id
     """)
     h.execute(server_id = server_id)
