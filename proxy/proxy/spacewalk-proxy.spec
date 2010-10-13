@@ -237,6 +237,14 @@ if [ $1 = 0 ] ; then
     /sbin/service httpd condrestart >/dev/null 2>&1
 fi
 
+%posttrans common
+if [ -n "$1" ] ; then # anything but uninstall
+    mkdir {_var}/cache/rhn/proxy-auth
+    chown apache:root {_var}/cache/rhn/proxy-auth
+    restorecon {_var}/cache/rhn/proxy-auth
+fi
+
+
 %files broker
 %defattr(-,root,root)
 %dir %{destdir}
