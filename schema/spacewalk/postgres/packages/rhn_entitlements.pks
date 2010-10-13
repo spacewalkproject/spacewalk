@@ -1,5 +1,6 @@
+-- oracle equivalent source sha1 3931df65784c19209421cbd2d70b318809dca0f5
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -284,15 +285,6 @@ $$ language plpgsql;
 		type_label_in in varchar,	-- 'enterprise_entitled'
 		quantity_in in numeric		-- 3
     ) returns void
-as $$
-BEGIN
-  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
-END;
-$$ language plpgsql;
-
-	create or replace function prune_everything (
-		customer_id_in in numeric
-	) returns void
 as $$
 BEGIN
   RAISE EXCEPTION 'Stub called, must be replaced by .pkb';

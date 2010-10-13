@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -937,7 +937,7 @@ language plpgsql;
     -- PROCEDURE: prune_group
     -- Unsubscribes servers consuming physical slots that over the org's
     --   limit.
-    -- Called by: set_group_count, prune_everything, repoll_virt_guest_entitlements
+    -- Called by: set_group_count, repoll_virt_guest_entitlements
     -- *******************************************************************
     create or replace function prune_group (
         group_id_in in numeric,
@@ -1408,7 +1408,7 @@ language plpgsql;
     -- PROCEDURE: prune_family
     -- Unsubscribes servers consuming physical slots from the channel family 
     --   that are over the org's limit.
-    -- Called by: set_family_count, prune_everything
+    -- Called by: set_family_count
     -- *******************************************************************
     create or replace function prune_family (
         customer_id_in in numeric,
@@ -1576,65 +1576,6 @@ as $$
     begin
         for server in servers(customer_id_in, quantity_in) loop
             perform rhn_entitlements.entitle_server(server.server_id, type_label_in);
-        end loop;
-    end$$
-language plpgsql;
-
-    create or replace function prune_everything (
-        customer_id_in in numeric
-    ) returns void
-as $$
-    declare
-        everything cursor for
-            -- all our server groups
-            select  sg.id                   id,
-                    'S'                     as type,
-                    sg.max_members          quantity
-            from    rhnServerGroup          sg
-            where   sg.org_id = customer_id_in
-            union
-            -- all our user groups
-            select  ug.id                   id,
-                    'U'                     as type,
-                    ug.max_members          quantity
-            from    rhnUserGroup            ug
-            where   ug.org_id = customer_id_in
-            union ( 
-            -- all the channel families we have perms to
-            select  cfp.channel_family_id   id,
-                    'C'                     as type,
-                    cfp.max_members         quantity
-            from    rhnOrgChannelFamilyPermissions cfp
-            where   cfp.org_id = customer_id_in
-            union
-            -- plus all the ones we're using that we have no perms for
-            select  cfm.channel_family_id   id,
-                    'C'                     as type,
-                    0                       quantity
-            from    rhnChannelFamily        cf,
-                    rhnChannelFamilyMembers cfm,
-                    rhnServerChannel        sc,
-                    rhnServer               s
-            where   s.org_id = customer_id_in
-                and s.id = sc.server_id
-                and sc.channel_id = cfm.channel_id
-                and cfm.channel_family_id = cf.id
-                and cf.org_id is not null
-                and cf.org_id != customer_id_in
-                and not exists (
-                    select  1
-                    from    rhnOrgChannelFamilyPermissions cfp
-                    where   cfp.org_id = customer_id_in
-                        and cfp.channel_family_id = cfm.channel_family_id
-                    )
-            );
-    begin
-        for one in everything loop
-            if one.type in ('U','S') then
-                perform rhn_entitlements.prune_group(one.id, one.type, one.quantity);
-            else
-                perform rhn_entitlements.prune_family(customer_id_in, one.id, one.quantity);
-            end if;
         end loop;
     end$$
 language plpgsql;

@@ -986,7 +986,7 @@ is
     -- PROCEDURE: prune_group
     -- Unsubscribes servers consuming physical slots that over the org's
     --   limit.
-    -- Called by: set_group_count, prune_everything, repoll_virt_guest_entitlements
+    -- Called by: set_group_count, repoll_virt_guest_entitlements
     -- *******************************************************************
     procedure prune_group (
         group_id_in in number,
@@ -1606,7 +1606,7 @@ is
     -- PROCEDURE: prune_family
     -- Unsubscribes servers consuming physical slots from the channel family 
     --   that are over the org's limit.
-    -- Called by: set_family_count, prune_everything
+    -- Called by: set_family_count
     -- *******************************************************************
     procedure prune_family (
         customer_id_in in number,
