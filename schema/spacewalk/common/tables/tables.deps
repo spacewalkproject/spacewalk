@@ -131,7 +131,6 @@ rhnPackageRequires             :: rhnPackage rhnPackageCapability
 rhnPackageSource               :: web_customer rhnSourceRPM rhnFile rhnPackageGroup \
                                   rhnChecksum
 rhnPackageSyncBlacklist        :: rhnPackageName web_customer
-rhnProduct                     :: rhnProductLine
 rhnProxyInfo                   :: rhnServer
 rhnPushClient                  :: rhnServer rhnPushClientState
 rhnRam                         :: rhnServer
