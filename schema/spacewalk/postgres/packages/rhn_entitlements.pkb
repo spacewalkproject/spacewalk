@@ -1,3 +1,7 @@
+-- Note: this file is not a full equivalent of the Oracle sources.
+-- Neither the flex stuff nor the update_family_countsYN was fully migrated.
+-- Only things on the code path of simple rhn-satellite-activate
+-- were done.
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -1289,13 +1293,34 @@ language plpgsql;
     create or replace function activate_channel_entitlement(
         org_id_in in numeric,
         channel_family_label_in in varchar,
-        quantity_in in numeric
+        quantity_in in numeric,
+        flex_in in numeric
     ) returns void
 as $$
     declare
         prev_ent_count numeric; 
+        prev_flex_count numeric;
         prev_ent_count_sum numeric; 
         cfam_id numeric;
+        reduce_quantity numeric;
+        total_flex_capable numeric;
+        to_convert_reg cursor (channel_family_id_val numeric, org_id_in numeric, quantity numeric) for
+                     select SC.server_id
+                     from rhnServerChannel SC inner join
+                          rhnServer S on S.id = SC.server_id
+                     where
+                         is_fve = 'Y'
+                         and S.org_id = org_id_in
+                         and SC.channel_id in
+                         (select cfm.channel_id from rhnChannelFamilyMembers cfm
+                             where cfm.CHANNEL_FAMILY_ID = channel_family_id_val)
+                         limit quantity;
+         to_convert_flex cursor (channel_family_id_val numeric, org_id_in numeric, quantity numeric) for
+                   select server_id
+                   from rhnServerFveCapable
+                       where SERVER_ORG_ID = org_id_in and
+                             channel_family_id = cfam_id;
+
     begin
 
         -- Fetch the current entitlement count for the org
@@ -1312,6 +1337,18 @@ as $$
                 prev_ent_count := 0;
             end if;
 
+            select pcf.fve_current_members
+            into prev_flex_count
+            from rhnChannelFamily cf,
+                 rhnPrivateChannelFamily pcf
+            where pcf.org_id = org_id_in
+              and pcf.channel_family_id = cf.id
+              and cf.label = channel_family_label_in;
+
+            if not found then
+                prev_flex_count := 0;
+            end if;
+
             select id
             into cfam_id
             from rhnChannelFamily
@@ -1322,6 +1359,49 @@ as $$
                               'invalid_channel_family');
             end if;
 
+        -- if there are too few flex entitlements
+        if flex_in < prev_flex_count then
+            -- and if the extra we need is less than or equal to our extra regular entitlements
+            if prev_flex_count - flex_in <= quantity_in - prev_ent_count then
+                   reduce_quantity := prev_flex_count - flex_in;
+                   -- We need to convert some systems from flex guest to regular
+                   for system in to_convert_reg(cfam_id, org_id_in, reduce_quantity) loop
+                      --rhn_channel.convert_to_regular(system.server_id, cfam_id);
+                      UPDATE rhnServerChannel sc set sc.is_fve = 'N'
+                           where sc.server_id = system.server_id;
+                   end loop;
+
+                   --reset previous counts
+                   prev_ent_count := prev_ent_count + reduce_quantity;
+                   prev_flex_count := prev_flex_count - reduce_quantity;
+            else
+                perform rhn_exception.raise_exception(
+                          'not_enough_flex_entitlements_in_base_org');
+            end if;
+        end if;
+
+        -- if there are too few regular entitlements, and extra flex entitlements
+        if quantity_in < prev_ent_count and prev_flex_count < flex_in then
+                -- how many flex-capable systems (that aren't using flex) do we have
+                select count(*)
+                   into total_flex_capable
+                   from rhnServerFveCapable
+                       where SERVER_ORG_ID = org_id_in and
+                             channel_family_id = cfam_id;
+                -- if we have enough flex capable machines that is at least
+                --   as many as what we are over on
+                if total_flex_capable >= prev_ent_count - quantity_in then
+                    reduce_quantity := prev_ent_count - quantity_in;
+                    for system in to_convert_flex(cfam_id, org_id_in, reduce_quantity) loop
+--                          rhn_channel.convert_to_fve(system.server_id, cfam_id);
+                        UPDATE rhnServerChannel sc set sc.is_fve = 'Y'
+                           where sc.server_id = system.server_id;
+                    end loop;
+                    prev_ent_count := prev_ent_count - reduce_quantity;
+                    prev_flex_count := prev_flex_count + reduce_quantity;
+                end if;
+        end if;
+
         -- If we're setting the total entitlemnt count to a lower value,
         -- and that value is less than the count in that one org,
         -- we need to raise an exception.
@@ -1329,9 +1409,11 @@ as $$
             perform rhn_exception.raise_exception(
                           'not_enough_entitlements_in_base_org');
         else
-            perform rhn_entitlements.set_family_count(org_id_in,
-                                              cfam_id,
-                                              quantity_in);
+            -- even if we've manually converted systems to/from flex above
+            -- set_family_count should call update_family_counts, to reset
+            -- current used slots
+            perform rhn_entitlements.set_family_count(org_id_in, cfam_id,
+                                              quantity_in, flex_in);
         end if;
 
     end$$
@@ -1413,10 +1495,14 @@ language plpgsql;
     create or replace function prune_family (
         customer_id_in in numeric,
         channel_family_id_in in numeric,
-        quantity_in in numeric
+        quantity_in in numeric,
+        flex_in in numeric
     ) returns void
 as $$
     declare
+       is_fve_in char;
+       tmp_quantity numeric;
+
         serverchannels cursor for
             select  sc.server_id,
                     sc.channel_id
@@ -1455,22 +1541,27 @@ as $$
             return;
         end if;
 
-        update      rhnPrivateChannelFamily
-            set     max_members = quantity_in
-            where   1=1
-                and org_id = customer_id_in
-                and channel_family_id = channel_family_id_in;
+        tmp_quantity := quantity_in;
+        is_fve_in := 'N';
 
         for sc in serverchannels loop
             perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1);
+
+        tmp_quantity := flex_in;
+        is_fve_in := 'Y';
+        for sc in serverchannels loop
+            perform rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1);
         end loop;
+        end loop;
+                perform rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
     end$$
 language plpgsql;
         
     create or replace function set_family_count (
         customer_id_in in numeric,      -- customer_id
         channel_family_id_in in numeric,    -- 246
-        quantity_in in numeric          -- 3
+        quantity_in in numeric,          -- 3
+        flex_in in numeric
     ) returns void
 as $$
     declare
@@ -1486,10 +1577,15 @@ as $$
             where   pcf.channel_family_id = channel_family_id_in;
         quantity numeric;
         done numeric := 0;
+        flex numeric;
     begin
         quantity := quantity_in;
         if quantity is not null and quantity < 0 then
             quantity := 0;
+        end if;
+        flex := flex_in;
+        if flex is not null and flex < 0 then
+            flex := 0;
         end if;
 
         if customer_id_in is not null then
@@ -1497,20 +1593,26 @@ as $$
                 perform rhn_entitlements.prune_family(
                     customer_id_in,
                     channel_family_id_in,
-                    quantity
+                    quantity,
+                    flex
                 );
                 update rhnPrivateChannelFamily
                     set max_members = quantity
                     where org_id = customer_id_in
                         and channel_family_id = channel_family_id_in;
+
+               update rhnPrivateChannelFamily
+                    set fve_max_members = flex
+                    where org_id = customer_id_in
+                        and channel_family_id = channel_family_id_in;
+
                 return;
             end loop;
-            
+
             insert into rhnPrivateChannelFamily (
-                    channel_family_id, org_id, max_members, current_members
+                    channel_family_id, org_id, max_members, current_members, fve_max_members, fve_current_members
                 ) values (
-                    channel_family_id_in, customer_id_in, quantity, 0
-                );
+                    channel_family_id_in, customer_id_in, quantity, 0, flex, 0 );
             return;
         end if;
 
@@ -1519,7 +1621,8 @@ as $$
                 perform rhn_entitlements.prune_family(
                     perm.org_id,
                     channel_family_id_in,
-                    quantity
+                    quantity,
+                    flex
                 );
                 if done = 0 then
                     delete from rhnPublicChannelFamily
