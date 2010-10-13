@@ -43,10 +43,6 @@ CREATE INDEX rhn_eaddress_uid_sid_addr_idx
     ON rhnEmailAddress (user_id, state_id, address)
     TABLESPACE [[8m_tbs]];
 
-CREATE INDEX rhn_eaddress_niusa_idx
-    ON rhnEmailAddress (next_action, id, user_id, state_id, address)
-    TABLESPACE [[8m_tbs]];
-
 CREATE SEQUENCE rhn_eaddress_id_seq;
 
 ALTER TABLE rhnEmailAddress
