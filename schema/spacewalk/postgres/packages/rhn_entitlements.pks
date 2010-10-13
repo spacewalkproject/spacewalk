@@ -219,7 +219,8 @@ $$ language plpgsql;
         channel_family_label_in in varchar,
         from_org_id_in in numeric,
         to_org_id_in in numeric,
-        quantity_in in numeric
+        quantity_in in numeric,
+        flex_in in numeric,
     ) returns void
 as $$
 BEGIN
@@ -241,7 +242,8 @@ $$ language plpgsql;
     create or replace function activate_channel_entitlement(
         org_id_in in numeric,
         channel_family_label_in in varchar,
-        quantity_in in numeric
+        quantity_in in numeric,
+        flex_in in numeric
     ) returns void
 as $$
 BEGIN
@@ -253,7 +255,8 @@ $$ language plpgsql;
 		customer_id_in in numeric,	-- customer_id
 		type_in in char,			-- 'U' or 'S'
 		group_type_in in numeric,	-- rhn[User|Server]GroupType.id
-		quantity_in in numeric		-- quantity
+		quantity_in in numeric,		-- quantity
+		update_family_countsYN in number default 1	-- call update_family_counts inside
     ) returns void
 as $$
 BEGIN
@@ -264,7 +267,8 @@ $$ language plpgsql;
     create or replace function set_family_count (
 		customer_id_in in numeric,		-- customer_id
 		channel_family_id_in in numeric,	-- 246
-		quantity_in in numeric			-- 3
+		quantity_in in numeric,			-- 3
+		flex_in in numeric
     ) returns void
 as $$
 BEGIN
