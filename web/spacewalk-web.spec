@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.12
+Version: 1.2.13
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,14 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Oct 13 2010 Jan Pazdziora 1.2.13-1
+- 642203- Removed the Task Status page for it needs a serious work over with
+  our new configs (paji@redhat.com)
+- 631847 - in RHN Proxy 5.4 is used jabber 2.0 where user is called jabber
+  (instead of jabberd) (msuchy@redhat.com)
+- Port /network/systems/custominfo/delete.pxt (colin.coe@gmail.com)
+- Port /network/systems/details/delete_confirm.pxt (colin.coe@gmail.com)
+
 * Mon Oct 11 2010 Jan Pazdziora 1.2.12-1
 - Fix indentation -- use spaces.
 - Fix the ORA_BLOB issue which prevents spacewalk-schema from starting.
