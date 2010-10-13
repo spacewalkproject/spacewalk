@@ -176,6 +176,7 @@ class GenericDevice:
         self.data = {}
         # default to the hardware seq...
         self.sequence = "rhn_hw_dev_id_seq"
+        self.__varchar_fields = ("description", "board")
     def getid(self):
         if self.id == 0:
             self.id = rhnSQL.Sequence(self.sequence)()
@@ -186,6 +187,11 @@ class GenericDevice:
         if self.status == 0: # original item, unchanged            
             return 0
         return 1
+    # empty string fields mapped to varchar must be saved as NULL values
+    def unsetEmptyFields(self):
+        for field_name in self.__varchar_fields:
+            if field_name in self.data and self.data[field_name] == '':
+                self.data[field_name] = None
     # save data in the rhnDevice
     def save(self, sysid):
         log_debug(4, self.__table, self.status, self.data)
@@ -197,6 +203,8 @@ class GenericDevice:
             # delete the entry
             del t[self.id]
             return 0
+        # set description to null if empty
+        self.unsetEmptyFields()
         # make sure we have a device id
         devid = self.getid()
         for k in self.data.keys():
