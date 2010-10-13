@@ -201,7 +201,6 @@ begin
 	delete from rhnServerPath where server_id_in in (server_id, proxy_server_id);
 	delete from rhnUserServerPerms where server_id = server_id_in;
 
-	delete from rhn_interface_monitoring where server_id = server_id_in;
 	delete from rhnServerNetInterface where server_id = server_id_in;
 	delete from rhn_server_monitoring_info where recid = server_id_in;
 

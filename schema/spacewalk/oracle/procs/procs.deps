@@ -51,7 +51,7 @@ delete_server                   :: rhn_channel.pks rhn_config.pks \
                                    rhnServerTokenRegs rhnSnapshotTag \
                                    rhnUserServerPrefs \
                                    rhnServerPath rhnServerPath \
-                                   rhn_check_probe rhn_interface_monitoring \
+                                   rhn_check_probe \
                                    rhnServerNetInterface rhn_host_probe \
                                    rhn_probe_state rhn_sat_cluster \
                                    rhn_sat_node rhn_probe \

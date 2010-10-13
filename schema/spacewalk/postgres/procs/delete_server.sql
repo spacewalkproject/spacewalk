@@ -1,5 +1,5 @@
--- -- oracle equivalent source sha1 ca97aff46a0c477082e414f362a8b122aff0daf9
--- one difference from Oracle (see TODO)
+-- -- oracle equivalent source sha1 6326e6d6d0007ff499b72d68dae3042ab4cb2805
+-- one difference from Oracle (see TODO, delete from time_series missing)
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -201,7 +201,6 @@ begin
         delete from rhnServerPath where server_id_in in (server_id, proxy_server_id);
         delete from rhnUserServerPerms where server_id = server_id_in;
 
-        delete from rhn_interface_monitoring where server_id = server_id_in;
         delete from rhnServerNetInterface where server_id = server_id_in;
         delete from rhn_server_monitoring_info where recid = server_id_in;
 

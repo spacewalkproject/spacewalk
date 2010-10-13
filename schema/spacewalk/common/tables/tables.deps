@@ -241,7 +241,6 @@ rhn_contact_methods            :: web_contact rhn_method_types rhn_pager_types \
                                   rhn_notification_formats rhnTimezone rhnUserInfo
 rhn_host_check_suites          :: rhn_check_suites rhn_host_probe 
 rhn_host_probe                 :: rhnServer rhn_probe rhn_sat_cluster 
-rhn_interface_monitoring       :: rhnServerNetInterface
 rhn_ll_netsaint                :: rhn_sat_cluster 
 rhn_metrics                    :: rhn_command_class rhn_units
 rhn_notification_formats       :: web_customer 
