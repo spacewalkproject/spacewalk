@@ -14,7 +14,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: docbook-utils
 BuildRequires: python
-Requires: libselinux-python
 Requires: python
 Requires: rhnlib
 # If this is rhel 4 or less we need up2date.
@@ -22,6 +21,7 @@ Requires: rhnlib
 Requires: up2date
 %else
 Requires: rhn-client-tools
+Requires: libselinux-python
 %endif
 
 %description 

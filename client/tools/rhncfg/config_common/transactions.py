@@ -25,12 +25,18 @@ import string
 
 from config_common import file_utils, utils, cfg_exceptions
 from config_common.rhn_log import log_debug
-from selinux import lsetfilecon
 
 class TargetNotFile(Exception): pass
 class DuplicateDeployment(Exception): pass
 class BackupFileMissing(Exception): pass
 class FailedRollback(Exception): pass
+
+try:
+    from selinux import lsetfilecon
+except:
+    def lsetfilecon(temp_file_path, sectx):
+        # Do nothing RHEL 4
+        pass
 
 BACKUP_PREFIX = '/var/lib/rhncfg/backups'
 BACKUP_EXTENSION = '.rhn-cfg-backup'
