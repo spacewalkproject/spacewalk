@@ -41,7 +41,7 @@ delete_server                   :: rhn_channel.pks rhn_config.pks \
                                    rhnServerActionScriptResult rhnServerChannel \
                                    rhnServerActionVerifyResult rhnServerDMI \
                                    rhnServerActionVerifyMissing \
-                                   rhnServerConfigChannel rhnServerMessage \
+                                   rhnServerConfigChannel \
                                    rhnServerCustomDataValue rhnServerEvent \
                                    rhnServerHistory rhnServerInfo rhnServerLock \
                                    rhnServerInstallInfo rhnServerLocation \

@@ -33,7 +33,6 @@ rhnActionKickstartGuest        :: rhnActionKickstart rhnKickstartSession rhnKick
 rhnActionPackage               :: rhnPackage rhnPackageName rhnPackageArch rhnAction
 rhnActionPackageAnswerfile     :: rhnActionPackage
 rhnActionPackageDelta          :: rhnPackageDelta
-rhnActionPackageOrder          :: rhnActionPackage
 rhnActionPackageRemovalFailure :: rhnServer rhnAction rhnPackageName \
                                   rhnPackageEVR rhnPackageCapability
 rhnActivationKey               :: rhnRegToken rhnKickstartSession
