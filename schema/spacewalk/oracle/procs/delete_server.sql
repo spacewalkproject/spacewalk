@@ -171,8 +171,6 @@ begin
 	delete from rhnServerConfigChannel where server_id = server_id_in;
 	delete from rhnServerCustomDataValue where server_id = server_id_in;
 	delete from rhnServerDMI where server_id = server_id_in;
-	delete from rhnServerMessage where server_id = server_id_in;
-	-- this gets rhnServerMessage (only) on cascade; it's handled just above
 	delete from rhnServerEvent where server_id = server_id_in;
 	delete from rhnServerHistory where server_id = server_id_in;
 	delete from rhnServerInfo where server_id = server_id_in;

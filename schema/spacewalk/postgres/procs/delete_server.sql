@@ -1,4 +1,4 @@
--- -- oracle equivalent source sha1 6326e6d6d0007ff499b72d68dae3042ab4cb2805
+-- -- oracle equivalent source sha1 ffec7477d36e781e5728b3b5c10e4010c58b4d2a
 -- one difference from Oracle (see TODO, delete from time_series missing)
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
@@ -171,8 +171,6 @@ begin
         delete from rhnServerConfigChannel where server_id = server_id_in;
         delete from rhnServerCustomDataValue where server_id = server_id_in;
         delete from rhnServerDMI where server_id = server_id_in;
-        delete from rhnServerMessage where server_id = server_id_in;
-        -- this gets rhnServerMessage (only) on cascade; it's handled just above
         delete from rhnServerEvent where server_id = server_id_in;
         delete from rhnServerHistory where server_id = server_id_in;
         delete from rhnServerInfo where server_id = server_id_in;
