@@ -1,5 +1,6 @@
 #
 # Copyright (c) 2008--2011 Red Hat, Inc.
+# Copyright (c) 2010--2011 SUSE Linux Products GmbH
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,6 +16,10 @@
 import yum
 import shutil
 import sys
+import gzip
+from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
+from yum.yumRepo import YumRepository
+from yum.misc import cElementTree_iterparse as iterparse
 from spacewalk.satellite_tools.reposync import ContentPackage
 from spacewalk.common import CFG, initCFG
 
@@ -26,6 +31,41 @@ class YumWarnings:
         sys.stdout = self
     def restore(self):
         sys.stdout = self.saved_stdout
+
+class YumUpdateMetadata(UpdateMetadata):
+    """The root update metadata object supports getting all updates"""
+
+    def add(self, obj, mdtype='updateinfo', all=False):
+        """ Parse a metadata from a given YumRepository, file, or filename. """
+        if not obj:
+            raise UpdateNoticeException
+        if type(obj) in (type(''), type(u'')):
+            infile = obj.endswith('.gz') and gzip.open(obj) or open(obj, 'rt')
+        elif isinstance(obj, YumRepository):
+            if obj.id not in self._repos:
+                self._repos.append(obj.id)
+                md = obj.retrieveMD(mdtype)
+                if not md:
+                    raise UpdateNoticeException()
+                infile = gzip.open(md)
+        else:   # obj is a file object
+            infile = obj
+
+        for event, elem in iterparse(infile):
+            if elem.tag == 'update':
+                un = UpdateNotice(elem)
+                key = un['update_id']
+                if all:
+                    key = "%s-%s" % (un['update_id'], un['version'])
+                if not self._notices.has_key(key):
+                    self._notices[key] = un
+                    for pkg in un['pkglist']:
+                        for file in pkg['packages']:
+                            self._cache['%s-%s-%s' % (file['name'],
+                                                      file['version'],
+                                                      file['release'])] = un
+                            no = self._no_cache.setdefault(file['name'], set())
+                            no.add(un)
 
 class ContentSource:
     url = None
@@ -96,3 +136,10 @@ class ContentSource:
 
     def _clean_cache(self, directory):
         shutil.rmtree(directory, True)
+
+    def get_updates(self):
+      if not self.repo.repoXML.repoData.has_key('updateinfo'):
+        return []
+      um = YumUpdateMetadata()
+      um.add(self.repo, all=True)
+      return um.notices

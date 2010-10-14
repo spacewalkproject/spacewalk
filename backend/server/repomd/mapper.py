@@ -540,7 +540,8 @@ class SqlErratumMapper:
         self.erratum_bzs_sql = rhnSQL.prepare("""
         select
             bug_id,
-            summary
+            summary,
+            href
         from
             rhnErrataBuglist
         where 

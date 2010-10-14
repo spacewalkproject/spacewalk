@@ -397,6 +397,7 @@ class Bug(Information):
     attributeTypes = {
         'bug_id'            : StringType,
         'bug_summary'       : StringType,
+        'bug_href'          : StringType,
     }
 
 
@@ -442,6 +443,7 @@ class Erratum(Information):
         'keywords'          : [Keyword],
         'bugs'              : [Bug],
         'cve'               : [StringType],
+        'errata_from'       : StringType,
     }
 
 

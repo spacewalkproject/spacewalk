@@ -162,9 +162,9 @@ class OracleBackend(Backend):
         Table('rhnErrata',
             fields      = {
                 'id'            : DBint(),
-                'advisory'      : DBstring(32),
+                'advisory'      : DBstring(100),
                 'advisory_type' : DBstring(32),
-                'advisory_name' : DBstring(32),
+                'advisory_name' : DBstring(100),
                 'advisory_rel'  : DBint(),
                 'product'       : DBstring(64),
                 'description'   : DBstring(4000),
@@ -176,6 +176,7 @@ class OracleBackend(Backend):
                 'org_id'        : DBint(),
 		'locally_modified' : DBstring(1),
                 'severity_id'   : DBint(),
+                'errata_from'   : DBstring(127),
                 # We will treat issue_date and update_date as regular dates
                 # with times instead of DBdate types, otherwise we'd have 
                 # issues with timezones
@@ -191,6 +192,7 @@ class OracleBackend(Backend):
                 'errata_id'     : DBint(),
                 'bug_id'        : DBint(),
                 'summary'       : DBstring(4000),
+                'href'          : DBstring(255),
             },
             pk          = ['errata_id', 'bug_id'],
             attribute   = 'bugs',
