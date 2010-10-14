@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,9 @@ CREATE TABLE rhnChannelComps
     channel_id         NUMBER NOT NULL
                            CONSTRAINT rhn_channelcomps_cid_fk
                                REFERENCES rhnChannel (id)
-                               ON DELETE CASCADE,
+                               ON DELETE CASCADE
+			constraint rhn_channelcomps_cid_uq unique
+			using index tablespace [[2m_tbs]],
     relative_filename  VARCHAR2(256) NOT NULL,
     last_modified      DATE
                            DEFAULT (sysdate) NOT NULL,
