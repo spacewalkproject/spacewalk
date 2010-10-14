@@ -30,8 +30,9 @@ Requires:       /usr/bin/gpg
 Requires:       spacewalk-setup-jabberd
 
 # avoid people to install F13 packages on RHEL5 etc.
-%define os-release %(rpm -qf /etc/redhat/release --qf %{name}-%{version})
-Requires:       %{os-release}
+%define os_release_name    %(rpm -qf /etc/redhat-release --qf '%%{name}')
+%define os_release_version %(rpm -qf /etc/redhat-release --qf '%%{version}')
+Requires:       %{os_release_name} = %{os_release_version}
 
 
 %description
