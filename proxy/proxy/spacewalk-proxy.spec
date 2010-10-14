@@ -121,6 +121,7 @@ Requires: mod_wsgi
 Requires: %{name}-broker >= %{version}
 Requires: %{name}-common >= %{version}
 Requires: spacewalk-backend >= 0.9.22
+Requires: policycoreutils
 Obsoletes: rhns-proxy-common < 5.3.0
 
 %description common
