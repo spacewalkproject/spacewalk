@@ -1529,15 +1529,6 @@ INSERT INTO  rhnSatelliteInfo (server_id, cert, product, owner, issued_string, e
   </query>
 </write-mode>
 
-<write-mode name="insert_satellite_server_group">
-  <query params="sid, group_type, max_members">
-INSERT INTO rhnSatelliteServerGroup
-  (server_id, server_group_type, max_members)
-VALUES
-  (:sid, (SELECT id FROM rhnServerGroupType WHERE label = :group_type), :max_members)
-  </query>
-</write-mode>
-
 <write-mode name="insert_satellite_channel_family">
   <query params="sid, channel_family_label, quantity">
 INSERT INTO rhnSatelliteChannelFamily
