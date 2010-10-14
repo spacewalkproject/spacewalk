@@ -83,6 +83,7 @@ Requires: classpathx-mail
 BuildRequires: classpathx-mail
 %endif
 BuildRequires: jsp
+BuildRequires: checkstyle
 
 # Sadly I need these to symlink the jars properly.
 BuildRequires: asm
@@ -215,7 +216,27 @@ This package contains the Java version of taskomatic.
 %setup -q
 
 %build
-#nothing to do here, move on
+# compile only java sources (no packing here)
+ant -Dprefix=$RPM_BUILD_ROOT init-install compile
+echo "Running checkstyle on java main sources"
+export CLASSPATH="build/classes"
+export BASE_OPTIONS="-Djavadoc.method.scope=public \
+-Djavadoc.type.scope=package \
+-Djavadoc.var.scope=package \
+-Dcheckstyle.cache.file=build/checkstyle.cache.src \
+-Djavadoc.lazy=false \
+-Dcheckstyle.header.file=buildconf/LICENSE.txt"
+find . -name *.java | grep -vE '(/test/|/jsp/|/playpen/)' | \
+xargs checkstyle -c buildconf/checkstyle.xml
+echo "Running checkstyle on java test sources"
+export BASE_OPTIONS="-Djavadoc.method.scope=nothing \
+-Djavadoc.type.scope=nothing \
+-Djavadoc.var.scope=nothing \
+-Dcheckstyle.cache.file=build/checkstyle.cache.test \
+-Djavadoc.lazy=false \
+-Dcheckstyle.header.file=buildconf/LICENSE.txt"
+find . -name *.java | grep -E '/test/' | grep -vE '(/jsp/|/playpen/)' | \
+xargs checkstyle -c buildconf/checkstyle.xml
 
 %install
 rm -rf $RPM_BUILD_ROOT
