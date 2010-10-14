@@ -36,7 +36,7 @@ try:
 except:
     def lsetfilecon(temp_file_path, sectx):
         # Do nothing RHEL 4
-        pass
+        return 0
 
 BACKUP_PREFIX = '/var/lib/rhncfg/backups'
 BACKUP_EXTENSION = '.rhn-cfg-backup'
