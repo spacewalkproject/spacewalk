@@ -462,7 +462,10 @@ def executeStatement(statement, valuesHash, chunksize):
 def sanitizeValue(value, datatype):
     if isinstance(datatype, DBstring):
         if value is None:
-            value = ''
+            return None		# we really want to preserve Nones
+				# and not depend on Oracle converting
+				# empty strings to NULLs -- PostgreSQL
+				# does not do this
         elif isinstance(value, unicode):
             value = unicode.encode(value, 'utf-8')
         return value[:datatype.limit]
