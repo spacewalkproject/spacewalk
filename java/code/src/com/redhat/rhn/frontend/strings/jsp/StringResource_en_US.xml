@@ -13093,6 +13093,26 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </trans-unit>
     </group>
 
+    <!-- custdata/updatekey.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/systems/customdata/UpdateCustomKey.do</context>
+       </context-group>
+
+       <trans-unit id="system.jsp.customkey.updatetitle">
+         <source>Edit Custom Info Key</source>
+       </trans-unit>
+       <trans-unit id="system.jsp.customkey.updatemsg">
+         <source>Define infomation about this key below.</source>
+       </trans-unit>
+       <trans-unit id="system.jsp.customkey.updateheader">
+         <source>Systems with a value for this key</source>
+       </trans-unit>
+       <trans-unit id="system.jsp.customkey.noservers">
+         <source>No systems exist which have a value for this key.</source>
+       </trans-unit>
+    </group>
+
      <!-- System Common -->
      <group>
        <context-group name="ctx">
@@ -22007,11 +22027,20 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.description">
          <source>Description</source>
        </trans-unit>
+      <trans-unit id="system.jsp.customkey.value">
+         <source>Value</source>
+       </trans-unit>
       <trans-unit id="system.jsp.customkey.systemcount">
          <source>Systems With Value</source>
        </trans-unit>
+      <trans-unit id="system.jsp.customkey.created">
+         <source>Created</source>
+       </trans-unit>
       <trans-unit id="system.jsp.customkey.modified">
          <source>Last Modified</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customkey.last_checkin">
+         <source>Last Checkin</source>
        </trans-unit>
       <trans-unit id="system.jsp.customkey.createlink">
          <source>create new key</source>
@@ -22024,6 +22053,9 @@ given channel.</source>
        </trans-unit>
       <trans-unit id="system.jsp.customkey.createbutton">
          <source>Create Key</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customkey.updatebutton">
+         <source>Update Key</source>
        </trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>

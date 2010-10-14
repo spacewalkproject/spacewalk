@@ -118,6 +118,23 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup all the systems with the specified CustomDataKey.
+     * @param userId The User ID of the user doing the query
+     * @param cikid The ID of the Key for the values you would like to lookup
+     * @return List of systems
+     */
+    public static List lookupServersWithCustomKey(Long userId, Long cikid) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "users_systems_with_value_for_key");
+        Map inParams = new HashMap();
+
+        inParams.put("user_id", userId);
+        inParams.put("cikid", cikid);
+
+        return m.execute(inParams);
+    }
+
+    /**
      * Lookup all storage Devices associated with the server.
      * @param s The server for the values you would like to lookup
      * @return List of devices

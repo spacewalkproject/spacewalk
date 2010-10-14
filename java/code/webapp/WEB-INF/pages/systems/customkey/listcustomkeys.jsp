@@ -47,7 +47,7 @@
 					defaultsort="asc"
                            styleclass="first-column">
 
-                        <a href="/network/systems/custominfo/edit.pxt?cikid=${current.id}">
+                        <a href="/rhn/systems/customdata/UpdateCustomKey.do?cikid=${current.id}">
                         <c:out value="${current.label}" />
                         </a>
                 </rl:column>

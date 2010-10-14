@@ -1811,5 +1811,26 @@ delete from rhnServerNotes where id = :id and server_id = :server_id
   </query>
 </write-mode>
 
+<!-- Lifted from web/modules/rhn/RHN/DB/DataSource/xml/System_queries.xml with slight changes -->
+<mode name="users_systems_with_value_for_key">
+  <query params="user_id, cikid">
+SELECT S.id,
+       S.name AS NAME,
+       SCDV.value,
+       TO_CHAR(SI.checkin, 'YYYY-MM-DD') as LAST_CHECKIN
+  FROM rhnServer S,
+       rhnServerCustomDataValue SCDV,
+       rhnUserServerPerms USP,
+       rhnServerInfo SI
+ WHERE USP.user_id = :user_id
+   AND USP.server_id = SCDV.server_id
+   AND SI.server_id = S.id
+   AND SCDV.key_id = :cikid
+   AND USP.server_id = S.id
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
 </datasource_modes>
 

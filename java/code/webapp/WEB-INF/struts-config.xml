@@ -1102,6 +1102,14 @@
       <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="updateCustomKeyForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="cikid" type="java.lang.Long" />
+      <form-property name="label" type="java.lang.String" />
+      <form-property name="description" type="java.lang.String" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
   </form-beans>
 
   <global-exceptions>
@@ -6890,6 +6898,15 @@
         <forward name="deleted" path="/systems/customdata/CustomDataList.do" redirect="true"/>
       </action>
 
+   <action path="/systems/customdata/UpdateCustomKey"
+        scope="request"
+        input="/WEB-INF/pages/systems/customkey/updatekey.jsp"
+        type="com.redhat.rhn.frontend.action.systems.customkey.UpdateCustomKeyAction"
+        name="updateCustomKeyForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/systems/customkey/updatekey.jsp" />
+        <forward name="updated" path="/systems/customdata/CustomDataList.do" redirect="true"/>
+      </action>
 
    <action path="/software/manage/packages/PackageList"
         scope="request"
