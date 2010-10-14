@@ -609,20 +609,12 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                 declare
                         i integer;
                 begin
-                        -- it will be possible to simplify this select once there is
-                        -- unique key on rhnChannelComps.channel_id
+                        -- the rhnChannelComps(channel_id) is unique now,
+                        -- so we know we will not get more than one record
                         select id into i
-                        from (
-                                select id, relative_filename, last_modified
-                                from (
-                                        select id, relative_filename, last_modified
-                                        from rhnChannelComps
-                                        where channel_id = :channel_id
-                                        order by id desc
-                                        )
-                                where rownum = 1
-                        )
-                        where relative_filename = :path
+                        from rhnChannelComps
+                        where channel_id = :channel_id
+                                and relative_filename = :path
                                 and last_modified = to_date(:timestamp, 'YYYYMMDDHH24MISS');
                 exception when no_data_found then
                         delete from rhnChannelComps
