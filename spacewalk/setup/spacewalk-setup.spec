@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.9
+Version:        1.2.10
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -107,6 +107,9 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Thu Oct 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.10-1
+- avoid people install packages for different os
+
 * Tue Oct 12 2010 Jan Pazdziora 1.2.9-1
 - Move the cobbler requirement to version 2.0.0.
 
