@@ -141,7 +141,6 @@ rhnRegTokenPackages            :: rhnRegToken rhnPackageName
 rhnRepoRegenQueue              :: rhnSatelliteCert rhnSatelliteChannelFamily rhnSatelliteInfo
 
 rhnSatelliteInfo               :: rhnServer
-rhnSatelliteServerGroup        :: rhnServer rhnServerGroup
 rhnServer                      :: rhnServerArch web_contact web_customer \
                                   rhnProvisionState
 rhnServerAction                :: rhnServer rhnAction rhnActionStatus
