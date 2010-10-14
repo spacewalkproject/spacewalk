@@ -107,7 +107,6 @@ rhnKickstartSessionHistory     :: rhnKickstartSession rhnKickstartSessionState
 rhnKSTreeFile                  :: rhnKickstartableTree rhnChannelErrata rhnErrata \
                                   rhnChecksum
 rhnKickstartTimezone           :: rhnKSInstallType
-rhnMessage                     :: rhnMessageType rhnMessagePriority
 rhnOrgChannelSettings          :: web_customer rhnChannel rhnOrgChannelSettingsType
 rhnOrgEntitlements             :: rhnOrgEntitlementType
 rhnOrgErrataCacheQueue         :: web_customer
