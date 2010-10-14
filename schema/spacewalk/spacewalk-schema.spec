@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.37
+Version:        1.2.38
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Oct 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.38-1
+- 642962 - fixed issue where some of group by columns are null
+- fixed build errors
+- there are only deletes from rhnServerMessage; dropping
+- Mark the PostgreSQL rhn_exception package as equivalent to the Oracle
+  version.
+- The cursor exception_details not invoked from anywhere besices
+  lookup_exception, no need to have it as package interface.
+- Merging Oracle rhn_cache.pkb to PostgreSQL version.
+
 * Thu Oct 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.37-1
 - removed rhnProductLine
 - removed rhnSavedSearchType
