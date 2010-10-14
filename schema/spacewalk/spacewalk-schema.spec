@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.36
+Version:        1.2.37
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,28 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Oct 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.37-1
+- removed rhnProductLine
+- removed rhnSavedSearchType
+- removed rhnPackageSense
+- removed rhnProduct
+- removed rhnMonitorGranularity
+- removed rhnServerCacheInfo
+- removed rhnSavedSearch
+- removed rhnRelationshipType
+- removed rhnProductChannel
+- removed rhnPathChannelMap
+- removed rhnPackageSenseMap
+- removed rhnMonitor
+- removed rhnGrailComponents
+- removed rhnGrailComponentChoices
+- removed rhnEmailAddressLog
+- removed rhnChannelParent
+- removed rhnActionPackageOrder
+- Use numeric instead of number in PostgreSQL. 
+- reviewed indexes for rhnErrataFileChannelTmp 
+- reviewed indexes for rhnErrataFileChannel 
+
 * Wed Oct 13 2010 Lukas Zapletal 1.2.36-1
 - Function rhn_channel.subscribe_server now in sync (Pg-Ora)
 
