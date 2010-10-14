@@ -92,6 +92,7 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
         return mapping.findForward("default");
     }
 
+    /** {@inheritDoc} **/
     public  List getResult(RequestContext context) {
         User user  = context.getLoggedInUser();
         Long cikid = context.getParamAsLong(CIKID_PARAM);
