@@ -946,7 +946,8 @@ language plpgsql;
     create or replace function prune_group (
         group_id_in in numeric,
         type_in in char,
-        quantity_in in numeric
+        quantity_in in numeric,
+        update_family_countsYN in numeric default 1
     ) returns void
 as $$
     declare
@@ -1012,7 +1013,7 @@ as $$
             -- if we're removing a base ent, then be sure to
             -- remove the server's channel subscriptions.
             if ( type_is_base = 'Y' ) then
-                   perform rhn_channel.clear_subscriptions(sgrecord.server_id);
+                   perform rhn_channel.clear_subscriptions(sgrecord.server_id, update_family_countsYN);
             end if;
 
             end loop;
