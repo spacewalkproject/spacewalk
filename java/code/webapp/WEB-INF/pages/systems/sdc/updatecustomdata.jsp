@@ -8,10 +8,17 @@
 <body>
 <br>
 
-    <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
+<%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-  <div class="page-summary">
-    <p><bean:message key="system.jsp.customkey.updatemsg"/></p>
+  <div class="toolbar-h2">
+    <div class="toolbar">
+      <span class="toolbar">
+        <a href="/network/systems/details/custominfo/remove_value_conf.pxt?sid=1000010000&amp;cikid=2">
+        <img src="/img/action-del.gif" alt="delete value" title="delete value" />delete value</a>
+      </span>
+    </div>
+    <img src="/img/rhn-icon-info.gif" alt="" />
+    <bean:message key="system.jsp.customkey.updatemsg"/>
   </div>
 
   <hr />

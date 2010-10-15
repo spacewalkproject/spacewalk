@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
@@ -38,7 +39,9 @@ import org.apache.struts.action.DynaActionForm;
 import org.hibernate.Session;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -68,6 +71,10 @@ public class UpdateCustomDataAction extends RhnAction {
         User loggedInUser = context.getLoggedInUser();
         Long sid = context.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, loggedInUser);
+        Map params = new HashMap();
+        StrutsDelegate strutsDelegate = getStrutsDelegate();
+
+        params.put(RequestContext.SID, request.getParameter(RequestContext.SID));
 
         User user =  context.getLoggedInUser();
         Long cikid = context.getParamAsLong(CIKID_PARAM);
@@ -97,14 +104,15 @@ public class UpdateCustomDataAction extends RhnAction {
 
         if (context.isSubmitted()) {
             server.addCustomDataValue(key.getLabel(), (String)form.get(VAL_PARAM), user);
-System.out.println("setting value to " + (String)form.get(VAL_PARAM));
-            return mapping.findForward("updated");
+            request.setAttribute(VAL_PARAM, (String)form.get(VAL_PARAM));
+            return getStrutsDelegate().forwardParams(mapping.findForward("updated"),
+                    params);
         }
         else {
             request.setAttribute(VAL_PARAM, cdv.getValue());
         }
 
-        return mapping.findForward("default");
+        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
     }
 
 }
