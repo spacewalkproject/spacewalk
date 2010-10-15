@@ -1135,12 +1135,12 @@ ORDER BY S.ID
           SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
           config_files_with_differences,
-       ( SELECT  DECODE(
-                   MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
-                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
-           FROM  rhn_check_probe CP, rhn_probe_state PS
+       ( SELECT  CASE
+                   MAX(CASE PS.state WHEN 'OK' THEN 1 WHEN 'PENDING' THEN 2 WHEN 'UNKNOWN' THEN 3 WHEN 'WARNING' THEN 4 WHEN 'CRITICAL' THEN 5 END)
+                         WHEN 1 THEN 'OK' WHEN 2 THEN 'PENDING' WHEN 4 THEN 'WARNING' WHEN 5 THEN 'CRITICAL' END ST
+                         FROM  rhn_probe_state PS
+                         LEFT OUTER JOIN rhn_check_probe CP ON OV.server_id = CP.host_id
           WHERE  PS.probe_id = CP.probe_id
-            AND  OV.server_id = CP.host_id(+)
          GROUP BY OV.server_id ) MONITORING_STATUS
     FROM  rhnServerOverview OV
    WHERE  server_id IN (%s)
