@@ -22,7 +22,7 @@
       <rhn-tab-url>/rhn/systems/details/EditNote.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Custom Info" acl="system_feature(ftr_custom_info)">
-      <rhn-tab-url>/network/systems/details/custominfo/index.pxt</rhn-tab-url>
+      <rhn-tab-url>/rhn/systems/details/ListCustomData.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
 

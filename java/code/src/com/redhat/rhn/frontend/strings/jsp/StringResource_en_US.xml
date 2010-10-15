@@ -19212,6 +19212,34 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             </context-group>
          </trans-unit>
 
+         <trans-unit id="sdc.details.customdata.header">
+            <source>Custom System Information</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/ListCustomData.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.customdata.summary">
+            <source>The following &lt;a href="/rhn/systems/customdata/CustomDataList.do"&gt;Custom System Information&lt;/a&gt; keys are defined for this system.</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/ListCustomData.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.customdata.nosystems">
+            <source>No custom information defined for this system.</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/ListCustomData.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.customdata.editvalue">
+            <source>Edit this value</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/ListCustomData.do</context>
+            </context-group>
+         </trans-unit>
+
          <!-- SDC Details Edit Page strings -->
          <trans-unit id="sdc.details.edit.header">
             <source>Edit System Details</source>

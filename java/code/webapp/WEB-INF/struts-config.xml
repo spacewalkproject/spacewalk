@@ -3215,6 +3215,15 @@
                       path="/WEB-INF/pages/systems/sdc/details.jsp" />
      </action>
 
+     <action path="/systems/details/ListCustomData"
+             scope="request"
+             validate="false"
+             input="/WEB-INF/pages/systems/sdc/listcustomdata.jsp"
+             type="com.redhat.rhn.frontend.action.systems.sdc.ListCustomDataAction">
+             <forward name="default"
+                      path="/WEB-INF/pages/systems/sdc/listcustomdata.jsp" />
+     </action>
+
      <action path="/systems/details/SystemMigrate"
              name="systemMigrateForm"
              scope="request"
