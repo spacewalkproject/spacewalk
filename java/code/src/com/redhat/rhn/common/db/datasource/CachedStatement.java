@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.db.datasource;
 
 import com.redhat.rhn.common.ObjectCreateWrapperException;
+import com.redhat.rhn.common.RhnRuntimeException;
 import com.redhat.rhn.common.db.NamedPreparedStatement;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateHelper;
@@ -470,6 +471,11 @@ public class CachedStatement {
                 HibernateRuntimeException(
                     "HibernateException executing CachedStatement", he);
 
+        }
+        catch (RhnRuntimeException e) {
+            // we just add more information for better bug tracking
+            log.error("Error while processing cached statement sql: " + sql, e);
+            throw e;
         }
         finally {
             HibernateHelper.cleanupDB(ps);
