@@ -172,6 +172,7 @@ class Database(sql_base.Database):
         if params != None:              # support for anonymour plpgsql
             sql = re.sub(r'/\*pg_cs\*/\s*cursor', '', sql)
             sql = re.sub(r'/\*pg (.+?)\*/', '\g<1>', sql)
+            sql = re.sub(r':(\w+)', '\g<1>', sql)
             s = hashlib.new('sha1')
             s.update(sql)
             sha1 = s.hexdigest()
@@ -180,7 +181,8 @@ class Database(sql_base.Database):
             if not c.fetchone():
                 c = self.prepare("create function rhn_asdf_%s (%s) returns void as $x%s$%s$x%s$ language plpgsql" % ( sha1, ','.join(params), sha1, sql, sha1 ))
                 c.execute()
-            sql = "select rhn_asdf_%s()" % sha1
+            qparams = ','.join(map(lambda x: re.sub(r'^(\w+).*', ':\g<1>', x), params))
+            sql = "select rhn_asdf_%s(%s)" % (sha1, qparams)
         return Cursor(dbh=self.dbh, sql=sql, force=force)
 
     def transaction(self, name):
