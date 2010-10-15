@@ -375,8 +375,8 @@ class Backend:
         h = self.dbmodule.prepare(sql)
         for evr in evrHash.keys():
             epoch, version, release = evr
-            if epoch is None:
-                epoch = ''
+            if epoch == '' or epoch is None:
+                epoch = None
             else:
                 epoch = str(epoch)
             h.execute(epoch=epoch, version=version, release=release)

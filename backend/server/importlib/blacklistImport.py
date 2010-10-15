@@ -54,8 +54,8 @@ class BlacklistObsoletesImport(Import):
         result = []
         for label in ['epoch', 'version', 'release']:
             val = entry[label]
-            if val is None:
-                val = ''
+            if val == '':
+                val = None
             result.append(val)
         return tuple(result)
 
