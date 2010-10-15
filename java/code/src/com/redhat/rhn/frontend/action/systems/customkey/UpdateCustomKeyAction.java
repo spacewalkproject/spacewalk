@@ -26,6 +26,7 @@ import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -55,6 +56,7 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
             HttpServletResponse response) {
 
         RequestContext context = new RequestContext(request);
+        DynaActionForm form = (DynaActionForm)formIn;
 
         Long cikid = context.getParamAsLong(CIKID_PARAM);
         CustomDataKey key = OrgFactory.lookupKeyById(cikid);
@@ -78,10 +80,9 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
         ListHelper helper = new ListHelper(this, request, params);
         helper.execute();
 
-        if (context.wasDispatched("Update Key")) {
-            String desc = (String)request.getParameter(DESC_PARAM);
+        if (context.wasDispatched("system.jsp.customkey.updatebutton")) {
 
-            key.setDescription(desc);
+            key.setDescription((String)form.get(DESC_PARAM));
             key.setModified(new Date());
 
             ServerFactory.saveCustomKey(key);
