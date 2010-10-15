@@ -1423,12 +1423,14 @@ language plpgsql;
         customer_id_in in numeric,  -- customer_id
         type_in in char,            -- 'U' or 'S'
         group_type_in in numeric,   -- rhn[User|Server]GroupType.id
-        quantity_in in numeric      -- quantity
+        quantity_in in numeric,      -- quantity
+                update_family_countsYN in numeric default 1
     ) returns void
 as $$
     declare
         group_id numeric;
         quantity numeric;
+        wasfound boolean;
     begin
         quantity := quantity_in;
         if quantity is not null and quantity < 0 then
@@ -1442,8 +1444,30 @@ as $$
             where   1=1
                 and rug.org_id = customer_id_in
                 and rug.group_type = group_type_in;
+        elsif type_in = 'S' then
+            select  rsg.id
+            into    group_id
+            from    rhnServerGroup rsg
+            where   1=1
+                and rsg.org_id = customer_id_in
+                and rsg.group_type = group_type_in;
+        end if;
 
-            if not found then
+        -- preserve the not found status across the rhn_entitlements.prune_group invocation
+        wasfound := true;
+        if not found then
+            wasfound := false;
+        end if;
+
+        perform rhn_entitlements.prune_group(
+            group_id,
+            type_in,
+            quantity,
+                        update_family_countsYN
+        );
+
+        if not wasfound then
+            if type_in = 'U' then
                 insert into rhnUserGroup (
                         id, name, description, max_members, current_members,
                         group_type, org_id, created, modified
@@ -1452,19 +1476,9 @@ as $$
                                 quantity, 0, id, customer_id_in,
                                 current_timestamp, current_timestamp
                         from    rhnUserGroupType
-                        where   id = group_type_in
+                        where    id = group_type_in
                 );
-            end if;
-
-        elsif type_in = 'S' then
-            select  rsg.id
-            into    group_id
-            from    rhnServerGroup rsg
-            where   1=1
-                and rsg.org_id = customer_id_in
-                and rsg.group_type = group_type_in;
-
-            if not found then
+            elsif type_in = 'S' then
                 insert into rhnServerGroup (
                         id, name, description, max_members, current_members,
                         group_type, org_id, created, modified
@@ -1478,11 +1492,6 @@ as $$
             end if;
         end if;
 
-        perform rhn_entitlements.prune_group(
-            group_id,
-            type_in,
-            quantity
-        );
     end$$
 language plpgsql;
 
