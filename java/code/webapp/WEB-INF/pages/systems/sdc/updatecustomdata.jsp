@@ -13,7 +13,7 @@
   <div class="toolbar-h2">
     <div class="toolbar">
       <span class="toolbar">
-        <a href="/network/systems/details/custominfo/remove_value_conf.pxt?sid=1000010000&amp;cikid=2">
+        <a href="/network/systems/details/custominfo/remove_value_conf.pxt?sid=${system.id}&cikid=${cikid}">
         <img src="/img/action-del.gif" alt="delete value" title="delete value" />delete value</a>
       </span>
     </div>

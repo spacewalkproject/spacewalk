@@ -6,7 +6,17 @@
 <html:html xhtml="true">
   <body>
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-    <h2><bean:message key="sdc.details.customdata.header"/></h2>
+    <div class="toolbar-h2">
+      <div class="toolbar">
+        <span class="toolbar">
+          <a href="/network/systems/details/custominfo/new_value.pxt?sid=${system.id}">
+          <img src="/img/action-add.gif" alt="create new value" title="add new value" />create new value</a>
+        </span>
+      </div>
+      <img src="/img/rhn-icon-info.gif" alt="" />
+      <bean:message key="sdc.details.customdata.header"/>
+    </div>
+
 
     <div class="page-summary">
       <p><bean:message key="sdc.details.customdata.summary"/></p>
