@@ -114,7 +114,7 @@ sub remove_system_value {
   $server->remove_custom_value($key->id());
 
   $pxt->push_message(site_info => "Value for <strong>" . $key->label() . "</strong> removed for this system.");
-  $pxt->redirect("/network/systems/details/custominfo/index.pxt?sid=$sid");
+  $pxt->redirect("/rhn/systems/details/ListCustomData.do?$sid");
 }
 
 sub system_value_edit {
@@ -204,7 +204,7 @@ sub edit_value_cb {
 			   );
 
   $pxt->push_message(site_info => "Value for <strong>" . $key->label() . "</strong> changed.");
-  $pxt->redirect("/network/systems/details/custominfo/index.pxt?sid=$sid");
+  $pxt->redirect("/rhn/systems/details/ListCustomData.do?sid=$sid");
 }
 
 sub system_value_details {
@@ -235,7 +235,7 @@ sub delete_key {
 
   unless ($pxt->user->can_delete_custominfokey($key_id)) {
     $pxt->push_message(local_alert => "Only org admins or a key's creator may delete a key.");
-    $pxt->redirect("/network/systems/custominfo/edit.pxt?cikid=$key_id");
+    $pxt->redirect("/rhn/systems/customdata/UpdateCustomKey.do?cikid=$key_id");
   }
 
   my $transaction = RHN::DB->connect();
@@ -254,7 +254,7 @@ sub delete_key {
 
     if ($E->constraint_value eq 'RHN_SCDV_KID_FK') {
       $pxt->push_message(local_alert => 'Other systems have values for this key; deletion request denied.');
-      $pxt->redirect("/network/systems/custominfo/edit.pxt?cikid=$key_id");
+      $pxt->redirect("/rhn/systems/customdata/UpdateCustomKey.do?cikid=$key_id");
     }
  
     die $E;
@@ -356,7 +356,7 @@ sub edit_key_cb {
     $pxt->push_message(site_info => "New key " . PXT::Utils->escapeHTML($key->label) . " created.");
   }
 
-  $pxt->redirect('/network/systems/custominfo/index.pxt');
+  $pxt->redirect('/rhn/systems/customdata/CustomDataList.do');
 }
 
 1;
