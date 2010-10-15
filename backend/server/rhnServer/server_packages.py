@@ -271,10 +271,10 @@ class Packages:
         # Now load packages
         h = rhnSQL.prepare("""
         select
-            rpn.name "name",
-            rpe.version "version",
-            rpe.release "release",
-            rpe.epoch epoch,
+            rpn.name as name,
+            rpe.version as version,
+            rpe.release as release,
+            rpe.epoch as epoch,
             sp.name_id,
             sp.evr_id,
             sp.package_arch_id,
