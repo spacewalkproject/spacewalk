@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.59
+Version: 1.2.60
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 15 2010 Lukas Zapletal 1.2.60-1
+- Checkstyle fixes 
+- Checkstyle testing report now part of java spec 
+- Removed unused query 
+- Made the list tag dataset manipulator handle maps 
+
 * Wed Oct 13 2010 Tomas Lestach <tlestach@redhat.com> 1.2.59-1
 - 642519 - associate only unique keywords with an erratum (tlestach@redhat.com)
 - 642203- Removed the Task Status page for it needs a serious work over with
