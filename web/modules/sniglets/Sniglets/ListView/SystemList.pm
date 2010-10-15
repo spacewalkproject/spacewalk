@@ -1556,7 +1556,7 @@ Based upon the options you selected, your system's current
 entitlements, and your available entitlements, there are no system
 entitlements to add or remove.
 EOQ
-    $pxt->redirect('/network/systems/ssm/misc/index.pxt');
+    $pxt->redirect('/rhn/systems/ssm/misc/Index.do');
   }
 
   if (not $in_cb) {

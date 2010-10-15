@@ -97,7 +97,7 @@ Reboot scheduled for <strong>%d</strong> system%s.  To cancel the reboot, remove
 EOM
   $pxt->push_message(site_info => $message);
 
-  $pxt->redirect('/network/systems/ssm/misc/index.pxt');
+  $pxt->redirect('/rhn/systems/ssm/misc/Index.do');
 }
 
 sub schedule_action_interface {
@@ -411,7 +411,7 @@ sub server_set_actions_cb {
 							      -server_set => $system_set);
 
     $pxt->push_message(site_info => "$num_systems hardware profiles will be refreshed.");
-    $pxt->redirect('/network/systems/ssm/misc/index.pxt');
+    $pxt->redirect('/rhn/systems/ssm/misc/Index.do');
   }
   elsif ($pxt->dirty_param('sscd_pkg_prof_update_conf')) {
     my $earliest_date = RHN::Date->now->long_date;
@@ -422,7 +422,7 @@ sub server_set_actions_cb {
 
 
     $pxt->push_message(site_info => "$num_systems package profiles will be refreshed.");
-    $pxt->redirect('/network/systems/ssm/misc/index.pxt');
+    $pxt->redirect('/rhn/systems/ssm/misc/Index.do');
   }
   else {
     croak 'no valid action specified!';

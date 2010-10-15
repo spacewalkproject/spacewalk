@@ -76,7 +76,7 @@ sub ssm_set_values {
   		$pxt->push_message(site_info => "Value <strong>" . $key->label() . "</strong> could not be set for ". ($total_count - $success_count) . " systems because they do not have provisioning entitlements.");
   }
 
-  $pxt->redirect("/network/systems/ssm/misc/index.pxt");
+  $pxt->redirect("/rhn/systems/ssm/misc/Index.do");
 }
 
 sub ssm_remove_values {
@@ -94,7 +94,7 @@ sub ssm_remove_values {
 
   $pxt->push_message(site_info => "Value removed for <strong>" . $key->label() . "</strong> from selected systems.");
 
-  $pxt->redirect("/network/systems/ssm/misc/index.pxt");
+  $pxt->redirect("/rhn/systems/ssm/misc/Index.do");
 }
 
 sub remove_system_value {

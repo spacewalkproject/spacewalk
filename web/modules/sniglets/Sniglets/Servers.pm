@@ -1035,7 +1035,7 @@ sub server_prefs_form_cb {
       $pxt->push_message(site_info => $message);
     }
 
-    $pxt->redirect('/network/systems/ssm/misc/index.pxt');
+    $pxt->redirect('/rhn/systems/ssm/misc/Index.do');
   }
 }
 
