@@ -607,23 +607,24 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     def _set_comps_for_channel(self, backend, channel_id, path, timestamp):
         sth = backend.dbmodule.prepare("""
                 declare
-                        i integer;
+                        /*pg_cs*/ cursor comps_data /*pg cursor*/ (cid_in numeric) is
+                                select relative_filename, last_modified
+                                from rhnChannelComps
+                                where channel_id = :cid_in;
                 begin
-                        -- the rhnChannelComps(channel_id) is unique now,
-                        -- so we know we will not get more than one record
-                        select id into i
-                        from rhnChannelComps
-                        where channel_id = :channel_id
-                                and relative_filename = :path
-                                and last_modified = to_date(:timestamp, 'YYYYMMDDHH24MISS');
-                exception when no_data_found then
+                        for row in comps_data(channel_id_in) loop
+                                if row.relative_filename = :path_in
+                                        and row.last_modified = to_date(:timestamp_in, 'YYYYMMDDHH24MISS') then
+                                        return;
+                                end if;
+                        end loop;
                         delete from rhnChannelComps
-                        where channel_id = :channel_id;
+                        where channel_id = :channel_id_in;
                         insert into rhnChannelComps (id, channel_id, relative_filename, last_modified, created, modified)
-                        values (rhn_channelcomps_id_seq.nextval, :channel_id, :path, to_date(:timestamp, 'YYYYMMDDHH24MISS'), sysdate, sysdate);
+                        values (sequence_nextval('rhn_channelcomps_id_seq'), :channel_id_in, :path_in, to_date(:timestamp_in, 'YYYYMMDDHH24MISS'), current_timestamp, current_timestamp);
                 end;
-        """)
-        sth.execute(channel_id = channel_id, path = path, timestamp = timestamp)
+        """, params = ( 'channel_id_in numeric', 'path_in varchar', 'timestamp_in varchar' ))
+        sth.execute(channel_id_in = channel_id, path_in = path, timestamp_in = timestamp)
 
     def _process_comps(self, backend, label, timestamp):
         comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
