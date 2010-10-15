@@ -1110,6 +1110,14 @@
       <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="updateCustomDataForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
+      <form-property name="cikid" type="java.lang.Long" />
+      <form-property name="label" type="java.lang.String" />
+      <form-property name="value" type="java.lang.String" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
+
   </form-beans>
 
   <global-exceptions>
@@ -3223,6 +3231,17 @@
              <forward name="default"
                       path="/WEB-INF/pages/systems/sdc/listcustomdata.jsp" />
      </action>
+
+   <action path="/systems/details/UpdateCustomData"
+        name="updateCustomDataForm"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/updatecustomdata.jsp"
+        parameter="dispatch"
+        type="com.redhat.rhn.frontend.action.systems.sdc.UpdateCustomDataAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/systems/sdc/updatecustomdata.jsp" />
+        <forward name="updated" path="/systems/details/ListCustomData.do" redirect="true"/>
+      </action>
 
      <action path="/systems/details/SystemMigrate"
              name="systemMigrateForm"

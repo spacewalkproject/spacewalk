@@ -143,7 +143,7 @@ sub system_value_edit {
 			      -key_label => $key->label(),
 			      -value => undef);
 
-    $pxt->redirect("/network/systems/details/custominfo/edit.pxt?sid=$sid&cikid=$key_id");
+    $pxt->redirect("/rhn/systems/details/UpdateCustomData.do?sid=$sid&cikid=$key_id");
   }
 
   return PXT::Utils->perform_substitutions($params{__block__}, \%subs);
@@ -176,7 +176,7 @@ sub edit_value_cb {
   # anti-jkt code...
   if (length($value) > 4000) {
     $pxt->push_message(local_alert => "Custom values must be fewer than 4000 characters.");
-    $pxt->redirect("/network/systems/details/custominfo/edit.pxt?sid=$sid&cikid=$key_id");
+    $pxt->redirect("/rhn/systems/details/UpdateCustomData.do?sid=$sid&cikid=$key_id");
   }
 
   my $server = RHN::Server->lookup(-id => $sid);

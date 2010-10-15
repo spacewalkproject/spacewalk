@@ -25,7 +25,7 @@
               <th>${current.label}</th>
               <td>
                 <pre>${current.value}</pre>
-                <a href="/network/systems/details/custominfo/edit.pxt?sid=${system.id}&cikid=${current.cikid}">
+                <a href="/rhn/systems/details/UpdateCustomData.do?sid=${system.id}&cikid=${current.cikid}">
                   <bean:message key="sdc.details.customdata.editvalue"/>
                 </a>
               </td>
