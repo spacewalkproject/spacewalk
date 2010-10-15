@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.2.10
+Version:        1.2.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,10 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Fri Oct 15 2010 Jan Pazdziora 1.2.11-1
+- Revert "avoid people install packages for different os"
+- Revert "valid require format is name = version"
+
 * Thu Oct 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.10-1
 - avoid people install packages for different os
 
