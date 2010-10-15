@@ -43,7 +43,7 @@ rhnServerOverview
 )
 as
 select
-    s.org_id, s.id, s.name, 0, s.modified, 
+    s.org_id, s.id, s.name, cast(0 as bigint), s.modified,
     ( select count(user_id) from rhnUserServerPerms ap 
       where server_id = s.id ), 
     ( select count(server_group_id) from rhnVisibleServerGroupMembers

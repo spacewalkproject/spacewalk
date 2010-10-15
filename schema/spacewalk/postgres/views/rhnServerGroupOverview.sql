@@ -64,6 +64,6 @@ AS
                               FROM rhnServerFeaturesView SFV
                               WHERE SFV.server_id = SGM.server_id
                                     AND SFV.label = 'ftr_system_grouping')),
-         0, CURRENT_TIMESTAMP, MAX_MEMBERS
+         cast(0 as bigint), CURRENT_TIMESTAMP, MAX_MEMBERS
     FROM rhnServerGroup SG;
 
