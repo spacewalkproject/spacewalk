@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.24
+Version: 1.2.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 15 2010 Jan Pazdziora 1.2.25-1
+- Reserved words problem for Postgresql fixed (lzap+git@redhat.com)
+- Now that we have unique key on rhnChannelComps(channel_id), we can simplify
+  the select which searches for the comps record.
+- Prevent satellite-sync from inserting empty strings when it means to insert
+  NULLs.
+
 * Wed Oct 13 2010 Lukas Zapletal 1.2.24-1
 - Procedure call now general (update_needed_cache) in backend
 - Vn_constriant violation in Postgres (vn_rhnpackageevr_epoch)
