@@ -73,7 +73,13 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
         request.setAttribute(CREATE_PARAM, key.getCreated());
         request.setAttribute(MODIFY_PARAM, key.getModified());
         request.setAttribute(CREATOR_PARAM, key.getCreator().getLogin());
-        request.setAttribute(MODIFIER_PARAM, key.getLastModifier().getLogin());
+
+        if (key.getLastModifier() != null) {
+            request.setAttribute(MODIFIER_PARAM, key.getLastModifier().getLogin());
+        }
+        else {
+            request.setAttribute(MODIFIER_PARAM, "");
+        }
 
         Map params = new HashMap();
         params.put(CIKID_PARAM, cikid);
