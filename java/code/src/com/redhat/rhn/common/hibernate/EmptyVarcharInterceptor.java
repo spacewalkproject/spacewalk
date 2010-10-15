@@ -57,6 +57,9 @@ public class EmptyVarcharInterceptor extends EmptyInterceptor {
         return modified;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onSave(Object entity, Serializable id, Object[] state,
             String[] propertyNames, Type[] types) {
@@ -64,6 +67,9 @@ public class EmptyVarcharInterceptor extends EmptyInterceptor {
                 autoConvert);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onFlushDirty(Object entity, Serializable id,
             Object[] currentState, Object[] previousState,
@@ -72,10 +78,20 @@ public class EmptyVarcharInterceptor extends EmptyInterceptor {
                 types, autoConvert);
     }
 
+    /**
+     * Flag indicating if the interceptor correct the varchar errors automatically
+     *
+     * @return boolean
+     */
     public boolean isAutoConvert() {
         return autoConvert;
     }
 
+    /**
+     * Flag indicating if the interceptor correct the varchar errors automatically
+     *
+     * @param autoConvertIn true - convert automatically
+     */
     public void setAutoConvert(boolean autoConvertIn) {
         this.autoConvert = autoConvertIn;
     }

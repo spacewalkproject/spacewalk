@@ -33,6 +33,9 @@ public class JspfC extends JspC {
      * Overriden scanFiles method from Jasper2 JSP Compiler. To jsp and jspx
      * extensions it adds additional one (jspf) which we use for our
      * fragment files.
+     *
+     * @param file file being added
+     * @throws JasperException on error (see parent for more info)
      */
     @Override
     public void scanFiles(File file) throws JasperException {

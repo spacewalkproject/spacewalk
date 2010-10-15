@@ -234,8 +234,9 @@ public class ConfigurationFactoryTest extends RhnBaseTestCase {
 
     public void testCreateNewRevisionFromStream() throws Exception {
         String startData = "this is some original data";
-        StringBuffer StringBuffer1 = new StringBuffer(startData);
-        ByteArrayInputStream stream = new ByteArrayInputStream(StringBuffer1.toString().getBytes("UTF-8"));
+        StringBuffer stringBuffer1 = new StringBuffer(startData);
+        ByteArrayInputStream stream =
+            new ByteArrayInputStream(stringBuffer1.toString().getBytes("UTF-8"));
         ConfigRevision cr = ConfigTestUtils.createConfigRevision(user.getOrg());
         ConfigRevision cr2 = ConfigurationFactory.createNewRevisionFromStream(
                 user, stream, new Long(startData.length()), cr.getConfigFile());
