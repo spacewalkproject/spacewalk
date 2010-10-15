@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.38
+Version:        1.2.39
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Oct 15 2010 Jan Pazdziora 1.2.39-1
+- Add support for the update_family_countsYN parameter to
+  rhn_entitlements.prune_group.
+- Fix PostgreSQL rhn_entitlements.set_group_count to match the Oracle version
+  (and have five arguments as well).
+- We only need one comps record per channel, adding unique constraint.
+- rhn_host_check_suites is unused; dropping (michael.mraka@redhat.com)
+- rhnSatelliteServerGroup is unused; dropping (michael.mraka@redhat.com)
+- rhnMessageType is unused; dropping (michael.mraka@redhat.com)
+- rhnMessagePriority is unused; dropping (michael.mraka@redhat.com)
+- rhnMessage is unused; dropping (michael.mraka@redhat.com)
+
 * Thu Oct 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.38-1
 - 642962 - fixed issue where some of group by columns are null
 - fixed build errors
