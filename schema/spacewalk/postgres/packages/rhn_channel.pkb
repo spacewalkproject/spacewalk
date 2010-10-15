@@ -1,3 +1,5 @@
+-- This file is not yet in sync with Oracle. Synced functions are:
+-- subscribe_server + all subfunctions called
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -96,10 +98,9 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         channel_family_id_val   NUMERIC;
         server_org_id_val       NUMERIC;
         available_subscriptions NUMERIC;
+        available_fve_subs      numeric;
         consenting_user         NUMERIC;
         allowed                 numeric;
-        current_members_val     numeric;
-        available_fve_subs      numeric;
         is_fve_char             char(1) := 'N';
     BEGIN
         if user_id_in is not null then
@@ -157,13 +158,14 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
          WHERE id = channel_id_in;
          
         begin
-            perform obtain_read_lock(channel_family_id_val, server_org_id_val);
+            perform rhn_channel.obtain_read_lock(channel_family_id_val, server_org_id_val);
         exception
             when no_data_found then
                 perform rhn_exception.raise_exception('channel_family_no_subscriptions');
         end;
 
         available_subscriptions := rhn_channel.available_family_subscriptions(channel_family_id_val, server_org_id_val);
+        available_fve_subs := rhn_channel.available_fve_family_subs(channel_family_id_val, server_org_id_val);
         
         IF available_subscriptions IS NULL OR 
            available_subscriptions > 0 or
@@ -171,7 +173,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
             (available_fve_subs > 0 AND rhn_channel.can_server_consume_fve(server_id_in) = 1)
         THEN
             if rhn_channel.can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 0
-                AND available_fve_subs > 0 AND rhn_channel.can_server_consume_fve(server_id_in) = 1 THEN
+                AND available_subscriptions> 0 AND rhn_channel.can_server_consume_fve(server_id_in) = 1 THEN
                 is_fve_char := 'Y';
             end if;
 
@@ -557,6 +559,42 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
 
         -- not found: either the channel fam doesn't have an entry in cfp, or the org doesn't have access to it.
         -- either way, there are no available subscriptions
+
+        IF found IS NULL
+        THEN
+            RETURN 0;
+        END IF;
+
+        -- null max members?  in that case, pass it on; NULL means infinite
+        IF max_members_val IS NULL
+        THEN
+            RETURN NULL;
+        END IF;
+
+        -- otherwise, return the delta
+        RETURN max_members_val - current_members_val;
+    END$$ language plpgsql;
+
+    CREATE OR REPLACE FUNCTION available_fve_family_subs(channel_family_id_in IN NUMERIC, org_id_in IN NUMERIC)
+    RETURNS NUMERIC
+    AS $$
+    declare
+        cfp record;
+        fve_current_members_val NUMERIC;
+        fve_max_members_val     NUMERIC;
+        found               NUMERIC;
+    BEGIN
+        for cfp in SELECT * FROM rhnOrgChannelFamilyPermissions
+	    WHERE channel_family_id = channel_family_id_in
+	      AND org_id = org_id_in
+        LOOP
+            found := 1;
+            fve_current_members_val := cfp.fve_current_members;
+            fve_max_members_val := cfp.fve_max_members;
+        END LOOP;
+
+        -- not found: either the channel fam doesn't have an entry in cfp, or the org doesn't have access to it.
+        -- either way, there are no available subscriptions
         
         IF found IS NULL
         THEN
@@ -564,13 +602,13 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         END IF;
 
         -- null max members?  in that case, pass it on; NULL means infinite                     
-        IF max_members_val IS NULL
+        IF fve_max_members_val IS NULL
         THEN
             RETURN NULL;
         END IF;
 
         -- otherwise, return the delta  
-        RETURN max_members_val - current_members_val;                   
+        RETURN fve_max_members_val - fve_current_members_val;
     END$$ language plpgsql;
     
     -- *******************************************************************
