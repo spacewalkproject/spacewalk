@@ -796,5 +796,71 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 		return NULL;
 	end$$ language plpgsql;
 
+    create or replace function update_needed_cache(
+        server_id_in in numeric
+	) returns void as $$
+    declare
+        i record;
+        old record;
+        new record;
+    begin
+
+        create temp table old_packages (
+            errata_id numeric,
+            package_id numeric
+        ) on commit drop;
+
+        create temp table new_packages (
+            errata_id numeric,
+            package_id numeric
+        ) on commit drop;
+
+        -- old packages to be deleted
+        for i in (
+            select errata_id, package_id
+              from rhnServerNeededCache
+             where server_id = server_id_in
+        ) loop
+            insert into old_packages values (i.errata_id, i.package_id);
+        end loop;
+
+        -- new packages to be added
+        for i in (
+            select errata_id, package_id
+              from rhnServerNeededView
+             where server_id = server_id_in
+        ) loop
+            if exists (select 1 from old_packages where
+                package_id = i.package_id
+                and errata_id = i.errata_id
+                or errata_id is null and i.errata_id is null)
+            then
+                -- package is both old and new, so simply do nothing
+                delete from old_packages where package_id = i.package_id;
+            else
+                insert into new_packages values (i.errata_id, i.package_id);
+            end if;
+        end loop;
+
+        -- delete old packages
+        for old in (
+            select * from old_packages
+        ) loop
+            delete from rhnServerNeededCache
+             where server_id = server_id_in
+               and package_id = old.package_id
+               and (errata_id = old.errata_id
+                    or errata_id is null and old.errata_id is null);
+        end loop;
+
+        -- insert new packages
+        for new in (
+            select * from new_packages
+        ) loop
+            insert into rhnServerNeededCache (server_id, errata_id, package_id)
+                 values (server_id_in, new.errata_id, new.package_id);
+        end loop;
+	end$$ language plpgsql;
+
 -- restore the original setting
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_server')+1) ) where name = 'search_path';
