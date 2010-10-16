@@ -38,9 +38,7 @@ import org.apache.struts.action.DynaActionForm;
 
 import org.hibernate.Session;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
