@@ -22085,6 +22085,27 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.updatebutton">
          <source>Update Key</source>
        </trans-unit>
+      <trans-unit id="system.jsp.customdata.deletetitle">
+         <source>Remove Custom Value</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.keylabel">
+         <source>Key</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.description">
+         <source>Description</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.created">
+         <source>Created</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.lastmodified">
+         <source>Last Modified</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.removemsg">
+         <source>Are you certain you wish to remove the value for this from this system?</source>
+       </trans-unit>
+      <trans-unit id="system.jsp.customdata.removevalue">
+         <source>Remove Value</source>
+       </trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
        </trans-unit>

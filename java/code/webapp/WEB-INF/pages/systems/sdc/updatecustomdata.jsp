@@ -10,16 +10,17 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-  <div class="toolbar-h2">
-    <div class="toolbar">
-      <span class="toolbar">
-        <a href="/network/systems/details/custominfo/remove_value_conf.pxt?sid=${system.id}&cikid=${cikid}">
-        <img src="/img/action-del.gif" alt="delete value" title="delete value" />delete value</a>
-      </span>
-    </div>
-    <img src="/img/rhn-icon-info.gif" alt="" />
-    <bean:message key="system.jsp.customkey.updatemsg"/>
+<div class="toolbar-h2">
+  <div class="toolbar">
+    <span class="toolbar">
+      <a href="/rhn/systems/details/DeleteCustomData.do?sid=${sid}&cikid=${cikid}">
+        <img src="/img/action-del.gif" alt="delete value" title="delete value" />delete value
+      </a>
+    </span>
   </div>
+  <img src="/img/rhn-icon-info.gif" alt="" />
+  <bean:message key="system.jsp.customkey.updatetitle"/>
+</div>
 
   <hr />
 

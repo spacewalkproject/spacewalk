@@ -3243,6 +3243,16 @@
         <forward name="updated" path="/systems/details/ListCustomData.do" redirect="true"/>
       </action>
 
+   <action path="/systems/details/DeleteCustomData"
+        scope="request"
+        input="/WEB-INF/pages/systems/sdc/deletecustomdata.jsp"
+        type="com.redhat.rhn.frontend.action.systems.sdc.DeleteCustomDataAction"
+        name="submittedForm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/systems/sdc/deletecustomdata.jsp" />
+        <forward name="deleted" path="/systems/details/ListCustomData.do" redirect="true"/>
+      </action>
+
      <action path="/systems/details/SystemMigrate"
              name="systemMigrateForm"
              scope="request"
