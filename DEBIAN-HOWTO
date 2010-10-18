@@ -15,3 +15,6 @@ dupload -t mentors python-rhnlib_2.5.27-1_source.changes
 
 Similary for other packages.
 
+All packages available:
+python-rhnlib in client/rhel/rhnlib
+python-ethtool-0.5 in spec-tree/python-ethtool-0.5
