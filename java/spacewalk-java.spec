@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.62
+Version: 1.2.63
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 18 2010 Jan Pazdziora 1.2.63-1
+- fixing broken tag
+
 * Mon Oct 18 2010 Lukas Zapletal 1.2.62-1
 - DECODE replaced with ANSI compatible CASE WHEN
 
