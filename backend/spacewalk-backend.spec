@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.25
+Version: 1.2.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,18 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Oct 18 2010 Jan Pazdziora 1.2.26-1
+- Fix the placeholder tagging.
+- Even when handling evrs, we do not want to store empty strings, we want to
+  store NULLs because that is what Oracle will make of them anyway.
+- Not only we do not want to convert NULLs to empty strings, we have to convert
+  empty strings to NULLs.
+- Make the comps-updating block PostgreSQL compatible.
+- Add processing of the params parameter for anonymous PL/pgSQL blocks.
+- The tag in dollar quoting cannot start with number, which can happen with
+  SHA1s from time to time.
+- Reserved words problem for Postgresql fixed correctly (lzap+git@redhat.com)
+
 * Fri Oct 15 2010 Jan Pazdziora 1.2.25-1
 - Reserved words problem for Postgresql fixed (lzap+git@redhat.com)
 - Now that we have unique key on rhnChannelComps(channel_id), we can simplify
