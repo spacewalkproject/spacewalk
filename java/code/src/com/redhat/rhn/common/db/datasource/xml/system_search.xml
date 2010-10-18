@@ -574,7 +574,7 @@ SELECT  distinct USP.server_id AS ID
          SEV.is_base AS entitlement_is_base
     FROM rhnServerEntitlementView SEV
    WHERE SEV.server_id IN (%s)
-ORDER BY DECODE(SEV.is_base,'Y',1,'N',2), SEV.label
+   ORDER BY CASE SEV.is_base WHEN 'Y' THEN 1 WHEN 'N' THEN 2 END, SEV.label
 </query>
 
 <query name="base_elaborator" params="">
