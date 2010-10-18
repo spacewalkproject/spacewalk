@@ -15,7 +15,7 @@ Requires:       koan >= 1.4.3
 
 Provides: rhn.kickstart.boot_image = 5.3.0
 Provides: rhn-kickstart = 5.3.0
-Conflicts: rhn-kickstart < 5.3.0
+Conflicts: rhn-kickstart
 
 #this currently doesn't work for RHEL 2.1
 %if 0%{?rhel} && 0%{?rhel} < 5
