@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.43
+Version:        1.2.44
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Oct 18 2010 Jan Pazdziora 1.2.44-1
+- Remove the timestamptz_minus_int and minus operator -- we want the interval
+  issue addressed properly.
+- Fixing typo; also making the nextval call hopefully faster by not going to SQL.
+- We cannot touch old if tg_op is INSERT.
+
 * Mon Oct 18 2010 Lukas Zapletal 1.2.43-1
 - Fixed rhnServerOverview VIEW to return numeric
 
