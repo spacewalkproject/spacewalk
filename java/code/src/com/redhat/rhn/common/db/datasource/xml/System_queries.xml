@@ -1217,7 +1217,8 @@ ORDER BY  SERVER_ID
      AND sgm.server_id = NVL(VI.virtual_system_id, VI.host_system_id)
      AND sg.id = sgm.server_group_id
      and sg.group_type = sgt.id
-ORDER BY DECODE(sgt.is_base,'Y',1,'N',2), sgt.label
+
+   ORDER BY CASE sgt.is_base WHEN 'Y' THEN 1 WHEN 'N' THEN 2 END, sgt.label
 </query>
 
 
