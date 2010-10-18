@@ -40,18 +40,20 @@ begin
 
     -- bz 619337 if we are updating the checksum, we need to
     -- update the last modified time on all the channels the package is in
-    if tg_op='UPDATE' and new.checksum_id != old.checksum_id then
-        update rhnChannel
-          set last_modified = current_timestamp
-          where id in (select channel_id
-                          from rhnChannelPackage
-                          where package_id = new.id);
-        insert into rhnRepoRegenQueue (id, CHANNEL_LABEL, REASON)
-               (select nextval('rhn_repo_regen_queue_id_seq'), C.label, 'checksum modification'
-                from rhnChannel C inner join
-                     rhnChannelPackage CP on CP.channel_id = C.id
-                where CP.package_id = new.id);
-        delete from rhnPackageRepodata where package_id = new.id;
+    if tg_op='UPDATE' then
+        if new.checksum_id != old.checksum_id then
+            update rhnChannel
+              set last_modified = current_timestamp
+              where id in (select channel_id
+                              from rhnChannelPackage
+                              where package_id = new.id);
+            insert into rhnRepoRegenQueue (id, CHANNEL_LABEL, REASON)
+                   (select nextval('rhn_repo_regen_queue_id_seq'), C.label, 'checksum modification'
+                    from rhnChannel C inner join
+                         rhnChannelPackage CP on CP.channel_id = C.id
+                    where CP.package_id = new.id);
+            delete from rhnPackageRepodata where package_id = new.id;
+        end if;
     end if;
 
     return new;
