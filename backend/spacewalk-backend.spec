@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.28
+Version: 1.2.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -663,6 +663,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Oct 18 2010 Jan Pazdziora 1.2.29-1
+- Using the interval syntax instead of the arithmetic.
+- If the epoch is an empty string, make it None (NULL), to avoid bad surprise
+  in PostgreSQL later.
+- Replace sysdate with current_timestamp in insert.
+- If the checksum value is empty string, do not try to look it up.
+
 * Mon Oct 18 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.28-1
 - remove package spacewalk-backend-upload-server
 
