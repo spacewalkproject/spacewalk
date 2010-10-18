@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.2.60
+Version: 1.2.61
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -358,6 +358,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 18 2010 Jan Pazdziora 1.2.61-1
+- Better exception logging in cached statement (lzap+git@redhat.com)
+- System list now working on Postgresql (lzap+git@redhat.com)
+
 * Fri Oct 15 2010 Lukas Zapletal 1.2.60-1
 - Checkstyle fixes 
 - Checkstyle testing report now part of java spec 
