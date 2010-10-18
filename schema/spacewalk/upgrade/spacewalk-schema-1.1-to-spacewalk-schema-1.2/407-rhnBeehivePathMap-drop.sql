@@ -1,1 +1,1 @@
-drop table rhnBeehivePathMap
+drop table rhnBeehivePathMap;
