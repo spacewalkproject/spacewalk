@@ -10,7 +10,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.2.26
+Version: 1.2.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Oct 18 2010 Lukas Zapletal 1.2.27-1
+- Constraint vn_rhnservernetinterface_broadcast fixed (PostgreSQL)
+
 * Mon Oct 18 2010 Jan Pazdziora 1.2.26-1
 - Fix the placeholder tagging.
 - Even when handling evrs, we do not want to store empty strings, we want to
