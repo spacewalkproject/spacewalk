@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.28
+Version: 5.9.29
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -99,6 +99,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Oct 18 2010 Jan Pazdziora 5.9.29-1
+- 643157 - fix for the prev commit on RHEL 4 clients the method has to return a
+  value... (paji@redhat.com)
+- 643157 - Fix to get symlinks work with rhel 4 clients (paji@redhat.com)
+
 * Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.28-1
 - replaced local copy of compile.py with standard compileall module
 
