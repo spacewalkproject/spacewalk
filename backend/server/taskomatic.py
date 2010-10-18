@@ -34,7 +34,7 @@ class RepodataQueue(object):
             values (
                 sequence_nextval('rhn_repo_regen_queue_id_seq'),
                 :channel, :client, :reason, :force, :bypass_filters,
-                sysdate, sysdate, sysdate
+                current_timestamp, current_timestamp, current_timestamp
             )
         """)
 
