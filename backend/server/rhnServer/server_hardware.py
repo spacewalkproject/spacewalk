@@ -228,6 +228,20 @@ class GenericDevice:
         self.id = devid
         self.status = 0
         return 0
+    """
+    Method searches for empty string in params dict with names
+    defined in names list and replaces them with None value which
+    is translated to NULL in SQL.
+
+    We do not allow empty strings in database for compatibility
+    reasons between Oracle and PostgreSQL.
+    """
+    def _null_columns(self, params, names = ()):
+        # list of dicts
+        for param in params:
+            for name in names:
+                if param.has_key(name) and param[name] == '':
+                    param[name] = None
 
 # This is the base Device class that supports instantiation from a
 # dictionarry. the __init__ takes the dictionary as its argument,
@@ -376,6 +390,8 @@ class NetIfaceInformation(Device):
     def __init__(self, dict=None):
         self.ifaces = {}
         self.db_ifaces = []
+        # parameters which are not allowed to be empty and set to NULL
+        self._autonull = ('ip_addr','netmask','broadcast','hw_addr','module')
         if not dict:
             return
         for name, info in dict.items():
@@ -448,6 +464,7 @@ class NetIfaceInformation(Device):
     def _insert(self, params):
         q = """insert into rhnServerNetInterface
             (%s) values (%s)"""
+        self._null_columns(params, self._autonull)
 
         columns = self.key_mapping.values() + ['server_id', 'name']
         columns.sort()
@@ -468,6 +485,7 @@ class NetIfaceInformation(Device):
         q = """update rhnServerNetInterface
             set %s
             where %s"""
+        self._null_columns(params, self._autonull)
 
         wheres = ['server_id', 'name']
         wheres = map(lambda x: '%s = :%s' % (x, x), wheres) 
