@@ -3,8 +3,8 @@
 create or replace function rhn_package_changelog_id_trig_fun() returns trigger as
 $$
 begin
-	if new.is is null then
-		select nextval('rhn_pkg_cl_id_seq') into new.id;
+	if new.id is null then
+		new.id := nextval('rhn_pkg_cl_id_seq');
 	end if;
        
 	return new;
