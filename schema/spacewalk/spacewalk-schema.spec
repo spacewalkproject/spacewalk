@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.39
+Version:        1.2.40
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Oct 18 2010 Jan Pazdziora 1.2.40-1
+- fixed typo (michael.mraka@redhat.com)
+- fixed index name (michael.mraka@redhat.com)
+- rhn_cnp_pid_idx was not removed from schema (michael.mraka@redhat.com)
+- fixed ORA-02429: cannot drop index used for enforcement of unique/primary key
+  (michael.mraka@redhat.com)
+- Default number in Postgresql views is int8 now (lzap+git@redhat.com)
+- Added update_neede_cache to Postgresql rhn_server.pkb (lzap+git@redhat.com)
+- Postgres rhn_channel.subscribe_server now in sync with Oracle
+  (lzap+git@redhat.com)
+- Oracle old changelog removed from rhn_channel.pkb (lzap+git@redhat.com)
+
 * Fri Oct 15 2010 Jan Pazdziora 1.2.39-1
 - Add support for the update_family_countsYN parameter to
   rhn_entitlements.prune_group.
