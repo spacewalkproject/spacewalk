@@ -391,10 +391,11 @@ class Backend:
         h = self.dbmodule.prepare(sql)
         for k in checksumHash.keys():
             ctype, csum = k
-            h.execute(ctype=ctype, csum=csum)
-            row = h.fetchone_dict()
-            if row:
-                checksumHash[k] = row['id']
+            if csum != '':
+                h.execute(ctype=ctype, csum=csum)
+                row = h.fetchone_dict()
+                if row:
+                    checksumHash[k] = row['id']
 
     def lookupChecksumTypes(self, checksumTypeHash):
         if not checksumTypeHash:
