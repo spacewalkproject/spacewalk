@@ -106,7 +106,7 @@ select
     os,
     release,
     ( select name from rhnServerArch where id = s.server_arch_id),
-    coalesce((select 1 from rhnServerLock SL WHERE SL.server_id = S.id), 0)
+    cast(coalesce((select 1 from rhnServerLock SL WHERE SL.server_id = S.id), 0) as numeric)
 from 
     rhnServer S
 ;
