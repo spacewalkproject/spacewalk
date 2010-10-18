@@ -22,6 +22,7 @@ CREATE TABLE rhnErrataBuglist
                        ON DELETE CASCADE,
     bug_id     NUMBER NOT NULL,
     summary    VARCHAR2(4000),
+    href       VARCHAR2(255),
     created    DATE
                    DEFAULT (sysdate) NOT NULL,
     modified   DATE

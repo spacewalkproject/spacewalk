@@ -19,13 +19,13 @@ CREATE TABLE rhnErrataTmp
     id                NUMBER NOT NULL
                           CONSTRAINT rhn_erratatmp_id_pk PRIMARY KEY
                           USING INDEX TABLESPACE [[64k_tbs]],
-    advisory          VARCHAR2(37) NOT NULL,
+    advisory          VARCHAR2(100) NOT NULL,
     advisory_type     VARCHAR2(32) NOT NULL
                           CONSTRAINT rhn_erratatmp_adv_type_ck
                               CHECK (advisory_type in ('Bug Fix Advisory',
 				                            'Product Enhancement Advisory',
 							    'Security Advisory')),
-    advisory_name     VARCHAR2(32) NOT NULL,
+    advisory_name     VARCHAR2(100) NOT NULL,
     advisory_rel      NUMBER NOT NULL,
     product           VARCHAR2(64),
     description       VARCHAR2(4000),
@@ -45,6 +45,7 @@ CREATE TABLE rhnErrataTmp
     locally_modified  CHAR(1)
                           CONSTRAINT rhn_erratatmp_lm_ck
                               CHECK (locally_modified in ('Y','N')),
+    errata_from       VARCHAR(127),
     created           DATE
                           DEFAULT (sysdate) NOT NULL,
     modified          DATE
