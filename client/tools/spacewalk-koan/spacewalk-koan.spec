@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.2.10
+Version: 0.2.11
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,6 +49,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Mon Oct 18 2010 Jan Pazdziora 0.2.11-1
+- spacewalk-koan conflicts with any version of rhn-kickstart
+  (michael.mraka@redhat.com)
+
 * Mon Oct 18 2010 Jan Pazdziora 0.2.10-1
 - 642629 - Disabling the defualt grubby copying behaviour in koan for args
   (paji@redhat.com)
