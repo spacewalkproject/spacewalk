@@ -34,6 +34,8 @@ Obsoletes: rhns-common < 5.3.0
 Obsoletes: rhns < 5.3.0
 Provides: rhns = 1:%{version}-%{release}
 Provides: rhns-common = 1:%{version}-%{release}
+Obsoletes: spacewalk-backend-upload-server < 1.2.28
+Provides: spacewalk-backend-upload-server = 1:%{version}-%{release}
 
 %description 
 Generic program files needed by the Spacewalk server machines.
@@ -213,16 +215,6 @@ Provides: rhns-config-files-tool = 1:%{version}-%{release}
 
 %description config-files-tool
 This package contains the server-side code for configuration management tool.
-
-%package upload-server
-Summary: Server-side listener for rhn-pkgupload
-Group: Applications/Internet
-Requires: %{name}-server = %{version}-%{release}
-Obsoletes: rhns-upload-server < 5.3.0
-Provides: rhns-upload-server = 1:%{version}-%{release}
-
-%description upload-server
-Server-side listener for rhn-pkgupload
 
 %package package-push-server
 Summary: Listener for rhnpush (non-XMLRPC version)
@@ -573,24 +565,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-config-management-tool.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files-tool
 
-%files upload-server
-%defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
-# Some directories and files are shared with rhns-package-push-server
-%dir %{rhnroot}/upload_server
-%{rhnroot}/upload_server/__init__.py*
-%dir %{rhnroot}/upload_server/handlers
-%{rhnroot}/upload_server/handlers/__init__.py*
-%{rhnroot}/upload_server/handlers/package
-%attr(644,root,apache) %{rhnconf}/default/rhn_server_upload.conf
-%attr(644,root,apache) %{rhnconf}/default/rhn_server_upload_package.conf
-%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-upload-server
-%attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-pkg-upload.conf
-
 %files package-push-server
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
-# Some directories and files are shared with rhns-upload-server
 %dir %{rhnroot}/upload_server
 %{rhnroot}/upload_server/__init__.py*
 %dir %{rhnroot}/upload_server/handlers

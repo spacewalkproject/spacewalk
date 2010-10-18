@@ -117,7 +117,7 @@ class UploadHandler:
             log_debug(4, "Expire Session Error Caught: %s" % (e, ))
             return 403
         except:
-            Traceback("upload_server._wrapper", req=req)
+            Traceback("server.apacheUploadServer._wrapper", req=req)
             log_error("Unhandled exception")
             return apache.HTTP_INTERNAL_SERVER_ERROR
         return ret
