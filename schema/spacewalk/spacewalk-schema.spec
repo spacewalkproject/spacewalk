@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.40
+Version:        1.2.41
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,32 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Oct 18 2010 Jan Pazdziora 1.2.41-1
+- table rhn_host_check_suites has been removed, drop its synonym
+  (michael.mraka@redhat.com)
+- table rhnSavedSearchType has been removed, drop its sequence
+  (michael.mraka@redhat.com)
+- table rhnSavedSearch has been removed, drop its sequence
+  (michael.mraka@redhat.com)
+- table rhnRelationshipType has been removed, drop its sequence
+  (michael.mraka@redhat.com)
+- table rhnProductLine has been removed, drop its sequence
+  (michael.mraka@redhat.com)
+- table rhnProduct has been removed, drop its sequence
+  (michael.mraka@redhat.com)
+- table rhnMessagePriority has been removed, drop its sequence
+  (michael.mraka@redhat.com)
+- table rhnMessage has been removed, drop its sequence
+  (michael.mraka@redhat.com)
+- table rhnMessageType has been removed, drop its sequence
+  (michael.mraka@redhat.com)
+- table rhnMonitor has been removed, drop its sequence
+  (michael.mraka@redhat.com)
+- table rhnMonitorGranularity has been removed, drop its sequence
+  (michael.mraka@redhat.com)
+- table rhnGrailComponents has been removed, drop its sequence
+  (michael.mraka@redhat.com)
+
 * Mon Oct 18 2010 Jan Pazdziora 1.2.40-1
 - fixed typo (michael.mraka@redhat.com)
 - fixed index name (michael.mraka@redhat.com)
