@@ -1,0 +1,17 @@
+HOW TO BUILD DEBIAN PACKAGES
+
+python-rhnlib in client/rhel/rhnlib
+-----------------------------------
+git checkout master
+cd rhnlib
+tito build --tgz
+copy rhnlib-2.5.27.tar.gz /tmp/python-rhnlib_2.5.27.orig.tar.gz
+git checkout debian
+cp -a rhnlib /tmp/python-rhnlib-2.5.27
+cd /tmp/python-rhnlib-2.5.27
+debuild -i -S
+# and if you have configured dupload properly, then:
+dupload -t mentors python-rhnlib_2.5.27-1_source.changes 
+
+Similary for other packages.
+
