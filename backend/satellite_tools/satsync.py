@@ -610,9 +610,9 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
                         /*pg_cs*/ cursor comps_data /*pg cursor*/ (cid_in numeric) is
                                 select relative_filename, last_modified
                                 from rhnChannelComps
-                                where channel_id = :cid_in;
+                                where channel_id = cid_in;
                 begin
-                        for row in comps_data(channel_id_in) loop
+                        for row in comps_data(:channel_id_in) loop
                                 if row.relative_filename = :path_in
                                         and row.last_modified = to_date(:timestamp_in, 'YYYYMMDDHH24MISS') then
                                         return;
