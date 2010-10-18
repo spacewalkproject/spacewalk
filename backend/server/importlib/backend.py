@@ -814,11 +814,11 @@ class Backend:
 
         h = self.dbmodule.prepare("""
             insert into rhnErrataQueue (errata_id, channel_id, next_action) 
-            values (:errata_id, :channel_id, sysdate + :timeout / 86400)
+            values (:errata_id, :channel_id, current_timestamp + interval :timeout second)
         """)
         errata_ids = map(lambda x:x[0], errata_channel_ids)
         channel_ids = map(lambda x:x[1], errata_channel_ids)
-        timeouts = [timeout] * len(errata_ids) 
+        timeouts = [str(timeout)] * len(errata_ids)
         hdel.executemany(errata_id=errata_ids)
         return h.executemany(errata_id=errata_ids, channel_id=channel_ids,\
                              timeout=timeouts)
