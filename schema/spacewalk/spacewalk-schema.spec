@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.2.42
+Version:        1.2.43
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Oct 18 2010 Lukas Zapletal 1.2.43-1
+- Fixed rhnServerOverview VIEW to return numeric
+
 * Mon Oct 18 2010 Lukas Zapletal 1.2.42-1
 - Universal function date_diff_in_days introduced
 
