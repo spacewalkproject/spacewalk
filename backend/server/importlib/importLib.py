@@ -861,4 +861,6 @@ def get_nevra_dict(header):
     nevra = {}
     for tag in NEVRA_TAGS:
         nevra[tag] = header[tag]
+    if nevra['epoch'] == '':
+        nevra['epoch'] = None
     return nevra
