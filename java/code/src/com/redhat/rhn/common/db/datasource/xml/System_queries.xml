@@ -839,7 +839,7 @@ SELECT PI.server_id ID, S.name,
      COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
 	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable,
 	 1 AS selectable
-    FROM rhnVirtualInstance VI,
+    FROM rhnVirtualInstance VI
 	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
 	 LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
    WHERE EXISTS (SELECT 1
@@ -886,7 +886,7 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
        ) as virt_entitlement,
      COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
 	 rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable
-     FROM rhnVirtualInstance VI,
+     FROM rhnVirtualInstance VI
 	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
 	 LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
     WHERE EXISTS (SELECT 1
@@ -1259,7 +1259,7 @@ DISTINCT VI.id,
 	 NVL(VIS.label, 'unknown') AS STATE_LABEL,
 	 1 AS selectable
     FROM rhnVirtualInstance VI,
-     rhnSet ST,
+     rhnSet ST
 	 LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
 	 LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
    WHERE ST.user_id = :user_id
